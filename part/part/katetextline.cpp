@@ -140,7 +140,7 @@ void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 
 int TextLine::nextNonSpaceChar(uint pos) const
 {
-    for(uint i = pos; i < text.size(); i++) {
+    for(int i = pos; i < (int)text.size(); i++) {
         if(!text[i].isSpace())
             return i;
     }
@@ -154,7 +154,7 @@ int TextLine::previousNonSpaceChar(uint pos) const
         pos = text.size() - 1;
     }
 
-    for(uint i = pos; i >= 0; i--) {
+    for(int i = pos; i >= 0; i--) {
         if(!text[i].isSpace())
             return i;
     }

@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash"
-	version="1.92"
-	kateversion="2.2"
-	section="Scripts"
-	extensions="*.sh;*.bash" mimetype="application/x-shellscript"
-	casesensitive="1"
-	author="Wilbert Berendsen (wilbert@kde.nl)"
-	license="LGPL">
+<language name="Bash" version="1.92" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- Author: Wilbert Berendsen, wilbert@kde.nl -->
 

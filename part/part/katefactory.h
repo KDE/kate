@@ -38,6 +38,7 @@ class KateDocument;
 class KateRenderer;
 class KateView;
 class KateJScript;
+class KateJScriptManager;
 
 class KDirWatch;
 class KVMAllocator;
@@ -276,6 +277,11 @@ class KateFactory
      * js interpreter
      */
     KateJScript *m_jscript;
+
+    /**
+     * js script manager
+     */
+    KateJScriptManager *m_jscriptManager;
 };
 
 #endif

@@ -133,6 +133,9 @@ KateFactory::KateFactory ()
   // vm allocator
   m_vm = new KVMAllocator ();
 
+  // script man
+  m_jscriptManager = new KateJScriptManager ();
+
   //
   // init the cmds
   //
@@ -173,6 +176,9 @@ KateFactory::~KateFactory()
 
   for ( QValueList<Kate::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
     delete *it;
+
+  // cu manager
+  delete m_jscriptManager;
 
   // cu jscript
   delete m_jscript;

@@ -262,13 +262,10 @@ QString KateSchemaManager::name (uint number)
 //END
 
 //
-//
-//
 // DIALOGS !!!
 //
-//
 
-//BEGIN KateSchemaConfigColorTab
+//BEGIN KateSchemaConfigColorTab -- 'Colors' tab
 KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char * )
   : QWidget (parent)
 {
@@ -487,7 +484,7 @@ void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 
 //END KateSchemaConfigColorTab
 
-//BEGIN FontConfig
+//BEGIN FontConfig -- 'Fonts' tab
 KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * )
   : QWidget (parent)
 {
@@ -529,7 +526,7 @@ void KateSchemaConfigFontTab::writeConfig (KConfig *config)
 
 //END FontConfig
 
-//BEGIN FontColorConfig
+//BEGIN FontColorConfig -- 'Normal Text Styles' tab
 KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, const char * )
   : QWidget (parent)
 {
@@ -610,7 +607,7 @@ void KateSchemaConfigFontColorTab::apply ()
 
 //END FontColorConfig
 
-//BEGIN KateSchemaConfigHighlightTab
+//BEGIN KateSchemaConfigHighlightTab -- 'Highlighting Text Styles' tab
 KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, const char *, KateSchemaConfigFontColorTab *page, uint hl )
   : QWidget (parent)
 {
@@ -761,7 +758,7 @@ void KateSchemaConfigHighlightTab::apply ()
 
 //END KateSchemaConfigHighlightTab
 
-//BEGIN KateSchemaConfigPage
+//BEGIN KateSchemaConfigPage -- Main dialog page
 KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   : KateConfigPage( parent ),
     m_lastSchema (-1)
@@ -949,7 +946,7 @@ void KateSchemaConfigPage::newCurrentPage (QWidget *w)
 }
 //END KateSchemaConfigPage
 
-//BEGIN SCHEMA ACTION
+//BEGIN SCHEMA ACTION -- the 'View->Schema' menu action
 void KateViewSchemaAction::init()
 {
   m_view = 0;

@@ -63,6 +63,15 @@ static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
 
 //BEGIN  Prviate HL classes
 
+inline bool kateInsideString (const QString &str, QChar ch)
+{
+  for (uint i=0; i < str.length(); i++)
+    if (*(str.unicode()+i) == ch)
+      return true;
+
+  return false;
+}
+
 class KateHlItem
 {
   public:
@@ -386,7 +395,7 @@ bool KateHlItem::startEnable(const QChar& c)
   // ONLY called when alwaysStartEnable() overridden
   // IN FACT not called at all, copied into doHighlight()...
   Q_ASSERT(false);
-  return stdDeliminator.find(c) != -1;
+  return kateInsideString (stdDeliminator, c);
 }
 
 void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
@@ -561,7 +570,7 @@ bool KateHlKeyword::hasCustomStartEnable() const
 
 bool KateHlKeyword::startEnable(const QChar& c)
 {
-  return deliminators.find(c) != -1;
+  return kateInsideString (deliminators, c);
 }
 
 // If we use a dictionary for lookup we don't really need
@@ -582,7 +591,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 
   int offset2 = offset;
 
-  while (len > 0 && deliminators.find(text[offset2]) == -1 )
+  while (len > 0 && !kateInsideString (deliminators, text[offset2]))
   {
     offset2++;
     len--;
@@ -870,7 +879,7 @@ KateHlAnyChar::KateHlAnyChar(int attribute, int context, signed char regionId,si
 
 int KateHlAnyChar::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 0) && _charList.find(text[offset]) != -1)
+  if ((len > 0) && kateInsideString (_charList, text[offset]))
     return ++offset;
 
   return 0;
@@ -1373,7 +1382,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       {
         if (!standardStartEnableDetermined)
         {
-          standardStartEnable = stdDeliminator.find(lastChar) != -1;
+          standardStartEnable = kateInsideString (stdDeliminator, lastChar);
           standardStartEnableDetermined = true;
         }
 

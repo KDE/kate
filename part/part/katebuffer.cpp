@@ -164,6 +164,7 @@ class KateBufBlock
     */
    inline uint lines () { return m_lines; }
 
+   inline TextLine::Ptr firstLine () { return m_firstLine; }
    inline TextLine::Ptr lastLine () { return m_lastLine; }
 
   private:
@@ -172,6 +173,7 @@ class KateBufBlock
     uint m_lines;
 
     // Used for context & hlContinue flag if this bufblock has no stringlist
+    TextLine::Ptr m_firstLine;
     TextLine::Ptr m_lastLine;
 
     // here we swap our stuff
@@ -716,24 +718,26 @@ TextLine::Ptr KateBuffer::line(uint i)
 
 bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 {
+  // no hl around, no stuff to do
   if (!m_highlight)
     return false;
 
+  // nothing to update, still up to date ;)
   if (!m_hlUpdate)
     return false;
-  
-  TextLine::Ptr textLine;
-  QMemArray<short> ctxNum, endCtx;
-  QMemArray<unsigned short> indentDepth;
+    
+  // we tried to start in a line behind this buf block !
+  if (startLine >= (buf->startLine()+buf->lines()))
+    return false;
+    
+  // parse this block if needed, very important !
+  if (!buf->b_stringListValid)
+    parseBlock(buf);
 
-  uint last_line = buf->lines ();
-  uint current_line = startLine - buf->startLine();
-
-  endLine = endLine - buf->startLine();
-
-  bool line_continue=false;
+  // get the previous line, if we start at the beginning of this block
+  // take the last line of the previous block
   TextLine::Ptr prevLine = 0;
-
+  
   if (startLine == buf->startLine())
   {
     int pos = m_blocks.findRef (buf);
@@ -741,7 +745,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     {
       KateBufBlock *blk = m_blocks.at (pos-1);
 
-      if ((blk->b_stringListValid) && (blk->lines() > 0))
+      if (blk->b_stringListValid && (blk->lines() > 0))
         prevLine = blk->line (blk->lines() - 1);
       else
         prevLine = blk->lastLine();
@@ -749,36 +753,60 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   }
   else if ((startLine > buf->startLine()) && (startLine <= buf->endLine()))
   {
-    if (!buf->b_stringListValid)
-      parseBlock(buf);
-
     prevLine = buf->line(startLine - buf->startLine() - 1);
   }
-
-  if (prevLine)
-  {
-    line_continue=prevLine->hlLineContinue();
-    ctxNum.duplicate (prevLine->ctxArray ());
-  }
-  else
+  
+  if (!prevLine)
     prevLine = new TextLine ();
+  
+  bool line_continue = prevLine->hlLineContinue();
+  
+  QMemArray<short> ctxNum, endCtx;
+  ctxNum.duplicate (prevLine->ctxArray ()); 
 
+  // does we need to emit a signal for the folding changes ?
+  bool codeFoldingUpdate = false;
+  
+  // here we are atm, start at start line in the block
+  uint current_line = startLine - buf->startLine();
+  
+  // current line
+  TextLine::Ptr textLine = buf->line(current_line);
+  
+  // does we need to continue
   bool stillcontinue=false;
-  QMemArray<signed char> foldingList;
-  QMemArray<signed char> test;
-  bool CodeFoldingUpdated = false;
-  do
-  {
-    if (!buf->b_stringListValid)
-      parseBlock(buf);
-
-    if (!(textLine = buf->line(current_line)))
-      break;
+   
+  // loop over the lines of the block, from startline to endline or end of block
+  // if stillcontinue forces us to do so
+  while ( (current_line < buf->lines())
+          && (stillcontinue || ((current_line + buf->startLine()) <= endLine)) )
+  {      
+    // query the next line, if we are at the end of the block
+    // use the first line of the next buf block
+    TextLine::Ptr nextLine = 0;
+    
+    if ((current_line+1) < buf->lines())
+      nextLine = buf->line(current_line+1);
+    else
+    {
+      int pos = m_blocks.findRef (buf);
+      if (uint(pos + 1) < m_blocks.count())
+      {
+        KateBufBlock *blk = m_blocks.at (pos+1);
+  
+        if (blk->b_stringListValid && (blk->lines() > 0))
+          nextLine = blk->line (0);
+        else
+          nextLine = blk->firstLine();
+      }
+      
+      if (!nextLine)
+        nextLine = new TextLine ();
+    }
 
     endCtx.duplicate (textLine->ctxArray ());
 
-    foldingList.resize (0);
-
+    QMemArray<signed char> foldingList;
     m_highlight->doHighlight(ctxNum, textLine, line_continue, &foldingList);
 
     bool foldingChanged = false;
@@ -790,6 +818,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     //
     if (m_highlight->foldingIndentationSensitive())
     {
+      QMemArray<unsigned short> indentDepth;
       indentDepth.duplicate (prevLine->indentationDepthArray());
 
       uint newIn = 0;
@@ -832,10 +861,6 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
         }
       }
 
-#if 0
-      kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
-#endif
-
       indentChanged = indentChanged || (indentDepth.size() != textLine->indentationDepthArray().size())
                       || (indentDepth != textLine->indentationDepthArray());
 
@@ -843,6 +868,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
       if (remIn > 0)
       {
+        QMemArray<signed char> test;
         test.duplicate (prevLine->foldingListArray());
 
         test.resize (test.size() + remIn);
@@ -856,7 +882,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
         m_regionTree->updateLine(current_line-1 + buf->startLine(), &test, &retVal_folding, true);
 
-        CodeFoldingUpdated = CodeFoldingUpdated | retVal_folding;
+        codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
       }
 
       if (newIn > 0)
@@ -889,7 +915,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
     m_regionTree->updateLine(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
 
-    CodeFoldingUpdated = CodeFoldingUpdated | retVal_folding;
+    codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
     line_continue=textLine->hlLineContinue();
 
@@ -907,45 +933,24 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
         stillcontinue = true;
     }
 
-#if 0
-    QString test;
-    for (uint z=0; textLine->foldingListArray().size() > z; z++)
-      test.append ((textLine->foldingListArray()[z] == -1) ? "}" : "{");
-
-    kdDebug () << "LINE : " << current_line << " " << test << endl;
-
-    QString test2;
-    for (uint z=0; prevLine->foldingListArray().size() > z; z++)
-      test2.append ((prevLine->foldingListArray()[z] == -1) ? "}" : "{");
-
-    kdDebug () << "PREV LINE : " << current_line-1 << " " << test2 << endl;
-
-    kdDebug () << "LINE : " << current_line << " LINE CONTINUE: " << stillcontinue << endl;
-#endif
-
-    current_line++;
-
+    // move around the lines
     prevLine = textLine;
+    textLine = nextLine;
+    
+    // increment line
+    current_line++;
   }
-  while ((current_line < last_line) && ((current_line < endLine) || stillcontinue));
 
-// FIXME FIXME
-#if 0
-  if (current_line>=endLine)
-  {
-    foldingList.resize(0);
-    m_regionTree->foldingUpdate(endLine,&foldingList,&retVal_folding,true);
-  }
-#endif
+  // tag the changed lines !
+  emit tagLines (startLine, current_line + buf->startLine());
 
-  current_line += buf->startLine();
-
-  emit tagLines(startLine, current_line - 1);
-
-  if (CodeFoldingUpdated)
+  // emit that we have changed the folding
+  if (codeFoldingUpdate)
     emit codeFoldingUpdated();
 
-  return (current_line >= buf->endLine());
+  // if we are at the last line of the block + we still need to continue
+  // return the need of that !
+  return stillcontinue && ((current_line+1) == buf->lines());
 }
 
 void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
@@ -1323,7 +1328,9 @@ void KateBuffer::dumpRegionTree()
  * Create an empty block.
  */
 KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KVMAllocator *vm)
-: m_vm (vm),
+: m_firstLine (0),
+  m_lastLine (0),
+  m_vm (vm),
   m_vmblock (0),
   m_vmblockSize (0),
   b_vmDataValid (false),
@@ -1478,8 +1485,16 @@ void KateBufBlock::buildStringList()
   //kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
 
   if (m_lines > 0)
+  {
+    m_lastLine = m_stringList[0];
     m_lastLine = m_stringList[m_lines - 1];
-
+  }
+  else
+  {
+    m_firstLine = 0;
+    m_lastLine = 0;
+  }
+  
   assert(m_stringList.size() == m_lines);
   b_stringListValid = true;
   //kdDebug(13020)<<"END: KateBufBlock: buildStringList LINES: "<<m_endState.lineNr - m_beginState.lineNr<<endl;
@@ -1496,7 +1511,15 @@ void KateBufBlock::flushStringList()
   assert(!b_rawDataValid);
 
   if (m_lines > 0)
+  {
+    m_lastLine = m_stringList[0];
     m_lastLine = m_stringList[m_lines - 1];
+  }
+  else
+  {
+    m_firstLine = 0;
+    m_lastLine = 0;
+  }
 
   // Calculate size.
   uint size = 0;
@@ -1523,7 +1546,15 @@ void KateBufBlock::disposeStringList()
   assert(b_rawDataValid || b_vmDataValid);
 
   if (m_lines > 0)
+  {
+    m_lastLine = m_stringList[0];
     m_lastLine = m_stringList[m_lines - 1];
+  }
+  else
+  {
+    m_firstLine = 0;
+    m_lastLine = 0;
+  }
 
   m_stringList.clear();
   b_stringListValid = false;

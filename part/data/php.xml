@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP" version="1.14" kateversion="2.3" section="Scripts"
-          extensions="*.php;*.php3;*.wml;*.phtml;*.phtm;*.inc" priority="5"
-          mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
+<language name="PHP/PHP" version="1.15" kateversion="2.3" section="Scripts"
+          extensions="" priority="5"
+          mimetype="">
 	<highlighting>
 		<list name="control structures">
 			<item>as</item>
@@ -2640,18 +2640,14 @@
 			<item> zip_read </item>
 		</list>
 		<contexts>
-			<context name="nosource" attribute="Normal Text" lineEndContext="#stay">
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-				<RegExpr attribute="HTML Tag" context="scripts" String="&lt;\s*script(\s|&gt;)" insensitive="TRUE" />
-				<RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
-				<StringDetect attribute="HTML Comment" context="htmlcomment" String="&lt;!--" />
+			<context name="start">
+			    <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" beginRegion="php" />
 			</context>
 			<context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
-				<StringDetect attribute="Keyword" context="#pop" String="?&gt;" />
-				<DetectChar attribute="Comment" context="php_onelinecomment" char="#" />
+				<StringDetect attribute="Keyword" context="#pop#pop" String="?&gt;" endRegion="php" />
+				<DetectChar attribute="Comment" context="onelinecomment" char="#" />
 				<IncludeRules context="##Doxygen" />
-				<Detect2Chars attribute="Comment" context="php_onelinecomment" char="/" char1="/" />
+				<Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
 				<Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" beginRegion="Comment"/>
 				<keyword attribute="Control Structures" context="#stay" String="control structures" />
 				<keyword attribute="Keyword" context="#stay" String="keywords" />
@@ -2671,7 +2667,7 @@
 				<AnyChar attribute="Other" context="#stay" String=";()}{:,[]" />
 				<keyword attribute="Other" context="#stay" String="Others" />
 			</context>
-			<context name="php_onelinecomment" attribute="Comment" lineEndContext="#pop">
+			<context name="onelinecomment" attribute="Comment" lineEndContext="#pop">
 				<StringDetect attribute="Keyword" context="#pop#pop" String="?&gt;" />
 			</context>
 			<context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
@@ -2701,61 +2697,6 @@
 				<RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
 				<RegExpr attribute="Variable" context="#stay" String="\$\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*\}" />
 				<RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*(->[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
-			</context>
-			<context name="htmltag" attribute="Identifier" lineEndContext="#stay">
-				<Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
-				<DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-				<RegExpr attribute="Identifier" context="identifiers" String="\s*=\s*"/>
-			</context>
-			<context name="htmlcomment" attribute="HTML Comment" lineEndContext="#stay">
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-				<StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
-				<RegExpr attribute="Normal Text" context="identifiers" String="\s*=\s*"/>
-			</context>
-			<context name="identifiers" attribute="Identifier" lineEndContext="#stay">
-				<RegExpr attribute="String" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
-				<DetectChar attribute="Types" context="types1" char="'" />
-				<DetectChar attribute="Types" context="types2" char="&quot;" />
-			</context>
-
-			<context name="types1" attribute="Types" lineEndContext="#stay">
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-				<DetectChar attribute="Types" context="#pop#pop" char="'" />
-			</context>
-
-			<context name="types2" attribute="Types" lineEndContext="#stay">
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-				<DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
-			</context>
-
-			<context name="scripts" attribute="Normal Text" lineEndContext="#stay">
-				<Detect2Chars attribute="Comment" context="scripts_onelinecomment" char="/" char1="/" />
-				<Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" />
-				<keyword attribute="Control Structures" context="#stay" String="control structures" />
-				<keyword attribute="Keyword" context="#stay" String="keywords" />
-				<keyword attribute="Function" context="#stay" String="functions" />
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php"/>
-				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?"/>
-				<RegExpr attribute="HTML Tag" context="#pop" String="&lt;\s*\/\s*script\s*&gt;" insensitive="TRUE" />
-
-				<DetectChar attribute="String" context="doblequotestring" char="&quot;" />
-				<DetectChar attribute="String" context="singlequotestring" char="&#39;" />
-				<HlCOct attribute="Octal" context="#stay" />
-				<HlCHex attribute="Hex" context="#stay" />
-				<Float attribute="Float" context="#stay" />
-				<Int attribute="Decimal" context="#stay" />
-				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
-				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
-				<AnyChar attribute="Other" context="#stay" String=";()}{:,[]" />
-				<keyword attribute="Other" context="#stay" String="Others" />
-			</context>
-			<context name="scripts_onelinecomment" attribute="Comment" lineEndContext="#pop">
-				<RegExpr attribute="HTML Tag" context="#pop#pop" String="&lt;\s*\/\s*script\s*&gt;" insensitive="TRUE" />
 			</context>
 		</contexts>
 		<itemDatas>

@@ -2217,7 +2217,7 @@ bool KateDocument::printDialog ()
          // base of height: margins top/bottom, above and below tetle sep line
          guideHeight = ( innerMargin * 4 ) + 1;
          // get a title and add the height required to draw it
-         QString _title = i18n("Typographical Conventions for ") + m_highlight->name();
+         QString _title = i18n("Typographical Conventions for %1").arg(m_highlight->name());
          guideHeight += paint.boundingRect( 0, 0, _w, 1000, Qt::AlignTop|Qt::AlignHCenter, _title ).height();
          // see how many columns we can fit in
          int _widest( 0 );
@@ -2441,7 +2441,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              QRect _r;
              paint.drawText( _marg, y, pdmWidth-(2*_marg), maxHeight - y,
                 Qt::AlignTop|Qt::AlignHCenter,
-                i18n("Typographical Conventions for ") + m_highlight->name(), -1, &_r );
+                i18n("Typographical Conventions for %1").arg(m_highlight->name()), -1, &_r );
              int _w = pdmWidth - (_marg*2) - (innerMargin*2);
              int _x = _marg + innerMargin;
              y += _r.height() + innerMargin;

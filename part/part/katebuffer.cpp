@@ -804,8 +804,17 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
       // this line is empty, beside spaces, use indentation depth of the previous line !
       if (textLine->firstChar() == -1)
-        iDepth = prevLine->indentDepth(m_tabWidth);
+      {
+        // do this to get skipped empty lines indent right, which was given in the indenation array
+        if (!prevLine->indentationDepthArray().isEmpty())
+          iDepth = (prevLine->indentationDepthArray())[prevLine->indentationDepthArray().size()-1];
+        else
+          iDepth = prevLine->indentDepth(m_tabWidth);
         
+        // run over empty lines ;)
+        indentChanged = true;
+      }
+       
       // query the next line indentation, if we are at the end of the block
       // use the first line of the next buf block
       uint nextLineIndentation = 0;
@@ -869,8 +878,8 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       }
       
       // just for debugging always true to start with !
-      indentChanged = (indentDepth.size() != textLine->indentationDepthArray().size())
-                      || (indentDepth != textLine->indentationDepthArray());
+      indentChanged = indentChanged || (indentDepth.size() != textLine->indentationDepthArray().size())
+                                    || (indentDepth != textLine->indentationDepthArray());
  
       // set the new array in the textline !
       textLine->setIndentationDepth (indentDepth);

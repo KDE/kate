@@ -121,7 +121,7 @@ void KateAutoIndent::updateConfig ()
     {
       symbolAttrib = i;
     }
-    else if (name.find("Alert") != -1 && alertAttrib == 255)
+    else if (name.find("Alert") != -1)
     {
       alertAttrib = i;
     }
@@ -458,6 +458,8 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
         begin.setCol(begin.col() - 1);
       }
     }
+    if (begin.col() < 0)
+      begin.setCol(0);
   }
 }
 

@@ -263,6 +263,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   setInstance( KateFactory::instance() );
 
   editIsRunning = false;
+  noViewUpdates = false;
   editCurrentUndo = 0L;
   editWithUndo = false;
 
@@ -623,6 +624,7 @@ bool KateDocument::editStart (bool withUndo)
     return false;
 
   editIsRunning = true;
+  noViewUpdates = true;
   editWithUndo = withUndo;
 
   editTagLineStart = 0xffffff;
@@ -676,8 +678,8 @@ void KateDocument::editEnd ()
   setModified(true);
   emit textChanged ();
 
+  noViewUpdates = false;
   updateViews();
-
   editIsRunning = false;
 }
 
@@ -3370,6 +3372,9 @@ void KateDocument::slotBufferChanged()
 
 void KateDocument::updateViews()
 {
+  if (noViewUpdates)
+    return;
+    
   KateView *view;
   int flags;
 

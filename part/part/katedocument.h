@@ -207,6 +207,7 @@ class KateDocument : public Kate::Document
     void editInsertTagLine (uint line);
 
     bool editIsRunning;
+    bool noViewUpdates;
     bool editWithUndo;
     uint editTagLineStart;
     uint editTagLineEnd;
@@ -237,7 +238,7 @@ class KateDocument : public Kate::Document
     bool removeSelectedText ();
 
     bool selectAll();
-    
+
   private:
     //
     // Some internal functions to get selection state of a line/col

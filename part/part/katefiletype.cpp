@@ -167,30 +167,7 @@ int KateFileTypeManager::fileType (KateDocument *doc)
     }
   }
 
-  //
-  // now use the KMimeType POWER ;)
-  //
-  QByteArray buf (KATE_FT_HOWMANY);
-  uint bufpos = 0;
-  for (uint i=0; i < doc->numLines(); i++)
-  {
-    QString line = doc->textLine( i );
-    uint len = line.length() + 1;
-    
-    if (bufpos + len > KATE_FT_HOWMANY)
-      len = KATE_FT_HOWMANY - bufpos;
-
-    memcpy(&buf[bufpos], (line + "\n").latin1(), len);
-    
-    bufpos += len;
-    
-    if (bufpos >= KATE_FT_HOWMANY)
-      break;
-  }
-  buf.resize( bufpos );
-
-  int accuracy;
-  KMimeType::Ptr mt = KMimeType::findByContent( buf, &accuracy );
+  KMimeType::Ptr mt = doc->mimeTypeForContent();
 
   QPtrList<KateFileType> types;
 
@@ -327,7 +304,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   layout->addStretch();
 
   reload();
-  
+
   connect( name, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( section, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( varLine, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );

@@ -33,6 +33,8 @@
 
 #include <dcopobject.h>
 
+#include <kmimetype.h>
+
 #include <qintdict.h>
 #include <qdatetime.h>
 
@@ -443,6 +445,30 @@ class KateDocument : public Kate::Document,
   public slots:
     bool printDialog ();
     bool print ();
+
+  //
+  // KTextEditor::DocumentInfoInterface ( ### not inherited, unfinished )
+  //
+  public:
+  /**
+   * @return a pointer to the KMimeType for the document.
+   *
+   * This method is using @see KMimeType::findByURL, and if the pointer
+   * is then still the default MimeType for a nonlocal or unsaved file,
+   * uses mimeTypeForContent().
+   *
+   * @since Kate 2.3
+   */
+  KMimeType::Ptr mimeType();
+  /**
+   * @return a pointer to the KMimeType for this document, found by analyzing the
+   * actual content.
+   *
+   * Note that this method is *not* part of the DocumentInfoInterface.
+   *
+   * @since Kate 2.3
+   */
+  KMimeType::Ptr mimeTypeForContent();
 
   //
   // KParts::ReadWrite stuff

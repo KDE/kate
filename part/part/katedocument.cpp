@@ -2317,6 +2317,49 @@ bool KateDocument::print ()
 }
 //END
 
+//BEGIN KTextEditor::DocumentInfoInterface (### unfinished)
+KMimeType::Ptr KateDocument::mimeType()
+{
+  KMimeType::Ptr result = KMimeType::defaultMimeTypePtr();
+
+  // if the document has a URL, try KMimeType::findByURL
+  if ( ! m_url.isEmpty() )
+    result = KMimeType::findByURL( m_url );
+
+  else if ( m_url.isEmpty() || ! m_url.isLocalFile() )
+    result = mimeTypeForContent();
+
+  return result;
+}
+
+KMimeType::Ptr KateDocument::mimeTypeForContent()
+{
+  QByteArray buf (1024);
+  uint bufpos = 0;
+
+  for (uint i=0; i < numLines(); i++)
+  {
+    QString line = textLine( i );
+    uint len = line.length() + 1;
+
+    if (bufpos + len > 1024)
+      len = 1024 - bufpos;
+
+    memcpy(&buf[bufpos], (line + "\n").latin1(), len);
+
+    bufpos += len;
+
+    if (bufpos >= 1024)
+      break;
+  }
+  buf.resize( bufpos );
+
+  int accuracy = 0;
+  return KMimeType::findByContent( buf, &accuracy );
+}
+//END KTextEditor::DocumentInfoInterface
+
+
 //BEGIN KParts::ReadWrite stuff
 
 bool KateDocument::openURL( const KURL &url )
@@ -4518,6 +4561,7 @@ void KateDocument::spellcheck()
 {
   if( !isReadWrite() || text().isEmpty())
     return;
+
 
   m_kspell = new KSpell( 0, i18n("Spellcheck"),
                          this, SLOT(ready(KSpell *)) );

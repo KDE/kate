@@ -2508,29 +2508,8 @@ int KateHlManager::detectHighlighting (KateDocument *doc)
 {
   int hl = wildcardFind( doc->url().filename() );
 
-  if (hl == -1)
-  {
-    QByteArray buf (KATE_HL_HOWMANY);
-    uint bufpos = 0;
-    for (uint i=0; i < doc->numLines(); i++)
-    {
-      QString line = doc->textLine( i );
-      uint len = line.length() + 1;
-
-      if (bufpos + len > KATE_HL_HOWMANY)
-        len = KATE_HL_HOWMANY - bufpos;
-
-      memcpy(&buf[bufpos], (line + "\n").latin1(), len);
-
-      bufpos += len;
-
-      if (bufpos >= KATE_HL_HOWMANY)
-        break;
-    }
-    buf.resize( bufpos );
-
-    hl = mimeFind (buf);
-  }
+  if ( ! hl )
+    hl = mimeFind ( doc );
 
   return hl;
 }
@@ -2598,12 +2577,13 @@ int KateHlManager::realWildcardFind(const QString &fileName)
   return -1;
 }
 
-int KateHlManager::mimeFind(const QByteArray &contents)
+int KateHlManager::mimeFind(/*const QByteArray &contents*/KateDocument *doc)
 {
   static QRegExp sep("\\s*;\\s*");
 
-  int accuracy = 0;
-  KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
+//   int accuracy = 0;
+//   KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
+  KMimeType::Ptr mt = doc->mimeTypeForContent();
 
   QPtrList<KateHighlighting> highlights;
 

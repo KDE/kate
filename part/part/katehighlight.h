@@ -262,7 +262,7 @@ class KateHlManager : public QObject
 
   private:
     int wildcardFind(const QString &fileName);
-    int mimeFind(const QByteArray &contents);
+    int mimeFind(KateDocument *);
     int realWildcardFind(const QString &fileName);
 
   private:

@@ -60,7 +60,7 @@ class ReplacePrompt : public KDialogBase
   protected slots:
 
     void slotUser1( void ); // All
-    void slotUser2( void ); // No
+    void slotUser2( void ); // Last
     void slotUser3( void ); // Yes
     virtual void done(int);
 };

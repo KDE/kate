@@ -25,6 +25,7 @@
 #include <qstring.h>
 #include <qregexp.h>
 #include <qptrlist.h>
+#include <kdialogbase.h>
 #include <qdialog.h>
 #include <qvaluelist.h>
 
@@ -59,10 +60,11 @@ class KateSearch : public QObject
 
   public:
     enum Dialog_results {
-      srYes = QDialog::Accepted,
-      srNo = 10,
-      srAll,
-      srCancel = QDialog::Rejected
+      srCancel = KDialogBase::Cancel,
+      srAll = KDialogBase::User1,
+      srLast = KDialogBase::User2,
+      srNo = KDialogBase::User3,
+      srYes = KDialogBase::Ok
     };
 
   public:

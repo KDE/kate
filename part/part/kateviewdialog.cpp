@@ -75,9 +75,10 @@
 // this dialog is not modal
 ReplacePrompt::ReplacePrompt( QWidget *parent )
   : KDialogBase(parent, 0L, true, i18n( "Replace Text" ),
-  User3 | User2 | User1 | Close, User3, true,
-  i18n("&All"), i18n("&No"), i18n("&Yes")) {
+  User3 | User2 | User1 | Close | Ok , Ok, true,
+  i18n("&All"), i18n("&Last"), i18n("&No") ) {
 
+  setButtonOKText( i18n("&Yes") );
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 
@@ -90,12 +91,12 @@ void ReplacePrompt::slotUser1( void ) { // All
   done(KateSearch::srAll);
 }
 
-void ReplacePrompt::slotUser2( void ) { // No
-  done(KateSearch::srNo);
+void ReplacePrompt::slotUser2( void ) { // Last
+  done(KateSearch::srLast);
 }
 
-void ReplacePrompt::slotUser3( void ) { // Yes
-  accept();
+void ReplacePrompt::slotUser3( void ) { // No
+  done(KateSearch::srNo);
 }
 
 void ReplacePrompt::done(int r) {
@@ -488,20 +489,29 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   glay->addWidget( m_wwmarker, 7, 1 );
 
   // QWhatsThis help
-  QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
-  QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. "
-        "To set the text color for selected text, use the \"<b>Configure "
-        "Highlighting</b>\" dialog."));
-  QWhatsThis::add(m_current, i18n("Sets the background color of the currently "
-        "active line, which means the line where your cursor is positioned."));
-  QWhatsThis::add(m_bracket, i18n("Sets the bracket matching color. This means, "
+  QWhatsThis::add(m_back, i18n("<p>Sets the background color of the editing area.</p>"));
+  QWhatsThis::add(m_selected, i18n("<p>Sets the background color of the selection.</p>"
+        "<p>To set the text color for selected text, use the \"<b>Configure "
+        "Highlighting</b>\" dialog.</p>"));
+  QWhatsThis::add(m_current, i18n("<p<Sets the background color of the currently "
+        "active line, which means the line where your cursor is positioned.</p>"));
+  QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
-        "be highlighted with this color."));
+        "be highlighted with this color.</p>"));
   QWhatsThis::add(m_wwmarker, i18n(
-        "<qt>Sets the color of the static / dynamic word wrap markings. <br><hr>"
+//<<<<<<< kateviewdialog.cpp
+        "<p>Sets the color of word wrapping related markers.</p>"
+        "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column, where "
+        "text is going to be  wrapped</dd>"
+        "<dt>Dynamic Word Wrap</dt><dd>A symbol is shown at the right end of "
+        "wrapped lines.</dd></dl>"));
+
+//=======
+/*        "<qt>Sets the color of the static / dynamic word wrap markings. <br><hr>"
         "<ul> <li><nobr>static: a vertical line which shows the column, where text is going to be wrapped</nobr></li>"
         "<li> <nobr>dynamic: on the view's right hand side, symbols are shown if lines wrap to another one </nobr></li>"
-        "</ul></qt>"));
+        "</ul></qt>"));*/
+//>>>>>>> 1.86
   reload ();
 }
 

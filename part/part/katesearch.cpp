@@ -390,6 +390,7 @@ void KateSearch::replaceSlot() {
   case srCancel: replacePrompt->hide();                break;
   case srAll:    replacePrompt->hide(); replaceAll();  break;
   case srYes:    replaceOne(); promptReplace();        break;
+  case srLast:   replacePrompt->hide(), replaceOne();  break;
   case srNo:     skipOne();    promptReplace();        break;
   }
 }

@@ -205,6 +205,14 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool removeSelectedText ();
 
     bool selectAll();
+    
+    //
+    // KTextEditor::SelectionInterfaceExt
+    //
+    int selStartLine() { return selectStart.line; };
+    int selStartCol()  { return selectStart.col; };
+    int selEndLine()   { return selectEnd.line; };
+    int selEndCol()    { return selectEnd.col; };
 
   private:
     // some internal functions to get selection state of a line/col

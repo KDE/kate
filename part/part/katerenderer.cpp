@@ -366,9 +366,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       if (showCursor > -1 && cursor->col() == (int)curCol)
         cursorXPos2 = xPos;
 
+      QChar curChar = textLine->string()[curCol];
       // Decide if this character is a tab - we treat the spacing differently
       // TODO: move tab width calculation elsewhere?
-      bool isTab = textLine->string()[curCol] == tabChar;
+      bool isTab = curChar == tabChar;
 
       // Determine current syntax highlighting attribute
       // A bit legacy but doesn't need to change
@@ -376,11 +377,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
-      xPosAfter += curAt->width(*fs, textLine->string(), curCol, m_tabWidth);
+      xPosAfter += curAt->width(*fs, curChar, m_tabWidth);
 
       // Tab special treatment, move to charWidth().
       if (isTab)
-        xPosAfter -= (xPosAfter % curAt->width(*fs, textLine->string(), curCol, m_tabWidth));
+        xPosAfter -= (xPosAfter % curAt->width(*fs, curChar, m_tabWidth));
 
       // Only draw after the starting X value
       // Haha, this was always wrong, due to the use of individual char width calculations...?? :(

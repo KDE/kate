@@ -96,7 +96,7 @@ void KateAutoIndent::updateConfig ()
   commentAttrib = 0;
   ItemDataList items;
   doc->highlight()->getItemDataListCopy (0, items);
-                     
+
   for (uint i=0; i<items.count(); i++)
   {
     if (items.at(i)->name.find("Comment") != -1)
@@ -207,6 +207,8 @@ uint KateAutoIndent::measureIndent (KateDocCursor &cur) const
 QString KateAutoIndent::tabString(uint pos) const
 {
   QString s;
+  pos = QMIN (pos, 80); // sanity check for large values of pos
+
   if (!useSpaces)
   {
     while (pos >= tabWidth)
@@ -260,12 +262,19 @@ KateCSmartIndent::~KateCSmartIndent ()
 
 void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 {
-  begin.setCol(0);
   uint indent = calcIndent (begin, needContinue);
 
-  QString filler = tabString (indent);
-  doc->insertText (begin.line(), 0, filler);
-  begin.setCol(filler.length());
+  if (indent > 0)
+  {
+    QString filler = tabString (indent);
+    doc->insertText (begin.line(), 0, filler);
+    begin.setCol(filler.length());
+  }
+  else
+  {
+    // fall back to normal autoindent (improves some corner cases)
+    KateAutoIndent::processNewline (begin, needContinue);
+  }
 }
 
 void KateCSmartIndent::processChar(QChar c)

@@ -72,6 +72,7 @@
 #include <qevent.h>
 #include <qpopupmenu.h>
 #include <qlayout.h>
+#include <qclipboard.h>
 //END includes
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
@@ -384,6 +385,12 @@ void KateView::setupActions()
   selectionChanged ();
 
   connect (m_doc, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
+
+  // paste action
+
+  connect( QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(slotClipboardDataChanged()) );
+
+  slotClipboardDataChanged();
 }
 
 void KateView::setupEditActions()
@@ -1212,5 +1219,11 @@ void KateView::updateView (bool changed)
 }
 
 // END
+
+void KateView::slotClipboardDataChanged()
+{
+  QMimeSource *data = QApplication::clipboard()->data();
+  m_paste->setEnabled( data->provides( "text/plain" ) );
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

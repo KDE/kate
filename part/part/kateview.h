@@ -21,12 +21,11 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include "kateglobal.h"
-
 #include "../interfaces/view.h"
-#include "../interfaces/document.h"
-
 #include <kparts/browserextension.h>
+
+#include "kateglobal.h"
+#include "katedocument.h"
 
 #include <qptrlist.h>
 #include <qdialog.h>
@@ -80,19 +79,9 @@ class KateView : public Kate::View
     friend class KateIconBorder;
     friend class CodeCompletion_Impl;
 
-  public slots:
-    void slotRegionVisibilityChangedAt(unsigned int);
-    void slotRegionBeginEndAddedRemoved(unsigned int);
-    void slotCodeFoldingChanged();
   public:
     KateView (KateDocument *doc, QWidget *parent = 0L, const char * name = 0);
     ~KateView ();
-
-  //
-  // KTextEditor::View stuff
-  //
-  public:
-    KateDocument *document();
 
   //
   // KTextEditor::ClipboardInterface stuff
@@ -134,12 +123,6 @@ class KateView : public Kate::View
     uint cursorColumn ();
     uint cursorColumnReal ();
 
-  private:
-    /**
-      Sets the current cursor position (only for internal use)
-    */
-    void setCursorPositionInternal(int line, int col, int tabwidth);
-
   signals:
     void cursorPositionChanged ();
 
@@ -152,9 +135,7 @@ class KateView : public Kate::View
       a right mouse button press event.
     */
     void installPopup(QPopupMenu *rmb_Menu);
-
-  private:
-    QPopupMenu *rmbMenu;
+    QPopupMenu* popup() { return m_rmbMenu; }
 
   //
   // KTextEditor::DynWordWrapInterface stuff
@@ -162,9 +143,6 @@ class KateView : public Kate::View
   public:
     void setDynWordWrap (bool b);
     bool dynWordWrap () const;
-
-  private:
-    bool _hasWrap;
 
   //
   // Kate::View stuff
@@ -200,97 +178,29 @@ class KateView : public Kate::View
     void bottom();
     void shiftBottom();
 
-  //
-  // internal KateView stuff
-  //
   public:
-    bool isOverwriteMode() const;
-    void setOverwriteMode( bool b );
-
-    int tabWidth();
-    void setTabWidth(int);
-    void setEncoding (QString e);
-
     /**
-      Returns true if this editor is the only owner of its document
+     Gets the text line where the cursor is on
     */
-    bool isLastView();
+    QString currentTextLine();
     /**
-      Returns the document object
+     Gets the word where the cursor is on
     */
-    KateDocument *doc();
-
-    void setupActions();
-
-    KAction *m_editUndo, *m_editRedo;
-
-    KActionMenu *m_bookmarkMenu;
-//    KToggleAction *viewBorder;
-//    KToggleAction *viewLineNumbers;
-    KRecentFilesAction *m_fileRecent;
-    KSelectAction *m_setEndOfLine;
-    KSelectAction *m_setEncoding;
-    Kate::ActionMenu *m_setHighlight;
-
-  private slots:
-    void slotDropEventPass( QDropEvent * ev );
-    void slotSetEncoding(const QString& descriptiveName);
-
-  public slots:
-    void slotUpdate();
-
-  public slots:
+    QString currentWord();
     /**
-      Toggles Insert mode
+     Gets the word at position x, y. Can be used to find
+     the word under the mouse cursor
     */
-    void toggleInsert();
-
-  signals:
-    /**
-      Modified flag or config flags have changed
-    */
-    void newStatus();
-
-  protected:
-    void keyPressEvent( QKeyEvent *ev );
-    void customEvent( QCustomEvent *ev );
-    void contextMenuEvent( QContextMenuEvent *ev );
-
-    /*
-     * Check if the given URL already exists. Currently used by both save() and saveAs()
-     *
-     * Asks the user for permission and returns the message box result and defaults to
-     * KMessageBox::Yes in case of doubt
-     */
-    int checkOverwrite( KURL u );
-
-//text access
-  public:
-     /**
-       Gets the text line where the cursor is on
-     */
-     QString currentTextLine();
-     /**
-       Gets the word where the cursor is on
-     */
-     QString currentWord();
-     /**
-       Gets the word at position x, y. Can be used to find
-       the word under the mouse cursor
-     */
 //FIXME     QString word(int x, int y);
-     /**
-       Insert text at the current cursor position.
-       The parameter @param mark is unused.
-     */
-     void insertText(const QString &);
-
-  public:
-
     /**
-      Returns true if the current document can be
-      discarded. If the document is modified, the user is asked if he wants
-      to save it. On "cancel" the function returns false.
+     Insert text at the current cursor position.
+     The parameter @param mark is unused.
+    */
+    void insertText(const QString &);
+    /**
+     Returns true if the current document can be
+     discarded. If the document is modified, the user is asked if he wants
+     to save it. On "cancel" the function returns false.
     */
     bool canDiscard();
 
@@ -339,15 +249,6 @@ class KateView : public Kate::View
     void transpose() {doEditCommand(KateView::cmTranspose);};
     void killLine() {doEditCommand(KateView::cmKillLine);};
 
-
-    // cursor commands...
-private:
-    KAccel *m_editAccels;
-    void setupEditKeys();
-
-  public slots:
-		void slotNewUndo ();
-
 //search/replace functions
   public slots:
     /**
@@ -358,17 +259,18 @@ private:
       Presents a replace dialog to the user
     */
     void replace();
-
     /**
       Presents a "Goto Line" dialog to the user
     */
     void gotoLine();
-
     /**
       Goes to a given line number; also called by the gotoline slot.
     */
     void gotoLineNumber( int linenumber );
-
+    void findAgain(bool back=false);
+//    void findAgain () { findAgain(false); };
+    void findPrev () { findAgain(true); };
+    
   private:
     void initSearch(SConfig &, int flags);
     void continueSearch(SConfig &);
@@ -382,10 +284,6 @@ private:
   private slots:
     void replaceSlot();
 
-  private:
-    uint searchFlags;
-    int replaces;
-    QDialog *replacePrompt;
 
 //code completion
   private:
@@ -426,61 +324,51 @@ private:
       Set the end of line mode (Unix, Macintosh or Dos)
     */
     void setEol(int eol);
-
-  private:
-    void resizeEvent(QResizeEvent *);
-
-    void doCursorCommand(int cmdNum);
-    void doEditCommand(int cmdNum);
-
-    KateViewInternal *myViewInternal;
-    KateDocument *myDoc;
-
-  private slots:
-    void dropEventPassEmited (QDropEvent* e);
-
-  signals:
-    void dropEventPass(QDropEvent*);
   
-  public:
+public:
     enum Dialog_results {
-      srYes=QDialog::Accepted,
-      srNo=10,
+      srYes = QDialog::Accepted,
+      srNo = 10,
       srAll,
-      srCancel=QDialog::Rejected};
+      srCancel = QDialog::Rejected
+    };
 
-//edit commands
     enum Edit_commands {
-		    cmReturn=1,cmDelete,cmBackspace,cmKillLine,
-        cmCut,cmCopy,cmPaste,cmIndent,cmUnindent,cmCleanIndent,
-        cmComment,
-	cmUncomment,
-        cmTranspose};
-//find commands
-    enum Find_commands { cmFind=1,cmReplace,cmFindAgain,cmGotoLine};
+        cmReturn = 1,
+        cmDelete, cmBackspace, cmKillLine,
+        cmCut, cmCopy, cmPaste,
+        cmIndent, cmUnindent, cmCleanIndent,
+        cmComment, cmUncomment,
+        cmTranspose
+    };
 
-  public:
-    void setActive (bool b);
-    bool isActive ();
+    enum Find_commands {
+        cmFind = 1, cmReplace, cmFindAgain, cmGotoLine
+    };
 
-  private:
-    bool active;
-    //bool myIconBorder;// FIXME anders: remove
-    int iconBorderStatus;
+public:
+    bool iconBorder();
+    bool lineNumbersOn();
+    void setupEditKeys();
+    bool isOverwriteMode() const;
+    void setOverwriteMode( bool b );
+    int tabWidth();
+    void setTabWidth(int);
+    void setEncoding (QString e);
+    bool isLastView();
+    
+    void setActive( bool b )    { m_active = b; }
+    bool isActive() /* const */ { return m_active; }
+    
+    int iconBorderStatus() const { return m_iconBorderStatus; }
 
-  public slots:
-    void setFocus ();
-    void findAgain(bool back=false);
-//    void findAgain () { findAgain(false); };
-    void findPrev () { findAgain(true); };
+public:
+    // Is it really necessary to have 3 methods for this?! :)
+    KTextEditor::Document* document() const       { return myDoc; }
+    Kate::Document*        getDoc() /* const */   { return myDoc; }
+    KateDocument*          doc()      const       { return myDoc; }
 
-  private:
-    bool eventFilter(QObject* o, QEvent* e);
-
-  signals:
-    void gotFocus (Kate::View *);
-
-  public slots:
+public slots:
     void slotEditCommand ();
     void setIconBorder (bool enable);
     void setLineNumbersOn(bool enable);
@@ -488,34 +376,77 @@ private:
     void toggleIconBorder ();
     void toggleLineNumbersOn();
     void gotoMark (KTextEditor::Mark *mark) { setCursorPositionReal( mark->line, 0 ); }
-
-  private:
-    void updateIconBorder();
-
-  public:
-    bool iconBorder();
-    bool lineNumbersOn();
-
-  public:
-    Kate::Document *getDoc ()
-      { return (Kate::Document*) myDoc; };
-
-  public slots:
     void slotIncFontSizes ();
     void slotDecFontSizes ();
+    void setFocus ();
+    void slotNewUndo ();
+    void slotUpdate();
+    void toggleInsert();
+    void slotRegionVisibilityChangedAt(unsigned int);
+    void slotRegionBeginEndAddedRemoved(unsigned int);
+    void slotCodeFoldingChanged();
 
-  public:
-    KTextEditor::Document *document () const { return (KTextEditor::Document *)myDoc; };
+signals:
+    void gotFocus (Kate::View *);
+    void dropEventPass(QDropEvent*);
+    /**
+      Modified flag or config flags have changed
+    */
+    void newStatus();
+    
+protected:
+    void keyPressEvent( QKeyEvent *ev );
+    void customEvent( QCustomEvent *ev );
+    void contextMenuEvent( QContextMenuEvent *ev );
+    void resizeEvent( QResizeEvent* );
+    bool eventFilter( QObject* o, QEvent* e );
+ 
+    /*
+     * Check if the given URL already exists. Currently used by both save() and saveAs()
+     *
+     * Asks the user for permission and returns the message box result and defaults to
+     * KMessageBox::Yes in case of doubt
+     */
+    int checkOverwrite( KURL u );
 
-  private:
+private slots:
+    void slotDropEventPass( QDropEvent* ev );
+    void dropEventPassEmited( QDropEvent* e );
+    void slotSetEncoding( const QString& descriptiveName );
+
+private:
+    KAccel* createEditKeys();
+    void setupActions();
+    
+    void updateIconBorder();
+    
+    void doCursorCommand( int cmdNum );
+    void doEditCommand( int cmdNum );
+    void setCursorPositionInternal( int line, int col, int tabwidth );
+
+    KAction*               m_editUndo;
+    KAction*               m_editRedo;
+//    KToggleAction* viewBorder;
+//    KToggleAction* viewLineNumbers;
+    KRecentFilesAction*    m_fileRecent;
+    KSelectAction*         m_setEndOfLine;
+    KSelectAction*         m_setEncoding;
+    Kate::ActionMenu*      m_setHighlight;
+
+    KateDocument*          myDoc;
+    KateViewInternal*      myViewInternal;
+    KAccel*                m_editAccels;
     KateBookmarks*         m_bookmarks;
     KateBrowserExtension*  m_extension;
+    QPopupMenu*            m_rmbMenu;
+
+    bool       m_active;
+    int        m_iconBorderStatus;
+    bool       m_hasWrap;
+
+    uint       searchFlags;
+    int        replaces;
+    QDialog*   replacePrompt;
 };
 
 #endif
-
-
-
-
-
-

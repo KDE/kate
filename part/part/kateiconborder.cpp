@@ -230,7 +230,7 @@ int KateIconBorder::width()
 {
   int w = 0;
   
-  if (myView->iconBorderStatus & LineNumbers) {
+  if (myView->iconBorderStatus() & LineNumbers) {
     if ( linesAtLastCheck != myView->doc()->numLines() ) {
       cachedLNWidth = 7 + fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
       linesAtLastCheck = myView->myDoc->numLines();
@@ -238,10 +238,10 @@ int KateIconBorder::width()
     w += cachedLNWidth;
   }
 
-  if (myView->iconBorderStatus & Icons)
+  if (myView->iconBorderStatus() & Icons)
     w += iconPaneWidth;
 
-  if (myView->iconBorderStatus & FoldingMarkers)
+  if (myView->iconBorderStatus() & FoldingMarkers)
     w+=iconPaneWidth;
 
   return w;
@@ -250,7 +250,7 @@ int KateIconBorder::width()
 
 void KateIconBorder::paintLine(int linepos, KateLineRange *r)
 {
-  if ( myView->iconBorderStatus == None )
+  if ( myView->iconBorderStatus() == None )
     return;
 
   if (drawBuffer->isNull())
@@ -271,7 +271,7 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
   p.fillRect( 0, 0, cachedLNWidth+2*iconPaneWidth, fontHeight, colorGroup().light() );
 
   // line number
-  if ( (myView->iconBorderStatus & LineNumbers) )
+  if ( (myView->iconBorderStatus() & LineNumbers) )
   {
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine( cachedLNWidth-1, 0, cachedLNWidth-1, fontHeight );
@@ -283,7 +283,7 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
   }
 
   // icon pane
-  if ( (myView->iconBorderStatus & Icons) ) {
+  if ( (myView->iconBorderStatus() & Icons) ) {
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine(lnX+iconPaneWidth-1, 0, lnX+iconPaneWidth-1, fontHeight);
 
@@ -311,7 +311,7 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
   }
 
   // folding markers
-  if  (myView->iconBorderStatus & FoldingMarkers)
+  if  (myView->iconBorderStatus() & FoldingMarkers)
   {
     if (!r->empty)
     {
@@ -348,13 +348,13 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
-  if (myView->iconBorderStatus == None)
+  if (myView->iconBorderStatus() == None)
     return;
 
   //kdDebug()<<"KateIconBorder::paintEvent()"<<endl;
 
   KateDocument *doc = myView->doc();
-  if ( myView->iconBorderStatus & LineNumbers && linesAtLastCheck != doc->numLines() ) {
+  if ( myView->iconBorderStatus() & LineNumbers && linesAtLastCheck != doc->numLines() ) {
     cachedLNWidth = 7 + fontMetrics().width( QString().setNum( doc->numLines()) );
     linesAtLastCheck = doc->numLines();
     resize( width(), height() );
@@ -388,12 +388,12 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 void KateIconBorder::mousePressEvent(QMouseEvent* e)
 {
     // return if the event is in linenumbers pane
-    if ( (!myView->iconBorderStatus & Icons) && (!myView->iconBorderStatus & FoldingMarkers) )
+    if ( (!myView->iconBorderStatus() & Icons) && (!myView->iconBorderStatus() & FoldingMarkers) )
       return;
     int xwidth=0;
-    if (myView->iconBorderStatus & Icons) xwidth+=iconPaneWidth;
-    if (myView->iconBorderStatus & FoldingMarkers) xwidth+=iconPaneWidth;
-    if (myView->iconBorderStatus & LineNumbers) xwidth+=cachedLNWidth;
+    if (myView->iconBorderStatus() & Icons) xwidth+=iconPaneWidth;
+    if (myView->iconBorderStatus() & FoldingMarkers) xwidth+=iconPaneWidth;
+    if (myView->iconBorderStatus() & LineNumbers) xwidth+=cachedLNWidth;
     if (e->x()>xwidth) return;
     myInternalView->placeCursor( 0, e->y(), 0 );
 
@@ -406,9 +406,9 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
 
     uint mark = myView->myDoc->mark (cursorOnLine);
 
-    if (myView->iconBorderStatus & Icons)
+    if (myView->iconBorderStatus() & Icons)
     {
-      int xMin=(myView->iconBorderStatus & LineNumbers)?cachedLNWidth:0;
+      int xMin=(myView->iconBorderStatus() & LineNumbers)?cachedLNWidth:0;
 
       int xMax=xMin+iconPaneWidth;
 
@@ -438,13 +438,13 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
       }
     }
 
-    if (myView->iconBorderStatus & FoldingMarkers)
+    if (myView->iconBorderStatus() & FoldingMarkers)
     {
 	kdDebug()<<"checking if a folding marker has been clicked"<<endl;
 
-        int xMin=(myView->iconBorderStatus & Icons)?iconPaneWidth:0;
+        int xMin=(myView->iconBorderStatus() & Icons)?iconPaneWidth:0;
 
-        if (myView->iconBorderStatus & LineNumbers)
+        if (myView->iconBorderStatus() & LineNumbers)
           xMin += cachedLNWidth;
 
         int xMax=xMin+iconPaneWidth;

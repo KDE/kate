@@ -21,8 +21,9 @@
 // $Id$
 
 #include "kateview.h"
-#include "kateviewinternal.h"
 #include "kateview.moc"
+
+#include "kateviewinternal.h"
 #include "katedocument.h"
 #include "katecmd.h"
 #include "katefactory.h"
@@ -83,39 +84,37 @@
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
+    , myDoc( doc )
+    , myViewInternal( new KateViewInternal( this, doc ) )
+    , m_editAccels( createEditKeys() )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_extension( 0 )
-    , m_editAccels( 0 )
+    , m_rmbMenu( 0 )
+    , m_active( false )
+    , m_iconBorderStatus( KateIconBorder::None )
+    , m_hasWrap( false )
+    , replacePrompt( 0 )
 {
   setInstance( KateFactory::instance() );
 
   initCodeCompletionImplementation();
 
-  active = false;
-//  myIconBorder = false;
-  iconBorderStatus = KateIconBorder::None;
-//   iconBorderStatus = KateIconBorder::FoldingMarkers;
-  _hasWrap = false;
-
-  myDoc = doc;
-  myViewInternal = new KateViewInternal (this,doc);
   myViewInternal->leftBorder = new KateIconBorder(this, myViewInternal);
   myViewInternal->leftBorder->setGeometry(0, 0, myViewInternal->leftBorder->width(), myViewInternal->iconBorderHeight);
   myViewInternal->leftBorder->hide();
   myViewInternal->leftBorder->installEventFilter( this );
-  connect(myViewInternal->leftBorder,SIGNAL(toggleRegionVisibility(unsigned int)),
-                                            doc->regionTree,SLOT(toggleRegionVisibility(unsigned int)));
-  connect(doc->regionTree,SIGNAL(regionVisibilityChangedAt(unsigned int)),
-					this,SLOT(slotRegionVisibilityChangedAt(unsigned int)));
-//  connect(doc->regionTree,SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
-//					this,SLOT(slotRegionBeginEndAddedRemoved(unsigned int)));
-    connect(doc,SIGNAL(codeFoldingUpdated()),this,SLOT(slotCodeFoldingChanged()));
+  connect( myViewInternal->leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
+           doc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));
+  connect( doc->regionTree, SIGNAL(regionVisibilityChangedAt(unsigned int)),
+           this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
+//  connect( doc->regionTree, SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
+//           this, SLOT(slotRegionBeginEndAddedRemoved(unsigned int)) );
+  connect( doc, SIGNAL(codeFoldingUpdated()),
+           this, SLOT(slotCodeFoldingChanged()) );
+
   doc->addView( this );
 
   connect(myViewInternal,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(dropEventPassEmited(QDropEvent *)));
-
-  replacePrompt = 0L;
-  rmbMenu = 0L;
 
   setFocusProxy( myViewInternal );
   myViewInternal->setFocus();
@@ -141,7 +140,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   }
 
   setupActions();
-  setupEditKeys();
 
   connect( this, SIGNAL( newStatus() ), this, SLOT( slotUpdate() ) );
   connect( doc, SIGNAL( undoChanged() ), this, SLOT( slotNewUndo() ) );
@@ -216,42 +214,50 @@ void KateView::copy () const
 
 void KateView::setupEditKeys()
 {
+  delete m_editAccels;
+  m_editAccels = createEditKeys();
+}
 
-  if (m_editAccels) delete m_editAccels;
-  m_editAccels=new KAccel(this,this);
-  m_editAccels->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"",Key_Left,this,SLOT(cursorLeft()));
-  m_editAccels->insert("KATE_WORD_LEFT",i18n("One word left"),"",CTRL+Key_Left,this,SLOT(wordLeft()));
-  m_editAccels->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"",SHIFT+Key_Left,this,SLOT(shiftCursorLeft()));
-  m_editAccels->insert("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"",SHIFT+CTRL+Key_Left,this,SLOT(shiftWordLeft()));
+KAccel* KateView::createEditKeys()
+{
+  KAccel* accel = new KAccel( this, this, "edit accels" );
+  
+  accel->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"",Key_Left,this,SLOT(cursorLeft()));
+  accel->insert("KATE_WORD_LEFT",i18n("One word left"),"",CTRL+Key_Left,this,SLOT(wordLeft()));
+  accel->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"",SHIFT+Key_Left,this,SLOT(shiftCursorLeft()));
+  accel->insert("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"",SHIFT+CTRL+Key_Left,this,SLOT(shiftWordLeft()));
 
+  accel->insert("KATE_CURSOR_RIGHT",i18n("Cursor right"),"",Key_Right,this,SLOT(cursorRight()));
+  accel->insert("KATE_WORD_RIGHT",i18n("One word right"),"",CTRL+Key_Right,this,SLOT(wordRight()));
+  accel->insert("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"",SHIFT+Key_Right,this,SLOT(shiftCursorRight()));
+  accel->insert("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"",SHIFT+CTRL+Key_Right,this,SLOT(shiftWordRight()));
 
-  m_editAccels->insert("KATE_CURSOR_RIGHT",i18n("Cursor right"),"",Key_Right,this,SLOT(cursorRight()));
-  m_editAccels->insert("KATE_WORD_RIGHT",i18n("One word right"),"",CTRL+Key_Right,this,SLOT(wordRight()));
-  m_editAccels->insert("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"",SHIFT+Key_Right,this,SLOT(shiftCursorRight()));
-  m_editAccels->insert("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"",SHIFT+CTRL+Key_Right,this,SLOT(shiftWordRight()));
+  accel->insert("KATE_CURSOR_HOME",i18n("Home"),"",Key_Home,this,SLOT(home()));
+  accel->insert("KATE_CURSOR_TOP",i18n("Top"),"",CTRL+Key_Home,this,SLOT(top()));
+  accel->insert("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"",SHIFT+Key_Home,this,SLOT(shiftHome()));
+  accel->insert("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"",SHIFT+CTRL+Key_Home,this,SLOT(shiftTop()));
 
-  m_editAccels->insert("KATE_CURSOR_HOME",i18n("Home"),"",Key_Home,this,SLOT(home()));
-  m_editAccels->insert("KATE_CURSOR_TOP",i18n("Top"),"",CTRL+Key_Home,this,SLOT(top()));
-  m_editAccels->insert("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"",SHIFT+Key_Home,this,SLOT(shiftHome()));
-  m_editAccels->insert("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"",SHIFT+CTRL+Key_Home,this,SLOT(shiftTop()));
+  accel->insert("KATE_CURSOR_END",i18n("End"),"",Key_End,this,SLOT(end()));
+  accel->insert("KATE_CURSOR_BOTTOM",i18n("Bottom"),"",CTRL+Key_End,this,SLOT(bottom()));
+  accel->insert("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"",SHIFT+Key_End,this,SLOT(shiftEnd()));
+  accel->insert("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"",SHIFT+CTRL+Key_End,this,SLOT(shiftBottom()));
 
-  m_editAccels->insert("KATE_CURSOR_END",i18n("End"),"",Key_End,this,SLOT(end()));
-  m_editAccels->insert("KATE_CURSOR_BOTTOM",i18n("Bottom"),"",CTRL+Key_End,this,SLOT(bottom()));
-  m_editAccels->insert("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"",SHIFT+Key_End,this,SLOT(shiftEnd()));
-  m_editAccels->insert("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"",SHIFT+CTRL+Key_End,this,SLOT(shiftBottom()));
+  accel->insert("KATE_CURSOR_UP",i18n("Cursor up"),"",Key_Up,this,SLOT(up()));
+  accel->insert("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"",SHIFT+Key_Up,this,SLOT(shiftUp()));
+  accel->insert("KATE_SCROLL_UP",i18n("Scroll one line up"),"",CTRL+Key_Up,this,SLOT(scrollUp()));
 
-  m_editAccels->insert("KATE_CURSOR_UP",i18n("Cursor up"),"",Key_Up,this,SLOT(up()));
-  m_editAccels->insert("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"",SHIFT+Key_Up,this,SLOT(shiftUp()));
-  m_editAccels->insert("KATE_SCROLL_UP",i18n("Scroll one line up"),"",CTRL+Key_Up,this,SLOT(scrollUp()));
-
-  m_editAccels->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"",Key_Down,this,SLOT(down()));
-  m_editAccels->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"",SHIFT+Key_Down,this,SLOT(shiftDown()));
-  m_editAccels->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"",CTRL+Key_Down,this,SLOT(scrollDown()));
-  m_editAccels->insert("KATE TRANSPOSE", i18n("Transpose two adjacent characters"),"",CTRL+Key_T,this,SLOT(transpose()));
+  accel->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"",Key_Down,this,SLOT(down()));
+  accel->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"",SHIFT+Key_Down,this,SLOT(shiftDown()));
+  accel->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"",CTRL+Key_Down,this,SLOT(scrollDown()));
+  
+  accel->insert("KATE TRANSPOSE", i18n("Transpose two adjacent characters"),"",CTRL+Key_T,this,SLOT(transpose()));
+  
   KConfig config("kateeditkeysrc");
-  m_editAccels->readSettings(&config);
+  accel->readSettings(&config);
 
-  if (!(myViewInternal->hasFocus())) m_editAccels->setEnabled(false);
+  if (!(myViewInternal->hasFocus())) accel->setEnabled(false);
+  
+  return accel;
 }
 
 void KateView::setupActions()
@@ -515,10 +521,6 @@ bool KateView::isLastView() {
   return myDoc->isLastView(1);
 }
 
-KateDocument *KateView::doc() {
-  return myDoc;
-}
-
 bool KateView::isOverwriteMode() const
 {
   return ( myDoc->_configFlags & KateDocument::cfOvr );
@@ -532,17 +534,17 @@ void KateView::setOverwriteMode( bool b )
     myDoc->setConfigFlags( myDoc->_configFlags | KateDocument::cfOvr );
 }
 
-void KateView::setDynWordWrap (bool b)
+void KateView::setDynWordWrap( bool b )
 {
-  if (_hasWrap != b)
-    myViewInternal->updateView(KateViewInternal::ufDocGeometry);
-
-  _hasWrap = b;
+  if( m_hasWrap == b ) return;
+  
+  m_hasWrap = b;
+  myViewInternal->updateView(KateViewInternal::ufDocGeometry);
 }
 
 bool KateView::dynWordWrap () const
 {
-  return _hasWrap;
+  return m_hasWrap;
 }
 
 void KateView::toggleInsert() {
@@ -1247,7 +1249,7 @@ void KateView::replaceSlot() {
 
 void KateView::installPopup(QPopupMenu *rmb_Menu)
 {
-  rmbMenu = rmb_Menu;
+  m_rmbMenu = rmb_Menu;
 }
 
 void KateView::readSessionConfig(KConfig *config)
@@ -1261,9 +1263,9 @@ void KateView::readSessionConfig(KConfig *config)
   cursor.col = config->readNumEntry("CursorX");
   cursor.line = config->readNumEntry("CursorY");
   myViewInternal->updateCursor(cursor);
-  iconBorderStatus = config->readNumEntry("IconBorderStatus");
-  setIconBorder( iconBorderStatus & KateIconBorder::Icons );
-  setLineNumbersOn( iconBorderStatus & KateIconBorder::LineNumbers );
+  m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
+  setIconBorder( m_iconBorderStatus & KateIconBorder::Icons );
+  setLineNumbersOn( m_iconBorderStatus & KateIconBorder::LineNumbers );
 }
 
 void KateView::writeSessionConfig(KConfig *config)
@@ -1275,7 +1277,7 @@ void KateView::writeSessionConfig(KConfig *config)
   config->writeEntry("CursorY",myViewInternal->cursor.line);
 */
 
-  config->writeEntry("IconBorderStatus", iconBorderStatus );
+  config->writeEntry("IconBorderStatus", m_iconBorderStatus );
 }
 
 int KateView::getEol() {
@@ -1322,16 +1324,6 @@ void SConfig::setPattern(QString &newPattern) {
     m_regExp.setCaseSensitive(flags & KateDocument::sfCaseSensitive);
     m_regExp.setPattern(m_pattern);
   }
-}
-
-void KateView::setActive (bool b)
-{
-  active = b;
-}
-
-bool KateView::isActive ()
-{
-  return active;
 }
 
 void KateView::setFocus ()
@@ -1394,54 +1386,54 @@ void KateView::slotEditCommand ()
 
 void KateView::setIconBorder (bool enable)
 {
-  if ( enable == iconBorderStatus & KateIconBorder::Icons )
+  if ( enable == m_iconBorderStatus & KateIconBorder::Icons )
     return; // no change
   if ( enable )
-    iconBorderStatus |= KateIconBorder::Icons;
+    m_iconBorderStatus |= KateIconBorder::Icons;
   else
-    iconBorderStatus &= ~KateIconBorder::Icons;
+    m_iconBorderStatus &= ~KateIconBorder::Icons;
 
   updateIconBorder();
 }
 
 void KateView::toggleIconBorder ()
 {
-  setIconBorder ( ! (iconBorderStatus & KateIconBorder::Icons) );
+  setIconBorder ( ! (m_iconBorderStatus & KateIconBorder::Icons) );
 }
 
 void KateView::setLineNumbersOn(bool enable)
 {
-  if (enable == iconBorderStatus & KateIconBorder::LineNumbers)
+  if (enable == m_iconBorderStatus & KateIconBorder::LineNumbers)
     return; // no change
 
   if (enable)
-    iconBorderStatus |= KateIconBorder::LineNumbers;
+    m_iconBorderStatus |= KateIconBorder::LineNumbers;
   else
-    iconBorderStatus &= ~KateIconBorder::LineNumbers;
+    m_iconBorderStatus &= ~KateIconBorder::LineNumbers;
 
   updateIconBorder();
 }
 
 void KateView::setFoldingMarkersOn(bool enable)
 {
-	if (enable == bool(iconBorderStatus & KateIconBorder::FoldingMarkers))
+	if (enable == bool(m_iconBorderStatus & KateIconBorder::FoldingMarkers))
 		return;
 	if (enable)
-		iconBorderStatus|= KateIconBorder::FoldingMarkers;
+		m_iconBorderStatus|= KateIconBorder::FoldingMarkers;
 	else
-		iconBorderStatus&= ~KateIconBorder::FoldingMarkers;
+		m_iconBorderStatus&= ~KateIconBorder::FoldingMarkers;
 	updateIconBorder();
 }
 
 void KateView::toggleLineNumbersOn()
 {
-  setLineNumbersOn( ! (iconBorderStatus & KateIconBorder::LineNumbers) );
+  setLineNumbersOn( ! (m_iconBorderStatus & KateIconBorder::LineNumbers) );
 }
 
 // FIXME anders: move into KateIconBorder class
 void KateView::updateIconBorder()
 {
-  if ( iconBorderStatus != KateIconBorder::None )
+  if ( m_iconBorderStatus != KateIconBorder::None )
   {
     myViewInternal->leftBorder->show();
   }
@@ -1469,14 +1461,13 @@ void KateView::slotDecFontSizes ()
   myDoc->setFont (KateDocument::ViewFont,font);
 }
 
-KateDocument *KateView::document()
-{
-  return myDoc;
+bool KateView::iconBorder() {
+  return m_iconBorderStatus & KateIconBorder::Icons;
 }
 
-bool KateView::iconBorder() { return /*myIconBorder;*/iconBorderStatus & KateIconBorder::Icons; }
-
-bool KateView::lineNumbersOn() { return iconBorderStatus & KateIconBorder::LineNumbers; }
+bool KateView::lineNumbersOn() {
+  return m_iconBorderStatus & KateIconBorder::LineNumbers;
+}
 
 void KateView::showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
     	{ myCC_impl->showArgHint(arg1,arg2,arg3);}

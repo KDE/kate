@@ -690,7 +690,7 @@ void KateViewInternal::updateView(int flags)
   //
   //  update yScrollbar (first that, as we need if it should be shown for the width() of the view)
   //
-  if (!(flags & KateViewInternal::ufExposeCursor) || (flags & KateViewInternal::ufFoldingChanged) || (flags && KateViewInternal::ufDocGeometry))
+  if (!(flags & KateViewInternal::ufExposeCursor) || (flags & KateViewInternal::ufFoldingChanged) || (flags & KateViewInternal::ufDocGeometry))
   {
     uint contentLines=myDoc->visibleLines();
     int viewLines=height()/fontHeight;
@@ -1242,8 +1242,8 @@ void KateViewInternal::mousePressEvent(QMouseEvent *e) {
     }
   }
 
-  if (myView->rmbMenu && e->button() == RightButton) {
-    myView->rmbMenu->popup(mapToGlobal(e->pos()));
+  if (myView->popup() && e->button() == RightButton) {
+    myView->popup()->popup(mapToGlobal(e->pos()));
   }
   myView->mousePressEvent(e); // this doesn't do anything, does it?
   // it does :-), we need this for KDevelop, so please don't uncomment it again -Sandy

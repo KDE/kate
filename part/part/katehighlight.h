@@ -164,11 +164,11 @@ class KateHighlighting
     * define a comment region, otherwise the region is returned
     */
     signed char commentRegion(int attr) const;
-    
+
     /**
      * Define comment marker type.
      */
-    enum commentData { Start, End, MultiLineRegion,SingleLine };
+    enum commentData { Start, End, MultiLineRegion, SingleLine };
 
     /**
      * @return the comment marker @p which for the highlight corresponding to
@@ -193,6 +193,11 @@ class KateHighlighting
      * to @p attrib.
      */
     QString getCommentSingleLineStart( int attrib=0 ) const;
+
+    /**
+    * @return the attribute for @p context.
+    */
+    int attribute( int context ) const;
 
     void clearAttributeArrays ();
 

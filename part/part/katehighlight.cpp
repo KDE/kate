@@ -1978,14 +1978,16 @@ int KateHighlighting::hlKeyForAttrib( int attrib ) const
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
+  kdDebug(13010)<<"KateHighlighting::isInWord("<<c<<", "<<attrib<<")"<<endl;
+  kdDebug(13010)<<"i have this numnber of strings: "<<m_additionalData[0].count()<<endl;
   static const QString& sq = KGlobal::staticQString(" \"'");
-  return getCommentString(3, attrib).find(c) < 0 && sq.find(c) < 0;
+  return getCommentString(4, attrib).find(c) < 0 && sq.find(c) < 0;
 }
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
 {
   static const QString& sq = KGlobal::staticQString("\"'");
-  return (getCommentString(4, attrib).find(c) != -1) && (sq.find(c) == -1);
+  return (getCommentString(5, attrib).find(c) != -1) && (sq.find(c) == -1);
 }
 
 signed char KateHighlighting::commentRegion(int attr) const {
@@ -2004,6 +2006,9 @@ bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
 
 QString KateHighlighting::getCommentString( int which, int attrib ) const
 {
+  if ( noHl )
+    return which == 4 ? stdDeliminator : "";
+
   int k = hlKeyForAttrib( attrib );
   const QStringList& lst = m_additionalData[k];
   return lst.isEmpty() ? QString::null : lst[which];
@@ -2506,7 +2511,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   additionaldata << readWordWrapConfig();
 
   readFoldingConfig ();
-  
+
   uint additionalDataIndex=internalIDList.count();
   m_additionalData.insert( additionalDataIndex, additionaldata );
   m_hlIndex.append( additionalDataIndex );
@@ -2677,7 +2682,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       errorsAndWarnings+=i18n("<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>").arg(buildIdentifier).arg(commentData[MultiLineRegion]);
       commentData[MultiLineRegion]=QString();
       kdDebug()<<"ERROR comment region attribute could not be resolved"<<endl;
-      
+
     } else {
         commentData[MultiLineRegion]=QString::number(commentregionid+1);
         kdDebug()<<"comment region resolved to:"<<m_additionalData[additionalDataIndex][MultiLineRegion]<<endl;

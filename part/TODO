@@ -2,7 +2,6 @@ TODO:
 
 For 3.0 and bugfix releases:
  - we need a new slot/signal to restore the cursorpos after the buffer is ready
- - search whole words
  - static word wrap
  - better indent/unindent
  - exhaustive testing of the new highlighting structure

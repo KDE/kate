@@ -1518,7 +1518,7 @@ int  Highlight::lookupAttrName(const QString& name, ItemDataList &iDl)
                         *                                   object
 *******************************************************************************************/
 
-HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStringList *RegionList, QStringList *ContextNameList)
+HlItem *Highlight::createHlItem(struct syntaxContextData *data, ItemDataList &iDl,QStringList *RegionList, QStringList *ContextNameList)
 {
   // No highlighting -> exit
   if (noHl)

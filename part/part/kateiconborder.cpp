@@ -184,7 +184,6 @@ int KateIconBorder::width()
 void KateIconBorder::paintLine(int i)
 {
   if ( myView->iconBorderStatus == None ) return;
-  if ( (uint)i > myView->myDoc->numLines() ) return;
 
 //kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
   QPainter p(this);
@@ -208,10 +207,11 @@ void KateIconBorder::paintLine(int i)
   }
 
   // line number
-  if ( (myView->iconBorderStatus & LineNumbers) && i < myView->doc()->numLines() ) {
+  if ( (myView->iconBorderStatus & LineNumbers) ) {
     p.fillRect( lnX, y, width()-2, fontHeight, colorGroup().light() );
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine( width()-1, y, width()-1, y + fontHeight );
+    if ( (uint)i < myView->myDoc->numLines() )
       p.drawText( lnX + 1, y, width()-lnX-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg(i+1) );
   }
          /*

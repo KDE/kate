@@ -33,8 +33,6 @@
         <item> default </item>
 	 </list>
     <list name="functions">
-        <item> close </item>
-        <item> eval </item>
         <item> escape </item>
         <item> isFinite </item>
         <item> isNaN </item>
@@ -48,22 +46,17 @@
         <item> write </item>
 	 </list>
     <list name="objects">
-        <item>document</item>
-        <item>window</item>
-        <item>this</item>
-        <item>Image</item>
-        <item>Math</item>
-        <item>Max</item>
-        <item>Min</item>
-        <item>RegExp</item>
-        <item>navigator</item>
+        <item>Anchor</item>
+        <item>Applet</item>
         <item>Area</item>
         <item>Array</item>
-        <item>Applet</item>
-        <item>Button</item>
 		  <item>Boolean</item>
+        <item>Button</item>
         <item>Checkbox</item>
         <item>Date</item>
+        <item>document</item>
+        <item>window</item>
+        <item>Image</item>
         <item>FileUpload</item>
         <item>Form</item>
         <item>Frame</item>
@@ -71,13 +64,24 @@
         <item>Hidden</item>
         <item>Link</item>
         <item>MimeType</item>
+        <item>Math</item>
+        <item>Max</item>
+        <item>Min</item>
+        <item>Layer</item>
+        <item>navigator</item>
         <item>Object</item>
         <item>Password</item>
         <item>Plugin</item>
         <item>Radio</item>
+        <item>RegExp</item>
         <item>Reset</item>
+        <item>Screen</item>
         <item>Select</item>
         <item>String</item>
+        <item>Text</item>
+        <item>Textarea</item>
+        <item>this</item>
+        <item>Window</item>
 	 </list>
     <list name="math">
 		  <item> abs </item>
@@ -121,6 +125,7 @@
 		  <item>onUnload</item>
 	 </list>
 	 <list name="methods">
+		  <item>above</item>
 		  <item>action</item>
         <item>alinkColor</item>
         <item>alert</item>
@@ -128,108 +133,189 @@
         <item>anchors</item>
         <item>appCodeName</item>
         <item>applets</item>
+ 		  <item>apply</item>
         <item>appName</item>
         <item>appVersion</item>
+		  <item>argument</item>
+		  <item>arguments</item>
+		  <item>arity</item>
+		  <item>availHeight</item>
+		  <item>availWidth</item>
         <item>back</item>
+        <item>background</item>
+        <item>below</item>
         <item>bgColor</item>
+        <item>border</item>
         <item>big</item>
         <item>blink</item>
         <item>blur</item>
         <item>bold</item>
         <item>border</item>
+        <item>call</item>
         <item>caller</item>
         <item>charAt</item>
+        <item>charCodeAt</item>
         <item>checked</item>
+        <item>clearInterval</item>
         <item>clearTimeout</item>
         <item>click</item>
+        <item>clip</item>
+        <item>close</item>
         <item>closed</item>
+        <item>colorDepth</item>
         <item>complete</item>
+        <item>compile</item>
         <item>constructor</item>
         <item>confirm</item>
         <item>cookie</item>
         <item>current</item>
         <item>cursor</item>
+        <item>data</item>
         <item>defaultChecked</item>
         <item>defaultSelected</item>
         <item>defaultStatus</item>
         <item>defaultValue</item>
         <item>description</item>
+        <item>disableExternalCapture</item>
         <item>domain</item>
         <item>elements</item>
         <item>embeds</item>
         <item>enabledPlugin</item>
+        <item>enableExternalCapture</item>
         <item>encoding</item>
+        <item>eval</item>
         <item>exec</item>
         <item>fgColor</item>
         <item>filename</item>
+        <item>find</item>
         <item>fixed</item>
         <item>focus</item>
         <item>fontcolor</item>
         <item>fontsize</item>
         <item>form</item>
         <item>forms</item>
+        <item>formName</item>
         <item>forward</item>
-        <item>focus</item>
         <item>frames</item>
+        <item>fromCharCode</item>
         <item>getDate</item>
         <item>getDay</item>
         <item>getHours</item>
+        <item>getMiliseconds</item>
         <item>getMinutes</item>
         <item>getMonth</item>
         <item>getSeconds</item>
+        <item>getSelection</item>
         <item>getTime</item>
         <item>getTimezoneOffset</item>
+        <item>getUTCDate</item>
+        <item>getUTCDay</item>
+        <item>getUTCFullYear</item>
+        <item>getUTCHours</item>
+        <item>getUTCMilliseconds</item>
+        <item>getUTCMinutes</item>
+        <item>getUTCMonth</item>
+        <item>getUTCSeconds</item>
         <item>getYear</item>
+        <item>global</item>
         <item>go</item>
         <item>hash</item>
         <item>height</item>
+        <item>history</item>
+        <item>home</item>
         <item>host</item>
         <item>hostname</item>
         <item>href</item>
         <item>hspace</item>
+        <item>ignoreCase</item>
         <item>images</item>
         <item>index</item>
         <item>indexOf</item>
+        <item>innerHeight</item>
+        <item>innerWidth</item>
+        <item>input</item>
         <item>italics</item>
         <item>javaEnabled</item>
         <item>join</item>
+        <item>language</item>
+        <item>lastIndex</item>
         <item>lastIndexOf</item>
         <item>lastModified</item>
+        <item>lastParen</item>
+        <item>layers</item>
+        <item>layerX</item>
+        <item>layerY</item>
+        <item>left</item>
+        <item>leftContext</item>
         <item>length</item>
         <item>link</item>
         <item>linkColor</item>
         <item>links</item>
         <item>location</item>
+        <item>locationbar</item>
+        <item>load</item>
         <item>lowsrc</item>
         <item>match</item>
         <item>MAX_VALUE</item>
+        <item>menubar</item>
         <item>method</item>
         <item>mimeTypes</item>
         <item>MIN_VALUE</item>
+        <item>modifiers</item>
+        <item>moveAbove</item>
+        <item>moveBelow</item>
+        <item>moveBy</item>
+        <item>moveTo</item>
+        <item>moveToAbsolute</item>
+        <item>multiline</item>
         <item>name</item>
         <item>NaN</item>
         <item>NEGATIVE_INFINITY</item>
+        <item>negative_infinity</item>
         <item>next</item>
         <item>open</item>
         <item>opener</item>
         <item>options</item>
+        <item>outerHeight</item>
+        <item>outerWidth</item>
+        <item>pageX</item>
+        <item>pageY</item>
+        <item>pageXoffset</item>
+        <item>pageYoffset</item>
         <item>parent</item>
         <item>parse</item>
         <item>pathname</item>
+        <item>personalbar</item>
+        <item>pixelDepth</item>
+        <item>platform</item>
         <item>plugins</item>
+        <item>pop</item>
         <item>port</item>
         <item>POSITIVE_INFINITY</item>
+        <item>positive_infinity</item>
+        <item>preference</item>
         <item>previous</item>
+        <item>print</item>
         <item>prompt</item>
         <item>protocol</item>
         <item>prototype</item>
+        <item>push</item>
         <item>referrer</item>
         <item>refresh</item>
+        <item>releaseEvents</item>
         <item>reload</item>
         <item>replace</item>
         <item>reset</item>
+        <item>resizeBy</item>
+        <item>resizeTo</item>
         <item>reverse</item>
+        <item>rightContext</item>
+        <item>screenX</item>
+        <item>screenY</item>
         <item>scroll</item>
+        <item>scrollbar</item>
+        <item>scrollBy</item>
+        <item>scrollTo</item>
         <item>search</item>
         <item>select</item>
         <item>selected</item>
@@ -242,38 +328,67 @@
         <item>setSeconds</item>
         <item>setTime</item>
         <item>setTimeout</item>
+        <item>setUTCDate</item>
+        <item>setUTCDay</item>
+        <item>setUTCFullYear</item>
+        <item>setUTCHours</item>
+        <item>setUTCMilliseconds</item>
+        <item>setUTCMinutes</item>
+        <item>setUTCMonth</item>
+        <item>setUTCSeconds</item>
         <item>setYear</item>
+        <item>shift</item>
+        <item>siblingAbove</item>
+        <item>siblingBelow</item>
         <item>small</item>
         <item>sort</item>
+        <item>source</item>
+        <item>splice</item>
         <item>split</item>
         <item>src</item>
         <item>status</item>
+        <item>statusbar</item>
         <item>strike</item>
         <item>sub</item>
         <item>submit</item>
+        <item>substr</item>
         <item>substring</item>
         <item>suffixes</item>
         <item>sup</item>
         <item>taintEnabled</item>
         <item>target</item>
+        <item>test</item>
         <item>text</item>
         <item>title</item>
         <item>toGMTString</item>
         <item>toLocaleString</item>
+        <item>toLowerCase</item>
+        <item>toolbar</item>
+        <item>toSource</item>
         <item>toString</item>
         <item>top</item>
         <item>toUpperCase</item>
+        <item>toUTCString</item>
         <item>type</item>
         <item>URL</item>
+        <item>unshift</item>
+        <item>unwatch</item>
         <item>userAgent</item>
         <item>UTC</item>
         <item>value</item>
         <item>valueOf</item>
+        <item>visibility</item>
         <item>vlinkColor</item>
         <item>vspace</item>
         <item>width</item>
+        <item>watch</item>
+        <item>which</item>
+        <item>width</item>
         <item>write</item>
         <item>writeln</item>
+        <item>x</item>
+        <item>y</item>
+        <item>zIndex</item>
 	 </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">

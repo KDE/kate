@@ -2139,7 +2139,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
-  if (key == Qt::Key_Backspace)
+  if (key == Qt::Key_Backspace || key == SHIFT + Qt::Key_Backspace)
   {
     m_view->backspace();
     e->accept();

@@ -501,7 +501,11 @@ bool KatePrinter::print (KateDocument *doc)
            if ( useGuide && currentPage == 1 )
            {  // FIXME - this may span more pages...
              // draw a box unless we have boxes, in which case we end with a box line
-             paint.setPen( renderer.config()->selectionColor() );
+
+             // use color of dsNormal for the title string and the hline
+             KateAttributeList _dsList;
+             KateHlManager::self()->getDefaults ( renderer.config()->schema(), _dsList );
+             paint.setPen( _dsList.at(0)->textColor() );
              int _marg = 0; // this could be available globally!??
              if ( useBox )
              {

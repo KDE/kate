@@ -3203,17 +3203,17 @@ void KateViewHighlightAction::slotAboutToShow()
           subMenusName << hlSection;
           QPopupMenu *menu = new QPopupMenu ();
           subMenus.append(menu);
-          popupMenu()->insertItem (hlSection, menu);
+          popupMenu()->insertItem ( '&' + hlSection, menu);
         }
 
         int m = subMenusName.findIndex (hlSection);
         names << hlName;
-        subMenus.at(m)->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
+        subMenus.at(m)->insertItem ( '&' + hlName, this, SLOT(setHl(int)), 0,  z);
       }
       else if (names.contains(hlName) < 1)
       {
         names << hlName;
-        popupMenu()->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
+        popupMenu()->insertItem ( '&' + hlName, this, SLOT(setHl(int)), 0,  z);
       }
     }
   }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.15" kateversion="2.3" section="Scripts"
+<language name="PHP/PHP" version="1.16" kateversion="2.3" section="Scripts"
           extensions="" priority="5"
           mimetype="" hidden="true">
   <highlighting>
@@ -28,6 +28,7 @@
       <item> var </item>
       <item> class </item>
       <item> new </item>
+      <item> static </item>
       <item> function </item>
       <item> default </item>
       <item> E_ALL </item>
@@ -44,6 +45,7 @@
       <item> __FILE__ </item>
       <item> __LINE__ </item>
       <item> TRUE </item>
+      <item> NULL </item>
     </list>
     <list name="functions">
       <item> abs </item>
@@ -616,6 +618,7 @@
       <item> get_defined_vars </item>
       <item> get_extension_funcs </item>
       <item> get_html_translation_table </item>
+      <item> get_include_p </item>
       <item> get_included_files </item>
       <item> get_loaded_extensions </item>
       <item> get_magic_quotes_gpc </item>
@@ -865,6 +868,7 @@
       <item> ignore_user_abort </item>
       <item> image2wbmp </item>
       <item> imagealphablending </item>
+      <item> imageantialias </item>
       <item> imagearc </item>
       <item> imagechar </item>
       <item> imagecharup </item>
@@ -2104,7 +2108,7 @@
       <item> require_once </item>
       <item> reset </item>
       <item> restore_error_handler </item>
-      <item> return </item>
+      <item> restore_include_path </item>
       <item> rewind </item>
       <item> rewinddir </item>
       <item> rmdir </item>
@@ -2154,6 +2158,7 @@
       <item> session_write_close </item>
       <item> set_error_handler </item>
       <item> set_file_buffer </item>
+      <item> set_include_path </item>
       <item> set_magic_quotes_runtime </item>
       <item> set_time_limit </item>
       <item> setcookie </item>

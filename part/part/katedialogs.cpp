@@ -20,6 +20,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+//BEGIN Really??
 // Copyright (c) 2000-2001 Charles Samuels <charles@kde.org>
 // Copyright (c) 2000-2001 Neil Stevens <multivac@fcmail.com>
 //
@@ -39,10 +40,11 @@
 // AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIAB\ILITY, WHETHER IN
 // AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+//END
 
 // $Id$
 
+//BEGIN Includes
 #include "katedialogs.h"
 #include "katedialogs.moc"
 
@@ -52,6 +54,7 @@
 #include "katehighlightdownload.h"
 #include "attribeditor.h"
 #include "katefactory.h"
+#include "kateconfig.h"
 
 #include <kapplication.h>
 #include <kspell.h>
@@ -92,6 +95,7 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qwidgetstack.h>
+//END
 
 #warning FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and there is a need for an itemUnset(XYZ)
 
@@ -107,6 +111,7 @@ using namespace Kate;
 #define TAG_FLOAT "Float"
 #define TAG_KEYWORD "keyword"
 
+//BEGIN PluginListItem
 PluginListItem::PluginListItem(const bool _exclusive, bool _checked, PluginInfo *_info, QListView *_parent)
   : QCheckListItem(_parent, _info->service->name(), CheckBox)
   , mInfo(_info)
@@ -137,7 +142,9 @@ void PluginListItem::paintCell(QPainter *p, const QColorGroup &cg, int a, int b,
   QCheckListItem::paintCell(p, cg, a, b, c);
   if(exclusive) myType = CheckBox;
 }
+//END
 
+//BEGIN PluginListView
 PluginListView::PluginListView(unsigned _min, unsigned _max, QWidget *_parent, const char *_name)
   : KListView(_parent, _name)
   , hasMaximum(true)
@@ -205,7 +212,9 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
     }
   }
 }
+//END
 
+//BEGIN PluginConfigPage
  PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   m_doc = doc;
@@ -263,7 +272,9 @@ void PluginConfigPage::unloadPlugin (PluginListItem *item)
 
   item->setOn(false);
 }
+//END
 
+//BEGIN HlConfigPage
 HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   m_doc = doc;
@@ -313,7 +324,9 @@ void HlConfigPage::apply ()
 void HlConfigPage::reload ()
 {
 }
+//END HlConfigPage
 
+//BEGIN HighlightDialogPage
 HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList *styleList,
                               HlDataList* highlightDataList,
                               int hlNumber,QWidget *parent, const char *name)
@@ -490,7 +503,9 @@ void HighlightDialogPage::slotChanged()
 {
   emit configChanged();
 }
+//END
 
+//BEGIN HlEditDialog
 /******************************************************************************/
 /*                     HlEditDialog implementation                            */
 /******************************************************************************/
@@ -922,7 +937,9 @@ void HlEditDialog::ItemAddNew()
       (void) new QListViewItem(it ? it->parent() : currentItem,it,"StringDetect "+i18n("New Item"),"StringDetect",i18n("New Item"),0,it ? it->parent()->text(1) : currentItem->text(1));
     }
 }
+//END
 
+//BEGIN StyleListView
 /*********************************************************************/
 /*                  StyleListView Implementation                     */
 /*********************************************************************/
@@ -937,14 +954,14 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
   addColumn( i18n("Selected") );
   if ( showUseDefaults )
     addColumn( i18n("Use Default Style") );
-  connect( this, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)), this, SLOT(slotMousePressed(int, QListViewItem*, const QPoint&, int)) );
-  connect( this, SIGNAL(spacePressed(QListViewItem*)), this, SLOT(showPopupMenu(QListViewItem*)) );
+  connect( this, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)),
+           this, SLOT(slotMousePressed(int, QListViewItem*, const QPoint&, int)) );
+  connect( this, SIGNAL(spacePressed(QListViewItem*)),
+           this, SLOT(showPopupMenu(QListViewItem*)) );
   // grap the bg color, selected color and default font
-  KConfig *ac = KateFactory::instance()->config();//kapp->config();
-  ac->setGroup("Kate Document");
-  bgcol = QColor( ac->readColorEntry( "Color Background", new QColor(KGlobalSettings::baseColor()) ) );
-  selcol = QColor( ac->readColorEntry( "Color Selected", new QColor(KGlobalSettings::highlightColor()) ) );
-  docfont = ac->readFontEntry( "Font", new QFont( KGlobalSettings::fixedFont()) );
+  bgcol = *KateRendererConfig::global()->backgroundColor();
+  selcol = *KateRendererConfig::global()->selectionColor();
+  docfont = *KateRendererConfig::global()->font( KateRendererConfig::ViewFont );
 
   viewport()->setPaletteBackgroundColor( bgcol );
 }
@@ -1016,6 +1033,9 @@ void StyleListView::keyPressEvent( QKeyEvent *e )
     QListView::keyPressEvent( e );
 }
 */
+//END
+
+//BEGIN StyleListItem
 /*********************************************************************/
 /*                  StyleListItem Implementation                     */
 /*********************************************************************/
@@ -1030,7 +1050,7 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
           ds( style ),
           st( data )
 {
-  is = st ? st->isSomethingSet() /*defStyle*/ ? ds : st : ds;
+  is = ( st && st->isSomethingSet() ) ? st : ds;
 }
 
 /* only true for a hl mode item using it's default style */
@@ -1235,7 +1255,9 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush(col == 3 ? is->textColor() : is->selectedTextColor()) );
   }
 }
+//END
 
+//BEGIN KMimeTypeChooser
 /*********************************************************************/
 /*               KMimeTypeChooser Implementation                     */
 /*********************************************************************/
@@ -1358,7 +1380,9 @@ QStringList KMimeTypeChooser::patterns()
   }
   return l;
 }
+//END
 
+//BEGIN KMimeTypeChooserDlg
 /*********************************************************************/
 /*               KMimeTypeChooserDlg Implementation                  */
 /*********************************************************************/
@@ -1408,3 +1432,4 @@ void SpellConfigPage::apply ()
   // kspell
   cPage->writeGlobalSettings ();
 }
+//END

@@ -1261,4 +1261,5 @@ void KateView::slotHlChanged()
   // show folding bar if "view defaults" says so, otherwise enable/disable only the menu entry
   updateFoldingConfig ();
 }
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

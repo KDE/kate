@@ -373,7 +373,24 @@ class KateBuffer : public QObject
      * index pointer gets filled with index of block in m_blocks
      * index only valid if returned block != 0 !
      */
-    KateBufBlock *findBlock (uint i, uint *index = 0);
+    KateBufBlock *findBlock (uint i, uint *index = 0)
+    {
+      // out of range !
+      if (i >= m_lines)
+        return 0;
+        
+      if ((m_blocks[m_lastFoundBlock]->startLine() <= i) && (m_blocks[m_lastFoundBlock]->endLine() > i))
+      {
+        if (index)
+          (*index) = m_lastFoundBlock;
+          
+        return m_blocks[m_lastFoundBlock];
+      }
+      
+      return findBlock_internal (i, index);
+    }
+    
+    KateBufBlock *findBlock_internal (uint i, uint *index = 0);
     
   public:
     /**

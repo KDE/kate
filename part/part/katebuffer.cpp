@@ -477,19 +477,12 @@ KateTextLine::Ptr KateBuffer::line_internal (KateBufBlock *buf, uint i)
   return buf->line (i - buf->startLine());
 }
 
-KateBufBlock *KateBuffer::findBlock(uint i, uint *index)
+KateBufBlock *KateBuffer::findBlock_internal (uint i, uint *index)
 {
-  // out of range !
-  if (i >= m_lines)
-    return 0;
-
   uint lastLine = m_blocks[m_lastInSyncBlock]->endLine ();
 
   if (lastLine > i) // we are in a allready known area !
   {
-    if ((m_lastFoundBlock >= m_blocks.size()) || (m_lastFoundBlock > m_lastInSyncBlock))
-      m_lastFoundBlock = 0;
-
     while (true)
     {
       KateBufBlock *buf = m_blocks[m_lastFoundBlock];
@@ -527,11 +520,11 @@ KateBufBlock *KateBuffer::findBlock(uint i, uint *index)
       // is it allready the searched block ?
       if ((i >= lastLine) && (i < buf->endLine()))
       {
-        if (index)
-          (*index) = m_lastInSyncBlock;
-
         // remember this block as last found !
         m_lastFoundBlock = m_lastInSyncBlock;
+      
+        if (index)
+          (*index) = m_lastFoundBlock;
 
         return buf;
       }
@@ -581,6 +574,10 @@ void KateBuffer::insertLine(uint i, KateTextLine::Ptr line)
   // last sync block adjust
   if (m_lastInSyncBlock > index)
     m_lastInSyncBlock = index;
+    
+  // last found
+  if (m_lastInSyncBlock < m_lastFoundBlock)
+    m_lastFoundBlock = m_lastInSyncBlock;
 
   editInsertTagLine (i);
 
@@ -632,6 +629,10 @@ void KateBuffer::removeLine(uint i)
     if (m_lastInSyncBlock > index)
       m_lastInSyncBlock = index;
   }
+  
+  // last found
+  if (m_lastInSyncBlock < m_lastFoundBlock)
+    m_lastFoundBlock = m_lastInSyncBlock;
 
   editRemoveTagLine (i);
 

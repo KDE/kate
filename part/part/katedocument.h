@@ -1050,7 +1050,7 @@ class KateDocument : public Kate::Document,
       The value is put in *result.
     */
     static bool checkIntValue( QString value, int *result );
-    /*
+    /**
       Feeds value into @p col using QColor::setNamedColor() and returns
       wheather the color is valid
     */

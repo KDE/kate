@@ -1017,30 +1017,18 @@ bool KateDocument::editRemoveLine ( uint line )
 // KTextEditor::SelectionInterface stuff
 //
 
-bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, uint endCol )
+bool KateDocument::setSelection ( const KateTextCursor & start,
+				  const KateTextCursor & end )
 {
   if( hasSelection() )
     tagLines( selectStart.line, selectEnd.line );
 
-  if (startLine < endLine)
-  {
-    selectStart.setPos(startLine, startCol);
-    selectEnd.setPos(endLine, endCol);
-  }
-  else if (startLine > endLine)
-  {
-    selectStart.setPos(endLine, endCol);
-    selectEnd.setPos(startLine, startCol);
-  }
-  else if (startCol < endCol)
-  {
-    selectStart.setPos(startLine, startCol);
-    selectEnd.setPos(endLine, endCol);
-  }
-  else if (startCol >= endCol)
-  {
-    selectStart.setPos(endLine, endCol);
-    selectEnd.setPos(startLine, startCol);
+  if (start <= end) {
+    selectStart = start;
+    selectEnd = end;
+  } else {
+    selectStart = end;
+    selectEnd = start;    
   }
 
   if( hasSelection() )
@@ -1049,6 +1037,13 @@ bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, u
   emit selectionChanged ();
 
   return true;
+}
+
+bool KateDocument::setSelection ( uint startLine, uint startCol,
+				  uint endLine, uint endCol )
+{
+  return setSelection ( KateTextCursor(startLine, startCol), 
+			KateTextCursor(endLine, endCol) );
 }
 
 bool KateDocument::clearSelection ()
@@ -1119,7 +1114,8 @@ bool KateDocument::removeSelectedText ()
   for (uint z = 0; z < myViews.count(); z++)
   {
     KateView *v = myViews.at(z);
-    if ((selectStart.line <= v->myViewInternal->cursorCache.line) && (v->myViewInternal->cursorCache.line<= selectEnd.line))
+    int cline = v->myViewInternal->cursorCache.line;
+    if ((selectStart.line <= cline) && (cline <= selectEnd.line))
     {
       v->myViewInternal->cursorCache = selectStart;
       v->myViewInternal->cursorCacheChanged = true;
@@ -1218,7 +1214,7 @@ bool KateDocument::setBlockSelectionMode (bool on)
   if (on != blockSelect)
   {
     blockSelect = on;
-    setSelection (selectStart.line, selectStart.col, selectEnd.line, selectEnd.col);
+    setSelection (selectStart, selectEnd);
     KTextEditor::View *view;
     for (view = myViews.first(); view != 0L; view = myViews.next() ) {
       emit static_cast<KateView *>( view )->newStatus();
@@ -2637,17 +2633,14 @@ void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& t
   if ( selectAnchor.line == -1 )
   {
     // anders: if we allready have a selection, we want to include all of that
-    if ( hasSelection() &&
-            ( to.line > selectEnd.line || to.line >= selectEnd.line && to.col >= selectEnd.col ) ) {
+    if ( hasSelection() && to >= selectEnd ) {
       selectAnchor = selectStart;
-    }
-    else {
-      selectAnchor.line = from.line;
-      selectAnchor.col = from.col;
+    } else {
+      selectAnchor = from;
     }
   }
 
-  setSelection( selectAnchor.line, selectAnchor.col, to.line, to.col );
+  setSelection( selectAnchor, to );
 }
 
 void KateDocument::selectWord( const KateTextCursor& cursor ) {
@@ -3264,80 +3257,33 @@ QColor &KateDocument::cursorCol(int x, int y)
 
 bool KateDocument::lineColSelected (int line, int col)
 {
-  if (!blockSelect)
-  {
-    if ((line > selectStart.line) && (line < selectEnd.line))
-      return true;
+  if ( (!blockSelect) && (col < 0) )
+    col = 0;
 
-    if ((line == selectStart.line) && (col >= selectStart.col) && (line < selectEnd.line))
-      return true;
+  KateTextCursor cursor(line, col);
 
-    if ((line == selectEnd.line) && (col < selectEnd.col) && (line > selectStart.line))
-      return true;
-
-    if ((line == selectEnd.line) && (col < selectEnd.col) && (line == selectStart.line) && (col >= selectStart.col))
-      return true;
-
-    if ((line == selectStart.line) && (selectStart.col == 0) && (col < 0))
-      return true;
-  }
-  else
-  {
-    if ((line >= selectStart.line) && (line <= selectEnd.line) && (col >= selectStart.col) && (col < selectEnd.col))
-      return true;
-  }
-
-  return false;
+  return (cursor >= selectStart) && (cursor < selectEnd);
 }
 
 bool KateDocument::lineSelected (int line)
 {
-  if (!blockSelect)
-  {
-    if ((line > selectStart.line) && (line < selectEnd.line))
-      return true;
-
-    if ((line == selectStart.line) && (line < selectEnd.line) && (selectStart.col == 0))
-      return true;
-  }
-
-  return false;
+  return (!blockSelect)
+    && (selectStart <= KateTextCursor(line, 0))
+    && (line < selectEnd.line);
 }
 
 bool KateDocument::lineEndSelected (int line)
 {
-  if (!blockSelect)
-  {
-    if ((line >= selectStart.line) && (line < selectEnd.line))
-      return true;
-  }
-
-  return false;
+  return (!blockSelect)
+    && (line >= selectStart.line)
+    && (line < selectEnd.line);
 }
 
 bool KateDocument::lineHasSelected (int line)
 {
-  if (!blockSelect)
-  {
-    if ((line > selectStart.line) && (line < selectEnd.line))
-      return true;
-
-    if ((line == selectStart.line) && (line < selectEnd.line))
-      return true;
-
-    if ((line == selectEnd.line) && (line > selectStart.line))
-      return true;
-
-    if ((line == selectEnd.line) && (line == selectStart.line) && (selectEnd.col > selectStart.col))
-      return true;
-  }
-  else
-  {
-    if ((line <= selectEnd.line) && (line >= selectStart.line) && (selectEnd.col > selectStart.col))
-      return true;
-  }
-
-  return false;
+    return (selectStart < selectEnd)
+      && (line >= selectStart.line)
+      && (line <= selectEnd.line);
 }
 
 bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int xPos2, int y, int xStart, int xEnd,

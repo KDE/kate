@@ -64,7 +64,7 @@ extern "C"
 KateFactory *KateFactory::s_self = 0;
 
 KateFactory::KateFactory ()
- : m_aboutData ("katepart", I18N_NOOP("Kate Part"), "2.2",
+ : m_aboutData ("katepart", I18N_NOOP("Kate Part"), "2.3",
              I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              I18N_NOOP( "(c) 2000-2004 The Kate Authors" ), 0, "http://kate.kde.org")
  , m_instance (&m_aboutData)

@@ -433,106 +433,103 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
         // Reasons for NOT delaying the drawing until the next character
         // You have to detect the change one character in advance.
         // TODO: KateAttribute::canBatchRender()
-        bool delayPainting = true;
+        bool renderNow = false;
         if ((isTab)
           // formatting has changed OR
           || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol))
 
           // it is the end of the line OR
-          || (tmp < 2) ||
+          || (tmp < 2)
 
           // the x position is past the end OR
-          ((int)xPos > xEnd) ||
+          || ((int)xPos > xEnd)
 
           // it is a different attribute OR
-          (!noAttribs && curAt != &at[*(a+1)]) ||
+          || (!noAttribs && curAt != &at[*(a+1)])
 
           // the selection boundary was crossed OR
-          (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel))) ||
+          || (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel)))
 
           // the next char is a tab (removed the "and this isn't" because that's dealt with above)
           // i.e. we have to draw the current text so the tab can be rendered as above.
-          (textLine->string()[nextCol] == tabChar) ||
+          || (textLine->string()[nextCol] == tabChar)
 
           // input method edit area
-          ( isIMEdit != ( imStart < imEnd && ( nextCol >= imStart && nextCol < imEnd ) ) ) ||
+          || ( isIMEdit != ( imStart < imEnd && ( nextCol >= imStart && nextCol < imEnd ) ) )
 
           // input method selection
-          ( isIMSel != ( imSelStart < imSelEnd && ( nextCol >= imSelStart && nextCol < imSelEnd ) ) )
+          || ( isIMSel != ( imSelStart < imSelEnd && ( nextCol >= imSelStart && nextCol < imSelEnd ) ) )
         )
         {
-          delayPainting = false;
+          renderNow = true;
         }
 
-        // make sure we redraw the right character groups on attrib/selection changes
-        // Special case... de-special case some of it
-        if (isTab)
+        if (renderNow)
         {
-          if (!isPrinterFriendly() && !selectionPainted) {
-            if (isSel)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, config()->selectionColor());
-            else if (currentHL.itemSet(KateAttribute::BGColor))
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
+          if (!isPrinterFriendly() && !selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor)))
+          {
+            QColor fillColor = isSel ? config()->selectionColor() : currentHL.bgColor();
+            paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, fillColor);
           }
 
-          // Draw spaces too, because it might be eg. underlined
-          static QString spaces;
-          if (int(spaces.length()) != m_tabWidth)
-            spaces.fill(' ', m_tabWidth);
+          // make sure we redraw the right character groups on attrib/selection changes
+          // Special case... de-special case some of it
+          if (isTab)
+          {
+            // Draw spaces too, because it might be eg. underlined
+            static QString spaces;
+            if (int(spaces.length()) != m_tabWidth)
+              spaces.fill(' ', m_tabWidth);
 
-          paint.drawText(oldXPos-xStart, y, spaces);
+            paint.drawText(oldXPos-xStart, y, spaces);
 
-          if (showTabs())
-            paintWhitespaceMarker(paint, xPos - xStart, y);
+            if (showTabs())
+              paintWhitespaceMarker(paint, xPos - xStart, y);
 
-          // variable advancement
-          blockStartCol = nextCol;
-          oldXPos = xPosAfter;
+            // variable advancement
+            blockStartCol = nextCol;
+            oldXPos = xPosAfter;
+          }
+          else
+          {
+            if (!isPrinterFriendly()) {
+              // XIM support
+              // input method edit area
+              if ( isIMEdit ) {
+                const QColorGroup& cg = m_view->colorGroup();
+                int h1, s1, v1, h2, s2, v2;
+                cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
+                cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
+                QColor imCol;
+                imCol.setHsv( h1, s1, ( v1 + v2 ) / 2 );
+                paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, imCol );
+              }
+
+              // input method selection
+              if ( isIMSel ) {
+                const QColorGroup& cg = m_view->colorGroup();
+                paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, cg.color( QColorGroup::Foreground ) );
+                paint.save();
+                paint.setPen( cg.color( QColorGroup::BrightText ) );
+              }
+            }
+
+            // Here's where the money is...
+            paint.drawText(oldXPos-xStart, y, textLine->string(), blockStartCol, nextCol-blockStartCol);
+
+            // Put pen color back
+            if (isIMSel) paint.restore();
+
+            // We're done drawing?
+            if ((int)xPos > xEnd)
+              break;
+
+            // variable advancement
+            blockStartCol = nextCol;
+            oldXPos = xPosAfter;
+            //oldS = s+1;
+          } // renderNow
         }
-        else if ( !delayPainting )
-        {
-          if (!isPrinterFriendly()) {
-            if (!selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor))) {
-              QColor fillColor = isSel ? config()->selectionColor() : currentHL.bgColor();
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, fillColor);
-            }
-
-            // XIM support
-            // input method edit area
-            if ( isIMEdit ) {
-              const QColorGroup& cg = m_view->colorGroup();
-              int h1, s1, v1, h2, s2, v2;
-              cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
-              cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
-              QColor imCol;
-              imCol.setHsv( h1, s1, ( v1 + v2 ) / 2 );
-              paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, imCol );
-            }
-
-            // input method selection
-            if ( isIMSel ) {
-              const QColorGroup& cg = m_view->colorGroup();
-              paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, cg.color( QColorGroup::Foreground ) );
-              paint.save();
-              paint.setPen( cg.color( QColorGroup::BrightText ) );
-            }
-          }
-
-          // Here's where the money is...
-          paint.drawText(oldXPos-xStart, y, textLine->string(), blockStartCol, nextCol-blockStartCol);
-
-          // Put pen color back
-          if (isIMSel) paint.restore();
-
-          // We're done drawing?
-          if ((int)xPos > xEnd)
-            break;
-
-          // variable advancement
-          blockStartCol = nextCol;
-          oldXPos = xPosAfter;
-          //oldS = s+1;
-        } // not delaying drawing
 
         // determine cursor X position
         if ((showCursor > -1) && (showCursor == (int)curCol))

@@ -347,6 +347,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
   KateAttribute customHL;
 
+  // draw word-wrap-honor-indent filling
+  if (range->xOffset() && range->xOffset() > xStart)
+    paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(*config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
+  
   // Optimisation to quickly draw an empty line of text
   if (len < 1)
   {
@@ -361,10 +365,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   }
   else
   {
-    // draw word-wrap-honor-indent filling
-    if (range->xOffset() && range->xOffset() > xStart)
-      paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(*config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
-
     // loop each character (tmp goes backwards, but curCol doesn't)
     for (uint tmp = len; (tmp > 0); tmp--)
     {
@@ -750,7 +750,7 @@ uint KateRenderer::textWidth(const KateTextCursor &cursor)
 
 uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
 {
-  bool wrapCursor = m_doc->configFlags() & KateDocument::cfWrapCursor;
+  bool wrapCursor = m_doc->wrapCursor();
   int len;
   int x, oldX;
 
@@ -897,5 +897,9 @@ void KateRenderer::updateConfig ()
     m_view->updateRendererConfig();
 }
 
+uint KateRenderer::spaceWidth()
+{
+  return attribute(0)->width(*config()->fontStruct(), spaceChar, m_tabWidth);
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

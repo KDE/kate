@@ -438,7 +438,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
 
       // Turning on translations
       m_scrollTranslateHack = scrollHeight;
-      
+
       return;
     }
   }
@@ -930,64 +930,110 @@ void KateViewInternal::doDeleteWordRight()
 
 class CalculatingCursor : public KateTextCursor {
 public:
-  CalculatingCursor( const KateDocument& doc )
-    : KateTextCursor(), m_doc( doc )
-    { Q_ASSERT( valid() ); }
-  CalculatingCursor( const KateDocument& doc, const KateTextCursor& c )
-    : KateTextCursor( c ), m_doc( doc )
-    { Q_ASSERT( valid() ); }
+  CalculatingCursor(KateViewInternal* vi)
+    : KateTextCursor()
+    , m_vi(vi)
+  {
+    Q_ASSERT(valid());
+  }
+
+  CalculatingCursor(KateViewInternal* vi, const KateTextCursor& c)
+    : KateTextCursor(c)
+    , m_vi(vi)
+  {
+    Q_ASSERT(valid());
+  }
+
   // This one constrains its arguments to valid positions
-  CalculatingCursor( const KateDocument& doc, uint line, uint col )
-    : KateTextCursor( line, col ), m_doc( doc )
-    { makeValid(); }
+  CalculatingCursor(KateViewInternal* vi, uint line, uint col)
+    : KateTextCursor(line, col)
+    , m_vi(vi)
+  {
+    makeValid();
+  }
+
+
   virtual CalculatingCursor& operator+=( int n ) = 0;
+
   virtual CalculatingCursor& operator-=( int n ) = 0;
+
   CalculatingCursor& operator++() { return operator+=( 1 ); }
+
   CalculatingCursor& operator--() { return operator-=( 1 ); }
+
   void makeValid() {
-    m_line = QMAX( 0, QMIN( int( m_doc.numLines() - 1 ), line() ) );
-    if (const_cast<KateDocument&>(m_doc).wrapCursor())
-      m_col = QMAX( 0, QMIN( m_doc.lineLength( line() ), col() ) );
+    m_line = QMAX( 0, QMIN( int( m_vi->m_doc->numLines() - 1 ), line() ) );
+    if (m_vi->m_doc->wrapCursor())
+      m_col = QMAX( 0, QMIN( m_vi->m_doc->lineLength( line() ), col() ) );
     else
       m_col = QMAX( 0, col() );
     Q_ASSERT( valid() );
   }
+
   void toEdge( Bias bias ) {
     if( bias == left ) m_col = 0;
-    else if( bias == right ) m_col = m_doc.lineLength( line() );
+    else if( bias == right ) m_col = m_vi->m_doc->lineLength( line() );
   }
+
   bool atEdge() const { return atEdge( left ) || atEdge( right ); }
+
   bool atEdge( Bias bias ) const {
     switch( bias ) {
     case left:  return col() == 0;
     case none:  return atEdge();
-    case right: return col() == m_doc.lineLength( line() );
+    case right: return col() == m_vi->m_doc->lineLength( line() );
     default: Q_ASSERT(false); return false;
     }
   }
+
 protected:
-  // Argh! KateDocument::configFlags() is not const :(
   bool valid() const {
     return line() >= 0 &&
-            uint( line() ) < m_doc.numLines() &&
-            col()  >= 0 &&
-            (!(const_cast<KateDocument&>(m_doc).wrapCursor()) || col() <= m_doc.lineLength( line() ));
+            uint( line() ) < m_vi->m_doc->numLines() &&
+            col() >= 0 &&
+            (!m_vi->m_doc->wrapCursor() || col() <= m_vi->m_doc->lineLength( line() ));
   }
-  const KateDocument& m_doc;
+  KateViewInternal* m_vi;
 };
 
 class BoundedCursor : public CalculatingCursor {
 public:
-  BoundedCursor( const KateDocument& doc )
-    : CalculatingCursor( doc ) {};
-  BoundedCursor( const KateDocument& doc, const KateTextCursor& c )
-    : CalculatingCursor( doc, c ) {};
-  BoundedCursor( const KateDocument& doc, uint line, uint col )
-    : CalculatingCursor( doc, line, col ) {};
+  BoundedCursor(KateViewInternal* vi)
+    : CalculatingCursor( vi ) {};
+  BoundedCursor(KateViewInternal* vi, const KateTextCursor& c )
+    : CalculatingCursor( vi, c ) {};
+  BoundedCursor(KateViewInternal* vi, uint line, uint col )
+    : CalculatingCursor( vi, line, col ) {};
   virtual CalculatingCursor& operator+=( int n ) {
     m_col += n;
+
+    if (n > 0 && m_vi->m_view->dynWordWrap()) {
+      // Need to constrain to current visible text line for dynamic wrapping mode
+      if (m_col > m_vi->m_doc->lineLength(m_line)) {
+        LineRange currentRange = m_vi->range(*this);
+
+        int endX;
+        bool crap;
+        m_vi->m_view->renderer()->textWidth(m_vi->m_doc->kateTextLine(m_line), currentRange.startCol, m_vi->width() - currentRange.xOffset(), &crap, &endX);
+        endX += (m_col - currentRange.endCol + 1) * m_vi->m_view->renderer()->spaceWidth();
+
+        // Constraining if applicable NOTE: some code duplication in KateViewInternal::resize()
+        if (endX >= m_vi->width() - currentRange.xOffset()) {
+          m_col -= n;
+          if ( uint( line() ) < m_vi->m_doc->numLines() - 1 ) {
+            m_line++;
+            m_col = 0;
+          }
+        }
+      }
+      
+    } else if (n < 0 && col() < 0 && line() > 0 ) {
+      m_line--;
+      m_col = m_vi->m_doc->lineLength( line() );
+    }
+
     m_col = QMAX( 0, col() );
-    //col = QMIN( col, m_doc.lineLength( line ) );
+
     Q_ASSERT( valid() );
     return *this;
   }
@@ -998,18 +1044,19 @@ public:
 
 class WrappingCursor : public CalculatingCursor {
 public:
-  WrappingCursor( const KateDocument& doc )
-    : CalculatingCursor( doc ) {};
-  WrappingCursor( const KateDocument& doc, const KateTextCursor& c )
-    : CalculatingCursor( doc, c ) {};
-  WrappingCursor( const KateDocument& doc, uint line, uint col )
-    : CalculatingCursor( doc, line, col ) {};
+  WrappingCursor(KateViewInternal* vi)
+    : CalculatingCursor( vi) {};
+  WrappingCursor(KateViewInternal* vi, const KateTextCursor& c )
+    : CalculatingCursor( vi, c ) {};
+  WrappingCursor(KateViewInternal* vi, uint line, uint col )
+    : CalculatingCursor( vi, line, col ) {};
+
   virtual CalculatingCursor& operator+=( int n ) {
     if( n < 0 ) return operator-=( -n );
-    int len = m_doc.lineLength( line() );
+    int len = m_vi->m_doc->lineLength( line() );
     if( col() + n <= len ) {
       m_col += n;
-    } else if( uint( line() ) < m_doc.numLines() - 1 ) {
+    } else if( uint( line() ) < m_vi->m_doc->numLines() - 1 ) {
       n -= len - col() + 1;
       m_col = 0;
       m_line++;
@@ -1027,7 +1074,7 @@ public:
     } else if( line() > 0 ) {
       n -= col() + 1;
       m_line--;
-      m_col = m_doc.lineLength( line() );
+      m_col = m_vi->m_doc->lineLength( line() );
       operator-=( n );
     } else {
       m_col = 0;
@@ -1040,11 +1087,10 @@ public:
 void KateViewInternal::moveChar( Bias bias, bool sel )
 {
   KateTextCursor c;
-  // Wrap cursor off and dynamic word wrap are mutually exclusive for now, supporting it would be too hackish
-  if ( m_view->dynWordWrap() || m_doc->wrapCursor() ) {
-    c = WrappingCursor( *m_doc, cursor ) += bias;
+  if ( m_doc->wrapCursor() ) {
+    c = WrappingCursor( this, cursor ) += bias;
   } else {
-    c = BoundedCursor( *m_doc, cursor ) += bias;
+    c = BoundedCursor( this, cursor ) += bias;
   }
   updateSelection( c, sel );
   updateCursor( c );
@@ -1057,7 +1103,7 @@ void KateViewInternal::moveWord( Bias bias, bool sel )
 {
   // This matches the word-moving in QTextEdit, QLineEdit etc.
 
-  WrappingCursor c( *m_doc, cursor );
+  WrappingCursor c( this, cursor );
   if( !c.atEdge( bias ) ) {
     Highlight* h = m_doc->highlight();
 
@@ -1091,7 +1137,7 @@ void KateViewInternal::wordRight( bool sel ) { moveWord( right, sel ); }
 
 void KateViewInternal::moveEdge( Bias bias, bool sel )
 {
-  BoundedCursor c( *m_doc, cursor );
+  BoundedCursor c( this, cursor );
   c.toEdge( bias );
   updateSelection( c, sel );
   updateCursor( c );
@@ -1490,6 +1536,9 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
 
 int KateViewInternal::lineMaxCursorX(const LineRange& range)
 {
+  if (!m_doc->wrapCursor() && !range.wrap)
+    return INT_MAX;
+
   int maxX = range.endX;
 
   if (maxX && range.wrap) {
@@ -1536,10 +1585,10 @@ void KateViewInternal::cursorUp(bool sel)
     // Translate to new line
     visibleX += thisRange.xOffset();
     visibleX -= pRange.xOffset();
-    
+
     // Limit to >= 0
     visibleX = QMAX(0, visibleX);
-    
+
     startCol = pRange.startCol;
     xOffset = pRange.startX;
     newLine = pRange.line;
@@ -1593,11 +1642,11 @@ void KateViewInternal::cursorDown(bool sel)
     // VisibleX is the distance from the start of the text to the cursor on the current line.
     int visibleX = m_view->renderer()->textWidth(cursor) - thisRange.startX;
     int currentLineVisibleX = visibleX;
-     
+
     // Translate to new line
     visibleX += thisRange.xOffset();
     visibleX -= nRange.xOffset();
-    
+
     // Limit to >= 0
     visibleX = QMAX(0, visibleX);
 
@@ -1607,7 +1656,7 @@ void KateViewInternal::cursorDown(bool sel)
       startCol = thisRange.endCol;
       xOffset = thisRange.endX;
     }
-    
+
     // Take into account current max X (ie. if the current line was smaller
     // than the last definitely specified width)
     if (thisRange.xOffset() && !nRange.xOffset() && currentLineVisibleX == 0) // Special case for where xOffset may be > m_currentMaxX
@@ -2174,7 +2223,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     case QEvent::DragLeave:
       stopDragScroll();
       break;
-      
+
     case QEvent::User + TimeMarkerEvent:
       m_scrollTranslateHack = 0;
       break;
@@ -2506,24 +2555,24 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   if (!forgetNext && m_scrollTranslateHack) {
     // Have to paint both the requested area and the scrolled area due to race conditions...
     QRect updateR = e->rect();
-    
+
     // Translate area by scroll amount
     updateR.moveBy(0, m_scrollTranslateHack);
-    
+
     // Restrict to area that may have been obscured at the time
     updateR = updateR.intersect(QRect(0, m_scrollTranslateHack < 0 ? 0 : m_scrollTranslateHack, width(), m_scrollTranslateHack < 0 ? height() + m_scrollTranslateHack : height()));
-    
+
     // Subtract region that's about to be redrawn anyway
     if (updateR.intersects(e->rect()))
       updateR = QRegion(updateR).subtract(e->region()).boundingRect();
-    
+
     // Send off the request to repaint immediately
     forgetNext = true;
     repaint(updateR.x(), updateR.y(), updateR.width(), updateR.height(), false);
   }
-  
+
   forgetNext = false;
-  
+
   paintText(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
@@ -2563,6 +2612,18 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
       // keep the cursor on-screen if it was previously
       if (currentViewLine >= 0)
         makeVisible(displayCursor, displayCursor.col());
+    }
+
+    if (width() < e->oldSize().width()) {
+      if (!m_doc->wrapCursor()) {
+        // May have to restrain cursor to new smaller width...
+        if (cursor.col() > m_doc->lineLength(cursor.line())) {
+          LineRange thisRange = currentRange();
+
+          KateTextCursor newCursor(cursor.line(), thisRange.endCol + ((width() - thisRange.xOffset() - (thisRange.endX - thisRange.startX)) / m_view->renderer()->spaceWidth()) - 1);
+          updateCursor(newCursor);
+        }
+      }
     }
 
   } else {
@@ -2671,7 +2732,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       emit dropEventPass(event);
 
   } else if ( QTextDrag::canDecode(event) && m_doc->isReadWrite() ) {
-    
+
     QString text;
 
     if (!QTextDrag::decode(event, text))
@@ -2733,7 +2794,7 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
                               true );
 
   m_doc->insertText( cursor.line(), cursor.col(), e->text() );
-  
+
   updateView( true );
   updateCursor( cursor, true );
   m_imPreeditLength = e->text().length();
@@ -2745,7 +2806,7 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     e->ignore();
     return;
   }
-  
+
   if ( m_imPreeditLength > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
                        cursor.line(), m_imPreeditStart + m_imPreeditLength );
@@ -2761,7 +2822,7 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
 
     updateView( true );
     updateCursor( cursor, true );
-  
+
   }
 
   m_imPreeditStart = 0;

@@ -78,6 +78,9 @@ class KateViewInternal : public QWidget
 
     friend class KateView;
     friend class KateIconBorder;
+    friend class CalculatingCursor;
+    friend class BoundedCursor;
+    friend class WrappingCursor;
 
   public:
     KateViewInternal ( KateView *view, KateDocument *doc );

@@ -124,6 +124,7 @@ public:
      */
 
     // Width calculators
+    uint spaceWidth();
     uint textWidth(const TextLine::Ptr &, int cursorCol);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
     uint textWidth(const KateTextCursor &cursor);

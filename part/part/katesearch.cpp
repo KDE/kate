@@ -646,7 +646,7 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
   : KDialogBase ( parent, 0L, false, i18n( "Replace Confirmation" ),
                   User3 | User2 | User1 | Close | Ok , Ok, true,
-                  i18n("Replace &All"), i18n("Replace && &Close"), i18n("&Replace") )
+                  i18n("Replace &All"), i18n("Re&place && Close"), i18n("&Replace") )
 {
   setButtonOK( i18n("&Find Next") );
   QWidget *page = new QWidget(this);

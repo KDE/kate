@@ -38,7 +38,7 @@ class KateUndoGroup
      * @param doc document to belong to
      */
     KateUndoGroup (KateDocument *doc);
-    
+
     /**
      * Destructor
      */
@@ -49,7 +49,7 @@ class KateUndoGroup
      * Undo the contained undo items
      */
     void undo ();
-    
+
     /**
      * Redo the contained undo items
      */
@@ -70,7 +70,7 @@ class KateUndoGroup
       editMarkLineAutoWrapped,
       editInvalid
     };
-    
+
     /**
      * add an item to the group
      * @param type undo item type
@@ -92,13 +92,19 @@ class KateUndoGroup
     * set group as as savepoint. the next group will not merge with this one
     */
     void safePoint (bool safePoint=true);
+
+    /**
+     * is this undogroup empty?
+     */
+    bool isEmpty () const { return m_items.isEmpty(); }
+
   private:
     /**
      * singleType
      * @return the type if it's only one type, or editInvalid if it contains multiple types.
      */
     KateUndoGroup::UndoType singleType();
-    
+
     /**
      * are we only of this type ?
      * @param type type to query
@@ -117,7 +123,7 @@ class KateUndoGroup
      * Document we belong to
      */
     KateDocument *m_doc;
-    
+
     /**
      * list of items contained
      */

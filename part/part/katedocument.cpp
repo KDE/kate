@@ -1049,10 +1049,17 @@ void KateDocument::undoEnd()
 
   if (m_editCurrentUndo)
   {
-    if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo,m_undoComplexMerge))
+    bool changedUndo = false;
+
+    if (m_editCurrentUndo->isEmpty())
+      delete m_editCurrentUndo;
+    else if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo,m_undoComplexMerge))
       delete m_editCurrentUndo;
     else
+    {
       undoItems.append(m_editCurrentUndo);
+      changedUndo = true;
+    }
 
     m_undoDontMerge = false;
     m_undoIgnoreCancel = true;
@@ -1063,7 +1070,8 @@ void KateDocument::undoEnd()
     // the user has 5 seconds to input more data, or undo merging gets canceled for the current undo item.
     m_undoMergeTimer->start(5000, true);
 
-    emit undoChanged();
+    if (changedUndo)
+      emit undoChanged();
   }
 }
 

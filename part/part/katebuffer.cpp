@@ -183,37 +183,6 @@ void KateBuffer::editRemoveTagLine (uint line)
     editTagLineEnd = line;
 }
 
-void KateBuffer::setTabWidth (uint w)
-{
-  if (m_tabWidth != w)
-  {
-    m_tabWidth = w;
-
-    if (m_highlight && m_highlight->foldingIndentationSensitive())
-      invalidateHighlighting();
-  }
-}
-
-uint KateBuffer::countVisible ()
-{
-  return m_lines - m_regionTree.getHiddenLinesCount(m_lines);
-}
-
-uint KateBuffer::lineNumber (uint visibleLine)
-{
-  return m_regionTree.getRealLine (visibleLine);
-}
-
-uint KateBuffer::lineVisibleNumber (uint line)
-{
-  return m_regionTree.getVirtualLine (line);
-}
-
-void KateBuffer::lineInfo (KateLineInfo *info, unsigned int line)
-{
-  m_regionTree.getLineInfo(info,line);
-}
-
 void KateBuffer::clear()
 {
   m_regionTree.clear();
@@ -636,6 +605,17 @@ void KateBuffer::removeLine(uint i)
   m_regionTree.lineHasBeenRemoved (i);
 }
 
+void KateBuffer::setTabWidth (uint w)
+{
+  if ((m_tabWidth != w) && (m_tabWidth > 0))
+  {
+    m_tabWidth = w;
+
+    if (m_highlight && m_highlight->foldingIndentationSensitive())
+      invalidateHighlighting();
+  }
+}
+
 void KateBuffer::setHighlight(Highlight *highlight)
 {
   m_highlight = highlight;
@@ -875,11 +855,6 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
      
      buf->markDirty ();
    }
-}
-
-void KateBuffer::dumpRegionTree()
-{
-  m_regionTree.debugDump();
 }
 
 // BEGIN KateBufBlock

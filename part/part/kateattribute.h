@@ -50,11 +50,11 @@ public:
 
   QFont font(const QFont& ref);
 
-  inline int width(FontStruct& fs, const QString& text, int col, int tabWidth) const
+  inline int width(KateFontStruct& fs, const QString& text, int col, int tabWidth) const
   { return fs.width(text, col, bold(), italic(), tabWidth); };
 
   // Non-preferred function when you have a string and you want one char's width!!
-  inline int width(FontStruct& fs, const QChar& c, int tabWidth) const
+  inline int width(KateFontStruct& fs, const QChar& c, int tabWidth) const
   { return fs.width(c, bold(), italic(), tabWidth); };
 
   inline bool itemSet(int item) const

@@ -4399,7 +4399,7 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 
 void KateDocument::dumpRegionTree()
 {
-  m_buffer->dumpRegionTree();
+  m_buffer->foldingTree()->debugDump();
 }
 
 unsigned int KateDocument::getRealLine(unsigned int virtualLine)

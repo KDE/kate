@@ -856,7 +856,7 @@ void KateViewConfig::setTextToSearchMode (int mode)
 //BEGIN KateRendererConfig
 KateRendererConfig::KateRendererConfig ()
  :
-   m_font (new FontStruct ()),
+   m_font (new KateFontStruct ()),
    m_backgroundColor (0),
    m_selectionColor (0),
    m_highlightedLineColor (0),
@@ -995,7 +995,7 @@ void KateRendererConfig::setSchema (uint schema)
   configEnd ();
 }
 
-FontStruct *KateRendererConfig::fontStruct ()
+KateFontStruct *KateRendererConfig::fontStruct ()
 {
   if (m_fontSet || isGlobal())
     return m_font;
@@ -1020,7 +1020,7 @@ void KateRendererConfig::setFont(const QFont &font)
   if (!m_fontSet)
   {
     m_fontSet = true;
-    m_font = new FontStruct ();
+    m_font = new KateFontStruct ();
   }
 
   m_font->setFont(font);

@@ -368,23 +368,21 @@ class KateBuffer : public QObject
     void removeLine(uint i);
     
   public:
-    uint countVisible ();
-
-    uint lineNumber (uint visibleLine);
-
-    uint lineVisibleNumber (uint line);
-
-    void lineInfo (KateLineInfo *info, unsigned int line);
-
-    void dumpRegionTree ();
-
-    void setTabWidth (uint w);
+    inline uint KateBuffer::countVisible () { return m_lines - m_regionTree.getHiddenLinesCount(m_lines); }
     
+    inline uint KateBuffer::lineNumber (uint visibleLine) { return m_regionTree.getRealLine (visibleLine); }
+    
+    inline uint KateBuffer::lineVisibleNumber (uint line) { return m_regionTree.getVirtualLine (line); }
+    
+    inline void KateBuffer::lineInfo (KateLineInfo *info, unsigned int line) { m_regionTree.getLineInfo(info,line); }
+
     inline uint tabWidth () const { return m_tabWidth; }
     
     inline KVMAllocator *vm () { return &m_vm; }
     
   public:
+    void setTabWidth (uint w);  
+
     /**
      * Use @p highlight for highlighting
      *

@@ -25,7 +25,7 @@
 class KateView;
 class KateDocument;
 class KateRenderer;
-class FontStruct;
+class KateFontStruct;
 
 class KConfig;
 
@@ -375,7 +375,7 @@ class KateRendererConfig : public KateConfig
     uint schema () const;
     void setSchema (uint schema);
 
-    FontStruct *fontStruct ();
+    KateFontStruct *fontStruct ();
     QFont *font();
     KateFontMetrics *fontMetrics();
 
@@ -407,7 +407,7 @@ class KateRendererConfig : public KateConfig
 
   private:
     uint m_schema;
-    FontStruct* m_font;
+    KateFontStruct* m_font;
     bool m_wordWrapMarker;
     QColor *m_backgroundColor;
     QColor *m_selectionColor;

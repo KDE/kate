@@ -64,10 +64,10 @@ int KateFontMetrics::width(QChar c)
 }
 
 //
-// FontStruct implementation
+// KateFontStruct implementation
 //
 
-FontStruct::FontStruct()
+KateFontStruct::KateFontStruct()
 : myFont(KGlobalSettings::fixedFont()),
   myFontBold(KGlobalSettings::fixedFont()),
   myFontItalic(KGlobalSettings::fixedFont()),
@@ -81,11 +81,11 @@ FontStruct::FontStruct()
   updateFontData ();
 }
 
-FontStruct::~FontStruct()
+KateFontStruct::~KateFontStruct()
 {
 }
 
-void FontStruct::updateFontData ()
+void KateFontStruct::updateFontData ()
 {
   int maxAscent = myFontMetrics.ascent();
   int maxDescent = myFontMetrics.descent();
@@ -96,35 +96,7 @@ void FontStruct::updateFontData ()
   m_fixedPitch = QFontInfo( myFont ).fixedPitch();
 }
 
-int FontStruct::width(const QString& text, int col, bool bold, bool italic, int tabWidth)
-{
-  if (text[col] == QChar('\t'))
-    return tabWidth * myFontMetrics.width(' ');
-
-  return (bold) ?
-    ( (italic) ?
-      myFontMetricsBI.charWidth(text, col) :
-      myFontMetricsBold.charWidth(text, col) ) :
-    ( (italic) ?
-      myFontMetricsItalic.charWidth(text, col) :
-      myFontMetrics.charWidth(text, col) );
-}
-
-int FontStruct::width(const QChar& c, bool bold, bool italic, int tabWidth)
-{
-  if (c == QChar('\t'))
-    return tabWidth * myFontMetrics.width(' ');
-
-  return (bold) ?
-    ( (italic) ?
-      myFontMetricsBI.width(c) :
-      myFontMetricsBold.width(c) ) :
-    ( (italic) ?
-      myFontMetricsItalic.width(c) :
-      myFontMetrics.width(c) );
-}
-
-void FontStruct::setFont (const QFont & font)
+void KateFontStruct::setFont (const QFont & font)
 {
   myFont = font;
 

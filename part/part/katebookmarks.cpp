@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
 
    This library is free software; you can redistribute it and/or
@@ -81,24 +82,28 @@ void KateBookmarks::createActions( KActionCollection* ac )
     this, SLOT(toggleBookmark()),
     ac, "bookmarks_toggle" );
   m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
+  m_bookmarkMenu->insert( m_bookmarkToggle );
 
   m_bookmarkClear = new KAction(
     i18n("Clear Bookmarks"), 0,
     this, SLOT(clearBookmarks()),
     ac, "bookmarks_clear");
   m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
+  m_bookmarkMenu->insert( m_bookmarkClear );
 
   m_goNext = new KAction(
     "Next Bookmark", ALT + Key_PageDown,
     this, SLOT(goNext()),
     ac, "bookmarks_next");
   m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
+  m_bookmarkMenu->insert( m_goNext );
 
   m_goPrevious = new KAction(
     "Previous Bookmark", ALT + Key_PageUp,
     this, SLOT(goPrevious()),
     ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
+  m_bookmarkMenu->insert( m_goPrevious );
 
   // connect bookmarks menu aboutToshow
   connect( m, SIGNAL(aboutToShow()),
@@ -136,8 +141,8 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   m_bookmarkMenu->popupMenu()->clear();
   m_bookmarkToggle->plug( m_bookmarkMenu->popupMenu() );
   m_bookmarkClear->plug( m_bookmarkMenu->popupMenu() );
-  m_goNext->plug( m_bookmarkMenu->popupMenu() );
-  m_goPrevious->plug( m_bookmarkMenu->popupMenu() );
+  //m_goNext->plug( m_bookmarkMenu->popupMenu() );
+  //m_goPrevious->plug( m_bookmarkMenu->popupMenu() );
 
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
@@ -148,7 +153,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   int idx( -1 );
   QMemArray<uint> sortArray( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
-//  kdDebug()<<"Redoing bookmarks menu, "<<it.count()<<" bookmarks in file"<<endl;
+  kdDebug()<<"Redoing bookmarks menu, "<<it.count()<<" bookmarks in file"<<endl;
   if ( it.count() > 0 )
         m_bookmarkMenu->popupMenu()->insertSeparator();
   for( int i = 0; *it; ++it, ++i ) {

@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
 
    This library is free software; you can redistribute it and/or
@@ -32,17 +33,17 @@ namespace KTextEditor { class Mark; }
 class KateBookmarks : public QObject
 {
   Q_OBJECT
-  
+
   public:
     enum Sorting { Position, Creation };
     KateBookmarks( Kate::View* parent, Sorting sort=Position );
     virtual ~KateBookmarks();
-  
+
     void createActions( KActionCollection* );
-    
+
     KateBookmarks::Sorting sorting() { return m_sorting; };
-    void setSorting( Sorting s ) { m_sorting = s; }; 
-  
+    void setSorting( Sorting s ) { m_sorting = s; };
+
   private slots:
     void toggleBookmark();
     void clearBookmarks();
@@ -51,7 +52,7 @@ class KateBookmarks : public QObject
     void gotoBookmark(int n);
     void goNext();
     void goPrevious();
-  
+
   private:
     Kate::View*                  m_view;
     KAction*                     m_bookmarkToggle;

@@ -723,8 +723,6 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   endLine = endLine - buf->startLine();
 
   bool line_continue=false;
-
-  TextLine::Ptr startState = 0;
   TextLine::Ptr prevLine = 0;
 
   if (startLine == buf->startLine())
@@ -735,9 +733,9 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       KateBufBlock *blk = m_blocks.at (pos-1);
 
       if ((blk->b_stringListValid) && (blk->lines() > 0))
-        startState = blk->line (blk->lines() - 1);
+        prevLine = blk->line (blk->lines() - 1);
       else
-        startState = blk->lastLine();
+        prevLine = blk->lastLine();
     }
   }
   else if ((startLine > buf->startLine()) && (startLine <= buf->endLine()))
@@ -745,14 +743,13 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     if (!buf->b_stringListValid)
       parseBlock(buf);
 
-    startState = buf->line(startLine - buf->startLine() - 1);
+    prevLine = buf->line(startLine - buf->startLine() - 1);
   }
 
-  if (startState)
+  if (prevLine)
   {
-    line_continue=startState->hlLineContinue();
-    ctxNum.duplicate (startState->ctxArray ());
-    prevLine = startState;
+    line_continue=prevLine->hlLineContinue();
+    ctxNum.duplicate (prevLine->ctxArray ());
   }
   else
     prevLine = new TextLine ();
@@ -823,6 +820,9 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       }
 
       kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
+
+      indentChanged = indentChanged || (indentDepth.size() != textLine->indentationDepthArray().size())
+                      || (indentDepth != textLine->indentationDepthArray());
 
       textLine->setIndentationDepth (indentDepth);
 

@@ -1262,7 +1262,11 @@ void KateHlConfigPage::showMTDlg()
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
   :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("&Install"))
 {
-  setMainWidget( list=new QListView(this));
+  QVBox* vbox = new QVBox(this);
+  setMainWidget(vbox);
+  vbox->setSpacing(spacingHint());
+  new QLabel(i18n("Select the syntax highlighting files you want to update:"), vbox);
+  list = new QListView(vbox);
   list->addColumn(i18n("Name"));
   list->addColumn(i18n("Installed"));
   list->addColumn(i18n("Latest"));
@@ -1272,6 +1276,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   connect(getIt,SIGNAL(data(KIO::Job *, const QByteArray &)),
     this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
 //        void data( KIO::Job *, const QByteArray &data);
+  QWhatsThis::add(list, i18n("New versions are selected automatically."));
   resize(450, 400);
 }
 
@@ -1317,7 +1322,12 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
           }
         }
 
-        (void) new QListViewItem(list,e.attribute("name"),installedVersion,e.attribute("version"),e.attribute("date"),e.attribute("url"));
+        QListViewItem* entry = new QListViewItem(list,e.attribute("name"),installedVersion,e.attribute("version"),e.attribute("date"),e.attribute("url"));
+        if (hl->version() < e.attribute("version"))
+        {
+//          kdDebug(13000) << "Old version: " << hl->version() << " new version: " << e.attribute("version") << endl;
+          entry->setSelected(true);
+        }
       }
     }
   }

@@ -2,571 +2,571 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="Perl" version="1.05" kateversion="2.1" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
  <highlighting>
-     <list name="keywords">
-         <item> if </item>
-         <item> unless </item>
-         <item> else </item>
-         <item> elsif </item>
-         <item> while </item>
-         <item> until </item>
-         <item> for </item>
-         <item> each </item>
-         <item> foreach </item>
-         <item> next </item>
-         <item> last </item>
-         <item> break </item>
-         <item> continue </item>
-         <item> return </item>
-         <item> use </item>
-         <item> no </item>
-         <item> require </item>
-         <item> my </item>
-         <item> our </item>
-         <item> local </item>
-         <item> BEGIN </item>
-         <item> END </item>
-         <item>require</item>
-         <item> package </item>
-         <item> sub </item>
-         <item> do </item>
-         <item> __END__ </item>
-         <item> __DATA__ </item>
-         <item> __FILE__ </item>
-         <item> __LINE__ </item>
-         <item> __PACKAGE__ </item>
-     </list>
-     <list name="operators">
-         <item> = </item>
-         <item> != </item>
-         <item> ~= </item>
-         <item> += </item>
-         <item> -= </item>
-         <item> *= </item>
-         <item> /= </item>
-         <item> **= </item>
-         <item> |= </item>
-         <item> ||= </item>
-         <item> &amp;= </item>
-         <item> &amp;&amp;= </item>
-         <item> ?= </item>
-         <item> + </item>
-         <item> - </item>
-         <item> * </item>
-         <item> / </item>
-         <item> % </item>
-         <item> || </item>
-         <item> &amp;&amp; </item>
-         <item> | </item>
-         <item> &amp; </item>
-         <item> &lt; </item>
-         <item> &lt;&lt; </item>
-         <item> &gt; </item>
-         <item> &gt;&gt; </item>
-         <item> ^ </item>
-         <item> -&gt; </item>
-         <item> =&gt; </item>
-         <item> . </item>
-         <item> , </item>
-         <item> ; </item>
-         <item> :: </item>
-         <item> \ </item>
-         <item> and </item>
-         <item> or </item>
-         <item> not </item>
-         <item> eq </item>
-         <item> ne </item>
-     </list>
-     <list name="functions">
-         <item>abs</item>
-         <item>accept</item>
-         <item>alarm</item>
-         <item>atan2</item>
-         <item>bind</item>
-         <item>binmode</item>
-         <item>bless</item>
-         <item>caller</item>
-         <item>chdir</item>
-         <item>chmod</item>
-         <item>chomp</item>
-         <item>chop</item>
-         <item>chown</item>
-         <item>chr</item>
-         <item>chroot</item>
-         <item>close</item>
-         <item>closedir</item>
-         <item>connect</item>
-         <item>cos</item>
-         <item>crypt</item>
-         <item>dbmclose</item>
-         <item>dbmopen</item>
-         <item>defined</item>
-         <item>delete</item>
-         <item>die</item>
-         <item>dump</item>
-         <item>endgrent</item>
-         <item>endhostent</item>
-         <item>endnetent</item>
-         <item>endprotoent</item>
-         <item>endpwent</item>
-         <item>endservent</item>
-         <item>eof</item>
-         <item>eval</item>
-         <item>exec</item>
-         <item>exists</item>
-         <item>exit</item>
-         <item>exp</item>
-         <item>fcntl</item>
-         <item>fileno</item>
-         <item>flock</item>
-         <item>fork</item>
-         <item>format</item>
-         <item>formline</item>
-         <item>getc</item>
-         <item>getgrent</item>
-         <item>getgrgid</item>
-         <item>getgrnam</item>
-         <item>gethostbyaddr</item>
-         <item>gethostbyname</item>
-         <item>gethostent</item>
-         <item>getlogin</item>
-         <item>getnetbyaddr</item>
-         <item>getnetbyname</item>
-         <item>getnetent</item>
-         <item>getpeername</item>
-         <item>getpgrp</item>
-         <item>getppid</item>
-         <item>getpriority</item>
-         <item>getprotobyname</item>
-         <item>getprotobynumber</item>
-         <item>getprotoent</item>
-         <item>getpwent</item>
-         <item>getpwnam</item>
-         <item>getpwuid</item>
-         <item>getservbyname</item>
-         <item>getservbyport</item>
-         <item>getservent</item>
-         <item>getsockname</item>
-         <item>getsockopt</item>
-         <item>glob</item>
-         <item>gmtime</item>
-         <item>goto</item>
-         <item>grep</item>
-         <item>hex</item>
-         <item>import</item>
-         <item>index</item>
-         <item>int</item>
-         <item>ioctl</item>
-         <item>join</item>
-         <item>keys</item>
-         <item>kill</item>
-         <item>last</item>
-         <item>lc</item>
-         <item>lcfirst</item>
-         <item>length</item>
-         <item>link</item>
-         <item>listen</item>
-         <item>localtime</item>
-         <item>lock</item>
-         <item>log</item>
-         <item>lstat</item>
-         <item>map</item>
-         <item>mkdir</item>
-         <item>msgctl</item>
-         <item>msgget</item>
-         <item>msgrcv</item>
-         <item>msgsnd</item>
-         <item>oct</item>
-         <item>open</item>
-         <item>opendir</item>
-         <item>ord</item>
-         <item>pack</item>
-         <item>package</item>
-         <item>pipe</item>
-         <item>pop</item>
-         <item>pos</item>
-         <item>print</item>
-         <item>printf</item>
-         <item>prototype</item>
-         <item>push</item>
-         <item>quotemeta</item>
-         <item>rand</item>
-         <item>read</item>
-         <item>readdir</item>
-         <item>readline</item>
-         <item>readlink</item>
-         <item>recv</item>
-         <item>redo</item>
-         <item>ref</item>
-         <item>rename</item>
-         <item>reset</item>
-         <item>return</item>
-         <item>reverse</item>
-         <item>rewinddir</item>
-         <item>rindex</item>
-         <item>rmdir</item>
-         <item>scalar</item>
-         <item>seek</item>
-         <item>seekdir</item>
-         <item>select</item>
-         <item>semctl</item>
-         <item>semget</item>
-         <item>semop</item>
-         <item>send</item>
-         <item>setgrent</item>
-         <item>sethostent</item>
-         <item>setnetent</item>
-         <item>setpgrp</item>
-         <item>setpriority</item>
-         <item>setprotoent</item>
-         <item>setpwent</item>
-         <item>setservent</item>
-         <item>setsockopt</item>
-         <item>shift</item>
-         <item>shmctl</item>
-         <item>shmget</item>
-         <item>shmread</item>
-         <item>shmwrite</item>
-         <item>shutdown</item>
-         <item>sin</item>
-         <item>sleep</item>
-         <item>socket</item>
-         <item>socketpair</item>
-         <item>sort</item>
-         <item>splice</item>
-         <item>split</item>
-         <item>sprintf</item>
-         <item>sqrt</item>
-         <item>srand</item>
-         <item>stat</item>
-         <item>study</item>
-         <item>sub</item>
-         <item>substr</item>
-         <item>symlink</item>
-         <item>syscall</item>
-         <item>sysread</item>
-         <item>sysseek</item>
-         <item>system</item>
-         <item>syswrite</item>
-         <item>tell</item>
-         <item>telldir</item>
-         <item>tie</item>
-         <item>time</item>
-         <item>times</item>
-         <item>truncate</item>
-         <item>uc</item>
-         <item>ucfirst</item>
-         <item>umask</item>
-         <item>undef</item>
-         <item>unlink</item>
-         <item>unpack</item>
-         <item>unshift</item>
-         <item>untie</item>
-         <item>utime</item>
-         <item>values</item>
-         <item>vec</item>
-         <item>wait</item>
-         <item>waitpid</item>
-         <item>wantarray</item>
-         <item>warn</item>
-         <item>write</item>
-     </list>
-     <list name="pragmas">
-         <item>strict</item>
-         <item>english</item>
-         <item>warnings</item>
-         <item>vars</item>
-         <item>subs</item>
-         <item>utf8</item>
-         <item>sigtrap</item>
-         <item>locale</item>
-         <item>open</item>
-         <item>less</item>
-         <item>integer</item>
-         <item>filetest</item>
-         <item>constant</item>
-         <item>bytes</item>
-         <item>diagnostics</item>
-     </list>
-     <contexts>
-         <context attribute="Normal Text" name="default" lineEndContext="#stay" name="normal">
-             <RegExpr attribute="Keyword" context="#stay" String="^#!\/.*" />
-             <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
-             <RegExpr attribute="Keyword" context="#stay" String="^__END__" />
-             <keyword attribute="Keyword" context="#stay" String="keywords" />
-             <keyword attribute="Operator" context="#stay" String="operators" />
-             <keyword attribute="Function" context="#stay" String="functions" />
-             <keyword attribute="Pragma" context="#stay" String="pragmas" />
-             <RegExpr attribute="Comment" context="comment" String="#" />
-             <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD"/>
-             <RegExpr attribute="Keyword" context="sub_name_def" String="\s*sub\s+" />
+   <list name="keywords">
+     <item> if </item>
+     <item> unless </item>
+     <item> else </item>
+     <item> elsif </item>
+     <item> while </item>
+     <item> until </item>
+     <item> for </item>
+     <item> each </item>
+     <item> foreach </item>
+     <item> next </item>
+     <item> last </item>
+     <item> break </item>
+     <item> continue </item>
+     <item> return </item>
+     <item> use </item>
+     <item> no </item>
+     <item> require </item>
+     <item> my </item>
+     <item> our </item>
+     <item> local </item>
+     <item> BEGIN </item>
+     <item> END </item>
+     <item>require</item>
+     <item> package </item>
+     <item> sub </item>
+     <item> do </item>
+     <item> __END__ </item>
+     <item> __DATA__ </item>
+     <item> __FILE__ </item>
+     <item> __LINE__ </item>
+     <item> __PACKAGE__ </item>
+   </list>
+   <list name="operators">
+     <item> = </item>
+     <item> != </item>
+     <item> ~= </item>
+     <item> += </item>
+     <item> -= </item>
+     <item> *= </item>
+     <item> /= </item>
+     <item> **= </item>
+     <item> |= </item>
+     <item> ||= </item>
+     <item> &amp;= </item>
+     <item> &amp;&amp;= </item>
+     <item> ?= </item>
+     <item> + </item>
+     <item> - </item>
+     <item> * </item>
+     <item> / </item>
+     <item> % </item>
+     <item> || </item>
+     <item> &amp;&amp; </item>
+     <item> | </item>
+     <item> &amp; </item>
+     <item> &lt; </item>
+     <item> &lt;&lt; </item>
+     <item> &gt; </item>
+     <item> &gt;&gt; </item>
+     <item> ^ </item>
+     <item> -&gt; </item>
+     <item> =&gt; </item>
+     <item> . </item>
+     <item> , </item>
+     <item> ; </item>
+     <item> :: </item>
+     <item> \ </item>
+     <item> and </item>
+     <item> or </item>
+     <item> not </item>
+     <item> eq </item>
+     <item> ne </item>
+   </list>
+   <list name="functions">
+     <item>abs</item>
+     <item>accept</item>
+     <item>alarm</item>
+     <item>atan2</item>
+     <item>bind</item>
+     <item>binmode</item>
+     <item>bless</item>
+     <item>caller</item>
+     <item>chdir</item>
+     <item>chmod</item>
+     <item>chomp</item>
+     <item>chop</item>
+     <item>chown</item>
+     <item>chr</item>
+     <item>chroot</item>
+     <item>close</item>
+     <item>closedir</item>
+     <item>connect</item>
+     <item>cos</item>
+     <item>crypt</item>
+     <item>dbmclose</item>
+     <item>dbmopen</item>
+     <item>defined</item>
+     <item>delete</item>
+     <item>die</item>
+     <item>dump</item>
+     <item>endgrent</item>
+     <item>endhostent</item>
+     <item>endnetent</item>
+     <item>endprotoent</item>
+     <item>endpwent</item>
+     <item>endservent</item>
+     <item>eof</item>
+     <item>eval</item>
+     <item>exec</item>
+     <item>exists</item>
+     <item>exit</item>
+     <item>exp</item>
+     <item>fcntl</item>
+     <item>fileno</item>
+     <item>flock</item>
+     <item>fork</item>
+     <item>format</item>
+     <item>formline</item>
+     <item>getc</item>
+     <item>getgrent</item>
+     <item>getgrgid</item>
+     <item>getgrnam</item>
+     <item>gethostbyaddr</item>
+     <item>gethostbyname</item>
+     <item>gethostent</item>
+     <item>getlogin</item>
+     <item>getnetbyaddr</item>
+     <item>getnetbyname</item>
+     <item>getnetent</item>
+     <item>getpeername</item>
+     <item>getpgrp</item>
+     <item>getppid</item>
+     <item>getpriority</item>
+     <item>getprotobyname</item>
+     <item>getprotobynumber</item>
+     <item>getprotoent</item>
+     <item>getpwent</item>
+     <item>getpwnam</item>
+     <item>getpwuid</item>
+     <item>getservbyname</item>
+     <item>getservbyport</item>
+     <item>getservent</item>
+     <item>getsockname</item>
+     <item>getsockopt</item>
+     <item>glob</item>
+     <item>gmtime</item>
+     <item>goto</item>
+     <item>grep</item>
+     <item>hex</item>
+     <item>import</item>
+     <item>index</item>
+     <item>int</item>
+     <item>ioctl</item>
+     <item>join</item>
+     <item>keys</item>
+     <item>kill</item>
+     <item>last</item>
+     <item>lc</item>
+     <item>lcfirst</item>
+     <item>length</item>
+     <item>link</item>
+     <item>listen</item>
+     <item>localtime</item>
+     <item>lock</item>
+     <item>log</item>
+     <item>lstat</item>
+     <item>map</item>
+     <item>mkdir</item>
+     <item>msgctl</item>
+     <item>msgget</item>
+     <item>msgrcv</item>
+     <item>msgsnd</item>
+     <item>oct</item>
+     <item>open</item>
+     <item>opendir</item>
+     <item>ord</item>
+     <item>pack</item>
+     <item>package</item>
+     <item>pipe</item>
+     <item>pop</item>
+     <item>pos</item>
+     <item>print</item>
+     <item>printf</item>
+     <item>prototype</item>
+     <item>push</item>
+     <item>quotemeta</item>
+     <item>rand</item>
+     <item>read</item>
+     <item>readdir</item>
+     <item>readline</item>
+     <item>readlink</item>
+     <item>recv</item>
+     <item>redo</item>
+     <item>ref</item>
+     <item>rename</item>
+     <item>reset</item>
+     <item>return</item>
+     <item>reverse</item>
+     <item>rewinddir</item>
+     <item>rindex</item>
+     <item>rmdir</item>
+     <item>scalar</item>
+     <item>seek</item>
+     <item>seekdir</item>
+     <item>select</item>
+     <item>semctl</item>
+     <item>semget</item>
+     <item>semop</item>
+     <item>send</item>
+     <item>setgrent</item>
+     <item>sethostent</item>
+     <item>setnetent</item>
+     <item>setpgrp</item>
+     <item>setpriority</item>
+     <item>setprotoent</item>
+     <item>setpwent</item>
+     <item>setservent</item>
+     <item>setsockopt</item>
+     <item>shift</item>
+     <item>shmctl</item>
+     <item>shmget</item>
+     <item>shmread</item>
+     <item>shmwrite</item>
+     <item>shutdown</item>
+     <item>sin</item>
+     <item>sleep</item>
+     <item>socket</item>
+     <item>socketpair</item>
+     <item>sort</item>
+     <item>splice</item>
+     <item>split</item>
+     <item>sprintf</item>
+     <item>sqrt</item>
+     <item>srand</item>
+     <item>stat</item>
+     <item>study</item>
+     <item>sub</item>
+     <item>substr</item>
+     <item>symlink</item>
+     <item>syscall</item>
+     <item>sysread</item>
+     <item>sysseek</item>
+     <item>system</item>
+     <item>syswrite</item>
+     <item>tell</item>
+     <item>telldir</item>
+     <item>tie</item>
+     <item>time</item>
+     <item>times</item>
+     <item>truncate</item>
+     <item>uc</item>
+     <item>ucfirst</item>
+     <item>umask</item>
+     <item>undef</item>
+     <item>unlink</item>
+     <item>unpack</item>
+     <item>unshift</item>
+     <item>untie</item>
+     <item>utime</item>
+     <item>values</item>
+     <item>vec</item>
+     <item>wait</item>
+     <item>waitpid</item>
+     <item>wantarray</item>
+     <item>warn</item>
+     <item>write</item>
+   </list>
+   <list name="pragmas">
+     <item>strict</item>
+     <item>english</item>
+     <item>warnings</item>
+     <item>vars</item>
+     <item>subs</item>
+     <item>utf8</item>
+     <item>sigtrap</item>
+     <item>locale</item>
+     <item>open</item>
+     <item>less</item>
+     <item>integer</item>
+     <item>filetest</item>
+     <item>constant</item>
+     <item>bytes</item>
+     <item>diagnostics</item>
+   </list>
+   <contexts>
+     <context attribute="Normal Text" lineEndContext="#stay" name="normal">
+       <RegExpr attribute="Keyword" context="#stay" String="^#!\/.*" />
+       <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
+       <RegExpr attribute="Keyword" context="#stay" String="^__END__" />
+       <keyword attribute="Keyword" context="#stay" String="keywords" />
+       <keyword attribute="Operator" context="#stay" String="operators" />
+       <keyword attribute="Function" context="#stay" String="functions" />
+       <keyword attribute="Pragma" context="#stay" String="pragmas" />
+       <RegExpr attribute="Comment" context="comment" String="#" />
+       <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD"/>
+       <RegExpr attribute="Keyword" context="sub_name_def" String="\s*sub\s+" />
 
-            <HlCOct attribute="Octal" context="slash_safe_escape" />
-             <HlCHex attribute="Hex" context="slash_safe_escape" />
-             <Float attribute="Float" context="slash_safe_escape" />
-             <Int attribute="Decimal" context="slash_safe_escape" />
+      <HlCOct attribute="Octal" context="slash_safe_escape" />
+       <HlCHex attribute="Hex" context="slash_safe_escape" />
+       <Float attribute="Float" context="slash_safe_escape" />
+       <Int attribute="Decimal" context="slash_safe_escape" />
 
-            <RegExpr attribute="Normal Text" context="#stay" String="\\[&quot;']" />
-             <Detect2Chars attribute="Normal Text" context="#stay" char="&amp;" char1="'" />
-             <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;"/>
-             <DetectChar attribute="String" context="string" char="'"/>
+      <RegExpr attribute="Normal Text" context="#stay" String="\\[&quot;']" />
+       <Detect2Chars attribute="Normal Text" context="#stay" char="&amp;" char1="'" />
+       <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;"/>
+       <DetectChar attribute="String" context="string" char="'"/>
              <DetectChar attribute="Operator" context="Backticked" char="`" />
-             <AnyChar attribute="Operator" context="#stay" String="&amp;\" />
+       <AnyChar attribute="Operator" context="#stay" String="&amp;\" />
 
-            <RegExpr attribute="Special Variable" context="var_detect" String="\$[0-9]+" />
-             <RegExpr attribute="Special Variable" context="var_detect" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
-             <RegExpr attribute="Special Variable" context="var_detect" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
-             <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
-             <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
-             <RegExpr attribute="Special Variable" context="slash_safe_escape" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
-             <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]\{[\w_]+\}" />
-             <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
-             <RegExpr attribute="Data Type" context="var_detect" String="\*[a-zA-Z_]+" />
+      <RegExpr attribute="Special Variable" context="var_detect" String="\$[0-9]+" />
+       <RegExpr attribute="Special Variable" context="var_detect" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
+       <RegExpr attribute="Special Variable" context="var_detect" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
+       <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
+       <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
+       <RegExpr attribute="Special Variable" context="slash_safe_escape" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
+       <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]\{[\w_]+\}" />
+       <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
+       <RegExpr attribute="Data Type" context="var_detect" String="\*[a-zA-Z_]+" />
 
-            <RegExpr attribute="Keyword" context="#stay" String="&lt;[A-Z0-9_]+&gt;" />
-             <RegExpr attribute="Keyword" context="#stay" String="\s*&lt;&lt;\s*[&quot;']?[A-Z0-9_\-]+[&quot;']?" />
-             <RegExpr attribute="Normal Text" context="#stay" String="\s*[)}]\s*/" />
-             <RegExpr attribute="Normal Text" context="sub_name_def" String="\w+::" />
-             <RegExpr attribute="Normal Text" context="#stay" String="\w+[=]" />
+      <RegExpr attribute="Keyword" context="#stay" String="&lt;[A-Z0-9_]+&gt;" />
+       <RegExpr attribute="Keyword" context="#stay" String="\s*&lt;&lt;\s*[&quot;']?[A-Z0-9_\-]+[&quot;']?" />
+       <RegExpr attribute="Normal Text" context="#stay" String="\s*[)}]\s*/" />
+       <RegExpr attribute="Normal Text" context="sub_name_def" String="\w+::" />
+       <RegExpr attribute="Normal Text" context="#stay" String="\w+[=]" />
 
-            <RegExpr attribute="String (interpolated)" context="ip_string_2" String="q[qx]\(" />
-             <RegExpr attribute="String (interpolated)" context="ip_string_3" String="q[qx]\{" />
-             <RegExpr attribute="String (interpolated)" context="ip_string_4" String="q[qx]\[" />
-             <RegExpr attribute="String (interpolated)" context="ip_string_5" String="q[qx]&lt;" />
-             <RegExpr attribute="String (interpolated)" context="#stay" String="q[qx]([^a-zA-Z0-9_\s[\]{}()]).*\1" minimal="true" />
+      <RegExpr attribute="String (interpolated)" context="ip_string_2" String="q[qx]\(" />
+       <RegExpr attribute="String (interpolated)" context="ip_string_3" String="q[qx]\{" />
+       <RegExpr attribute="String (interpolated)" context="ip_string_4" String="q[qx]\[" />
+       <RegExpr attribute="String (interpolated)" context="ip_string_5" String="q[qx]&lt;" />
+       <RegExpr attribute="String (interpolated)" context="#stay" String="q[qx]([^a-zA-Z0-9_\s[\]{}()]).*\1" minimal="true" />
 
-            <Detect2Chars attribute="String" context="string_2" char="q" char1="(" />
-             <Detect2Chars attribute="String" context="string_3" char="q" char1="{" />
-             <Detect2Chars attribute="String" context="string_4" char="q" char1="[" />
-             <Detect2Chars attribute="String" context="string_5" char="q" char1="&lt;" />
-             <RegExpr attribute="String" context="#stay" String="q([^a-zA-Z0-9_\s[\]{}()]).+\1" />
+      <Detect2Chars attribute="String" context="string_2" char="q" char1="(" />
+       <Detect2Chars attribute="String" context="string_3" char="q" char1="{" />
+       <Detect2Chars attribute="String" context="string_4" char="q" char1="[" />
+       <Detect2Chars attribute="String" context="string_5" char="q" char1="&lt;" />
+       <RegExpr attribute="String" context="#stay" String="q([^a-zA-Z0-9_\s[\]{}()]).+\1" />
 
-            <StringDetect attribute="Normal Text" context="quote_word" String="qw/" />
+      <StringDetect attribute="Normal Text" context="quote_word" String="qw/" />
 
-            <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\([^)]*\)\s*\([^)]*\)" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\{[^}]*\}\s*\{[^}]*\}" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\[[^}]*\]\s*\[[^\]]*\]" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)([^a-zA-Z0-9_\s[\]{}()]).*\1.*\1" minimal="true"/>
+      <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\([^)]*\)\s*\([^)]*\)" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\{[^}]*\}\s*\{[^}]*\}" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\[[^}]*\]\s*\[[^\]]*\]" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)([^a-zA-Z0-9_\s[\]{}()]).*\1.*\1" minimal="true"/>
 
-            <Detect2Chars attribute="Pattern" context="op_s_pattern" char="s" char1="{" />
+      <Detect2Chars attribute="Pattern" context="op_s_pattern" char="s" char1="{" />
 
-            <RegExpr attribute="Normal Text" context="#stay" String="[\w_]{3,}[[{:\-.;,]" />
-             <RegExpr attribute="Normal Text" context="#stay" String="[\w_]([mqsy]|q[rx])\(" />
+      <RegExpr attribute="Normal Text" context="#stay" String="[\w_]{3,}[[{:\-.;,]" />
+       <RegExpr attribute="Normal Text" context="#stay" String="[\w_]([mqsy]|q[rx])\(" />
 
-            <RegExpr attribute="Pattern" context="pattern_slash" String="(?:m|qr)\/" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\([^)]*\)" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\{[^}]*\}" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\[[^\]]*\]" />
-             <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])([^a-zA-Z0-9_-\s[\]{}()/]).+\1" minimal="true"/>
-             <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+\s*/" />
-             <RegExpr attribute="Normal Text" context="#stay" String="[&lt;&gt;&quot;':]/" />
-             <DetectChar attribute="Pattern" context="pattern_slash" char="/" />
-             <RegExpr attribute="Operator" context="#stay" String="-[rwxoRWXOeszfdlpSbctugkTBMAC]" />
+      <RegExpr attribute="Pattern" context="pattern_slash" String="(?:m|qr)\/" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\([^)]*\)" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\{[^}]*\}" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\[[^\]]*\]" />
+       <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])([^a-zA-Z0-9_-\s[\]{}()/]).+\1" minimal="true"/>
+       <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+\s*/" />
+       <RegExpr attribute="Normal Text" context="#stay" String="[&lt;&gt;&quot;':]/" />
+       <DetectChar attribute="Pattern" context="pattern_slash" char="/" />
+       <RegExpr attribute="Operator" context="#stay" String="-[rwxoRWXOeszfdlpSbctugkTBMAC]" />
 
              <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
              <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
-         </context>
-         <context attribute="Pod" lineEndContext="#stay" name="pod">
-             <LineContinue attribute="Pod" context="#stay" />
-             <RegExpr attribute="Pod" context="#stay" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD" endRegion="POD"/>
-             <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" endRegion="POD"/>
-         </context>
+     </context>
+     <context attribute="Pod" lineEndContext="#stay" name="pod">
+       <LineContinue attribute="Pod" context="#stay" />
+       <RegExpr attribute="Pod" context="#stay" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD" endRegion="POD"/>
+       <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" endRegion="POD"/>
+     </context>
          <context attribute="String (interpolated)" lineContext="#stay" name="ipstring_internal">
-             <RegExpr attribute="String (interpolated)" context="#stay" String="\\[\$@%]" />
-             <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
-             <RegExpr attribute="Data Type" context="var_detect" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <RegExpr attribute="Data Type" context="var_detect" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <RegExpr attribute="String Special Character" context="#stay" String="\\[UuLlEtnaefr]" />
+       <RegExpr attribute="String (interpolated)" context="#stay" String="\\[\$@%]" />
+       <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
+       <RegExpr attribute="Data Type" context="var_detect" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+       <RegExpr attribute="Data Type" context="var_detect" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+       <RegExpr attribute="String Special Character" context="#stay" String="\\[UuLlEtnaefr]" />
          </context>
          <context attribute="Pattern" lineEndContext="#stay" name="regex_pattern_internal">
-             <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
-             <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[anDdSsWw]" />
-             <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[ABbEGLlNUuQdQZz]" />
-             <RegExpr attribute="Special Variable" context="#stay" String="\\[\d]+" />
-             <RegExpr attribute="Pattern" context="#stay" String="\\." />
+       <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
+       <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[anDdSsWw]" />
+       <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[ABbEGLlNUuQdQZz]" />
+       <RegExpr attribute="Special Variable" context="#stay" String="\\[\d]+" />
+       <RegExpr attribute="Pattern" context="#stay" String="\\." />
 
              <RegExpr attribute="Data Type" context="#stay" String="[\$@]#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <Detect2Chars attribute="Pattern Internal Operator" context="pat_ext" char="(" char1="?" />
-             <DetectChar attribute="Pattern Internal Operator" context="pat_char_class" char="[" />
-             <RegExpr attribute="Pattern Internal Operator" context="#stay" String="[()?^*+|]" />
-             <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\{[\d, ]+\}" />
-             <DetectChar attribute="Pattern Internal Operator" context="#stay" char="$" />
-             <RegExpr attribute="Comment" context="#stay" String="\s{3,}#.*$" />
+       <Detect2Chars attribute="Pattern Internal Operator" context="pat_ext" char="(" char1="?" />
+       <DetectChar attribute="Pattern Internal Operator" context="pat_char_class" char="[" />
+       <RegExpr attribute="Pattern Internal Operator" context="#stay" String="[()?^*+|]" />
+       <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\{[\d, ]+\}" />
+       <DetectChar attribute="Pattern Internal Operator" context="#stay" char="$" />
+       <RegExpr attribute="Comment" context="#stay" String="\s{3,}#.*$" />
          </context>
-         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string">
-             <LineContinue attribute="String (interpolated)" context="#stay"/>
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&quot;" />
-             <DetectChar attribute="String (interpolated)" context="#pop" char="&quot;"/>
+     <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string">
+       <LineContinue attribute="String (interpolated)" context="#stay"/>
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&quot;" />
+       <DetectChar attribute="String (interpolated)" context="#pop" char="&quot;"/>
              <IncludeRules context="ipstring_internal" />
-         </context>
-         <context attribute="String" lineEndContext="#stay" name="string">
-             <LineContinue attribute="String" context="#stay"/>
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
-             <DetectChar attribute="String" context="#pop" char="'" />
-         </context>
-         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_2">
-             <LineContinue attribute="String (interpolated)" context="#stay" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="(" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1=")" />
-             <RangeDetect attribute="String (interpolated)" context="#stay" char="(" char1=")" />
-             <DetectChar attribute="String (interpolated)" context="#pop" char=")" />
+     </context>
+     <context attribute="String" lineEndContext="#stay" name="string">
+       <LineContinue attribute="String" context="#stay"/>
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
+       <DetectChar attribute="String" context="#pop" char="'" />
+     </context>
+     <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_2">
+       <LineContinue attribute="String (interpolated)" context="#stay" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="(" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1=")" />
+       <RangeDetect attribute="String (interpolated)" context="#stay" char="(" char1=")" />
+       <DetectChar attribute="String (interpolated)" context="#pop" char=")" />
              <IncludeRules context="ipstring_internal" />
-         </context>
-         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_3">
-             <LineContinue attribute="String (interpolated)" context="#stay" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="{" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="}" />
-             <RangeDetect attribute="String (interpolated)" context="#stay" char="{" char1="}" />
-             <DetectChar attribute="String (interpolated)" context="#pop" char="}" />
+     </context>
+     <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_3">
+       <LineContinue attribute="String (interpolated)" context="#stay" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="{" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="}" />
+       <RangeDetect attribute="String (interpolated)" context="#stay" char="{" char1="}" />
+       <DetectChar attribute="String (interpolated)" context="#pop" char="}" />
              <IncludeRules context="ipstring_internal" />
-         </context>
-         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_4">
-             <LineContinue attribute="String (interpolated)" context="#stay" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="[" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="]" />
-             <RangeDetect attribute="String (interpolated)" context="#stay" char="[" char1="]" />
-             <DetectChar attribute="String (interpolated)" context="#pop" char="]" />
+     </context>
+     <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_4">
+       <LineContinue attribute="String (interpolated)" context="#stay" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="[" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="]" />
+       <RangeDetect attribute="String (interpolated)" context="#stay" char="[" char1="]" />
+       <DetectChar attribute="String (interpolated)" context="#pop" char="]" />
              <IncludeRules context="ipstring_internal" />
-         </context>
-         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_5">
-             <LineContinue attribute="String (interpolated)" context="#stay" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&lt;" />
-             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&gt;" />
-             <RangeDetect attribute="String (interpolated)" context="#stay" char="&lt;" char1="&gt;" />
-             <DetectChar attribute="String (interpolated)" context="#pop" char="&gt;" />
+     </context>
+     <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_5">
+       <LineContinue attribute="String (interpolated)" context="#stay" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&lt;" />
+       <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&gt;" />
+       <RangeDetect attribute="String (interpolated)" context="#stay" char="&lt;" char1="&gt;" />
+       <DetectChar attribute="String (interpolated)" context="#pop" char="&gt;" />
              <IncludeRules context="ipstring_internal" />
-         </context>
-         <context attribute="String" lineEndContext="#stay" name="string_2">
-             <LineContinue attribute="String" context="#stay" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="(" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1=")" />
-             <RangeDetect attribute="String" context="#stay" char="(" char1=")" />
-             <DetectChar attribute="String" context="#pop" char=")" />
-         </context>
-         <context attribute="String" lineEndContext="#stay" name="string_3">
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="{" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="}" />
-             <RangeDetect attribute="String" context="#stay" char="{" char1="}" />
-             <LineContinue attribute="String" context="#stay" />
-             <DetectChar attribute="String" context="#pop" char="}" />
-         </context>
-         <context attribute="String" lineEndContext="#stay" name="string_4">
-             <LineContinue attribute="String" context="#stay" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="[" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="]" />
-             <RangeDetect attribute="String" context="#stay" char="[" char1="]" />
-             <DetectChar attribute="String" context="#pop" char="]" />
-         </context>
-         <context attribute="String" lineEndContext="#stay" name="string_5">
-             <LineContinue attribute="String" context="#stay" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="&lt;" />
-             <Detect2Chars attribute="String" context="#stay" char="\" char1="&gt;" />
-             <RangeDetect attribute="String" context="#stay" char="&lt;" char1="&gt;" />
-             <DetectChar attribute="String" context="#pop" char="&gt;" />
-         </context>
-         <context attribute="Pattern" lineEndContext="#stay" name="op_s_pattern">
-             <LineContinue attribute="Pattern" context="#stay" />
-             <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
-             <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="{" />
-             <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="}" />
+     </context>
+     <context attribute="String" lineEndContext="#stay" name="string_2">
+       <LineContinue attribute="String" context="#stay" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="(" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1=")" />
+       <RangeDetect attribute="String" context="#stay" char="(" char1=")" />
+       <DetectChar attribute="String" context="#pop" char=")" />
+     </context>
+     <context attribute="String" lineEndContext="#stay" name="string_3">
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="{" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="}" />
+       <RangeDetect attribute="String" context="#stay" char="{" char1="}" />
+       <LineContinue attribute="String" context="#stay" />
+       <DetectChar attribute="String" context="#pop" char="}" />
+     </context>
+     <context attribute="String" lineEndContext="#stay" name="string_4">
+       <LineContinue attribute="String" context="#stay" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="[" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="]" />
+       <RangeDetect attribute="String" context="#stay" char="[" char1="]" />
+       <DetectChar attribute="String" context="#pop" char="]" />
+     </context>
+     <context attribute="String" lineEndContext="#stay" name="string_5">
+       <LineContinue attribute="String" context="#stay" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="&lt;" />
+       <Detect2Chars attribute="String" context="#stay" char="\" char1="&gt;" />
+       <RangeDetect attribute="String" context="#stay" char="&lt;" char1="&gt;" />
+       <DetectChar attribute="String" context="#pop" char="&gt;" />
+     </context>
+     <context attribute="Pattern" lineEndContext="#stay" name="op_s_pattern">
+       <LineContinue attribute="Pattern" context="#stay" />
+       <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
+       <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="{" />
+       <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="}" />
              <IncludeRules context="regex_pattern_internal" />
              <DetectChar attribute="Pattern" context="op_s_replace" char="}" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#stay" name="op_s_replace">
-             <LineContinue attribute="Normal Text" context="#stay" />
-             <RegExpr attribute="Normal Text" context="#stay" String="[&quot;'\/]" />
-             <RegExpr attribute="Comment" context="#stay" String="\s*#.*$" />
-             <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
-             <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#stay" name="op_s_replace">
+       <LineContinue attribute="Normal Text" context="#stay" />
+       <RegExpr attribute="Normal Text" context="#stay" String="[&quot;'\/]" />
+       <RegExpr attribute="Comment" context="#stay" String="\s*#.*$" />
+       <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
+       <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+       <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
              <keyword attribute="Keyword" context="#stay" String="keywords" />
-             <keyword attribute="Operator" context="#stay" String="operators" />
-             <keyword attribute="Function" context="#stay" String="functions" />
-             <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="{" />
-             <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="}" />
-             <DetectChar attribute="Pattern" context="#stay" char="{" />
-             <DetectChar attribute="Pattern" context="#pop#pop" char="}" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#stay" name="quote_word">
-             <LineContinue attribute="Normal Text" context="#stay" />
-             <Detect2Chars attribute="Normal Text" context="#stay" char="\" char1="/" />
-             <DetectChar attribute="Normal Text" context="#pop" char="/" />
-             <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
-         </context>
-         <context attribute="Pattern" lineEndContext="#stay" name="pattern_slash">
-             <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
-             <LineContinue attribute="Pattern" context="#stay" />
+       <keyword attribute="Operator" context="#stay" String="operators" />
+       <keyword attribute="Function" context="#stay" String="functions" />
+       <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="{" />
+       <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="}" />
+       <DetectChar attribute="Pattern" context="#stay" char="{" />
+       <DetectChar attribute="Pattern" context="#pop#pop" char="}" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#stay" name="quote_word">
+       <LineContinue attribute="Normal Text" context="#stay" />
+       <Detect2Chars attribute="Normal Text" context="#stay" char="\" char1="/" />
+       <DetectChar attribute="Normal Text" context="#pop" char="/" />
+       <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+       <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+     </context>
+     <context attribute="Pattern" lineEndContext="#stay" name="pattern_slash">
+       <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
+       <LineContinue attribute="Pattern" context="#stay" />
              <IncludeRules context="regex_pattern_internal" />
-             <DetectChar attribute="Pattern" context="#pop" char="/" />
-         </context>
-         <context attribute="Data" lineEndContext="#stay" name="data_handle">
-             <LineContinue attribute="Data" context="#stay"/>
-             <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
-             <RegExpr attribute="Keyword" context="normal" String="^__END__" />
-         </context>
-         <context attribute="Nothing" lineEndContext="#stay" name="end_handle">
-             <LineContinue attribute="Nothing" context="#stay" />
-             <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
-             <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#stay" name="var_detect" fallthrough="true" fallthroughContext="#pop">
-             <RegExpr attribute="Data Type" context="#stay" String="[\w_]+" />
-             <AnyChar attribute="Normal Text" context="#pop" String="[;,*=!&amp;/" />
-             <RegExpr attribute="Normal Text" context="#stay" String="\s*[})]?\s*/" />
-             <DetectChar attribute="Operator" context="#stay" char="'" />
-             <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\{" />
-             <RegExpr attribute="Operator" context="#stay" String="(\+\+|--)" />
-             <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
-             <RegExpr attribute="Normal Text" context="#stay" String="\s*\}?\s*-&gt;\s*" />
-             <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\}\s*\{\s*" />
-             <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#pop" name="slash_safe_escape" fallthrough="true" fallthroughContext="#pop">
-             <RegExpr attribute="Normal Text" context="#pop" String="\s*[)}\]]?\s*/" />
-             <keyword attribute="Keyword" context="#pop" String="keywords" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#pop" name="sub_name_def">
-             <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+" />
-             <DetectChar attribute="Data Type" context="var_detect" char="$" />
-             <RegExpr attribute="Normal Text" context="sub_arg_definition" String="\s*\(" />
-             <AnyChar attribute="Normal Text" context="#pop" String=";{" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#stay" name="package_qualified_blank">
-             <RegExpr attribute="Normal Text" context="#pop" String="[\w_]+" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#pop" name="in_hash_elem">
-             <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;" />
-             <DetectChar attribute="String" context="string" char="'" />
-             <RegExpr attribute="String" context="#stay" String="\s*[\w_]+\s*(?![\w_\(])" />
-             <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
-             <RegExpr attribute="Special Variable" context="#stay" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
-             <RegExpr attribute="Special Variable" context="#stay" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
-             <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
-             <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
-             <RegExpr attribute="Special Variable" context="#stay" String="\$[^a-zA-Z0-9\s{][A-Z]" />
-             <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
-             <RegExpr attribute="Normal Text" context="#pop" String="\s*[\w_]+\s*\(" />
-             <DetectChar attribute="Normal Text" context="#pop" char="}" />
-         </context>
-         <context attribute="Normal Text" lineEndContext="#stay" name="sub_arg_definition" fallthrough="true" fallthroughContext="#pop#pop">
-             <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
-             <DetectChar attribute="Normal Text" context="slash_safe_escape" char=")" />
-         </context>
-         <context attribute="Pattern Internal Operator" lineEndContext="#stay" name="pat_ext">
-             <RegExpr attribute="Comment" context="#pop" String="\#[^)]*" />
-             <RegExpr attribute="Pattern Internal Operator" context="#pop" String="[:=!&gt;&lt;]+" />
-             <DetectChar attribute="Pattern Internal Operator" context="#pop" char=")" />
-         </context>
-         <context attribute="Pattern Character Class" lineEndContext="#stay" name="pat_char_class">
-             <LineContinue attribute="Pattern Character Class" context="#stay" />
-             <DetectChar attribute="Pattern Internal Operator" context="#stay" char="^" />
-             <Detect2Chars attribute="Pattern Character Class" context="#stay" char="\" char1="\" />
-             <Detect2Chars attribute="Pattern Character Class" context="#stay" char="\" char1="]" />
-             <RangeDetect attribute="Pattern Character Class" context="#stay" char="[" char1="]" />
-             <DetectChar attribute="Pattern Internal Operator" context="#pop" char="]" />
-         </context>
+       <DetectChar attribute="Pattern" context="#pop" char="/" />
+     </context>
+     <context attribute="Data" lineEndContext="#stay" name="data_handle">
+       <LineContinue attribute="Data" context="#stay"/>
+       <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
+       <RegExpr attribute="Keyword" context="normal" String="^__END__" />
+     </context>
+     <context attribute="Nothing" lineEndContext="#stay" name="end_handle">
+       <LineContinue attribute="Nothing" context="#stay" />
+       <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
+       <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#stay" name="var_detect" fallthrough="true" fallthroughContext="#pop">
+       <RegExpr attribute="Data Type" context="#stay" String="[\w_]+" />
+       <AnyChar attribute="Normal Text" context="#pop" String="[;,*=!&amp;/" />
+       <RegExpr attribute="Normal Text" context="#stay" String="\s*[})]?\s*/" />
+       <DetectChar attribute="Operator" context="#stay" char="'" />
+       <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\{" />
+       <RegExpr attribute="Operator" context="#stay" String="(\+\+|--)" />
+       <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
+       <RegExpr attribute="Normal Text" context="#stay" String="\s*\}?\s*-&gt;\s*" />
+       <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\}\s*\{\s*" />
+       <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#pop" name="slash_safe_escape" fallthrough="true" fallthroughContext="#pop">
+       <RegExpr attribute="Normal Text" context="#pop" String="\s*[)}\]]?\s*/" />
+       <keyword attribute="Keyword" context="#pop" String="keywords" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#pop" name="sub_name_def">
+       <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+" />
+       <DetectChar attribute="Data Type" context="var_detect" char="$" />
+       <RegExpr attribute="Normal Text" context="sub_arg_definition" String="\s*\(" />
+       <AnyChar attribute="Normal Text" context="#pop" String=";{" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#stay" name="package_qualified_blank">
+       <RegExpr attribute="Normal Text" context="#pop" String="[\w_]+" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#pop" name="in_hash_elem">
+       <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;" />
+       <DetectChar attribute="String" context="string" char="'" />
+       <RegExpr attribute="String" context="#stay" String="\s*[\w_]+\s*(?![\w_\(])" />
+       <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
+       <RegExpr attribute="Special Variable" context="#stay" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
+       <RegExpr attribute="Special Variable" context="#stay" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
+       <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
+       <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
+       <RegExpr attribute="Special Variable" context="#stay" String="\$[^a-zA-Z0-9\s{][A-Z]" />
+       <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
+       <RegExpr attribute="Normal Text" context="#pop" String="\s*[\w_]+\s*\(" />
+       <DetectChar attribute="Normal Text" context="#pop" char="}" />
+     </context>
+     <context attribute="Normal Text" lineEndContext="#stay" name="sub_arg_definition" fallthrough="true" fallthroughContext="#pop#pop">
+       <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
+       <DetectChar attribute="Normal Text" context="slash_safe_escape" char=")" />
+     </context>
+     <context attribute="Pattern Internal Operator" lineEndContext="#stay" name="pat_ext">
+       <RegExpr attribute="Comment" context="#pop" String="\#[^)]*" />
+       <RegExpr attribute="Pattern Internal Operator" context="#pop" String="[:=!&gt;&lt;]+" />
+       <DetectChar attribute="Pattern Internal Operator" context="#pop" char=")" />
+     </context>
+     <context attribute="Pattern Character Class" lineEndContext="#stay" name="pat_char_class">
+       <LineContinue attribute="Pattern Character Class" context="#stay" />
+       <DetectChar attribute="Pattern Internal Operator" context="#stay" char="^" />
+       <Detect2Chars attribute="Pattern Character Class" context="#stay" char="\" char1="\" />
+       <Detect2Chars attribute="Pattern Character Class" context="#stay" char="\" char1="]" />
+       <RangeDetect attribute="Pattern Character Class" context="#stay" char="[" char1="]" />
+       <DetectChar attribute="Pattern Internal Operator" context="#pop" char="]" />
+     </context>
          <context attribute="Comment" name="comment" lineEndContext="#pop">
              <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
          </context>
@@ -574,37 +574,37 @@
              <IncludeRules context="ipstring_internal"/>
              <DetectChar attribute="Operator" context="#pop" char="`"/>
          </context>
-     </contexts>
-     <itemDatas>
-         <itemData name="Normal Text"               defStyleNum="dsNormal" />
-         <itemData name="Keyword"                   defStyleNum="dsKeyword" />
-         <itemData name="Pragma"                    defStyleNum="dsKeyword" />
-         <itemData name="Function"                  defStyleNum="dsNormal" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
-         <itemData name="Operator"                  defStyleNum="dsKeyword" />
-         <itemData name="Data Type"                 defStyleNum="dsDataType" />
-         <itemData name="Special Variable"          defStyleNum="dsDataType" color="#C00000" selColor="#C00000" bold="0" italic="0" />
-         <itemData name="Decimal"                   defStyleNum="dsDecVal" />
-         <itemData name="Octal"                     defStyleNum="dsBaseN" />
-         <itemData name="Hex"                       defStyleNum="dsBaseN" />
-         <itemData name="Float"                     defStyleNum="dsFloat" />
-         <itemData name="String"                    defStyleNum="dsString" color="#FF6C6C" selColor="#FF6C6C" bold="0" italic="0" />
-         <itemData name="String (interpolated)"     defStyleNum="dsString" />
-         <itemData name="String Special Character"  defStyleNum="dsChar" />
-         <itemData name="Pattern"                   defStyleNum="dsOthers" />
-         <itemData name="Pattern Internal Operator" defStyleNum="dsChar" />
-         <itemData name="Pattern Character Class"   defStyleNum="dsBaseN" />
-         <itemData name="Data"                      defStyleNum="dsNormal" />
-         <itemData name="Comment"                   defStyleNum="dsComment" />
-         <itemData name="Pod"                       defStyleNum="dsComment" />
-         <itemData name="Nothing"                   defStyleNum="dsComment" />
-         <itemData name="Note"                      defStyleNum="dsDecVal" color="#0000FF" selColor="#ffffff" bold="1" italic="0"/>
-     </itemDatas>
-   </highlighting>
-   <general>
-     <comments>
-       <comment name="singleLine" start="#" />
-     </comments>
-     <keywords casesensitive="1" />
-   </general>
+   </contexts>
+   <itemDatas>
+     <itemData name="Normal Text"               defStyleNum="dsNormal" />
+     <itemData name="Keyword"                 defStyleNum="dsKeyword" />
+     <itemData name="Pragma"                 defStyleNum="dsKeyword" />
+     <itemData name="Function"                defStyleNum="dsNormal" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
+     <itemData name="Operator"                defStyleNum="dsKeyword" />
+     <itemData name="Data Type"                defStyleNum="dsDataType" />
+     <itemData name="Special Variable"          defStyleNum="dsDataType" color="#C00000" selColor="#C00000" bold="0" italic="0" />
+     <itemData name="Decimal"                 defStyleNum="dsDecVal" />
+     <itemData name="Octal"                 defStyleNum="dsBaseN" />
+     <itemData name="Hex"                   defStyleNum="dsBaseN" />
+     <itemData name="Float"                  defStyleNum="dsFloat" />
+     <itemData name="String"                 defStyleNum="dsString" color="#FF6C6C" selColor="#FF6C6C" bold="0" italic="0" />
+     <itemData name="String (interpolated)"     defStyleNum="dsString" />
+     <itemData name="String Special Character"  defStyleNum="dsChar" />
+     <itemData name="Pattern"                 defStyleNum="dsOthers" />
+     <itemData name="Pattern Internal Operator" defStyleNum="dsChar" />
+     <itemData name="Pattern Character Class"   defStyleNum="dsBaseN" />
+     <itemData name="Data"                  defStyleNum="dsNormal" />
+     <itemData name="Comment"                 defStyleNum="dsComment" />
+     <itemData name="Pod"                   defStyleNum="dsComment" />
+     <itemData name="Nothing"                defStyleNum="dsComment" />
+     <itemData name="Note"                   defStyleNum="dsDecVal" color="#0000FF" selColor="#ffffff" bold="1" italic="0"/>
+   </itemDatas>
+  </highlighting>
+  <general>
+   <comments>
+    <comment name="singleLine" start="#" />
+   </comments>
+   <keywords casesensitive="1" />
+  </general>
  </language>
 

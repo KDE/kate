@@ -595,7 +595,7 @@ void KateView::insertText(const QString &s)
   myDoc->insertText(c.cursor.line, c.cursor.col, s);
 
 //JW BEGIN
-      for (int i=0;i<s.length();i++)
+      for (uint i=0;i<s.length();i++)
 	{
 		cursorRight();
 	}

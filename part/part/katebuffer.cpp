@@ -84,7 +84,7 @@ static QByteArray readBlock(int fd, int size)
       }     
       bytesRead += n;     
       bytesToRead -= n;     
-   }     
+   }
    //kdDebug(13020)<<"Read = "<< bytesRead<<endl;     
    result.truncate(bytesRead);     
    return result;     
@@ -138,7 +138,7 @@ KateBuffer::setHighlight(Highlight *highlight)
    m_highlight = highlight;
    invalidateHighlighting();
 }
-     
+
 /**     
  * Insert a file at line @p line in the buffer.     
  */     
@@ -208,7 +208,7 @@ KateBuffer::loadFilePart()
      state = block->m_endState;     
      //kdDebug(13020)<<"current->ref ="<<currentBlock.nrefs()<<" last->ref ="<<loader->lastBlock.nrefs()<<endl;     
      loader->lastBlock = currentBlock;     
-     if (eof) break;     
+     if (eof) break;
   }     
   if (eof)     
   {     
@@ -259,7 +259,7 @@ kdDebug(13020)<< "Removing empty block "<< prev_block << endl;
        state.lineNr = 0;
    }
 
-  int startLine = state.lineNr;
+  uint startLine = state.lineNr;
   KateBufBlock *block = new KateBufBlock(state);
   m_blocks.append(block);
   m_loadedBlocks.append(block);
@@ -323,7 +323,7 @@ KateBuffer::findBlock(uint i)
       {
          // We found the block.
          break;     
-      }     
+      }
       else     
       {     
          // Search forwards
@@ -397,7 +397,7 @@ KateBuffer::line(uint i)
    return buf->line(i - buf->m_beginState.lineNr);
 }
 
-bool 
+bool
 KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint startLine,uint endLine) {
   if (!m_highlight)
      return false;
@@ -458,9 +458,9 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 
     current_line++;
   }
-  while ((current_line < last_line) && (((int)current_line < endLine) || stillcontinue));
+  while ((current_line < last_line) && ((current_line < endLine) || stillcontinue));
 
-  if ((int)current_line>=endLine)
+  if (current_line>=endLine)
   {
     foldingList.resize(0);
     emit foldingUpdate(endLine,&foldingList,&retVal_folding,true);

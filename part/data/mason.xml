@@ -69,12 +69,12 @@
 		<context  attribute="15" lineEndContext="#stay" name="HTML">
 			<RegExpr attribute="13" context="1" String="&lt;\%method[^&gt;]*&gt;" />
 			<StringDetect attribute="13" context="EmbeddedPerl" String="&lt;%method&gt;" insensitive="FALSE" />
-			<StringDetect attribute="10" context="15" String="&lt;%doc&gt;" insensitive="FALSE" />
-			<StringDetect attribute="10" context="15" String="&lt;%doc&gt;" insensitive="FALSE" />
+			<StringDetect attribute="10" context="Documentation" String="&lt;%doc&gt;" insensitive="FALSE" />
+			<StringDetect attribute="10" context="Documentation" String="&lt;%doc&gt;" insensitive="FALSE" />
 			<StringDetect attribute="13" context="EmbeddedPerl" String="&lt;%perl&gt;" insensitive="FALSE" />
 			<Detect2Chars attribute="13" context="EmbeddedPerl" char="&lt;" char1="%" />
-			<Detect2Chars attribute="14" context="16" char="&lt;" char1="&amp;" />
-			<RegExpr attribute="13" context="14" String="^%" />
+			<Detect2Chars attribute="14" context="MethodCall" char="&lt;" char1="&amp;" />
+			<RegExpr attribute="13" context="PerlOneLiner" String="^%" />
 		</context>
 
 		<context attribute="0" lineEndContext="#stay" name="EmbeddedPerl">
@@ -89,12 +89,12 @@
 			<HlCChar attribute="7" context="#stay"/>
 			<RegExpr attribute="1" context="#stay" String="^#!.*" />
 			<DetectChar attribute="8" context="String" char="&quot;"/>
-			<DetectChar attribute="8" context="13" char="'"/>
+			<DetectChar attribute="8" context="String2" char="'"/>
 			<DetectChar attribute="9" context="String" char="`"/>
 			<Detect2Chars attribute="10" context="Commentar 1" char="/" char1="/"/>
 			<Detect2Chars attribute="10" context="Commentar 2" char="/" char1="*"/>
-			<Detect2Chars attribute="12" context="10" char="s" char1="/" />
-			<DetectChar attribute="12" context="9" char="/" />
+			<Detect2Chars attribute="12" context="Pattern2" char="s" char1="/" />
+			<DetectChar attribute="12" context="Pattern" char="/" />
 			<AnyChar attribute="11" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
 			<RegExpr attribute="3" context="#stay" String="\$[0-9]+" />
 			<RegExpr attribute="2" context="#stay" String="\$\#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
@@ -103,10 +103,10 @@
 		</context>
 
 		<context attribute="8" lineEndContext="#stay" name="String">
-			<LineContinue attribute="8" context="7"/>
+			<LineContinue attribute="8" context="#stay"/>
 			<HlCStringChar attribute="9" context="#stay"/>
-			<DetectChar attribute="8" context="1" char="&quot;"/>
-			<RegExpr attribute="3" context="2" String="\$[0-9]+" />
+			<DetectChar attribute="8" context="#pop" char="&quot;"/>
+			<RegExpr attribute="3" context="#stay" String="\$[0-9]+" />
 			<RegExpr attribute="2" context="#stay" String="\$[a-zA-Z_]*[a-zA-Z0-9_]*" />
 		</context>
 
@@ -116,77 +116,61 @@
 			<Detect2Chars attribute="10" context="#pop" char="*" char1="/"/>
 		</context>
 
-		<context attribute="12" lineEndContext="1" name="Preprocessor">
-			<LineContinue attribute="12" context="8"/>
-			<RangeDetect attribute="13" context="5" char="&quot;" char1="&quot;"/>
-			<RangeDetect attribute="13" context="5" char="&lt;" char1="&gt;"/>
-			<Detect2Chars attribute="10" context="3" char="/" char1="/"/>
-			<Detect2Chars attribute="10" context="6" char="/" char1="*"/>
+		<context attribute="12" lineEndContext="#stay" name="Pattern">
+			<RegExpr attribute="9" context="#stay" String="\\[\/\[\]dDwWsSnrtfb0\$@]?" />
+			<RegExpr attribute="9" context="#stay" String="\^[\/\[\]]?" />
+			<DetectChar attribute="12" context="#pop" char="/" />
 		</context>
 
-		<context attribute="10" lineEndContext="6" name="Commentar/Preprocessor">
-   			<Detect2Chars attribute="10" context="5" char="*" char1="/" />
+		<context attribute="12" lineEndContext="#stay" name="Pattern2">
+			<RegExpr attribute="9" context="#stay" String="\\[\/\[\]dDwWsSnrtfb0\$@]?" />
+			<RegExpr attribute="9" context="#stay" String="\^[\/\[\]]?" />
+			<RegExpr attribute="12" context="Pattern3" String="\/" />
 		</context>
 
-		<context attribute="0" lineEndContext="2" name="Some Context"/>
-
-		<context attribute="0" lineEndContext="5" name="Some Context2"/>
-
-		<context attribute="12" lineEndContext="9" >
-			<RegExpr attribute="9" context="9" String="\\[\/\[\]dDwWsSnrtfb0\$@]?" />
-			<RegExpr attribute="9" context="9" String="\^[\/\[\]]?" />
-			<DetectChar attribute="12" context="1" char="/" />
+		<context attribute="12" lineEndContext="#stay" name="Pattern3">
+			<RegExpr attribute="9" context="#stay" String="\\[\/\[\]dDwWsSnrtfb0\$@]?" />
+			<RegExpr attribute="9" context="#stay" String="\^[\/\[\]]?" />
+			<RegExpr attribute="12" context="#pop#pop" String="\/g?" />
 		</context>
 
-		<context attribute="12" lineEndContext="10">
-			<RegExpr attribute="9" context="10" String="\\[\/\[\]dDwWsSnrtfb0\$@]?" />
-			<RegExpr attribute="9" context="10" String="\^[\/\[\]]?" />
-			<RegExpr attribute="12" context="11" String="\/" />
+		<context attribute="9" lineEndContext="#stay" name="Something">
+			<DetectChar attribute="9" context="#pop" char="`"/>
 		</context>
 
-		<context attribute="12" lineEndContext="11">
-			<RegExpr attribute="9" context="11" String="\\[\/\[\]dDwWsSnrtfb0\$@]?" />
-			<RegExpr attribute="9" context="11" String="\^[\/\[\]]?" />
-			<RegExpr attribute="12" context="1" String="\/g?" />
+		<context attribute="8" lineEndContext="#stay" name="String2">
+			<LineContinue attribute="8" context="#stay"/>
+			<Detect2Chars attribute="9" context="#stay" char="\" char1="'"/>
+			<DetectChar attribute="8" context="#pop" char="'"/>
 		</context>
 
-		<context attribute="9" lineEndContext="12">
-			<DetectChar attribute="9" context="1" char="`"/>
+		<context attribute="8" lineEndContext="#pop" name="PerlOneLiner">
+			<keyword attribute="1" context="#stay" String="keywords"/>
+			<keyword attribute="2" context="#stay" String="types"/>
+			<HlCOct attribute="4" context="#stay"/>
+			<HlCHex attribute="5" context="#stay"/>
+			<Int attribute="3" context="#stay" />
+			<HlCChar attribute="7" context="#stay"/>
+			<RegExpr attribute="1" context="stay" String="^#!.*" />
+			<RegExpr attribute="8" context="#stay" String="&quot;[^&quot;]*&quot;"/>
+			<RegExpr attribute="8" context="#stay" String="'[^']*'"/>
+			<DetectChar attribute="9" context="Something" char="`"/>
+			<Detect2Chars attribute="10" context="Commentar 1" char="/" char1="/"/>
+			<Detect2Chars attribute="10" context="Commentar 2" char="/" char1="*"/>
+			<Detect2Chars attribute="12" context="Pattern2" char="s" char1="/" />
+			<AnyChar attribute="11" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+			<RegExpr attribute="3" context="#stay" String="\$[0-9]+" />
+			<RegExpr attribute="2" context="#stay" String="\$\#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+			<RegExpr attribute="12" context="#stay" String="\s+\:" />
+			<RegExpr attribute="10" context="#stay" String="\#.*" />
 		</context>
 
-		<context attribute="8" lineEndContext="2" name="String2">
-			<LineContinue attribute="8" context="7"/>
-			<Detect2Chars attribute="9" context="13" char="\" char1="'"/>
-			<DetectChar attribute="8" context="1" char="'"/>
+		<context attribute="10" lineEndContext="#stay" name="Documentation">
+			<StringDetect attribute="10" context="#pop" String="&lt;/%doc&gt;" insensitive="FALSE" />
 		</context>
 
-		<context attribute="8" lineEndContext="0" name="PerlOneLiner">
-			<keyword attribute="1" context="14" String="keywords"/>
-			<keyword attribute="2" context="14" String="types"/>
-			<HlCOct attribute="4" context="14"/>
-			<HlCHex attribute="5" context="14"/>
-			<Int attribute="3" context="14" />
-			<HlCChar attribute="7" context="14"/>
-			<RegExpr attribute="1" context="14" String="^#!.*" />
-			<RegExpr attribute="8" context="14" String="&quot;[^&quot;]*&quot;"/>
-			<RegExpr attribute="8" context="14" String="'[^']*'"/>
-			<DetectChar attribute="9" context="2" char="`"/>
-			<Detect2Chars attribute="10" context="3" char="/" char1="/"/>
-			<Detect2Chars attribute="10" context="4" char="/" char1="*"/>
-			<Detect2Chars attribute="12" context="10" char="s" char1="/" />
-			<AnyChar attribute="11" context="14" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-			<RegExpr attribute="3" context="14" String="\$[0-9]+" />
-			<RegExpr attribute="2" context="14" String="\$\#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
-			<RegExpr attribute="12" context="14" String="\s+\:" />
-			<RegExpr attribute="10" context="14" String="\#.*" />
-		</context>
-
-		<context attribute="10" lineEndContext="15" name="Documentation">
-			<StringDetect attribute="10" context="0" String="&lt;/%doc&gt;" insensitive="FALSE" />
-		</context>
-
-		<context attribute="14" lineEndContext="16" name="MethodCall">
-			<Detect2Chars attribute="14" context="0" char="&amp;" char1="&gt;" />
+		<context attribute="14" lineEndContext="#stay" name="MethodCall">
+			<Detect2Chars attribute="14" context="#pop" char="&amp;" char1="&gt;" />
 		</context>
 	</contexts>
 

@@ -220,6 +220,7 @@ class KateView : public Kate::View
 //    KToggleAction *viewLineNumbers;
     KRecentFilesAction *fileRecent;
     KSelectAction *setEndOfLine;
+    KSelectAction *setCharset;
     Kate::ActionMenu *setHighlight;
 
   private slots:
@@ -450,6 +451,10 @@ public slots:
       Set the end of line mode (Unix, Macintosh or Dos)
     */
     void setEol(int);
+    /**
+      Set the File Encoding
+    */
+    void setEncoding(int);
 
   private:
     void resizeEvent(QResizeEvent *);

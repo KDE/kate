@@ -319,6 +319,12 @@ void KateView::setupActions()
   list.append("&Windows/Dos");
   list.append("&Macintosh");
   setEndOfLine->setItems(list);
+
+  setCharset = new KSelectAction(i18n("&Charsets"), 0, ac, "set_charset");
+  connect(setCharset, SIGNAL(activated(int)), this, SLOT(setEncoding(int)));
+  list = KGlobal::charsets()->availableEncodingNames();
+  list.prepend( i18n( "Auto" ) );
+  setCharset->setItems(list);
 }
 
 void KateView::slotUpdate()
@@ -331,7 +337,14 @@ void KateView::slotFileStatusChanged()
   int eol = getEol();
   eol = eol>=1 ? eol : 0;
 
-    setEndOfLine->setCurrentItem(eol);
+  setEndOfLine->setCurrentItem(eol);
+
+  QString enc = myDoc->encoding();
+  int chset = KGlobal::charsets()->availableEncodingNames().findIndex(enc);
+  if (chset < 0) /* Try again with upper */
+    chset = KGlobal::charsets()->availableEncodingNames().findIndex(enc.lower());
+  chset = chset >= 0 ? chset + 1 : 0;
+  setCharset->setCurrentItem(chset);
 }
 
 void KateView::slotNewUndo()
@@ -1166,6 +1179,22 @@ void KateView::setEol(int eol) {
 
   myDoc->eolMode = eol;
   myDoc->setModified(true);
+}
+
+void KateView::setEncoding(int chset) {
+  QString enc;
+  if (chset == 0) {
+    enc = QTextCodec::codecForLocale()->name();
+  } else {
+    enc = KGlobal::charsets()->availableEncodingNames()[chset-1];
+    // enc = KGlobal::charsets()->encodingForName(KGlobal::charsets()->availableEncodingNames()[chset-1]);
+  }
+  // kdDebug() << "seEncoding(" << chset << "): encoding = " << enc << endl;
+  myDoc->setEncoding(enc);
+  // myDoc->setModified(true);
+  if (!doc()->isReadWrite()) {
+      myDoc->reloadFile();
+  }
 }
 
 void KateView::resizeEvent(QResizeEvent *)

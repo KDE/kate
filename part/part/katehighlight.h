@@ -313,6 +313,7 @@ class Highlight
     HlContext *contextNum (uint n);
 
     bool noHl;
+    bool folding;
     bool casesensitive;
     QString weakDeliminator;
     QString deliminator;
@@ -327,6 +328,9 @@ class Highlight
     QString iMimetypes;
     QString identifier;
     int refCount;
+
+    public:
+    	bool allowsFolding(){return folding;}
 };
 
 class HlManager : public QObject {

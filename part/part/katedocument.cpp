@@ -277,6 +277,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
 {
   setMarksUserChangable(markType01);
+
   regionTree=new KateCodeFoldingTree(this);
   myActiveView = 0L;
 
@@ -1663,6 +1664,7 @@ bool KateDocument::setHlMode (uint mode)
   if (internalSetHlMode (mode))
   {
     setDontChangeHlOnSave();
+
     updateViews();
     return true;
   }
@@ -1684,6 +1686,12 @@ bool KateDocument::internalSetHlMode (uint mode)
     buffer->setHighlight(m_highlight);
     makeAttribs();
   }
+
+  KateView *view;
+  for (view = myViews.first(); view != 0L; view = myViews.next() )
+     {
+         view->setFoldingMarkersOn(m_highlight->allowsFolding());
+     }
 
   emit(hlChanged());
 
@@ -4545,7 +4553,17 @@ uint KateDocument::editableMarks()
  * End of the implementaion of the MarkInterfaceExtension
  **/
 
- 
+
+
+
+
+
+
+
+
+
+
+
 QFont KateDocument::getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;}
 
 KateFontMetrics KateDocument::getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;}

@@ -662,7 +662,7 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, c
 Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
 {
   noHl = false;
-
+  folding=false;
   if (def == 0)
   {
     noHl = true;
@@ -1484,7 +1484,7 @@ void Highlight::readGlobalKeywordConfig()
 void  Highlight::createContextNameList(QStringList *ContextNameList)
 {
   syntaxContextData *data;
-  
+
   kdDebug()<<"creatingContextNameList:BEGIN"<<endl;
 
   ContextNameList->clear();
@@ -1556,7 +1556,7 @@ void Highlight::makeContextList()
 
   QStringList RegionList;
   QStringList ContextNameList;
-  
+
   RegionList<<"!KateInternal_TopLevel!";
   readCommentConfig();
   readGlobalKeywordConfig();
@@ -1567,7 +1567,7 @@ void Highlight::makeContextList()
   // This list is needed for the translation of the attribute parameter, if the itemData name is given instead of the index
   ItemDataList iDl;
   createItemData(iDl);
-  
+
   createContextNameList(&ContextNameList);
 
   kdDebug()<<"Parsing Context structure"<<endl;
@@ -1604,10 +1604,10 @@ void Highlight::makeContextList()
               QString tmpFtc = HlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
   	      ftc=getIdFromString(&ContextNameList, tmpFtc);
-	      if (ftc == -1) ftc =0;		
+	      if (ftc == -1) ftc =0;
 
 #if 0			// This shouldn't be needed anymore (jowenn)
-		
+
               if ( ! tmpFtc.isEmpty() ) {
                 //kdDebug(13010)<<"fallthgoughContext = "<<tmpFtc<<endl;
                 if ( tmpFtc.startsWith("#pop") ) {
@@ -1681,7 +1681,7 @@ void Highlight::makeContextList()
       }
 
   HlManager::self()->syntax->freeGroupInfo(data);
-
+  if (RegionList.count()!=1) folding=true;
 
 }
 

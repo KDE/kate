@@ -89,9 +89,9 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   initCodeCompletionImplementation();
 
   active = false;
-  //myIconBorder = false;
-//  iconBorderStatus = KateIconBorder::None;
-   iconBorderStatus = KateIconBorder::FoldingMarkers;
+//  myIconBorder = false;
+  iconBorderStatus = KateIconBorder::None;
+//   iconBorderStatus = KateIconBorder::FoldingMarkers;
   _hasWrap = false;
 
   myDoc = doc;
@@ -154,6 +154,10 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   KAccel *m_debugAccels=new KAccel(this,this);
   m_debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",myDoc,SLOT(dumpRegionTree()));
   m_debugAccels->setEnabled(true);
+  if (doc->highlight()==0)
+  	setFoldingMarkersOn(false);
+  else
+  	setFoldingMarkersOn(doc->highlight()->allowsFolding());
   myViewInternal->updateView (KateView::ufDocGeometry);
 }
 
@@ -1313,6 +1317,17 @@ void KateView::setLineNumbersOn(bool enable)
     iconBorderStatus &= ~KateIconBorder::LineNumbers;
 
   updateIconBorder();
+}
+
+void KateView::setFoldingMarkersOn(bool enable)
+{
+	if (enable == bool(iconBorderStatus & KateIconBorder::FoldingMarkers))
+		return;
+	if (enable)
+		iconBorderStatus|= KateIconBorder::FoldingMarkers;
+	else
+		iconBorderStatus&= ~KateIconBorder::FoldingMarkers;
+	updateIconBorder();
 }
 
 void KateView::toggleLineNumbersOn()

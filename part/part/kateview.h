@@ -534,6 +534,7 @@ public slots:
     void slotEditCommand ();
     void setIconBorder (bool enable);
     void setLineNumbersOn(bool enable);
+    void setFoldingMarkersOn(bool enable);
     void toggleIconBorder ();
     void toggleLineNumbersOn();
     void gotoMark (KTextEditor::Mark *mark);

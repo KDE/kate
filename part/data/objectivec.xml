@@ -52,7 +52,7 @@
       <item> volatile </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Default">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
         <Float attribute="Float" context="#stay">
@@ -76,7 +76,7 @@
         <Detect2Chars attribute="Comment" context="MultiLineComment" char="/" char1="*"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="^#"/>
-        <Detect2Chars attribute="8" context="String" char="@" char1="&quot;" />
+        <Detect2Chars attribute="String" context="String" char="@" char1="&quot;" />
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#stay"/>
@@ -87,7 +87,7 @@
       <context attribute="Comment" lineEndContext="#stay" name="MultiLineComment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
-      <context attribute="Preprocessor" lineEndContext="0" name="Preprocessor">
+      <context attribute="Preprocessor" lineEndContext="Default" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>

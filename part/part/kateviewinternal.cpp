@@ -2366,15 +2366,16 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
   if ((key == SHIFT + Qt::Key_Return) || (key == SHIFT + Qt::Key_Enter))
   {
-    KateTextLine::Ptr line = m_doc->kateTextLine( cursor.line() );
+    uint ln = cursor.line();
+    KateTextLine::Ptr line = m_doc->kateTextLine( ln );
     int pos = line->firstChar();
     if (pos != -1) {
       while (line->length() > pos && !line->getChar(pos).isLetterOrNumber()) ++pos;
     } else {
       pos = line->length(); // stay indented
     }
-    m_doc->insertLine( cursor.line()+1, line->string(0, pos) );
-    cursor.setPos(cursor.line()+1, pos);
+    m_doc->insertText( cursor.line(), line->length(), "\n" +  line->string(0, pos) );
+    cursor.setPos(ln + 1, pos);
     updateCursor(cursor, true);
     updateView();
     e->accept();

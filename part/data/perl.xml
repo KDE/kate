@@ -370,7 +370,7 @@
        <RegExpr attribute="Pod" context="#stay" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD" endRegion="POD"/>
        <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" endRegion="POD"/>
      </context>
-         <context attribute="String (interpolated)" lineContext="#stay" name="ipstring_internal">
+         <context attribute="String (interpolated)" lineEndContext="#stay" name="ipstring_internal">
        <RegExpr attribute="String (interpolated)" context="#stay" String="\\[\$@%]" />
        <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
        <RegExpr attribute="Data Type" context="var_detect" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
@@ -570,7 +570,7 @@
          <context attribute="Comment" name="comment" lineEndContext="#pop">
              <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
          </context>
-         <context attribute="String (interpolated)" name="Backticked">
+         <context attribute="String (interpolated)" name="Backticked" lineEndContext="stay">
              <IncludeRules context="ipstring_internal"/>
              <DetectChar attribute="Operator" context="#pop" char="`"/>
          </context>

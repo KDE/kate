@@ -1101,6 +1101,9 @@ void KateDocument::editRemoveTagLine (uint line)
 
 bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 {
+  if (!isReadWrite())
+    return false;
+
   TextLine::Ptr l = buffer->line(line);
 
   if (!l)
@@ -1125,6 +1128,9 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
 bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 {
+  if (!isReadWrite())
+    return false;
+
   TextLine::Ptr l = buffer->line(line);
 
   if (!l)
@@ -1150,6 +1156,9 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
 bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
 {
+  if (!isReadWrite())
+    return false;
+
   TextLine::Ptr l = buffer->line(line);
 
   if (!l)
@@ -1170,6 +1179,9 @@ bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
 
 bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
 {
+  if (!isReadWrite())
+    return false;
+
   TextLine::Ptr l = buffer->line(line);
 
   if (!l)
@@ -1237,6 +1249,9 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
 
 bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
 {
+  if (!isReadWrite())
+    return false;
+
   TextLine::Ptr l = buffer->line(line);
   TextLine::Ptr tl = buffer->line(line+1);
 
@@ -1308,6 +1323,9 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
 
 bool KateDocument::editInsertLine ( uint line, const QString &s )
 {
+  if (!isReadWrite())
+    return false;
+
   if ( line > numLines() )
     return false;
 
@@ -1350,6 +1368,9 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
 bool KateDocument::editRemoveLine ( uint line )
 {
+  if (!isReadWrite())
+    return false;
+
   if ( line > lastLine() )
     return false;
 

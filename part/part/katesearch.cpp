@@ -145,7 +145,7 @@ void KateSearch::search( SearchFlags flags )
 		QString searchFor = s_searchList.first();
 		uint length = searchFor.length();
 		int pos = s.cursor.col - length;
-		kdDebug() << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
+		kdDebug(13000) << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
 		if( searchFor.find( txt.mid( pos, length ), 0, s.flags.caseSensitive ) == 0 ) {
 			if( pos > 0 ) {
 				s.cursor.col = pos - 1;
@@ -348,7 +348,7 @@ bool KateSearch::doSearch( const QString& text )
 	bool wholeWords = s.flags.wholeWords;
 	uint foundLine, foundCol, matchLen;
 	bool found = false;
-//	kdDebug() << "Searching at " << line << ", " << col << endl;
+//	kdDebug(13000) << "Searching at " << line << ", " << col << endl;
 	if( regExp ) {
 		QRegExp re( text, caseSensitive );
 		found = doc()->searchText( line, col, re,
@@ -365,7 +365,7 @@ bool KateSearch::doSearch( const QString& text )
 		                           &matchLen, caseSensitive, backward );
 	}
 	if( !found ) return false;
-//	kdDebug() << "Found at " << foundLine << ", " << foundCol << endl;
+//	kdDebug(13000) << "Found at " << foundLine << ", " << foundCol << endl;
 	s.cursor.line = foundLine;
 	s.cursor.col = foundCol;
 	s.matchedLength = matchLen;

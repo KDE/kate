@@ -411,7 +411,7 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
   if (!m_highlight)
      return false;
 
-//  kdDebug()<<"needHighlight:startLine:"<< startLine <<" endline:"<<endLine<<endl;
+//  kdDebug(13000)<<"needHighlight:startLine:"<< startLine <<" endline:"<<endLine<<endl;
 
   TextLine::Ptr textLine;
   QMemArray<signed char> ctxNum, endCtx;
@@ -445,10 +445,10 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
     endCtx.duplicate (textLine->ctxArray ());
 
     foldingList.resize(0);
-//    kdDebug()<<"calling doHighlight for line:"<<current_line<<endl;
+//    kdDebug(13000)<<"calling doHighlight for line:"<<current_line<<endl;
     m_highlight->doHighlight(ctxNum, textLine, line_continue,&foldingList);
     retVal_folding=false;
-//    kdDebug()<<QString("updateing folding for line %1").arg(current_line+buf->m_beginState.lineNr)<<endl;
+//    kdDebug(13000)<<QString("updateing folding for line %1").arg(current_line+buf->m_beginState.lineNr)<<endl;
 
     bool foldingChanged= !textLine->foldingListValid;
     if (!foldingChanged) foldingChanged=(foldingList!=textLine->foldingList);
@@ -722,7 +722,7 @@ KateBuffer::dirtyBlock(KateBufBlock *buf)
 
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 {
-//   kdDebug()<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
+//   kdDebug(13000)<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
    TextLine::Ptr l=line(lineNr);
    if (l)
    {
@@ -730,7 +730,7 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
      changeLine (lineNr);
    }
 //   else
-//   kdDebug()<<QString("Invalid line %1").arg(lineNr)<<endl;
+//   kdDebug(13000)<<QString("Invalid line %1").arg(lineNr)<<endl;
 }
 
 
@@ -1078,7 +1078,7 @@ KateBufBlock::flushStringList()
    assert(buf-m_rawData2.data() == (int)size);
    m_codec = 0; // No codec
    b_rawDataValid = true;
-  // kdDebug()<<"KateBuffer::FlushStringList"<<endl;
+  // kdDebug(13000)<<"KateBuffer::FlushStringList"<<endl;
 }
 
 /**

@@ -351,7 +351,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   if (myView->iconBorderStatus() == None)
     return;
 
-  //kdDebug()<<"KateIconBorder::paintEvent()"<<endl;
+  //kdDebug(13000)<<"KateIconBorder::paintEvent()"<<endl;
 
   KateDocument *doc = myView->doc();
   if ( myView->iconBorderStatus() & LineNumbers && linesAtLastCheck != doc->numLines() ) {
@@ -440,7 +440,7 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
 
     if (myView->iconBorderStatus() & FoldingMarkers)
     {
-	kdDebug()<<"checking if a folding marker has been clicked"<<endl;
+	kdDebug(13000)<<"checking if a folding marker has been clicked"<<endl;
 
         int xMin=(myView->iconBorderStatus() & Icons)?iconPaneWidth:0;
 
@@ -450,12 +450,12 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
         int xMax=xMin+iconPaneWidth;
 	if ((e->x()>=xMin) && (e->x()<xMax))
         {
-	    kdDebug()<<"The click was within a marker range, is it valid though ?"<<endl;
+	    kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
             KateLineInfo info;
             myView->myDoc->regionTree->getLineInfo(&info,cursorOnLine);
 	    if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
             {
-               kdDebug()<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
+               kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
 	        emit toggleRegionVisibility(cursorOnLine);
 
             }

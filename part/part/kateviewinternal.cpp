@@ -850,7 +850,7 @@ void KateViewInternal::updateView(int flags)
   else if (oldU > 0)
    {
      paintTextLines(xPos, oldYPos);
-   //  kdDebug()<<"repaint lines"<<endl;
+   //  kdDebug(13000)<<"repaint lines"<<endl;
    }
 
   //
@@ -879,7 +879,7 @@ void KateViewInternal::updateView(int flags)
   int scrollbarWidth = style().scrollBarExtent().width();
   int bw = 0; // width of borders
 
-//kdDebug()<<"widest line to draw is "<<maxLen<<" px"<<endl;
+//kdDebug(13000)<<"widest line to draw is "<<maxLen<<" px"<<endl;
   if (exposeCursor || flags & KateViewInternal::ufDocGeometry) {
     emit myView->cursorPositionChanged();
   } else {
@@ -954,7 +954,7 @@ void KateViewInternal::updateView(int flags)
 
     z++;
   } while (z < 2);
-//kdDebug()<<"x scroll, afaik: "<<xMax<<endl;
+//kdDebug(13000)<<"x scroll, afaik: "<<xMax<<endl;
   if (xMax < xPos) xMax = xPos;
   if (yMax < yPos) yMax = yPos;
 

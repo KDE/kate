@@ -172,7 +172,7 @@ KateView::~KateView()
 
 void KateView::slotRegionVisibilityChangedAt(unsigned int)
 {
-  kdDebug()<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
+  kdDebug(13000)<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
   myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
 }
 
@@ -183,7 +183,7 @@ void KateView::slotCodeFoldingChanged()
 
 void KateView::slotRegionBeginEndAddedRemoved(unsigned int line)
 {
-  kdDebug()<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
+  kdDebug(13000)<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
 //  myViewInternal->repaint();
   // FIXME: performance problem
   if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)

@@ -365,7 +365,7 @@ QString KDevArgHint::markCurArg()
 
 void KDevArgHint::slotDone(int id)
 {
-	// kdDebug()<<QString("Slot done %1").arg(id)<<endl;
+	// kdDebug(13000)<<QString("Slot done %1").arg(id)<<endl;
 	hide();
 	if (ESC_accel) {delete ESC_accel; ESC_accel=0;}
 	emit argHintHidden();

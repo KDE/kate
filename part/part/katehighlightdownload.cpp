@@ -52,9 +52,9 @@ HlDownloadDialog::~HlDownloadDialog(){}
 void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 {
 	listData+=QString(data);
-	kdDebug()<<QString("CurrentListData: ")<<listData<<endl<<endl;
-	kdDebug()<<QString("Data length: %1").arg(data.size())<<endl;
-	kdDebug()<<QString("listData length: %1").arg(listData.length())<<endl;
+	kdDebug(13000)<<QString("CurrentListData: ")<<listData<<endl<<endl;
+	kdDebug(13000)<<QString("Data length: %1").arg(data.size())<<endl;
+	kdDebug(13000)<<QString("listData length: %1").arg(listData.length())<<endl;
 	if (data.size()==0)
 	{
 		if (listData.length()>0)
@@ -67,14 +67,14 @@ void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 			QDomNode n=DocElem.firstChild();
 			Highlight *hl;
 
-			if (n.isNull()) kdDebug()<<"There is no usable childnode"<<endl;
+			if (n.isNull()) kdDebug(13000)<<"There is no usable childnode"<<endl;
 			while (!n.isNull())
 			{
 				installedVersion="    --";
 
 				QDomElement e=n.toElement();
 				if (!e.isNull())
-				kdDebug()<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
+				kdDebug(13000)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
 				n=n.nextSibling();
 				
 				QString Name=e.attribute("name");

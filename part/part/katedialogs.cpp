@@ -590,10 +590,10 @@ void HlEditDialog::showItem()
         ItemContext->insertItem(it->text(0));
     uint tmpCtx;
     ItemContext->setCurrentItem(tmpCtx=(currentItem->text(3).startsWith("#pop")?0:(currentItem->text(3).contains("#stay")?1:currentItem->text(3).toInt()+2)));
-    kdDebug()<<QString("showItem(): tmpCtx=%1").arg(tmpCtx)<<endl;
+    kdDebug(13000)<<QString("showItem(): tmpCtx=%1").arg(tmpCtx)<<endl;
     if (tmpCtx==0)
     {
-    	kdDebug()<<"Showing ItempPopCount"<<endl;
+    	kdDebug(13000)<<"Showing ItempPopCount"<<endl;
     	ItemPopCount->show();
 	QString tmp=currentItem->text(3);
 	for (tmpCtx=0;tmp.startsWith("#pop");tmpCtx++,tmp.remove(0,4));

@@ -76,7 +76,7 @@ CodeCompletion_Impl::CodeCompletion_Impl(KateView *view):QObject(view),m_view(vi
 }
 
 void CodeCompletion_Impl::showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset,bool casesensitive){
-  kdDebug() << "showCompletionBox " << endl;
+  kdDebug(13000) << "showCompletionBox " << endl;
 
   m_caseSensitive=casesensitive;
   m_complList = complList;
@@ -147,8 +147,8 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 
       QApplication::sendEvent(m_view->myViewInternal, e ); // redirect the event to the editor
       if(m_colCursor+m_offset > m_view->cursorColumnReal()){ // the cursor is to far left
-	kdDebug()<< "Aborting Codecompletion after sendEvent"<<endl;
-	kdDebug()<<QString("%1").arg(m_view->cursorColumnReal())<<endl;
+	kdDebug(13000)<< "Aborting Codecompletion after sendEvent"<<endl;
+	kdDebug(13000)<<QString("%1").arg(m_view->cursorColumnReal())<<endl;
 	m_completionPopup->hide();
 	deleteCommentLabel();
 	m_view->setFocus();
@@ -171,19 +171,19 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 void CodeCompletion_Impl::updateBox(bool newCoordinate){
   m_completionListBox->clear();
   QString currentLine = m_view->currentTextLine();
-  kdDebug() << "Column:" << m_colCursor<<endl;
-  kdDebug() <<"Line:" << currentLine<<endl;
-  kdDebug() << "CurrentColumn:" << m_view->cursorColumnReal()<<endl;
+  kdDebug(13000) << "Column:" << m_colCursor<<endl;
+  kdDebug(13000) <<"Line:" << currentLine<<endl;
+  kdDebug(13000) << "CurrentColumn:" << m_view->cursorColumnReal()<<endl;
   int len = m_view->cursorColumnReal() - m_colCursor;
-  kdDebug()<< "Len:" << len<<endl;
+  kdDebug(13000)<< "Len:" << len<<endl;
   QString currentComplText = currentLine.mid(m_colCursor,len);
-  kdDebug() << "TEXT:" << currentComplText<<endl;
+  kdDebug(13000) << "TEXT:" << currentComplText<<endl;
   QValueList<KTextEditor::CompletionEntry>::Iterator it;
-  kdDebug() << "Count:" << m_complList.count()<<endl;
+  kdDebug(13000) << "Count:" << m_complList.count()<<endl;
 
   if (m_caseSensitive)
   for( it = m_complList.begin(); it != m_complList.end(); ++it ){
-    kdDebug()<< "insert "<<endl;
+    kdDebug(13000)<< "insert "<<endl;
     if((*it).text.startsWith(currentComplText)){
       new CompletionItem(m_completionListBox,*it);
     }
@@ -192,7 +192,7 @@ void CodeCompletion_Impl::updateBox(bool newCoordinate){
   {
     currentComplText=currentComplText.upper();
     for( it = m_complList.begin(); it != m_complList.end(); ++it ){
-      kdDebug()<< "insert "<<endl;
+      kdDebug(13000)<< "insert "<<endl;
       if((*it).text.upper().startsWith(currentComplText)){
         new CompletionItem(m_completionListBox,*it);
       }
@@ -234,7 +234,7 @@ void CodeCompletion_Impl::showArgHint ( QStringList functionList, const QString&
 
 	for( it = functionList.begin(); it != functionList.end(); it++ )
 	{
-		kdDebug() << "Insert function text: " << *it << endl;
+		kdDebug(13000) << "Insert function text: " << *it << endl;
 
 		m_pArgHint->setFunctionText ( nNum, ( *it ) );
 

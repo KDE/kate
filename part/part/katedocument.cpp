@@ -3789,11 +3789,11 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   bool isSel = false;
   bool isTab = false;
 
-  //kdDebug()<<"paint 1"<<endl;
+  //kdDebug(13000)<<"paint 1"<<endl;
 
   if (len < 1)
   {
-    //  kdDebug()<<"paint 2"<<endl;
+    //  kdDebug(13000)<<"paint 2"<<endl;
 
     if ((showCursor > -1) && (showCursor == curCol))
     {
@@ -3802,14 +3802,14 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &at[0].col;
     }
-    //  kdDebug()<<"paint 3"<<endl;
+    //  kdDebug(13000)<<"paint 3"<<endl;
 
   }
   else
     {
   for (uint tmp = len; (tmp > 0); tmp--)
   {
-    // kdDebug()<<"paint 4"<<endl;
+    // kdDebug(13000)<<"paint 4"<<endl;
 
     if ((*s) == QChar('\t'))
     {
@@ -3859,7 +3859,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
     xPosAfter += width;
 
-    //  kdDebug()<<"paint 5"<<endl;
+    //  kdDebug(13000)<<"paint 5"<<endl;
 
     if (xPosAfter >= xStart)
     {
@@ -3931,7 +3931,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       oldS = s+1;
     }
 
-    //   kdDebug()<<"paint 6"<<endl;
+    //   kdDebug(13000)<<"paint 6"<<endl;
 
     // increase xPos
     xPos = xPosAfter;
@@ -3947,7 +3947,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     // col move
     curCol++;
   }
-  // kdDebug()<<"paint 7"<<endl;
+  // kdDebug(13000)<<"paint 7"<<endl;
   if ((showCursor > -1) && (showCursor == curCol))
   {
     cursorVisible = true;
@@ -3956,7 +3956,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     cursorColor = &curAt->col;
   }
 }
-  //kdDebug()<<"paint 8"<<endl;
+  //kdDebug(13000)<<"paint 8"<<endl;
   if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
   {
     paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);

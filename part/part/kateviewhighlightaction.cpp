@@ -40,7 +40,7 @@ void KateViewHighlightAction::updateMenu (Kate::Document *doc)
 
 void KateViewHighlightAction::slotAboutToShow()
 {
-  kdDebug()<<"KateViewHighlightAction::slotAboutToShow()"<<endl;
+  kdDebug(13000)<<"KateViewHighlightAction::slotAboutToShow()"<<endl;
 
   Kate::Document *doc=myDoc;
 

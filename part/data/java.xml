@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Java" version="1.12" kateversion="2.3" section="Sources" extensions="*.java" mimetype="text/x-java">
+<language name="Java" version="1.13" kateversion="2.3" section="Sources" extensions="*.java" mimetype="text/x-java">
 	<highlighting>
 		<list name="java14">
 			<item> AbstractAction </item>
@@ -2809,7 +2809,7 @@
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
 				<DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1"/>
 				<DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1"/>
-				<RegExpr attribute="Keyword" context="Imports" String="^\s*(package|import)" />
+				<RegExpr attribute="Keyword" context="Imports" String="\b(package|import)\b" />
 				<RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
 				<RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
 				<AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>

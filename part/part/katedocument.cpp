@@ -4502,8 +4502,8 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
           if ( KMessageBox::warningContinueCancel(
                widget(),
                i18n("Ignoring means that you will not be warned again (unless "
-               "the disk file changes once more): if you save the document you "
-               "overwrite the disk file, if you don't save then the disk file "
+               "the disk file changes once more): if you save the document, you "
+               "will overwrite the file on disk; if you do not save then the disk file "
                "(if present) is what you have."),
                i18n("You are on your own"),
                KStdGuiItem::cont(),

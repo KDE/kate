@@ -76,7 +76,6 @@ class SConfig
 {
   public:
     KateTextCursor cursor;
-    KateTextCursor startCursor;
     int flags;
 
     // Set the pattern to be used for searching.

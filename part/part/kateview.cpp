@@ -2067,7 +2067,6 @@ void KateView::initSearch(SConfig &, int flags) {
     if (!(myDoc->s.cursor.col || myDoc->s.cursor.line))
       myDoc->s.flags |= KateDocument::sfFinished;
   }
-  myDoc->s.startCursor = myDoc->s.cursor;
 }
 
 void KateView::continueSearch(SConfig &) {
@@ -2156,12 +2155,43 @@ void KateView::doReplaceAction(int result, bool found) {
       myDoc->removeText (myDoc->s.cursor.line, myDoc->s.cursor.col, myDoc->s.cursor.line, myDoc->s.cursor.col + myDoc->s.matchedLength);
       myDoc->insertText (myDoc->s.cursor.line, myDoc->s.cursor.col, replaceWith);
       replaces++;
-      if (myDoc->s.cursor.line == myDoc->s.startCursor.line && myDoc->s.cursor.col < myDoc->s.startCursor.col)
-        myDoc->s.startCursor.col += rlen - myDoc->s.matchedLength;
-      if (!(myDoc->s.flags & KateDocument::sfBackward)) myDoc->s.cursor.col += rlen;
+
+      if (!(myDoc->s.flags & KateDocument::sfBackward))
+            myDoc->s.cursor.col += rlen;
+          else
+          {
+            if (myDoc->s.cursor.col > 0)
+              myDoc->s.cursor.col--;
+            else
+            {
+              myDoc->s.cursor.line--;
+
+              if (myDoc->s.cursor.line >= 0)
+              {
+                myDoc->s.cursor.col = myDoc->getTextLine(myDoc->s.cursor.line)->length();
+              }
+            }
+          }
+
       break;
     case KateView::srNo: //no
-      if (!(myDoc->s.flags & KateDocument::sfBackward)) myDoc->s.cursor.col += myDoc->s.matchedLength;
+      if (!(myDoc->s.flags & KateDocument::sfBackward))
+            myDoc->s.cursor.col += myDoc->s.matchedLength;
+          else
+          {
+            if (myDoc->s.cursor.col > 0)
+              myDoc->s.cursor.col--;
+            else
+            {
+              myDoc->s.cursor.line--;
+
+              if (myDoc->s.cursor.line >= 0)
+              {
+                myDoc->s.cursor.col = myDoc->getTextLine(myDoc->s.cursor.line)->length();
+              }
+            }
+          }
+     
       break;
     case KateView::srAll: //replace all
       deleteReplacePrompt();
@@ -2175,9 +2205,24 @@ void KateView::doReplaceAction(int result, bool found) {
           myDoc->removeText (myDoc->s.cursor.line, myDoc->s.cursor.col, myDoc->s.cursor.line, myDoc->s.cursor.col + myDoc->s.matchedLength);
           myDoc->insertText (myDoc->s.cursor.line, myDoc->s.cursor.col, replaceWith);
           replaces++;
-          if (myDoc->s.cursor.line == myDoc->s.startCursor.line && myDoc->s.cursor.col < myDoc->s.startCursor.col)
-            myDoc->s.startCursor.col += rlen - myDoc->s.matchedLength;
-          if (!(myDoc->s.flags & KateDocument::sfBackward)) myDoc->s.cursor.col += rlen;
+
+          if (!(myDoc->s.flags & KateDocument::sfBackward))
+            myDoc->s.cursor.col += rlen;
+          else
+          {
+            if (myDoc->s.cursor.col > 0)
+              myDoc->s.cursor.col--;
+            else
+            {
+              myDoc->s.cursor.line--;
+
+              if (myDoc->s.cursor.line >= 0)
+              {
+                myDoc->s.cursor.col = myDoc->getTextLine(myDoc->s.cursor.line)->length();
+              }
+            }
+          }
+
         }
       } while (!askReplaceEnd());
       return;

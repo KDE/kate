@@ -3702,10 +3702,14 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
   int searchEnd;
   TextLine::Ptr textLine;
 
-  if (searchFor.isEmpty()) return false;
+  if (searchFor.isEmpty())
+    return false;
 
   line = sc.cursor.line;
   col = sc.cursor.col;
+  
+  if (line < 0)
+    return false;
 
   if (!(sc.flags & KateDocument::sfBackward)) // FORWARDS
   {

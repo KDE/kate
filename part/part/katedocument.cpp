@@ -1588,30 +1588,25 @@ QPtrList<KTextEditor::Cursor> KateDocument::cursors () const
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive, bool backwards)
 {
-  int line, col;
-  int searchEnd;
-  TextLine::Ptr textLine;
-  uint foundAt, myMatchLen;
-  bool found;
-
-  Q_ASSERT( startLine < numLines() );
-
   if (text.isEmpty())
     return false;
 
-  line = startLine;
-  col = startCol;
+  int line = startLine;
+  int col = startCol;
 
   if (!backwards)
   {
-    searchEnd = lastLine();
+    int searchEnd = lastLine();
 
     while (line <= searchEnd)
     {
-      textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = buffer->plainLine(line);
 
-      found = false;
-      found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, false);
+      if (!textLine)
+        return false;
+
+      uint foundAt, myMatchLen;
+      bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, false);
 
       if (found)
       {
@@ -1628,31 +1623,34 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
   else
   {
     // backward search
-    searchEnd = 0;
+    int searchEnd = 0;
 
     while (line >= searchEnd)
     {
-      textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = buffer->plainLine(line);
 
-      found = false;
-      found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
+      if (!textLine)
+        return false;
+
+      uint foundAt, myMatchLen;
+      bool found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
 
       if (found)
       {
-	if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
-	    && line == selectStart.line() && foundAt == (uint) selectStart.col()
-	    && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.col())
-	{
-	  // To avoid getting stuck at one match we skip a match if it is already
-	  // selected (most likely because it has just been found).
-	  if (foundAt > 0)
-	    col = foundAt - 1;
-	  else {
-	    if (--line >= 0)
-	      col = lineLength(line);
-	  }
-	  continue;
-	}
+        if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
+            && line == selectStart.line() && foundAt == (uint) selectStart.col()
+            && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.col())
+        {
+          // To avoid getting stuck at one match we skip a match if it is already
+          // selected (most likely because it has just been found).
+          if (foundAt > 0)
+            col = foundAt - 1;
+          else {
+            if (--line >= 0)
+              col = lineLength(line);
+          }
+          continue;
+        }
 
         (*foundAtLine) = line;
         (*foundAtCol) = foundAt;
@@ -1672,43 +1670,40 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards)
 {
-  int line, col;
-  int searchEnd;
-  TextLine::Ptr textLine;
-  uint foundAt, myMatchLen;
-  bool found;
-
   if (regexp.isEmpty() || !regexp.isValid())
     return false;
 
-  line = startLine;
-  col = startCol;
+  int line = startLine;
+  int col = startCol;
 
   if (!backwards)
   {
-    searchEnd = lastLine();
+    int searchEnd = lastLine();
 
     while (line <= searchEnd)
     {
-      textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = buffer->plainLine(line);
 
-      found = false;
-      found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, false);
+      if (!textLine)
+        return false;
+
+      uint foundAt, myMatchLen;
+      bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, false);
 
       if (found)
       {
-	// A special case which can only occur when searching with a regular expression consisting
-	// only of a lookahead (e.g. ^(?=\{) for a function beginning without selecting '{').
-	if (myMatchLen == 0 && (uint) line == startLine && foundAt == (uint) col)
-	{
-	  if (col < lineLength(line))
-	    col++;
-	  else {
-	    line++;
-	    col = 0;
-	  }
-	  continue;
-	}
+        // A special case which can only occur when searching with a regular expression consisting
+        // only of a lookahead (e.g. ^(?=\{) for a function beginning without selecting '{').
+        if (myMatchLen == 0 && (uint) line == startLine && foundAt == (uint) col)
+        {
+          if (col < lineLength(line))
+            col++;
+          else {
+            line++;
+            col = 0;
+          }
+          continue;
+        }
 
         (*foundAtLine) = line;
         (*foundAtCol) = foundAt;
@@ -1723,31 +1718,34 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
   else
   {
     // backward search
-    searchEnd = 0;
+    int searchEnd = 0;
 
     while (line >= searchEnd)
     {
-      textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = buffer->plainLine(line);
 
-      found = false;
-      found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);
+      if (!textLine)
+        return false;
+
+      uint foundAt, myMatchLen;
+      bool found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);
 
       if (found)
       {
-	if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
-	    && line == selectStart.line() && foundAt == (uint) selectStart.col()
-	    && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.col())
-	{
-	  // To avoid getting stuck at one match we skip a match if it is already
-	  // selected (most likely because it has just been found).
-	  if (foundAt > 0)
-	    col = foundAt - 1;
-	  else {
-	    if (--line >= 0)
-	      col = lineLength(line);
-	  }
-	  continue;
-	}
+        if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
+            && line == selectStart.line() && foundAt == (uint) selectStart.col()
+            && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.col())
+        {
+          // To avoid getting stuck at one match we skip a match if it is already
+          // selected (most likely because it has just been found).
+          if (foundAt > 0)
+            col = foundAt - 1;
+          else {
+            if (--line >= 0)
+              col = lineLength(line);
+          }
+          continue;
+        }
 
         (*foundAtLine) = line;
         (*foundAtCol) = foundAt;

@@ -3,7 +3,7 @@
 [
 	<!ENTITY funcname "[A-Za-z_:][A-Za-z0-9_:#&#37;@-]*">
 ]>
-<language name="Bash" version="1.97" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="1.98" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -533,8 +533,8 @@
       <!-- FindSubstitutions goes after anything starting with $ -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindSubstitutions">
 	<RegExpr attribute="Variable" context="#stay" String="\$[*@#?$!_0-9-]" />
-	<RegExpr attribute="Variable" context="#stay" String="\$[A-Za-z_][A-Za-z0-9_]*" />
 	<RegExpr attribute="Variable" context="Subscript" String="\$[A-Za-z_][A-Za-z0-9_]*\[" />
+	<RegExpr attribute="Variable" context="#stay" String="\$[A-Za-z_][A-Za-z0-9_]*" />
 	<RegExpr attribute="Variable" context="#stay" String="\$\{[*@#?$!_0-9-]\}" />
 	<RegExpr attribute="Variable" context="#stay" String="\$\{#[A-Za-z_][A-Za-z0-9_]*\}" />
 	<RegExpr attribute="Variable" context="#stay" String="\$\{![A-Za-z_][A-Za-z0-9_]*\*?\}" />

@@ -1594,7 +1594,7 @@ void KateDocument::updateModified()
   if ( ( lastUndoGroupWhenSaved &&
          !undoItems.isEmpty() &&
          undoItems.last() == lastUndoGroupWhenSaved )
-       || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty && config()->undoSteps() != 0 ) )
+       || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty ) )
   {
     setModified( false );
     kdDebug() << k_funcinfo << "setting modified to false!" << endl;

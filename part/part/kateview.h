@@ -479,7 +479,8 @@ public slots:
      ufDocGeometry=1,
      ufUpdateOnScroll=2,
      ufPos=4,
-     ufLeftBorder=8
+     ufLeftBorder=8,
+     ufFoldingChanged=16
      };
 
 //cursor movement commands

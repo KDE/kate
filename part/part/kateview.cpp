@@ -170,7 +170,7 @@ KateView::~KateView()
 void KateView::slotRegionVisibilityChangedAt(unsigned int)
 {
 	kdDebug()<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
-	myViewInternal->repaint();
+	myViewInternal->updateView(KateView::ufFoldingChanged);
 }
 
 void KateView::slotCodeFoldingChanged()

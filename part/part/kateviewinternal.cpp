@@ -673,7 +673,7 @@ void KateViewInternal::clearDirtyCache(int height) {
   updateState = 0;
 
   lines = endLine - startLine +1;
-  
+
   if (lines > lineRanges.size())
     lineRanges.resize (lines * 2);
 
@@ -806,8 +806,8 @@ void KateViewInternal::updateView(int flags)
 		} while (reUpdate);
 	}
 
-      if (updateState > 0) paintTextLines(oldXPos, oldYPos);
-      if (updateState==3) {clearDirtyCache(height());update();}
+   if (updateState > 0) paintTextLines(oldXPos, oldYPos);
+   if (updateState==3) {clearDirtyCache(height());update();}
 
 	int tmpYPos;
 	if (exposeCursor)
@@ -827,6 +827,9 @@ void KateViewInternal::updateView(int flags)
 		clearDirtyCache(height());
 	}
 	}
+  
+  if (flags & KateView::ufFoldingChanged)
+    repaint ();
 
 //	update();
 #if 0

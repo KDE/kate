@@ -282,11 +282,16 @@ class HlManager : public QObject
     void changed();
 
   private:
+    int realWildcardFind(const QString &fileName);
+
+  private:
     QPtrList<Highlight> hlList;
     QDict<Highlight> hlDict;
 
     static HlManager *s_pSelf;
     static KConfig *s_pConfig;
+
+    static QStringList commonSuffixes;
 };
 
 

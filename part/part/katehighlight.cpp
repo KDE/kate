@@ -190,6 +190,9 @@ class HlRegExpr : public HlItem {
 HlManager *HlManager::s_pSelf = 0;
 KConfig *HlManager::s_pConfig =0;
 
+// Make this configurable?
+QStringList HlManager::commonSuffixes = QStringList::split(";", ".orig;.new;~;.bak;.BAK");
+
 enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar,dsString,dsComment,dsOthers};
 
 static bool trueBool = true;
@@ -213,7 +216,6 @@ static int getDefStyleNum(QString name)
   return dsNormal;
 }
 //END
-
 
 //BEGIN HlItem
 HlItem::HlItem(int attribute, int context,signed char regionId,signed char regionId2)
@@ -281,7 +283,6 @@ int HlStringDetect::checkHgl(const QString& text, int offset, int len)
 }
 
 //END
-
 
 //BEGIN HLRangeDetect
 HlRangeDetect::HlRangeDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
@@ -369,7 +370,6 @@ int HlKeyword::checkHgl(const QString& text, int offset, int len)
 }
 //END
 
-
 //BEGIN HlInt
 HlInt::HlInt(int attribute, int context, signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2)
@@ -408,7 +408,6 @@ int HlInt::checkHgl(const QString& text, int offset, int len)
   return 0;
 }
 //END
-
 
 //BEGIN HlFloat
 HlFloat::HlFloat(int attribute, int context, signed char regionId,signed char regionId2)
@@ -586,7 +585,6 @@ int HlCHex::checkHgl(const QString& text, int offset, int len)
 }
 //END
 
-
 HlCFloat::HlCFloat(int attribute, int context, signed char regionId,signed char regionId2)
   : HlFloat(attribute,context,regionId,regionId2) {
 }
@@ -668,7 +666,6 @@ int HlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   return (offset + Expr->matchedLength());
 };
 
-
 HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {
 }
@@ -680,7 +677,6 @@ int HlLineContinue::checkHgl(const QString& text, int offset, int len)
 
   return 0;
 }
-
 
 HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {
@@ -755,7 +751,6 @@ int HlCStringChar::checkHgl(const QString& text, int offset, int len)
 {
   return checkEscapedChar(text, offset, len);
 }
-
 
 HlCChar::HlCChar(int attribute, int context,signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {
@@ -917,7 +912,6 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs
     }
   }
 }
-
 
 /*******************************************************************************************
         Highlight - doHighlight
@@ -1165,11 +1159,9 @@ QString Highlight::getWildcards() {
   return getKConfig()->readEntry("Wildcards", iWildcards);
 }
 
-
 QString Highlight::getMimetypes() {
   return getKConfig()->readEntry("Mimetypes", iMimetypes);
 }
-
 
 HlData *Highlight::getData() {
   KConfig *config;
@@ -1263,7 +1255,6 @@ void Highlight::setItemDataList(ItemDataList &list, KConfig *config) {
   }
 }
 
-
 /*******************************************************************************************
         Highlight - use
         Increase the usage count and trigger initialization if needed
@@ -1280,7 +1271,6 @@ void Highlight::use()
   if (refCount == 0) init();
   refCount++;
 }
-
 
 /*******************************************************************************************
         Highlight - release
@@ -1423,8 +1413,6 @@ void Highlight::addToItemDataList()
     if (data) HlManager::self()->syntax->freeGroupInfo(data);
   }
 
-
-
 /*******************************************************************************************
         Highlight - lookupAttrName
         This function is  a helper for makeContextList and createHlItem. It looks the given
@@ -1449,7 +1437,6 @@ int  Highlight::lookupAttrName(const QString& name, ItemDataList &iDl)
   kdDebug(13010)<<"Couldn't resolve itemDataName"<<endl;
   return 0;
 }
-
 
 /*******************************************************************************************
         Highlight - createHlItem
@@ -1614,8 +1601,6 @@ bool Highlight::isInWord(QChar c)
   return deliminator.find(c) == -1 && sq.find(c) == -1;
 }
 
-
-
 /*******************************************************************************************
         Highlight - readCommentConfig
         This function is  a helper for makeContextList. It parses the xml file for
@@ -1718,11 +1703,6 @@ void Highlight::readGlobalKeywordConfig()
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
 }
 
-
-
-
-
-
 void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
 {
   syntaxContextData *data;
@@ -1794,7 +1774,6 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
   return context;
 }
 
-
 /*******************************************************************************************
         Highlight - makeContextList
         That's the most important initialization function for each highlighting. It's called
@@ -1807,7 +1786,6 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
                         *************
                         * return value: none
 *******************************************************************************************/
-
 
 void Highlight::makeContextList()
 {
@@ -1891,7 +1869,6 @@ void Highlight::makeContextList()
 // we have finished
   building=false;
 }
-
 
 void Highlight::handleIncludeRules()
 {
@@ -2222,7 +2199,31 @@ int HlManager::nameFind(const QString &name) {
   return z;
 }
 
-int HlManager::wildcardFind(const QString &fileName) {
+int HlManager::wildcardFind(const QString &fileName)
+{
+  int result;
+  if ((result = realWildcardFind(fileName)) != -1)
+    return result;
+
+  int length = fileName.length();
+  QString backupSuffix = KateDocument::backupSuffix();
+  if (fileName.endsWith(backupSuffix)) {
+    if ((result = realWildcardFind(fileName.left(length - backupSuffix.length()))) != -1)
+      return result;
+  }
+
+  for (QStringList::Iterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
+    if (*it != backupSuffix && fileName.endsWith(*it)) {
+      if ((result = realWildcardFind(fileName.left(length - (*it).length()))) != -1)
+        return result;
+    }
+  }
+
+  return -1;
+}
+
+int HlManager::realWildcardFind(const QString &fileName)
+{
   Highlight *highlight;
   QStringList l;
   QRegExp sep("\\s*;\\s*");

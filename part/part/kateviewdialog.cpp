@@ -752,16 +752,16 @@ void SaveConfigTab::apply()
     f |= KateDocument::LocalFiles;
   if ( cbRemoteFiles->isChecked() )
     f |= KateDocument::RemoteFiles;
-  m_doc->setBackupConfig( f );
-  m_doc->setBackupSuffix( leBuSuffix->text() );
+  KateDocument::setBackupConfig( f );
+  KateDocument::setBackupSuffix( leBuSuffix->text() );
 }
 
 void SaveConfigTab::reload()
 {
-  uint f ( m_doc->backupConfig() );
+  uint f ( KateDocument::backupConfig() );
   cbLocalFiles->setChecked( f & KateDocument::LocalFiles );
   cbRemoteFiles->setChecked( f & KateDocument::RemoteFiles );
-  leBuSuffix->setText( m_doc->backupSuffix() );
+  leBuSuffix->setText( KateDocument::backupSuffix() );
 }
 
 void SaveConfigTab::reset()

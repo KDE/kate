@@ -2859,7 +2859,7 @@ bool KateDocument::openFile()
   if (!success && buffer->loadingBorked())
     KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
   else if (!success)
-    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was impossible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
+    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was not possible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
 
   //
   // return the success
@@ -2888,7 +2888,7 @@ bool KateDocument::saveFile()
   // we really want to save this file ?
   //
   bool reallySaveIt = !buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
-      i18n("This file couldn't be loaded right because of not enough temporary disk space, saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
+      i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
 
   //
   // can we encode it if we want to save it ?
@@ -2963,9 +2963,9 @@ bool KateDocument::saveFile()
   // display errors
   //
   if (reallySaveIt && !canEncode)
-    KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding can't encode every unicode character in it!"));
+    KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding cannot encode every unicode character in it!"));
   else if (reallySaveIt && !success)
-    KMessageBox::error (widget(), i18n ("The document could not been saved, as it was impossible to write to %1!\n\nCheck if you have write access to this file or if enough disc spaces is available.").arg(m_url.url()));
+    KMessageBox::error (widget(), i18n ("The document could not been saved, as it was not possible to write to %1!\n\nCheck that you have write access to this file or if enough disc space is available.").arg(m_url.url()));
 
   //
   // return success
@@ -4413,7 +4413,7 @@ void KateDocument::reloadFile()
         str = i18n("The file %1 was changed (deleted) on disc by another program!\n\n").arg(url().fileName());
 
       if (!(KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to reload the modified file, could cause data loss?")) == KMessageBox::Yes))
+               str + i18n("Do you really want to reload the modified file? Data loss may occur.")) == KMessageBox::Yes))
         return;
     }
 

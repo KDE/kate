@@ -103,22 +103,14 @@
         <HlCOct attribute="4" context="0"/>
         <HlCHex attribute="5" context="0"/>
         <Int attribute="3" context="0" >
-          <StringDetect attribute="3" context="0" String="ULL" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LUL" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LLU" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="UL" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LU" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LL" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="U" 
-insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="L" 
-insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="ULL" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="LUL" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="LLU" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="UL" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="LU" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="LL" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="U" insensitive="TRUE"/>
+          <StringDetect attribute="3" context="0" String="L" insensitive="TRUE"/>
         </Int>
         <HlCChar attribute="7" context="0"/>
         <DetectChar attribute="8" context="1" char="&quot;"/>

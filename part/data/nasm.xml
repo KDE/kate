@@ -47,7 +47,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 	the file extension for this other assembler or delete its syntax highlight
 	file.
 -->
-<language name="NASM Assembler" version="1.0" kateversion="2.1" section="Assembler" extensions="*.asm;*.ASM" mimetype="text/x-asm">
+<language name="NASM Assembler" version="1.00" kateversion="2.1" section="Assembler" extensions="*.asm;*.ASM" mimetype="text/x-asm">
   <highlighting>
 
     <list name="Registers">

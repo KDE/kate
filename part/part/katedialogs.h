@@ -77,7 +77,25 @@ class QVBox;
 class QListViewItem;
 class QCheckBox;
 
-class SpellConfigPage : public Kate::ConfigPage
+class KateConfigPage : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+  public:
+    KateConfigPage ( QWidget *parent=0, const char *name=0 );
+    virtual ~KateConfigPage ();
+  
+  public:
+    bool changed () { return m_changed; }
+    
+  private slots:
+    void somethingHasChanged ();
+    
+  private:
+    bool m_changed;
+};
+
+class SpellConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
@@ -108,7 +126,7 @@ class GotoLineDialog : public KDialogBase
     QPushButton *btnOK;
 };
 
-class IndentConfigTab : public Kate::ConfigPage
+class IndentConfigTab : public KateConfigPage
 {
   Q_OBJECT
 
@@ -133,7 +151,7 @@ class IndentConfigTab : public Kate::ConfigPage
     void defaults () {};
 };
 
-class SelectConfigTab : public Kate::ConfigPage
+class SelectConfigTab : public KateConfigPage
 {
   Q_OBJECT
   
@@ -150,7 +168,7 @@ class SelectConfigTab : public Kate::ConfigPage
     void defaults () {};
 };
 
-class EditConfigTab : public Kate::ConfigPage
+class EditConfigTab : public KateConfigPage
 {
     Q_OBJECT
 
@@ -174,12 +192,9 @@ class EditConfigTab : public Kate::ConfigPage
     void reload ();
     void reset () {};
     void defaults () {};
-
-  protected slots:
-    void wordWrapToggled();
 };
 
-class ViewDefaultsConfig : public Kate::ConfigPage
+class ViewDefaultsConfig : public KateConfigPage
 {
   Q_OBJECT
 
@@ -206,7 +221,7 @@ class ViewDefaultsConfig : public Kate::ConfigPage
   void defaults ();
 };
 
-class EditKeyConfiguration: public Kate::ConfigPage
+class EditKeyConfiguration: public KateConfigPage
 {
   Q_OBJECT
 
@@ -228,7 +243,7 @@ class EditKeyConfiguration: public Kate::ConfigPage
     KKeyChooser* m_keyChooser;
 };
 
-class SaveConfigTab : public Kate::ConfigPage
+class SaveConfigTab : public KateConfigPage
 {
   Q_OBJECT
   public:
@@ -290,7 +305,7 @@ class PluginListView : public KListView
     unsigned count;
 };
 
-class PluginConfigPage : public Kate::ConfigPage
+class PluginConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
@@ -374,7 +389,7 @@ class KMimeTypeChooserDlg : public KDialogBase
     KMimeTypeChooser *chooser;
 };
 
-class HlConfigPage : public Kate::ConfigPage
+class HlConfigPage : public KateConfigPage
 {
   Q_OBJECT
 

@@ -117,8 +117,25 @@
 #define HLDOWNLOADPATH "http://www.kde.org/apps/kate/hl/update.xml"
 //END
 
+KateConfigPage::KateConfigPage ( QWidget *parent, const char *name )
+  : Kate::ConfigPage (parent, name)
+  , m_changed (false)
+{
+  connect (this, SIGNAL(changed()), this, SLOT(somethingHasChanged ()));
+}
+
+KateConfigPage::~KateConfigPage ()
+{
+}
+
+void KateConfigPage::somethingHasChanged ()
+{
+  m_changed = true;
+  kdDebug (13000) << "TEST: something changed on the config page: " << this << endl;
+}
+
 SpellConfigPage::SpellConfigPage( QWidget* parent )
-  : Kate::ConfigPage( parent)
+  : KateConfigPage( parent)
 {
   QVBoxLayout* l = new QVBoxLayout( this );
   cPage = new KSpellConfig( this, 0L, 0L, false );
@@ -128,41 +145,20 @@ SpellConfigPage::SpellConfigPage( QWidget* parent )
 
 void SpellConfigPage::apply ()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   // kspell
   cPage->writeGlobalSettings ();
 }
-
-//BEGIN GotoLineDialog
-GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
-  : KDialogBase(parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
-
-  QWidget *page = new QWidget(this);
-  setMainWidget(page);
-
-  QVBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
-  e1 = new KIntNumInput(line, page);
-  e1->setRange(1, max);
-  e1->setEditFocus(true);
-
-  QLabel *label = new QLabel( e1,i18n("&Go to line:"), page );
-  topLayout->addWidget(label);
-  topLayout->addWidget(e1);
-  topLayout->addSpacing(spacingHint()); // A little bit extra space
-  topLayout->addStretch(10);
-  e1->setFocus();
-}
-
-int GotoLineDialog::getLine() {
-  return e1->value();
-}
-//END GotoLineDialog
 
 //BEGIN IndentConfigTab
 const int IndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::cfSpaceIndent,
   KateDocument::cfBackspaceIndents,KateDocument::cfTabIndents, KateDocument::cfKeepIndentProfile, KateDocument::cfKeepExtraSpaces};
 
 IndentConfigTab::IndentConfigTab(QWidget *parent)
-  : Kate::ConfigPage(parent)
+  : KateConfigPage(parent)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
@@ -171,38 +167,31 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
 
   opt[0] = new QCheckBox(i18n("A&ctivated"), gbAuto);
   opt[0]->setChecked(configFlags & flags[0]);
-  //layout->addWidget(opt[0]);
-  connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   QHBox *e5Layout = new QHBox(gbAuto);
   QLabel *e5Label = new QLabel(i18n("&Indentation mode:"), e5Layout);
   m_indentMode = new KComboBox (e5Layout);
   m_indentMode->insertStringList (KateAutoIndent::listModes());
   e5Label->setBuddy(m_indentMode);
-  connect(m_indentMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   layout->addWidget(gbAuto);
 
   opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
   opt[4]->setChecked(configFlags & flags[4]);
   layout->addWidget(opt[4]);
-  connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[5] = new QCheckBox(i18n("&Keep extra spaces"), this);
   opt[5]->setChecked(configFlags & flags[5]);
   layout->addWidget(opt[5]);
-  connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Indentation with Spaces"), this);
 
   opt[1] = new QCheckBox(i18n("Use &spaces instead of tabs to indent"), gbWordWrap );
   opt[1]->setChecked(configFlags & flags[1]);
-  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[1], SIGNAL(toggled(bool)), this, SLOT(spacesToggled()));
 
   indentationWidth = new KIntNumInput(KateDocumentConfig::global()->indentationWidth(), gbWordWrap);
   indentationWidth->setRange(1, 16, 1, false);
   indentationWidth->setLabel(i18n("Number of spaces:"), AlignVCenter);
-  connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   layout->addWidget(gbWordWrap);
 
@@ -210,11 +199,9 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
 
   opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
   opt[3]->setChecked(configFlags & flags[3]);
-  connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[2] = new QCheckBox(i18n("&Backspace key indents"), keys);
   opt[2]->setChecked(configFlags & flags[2]);
-  connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   layout->addWidget(keys);
 
@@ -225,10 +212,6 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
   m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &characters"), m_tabs ), 0 );
   m_tabs->insert( rb2=new QRadioButton( i18n("I&nsert tab character"), m_tabs ), 1 );
   m_tabs->insert( rb3=new QRadioButton( i18n("Indent current &line"), m_tabs ), 2 );
-
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addWidget(m_tabs, 0 );
 
@@ -244,6 +227,25 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 
   reload ();
+  
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  //
+  
+  connect(m_indentMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  
+  connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+    
+  connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  
+  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 void IndentConfigTab::spacesToggled() {
@@ -252,6 +254,10 @@ void IndentConfigTab::spacesToggled() {
 
 void IndentConfigTab::apply ()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   KateDocumentConfig::global()->configStart ();
 
   int configFlags, z;
@@ -261,6 +267,7 @@ void IndentConfigTab::apply ()
     configFlags &= ~flags[z];
     if (opt[z]->isChecked()) configFlags |= flags[z];
   }
+
   KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 
@@ -289,7 +296,7 @@ void IndentConfigTab::reload ()
 
 //BEGIN SelectConfigTab
 SelectConfigTab::SelectConfigTab(QWidget *parent)
-  : Kate::ConfigPage(parent)
+  : KateConfigPage(parent)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
@@ -302,19 +309,28 @@ SelectConfigTab::SelectConfigTab(QWidget *parent)
   m_tabs->insert( rb1=new QRadioButton( i18n("&Normal"), m_tabs ), 0 );
   m_tabs->insert( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ), 1 );
 
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
+  
   layout->addStretch();
 
   QWhatsThis::add(rb1, i18n("Selections will be overwritten by typed text and will be lost on cursor movement."));
   QWhatsThis::add(rb2, i18n("Selections will stay even after cursor movement and typing."));
 
   reload ();
+  
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  //
+  
+  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 void SelectConfigTab::apply ()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   KateDocumentConfig::global()->configStart ();
 
   int configFlags = KateDocumentConfig::global()->configFlags();
@@ -343,7 +359,7 @@ const int EditConfigTab::flags[] = {KateDocument::cfWordWrap,
   KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
 
 EditConfigTab::EditConfigTab(QWidget *parent)
-  : Kate::ConfigPage(parent)
+  : KateConfigPage(parent)
 {
   QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
@@ -366,7 +382,6 @@ EditConfigTab::EditConfigTab(QWidget *parent)
   opt[0] = new QCheckBox(i18n("Enable static &word wrap"), gbWordWrap);
   opt[0]->setChecked(KateDocumentConfig::global()->wordWrap());
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(wordWrapToggled()));
 
   e1 = new KIntNumInput(KateDocumentConfig::global()->wordWrapAt(), gbWordWrap);
   e1->setRange(20, 200, 1, false);
@@ -459,12 +474,14 @@ EditConfigTab::EditConfigTab(QWidget *parent)
                         "will fall back to the last search text.");
   QWhatsThis::add(e5Label, gstfwt);
   QWhatsThis::add(e5, gstfwt);
-
-  wordWrapToggled();
 }
 
 void EditConfigTab::apply ()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
 
@@ -498,15 +515,11 @@ void EditConfigTab::reload ()
 {
 
 }
-
-void EditConfigTab::wordWrapToggled() {
-  e1->setEnabled(opt[0]->isChecked());
-}
 //END EditConfigTab
 
 //BEGIN ViewDefaultsConfig
 ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
-  :Kate::ConfigPage(parent)
+  :KateConfigPage(parent)
 {
   QRadioButton *rb1;
   QRadioButton *rb2;
@@ -555,17 +568,6 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
   m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
   m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
 
-  connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
   blay->addWidget(m_bmSort, 0 );
   blay->addStretch(1000);
 
@@ -588,6 +590,21 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
   QWhatsThis::add(rb2,i18n("Each new bookmark will be added to the bottom, independently from where it is placed in the document."));
 
   reload();
+  
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  //
+  
+  connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 ViewDefaultsConfig::~ViewDefaultsConfig()
@@ -596,6 +613,10 @@ ViewDefaultsConfig::~ViewDefaultsConfig()
 
 void ViewDefaultsConfig::apply ()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   KateViewConfig::global()->configStart ();
   KateRendererConfig::global()->configStart ();
 
@@ -632,7 +653,7 @@ void ViewDefaultsConfig::defaults (){;}
 //BEGIN EditKeyConfiguration
 
 EditKeyConfiguration::EditKeyConfiguration( QWidget* parent, KateDocument* doc )
-  : Kate::ConfigPage( parent )
+  : KateConfigPage( parent )
 {
   m_doc = doc;
   m_ready = false;
@@ -665,7 +686,7 @@ void EditKeyConfiguration::apply()
 
 //BEGIN SaveConfigTab
 SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
-  : Kate::ConfigPage( parent ),
+  : KateConfigPage( parent ),
     m_doc( doc )
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
@@ -678,13 +699,13 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   QLabel *e5Label = new QLabel(i18n("&Encoding:"), e5Layout);
   m_encoding = new KComboBox (e5Layout);
   e5Label->setBuddy(m_encoding);
-  connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+
 
   e5Layout = new QHBox(gbEnc);
   e5Label = new QLabel(i18n("End &of line:"), e5Layout);
   m_eol = new KComboBox (e5Layout);
   e5Label->setBuddy(m_eol);
-  connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+
   m_eol->insertItem (i18n("Unix"));
   m_eol->insertItem (i18n("Dos/Windows"));
   m_eol->insertItem (i18n("Macintosh"));
@@ -694,11 +715,10 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
 
   replaceTabs = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
   replaceTabs->setChecked(configFlags & KateDocument::cfReplaceTabs);
-  connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
 
   removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
   removeSpaces->setChecked(configFlags & KateDocument::cfRemoveSpaces);
-  connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   QGroupBox *gb = new QGroupBox( 1, Qt::Horizontal, i18n("Backup on Save"), this );
   layout->addWidget( gb );
@@ -709,9 +729,6 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   leBuSuffix = new QLineEdit( hbBuSuffix );
   lBuSuffix->setBuddy( leBuSuffix );
 
-  connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   layout->addStretch();
 
   QWhatsThis::add(replaceTabs, i18n("KateView will replace any tabs with the number of spaces indicated in the Tab Width: entry."));
@@ -729,10 +746,26 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
         "Enter the suffix to add to the backup file names" ) );
 
   reload();
+  
+  //
+  // after initial reload, connect the stuff for the changed () signal
+  //
+    
+  connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 }
 
 void SaveConfigTab::apply()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   KateDocumentConfig::global()->configStart ();
 
   if ( leBuSuffix->text().isEmpty() ) {
@@ -926,7 +959,7 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
 //END
 
 //BEGIN PluginConfigPage
-PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
+PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : KateConfigPage (parent, "")
 {
   m_doc = doc;
 
@@ -982,7 +1015,7 @@ void PluginConfigPage::unloadPlugin (PluginListItem *item)
 
 //BEGIN HlConfigPage
 HlConfigPage::HlConfigPage (QWidget *parent)
- : Kate::ConfigPage (parent, "")
+ : KateConfigPage (parent, "")
  , hlData (0)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
@@ -1014,18 +1047,16 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), hbFE );
   wildcards  = new QLineEdit( hbFE );
   lFileExts->setBuddy( wildcards );
-  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   QHBox *hbMT = new QHBox( gbProps );
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
   mimetypes = new QLineEdit( hbMT );
-  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   lMimeTypes->setBuddy( mimetypes );
 
   QHBox *hbMT2 = new QHBox( gbProps );
   QLabel *lprio = new QLabel( i18n("Prio&rity:"), hbMT2);
   priority = new KIntNumInput( hbMT2 );
-  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+
   lprio->setBuddy( priority );
 
   QToolButton *btnMTW = new QToolButton(hbMT);
@@ -1051,6 +1082,10 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   QWhatsThis::add( btnDl,     i18n("Click this button to download new or updated syntax highlight descriptions from the Kate website.") );
 
   layout->addStretch ();
+
+  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 }
 
 HlConfigPage::~HlConfigPage ()
@@ -1059,6 +1094,10 @@ HlConfigPage::~HlConfigPage ()
 
 void HlConfigPage::apply ()
 {
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+
   writeback();
 
   for ( QIntDictIterator<HlData> it( hlDataDict ); it.current(); ++it )
@@ -1359,5 +1398,30 @@ void HlDownloadDialog::slotUser1()
   // update Config !!
   SyntaxDocument doc (true);
 }
+
+//BEGIN GotoLineDialog
+GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
+  : KDialogBase(parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
+
+  QWidget *page = new QWidget(this);
+  setMainWidget(page);
+
+  QVBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
+  e1 = new KIntNumInput(line, page);
+  e1->setRange(1, max);
+  e1->setEditFocus(true);
+
+  QLabel *label = new QLabel( e1,i18n("&Go to line:"), page );
+  topLayout->addWidget(label);
+  topLayout->addWidget(e1);
+  topLayout->addSpacing(spacingHint()); // A little bit extra space
+  topLayout->addStretch(10);
+  e1->setFocus();
+}
+
+int GotoLineDialog::getLine() {
+  return e1->value();
+}
+//END GotoLineDialog
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

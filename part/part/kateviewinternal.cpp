@@ -815,7 +815,7 @@ uint KateViewInternal::linesDisplayed() const
 
 QPoint KateViewInternal::cursorCoordinates()
 {
-  int viewLine = displayViewLine(cursor, true);
+  int viewLine = displayViewLine(displayCursor, true);
 
   if (viewLine == -1)
     return QPoint(-1, -1);

@@ -2874,7 +2874,19 @@ void KateDocument::doIndent(VConfig &c, int change)
   if (!hasSelection()) {
     // single line
     optimizeLeadingSpace(c.cursor.line, _configFlags, change);
-  } else {
+  }
+  else
+  {
+    int sl = selectStart.line;
+    int el = selectEnd.line;
+    int sc = selectStart.col;
+    int ec = selectEnd.col;
+
+    if ((ec == 0) && ((el-1) >= 0))
+    {
+      el--;
+    }
+
     // entire selection
     TextLine::Ptr textLine;
     int line, z;
@@ -2883,7 +2895,7 @@ void KateDocument::doIndent(VConfig &c, int change)
     if (_configFlags & KateDocument::cfKeepIndentProfile && change < 0) {
       // unindent so that the existing indent profile doesnt get screwed
       // if any line we may unindent is already full left, don't do anything
-      for (line = selectStart.line; line <= selectEnd.line; line++) {
+      for (line = sl; line <= el; line++) {
         textLine = getTextLine(line);
         if (lineSelected(line) || lineHasSelected(line)) {
           for (z = 0; z < tabChars; z++) {
@@ -2899,7 +2911,7 @@ void KateDocument::doIndent(VConfig &c, int change)
       jumpOut:;
     }
 
-    for (line = selectStart.line; line <= selectEnd.line; line++) {
+    for (line = sl; line <= el; line++) {
       if (lineSelected(line) || lineHasSelected(line)) {
         optimizeLeadingSpace(line, _configFlags, change);
       }

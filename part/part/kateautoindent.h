@@ -51,7 +51,7 @@ class IndenterConfigPage : public QWidget
 
   public slots:
     /**
-     * Applies the changes to the document
+     * Apply the changes.
      */
     virtual void apply () = 0;
 
@@ -540,7 +540,7 @@ class ScriptIndentConfigPage : public IndenterConfigPage
 
   public slots:
     /**
-     * Applies the changes to the document
+     * Apply changes.
      */
     virtual void apply ();
 };

@@ -894,11 +894,11 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->configStart ();
 
-  if ( leBuSuffix->text().isEmpty() ) {
+  if ( leBuSuffix->text().isEmpty() && leBuPrefix->text().isEmpty() ) {
     KMessageBox::information(
                 this,
-                i18n("You didn't provide a backup suffix. Using default: '~'"),
-                i18n("No Backup Suffix")
+                i18n("You did not provide a backup suffix or prefix. Using default suffix: '~'"),
+                i18n("No Backup Suffix Or Prefix")
                         );
     leBuSuffix->setText( "~" );
   }

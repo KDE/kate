@@ -3709,7 +3709,9 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
   QChar bracket, opposite, ch;
 
   bm.eXPos = -1; //mark bracked mark as invalid
-  x = cursor.col -1; // -1 to look at left side of cursor
+  x = cursor.col; // look at the right side of the cursor (which would be the 
+		//character below the cursor, if over writing mode is selected
+		// -1 to look at left side of cursor
   if (x < 0) return;
   line = cursor.line; //current line
   count = 0; //bracket counter for nested brackets

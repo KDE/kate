@@ -4,7 +4,7 @@
 	Alain GIBAUD  (alain.gibaud@univ-valenciennes.fr)
 Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
  -->
-<language name="PicAsm" version="1.03" kateversion="2.3" section="Assembler" extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr" author="Alain GIBAUD (alain.gibaud@univ-valenciennes.fr)" license="">
+<language name="PicAsm" version="1.04" kateversion="2.3" section="Assembler" extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr" author="Alain GIBAUD (alain.gibaud@univ-valenciennes.fr)" license="LGPL">
 
   <highlighting>
     <list name="directives">
@@ -21,6 +21,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> de </item>
       <item> dt </item>
       <item> dw </item>
+      <item> endc </item>
       <item> endm </item>
       <item> equ </item>
       <item> error </item>
@@ -53,6 +54,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> DE </item>
       <item> DT </item>
       <item> DW </item>
+      <item> ENDC </item>
       <item> ENDM </item>
       <item> EQU </item>
       <item> ERROR </item>
@@ -78,7 +80,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> END </item>
    </list>
 
-    <list name="conditionnal">
+    <list name="conditional">
       <item> if </item>
       <item> else </item>
       <item> idef </item>
@@ -94,16 +96,11 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
     <list name="gpasm_macro">
       <item> addcf </item>
       <item> b </item>
-      <item> bc </item>
-      <item> bz </item>
-      <item> bnc </item>
-      <item> bnz </item>
       <item> clrc </item>
       <item> clrz </item>
       <item> setc </item>
       <item> setz </item>
       <item> movfw </item>
-      <item> negf </item>
       <item> skpc </item>
       <item> skpz </item>
       <item> skpnc </item>
@@ -113,16 +110,11 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
 
       <item> ADDCF </item>
       <item> B </item>
-      <item> BC </item>
-      <item> BZ </item>
-      <item> BNC </item>
-      <item> BNZ </item>
       <item> CLRC </item>
       <item> CLRZ </item>
       <item> SETC </item>
       <item> SETZ </item>
       <item> MOVFW </item>
-      <item> NEGF </item>
       <item> SKPC </item>
       <item> SKPZ </item>
       <item> SKPNC </item>
@@ -134,86 +126,164 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
     <list name="instructions">
       <item> addlw </item>
       <item> addwf </item>
+      <item> addwfc </item>
+      <item> andlw </item>
+      <item> bc </item>
       <item> bcf </item>
+      <item> bn </item>
+      <item> bnc </item>
+      <item> bnov </item>
+      <item> bnz </item>
+      <item> bov </item>
+      <item> bra </item>
       <item> bsf </item>
+      <item> btg </item>
+      <item> bz </item>
       <item> btfsc </item>
       <item> btfss </item>
       <item> call </item>
       <item> clrf </item>
       <item> clrw </item>
-      <item> clrwtd </item>
+      <item> clrwdt </item>
       <item> comf </item>
+      <item> cpfseq </item>
+      <item> cpfslt </item>
+      <item> cpfsgt </item>
+      <item> daw </item>
       <item> decf </item>
+      <item> dcfsnz </item>
       <item> decfsz </item>
       <item> goto </item>
       <item> incf </item>
       <item> incfsz </item>
+      <item> infsnz </item>
       <item> iorlw </item>
+      <item> lfsr </item>
       <item> movf </item>
+      <item> movff </item>
+      <item> movlb </item>
       <item> movlw </item>
       <item> movwf </item>
+      <item> mullw </item>
+      <item> mulwf </item>
+      <item> negf </item>
       <item> nop </item>
       <item> option </item>
+      <item> pop </item>
+      <item> push </item>
+      <item> rcall </item>
+      <item> reset </item>
       <item> retfie </item>
       <item> retlw </item>
       <item> return </item>
-      <item> rlf </item>
-      <item> rrf </item>
+      <item> rlcf </item>
+      <item> rlncf </item>
+      <item> rrcf </item>
+      <item> rrncf </item>
+      <item> setf </item>
       <item> sleep </item>
+      <item> subfwb </item>
       <item> sublw </item>
       <item> subwf </item>
+      <item> subwfb </item>
       <item> swapf </item>
-      <item> tris </item>
+      <item> tblrd </item>
+      <item> tblwt </item>
+      <item> tstfsz </item>
       <item> xorlw </item>
       <item> xorwf </item>
 
       <item> ADDLW </item>
       <item> ADDWF </item>
+      <item> ADDWFC </item>
+      <item> ANDLW </item>
+      <item> BC </item>
       <item> BCF </item>
+      <item> BN </item>
+      <item> BNC </item>
+      <item> BNOV </item>
+      <item> BNZ </item>
+      <item> BOV </item>
+      <item> BRA </item>
       <item> BSF </item>
+      <item> BTG </item>
+      <item> BZ </item>
       <item> BTFSC </item>
       <item> BTFSS </item>
       <item> CALL </item>
       <item> CLRF </item>
       <item> CLRW </item>
-      <item> CLRWTD </item>
+      <item> CLRWDT </item>
       <item> COMF </item>
+      <item> CPFSEQ </item>
+      <item> CPFSLT </item>
+      <item> CPFSGT </item>
+      <item> DAW </item>
+      <item> DCFSNZ </item>
       <item> DECF </item>
       <item> DECFSZ </item>
       <item> GOTO </item>
       <item> INCF </item>
       <item> INCFSZ </item>
+      <item> INFSNZ </item>
       <item> IORLW </item>
+      <item> LFSR </item>
       <item> MOVF </item>
+      <item> MOVFF </item>
+      <item> MOVLB </item>
       <item> MOVLW </item>
       <item> MOVWF </item>
+      <item> MULLW </item>
+      <item> MULWF </item>
+      <item> NEGF </item>
       <item> NOP </item>
       <item> OPTION </item>
+      <item> POP </item>
+      <item> PUSH </item>
+      <item> RCALL </item>
+      <item> RESET </item>
       <item> RETFIE </item>
       <item> RETLW </item>
       <item> RETURN </item>
-      <item> RLF </item>
-      <item> RRF </item>
+      <item> RLCF </item>
+      <item> RLNCF </item>
+      <item> RRCF </item>
+      <item> RRNCF </item>
+      <item> SETF </item>
       <item> SLEEP </item>
+      <item> SUBFWB </item>
       <item> SUBLW </item>
       <item> SUBWF </item>
+      <item> SUBWFB </item>
       <item> SWAPF </item>
-      <item> TRIS </item>
+      <item> TBLRD </item>
+      <item> TBLWT </item>
+      <item> TSTFSZ </item>
       <item> XORLW </item>
       <item> XORWF </item>
     </list>
+    
+    <list name="instruction_attr">
+      <item> A </item>
+      <item> ACCESS </item>
+      <item> BANKED </item>
+      <item> W </item>
+      <item> F </item>
+    </list>
+    
     <contexts>
 
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Directives" context="#stay" String="directives"/>
         <keyword attribute="Instructions" context="#stay" String="instructions"/>
-        <keyword attribute="Preprocessor" context="#stay" String="conditionnal"/>
+        <keyword attribute="InstructionAttr" context="#stay" String="instruction_attr"/>
+        <keyword attribute="Preprocessor" context="#stay" String="conditional"/>
         <keyword attribute="GPASM-macros" context="#stay" String="gpasm_macro"/>
         <HlCHex attribute="Based Numbers" context="#stay"/>
-        <RegExpr attribute="Based Numbers" context="#stay" String="([0-9A-F]+H)" insensitive="TRUE" />
-        <RegExpr attribute="Based Numbers" context="#stay" String="([0-9]+D)" insensitive="TRUE" />
-        <RegExpr attribute="Based Numbers" context="#stay" String="([0-7]+O)" insensitive="TRUE" />
-        <RegExpr attribute="Based Numbers" context="#stay" String="([0-1]+B)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([ \t,][0-9A-F]+H)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([ \t,][0-9]+D)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([ \t,][0-7]+O)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([ \t,][0-1]+B)" insensitive="TRUE" />
         <Int attribute="Non Based Numbers" context="#stay" />
         <HlCChar attribute="Char" context="#stay"/>
         <StringDetect attribute="Char" context="ASCIIChar" String="A'" insensitive="TRUE" />
@@ -268,19 +338,20 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
 
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text" 		defStyleNum="dsNormal"/>
-      <itemData name="Directives"  		defStyleNum="dsOthers"/>
-      <itemData name="Preprocessor"  	defStyleNum="dsNormal" color="#D819D8" selColor="#D819D8" bold="0" italic="0"/>
-      <itemData name="Instructions"  	defStyleNum="dsKeyword"/>
-      <itemData name="Non Based Numbers"  	defStyleNum="dsDecVal"/>
-      <itemData name="Char"  			defStyleNum="dsChar"/>
-      <itemData name="String"  			defStyleNum="dsString"/>
-      <itemData name="Comment"  		defStyleNum="dsNormal" color="#FF3118" selColor="#FF3118" bold="0" italic="1" />
-      <itemData name="Symbol"  			defStyleNum="dsNormal" color="#FF0000" selColor="#083194" bold="0" italic="0" />
-      <itemData name="Prep. Lib"  		defStyleNum="dsOthers"/>
-      <itemData name="Based Numbers"  	defStyleNum="dsBaseN" />
-      <itemData name="GPASM-macros"  	defStyleNum="dsNormal" color="#000000" selColor="#000000" bold="1" italic="1"/>
-      <itemData name="Alert"        defStyleNum="dsAlert" />
+      <itemData name="Normal Text"      defStyleNum="dsNormal"/>
+      <itemData name="Directives"       defStyleNum="dsOthers"/>
+      <itemData name="Preprocessor"     defStyleNum="dsOthers"/>
+      <itemData name="Instructions"     defStyleNum="dsKeyword"/>
+      <itemData name="InstructionAttr"  defStyleNum="dsNormal" color="#000080" selColor="#000080" bold="0" italic="1"/>
+      <itemData name="Unbased Numbers"  defStyleNum="dsDecVal"/>
+      <itemData name="Char"             defStyleNum="dsChar"/>
+      <itemData name="String"           defStyleNum="dsString"/>
+      <itemData name="Comment"          defStyleNum="dsComment" />
+      <itemData name="Symbol"           defStyleNum="dsNormal" color="#FF0000" selColor="#083194" bold="0" italic="0"/>
+      <itemData name="Prep. Lib"        defStyleNum="dsOthers"/>
+      <itemData name="Based Numbers"    defStyleNum="dsBaseN" />
+      <itemData name="GPASM-macros"     defStyleNum="dsNormal" color="#000000" selColor="#000000" bold="1" italic="1"/>
+      <itemData name="Alert"            defStyleNum="dsAlert" />
       </itemDatas>
   </highlighting>
   <general>

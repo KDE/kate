@@ -161,8 +161,8 @@ class KateView : public Kate::View,
     void insertText( const QString& text )
         { getDoc()->insertText( cursorLine(), cursorColumnReal(), text ); }
     bool canDiscard();
-    int tabWidth()                { return m_doc->tabChars;      }
-    void setTabWidth( int w )     { m_doc->setTabWidth(w);       }
+    int tabWidth()                { return KateDocument::tabChars; }
+    void setTabWidth( int w )     { KateDocument::setTabWidth(w);  }
     void setEncoding( QString e ) { m_doc->setEncoding(e);       }
     bool isLastView()             { return m_doc->isLastView(1); }
 

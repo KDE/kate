@@ -99,6 +99,7 @@ using namespace Kate;
 bool KateDocument::s_configLoaded = false;
 
 int KateDocument::tabChars = 8;
+int KateDocument::indentationChars = 2;
 
 uint KateDocument::_configFlags = KateDocument::cfAutoIndent | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
     | KateDocument::cfRemoveSpaces
@@ -1839,8 +1840,9 @@ void KateDocument::readConfig(KConfig *config)
   myWordWrap = config->readBoolEntry("Word Wrap", myWordWrap);
   myWordWrapAt = config->readNumEntry("Word Wrap Column", myWordWrapAt);
 
-  // tabs
+  // tabs & indentations
   setTabWidth(config->readNumEntry("Tab Width", tabChars));
+  setIndentationWidth(config->readNumEntry("Indentation Width", indentationChars));
 
   // undo steps
   setUndoSteps(config->readNumEntry("Undo Steps", myUndoSteps));
@@ -1908,6 +1910,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Word Wrap Column", myWordWrapAt);
   config->writeEntry("Undo Steps", myUndoSteps);
   config->writeEntry("Tab Width", tabChars);
+  config->writeEntry("Indentation Width", indentationChars);
   config->writeEntry("View Font", KateRenderer::getFont(KateRenderer::ViewFont));
   config->writeEntry("Printer Font", KateRenderer::getFont(KateRenderer::PrintFont));
   config->writeEntry("Color Background", colors[0]);
@@ -2971,6 +2974,18 @@ void KateDocument::setTabWidth(int chars)
   }
 }
 
+void KateDocument::setIndentationWidth(int chars)
+{
+  if (indentationChars == chars)
+    return;
+  if (chars < 1)
+    chars = 1;
+  if (chars > 16)
+    chars = 16;
+
+  indentationChars = chars;
+}
+
 void KateDocument::setNewDoc( bool m )
 {
   if ( m != newDoc )
@@ -3224,26 +3239,26 @@ void KateDocument::backspace( const KateTextCursor& c )
       {
         // only spaces on left side of cursor
         // search a line with less spaces
-        uint y = line;
-        while (y > 0)
+        int y = line;
+        while (--y >= 0)
         {
-          textLine = buffer->plainLine(--y);
+          textLine = buffer->plainLine(y);
           pos = textLine->firstChar();
 
           if (pos >= 0)
           {
-        pos = textLine->cursorX(pos, tabChars);
-        if (pos < (int)colX)
-        {
-          replaceWithOptimizedSpace(line, col, pos, _configFlags);
+            pos = textLine->cursorX(pos, tabChars);
+            if (pos < (int)colX)
+            {
+              replaceWithOptimizedSpace(line, col, pos, _configFlags);
               break;
-        }
+            }
           }
         }
-    if (y == 0) {
-      // FIXME: what shoud we do in this case?
-      removeText(line, 0, line, col);
-    }
+        if (y < 0) {
+          // FIXME: what shoud we do in this case?
+          removeText(line, 0, line, col);
+        }
       }
       else
         removeText(line, col-1, line, col);
@@ -3413,31 +3428,25 @@ void KateDocument::doIndent( uint line, int change)
       el--;
     }
 
-    // entire selection
-    TextLine::Ptr textLine;
-    int line, z;
-    QChar ch;
-
     if (_configFlags & KateDocument::cfKeepIndentProfile && change < 0) {
       // unindent so that the existing indent profile doesnt get screwed
       // if any line we may unindent is already full left, don't do anything
-      for (line = sl; line <= el; line++) {
-        textLine = buffer->plainLine(line);
-        if ((textLine->length() > 0) && (lineSelected(line) || lineHasSelected(line))) {
-          for (z = 0; z < tabChars; z++) {
-            ch = textLine->getChar(z);
-            if (ch == '\t') break;
-            if (ch != ' ') {
-              change = 0;
-              goto jumpOut;
-            }
-          }
+      int adjustedChange = -change;
+
+      for (line = sl; (int) line <= el && adjustedChange > 0; line++) {
+        TextLine::Ptr textLine = buffer->plainLine(line);
+        int firstChar = textLine->firstChar();
+        if (firstChar >= 0 && (lineSelected(line) || lineHasSelected(line))) {
+          int maxUnindent = textLine->cursorX(firstChar, tabChars) / indentationChars;
+          if (maxUnindent < adjustedChange)
+            adjustedChange = maxUnindent;
         }
       }
-      jumpOut:;
+
+      change = -adjustedChange;
     }
 
-    for (line = sl; line <= el; line++) {
+    for (line = sl; (int) line <= el; line++) {
       if (lineSelected(line) || lineHasSelected(line)) {
         optimizeLeadingSpace(line, _configFlags, change);
       }
@@ -3449,7 +3458,7 @@ void KateDocument::doIndent( uint line, int change)
 
 /*
   Optimize the leading whitespace for a single line.
-  If change is > 0, it adds indentation units (tabChars)
+  If change is > 0, it adds indentation units (indentationChars)
   if change is == 0, it only optimizes
   If change is < 0, it removes indentation units
   This will be used to indent, unindent, and optimal-fill a line.
@@ -3467,15 +3476,15 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
     return;
   }
 
-  int space = textline->cursorX(first_char, tabChars) + change * tabChars;
+  int space = textline->cursorX(first_char, tabChars) + change * indentationChars;
   if (space < 0)
     space = 0;
   if (!(flags & KateDocument::cfKeepExtraSpaces)) {
-    uint extra = space % tabChars;
+    uint extra = space % indentationChars;
     space -= extra;
     if (extra && change < 0) {
-      // otherwise it unindents too much (e.g. 12 chars when tab is 8 chars wide)
-      space += tabChars;
+      // otherwise it unindents too much (e.g. 12 chars when indentation is 8 chars wide)
+      space += indentationChars;
     }
   }
 

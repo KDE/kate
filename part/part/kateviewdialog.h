@@ -99,6 +99,7 @@ class IndentConfigTab : public Kate::ConfigPage
     enum { numFlags = 6 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
+    KIntNumInput *indentationWidth;
 
   public slots:
     void apply ();

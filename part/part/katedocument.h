@@ -465,8 +465,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     TextLine::Ptr kateTextLine(uint i);
 
-    void setTabWidth(int);
-    int tabWidth() {return tabChars;}
+    static void setTabWidth(int);
+    static void setIndentationWidth(int);
+    static int tabWidth() {return tabChars;}
+    static int indentationWidth() {return indentationChars;}
     void setNewDoc( bool );
     bool isNewDoc() const;
 
@@ -707,6 +709,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     int eolMode;
     static int tabChars;
+    static int indentationChars;
 
     bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether

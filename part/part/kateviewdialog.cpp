@@ -182,6 +182,12 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   opt[5]->setChecked(configFlags & flags[5]);
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
+  indentationWidth = new KIntNumInput(KateDocument::indentationWidth(), this);
+  layout->addWidget(indentationWidth);
+  indentationWidth->setRange(1, 16, 1, false);
+  indentationWidth->setLabel(i18n("Indentation width:"), AlignVCenter);
+  connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
   layout->addStretch();
 
   // What is this? help
@@ -191,9 +197,11 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(opt[3], i18n("This allows the <b>Tab</b> key to be used to increase the indent level."));
   QWhatsThis::add(opt[4], i18n("This retains current indentation settings for future documents."));
   QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
+  QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 }
 
-void IndentConfigTab::getData(KateDocument *view) {
+void IndentConfigTab::getData(KateDocument *view)
+{
   int configFlags, z;
 
   configFlags = view->configFlags();
@@ -202,6 +210,7 @@ void IndentConfigTab::getData(KateDocument *view) {
     if (opt[z]->isChecked()) configFlags |= flags[z];
   }
   view->setConfigFlags(configFlags);
+  KateDocument::setIndentationWidth(indentationWidth->value());
 }
 
 void IndentConfigTab::apply ()
@@ -214,7 +223,7 @@ void IndentConfigTab::reload ()
 {
 
 }
-//END IncentConfigTab
+//END IndentConfigTab
 
 //BEGIN SelectConfigTab
 const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::cfDelOnInput};
@@ -310,7 +319,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   e2 = new KIntNumInput(e1, view->tabWidth(), gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
-  e2->setLabel(i18n("Tab and indent width:"), AlignVCenter);
+  e2->setLabel(i18n("Tab width:"), AlignVCenter);
   connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   mainLayout->addWidget(gbWhiteSpace);

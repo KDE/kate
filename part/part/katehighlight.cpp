@@ -3209,10 +3209,23 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
       tmp=s[5]; if (!tmp.isEmpty()) i->setUnderline(tmp!="0");
 
       tmp=s[6]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); i->setBGColor(col); }
-
+        if ( tmp != "-" )
+        {
+          col=tmp.toUInt(0,16);
+          i->setBGColor(col);
+        }
+        else
+          i->clearAttribute(KateAttribute::BGColor);
+      }
       tmp=s[7]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); i->setSelectedBGColor(col); }
+        if ( tmp != "-" )
+        {
+          col=tmp.toUInt(0,16);
+          i->setSelectedBGColor(col);
+        }
+        else
+          i->clearAttribute(KateAttribute::SelectedBGColor);
+      }
     }
   }
 }
@@ -3233,8 +3246,8 @@ void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
     settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":"0"):"");
     settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":"0"):"");
     settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":"0"):"");
-    settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
-    settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
+    settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"-");
+    settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"-");
     settings<<"---";
 
     config->writeEntry(defaultStyleName(z),settings);

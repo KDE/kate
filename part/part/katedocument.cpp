@@ -4106,7 +4106,7 @@ Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)
 Kate::ActionMenu *KateDocument::hlActionMenu (const QString& text, QObject* parent, const char* name)
 {
   KateViewHighlightAction *menu = new KateViewHighlightAction (text, parent, name);
-  menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted"));
+  menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
   menu->updateMenu (this);
 
   return (Kate::ActionMenu *)menu;
@@ -4117,7 +4117,7 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
   KateExportAction *menu = new KateExportAction (text, parent, name);
   menu->updateMenu (this);
   menu->setWhatsThis(i18n("This command allows you to export the current document"
-		" with all highlighting information into a markup document, eg HTML"));
+		" with all highlighting information into a markup document, e.g. HTML."));
   return (Kate::ActionMenu *)menu;
 }
 

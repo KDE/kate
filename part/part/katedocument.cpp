@@ -3051,6 +3051,11 @@ void KateDocument::addStartLineCommentToSelection()
   }
 
   editEnd ();
+
+  // Set the new selection
+  selectEnd.col += ( (el == selectEnd.line) ? commentLineMark.length() : 0 );
+  setSelection(selectStart.line, selectStart.col,
+	       selectEnd.line, selectEnd.col);
 }
 
 /*
@@ -3117,6 +3122,8 @@ bool KateDocument::removeStartStopCommentFromSelection()
 
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
+
+  // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$1/
 
   bool remove = nextNonSpaceCharPos(sl, sc)
       && buffer->line(sl)->stringAtPos(sc, startComment)

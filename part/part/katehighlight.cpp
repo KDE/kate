@@ -1010,10 +1010,10 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
     //kdDebug(13010)<<"test1-2-1-text2"<<endl;
 
-    prevLine=oCtx.size()-1;	//position of the last context ID of th previous line within the stack
+    prevLine=oCtx.size()-1; //position of the last context ID of th previous line within the stack
 
     //kdDebug(13010)<<"test1-2-1-text3"<<endl;
-    generateContextStack(&ctxNum, context->ctx, &ctx, &prevLine,lineContinue);	//get stack ID to use
+    generateContextStack(&ctxNum, context->ctx, &ctx, &prevLine, lineContinue); //get stack ID to use
 
     //kdDebug(13010)<<"test1-2-1-text4"<<endl;
 
@@ -1023,16 +1023,13 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
     //if (lineContinue)   kdDebug(13010)<<QString("The new context is %1").arg((int)ctxNum)<<endl;
   }
 
-  QChar lastChar = ' ';
-
   // text, for programming convenience :)
+  QChar lastChar = ' ';
   const QString& text = textLine->string();
+  uint len = textLine->length();
 
   int offset1 = 0;
-  uint z=0;
-
-  // length of textline
-  uint len = textLine->length();
+  uint z = 0;
   HlItem *item = 0;
   bool found = false;
 
@@ -1126,8 +1123,10 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
     // nothing found: set attribute of one char
     // anders: unless this context does not want that!
-    if (!found) {
-      if ( context->fallthrough ) {
+    if (!found)
+    {
+      if ( context->fallthrough )
+      {
         // set context to context->ftctx.
         generateContextStack(&ctxNum, context->ftctx, &ctx, &prevLine);  //regenerate context stack
         context=contextNum(ctxNum);
@@ -1141,9 +1140,8 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
           lastChar = '\\';
         continue;
       }
-      else {
+      else
         textLine->setAttribs(context->attr,offset1,offset1 + 1);
-      }
     }
 
     offset1++;
@@ -1152,14 +1150,13 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
   if (item==0)
     textLine->setHlLineContinue(false);
-  else {
+  else
+  {
     textLine->setHlLineContinue(item->lineContinue());
-    if (item->lineContinue()) kdDebug(13010)<<"Setting line continue flag"<<endl;
-  }
 
-//  if (oCtxLen>0)
-//  kdDebug(13010)<<QString("Last line end context entry: %1").arg((int)ctx[oCtxLen-1])<<endl;
-//  else kdDebug(13010)<<QString("Context stack len:0")<<endl;
+    if (item->lineContinue())
+      kdDebug(13010)<<"Setting line continue flag"<<endl;
+  }
 
   textLine->setContext(ctx.data(), ctx.size());
 }
@@ -2226,7 +2223,6 @@ int HlManager::defaultHl()
 
   return nameFind(config->readEntry("Highlight"));
 }
-
 
 int HlManager::nameFind(const QString &name)
 {

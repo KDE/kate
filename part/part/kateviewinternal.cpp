@@ -2429,9 +2429,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     updateView();
     e->accept();
 
-    if (codeComp)
-      m_view->m_codeCompletion->updateBox ();
-
     return;
   }
 

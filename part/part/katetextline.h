@@ -92,8 +92,8 @@ class KateTextLine : public KShared
       Find the position of the previous char
       that is not a space.
       @param pos Column of the character which is examined first.
-      @returns True if the specified or a preceding character is not a space
-               Otherwise false.
+      @return The position of the first none-whitespace character preceeding pos,
+        or -1 if none is found.
     */
     int previousNonSpaceChar(uint pos) const;
 
@@ -266,7 +266,7 @@ class KateTextLine : public KShared
                        + (m_foldingList.size() * sizeof(signed char))
                        + (m_indentationDepth.size() * sizeof(unsigned short))
                      ) : 0
-                 )      
+                 )
              );
     }
 

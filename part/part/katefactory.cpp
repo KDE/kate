@@ -133,8 +133,9 @@ KateFactory::KateFactory ()
   // vm allocator
   m_vm = new KVMAllocator ();
 
-  // script man
+  // create script man (search scripts) + register commands
   m_jscriptManager = new KateJScriptManager ();
+  KateCmd::self()->registerCommand (m_jscriptManager);
 
   //
   // init the cmds

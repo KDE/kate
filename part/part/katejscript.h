@@ -19,6 +19,8 @@
 #ifndef __kate_jscript_h__
 #define __kate_jscript_h__
 
+#include "../interfaces/document.h"
+
 #include <qdict.h>
 
 /**
@@ -93,7 +95,7 @@ class KateJScript
     KJS::Interpreter *m_interpreter;
 };
 
-class KateJScriptManager
+class KateJScriptManager : public Kate::Command
 {
   public:
     class Script
@@ -109,6 +111,27 @@ class KateJScriptManager
 
   private:
     void collectScripts (bool force = false);
+
+  //
+  // Here we deal with the Kate::Command stuff
+  //
+  public:
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param errorMsg error to return if no success
+     * @return success
+     */
+    bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
+
+    bool help( class Kate::View *, const QString &, QString & );
+
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
+    QStringList cmds();
 
   private:
     QDict<KateJScriptManager::Script> m_scripts;

@@ -37,6 +37,7 @@
 
 #include <qfile.h>
 #include <qfileinfo.h>
+#include <qregexp.h>
 
 namespace KJS {
 
@@ -509,6 +510,34 @@ void KateJScriptManager::collectScripts (bool force)
 
   // Syncronize with the file katesyntax...rc
   config.sync();
+}
+
+bool KateJScriptManager::exec( class Kate::View *view, const QString &_cmd, QString &errorMsg )
+{
+   //create a list of args
+  QStringList args( QStringList::split( QRegExp("\\s+"), _cmd ) );
+  QString cmd ( args.first() );
+  args.remove( args.first() );
+
+  kdDebug(13050) << cmd << endl;
+
+  return false;
+}
+
+bool KateJScriptManager::help( class Kate::View *, const QString &, QString & )
+{
+  return false;
+}
+
+QStringList KateJScriptManager::cmds()
+{
+   QStringList l;
+
+   QDictIterator<KateJScriptManager::Script> it( m_scripts );
+   for( ; it.current(); ++it )
+     l << it.current()->name;
+
+   return l;
 }
 
 //END

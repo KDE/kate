@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="HTML" version="1.04" kateversion="2.1" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
+<language name="HTML" version="1.05" kateversion="2.1" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
   <highlighting>
     <contexts>
        <context attribute="Normal Text" lineEndContext="#stay" name="normal">
@@ -22,7 +22,7 @@
        </context>
 
        <context attribute="Types" lineEndContext="#stay" name="string">
-         <DetectChar attribute="Type" context="#pop#pop" char="&quot;" />
+         <DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
        </context>
 
        <context attribute="Comment" lineEndContext="#stay" name="comment">

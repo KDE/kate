@@ -277,9 +277,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
-  if (!m_file.isEmpty())
-    KateFactory::dirWatch ()->removeFile (m_file);
-
   //BEGIN spellcheck stuff
   if( m_kspell )
   {
@@ -389,40 +386,6 @@ void KateDocument::disablePluginGUI (PluginInfo *item)
     if ( factory )
       factory->addClient( view );
    }
-}
-
-bool KateDocument::closeURL()
-{
-  if (!KParts::ReadWritePart::closeURL ())
-    return false;
-
-  if (!m_file.isEmpty())
-    KateFactory::dirWatch ()->removeFile (m_file);
-
-  m_url = KURL();
-
-  if (m_modOnHd)
-  {
-    m_modOnHd = false;
-    m_modOnHdReason = 0;
-    emit modifiedOnDisc (this, m_modOnHd, 0);
-  }
-
-  buffer->clear();
-  clearMarks ();
-
-  clearUndo();
-  clearRedo();
-
-  setModified(false);
-
-  internalSetHlMode(0);
-
-  updateViews();
-
-  emit fileNameChanged ();
-
-  return true;
 }
 //END
 
@@ -3002,6 +2965,63 @@ bool KateDocument::saveFile()
   // return success
   //
   return success;
+}
+
+bool KateDocument::closeURL()
+{
+  //
+  // first call the normal kparts implementation
+  //
+  if (!KParts::ReadWritePart::closeURL ())
+    return false;
+
+  //
+  // remove file from dirwatch
+  //
+  if (!m_file.isEmpty())
+    KateFactory::dirWatch ()->removeFile (m_file);
+
+  //
+  // empty url + filename
+  //
+  m_url = KURL ();
+  m_file = QString::null;
+
+  // we are not modified
+  if (m_modOnHd)
+  {
+    m_modOnHd = false;
+    m_modOnHdReason = 0;
+    emit modifiedOnDisc (this, m_modOnHd, 0);
+  }
+
+  // clear the buffer
+  buffer->clear();
+
+  // remove all marks
+  clearMarks ();
+
+  // clear undo/redo history
+  clearUndo();
+  clearRedo();
+
+  // no, we are no longer modified
+  setModified(false);
+
+  // we have no longer any hl
+  internalSetHlMode(0);
+
+  // update all our views
+  updateViews();
+
+  // uh, filename changed
+  emit fileNameChanged ();
+
+  // update doc name
+  setDocName (QString::null);
+
+  // success
+  return true;
 }
 
 void KateDocument::setReadWrite( bool rw )

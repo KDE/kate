@@ -222,10 +222,9 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 		regionChanges->resize (regionChanges->size()-1);
 
 		int insertPos=-1;
-		KateCodeFoldingNode *node;
+		KateCodeFoldingNode *node = findNodeForLine(line);
 		if (data<0)
 		{
-			node = findNodeForLine(line);
 //			if (insertPos==-1)
 			{
 				if (node->childnodes)
@@ -244,7 +243,6 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 		}
 		else
 		{
-			node = findNodeForLine(line);
 			for (; (node->parentNode) && (getStartLine(node->parentNode)==line) && (node->parentNode->type!=0); node=node->parentNode);
 
 			if ((getStartLine(node)==line) && (node->type!=0))
@@ -458,6 +456,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 	}
 	else
 	{
+		something_changed = true;
 		dontDeleteEnding(node);	
 
 		// valid closing region
@@ -588,10 +587,11 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 
 				if (current != (int)parent->childnodes->count()-1)
 				{
+				//search for an unopened but closed region, even if the parent is of the same type
 #ifdef __GNUC__
-#warning  "FIXME:  search for an unopened but closed region, even if the parent is of the same type"
+#warning  "FIXME:  why does this seem to work?"
 #endif
-					if (node->type != parent->type)
+//					if (node->type != parent->type)
 					{
 						for (int i=current+1; i<(int)parent->childnodes->count(); i++)
 						{
@@ -605,11 +605,11 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 							}
 						}
 					}
-					else
-					{
-						parent->endLineValid = false;
-						parent->endLineRel = 20000;
-					}
+//					else
+//					{
+//						parent->endLineValid = false;
+//						parent->endLineRel = 20000;
+//					}
 
 					if (count>0)
 					{

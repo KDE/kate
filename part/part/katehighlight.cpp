@@ -1712,6 +1712,7 @@ void KateHighlighting::done()
     return;
 
   contextList.clear ();
+  internalIDList.clear();
 }
 
 /**

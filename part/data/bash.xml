@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.00" kateversion="2.0" section="Scripts" extensions="" mimetype="text/x-shellscript">
+<language name="Bash" section="Scripts" extensions="" mimetype="text/x-shellscript">
         <highlighting>
                  <list name = "keywords">
                         <item> break </item>
@@ -24,28 +24,38 @@
                         <item> while </item>
                         <item> . </item>
                 </list>
+		<list name = "commands">
+			<item> cp </item>
+			<item> date </item>
+			<item> echo </item>
+			<item> eval </item>
+		</list>
 
-
-        <contexts>
-                <context name = "Base" attribute = "0" lineEndContext="#stay">
-                        <keyword String = "keywords" attribute = "1" context="#stay"/>
-                        <Int attribute = "2" context="#stay"/>
-                        <RegExpr String = "$[0-9]+" attribute = "8" context="#stay"/>
-                        <AnyChar String = "|&lt;&gt;=;" attribute = "9" context="#stay"/>
-                        <DetectChar char = '"' attribute = "5" context="#stay"/>
-                        <DetectChar char="`" attribute = "7" context = "2"/>
-			<Detect2Chars attribute="0" context="#stay" char="\" char1="#"/>
-                        <RegExpr String= "#.*$" attribute = "6" context="#stay"/>
+	<contexts>
+                <context name = "Base" attribute = "Normal Text" lineEndContext="0">
+                        <keyword String = "keywords" attribute = "Keyword" context="0"/>
+			<keyword String = "commands" attribute = "Command" context="0"/>
+                        <Int attribute = "Decimal" context="0"/>
+			<RegExpr String = "\$[A-Za-z0-9_?{!]+" attribute = "Parameter" context="0"/>                        
+			<RangeDetect char = "&quot;" char1 = "&quot;" attribute = "String" context="0"/>
+                        <AnyChar String = "|&lt;&gt;=;" attribute = "Operator" context="0"/>
+                        <DetectChar char="`" attribute = "Substitution" context = "2"/>
+			<Detect2Chars attribute="0" context="Normal Text" char="\" char1="#"/>
+                        <RegExpr String= "#.*$" attribute = "Comment" context="0"/>
                 </context>
 
-                <context name = "String" attribute = "5" lineEndContext="#stay">
-                        <HlCChar attribute = "4" context = "#stay"/>
-                        <DetectChar char = '"' attribute = "5" context = "#pop"/>
+                <context name = "String" attribute = "String" lineEndContext="1">
+                        <DetectChar char = "&quot;" attribute = "String" context = "0"/>
                 </context>
 
-                <context name = "Substitution" attribute = "7" lineEndContext="#stay">
-                        <DetectChar char = "`" attribute = "7" context = "#pop"/>
+                <context name = "Substitution" attribute = "Substitution" lineEndContext="2">
+                        <DetectChar char = "`" attribute = "Substitution" context = "0"/>
                 </context>
+
+                <context name = "Parameter" attribute = "Parameter" lineEndContext="3">
+			<RegExpr String = "\$[A-Za-z0-9_?]+" attribute = "Parameter" context="0"/>
+                </context>
+
         </contexts>
 
         <itemDatas>
@@ -59,7 +69,8 @@
                 <itemData name = "Substitution" defStyleNum = "dsOthers"/>
                 <itemData name = "Parameter" defStyleNum = "dsOthers"/>
                 <itemData name = "Operator" defStyleNum = "dsOthers"/>
-        </itemDatas>
+		<itemData name = "Command" defStyleNum = "dsNormal"/>
+	</itemDatas>
   </highlighting>
   <general>
     <comments>
@@ -68,3 +79,4 @@
     <keywords casesensitive="1" />
   </general>
 </language>
+

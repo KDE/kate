@@ -311,6 +311,9 @@ class KateBuffer : public QObject
 
     uint m_highlightedTill;
     uint m_highlightedEnd;
+    
+    bool m_cacheReadError;
+    bool m_cacheWriteError;
 };
 
 #endif

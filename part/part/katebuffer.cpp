@@ -117,13 +117,13 @@ class KateBufBlock
    /**
     * Post Condition: b_vmDataValid is true, b_rawDataValid is false
     */
-   void swapOut ();
+   bool swapOut ();
 
    /**
     * Swaps raw data from secondary storage.
     * Post Condition: b_rawDataValid is true.
     */
-   void swapIn ();
+   bool swapIn ();
 
    /**
     * Dispose of swap data.
@@ -219,7 +219,9 @@ KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
   m_vm (0),
   m_regionTree (0),
   m_highlightedTill (0),
-  m_highlightedEnd (0)
+  m_highlightedEnd (0),
+  m_cacheReadError(false),
+  m_cacheWriteError(false)
 {
   m_blocks.setAutoDelete(true);
 
@@ -250,7 +252,12 @@ void KateBuffer::checkLoadedMax ()
   if (m_loadedBlocks.count() > 40)
   {
     KateBufBlock *buf2 = m_loadedBlocks.take(2);
-    buf2->swapOut ();
+    bool ok = buf2->swapOut ();
+    if (!ok)
+    {
+       m_cacheWriteError = true;
+       m_loadedBlocks.append(buf2);
+    }
   }
 }
 
@@ -322,7 +329,11 @@ void KateBuffer::loadBlock(KateBufBlock *buf)
   checkLoadedMax ();
 
   // swap the data in
-  buf->swapIn ();
+  if (!buf->swapIn ())
+  {
+    m_cacheReadError = true;
+    return; // This is bad!
+  }
 
   m_loadedBlocks.append(buf);
 }
@@ -339,7 +350,7 @@ void KateBuffer::parseBlock(KateBufBlock *buf)
   if (!buf->b_rawDataValid)
     loadBlock(buf);
 
-  // does we have already to much clean blocks ?
+  // does we have already too much clean blocks ?
   checkCleanMax ();
 
   // now you are clean my little block
@@ -622,6 +633,7 @@ void KateBuffer::loadFilePart()
     if (eof) break;
 
     checkLoadedMax ();
+    if (m_cacheWriteError) break;
 
     KateBufBlock *block = new KateBufBlock(this, m_loader->prev, m_vm);
     eof = block->fillBlock (&m_loader->stream, m_loader->lastCharEOL);
@@ -633,9 +645,15 @@ void KateBuffer::loadFilePart()
     m_lines = block->endLine ();
   }
 
+  if (m_cacheWriteError)
+    eof = true;
+
   if (eof)
   {
-    kdDebug(13020)<<"Loading finished.\n";
+    if (m_cacheWriteError)
+      kdDebug(13020)<<"Loading failed, no room for temp-file.\n";
+    else
+      kdDebug(13020)<<"Loading finished.\n";
 
     // trigger the creation of a block with one line if there is no data in the buffer now
     // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
@@ -1274,11 +1292,10 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
  * Uses the filedescriptor @p swap_fd and the file-offset @p swap_offset
  * to store m_rawSize bytes.
  */
-void KateBufBlock::swapOut ()
+bool KateBufBlock::swapOut ()
 {
   //kdDebug(13020)<<"KateBufBlock: swapout this ="<< this<<endl;
   assert(b_rawDataValid);
-  // TODO: Error checking and reporting (?)
 
   if (!b_vmDataValid)
   {
@@ -1287,27 +1304,33 @@ void KateBufBlock::swapOut ()
 
     if (!m_rawData.isEmpty())
     {
-        m_vm->copy(m_vmblock, m_rawData.data(), 0, m_rawData.count());
+        bool ok = m_vm->copyBlock(m_vmblock, m_rawData.data(), 0, m_rawData.count());
+        if (!ok)
+           return false;
     }
 
     b_vmDataValid = true;
   }
   disposeRawData();
+  return true;
 }
 
 /**
  * Swaps m_rawSize bytes in from offset m_vmDataOffset in the file
- * with file-descirptor swap_fd.
+ * with file-descriptor swap_fd.
  */
-void KateBufBlock::swapIn ()
+bool KateBufBlock::swapIn ()
 {
   //kdDebug(13020)<<"KateBufBlock: swapin this ="<< this<<endl;
   assert(b_vmDataValid);
   assert(!b_rawDataValid);
   assert(m_vmblock);
   m_rawData.resize(m_vmblockSize);
-  m_vm->copy(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
+  bool ok = m_vm->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
+  if (!ok)
+      return false;
   b_rawDataValid = true;
+  return true;
 }
 
 /**

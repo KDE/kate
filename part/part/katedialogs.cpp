@@ -33,6 +33,9 @@
 #include "kateautoindent.h"
 #include "kateview.h"
 
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/configinterfaceextension.h>
+
 #include <kio/job.h>
 #include <kio/jobclasses.h>
 #include <kio/netaccess.h>
@@ -77,6 +80,7 @@
 #include <qgroupbox.h>
 #include <qhbox.h>
 #include <qheader.h>
+#include <qfile.h>
 #include <qhgroupbox.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -117,6 +121,7 @@
 #define HLDOWNLOADPATH "http://www.kde.org/apps/kate/hl/update.xml"
 //END
 
+//BEGIN KateConfigPage
 KateConfigPage::KateConfigPage ( QWidget *parent, const char *name )
   : Kate::ConfigPage (parent, name)
   , m_changed (false)
@@ -133,7 +138,9 @@ void KateConfigPage::somethingHasChanged ()
   m_changed = true;
   kdDebug (13000) << "TEST: something changed on the config page: " << this << endl;
 }
+//END KateConfigPage
 
+//BEGIN KateSpellConfigPage
 KateSpellConfigPage::KateSpellConfigPage( QWidget* parent )
   : KateConfigPage( parent)
 {
@@ -152,6 +159,7 @@ void KateSpellConfigPage::apply ()
   // kspell
   cPage->writeGlobalSettings ();
 }
+//END KateSpellConfigPage
 
 //BEGIN KateIndentConfigTab
 const int KateIndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::cfSpaceIndent,
@@ -227,22 +235,22 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 
   reload ();
-  
+
   //
   // after initial reload, connect the stuff for the changed () signal
   //
-  
+
   connect(m_indentMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
-  
+
   connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-    
+
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  
+
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -275,7 +283,7 @@ void KateIndentConfigTab::apply ()
 
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 2 == m_tabs->id (m_tabs->selected()));
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
-  
+
   KateDocumentConfig::global()->configEnd ();
 }
 
@@ -309,18 +317,18 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   m_tabs->insert( rb1=new QRadioButton( i18n("&Normal"), m_tabs ), 0 );
   m_tabs->insert( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ), 1 );
 
-  
+
   layout->addStretch();
 
   QWhatsThis::add(rb1, i18n("Selections will be overwritten by typed text and will be lost on cursor movement."));
   QWhatsThis::add(rb2, i18n("Selections will stay even after cursor movement and typing."));
 
   reload ();
-  
+
   //
   // after initial reload, connect the stuff for the changed () signal
   //
-  
+
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
@@ -506,7 +514,7 @@ void KateEditConfigTab::apply ()
   KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
   KateViewConfig::global()->setTextToSearchMode(e5->currentItem());
   KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
-  
+
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }
@@ -554,7 +562,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   m_folding=new QCheckBox(i18n("Show &folding markers (if available)"), gbFold );
   m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), gbFold );
   m_collapseTopLevel->hide ();
-  
+
   blay->addWidget(gbFold);
 
   QVGroupBox *gbBar = new QVGroupBox(i18n("Left Border"), this);
@@ -592,11 +600,11 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   QWhatsThis::add(rb2,i18n("Each new bookmark will be added to the bottom, independently from where it is placed in the document."));
 
   reload();
-  
+
   //
   // after initial reload, connect the stuff for the changed () signal
   //
-  
+
   connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -747,11 +755,11 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
         "Enter the suffix to add to the backup file names" ) );
 
   reload();
-  
+
   //
   // after initial reload, connect the stuff for the changed () signal
   //
-    
+
   connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -800,7 +808,7 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(m_encoding->currentText()));
 
   KateDocumentConfig::global()->setEol(m_eol->currentItem());
-  
+
   KateDocumentConfig::global()->configEnd ();
 }
 
@@ -857,15 +865,15 @@ class KatePartPluginListItem : public QCheckListItem
   public:
     KatePartPluginListItem(bool checked, uint i, const QString &name, QListView *parent);
     uint pluginIndex () const { return index; }
-  
-  protected:        
+
+  protected:
     void stateChange(bool);
-    
+
   private:
     uint index;
     bool silentStateChange;
 };
-         
+
 KatePartPluginListItem::KatePartPluginListItem(bool checked, uint i, const QString &name, QListView *parent)
   : QCheckListItem(parent, name, CheckBox)
   , index(i)
@@ -900,6 +908,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 {
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  grid->setSpacing( KDialogBase::spacingHint() );
 
   listView = new KatePartPluginListView(this);
   listView->addColumn(i18n("Name"));
@@ -912,10 +921,20 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
     KatePartPluginListItem *item = new KatePartPluginListItem(KateDocumentConfig::global()->plugin(i), i, (KateFactory::self()->plugins())[i]->name(), listView);
     item->setText(0, (KateFactory::self()->plugins())[i]->name());
     item->setText(1, (KateFactory::self()->plugins())[i]->comment());
-    
+
     m_items.append (item);
   }
-  
+
+  // configure button
+
+  btnConfigure = new QPushButton( i18n("Configure"), this );
+  btnConfigure->setEnabled( false );
+  grid->addWidget( btnConfigure, 1, 0, Qt::AlignRight );
+  connect( btnConfigure, SIGNAL(clicked()), this, SLOT(slotConfigure()) );
+
+  connect( listView, SIGNAL(currentChanged(QListViewItem*)), this, SLOT(slotCurrentChanged(QListViewItem*)) );
+  connect( listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)),
+    this, SLOT(slotStateChanged(KatePartPluginListItem *, bool)));
   connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(slotChanged()));
 }
 
@@ -928,15 +947,106 @@ void KatePartPluginConfigPage::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
-    
+
   KateDocumentConfig::global()->configStart ();
-    
+
   for (uint i=0; i < m_items.count(); i++)
     KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->isOn());
-  
+
   KateDocumentConfig::global()->configEnd ();
 }
-//END
+
+void KatePartPluginConfigPage::slotStateChanged( KatePartPluginListItem *item, bool b )
+{
+  if ( b )
+    slotCurrentChanged( (QListViewItem*)item );
+}
+
+void KatePartPluginConfigPage::slotCurrentChanged( QListViewItem* i )
+{
+  KatePartPluginListItem *item = static_cast<KatePartPluginListItem *>(i);
+  if ( ! item ) return;
+
+    bool b = false;
+  if ( item->isOn() )
+  {
+
+    // load this plugin, and see if it has config pages
+    KTextEditor::Plugin *plugin = KTextEditor::createPlugin(QFile::encodeName((KateFactory::self()->plugins())[item->pluginIndex()]->library()));
+    if ( plugin ) {
+      KTextEditor::ConfigInterfaceExtension *cie = KTextEditor::configInterfaceExtension( plugin );
+      b = ( cie && cie->configPages() );
+    }
+
+  }
+    btnConfigure->setEnabled( b );
+}
+
+void KatePartPluginConfigPage::slotConfigure()
+{
+  KatePartPluginListItem *item = static_cast<KatePartPluginListItem*>(listView->currentItem());
+  KTextEditor::Plugin *plugin =
+    KTextEditor::createPlugin(QFile::encodeName((KateFactory::self()->plugins())[item->pluginIndex()]->library()));
+
+  if ( ! plugin ) return;
+
+  KTextEditor::ConfigInterfaceExtension *cife =
+    KTextEditor::configInterfaceExtension( plugin );
+
+  if ( ! cife )
+    return;
+
+  if ( ! cife->configPages() )
+    return;
+
+  // If we have only one page, we use a simple dialog, else an icon list type
+  KDialogBase::DialogType dt =
+    cife->configPages() > 1 ?
+      KDialogBase::IconList :     // still untested
+      KDialogBase::Plain;
+
+  QString name = (KateFactory::self()->plugins())[item->pluginIndex()]->name();
+  KDialogBase *kd = new KDialogBase ( dt,
+              i18n("Configure %1").arg( name ),
+              KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::Help,
+              KDialogBase::Ok,
+              this );
+
+  QPtrList<KTextEditor::ConfigPage> editorPages;
+
+  for (uint i = 0; i < cife->configPages (); i++)
+  {
+    QWidget *page;
+    if ( dt == KDialogBase::IconList )
+    {
+      QStringList path;
+      path.clear();
+      path << cife->configPageName( i );
+      page = kd->addVBoxPage( path, cife->configPageFullName (i),
+                                cife->configPagePixmap(i, KIcon::SizeMedium) );
+    }
+    else
+    {
+      page = kd->plainPage();
+      QVBoxLayout *_l = new QVBoxLayout( page );
+      _l->setAutoAdd( true );
+    }
+
+    editorPages.append( cife->configPage( i, page ) );
+  }
+
+  if (kd->exec())
+  {
+
+    for( uint i=0; i<editorPages.count(); i++ )
+    {
+      editorPages.at( i )->apply();
+    }
+  }
+
+  delete kd;
+}
+//END KatePartPluginConfigPage
 
 //BEGIN KateHlConfigPage
 KateHlConfigPage::KateHlConfigPage (QWidget *parent)
@@ -963,16 +1073,16 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
       hlCombo->insertItem(KateHlManager::self()->hlName(i));
   }
   hlCombo->setCurrentItem(0);
-  
+
   QGroupBox *gbInfo = new QGroupBox( 1, Qt::Horizontal, i18n("Information"), this );
   layout->add (gbInfo);
-  
+
   // author
   QHBox *hb1 = new QHBox( gbInfo);
   new QLabel( i18n("Author:"), hb1 );
   author  = new QLabel (hb1);
   author->setTextFormat (Qt::RichText);
-  
+
   // license
   QHBox *hb2 = new QHBox( gbInfo);
   new QLabel( i18n("License:"), hb2 );
@@ -1054,13 +1164,13 @@ void KateHlConfigPage::hlChanged(int z)
   writeback();
 
   KateHighlighting *hl = KateHlManager::self()->getHl( z );
-  
+
   if (!hl)
   {
     hlData = 0;
     return;
   }
-  
+
   if ( !hlDataDict.find( z ) )
     hlDataDict.insert( z, hl->getData() );
 
@@ -1068,11 +1178,11 @@ void KateHlConfigPage::hlChanged(int z)
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
   priority->setValue(hlData->priority);
-  
+
   // split author string if needed into multiple lines !
   QStringList l= QStringList::split (QRegExp("[,;]"), hl->author());
   author->setText (l.join ("<br>"));
-  
+
   license->setText (hl->license());
 }
 
@@ -1109,7 +1219,7 @@ void KateHlConfigPage::showMTDlg()
 
 //BEGIN KateMimeTypeChooser
 /*********************************************************************/
-/*               KateMimeTypeChooser Implementation                     */
+/*               KateMimeTypeChooser Implementation                  */
 /*********************************************************************/
 KateMimeTypeChooser::KateMimeTypeChooser( QWidget *parent, const QString &text, const QStringList &selectedMimeTypes, bool editbutton, bool showcomment, bool showpatterns)
     : QVBox( parent )
@@ -1267,8 +1377,9 @@ QStringList KateMimeTypeChooserDlg::patterns()
 {
   return chooser->patterns();
 }
-//END
+//END KateMimeTypeChooserDlg
 
+//BEGIN KateHlDownloadDialog
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
   :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("&Install"))
 {
@@ -1351,6 +1462,7 @@ void KateHlDownloadDialog::slotUser1()
   // update Config !!
   KateSyntaxDocument doc (true);
 }
+//END KateHlDownloadDialog
 
 //BEGIN KateGotoLineDialog
 KateGotoLineDialog::KateGotoLineDialog(QWidget *parent, int line, int max)

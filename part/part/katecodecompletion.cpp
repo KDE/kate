@@ -38,8 +38,6 @@
 #include <qsizegrip.h>
 #include <kdebug.h>
 
-#define kdDebug() kdDebug(13035)
-
 class CompletionItem : public QListBoxText
 {
 public:
@@ -91,7 +89,7 @@ bool KateCodeCompletion::codeCompletionVisible () {
 void KateCodeCompletion::showCompletionBox(
     QValueList<KTextEditor::CompletionEntry> complList, int offset, bool casesensitive )
 {
-  kdDebug() << "showCompletionBox " << endl;
+  kdDebug(13035) << "showCompletionBox " << endl;
 
   m_caseSensitive = casesensitive;
   m_complList = complList;
@@ -147,8 +145,8 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     }
     if( m_colCursor > m_view->cursorColumnReal() ) {
       // the cursor is too far left
-      kdDebug() << "Aborting Codecompletion after sendEvent" << endl;
-      kdDebug() << m_view->cursorColumnReal() << endl;
+      kdDebug(13035) << "Aborting Codecompletion after sendEvent" << endl;
+      kdDebug(13035) << m_view->cursorColumnReal() << endl;
       abortCompletion();
       m_view->setFocus();
       return true;
@@ -213,12 +211,12 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
   int len = m_view->cursorColumnReal() - m_colCursor;
   QString currentComplText = currentLine.mid(m_colCursor,len);
   
-  kdDebug() << "Column: " << m_colCursor << endl;
-  kdDebug() << "Line: " << currentLine << endl;
-  kdDebug() << "CurrentColumn: " << m_view->cursorColumnReal() << endl;
-  kdDebug() << "Len: " << len << endl;
-  kdDebug() << "Text: " << currentComplText << endl;
-  kdDebug() << "Count: " << m_complList.count() << endl;
+  kdDebug(13035) << "Column: " << m_colCursor << endl;
+  kdDebug(13035) << "Line: " << currentLine << endl;
+  kdDebug(13035) << "CurrentColumn: " << m_view->cursorColumnReal() << endl;
+  kdDebug(13035) << "Len: " << len << endl;
+  kdDebug(13035) << "Text: " << currentComplText << endl;
+  kdDebug(13035) << "Count: " << m_complList.count() << endl;
   
   QValueList<KTextEditor::CompletionEntry>::Iterator it;
   if( m_caseSensitive ) {
@@ -243,7 +241,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
   }
   
   if( newCoordinate ) {
-    kdDebug()<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
+    kdDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
     m_completionPopup->resize(
       m_completionListBox->sizeHint() +
       QSize( m_completionListBox->verticalScrollBar()->width() + 4,
@@ -269,7 +267,7 @@ void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& 
   int nNum = 0;
   for( QStringList::Iterator it = functionList.begin(); it != functionList.end(); it++ )
   {
-    kdDebug() << "Insert function text: " << *it << endl;
+    kdDebug(13035) << "Insert function text: " << *it << endl;
 
     m_pArgHint->setFunctionText ( nNum, ( *it ) );
 

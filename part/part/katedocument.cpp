@@ -1022,9 +1022,10 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
         z = col;
       }
 
-      if (nextl && (nextl->length() == 0))
+      if (nextl && !nextl->isAutoWrapped())
       {
         editWrapLine (line, z, true);
+        editMarkLineAutoWrapped (line+1, true);
         endLine++;
       }
       else
@@ -1033,6 +1034,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
           editInsertText (line+1, 0, QString (" "));
 
         editWrapLine (line, z, false);
+        editMarkLineAutoWrapped (line+1, true);
       }
     }
 

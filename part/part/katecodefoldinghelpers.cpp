@@ -1172,57 +1172,85 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
 		emit(setLineVisible(i,false));
 }
 
-
+//
+// get the real line number for a virtual line
+//
 unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
 {
-//	kdDebug(13000)<<QString("VirtualLine %1").arg(virtualLine)<<endl;
-	unsigned int *real=lineMapping[virtualLine];
-	if (real)
-		return (*real);
-	unsigned int tmp = virtualLine;
-	for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
-	{
-		if ((*it).start<=virtualLine)
-			virtualLine += (*it).length;
-		else
-			break;
-	}
+  // he, if nothing is hidden, why look at it ;)
+  if (hiddenLines.isEmpty())
+    return virtualLine;
 
-//	kdDebug(13000)<<QString("Real Line %1").arg(virtualLine)<<endl;
-	lineMapping.insert(tmp, new unsigned int(virtualLine));
-	return virtualLine;
+  // kdDebug(13000)<<QString("VirtualLine %1").arg(virtualLine)<<endl;
+  
+  unsigned int *real=lineMapping[virtualLine];
+  if (real)
+    return (*real);
+
+  unsigned int tmp = virtualLine;
+  for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  {
+    if ((*it).start<=virtualLine)
+      virtualLine += (*it).length;
+    else
+      break;
+  }
+
+  // kdDebug(13000)<<QString("Real Line %1").arg(virtualLine)<<endl;
+
+  lineMapping.insert(tmp, new unsigned int(virtualLine));
+  return virtualLine;
 }
 
+//
+// get the virtual line number for a real line
+//
 unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
 {
-	kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
-	for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.fromLast(); it!=hiddenLines.end(); --it)
-	{
-		if ((*it).start <= realLine)
-			realLine -= (*it).length;
-//		else
-//			break;
-	}
+  // he, if nothing is hidden, why look at it ;)
+  if (hiddenLines.isEmpty())
+    return realLine;
 
-	kdDebug(13000)<<QString("-->virtual Line %1").arg(realLine)<<endl;
-	return realLine;
+  // kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
+
+  for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.fromLast(); it!=hiddenLines.end(); --it)
+  {
+    if ((*it).start <= realLine)
+      realLine -= (*it).length;
+    // else
+      // break;
+  }
+
+  // kdDebug(13000)<<QString("-->virtual Line %1").arg(realLine)<<endl;
+  
+  return realLine;
 }
 
-
+//
+// get the number of hidden lines
+//
 unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
 {
-	if (hiddenLinesCountCacheValid)
-		return hiddenLinesCountCache;
+  // he, if nothing is hidden, why look at it ;)
+  if (hiddenLines.isEmpty())
+    return 0;
 
-	hiddenLinesCountCacheValid = true;
-	hiddenLinesCountCache = 0;
-	for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
-		if ((*it).start+(*it).length<=doclen) 
-			hiddenLinesCountCache += (*it).length;
-		else
-			{
-				hiddenLinesCountCache += ((*it).length- ((*it).length + (*it).start - doclen));
-				break;
-			}
-	return hiddenLinesCountCache;
+  if (hiddenLinesCountCacheValid)
+    return hiddenLinesCountCache;
+
+  hiddenLinesCountCacheValid = true;
+  hiddenLinesCountCache = 0;
+
+  for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  {
+    if ((*it).start+(*it).length<=doclen) 
+      hiddenLinesCountCache += (*it).length;
+    else
+    {
+      hiddenLinesCountCache += ((*it).length- ((*it).length + (*it).start - doclen));
+      break;
+    }
+  }
+  
+  return hiddenLinesCountCache;
 }

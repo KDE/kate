@@ -43,8 +43,8 @@ KateSearch::KateSearch( Kate::View* view )
 	: QObject( view, "kate search" )
 	, m_view( view )
 	, m_doc( view->getDoc() )
-	, m_searchFlags()
 	, options (0)
+	, m_searchFlags()
 	, replacePrompt( new ReplacePrompt( view ) )
 {
 	connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));

@@ -301,7 +301,8 @@ void KateViewInternal::cursorDown(bool sel)
   updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::scrollUp(bool sel) {/*
+void KateViewInternal::scrollUp(bool sel)
+{
 #if 0
   if (! yPos) return;
 
@@ -312,7 +313,7 @@ void KateViewInternal::scrollUp(bool sel) {/*
 
     changeState(c);
   }
-#endif*/
+#endif
 }
 
 void KateViewInternal::scrollDown(bool sel) {
@@ -395,41 +396,45 @@ void KateViewInternal::pageDown(bool sel)
 }
 
 // go to the top, same X position
-void KateViewInternal::top(bool sel) {/*
-
-//  cursor.col = 0;
-  cursor.line = 0;
-  cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
-//  cOldXPos = cXPos = 0;
-  changeState(c);*/
+void KateViewInternal::top(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  tmpCur.line = 0;
+  
+  myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
+  updateCursor (tmpCur, sel);
 }
 
 // go to the bottom, same X position
-void KateViewInternal::bottom(bool sel) {/*
-
-//  cursor.col = 0;
-  cursor.line = myDoc->lastLine();
-  cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
-//  cOldXPos = cXPos = 0;
-  changeState(c);*/
+void KateViewInternal::bottom(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  tmpCur.line = myDoc->lastLine();
+  
+  myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
+  updateCursor (tmpCur, sel);
 }
 
 // go to the top left corner
 void KateViewInternal::top_home(bool sel)
-{/*
-  cursor.line = 0;
-  cursor.col = 0;
-  cOldXPos = cXPos = 0;
-  changeState(c);*/
+{
+  KateTextCursor tmpCur = cursor;
+  
+  tmpCur.line = 0;
+  tmpCur.col = 0;
+
+  updateCursor (tmpCur, sel);
 }
 
 // go to the bottom right corner
-void KateViewInternal::bottom_end(bool sel) {/*
-
-  cursor.line = myDoc->lastLine();
-  cursor.col = myDoc->textLength(cursor.line);
-  cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);*/
+void KateViewInternal::bottom_end(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  
+  tmpCur.line = myDoc->lastLine();
+  tmpCur.col = myDoc->textLength(tmpCur.line);
+  
+  updateCursor (tmpCur, sel);
 }
 
 

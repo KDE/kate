@@ -66,6 +66,9 @@ class ConfigInterfaceExtension
     virtual ~ConfigInterfaceExtension();
 
     unsigned int configInterfaceExtensionNumber () const;
+    
+  protected:  
+    void setConfigInterfaceExtensionDCOPSuffix (const QCString &suffix); 
 
   //
   // slots !!!

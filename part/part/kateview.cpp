@@ -648,6 +648,11 @@ void KateView::slotSetEncoding(const QString& descriptiveName) {
   }
 }
 
+void KateView::resizeEvent(QResizeEvent *)
+{
+  myViewInternal->updateView( KateViewInternal::ufRepaint | KateViewInternal::ufDocGeometry );
+}
+
 void KateView::setFocus ()
 {
   QWidget::setFocus ();

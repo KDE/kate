@@ -259,6 +259,7 @@ class KateView : public Kate::View
     void keyPressEvent( QKeyEvent *ev );
     void customEvent( QCustomEvent *ev );
     void contextMenuEvent( QContextMenuEvent *ev );
+    void resizeEvent( QResizeEvent* );
     bool eventFilter( QObject* o, QEvent* e );
     int checkOverwrite( KURL u );
 

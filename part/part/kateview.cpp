@@ -296,7 +296,7 @@ void KateView::setupActions()
         ac, "view_word_wrap_marker" );
   a->setWhatsThis( i18n(
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
-        "wrap column as defined  in the editing properties" ));
+        "wrap column as defined in the editing properties" ));
 
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));

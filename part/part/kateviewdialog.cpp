@@ -498,8 +498,8 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
         "be highlighted with this color."));
   QWhatsThis::add(m_wwmarker, i18n(
         "<qt>Sets the color of the static / dynamic word wrap markings. <br><hr>"
-        "<ul> <li><nobr>static: a vertical line which shows the column, where text is going to be  wrapped</nobr></li>"
-        "<li> <nobr>dynamic: on the view's right hand side symbols are shown if lines wrap to another one </nobr></li>"
+        "<ul> <li><nobr>static: a vertical line which shows the column, where text is going to be wrapped</nobr></li>"
+        "<li> <nobr>dynamic: on the view's right hand side, symbols are shown if lines wrap to another one </nobr></li>"
         "</ul></qt>"));
   reload ();
 }
@@ -658,7 +658,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   layout->addStretch();
   
   QWhatsThis::add( gb, i18n(
-        "<p>Backing up on save will cause kate to copy the disk file to "
+        "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;filename&gt;&lt;suffix&gt;' before saving changes."
         "<p>The prefix defaults to <strong>~</strong>" ) );
   QWhatsThis::add( cbLocalFiles, i18n(
@@ -676,7 +676,7 @@ void SaveConfigTab::apply()
   if ( leBuSuffix->text().isEmpty() ) {
     KMessageBox::information(
                 this,
-                i18n("You didn't provide a backup suffix, using default value of '~'"),
+                i18n("You didn't provide a backup suffix. Using default: '~'"),
                 i18n("No Backup Suffix")
                         );
     leBuSuffix->setText( "~" );     

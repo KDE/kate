@@ -2738,12 +2738,6 @@ bool KateDocument::save()
   if ( ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles ) ||
          ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
        && isModified() ) {
-    if (s_fileChangedDialogsActivated && m_modOnHd)
-    {
-      if (!(KMessageBox::warningYesNo(0,
-            reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur.")) == KMessageBox::Yes))
-        return false;
-    }
     KURL u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
     if ( ! KIO::NetAccess::upload( url().path(), u, kapp->mainWidget() ) )
@@ -4652,6 +4646,7 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
 void KateDocument::setModifiedOnDisk( int reason )
 {
   m_modOnHdReason = reason;
+  m_modOnHd = (reason > 0);
   emit modifiedOnDisc( this, (reason > 0), reason );
 }
 

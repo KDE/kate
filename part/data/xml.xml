@@ -232,7 +232,7 @@
 	</context>
 
 	<context name="34:children choiceOrEnd" attribute="Error" lineEndContext="#stay">
-	  <DetectChar attribute="Doctype Declaration" context="33" char="|"/>
+	  <DetectChar attribute="Doctype Declaration" context="#pop" char="|"/>
 	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	  <RegExpr attribute="Doctype Declaration" context="31" String="\)[\?\*\+]?"/>
 	</context>
@@ -244,7 +244,7 @@
 	</context>
 
 	<context name="36:children seqOrEnd" attribute="Error" lineEndContext="#stay">
-	  <DetectChar attribute="Doctype Declaration" context="35" char=","/>
+	  <DetectChar attribute="Doctype Declaration" context="#pop" char=","/>
 	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	  <RegExpr attribute="Doctype Declaration" context="31" String="\)[\?\*\+]?"/>
 	</context>
@@ -270,12 +270,12 @@
           <keyword attribute="Doctype Declaration" context="46" String="AttType"/>
 	  <RegExpr attribute="Doctype Declaration" context="41" String="NOTATION(\s+|$)"/>
           <DetectChar attribute="Doctype Declaration" context="42" char="("/>
-	  <RegExpr attribute="Doctype Declaration" context="39" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#pop" String="\s+"/>
 	</context>
 
 	<context name="41:NotationStart" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Doctype Declaration" context="42" char="("/>
-	  <RegExpr attribute="Doctype Declaration" context="39" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#pop#pop" String="\s+"/>
 	</context>
 
 	<context name="42:Notation" attribute="Error" lineEndContext="#stay">
@@ -284,7 +284,7 @@
 	</context>
 
 	<context name="43:Notation or End" attribute="Error" lineEndContext="#stay">
-	  <DetectChar attribute="Doctype Declaration" context="42" char="|"/>
+	  <DetectChar attribute="Doctype Declaration" context="#pop" char="|"/>
 	  <RegExpr attribute="Doctype Declaration" context="46" String="\)(\s+|$)"/>
 	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>

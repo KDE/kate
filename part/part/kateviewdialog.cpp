@@ -629,6 +629,12 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   m_wwmarker = new KColorButton(b);
   connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
+  b = new QHBox (gbBorder);
+  label = new QLabel( i18n("Tab markers:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_tmarker = new KColorButton(b);
+  connect( m_tmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
+
   blay->addWidget(gbBorder);
 
   blay->addStretch();
@@ -649,6 +655,8 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
         "text is going to be wrapped</dd>"
         "<dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of "
         "visually-wrapped lines</dd></dl>"));
+  QWhatsThis::add(m_tmarker, i18n(
+        "<p>Sets the color of the tabulator marks:</p>"));
 
   reload ();
 }
@@ -665,6 +673,7 @@ void ColorConfig::apply ()
   KateRendererConfig::global()->setHighlightedLineColor (m_current->color());
   KateRendererConfig::global()->setHighlightedBracketColor (m_bracket->color());
   KateRendererConfig::global()->setWordWrapMarkerColor (m_wwmarker->color());
+  KateRendererConfig::global()->setTabMarkerColor (m_tmarker->color());
   KateViewConfig::global()->setIconBarColor (m_iconborder->color());
 }
 
@@ -675,6 +684,7 @@ void ColorConfig::reload ()
   m_current->setColor( *KateRendererConfig::global()->highlightedLineColor ());
   m_bracket->setColor( *KateRendererConfig::global()->highlightedBracketColor ());
   m_wwmarker->setColor( *KateRendererConfig::global()->wordWrapMarkerColor ());
+  m_tmarker->setColor( *KateRendererConfig::global()->tabMarkerColor ());
   m_iconborder->setColor( *KateViewConfig::global()->iconBarColor ());
 }
 

@@ -819,12 +819,14 @@ void KateRendererConfig::readConfig (KConfig *config)
   QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
   QColor tmp3 ( "#FFFF99" );
   QColor tmp4 (tmp2.dark());
+  QColor tmp5 ( "#000000" );
 
   setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
   setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
   setHighlightedLineColor (config->readColorEntry("Color Highlighted Line", &tmp2));
   setHighlightedBracketColor (config->readColorEntry("Color Highlighted Bracket", &tmp3));
   setWordWrapMarkerColor (config->readColorEntry("Color Word Wrap Marker", &tmp4));
+  setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
 
   configEnd ();
 }
@@ -841,6 +843,7 @@ void KateRendererConfig::writeConfig (KConfig *config)
   config->writeEntry("Color Highlighted Line", *highlightedLineColor());
   config->writeEntry("Color Highlighted Bracket", *highlightedBracketColor());
   config->writeEntry("Color Word Wrap Marker", *wordWrapMarkerColor());
+  config->writeEntry("Color Tab Marker", *tabMarkerColor());
 
   config->sync ();
 }
@@ -1020,6 +1023,24 @@ void KateRendererConfig::setWordWrapMarkerColor (const QColor &col)
 
   m_wordWrapMarkerColorSet = true;
   m_wordWrapMarkerColor = new QColor (col);
+
+  configEnd ();
+}
+
+const QColor *KateRendererConfig::tabMarkerColor() const
+{
+  if (m_tabMarkerColorSet || isGlobal())
+    return m_tabMarkerColor;
+
+  return s_global->tabMarkerColor();
+}
+
+void KateRendererConfig::setTabMarkerColor (const QColor &col)
+{
+  configStart ();
+
+  m_tabMarkerColorSet = true;
+  m_tabMarkerColor = new QColor (col);
 
   configEnd ();
 }

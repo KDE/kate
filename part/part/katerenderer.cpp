@@ -434,9 +434,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
           if (showTabs())
           {
+            QPen penBackup( paint.pen() );
+            paint.setPen( *(config()->tabMarkerColor()) );
             paint.drawPoint(xPos - xStart, y);
             paint.drawPoint(xPos - xStart + 1, y);
             paint.drawPoint(xPos - xStart, y - 1);
+            paint.setPen( penBackup );
           }
 
           // variable advancement

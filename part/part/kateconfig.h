@@ -361,6 +361,9 @@ class KateRendererConfig : public KateConfig
     const QColor *wordWrapMarkerColor() const;
     void setWordWrapMarkerColor (const QColor &col);
 
+    const QColor *tabMarkerColor() const;
+    void setTabMarkerColor (const QColor &col);
+
   private:
     FontStruct* m_viewFont;
     FontStruct* m_printFont;
@@ -370,6 +373,7 @@ class KateRendererConfig : public KateConfig
     QColor *m_highlightedLineColor;
     QColor *m_highlightedBracketColor;
     QColor *m_wordWrapMarkerColor;
+    QColor *m_tabMarkerColor;
 
     bool m_viewFontSet : 1;
     bool m_printFontSet : 1;
@@ -379,6 +383,7 @@ class KateRendererConfig : public KateConfig
     bool m_highlightedLineColorSet : 1;
     bool m_highlightedBracketColorSet : 1;
     bool m_wordWrapMarkerColorSet : 1;
+    bool m_tabMarkerColorSet : 1;
 
   private:
     KateRenderer *m_renderer;

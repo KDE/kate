@@ -214,6 +214,7 @@ private:
   KColorButton *m_bracket;
   KColorButton *m_wwmarker;
   KColorButton *m_iconborder;
+  KColorButton *m_tmarker;
 
   public slots:
     void apply ();

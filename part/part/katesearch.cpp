@@ -103,7 +103,8 @@ void KateSearch::find()
 
   if( findDialog->exec() == QDialog::Accepted ) {
     s_searchList =  findDialog->findHistory () ;
-    find( s_searchList.first(), findDialog->options(), true, true );
+    // Do *not* remove the QString() wrapping, it fixes a nasty crash
+    find( QString(s_searchList.first()), findDialog->options(), true, true );
   }
 
   delete findDialog;
@@ -167,7 +168,8 @@ void KateSearch::replace()
     s_searchList = replaceDialog->findHistory () ;
     s_replaceList = replaceDialog->replacementHistory () ;
 
-    replace( s_searchList.first(), m_replacement, opts );
+    // Do *not* remove the QString() wrapping, it fixes a nasty crash
+    replace( QString(s_searchList.first()), m_replacement, opts );
   }
 
   delete replaceDialog;

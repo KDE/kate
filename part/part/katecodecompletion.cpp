@@ -300,7 +300,9 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
 
 void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& strWrapping, const QString& strDelimiter )
 {
-  m_pArgHint->reset();
+  unsigned int line, col;
+  m_view->cursorPositionReal( &line, &col );
+  m_pArgHint->reset( line, col );
   m_pArgHint->setArgMarkInfos( strWrapping, strDelimiter );
 
   int nNum = 0;
@@ -308,12 +310,12 @@ void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& 
   {
     kdDebug(13035) << "Insert function text: " << *it << endl;
 
-    m_pArgHint->setFunctionText ( nNum, ( *it ) );
+    m_pArgHint->addFunction( nNum, ( *it ) );
 
     nNum++;
   }
 
-  m_pArgHint->move(m_view->mapToGlobal(m_view->cursorCoordinates()-QPoint(0,m_pArgHint->height())));
+  m_pArgHint->move(m_view->mapToGlobal(m_view->cursorCoordinates() + QPoint(0,m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height())) );
   m_pArgHint->show();
 }
 

@@ -151,6 +151,10 @@ KateJScript::KateJScript ()
  , m_document (new KJS::Object(wrapDocument(m_interpreter->globalExec(), 0)))
  , m_view (new KJS::Object (wrapView(m_interpreter->globalExec(), 0)))
 {
+  // put some stuff into env., this should stay for all executions, as we keep external
+  // references to the inserted KJS::Objects, this should avoid any garbage collection
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", *m_document);
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", *m_view);
 }
 
 KateJScript::~KateJScript ()
@@ -173,21 +177,18 @@ KJS::ObjectImp *KateJScript::wrapView (KJS::ExecState *exec, KateView *view)
 
 bool KateJScript::execute (KateView *view, const QString &script, QString &errorMsg)
 {
+  // no view, no fun
   if (!view)
   {
     errorMsg = i18n("Could not access view");
     return false;
   }
 
-  // init doc & view
+  // init doc & view with new pointers!
   static_cast<KateJSDocument *>( m_document->imp() )->doc = view->doc();
   static_cast<KateJSView *>( m_view->imp() )->view = view;
 
-  // put some stuff into env.
-  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", *m_document);
-  m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", *m_view);
-
-  // run
+  // run the script for real
   KJS::Completion comp (m_interpreter->evaluate(script));
 
   if (comp.complType() == KJS::Throw)

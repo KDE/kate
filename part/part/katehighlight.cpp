@@ -960,6 +960,8 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iMimetypes = def->mimetype;
     identifier = def->identifier;
     iVersion=def->version;
+    iAuthor=def->author;
+    iLicense=def->license;
     m_priority=def->priority.toInt();
   }
 

@@ -64,6 +64,8 @@ TODO
   kateversion: Kate version required for using this file [optional]
   casesensitive: Whether text is matched case sensitive. [boolean, optional, default=false]
   priority:    Priority of this language, if more than one are usable for the file [optional]
+  author:      Name of author of this hl file [optional]
+  license:     License for this hl file [optional]
 
 TODO
   - Which matches are affected by casesensitive? keyword, RegExpr, StringDetect...?
@@ -78,6 +80,8 @@ TODO
   kateversion   CDATA       #IMPLIED
   casesensitive (%boolean;) #IMPLIED
   priority      CDATA       #IMPLIED
+  author        CDATA       #IMPLIED
+  license       CDATA       #IMPLIED
 >
 
 <!-- General options -->

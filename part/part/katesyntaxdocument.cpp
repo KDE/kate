@@ -376,6 +376,8 @@ void KateSyntaxDocument::setupModeList (bool force)
       mli->extension  = config.readEntry("extension");
       mli->version    = config.readEntry("version");
       mli->priority   = config.readEntry("priority");
+      mli->author    = config.readEntry("author");
+      mli->license   = config.readEntry("license");
       mli->identifier = *it;
 
       // Apend the item to the list
@@ -420,6 +422,8 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->extension = root.attribute("extensions");
               mli->version   = root.attribute("version");
               mli->priority  = root.attribute("priority");
+              mli->author    = root.attribute("author");
+              mli->license   = root.attribute("license");
 
               // I think this solves the problem, everything not in the .po is Other.
               if (mli->section.isEmpty())
@@ -435,6 +439,8 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("extension",mli->extension);
               config.writeEntry("version",mli->version);
               config.writeEntry("priority",mli->priority);
+              config.writeEntry("author",mli->author);
+              config.writeEntry("license",mli->license);
 
               // Append the new item to the list.
               myModeList.append(mli);

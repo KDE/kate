@@ -183,6 +183,8 @@ class KateHighlighting
     QString iMimetypes;
     QString identifier;
     QString iVersion;
+    QString iAuthor;
+    QString iLicense;
     int m_priority;
     int refCount;
 

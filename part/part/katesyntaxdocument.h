@@ -39,6 +39,8 @@ class KateSyntaxModeListItem
     QString identifier;
     QString version;
     QString priority;
+    QString author;
+    QString license;
 };
 
 /**

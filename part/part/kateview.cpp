@@ -245,6 +245,21 @@ void KateView::setupActions()
                 this, SLOT( toggleWriteLock() ),
                 ac, "tools_toggle_write_lock" );
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
+
+    a = new KAction( i18n("Uppercase"), CTRL + Qt::Key_U, this,
+      SLOT(uppercase()), ac, "tools_uppercase" );
+    a->setWhatsThis( i18n("Uppercase the selection, or the character on the "
+      "right side of the cursor if no text is selected.") );
+
+    a = new KAction( i18n("Lovercase"), CTRL + SHIFT + Qt::Key_U, this,
+      SLOT(lowercase()), ac, "tools_lowercase" );
+    a->setWhatsThis( i18n("Lowercase the selection, or the character on the "
+      "right side of the cursor if no text is selected.") );
+
+    a = new KAction( i18n("Capitalize"), CTRL + ALT + Qt::Key_U, this,
+      SLOT(capitalize()), ac, "tools_capitalize" );
+    a->setWhatsThis( i18n("Capitalizes the selection, or the word under the "
+      "cursor if no text is selected.") );
   }
   else
   {

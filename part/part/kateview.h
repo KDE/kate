@@ -179,6 +179,21 @@ class KateView : public Kate::View,
     void uncomment()          { m_doc->unComment( cursorLine() );    }
     void killLine()           { m_doc->removeLine( cursorLine() );     }
 
+    /**
+      Uppercases selected text, or an alphabetic character next to the cursor.
+    */
+    void uppercase() { m_doc->doTransform( m_viewInternal->cursor, KateDocument::Uppercase ); }
+    /**
+      Lowercases selected text, or an alphabetic character next to the cursor.
+    */
+    void lowercase() { m_doc->doTransform( m_viewInternal->cursor, KateDocument::Lowercase ); }
+    /**
+      Capitalizes the selection (makes each word start with an uppercase) or
+      the word under the cursor.
+    */
+    void capitalize() { m_doc->doTransform( m_viewInternal->cursor, KateDocument::Capitalize ); }
+
+
     void keyReturn()          { m_viewInternal->doReturn();          }
     void backspace()          { m_viewInternal->doBackspace();       }
     void deleteWordLeft()     { m_viewInternal->doDeleteWordLeft();  }
@@ -204,7 +219,9 @@ class KateView : public Kate::View,
     void scrollUp()           { m_viewInternal->scrollUp();          }
     void scrollDown()         { m_viewInternal->scrollDown();        }
     void topOfView()          { m_viewInternal->topOfView();         }
+    void shiftTopOfView()     { m_viewInternal->topOfView(true);     }
     void bottomOfView()       { m_viewInternal->bottomOfView();      }
+    void shiftBottomOfView()  { m_viewInternal->bottomOfView(true);  }
     void pageUp()             { m_viewInternal->pageUp();            }
     void shiftPageUp()        { m_viewInternal->pageUp(true);        }
     void pageDown()           { m_viewInternal->pageDown();          }

@@ -533,11 +533,23 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void cleanIndent( uint line ) { doIndent( line,  0 );  }
     void comment(     uint line ) { doComment( line,  1 ); }
     void unComment(   uint line ) { doComment( line, -1 ); }
+
+    enum TextTransform { Uppercase, Lowercase, Capitalize };
+
     private:
     void doIndent( uint line, int change );
     void optimizeLeadingSpace( uint line, int flags, int change );
     void replaceWithOptimizedSpace( uint line, uint upto_column, uint space, int flags );
     void doComment( uint line, int change );
+
+    /**
+      Handling uppercase, lowercase and capitalize for the view.
+
+      If there is a selection, that is transformed, otherwise for uppercase or
+      lowercase the character right of the cursor is transformed, for capitalize
+      the word under the cursor is transformed.
+    */
+    void doTransform( const KateTextCursor &, TextTransform );
     public:
 
     QString getWord( const KateTextCursor& cursor );

@@ -3869,6 +3869,79 @@ void KateDocument::doComment( uint line, int change)
   }
 }
 
+void KateDocument::doTransform( const KateTextCursor &c,
+                            KateDocument::TextTransform t )
+{
+  editStart();
+  if ( hasSelection() )
+  {
+    int ln = selStartLine();
+    while ( ln <= selEndLine() )
+    {
+      uint start, end;
+      start = (ln == selStartLine() || blockSelectionMode()) ?
+          selStartCol() : 0;
+      end = (ln == selEndLine() || blockSelectionMode()) ?
+          selEndCol() : lineLength( ln );
+      QString s = text( ln, start, ln, end );
+
+      if ( t == Uppercase )
+        s = s.upper();
+      else if ( t == Lowercase )
+        s = s.lower();
+      else // Capitalize
+      {
+        TextLine::Ptr l = buffer->plainLine( ln );
+        uint p ( 0 );
+        while( p < s.length() )
+        {
+          // If bol or the character before is not in a word, up this one:
+          // 1. if both start and p is 0, upper char.
+          // 2. if blockselect or first line, and p == 0 and start-1 is not in a word, upper
+          // 3. if p-1 is not in a word, upper.
+          if ( ( ! start && ! p ) ||
+               ( ( ln == selStartLine() || blockSelectionMode() ) &&
+                 ! p && ! m_highlight->isInWord( l->getChar( start - 1 ) ) ) ||
+               ( p && ! m_highlight->isInWord( s.at( p-1 ) ) )
+             )
+            s[p] = s.at(p).upper();
+          p++;
+        }
+      }
+
+      removeText( ln, start, ln, end );
+      insertText( ln, start, s );
+
+      ln++;
+    }
+  } else {  // no selection
+    QString s;
+    uint cline(c.line() ), ccol( c.col() );
+    int n ( ccol );
+    switch ( t ) {
+      case Uppercase:
+      s = text( cline, ccol, cline, ccol + 1 ).upper();
+      break;
+      case Lowercase:
+      s = text( cline, ccol, cline, ccol + 1 ).lower();
+      break;
+      case Capitalize:
+      {
+        TextLine::Ptr l = buffer->plainLine( cline );
+        while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ) ) )
+          n--;
+        s = text( cline, n, cline, n + 1 ).upper();
+      }
+      break;
+      default:
+      break;
+    }
+    removeText( cline, n, cline, n+1 );
+    insertText( cline, n, s );
+  }
+  editEnd();
+}
+
 QString KateDocument::getWord( const KateTextCursor& cursor ) {
   int start, end, len;
 

@@ -13,7 +13,7 @@ namespace KTextEditor
 	This is the main interface to the @ref ClipboardInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
 	@short DCOP interface to @ref ClipboardInterface.
-	@author Ian Reinhart Geiser <geiseri@yahoo.com>
+	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class ClipboardDCOPInterface : virtual public DCOPObject
 	{

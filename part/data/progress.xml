@@ -1404,7 +1404,7 @@
       <itemData name="Properties" defStyleNum="dsOthers"/>
       <itemData name="Attributes" defStyleNum="dsDataType"/>
       <itemData name="Methods" defStyleNum="dsOthers"/>
-      <itemData name="Functions" defStyleNum="dsKeyword"/>
+      <itemData name="Functions" defStyleNum="dsFunction"/>
 
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>

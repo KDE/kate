@@ -56,6 +56,7 @@
       <itemData name="Comment"      defStyleNum="dsComment"/>
       <itemData name="Symbol"       defStyleNum="dsNormal"/>
       <itemData name="Tagged Argument" defStyleNum="dsOthers"/>
+      <itemData name="Function"     defStyleNum="dsFunction" />
     </itemDatas>
   </highlighting>
   <general>

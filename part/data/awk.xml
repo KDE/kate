@@ -91,7 +91,7 @@
       <itemData name="Normal"   defStyleNum="dsNormal"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>
       <itemData name="Builtin"  defStyleNum="dsDataType"/>
-      <itemData name="Function" defStyleNum="dsKeyword"/>
+      <itemData name="Function" defStyleNum="dsFunction"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="Float"    defStyleNum="dsFloat"/>
       <itemData name="String"   defStyleNum="dsString"/>

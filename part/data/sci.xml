@@ -1172,10 +1172,10 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Structure-keywords"  defStyleNum="dsNormal" color="#000080" selColor="#ffff00" bold="1" italic="0"/>
       <itemData name="Control-keywords" defStyleNum="dsNormal" color="#800000" selColor="#ff0000" bold="1" italic="0"/>
-      <itemData name="Function-keywords" defStyleNum="dsNormal" color="#008000" selColor="#ffff00" bold="1" italic="0"/>
+      <itemData name="Function-keywords" defStyleNum="dsFunction" color="#008000" selColor="#ffff00" bold="1" italic="0"/>
       <itemData name="Warning-keywords" defStyleNum="dsNormal" color="#ff0000" selColor="#ff0000" bold="1" italic="0"/>
       <itemData name="Constants-keyword" defStyleNum="dsNormal" color="#008080" selColor="#00ffff" bold="1" italic="0"/>
-      <itemData name="functions" defStyleNum="dsNormal" color="#0000ff" selColor="#00ff00" bold="1" italic="1"/>
+      <itemData name="functions" defStyleNum="dsFunction" color="#0000ff" selColor="#00ff00" bold="1" italic="1"/>
       <itemData name="Decimal" defStyleNum = "dsDecVal"/>
       <itemData name="Float" defStyleNum = "dsFloat"/>
       <itemData name="Comment" defStyleNum = "dsComment"/>

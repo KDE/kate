@@ -2755,7 +2755,7 @@
 			<itemData name="Normal Text" defStyleNum="dsNormal" />
 			<itemData name="PHP Text" defStyleNum="dsNormal" />
 			<itemData name="Keyword" defStyleNum="dsKeyword" />
-			<itemData name="Function" defStyleNum="dsKeyword" color="#0000FF" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Function" defStyleNum="dsFunction" />
 			<itemData name="Decimal" defStyleNum="dsDecVal" />
 			<itemData name="Octal" defStyleNum="dsBaseN" />
 			<itemData name="Hex" defStyleNum="dsBaseN" />

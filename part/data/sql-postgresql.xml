@@ -773,7 +773,7 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
       <itemData name="Operator" defStyleNum="dsNormal"/>
-      <itemData name="Function" defStyleNum="dsKeyword"/>
+      <itemData name="Function" defStyleNum="dsFunction"/>
       <itemData name="Data Type" defStyleNum="dsDataType"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="Float"  defStyleNum="dsFloat"/>

@@ -367,8 +367,8 @@
 	<itemDatas>
 		<itemData name="Normal Text"		defStyleNum="dsNormal"/>
 		<itemData name="Keyword" 		defStyleNum="dsKeyword"/>
-		<itemData name="Function"		defStyleNum="dsOthers"/>
-		<itemData name="Function Definition"	defStyleNum="dsOthers"/>
+		<itemData name="Function"		defStyleNum="dsFunction"/>
+		<itemData name="Function Definition"	defStyleNum="dsFunction"/>
 		<itemData name="Class"			defStyleNum="dsKeyword"/>
 		<itemData name="Decimal"		defStyleNum="dsDecVal"/>
 		<itemData name="Float"			defStyleNum="dsFloat"/>

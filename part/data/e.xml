@@ -207,12 +207,12 @@
             <context name="normal" attribute="Normal Text" lineEndContext="#stay">
               	<DetectChar attribute="Operators" context="#stay" char="{" beginRegion="Region1"/>
               	<DetectChar attribute="Operators" context="#stay" char="}" endRegion="Region1"/>
-                <HlCHex attribute="Integer" context="#stay" />  
-                <HlCOct attribute="Integer" context="#stay" />                               
-                <Int attribute="Integer" context="#stay" />            
+                <HlCHex attribute="Integer" context="#stay" />
+                <HlCOct attribute="Integer" context="#stay" />
+                <Int attribute="Integer" context="#stay" />
                 <Detect2Chars attribute="code_end" context="out_comment" char="'" char1="&gt;" />
-                <Detect2Chars attribute="Comment" context="comment" char="-" char1="-" />  
-                <Detect2Chars attribute="Comment" context="comment" char="/" char1="/" />                               
+                <Detect2Chars attribute="Comment" context="comment" char="-" char1="-" />
+                <Detect2Chars attribute="Comment" context="comment" char="/" char1="/" />
                 <DetectChar attribute="Vector" context="string" char="&quot;" />
                 <AnyChar attribute="Operators" context="#stay" String="'[&amp;&gt;&lt;=:+\-*\|].,;" />
                 <keyword attribute="Data Type" context="#stay"  String="Type"/>
@@ -230,7 +230,7 @@
 
             <context name="string" attribute="Vector" lineEndContext="#stay" >
                 <DetectChar attribute="Vector" context="#pop" char="&quot;" />
-            </context>   
+            </context>
 
 	</contexts>
 
@@ -238,15 +238,15 @@
 	          <itemData name="OutSide E code" defStyleNum="dsComment"/>
             <itemData name="Normal Text" defStyleNum="dsNormal" />
             <itemData name="Keyword" defStyleNum="dsKeyword" />
-            <itemData name="Function" defStyleNum="dsNormal" color="#0000FF" selColor="#00ff00" bold="1" italic="0" />                     
-            <itemData name="Statement" defStyleNum="dsNormal" color="#8080FF" selColor="#00ff00" bold="1" italic="0" />                                 
-            <itemData name="Action" defStyleNum="dsNormal" color="#FF8080" selColor="#00ff00" bold="1" italic="0" />                                             
+            <itemData name="Function" defStyleNum="dsFunction" bold="1"/>
+            <itemData name="Statement" defStyleNum="dsNormal" color="#8080FF" selColor="#00ff00" bold="1" italic="0" />
+            <itemData name="Action" defStyleNum="dsNormal" color="#FF8080" selColor="#00ff00" bold="1" italic="0" />
             <itemData name="Data Type" defStyleNum="dsDataType" />
             <itemData name="Comment" defStyleNum="dsComment" />
-            <itemData name="Integer" defStyleNum="dsDecVal" />     
-            <itemData name="Bit" defStyleNum="dsDecVal" />                     
-            <itemData name="Vector" defStyleNum="dsString" />   
-            <itemData name="Operators" defStyleNum="dsNormal" color="#404000" selColor="#00ff00" bold="0" italic="0" />         
+            <itemData name="Integer" defStyleNum="dsDecVal" />
+            <itemData name="Bit" defStyleNum="dsDecVal" />
+            <itemData name="Vector" defStyleNum="dsString" />
+            <itemData name="Operators" defStyleNum="dsNormal" color="#404000" selColor="#00ff00" bold="0" italic="0" />
         </itemDatas>
 
     </highlighting>

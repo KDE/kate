@@ -103,7 +103,7 @@
       <item> PRIMARY </item>
       <item> PRIVILEGES </item>
       <item> PROCEDURE </item>
-      <item> PURGE </item> 
+      <item> PURGE </item>
       <item> READ </item>
       <item> REFERENCES </item>
       <item> REGEXP </item>
@@ -133,7 +133,7 @@
       <item> TO </item>
       <item> TRAILING </item>
       <item> UNION </item>
-      <item> UNIQUE </item> 
+      <item> UNIQUE </item>
       <item> UNLOCK </item>
       <item> UNSIGNED </item>
       <item> UPDATE </item>
@@ -334,7 +334,7 @@
       <item> CHAR </item>
       <item> CHARACTER </item>
       <item> DECIMAL </item>
-      <item> DOUBLE </item> 
+      <item> DOUBLE </item>
       <item> FLOAT </item>
       <item> INT </item>
       <item> INTEGER </item>
@@ -403,7 +403,7 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
       <itemData name="Operator" defStyleNum="dsNormal"/>
-      <itemData name="Function" defStyleNum="dsKeyword"/>
+      <itemData name="Function" defStyleNum="dsFunction"/>
       <itemData name="Data Type" defStyleNum="dsDataType"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="Float"  defStyleNum="dsFloat"/>

@@ -271,7 +271,7 @@
       <item> ofclass </item>
       <item> or </item>
    </list>
-   
+
    <list name="ClassDeclOps">
       <item> with </item>
       <item> private </item>
@@ -282,20 +282,20 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="TopLevel">
          <DetectChar attribute="Comment" context="comment" char="!" />
          <DetectChar attribute="String" context="string" char="&quot;" />
-         <RegExpr attribute="Function" context="funcdef" beginRegion="reg_function" 
+         <RegExpr attribute="Function" context="funcdef" beginRegion="reg_function"
             String="[[]\s*[a-zA-Z_]+[a-zA-Z_0-9]*" />
-         
-         <RegExpr String="^ *object |^ *class " attribute="Pragma" 
+
+         <RegExpr String="^ *object |^ *class " attribute="Pragma"
             context="ClassDecl"
             insensitive="TRUE" beginRegion="reg_class" />
-            
+
          <keyword attribute="Pragma" context="#stay" String="pragmas" />
          <keyword attribute="Pragma" context="#stay" String="inline_pragmas" />
 
          <RegExpr attribute="Operator" context="#stay" String="--?>" />
          <RegExpr attribute="Normal Text" context="#stay" String="[a-zA-Z_]+[0-9]*" />
          <RegExpr attribute="Number" context="#stay" String="\$[0-9a-fA-F]{1,4}" />
-         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />         
+         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
       </context>
 
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
@@ -314,9 +314,9 @@
          <RegExpr attribute="Number" context="#stay" String="\$[0-9a-fA-F]{1,4}" />
          <RegExpr String="[a-zA-Z_]+[a-zA-Z_0-9]*" attribute="Normal Text" context="#stay" />
          <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
-         <DetectChar char="{" attribute="Keyword" context="#stay"  
+         <DetectChar char="{" attribute="Keyword" context="#stay"
                beginRegion="reg_compound" />
-         <DetectChar char="}" attribute="Keyword" context="#stay"  
+         <DetectChar char="}" attribute="Keyword" context="#stay"
                endRegion="reg_compound" />
          <RegExpr attribute="Operator" context="#stay" String="[%&amp;()+-&lt;=&gt;{|}~]"/>
       </context>
@@ -331,7 +331,7 @@
          <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
       </context>
 
-      
+
       <context name="funcdef" attribute="Normal Text" lineEndContext="#stay" >
          <IncludeRules context="Normal" />
          <Detect2Chars attribute="Function" context="#pop" char="]" char1=";"
@@ -341,11 +341,11 @@
      <context name="ClassDecl" attribute="Normal Text" lineEndContext="ClassDecl_1">
         <IncludeRules context="PropDefVal rules" />
      </context>
-     
+
      <context name="ClassDecl_1" attribute="Normal Text" lineEndContext="#stay">
          <RegExpr String="^[\t ]*has " attribute="Keyword" context="has_decl" insensitive="TRUE"/>
          <keyword String="ClassDeclOps" attribute="Keyword" context="#stay" />
-         <RegExpr String="[a-zA-Z_]+[a-zA-Z_0-9]*" context = "prop_def" 
+         <RegExpr String="[a-zA-Z_]+[a-zA-Z_0-9]*" context = "prop_def"
             attribute="Function"/>
          <DetectChar char=";" context="#pop" attribute="Pragma" endRegion="reg_class"/>
       </context>
@@ -358,9 +358,9 @@
       <context attribute="String" lineEndContext="#stay" name="string">
          <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
-      
+
       <context name="prop_func_def" attribute="Normal Text" lineEndContext="#stay">
-         <DetectChar context="#pop" char="]" attribute="Function" 
+         <DetectChar context="#pop" char="]" attribute="Function"
             endRegion="reg_prop_func"/>
          <IncludeRules context="Normal" />
       </context>
@@ -392,8 +392,8 @@
       <itemData name="OpCode"  defStyleNum="dsDecVal" color="#3015F0" selColor="#000000" bold="1" italic="0"/>
       <itemData name="Values"  defStyleNum="dsBaseN" color="#7020F0" selColor="#400000" bold="1" italic="0" />
       <itemData name="Pragma"  defStyleNum="dsOthers" color="#109010" selColor="#400000" bold="1" italic="0" />
-      <itemData name="PredefFunction"  defStyleNum="dsNormal" color="#000090" selColor="#ffffff" bold="1" italic="0"/>
-      <itemData name="Function"  defStyleNum="dsNormal" color="#000090" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="PredefFunction"  defStyleNum="dsFunction" />
+      <itemData name="Function"        defStyleNum="dsFunction" />
       <itemData name="Comment"  defStyleNum="dsComment" color="#707070" selColor="#ffffff" bold="0" italic="1"/>
       <itemData name="String"  defStyleNum="dsString" color="#007000" selColor="#007000" bold="0" italic="0"/>
       <itemData name="Word"  defStyleNum="dsString" color="#007000" selColor="#007000" bold="0" italic="1"/>

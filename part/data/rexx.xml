@@ -118,7 +118,7 @@
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Instructions" defStyleNum="dsKeyword"/>
       <itemData name="Built In"     defStyleNum="dsNormal" color="#000090"/>
-      <itemData name="Function"     defStyleNum="dsNormal" color="#26537B"/>
+      <itemData name="Function"     defStyleNum="dsFunction" />
       <itemData name="String"       defStyleNum="dsString"/>
       <itemData name="Comment"      defStyleNum="dsComment"/>
       <itemData name="Symbol"       defStyleNum="dsNormal"/>

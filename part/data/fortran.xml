@@ -192,7 +192,7 @@
       <itemData name="Symbol" defStyleNum="dsNormal"/>
       <itemData name="Preprocessor" defStyleNum="dsOthers"/>
       <itemData name="Conditional" defStyleNum="dsOthers" color="#008000" selColor="#ffa0a0" bold="1" italic="0"/>
-      <itemData name="IO Function" defStyleNum="dsKeyword" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="IO Function" defStyleNum="dsFunction" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
       <itemData name="Math Intrinsic" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>

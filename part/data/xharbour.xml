@@ -539,7 +539,7 @@
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Operator"  defStyleNum="dsBaseN" color="#A01060" selColor="#400040" bold="0" italic="0"/>
       <itemData name="Number"  defStyleNum="dsDecVal" color="#5050C0" selColor="#000000" bold="0" italic="0"/>
-      <itemData name="Function"  defStyleNum="dsNormal" color="#000090" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Function"  defStyleNum="dsFunction" />
       <itemData name="String"  defStyleNum="dsString"/>
       <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
    </itemDatas>

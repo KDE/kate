@@ -669,7 +669,7 @@
       <itemData name="Normal Text"               defStyleNum="dsNormal" />
       <itemData name="Keyword"                   defStyleNum="dsKeyword" />
       <itemData name="Pragma"                    defStyleNum="dsKeyword" />
-      <itemData name="Function"                  defStyleNum="dsNormal" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Function"                  defStyleNum="dsFunction" />
       <itemData name="Operator"                  defStyleNum="dsKeyword" />
       <itemData name="Data Type"                 defStyleNum="dsDataType" />
       <itemData name="Special Variable"          defStyleNum="dsDataType" color="#C00000" selColor="#C00000" bold="0" italic="0" />

@@ -94,7 +94,7 @@
     <itemDatas>
       <itemData name="Normal Text"	defStyleNum="dsNormal"/>
       <itemData name="Keyword"		defStyleNum="dsKeyword"/>
-      <itemData name="Builtin Function" defStyleNum="dsKeyword"/>
+      <itemData name="Builtin Function" defStyleNum="dsFunction"/>
       <itemData name="Data Type"	defStyleNum="dsDataType"/>
       <itemData name="Decimal"		defStyleNum="dsDecVal"/>
       <itemData name="Hex"		defStyleNum="dsBaseN"/>

@@ -130,7 +130,7 @@
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
-      <itemData name="Function"     defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Function"     defStyleNum="dsFunction" bold="0"/>
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>

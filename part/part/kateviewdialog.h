@@ -145,7 +145,7 @@ class EditConfigTab : public Kate::ConfigPage
 
   protected:
 
-    enum { numFlags = 7 };
+    enum { numFlags = 5 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
 
@@ -294,6 +294,7 @@ class SaveConfigTab : public Kate::ConfigPage
 
   protected:
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
+  QCheckBox *replaceTabs, *removeSpaces;
   QLineEdit *leBuSuffix;
   KateDocument *m_doc;
 };

@@ -98,10 +98,15 @@ bool KateDocument::s_configLoaded = false;
 int KateDocument::tabChars = 8;
 int KateDocument::indentationChars = 2;
 
-uint KateDocument::_configFlags = KateDocument::cfAutoIndent | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
+uint KateDocument::_configFlags
+    = KateDocument::cfAutoIndent
+    | KateDocument::cfTabIndents
+    | KateDocument::cfKeepIndentProfile
     | KateDocument::cfRemoveSpaces
-    | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
-    | KateDocument::cfShowTabs | KateDocument::cfSmartHome;
+    | KateDocument::cfDelOnInput
+    | KateDocument::cfWrapCursor
+    | KateDocument::cfShowTabs
+    | KateDocument::cfSmartHome;
 
 QColor KateDocument::colors[6];
 
@@ -3102,14 +3107,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   bool onlySpaces = true;
   for( uint z = 0; z < chars.length(); z++ ) {
     QChar ch = chars[z];
-    if (ch == '\t' && _configFlags & KateDocument::cfReplaceTabs) {
-      l = tabChars - (textLine->cursorX(col, tabChars) % tabChars);
-      while (l > 0) {
-        buf.insert(pos, ' ');
-        pos++;
-        l--;
-      }
-    } else if (ch.isPrint() || ch == '\t') {
+    if (ch.isPrint() || ch == '\t') {
       buf.insert(pos, ch);
       pos++;
       if (ch != ' ') onlySpaces = false;

@@ -279,18 +279,29 @@ void SelectConfigTab::reload ()
 //END SelectConfigTab
 
 //BEGIN EditConfigTab
-const int EditConfigTab::flags[] = {KateDocument::cfWordWrap, KateDocument::cfReplaceTabs, KateDocument::cfRemoveSpaces,
+const int EditConfigTab::flags[] = {KateDocument::cfWordWrap,
   KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
 
 EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
-  : Kate::ConfigPage(parent) {
-
-  QVBoxLayout *mainLayout;
-  int configFlags;
+  : Kate::ConfigPage(parent)
+{
   m_doc = view;
 
-  mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
-  configFlags = view->configFlags();
+  QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  int configFlags = view->configFlags();
+
+  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Tabulators"), this);
+
+  opt[2] = new QCheckBox(i18n("&Show tabs"), gbWhiteSpace);
+  opt[2]->setChecked(configFlags & flags[2]);
+  connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  e2 = new KIntNumInput(view->tabWidth(), gbWhiteSpace);
+  e2->setRange(1, 16, 1, false);
+  e2->setLabel(i18n("Tab width:"), AlignVCenter);
+  connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
+  mainLayout->addWidget(gbWhiteSpace);
 
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
@@ -306,41 +317,20 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   mainLayout->addWidget(gbWordWrap);
 
-  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Whitespace"), this);
-
-  opt[4] = new QCheckBox(i18n("&Show tabs"), gbWhiteSpace);
-  opt[4]->setChecked(configFlags & flags[4]);
-  connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  opt[1] = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
+  opt[1] = new QCheckBox(i18n("Auto &brackets"), this);
+  mainLayout->addWidget(opt[1]);
   opt[1]->setChecked(configFlags & flags[1]);
   connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  opt[2] = new QCheckBox(i18n("&Remove trailing spaces"), gbWhiteSpace);
-  opt[2]->setChecked(configFlags & flags[2]);
-  connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  e2 = new KIntNumInput(e1, view->tabWidth(), gbWhiteSpace);
-  e2->setRange(1, 16, 1, false);
-  e2->setLabel(i18n("Tab width:"), AlignVCenter);
-  connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-
-  mainLayout->addWidget(gbWhiteSpace);
-
-  opt[3] = new QCheckBox(i18n("Auto &brackets"), this);
+  opt[3] = new QCheckBox(i18n("Smart ho&me"), this);
   mainLayout->addWidget(opt[3]);
   opt[3]->setChecked(configFlags & flags[3]);
   connect(opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  opt[5] = new QCheckBox(i18n("Smart ho&me"), this);
-  mainLayout->addWidget(opt[5]);
-  opt[5]->setChecked(configFlags & flags[5]);
-  connect(opt[5], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  opt[6] = new QCheckBox(i18n("Wrap c&ursor"), this);
-  mainLayout->addWidget(opt[6]);
-  opt[6]->setChecked(configFlags & flags[6]);
-  connect(opt[6], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  opt[4] = new QCheckBox(i18n("Wrap c&ursor"), this);
+  mainLayout->addWidget(opt[4]);
+  opt[4]->setChecked(configFlags & flags[4]);
+  connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   e4 = new KIntNumInput(view->autoCenterLines(), this);
   e4->setRange(0, 1000000, 1, false);
@@ -374,15 +364,12 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   // What is this? help
   QWhatsThis::add(opt[0], i18n("Word wrap is a feature that causes the editor to automatically start a new line of text and move (wrap) the cursor to the beginning of that new line. KateView will automatically start a new line of text when the current line reaches the length specified by the Wrap Words At: option.<p><b>NOTE:</b> Word Wrap will not change existing lines or wrap them for easy reading as in some applications."));
   QWhatsThis::add(e1, i18n("If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line."));
-  QWhatsThis::add(opt[1], i18n("KateView will replace any tabs with the number of spaces indicated in the Tab Width: entry."));
-  QWhatsThis::add(e2, i18n("If the Replace Tabs With Spaces option is selected this entry determines the number of spaces with which the editor will automatically replace tabs."));
-  QWhatsThis::add(opt[2], i18n("KateView will automatically eliminate extra spaces at the ends of lines of text."));
-  QWhatsThis::add(opt[3], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
-  QWhatsThis::add(opt[4], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
-  QWhatsThis::add(opt[5], i18n("When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text."));
+  QWhatsThis::add(opt[1], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
+  QWhatsThis::add(opt[2], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
+  QWhatsThis::add(opt[3], i18n("When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text."));
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
   QWhatsThis::add(e4, i18n("Sets the number of lines to maintain visible above and below the cursor when possible."));
-  QWhatsThis::add(opt[6], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
+  QWhatsThis::add(opt[4], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
   QString gstfwt = i18n("This determines where KateView will get the search text from "
                         "(this will be automatically entered into the Find Text dialog): "
                         "<br>"
@@ -788,7 +775,20 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   : Kate::ConfigPage( parent ),
     m_doc( doc )
 {
+  int configFlags = doc->configFlags();
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+
+  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups"), this);
+  layout->addWidget( gbWhiteSpace );
+
+  replaceTabs = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
+  replaceTabs->setChecked(configFlags & KateDocument::cfReplaceTabs);
+  connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  removeSpaces = new QCheckBox(i18n("&Remove trailing spaces"), gbWhiteSpace);
+  removeSpaces->setChecked(configFlags & KateDocument::cfRemoveSpaces);
+  connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
   QGroupBox *gb = new QGroupBox( 1, Qt::Horizontal, i18n("Backup on Save"), this );
   layout->addWidget( gb );
   cbLocalFiles = new QCheckBox( i18n("&Local files"), gb );
@@ -802,6 +802,9 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   layout->addStretch();
+
+  QWhatsThis::add(replaceTabs, i18n("KateView will replace any tabs with the number of spaces indicated in the Tab Width: entry."));
+  QWhatsThis::add(removeSpaces, i18n("KateView will automatically eliminate extra spaces at the ends of lines of text."));
 
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
@@ -827,13 +830,26 @@ void SaveConfigTab::apply()
                         );
     leBuSuffix->setText( "~" );
   }
+
   uint f( 0 );
   if ( cbLocalFiles->isChecked() )
     f |= KateDocument::LocalFiles;
   if ( cbRemoteFiles->isChecked() )
     f |= KateDocument::RemoteFiles;
+
   KateDocument::setBackupConfig( f );
   KateDocument::setBackupSuffix( leBuSuffix->text() );
+
+  int configFlags = m_doc->configFlags();
+
+  configFlags &= ~KateDocument::cfReplaceTabs; // clear flag
+  if (replaceTabs->isChecked()) configFlags |= KateDocument::cfReplaceTabs; // set flag if checked
+
+  configFlags &= ~KateDocument::cfRemoveSpaces; // clear flag
+  if (removeSpaces->isChecked()) configFlags |= KateDocument::cfRemoveSpaces; // set flag if checked
+
+
+  m_doc->setConfigFlags(configFlags);
 }
 
 void SaveConfigTab::reload()

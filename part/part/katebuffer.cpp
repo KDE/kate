@@ -523,10 +523,17 @@ bool KateBuffer::saveFile (const QString &m_file, QTextCodec *codec, const QStri
   // this line sets the mapper to the correct codec
   stream.setCodec(codec);
 
+  QString tabs;
+  if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
+    tabs.fill (QChar(' '), m_doc->tabWidth());
+
   for (uint i=0; i < m_lines; i++)
   {
     // if enabled strip the trailing spaces !
-    stream << textLine (i, m_doc->configFlags() & KateDocument::cfRemoveSpaces);
+    if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
+      stream << textLine (i, m_doc->configFlags() & KateDocument::cfRemoveSpaces).replace (QChar('\t'), tabs);
+    else
+      stream << textLine (i, m_doc->configFlags() & KateDocument::cfRemoveSpaces);
 
     if (i < (m_lines-1))
       stream << eol;

@@ -183,6 +183,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editWithUndo = false;
   editTagFrom = false;
 
+  m_docNameNumber = 0;
+
   //BEGIN spelling stuff
   m_kspell = 0;
   m_mispellCount = 0;
@@ -200,7 +202,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_markDescriptions.setAutoDelete( true );
   setMarksUserChangable( markType01 );
 
-  m_docName = QString ("");
   m_highlight = 0L;
 
   m_undoMergeTimer = new QTimer(this);
@@ -4269,9 +4270,27 @@ void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )
     emit selectionChanged();
 }
 
-void KateDocument::setDocName (QString docName)
+void KateDocument::setDocName (QString )
 {
-  m_docName = docName;
+  int count = -1;
+
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+  {
+    if ( (KateFactory::documents()->at(z) != this) && (KateFactory::documents()->at(z)->url().filename() == url().filename()) )
+      if ( KateFactory::documents()->at(z)->m_docNameNumber > count )
+        count = KateFactory::documents()->at(z)->m_docNameNumber;
+  }
+
+  m_docNameNumber = count + 1;
+
+  m_docName = url().filename();
+
+  if (m_docName.isEmpty())
+    m_docName = i18n ("Untitled");
+
+  if (m_docNameNumber > 0)
+    m_docName = QString(m_docName + " <%1>").arg(m_docNameNumber);
+
   emit nameChanged ((Kate::Document *) this);
 }
 

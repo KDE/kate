@@ -149,6 +149,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
     /**
      * Sets the document name.
+     * deprecated for KDE 4.0, is done internally, calling it won't hurt
+     * but changes nothing beside triggers signal
      */
     virtual void setDocName (QString ) { ; };
 

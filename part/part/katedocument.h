@@ -711,6 +711,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     unsigned char m_modOnHdReason;
 
     QString m_docName;
+    int m_docNameNumber;
 
     QMemArray<KateAttribute> myAttribs;
 

@@ -657,7 +657,7 @@ class KateDocument : public Kate::Document,
     void repaintViews(bool paintOnlyDirty = true);
 
     inline KateHighlighting *highlight () { return m_buffer->highlight(); }
-    
+
     inline KateHighlighting *highlight () const { return m_buffer->highlight(); }
 
   public slots:    //please keep prototypes and implementations in same order
@@ -1028,6 +1028,11 @@ class KateDocument : public Kate::Document,
    * TODO add register functionality/ktexteditor interface
    */
   private:
+    /**
+     * read dir config file
+     */
+    void readDirConfig ();
+
     /**
       Reads all the variables in the document.
       Called when opening/saving a document

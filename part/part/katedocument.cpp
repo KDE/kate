@@ -615,7 +615,7 @@ QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, 
       return QString ();
 
     kdDebug() << "there are " << m_views.count() << " view for this document.  Using the first one" << endl;
-	      
+
     KateView *firstview =  m_views.getFirst();
     KateRenderer *renderer = firstview->renderer();
     textLine->stringAsHtml(startCol, endCol-startCol, renderer, &ts);
@@ -2655,47 +2655,7 @@ bool KateDocument::openFile(KIO::Job * job)
     updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 
     // read dir config (if possible and wanted)
-    int depth = config()->searchDirConfigDepth ();
-    if (m_url.isLocalFile() && (depth > -1))
-    {
-      QString currentDir = QFileInfo (m_file).dirPath();
-
-      // only search as deep as specified or not at all ;)
-      while (depth > -1)
-      {
-        kdDebug (13020) << "search for config file in path: " << currentDir << endl;
-
-        // try to open config file in this dir
-        QFile f (currentDir + "/.kateconfig");
-
-        if (f.open (IO_ReadOnly))
-        {
-          QTextStream stream (&f);
-
-          uint linesRead = 0;
-          QString line = stream.readLine();
-          while ((linesRead < 32) && !line.isNull())
-          {
-            readVariableLine( line );
-
-            line = stream.readLine();
-
-            linesRead++;
-          }
-
-          break;
-        }
-
-        QString newDir = QFileInfo (currentDir).dirPath();
-
-        // bail out on looping (for example reached /)
-        if (currentDir == newDir)
-          break;
-
-        currentDir = newDir;
-        --depth;
-      }
-    }
+    readDirConfig ();
 
     // read vars
     readVariables();
@@ -2853,6 +2813,9 @@ bool KateDocument::saveFile()
     // update our file type
     updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 
+    // read dir config (if possible and wanted)
+    readDirConfig ();
+
     // read our vars
     readVariables();
   }
@@ -2887,6 +2850,52 @@ bool KateDocument::saveFile()
   // return success
   //
   return success;
+}
+
+void KateDocument::readDirConfig ()
+{
+  int depth = config()->searchDirConfigDepth ();
+
+  if (m_url.isLocalFile() && (depth > -1))
+  {
+    QString currentDir = QFileInfo (m_file).dirPath();
+
+    // only search as deep as specified or not at all ;)
+    while (depth > -1)
+    {
+      kdDebug (13020) << "search for config file in path: " << currentDir << endl;
+
+      // try to open config file in this dir
+      QFile f (currentDir + "/.kateconfig");
+
+      if (f.open (IO_ReadOnly))
+      {
+        QTextStream stream (&f);
+
+        uint linesRead = 0;
+        QString line = stream.readLine();
+        while ((linesRead < 32) && !line.isNull())
+        {
+          readVariableLine( line );
+
+          line = stream.readLine();
+
+          linesRead++;
+        }
+
+        break;
+      }
+
+      QString newDir = QFileInfo (currentDir).dirPath();
+
+      // bail out on looping (for example reached /)
+      if (currentDir == newDir)
+        break;
+
+      currentDir = newDir;
+      --depth;
+    }
+  }
 }
 
 void KateDocument::activateDirWatch ()
@@ -3354,14 +3363,14 @@ void KateDocument::copy()
   if (!hasSelection())
     return;
 #ifndef QT_NO_MIMECLIPBOARD
-  KMultipleDrag *drag = new KMultipleDrag(); 
+  KMultipleDrag *drag = new KMultipleDrag();
   QTextDrag *htmltextdrag = new QTextDrag(selectionAsHtml()) ;
 
   htmltextdrag->setSubtype("html");
-  
+
   drag->addDragObject( new QTextDrag( selection()));
   drag->addDragObject( htmltextdrag);
-  
+
   QApplication::clipboard()->setData(drag);
 #else
   QApplication::clipboard()->setText(selection ());

@@ -1,7 +1,10 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org> 
+   
+   Based on:
+     KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -501,9 +504,9 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   displayCursor.line = myDoc->getVirtualLine(cursor.line);
   displayCursor.col = cursor.col;
 
-  kdDebug(13030) << "updateCursor():" << endl;
-  kdDebug(13030) << "Virtual: " << displayCursor.line << endl;
-  kdDebug(13030) << "Real: " << cursor.line << endl;
+  //kdDebug(13030) << "updateCursor():" << endl;
+  //kdDebug(13030) << "Virtual: " << displayCursor.line << endl;
+  //kdDebug(13030) << "Real: " << cursor.line << endl;
 
   cXPos = myDoc->textWidth( cursor );
   ensureVisible( cXPos, lineToContentsY( displayCursor.line   ), 0, 0 );
@@ -526,13 +529,13 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 
 void KateViewInternal::tagRealLines( int start, int end )
 {
-  kdDebug(13030) << "tagRealLines( " << start << ", " << end << " )\n";
+  //kdDebug(13030) << "tagRealLines( " << start << ", " << end << " )\n";
   tagLines( myDoc->getVirtualLine( start ), myDoc->getVirtualLine( end ) );
 }
 
 void KateViewInternal::tagLines( int start, int end )
 {
-  kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
+  //kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
   int y = lineToContentsY( start );
   int h = (end - start + 1) * myDoc->viewFont.fontHeight;
   updateContents( contentsX(), y, visibleWidth(), h );  
@@ -541,7 +544,7 @@ void KateViewInternal::tagLines( int start, int end )
 
 void KateViewInternal::tagAll()
 {
-  kdDebug(13030) << "tagAll()" << endl;
+  //kdDebug(13030) << "tagAll()" << endl;
   updateContents();      
   leftBorder->update ();
 }
@@ -794,9 +797,9 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
   uint startline = contentsYToLine( cy );
   uint endline   = contentsYToLine( cy + ch - 1 );
   
-  kdDebug(13030) << "drawContents(): y = " << cy << " h = " << ch << endl; 
-  kdDebug(13030) << "drawContents(): x = " << cx << " w = " << cw << endl;
-  kdDebug(13030) << "Repainting " << startline << " - " << endline << endl;
+  //kdDebug(13030) << "drawContents(): y = " << cy << " h = " << ch << endl; 
+  //kdDebug(13030) << "drawContents(): x = " << cx << " w = " << cw << endl;
+  //kdDebug(13030) << "Repainting " << startline << " - " << endline << endl;
 
   for( uint line = startline; line <= endline; line++ ) {
     uint realLine = myDoc->getRealLine( line );

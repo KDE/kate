@@ -1,7 +1,10 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-
+   Copyright (C) 2001-2002 Christoph Cullmann <cullmann@kde.org> 
+   Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   
+   Based on:
+     TextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+   
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -184,17 +187,17 @@ QChar *TextLine::firstNonSpace() const
 
 bool TextLine::stringAtPos(uint pos, const QString& match) const
 {
-  return (string().mid(pos, match.length()) == match);
+  return (QConstString (this->m_text.data(), this->m_text.size()).string().mid(pos, match.length()) == match);
 }
 
 bool TextLine::startingWith(const QString& match) const
 {
-  return (string().left(match.length()) == match);
+  return (QConstString (this->m_text.data(), this->m_text.size()).string().left(match.length()) == match);
 }
 
 bool TextLine::endingWith(const QString& match) const
 {
-  return (string().right(match.length()) == match);
+  return (QConstString (this->m_text.data(), this->m_text.size()).string().right(match.length()) == match);
 }
 
 int TextLine::cursorX(uint pos, uint tabChars) const

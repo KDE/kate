@@ -3378,7 +3378,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     Attribute * curAt = ((*a) >= atLen) ? &at[0] : &at[*a];
 
     if (curAt != oldAt)
-      paint.setFont(curAt->getFont(fs));
+      paint.setFont(curAt->font(fs));
 
     xPosAfter += curAt->width(fs, *s);
 

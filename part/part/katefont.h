@@ -38,7 +38,7 @@ class KateFontMetrics : public QFontMetrics
 
     int width(QChar c);
 
-    int width(QString & s) { return QFontMetrics::width(s); }
+    inline int width(QString & s) { return QFontMetrics::width(s); }
 
   private:
     short *createRow (short *wa, uchar row);
@@ -61,7 +61,7 @@ class FontStruct
 
     void updateFontData(int tabChars);
 
-    QFont & getFont(bool bold, bool italic);
+    QFont & font(bool bold, bool italic);
 
     void setFont(QFont & font);
 
@@ -90,8 +90,8 @@ class Attribute
       return fs.width(ch, bold, italic);
     }
 
-    inline QFont & getFont(FontStruct & fs) {
-      return fs.getFont(bold, italic);
+    inline QFont & font(FontStruct & fs) {
+      return fs.font(bold, italic);
     }
 
     QColor col;

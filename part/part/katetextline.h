@@ -1,7 +1,10 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-
+   Copyright (C) 2001-2002 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+      
+   Based on:
+     TextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+     
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -167,10 +170,10 @@ class TextLine : public KShared
     /**
       Raw access on the memarray's, for example the katebuffer class
     */
-    inline QMemArray<QChar> textArray () const { return m_text; };
-    inline QMemArray<unsigned char> attributesArray () const { return m_attributes; };
-    inline QMemArray<signed char> ctxArray () const { return m_ctx; };
-    inline QMemArray<signed char> foldingListArray () const { return m_foldingList; };      
+    inline const QMemArray<QChar> &textArray () const { return m_text; };
+    inline const QMemArray<unsigned char> &attributesArray () const { return m_attributes; };
+    inline const QMemArray<signed char> &ctxArray () const { return m_ctx; };
+    inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };      
          
   /**
     Methodes to manipulate data
@@ -242,7 +245,7 @@ class TextLine : public KShared
       m_hlContinue = cont;
     }
         
-    inline void setFoldingList (QMemArray<signed char> val)
+    inline void setFoldingList (QMemArray<signed char> &val)
     {
       m_foldingList=val;
       m_foldingList.detach();
@@ -269,7 +272,10 @@ class TextLine : public KShared
       as return value
     */
     char *restore (char *buf);
-    
+                  
+  /**
+   REALLY PRIVATE ;) please no new friend classes
+   */
   private:
     /**
       The text & attributes
@@ -290,7 +296,7 @@ class TextLine : public KShared
     bool m_hlContinue;
                               
     /**
-      Is the line visible or folded away ?`
+      Is the line visible or folded away ?
     */
     bool m_visible; 
     

@@ -29,7 +29,6 @@
 #include <kstringhandler.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>
-#include <kdebug.h>
 
 #include <qregexp.h>
 #include <qmemarray.h>
@@ -74,7 +73,6 @@ KateBookmarks::~KateBookmarks()
 
 void KateBookmarks::createActions( KActionCollection* ac )
 {
-  kdDebug()<<"=== has action collection "<<ac<<endl;
   m_bookmarkToggle = new KToggleAction(
     i18n("Set &Bookmark"), "bookmark", CTRL+Key_B,
     this, SLOT(toggleBookmark()),
@@ -104,9 +102,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
 
   //connect the aboutToShow() and aboutToHide() signals with
   //the bookmarkMenuAboutToShow() and bookmarkMenuAboutToHide() slots
-  disconnect( m_bookmarksMenu, SIGNAL(aboutToShow()), 0, 0);
   connect( m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
-  disconnect( m_bookmarksMenu, SIGNAL(aboutToHide()), 0, 0);
   connect( m_bookmarksMenu, SIGNAL(aboutToHide()), this, SLOT(bookmarkMenuAboutToHide()) );
 
   marksChanged ();
@@ -118,7 +114,6 @@ void KateBookmarks::createActions( KActionCollection* ac )
 
 void KateBookmarks::toggleBookmark ()
 {
-  kdDebug()<<"Toggle bookmark in "<<m_view->getDoc()->url().prettyURL()<<endl;
   uint mark = m_view->getDoc()->mark( m_view->cursorLine() );
   if( mark & KTextEditor::MarkInterface::markType01 )
     m_view->getDoc()->removeMark( m_view->cursorLine(),
@@ -130,6 +125,7 @@ void KateBookmarks::toggleBookmark ()
 
 void KateBookmarks::clearBookmarks ()
 {
+
   QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
   for (uint i=0; i < m.count(); i++)
     m_view->getDoc()->removeMark( m.at(i)->line, KTextEditor::MarkInterface::markType01 );
@@ -240,8 +236,6 @@ void KateBookmarks::bookmarkMenuAboutToShow()
 */
 void KateBookmarks::bookmarkMenuAboutToHide()
 {
-  m_bookmarksMenu->clear();
-
   m_bookmarkToggle->plug( m_bookmarksMenu );
   m_bookmarkClear->plug( m_bookmarksMenu );
   m_goNext->setText( i18n("Next Bookmark") );

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="D" version="d.0.71.xml.0.03" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
+<language name="D" version="1.1" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
 	<highlighting>
 		<list name="keywords">
 			<item> abstract </item>

@@ -21,26 +21,29 @@
 #include "kateprinter.h"
 #include "kateprinter.moc"
 
-#include <katedocument.h>
-#include <katehighlight.h>
-#include <katerenderer.h>
 #include <kateconfig.h>
-#include <katetextline.h>
+#include <katedocument.h>
+#include <katefactory.h>
+#include <katehighlight.h>
 #include <katelinerange.h>
+#include <katerenderer.h>
+#include <kateschema.h>
+#include <katetextline.h>
 
+#include <kapplication.h>
 #include <kcolorbutton.h>
+#include <kdebug.h>
 #include <kdialog.h> // for spacingHint()
 #include <kfontdialog.h>
 #include <klocale.h>
 #include <kprinter.h>
-#include <kapplication.h>
-#include <kuser.h> // for loginName
 #include <kurl.h>
-#include <kdebug.h>
+#include <kuser.h> // for loginName
 
 #include <qpainter.h>
 #include <qpaintdevicemetrics.h>
 #include <qcheckbox.h>
+#include <qcombobox.h>
 #include <qgroupbox.h>
 #include <qhbox.h>
 #include <qlabel.h>
@@ -67,7 +70,7 @@ bool KatePrinter::print (KateDocument *doc)
    if ( printer.setup( kapp->mainWidget(), i18n("Print %1").arg(printer.docName()) ) )
    {
      KateRenderer renderer(doc);
-     renderer.config()->setSchema (1);
+     //renderer.config()->setSchema (1);
      renderer.setPrinterFriendly(true);
 
      QPainter paint( &printer );
@@ -121,6 +124,8 @@ bool KatePrinter::print (KateDocument *doc)
      bool footerDrawBg = 0; // do
 
      // Layout Page
+     renderer.config()->setSchema( KateFactory::self()->schemaManager()->number(
+           printer.option("app-kate-colorscheme") ) );
      bool useBackground = ( printer.option("app-kate-usebackground") == "true" );
      bool useBox = (printer.option("app-kate-usebox") == "true");
      int boxWidth(printer.option("app-kate-boxwidth").toInt());
@@ -892,6 +897,12 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
 
+  QHBox *hb = new QHBox( this );
+  lo->addWidget( hb );
+  QLabel *lSchema = new QLabel( i18n("&Schema"), hb );
+  cmbSchema = new QComboBox( false, hb );
+  lSchema->setBuddy( cmbSchema );
+  
   cbDrawBackground = new QCheckBox( i18n("Draw bac&kground color"), this );
   lo->addWidget( cbDrawBackground );
 
@@ -919,8 +930,13 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
   // set defaults:
   sbBoxMargin->setValue( 6 );
   gbBoxProps->setEnabled( false );
+  cmbSchema->insertStringList (KateFactory::self()->schemaManager()->list ());
+  cmbSchema->setCurrentItem( 1 );
 
   // whatsthis
+  // FIXME uncomment when string freeze is over
+//   QWhatsThis::add ( cmbSchema, i18n(
+//         "Select the color scheme to use for the print." ) );
   QWhatsThis::add( cbDrawBackground, i18n(
         "<p>If enabled, the background color of the editor will be used.</p>"
         "<p>This may be useful if your color scheme is designed for a dark background.</p>") );
@@ -938,6 +954,7 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
 
 void KatePrintLayout::getOptions(QMap<QString,QString>& opts, bool )
 {
+  opts["app-kate-colorscheme"] = cmbSchema->currentText();
   opts["app-kate-usebackground"] = cbDrawBackground->isChecked() ? "true" : "false";
   opts["app-kate-usebox"] = cbEnableBox->isChecked() ? "true" : "false";
   opts["app-kate-boxwidth"] = sbBoxWidth->cleanText();
@@ -948,6 +965,9 @@ void KatePrintLayout::getOptions(QMap<QString,QString>& opts, bool )
 void KatePrintLayout::setOptions( const QMap<QString,QString>& opts )
 {
   QString v;
+  v = opts["app-kate-colorscheme"];
+  if ( ! v.isEmpty() )
+    cmbSchema->setCurrentItem( KateFactory::self()->schemaManager()->number( v ) );
   v = opts["app-kate-usebackground"];
   if ( ! v.isEmpty() )
     cbDrawBackground->setChecked( v == "true" );

@@ -25,13 +25,14 @@
 
 class KateDocument;
 
+class KColorButton;
 class KPrinter;
 class QCheckBox;
-class KColorButton;
-class QSpinBox;
-class QLineEdit;
+class QComboBox;
 class QGroupBox;
 class QLabel;
+class QLineEdit;
+class QSpinBox;
 
 class KatePrinter
 {
@@ -104,6 +105,7 @@ class KatePrintHeaderFooter : public KPrintDialogPage
 //BEGIN Layout
 /*
   Layout page:
+  - Color scheme
   - Use Box
   - Box properties
     o Width
@@ -121,6 +123,7 @@ class KatePrintLayout : public KPrintDialogPage
     void setOptions(const QMap<QString,QString>& opts);
   
   private:
+    QComboBox *cmbSchema;
     QCheckBox *cbEnableBox, *cbDrawBackground;
     QGroupBox *gbBoxProps;
     QSpinBox *sbBoxWidth, *sbBoxMargin;

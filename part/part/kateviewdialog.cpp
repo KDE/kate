@@ -569,13 +569,13 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   glay->addWidget( label, 2, 0 );
   glay->addWidget( m_selected, 2, 1 );
   
-  label = new QLabel( i18n("Current Line:"), this);
+  label = new QLabel( i18n("Current line:"), this);
   label->setAlignment( AlignRight|AlignVCenter );
   m_current = new KColorButton( this );
   glay->addWidget( label, 4, 0 );
   glay->addWidget( m_current, 4, 1 );
 
-  label = new QLabel( i18n("Bracket Highlight:"), this );
+  label = new QLabel( i18n("Bracket highlight:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_bracket = new KColorButton( this );
   glay->addWidget( label, 6, 0 );

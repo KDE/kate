@@ -781,11 +781,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   {
     KateViewInternal *view = (myViews.at(z2))->myViewInternal;
 
-    if (line >= getRealLine( view->firstLine() ) )
-    {
-      if ((view->tagLinesFrom > (int)line) || (view->tagLinesFrom == -1))
-	view->tagLinesFrom = line;
-    }
+    setViewTagLinesFrom(view, line);
 
     // correct cursor position
     if (view->cursorCache.line > (int)line)
@@ -850,11 +846,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   {
     KateViewInternal * view = (myViews.at(z2))->myViewInternal;
     
-    if (line >= getRealLine( view->firstLine() ) )
-    {
-      if ((view->tagLinesFrom > (int)line) || (view->tagLinesFrom == -1))
-	view->tagLinesFrom = line;
-    }
+    setViewTagLinesFrom(view, line);
 
     uint cLine = view->cursorCache.line;
     uint cCol = view->cursorCache.col;
@@ -907,13 +899,8 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
-    KateViewInternal * view = (myViews.at(z2))->myViewInternal;
-    
-     if (line >= getRealLine( view->firstLine() ) )
-     {
-       if ((view->tagLinesFrom > (int)line) || (view->tagLinesFrom == -1))
-         view->tagLinesFrom = line;
-     }
+    KateViewInternal * view = (myViews.at(z2))->myViewInternal;    
+    setViewTagLinesFrom(view, line);
   }
 
   editEnd ();
@@ -962,11 +949,7 @@ bool KateDocument::editRemoveLine ( uint line )
   {
     KateViewInternal * view = (myViews.at(z2))->myViewInternal;
 
-    if (line >= getRealLine( view->firstLine() ) )
-    {
-      if ((view->tagLinesFrom > (int)line) || (view->tagLinesFrom == -1))
-	view->tagLinesFrom = line;
-    }
+    setViewTagLinesFrom(view, line);
 
     if ( (view->cursorCache.line == (int)line) )
     {
@@ -980,6 +963,12 @@ bool KateDocument::editRemoveLine ( uint line )
   editEnd();
 
   return true;
+}
+
+void KateDocument::setViewTagLinesFrom(KateViewInternal * view, int line)
+{
+  if (line >= (int)getRealLine(view->firstLine()))
+    view->setTagLinesFrom(line);
 }
 
 //
@@ -2646,7 +2635,7 @@ void KateDocument::doIndent( uint line, int change)
 
   if (!hasSelection()) {
     // single line
-    optimizeLeadingSpace( line, _configFlags, change);
+    optimizeLeadingSpace(line, _configFlags, change);
   }
   else
   {
@@ -3245,9 +3234,14 @@ bool KateDocument::lineEndSelected (int line)
 
 bool KateDocument::lineHasSelected (int line)
 {
-    return (selectStart < selectEnd)
-      && (line >= selectStart.line)
-      && (line <= selectEnd.line);
+  return (selectStart < selectEnd)
+    && (line >= selectStart.line)
+    && (line <= selectEnd.line);
+}
+
+bool KateDocument::lineIsSelection (int line)
+{
+  return (line == selectStart.line && line == selectEnd.line);
 }
 
 bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int xPos2, int y, int xStart, int xEnd,
@@ -3345,38 +3339,32 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
   if (showSelections && !selectionPainted)
   {
-    if (hasSelection())
+    if (hasSelection() && !blockSelect)
     {
-      if (!blockSelect)
+      if (lineIsSelection(line))
       {
-        if (((int)line == selectStart.line) && ((int)line < selectEnd.line))
-        {
-          startSel = selectStart.col;
-          endSel = oldLen;
-          hasSel = true;
-        }
-        else if (((int)line == selectEnd.line) && ((int)line > selectStart.line))
-        {
-          startSel = 0;
-          endSel = selectEnd.col;
-          hasSel = true;
-        }
-        else if (((int)line == selectEnd.line) && ((int)line == selectStart.line))
-        {
-          startSel = selectStart.col;
-          endSel = selectEnd.col;
-          hasSel = true;
-        }
+	startSel = selectStart.col;
+	endSel = selectEnd.col;
+	hasSel = true;
       }
-      else
+      else if ((int)line == selectStart.line)
       {
-        if (((int)line >= selectStart.line) && ((int)line <= selectEnd.line))
-        {
-          startSel = selectStart.col;
-          endSel = selectEnd.col;
-          hasSel = true;
-        }
+	startSel = selectStart.col;
+	endSel = oldLen;
+	hasSel = true;
       }
+      else if ((int)line == selectEnd.line)
+      {
+	startSel = 0;
+	endSel = selectEnd.col;
+	hasSel = true;
+      }
+    }
+    else if (lineHasSelected(line))
+    {
+      startSel = selectStart.col;
+      endSel = selectEnd.col;
+      hasSel = true;
     }
   }
 

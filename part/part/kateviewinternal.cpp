@@ -888,3 +888,9 @@ void KateViewInternal::clear()
   cursor.col        = cursor.line        = 0;
   displayCursor.col = displayCursor.line = 0;
 }
+
+void KateViewInternal::setTagLinesFrom(int line)
+{
+  if ( tagLinesFrom > line || tagLinesFrom == -1)
+    tagLinesFrom = line;
+}

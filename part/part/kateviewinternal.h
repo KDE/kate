@@ -83,6 +83,8 @@ class KateViewInternal : public QScrollView
     QPoint cursorCoordinates();        
     
     inline int yPosition () const { return yPos; }     
+
+    void setTagLinesFrom(int line);
              
   signals:
     // emitted when KateViewInternal is not handling its own URI drops

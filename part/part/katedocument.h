@@ -256,6 +256,7 @@ class KateDocument : public Kate::Document
     bool lineSelected (int line);
     bool lineEndSelected (int line);
     bool lineHasSelected (int line);
+    bool lineIsSelection (int line);
 
     // stores the current selection
     KateTextCursor selectStart;
@@ -471,6 +472,11 @@ class KateDocument : public Kate::Document
     void setNewDoc( bool );
     bool isNewDoc() const;
     
+    /**
+       Set the tagLinesFrom member in the internal view if usefull. 
+    */
+    void setViewTagLinesFrom(KateViewInternal * view, int line);
+
     /**
        Tag the lines in the current selection.
      */

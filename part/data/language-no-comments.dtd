@@ -18,7 +18,8 @@
   beginRegion   CDATA   #IMPLIED
   endRegion     CDATA   #IMPLIED
   firstNonSpace (%boolean;) #IMPLIED
-  column        CDATA       #IMPLIED        "
+  column        CDATA       #IMPLIED
+  onlyConsume   (%boolean;) #IMPLIED"
 >
 
 <!ENTITY per "." >
@@ -72,7 +73,7 @@
 
 <!ELEMENT contexts (context)+>
 
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | ConsumeSpaces | ConsumeIdentifier)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | DetectSpaces | DetectIdentifier)*>
 <!ATTLIST context
   attribute CDATA #REQUIRED
   lineEndContext CDATA #REQUIRED
@@ -178,13 +179,13 @@
   includeAttrib (false|true) #IMPLIED
 >
 
-<!ELEMENT ConsumeSpaces EMPTY>
-<!ATTLIST ConsumeSpaces
+<!ELEMENT DetectSpaces EMPTY>
+<!ATTLIST DetectSpaces
           %commonAttributes;
           >
 
-<!ELEMENT ConsumeIdentifier EMPTY>
-<!ATTLIST ConsumeIdentifier
+<!ELEMENT DetectIdentifier EMPTY>
+<!ATTLIST DetectIdentifier
           %commonAttributes;
 >
 

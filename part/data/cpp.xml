@@ -118,14 +118,14 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//BEGIN" beginRegion="Region1" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Extensions" context="#stay" String="extensions" />
         <keyword attribute="Data Type" context="#stay" String="types" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
         <Float attribute="Float" context="#stay">
           <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
@@ -159,15 +159,15 @@
       <context attribute="Region Marker" lineEndContext="#pop" name="Region Marker">
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <IncludeRules context="##Alerts" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
         <IncludeRules context="##Alerts" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
@@ -183,20 +183,20 @@
         <LineContinue attribute="Preprocessor" context="#stay"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <IncludeRules context="##Alerts" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
         <RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="#pop" String="#\s*(endif|else|elif)" endRegion="Outscoped" firstNonSpace="true" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true"/>
         <RegExpr attribute="Comment" context="#pop" String="#\s*endif" endRegion="Outscoped" firstNonSpace="true"/>

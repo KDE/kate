@@ -17,7 +17,7 @@
 
   TODO:-
   - Add a mime type (cannot find it !?)
-  
+
   ========================================================================
 -->
 <language name="Yacc/Bison" version="1.02" kateversion="2.4" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
@@ -26,31 +26,31 @@
 <contexts>
   <context name="Pre Start" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <ConsumeSpaces />
+    <DetectSpaces onlyConsume="true" />
     <Detect2Chars attribute="Content-Type Delimiter" context="C Declarations" char="%" char1="{" beginRegion="cdeclarations" column="0" />
     <RegExpr attribute="Normal Text" context="Declarations" String="." beginRegion="declarations" lookAhead="true" />
   </context>
-  
+
   <context name="C Declarations" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
     <Detect2Chars attribute="Content-Type Delimiter" context="#pop" char="%" char1="}" endRegion="cdeclarations" column="0" />
     <IncludeRules context="##C++" />
   </context>
-  
+
   <context name="Declarations" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
     <StringDetect attribute="Directive" context="Union Start" String="%union" />
     <Detect2Chars attribute="Content-Type Delimiter" context="Rules" char="%" char1="%" beginRegion="rules" endRegion="declarations" />
-    
+
     <!-- not sure that strict yacc allows that ... but it is commonly used -->
     <Detect2Chars attribute="Content-Type Delimiter" context="C Declarations" char="%" char1="{" beginRegion="cdeclarations" column="0" />
-    
+
     <DetectChar attribute="Directive" context="Percent Command" char="%" />
   </context>
-  
+
   <context name="Union Start" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <ConsumeSpaces />
+    <DetectSpaces onlyConsume="true" />
     <DetectChar attribute="Normal Text" context="Union In" char="{" beginRegion="union" />
     <RegExpr attribute="Alert" context="#pop" String="." />
   </context>
@@ -64,13 +64,13 @@
     <DetectChar attribute="Normal Text" context="#pop" char="}" />
     <IncludeRules context="##C++" />
   </context>
-  
+
   <context name="Rules" attribute="Rule" lineEndContext="#stay">
     <IncludeRules context="Comment" />
     <Detect2Chars attribute="Content-Type Delimiter" context="User Code" char="%" char1="%" beginRegion="code" endRegion="rules" />
     <DetectChar attribute="Normal Text" context="Rule In" char=":" beginRegion="rule" />
   </context>
-  
+
   <context name="Rule In" attribute="Definition" lineEndContext="#stay">
     <IncludeRules context="Comment" />
     <DetectChar attribute="Normal Text" context="#pop" char=";" endRegion="rule" />
@@ -78,11 +78,11 @@
     <DetectChar attribute="Normal Text" context="#stay" char="|" />
     <IncludeRules context="StringOrChar" />
   </context>
-  
+
   <context name="User Code" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="##C++" />
-  </context>  
-  
+  </context>
+
   <context name="Percent Command" attribute="Directive" lineEndContext="#pop">
     <IncludeRules context="Comment" />
     <RegExpr attribute="Normal Text" context="Percent Command In" String="\W" lookAhead="true" />
@@ -94,7 +94,7 @@
   <context name="PC type" attribute="Data Type" lineEndContext="#pop#pop#pop">
     <DetectChar attribute="Data Type" context="#pop" char="&gt;" />
   </context>
-  
+
   <context name="Comment" attribute="Comment">
     <Detect2Chars attribute="Comment" context="CommentStar" char="/" char1="*" />
     <!-- not sure that strict yacc allows that ... but I saw it in some sources ... -->
@@ -106,7 +106,7 @@
   <context name="CommentSlash" attribute="Comment" lineEndContext="#stay">
     <RegExpr attribute="Comment" context="#pop" String="[^\\]$" />
   </context>
-  
+
   <context name="StringOrChar" attribute="NormalText">
     <DetectChar attribute="String Char" context="Char" char="'" />
     <DetectChar attribute="String" context="String" char="&quot;" />
@@ -119,10 +119,10 @@
     <RegExpr attribute="Backslash Code" context="#stay" String="\\." />
     <DetectChar attribute="String Char" context="#pop" char="'" />
   </context>
-  
+
   <context name="Normal C Bloc" attribute="Normal Text" lineEndContext="#stay">
-    <DetectChar attribute="Normal Text" context="Normal C Bloc" char="{" beginRegion="bloc" />  
-    <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="bloc" />  
+    <DetectChar attribute="Normal Text" context="Normal C Bloc" char="{" beginRegion="bloc" />
+    <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="bloc" />
     <IncludeRules context="##C++" />
     <DetectChar attribute="Directive" context="Dol" char="$" />
   </context>

@@ -158,7 +158,7 @@ TODO:
   - Do we need fallthrough at all? It could be true, if fallthroughContext is set, false otherwhise.
   - Make lineEndContext optional, defaults to '#stay'. Reasonable?
 -->
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | ConsumeSpaces | ConsumeIdentifier)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | DetectSpaces | DetectIdentifier)*>
 <!ATTLIST context
   name              CDATA       #IMPLIED
   attribute         CDATA       #REQUIRED
@@ -184,7 +184,8 @@ TODO:
   endRegion     CDATA       #IMPLIED
   lookAhead     (%boolean;) #IMPLIED
   firstNonSpace (%boolean;) #IMPLIED
-  column        CDATA       #IMPLIED"
+  column        CDATA       #IMPLIED
+  onlyConsume   (%boolean;) #IMPLIED"
 >
 
 <!-- Detect members of a keyword list
@@ -369,17 +370,17 @@ TODO:
   includeAttrib (%boolean;) #IMPLIED
 >
 
-<!-- Consume Spaces
+<!-- Detect all following Spaces
 -->
-<!ELEMENT ConsumeSpaces EMPTY>
-<!ATTLIST ConsumeSpaces
+<!ELEMENT DetectSpaces EMPTY>
+<!ATTLIST DetectSpaces
           %commonAttributes;
 >
 
-<!-- Consume Identifier
+<!-- Detect an Identifier ( == LETTER(LETTER|NUMBER|_)*)
      -->
-<!ELEMENT ConsumeIdentifier EMPTY>
-<!ATTLIST ConsumeIdentifier
+<!ELEMENT DetectIdentifier EMPTY>
+<!ATTLIST DetectIdentifier
           %commonAttributes;
 >
 

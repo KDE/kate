@@ -335,7 +335,7 @@
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Pragma" context="#stay" String="pragmas" />
         <RegExpr attribute="Pod" context="pod" String="\=(?:head[1-6]|over|back|item|for|begin|end|pod)(\s|$)" column="0" beginRegion="POD"/>
-        <ConsumeSpaces/>
+        <DetectSpaces onlyConsume="true" />
         <DetectChar attribute="Comment" context="comment" char="#" />
 
         <HlCOct attribute="Octal" context="slash_safe_escape" />
@@ -406,7 +406,7 @@
 
       <!-- ====== Contexts for strings ===== -->
       <context name="ipstring_internal" attribute="String (interpolated)" lineEndContext="#stay">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <RegExpr attribute="String Special Character" context="#stay" String="\\[UuLlEtnaefr]" />
         <RegExpr attribute="String (interpolated)" context="#stay" String="\\." />
         <RegExpr attribute="Normal Text" context="find_variable_unsafe" String="(?:[\$@]\S|%[\w{])" lookAhead="true" />
@@ -442,33 +442,33 @@
       </context>
 
       <context name="string" attribute="String" lineEndContext="#stay">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <DetectChar attribute="Operator" context="#pop" char="'" endRegion="String" />
       </context>
       <context name="string_2" attribute="String" lineEndContext="#stay">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <RangeDetect attribute="String" context="#stay" char="(" char1=")" />
         <DetectChar attribute="Operator" context="#pop#pop" char=")" endRegion="String" />
       </context>
       <context name="string_3" attribute="String" lineEndContext="#stay">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <RangeDetect attribute="String" context="#stay" char="{" char1="}" />
         <DetectChar attribute="Operator" context="#pop#pop" char="}" endRegion="String" />
       </context>
       <context name="string_4" attribute="String" lineEndContext="#stay">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <RangeDetect attribute="String" context="#stay" char="[" char1="]" />
         <DetectChar attribute="Operator" context="#pop#pop" char="]" endRegion="String" />
       </context>
       <context name="string_5" attribute="String" lineEndContext="#stay">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <Detect2Chars attribute="String" context="#stay" char="\" char1="&lt;" />
         <Detect2Chars attribute="String" context="#stay" char="\" char1="&gt;" />
         <RangeDetect attribute="String" context="#stay" char="&lt;" char1="&gt;" />
         <DetectChar attribute="Operator" context="#pop#pop" char="&gt;" endRegion="String" />
       </context>
       <context name="string_6" attribute="String" lineEndContext="#stay" dynamic="true">
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
         <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
         <RegExpr attribute="String" context="#stay" String="\\%1" dynamic="true"/>
         <DetectChar attribute="Operator" context="#pop#pop" char="1" dynamic="true" endRegion="String" />
@@ -686,26 +686,26 @@
 
       <!-- ====== Word lists ====== -->
       <context name="quote_word" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <ConsumeSpaces/>
-        <ConsumeIdentifier/>
+        <DetectSpaces onlyConsume="true" />
+        <DetectIdentifier onlyConsume="true" />
         <RegExpr attribute="Normal Text" context="#stay" String="\\%1" dynamic="true" />
         <DetectChar attribute="Operator" context="#pop#pop#pop" char="1" dynamic="true" endRegion="Wordlist" />
       </context>
       <context name="quote_word_paren" attribute="Normal Text" lineEndContext="#stay">
-        <ConsumeSpaces/>
-        <ConsumeIdentifier/>
+        <DetectSpaces onlyConsume="true" />
+        <DetectIdentifier onlyConsume="true" />
         <Detect2Chars attribute="Normal Text" context="#stay" char="\" char1=")" />
         <DetectChar attribute="Operator" context="#pop#pop#pop" char=")" endRegion="Wordlist" />
       </context>
       <context name="quote_word_brace" attribute="Normal Text" lineEndContext="#stay">
-        <ConsumeSpaces/>
-        <ConsumeIdentifier/>
+        <DetectSpaces onlyConsume="true" />
+        <DetectIdentifier onlyConsume="true" />
         <Detect2Chars attribute="Normal Text" context="#stay" char="\" char1="}" />
         <DetectChar attribute="Operator" context="#pop#pop#pop" char="}" endRegion="Wordlist" />
       </context>
       <context name="quote_word_bracket" attribute="Normal Text" lineEndContext="#stay">
-        <ConsumeSpaces/>
-        <ConsumeIdentifier/>
+        <DetectSpaces onlyConsume="true" />
+        <DetectIdentifier onlyConsume="true" />
         <Detect2Chars attribute="Normal Text" context="#stay" char="\" char1="]" />
         <DetectChar attribute="Operator" context="#pop#pop#pop" char="]" endRegion="Wordlist" />
       </context>
@@ -718,15 +718,15 @@
         <RegExpr attribute="Keyword" context="here_document_dumb" String="\s*'([^']+)'\s*;?" />
       </context>
       <context name="here_document" attribute="String (interpolated)" lineEndContext="#stay" dynamic="true">
-        <ConsumeSpaces/>
+        <DetectSpaces onlyConsume="true" />
         <RegExpr attribute="Keyword" context="#pop#pop" String="%1" column="0" dynamic="true" endRegion="HereDocument"/>
         <RegExpr attribute="Keyword" context="here_document" String="\=\s*&lt;&lt;\s*[&quot;']?([A-Z0-9_\-]+)[&quot;']?" beginRegion="HEREDoc" />
         <IncludeRules context="ipstring_internal" />
       </context>
       <context name="here_document_dumb" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-        <ConsumeSpaces/>
+        <DetectSpaces onlyConsume="true" />
         <RegExpr attribute="Keyword" context="#pop#pop" String="%1" column="0" dynamic="true" endRegion="HereDocument"/>
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
       </context>
 
       <!-- ====== Misc ====== -->
@@ -769,16 +769,16 @@
       </context>
 
       <context name="pod" attribute="Pod" lineEndContext="#stay">
-        <ConsumeSpaces/>
-        <ConsumeIdentifier/>
+        <DetectSpaces onlyConsume="true" />
+        <DetectIdentifier onlyConsume="true" />
         <RegExpr attribute="Pod" context="#stay" String="\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" column="0" beginRegion="POD" endRegion="POD"/>
         <RegExpr attribute="Pod" context="#pop" String="\=cut.*$" column="0" endRegion="POD"/>
       </context>
 
       <context name="comment" attribute="Comment" lineEndContext="#pop">
-        <ConsumeSpaces/>
+        <DetectSpaces onlyConsume="true" />
         <IncludeRules context="##Alerts" />
-        <ConsumeIdentifier/>
+        <DetectIdentifier onlyConsume="true" />
       </context>
 
     </contexts>

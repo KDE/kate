@@ -102,7 +102,7 @@ class KateHlItem
     bool dynamic;
     bool dynamicChild;
     bool firstNonSpace;
-    bool justConsume;
+    bool onlyConsume;
     int column;
 
     // start enable flags, nicer than the virtual methodes
@@ -333,29 +333,31 @@ class KateHlRegExpr : public KateHlItem
     bool _minimal;
 };
 
-class KateHlConsumeSpaces : public KateHlItem
+class KateHlDetectSpaces : public KateHlItem
 {
   public:
-    KateHlConsumeSpaces () : KateHlItem (0,0,0,0) { justConsume = true; }
+    KateHlDetectSpaces (int attribute, int context,signed char regionId,signed char regionId2)
+      : KateHlItem(attribute,context,regionId,regionId2) {}
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
-      int len2 = text.length();
+      int len2 = offset + len;
       while ((offset < len2) && text[offset].isSpace()) offset++;
       return offset;
     }
 };
 
-class KateHlConsumeIdentifier : public KateHlItem
+class KateHlDetectIdentifier : public KateHlItem
 {
   public:
-    KateHlConsumeIdentifier () : KateHlItem (0,0,0,0) { justConsume = true; }
+    KateHlDetectIdentifier (int attribute, int context,signed char regionId,signed char regionId2)
+      : KateHlItem(attribute,context,regionId,regionId2) { alwaysStartEnable = false; }
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
-      if (text[offset++].isLetter())
+      if (text[offset++].isLetter() || (text[offset] == QChar ('_')))
       {
-        int len2 = text.length();
+        int len2 = offset-1+len;
         while ((offset < len2) && (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_')))) offset++;
         return offset;
       }
@@ -405,7 +407,7 @@ KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed ch
     dynamic(false),
     dynamicChild(false),
     firstNonSpace(false),
-    justConsume(false),
+    onlyConsume(false),
     column (-1),
     alwaysStartEnable (true),
     customStartEnable (false)
@@ -1417,14 +1419,44 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if ((item->column != -1) && (item->column != offset))
         continue;
 
-      // do we only consume stuff?
-      if (item->justConsume)
+      bool thisStartEnabled = false;
+
+      if (item->alwaysStartEnable)
       {
-        int offset2 = item->checkHgl(text, offset, len-offset);
+        thisStartEnabled = true;
+      }
+      else if (item->customStartEnable)
+      {
+        if (!customStartEnableDetermined)
+        {
+          customStartEnable = kateInsideString (deliminator, lastChar);
+          customStartEnableDetermined = true;
+        }
 
-        if (offset2 <= offset)
-          continue;
+        thisStartEnabled = customStartEnable;
+      }
+      else
+      {
+        if (!standardStartEnableDetermined)
+        {
+          standardStartEnable = kateInsideString (stdDeliminator, lastChar);
+          standardStartEnableDetermined = true;
+        }
 
+        thisStartEnabled = standardStartEnable;
+      }
+
+      if (!thisStartEnabled)
+        continue;
+
+      int offset2 = item->checkHgl(text, offset, len-offset);
+
+      if (offset2 <= offset)
+        continue;
+
+      // do we only consume stuff, than don't look at any other properties ?
+      if (item->onlyConsume)
+      {
         // set attribute of this context
         textLine->setAttribs(context->attr,offset,offset2);
 
@@ -1435,45 +1467,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       }
       else
       {
-        bool thisStartEnabled = false;
-
-        if (item->alwaysStartEnable)
-        {
-          thisStartEnabled = true;
-        }
-        else if (item->customStartEnable)
-        {
-          if (!customStartEnableDetermined)
-          {
-            customStartEnable = kateInsideString (deliminator, lastChar);
-            customStartEnableDetermined = true;
-          }
-
-          thisStartEnabled = customStartEnable;
-        }
-        else
-        {
-          if (!standardStartEnableDetermined)
-          {
-            standardStartEnable = kateInsideString (stdDeliminator, lastChar);
-            standardStartEnableDetermined = true;
-          }
-
-          thisStartEnabled = standardStartEnable;
-        }
-
-        if (!thisStartEnabled)
-          continue;
-
-        int offset2 = item->checkHgl(text, offset, len-offset);
-
-        if (offset2 <= offset)
-          continue;
-
         if(!item->lookAhead)
           textLine->setAttribs(item->attr,offset,offset2);
 
-          //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
+        //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
         if (item->region2)
         {
@@ -1514,12 +1511,15 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
         }
 
-        generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
+        if (item->ctx != -1)
+        {
+          generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
 
     //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
   //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
 
-        context=contextNum(ctxNum);
+          context=contextNum(ctxNum);
+        }
 
         // dynamic context: substitute the model with an 'instance'
         if (context->dynamic)
@@ -1912,25 +1912,71 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   // get the (tagname) itemd type
   QString dataname=KateHlManager::self()->syntax->groupItemData(data,QString(""));
 
-  //BEGIN - Translation of the attribute parameter
-  QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
+  bool onlyConsume = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("onlyConsume")) );
+
   int attr;
-  if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
-  {
-    errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
-    arg(buildIdentifier).arg(tmpAttr);
-    attr=tmpAttr.toInt();
-  }
-  else
-    attr=lookupAttrName(tmpAttr,iDl);
-  //END - Translation of the attribute parameter
-
-  // Info about context switch
   int context;
-  QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
-
   QString unresolvedContext;
-  context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
+
+  // code folding region handling:
+  QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
+  QString endRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("endRegion"));
+
+  signed char regionId=0;
+  signed char regionId2=0;
+
+  // only relevant for non consumer
+  if (!onlyConsume)
+  {
+    //BEGIN - Translation of the attribute parameter
+    QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
+
+    if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
+    {
+      errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
+      arg(buildIdentifier).arg(tmpAttr);
+      attr=tmpAttr.toInt();
+    }
+    else
+      attr=lookupAttrName(tmpAttr,iDl);
+    //END - Translation of the attribute parameter
+
+    // Info about context switch
+
+    QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
+
+    context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
+
+    if (!beginRegionStr.isEmpty())
+    {
+      regionId = RegionList->findIndex(beginRegionStr);
+
+      if (regionId==-1) // if the region name doesn't already exist, add it to the list
+      {
+        (*RegionList)<<beginRegionStr;
+        regionId = RegionList->findIndex(beginRegionStr);
+      }
+
+      regionId++;
+
+      kdDebug () << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
+    }
+
+    if (!endRegionStr.isEmpty())
+    {
+      regionId2 = RegionList->findIndex(endRegionStr);
+
+      if (regionId2==-1) // if the region name doesn't already exist, add it to the list
+      {
+        (*RegionList)<<endRegionStr;
+        regionId2 = RegionList->findIndex(endRegionStr);
+      }
+
+      regionId2 = -regionId2 - 1;
+
+      kdDebug () << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
+    }
+  }
 
   // Get the char parameter (eg DetectChar)
   char chr;
@@ -1967,43 +2013,6 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   if (!colStr.isEmpty())
     column = colStr.toInt();
 
-  // code folding region handling:
-  QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
-  QString endRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("endRegion"));
-
-  signed char regionId=0;
-  signed char regionId2=0;
-
-  if (!beginRegionStr.isEmpty())
-  {
-    regionId = RegionList->findIndex(beginRegionStr);
-
-    if (regionId==-1) // if the region name doesn't already exist, add it to the list
-    {
-      (*RegionList)<<beginRegionStr;
-      regionId = RegionList->findIndex(beginRegionStr);
-    }
-
-    regionId++;
-
-    kdDebug () << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
-  }
-
-  if (!endRegionStr.isEmpty())
-  {
-    regionId2 = RegionList->findIndex(endRegionStr);
-
-    if (regionId2==-1) // if the region name doesn't already exist, add it to the list
-    {
-      (*RegionList)<<endRegionStr;
-      regionId2 = RegionList->findIndex(endRegionStr);
-    }
-
-    regionId2 = -regionId2 - 1;
-
-    kdDebug () << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
-  }
-
   //Create the item corresponding to it's type and set it's parameters
   KateHlItem *tmpItem;
 
@@ -2030,8 +2039,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   else if (dataname=="HlCOct") tmpItem= (new KateHlCOct(attr,context,regionId,regionId2));
   else if (dataname=="HlCFloat") tmpItem= (new KateHlCFloat(attr,context,regionId,regionId2));
   else if (dataname=="HlCStringChar") tmpItem= (new KateHlCStringChar(attr,context,regionId,regionId2));
-  else if (dataname=="ConsumeSpaces") tmpItem= (new KateHlConsumeSpaces());
-  else if (dataname=="ConsumeIdentifier") tmpItem= (new KateHlConsumeIdentifier());
+  else if (dataname=="DetectSpaces") tmpItem= (new KateHlDetectSpaces(attr,context,regionId,regionId2));
+  else if (dataname=="DetectIdentifier") tmpItem= (new KateHlDetectIdentifier(attr,context,regionId,regionId2));
   else
   {
     // oops, unknown type. Perhaps a spelling error in the xml file
@@ -2043,6 +2052,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   tmpItem->dynamic = dynamic;
   tmpItem->firstNonSpace = firstNonSpace;
   tmpItem->column = column;
+  tmpItem->onlyConsume = onlyConsume;
 
   if (!unresolvedContext.isEmpty())
   {

@@ -45,13 +45,13 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <StringDetect attribute="Keyword" context="#stay" String="PROGRAM" />
         <StringDetect attribute="Keyword" context="Interface" String="INTERFACE" />
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Interface">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <StringDetect attribute="Keyword" context="Control" String="CONTROL" />
         <StringDetect attribute="Keyword" context="Code" String="CODE" />
 
@@ -59,7 +59,7 @@
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Code">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <StringDetect attribute="Keyword" context="Control" String="CONTROL" />
 
         <StringDetect attribute="Hint" context="Hint" String="#HINT" />
@@ -68,7 +68,7 @@
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Control">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <StringDetect attribute="Keyword" context="Code" String="CODE" />
 
         <IncludeRules context="Common" />
@@ -79,7 +79,7 @@
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
         <Float attribute="Float" context="#stay">
@@ -94,9 +94,9 @@
       </context>
 
       <context attribute="Hint" lineEndContext="#stay" name="Hint">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <DetectChar attribute="Hint" context="#pop" char=")" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
       </context>
 
       <context attribute="Region Marker" lineEndContext="#pop" name="Region Marker">

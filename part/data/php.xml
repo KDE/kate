@@ -2660,7 +2660,7 @@
           <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" beginRegion="php" />
       </context>
       <context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
-        <ConsumeSpaces />
+        <DetectSpaces onlyConsume="true" />
         <StringDetect attribute="Keyword" context="#pop#pop" String="?&gt;" endRegion="php" />
         <DetectChar attribute="Comment" context="onelinecomment" char="#" />
         <IncludeRules context="##Doxygen" />
@@ -2669,7 +2669,7 @@
         <keyword attribute="Control Structures" context="#stay" String="control structures" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Function" context="#stay" String="functions" />
-        <ConsumeIdentifier />
+        <DetectIdentifier onlyConsume="true" />
         <DetectChar attribute="String" context="doblequotestring" char="&quot;" />
         <DetectChar attribute="String" context="singlequotestring" char="&#39;" />
         <RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />

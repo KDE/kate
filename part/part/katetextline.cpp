@@ -162,17 +162,13 @@ const QChar *TextLine::firstNonSpace() const
 uint TextLine::indentDepth (uint tabwidth) const
 {
   uint d = 0;
-  static QChar t ('\t');
 
   for(uint i = 0; i < m_text.length(); i++)
   {
     if(m_text[i].isSpace())
     {
-      if (m_text[i] == t)
-      {
-        d += tabwidth;
-        d -= d % tabwidth;
-      }
+      if (m_text[i] == QChar('\t'))
+        d += tabwidth - (d % tabwidth);
       else
         d++;
     }
@@ -200,10 +196,9 @@ bool TextLine::endingWith(const QString& match) const
 
 int TextLine::cursorX(uint pos, uint tabChars) const
 {
-  uint l = kMin (pos, m_text.length());
   uint x = 0;
 
-  for (uint z = 0; z < l; z++)
+  for (uint z = 0; z < kMin (pos, m_text.length()); z++)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
@@ -211,7 +206,7 @@ int TextLine::cursorX(uint pos, uint tabChars) const
       x++;
   }
 
-  return x + pos - l;
+  return x;
 }
 
 void TextLine::setAttribs(uchar attribute, uint start, uint end)

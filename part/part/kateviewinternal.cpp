@@ -2370,7 +2370,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     KateTextLine::Ptr line = m_doc->kateTextLine( ln );
     int pos = line->firstChar();
     if (pos != -1) {
-      while (line->length() > pos && !line->getChar(pos).isLetterOrNumber()) ++pos;
+      while ((int)line->length() > pos && !line->getChar(pos).isLetterOrNumber()) ++pos;
     } else {
       pos = line->length(); // stay indented
     }

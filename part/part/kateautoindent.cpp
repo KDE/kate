@@ -504,7 +504,7 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 void KateCSmartIndent::processChar(QChar c)
 {
   static const QString triggers("}{)/:;#n");
-  if (triggers.find(c, true) == -1)
+  if (triggers.find(c) == -1)
     return;
 
   KateView *view = doc->activeView();
@@ -1029,7 +1029,7 @@ entering attributes on the following lines, in which case we would like
 to see the following layout:
 <elem attr="..."
       blah="..." />
-    
+
 <x><a href="..."
       title="..." />
 </x>
@@ -1064,7 +1064,7 @@ void KateXmlIndent::processChar (QChar c)
   KateView *view = doc->activeView();
   QString text = doc->plainKateTextLine(view->cursorLine())->string();
   if(text.find(startsWithCloseTag) == -1) return;
-  
+
   // process it
   processLine(view->cursorLine());
 }
@@ -1086,8 +1086,8 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
   prevIndent = 0;
   int firstChar;
   KateTextLine::Ptr prevLine = 0;
-  
-  // get the indentation of the first non-empty line  
+
+  // get the indentation of the first non-empty line
   while(true) {
     prevLine = doc->plainKateTextLine(line);
     if( (firstChar = prevLine->firstChar()) < 0) {
@@ -1098,13 +1098,13 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
   }
   prevIndent = prevLine->cursorX(prevLine->firstChar(), tabWidth);
   QString text = prevLine->string();
-  
+
   // special case:
   // <a>
   // </a>              <!-- indentation *already* decreased -->
   // requires that we discount the </a> from the number of closed tags
   if(text.find(startsWithCloseTag) != -1) ++numTags;
-  
+
   // count the number of open and close tags
   int lastCh = 0;
   uint pos, len = text.length();
@@ -1118,12 +1118,12 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
         attrCol = pos;
         ++numTags;
         break;
-      
+
       // don't indent because of DOCTYPE, comment, CDATA, etc.
       case '!':
         if(lastCh == '<') --numTags;
         break;
-      
+
       // don't indent because of xml decl or PI
       case '?':
         if(lastCh == '<') --numTags;
@@ -1136,16 +1136,16 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
           //          other="val">
           // so we need to set prevIndent to the indent of the first line
           //
-          // however, we need to special case "<!DOCTYPE" because 
+          // however, we need to special case "<!DOCTYPE" because
           // it's not an open tag
-          
+
           prevIndent = 0;
-          
+
           for(uint backLine = line; backLine; ) {
             // find first line with an open tag
             KateTextLine::Ptr x = doc->plainKateTextLine(--backLine);
             if(x->string().find('<') == -1) continue;
-            
+
             // recalculate the indent
             if(x->string().find(unclosedDoctype) != -1) --numTags;
             getLineInfo(backLine, prevIndent, numTags, attrCol, unclosedTag);
@@ -1155,24 +1155,24 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
         if(lastCh == '/') --numTags;
         unclosedTag = false;
         break;
-      
+
       case '/':
         if(lastCh == '<') numTags -= 2; // correct for '<', above
         break;
     }
     lastCh = ch;
   }
-  
+
   if(unclosedTag) {
     // find the start of the next attribute, so we can align with it
     do {
       lastCh = text.at(++attrCol).unicode();
     }while(lastCh && lastCh != ' ' && lastCh != '\t');
-    
+
     while(lastCh == ' ' || lastCh == '\t') {
       lastCh = text.at(++attrCol).unicode();
     }
-    
+
     attrCol = prevLine->cursorX(attrCol, tabWidth);
   }
 }
@@ -1185,7 +1185,7 @@ uint KateXmlIndent::processLine (uint line)
   uint prevIndent = 0, attrCol = 0;
   int numTags = 0;
   bool unclosedTag = false; // for aligning attributes
-  
+
   if(line) {
     getLineInfo(line - 1, prevIndent, numTags, attrCol, unclosedTag);
   }
@@ -1201,7 +1201,7 @@ uint KateXmlIndent::processLine (uint line)
     indent -= indentWidth;
   }
   if(indent < 0) indent = 0;
-  
+
   // apply new indent
   doc->removeText(line, 0, line, kateLine->firstChar());
   QString filler = tabString(indent);

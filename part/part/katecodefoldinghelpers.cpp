@@ -44,7 +44,7 @@ KateCodeFoldingTree::KateCodeFoldingTree(QObject *par):QObject(par),KateCodeFold
 	hiddenLinesCountCacheValid=false;
 	// initialize the root "special" node
 	startLineRel=0;
-	startLineValid=true; 
+	startLineValid=true;
 	endLineValid=true; // temporary, should be false;
 	endLineRel=60000;   // temporary;
 	childnodes=new QPtrList<KateCodeFoldingNode>; // since the root node has most probably child nodes allocate it
@@ -388,14 +388,18 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
 
 void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int line)
 {
-	if (node->type==0) return;
+	if (node->type==0)
+    return;
+
 	if (node->type<0)
 	{
 		delete node->parent->childnodes->take(node->parent->childnodes->find(node));
 		return;
 	}
+
 	int mypos=node->parent->childnodes->find(node);
 	int count=node->parent->childnodes->count();
+
 	for (int i=mypos+1;i<count;i++)
 	{
 		if (node->parent->childnodes->at(i)->type==-node->type)
@@ -412,13 +416,15 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int li
 				{
 					tmp=node->parent->childnodes->take(mypos+1);
 					tmp->startLineRel=tmp->startLineRel-node->startLineRel;
-					node->childnodes->append(tmp);
+
+          if (tmp)
+            node->childnodes->append(tmp);
 				}
 			}
 			return;
 		}
 	}
-	
+
 	if (node->parent->type==node->type)
 	{
 		KateCodeFoldingNode *tmp;
@@ -426,19 +432,25 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int li
 		{
 			tmp=node->parent->childnodes->take(mypos+1);
 			tmp->startLineRel=tmp->startLineRel-node->startLineRel;
-			node->childnodes->append(tmp);
-			
+
+      if (tmp)
+      {
+        if (!node->childnodes) node->childnodes=new QPtrList<KateCodeFoldingNode>();
+			  node->childnodes->append(tmp);
+      }
 		}
+
 		// this should fix the bug of wrongly closed nodes
 		node->endLineValid=node->parent->endLineValid;
 		node->endLineRel=node->parent->endLineRel-node->startLineRel;
+
 		if (node->endLineValid) removeEnding(node->parent,getStartLine(node->parent)+node->parent->endLineRel);
-		return;
+
+    return;
 	}
 
 	node->endLineValid=false;
 	node->endLineRel=node->parent->endLineRel-node->startLineRel;
-	
 }
 
 

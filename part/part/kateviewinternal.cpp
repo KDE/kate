@@ -819,6 +819,7 @@ void KateViewInternal::updateView(int flags)
 		if (displayCursor.line>=endLine)
 		{
 			tmpYPos=(displayCursor.line*fontHeight)-height()+fontHeight;
+			if ((tmpYPos % fontHeight)!=0) tmpYPos=tmpYPos+fontHeight;
 			yScroll->setValue(tmpYPos);
 
 		        if ((!needLineRangesUpdate) ||

@@ -36,6 +36,7 @@
 #include <kjs/lookup.h>
 
 #include <qfile.h>
+#include <qfileinfo.h>
 
 namespace KJS {
 
@@ -475,8 +476,19 @@ void KateJScriptManager::collectScripts (bool force)
     }
     else
     {
-      kdDebug (13010) << "UPDATE hl cache for: " << *it << endl;
+      kdDebug (13010) << "add script: " << *it << endl;
 
+      QFileInfo fi (*it);
+
+      if (m_scripts[fi.baseName()])
+        continue;
+
+      KateJScriptManager::Script *s = new KateJScriptManager::Script ();
+
+      s->name = fi.baseName();
+      s->filename = *it;
+
+      m_scripts.insert (s->name, s);
     }
   }
 

@@ -295,8 +295,6 @@ void KateBuffer::editEnd ()
   if (editSessionNumber > 0)
     return;
 
-  kdDebug (13020) << "BUFFER EDIT END, LINESTART: " << editTagLineStart << " LINEEND: " << editTagLineEnd << endl;
-
   // hl update !!!
   if ((editTagLineStart <= editTagLineEnd) && (editTagLineEnd <= m_lineHighlighted))
   {
@@ -459,9 +457,6 @@ bool KateBuffer::openFile (const QString &m_file)
     m_regionTree.fixRoot (m_lines);
   }
 
-  kdDebug(13020) << "LOADING DONE, LINES COUNT: " << m_lines << endl;
-  kdDebug(13020) << "LOADING DONE, BLOCK COUNT: " << m_blocks.size() << endl;
-
   return !m_loadingBorked;
 }
 
@@ -541,7 +536,7 @@ bool KateBuffer::saveFile (const QString &m_file)
           {
             QString t;
             m_doc->editRemoveText( i, found, 1 );
-            m_doc->editInsertText( i, found, t.fill(onespace, l) ); // ### anything more eficient?
+            m_doc->editInsertText( i, found, t.fill(onespace, l) ); // ### anything more efficient?
             pos += l-1;
           }
         }

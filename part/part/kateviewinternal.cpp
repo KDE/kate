@@ -65,6 +65,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_shiftKeyPressed (false)
   , m_columnScrollDisplayed(false)
   , m_selChangedByUser (false)
+  , selectAnchor (-1, -1)
   , m_preserveMaxX(false)
   , m_currentMaxX(0)
   , m_updatingView(true)
@@ -179,6 +180,10 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect( &m_textHintTimer, SIGNAL( timeout() ),
              this, SLOT( textHintTimeout() ) );
 
+  // selection changed to set anchor
+  connect( m_doc, SIGNAL( selectionChanged() ),
+             this, SLOT( docSelectionChanged() ) );
+             
   updateView ();
 }
 
@@ -1843,7 +1848,14 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
 {
   if( keepSel )
   {
-    m_doc->selectTo( cursor, newCursor );
+    if (!m_doc->hasSelection() || (selectAnchor.line() == -1))
+    {
+      selectAnchor = cursor;
+      m_doc->setSelection( cursor, newCursor );    
+    }
+    else
+      m_doc->setSelection( selectAnchor, newCursor);   
+    
     m_selChangedByUser = true;
   }
   else if ( !(m_doc->configFlags() & KateDocument::cfPersistent) )
@@ -2770,6 +2782,12 @@ void KateViewInternal::editSetCursor (const KateTextCursor &cursor)
   }
 }
 // END
+
+void KateViewInternal::docSelectionChanged ()
+{
+  if (!m_doc->hasSelection())
+    selectAnchor.setPos (-1, -1);
+}
 
 // BEGIN KateScrollBar
 KateScrollBar::KateScrollBar (Orientation orientation, QWidget* parent, const char* name)

@@ -289,9 +289,6 @@ class KateDocument : public Kate::Document,
     KateSuperCursor selectStart;
     KateSuperCursor selectEnd;
 
-    // only to make the selection from the view easier
-    KateTextCursor selectAnchor;
-
   signals:
     void selectionChanged ();
 
@@ -540,7 +537,6 @@ class KateDocument : public Kate::Document,
     void copy();
     void paste ( KateView* view );
 
-    void selectTo(     const KateTextCursor& from, const KateTextCursor& to );
     void selectWord(   const KateTextCursor& cursor );
     void selectLine(   const KateTextCursor& cursor );
     void selectLength( const KateTextCursor& cursor, int length );

@@ -138,6 +138,7 @@ class KateViewInternal : public QWidget
     void scrollPrevLine();
     void scrollNextLine();
     void scrollColumns (int x); // connected to the valueChanged of the m_columnScroll
+    void docSelectionChanged ();
 
   public:
     void doReturn();
@@ -289,6 +290,7 @@ class KateViewInternal : public QWidget
 
     // has selection changed while your mouse or shift key is pressed
     bool m_selChangedByUser;
+    KateTextCursor selectAnchor;
 
     //
     // lines Ranges, mostly useful to speedup + dyn. word wrap

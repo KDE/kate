@@ -101,7 +101,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 : Kate::Document (),
   selectStart(this, true),
   selectEnd(this, true),
-  selectAnchor(-1, -1),
   m_undoDontMerge(false),
   m_undoIgnoreCancel(false),
   lastUndoGroupWhenSaved( 0 ),
@@ -1425,8 +1424,7 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
     selectEnd.setPos(start);
   }
 
-  if (hasSelection() || selectAnchor.line() != -1)
-    tagSelection(oldSelectStart, oldSelectEnd);
+  tagSelection(oldSelectStart, oldSelectEnd);
 
   repaintViews();
 
@@ -1439,8 +1437,6 @@ bool KateDocument::setSelection( uint startLine, uint startCol, uint endLine, ui
 {
   if (hasSelection())
     clearSelection(false);
-
-  selectAnchor.setPos(startLine, startCol);
 
   return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
 }
@@ -1460,7 +1456,6 @@ bool KateDocument::clearSelection(bool redraw)
 
   selectStart.setPos(-1, -1);
   selectEnd.setPos(-1, -1);
-  selectAnchor.setPos(-1, -1);
 
   tagSelection(oldSelectStart, oldSelectEnd);
 
@@ -2954,14 +2949,6 @@ void KateDocument::paste ( KateView* view )
   editEnd();
 
   m_undoDontMerge = true;
-}
-
-void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& to )
-{
-  if (!hasSelection())
-    selectAnchor.setPos(from);
-
-  setSelection(selectAnchor, to);
 }
 
 void KateDocument::selectWord( const KateTextCursor& cursor )

@@ -64,7 +64,7 @@ class KateSyntaxDocument : public QDomDocument
 {
   public:
     /**
-     * Constructor:
+     * Constructor
      * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
      * @param force fore the update of the hl cache
      */
@@ -75,24 +75,31 @@ class KateSyntaxDocument : public QDomDocument
      */
     ~KateSyntaxDocument();
 
-    /** If the open hl file is different from the one needed, it opens
+    /**
+     * If the open hl file is different from the one needed, it opens
      * the new one and assign some other things.
-     * identifier = File name and path of the new xml needed
+     * @param identifier file name and path of the new xml needed
+     * @return success
      */
     bool setIdentifier(const QString& identifier);
 
     /**
      * Get the mode list
+     * @return mode list
      */
-    KateSyntaxModeList modeList();
+    KateSyntaxModeList modeList() { return myModeList; }
 
     /**
      * Jump to the next group, KateSyntaxContextData::currentGroup will point to the next group
+     * @param data context
+     * @return success
      */
     bool nextGroup(KateSyntaxContextData* data);
 
     /**
      * Jump to the next item, KateSyntaxContextData::item will point to the next item
+     * @param data context
+     * @return success
      */
     bool nextItem(KateSyntaxContextData* data);
 
@@ -125,14 +132,14 @@ class KateSyntaxDocument : public QDomDocument
   private:
     /**
      * Generate the list of hl modes, store them in myModeList
-     * force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
-    */
+     * @param force if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
+     */
     void setupModeList(bool force);
 
     /**
      * Used by getConfig and getGroupInfo to traverse the xml nodes and
      * evenually return the found element
-    */
+     */
     bool getElement (QDomElement &element, const QString &mainGroupName, const QString &config);
 
     /**

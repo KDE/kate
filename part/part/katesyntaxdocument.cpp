@@ -31,9 +31,6 @@
 
 #include <qfile.h>
 
-/** Constructor
-    Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
-*/
 KateSyntaxDocument::KateSyntaxDocument(bool force)
   : QDomDocument()
 {
@@ -42,9 +39,6 @@ KateSyntaxDocument::KateSyntaxDocument(bool force)
   myModeList.setAutoDelete( true );
 }
 
-/** Destructor
-    Do nothing yet
-*/
 KateSyntaxDocument::~KateSyntaxDocument()
 {
 }
@@ -91,13 +85,6 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
     }
   }
   return true;
-}
-
-/** Get the complete syntax mode list
-*/
-KateSyntaxModeList KateSyntaxDocument::modeList()
-{
-  return myModeList;
 }
 
 /**

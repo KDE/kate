@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_encodinginterface_h__
 #define __ktexteditor_encodinginterface_h__
 
+class QObject;
+
 namespace KTextEditor
 {
 
@@ -47,6 +49,8 @@ class EncodingInterface
     static unsigned int globalEncodingInterfaceNumber;
     unsigned int myEncodingInterfaceNumber;
 };
+
+EncodingInterface *encodingInterface (QObject *obj);
 
 };
 

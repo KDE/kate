@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_viewcursorinterface_h__
 #define __ktexteditor_viewcursorinterface_h__
 
+class QObject;
+
 namespace KTextEditor
 {
 
@@ -80,6 +82,8 @@ class ViewCursorInterface
     static unsigned int globalViewCursorInterfaceNumber;
     unsigned int myViewCursorInterfaceNumber;
 };
+
+ViewCursorInterface *viewCursorInterface (QObject *obj);
 
 };
 

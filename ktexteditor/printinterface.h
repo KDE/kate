@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_printinterface_h__
 #define __ktexteditor_printinterface_h__
 
+class QObject;
+
 namespace KTextEditor
 {
 
@@ -35,7 +37,7 @@ class PrintInterface
     virtual ~PrintInterface ();
 
     unsigned int printInterfaceNumber () const;
-
+    
   //
   // slots !!!
   //
@@ -48,6 +50,8 @@ class PrintInterface
     static unsigned int globalPrintInterfaceNumber;
     unsigned int myPrintInterfaceNumber;
 };
+
+PrintInterface *printInterface (QObject *obj);
 
 };
 

@@ -20,6 +20,8 @@
 
 #include "viewcursorinterface.h"
 
+#include <qobject.h>
+
 namespace KTextEditor
 {
 
@@ -52,4 +54,9 @@ ViewCursorInterface::~ViewCursorInterface()
 unsigned int ViewCursorInterface::viewCursorInterfaceNumber () const
 {
   return myViewCursorInterfaceNumber;
+}
+
+ViewCursorInterface *KTextEditor::viewCursorInterface (QObject *obj)
+{
+  return static_cast<ViewCursorInterface*>(obj->qt_cast("KTextEditor::ViewCursorInterface"));
 }

@@ -20,6 +20,8 @@
 
 #include "printinterface.h"
 
+#include <qobject.h>
+
 namespace KTextEditor
 {
 
@@ -52,4 +54,9 @@ PrintInterface::~PrintInterface()
 unsigned int PrintInterface::printInterfaceNumber () const
 {
   return myPrintInterfaceNumber;
+}
+
+PrintInterface *KTextEditor::printInterface (QObject *obj)
+{
+  return static_cast<PrintInterface*>(obj->qt_cast("KTextEditor::PrintInterface"));
 }

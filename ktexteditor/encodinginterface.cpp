@@ -20,6 +20,8 @@
 
 #include "encodinginterface.h"
 
+#include <qobject.h>
+
 namespace KTextEditor
 {
 
@@ -52,4 +54,9 @@ EncodingInterface::~EncodingInterface()
 unsigned int EncodingInterface::encodingInterfaceNumber () const
 {
   return myEncodingInterfaceNumber;
+}
+
+EncodingInterface *KTextEditor::encodingInterface (QObject *obj)
+{
+  return static_cast<EncodingInterface*>(obj->qt_cast("KTextEditor::EncodingInterface"));
 }

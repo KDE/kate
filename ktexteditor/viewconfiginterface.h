@@ -19,6 +19,7 @@
 #ifndef __ktexteditor_viewconfiginterface_h__
 #define __ktexteditor_viewconfiginterface_h__
 
+class QObject;
 class KConfig;
 
 namespace KTextEditor
@@ -52,6 +53,8 @@ class ViewConfigInterface
     static unsigned int globalViewConfigInterfaceNumber;
     unsigned int myViewConfigInterfaceNumber;
 };
+
+ViewConfigInterface *viewConfigInterface (QObject *obj);
 
 };
 

@@ -105,105 +105,6 @@ const char*bookmark_xpm[]={
 "............",
 "............"};
 
-const char* breakpoint_xpm[]={
-"11 16 6 1",
-"c c #c6c6c6",
-". c None",
-"# c #000000",
-"d c #840000",
-"a c #ffffff",
-"b c #ff0000",
-"...........",
-"...........",
-"...#####...",
-"..#aaaaa#..",
-".#abbbbbb#.",
-"#abbbbbbbb#",
-"#abcacacbd#",
-"#abbbbbbbb#",
-"#abcacacbd#",
-"#abbbbbbbb#",
-".#bbbbbbb#.",
-"..#bdbdb#..",
-"...#####...",
-"...........",
-"...........",
-"..........."};
-
-const char*breakpoint_bl_xpm[]={
-"11 16 7 1",
-"a c #c0c0ff",
-"# c #000000",
-"c c #0000c0",
-"e c #0000ff",
-"b c #dcdcdc",
-"d c #ffffff",
-". c None",
-"...........",
-"...........",
-"...#####...",
-"..#ababa#..",
-".#bcccccc#.",
-"#acccccccc#",
-"#bcadadace#",
-"#acccccccc#",
-"#bcadadace#",
-"#acccccccc#",
-".#ccccccc#.",
-"..#cecec#..",
-"...#####...",
-"...........",
-"...........",
-"..........."};
-
-const char*breakpoint_gr_xpm[]={
-"11 16 6 1",
-"c c #c6c6c6",
-"d c #2c2c2c",
-"# c #000000",
-". c None",
-"a c #ffffff",
-"b c #555555",
-"...........",
-"...........",
-"...#####...",
-"..#aaaaa#..",
-".#abbbbbb#.",
-"#abbbbbbbb#",
-"#abcacacbd#",
-"#abbbbbbbb#",
-"#abcacacbd#",
-"#abbbbbbbb#",
-".#bbbbbbb#.",
-"..#bdbdb#..",
-"...#####...",
-"...........",
-"...........",
-"..........."};
-
-const char*exec_xpm[]={
-"11 16 4 1",
-"a c #00ff00",
-"b c #000000",
-". c None",
-"# c #00c000",
-"...........",
-"...........",
-"...........",
-"#a.........",
-"#aaa.......",
-"#aaaaa.....",
-"#aaaaaaa...",
-"#aaaaaaaaa.",
-"#aaaaaaa#b.",
-"#aaaaa#b...",
-"#aaa#b.....",
-"#a#b.......",
-"#b.........",
-"...........",
-"...........",
-"..........."};
-
 const int iconPaneWidth = 16;
 
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView )
@@ -218,11 +119,8 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView )
   setBackgroundMode( NoBackground );
   setFont( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
   
+  m_doc->setDescription( MarkInterface::markType01, i18n("Bookmark") );
   m_doc->setPixmap( MarkInterface::markType01, QPixmap(bookmark_xpm) );
-  m_doc->setPixmap( MarkInterface::markType02, QPixmap(breakpoint_xpm) );
-  m_doc->setPixmap( MarkInterface::markType03, QPixmap(breakpoint_bl_xpm) );
-  m_doc->setPixmap( MarkInterface::markType04, QPixmap(breakpoint_gr_xpm) );
-  m_doc->setPixmap( MarkInterface::markType05, QPixmap(exec_xpm) );
 }
 
 void KateIconBorder::setIconBorderOn( bool enable )

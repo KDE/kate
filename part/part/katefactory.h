@@ -197,6 +197,11 @@ class KateFactory
      */
     KateJScript *jscript ();
 
+    /**
+     * Global javascript collection
+     */
+    KateJScriptManager *jscriptManager () { return m_jscriptManager; }
+
   private:
     /**
      * instance of this factory

@@ -22,6 +22,8 @@
 
 #include "kateconfig.h"
 #include "katehighlight.h"
+#include "katefactory.h"
+#include "katejscript.h"
 #include "kateview.h"
 
 #include <klocale.h>
@@ -44,6 +46,8 @@ KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
     return new KateCSAndSIndent (doc);
   else if ( mode == KateDocumentConfig::imVarIndent )
     return new KateVarIndent ( doc );
+  else if ( mode == KateDocumentConfig::imScriptIndent)
+    return new KateScriptIndent ( doc );
 
   return new KateAutoIndent (doc);
 }
@@ -58,7 +62,8 @@ QStringList KateAutoIndent::listModes ()
   l << modeDescription(KateDocumentConfig::imPythonStyle);
   l << modeDescription(KateDocumentConfig::imXmlStyle);
   l << modeDescription(KateDocumentConfig::imCSAndS);
-  l << modeDescription( KateDocumentConfig::imVarIndent );
+  l << modeDescription(KateDocumentConfig::imVarIndent);
+  l << modeDescription(KateDocumentConfig::imScriptIndent);
 
   return l;
 }
@@ -77,6 +82,8 @@ QString KateAutoIndent::modeName (uint mode)
     return QString ("csands");
   else if ( mode  == KateDocumentConfig::imVarIndent )
     return QString( "varindent" );
+  else if ( mode  == KateDocumentConfig::imScriptIndent )
+    return QString( "scriptindent" );
 
   return QString ("none");
 }
@@ -95,6 +102,8 @@ QString KateAutoIndent::modeDescription (uint mode)
     return i18n ("S&S C Style");
   else if ( mode == KateDocumentConfig::imVarIndent )
     return i18n("Variable Based Indenter");
+  else if ( mode == KateDocumentConfig::imScriptIndent )
+    return i18n("JavaScript Indenter");
 
   return i18n ("None");
 }
@@ -113,8 +122,38 @@ uint KateAutoIndent::modeNumber (const QString &name)
     return KateDocumentConfig::imCSAndS;
   else if ( modeName( KateDocumentConfig::imVarIndent ) == name )
     return KateDocumentConfig::imVarIndent;
+  else if ( modeName( KateDocumentConfig::imScriptIndent ) == name )
+    return KateDocumentConfig::imScriptIndent;
 
   return KateDocumentConfig::imNone;
+}
+
+bool KateAutoIndent::hasConfigPage (uint mode)
+{
+  if (mode == KateDocumentConfig::imNormal)
+    return false;
+  else if (mode == KateDocumentConfig::imCStyle)
+    return false;
+  else if (mode == KateDocumentConfig::imPythonStyle)
+    return false;
+  else if (mode == KateDocumentConfig::imXmlStyle)
+    return false;
+  else if (mode == KateDocumentConfig::imCSAndS)
+    return false;
+  else if ( mode == KateDocumentConfig::imVarIndent )
+    return false;
+  else if ( mode == KateDocumentConfig::imScriptIndent )
+    return true;
+
+  return false;
+}
+
+IndenterConfigPage* KateAutoIndent::configPage(QWidget *parent, uint mode)
+{
+  if ( mode == KateDocumentConfig::imScriptIndent )
+    return new ScriptIndentConfigPage(parent, "script_indent_config_page");
+
+  return 0;
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
@@ -2208,5 +2247,76 @@ bool KateVarIndent::hasRelevantOpening( const KateDocCursor &end ) const
 
 
 //END KateVarIndent
+
+//BEGIN KateScriptIndent
+KateScriptIndent::KateScriptIndent( KateDocument *doc )
+  : KateNormalIndent( doc )
+{
+}
+
+KateScriptIndent::~KateScriptIndent()
+{
+}
+
+void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
+{
+  kdDebug(13030) << "processNewline" << endl;
+  KateView *view = doc->activeView();
+
+  if (view)
+  {
+    QString errorMsg;
+
+    if( !KateFactory::self()->jscriptManager()->exec( view, "script-indent-c-newline", errorMsg ) )
+    {
+      kdDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+    }
+    else
+    {
+      begin.setPosition( view->cursorLine(), view->cursorColumnReal() );
+    }
+  }
+}
+
+void KateScriptIndent::processChar( QChar c )
+{
+  kdDebug(13030) << "processNewline" << endl;
+  KateView *view = doc->activeView();
+
+  if (view)
+  {
+    QString errorMsg;
+
+    if( !KateFactory::self()->jscriptManager()->exec( view, "script-indent-c-char", errorMsg ) )
+    {
+      kdDebug(13030) << "Error in script-indent: " << errorMsg << endl;
+    }
+  }
+}
+
+void KateScriptIndent::processLine (KateDocCursor &line)
+{
+  kdDebug(13030) << "processLine" << endl;
+}
+//END KateScriptIndent
+
+//BEGIN ScriptIndentConfigPage, THIS IS ONLY A TEST! :)
+#include <qlabel.h>
+ScriptIndentConfigPage::ScriptIndentConfigPage ( QWidget *parent, const char *name )
+  : IndenterConfigPage(parent, name)
+{
+  QLabel* hello = new QLabel("Hello world! Dummy for testing purpose.", this);
+  hello->show();
+}
+
+ScriptIndentConfigPage::~ScriptIndentConfigPage ()
+{
+}
+
+void ScriptIndentConfigPage::apply ()
+{
+  kdDebug(13030) << "ScriptIndentConfigPagE::apply() was called, save config options now!" << endl;
+}
+//END ScriptIndentConfigPage
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -28,6 +28,41 @@
 class KateDocument;
 
 /**
+ * This widget will be embedded into a modal dialog when clicking
+ * the "Configure..." button in the highlighting page.
+ * To add a config page for an indenter there are several todos:
+ * - derive a class from this class and override the slot @p apply().
+ *   This widget will be embedded into the config dialog.
+ * - Override @p KateAutoIndent::configPage() to return this dialog.
+ * - Return @p true in @p KateAutoIndent::hasConfigPage().
+ */
+class IndenterConfigPage : public QWidget
+{
+  Q_OBJECT
+
+  public:
+    /**
+     * Standard constructor
+     * @param parent parent widget
+     * @param name name
+     */
+    IndenterConfigPage ( QWidget *parent=0, const char *name=0 ) : QWidget(parent, name) {}
+    virtual ~IndenterConfigPage () {}
+
+  public slots:
+    /**
+     * Applies the changes to the document
+     */
+    virtual void apply () = 0;
+
+// dominik:
+// TODO: does it make sense to add this signal here and connect it to the OK-button
+//       from the config dialog?
+//   signals:
+//     void changed();
+};
+
+/**
  * Provides Auto-Indent functionality for katepart.
  * This baseclass is a real dummy, does nothing beside remembering the document it belongs too,
  * only to have the object around
@@ -72,6 +107,19 @@ class KateAutoIndent
      * @return mode index
      */
     static uint modeNumber (const QString &name);
+
+    /**
+     * Config page support
+     * @param mode mode index
+     * @return true, if the indenter @p mode has a configuration page
+     */
+    static bool hasConfigPage (uint mode);
+
+    /**
+     * Support for a config page.
+     * @return config page or 0 if not available.
+     */
+    static IndenterConfigPage* configPage(QWidget *parent, uint mode);
 
   public:
     /**
@@ -463,6 +511,38 @@ class KateVarIndent :  public QObject, public KateNormalIndent
     bool hasRelevantOpening( const KateDocCursor &end ) const;
 
     class KateVarIndentPrivate *d;
+};
+
+class KateScriptIndent : public KateNormalIndent
+{
+  public:
+    KateScriptIndent( KateDocument *doc );
+    ~KateScriptIndent();
+
+    virtual void processNewline( KateDocCursor &begin, bool needContinue );
+    virtual void processChar( QChar c );
+
+    virtual void processLine (KateDocCursor &line);
+//     virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
+
+    virtual bool canProcessLine() const { return true; }
+
+    virtual uint modeNumber () const { return KateDocumentConfig::imScriptIndent; };
+};
+
+class ScriptIndentConfigPage : public IndenterConfigPage
+{
+    Q_OBJECT
+
+  public:
+    ScriptIndentConfigPage ( QWidget *parent=0, const char *name=0 );
+    virtual ~ScriptIndentConfigPage ();
+
+  public slots:
+    /**
+     * Applies the changes to the document
+     */
+    virtual void apply ();
 };
 
 #endif

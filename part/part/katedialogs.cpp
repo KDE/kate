@@ -70,6 +70,7 @@
 #include <kprocio.h>
 #include <kregexpeditorinterface.h>
 #include <krun.h>
+#include <kseparator.h>
 #include <kspell.h>
 #include <kstandarddirs.h>
 #include <ktempfile.h>
@@ -174,10 +175,12 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QVGroupBox *gbAuto = new QVGroupBox(i18n("Automatic Indentation"), this);
 
   QHBox *indentLayout = new QHBox(gbAuto);
+  indentLayout->setSpacing(KDialog::spacingHint());
   QLabel *indentLabel = new QLabel(i18n("&Indentation mode:"), indentLayout);
   m_indentMode = new KComboBox (indentLayout);
   m_indentMode->insertStringList (KateAutoIndent::listModes());
   indentLabel->setBuddy(m_indentMode);
+  m_configPage = new QPushButton(i18n("Configure..."), indentLayout);
 
   opt[5] = new QCheckBox(i18n("Insert leading Doxygen \"*\" when typing"), gbAuto);
 
@@ -272,6 +275,8 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  connect(m_configPage, SIGNAL(clicked()), this, SLOT(configPage()));
 }
 
 void KateIndentConfigTab::somethingToggled() {
@@ -285,6 +290,34 @@ void KateIndentConfigTab::indenterSelected (int index)
     opt[5]->setEnabled(true);
   else
     opt[5]->setEnabled(false);
+
+  m_configPage->setEnabled( KateAutoIndent::hasConfigPage(index) );
+}
+
+void KateIndentConfigTab::configPage()
+{
+  uint index = m_indentMode->currentItem();
+  if ( KateAutoIndent::hasConfigPage(index) )
+  {
+    KDialogBase dlg(this, "indenter_config_dialog", true, i18n("Configure Indenter"),
+      KDialogBase::Ok|KDialogBase::Cancel, KDialogBase::Cancel, true);
+
+    QVBox *box = new QVBox(&dlg);
+    box->setSpacing( KDialog::spacingHint() );
+    dlg.setMainWidget(box);
+    QLabel *header = new QLabel("<qt><b>" + KateAutoIndent::modeDescription(index) + "</b></qt>", box);
+    KSeparator* separator = new KSeparator(KSeparator::HLine, box);
+
+    IndenterConfigPage* page = KateAutoIndent::configPage(box, index);
+
+    if (!page) return;
+    box->setStretchFactor(page, 1);
+
+    connect( &dlg, SIGNAL(okClicked()), page, SLOT(apply()) );
+
+    dlg.resize(400, 300);
+    dlg.exec();
+  }
 }
 
 void KateIndentConfigTab::apply ()

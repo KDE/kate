@@ -2552,6 +2552,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
 {
   bool expandedHorizontally = width() > e->oldSize().width();
   bool expandedVertically = height() > e->oldSize().height();
+  bool heightChanged = height() != e->oldSize().height();
 
   m_madeVisible = false;
 
@@ -2577,7 +2578,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
       }
     }
 
-    if (dirtied || expandedVertically) {
+    if (dirtied || heightChanged) {
       updateView(true);
       leftBorder->update();
 

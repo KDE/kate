@@ -2981,9 +2981,11 @@ uint KateDocument::currentColumn( const KateTextCursor& cursor )
     return 0;
 }
 
-bool KateDocument::insertChars ( int line, int col, const QString &chars, KateView * )
+bool KateDocument::insertChars ( int line, int col, const QString &chars, KateView *view )
 {
   QString buf;
+  int savedCol = col;
+  int savedLine = line;
   QString savedChars(chars);
 
   TextLine::Ptr textLine = buffer->plainLine(line);
@@ -3013,6 +3015,8 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   if (config()->configFlags()  & KateDocument::cfDelOnInput && hasSelection() )
   {
     removeSelectedText();
+    line = view->m_viewInternal->cursorCache.line();
+    col = view->m_viewInternal->cursorCache.col();
   }
 
   if (config()->configFlags()  & KateDocument::cfOvr)
@@ -3021,10 +3025,15 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   }
 
   insertText (line, col, buf);
+  col += pos;
+
+  // editEnd will set the cursor from this cache right ;))
+  view->m_viewInternal->cursorCache.setPos(line, col);
+  view->m_viewInternal->cursorCacheChanged = true;
 
   editEnd ();
 
-  emit charactersInteractivelyInserted (line, col, savedChars);
+  emit charactersInteractivelyInserted(savedLine,savedCol,savedChars);
 
   return true;
 }
@@ -3890,7 +3899,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
       case Lowercase:
       s = text( cline, ccol, cline, ccol + 1 ).lower();
       break;
-      case Capitalize:
+      case Capitalize: // FIXME avoid/reset cursor jump!!
       {
         TextLine::Ptr l = buffer->plainLine( cline );
         while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ) ) )

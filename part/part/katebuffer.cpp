@@ -51,6 +51,7 @@ class KateBufFileLoader
   public:
     int fd;
     QByteArray lastBlock;
+    char lastChar;
     int dataStart;
     int blockNr;
     QTextCodec *codec;
@@ -99,7 +100,7 @@ class KateBufBlock
     * If @p last is true, all bytes from @p data2 are stored.
     * @return The number of bytes stored form @p data2
     */
-   int appendBlock (int dataStart, QByteArray data1, QByteArray data2, bool last, bool *lineEndFound);
+   int appendBlock (int dataStart, QByteArray data1, QByteArray data2, bool last, bool *lineEndFound, char *lastChar);
 
    /**
     * Create a valid stringList.
@@ -313,6 +314,7 @@ bool KateBuffer::openFile(const QString &file, QTextCodec *codec)
   m_loader->blockNr = 0;
   m_loader->codec = codec;
   m_loader->block = 0;
+  m_loader->lastChar = ' ';
 
   // here the real work will be done
   loadFilePart();
@@ -370,7 +372,7 @@ KateBuffer::loadFilePart()
      }
      
      m_loader->dataStart = m_loader->block->appendBlock (m_loader->dataStart,
-                                  m_loader->lastBlock, currentBlock, eof, &lineEndFound);
+                                  m_loader->lastBlock, currentBlock, eof, &lineEndFound, &m_loader->lastChar);
      state = m_loader->block->m_endState;
      
      if (lineEndFound)
@@ -976,15 +978,15 @@ KateBufBlock::KateBufBlock(const KateBufState &beginState)
 : m_beginState (beginState),
   m_endState (beginState),
   b_stringListValid (false),
+  m_codec (0),
   b_rawDataValid (false),
   b_rawEOL (false),
   b_containTextLines (false),
-  b_vmDataValid (false),
   b_emptyBlock (false),
   b_needHighlight (true),
-  m_codec (0),
   m_vmblock (0),
-  m_vmblockSize (0)
+  m_vmblockSize (0),
+  b_vmDataValid (false)
 {
 }
 
@@ -995,39 +997,66 @@ KateBufBlock::KateBufBlock(const KateBufState &beginState)
  * @return The number of bytes stored form @p data2     
  */     
 int     
-KateBufBlock::appendBlock (int dataStart, QByteArray data1, QByteArray data2, bool last, bool *lineEndFound)     
+KateBufBlock::appendBlock (int dataStart, QByteArray data1, QByteArray data2, bool last, bool *lineEndFound, char *lastChar)     
 {
   (*lineEndFound) = false;
 
-   int lineNr = m_beginState.lineNr;     
+  int lineNr = m_beginState.lineNr;     
    
-   if (!data1.isEmpty())     
-   {     
-      const char *p = data1.data() + dataStart;     
-      const char *e = data1.data() + data1.count();
+  const char *p = data2.data();     
+  const char *e = data2.data() + data2.count();
+   
+  if (!data1.isEmpty())     
+  {     
+    const char *p = data1.data() + dataStart;     
+    const char *e = data1.data() + data1.count();
       
-      while(p < e)     
-      {     
-         if (*p == '\n')     
-         {     
-            lineNr++;
-            (*lineEndFound) = true;
-         }     
+    bool lastCharR = false;
+    
+    while(p < e)     
+    {     
+       if ((*p == '\n') || (*p == '\r'))     
+       {     
+          lineNr++;
+          (*lineEndFound) = true;
+            
+          if ( *p == '\r' )
+          {
+            if ( ((p+1) < e ) && (*(p+1) == '\n') )
+              p++;
+            else if ( (p+1) >= e )
+              lastCharR = true;
+          }
+       }     
          
-         p++;     
-      }     
-   }     
-     
-   const char *p = data2.data();     
-   const char *e = data2.data() + data2.count();     
+       p++;     
+    }
+      
+    if (lastCharR && (p < e) && (*p == '\n'))
+    {
+      
+    }     
+  }     
+  else if ((*lastChar == '\r') && (p < e) && (*p == '\n'))
+  {
+    p++;
+  }
+    
    const char *l = p;     
    while(p < e)
    {     
-      if (*p == '\n')
+      if ((*p == '\n') || (*p == '\r'))
       {
          lineNr++;
          (*lineEndFound) = true;
          
+         if ( *p == '\r' )
+         {
+           if ( ((p+1) < e ) && (*(p+1) == '\n') )
+             p++;
+         }
+         
+         *lastChar = *p;
          l = p+1;  
       }     
       p++;
@@ -1035,7 +1064,7 @@ KateBufBlock::appendBlock (int dataStart, QByteArray data1, QByteArray data2, bo
    
    int dataEnd = l - data2.data();
    
-   if (last && ((l < e) || (!data2.isEmpty() && (*(e-1) == '\n'))))
+   if (last && ((l < e) || (!data2.isEmpty() && ( (*(e-1) == '\n') || (*(e-1) == '\r') ))))
    {  
      lineNr++;
      (*lineEndFound) = true;
@@ -1128,13 +1157,19 @@ KateBufBlock::buildStringList()
       
     while(p < e)     
     {     
-      if (*p == '\n')
+      if ((*p == '\n') || (*p == '\r'))
       {
         QString line = m_codec->toUnicode(l, p-l);     
         TextLine::Ptr textLine = new TextLine();     
         textLine->append(line.unicode(), line.length());     
         m_stringList.push_back(textLine);     
                     
+        if ( *p == '\r' )
+        {
+          if ( ((p+1) < e ) && (*(p+1) == '\n') )
+            p++;
+        }
+        
         l = p+1;
       }
               
@@ -1142,7 +1177,7 @@ KateBufBlock::buildStringList()
     }
     
     // seems our files end without \n
-    if (b_rawEOL &&  ((l < e) || (*(e-1) == '\n')))
+    if (b_rawEOL &&  ((l < e) || ( (*(e-1) == '\n') || (*(e-1) == '\r') )))
     {    
       QString line = m_codec->toUnicode(l, e-l);     
       TextLine::Ptr textLine = new TextLine();     

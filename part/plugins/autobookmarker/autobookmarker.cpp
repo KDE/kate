@@ -664,3 +664,5 @@ AutoBookmarkEnt::AutoBookmarkEnt( const QString &p, const QStringList &f, const 
 {;
 }
 //END
+//
+#include "autobookmarker.moc"

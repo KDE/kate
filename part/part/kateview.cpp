@@ -501,7 +501,7 @@ void KateView::setCursorPositionInternal(int line, int col, int tabwidth)
 
   KateTextCursor cursor;
 
-  TextLine::Ptr textLine = myDoc->getTextLine(line);
+  TextLine::Ptr textLine = myDoc->kateTextLine(line);
   QString line_str = QString(textLine->getText(), textLine->length());
 
   int z;
@@ -571,7 +571,7 @@ void KateView::toggleInsert() {
 }
 
 QString KateView::currentTextLine() {
-  TextLine::Ptr textLine = myDoc->getTextLine(myViewInternal->getCursor().line);
+  TextLine::Ptr textLine = myDoc->kateTextLine(myViewInternal->getCursor().line);
   return QString(textLine->getText(), textLine->length());
 }
 
@@ -584,7 +584,7 @@ QString KateView::word(int x, int y) {
   KateTextCursor cursor;
   cursor.line = (myViewInternal->yPos + y)/myDoc->viewFont.fontHeight;
   if (cursor.line < 0 || cursor.line > (int)myDoc->lastLine()) return QString();
-  cursor.col = myDoc->textPos(myDoc->getTextLine(cursor.line), myViewInternal->xPos + x);
+  cursor.col = myDoc->textPos(myDoc->kateTextLine(cursor.line), myViewInternal->xPos + x);
   return myDoc->getWord(cursor);
 }
 */
@@ -848,7 +848,7 @@ void KateView::initSearch(SConfig &, int flags) {
     // If we are continuing a backward search, make sure we do not get stuck
     // at an existing match.
     myDoc->s.cursor = myViewInternal->getCursor();
-    TextLine::Ptr textLine = myDoc->getTextLine(myDoc->s.cursor.line);
+    TextLine::Ptr textLine = myDoc->kateTextLine(myDoc->s.cursor.line);
     QString const txt(textLine->getText(),textLine->length());
     const QString searchFor= myDoc->searchForList.first();
     int pos = myDoc->s.cursor.col-searchFor.length()-1;
@@ -975,7 +975,7 @@ void KateView::doReplaceAction(int result, bool found) {
 
               if (myDoc->s.cursor.line >= 0)
               {
-                myDoc->s.cursor.col = myDoc->getTextLine(myDoc->s.cursor.line)->length();
+                myDoc->s.cursor.col = myDoc->kateTextLine(myDoc->s.cursor.line)->length();
               }
             }
           }
@@ -994,7 +994,7 @@ void KateView::doReplaceAction(int result, bool found) {
 
               if (myDoc->s.cursor.line >= 0)
               {
-                myDoc->s.cursor.col = myDoc->getTextLine(myDoc->s.cursor.line)->length();
+                myDoc->s.cursor.col = myDoc->kateTextLine(myDoc->s.cursor.line)->length();
               }
             }
           }
@@ -1025,7 +1025,7 @@ void KateView::doReplaceAction(int result, bool found) {
 
               if (myDoc->s.cursor.line >= 0)
               {
-                myDoc->s.cursor.col = myDoc->getTextLine(myDoc->s.cursor.line)->length();
+                myDoc->s.cursor.col = myDoc->kateTextLine(myDoc->s.cursor.line)->length();
               }
             }
           }
@@ -1069,7 +1069,7 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   myViewInternal->getVConfig(c);
   myDoc->selectLength(cursor,slen,c.flags);
 
-  TextLine::Ptr textLine = myDoc->getTextLine(cursor.line);
+  TextLine::Ptr textLine = myDoc->kateTextLine(cursor.line);
   x1 = myDoc->textWidth(textLine,cursor.col)        -10;
   x2 = myDoc->textWidth(textLine,cursor.col + slen) +20;
   y1 = myDoc->viewFont.fontHeight*cursor.line       -10;

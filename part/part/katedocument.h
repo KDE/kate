@@ -23,10 +23,8 @@
 
 #include "kateglobal.h"
 #include "kateview.h"
-#include "kateviewinternal.h"
-#include "katehighlight.h"
-#include "katebuffer.h"
 #include "katetextline.h"
+#include "kateviewinternal.h"
 #include "../interfaces/document.h"
 
 #include <qobject.h>
@@ -34,13 +32,17 @@
 #include <qcolor.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
+
 #include <qintdict.h>
 #include <qdatetime.h>
 #include <kglobalsettings.h>
 #include <kspell.h>
 
+class KateUndo;
+class KateUndoGroup;
 class KateCmd;
 class KateCodeFoldingTree;
+class KateBuffer;
 
 class Attribute {
   public:
@@ -51,29 +53,6 @@ class Attribute {
     bool bold;
     bool italic;
 };
-
-class KateCursor : public Kate::Cursor
-{
-  public:
-    KateCursor (KateDocument *doc);
-    ~KateCursor ();
-
-    void position ( uint *line, uint *col ) const;
-
-    bool setPosition ( uint line, uint col );
-
-    bool insertText ( const QString& text );
-
-    bool removeText ( uint numberOfCharacters );
-
-    QChar currentChar () const;
-
-  private:
-    class KateDocument *myDoc;
-};
-
-class KateUndo;
-class KateUndoGroup;
 
 class KateFontMetrics : public QFontMetrics
 {
@@ -139,6 +118,26 @@ class FontStruct
   int m_tabWidth;
   int fontHeight;
   int fontAscent;
+};
+
+class KateCursor : public Kate::Cursor
+{
+  public:
+    KateCursor (KateDocument *doc);
+    ~KateCursor ();
+
+    void position ( uint *line, uint *col ) const;
+
+    bool setPosition ( uint line, uint col );
+
+    bool insertText ( const QString& text );
+
+    bool removeText ( uint numberOfCharacters );
+
+    QChar currentChar () const;
+
+  private:
+    class KateDocument *myDoc;
 };
 
 //
@@ -442,11 +441,10 @@ class KateDocument : public Kate::Document
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
 
-    void setFont (WhichFont wf,QFont font);
+    void setFont (WhichFont wf, QFont font);
 
-    QFont getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;};
-
-    KateFontMetrics getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;};
+    QFont getFont (WhichFont wf);
+    KateFontMetrics getFontMetrics (WhichFont wf);
 
   private:
     // fonts structures for the view + printing font
@@ -465,16 +463,11 @@ class KateDocument : public Kate::Document
     uint lastLine() const { return numLines()-1;}
 
     /**
-     * gets the given line
-     * @return  the TextLine object at the given line
-     * @see     TextLine
-     */
-    TextLine::Ptr getTextLine(int line) const;
-
-    /**
      * get the length in pixels of the given line
      */
     int textLength(int line) const;
+    
+    TextLine::Ptr kateTextLine(uint i);
 
     void setTabWidth(int);
     int tabWidth() {return tabChars;}
@@ -543,7 +536,7 @@ class KateDocument : public Kate::Document
     Attribute *attribute (uint pos);
 
   public:
-    Highlight *highlight() { return m_highlight; }
+    class Highlight *highlight() { return m_highlight; }
 
   protected:
     void makeAttribs();
@@ -593,7 +586,7 @@ class KateDocument : public Kate::Document
     void unComment(VConfig &c) {doComment(c, -1);}
     void doComment(VConfig &, int change);
 
-    virtual QString text() const;
+    QString text() const;
     QString getWord(KateTextCursor &cursor);
 
   public:
@@ -611,7 +604,7 @@ class KateDocument : public Kate::Document
     void newBracketMark(KateTextCursor &, BracketMark &);
 
   protected:
-    virtual void guiActivateEvent( KParts::GUIActivateEvent *ev );
+    void guiActivateEvent( KParts::GUIActivateEvent *ev );
 
   protected:
     //
@@ -757,8 +750,8 @@ class KateDocument : public Kate::Document
     KateCodeFoldingTree *regionTree;
 
     QColor colors[2];
-    HlManager *hlManager;
-    Highlight *m_highlight;
+    class HlManager *hlManager;
+    class Highlight *m_highlight;
     uint m_highlightedTill;
     uint m_highlightedEnd;
     QTimer *m_highlightTimer;

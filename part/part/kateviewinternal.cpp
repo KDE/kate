@@ -23,6 +23,7 @@
 #include "kateviewinternal.h"
 #include "kateviewinternal.moc"
 #include "katedocument.h"
+#include "katehighlight.h"
 
 #include <kcursor.h>
 #include <kapplication.h>
@@ -30,6 +31,7 @@
 #include <qstyle.h>
 #include <qdragobject.h>
 #include <qdropsite.h>
+#include <qtimer.h>
 #include <qpainter.h>
 #include <qclipboard.h>
 
@@ -250,7 +252,7 @@ void KateViewInternal::wordLeft(VConfig &c) {
   Highlight *highlight;
 
   highlight = myDoc->highlight();
-  TextLine::Ptr textLine = myDoc->getTextLine(cursor.line);
+  TextLine::Ptr textLine = myDoc->kateTextLine(cursor.line);
   if (cursor.col > 0) {
     do {
       cursor.col--;
@@ -260,7 +262,7 @@ void KateViewInternal::wordLeft(VConfig &c) {
   } else {
     if (cursor.line > 0) {
       cursor.line--;
-      textLine = myDoc->getTextLine(cursor.line);
+      textLine = myDoc->kateTextLine(cursor.line);
       cursor.col = textLine->length();
     }
   }
@@ -274,7 +276,7 @@ void KateViewInternal::wordRight(VConfig &c) {
   int len;
 
   highlight = myDoc->highlight();
-  TextLine::Ptr textLine = myDoc->getTextLine(cursor.line);
+  TextLine::Ptr textLine = myDoc->kateTextLine(cursor.line);
   len = textLine->length();
 
   if (cursor.col < len) {
@@ -286,7 +288,7 @@ void KateViewInternal::wordRight(VConfig &c) {
   } else {
     if (cursor.line < (int) myDoc->lastLine()) {
       cursor.line++;
-      textLine = myDoc->getTextLine(cursor.line);
+      textLine = myDoc->kateTextLine(cursor.line);
       cursor.col = 0;
     }
   }
@@ -298,7 +300,7 @@ void KateViewInternal::wordRight(VConfig &c) {
 void KateViewInternal::home(VConfig &c) {
   int lc;
 
-  lc = (c.flags & KateDocument::cfSmartHome) ? myDoc->getTextLine(cursor.line)->firstChar() : 0;
+  lc = (c.flags & KateDocument::cfSmartHome) ? myDoc->kateTextLine(cursor.line)->firstChar() : 0;
   if (lc <= 0 || cursor.col == lc) {
     cursor.col = 0;
     cOldXPos = cXPos = 0;
@@ -531,7 +533,7 @@ void KateViewInternal::changeState(VConfig &c) {
 
     // remove trailing spaces when leaving a line
     if (c.flags & KateDocument::cfRemoveSpaces && cursor.line != c.cursor.line) {
-      TextLine::Ptr textLine = myDoc->getTextLine(c.cursor.line);
+      TextLine::Ptr textLine = myDoc->kateTextLine(c.cursor.line);
       unsigned int newLen = textLine->lastChar();
       if (newLen != textLine->length()) {
         textLine->truncate(newLen);
@@ -934,7 +936,7 @@ void KateViewInternal::updateView(int flags)
     {
       for (int tline = startLine; (tline <= endLine) && (tline <= myDoc->lastLine ()); tline++)
       {
-        uint len = myDoc->textWidth (myDoc->getTextLine (tline), myDoc->getTextLine (tline)->length());
+        uint len = myDoc->textWidth (myDoc->kateTextLine (tline), myDoc->kateTextLine (tline)->length());
 
         if (len > maxLen)
           maxLen = len;
@@ -1189,7 +1191,7 @@ bool KateViewInternal::isTargetSelected(int x, int y) {
 
   y= lineRanges[y-startLine].line;
 
-  TextLine::Ptr line = myDoc->getTextLine(y);
+  TextLine::Ptr line = myDoc->kateTextLine(y);
   if (!line)
     return false;
 

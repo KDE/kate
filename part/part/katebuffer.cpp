@@ -301,6 +301,11 @@ KateBuffer::count()
    return m_totalLines;
 }
 
+void KateBuffer::allowHlUpdate (bool b)
+{
+  noHlUpdate = !b;
+}
+
 KateBufBlock *
 KateBuffer::findBlock(uint i)
 {

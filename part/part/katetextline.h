@@ -37,8 +37,8 @@
 */ 
  
 class TextLine : public KShared  
-{  
-  friend class KateBuffer;  
+{
+  // to make the textLine filling/restore/dump faster ;)
   friend class KateBufBlock;
   
   public:

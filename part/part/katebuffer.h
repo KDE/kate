@@ -127,6 +127,8 @@ public:
     * Invalidate highlighting of whole buffer.
     */
    void invalidateHighlighting();
+
+   void allowHlUpdate (bool b);
     
 signals:
    /**

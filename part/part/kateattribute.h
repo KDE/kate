@@ -74,31 +74,49 @@ public:
 
   void setWeight(int weight);
 
-  bool bold() const;
+  inline bool bold() const
+  { return weight() >= QFont::Bold; };
+  
   void setBold(bool enable = true);
 
-  bool italic() const;
+  inline bool italic() const
+  { return m_italic; };
+  
   void setItalic(bool enable = true);
 
-  bool underline() const;
+  inline bool underline() const
+  { return m_underline; };
+  
   void setUnderline(bool enable = true);
 
-  bool strikeOut() const;
+  inline bool strikeOut() const
+  { return m_strikeout; };
+
   void setStrikeOut(bool enable = true);
 
-  const QColor& outline() const;
+  inline const QColor& outline() const
+  { return m_outline; };
+  
   void setOutline(const QColor& color);
 
-  const QColor& textColor() const;
+  inline const QColor& textColor() const
+  { return m_textColor; };
+  
   void setTextColor(const QColor& color);
 
-  const QColor& selectedTextColor() const;
+  inline const QColor& selectedTextColor() const
+  { return m_selectedTextColor; };
+
   void setSelectedTextColor(const QColor& color);
 
-  const QColor& bgColor() const;
+  inline const QColor& bgColor() const
+  { return m_bgColor; };
+  
   void setBGColor(const QColor& color);
 
-  const QColor& selectedBGColor() const;
+  inline const QColor& selectedBGColor() const
+  { return m_selectedBGColor; };
+  
   void setSelectedBGColor(const QColor& color);
 
   KateAttribute& operator+=(const KateAttribute& a);

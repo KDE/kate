@@ -212,6 +212,7 @@ void DocWordCompletionPluginView::toggleAutoPopup()
 // for autopopup FIXME - don't pop up if reuse word is inserting
 void DocWordCompletionPluginView::autoPopupCompletionList()
 {
+  if ( ! m_view->hasFocus() ) return;
   QString w = word();
   if ( w.length() == d->treshold )
   {

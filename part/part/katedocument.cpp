@@ -1048,9 +1048,17 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
       // Scan backwards looking for a place to break the line
       // We are not interested in breaking at the first char
       // of the line (if it is a space), but we are at the second
+      // anders: if we can't find a space, try breaking on a word
+      // boundry, using KateHighlight::isInWord().
+      // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
+      int nw = 0; // alternative position, a non word character
       for (z=searchStart; z > 0; z--)
+      {
         if (text[z].isSpace()) break;
+        if ( ! nw && !m_highlight->isInWord( text[z] ) )
+          nw = z;
+      }
 
       if (z > 0)
       {
@@ -1059,9 +1067,11 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
       }
       else
       {
-        //There was no space to break at so break at full line
-        //and don't try and add any white space for the break
-        z = col;
+        // There was no space to break at so break at a nonword character if
+        // found, or at the wrapcolumn ( that needs be configurable )
+        // Don't try and add any white space for the break
+        if ( nw && nw < col ) nw++; // break on the right side of the character
+        z = nw ? nw : col;
       }
 
       if (nextl && !nextl->isAutoWrapped())

@@ -1045,10 +1045,8 @@ bool KateDocument::editRemoveLine ( uint line )
 
 bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, uint endCol )
 {
-  int oldStartL, oldEndL;
-
-  oldStartL = selectStart.line;
-  oldEndL = selectEnd.line;
+  if( hasSelection() )
+    tagLines( selectStart.line, selectEnd.line );
 
   if (startLine < endLine)
   {
@@ -1079,18 +1077,9 @@ bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, u
     selectEnd.col = startCol;
   }
 
-  int endL, startL;
-  if (oldEndL > selectEnd.line)
-    endL = oldEndL;
-  else
-    endL = selectEnd.line;
+  if( hasSelection() )
+    tagLines( selectStart.line, selectEnd.line );
 
-  if (oldStartL < selectStart.line)
-    startL = oldStartL;
-  else
-    startL = selectStart.line;
-
-  tagLines (startL, endL);
   updateViews ();
 
   emit selectionChanged ();
@@ -1100,6 +1089,9 @@ bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, u
 
 bool KateDocument::clearSelection ()
 {
+  if( !hasSelection() )
+    return false;
+
   tagLines(selectStart.line,selectEnd.line);
 
   selectStart.line = -1;

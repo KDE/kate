@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
 
@@ -57,7 +58,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   cursor.col = 0;
   cursor.line = 0;
-  cursorOn = false;
+  cursorOn = true;
   cursorTimer = 0;
   cXPos = 0;
 
@@ -484,9 +485,8 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, int update
 {
   bool nullMove = cursor == newCursor;
 
-  if( cursorOn ) {
+  if( !nullMove ) {
     tagLines( displayCursor.line, displayCursor.line );
-    cursorOn = false;
   }
 
   if( bm.sXPos < bm.eXPos ) {
@@ -501,6 +501,10 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, int update
   cXPos = myDoc->textWidth( cursor );
   exposeCursor();
   
+  if( !nullMove ) {
+    tagLines( displayCursor.line, displayCursor.line );
+  }
+
   int h = myDoc->viewFont.fontHeight;
   int y = h*(displayCursor.line - startLine);
   int x = cXPos - xPos;
@@ -564,6 +568,7 @@ void KateViewInternal::updateLineRanges()
 
 void KateViewInternal::tagRealLines( int start, int end )
 {
+//  kdDebug() << "KateViewInternal::tagRealLines( " << start << ", " << end << " )\n";
   for( uint z = 0; z < lineRanges.size() && lineRanges[z].line <= end; z++) {
     if( lineRanges[z].line >= start ) {
       lineRanges[z].dirty = true;
@@ -574,6 +579,7 @@ void KateViewInternal::tagRealLines( int start, int end )
 
 void KateViewInternal::tagLines( int start, int end )
 {
+//  kdDebug() << "KateViewInternal::tagLines( " << start << ", " << end << " )\n";
   start = QMAX( start - startLine, 0 );
   end = QMIN( end - startLine, endLine - startLine );
 
@@ -595,6 +601,7 @@ void KateViewInternal::tagLines( int start, int end )
 }
 
 void KateViewInternal::tagAll() {
+//  kdDebug() << "KateViewInternal::tagAll()\n" << endl;
   updateState = 3;
 }
 
@@ -788,13 +795,13 @@ void KateViewInternal::paintTextLines( int xPos )
     
       myDoc->paintTextLine( paint, r->line, r->startCol, r->endCol,
                             0, xPos, xPos + width(),
-                            (cursorOn && (r->line == cursor.line)) ? cursor.col : -1,
+                            (cursorOn && myView->hasFocus() && (r->line == cursor.line)) ? cursor.col : -1,
                             isOverwrite, true,
                             myDoc->configFlags() & KateDocument::cfShowTabs,
                             KateDocument::ViewFont, again && (r->line == cursor.line) );
 
       if( cXPos > (int)r->lengthPixel ) {
-        if( cursorOn && (r->line == cursor.line) ) {     
+        if( cursorOn && hasFocus() && (r->line == cursor.line) ) {     
           if( isOverwrite ) {
             int cursorMaxWidth = myDoc->viewFont.myFontMetrics.width(QChar (' '));
             paint.fillRect( cXPos-xPos, 0, cursorMaxWidth,
@@ -880,28 +887,19 @@ bool KateViewInternal::isTargetSelected(int x, int y)
   return myDoc->lineColSelected(y, x);
 }
 
-void KateViewInternal::focusInEvent(QFocusEvent *) {
-//  debug("got focus %d",cursorTimer);
-
-  if (!cursorTimer) {
-    cursorTimer = startTimer(KApplication::cursorFlashTime() / 2);
-    cursorOn = true;
-    paintCursor();
-  }
+void KateViewInternal::focusInEvent( QFocusEvent* )
+{
+  cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+  paintCursor();
 }
 
-void KateViewInternal::focusOutEvent(QFocusEvent *) {
-//  debug("lost focus %d", cursorTimer);
-
-  if (cursorTimer) {
-    killTimer(cursorTimer);
+void KateViewInternal::focusOutEvent( QFocusEvent* )
+{
+  if( cursorTimer ) {
+    killTimer( cursorTimer );
     cursorTimer = 0;
   }
-
-  if (cursorOn) {
-    cursorOn = false;
-    paintCursor();
-  }
+  paintCursor();
 }
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
@@ -1105,11 +1103,11 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
       paint.fillRect(0, 0, updateR.width(), h, myDoc->colors[0]);
     } else {
       myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xStart, xEnd,
-                            (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b,
+                            (cursorOn && hasFocus() && (r->line == cursor.line)) ? cursor.col : -1, b,
                             true, myDoc->configFlags() & KateDocument::cfShowTabs,
                             KateDocument::ViewFont, again && (r->line == cursor.line));
       if ((cXPos > r->lengthPixel) && (cXPos>=xStart) && (cXPos<=xEnd)) {
-        if (cursorOn && (r->line == cursor.line))
+        if (cursorOn && hasFocus() && (r->line == cursor.line))
         {     
           if (b)
           {

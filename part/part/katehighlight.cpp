@@ -358,15 +358,27 @@ HlCOct::HlCOct(int attribute, int context, signed char regionId)
 const QChar *HlCOct::checkHgl(const QChar *str, int len, bool) {
   const QChar *s;
 
-  if (*str == '0') {
+  if ((len > 0) && (*str == '0'))
+  {
     str++;
+    len--;
+
     s = str;
-    while (*s >= '0' && *s <= '7') s++;
-    if (s > str) {
-      if ((*s&0xdf) == 'L' || (*s&0xdf) == 'U' ) s++;
+
+    while ((len > 0) && (*s >= '0' && *s <= '7'))
+    {
+      s++;
+      len--;
+    }
+
+    if (s > str)
+    {
+      if ((len >0) && ((*s&0xdf) == 'L' || (*s&0xdf) == 'U' )) s++;
+
       return s;
     }
   }
+
   return 0L;
 }
 
@@ -374,16 +386,27 @@ HlCHex::HlCHex(int attribute, int context,signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-const QChar *HlCHex::checkHgl(const QChar *str, int , bool)
+const QChar *HlCHex::checkHgl(const QChar *str, int len, bool)
 {
   const QChar *s=str;
 
-  if (str[0] == '0' && ((str[1]&0xdf) == 'X' )) {
+  if ((len > 1) && (str[0] == '0') && ((str[1]&0xdf) == 'X' ))
+  {
     str += 2;
+    len -= 2;
+
     s = str;
-    while (s->isDigit() || ((*s&0xdf) >= 'A' && (*s&0xdf) <= 'F') /*|| (*s >= 'a' && *s <= 'f')*/) s++;
-    if (s > str) {
-      if ((*s&0xdf) == 'L' || (*s&0xdf) == 'U' ) s++;
+    
+    while ((len > 0) && (s->isDigit() || ((*s&0xdf) >= 'A' && (*s&0xdf) <= 'F')))
+    {
+      s++;
+      len--;
+    }
+
+    if (s > str)
+    {
+      if ((len > 0) && ((*s&0xdf) == 'L' || (*s&0xdf) == 'U' )) s++;
+
       return s;
     }
   }
@@ -513,11 +536,14 @@ const QChar *checkCharHexOct(const QChar *str) {
   return s;
 }
 // checks for C escaped chars \n and escaped hex/octal chars
-const QChar *checkEscapedChar(const QChar *s, int len) {
+const QChar *checkEscapedChar(const QChar *s, int *len) {
   int i;
-  if (s[0] == '\\' && (len > 1) ) {
+  if (s[0] == '\\' && ((*len) > 1) )
+  {
         s++;
-        switch(*s){
+        (*len) = (*len) - 1;
+        switch(*s)
+        {
                 case  'a': // checks for control chars
                 case  'b': // we want to fall through
                 case  'e':
@@ -531,20 +557,22 @@ const QChar *checkEscapedChar(const QChar *s, int len) {
                 case '\"':
                 case '?' : // added ? ANSI C classifies this as an escaped char
                 case '\\': s++;
+                               (*len) = (*len) - 1;
                            break;
                 case 'x': // if it's like \xff
                         s++; // eat the x
+                         (*len) = (*len) - 1;
                         // these for loops can probably be
                         // replaced with something else but
                         // for right now they work
                         // check for hexdigits
-                        for(i=0;i<2 &&(*s >= '0' && *s <= '9' || (*s&0xdf) >= 'A' && (*s&0xdf) <= 'F');i++,s++);
+                        for(i=0; ((*len) > 0) && (i<2) && (*s >= '0' && *s <= '9' || (*s&0xdf) >= 'A' && (*s&0xdf) <= 'F'); i++) {s++;  (*len) = (*len) - 1;}
                         if(i==0) return 0L; // takes care of case '\x'
                         break;
 
                 case '0': case '1': case '2': case '3' :
                 case '4': case '5': case '6': case '7' :
-                        for(i=0;i < 3 &&(*s >='0'&& *s<='7');i++,s++);
+                        for(i=0; ((*len) > 0) && (i < 3) &&(*s >='0'&& *s<='7');i++) {s++;  (*len) = (*len) - 1; }
                         break;
                         default: return 0L;
         }
@@ -554,7 +582,7 @@ const QChar *checkEscapedChar(const QChar *s, int len) {
 }
 
 const QChar *HlCStringChar::checkHgl(const QChar *str, int len, bool) {
-  return checkEscapedChar(str, len);
+  return checkEscapedChar(str, &len);
 }
 
 
@@ -567,10 +595,26 @@ const QChar *HlCChar::checkHgl(const QChar *str, int len, bool) {
 
   if ((len > 1) && (str[0] == '\'') && (str[1] != '\''))
   {
-    s = checkEscapedChar(&str[1], len); //try to match escaped char
-    if (!s) s = &str[2];           //match single non-escaped char
-    if (*s == '\'') return s + 1;
+    int oldl;
+    oldl = len;
+
+    len--;
+
+    s = checkEscapedChar(&str[1], &len);
+
+    if (!s)
+    {
+      if (oldl > 2)
+      {
+        s = &str[2];
+        len = oldl - 2;
+      }
+      else return 0L;
+    }
+
+    if ((len > 0) && (*s == '\'')) return s + 1;
   }
+
   return 0L;
 }
 

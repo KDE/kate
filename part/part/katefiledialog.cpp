@@ -49,7 +49,7 @@ KateFileDialog::KateFileDialog (const QString& startDir,
 
   m_encoding = toolBar()->getCombo(33333);
 
-  if (encoding == QString::null)
+  if (encoding.isNull())
     sEncoding = QString::fromLatin1(QTextCodec::codecForLocale()->name());
 
   iIndex = KGlobal::charsets()->availableEncodingNames().findIndex(encoding);

@@ -270,6 +270,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
 
   pseudoModal = 0L;
   blockSelect = false;
+  restoreMarks = false;
 
   myAttribs = 0L;
   myAttribsLen = 0;
@@ -1623,17 +1624,21 @@ void KateDocument::writeConfig()
 
 void KateDocument::readSessionConfig(KConfig *config)
 {
+  // enable the setMark function to set marks for lines > lastLine !!!
+  restoreMarks = true;
+
   m_url = config->readEntry("URL"); // ### doesn't this break the encoding? (Simon)
   internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
-  // anders: restore bookmarks if possible
+
+  // restore bookmarks
   QValueList<int> l = config->readIntListEntry("Bookmarks");
-  if ( l.count() ) {
-    for (uint i=0; i < l.count(); i++) {
-kdDebug(13020)<<"Bookmark at line "<<l[i]<<", number of lines is "<<lastLine()<<endl;
-//      if ( (int)numLines() <= l[i] ) break;
+  if ( l.count() )
+  {
+    for (uint i=0; i < l.count(); i++)
       setMark( l[i], KateDocument::markType01 );
-    }
   }
+
+  restoreMarks = false;
 }
 
 void KateDocument::writeSessionConfig(KConfig *config)
@@ -1736,7 +1741,7 @@ uint KateDocument::mark (uint line)
 
 void KateDocument::setMark (uint line, uint markType)
 {
-  if (line > lastLine())
+  if ((!restoreMarks) && (line > lastLine()))
     return;
 
   bool b = false;

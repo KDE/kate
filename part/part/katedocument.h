@@ -341,12 +341,13 @@ class KateDocument : public Kate::Document
 
     QPtrList<KTextEditor::Mark> marks ();
     void clearMarks ();
-    
+
   signals:
     void marksChanged ();
 
   private:
     QPtrList<KTextEditor::Mark> myMarks;
+    bool restoreMarks;
 
   //
   // KTextEditor::PrintInterface

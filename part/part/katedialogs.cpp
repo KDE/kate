@@ -624,7 +624,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   m_dynwrapAlignLevel->setSuffix(i18n("% of View Width"));
   m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
 
-  m_wwmarker = new QCheckBox( i18n("Show static word wrap marker (if applicable)"), gbWordWrap );
+  m_wwmarker = new QCheckBox( i18n("&Show static word wrap marker (if applicable)"), gbWordWrap );
 
   blay->addWidget(gbWordWrap);
 

@@ -224,8 +224,8 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
 
   m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode if Nothing Selected"), this );
   m_tabs->setRadioButtonExclusive( true );
-  m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &chars"), m_tabs ), 0 );
-  m_tabs->insert( rb2=new QRadioButton( i18n("I&nsert tab char"), m_tabs ), 1 );
+  m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &characters"), m_tabs ), 0 );
+  m_tabs->insert( rb2=new QRadioButton( i18n("I&nsert tab character"), m_tabs ), 1 );
   m_tabs->insert( rb3=new QRadioButton( i18n("Indent current &line"), m_tabs ), 2 );
 
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -305,7 +305,7 @@ SelectConfigTab::SelectConfigTab(QWidget *parent)
 
   layout->addStretch();
   
-  QWhatsThis::add(rb1, i18n("Selections will be overwritten by types text and will be lost on cursor movement."));
+  QWhatsThis::add(rb1, i18n("Selections will be overwritten by typed text and will be lost on cursor movement."));
   QWhatsThis::add(rb2, i18n("Selections will stay even after cursor movement and typing."));
   
   reload ();

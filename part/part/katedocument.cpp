@@ -506,7 +506,7 @@ QString KateDocument::configPageFullName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Color & Fonts Schemas");
+      return i18n ("Color & Font Schemas");
 
     case 3:
       return i18n ("Indentation Rules");
@@ -2378,13 +2378,13 @@ bool KateDocument::saveFile()
       if (!isModified())
       {
         if (!(KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to save this not modified file? You could overwrite changed data in the file on disk.")) == KMessageBox::Yes))
+               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk.")) == KMessageBox::Yes))
           reallySaveIt = false;
       }
       else
       {
         if (!(KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed, there could be some data lost.")) == KMessageBox::Yes))
+               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost.")) == KMessageBox::Yes))
           reallySaveIt = false;
       }
     }
@@ -2466,9 +2466,9 @@ bool KateDocument::saveFile()
   // display errors
   //
   if (reallySaveIt && !canEncode)
-    KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding cannot encode every unicode character in it! If you know no encoding you could choose, try UTF-8 or UTF-16."));
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as the selected encoding cannot encode every unicode character in it. If you are unsure of which encoding to use, try UTF-8 or UTF-16."));
   else if (reallySaveIt && !success)
-    KMessageBox::error (widget(), i18n ("The document could not been saved, as it was not possible to write to %1!\n\nCheck that you have write access to this file or if enough disc space is available.").arg(m_url.url()));
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disc space is available.").arg(m_url.url()));
 
   //
   // return success

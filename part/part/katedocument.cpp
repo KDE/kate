@@ -510,7 +510,7 @@ bool KateDocument::clear()
   return true;
 }
 
-bool KateDocument::insertText( uint line, uint col, const QString &s )
+bool KateDocument::doInsertText( uint line, uint col, const QString &s )
 {
   if (s.isEmpty())
     return true;
@@ -525,8 +525,6 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
   startCol = col;
   endLine = line;
   endCol = col;
-
-  editStart ();
 
   for (uint pos = 0; pos < len; pos++)
   {
@@ -548,12 +546,25 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
 
   editInsertText (line, insertPos, buf);
 
-  editEnd ();
-
   return true;
 }
 
-bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol )
+bool KateDocument::insertText( uint line, uint col, const QString &s )
+{
+  if (s.isEmpty())
+    return true;
+
+  editStart ();
+
+  bool result = doInsertText(line, col, s);
+
+  editEnd ();
+
+  return result;
+}
+
+bool KateDocument::doRemoveText ( uint startLine, uint startCol,
+				  uint endLine, uint endCol )
 {
   TextLine::Ptr l, tl;
   uint deletePos = 0;
@@ -564,8 +575,6 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
   if (!l)
     return false;
-
-  editStart ();
 
   if (startLine == endLine)
   {
@@ -606,6 +615,19 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
       }
     }
   }
+  
+  return true;
+}
+
+bool KateDocument::removeText ( uint startLine, uint startCol,
+				uint endLine, uint endCol )
+{
+  if (!buffer->line(startLine))
+    return false;
+
+  editStart ();
+
+  doRemoveText(startLine, startCol, endLine, endCol);
 
   editEnd ();
 
@@ -3190,7 +3212,7 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
     int length = str.length();
 
     // Remove some chars
-    removeText (line, 0, line, length);
+    doRemoveText (line, 0, line, length);
 
     return true;
   }
@@ -3212,7 +3234,7 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
     int length = str.length();
 
     // Remove some chars
-    removeText (line, 0, line, length);
+    doRemoveText (line, 0, line, length);
 
     return true;
   }
@@ -3239,9 +3261,13 @@ bool KateDocument::removeStartLineCommentFromSingleLine(int line)
   QString shortCommentMark = m_highlight->getCommentSingleLineStart();
   QString longCommentMark = shortCommentMark + " ";
 
+  editStart();
+
   // Try to remove the long comment mark first
   bool removed = (removeStringFromBegining(line, longCommentMark)
                   || removeStringFromBegining(line, shortCommentMark));
+
+  editEnd();
 
   return removed;
 }
@@ -3255,15 +3281,19 @@ void KateDocument::addStartStopCommentToSingleLine(int line)
   QString startCommentMark = m_highlight->getCommentStart() + " ";
   QString stopCommentMark = " " + m_highlight->getCommentEnd();
 
+  editStart();
+
   // Add the start comment mark
-  insertText (line, 0, startCommentMark);
+  doInsertText (line, 0, startCommentMark);
 
   // Go to the end of the line
   TextLine* textline = buffer->line(line);
   int col = textline->length();
 
   // Add the stop comment mark
-  insertText (line, col, stopCommentMark);
+  doInsertText (line, col, stopCommentMark);
+
+  editEnd();
 }
 
 /*
@@ -3277,6 +3307,8 @@ bool KateDocument::removeStartStopCommentFromSingleLine(int line)
   QString shortStopCommentMark = m_highlight->getCommentEnd();
   QString longStopCommentMark = " " + shortStopCommentMark;
 
+  editStart();
+
   // Try to remove the long start comment mark first
   bool removedStart = (removeStringFromBegining(line, longStartCommentMark)
                        || removeStringFromBegining(line, shortStartCommentMark));
@@ -3284,6 +3316,8 @@ bool KateDocument::removeStartStopCommentFromSingleLine(int line)
   // Try to remove the long stop comment mark first
   bool removedStop = (removeStringFromEnd(line, longStopCommentMark)
                       || removeStringFromEnd(line, shortStopCommentMark));
+
+  editEnd();
 
   return (removedStart || removedStop);
 }
@@ -3309,8 +3343,12 @@ void KateDocument::addStartStopCommentToSelection()
     ec = buffer->line (el)->length();
   }
 
-  insertText (el, ec, endComment);
-  insertText (sl, sc, startComment);
+  editStart();
+
+  doInsertText (el, ec, endComment);
+  doInsertText (sl, sc, startComment);
+
+  editEnd ();
 }
 
 /*
@@ -3329,9 +3367,14 @@ void KateDocument::addStartLineCommentToSelection()
     el--;
   }
 
+  editStart();
+
   // For each line of the selection
-  for (int z = el; z >= sl; z--)
-    insertText (z, 0, commentLineMark);
+  for (int z = el; z >= sl; z--) {
+    doInsertText (z, 0, commentLineMark);
+  }
+
+  editEnd ();
 }
 
 /*
@@ -3404,9 +3447,13 @@ bool KateDocument::removeStartStopCommentFromSelection()
       && buffer->line(el)->stringAtPos(ec - endCommentLen + 1, endComment);
  
   if (remove) {
-    removeText (el, ec - endCommentLen + 1, el, ec + 1);
-    removeText (sl, sc, sl, sc + startCommentLen);
-  }
+    editStart();
+
+    doRemoveText (el, ec - endCommentLen + 1, el, ec + 1);
+    doRemoveText (sl, sc, sl, sc + startCommentLen);
+
+    editEnd ();
+ }
 
   // TODO anders: redefine selection
 
@@ -3432,6 +3479,8 @@ bool KateDocument::removeStartLineCommentFromSelection()
 
   bool removed = false;
 
+  editStart();
+
   // For each line of the selection
   for (int z = el; z >= sl; z--)
   {
@@ -3440,6 +3489,8 @@ bool KateDocument::removeStartLineCommentFromSelection()
                  || removeStringFromBegining(z, shortCommentMark)
                  || removed);
   }
+
+  editEnd();
 
   return removed;
 }
@@ -3472,7 +3523,8 @@ void KateDocument::doComment( uint line, int change)
       // or ends before the last char of the last line, we may use
       // multiline comment markers.
       // TODO We should try to detect nesting.
-      //    - if selection ends at col 0, most likely she wanted that line ignored
+      //    - if selection ends at col 0, most likely she wanted that 
+      // line ignored
       if ( hasStartStopCommentMark &&
            ( !hasStartLineCommentMark || (
              ( selectStart.col > buffer->line( selectStart.line )->firstChar() ) ||

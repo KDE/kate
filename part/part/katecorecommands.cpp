@@ -91,13 +91,13 @@ bool KateCoreCommands::exec(Kate::View *view,
 
     if ( cmd == "set-tab-width" )
     {
-      if ( val < 2 )
+      if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
       v->setTabWidth( val );
     }
     else if ( cmd == "set-indent-width" )
     {
-      if ( val < 2 )
+      if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
       v->doc()->setIndentationWidth( val );
     }

@@ -79,7 +79,7 @@ void KateDocumentConfig::updateDocument ()
 {
   if (m_doc)
   {
-//    m_doc->updateConfig ();
+    m_doc->updateConfig ();
     return;
   }
 
@@ -87,7 +87,7 @@ void KateDocumentConfig::updateDocument ()
   {
     for (uint z=0; z < KateFactory::documents()->count(); z++)
     {
-//      KateFactory::documents()->at(z)->updateConfig ();
+      KateFactory::documents()->at(z)->updateConfig ();
     }
   }
 }

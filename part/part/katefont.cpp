@@ -37,27 +37,26 @@ FontStruct::FontStruct()
   myFontMetricsItalic(myFontItalic),
   myFontMetricsBI(myFontBI)
 {
-    updateFontData (12);
+  updateFontData ();
 }
 
 FontStruct::~FontStruct()
 {
 }
 
-void FontStruct::updateFontData(int tabChars)
+void FontStruct::updateFontData ()
 {
   int maxAscent = myFontMetrics.ascent();
   int maxDescent = myFontMetrics.descent();
 
   fontHeight = maxAscent + maxDescent + 1;
   fontAscent = maxAscent;
-  m_tabWidth = 8 * myFontMetrics.width(' ');
 }
 
-int FontStruct::width(const QString& text, int col, bool bold, bool italic) const
+int FontStruct::width(const QString& text, int col, bool bold, bool italic, int tabWidth) const
 {
   if (text[col] == QChar('\t'))
-    return m_tabWidth;
+    return tabWidth * myFontMetrics.width(' ');
 
   return (bold) ?
     ( (italic) ?
@@ -68,10 +67,10 @@ int FontStruct::width(const QString& text, int col, bool bold, bool italic) cons
       myFontMetrics.charWidth(text, col) );
 }
 
-int FontStruct::width(const QChar& c, bool bold, bool italic) const
+int FontStruct::width(const QChar& c, bool bold, bool italic, int tabWidth) const
 {
   if (c == QChar('\t'))
-    return m_tabWidth;
+    return tabWidth * myFontMetrics.width(' ');
 
   return (bold) ?
     ( (italic) ?
@@ -108,5 +107,5 @@ void FontStruct::setFont (QFont & font)
   myFontMetricsItalic = QFontMetrics (myFontItalic);
   myFontMetricsBI = QFontMetrics (myFontBI);
 
-  updateFontData (12);
+  updateFontData ();
 }

@@ -39,14 +39,15 @@ class FontStruct
     FontStruct();
     ~FontStruct();
 
-    int width(const QString& text, int col, bool bold, bool italic) const;
-    int width(const QChar& c, bool bold, bool italic) const;
-
-    void updateFontData(int tabChars);
+    int width(const QString& text, int col, bool bold, bool italic, int tabWidth) const;
+    int width(const QChar& c, bool bold, bool italic, int tabWidth) const;
 
     const QFont& font(bool bold, bool italic) const;
 
     void setFont(QFont & font);
+
+  private:
+     void updateFontData ();
 
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;
@@ -54,7 +55,6 @@ class FontStruct
     QFontMetrics myFontMetrics, myFontMetricsBold;
     QFontMetrics myFontMetricsItalic, myFontMetricsBI;
 
-    int m_tabWidth;
     int fontHeight;
     int fontAscent;
 };

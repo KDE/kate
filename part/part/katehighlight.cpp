@@ -53,6 +53,75 @@
 
 //BEGIN  Prviate HL classes
 
+class HlItem
+{
+  public:
+    HlItem(int attribute, int context,signed char regionId, signed char regionId2);
+    virtual ~HlItem();
+    
+  public:
+    virtual bool alwaysStartEnable() const { return true; };
+    virtual bool hasCustomStartEnable() const { return false; };
+    virtual bool startEnable(const QChar&);
+
+    // Changed from using QChar*, because it makes the regular expression check very
+    // inefficient (forces it to copy the string, very bad for long strings)
+    // Now, the function returns the offset detected, or 0 if no match is found.
+    // bool linestart isn't needed, this is equivalent to offset == 0.
+    virtual int checkHgl(const QString& text, int offset, int len) = 0;
+
+    virtual bool lineContinue(){return false;}
+
+    QPtrList<HlItem> *subItems;
+    int attr;
+    int ctx;
+    signed char region;
+    signed char region2;
+};
+
+class HlContext
+{
+  public:
+    HlContext (int attribute, int lineEndContext,int _lineBeginContext,
+               bool _fallthrough, int _fallthroughContext);
+
+    QPtrList<HlItem> items;
+    int attr;
+    int ctx;
+    int lineBeginContext;
+    /** @internal anders: possible escape if no rules matches.
+       false unless 'fallthrough="1|true"' (insensitive)
+       if true, go to ftcxt w/o eating of string.
+       ftctx is "fallthroughContext" in xml files, valid values are int or #pop[..]
+       see in Highlight::doHighlight */
+    bool fallthrough;
+    int ftctx; // where to go after no rules matched
+};
+
+class EmbeddedHlInfo
+{
+  public:
+    EmbeddedHlInfo() {loaded=false;context0=-1;}
+    EmbeddedHlInfo(bool l, int ctx0) {loaded=l;context0=ctx0;}
+
+  public:
+    bool loaded;
+    int context0;
+};
+
+class IncludeRule
+{
+  public:
+    IncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
+    IncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
+    
+  public:
+    uint pos;
+    int ctx;
+    int incCtx;
+    QString incCtxN;
+};
+
 class HlCharDetect : public HlItem
 {
   public:

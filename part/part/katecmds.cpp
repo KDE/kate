@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2003 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001, 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Charles Samuels <charles@kde.org>
 
@@ -23,13 +24,188 @@
 
 #include "katedocument.h"
 #include "kateview.h"
+#include "kateconfig.h"
 
 #include <kdebug.h>
+#include <klocale.h>
 
 #include <qregexp.h>
 
-namespace KateCommands
+// syncs a config flag in the document with a boolean value
+static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
+                  KateDocument *doc )
 {
+  doc->config()->setConfigFlags( flag, enable );
+}
+
+// this returns wheather the string s could be converted to
+// a bool value, one of on|off|1|0|true|false. the argument val is
+// set to the extracted value in case of success
+static bool getBoolArg( QString s, bool *val  )
+{
+  bool res( false );
+  s = s.lower();
+  res = (s == "on" || s == "1" || s == "true");
+  if ( res )
+  {
+    *val = true;
+    return true;
+  }
+  res = (s == "off" || s == "0" || s == "false");
+  if ( res )
+  {
+    *val = false;
+    return true;
+  }
+  return false;
+}
+
+QStringList KateCommands::CoreCommands::cmds()
+{
+  QStringList l;
+  l << "indent" << "unindent" << "cleanindent"
+    << "comment" << "uncomment"
+    << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
+    << "set-indent-spaces" << "set-indent-width" << "set-indent-mode" << "set-auto-indent"
+    << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
+    << "set-word-wrap" << "set-word-wrap-column";
+  return l;
+}
+
+bool KateCommands::CoreCommands::exec(Kate::View *view,
+                            const QString &_cmd,
+                            QString &errorMsg)
+{
+#define KCC_ERR(s) { errorMsg=s; return false; }
+  // cast it hardcore, we know that it is really a kateview :)
+  KateView *v = (KateView*) view;
+  
+  if ( ! v )
+    KCC_ERR( i18n("Could not access view") );
+
+  //create a list of args
+  QStringList args( QStringList::split( QRegExp("\\s+"), _cmd ) );
+  QString cmd ( args.first() );
+  args.remove( args.first() );
+
+  // ALL commands that takes no arguments.
+  if ( cmd == "indent" )
+  {
+    v->indent();
+    return true;
+  }
+  else if ( cmd == "unindent" )
+  {
+    v->unIndent();
+    return true;
+  }
+  else if ( cmd == "cleanindent" )
+  {
+    v->cleanIndent();
+    return true;
+  }
+  else if ( cmd == "comment" )
+  {
+    v->comment();
+    return true;
+  }
+  else if ( cmd == "uncomment" )
+  {
+    v->uncomment();
+    return true;
+  }
+  else if ( cmd == "set-indent-mode" )
+  {
+    bool ok(false);
+    int val ( args.first().toInt( &ok ) );
+    if ( ok )
+    {
+      if ( val < 0 )
+        KCC_ERR( i18n("Mode must be at least 0.") );
+      v->doc()->config()->setIndentationMode( val );
+    }
+    else
+      v->doc()->config()->setIndentationMode( KateAutoIndent::modeNumber( args.first() ) );
+    return true;
+  }
+
+  // ALL commands that takes exactly one integer argument.
+  else if ( cmd == "set-tab-width" ||
+            cmd == "set-indent-width" ||
+            cmd == "set-word-wrap-column" )
+  {
+    // find a integer value > 0
+    if ( ! args.count() )
+      KCC_ERR( i18n("Missing argument. Usage: %1 <value>").arg( cmd ) );
+    bool ok;
+    int val ( args.first().toInt( &ok ) );
+    if ( !ok )
+      KCC_ERR( i18n("Failed to convert argument '%1' to integer.")
+                .arg( args.first() ) );
+
+    if ( cmd == "set-tab-width" )
+    {
+      if ( val < 1 )
+        KCC_ERR( i18n("Width must be at least 1.") );
+      v->setTabWidth( val );
+    }
+    else if ( cmd == "set-indent-width" )
+    {
+      if ( val < 1 )
+        KCC_ERR( i18n("Width must be at least 1.") );
+      v->doc()->config()->setIndentationWidth( val );
+    }
+    else if ( cmd == "set-word-wrap-column" )
+    {
+      if ( val < 2 )
+        KCC_ERR( i18n("Column must be at least 1.") );
+      v->doc()->setWordWrapAt( val );
+    }
+    return true;
+  }
+
+  // ALL commands that takes 1 boolean argument.
+  else if ( cmd == "set-icon-border" ||
+            cmd == "set-folding-markers" ||
+            cmd == "set-line-numbers" ||
+            cmd == "set-replace-tabs" ||
+            cmd == "set-show-tabs" ||
+            cmd == "set-indent-spaces" ||
+            cmd == "set-auto-indent" ||
+            cmd == "set-word-wrap" )
+  {
+    if ( ! args.count() )
+      KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
+    bool enable;
+    if ( getBoolArg( args.first(), &enable ) )
+    {
+      if ( cmd == "set-icon-border" )
+        v->setIconBorder( enable );
+      else if (cmd == "set-folding-markers")
+        v->setFoldingMarkersOn( enable );
+      else if ( cmd == "set-line-numbers" )
+        v->setLineNumbersOn( enable );
+      else if ( cmd == "set-replace-tabs" )
+        setDocFlag( KateDocumentConfig::cfReplaceTabs, enable, v->doc() );
+      else if ( cmd == "set-show-tabs" )
+        setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
+      else if ( cmd == "set-indent-spaces" )
+        setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
+      else if ( cmd == "set-auto-indent" )
+        setDocFlag( KateDocumentConfig::cfAutoIndent, enable, v->doc() );
+      else if ( cmd == "set-word-wrap" )
+        v->doc()->setWordWrap( enable );
+
+      return true;
+    }
+    else
+      KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false")
+               .arg( args.first() ).arg( cmd ) );
+  }
+
+  // unlikely..
+  KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
+}
 
 static void replace(QString &s, const QString &needle, const QString &with)
 {
@@ -71,7 +247,6 @@ static int backslashString(const QString &haystack, const QString &needle, int i
   return -1;
 }
 
-
 // exchange "\t" for the actual tab character, for example
 static void exchangeAbbrevs(QString &str)
 {
@@ -92,7 +267,7 @@ static void exchangeAbbrevs(QString &str)
   }
 }
 
-QString SedReplace::sedMagic(QString textLine, const QString &find, const QString &repOld, bool noCase, bool repeat)
+QString KateCommands::SedReplace::sedMagic(QString textLine, const QString &find, const QString &repOld, bool noCase, bool repeat)
 {
 
   QRegExp matcher(find, noCase);
@@ -147,14 +322,13 @@ QString SedReplace::sedMagic(QString textLine, const QString &find, const QStrin
   return textLine;
 }
 
-
 static void setLineText(Kate::View *view, int line, const QString &text)
 {
   if (view->getDoc()->insertLine(line, text))
     view->getDoc()->removeLine(line+1);
 }
 
-bool SedReplace::exec (Kate::View *view, const QString &cmd, QString &)
+bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &)
 {
   kdDebug(13010)<<"SedReplace::execCmd()"<<endl;
 
@@ -202,7 +376,7 @@ bool SedReplace::exec (Kate::View *view, const QString &cmd, QString &)
   return true;
 }
 
-bool Character::exec (Kate::View *view, const QString &_cmd, QString &)
+bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
 
@@ -242,7 +416,7 @@ bool Character::exec (Kate::View *view, const QString &_cmd, QString &)
   return true;
 }
 
-bool Goto::exec (Kate::View *view, const QString &cmd, QString &)
+bool KateCommands::Goto::exec (Kate::View *view, const QString &cmd, QString &)
 {
   if (cmd.left(4) != "goto")
     return false;
@@ -255,7 +429,7 @@ bool Goto::exec (Kate::View *view, const QString &cmd, QString &)
   return true;
 }
 
-bool Date::exec (Kate::View *view, const QString &cmd, QString &)
+bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
 {
   if (cmd.left(4) != "date")
     return false;
@@ -266,8 +440,6 @@ bool Date::exec (Kate::View *view, const QString &cmd, QString &)
     view->insertText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
 
   return true;
-}
-
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

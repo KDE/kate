@@ -38,6 +38,12 @@
 #include <qstringlist.h>
 #include <qguardedptr.h>
 
+class HlContext;
+class HlItem;
+class ItemData;
+class HlData;
+class EmbeddedHlInfo;
+class IncludeRule;
 class SyntaxDocument;
 class TextLine;
 struct syntaxModeListItem;
@@ -45,96 +51,36 @@ struct syntaxContextData;
 
 class QPopupMenu;
 
-class HlItem {
-  public:
-    HlItem(int attribute, int context,signed char regionId, signed char regionId2);
-    virtual ~HlItem();
-    virtual bool alwaysStartEnable() const { return true; };
-    virtual bool hasCustomStartEnable() const { return false; };
-    virtual bool startEnable(const QChar&);
-
-    // Changed from using QChar*, because it makes the regular expression check very
-    // inefficient (forces it to copy the string, very bad for long strings)
-    // Now, the function returns the offset detected, or 0 if no match is found.
-    // bool linestart isn't needed, this is equivalent to offset == 0.
-    virtual int checkHgl(const QString& text, int offset, int len) = 0;
-
-    virtual bool lineContinue(){return false;}
-
-    QPtrList<HlItem> *subItems;
-    int attr;
-    int ctx;
-    signed char region;
-    signed char region2;
-};
-
+// some typedefs
 typedef QPtrList<KateAttribute> KateAttributeList;
-
-class IncludeRule {
-  public:
-    IncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
-    IncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
-    uint pos;
-    int ctx;
-    int incCtx;
-    QString incCtxN;
-};
-
 typedef QValueList<IncludeRule*> IncludeRules;
+typedef QPtrList<ItemData> ItemDataList;
+typedef QPtrList<HlData> HlDataList;
+typedef QMap<QString,EmbeddedHlInfo> EmbeddedHlInfos;
+typedef QMap<int*,QString> UnresolvedContextReferences;
 
 //Item Properties: name, Item Style, Item Font
-class ItemData : public KateAttribute {
+class ItemData : public KateAttribute
+{
   public:
     ItemData(const QString  name, int defStyleNum);
+    
+  public:
     const QString name;
     int defStyleNum;
 };
 
-typedef QPtrList<ItemData> ItemDataList;
-
-class HlData {
+class HlData
+{
   public:
     HlData(const QString &wildcards, const QString &mimetypes,const QString &identifier, int priority);
+    
+  public:
     QString wildcards;
     QString mimetypes;
     QString identifier;
     int priority;
 };
-
-typedef QPtrList<HlData> HlDataList;
-
-//context
-class HlContext {
-  public:
-    HlContext (int attribute, int lineEndContext,int _lineBeginContext,
-               bool _fallthrough, int _fallthroughContext);
-
-    QPtrList<HlItem> items;
-    int attr;
-    int ctx;
-    int lineBeginContext;
-    /** @internal anders: possible escape if no rules matches.
-       false unless 'fallthrough="1|true"' (insensitive)
-       if true, go to ftcxt w/o eating of string.
-       ftctx is "fallthroughContext" in xml files, valid values are int or #pop[..]
-       see in Highlight::doHighlight */
-    bool fallthrough;
-    int ftctx; // where to go after no rules matched
-};
-
-
-class EmbeddedHlInfo
-{
-public:
-  EmbeddedHlInfo() {loaded=false;context0=-1;}
-  EmbeddedHlInfo(bool l, int ctx0) {loaded=l;context0=ctx0;}
-  bool loaded;
-  int context0;
-};
-
-typedef QMap<QString,EmbeddedHlInfo> EmbeddedHlInfos;
-
-typedef QMap<int*,QString> UnresolvedContextReferences; // need to be made more efficient, but it works for the moment
 
 class Highlight
 {
@@ -142,6 +88,7 @@ class Highlight
     Highlight(const syntaxModeListItem *def);
     ~Highlight();
 
+  public:
     void doHighlight(QMemArray<short> oCtx, TextLine *,bool lineContinue,QMemArray<signed char> *foldingList);
 
     QString getWildcards();
@@ -241,9 +188,9 @@ class Highlight
     
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
 
-    public:
-      inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
-      inline bool allowsFolding(){return folding;}
+  public:
+    inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
+    inline bool allowsFolding(){return folding;}
 };
 
 class HlManager : public QObject
@@ -327,7 +274,6 @@ class KateViewHighlightAction: public Kate::ActionMenu
   private slots:
     void setHl (int mode);
 };
-
 
 #endif //_HIGHLIGHT_H_
 

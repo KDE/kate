@@ -24,7 +24,6 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "katecmds.h"
-#include "katecorecommands.h"
 #include "katefiletype.h"
 #include "kateschema.h"
 
@@ -131,11 +130,11 @@ KateFactory::KateFactory ()
   //
   // init the cmds
   //
+  KateCmd::self()->registerCommand (new KateCommands::CoreCommands());
   KateCmd::self()->registerCommand (new KateCommands::SedReplace ());
   KateCmd::self()->registerCommand (new KateCommands::Character ());
   KateCmd::self()->registerCommand (new KateCommands::Goto ());
   KateCmd::self()->registerCommand (new KateCommands::Date ());
-  KateCmd::self()->registerCommand (new KateCoreCommands());
 }
 
 KateFactory::~KateFactory()

@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2003 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001, 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Charles Samuels <charles@kde.org>
 
@@ -17,8 +18,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KATE_CMDS_H
-#define _KATE_CMDS_H
+#ifndef __KATE_CMDS_H__
+#define __KATE_CMDS_H__
 
 #include "../interfaces/document.h"
 #include "../interfaces/view.h"
@@ -31,6 +32,22 @@
  **/
 namespace KateCommands
 {
+
+/*
+  This Kate::Command provides access to a lot of the core functionality
+  of kate part, settings, utilities, navigation etc.
+  it needs to get a kateview pointer, it will cast the kate::view pointer
+  hard to kateview
+*/
+class CoreCommands : public Kate::Command
+{
+  public:
+    bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
+  
+    bool help( class Kate::View *, const QString &, QString & ) {return false;};
+  
+    QStringList cmds();
+};
 
 /**
  * -- Charles Samuels <charles@kde.org>

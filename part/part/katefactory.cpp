@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-   
+
    Based on KHTML Factory from Simon Hausmann <hausmann@kde.org>
 
    This library is free software; you can redistribute it and/or
@@ -130,7 +130,7 @@ void KateFactory::deregisterDocument ( KateDocument *doc )
     if ( s_documents.removeRef( doc ) )
     {
 
-        
+
         deref();
     }
 }
@@ -178,10 +178,11 @@ KInstance *KateFactory::instance()
     s_about->addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
     s_about->addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
     s_about->addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-    s_about->addAuthor ("Michael Bartl", I18N_NOOP("Core Developer"), "michael.bartl1@chello.at");
+    s_about->addAuthor ("Hamish Rodda",I18N_NOOP("Core Developer"), "meddie@yoyo.its.monash.edu.au");
     s_about->addAuthor ("Waldo Bastian", I18N_NOOP( "The cool buffersystem" ), "bastian@kde.org" );
-    s_about->addAuthor ("Charles Samuels", I18N_NOOP("Core Developer"), "charles@kde.org");
+    s_about->addAuthor ("Charles Samuels", I18N_NOOP("The Editing Commands"), "charles@kde.org");
     s_about->addAuthor ("Matt Newell", I18N_NOOP("Testing, ..."), "newellm@proaxis.com");
+    s_about->addAuthor ("Michael Bartl", I18N_NOOP("Former Core Developer"), "michael.bartl1@chello.at");
     s_about->addAuthor ("Michael McCallum", I18N_NOOP("Core Developer"), "gholam@xtra.co.nz");
     s_about->addAuthor ("Jochen Wilhemly", I18N_NOOP( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
     s_about->addAuthor ("Michael Koch",I18N_NOOP("KWrite port to KParts"), "koch@kde.org");
@@ -190,7 +191,6 @@ KInstance *KateFactory::instance()
     s_about->addAuthor ("Glen Parker",I18N_NOOP("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
     s_about->addAuthor ("Scott Manson",I18N_NOOP("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
     s_about->addAuthor ("John Firebaugh",I18N_NOOP("Patches and more"), "jfirebaugh@kde.org");
-    s_about->addAuthor ("Hamish Rodda",I18N_NOOP("Patches"), "meddie@yoyo.its.monash.edu.au");
 
     s_about->addCredit ("Matteo Merli",I18N_NOOP("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
     s_about->addCredit ("Rocky Scaletta",I18N_NOOP("Highlighting for VHDL"), "rocky@purdue.edu");

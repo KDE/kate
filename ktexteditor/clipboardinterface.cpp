@@ -42,6 +42,11 @@ unsigned int ClipboardInterface::clipboardInterfaceNumber () const
   return myClipboardInterfaceNumber;
 }
 
+void ClipboardInterface::setClipboardInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("ClipboardInterface#"+suffix);
+}
+
 ClipboardInterface *KTextEditor::clipboardInterface (View *view)
 {                                    
   if (!view)

@@ -57,6 +57,11 @@ unsigned int ConfigInterface::configInterfaceNumber () const
   return myConfigInterfaceNumber;
 }
 
+void ConfigInterface::setConfigInterfaceDCOPSuffix (const QCString &suffix)
+{
+  //d->interface->setObjId ("ConfigInterface#"+suffix);
+}
+
 ConfigInterface *KTextEditor::configInterface (Document *doc)
 {                       
   if (!doc)

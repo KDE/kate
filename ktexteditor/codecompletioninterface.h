@@ -83,6 +83,9 @@ class CodeCompletionInterface
 	virtual ~CodeCompletionInterface();
   
 	unsigned int codeCompletionInterfaceNumber () const;
+	
+  protected:  
+    void setCodeCompletionInterfaceDCOPSuffix (const QCString &suffix); 
 
 	//
 	// slots !!!

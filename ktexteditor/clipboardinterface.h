@@ -34,6 +34,9 @@ class ClipboardInterface
     virtual ~ClipboardInterface();
     
     unsigned int clipboardInterfaceNumber () const;
+    
+  protected:  
+    void setClipboardInterfaceDCOPSuffix (const QCString &suffix); 
         
   /**
   * slots !!!

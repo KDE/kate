@@ -35,6 +35,11 @@ unsigned int CodeCompletionInterface::codeCompletionInterfaceNumber () const
   return myCodeCompletionInterfaceNumber;
 }
 
+void CodeCompletionInterface::setCodeCompletionInterfaceDCOPSuffix (const QCString &suffix)
+{
+  //d->interface->setObjId ("CodeCompletionInterface#"+suffix);
+}
+
 CodeCompletionInterface *KTextEditor::codeCompletionInterface (View *view)
 {                
   if (!view)

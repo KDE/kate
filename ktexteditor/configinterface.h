@@ -36,6 +36,9 @@ class ConfigInterface
     virtual ~ConfigInterface();
 
     unsigned int configInterfaceNumber () const;
+    
+  protected:  
+    void setConfigInterfaceDCOPSuffix (const QCString &suffix); 
 
   //
   // slots !!!

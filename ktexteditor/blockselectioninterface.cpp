@@ -61,6 +61,11 @@ unsigned int BlockSelectionInterface::blockSelectionInterfaceNumber () const
   return myBlockSelectionInterfaceNumber;
 }
 
+void BlockSelectionInterface::setBlockSelectionInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("BlockSelectionInterface#"+suffix);
+}
+
 BlockSelectionInterface *KTextEditor::blockSelectionInterface (Document *doc)
 {                                              
   if (!doc)

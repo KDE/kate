@@ -34,6 +34,9 @@ class BlockSelectionInterface
     virtual ~BlockSelectionInterface ();
 
     unsigned int blockSelectionInterfaceNumber () const;
+    
+  protected:  
+    void setBlockSelectionInterfaceDCOPSuffix (const QCString &suffix);  
 
   /*
   *  slots !!!

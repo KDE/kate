@@ -35,6 +35,8 @@
    find a here delimiter like '*END*' (Shell.pm). Requires that when a regex is
    inserting a dynamic string, it escapes [*(){}$[]
 
+   support for more regex extensions, such as (?>), (?{}), (?(cond)yes|no)
+
    Enhance tr/// and y/// support.
 -->
 <language name="Perl" version="1.17" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">

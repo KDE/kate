@@ -401,7 +401,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   if (fullFile)
   {
     uint numLines=doc->numLines();
-    for (int line=0; line < numLines; line++)
+    for (int line=0; (uint)line < numLines; line++)
     {
       res += sedMagic( doc, line, find, replace, d, !noCase, repeat );
       if ( ! repeat && res ) break;

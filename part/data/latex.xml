@@ -1,6 +1,6 @@
 <?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.00" kateversion="2.0" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
+<language name="LaTeX" version="1.01" kateversion="2.0" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
   <highlighting>
     <list name="keywords">
       <item> begin</item>
@@ -304,18 +304,18 @@
       <item>widetilde</item>
       </list>
     <contexts>
-	<context attribute="0" lineEndContext="0">
-        	<StringDetect String="\begin{" attribute="4" context="1" insensitive="FALSE"/>
-        	<StringDetect String="\end{" attribute="4" context="1" insensitive="FALSE"/>
-		<DetectChar char="\" attribute="2" context="2" />
-		<RegExpr String="%.*$" attribute="3" context="0"/>
+	<context attribute="Normal Text" lineEndContext="#stay">
+        	<StringDetect String="\begin{" attribute="Begin End" context="Block" insensitive="FALSE"/>
+        	<StringDetect String="\end{" attribute="Begin End" context="Block" insensitive="FALSE"/>
+		<DetectChar char="\" attribute="Keyword" context="Keyword" />
+		<RegExpr String="%.*$" attribute="Comment" context="#stay"/>
 	</context>
-	<context attribute="0" lineEndContext="1">
-		<keyword String="keywords" attribute="1" context="1"/>
-		<DetectChar char="}" attribute="4" context="0"/>
+	<context name="Block" attribute="Normal Text" lineEndContext="#stay">
+		<keyword String="keywords" attribute="Keyword" context="#stay"/>
+		<DetectChar char="}" attribute="Begin End" context="#pop"/>
 	</context>
-	<context attribute="0" lineEndContext="0">
-		<keyword String="keywords" attribute="2" context="0" />
+	<context name="Keyword" attribute="Normal Text" lineEndContext="#pop">
+		<keyword String="keywords" attribute="Keyword" context="#pop" />
 	</context>
     </contexts>
     <itemDatas>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="KBasic" version="1.00" kateversion="2.0" section="Sources" extensions="*.kbasic" mimetype="text/x-kbasic-src">
+<language name="KBasic" version="1.01" kateversion="2.0" section="Sources" extensions="*.kbasic" mimetype="text/x-kbasic-src">
     <highlighting>
         <list name="keywords">
         <item> For </item>
@@ -65,17 +65,17 @@
         <item>Control </item>
         </list>
         <contexts>
-        <context attribute="0" lineEndContext="0">
-        <keyword attribute="1" context="0" String="keywords"/>
-        <keyword attribute="2" context="0" String="types"/>
-        <Float attribute="4" context="0"/>
-        <Int attribute="3" context="0"/>
-        <DetectChar attribute="4" context="2" char="quot;"/>
-        <DetectChar attribute="5" context="1" char="'"/>
+        <context attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Identifier" context="#stay" String="types"/>
+        <Float attribute="String" context="#stay"/>
+        <Int attribute="Types" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="quot;"/>
+        <DetectChar attribute="Comment" context="Comment" char="'"/>
         </context>
-        <context attribute="5" lineEndContext="0"/>
-        <context attribute="4" lineEndContext="0">
-        <DetectChar attribute="4" context="0" char="'"/>
+        <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
+        <context name="String" attribute="String" lineEndContext="#pop">
+        <DetectChar attribute="String" context="#pop" char="'"/>
         </context>
         </contexts>
         <itemDatas>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.01" kateversion="2.0" section="Scripts" extensions="" mimetype="text/x-shellscript">
+<language name="Bash" version="1.02" kateversion="2.0" section="Scripts" extensions="" mimetype="text/x-shellscript">
         <highlighting>
-                 <list name = "keywords">
+                <list name = "keywords">
                         <item> break </item>
                         <item> case </item>
                         <item> done </item>
@@ -24,59 +24,53 @@
                         <item> while </item>
                         <item> . </item>
                 </list>
-		<list name = "commands">
-			<item> cp </item>
-			<item> date </item>
-			<item> echo </item>
-			<item> eval </item>
-		</list>
-
-	<contexts>
-                <context name = "Base" attribute = "Normal Text" lineEndContext="0">
-                        <keyword String = "keywords" attribute = "Keyword" context="0"/>
-			<keyword String = "commands" attribute = "Command" context="0"/>
-                        <Int attribute = "Decimal" context="0"/>
-			<RegExpr String = "\$[A-Za-z0-9_?{}!]+" attribute = "Parameter" context="0"/>                        
-			<RangeDetect char = "&quot;" char1 = "&quot;" attribute = "String" context="0"/>
-                        <AnyChar String = "|&lt;&gt;=;" attribute = "Operator" context="0"/>
-                        <DetectChar char="`" attribute = "Substitution" context = "2"/>
-			<Detect2Chars attribute="0" context="Normal Text" char="\" char1="#"/>
-                        <RegExpr String= "#.*$" attribute = "Comment" context="0"/>
-                </context>
-
-                <context name = "String" attribute = "String" lineEndContext="1">
-                        <DetectChar char = "&quot;" attribute = "String" context = "0"/>
-                </context>
-
-                <context name = "Substitution" attribute = "Substitution" lineEndContext="2">
-                        <DetectChar char = "`" attribute = "Substitution" context = "0"/>
-                </context>
-
-                <context name = "Parameter" attribute = "Parameter" lineEndContext="3">
-			<RegExpr String = "\$[A-Za-z0-9_?]+" attribute = "Parameter" context="0"/>
-                </context>
-
-        </contexts>
-
-        <itemDatas>
-                <itemData name = "Normal Text" defStyleNum = "dsNormal"/>
-                <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
-                <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
-                <itemData name = "Float" defStyleNum = "dsFloat"/>
-                <itemData name = "Char" defStyleNum = "dsChar"/>
-                <itemData name = "String" defStyleNum = "dsString"/>
-                <itemData name = "Comment" defStyleNum = "dsComment"/>
-                <itemData name = "Substitution" defStyleNum = "dsOthers"/>
-                <itemData name = "Parameter" defStyleNum = "dsOthers"/>
-                <itemData name = "Operator" defStyleNum = "dsOthers"/>
-		<itemData name = "Command" defStyleNum = "dsNormal"/>
-	</itemDatas>
-  </highlighting>
-  <general>
-    <comments>
-      <comment name="singleLine" start="#" />
-    </comments>
-    <keywords casesensitive="1" />
-  </general>
+                <list name = "commands">
+                        <item> cp </item>
+                        <item> date </item>
+                        <item> echo </item>
+                        <item> eval </item>
+                </list>
+                <contexts>
+                        <context name = "Base" attribute = "Normal Text" lineEndContext = "#stay">
+                                <keyword String = "keywords" attribute = "Keyword" context = "#stay"/>
+                                <keyword String = "commands" attribute = "Command" context = "#stay"/>
+                                <Int attribute = "Decimal" context = "#stay"/>
+                                <RegExpr String = "\$[A-Za-z0-9_?{}!]+" attribute = "Parameter" context = "#stay"/>
+                                <RangeDetect char = "&quot;" char1 = "&quot;" attribute = "String" context = "#stay"/>
+                                <AnyChar String = "|&lt;&gt;=;" attribute = "Operator" context = "#stay"/>
+                                <DetectChar char="`" attribute = "Substitution" context = "Substitution"/>
+                                <Detect2Chars attribute = "Normal Text" context = "#stay" char = "\" char1 = "#"/>
+                                <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
+                        </context>
+                        <context name = "String" attribute = "String" lineEndContext="#stay">
+                                <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
+                        </context>
+                        <context name = "Substitution" attribute = "Substitution" lineEndContext="#stay">
+                                <DetectChar char = "`" attribute = "Substitution" context = "#pop"/>
+                        </context>
+                        <context name = "Parameter" attribute = "Parameter" lineEndContext="#stay">
+                                <RegExpr String = "\$[A-Za-z0-9_?]+" attribute = "Parameter" context="#pop"/>
+                        </context>
+                </contexts>
+                <itemDatas>
+                        <itemData name = "Normal Text" defStyleNum = "dsNormal"/>
+                        <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
+                        <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
+                        <itemData name = "Float" defStyleNum = "dsFloat"/>
+                        <itemData name = "Char" defStyleNum = "dsChar"/>
+                        <itemData name = "String" defStyleNum = "dsString"/>
+                        <itemData name = "Comment" defStyleNum = "dsComment"/>
+                        <itemData name = "Substitution" defStyleNum = "dsOthers"/>
+                        <itemData name = "Parameter" defStyleNum = "dsOthers"/>
+                        <itemData name = "Operator" defStyleNum = "dsOthers"/>
+                        <itemData name = "Command" defStyleNum = "dsNormal"/>
+                </itemDatas>
+        </highlighting>
+        <general>
+                <comments>
+                        <comment name="singleLine" start="#"/>
+                </comments>
+                <keywords casesensitive="1"/>
+        </general>
 </language>
 

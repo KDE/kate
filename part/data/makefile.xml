@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Makefile syntaxfile v0.9 by Per Wigren <wigren@home.se> -->
-<language name="Makefile" section="Other" extensions="" mimetype="text/x-makefile">
+<!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
+<language name="Makefile" version="1.00" kateversion="2.0" section="Other" extensions="" mimetype="text/x-makefile">
 	<highlighting>
 		<list name = "keywords">
 			<item> include </item>
@@ -16,46 +17,46 @@
 		</list>
 
 		<contexts>
-			<context name="Normal" attribute="Normal Text" lineEndContext="0">
-				<HlCStringChar attribute="Normal Text" lineEndContext="0"/>
-				<keyword String="keywords" attribute="Keyword" context="0"/>
-				<RegExpr String="#.*$" attribute="Comment" context="0"/>
-				<RegExpr String="(^|;)\s*\S+\s*=" attribute="Variable" context="1"/>
-				<RegExpr String="^.*:" attribute="Section" context="0"/>
-				<RegExpr attribute="Operator" String="\$\(" context="4"/>
-				<RegExpr attribute="Operator" String="\$\{" context="5"/>
-				<RegExpr String="[+*/=%$():;\\]" attribute="Operator" context="0"/>
+			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+				<HlCStringChar attribute="Normal Text" lineEndContext="#stay"/>
+				<keyword String="keywords" attribute="Keyword" context="#stay"/>
+				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
+				<RegExpr String="(^|;)\s*\S+\s*=" attribute="Variable" context="Value"/>
+				<RegExpr String="^.*:" attribute="Section" context="#stay"/>
+				<RegExpr attribute="Operator" String="\$\(" context="ParanVarFromNormal"/>
+				<RegExpr attribute="Operator" String="\$\{" context="BrackVarFromNormal"/>
+				<RegExpr String="[+*/=%$():;\\]" attribute="Operator" context="#stay"/>
 			</context>
 
-			<context name="Value" attribute="String" lineEndContext="1">
-				<HlCStringChar attribute="String Char" context="1"/>
-				<RegExpr attribute="Operator" String="\\$"     context="1"/>
-				<RegExpr attribute="String"   String="[^\\]?$" context="0"/>
-				<RegExpr attribute="Operator" String="\$\("    context="2"/>
-				<RegExpr attribute="Operator" String="\$\{"    context="3"/>
-				<RegExpr attribute="Operator" String=";"       context="0"/>
+			<context name="Value" attribute="String" lineEndContext="#stay">
+				<HlCStringChar attribute="String Char" context="#stay"/>
+				<RegExpr attribute="Operator" String="\\$"     context="#stay"/>
+				<RegExpr attribute="String"   String="[^\\]?$" context="#pop"/>
+				<RegExpr attribute="Operator" String="\$\("    context="ParanVarFromValue"/>
+				<RegExpr attribute="Operator" String="\$\{"    context="BrackVarFromValue"/>
+				<RegExpr attribute="Operator" String=";"       context="#pop"/>
 			</context>
 
-			<context name="ParanVarFromValue" attribute="Variable" lineEndContext="2">
-				<HlCStringChar attribute="Variable" context="2"/>
-				<RegExpr attribute="Operator" String="\)[^$]" context="1"/>
-				<RegExpr attribute="Operator" String="\)$" context="0"/>
+			<context name="ParanVarFromValue" attribute="Variable" lineEndContext="#stay">
+				<HlCStringChar attribute="Variable" context="#stay"/>
+				<RegExpr attribute="Operator" String="\)[^$]" context="#pop"/>
+				<RegExpr attribute="Operator" String="\)$" context="#pop#pop"/>
 			</context>
 
-			<context name="BrackVarFromValue" attribute="Variable" lineEndContext="3">
-				<HlCStringChar attribute="Variable" context="3"/>
-				<RegExpr attribute="Operator" String="\}[^$]" context="1"/>
-				<RegExpr attribute="Operator" String="\}$" context="0"/>
+			<context name="BrackVarFromValue" attribute="Variable" lineEndContext="#stay">
+				<HlCStringChar attribute="Variable" context="#stay"/>
+				<RegExpr attribute="Operator" String="\}[^$]" context="#pop"/>
+				<RegExpr attribute="Operator" String="\}$" context="#pop#pop"/>
 			</context>
 
-			<context name="ParanVarFromNormal" attribute="Variable" lineEndContext="4">
-				<HlCChar attribute="Variable" context="4"/>
-				<RegExpr attribute="Operator" String="\)" context="0"/>
+			<context name="ParanVarFromNormal" attribute="Variable" lineEndContext="#stay">
+				<HlCChar attribute="Variable" context="#stay"/>
+				<RegExpr attribute="Operator" String="\)" context="#pop"/>
 			</context>
 
-			<context name="BrackVarFromNormal" attribute="Variable" lineEndContext="5">
-				<HlCChar attribute="Variable" context="5"/>
-				<RegExpr attribute="Operator" String="\}" context="0"/>
+			<context name="BrackVarFromNormal" attribute="Variable" lineEndContext="#stay">
+				<HlCChar attribute="Variable" context="#stay"/>
+				<RegExpr attribute="Operator" String="\}" context="#pop"/>
 			</context>
 
 		</contexts>

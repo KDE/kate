@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" section="Scripts" extensions="" mimetype="text/x-shellscript">
+<language name="Bash" version="1.01" kateversion="2.0" section="Scripts" extensions="" mimetype="text/x-shellscript">
         <highlighting>
                  <list name = "keywords">
                         <item> break </item>

@@ -8,8 +8,8 @@
 - Anders Lund <anders@alweb.dk>
   (bookmarks, iconborder, ...)
 
-- Hamish Rodda <meddie@yoyo.its.monash.edu.au>
-  (dynamic wrap fixes and view improvement)
+- Hamish Rodda <rodda@kde.org>
+  (dynamic wrap, view, optimise, etc)
 
 - Waldo Bastian <bastian@kde.org>
   (buffer handling)

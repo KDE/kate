@@ -1,14 +1,13 @@
 kde_module_LTLIBRARIES = libkatepart.la
 
 libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
-			 kateundo.cpp katehledit_attrib_skel.ui katecursor.cpp \
-			 katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
-			 katesyntaxdocument.cpp katetextline.cpp kateview.cpp \
-			 kateviewdialog.cpp \
+			 kateundo.cpp katecursor.cpp katedialogs.cpp katedocument.cpp \
+                         katefactory.cpp katehighlight.cpp katesyntaxdocument.cpp \
+                         katetextline.cpp kateview.cpp kateviewdialog.cpp \
 			 katehighlightdownload.cpp kateconfig.cpp \
 			 kateiconborder.cpp katecodecompletion_arghint.cpp \
-			 katecodecompletion.cpp hlparamedit.cpp kateexportaction.cpp \
-			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
+			 katecodecompletion.cpp kateexportaction.cpp \
+			 katecodefoldinghelpers.cpp kateviewinternal.cpp \
 			 katebookmarks.cpp katebrowserextension.cpp kateprintsettings.cpp \
 			 katefont.cpp katelinerange.cpp katesupercursor.cpp katearbitraryhighlight.cpp \
 			 katerenderer.cpp kateattribute.cpp katecmdline.cpp katecorecommands.cpp \

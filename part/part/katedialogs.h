@@ -325,8 +325,6 @@ class HighlightDialogPage : public QWidget
   protected slots:
 
     void hlChanged(int);
-    void hlEdit();
-    void hlNew();
     void hlDownload();
     void showMTDlg();
     void slotChanged();
@@ -344,11 +342,9 @@ class HighlightDialogPage : public QWidget
     class KIntNumInput *priority;
     StyleListView *lvStyles;
 
-//     HlDataList *hlDataList;
     HlDataDict *hlDataDict;
     HlData *hlData;
     HlManager *hlManager;
-//    ItemData *itemData;
 };
 
 class ItemInfo
@@ -358,62 +354,6 @@ class ItemInfo
     ItemInfo(QString _trans,int _length):trans_i18n(_trans),length(_length){};
     QString trans_i18n;
     int length;
-};
-
-class HlEditDialog : public KDialogBase
-{
-    Q_OBJECT
-  public:
-    HlEditDialog(HlManager *,QWidget *parent=0, const char *name=0, bool modal=true, HlData *data=0);
-  private:
-    class QWidgetStack *stack;
-    class QVBox *contextOptions, *itemOptions;
-    class KListView *contextList;
-    class QListViewItem *currentItem;
-    void initContextOptions(class QVBox *co);
-    void initItemOptions(class QVBox *co);
-    void loadFromDocument(HlData *hl);
-    void showContext();
-    void showItem();
-
-    QListViewItem *addContextItem(QListViewItem *_parent,QListViewItem *prev,struct syntaxContextData *data);
-    void insertTranslationList(QString tag, QString trans,int length);
-    void newDocument();
-
-    class QLineEdit *ContextDescr;
-    class QComboBox *ContextAttribute;
-    class QComboBox *ContextLineEnd;
-    class KIntNumInput *ContextPopCount;
-
-    class QComboBox *ItemType;
-    class QComboBox *ItemContext;
-    class HLParamEdit *ItemParameter;
-    class QComboBox *ItemAttribute;
-    class KIntNumInput *ItemPopCount;
-
-    class QMap<int,QString> id2tag;
-    class QMap<int,ItemInfo> id2info;
-    class QMap<QString,int> tag2id;
-
-    class AttribEditor *attrEd;
-    int transTableCnt;
-  protected slots:
-    void pageChanged(QWidget *);
-
-
-    void currentSelectionChanged ( QListViewItem * );
-    void contextDescrChanged(const QString&);
-    void contextLineEndChanged(int);
-    void contextAttributeChanged(int);
-    void ContextPopCountChanged(int count);
-    void contextAddNew();
-
-    void ItemTypeChanged(int id);
-    void ItemParameterChanged(const QString& name);
-    void ItemAttributeChanged(int attr);
-    void ItemContextChanged(int cont);
-    void ItemPopCountChanged(int count);
-    void ItemAddNew();
 };
 
 class SpellConfigPage : public Kate::ConfigPage

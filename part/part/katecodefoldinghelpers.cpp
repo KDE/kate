@@ -1308,3 +1308,13 @@ void KateCodeFoldingTree::collapseToplevelNodes()
         emit regionVisibilityChangedAt(node->startLineRel);
     }
 }
+
+void KateCodeFoldingTree::ensureVisible( uint line )
+{
+  KateCodeFoldingNode *n = findNodeForLine( line );
+  do {
+    if ( ! n->visible )
+      toggleRegionVisibility( getStartLine( n ) );
+    n = n->parentNode;
+  } while( n );
+}

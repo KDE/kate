@@ -676,10 +676,12 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
 void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool force)
 {
   //kdDebug() << "MakeVisible start [" << startPos().line << "," << startPos().col << "] end [" << endPos().line << "," << endPos().col << "] -> request: [" << c.line << "," << c.col << "]" <<endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
+    // if the line is in a folded region, unfold all the way up
+    //if ( m_doc->foldingTree()->findNodeForLine( c.line )->visible )
+    //  kdDebug()<<"line ("<<c.line<<") should be visible"<<endl;
   
   if ( force )
   {
-    // if the line is in a folded region, unfold all the way up
     
     KateTextCursor scroll = c;
     scrollPos(scroll, force);
@@ -1609,6 +1611,17 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
     return;
   }
 
+  // unfold if required
+  m_doc->foldingTree()->ensureVisible( newCursor.line );
+    // if the line is in a folded region, unfold all the way up
+    /*
+    KateCodeFoldingNode *n = m_doc->foldingTree()->findNodeForLine( newCursor.line );
+    do {
+      if ( ! n->visible )
+        m_doc->foldingTree()->toggleRegionVisibility( n->startLineRel );
+        n = n->parentNode;
+    } while ( n );
+    */
   KateTextCursor oldDisplayCursor = displayCursor;
   
   cursor = newCursor;

@@ -35,6 +35,8 @@ KateCmd::KateCmd (KateDocument *doc) : QObject (doc)
 
 KateCmd::~KateCmd ()
 {
+    myParser.setAutoDelete(true);
+    myParser.clear();
 }
 
 void KateCmd::execCmd (QString cmd, KateView *view)

@@ -29,10 +29,14 @@ namespace KTextEditor
 class PopupMenuInterface
 {
   //
-	// normal methodes
-	//
+  // normal methodes
+  //
   public:
-	  virtual void installPopup (class QPopupMenu *rmb_Menu) = 0;
+     /**
+      Install a Popup Menu. The Popup Menu will be activated on
+      a right mouse button press event.
+    */
+    virtual void installPopup (class QPopupMenu *rmb_Menu) = 0;
 };
 
 };

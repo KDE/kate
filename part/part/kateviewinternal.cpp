@@ -2579,12 +2579,15 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       // this is a drag that we started and dropped on our selection
       // ignore this case
       return;
-    } else if( priv ) {
+    }
+
+    placeCursor( event->pos() );
+    m_doc->insertText( cursor.line(), cursor.col(), text );
+
+    if( priv ) {
       // this is one of mine (this document), not dropped on the selection
       m_doc->removeSelectedText();
     }
-    placeCursor( event->pos() );
-    m_doc->insertText( cursor.line(), cursor.col(), text );
 
     updateView();
   }

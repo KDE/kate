@@ -776,12 +776,6 @@ KateView::saveResult KateView::save()
   if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )
     return saveAs();
 
-  // If document is new but has a name, check if saving it would
-  // overwrite a file that has been created since the new doc
-  // was created:
-  if( m_doc->isNewDoc() && !checkOverwrite( m_doc->url() ) )
-    return SAVE_CANCEL;
-
   if( !m_doc->save() ) {
     KMessageBox::sorry(this,
         i18n("The file could not be saved. Please check if you have write permission."));

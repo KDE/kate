@@ -200,8 +200,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   restoreMarks = false;
   setMarksUserChangable( markType01 );
 
-  newDoc = false;
-
   m_docName = QString ("");
   fileInfo = new QFileInfo ();
 
@@ -2929,18 +2927,6 @@ void KateDocument::setModified(bool m) {
 //END
 
 //BEGIN Kate specific stuff ;)
-
-void KateDocument::setNewDoc( bool m )
-{
-  if ( m != newDoc )
-  {
-    newDoc = m;
-  }
-}
-
-bool KateDocument::isNewDoc() const {
-  return newDoc;
-}
 
 void KateDocument::makeAttribs()
 {

@@ -459,9 +459,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     TextLine::Ptr kateTextLine(uint i);
 
-    void setNewDoc( bool );
-    bool isNewDoc() const;
-
     uint configFlags ();
     void setConfigFlags (uint flags);
 
@@ -684,9 +681,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     class Highlight *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
-
-    bool newDoc;          // True if the file is a new document (used to determine whether
-                          // to check for overwriting files on save)
 
     static int m_getSearchTextFrom;
 

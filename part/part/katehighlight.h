@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2001,2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -25,12 +25,14 @@
 #include "katetextline.h"
 
 #include <qptrlist.h>
+#include <qvaluelist.h>
 #include <qdialog.h>
 #include <kcolorbtn.h>
 #include <qregexp.h>
 #include <kdebug.h>
 #include <qdict.h>
 #include <qintdict.h>
+
 
 class SyntaxDocument;
 struct syntaxModeListItem;
@@ -43,9 +45,11 @@ class QLineEdit;
 class TextLine;
 class Attribute;
 
+class QStringList;
+
 class HlItem {
   public:
-    HlItem(int attribute, int context);
+    HlItem(int attribute, int context,signed char regionId);
     virtual ~HlItem();
     virtual bool startEnable(QChar);
     virtual const QChar *checkHgl(const QChar *, int len, bool) = 0;
@@ -54,11 +58,12 @@ class HlItem {
     QPtrList<HlItem> *subItems;
     int attr;
     int ctx;
+    signed char region;
 };
 
 class HlCharDetect : public HlItem {
   public:
-    HlCharDetect(int attribute, int context, QChar);
+    HlCharDetect(int attribute, int context,signed char regionId, QChar);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
   protected:
     QChar sChar;
@@ -66,8 +71,8 @@ class HlCharDetect : public HlItem {
 
 class Hl2CharDetect : public HlItem {
   public:
-    Hl2CharDetect(int attribute, int context,  QChar ch1, QChar ch2);
-   	Hl2CharDetect(int attribute, int context, const QChar *ch);
+    Hl2CharDetect(int attribute, int context, signed char regionId,  QChar ch1, QChar ch2);
+   	Hl2CharDetect(int attribute, int context,signed char regionId,  const QChar *ch);
 
     virtual const QChar *checkHgl(const QChar *, int len, bool);
   protected:
@@ -77,7 +82,7 @@ class Hl2CharDetect : public HlItem {
 
 class HlStringDetect : public HlItem {
   public:
-    HlStringDetect(int attribute, int context, const QString &, bool inSensitive=false);
+    HlStringDetect(int attribute, int context, signed char regionId, const QString &, bool inSensitive=false);
     virtual ~HlStringDetect();
     virtual const QChar *checkHgl(const QChar *, int len, bool);
   protected:
@@ -87,7 +92,7 @@ class HlStringDetect : public HlItem {
 
 class HlRangeDetect : public HlItem {
   public:
-    HlRangeDetect(int attribute, int context, QChar ch1, QChar ch2);
+    HlRangeDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
   protected:
     QChar sChar1;
@@ -97,7 +102,7 @@ class HlRangeDetect : public HlItem {
 class HlKeyword : public HlItem
 {
   public:
-    HlKeyword(int attribute, int context,bool casesensitive, const QChar *deliminator, uint deliLen);
+    HlKeyword(int attribute, int context,signed char regionId, bool casesensitive, const QChar *deliminator, uint deliLen);
     virtual ~HlKeyword();
 
     virtual void addWord(const QString &);
@@ -114,12 +119,12 @@ class HlKeyword : public HlItem
 
 class HlPHex : public HlItem {
   public:
-    HlPHex(int attribute,int context);
+    HlPHex(int attribute,int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
 };
 class HlInt : public HlItem {
   public:
-    HlInt(int attribute, int context);
+    HlInt(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     virtual bool startEnable(QChar c);
 
@@ -127,39 +132,39 @@ class HlInt : public HlItem {
 
 class HlFloat : public HlItem {
   public:
-    HlFloat(int attribute, int context);
+    HlFloat(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     virtual bool startEnable(QChar c);
 };
 
 class HlCInt : public HlInt {
   public:
-    HlCInt(int attribute, int context);
+    HlCInt(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
 };
 
 class HlCOct : public HlItem {
   public:
-    HlCOct(int attribute, int context);
+    HlCOct(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
 };
 
 class HlCHex : public HlItem {
   public:
-    HlCHex(int attribute, int context);
+    HlCHex(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
 };
 
 class HlCFloat : public HlFloat {
   public:
-    HlCFloat(int attribute, int context);
+    HlCFloat(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     const QChar *checkIntHgl(const QChar *, int, bool);
 };
 
 class HlLineContinue : public HlItem {
   public:
-    HlLineContinue(int attribute, int context);
+    HlLineContinue(int attribute, int context, signed char regionId);
     virtual bool endEnable(QChar c) {return c == '\0';}
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     virtual bool lineContinue(){return true;}
@@ -167,19 +172,19 @@ class HlLineContinue : public HlItem {
 
 class HlCStringChar : public HlItem {
   public:
-    HlCStringChar(int attribute, int context);
+    HlCStringChar(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
 };
 
 class HlCChar : public HlItem {
   public:
-    HlCChar(int attribute, int context);
+    HlCChar(int attribute, int context,signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
 };
 
 class HlAnyChar : public HlItem {
   public:
-    HlAnyChar(int attribute, int context, const QChar* charList, uint len);
+    HlAnyChar(int attribute, int context, signed char regionId, const QChar* charList, uint len);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     const QChar* _charList;
     uint _charListLen;
@@ -187,7 +192,7 @@ class HlAnyChar : public HlItem {
 
 class HlRegExpr : public HlItem {
   public:
-  HlRegExpr(int attribute, int context,QString expr, bool insensitive, bool minimal);
+  HlRegExpr(int attribute, int context,signed char regionId ,QString expr, bool insensitive, bool minimal);
   virtual const QChar *checkHgl(const QChar *, int len, bool);
   ~HlRegExpr(){delete Expr;};
 
@@ -302,8 +307,12 @@ class Highlight
     // manipulates the ctxs array directly ;)
     void generateContextStack(int *ctxNum, int ctx, QMemArray<signed char> *ctxs, int *posPrevLine,bool lineContinue=false);
 
-    HlItem *createHlItem(struct syntaxContextData *data, ItemDataList &iDl);
+    HlItem *createHlItem(struct syntaxContextData *data, ItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, ItemDataList &iDl);
+
+    void createContextNameList(QStringList *ContextNameList);
+    int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext);
+
     ItemDataList internalIDList;
 
     QIntDict<HlContext> contextList;

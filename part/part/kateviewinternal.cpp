@@ -1612,7 +1612,8 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   }
 
   // unfold if required
-  if ( ! m_doc->kateTextLine( newCursor.line )->isVisible() )
+  TextLine::Ptr l = m_doc->kateTextLine( newCursor.line );
+  if ( l && ! l->isVisible() )
     m_doc->foldingTree()->ensureVisible( newCursor.line );
   
   KateTextCursor oldDisplayCursor = displayCursor;

@@ -81,11 +81,3 @@ SessionConfigInterface *KTextEditor::sessionConfigInterface (Plugin *plugin)
 
   return static_cast<SessionConfigInterface*>(plugin->qt_cast("KTextEditor::SessionConfigInterface"));
 }
-
-SessionConfigInterface *KTextEditor::sessionConfigInterface (ViewPlugin *plugin)
-{                       
-  if (!plugin)
-    return 0;
-
-  return static_cast<SessionConfigInterface*>(plugin->qt_cast("KTextEditor::SessionConfigInterface"));
-}

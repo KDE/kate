@@ -81,7 +81,6 @@ class ViewPlugin;
 
 ConfigInterface *configInterface (Document *doc);
 ConfigInterface *configInterface (Plugin *plugin);
-ConfigInterface *configInterface (ViewPlugin *plugin);
 
 };
 

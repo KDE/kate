@@ -24,21 +24,24 @@
 
 /*
 
-THIS IS A TEXT VERSION OF THIS INTERFACE
+THIS IS A TEST VERSION OF THIS INTERFACE
 THIS WILL CHANGE IN A VERY VERY VERY BIC WAY BEFORE 3.1 !!!!!!!!!!!!!
-DON'T USE IT ANYWHERE BE THIS COMMENT HAS GONE AWAY
+DON'T USE IT ANYWHERE UNTIL THIS COMMENT HAS GONE AWAY
 
 by cullmann
 
 */
 
 namespace KTextEditor
-{
+{                       
+
+class Document;
+class View;
 
 /*
  * basic plugin class
  * this plugin will be bound to a ktexteditor::document
- */
+ */                     
 class Plugin : public QObject
 {
   friend class PrivatePlugin;
@@ -46,51 +49,48 @@ class Plugin : public QObject
   Q_OBJECT
 
   public:
-    Plugin ( QObject *parent = 0, const char *name = 0 );
+    Plugin ( Document *document = 0, const char *name = 0 );
     virtual ~Plugin ();
     
     unsigned int pluginNumber () const;
+      
+    Document *document () const;
     
-    /*
-     * will be called from the part to bound the plugin to a document
-     */
-    virtual void setDocument (class Document *) = 0;
-  
   private:
     class PrivatePlugin *d;
     static unsigned int globalPluginNumber;
     unsigned int myPluginNumber;
 };
+   
+Plugin *createPlugin ( const char* libname, Document *document = 0, const char *name = 0 );
 
 /*
  * view plugin class
  * this plugin will be bound to a ktexteditor::view
  */
-class ViewPlugin : public QObject, virtual public KXMLGUIClient
+class PluginViewInterface
 {
-  friend class PrivateViewPlugin;
-
-  Q_OBJECT
+  friend class PrivatePluginViewInterface;
 
   public:
-    ViewPlugin ( QObject *parent = 0, const char *name = 0 );
-    virtual ~ViewPlugin ();
+    PluginViewInterface ();
+    virtual ~PluginViewInterface ();
     
-    unsigned int viewPluginNumber () const;
+    unsigned int pluginViewInterfaceNumber () const;
   
     /*
      * will be called from the part to bound the plugin to a view
      */
-    virtual void setView (class View *) = 0;
+    virtual void addView (View *) = 0;
+    virtual void removeView (View *) = 0;
 
   private:
-    class PrivateViewPlugin *d;
-    static unsigned int globalViewPluginNumber;
-    unsigned int myViewPluginNumber;
+    class PrivatePluginViewInterface *d;
+    static unsigned int globalPluginViewInterfaceNumber;
+    unsigned int myPluginViewInterfaceNumber;
 };         
 
-Plugin *createPlugin ( const char* libname, QObject *parent = 0, const char *name = 0 );
-ViewPlugin *createViewPlugin ( const char* libname, QObject *parent = 0, const char *name = 0 );
+PluginViewInterface *pluginViewInterface (Plugin *plugin);
 
 };
 

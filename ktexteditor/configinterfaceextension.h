@@ -100,7 +100,6 @@ class ViewPlugin;
 
 ConfigInterfaceExtension *configInterfaceExtension (Document *doc);
 ConfigInterfaceExtension *configInterfaceExtension (Plugin *plugin);
-ConfigInterfaceExtension *configInterfaceExtension (ViewPlugin *plugin);
 
 };
 

@@ -72,11 +72,3 @@ ConfigInterface *KTextEditor::configInterface (Plugin *plugin)
 
   return static_cast<ConfigInterface*>(plugin->qt_cast("KTextEditor::ConfigInterface"));
 }
-
-ConfigInterface *KTextEditor::configInterface (ViewPlugin *plugin)
-{                       
-  if (!plugin)
-    return 0;
-
-  return static_cast<ConfigInterface*>(plugin->qt_cast("KTextEditor::ConfigInterface"));
-}

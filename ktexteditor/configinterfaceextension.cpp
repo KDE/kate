@@ -77,11 +77,3 @@ ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (Plugin *plugin)
 
   return static_cast<ConfigInterfaceExtension*>(plugin->qt_cast("KTextEditor::ConfigInterfaceExtension"));
 }
-
-ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (ViewPlugin *plugin)
-{                       
-  if (!plugin)
-    return 0;
-
-  return static_cast<ConfigInterfaceExtension*>(plugin->qt_cast("KTextEditor::ConfigInterfaceExtension"));
-}              

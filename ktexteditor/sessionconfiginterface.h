@@ -56,7 +56,6 @@ class SessionConfigInterface
 SessionConfigInterface *sessionConfigInterface (class Document *doc);
 SessionConfigInterface *sessionConfigInterface (class View *view);
 SessionConfigInterface *sessionConfigInterface (class Plugin *plugin);
-SessionConfigInterface *sessionConfigInterface (class ViewPlugin *plugin);
 
 };
 

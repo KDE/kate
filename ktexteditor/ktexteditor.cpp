@@ -70,17 +70,19 @@ namespace KTextEditor
 
     ~PrivatePlugin ()
     {
-    }
+    }       
+    
+    class Document *m_doc;
   };
   
-  class PrivatePluginView
+  class PrivatePluginViewInterface
   {
   public:
-    PrivatePluginView ()
+    PrivatePluginViewInterface ()
     {
     }
 
-    ~PrivatePluginView ()
+    ~PrivatePluginViewInterface ()
     {
     }
   };
@@ -101,7 +103,7 @@ namespace KTextEditor
 unsigned int Document::globalDocumentNumber = 0;
 unsigned int View::globalViewNumber = 0;
 unsigned int Plugin::globalPluginNumber = 0;
-unsigned int ViewPlugin::globalViewPluginNumber = 0;
+unsigned int PluginViewInterface::globalPluginViewInterfaceNumber = 0;
 unsigned int Editor::globalEditorNumber = 0;
 
 Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
@@ -134,10 +136,12 @@ unsigned int View::viewNumber () const
   return myViewNumber;
 }
 
-Plugin::Plugin( QObject *parent, const char *name ) : QObject (parent, name )
+Plugin::Plugin( Document *document, const char *name ) : QObject (document, name )
 {
   globalPluginNumber++;
-  myPluginNumber = globalPluginNumber;
+  myPluginNumber = globalPluginNumber; 
+  d = new PrivatePlugin ();
+  d->m_doc = document;
 }
 
 Plugin::~Plugin()
@@ -147,21 +151,26 @@ Plugin::~Plugin()
 unsigned int Plugin::pluginNumber () const
 {
   return myPluginNumber;
+}     
+
+Document *Plugin::document () const
+{
+  return d->m_doc;
 }
 
-ViewPlugin::ViewPlugin( QObject *parent, const char *name ) : QObject (parent, name )
+PluginViewInterface::PluginViewInterface()
 {
-  globalViewPluginNumber++;
-  myViewPluginNumber = globalViewPluginNumber;
+  globalPluginViewInterfaceNumber++;
+  myPluginViewInterfaceNumber = globalPluginViewInterfaceNumber;
 }
 
-ViewPlugin::~ViewPlugin()
+PluginViewInterface::~PluginViewInterface()
 {
 }
 
-unsigned int ViewPlugin::viewPluginNumber () const
+unsigned int PluginViewInterface::pluginViewInterfaceNumber () const
 {
-  return myViewPluginNumber;
+  return myPluginViewInterfaceNumber;
 }
 
 Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
@@ -189,12 +198,16 @@ Document *KTextEditor::createDocument ( const char* libname, QObject *parent, co
   return KParts::ComponentFactory::createInstanceFromLibrary<Document>( libname, parent, name );
 }     
 
-Plugin *KTextEditor::createPlugin ( const char* libname, QObject *parent, const char *name )
+Plugin *KTextEditor::createPlugin ( const char* libname, Document *document, const char *name )
 {
-  return KParts::ComponentFactory::createInstanceFromLibrary<Plugin>( libname, parent, name );
+  return KParts::ComponentFactory::createInstanceFromLibrary<Plugin>( libname, document, name );
 }
 
-ViewPlugin *KTextEditor::createViewPlugin ( const char* libname, QObject *parent, const char *name )
-{
-  return KParts::ComponentFactory::createInstanceFromLibrary<ViewPlugin>( libname, parent, name );
+PluginViewInterface *KTextEditor::pluginViewInterface (Plugin *plugin)
+{       
+  if (!plugin)
+    return 0;
+
+  return static_cast<PluginViewInterface*>(plugin->qt_cast("KTextEditor::PluginViewInterface"));
 }
+

@@ -173,7 +173,7 @@ int TextLine::lastChar() const
 
 void TextLine::removeSpaces()
 {
-  while (text.size() > 0 && text[text.size() - 1].isSpace()) truncate (text.size()-1);
+  truncate(lastChar() + 1);
 }
 
 QChar TextLine::getChar(uint pos) const
@@ -186,7 +186,7 @@ QChar TextLine::getChar(uint pos) const
 
 QChar *TextLine::firstNonSpace() const
 {
-  int first=firstChar();
+  int first = firstChar();
   return (first > -1) ? &text[first] : text.data();
 }
 

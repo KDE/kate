@@ -271,6 +271,8 @@ private:
    uint m_highlightedRequested; // The highest line that we requested highlight for
 
    bool m_noHlUpdate;
+   
+   uint m_lastInSyncBlock;  // last block where the start/end line is in sync with real life
 
    class Highlight *m_highlight;
    class KateDocument *m_doc;

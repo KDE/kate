@@ -1578,6 +1578,8 @@ void KateDocument::undo()
 {
   if ((undoItems.count() > 0) && undoItems.last())
   {
+    clearSelection ();
+
     undoItems.last()->undo();
     redoItems.append (undoItems.last());
     undoItems.removeLast ();
@@ -1591,6 +1593,8 @@ void KateDocument::redo()
 {
   if ((redoItems.count() > 0) && redoItems.last())
   {
+    clearSelection ();
+
     redoItems.last()->redo();
     undoItems.append (redoItems.last());
     redoItems.removeLast ();

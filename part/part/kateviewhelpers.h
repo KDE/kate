@@ -31,6 +31,9 @@
 class KateDocument;
 class KateView;
 class KateViewInternal;
+namespace Kate {
+  class Command;
+};
 
 class KateCmdLine : public KLineEdit
 {
@@ -52,7 +55,11 @@ class KateCmdLine : public KLineEdit
     KateView *m_view;
     bool m_msgMode;
     QString m_oldText;
-    uint m_histpos;
+    uint m_histpos; ///< position in the history
+    uint m_cmdend; ///< the point where a command ends in the text, if we have a valid one.
+    Kate::Command *m_command; ///< For completing flags/args and interactiveness
+    class KCompletion *m_oldCompletionObject; ///< save while completing command args.
+    class KateCmdLnWhatsThis *m_help;
 };
 
 class KateIconBorder : public QWidget

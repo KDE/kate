@@ -25,11 +25,17 @@
 #include "kateconfig.h"
 #include "kateautoindent.h"
 #include "katetextline.h"
+#include "../interfaces/katecmd.h"
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kurl.h>
+#include <kshellcompletion.h>
 
 #include <qregexp.h>
+
+#define kdDebug() kdDebug(13025)
+
 //BEGIN CoreCommands
 // syncs a config flag in the document with a boolean value
 static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
@@ -138,7 +144,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   }
   else if ( cmd == "set-highlight" )
   {
-    QString val = args.first().lower();
+    QString val = _cmd.section( ' ', 1 ).lower();
     for ( uint i=0; i < v->doc()->hlModeCount(); i++ )
     {
       if ( v->doc()->hlModeName( i ).lower() == val )
@@ -242,6 +248,23 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   // unlikely..
   KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
 }
+
+KCompletion *KateCommands::CoreCommands::completionObject( const QString &cmd, Kate::View *view )
+{
+  if ( cmd == "set-highlight" )
+  {
+    KateView *v = (KateView*)view;
+    QStringList l;
+    for ( uint i = 0; i < v->doc()->hlModeCount(); i++ )
+      l << v->doc()->hlModeName( i );
+
+    KateCmdShellCompletion *co = new KateCmdShellCompletion();
+    co->setItems( l );
+    co->setIgnoreCase( true );
+    return co;
+  }
+  return 0L;
+}
 //END CoreCommands
 
 //BEGIN SedReplace
@@ -333,7 +356,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
       if ( i )
         patterns[i].prepend("^");
 
-      kdDebug(13030)<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
+      kdDebug()<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
     }
   }
 
@@ -416,7 +439,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
 bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &msg)
 {
-  kdDebug(13030)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
+  kdDebug()<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
   QRegExp delim("^[$%]?s\\s*([^\\w\\s])");
   if ( delim.search( cmd ) < 0 ) return false;
@@ -427,17 +450,17 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   bool onlySelect=cmd[0]=='$';
 
   QString d = delim.cap(1);
-  kdDebug(13030)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
+  kdDebug()<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
 
   QRegExp splitter( QString("^[$%]?s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
   if (splitter.search(cmd)<0) return false;
 
   QString find=splitter.cap(1);
-  kdDebug(13030)<< "SedReplace: find=" << find.latin1() <<endl;
+  kdDebug()<< "SedReplace: find=" << find.latin1() <<endl;
 
   QString replace=splitter.cap(2);
   exchangeAbbrevs(replace);
-  kdDebug(13030)<< "SedReplace: replace=" << replace.latin1() <<endl;
+  kdDebug()<< "SedReplace: replace=" << replace.latin1() <<endl;
 
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;
@@ -541,4 +564,6 @@ bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
   return true;
 }
 //END Date
+
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

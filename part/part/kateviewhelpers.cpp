@@ -21,13 +21,16 @@
 #include "kateviewhelpers.h"
 #include "kateviewhelpers.moc"
 
+#include "../interfaces/document.h"
+#include "../interfaces/katecmd.h"
+#include "kateattribute.h"
+#include "katecodefoldinghelpers.h"
+#include "kateconfig.h"
+#include "katedocument.h"
+#include "katefactory.h"
+#include "katerenderer.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
-#include "katedocument.h"
-#include "katecodefoldinghelpers.h"
-#include "katerenderer.h"
-#include "kateattribute.h"
-#include "kateconfig.h"
 
 #include <kglobalsettings.h>
 #include <klocale.h>
@@ -36,47 +39,131 @@
 #include <kcharsets.h>
 #include <kpopupmenu.h>
 
-#include <qpainter.h>
 #include <qcursor.h>
+#include <qpainter.h>
+#include <qpopupmenu.h>
 #include <qstyle.h>
 #include <qtimer.h>
+#include <qwhatsthis.h>
 #include <qregexp.h>
 #include <qtextcodec.h>
 
 #include <math.h>
 
-#include "kateview.h"
-#include "katefactory.h"
-
-#include "../interfaces/katecmd.h"
-#include "../interfaces/document.h"
-
-#include <klocale.h>
-
-#include <qtimer.h>
-
 #include <kdebug.h>
 
+//BEGIN KateCmdLnWhatsThis
+class KateCmdLnWhatsThis : public QWhatsThis
+{
+  public:
+    KateCmdLnWhatsThis( KateCmdLine *parent )
+  : QWhatsThis( parent )
+  , m_parent( parent ) {;}
+
+    QString text( const QPoint & )
+    {
+      QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
+      QString mid = "</big></b></font></td></tr><tr><td>";
+      QString end = "</td></tr></table></div><qt>";
+
+      QString t = m_parent->text();
+      QRegExp re( "\\s*help\\s+(.*)" );
+      if ( re.search( t ) > -1 )
+      {
+        QString s;
+        // get help for command
+        QString name = re.cap( 1 );
+        if ( name == "list" )
+        {
+          return beg + i18n("Available Commands") + mid
+              + KateCmd::self()->cmds().join(" ")
+              + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
+              + end;
+        }
+        else if ( ! name.isEmpty() )
+        {
+          Kate::Command *cmd = KateCmd::self()->queryCommand( name );
+          if ( cmd )
+          {
+            if ( cmd->help( (Kate::View*)m_parent->parentWidget(), name, s ) )
+              return beg + name + mid + s + end;
+            else
+              return beg + name + mid + i18n("No help for '%1'").arg( name ) + end;
+          }
+          else
+            return beg + mid + i18n("No such command <b>%1</b>").arg(name) + end;
+        }
+      }
+
+      return beg + mid + i18n(
+          "<p>This is the Katepart <b>command line</b>.<br>"
+          "Syntax: <code><b>command [ arguments ]</b></code><br>"
+          "For a list of available commands, enter <code><b>help list</b></code><br>"
+          "For help for individual commmands, enter <code><b>help &lt;command&gt;</b></code></p>")
+          + end;
+    }
+
+  private:
+    KateCmdLine *m_parent;
+};
+//END KateCmdLnWhatsThis
+
+//BEGIN KateCmdLineFlagCompletion
+/**
+ * This class provide completion of flags. It shows a short description of
+ * each flag, and flags are appended.
+ */
+class KateCmdLineFlagCompletion : public KCompletion
+{
+  public:
+    KateCmdLineFlagCompletion() {;}
+
+    QString makeCompletion( const QString & s )
+    {
+    }
+
+};
+//END KateCmdLineFlagCompletion
+
 //BEGIN KateCmdLine
+#define kdDebug() kdDebug(13025)
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
   , m_view (view)
   , m_msgMode (false)
   , m_histpos( 0 )
+  , m_cmdend( 0 )
+  , m_command( 0L )
+  , m_oldCompletionObject( 0L )
 {
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
 
   completionObject()->insertItems (KateCmd::self()->cmds());
+  setAutoDeleteCompletionObject( false );
+  m_help = new KateCmdLnWhatsThis( this );
 }
 
 void KateCmdLine::slotReturnPressed ( const QString& text )
 {
+
+  // silently ignore leading space
   uint n = 0;
   while( text[n].isSpace() )
     n++;
 
   QString cmd = text.mid( n );
+
+  // Built in help: if the command starts with "help", [try to] show some help
+  if ( cmd.startsWith( "help" ) )
+  {
+    m_help->display( m_help->text( QPoint() ), mapToGlobal(QPoint(0,0)) );
+    clear();
+    KateCmd::self()->appendHistory( cmd );
+    m_histpos = KateCmd::self()->historyLength();
+    m_oldText = QString ();
+    return;
+  }
 
   if (cmd.length () > 0)
   {
@@ -116,6 +203,18 @@ void KateCmdLine::slotReturnPressed ( const QString& text )
     }
   }
 
+  // clean up
+  if ( m_oldCompletionObject )
+  {
+    KCompletion *c = completionObject();
+    setCompletionObject( m_oldCompletionObject );
+    m_oldCompletionObject = 0;
+    delete c;
+    c = 0;
+  }
+  m_command = 0;
+  m_cmdend = 0;
+
   m_view->setFocus ();
   QTimer::singleShot( 4000, this, SLOT(hideMe()) );
 }
@@ -151,7 +250,102 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   else if ( ev->key() == Key_Down )
     fromHistory( false );
 
-  return KLineEdit::keyPressEvent (ev);
+  uint cursorpos = cursorPosition();
+  KLineEdit::keyPressEvent (ev);
+
+  // during typing, let us see if we have a valid command
+  if ( ! m_cmdend || cursorpos <= m_cmdend  )
+  {
+    QChar c;
+    if ( ! ev->text().isEmpty() )
+      c = ev->text()[0];
+
+    if ( ! m_cmdend && ! c.isNull() ) // we have no command, so lets see if we got one
+    {
+      if ( ! c.isLetterOrNumber() && c != '-' && c != '_' )
+      {
+        m_command = KateCmd::self()->queryCommand( text().stripWhiteSpace() );
+        if ( m_command )
+        {
+          //kdDebug()<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
+          // if the typed character is ":",
+          // we try if the command has flag completions
+          m_cmdend = cursorpos;
+          //kdDebug()<<"keypress in commandline: Set m_cmdend to "<<m_cmdend<<endl;
+        }
+        else
+          m_cmdend = 0;
+      }
+    }
+    else // since cursor is inside the command name, we reconsider it
+    {
+      kdDebug()<<"keypress in commandline: \\W -- text is "<<text()<<endl;
+      m_command = KateCmd::self()->queryCommand( text().stripWhiteSpace() );
+      if ( m_command )
+      {
+        //kdDebug()<<"keypress in commandline: We have a command! "<<m_command<<endl;
+        QString t = text();
+        m_cmdend = 0;
+        bool b = false;
+        for ( ; m_cmdend < t.length(); m_cmdend++ )
+        {
+          if ( t[m_cmdend].isLetter() )
+            b = true;
+          if ( b && ( ! t[m_cmdend].isLetterOrNumber() && t[m_cmdend] != '-' && t[m_cmdend] != '_' ) )
+            break;
+        }
+
+        if ( c == ':' && cursorpos == m_cmdend )
+        {
+          // check if this command wants to complete flags
+          //kdDebug()<<"keypress in commandline: Checking if flag completion is desired!"<<endl;
+        }
+      }
+      else
+      {
+        // clean up if needed
+        if ( m_oldCompletionObject )
+        {
+          KCompletion *c = completionObject();
+          setCompletionObject( m_oldCompletionObject );
+          m_oldCompletionObject = 0;
+          delete c;
+          c = 0;
+        }
+
+        m_cmdend = 0;
+      }
+    }
+
+    // if we got a command, check if it wants to do semething.
+    if ( m_command )
+    {
+      //kdDebug()<<"Checking for CommandExtension.."<<endl;
+      Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>(m_command);
+      if ( ce )
+      {
+        KCompletion *cmpl = ce->completionObject( text().left( m_cmdend ).stripWhiteSpace(), m_view );
+        if ( cmpl )
+        {
+        // save the old completion object and use what the command provides
+        // instead. We also need to prepend the current command name + flag string
+        // when completion is done
+          //kdDebug()<<"keypress in commandline: Setting completion object!"<<endl;
+          if ( ! m_oldCompletionObject )
+            m_oldCompletionObject = completionObject();
+
+          setCompletionObject( cmpl );
+        }
+      }
+    }
+  }
+  else if ( m_command )// check if we should call the commands processText()
+  {
+    //kdDebug()<<"keypress in commandline: Checking processing text is desired!"<<endl;
+    Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>(m_command);
+    if ( ce && ce->wantsToProcessText( text().left( m_cmdend ).stripWhiteSpace() ) )
+      ce->processText( text() );
+  }
 }
 
 void KateCmdLine::fromHistory( bool up )
@@ -190,6 +384,7 @@ void KateCmdLine::fromHistory( bool up )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
 }
+#undef kdDebug()
 //END KateCmdLine
 
 //BEGIN KateIconBorder

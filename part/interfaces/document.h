@@ -40,6 +40,8 @@
 
 #include <kaction.h>
 
+class KCompletion;
+
 /**
  * Kate namespace
  * All classes in this namespace must stay BC
@@ -115,6 +117,65 @@ class KATEPARTINTERFACES_EXPORT Command
      * about success, msg for status
      */
     virtual bool help (View *view, const QString &cmd, QString &msg) = 0;
+};
+
+/**
+ * Extension to the Command interface, allowing to interact with commands
+ * during typing. This allows for completion and for example the isearch
+ * plugin. If you develop a command that wants to complete or process text
+ * as thu user types the arguments, or that has flags, you can have
+ * your command inherit this class.
+ */
+class CommandExtension
+{
+  public:
+    CommandExtension() {;}
+    virtual ~CommandExtension() {;}
+
+    /**
+     * Fill in a list of flags to complete from. Each flag is a single letter,
+     * any following text in the string is taken to be a description of the
+     * flag's meaning, and showed to the user as a hint.
+     * Implement this method if your command has flags.
+     *
+     * This method is called each time the flag string in the typed command
+     * is changed, so that the available flags can be adjusted. When completions
+     * are displayed, existing flags are left out.
+     *
+     * @param current the current flags string
+     * @param list Add the strings here.
+     */ //### this is yet to be tried
+    virtual void flagCompletions( QStringList& /*list*/ ) {;}
+
+    /**
+     * @return a KCompletion object that will substitute the command line default
+     * one while typing the first argument to the command. The text will be
+     * added to the command seperated by one space character.
+     *
+     * Implement this method if your command can provide a completion object.
+     *
+     * @param cmdname The command name associated with this request.
+     */
+    virtual KCompletion *completionObject( const QString &/*cmdname*/, Kate::View */*view*/ ) { return 0L; }
+
+    /**
+     * @return wheather this command want to process text interactively given @p cmdname.
+     * If true, the commands processText() method is called when the
+     * text in the command line is changed.
+     *
+     * Reimplement this to return true, if you commands wants to process the
+     * text as typed.
+     *
+     * @param cmdname the command name associated with this query.
+     */
+    virtual bool wantsToProcessText( const QString &/*cmdname*/) { return false; }
+
+    /**
+     * This is called by the commandline each time the argument text for the
+     * command changes, if wantsToProcessText() returns true.
+     * @param text The current command text typed by the user.
+     */ // ### yet to be tested. The obvious candidate is isearch.
+    virtual void processText( const QString &/*text*/ ) {;}
 };
 
 /** This interface provides access to the Kate Document class.

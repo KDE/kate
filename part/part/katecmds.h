@@ -25,6 +25,7 @@
 #include "../interfaces/view.h"
 
 class KateDocument;
+class KCompletion;
 
 namespace KateCommands
 {
@@ -35,7 +36,7 @@ namespace KateCommands
  * it needs to get a kateview pointer, it will cast the kate::view pointer
  * hard to kateview
  */
-class CoreCommands : public Kate::Command
+class CoreCommands : public Kate::Command, public Kate::CommandExtension
 {
   public:
     /**
@@ -54,6 +55,8 @@ class CoreCommands : public Kate::Command
      * @return prefix list
      */
     QStringList cmds();
+
+    KCompletion *completionObject( const QString &, Kate::View * );
 };
 
 /**
@@ -164,6 +167,7 @@ class Date : public Kate::Command
      */
     QStringList cmds () { return QStringList("date"); };
 };
+
 
 } // namespace KateCommands
 #endif

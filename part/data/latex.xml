@@ -339,7 +339,7 @@
   <context attribute="Normal Text" lineEndContext="Normal" name="Keyword 1">
     <keyword String="keywords" attribute="Keyword" context="Normal" />
   </context>
-  <context attribute="Formula" lineEndContext="3" name="Keyword 2">
+  <context attribute="Formula" lineEndContext="Formula" name="Keyword 2">
     <keyword String="keywords" attribute="Keyword" context="Keyword 2"/>
     <StringDetect String="\)" attribute="Formula" context="Normal"/>
   </context>

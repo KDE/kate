@@ -525,8 +525,9 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     int realLine = startRange.line;
     uint oldLine = line;
     int startCol = startRange.startCol;
-    int startX = startRange.startX, endX = startRange.startX;
-    int shiftX = startRange.startX ? startRange.shiftX : 0;
+    int startX = startRange.startX;
+    int endX = startRange.startX;
+    int shiftX = startRange.shiftX;
     bool wrap = false;
     int newViewLine = startRange.viewLine;
     // z is the current display view line
@@ -580,11 +581,12 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
           if (wrap)
           {
-            if (startX == 0)
+            if (m_view->config()->dynWordWrapAlignIndent() > 0)
             {
-              int pos = text->nextNonSpaceChar(0);
+              if (startX == 0)
+              {
+                int pos = text->nextNonSpaceChar(0);
 
-              if (m_view->config()->dynWordWrapAlignIndent() > 0) {
                 if (pos > 0)
                   shiftX = m_view->renderer()->textWidth(text, pos);
 
@@ -594,7 +596,8 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             }
 
             if ((lineRanges[z].startX != startX) || (lineRanges[z].endX != endX) ||
-                (lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol))
+                (lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol) ||
+                (lineRanges[z].shiftX != shiftX))
               lineRanges[z].dirty = true;
 
             lineRanges[z].startCol = startCol;
@@ -634,6 +637,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
           } else {
             line++;
           }
+          shiftX = lineRanges[z].shiftX;
         }
       }
       newViewLine++;
@@ -1168,17 +1172,15 @@ LineRange KateViewInternal::range(int realLine, const LineRange* previous)
 
   } else {
     // TODO worthwhile optimising this to get the data out of the initial textWidth call?
-    if (true /** make optional */) {
-  int pos = text->nextNonSpaceChar(0);
-
     if (m_view->config()->dynWordWrapAlignIndent() > 0) {
+      int pos = text->nextNonSpaceChar(0);
+
       if (pos > 0)
         ret.shiftX = m_view->renderer()->textWidth(text, pos);
 
       if (ret.shiftX > ((double)width() / 100 * m_view->config()->dynWordWrapAlignIndent()))
         ret.shiftX = 0;
     }
-  }
 
     ret.virtualLine = m_doc->getVirtualLine(realLine);
     ret.startCol = 0;

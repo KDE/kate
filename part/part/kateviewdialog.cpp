@@ -381,8 +381,8 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_doc = doc;
 
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
-  m_dynwrap=new QCheckBox(i18n("&Dynamic Word Wrap"),this);
-  m_wwmarker = new QCheckBox( i18n("Show Word Wrap Marker (if applicable)"), this ); 
+  m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),this);
+  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this ); 
 	m_line=new QCheckBox(i18n("Show &line numbers"),this);
 	m_icons=new QCheckBox(i18n("Show &icon border"),this);
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
@@ -648,8 +648,8 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   QGroupBox *gb = new QGroupBox( 1, Qt::Horizontal, i18n("Backup on Save"), this );
   layout->addWidget( gb );
-  cbLocalFiles = new QCheckBox( i18n("&Local Files"), gb );
-  cbRemoteFiles = new QCheckBox( i18n("&Remote Files"), gb );
+  cbLocalFiles = new QCheckBox( i18n("&Local files"), gb );
+  cbRemoteFiles = new QCheckBox( i18n("&Remote files"), gb );
   QHBox *hbBuSuffix = new QHBox( gb );
   QLabel *lBuSuffix = new QLabel( i18n("&Suffix:"), hbBuSuffix );
   leBuSuffix = new QLineEdit( hbBuSuffix );

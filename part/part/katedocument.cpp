@@ -503,7 +503,7 @@ QString KateDocument::configPageFullName (uint number) const
       return i18n ("Plugin Manager");
 
     case 9:
-      return i18n("Saving and Backups");
+      return i18n("Saving & Backups");
 
     default:
       return 0;

@@ -119,14 +119,20 @@ void KateRenderer::setFont(int whichFont)
 
 void KateRenderer::increaseFontSizes()
 {
-  // FIXME broken!!
-  //m_currentSettings->font.setPointSize(font.pointSize()+1);
+  QFont f ( *config()->font (font()) );
+  f.setPointSize (f.pointSize ()+1);
+
+  config()->setFont (font (), f);
 }
 
 void KateRenderer::decreaseFontSizes()
 {
-  // FIXME broken!!
-  // m_currentSettings->font.setPointSize(m_currentSettings->font.pointSize()-1);
+  QFont f ( *config()->font (font()) );
+
+  if ((f.pointSize ()-1) > 0)
+    f.setPointSize (f.pointSize ()-1);
+
+  config()->setFont (font (), f);
 }
 
 bool KateRenderer::isPrinterFriendly() const

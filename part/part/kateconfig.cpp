@@ -177,8 +177,6 @@ KateRendererConfig::KateRendererConfig ()
 {
   s_global = this;
 
-  kdDebug () << "STATIC OBJECT THERE" << endl;
-
   // init with defaults from config or really hardcoded ones
   KConfig *config = KateFactory::instance()->config();
   config->setGroup("Kate Renderer Defaults");
@@ -192,11 +190,12 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_printFontSet (false),
    m_renderer (renderer)
 {
-  kdDebug () << "DNY OBJECT THERE" << endl;
 }
 
 KateRendererConfig::~KateRendererConfig ()
 {
+  delete m_viewFont;
+  delete m_printFont;
 }
 
 KateRendererConfig *KateRendererConfig::global ()

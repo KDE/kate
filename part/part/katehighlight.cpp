@@ -995,7 +995,7 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
   {
     (*ctxNum) = ctx;
 
-    ctxs->resize (ctxs->size()+1);
+    ctxs->resize (ctxs->size()+1, QGArray::SpeedOptim);
     (*ctxs)[ctxs->size()-1]=(*ctxNum);
   }
   else
@@ -1008,7 +1008,7 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
           (*ctxNum)=0;
         else
         {
-          ctxs->truncate (ctxs->size()-1);
+          ctxs->resize (ctxs->size()-1, QGArray::SpeedOptim);
           //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
           (*ctxNum) = ( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
         }
@@ -1054,10 +1054,10 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
                         * return value: signed char*  new context stack at the end of the line
 *******************************************************************************************/
 
-void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
+void KateHighlighting::doHighlight ( KateTextLine *prevLine,
                                      KateTextLine *textLine,
-                                     bool lineContinue,
-                                     QMemArray<signed char>* foldingList )
+                                     QMemArray<signed char>* foldingList,
+                                     bool *ctxChanged )
 {
   if (!textLine)
     return;
@@ -1069,28 +1069,28 @@ void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
   }
 
 //  kdDebug(13010)<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
-
-  KateHlContext *context;
-
   // if (lineContinue) kdDebug(13010)<<"Entering with lineContinue flag set"<<endl;
 
-  int ctxNum;
-  int prevLine;
-
+  // duplicate the ctx stack, only once !
   QMemArray<short> ctx;
-  ctx.duplicate (oCtx);
+  ctx.duplicate (prevLine->ctxArray());
+  
+  // line continue flag !
+  bool lineContinue = prevLine->hlLineContinue();
+  
+  int ctxNum = 0;
+  int previousLine = -1;
+  KateHlContext *context;
 
-  if ( oCtx.isEmpty() )
+  if ( prevLine->ctxArray().isEmpty() )
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
-    ctxNum=0;
     context=contextNum(ctxNum);
-    prevLine=-1;
   }
   else
   {
     // There does an old context stack exist -> find the context at the line start
-    ctxNum=ctx[oCtx.size()-1]; //context ID of the last character in the previous line
+    ctxNum=ctx[prevLine->ctxArray().size()-1]; //context ID of the last character in the previous line
 
     //kdDebug(13010) << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
 
@@ -1101,10 +1101,10 @@ void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
 
     //kdDebug(13010)<<"test1-2-1-text2"<<endl;
 
-    prevLine=oCtx.size()-1; //position of the last context ID of th previous line within the stack
+    previousLine=prevLine->ctxArray().size()-1; //position of the last context ID of th previous line within the stack
 
     //kdDebug(13010)<<"test1-2-1-text3"<<endl;
-    generateContextStack(&ctxNum, context->ctx, &ctx, &prevLine, lineContinue); //get stack ID to use
+    generateContextStack(&ctxNum, context->ctx, &ctx, &previousLine, lineContinue); //get stack ID to use
 
     //kdDebug(13010)<<"test1-2-1-text4"<<endl;
 
@@ -1169,11 +1169,11 @@ void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
 
             if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
             {
-              foldingList->resize (foldingList->size()-1);
+              foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
             }
             else
             {
-              foldingList->resize (foldingList->size()+1);
+              foldingList->resize (foldingList->size()+1, QGArray::SpeedOptim);
               (*foldingList)[foldingList->size()-1] = item->region;
             }
 
@@ -1185,17 +1185,17 @@ void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
 
             if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-1] == -item->region2 ) )
             {
-              foldingList->resize (foldingList->size()-1);
+              foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
             }
             else
             {
-              foldingList->resize (foldingList->size()+1);
+              foldingList->resize (foldingList->size()+1, QGArray::SpeedOptim);
               (*foldingList)[foldingList->size()-1] = item->region2;
             }
 
           }
 
-          generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
+          generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
 
       //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
     //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
@@ -1219,7 +1219,7 @@ void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
       if ( context->fallthrough )
       {
         // set context to context->ftctx.
-        generateContextStack(&ctxNum, context->ftctx, &ctx, &prevLine);  //regenerate context stack
+        generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
         context=contextNum(ctxNum);
         //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
         // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
@@ -1239,12 +1239,23 @@ void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
     z++;
   }
 
-  if (item==0)
-    textLine->setHlLineContinue(false);
-  else
-    textLine->setHlLineContinue(item->lineContinue());
-
-  textLine->setContext(ctx.data(), ctx.size());
+  // has the context stack changed ?
+  if (ctx == textLine->ctxArray())
+  {
+    if (ctxChanged)
+      (*ctxChanged) = false;
+  }
+  else 
+  {
+    if (ctxChanged)
+      (*ctxChanged) = true; 
+      
+    // write ctx stack back !
+    textLine->setContext(ctx.data(), ctx.size());
+  }
+  
+  // write hl continue flag
+  textLine->setHlLineContinue (item && item->lineContinue());
 }
 
 void KateHighlighting::loadWildcards()

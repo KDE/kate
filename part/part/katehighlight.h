@@ -91,10 +91,10 @@ class KateHighlighting
     ~KateHighlighting();
 
   public:
-    void doHighlight ( const QMemArray<short> &oCtx,
+    void doHighlight ( KateTextLine *prevLine,
                        KateTextLine *textLine,
-                       bool lineContinue,
-                       QMemArray<signed char> *foldingList);
+                       QMemArray<signed char> *foldingList,
+                       bool *ctxChanged );
 
     void loadWildcards();
     QValueList<QRegExp>& getRegexpExtensions();

@@ -651,10 +651,6 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
     prevLine = buf->line(startLine - buf->startLine() - 1);
   else
     prevLine = new KateTextLine ();
-  
-  bool line_continue = prevLine->hlLineContinue();
-  
-  QMemArray<short> endCtx;
 
   // does we need to emit a signal for the folding changes ?
   bool codeFoldingUpdate = false;
@@ -673,10 +669,9 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
     // current line  
     KateTextLine::Ptr textLine = buf->line(current_line);
   
-    endCtx.duplicate (textLine->ctxArray ());
-
     QMemArray<signed char> foldingList;
-    m_highlight->doHighlight(prevLine->ctxArray(), textLine, line_continue, &foldingList);
+    bool ctxChanged = false;
+    m_highlight->doHighlight (prevLine, textLine, &foldingList, &ctxChanged);
 
     //
     // indentation sensitive folding
@@ -765,7 +760,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
       // add folding start to the list !
       if (newIn)
       {
-        foldingList.resize (foldingList.size() + 1);
+        foldingList.resize (foldingList.size() + 1, QGArray::SpeedOptim);
         foldingList[foldingList.size()-1] = 1;
       }
       
@@ -783,15 +778,14 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
 
       if (remIn > 0)
       {
-        foldingList.resize (foldingList.size() + remIn);
+        foldingList.resize (foldingList.size() + remIn, QGArray::SpeedOptim);
 
         for (uint z= foldingList.size()-remIn; z < foldingList.size(); z++)
           foldingList[z] = -1;
       }
     }
 
-    bool foldingChanged = (foldingList.size() != textLine->foldingListArray().size())
-                          || (foldingList != textLine->foldingListArray());
+    bool foldingChanged = !(foldingList == textLine->foldingListArray());
 
     if (foldingChanged)
       textLine->setFoldingList(foldingList);
@@ -801,19 +795,8 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
 
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
-    line_continue=textLine->hlLineContinue();
-
-    if ( indentChanged || (endCtx.size() != textLine->ctxArray().size()) )
-    {
-      stillcontinue = true;
-    }
-    else
-    {
-      stillcontinue = false;
-
-      if ((endCtx != textLine->ctxArray()))
-        stillcontinue = true;
-    }
+    // need we to continue ?
+    stillcontinue = ctxChanged || indentChanged;
 
     // move around the lines
     prevLine = textLine;

@@ -540,6 +540,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     private:
     void doIndent( uint line, int change );
     void optimizeLeadingSpace( uint line, int flags, int change );
+    void replaceWithOptimizedSpace( uint line, uint upto_column, uint space, int flags );
     void doComment( uint line, int change );
     public:
 

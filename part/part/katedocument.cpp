@@ -2753,8 +2753,10 @@ bool KateDocument::openFile()
   updateViews();
 
   // FIXME clean up this feature
-  if ( m_collapseTopLevelOnLoad )
+  if ( m_collapseTopLevelOnLoad ) {
+kdDebug()<<"calling collapseToplevelNodes()"<<endl;
     foldingTree()->collapseToplevelNodes();
+	}
 
   emit fileNameChanged();
 
@@ -3127,11 +3129,14 @@ void KateDocument::backspace( const KateTextCursor& c )
     else
     {
       // backspace indents: erase to next indent position
-      int l = 1; // del one char
 
       TextLine::Ptr textLine = buffer->plainLine(line);
+      int colX = textLine->cursorX(col, tabChars);
       int pos = textLine->firstChar();
-      if (pos < 0 || pos >= (int)col)
+      if (pos > 0)
+        pos = textLine->cursorX(pos, tabChars);
+
+      if (pos < 0 || pos >= (int)colX)
       {
         // only spaces on left side of cursor
         // search a line with less spaces
@@ -3141,16 +3146,23 @@ void KateDocument::backspace( const KateTextCursor& c )
           textLine = buffer->plainLine(--y);
           pos = textLine->firstChar();
 
-          if (pos >= 0 && pos < (int)col)
+          if (pos >= 0)
           {
-            l = col - pos; // del more chars
-            break;
+        pos = textLine->cursorX(pos, tabChars);
+        if (pos < (int)colX)
+        {
+          replaceWithOptimizedSpace(line, col, pos, _configFlags);
+              break;
+        }
           }
         }
+    if (y == 0) {
+      // FIXME: what shoud we do in this case?
+      removeText(line, 0, line, col);
+    }
       }
-      // break effectively jumps here
-      //c.cursor.col -= l;
-      removeText(line, col-l, line, col);
+      else
+        removeText(line, col-1, line, col);
     }
   }
   else
@@ -3360,56 +3372,72 @@ void KateDocument::doIndent( uint line, int change)
   If excess space is removed depends on the flag cfKeepExtraSpaces
   which has to be set by the user
 */
-void KateDocument::optimizeLeadingSpace(uint line, int flags, int change) {
-  int len;
-  int chars, space, okLen;
-  QChar ch;
-  int extra;
-  QString s;
-  KateTextCursor cursor;
+void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
+{
+  TextLine::Ptr textline = buffer->plainLine(line);
 
-  TextLine::Ptr textLine = buffer->plainLine(line);
-  len = textLine->length();
-  space = 0; // length of space at the beginning of the textline
-  okLen = 0; // length of space which does not have to be replaced
-  for (chars = 0; chars < len; chars++) {
-    ch = textLine->getChar(chars);
-    if (ch == ' ') {
-      space++;
-      if (flags & KateDocument::cfSpaceIndent && okLen == chars) okLen++;
-    } else if (ch == '\t') {
-      space += tabChars - space % tabChars;
-      if (!(flags & KateDocument::cfSpaceIndent) && okLen == chars) okLen++;
-    } else break;
+  int first_char = textline->firstChar();
+  if (first_char < 0) {
+    // if the line contains space only, clear it
+    removeText(line, 0, line, textline->length());
+    return;
   }
 
-  space += change*tabChars; // modify space width
-  // if line contains only spaces it will be cleared
-  if (space < 0 || chars == len) space = 0;
+  int space = textline->cursorX(first_char, tabChars) + change * tabChars;
+  if (space < 0)
+    space = 0;
+  if (!(flags & KateDocument::cfKeepExtraSpaces)) {
+    uint extra = space % tabChars;
+    space -= extra;
+    if (extra && change < 0) {
+      // otherwise it unindents too much (e.g. 12 chars when tab is 8 chars wide)
+      space += tabChars;
+    }
+  }
 
-  extra = space % tabChars; // extra spaces which dont fit the indentation pattern
-  if (flags & KateDocument::cfKeepExtraSpaces) chars -= extra;
+  replaceWithOptimizedSpace(line, first_char, space, flags);
+}
+
+void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint space, int flags)
+{
+  uint length;
+  QString new_space;
 
   if (flags & KateDocument::cfSpaceIndent) {
-    space -= extra;
-    ch = ' ';
-  } else {
-    space /= tabChars;
-    ch = '\t';
+    length = space;
+    new_space.fill(' ', length);
+  }
+  else {
+    length = space / tabChars;
+    new_space.fill('\t', length);
+
+    QString extra_space;
+    extra_space.fill(' ', space % tabChars);
+    length += space % tabChars;
+    new_space += extra_space;
   }
 
-  // dont replace chars which are already ok
-  cursor.setCol(QMIN(okLen, QMIN(chars, space)));
-  chars -= cursor.col();
-  space -= cursor.col();
-  if (chars == 0 && space == 0) return; //nothing to do
+  TextLine::Ptr textline = buffer->plainLine(line);
+  uint change_from;
+  for (change_from = 0; change_from < upto_column && change_from < length; change_from++) {
+    if (textline->getChar(change_from) != new_space[change_from])
+      break;
+  }
 
-  s.fill(ch, space);
+  editStart();
 
-//printf("chars %d insert %d cursor.col %d\n", chars, insert, cursor.col);
-  cursor.setLine(line);
-  removeText (cursor.line(), cursor.col(), cursor.line(), cursor.col()+chars);
-  insertText(cursor.line(), cursor.col(), s);
+  if (change_from < upto_column)
+    removeText(line, change_from, line, upto_column);
+  if (change_from < length) {
+    insertText(line, change_from, new_space.right(length - change_from));
+    // FIXME: this doesn't work as intended. Is m_activeView updated at all?
+    if (m_activeView) {
+      m_activeView->m_viewInternal->cursorCache.setPos(line, length);
+      m_activeView->m_viewInternal->cursorCacheChanged = true;
+    }
+  }
+
+  editEnd();
 }
 
 /*

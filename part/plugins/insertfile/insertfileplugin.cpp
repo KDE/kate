@@ -30,6 +30,7 @@
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <kpushbutton.h>
 #include <ktempfile.h>
 #include <kurl.h>
 
@@ -81,9 +82,15 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
 
 void InsertFilePluginView::slotInsertFile()
 {
-  _file = KFileDialog::getOpenURL( "::insertfile", "",
-                                             (QWidget*)parent(),
-                                             i18n("Choose File to Insert") ).url();
+  KFileDialog dlg("::insertfile", "", (QWidget*)parent(), "filedialog", true);
+  dlg.setOperationMode( KFileDialog::Opening );
+
+  dlg.setCaption(i18n("Choose File to Insert"));
+  dlg.okButton()->setText(i18n("&Insert"));
+  dlg.setMode( KFile::File );
+  dlg.exec();
+
+  _file = dlg.selectedURL().url();
   if ( _file.isEmpty() ) return;
 
   if ( _file.isLocalFile() ) {

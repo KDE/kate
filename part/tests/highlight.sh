@@ -7,6 +7,8 @@
 # are all in FindCommands.  The main objective is to create really proper nesting of
 # (multiline) strings, variables, expressions, etc.
 
+
+
 # ============== Tests: ===============
 
 # basic types:
@@ -16,12 +18,24 @@ $'string with esc\apes\x0din it'
 $"string meant to be translated"
 
 
+# comments:
+# this is a comment
+#this too
+echo this is#nt a comment
+dcop kate EditInterface#1 #this is
+
+
 # brace expansion
 mv my_file.{JPG,jpg}
 
 
+# special characters are escaped:
+echo \(output\) \&\| \> \< \" \' \*
+
+
 # variable substitution:
 $filename.ext
+$filename_ext
 ${filename}_ext
 text${array[$subscript]}.text
 text${array["string"]}.text
@@ -29,7 +43,7 @@ ${!prefix*}
 ${!redir}
 short are $_, $$, $?, ${@}, etc.
 ${variable//a/d}
-${1:-default}		# TODO
+${1:-default}
 
 
 # expression subst:
@@ -45,14 +59,18 @@ echo `cat myfile`
 $(<$filename)
 $(</path/to/myfile)
 
-
 # process subst:
-sort <(show_labels) | sed 's/a/bg' > my_file.txt
+sort <(show_labels) | sed 's/a/bg' > my_file.txt 2>&1
 
 
 # All substitutions also work in strings:
 "subst ${in}side string"  'not $inside this ofcourse'
 "The result is $(( $a + $b )). Thanks!"
+"Your homedir contains `ls $HOME |wc -l` files."
+
+
+# Escapes in strings:
+p="String \` with \$ escapes \" ";
 
 
 # keywords are black, builtins dark purple and common commands lighter purple
@@ -116,6 +134,8 @@ DIR=/dev
 p=`ls`
 LC_ALL="nl" dcop 'kate*'
 _VAR=val
+ARR=(this is an array)
+ARR2=([this]=too [and]="this too")
 usage="$0 -- version $VERSION
 Multiple lines of output
 can be possible."
@@ -124,17 +144,57 @@ can be possible."
 # Some commands expect variable names, these are colored correctly:
 export PATH=/my/bin:$PATH BLAAT
 export A B D
-local p=3 x=$1 y='\'
-read x y z 	# TODO
+local p=3  x  y='\'
+read x y z <<< $hallo
 unset B
-
-
-# The let builtin has special characteristics:
-let  i=i+1	# TODO don't eat whole line.
-make i=i+1
-
+declare -a VAR1 VAR2 && exit
+declare less a && b 
 
 # options are recoqnized:
 zip -f=file.zip
 ./configure  --destdir=/usr
 make  destdir=/usr/
+
+
+# [[ and [ correctly need spaces to be regarded as structure,
+# otherwise they are patterns (currently treated as normal text)
+if [ "$p" == "" ] ; then
+	ls /usr/bin/[a-z]*
+elif [[ $p == 0 ]] ; then
+	ls /usr/share/$p
+fi
+
+# Fixed:
+ls a[ab]*		# dont try to interprete as assignment with subscript (fixed)
+a[ab]
+a[ab]=sa
+
+
+# Here documents are difficult to catch:
+cat > myfile << __EOF__
+You're right, this is definitely no bash code
+But ls more $parameters should be expanded.
+__EOF__
+
+
+# quoted:
+cat << "EOF"
+You're right, this is definitely no bash code
+But ls more $parameters should be expanded.
+EOF
+
+
+# indented:
+if true
+then
+	cat <<- EOF
+		Indented text with a $dollar or \$two
+	EOF
+elif [ -d $file ]; then
+	cat <<- "EOF"
+		Indented text without a $dollar
+	EOF
+fi
+
+# the highlighting uses EOF and _{0,2}E[ON][A-Z_]+, quoted or not, indented or not.
+# text is correctly substituted and escaped if the delimiter is not quoted.

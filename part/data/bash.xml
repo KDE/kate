@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.96" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<!DOCTYPE language SYSTEM "language.dtd"
+[
+	<!ENTITY funcname "[A-Za-z_:][A-Za-z0-9_:#&#37;@-]*">
+]>
+<language name="Bash" version="1.97" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -489,7 +492,7 @@
 	<RegExpr attribute="Variable" context="AssignSubscr" String="\b[A-Za-z_][A-Za-z0-9_]*(?=\[[^]]+\]=)" />
 	<!-- handle functions with function keyword before keywords -->
 	<StringDetect attribute="Function" context="#stay" String=":()" />
-	<RegExpr attribute="Keyword" context="FunctionDef" String="\bfunction(?=\s+[\w:_]+\(\))" />
+	<RegExpr attribute="Keyword" context="FunctionDef" String="\bfunction\b" />
 	<!-- handle keywords -->
 	<keyword attribute="Keyword" context="#stay" String="keywords" />
 	<keyword attribute="Builtin" context="#stay" String="builtins" />
@@ -507,7 +510,7 @@
         <!-- handle redirection -->
         <RegExpr attribute="Redirection" context="#stay" String="([0-9]*(&gt;{1,2}|&lt;)(&amp;[0-9]+-?)?|&amp;&gt;|&gt;&amp;|[0-9]*&lt;&gt;)" />
 	<!-- mark function definitions without function keyword -->
-        <RegExpr attribute="Function" context="#stay" String="[\w:_]+\(\)" />
+        <RegExpr attribute="Function" context="#stay" String="&funcname;\s*\(\)" />
       </context>
 
       <!-- FindOthers contains various rules to mark different shell input -->
@@ -644,9 +647,9 @@
 	<IncludeRules context="FindOthers" />
       </context>
       
-      <!-- FunctionDef consumes anything till (), marks as Function -->
-      <context attribute="Function" lineEndContext="#pop" name="FunctionDef">
-      	<Detect2Chars attribute="Function" context="#pop" char="(" char1=")" />
+      <!-- FunctionDef consumes a name, possibly with (), marks as Function -->
+      <context attribute="Function" lineEndContext="#pop" name="FunctionDef" fallthrough="true" fallthroughContext="#pop">
+      	<RegExpr attribute="Function" context="#pop" String="\s+&funcname;(\s*\(\))?" />
       </context>            
       
       <!-- VarName consumes spare variable names and assignments -->

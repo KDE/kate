@@ -72,7 +72,8 @@ QStringList KateCommands::CoreCommands::cmds()
     << "comment" << "uncomment" << "goto" << "kill-line"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
     << "set-remove-trailing-space"
-    << "set-indent-spaces" << "set-indent-width" << "set-indent-mode" << "set-auto-indent"
+    << "set-indent-spaces" << "set-indent-width" << "set-mixed-indent"
+    << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
@@ -207,6 +208,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
             cmd == "set-remove-trailing-space" ||
             cmd == "set-show-tabs" ||
             cmd == "set-indent-spaces" ||
+            cmd == "set-mixed-indent" ||
             cmd == "set-word-wrap" ||
             cmd == "set-replace-tabs-save" ||
             cmd == "set-remove-trailing-space-save" )
@@ -230,6 +232,8 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
         setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
       else if ( cmd == "set-indent-spaces" )
         setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
+      else if ( cmd == "set-mixed-indent" )
+        setDocFlag( KateDocumentConfig::cfMixedIndent, enable, v->doc() );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
       else if ( cmd == "set-replace-tabs-save" )

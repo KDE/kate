@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C" version="1.22" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
+<language name="C" version="1.23" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -46,6 +46,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces />
+	<RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//BEGIN" beginRegion="Region1" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />
@@ -74,7 +75,6 @@
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">

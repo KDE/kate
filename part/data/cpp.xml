@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.29" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.H;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.30" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.H;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -119,12 +119,15 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces />
+	<RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//BEGIN" beginRegion="Region1" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Extensions" context="#stay" String="extensions" />
         <keyword attribute="Data Type" context="#stay" String="types" />
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
         <DetectIdentifier />
         <Float attribute="Float" context="#stay">
           <AnyChar String="fF" attribute="Float" context="#stay"/>
@@ -141,14 +144,11 @@
           <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
           <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
-        <HlCChar attribute="Char" context="#stay"/>
-        <DetectChar attribute="String" context="String" char="&quot;"/>
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]{|}~^&#59;"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">

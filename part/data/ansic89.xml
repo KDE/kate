@@ -24,7 +24,7 @@
  Boston, MA  02111-1307, USA.
 
  -->
-<language name="ANSI C89" version="1.08" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="ANSI C89" version="1.09" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -65,6 +65,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <DetectSpaces />
+	<RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
@@ -89,7 +90,6 @@
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="blockcomment"/>
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">

@@ -149,6 +149,9 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void addNodeToRemoveList(KateCodeFoldingNode *node,unsigned int line);
     void addHiddenLineBlock    (KateCodeFoldingNode *node,unsigned int line);
 
+    bool existsOpeningAtLineAfter(unsigned int line, KateCodeFoldingNode *node);
+
+
     void dontDeleteEnding    (KateCodeFoldingNode*);
     void dontDeleteOpening    (KateCodeFoldingNode*);
 

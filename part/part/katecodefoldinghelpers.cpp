@@ -1208,7 +1208,7 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
 {
   struct hiddenLineBlock data;
   data.start = line+1;
-  data.length = node->endLineRel-1; // without -1;
+  data.length = node->endLineRel-(existsOpeningAtLineAfter(line+node->endLineRel,node)?1:0); // without -1;
   bool inserted = false;
 
   for (QValueList<hiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
@@ -1236,6 +1236,25 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
   for (unsigned int i=line+1; i<=blkend; i++)
     emit(setLineVisible(i,false));
 }
+
+bool KateCodeFoldingTree::existsOpeningAtLineAfter(unsigned int line, KateCodeFoldingNode *node)
+{
+	KateCodeFoldingNode *tmp,*tmp2;
+	for(tmp=node->parentNode;tmp;node=tmp,tmp=node->parentNode)
+	{
+		tmp2=tmp->childnodes()->at(tmp->childnodes()->find(node)+1);
+		unsigned int startLine=getStartLine(tmp);
+		if (tmp2)
+		{
+			if ((tmp2->startLineRel+startLine)==line) return true;
+		}
+		if ((startLine+tmp->endLineRel)>line) return false;
+	}
+
+	return false;
+
+}
+
 
 //
 // get the real line number for a virtual line

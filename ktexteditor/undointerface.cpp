@@ -18,38 +18,38 @@
 
 // $Id$
 
-#include "wordwrapinterface.h"
+#include "undointerface.h"
 
 namespace KTextEditor
 {
 
-class PrivateWordWrapInterface
+class PrivateUndoInterface
 {
   public:
-    PrivateWordWrapInterface() {}
-    ~PrivateWordWrapInterface() {}
+    PrivateUndoInterface() {}
+    ~PrivateUndoInterface() {}
 };
 
 };
 
 using namespace KTextEditor;
 
-unsigned int WordWrapInterface::globalWordWrapInterfaceNumber = 0;
+unsigned int UndoInterface::globalUndoInterfaceNumber = 0;
 
-WordWrapInterface::WordWrapInterface()
+UndoInterface::UndoInterface()
 {
-  globalWordWrapInterfaceNumber++;
-  myWordWrapInterfaceNumber = globalWordWrapInterfaceNumber++;
+  globalUndoInterfaceNumber++;
+  myUndoInterfaceNumber = globalUndoInterfaceNumber++;
 
-  d = new PrivateWordWrapInterface();
+  d = new PrivateUndoInterface();
 }
 
-WordWrapInterface::~WordWrapInterface()
+UndoInterface::~UndoInterface()
 {
   delete d;
 }
 
-unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
+unsigned int UndoInterface::undoInterfaceNumber () const
 {
-  return myWordWrapInterfaceNumber;
+  return myUndoInterfaceNumber;
 }

@@ -6,8 +6,8 @@ libktexteditor_la_SOURCES = ktexteditor.cpp \
     editinterface.cpp clipboardinterface.cpp  selectioninterface.cpp searchinterface.cpp \
     codecompletioninterface.cpp wordwrapinterface.cpp blockselectioninterface.cpp \
     configinterface.cpp cursorinterface.cpp  dynwordwrapinterface.cpp \
-    printinterface.cpp highlightinginterface.cpp markinterface.cpp\
-    popupmenuinterface.cpp \
+    printinterface.cpp highlightinginterface.cpp markinterface.cpp \
+    popupmenuinterface.cpp undointerface.cpp viewcursorinterface.cpp \
     editdcopinterface.cpp editdcopinterface.skel clipboarddcopinterface.cpp \
     clipboarddcopinterface.skel selectiondcopinterface.cpp selectiondcopinterface.skel  \
     searchdcopinterface.cpp searchdcopinterface.skel

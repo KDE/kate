@@ -1,10 +1,9 @@
-/* This file is part of the KDE project
-   Copyright (C) 2001 Christoph Cullmann (cullmann@kde.org)
+/* This file is part of the KDE libraries
+   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   License version 2 as published by the Free Software Foundation.
 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,6 +29,13 @@ namespace KTextEditor
 class UndoInterface
 {
   friend class PrivateUndoInterface;
+
+  public:
+    UndoInterface ();
+    virtual ~UndoInterface ();
+
+    unsigned int undoInterfaceNumber () const;
+
   //
   // slots !!!
   //
@@ -42,21 +48,24 @@ class UndoInterface
 
     virtual void clearRedo () = 0;
 
-    virtual uint undoCount () const = 0;
+    virtual unsigned int undoCount () const = 0;
 
-    virtual uint redoCount () const = 0;
+    virtual unsigned int redoCount () const = 0;
 
-    virtual uint undoSteps () const = 0;
+    virtual unsigned int undoSteps () const = 0;
 
-    virtual void setUndoSteps ( uint steps ) = 0;
+    virtual void setUndoSteps ( unsigned int steps ) = 0;
 
   //
   // signals !!!
   //
   public:
     virtual void undoChanged () = 0;
-    private:
-    	class PrivateSelectionInterface *d;
+
+  private:
+    class PrivateUndoInterface *d;
+    static unsigned int globalUndoInterfaceNumber;
+    unsigned int myUndoInterfaceNumber;
 };
 
 

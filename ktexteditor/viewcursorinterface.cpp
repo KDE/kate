@@ -18,38 +18,38 @@
 
 // $Id$
 
-#include "wordwrapinterface.h"
+#include "viewcursorinterface.h"
 
 namespace KTextEditor
 {
 
-class PrivateWordWrapInterface
+class PrivateViewCursorInterface
 {
   public:
-    PrivateWordWrapInterface() {}
-    ~PrivateWordWrapInterface() {}
+    PrivateViewCursorInterface() {}
+    ~PrivateViewCursorInterface() {}
 };
 
 };
 
 using namespace KTextEditor;
 
-unsigned int WordWrapInterface::globalWordWrapInterfaceNumber = 0;
+unsigned int ViewCursorInterface::globalViewCursorInterfaceNumber = 0;
 
-WordWrapInterface::WordWrapInterface()
+ViewCursorInterface::ViewCursorInterface()
 {
-  globalWordWrapInterfaceNumber++;
-  myWordWrapInterfaceNumber = globalWordWrapInterfaceNumber++;
+  globalViewCursorInterfaceNumber++;
+  myViewCursorInterfaceNumber = globalViewCursorInterfaceNumber++;
 
-  d = new PrivateWordWrapInterface();
+  d = new PrivateViewCursorInterface();
 }
 
-WordWrapInterface::~WordWrapInterface()
+ViewCursorInterface::~ViewCursorInterface()
 {
   delete d;
 }
 
-unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
+unsigned int ViewCursorInterface::viewCursorInterfaceNumber () const
 {
-  return myWordWrapInterfaceNumber;
+  return myViewCursorInterfaceNumber;
 }

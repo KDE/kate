@@ -32,14 +32,16 @@ class SelectionInterface
 {
   friend class PrivateSelectionInterface;
 
-  //
-	// slots !!!
-	//
   public:
-	SelectionInterface();
-	virtual ~SelectionInterface();
+    SelectionInterface();
+    virtual ~SelectionInterface();
         
-        unsigned int selectionInterfaceNumber () const;
+    unsigned int selectionInterfaceNumber () const;
+    
+  /*
+  *  slots !!!
+  */
+  public:
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */

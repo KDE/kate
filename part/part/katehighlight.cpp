@@ -1170,26 +1170,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
             textLine->setAttribs(item->attr,offset1,offset2);
           //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
-          if (item->region)
-          {
-//              kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
-
-            if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-            {
-              foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
-            }
-            else
-            {
-              foldingList->resize (foldingList->size()+1, QGArray::SpeedOptim);
-              (*foldingList)[foldingList->size()-1] = item->region;
-            }
-
-          }
 
           if (item->region2)
           {
 //              kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
-
             if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-1] == -item->region2 ) )
             {
               foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
@@ -1201,6 +1185,23 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
             }
 
           }
+
+          if (item->region)
+          {
+//              kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+
+/*            if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
+            {
+              foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
+            }
+            else*/
+            {
+              foldingList->resize (foldingList->size()+1, QGArray::SpeedOptim);
+              (*foldingList)[foldingList->size()-1] = item->region;
+            }
+
+          }
+
 
           generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
 

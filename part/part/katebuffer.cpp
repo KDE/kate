@@ -1011,7 +1011,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
       // query the next line indentation, if we are at the end of the block
       // use the first line of the next buf block
       uint nextLineIndentation = 0;
-
+      bool nextLineIndentationValid=true;
       if ((current_line+1) < buf->lines())
       {
         if (buf->line(current_line+1)->firstChar() == -1)
@@ -1030,8 +1030,67 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
           else
             nextLineIndentation = blk->line (0)->indentDepth(m_tabWidth);
         }
+        else nextLineIndentationValid=false;
       }
 
+      
+      if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
+      {
+        indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
+        indentDepth[indentDepth.size()-1] = iDepth;
+      } else {
+        if (!indentDepth.isEmpty())
+        {
+            for (int z=indentDepth.size()-1; z > -1; z--)
+              if (indentDepth[z]>iDepth)
+                indentDepth.resize(z, QGArray::SpeedOptim);
+        }
+      }
+
+      if (nextLineIndentationValid)
+      {
+        kdDebug(13020)<<"nextLineIndentation:"<<nextLineIndentation<<endl;
+        bool addindent=false;
+        uint deindent=0;
+        if ((nextLineIndentation>0) && ( indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1]<nextLineIndentation)))
+        {
+          addindent=true;
+        } else {
+          if ((!indentDepth.isEmpty()) && (indentDepth[indentDepth.size()-1]>nextLineIndentation))
+          {
+            kdDebug(13020)<<"...."<<endl;
+            for (int z=indentDepth.size()-1; z > -1; z--)
+            {
+              kdDebug(13020)<<indentDepth[z]<<"  "<<nextLineIndentation<<endl;
+              if (indentDepth[z]>nextLineIndentation)
+                deindent++;
+            }
+          }
+        }
+
+        if (addindent) {
+          foldingList.resize (foldingList.size() + 2, QGArray::SpeedOptim);
+          foldingList[foldingList.size()-2] = 1;
+          foldingList[foldingList.size()-1] = 0;
+        }
+        kdDebug(13020)<<"DEINDENT: "<<deindent<<endl;
+        if (deindent > 0)
+        {
+          foldingList.resize (foldingList.size() + (deindent*2), QGArray::SpeedOptim);
+
+          for (uint z= foldingList.size()-(deindent*2); z < foldingList.size(); z=z+2)
+          {
+            foldingList[z] = -1;
+            foldingList[z+1] = 0;
+          }
+        }
+      }
+      indentChanged = !(indentDepth == textLine->indentationDepthArray());
+
+      // assign the new array to the textline !
+      if (indentChanged)
+        textLine->setIndentationDepth (indentDepth);
+#if 0
       // recalculate the indentation array for this line, query if we have to add
       // a new folding start, this means newIn == true !
       bool newIn = false;
@@ -1039,9 +1098,15 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
       {
         indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
         indentDepth[indentDepth.size()-1] = iDepth;
+      }
+      if ((nextLineIndentation>0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < nextLineIndentation)))
+      {
+        //indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
+        //indentDepth[indentDepth.size()-1] = iDepth;
         newIn = true;
       }
-      else
+      //else
+      if ((!indentDepth.isEmpty())  && (indentDepth[indentDepth.size()-1] > iDepth))
       {
         for (int z=indentDepth.size()-1; z > -1; z--)
         {
@@ -1096,6 +1161,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
           foldingList[z+1] = 0;
         }
       }
+#endif
     }
     bool foldingColChanged=false;
     bool foldingChanged = false; //!(foldingList == textLine->foldingListArray());

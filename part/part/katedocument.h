@@ -90,7 +90,6 @@ class KateDocument : public Kate::Document,
   // Plugins section
   //
   public:
-    void loadAllEnabledPlugins ();
     void unloadAllPlugins ();
     
     void enableAllPluginsGUI (KateView *view);
@@ -128,7 +127,7 @@ class KateDocument : public Kate::Document,
     KTextEditor::View *createView( QWidget *parent, const char *name );
     QPtrList<KTextEditor::View> views () const;
 
-     KateView *activeView () const { return m_activeView; }
+    inline KateView *activeView () const { return m_activeView; }
 
   private:
     QPtrList<KateView> m_views;
@@ -743,8 +742,6 @@ class KateDocument : public Kate::Document,
     QString m_docName;
     int m_docNameNumber;
 
-    static bool s_configLoaded;
-
     // file type !!!
     int m_fileType;
     bool m_fileTypeSetByUser;
@@ -778,7 +775,7 @@ class KateDocument : public Kate::Document,
    * Configuration
    */
   public:
-    KateDocumentConfig *config () { return m_config; };
+    inline KateDocumentConfig *config () { return m_config; };
 
     void updateConfig ();
 

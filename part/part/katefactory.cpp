@@ -24,6 +24,7 @@
 #include "katecmds.h"
 #include "katefiletype.h"
 #include "kateschema.h"
+#include "kateconfig.h"
 
 #include "../interfaces/katecmd.h"
 
@@ -66,7 +67,11 @@ KateFactory::KateFactory ()
              I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              I18N_NOOP( "(c) 2000-2003 The Kate Authors" ), 0, "http://kate.kde.org")
  , m_instance (&m_aboutData)
+ , m_plugins (KTrader::self()->query("KTextEditor/Plugin"))
 {
+  // set s_self
+  s_self = this;
+
   //
   // fill about data
   //
@@ -106,22 +111,10 @@ KateFactory::KateFactory ()
   m_aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
 
   //
-  // plugins
-  //
-  KTrader::OfferList l = KTrader::self()->query("KTextEditor/Plugin");
-  m_plugins.resize (l.count());
-  for(uint i=0; i < l.count(); i++)
-  {
-    m_plugins[i] = new KatePartPluginInfo ();
-    m_plugins[i]->load = false;
-    m_plugins[i]->service = l[i];
-  }
-
-  //
   // dir watch
   //
   m_dirWatch = new KDirWatch ();
-
+  
   //
   // filetype man
   //
@@ -131,6 +124,11 @@ KateFactory::KateFactory ()
   // schema man
   //
   m_schemaManager = new KateSchemaManager ();
+
+  // config objects
+  m_documentConfig = new KateDocumentConfig ();
+  m_viewConfig = new KateViewConfig ();
+  m_rendererConfig = new KateRendererConfig ();
 
   //
   // init the cmds
@@ -144,12 +142,14 @@ KateFactory::KateFactory ()
 
 KateFactory::~KateFactory()
 {
-  delete m_dirWatch;
+  delete m_documentConfig;
+  delete m_viewConfig;
+  delete m_rendererConfig;
+
   delete m_fileTypeManager;
   delete m_schemaManager;
 
-  for (uint i=0; i < m_plugins.count(); i++)
-    delete m_plugins[i];
+  delete m_dirWatch;
 }
 
 static KStaticDeleter<KateFactory> sdFactory;

@@ -20,6 +20,7 @@
 #define __KATE_CONFIG_H__
 
 #include <qobject.h>
+#include <qbitarray.h>
 
 class KateView;
 class KateDocument;
@@ -54,6 +55,8 @@ class KateConfig
 class KateDocumentConfig : public KateConfig
 {
   private:
+    friend class KateFactory;
+  
     /**
      * only used in KateFactory for the static global fallback !!!
      */
@@ -70,9 +73,9 @@ class KateDocumentConfig : public KateConfig
      */
     ~KateDocumentConfig ();
 
-    static KateDocumentConfig *global ();
+    inline static KateDocumentConfig *global () { return s_global; }
 
-    inline bool isGlobal () const { return (this == s_global); };
+    inline bool isGlobal () const { return (this == global()); }
 
   public:
     /**
@@ -174,6 +177,9 @@ class KateDocumentConfig : public KateConfig
 
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
+    
+    bool plugin (uint index) const;
+    void setPlugin (uint index, bool load);
 
   private:
     int m_tabWidth;
@@ -188,6 +194,7 @@ class KateDocumentConfig : public KateConfig
     int m_eol;
     uint m_backupFlags;
     QString m_backupSuffix;
+    QBitArray m_plugins;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
@@ -201,16 +208,18 @@ class KateDocumentConfig : public KateConfig
     bool m_eolSet : 1;
     bool m_backupFlagsSet : 1;
     bool m_backupSuffixSet : 1;
-
+    bool m_pluginsSet : 1;
+    
   private:
-    KateDocument *m_doc;
-
     static KateDocumentConfig *s_global;
+    KateDocument *m_doc;
 };
 
 class KateViewConfig : public KateConfig
 {
   private:
+    friend class KateFactory;
+
     /**
      * only used in KateFactory for the static global fallback !!!
      */
@@ -227,9 +236,9 @@ class KateViewConfig : public KateConfig
      */
     ~KateViewConfig ();
 
-    static KateViewConfig *global ();
+    inline static KateViewConfig *global () { return s_global; }
 
-    inline bool isGlobal () const { return (this == s_global); };
+    inline bool isGlobal () const { return (this == global()); }
 
   public:
     /**
@@ -319,14 +328,15 @@ class KateViewConfig : public KateConfig
     bool m_textToSearchModeSet : 1;
 
   private:
-    KateView *m_view;
-
     static KateViewConfig *s_global;
+    KateView *m_view;
 };
 
 class KateRendererConfig : public KateConfig
 {
   private:
+    friend class KateFactory;  
+  
     /**
      * only used in KateFactory for the static global fallback !!!
      */
@@ -343,9 +353,9 @@ class KateRendererConfig : public KateConfig
      */
     ~KateRendererConfig ();
 
-    static KateRendererConfig *global ();
+    inline static KateRendererConfig *global () { return s_global; }
 
-    inline bool isGlobal () const { return (this == s_global); };
+    inline bool isGlobal () const { return (this == global()); }
 
   public:
     /**
@@ -419,9 +429,8 @@ class KateRendererConfig : public KateConfig
     bool m_iconBarColorSet : 1;
 
   private:
-    KateRenderer *m_renderer;
-
     static KateRendererConfig *s_global;
+    KateRenderer *m_renderer;
 };
 
 #endif

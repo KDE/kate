@@ -28,15 +28,11 @@
 class KateCmd;
 class KateFileTypeManager;
 class KateSchemaManager;
+class KateDocumentConfig;
+class KateViewConfig;
+class KateRendererConfig;
 
 class KDirWatch;
-
-class KatePartPluginInfo
-{
-  public:
-    bool load;
-    KService::Ptr service;
-};
 
 class KateFactory
 {
@@ -67,13 +63,17 @@ class KateFactory
 
     inline QPtrList<class KateRenderer> *renderers () { return &m_renderers; };
     
-    inline QMemArray<KatePartPluginInfo *> *plugins () { return &m_plugins; };
+    inline const KTrader::OfferList &plugins () { return m_plugins; };
 
     inline KDirWatch *dirWatch () { return m_dirWatch; };
 
     inline KateFileTypeManager *fileTypeManager () { return m_fileTypeManager; };
 
     inline KateSchemaManager *schemaManager () { return m_schemaManager; };
+
+    inline KateDocumentConfig *documentConfig () { return m_documentConfig; }
+    inline KateViewConfig *viewConfig () { return m_viewConfig; }
+    inline KateRendererConfig *rendererConfig () { return m_rendererConfig; }
 
   private:
     static KateFactory *s_self;
@@ -85,12 +85,16 @@ class KateFactory
     QPtrList<class KateView> m_views;
     QPtrList<class KateRenderer> m_renderers;
     
-    QMemArray<KatePartPluginInfo *> m_plugins;
-    
     KDirWatch *m_dirWatch;  
   
     KateFileTypeManager *m_fileTypeManager;
     KateSchemaManager *m_schemaManager;
+
+    KTrader::OfferList m_plugins;
+
+    KateDocumentConfig *m_documentConfig;
+    KateViewConfig *m_viewConfig;
+    KateRendererConfig *m_rendererConfig;
 };
 
 #endif

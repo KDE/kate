@@ -28,7 +28,6 @@
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kglobalsettings.h>
-#include <kdebug.h>
 #include <kcharsets.h>
 #include <klocale.h>
 #include <kfinddialog.h>
@@ -83,6 +82,7 @@ KateRendererConfig *KateRendererConfig::s_global = 0;
 
 KateDocumentConfig::KateDocumentConfig ()
  : m_configFlags (0),
+   m_plugins (KateFactory::self()->plugins().count()),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
    m_indentationModeSet (true),
@@ -94,10 +94,14 @@ KateDocumentConfig::KateDocumentConfig ()
    m_encodingSet (true),
    m_eolSet (true),
    m_backupFlagsSet (true),
-   m_backupSuffixSet (false),
+   m_backupSuffixSet (true),
+   m_pluginsSet (true),
    m_doc (0)
 {
   s_global = this;
+  
+  // init plugin array
+  m_plugins.fill (false);
 
   // init with defaults from config or really hardcoded ones
   KConfig *config = kapp->config();
@@ -107,6 +111,7 @@ KateDocumentConfig::KateDocumentConfig ()
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_configFlags (0),
+   m_plugins (KateFactory::self()->plugins().count()),
    m_tabWidthSet (false),
    m_indentationWidthSet (false),
    m_indentationModeSet (false),
@@ -119,22 +124,15 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_eolSet (false),
    m_backupFlagsSet (false),
    m_backupSuffixSet (false),
+   m_pluginsSet (false),
    m_doc (doc)
-{
+{  
+  // init plugin array
+  m_plugins.fill (false);
 }
 
 KateDocumentConfig::~KateDocumentConfig ()
 {
-}
-
-static KStaticDeleter<KateDocumentConfig> sdDocConf;
-
-KateDocumentConfig *KateDocumentConfig::global ()
-{
-  if (!s_global)
-    sdDocConf.setObject(s_global, new KateDocumentConfig ());
-
-  return s_global;
 }
 
 void KateDocumentConfig::readConfig (KConfig *config)
@@ -167,6 +165,10 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
 
+  // plugins
+  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
+    setPlugin (i, config->readBoolEntry("KTextEditor Plugin " + (KateFactory::self()->plugins())[i]->library(), false));
+
   configEnd ();
 }
 
@@ -193,6 +195,10 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Backup Config Flags", backupFlags());
 
   config->writeEntry("Backup Suffix", backupSuffix());
+  
+  // plugins
+  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
+    config->writeEntry("KTextEditor Plugin " + (KateFactory::self()->plugins())[i]->library(), plugin(i));
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -471,7 +477,7 @@ const QString &KateDocumentConfig::backupSuffix () const
 }
 
 void KateDocumentConfig::setBackupSuffix (const QString &suffix)
- {
+{
   configStart ();
 
   m_backupSuffixSet = true;
@@ -479,6 +485,31 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
 
   configEnd ();
 }
+
+bool KateDocumentConfig::plugin (uint index) const
+{
+  if (index >= m_plugins.size())
+    return false;
+
+  if (m_pluginsSet || isGlobal())
+    return m_plugins[index];
+
+  return s_global->plugin (index);
+}
+
+void KateDocumentConfig::setPlugin (uint index, bool load)
+{
+  if (index >= m_plugins.size())
+    return;
+  
+  configStart ();
+
+  m_pluginsSet = true;
+  m_plugins[index] = load;
+
+  configEnd ();
+}
+
 //END
 
 //BEGIN KateViewConfig
@@ -526,16 +557,6 @@ KateViewConfig::KateViewConfig (KateView *view)
 
 KateViewConfig::~KateViewConfig ()
 {
-}
-
-static KStaticDeleter<KateViewConfig> sdViewConf;
-
-KateViewConfig *KateViewConfig::global ()
-{
-  if (!s_global)
-    sdViewConf.setObject(s_global, new KateViewConfig ());
-
-  return s_global;
 }
 
 void KateViewConfig::readConfig (KConfig *config)
@@ -894,16 +915,6 @@ KateRendererConfig::~KateRendererConfig ()
   delete m_wordWrapMarkerColor;
   delete m_tabMarkerColor;
   delete m_iconBarColor;
-}
-
-static KStaticDeleter<KateRendererConfig> sdRendererConf;
-
-KateRendererConfig *KateRendererConfig::global ()
-{
-  if (!s_global)
-    sdRendererConf.setObject(s_global, new KateRendererConfig ());
-
-  return s_global;
 }
 
 void KateRendererConfig::readConfig (KConfig *config)

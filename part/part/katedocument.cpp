@@ -80,10 +80,6 @@
 #include <qmap.h>
 //END  includes
 
-//BEGIN variables
-bool KateDocument::s_configLoaded = false;
-//END variables
-
 //BEGIN PRIVATE CLASSES
 class KatePartPluginItem
 {
@@ -100,7 +96,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              const char *widgetName, QObject *parent, const char *name)
 : Kate::Document(parent, name),
-  m_plugins (KateFactory::self()->plugins()->count()),
+  m_plugins (KateFactory::self()->plugins().count()),
   selectStart(this, true),
   selectEnd(this, true),
   m_undoDontMerge(false),
@@ -201,23 +197,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_arbitraryHL = new KateArbitraryHighlight();
   m_indenter = KateAutoIndent::createIndenter ( this, 0 );
 
-  // read the config THE FIRST TIME ONLY, we store everything in static vars
-  // to ensure each document has the same config the whole time
-  // IMPORTANT: DO THAT BEFORE USING m_config object !!!
-  if (!s_configLoaded)
-  {
-    // read the standard config to get some defaults
-    readConfig();
-
-    // now we have our stuff loaded, no more need to parse config on each
-    // katedocument creation and to construct the masses of stuff
-    s_configLoaded = true;
-  }
-
   m_indenter->updateConfig ();
-
-  // load all plugins
-  loadAllEnabledPlugins ();
 
   // some nice signals from the buffer
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
@@ -295,17 +275,6 @@ KateDocument::~KateDocument()
 //END
 
 //BEGIN Plugins
-void KateDocument::loadAllEnabledPlugins ()
-{
-  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
-  {
-    if (KateFactory::self()->plugins()->at(i)->load)
-      loadPlugin (i);
-    else
-      unloadPlugin (i);
-  }
-}
-
 void KateDocument::unloadAllPlugins ()
 {
   for (uint i=0; i<m_plugins.count(); i++)
@@ -328,7 +297,7 @@ void KateDocument::loadPlugin (uint pluginIndex)
 {
   if (m_plugins[pluginIndex]) return;
 
-  m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName(KateFactory::self()->plugins()->at(pluginIndex)->service->library()), this);
+  m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName((KateFactory::self()->plugins())[pluginIndex]->library()), this);
 
   enablePluginGUI (m_plugins[pluginIndex]);
 }
@@ -1914,11 +1883,8 @@ void KateDocument::setDontChangeHlOnSave()
 //END
 
 //BEGIN KTextEditor::ConfigInterface stuff
-//
-
 void KateDocument::readConfig(KConfig *config)
 {
-  // set kate document section
   config->setGroup("Kate Document Defaults");
   KateDocumentConfig::global()->readConfig (config);
 
@@ -1927,13 +1893,6 @@ void KateDocument::readConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->readConfig (config);
-
-  config->setGroup("Kate KTextEditor Plugins");
-  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
-    KateFactory::self()->plugins()->at(i)->load = config->readBoolEntry(KateFactory::self()->plugins()->at(i)->service->library(), false);
-
-  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
-    KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
 }
 
 void KateDocument::writeConfig(KConfig *config)
@@ -1946,10 +1905,6 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (config);
-
-  config->setGroup("Kate KTextEditor Plugins");
-  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
-    config->writeEntry(KateFactory::self()->plugins()->at(i)->service->library(), KateFactory::self()->plugins()->at(i)->load);
 }
 
 void KateDocument::readConfig()
@@ -4561,6 +4516,15 @@ void KateDocument::updateConfig ()
   m_indenter->updateConfig();
 
   buffer->setTabWidth (config()->tabWidth());
+  
+  // plugins
+  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
+  {
+    if (config()->plugin (i))
+      loadPlugin (i);
+    else
+      unloadPlugin (i);
+  }
 }
 
 //BEGIN Variable reader

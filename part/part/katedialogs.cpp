@@ -855,20 +855,20 @@ void SaveConfigTab::defaults()
 class KatePartPluginListItem : public QCheckListItem
 {
   public:
-    KatePartPluginListItem(bool checked, KatePartPluginInfo *info, QListView *parent);
-    KatePartPluginInfo *info() const { return mInfo; }
+    KatePartPluginListItem(bool checked, uint i, const QString &name, QListView *parent);
+    uint pluginIndex () const { return index; }
   
   protected:        
     void stateChange(bool);
     
   private:
-    KatePartPluginInfo *mInfo;
+    uint index;
     bool silentStateChange;
 };
          
-KatePartPluginListItem::KatePartPluginListItem(bool checked, KatePartPluginInfo *info, QListView *parent)
-  : QCheckListItem(parent, info->service->name(), CheckBox)
-  , mInfo(info)
+KatePartPluginListItem::KatePartPluginListItem(bool checked, uint i, const QString &name, QListView *parent)
+  : QCheckListItem(parent, name, CheckBox)
+  , index(i)
   , silentStateChange(false)
 {
   silentStateChange = true;
@@ -901,50 +901,40 @@ PluginConfigPage::PluginConfigPage (QWidget *parent) : KateConfigPage (parent, "
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 
-  KatePartPluginListView* listView = new KatePartPluginListView(this);
+  listView = new KatePartPluginListView(this);
   listView->addColumn(i18n("Name"));
   listView->addColumn(i18n("Comment"));
-  connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(stateChange(KatePartPluginListItem *, bool)));
 
   grid->addWidget( listView, 0, 0);
 
-  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
+  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
   {
-    KatePartPluginListItem *item = new KatePartPluginListItem(KateFactory::self()->plugins()->at(i)->load, KateFactory::self()->plugins()->at(i), listView);
-    item->setText(0, KateFactory::self()->plugins()->at(i)->service->name());
-    item->setText(1, KateFactory::self()->plugins()->at(i)->service->comment());
+    KatePartPluginListItem *item = new KatePartPluginListItem(KateDocumentConfig::global()->plugin(i), i, (KateFactory::self()->plugins())[i]->name(), listView);
+    item->setText(0, (KateFactory::self()->plugins())[i]->name());
+    item->setText(1, (KateFactory::self()->plugins())[i]->comment());
+    
+    m_items.append (item);
   }
+  
+  connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(slotChanged()));
 }
 
 PluginConfigPage::~PluginConfigPage ()
 {
 }
 
-void PluginConfigPage::stateChange(KatePartPluginListItem *item, bool b)
+void PluginConfigPage::apply ()
 {
-  if(b)
-    loadPlugin(item);
-  else
-    unloadPlugin(item);
-  emit changed();
-}
-
-void PluginConfigPage::loadPlugin (KatePartPluginListItem *item)
-{
-  item->info()->load = true;
-  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
-    KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
-
-  item->setOn(true);
-}
-
-void PluginConfigPage::unloadPlugin (KatePartPluginListItem *item)
-{
-  item->info()->load = false;
-  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
-    KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
-
-  item->setOn(false);
+  // nothing changed, no need to apply stuff
+  if (!changed())
+    return;
+    
+  KateDocumentConfig::global()->configStart ();
+    
+  for (uint i=0; i < m_items.count(); i++)
+    KateDocumentConfig::global()->setPlugin (m_items.at(i)->pluginIndex(), m_items.at(i)->isOn());
+  
+  KateDocumentConfig::global()->configEnd ();
 }
 //END
 

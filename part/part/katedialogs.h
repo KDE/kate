@@ -285,21 +285,15 @@ class PluginConfigPage : public KateConfigPage
     PluginConfigPage (QWidget *parent);
     ~PluginConfigPage ();
 
-  private slots:
-    void stateChange(KatePartPluginListItem *, bool);
-
-  private slots:
-    void loadPlugin (KatePartPluginListItem *);
-    void unloadPlugin (KatePartPluginListItem *);
-
-  signals:
-    void changed();
-
   public slots:
-    void apply () {};
+    void apply ();
     void reload () {};
     void reset () {};
     void defaults () {};
+    
+  private:
+    KatePartPluginListView *listView;
+    QPtrList<KatePartPluginListItem> m_items;
 };
 
 /**

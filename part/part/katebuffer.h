@@ -60,6 +60,16 @@ class KateBuffer : public QObject
     ~KateBuffer();
 
   public slots:
+    void setOpenAsync (bool async)
+    {
+      m_openAsync = async;
+    }
+
+    bool openAsync () const
+    {
+      return m_openAsync;
+    }
+
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -268,6 +278,8 @@ class KateBuffer : public QObject
     void slotBufferUpdateHighlight ();
 
   private:
+    bool m_openAsync;
+
     bool m_hlUpdate;
   
     uint m_lines;
@@ -299,7 +311,7 @@ class KateBuffer : public QObject
 
     // folding tree
     KateCodeFoldingTree *m_regionTree;
-    
+
     QTimer m_highlightTimer;
     
     uint m_highlightedTill;

@@ -193,6 +193,7 @@ class KateBufBlock
  * Create an empty buffer. (with one block with one empty line)
  */
 KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
+  m_openAsync (false),
   m_hlUpdate (true),
   m_lines (0),
   m_highlightedTo (0),
@@ -520,25 +521,30 @@ void KateBuffer::loadFilePart()
 
   if (eof)
   {
-     kdDebug(13020)<<"Loading finished.\n";
+    kdDebug(13020)<<"Loading finished.\n";
 
-     // trigger the creation of a block with one line if there is no data in the buffer now
-     // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
-     if (m_blocks.isEmpty())
-       clear ();
-     else
-     {
+    // trigger the creation of a block with one line if there is no data in the buffer now
+    // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
+    if (m_blocks.isEmpty())
+      clear ();
+    else
+    {
       delete m_loader;
       m_loader = 0;
-       emit linesChanged(m_lines);
-     }
+      emit linesChanged(m_lines);
+    }
 
-     emit loadingFinished ();
+    emit loadingFinished ();
   }
   else if (m_loader)
   {
-     emit linesChanged(m_lines);
-     m_loadTimer.start(0, true);
+    if (m_openAsync)
+    {
+      emit linesChanged(m_lines);
+      m_loadTimer.start (0, true);
+    }
+    else
+      loadFilePart ();
   }
 }
 

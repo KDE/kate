@@ -144,11 +144,11 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
   view->insertChildClient( this );
   setInstance( KGenericFactory<DocWordCompletionPlugin>::instance() );
 
-  (void) new KAction( i18n("Reuse Word Behind"), CTRL+Key_H, this,
+  (void) new KAction( i18n("Reuse Word Above"), CTRL+Key_8, this,
     SLOT(completeBackwards()), actionCollection(), "doccomplete_bw" );
-  (void) new KAction( i18n("Reuse Word Ahead"), CTRL+Key_J, this,
+  (void) new KAction( i18n("Reuse Word Below"), CTRL+Key_9, this,
     SLOT(completeForwards()), actionCollection(), "doccomplete_fw" );
-  (void) new KAction( i18n("Pop Up Completion List"), CTRL+Key_Y, this,
+  (void) new KAction( i18n("Pop Up Completion List"), 0, this,
     SLOT(popupCompletionList()), actionCollection(), "doccomplete_pu" );
   d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), 0, this,
     SLOT(toggleAutoPopup()), actionCollection(), "enable_autopopup" );

@@ -23,22 +23,25 @@
       <item>include_once</item>
     </list>
     <list name="keywords">
-      <item> var </item>
+      <item> abstract </item>
+      <item> catch </item>
       <item> class </item>
-      <item> new </item>
-      <item> static </item>
-      <item> function </item>
       <item> default </item>
       <item> extends </item>
-      <item> abstract </item>
+      <item> final </item>
+      <item> function </item>
       <item> implements </item>
       <item> interface </item>
+      <item> new </item>
       <item> self </item>
       <item> static </item>
       <item> parent </item>
       <item> private </item>
       <item> protected </item>
       <item> public </item>
+      <item> throw </item>
+      <item> try </item>
+      <item> var </item>
       <item> E_ALL </item>
       <item> E_ERROR </item>
       <item> E_NOTICE </item>

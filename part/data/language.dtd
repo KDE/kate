@@ -6,7 +6,8 @@
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
         desktop environment (http://www.kde.org).
-        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
+        You'll find the "Writing a Kate Highlighting XML File HOWTO" at
+        http://kate.kde.org/doc/hlhowto.php
 
         This format is identified using the SYSTEM identifier
         SYSTEM "language.dtd"
@@ -14,27 +15,41 @@
         Files using this format should include a DOCTYPE declaration like this:
         <!DOCTYPE language SYSTEM "language.dtd">
 
-        You can validate your syntax files using checkXML from the development package of kdelibs:
+        You can validate your syntax files using checkXML from the development
+        package of kdelibs:
          checkXML yourSyntax.xml
-        If you see any 'validity error' lines, you should fix them. If you get a lot of 'No template matches'
-        lines, everything's just fine. You've got a valid syntax file!
+        If you see any 'validity error' lines, you should fix them. If you get
+        a lot of 'No template matches' lines, everything's just fine. You've
+        produced a valid syntax file!
 
-        It's also possible to use the (much faster) xmllint:
-          xmllint --dtdvalid yourSyntax.xml
+        It's also possible to use the (much faster) xmllint which comes with the
+        GNOME (oops:-) XML Library libxml2:
+
+         xmllint - -dtdvalid language.dtd yourSyntax.xml 
+	 (don't use a space between the two - That's just because XML
+         comments don't allow that:-(
+
+        To use your syntax file, copy it to .kde/share/apps/katepart/syntax/ in
+        your home directory. You have to open a new instance of kwrite/kate to use
+        the new syntax file.
+
+TODO
+  - find a more readable way for the - -dtdvalid stuff, it's just annoying
+    xml comments don't allow it.
 -->
 
 <!-- Entity declarations
   You can use '&per;' instead of '.'. This seems to be usefull in <item> elements.
 
 TODO
-  - are there any more such pre-defined entities?
+  - Are there any more such pre-defined entities?
 -->
 <!ENTITY per "." >
 
 <!-- Boolean type
   Attributes that are of type boolean allow the following values:
-  'true', 'TRUE' and '1' all mean true,
-  'false', FALSE' and '0' all mean false.
+  'true', 'TRUE' and '1' all meaning true,
+  'false', FALSE' and '0' all meaning false.
 
   It is encouraged to use 'true' and 'false' instead of the alternatives.
 -->
@@ -47,7 +62,7 @@ TODO
   mimetype:    A list of mimetypes to decide for which documents to use this syntax description [optional]
   version:     Version number of this syntax description [optional]
   kateversion: Kate version required for using this file [optional]
-  casesensitive: Whether text is matched case sensitive. [boolean, optional]
+  casesensitive: Whether text is matched case sensitive. [boolean, optional, default=false]
   priority:    Priority of this language, if more than one are usable for the file [optional]
 
 TODO
@@ -84,7 +99,7 @@ TODO
 >
 
 <!-- Keyword options
-  casesensitive:        Whether keywords are matched case sensitive. [boolean, optional]
+  casesensitive:        Whether keywords are matched case sensitive. [boolean, optional, default=false]
   weakDeliminator:      Add weak deliminators [optional]
   additionalDeliminator: Add deliminators [optional]
 
@@ -106,7 +121,7 @@ TODO
 <!-- List of items
   name:     Name of this list
 -->
-<!ELEMENT list (item)+>
+<!ELEMENT list (item)*>
 <!ATTLIST list
   name  CDATA   #REQUIRED
 >
@@ -163,6 +178,7 @@ TODO:
 TODO:
   - Should be weakDeliminator
   - Explain deliminator
+  - Doesn't seem to be suported in highligh.cpp
 -->
 <!ELEMENT keyword EMPTY>
 <!ATTLIST keyword
@@ -260,7 +276,10 @@ TODO
 <!-- Detect a string
   commonAttributes: Common attributes
   String:           The string to look for
-  insensitive:      Whether the string is matched case INsensitive. [boolean, optional, default='false']
+  insensitive:      Whether the string is matched case INsensitive. [boolean, optional, default=false]
+
+TODO
+  - What's default of insensitive? I'm not sure...
 -->
 <!ELEMENT StringDetect EMPTY>
 <!ATTLIST StringDetect
@@ -332,10 +351,10 @@ TODO:
   defStyleNum   CDATA   #REQUIRED       The index of the default style to use
   color         CDATA   #IMPLIED        Color for this style, either a hex triplet, a name or some other format recognized by Qt [optional]
   selColor      CDATA   #IMPLIED        The color for this style when text is selected [optional]
-  italic        CDATA   #IMPLIED        Whether this attribute should be rendered using an italic typeface [optional, boolean]
-  bold          CDATA   #IMPLIED        Whether this attribute should be renederd using a bold typeface [optional, boolean]
-  underline     CDATA   #IMPLIED        Whether this attribute should be underlined [optional, boolean]
-  strikeout     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean]
+  italic        CDATA   #IMPLIED        Whether this attribute should be rendered using an italic typeface [optional, boolean, default=false]
+  bold          CDATA   #IMPLIED        Whether this attribute should be renederd using a bold typeface [optional, boolean, default=false]
+  underline     CDATA   #IMPLIED        Whether this attribute should be underlined [optional, boolean, default=false]
+  strikeout     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean, default=false]
 -->
 <!ELEMENT itemData EMPTY>
 <!ATTLIST itemData

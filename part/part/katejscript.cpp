@@ -165,10 +165,13 @@ KJS::ObjectImp *KateJScript::wrapView (KJS::ExecState *exec, KateView *view)
   return new KateJSView(exec, view);
 }
 
-bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &script)
+bool KateJScript::execute (KateView *view, const QString &script)
 {
+  if (!view)
+    return false;
+
   // put some stuff into env.
-  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", KJS::Object(wrapDocument(m_interpreter->globalExec(), doc)));
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", KJS::Object(wrapDocument(m_interpreter->globalExec(), view->doc())));
   m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", KJS::Object(wrapView(m_interpreter->globalExec(), view)));
 
   // run

@@ -76,12 +76,11 @@ class KateJScript
      * execute given script
      * the script will get the doc and view exposed via document and view object
      * in global scope
-     * @param doc document to expose
      * @param view view to expose
      * @param script source code of script to execute
      * @return success or not?
      */
-    bool execute (KateDocument *doc, KateView *view, const QString &script);
+    bool execute (KateView *view, const QString &script);
 
   private:
     /**

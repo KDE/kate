@@ -108,7 +108,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   }
   else if ( cmd == "run-myself" )
   {
-    return KateFactory::self()->jscript()->execute(v->doc(), v, v->doc()->text());
+    return KateFactory::self()->jscript()->execute(v, v->doc()->text());
   }
   else if ( cmd == "unindent" )
   {

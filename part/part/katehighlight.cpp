@@ -1130,6 +1130,8 @@ void Highlight::setData(HlData *hlData) {
   config->writeEntry("Mimetypes",hlData->mimetypes);
 
   setItemDataList(hlData->itemDataList,config);
+  
+  config->sync ();
 }
 
 void Highlight::getItemDataList(ItemDataList &list) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ColdFusion" version="1.02" kateversion="2.1" section="Markup" extensions="*.cfm;*.cfc;*.cfml;*.dbm" mimetype="text/x-coldfusion">
+<language name="ColdFusion" version="1.03" kateversion="2.1" section="Markup" extensions="*.cfm;*.cfc;*.cfml;*.dbm" mimetype="text/x-coldfusion">
 
 	<highlighting>
 
@@ -603,13 +603,11 @@
 
 
 			<context name="ctxHTML Comment" attribute="HTML Comment" lineEndContext="#stay">
-			<!--	<String---Detect attribute="HTML Comment" context="ctxHTML Comment" String="&lt;!--" /> -->
 				<StringDetect attribute="CF Comment" context="ctxCF Comment" String="&lt;!---" />
 				<StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
 			</context>
 
 			<context name="ctxCF Comment" attribute="CF Comment" lineEndContext="#stay">
-			<!--	<String---Detect attribute="CF Comment" context="ctxCF Comment" String="&lt;!---" /> -->
 				<StringDetect attribute="CF Comment" context="#pop" String="---&gt;" />
 			</context>
 
@@ -626,8 +624,6 @@
 
 
 			<context name="ctxCFSCRIPT Block" attribute="Normal Text" lineEndContext="#stay">
-                        <!--  <Reg---Expr attribute="CF Tags" context="ctxCFSCRIPT Block" String="&lt;[cC][fF][sS][cC][rR][iI][pP][tT]" /> -->
-
 				<Detect2Chars attribute="Script Comment" context="ctxC Style Comment" char="/" char1="*" />
 				<Detect2Chars attribute="Script Comment" context="ctxOne Line Comment" char="/" char1="/" />
 				<RegExpr attribute="Script Strings" context="#stay" String="&quot;[^&quot;]*&quot;" />
@@ -645,8 +641,6 @@
 
 
 			<context name="ctxSCRIPT Block" attribute="Normal Text" lineEndContext="#stay">
-                        <!--  <Reg---Expr attribute="Tags" context="ctxSCRIPT Block" String="&lt;[sS][cC][rR][iI][pP][tT]" /> -->
-
 				<Detect2Chars attribute="Script Comment" context="ctxC Style Comment" char="/" char1="*" />
 				<Detect2Chars attribute="Script Comment" context="ctxOne Line Comment" char="/" char1="/" />
 				<RegExpr attribute="Script Strings" context="#stay" String="&quot;[^&quot;]*&quot;" />
@@ -665,7 +659,6 @@
 
 
 			<context name="ctxSTYLE Block" attribute="Style Selectors" lineEndContext="#stay">
-                        <!--  <Reg---Expr attribute="Tags" context="ctxSTYLE Block" String="&lt;[sS][tT][yY][lL][eE]" /> -->
 				<Detect2Chars attribute="Script Comment" context="ctxC Style Comment" char="/" char1="*" />
 				<DetectChar attribute="Brackets" context="ctxStyle Properties" char="{" />
 				<RegExpr attribute="Style Tags" context="#pop#pop" String="&lt;/[sS][tT][yY][lL][eE]&gt;" />

@@ -2556,15 +2556,10 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
 
   m_madeVisible = false;
 
-  // cursor on-screen?
-  int currentViewLine = displayViewLine(displayCursor, true);
-
-  if (height() != e->oldSize().height()) {
+  if (heightChanged) {
     setAutoCenterLines(m_autoCenterLines, false);
-  }
-
-  if (height() != e->oldSize().height())
     m_cachedMaxStartPos.setPos(-1, -1);
+  }
 
   if (m_view->dynWordWrap()) {
     bool dirtied = false;
@@ -2602,10 +2597,6 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     if (expandedHorizontally && startX() > 0)
       scrollColumns(startX() - (width() - e->oldSize().width()));
   }
-
-  // keep the cursor on-screen if it was previously; FIXME this does not work if you resize very FAST
-  if (heightChanged && currentViewLine >= 0)
-    makeVisible(displayCursor, displayCursor.col());
 
   if (expandedVertically) {
     KateTextCursor max = maxStartPos();

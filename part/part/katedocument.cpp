@@ -2498,7 +2498,7 @@ bool KateDocument::openFile()
     myEncoding = serviceType.mid(pos+1);
   kdDebug(13020) << "myEncoding: " << myEncoding << endl;
 
-  buffer->insertFile(0, m_file, KGlobal::charsets()->codecForName(myEncoding));
+  bool success = buffer->openFile (m_file, KGlobal::charsets()->codecForName(myEncoding));
 
   setMTime();
 
@@ -4394,7 +4394,6 @@ void KateDocument::reloadFile()
   {
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
-    buffer->resetCodeFoldingTree();
     KateDocument::openURL( url() );
     setMTime();
 

@@ -59,13 +59,7 @@ class KateBuffer : public QObject
     * Insert a file at line @p line in the buffer.
     * Using @p codec to decode the file.
     */
-   void insertFile(uint line, const QString &file, QTextCodec *codec);
-
-   /**
-    * Insert a block of data at line @p line in the buffer.
-    * Using @p codec to decode the file.
-    */
-   void insertData(uint line, const QByteArray &data, QTextCodec *codec);
+   bool openFile (const QString &file, QTextCodec *codec);
 
    /**
     * Return the total number of lines in the buffer.
@@ -223,8 +217,6 @@ public slots:
     */
     void setLineVisible(unsigned int lineNr, bool visible);
 
-    void resetCodeFoldingTree();
-
 private:
    /**
     * Make sure @p buf gets loaded.
@@ -247,11 +239,6 @@ private:
    KateBufBlock *findBlock(uint i);
 
    /**
-    * Load a part of the file that is currently loading.
-    */
-   void loadFilePart();
-
-   /**
     * Highlight information needs to be updated.
     *
     * @param buf The buffer being processed.
@@ -263,10 +250,12 @@ private:
     * false otherwise.
     */
    bool needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint from, uint to);
-
-   
-private slots:
-   void slotLoadFile();
+ 
+  private slots:
+    /**
+     * Load a part of the file that is currently loading.
+     */
+    void loadFilePart();
 
 private:
    uint m_totalLines;
@@ -279,8 +268,9 @@ private:
    class KateDocument *m_doc;
 
    QPtrList<KateBufBlock> m_blocks;
-   QPtrList<KateBufFileLoader> m_loader;
-
+   
+   // stuff we need to load a file
+   KateBufFileLoader *m_loader;
    QTimer m_loadTimer;
 
    // List of parsed blocks that can be disposed.

@@ -510,10 +510,10 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
     {
       lineRanges[z].dirty = false;
 
-	kdDebug()<<"Cursorposition for painting:"<<
+/*	kdDebug()<<"Cursorposition for painting:"<<
              ( ( cursorOn && ( hasFocus() || m_view->m_codeCompletion->codeCompletionVisible() ) && ( lineRanges[z].line == cursor.line ) && ( cursor.col >= lineRanges[z].startCol ) && ( !lineRanges[z].wrap || ( cursor.col <= lineRanges[z].endCol ) ) ) ? cursor.col : -1 )
 		<<endl;
-
+*/
     
       m_doc->paintTextLine
            ( paint,
@@ -1386,23 +1386,23 @@ void KateViewInternal::tagLines( int start, int end, bool realLines )
 {
   if (realLines)
   {
-	kdDebug()<<"realLines is true"<<endl;
+//	kdDebug()<<"realLines is true"<<endl;
     start = m_doc->getVirtualLine( start );
     end = m_doc->getVirtualLine( end );
   }
 
   if (end < (int)startLine())
   {
-    kdDebug()<<"end<startLine"<<endl;
+  //  kdDebug()<<"end<startLine"<<endl;
     return;
   } 
   if (start > (int)endLine())
   {
-    kdDebug()<<"start> endLine"<<start<<" "<<((int)endLine())<<endl;
+    //kdDebug()<<"start> endLine"<<start<<" "<<((int)endLine())<<endl;
     return;
   }
   
-  kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
+  //kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
   
   for (uint z = 0; z < lineRanges.size(); z++)
   {
@@ -1451,7 +1451,7 @@ void KateViewInternal::centerCursor()
 void KateViewInternal::paintCursor()
 {
   static int i=0;
-  kdDebug()<<"PaintCursor:"<<i<<":"<<displayCursor.line<<endl;
+  //kdDebug()<<"PaintCursor:"<<i<<":"<<displayCursor.line<<endl;
   i++;
   tagLines( displayCursor.line, displayCursor.line );
   paintText (0,0,width(), height(), true);

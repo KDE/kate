@@ -108,8 +108,18 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
        o != m_completionListBox && 
        o != m_completionListBox->viewport() )
     return false;
-  
-  if ( e->type() == QEvent::KeyPress ) {
+
+/* fixme: comment doesn't disappear when popup closes!  
+   if ( e->type() == QEvent::MouseButtonPress ) {
+    QTimer::singleShot(0, this, SLOT(showComment()));
+    return FALSE;
+   }*/
+   if ( e->type() == QEvent::MouseButtonDblClick  ) {
+    doComplete();
+    return FALSE;
+   }
+
+   if ( e->type() == QEvent::KeyPress ) {
     QKeyEvent *ke = (QKeyEvent*)e;
     if( (ke->key() == Key_Left)  || (ke->key() == Key_Right) ||
         (ke->key() == Key_Up)    || (ke->key() == Key_Down ) ||
@@ -119,28 +129,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
       return false;
     }
     if( ke->key() == Key_Enter || ke->key() == Key_Return ) {
-      CompletionItem* item = static_cast<CompletionItem*>(
-         m_completionListBox->item(m_completionListBox->currentItem()));
-      
-      if( item == 0 )
-        return false;
-        
-      QString text = item->m_entry.text;
-      QString currentLine = m_view->currentTextLine();
-      int len = m_view->cursorColumnReal() - m_colCursor;
-      QString currentComplText = currentLine.mid(m_colCursor,len);
-      QString add = text.mid(currentComplText.length());
-      if( item->m_entry.postfix == "()" )
-        add += "(";
-
-      emit filterInsertString(&(item->m_entry),&add);      
-      m_view->insertText(add);
-      // HACK: move cursor. This needs to be handled in a clean way
-      // by the doc/view.
-      m_view->setCursorPositionReal( m_lineCursor, m_view->cursorColumnReal() + add.length() );
-
-      complete( item->m_entry );
-      m_view->setFocus();
+      doComplete();
       return false;
     }
 
@@ -151,7 +140,11 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     }
 
     // redirect the event to the editor
-    QApplication::sendEvent( m_view->m_viewInternal, e );
+    if( ke->key() == Key_Backspace) {
+      m_view->backspace();
+    } else {
+      QApplication::sendEvent( m_view->m_viewInternal, e );
+    }
     if( m_colCursor + m_offset > m_view->cursorColumnReal() ) {
       // the cursor is too far left
       kdDebug() << "Aborting Codecompletion after sendEvent" << endl;
@@ -167,6 +160,32 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
   if( e->type() == QEvent::FocusOut )
     abortCompletion();
   return false;
+}
+
+void KateCodeCompletion::doComplete()
+{
+  CompletionItem* item = static_cast<CompletionItem*>(
+     m_completionListBox->item(m_completionListBox->currentItem()));
+
+  if( item == 0 )
+    return;
+
+  QString text = item->m_entry.text;
+  QString currentLine = m_view->currentTextLine();
+  int len = m_view->cursorColumnReal() - m_colCursor;
+  QString currentComplText = currentLine.mid(m_colCursor,len);
+  QString add = text.mid(currentComplText.length());
+  if( item->m_entry.postfix == "()" )
+    add += "(";
+
+  emit filterInsertString(&(item->m_entry),&add);      
+  m_view->insertText(add);
+  // HACK: move cursor. This needs to be handled in a clean way
+  // by the doc/view.
+  m_view->setCursorPositionReal( m_lineCursor, m_view->cursorColumnReal() + add.length() );
+
+  complete( item->m_entry );
+  m_view->setFocus();
 }
 
 void KateCodeCompletion::abortCompletion()

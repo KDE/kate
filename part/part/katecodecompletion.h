@@ -85,6 +85,7 @@ signals:
   void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 
 private:
+  void doComplete();
   void abortCompletion();
   void complete( KTextEditor::CompletionEntry );
   void updateBox( bool newCoordinate = false );

@@ -110,7 +110,12 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHd (false),
   m_modOnHdReason (0),
   m_job (0),
-  m_tempFile (0)
+  m_tempFile (0),
+  m_imStartLine( 0 ),
+  m_imStart( 0 ),
+  m_imEnd( 0 ),
+  m_imSelStart( 0 ),
+  m_imSelEnd( 0 )
 {
   // my dcop object
   setObjId ("KateDocument#"+documentDCOPSuffix());
@@ -4965,6 +4970,24 @@ bool KateDocument::checkOverwrite( KURL u )
 void KateDocument::setDefaultEncoding (const QString &encoding)
 {
   s_defaultEncoding = encoding;
+}
+
+void KateDocument::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd, uint imSelStart, uint imSelEnd )
+{
+  m_imStartLine = imStartLine;
+  m_imStart = imStart;
+  m_imEnd = imEnd;
+  m_imSelStart = imSelStart;
+  m_imSelEnd = imSelEnd;
+}
+
+void KateDocument::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd, uint *imSelStart, uint *imSelEnd )
+{
+  *imStartLine = m_imStartLine;
+  *imStart = m_imStart;
+  *imEnd = m_imEnd;
+  *imSelStart = m_imSelStart;
+  *imSelEnd = m_imSelEnd;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -340,6 +340,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     paint.drawLine(0, fs->fontHeight - 1, xEnd - xStart, fs->fontHeight - 1);
   }
 
+  bool isIMEdit = false;
+  bool isIMSel = false;
+  uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
+  m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
+
   KateAttribute customHL;
 
   // Optimisation to quickly draw an empty line of text
@@ -390,6 +395,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       {
         // Determine if we're in a selection and should be drawing it
         isSel = (showSelections() && hasSel && (curCol >= startSel) && (curCol < endSel));
+
+        // input method edit area
+        isIMEdit = ( ( int( imStartLine ) == line ) & ( imStart < imEnd ) & ( curCol >= imStart ) & ( curCol < imEnd ) );
+
+        // input method selection
+        isIMSel = ( ( int( imStartLine ) == line ) & ( imSelStart < imSelEnd ) & ( curCol >= imSelStart ) & ( curCol < imSelEnd ) );
 
         // Determine current color, taking into account selection
         curColor = isSel ? &(curAt->selectedTextColor()) : &(curAt->textColor());
@@ -473,7 +484,13 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
             // the next char is a tab (removed the "and this isn't" because that's dealt with above)
             // i.e. we have to draw the current text so the tab can be rendered as above.
-            (textLine->string()[curCol+1] == tabChar)
+            (textLine->string()[curCol+1] == tabChar) ||
+
+            // input method edit area
+            ( isIMEdit != ( imStart < imEnd && ( (curCol+1) >= imStart && (curCol+1) < imEnd ) ) ) ||
+
+            // input method selection
+            ( isIMSel != ( imSelStart < imSelEnd && ( (curCol+1) >= imSelStart && (curCol+1) < imSelEnd ) ) )
           )
         {
           // TODO: genericise background painting
@@ -482,6 +499,28 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, *config()->selectionColor());
             else if (currentHL.itemSet(KateAttribute::BGColor))
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
+            
+            // input method edit area
+            if ( isIMEdit ) {
+	      const QColorGroup& cg = m_view->colorGroup();
+              int h1, s1, v1, h2, s2, v2;
+	      cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
+	      cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
+	      QColor imCol;
+	      imCol.setHsv( h1, s1, ( v1 + v2 ) / 2 );
+              paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, imCol );
+	    }
+            
+            // input method selection
+            if ( isIMSel ) {
+              const QColorGroup& cg = m_view->colorGroup();
+              paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, cg.color( QColorGroup::Foreground ) );
+	      paint.setPen( cg.color( QColorGroup::BrightText ) );
+	    }
+            else {
+		paint.setPen( currentHL.textColor() );
+            }
+
           }
 
           // paint outline

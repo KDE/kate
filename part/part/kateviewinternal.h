@@ -192,6 +192,10 @@ class KateViewInternal : public QWidget
     void focusInEvent (QFocusEvent *);
     void focusOutEvent (QFocusEvent *);
 
+    void imStartEvent( QIMEvent *e );
+    void imComposeEvent( QIMEvent *e );
+    void imEndEvent( QIMEvent *e );
+
   private slots:
     void tripleClickTimeout();
 
@@ -376,6 +380,10 @@ class KateViewInternal : public QWidget
    int m_textHintTimeout;
    int m_textHintMouseX;
    int m_textHintMouseY;
+
+   int m_imPreeditStartLine;
+   int m_imPreeditStart;
+   int m_imPreeditLength;
 };
 
 #endif

@@ -79,6 +79,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintEnabled(false)
   , m_textHintMouseX(-1)
   , m_textHintMouseY(-1)
+  , m_imPreeditStartLine(0)
+  , m_imPreeditStart(0)
+  , m_imPreeditLength(0)
 {
   setMinimumSize (0,0);
 
@@ -2653,6 +2656,66 @@ void KateViewInternal::dropEvent( QDropEvent* event )
   }
 }
 
+void KateViewInternal::imStartEvent( QIMEvent *e )
+{
+  if ( m_doc->m_bReadOnly ) {
+    e->ignore();
+    return;
+  }
+
+  if ( m_doc->hasSelection() )
+    m_doc->removeSelectedText();
+
+  m_imPreeditStartLine = cursor.line();
+  m_imPreeditStart = cursor.col();
+  m_imPreeditLength = 0;
+
+  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0 );
+}
+
+void KateViewInternal::imComposeEvent( QIMEvent *e )
+{
+  if ( m_doc->m_bReadOnly ) {
+    e->ignore();
+    return;
+  }
+  
+  if ( m_imPreeditLength > 0 ) {
+    m_doc->removeText( cursor.line(), m_imPreeditStart,
+                       cursor.line(), m_imPreeditStart + m_imPreeditLength );
+  }
+
+  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, m_imPreeditStart + e->text().length(),
+                              m_imPreeditStart + e->cursorPos(), m_imPreeditStart + e->cursorPos() + e->selectionLength() );
+
+  m_doc->insertText( cursor.line(), cursor.col(), e->text() );
+  updateView( true );
+  updateCursor( cursor, true );
+
+  m_imPreeditLength = e->text().length();
+}
+
+void KateViewInternal::imEndEvent( QIMEvent *e )
+{
+  if ( m_doc->m_bReadOnly ) {
+    e->ignore();
+    return;
+  }
+
+  if ( m_imPreeditLength > 0 ) {
+    m_doc->removeText( cursor.line(), m_imPreeditStart,
+                       cursor.line(), m_imPreeditStart + m_imPreeditLength );
+  }
+
+  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0 );
+
+  if ( m_imPreeditStart >= 0 )
+    m_doc->insertText( cursor.line(), cursor.col(), e->text() );
+
+  m_imPreeditStart = -1;
+  m_imPreeditLength = 0;
+}
+
 //
 // END EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
@@ -2768,9 +2831,10 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   if (editOldCursor == cursor)
     updateBracketMarks();
 
-  updateView(true);
+  if (m_imPreeditLength <= 0)
+    updateView(true);
 
-  if (editOldCursor != cursor)
+  if ((editOldCursor != cursor) && (m_imPreeditLength <= 0))
   {
     m_madeVisible = false;
     updateCursor ( cursor, true );

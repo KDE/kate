@@ -829,6 +829,18 @@ class KateDocument : public Kate::Document,
   k_dcop:
     uint documentNumber () const;
 
+  /* for IM */
+  public:
+    void setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd, uint imSelStart, uint imSelEnd );
+    void getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd, uint *imSelStart, uint *imSelEnd );
+
+  private:
+    uint m_imStartLine;
+    uint m_imStart;
+    uint m_imEnd;
+    uint m_imSelStart;
+    uint m_imSelEnd;
+
 };
 
 #endif

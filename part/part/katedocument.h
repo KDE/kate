@@ -130,6 +130,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   // KTextEditor::EditInterface stuff
   //
   public slots:
+    QString text() const;
+  
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol ) const;
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise ) const;
     
@@ -520,7 +522,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void doComment( uint line, int change );
     public:
 
-    QString text() const;
     QString getWord( const KateTextCursor& cursor );
 
   public:

@@ -3280,7 +3280,10 @@ void KateDocument::insertIndentChars ( KateView *view )
 
   QString s;
   if (config()->configFlags() & KateDocument::cfSpaceIndent)
-    s.fill (' ', config()->indentationWidth());
+  {
+    int width = config()->indentationWidth();
+    s.fill (' ', width - (view->cursorColumnReal() % width));
+  }
   else
     s.append ('\t');
 

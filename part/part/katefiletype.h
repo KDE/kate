@@ -65,7 +65,7 @@ class KateFileTypeManager
     /**
      * Don't store the pointer somewhere longer times, won't be valid after the next update()
      */
-    KateFileType *fileType (uint number);
+    const KateFileType *fileType (uint number);
 
     /**
      * Don't modify

@@ -253,7 +253,7 @@ int KateFileTypeManager::wildcardsFind (const QString &fileName)
   return -1;
 }
 
-KateFileType *KateFileTypeManager::fileType (uint number)
+const KateFileType *KateFileTypeManager::fileType (uint number)
 {
   if (number < m_types.count())
     return m_types.at(number);
@@ -377,7 +377,7 @@ void KateFileTypeConfigTab::update ()
       typeCombo->insertItem(m_types.at(i)->name);
   }
 
-  typeCombo->setCurrentItem(0);
+  typeCombo->setCurrentItem (0);
 
   typeChanged (0);
 
@@ -397,9 +397,20 @@ void KateFileTypeConfigTab::deleteType ()
 
 void KateFileTypeConfigTab::newType ()
 {
+  QString newN = i18n("New Filetype");
+
+  for( uint i = 0; i < m_types.count(); i++) {
+    if (m_types.at(i)->name == newN)
+    {
+      typeCombo->setCurrentItem (i);
+      typeChanged (i);
+      return;
+    }
+  }
+
   KateFileType *newT = new KateFileType ();
   newT->priority = 0;
-  newT->name = QString ("New");
+  newT->name = newN;
 
   m_types.prepend (newT);
 
@@ -527,7 +538,7 @@ void KateViewFileTypeAction::slotAboutToShow()
   }
   popupMenu()->setItemChecked (0, false);
 
-  KateFileType *t = 0;
+  const KateFileType *t = 0;
   if ((t = KateFactory::fileTypeManager()->fileType (doc->fileType())))
   {
     int i = subMenusName.findIndex (t->section);

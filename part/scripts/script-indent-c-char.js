@@ -21,8 +21,10 @@ if ( textLine.search( /^\s*\/\// ) == -1 )
 {
     if ( textLine.charAt( col-1 ) == '}' || textLine.charAt( col-1 ) == '{')
     {
-        document.removeText( line, 0, line, tabWidth );
-        view.setCursorPositionReal( line, col - tabWidth );
+        if ( textLine.search(/^\s\s\s\s/) != -1)
+        {
+            document.removeText( line, 0, line, tabWidth );
+            view.setCursorPositionReal( line, col - tabWidth );
+        }
     }
 }
-

@@ -288,6 +288,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   p.setFont ( KateRenderer::getFont(KateRenderer::ViewFont) ); // for line numbers
   p.setPen ( m_doc->myAttribs[0].textColor() );
 
+  bool wasLineBefore = false;
   for (uint z=startz; z <= endz; z++)
   {
     int y = h * z;
@@ -370,6 +371,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
               p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
           }
         }
+
+        wasLineBefore = true;
       }
 
       lnX += iconPaneWidth;

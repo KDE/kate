@@ -29,7 +29,7 @@
 #include <ktexteditor/document.h>
 
 #include <kaction.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
 #include <kgenericfactory.h>
 #include <kiconloader.h>

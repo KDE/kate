@@ -323,12 +323,8 @@ void ISearchPluginView::nextMatch( bool reverse )
 		}
 		state = MatchSearch;
 	}
-	bool found = false;
-	if( !reverse ) {
-		found = iSearch( m_searchLine, m_searchCol, text, reverse, m_autoWrap );
-	} else {
-		found = iSearch( m_searchLine, m_searchCol, text, reverse, m_autoWrap );
-	}
+        
+	bool found = iSearch( m_searchLine, m_searchCol, text, reverse, m_autoWrap );
 	if( found ) {
 		m_searchLine = m_foundLine;
 		m_searchCol = m_foundCol + m_matchLen;

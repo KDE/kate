@@ -17,53 +17,56 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "document.h"
-#include "view.h"
+#ifndef __ktexteditor_highlightinginterface_h__
+#define __ktexteditor_highlightinginterface_h__
 
-#include "document.moc"
-#include "view.moc"
-
-#include "editinterface.h"
-#include "selectioninterface.h"
-#include "cursorinterface.h"
-#include "undointerface.h"
-#include "clipboardinterface.h"
-#include "popupmenuinterface.h"
-#include "viewcursorinterface.h"
-#include "searchinterface.h"
-#include "highlightinginterface.h"
-
-using namespace KTextEditor;
+class QString;
 
 namespace KTextEditor
 {
-	class DocumentPrivate
-	{
+
+/*
+*  This is an interface for the KTextEditor::Document class !!!
+*/
+class HighlightingInterface
+{
+  //
+	// slots !!!
+	//
+  public:
+	/**
+  * returns the current active highlighting mode
+  */
+	virtual uint hlMode () = 0;
+
+  /**
+	* set the current active highlighting mode
+	*/
+	virtual bool setHlMode (uint mode) = 0;
+  
+	/**
+	* returns the number of available highlightings
+	*/
+  virtual uint hlModeCount () = 0;
+	
+	/**
+	* returns the name of the highlighting with number "mode"
+	*/
+	virtual QString hlModeName (uint mode) = 0;
+	
+	/**
+	* returns the sectionname of the highlighting with number "mode"
+	*/
+  virtual QString hlModeSectionName (uint mode) = 0;
+
+	//
+	// signals !!!
+	//
 	public:
-		DocumentPrivate()
-		{
-		}
-
-		~DocumentPrivate()
-		{
-		}
-
-	};
+	  virtual void hlChanged () = 0;
 };
 
-View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
-{
-}
 
-View::~View()
-{
-}
+};
 
-Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
-{
-
-}
-
-Document::~Document()
-{
-}
+#endif

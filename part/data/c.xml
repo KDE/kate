@@ -43,11 +43,6 @@
       <item> _Complex </item>
       <item> _Bool </item>
     </list>
-    <list name="attention">
-      <item> FIXME </item>
-      <item> TODO </item>
-      <item> ### </item>
-    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <ConsumeSpaces />

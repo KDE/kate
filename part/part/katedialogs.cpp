@@ -230,7 +230,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs."));
   QWhatsThis::add(opt[2], i18n("This allows the <b>Backspace</b> key to be used to decrease the indentation level."));
   QWhatsThis::add(opt[3], i18n("This allows the <b>Tab</b> key to be used to increase the indentation level."));
-  QWhatsThis::add(opt[4], i18n("This retains current indentation settings for future documents."));
   QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 

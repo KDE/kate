@@ -283,6 +283,13 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   selectAnchor.line = -1;
   selectAnchor.col = -1;
 
+  newDocGeometry = false;
+  readOnly = false;
+  newDoc = false;
+
+  modified = false;
+  m_highlightedEnd = 0;
+
   // some defaults
   _configFlags = KateDocument::cfAutoIndent | KateDocument::cfBackspaceIndents
     | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
@@ -322,19 +329,11 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   m_highlight = 0L;
   tabChars = 8;
 
-  newDocGeometry = false;
-  readOnly = false;
-  newDoc = false;
-
-  modified = false;
-
   clear();
 
   internalSetHlMode(0); //calls updateFontData()
   // if the user changes the highlight with the dialog, notify the doc
   connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
-
-  newDocGeometry = false;
 
   readConfig();
 

@@ -211,7 +211,7 @@ public:
      * Set to true if an actual implementation of 'processLine' is present.
      * This is used to prevent a needless Undo action from being created.
      */
-  virtual bool canProcessLine() { return false; }
+  virtual bool canProcessLine() const { return false; }
 
     /**
      * Mode index of this mode
@@ -291,7 +291,7 @@ class KateCSmartIndent : public KateNormalIndent
     virtual void processLine (KateDocCursor &line);
     virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
 
-    virtual bool canProcessLine() { return true; }
+    virtual bool canProcessLine() const { return true; }
 
     virtual uint modeNumber () const { return KateDocumentConfig::imCStyle; };
 
@@ -336,7 +336,7 @@ class KateXmlIndent : public KateNormalIndent
     virtual void processNewline (KateDocCursor &begin, bool needContinue);
     virtual void processChar (QChar c);
     virtual void processLine (KateDocCursor &line);
-    virtual bool canProcessLine() { return true; }
+    virtual bool canProcessLine() const { return true; }
     virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
 
   private:
@@ -365,7 +365,7 @@ class KateCSAndSIndent : public KateNormalIndent
     virtual void processLine (KateDocCursor &line);
     virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
 
-    virtual bool canProcessLine() { return true; }
+    virtual bool canProcessLine() const { return true; }
 
     virtual uint modeNumber () const { return KateDocumentConfig::imCSAndS; };
 
@@ -393,14 +393,23 @@ class KateCSAndSIndent : public KateNormalIndent
  * This indenter uses document variables to determine when to add/remove indents.
  *
  * It attempts to get the following variables from the document:
- * - var-indent-indent-after - A rerular expression which will cause a line to
+ * - var-indent-indent-after: A rerular expression which will cause a line to
  *   be indented by one unit, if the first non-whitespace-only line above matches.
- * - var-indent-indent - A regular expression, which will cause a matching line
+ * - var-indent-indent: A regular expression, which will cause a matching line
  *   to be indented by one unit.
- * - var-indent-unindent - A regular expression which will cause the line to be
+ * - var-indent-unindent: A regular expression which will cause the line to be
  *   unindented by one unit if matching.
- * - var-indent-triggerchars - a list of characters that should cause the
+ * - var-indent-triggerchars: a list of characters that should cause the
  *   indentiou to be recalculated immediately when typed.
+ * - var-indent-handle-couples: a list of paren sets to handle. Any combination
+ *   of 'parens' 'braces' and 'brackets'. Each set type is handled
+ *   the following way: If there are unmatched opening instances on the above line,
+ *   one indent unit is added, if there are unmatched closing instances on the
+ *   current line, one indent unit is removed.
+ * - var-indent-couple-attribute: When looking for unmatched couple openings/closings,
+ *   only characters with this attribute is considered. The value must be the
+ *   attribute name from the syntax xml file, for example "Symbol". If it's not
+ *   specified, attribute 0 is used (usually 'Normal Text').
  *
  * The idea is to provide a somewhat intelligent indentation for perl, php,
  * bash, scheme and in general formats with humble indentation needs.
@@ -409,6 +418,16 @@ class KateVarIndent :  public QObject, public KateNormalIndent
 {
   Q_OBJECT
   public:
+    /**
+     * Purely for readability, couples we know and love
+     */
+    enum pairs {
+      Parens=1,
+      Braces=2,
+      Brackets=4,
+      AngleBrackets=8
+    };
+
     KateVarIndent( KateDocument *doc );
     virtual ~KateVarIndent();
 
@@ -418,13 +437,30 @@ class KateVarIndent :  public QObject, public KateNormalIndent
     virtual void processLine (KateDocCursor &line);
     virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
 
-    virtual bool canProcessLine() { return true; }
+    virtual bool canProcessLine() const { return true; }
 
     virtual uint modeNumber () const { return KateDocumentConfig::imVarIndent; };
 
   private slots:
     void slotVariableChanged(const QString&, const QString&);
+
   private:
+    /**
+     * Check if coupled characters are in balance within one line.
+     * @param line the line to check
+     * @param open the opening character
+     * @param close the closing character
+     * @param attrib the attribute the characters must have, defaults to
+     *               KateAutoIndent::symbolAttrib
+     */
+    int coupleBalance( int line, const QChar &open, const QChar &close ) const;
+
+    /**
+     * @return true if there is a matching opening with the correct attribute
+     * @param end a cursor pointing to the closing character
+     */
+    bool hasRelevantOpening( const KateDocCursor &end ) const;
+
     class KateVarIndentPrivate *d;
 };
 

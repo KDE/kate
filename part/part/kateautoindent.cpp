@@ -367,7 +367,7 @@ KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
     allowSemi (false),
     processingBlock (false)
 {
-
+  kdDebug()<<"CREATING KATECSMART INTDETER"<<endl;
 }
 
 KateCSmartIndent::~KateCSmartIndent ()
@@ -377,6 +377,7 @@ KateCSmartIndent::~KateCSmartIndent ()
 
 void KateCSmartIndent::processLine (KateDocCursor &line)
 {
+  kdDebug()<<"PROCESSING LINE "<<line.line()<<endl;
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
 
   int firstChar = textLine->firstChar();
@@ -487,6 +488,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
 
 void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
 {
+  kdDebug()<<"PROCESS SECTION"<<endl;
   KateDocCursor cur = begin;
   QTime t;
   t.start();
@@ -1900,6 +1902,8 @@ class KateVarIndentPrivate {
   public:
     QRegExp reIndentAfter, reIndent, reUnindent;
     QString triggers;
+    uint couples;
+    uchar coupleAttrib;
 };
 
 KateVarIndent::KateVarIndent( KateDocument *doc )
@@ -1910,8 +1914,12 @@ KateVarIndent::KateVarIndent( KateDocument *doc )
   d->reIndent = QRegExp( doc->variable( "var-indent-indent" ) );
   d->reUnindent = QRegExp( doc->variable( "var-indent-unindent" ) );
   d->triggers = doc->variable( "var-indent-triggerchars" );
+  d->coupleAttrib = 0;
 
-  // update if the settings are changed
+  slotVariableChanged( "var-indent-couple-attribute", doc->variable( "var-indent-couple-attribute" ) );
+  slotVariableChanged( "var-indent-handle-couples", doc->variable( "var-indent-handle-couples" ) );
+
+  // update if a setting is changed
   connect( doc, SIGNAL(variableChanged( const QString&, const QString&) ),
            this, SLOT(slotVariableChanged( const QString&, const QString& )) );
 }
@@ -1940,6 +1948,7 @@ void KateVarIndent::processChar ( QChar c )
 
     KateView *view = doc->activeView();
     KateDocCursor begin( view->cursorLine(), 0, doc );
+    kdDebug(13030)<<"variable indenter: process char '"<<c<<", line "<<begin.line()<<endl;
     processLine( begin );
   }
 }
@@ -1955,10 +1964,11 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   int ln = line.line();
   int pos = -1;
   KateTextLine::Ptr ktl = doc->plainKateTextLine( ln );
+  if ( ! ktl ) return; // no line!?
 
   // skip blank lines, except for the cursor line
   KateView *v = doc->activeView();
-  if ( ktl && ktl->firstChar() < 0 && (!v || v->cursorLine() != ln ) )
+  if ( ktl->firstChar() < 0 && (!v || v->cursorLine() != ln ) )
     return;
 
   int fc;
@@ -1978,34 +1988,86 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   else
     pos = ktl->cursorX( pos, tabWidth );
 
+  int adjustment = 0;
+
+  // try 'couples' for an opening on the above line first. since we only adjust by 1 unit,
+  // we only need 1 match.
+  if ( d->couples & Parens && coupleBalance( ln, '(', ')' ) > 0 )
+    adjustment++;
+  else if ( d->couples & Braces && coupleBalance( ln, '{', '}' ) > 0 )
+    adjustment++;
+  else if ( d->couples & Brackets && coupleBalance( ln, '[', ']' ) > 0 )
+    adjustment++;
+
+  // Try 'couples' for a closing on this line first. since we only adjust by 1 unit,
+  // we only need 1 match. For unindenting, we look for a closing character
+  // *at the beginning of the line*
+  // NOTE Assume that a closing brace with the configured attribute on the start
+  // of the line is closing.
+  // When acting on processChar, the character isn't highlighted. So I could
+  // either not check, assuming that the first char *is* meant to close, or do a
+  // match test if the attrib is 0. How ever, doing that is
+  // a potentially huge job, if the match is several hundred lines away.
+  // Currently, the check is done.
+  {
+    KateTextLine::Ptr tl = doc->plainKateTextLine( line.line() );
+    int i = tl->firstChar();
+    if ( i > -1 )
+    {
+      QChar ch = tl->getChar( i );
+      uchar at = tl->attribute( i );
+      kdDebug()<<"attrib is "<<at<<endl;
+      if ( d->couples & Parens && ch == ')'
+           && ( at == d->coupleAttrib
+                || (! at && hasRelevantOpening( KateDocCursor( line.line(), i, doc ) ))
+              )
+         )
+        adjustment--;
+      else if ( d->couples & Braces && ch == '}'
+                && ( at == d->coupleAttrib
+                     || (! at && hasRelevantOpening( KateDocCursor( line.line(), i, doc ) ))
+                   )
+              )
+        adjustment--;
+      else if ( d->couples & Brackets && ch == ']'
+                && ( at == d->coupleAttrib
+                     || (! at && hasRelevantOpening( KateDocCursor( line.line(), i, doc ) ))
+                   )
+              )
+        adjustment--;
+    }
+  }
 #define ISCOMMENTATTR(attr) (attr==commentAttrib||attr==doxyCommentAttrib)
 #define ISCOMMENT (ISCOMMENTATTR(ktl->attribute(ktl->firstChar()))||ISCOMMENTATTR(ktl->attribute(matchpos)))
   // check if we should indent, unless the line starts with comment text,
   // or the match is in comment text
-  kdDebug()<<"starting indent: "<<pos<<endl;
+  kdDebug(13030)<<"variable indenter: starting indent: "<<pos<<endl;
   // check if the above line indicates that we shuld add indentation
   int matchpos = 0;
   if ( ktl && ! d->reIndentAfter.isEmpty()
        && (matchpos = d->reIndentAfter.search( doc->textLine( ln ) )) > -1
        && ! ISCOMMENT )
-    pos += indentWidth;
-  kdDebug()<<"after indent-after: "<<pos<<endl;
+    adjustment++;
 
   // else, check if this line should indent unless ...
   ktl = doc->plainKateTextLine( line.line() );
   if ( ! d->reIndent.isEmpty()
          && (matchpos = d->reIndent.search( doc->textLine( line.line() ) )) > -1
          && ! ISCOMMENT )
-    pos += indentWidth;
-  kdDebug()<<"after indent-indent: "<<pos<<endl;
+    adjustment++;
 
   // else, check if the current line indicates if we should remove indentation unless ...
   if ( ! d->reUnindent.isEmpty()
        && (matchpos = d->reUnindent.search( doc->textLine( line.line() ) )) > -1
        && ! ISCOMMENT )
-    pos -= indentWidth;
+    adjustment--;
 
-  kdDebug()<<"after indent-unindent: "<<pos<<endl;
+  kdDebug(13030)<<"variable indenter: adjusting by "<<adjustment<<" units"<<endl;
+
+  if ( adjustment > 0 )
+    pos += indentWidth;
+  else if ( adjustment < 0 )
+    pos -= indentWidth;
 
   ln = line.line();
   fc = doc->plainKateTextLine( ln )->firstChar();
@@ -2043,6 +2105,9 @@ void KateVarIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
 
 void KateVarIndent::slotVariableChanged( const QString &var, const QString &val )
 {
+  if ( ! var.startsWith("var-indent") )
+    return;
+
   if ( var == "var-indent-indent-after" )
     d->reIndentAfter.setPattern( val );
   else if ( var == "var-indent-indent" )
@@ -2051,7 +2116,85 @@ void KateVarIndent::slotVariableChanged( const QString &var, const QString &val 
     d->reUnindent.setPattern( val );
   else if ( var == "var-indent-triggerchars" )
     d->triggers = val;
+  else if ( var == "var-indent-handle-couples" )
+  {
+    d->couples = 0;
+    QStringList l = QStringList::split( " ", val );
+    if ( l.contains("parens") ) d->couples |= Parens;
+    if ( l.contains("braces") ) d->couples |= Braces;
+    if ( l.contains("brackets") ) d->couples |= Brackets;
+  }
+  else if ( var == "var-indent-couple-attribute" )
+  {
+    //read a named attribute of the config.
+    KateHlItemDataList items;
+    doc->highlight()->getKateHlItemDataListCopy (0, items);
+
+    for (uint i=0; i<items.count(); i++)
+    {
+      if ( items.at(i)->name.section( ':', 1 ) == val )
+      {
+        d->coupleAttrib = i;
+        break;
+      }
+    }
+  }
 }
+
+int KateVarIndent::coupleBalance ( int line, const QChar &open, const QChar &close ) const
+{
+  int r = 0;
+
+  KateTextLine::Ptr ln = doc->plainKateTextLine( line );
+  if ( ! ln || ! ln->length() ) return 0;
+
+  for ( uint z=0; z < ln->length(); z++ )
+  {
+    QChar c = ln->getChar( z );
+    if ( ln->attribute(z) == d->coupleAttrib )
+    {
+      kdDebug()<<z<<", "<<c<<endl;
+      if (c == open)
+        r++;
+      else if (c == close)
+        r--;
+    }
+  }
+  return r;
+}
+
+bool KateVarIndent::hasRelevantOpening( const KateDocCursor &end ) const
+{
+  KateDocCursor cur = end;
+  int count = 1;
+
+  QChar close = cur.currentChar();
+  QChar opener;
+  if ( close == '}' ) opener = '{';
+  else if ( close = ')' ) opener = '(';
+  else if (close = ']' ) opener = '[';
+  else return false;
+
+  //Move backwards 1 by 1 and find the opening partner
+  while (cur.moveBackward(1))
+  {
+    if (cur.currentAttrib() == d->coupleAttrib)
+    {
+      QChar ch = cur.currentChar();
+      if (ch == opener)
+        count--;
+      else if (ch == close)
+        count++;
+
+      if (count == 0)
+        return true;
+    }
+  }
+
+  return false;
+}
+
+
 //END KateVarIndent
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

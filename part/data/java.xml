@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Java" version="1.04" kateversion="2.1" section="Sources" extensions="*.java" mimetype="text/x-java">
+<language name="Java" version="1.05" kateversion="2.1" section="Sources" extensions="*.java" mimetype="text/x-java">
 	<highlighting>
-
-		<list name="java13">
+		<list name="java14">
 			<item> AbstractAction </item>
 			<item> AbstractBorder </item>
 			<item> AbstractButton </item>
@@ -14,14 +13,20 @@
 			<item> AbstractDocument.AttributeContext </item>
 			<item> AbstractDocument.Content </item>
 			<item> AbstractDocument.ElementEdit </item>
+			<item> AbstractInterruptibleChannel </item>
 			<item> AbstractLayoutCache </item>
 			<item> AbstractLayoutCache.NodeDimensions </item>
 			<item> AbstractList </item>
 			<item> AbstractListModel </item>
 			<item> AbstractMap </item>
 			<item> AbstractMethodError </item>
+			<item> AbstractPreferences </item>
+			<item> AbstractSelectableChannel </item>
+			<item> AbstractSelectionKey </item>
+			<item> AbstractSelector </item>
 			<item> AbstractSequentialList </item>
 			<item> AbstractSet </item>
+			<item> AbstractSpinnerModel </item>
 			<item> AbstractTableModel </item>
 			<item> AbstractUndoableEdit </item>
 			<item> AbstractWriter </item>
@@ -34,9 +39,13 @@
 			<item> AccessibleBundle </item>
 			<item> AccessibleComponent </item>
 			<item> AccessibleContext </item>
+			<item> AccessibleEditableText </item>
+			<item> AccessibleExtendedComponent </item>
+			<item> AccessibleExtendedTable </item>
 			<item> AccessibleHyperlink </item>
 			<item> AccessibleHypertext </item>
 			<item> AccessibleIcon </item>
+			<item> AccessibleKeyBinding </item>
 			<item> AccessibleObject </item>
 			<item> AccessibleRelation </item>
 			<item> AccessibleRelationSet </item>
@@ -49,6 +58,7 @@
 			<item> AccessibleTableModelChange </item>
 			<item> AccessibleText </item>
 			<item> AccessibleValue </item>
+			<item> AccountExpiredException </item>
 			<item> Acl </item>
 			<item> AclEntry </item>
 			<item> AclNotFoundException </item>
@@ -62,6 +72,7 @@
 			<item> ActivationDesc </item>
 			<item> ActivationException </item>
 			<item> ActivationGroup </item>
+			<item> ActivationGroup_Stub </item>
 			<item> ActivationGroupDesc </item>
 			<item> ActivationGroupDesc.CommandEnvironment </item>
 			<item> ActivationGroupID </item>
@@ -71,6 +82,15 @@
 			<item> ActivationSystem </item>
 			<item> Activator </item>
 			<item> ActiveEvent </item>
+			<item> AdapterActivator </item>
+			<item> AdapterActivatorOperations </item>
+			<item> AdapterAlreadyExists </item>
+			<item> AdapterAlreadyExistsHelper </item>
+			<item> AdapterInactive </item>
+			<item> AdapterInactiveHelper </item>
+			<item> AdapterNonExistent </item>
+			<item> AdapterNonExistentHelper </item>
+			<item> AddressHelper </item>
 			<item> Adjustable </item>
 			<item> AdjustmentEvent </item>
 			<item> AdjustmentListener </item>
@@ -88,13 +108,17 @@
 			<item> AlreadyBoundException </item>
 			<item> AlreadyBoundHelper </item>
 			<item> AlreadyBoundHolder </item>
+			<item> AlreadyConnectedException </item>
 			<item> AncestorEvent </item>
 			<item> AncestorListener </item>
 			<item> Annotation </item>
 			<item> Any </item>
 			<item> AnyHolder </item>
 			<item> AnySeqHelper </item>
+			<item> AnySeqHelper </item>
 			<item> AnySeqHolder </item>
+			<item> AppConfigurationEntry </item>
+			<item> AppConfigurationEntry.LoginModuleControlFlag </item>
 			<item> Applet </item>
 			<item> AppletContext </item>
 			<item> AppletInitializer </item>
@@ -110,26 +134,38 @@
 			<item> ARG_OUT </item>
 			<item> ArithmeticException </item>
 			<item> Array </item>
+			<item> Array </item>
 			<item> ArrayIndexOutOfBoundsException </item>
 			<item> ArrayList </item>
 			<item> Arrays </item>
 			<item> ArrayStoreException </item>
+			<item> AssertionError </item>
 			<item> AsyncBoxView </item>
+			<item> AsynchronousCloseException </item>
+			<item> Attr </item>
+			<item> Attribute </item>
 			<item> Attribute </item>
 			<item> AttributedCharacterIterator </item>
 			<item> AttributedCharacterIterator.Attribute </item>
 			<item> AttributedString </item>
+			<item> AttributeException </item>
 			<item> AttributeInUseException </item>
 			<item> AttributeList </item>
+			<item> AttributeList </item>
+			<item> AttributeListImpl </item>
 			<item> AttributeModificationException </item>
 			<item> Attributes </item>
 			<item> Attributes </item>
+			<item> Attributes </item>
 			<item> Attributes.Name </item>
+			<item> AttributeSet </item>
 			<item> AttributeSet </item>
 			<item> AttributeSet.CharacterAttribute </item>
 			<item> AttributeSet.ColorAttribute </item>
 			<item> AttributeSet.FontAttribute </item>
 			<item> AttributeSet.ParagraphAttribute </item>
+			<item> AttributeSetUtilities </item>
+			<item> AttributesImpl </item>
 			<item> AudioClip </item>
 			<item> AudioFileFormat </item>
 			<item> AudioFileFormat.Type </item>
@@ -143,13 +179,17 @@
 			<item> AuthenticationException </item>
 			<item> AuthenticationNotSupportedException </item>
 			<item> Authenticator </item>
+			<item> AuthPermission </item>
 			<item> Autoscroll </item>
 			<item> AWTError </item>
 			<item> AWTEvent </item>
 			<item> AWTEventListener </item>
+			<item> AWTEventListenerProxy </item>
 			<item> AWTEventMulticaster </item>
 			<item> AWTException </item>
+			<item> AWTKeyStroke </item>
 			<item> AWTPermission </item>
+			<item> BackingStoreException </item>
 			<item> BAD_CONTEXT </item>
 			<item> BAD_INV_ORDER </item>
 			<item> BAD_OPERATION </item>
@@ -160,6 +200,7 @@
 			<item> BAD_TYPECODE </item>
 			<item> BadKind </item>
 			<item> BadLocationException </item>
+			<item> BadPaddingException </item>
 			<item> BandCombineOp </item>
 			<item> BandedSampleModel </item>
 			<item> BasicArrowButton </item>
@@ -171,6 +212,7 @@
 			<item> BasicBorders.MarginBorder </item>
 			<item> BasicBorders.MenuBarBorder </item>
 			<item> BasicBorders.RadioButtonBorder </item>
+			<item> BasicBorders.RolloverButtonBorder </item>
 			<item> BasicBorders.SplitPaneBorder </item>
 			<item> BasicBorders.ToggleButtonBorder </item>
 			<item> BasicButtonListener </item>
@@ -189,6 +231,7 @@
 			<item> BasicDirectoryModel </item>
 			<item> BasicEditorPaneUI </item>
 			<item> BasicFileChooserUI </item>
+			<item> BasicFormattedTextFieldUI </item>
 			<item> BasicGraphicsUtils </item>
 			<item> BasicHTML </item>
 			<item> BasicIconFactory </item>
@@ -215,6 +258,7 @@
 			<item> BasicScrollPaneUI </item>
 			<item> BasicSeparatorUI </item>
 			<item> BasicSliderUI </item>
+			<item> BasicSpinnerUI </item>
 			<item> BasicSplitPaneDivider </item>
 			<item> BasicSplitPaneUI </item>
 			<item> BasicStroke </item>
@@ -258,6 +302,7 @@
 			<item> BeanInfo </item>
 			<item> Beans </item>
 			<item> BevelBorder </item>
+			<item> Bidi </item>
 			<item> BigDecimal </item>
 			<item> BigInteger </item>
 			<item> BinaryRefAddr </item>
@@ -270,6 +315,7 @@
 			<item> BindingIteratorHelper </item>
 			<item> BindingIteratorHolder </item>
 			<item> BindingIteratorOperations </item>
+			<item> BindingIteratorPOA </item>
 			<item> BindingListHelper </item>
 			<item> BindingListHolder </item>
 			<item> BindingType </item>
@@ -298,12 +344,16 @@
 			<item> BorderUIResource.TitledBorderUIResource </item>
 			<item> BoundedRangeModel </item>
 			<item> Bounds </item>
+			<item> Bounds </item>
 			<item> Box </item>
 			<item> Box.Filler </item>
 			<item> BoxedValueHelper </item>
 			<item> BoxLayout </item>
 			<item> BoxView </item>
 			<item> BreakIterator </item>
+			<item> Buffer </item>
+			<item> BufferCapabilities </item>
+			<item> BufferCapabilities.FlipContents </item>
 			<item> BufferedImage </item>
 			<item> BufferedImageFilter </item>
 			<item> BufferedImageOp </item>
@@ -311,6 +361,9 @@
 			<item> BufferedOutputStream </item>
 			<item> BufferedReader </item>
 			<item> BufferedWriter </item>
+			<item> BufferOverflowException </item>
+			<item> BufferStrategy </item>
+			<item> BufferUnderflowException </item>
 			<item> Button </item>
 			<item> ButtonGroup </item>
 			<item> ButtonModel </item>
@@ -318,10 +371,17 @@
 			<item> Byte </item>
 			<item> ByteArrayInputStream </item>
 			<item> ByteArrayOutputStream </item>
+			<item> ByteBuffer </item>
+			<item> ByteChannel </item>
 			<item> ByteHolder </item>
 			<item> ByteLookupTable </item>
+			<item> ByteOrder </item>
 			<item> Calendar </item>
 			<item> CallableStatement </item>
+			<item> Callback </item>
+			<item> CallbackHandler </item>
+			<item> CancelablePrintJob </item>
+			<item> CancelledKeyException </item>
 			<item> CannotProceed </item>
 			<item> CannotProceedException </item>
 			<item> CannotProceedHelper </item>
@@ -333,32 +393,66 @@
 			<item> Caret </item>
 			<item> CaretEvent </item>
 			<item> CaretListener </item>
+			<item> CDATASection </item>
 			<item> CellEditor </item>
 			<item> CellEditorListener </item>
 			<item> CellRendererPane </item>
 			<item> Certificate </item>
 			<item> Certificate </item>
+			<item> Certificate </item>
 			<item> Certificate.CertificateRep </item>
 			<item> CertificateEncodingException </item>
+			<item> CertificateEncodingException </item>
 			<item> CertificateException </item>
+			<item> CertificateException </item>
+			<item> CertificateExpiredException </item>
 			<item> CertificateExpiredException </item>
 			<item> CertificateFactory </item>
 			<item> CertificateFactorySpi </item>
 			<item> CertificateNotYetValidException </item>
+			<item> CertificateNotYetValidException </item>
 			<item> CertificateParsingException </item>
+			<item> CertificateParsingException </item>
+			<item> CertPath </item>
+			<item> CertPath.CertPathRep </item>
+			<item> CertPathBuilder </item>
+			<item> CertPathBuilderException </item>
+			<item> CertPathBuilderResult </item>
+			<item> CertPathBuilderSpi </item>
+			<item> CertPathParameters </item>
+			<item> CertPathValidator </item>
+			<item> CertPathValidatorException </item>
+			<item> CertPathValidatorResult </item>
+			<item> CertPathValidatorSpi </item>
+			<item> CertSelector </item>
+			<item> CertStore </item>
+			<item> CertStoreException </item>
+			<item> CertStoreParameters </item>
+			<item> CertStoreSpi </item>
 			<item> ChangedCharSetException </item>
 			<item> ChangeEvent </item>
 			<item> ChangeListener </item>
+			<item> Channel </item>
+			<item> ChannelBinding </item>
+			<item> Channels </item>
 			<item> Character </item>
 			<item> Character.Subset </item>
 			<item> Character.UnicodeBlock </item>
+			<item> CharacterCodingException </item>
+			<item> CharacterData </item>
 			<item> CharacterIterator </item>
 			<item> CharArrayReader </item>
 			<item> CharArrayWriter </item>
+			<item> CharBuffer </item>
 			<item> CharConversionException </item>
 			<item> CharHolder </item>
 			<item> CharSeqHelper </item>
 			<item> CharSeqHolder </item>
+			<item> CharSequence </item>
+			<item> Charset </item>
+			<item> CharsetDecoder </item>
+			<item> CharsetEncoder </item>
+			<item> CharsetProvider </item>
 			<item> Checkbox </item>
 			<item> CheckboxGroup </item>
 			<item> CheckboxMenuItem </item>
@@ -366,7 +460,13 @@
 			<item> CheckedOutputStream </item>
 			<item> Checksum </item>
 			<item> Choice </item>
+			<item> ChoiceCallback </item>
 			<item> ChoiceFormat </item>
+			<item> Chromaticity </item>
+			<item> Cipher </item>
+			<item> CipherInputStream </item>
+			<item> CipherOutputStream </item>
+			<item> CipherSpi </item>
 			<item> Class </item>
 			<item> ClassCastException </item>
 			<item> ClassCircularityError </item>
@@ -374,18 +474,35 @@
 			<item> ClassFormatError </item>
 			<item> ClassLoader </item>
 			<item> ClassNotFoundException </item>
+			<item> ClientRequestInfo </item>
+			<item> ClientRequestInfoOperations </item>
+			<item> ClientRequestInterceptor </item>
+			<item> ClientRequestInterceptorOperations </item>
 			<item> Clip </item>
 			<item> Clipboard </item>
 			<item> ClipboardOwner </item>
 			<item> Clob </item>
 			<item> Cloneable </item>
 			<item> CloneNotSupportedException </item>
+			<item> ClosedByInterruptException </item>
+			<item> ClosedChannelException </item>
+			<item> ClosedSelectorException </item>
 			<item> CMMException </item>
+			<item> Codec </item>
+			<item> CodecFactory </item>
+			<item> CodecFactoryHelper </item>
+			<item> CodecFactoryOperations </item>
+			<item> CodecOperations </item>
+			<item> CoderMalfunctionError </item>
+			<item> CoderResult </item>
+			<item> CodeSets </item>
 			<item> CodeSource </item>
+			<item> CodingErrorAction </item>
 			<item> CollationElementIterator </item>
 			<item> CollationKey </item>
 			<item> Collator </item>
 			<item> Collection </item>
+			<item> CollectionCertStoreParameters </item>
 			<item> Collections </item>
 			<item> Color </item>
 			<item> ColorChooserComponentFactory </item>
@@ -394,12 +511,14 @@
 			<item> ColorModel </item>
 			<item> ColorSelectionModel </item>
 			<item> ColorSpace </item>
+			<item> ColorSupported </item>
 			<item> ColorUIResource </item>
 			<item> ComboBoxEditor </item>
 			<item> ComboBoxModel </item>
 			<item> ComboBoxUI </item>
 			<item> ComboPopup </item>
 			<item> COMM_FAILURE </item>
+			<item> Comment </item>
 			<item> CommunicationException </item>
 			<item> Comparable </item>
 			<item> Comparator </item>
@@ -410,6 +529,7 @@
 			<item> ComponentAdapter </item>
 			<item> ComponentColorModel </item>
 			<item> ComponentEvent </item>
+			<item> ComponentIdHelper </item>
 			<item> ComponentInputMap </item>
 			<item> ComponentInputMapUIResource </item>
 			<item> ComponentListener </item>
@@ -426,17 +546,27 @@
 			<item> CompoundControl.Type </item>
 			<item> CompoundEdit </item>
 			<item> CompoundName </item>
+			<item> Compression </item>
 			<item> ConcurrentModificationException </item>
+			<item> Configuration </item>
 			<item> ConfigurationException </item>
+			<item> ConfirmationCallback </item>
 			<item> ConnectException </item>
 			<item> ConnectException </item>
 			<item> ConnectIOException </item>
 			<item> Connection </item>
+			<item> ConnectionEvent </item>
+			<item> ConnectionEventListener </item>
+			<item> ConnectionPendingException </item>
+			<item> ConnectionPoolDataSource </item>
+			<item> ConsoleHandler </item>
 			<item> Constructor </item>
 			<item> Container </item>
 			<item> ContainerAdapter </item>
 			<item> ContainerEvent </item>
 			<item> ContainerListener </item>
+			<item> ContainerOrderFocusTraversalPolicy </item>
+			<item> ContentHandler </item>
 			<item> ContentHandler </item>
 			<item> ContentHandlerFactory </item>
 			<item> ContentModel </item>
@@ -451,9 +581,14 @@
 			<item> ControlFactory </item>
 			<item> ControllerEventListener </item>
 			<item> ConvolveOp </item>
+			<item> CookieHolder </item>
+			<item> Copies </item>
+			<item> CopiesSupported </item>
 			<item> CRC32 </item>
+			<item> CredentialExpiredException </item>
 			<item> CRL </item>
 			<item> CRLException </item>
+			<item> CRLSelector </item>
 			<item> CropImageFilter </item>
 			<item> CSS </item>
 			<item> CSS.Attribute </item>
@@ -461,9 +596,16 @@
 			<item> CubicCurve2D </item>
 			<item> CubicCurve2D.Double </item>
 			<item> CubicCurve2D.Float </item>
+			<item> Currency </item>
+			<item> Current </item>
+			<item> Current </item>
 			<item> Current </item>
 			<item> CurrentHelper </item>
+			<item> CurrentHelper </item>
+			<item> CurrentHelper </item>
 			<item> CurrentHolder </item>
+			<item> CurrentOperations </item>
+			<item> CurrentOperations </item>
 			<item> CurrentOperations </item>
 			<item> Cursor </item>
 			<item> Customizer </item>
@@ -473,11 +615,14 @@
 			<item> DatabaseMetaData </item>
 			<item> DataBuffer </item>
 			<item> DataBufferByte </item>
+			<item> DataBufferDouble </item>
+			<item> DataBufferFloat </item>
 			<item> DataBufferInt </item>
 			<item> DataBufferShort </item>
 			<item> DataBufferUShort </item>
 			<item> DataFlavor </item>
 			<item> DataFormatException </item>
+			<item> DatagramChannel </item>
 			<item> DatagramPacket </item>
 			<item> DatagramSocket </item>
 			<item> DatagramSocketImpl </item>
@@ -490,13 +635,22 @@
 			<item> DataOutput </item>
 			<item> DataOutputStream </item>
 			<item> DataOutputStream </item>
+			<item> DataSource </item>
 			<item> DataTruncation </item>
 			<item> Date </item>
+			<item> Date </item>
 			<item> DateFormat </item>
+			<item> DateFormat.Field </item>
 			<item> DateFormatSymbols </item>
+			<item> DateFormatter </item>
+			<item> DateTimeAtCompleted </item>
+			<item> DateTimeAtCreation </item>
+			<item> DateTimeAtProcessing </item>
+			<item> DateTimeSyntax </item>
 			<item> DebugGraphics </item>
 			<item> DecimalFormat </item>
 			<item> DecimalFormatSymbols </item>
+			<item> DeclHandler </item>
 			<item> DefaultBoundedRangeModel </item>
 			<item> DefaultButtonModel </item>
 			<item> DefaultCaret </item>
@@ -514,8 +668,13 @@
 			<item> DefaultEditorKit.InsertTabAction </item>
 			<item> DefaultEditorKit.PasteAction </item>
 			<item> DefaultFocusManager </item>
+			<item> DefaultFocusTraversalPolicy </item>
+			<item> DefaultFormatter </item>
+			<item> DefaultFormatterFactory </item>
+			<item> DefaultHandler </item>
 			<item> DefaultHighlighter </item>
 			<item> DefaultHighlighter.DefaultHighlightPainter </item>
+			<item> DefaultKeyboardFocusManager </item>
 			<item> DefaultListCellRenderer </item>
 			<item> DefaultListCellRenderer.UIResource </item>
 			<item> DefaultListModel </item>
@@ -523,6 +682,7 @@
 			<item> DefaultMenuLayout </item>
 			<item> DefaultMetalTheme </item>
 			<item> DefaultMutableTreeNode </item>
+			<item> DefaultPersistenceDelegate </item>
 			<item> DefaultSingleSelectionModel </item>
 			<item> DefaultStyledDocument </item>
 			<item> DefaultStyledDocument.AttributeUndoableEdit </item>
@@ -541,11 +701,26 @@
 			<item> Deflater </item>
 			<item> DeflaterOutputStream </item>
 			<item> Delegate </item>
+			<item> Delegate </item>
+			<item> Delegate </item>
+			<item> DelegationPermission </item>
+			<item> DESedeKeySpec </item>
 			<item> DesignMode </item>
+			<item> DESKeySpec </item>
 			<item> DesktopIconUI </item>
 			<item> DesktopManager </item>
 			<item> DesktopPaneUI </item>
+			<item> Destination </item>
+			<item> Destroyable </item>
+			<item> DestroyFailedException </item>
 			<item> DGC </item>
+			<item> DHGenParameterSpec </item>
+			<item> DHKey </item>
+			<item> DHParameterSpec </item>
+			<item> DHPrivateKey </item>
+			<item> DHPrivateKeySpec </item>
+			<item> DHPublicKey </item>
+			<item> DHPublicKeySpec </item>
 			<item> Dialog </item>
 			<item> Dictionary </item>
 			<item> DigestException </item>
@@ -560,17 +735,45 @@
 			<item> DirObjectFactory </item>
 			<item> DirStateFactory </item>
 			<item> DirStateFactory.Result </item>
+			<item> DisplayMode </item>
 			<item> DnDConstants </item>
+			<item> Doc </item>
+			<item> DocAttribute </item>
+			<item> DocAttributeSet </item>
+			<item> DocFlavor </item>
+			<item> DocFlavor.BYTE_ARRAY </item>
+			<item> DocFlavor.CHAR_ARRAY </item>
+			<item> DocFlavor.INPUT_STREAM </item>
+			<item> DocFlavor.READER </item>
+			<item> DocFlavor.SERVICE_FORMATTED </item>
+			<item> DocFlavor.STRING </item>
+			<item> DocFlavor.URL </item>
+			<item> DocPrintJob </item>
 			<item> Document </item>
+			<item> Document </item>
+			<item> DocumentBuilder </item>
+			<item> DocumentBuilderFactory </item>
 			<item> DocumentEvent </item>
 			<item> DocumentEvent.ElementChange </item>
 			<item> DocumentEvent.EventType </item>
+			<item> DocumentFilter </item>
+			<item> DocumentFilter.FilterBypass </item>
+			<item> DocumentFragment </item>
+			<item> DocumentHandler </item>
 			<item> DocumentListener </item>
+			<item> DocumentName </item>
 			<item> DocumentParser </item>
+			<item> DocumentType </item>
 			<item> DomainCombiner </item>
 			<item> DomainManager </item>
 			<item> DomainManagerOperations </item>
+			<item> DOMException </item>
+			<item> DOMImplementation </item>
+			<item> DOMLocator </item>
+			<item> DOMResult </item>
+			<item> DOMSource </item>
 			<item> Double </item>
+			<item> DoubleBuffer </item>
 			<item> DoubleHolder </item>
 			<item> DoubleSeqHelper </item>
 			<item> DoubleSeqHolder </item>
@@ -578,16 +781,19 @@
 			<item> DragGestureListener </item>
 			<item> DragGestureRecognizer </item>
 			<item> DragSource </item>
+			<item> DragSourceAdapter </item>
 			<item> DragSourceContext </item>
 			<item> DragSourceDragEvent </item>
 			<item> DragSourceDropEvent </item>
 			<item> DragSourceEvent </item>
 			<item> DragSourceListener </item>
+			<item> DragSourceMotionListener </item>
 			<item> Driver </item>
 			<item> DriverManager </item>
 			<item> DriverPropertyInfo </item>
 			<item> DropTarget </item>
 			<item> DropTarget.DropTargetAutoScroller </item>
+			<item> DropTargetAdapter </item>
 			<item> DropTargetContext </item>
 			<item> DropTargetDragEvent </item>
 			<item> DropTargetDropEvent </item>
@@ -603,16 +809,54 @@
 			<item> DSAPublicKeySpec </item>
 			<item> DTD </item>
 			<item> DTDConstants </item>
+			<item> DTDHandler </item>
+			<item> DuplicateName </item>
+			<item> DuplicateNameHelper </item>
+			<item> DynamicImplementation </item>
 			<item> DynamicImplementation </item>
 			<item> DynAny </item>
+			<item> DynAny </item>
+			<item> DynAnyFactory </item>
+			<item> DynAnyFactoryHelper </item>
+			<item> DynAnyFactoryOperations </item>
+			<item> DynAnyHelper </item>
+			<item> DynAnyOperations </item>
+			<item> DynAnySeqHelper </item>
 			<item> DynArray </item>
+			<item> DynArray </item>
+			<item> DynArrayHelper </item>
+			<item> DynArrayOperations </item>
 			<item> DynEnum </item>
+			<item> DynEnum </item>
+			<item> DynEnumHelper </item>
+			<item> DynEnumOperations </item>
 			<item> DynFixed </item>
+			<item> DynFixed </item>
+			<item> DynFixedHelper </item>
+			<item> DynFixedOperations </item>
 			<item> DynSequence </item>
+			<item> DynSequence </item>
+			<item> DynSequenceHelper </item>
+			<item> DynSequenceOperations </item>
 			<item> DynStruct </item>
+			<item> DynStruct </item>
+			<item> DynStructHelper </item>
+			<item> DynStructOperations </item>
 			<item> DynUnion </item>
+			<item> DynUnion </item>
+			<item> DynUnionHelper </item>
+			<item> DynUnionOperations </item>
 			<item> DynValue </item>
+			<item> DynValue </item>
+			<item> DynValueBox </item>
+			<item> DynValueBoxOperations </item>
+			<item> DynValueCommon </item>
+			<item> DynValueCommonOperations </item>
+			<item> DynValueHelper </item>
+			<item> DynValueOperations </item>
 			<item> EditorKit </item>
+			<item> Element </item>
+			<item> Element </item>
 			<item> Element </item>
 			<item> ElementIterator </item>
 			<item> Ellipse2D </item>
@@ -621,42 +865,73 @@
 			<item> EmptyBorder </item>
 			<item> EmptyStackException </item>
 			<item> EncodedKeySpec </item>
+			<item> Encoder </item>
+			<item> Encoding </item>
+			<item> ENCODING_CDR_ENCAPS </item>
+			<item> EncryptedPrivateKeyInfo </item>
 			<item> Entity </item>
+			<item> Entity </item>
+			<item> EntityReference </item>
+			<item> EntityResolver </item>
 			<item> EnumControl </item>
 			<item> EnumControl.Type </item>
 			<item> Enumeration </item>
+			<item> EnumSyntax </item>
 			<item> Environment </item>
 			<item> EOFException </item>
 			<item> Error </item>
+			<item> ErrorHandler </item>
+			<item> ErrorListener </item>
+			<item> ErrorManager </item>
 			<item> EtchedBorder </item>
 			<item> Event </item>
 			<item> EventContext </item>
 			<item> EventDirContext </item>
+			<item> EventHandler </item>
 			<item> EventListener </item>
 			<item> EventListenerList </item>
+			<item> EventListenerProxy </item>
 			<item> EventObject </item>
 			<item> EventQueue </item>
 			<item> EventSetDescriptor </item>
 			<item> Exception </item>
 			<item> ExceptionInInitializerError </item>
 			<item> ExceptionList </item>
+			<item> ExceptionListener </item>
+			<item> ExemptionMechanism </item>
+			<item> ExemptionMechanismException </item>
+			<item> ExemptionMechanismSpi </item>
 			<item> ExpandVetoException </item>
 			<item> ExportException </item>
+			<item> Expression </item>
 			<item> ExtendedRequest </item>
 			<item> ExtendedResponse </item>
 			<item> Externalizable </item>
+			<item> FactoryConfigurationError </item>
+			<item> FailedLoginException </item>
 			<item> FeatureDescriptor </item>
+			<item> Fidelity </item>
 			<item> Field </item>
+			<item> FieldNameHelper </item>
 			<item> FieldNameHelper </item>
 			<item> FieldPosition </item>
 			<item> FieldView </item>
 			<item> File </item>
+			<item> FileCacheImageInputStream </item>
+			<item> FileCacheImageOutputStream </item>
+			<item> FileChannel </item>
+			<item> FileChannel.MapMode </item>
 			<item> FileChooserUI </item>
 			<item> FileDescriptor </item>
 			<item> FileDialog </item>
 			<item> FileFilter </item>
 			<item> FileFilter </item>
+			<item> FileHandler </item>
+			<item> FileImageInputStream </item>
+			<item> FileImageOutputStream </item>
 			<item> FileInputStream </item>
+			<item> FileLock </item>
+			<item> FileLockInterruptionException </item>
 			<item> FilenameFilter </item>
 			<item> FileNameMap </item>
 			<item> FileNotFoundException </item>
@@ -666,16 +941,21 @@
 			<item> FileSystemView </item>
 			<item> FileView </item>
 			<item> FileWriter </item>
+			<item> Filter </item>
 			<item> FilteredImageSource </item>
 			<item> FilterInputStream </item>
 			<item> FilterOutputStream </item>
 			<item> FilterReader </item>
 			<item> FilterWriter </item>
+			<item> Finishings </item>
 			<item> FixedHeightLayoutCache </item>
 			<item> FixedHolder </item>
 			<item> FlatteningPathIterator </item>
+			<item> FlavorException </item>
 			<item> FlavorMap </item>
+			<item> FlavorTable </item>
 			<item> Float </item>
+			<item> FloatBuffer </item>
 			<item> FloatControl </item>
 			<item> FloatControl.Type </item>
 			<item> FloatHolder </item>
@@ -688,17 +968,27 @@
 			<item> FocusEvent </item>
 			<item> FocusListener </item>
 			<item> FocusManager </item>
+			<item> FocusTraversalPolicy </item>
 			<item> Font </item>
 			<item> FontFormatException </item>
 			<item> FontMetrics </item>
 			<item> FontRenderContext </item>
 			<item> FontUIResource </item>
 			<item> Format </item>
+			<item> Format.Field </item>
 			<item> FormatConversionProvider </item>
+			<item> FormatMismatch </item>
+			<item> FormatMismatchHelper </item>
+			<item> Formatter </item>
 			<item> FormView </item>
+			<item> ForwardRequest </item>
+			<item> ForwardRequest </item>
+			<item> ForwardRequestHelper </item>
+			<item> ForwardRequestHelper </item>
 			<item> Frame </item>
 			<item> FREE_MEM </item>
 			<item> GapContent </item>
+			<item> GatheringByteChannel </item>
 			<item> GeneralPath </item>
 			<item> GeneralSecurityException </item>
 			<item> GlyphJustificationInfo </item>
@@ -720,14 +1010,29 @@
 			<item> GridBagLayout </item>
 			<item> GridLayout </item>
 			<item> Group </item>
+			<item> GSSContext </item>
+			<item> GSSCredential </item>
+			<item> GSSException </item>
+			<item> GSSManager </item>
+			<item> GSSName </item>
 			<item> Guard </item>
 			<item> GuardedObject </item>
 			<item> GZIPInputStream </item>
 			<item> GZIPOutputStream </item>
+			<item> Handler </item>
+			<item> HandlerBase </item>
+			<item> HandshakeCompletedEvent </item>
+			<item> HandshakeCompletedListener </item>
 			<item> HasControls </item>
+			<item> HashAttributeSet </item>
+			<item> HashDocAttributeSet </item>
 			<item> HashMap </item>
+			<item> HashPrintJobAttributeSet </item>
+			<item> HashPrintRequestAttributeSet </item>
+			<item> HashPrintServiceAttributeSet </item>
 			<item> HashSet </item>
 			<item> Hashtable </item>
+			<item> HeadlessException </item>
 			<item> HierarchyBoundsAdapter </item>
 			<item> HierarchyBoundsListener </item>
 			<item> HierarchyEvent </item>
@@ -735,6 +1040,7 @@
 			<item> Highlighter </item>
 			<item> Highlighter.Highlight </item>
 			<item> Highlighter.HighlightPainter </item>
+			<item> HostnameVerifier </item>
 			<item> HTML </item>
 			<item> HTML.Attribute </item>
 			<item> HTML.Tag </item>
@@ -750,6 +1056,7 @@
 			<item> HTMLEditorKit.ParserCallback </item>
 			<item> HTMLFrameHyperlinkEvent </item>
 			<item> HTMLWriter </item>
+			<item> HttpsURLConnection </item>
 			<item> HttpURLConnection </item>
 			<item> HyperlinkEvent </item>
 			<item> HyperlinkEvent.EventType </item>
@@ -761,37 +1068,96 @@
 			<item> Icon </item>
 			<item> IconUIResource </item>
 			<item> IconView </item>
+			<item> ID_ASSIGNMENT_POLICY_ID </item>
+			<item> ID_UNIQUENESS_POLICY_ID </item>
+			<item> IdAssignmentPolicy </item>
+			<item> IdAssignmentPolicyOperations </item>
+			<item> IdAssignmentPolicyValue </item>
 			<item> IdentifierHelper </item>
 			<item> Identity </item>
+			<item> IdentityHashMap </item>
 			<item> IdentityScope </item>
 			<item> IDLEntity </item>
 			<item> IDLType </item>
 			<item> IDLTypeHelper </item>
 			<item> IDLTypeOperations </item>
+			<item> IdUniquenessPolicy </item>
+			<item> IdUniquenessPolicyOperations </item>
+			<item> IdUniquenessPolicyValue </item>
+			<item> IIOByteBuffer </item>
+			<item> IIOException </item>
+			<item> IIOImage </item>
+			<item> IIOInvalidTreeException </item>
+			<item> IIOMetadata </item>
+			<item> IIOMetadataController </item>
+			<item> IIOMetadataFormat </item>
+			<item> IIOMetadataFormatImpl </item>
+			<item> IIOMetadataNode </item>
+			<item> IIOParam </item>
+			<item> IIOParamController </item>
+			<item> IIOReadProgressListener </item>
+			<item> IIOReadUpdateListener </item>
+			<item> IIOReadWarningListener </item>
+			<item> IIORegistry </item>
+			<item> IIOServiceProvider </item>
+			<item> IIOWriteProgressListener </item>
+			<item> IIOWriteWarningListener </item>
 			<item> IllegalAccessError </item>
 			<item> IllegalAccessException </item>
 			<item> IllegalArgumentException </item>
+			<item> IllegalBlockingModeException </item>
+			<item> IllegalBlockSizeException </item>
+			<item> IllegalCharsetNameException </item>
 			<item> IllegalComponentStateException </item>
 			<item> IllegalMonitorStateException </item>
 			<item> IllegalPathStateException </item>
+			<item> IllegalSelectorException </item>
 			<item> IllegalStateException </item>
 			<item> IllegalThreadStateException </item>
 			<item> Image </item>
+			<item> ImageCapabilities </item>
 			<item> ImageConsumer </item>
 			<item> ImageFilter </item>
 			<item> ImageGraphicAttribute </item>
 			<item> ImageIcon </item>
+			<item> ImageInputStream </item>
+			<item> ImageInputStreamImpl </item>
+			<item> ImageInputStreamSpi </item>
+			<item> ImageIO </item>
 			<item> ImageObserver </item>
+			<item> ImageOutputStream </item>
+			<item> ImageOutputStreamImpl </item>
+			<item> ImageOutputStreamSpi </item>
 			<item> ImageProducer </item>
+			<item> ImageReader </item>
+			<item> ImageReaderSpi </item>
+			<item> ImageReaderWriterSpi </item>
+			<item> ImageReadParam </item>
+			<item> ImageTranscoder </item>
+			<item> ImageTranscoderSpi </item>
+			<item> ImageTypeSpecifier </item>
+			<item> ImageView </item>
+			<item> ImageWriteParam </item>
+			<item> ImageWriter </item>
+			<item> ImageWriterSpi </item>
 			<item> ImagingOpException </item>
 			<item> IMP_LIMIT </item>
+			<item> IMPLICIT_ACTIVATION_POLICY_ID </item>
+			<item> ImplicitActivationPolicy </item>
+			<item> ImplicitActivationPolicyOperations </item>
+			<item> ImplicitActivationPolicyValue </item>
 			<item> IncompatibleClassChangeError </item>
 			<item> InconsistentTypeCode </item>
+			<item> InconsistentTypeCode </item>
+			<item> InconsistentTypeCodeHelper </item>
 			<item> IndexColorModel </item>
 			<item> IndexedPropertyDescriptor </item>
 			<item> IndexOutOfBoundsException </item>
 			<item> IndirectionException </item>
+			<item> Inet4Address </item>
+			<item> Inet6Address </item>
 			<item> InetAddress </item>
+			<item> InetSocketAddress </item>
 			<item> Inflater </item>
 			<item> InflaterInputStream </item>
 			<item> InheritableThreadLocal </item>
@@ -800,7 +1166,6 @@
 			<item> InitialContextFactoryBuilder </item>
 			<item> InitialDirContext </item>
 			<item> INITIALIZE </item>
-			<item> Initializer </item>
 			<item> InitialLdapContext </item>
 			<item> InlineView </item>
 			<item> InputContext </item>
@@ -814,6 +1179,9 @@
 			<item> InputMethodHighlight </item>
 			<item> InputMethodListener </item>
 			<item> InputMethodRequests </item>
+			<item> InputSource </item>
+			<item> InputStream </item>
+			<item> InputStream </item>
 			<item> InputStream </item>
 			<item> InputStreamReader </item>
 			<item> InputSubset </item>
@@ -824,16 +1192,23 @@
 			<item> InstantiationException </item>
 			<item> Instrument </item>
 			<item> InsufficientResourcesException </item>
+			<item> IntBuffer </item>
 			<item> Integer </item>
+			<item> IntegerSyntax </item>
+			<item> Interceptor </item>
+			<item> InterceptorOperations </item>
 			<item> INTERNAL </item>
 			<item> InternalError </item>
 			<item> InternalFrameAdapter </item>
 			<item> InternalFrameEvent </item>
+			<item> InternalFrameFocusTraversalPolicy </item>
 			<item> InternalFrameListener </item>
 			<item> InternalFrameUI </item>
+			<item> InternationalFormatter </item>
 			<item> InterruptedException </item>
 			<item> InterruptedIOException </item>
 			<item> InterruptedNamingException </item>
+			<item> InterruptibleChannel </item>
 			<item> INTF_REPOS </item>
 			<item> IntHolder </item>
 			<item> IntrospectionException </item>
@@ -844,6 +1219,9 @@
 			<item> INV_POLICY </item>
 			<item> Invalid </item>
 			<item> INVALID_TRANSACTION </item>
+			<item> InvalidAddress </item>
+			<item> InvalidAddressHelper </item>
+			<item> InvalidAddressHolder </item>
 			<item> InvalidAlgorithmParameterException </item>
 			<item> InvalidAttributeIdentifierException </item>
 			<item> InvalidAttributesException </item>
@@ -852,24 +1230,44 @@
 			<item> InvalidDnDOperationException </item>
 			<item> InvalidKeyException </item>
 			<item> InvalidKeySpecException </item>
+			<item> InvalidMarkException </item>
 			<item> InvalidMidiDataException </item>
 			<item> InvalidName </item>
+			<item> InvalidName </item>
+			<item> InvalidName </item>
 			<item> InvalidNameException </item>
+			<item> InvalidNameHelper </item>
 			<item> InvalidNameHelper </item>
 			<item> InvalidNameHolder </item>
 			<item> InvalidObjectException </item>
 			<item> InvalidParameterException </item>
 			<item> InvalidParameterSpecException </item>
+			<item> InvalidPolicy </item>
+			<item> InvalidPolicyHelper </item>
+			<item> InvalidPreferencesFormatException </item>
 			<item> InvalidSearchControlsException </item>
 			<item> InvalidSearchFilterException </item>
 			<item> InvalidSeq </item>
+			<item> InvalidSlot </item>
+			<item> InvalidSlotHelper </item>
 			<item> InvalidTransactionException </item>
+			<item> InvalidTypeForEncoding </item>
+			<item> InvalidTypeForEncodingHelper </item>
 			<item> InvalidValue </item>
+			<item> InvalidValue </item>
+			<item> InvalidValueHelper </item>
 			<item> InvocationEvent </item>
 			<item> InvocationHandler </item>
 			<item> InvocationTargetException </item>
 			<item> InvokeHandler </item>
 			<item> IOException </item>
+			<item> IOR </item>
+			<item> IORHelper </item>
+			<item> IORHolder </item>
+			<item> IORInfo </item>
+			<item> IORInfoOperations </item>
+			<item> IORInterceptor </item>
+			<item> IORInterceptorOperations </item>
 			<item> IRObject </item>
 			<item> IRObjectOperations </item>
 			<item> IstringHelper </item>
@@ -877,6 +1275,7 @@
 			<item> ItemListener </item>
 			<item> ItemSelectable </item>
 			<item> Iterator </item>
+			<item> IvParameterSpec </item>
 			<item> JApplet </item>
 			<item> JarEntry </item>
 			<item> JarException </item>
@@ -895,6 +1294,9 @@
 			<item> JDialog </item>
 			<item> JEditorPane </item>
 			<item> JFileChooser </item>
+			<item> JFormattedTextField </item>
+			<item> JFormattedTextField.AbstractFormatter </item>
+			<item> JFormattedTextField.AbstractFormatterFactory </item>
 			<item> JFrame </item>
 			<item> JInternalFrame </item>
 			<item> JInternalFrame.JDesktopIcon </item>
@@ -910,9 +1312,32 @@
 			<item> JobAttributes.DialogType </item>
 			<item> JobAttributes.MultipleDocumentHandlingType </item>
 			<item> JobAttributes.SidesType </item>
+			<item> JobHoldUntil </item>
+			<item> JobImpressions </item>
+			<item> JobImpressionsCompleted </item>
+			<item> JobImpressionsSupported </item>
+			<item> JobKOctets </item>
+			<item> JobKOctetsProcessed </item>
+			<item> JobKOctetsSupported </item>
+			<item> JobMediaSheets </item>
+			<item> JobMediaSheetsCompleted </item>
+			<item> JobMediaSheetsSupported </item>
+			<item> JobMessageFromOperator </item>
+			<item> JobName </item>
+			<item> JobOriginatingUserName </item>
+			<item> JobPriority </item>
+			<item> JobPrioritySupported </item>
+			<item> JobSheets </item>
+			<item> JobState </item>
+			<item> JobStateReason </item>
+			<item> JobStateReasons </item>
 			<item> JOptionPane </item>
 			<item> JPanel </item>
 			<item> JPasswordField </item>
+			<item> JPEGHuffmanTable </item>
+			<item> JPEGImageReadParam </item>
+			<item> JPEGImageWriteParam </item>
+			<item> JPEGQTable </item>
 			<item> JPopupMenu </item>
 			<item> JPopupMenu.Separator </item>
 			<item> JProgressBar </item>
@@ -923,6 +1348,11 @@
 			<item> JScrollPane </item>
 			<item> JSeparator </item>
 			<item> JSlider </item>
+			<item> JSpinner </item>
+			<item> JSpinner.DateEditor </item>
+			<item> JSpinner.DefaultEditor </item>
+			<item> JSpinner.ListEditor </item>
+			<item> JSpinner.NumberEditor </item>
 			<item> JSplitPane </item>
 			<item> JTabbedPane </item>
 			<item> JTable </item>
@@ -942,15 +1372,28 @@
 			<item> JTree.EmptySelectionModel </item>
 			<item> JViewport </item>
 			<item> JWindow </item>
+			<item> KerberosKey </item>
+			<item> KerberosPrincipal </item>
+			<item> KerberosTicket </item>
 			<item> Kernel </item>
 			<item> Key </item>
 			<item> KeyAdapter </item>
+			<item> KeyAgreement </item>
+			<item> KeyAgreementSpi </item>
+			<item> KeyboardFocusManager </item>
 			<item> KeyEvent </item>
+			<item> KeyEventDispatcher </item>
+			<item> KeyEventPostProcessor </item>
 			<item> KeyException </item>
 			<item> KeyFactory </item>
 			<item> KeyFactorySpi </item>
+			<item> KeyGenerator </item>
+			<item> KeyGeneratorSpi </item>
 			<item> KeyListener </item>
 			<item> KeyManagementException </item>
+			<item> KeyManager </item>
+			<item> KeyManagerFactory </item>
+			<item> KeyManagerFactorySpi </item>
 			<item> Keymap </item>
 			<item> KeyPair </item>
 			<item> KeyPairGenerator </item>
@@ -963,15 +1406,24 @@
 			<item> Label </item>
 			<item> LabelUI </item>
 			<item> LabelView </item>
+			<item> LanguageCallback </item>
 			<item> LastOwnerException </item>
 			<item> LayeredHighlighter </item>
 			<item> LayeredHighlighter.LayerPainter </item>
+			<item> LayoutFocusTraversalPolicy </item>
 			<item> LayoutManager </item>
 			<item> LayoutManager2 </item>
 			<item> LayoutQueue </item>
+			<item> LDAPCertStoreParameters </item>
 			<item> LdapContext </item>
 			<item> LdapReferralException </item>
 			<item> Lease </item>
+			<item> Level </item>
+			<item> LexicalHandler </item>
+			<item> LIFESPAN_POLICY_ID </item>
+			<item> LifespanPolicy </item>
+			<item> LifespanPolicyOperations </item>
+			<item> LifespanPolicyValue </item>
 			<item> LimitExceededException </item>
 			<item> Line </item>
 			<item> Line.Info </item>
@@ -988,10 +1440,13 @@
 			<item> LineNumberReader </item>
 			<item> LineUnavailableException </item>
 			<item> LinkageError </item>
+			<item> LinkedHashMap </item>
+			<item> LinkedHashSet </item>
 			<item> LinkedList </item>
 			<item> LinkException </item>
 			<item> LinkLoopException </item>
 			<item> LinkRef </item>
+			<item> List </item>
 			<item> List </item>
 			<item> ListCellRenderer </item>
 			<item> ListDataEvent </item>
@@ -1006,9 +1461,21 @@
 			<item> ListView </item>
 			<item> LoaderHandler </item>
 			<item> Locale </item>
+			<item> LocalObject </item>
 			<item> LocateRegistry </item>
+			<item> LOCATION_FORWARD </item>
+			<item> Locator </item>
+			<item> LocatorImpl </item>
+			<item> Logger </item>
+			<item> LoggingPermission </item>
+			<item> LoginContext </item>
+			<item> LoginException </item>
+			<item> LoginModule </item>
+			<item> LogManager </item>
+			<item> LogRecord </item>
 			<item> LogStream </item>
 			<item> Long </item>
+			<item> LongBuffer </item>
 			<item> LongHolder </item>
 			<item> LongLongSeqHelper </item>
 			<item> LongLongSeqHolder </item>
@@ -1017,18 +1484,39 @@
 			<item> LookAndFeel </item>
 			<item> LookupOp </item>
 			<item> LookupTable </item>
+			<item> Mac </item>
+			<item> MacSpi </item>
+			<item> MalformedInputException </item>
 			<item> MalformedLinkException </item>
 			<item> MalformedURLException </item>
+			<item> ManagerFactoryParameters </item>
 			<item> Manifest </item>
 			<item> Map </item>
 			<item> Map.Entry </item>
+			<item> MappedByteBuffer </item>
 			<item> MARSHAL </item>
 			<item> MarshalException </item>
 			<item> MarshalledObject </item>
+			<item> MaskFormatter </item>
+			<item> Matcher </item>
 			<item> Math </item>
 			<item> MatteBorder </item>
+			<item> Media </item>
+			<item> MediaName </item>
+			<item> MediaPrintableArea </item>
+			<item> MediaSize </item>
+			<item> MediaSize.Engineering </item>
+			<item> MediaSize.ISO </item>
+			<item> MediaSize.JIS </item>
+			<item> MediaSize.NA </item>
+			<item> MediaSize.Other </item>
+			<item> MediaSizeName </item>
 			<item> MediaTracker </item>
+			<item> MediaTray </item>
 			<item> Member </item>
+			<item> MemoryCacheImageInputStream </item>
+			<item> MemoryCacheImageOutputStream </item>
+			<item> MemoryHandler </item>
 			<item> MemoryImageSource </item>
 			<item> Menu </item>
 			<item> MenuBar </item>
@@ -1049,6 +1537,8 @@
 			<item> MessageDigest </item>
 			<item> MessageDigestSpi </item>
 			<item> MessageFormat </item>
+			<item> MessageFormat.Field </item>
+			<item> MessageProp </item>
 			<item> MetaEventListener </item>
 			<item> MetalBorders </item>
 			<item> MetalBorders.ButtonBorder </item>
@@ -1089,6 +1579,7 @@
 			<item> MetalPopupMenuSeparatorUI </item>
 			<item> MetalProgressBarUI </item>
 			<item> MetalRadioButtonUI </item>
+			<item> MetalRootPaneUI </item>
 			<item> MetalScrollBarUI </item>
 			<item> MetalScrollButton </item>
 			<item> MetalScrollPaneUI </item>
@@ -1132,12 +1623,17 @@
 			<item> MouseListener </item>
 			<item> MouseMotionAdapter </item>
 			<item> MouseMotionListener </item>
+			<item> MouseWheelEvent </item>
+			<item> MouseWheelListener </item>
 			<item> MultiButtonUI </item>
 			<item> MulticastSocket </item>
 			<item> MultiColorChooserUI </item>
 			<item> MultiComboBoxUI </item>
 			<item> MultiDesktopIconUI </item>
 			<item> MultiDesktopPaneUI </item>
+			<item> MultiDoc </item>
+			<item> MultiDocPrintJob </item>
+			<item> MultiDocPrintService </item>
 			<item> MultiFileChooserUI </item>
 			<item> MultiInternalFrameUI </item>
 			<item> MultiLabelUI </item>
@@ -1148,13 +1644,18 @@
 			<item> MultiOptionPaneUI </item>
 			<item> MultiPanelUI </item>
 			<item> MultiPixelPackedSampleModel </item>
+			<item> MultipleComponentProfileHelper </item>
+			<item> MultipleComponentProfileHolder </item>
+			<item> MultipleDocumentHandling </item>
 			<item> MultipleMaster </item>
 			<item> MultiPopupMenuUI </item>
 			<item> MultiProgressBarUI </item>
+			<item> MultiRootPaneUI </item>
 			<item> MultiScrollBarUI </item>
 			<item> MultiScrollPaneUI </item>
 			<item> MultiSeparatorUI </item>
 			<item> MultiSliderUI </item>
+			<item> MultiSpinnerUI </item>
 			<item> MultiSplitPaneUI </item>
 			<item> MultiTabbedPaneUI </item>
 			<item> MultiTableHeaderUI </item>
@@ -1169,23 +1670,38 @@
 			<item> MutableTreeNode </item>
 			<item> Name </item>
 			<item> NameAlreadyBoundException </item>
+			<item> NameCallback </item>
 			<item> NameClassPair </item>
 			<item> NameComponent </item>
 			<item> NameComponentHelper </item>
 			<item> NameComponentHolder </item>
+			<item> NamedNodeMap </item>
 			<item> NamedValue </item>
+			<item> NameDynAnyPair </item>
+			<item> NameDynAnyPairHelper </item>
+			<item> NameDynAnyPairSeqHelper </item>
 			<item> NameHelper </item>
 			<item> NameHolder </item>
 			<item> NameNotFoundException </item>
 			<item> NameParser </item>
 			<item> NamespaceChangeListener </item>
+			<item> NamespaceSupport </item>
+			<item> NameValuePair </item>
 			<item> NameValuePair </item>
 			<item> NameValuePairHelper </item>
+			<item> NameValuePairHelper </item>
+			<item> NameValuePairSeqHelper </item>
 			<item> Naming </item>
 			<item> NamingContext </item>
+			<item> NamingContextExt </item>
+			<item> NamingContextExtHelper </item>
+			<item> NamingContextExtHolder </item>
+			<item> NamingContextExtOperations </item>
+			<item> NamingContextExtPOA </item>
 			<item> NamingContextHelper </item>
 			<item> NamingContextHolder </item>
 			<item> NamingContextOperations </item>
+			<item> NamingContextPOA </item>
 			<item> NamingEnumeration </item>
 			<item> NamingEvent </item>
 			<item> NamingException </item>
@@ -1193,18 +1709,32 @@
 			<item> NamingListener </item>
 			<item> NamingManager </item>
 			<item> NamingSecurityException </item>
+			<item> NavigationFilter </item>
+			<item> NavigationFilter.FilterBypass </item>
 			<item> NegativeArraySizeException </item>
 			<item> NetPermission </item>
+			<item> NetworkInterface </item>
 			<item> NO_IMPLEMENT </item>
 			<item> NO_MEMORY </item>
 			<item> NO_PERMISSION </item>
 			<item> NO_RESOURCES </item>
 			<item> NO_RESPONSE </item>
 			<item> NoClassDefFoundError </item>
+			<item> NoConnectionPendingException </item>
+			<item> NoContext </item>
+			<item> NoContextHelper </item>
+			<item> Node </item>
+			<item> NodeChangeEvent </item>
+			<item> NodeChangeListener </item>
+			<item> NodeList </item>
 			<item> NoInitialContextException </item>
 			<item> NoninvertibleTransformException </item>
+			<item> NonReadableChannelException </item>
+			<item> NonWritableChannelException </item>
 			<item> NoPermissionException </item>
 			<item> NoRouteToHostException </item>
+			<item> NoServant </item>
+			<item> NoServantHelper </item>
 			<item> NoSuchAlgorithmException </item>
 			<item> NoSuchAttributeException </item>
 			<item> NoSuchElementException </item>
@@ -1213,8 +1743,10 @@
 			<item> NoSuchMethodError </item>
 			<item> NoSuchMethodException </item>
 			<item> NoSuchObjectException </item>
+			<item> NoSuchPaddingException </item>
 			<item> NoSuchProviderException </item>
 			<item> NotActiveException </item>
+			<item> Notation </item>
 			<item> NotBoundException </item>
 			<item> NotContextException </item>
 			<item> NotEmpty </item>
@@ -1228,25 +1760,41 @@
 			<item> NotFoundReasonHolder </item>
 			<item> NotOwnerException </item>
 			<item> NotSerializableException </item>
+			<item> NotYetBoundException </item>
+			<item> NotYetConnectedException </item>
+			<item> NullCipher </item>
 			<item> NullPointerException </item>
 			<item> Number </item>
 			<item> NumberFormat </item>
+			<item> NumberFormat.Field </item>
 			<item> NumberFormatException </item>
+			<item> NumberFormatter </item>
+			<item> NumberOfDocuments </item>
+			<item> NumberOfInterveningJobs </item>
+			<item> NumberUp </item>
+			<item> NumberUpSupported </item>
+			<item> NumericShaper </item>
 			<item> NVList </item>
 			<item> OBJ_ADAPTER </item>
 			<item> Object </item>
+			<item> Object </item>
 			<item> OBJECT_NOT_EXIST </item>
+			<item> ObjectAlreadyActive </item>
+			<item> ObjectAlreadyActiveHelper </item>
 			<item> ObjectChangeListener </item>
 			<item> ObjectFactory </item>
 			<item> ObjectFactoryBuilder </item>
 			<item> ObjectHelper </item>
 			<item> ObjectHolder </item>
+			<item> ObjectIdHelper </item>
 			<item> ObjectImpl </item>
 			<item> ObjectImpl </item>
 			<item> ObjectInput </item>
 			<item> ObjectInputStream </item>
 			<item> ObjectInputStream.GetField </item>
 			<item> ObjectInputValidation </item>
+			<item> ObjectNotActive </item>
+			<item> ObjectNotActiveHelper </item>
 			<item> ObjectOutput </item>
 			<item> ObjectOutputStream </item>
 			<item> ObjectOutputStream.PutField </item>
@@ -1260,6 +1808,7 @@
 			<item> Observer </item>
 			<item> OctetSeqHelper </item>
 			<item> OctetSeqHolder </item>
+			<item> Oid </item>
 			<item> OMGVMCID </item>
 			<item> OpenType </item>
 			<item> Operation </item>
@@ -1268,9 +1817,20 @@
 			<item> OptionalDataException </item>
 			<item> OptionPaneUI </item>
 			<item> ORB </item>
+			<item> ORB </item>
+			<item> ORBInitializer </item>
+			<item> ORBInitializerOperations </item>
+			<item> ORBInitInfo </item>
+			<item> ORBInitInfoOperations </item>
+			<item> OrientationRequested </item>
 			<item> OutOfMemoryError </item>
+			<item> OutputDeviceAssigned </item>
+			<item> OutputKeys </item>
+			<item> OutputStream </item>
+			<item> OutputStream </item>
 			<item> OutputStream </item>
 			<item> OutputStreamWriter </item>
+			<item> OverlappingFileLockException </item>
 			<item> OverlayLayout </item>
 			<item> Owner </item>
 			<item> Package </item>
@@ -1283,6 +1843,9 @@
 			<item> PageAttributes.OriginType </item>
 			<item> PageAttributes.PrintQualityType </item>
 			<item> PageFormat </item>
+			<item> PageRanges </item>
+			<item> PagesPerMinute </item>
+			<item> PagesPerMinuteColor </item>
 			<item> Paint </item>
 			<item> PaintContext </item>
 			<item> PaintEvent </item>
@@ -1290,22 +1853,44 @@
 			<item> PanelUI </item>
 			<item> Paper </item>
 			<item> ParagraphView </item>
+			<item> ParagraphView </item>
+			<item> Parameter </item>
 			<item> ParameterBlock </item>
 			<item> ParameterDescriptor </item>
+			<item> ParameterMetaData </item>
+			<item> ParameterMode </item>
+			<item> ParameterModeHelper </item>
+			<item> ParameterModeHolder </item>
 			<item> ParseException </item>
 			<item> ParsePosition </item>
 			<item> Parser </item>
+			<item> Parser </item>
+			<item> ParserAdapter </item>
+			<item> ParserConfigurationException </item>
 			<item> ParserDelegator </item>
+			<item> ParserFactory </item>
 			<item> PartialResultException </item>
 			<item> PasswordAuthentication </item>
+			<item> PasswordCallback </item>
 			<item> PasswordView </item>
 			<item> Patch </item>
 			<item> PathIterator </item>
+			<item> Pattern </item>
+			<item> PatternSyntaxException </item>
+			<item> PBEKey </item>
+			<item> PBEKeySpec </item>
+			<item> PBEParameterSpec </item>
+			<item> PDLOverrideSupported </item>
+			<item> Permission </item>
 			<item> Permission </item>
 			<item> PermissionCollection </item>
 			<item> Permissions </item>
 			<item> PERSIST_STORE </item>
+			<item> PersistenceDelegate </item>
 			<item> PhantomReference </item>
+			<item> Pipe </item>
+			<item> Pipe.SinkChannel </item>
+			<item> Pipe.SourceChannel </item>
 			<item> PipedInputStream </item>
 			<item> PipedOutputStream </item>
 			<item> PipedReader </item>
@@ -1313,22 +1898,43 @@
 			<item> PixelGrabber </item>
 			<item> PixelInterleavedSampleModel </item>
 			<item> PKCS8EncodedKeySpec </item>
+			<item> PKIXBuilderParameters </item>
+			<item> PKIXCertPathBuilderResult </item>
+			<item> PKIXCertPathChecker </item>
+			<item> PKIXCertPathValidatorResult </item>
+			<item> PKIXParameters </item>
 			<item> PlainDocument </item>
 			<item> PlainView </item>
+			<item> POA </item>
+			<item> POAHelper </item>
+			<item> POAManager </item>
+			<item> POAManagerOperations </item>
+			<item> POAOperations </item>
 			<item> Point </item>
 			<item> Point2D </item>
 			<item> Point2D.Double </item>
 			<item> Point2D.Float </item>
 			<item> Policy </item>
 			<item> Policy </item>
+			<item> Policy </item>
 			<item> PolicyError </item>
+			<item> PolicyErrorCodeHelper </item>
+			<item> PolicyErrorHelper </item>
+			<item> PolicyErrorHolder </item>
+			<item> PolicyFactory </item>
+			<item> PolicyFactoryOperations </item>
 			<item> PolicyHelper </item>
 			<item> PolicyHolder </item>
 			<item> PolicyListHelper </item>
 			<item> PolicyListHolder </item>
+			<item> PolicyNode </item>
 			<item> PolicyOperations </item>
+			<item> PolicyQualifierInfo </item>
 			<item> PolicyTypeHelper </item>
 			<item> Polygon </item>
+			<item> PooledConnection </item>
+			<item> Popup </item>
+			<item> PopupFactory </item>
 			<item> PopupMenu </item>
 			<item> PopupMenuEvent </item>
 			<item> PopupMenuListener </item>
@@ -1337,34 +1943,76 @@
 			<item> Port.Info </item>
 			<item> PortableRemoteObject </item>
 			<item> PortableRemoteObjectDelegate </item>
+			<item> PortUnreachableException </item>
 			<item> Position </item>
 			<item> Position.Bias </item>
+			<item> PreferenceChangeEvent </item>
+			<item> PreferenceChangeListener </item>
+			<item> Preferences </item>
+			<item> PreferencesFactory </item>
 			<item> PreparedStatement </item>
+			<item> PresentationDirection </item>
+			<item> Principal </item>
 			<item> Principal </item>
 			<item> PrincipalHolder </item>
 			<item> Printable </item>
 			<item> PrinterAbortException </item>
 			<item> PrinterException </item>
 			<item> PrinterGraphics </item>
+			<item> PrinterInfo </item>
 			<item> PrinterIOException </item>
+			<item> PrinterIsAcceptingJobs </item>
 			<item> PrinterJob </item>
+			<item> PrinterLocation </item>
+			<item> PrinterMakeAndModel </item>
+			<item> PrinterMessageFromOperator </item>
+			<item> PrinterMoreInfo </item>
+			<item> PrinterMoreInfoManufacturer </item>
+			<item> PrinterName </item>
+			<item> PrinterResolution </item>
+			<item> PrinterState </item>
+			<item> PrinterStateReason </item>
+			<item> PrinterStateReasons </item>
+			<item> PrinterURI </item>
+			<item> PrintEvent </item>
+			<item> PrintException </item>
 			<item> PrintGraphics </item>
 			<item> PrintJob </item>
+			<item> PrintJobAdapter </item>
+			<item> PrintJobAttribute </item>
+			<item> PrintJobAttributeEvent </item>
+			<item> PrintJobAttributeListener </item>
+			<item> PrintJobAttributeSet </item>
+			<item> PrintJobEvent </item>
+			<item> PrintJobListener </item>
+			<item> PrintQuality </item>
+			<item> PrintRequestAttribute </item>
+			<item> PrintRequestAttributeSet </item>
+			<item> PrintService </item>
+			<item> PrintServiceAttribute </item>
+			<item> PrintServiceAttributeEvent </item>
+			<item> PrintServiceAttributeListener </item>
+			<item> PrintServiceAttributeSet </item>
+			<item> PrintServiceLookup </item>
 			<item> PrintStream </item>
 			<item> PrintWriter </item>
 			<item> PRIVATE_MEMBER </item>
+			<item> PrivateCredentialPermission </item>
 			<item> PrivateKey </item>
 			<item> PrivilegedAction </item>
 			<item> PrivilegedActionException </item>
 			<item> PrivilegedExceptionAction </item>
 			<item> Process </item>
+			<item> ProcessingInstruction </item>
 			<item> ProfileDataException </item>
+			<item> ProfileIdHelper </item>
 			<item> ProgressBarUI </item>
 			<item> ProgressMonitor </item>
 			<item> ProgressMonitorInputStream </item>
 			<item> Properties </item>
 			<item> PropertyChangeEvent </item>
 			<item> PropertyChangeListener </item>
+			<item> PropertyChangeListenerProxy </item>
 			<item> PropertyChangeSupport </item>
 			<item> PropertyDescriptor </item>
 			<item> PropertyEditor </item>
@@ -1378,6 +2026,7 @@
 			<item> Provider </item>
 			<item> ProviderException </item>
 			<item> Proxy </item>
+			<item> PSSParameterSpec </item>
 			<item> PUBLIC_MEMBER </item>
 			<item> PublicKey </item>
 			<item> PushbackInputStream </item>
@@ -1385,12 +2034,18 @@
 			<item> QuadCurve2D </item>
 			<item> QuadCurve2D.Double </item>
 			<item> QuadCurve2D.Float </item>
+			<item> QueuedJobCount </item>
 			<item> Random </item>
+			<item> RandomAccess </item>
 			<item> RandomAccessFile </item>
 			<item> Raster </item>
 			<item> RasterFormatException </item>
 			<item> RasterOp </item>
+			<item> RC2ParameterSpec </item>
+			<item> RC5ParameterSpec </item>
+			<item> ReadableByteChannel </item>
 			<item> Reader </item>
+			<item> ReadOnlyBufferException </item>
 			<item> Receiver </item>
 			<item> Rectangle </item>
 			<item> Rectangle2D </item>
@@ -1400,10 +2055,15 @@
 			<item> Ref </item>
 			<item> RefAddr </item>
 			<item> Reference </item>
+			<item> Reference </item>
 			<item> Referenceable </item>
 			<item> ReferenceQueue </item>
+			<item> ReferenceUriSchemesSupported </item>
 			<item> ReferralException </item>
 			<item> ReflectPermission </item>
+			<item> Refreshable </item>
+			<item> RefreshFailedException </item>
+			<item> RegisterableService </item>
 			<item> Registry </item>
 			<item> RegistryHandler </item>
 			<item> RemarshalException </item>
@@ -1425,19 +2085,28 @@
 			<item> RenderingHints.Key </item>
 			<item> RepaintManager </item>
 			<item> ReplicateScaleFilter </item>
-			<item> Repository </item>
 			<item> RepositoryIdHelper </item>
 			<item> Request </item>
+			<item> REQUEST_PROCESSING_POLICY_ID </item>
+			<item> RequestInfo </item>
+			<item> RequestInfoOperations </item>
+			<item> RequestingUserName </item>
+			<item> RequestProcessingPolicy </item>
+			<item> RequestProcessingPolicyOperations </item>
+			<item> RequestProcessingPolicyValue </item>
 			<item> RescaleOp </item>
+			<item> ResolutionSyntax </item>
 			<item> Resolver </item>
 			<item> ResolveResult </item>
 			<item> ResourceBundle </item>
 			<item> ResponseHandler </item>
+			<item> Result </item>
 			<item> ResultSet </item>
 			<item> ResultSetMetaData </item>
 			<item> ReverbType </item>
 			<item> RGBImageFilter </item>
 			<item> RMIClassLoader </item>
+			<item> RMIClassLoaderSpi </item>
 			<item> RMIClientSocketFactory </item>
 			<item> RMIFailureHandler </item>
 			<item> RMISecurityException </item>
@@ -1451,8 +2120,18 @@
 			<item> RoundRectangle2D.Double </item>
 			<item> RoundRectangle2D.Float </item>
 			<item> RowMapper </item>
+			<item> RowSet </item>
+			<item> RowSetEvent </item>
+			<item> RowSetInternal </item>
+			<item> RowSetListener </item>
+			<item> RowSetMetaData </item>
+			<item> RowSetReader </item>
+			<item> RowSetWriter </item>
 			<item> RSAKey </item>
 			<item> RSAKeyGenParameterSpec </item>
+			<item> RSAMultiPrimePrivateCrtKey </item>
+			<item> RSAMultiPrimePrivateCrtKeySpec </item>
+			<item> RSAOtherPrimeInfo </item>
 			<item> RSAPrivateCrtKey </item>
 			<item> RSAPrivateCrtKeySpec </item>
 			<item> RSAPrivateKey </item>
@@ -1468,17 +2147,34 @@
 			<item> RunTimeOperations </item>
 			<item> RuntimePermission </item>
 			<item> SampleModel </item>
+			<item> Savepoint </item>
+			<item> SAXException </item>
+			<item> SAXNotRecognizedException </item>
+			<item> SAXNotSupportedException </item>
+			<item> SAXParseException </item>
+			<item> SAXParser </item>
+			<item> SAXParserFactory </item>
+			<item> SAXResult </item>
+			<item> SAXSource </item>
+			<item> SAXTransformerFactory </item>
+			<item> ScatteringByteChannel </item>
 			<item> SchemaViolationException </item>
 			<item> Scrollable </item>
 			<item> Scrollbar </item>
 			<item> ScrollBarUI </item>
 			<item> ScrollPane </item>
+			<item> ScrollPaneAdjustable </item>
 			<item> ScrollPaneConstants </item>
 			<item> ScrollPaneLayout </item>
 			<item> ScrollPaneLayout.UIResource </item>
 			<item> ScrollPaneUI </item>
+			<item> SealedObject </item>
 			<item> SearchControls </item>
 			<item> SearchResult </item>
+			<item> SecretKey </item>
+			<item> SecretKeyFactory </item>
+			<item> SecretKeyFactorySpi </item>
+			<item> SecretKeySpec </item>
 			<item> SecureClassLoader </item>
 			<item> SecureRandom </item>
 			<item> SecureRandomSpi </item>
@@ -1487,6 +2183,10 @@
 			<item> SecurityManager </item>
 			<item> SecurityPermission </item>
 			<item> Segment </item>
+			<item> SelectableChannel </item>
+			<item> SelectionKey </item>
+			<item> Selector </item>
+			<item> SelectorProvider </item>
 			<item> SeparatorUI </item>
 			<item> Sequence </item>
 			<item> SequenceInputStream </item>
@@ -1494,32 +2194,74 @@
 			<item> Sequencer.SyncMode </item>
 			<item> Serializable </item>
 			<item> SerializablePermission </item>
+			<item> Servant </item>
+			<item> SERVANT_RETENTION_POLICY_ID </item>
+			<item> ServantActivator </item>
+			<item> ServantActivatorHelper </item>
+			<item> ServantActivatorOperations </item>
+			<item> ServantActivatorPOA </item>
+			<item> ServantAlreadyActive </item>
+			<item> ServantAlreadyActiveHelper </item>
+			<item> ServantLocator </item>
+			<item> ServantLocatorHelper </item>
+			<item> ServantLocatorOperations </item>
+			<item> ServantLocatorPOA </item>
+			<item> ServantManager </item>
+			<item> ServantManagerOperations </item>
+			<item> ServantNotActive </item>
+			<item> ServantNotActiveHelper </item>
 			<item> ServantObject </item>
+			<item> ServantRetentionPolicy </item>
+			<item> ServantRetentionPolicyOperations </item>
+			<item> ServantRetentionPolicyValue </item>
 			<item> ServerCloneException </item>
 			<item> ServerError </item>
 			<item> ServerException </item>
 			<item> ServerNotActiveException </item>
 			<item> ServerRef </item>
 			<item> ServerRequest </item>
+			<item> ServerRequestInfo </item>
+			<item> ServerRequestInfoOperations </item>
+			<item> ServerRequestInterceptor </item>
+			<item> ServerRequestInterceptorOperations </item>
 			<item> ServerRuntimeException </item>
 			<item> ServerSocket </item>
+			<item> ServerSocketChannel </item>
+			<item> ServerSocketFactory </item>
+			<item> ServiceContext </item>
+			<item> ServiceContextHelper </item>
+			<item> ServiceContextHolder </item>
+			<item> ServiceContextListHelper </item>
+			<item> ServiceContextListHolder </item>
 			<item> ServiceDetail </item>
 			<item> ServiceDetailHelper </item>
+			<item> ServiceIdHelper </item>
 			<item> ServiceInformation </item>
 			<item> ServiceInformationHelper </item>
 			<item> ServiceInformationHolder </item>
+			<item> ServicePermission </item>
+			<item> ServiceRegistry </item>
+			<item> ServiceRegistry.Filter </item>
+			<item> ServiceUI </item>
+			<item> ServiceUIFactory </item>
 			<item> ServiceUnavailableException </item>
 			<item> Set </item>
+			<item> SetOfIntegerSyntax </item>
 			<item> SetOverrideType </item>
 			<item> SetOverrideTypeHelper </item>
+			<item> Severity </item>
 			<item> Shape </item>
 			<item> ShapeGraphicAttribute </item>
+			<item> SheetCollate </item>
 			<item> Short </item>
+			<item> ShortBuffer </item>
+			<item> ShortBufferException </item>
 			<item> ShortHolder </item>
 			<item> ShortLookupTable </item>
 			<item> ShortMessage </item>
 			<item> ShortSeqHelper </item>
 			<item> ShortSeqHolder </item>
+			<item> Sides </item>
 			<item> Signature </item>
 			<item> SignatureException </item>
 			<item> SignatureSpi </item>
@@ -1528,9 +2270,12 @@
 			<item> SimpleAttributeSet </item>
 			<item> SimpleBeanInfo </item>
 			<item> SimpleDateFormat </item>
+			<item> SimpleDoc </item>
+			<item> SimpleFormatter </item>
 			<item> SimpleTimeZone </item>
 			<item> SinglePixelPackedSampleModel </item>
 			<item> SingleSelectionModel </item>
+			<item> Size2DSyntax </item>
 			<item> SizeLimitExceededException </item>
 			<item> SizeRequirements </item>
 			<item> SizeSequence </item>
@@ -1539,36 +2284,78 @@
 			<item> SkeletonNotFoundException </item>
 			<item> SliderUI </item>
 			<item> Socket </item>
+			<item> SocketAddress </item>
+			<item> SocketChannel </item>
 			<item> SocketException </item>
+			<item> SocketFactory </item>
+			<item> SocketHandler </item>
 			<item> SocketImpl </item>
 			<item> SocketImplFactory </item>
 			<item> SocketOptions </item>
 			<item> SocketPermission </item>
 			<item> SocketSecurityException </item>
+			<item> SocketTimeoutException </item>
 			<item> SoftBevelBorder </item>
 			<item> SoftReference </item>
 			<item> SortedMap </item>
 			<item> SortedSet </item>
+			<item> SortingFocusTraversalPolicy </item>
 			<item> Soundbank </item>
 			<item> SoundbankReader </item>
 			<item> SoundbankResource </item>
+			<item> Source </item>
 			<item> SourceDataLine </item>
+			<item> SourceLocator </item>
+			<item> SpinnerDateModel </item>
+			<item> SpinnerListModel </item>
+			<item> SpinnerModel </item>
+			<item> SpinnerNumberModel </item>
+			<item> SpinnerUI </item>
 			<item> SplitPaneUI </item>
+			<item> Spring </item>
+			<item> SpringLayout </item>
+			<item> SpringLayout.Constraints </item>
 			<item> SQLData </item>
 			<item> SQLException </item>
 			<item> SQLInput </item>
 			<item> SQLOutput </item>
 			<item> SQLPermission </item>
 			<item> SQLWarning </item>
+			<item> SSLContext </item>
+			<item> SSLContextSpi </item>
+			<item> SSLException </item>
+			<item> SSLHandshakeException </item>
+			<item> SSLKeyException </item>
+			<item> SSLPeerUnverifiedException </item>
+			<item> SSLPermission </item>
+			<item> SSLProtocolException </item>
+			<item> SSLServerSocket </item>
+			<item> SSLServerSocketFactory </item>
+			<item> SSLSession </item>
+			<item> SSLSessionBindingEvent </item>
+			<item> SSLSessionBindingListener </item>
+			<item> SSLSessionContext </item>
+			<item> SSLSocket </item>
+			<item> SSLSocketFactory </item>
 			<item> Stack </item>
 			<item> StackOverflowError </item>
+			<item> StackTraceElement </item>
+			<item> StartTlsRequest </item>
+			<item> StartTlsResponse </item>
+			<item> State </item>
 			<item> StateEdit </item>
 			<item> StateEditable </item>
 			<item> StateFactory </item>
 			<item> Statement </item>
+			<item> Statement </item>
 			<item> Streamable </item>
 			<item> StreamableValue </item>
 			<item> StreamCorruptedException </item>
+			<item> StreamHandler </item>
+			<item> StreamPrintService </item>
+			<item> StreamPrintServiceFactory </item>
+			<item> StreamResult </item>
+			<item> StreamSource </item>
 			<item> StreamTokenizer </item>
 			<item> StrictMath </item>
 			<item> String </item>
@@ -1578,9 +2365,12 @@
 			<item> StringContent </item>
 			<item> StringHolder </item>
 			<item> StringIndexOutOfBoundsException </item>
+			<item> StringNameHelper </item>
 			<item> StringReader </item>
 			<item> StringRefAddr </item>
 			<item> StringSelection </item>
+			<item> StringSeqHelper </item>
+			<item> StringSeqHolder </item>
 			<item> StringTokenizer </item>
 			<item> StringValueHelper </item>
 			<item> StringWriter </item>
@@ -1611,13 +2401,20 @@
 			<item> StyleSheet </item>
 			<item> StyleSheet.BoxPainter </item>
 			<item> StyleSheet.ListPainter </item>
+			<item> Subject </item>
+			<item> SubjectDomainCombiner </item>
+			<item> SUCCESSFUL </item>
+			<item> SupportedValuesAttribute </item>
 			<item> SwingConstants </item>
 			<item> SwingPropertyChangeSupport </item>
 			<item> SwingUtilities </item>
+			<item> SYNC_WITH_TRANSPORT </item>
 			<item> SyncFailedException </item>
+			<item> SyncScopeHelper </item>
 			<item> Synthesizer </item>
 			<item> SysexMessage </item>
 			<item> System </item>
+			<item> SYSTEM_EXCEPTION </item>
 			<item> SystemColor </item>
 			<item> SystemException </item>
 			<item> SystemFlavorMap </item>
@@ -1638,9 +2435,25 @@
 			<item> TableView </item>
 			<item> TabSet </item>
 			<item> TabStop </item>
+			<item> TAG_ALTERNATE_IIOP_ADDRESS </item>
+			<item> TAG_CODE_SETS </item>
+			<item> TAG_INTERNET_IOP </item>
+			<item> TAG_JAVA_CODEBASE </item>
+			<item> TAG_MULTIPLE_COMPONENTS </item>
+			<item> TAG_ORB_TYPE </item>
+			<item> TAG_POLICIES </item>
 			<item> TagElement </item>
+			<item> TaggedComponent </item>
+			<item> TaggedComponentHelper </item>
+			<item> TaggedComponentHolder </item>
+			<item> TaggedProfile </item>
+			<item> TaggedProfileHelper </item>
+			<item> TaggedProfileHolder </item>
 			<item> TargetDataLine </item>
 			<item> TCKind </item>
+			<item> Templates </item>
+			<item> TemplatesHandler </item>
+			<item> Text </item>
 			<item> TextAction </item>
 			<item> TextArea </item>
 			<item> TextAttribute </item>
@@ -1648,16 +2461,23 @@
 			<item> TextEvent </item>
 			<item> TextField </item>
 			<item> TextHitInfo </item>
+			<item> TextInputCallback </item>
 			<item> TextLayout </item>
 			<item> TextLayout.CaretPolicy </item>
 			<item> TextListener </item>
 			<item> TextMeasurer </item>
+			<item> TextOutputCallback </item>
+			<item> TextSyntax </item>
 			<item> TextUI </item>
 			<item> TexturePaint </item>
 			<item> Thread </item>
+			<item> THREAD_POLICY_ID </item>
 			<item> ThreadDeath </item>
 			<item> ThreadGroup </item>
 			<item> ThreadLocal </item>
+			<item> ThreadPolicy </item>
+			<item> ThreadPolicyOperations </item>
+			<item> ThreadPolicyValue </item>
 			<item> Throwable </item>
 			<item> Tie </item>
 			<item> TileObserver </item>
@@ -1679,11 +2499,20 @@
 			<item> TRANSACTION_ROLLEDBACK </item>
 			<item> TransactionRequiredException </item>
 			<item> TransactionRolledbackException </item>
+			<item> TransactionService </item>
 			<item> Transferable </item>
+			<item> TransferHandler </item>
 			<item> TransformAttribute </item>
+			<item> Transformer </item>
+			<item> TransformerConfigurationException </item>
+			<item> TransformerException </item>
+			<item> TransformerFactory </item>
+			<item> TransformerFactoryConfigurationError </item>
+			<item> TransformerHandler </item>
 			<item> TRANSIENT </item>
 			<item> Transmitter </item>
 			<item> Transparency </item>
+			<item> TRANSPORT_RETRY </item>
 			<item> TreeCellEditor </item>
 			<item> TreeCellRenderer </item>
 			<item> TreeExpansionEvent </item>
@@ -1700,9 +2529,17 @@
 			<item> TreeSet </item>
 			<item> TreeUI </item>
 			<item> TreeWillExpandListener </item>
+			<item> TrustAnchor </item>
+			<item> TrustManager </item>
+			<item> TrustManagerFactory </item>
+			<item> TrustManagerFactorySpi </item>
 			<item> TypeCode </item>
 			<item> TypeCodeHolder </item>
 			<item> TypeMismatch </item>
+			<item> TypeMismatch </item>
+			<item> TypeMismatch </item>
+			<item> TypeMismatchHelper </item>
+			<item> TypeMismatchHelper </item>
 			<item> Types </item>
 			<item> UID </item>
 			<item> UIDefaults </item>
@@ -1728,6 +2565,8 @@
 			<item> UnionMember </item>
 			<item> UnionMemberHelper </item>
 			<item> UNKNOWN </item>
+			<item> UnknownEncoding </item>
+			<item> UnknownEncodingHelper </item>
 			<item> UnknownError </item>
 			<item> UnknownException </item>
 			<item> UnknownGroupException </item>
@@ -1736,9 +2575,14 @@
 			<item> UnknownObjectException </item>
 			<item> UnknownServiceException </item>
 			<item> UnknownUserException </item>
+			<item> UnknownUserExceptionHelper </item>
+			<item> UnknownUserExceptionHolder </item>
+			<item> UnmappableCharacterException </item>
 			<item> UnmarshalException </item>
+			<item> UnmodifiableSetException </item>
 			<item> UnrecoverableKeyException </item>
 			<item> Unreferenced </item>
+			<item> UnresolvedAddressException </item>
 			<item> UnresolvedPermission </item>
 			<item> UnsatisfiedLinkError </item>
 			<item> UnsolicitedNotification </item>
@@ -1746,12 +2590,20 @@
 			<item> UnsolicitedNotificationListener </item>
 			<item> UNSUPPORTED_POLICY </item>
 			<item> UNSUPPORTED_POLICY_VALUE </item>
+			<item> UnsupportedAddressTypeException </item>
 			<item> UnsupportedAudioFileException </item>
+			<item> UnsupportedCallbackException </item>
+			<item> UnsupportedCharsetException </item>
 			<item> UnsupportedClassVersionError </item>
 			<item> UnsupportedEncodingException </item>
 			<item> UnsupportedFlavorException </item>
 			<item> UnsupportedLookAndFeelException </item>
 			<item> UnsupportedOperationException </item>
+			<item> URI </item>
+			<item> URIException </item>
+			<item> URIResolver </item>
+			<item> URISyntax </item>
+			<item> URISyntaxException </item>
 			<item> URL </item>
 			<item> URLClassLoader </item>
 			<item> URLConnection </item>
@@ -1759,6 +2611,8 @@
 			<item> URLEncoder </item>
 			<item> URLStreamHandler </item>
 			<item> URLStreamHandlerFactory </item>
+			<item> URLStringHelper </item>
+			<item> USER_EXCEPTION </item>
 			<item> UserException </item>
 			<item> UShortSeqHelper </item>
 			<item> UShortSeqHolder </item>
@@ -1778,6 +2632,7 @@
 			<item> VerifyError </item>
 			<item> VersionSpecHelper </item>
 			<item> VetoableChangeListener </item>
+			<item> VetoableChangeListenerProxy </item>
 			<item> VetoableChangeSupport </item>
 			<item> View </item>
 			<item> ViewFactory </item>
@@ -1793,6 +2648,7 @@
 			<item> VMID </item>
 			<item> VoiceStatus </item>
 			<item> Void </item>
+			<item> VolatileImage </item>
 			<item> WCharSeqHelper </item>
 			<item> WCharSeqHolder </item>
 			<item> WeakHashMap </item>
@@ -1801,19 +2657,50 @@
 			<item> WindowAdapter </item>
 			<item> WindowConstants </item>
 			<item> WindowEvent </item>
+			<item> WindowFocusListener </item>
 			<item> WindowListener </item>
+			<item> WindowStateListener </item>
 			<item> WrappedPlainView </item>
+			<item> WritableByteChannel </item>
 			<item> WritableRaster </item>
 			<item> WritableRenderedImage </item>
 			<item> WriteAbortedException </item>
 			<item> Writer </item>
+			<item> WrongAdapter </item>
+			<item> WrongAdapterHelper </item>
+			<item> WrongPolicy </item>
+			<item> WrongPolicyHelper </item>
 			<item> WrongTransaction </item>
+			<item> WrongTransactionHelper </item>
+			<item> WrongTransactionHolder </item>
+			<item> WStringSeqHelper </item>
+			<item> WStringSeqHolder </item>
 			<item> WStringValueHelper </item>
+			<item> X500Principal </item>
+			<item> X500PrivateCredential </item>
 			<item> X509Certificate </item>
+			<item> X509Certificate </item>
+			<item> X509CertSelector </item>
 			<item> X509CRL </item>
 			<item> X509CRLEntry </item>
+			<item> X509CRLSelector </item>
 			<item> X509EncodedKeySpec </item>
 			<item> X509Extension </item>
+			<item> X509KeyManager </item>
+			<item> X509TrustManager </item>
+			<item> XAConnection </item>
+			<item> XADataSource </item>
+			<item> XAException </item>
+			<item> XAResource </item>
+			<item> Xid </item>
+			<item> XMLDecoder </item>
+			<item> XMLEncoder </item>
+			<item> XMLFilter </item>
+			<item> XMLFilterImpl </item>
+			<item> XMLFormatter </item>
+			<item> XMLReader </item>
+			<item> XMLReaderAdapter </item>
+			<item> XMLReaderFactory </item>
 			<item> ZipEntry </item>
 			<item> ZipException </item>
 			<item> ZipFile </item>
@@ -1822,13 +2709,24 @@
 			<item> ZoneView </item>
 			<item> _BindingIteratorImplBase </item>
 			<item> _BindingIteratorStub </item>
+			<item> _DynAnyFactoryStub </item>
+			<item> _DynAnyStub </item>
+			<item> _DynArrayStub </item>
+			<item> _DynEnumStub </item>
+			<item> _DynFixedStub </item>
+			<item> _DynSequenceStub </item>
+			<item> _DynStructStub </item>
+			<item> _DynUnionStub </item>
+			<item> _DynValueStub </item>
 			<item> _IDLTypeStub </item>
+			<item> _NamingContextExtStub </item>
 			<item> _NamingContextImplBase </item>
 			<item> _NamingContextStub </item>
 			<item> _PolicyStub </item>
 			<item> _Remote_Stub </item>
+			<item> _ServantActivatorStub </item>
+			<item> _ServantLocatorStub </item>
 		</list>
-
 		<list name="keywords">
 			<item> abstract </item>
 			<item> break </item>
@@ -1888,7 +2786,7 @@
 			<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
 				<keyword attribute="Keyword" context="#stay" String="keywords"/>
 				<keyword attribute="Data Type" context="#stay" String="types"/>
-				<keyword attribute="Java13" context="#stay" String="java13"/>
+				<keyword attribute="Java14" context="#stay" String="java14"/>
 				<Float attribute="Float" context="#stay">
 					<AnyChar String="fF" attribute="Float" context="#stay"/>
 				</Float>
@@ -1905,8 +2803,8 @@
 					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
 				</Int>
 				<HlCChar attribute="Char" context="#stay"/>
-				<RegExpr attribute="Decimal" context="#stay" String="//BEGIN.*$" beginRegion="Region1"/>
-				<RegExpr attribute="Decimal" context="#stay" String="//END.*$" endRegion="Region1"/>
+				<RegExpr attribute="Decimal" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
+				<RegExpr attribute="Decimal" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
 				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
@@ -1925,19 +2823,19 @@
 			</context>
 		</contexts>
 		<itemDatas>
-			<itemData name="Normal Text" defStyleNum="dsNormal"/>
-			<itemData name="Keyword" defStyleNum="dsKeyword"/>
-			<itemData name="Data Type" defStyleNum="dsDataType"/>
-			<itemData name="Decimal" defStyleNum="dsDecVal"/>
-			<itemData name="Octal" defStyleNum="dsBaseN"/>
-			<itemData name="Hex" defStyleNum="dsBaseN"/>
-			<itemData name="Float" defStyleNum="dsFloat"/>
-			<itemData name="Char" defStyleNum="dsChar"/>
-			<itemData name="String" defStyleNum="dsString"/>
-			<itemData name="String Char" defStyleNum="dsChar"/>
-			<itemData name="Comment" defStyleNum="dsComment"/>
-			<itemData name="Symbol" defStyleNum="dsNormal"/>
-			<itemData name="Java13" defStyleNum="dsNormal" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
+			<itemData name="Normal Text"  defStyleNum="dsNormal"/>
+			<itemData name="Keyword"      defStyleNum="dsKeyword"/>
+			<itemData name="Data Type"    defStyleNum="dsDataType"/>
+			<itemData name="Decimal"      defStyleNum="dsDecVal"/>
+			<itemData name="Octal"        defStyleNum="dsBaseN"/>
+			<itemData name="Hex"          defStyleNum="dsBaseN"/>
+			<itemData name="Float"        defStyleNum="dsFloat"/>
+			<itemData name="Char"         defStyleNum="dsChar"/>
+			<itemData name="String"       defStyleNum="dsString"/>
+			<itemData name="String Char"  defStyleNum="dsChar"/>
+			<itemData name="Comment"      defStyleNum="dsComment"/>
+			<itemData name="Symbol"       defStyleNum="dsNormal"/>
+			<itemData name="Java14"       defStyleNum="dsNormal" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
 		</itemDatas>
 	</highlighting>
 	<general>

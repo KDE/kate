@@ -720,46 +720,42 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
   int ctxNum;
   int prevLine;
 
-	signed char *ctx = (signed char*) malloc (oCtxLen);
-	for (uint z1=0; z1 < oCtxLen; z1++) ctx[z1] = oCtx[z1];
+  signed char *ctx = (signed char*) malloc (oCtxLen);
+  for (uint z1=0; z1 < oCtxLen; z1++) ctx[z1] = oCtx[z1];
 
   if (oCtxLen==0)
-	{
-		// If the stack is empty, we assume to be in Context 0 (Normal)
-		ctxNum=0;
-		context=contextList[ctxNum];
-		prevLine=-1;
-	}
-	else
-	{
-	//  kdDebug()<<"test1-2-1"<<endl;
+  {
+    // If the stack is empty, we assume to be in Context 0 (Normal)
+    ctxNum=0;
+    context=contextList[ctxNum];
+    prevLine=-1;
+  }
+  else
+  {
+    //  kdDebug()<<"test1-2-1"<<endl;
 
-		// There does an old context stack exist -> find the context at the line start
-		ctxNum=ctx[oCtxLen-1]; //context ID of the last character in the previous line
+    // There does an old context stack exist -> find the context at the line start
+    ctxNum=ctx[oCtxLen-1]; //context ID of the last character in the previous line
 
-//kdDebug()<<"test1-2-1-text1"<<endl;
+    //kdDebug()<<"test1-2-1-text1"<<endl;
 
-if (contextList[ctxNum])
-		context=contextList[ctxNum]; //context structure
-else
-  context = contextList[0];
+    //kdDebug() << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
+    if (contextList[ctxNum])
+      context=contextList[ctxNum]; //context structure
+    else
+      context = contextList[0];
 
-//kdDebug()<<"test1-2-1-text2"<<endl;
+    //kdDebug()<<"test1-2-1-text2"<<endl;
 
-		prevLine=oCtxLen-1;	//position of the last context ID of th previous line within the stack
+    prevLine=oCtxLen-1;	//position of the last context ID of th previous line within the stack
 
-//kdDebug()<<"test1-2-1-text3"<<endl;
+    //kdDebug()<<"test1-2-1-text3"<<endl;
+    ctx=generateContextStack(&ctxNum, context->ctx, ctx, &oCtxLen, &prevLine,lineContinue);	//get stack ID to use
+    //kdDebug()<<"test1-2-1-text4"<<endl;
 
-
-
-		ctx=generateContextStack(&ctxNum, context->ctx, ctx, &oCtxLen, &prevLine,lineContinue);	//get stack ID to use
-//kdDebug()<<"test1-2-1-text4"<<endl;
-
-context=contextList[ctxNum];	//current context to use
-
-
-		//kdDebug()<<"test1-2-2"<<endl;
-	}
+    context=contextList[ctxNum];	//current context to use
+    //kdDebug()<<"test1-2-2"<<endl;
+  }
 
   QChar lastChar = ' ';
 
@@ -819,7 +815,7 @@ context=contextList[ctxNum];	//current context to use
 	textLine->setHlLineContinue(item->lineContinue());
 	if (item->lineContinue()) kdDebug()<<"Setting line continue flag"<<endl;
     }
-	
+
 
 
   //set "end of line"-properties

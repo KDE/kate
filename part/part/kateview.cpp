@@ -1456,7 +1456,8 @@ void KateView::setupEditKeys()
 
 void KateView::setupActions()
 {
-    KStdAction::close( this, SLOT(flush()), actionCollection(), "file_close" );
+    KStdAction::close( this, SLOT(flush()), actionCollection(), "file_close" )
+    	->setShortcut( 0 );
 
     KStdAction::save(this, SLOT(save()), actionCollection());
 

@@ -762,6 +762,9 @@ void KateViewInternal::updateView(int flags)
 	bool reUpdate;
   int scrollbarWidth = style().scrollBarExtent().width();
 
+  //
+  //  update yScrollbar (first that, as we need if it should be shown for the width() of the view)
+  //
 	if (!exposeCursor)
 	{
 		do
@@ -853,6 +856,9 @@ void KateViewInternal::updateView(int flags)
 		}
 	}
 
+  //
+  // update the lineRanges (IMPORTANT)
+  //
   if (flags & KateViewInternal::ufFoldingChanged)
   {
 	needLineRangesUpdate=true;

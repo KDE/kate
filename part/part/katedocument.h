@@ -629,9 +629,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
      */
     void reloadFile();
 
-  private slots:
-    void slotModChanged ();
-
   public slots:
     void setEncoding (const QString &e);
     QString encoding() const;

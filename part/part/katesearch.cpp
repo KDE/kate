@@ -521,15 +521,6 @@ bool KateSearch::doSearch( const QString& text )
 
   //result = true;
 
-#if 0
-  // FIXME: uncomment if you find a reasoning for this
-  if ((oldLine == int(foundLine)) && (oldCol == int(foundCol)))
-    return false;
-
-  oldLine = line;
-  oldCol = col;
-#endif
-
   s.cursor.setPos(foundLine, foundCol);
 
   //kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;

@@ -234,9 +234,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // load all plugins
   loadAllEnabledPlugins ();
 
-  // uh my, we got modified ;)
-  connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
-
   // some nice signals from the buffer
   connect(buffer, SIGNAL(loadingFinished()), this, SLOT(slotLoadingFinished()));
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
@@ -2954,6 +2951,7 @@ void KateDocument::setModified(bool m) {
     }
 
     emit modifiedChanged ();
+    emit modStateChanged ((Kate::Document *)this);
   }
   if ( m == false && ! undoItems.isEmpty() )
   {
@@ -4300,11 +4298,6 @@ void KateDocument::reloadFile()
     if (byUser)
       setHlMode (mode);
   }
-}
-
-void KateDocument::slotModChanged()
-{
-  emit modStateChanged ((Kate::Document *)this);
 }
 
 void KateDocument::flush ()

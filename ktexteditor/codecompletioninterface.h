@@ -86,7 +86,9 @@ class CodeCompletionInterface
 	
   protected:  
     void setCodeCompletionInterfaceDCOPSuffix (const QCString &suffix); 
-
+    
+    
+  public:
 	//
 	// slots !!!
 	//

@@ -179,8 +179,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_markDescriptions.setAutoDelete( true );
   setMarksUserChangable( markType01 );
 
-  m_highlight = 0L;
-
   m_undoMergeTimer = new QTimer(this);
   connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
 
@@ -188,8 +186,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   clearUndo ();
   clearRedo ();
   setModified (false);
-  internalSetHlMode (0);
   docWasSavedWhenUndoWasEmpty = true;
+
+  // normal hl
+  m_buffer->setHighlight (0);
 
   m_extension = new KateBrowserExtension( this );
   m_arbitraryHL = new KateArbitraryHighlight();
@@ -253,8 +253,6 @@ KateDocument::~KateDocument()
     m_views.setAutoDelete( true );
     m_views.clear();
   }
-
-  m_highlight->release();
 
   delete m_editCurrentUndo;
 
@@ -1106,7 +1104,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
       for (z=searchStart; z > 0; z--)
       {
         if (text[z].isSpace()) break;
-        if ( ! nw && m_highlight->canBreakAt( text[z] , l->attribute(z) ) )
+        if ( ! nw && highlight()->canBreakAt( text[z] , l->attribute(z) ) )
         nw = z;
       }
 
@@ -1986,12 +1984,14 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 uint KateDocument::hlMode ()
 {
-  return KateHlManager::self()->findHl(m_highlight);
+  return KateHlManager::self()->findHl(highlight());
 }
 
 bool KateDocument::setHlMode (uint mode)
 {
-  if (internalSetHlMode (mode))
+  m_buffer->setHighlight (mode);
+
+  if (true)
   {
     setDontChangeHlOnSave();
     return true;
@@ -2000,30 +2000,12 @@ bool KateDocument::setHlMode (uint mode)
   return false;
 }
 
-bool KateDocument::internalSetHlMode (uint mode)
+void KateDocument::bufferHlChanged ()
 {
-   KateHighlighting *h = KateHlManager::self()->getHl(mode);
+  // update all views
+  makeAttribs(false);
 
-   // aha, hl will change
-   if (h != m_highlight)
-   {
-     if (m_highlight != 0L)
-       m_highlight->release();
-
-      h->use();
-
-      m_highlight = h;
-
-     // invalidate hl
-      m_buffer->setHighlight(m_highlight);
-
-     // invalidate the hl again (but that is neary a noop) + update all views
-      makeAttribs();
-
-     emit hlChanged();
-    }
-
-    return true;
+  emit hlChanged();
 }
 
 uint KateDocument::hlModeCount ()
@@ -2108,7 +2090,7 @@ void KateDocument::readSessionConfig(KConfig *config)
     openURL (url);
 
   // restore the hl stuff
-  internalSetHlMode(KateHlManager::self()->nameFind(config->readEntry("Highlighting")));
+  m_buffer->setHighlight(KateHlManager::self()->nameFind(config->readEntry("Highlighting")));
 
   if (hlMode() > 0)
     hlSetByUser = true;
@@ -2128,7 +2110,7 @@ void KateDocument::writeSessionConfig(KConfig *config)
   config->writeEntry("Encoding",encoding());
 
   // save hl
-  config->writeEntry("Highlighting", m_highlight->name());
+  config->writeEntry("Highlighting", highlight()->name());
 
   // Save Bookmarks
   QValueList<int> marks;
@@ -2569,10 +2551,10 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   if (success)
   {
-    if (m_highlight && !m_url.isLocalFile()) {
+    /*if (highlight() && !m_url.isLocalFile()) {
       // The buffer's highlighting gets nuked by KateBuffer::clear()
       m_buffer->setHighlight(m_highlight);
-    }
+  }*/
 
     // update our hl type if needed
     if (!hlSetByUser)
@@ -2580,7 +2562,7 @@ bool KateDocument::openFile(KIO::Job * job)
       int hl (KateHlManager::self()->detectHighlighting (this));
 
       if (hl >= 0)
-        internalSetHlMode(hl);
+        m_buffer->setHighlight(hl);
     }
 
     // update file type
@@ -2761,7 +2743,7 @@ bool KateDocument::saveFile()
       int hl (KateHlManager::self()->detectHighlighting (this));
 
       if (hl >= 0)
-        internalSetHlMode(hl);
+        m_buffer->setHighlight(hl);
     }
 
     // update our file type
@@ -2884,7 +2866,7 @@ bool KateDocument::closeURL()
   setModified(false);
 
   // we have no longer any hl
-  internalSetHlMode(0);
+  m_buffer->setHighlight(0);
 
   // update all our views
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
@@ -2943,14 +2925,15 @@ void KateDocument::setModified(bool m) {
 
 //BEGIN Kate specific stuff ;)
 
-void KateDocument::makeAttribs()
+void KateDocument::makeAttribs(bool needInvalidate)
 {
-  m_highlight->clearAttributeArrays ();
+  highlight()->clearAttributeArrays ();
 
   for (uint z = 0; z < m_views.count(); z++)
     m_views.at(z)->renderer()->updateAttributes ();
 
-  m_buffer->invalidateHighlighting();
+  if (needInvalidate)
+    m_buffer->invalidateHighlighting();
 
   tagAll ();
 }
@@ -3322,8 +3305,8 @@ void KateDocument::selectWord( const KateTextCursor& cursor )
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
   len = textLine->length();
   start = end = cursor.col();
-  while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && m_highlight->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
+  while (start > 0 && highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && highlight()->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
   if (end <= start) return;
 
   if (!(config()->configFlags() & KateDocument::cfKeepSelection))
@@ -3590,7 +3573,7 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
 */
 void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 {
-  QString commentLineMark = m_highlight->getCommentSingleLineStart( attrib ) + " ";
+  QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
   insertText (line, 0, commentLineMark);
 }
 
@@ -3600,7 +3583,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 */
 bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 {
-  QString shortCommentMark = m_highlight->getCommentSingleLineStart( attrib );
+  QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
   QString longCommentMark = shortCommentMark + " ";
 
   editStart();
@@ -3620,8 +3603,8 @@ bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 */
 void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 {
-  QString startCommentMark = m_highlight->getCommentStart( attrib ) + " ";
-  QString stopCommentMark = " " + m_highlight->getCommentEnd( attrib );
+  QString startCommentMark = highlight()->getCommentStart( attrib ) + " ";
+  QString stopCommentMark = " " + highlight()->getCommentEnd( attrib );
 
   editStart();
 
@@ -3643,9 +3626,9 @@ void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 */
 bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 {
-  QString shortStartCommentMark = m_highlight->getCommentStart( attrib );
+  QString shortStartCommentMark = highlight()->getCommentStart( attrib );
   QString longStartCommentMark = shortStartCommentMark + " ";
-  QString shortStopCommentMark = m_highlight->getCommentEnd( attrib );
+  QString shortStopCommentMark = highlight()->getCommentEnd( attrib );
   QString longStopCommentMark = " " + shortStopCommentMark;
 
   editStart();
@@ -3677,8 +3660,8 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 */
 void KateDocument::addStartStopCommentToSelection( int attrib )
 {
-  QString startComment = m_highlight->getCommentStart( attrib );
-  QString endComment = m_highlight->getCommentEnd( attrib );
+  QString startComment = highlight()->getCommentStart( attrib );
+  QString endComment = highlight()->getCommentEnd( attrib );
 
   int sl = selectStart.line();
   int el = selectEnd.line();
@@ -3709,7 +3692,7 @@ void KateDocument::addStartStopCommentToSelection( int attrib )
 */
 void KateDocument::addStartLineCommentToSelection( int attrib )
 {
-  QString commentLineMark = m_highlight->getCommentSingleLineStart( attrib ) + " ";
+  QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
 
   int sl = selectStart.line();
   int el = selectEnd.line();
@@ -3779,8 +3762,8 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 */
 bool KateDocument::removeStartStopCommentFromSelection( int attrib )
 {
-  QString startComment = m_highlight->getCommentStart( attrib );
-  QString endComment = m_highlight->getCommentEnd( attrib );
+  QString startComment = highlight()->getCommentStart( attrib );
+  QString endComment = highlight()->getCommentEnd( attrib );
 
   int sl = kMax<int> (0, selectStart.line());
   int el = kMin<int>  (selectEnd.line(), lastLine());
@@ -3825,8 +3808,8 @@ bool KateDocument::removeStartStopCommentFromSelection( int attrib )
 }
 
 bool KateDocument::removeStartStopCommentFromRegion(const KateTextCursor &start,const KateTextCursor &end,int attrib) {
-  QString startComment = m_highlight->getCommentStart( attrib );
-  QString endComment = m_highlight->getCommentEnd( attrib );
+  QString startComment = highlight()->getCommentStart( attrib );
+  QString endComment = highlight()->getCommentEnd( attrib );
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
 
@@ -3848,7 +3831,7 @@ bool KateDocument::removeStartStopCommentFromRegion(const KateTextCursor &start,
 */
 bool KateDocument::removeStartLineCommentFromSelection( int attrib )
 {
-  QString shortCommentMark = m_highlight->getCommentSingleLineStart( attrib );
+  QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
   QString longCommentMark = shortCommentMark + " ";
 
   int sl = selectStart.line();
@@ -3930,15 +3913,15 @@ void KateDocument::comment( KateView *, uint line,uint column, int change)
     }
   }
 
-  if ( ! m_highlight->canComment( startAttrib, endAttrib ) )
+  if ( ! highlight()->canComment( startAttrib, endAttrib ) )
   {
     kdDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!"<<endl;
     return;
   }
 
-  bool hasStartLineCommentMark = !(m_highlight->getCommentSingleLineStart( startAttrib ).isEmpty());
-  bool hasStartStopCommentMark = ( !(m_highlight->getCommentStart( startAttrib ).isEmpty())
-      && !(m_highlight->getCommentEnd( endAttrib ).isEmpty()) );
+  bool hasStartLineCommentMark = !(highlight()->getCommentSingleLineStart( startAttrib ).isEmpty());
+  bool hasStartStopCommentMark = ( !(highlight()->getCommentStart( startAttrib ).isEmpty())
+      && !(highlight()->getCommentEnd( endAttrib ).isEmpty()) );
 
   bool removed = false;
 
@@ -3980,7 +3963,7 @@ void KateDocument::comment( KateView *, uint line,uint column, int change)
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
       if ((!removed) && foldingTree()) {
         kdDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)"<<endl;
-        uint commentRegion=(m_highlight->commentRegion(startAttrib));
+        uint commentRegion=(highlight()->commentRegion(startAttrib));
         if (commentRegion){
            KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
            if (n) {
@@ -4046,8 +4029,8 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
           // 3. if p-1 is not in a word, upper.
           if ( ( ! start && ! p ) ||
                ( ( ln == selStartLine() || blockSelectionMode() ) &&
-                 ! p && ! m_highlight->isInWord( l->getChar( start - 1 )) ) ||
-               ( p && ! m_highlight->isInWord( s.at( p-1 ) ) )
+                   ! p && ! highlight()->isInWord( l->getChar( start - 1 )) ) ||
+                   ( p && ! highlight()->isInWord( s.at( p-1 ) ) )
              )
             s[p] = s.at(p).upper();
           p++;
@@ -4076,7 +4059,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
       case Capitalize:
       {
         KateTextLine::Ptr l = m_buffer->plainLine( cl );
-        while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ), l->attribute( n-1 ) ) )
+        while ( n > 0 && highlight()->isInWord( l->getChar( n-1 ), l->attribute( n-1 ) ) )
           n--;
         s = text( cl, n, cl, n + 1 ).upper();
       }
@@ -4144,8 +4127,8 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
   if (start > len)        // Probably because of non-wrapping cursor mode.
     return QString("");
 
-  while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && m_highlight->isInWord(textLine->getChar(end), textLine->attribute(end))) end++;
+  while (start > 0 && highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && highlight()->isInWord(textLine->getChar(end), textLine->attribute(end))) end++;
   len = end - start;
   return QString(&textLine->text()[start], len);
 }
@@ -4708,7 +4691,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
     for (uint curPos=0;curPos<textLine->length();curPos++)
     {
       // atm hardcode default schema, later add selector to the exportAs methode :)
-      QMemArray<KateAttribute> *attributes = m_highlight->attributes (0);
+      QMemArray<KateAttribute> *attributes = highlight()->attributes (0);
       KateAttribute* charAttributes = 0;
 
       if (textLine->attribute(curPos) < attributes->size())

@@ -456,8 +456,10 @@ class KateDocument : public Kate::Document,
     QString hlModeName (uint mode);
     QString hlModeSectionName (uint mode);
 
+  public:
+    void bufferHlChanged ();
+
   private:
-    bool internalSetHlMode (uint mode);
     void setDontChangeHlOnSave();
 
   signals:
@@ -651,7 +653,7 @@ class KateDocument : public Kate::Document,
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
 
-    inline KateHighlighting *highlight () { return m_highlight; }
+    inline KateHighlighting *highlight () { return m_buffer->highlight(); }
 
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
@@ -961,8 +963,6 @@ class KateDocument : public Kate::Document,
     // text buffer
     KateBuffer *m_buffer;
 
-    KateHighlighting *m_highlight;
-
     KateArbitraryHighlight* m_arbitraryHL;
 
     KateAutoIndent *m_indenter;
@@ -997,13 +997,11 @@ class KateDocument : public Kate::Document,
     void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   private:
-    //void makeAttribs ();
-
     void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
 
   public:
-    void makeAttribs ();
+    void makeAttribs (bool needInvalidate = true);
 
     static bool checkOverwrite( KURL u );
 

@@ -415,7 +415,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force, bool calledExter
 
   // only calculate if this is really used and usefull, could be wrong here, please recheck
   // for larger scrolls this makes 2-4 seconds difference on my xeon with dyn. word wrap on
-  bool viewLinesScrolledUsable = !force && (c.line() >= startLine()-linesDisplayed()-1) && (c.line() <= endLine()+linesDisplayed()+1);
+  bool viewLinesScrolledUsable = !force && ((uint)c.line() >= startLine()-linesDisplayed()-1) && ((uint)c.line() <= endLine()+linesDisplayed()+1);
   if (viewLinesScrolledUsable)
     viewLinesScrolled = displayViewLine(c);
 
@@ -1979,7 +1979,7 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
             for ( c = newCursor.col(); c < l->length(); c++ )
-              if ( !m_doc->m_highlight->isInWord( l->getChar( c ) ) )
+              if ( !m_doc->highlight()->isInWord( l->getChar( c ) ) )
                 break;
 
             newCursor.setCol( c );
@@ -1992,7 +1992,7 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
             KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
             for ( c = newCursor.col(); c > 0; c-- )
-              if ( !m_doc->m_highlight->isInWord( l->getChar( c ) ) )
+              if ( !m_doc->highlight()->isInWord( l->getChar( c ) ) )
                 break;
 
             newCursor.setCol( c+1 );

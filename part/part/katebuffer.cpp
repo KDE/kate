@@ -277,6 +277,10 @@ KateBuffer::~KateBuffer()
   // DELETE ALL BLOCKS, will free mem
   for (uint i=0; i < m_blocks.size(); i++)
     delete m_blocks[i];
+
+  // release HL
+  if (m_highlight)
+    m_highlight->release();
 }
 
 void KateBuffer::editStart ()
@@ -303,7 +307,9 @@ void KateBuffer::editEnd ()
     return;
 
   // hl update !!!
-  if ((editTagLineStart <= editTagLineEnd) && (editTagLineEnd <= m_lineHighlighted))
+  if ( m_highlight && !m_highlight->noHighlighting()
+       && (editTagLineStart <= editTagLineEnd)
+       && (editTagLineEnd <= m_lineHighlighted))
   {
     // look one line too far, needed for linecontinue stuff
     editTagLineEnd++;
@@ -776,10 +782,32 @@ void KateBuffer::setTabWidth (uint w)
   }
 }
 
-void KateBuffer::setHighlight(KateHighlighting *highlight)
+void KateBuffer::setHighlight(uint hlMode)
 {
-  m_highlight = highlight;
-  invalidateHighlighting();
+  KateHighlighting *h = KateHlManager::self()->getHl(hlMode);
+
+   // aha, hl will change
+  if (h != m_highlight)
+  {
+    bool invalidate = !h->noHighlighting();
+
+    if (m_highlight)
+    {
+      m_highlight->release();
+      invalidate = true;
+    }
+
+    h->use();
+
+    m_highlight = h;
+
+    if (invalidate)
+      invalidateHighlighting();
+
+    // inform the document that the hl was really changed
+    // needed to update attributes and more ;)
+    m_doc->bufferHlChanged ();
+  }
 }
 
 void KateBuffer::invalidateHighlighting()

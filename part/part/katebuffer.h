@@ -560,7 +560,7 @@ class KateBuffer : public QObject
      * @p highlight may be 0 in which case highlighting
      * will be disabled.
      */
-    void setHighlight (KateHighlighting *highlight);
+    void setHighlight (uint hlMode);
 
     KateHighlighting *highlight () { return m_highlight; };
 

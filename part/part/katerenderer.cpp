@@ -60,7 +60,7 @@ KateRenderer::~KateRenderer()
 void KateRenderer::updateAttributes ()
 {
   m_schema = config()->schema ();
-  m_attributes = m_doc->m_highlight->attributes (m_schema);
+  m_attributes = m_doc->highlight()->attributes (m_schema);
 }
 
 KateAttribute* KateRenderer::attribute(uint pos)
@@ -280,7 +280,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     len = endcol - startcol;
 
   // text attribs font/style data
-  KateAttribute* attr = m_doc->m_highlight->attributes(m_schema)->data();
+  KateAttribute* attr = m_doc->highlight()->attributes(m_schema)->data();
 
   const QColor *cursorColor = &attr[0].textColor();
 
@@ -347,7 +347,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     // adjust to startcol ;)
     textAttributes = textAttributes + startcol;
 
-    uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
+    uint atLen = m_doc->highlight()->attributes(m_schema)->size();
 
     // Determine if we have trailing whitespace and store the column
     // if lastChar == -1, set to 0, if lastChar exists, increase by one

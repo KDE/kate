@@ -204,7 +204,7 @@ class KateDocument : public Kate::Document,
      * @see editStart()
      */
     void editEnd ();
- 
+
 // END editStart/editEnd
 
 // BEGIN LINE BASED INSERT/REMOVE STUFF (editStart() and editEnd() included)
@@ -933,18 +933,7 @@ class KateDocument : public Kate::Document,
      *
      * @since 3.3
      */
-    inline QString reasonedMOHString() const
-    {
-      QString reason;
-      if ( m_modOnHdReason == 1 )
-        reason = i18n("modified");
-      else if ( m_modOnHdReason == 2 )
-        reason = i18n("created");
-      else if ( m_modOnHdReason == 3 )
-        reason = i18n("deleted");
-
-      return i18n("The file '%1' was changed (%2) on disk by another program.").arg( url().prettyURL() ).arg( reason );
-    }
+    QString reasonedMOHString() const;
 
     /**
      * Removes all trailing whitespace form @p line, if
@@ -1076,7 +1065,7 @@ class KateDocument : public Kate::Document,
     KTempFile *m_tempFile;
 
   // TemplateInterface
-  public: 
+  public:
       bool setTabInterceptor(KateKeyInterceptorFunctor *interceptor); /* perhaps make it moregeneral like an eventfilter*/
       bool removeTabInterceptor(KateKeyInterceptorFunctor *interceptor);
       bool invokeTabInterceptor(KKey);

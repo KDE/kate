@@ -5324,6 +5324,19 @@ bool KateDocument::createDigest( QCString &result )
   return ret;
 }
 
+QString KateDocument::reasonedMOHString() const
+{
+  QString reason;
+  if ( m_modOnHdReason == 1 )
+    reason = i18n("modified");
+  else if ( m_modOnHdReason == 2 )
+    reason = i18n("created");
+  else if ( m_modOnHdReason == 3 )
+    reason = i18n("deleted");
+
+  return i18n("The file '%1' was changed (%2) on disk by another program.").arg( url().prettyURL() ).arg( reason );
+}
+
 void KateDocument::removeTrailingSpace( uint line )
 {
   // remove trailing spaces from left line if required

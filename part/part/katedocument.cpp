@@ -3737,6 +3737,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 	const QChar *oldS = s;
 
 	bool isSel = false;
+  bool isTab = false;
 
 	//kdDebug()<<"paint 1"<<endl;
 
@@ -3762,54 +3763,48 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
     if ((*s) == QChar('\t'))
     {
+      isTab = true;
       width = fs->m_tabWidth;
+    }
+    else
+      isTab = false;
 
-      if (curAt == 0)
-        curAt = &at[0];
+    if ((*a) >= atLen)
+      curAt = &at[0];
+    else
+      curAt = &at[*a];
+
+    if (curAt->bold && curAt->italic)
+    {
+      if (!isTab)
+      width = fs->myFontMetricsBI.width(*s);
+
+      if (curAt != oldAt)
+        paint.setFont(fs->myFontBI);
+    }
+    else if (curAt->bold)
+    {
+      if (!isTab)
+        width = fs->myFontMetricsBold.width(*s);
+
+      if (curAt != oldAt)
+        paint.setFont(fs->myFontBold);
+    }
+    else if (curAt->italic)
+    {
+      if (!isTab)
+        width = fs->myFontMetricsItalic.width(*s);
+
+      if (curAt != oldAt)
+        paint.setFont(fs->myFontItalic);
     }
     else
     {
-      if ((*a) >= atLen)
-      {
-        curAt = &at[0];
+      if (!isTab)
         width = fs->myFontMetrics.width(*s);
 
-        if (curAt != oldAt)
-          paint.setFont(fs->myFont);
-      }
-      else
-      {
-        curAt = &at[*a];
-
-        if (curAt->bold && curAt->italic)
-	{
-          width = fs->myFontMetricsBI.width(*s);
-
-          if (curAt != oldAt)
-	    paint.setFont(fs->myFontBI);
-        }
-        else if (curAt->bold)
-	{
-          width = fs->myFontMetricsBold.width(*s);
-
-          if (curAt != oldAt)
-            paint.setFont(fs->myFontBold);
-        }
-        else if (curAt->italic)
-	{
-          width = fs->myFontMetricsItalic.width(*s);
-
-          if (curAt != oldAt)
-            paint.setFont(fs->myFontItalic);
-	}
-        else
-	{
-          width = fs->myFontMetrics.width(*s);
-
-          if (curAt != oldAt)
-            paint.setFont(fs->myFont);
-	}
-      }
+      if (curAt != oldAt)
+        paint.setFont(fs->myFont);
     }
 
     xPosAfter += width;
@@ -3837,7 +3832,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       if (
            (tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) ||
            (isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))) ||
-           (((*(s+1)) == QChar('\t')) && ((*s) != QChar('\t')))
+           (((*(s+1)) == QChar('\t')) && !isTab)
          )
       {
 			  if (!printerfriendly && isSel && !selectionPainted)
@@ -3853,11 +3848,17 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         oldXPos = xPosAfter;
         oldS = s+1;
       }
-      else  if (((*s) == QChar('\t')) && showTabs)
+      else  if (isTab)
       {
-        paint.drawPoint(xPos - xStart, y);
-        paint.drawPoint(xPos - xStart + 1, y);
-        paint.drawPoint(xPos - xStart, y - 1);
+        if (!printerfriendly && isSel && !selectionPainted)
+          paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+
+        if (showTabs)
+        {
+          paint.drawPoint(xPos - xStart, y);
+          paint.drawPoint(xPos - xStart + 1, y);
+          paint.drawPoint(xPos - xStart, y - 1);
+        }
 
         oldCol = curCol+1;
         oldXPos = xPosAfter;

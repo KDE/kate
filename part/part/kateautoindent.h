@@ -24,37 +24,86 @@
 
 class KateDocument;
 
+/**
+ * Base class for all autoindenter
+ */
 class KateAutoIndent
 {
-  //
-  // static methodes to create and list them
-  //
+  /**
+   * static methodes to create and list them
+   */
   public:
+    /**
+     * create a indenter
+     * @param doc document for the indenter
+     * @param mode indentation mode wanted
+     * @return create autoindentation object
+     */
     static KateAutoIndent *createIndenter (KateDocument *doc, uint mode);
 
+    /**
+     * list all possible modes by name
+     * @return list of modes
+     */
     static QStringList listModes ();
 
+    /**
+     * mode name
+     * @param mode mode index
+     * @return name for this index
+     */
     static QString modeName (uint mode);
 
+    /**
+     * mode description
+     * @param mode mode index
+     * @return description of this mode
+     */
     static QString modeDescription (uint mode);
 
+    /**
+     * mapping name -> index
+     * @param name mode name
+     * @return mode index
+     */
     static uint modeNumber (const QString &name);
 
   public:
+    /**
+     * Constructor
+     * @param doc parent document
+     */
     KateAutoIndent (KateDocument *doc);
+    
+    /**
+     * Virtual Destructor for the baseclass
+     */
     virtual ~KateAutoIndent ();
 
-    // Update indenter's configuration (indention width etc.)
+    /**
+     * Update indenter's configuration (indention width etc.)
+     */
     void updateConfig ();
 
-    // Called every time a newline character is inserted in the document.
-    // cur should contain the new cursor position afterwords
-    // needContinue is used to determine whether to calculate a continue indent or not
+    /**
+     * Called every time a newline character is inserted in the document.
+     * cur should contain the new cursor position afterwords
+     * needContinue is used to determine whether to calculate a continue indent or not
+     * @param cur new cursor position
+     * @param needContinue calc continue indent or not
+     */
     virtual void processNewline (KateDocCursor &cur, bool needContinue);
 
-    // Called every time a character is inserted into the document
-    virtual void processChar (QChar /*c*/) { }
+    /**
+     * Called every time a character is inserted into the document
+     * @param insert char
+     */
+    virtual void processChar (QChar) {}
 
+    /**
+     * mode index of this mode
+     * @return modeNumber
+     */
     virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
 
   protected:

@@ -241,14 +241,14 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
   QString currentLine = m_view->currentTextLine();
   int len = m_view->cursorColumnReal() - m_colCursor;
   QString currentComplText = currentLine.mid(m_colCursor,len);
-
+/* Noone really badly wants those, or?
   kdDebug(13035) << "Column: " << m_colCursor << endl;
   kdDebug(13035) << "Line: " << currentLine << endl;
   kdDebug(13035) << "CurrentColumn: " << m_view->cursorColumnReal() << endl;
   kdDebug(13035) << "Len: " << len << endl;
-  kdDebug(13035) << "Text: " << currentComplText << endl;
+  kdDebug(13035) << "Text: '" << currentComplText << "'" << endl;
   kdDebug(13035) << "Count: " << m_complList.count() << endl;
-
+*/
   QValueList<KTextEditor::CompletionEntry>::Iterator it;
   if( m_caseSensitive ) {
     for( it = m_complList.begin(); it != m_complList.end(); ++it ) {
@@ -265,7 +265,9 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
     }
   }
 
-  if( m_completionListBox->count() == 0 ) {
+  if( m_completionListBox->count() == 0 ||
+      ( m_completionListBox->count() == 1 && // abort if we equaled the last item
+        currentComplText == m_completionListBox->text(0).stripWhiteSpace() ) ) {
     abortCompletion();
     m_view->setFocus();
     return;

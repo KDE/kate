@@ -724,6 +724,8 @@ class KateDocument : public Kate::Document
 
     QPtrList<KateView> myViews;
     QPtrList<KTextEditor::View> _views;
+    
+    KateView *myActiveView;
 
     bool newDocGeometry;
 

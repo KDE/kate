@@ -238,6 +238,7 @@ class KateView : public Kate::View
     Q_OBJECT
     friend class KateViewInternal;
     friend class KateDocument;
+    friend class KateUndoGroup;
     friend class KateIconBorder;
     friend class CodeCompletion_Impl;
 

@@ -2479,6 +2479,7 @@ void KateView::setFocus ()
 {
   QWidget::setFocus ();
 
+  myDoc->myActiveView = this;
   emit gotFocus ((Kate::View *) this);
 }
 
@@ -2490,6 +2491,7 @@ bool KateView::eventFilter (QObject *object, QEvent *event)
   if ( (event->type() == QEvent::FocusIn) )
   {
     m_editAccels->setEnabled(true);
+    myDoc->myActiveView = this;
     emit gotFocus (this);
   }
 

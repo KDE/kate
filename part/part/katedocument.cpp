@@ -224,6 +224,13 @@ void KateUndoGroup::undo ()
   for (int pos=(int)items.count()-1; pos >= 0; pos--)
   {
     items.at(pos)->undo();
+
+    if (myDoc->myActiveView != 0L)
+    {
+      myDoc->myActiveView->cursorCache.line = items.at(pos)->line;
+      myDoc->myActiveView->cursorCache.col = items.at(pos)->col;
+      myDoc->myActiveView->cursorCacheChanged = true;
+    }
   }
 
   myDoc->editEnd ();
@@ -239,6 +246,13 @@ void KateUndoGroup::redo ()
   for (uint pos=0; pos < items.count(); pos++)
   {
     items.at(pos)->redo();
+    
+    if (myDoc->myActiveView != 0L)
+    {
+      myDoc->myActiveView->cursorCache.line = items.at(pos)->line;
+      myDoc->myActiveView->cursorCache.col = items.at(pos)->col;
+      myDoc->myActiveView->cursorCacheChanged = true;
+    }
   }
 
   myDoc->editEnd ();
@@ -257,6 +271,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
                                            QObject *, const char *)
   : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
 {
+  myActiveView = 0L;
   hlSetByUser = false;
   setInstance( KateFactory::instance() );
 
@@ -2380,12 +2395,16 @@ void KateDocument::internalHlChanged() { //slot
 }
 
 void KateDocument::addView(KTextEditor::View *view) {
-  myViews.append( static_cast<KateView *>( view ) );
+  myViews.append( (KateView *) view  );
   _views.append( view );
+  myActiveView = (KateView *) view;
 }
 
 void KateDocument::removeView(KTextEditor::View *view) {
-  myViews.removeRef( static_cast<KateView *>( view ) );
+  if (myActiveView == view)
+    myActiveView = 0L;
+
+  myViews.removeRef( (KateView *) view );
   _views.removeRef( view  );
 }
 

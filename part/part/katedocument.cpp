@@ -2052,7 +2052,7 @@ bool KateDocument::printDialog ()
          }
 
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, -1, false, false, false, PrintFont );
+         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, -1, false, false, false, PrintFont, false, true );
          startCol = endCol;
          y += printFont.fontHeight;
        }
@@ -3596,7 +3596,7 @@ bool KateDocument::lineHasSelected (int line)
 
 bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd,
                                                  int showCursor, bool replaceCursor, bool showSelections, bool showTabs,
-                                                 WhichFont wf, bool currentLine)
+                                                 WhichFont wf, bool currentLine, bool printerfriendly)
 {
   // font data
   FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;
@@ -3638,7 +3638,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   len = textLine->length();
   uint oldLen = len;
 
-  if (showSelections && lineSelected (line))
+  if (!printerfriendly && showSelections && lineSelected (line))
   {
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;
@@ -3646,9 +3646,9 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     startSel = 0;
     endSel = len + 1;
   }
-  else if (currentLine)
+  else if (!printerfriendly && currentLine)
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[2]);
-  else
+  else if (!printerfriendly)
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
 
   if (startcol > len)
@@ -3826,9 +3826,13 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         paint.setPen(*curColor);
 
       // make sure we redraw the right character groups on attrib/selection changes
-      if (((tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) || isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))  || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
+      if (
+           (tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) ||
+           (isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))) ||
+           (((*(s+1)) == QChar('\t')) && ((*s) != QChar('\t')))
+         )
       {
-			  if (isSel && !selectionPainted)
+			  if (!printerfriendly && isSel && !selectionPainted)
           paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
@@ -3846,7 +3850,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         paint.drawPoint(xPos - xStart, y);
         paint.drawPoint(xPos - xStart + 1, y);
         paint.drawPoint(xPos - xStart, y - 1);
-        
+
         oldCol = curCol+1;
         oldXPos = xPosAfter;
         oldS = s+1;
@@ -3866,7 +3870,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       oldXPos = xPosAfter;
       oldS = s+1;
     }
-    
+
     //   kdDebug()<<"paint 6"<<endl;
 
     // increase xPos
@@ -3893,7 +3897,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 	}
 }
 	//kdDebug()<<"paint 8"<<endl;
-  if (showSelections && !selectionPainted && lineEndSelected (line))
+  if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
   {
     paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;

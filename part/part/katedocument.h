@@ -429,7 +429,7 @@ class KateDocument : public Kate::Document
     // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
     bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor,
-                                bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false);
+                                bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false, bool printerfriendly = false);
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);

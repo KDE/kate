@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_blockselectioninterface_h__
 #define __ktexteditor_blockselectioninterface_h__
 
+#include <qstring.h>
+
 namespace KTextEditor
 {
 

@@ -324,8 +324,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_lineHighlighted (0),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
-  connect( &m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
-
   clear();
 }
 
@@ -1159,23 +1157,6 @@ void KateBuffer::codeFoldingColumnUpdate(unsigned int lineNr) {
     QMemArray<uint> folding=line->foldingListArray();
     m_regionTree.updateLine(lineNr,&folding,&tmp,true,false);
   }
-}
-
-void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
-{
-   KateBufBlock *buf = findBlock(lineNr);
-
-   if (!buf)
-     return;
-
-   KateTextLine::Ptr l = buf->line(lineNr - buf->startLine());
-
-   if (l && (l->isVisible () != visible))
-   {
-     l->setVisible(visible);
-
-     buf->markDirty ();
-   }
 }
 
 //BEGIN KateBufBlock

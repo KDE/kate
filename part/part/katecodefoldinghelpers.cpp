@@ -1336,15 +1336,6 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 
   nodesForLine.at(0)->visible = !nodesForLine.at(0)->visible;
 
-// just for testing, no nested regions are handled yet and not optimized at all
-#if 0
-  for (unsigned int i=line+1;i<=nodesForLine.at(0)->endLineRel+line;i++)
-  {
-//    kdDebug(13000)<<QString("emit setLineVisible(%1,%2)").arg(i).arg(nodesForLine.at(0)->visible)<<endl;
-    emit(setLineVisible(i,nodesForLine.at(0)->visible));
-  }
-#endif
-
   if (!nodesForLine.at(0)->visible)
     addHiddenLineBlock(nodesForLine.at(0),line);
   else
@@ -1355,9 +1346,6 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
         hiddenLines.remove(it);
         break;
       }
-
-    for (unsigned int i=line+1; i<=nodesForLine.at(0)->endLineRel+line; i++)
-      emit(setLineVisible(i,true));
 
     updateHiddenSubNodes(nodesForLine.at(0));
   }
@@ -1408,9 +1396,6 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
 
   if (!inserted)
     hiddenLines.append(data);
-
-  for (unsigned int i = line+1; i <= (node->endLineRel+line); i++)
-    emit(setLineVisible(i,false));
 }
 
 bool KateCodeFoldingTree::existsOpeningAtLineAfter(unsigned int line, KateCodeFoldingNode *node)

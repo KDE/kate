@@ -26,7 +26,7 @@
 #include <kglobal.h>
 
 KateTextLine::KateTextLine ()
-  : m_flags(KateTextLine::flagVisible)
+  : m_flags(0)
 {
 }
 
@@ -351,7 +351,7 @@ char *KateTextLine::restore (char *buf)
   // we just restore a KateTextLine from a buffer first time
   if (f & KateTextLine::flagNoOtherData)
   {
-    m_flags = KateTextLine::flagVisible;
+    m_flags = 0;
 
     if (f & KateTextLine::flagAutoWrapped)
       m_flags = m_flags | KateTextLine::flagAutoWrapped;

@@ -95,7 +95,6 @@ class KateCodeFoldingNode
    * data members
    */
   private:
-    // temporary public to avoid friend an be able to disallow the access of m_childnodes directly ;)
     KateCodeFoldingNode                *parentNode;
     unsigned int startLineRel;
     unsigned int endLineRel;
@@ -111,7 +110,7 @@ class KateCodeFoldingNode
     bool deleteOpening;
     bool deleteEnding;
 
-  QMemArray<KateCodeFoldingNode*> m_children;
+    QMemArray<KateCodeFoldingNode*> m_children;
 };
 
 class KateCodeFoldingTree : public QObject
@@ -214,7 +213,6 @@ class KateCodeFoldingTree : public QObject
     void ensureVisible( uint line );
 
   signals:
-    void setLineVisible (unsigned int, bool);
     void regionVisibilityChangedAt  (unsigned int);
     void regionBeginEndAddedRemoved (unsigned int);
 };

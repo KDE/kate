@@ -51,9 +51,8 @@ class KateTextLine : public KShared
     {
       flagNoOtherData = 0x1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
       flagHlContinue = 0x2,
-      flagVisible = 0x4,
-      flagAutoWrapped = 0x8,
-      flagFoldingColumnsOutdated=0x10
+      flagAutoWrapped = 0x4,
+      flagFoldingColumnsOutdated=0x8
     };
 
   public:
@@ -97,12 +96,6 @@ class KateTextLine : public KShared
      * @return hl continue set?
      */
     inline bool hlLineContinue () const { return m_flags & KateTextLine::flagHlContinue; }
-
-    /**
-     * is this line marked as visible by the folding
-     * @return line visible
-     */
-    inline bool isVisible () const { return m_flags & KateTextLine::flagVisible; }
 
     /**
      * was this line automagically wrapped
@@ -311,16 +304,6 @@ class KateTextLine : public KShared
     {
       if (cont) m_flags = m_flags | KateTextLine::flagHlContinue;
       else m_flags = m_flags & ~ KateTextLine::flagHlContinue;
-    }
-
-    /**
-     * set visibility
-     * @param val visible?
-     */
-    inline void setVisible(bool val)
-    {
-      if (val) m_flags = m_flags | KateTextLine::flagVisible;
-      else m_flags = m_flags & ~ KateTextLine::flagVisible;
     }
 
     /**

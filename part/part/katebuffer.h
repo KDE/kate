@@ -578,11 +578,8 @@ class KateBuffer : public QObject
     KateCodeFoldingTree *foldingTree () { return &m_regionTree; };
 
   public slots:
-    /**
-     * change the visibility of a given line
-     */
-    void setLineVisible (unsigned int lineNr, bool visible);
     void codeFoldingColumnUpdate(unsigned int lineNr);
+
   private:
     /**
      * Highlight information needs to be updated.

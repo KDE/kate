@@ -2061,13 +2061,13 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
 {
   KateTextLine::Ptr l = textLine( newCursor.line() );
 
+
   if ( !force && (cursor == newCursor) )
   {
     if ( !m_madeVisible )
     {
       // unfold if required
-      if ( l && ! l->isVisible() )
-        m_doc->foldingTree()->ensureVisible( newCursor.line() );
+      m_doc->foldingTree()->ensureVisible( newCursor.line() );
 
       makeVisible ( displayCursor, displayCursor.col(), false, center, calledExternally );
     }
@@ -2075,13 +2075,8 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
     return;
   }
 
-  // remove trailing spaces ### really not nice here, unless it is *really* nessecary
-//   if ( m_doc->isReadWrite() && cursor.line() != newCursor.line() )
-//     m_doc->removeTrailingSpace( cursor.line() );
-
   // unfold if required
-  if ( l && ! l->isVisible() )
-    m_doc->foldingTree()->ensureVisible( newCursor.line() );
+  m_doc->foldingTree()->ensureVisible( newCursor.line() );
 
   KateTextCursor oldDisplayCursor = displayCursor;
 

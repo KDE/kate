@@ -201,9 +201,10 @@ const char*exec_xpm[]={
 
 
 KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
-    : QWidget(view, ""/*, Qt::WRepaintNoErase | Qt::WResizeNoErase*/), myView(view), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
+  : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase),
+    myView(view), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
 {
-  //setBackgroundMode(NoBackground);
+  setBackgroundMode(NoBackground);
 
   drawBuffer = new QPixmap ();
   drawBuffer->setOptimization (QPixmap::BestOptim);
@@ -251,28 +252,31 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
 {
   if ( myView->iconBorderStatus == None )
     return;
-    
+
+  if (drawBuffer->isNull())
+    return;
+
   if (!r)
     return;
 
   int pos = linepos;
 
-  //kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
-  QPainter p(this);
+  QPainter p;
+  p.begin(drawBuffer);
 
   int fontHeight = myView->myDoc->viewFont.fontHeight;
   int y = (pos-myView->myViewInternal->startLine) * fontHeight;
   int lnX = 0;
+  
+  p.fillRect( 0, 0, cachedLNWidth+2*iconPaneWidth, fontHeight, colorGroup().light() );
 
   // line number
-  if ( (myView->iconBorderStatus & LineNumbers) ) {
-    p.fillRect( lnX, y, cachedLNWidth-2, fontHeight, colorGroup().light() );
+  if ( (myView->iconBorderStatus & LineNumbers) )
+  {
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine( cachedLNWidth-1, y, cachedLNWidth-1, y + fontHeight );
-//    kdDebug()<<"IconBorder::paintLine"<<endl;
-
+    p.drawLine( cachedLNWidth-1, 0, cachedLNWidth-1, fontHeight );
       if (!r->empty)
-        p.drawText( lnX + 1, y, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
+        p.drawText( lnX + 1, 0, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
           QString("%1").arg(r->line + 1 ));
 
       lnX+=cachedLNWidth;
@@ -280,24 +284,23 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
 
   // icon pane
   if ( (myView->iconBorderStatus & Icons) ) {
-    p.fillRect(lnX, y, iconPaneWidth-2, fontHeight, colorGroup().light());
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
+    p.drawLine(lnX+iconPaneWidth-1, 0, lnX+iconPaneWidth-1, fontHeight);
 
     if (!r->empty)
     {
     uint mark = myView->myDoc->mark (r->line);
     switch (mark)
     {
-       case KateDocument::markType01:	p.drawPixmap(lnX+2, y, QPixmap(bookmark_xpm));
+       case KateDocument::markType01:	p.drawPixmap(lnX+2, 0, QPixmap(bookmark_xpm));
 					break;
-       case KateDocument::markType02: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_xpm));
+       case KateDocument::markType02: p.drawPixmap(lnX+2, 0, QPixmap(breakpoint_xpm));
 					break;
-       case KateDocument::markType03: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_gr_xpm));
+       case KateDocument::markType03: p.drawPixmap(lnX+2, 0, QPixmap(breakpoint_gr_xpm));
 		                        break;
-       case KateDocument::markType04: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_bl_xpm));
+       case KateDocument::markType04: p.drawPixmap(lnX+2, 0, QPixmap(breakpoint_bl_xpm));
 		                        break;
-       case KateDocument::markType05: p.drawPixmap(lnX+2, y, QPixmap(exec_xpm));
+       case KateDocument::markType05: p.drawPixmap(lnX+2, 0, QPixmap(exec_xpm));
 		                        break;
        default: break;
 
@@ -310,8 +313,6 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
   // folding markers
   if  (myView->iconBorderStatus & FoldingMarkers)
   {
-    p.fillRect(lnX,y,iconPaneWidth/*-2*/,fontHeight,colorGroup().light());
-    
     if (!r->empty)
     {
     p.setPen(black);
@@ -320,24 +321,28 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
     if (!info.topLevel)
      {
          if (info.startsVisibleBlock)
-            p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
+            p.drawPixmap(lnX+2,0,QPixmap(minus_xpm));
             else
 	    if (info.startsInVisibleBlock)
-              p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
+              p.drawPixmap(lnX+2,0,QPixmap(plus_xpm));
 	      else
               if (info.endsBlock)
 	      {
-	       p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
-	       p.drawLine(lnX+iconPaneWidth/2,y+fontHeight-1,lnX+iconPaneWidth-2,y+fontHeight-1);
+	       p.drawLine(lnX+iconPaneWidth/2,0,lnX+iconPaneWidth/2,fontHeight-1);
+	       p.drawLine(lnX+iconPaneWidth/2,fontHeight-1,lnX+iconPaneWidth-2,fontHeight-1);
               }
                else
-	       p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
+	       p.drawLine(lnX+iconPaneWidth/2,0,lnX+iconPaneWidth/2,fontHeight-1);
 
     }
     }
 
     lnX+=iconPaneWidth;
   }
+
+  p.end();
+
+  bitBlt(this, 0, y, drawBuffer, 0, 0, lnX, fontHeight);
 }
 
 

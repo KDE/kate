@@ -1675,7 +1675,7 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
     return false;
   }
   
-  kdDebug(13030) << "tagLines( [" << start.line << "," << start.col << "], [" << end.line << "," << end.col << "] )\n";
+  //kdDebug(13030) << "tagLines( [" << start.line << "," << start.col << "], [" << end.line << "," << end.col << "] )\n";
   
   bool ret = false;
   
@@ -1723,7 +1723,7 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
 
 void KateViewInternal::tagAll()
 {
-  kdDebug(13030) << "tagAll()" << endl;
+  //kdDebug(13030) << "tagAll()" << endl;
   for (uint z = 0; z < lineRanges.size(); z++)
   {
       lineRanges[z].dirty = true;

@@ -17,6 +17,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+//BEGIN Includes
 #include "kateschema.h"
 #include "kateschema.moc"
 
@@ -62,7 +63,9 @@
 #include <qvbox.h>
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
+//END
 
+//BEGIN KateStyleListView decl
 /*
     QListViewItem subclass to display/edit a style, bold/italic is check boxes,
     normal and selected colors are boxes, which will display a color chooser when
@@ -101,11 +104,11 @@ class KateStyleListItem : public QListViewItem
     /* whichever style is active (st for hl mode styles not using
        the default style, ds otherwise) */
     class KateAttribute* style() { return is; };
-  
+
   protected:
     /* reimp */
     void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
-  
+
   private:
     /* private methods to change properties */
     void toggleDefStyle();
@@ -118,7 +121,9 @@ class KateStyleListItem : public QListViewItem
               *ds;           // default style for hl mode contexts and default styles
     class KateHlItemData *st;      // itemdata for hl mode contexts
 };
+//END
 
+//BEGIN KateSchemaManager
 QString KateSchemaManager::normalSchema ()
 {
   return KApplication::kApplication()->aboutData()->appName () + QString (" - Normal");
@@ -225,6 +230,7 @@ QString KateSchemaManager::name (uint number)
 
   return normalSchema();
 }
+//END
 
 //
 //
@@ -423,13 +429,13 @@ KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
 void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 {
   m_defaultStyles->clear ();
-  
+
   KateAttributeList *l = attributeList (schema);
-  
+
   // set colors
   QPalette p ( m_defaultStyles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
-  p.setColor( QPalette::Normal, QColorGroup::Base, 
+  p.setColor( QPalette::Normal, QColorGroup::Base,
     KateFactory::self()->schemaManager()->schema(schema)->
       readColorEntry( "Color Background", &_c ) );
   _c = KGlobalSettings::highlightColor();
@@ -439,7 +445,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
   p.setColor( QPalette::Normal, QColorGroup::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
-  
+
   for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
   {
     m_defaultStyles->insertItem( new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i),
@@ -523,7 +529,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   kdDebug () << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
 
   m_styles->clear ();
-    
+
   if (!m_hlDict[m_schema])
   {
     kdDebug () << "NEW SCHEMA, create dict" << endl;
@@ -549,7 +555,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   // the color tab is fixed.
   QPalette p ( m_styles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
-  p.setColor( QPalette::Normal, QColorGroup::Base, 
+  p.setColor( QPalette::Normal, QColorGroup::Base,
     KateFactory::self()->schemaManager()->schema(m_schema)->
       readColorEntry( "Color Background", &_c ) );
   _c = KGlobalSettings::highlightColor();
@@ -562,7 +568,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
     _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
   p.setColor( QPalette::Normal, QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
-    
+
   for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
@@ -637,9 +643,9 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( defaultSchemaCombo );
-  
+
   reload();
-  
+
   connect( defaultSchemaCombo, SIGNAL(activated(int)),
            this, SLOT(slotChanged()) );
 }
@@ -1114,14 +1120,14 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
 
   // use a private color group and set the text/highlighted text colors
   QColorGroup mcg = lv->viewport()->colorGroup();
-  
+
   if ( col ) // col 0 is drawn by the superclass method
     p->fillRect( 0, 0, width, height(), QBrush( mcg.base() ) );
-  
+
   int marg = lv->itemMargin();
 
   QColor c;
-  
+
   switch ( col )
   {
     case ContextName:

@@ -49,6 +49,8 @@ struct syntaxContextData;
 class KateDocument;
 class KateView;
 
+namespace KIO { class Job; }
+
 class KAccel;
 class KColorButton;
 class KComboBox;
@@ -74,6 +76,22 @@ class QWidgetStack;
 class QVBox;
 class QListViewItem;
 class QCheckBox;
+
+class SpellConfigPage : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+  public:
+    SpellConfigPage( QWidget* parent );
+    ~SpellConfigPage() {};
+
+    void apply();
+    void reset () { ; };
+    void defaults () { ; };
+
+  private:
+    KSpellConfig *cPage;
+};
 
 class GotoLineDialog : public KDialogBase
 {
@@ -365,8 +383,6 @@ class KMimeTypeChooserDlg : public KDialogBase
     KMimeTypeChooser *chooser;
 };
 
-typedef QIntDict<HlData> HlDataDict;
-
 class HlConfigPage : public Kate::ConfigPage
 {
   Q_OBJECT
@@ -394,35 +410,27 @@ class HlConfigPage : public Kate::ConfigPage
     QLineEdit *mimetypes;
     class KIntNumInput *priority;
 
-    HlDataDict hlDataDict;
+    QIntDict<HlData> hlDataDict;
     HlData *hlData;
 };
 
-class ItemInfo
-{
-  public:
-    ItemInfo():trans_i18n(),length(0){};
-    
-    ItemInfo(QString _trans,int _length):trans_i18n(_trans),length(_length){};
-    
-    QString trans_i18n;
-    int length;
-};
-
-class SpellConfigPage : public Kate::ConfigPage
+class HlDownloadDialog: public KDialogBase
 {
   Q_OBJECT
 
   public:
-    SpellConfigPage( QWidget* parent );
-    ~SpellConfigPage() {};
-
-    void apply();
-    void reset () { ; };
-    void defaults () { ; };
+    HlDownloadDialog(QWidget *parent, const char *name, bool modal);
+    ~HlDownloadDialog();
 
   private:
-    KSpellConfig *cPage;
+    class QListView  *list;
+    class QString listData;
+
+  private slots:
+    void listDataReceived(KIO::Job *, const QByteArray &data);
+
+  public slots:
+    void slotUser1();
 };
 
 #endif

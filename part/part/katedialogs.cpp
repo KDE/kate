@@ -29,11 +29,14 @@
 
 #include "katesyntaxdocument.h"
 #include "katedocument.h"
-#include "katehighlightdownload.h"
 #include "katefactory.h"
 #include "kateconfig.h"
 #include "kateschema.h"
 #include "kateview.h"
+
+#include <kio/job.h>
+#include <kio/jobclasses.h>
+#include <kio/netaccess.h>
 
 #include <kapplication.h>
 #include <kspell.h>
@@ -110,7 +113,25 @@
 #include <qvbox.h>
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
+#include <qdom.h>
+
+#define HLDOWNLOADPATH "http://www.kde.org/apps/kate/hl/update.xml"
 //END
+
+SpellConfigPage::SpellConfigPage( QWidget* parent )
+  : Kate::ConfigPage( parent)
+{
+  QVBoxLayout* l = new QVBoxLayout( this );
+  cPage = new KSpellConfig( this, 0L, 0L, false );
+  l->addWidget( cPage );
+  connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+}
+
+void SpellConfigPage::apply ()
+{
+  // kspell
+  cPage->writeGlobalSettings ();
+}
 
 //BEGIN GotoLineDialog
 GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
@@ -1242,21 +1263,89 @@ QStringList KMimeTypeChooserDlg::patterns()
 {
   return chooser->patterns();
 }
-
-SpellConfigPage::SpellConfigPage( QWidget* parent )
-  : Kate::ConfigPage( parent)
-{
-  QVBoxLayout* l = new QVBoxLayout( this );
-  cPage = new KSpellConfig( this, 0L, 0L, false );
-  l->addWidget( cPage );
-  connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
-}
-
-void SpellConfigPage::apply ()
-{
-  // kspell
-  cPage->writeGlobalSettings ();
-}
 //END
+
+HlDownloadDialog::HlDownloadDialog(QWidget *parent, const char *name, bool modal)
+  :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("&Install"))
+{
+  setMainWidget( list=new QListView(this));
+  list->addColumn(i18n("Name"));
+  list->addColumn(i18n("Installed"));
+  list->addColumn(i18n("Latest"));
+  list->addColumn(i18n("Release Date"));
+  list->setSelectionMode(QListView::Multi);
+  KIO::TransferJob *getIt=KIO::get(KURL(HLDOWNLOADPATH), true, true );
+  connect(getIt,SIGNAL(data(KIO::Job *, const QByteArray &)),
+    this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
+//        void data( KIO::Job *, const QByteArray &data);
+
+}
+
+HlDownloadDialog::~HlDownloadDialog(){}
+
+void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
+{
+  listData+=QString(data);
+  kdDebug(13000)<<QString("CurrentListData: ")<<listData<<endl<<endl;
+  kdDebug(13000)<<QString("Data length: %1").arg(data.size())<<endl;
+  kdDebug(13000)<<QString("listData length: %1").arg(listData.length())<<endl;
+  if (data.size()==0)
+  {
+    if (listData.length()>0)
+    {
+      QString installedVersion;
+      HlManager *hlm=HlManager::self();
+      QDomDocument doc;
+      doc.setContent(listData);
+      QDomElement DocElem=doc.documentElement();
+      QDomNode n=DocElem.firstChild();
+      Highlight *hl;
+
+      if (n.isNull()) kdDebug(13000)<<"There is no usable childnode"<<endl;
+      while (!n.isNull())
+      {
+        installedVersion="    --";
+
+        QDomElement e=n.toElement();
+        if (!e.isNull())
+        kdDebug(13000)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
+        n=n.nextSibling();
+
+        QString Name=e.attribute("name");
+
+        for (int i=0;i<hlm->highlights();i++)
+        {
+          hl=hlm->getHl(i);
+          if (hl->name()==Name)
+          {
+            installedVersion="    "+hl->version();
+            break;
+          }
+        }
+
+        (void) new QListViewItem(list,e.attribute("name"),installedVersion,e.attribute("version"),e.attribute("date"),e.attribute("url"));
+      }
+    }
+  }
+}
+
+void HlDownloadDialog::slotUser1()
+{
+  QString destdir=KGlobal::dirs()->saveLocation("data","katepart/syntax/");
+  for (QListViewItem *it=list->firstChild();it;it=it->nextSibling())
+  {
+    if (list->isSelected(it))
+    {
+      KURL src(it->text(4));
+      QString filename=src.fileName(false);
+      QString dest = destdir+filename;
+
+      KIO::NetAccess::download(src,dest, this);
+    }
+  }
+
+  // update Config !!
+  SyntaxDocument doc (true);
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

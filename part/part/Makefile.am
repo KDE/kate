@@ -3,7 +3,7 @@ kde_module_LTLIBRARIES = libkatepart.la
 libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
   kateundo.cpp katecursor.cpp katedialogs.cpp katedocument.cpp \
   katefactory.cpp katehighlight.cpp katesyntaxdocument.cpp \
-  katetextline.cpp kateview.cpp katehighlightdownload.cpp kateconfig.cpp \
+  katetextline.cpp kateview.cpp kateconfig.cpp \
   kateviewhelpers.cpp katecodecompletion_arghint.cpp \
   katecodecompletion.cpp kateexportaction.cpp \
   katecodefoldinghelpers.cpp kateviewinternal.cpp \

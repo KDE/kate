@@ -1,7 +1,11 @@
-2002-04-05 Christian Couder <christian@kdevelop.org>
+2002-05-04 Christoph Cullmann <cullmann@kde.org>
+  * first KTextEditor::ViewPlugin which works
+    drop the helloworld plugin, as it is really no good example (bad code, ..)
+
+2002-05-04 Christian Couder <christian@kdevelop.org>
   * fix undo for comment and uncomment
 	
-2002-01-05 Christian Couder <christian@kdevelop.org>
+2002-05-01 Christian Couder <christian@kdevelop.org>
   * cleanups related to the uncomment feature in katetextline and katedocument
 
 2002-01-04 Christoph Cullmann <cullmann@kde.org>

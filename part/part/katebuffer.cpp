@@ -1255,7 +1255,10 @@ uint KateBuffer::length ()
 
   for (uint i = 0; i < count(); i++)
   {
-    l += plainLine(i)->length();
+    TextLine::Ptr line = plainLine(i);
+    
+    if (line)
+      l += line->length();
   }
 
   return l;

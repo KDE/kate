@@ -6,7 +6,8 @@
     <Action name="file_save_as" group="save_merge" />
     <Action name="file_reload" group="revert_merge" />
     <Action name="file_print" group="print_merge" />
-    <Action name="file_export" group="export_merge"/>
+    <Separator group="print_merge" />
+    <Action name="file_export" group="print_merge"/>
   </Menu>
 
   <Menu name="edit" noMerge="1"><text>&amp;Edit</text>

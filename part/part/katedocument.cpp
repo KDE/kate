@@ -123,6 +123,8 @@ int KateDocument::m_bookmarkSort = 0;
 bool KateDocument::m_wordWrapMarker = true;
 int KateDocument::m_autoCenterLines = 0;
 
+Kate::PluginList KateDocument::s_plugins;
+
 //
 // KateDocument Constructor
 //
@@ -160,6 +162,39 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
 
+  // init global plugin list
+  if (!s_configLoaded)
+  {
+    KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
+    for( ; it != KateFactory::plugins()->end(); ++it)
+    {
+      KService::Ptr ptr = (*it);
+
+      PluginInfo *info=new PluginInfo;
+
+      info->load = false;
+      info->service = ptr;
+      info->plugin = 0L;
+
+      s_plugins.append(info);
+    }
+  }
+
+  // init local plugin list
+  KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
+  for( ; it != KateFactory::plugins()->end(); ++it)
+  {
+    KService::Ptr ptr = (*it);
+
+    PluginInfo *info=new PluginInfo;
+
+    info->load = false;
+    info->service = ptr;
+    info->plugin = 0L;
+
+    m_plugins.append(info);
+  }
+
   m_activeView = 0L;
 
   hlSetByUser = false;
@@ -195,20 +230,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_highlight = 0L;
 
-  KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
-  for( ; it != KateFactory::plugins()->end(); ++it)
-  {
-    KService::Ptr ptr = (*it);
-
-    PluginInfo *info=new PluginInfo;
-
-    info->load = false;
-    info->service = ptr;
-    info->plugin = 0L;
-
-    m_plugins.append(info);
-  }
-
   myCmd = new KateCmd (this);
 
   buffer = new KateBuffer (this);
@@ -239,9 +260,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     // katedocument creation and to construct the masses of stuff
     s_configLoaded = true;
   }
-
-  // load all enabled plugins
-  loadAllEnabledPlugins ();
 
   // uh my, we got modified ;)
   connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
@@ -288,10 +306,18 @@ KateDocument::~KateDocument()
 
 void KateDocument::loadAllEnabledPlugins ()
 {
-  for (uint i=0; i<m_plugins.count(); i++)
+  for (uint i=0; i<s_plugins.count(); i++)
   {
-    if  (m_plugins.at(i)->load)
-      loadPlugin (m_plugins.at(i));
+    if (s_plugins.at(i)->load)
+    {
+      for (uint z=0; z < KateFactory::documents()->count(); z++)
+        KateFactory::documents()->at(z)->loadPlugin (KateFactory::documents()->at(z)->m_plugins.at(i));
+    }
+    else
+    {
+      for (uint z=0; z < KateFactory::documents()->count(); z++)
+        KateFactory::documents()->at(z)->unloadPlugin (KateFactory::documents()->at(z)->m_plugins.at(i));
+    }
   }
 }
 
@@ -299,20 +325,22 @@ void KateDocument::enableAllPluginsGUI (KateView *view)
 {
   for (uint i=0; i<m_plugins.count(); i++)
   {
-    if  (m_plugins.at(i)->load)
+    if  (m_plugins.at(i)->plugin)
       enablePluginGUI (m_plugins.at(i), view);
   }
 }
 
 void KateDocument::loadPlugin (PluginInfo *item)
 {
-  item->load = (item->plugin = KTextEditor::createPlugin (QFile::encodeName(item->service->library()), this));
+  if (item->plugin) return;
+
+  item->plugin = KTextEditor::createPlugin (QFile::encodeName(item->service->library()), this);
+
+  enablePluginGUI (item);
 }
 
 void KateDocument::unloadPlugin (PluginInfo *item)
 {
-  item->load = false;
-
   if (!item->plugin) return;
 
   disablePluginGUI (item);
@@ -1749,9 +1777,9 @@ void KateDocument::readConfig(KConfig *config)
   myBackupSuffix = config->readEntry("Backup Files Suffix", myBackupSuffix);
 
   config->setGroup("Kate Plugins");
-  for (uint i=0; i<m_plugins.count(); i++)
-    if  (config->readBoolEntry(m_plugins.at(i)->service->library(), false))
-      m_plugins.at(i)->load = true;
+  for (uint i=0; i<s_plugins.count(); i++)
+    if  (config->readBoolEntry(s_plugins.at(i)->service->library(), false))
+      s_plugins.at(i)->load = true;
 
   config->setGroup("Kate View");
   m_dynWordWrap = config->readBoolEntry( "Dynamic Word Wrap", m_dynWordWrap );
@@ -1761,6 +1789,8 @@ void KateDocument::readConfig(KConfig *config)
   m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
   m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
+
+  loadAllEnabledPlugins ();
 
   // update view defaults
   for (uint z=0; z < KateFactory::views()->count(); z++)
@@ -1804,8 +1834,8 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry( "Backup Files Suffix", myBackupSuffix );
 
   config->setGroup("Kate Plugins");
-  for (uint i=0; i<m_plugins.count(); i++)
-    config->writeEntry(m_plugins.at(i)->service->library(), m_plugins.at(i)->load);
+  for (uint i=0; i<s_plugins.count(); i++)
+    config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
 
   config->setGroup("Kate View");
   config->writeEntry( "Dynamic Word Wrap", m_dynWordWrap );

@@ -218,11 +218,11 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
 
   grid->addWidget( listView, 0, 0);
 
-  for (uint i=0; i<m_doc->plugins()->count(); i++)
+  for (uint i=0; i<m_doc->s_plugins.count(); i++)
   {
-    PluginListItem *item = new PluginListItem(false, m_doc->plugins()->at(i)->load, m_doc->plugins()->at(i), listView);
-    item->setText(0, m_doc->plugins()->at(i)->service->name());
-    item->setText(1, m_doc->plugins()->at(i)->service->comment());
+    PluginListItem *item = new PluginListItem(false, m_doc->s_plugins.at(i)->load, m_doc->s_plugins.at(i), listView);
+    item->setText(0, m_doc->s_plugins.at(i)->service->name());
+    item->setText(1, m_doc->s_plugins.at(i)->service->comment());
     item->setText(2, "");
     item->setText(3, "");
   }
@@ -243,15 +243,16 @@ PluginConfigPage::~PluginConfigPage ()
 
 void PluginConfigPage::loadPlugin (PluginListItem *item)
 {
-  m_doc->loadPlugin (item->info());
-  m_doc->enablePluginGUI (item->info());
+  item->info()->load = true;
+  m_doc->loadAllEnabledPlugins ();
 
   item->setOn(true);
 }
 
 void PluginConfigPage::unloadPlugin (PluginListItem *item)
 {
-  m_doc->unloadPlugin (item->info());
+  item->info()->load = false;
+  m_doc->loadAllEnabledPlugins ();
 
   item->setOn(false);
 }

@@ -81,6 +81,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   friend class KateDynWWBar;
   friend class ColorConfig;
   friend class ViewDefaultsConfig;
+  friend class PluginConfigPage;
 
   public:
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
@@ -99,7 +100,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void enablePluginGUI (Kate::PluginInfo *item, KateView *view);
     void enablePluginGUI (Kate::PluginInfo *item);
     void disablePluginGUI (Kate::PluginInfo *item);
-    
+
     // Which files to backup on save
     enum BackupOnSave { LocalFiles=1, RemoteFiles=2 };
     uint backupConfig() const { return myBackupConfig; };
@@ -113,6 +114,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
+    static Kate::PluginList s_plugins;
     Kate::PluginList m_plugins;
 
     static uint myBackupConfig;
@@ -415,10 +417,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   //
   public:
     /* Anders:
-      I reimplemented this, since i need to check if backup succeeded 
+      I reimplemented this, since i need to check if backup succeeded
       if requested */
     bool save();
-    
+
     bool openFile ();
     bool saveFile ();
 
@@ -742,7 +744,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     static bool myWordWrap;
     static uint myWordWrapAt;
-    
+
     static int m_autoCenterLines;
 
     bool hlSetByUser;

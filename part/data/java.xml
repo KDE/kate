@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Java" version="1.03" kateversion="2.1" section="Sources" extensions="*.java" mimetype="text/x-java">
+<language name="Java" version="1.04" kateversion="2.1" section="Sources" extensions="*.java" mimetype="text/x-java">
 	<highlighting>
 
 		<list name="java13">
@@ -1905,13 +1905,13 @@
 					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
 				</Int>
 				<HlCChar attribute="Char" context="#stay"/>
-				<RegExpr attribute="3" context="#stay" String="//BEGIN.*$" beginRegion="Region1"/>
-				<RegExpr attribute="3" context="#stay" String="//END.*$" endRegion="Region1"/>
+				<RegExpr attribute="Decimal" context="#stay" String="//BEGIN.*$" beginRegion="Region1"/>
+				<RegExpr attribute="Decimal" context="#stay" String="//END.*$" endRegion="Region1"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
 				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-				<DetectChar attribute="0" context="#stay" char="{" beginRegion="Brace1"/>
-				<DetectChar attribute="0" context="#stay" char="}" endRegion="Brace1"/>
+				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1"/>
+				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1"/>
 				<AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
 			</context>
 			<context attribute="String" lineEndContext="#pop" name="String">

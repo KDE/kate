@@ -1334,7 +1334,7 @@ KMimeTypeChooser::KMimeTypeChooser( QWidget *parent, const QString &text, const 
     btnEditMimeType->setEnabled( false );
     connect( lvMimeTypes, SIGNAL( doubleClicked ( QListViewItem * )), this, SLOT( editMimeType()));
     connect( lvMimeTypes, SIGNAL(currentChanged(QListViewItem*)), this, SLOT(slotCurrentChanged(QListViewItem*)) );
-    QWhatsThis::add( btnEditMimeType, i18n("Click this button to display the familiar KDE File Type Editor.<p><strong>WARNING:</strong> if you change the file extensions, you need to restart this dialog, as it does not (yet) know if they have changed.") );
+    QWhatsThis::add( btnEditMimeType, i18n("Click this button to display the familiar KDE File Type Editor.<p><strong>Warning:</strong> if you change the file extensions, you need to restart this dialog, as it will not be aware that they have changed.") );
   }
 }
 

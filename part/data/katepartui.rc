@@ -1,9 +1,9 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="7">
+<kpartgui name="KatePartView" version="8">
 <MenuBar noMerge="1">
   <Menu name="file" noMerge="1"><text>&amp;File</text>
-    <Action name="file_save" group="file_operations" />
-    <Action name="file_save_as" group="file_operations" />
+    <Action name="file_save" group="save_operations" />
+    <Action name="file_save_as" group="save_operations" />
     <Action name="file_reload" group="file_operations" />
     <Action name="file_export" group="file_operations" />
     <Action name="file_print" group="print_operations" />

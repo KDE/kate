@@ -805,7 +805,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
 void KateSaveConfigTab::blockCountChanged (int value)
 {
-  blockCountLabel->setText (i18n("Maximal loaded blocks per file: <b>%1</b>").arg (value)); 
+  blockCountLabel->setText (i18n("Maximum loaded blocks per file: <b>%1</b>").arg (value)); 
 }
 
 void KateSaveConfigTab::apply()

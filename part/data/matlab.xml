@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Matlab M-File" version="1.05" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
+<language name="Matlab M-File" version="1.06" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -128,22 +128,12 @@
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
         <keyword attribute="Command" context="#stay" String="commands"/>
-        <Float attribute="Float" context="#stay">
-          <AnyChar String="fF" attribute="Float" context="#stay"/>
-        </Float>
+        <Float attribute="Float" context="#stay"/>
         <HlCOct attribute="Float" context="#stay"/>
         <HlCHex attribute="Float" context="#stay"/>
-        <Int attribute="Decimal" context="#stay" >
-          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
-        </Int>
-        <RegExpr String="\b([\w]+[\d\w]*)?[\s]*([([][]-,:[+*/\d\s\w]*[])])?[']" attribute="Transpose" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" />
+        <RegExpr String="(\b([\w][\d\w]*)*[\s]*|[.])(?=([([{].*[])}])?['])" minimal="1" attribute="Transpose" context="Transpose"/>
+        <RegExpr String="[([{](?=[^'([{]*[])}]['])" minimal="1" attribute="Normal Text" context="Transpose"/>
         <RegExpr String= "%.*$" attribute="Comment" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&apos;"/>
       </context>
@@ -151,16 +141,24 @@
         <LineContinue attribute="String" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&apos;"/>
       </context>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Transpose">
+        <Float attribute="Float" context="#stay"/>
+        <HlCOct attribute="Float" context="#stay"/>
+        <HlCHex attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" />
+        <RegExpr attribute="String" context="#stay" minimal="1" String="['][^']*['](?=[])}]['])"/>
+        <DetectChar attribute="Normal Text" context="#pop" char="&apos;"/>
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword"     defStyleNum="dsKeyword" color="#1414e4" selColor="#ffd60b"/>
       <itemData name="Data Type"   defStyleNum="dsDataType"/>
-      <itemData name="Decimal"     defStyleNum="dsDecVal" color="#000000" selColor="#ffffff"/>
+      <itemData name="Decimal"     defStyleNum="dsDecVal"/>
       <itemData name="Octal"       defStyleNum="dsBaseN"/>
       <itemData name="Hex"         defStyleNum="dsBaseN"/>
       <itemData name="Float"       defStyleNum="dsFloat"/>
-      <itemData name="Transpose"   defStyleNum="dsNormal" color="#000080"/>
+      <itemData name="Transpose"   defStyleNum="dsNormal" color="#800080"/>
       <itemData name="String"      defStyleNum="dsString" color="#ff0000" selColor="#ff0000"/>
       <itemData name="Comment"     defStyleNum="dsComment" color="#2b7805" selColor="#945ca4"/>
       <itemData name="Command"     defStyleNum="dsCommand" color="#000000" selColor="#ffffff" bold="1"/>
@@ -173,4 +171,3 @@
     <keywords casesensitive="1" />
   </general>
 </language>
-<!-- Additional commands can easily be added in the above 'commands' section -->

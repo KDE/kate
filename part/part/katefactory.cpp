@@ -25,6 +25,7 @@
 #include "katefiletype.h"
 #include "kateschema.h"
 #include "kateconfig.h"
+#include <kvmallocator.h>
 
 #include "../interfaces/katecmd.h"
 
@@ -130,6 +131,9 @@ KateFactory::KateFactory ()
   m_viewConfig = new KateViewConfig ();
   m_rendererConfig = new KateRendererConfig ();
 
+  // vm allocator
+  m_vm = new KVMAllocator ();
+
   //
   // init the cmds
   //
@@ -150,6 +154,8 @@ KateFactory::~KateFactory()
   delete m_schemaManager;
 
   delete m_dirWatch;
+
+  delete m_vm;
 }
 
 static KStaticDeleter<KateFactory> sdFactory;

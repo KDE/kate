@@ -1098,7 +1098,7 @@ KateBufBlock::~KateBufBlock ()
 
   // if we have some swapped data allocated, free it now or never
   if (m_vmblock)
-    m_parent->vm()->free(m_vmblock);
+    KateFactory::self()->vm()->free(m_vmblock);
 
   // remove me from the list I belong
   KateBufBlockList::remove (this);
@@ -1161,15 +1161,15 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
 
   if (swap)
   {
-    m_vmblock = m_parent->vm()->allocate(size);
+    m_vmblock = KateFactory::self()->vm()->allocate(size);
     m_vmblockSize = size;
 
     if (!rawData.isEmpty())
     {
-      if (!m_parent->vm()->copyBlock(m_vmblock, rawData.data(), 0, size))
+      if (!KateFactory::self()->vm()->copyBlock(m_vmblock, rawData.data(), 0, size))
       {
         if (m_vmblock)
-          m_parent->vm()->free(m_vmblock);
+          KateFactory::self()->vm()->free(m_vmblock);
 
         m_vmblock = 0;
         m_vmblockSize = 0;
@@ -1240,7 +1240,7 @@ void KateBufBlock::markDirty ()
     {
       // if we have some swapped data allocated which is dirty, free it now
       if (m_vmblock)
-        m_parent->vm()->free(m_vmblock);
+        KateFactory::self()->vm()->free(m_vmblock);
 
       m_vmblock = 0;
       m_vmblockSize = 0;
@@ -1259,7 +1259,7 @@ void KateBufBlock::swapIn ()
   QByteArray rawData (m_vmblockSize);
 
   // what to do if that fails ?
-  if (!m_parent->vm()->copyBlock(rawData.data(), m_vmblock, 0, rawData.size()))
+  if (!KateFactory::self()->vm()->copyBlock(rawData.data(), m_vmblock, 0, rawData.size()))
     m_parent->m_cacheReadError = true;
 
   // reserve mem, keep realloc away on push_back
@@ -1303,15 +1303,15 @@ void KateBufBlock::swapOut ()
     for (uint i=0; i < m_lines; i++)
       buf = m_stringList[i]->dump (buf, haveHl);
 
-    m_vmblock = m_parent->vm()->allocate(rawData.size());
+    m_vmblock = KateFactory::self()->vm()->allocate(rawData.size());
     m_vmblockSize = rawData.size();
 
     if (!rawData.isEmpty())
     {
-      if (!m_parent->vm()->copyBlock(m_vmblock, rawData.data(), 0, rawData.size()))
+      if (!KateFactory::self()->vm()->copyBlock(m_vmblock, rawData.data(), 0, rawData.size()))
       {
         if (m_vmblock)
-          m_parent->vm()->free(m_vmblock);
+          KateFactory::self()->vm()->free(m_vmblock);
 
         m_vmblock = 0;
         m_vmblockSize = 0;

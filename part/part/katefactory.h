@@ -39,6 +39,7 @@ class KateRenderer;
 class KateView;
 
 class KDirWatch;
+class KVMAllocator;
 
 class KateFactory
 {
@@ -47,7 +48,7 @@ class KateFactory
      * Default constructor, private, as singleton
      */
     KateFactory ();
-    
+
   public:
     /**
      * Destructor
@@ -59,7 +60,7 @@ class KateFactory
      * @return instance of the factory
      */
     static KateFactory *self ();
-    
+
     /**
      * reimplemented create object method
      * @param parentWidget parent widget
@@ -85,7 +86,7 @@ class KateFactory
      * @param doc document to register
      */
     void registerDocument ( KateDocument *doc );
-    
+
     /**
      * unregister document at the factory
      * @param doc document to register
@@ -98,7 +99,7 @@ class KateFactory
      * @param view view to register
      */
     void registerView ( KateView *view );
-    
+
     /**
      * unregister view at the factory
      * @param view view to unregister
@@ -111,7 +112,7 @@ class KateFactory
      * @param renderer renderer to register
      */
     void registerRenderer ( KateRenderer  *renderer );
-    
+
     /**
      * unregister renderer at the factory
      * @param renderer renderer to unregister
@@ -135,7 +136,7 @@ class KateFactory
      * @return all known renderers
      */
     inline QPtrList<KateRenderer> *renderers () { return &m_renderers; };
-    
+
     /**
      * on start detected plugins
      * @return list of all at launch detected ktexteditor::plugins
@@ -166,60 +167,66 @@ class KateFactory
      * @return default config for all documents
      */
     inline KateDocumentConfig *documentConfig () { return m_documentConfig; }
-    
+
     /**
      * fallback view config
      * @return default config for all views
      */
     inline KateViewConfig *viewConfig () { return m_viewConfig; }
-    
+
     /**
      * fallback renderer config
      * @return default config for all renderers
      */
     inline KateRendererConfig *rendererConfig () { return m_rendererConfig; }
 
+    /**
+     * Global allocator for swapping
+     * @return allocator
+     */
+    inline KVMAllocator *vm () { return m_vm; }
+
   private:
     /**
      * instance of this factory
      */
     static KateFactory *s_self;
-    
+
     /**
      * about data (authors and more)
      */
     KAboutData m_aboutData;
-    
+
     /**
      * our kinstance
      */
     KInstance m_instance;
-    
+
     /**
      * registered docs
      */
     QPtrList<KateDocument> m_documents;
-    
+
     /**
      * registered views
      */
     QPtrList<KateView> m_views;
-    
+
     /**
      * registered renderers
      */
     QPtrList<KateRenderer> m_renderers;
-    
+
     /**
      * global dirwatch object
      */
-    KDirWatch *m_dirWatch;  
-  
+    KDirWatch *m_dirWatch;
+
     /**
      * filetype manager
      */
     KateFileTypeManager *m_fileTypeManager;
-    
+
     /**
      * schema manager
      */
@@ -234,16 +241,21 @@ class KateFactory
      * fallback document config
      */
     KateDocumentConfig *m_documentConfig;
-    
+
     /**
      * fallback view config
      */
     KateViewConfig *m_viewConfig;
-    
+
     /**
      * fallback renderer config
      */
     KateRendererConfig *m_rendererConfig;
+
+    /**
+     * vm allocator
+     */
+    KVMAllocator *m_vm;
 };
 
 #endif

@@ -269,7 +269,6 @@ class KateHighlighting
     uint itemData0;
     uint buildContext0Offset;
     KateHlIncludeRules includeRules;
-    QValueList<int> contextsIncludingSomething; //### unused, can i remove it?
     bool m_foldingIndentationSensitive;
 
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;

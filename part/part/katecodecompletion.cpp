@@ -40,6 +40,33 @@
 #include <qapplication.h>
 #include <qsizegrip.h>
 
+/**
+ *This class is used for providing a codecompletionbox with the same size in all editorwindows.
+ *Therefor the size is stored statically and provided over sizeHint().
+ *@short Listbox showing codecompletion
+ */
+class CCListBox : public QListBox{
+public:
+    CCListBox(QWidget* parent = 0, const char* name = 0, WFlags f = 0):QListBox(parent, name, f){
+    	resize(m_size);
+    };
+
+    QSize sizeHint()  const {
+		return m_size;
+    };
+
+protected:
+   void resizeEvent(QResizeEvent* rev){
+	 m_size = rev->size();
+	 QListBox::resizeEvent(rev);
+    };
+
+private:
+    static QSize m_size;
+};
+
+QSize CCListBox::m_size = QSize(300,200);
+
 class CompletionItem : public QListBoxText
 {
 public:
@@ -67,12 +94,13 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
   m_completionPopup->setLineWidth( 1 );
 
-  m_completionListBox = new QListBox( m_completionPopup );
+  m_completionListBox = new CCListBox( m_completionPopup );
   m_completionListBox->setFrameStyle( QFrame::NoFrame );
   m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
 
   m_completionListBox->installEventFilter( this );
 
+  m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
   m_completionPopup->installEventFilter( this );
   m_completionPopup->setFocusProxy( m_completionListBox );
 
@@ -244,13 +272,19 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
 
   if( newCoordinate ) {
     kdDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
-    m_completionPopup->resize(
-      m_completionListBox->sizeHint() +
-      QSize( m_completionListBox->verticalScrollBar()->width() + 4,
-             m_completionListBox->horizontalScrollBar()->height() + 4 ) );
+	m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
     QPoint p = m_view->mapToGlobal( m_view->cursorCoordinates() );
-    p += QPoint( 0, KateRenderer::getFontMetrics( KateRenderer::ViewFont ).height() );
-    m_completionPopup->move( p );
+	int x = p.x();
+	int y = p.y() ;
+	if ( y + m_completionPopup->height() + KateRenderer::getFontMetrics( KateRenderer::ViewFont ).height() > QApplication::desktop()->height() )
+		y -= (m_completionPopup->height() );
+	else
+		y += KateRenderer::getFontMetrics( KateRenderer::ViewFont ).height();
+
+	if (x + m_completionPopup->width() > QApplication::desktop()->width())
+		x = QApplication::desktop()->width() - m_completionPopup->width();
+
+	m_completionPopup->move( QPoint(x,y) );
   }
 
   m_completionListBox->setCurrentItem( 0 );

@@ -55,7 +55,6 @@ public:
     }
 };
 
-
 class KateCodeCompletion : public QObject
 {
   Q_OBJECT
@@ -91,7 +90,7 @@ private:
   KDevArgHint*    m_pArgHint;
   KateView*       m_view;
   class QVBox*          m_completionPopup;
-  class QListBox*       m_completionListBox;
+  class CCListBox*       m_completionListBox;
   QValueList<KTextEditor::CompletionEntry> m_complList;
   uint            m_lineCursor;
   uint            m_colCursor;

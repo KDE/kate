@@ -1,10 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=test
-Name[af]=toets
-Name[sv]=Test
-X-KDE-Library=ktexteditorviewpluginisearch
-Icon=testicon
+Name=KTextEditor Incremental Search Plugin
+X-KDE-Library=ktexteditor_isearch
 ServiceTypes=KTextEditor/ViewPlugin
 Type=Service
 InitialPreference=8

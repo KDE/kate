@@ -1317,20 +1317,26 @@ void KateDocument::setUndoSteps(uint steps)
 
 void KateDocument::undo()
 {
-  undoItems.last()->undo();
-  redoItems.append (undoItems.last());
-  undoItems.removeLast ();
+  if ((undoItems.count() >0) && undoItems.last())
+  {
+    undoItems.last()->undo();
+    redoItems.append (undoItems.last());
+    undoItems.removeLast ();
 
-  emit undoChanged ();
+    emit undoChanged ();
+  }
 }
 
 void KateDocument::redo()
 {
-  redoItems.last()->redo();
-  undoItems.append (redoItems.last());
-  redoItems.removeLast ();
+  if ((redoItems.count() >0) && redoItems.last())
+  {
+    redoItems.last()->redo();
+    undoItems.append (redoItems.last());
+    redoItems.removeLast ();
 
-  emit undoChanged ();
+    emit undoChanged ();
+  }
 }
 
 void KateDocument::clearUndo()

@@ -129,19 +129,6 @@ class KateBufBlock
      * lines in this block
      */
     inline uint lines () const { return m_lines; }
-    
-    /**
-     * get indenation date
-     * only valid if block is swapped
-     */
-    inline uint firstLineIndentation () const { return m_firstLineIndentation; }
-    inline bool firstLineOnlySpaces () const { return m_firstLineOnlySpaces; }
-    
-    /**
-     * get last line for highlighting
-     * only valid if block is swapped, expect to get 0
-     */
-    inline TextLine::Ptr lastLine () { return m_lastLine; }
 
     /**
      * prev/next block
@@ -175,14 +162,6 @@ class KateBufBlock
      */
     uint m_startLine;
     uint m_lines;
-
-    /**
-     * context & hlContinue flag + indentation infos
-     * only used in the case that string list is not around
-     */
-    uint m_firstLineIndentation;
-    bool m_firstLineOnlySpaces;
-    TextLine::Ptr m_lastLine;
 
     /**
      * here we swap our stuff

@@ -665,21 +665,11 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
   // take the last line of the previous block
   TextLine::Ptr prevLine = 0;
   
-  if ((startLine == buf->startLine()) && buf->prev())
-  {
-    KateBufBlock *blk = buf->prev();
-
-    if ((blk->state() != KateBufBlock::stateSwapped) && (blk->lines() > 0))
-      prevLine = blk->line (blk->lines() - 1);
-    else
-      prevLine = blk->lastLine();
-  }
+  if ((startLine == buf->startLine()) && buf->prev() && (buf->prev()->lines() > 0))
+    prevLine = buf->prev()->line (buf->prev()->lines() - 1);
   else if ((startLine > buf->startLine()) && (startLine <= buf->endLine()))
-  {
     prevLine = buf->line(startLine - buf->startLine() - 1);
-  }
-  
-  if (!prevLine)
+  else
     prevLine = new TextLine ();
   
   bool line_continue = prevLine->hlLineContinue();
@@ -748,24 +738,14 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
       }
       else
       {
-        if (buf->next())
+        KateBufBlock *blk = buf->next();
+      
+        if (blk && (blk->lines() > 0))
         {
-          KateBufBlock *blk = buf->next();
-    
-          if ((blk->state() != KateBufBlock::stateSwapped) && (blk->lines() > 0))
-          {
-            if (blk->line (0)->firstChar() == -1)
-              nextLineIndentation = iDepth;
-            else
-              nextLineIndentation = blk->line (0)->indentDepth(m_tabWidth);
-          }
+          if (blk->line (0)->firstChar() == -1)
+            nextLineIndentation = iDepth;
           else
-          {
-            if (blk->firstLineOnlySpaces())
-              nextLineIndentation = iDepth;
-            else
-              nextLineIndentation = blk->firstLineIndentation();
-          }
+            nextLineIndentation = blk->line (0)->indentDepth(m_tabWidth);
         }
       }
 
@@ -1011,9 +991,6 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
 : m_state (KateBufBlock::stateDirty),
   m_startLine (0),
   m_lines (0),
-  m_firstLineIndentation (0),
-  m_firstLineOnlySpaces (true),
-  m_lastLine (0),
   m_vmblock (0),
   m_vmblockSize (0),
   m_parent (parent),
@@ -1257,11 +1234,6 @@ void KateBufBlock::swapIn ()
     m_stringList.push_back (textLine);
   }
 
-  // clear this stuff, only usefull for swapped state
-  m_firstLineIndentation = 0;
-  m_firstLineOnlySpaces = true;
-  m_lastLine = 0;
-  
   // if we have allready enough blocks around, swap one
   if (m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED)
     m_parent->m_loadedBlocks.first()->swapOut();
@@ -1309,20 +1281,6 @@ void KateBufBlock::swapOut ()
         
         return;
       }
-    }
-    
-    // important infos for hl, let us access them
-    if (haveHl && (m_lines > 0))
-    {
-      m_firstLineIndentation = m_stringList[0]->indentDepth (m_parent->tabWidth());
-      m_firstLineOnlySpaces = (m_stringList[0]->firstChar() == -1);
-      m_lastLine = m_stringList[m_lines - 1];
-    }
-    else
-    {
-      m_firstLineIndentation = 0;
-      m_firstLineOnlySpaces = true;
-      m_lastLine = 0;
     }
   }
 

@@ -148,6 +148,7 @@ void KateSpellConfigPage::apply ()
   if (!changed())
     return;
 
+  m_changed = false;
   // kspell
   cPage->writeGlobalSettings ();
 }
@@ -283,6 +284,7 @@ void KateIndentConfigTab::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   KateDocumentConfig::global()->configStart ();
 
@@ -360,6 +362,7 @@ void KateSelectConfigTab::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   KateDocumentConfig::global()->configStart ();
 
@@ -551,6 +554,7 @@ void KateEditConfigTab::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   KateViewConfig::global()->configStart ();
   KateDocumentConfig::global()->configStart ();
@@ -714,6 +718,7 @@ void KateViewDefaultsConfig::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   KateViewConfig::global()->configStart ();
   KateRendererConfig::global()->configStart ();
@@ -778,6 +783,10 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 
 void KateEditKeyConfiguration::apply()
 {
+  if ( ! changed() )
+    return;
+  m_changed = false;
+
   if (m_ready)
   {
     m_keyChooser->commitChanges();
@@ -907,6 +916,7 @@ void KateSaveConfigTab::apply()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   KateBuffer::setMaxLoadedBlocks (blockCount->value());
 
@@ -1091,6 +1101,7 @@ void KatePartPluginConfigPage::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   KateDocumentConfig::global()->configStart ();
 
@@ -1302,6 +1313,7 @@ void KateHlConfigPage::apply ()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+  m_changed = false;
 
   writeback();
 

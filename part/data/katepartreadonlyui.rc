@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="11">
+<kpartgui name="KatePartView" version="12">
 <MenuBar noMerge="1">
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Separator/>
@@ -34,13 +34,14 @@
     <Action name="set_encoding" group="view_operations" />
   </Menu>
 
-  <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="set_confdlgreadonly" group="config_merge"/>
-    <Action name="dynamic_word_wrap_indicators" />
-    <Action name="view_word_wrap_marker"/>
-    <Action name="view_border"/>
-    <Action name="view_line_numbers"/>
-    <Action name="set_eol"/>
+  <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
+    <Action name="set_filetype" group="tools_operations" />
+    <Action name="set_highlight" group="tools_operations" />
+    <Action name="set_eol" group="tools_operations" />
+  </Menu>
+
+  <Menu name="settings" noMerge="1"><text>&amp;Settings</text>
+    <Action name="set_confdlg" group="configure_merge" />
   </Menu>
 </MenuBar>
 

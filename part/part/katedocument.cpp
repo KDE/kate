@@ -1968,13 +1968,13 @@ void KateDocument::writeConfig(KConfig *config)
 
 void KateDocument::readConfig()
 {
-  KConfig *config = KateFactory::self()->instance()->config();
+  KConfig *config = kapp->config();
   readConfig (config);
 }
 
 void KateDocument::writeConfig()
 {
-  KConfig *config = KateFactory::self()->instance()->config();
+  KConfig *config = kapp->config();
   writeConfig (config);
   config->sync();
 }
@@ -2064,6 +2064,8 @@ void KateDocument::configDialog()
     KateDocumentConfig::global()->configEnd ();
     KateViewConfig::global()->configEnd ();
     KateRendererConfig::global()->configEnd ();
+    
+    writeConfig ();
   }
 
   delete kd;

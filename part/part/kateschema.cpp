@@ -38,6 +38,8 @@
 #include <kmessagebox.h>
 #include <kpopupmenu.h>
 #include <kcolordialog.h>
+#include <kapplication.h>
+#include <kaboutdata.h>
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
@@ -63,6 +65,16 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 
+static QString normalSchema ()
+{
+  return KApplication::kApplication()->aboutData()->appName () + QString (" - Normal");
+}
+
+static QString printingSchema ()
+{
+  return KApplication::kApplication()->aboutData()->appName () + QString (" - Printing");
+}
+
 KateSchemaManager::KateSchemaManager ()
   : m_config ("kateschemarc", false, false)
 {
@@ -84,10 +96,10 @@ void KateSchemaManager::update (bool readfromfile)
   m_schemas = m_config.groupList();
   m_schemas.sort ();
 
-  m_schemas.remove ("Kate Printing Schema");
-  m_schemas.remove ("Kate Normal Schema");
-  m_schemas.prepend (i18n("Printing"));
-  m_schemas.prepend (i18n("Normal"));
+  m_schemas.remove (printingSchema());
+  m_schemas.remove (normalSchema());
+  m_schemas.prepend (printingSchema());
+  m_schemas.prepend (normalSchema());
 }
 
 //
@@ -99,9 +111,9 @@ KConfig *KateSchemaManager::schema (uint number)
   if ((number>1) && (number < m_schemas.count()))
     m_config.setGroup (m_schemas[number]);
   else if (number == 1)
-    m_config.setGroup ("Kate Printing Schema");
+    m_config.setGroup (printingSchema());
   else
-    m_config.setGroup ("Kate Normal Schema");
+    m_config.setGroup (normalSchema());
 
   return &m_config;
 }
@@ -137,10 +149,10 @@ bool KateSchemaManager::validSchema (uint number)
 
 uint KateSchemaManager::number (const QString &name)
 {
-  if (name == "Kate Normal Schema")
+  if (name == normalSchema())
     return 0;
 
-  if (name == "Kate Printing Schema")
+  if (name == printingSchema())
     return 1;
 
   int i;
@@ -155,9 +167,9 @@ QString KateSchemaManager::name (uint number)
   if ((number>1) && (number < m_schemas.count()))
     return m_schemas[number];
   else if (number == 1)
-    return "Kate Printing Schema";
+    return printingSchema();
 
-  return "Kate Normal Schema";
+  return normalSchema();
 }
 
 //

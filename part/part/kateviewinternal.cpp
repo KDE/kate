@@ -591,7 +591,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         
         lineRanges[z].line = m_doc->getRealLine( z + startLine() );
         if (z)
-          lineRanges[z-1].startsInvisibleBlock = (lineRanges[z-1].line != lineRanges[z].line + 1);
+          lineRanges[z-1].startsInvisibleBlock = (lineRanges[z].line != lineRanges[z-1].line + 1);
 
         lineRanges[z].visibleLine = z + startLine();
         lineRanges[z].startCol = 0;

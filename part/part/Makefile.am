@@ -9,7 +9,7 @@ libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attr
 			 katecodecompletion_iface_impl.cpp hlparamedit.cpp kateexportaction.cpp
 
 
-libkatepart_la_LIBADD   = ../interfaces/libkateinterfaces.la -lkspell -lkdeprint
+libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kspell/libkspell.la $(top_builddir)/kdeprint/libkdeprint.la
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN) -module -avoid-version
 
 INCLUDES= $(all_includes) -DKATEPART_NOT_INSTALLED -I../interfaces

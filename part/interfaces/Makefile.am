@@ -1,12 +1,12 @@
-METASOURCES = application.moc docmanager.moc document.moc mainwindow.moc plugin.moc view.moc viewmanager.moc
+METASOURCES = document.moc view.moc
 
-lib_LTLIBRARIES = libkateinterfaces.la
+lib_LTLIBRARIES = libkatepartinterfaces.la
 
-libkateinterfaces_la_SOURCES = interfaces.cpp
-libkateinterfaces_la_LIBADD   = -lktexteditor
-libkateinterfaces_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN)  -module -avoid-version
+libkatepartinterfaces_la_SOURCES = interfaces.cpp
+libkatepartinterfaces_la_LIBADD   = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
+libkatepartinterfaces_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN)  -module -avoid-version
 
-kateinclude_HEADERS = application.h docmanager.h document.h mainwindow.h plugin.h view.h viewmanager.h
+kateinclude_HEADERS = document.h view.h
 kateincludedir = $(includedir)/kate
 
 INCLUDES= $(all_includes)

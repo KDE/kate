@@ -22,7 +22,6 @@
 #include "katedocument.h"
 #include "katehighlight.h"
 #include <kpopupmenu.h>
-#include "../interfaces/viewmanager.h"
 
 void KateViewHighlightAction::init()
 {

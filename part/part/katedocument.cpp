@@ -3497,11 +3497,8 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   TextLine::Ptr textline = buffer->plainLine(line);
 
   int first_char = textline->firstChar();
-  if (first_char < 0) {
-    // if the line contains space only, clear it
-    removeText(line, 0, line, textline->length());
-    return;
-  }
+  if (first_char < 0)
+    first_char = 0;
 
   int space = textline->cursorX(first_char, tabChars) + change * indentationChars;
   if (space < 0)

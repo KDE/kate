@@ -1174,14 +1174,14 @@ LineRange KateViewInternal::range(int realLine, const LineRange* previous)
   } else {
     // TODO worthwhile optimising this to get the data out of the initial textWidth call?
     if (true /** make optional */) {
-	int pos = text->nextNonSpaceChar(0);
+  int pos = text->nextNonSpaceChar(0);
 
     if (pos > 0)
       ret.shiftX = m_renderer->textWidth(text, pos);
 
     if (ret.shiftX > ((double)width() / 100 * 80 /* FIXME customisable percentage */))
       ret.shiftX = 0;
-	}
+  }
 
     ret.virtualLine = m_doc->getVirtualLine(realLine);
     ret.startCol = 0;
@@ -2152,7 +2152,8 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
-  if( m_doc->configFlags() & KateDocument::cfTabIndents && m_doc->hasSelection() )
+  if( (m_doc->configFlags() & KateDocument::cfTabIndents) &&
+      (m_doc->hasSelection() || (m_doc->kateTextLine(cursor.line())->firstChar() < 0) || (cursor.col() <= m_doc->kateTextLine(cursor.line())->firstChar())) )
   {
     if( key == Qt::Key_Tab )
     {
@@ -2512,8 +2513,8 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
   }
   if (m_textHintTimer)
   {
-	killTimer(m_textHintTimer);
-	m_textHintTimer=0;
+  killTimer(m_textHintTimer);
+  m_textHintTimer=0;
   }
 }
 
@@ -2774,17 +2775,17 @@ void KateViewInternal::doDragScroll()
 
 void KateViewInternal::enableTextHints(int timeout)
 {
-	m_textHintTimeout=timeout;
-	m_textHintEnabled=true;
-	if (!m_textHintTimer) m_textHintTimer=startTimer(timeout);
+  m_textHintTimeout=timeout;
+  m_textHintEnabled=true;
+  if (!m_textHintTimer) m_textHintTimer=startTimer(timeout);
 }
 
 void KateViewInternal::disableTextHints()
 {
-	m_textHintEnabled=false;
-	if (m_textHintTimer)
-	{
-		killTimer(m_textHintTimer);
-		m_textHintTimer=0;
-	}
+  m_textHintEnabled=false;
+  if (m_textHintTimer)
+  {
+    killTimer(m_textHintTimer);
+    m_textHintTimer=0;
+  }
 }

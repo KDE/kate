@@ -78,9 +78,10 @@ class KateJScript
      * in global scope
      * @param view view to expose
      * @param script source code of script to execute
+     * @param errorMsg error to return if no success
      * @return success or not?
      */
-    bool execute (KateView *view, const QString &script);
+    bool execute (KateView *view, const QString &script, QString &errorMsg);
 
   private:
     /**

@@ -20,6 +20,7 @@
 
 #include "katedocument.h"
 #include "kateview.h"
+#include "katefactory.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -38,6 +39,7 @@
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qregexp.h>
+#include <qtextstream.h>
 
 namespace KJS {
 
@@ -165,10 +167,13 @@ KJS::ObjectImp *KateJScript::wrapView (KJS::ExecState *exec, KateView *view)
   return new KateJSView(exec, view);
 }
 
-bool KateJScript::execute (KateView *view, const QString &script)
+bool KateJScript::execute (KateView *view, const QString &script, QString &errorMsg)
 {
   if (!view)
+  {
+    errorMsg = i18n("Could not access view");
     return false;
+  }
 
   // put some stuff into env.
   m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", KJS::Object(wrapDocument(m_interpreter->globalExec(), view->doc())));
@@ -195,12 +200,10 @@ bool KateJScript::execute (KateView *view, const QString &script)
         lineno = int(lineVal.toNumber(exec));
     }
 
-    kdDebug () << "Exception, line " << lineno << ": " << msg << endl;
-
+    errorMsg = i18n("Exception, line %1: %2").arg(lineno).arg(msg);
     return false;
   }
 
-  kdDebug () << "script executed" << endl;
   return true;
 }
 
@@ -517,14 +520,44 @@ void KateJScriptManager::collectScripts (bool force)
 
 bool KateJScriptManager::exec( class Kate::View *view, const QString &_cmd, QString &errorMsg )
 {
+  // cast it hardcore, we know that it is really a kateview :)
+  KateView *v = (KateView*) view;
+
+  if ( !v )
+  {
+    errorMsg = i18n("Could not access view");
+    return false;
+  }
+
    //create a list of args
   QStringList args( QStringList::split( QRegExp("\\s+"), _cmd ) );
   QString cmd ( args.first() );
   args.remove( args.first() );
 
-  kdDebug(13050) << cmd << endl;
+  kdDebug(13050) << "try to exec: " << cmd << endl;
 
-  return false;
+  if (!m_scripts[cmd])
+  {
+    errorMsg = i18n("Command not found");
+    return false;
+  }
+
+  QFile file (m_scripts[cmd]->filename);
+
+  if ( !file.open( IO_ReadOnly ) )
+    {
+    errorMsg = i18n("JavaScript file not found");
+    return false;
+  }
+
+  QTextStream stream( &file );
+  stream.setEncoding (QTextStream::UnicodeUTF8);
+
+  QString source = stream.read ();
+
+  file.close();
+
+  return KateFactory::self()->jscript()->execute(v, source, errorMsg);
 }
 
 bool KateJScriptManager::help( class Kate::View *, const QString &, QString & )

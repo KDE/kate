@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.03" kateversion="2.1" section="Scripts" extensions="" mimetype="text/x-shellscript">
+<language name="Bash" version="1.04" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="text/x-shellscript">
         <highlighting>
                 <list name = "keywords">
                         <item> break </item>
                         <item> case </item>
-                        <item> done </item>
-                        <item> do </item>
-                        <item> elif </item>
                         <item> else </item>
                         <item> esac </item>
                         <item> exit </item>
                         <item> export </item>
-                        <item> fi </item>
                         <item> for </item>
                         <item> function </item>
-                        <item> if </item>
                         <item> in </item>
                         <item> return </item>
                         <item> select </item>
@@ -23,15 +18,36 @@
                         <item> until </item>
                         <item> while </item>
                         <item> . </item>
+                        <item> done </item>
+                        <item> do </item>
+                        <item> elif </item>
+                        <item> fi </item>
+                        <item> if </item>
+
                 </list>
                 <list name = "commands">
                         <item> cp </item>
                         <item> date </item>
                         <item> echo </item>
                         <item> eval </item>
+			<item> dcop </item>
+			<item> dcopstart </item>
+			<item> dcopfind </item>
                 </list>
                 <contexts>
                         <context name = "Base" attribute = "Normal Text" lineEndContext = "#stay">
+                                <RegExpr attribute="Keyword" context="#stay" String="\bdone\b" insensitive="TRUE" endRegion="dodone1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bdo\b" insensitive="TRUE" beginRegion="dodone1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\belif\b" insensitive="TRUE" beginRegion="iffi1" endRegion="iffi1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bif\b" insensitive="TRUE" beginRegion="iffi1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bfi\b" insensitive="TRUE" endRegion="iffi1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bcase\b" insensitive="TRUE" beginRegion="case1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\besac\b" insensitive="TRUE" endRegion="case1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="^[^()]+\)" insensitive="TRUE" beginRegion="subcase1"/>
+                                <StringDetect attribute="Keyword" context="#stay" String=";;" insensitive="TRUE" endRegion="subcase1"/>
+                                <DetectChar attribute="Keyword" context="#stay" char="{" insensitive="TRUE" beginRegion="func1"/>
+                                <DetectChar attribute="Keyword" context="#stay" char="}" insensitive="TRUE" endRegion="func1"/>
+
                                 <keyword String = "keywords" attribute = "Keyword" context = "#stay"/>
                                 <keyword String = "commands" attribute = "Command" context = "#stay"/>
                                 <Int attribute = "Decimal" context = "#stay"/>
@@ -41,6 +57,7 @@
                                 <DetectChar char="`" attribute = "Substitution" context = "Substitution"/>
                                 <Detect2Chars attribute = "Normal Text" context = "#stay" char = "\" char1 = "#"/>
                                 <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
+
                         </context>
                         <context name = "String" attribute = "String" lineEndContext="#stay">
                                 <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>

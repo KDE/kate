@@ -94,6 +94,8 @@
 
 //END  includes
 
+using namespace Kate;
+
 //
 // KateDocument Constructor
 //

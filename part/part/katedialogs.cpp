@@ -91,6 +91,8 @@
 #include "attribeditor.h"
 #include "katefactory.h"
 
+using namespace Kate;
+
 #define TAG_DETECTCHAR "DetectChar"
 #define TAG_DETECT2CHARS "Detect2Chars"
 #define TAG_RANGEDETECT "RangeDetect"

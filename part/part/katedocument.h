@@ -49,15 +49,18 @@ class KateBuffer;
 class KateView;
 class KateViewInternal; 
 
-class PluginInfo
+namespace Kate
 {
-  public:
-    bool load;
-    KService::Ptr service;
-    KTextEditor::Plugin *plugin;
-};
+  class PluginInfo
+  {
+    public:
+      bool load;
+      KService::Ptr service;
+      KTextEditor::Plugin *plugin;
+  };
 
-typedef QPtrList<PluginInfo> PluginList;
+  typedef QPtrList<PluginInfo> PluginList;
+}
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -79,16 +82,16 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     
     bool closeURL(); 
     
-    PluginList *plugins () { return &m_plugins; };
+    Kate::PluginList *plugins () { return &m_plugins; };
     
     void loadAllEnabledPlugins ();
     void enableAllPluginsGUI (KateView *view);
     
-    void loadPlugin (PluginInfo *item);
-    void unloadPlugin (PluginInfo *item);
-    void enablePluginGUI (PluginInfo *item, KateView *view);
-    void enablePluginGUI (PluginInfo *item);
-    void disablePluginGUI (PluginInfo *item);
+    void loadPlugin (Kate::PluginInfo *item);
+    void unloadPlugin (Kate::PluginInfo *item);
+    void enablePluginGUI (Kate::PluginInfo *item, KateView *view);
+    void enablePluginGUI (Kate::PluginInfo *item);
+    void disablePluginGUI (Kate::PluginInfo *item);
 
   private:
     // only to make part work, don't change it !
@@ -96,7 +99,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
-    PluginList m_plugins;
+    Kate::PluginList m_plugins;
     
   //
   // KTextEditor::Document stuff

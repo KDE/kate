@@ -78,8 +78,8 @@ class QListBoxItem;
 class PluginListItem : public QCheckListItem
 {
 public:
-	PluginListItem(const bool _exclusive, bool _checked, PluginInfo *_info, QListView *_parent);
-	PluginInfo *info() const { return mInfo; }
+	PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent);
+	Kate::PluginInfo *info() const { return mInfo; }
 
 	// This will toggle the state without "emitting" the stateChange
 	void setChecked(bool);
@@ -89,7 +89,7 @@ protected:
 	virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
    
 private:
-	PluginInfo *mInfo;
+	Kate::PluginInfo *mInfo;
 	bool silentStateChange;
 	bool exclusive;
 };

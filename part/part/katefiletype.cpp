@@ -25,13 +25,31 @@
 
 #include "katedocument.h"
 #include "kateconfig.h"
+#include "katedialogs.h"
 
 #include <kconfig.h>
 #include <kmimemagic.h>
 #include <kmimetype.h>
 #include <kdebug.h>
+#include <knuminput.h>
+#include <klocale.h>
 
 #include <qregexp.h>
+#include <qcheckbox.h>
+#include <qcombobox.h>
+#include <qgroupbox.h>
+#include <qhbox.h>
+#include <qheader.h>
+#include <qhgroupbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qlineedit.h>
+#include <qpushbutton.h>
+#include <qtoolbutton.h>
+#include <qvbox.h>
+#include <qvgroupbox.h>
+#include <qwhatsthis.h>
+#include <qwidgetstack.h>
 
 KateFileTypeManager::KateFileTypeManager ()
  : m_config (new KConfig ("katepart/filetypesrc"))
@@ -203,6 +221,51 @@ KateFileType *KateFileTypeManager::fileType (uint number)
 KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   : Kate::ConfigPage( parent )
 {
+  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+
+  // hl chooser
+  QHBox *hbHl = new QHBox( this );
+  layout->add (hbHl);
+  hbHl->setSpacing( KDialog::spacingHint() );
+  QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
+  typeCombo = new QComboBox( false, hbHl );
+  lHl->setBuddy( typeCombo );
+  connect( typeCombo, SIGNAL(activated(int)),
+           this, SLOT(typeChanged(int)) );
+/*  for( int i = 0; i < hlManager->highlights(); i++) {
+    if (hlManager->hlSection(i).length() > 0)
+      hlCombo->insertItem(hlManager->hlSection(i) + QString ("/") + hlManager->hlName(i));
+    else
+      hlCombo->insertItem(hlManager->hlName(i));
+  }
+  hlCombo->setCurrentItem(0);*/
+  QPushButton *btnEdit = new QPushButton( i18n("&Edit..."), hbHl );
+  connect( btnEdit, SIGNAL(clicked()), this, SLOT(hlEdit()) );
+
+  QGroupBox *gbProps = new QGroupBox( 1, Qt::Horizontal, i18n("Properties"), this );
+  layout->add (gbProps);
+
+  // file & mime types
+  QHBox *hbFE = new QHBox( gbProps);
+  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), hbFE );
+  wildcards  = new QLineEdit( hbFE );
+  lFileExts->setBuddy( wildcards );
+  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+
+  QHBox *hbMT = new QHBox( gbProps );
+  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
+  mimetypes = new QLineEdit( hbMT );
+  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  lMimeTypes->setBuddy( mimetypes );
+
+  QHBox *hbMT2 = new QHBox( gbProps );
+  QLabel *lprio = new QLabel( i18n("Prio&rity:"), hbMT2);
+  priority = new KIntNumInput( hbMT2 );
+  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  lprio->setBuddy( priority );
+
+  layout->addStretch();
+
   reload();
 }
 

@@ -89,7 +89,11 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
   void reset();
   void defaults();
 
-  protected:
+  private:
+    class QComboBox *typeCombo;
+    class QLineEdit *wildcards;
+    class QLineEdit *mimetypes;
+    class KIntNumInput *priority;
 };
 
 #endif

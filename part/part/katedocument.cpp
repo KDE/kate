@@ -409,7 +409,7 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 uint KateDocument::configPages () const
 {
-  return 11;
+  return 12;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )

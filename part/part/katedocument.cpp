@@ -4422,8 +4422,10 @@ unsigned int KateDocument::getVirtualLine(unsigned int realLine)
 	return regionTree->getVirtualLine(realLine);
 }
 
-
-
+unsigned int KateDocument::visibleLines ()
+{
+	return numLines() - regionTree->getHiddenLinesCount();
+}
 
 KateCursor::KateCursor ( KateDocument *doc)
 {

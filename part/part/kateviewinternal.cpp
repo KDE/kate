@@ -577,7 +577,7 @@ void KateViewInternal::changeState(VConfig &c) {
     if (!(c.flags & KateDocument::cfPersistent))
       myDoc->clearSelection();
   }
-  
+
   if (!nullMove)
     emit myView->cursorPositionChanged();
 }
@@ -769,7 +769,7 @@ void KateViewInternal::updateView(int flags)
 				}
 			}
 
-			unsigned int contentLines=myDoc->numLines(); /* temporary */
+			unsigned int contentLines=myDoc->visibleLines(); /* temporary */
 
 			unsigned int contentHeight=contentLines*fontHeight;
 			int viewLines=height()/fontHeight;
@@ -1039,7 +1039,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
       if (r->start < r->end)
       {
         myDoc->paintTextLine(paint, myDoc->getRealLine(line), r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
-        
+
         bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0, r->end - r->start, h);
       }
 
@@ -1111,7 +1111,7 @@ void KateViewInternal::paintBracketMark() {
 }
 
 void KateViewInternal::placeCursor(int x, int y, int flags) {
-//#if 0 
+//#if 0
  VConfig c;
 
   getVConfig(c);
@@ -1137,7 +1137,7 @@ bool KateViewInternal::isTargetSelected(int x, int y) {
 #warning "This needs changing for dynWW"
   y=(yPos+y)/myDoc->viewFont.fontHeight;
 
-  if (!m_lineMapping[y-startLine]) return false;  
+  if (!m_lineMapping[y-startLine]) return false;
 
   y= *(m_lineMapping[y-startLine]);
 

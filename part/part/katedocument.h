@@ -792,6 +792,8 @@ class KateDocument : public Kate::Document
   public:
         unsigned int getRealLine(unsigned int virtualLine);
         unsigned int getVirtualLine(unsigned int realLine);
+        unsigned int visibleLines ();
+
   signals:
 	void codeFoldingUpdated();
   public slots:

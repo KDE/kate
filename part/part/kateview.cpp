@@ -1092,7 +1092,11 @@ void KateViewInternal::mousePressEvent(QMouseEvent *e) {
   if (e->button() == MidButton) {
     placeCursor(e->x(), e->y());
     if (myView->doc()->isReadWrite())
+    {
+      QApplication::clipboard()->setSelectionMode( true );
       myView->paste();
+      QApplication::clipboard()->setSelectionMode( false );
+    }
   }
   if (myView->rmbMenu && e->button() == RightButton) {
     myView->rmbMenu->popup(mapToGlobal(e->pos()));
@@ -1119,12 +1123,12 @@ void KateViewInternal::mouseReleaseEvent(QMouseEvent *e) {
       // so now we kill the selection
       placeCursor(e->x(), e->y(), 0);
       myDoc->updateViews();
-    } else if (dragInfo.state == diNone) {
-      if (myView->doc()->configFlags() & KateDocument::cfMouseAutoCopy) {
-        QApplication::clipboard()->setSelectionMode( true );
-        myView->copy();
-        QApplication::clipboard()->setSelectionMode( false );
-      }
+    } else if (dragInfo.state == diNone)
+    {
+      QApplication::clipboard()->setSelectionMode( true );
+      myView->copy();
+      QApplication::clipboard()->setSelectionMode( false );
+
       killTimer(scrollTimer);
       scrollTimer = 0;
     }

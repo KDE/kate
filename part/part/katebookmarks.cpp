@@ -111,7 +111,6 @@ bool KateBookmarks::eventFilter( QObject *o, QEvent *e )
 
 void KateBookmarks::connectMenuAndDisConnectAgain()
 {
-  kdDebug()<<"KateBookmarks::connectMenuAndDisConnectAgain()"<<endl;
     if ( m_view->factory() )
     {
       QPopupMenu *m = static_cast<QPopupMenu*>(m_view->factory()->container("bookmarks", m_view));
@@ -126,12 +125,14 @@ void KateBookmarks::connectMenuAndDisConnectAgain()
       connect( m, SIGNAL(aboutToHide()),
               this, SLOT(bookmarkMenuAboutToHide()) );
 
-      m_view->removeEventFilter( this );
+      // ### don't remove the event filter, since in kate we will otherwise loose
+      // the document menu :(
+//      m_view->removeEventFilter( this );
       return;
     }
 
     // FUCKY-SUCKY -- try later
-    if ( _tries > 3 ) // give up
+    if ( _tries > 4 ) // give up
     {
       m_view->removeEventFilter( this );
       return;

@@ -4817,7 +4817,7 @@ void KateDocument::misspelling( const QString& origword, const QStringList&, uns
   setSelection( line, col, line, col + origword.length() );
 }
 
-void KateDocument::corrected( const QString& originalword, const QString& newword, uint pos )
+void KateDocument::corrected( const QString& originalword, const QString& newword, unsigned int pos )
 {
   m_replaceCount++;
 

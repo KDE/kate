@@ -1205,7 +1205,7 @@ bool KateDocument::removeSelectedText ()
     int delLine = 0;
     int delStart = 0;
     int delLen = 0;
-
+    
     if (!blockSelect)
     {
       if ((z > sl) && (z < el))
@@ -1214,16 +1214,27 @@ bool KateDocument::removeSelectedText ()
       {
         if ((z == sl) && (z == el))
         {
-          delStart = sc;
-          delLen = ec-sc;
+          if ((sc==0) && (el==textLine->length()))
+             delLine=1;
+	  else
+	  {
+             delStart = sc;
+             delLen = ec-sc;
+	  }
         }
         else if ((z == sl))
         {
-          delStart = sc;
-          delLen = textLine->length()-sc;
 
-          if (sl < el)
-            delLen++;
+          if (sc==0)
+             delLine=1;
+	  else
+	  {	
+             delStart = sc;
+             delLen = textLine->length()-sc;
+
+             if (sl < el)
+                delLen++;
+	  }
         }
         else if ((z == el))
         {
@@ -1247,7 +1258,10 @@ bool KateDocument::removeSelectedText ()
     }
 
     if (delLine == 1)
+    {
+      kdDebug(13000)<<"KateDocument::removeSelectedText (): calling editRemoveLine"<<z<<endl;      
       editRemoveLine (z);
+    }
     else if (delStart+delLen > (int)textLine->length())
     {
       editRemoveText (z, delStart, textLine->length()-delStart);

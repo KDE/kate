@@ -1388,7 +1388,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     bool standardStartEnableDetermined = false;
     bool standardStartEnable = false;
 
-    if (context->skipSpaces && (text[z] == QChar(' ') || text[z] == QChar('\t')))
+    if (context->skipSpaces && text[z].isSpace())
     {
       // skip the space
       textLine->setAttribs(context->attr,offset1,offset1 + 1);

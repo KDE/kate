@@ -20,7 +20,7 @@
   
   ========================================================================
 -->
-<language name="Lex/Flex" version="1.00" kateversion="2.2" section="Sources" extensions="*.l;*.lex;*.flex" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
+<language name="Lex/Flex" version="1.01" kateversion="2.4" section="Sources" extensions="*.l;*.lex;*.flex" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -31,8 +31,8 @@
     <IncludeRules context="Detect C" />
     <Detect2Chars attribute="Content-Type Delimiter" context="Rules" char="%" char1="%" beginRegion="rules" endRegion="definitions" />
     <DetectChar attribute="Directive" context="Percent Command" char="%" />
-    <RegExpr attribute="Comment" context="Comment" String="^/\*" />
-    <RegExpr attribute="Definition" context="Definition RegExpr" String="^[A-Za-z_][A-Za-z0-9_]*\s+" />
+    <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" column="0"/>
+    <RegExpr attribute="Definition" context="Definition RegExpr" String="[A-Za-z_]\w*\s+" column="0"/>
   </context>
   <context name="Rules" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="Rule RegExpr">
     <IncludeRules context="Detect C" />
@@ -94,22 +94,22 @@
   
   <context name="Action" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="Action C">
     <RegExpr attribute="Directive" context="#stay" String="\|\s*$" />
-    <RegExpr attribute="Content-Type Delimiter" context="Lex Rule C Bloc" String="%\{" beginRegion="lexCbloc" />
+    <Detect2Chars attribute="Content-Type Delimiter" context="Lex Rule C Bloc" char="%" char1="{" beginRegion="lexCbloc" />
   </context>
   
   <context name="Detect C" attribute="Normal Text" lineEndContext="#stay">
     <RegExpr attribute="Normal Text" context="Indented C" String="^\s" />
-    <RegExpr attribute="Content-Type Delimiter" context="Lex C Bloc" String="^%\{" beginRegion="lexCbloc" />
+    <Detect2Chars attribute="Content-Type Delimiter" context="Lex C Bloc" char="%" char1="{" beginRegion="lexCbloc" column="0"/>
   </context>
   <context name="Indented C" attribute="Normal Text" lineEndContext="#pop">
     <IncludeRules context="##C++" />
   </context>
   <context name="Lex C Bloc" attribute="Normal Text" lineEndContext="#stay">
-    <RegExpr attribute="Content-Type Delimiter" context="#pop" String="^%\}" endRegion="lexCbloc" />
+    <Detect2Chars attribute="Content-Type Delimiter" context="#pop" char="%" char1="}" endRegion="lexCbloc" column="0"/>
     <IncludeRules context="##C++" />
   </context>
   <context name="Lex Rule C Bloc" attribute="Normal Text" lineEndContext="#stay">
-    <RegExpr attribute="Content-Type Delimiter" context="#pop" String="%\}" endRegion="lexCbloc" />
+    <Detect2Chars attribute="Content-Type Delimiter" context="#pop" char="%" char1="}" endRegion="lexCbloc" />
     <IncludeRules context="##C++" />
   </context>
   <context name="Normal C Bloc" attribute="Normal Text" lineEndContext="#stay">

@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Asm6502" version="1.03" kateversion="2.1" section="Assembler" extensions="*.asm" mimetype="text/x-asm6502">
+<language name="Asm6502" version="1.04" kateversion="2.1" section="Assembler" extensions="*.asm" mimetype="text/x-asm6502">
         <highlighting>
-                <list name = "opcodes6502">
-
-
-                </list>
-
-
-
-
 
                 <contexts>
                         <context name = "Base" attribute = "Normal Text" lineEndContext = "#stay">
@@ -90,7 +82,6 @@
 				<StringDetect attribute="Keyword" context="#stay" String="TXS" insensitive="TRUE"/>
 				<StringDetect attribute="Keyword" context="#stay" String="TYA" insensitive="TRUE"/>
 
-				<keyword String = "opcodes6502" attribute = "Keyword" context = "#stay" />
 				<RegExpr String= "\*=" attribute = "Decimal" context="#stay"/>
 				<RangeDetect char = "&quot;" char1 = "&quot;" attribute = "String" context = "#stay"/>
 				<AnyChar String = "-+&lt;&gt;=;" attribute = "Operator" context = "#stay"/>

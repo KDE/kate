@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name=".desktop" version="1.03" kateversion="2.1" section="Configuration" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
+<language name=".desktop" version="1.04" kateversion="2.4" section="Configuration" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
   <highlighting>
     <contexts>
       <context attribute="Key" lineEndContext="#stay" name="Normal">
-        <RegExpr String="^\[.*\]$" attribute="Section" context="#stay" beginRegion="Section" endRegion="Section" />
+        <RegExpr String="\[.*\]$" attribute="Section" context="#stay" beginRegion="Section" endRegion="Section" column="0"/>
         <RegExpr String="\[.*\]" attribute="Language" context="Value"/>
-	<RegExpr String="^\s*#" attribute="Comment" context="Comment"/>
+	<DetectChar char="#" attribute="Comment" context="Comment" firstNonSpace="true"/>
         <DetectChar char="=" attribute="Normal Text" context="Value"/>
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Value"/>

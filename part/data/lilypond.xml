@@ -1,8 +1,8 @@
-<?xml version="1.02" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Andrea Primiani - primiani at dag dot it
  	version1.0 - 14 august 2004 -->
-<language name="LilyPond" section="Other" extensions="*.ly;*.LY" mimetype="" casesensitive="true" author="Andrea Primiani (primiani@dag.it)" license="LGPL" version="1.00" kateversion="2.3">
+<language name="LilyPond" section="Other" extensions="*.ly;*.LY" mimetype="" casesensitive="true" author="Andrea Primiani (primiani@dag.it)" license="LGPL" version="1.01" kateversion="2.3">
     <highlighting>
 <!-- repeat keywords -->
     <list name="repeats">
@@ -22,8 +22,8 @@
 	</list>
 	<contexts>
            <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-	   	   <keyword attribute="Repeat" context="#stay" String="repeats" />
-		   <keyword attribute="Keyword" context="Keyword" String="commands" lineEndContext="#pop"/>
+		<keyword attribute="Repeat" context="#stay" String="repeats" />
+		<keyword attribute="Keyword" context="Keyword" String="commands" />
 <!-- detects all keywords and pre-defined variables -->
 		<StringDetect attribute="Keyword" context="#stay" String="\addquote" />
 		<StringDetect attribute="Keyword" context="#stay" String="\aeolian" />
@@ -260,9 +260,7 @@
 	    <StringDetect attribute="Lyrics" context="Lyrics" String="\lyrics {" beginRegion="lyrics" />
 	    <StringDetect attribute="Lyrics" context="Lyrics" String="\newlyrics {" beginRegion="lyrics" />
 <!-- detects \header {   } zone -->
-	   <StringDetect attribute="Keyword" context="Header" String="\header {" beginRegion="header" />
-<!-- the same w/o space before { (should be a single RegExpr) -->
-	   <StringDetect attribute="Keyword" context="Header" String="\header{" beginRegion="header" />
+	    <RegExpr attribute="Keyword" context="Header" String="\\header\s*{" beginRegion="header" />
 <!-- detects quoted strings -->
 	    <RangeDetect attribute="String" context="#stay" char="&quot;" char1="&quot;"/>
 <!-- detects other { } ranges -->
@@ -275,7 +273,7 @@
 	    <DetectChar attribute="Chord" context="#stay" char="&lt;" />
 	    <DetectChar attribute="Chord" context="#stay" char="&gt;" />
 <!-- detects #( ) command lines	-->
-	    <StringDetect attribute="Header" context="Command" String="#(" beginRegion="command" />
+	    <Detect2Chars attribute="Header" context="Command" char="#" char1="(" beginRegion="command" />
 <!-- detects context delimiter << (was <) -->
 	    <Detect2Chars attribute="Context" context="#stay" char="&lt;" char1="&lt;" beginRegion="context"/>
 	    <Detect2Chars attribute="Context" context="#stay" char="&gt;" char1="&gt;" endRegion="context"/>

@@ -218,7 +218,7 @@
 	</highlighting>
    <general>
      <folding indentationsensitive="1" />
-		 <comments>
+     <comments>
        <comment name="singleLine" start="#" />
      </comments>
      <keywords casesensitive="1" />

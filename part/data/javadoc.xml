@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Javadoc" version="1.02" kateversion="2.4" section="Markup" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
+<language name="Javadoc" version="1.03" kateversion="2.4" section="Markup" extensions="" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
 	<highlighting>
 		<contexts>
 			<context name="Start" attribute="Normal Text" lineEndContext="#stay">
@@ -13,8 +13,8 @@
 				<Detect2Chars attribute="JavadocFS" context="#pop" char="*" char1="/" endRegion="Javadoc"/>
 				<RegExpr attribute="JavadocFS" context="Javadocar" String="(!|\?)" />
 				<RegExpr attribute="JavadocFS" context="Javadocar" String="(\.\s*$)" />
-				<RegExpr attribute="JavadocFS" context="Javadocar" String="(\.\s)(?!(\d|a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z))" />
-				<RegExpr attribute="JavadocFS" context="Javadocar" String="^\s*\**\s*(?=@(author|deprecated|exception|param|return|see|serial|serialData|serialField|since|throws|version)(\s|$))" />
+				<RegExpr attribute="JavadocFS" context="Javadocar" String="(\.\s)(?![\da-z])" />
+				<RegExpr attribute="JavadocFS" context="Javadocar" String="\**\s*(?=@(author|deprecated|exception|param|return|see|serial|serialData|serialField|since|throws|version)(\s|$))" firstNonSpace="true"/>
 				<StringDetect attribute="InlineTag" context="LiteralTagar" String="{@code " />
 				<StringDetect attribute="InlineTag" context="LiteralTagar" String="{@code&#009;" />
 				<StringDetect attribute="InlineTag" context="#stay" String="{@docRoot}" />
@@ -32,7 +32,7 @@
 			</context>
 			<context attribute="Javadoc" lineEndContext="#stay" name="Javadocar">
 				<Detect2Chars attribute="JavadocFS" context="#pop#pop" char="*" char1="/" endRegion="Javadoc"/>
-				<RegExpr attribute="JavadocFS" context="#stay" String="^\s*\*+(?!/)" />
+				<RegExpr attribute="JavadocFS" context="#stay" String="\*+(?!/)" firstNonSpace="true"/>
 				<StringDetect attribute="BlockTag" context="#stay" String="@author " />
 				<StringDetect attribute="BlockTag" context="#stay" String="@deprecated " />
 				<StringDetect attribute="BlockTag" context="JavadocParam" String="@exception " />
@@ -73,8 +73,9 @@
 				<IncludeRules context="##HTML"/>
 			</context>
 			<context attribute="Javadoc" lineEndContext="#pop" name="JavadocParam">
-				<RegExpr attribute="JavadocParam" context="#pop#pop" String="\s*\S*(?=\*/)" />
-				<RegExpr attribute="JavadocParam" context="#pop" String="\s*\S*(\s|$)" />
+				<DetectSpaces />
+				<RegExpr attribute="JavadocParam" context="#pop#pop" String="\S*(?=\*/)" />
+				<RegExpr attribute="JavadocParam" context="#pop" String="\S*(\s|$)" />
 			</context>
 			<context attribute="InlineTag" lineEndContext="#pop" name="InlineTagar">
 				<DetectChar attribute="InlineTag" context="#pop" char="}" />

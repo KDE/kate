@@ -448,9 +448,9 @@
         <Float attribute = "Float" context="#stay"/>
         <Int attribute ="Decimal" context="#stay"/>
         <RegExpr String="\\." attribute = "Char" context = "#stay"/>
-        <RegExpr String = "\W-\w+" attribute = "Parameter" content="#stay"/>
-        <RegExpr String = "\$\{[^\}]+\}" attribute = "Variable" content="#stay"/>
-        <RegExpr String = "\$(::)?[\S\D]\w+" attribute = "Variable" content="#stay"/>
+        <RegExpr String = "\W-\w+" attribute = "Parameter" context="#stay"/>
+        <RegExpr String = "\$\{[^\}]+\}" attribute = "Variable" context="#stay"/>
+        <RegExpr String = "\$(::)?[\S\D]\w+" attribute = "Variable" context="#stay"/>
         <RegExpr String = "[^\\]&quot;&quot;" attribute = "String" context="#stay"/>
         <RegExpr String = "[^\\]&quot;" attribute = "String" context="String"/>
         <RegExpr String= "#.*$" attribute = "Comment" context="#stay" firstNonSpace="true"/>
@@ -481,9 +481,10 @@
       <itemData name = "Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>
 
-    <general>
-      <keywords casesensitive="1"/>
-    </general>
-
   </highlighting>
+
+  <general>
+    <keywords casesensitive="1"/>
+  </general>
+
 </language>

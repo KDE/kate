@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Cisco" version="1.09" kateversion="2.2" section="Configuration" extensions="*.cis" mimetype="text/cisco" author="Raphaël GRAPINET" license="LGPL">
+<language name="Cisco" version="1.10" kateversion="2.4" section="Configuration" extensions="*.cis" mimetype="text/cisco" author="Raphaël GRAPINET" license="LGPL">
 	<highlighting>
 		<list name = "commands">
 			<item> aaa </item>
@@ -252,8 +252,8 @@
                                 <RegExpr attribute="Keyword" context="#stay" String="\bfi\b" insensitive="TRUE" endRegion="iffi1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="\bcase\b" insensitive="TRUE" beginRegion="case1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="\besac\b" insensitive="TRUE" endRegion="case1"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="^[^()]+\)" insensitive="TRUE" beginRegion="subcase1"/>
-                                <StringDetect attribute="Keyword" context="#stay" String=";;" insensitive="TRUE" endRegion="subcase1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="[^()]+\)" insensitive="TRUE" beginRegion="subcase1" column="0"/>
+                                <Detect2Chars attribute="Keyword" context="#stay" char=";" char1=";" endRegion="subcase1"/>
                                 <DetectChar attribute="Keyword" context="#stay" char="{" beginRegion="func1"/>
                                 <DetectChar attribute="Keyword" context="#stay" char="}" endRegion="func1"/>
 
@@ -271,18 +271,18 @@
 
                         </context>
                         <context name = "String" attribute = "String" lineEndContext="#stay">
-				<StringDetect String = "\\" attribute = "String" context = "#stay"/>
-				<StringDetect String = "\&quot;" attribute = "String" context = "#stay"/>
+				<Detect2Chars char = "\" char1 = "\" attribute = "String" context = "#stay"/>
+				<Detect2Chars char = "\" char1 = "&quot;" attribute = "String" context = "#stay"/>
                                 <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
                         </context>
 			<context name = "Single Quote" attribute = "String" lineEndContext="#stay">
-				<StringDetect String = "\\" attribute = "String" context = "#stay"/>
-				<StringDetect String = "\'" attribute = "String" context = "#stay"/>
+				<Detect2Chars char = "\" char1 = "\" attribute = "String" context = "#stay"/>
+				<Detect2Chars char = "\" char1 = "'" attribute = "String" context = "#stay"/>
 				<DetectChar char = "'" attribute = "String" context = "#pop"/>
                         </context>
                         <context name = "Substitution" attribute = "Substitution" lineEndContext="#stay">
-				<StringDetect String = "\\" attribute = "String" context = "#stay"/>
-				<StringDetect String = "\`" attribute = "String" context = "#stay"/>
+				<Detect2Chars char = "\" char1 = "\" attribute = "String" context = "#stay"/>
+				<Detect2Chars char = "\" char1 = "`" attribute = "String" context = "#stay"/>
                                 <DetectChar char = "`" attribute = "Substitution" context = "#pop"/>
                         </context>
                         <context name = "Parameter" attribute = "Parameter" lineEndContext="#stay">

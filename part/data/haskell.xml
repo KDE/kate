@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Haskell syntax highlighting by Marcel Martin <mmar@freenet.de> -->
-<language name="Haskell" version="1.03" kateversion="2.3" section="Sources" extensions="*.hs" author="Marcel Martin (mmar@freenet.de)" license="">
+<language name="Haskell" version="1.04" kateversion="2.3" section="Sources" extensions="*.hs" author="Marcel Martin (mmar@freenet.de)" license="">
 	<highlighting>
 	<list name="keywords">
 		<item> case </item>
@@ -335,9 +335,9 @@
 			<keyword attribute="Data Constructor" context="#stay" String="data constructors" />
 			<DetectChar attribute="String" context="string" char="&quot;" />
 			<DetectChar attribute="Infix Operator" context="infix" char="`"/>
-			<RegExpr attribute="Normal Text" context="#stay" String="[A-Za-z0-9_][']+" />
+			<RegExpr attribute="Normal Text" context="#stay" String="\w[']+" />
 			<DetectChar attribute="Char" context="single_char" char="'" />
-			<RegExpr attribute="Function Definition" context="#stay" String="[a-z_]+[A-Za-z_0-9]*'*\s*::" />
+			<RegExpr attribute="Function Definition" context="#stay" String="[a-z_]+\w*'*\s*::" />
 			<Float attribute="Float" context="#stay" />
 			<Int attribute="Decimal" context="#stay" />
 		</context>

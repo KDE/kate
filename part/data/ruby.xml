@@ -264,8 +264,8 @@
 				<RegExpr attribute="Operator" context="find_heredoc" String="\s*&lt;&lt;(?=\w+|[&quot;'])" beginRegion="HereDocument" />
 				
 				<DetectChar attribute="Operator" char="." context="#stay"/>
-				<Detect2Chars attribute="Operator" char="&amp;" char1="&amp;" context="#stay" insensitive="FALSE"/>
-				<Detect2Chars attribute="Operator" char="|" char1="|" context="#stay" insensitive="FALSE"/>
+				<Detect2Chars attribute="Operator" char="&amp;" char1="&amp;" context="#stay"/>
+				<Detect2Chars attribute="Operator" char="|" char1="|" context="#stay"/>
 				<RegExpr attribute="Operator" String="\s[\?\:\%/]\s" context="#stay"/>
 				<RegExpr attribute="Operator" String="[|&amp;&lt;&gt;\^\+*~\-=]+" context="#stay"/>
 				<!-- regexp hack -->

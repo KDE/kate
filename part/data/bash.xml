@@ -7,7 +7,7 @@
 	<!ENTITY eos      "(?=($|\s))">			<!-- eol or space following -->
 	<!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
 ]>
-<language name="Bash" version="2.04" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.05" kateversion="2.4" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -451,7 +451,7 @@
 
       <!-- FindComments consumes shell comments till EOL -->
       <context attribute="Normal Text" lineEndContext="#pop" name="FindComments">
-      	<RegExpr attribute="Comment" context="Comment" String="^\s*#" />
+      	<DetectChar attribute="Comment" context="Comment" char="#" firstNonSpace="true"/>
 	<RegExpr attribute="Normal Text" context="Comment" String="[\s;](?=#)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
@@ -460,7 +460,7 @@
       
       <!-- FindCommentsParen consumes shell comments till EOL or a closing parenthese -->
       <context attribute="Normal Text" lineEndContext="#pop" name="FindCommentsParen">
-      	<RegExpr attribute="Comment" context="CommentParen" String="^\s*#" />
+      	<DetectChar attribute="Comment" context="CommentParen" char="#" firstNonSpace="true"/>
 	<RegExpr attribute="Normal Text" context="CommentParen" String="[\s;](?=#)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="CommentParen">
@@ -470,7 +470,7 @@
       
       <!-- FindCommentsBackq consumes shell comments till EOL or a backquote -->
       <context attribute="Normal Text" lineEndContext="#pop" name="FindCommentsBackq">
-      	<RegExpr attribute="Comment" context="CommentBackq" String="^\s*#" />
+      	<DetectChar attribute="Comment" context="CommentBackq" char="#" firstNonSpace="true"/>
 	<RegExpr attribute="Normal Text" context="CommentBackq" String="[\s;](?=#)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="CommentBackq">
@@ -484,10 +484,10 @@
       	<!-- start expression in double parentheses -->
       	<Detect2Chars attribute="Keyword" context="ExprDblParen" char="(" char1="(" beginRegion="expression" />
 	<!-- start expression in double brackets -->
-	<RegExpr attribute="Keyword" context="ExprDblBracket" String="^\[\[&eos;" beginRegion="expression" />
+	<RegExpr attribute="Keyword" context="ExprDblBracket" String="\[\[&eos;" beginRegion="expression" column="0"/>
 	<RegExpr attribute="Keyword" context="ExprDblBracket" String="\s\[\[&eos;" beginRegion="expression" />
 	<!-- start expression in single brackets -->
-	<RegExpr attribute="Builtin" context="ExprBracket" String="^\[&eos;" beginRegion="expression" />
+	<RegExpr attribute="Builtin" context="ExprBracket" String="\[&eos;" beginRegion="expression" column="0"/>
 	<RegExpr attribute="Builtin" context="ExprBracket" String="\s\[&eos;" beginRegion="expression" />
 	<!-- start a group command with { -->
 	<RegExpr attribute="Keyword" context="Group" String="\{&eos;" beginRegion="group" />
@@ -593,7 +593,7 @@
       <!-- ExprBracket consumes an expression till ] -->
       <context attribute="Normal Text" lineEndContext="#stay" name="ExprBracket">
       	<RegExpr attribute="Builtin" context="#pop" String="\s\](?=($|[\s;|&amp;]))" endRegion="expression" />
-      	<RegExpr attribute="Builtin" context="#pop" String="^\](?=($|[\s;|&amp;]))" endRegion="expression" />
+      	<RegExpr attribute="Builtin" context="#pop" String="\](?=($|[\s;|&amp;]))" endRegion="expression" column="0"/>
 	<DetectChar attribute="Normal Text" context="ExprSubParen" char="(" />
 	<IncludeRules context="FindMost" />
       </context>
@@ -601,7 +601,7 @@
       <!-- ExprDblBracket consumes an expression till ]] -->
       <context attribute="Normal Text" lineEndContext="#stay" name="ExprDblBracket">
       	<RegExpr attribute="Keyword" context="#pop" String="\s\]\](?=($|[\s;|&amp;]))" endRegion="expression" />
-      	<RegExpr attribute="Keyword" context="#pop" String="^\]\](?=($|[\s;|&amp;]))" endRegion="expression" />
+      	<RegExpr attribute="Keyword" context="#pop" String="\]\](?=($|[\s;|&amp;]))" endRegion="expression" column="0"/>
 	<DetectChar attribute="Normal Text" context="ExprSubParen" char="(" />
 	<IncludeRules context="FindMost" />
       </context>
@@ -754,7 +754,7 @@
 
       <!-- CaseExpr eats shell input till ;; -->
       <context attribute="Normal Text" lineEndContext="#stay" name="CaseExpr">
-        <StringDetect attribute="Keyword" context="#pop" String=";;" endRegion="caseexpr" />
+        <Detect2Chars attribute="Keyword" context="#pop" char=";" char1=";" endRegion="caseexpr" />
 	<IncludeRules context="FindAll" />
       </context>
 
@@ -777,23 +777,23 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocQ" dynamic="true">
 	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-	<RegExpr attribute="Redirection" context="#pop#pop" String="^%2[\s;]*$" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="%2[\s;]*$" dynamic="true" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocNQ" dynamic="true">
 	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-	<RegExpr attribute="Redirection" context="#pop#pop" String="^%2[\s;]*$" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="%2[\s;]*$" dynamic="true" column="0"/>
 	<IncludeRules context="FindSubstitutions" />
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocIQ" dynamic="true">
 	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-	<RegExpr attribute="Redirection" context="#pop#pop" String="^\s*%2[\s;]*$" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="\s*%2[\s;]*$" dynamic="true" column="0"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocINQ" dynamic="true">
 	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
-	<RegExpr attribute="Redirection" context="#pop#pop" String="^\s*%2[\s;]*$" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="\s*%2[\s;]*$" dynamic="true" column="0"/>
 	<IncludeRules context="FindSubstitutions" />
       </context>
 

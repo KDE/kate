@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="TI Basic" version="1.01" kateversion="2.3" section="Scientific">
+<language name="TI Basic" version="1.01" kateversion="2.3" section="Scientific" extensions="">
   <highlighting>
-    <list name="keywords" casesensitive="0">
+    <list name="keywords">
       <item>If </item>
       <item>Then </item>
       <item>Else </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="IDL" version="1.06" kateversion="2.3" section="Sources" extensions="*.idl" mimetype="text/x-idl-src">
+<language name="IDL" version="1.07" kateversion="2.4" section="Sources" extensions="*.idl" mimetype="text/x-idl-src">
   <highlighting>
     <list name="keywords">
       <item> any </item>
@@ -57,7 +57,7 @@
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
         <StringDetect attribute="Comment" context="Some Context3" String="#if 0" insensitive="FALSE"/>
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^#"/>
+        <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" column="0"/>
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
         <LineContinue attribute="String" context="Some Context"/>
@@ -85,7 +85,7 @@
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context2"/>
       <context attribute="Normal Text" lineEndContext="#stay" name="Some Context3">
           <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
-          <RegExpr attribute="Comment" context="#pop" String="^#endif" />
+          <StringDetect attribute="Comment" context="#pop" String="#endif" column="0"/>
       </context>
     </contexts>
     <itemDatas>

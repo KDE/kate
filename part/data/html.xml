@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="HTML" version="1.97" kateversion="2.4" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL" priority="10">
+<language name="HTML" version="1.98" kateversion="2.4" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL" priority="10">
 
 <highlighting>
 <contexts>
@@ -18,7 +18,7 @@
     <StringDetect attribute="Comment" context="Comment" String="&lt;!--" beginRegion="comment" />
     <StringDetect attribute="CDATA" context="CDATA" String="&lt;![CDATA[" beginRegion="cdata" />
     <RegExpr attribute="Doctype" context="Doctype" String="&lt;!DOCTYPE\s+" beginRegion="doctype" />
-    <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:_-]*" beginRegion="pi" />
+    <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:-]*" beginRegion="pi" />
     <RegExpr attribute="Element" context="CSS" String="&lt;style\b" insensitive="TRUE" beginRegion="style" />
     <RegExpr attribute="Element" context="JS" String="&lt;script\b" insensitive="TRUE" beginRegion="script" />
     <RegExpr attribute="Element" context="El Open" String="&lt;pre\b" insensitive="TRUE" beginRegion="pre" />
@@ -45,7 +45,7 @@
   </context>
 
   <context name="FindAttributes" attribute="Normal Text" lineEndContext="#stay">
-    <RegExpr attribute="Attribute" context="#stay" String="^&name;" />
+    <RegExpr attribute="Attribute" context="#stay" String="&name;" column="0"/>
     <RegExpr attribute="Attribute" context="#stay" String="\s+&name;" />
     <DetectChar attribute="Attribute" context="Value" char="=" />
   </context>
@@ -83,7 +83,7 @@
     <DetectChar attribute="Doctype" context="#pop" char="]" endRegion="int_subset" />
     <IncludeRules context="FindDTDRules" />
     <StringDetect attribute="Comment" context="Comment" String="&lt;!--" beginRegion="comment" />
-    <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:_-]*" beginRegion="pi" />
+    <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:-]*" beginRegion="pi" />
     <IncludeRules context="FindPEntityRefs" />
   </context>
 
@@ -158,7 +158,7 @@
   <context name="Value" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="Value NQ">
     <DetectChar attribute="Value" context="Value DQ" char="&quot;" />
     <DetectChar attribute="Value" context="Value SQ" char="&apos;" />
-    <RegExpr attribute="Normal Text" context="#stay" String="\s" />
+    <DetectSpaces />
   </context>
 
   <context name="Value NQ" attribute="Normal Text" lineEndContext="#pop#pop" fallthrough="true" fallthroughContext="#pop#pop">

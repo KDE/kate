@@ -2662,7 +2662,7 @@
       <item> zip_read </item>
     </list>
     <contexts>
-      <context name="start">
+      <context name="start" lineEndContext="#stay" attribute="Normal Text">
           <RegExpr context="phpsource" attribute="Keyword" String="&lt;\?(?:=|php)?" beginRegion="php" />
       </context>
       <context name="phpsource" attribute="PHP Text" lineEndContext="#stay">

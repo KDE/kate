@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="GLSL" section="Sources" extensions="*.glsl" mimetype="text/x-glslsrc" version="1.00" author="Oliver Richers (o.richers@tu-bs.de)" license="LGPL">
+<language name="GLSL" section="Sources" extensions="*.glsl" mimetype="text/x-glslsrc" version="1.01" kateversion="2.4" author="Oliver Richers (o.richers@tu-bs.de)" license="LGPL">
 	<highlighting>
 		<list name="keywords">
 			<item>break</item>
@@ -276,7 +276,7 @@
 				<DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
 				<DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
 				
-				<RegExpr attribute="Preprocessor" context="Preprocessor" String="^\s*#"/>
+				<DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true"/>
 				<RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
 				
 				<RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />

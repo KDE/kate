@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.07" kateversion="2.3" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
+<language name="Fortran" version="1.08" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
 <!-- by Franchin Matteo, fnch@libero.it -->
   <highlighting>
     <list name="keywords">
@@ -329,7 +329,7 @@
         <keyword attribute="Non elemental subroutine"  context="#stay" String="non_elem_subr"/>
 
         <RegExpr attribute="Logical" context="#stay" String="\.(true|false)\." insensitive="TRUE"/>
-        <RegExpr attribute="Operator" context="#stay" String="[.][A-Za-z]+[.]"/>
+        <RegExpr attribute="Operator" context="#stay" String="\.[A-Za-z]+[.]"/>
         <!-- Floating-point numbers with optional kind -->
         <RegExpr attribute="Float" context="#stay" String="\b[0-9]*\.[0-9]+([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
         <RegExpr attribute="Float" context="#stay" String="\b[0-9]+\.[0-9]*([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
@@ -341,8 +341,8 @@
         <!-- Integers in binary octal and hexadecimal notations -->
         <RegExpr attribute="Decimal" context="#stay" String="\b[boz]([&apos;][0-9a-f]+[&apos;]|[&quot;][0-9a-f]+[&quot;])" insensitive="TRUE"/>
         <HlCChar attribute="Char" context="#stay"/>
-        <RegExpr attribute="Preprocessor" context="#stay" String="^(#|cDEC\$|CDEC\$).*$"/>
-        <RegExpr attribute="Comment" context="#stay" String="^[cC\*].*$"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="(#|cDEC\$|CDEC\$).*$" column="0"/>
+        <RegExpr attribute="Comment" context="#stay" String="[cC\*].*$" column="0"/>
         <RegExpr attribute="Comment" context="#stay" String="!.*$"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
       </context>
@@ -368,8 +368,8 @@
 
       <context attribute="String" lineEndContext="#stay" name="end_of_string" fallthrough="true" fallthroughContext="#pop#pop">
         <RegExpr attribute="Keyword" context="#stay" String="&amp;\s*$"/>
-        <RegExpr attribute="Keyword" context="#pop" String="^\s*&amp;"/>
-        <RegExpr attribute="Comment" context="#stay" String="^\s*(!.*)?$"/>
+        <DetectChar attribute="Keyword" context="#pop" char="&amp;" column="0"/>
+        <RegExpr attribute="Comment" context="#stay" String="(!.*)?$" column="0"/>
       </context>
 
 
@@ -390,10 +390,10 @@
       <itemData name="Preprocessor" defStyleNum="dsOthers"/>
       <itemData name="Operator" defStyleNum="dsKeyword" color="#008000" selColor="#ff00ff" bold="1" italic="0"/>
       <itemData name="Logical" defStyleNum="dsOthers" color="#800080" selColor="#ffa0a0" bold="1" italic="0"/>
-      <itemData name="IO Function" defStyleNum="dsKeyword" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="IO Function" defStyleNum="dsFunction" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
       <itemData name="Elemental Procedure" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
-      <itemData name="Inquiry Function" defStyleNum="dsKeyword" color="#000060" selColor="#a0a0ff" bold="1" italic="1"/>
-      <itemData name="Transformational Function" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
+      <itemData name="Inquiry Function" defStyleNum="dsFunction" color="#000060" selColor="#a0a0ff" bold="1" italic="1"/>
+      <itemData name="Transformational Function" defStyleNum="dsFunction" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
       <itemData name="Non elemental subroutine" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>

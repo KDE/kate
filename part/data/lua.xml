@@ -1,238 +1,237 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Lua" version="0.21" kateversion="2.3" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
-	<highlighting>
-		<list name="keywords">
-			<item> and </item>
-			<item> end </item>
-			<item> local </item>
-			<item> return </item>
-			<item> break </item>
-			<item> for </item>
-			<item> do </item>
-			<item> if </item>
-			<item> nil </item>
-			<item> then </item>
-			<item> function </item>
-			<item> not </item>
-			<item> until </item>
-			<item> else </item>
-			<item> or </item>
-			<item> while </item>
-			<item> elsif </item>
-			<item> in </item>
-			<item> repeat </item>
-		</list>
-		<list name="basefunc">
-			<item> string.byte </item>
-			<item> string.char </item>
-			<item> string.find </item>
-			<item> string.len </item>
-			<item> string.lower </item>
-			<item> string.rep </item>
-			<item> string.sub </item>
-			<item> string.upper </item>
-			<item> string.format </item>
-			<item> string.gfind </item>
-			<item> string.gsub </item>
-			<item> table.concat </item>
-			<item> table.foreach </item>
-			<item> table.foreachi </item>
-			<item> table.getn </item>
-			<item> table.sort </item>
-			<item> table.insert </item>
-			<item> table.remove </item>
-			<item> table.setn </item>
-			<item> math.abs </item>
-			<item> math.sin </item>
-			<item> math.cos </item>
-			<item> math.tan </item>
-			<item> math.asin </item>
-			<item> math.acos </item>
-			<item> math.atan </item>
-			<item> math.atan2 </item>
-			<item> math.ceil </item>
-			<item> math.floor </item>
-			<item> math.mod </item>
-			<item> math.frexp </item>
-			<item> math.ldexp </item>
-			<item> math.squrt </item>
-			<item> math.min </item>
-			<item> math.max </item>
-			<item> math.log </item>
-			<item> math.log10 </item>
-			<item> math.exp </item>
-			<item> math.deg </item>
-			<item> math.rad </item>
-			<item> math.random </item>
-			<item> math.randomseed </item>
-			<item> io.close </item>
-			<item> io.flush </item>
-			<item> io.input </item>
-			<item> io.lines </item>
-			<item> io.open </item>
-			<item> io.output </item>
-			<item> io.read </item>
-			<item> io.stderr </item>
-			<item> io.stdin </item>
-			<item> io.stdout </item>
-			<item> io.tmpfile </item>
-			<item> io.write </item>
-			<item> os.clock </item>
-			<item> os.date </item>
-			<item> os.difftime </item>
-			<item> os.execute </item>
-			<item> os.exit </item>
-			<item> os.getenv </item>
-			<item> os.remove </item>
-			<item> os.rename </item>
-			<item> os.setlocale </item>
-			<item> os.time </item>
-			<item> os.tmpname </item>
-			<item> debug.getinfo </item>
-			<item> debug.getlocal </item>
-			<item> debug.setlocal </item>
-			<item> debug.sethook </item>
-			<item> debug.gethook </item>
-			<item> assert </item>
-			<item> collectgarbage </item>
-			<item> dofile </item>
-			<item> error </item>
-			<item> next </item>
-			<item> print </item>
-			<item> rawget </item>
-			<item> rawset </item>
-			<item> tonumber </item>
-			<item> tostring </item>
-			<item> type </item>
-			<item> _ALERT </item>
-			<item> _ERRORMESSAGE </item>
-			<item> call </item>
-			<item> copytagmethods </item>
-			<item> dostring </item>
-			<item> foreach </item>
-			<item> foreachi </item>
-			<item> getglobal </item>
-			<item> getn </item>
-			<item> gettagmethod </item>
-			<item> globals </item>
-			<item> newtag </item>
-			<item> setglobal </item>
-			<item> settag </item>
-			<item> settagmethod </item>
-			<item> sort </item>
-			<item> tag </item>
-			<item> tinsert </item>
-			<item> tremove </item>
-			<item> openfile </item>
-			<item> closefile </item>
-			<item> flush </item>
-			<item> seek </item>
-			<item> setlocale </item>
-			<item> execute </item>
-			<item> remove </item>
-			<item> rename </item>
-			<item> tmpname </item>
-			<item> getenv </item>
-			<item> date </item>
-			<item> clock </item>
-			<item> exit </item>
-			<item> readfrom </item>
-			<item> writeto </item>
-			<item> appendto </item>
-			<item> read </item>
-			<item> write </item>
-			<item> abs </item>
-			<item> sin </item>
-			<item> cos </item>
-			<item> tan </item>
-			<item> asin </item>
-			<item> acos </item>
-			<item> atan </item>
-			<item> atan2 </item>
-			<item> ceil </item>
-			<item> floor </item>
-			<item> mod </item>
-			<item> frexp </item>
-			<item> ldexp </item>
-			<item> squrt </item>
-			<item> min </item>
-			<item> max </item>
-			<item> log </item>
-			<item> log10 </item>
-			<item> exp </item>
-			<item> deg </item>
-			<item> rad </item>
-			<item> random </item>
-			<item> randomseed </item>
-			<item> strlen </item>
-			<item> strsub </item>
-			<item> strlower </item>
-			<item> strupper </item>
-			<item> strchar </item>
-			<item> strrep </item>
-			<item> ascii </item>
-			<item> strbyte </item>
-			<item> format </item>
-			<item> strfind </item>
-			<item> gsub </item>
-			<item> getinfo </item>
-			<item> getlocal </item>
-			<item> setlocal </item>
-			<item> setcallhook </item>
-			<item> setlinehook </item>
-			<item> getglobals </item>
-			<item> getmetatable </item>
-			<item> gcinfo </item>
-			<item> ipairs </item>
-			<item> loadfile </item>
-			<item> loadstring </item>
-			<item> pairs </item>
-			<item> pcall </item>
-			<item> require </item>
-			<item> setglobals </item>
-			<item> setmetatable </item>
-			<item> unpack </item>
-			<item> LUA_PATH </item>
-			<item> _LOADED </item>
-			<item> _VERSION </item>
-		</list>
-		<contexts>
-			<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-				<keyword attribute="Keyword" context="#stay" String="keywords" />
-				<keyword attribute="BaseFunc" context="#stay" String="basefunc"/>
-				<HlCChar attribute="Char" context="#stay"/>
-				<Detect2Chars attribute="Comment" context="Commentar" char="-" char1="-"/>
-				<DetectChar attribute="Comment" context="Commentar" char="#"/>
-				<DetectChar attribute="String" context="String" char="&quot;"/>
-				<AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-				<RegExpr attribute="Number" context="#stay" String="[0-9]*\.?[0-9]*e?[0-9]+"/>
-			</context>
-			<context attribute="Comment" lineEndContext="#pop" name="Commentar">
-				<RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
-			</context>
-			<context attribute="String" lineEndContext="#pop" name="String">
-				<DetectChar attribute="String" context="#pop" char="&quot;"/>
-			</context>
-		</contexts>
-		<itemDatas>
-			<itemData name="Normal Text" defStyleNum="dsNormal"/>
-			<itemData name="Keyword"  defStyleNum="dsKeyword"/>
-			<itemData name="Comment" defStyleNum="dsComment"/>
-			<itemData name="String" defStyleNum="dsString"/>
-			<itemData name="Decimal" defStyleNum="dsDecVal"/>
-			<itemData name="Number" defStyleNum="dsBaseN"/>
-			<itemData name="Symbol" defStyleNum="dsNormal"/>
-			<itemData name="BaseFunc" defStyleNum="dsNormal" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
-			<itemData name="Alert"        defStyleNum="dsAlert" />
-		</itemDatas>
-	</highlighting>
-	<general>
-		<comments>
-			<comment name="singleLine" start="--" />
-		</comments>
-		<keywords casesensitive="1" weakDeliminator="&#46;" additionalDeliminator="&quot;"/>
-	</general>
+<language name="Lua" version="0.22" kateversion="2.3" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+  <highlighting>
+    <list name="keywords">
+      <item> and </item>
+      <item> end </item>
+      <item> local </item>
+      <item> return </item>
+      <item> break </item>
+      <item> for </item>
+      <item> do </item>
+      <item> if </item>
+      <item> nil </item>
+      <item> then </item>
+      <item> function </item>
+      <item> not </item>
+      <item> until </item>
+      <item> else </item>
+      <item> or </item>
+      <item> while </item>
+      <item> elsif </item>
+      <item> in </item>
+      <item> repeat </item>
+    </list>
+    <list name="basefunc">
+      <item> string.byte </item>
+      <item> string.char </item>
+      <item> string.find </item>
+      <item> string.len </item>
+      <item> string.lower </item>
+      <item> string.rep </item>
+      <item> string.sub </item>
+      <item> string.upper </item>
+      <item> string.format </item>
+      <item> string.gfind </item>
+      <item> string.gsub </item>
+      <item> table.concat </item>
+      <item> table.foreach </item>
+      <item> table.foreachi </item>
+      <item> table.getn </item>
+      <item> table.sort </item>
+      <item> table.insert </item>
+      <item> table.remove </item>
+      <item> table.setn </item>
+      <item> math.abs </item>
+      <item> math.sin </item>
+      <item> math.cos </item>
+      <item> math.tan </item>
+      <item> math.asin </item>
+      <item> math.acos </item>
+      <item> math.atan </item>
+      <item> math.atan2 </item>
+      <item> math.ceil </item>
+      <item> math.floor </item>
+      <item> math.mod </item>
+      <item> math.frexp </item>
+      <item> math.ldexp </item>
+      <item> math.squrt </item>
+      <item> math.min </item>
+      <item> math.max </item>
+      <item> math.log </item>
+      <item> math.log10 </item>
+      <item> math.exp </item>
+      <item> math.deg </item>
+      <item> math.rad </item>
+      <item> math.random </item>
+      <item> math.randomseed </item>
+      <item> io.close </item>
+      <item> io.flush </item>
+      <item> io.input </item>
+      <item> io.lines </item>
+      <item> io.open </item>
+      <item> io.output </item>
+      <item> io.read </item>
+      <item> io.stderr </item>
+      <item> io.stdin </item>
+      <item> io.stdout </item>
+      <item> io.tmpfile </item>
+      <item> io.write </item>
+      <item> os.clock </item>
+      <item> os.date </item>
+      <item> os.difftime </item>
+      <item> os.execute </item>
+      <item> os.exit </item>
+      <item> os.getenv </item>
+      <item> os.remove </item>
+      <item> os.rename </item>
+      <item> os.setlocale </item>
+      <item> os.time </item>
+      <item> os.tmpname </item>
+      <item> debug.getinfo </item>
+      <item> debug.getlocal </item>
+      <item> debug.setlocal </item>
+      <item> debug.sethook </item>
+      <item> debug.gethook </item>
+      <item> assert </item>
+      <item> collectgarbage </item>
+      <item> dofile </item>
+      <item> error </item>
+      <item> next </item>
+      <item> print </item>
+      <item> rawget </item>
+      <item> rawset </item>
+      <item> tonumber </item>
+      <item> tostring </item>
+      <item> type </item>
+      <item> _ALERT </item>
+      <item> _ERRORMESSAGE </item>
+      <item> call </item>
+      <item> copytagmethods </item>
+      <item> dostring </item>
+      <item> foreach </item>
+      <item> foreachi </item>
+      <item> getglobal </item>
+      <item> getn </item>
+      <item> gettagmethod </item>
+      <item> globals </item>
+      <item> newtag </item>
+      <item> setglobal </item>
+      <item> settag </item>
+      <item> settagmethod </item>
+      <item> sort </item>
+      <item> tag </item>
+      <item> tinsert </item>
+      <item> tremove </item>
+      <item> openfile </item>
+      <item> closefile </item>
+      <item> flush </item>
+      <item> seek </item>
+      <item> setlocale </item>
+      <item> execute </item>
+      <item> remove </item>
+      <item> rename </item>
+      <item> tmpname </item>
+      <item> getenv </item>
+      <item> date </item>
+      <item> clock </item>
+      <item> exit </item>
+      <item> readfrom </item>
+      <item> writeto </item>
+      <item> appendto </item>
+      <item> read </item>
+      <item> write </item>
+      <item> abs </item>
+      <item> sin </item>
+      <item> cos </item>
+      <item> tan </item>
+      <item> asin </item>
+      <item> acos </item>
+      <item> atan </item>
+      <item> atan2 </item>
+      <item> ceil </item>
+      <item> floor </item>
+      <item> mod </item>
+      <item> frexp </item>
+      <item> ldexp </item>
+      <item> squrt </item>
+      <item> min </item>
+      <item> max </item>
+      <item> log </item>
+      <item> log10 </item>
+      <item> exp </item>
+      <item> deg </item>
+      <item> rad </item>
+      <item> random </item>
+      <item> randomseed </item>
+      <item> strlen </item>
+      <item> strsub </item>
+      <item> strlower </item>
+      <item> strupper </item>
+      <item> strchar </item>
+      <item> strrep </item>
+      <item> ascii </item>
+      <item> strbyte </item>
+      <item> format </item>
+      <item> strfind </item>
+      <item> gsub </item>
+      <item> getinfo </item>
+      <item> getlocal </item>
+      <item> setlocal </item>
+      <item> setcallhook </item>
+      <item> setlinehook </item>
+      <item> getglobals </item>
+      <item> getmetatable </item>
+      <item> gcinfo </item>
+      <item> ipairs </item>
+      <item> loadfile </item>
+      <item> loadstring </item>
+      <item> pairs </item>
+      <item> pcall </item>
+      <item> require </item>
+      <item> setglobals </item>
+      <item> setmetatable </item>
+      <item> unpack </item>
+      <item> LUA_PATH </item>
+      <item> _LOADED </item>
+      <item> _VERSION </item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="BaseFunc" context="#stay" String="basefunc"/>
+        <HlCChar attribute="Char" context="#stay"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
+        <DetectChar attribute="Comment" context="Comment" char="#"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <RegExpr attribute="Number" context="#stay" String="\d*\.?\d*e?\d+"/>
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="Comment">
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
+      </context>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Decimal" defStyleNum="dsDecVal"/>
+      <itemData name="Number" defStyleNum="dsBaseN"/>
+      <itemData name="Symbol" defStyleNum="dsNormal"/>
+      <itemData name="BaseFunc" defStyleNum="dsNormal" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
+      <itemData name="Alert" defStyleNum="dsAlert" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="--" />
+    </comments>
+    <keywords casesensitive="1" weakDeliminator="&#46;" additionalDeliminator="&quot;"/>
+  </general>
 </language>
-
-
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

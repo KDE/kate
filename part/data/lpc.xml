@@ -16,7 +16,7 @@ License:     Artistic
 -->
 
 
-<language name="LPC" version="0.75" kateversion="2.2" section="Sources" extensions="*.c;*.h;*.inc;*.o" author="Andreas Klauer (Andreas.Klauer@metamorpher.de)" license="Artistic" >
+<language name="LPC" version="0.76" kateversion="2.4" section="Sources" extensions="*.c;*.h;*.inc;*.o" author="Andreas Klauer (Andreas.Klauer@metamorpher.de)" license="Artistic" >
 
   <highlighting>
 
@@ -76,14 +76,14 @@ License:     Artistic
     <!-- Parsing Rules: -->
     <contexts>
       <context name="Normal" attribute="Default" lineEndContext="#stay">
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="regionMarker" />
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="regionMarker" />
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="regionMarker" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="regionMarker" firstNonSpace="true"/>
         <Detect2Chars attribute="Single-Line comments" context="Comment1" char="/" char1="/" />
         <Detect2Chars attribute="Multi-Line comments" context="Comment2" char="/" char1="*" beginRegion="blockComment" />
         <keyword String="modifiers" attribute="Modifier" context="#stay" />
         <keyword String="types" attribute="Datatype" context="#stay" />
         <keyword String="keywords" attribute="Keywords" context="#stay" />
-        <RegExpr String="^#" context="Preprocessor" attribute="Preprocessor" />
+        <DetectChar char="#" context="Preprocessor" attribute="Preprocessor" column="0"/>
         <Float attribute="Floats" context="#stay">
           <AnyChar String="fFeE" context="#stay" />
         </Float>
@@ -162,5 +162,5 @@ License:     Artistic
   </general>
 
 </language>
-
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->
 <!-- === End of file. === -->

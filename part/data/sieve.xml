@@ -34,7 +34,7 @@
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="String" name="MultilineString">
+      <context attribute="String" name="MultilineString" lineEndContext="#stay">
         <RegExpr attribute="String" context="#pop" String="\.$" column="0"/>
         <HlCStringChar attribute="String Char" context="#stay" />
       </context>

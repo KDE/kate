@@ -460,7 +460,7 @@
    <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="TopLevel">
 
-         <Detect2Chars attribute="Comment" context="ml_comment" char="/" char="*" beginRegion="comment_region"/>
+         <Detect2Chars attribute="Comment" context="ml_comment" char="/" char1="*" beginRegion="comment_region"/>
          <DetectChar attribute="Comment" context="comment" char="*" firstNonSpace="true"/>
          <Detect2Chars attribute="Comment" context="comment" char="/" char1="/" />
 

@@ -429,8 +429,8 @@
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Base">
-      <lineContinue context="#stay"/>
-        <DetectSpace/>
+        <LineContinue/>
+        <DetectSpaces/>
 	<IncludeRules context="FindRuleSets" />
       </context>
 
@@ -474,7 +474,7 @@
       <!-- other contexts -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Media">
         <DetectChar attribute="Media" context="Media2" char="{" beginRegion="media" />
-	<keyword attribute="Media" context="#stay" String="mediatypes" insensitive="1" />
+	<keyword attribute="Media" context="#stay" String="mediatypes" />
 	<DetectChar attribute="Media" context="#stay" char="," />
 	<IncludeRules context="FindComments" />
 	<RegExpr attribute="Error" context="#stay" String="\S+" />
@@ -497,14 +497,14 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Import">
       	<DetectChar attribute="At Rule" context="#pop" char=";" />
-	<keyword attribute="Media" context="#stay" String="mediatypes" insensitive="1" />
+	<keyword attribute="Media" context="#stay" String="mediatypes" />
 	<IncludeRules context="FindValues" />
 	<IncludeRules context="FindStrings" />
 	<IncludeRules context="FindComments" />
       </context>
 
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
-	<DetectSpace/>
+	<DetectSpaces/>
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment" />
         <IncludeRules context="##Alerts" />
 	<DetectIdentifier/>

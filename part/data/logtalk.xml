@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Logtalk" version="1.30" kateversion="2.1" section="Sources" extensions="*.mlgt;*.lgt;*.loader;*.config" mimetype="text/x-logtalk" author="Paulo Moura (pmoura@logtalk.org)" license="Artistic License 2.0">
+<language name="Logtalk" version="1.31" kateversion="2.4" section="Sources" extensions="*.mlgt;*.lgt;*.loader;*.config" mimetype="text/x-logtalk" author="Paulo Moura (pmoura@logtalk.org)" license="Artistic License 2.0">
 
     <highlighting>
 
@@ -9,7 +9,7 @@
 
             <context name="normal" attribute="Normal" lineEndContext="#stay">
 				<!-- Directives -->
-                <RegExpr String = "^[\s]*:-" attribute="Normal" context="directive" />
+                <Detect2Chars char=":" char1="-" attribute="Normal" context="directive" firstNonSpace="true"/>
 				<!-- Event handlers -->
                 <RegExpr String = "\b(after|before)(?=[(])" attribute="Built-in" context="#stay" />
 				<!-- Method execution context -->
@@ -78,22 +78,22 @@
                 <RegExpr String = "\bhalt\b" attribute="Built-in" context="#stay" />
                 <RegExpr String = "\bhalt(?=[(])" attribute="Built-in" context="#stay" />
 				<!-- Variables -->
-                <RegExpr String = "\b[A-Z_][A-Za-z0-9_]*" attribute = "Variable" context="#stay"/>
+                <RegExpr String = "\b[A-Z_]\w*" attribute = "Variable" context="#stay"/>
 				<!-- Comments -->
                 <DetectChar attribute="Comment" context="single line comment" char="%"/>
                 <Detect2Chars attribute="Comment" context="multiline comment" char="/" char1="*"/>
 				<!-- Strings and quoted atoms -->
                 <DetectChar attribute="String" context="string" char="&quot;" />
-                <RegExpr String = "'" attribute="String" context="atom" />
+                <DetectChar char = "'" attribute="String" context="atom" />
 				<!-- Numbers -->
                 <RegExpr String = "0'[A-Za-z0-9]" attribute = "Number" context="#stay"/>
                 <RegExpr String = "0b[0-1]+" attribute = "Number" context="#stay"/>
                 <RegExpr String = "0o[0-7]+" attribute = "Number" context="#stay"/>
                 <RegExpr String = "0x[0-9a-fA-F]+" attribute = "Number" context="#stay"/>
-                <RegExpr String = "[0-9]+(\.[0-9]+)?([eE][-+][0-9]+)?" attribute = "Number" context="#stay"/>
+                <RegExpr String = "\d+(\.\d+)?([eE][-+]\d+)?" attribute = "Number" context="#stay"/>
                 <!-- Message sending operators -->
-                <StringDetect String = "::" attribute="Operator" context="#stay" />
-                <StringDetect String = "^^" attribute="Operator" context="#stay" />
+                <Detect2Chars char = ":" char1 = ":" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "^" char1 = "^" attribute="Operator" context="#stay" />
 				<!-- External call -->
                 <DetectChar attribute="Operator" context="#stay" char="{" beginRegion="external" />
                 <DetectChar attribute="Operator" context="#stay" char="}" endRegion="external" />
@@ -101,57 +101,52 @@
                 <RegExpr String = "\bonce(?=[(])" attribute="Built-in" context="#stay" />
                 <RegExpr String = "\brepeat\b" attribute="Built-in" context="#stay" />
 				<!-- Bitwise functors -->
-                <StringDetect String = "&gt;&gt;" attribute="Operator" context="#stay" />
-                <StringDetect String = "&lt;&lt;" attribute="Operator" context="#stay" />
-                <StringDetect String = "/\" attribute="Operator" context="#stay" />
-                <StringDetect String = "\/" attribute="Operator" context="#stay" />
-                <StringDetect String = "\\" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "&gt;" char1 = "&gt;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "&lt;" char1 = "&lt;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "/" char1 = "\" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "\" char1 = "/" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "\" char1 = "\" attribute="Operator" context="#stay" />
 				<!-- Arithemtic evaluation -->
                 <RegExpr String = "\bis\b" attribute="Operator" context="#stay" />
 				<!-- Arithemtic comparison -->
                 <StringDetect String = "=:=" attribute="Operator" context="#stay" />
                 <StringDetect String = "=\=" attribute="Operator" context="#stay" />
-                <StringDetect String = "&lt;" attribute="Operator" context="#stay" />
-                <StringDetect String = "=&lt;" attribute="Operator" context="#stay" />
-                <StringDetect String = "&gt;" attribute="Operator" context="#stay" />
-                <StringDetect String = "&gt;=" attribute="Operator" context="#stay" />
+                <DetectChar char = "&lt;" attribute="Operator" context="#stay" />
+                <DetectChar char = "&gt;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "=" char1 = "&lt;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "&gt;" char1 = "=" attribute="Operator" context="#stay" />
 				<!-- Term creation and decomposition -->
                 <StringDetect String = "=.." attribute="Operator" context="#stay" />
 				<!-- Term unification -->
-                <StringDetect String = "=" attribute="Operator" context="#stay" />
-                <StringDetect String = "\=" attribute="Operator" context="#stay" />
+                <DetectChar char = "=" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "\" char1 = "=" attribute="Operator" context="#stay" />
 				<!-- Term comparison -->
-                <StringDetect String = "==" attribute="Operator" context="#stay" />
-				<StringDetect String = "\==" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "=" char1 = "=" attribute="Operator" context="#stay" />
+                <StringDetect String = "\==" attribute="Operator" context="#stay" />
                 <StringDetect String = "@=&lt;" attribute="Operator" context="#stay" />
-                <StringDetect String = "@&lt;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "@" char1 = "&lt;" attribute="Operator" context="#stay" />
                 <StringDetect String = "@&gt;=" attribute="Operator" context="#stay" />
-                <StringDetect String = "@&gt;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "@" char1 = "&gt;" attribute="Operator" context="#stay" />
 				<!-- Evaluable functors -->
-                <StringDetect String = "+" attribute="Operator" context="#stay" />
-                <StringDetect String = "-" attribute="Operator" context="#stay" />
-                <StringDetect String = "*" attribute="Operator" context="#stay" />
-                <StringDetect String = "//" attribute="Operator" context="#stay" />
-                <StringDetect String = "/" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "/" char1 = "/" attribute="Operator" context="#stay" />
+                <AnyChar String = "+-*/" attribute="Operator" context="#stay" />
                 <RegExpr String = "\brem\b" attribute="Operator" context="#stay" />
                 <RegExpr String = "\bmod\b" attribute="Operator" context="#stay" />
 				<!-- Other arithemtic functors -->
-                <StringDetect String = "**" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "*" char1 = "*" attribute="Operator" context="#stay" />
 				<!-- DCG rules -->
                 <StringDetect String = "--&gt;" attribute="Operator" context="#stay" />
 				<!-- Control constructs -->
-                <StringDetect String = "!" attribute="Operator" context="#stay" />
-                <StringDetect String = "-&gt;" attribute="Operator" context="#stay" />
-                <StringDetect String = ";" attribute="Operator" context="#stay" />
+                <AnyChar String = "!;" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "-" char1 = "&gt;" attribute="Operator" context="#stay" />
 				<!-- Logic and control -->
-                <StringDetect String = "\+" attribute="Operator" context="#stay" />
+                <Detect2Chars char = "\" char1 = "+" attribute="Operator" context="#stay" />
 				<!-- Mode operators -->
-                <StringDetect String = "?" attribute="Operator" context="#stay" />
-                <StringDetect String = "@" attribute="Operator" context="#stay" />
+                <AnyChar String = "?@" attribute="Operator" context="#stay" />
 				<!-- Clause operator -->
-                <StringDetect String = ":-" attribute="Normal" context="#stay" />
+                <Detect2Chars char = ":" char1 = "-" attribute="Normal" context="#stay" />
 				<!-- Atoms -->
-                <RegExpr String = "\b[a-z][A-Za-z0-9_]*" attribute = "Normal" context="#stay"/>
+                <RegExpr String = "\b[a-z]\w*" attribute = "Normal" context="#stay"/>
             </context>
 
             <context name="directive" attribute="Directive" lineEndContext="#stay">

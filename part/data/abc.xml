@@ -1,8 +1,8 @@
-<?xml version="1.02" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Andrea Primiani - primiani at dag dot it
  	version1.0 - 5 august 2004 -->
-<language name="ABC" version="1.00" kateversion="2.3" section="Other" extensions="*.abc;*.ABC" mimetype="text/vnd.abc" casesensitive="1" author="Andrea Primiani (primiani@dag.it)" license="LGPL">
+<language name="ABC" version="1.01" kateversion="2.4" section="Other" extensions="*.abc;*.ABC" mimetype="text/vnd.abc" casesensitive="1" author="Andrea Primiani (primiani@dag.it)" license="LGPL">
     <highlighting>
         <contexts>
            <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
@@ -18,19 +18,15 @@
 	    <RegExpr attribute="Header" context="Header2" String="[ABCGHILMNOPQRSTUVZ]:" />
 <!--	    <Detect2Chars attribute="Header2" context="Part" char="P" char1=":" /> -->
 <!-- detect beginning of header zone with X: and sends to Header context -->	    
-	    <RegExpr attribute="Header" context="Header" String="^X:" insensitive="false" beginRegion="header"/>
+	    <Detect2Chars attribute="Header" context="Header" char="X" char1=":" beginRegion="header" column="0"/>
 <!-- detects bar beginning (or chord) symbols and sends to Bar context -->
-	    <DetectChar attribute="Bar" context="Bar" char="|" />
-	    <DetectChar attribute="Bar" context="Bar" char=":" />
-	    <DetectChar attribute="Bar" context="Bar" char="[" />
+	    <AnyChar attribute="Bar" context="Bar" String="|:[" />
 <!-- detects ] if used to close chords -->	    
 	    <DetectChar attribute="Bar" context="#stay" char="]" />
 <!-- detects () for slurs -->
-	    <DetectChar attribute="Slur" context="#stay" char="(" />
-	    <DetectChar attribute="Slur" context="#stay" char=")" />
+	    <AnyChar attribute="Slur" context="#stay" String="()" />
 <!-- detects {} for gracings -->
-	    <DetectChar attribute="Slur" context="#stay" char="{" />
-	    <DetectChar attribute="Slur" context="#stay" char="}" />
+	    <AnyChar attribute="Slur" context="#stay" String="{}" />
 <!-- detects W: and w: lyric lines -->	    
 	    <Detect2Chars attribute="Lyrics" context="Lyrics" char="W" char1=":" />
 	    <Detect2Chars attribute="Lyrics" context="Lyrics" char="w" char1=":" />
@@ -58,7 +54,7 @@
 <!-- returns to Normal context at the end of header -->
 	   <context name="Header" attribute="Header" lineEndContext="#stay">
 <!-- the header ends after K: line -->
-		<RegExpr attribute="Header" context="#pop" String="^K:.+" endRegion="header"/>
+		<RegExpr attribute="Header" context="#pop" String="K:.+" endRegion="header" column="0"/>
 <!-- the single header command ends at the ] char -->
 		<DetectChar attribute="Header" context="#pop" char="]" />
 	   </context>

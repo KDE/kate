@@ -39,7 +39,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 -->
 
-<language name="GNU Assembler" version="1.04" kateversion="2.1" section="Assembler" extensions="*.s;*.S" mimetype="text/x-asm" author="John Zaitseff (J.Zaitseff@zap.org.au), Roland Pabel (roland@pabel.name)" license="GPL">
+<language name="GNU Assembler" version="1.05" kateversion="2.4" section="Assembler" extensions="*.s;*.S" mimetype="text/x-asm" author="John Zaitseff (J.Zaitseff@zap.org.au), Roland Pabel (roland@pabel.name)" license="GPL">
   <highlighting>
     <list name="keywords">
       <item>.abort</item>
@@ -225,7 +225,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr      attribute="Label" context="#stay" String="^\s*[A-Za-z0-9_.$]+:" />
+        <RegExpr      attribute="Label" context="#stay" String="[A-Za-z0-9_.$]+:" firstNonSpace="true"/>
         <keyword      attribute="Keyword" context="#stay" String="keywords"/>
         <HlCOct       attribute="Octal" context="#stay" />
         <HlCHex       attribute="Hex" context="#stay" />
@@ -236,8 +236,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
         <RegExpr      attribute="Char" context="#stay" String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)" />
         <DetectChar   attribute="String" context="String" char="&quot;" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="*" />
-        <DetectChar   attribute="Comment" context="Commentar 2" char="@" />
-        <DetectChar   attribute="Comment" context="Commentar 2" char=";" />
+        <AnyChar      attribute="Comment" context="Commentar 2" String="@;" />
         <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
         <RegExpr      attribute="Preprocessor" context="Preprocessor" String="^#" />
       </context>

@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ILERPG" version="1.02" kateversion="2.1" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
+<language name="ILERPG" version="1.03" kateversion="2.1" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
     <highlighting>
     <list name="biffs">
       <item> ABS </item>
@@ -198,7 +198,7 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="Default">
         <RegExpr attribute="Comment" context="context3" String="[POIHFDC ]?\*"/>
-        <RegExpr attribute="Keyword" context="context1" String="[POIHFDC]"/>
+        <AnyChar attribute="Keyword" context="context1" String="POIHFDC"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#pop" name="context1">
@@ -206,7 +206,7 @@
         <DetectChar attribute="Biff" context="context7" char="%"/>
         <DetectChar attribute="Constant" context="context3" char="'"/>
         <Float attribute="Float" context="#stay"/>
-        <RegExpr attribute="Hex" context="#stay" String="[Xx]'[0-9|a-f|A-f]{2,}'"/>
+        <RegExpr attribute="Hex" context="#stay" String="[Xx]'[0-9a-fA-F]{2,}'"/>
 
         <Int attribute="Decimal" context="#stay">
           <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
@@ -232,7 +232,7 @@
       </context>
 
       <context attribute="Constant" lineEndContext="#stay" name="context5">
-        <RegExpr attribute="Normal Text" context="#stay" String="[FHDICO]"/>
+        <AnyChar attribute="Normal Text" context="#stay" String="FHDICO"/>
         <DetectChar attribute="Constant" context="#pop" char=" "/>
       </context>
       <context attribute="Keyword" lineEndContext="#pop#pop" name="context6">

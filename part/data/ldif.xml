@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LDIF" version="1.01" kateversion="2.1" section="Database" extensions="*.ldif" mimetype="application/directory" author="Andreas Hochsteger (e9625392@student.tuwien.ac.at)" license="">
+<language name="LDIF" version="1.02" kateversion="2.4" section="Database" extensions="*.ldif" mimetype="application/directory" author="Andreas Hochsteger (e9625392@student.tuwien.ac.at)" license="">
 	<highlighting>
 		<list name="attributetypes">
 			<item>IPPhone</item>
@@ -259,34 +259,34 @@
 		<contexts>
 			<context name="ctxStart" attribute="Value (Standard)" lineEndContext="#stay">
 				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
-				<RegExpr String=":" attribute="Description Keyword" context="ctxEncoded"/>
-				<RegExpr String="&lt;" attribute="Description Keyword" context="ctxURL"/>
+				<DetectChar char=":" attribute="Description Keyword" context="ctxEncoded"/>
+				<DetectChar char="&lt;" attribute="Description Keyword" context="ctxURL"/>
 				<RegExpr String="[^:&lt;]" attribute="Value (Standard)" context="ctxStandard"/>
-				<RegExpr String="^[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#stay"/>
+				<RegExpr String="[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#stay" column="0"/>
 			</context>
 			<context name="ctxEncoded" attribute="Value (Encoded)" lineEndContext="#stay">
 				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
-				<RegExpr String="[\s].*$" attribute="Value (Encoded)" context="#stay"/>
-				<RegExpr String="^[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop"/>
+				<RegExpr String="\s.*$" attribute="Value (Encoded)" context="#stay"/>
+				<RegExpr String="[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop" column="0"/>
 			</context>
 			<context name="ctxURL" attribute="Value (URL)" lineEndContext="#stay">
 				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
-				<RegExpr String="[\s]+[\w]+://[\w/.]+" attribute="Value (URL)" context="#stay"/>
-				<RegExpr String="[\s].*$" attribute="Value (URL)" context="#stay"/>
-				<RegExpr String="^[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop"/>
+				<RegExpr String="\s+[\w]+://[\w/.]+" attribute="Value (URL)" context="#stay"/>
+				<RegExpr String="\s.*$" attribute="Value (URL)" context="#stay"/>
+				<RegExpr String="[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop" column="0"/>
 			</context>
 			<context name="ctxStandard" attribute="Value (Standard)" lineEndContext="#stay">
 				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
 				<RegExpr String="\{\w+\}.*$" attribute="Value (Encrypted)" context="ctxEncrypted"/>
 				<keyword String="attributetypes" attribute="AttributeType" context="#stay"/>
 				<keyword String="objectclasses" attribute="ObjectClass" context="#stay"/>
-				<RegExpr String="^[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop"/>
+				<RegExpr String="[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop" column="0"/>
 				<RegExpr String="[a-zA-Z0-9\-]+=" attribute="Value (Keyword)" context="#stay"/>
 			</context>
 			<context name="ctxEncrypted" attribute="Value (Encrypted)" lineEndContext="#stay">
 				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
-				<RegExpr String="[\s].*$" attribute="Value (Encrypted)" context="#stay"/>
-				<RegExpr String="^[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop#pop"/>
+				<RegExpr String="\s.*$" attribute="Value (Encrypted)" context="#stay"/>
+				<RegExpr String="[\w\-]+((;[\w\-]+)+)?:" attribute="Description Keyword" context="#pop#pop" column="0"/>
 			</context>
 		</contexts>
 		<itemDatas>

@@ -20,7 +20,7 @@
 	* Added FACE sementic for the new fp40 profile
 -->
 
-<language name="Cg" section="Sources" extensions="*.cg" mimetype="text/x-cgsrc" version="1.10" author="Florian Schanda (florian.schanda@schanda.de)" license="LGPL">
+<language name="Cg" section="Sources" extensions="*.cg" mimetype="text/x-cgsrc" version="1.11" kateversion="2.4" author="Florian Schanda (florian.schanda@schanda.de)" license="LGPL">
 	<highlighting>
 		<list name="binding">
 			<item>POSITION</item>
@@ -251,13 +251,13 @@
 			<context name="Outscoped" attribute="Comment" lineEndContext="#stay">
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
 				<keyword attribute="Alert" context="#stay" String="attention" />
-				<RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
-				<RegExpr attribute="Preprocessor" context="#pop" String="^\s*#\s*(endif|else|elif)" endRegion="Outscoped"/>
+				<RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true"/>
+				<RegExpr attribute="Preprocessor" context="#pop" String="#\s*(endif|else|elif)" endRegion="Outscoped" firstNonSpace="true"/>
 			</context>
 			<context name="Outscoped intern" attribute="Comment" lineEndContext="#stay">
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-				<RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
-				<RegExpr attribute="Comment" context="#pop" String="^\s*#\s*endif" endRegion="Outscoped"/>
+				<RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true"/>
+				<RegExpr attribute="Comment" context="#pop" String="#\s*endif" endRegion="Outscoped" firstNonSpace="true"/>
 			</context>
 	        </contexts>
 		<itemDatas>

@@ -3,7 +3,7 @@
 <!-- author: Giancarlo Niccolai (giancarlo@niccolai.ws) -->
 <!-- This file is released under GPL license 2.0 or any later version at your choice. -->
 <!-- $Id$ -->
-<language name="Inform" version="1.22" kateversion="2.3" section="Sources" extensions="*.inf;*.h" mimetype="text/x-inform-src" author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
+<language name="Inform" version="1.23" kateversion="2.3" section="Sources" extensions="*.inf;*.h" mimetype="text/x-inform-src" author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
 <highlighting>
    <list name="keywords">
       <item> if </item>
@@ -281,19 +281,19 @@
          <DetectChar attribute="Comment" context="comment" char="!" />
          <DetectChar attribute="String" context="string" char="&quot;" />
          <RegExpr attribute="Function" context="funcdef" beginRegion="reg_function"
-            String="[[]\s*[a-zA-Z_]+[a-zA-Z_0-9]*" />
+            String="[[]\s*[a-zA-Z_]+\w*" />
 
-         <RegExpr String="^ *object |^ *class " attribute="Pragma"
+         <RegExpr String=" *object | *class " attribute="Pragma"
             context="ClassDecl"
-            insensitive="TRUE" beginRegion="reg_class" />
+            insensitive="TRUE" beginRegion="reg_class" column="0"/>
 
          <keyword attribute="Pragma" context="#stay" String="pragmas" />
          <keyword attribute="Pragma" context="#stay" String="inline_pragmas" />
 
          <RegExpr attribute="Operator" context="#stay" String="--?>" />
-         <RegExpr attribute="Normal Text" context="#stay" String="[a-zA-Z_]+[0-9]*" />
+         <RegExpr attribute="Normal Text" context="#stay" String="[a-zA-Z_]+\d*" />
          <RegExpr attribute="Number" context="#stay" String="\$[0-9a-fA-F]{1,4}" />
-         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
+         <RegExpr attribute="Number" context="#stay" String="\d+" />
       </context>
 
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
@@ -307,16 +307,16 @@
          <keyword attribute="PredefFunction" context="#stay" String="functions" />
          <keyword attribute="Values" context="#stay" String="special_vals" />
          <keyword attribute="Operator" context="#stay" String="operators" />
-         <RegExpr attribute="Actions" context="#stay" String="##[a-zA-Z_]+[a-zA-Z_0-9]*" />
-         <RegExpr attribute="OpCode" context="#stay" String="@[a-zA-Z_]+[a-zA-Z_0-9]*" />
+         <RegExpr attribute="Actions" context="#stay" String="##[a-zA-Z_]+\w*" />
+         <RegExpr attribute="OpCode" context="#stay" String="@[a-zA-Z_]+\w*" />
          <RegExpr attribute="Number" context="#stay" String="\$[0-9a-fA-F]{1,4}" />
-         <RegExpr String="[a-zA-Z_]+[a-zA-Z_0-9]*" attribute="Normal Text" context="#stay" />
-         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
+         <RegExpr String="[a-zA-Z_]+\w*" attribute="Normal Text" context="#stay" />
+         <RegExpr attribute="Number" context="#stay" String="\d+" />
          <DetectChar char="{" attribute="Keyword" context="#stay"
                beginRegion="reg_compound" />
          <DetectChar char="}" attribute="Keyword" context="#stay"
                endRegion="reg_compound" />
-         <RegExpr attribute="Operator" context="#stay" String="[%&amp;()+-&lt;=&gt;{|}~]"/>
+         <AnyChar attribute="Operator" context="#stay" String="%&amp;()+-&lt;=&gt;{|}~"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="PropDefVal rules">
@@ -326,7 +326,7 @@
          <DetectChar attribute="Function" context="prop_func_def" char="[" beginRegion="reg_prop_def_func" />
          <DetectChar attribute="Operator" context="#pop" char="," />
          <RegExpr attribute="Number" context="#stay" String="\$[0-9a-fA-F]{1,4}" />
-         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
+         <RegExpr attribute="Number" context="#stay" String="\d+" />
       </context>
 
 
@@ -343,7 +343,7 @@
      <context name="ClassDecl_1" attribute="Normal Text" lineEndContext="#stay">
          <RegExpr String="^[\t ]*has " attribute="Keyword" context="has_decl" insensitive="TRUE"/>
          <keyword String="ClassDeclOps" attribute="Keyword" context="#stay" />
-         <RegExpr String="[a-zA-Z_]+[a-zA-Z_0-9]*" context = "prop_def"
+         <RegExpr String="[a-zA-Z_]+\w*" context = "prop_def"
             attribute="Function"/>
          <DetectChar char=";" context="#pop" attribute="Pragma" endRegion="reg_class"/>
       </context>

@@ -1,4 +1,4 @@
-<?xml version="1.01" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Created by Juliano Dorneles dos Santos <juliano_dorneles@yahoo.com.br> -->
 <!-- Fixed for 3.2 Helio Chissini de Castro <helio@kde.org> -->
@@ -6,7 +6,7 @@
 <highlighting>
 
 <contexts>
-	<context name="Context">
+	<context name="Context" attribute="Normal" lineEndContext="#stay">
 		<RegExpr attribute="Date" context="Context" String="%%date(\(.*\))?"/>
 		<RegExpr attribute="Comment" context="Context" String="%.*"/>
 		<RegExpr attribute="Bold" context="Context" String="\*\*.*\*\*"/>

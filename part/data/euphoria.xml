@@ -29,7 +29,7 @@
 
 <!-- Store this in /usr/share/apps/katepart/syntax -->
 
-<language name="Euphoria" version="2.07" kateversion="2.1" section="Scripts" extensions="*.e;*.ex;*.exw;*.exu" mimetype="text/x-euphoria" author="Irv Mullins (irvm@ellijay.com)" license="LGPL">
+<language name="Euphoria" version="2.08" kateversion="2.4" section="Scripts" extensions="*.e;*.ex;*.exw;*.exu" mimetype="text/x-euphoria" author="Irv Mullins (irvm@ellijay.com)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> abort </item>
@@ -340,8 +340,8 @@
         <Float attribute="Number" context="#stay"/>
         <Int attribute="Number" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;" />
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*--\s*BEGIN.*" beginRegion="regMarker"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*--\s*END.*" endRegion="regMarker"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="--\s*BEGIN.*" beginRegion="regMarker" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="--\s*END.*" endRegion="regMarker" firstNonSpace="true"/>
         <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
       </context>
 

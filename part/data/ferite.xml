@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ferite" version="1.03" kateversion="2.3" section="Scripts" extensions="*.fe;*.feh" mimetype="text/x-ferite-src">
+<language name="ferite" version="1.04" kateversion="2.4" section="Scripts" extensions="*.fe;*.feh" mimetype="text/x-ferite-src">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -58,7 +58,7 @@
         <Detect2Chars attribute="Comment" context="Multiline Comment" char="/" char1="*"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
         <StringDetect attribute="Comment" context="Undeffed" String="#if 0" insensitive="FALSE"/>
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^#"/>
+        <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" column="0"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#stay"/>
@@ -86,7 +86,7 @@
       <context attribute="Normal Text" lineEndContext="#pop" name ="unknown 2" />
       <context attribute="Comment" lineEndContext="#stay" name="Undeffed">
           <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
-          <RegExpr attribute="Comment" context="#pop" String="^#endif" />
+          <StringDetect attribute="Comment" context="#pop" String="#endif" column="0"/>
       </context>
     </contexts>
     <itemDatas>

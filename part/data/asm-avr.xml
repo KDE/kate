@@ -33,7 +33,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 -->
 
-<language name="AVR Assembler" version="1.02" kateversion="2.1" section="Assembler" extensions="*.asm;*.ASM;*.asm-avr" mimetype="text/x-asm;text/x-asm-avr" author="Roland Nagy" license="GPL">
+<language name="AVR Assembler" version="1.03" kateversion="2.4" section="Assembler" extensions="*.asm;*.ASM;*.asm-avr" mimetype="text/x-asm;text/x-asm-avr" author="Roland Nagy" license="GPL">
   <highlighting>
     <list name="keywords">
       <item> adc</item>
@@ -150,7 +150,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr      attribute="Label" context="#stay" String="^\s*[A-Za-z0-9_.$]+:" />
+        <RegExpr      attribute="Label" context="#stay" String="[A-Za-z0-9_.$]+:" firstNonSpace="true"/>
         <keyword      attribute="Keyword" context="#stay" String="keywords"/>
         <HlCOct       attribute="Octal" context="#stay" />
         <HlCHex       attribute="Hex" context="#stay" />
@@ -181,7 +181,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"   />
-      <itemData name="Label"        defStyleNum="dsNormal"   />
+      <itemData name="Label"        defStyleNum="dsFunction"   />
       <itemData name="Keyword"      defStyleNum="dsKeyword"  />
       <itemData name="Decimal"      defStyleNum="dsDecVal"   />
       <itemData name="Octal"        defStyleNum="dsBaseN"    />

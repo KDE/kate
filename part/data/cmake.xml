@@ -3,7 +3,7 @@
 <!-- Author: Alexander Neundorf <neundorf@kde.org> //-->
 <!-- cmake 2.0.3 syntax highlighting -->
 <!-- dsKeyword, dsDataType, dsDecVal, dsBaseN, dsFloat, dsChar, dsString, dsComment, dsOthers, new in KDE 3.3: dsAlert, dsFunction, dsRegionMarker, dsError -->
-<language name="CMake" version="1.01" kateversion="2.3" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
+<language name="CMake" version="1.02" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
   <highlighting>
 
     <list name = "commands">
@@ -205,8 +205,8 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
         <keyword attribute="Commands" context="Function Args" String="commands" />
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*#\s*BEGIN.*$" beginRegion="block" />
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*#\s*END.*$" endRegion="block" />
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
         <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
         <RegExpr attribute="Macros" context="#stay" String="\s*\w+\s*(?=\(.*\))"/>

@@ -2497,7 +2497,7 @@ void HlManager::getDefaults(KateAttributeList &list)
     if (s.count()>0)
     {
 
-      while(s.count()<8) s<<"";
+     while(s.count()<8) s<<"";
 
       QString tmp;
       QRgb col;

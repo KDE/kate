@@ -67,6 +67,9 @@ public:
   inline int itemsSet() const
   { return m_itemsSet; };
 
+  inline void clearAttribute(int item)
+  { m_itemsSet &= (~item); }
+
   inline int weight() const
   { return m_weight; };
 

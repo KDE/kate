@@ -40,6 +40,7 @@
 #include <qlayout.h>
 #include <qlabel.h>
 
+//BEGIN KateSearch
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
 static const bool arbitraryHLExample = false;
@@ -622,15 +623,16 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
   view()->setCursorPositionInternal ( cursor.line(), cursor.col() + slen, 1 );
   doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
+//END KateSearch
 
 //BEGIN KateReplacePrompt
 // this dialog is not modal
 KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
   : KDialogBase ( parent, 0L, false, i18n( "Replace Confirmation" ),
                   User3 | User2 | User1 | Close | Ok , Ok, true,
-                  i18n("Replace &All"), i18n("Replace && Close"), i18n("&Replace") )
+                  i18n("Replace &All"), i18n("Replace && &Close"), i18n("&Replace") )
 {
-  setButtonOK( i18n("Find Next") );
+  setButtonOK( i18n("&Find Next") );
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 

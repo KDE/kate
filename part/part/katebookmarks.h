@@ -18,9 +18,14 @@
 #ifndef _KateBookmarks_H_
 #define _KateBookmarks_H_
 
+#include <qobject.h>
+
 class KAction;
 class KActionMenu;
+class KActionCollection;
 #include <qptrlist.h>
+namespace Kate { class View; }
+namespace KTextEditor { class Mark; }
 
 class KateBookmarks : public QObject
 {

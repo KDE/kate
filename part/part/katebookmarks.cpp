@@ -15,19 +15,16 @@
  *                                                                         *
  ***************************************************************************/
 
+#include "katebookmarks.h"
+#include "katebookmarks.moc"
+
 #include <klocale.h>
 #include <kaction.h>
 #include <kpopupmenu.h>
 #include <kdebug.h>
 
-#include <kate/application.h>
-#include <kate/docmanager.h>
-#include <kate/viewmanager.h>
-#include <kate/document.h>
-#include <kate/view.h>
-
-#include "katebookmarks.h"
-#include "katebookmarks.moc"
+#include "../interfaces/document.h"
+#include "../interfaces/view.h"
 
 KateBookmarks::KateBookmarks( Kate::View* view )
 	: QObject( view, "kate bookmarks" )

@@ -106,6 +106,13 @@ class MarkInterface
       markType06= 0x20,
       /** Error */
       markType07= 0x40,
+
+      /**
+       * RESERVED tells us how many predefined marker types we have so far.
+       * @note If you change this you have to make sure katepart supports the new size!
+       */
+      RESERVED=7,
+
       markType08= 0x80,
       markType09= 0x100,
       markType10= 0x200,

@@ -53,7 +53,7 @@ class KateBuffer : public QObject
      * Create an empty buffer.
      */
     KateBuffer(class KateDocument *doc);
-   
+
     /**
      * Goodbye buffer
      */
@@ -76,7 +76,12 @@ class KateBuffer : public QObject
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
     bool openFile (const QString &m_file, QTextCodec *codec);
-   
+
+    /**
+     * Can the current codec handle all chars
+     */
+    bool canEncode (QTextCodec *codec);
+
     /**
      * Save the buffer to a file, use the given filename + codec + end of line chars (internal use of qtextstream)
      */
@@ -114,7 +119,7 @@ class KateBuffer : public QObject
     {
       return m_regionTree;
     }
-    
+
     inline void setHlUpdate (bool b)
     {
       m_hlUpdate = b;
@@ -164,14 +169,14 @@ class KateBuffer : public QObject
      * will be disabled.
      */
     void setHighlight(class Highlight *highlight);
-   
+
     /**
      * Update the highlighting.
      *
-     * PRE-condition: 
+     * PRE-condition:
      *   All lines prior to @p from have been highlighted already.
      *
-     * POST-condition: 
+     * POST-condition:
      *   All lines till at least @p to haven been highlighted.
      */
     void updateHighlighting(uint from, uint to, bool invalidate);
@@ -190,22 +195,22 @@ class KateBuffer : public QObject
      * Get the text between the two given positions.
      */
     QString text(uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise = false);
-   
+
     uint length ();
-    
+
     int lineLength ( uint line );
 
     /**
      * change the visibility of a given line
      */
     void setLineVisible (unsigned int lineNr, bool visible);
-   
+
   signals:
     /**
      * Emitted during loading when the line count changes.
      */
     void linesChanged(int lines);
-   
+
     /**
      * Emitted when some code folding related attributes changed
      */
@@ -215,7 +220,7 @@ class KateBuffer : public QObject
      * Emittend if codefolding returned with a changed list
      */
     void codeFoldingUpdated();
-    
+
     /**
      * Emitted when the highlighting of a certain range has
      * changed.
@@ -297,7 +302,7 @@ class KateBuffer : public QObject
      * Find the block containing line @p i
      */
     KateBufBlock *findBlock(uint i);
-   
+
     void checkLoadedMax ();
     void checkCleanMax ();
     void checkDirtyMax ();
@@ -314,13 +319,13 @@ class KateBuffer : public QObject
      * false otherwise.
      */
     bool needHighlight(KateBufBlock *buf, uint from, uint to);
- 
+
   private slots:
     /**
      * Load a part of the file that is currently loading.
      */
     void loadFilePart();
-    
+
     void slotBufferUpdateHighlight (uint,uint);
     void slotBufferUpdateHighlight ();
 
@@ -328,16 +333,16 @@ class KateBuffer : public QObject
     bool m_openAsync;
 
     bool m_hlUpdate;
-  
+
     uint m_lines;
     uint m_highlightedTo; // The highest line with correct highlight info
     uint m_highlightedRequested; // The highest line that we requested highlight for
-   
+
     uint m_lastInSyncBlock;  // last block where the start/end line is in sync with real life
 
     class Highlight *m_highlight;
     class KateDocument *m_doc;
-      
+
     // stuff we need to load a file
     KateBufFileLoader *m_loader;
     QTimer m_loadTimer;

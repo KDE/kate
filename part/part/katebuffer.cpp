@@ -40,13 +40,13 @@
 
 /**
   Some private classes
-*/                    
+*/
 class KateBufFileLoader
 {
   public:
-    KateBufFileLoader (const QString &m_file) : 
+    KateBufFileLoader (const QString &m_file) :
       file (m_file), stream (&file)
-    { 
+    {
     }
 
   public:
@@ -211,14 +211,14 @@ KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
   m_highlightedEnd (0)
 {
   m_blocks.setAutoDelete(true);
-  
+
   connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(loadFilePart()));
   connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
 
   connect( this, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
-    
+
   clear();
-}     
+}
 
 /**
  * Cleanup on destruction
@@ -352,7 +352,7 @@ void KateBuffer::dirtyBlock(KateBufBlock *buf)
   // dispose the swap stuff
   if (buf->b_vmDataValid)
     buf->disposeSwap();
-  
+
   m_cleanBlocks.removeRef(buf);
   m_dirtyBlocks.append(buf);
 }
@@ -366,7 +366,7 @@ KateBufBlock *KateBuffer::findBlock(uint i)
      return 0;
 
   KateBufBlock *buf = 0;
-   
+
   if (m_blocks.current() && (m_lastInSyncBlock >= m_blocks.at()))
   {
     buf = m_blocks.current();
@@ -375,30 +375,30 @@ KateBufBlock *KateBuffer::findBlock(uint i)
   {
     buf = m_blocks.at (m_lastInSyncBlock);
   }
-  
+
   int lastLine = 0;
   while (buf != 0)
   {
     lastLine = buf->endLine ();
-      
+
     if (i < buf->startLine())
     {
       // Search backwards
       buf = m_blocks.prev ();
     }
-    else if (i >= buf->endLine())     
-    {     
+    else if (i >= buf->endLine())
+    {
       // Search forwards
       buf = m_blocks.next();
     }
     else
     {
       // We found the block.
-      return buf;     
-    }     
-      
+      return buf;
+    }
+
     if (buf && (m_blocks.at () > m_lastInSyncBlock) && (buf->startLine() != lastLine))
-    {     
+    {
       buf->setStartLine (lastLine);
       m_lastInSyncBlock = m_blocks.at ();
     }
@@ -406,9 +406,9 @@ KateBufBlock *KateBuffer::findBlock(uint i)
 
   return 0;
 }
-     
-void KateBuffer::clear()     
-{     
+
+void KateBuffer::clear()
+{
   // reset the folding tree hard !
   //  delete m_regionTree;
   // trying to reset the region tree softly
@@ -464,7 +464,7 @@ void KateBuffer::setHighlight(Highlight *highlight)
 /**
  * Insert a file at line @p line in the buffer.
  */
-bool KateBuffer::openFile(const QString &m_file, QTextCodec *codec)
+bool KateBuffer::openFile (const QString &m_file, QTextCodec *codec)
 {
   clear();
 
@@ -492,7 +492,21 @@ bool KateBuffer::openFile(const QString &m_file, QTextCodec *codec)
   return true;
 }
 
-bool KateBuffer::saveFile(const QString &m_file, QTextCodec *codec, const QString &eol)
+bool KateBuffer::canEncode (QTextCodec *codec)
+{
+  // encoding can encode every char
+  bool rightEncoding = true;
+
+  for (uint i=0; i < m_lines; i++)
+  {
+    if (rightEncoding)
+      rightEncoding = codec->canEncode (textLine (i));
+  }
+
+  return rightEncoding;
+}
+
+bool KateBuffer::saveFile (const QString &m_file, QTextCodec *codec, const QString &eol)
 {
   QFile file (m_file);
   QTextStream stream (&file);
@@ -880,7 +894,7 @@ QString KateBuffer::textLine(uint i, bool withoutTrailingSpaces)
 
    if (withoutTrailingSpaces)
      return buf->line(i - buf->startLine())->withoutTrailingSpaces();
-   
+
    return buf->line(i - buf->startLine())->string();
 }
 
@@ -934,15 +948,15 @@ KateBuffer::removeLine(uint i)
    {
       dirtyBlock(buf);
    }
-   
+
   buf->removeLine(i -  buf->startLine());
-  
+
   if (m_highlightedTo > i)
     m_highlightedTo--;
 
   m_lines--;
-  
-  // trash away a empty block 
+
+  // trash away a empty block
   if (buf->lines() == 0)
   {
     if ((m_lastInSyncBlock > 0) && (m_lastInSyncBlock >= m_blocks.findRef (buf)))
@@ -970,7 +984,7 @@ void KateBuffer::changeLine(uint i)
   KateBufBlock *buf = findBlock(i);
   assert(buf);
   assert(buf->b_stringListValid);
-   
+
   if (buf->b_rawDataValid)
   {
     dirtyBlock(buf);
@@ -993,7 +1007,7 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 uint KateBuffer::length ()
 {
   uint l = 0;
-  
+
   for (uint i = 0; i < count(); i++)
   {
     l += plainLine(i)->length();

@@ -23,7 +23,7 @@
 #include <qobject.h>
 #include <qptrlist.h>
 
-namespace Kate { class View; }
+class KateView;
 
 namespace KTextEditor { class Mark; }
 
@@ -37,7 +37,7 @@ class KateBookmarks : public QObject
 
   public:
     enum Sorting { Position, Creation };
-    KateBookmarks( Kate::View* parent, Sorting sort=Position );
+    KateBookmarks( KateView* parent, Sorting sort=Position );
     virtual ~KateBookmarks();
 
     void createActions( KActionCollection* );
@@ -57,7 +57,7 @@ class KateBookmarks : public QObject
     void marksChanged ();
 
   private:
-    Kate::View*                  m_view;
+    KateView*                    m_view;
     KAction*                     m_bookmarkToggle;
     KAction*                     m_bookmarkClear;
     KAction*                     m_goNext;

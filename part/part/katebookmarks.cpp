@@ -22,8 +22,6 @@
 #include "katebookmarks.h"
 #include "katebookmarks.moc"
 
-#include "../interfaces/document.h"
-#include "../interfaces/view.h"
 #include "katedocument.h"
 #include "kateview.h"
 
@@ -59,7 +57,7 @@ static void ssort( QMemArray<uint> &a, int max )
 
 // TODO add a insort() or bubble_sort - more efficient for aboutToShow() ?
 
-KateBookmarks::KateBookmarks( Kate::View* view, Sorting sort )
+KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   : QObject( view, "kate bookmarks" )
   , m_view( view )
   , m_sorting( sort )
@@ -218,7 +216,7 @@ void KateBookmarks::bookmarkMenuAboutToHide()
 
 void KateBookmarks::gotoBookmark( int n )
 {
-  m_view->setCursorPosition( m_marks.at(n)->line, 0 );
+  m_view->setCursorPositionInternal ( m_marks.at(n)->line, 0, 1, true );
 }
 
 void KateBookmarks::goNext()
@@ -245,7 +243,7 @@ void KateBookmarks::goNext()
   {
     if ( a[j] > line )
     {
-      /*m_view*/v->setCursorPosition( a[j], 0 ); // <--
+      v->setCursorPositionInternal ( a[j], 0, 1, true ); // <--
       return;
     }
   }
@@ -275,7 +273,7 @@ void KateBookmarks::goPrevious()
   {
     if ( a[j] < line )
     {
-      /*m_view*/v->setCursorPosition( a[j], 0 );
+      v->setCursorPositionInternal ( a[j], 0, 1, true );
       return;
     }
   }

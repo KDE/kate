@@ -3291,7 +3291,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   editEnd ();
 
   if (bracketInserted)
-    view->setCursorPositionInternal (view->cursorLine(), view->cursorColumnReal()-1, 1);
+    view->setCursorPositionInternal (view->cursorLine(), view->cursorColumnReal()-1);
 
   emit charactersInteractivelyInserted (oldLine, oldCol, chars);
 
@@ -3505,7 +3505,7 @@ void KateDocument::paste ( KateView* view )
   if (blockSelect)
   {
     uint lines = s.contains (QChar ('\n'));
-    view->setCursorPositionInternal (line+lines, column, 1);
+    view->setCursorPositionInternal (line+lines, column);
   }
 
   editEnd();
@@ -4921,7 +4921,7 @@ void KateDocument::misspelling( const QString& origword, const QStringList&, uns
   locatePosition( pos, line, col );
 
   if (activeView())
-    activeView()->setCursorPositionReal(line, col);
+    activeView()->setCursorPositionInternal (line, col, 1, true);
 
   setSelection( line, col, line, col + origword.length() );
 }

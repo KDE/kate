@@ -98,9 +98,9 @@ class KateView : public Kate::View,
     void cursorPositionReal( uint* l, uint* c )
         { if( l ) *l = cursorLine(); if( c ) *c = cursorColumnReal(); }
     bool setCursorPosition( uint line, uint col )
-        { return setCursorPositionInternal( line, col, tabWidth(), false );  }
+        { return setCursorPositionInternal( line, col, tabWidth() );  }
     bool setCursorPositionReal( uint line, uint col)
-        { return setCursorPositionInternal( line, col, 1, false );           }
+        { return setCursorPositionInternal( line, col, 1 );           }
     uint cursorLine()
         { return m_viewInternal->getCursor().line();                    }
     uint cursorColumn()
@@ -296,7 +296,7 @@ class KateView : public Kate::View,
     bool isActive()             { return m_active; }
 
   public slots:
-    void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionReal( mark->line, 0 ); }
+    void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionInternal ( mark->line, 0, 1, true ); }
     void selectionChanged ();
 
   signals:
@@ -328,7 +328,7 @@ class KateView : public Kate::View,
     void viewStatusMsg (const QString &msg);
 
   public:
-    bool setCursorPositionInternal( uint line, uint col, uint tabwidth, bool internalUse = true );
+    bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1, bool scroll = false );
 
   protected:
     void customEvent( QCustomEvent* );

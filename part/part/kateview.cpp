@@ -786,7 +786,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
     ev->accept();
 }
 
-bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bool internalUse )
+bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bool scroll )
 {
   TextLine::Ptr l = m_doc->kateTextLine( line );
 
@@ -804,7 +804,7 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bo
   if (!l->isVisible() )
     m_doc->foldingTree()->ensureVisible( line );
 
-  if (!internalUse)
+  if (scroll)
   {
     KateTextCursor c ( line, x );
     m_viewInternal->scrollPos (c);
@@ -919,7 +919,7 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
-  setCursorPositionReal ( line, 0 );
+  setCursorPositionInternal ( line, 0, 1, true );
 }
 
 void KateView::joinLines()
@@ -941,7 +941,7 @@ void KateView::joinLines()
 
 void KateView::readSessionConfig(KConfig *config)
 {
-  setCursorPositionReal (config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn"));
+  setCursorPositionInternal (config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn"), 1, true);
 }
 
 void KateView::writeSessionConfig(KConfig *config)

@@ -3,7 +3,7 @@
 <!-- author: Giancarlo Niccolai (giancarlo@niccolai.ws) -->
 <!-- This file is released under GPL license 2.0 or any later version at your choice. -->
 <!-- $Id$ -->
-<language name="Inform" version="1.1" kateversion="2.0" section="Sources" extensions="*.inf;*.h" mimetype="text/x-inform-src">
+<language name="Inform" version="1.2" kateversion="2.1" section="Sources" extensions="*.inf;*.h" mimetype="text/x-inform-src">
 <highlighting>
    <list name="keywords">
       <item> if </item>
@@ -323,7 +323,7 @@
          <DetectChar attribute="Comment" context="comment" char="!" />
          <DetectChar attribute="String" context="string" char="&quot;" />
          <DetectChar attribute="Word" context="word" char="'" />
-         <DetectChar attribute="Function" context="prop_def_func" char="[" beginRegion="reg_prop_def_func" />
+         <DetectChar attribute="Function" context="prop_func_def" char="[" beginRegion="reg_prop_def_func" />
          <DetectChar attribute="Operator" context="#pop" char="," />
          <RegExpr attribute="Number" context="#stay" String="\$[0-9a-fA-F]{1,4}" />
          <RegExpr attribute="Number" context="#stay" String="[0-9]+" />

@@ -29,6 +29,7 @@ namespace KTextEditor { class Mark; }
 
 class KAction;
 class KActionCollection;
+class QPopupMenu;
 
 class KateBookmarks : public QObject
 {
@@ -67,6 +68,7 @@ class KateBookmarks : public QObject
     KAction*                     m_goNext;
     KAction*                     m_goPrevious;
     Sorting                      m_sorting;
+    QPopupMenu*          m_bookmarksMenu;
 
     uint _tries;
 };

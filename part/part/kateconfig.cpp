@@ -34,6 +34,7 @@
 #include <kreplacedialog.h>
 #include <kinstance.h>
 #include <kstaticdeleter.h>
+#include <ktexteditor/markinterface.h>
 
 #include <qcolor.h>
 #include <qtextcodec.h>
@@ -558,7 +559,7 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setCmdLine (config->readBoolEntry( "Command Line", false));
   
-  setDefaultMarkType (config->readNumEntry( "Default Mark Type", MarkInterface::markType01 ));
+  setDefaultMarkType (config->readNumEntry( "Default Mark Type", KTextEditor::MarkInterface::markType01 ));
 
   configEnd ();
 }

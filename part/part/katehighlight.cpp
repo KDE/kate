@@ -1400,7 +1400,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   int offset = 0;
   while (offset < len)
   {
-    bool found = false;
+    bool anItemMatched = false;
     bool standardStartEnableDetermined = false;
     bool customStartEnableDetermined = false;
     bool standardStartEnable = false;
@@ -1513,40 +1513,38 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // dominik: look ahead w/o changing offset?
       if (!item->lookAhead)
       {
-        offset = offset2 - 1;
+        offset = offset2;
+        lastChar = text[offset-1];
       }
 
-      found = true;
+      anItemMatched = true;
       break;
     }
 
-    if (!found)
-    {
+    // something matched, continue loop
+    if (anItemMatched)
+      continue;
 
-      // nothing found: set attribute of one char
-      // anders: unless this context does not want that!
-      if ( context->fallthrough )
-      {
-      // set context to context->ftctx.
-        generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
-        context=contextNum(ctxNum);
-      //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
-      // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
-      // immediately after fallthrough fails. Is it bad?
-      // jowenn, can you come up with a nicer way to do this?
-        if (offset)
-          lastChar = text[offset - 1];
-        else
-          lastChar = '\\';
-        continue;
-      }
+    // nothing found: set attribute of one char
+    // anders: unless this context does not want that!
+    if ( context->fallthrough )
+    {
+    // set context to context->ftctx.
+      generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
+      context=contextNum(ctxNum);
+    //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
+    // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
+    // immediately after fallthrough fails. Is it bad?
+    // jowenn, can you come up with a nicer way to do this?
+    /*  if (offset)
+        lastChar = text[offset - 1];
       else
-        textLine->setAttribs(context->attr, offset, offset + 1);
+        lastChar = '\\';*/
+      continue;
     }
-
-    // dominik: do not change offset if we look ahead
-    if (!(item && item->lookAhead))
+    else
     {
+      textLine->setAttribs(context->attr, offset, offset + 1);
       lastChar = text[offset];
       offset++;
     }

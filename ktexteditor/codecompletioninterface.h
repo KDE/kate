@@ -27,12 +27,12 @@ namespace KTextEditor
 
 /**
  * An item for the completion popup. <code>text</code> is the completed string,
- * <code>prefix</code> appears in front of it, <code>suffix</code> appears after it. 
+ * <code>prefix</code> appears in front of it, <code>suffix</code> appears after it.
  * <code>type</code> does not appear in the completion list.
- * <code>prefix</code>, <code>suffix</code>, and <code>type</code> are not part of the 
+ * <code>prefix</code>, <code>suffix</code>, and <code>type</code> are not part of the
  * inserted text if a completion takes place. <code>comment</code> appears in a tooltip right of
- * the completion list for the currently selected item. <code>userdata</code> can be 
- * free formed data, which the user of this interface can use in 
+ * the completion list for the currently selected item. <code>userdata</code> can be
+ * free formed data, which the user of this interface can use in
  * @ref CodeCompletionInterface::filterInsertString().
  *
  *
@@ -66,13 +66,17 @@ class CompletionEntry
  * is available or if the user presses Esc etc. The contents of the list
  * is automatically adapted to the string the user types.
  *
- * There is another signal, which may be implmemented, but isn't documented here, because
- * it would have been a BIC change and I'm not sure if it is really of need
- * 
+ * There are other signals, which may be implmemented, but aren't documented here, because
+ * it would have been a BIC change...:
+ *
  * void completionExtendedComment(CompletionEntry)
  *
+ * This is emitted when the user has completed the argument entry (ie. enters the wrapping symbol(s)
+ * void argHintCompleted()
  *
-
+ * This is emitted when there is a reason other than completion for the hint being hidden.
+ * void argHintAborted()
+ *
  */
 class CodeCompletionInterface
 {
@@ -81,13 +85,13 @@ class CodeCompletionInterface
   public:
 	CodeCompletionInterface();
 	virtual ~CodeCompletionInterface();
-  
+
 	unsigned int codeCompletionInterfaceNumber () const;
-	
-  protected:  
-    void setCodeCompletionInterfaceDCOPSuffix (const QCString &suffix); 
-    
-    
+
+  protected:
+    void setCodeCompletionInterfaceDCOPSuffix (const QCString &suffix);
+
+
   public:
 	//
 	// slots !!!
@@ -117,8 +121,8 @@ class CodeCompletionInterface
 	 *
 	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
 	 * when the implementation doesn't support it
-	 * 
-	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 *
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited
 	 * function, if you support it, declare it as a signal
 	 */
     virtual void completionAborted()=0;
@@ -130,8 +134,8 @@ class CodeCompletionInterface
 	 *
 	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
 	 * when the implementation doesn't support it
-	 * 
-	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 *
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited
 	 * function, if you support it, declare it as a signal
 	 */
     virtual void completionDone()=0;
@@ -146,7 +150,7 @@ class CodeCompletionInterface
          * IMPORTANT: The pointer to the CompleteionEntry, is only valid in the slots connected to this signal
          * when the connected slots are left, the data element may be destroyed, depending on the implementation
 	 *
-	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited
 	 * function, if you support it, declare it as a signal.
          *
 	 */
@@ -158,8 +162,8 @@ class CodeCompletionInterface
 	 *
 	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
 	 * when the implementation doesn't support it
-	 * 
-	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 *
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited
 	 * function, if you support it, declare it as a signal
 	 */
     virtual void argHintHidden()=0;
@@ -173,8 +177,8 @@ class CodeCompletionInterface
 	 *
 	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
 	 * when the implementation doesn't support it
-	 * 
-	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 *
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited
 	 * function, if you support it, declare it as a signal
 	 */
     virtual void filterInsertString(CompletionEntry*,QString*)=0;

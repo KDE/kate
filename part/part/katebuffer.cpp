@@ -804,7 +804,7 @@ KateBuffer::dirtyBlock(KateBufBlock *buf)
    
    if (m_parsedBlocksDirty.count() > PARSED_DIRTY_BLOCKS_MAX)
    {
-      KateBufBlock *buf2 = m_parsedBlocksDirty.take(0);
+      KateBufBlock *buf2 = m_parsedBlocksDirty.take(2);
       buf2->flushStringList(); // Copy stringlist to raw
       buf2->disposeStringList(); // dispose stringlist.
       m_loadedBlocks.append(buf2);

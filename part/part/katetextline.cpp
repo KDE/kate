@@ -25,7 +25,6 @@
 #include "katetextline.h"
 
 #include <qregexp.h>
-#include <kdebug.h>
 
 TextLine::TextLine()
   : m_flags(TextLine::flagVisible)
@@ -386,9 +385,7 @@ char *TextLine::restore (char *buf)
   
   memcpy((char *) &m_flags, buf, 1);
   buf += 1;
-  
-  kdDebug()<<"line: blub"<<" length: "<<l<<" attr: "<<m_flags<<endl;
-  
+    
   // we just restore a TextLine from a buffer first time
   if (m_flags == TextLine::flagNoOtherData)
   {

@@ -25,7 +25,6 @@
 #include "katetextline.h"
 
 #include <qregexp.h>
-#include <kdebug.h>
 
 TextLine::TextLine()
   : m_flags(TextLine::flagVisible)

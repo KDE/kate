@@ -90,19 +90,19 @@ public:
 public:
 	KateSearch( Kate::View* );
 	virtual ~KateSearch();
-public:
+	
 	void createActions( KActionCollection* );
+	
 public slots:
 	void find();
 	void replace();
 	void findAgain( bool back );
-private:
-    void doReplaceAction(int result, bool found = false);
-    bool askReplaceEnd();
+	
 private slots:
 	void replaceSlot();
 	void slotFindNext() { findAgain( false ); }
 	void slotFindPrev() { findAgain( true );  }
+	
 private:
 	static void addToList( QStringList&, const QString& );
 	static void addToSearchList( const QString& s )  { addToList( s_searchList, s ); }
@@ -116,6 +116,8 @@ private:
 	void replaceAgain();
 	void exposeFound( KateTextCursor &cursor, int slen );
 	bool askContinue( bool forward, bool replace, int replacements );
+	void doReplaceAction(int result, bool found = false);
+	bool askReplaceEnd();
 	
 	QString getSearchText();
 	KateTextCursor getCursor();

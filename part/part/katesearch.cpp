@@ -177,9 +177,9 @@ void KateSearch::initSearch( int flags )
 	}
 }
 
-void KateSearch::findAgain (bool back)
+void KateSearch::findAgain( bool back )
 {
-  bool b= (_searchFlags & SConfig::sfBackward) > 0;
+  bool b = (_searchFlags & SConfig::sfBackward) > 0;
   initSearch((_searchFlags & ((b==back)?~SConfig::sfBackward:~0) & ~SConfig::sfFromBeginning)
                 | SConfig::sfPrompt | SConfig::sfAgain | ((b!=back)?SConfig::sfBackward : 0) );
   if (s.flags & SConfig::sfReplace)
@@ -197,27 +197,20 @@ void KateSearch::findAgain()
 		return;
 	}
 	
-	bool _continue = false;
-	do {
-		if ( ((KateDocument*)doc())->doSearch(s,searchFor)) { // FIXME
-			KateTextCursor cursor = s.cursor;
-			if (!(s.flags & SConfig::sfBackward))
-				s.cursor.col += s.matchedLength;
-			exposeFound( cursor, s.matchedLength );
-			return;
-		} else {
-			if( !(s.flags & SConfig::sfFinished) ) {
-				_continue = askContinue( !(s.flags & SConfig::sfBackward), false, 0 );
-				continueSearch();
-			} else {
-				// wrapped
-				KMessageBox::sorry( view(),
-				    i18n("Search string '%1' not found!")
-				         .arg( KStringHandler::csqueeze( searchFor ) ),
-				    i18n("Find"));
-			}
-		}
-	} while( _continue );
+	if ( ((KateDocument*)doc())->doSearch(s,searchFor)) { // FIXME
+		exposeFound( s.cursor, s.matchedLength );
+		if( !(s.flags & SConfig::sfBackward) )
+			s.cursor.col += s.matchedLength;
+	} else if( !(s.flags & SConfig::sfFinished) ) {
+		continueSearch();
+		if( askContinue( !(s.flags & SConfig::sfBackward), false, 0 ) )
+			findAgain();
+	} else {
+		KMessageBox::sorry( view(),
+		    i18n("Search string '%1' not found!")
+		         .arg( KStringHandler::csqueeze( searchFor ) ),
+		    i18n("Find"));
+	}
 }
 
 void KateSearch::replaceAgain()
@@ -233,96 +226,73 @@ void KateSearch::replaceAgain()
 	}
 }
 
-void KateSearch::doReplaceAction(int result, bool found) {
-  int rlen;
-  bool started;
-
-  QString searchFor = s_searchList.first();
-  QString replaceWith = s_replaceList.first();
-  rlen = replaceWith.length();
-
-  switch (result) {
-    case srYes: //yes
-      doc()->removeText (s.cursor.line, s.cursor.col, s.cursor.line, s.cursor.col + s.matchedLength);
-      doc()->insertText (s.cursor.line, s.cursor.col, replaceWith);
-      replaces++;
-
-      if (!(s.flags & SConfig::sfBackward))
-            s.cursor.col += rlen;
-          else
-          {
-            if (s.cursor.col > 0)
-              s.cursor.col--;
-            else
-            {
-              s.cursor.line--;
-
-              if (s.cursor.line >= 0)
-              {
-                s.cursor.col = doc()->lineLength(s.cursor.line);
-              }
-            }
-          }
-
-      break;
-    case srNo: //no
-      if (!(s.flags & SConfig::sfBackward))
-            s.cursor.col += s.matchedLength;
-          else
-          {
-            if (s.cursor.col > 0)
-              s.cursor.col--;
-            else
-            {
-              s.cursor.line--;
-
-              if (s.cursor.line >= 0)
-              {
-                s.cursor.col = doc()->lineLength(s.cursor.line);
-              }
-            }
-          }
-     
-      break;
-    case srAll: //replace all
-      do {
-        started = false;
-	// FIXME
-        while (found || ((KateDocument*)doc())->doSearch(s,searchFor)) {
-          if (!started) {
-            found = false;
-            started = true;
-          }
-          doc()->removeText (s.cursor.line, s.cursor.col, s.cursor.line, s.cursor.col + s.matchedLength);
-          doc()->insertText (s.cursor.line, s.cursor.col, replaceWith);
-          replaces++;
-
-          if (!(s.flags & SConfig::sfBackward))
-            s.cursor.col += rlen;
-          else
-          {
-            if (s.cursor.col > 0)
-              s.cursor.col--;
-            else
-            {
-              s.cursor.line--;
-
-              if (s.cursor.line >= 0)
-              {
-                s.cursor.col = doc()->lineLength(s.cursor.line);
-              }
-            }
-          }
-
-        }
-      } while (askReplaceEnd());
-      return;
-    case srCancel: //cancel
-      return;
-    default:
-      break;
-  }
-
+void KateSearch::doReplaceAction( int result, bool found )
+{
+	QString searchFor = s_searchList.first();
+	QString replaceWith = s_replaceList.first();
+	
+	switch( result ) {
+	case srYes:
+		doc()->removeText( s.cursor.line, s.cursor.col,
+		                   s.cursor.line, s.cursor.col + s.matchedLength );
+		doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
+		replaces++;
+		if( !(s.flags & SConfig::sfBackward) ) {
+			s.cursor.col += replaceWith.length();
+		} else if( s.cursor.col > 0 ) {
+			s.cursor.col--;
+		} else {
+			s.cursor.line--;
+			if( s.cursor.line >= 0 ) {
+				s.cursor.col = doc()->lineLength( s.cursor.line );
+			}
+		}
+		break;
+	
+	case srNo:
+		if( !(s.flags & SConfig::sfBackward) ) {
+			s.cursor.col += s.matchedLength;
+		} else if (s.cursor.col > 0) {
+			s.cursor.col--;
+		} else {
+			s.cursor.line--;
+			if (s.cursor.line >= 0) {
+				s.cursor.col = doc()->lineLength(s.cursor.line);
+			}
+		}
+		break;
+		
+	case srAll:
+		do {
+			bool started = false;
+			while( found || ((KateDocument*)doc())->doSearch(s,searchFor) ) { // FIXME
+				if (!started) {
+					found = false;
+					started = true;
+				}
+				doc()->removeText( s.cursor.line, s.cursor.col,
+				                   s.cursor.line, s.cursor.col + s.matchedLength );
+				doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
+				replaces++;
+				if (!(s.flags & SConfig::sfBackward)) {
+					s.cursor.col += replaceWith.length();
+				} else if (s.cursor.col > 0) {
+					s.cursor.col--;
+				} else {
+					s.cursor.line--;
+					if (s.cursor.line >= 0) {
+						s.cursor.col = doc()->lineLength(s.cursor.line);
+					}
+				}
+			}
+		} while (askReplaceEnd());
+		return;
+	case srCancel:
+		return;
+	default:
+		break;
+	}
+	
 	do {
 		if ( ((KateDocument*)doc())->doSearch(s,searchFor)) { // FIXME
 			exposeFound( s.cursor, s.matchedLength );
@@ -383,13 +353,13 @@ void KateSearch::continueSearch()
 }
 
 void KateSearch::replaceSlot() {
-  doReplaceAction(replacePrompt->result(),true);
+	doReplaceAction(replacePrompt->result(),true);
 }
 
 void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 {
-  view()->setCursorPositionReal( cursor.line, cursor.col + slen );
-  doc()->setSelection( cursor.line, cursor.col, cursor.line, cursor.col + slen );
+	view()->setCursorPositionReal( cursor.line, cursor.col + slen );
+	doc()->setSelection( cursor.line, cursor.col, cursor.line, cursor.col + slen );
 }
 
 // vim: noet ts=2

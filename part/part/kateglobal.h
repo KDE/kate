@@ -28,13 +28,6 @@ class KateTextCursor
     int line;
 };
 
-class KateLineRange
-{
-  public:
-    int start;
-    int end;
-};
-
 #endif
 
 

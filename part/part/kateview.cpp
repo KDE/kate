@@ -80,12 +80,17 @@
 #include "kateiconborder.h"
 #include "kateexportaction.h"
 
-
-
-
+class KateLineRange
+{
+  public:
+    int start;
+    int end;
+};
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
 {
+  setBackgroundMode(NoBackground);
+
   waitForPreHighlight=0;
   myView = view;
   myDoc = doc;
@@ -93,18 +98,26 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(
   iconBorderWidth  = 16;
   iconBorderHeight = 800;
 
+  numLines = 64;
+  lineRanges = new KateLineRange[numLines];
+
+  for (uint z = 0; z < numLines; z++)
+  {
+    lineRanges[z].start = 0xffffff;
+    lineRanges[z].end = -2;
+  }
+
+  maxLen = 0;
+  startLine = 0;
+  endLine = -1;
+
   QWidget::setCursor(ibeamCursor);
-  setBackgroundMode(NoBackground);
   KCursor::setAutoHideCursor( this, true, true );
 
   setFocusPolicy(StrongFocus);
 
   xScroll = new QScrollBar(QScrollBar::Horizontal,myView);
   yScroll = new QScrollBar(QScrollBar::Vertical,myView);
-  connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
-  connect(yScroll,SIGNAL(valueChanged(int)),SLOT(changeYPos(int)));
-
-  connect( doc, SIGNAL (preHighlightChanged(uint)),this,SLOT(slotPreHighlightUpdate(uint)));
 
   xPos = 0;
   yPos = 0;
@@ -121,13 +134,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(
   cXPos = 0;
   cOldXPos = 0;
 
-  startLine = 0;
-  endLine = -1;
-
   exposeCursor = false;
   updateState = 0;
-  numLines = 0;
-  lineRanges = 0L;
   newXPos = -1;
   newYPos = -1;
 
@@ -139,8 +147,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(
 
   setAcceptDrops(true);
   dragInfo.state = diNone;
-}
+  
+  connect(doc, SIGNAL (preHighlightChanged(uint)),this,SLOT(slotPreHighlightUpdate(uint)));
 
+  connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
+  connect(yScroll,SIGNAL(valueChanged(int)),SLOT(changeYPos(int)));
+}
 
 KateViewInternal::~KateViewInternal()
 {

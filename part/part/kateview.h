@@ -216,8 +216,8 @@ class KateViewInternal : public QWidget
 
     bool exposeCursor;
     int updateState;
-    int numLines;
-    KateLineRange *lineRanges;
+    uint numLines;
+    class KateLineRange *lineRanges;
     int newXPos;
     int newYPos;
 

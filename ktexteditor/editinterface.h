@@ -114,6 +114,14 @@ class EditInterface
   public:
     virtual void textChanged () = 0;
 
+#ifdef __GNUC__
+#warning "remove if on friday"
+#endif
+
+#if 0
+    virtual void charactersInteractivelyInserted(int ,int ,const QString&)=0; //line, col, characters if you don't support this, don't create a signal, just overload it.
+#endif
+
   /**
   * only for the interface itself - REAL PRIVATE
   */

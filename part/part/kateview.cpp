@@ -709,6 +709,9 @@ void KateViewInternal::center() {
   newXPos = 0;
   newYPos = cursor.line*myDoc->viewFont.fontHeight - height()/2;
   if (newYPos < 0) newYPos = 0;
+  // anders: don't move below document
+  uint ym = ( myDoc->numLines() * myDoc->viewFont.fontHeight ) - height();
+  if ( newYPos > ym ) newYPos = ym;
 }
 
 void KateViewInternal::updateView(int flags) {
@@ -1512,7 +1515,7 @@ void KateView::setupActions()
   KStdAction::findNext(this, SLOT(findAgain()), ac);
   KStdAction::findPrev(this, SLOT(findPrev()), ac, "edit_find_prev");
   KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
-  new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");
+  new KAction(i18n("&Configure Editor..."), "configure", 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");
   setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
   myDoc->exportActionMenu (i18n("&Export"),ac,"file_export");
   KStdAction::selectAll(myDoc, SLOT(selectAll()), ac);

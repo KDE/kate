@@ -594,6 +594,16 @@ QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, 
     return QString ();
 
   QString s;
+  QTextStream ts( &s, IO_WriteOnly );
+  ts << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
+  ts << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
+  ts << "<head>" << endl;
+  ts << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
+  ts << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
+  // for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
+  ts << "</head>" << endl;
+
+  ts << "<body><pre>" << endl;
 
   if (startLine == endLine)
   {
@@ -608,10 +618,12 @@ QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, 
 	      
     KateView *firstview =  m_views.getFirst();
     KateRenderer *renderer = firstview->renderer();
-    return textLine->stringAsHtml(startCol, endCol-startCol, renderer);
+    textLine->stringAsHtml(startCol, endCol-startCol, renderer, &ts);
+    kdDebug() << "html is: " << s << endl;
   }
   else
   {
+
     KateView *firstview =  m_views.getFirst();
     KateRenderer *renderer = firstview->renderer();
 
@@ -622,22 +634,26 @@ QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, 
       if ( !blockwise )
       {
         if (i == startLine)
-          s.append (textLine->stringAsHtml(startCol, textLine->length()-startCol, renderer));
+          textLine->stringAsHtml(startCol, textLine->length()-startCol, renderer,&ts);
         else if (i == endLine)
-          s.append (textLine->stringAsHtml(0, endCol, renderer));
+          textLine->stringAsHtml(0, endCol, renderer,&ts);
         else
-          s.append (textLine->stringAsHtml(renderer));
+          textLine->stringAsHtml(renderer,&ts);
       }
       else
       {
-        s.append( textLine->stringAsHtml( startCol, endCol-startCol, renderer));
+        textLine->stringAsHtml( startCol, endCol-startCol, renderer,&ts);
       }
 
       if ( i < endLine )
-        s.append("<br/>\n");
+        ts << "<br/>\n";
     }
   }
+  ts << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
+  ts << "</pre></body>";
+  ts << "</html>";
 
+  kdDebug() << "html is: " << s << endl;
   return s;
 }
 

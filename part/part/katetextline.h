@@ -188,9 +188,9 @@ class KateTextLine : public KShared
      * @param renderer The katerenderer.  This will have the schema
      *                 information that describes how to render the
      *                 attributes.
-     * @return wanted valid-xml html substring
+     * @param outputStream A stream to write the html to 
      */
-    QString stringAsHtml(uint startCol, uint length, KateRenderer *renderer) const;
+    void stringAsHtml(uint startCol, uint length, KateRenderer *renderer, QTextStream *outputStream) const;
 
     /**
      * Gets the string a valid-xml html.
@@ -199,10 +199,10 @@ class KateTextLine : public KShared
      * @param renderer The katerenderer.  This will have the schema
      *                 information that describes how to render the
      *                 attributes.
-     * @return wanted valid-xml html substring
+     * @param outputStream A stream to write the html to 
      */
-    QString stringAsHtml(KateRenderer *renderer) const
-    { return stringAsHtml(0,m_text.length(),renderer);}
+    void stringAsHtml(KateRenderer *renderer, QTextStream *outputStream) const
+    { stringAsHtml(0,m_text.length(),renderer, outputStream);}
     
     /**
      * Gets a null terminated pointer to first non space char

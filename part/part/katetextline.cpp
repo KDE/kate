@@ -395,32 +395,91 @@ char *KateTextLine::restore (char *buf)
   return buf;
 }
 
-QString KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *renderer) const
+
+void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *renderer, QTextStream *outputStream) const
 {
-    
-  uchar oldindex = 0;
-  QString htmltext;
-  KateAttribute *newAttribute;
-  KateAttribute *oldAttribute;
-  oldAttribute = newAttribute = renderer->attribute(0);//CHECK attribute(0) is nothing.
-  for(int i=0; i< length; i++) {
-    uchar newindex = m_attributes[i+startCol];
-    if(newindex != oldindex) {
-      newAttribute = renderer->attribute(newindex);
-      if(newAttribute->bold() && !oldAttribute->bold())
-        htmltext += "<b>";
-      else if(!newAttribute->bold() && oldAttribute->bold())
-        htmltext += "</b>";
-      oldindex = newindex;
-      oldAttribute = newAttribute;
-    } //attribute hasn't changed, so no new tags needed.
-    htmltext += QStyleSheet::escape(QString(m_text.at(i+startCol)));
-    
-  }
-  if(newAttribute->bold())
-    htmltext += "</b>";
-  kdDebug() << "htmltext = " << htmltext << endl;
-  return htmltext;
+  // some variables :
+  bool previousCharacterWasBold = false;
+  bool previousCharacterWasItalic = false;
+  // when entering a new color, we'll close all the <b> & <i> tags,
+  // for HTML compliancy. that means right after that font tag, we'll
+  // need to reinitialize the <b> and <i> tags.
+  bool needToReinitializeTags = false;
+  QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
+  (*outputStream) << "<span style='color: #000000'>";
+
+  
+  // for each character of the line : (curPos is the position in the line)
+  for (uint curPos=startCol;curPos<(length+startCol);curPos++)
+    {
+      KateAttribute* charAttributes = 0;
+
+      charAttributes = renderer->attribute(attribute(curPos));
+
+      
+      //ASSERT(charAttributes != NULL);
+      // let's give the color for that character :
+      if ( (charAttributes->textColor() != previousCharacterColor))
+      {  // the new character has a different color :
+        // if we were in a bold or italic section, close it
+        if (previousCharacterWasBold)
+          (*outputStream) << "</b>";
+        if (previousCharacterWasItalic)
+          (*outputStream) << "</i>";
+
+        // close the previous font tag :
+        (*outputStream) << "</span>";
+        // let's read that color :
+        int red, green, blue;
+        // getting the red, green, blue values of the color :
+        charAttributes->textColor().rgb(&red, &green, &blue);
+        (*outputStream) << "<span style='color: #"
+              << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
+              << QString::number(red, 16) // html wants the hex value here (hence the 16)
+              << ( (green < 0x10)?"0":"")
+              << QString::number(green, 16)
+              << ( (blue < 0x10)?"0":"")
+              << QString::number(blue, 16)
+              << "'>";
+        // we need to reinitialize the bold/italic status, since we closed all the tags
+        needToReinitializeTags = true;
+      }
+      // bold status :
+      if ( (needToReinitializeTags && charAttributes->bold()) ||
+          (!previousCharacterWasBold && charAttributes->bold()) )
+        // we enter a bold section
+        (*outputStream) << "<b>";
+      if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->bold()) )
+        // we leave a bold section
+        (*outputStream) << "</b>";
+
+      // italic status :
+      if ( (needToReinitializeTags && charAttributes->italic()) ||
+           (!previousCharacterWasItalic && charAttributes->italic()) )
+        // we enter an italic section
+        (*outputStream) << "<i>";
+      if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->italic()) )
+        // we leave an italic section
+        (*outputStream) << "</i>";
+
+      // write the actual character :
+      (*outputStream) << QStyleSheet::escape(QString(getChar(curPos)));
+
+      // save status for the next character :
+      previousCharacterWasItalic = charAttributes->italic();
+      previousCharacterWasBold = charAttributes->bold();
+      previousCharacterColor = charAttributes->textColor();
+      needToReinitializeTags = false;
+    }
+  // Be good citizens and close our tags
+  if (previousCharacterWasBold)
+    (*outputStream) << "</b>";
+  if (previousCharacterWasItalic)
+    (*outputStream) << "</i>";
+
+  // HTML document end :
+  (*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
+
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

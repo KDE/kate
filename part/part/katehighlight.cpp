@@ -1459,8 +1459,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       }
     }
 
-    lastChar = text[offset1];
-
     // nothing found: set attribute of one char
     // anders: unless this context does not want that!
     if (!found)
@@ -1487,6 +1485,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     // dominik: do not change offset if we look ahead
     if (!(item && item->lookAhead))
     {
+      lastChar = text[offset1];
       offset1++;
       z++;
     }

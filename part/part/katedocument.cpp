@@ -1632,7 +1632,8 @@ void KateDocument::readSessionConfig(KConfig *config)
   QValueList<int> l = config->readIntListEntry("Bookmarks");
   if ( l.count() ) {
     for (uint i=0; i < l.count(); i++) {
-      if ( (int)numLines() < l[i] ) break;
+kdDebug(13020)<<"Bookmark at line "<<l[i]<<", number of lines is "<<lastLine()<<endl;
+//      if ( (int)numLines() <= l[i] ) break;
       setMark( l[i], KateDocument::markType01 );
     }
   }
@@ -3292,12 +3293,14 @@ void KateDocument::updateLines(int startLine, int endLine)
       memcpy(endCtx,textLine->getContext(),endCtxLen);
     }
     else { if (endCtx) {free(endCtx); endCtx=0;}}
-
+#ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"teststarti"<<endl;
-
+#endif
     m_highlight->doHighlight(ctxNum, ctxNumLen, textLine,line_continue);
 
+#ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"testendi"<<endl;
+#endif
 
     ctxNumLen = textLine->getContextLength();
     line_continue=textLine->getHlLineContinue();

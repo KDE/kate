@@ -47,6 +47,7 @@
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="set_confdlg" group="config_merge"/>
     <Action name="view_border"/>
+    <Action name="view_line_numbers"/>
     <Action name="set_highlight"/>
     <Action name="set_eol"/>
   </Menu>
@@ -61,6 +62,7 @@
   <Action name="edit_paste"/>
   <Separator />
   <Action name="view_border"/>
+  <Action name="view_line_numbers"/>
   <Action name="bookmarks" />
 </Menu>
 

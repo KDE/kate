@@ -153,37 +153,67 @@ const char*ddd_xpm[]={
 KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
     : QWidget(view), myView(view), myInternalView(internalView)
 {
+  lmbSetsBreakpoints = true; // anders: does NOTHING ?!
+  iconPaneWidth = 16; // FIXME: this should be shared by all instances!
   lmbSetsBreakpoints = true;
+  setFont( myView->doc()->getFont(KateDocument::ViewFont) ); // for line numbers
+  cachedLNWidth = 7 + fontMetrics().width(QString().setNum(myView->doc()->numLines()));
+  linesAtLastCheck = myView->myDoc->numLines();
 }
 
 KateIconBorder::~KateIconBorder()
 {
 }
 
+int KateIconBorder::width()
+{
+  int w = 0;
+  if (myView->iconBorderStatus & Icons)
+    w += iconPaneWidth;
+  if (myView->iconBorderStatus & LineNumbers) {
+    if ( linesAtLastCheck != myView->doc()->numLines() ) {
+      cachedLNWidth = 7 + fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
+      linesAtLastCheck = myView->myDoc->numLines();
+    }
+    w += cachedLNWidth;
+  }
+  return w;
+}
+
+
 void KateIconBorder::paintLine(int i)
 {
-  if (!myView->myIconBorder) return;
+  if ( myView->iconBorderStatus == None ) return;
+  if ( (uint)i > myView->myDoc->numLines() ) return;
 
+//kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
   QPainter p(this);
 
-    int fontHeight = myView->myDoc->viewFont.fontHeight;
-    int y = i*fontHeight - myInternalView->yPos;
-    p.fillRect(0, y, myInternalView->iconBorderWidth-2, fontHeight, colorGroup().background());
-    p.setPen(white);
-    p.drawLine(myInternalView->iconBorderWidth-2, y, myInternalView->iconBorderWidth-2, y + fontHeight);
-    p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine(myInternalView->iconBorderWidth-1, y, myInternalView->iconBorderWidth-1, y + fontHeight);
+  int fontHeight = myView->myDoc->viewFont.fontHeight;
+  int y = i*fontHeight - myInternalView->yPos;
+  int lnX = 0;
 
-    if (i > myView->myDoc->lastLine())
-      return;
+  // icon pane
+  if ( (myView->iconBorderStatus & Icons) ) {
+    p.fillRect(0, y, iconPaneWidth-2, fontHeight, colorGroup().background());
+    p.setPen(white);
+    p.drawLine(iconPaneWidth-2, y, iconPaneWidth-2, y + fontHeight);
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine(iconPaneWidth-1, y, iconPaneWidth-1, y + fontHeight);
 
     uint mark = myView->myDoc->mark (i);
-    if (mark == 0)
-      return;
-
     if (mark&KateDocument::markType01)
         p.drawPixmap(2, y, QPixmap(bookmark_xpm));
+    lnX += iconPaneWidth;
+  }
 
+  // line number
+  if ( (myView->iconBorderStatus & LineNumbers) && i < myView->doc()->numLines() ) {
+    p.fillRect( lnX, y, width()-2, fontHeight, colorGroup().light() );
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine( width()-1, y, width()-1, y + fontHeight );
+      p.drawText( lnX + 1, y, width()-lnX-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg(i+1) );
+  }
          /*
     if ((line->breakpointId() != -1)) {
         if (!line->breakpointEnabled())
@@ -200,47 +230,71 @@ void KateIconBorder::paintLine(int i)
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
-  if (!myView->myIconBorder)
+
+  if (myView->iconBorderStatus == None)
     return;
 
-  int lineStart = 0;
-  int lineEnd = 0;
-
-  QRect updateR = e->rect();
-
-  // anders: drawing the background pr line is PAINFULLY slooow!!
-  QPainter p(this);
-
-  p.fillRect(0, updateR.y(), myInternalView->iconBorderWidth-2, updateR.height(), colorGroup().background());
-  p.setPen(white);
-  p.drawLine(myInternalView->iconBorderWidth-2, updateR.y(), myInternalView->iconBorderWidth-2, updateR.height());
-  p.setPen(QColor(colorGroup().background()).dark());
-  p.drawLine(myInternalView->iconBorderWidth-1, updateR.y(), myInternalView->iconBorderWidth-1, updateR.height());
-
-
-
   KateDocument *doc = myView->doc();
-  int h = doc->viewFont.fontHeight;
-  int yPos = myInternalView->yPos;
-
-  if (h)
-  {
-    lineStart = (yPos + updateR.y()) / h;
-    // anders: why paint below what is visible???
-    int vl = (myView->myViewInternal->height()-4)+1; // number of lines the view can display +1 (to compensate for half lines)
-    lineEnd = QMAX(((yPos + updateR.y() + updateR.height()) / h), QMIN(vl,(int)doc->numLines()));
+  if ( myView->iconBorderStatus & LineNumbers && linesAtLastCheck != doc->numLines() ) {
+    cachedLNWidth = 7 + fontMetrics().width( QString().setNum( doc->numLines()) );
+    linesAtLastCheck = doc->numLines();
+    resize( width(), height() );
+    return; // we get a new paint event at resize
   }
 
-  for(int i = lineStart; i <= lineEnd; ++i)
-    //paintLine(i);
-    // anders: the paintLine function is SLOW!!!
-    if ( myView->myDoc->mark(i) & KateDocument::markType01 )
-      p.drawPixmap(2, (i - lineStart)*h, QPixmap(bookmark_xpm));
+  uint lineStart = 0; // first line to paint
+  uint lineEnd = 0;   // last line to paint
+  uint lnX = 0;       // line numbers X position
+
+  QRect ur = e->rect();
+
+  int h = fontMetrics().height();
+  int yPos = myInternalView->yPos;
+  lineStart = ( yPos + ur.top() ) / h;
+  // number of lines the rect can display +1 (to compensate for half lines)
+  uint vl = ( ur.height() / h ) + 1;
+  lineEnd = QMIN( lineStart + vl, doc->numLines() );
+  //kdDebug()<<"Painting lines: "<<lineStart<<" - "<<lineEnd<<endl;
+
+  QPainter p(this);
+  // paint the background of the icon pane if required
+  if ( myView->iconBorderStatus & Icons ) {
+    p.fillRect( 0, 0, iconPaneWidth-2, height(), colorGroup().background() );
+    p.setPen( white );
+    p.drawLine( iconPaneWidth-2, 0, iconPaneWidth-2, height() );
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine( iconPaneWidth-1, 0, iconPaneWidth-1, height() );
+    lnX += iconPaneWidth;
+  }
+  // paint the background of the line numbers pane if required
+  if ( myView->iconBorderStatus & LineNumbers ) {
+    p.fillRect( lnX, 0, width()-2, height(), colorGroup().light() );
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine(width()-1, 0, width()-1, height());
+  }
+
+  QString s;             // line number
+  int adj = yPos%h;      // top line may be obscured
+  for( uint i = lineStart; i <= lineEnd; ++i ) {
+    // paint icon if required
+    if (myView->iconBorderStatus & Icons) {
+      if ( doc->mark(i) & KateDocument::markType01 )
+        p.drawPixmap(2, (i - lineStart)*h - adj, QPixmap(bookmark_xpm));
+    }
+    // paint line number if required
+    if (myView->iconBorderStatus & LineNumbers) {
+      s.setNum( i );
+      p.drawText( lnX + 1, (i-lineStart-1)*h - adj, width()-lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
+    }
+  }
 }
 
 
 void KateIconBorder::mousePressEvent(QMouseEvent* e)
 {
+    // return if the event is in linenumbers pane
+    if ( !myView->iconBorderStatus & Icons || e->x() > iconPaneWidth )
+      return;
     myInternalView->placeCursor( 0, e->y(), 0 );
 
     uint cursorOnLine = (e->y() + myInternalView->yPos) / myView->myDoc->viewFont.fontHeight;

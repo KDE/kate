@@ -35,7 +35,9 @@ public:
     KateIconBorder(KateView *view, class KateViewInternal *internalView);
     ~KateIconBorder();
 
+    enum Status { None=0, Icons=1, LineNumbers=2 };
     void paintLine(int i);
+    int width();
 
 protected:
     void paintEvent(QPaintEvent* e);
@@ -46,5 +48,8 @@ private:
     KateView *myView;
     class KateViewInternal *myInternalView;
     bool lmbSetsBreakpoints;
+    int iconPaneWidth;
+    int cachedLNWidth;
+    uint linesAtLastCheck; // only calculate width if number of lines has changed
 };
 #endif

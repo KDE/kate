@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -99,8 +99,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   myView = view;
   myDoc = doc;
 
-  iconBorderWidth  = 16;
-  iconBorderHeight = 800;
+//  iconBorderWidth  = 16;
+//  iconBorderHeight = 800;
 
   numLines = 64;
   lineRanges = new KateLineRange[numLines];
@@ -255,6 +255,7 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())
         myDoc->removeSelectedText();
       else myDoc->backspace(c.cursor.line, c.cursor.col);
+      if ((uint)c.cursor.line >= myDoc->lastLine()) leftBorder->update();
       return;
     case KateView::cmKillLine:
       myDoc->killLine(c);
@@ -536,7 +537,7 @@ void KateViewInternal::changeYPos(int p) {
   if (QABS(dy) < height())
   {
     scroll(0, dy);
-    leftBorder->scroll(0, dy);
+    leftBorder->repaint();//scroll(0, dy);
   }
   else
     update();
@@ -733,7 +734,7 @@ void KateViewInternal::updateView(int flags) {
   int scrollbarWidth = style().scrollBarExtent().width();
   int bw = 0; // width of borders
 
-  if (flags & KateView::ufDocGeometry)
+  if (flags & KateView::ufDocGeometry || ! maxLen )
   {
     maxLen = 0;
 
@@ -750,11 +751,13 @@ void KateViewInternal::updateView(int flags) {
       maxLen = maxLen + 8;
     }
   }
-
+//kdDebug()<<"windest line to draw is "<<maxLen<<" px"<<endl;
   if (exposeCursor || flags & KateView::ufDocGeometry) {
     emit myView->cursorPositionChanged();
   } else {
-    if (updateState == 0 && newXPos < 0 && newYPos < 0) return;
+    // anders: I stay for KateView::ufLeftBorder, to get xcroll updated when border elements
+    // display change.
+    if ( updateState == 0 && newXPos < 0 && newYPos < 0 && !( flags&KateView::ufLeftBorder ) ) return;
   }
 
   if (cursorTimer) {
@@ -772,14 +775,13 @@ void KateViewInternal::updateView(int flags) {
   fontHeight = myDoc->viewFont.fontHeight;
   cYPos = cursor.line*fontHeight;
 
-  if (myView->myIconBorder) bw += iconBorderWidth;
-
+  bw = leftBorder->width();
   z = 0;
   do {
     w = myView->width() - 4;
     h = myView->height() - 4;
 
-    xMax = maxLen - w - bw;
+    xMax = maxLen - (w - bw);
     b = (xPos > 0 || xMax > 0);
     if (b) h -= scrollbarWidth;
     yMax = myDoc->textHeight() - h;
@@ -824,7 +826,7 @@ void KateViewInternal::updateView(int flags) {
 
     z++;
   } while (z < 2);
-
+//kdDebug()<<"x scroll, afaik: "<<xMax<<endl;
   if (xMax < xPos) xMax = xPos;
   if (yMax < yPos) yMax = yPos;
 
@@ -912,7 +914,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos) {
       myDoc->paintTextLine(paint, line, r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
       bitBlt(this, r->start - (xPos-2), line*h - yPos, drawBuffer, 0, 0,
         r->end - r->start, h);
-        leftBorder->paintLine(line);
+      leftBorder->paintLine(line);
     }
     r++;
   }
@@ -1224,7 +1226,6 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
     y += h;
   }
   paint.end();
-
   if (cursorOn) paintCursor();
   if (bm.eXPos > bm.sXPos) paintBracketMark();
 }
@@ -1232,7 +1233,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
 void KateViewInternal::resizeEvent(QResizeEvent *)
 {
   drawBuffer->resize (width(), myDoc->viewFont.fontHeight);
-  leftBorder->resize(iconBorderWidth, height());
+  leftBorder->resize(leftBorder->width(), height());
 }
 
 void KateViewInternal::timerEvent(QTimerEvent *e) {
@@ -1334,16 +1335,17 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   initCodeCompletionImplementation();
 
   active = false;
-  myIconBorder = false;
+  //myIconBorder = false;
+  iconBorderStatus = KateIconBorder::None;
   _hasWrap = false;
 
   myDoc = doc;
   myViewInternal = new KateViewInternal (this,doc);
   myViewInternal->move(2, 2);
   myViewInternal->leftBorder = new KateIconBorder(this, myViewInternal);
-  myViewInternal->leftBorder->setGeometry(2, 2, myViewInternal->iconBorderWidth, myViewInternal->iconBorderHeight);
+  myViewInternal->leftBorder->setGeometry(2, 2, myViewInternal->leftBorder->width(), myViewInternal->iconBorderHeight);
   myViewInternal->leftBorder->hide();
-
+  myViewInternal->leftBorder->installEventFilter( this );
   doc->addView( this );
 
   connect(myViewInternal,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(dropEventPassEmited(QDropEvent *)));
@@ -1484,6 +1486,11 @@ void KateView::setupActions()
                 myDoc->actionCollection(), "decFontSizes");
       new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()),
                                              myDoc->actionCollection(), "set_verticalSelect");
+      new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()),
+                                         myDoc->actionCollection(), "view_border");
+      new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()),
+                                         myDoc->actionCollection(), "view_line_numbers");
+      bookmarkMenu = new KActionMenu(i18n("&Marks"), myDoc->actionCollection(), "bookmarks");
     }
     else
     {
@@ -1503,6 +1510,11 @@ void KateView::setupActions()
                 actionCollection(), "decFontSizes");
       new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()),
                                              actionCollection(), "set_verticalSelect");
+      new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()),
+                                         actionCollection(), "view_border");
+      new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()),
+                                              actionCollection(), "view_line_numbers");
+      bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), actionCollection(), "bookmarks");
     }
 
   new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), actionCollection(), "edit_apply_wordwrap");
@@ -1516,11 +1528,11 @@ void KateView::setupActions()
     bookmarkToggle = new KAction(i18n("Toggle &Bookmark"), Qt::CTRL+Qt::Key_B, this, SLOT(toggleBookmark()), actionCollection(), "edit_bookmarkToggle");
     bookmarkClear = new KAction(i18n("Clear Bookmarks"), 0, myDoc, SLOT(clearMarks()), actionCollection(), "edit_bookmarksClear");
 
-    // connect settings menu aboutToshow
-    bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), actionCollection(), "bookmarks");
+    // connect bookmarks menu aboutToshow
     connect(bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
 
     new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), actionCollection(), "view_border");
+    new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()), actionCollection(), "view_line_numbers");
 
     // setup Tools menu
     KStdAction::spelling(myDoc, SLOT(spellcheck()), actionCollection());
@@ -2316,8 +2328,9 @@ void KateView::readSessionConfig(KConfig *config)
   cursor.col = config->readNumEntry("CursorX");
   cursor.line = config->readNumEntry("CursorY");
   myViewInternal->updateCursor(cursor);
-  myIconBorder = config->readBoolEntry("IconBorder on");
-  setIconBorder(myIconBorder);
+  iconBorderStatus = config->readNumEntry("IconBorderStatus");
+  setIconBorder( iconBorderStatus & KateIconBorder::Icons );
+  setLineNumbersOn( iconBorderStatus & KateIconBorder::LineNumbers );
 }
 
 void KateView::writeSessionConfig(KConfig *config)
@@ -2326,7 +2339,7 @@ void KateView::writeSessionConfig(KConfig *config)
   config->writeEntry("YPos",myViewInternal->yPos);
   config->writeEntry("CursorX",myViewInternal->cursor.col);
   config->writeEntry("CursorY",myViewInternal->cursor.line);
-  config->writeEntry("IconBorder on", myIconBorder);
+  config->writeEntry("IconBorderStatus", iconBorderStatus );
 }
 
 int KateView::getEol() {
@@ -2453,6 +2466,8 @@ bool KateView::eventFilter (QObject *object, QEvent *event)
             return true;
           }
     }
+  if (object == myViewInternal->leftBorder && event->type() == QEvent::Resize)
+    updateIconBorder();
   return QWidget::eventFilter (object, event);
 }
 
@@ -2478,24 +2493,56 @@ void KateView::slotEditCommand ()
 
 void KateView::setIconBorder (bool enable)
 {
-  myIconBorder = enable;
+  if ( enable == iconBorderStatus & KateIconBorder::Icons )
+    return; // no change
+  if ( enable )
+    iconBorderStatus |= KateIconBorder::Icons;
+  else
+    iconBorderStatus &= ~KateIconBorder::Icons;
 
-  if (myIconBorder)
+  updateIconBorder();
+}
+
+void KateView::toggleIconBorder ()
+{
+  setIconBorder ( ! (iconBorderStatus & KateIconBorder::Icons) );
+}
+
+void KateView::setLineNumbersOn(bool enable)
+{
+  if (enable == iconBorderStatus & KateIconBorder::LineNumbers)
+    return; // no change
+
+  if (enable)
+    iconBorderStatus |= KateIconBorder::LineNumbers;
+  else
+    iconBorderStatus &= ~KateIconBorder::LineNumbers;
+
+  updateIconBorder();
+}
+
+void KateView::toggleLineNumbersOn()
+{
+  setLineNumbersOn( ! (iconBorderStatus & KateIconBorder::LineNumbers) );
+}
+
+// FIXME anders: move into KateIconBorder class
+void KateView::updateIconBorder()
+{
+  if ( iconBorderStatus != KateIconBorder::None )
   {
-    myViewInternal->move(myViewInternal->iconBorderWidth+2, 2);
     myViewInternal->leftBorder->show();
   }
   else
   {
     myViewInternal->leftBorder->hide();
-    myViewInternal->move(2, 2);
   }
+  myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),myViewInternal->leftBorder->height());
+  myViewInternal->resize(width()-4-myViewInternal->leftBorder->width(), myViewInternal->height());
+  myViewInternal->move(myViewInternal->leftBorder->width()+2, 2);
+  myViewInternal->updateView(ufLeftBorder);
 }
 
-void KateView::toggleIconBorder ()
-{
-  setIconBorder (!myIconBorder);
-}
 
 void KateView::gotoMark (KTextEditor::Mark *mark)
 {

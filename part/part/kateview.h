@@ -24,6 +24,7 @@
 #include "kateglobal.h"
 #include "kateviewhighlightaction.h"
 #include "katecodecompletion_iface_impl.h"
+#include "kateiconborder.h"
 
 #include "../interfaces/view.h"
 #include "../interfaces/document.h"
@@ -43,7 +44,7 @@ class KSelectAction;
 class QTextDrag;
 class KPrinter;
 class Highlight;
-class KateIconBorder;
+//class KateIconBorder;
 class KateDocument;
 class KateBrowserExtension;
 
@@ -105,7 +106,7 @@ class KateViewInternal : public QWidget
 
   private:
     uint waitForPreHighlight;
-    uint iconBorderWidth;
+    //uint iconBorderWidth;
     uint iconBorderHeight;
 
   private slots:
@@ -353,7 +354,8 @@ class KateView : public Kate::View
     KAction *editUndo, *editRedo, *bookmarkToggle, *bookmarkClear;
 
     KActionMenu *bookmarkMenu;
-    KToggleAction *viewBorder;
+//    KToggleAction *viewBorder;
+//    KToggleAction *viewLineNumbers;
     KRecentFilesAction *fileRecent;
     KSelectAction *setEndOfLine;
     Kate::ActionMenu *setHighlight;
@@ -531,7 +533,7 @@ public slots:
     void exposeFound(KateTextCursor &cursor, int slen, int flags, bool replace);
     void deleteReplacePrompt();
     bool askReplaceEnd();
-  
+
   private slots:
     void replaceSlot();
 
@@ -617,7 +619,9 @@ public slots:
     enum Update_flags {
      ufDocGeometry=1,
      ufUpdateOnScroll=2,
-     ufPos=4};
+     ufPos=4,
+     ufLeftBorder=8
+     };
 
 //cursor movement commands
     enum Cursor_commands
@@ -642,7 +646,8 @@ public slots:
 
   private:
     bool active;
-    bool myIconBorder;
+    //bool myIconBorder;// FIXME anders: remove
+    int iconBorderStatus;
     QPtrList<KTextEditor::Mark> list;
 
   public slots:
@@ -660,12 +665,18 @@ public slots:
   public slots:
     void slotEditCommand ();
     void setIconBorder (bool enable);
+    void setLineNumbersOn(bool enable);
     void toggleIconBorder ();
+    void toggleLineNumbersOn();
     void gotoMark (KTextEditor::Mark *mark);
     void toggleBookmark ();
 
+  private:
+    void updateIconBorder();
+
   public:
-    bool iconBorder() { return myIconBorder; } ;
+    bool iconBorder() { return /*myIconBorder;*/iconBorderStatus & KateIconBorder::Icons; } ;
+    bool lineNumbersOn() { return iconBorderStatus & KateIconBorder::LineNumbers; }
 
   private slots:
     void bookmarkMenuAboutToShow();

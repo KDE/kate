@@ -5,7 +5,9 @@
     <contexts>
        <context attribute="Normal Text" lineEndContext="#stay" name="normal">
 	 <StringDetect attribute="Comment" context="comment" String="&lt;!--"/>
-	 <StringDetect attribute="Keyword" context="javascript" String="&lt;SCRIPT&gt;" />
+	 <StringDetect attribute="Keyword" context="javascript_hook" String="&lt;SCRIPT"  insensitive="TRUE" />
+	 <StringDetect attribute="Keyword" context="CSS_hook" String="&lt;style" insensitive="TRUE" />
+
          <RegExpr attribute="Keyword" context="tagname" String="&lt;\s*\/?\s*[a-zA-Z0-9_]*" />
        </context>
 
@@ -27,9 +29,27 @@
 	 <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
        </context>
 
+       <context attribute="Identifier" lineEndContext="#stay" name="javascript_hook">
+         <DetectChar attribute="Keyword" context="javascript" char="&gt;"/>
+         <RegExpr attribute="Normal Text" context="values" String="\s*=\s*"/>
+       </context>
        <context attribute="Normal Text" lineEndContext="#stay" name="javascript">
+       <Detect2Chars attribute="Comment" char="/" char1="/" context="javascript_comment"/>
+        <StringDetect attribute="Keyword" context="#pop#pop" String="&lt;/SCRIPT&gt;" insensitive="TRUE" />
 	<IncludeRules context="##JavaScript"/>
-        <StringDetect attribute="Keyword" context="#pop" String="&lt;/SCRIPT&gt;" />	
+       </context>
+       <context attribute="Comment" lineEndContext="#pop" name="javascript_comment">
+        <StringDetect attribute="Keyword" context="#pop#pop#pop" String="&lt;/SCRIPT&gt;" insensitive="TRUE" />
+	<RegExpr attribute="Wrong Values" context="#stay" String="(FIXME|TODO)" />
+       </context>
+
+       <context attribute="Identifier" lineEndContext="#stay" name="CSS_hook">
+         <DetectChar attribute="Keyword" context="CSS" char="&gt;"/>
+         <RegExpr attribute="Normal Text" context="values" String="\s*=\s*"/>
+       </context>
+       <context attribute="Normal Text" lineEndContext="#stay" name="CSS">
+         <IncludeRules context="##CSS"/>
+	 <StringDetect attribute="Keyword" context="#pop#pop" String="&lt;/style&gt;" insensitive="TRUE" />
        </context>
     </contexts>
     <itemDatas>

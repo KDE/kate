@@ -3,7 +3,7 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
-<language name="JavaScript" version="1.03" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
+<language name="JavaScript" version="1.06" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
   <highlighting>
     <list name="keywords">
         <item> if </item>
@@ -31,7 +31,7 @@
         <item> typeof </item>
         <item> const </item>
         <item> default </item>
-	 </list>
+    </list>
     <list name="functions">
         <item> escape </item>
         <item> isFinite </item>
@@ -44,13 +44,13 @@
         <item> unescape </item>
         <item> untaint </item>
         <item> write </item>
-	 </list>
+        </list>
     <list name="objects">
         <item>Anchor</item>
         <item>Applet</item>
         <item>Area</item>
         <item>Array</item>
-		  <item>Boolean</item>
+        <item>Boolean</item>
         <item>Button</item>
         <item>Checkbox</item>
         <item>Date</item>
@@ -82,9 +82,9 @@
         <item>Textarea</item>
         <item>this</item>
         <item>Window</item>
-	 </list>
+        </list>
     <list name="math">
-		  <item> abs </item>
+        <item> abs </item>
         <item> acos </item>
         <item> asin </item>
         <item> atan </item>
@@ -109,38 +109,38 @@
         <item> SQRT2 </item>
         <item> tan </item>
     </list>
-	 <list name="events">
-		  <item>onAbort</item>
-		  <item>onBlur</item>
-		  <item>onChange</item>
-		  <item>onClick</item>
-		  <item>onError</item>
-		  <item>onFocus</item>
-		  <item>onLoad</item>
-		  <item>onMouseOut</item>
-		  <item>onMouseOver</item>
-		  <item>onReset</item>
-		  <item>onSelect</item>
-		  <item>onSubmit</item>
-		  <item>onUnload</item>
-	 </list>
-	 <list name="methods">
-		  <item>above</item>
-		  <item>action</item>
+    <list name="events">
+         <item>onAbort</item>
+         <item>onBlur</item>
+         <item>onChange</item>
+         <item>onClick</item>
+         <item>onError</item>
+         <item>onFocus</item>
+         <item>onLoad</item>
+         <item>onMouseOut</item>
+         <item>onMouseOver</item>
+         <item>onReset</item>
+         <item>onSelect</item>
+         <item>onSubmit</item>
+         <item>onUnload</item>
+    </list>
+    <list name="methods">
+        <item>above</item>
+        <item>action</item>
         <item>alinkColor</item>
         <item>alert</item>
         <item>anchor</item>
         <item>anchors</item>
         <item>appCodeName</item>
         <item>applets</item>
- 		  <item>apply</item>
+        <item>apply</item>
         <item>appName</item>
         <item>appVersion</item>
-		  <item>argument</item>
-		  <item>arguments</item>
-		  <item>arity</item>
-		  <item>availHeight</item>
-		  <item>availWidth</item>
+        <item>argument</item>
+        <item>arguments</item>
+        <item>arity</item>
+        <item>availHeight</item>
+        <item>availWidth</item>
         <item>back</item>
         <item>background</item>
         <item>below</item>
@@ -400,85 +400,85 @@
         <keyword attribute="Math" context="#stay" String="math" />
         <keyword attribute="Events" context="#stay" String="events" />
         <keyword attribute="Data Type" context="#stay" String="methods" />
-        <Float attribute="Float" context="#stay">
-          <AnyChar String="fF" attribute="Float" context="#stay"/>
-        </Float>
-        <HlCOct attribute="Octal" context="#stay"/>
-        <HlCHex attribute="Hex" context="#stay"/>
-        <Int attribute="Decimal" context="#stay">
-          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
-        </Int>
-        <HlCChar attribute="Char" context="#stay"/>
+        <Float attribute="Float" context="#stay" />
+        <Int attribute="Decimal" context="#stay" />
         <DetectChar attribute="String" context="String" char="&quot;"/>
-        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
-        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="String" context="String 1" char="'"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Multi/inline Comment" char="/" char1="*" beginRegion="Comment"/>
+        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\s*[=?:]\s*" />
+        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\(\s*" />
+	<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-        <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#"/>
       </context>
+
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#stay"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+      <context attribute="String Char" lineEndContext="#pop" name="String 1">
+        <LineContinue attribute="String" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <DetectChar attribute="String Char" context="#pop" char="'"/>
+      </context>
+
+      <context attribute="Comment" lineEndContext="#pop" name="Comment">
         <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
       </context>
-      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
+      <context attribute="Comment" lineEndContext="#stay" name="Multi/inline Comment">
         <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
-      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
-        <LineContinue attribute="Preprocessor" context="#stay"/>
-        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
-        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
-        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
-        <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*"/>
+
+      <context attribute="Regular Expression" lineEndContext="#stay" name="Regular Expression">
+        <RegExpr attribute="Regular Expression" context="#pop#pop#pop" String="/[ig]{0,2}" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\{[\d, ]+\}" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[bB]" />
+        <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[nrtvfDdSsWw]" />
+        <DetectChar attribute="Pattern Character Class" context="(charclass caret first check)" char="[" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\." />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\$(?=/)" />
+        <AnyChar attribute="Pattern Internal Operator" context="#stay" String="?+*()|" />
       </context>
-      <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="(Internal regex catch)" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*" />
+        <RegExpr attribute="Regular Expression" context="#pop" String="//(?=;)" />
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/" />
+        <Detect2Chars attribute="Comment" context="Multi/inline Comment" char="/" char1="*" />
+        <DetectChar attribute="Regular Expression" context="(regex caret first check)" char="/" />
       </context>
-      <context attribute="Normal Text" lineEndcontext="String" name="Some Context"/>
-      <context attribute="Normal Text" lineEndcontext="Preprocessor" name="Some Context2"/>
-      <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
-        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
-        <RegExpr attribute="Preprocessor" context="#pop" String="#endif" />
-        <RegExpr attribute="Preprocessor" context="#pop" String="#else" />
+      <context attribute="Pattern Character Class" lineEndcontext="#stay" name="Regular Expression Character Class">
+        <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[\[\]]" />
+        <DetectChar attribute="Pattern Character Class" context="#pop#pop" char="]" />
       </context>
-      <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
-        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
-        <RegExpr attribute="Comment" context="#pop" String="#endif" />
+      <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(regex caret first check)" fallthrough="true" fallthroughContext="Regular Expression">
+        <DetectChar attribute="Pattern Internal Operator" context="Regular Expression" char="^" />
       </context>
+      <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(charclass caret first check)" fallthrough="true" fallthroughContext="Regular Expression Character Class">
+        <DetectChar attribute="Pattern Internal Operator" context="Regular Expression Character Class" char="^" />
+      </context>
+
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
-		<itemData name="Function" defStyleNum="dsKeyword" color="#0000FF" selColor="#00ffff" bold="0" italic="0"/>
-		<itemData name="Objects" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0"/>
-		<itemData name="Math" defStyleNum="dsKeyword" color="#DBA716" selColor="#00ffff" bold="0" italic="0"/>
-		<itemData name="Events" defStyleNum="dsKeyword" color="#F766D5" selColor="#00ffff" bold="0" italic="0"/>
+      <itemData name="Function" defStyleNum="dsKeyword" color="#0000FF" selColor="#00ffff" bold="0" italic="0"/>
+      <itemData name="Objects" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0"/>
+      <itemData name="Math" defStyleNum="dsKeyword" color="#DBA716" selColor="#00ffff" bold="0" italic="0"/>
+      <itemData name="Events" defStyleNum="dsKeyword" color="#F766D5" selColor="#00ffff" bold="0" italic="0"/>
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
-      <itemData name="Octal"        defStyleNum="dsBaseN"/>
-      <itemData name="Hex"          defStyleNum="dsBaseN"/>
       <itemData name="Float"        defStyleNum="dsFloat"/>
       <itemData name="Char"         defStyleNum="dsChar"/>
       <itemData name="String"       defStyleNum="dsString"/>
       <itemData name="String Char"  defStyleNum="dsChar"/>
       <itemData name="Comment"      defStyleNum="dsComment"/>
       <itemData name="Symbol"       defStyleNum="dsNormal"/>
-      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
-      <itemData name="Prep. Lib"    defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
+      <itemData name="Regular Expression" defStyleNum="dsOthers"   />
+      <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
+      <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
     </itemDatas>
   </highlighting>
   <general>

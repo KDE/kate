@@ -20,7 +20,7 @@
 
 	<context name="1:XMLDecl Version" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Attribute" context="2:XMLDecl Version Eq" String="\s*version\s*"/>
-	  <RegExpr attribute="Doctype Declaration" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" String="\s+" context="#stay"/>
 	</context>
 
 	<context name="2:XMLDecl Version Eq" attribute="Error" lineEndContext="5:XMLDecl Encoding Eq">

@@ -417,6 +417,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_icons=new QCheckBox(i18n("Show &icon border"),this);
 
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
+	m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), this );
 	m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
         m_bmSort->setRadioButtonExclusive( true );
         m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
@@ -433,6 +434,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   blay->addWidget(m_line,0);
 	blay->addWidget(m_icons,0);
 	blay->addWidget(m_folding,0);
+	blay->addWidget(m_collapseTopLevel,0);
         blay->addWidget( m_bmSort, 0 );
 	blay->addStretch(1000);
 
@@ -463,6 +465,7 @@ void ViewDefaultsConfig::apply ()
   m_doc->m_lineNumbers = m_line->isChecked();
   m_doc->m_iconBar = m_icons->isChecked();
   m_doc->m_foldingBar = m_folding->isChecked();
+	m_doc->m_collapseTopLevelOnLoad = m_collapseTopLevel->isChecked();
   m_doc->m_bookmarkSort = m_bmSort->id (m_bmSort->selected());
 }
 
@@ -473,6 +476,7 @@ void ViewDefaultsConfig::reload ()
   m_line->setChecked(m_doc->m_lineNumbers);
   m_icons->setChecked(m_doc->m_iconBar);
   m_folding->setChecked(m_doc->m_foldingBar);
+	m_collapseTopLevel->setChecked( m_doc->m_collapseTopLevelOnLoad );
   m_bmSort->setButton( m_doc->m_bookmarkSort  );
 }
 

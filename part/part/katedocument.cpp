@@ -117,6 +117,7 @@ uint KateDocument::myWordWrapAt = 80;
 
 bool KateDocument::m_dynWordWrap = true;
 bool KateDocument::m_lineNumbers = false;
+bool KateDocument::m_collapseTopLevelOnLoad = false;
 bool KateDocument::m_iconBar = false;
 bool KateDocument::m_foldingBar = true;
 int KateDocument::m_bookmarkSort = 0;
@@ -1822,6 +1823,7 @@ void KateDocument::readConfig(KConfig *config)
   m_lineNumbers = config->readBoolEntry( "Line Numbers", m_lineNumbers );
   m_iconBar = config->readBoolEntry( "Icon Bar", m_iconBar );
   m_foldingBar = config->readBoolEntry( "Folding Markers", m_foldingBar );
+	m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
   m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
   m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
@@ -1879,6 +1881,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry( "Line Numbers", m_lineNumbers );
   config->writeEntry( "Icon Bar", m_iconBar );
   config->writeEntry( "Folding Markers", m_foldingBar );
+	config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
   config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   config->writeEntry( "Word Wrap Marker", m_wordWrapMarker );
   config->writeEntry( "Auto Center Lines", m_autoCenterLines );
@@ -2166,8 +2169,6 @@ bool KateDocument::printDialog ()
      bool needWrap = true;
      bool pageStarted = true;
 
-//     kdDebug(13020)<<"pdm width: "<<pdmWidth<<endl;
-kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer::PrintFont).myFont.toString()<<endl;
      // Text Settings Page
      bool selectionOnly = ( hasSelection() &&
                            ( printer.option("app-kate-printselection") == "true" ) );
@@ -2418,15 +2419,6 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          if ( useFooter )
            _ph -= innerMargin;
          int _lpp = _ph / renderer.fontHeight();
-//          kdDebug(13020)<<"... Printer Pixel Hunt: "<<
-//                 "\n- printer heignt:    "<<pdm.height()<<
-//                 "\n- max height:        "<<maxHeight<<
-//                 "\n- header Height:     "<<headerHeight<<
-//                 "\n- footer height:     "<<footerHeight<<
-//                 "\n- inner margin:      "<<innerMargin<<
-//                 "\n- contents height:   "<<_ph<<
-//                 "\n- print font height: "<<KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight<<endl;
-         kdDebug(13020)<<"...Lines pr page is "<<_lpp<<endl;
          uint _lt = 0, _c=0;
          // add space for guide if required
          if ( useGuide )
@@ -2449,9 +2441,8 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
            }
          }
          if ( _lt ) _pages++; // last page
-//         kdDebug(13020)<<"... Number of pages to print: "<<_pages<<endl;
+
          // substitute both tag lists
-//         kdDebug(13020)<<"... lines total: "<<_c<<endl;
          QRegExp re("%P");
          QStringList::Iterator it;
          for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
@@ -2460,7 +2451,6 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
            (*it).replace( re, QString( "%1" ).arg( _pages ) );
        }
      } // end prepare block
-     kdDebug(13020)<<"lines should start at "<<xstart<<endl;
 
      /*
         On to draw something :-)
@@ -2471,8 +2461,6 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
        startCol = 0;
        endCol = 0;
        needWrap = true;
-
-       kdDebug(13020)<<"Starting real new line "<<lineCount<<endl;
 
        while (needWrap)
        {
@@ -2612,24 +2600,19 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
              ItemData *_d;
              int _cw = _w/guideCols;
              int _i(0);
-//      kdDebug()<<"guide cols: "<<guideCols<<endl;
+
              while ( ( _d = _it.current() ) != 0 )
              {
-//      kdDebug()<<"style: "<<_d->name<<", color:"<<attribute(_i)->col.name()<<endl;
                paint.setPen( attribute(_i)->textColor() );
                paint.setFont( attribute(_i)->font( renderer.currentFont() ) );
-//      kdDebug()<<"x: "<<( _x + ((_i%guideCols)*_cw))<<", y: "<<y<<", w: "<<_cw<<endl;
                paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, renderer.fontHeight(),
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
-//      kdDebug()<<"painted in rect: "<<_r.x()<<", "<<_r.y()<<", "<<_r.width()<<", "<<_r.height()<<endl;
                _i++;
                if ( _i && ! ( _i%guideCols ) ) y += renderer.fontHeight();
                ++_it;
              }
              if ( _i%guideCols ) y += renderer.fontHeight();// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
-//        kdDebug(13020)<<"DONE HL GUIDE! Starting to print from line "<<lineCount<<endl;
-//        kdDebug(13020)<<"max width for lines: "<<maxWidth<<endl;
            }
 
            pageStarted = false;
@@ -2643,13 +2626,11 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
                         lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
          }
-//        kdDebug(13020)<<"Calling textWidth( startCol="<<startCol<<", maxWidth="<<maxWidth<<", needWrap="<<needWrap<<")"<<endl;
          endCol = renderer.textWidth(buffer->line(lineCount), startCol, maxWidth, &needWrap);
-//         kdDebug(13020)<<"REAL WIDTH: " << pdmWidth << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" line length: "<< buffer->line(lineCount)->length()<< "; need Wrap: " << needWrap <<" !?"<<endl;
 
          if ( endCol < startCol )
          {
-           kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " !?"<<endl;
+           //kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " !?"<<endl;
            lineCount++;
            continue; // strange case...
                      // Happens if the line fits exactly.
@@ -2696,7 +2677,6 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          }
          else
          {
-//kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<", maxWidth: "<<maxWidth<<endl;
            startCol = endCol;
          }
 
@@ -2706,7 +2686,6 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
 
        lineCount++;
      } // done lineCount <= lastline
-//kdDebug(13020)<<"lines printed in total: "<<_count<<endl;
      return true;
   }
 
@@ -2772,6 +2751,10 @@ bool KateDocument::openFile()
 
   updateLines();
   updateViews();
+
+  // FIXME clean up this feature
+  if ( m_collapseTopLevelOnLoad )
+    foldingTree()->collapseToplevelNodes();
 
   emit fileNameChanged();
 

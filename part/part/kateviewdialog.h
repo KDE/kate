@@ -172,6 +172,7 @@ private:
 
   QCheckBox *m_line;
   QCheckBox *m_folding;
+  QCheckBox *m_collapseTopLevel;
   QCheckBox *m_icons;
   QCheckBox *m_dynwrap;
   QCheckBox *m_wwmarker;

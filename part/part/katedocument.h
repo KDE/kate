@@ -741,6 +741,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static bool m_foldingBar;
     static int m_bookmarkSort;
     static bool m_wordWrapMarker;
+		static bool m_collapseTopLevelOnLoad;
 
     static bool s_configLoaded;
 

@@ -468,6 +468,9 @@ bool KateDocument::clear()
 
 bool KateDocument::insertText( uint line, uint col, const QString &s )
 {
+  if (s.isEmpty())
+    return true;
+
   uint insertPos = col;
   uint len = s.length();
   QChar ch;
@@ -478,9 +481,6 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
   startCol = col;
   endLine = line;
   endCol = col;
-
-  if (s.isEmpty())
-    return true;
 
   bool b = editStart ();
 
@@ -608,7 +608,7 @@ uint KateDocument::numLines() const
 
 int KateDocument::lineLength ( uint line ) const
 {
-  return textLength(line); 
+  return textLength(line);
 }
 
 //
@@ -671,7 +671,7 @@ void KateDocument::editEnd ()
   {
     KateView *v = myViews.at(z);
 
-     if (v->cursorCacheChanged)
+    if (v->cursorCacheChanged)
       v->myViewInternal->updateCursor (v->cursorCache);
   }
 

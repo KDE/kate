@@ -61,7 +61,7 @@ class KateCursor : public Kate::Cursor
     bool setPosition ( uint line, uint col );
 
     bool insertText ( const QString& text );
-    
+
     bool removeText ( uint numberOfCharacters );
 
     QChar currentChar () const;
@@ -97,46 +97,46 @@ class KateFontMetrics : public QFontMetrics
 
       short *wa=warray[row];
 
-        if (!wa)
+      if (!wa)
       {
-                wa=warray[row]=new short[256];
-                for (int i=0; i<256; i++) wa[i]=-1;
+        wa=warray[row]=new short[256];
+        for (int i=0; i<256; i++) wa[i]=-1;
       }
       if (wa[cell]<0) wa[cell]=(short) QFontMetrics::width(c);
 
       return (int)wa[cell];
     }
-    
+
     int width(QString s) { return QFontMetrics::width(s); }
 };
 
 class FontStruct
 {
-    public:
+  public:
     FontStruct():myFont(KGlobalSettings::fixedFont()), myFontBold(KGlobalSettings::fixedFont()),
-                 myFontItalic(KGlobalSettings::fixedFont()), myFontBI(KGlobalSettings::fixedFont()),
-    		myFontMetrics (myFont), myFontMetricsBold (myFontBold), myFontMetricsItalic (myFontItalic), myFontMetricsBI
-                (myFontBI){;}
-    ~FontStruct(){;}
-    void updateFontData(int tabChars)
-	{
-  		int maxAscent, maxDescent;
-  		int tabWidth;
-  		maxAscent = myFontMetrics.ascent();
-		maxDescent = myFontMetrics.descent();
-                tabWidth = myFontMetrics.width(' ');
+        myFontItalic(KGlobalSettings::fixedFont()), myFontBI(KGlobalSettings::fixedFont()),
+        myFontMetrics (myFont), myFontMetricsBold (myFontBold), myFontMetricsItalic (myFontItalic),
+        myFontMetricsBI (myFontBI){;}
+  ~FontStruct(){;}
 
-               fontHeight = maxAscent + maxDescent + 1;
-               fontAscent = maxAscent;
-               m_tabWidth = tabChars*tabWidth;
-	};
+  void updateFontData(int tabChars)
+  {
+    int maxAscent, maxDescent;
+    int tabWidth;
+    maxAscent = myFontMetrics.ascent();
+    maxDescent = myFontMetrics.descent();
+    tabWidth = myFontMetrics.width(' ');
 
-              QFont myFont, myFontBold, myFontItalic, myFontBI;
-              KateFontMetrics myFontMetrics, myFontMetricsBold, myFontMetricsItalic, myFontMetricsBI;
-    	      int m_tabWidth;
-              int fontHeight;
-              int fontAscent;
+    fontHeight = maxAscent + maxDescent + 1;
+    fontAscent = maxAscent;
+    m_tabWidth = tabChars*tabWidth;
+  };
 
+  QFont myFont, myFontBold, myFontItalic, myFontBI;
+  KateFontMetrics myFontMetrics, myFontMetricsBold, myFontMetricsItalic, myFontMetricsBI;
+  int m_tabWidth;
+  int fontHeight;
+  int fontAscent;
 };
 
 //
@@ -144,18 +144,19 @@ class FontStruct
 //
 class KateDocument : public Kate::Document
 {
-    Q_OBJECT
-    friend class KateConfigDialog;
-    friend class KateViewInternal;
-    friend class KateView;
-    friend class KateIconBorder;
-    friend class KateUndoGroup;
-    friend class KateUndo;
-    friend class HlManager;
-    friend class ColorConfig;
+  Q_OBJECT
+  friend class KateConfigDialog;
+  friend class KateViewInternal;
+  friend class KateView;
+  friend class KateIconBorder;
+  friend class KateUndoGroup;
+  friend class KateUndo;
+  friend class HlManager;
+  friend class ColorConfig;
 
   public:
-    KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false, QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
+    KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false, 
+        QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
     ~KateDocument ();
 
 
@@ -273,7 +274,7 @@ class KateDocument : public Kate::Document
 
     uint undoSteps () const;
     void setUndoSteps ( uint steps );
-    
+
   private:
     //
     // some internals for undo/redo
@@ -296,8 +297,12 @@ class KateDocument : public Kate::Document
   // KTextEditor::SearchInterface stuff
   //
   public slots:
-    bool searchText (unsigned int startLine, unsigned int startCol, const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive = true, bool backwards = false);
-    bool searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards = false);
+    bool searchText (unsigned int startLine, unsigned int startCol, 
+        const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol,
+        unsigned int *matchLen, bool casesensitive = true, bool backwards = false);
+    bool searchText (unsigned int startLine, unsigned int startCol, 
+        const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, 
+        unsigned int *matchLen, bool backwards = false);
 
   //
   // KTextEditor::HighlightingInterface stuff
@@ -369,7 +374,7 @@ class KateDocument : public Kate::Document
 
     void setModified(bool);
     bool isModified() const;
-    
+
   //
   // Kate::Document stuff
   //
@@ -382,7 +387,7 @@ class KateDocument : public Kate::Document
     Kate::ConfigPage *keysConfigPage (QWidget *);
     Kate::ConfigPage *kSpellConfigPage (QWidget *);
     Kate::ConfigPage *hlConfigPage (QWidget *);
-    
+
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
 
@@ -508,7 +513,8 @@ class KateDocument : public Kate::Document
     int charWidth(KateTextCursor &cursor);
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
-    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
+    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, 
+        uint wrapsymwidth, WhichFont wf, bool *needWrap);
     uint textWidth(KateTextCursor &cursor);
     uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
     uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
@@ -557,8 +563,10 @@ class KateDocument : public Kate::Document
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
     void paintTextLine(QPainter &, uint line, int xStart, int xEnd, bool showTabs);
-    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs);
-    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf=ViewFont);
+    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int xStart, 
+        int xEnd, bool showTabs);
+    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, 
+        int xStart, int xEnd, bool showTabs,WhichFont wf=ViewFont);
 
     bool doSearch(SConfig &s, const QString &searchFor);
 
@@ -618,7 +626,7 @@ class KateDocument : public Kate::Document
     void setEncoding (QString e) { myEncoding = e; };
     QString encoding() { return myEncoding; };
 
-   public slots:
+  public slots:
     void setWordWrap (bool on);
     bool wordWrap () { return myWordWrap; };
 
@@ -666,17 +674,17 @@ class KateDocument : public Kate::Document
     // Search flags
     enum SearchFlags
     {
-     sfCaseSensitive=1,
-     sfWholeWords=2,
-     sfFromBeginning=4,
-     sfBackward=8,
-     sfSelected=16,
-     sfPrompt=32,
-     sfReplace=64,
-     sfAgain=128,
-     sfWrapped=256,
-     sfFinished=512,
-     sfRegularExpression=1024
+      sfCaseSensitive=1,
+      sfWholeWords=2,
+      sfFromBeginning=4,
+      sfBackward=8,
+      sfSelected=16,
+      sfPrompt=32,
+      sfReplace=64,
+      sfAgain=128,
+      sfWrapped=256,
+      sfFinished=512,
+      sfRegularExpression=1024
     };
 
     // result flags for katepart's internal dialogs

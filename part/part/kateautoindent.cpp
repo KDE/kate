@@ -132,6 +132,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
 {
   int parenOpen = 0;
   bool atLeastOne = false;
+  bool getNext = false;
 
   pos = doc->plainKateTextLine(begin.line())->firstChar();
 
@@ -147,7 +148,8 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
         if (!atLeastOne)
         {
           atLeastOne = true;
-          pos = begin.col();
+          getNext = true;
+          pos = begin.col() + 1;
         }
         parenOpen++;
       }
@@ -156,6 +158,11 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
         parenOpen--;
       }
     }
+    else if (getNext && !c.isSpace())
+    {
+      getNext = false;
+      pos = begin.col();
+    }
 
     if (atLeastOne && parenOpen <= 0)
       return true;
@@ -163,7 +170,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
     begin.moveForward(1);
   }
 
-  return false;
+  return (atLeastOne) ? false : true;
 }
 
 bool KateAutoIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const
@@ -322,6 +329,16 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
     if (lineEnd > 0 && textLine->getChar(lineEnd - 1) == '*')
       indent = findOpeningComment(line);
   }
+  else if (first == '#')
+  {
+    // c# regions
+    if (textLine->stringAtPos (firstChar, "#region") ||
+        textLine->stringAtPos (firstChar, "#endregion"))
+    {
+      KateDocCursor temp = line;
+      indent = calcIndent(temp, true);
+    }
+  }
   else
   {
     // Everything else ...
@@ -335,7 +352,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   }
 
   // Slightly faster if we don't indent what we don't have to
-  if (indent != measureIndent(line))
+  if (indent != measureIndent(line) || first == '}' || first == '{' || first == '#')
   {
     doc->removeText(line.line(), 0, line.line(), firstChar);
     if (indent > 0)
@@ -356,8 +373,7 @@ void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
       break;
   }
 
-//   qDebug(" +++ total: %dms", t.elapsed());
-  kdDebug()<<"+++ total: "<<t.elapsed()<<endl;
+  kdDebug(13000) << "+++ total: " << t.elapsed() << endl;
 }
 
 void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
@@ -381,7 +397,7 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 
 void KateCSmartIndent::processChar(QChar c)
 {
-  if (c != '}' && c != '{' && c != '/' && c != ':' && c != '#')
+  if (c != '}' && c != '{' && c != '/' && c != ':' && c != '#' && c != 'n')
     return;
 
   KateView *view = doc->activeView();
@@ -517,7 +533,15 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   // Braces take precedance over others ...
   textLine = doc->plainKateTextLine(cur.line());
   QChar lastChar = textLine->getChar (anchorPos);
-  //kdDebug() << "calcIndent lastChar '" << lastChar << "'" << endl;
+  int lastLine = cur.line();
+
+  if (lastChar == '#' || lastChar == '[')
+  {
+    // Never continue if # or [ is encountered at this point here
+    // A fail-safe really... most likely an #include, #region, or a c# attribute
+    continueIndent = 0;
+  }
+
   int openCount = 0;
   while (cur.validPosition() && cur < begin)
   {
@@ -538,6 +562,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
         openCount--;
 
       lastChar = tc;
+      lastLine = cur.line();
     }
   }
   if (openCount > 0) // Open braces override
@@ -560,15 +585,25 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   }
   else if (lastChar == ',')
   {
-    indent = continueIndent;
+    textLine = doc->plainKateTextLine(lastLine);
+    KateDocCursor start(lastLine, textLine->firstChar(), doc);
+    KateDocCursor finish(lastLine, textLine->lastChar(), doc);
+    uint pos = 0;
+
+    if (isBalanced(start, finish, QChar('('), QChar(')'), pos))
+      indent = anchorIndent;
+    else
+    {
+      // If we're below 48, go ahead and line them up
+      indent = ((pos < 48) ? pos : anchorIndent + (indentWidth * 2));
+    }
   }
-  else if (!lastChar.isNull() && anchorIndent != 0)
+  else if (!lastChar.isNull())
   {
-    indent = anchorIndent + continueIndent;
-  }
-  else if (!lastChar.isNull() && anchorIndent == 0)
-  {
-    indent = continueIndent;
+    if (anchorIndent != 0)
+      indent = anchorIndent + continueIndent;
+    else
+      indent = continueIndent;
   }
 
   return indent;
@@ -651,7 +686,7 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
   {
     allowSemi = isFor;
     if (openPos > 0)
-      return (openPos - textLine->firstChar()) + 1;
+      return (openPos - textLine->firstChar());
     else
       return indentWidth * 2;
   }

@@ -4277,6 +4277,13 @@ void KateDocument::isModOnHD(bool )
   }
 }
 
+class KateDocumentTmpMark
+{
+  public:
+    QString line;
+    KTextEditor::Mark mark;
+};
+
 void KateDocument::reloadFile()
 {
   if ( !url().isEmpty() )
@@ -4297,9 +4304,30 @@ void KateDocument::reloadFile()
         return;
     }
 
+    QValueList<KateDocumentTmpMark> tmp;
+
+    for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+    {
+      KateDocumentTmpMark m;
+
+      m.line = buffer->textLine (it.current()->line);
+      m.mark = *it.current();
+
+      tmp.append (m);
+    }
+
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
     KateDocument::openURL( url() );
+
+    for (uint z=0; z < tmp.size(); z++)
+    {
+      if (z < numLines())
+      {
+        if (buffer->textLine(tmp[z].mark.line) == tmp[z].line)
+          setMark (tmp[z].mark.line, tmp[z].mark.type);
+      }
+    }
 
     if (byUser)
       setHlMode (mode);

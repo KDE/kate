@@ -760,6 +760,13 @@ void KateViewConfig::setCmdLine (bool on)
 KateRendererConfig::KateRendererConfig ()
  :
    m_font (new FontStruct ()),
+   m_backgroundColor (0),
+   m_selectionColor (0),
+   m_highlightedLineColor (0),
+   m_highlightedBracketColor (0),
+   m_wordWrapMarkerColor (0),
+   m_tabMarkerColor (0),
+   m_iconBarColor (0),
    m_schemaSet (true),
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
@@ -965,6 +972,7 @@ void KateRendererConfig::setBackgroundColor (const QColor &col)
   configStart ();
 
   m_backgroundColorSet = true;
+  delete m_backgroundColor;
   m_backgroundColor = new QColor (col);
 
   configEnd ();
@@ -983,6 +991,7 @@ void KateRendererConfig::setSelectionColor (const QColor &col)
   configStart ();
 
   m_selectionColorSet = true;
+  delete m_selectionColor;
   m_selectionColor = new QColor (col);
 
   configEnd ();
@@ -1001,6 +1010,7 @@ void KateRendererConfig::setHighlightedLineColor (const QColor &col)
   configStart ();
 
   m_highlightedLineColorSet = true;
+  delete m_highlightedLineColor;
   m_highlightedLineColor = new QColor (col);
 
   configEnd ();
@@ -1019,6 +1029,7 @@ void KateRendererConfig::setHighlightedBracketColor (const QColor &col)
   configStart ();
 
   m_highlightedBracketColorSet = true;
+  delete m_highlightedBracketColor;
   m_highlightedBracketColor = new QColor (col);
 
   configEnd ();
@@ -1037,6 +1048,7 @@ void KateRendererConfig::setWordWrapMarkerColor (const QColor &col)
   configStart ();
 
   m_wordWrapMarkerColorSet = true;
+  delete m_wordWrapMarkerColor;
   m_wordWrapMarkerColor = new QColor (col);
 
   configEnd ();
@@ -1055,6 +1067,7 @@ void KateRendererConfig::setTabMarkerColor (const QColor &col)
   configStart ();
 
   m_tabMarkerColorSet = true;
+  delete m_tabMarkerColor;
   m_tabMarkerColor = new QColor (col);
 
   configEnd ();
@@ -1073,6 +1086,7 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
   configStart ();
 
   m_iconBarColorSet = true;
+  delete m_iconBarColor;
   m_iconBarColor = new QColor (col);
 
   configEnd ();

@@ -39,24 +39,6 @@ class KateIconBorder;
     none  =  0,
     right =  1
   };
-  
-class LineRange
-{
-  public:
-    LineRange();
-    
-    void clear();  
-  
-    int line;
-    int visibleLine;
-    int startCol;
-    int endCol;
-    int startX;
-    int endX;
-    bool dirty;
-    int viewLine;
-    bool wrap;
-};
 
 class KateViewInternal : public QWidget
 {
@@ -201,6 +183,7 @@ class KateViewInternal : public QWidget
     
     bool tagLine(const KateTextCursor& virtualCursor);
     bool tagLines(int start, int end, bool realLines = false );
+    bool tagLines(KateTextCursor start, KateTextCursor end, bool realCursors = false);
     void tagAll();
 
     void paintCursor();
@@ -263,7 +246,7 @@ class KateViewInternal : public QWidget
     // column scrollbar + x position
     //
     QScrollBar *m_columnScroll;
-    bool m_columnScrollChanged;
+    bool m_columnScrollDisplayed;
     int m_startX;
     int m_oldStartX;
     
@@ -275,8 +258,13 @@ class KateViewInternal : public QWidget
     //
     QMemArray<LineRange> lineRanges;
     
-    // sets the current range to the the line of the current cursor.
-    //void findCurrentRange();
+    // Used to determine if the scrollbar will appear/disappear in non-wrapped mode
+    bool scrollbarVisible(uint startLine);
+    int maxLen(uint startLine);
+    
+    // returns the maximum X value / col value a cursor can take for a specific line range
+    int lineMaxCursorX(LineRange& range);
+    int lineMaxCol(LineRange& range);
     
     // get the values for a specific range.
     // specify lastLine to get the next line of a range.

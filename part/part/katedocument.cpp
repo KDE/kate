@@ -95,6 +95,31 @@
 
 using namespace Kate;
 
+LineRange::LineRange()
+  : line(-1)
+  , visibleLine(-1)
+  , startCol(-1)
+  , endCol(-1)
+  , startX(-1)
+  , endX(-1)
+  , dirty(false)
+  , viewLine(-1)
+  , wrap(false)
+{
+}
+
+void LineRange::clear()
+{
+  line = -1;
+  visibleLine = -1;
+  startCol = -1;
+  endCol = -1;
+  startX = -1;
+  endX = -1;
+  viewLine = -1;
+  wrap = false;
+}
+
 //
 // KateDocument Constructor
 //
@@ -104,9 +129,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 : Kate::Document (),
   selectStart(-1, -1),
   selectEnd(-1, -1),
+  oldSelectStart(-1, -1),
+  oldSelectEnd(-1, -1),
   selectAnchor(-1, -1),
-  docWasSavedWhenUndoWasEmpty( true ),
   lastUndoGroupWhenSaved( 0 ),
+  docWasSavedWhenUndoWasEmpty( true ),
   viewFont(),
   printFont(),
   hlManager(HlManager::self ())
@@ -1154,9 +1181,9 @@ bool KateDocument::editRemoveLine ( uint line )
 
 bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCursor& end )
 {
-  if( hasSelection() )
-    tagSelection();
-
+  oldSelectStart = selectStart;
+  oldSelectEnd = selectEnd;
+  
   if (start <= end) {
     selectStart.setPos(start);
     selectEnd.setPos(end);
@@ -1164,12 +1191,11 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
     selectStart.setPos(end);
     selectEnd.setPos(start);
   }
-
-  if( hasSelection() )
+  
+  if (hasSelection() || selectAnchor.line != -1)
     tagSelection();
-
-  for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
+  
+  repaintViews();
 
   emit selectionChanged ();
 
@@ -1178,6 +1204,9 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
 
 bool KateDocument::setSelection( uint startLine, uint startCol, uint endLine, uint endCol )
 {
+  if (hasSelection())
+    clearSelection(false);
+  
   return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
 }
 
@@ -1188,21 +1217,24 @@ bool KateDocument::clearSelection()
 
 bool KateDocument::clearSelection(bool redraw)
 {
-  //kdDebug() << k_funcinfo << kdBacktrace() << endl;
-  
   if( !hasSelection() )
     return false;
-
-  tagSelection();
-
+  
+  oldSelectStart = selectStart;
+  oldSelectEnd = selectEnd;
+  
   selectStart.setPos(-1, -1);
   selectEnd.setPos(-1, -1);
   selectAnchor.setPos(-1, -1);
-
+  
+  tagSelection();
+  
+  oldSelectStart = selectStart;
+  oldSelectEnd = selectEnd;
+  
   if (redraw)
-    for (uint z = 0; z < m_views.count(); z++)
-      m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
-
+    repaintViews();
+  
   emit selectionChanged();
 
   return true;
@@ -1210,7 +1242,7 @@ bool KateDocument::clearSelection(bool redraw)
 
 bool KateDocument::hasSelection() const
 {
-  return (selectStart != selectEnd);
+  return selectStart != selectEnd;
 }
 
 QString KateDocument::selection() const
@@ -1290,10 +1322,10 @@ bool KateDocument::setBlockSelectionMode (bool on)
   if (on != blockSelect)
   {
     blockSelect = on;
-    setSelection (selectStart, selectEnd);
-
-    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() )
-      view->slotUpdate();
+    oldSelectStart = selectStart;
+    oldSelectEnd = selectEnd;
+    clearSelection();
+    setSelection(oldSelectStart, oldSelectEnd);
   }
 
   return true;
@@ -2458,7 +2490,12 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            }
          }
          // HA! this is where we print [part of] a line ;]]
-         paintTextLine ( paint, lineCount, startCol, endCol, xstart, y, 0, maxWidth, -1, 0, false, false, false, PrintFont, false, true );
+         // FIXME HACK
+         LineRange range;
+         range.line = lineCount;
+         range.startCol = startCol;
+         range.endCol = endCol;
+         paintTextLine ( paint, range, xstart, y, 0, maxWidth, -1, 0, false, false, false, PrintFont, false, true );
          if ( skip )
          {
            needWrap = false;
@@ -2867,7 +2904,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
     if (endX)
       *endX = x;
 
-    return endcol;
+    return z+1;
   }
 }
 
@@ -3259,19 +3296,11 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 
 void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& to )
 {
-  //kdDebug() << k_funcinfo << "From " << from.line << "," << from.col << " To " << to.line << "," << to.col << " Anchor " << selectAnchor.line << "," << selectAnchor.col << endl;
-  
-  if ( selectAnchor.line == -1 )
-  {
-    // anders: if we allready have a selection, we want to include all of that
-    if ( hasSelection() && to >= selectEnd ) {
-      selectAnchor.setPos(selectStart);
-    } else {
-      selectAnchor.setPos(from);
-    }
+  if (!hasSelection()) {
+    selectAnchor.setPos(from);
   }
-
-  setSelection( selectAnchor, to );
+  
+  setSelection(selectAnchor, to);
 }
 
 void KateDocument::selectWord( const KateTextCursor& cursor ) {
@@ -3826,9 +3855,48 @@ void KateDocument::tagLines(int start, int end)
     m_views.at(z)->m_viewInternal->tagLines(start, end, true);
 }
 
+void KateDocument::tagLines(KateTextCursor start, KateTextCursor end)
+{
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->m_viewInternal->tagLines(start, end, true);
+}
+
 void KateDocument::tagSelection()
 {
-  tagLines(selectStart.line, selectEnd.line);
+  if (hasSelection()) {
+    if ((oldSelectStart.line == -1 || (blockSelectionMode() && (oldSelectStart.col != selectStart.col || oldSelectEnd.col != selectEnd.col)))) {
+      // We have to tag the whole lot if
+      // 1) we have a selection, and:
+      //  a) it's new; or
+      //  b) we're in block selection mode and the columns have changed
+      tagLines(selectStart, selectEnd);
+
+    } else {
+      if (oldSelectStart != selectStart) {
+        if (oldSelectStart < selectStart)
+          tagLines(oldSelectStart, selectStart);
+        else
+          tagLines(selectStart, oldSelectStart);
+      }
+
+      if (oldSelectEnd != selectEnd) {
+        if (oldSelectEnd < selectEnd)
+          tagLines(oldSelectEnd, selectEnd);
+        else
+          tagLines(selectEnd, oldSelectEnd);
+      }
+    }
+        
+  } else {
+    // No more selection, clean up
+    tagLines(oldSelectStart, oldSelectEnd);
+  }
+}
+
+void KateDocument::repaintViews(bool paintOnlyDirty)
+{
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), paintOnlyDirty);
 }
 
 void KateDocument::tagAll()
@@ -3953,8 +4021,7 @@ bool KateDocument::selectBounds(uint line, uint &start, uint &end, uint lineLeng
   return hasSel;
 }
 
-bool KateDocument::paintTextLine(QPainter &paint, uint line,
-				 int startcol, int endcol,
+bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
 				 int xPos2, int y, int xStart, int xEnd,
 				 int showCursor, bool replaceCursor,
 				 int cursorXPos2, bool showSelections,
@@ -3962,6 +4029,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 				 bool currentLine, bool printerfriendly,
 				 const BracketMark& bm, int startXCol )
 {
+  uint line = range.line;
+  int startcol = range.startCol;
+  int endcol = range.wrap ? range.endCol : -1;
+
   // font data
   const FontStruct & fs = getFontStruct(wf);
 

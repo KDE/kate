@@ -331,8 +331,8 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
         "<p>To set the text color for selected text, use the \"<b>Configure "
         "Highlighting</b>\" dialog.</p>"));
   QWhatsThis::add(m_markers, i18n("<p>Sets the background color of the selected "
-        "marker type.</p><p><b>Note</b>: The marker color displayed lightly because "
-        "of transparency!</p>"));
+        "marker type.</p><p><b>Note</b>: The marker color is displayed lightly because "
+        "of transparency.</p>"));
   QWhatsThis::add(m_combobox, i18n("<p>Select the marker type you want to change.</p>"));
   QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
         "active line, which means the line where your cursor is positioned.</p>"));

@@ -980,6 +980,16 @@ void KateViewInternal::moveEdge( Bias bias, bool sel )
 
 void KateViewInternal::home( bool sel )
 {
+  if (m_view->dynWordWrap() && currentRange().startCol) {
+    // Allow us to go to the real start if we're already at the start of the view line
+    if (cursor.col != currentRange().startCol) {
+      KateTextCursor c(cursor.line, currentRange().startCol);
+      updateSelection( c, sel );
+      updateCursor( c );
+      return;
+    }
+  }
+
   if( !(m_doc->configFlags() & KateDocument::cfSmartHome) ) {
     moveEdge( left, sel );
     return;
@@ -998,7 +1008,19 @@ void KateViewInternal::home( bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::end( bool sel ) { moveEdge( right, sel ); }
+void KateViewInternal::end( bool sel ) {
+  if (m_view->dynWordWrap() && currentRange().wrap) {
+    // Allow us to go to the real end if we're already at the end of the view line
+    if (cursor.col < currentRange().endCol - 1) {
+      KateTextCursor c(cursor.line, currentRange().endCol - 1);
+      updateSelection( c, sel );
+      updateCursor( c );
+      return;
+    }
+  }
+
+  moveEdge( right, sel );
+}
 
 LineRange KateViewInternal::range(int realLine, const LineRange* previous)
 {

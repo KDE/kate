@@ -553,6 +553,12 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   QPoint cursorP = cursorCoordinates();
   setMicroFocusHint( cursorP.x(), cursorP.y(), 0, m_doc->viewFont.fontHeight );
   
+  if (cursorTimer) {
+    killTimer(cursorTimer);
+    cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+    cursorOn = true;
+  }
+  
   emit m_view->cursorPositionChanged();
 }
 

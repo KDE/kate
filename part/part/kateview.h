@@ -38,6 +38,7 @@ class KateSearch;
 class KateCmdLine;
 class KateCodeCompletion;
 class KateViewConfig;
+class KateViewSchemaAction;
 
 class KToggleAction;
 class KAction;
@@ -372,6 +373,7 @@ class KateView : public Kate::View,
     Kate::ActionMenu*      m_setHighlight;
     Kate::ActionMenu*      m_setFileType;
     KToggleAction*         m_toggleWriteLock;
+    KateViewSchemaAction*  m_schemaMenu;
 
     KAction *m_cut;
     KAction *m_copy;

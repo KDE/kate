@@ -26,6 +26,8 @@
   <Menu name="view"><text>&amp;View</text>
     <Action name="view_cmd_line" group="view_operations" />
     <Separator group="view_operations" />
+    <Action name="view_schemas" group="view_operations" />
+    <Separator group="view_operations" />
     <Action name="view_dynamic_word_wrap" group="view_operations" />
     <Action name="set_highlight" group="view_operations" />
     <Action name="set_filetype" group="view_operations" />

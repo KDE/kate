@@ -40,6 +40,7 @@
 #include "katecodefoldinghelpers.h"
 #include "katecodecompletion.h"
 #include "katesearch.h"
+#include "kateschema.h"
 #include "katebookmarks.h"
 #include "katebrowserextension.h"
 #include "katesearch.h"
@@ -293,6 +294,9 @@ void KateView::setupActions()
 
   m_setFileType = new KateViewFileTypeAction (i18n("&Filetype Mode"),ac,"set_filetype");
   m_setFileType->updateMenu (m_doc);
+
+  m_schemaMenu = new KateViewSchemaAction (i18n("&Schema"),ac,"view_schemas");
+  m_schemaMenu->updateMenu (this);
 
   m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 

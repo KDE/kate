@@ -113,7 +113,7 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
     KateFileType *m_lastType;
 };
 
-class KateViewFileTypeAction: public Kate::ActionMenu
+class KateViewFileTypeAction : public Kate::ActionMenu
 {
   Q_OBJECT
 

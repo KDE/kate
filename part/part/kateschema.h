@@ -24,8 +24,13 @@
 #include <qstringlist.h>
 
 #include <kconfig.h>
+#include <kaction.h>
+
+class KateView;
 
 class KColorButton;
+
+class QPopupMenu;
 
 class KateSchemaManager
 {
@@ -65,6 +70,33 @@ class KateSchemaManager
   private:
     KConfig m_config;
     QStringList m_schemas;
+};
+
+
+class KateViewSchemaAction : public KActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KateViewSchemaAction(const QString& text, QObject* parent = 0, const char* name = 0)
+       : KActionMenu(text, parent, name) { init(); };
+
+    ~KateViewSchemaAction(){;};
+
+    void updateMenu (KateView *view);
+
+  private:
+    void init();
+
+    QGuardedPtr<KateView> m_view;
+    QStringList names;
+    int last;
+
+  public  slots:
+    void slotAboutToShow();
+
+  private slots:
+    void setSchema (int mode);
 };
 
 //

@@ -23,6 +23,8 @@
 
 #include "kateconfig.h"
 #include "katefactory.h"
+#include "kateview.h"
+#include "katerenderer.h"
 
 #include <klocale.h>
 #include <kdialog.h>
@@ -30,6 +32,7 @@
 #include <kcombobox.h>
 #include <klineeditdlg.h>
 #include <kfontdialog.h>
+#include <kpopupmenu.h>
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
@@ -441,6 +444,52 @@ void KateSchemaConfigPage::schemaChanged (int schema)
   m_fontTab->readConfig (KateFactory::schemaManager()->schema(schema));
 
   m_lastSchema = schema;
+}
+
+
+void KateViewSchemaAction::init()
+{
+  m_view = 0;
+  last = 0;
+
+  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KateViewSchemaAction::updateMenu (KateView *view)
+{
+  m_view = view;
+}
+
+void KateViewSchemaAction::slotAboutToShow()
+{
+  KateView *view=m_view;
+  int count = KateFactory::schemaManager()->list().count();
+
+  for (int z=0; z<count; z++)
+  {
+    QString hlName = KateFactory::schemaManager()->list().operator[](z);
+
+    if (names.contains(hlName) < 1)
+    {
+      names << hlName;
+      popupMenu()->insertItem ( hlName, this, SLOT(setSchema(int)), 0,  z+1);
+    }
+  }
+
+  if (!view) return;
+
+  popupMenu()->setItemChecked (last, false);
+  popupMenu()->setItemChecked (view->renderer()->config()->schema()+1, true);
+
+  last = view->renderer()->config()->schema()+1;
+}
+
+void KateViewSchemaAction::setSchema (int mode)
+{
+  KateView *view=m_view;
+
+  if (view)
+    view->renderer()->config()->setSchema (mode-1);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

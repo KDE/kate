@@ -254,7 +254,12 @@ class KateViewInternal : public QWidget
     // so that makeVisible is again called when a key is pressed and the cursor is in the same spot
     bool m_madeVisible;
     bool m_shiftKeyPressed;
-    
+
+    // How many lines to should be kept visible above/below the cursor when possible
+    void setAutoCenterLines(int viewLines, bool updateView = true);
+    int m_autoCenterLines;
+    int m_minLinesVisible;
+        
     //
     // column scrollbar + x position
     //
@@ -314,6 +319,7 @@ class KateViewInternal : public QWidget
     // These variable holds the most recent maximum real & visible column number
     bool m_preserveMaxX;
     int m_currentMaxX;
+
     
     bool m_updatingView;
     int m_wrapChangeViewLine;
@@ -328,8 +334,8 @@ class KateViewInternal : public QWidget
     // Timer for drag & scroll
     QTimer m_dragScrollTimer;
 
-    static const int scrollTime;
-    static const int scrollMargin;
+    static const int scrollTime = 30;
+    static const int scrollMargin = 16;
     
     // needed to stop the column scroll bar from hiding / unhiding during a dragScroll.
     bool m_suppressColumnScrollBar;

@@ -303,6 +303,11 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   mainLayout->addWidget(opt[6]);
   opt[6]->setChecked(configFlags & flags[6]);
 
+  e4 = new KIntNumInput(view->autoCenterLines(), this);
+  e4->setRange(0, 1000000, 1, false);
+  e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
+  mainLayout->addWidget(e4);
+  
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
   e3->setRange(0, 1000000, 1, false);
   e3->setSpecialValueText( i18n("Unlimited") );
@@ -321,6 +326,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(opt[4], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
   QWhatsThis::add(opt[5], i18n("Not yet implemented."));
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
+  QWhatsThis::add(e4, i18n("Sets the number of lines to maintain visible above and below the cursor when possible."));
   QWhatsThis::add(opt[6], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
 
   wordWrapToggled();
@@ -345,6 +351,8 @@ void EditConfigTab::getData(KateDocument *view)
     view->setUndoSteps(0);
   else
     view->setUndoSteps(e3->value());
+    
+  view->setAutoCenterLines(QMAX(0, e4->value()));
 }
 
 void EditConfigTab::apply ()

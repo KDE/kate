@@ -101,7 +101,6 @@ LineRange::LineRange()
   , dirty(false)
   , viewLine(-1)
   , wrap(false)
-  , lineEnd(true)
 {
 }
 
@@ -115,7 +114,6 @@ void LineRange::clear()
   endX = -1;
   viewLine = -1;
   wrap = false;
-  lineEnd = true;
 }
 
 //
@@ -134,7 +132,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   docWasSavedWhenUndoWasEmpty( true ),
   viewFont(),
   printFont(),
-  hlManager(HlManager::self ())
+  hlManager(HlManager::self ()),
+  m_autoCenterLines(0)
 {
   KateFactory::registerDocument (this);
 
@@ -1704,6 +1703,7 @@ void KateDocument::readConfig(KConfig *config)
   m_foldingBar = config->readBoolEntry( "FoldingMarkers", true );
   m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", 0 );
   m_wordWrapMarker = config->readBoolEntry("WordWrapMarker", true );
+  m_autoCenterLines = config->readNumEntry( "AutoCenterLines", 0 ) ;
 
   updateViewDefaults ();
   tagAll();
@@ -1746,6 +1746,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry( "FoldingMarkers", m_foldingBar );
   config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   config->writeEntry( "WordWrapMarker", m_wordWrapMarker );
+  config->writeEntry( "AutoCenterLines", m_autoCenterLines ) ;
 }
 
 void KateDocument::readConfig()
@@ -4558,6 +4559,21 @@ void KateDocument::applyWordWrap ()
     wrapText (selectStart.line, selectEnd.line, myWordWrapAt);
   else
     wrapText (myWordWrapAt);
+}
+
+void KateDocument::setAutoCenterLines(int viewLines)
+{
+  if (m_autoCenterLines != viewLines) {
+    m_autoCenterLines = viewLines;
+    for (uint z = 0; z < m_views.count(); z++) {
+      (m_views.at(z))->setAutoCenterLines(m_autoCenterLines);
+    }
+  }
+}
+
+int KateDocument::autoCenterLines() const
+{
+  return m_autoCenterLines;
 }
 
 uint KateDocument::configFlags ()

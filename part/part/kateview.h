@@ -297,6 +297,7 @@ class KateView : public Kate::View,
     
   public:
     void updateViewDefaults ();
+    void setAutoCenterLines(int viewLines);
 
   private:
     void setupConnections();

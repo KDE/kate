@@ -80,7 +80,8 @@ class LineRange
     bool dirty;
     int viewLine;
     bool wrap;
-    bool lineEnd;
+// This variable is always equal to !wrap
+//    bool lineEnd;
 };
 
 //
@@ -684,6 +685,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   public slots:
      void applyWordWrap ();
+     
+  public:
+    void setAutoCenterLines(int viewLines);
+    int autoCenterLines() const;
 
   public:
     uint configFlags ();
@@ -735,6 +740,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     bool myWordWrap;
     uint myWordWrapAt;
+    
+    int m_autoCenterLines;
 
     bool hlSetByUser;
 

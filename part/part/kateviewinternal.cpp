@@ -2,7 +2,7 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org> 
-   Copyright (C) 2002 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2002,2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
    
    Based on:
      KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -45,9 +45,9 @@
 #include <qclipboard.h>
 #include <qscrollbar.h>
 
-static bool paintDebug = false;
-const int KateViewInternal::scrollTime = 30;
-const int KateViewInternal::scrollMargin = 16;
+static const bool paintDebug = false;
+// const int KateViewInternal::scrollTime = 30;
+// const int KateViewInternal::scrollMargin = 16;
 
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
@@ -73,6 +73,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 {
   setMinimumSize (0,0);
   
+  // Hack until config works
+  setAutoCenterLines(4, false);
+
   //
   // scrollbar for lines
   //
@@ -530,7 +533,9 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             lineRanges[z].endX = endX;
             lineRanges[z].viewLine = newViewLine;
             lineRanges[z].wrap = true;
-            lineRanges[z].lineEnd =  (endCol==(text->length()+1));
+            
+            //equal to !wrap
+            //lineRanges[z].lineEnd =  (endCol==(text->length()+1));
 
             startCol = endCol;
             startX = endX;
@@ -547,7 +552,9 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             lineRanges[z].endX = endX;
             lineRanges[z].viewLine = newViewLine;
             lineRanges[z].wrap = false;
-            lineRanges[z].lineEnd = true;
+            
+            //equal to !wrap
+            //lineRanges[z].lineEnd = true;
             line++;
           }
           
@@ -581,7 +588,9 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         lineRanges[z].endX = m_doc->textWidth( m_doc->kateTextLine( lineRanges[z].line ), -1 );
         lineRanges[z].viewLine = 0;
         lineRanges[z].wrap = false;
-        lineRanges[z].lineEnd=true;
+            
+//        equal to !wrap
+//        lineRanges[z].lineEnd=true;
       }
     }
 
@@ -694,9 +703,9 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
     KateTextCursor scroll = c;
     scrollPos(scroll, force);
   }
-  else if ( c > endPos() )
+  else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
   {
-    KateTextCursor scroll = viewLineOffset(c, -(linesDisplayed() - 1));
+    KateTextCursor scroll = viewLineOffset(c, -(linesDisplayed() - m_minLinesVisible - 1));
     
     if (!m_view->dynWordWrap() && m_columnScroll->isHidden())
       if (scrollbarVisible(scroll.line))
@@ -704,9 +713,9 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
     
     scrollPos(scroll);
   }
-  else if ( c < startPos() )
+  else if ( c < viewLineOffset(startPos(), m_minLinesVisible) )
   {
-    KateTextCursor scroll = c;
+    KateTextCursor scroll = viewLineOffset(c, -m_minLinesVisible);
     scrollPos(scroll);
   }
   else
@@ -1016,7 +1025,8 @@ void KateViewInternal::home( bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::end( bool sel ) {
+void KateViewInternal::end( bool sel )
+{
   if (m_view->dynWordWrap() && currentRange().wrap) {
     // Allow us to go to the real end if we're already at the end of the view line
     if (cursor.col < currentRange().endCol - 1) {
@@ -1522,9 +1532,23 @@ void KateViewInternal::scrollLines( int lines, bool sel )
 void KateViewInternal::scrollUp()   { scrollLines( -1, false ); }
 void KateViewInternal::scrollDown() { scrollLines(  1, false ); }
 
+void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
+{
+  m_autoCenterLines = viewLines;
+  m_minLinesVisible = QMIN(int((linesDisplayed() - 1)/2), m_autoCenterLines);
+  if (updateView)
+    KateViewInternal::updateView();
+}
+
 void KateViewInternal::pageUp( bool sel )
 {
-  int linesToScroll = -QMAX( linesDisplayed() - 1, 0 );
+  // Adjust for an auto-centering cursor
+  int lineadj = 2 * m_minLinesVisible;
+  int cursorStart = (linesDisplayed() - 1) - displayViewLine(displayCursor);
+  if (cursorStart < m_minLinesVisible)
+    lineadj -= m_minLinesVisible - cursorStart;
+    
+  int linesToScroll = -QMAX( (linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
   
   // don't scroll the full view in case the scrollbar appears
@@ -1545,7 +1569,13 @@ void KateViewInternal::pageUp( bool sel )
 
 void KateViewInternal::pageDown( bool sel )
 {
-  int linesToScroll = QMAX( linesDisplayed() - 1, 0 );
+  // Adjust for an auto-centering cursor
+  int lineadj = 2 * m_minLinesVisible;
+  int cursorStart = m_minLinesVisible - displayViewLine(displayCursor);
+  if (cursorStart > 0)
+    lineadj -= cursorStart;
+  
+  int linesToScroll = QMAX( (linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
   
   // don't scroll the full view in case the scrollbar appears
@@ -2245,6 +2275,10 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
   bool expandedVertically = height() > e->oldSize().height();
   
   m_madeVisible = false;
+  
+  if (height() != e->oldSize().height()) {
+    setAutoCenterLines(m_autoCenterLines, false);
+  }
   
   if (height() != e->oldSize().height())
     m_cachedMaxStartPos.setPos(-1, -1);

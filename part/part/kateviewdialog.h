@@ -144,6 +144,7 @@ class EditConfigTab : public Kate::ConfigPage
     KIntNumInput *e1;
     KIntNumInput *e2;
     KIntNumInput *e3;
+    KIntNumInput *e4;
     KateDocument *m_doc;
 
   public slots:

@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -924,6 +925,13 @@ void KateView::updateViewDefaults ()
   m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
   
   m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
+  
+  setAutoCenterLines(m_doc->autoCenterLines());
+}
+
+void KateView::setAutoCenterLines(int viewLines)
+{
+  m_viewInternal->setAutoCenterLines(viewLines);
 }
 
 void KateView::toggleWriteLock()

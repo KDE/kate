@@ -93,10 +93,10 @@ void KateDynWWBar::paintEvent(QPaintEvent* e)
   paintBar (updateR.x(), updateR.y(), updateR.width(), updateR.height());
 }
 
-void KateDynWWBar::paintBar (int x, int y, int width, int height)
+void KateDynWWBar::paintBar (int /*x*/, int y, int /*width*/, int height)
 {
-  int xStart = x;
-  int xEnd = xStart + width;
+  //int xStart = x;
+  //int xEnd = xStart + width;
   uint h = m_doc->viewFont.fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
@@ -115,7 +115,7 @@ void KateDynWWBar::paintBar (int x, int y, int width, int height)
     int y = h * z;
     int realLine = -1;
     
-    LineRange *r;
+    LineRange *r = 0L;
 
     if (z < lineRangesSize)
     {
@@ -129,7 +129,7 @@ void KateDynWWBar::paintBar (int x, int y, int width, int height)
         continue;
     }
     
-    if (r->lineEnd)
+    if (!r->wrap)
         p.fillRect(0,y,w,h,m_doc->colors[0]);
     else
         p.drawPixmap(0,y,arrow);

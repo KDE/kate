@@ -160,8 +160,6 @@ QPoint KateViewInternal::cursorCoordinates()
 
 void KateViewInternal::doReturn()
 {
-  if( m_doc->configFlags() & KateDocument::cfDelOnInput )
-    m_doc->removeSelectedText();
   KateTextCursor c = cursor;
   m_doc->newLine( c );
   updateCursor( c );
@@ -170,27 +168,17 @@ void KateViewInternal::doReturn()
 
 void KateViewInternal::doDelete()
 {
-  if ( (m_doc->configFlags() & KateDocument::cfDelOnInput) && m_doc->hasSelection() ) {
-    m_doc->removeSelectedText();
-  } else {
-    m_doc->del( cursor );
-  }
+  m_doc->del( cursor );
 }
 
 void KateViewInternal::doBackspace()
 {
-  if( (m_doc->configFlags() & KateDocument::cfDelOnInput) && m_doc->hasSelection() ) {
-    m_doc->removeSelectedText();
-  } else {
-    m_doc->backspace( cursor );
-  }
+  m_doc->backspace( cursor );
 }
 
 void KateViewInternal::doPaste()
 {
-   if( m_doc->configFlags() & KateDocument::cfDelOnInput )
-     m_doc->removeSelectedText();
-   m_doc->paste( cursor, m_view );
+  m_doc->paste( cursor, m_view );
 }
 
 void KateViewInternal::doTranspose()

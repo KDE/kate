@@ -2459,21 +2459,19 @@ uint KateDocument::currentColumn( const KateTextCursor& cursor )
 
 bool KateDocument::insertChars ( int line, int col, const QString &chars, KateView *view )
 {
-  int z, pos, l;
-  bool onlySpaces;
-  QChar ch;
   QString buf;
 
-  int savedCol=col;
-  int savedLine=line;
+  int savedCol = col;
+  int savedLine = line;
   QString savedChars(chars);
 
   TextLine::Ptr textLine = buffer->line(line);
 
-  pos = 0;
-  onlySpaces = true;
-  for (z = 0; z < (int) chars.length(); z++) {
-    ch = chars[z];
+  uint pos = 0;
+  int l;
+  bool onlySpaces = true;
+  for( uint z = 0; z < chars.length(); z++ ) {
+    QChar ch = chars[z];
     if (ch == '\t' && _configFlags & KateDocument::cfReplaceTabs) {
       l = tabChars - (textLine->cursorX(col, tabChars) % tabChars);
       while (l > 0) {
@@ -2499,22 +2497,16 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
 
   editStart ();
 
-  if (_configFlags & KateDocument::cfDelOnInput)
+  if (_configFlags & KateDocument::cfDelOnInput && hasSelection() )
   {
-    if (hasSelection())
-    {
-      removeSelectedText();
-      line = view->m_viewInternal->cursorCache.line;
-      col = view->m_viewInternal->cursorCache.col;
-    }
+    removeSelectedText();
+    line = view->m_viewInternal->cursorCache.line;
+    col = view->m_viewInternal->cursorCache.col;
   }
 
   if (_configFlags & KateDocument::cfOvr)
   {
-    if ((col+buf.length()) <= textLine->length())
-      removeText (line, col, line, col+buf.length());
-    else
-      removeText (line, col, line, textLine->length());
+    removeText (line, col, line, QMIN( col+buf.length(), textLine->length() ) );
   }
 
   insertText (line, col, buf);
@@ -2546,6 +2538,10 @@ QString tabString(int pos, int tabChars)
 
 void KateDocument::newLine( KateTextCursor& c )
 {
+  editStart();
+  
+  if( configFlags() & cfDelOnInput && hasSelection() )
+    removeSelectedText();
 
   if (!(_configFlags & KateDocument::cfAutoIndent)) {
     insertText( c.line, c.col, "\n" );
@@ -2573,6 +2569,8 @@ void KateDocument::newLine( KateTextCursor& c )
       c.col = pos;
     }
   }
+  
+  editEnd();
 }
 
 void KateDocument::killLine( uint line )
@@ -2611,12 +2609,17 @@ void KateDocument::transpose( const KateTextCursor& cursor)
 
 void KateDocument::backspace( const KateTextCursor& c )
 {
+  if( configFlags() & cfDelOnInput && hasSelection() ) {
+    removeSelectedText();
+    return;
+  }
+
   uint col = QMAX( c.col, 0 );
   uint line = QMAX( c.line, 0 );
 
   if ((col == 0) && (line == 0))
     return;
-
+  
   if (col > 0)
   {
     if (!(_configFlags & KateDocument::cfBackspaceIndents))
@@ -2667,6 +2670,11 @@ void KateDocument::backspace( const KateTextCursor& c )
 
 void KateDocument::del( const KateTextCursor& c )
 {
+  if ( configFlags() & cfDelOnInput && hasSelection() ) {
+    removeSelectedText();
+    return;
+  }
+
   if( c.col < (int) buffer->line(c.line)->length())
   {
     removeText(c.line, c.col, c.line, c.col+1);
@@ -2703,9 +2711,16 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
     return;
 
   editStart ();
-
+  
   uint line = cursor.line;
   uint col = cursor.col;
+  
+  if (_configFlags & KateDocument::cfDelOnInput && hasSelection() )
+  {
+    removeSelectedText();
+    line = view->m_viewInternal->cursorCache.line;
+    col = view->m_viewInternal->cursorCache.col;
+  }
   
   insertText( line, col, s );
 

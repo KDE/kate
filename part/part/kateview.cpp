@@ -647,25 +647,29 @@ int KateView::checkOverwrite( KURL u )
   return query;
 }
 
-KateView::saveResult KateView::saveAs() {
-  int query;
-  KateFileDialog *dialog;
+KateView::saveResult KateView::saveAs()
+{
   KateFileDialogData data;
 
-  do {
-    query = KMessageBox::Yes;
-
-    dialog = new KateFileDialog (m_doc->url().url(),doc()->encoding(), this, i18n ("Save File"), KateFileDialog::saveDialog);
+  for( int query = KMessageBox::No; query != KMessageBox::Yes; ) {
+    KateFileDialog* dialog = new KateFileDialog(
+      m_doc->url().url(),
+      doc()->encoding(),
+      this,
+      i18n("Save File"),
+      KFileDialog::Saving );
+    dialog->setSelection( m_doc->url().fileName() );
     data = dialog->exec ();
     delete dialog;
+    
     if (data.url.isEmpty())
       return SAVE_CANCEL;
+    
     query = checkOverwrite( data.url );
+    
+    if( query == KMessageBox::Cancel )
+      return SAVE_CANCEL;
   }
-  while ((query != KMessageBox::Cancel) && (query != KMessageBox::Yes));
-
-  if( query == KMessageBox::Cancel )
-    return SAVE_CANCEL;
 
   ((KTextEditor::EncodingInterface *)m_doc)->setEncoding (data.encoding);
   if( !m_doc->saveAs(data.url) ) {

@@ -621,7 +621,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth:"));
   m_dynwrapAlignLevel->setRange(0, 80, 10);
   // xgettext:no-c-format
-  m_dynwrapAlignLevel->setSuffix(i18n("% of view width"));
+  m_dynwrapAlignLevel->setSuffix(i18n("% of View Width"));
   m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
 
   m_wwmarker = new QCheckBox( i18n("Show static word wrap marker (if applicable)"), gbWordWrap );
@@ -1063,7 +1063,7 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfi
 
   // configure button
 
-  btnConfigure = new QPushButton( i18n("Configure"), this );
+  btnConfigure = new QPushButton( i18n("Configure..."), this );
   btnConfigure->setEnabled( false );
   grid->addWidget( btnConfigure, 1, 0, Qt::AlignRight );
   connect( btnConfigure, SIGNAL(clicked()), this, SLOT(slotConfigure()) );

@@ -779,11 +779,11 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   connect( schemaCombo, SIGNAL(activated(int)),
            this, SLOT(schemaChanged(int)) );
 
-  btndel = new QPushButton( i18n("&Delete"), hbHl );
-  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
-
   QPushButton *btnnew = new QPushButton( i18n("&New..."), hbHl );
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newSchema()) );
+
+  btndel = new QPushButton( i18n("&Delete"), hbHl );
+  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
 
   m_tabWidget = new QTabWidget ( this );
   m_tabWidget->setMargin (KDialog::marginHint());

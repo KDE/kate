@@ -259,11 +259,11 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect( typeCombo, SIGNAL(activated(int)),
            this, SLOT(typeChanged(int)) );
 
-  btndel = new QPushButton( i18n("&Delete"), hbHl );
-  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteType()) );
-
   QPushButton *btnnew = new QPushButton( i18n("&New"), hbHl );
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newType()) );
+
+  btndel = new QPushButton( i18n("&Delete"), hbHl );
+  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteType()) );
 
   gbProps = new QGroupBox( 2, Qt::Horizontal, i18n("Properties"), this );
   layout->add (gbProps);

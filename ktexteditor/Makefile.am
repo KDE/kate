@@ -1,4 +1,3 @@
-SUBDIRS = . kcm
 INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) -I$(top_srcdir)/interfaces -I$(top_builddir)/interfaces $(all_includes)
 
 lib_LTLIBRARIES = libktexteditor.la
@@ -34,5 +33,5 @@ METASOURCES = AUTO
 servicetypedir = $(kde_servicetypesdir)
 servicetype_DATA = ktexteditor.desktop ktexteditoreditor.desktop ktexteditorplugin.desktop
 
-
-
+kcm_ktexteditor_DATA = kcm_ktexteditor.desktop
+kcm_ktexteditordir = $(kde_datadir)/kcm_componentchooser

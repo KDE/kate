@@ -3744,7 +3744,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	uint oldXPos = xPos;
 	const QChar *oldS = s;
 
-  for (uint tmp = len; tmp > 0; tmp--)
+  for (uint tmp = len; (tmp > 0); tmp--)
   {
     if ((*s) == QChar('\t'))
       width = fs->m_tabWidth;
@@ -3806,12 +3806,12 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	    if ((showCursor > -1) && (showCursor = curCol))
 			{
 			  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
-			
+
 
 			}
 
 
-      if (((tmp < 2) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
+      if (((tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
       {
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(oldXPos-xStart, y, str.string());
@@ -3819,6 +3819,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	oldCol = curCol+1;
 	oldXPos = xPosAfter;
 	oldS = s+1;
+	
+	      if (xPos > xEnd)
+				  break;
       }
       else if (((*s) == QChar('\t')) && showTabs)
       {

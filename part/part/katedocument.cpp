@@ -533,7 +533,7 @@ QString KateDocument::configPageFullName (uint number) const
       return i18n ("Plugin Manager");
 
     case 6:
-      return i18n("File Opening and Saving");
+      return i18n("File Opening & Saving");
 
     case 9:
       return i18n("Spell Checker Behavior");

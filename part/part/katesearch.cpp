@@ -284,7 +284,7 @@ void KateSearch::replaceAll()
     }
   } else {
     KMessageBox::information( view(),
-        i18n("%n replacement made","%n replacements made",replaces),
+        i18n("%n replacement made.","%n replacements made.",replaces),
         i18n("Replace") );
   }
 }
@@ -302,7 +302,7 @@ void KateSearch::promptReplace()
     if (arbitraryHLExample) m_arbitraryHLList->clear();
     replacePrompt->hide();
     KMessageBox::information( view(),
-        i18n("%n replacement made","%n replacements made",replaces),
+        i18n("%n replacement made.","%n replacements made.",replaces),
         i18n("Replace") );
   }
 }
@@ -384,8 +384,8 @@ void KateSearch::replaceSlot() {
 bool KateSearch::askContinue()
 {
   QString made =
-     i18n( "%n replacement made",
-           "%n replacements made",
+     i18n( "%n replacement made.",
+           "%n replacements made.",
            replaces );
 
   QString reached = !s.flags.backward ?

@@ -45,7 +45,7 @@ HlDownloadDialog::HlDownloadDialog(QWidget *parent, const char *name, bool modal
   list->addColumn(i18n("Name"));
   list->addColumn(i18n("Installed"));
   list->addColumn(i18n("Latest"));
-  list->addColumn(i18n("Release date"));
+  list->addColumn(i18n("Release Date"));
   list->setSelectionMode(QListView::Multi);
   KIO::TransferJob *getIt=KIO::get(KURL(HLDOWNLOADPATH), true, true );
   connect(getIt,SIGNAL(data(KIO::Job *, const QByteArray &)),

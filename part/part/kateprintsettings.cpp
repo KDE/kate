@@ -46,13 +46,13 @@ KatePrintTextSettings::KatePrintTextSettings( KPrinter */*printer*/, QWidget *pa
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
 
-  cbSelection = new QCheckBox( i18n("Print &Selected Text Only"), this );
+  cbSelection = new QCheckBox( i18n("Print &selected text only"), this );
   lo->addWidget( cbSelection );
 
-  cbLineNumbers = new QCheckBox( i18n("Print &Line Numbers"), this );
+  cbLineNumbers = new QCheckBox( i18n("Print &line numbers"), this );
   lo->addWidget( cbLineNumbers );
 
-  cbGuide = new QCheckBox( i18n("Print Syntax &Guide"), this );
+  cbGuide = new QCheckBox( i18n("Print syntax &guide"), this );
   lo->addWidget( cbGuide );
 
   lo->addStretch( 1 );
@@ -110,14 +110,14 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
 
   // enable
   QHBoxLayout *lo1 = new QHBoxLayout ( lo );
-  cbEnableHeader = new QCheckBox( i18n("Pr&int Header"), this );
+  cbEnableHeader = new QCheckBox( i18n("Pr&int header"), this );
   lo1->addWidget( cbEnableHeader );
-  cbEnableFooter = new QCheckBox( i18n("Pri&nt Footer"), this );
+  cbEnableFooter = new QCheckBox( i18n("Pri&nt footer"), this );
   lo1->addWidget( cbEnableFooter );
 
   // font
   QHBoxLayout *lo2 = new QHBoxLayout( lo );
-  lo2->addWidget( new QLabel( i18n("Header/Footer Font:"), this ) );
+  lo2->addWidget( new QLabel( i18n("Header/footer font:"), this ) );
   lFontPreview = new QLabel( this );
   lFontPreview->setFrameStyle( QFrame::Panel|QFrame::Sunken );
   lo2->addWidget( lFontPreview );
@@ -313,10 +313,10 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
 
-  cbDrawBackground = new QCheckBox( i18n("Draw Bac&kground Color"), this );
+  cbDrawBackground = new QCheckBox( i18n("Draw bac&kground color"), this );
   lo->addWidget( cbDrawBackground );
 
-  cbEnableBox = new QCheckBox( i18n("Draw &Boxes"), this );
+  cbEnableBox = new QCheckBox( i18n("Draw &boxes"), this );
   lo->addWidget( cbEnableBox );
 
   gbBoxProps = new QGroupBox( 2, Qt::Horizontal, i18n("Box Properties"), this );

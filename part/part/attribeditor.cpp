@@ -120,7 +120,7 @@ QStringList AttribEditor::attributeNames()
 void AttribEditor::slotAddAttribute()
 {
   attributes->insertItem(new QListViewItem(attributes,attributes->lastItem(),
-    i18n("New attribute"),"dsNormal","#000000","#ffffff","0","0",
+    i18n("New Attribute"),"dsNormal","#000000","#ffffff","0","0",
     QString("%1").arg(attributes->childCount())));
 }
 

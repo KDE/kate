@@ -509,7 +509,7 @@ HlEditDialog::HlEditDialog(HlManager *,QWidget *parent, const char *name, bool m
   QVBox *lbox=new QVBox(wid);
     contextList=new KListView(lbox);
     contextList->setRootIsDecorated(true);
-    contextList->addColumn(i18n("Syntax structure"));
+    contextList->addColumn(i18n("Syntax Structure"));
     contextList->setSorting(-1);
     QHBox *bbox=new QHBox(lbox);
     QPushButton *addContext=new QPushButton(i18n("New Context"),bbox);

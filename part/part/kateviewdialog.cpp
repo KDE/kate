@@ -171,7 +171,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   layout->addWidget(opt[5]);
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-  QVGroupBox *keys = new QVGroupBox(i18n("Keys to use"), this);
+  QVGroupBox *keys = new QVGroupBox(i18n("Keys to Use"), this);
 
   opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
   opt[3]->setChecked(configFlags & flags[3]);
@@ -359,7 +359,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   connect(e3, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   QHBoxLayout *e5Layout = new QHBoxLayout(mainLayout);
-  QLabel *e5Label = new QLabel(i18n("Smart Search T&ext From:"), this);
+  QLabel *e5Label = new QLabel(i18n("Smart search t&ext from:"), this);
   e5Layout->addWidget(e5Label);
   e5 = new KComboBox (this);
   e5->insertItem( i18n("Nowhere") );
@@ -471,8 +471,8 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"), m_dynwrapIndicatorsLay );
   m_dynwrapIndicatorsCombo = new KComboBox( m_dynwrapIndicatorsLay );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Off") );
-  m_dynwrapIndicatorsCombo->insertItem( i18n("Follow line numbers") );
-  m_dynwrapIndicatorsCombo->insertItem( i18n("Always on") );
+  m_dynwrapIndicatorsCombo->insertItem( i18n("Follow Line Numbers") );
+  m_dynwrapIndicatorsCombo->insertItem( i18n("Always On") );
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
 
   blay->addWidget(gbWordWrap);
@@ -576,19 +576,19 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QVGroupBox *gbTextArea = new QVGroupBox(i18n("Text Area Background"), this);
 
   b = new QHBox (gbTextArea);
-  label = new QLabel( i18n("Normal Text:"), b);
+  label = new QLabel( i18n("Normal text:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_back = new KColorButton(b);
   connect( m_back, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbTextArea);
-  label = new QLabel( i18n("Selected Text:"), b);
+  label = new QLabel( i18n("Selected text:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_selected = new KColorButton(b);
   connect( m_selected, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbTextArea);
-  label = new QLabel( i18n("Current Line:"), b);
+  label = new QLabel( i18n("Current line:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_current = new KColorButton(b);
   connect( m_current, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
@@ -598,19 +598,19 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QVGroupBox *gbBorder = new QVGroupBox(i18n("Additional Elements"), this);
 
   b = new QHBox (gbBorder);
-  label = new QLabel( i18n("Left Border Background:"), b);
+  label = new QLabel( i18n("Left border background:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_iconborder = new KColorButton(b);
   connect( m_iconborder, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
-  label = new QLabel( i18n("Bracket Highlight:"), b);
+  label = new QLabel( i18n("Bracket highlight:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_bracket = new KColorButton(b);
   connect( m_bracket, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
-  label = new QLabel( i18n("Word Wrap Marker:"), b);
+  label = new QLabel( i18n("Word wrap marker:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_wwmarker = new KColorButton(b);
   connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
@@ -789,7 +789,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 
   e5Layout = new QHBox(gbEnc);
-  e5Label = new QLabel(i18n("End &of Line:"), e5Layout);
+  e5Label = new QLabel(i18n("End &of line:"), e5Layout);
   m_eol = new KComboBox (e5Layout);
   e5Label->setBuddy(m_eol);
   connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));

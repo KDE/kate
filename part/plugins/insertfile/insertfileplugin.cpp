@@ -108,7 +108,7 @@ void InsertFilePluginView::slotFinished( KIO::Job *job )
   assert( job == _job );
   _job = 0;
   if ( job->error() )
-    KMessageBox::error( (QWidget*)parent(), i18n("Failed to load file:\n\n") + job->errorString(), i18n("Insert File error") );
+    KMessageBox::error( (QWidget*)parent(), i18n("Failed to load file:\n\n") + job->errorString(), i18n("Insert File Error") );
   else
     insertFile();
 }

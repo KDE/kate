@@ -26,8 +26,7 @@
 
 #include <kaction.h>
 #include <kparts/factory.h>
-#include <kparts/componentfactory.h>             
-#include <klibloader.h>
+#include <kparts/componentfactory.h>
 
 #include "document.moc"
 #include "view.moc"
@@ -196,24 +195,12 @@ Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, 
 
 Document *KTextEditor::createDocument ( const char* libname, QObject *parent, const char *name )
 {
-  if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
-  {
-    if ( QObject *obj = factory->create( parent, name, "KTextEditor::Document" ) )
-       return static_cast<Document *>(obj->qt_cast ("KTextEditor::Document"));
-  }
-  
-  return 0;
-}
+  return KParts::ComponentFactory::createInstanceFromLibrary<Document>( libname, parent, name );
+}     
 
 Plugin *KTextEditor::createPlugin ( const char* libname, Document *document, const char *name )
 {
-  if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
-  {
-    if ( QObject *obj = factory->create( document, name, "KTextEditor::Plugin" ) )
-       return static_cast<Plugin *>(obj->qt_cast ("KTextEditor::Plugin"));
-  }
-
-  return 0;
+  return KParts::ComponentFactory::createInstanceFromLibrary<Plugin>( libname, document, name );
 }
 
 PluginViewInterface *KTextEditor::pluginViewInterface (Plugin *plugin)

@@ -1,2 +1,2 @@
-SUBDIRS = isearch insertfile
+SUBDIRS = isearch insertfile kdatatool
 

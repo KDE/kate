@@ -96,7 +96,7 @@ private:
        	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
 	QGuardedPtr<KToolBarLabel> m_label;
-	KHistoryCombo* m_combo;
+	QGuardedPtr<KHistoryCombo> m_combo;
 	bool           m_searchBackward;
 	bool           m_caseSensitive;
 	bool           m_fromBeginning;

@@ -35,7 +35,7 @@
 #include <qtooltip.h>
 #include <qsizegrip.h>
 #include <qapp.h>
-
+#include <qsizegrip.h>
 #include <kdebug.h>
 
 #define kdDebug() kdDebug(13035)
@@ -69,6 +69,8 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
 
   m_completionListBox = new QListBox( m_completionPopup );
   m_completionListBox->setFrameStyle( QFrame::NoFrame );
+  m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
+
   m_completionListBox->installEventFilter( this );
 
   m_completionPopup->installEventFilter( this );
@@ -218,6 +220,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
   }
   
   if( newCoordinate ) {
+    kdDebug()<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
     m_completionPopup->resize(
       m_completionListBox->sizeHint() +
       QSize( m_completionListBox->verticalScrollBar()->width() + 4,
@@ -231,6 +234,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
   m_completionListBox->setSelected( 0, true );
   m_completionListBox->setFocus();
   m_completionPopup->show();
+
   QTimer::singleShot(0,this,SLOT(showComment()));
 }
 

@@ -20,9 +20,6 @@
             <verstretch>0</verstretch>
         </sizepolicy>
     </property>
-    <property name="caption">
-        <string>Form1</string>
-    </property>
     <hbox>
         <property name="name">
             <cstring>unnamed</cstring>

@@ -229,11 +229,21 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   layout->addStretch();
 
   // What is this? help
-  QWhatsThis::add(opt[0], i18n("When <b>Automatically indent</b> is on, KateView will indent new lines to equal the indentation on the previous line.<p>If the previous line is blank, the nearest line above with text is used."));
-  QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs."));
-  QWhatsThis::add(opt[2], i18n("This allows the <b>Backspace</b> key to be used to decrease the indentation level."));
-  QWhatsThis::add(opt[3], i18n("This allows the <b>Tab</b> key to be used to increase the indentation level."));
-  QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
+  QWhatsThis::add(opt[0], i18n(
+        "When <b>Automatically indent</b> is on, KateView will indent new lines "
+        "to equal the indentation on the previous line.<p>If the previous line "
+        "is blank, the nearest line above with text is used."));
+  QWhatsThis::add(opt[1], i18n(
+        "Check this if you want to indent with spaces rather than tabs."));
+  QWhatsThis::add(opt[2], i18n(
+        "This allows the <b>Backspace</b> key to be used to decrease the "
+        "indentation level."));
+  QWhatsThis::add(opt[3], i18n(
+        "This allows the <b>Tab</b> key to be used to increase the indentation "
+        "level."));
+  QWhatsThis::add(opt[5], i18n(
+        "Indentations of more than the selected number of spaces will not be "
+        "shortened."));
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 
   reload ();
@@ -322,8 +332,11 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
 
   layout->addStretch();
 
-  QWhatsThis::add(rb1, i18n("Selections will be overwritten by typed text and will be lost on cursor movement."));
-  QWhatsThis::add(rb2, i18n("Selections will stay even after cursor movement and typing."));
+  QWhatsThis::add(rb1, i18n(
+        "Selections will be overwritten by typed text and will be lost on "
+        "cursor movement."));
+  QWhatsThis::add(rb2, i18n(
+        "Selections will stay even after cursor movement and typing."));
 
   reload ();
 
@@ -460,38 +473,61 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   mainLayout->addStretch();
 
   // What is this? help
-  QWhatsThis::add(opt[0],
-    i18n("Automatically start a new line of text when the current line exceeds the length specified by the <b>Wrap words at:</b> option.<p>This option does not wrap existing lines of text - use the <b>Apply Static Word Wrap</b> option in the <b>Tools</b> menu for that purpose.<p>If you want lines to be <i>visually wrapped</i> instead, according to the width of the view, enable <b>Dynamic Word Wrap</b> in the <b>View Defaults</b> config page."));
-  QWhatsThis::add(e1, i18n("If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line."));
-  QWhatsThis::add(opt[1], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
-  QWhatsThis::add(opt[2], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
-  QWhatsThis::add(opt[3], i18n("When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text."));
-  QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
-  QWhatsThis::add(e4, i18n("Sets the number of lines to maintain visible above and below the cursor when possible."));
-  QWhatsThis::add(opt[4], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
+  QWhatsThis::add(opt[0], i18n(
+        "Automatically start a new line of text when the current line exceeds "
+        "the length specified by the <b>Wrap words at:</b> option."
+        "<p>This option does not wrap existing lines of text - use the <b>Apply "
+        "Static Word Wrap</b> option in the <b>Tools</b> menu for that purpose."
+        "<p>If you want lines to be <i>visually wrapped</i> instead, according "
+        "to the width of the view, enable <b>Dynamic Word Wrap</b> in the "
+        "<b>View Defaults</b> config page."));
+  QWhatsThis::add(e1, i18n(
+        "If the Word Wrap option is selected this entry determines the length "
+        "(in characters) at which the editor will automatically start a new line."));
+  QWhatsThis::add(opt[1], i18n(
+        "When the user types a left bracket ([,(, or {) KateView automatically "
+        "enters the right bracket (}, ), or ]) to the right of the cursor."));
+  QWhatsThis::add(opt[2], i18n(
+        "The editor will display a symbol to indicate the presence of a tab in "
+        "the text."));
+  QWhatsThis::add(opt[3], i18n(
+        "When selected, pressing the home key will cause the cursor to skip "
+        "whitespace and go to the start of a line's text."));
+  QWhatsThis::add(e3, i18n(
+        "Sets the number of undo/redo steps to record. More steps uses more memory."));
+  QWhatsThis::add(e4, i18n(
+        "Sets the number of lines to maintain visible above and below the "
+        "cursor when possible."));
+  QWhatsThis::add(opt[4], i18n(
+        "When on, moving the insertion cursor using the <b>Left</b> and "
+        "<b>Right</b> keys will go on to previous/next line at beginning/end of "
+        "the line, similar to most editors.<p>When off, the insertion cursor "
+        "cannot be moved left of the line start, but it can be moved off the "
+        "line end, which can be very handy for programmers."));
   QWhatsThis::add(e6, i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
-  QString gstfwt = i18n("This determines where KateView will get the search text from "
-                        "(this will be automatically entered into the Find Text dialog): "
-                        "<br>"
-                        "<ul>"
-                        "<li><b>Nowhere:</b> Don't guess the search text."
-                        "</li>"
-                        "<li><b>Selection Only:</b> Use the current text selection, "
-                        "if available."
-                        "</li>"
-                        "<li><b>Selection, then Current Word:</b> Use the current "
-                        "selection if available, otherwise use the current word."
-                        "</li>"
-                        "<li><b>Current Word Only:</b> Use the word that the cursor "
-                        "is currently resting on, if available."
-                        "</li>"
-                        "<li><b>Current Word, then Selection:</b> Use the current "
-                        "word if available, otherwise use the current selection."
-                        "</li>"
-                        "</ul>"
-                        "Note that, in all the above modes, if a search string has "
-                        "not been or cannot be determined, then the Find Text Dialog "
-                        "will fall back to the last search text.");
+  QString gstfwt = i18n(
+        "This determines where KateView will get the search text from "
+        "(this will be automatically entered into the Find Text dialog): "
+        "<br>"
+        "<ul>"
+        "<li><b>Nowhere:</b> Don't guess the search text."
+        "</li>"
+        "<li><b>Selection Only:</b> Use the current text selection, "
+        "if available."
+        "</li>"
+        "<li><b>Selection, then Current Word:</b> Use the current "
+        "selection if available, otherwise use the current word."
+        "</li>"
+        "<li><b>Current Word Only:</b> Use the word that the cursor "
+        "is currently resting on, if available."
+        "</li>"
+        "<li><b>Current Word, then Selection:</b> Use the current "
+        "word if available, otherwise use the current selection."
+        "</li>"
+        "</ul>"
+        "Note that, in all the above modes, if a search string has "
+        "not been or cannot be determined, then the Find Text Dialog "
+        "will fall back to the last search text.");
   QWhatsThis::add(e5Label, gstfwt);
   QWhatsThis::add(e5, gstfwt);
   QWhatsThis::add( opt[5], i18n(
@@ -600,25 +636,48 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   blay->addWidget(m_bmSort, 0 );
   blay->addStretch(1000);
 
-  QWhatsThis::add(m_dynwrap,i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
+  QWhatsThis::add(m_dynwrap,i18n(
+        "If this option is checked, the text lines will be wrapped at the view "
+        "border on the screen."));
   QString wtstr = i18n("Choose when the Dynamic Word Wrap Indicators should be displayed");
   QWhatsThis::add(m_dynwrapIndicatorsLabel, wtstr);
   QWhatsThis::add(m_dynwrapIndicatorsCombo, wtstr);
   // xgettext:no-c-format
-  QWhatsThis::add(m_dynwrapAlignLevel, i18n("<p>Enables the start of dynamically wrapped lines to be aligned vertically to the indentation level of the first line.  This can help to make code and markup more readable.</p><p>Additionally, this allows you to set a maximum width of the screen, as a percentage, after which dynamically wrapped lines will no longer be vertically aligned.  For example, at 50%, lines whose indentation levels are deeper than 50% of the width of the screen will not have vertical alignment applied to subsequent wrapped lines.</p>"));
+  QWhatsThis::add(m_dynwrapAlignLevel, i18n(
+        "<p>Enables the start of dynamically wrapped lines to be aligned "
+        "vertically to the indentation level of the first line.  This can help "
+        "to make code and markup more readable.</p><p>Additionally, this allows "
+        "you to set a maximum width of the screen, as a percentage, after which "
+        "dynamically wrapped lines will no longer be vertically aligned.  For "
+        "example, at 50%, lines whose indentation levels are deeper than 50% of "
+        "the width of the screen will not have vertical alignment applied to "
+        "subsequent wrapped lines.</p>"));
   QWhatsThis::add( m_wwmarker, i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "
         "wrap column as defined in the <strong>Editing</strong> properties."
         "<p>Note that the word wrap marker is only drawn if you use a fixed "
         "pitch font." ));
-  QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
-  QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
-  QWhatsThis::add(m_scrollBarMarks,i18n("If this option is checked, every new view will show marks on the vertical scrollbar.<br><br>These marks will, for instance, show bookmarks."));
-  QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
-
-  QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
-  QWhatsThis::add(rb1,i18n("The bookmarks will be ordered by the line numbers they are placed at."));
-  QWhatsThis::add(rb2,i18n("Each new bookmark will be added to the bottom, independently from where it is placed in the document."));
+  QWhatsThis::add(m_line,i18n(
+        "If this option is checked, every new view will display line numbers "
+        "on the left hand side."));
+  QWhatsThis::add(m_icons,i18n(
+        "If this option is checked, every new view will display an icon border "
+        "on the left hand side.<br><br>The icon border shows bookmark signs, "
+        "for instance."));
+  QWhatsThis::add(m_scrollBarMarks,i18n(
+        "If this option is checked, every new view will show marks on the "
+        "vertical scrollbar.<br><br>These marks will, for instance, show "
+        "bookmarks."));
+  QWhatsThis::add(m_folding,i18n(
+        "If this option is checked, every new view will display marks for code "
+        "folding, if code folding is available."));
+  QWhatsThis::add(m_bmSort,i18n(
+        "Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
+  QWhatsThis::add(rb1,i18n(
+        "The bookmarks will be ordered by the line numbers they are placed at."));
+  QWhatsThis::add(rb2,i18n(
+        "Each new bookmark will be added to the bottom, independently from "
+        "where it is placed in the document."));
 
   reload();
 
@@ -743,16 +802,16 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   m_eol->insertItem (i18n("Unix"));
   m_eol->insertItem (i18n("Dos/Windows"));
   m_eol->insertItem (i18n("Macintosh"));
-  
+
   QVGroupBox *gbMem = new QVGroupBox(i18n("Memory Usage"), this);
   layout->addWidget( gbMem );
-  
+
   e5Layout = new QHBox(gbMem);
   e5Layout->setSpacing (32);
   blockCountLabel = new QLabel(e5Layout);
   blockCount = new QSlider (Qt::Horizontal, e5Layout);
   connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(blockCountChanged(int)));
-  
+
   blockCount->setRange(4, 512);
   blockCount->setValue (KateBuffer::maxLoadedBlocks());
   blockCount->setSteps ( 4, 4 );
@@ -778,9 +837,12 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   layout->addStretch();
 
-  QWhatsThis::add(replaceTabs, i18n("KateView will replace any tabs with the number of spaces indicated in the Tab Width: entry."));
-  QWhatsThis::add(removeSpaces, i18n("KateView will automatically eliminate extra spaces at the ends of lines of text."));
-
+  QWhatsThis::add(replaceTabs, i18n(
+        "KateView will replace any tabs with the number of spaces indicated in "
+        "the Tab Width: entry."));
+  QWhatsThis::add(removeSpaces, i18n(
+        "KateView will automatically eliminate extra spaces at the ends of "
+        "lines of text."));
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;filename&gt;&lt;suffix&gt;' before saving changes."
@@ -810,7 +872,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
 void KateSaveConfigTab::blockCountChanged (int value)
 {
-  blockCountLabel->setText (i18n("Maximum loaded blocks per file: <b>%1</b>").arg (value)); 
+  blockCountLabel->setText (i18n("Maximum loaded blocks per file: <b>%1</b>").arg (value));
 }
 
 void KateSaveConfigTab::apply()
@@ -818,7 +880,7 @@ void KateSaveConfigTab::apply()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
-    
+
   KateBuffer::setMaxLoadedBlocks (blockCount->value());
 
   KateDocumentConfig::global()->configStart ();
@@ -1170,11 +1232,23 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
   hlCombo->setCurrentItem( 0 );
   hlChanged(0);
 
-  QWhatsThis::add( hlCombo,   i18n("Choose a <em>Syntax Highlight mode</em> from this list to view its properties below.") );
-  QWhatsThis::add( wildcards, i18n("The list of file extensions used to determine which files to highlight using the current syntax highlight mode.") );
-  QWhatsThis::add( mimetypes, i18n("The list of Mime Types used to determine which files to highlight using the current highlight mode.<p>Click the wizard button on the left of the entry field to display the MimeType selection dialog.") );
-  QWhatsThis::add( btnMTW,    i18n("Display a dialog with a list of all available mime types to choose from.<p>The <strong>File Extensions</strong> entry will automatically be edited as well.") );
-  QWhatsThis::add( btnDl,     i18n("Click this button to download new or updated syntax highlight descriptions from the Kate website.") );
+  QWhatsThis::add( hlCombo, i18n(
+        "Choose a <em>Syntax Highlight mode</em> from this list to view its "
+        "properties below.") );
+  QWhatsThis::add( wildcards, i18n(
+        "The list of file extensions used to determine which files to highlight "
+        "using the current syntax highlight mode.") );
+  QWhatsThis::add( mimetypes, i18n(
+        "The list of Mime Types used to determine which files to highlight "
+        "using the current highlight mode.<p>Click the wizard button on the "
+        "left of the entry field to display the MimeType selection dialog.") );
+  QWhatsThis::add( btnMTW, i18n(
+        "Display a dialog with a list of all available mime types to choose from."
+        "<p>The <strong>File Extensions</strong> entry will automatically be "
+        "edited as well.") );
+  QWhatsThis::add( btnDl, i18n(
+        "Click this button to download new or updated syntax highlight "
+        "descriptions from the Kate website.") );
 
   layout->addStretch ();
 

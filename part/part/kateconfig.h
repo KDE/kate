@@ -19,13 +19,18 @@
 #ifndef __KATE_CONFIG_H__
 #define __KATE_CONFIG_H__
 
-#include "katefont.h"
+#include <qobject.h>
 
 class KateView;
 class KateDocument;
 class KateRenderer;
+class FontStruct;
 
 class KConfig;
+
+class QColor;
+class QFont;
+class QFontMetrics;
 
 class KateConfig
 {
@@ -175,6 +180,9 @@ class KateViewConfig : public KateConfig
     int autoCenterLines() const;
     void setAutoCenterLines (int lines);
 
+    const QColor *iconBarColor() const;
+    void setIconBarColor (const QColor &col);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -183,6 +191,7 @@ class KateViewConfig : public KateConfig
     bool m_foldingBar;
     int m_bookmarkSort;
     int m_autoCenterLines;
+    QColor *m_iconBarColor;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -191,6 +200,7 @@ class KateViewConfig : public KateConfig
     bool m_foldingBarSet : 1;
     bool m_bookmarkSortSet : 1;
     bool m_autoCenterLinesSet : 1;
+    bool m_iconBarColorSet : 1;
 
   private:
     KateView *m_view;
@@ -247,19 +257,44 @@ class KateRendererConfig : public KateConfig
     const QFont *font(int whichFont);
     const QFontMetrics *fontMetrics(int whichFont);
 
-    void setFont(int whichFont, QFont font);
+    void setFont(int whichFont, const QFont &font);
 
     bool wordWrapMarker () const;
     void setWordWrapMarker (bool on);
+
+    const QColor *backgroundColor() const;
+    void setBackgroundColor (const QColor &col);
+
+    const QColor *selectionColor() const;
+    void setSelectionColor (const QColor &col);
+
+    const QColor *highlightedLineColor() const;
+    void setHighlightedLineColor (const QColor &col);
+
+    const QColor *highlightedBracketColor() const;
+    void setHighlightedBracketColor (const QColor &col);
+
+    const QColor *wordWrapMarkerColor() const;
+    void setWordWrapMarkerColor (const QColor &col);
 
   private:
     FontStruct* m_viewFont;
     FontStruct* m_printFont;
     bool m_wordWrapMarker;
+    QColor *m_backgroundColor;
+    QColor *m_selectionColor;
+    QColor *m_highlightedLineColor;
+    QColor *m_highlightedBracketColor;
+    QColor *m_wordWrapMarkerColor;
 
     bool m_viewFontSet : 1;
     bool m_printFontSet : 1;
     bool m_wordWrapMarkerSet : 1;
+    bool m_backgroundColorSet : 1;
+    bool m_selectionColorSet : 1;
+    bool m_highlightedLineColorSet : 1;
+    bool m_highlightedBracketColorSet : 1;
+    bool m_wordWrapMarkerColorSet : 1;
 
   private:
     KateRenderer *m_renderer;

@@ -97,8 +97,6 @@ uint KateDocument::_configFlags
     | KateDocument::cfShowTabs
     | KateDocument::cfSmartHome;
 
-QColor KateDocument::colors[6];
-
 uint KateDocument::myBackupConfig = 1;
 QString KateDocument::myBackupSuffix ("~");
 
@@ -239,13 +237,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // to ensure each document has the same config the whole time
   if (!s_configLoaded)
   {
-    colors[0] = KGlobalSettings::baseColor();
-    colors[1] = KGlobalSettings::highlightColor();
-    colors[2] = KGlobalSettings::alternateBackgroundColor();
-    colors[3] = QColor( "#FFFF99" );
-    colors[4] = colors[2].dark();
-    colors[5] = QColor( "#EAE9E8" );
-
     // read the standard config to get some defaults
     readConfig();
 
@@ -1844,13 +1835,6 @@ void KateDocument::readConfig(KConfig *config)
   _configFlags = config->readNumEntry("Basic Config Flags", _configFlags);
   KateSearch::s_options = config->readNumEntry("Search Config Flags", KateSearch::s_options);
 
-  colors[0] = config->readColorEntry("Color Background", &colors[0]);
-  colors[1] = config->readColorEntry("Color Selected", &colors[1]);
-  colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
-  colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
-  colors[4] = config->readColorEntry("Color WWMarker", &colors[4]);
-  colors[5] = config->readColorEntry("Color Icon Border", &colors[5]);
-
   myBackupConfig = config->readNumEntry( "Backup Config Flags", myBackupConfig);
   myBackupSuffix = config->readEntry("Backup Files Suffix", myBackupSuffix);
 
@@ -1889,13 +1873,6 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->writeEntry("Basic Config Flags",_configFlags);
   config->writeEntry("Search Config Flags",KateSearch::s_options);
-
-  config->writeEntry("Color Background", colors[0]);
-  config->writeEntry("Color Selected", colors[1]);
-  config->writeEntry("Color Current Line", colors[2]);
-  config->writeEntry("Color Bracket Highlight", colors[3]);
-  config->writeEntry("Color WWMarker", colors[4] );
-  config->writeEntry("Color Icon Border", colors[5] );
 
   config->writeEntry( "Backup Config Flags", myBackupConfig );
   config->writeEntry( "Backup Files Suffix", myBackupSuffix );
@@ -2605,7 +2582,7 @@ bool KateDocument::printDialog ()
                  _h += innerMargin;
                }
              }
-             paint.fillRect( 0, _y, pdmWidth, _h, colors[0] );
+             paint.fillRect( 0, _y, pdmWidth, _h, *renderer.config()->backgroundColor());
            }
 
            if ( useBox )
@@ -2624,7 +2601,7 @@ bool KateDocument::printDialog ()
            if ( useGuide && currentPage == 1 )
            {  // FIXME - this may span more pages...
              // draw a box unless we have boxes, in which case we end with a box line
-             paint.setPen( colors[1] );
+             paint.setPen( *renderer.config()->selectionColor() );
              int _marg = 0; // this could be available globally!??
              if ( useBox )
              {
@@ -2676,7 +2653,7 @@ bool KateDocument::printDialog ()
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
            paint.setFont( renderer.config()->fontStruct(KateRendererConfig::PrintFont)->font( false, false ) );
-           paint.setPen( colors[1] ); // using "selected" color for now...
+           paint.setPen( *renderer.config()->selectionColor() ); // using "selected" color for now...
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
                         lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
@@ -2814,6 +2791,8 @@ bool KateDocument::openFile()
   // FIXME clean up this feature
   if ( m_collapseTopLevelOnLoad ) {
 kdDebug()<<"calling collapseToplevelNodes()"<<endl;
+
+    buffer->line (numLines()-1);
     foldingTree()->collapseToplevelNodes();
   }
 

@@ -44,7 +44,7 @@ class FontStruct
 
     const QFont& font(bool bold, bool italic) const;
 
-    void setFont(QFont & font);
+    void setFont(const QFont & font);
 
   private:
      void updateFontData ();

@@ -174,7 +174,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       KateTextCursor startend = bracketmark->start();
       startend.setCol(startend.col()+1);
       bracketStartRange = new ArbitraryHighlightRange(m_doc, bracketmark->start(), startend);
-      bracketStartRange->setBGColor(m_doc->colors[3]);
+      bracketStartRange->setBGColor(*config()->highlightedBracketColor());
       superRanges.append(bracketStartRange);
     }
 
@@ -182,7 +182,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       KateTextCursor endend = bracketmark->end();
       endend.setCol(endend.col()+1);
       bracketEndRange = new ArbitraryHighlightRange(m_doc, bracketmark->end(), endend);
-      bracketEndRange->setBGColor(m_doc->colors[3]);
+      bracketEndRange->setBGColor(*config()->highlightedBracketColor());
       superRanges.append(bracketEndRange);
     }
 
@@ -192,7 +192,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       else
         bracketRange = new ArbitraryHighlightRange(m_doc, bracketmark->end(), bracketmark->start());
 
-      bracketRange->setOutline(m_doc->colors[3]);
+      bracketRange->setOutline(*config()->highlightedBracketColor());
       superRanges.append(bracketRange);
     }*/
   }
@@ -241,14 +241,14 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   const QColor *cursorColor = 0;
 
   // Normal background color
-  QColor backgroundColor = m_doc->colors[0];
+  QColor backgroundColor (*config()->backgroundColor());
 
   // Paint selection background as the whole line is selected
   if (!isPrinterFriendly())
   {
     if (showSelections() && m_doc->lineSelected(line))
     {
-      backgroundColor = m_doc->colors[1];
+      backgroundColor = *config()->selectionColor();
       selectionPainted = true;
       hasSel = true;
       startSel = 0;
@@ -258,7 +258,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     {
       // paint the current line background if we're on the current line
       if (currentLine)
-        backgroundColor = m_doc->colors[2];
+        backgroundColor = *config()->highlightedLineColor();
 
       // Check for mark background
       int markRed = 0, markGreen = 0, markBlue = 0, markCount = 0;
@@ -303,7 +303,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
   // show word wrap marker if desirable
   if ( !isPrinterFriendly() && config()->wordWrapMarker() && fs->myFont.fixedPitch() ) {
-    paint.setPen( m_doc->colors[4] );
+    paint.setPen( *config()->wordWrapMarkerColor() );
     int _x = m_doc->config()->wordWrapAt() * fs->myFontMetrics.width('x') - xStart;
     paint.drawLine( _x,0,_x,fs->fontHeight );
   }
@@ -356,7 +356,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock) {
-    paint.setPen(QPen(m_doc->colors[4], 1, Qt::DashLine));
+    paint.setPen(QPen(*config()->wordWrapMarkerColor(), 1, Qt::DashLine));
     paint.drawLine(0, fs->fontHeight - 1, xEnd - xStart, fs->fontHeight - 1);
   }
 
@@ -378,7 +378,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   {
     // draw word-wrap-honour-indent filling
     if (range->xOffset() && range->xOffset() > xStart)
-      paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(m_doc->colors[4], QBrush::DiagCrossPattern));
+      paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(*config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
 
     // loop each character (tmp goes backwards, but curCol doesn't)
     for (uint tmp = len; (tmp > 0); tmp--)
@@ -445,7 +445,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
         {
           if (!isPrinterFriendly() && !selectionPainted) {
             if (isSel)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, m_doc->colors[1]);
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, *config()->selectionColor());
             else if (currentHL.itemSet(KateAttribute::BGColor))
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
           }
@@ -488,7 +488,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
           // TODO: genericise background painting
           if (!isPrinterFriendly() && !selectionPainted) {
             if (isSel)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, m_doc->colors[1]);
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, *config()->selectionColor());
             else if (currentHL.itemSet(KateAttribute::BGColor))
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
           }
@@ -560,7 +560,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // TODO: genericise background painting
   if (!isPrinterFriendly() && showSelections() && !selectionPainted && m_doc->lineEndSelected (line, endcol))
   {
-    paint.fillRect(xPos-xStart, 0, xEnd - xStart, fs->fontHeight, m_doc->colors[1]);
+    paint.fillRect(xPos-xStart, 0, xEnd - xStart, fs->fontHeight, *config()->selectionColor());
     selectionPainted = true;
   }
 

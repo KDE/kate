@@ -219,20 +219,20 @@ int KateIconBorder::lineNumberWidth() const
   if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
     width = QMAX(style().scrollBarExtent().width() + 4, width);
 
-    if (m_cachedLNWidth != width || m_oldBackgroundColor != m_doc->colors[5]) {
+    if (m_cachedLNWidth != width || m_oldBackgroundColor != *m_view->config()->iconBarColor()) {
       int w = style().scrollBarExtent().width();
       int h = m_view->renderer()->config()->fontMetrics(KateRendererConfig::ViewFont)->height();
 
       QSize newSize(w, h);
-      if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_doc->colors[5]) && !newSize.isEmpty()) {
+      if ((m_arrow.size() != newSize || m_oldBackgroundColor != *m_view->config()->iconBarColor()) && !newSize.isEmpty()) {
         m_arrow.resize(newSize);
 
         QPainter p(&m_arrow);
-        p.fillRect( 0, 0, w, h, m_doc->colors[5] );
+        p.fillRect( 0, 0, w, h, *m_view->config()->iconBarColor() );
 
         h = m_view->renderer()->config()->fontMetrics(KateRendererConfig::ViewFont)->ascent();
 
-        p.setPen(m_doc->colors[4]);
+        p.setPen(m_doc->myAttribs[0].textColor());
         p.drawLine(w/2, h/2, w/2, 0);
 #if 1
         p.lineTo(w/4, h/4);
@@ -282,14 +282,14 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   if ( m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) ) // avoid calculating unless needed ;-)
   {
     lnWidth = lineNumberWidth();
-    if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != m_doc->colors[5] )
+    if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != *m_view->config()->iconBarColor() )
     {
       // we went from n0 ->n9 lines or vice verca
       // this causes an extra updateGeometry() first time the line numbers
       // are displayed, but sizeHint() is supposed to be const so we can't set
       // the cached value there.
       m_cachedLNWidth = lnWidth;
-      m_oldBackgroundColor = m_doc->colors[5];
+      m_oldBackgroundColor = *m_view->config()->iconBarColor();
       updateGeometry();
       update ();
       return;
@@ -319,8 +319,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     //int y = line * fontHeight; // see below
     int lnX ( 0 );
 
-    p.fillRect( 0, y, w-4, h, m_doc->colors[5] );
-    p.fillRect( w-4, y, w, h, m_doc->colors[0] );
+    p.fillRect( 0, y, w-4, h, *m_view->config()->iconBarColor() );
+    p.fillRect( w-4, y, w, h, *m_view->renderer()->config()->backgroundColor() );
 
     // icon pane
     if( m_iconBorderOn )

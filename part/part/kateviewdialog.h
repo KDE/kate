@@ -205,9 +205,6 @@ public:
   ColorConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
   ~ColorConfig();
 
-  void setColors( QColor * );
-  void getColors( QColor * );
-
 private:
   KateDocument *m_doc;
 
@@ -221,7 +218,7 @@ private:
   public slots:
     void apply ();
     void reload ();
-        void reset () {};
+    void reset () {};
     void defaults () {};
 };
 

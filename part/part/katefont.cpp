@@ -88,7 +88,7 @@ const QFont& FontStruct::font(bool bold, bool italic) const
     ( (italic) ? myFontItalic : myFont );
 }
 
-void FontStruct::setFont (QFont & font)
+void FontStruct::setFont (const QFont & font)
 {
   myFont = font;
 

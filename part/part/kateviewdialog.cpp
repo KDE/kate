@@ -643,37 +643,24 @@ ColorConfig::~ColorConfig()
 {
 }
 
-void ColorConfig::setColors(QColor *colors)
-{
-  m_back->setColor( colors[0] );
-  m_selected->setColor( colors[1] );
-  m_current->setColor( colors[2] );
-  m_bracket->setColor( colors[3] );
-  m_wwmarker->setColor( colors[4] );
-  m_iconborder->setColor( colors[5] );
-}
-
-void ColorConfig::getColors(QColor *colors)
-{
-  colors[0] = m_back->color();
-  colors[1] = m_selected->color();
-  colors[2] = m_current->color();
-  colors[3] = m_bracket->color();
-  colors[4] = m_wwmarker->color();
-  colors[5] = m_iconborder->color();
-
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-    KateFactory::documents()->at(z)->updateViews();
-}
-
 void ColorConfig::apply ()
 {
-  getColors(m_doc->colors);
+  KateRendererConfig::global()->setBackgroundColor (m_back->color());
+  KateRendererConfig::global()->setSelectionColor (m_selected->color());
+  KateRendererConfig::global()->setHighlightedLineColor (m_current->color());
+  KateRendererConfig::global()->setHighlightedBracketColor (m_bracket->color());
+  KateRendererConfig::global()->setWordWrapMarkerColor (m_wwmarker->color());
+  KateViewConfig::global()->setIconBarColor (m_iconborder->color());
 }
 
 void ColorConfig::reload ()
 {
-  setColors(m_doc->colors);
+  m_back->setColor( *KateRendererConfig::global()->backgroundColor ());
+  m_selected->setColor( *KateRendererConfig::global()->selectionColor ());
+  m_current->setColor( *KateRendererConfig::global()->highlightedLineColor ());
+  m_bracket->setColor( *KateRendererConfig::global()->highlightedBracketColor ());
+  m_wwmarker->setColor( *KateRendererConfig::global()->wordWrapMarkerColor ());
+  m_iconborder->setColor( *KateViewConfig::global()->iconBarColor ());
 }
 
 //END ColorConfig

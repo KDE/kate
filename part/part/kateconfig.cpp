@@ -21,11 +21,14 @@
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "katefont.h"
 #include "katefactory.h"
 
 #include <kconfig.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
+
+#include <qcolor.h>
 
 // $Id$
 
@@ -260,6 +263,7 @@ KateViewConfig::KateViewConfig ()
    m_foldingBarSet (true),
    m_bookmarkSortSet (true),
    m_autoCenterLinesSet (true),
+   m_iconBarColorSet (true),
    m_view (0)
 {
   s_global = this;
@@ -279,6 +283,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_foldingBarSet (false),
    m_bookmarkSortSet (false),
    m_autoCenterLinesSet (false),
+   m_iconBarColorSet (false),
    m_view (view)
 {
 }
@@ -312,6 +317,10 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setAutoCenterLines (config->readNumEntry( "Auto Center Lines", 0 ));
 
+  QColor tmp5 ( "#EAE9E8" );
+
+  setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp5));
+
   configEnd ();
 }
 
@@ -329,6 +338,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
 
   config->writeEntry( "Auto Center Lines", autoCenterLines() );
+
+  config->writeEntry("Color Background", *iconBarColor());
 
   config->sync ();
 }
@@ -479,6 +490,24 @@ void KateViewConfig::setAutoCenterLines (int lines)
   configEnd ();
 }
 
+const QColor *KateViewConfig::iconBarColor() const
+{
+  if (m_iconBarColorSet || isGlobal())
+    return m_iconBarColor;
+
+  return s_global->iconBarColor();
+}
+
+void KateViewConfig::setIconBarColor (const QColor &col)
+{
+  configStart ();
+
+  m_iconBarColorSet = true;
+  m_iconBarColor = new QColor (col);
+
+  configEnd ();
+}
+
 KateRendererConfig::KateRendererConfig ()
  :
    m_viewFont (new FontStruct ()),
@@ -486,6 +515,11 @@ KateRendererConfig::KateRendererConfig ()
    m_viewFontSet (true),
    m_printFontSet (true),
    m_wordWrapMarkerSet (true),
+   m_backgroundColorSet (true),
+   m_selectionColorSet (true),
+   m_highlightedLineColorSet (true),
+   m_highlightedBracketColorSet (true),
+   m_wordWrapMarkerColorSet (true),
    m_renderer (0)
 {
   s_global = this;
@@ -502,6 +536,11 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_viewFontSet (false),
    m_printFontSet (false),
    m_wordWrapMarkerSet (false),
+   m_backgroundColorSet (false),
+   m_selectionColorSet (false),
+   m_highlightedLineColorSet (false),
+   m_highlightedBracketColorSet (false),
+   m_wordWrapMarkerColorSet (false),
    m_renderer (renderer)
 {
 }
@@ -531,6 +570,18 @@ void KateRendererConfig::readConfig (KConfig *config)
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
+  QColor tmp0 (KGlobalSettings::baseColor());
+  QColor tmp1 (KGlobalSettings::highlightColor());
+  QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
+  QColor tmp3 ( "#FFFF99" );
+  QColor tmp4 (tmp2.dark());
+
+  setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
+  setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
+  setHighlightedLineColor (config->readColorEntry("Color Highlighted Line", &tmp2));
+  setHighlightedBracketColor (config->readColorEntry("Color Highlighted Bracket", &tmp3));
+  setWordWrapMarkerColor (config->readColorEntry("Color Word Wrap Marker", &tmp4));
+
   configEnd ();
 }
 
@@ -540,6 +591,12 @@ void KateRendererConfig::writeConfig (KConfig *config)
   config->writeEntry("Printer Font", *font(KateRendererConfig::PrintFont));
 
   config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
+
+  config->writeEntry("Color Background", *backgroundColor());
+  config->writeEntry("Color Selection", *selectionColor());
+  config->writeEntry("Color Highlighted Line", *highlightedLineColor());
+  config->writeEntry("Color Highlighted Bracket", *highlightedBracketColor());
+  config->writeEntry("Color Word Wrap Marker", *wordWrapMarkerColor());
 
   config->sync ();
 }
@@ -589,7 +646,7 @@ const QFontMetrics *KateRendererConfig::fontMetrics(int whichFont)
   return &(fontStruct (whichFont)->myFontMetrics);
 }
 
-void KateRendererConfig::setFont(int whichFont, QFont font)
+void KateRendererConfig::setFont(int whichFont, const QFont &font)
 {
   configStart ();
 
@@ -629,6 +686,96 @@ void KateRendererConfig::setWordWrapMarker (bool on)
 
   m_wordWrapMarkerSet = true;
   m_wordWrapMarker = on;
+
+  configEnd ();
+}
+
+const QColor *KateRendererConfig::backgroundColor() const
+{
+  if (m_backgroundColorSet || isGlobal())
+    return m_backgroundColor;
+
+  return s_global->backgroundColor();
+}
+
+void KateRendererConfig::setBackgroundColor (const QColor &col)
+{
+  configStart ();
+
+  m_backgroundColorSet = true;
+  m_backgroundColor = new QColor (col);
+
+  configEnd ();
+}
+
+const QColor *KateRendererConfig::selectionColor() const
+{
+  if (m_selectionColorSet || isGlobal())
+    return m_selectionColor;
+
+  return s_global->selectionColor();
+}
+
+void KateRendererConfig::setSelectionColor (const QColor &col)
+{
+  configStart ();
+
+  m_selectionColorSet = true;
+  m_selectionColor = new QColor (col);
+
+  configEnd ();
+}
+
+const QColor *KateRendererConfig::highlightedLineColor() const
+{
+  if (m_highlightedLineColorSet || isGlobal())
+    return m_highlightedLineColor;
+
+  return s_global->highlightedLineColor();
+}
+
+void KateRendererConfig::setHighlightedLineColor (const QColor &col)
+{
+  configStart ();
+
+  m_highlightedLineColorSet = true;
+  m_highlightedLineColor = new QColor (col);
+
+  configEnd ();
+}
+
+const QColor *KateRendererConfig::highlightedBracketColor() const
+{
+  if (m_highlightedBracketColorSet || isGlobal())
+    return m_highlightedBracketColor;
+
+  return s_global->highlightedBracketColor();
+}
+
+void KateRendererConfig::setHighlightedBracketColor (const QColor &col)
+{
+  configStart ();
+
+  m_highlightedBracketColorSet = true;
+  m_highlightedBracketColor = new QColor (col);
+
+  configEnd ();
+}
+
+const QColor *KateRendererConfig::wordWrapMarkerColor() const
+{
+  if (m_wordWrapMarkerColorSet || isGlobal())
+    return m_wordWrapMarkerColor;
+
+  return s_global->wordWrapMarkerColor();
+}
+
+void KateRendererConfig::setWordWrapMarkerColor (const QColor &col)
+{
+  configStart ();
+
+  m_wordWrapMarkerColorSet = true;
+  m_wordWrapMarkerColor = new QColor (col);
 
   configEnd ();
 }

@@ -23,7 +23,7 @@
 namespace KTextEditor
 {
 
-/*
+/**
 *  This is an interface for the KTextEditor::View class !!!
 */
 class ViewCursorInterface
@@ -40,19 +40,29 @@ class ViewCursorInterface
   // slots !!!
   //
   public:
-    /** Get the current cursor coordinates in pixels. */
+    /**
+     * Get the current cursor coordinates in pixels.
+     */
     virtual class QPoint cursorCoordinates () = 0;
 
-    /** Get the cursor position */
+    /**
+     * Get the cursor position
+     */
     virtual void cursorPosition (unsigned int *line, unsigned int *col) = 0;
 
-    /** Get the cursor position, calculated with 1 character per tab */
+    /**
+     * Get the cursor position, calculated with 1 character per tab
+     */
     virtual void cursorPositionReal (unsigned int *line, unsigned int *col) = 0;
 
-    /** Set the cursor position */
+    /**
+     * Set the cursor position
+     */
     virtual bool setCursorPosition (unsigned int line, unsigned int col) = 0;
 
-    /** Set the cursor position, use 1 character per tab */
+    /**
+     * Set the cursor position, use 1 character per tab
+     */
     virtual bool setCursorPositionReal (unsigned int line, unsigned int col) = 0;
 
     virtual unsigned int cursorLine () = 0;

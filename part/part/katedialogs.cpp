@@ -101,9 +101,9 @@ HlConfigPage::~HlConfigPage ()
 
 void HlConfigPage::apply ()
 {
+  page->saveData();
   hlManager->setHlDataList(hlDataList);
   hlManager->setDefaults(defaultStyleList);
-  page->saveData();
 }
 
 void HlConfigPage::reload ()

@@ -911,7 +911,6 @@ void Highlight::setData(HlData *hlData) {
   KConfig *config;
 
   config = getKConfig();
-
 //  iWildcards = hlData->wildcards;
 //  iMimetypes = hlData->mimetypes;
 
@@ -1854,6 +1853,8 @@ void HlManager::setHlDataList(HlDataList &list) {
   for (z = 0; z < (int) hlList.count(); z++) {
     hlList.at(z)->setData(list.at(z));
   }
+  // anders: this actually works - changes from config box gets saved :-)))
+  getKConfig()->sync();
   //notify documents about changes in highlight configuration
   emit changed();
 }

@@ -231,7 +231,7 @@ void KateViewInternal::scrollColumns ( int x )
   m_columnScroll->blockSignals(false);
 }
 
-void KateViewInternal::updateView()
+void KateViewInternal::updateView(bool changed)
 {
   uint maxLen = 0;
   
@@ -252,8 +252,15 @@ void KateViewInternal::updateView()
   
   w -= leftBorder->width() + scrollbarWidth;
       
+  uint oldSize = lineRanges.size ();
   lineRanges.resize ((m_view->height() / m_doc->viewFont.fontHeight) + 1);
-       
+  
+  if (oldSize < lineRanges.size ())
+  {
+    for (uint i=oldSize; i < lineRanges.size(); i++)
+      lineRanges[i].dirty = true;
+  }
+  
   if (m_view->dynWordWrap())
   {
     uint line = startLine ();
@@ -265,16 +272,23 @@ void KateViewInternal::updateView()
     {
       if (line >= contentLines)
       {
+        if (lineRanges[z].line != -1)
+          lineRanges[z].dirty = true;        
+      
         lineRanges[z].line = -1;
         lineRanges[z].visibleLine = -1;
         lineRanges[z].startCol = -1;
         lineRanges[z].endCol = -1;
         lineRanges[z].startX = -1;
         lineRanges[z].endX = -1;
+        
         line++;
       }
       else
       {
+        if (lineRanges[z].line != m_doc->getRealLine (line))
+          lineRanges[z].dirty = true;    
+      
       lineRanges[z].visibleLine = line;
       lineRanges[z].line = m_doc->getRealLine (line);
    
@@ -284,19 +298,27 @@ void KateViewInternal::updateView()
                                                            
       if (wrap)
       {
+        if ((lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol))
+          lineRanges[z].dirty = true;
+      
         lineRanges[z].startCol = startCol;
         lineRanges[z].endCol = endCol;
         lineRanges[z].startX = startX;
         lineRanges[z].endX = endX;
+        
         startCol = endCol;
         startX = endX;
       }
       else
       {
+        if ((lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != -1))
+          lineRanges[z].dirty = true;
+      
         lineRanges[z].startCol = startCol;
         lineRanges[z].endCol = -1;
         lineRanges[z].startX = startX;
         lineRanges[z].endX = -1;
+        lineRanges[z].dirty = true;
         line++;
         startCol = 0;
         startX = 0;
@@ -316,12 +338,16 @@ void KateViewInternal::updateView()
     
     for( uint line = startLine(); (line < contentLines) && ((line-startLine()) < lineRanges.size()); line++ )
     {
+      if (lineRanges[line-startLine()].line != m_doc->getRealLine (line))
+          lineRanges[line-startLine()].dirty = true;        
+    
       lineRanges[line-startLine()].line = m_doc->getRealLine( line );
       lineRanges[line-startLine()].visibleLine = line;
       lineRanges[line-startLine()].startCol = 0;
       lineRanges[line-startLine()].endCol = -1;
       lineRanges[line-startLine()].startX = 0;
       lineRanges[line-startLine()].endX = -1;
+      
       maxLen = QMAX( maxLen, m_doc->textWidth( m_doc->kateTextLine( lineRanges[line-startLine()].line ), -1 ) );
     
       last = line-startLine();
@@ -329,6 +355,9 @@ void KateViewInternal::updateView()
     
     for (uint z = last+1; z < lineRanges.size(); z++)
     {
+      if (lineRanges[line-startLine()].line != -1)
+          lineRanges[line-startLine()].dirty = true;        
+    
       lineRanges[z].line = -1;
       lineRanges[z].visibleLine = -1;
       lineRanges[z].startCol = -1;
@@ -361,9 +390,12 @@ void KateViewInternal::updateView()
       m_columnScroll->hide();
     }
   }
+  
+  if (changed)
+    paintText (0,0,width(), height(), true);
 }
 
-void KateViewInternal::paintText (int x, int y, int width, int height)
+void KateViewInternal::paintText (int x, int y, int width, int height, bool paintOnlyDirty)
 {
   int xStart = startX() + x;
   int xEnd = xStart + width;
@@ -376,11 +408,11 @@ void KateViewInternal::paintText (int x, int y, int width, int height)
   
   for (uint z=startz; z <= endz; z++)
   {
-    if ( (z >= lineRangesSize) || (lineRanges[z].line == -1) )
+    if ( (z >= lineRangesSize) || ((lineRanges[z].line == -1) && (!paintOnlyDirty || lineRanges[z].dirty)) )
     {
       paint.fillRect( x, z * h, width, h, m_doc->colors[0] );
     }
-    else
+    else if (!paintOnlyDirty || lineRanges[z].dirty)
     {
       m_doc->paintTextLine
            ( paint,
@@ -1078,6 +1110,8 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   }
   //kdDebug() << "m_currentMaxX: " << m_currentMaxX << endl;
   
+  paintText (0,0,width(), height(), true);
+  
   emit m_view->cursorPositionChanged();
 }
 
@@ -1091,12 +1125,18 @@ void KateViewInternal::tagLines( int start, int end, bool updateLeftBorder )
 {
   //kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
   
+  for (uint z = 0; z < lineRanges.size(); z++)
+  {
+    if ((lineRanges[z].visibleLine >= start) && (lineRanges[z].visibleLine <= end))
+      lineRanges[z].dirty = true;;
+  }
+  
   if (!m_view->dynWordWrap())
   {
     int y = lineToY( start );
     int h = (end - start + 1) * m_doc->viewFont.fontHeight;
  
-    update ( 0, y, width(), h );  
+  //  update ( 0, y, width(), h );
     leftBorder->update (0, y, leftBorder->width(), h);
   }
   else
@@ -1105,7 +1145,7 @@ void KateViewInternal::tagLines( int start, int end, bool updateLeftBorder )
     {
       if ((lineRanges[z].visibleLine >= start) && (lineRanges[z].visibleLine <= end))
       {
-        update ( 0, z * m_doc->viewFont.fontHeight, width(), m_doc->viewFont.fontHeight );
+      //  update ( 0, z * m_doc->viewFont.fontHeight, width(), m_doc->viewFont.fontHeight );
         leftBorder->update (0, z * m_doc->viewFont.fontHeight, leftBorder->width(), m_doc->viewFont.fontHeight);
       }
     }
@@ -1115,7 +1155,11 @@ void KateViewInternal::tagLines( int start, int end, bool updateLeftBorder )
 void KateViewInternal::tagAll()
 {
   //kdDebug(13030) << "tagAll()" << endl;
-  update();
+  for (uint z = 0; z < lineRanges.size(); z++)
+  {
+      lineRanges[z].dirty = true;;
+  }
+  
   leftBorder->updateFont();
   leftBorder->update ();
 }
@@ -1128,6 +1172,7 @@ void KateViewInternal::centerCursor()
 void KateViewInternal::paintCursor()
 {
   tagLines( displayCursor.line, displayCursor.line );
+  paintText (0,0,width(), height(), true);
 }
 
 // Point in content coordinates
@@ -1489,14 +1534,6 @@ void KateViewInternal::editStart()
 
 void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 {
-  if (cursorCacheChanged)
-  {
-    cursorCacheChanged = false;
-    updateCursor( cursorCache );
-  }
-  
-  updateView();
-
     if (tagLinesFrom > -1)
     {
       int startTagging = QMIN( tagLinesFrom, editTagLineStart );
@@ -1507,6 +1544,14 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
       tagRealLines (editTagLineStart, editTagLineEnd);
 
     tagLinesFrom = -1;
+    
+    updateView (true);
+    
+    if (cursorCacheChanged)
+    {
+      cursorCacheChanged = false;
+      updateCursor( cursorCache );
+    }
 }
 
 void KateViewInternal::editRemoveText(int line, int col, int len)

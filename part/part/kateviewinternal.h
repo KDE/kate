@@ -50,6 +50,7 @@ class LineRange
     int endCol;
     int startX;
     int endX;
+    bool dirty;
 };
 
 class KateViewInternal : public QWidget
@@ -78,7 +79,7 @@ class KateViewInternal : public QWidget
     void scrollColumns (int x); // connected to the valueChanged of the m_columnScroll
   
   public slots:
-    void updateView ();
+    void updateView (bool changed = false);
     void makeVisible (uint line, uint startCol, uint endCol);
     
   public:
@@ -134,7 +135,7 @@ class KateViewInternal : public QWidget
     void editUnWrapLine(int line, int col);
     void editRemoveLine(int line);
     
-    void paintText (int x, int y, int width, int height);
+    void paintText (int x, int y, int width, int height, bool paintOnlyDirty = false);
  
   // EVENT HANDLING STUFF - IMPORTANT
   protected:

@@ -850,6 +850,7 @@
         <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="^@@?[^@ \t\r\n]"/>
       </context>
       <context name="String literal" attribute="String" lineEndContext="#stay">
+        <HlCStringChar attribute="String Char" context="#stay"/>
         <RegExpr attribute="External Variable" context="#stay" String="&amp;&amp;?\w+"/>
         <DetectChar attribute="String" context="#pop" char="'"/>
       </context>

@@ -6,16 +6,24 @@
   copyright   : (C) 2004 by Dominik Haumann
   email       : dhdev at gmx dot de
 
-  last change : 2004-03-15
+  last change : 2004-03-16
 
- ***************************************************************************
- *                                                                         *
- *   This file is free software; you can redistribute it and/or modify     *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************
+ **********************************************************************
+ * This library is free software; you can redistribute it and/or      *
+ * modify it under the terms of the GNU Library General Public        *
+ * License as published by the Free Software Foundation; either       *
+ * version 2 of the License, or (at your option) any later version.   *
+ *                                                                    *
+ * This library is distributed in the hope that it will be useful,    *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of     *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  *
+ * Library General Public License for more details.                   *
+ *                                                                    *
+ * You should have received a copy of the GNU Library General Public  *
+ * License along with this library; if not, write to the              *
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,       *
+ * Boston, MA  02111-1307, USA.                                       *
+ **********************************************************************
  NOTE:
    This file defines highlighting rules for both Scheme AND Guile.
    Scheme usually has no block comments. Guile has block comments: #! !#
@@ -28,7 +36,7 @@
    guile procedures (cause then almost everything would be highlighted) I
    removed some to have a rather small but "senseful" list of highlighted words.
 -->
-<language version="1.07" kateversion="2.3" name="Scheme" section="Scripts" extensions="*.scm;*.ss;*.scheme;*.guile" mimetype="text/x-scheme" author="Dominik Haumann">
+<language version="1.08" kateversion="2.3" name="Scheme" section="Scripts" extensions="*.scm;*.ss;*.scheme;*.guile" mimetype="text/x-scheme" author="Dominik Haumann <dhdev@gmx.de>" license="LGPL">
   <highlighting>
     <list name="operators">
       <item> &lt;= </item>

@@ -50,7 +50,7 @@ class KateBufFileLoader
 {
   public:
     KateBufFileLoader (const QString &m_file) :
-      file (m_file), stream (&file), codec (0), prev (0)
+      file (m_file), stream (&file), codec (0), prev (0), lastCharEOL (false)
     {
     }
 
@@ -63,6 +63,7 @@ class KateBufFileLoader
     QTextStream stream;
     QTextCodec *codec;
     KateBufBlock *prev;
+    bool lastCharEOL;
 };
 
 /**
@@ -87,7 +88,7 @@ class KateBufBlock
     * If @p last is true, all bytes from @p data2 are stored.
     * @return The number of bytes stored form @p data2
     */
-   bool fillBlock (QTextStream *stream);
+   bool fillBlock (QTextStream *stream, bool lastCharEOL);
 
    /**
     * Create a valid stringList.
@@ -503,9 +504,10 @@ bool KateBuffer::openFile (const QString &m_file)
 {
   clear();
 
-  QFile f (m_file);
+  // here we feed the loader with info
+  m_loader = new KateBufFileLoader (m_file);
 
-  if ( !f.open( IO_ReadOnly ) || !f.isDirectAccess() )
+  if ( !m_loader->file.open( IO_ReadOnly ) || !m_loader->file.isDirectAccess() )
   {
     clear();
     return false; // Error
@@ -515,14 +517,14 @@ bool KateBuffer::openFile (const QString &m_file)
   int lastCh = 0;
   while (true)
   {
-     int ch = f.getch();
+     int ch = m_loader->file.getch();
 
      if (ch == -1)
        break;
 
      if ((ch == '\r'))
      {
-       ch = f.getch ();
+       ch = m_loader->file.getch ();
 
        if (ch == '\n')
        {
@@ -542,11 +544,17 @@ bool KateBuffer::openFile (const QString &m_file)
      }
   }
 
-  f.close ();
+  if (m_loader->file.size () > 0)
+  {
+    m_loader->file.at (m_loader->file.size () - 1);
 
-  // here we feed the loader with info
-  m_loader = new KateBufFileLoader (m_file);
-  m_loader->file.open( IO_ReadOnly );
+    int ch = m_loader->file.getch();
+
+    if ((ch == '\n') || (ch == '\r'))
+      m_loader->lastCharEOL = true;
+  }
+
+  m_loader->file.reset ();
 
   QTextCodec *codec = m_doc->config()->codec();
   m_loader->stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
@@ -639,7 +647,7 @@ void KateBuffer::loadFilePart()
     checkLoadedMax ();
 
     KateBufBlock *block = new KateBufBlock(this, m_loader->prev, m_vm);
-    eof = block->fillBlock (&m_loader->stream);
+    eof = block->fillBlock (&m_loader->stream, m_loader->lastCharEOL);
 
     m_blocks.append (block);
     m_loadedBlocks.append (block);
@@ -654,7 +662,7 @@ void KateBuffer::loadFilePart()
 
     // trigger the creation of a block with one line if there is no data in the buffer now
     // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
-    if (m_blocks.isEmpty())
+    if (m_blocks.isEmpty() || (count () == 0))
       clear ();
     else
     {
@@ -1229,7 +1237,7 @@ KateBufBlock::~KateBufBlock ()
 /**
  * Fill block with unicode data from stream
  */
-bool KateBufBlock::fillBlock (QTextStream *stream)
+bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 {
   bool eof = false;
   uint lines = 0;
@@ -1244,28 +1252,31 @@ bool KateBufBlock::fillBlock (QTextStream *stream)
   {
     QString line = stream->readLine();
 
-    uint length = line.length ();
-    size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
-
-    if (size > m_rawData.size ())
+    if (!(!lastCharEOL && stream->atEnd() && line.isNull()))
     {
-      m_rawData.resize (size);
-      buf = m_rawData.data ();
+      uint length = line.length ();
+      size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
+
+      if (size > m_rawData.size ())
+      {
+	m_rawData.resize (size);
+	buf = m_rawData.data ();
+      }
+
+      memcpy(buf+pos, (char *) &length, sizeof(uint));
+      pos += sizeof(uint);
+
+      if (!line.isNull())
+      {
+	memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
+	pos += sizeof(QChar)*length;
+      }
+
+      memcpy(buf+pos, (char *) &attr, 1);
+      pos += 1;
+
+      lines++;
     }
-
-    memcpy(buf+pos, (char *) &length, sizeof(uint));
-    pos += sizeof(uint);
-
-    if (!line.isNull())
-    {
-      memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
-      pos += sizeof(QChar)*length;
-    }
-
-    memcpy(buf+pos, (char *) &attr, 1);
-    pos += 1;
-
-    lines++;
 
     if (stream->atEnd() && line.isNull())
     {

@@ -620,7 +620,7 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
       return BarIcon("view_text",size);
 
     case 10:
-      return BarIcon("misc", size);
+      return BarIcon("connect_established", size);
 
     case 6:
       return BarIcon("filesave", size);
@@ -3497,6 +3497,10 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   TextLine::Ptr textline = buffer->plainLine(line);
 
   int first_char = textline->firstChar();
+
+  if (first_char < 0)
+    first_char = textline->length() - 1;
+
   if (first_char < 0)
     first_char = 0;
 

@@ -2467,6 +2467,7 @@ int HlManager::detectHighlighting (KateDocument *doc)
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }
+    buf.resize( bufpos );
 
     hl = mimeFind( buf, doc->url().prettyURL() );
   }

@@ -948,7 +948,7 @@ void KateDocument::editEnd ()
 
   // wrap the new/changed text
   if (editSessionNumber == 1)
-    if (config()->wordWrap())
+    if (editWithUndo && config()->wordWrap())
       wrapText (editTagLineStart, editTagLineEnd, config()->wordWrapAt());
 
   editSessionNumber--;
@@ -1025,12 +1025,21 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
           editInsertText (line, eolPosition+1, aSpace);
       }
       else
+      {
               //There was no space to break at so break at full line
         //and don't try and add any white space for the break
               z= col;
+      }
 
-      editWrapLine (line, z, false);
-      endLine++;
+      TextLine::Ptr nextl = buffer->line(line+1);
+
+      if (nextl && (nextl->length() == 0))
+      {
+        editWrapLine (line, z, true);
+        endLine++;
+      }
+      else
+         editWrapLine (line, z, false);
     }
 
     line++;

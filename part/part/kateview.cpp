@@ -1578,17 +1578,11 @@ void KateView::selectWord( const KateTextCursor& cursor )
   while (end < len && m_doc->highlight()->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
   if (end <= start) return;
 
-  if (!(m_doc->config()->configFlags() & KateDocument::cfKeepSelection))
-    clearSelection ();
-
   setSelection (cursor.line(), start, cursor.line(), end);
 }
 
 void KateView::selectLine( const KateTextCursor& cursor )
 {
-  if (!(m_doc->config()->configFlags() & KateDocument::cfKeepSelection))
-    clearSelection ();
-
   setSelection (cursor.line(), 0, cursor.line()+1, 0);
 }
 
@@ -1604,9 +1598,6 @@ void KateView::selectLength( const KateTextCursor& cursor, int length )
   start = cursor.col();
   end = start + length;
   if (end <= start) return;
-
-  if (!(m_doc->config()->configFlags() & KateDocument::cfKeepSelection))
-    clearSelection ();
 
   setSelection (cursor.line(), start, cursor.line(), end);
 }

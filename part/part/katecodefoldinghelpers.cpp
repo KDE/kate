@@ -418,6 +418,9 @@ bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 {
   KateCodeFoldingNode *parent = node->parentNode;
 
+  if (!parent)
+    return false;
+  
   if (node->type == 0)
     return false;
 

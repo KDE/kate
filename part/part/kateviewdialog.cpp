@@ -166,7 +166,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   QHBox *e5Layout = new QHBox(gbAuto);
-  QLabel *e5Label = new QLabel(i18n("&Indentation Mode:"), e5Layout);
+  QLabel *e5Label = new QLabel(i18n("&Indentation mode:"), e5Layout);
   m_indentMode = new KComboBox (e5Layout);
   m_indentMode->insertStringList (KateAutoIndent::listModes());
   e5Label->setBuddy(m_indentMode);

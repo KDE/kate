@@ -1941,7 +1941,7 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
   highlight->getItemDataList(itemDataList);
   nAttribs = itemDataList.count();
 
-  doc->myAttribs.resize (nAttribs);
+  doc->attribs()->resize (nAttribs);
 
   for (z = 0; z < nAttribs; z++)
 	{
@@ -1966,7 +1966,7 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
       n.italic = itemData->italic;
     }
 
-		doc->myAttribs[z] = n;
+		doc->attribs()->at(z) = n;
   }
 }
 

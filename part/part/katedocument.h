@@ -35,7 +35,6 @@
 #include <qintdict.h>
 #include <qdatetime.h>
 
-class KateUndo;
 class KateUndoGroup;
 class KateCmd;
 class KateCodeFoldingTree;
@@ -53,9 +52,6 @@ class KateDocument : public Kate::Document
   friend class KateViewInternal;
   friend class KateView;
   friend class KateIconBorder;
-  friend class KateUndoGroup;
-  friend class KateUndo;
-  friend class HlManager;
   friend class ColorConfig;
 
   public:
@@ -77,10 +73,12 @@ class KateDocument : public Kate::Document
     KTextEditor::View *createView( QWidget *parent, const char *name );
     QPtrList<KTextEditor::View> views () const;
     
+     inline KateView *activeView () const { return m_activeView; }
+    
   private:
     QPtrList<KateView> m_views;
     QPtrList<KTextEditor::View> _views;
-    KateView *myActiveView;
+    KateView *m_activeView;
 
   //
   // KTextEditor::EditInterface stuff
@@ -113,6 +111,21 @@ class KateDocument : public Kate::Document
     //
     void editStart (bool withUndo = true);
     void editEnd ();
+    
+    //
+    // functions for insert/remove stuff (atomic)
+    //
+    bool editInsertText ( uint line, uint col, const QString &s );
+    bool editRemoveText ( uint line, uint col, uint len );
+
+    bool editWrapLine ( uint line, uint col );
+    bool editUnWrapLine ( uint line, uint col);
+
+    bool editInsertLine ( uint line, const QString &s );
+    bool editRemoveLine ( uint line );
+
+    bool doInsertText ( uint line, uint col, const QString &s );
+    bool doRemoveText ( uint startLine, uint startCol, uint endLine, uint endCol );
 
     bool wrapText (uint startLine, uint endLine, uint col);
 
@@ -129,21 +142,6 @@ class KateDocument : public Kate::Document
     uint editTagLineStart;
     uint editTagLineEnd;
     KateUndoGroup *editCurrentUndo;
-
-    //
-    // functions for insert/remove stuff (atomic)
-    //
-    bool editInsertText ( uint line, uint col, const QString &s );
-    bool editRemoveText ( uint line, uint col, uint len );
-
-    bool editWrapLine ( uint line, uint col );
-    bool editUnWrapLine ( uint line, uint col);
-
-    bool editInsertLine ( uint line, const QString &s );
-    bool editRemoveLine ( uint line );
-
-    bool doInsertText ( uint line, uint col, const QString &s );
-    bool doRemoveText ( uint startLine, uint startCol, uint endLine, uint endCol );
 
   //
   // KTextEditor::SelectionInterface stuff
@@ -650,6 +648,11 @@ class KateDocument : public Kate::Document
     * Implementation of the mark interface
     **/
   public:
+    /**
+      Allow the HlManager to fill the array
+    */
+    QMemArray<Attribute> *attribs() { return &myAttribs; }
+  
     virtual void setPixmap(MarkInterface::MarkTypes, const QPixmap &);
     virtual void setDescription(MarkInterface::MarkTypes, const QString &);
     virtual void setMarksUserChangable(uint markMask);

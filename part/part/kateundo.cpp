@@ -139,11 +139,11 @@ void KateUndoGroup::undo ()
   {
     m_items.at(pos)->undo(m_doc);
 
-    if (m_doc->myActiveView != 0L)
+    if (m_doc->activeView() != 0L)
     {
-      m_doc->myActiveView->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
-      m_doc->myActiveView->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
-      m_doc->myActiveView->m_viewInternal->cursorCacheChanged = true;
+      m_doc->activeView()->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
+      m_doc->activeView()->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
+      m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -161,11 +161,11 @@ void KateUndoGroup::redo ()
   {
     m_items.at(pos)->redo(m_doc);
 
-    if (m_doc->myActiveView != 0L)
+    if (m_doc->activeView() != 0L)
     {
-      m_doc->myActiveView->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
-      m_doc->myActiveView->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
-      m_doc->myActiveView->m_viewInternal->cursorCacheChanged = true;
+      m_doc->activeView()->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
+      m_doc->activeView()->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
+      m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
     }
   }
 

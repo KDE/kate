@@ -433,7 +433,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
 {
   QString s;
 
-  for (uint i=startLine; i <= endLine; i++)
+  for (uint i=startLine; (i <= endLine) && (i < buffer->count()); i++)
   {
     TextLine::Ptr textLine = buffer->line(i);
 

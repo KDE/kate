@@ -6,6 +6,7 @@
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
         desktop environment (http://www.kde.org).
+        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
 
         This format is identified using the SYSTEM identifier
         SYSTEM "language.dtd"

@@ -1059,7 +1059,8 @@ void KateView::doReplaceAction(int result, bool found) {
 }
 
 void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool replace) {
-/* FIXME
+/* FIXME*/
+#if 0
 
   int x1, x2, y1, y2, xPos, yPos;
 
@@ -1072,7 +1073,15 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   x2 = myDoc->textWidth(textLine,cursor.col + slen) +20;
   y1 = myDoc->viewFont.fontHeight*cursor.line       -10;
   y2 = y1 + myDoc->viewFont.fontHeight              +30;
+#endif
 
+
+  if ((myViewInternal->startLine>cursor.line) || (myViewInternal->endLine<cursor.line))
+		  myViewInternal->changeYPos( myDoc->viewFont.fontHeight * cursor.line);
+
+
+
+#if 0
   xPos = myViewInternal->xPos;
   yPos = myViewInternal->yPos;
 
@@ -1088,7 +1097,8 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   }
   myViewInternal->setPos(xPos, yPos);
   myViewInternal->updateView(flags);// | ufPos,xPos,yPos);
-*/
+#endif
+/**/
 }
 
 void KateView::deleteReplacePrompt() {

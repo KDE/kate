@@ -3,5 +3,7 @@ TODO:
 For 3.2 and later:
   - BiDi support !!!
   - better indent/unindent
-  - code completion : some keyboard handling fixes
+  - code completion : some keyboard handling fixes including undo
   - export only selected text
+  - repaint after pending events finished
+  - fix replace so that when it wraps it only continues to the point that it originally started from

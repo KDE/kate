@@ -1254,7 +1254,7 @@ KateLineRange KateViewInternal::range(int realLine, const KateLineRange* previou
 
 KateLineRange KateViewInternal::currentRange()
 {
-  Q_ASSERT(m_view->dynWordWrap());
+//  Q_ASSERT(m_view->dynWordWrap());
 
   return range(cursor);
 }
@@ -1283,7 +1283,7 @@ KateLineRange KateViewInternal::nextRange()
 
 KateLineRange KateViewInternal::range(const KateTextCursor& realCursor)
 {
-  Q_ASSERT(m_view->dynWordWrap());
+//  Q_ASSERT(m_view->dynWordWrap());
 
   KateLineRange thisRange;
   bool first = true;
@@ -1298,7 +1298,7 @@ KateLineRange KateViewInternal::range(const KateTextCursor& realCursor)
 
 KateLineRange KateViewInternal::range(uint realLine, int viewLine)
 {
-  Q_ASSERT(m_view->dynWordWrap());
+//  Q_ASSERT(m_view->dynWordWrap());
 
   KateLineRange thisRange;
   bool first = true;
@@ -1867,7 +1867,7 @@ bool KateViewInternal::scrollbarVisible(uint startLine)
 
 int KateViewInternal::maxLen(uint startLine)
 {
-  Q_ASSERT(!m_view->dynWordWrap());
+//  Q_ASSERT(!m_view->dynWordWrap());
 
   int displayLines = (m_view->height() / m_view->renderer()->fontHeight()) + 1;
 
@@ -2298,7 +2298,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       if (m_doc->hasSelection() || (m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
         m_doc->indent( m_view, cursor.line(), 1 );
       else if (m_doc->configFlags() & KateDocumentConfig::cfTabInsertsTab)
-        m_doc->typeChars ( m_view, QString ("\t") );
+        m_doc->typeChars ( m_view, QString ("   t") );
       else
         m_doc->insertIndentChars ( m_view );
 
@@ -2923,7 +2923,6 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
   if ((editOldCursor != cursor) && (m_imPreeditLength <= 0))
   {
-//     kdDebug()<<"=== calling updateCursor(true)"<<endl;
     m_madeVisible = false;
     updateCursor ( cursor, true );
   }

@@ -90,7 +90,10 @@ class SyntaxDocument : public QDomDocument{
      * Jump to the next item, syntaxContextData::item will point to the next item
      */
     bool nextItem(syntaxContextData* data);
-
+    
+    /**
+     * This function is used to fetch the atributes of the tags.
+     */
     QString groupItemData(const syntaxContextData* data,const QString& name);
     QString groupData(const syntaxContextData* data,const QString& name);
     

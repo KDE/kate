@@ -351,6 +351,7 @@ class KateDocument : public Kate::Document
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
 
+    FontStruct & getFontStruct(WhichFont wf);
     void setFont (WhichFont wf, QFont font);
     QFont getFont (WhichFont wf);
 

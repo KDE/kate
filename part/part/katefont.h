@@ -26,21 +26,9 @@
 #include <qfontmetrics.h>
 #include <qcolor.h>
 
-class FontStruct;
-
-class Attribute
-{
-  public:
-    Attribute();
-    ~Attribute();
-
-    int width(FontStruct * fs, QChar ch);
-
-    QColor col;
-    QColor selCol;
-    bool bold;
-    bool italic;
-};
+//
+// KateFontMetrics definition
+//
 
 class KateFontMetrics : public QFontMetrics
 {
@@ -58,6 +46,10 @@ class KateFontMetrics : public QFontMetrics
   private:
     short *warray[256];
 };
+
+//
+// FontStruct definition
+//
 
 class FontStruct
 {
@@ -82,6 +74,30 @@ class FontStruct
     int m_tabWidth;
     int fontHeight;
     int fontAscent;
+};
+
+//
+// Attribute definition
+//
+
+class Attribute
+{
+  public:
+    Attribute();
+    ~Attribute();
+
+    inline int width(FontStruct & fs, QChar ch) {
+      return fs.width(ch, bold, italic);
+    }
+
+    inline QFont & getFont(FontStruct & fs) {
+      return fs.getFont(bold, italic);
+    }
+
+    QColor col;
+    QColor selCol;
+    bool bold;
+    bool italic;
 };
 
 

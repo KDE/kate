@@ -36,11 +36,6 @@ Attribute::~Attribute()
 {
 }
 
-int Attribute::width(FontStruct * fs, QChar ch)
-{
-  return fs->width(ch, bold, italic);
-}
-
 //
 // KateFontMetrics implementation
 //

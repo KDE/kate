@@ -2019,14 +2019,19 @@ bool KateDocument::isModified() const {
 // Kate specific stuff ;)
 //
 
-void KateDocument::setFont (WhichFont wf,QFont font)
+FontStruct & KateDocument::getFontStruct(WhichFont wf)
 {
-  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
+  return (wf == ViewFont) ? viewFont : printFont;
+}
 
-  fs->setFont(font);
-  fs->updateFontData(tabChars);
+void KateDocument::setFont (WhichFont wf, QFont font)
+{
+  FontStruct & fs = getFontStruct(wf);
 
-  if (wf==ViewFont)
+  fs.setFont(font);
+  fs.updateFontData(tabChars);
+
+  if (wf == ViewFont)
   {
     updateFontData();
     updateViews();
@@ -2159,7 +2164,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine,
   if (cursorX < 0)
     cursorX = textLine->length();
 
-  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
+  FontStruct & fs = getFontStruct(wf);
 
   int x = 0;
   for (int z = 0; z < cursorX; z++) {
@@ -2172,7 +2177,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine,
 
 uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap)
 {
-  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
+  FontStruct & fs = getFontStruct(wf);
   uint x = 0;
   uint endcol = 0;
   uint endcolwithsym = 0;
@@ -2221,7 +2226,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   int x, oldX;
   int z;
 
-  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
+  FontStruct & fs = getFontStruct(wf);
 
   if (cursor.line < 0) cursor.line = 0;
   if (cursor.line > (int)lastLine()) cursor.line = lastLine();
@@ -2246,7 +2251,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
 }
 
 uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf) {
-  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
+  FontStruct & fs = getFontStruct(wf);
 
   int x, oldX, z;
   x = oldX = z = 0;
@@ -3225,7 +3230,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
                                   WhichFont wf, bool currentLine, bool printerfriendly)
 {
   // font data
-  FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;
+  FontStruct & fs = getFontStruct(wf);
 
   // text attribs font/style data
   Attribute *at = myAttribs.data();
@@ -3266,16 +3271,16 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
   if (!printerfriendly && showSelections && lineSelected (line))
   {
-    paint.fillRect(xPos2, y, xEnd - xStart, fs->fontHeight, colors[1]);
+    paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[1]);
     selectionPainted = true;
     hasSel = true;
     startSel = 0;
     endSel = len + 1;
   }
   else if (!printerfriendly && currentLine)
-    paint.fillRect(xPos2, y, xEnd - xStart, fs->fontHeight, colors[2]);
+    paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[2]);
   else if (!printerfriendly)
-    paint.fillRect(xPos2, y, xEnd - xStart, fs->fontHeight, colors[0]);
+    paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[0]);
 
   if (startcol > (int)len)
     startcol = len;
@@ -3300,7 +3305,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
   // or we will see no text ;)
   uint oldY = y;
-  y += fs->fontAscent;
+  y += fs.fontAscent;
 
   // painting loop
   uint xPos = 0;
@@ -3383,7 +3388,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     width = curAt->width(fs, *s);
 
     if (curAt != oldAt)
-      paint.setFont(fs->getFont(curAt->bold, curAt->italic));
+      paint.setFont(curAt->getFont(fs));
 
     xPosAfter += width;
 
@@ -3397,7 +3402,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       if (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel))
       {
       /*  if (!selectionPainted)
-          paint.fillRect(xPos2 + xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);*/
+          paint.fillRect(xPos2 + xPos - xStart, oldY, xPosAfter - xPos, fs.fontHeight, colors[1]);*/
 
         curColor = &(curAt->selCol);
         isSel = true;
@@ -3410,7 +3415,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       if (isTab)
       {
         if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
 
         if (showTabs)
         {
@@ -3430,7 +3435,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
          )
       {
         if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(xPos2 + oldXPos-xStart, y, str.string());
@@ -3487,27 +3492,27 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   //kdDebug(13000)<<"paint 8"<<endl;
   if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
   {
-    paint.fillRect(xPos2 + xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
+    paint.fillRect(xPos2 + xPos-xStart, oldY, xEnd - xStart, fs.fontHeight, colors[1]);
     selectionPainted = true;
   }
 
   if (cursorVisible)
   {
     if (replaceCursor && (cursorMaxWidth > 2))
-      paint.fillRect(xPos2 + cursorXPos-xStart, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
+      paint.fillRect(xPos2 + cursorXPos-xStart, oldY, cursorMaxWidth, fs.fontHeight, *cursorColor);
     else
-      paint.fillRect(xPos2 + cursorXPos-xStart, oldY, 2, fs->fontHeight, *cursorColor);
+      paint.fillRect(xPos2 + cursorXPos-xStart, oldY, 2, fs.fontHeight, *cursorColor);
   }
   else if (showCursor > -1)
   {
     if ((cursorXPos2>=xStart) && (cursorXPos2<=xEnd))
     {                           
-      cursorMaxWidth = fs->myFontMetrics.width(QChar (' '));
+      cursorMaxWidth = fs.myFontMetrics.width(QChar (' '));
     
       if (replaceCursor && (cursorMaxWidth > 2))
-        paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, cursorMaxWidth, fs->fontHeight, myAttribs[0].col);
+        paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, cursorMaxWidth, fs.fontHeight, myAttribs[0].col);
       else
-        paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, 2, fs->fontHeight, myAttribs[0].col);
+        paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, 2, fs.fontHeight, myAttribs[0].col);
     }
   }
 
@@ -3595,7 +3600,7 @@ found:
   bm.sXPos = textWidth(textLine, x);
 
   Attribute *a = attribute(attr);
-  bm.eXPos = bm.sXPos + a->width(&viewFont, bracket);
+  bm.eXPos = bm.sXPos + a->width(viewFont, bracket);
 }
 
 void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )

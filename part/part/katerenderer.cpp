@@ -362,7 +362,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
       // Determine current syntax highlighting attribute
       // A bit legacy but doesn't need to change
-      KateAttribute* curAt = (!noAttribs && (*textAttributes) >= atLen) ? &attr[0] : &attr[*textAttributes];
+      KateAttribute* curAt = (noAttribs || ((*textAttributes) >= atLen)) ? &attr[0] : &attr[*textAttributes];
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().

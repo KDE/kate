@@ -19,8 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _katesearch_h_
-#define _katesearch_h_
+#ifndef _KATE_SEARCH_H_
+#define _KATE_SEARCH_H_
 
 #include "katecursor.h"
 
@@ -134,12 +134,12 @@ class KateSearch : public QObject
     QRegExp m_re;
 };
 
-class ReplacePrompt : public KDialogBase
+class KateReplacePrompt : public KDialogBase
 {
   Q_OBJECT
     
   public:
-    ReplacePrompt(QWidget *parent);
+    KateReplacePrompt(QWidget *parent);
 
   signals:
     void clicked();

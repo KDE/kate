@@ -48,7 +48,7 @@ KateSearch::KateSearch( KateView* view )
   : QObject( view, "kate search" )
   , m_view( view )
   , m_doc( view->doc() )
-  , replacePrompt( new ReplacePrompt( view ) )
+  , replacePrompt( new KateReplacePrompt( view ) )
 {
   m_arbitraryHLList = new KateSuperRangeList();
   if (arbitraryHLExample) m_doc->arbitraryHL()->addHighlightToView(m_arbitraryHLList, m_view);
@@ -561,9 +561,9 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
   doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
 
-//BEGIN ReplacePrompt
+//BEGIN KateReplacePrompt
 // this dialog is not modal
-ReplacePrompt::ReplacePrompt( QWidget *parent )
+KateReplacePrompt::KateReplacePrompt( QWidget *parent )
   : KDialogBase(parent, 0L, false, i18n( "Replace Text" ),
   User3 | User2 | User1 | Close | Ok , Ok, true,
   i18n("&All"), i18n("&Last"), i18n("&No") ) {
@@ -577,30 +577,30 @@ ReplacePrompt::ReplacePrompt( QWidget *parent )
   topLayout->addWidget(label );
 }
 
-void ReplacePrompt::slotOk( void ) { // Yes
+void KateReplacePrompt::slotOk( void ) { // Yes
   done(KateSearch::srYes);
 }
 
-void ReplacePrompt::slotClose( void ) { // Close
+void KateReplacePrompt::slotClose( void ) { // Close
   done(KateSearch::srCancel);
 }
 
-void ReplacePrompt::slotUser1( void ) { // All
+void KateReplacePrompt::slotUser1( void ) { // All
   done(KateSearch::srAll);
 }
 
-void ReplacePrompt::slotUser2( void ) { // Last
+void KateReplacePrompt::slotUser2( void ) { // Last
   done(KateSearch::srLast);
 }
 
-void ReplacePrompt::slotUser3( void ) { // No
+void KateReplacePrompt::slotUser3( void ) { // No
   done(KateSearch::srNo);
 }
 
-void ReplacePrompt::done(int r) {
+void KateReplacePrompt::done(int r) {
   setResult(r);
   emit clicked();
 }
-//END ReplacePrompt
+//END KateReplacePrompt
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

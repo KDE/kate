@@ -406,7 +406,7 @@ class KateView : public Kate::View,
 
     private slots:
         void slotNeedTextHint(int line, int col, QString &text);
-
+        
         void slotClipboardDataChanged();
 
         void slotHlChanged();

@@ -601,6 +601,8 @@ bool KateBuffer::openFile (const QString &m_file)
   // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
   if (m_blocks.isEmpty() || (count () == 0))
     clear ();
+  else
+    m_regionTree->fixRoot (m_lines);
 
   emit linesChanged(m_lines);
   emit loadingFinished ();
@@ -719,7 +721,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
   if (!m_hlUpdate)
     return false;
-
+  
   TextLine::Ptr textLine;
   QMemArray<short> ctxNum, endCtx;
   QMemArray<unsigned short> indentDepth;

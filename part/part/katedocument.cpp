@@ -250,7 +250,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   loadAllEnabledPlugins ();
 
   // some nice signals from the buffer
-  connect(buffer, SIGNAL(loadingFinished()), this, SLOT(slotLoadingFinished()));
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
@@ -965,7 +964,7 @@ void KateDocument::editEnd ()
   buffer->setHlUpdate (true);
 
   if (editTagLineStart <= editTagLineEnd)
-    updateLines(editTagLineStart, editTagLineEnd+1);
+    buffer->updateHighlighting (editTagLineStart, editTagLineEnd+1, true);
 
   if (editWithUndo)
     undoEnd();
@@ -1879,21 +1878,28 @@ bool KateDocument::setHlMode (uint mode)
 
 bool KateDocument::internalSetHlMode (uint mode)
 {
-  Highlight *h;
-
-  h = HlManager::self()->getHl(mode);
-  if (h == m_highlight) {
-    updateLines();
-  } else {
-    if (m_highlight != 0L) m_highlight->release();
-    h->use();
-    m_highlight = h;
-    buffer->setHighlight(m_highlight);
-    makeAttribs();
-  }
-
-  emit hlChanged();
-  return true;
+   Highlight *h = HlManager::self()->getHl(mode);
+   
+   // aha, hl will change
+   if (h != m_highlight)
+   {
+     if (m_highlight != 0L)
+       m_highlight->release();
+     
+      h->use();
+     
+      m_highlight = h;
+     
+     // invalidate hl
+      buffer->setHighlight(m_highlight);
+     
+     // invalidate the hl again (but that is neary a noop) + update all views
+      makeAttribs();
+   
+     emit hlChanged();
+    }
+  
+    return true;
 }
 
 uint KateDocument::hlModeCount ()
@@ -2438,7 +2444,7 @@ bool KateDocument::openFile(KIO::Job * job)
       // The buffer's highlighting gets nuked by KateBuffer::clear()
       buffer->setHighlight(m_highlight);
     }
-
+    
     // update file type
     updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 
@@ -2447,9 +2453,8 @@ bool KateDocument::openFile(KIO::Job * job)
   }
 
   //
-  // update all lines + views
+  // update views
   //
-  updateLines();
   updateViews();
 
   // FIXME clean up this feature
@@ -2572,7 +2577,7 @@ bool KateDocument::saveFile()
     {
       int hl (HlManager::self()->detectHighlighting (this));
       
-      if ((hl >= 0) && (uint(hl) != hlMode()))
+      if (hl >= 0)
         internalSetHlMode(hl);
     }
     
@@ -2753,8 +2758,9 @@ void KateDocument::makeAttribs()
   for (uint z = 0; z < m_views.count(); z++)
     m_views.at(z)->renderer()->updateAttributes ();
 
-  tagAll();
-  updateLines();
+  buffer->invalidateHighlighting();
+
+  tagAll ();
 }
 
 // the attributes of a hl have changed, update
@@ -3848,16 +3854,6 @@ void KateDocument::tagAll()
   }
 }
 
-void KateDocument::updateLines()
-{
-  buffer->invalidateHighlighting();
-}
-
-void KateDocument::updateLines(int startLine, int endLine)
-{
-  buffer->updateHighlighting(startLine, endLine+1, true);
-}
-
 void KateDocument::slotBufferChanged()
 {
   updateViews();
@@ -4424,15 +4420,14 @@ unsigned int KateDocument::visibleLines ()
   return buffer->countVisible ();
 }
 
-void KateDocument::slotLoadingFinished()
-{
-  tagAll();
-  foldingTree()->fixRoot (numLines());
-}
-
 TextLine::Ptr KateDocument::kateTextLine(uint i)
 {
   return buffer->line (i);
+}
+
+TextLine::Ptr KateDocument::plainKateTextLine(uint i)
+{
+  return buffer->plainLine (i);
 }
 //END
 

@@ -502,6 +502,7 @@ class KateDocument : public Kate::Document,
     uint lastLine() const { return numLines()-1;}
 
     TextLine::Ptr kateTextLine(uint i);
+    TextLine::Ptr plainKateTextLine(uint i);
 
     uint configFlags ();
     void setConfigFlags (uint flags);
@@ -534,7 +535,6 @@ class KateDocument : public Kate::Document,
 
   private slots:
     void internalHlChanged();
-    void slotLoadingFinished();
 
   public:
     void addView(KTextEditor::View *);
@@ -607,8 +607,6 @@ class KateDocument : public Kate::Document,
 
   public:
     void tagAll();
-    void updateLines(int startLine, int endLine);
-    void updateLines();
     void updateViews();
 
     void newBracketMark( const KateTextCursor& start, KateTextRange& bm );

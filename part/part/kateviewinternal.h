@@ -27,6 +27,7 @@
 #include "katecursor.h"
 #include "katesupercursor.h"
 #include "katelinerange.h"
+#include "katetextline.h"
 
 #include <qscrollbar.h>
 #include <qpoint.h>
@@ -348,6 +349,8 @@ class KateViewInternal : public QWidget
     bool m_preserveMaxX;
     int m_currentMaxX;
 
+    bool m_usePlainLines; // accept non-highlighted lines if this is set
+    TextLine::Ptr textLine(int realLine);
 
     bool m_updatingView;
     int m_wrapChangeViewLine;

@@ -23,21 +23,35 @@
 namespace KTextEditor
 {
 
+class Cursor
+{
+  public:
+    virtual void position ( int *line, int *col ) const = 0;
+
+    virtual bool setPosition ( int line, int col ) = 0;
+
+    virtual bool insertText ( const QString& text ) = 0;
+
+    virtual bool removeText ( int numberOfCharacters ) = 0;
+
+    virtual QChar currentChar () const = 0;
+};
+
 /*
-*  This is an interface for the KTextEditor::View class !!!
+*  This is an interface for the KTextEditor::Documentclass !!!
 */
 class CursorInterface
 {
   public:
-    virtual void position ( int *line, int *col ) = 0;
+    /**
+    * Create a new cursor object
+    */
+    virtual Cursor *createCursor ( ) = 0;
 
-    virtual bool setPosition ( int line, int col ) = 0;
-
-    virtual bool insert ( const QString& text, bool overwrite = false ) = 0;
-
-    virtual bool remove ( int numberOfCharacters, bool backwards = false ) = 0;
-
-    virtual QChar currentChar () const = 0;
+    /*
+    * Accessor to the list of views.
+    */
+    virtual QPtrList<Cursor> cursors () const = 0;
 };
 
 };

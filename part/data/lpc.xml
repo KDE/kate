@@ -1,473 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LPC" version="0.12" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.o">
-    <highlighting>
-        <list name="l_mod">
-            <item> private </item>
-            <item> protected </item>
-            <item> static </item>
-            <item> public </item>
-            <item> nomask </item>
-            <item> varargs </item>
-            <item> nosave </item>
-            <item> virtual </item>
-        </list>
-        <list name="l_typ">
-            <item> void </item>
-            <item> int </item>
-            <item> status </item>
-            <item> string </item>
-            <item> object </item>
-            <item> array </item>
-            <item> mapping </item>
-            <item> closure </item>
-            <item> symbol </item>
-            <item> float </item>
-            <item> mixed </item>
-        </list>
-        <list name="l_key">
-            <item> break </item>
-            <item> continue </item>
-            <item> return </item>
-            <item> if </item>
-            <item> else </item>
-            <item> for </item>
-            <item> foreach </item>
-            <item> do </item>
-            <item> while </item>
-            <item> switch </item>
-            <item> case </item>
-            <item> inherit </item>
-            <item> default </item>
-            <item> variables </item>
-            <item> functions </item>
-        </list>
-        <list name="l_predef">
-            <item> LPC3 </item>
-            <item> __LDMUD__ </item>
-            <item> __EUIDS__ </item>
-            <item> COMPAT_FLAG </item>
-            <item> __COMPAT_MODE__ </item>
-            <item> __STRICT_EUIDS__ </item>
-            <item> __MASTER_OBJECT__ </item>
-            <item> __FILE__ </item>
-            <item> __LINE__ </item>
-            <item> __DIR__ </item>
-            <item> __PATH__ </item>
-            <item> __VERSION__ </item>
-            <item> __VERSION_MAJOR__ </item>
-            <item> __VERSION_MINOR__ </item>
-            <item> __VERSION_MICRO__ </item>
-            <item> __VERSION_PATCH__ </item>
-            <item> __DOMAIN_NAME__ </item>
-            <item> __HOST_IP_NUMBER__ </item>
-            <item> __HOST_NAME__ </item>
-            <item> __MAX_RECURSION__ </item>
-            <item> __MAX_EVAL_COST__ </item>
-            <item> __CATCH_EVAL_COST__ </item>
-            <item> __MASTER_EVAL_COST__ </item>
-            <item> __RESET_TIME__ </item>
-            <item> __CLEANUP_TIME__ </item>
-            <item> __EFUN_DEFINED__ </item>
-            <item> __DRIVER_LOG__ </item>
-            <item> __WIZLIST__ </item>
-            <item> __INT_MAX__ </item>
-            <item> __INT_MIN__ </item>
-            <item> __FLOAT_MAX__ </item>
-            <item> __FLOAT_MIN__ </item>
-            <item> __ERQ_MAX_SEND__ </item>
-            <item> __ERQ_MAX_REPLY__ </item>
-            <item> __IPV6__ </item>
-            <item> __MYSQL__ </item>
-            <item> __LPC_NOSAVE__ </item>
-            <item> __DEPRECATED__ </item>
-        </list>
-        <list name="l_efun">
-            <item> abs </item>
-            <item> acos </item>
-            <item> add_action </item>
-            <item> add_verb </item>
-            <item> add_xverb </item>
-            <item> all_environment </item>
-            <item> all_inventory </item>
-            <item> allocate </item>
-            <item> allocate_mapping </item>
-            <item> and_bits </item>
-            <item> apply </item>
-            <item> asin </item>
-            <item> assoc </item>
-            <item> atan </item>
-            <item> atan2 </item>
-            <item> attach_erq_demon </item>
-            <item> binary_message </item>
-            <item> bind_lambda </item>
-            <item> blueprint </item>
-            <item> break_point </item>
-            <item> call_other </item>
-            <item> call_out </item>
-            <item> call_out_info </item>
-            <item> call_resolved </item>
-            <item> caller_stack </item>
-            <item> caller_stack_depth </item>
-            <item> capitalize </item>
-            <item> cat </item>
-            <item> catch </item>
-            <item> ceil </item>
-            <item> clear_bit </item>
-            <item> clone_object </item>
-            <item> clonep </item>
-            <item> clones </item>
-            <item> closurep </item>
-            <item> command </item>
-            <item> command_stack </item>
-            <item> command_stack_depth </item>
-            <item> copy </item>
-            <item> copy_bits </item>
-            <item> copy_file </item>
-            <item> copy_mapping </item>
-            <item> cos </item>
-            <item> count_bits </item>
-            <item> creator </item>
-            <item> crypt </item>
-            <item> ctime </item>
-            <item> db_affected_rows </item>
-            <item> db_close </item>
-            <item> db_coldefs </item>
-            <item> db_connect </item>
-            <item> db_conv_string </item>
-            <item> db_error </item>
-            <item> db_exec </item>
-            <item> db_fetch </item>
-            <item> db_handles </item>
-            <item> db_insert_id </item>
-            <item> debug_info </item>
-            <item> debug_message </item>
-            <item> deep_copy </item>
-            <item> deep_inventory </item>
-            <item> destruct </item>
-            <item> disable_commands </item>
-            <item> ed </item>
-            <item> efun </item>
-            <item> efun308 </item>
-            <item> enable_commands </item>
-            <item> environment </item>
-            <item> exec </item>
-            <item> execute_command </item>
-            <item> exp </item>
-            <item> expand_define </item>
-            <item> explode </item>
-            <item> export_uid </item>
-            <item> extern_call </item>
-            <item> extract </item>
-            <item> file_name </item>
-            <item> file_size </item>
-            <item> filter </item>
-            <item> filter_array </item>
-            <item> filter_indices </item>
-            <item> filter_mapping </item>
-            <item> filter_objects </item>
-            <item> find_call_out </item>
-            <item> find_input_to </item>
-            <item> find_object </item>
-            <item> first_inventory </item>
-            <item> floatp </item>
-            <item> floor </item>
-            <item> funcall </item>
-            <item> function_exists </item>
-            <item> functionlist </item>
-            <item> garbage_collection </item>
-            <item> get_dir </item>
-            <item> get_error_file </item>
-            <item> get_eval_cost </item>
-            <item> get_extra_wizinfo </item>
-            <item> get_type_info </item>
-            <item> geteuid </item>
-            <item> getuid </item>
-            <item> gmtime </item>
-            <item> heart_beat_info </item>
-            <item> implode </item>
-            <item> include_list </item>
-            <item> inherit_list </item>
-            <item> input_to </item>
-            <item> input_to_info </item>
-            <item> insert_alist </item>
-            <item> interactive </item>
-            <item> intersect_alist </item>
-            <item> intp </item>
-            <item> invert_bits </item>
-            <item> lambda </item>
-            <item> last_bit </item>
-            <item> last_instructions </item>
-            <item> limited </item>
-            <item> living </item>
-            <item> load_name </item>
-            <item> load_object </item>
-            <item> localtime </item>
-            <item> log </item>
-            <item> lower_case </item>
-            <item> m_add </item>
-            <item> m_allocate </item>
-            <item> m_contains </item>
-            <item> m_delete </item>
-            <item> m_indices </item>
-            <item> m_reallocate </item>
-            <item> m_sizeof </item>
-            <item> m_values </item>
-            <item> make_shared_string </item>
-            <item> map </item>
-            <item> map_array </item>
-            <item> map_indices </item>
-            <item> map_mapping </item>
-            <item> map_objects </item>
-            <item> mapping_contains </item>
-            <item> mappingp </item>
-            <item> max </item>
-            <item> md5 </item>
-            <item> member </item>
-            <item> member_array </item>
-            <item> min </item>
-            <item> mkdir </item>
-            <item> mkmapping </item>
-            <item> move_object </item>
-            <item> negate </item>
-            <item> next_bit </item>
-            <item> next_inventory </item>
-            <item> notify_fail </item>
-            <item> object_info </item>
-            <item> object_name </item>
-            <item> object_time </item>
-            <item> objectp </item>
-            <item> or_bits </item>
-            <item> order_alist </item>
-            <item> parse_command </item>
-            <item> pointerp </item>
-            <item> pow </item>
-            <item> present </item>
-            <item> present_clone </item>
-            <item> previous_object </item>
-            <item> printf </item>
-            <item> process_string </item>
-            <item> program_name </item>
-            <item> program_time </item>
-            <item> query_actions </item>
-            <item> query_command </item>
-            <item> query_editing </item>
-            <item> query_idle </item>
-            <item> query_imp_port </item>
-            <item> query_input_pending </item>
-            <item> query_ip_name </item>
-            <item> query_ip_number </item>
-            <item> query_limits </item>
-            <item> query_load_average </item>
-            <item> query_mud_port </item>
-            <item> query_notify_fail </item>
-            <item> query_once_interactive </item>
-            <item> query_shadowing </item>
-            <item> query_snoop </item>
-            <item> query_udp_port </item>
-            <item> query_verb </item>
-            <item> quote </item>
-            <item> raise_error </item>
-            <item> random </item>
-            <item> read_bytes </item>
-            <item> read_file </item>
-            <item> referencep </item>
-            <item> regexp </item>
-            <item> regexplode </item>
-            <item> regreplace </item>
-            <item> remove_action </item>
-            <item> remove_call_out </item>
-            <item> remove_input_to </item>
-            <item> remove_interactive </item>
-            <item> rename </item>
-            <item> rename_object </item>
-            <item> replace_program </item>
-            <item> restore_object </item>
-            <item> restore_value </item>
-            <item> rm </item>
-            <item> rmdir </item>
-            <item> rusage </item>
-            <item> save_object </item>
-            <item> save_value </item>
-            <item> say </item>
-            <item> send_erq </item>
-            <item> send_imp </item>
-            <item> send_udp </item>
-            <item> set_auto_include_string </item>
-            <item> set_bit </item>
-            <item> set_buffer_size </item>
-            <item> set_combine_charset </item>
-            <item> set_connection_charset </item>
-            <item> set_driver_hook </item>
-            <item> set_environment </item>
-            <item> set_extra_wizinfo </item>
-            <item> set_extra_wizinfo_size </item>
-            <item> set_heart_beat </item>
-            <item> set_is_wizard </item>
-            <item> set_light </item>
-            <item> set_limits </item>
-            <item> set_modify_command </item>
-            <item> set_next_reset </item>
-            <item> set_prompt </item>
-            <item> set_this_object </item>
-            <item> set_this_player </item>
-            <item> seteuid </item>
-            <item> sgn </item>
-            <item> shadow </item>
-            <item> shutdown </item>
-            <item> sin </item>
-            <item> sizeof </item>
-            <item> slice_array </item>
-            <item> snoop </item>
-            <item> sort_array </item>
-            <item> sprintf </item>
-            <item> sqrt </item>
-            <item> sscanf </item>
-            <item> stringp </item>
-            <item> strlen </item>
-            <item> strstr </item>
-            <item> swap </item>
-            <item> symbol_function </item>
-            <item> symbol_variable </item>
-            <item> symbolp </item>
-            <item> tail </item>
-            <item> tan </item>
-            <item> tell_object </item>
-            <item> tell_room </item>
-            <item> terminal_colour </item>
-            <item> test_bit </item>
-            <item> this_interactive </item>
-            <item> this_object </item>
-            <item> this_player </item>
-            <item> throw </item>
-            <item> time </item>
-            <item> to_array </item>
-            <item> to_float </item>
-            <item> to_int </item>
-            <item> to_object </item>
-            <item> to_string </item>
-            <item> trace </item>
-            <item> traceprefix </item>
-            <item> transfer </item>
-            <item> transpose_array </item>
-            <item> trim </item>
-            <item> typeof </item>
-            <item> unbound_lambda </item>
-            <item> unique_array </item>
-            <item> unmkmapping </item>
-            <item> unquote </item>
-            <item> unshadow </item>
-            <item> upper_case </item>
-            <item> users </item>
-            <item> utime </item>
-            <item> walk_mapping </item>
-            <item> widthof </item>
-            <item> wizlist_info </item>
-            <item> write </item>
-            <item> write_bytes </item>
-            <item> write_file </item>
-            <item> xor_bits </item>
-        </list>
-        <contexts>
-            <context attribute="iNormal" name="0" lineEndContext="0" >
-                <DetectChar attribute="iString" context="18" char="&quot;" />
-                <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
-                <Detect2Chars attribute="iMulti Comment" context="13" char="/" char1="*" beginRegion="multiLine" />
-                <keyword attribute="iModifiers" String="l_mod" context="0" />
-                <keyword attribute="iData Types" String="l_typ" context="0" />
-                <keyword attribute="iKeywords" String="l_key" context="0" />
-                <keyword attribute="iPredefined" String="l_predef" context="0" />
-                <keyword attribute="iEFuns" String="l_efun" context="0" />
-                <Float attribute="iFloat" context="0" />
-                <RegExpr attribute="iOctal" String="0o[0-9]+" context="0" />
-                <RegExpr attribute="iHex" String="0x[0-9A-Fa-f]+" context="0" />
-                <RegExpr attribute="iInt" String="[0-9]+" context="0" />
-                <RegExpr attribute="iChar" String="'(\\.|.)'" context="0" />
-                <RegExpr attribute="iClosure" context="0" String="#'[-_A-Za-z0-9]*" />
-                <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
-                <DetectChar attribute="iRound Brace" char="(" beginRegion="rRoundBrace" context="0"/>
-                <DetectChar attribute="iRound Brace" char=")" endRegion="rRoundBrace" context="0" />
-                <DetectChar attribute="iBlock Brace" char="{" beginRegion="rBlockBrace" context="0" />
-                <DetectChar attribute="iBlock Brace" char="}" endRegion="rBlockBrace" context="0" />
-                <DetectChar attribute="iIndex Brace" char="[" beginRegion="rIndexBrace" context="0" />
-                <DetectChar attribute="iIndex Brace" char="]" endRegion="rIndexBrace" context="0" />
-                <RegExpr attribute="iPreprocessor" String="^#" context="17" />
-            </context>
-            <context name="1" attribute="iModifiers" lineEndContext="0" />
-            <context name="2" attribute="iData Types" lineEndContext="0" />
-            <context name="3" attribute="iKeywords" lineEndContext="0" />
-            <context name="4" attribute="iPredefined" lineEndContext="0" />
-            <context name="5" attribute="iEFuns" lineEndContext="0" />
-            <context name="6" attribute="iOctal" lineEndContext="0" />
-            <context name="7" attribute="iHex" lineEndContext="0" />
-            <context name="8" attribute="iInt" lineEndContext="0" />
-            <context name="9" attribute="iFloat" lineEndContext="0" />
-            <context name="10" attribute="iChar" lineEndContext="0" />
-            <context name="11" attribute="iClosure" lineEndContext="0" />
-            <context name="12" attribute="iSingle Comment" lineEndContext="0">
-                <RegExpr attribute="iComment Highlight" String="([A-Z][A-Za-z]*( by)*:+|EOF|End of file[.]+)" context="12"/>
-            </context>
-            <context name="13" attribute="iMulti Comment" lineEndContext="13">
-                <RegExpr attribute="iComment Highlight" String="([A-Z][A-Za-z]*( by)*:+|EOF|End of file[.]+)" context="13"/>
-                <Detect2Chars attribute="iMulti COmment" char="*" char1="/" context="0" endRegion="multiLine" />
-            </context>
-            <context name="14" attribute="iPreprocessor" lineEndContext="0" />
-            <context name="15" attribute="iString" lineEndContext="0" />
-            <context name="16" attribute="iComment Highlight" lineEndContext="0" />
-            <context name="17" attribute="iPreprocessor" lineEndContext="0">
-                <DetectChar attribute="iPreString" char="&quot;" context="22" />
-                <DetectChar attribute="iPreString" char="&lt;" context="23" />
-                <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
-                <RegExpr attribute="iPreprocessor directives" context="17" String="(defined|include|define|ifdef|ifndef|if|else|elif|endif|undef|line|echo|pragma)" />
-                <RegExpr attribute="iPragmas" context="17" String="(combine_strings|no_combine_string|no_clone|no_inherit|no_shadow|weak_types|strict_types|save_types|no_local_scopes|pedantic|sloppy|warn_deprecated|no_warn_deprecated|set_code_window|show_code_window)" />
-                <LineContinue attribute="iPreprocessor" context="17" />
-            </context>
-            <context name="18" attribute="iString" lineEndContext="18">
-                <LineContinue attribute="iString" context="#stay"/>
-                <HlCStringChar attribute="iPreString" context="18"/>
-                <DetectChar attribute="iString" char="&quot;" context="0" />
-            </context>
-            <context name="19" attribute="iComment Highlight" lineEndContext="0" />
-            <context name="20" attribute="iPreprocessor directives" lineEndContext="0" />
-            <context name="21" attribute="iPragmas" lineEndContext="0" />
-            <context name="22" attribute="iPreString" lineEndContext="22">
-                <DetectChar attribute="iPreString" char="&quot;" context="17" />
-            </context>
-            <context name="23" attribute="iPreString" lineEndContext="23">
-                <DetectChar attribute="iPreString" char="&gt;" context="17" />
-            </context>
-        </contexts>
-        <itemDatas>
-            <itemData name="iNormal Text" defStyleNum="dsNormal" />
-            <itemData name="iModifiers" defStyleNum="dsKeyword" />
-            <itemData name="iData Types" defStyleNum="dsDataType" />
-            <itemData name="iKeywords" defStyleNum="dsKeyword" />
-            <itemData name="iPredefined" defStyleNum="dsOthers" />
-            <itemData name="iEFuns" defStyleNum="dsKeyword" />
-            <itemData name="iOctal" defStyleNum="dsBaseN" />
-            <itemData name="iHex" defStyleNum="dsBaseN" />
-            <itemData name="iInt" defStyleNum="dsDecVal" />
-            <itemData name="iFloat" defStyleNum="dsFloat" />
-            <itemData name="iChar" defStyleNum="dsChar" />
-            <itemData name="iClosure" defStyleNum="dsOthers" />
-            <itemData name="iSingle Comment" defStyleNum="dsComment" />
-            <itemData name="iMulti Comment" defStyleNum="dsComment" />
-            <itemData name="iRound Brace" defStyleNum="dsNormal" />
-            <itemData name="iBlock Brace" defStyleNum="dsNormal" />
-            <itemData name="iIndex Brace" defStyleNum="dsNormal" />
-            <itemData name="iPreprocessor" defStyleNum="dsOthers" />
-            <itemData name="iString" defStyleNum="dsString" />
-            <itemData name="iComment Highlight" defStyleNum="dsComment" />
-            <itemData name="iPreprocessor directives" defStyleNum="dsOthers" />
-            <itemData name="iPragmas" defStyleNum="dsOthers" />
-            <itemData name="iPreString" defStyleNum="dsOthers" />
-        </itemDatas>
-    </highlighting>
-    <general>
-        <comments>
-            <comment name="singleLine" start="//"  />
-            <comment name="multiLine" start="/*" end="*/"  />
-        </comments>
-        <keywords casesensitive="1"  />
-    </general>
+
+<!--
+=============================================================================
+File:        lpc.xml
+URL:         http://www.metamorpher.de/files/lpc.xml
+Description: Syntax Highlighting for Lars Pensjo C (LPC)
+             It is used in Multi User Dungeons which use LDMud as Gamedriver.
+             For more information, see LDMud project: http://www.bearnip.com
+             For best highlighting results, configure colors yourself.
+Author:      Andreas Klauer (Andreas.Klauer@metamorpher.de)
+Changed:     2004-04-26
+License:     Artistic
+=============================================================================
+-->
+
+
+<language name="LPC" version="0.74" kateversion="2.2"
+          section="Sources" extensions="*.c;*.h;*.inc;*.o" author="Andreas Klauer (Andreas.Klauer@metamorpher.de)" license="Artistic" >
+
+  <highlighting>
+
+    <!-- Keyword Lists: -->
+    <list name="modifiers">
+      <item> private </item>
+      <item> protected </item>
+      <item> static </item>
+      <item> public </item>
+      <item> nomask </item>
+      <item> varargs </item>
+      <item> nosave </item>
+      <item> virtual </item>
+    </list>
+    <list name="types">
+      <item> void </item>
+      <item> int </item>
+      <item> status </item>
+      <item> string </item>
+      <item> object </item>
+      <item> array </item>
+      <item> mapping </item>
+      <item> closure </item>
+      <item> symbol </item>
+      <item> float </item>
+      <item> mixed </item>
+    </list>
+    <list name="keywords">
+      <item> break </item>
+      <item> continue </item>
+      <item> return </item>
+      <item> if </item>
+      <item> else </item>
+      <item> for </item>
+      <item> foreach </item>
+      <item> do </item>
+      <item> while </item>
+      <item> switch </item>
+      <item> case </item>
+      <item> inherit </item>
+      <item> default </item>
+      <item> variables </item>
+      <item> functions </item>
+      <item> publish </item>
+      <item> nolog </item>
+    </list>
+    <list name="attention">
+      <item> FIXME </item>
+      <item> HACK </item>
+      <item> NOTE </item>
+      <item> NOTICE </item>
+      <item> TODO </item>
+      <item> WARNING </item>
+      <item> ### </item>
+    </list>
+
+    <!-- Parsing Rules: -->
+    <contexts>
+      <context name="Normal" attribute="Default" lineEndContext="#stay">
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="regionMarker" />
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="regionMarker" />
+        <Detect2Chars attribute="Single-Line comments" context="Comment1" char="/" char1="/" />
+        <Detect2Chars attribute="Multi-Line comments" context="Comment2" char="/" char1="*" beginRegion="blockComment" />
+        <keyword String="modifiers" attribute="Modifier" context="#stay" />
+        <keyword String="types" attribute="Datatype" context="#stay" />
+        <keyword String="keywords" attribute="Keywords" context="#stay" />
+        <RegExpr String="^#" context="Preprocessor" attribute="Preprocessor" />
+        <Float attribute="Floats" context="#stay">
+          <AnyChar String="fFeE" context="#stay" />
+        </Float>
+        <RegExpr String="0b[01]+" attribute="Binary" context="#stay" />
+        <RegExpr String="0x[0-9a-fA-F]+" attribute="Hexadecimal" context="#stay" />
+        <RegExpr String="0o[0-7]+" attribute="Octal" context="#stay" />
+        <Int attribute="Integer" context="#stay" />
+        <RegExpr String="#'[^\t ][^\t ,);}\]/]*" attribute="Closure" context="#stay" />
+        <DetectChar attribute="Strings" context="String1" char="&quot;" />
+        <HlCStringChar attribute="Char" context="#stay" />
+        <DetectChar attribute="Default" context="#stay" char="{" beginRegion="brace" />
+        <DetectChar attribute="Default" context="#stay" char="}" endRegion="brace" />
+      </context>
+      <context name="Comment1" attribute="Single-Line comments" lineEndContext="#pop">
+        <LineContinue attribute="Single-Line comments" context="#stay" />
+        <keyword attribute="Alert" context="#stay" String="attention" />
+      </context>
+      <context name="Comment2" attribute="Multi-Line comments" lineEndContext="#stay">
+        <Detect2Chars attribute="Multi-Line comments" context="#pop" char="*" char1="/" endRegion="blockComment" />
+        <keyword attribute="Alert" context="#stay" String="attention" />
+      </context>
+      <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop">
+        <LineContinue attribute="Preprocessor" context="#stay" />
+        <Detect2Chars attribute="Single-Line comments" context="Comment1" char="/" char1="/" />
+        <Detect2Chars attribute="Multi-Line comments" context="Comment2" char="/" char1="*" beginRegion="blockComment" />
+        <keyword String="modifiers" attribute="Modifier" context="#stay" />
+        <keyword String="types" attribute="Datatype" context="#stay" />
+        <keyword String="keywords" attribute="Keywords" context="#stay" />
+        <DetectChar attribute="Preprocessor-Strings" context="String2" char="&quot;" />
+      </context>
+      <context name="String1" attribute="Strings" lineEndContext="#pop">
+        <LineContinue attribute="Default" context="#stay" />
+        <Detect2Chars char="\" char1="\" attribute="Strings" context="#stay" />
+        <Detect2Chars char="\" char1="&quot;" attribute="Strings" context="#stay" />
+        <DetectChar char="&quot;" attribute="Strings" context="#pop" />
+      </context>
+      <context name="String2" attribute="Preprocessor-Strings" lineEndContext="#pop">
+        <LineContinue attribute="Default" context="#stay" />
+        <Detect2Chars char="\" char1="\" attribute="Preprocessor-Strings" context="#stay" />
+        <Detect2Chars char="\" char1="&quot;" attribute="Preprocessor-Strings" context="#stay" />
+        <DetectChar char="&quot;" attribute="Preprocessor-Strings" context="#pop" />
+      </context>
+    </contexts>
+
+    <!-- Color Settings: -->
+    <itemDatas>
+      <itemData name="Default" defStyleNum="dsNormal" />
+      <itemData name="Single-Line comments" defStyleNum="dsComment" />
+      <itemData name="Multi-Line comments" defStyleNum="dsComment" />
+      <itemData name="Alert" defStyleNum="dsAlert" />
+      <itemData name="Modifier" defStyleNum="dsDataType" />
+      <itemData name="Datatype" defStyleNum="dsDataType" />
+      <itemData name="Keywords" defStyleNum="dsKeyword" />
+      <itemData name="Preprocessor" defStyleNum="dsOthers" />
+      <itemData name="Floats" defStyleNum="dsFloat" />
+      <itemData name="Binary" defStyleNum="dsBaseN" />
+      <itemData name="Hexadecimal" defStyleNum="dsBaseN" />
+      <itemData name="Octal" defStyleNum="dsBaseN" />
+      <itemData name="Integer" defStyleNum="dsDecVal" />
+      <itemData name="Closure" defStyleNum="dsOthers" />
+      <itemData name="Strings" defStyleNum="dsString" />
+      <itemData name="Preprocessor-Strings" defStyleNum="dsString" />
+      <itemData name="Char" defStyleNum="dsChar" />
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
+    </itemDatas>
+  </highlighting>
+
+  <!-- This is not for highlighting, but for detecting comments.
+       It allows Kate to hide comments if the user wished to do so. -->
+  <general>
+    <comments>
+      <comment name="singleLine" start="//"  />
+      <comment name="multiLine" start="/*" end="*/"  />
+    </comments>
+    <keywords casesensitive="1"  />
+  </general>
+
 </language>
+
+<!-- === End of file. === -->

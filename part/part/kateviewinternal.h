@@ -154,17 +154,21 @@ class KateViewInternal : public QWidget
     void editStart();
     void editEnd(int editTagLineStart, int editTagLineEnd);
 
+    void editInsertText(int line, int col, int len);
     void editRemoveText(int line, int col, int len);
+
+    void editWrapLine(int line, int col, int len);
+    void editUnWrapLine(int line, int col);
+
+    void editInsertLine(int line);
+    void editRemoveLine(int line);
+
     void removeSelectedText(KateTextCursor & start);
 
     /**
        Set the tagLinesFrom member if usefull.
     */
     void setViewTagLinesFrom(int line);
-
-    void editWrapLine(int line, int col, int len);
-    void editUnWrapLine(int line, int col);
-    void editRemoveLine(int line);
 
     void paintText (int x, int y, int width, int height, bool paintOnlyDirty = false);
 

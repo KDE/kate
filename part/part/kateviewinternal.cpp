@@ -2637,6 +2637,20 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   }
 }
 
+void KateViewInternal::editInsertText(int line, int col, int len)
+{
+  int cLine = cursorCache.line();
+  int cCol = cursorCache.col();
+
+  if ( (cLine == line) && (cCol >= col) )
+  {
+    cCol += len;
+
+    cursorCache.setPos(line, cCol);
+    cursorCacheChanged = true;
+  }
+}
+
 void KateViewInternal::editRemoveText(int line, int col, int len)
 {
   int cLine = cursorCache.line();
@@ -2657,22 +2671,6 @@ void KateViewInternal::editRemoveText(int line, int col, int len)
     cursorCache.setPos(line, cCol);
     cursorCacheChanged = true;
   }
-}
-
-void KateViewInternal::removeSelectedText(KateTextCursor & start)
-{
-  if (m_doc->lineHasSelected(cursorCache.line()))
-  {
-    cursorCache.setPos(start);
-    cursorCacheChanged = true;
-  }
-}
-
-
-void KateViewInternal::setViewTagLinesFrom(int line)
-{
-  if (line >= (int)m_doc->getRealLine(startLine()))
-    setTagLinesFrom(line);
 }
 
 void KateViewInternal::editWrapLine(int line, int col, int len)
@@ -2699,9 +2697,25 @@ void KateViewInternal::editUnWrapLine(int line, int col)
   int cLine = cursorCache.line();
   int cCol = cursorCache.col();
 
-  if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
+  if (cursorCache.line() > line)
+  {
+    cursorCache.setPos(line - 1, cCol);
+    cursorCacheChanged = true;
+  }
+  else if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
   {
     cursorCache.setPos(line, col);
+    cursorCacheChanged = true;
+  }
+}
+
+void KateViewInternal::editInsertLine(int line)
+{
+  setViewTagLinesFrom(line);
+
+  if (cursorCache.line() >= line)
+  {
+    cursorCache.setPos(line + 1, cursorCache.col());
     cursorCacheChanged = true;
   }
 }
@@ -2710,13 +2724,33 @@ void KateViewInternal::editRemoveLine(int line)
 {
   setViewTagLinesFrom(line);
 
-  if ( (cursorCache.line() == line) )
+  if (cursorCache.line() > line)
+  {
+    cursorCache.setPos(line - 1, cursorCache.col());
+    cursorCacheChanged = true;
+  }
+  else if ( (cursorCache.line() == line) )
   {
     int newLine = (line < (int)m_doc->lastLine()) ? line : (line - 1);
 
     cursorCache.setPos(newLine, 0);
     cursorCacheChanged = true;
   }
+}
+
+void KateViewInternal::removeSelectedText(KateTextCursor & start)
+{
+  if (m_doc->lineHasSelected(cursorCache.line()))
+  {
+    cursorCache.setPos(start);
+    cursorCacheChanged = true;
+  }
+}
+
+void KateViewInternal::setViewTagLinesFrom(int line)
+{
+  if (line >= (int)m_doc->getRealLine(startLine()))
+    setTagLinesFrom(line);
 }
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)

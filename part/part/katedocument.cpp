@@ -1102,6 +1102,12 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   buffer->changeLine(line);
   editTagLine (line);
 
+  // move the cursor if it is >= the col of the insert
+  for (uint z = 0; z < m_views.count(); z++)
+  {
+    m_views.at(z)->m_viewInternal->editInsertText(line, col, s.length());
+  }
+
   editEnd ();
 
   return true;
@@ -1124,6 +1130,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   editTagLine(line);
 
+  // move the cursor if it is > col of delete
   for (uint z = 0; z < m_views.count(); z++)
   {
     m_views.at(z)->m_viewInternal->editRemoveText(line, col, len);
@@ -2992,8 +2999,6 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
 {
   QString buf;
 
-  int savedCol = col;
-  int savedLine = line;
   QString savedChars(chars);
 
   TextLine::Ptr textLine = buffer->plainLine(line);
@@ -3024,8 +3029,6 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   if (config()->configFlags()  & KateDocument::cfDelOnInput && hasSelection() )
   {
     removeSelectedText();
-    line = view->m_viewInternal->cursorCache.line();
-    col = view->m_viewInternal->cursorCache.col();
   }
 
   if (config()->configFlags()  & KateDocument::cfOvr)
@@ -3034,15 +3037,11 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   }
 
   insertText (line, col, buf);
-  col += pos;
-
-  // editEnd will set the cursor from this cache right ;))
-  view->m_viewInternal->cursorCache.setPos(line, col);
-  view->m_viewInternal->cursorCacheChanged = true;
 
   editEnd ();
 
-  emit charactersInteractivelyInserted(savedLine,savedCol,savedChars);
+  emit charactersInteractivelyInserted (line, col, savedChars);
+
   return true;
 }
 

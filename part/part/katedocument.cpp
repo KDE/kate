@@ -1104,8 +1104,8 @@ void KateDocument::editEnd ()
   if (editSessionNumber == 0)
     return;
 
-  // wrap the new/changed text
-  if (editSessionNumber == 1)
+  // wrap the new/changed text, if something really changed!
+  if (m_buffer->editChanged() && (editSessionNumber == 1))
     if (editWithUndo && config()->wordWrap())
       wrapText (editTagLineStart, editTagLineEnd);
 
@@ -1120,13 +1120,17 @@ void KateDocument::editEnd ()
   if (editWithUndo)
     undoEnd();
 
-  for (uint z = 0; z < m_views.count(); z++)
+  // only trigger this stuff if something really happened!
+  if (m_buffer->editChanged())
   {
-    m_views.at(z)->editEnd (editTagLineStart, editTagLineEnd, editTagFrom);
-  }
+    for (uint z = 0; z < m_views.count(); z++)
+    {
+      m_views.at(z)->editEnd (editTagLineStart, editTagLineEnd, editTagFrom);
+    }
 
-  setModified(true);
-  emit textChanged ();
+    setModified(true);
+    emit textChanged ();
+  }
 
   noViewUpdates = false;
   editIsRunning = false;

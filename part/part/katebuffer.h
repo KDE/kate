@@ -386,24 +386,12 @@ class KateBuffer : public QObject
      */
     void editEnd ();
 
-  private:
     /**
-     * mark given line as dirty
-     * @param line line to tag
+     * were there changes in the current running
+     * editing session?
+     * @return changes done?
      */
-    void editTagLine (uint line);
-
-    /**
-     * mark the given line as removed
-     * @param line line to tag
-     */
-    void editRemoveTagLine (uint line);
-
-    /**
-     * mark the given line as inserted
-     * @param line line to tag
-     */
-    void editInsertTagLine (uint line);
+    bool editChanged () const { return editChangesDone; };
 
   private:
     /**
@@ -425,6 +413,11 @@ class KateBuffer : public QObject
      * dirty lines end at line
      */
     uint editTagLineEnd;
+
+    /**
+     * changes done?
+     */
+    bool editChangesDone;
 
   public:
     /**

@@ -337,10 +337,6 @@ void KateSearch::replaceAll()
         i18n("%n replacement made.","%n replacements made.",replaces),
         i18n("Replace") );
   }
-
-  // FIXME ugly hack to work around bad design in katedocument
-  if ( 0 == replaces )
-    m_doc->setModified( false );
 }
 
 void KateSearch::promptReplace()

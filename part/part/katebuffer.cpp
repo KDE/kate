@@ -325,6 +325,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    editIsRunning (false),
    editTagLineStart (0xffffffff),
    editTagLineEnd (0),
+   editChangesDone (false),
    m_doc (doc),
    m_lines (0),
    m_lastInSyncBlock (0),
@@ -368,6 +369,8 @@ void KateBuffer::editStart ()
 
   editTagLineStart = 0xffffffff;
   editTagLineEnd = 0;
+
+  editChangesDone = false;
 }
 
 void KateBuffer::editEnd ()
@@ -380,76 +383,46 @@ void KateBuffer::editEnd ()
   if (editSessionNumber > 0)
     return;
 
-  // hl update !!!
-  if ( m_highlight && !m_highlight->noHighlighting()
-       && (editTagLineStart <= editTagLineEnd)
-       && (editTagLineEnd <= m_lineHighlighted))
+  if (editChangesDone)
   {
-    // look one line too far, needed for linecontinue stuff
-    editTagLineEnd++;
-
-    // look one line before, needed nearly 100% only for indentation based folding !
-    if (editTagLineStart > 0)
-      editTagLineStart--;
-
-    KateBufBlock *buf2 = 0;
-    bool needContinue = false;
-    while ((buf2 = findBlock(editTagLineStart)))
+    // hl update !!!
+    if ( m_highlight && !m_highlight->noHighlighting()
+        && (editTagLineStart <= editTagLineEnd)
+        && (editTagLineEnd <= m_lineHighlighted))
     {
-      needContinue = doHighlight (buf2,
-        (editTagLineStart > buf2->startLine()) ? editTagLineStart : buf2->startLine(),
-        (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd,
-        true);
+      // look one line too far, needed for linecontinue stuff
+      editTagLineEnd++;
 
-      editTagLineStart = (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd;
+      // look one line before, needed nearly 100% only for indentation based folding !
+      if (editTagLineStart > 0)
+        editTagLineStart--;
 
-      if ((editTagLineStart >= m_lines) || (editTagLineStart >= editTagLineEnd))
-        break;
+      KateBufBlock *buf2 = 0;
+      bool needContinue = false;
+      while ((buf2 = findBlock(editTagLineStart)))
+      {
+        needContinue = doHighlight (buf2,
+          (editTagLineStart > buf2->startLine()) ? editTagLineStart : buf2->startLine(),
+          (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd,
+          true);
+
+        editTagLineStart = (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd;
+
+        if ((editTagLineStart >= m_lines) || (editTagLineStart >= editTagLineEnd))
+          break;
+      }
+
+      if (needContinue)
+        m_lineHighlighted = editTagLineStart;
+
+      if (editTagLineStart > m_lineHighlightedMax)
+        m_lineHighlightedMax = editTagLineStart;
     }
-
-    if (needContinue)
-      m_lineHighlighted = editTagLineStart;
-
-    if (editTagLineStart > m_lineHighlightedMax)
+    else if (editTagLineStart < m_lineHighlightedMax)
       m_lineHighlightedMax = editTagLineStart;
   }
-  else if (editTagLineStart < m_lineHighlightedMax)
-    m_lineHighlightedMax = editTagLineStart;
 
   editIsRunning = false;
-}
-
-void KateBuffer::editTagLine (uint line)
-{
-  if (line < editTagLineStart)
-    editTagLineStart = line;
-
-  if (line > editTagLineEnd)
-    editTagLineEnd = line;
-}
-
-void KateBuffer::editInsertTagLine (uint line)
-{
-  if (line < editTagLineStart)
-    editTagLineStart = line;
-
-  if (line <= editTagLineEnd)
-    editTagLineEnd++;
-
-  if (line > editTagLineEnd)
-    editTagLineEnd = line;
-}
-
-void KateBuffer::editRemoveTagLine (uint line)
-{
-  if (line < editTagLineStart)
-    editTagLineStart = line;
-
-  if (line < editTagLineEnd)
-    editTagLineEnd--;
-
-  if (line > editTagLineEnd)
-    editTagLineEnd = line;
 }
 
 void KateBuffer::clear()
@@ -613,7 +586,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   for (uint i=0; i < m_lines; i++)
   {
     KateTextLine::Ptr textline = plainLine(i);
-  
+
     // strip spaces
     if (removeTrailingSpaces)
     {
@@ -727,10 +700,21 @@ void KateBuffer::changeLine(uint i)
 {
   KateBufBlock *buf = findBlock(i);
 
-  editTagLine (i);
+  if (!buf)
+    return;
 
-  if (buf)
-    buf->markDirty ();
+  // mark this block dirty
+  buf->markDirty ();
+
+  // mark buffer changed
+  editChangesDone = true;
+
+  // tag this line as changed
+  if (i < editTagLineStart)
+    editTagLineStart = i;
+
+  if (i > editTagLineEnd)
+    editTagLineEnd = i;
 }
 
 void KateBuffer::insertLine(uint i, KateTextLine::Ptr line)
@@ -763,7 +747,18 @@ void KateBuffer::insertLine(uint i, KateTextLine::Ptr line)
   if (m_lastInSyncBlock < m_lastFoundBlock)
     m_lastFoundBlock = m_lastInSyncBlock;
 
-  editInsertTagLine (i);
+  // mark buffer changed
+  editChangesDone = true;
+
+  // tag this line as inserted
+  if (i < editTagLineStart)
+    editTagLineStart = i;
+
+  if (i <= editTagLineEnd)
+    editTagLineEnd++;
+
+  if (i > editTagLineEnd)
+    editTagLineEnd = i;
 
   m_regionTree.lineHasBeenInserted (i);
 }
@@ -818,7 +813,18 @@ void KateBuffer::removeLine(uint i)
   if (m_lastInSyncBlock < m_lastFoundBlock)
     m_lastFoundBlock = m_lastInSyncBlock;
 
-  editRemoveTagLine (i);
+  // mark buffer changed
+  editChangesDone = true;
+
+  // tag this line as removed
+   if (i < editTagLineStart)
+    editTagLineStart = i;
+
+  if (i < editTagLineEnd)
+    editTagLineEnd--;
+
+  if (i > editTagLineEnd)
+    editTagLineEnd = i;
 
   m_regionTree.lineHasBeenRemoved (i);
 }

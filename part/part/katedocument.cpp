@@ -2687,7 +2687,7 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          range.endCol = endCol;
          range.wrap = needWrap;
          paint.translate(xstart, y);
-         renderer.paintTextLine(paint, &range, xstart, maxWidth);
+         renderer.paintTextLine(paint, &range, 0, maxWidth);
          paint.resetXForm();
          if ( skip )
          {

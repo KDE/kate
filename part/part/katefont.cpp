@@ -60,14 +60,16 @@ short * KateFontMetrics::createRow (short *wa, uchar row)
   return wa;
 }
                          
-int KateFontMetrics::width(QChar c)
+int KateFontMetrics::width(QChar c) const
 {
   uchar cell=c.cell();
   uchar row=c.row();
   short *wa=warray[row];
   
-  if (!wa)
-    wa = createRow (wa, row);
+  if (!wa) {
+    KateFontMetrics* that = const_cast<KateFontMetrics*>(this);
+    wa = that->createRow (wa, row);
+  }
   
   if (wa[cell]<0) wa[cell]=(short) QFontMetrics::width(c);
   
@@ -106,7 +108,7 @@ void FontStruct::updateFontData(int tabChars)
   m_tabWidth = tabChars*tabWidth;
 }
 
-int FontStruct::width(QChar ch, bool bold, bool italic)
+int FontStruct::width(QChar ch, bool bold, bool italic) const
 {
   if (ch == '\t')
     return m_tabWidth;
@@ -120,7 +122,7 @@ int FontStruct::width(QChar ch, bool bold, bool italic)
       myFontMetrics.width(ch) );
 }
 
-QFont & FontStruct::font(bool bold, bool italic)
+const QFont& FontStruct::font(bool bold, bool italic) const
 {
   return (bold) ?
     ( (italic) ? myFontBI : myFontBold ) :

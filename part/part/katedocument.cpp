@@ -2221,7 +2221,7 @@ const FontStruct& KateDocument::getFontStruct( WhichFont wf )
 
 void KateDocument::setFont (WhichFont wf, QFont font)
 {
-  FontStruct & fs = getFontStruct(wf);
+  FontStruct& fs = (wf == ViewFont) ? viewFont : printFont;
 
   fs.setFont(font);
   fs.updateFontData(tabChars);
@@ -2359,7 +2359,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine,
   if (cursorX < 0)
     cursorX = textLine->length();
 
-  FontStruct & fs = getFontStruct(wf);
+  const FontStruct & fs = getFontStruct(wf);
 
   int x = 0;
   for (int z = 0; z < cursorX; z++) {
@@ -2372,7 +2372,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine,
 
 uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap)
 {
-  FontStruct & fs = getFontStruct(wf);
+  const FontStruct & fs = getFontStruct(wf);
   uint x = 0;
   uint endcol = 0;
   uint endcolwithsym = 0;
@@ -2421,7 +2421,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   int x, oldX;
   int z;
 
-  FontStruct & fs = getFontStruct(wf);
+  const FontStruct & fs = getFontStruct(wf);
 
   if (cursor.line < 0) cursor.line = 0;
   if (cursor.line > (int)lastLine()) cursor.line = lastLine();
@@ -2446,7 +2446,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
 }
 
 uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf) {
-  FontStruct & fs = getFontStruct(wf);
+  const FontStruct & fs = getFontStruct(wf);
 
   int x, oldX, z;
   x = oldX = z = 0;
@@ -3457,7 +3457,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 				 BracketMark bracketMark )
 {
   // font data
-  FontStruct & fs = getFontStruct(wf);
+  const FontStruct & fs = getFontStruct(wf);
 
   // text attribs font/style data
   Attribute *at = myAttribs.data();

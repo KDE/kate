@@ -1,574 +1,1444 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Author: Rares Stanciulescu <rstanciu@operamail.com> -->
-<!-- File location: .kde/share/apps/katepart/syntax/progress.xml -->
-<language name="Progress 4GL" version="1.02" kateversion="2.1" section="Other" extensions="*.p;*.w;*.i" mimetype="" casesensitive="0">
-  <highlighting>
-    <list name="keywords">
-	<item> &amp;batch-mode </item>
-	<item> &amp;elseif </item>
-	<item> &amp;endif </item>
-	<item> &amp;file-name </item>
-	<item> &amp;global-define </item>
-	<item> &amp;if </item>
-	<item> &amp;line-number </item>
-	<item> &amp;message </item>
-	<item> &amp;opsys </item>
-	<item> &amp;scoped-define </item>
-	<item> &amp;sequence </item>
-	<item> &amp;then </item>
-	<item> &amp;undefine </item>
-	<item> &amp;window-system </item>
-	<item> accumulate </item>
-	<item> alter table </item>
-	<item> ansi-only </item>
-	<item> anywhere </item>
-	<item> append </item>
-	<item> apply </item>
-	<item> as </item>
-	<item> ask-overwrite </item>
-	<item> assign </item>
-	<item> asynchonous </item>
-	<item> at </item>
-	<item> bell </item>
-	<item> binary </item>
-	<item> browse </item>
-	<item> buffer </item>
-	<item> buffer-compare </item>
-	<item> buffer-copy </item>
-	<item> button </item>
-	<item> cache </item>
-	<item> call </item>
-	<item> case </item>
-	<item> choose </item>
-	<item> classpath </item>
-	<item> clear </item>
-	<item> close </item>
-	<item> close query </item>
-	<item> close stored-procedure </item>
-	<item> color </item>
-	<item> combo-box </item>
-	<item> command </item>
-	<item> compile </item>
-	<item> connect </item>
-	<item> context-help-id </item>
-	<item> control-frame </item>
-	<item> convert </item>
-	<item> create </item>
-	<item> create alias </item>
-	<item> create browse </item>
-	<item> create buffer </item>
-	<item> create database </item>
-	<item> create index </item>
-	<item> create query </item>
-	<item> create schema </item>
-	<item> create server </item>
-	<item> create server-socket </item>
-	<item> create socket </item>
-	<item> create temp-table </item>
-	<item> create-test-file </item>
-	<item> current </item>
-	<item> current-language </item>
-	<item> current-value </item>
-	<item> dde advise </item>
-	<item> dde execute </item>
-	<item> dde get </item>
-	<item> dde initiate </item>
-	<item> dde request </item>
-	<item> dde send </item>
-	<item> dde terminate </item>
-	<item> default-extension </item>
-	<item> default-window </item>
-	<item> define </item>
-	<item> def </item>
-	<item> defined </item>
-	<item> delete </item>
-	<item> desc </item>
-	<item> dialog-box </item>
-	<item> dictionary </item>
-	<item> disable </item>
-	<item> disconnect </item>
-	<item> display </item>
-	<item> dlc </item>
-	<item> do </item>
-	<item> dos </item>
-	<item> down </item>
-	<item> drop-target </item>
-	<item> echo </item>
-	<item> editor </item>
-	<item> else </item>
-	<item> elseif </item>
-	<item> empty temp-table </item>
-	<item> enable </item>
-	<item> end </item>
-	<item> endkey </item>
-	<item> entry </item>
-	<item> event-procedure </item>
-	<item> evtlevel </item>
-	<item> except </item>
-	<item> exclusive-lock </item>
-	<item> export </item>
-	<item> external </item>
-	<item> fill-in </item>
-	<item> find </item>
-	<item> first </item>
-	<item> fixed-only </item>
-	<item> focus </item>
-	<item> font </item>
-	<item> for </item>
-	<item> form </item>
-	<item> frame </item>
-	<item> from </item>
-	<item> function </item>
-	<item> get </item>
-	<item> get-file </item>
-	<item> get-key-value </item>
-	<item> hide </item>
-	<item> if </item>
-	<item> image </item>
-	<item> import </item>
-	<item> imput from </item>
-	<item> in </item>
-	<item> inte </item>
-	<item> initial-dir </item>
-	<item> initial-filter </item>
-	<item> input </item>
-	<item> input clear </item>
-	<item> input close </item>
-	<item> input-output </item>
-	<item> insert </item>
-	<item> in window </item>
-	<item> jdkcp </item>
-	<item> jdkhome </item>
-	<item> jfccp </item>
-	<item> jfchome </item>
-	<item> jfchome </item>
-	<item> jit </item>
-	<item> jrecp </item>
-	<item> jrehome </item>
-	<item> jvmexe </item>
-	<item> label </item>
-	<item> landscape </item>
-	<item> last </item>
-	<item> leave </item>
-	<item> leave </item>
-	<item> length </item>
-	<item> linux </item>
-	<item> load </item>
-	<item> load-picture </item>
-	<item> map </item>
-	<item> max-size </item>
-	<item> menu </item>
-	<item> menu-item </item>
-	<item> message </item>
-	<item> min-size </item>
-	<item> must-exist </item>
-	<item> new </item>
-	<item> next-prompt </item>
-	<item> no-apply </item>
-	<item> no-attr-list </item>
-	<item> no-convert </item>
-	<item> no-echo </item>
-	<item> no-error </item>
-	<item> no-lock </item>
-	<item> no-map </item>
-	<item> no-undo </item>
-	<item> no-wait </item>
-	<item> num-copies </item>
-	<item> object </item>
-	<item> on </item>
-	<item> on server </item>
-	<item> os-append </item>
-	<item> os-command </item>
-	<item> os-copy </item>
-	<item> os-create-dir </item>
-	<item> os-delete </item>
-	<item> os-dir </item>
-	<item> os-rename </item>
-	<item> otherwise </item>
-	<item> output </item>
-	<item> output to </item>
-	<item> overly </item>
-	<item> page </item>
-	<item> parameter </item>
-	<item> path </item>
-	<item> pause </item>
-	<item> persistent </item>
-	<item> portrait </item>
-	<item> preselect </item>
-	<item> preselect </item>
-	<item> printer-setup </item>
-	<item> procedure </item>
-	<item> process events </item>
-	<item> procfg </item>
-	<item> proconv </item>
-	<item> proexe </item>
-	<item> progresscp </item>
-	<item> proload </item>
-	<item> prompt-for </item>
-	<item> prosrv </item>
-	<item> prostartup </item>
-	<item> protermcap </item>
-	<item> put </item>
-	<item> put-bits </item>
-	<item> put-byte </item>
-	<item> put-bytes </item>
-	<item> put cursor </item>
-	<item> put-key-value </item>
-	<item> put-long </item>
-	<item> put screen </item>
-	<item> put-short </item>
-	<item> put-string </item>
-	<item> put-unsigned-short </item>
-	<item> quit </item>
-	<item> radio-set </item>
-	<item> raw-transfer </item>
-	<item> rcode-information </item>
-	<item> readkey </item>
-	<item> rectangle </item>
-	<item> release </item>
-	<item> repeat </item>
-	<item> reposition </item>
-	<item> retry </item>
-	<item> return </item>
-	<item> return-to-start-dir </item>
-	<item> run </item>
-	<item> save-as </item>
-	<item> scroll </item>
-	<item> scrolling </item>
-	<item> selection-list </item>
-	<item> set </item>
-	<item> set-byte-order </item>
-	<item> set-pointer-value </item>
-	<item> set-size </item>
-	<item> shared </item>
-	<item> share-lock </item>
-	<item> show-stats </item>
-	<item> skip </item>
-	<item> slider </item>
-	<item> source </item>
-	<item> status </item>
-	<item> stop </item>
-	<item> stored-procedure </item>
-	<item> stream </item>
-	<item> sub-menu </item>
-	<item> subscribe </item>
-	<item> system-dialog </item>
-	<item> system-help </item>
-	<item> table-handle </item>
-	<item> target </item>
-	<item> term </item>
-	<item> text </item>
-	<item> then </item>
-	<item> through </item>
-	<item> title </item>
-	<item> toggle-box </item>
-	<item> tooltip </item>
-	<item> transaction distinct </item>
-	<item> transaction-mode authomatic </item>
-	<item> trigger </item>
-	<item> triggers </item>
-	<item> unbuffered </item>
-	<item> underline </item>
-	<item> undo </item>
-	<item> unformatted </item>
-	<item> union </item>
-	<item> unix </item>
-	<item> up </item>
-	<item> update </item>
-	<item> update </item>
-	<item> update </item>
-	<item> use </item>
-	<item> use-filename </item>
-	<item> using </item>
-	<item> validate </item>
-	<item> value </item>
-	<item> var </item>
-	<item> variable </item>
-	<item> view </item>
-	<item> view </item>
-	<item> view-as </item>
-	<item> wait-for </item>
-	<item> when </item>
-	<item> where </item>
-	<item> widget </item>
-	<item> widget-pool </item>
-	<item> widget-pool </item>
-	<item> window </item>
-	<item> windows </item>
-	<item> workfile </item>
-	<item> work-table </item>
-	<item> x-document </item>
-	<item> x-noderef </item>
-	<item> yes </item>
-    </list>
-  <list name="operators">
-   <item> [ </item>
-   <item> ! </item>
-   <item> ; </item>
-   <item> | </item>
-   <item> ) </item>
-   <item> ( </item>
-   <item> : </item>
-   <item> . </item>
-   <item> &lt; </item>
-   <item> &gt; </item>
-   <item> + </item>
-   <item> * </item>
-   <item> = </item>
-   <item> - </item>
-   <item> ] </item>
-   <item> and </item>
-   <item> or </item>
-   <item> not </item>
-   <item> begins </item>
-   <item> matches </item>
-   <item> eq </item>
-   <item> ne </item>
-   <item> lt </item>
-   <item> gt </item>
-   <item> ge </item>
-   <item> le </item>
+<!-- By: Rares Stanciulescu <rstanciu@operamail.com> -->
+<!-- File location: ~/.kde/share/apps/katepart/syntax/progress.xml -->
+<language name="progress" version="1.03" kateversion="2.1"
+ section="Other" extensions="*.p;*.w;*.i" casesensitive="0">
 
-   </list>
-     <list name="functions">
-      <item> absolute </item>
-      <item> accum </item>
-      <item> accumulate </item>
-      <item> alias </item>
-      <item> ambigous </item>
-      <item> apply </item>
-      <item> asc </item>
-      <item> can-do </item>
-      <item> can-find </item>
-      <item> can-query </item>
-      <item> can-set </item>
-      <item> caps </item>
-      <item> chr </item>
-      <item> char </item>
-      <item> codepage-convert </item>
-      <item> current-changed </item>
-      <item> current-language </item>
-      <item> current-result-row </item>
-      <item> current-value </item>
-      <item> dataservers </item>
-      <item> date </item>
-      <item> day </item>
-      <item> dbcodepage </item>
-      <item> dbcollation </item>
-      <item> dbname </item>
-      <item> dbparam </item>
-      <item> dbrestrictions </item>
-      <item> dbtaskid </item>
-      <item> dbtype </item>
-      <item> dbversion </item>
-      <item> decimal </item>
-      <item> dynamic-function </item>
-      <item> encode </item>
-      <item> entered </item>
-      <item> entry </item>
-      <item> etime </item>
-      <item> exp </item>
-      <item> extent </item>
-      <item> false </item>
-      <item> fill </item>
-      <item> first </item>
-      <item> first-of </item>
-      <item> format </item>
-      <item> frame-col </item>
-      <item> frame-db </item>
-      <item> frame-down </item>
-      <item> frame-field </item>
-      <item> frame-file </item>
-      <item> frame-index </item>
-      <item> frame-line </item>
-      <item> frame-name </item>
-      <item> frame-row </item>
-      <item> frame-value </item>
-      <item> gateways </item>
-      <item> get-bits </item>
-      <item> get-byte </item>
-      <item> get-byte-order </item>
-      <item> get-bytes </item>
-      <item> get-codepages </item>
-      <item> get-collations </item>
-      <item> get-double </item>
-      <item> get-float </item>
-      <item> get-long </item>
-      <item> get-pointer-value </item>
-      <item> get-short </item>
-      <item> get-size </item>
-      <item> get-string </item>
-      <item> get-unsigned-short </item>
-      <item> get-pending </item>
-      <item> index </item>
-      <item> input </item>
-      <item> is-attr-space </item>
-      <item> is-lead-byte </item>
-      <item> kblabel </item>
-      <item> keycode </item>
-      <item> keyfunction </item>
-      <item> keylabel </item>
-      <item> keyword </item>
-      <item> keyword-all </item>
-      <item> last </item>
-      <item> lastkey </item>
-      <item> last-of </item>
-      <item> lc </item>
-      <item> ldbname </item>
-      <item> left-trim </item>
-      <item> length </item>
-      <item> library </item>
-      <item> line-counter </item>
-      <item> list-events </item>
-      <item> list-query-attrs </item>
-      <item> list-set-attrs </item>
-      <item> list-widgets </item>
-      <item> locked </item>
-      <item> log </item>
-      <item> lockup </item>
-      <item> maximum </item>
-      <item> member </item>
-      <item> message-lines </item>
-      <item> minimum </item>
-      <item> month </item>
-      <item> new </item>
-      <item> next-value </item>
-      <item> not entered </item>
-      <item> num-aliases </item>
-      <item> num-dbs </item>
-      <item> num-entries </item>
-      <item> num-results </item>
-      <item> os-drives </item>
-      <item> os-error </item>
-      <item> os-getenv </item>
-      <item> os-rename </item>
-      <item> page-number </item>
-      <item> page-size </item>
-      <item> pdbname </item>
-      <item> proc-handle </item>
-      <item> proc-status </item>
-      <item> program-name </item>
-      <item> progress </item>
-      <item> promsgs </item>
-      <item> propath </item>
-      <item> proversion </item>
-      <item> query-off-end </item>
-      <item> r-index </item>
-      <item> random </item>
-      <item> raw </item>
-      <item> recid </item>
-      <item> record-length </item>
-      <item> replace </item>
-      <item> retry </item>
-      <item> return-value </item>
-      <item> rgb-value </item>
-      <item> right-trim </item>
-      <item> round </item>
-      <item> screen-lines </item>
-      <item> sdbname </item>
-      <item> search </item>
-      <item> seek </item>
-      <item> setuserid </item>
-      <item> sqrt </item>
-      <item> string </item>
-      <item> substitute </item>
-      <item> substring </item>
-      <item> super </item>
-      <item> terminal </item>
-      <item> time </item>
-      <item> today </item>
-      <item> to-rowid </item>
-      <item> transaction </item>
-      <item> trim </item>
-      <item> truncate </item>
-      <item> true </item>
-      <item> userid </item>
-      <item> valid-event </item>
-      <item> valid-handle </item>
-      <item> weekday </item>
-      <item> widget-handle </item>
-      <item> year </item>
-    </list>
-    <list name="types">
-      <item> CHAR </item>
-      <item> CHARACTER </item>
-      <item> DECI </item>
-      <item> DECIMAL </item>
-      <item> DATE </item>
-      <item> INTE </item>
-      <item> INTEGER </item>
-      <item> ROWID </item>
-      <item> RECID </item>
-      <item> LOGI </item>
-      <item> LOGICAL </item>
-      <item> HANDLE </item>
-      <item> WIDGET-HANDLE </item>
-      <item> TABLE </item>
-      <item> BUFFER </item>
-      <item> RAW </item>
-    </list>
+<highlighting>
+
+<list name="mytypes">
+  <item> CHAR </item>
+  <item> CHARACTER </item>
+  <item> DECI </item>
+  <item> DECIMAL </item>
+  <item> DATE </item>
+  <item> INTE </item>
+  <item> INTEGER </item>
+  <item> ROWID </item>
+  <item> RECID </item>
+  <item> LOGI </item>
+  <item> LOGICAL </item>
+  <item> HANDLE </item>
+  <item> WIDGET-HANDLE </item>
+  <item> RAW </item>
+  <item> LONG </item>
+  <item> SHORT </item>
+  <item> BLOB </item>
+  <item> CLOB </item>
+  <item> LONGCHAR </item>
+  <item> DATETIME </item>
+  <item> DATETIME-TZ </item>
+  <item> TEMP-TABLE </item>
+  <item> BUFFER </item>
+  <item> STREAM </item>
+  <item> MEMPTR </item>
+</list>
+
+<list  name="operators">
+  <item> + </item>
+  <item> - </item>
+  <item> * </item>
+  <item> / </item>
+  <item> = </item>
+  <item> &lt; </item>
+  <item> &gt; </item>
+  <item> &lt;= </item>
+  <item> &gt;= </item>
+  <item> &lt;&gt; </item>
+  <item> AND </item>
+  <item> OR </item>
+  <item> NOT </item>
+  <item> BEGINS </item>
+  <item> MATCHES </item>
+  <item> MODULO </item>
+  <item> EQ </item>
+  <item> NE </item>
+  <item> LT </item>
+  <item> GT </item>
+  <item> GE </item>
+  <item> LE </item>
+  <item> FALSE </item>
+  <item> TRUE </item>
+  <item> yes </item>
+  <item> no </item>
+</list>
+
+
+<list name="preprocvar">
+	<item> &amp;OUT </item>
+	<item> &amp;BATCH-MODE </item>
+	<item> &amp;FILE-NAME </item>
+	<item> &amp;GLOBAL-DEFINE </item>
+	<item> &amp;LINE-NUMBER </item>
+	<item> &amp;MESSAGE </item>
+	<item> &amp;OPSYS </item>
+	<item> &amp;IF </item>
+	<item> &amp;ELSEIF </item>
+	<item> &amp;ELSE </item>
+	<item> &amp;ENDIF </item>
+	<item> &amp;SCOPED-DEFINE </item>
+	<item> &amp;SEQUENCE </item>
+	<item> &amp;UNDEFINE </item>
+	<item> &amp;WINDOW-SYSTEM </item>
+</list>
+
+<list name="phrases">
+	<item> AS </item>
+	<item> AT </item>
+	<item> COLOR </item>
+	<item> COMBO-BOX </item>
+	<item> EDITING </item>
+	<item> EDITOR </item>
+	<item> FORMAT </item>
+	<item> FRAME </item>
+	<item> IMAGE </item>
+	<item> ON ENDKEY </item>
+	<item> ON ERROR </item>
+	<item> ON QUIT </item>
+	<item> STOP </item>
+	<item> PRESELECT </item>
+	<item> QUERY-TUNING </item>
+	<item> RADIO-SET </item>
+	<item> RECORD </item>
+	<item> SELECTION-LIST </item>
+	<item> SIZE </item>
+	<item> SLIDER </item>
+	<item> TRIGGER </item>
+	<item> WIDGET </item>
+	<item> VIEW-AS </item>
+	<item> NO-UNDO </item>
+	<item> NO-ERROR </item>
+	<item> OUT </item>
+	<item> WHERE </item>
+	<item> SHARED </item>
+	<item> GLOBAL-SHARED </item>
+	<item> DEFINED </item>
+</list>
+
+<list name="functions">
+        <item> ABSOLUTE </item>
+        <item> ACCUM </item>
+        <item> ADD-INTERVAL </item>
+        <item> ALIAS </item>
+        <item> AMBIGUOUS </item>
+        <item> ASC </item>
+        <item> AVAILABLE </item>
+        <item> CAN-DO </item>
+        <item> CAN-FIND </item>
+        <item> CAN-QUERY </item>
+        <item> CAN-SET </item>
+        <item> CAPS </item>
+        <item> CHR </item>
+        <item> CODEPAGE-CONVERT </item>
+        <item> COMPARE </item>
+        <item> CONNECTED </item>
+        <item> COUNT-OF </item>
+        <item> CURRENT-CHANGED </item>
+        <item> CURRENT-LANGUAGE </item>
+        <item> CURRENT-RESULT-ROW </item>
+        <item> CURRENT-VALUE </item>
+        <item> DATASERVERS </item>
+        <item> DATE </item>
+        <item> DATETIME </item>
+        <item> DATETIME-TZ </item>
+        <item> DAY </item>
+        <item> DBCODEPAGE </item>
+        <item> DBCOLLATION </item>
+        <item> DBNAME </item>
+        <item> DBPARAM </item>
+        <item> DBRESTRICTIONS </item>
+        <item> DBTASKID </item>
+        <item> DBTYPE </item>
+        <item> DBVERSION </item>
+        <item> DECIMAL </item>
+        <item> DYNAMIC-CURRENT-VALUE </item>
+        <item> DYNAMIC-FUNCTION </item>
+        <item> DYNAMIC-NEXT-VALUE </item>
+        <item> ENCODE </item>
+        <item> ENTERED </item>
+        <item> ENTRY </item>
+        <item> ETIME </item>
+        <item> EXP </item>
+        <item> EXTENT </item>
+        <item> FILL </item>
+        <item> FIRST </item>
+        <item> FIRST-OF </item>
+        <item> FIX-CODEPAGE </item>
+        <item> FRAME-COL </item>
+        <item> FRAME-DB </item>
+        <item> FRAME-DOWN </item>
+        <item> FRAME-FIELD </item>
+        <item> FRAME-FILE </item>
+        <item> FRAME-INDEX </item>
+        <item> FRAME-LINE </item>
+        <item> FRAME-NAME </item>
+        <item> FRAME-ROW </item>
+        <item> FRAME-VALUE </item>
+        <item> GATEWAYS </item>
+        <item> GET-BITS </item>
+        <item> GET-BYTE </item>
+        <item> GET-BYTE-ORDER </item>
+        <item> GET-BYTES </item>
+        <item> GET-CODEPAGE </item>
+        <item> GET-CODEPAGES </item>
+        <item> GET-COLLATION </item>
+        <item> GET-COLLATIONS </item>
+        <item> GET-DOUBLE </item>
+        <item> GET-FLOAT </item>
+        <item> GET-LONG </item>
+        <item> GET-POINTER-VALUE </item>
+        <item> GET-SHORT </item>
+        <item> GET-SIZE </item>
+        <item> GET-STRING </item>
+        <item> GET-UNSIGNED-SHORT </item>
+        <item> GO-PENDING </item>
+        <item> INDEX </item>
+        <item> INPUT </item>
+        <item> INTEGER </item>
+        <item> INTERVAL </item>
+        <item> IS-ATTR-SPACE </item>
+        <item> IS-CODEPAGE-FIXED </item>
+        <item> IS-COLUMN-CODEPAGE </item>
+        <item> IS-LEAD-BYTE </item>
+        <item> ISO-DATE </item>
+        <item> KBLABEL </item>
+        <item> KEYCODE </item>
+        <item> KEYFUNCTION </item>
+        <item> KEYLABEL </item>
+        <item> KEYWORD </item>
+        <item> KEYWORD-ALL </item>
+        <item> LAST </item>
+        <item> LASTKEY </item>
+        <item> LAST-OF </item>
+        <item> LC </item>
+        <item> LDBNAME </item>
+        <item> LEFT-TRIM </item>
+        <item> LENGTH </item>
+        <item> LIBRARY </item>
+        <item> LINE-COUNTER </item>
+        <item> LIST-EVENTS </item>
+        <item> LIST-QUERY-ATTRS </item>
+        <item> LIST-SET-ATTRS </item>
+        <item> LIST-WIDGETS </item>
+        <item> LOCKED </item>
+        <item> LOG </item>
+        <item> LOOKUP </item>
+        <item> MAXIMUM </item>
+        <item> MEMBER </item>
+        <item> MESSAGE-LINES </item>
+        <item> MINIMUM </item>
+        <item> MONTH </item>
+        <item> MTIME </item>
+        <item> NEW </item>
+        <item> NEXT-VALUE </item>
+        <item> NOT ENTERED </item>
+        <item> NOW </item>
+        <item> NUM-ALIASES </item>
+        <item> NUM-DBS </item>
+        <item> NUM-ENTRIES </item>
+        <item> NUM-RESULTS </item>
+        <item> OPSYS </item>
+        <item> OS-DRIVES </item>
+        <item> OS-ERROR </item>
+        <item> OS-GETENV </item>
+        <item> PAGE-NUMBER </item>
+        <item> PAGE-SIZE </item>
+        <item> PDBNAME </item>
+        <item> PROC-HANDLE </item>
+        <item> PROC-STATUS </item>
+        <item> PROGRAM-NAME </item>
+        <item> PROGRESS </item>
+        <item> PROMSGS </item>
+        <item> PROPATH </item>
+        <item> PROVERSION </item>
+        <item> QUERY-OFF-END </item>
+        <item> Quoter </item>
+        <item> RANDOM </item>
+        <item> RECID </item>
+        <item> RECORD-LENGTH </item>
+        <item> REPLACE </item>
+        <item> RETRY </item>
+        <item> RETURN-VALUE </item>
+        <item> RGB-VALUE </item>
+        <item> RIGHT-TRIM </item>
+        <item> R-INDEX </item>
+        <item> ROUND </item>
+        <item> ROWID </item>
+        <item> SCREEN-LINES </item>
+        <item> SDBNAME </item>
+        <item> SEARCH </item>
+        <item> SEEK </item>
+        <item> SETUSERID </item>
+        <item> SQRT </item>
+        <item> STRING </item>
+        <item> SUBSTITUTE </item>
+        <item> SUBSTRING </item>
+        <item> SUPER </item>
+        <item> TERMINAL </item>
+        <item> TIME </item>
+        <item> TIMEZONE </item>
+        <item> TODAY </item>
+        <item> TO-ROWID </item>
+        <item> TRANSACTION </item>
+        <item> TRIM </item>
+        <item> TRUNCATE </item>
+        <item> USERID </item>
+        <item> VALID-EVENT </item>
+        <item> VALID-HANDLE </item>
+        <item> WEEKDAY </item>
+        <item> YEAR </item>
+</list>
+
+<list name="statements">
+        <item> ACCUMULATE </item>
+        <item> APPLY </item>
+        <item> ASSIGN </item>
+        <item> BELL </item>
+        <item> BUFFER-COMPARE </item>
+        <item> BUFFER-COPY </item>
+        <item> CASE </item>
+        <item> CHOOSE </item>
+        <item> CLEAR </item>
+        <item> CLOSE QUERY </item>
+        <item> CLOSE STORED-PROCEDURE </item>
+        <item> COLOR </item>
+        <item> COMPILE </item>
+        <item> CONNECT </item>
+        <item> COPY-LOB </item>
+        <item> CREATE </item>
+        <item> CREATE ALIAS </item>
+        <item> CREATE BROWSE </item>
+        <item> CREATE BUFFER </item>
+        <item> CREATE CALL </item>
+        <item> CREATE DATABASE </item>
+        <item> CREATE DATASET </item>
+        <item> CREATE DATA-SOURCE </item>
+        <item> CREATE QUERY </item>
+        <item> CREATE SAX-READER </item>
+        <item> CREATE SERVER </item>
+        <item> CREATE SERVER-SOCKET </item>
+        <item> CREATE SOAP-HEADER </item>
+        <item> CREATE SOAP-HEADER-ENTRYREF </item>
+        <item> CREATE SOCKET </item>
+        <item> CREATE TEMP-TABLE </item>
+        <item> CREATE widget </item>
+        <item> CREATE WIDGET-POOL </item>
+        <item> CREATE X-DOCUMENT </item>
+        <item> CREATE X-NODEREF </item>
+        <item> CURRENT-LANGUAGE </item>
+        <item> CURRENT-VALUE </item>
+        <item> DDE ADVISE </item>
+        <item> DDE EXECUTE </item>
+        <item> DDE GET </item>
+        <item> DDE INITIATE </item>
+        <item> DDE REQUEST </item>
+        <item> DDE SEND </item>
+        <item> DDE TERMINATE </item>
+        <item> DEF </item>
+        <item> DEFINE </item>
+        <item> VAR </item>
+        <item> VARIABLE </item>
+        <item> DEFINE BROWSE </item>
+        <item> DEFINE BUFFER </item>
+        <item> DEFINE BUTTON </item>
+        <item> DEFINE DATASET </item>
+        <item> DEFINE DATA-SOURCE </item>
+        <item> DEFINE FRAME </item>
+        <item> DEFINE IMAGE </item>
+        <item> DEFINE MENU </item>
+        <item> DEFINE PARAMETER </item>
+        <item> DEFINE QUERY </item>
+        <item> DEFINE RECTANGLE </item>
+        <item> DEFINE STREAM </item>
+        <item> DEFINE SUB-MENU </item>
+        <item> DEFINE TEMP-TABLE </item>
+        <item> DEFINE VARIABLE </item>
+        <item> DEFINE WORK-TABLE </item>
+        <item> DEFINE WORKFILE </item>
+        <item> DELETE </item>
+        <item> DELETE ALIAS </item>
+        <item> DELETE OBJECT </item>
+        <item> DELETE PROCEDURE </item>
+        <item> DELETE WIDGET </item>
+        <item> DELETE WIDGET-POOL </item>
+        <item> DICTIONARY </item>
+        <item> DISABLE </item>
+        <item> DISABLE TRIGGERS </item>
+        <item> DISCONNECT </item>
+        <item> DISPLAY </item>
+        <item> DO </item>
+        <item> DOS </item>
+        <item> DOWN </item>
+        <item> DYNAMIC-CURRENT-VALUE </item>
+        <item> EMPTY TEMP-TABLE </item>
+        <item> ENABLE </item>
+        <item> END </item>
+        <item> ENTRY </item>
+        <item> EXPORT </item>
+        <item> FIND </item>
+        <item> FOR </item>
+        <item> FORM </item>
+        <item> FRAME-VALUE </item>
+        <item> FUNCTION </item>
+        <item> GET </item>
+        <item> GET-KEY-VALUE </item>
+        <item> HIDE </item>
+        <item> IF </item>
+        <item> THEN </item>
+        <item> ELSE </item>
+        <item> IMPORT </item>
+        <item> INPUT CLEAR </item>
+        <item> INPUT CLOSE </item>
+        <item> INPUT FROM </item>
+        <item> INPUT THROUGH </item>
+        <item> INPUT-OUTPUT CLOSE </item>
+        <item> INPUT-OUTPUT THROUGH </item>
+        <item> INSERT </item>
+        <item> LEAVE </item>
+        <item> LENGTH </item>
+        <item> LOAD </item>
+        <item> LOAD-PICTURE </item>
+        <item> MESSAGE </item>
+        <item> NEXT </item>
+        <item> NEXT-PROMPT </item>
+        <item> ON </item>
+        <item> OPEN QUERY </item>
+        <item> OS-APPEND </item>
+        <item> OS-COMMAND </item>
+        <item> OS-COPY </item>
+        <item> OS-CREATE-DIR </item>
+        <item> OS-DELETE </item>
+        <item> OS-RENAME </item>
+        <item> OUTPUT CLOSE </item>
+        <item> OUTPUT THROUGH </item>
+        <item> OUTPUT TO </item>
+        <item> OVERLAY </item>
+        <item> PAGE </item>
+        <item> PAUSE </item>
+        <item> PROCEDURE </item>
+        <item> PROCESS EVENTS </item>
+        <item> PROMPT-FOR </item>
+        <item> PROMSGS </item>
+        <item> PROPATH </item>
+        <item> PUBLISH </item>
+        <item> PUT CURSOR </item>
+        <item> PUT SCREEN </item>
+        <item> PUT </item>
+        <item> PUT-BITS </item>
+        <item> PUT-BYTE </item>
+        <item> PUT-BYTES </item>
+        <item> PUT-DOUBLE </item>
+        <item> PUT-FLOAT </item>
+        <item> PUT-KEY-VALUE </item>
+        <item> PUT-LONG </item>
+        <item> PUT-SHORT </item>
+        <item> PUT-STRING </item>
+        <item> PUT-UNSIGNED-SHORT </item>
+        <item> QUIT </item>
+        <item> RAW-TRANSFER </item>
+        <item> READKEY </item>
+        <item> RELEASE </item>
+        <item> RELEASE EXTERNAL </item>
+        <item> RELEASE OBJECT </item>
+        <item> REPEAT </item>
+        <item> REPOSITION </item>
+        <item> RETURN </item>
+        <item> RUN </item>
+        <item> RUN STORED-PROCEDURE </item>
+        <item> RUN SUPER </item>
+        <item> SAVE CACHE </item>
+        <item> SEEK </item>
+        <item> SET </item>
+        <item> SET-BYTE-ORDER </item>
+        <item> SET-POINTER-VALUE </item>
+        <item> SET-SIZE </item>
+        <item> SCROLL </item>
+        <item> SHOW-STATS </item>
+        <item> STATUS </item>
+        <item> STOP </item>
+        <item> SUBSCRIBE </item>
+        <item> SUBSTRING </item>
+        <item> SYSTEM-DIALOG COLOR </item>
+        <item> SYSTEM-DIALOG FONT </item>
+        <item> SYSTEM-DIALOG GET-DIR </item>
+        <item> SYSTEM-DIALOG GET-FILE </item>
+        <item> SYSTEM-DIALOG PRINTER-SETUP </item>
+        <item> SYSTEM-HELP </item>
+        <item> TERMINAL </item>
+        <item> TRANSACTION-MODE AUTOMATIC </item>
+        <item> TRIGGER PROCEDURE </item>
+        <item> UNDERLINE </item>
+        <item> UNDO </item>
+        <item> UNIX </item>
+        <item> UNLOAD </item>
+        <item> UNSUBSCRIBE </item>
+        <item> UP </item>
+        <item> UPDATE </item>
+        <item> USE </item>
+        <item> VALIDATE </item>
+        <item> VIEW </item>
+        <item> WAIT-FOR </item>
+</list>
+
+<list name="widgets">
+        <item> BROWSE </item>
+        <item> BUTTON </item>
+        <item> COMBO-BOX </item>
+        <item> CONTROL-FRAME </item>
+        <item> DIALOG-BOX </item>
+        <item> EDITOR </item>
+        <item> FIELD-GROUP </item>
+        <item> FILL-IN </item>
+        <item> FRAME </item>
+        <item> IMAGE </item>
+        <item> LITERAL </item>
+        <item> MENU </item>
+        <item> MENU-ITEM </item>
+        <item> RADIO-SET </item>
+        <item> RECTANGLE </item>
+        <item> SELECTION-LIST </item>
+        <item> SLIDER </item>
+        <item> SUB-MENU </item>
+        <item> TEXT </item>
+        <item> TOGGLE-BOX </item>
+        <item> WINDOW </item>
+</list>
+
+<list name="handles">
+        <item> ACTIVE-WINDOW </item>
+        <item> Buffer </item>
+        <item> Buffer-field </item>
+        <item> CALL </item>
+        <item> CLIPBOARD </item>
+        <item> CODEBASE-LOCATOR </item>
+        <item> COLOR-TABLE </item>
+        <item> COM-SELF </item>
+        <item> COMPILER </item>
+        <item> CURRENT-WINDOW </item>
+        <item> DATA-RELATION </item>
+        <item> DATE-SOURCE </item>
+        <item> DEBUGGER </item>
+        <item> DEFAULT-WINDOW </item>
+        <item> ERROR-STATUS </item>
+        <item> FILE-INFO </item>
+        <item> FOCUS </item>
+        <item> FONT-TABLE </item>
+        <item> LAST-EVENT </item>
+        <item> LOG-MANAGER </item>
+        <item> PRODATASET </item>
+        <item> QUERY </item>
+        <item> RCODE-INFO </item>
+        <item> SAX-ATTRIBUTES </item>
+        <item> SAX-READER </item>
+        <item> SELF </item>
+        <item> SERVER SOCKET </item>
+        <item> SESSION </item>
+        <item> SOAP-FAULT </item>
+        <item> SOAP-FAULT-DETAIL </item>
+        <item> SOAP-HEADER </item>
+        <item> SOAP-HEADER-ENTRYREF </item>
+        <item> SOCKET </item>
+        <item> SOURCE-PROCEDURE </item>
+        <item> TARGET-PROCEDURE </item>
+        <item> TEMP-TABLE </item>
+        <item> THIS-PROCEDURE </item>
+        <item> TRANSACTION </item>
+        <item> WEB-CONTEXT </item>
+        <item> X-DOCUMENT </item>
+        <item> X-NODEREF </item>
+</list>
+
+<list name="properties">
+        <item> Control-Name </item>
+        <item> CONTROLS </item>
+        <item> Height </item>
+        <item> HonorProKeys </item>
+        <item> HonorReturnKey </item>
+        <item> LEFT </item>
+        <item> NAME </item>
+        <item> TOP </item>
+        <item> WIDTH </item>
+        <item> TAG </item>
+</list>
+
+<list name="attributes">
+        <item> ACCELERATOR </item>
+        <item> ACTIVE </item>
+        <item> ACTOR </item>
+        <item> ADM-DATA </item>
+        <item> AFTER-BUFFER </item>
+        <item> AFTER-ROWID </item>
+        <item> AFTER-TABLE </item>
+        <item> ALLOW-COLUMN-SEARCHING </item>
+        <item> ALWAYS-ON-TOP </item>
+        <item> AMBIGUOUS </item>
+        <item> APPL-ALERT-BOXES </item>
+        <item> APPSERVER-INFO </item>
+        <item> APPSERVER-PASSWORD </item>
+        <item> APPSERVER-USERID </item>
+        <item> ASYNCHRONOUS </item>
+        <item> ASYNC-REQUEST-COUNT </item>
+        <item> ASYNC-REQUEST-HANDLE </item>
+        <item> ATTRIBUTE-NAMES </item>
+        <item> ATTR-SPACE </item>
+        <item> AUTO-COMPLETION </item>
+        <item> AUTO-DELETE </item>
+        <item> AUTO-END-KEY </item>
+        <item> AUTO-GO </item>
+        <item> AUTO-INDENT </item>
+        <item> AUTO-RESIZE </item>
+        <item> AUTO-RETURN </item>
+        <item> AUTO-VALIDATE </item>
+        <item> AUTO-ZAP </item>
+        <item> AVAILABLE </item>
+        <item> AVAILABLE-FORMATS </item>
+        <item> BACKGROUND </item>
+        <item> BASE-ADE </item>
+        <item> BASIC-LOGGING </item>
+        <item> BATCH-MODE </item>
+        <item> BEFORE-BUFFER </item>
+        <item> BEFORE-ROWID </item>
+        <item> BEFORE-TABLE </item>
+        <item> BGCOLOR </item>
+        <item> BLANK </item>
+        <item> BLOCK-ITERATION-DISPLAY </item>
+        <item> BORDER-BOTTOM-CHARS </item>
+        <item> BORDER-BOTTOM-PIXELS </item>
+        <item> BORDER-LEFT-CHARS </item>
+        <item> BORDER-LEFT-PIXELS </item>
+        <item> BORDER-RIGHT-CHARS </item>
+        <item> BORDER-RIGHT-PIXELS </item>
+        <item> BORDER-TOP-CHARS </item>
+        <item> BORDER-TOP-PIXELS </item>
+        <item> BOX </item>
+        <item> BOX-SELECTABLE </item>
+        <item> BUFFER-CHARS </item>
+        <item> BUFFER-VALUE </item>
+        <item> BYTES-READ </item>
+        <item> BYTES-WRITTEN </item>
+        <item> CACHE </item>
+        <item> CALL-NAME </item>
+        <item> CALL-TYPE </item>
+        <item> BUFFER-FIELD </item>
+        <item> BUFFER-HANDLE </item>
+        <item> BUFFER-LINES </item>
+        <item> BUFFER-NAME </item>
+        <item> CANCEL-BUTTON </item>
+        <item> CANCELLED </item>
+        <item> CAN-CREATE </item>
+        <item> CAN-DELETE </item>
+        <item> CAN-READ </item>
+        <item> CAN-WRITE </item>
+        <item> CAREFUL-PAINT </item>
+        <item> CASE-SENSITIVE </item>
+        <item> CENTERED </item>
+        <item> CHARSET </item>
+        <item> CHECKED </item>
+        <item> CHILD-BUFFER </item>
+        <item> CHILD-NUM </item>
+        <item> CLIENT-CONNECTION-ID </item>
+        <item> CLIENT-TYPE </item>
+        <item> CODE </item>
+        <item> CODEPAGE </item>
+        <item> COLUMN </item>
+        <item> COLUMN-BGCOLOR </item>
+        <item> COLUMN-DCOLOR </item>
+        <item> COLUMN-FGCOLOR </item>
+        <item> COLUMN-FONT </item>
+        <item> COLUMN-LABEL </item>
+        <item> COLUMN-MOVABLE </item>
+        <item> COLUMN-PFCOLOR </item>
+        <item> COLUMN-READ-ONLY </item>
+        <item> COLUMN-RESIZABLE </item>
+        <item> COLUMN-SCROLLING </item>
+        <item> COM-HANDLE </item>
+        <item> COMPLETE </item>
+        <item> CONTEXT-HELP </item>
+        <item> CONTEXT-HELP-FILE </item>
+        <item> CONTEXT-HELP-ID </item>
+        <item> CONTROL-BOX </item>
+        <item> CONVERT-D-COLORS </item>
+        <item> CPCASE </item>
+        <item> CPCOLL </item>
+        <item> CPINTERNAL </item>
+        <item> CPLOG </item>
+        <item> CPPRINT </item>
+        <item> CPRCODEIN </item>
+        <item> CPRCODEOUT </item>
+        <item> CPSTREAM </item>
+        <item> CPTERM </item>
+        <item> CRC-VALUE </item>
+        <item> CURRENT-CHANGED </item>
+        <item> CURRENT-COLUMN </item>
+        <item> CURRENT-ITERATION </item>
+        <item> CURRENT-RESULT-ROW </item>
+        <item> CURRENT-ROW-MODIFIED </item>
+        <item> CURRENT-WINDOW </item>
+        <item> CURSOR-CHAR </item>
+        <item> CURSOR-LINE </item>
+        <item> CURSOR-OFFSET </item>
+        <item> DATA-ENTRY-RETURN </item>
+        <item> DATA-SOURCE </item>
+        <item> DATA-TYPE </item>
+        <item> DATASET </item>
+        <item> DATE-FORMAT </item>
+        <item> DBNAME </item>
+        <item> DB-REFERENCES </item>
+        <item> DCOLOR </item>
+        <item> DDE-ERROR </item>
+        <item> DDE-ID </item>
+        <item> DDE-ITEM </item>
+        <item> DDE-NAME </item>
+        <item> DDE-TOPIC </item>
+        <item> DEBLANK </item>
+        <item> DEBUG-ALERT </item>
+        <item> DECIMALS </item>
+        <item> DEFAULT </item>
+        <item> DEFAULT-BUFFER-HANDLE </item>
+        <item> DEFAULT-BUTTON </item>
+        <item> DEFAULT-COMMIT </item>
+        <item> DELIMITER </item>
+        <item> DISABLE-AUTO-ZAP </item>
+        <item> DISPLAY-TIMEZONE </item>
+        <item> DISPLAY-TYPE </item>
+        <item> DOWN </item>
+        <item> DRAG-ENABLED </item>
+        <item> DROP-TARGET </item>
+        <item> DYNAMIC </item>
+        <item> EDGE-CHARS </item>
+        <item> EDGE-PIXELS </item>
+        <item> EDIT-CAN-PASTE </item>
+        <item> EDIT-CAN-UNDO </item>
+        <item> EMPTY </item>
+        <item> ENCODING </item>
+        <item> END-USER-PROMPT </item>
+        <item> ENTRY-TYPES-LIST </item>
+        <item> ERROR </item>
+        <item> ERROR-COLUMN </item>
+        <item> ERROR-OBJECT-DETAIL </item>
+        <item> ERROR-ROW </item>
+        <item> ERROR-STRING </item>
+        <item> EVENT-PROCEDURE </item>
+        <item> EVENT-PROCEDURE-CONTEXT </item>
+        <item> EVENT-TYPE </item>
+        <item> EXPAND </item>
+        <item> EXPANDABLE </item>
+        <item> EXTENT </item>
+        <item> FGCOLOR </item>
+        <item> FILE-CREATE-DATE </item>
+        <item> FILE-CREATE-TIME </item>
+        <item> FILE-MOD-DATE </item>
+        <item> FILE-MOD-TIME </item>
+        <item> FILE-NAME </item>
+        <item> FILE-OFFSET </item>
+        <item> FILE-SIZE </item>
+        <item> FILE-TYPE </item>
+        <item> FILLED </item>
+        <item> FILL-MODE </item>
+        <item> FILL-WHERE-STRING </item>
+        <item> FIRST-ASYNC-REQUEST </item>
+        <item> FIRST-BUFFER </item>
+        <item> FIRST-CHILD </item>
+        <item> FIRST-COLUMN </item>
+        <item> FIRST-DATASET </item>
+        <item> FIRST-DATA-SOURCE </item>
+        <item> FIRST-PROCEDURE </item>
+        <item> FIRST-QUERY </item>
+        <item> FIRST-SERVER </item>
+        <item> FIRST-SERVER-SOCKET </item>
+        <item> FIRST-SOCKET </item>
+        <item> FIRST-TAB-ITEM </item>
+        <item> FIT-LAST-COLUMN </item>
+        <item> FLAT-BUTTON </item>
+        <item> FOCUSED-ROW </item>
+        <item> FOCUSED-ROW-SELECTED </item>
+        <item> FONT </item>
+        <item> FOREGROUND </item>
+        <item> FORMAT </item>
+        <item> FORWARD-ONLY </item>
+        <item> FRAME </item>
+        <item> FRAME-COL </item>
+        <item> FRAME-NAME </item>
+        <item> FRAME-ROW </item>
+        <item> FRAME-SPACING </item>
+        <item> FRAME-X </item>
+        <item> FRAME-Y </item>
+        <item> FREQUENCY </item>
+        <item> FULL-HEIGHT-CHARS </item>
+        <item> FULL-HEIGHT-PIXELS </item>
+        <item> FULL-PATHNAME </item>
+        <item> FULL-WIDTH-CHARS </item>
+        <item> FULL-WIDTH-PIXELS </item>
+        <item> FUNCTION </item>
+        <item> GRAPHIC-EDGE </item>
+        <item> GRID-FACTOR-HORIZONTAL </item>
+        <item> GRID-FACTOR-VERTICAL </item>
+        <item> GRID-SNAP </item>
+        <item> GRID-UNIT-HEIGHT-CHARS </item>
+        <item> GRID-UNIT-HEIGHT-PIXELS </item>
+        <item> GRID-UNIT-WIDTH-CHARS </item>
+        <item> GRID-UNIT-WIDTH-PIXELS </item>
+        <item> GRID-VISIBLE </item>
+        <item> HANDLER </item>
+        <item> HAS-LOBS </item>
+        <item> HAS-RECORDS </item>
+        <item> HEIGHT-CHARS </item>
+        <item> HEIGHT-PIXELS </item>
+        <item> HELP </item>
+        <item> HIDDEN </item>
+        <item> HORIZONTAL </item>
+        <item> HTML-CHARSET </item>
+        <item> HWND </item>
+        <item> ICFPARAMETER </item>
+        <item> ICON </item>
+        <item> IGNORE-CURRENT-MODIFIED </item>
+        <item> IMAGE </item>
+        <item> IMAGE-DOWN </item>
+        <item> IMAGE-INSENSITIVE </item>
+        <item> IMAGE-UP </item>
+        <item> IMMEDIATE-DISPLAY </item>
+        <item> INDEX </item>
+        <item> INDEX-INFORMATION </item>
+        <item> INITIAL </item>
+        <item> INNER-CHARS </item>
+        <item> INNER-LINES </item>
+        <item> INPUT-VALUE </item>
+        <item> INSTANTIATING-PROCEDURE </item>
+        <item> INTERNAL-ENTRIES </item>
+        <item> IN-HANDLE </item>
+        <item> IS-OPEN </item>
+        <item> IS-PARAMETER-SET </item>
+        <item> ITEMS-PER-ROW </item>
+        <item> KEEP-CONNECTION-OPEN </item>
+        <item> KEEP-FRAME-Z-ORDER </item>
+        <item> KEEP-SECURITY-CACHE </item>
+        <item> KEY </item>
+        <item> LABEL </item>
+        <item> LABEL-BGCOLOR </item>
+        <item> LABEL-DCOLOR </item>
+        <item> LABEL-FGCOLOR </item>
+        <item> LABEL-FONT </item>
+        <item> LABELS </item>
+        <item> LANGUAGES </item>
+        <item> LARGE </item>
+        <item> LARGE-TO-SMALL </item>
+        <item> LAST-ASYNC-REQUEST </item>
+        <item> LAST-CHILD </item>
+        <item> LAST-PROCEDURE </item>
+        <item> LAST-SERVER </item>
+        <item> LAST-SERVER-SOCKET </item>
+        <item> LAST-SOCKET </item>
+        <item> LAST-TAB-ITEM </item>
+        <item> LENGTH </item>
+        <item> LINE </item>
+        <item> LIST-ITEM-PAIRS </item>
+        <item> LIST-ITEMS </item>
+        <item> LITERAL-QUESTION </item>
+        <item> LOCAL-HOST </item>
+        <item> LOCAL-NAME </item>
+        <item> LOCAL-PORT </item>
+        <item> LOCATOR-COLUMN-NUMBER </item>
+        <item> LOCATOR-LINE-NUMBER </item>
+        <item> LOCATOR-PUBLIC-ID </item>
+        <item> LOCATOR-SYSTEM-ID </item>
+        <item> LOCATOR-TYPE </item>
+        <item> LOCKED </item>
+        <item> LOG-ENTRY-TYPES </item>
+        <item> LOG-THRESHOLD </item>
+        <item> LOGFILE-NAME </item>
+        <item> LOGGING-LEVEL </item>
+        <item> MANDATORY </item>
+        <item> MANUAL-HIGHLIGHT </item>
+        <item> MAX-BUTTON </item>
+        <item> MAX-CHARS </item>
+        <item> MAX-DATA-GUESS </item>
+        <item> MAX-HEIGHT-CHARS </item>
+        <item> MAX-HEIGHT-PIXELS </item>
+        <item> MAX-VALUE </item>
+        <item> MAX-WIDTH-CHARS </item>
+        <item> MAX-WIDTH-PIXELS </item>
+        <item> MD-VALUE </item>
+        <item> MENU-BAR </item>
+        <item> MENU-KEY </item>
+        <item> MENU-MOUSE </item>
+        <item> MESSAGE-AREA </item>
+        <item> MESSAGE-AREA-FONT </item>
+        <item> MIN-BUTTON </item>
+        <item> MIN-COLUMN-WIDTH-CHARS </item>
+        <item> MIN-COLUMN-WIDTH-PIXELS </item>
+        <item> MIN-HEIGHT-CHARS </item>
+        <item> MIN-HEIGHT-PIXELS </item>
+        <item> MIN-SCHEMA-MARSHAL </item>
+        <item> MIN-VALUE </item>
+        <item> MIN-WIDTH-CHARS </item>
+        <item> MIN-WIDTH-PIXELS </item>
+        <item> MODIFIED </item>
+        <item> MOUSE-POINTER </item>
+        <item> MOVABLE </item>
+        <item> MULTIPLE </item>
+        <item> MULTITASKING-INTERVAL </item>
+        <item> MUST-UNDERSTAND </item>
+        <item> NAME </item>
+        <item> NAMESPACE-PREFIX </item>
+        <item> NAMESPACE-URI </item>
+        <item> NEEDS-APPSERVER-PROMPT </item>
+        <item> NEEDS-PROMPT </item>
+        <item> NEW </item>
+        <item> NEW-ROW </item>
+        <item> NEXT-COLUMN </item>
+        <item> NEXT-SIBLING </item>
+        <item> NEXT-TAB-ITEM </item>
+        <item> NO-CURRENT-VALUE </item>
+        <item> NO-EMPTY-SPACE </item>
+        <item> NO-FOCUS </item>
+        <item> NO-SCHEMA-MARSHAL </item>
+        <item> NO-VALIDATE </item>
+        <item> NODE-VALUE </item>
+        <item> NUM-BUFFERS </item>
+        <item> NUM-BUTTONS </item>
+        <item> NUM-CHILD-RELATIONS </item>
+        <item> NUM-CHILDREN </item>
+        <item> NUM-COLUMNS </item>
+        <item> NUM-DROPPED-FILES </item>
+        <item> NUM-ENTRIES </item>
+        <item> NUM-FIELDS </item>
+        <item> NUM-FORMATS </item>
+        <item> NUM-HEADER-ENTRIES </item>
+        <item> NUM-ITEMS </item>
+        <item> NUM-ITERATIONS </item>
+        <item> NUM-LINES </item>
+        <item> NUM-LOCKED-COLUMNS </item>
+        <item> NUM-LOG-FILES </item>
+        <item> NUM-MESSAGES </item>
+        <item> NUM-PARAMETERS </item>
+        <item> NUM-RELATIONS </item>
+        <item> NUM-REPLACED </item>
+        <item> NUM-RESULTS </item>
+        <item> NUM-SELECTED-ROWS </item>
+        <item> NUM-SELECTED-WIDGETS </item>
+        <item> NUM-SOURCE-BUFFERS </item>
+        <item> NUM-TABS </item>
+        <item> NUM-TO-RETAIN </item>
+        <item> NUM-TOP-BUFFERS </item>
+        <item> NUM-VISIBLE-COLUMNS </item>
+        <item> NUMERIC-DECIMAL-POINT </item>
+        <item> NUMERIC-FORMAT </item>
+        <item> NUMERIC-SEPARATOR </item>
+        <item> ON-FRAME-BORDER </item>
+        <item> ORIGIN-HANDLE </item>
+        <item> ORIGIN-ROWID </item>
+        <item> OVERLAY </item>
+        <item> OWNER </item>
+        <item> OWNER-DOCUMENT </item>
+        <item> PAGE-BOTTOM </item>
+        <item> PAGE-TOP </item>
+        <item> PARAMETER </item>
+        <item> PARENT </item>
+        <item> PARENT-BUFFER </item>
+        <item> PARENT-RELATION </item>
+        <item> PARSE-STATUS </item>
+        <item> PASSWORD-FIELD </item>
+        <item> PATHNAME </item>
+        <item> PERSISTENT </item>
+        <item> PERSISTENT-CACHE-DISABLED </item>
+        <item> PERSISTENT-PROCEDURE </item>
+        <item> PFCOLOR </item>
+        <item> PIXELS-PER-COLUMN </item>
+        <item> PIXELS-PER-ROW </item>
+        <item> POPUP-MENU </item>
+        <item> POPUP-ONLY </item>
+        <item> POSITION </item>
+        <item> PREPARED </item>
+        <item> PREPARE-STRING </item>
+        <item> PREV-COLUMN </item>
+        <item> PREV-SIBLING </item>
+        <item> PREV-TAB-ITEM </item>
+        <item> PRIMARY </item>
+        <item> PRINTER-CONTROL-HANDLE </item>
+        <item> PRINTER-HDC </item>
+        <item> PRINTER-NAME </item>
+        <item> PRINTER-PORT </item>
+        <item> PRIVATE-DATA </item>
+        <item> PROCEDURE-NAME </item>
+        <item> PROGRESS-SOURCE </item>
+        <item> PROXY </item>
+        <item> PROXY-PASSWORD </item>
+        <item> PROXY-USERID </item>
+        <item> PUBLIC-ID </item>
+        <item> PUBLISHED-EVENTS </item>
+        <item> QUERY </item>
+        <item> QUERY-OFF-END </item>
+        <item> QUIT </item>
+        <item> RADIO-BUTTONS </item>
+        <item> READ-ONLY </item>
+        <item> RECID </item>
+        <item> RECORD-LENGTH </item>
+        <item> REFRESHABLE </item>
+        <item> REJECTED </item>
+        <item> RELATION-FIELDS </item>
+        <item> RELATIONS-ACTIVE </item>
+        <item> REMOTE </item>
+        <item> REMOTE-HOST </item>
+        <item> REMOTE-PORT </item>
+        <item> REPOSITION </item>
+        <item> RESIZABLE </item>
+        <item> RESIZE </item>
+        <item> RETAIN-SHAPE </item>
+        <item> RETURN-INSERTED </item>
+        <item> RETURN-VALUE </item>
+        <item> RETURN-VALUE-DATA-TYPE </item>
+        <item> ROW </item>
+        <item> ROW-HEIGHT-CHARS </item>
+        <item> ROW-HEIGHT-PIXELS </item>
+        <item> ROW-STATE </item>
+        <item> ROWID </item>
+        <item> ROW-MARKERS </item>
+        <item> ROW-RESIZABLE </item>
+        <item> SAVE-WHERE-STRING </item>
+        <item> SCHEMA-CHANGE </item>
+        <item> SCHEMA-PATH </item>
+        <item> SCREEN-LINES </item>
+        <item> SCREEN-VALUE </item>
+        <item> SCROLL-BARS </item>
+        <item> SCROLLABLE </item>
+        <item> SCROLLBAR-HORIZONTAL </item>
+        <item> SCROLLBAR-VERTICAL </item>
+        <item> SELECTABLE </item>
+        <item> SELECTED </item>
+        <item> SELECTION-END </item>
+        <item> SELECTION-START </item>
+        <item> SELECTION-TEXT </item>
+        <item> SENSITIVE </item>
+        <item> SEPARATORS </item>
+        <item> SEPARATOR-FGCOLOR </item>
+        <item> SERVER </item>
+        <item> SERVER-CONNECTION-BOUND </item>
+        <item> SERVER-CONNECTION-BOUND-REQUEST </item>
+        <item> SERVER-CONNECTION-CONTEXT </item>
+        <item> SERVER-CONNECTION-ID </item>
+        <item> SERVER-OPERATING-MODE </item>
+        <item> SHOW-IN-TASKBAR </item>
+        <item> SIDE-LABEL-HANDLE </item>
+        <item> SIDE-LABELS </item>
+        <item> SKIP-DELETED-RECORD </item>
+        <item> SMALL-ICON </item>
+        <item> SMALL-TITLE </item>
+        <item> SOAP-FAULT-ACTOR </item>
+        <item> SOAP-FAULT-CODE </item>
+        <item> SOAP-FAULT-DETAIL </item>
+        <item> SOAP-FAULT-STRING </item>
+        <item> SORT </item>
+        <item> STARTUP-PARAMETERS </item>
+        <item> STATUS-AREA </item>
+        <item> STATUS-AREA-FONT </item>
+        <item> STOP </item>
+        <item> STOPPED </item>
+        <item> STREAM </item>
+        <item> STRETCH-TO-FIT </item>
+        <item> STRING-VALUE </item>
+        <item> SUBTYPE </item>
+        <item> SUPER-PROCEDURES </item>
+        <item> SUPPRESS-NAMESPACE-PROCESSING </item>
+        <item> SUPPRESS-WARNINGS </item>
+        <item> SYSTEM-ALERT-BOXES </item>
+        <item> SYSTEM-ID </item>
+        <item> TAB-POSITION </item>
+        <item> TAB-STOP </item>
+        <item> TABLE </item>
+        <item> TABLE-CRC-LIST </item>
+        <item> TABLE-HANDLE </item>
+        <item> TABLE-LIST </item>
+        <item> TABLE-NUMBER </item>
+        <item> TEMP-DIRECTORY </item>
+        <item> TEXT-SELECTED </item>
+        <item> THREE-D </item>
+        <item> TIC-MARKS </item>
+        <item> TIME-SOURCE </item>
+        <item> TITLE </item>
+        <item> TITLE-BGCOLOR </item>
+        <item> TITLE-DCOLOR </item>
+        <item> TITLE-FGCOLOR </item>
+        <item> TITLE-FONT </item>
+        <item> TOGGLE-BOX </item>
+        <item> TOOLTIP </item>
+        <item> TOOLTIPS </item>
+        <item> TOP-ONLY </item>
+        <item> TRACKING-CHANGES </item>
+        <item> TRANSACTION </item>
+        <item> TRANSPARENT </item>
+        <item> TRANS-INIT-PROCEDURE </item>
+        <item> TYPE </item>
+        <item> UNDO </item>
+        <item> UNIQUE-ID </item>
+        <item> UNIQUE-MATCH </item>
+        <item> URL </item>
+        <item> URL-PASSWORD </item>
+        <item> URL-USERID </item>
+        <item> DISPLAY </item>
+        <item> VALIDATE-EXPRESSION </item>
+        <item> VALIDATE-MESSAGE </item>
+        <item> VALIDATION-ENABLED </item>
+        <item> VALUE </item>
+        <item> VIEW-FIRST-COLUMN-ON-REOPEN </item>
+        <item> VIRTUAL-HEIGHT-CHARS </item>
+        <item> VIRTUAL-HEIGHT-PIXELS </item>
+        <item> VIRTUAL-WIDTH-CHARS </item>
+        <item> VIRTUAL-WIDTH-PIXELS </item>
+        <item> VISIBLE </item>
+        <item> WARNING </item>
+        <item> WHERE-STRING </item>
+        <item> WIDGET-ENTER </item>
+        <item> WIDGET-LEAVE </item>
+        <item> WIDTH-CHARS </item>
+        <item> WIDTH-PIXELS </item>
+        <item> WINDOW </item>
+        <item> WINDOW-STATE </item>
+        <item> WINDOW-SYSTEM </item>
+        <item> WORD-WRAP </item>
+        <item> WORK-AREA-HEIGHT-PIXELS </item>
+        <item> WORK-AREA-WIDTH-PIXELS </item>
+        <item> WORK-AREA-X </item>
+        <item> WORK-AREA-Y </item>
+        <item> X </item>
+        <item> XML-SCHEMA-PATH </item>
+        <item> XML-SUPPRESS-NAMESPACE-PROCESSING </item>
+        <item> Y </item>
+        <item> YEAR-OFFSET </item>
+</list>
+
+<list name="methods">
+        <item> ACCEPT-CHANGES </item>
+        <item> ACCEPT-ROW-CHANGES </item>
+        <item> ADD-BUFFER </item>
+        <item> ADD-CALC-COLUMN </item>
+        <item> ADD-COLUMNS-FROM </item>
+        <item> ADD-EVENTS-PROCEDURE </item>
+        <item> ADD-FIELDS-FROM </item>
+        <item> ADD-FIRST </item>
+        <item> ADD-HEADER-ENTRY </item>
+        <item> ADD-INDEX-FIELD </item>
+        <item> ADD-LAST </item>
+        <item> ADD-LIKE-COLUMN </item>
+        <item> ADD-LIKE-FIELD </item>
+        <item> ADD-LIKE-INDEX </item>
+        <item> ADD-NEW-FIELD </item>
+        <item> ADD-NEW-INDEX </item>
+        <item> ADD-RELATION </item>
+        <item> ADD-SOURCE-BUFFER </item>
+        <item> ADD-SUPER-PROCEDURE </item>
+        <item> APPEND-CHILD </item>
+        <item> APPLY-CALLBACK </item>
+        <item> ATTACH-DATA-SOURCE </item>
+        <item> BUFFER-COMPARE </item>
+        <item> BUFFER-COPY </item>
+        <item> BUFFER-CREATE </item>
+        <item> BUFFER-DELETE </item>
+        <item> BUFFER-FIELD </item>
+        <item> BUFFER-RELEASE </item>
+        <item> BUFFER-VALIDATE </item>
+        <item> CANCEL-BREAK </item>
+        <item> CANCEL-REQUESTS </item>
+        <item> CLEAR </item>
+        <item> CLEAR-SELECTION </item>
+        <item> CLONE-NODE </item>
+        <item> CONNECT </item>
+        <item> CONNECTED </item>
+        <item> CONVERT-TO-OFFSET </item>
+        <item> CREATE-LIKE </item>
+        <item> CREATE-NODE </item>
+        <item> CREATE-NODE-NAMESPACE </item>
+        <item> CREATE-RESULT-LIST-ENTRY </item>
+        <item> DEBUG </item>
+        <item> DELETE </item>
+        <item> DELETE-CHAR </item>
+        <item> DELETE-CURRENT-ROW </item>
+        <item> DELETE-HEADER-ENTRY </item>
+        <item> DELETE-LINE </item>
+        <item> DELETE-NODE </item>
+        <item> DELETE-RESULT-LIST-ENTRY </item>
+        <item> DELETE-SELECTED-ROW </item>
+        <item> DELETE-SELECTED-ROWS </item>
+        <item> DESELECT-FOCUSED-ROW </item>
+        <item> DESELECT-ROWS </item>
+        <item> DESELECT-SELECTED-ROW </item>
+        <item> DETACH-DATA-SOURCE </item>
+        <item> DISABLE </item>
+        <item> DISABLE-CONNECTIONS </item>
+        <item> DISABLE-DUMP-TRIGGERS </item>
+        <item> DISABLE-LOAD-TRIGGERS </item>
+        <item> DISCONNECT </item>
+        <item> DISPLAY-MESSAGE </item>
+        <item> DUMP-LOGGING-NOW </item>
+        <item> EDIT-CLEAR </item>
+        <item> EDIT-COPY </item>
+        <item> EDIT-CUT </item>
+        <item> EDIT-PASTE </item>
+        <item> EDIT-UNDO </item>
+        <item> EMPTY-DATASET </item>
+        <item> EMPTY-TEMP-TABLE </item>
+        <item> ENABLE </item>
+        <item> ENABLE-CONNECTIONS </item>
+        <item> ENABLE-EVENTS </item>
+        <item> END-FILE-DROP </item>
+        <item> ENTRY </item>
+        <item> EXPORT </item>
+        <item> FETCH-SELECTED-ROW </item>
+        <item> FILL </item>
+        <item> FIND-BY-ROWID </item>
+        <item> FIND-CURRENT </item>
+        <item> FIND-FIRST </item>
+        <item> FIND-LAST </item>
+        <item> FIND-UNIQUE </item>
+        <item> GET-ATTRIBUTE </item>
+        <item> GET-ATTRIBUTE-NODE </item>
+        <item> GET-BLUE-VALUE </item>
+        <item> GET-BROWSE-COLUMN </item>
+        <item> GET-BUFFER-HANDLE </item>
+        <item> GET-BYTES-AVAILABLE </item>
+        <item> GET-CHANGES </item>
+        <item> GET-CHILD </item>
+        <item> GET-CHILD-RELATION </item>
+        <item> GET-CURRENT </item>
+        <item> GET-DATASET-BUFFER </item>
+        <item> GET-DOCUMENT-ELEMENT </item>
+        <item> GET-DROPPED-FILE </item>
+        <item> GET-DYNAMIC </item>
+        <item> GET-FIRST </item>
+        <item> GET-GREEN-VALUE </item>
+        <item> GET-HEADER-ENTRY </item>
+        <item> GET-INDEX-BY-NAMESPACE-NAME </item>
+        <item> GET-INDEX-BY-QNAME </item>
+        <item> GET-ITERATION </item>
+        <item> GET-LAST </item>
+        <item> GET-LOCALNAME-BY-INDEX </item>
+        <item> GET-MESSAGE </item>
+        <item> GET-NEXT </item>
+        <item> GET-NODE </item>
+        <item> GET-NUMBER </item>
+        <item> GET-PARENT </item>
+        <item> GET-PREV </item>
+        <item> GET-PRINTERS </item>
+        <item> GET-QNAME-BY-INDEX </item>
+        <item> GET-RED-VALUE </item>
+        <item> GET-RELATION </item>
+        <item> GET-REPOSITIONED-ROW </item>
+        <item> GET-RGB-VALUE </item>
+        <item> GET-SELECTED-WIDGET </item>
+        <item> GET-SERIALIZED </item>
+        <item> GET-SIGNATURE </item>
+        <item> GET-SOCKET-OPTION </item>
+        <item> GET-SOURCE-BUFFER </item>
+        <item> GET-TAB-ITEM </item>
+        <item> GET-TEXT-HEIGHT-CHARS </item>
+        <item> GET-TEXT-HEIGHT-PIXELS </item>
+        <item> GET-TEXT-WIDTH-CHARS </item>
+        <item> GET-TEXT-WIDTH-PIXELS </item>
+        <item> GET-TOP-BUFFER </item>
+        <item> GET-TYPE-BY-INDEX </item>
+        <item> GET-TYPE-BY-NAMESPACE-NAME </item>
+        <item> GET-TYPE-BY-QNAME </item>
+        <item> GET-URI-BY-INDEX </item>
+        <item> GET-VALUE-BY-INDEX </item>
+        <item> GET-VALUE-BY-NAMESPACE-NAME </item>
+        <item> GET-VALUE-BY-QNAME </item>
+        <item> GET-WAIT-STATE </item>
+        <item> IMPORT-NODE </item>
+        <item> INDEX-INFORMATION </item>
+        <item> INITIALIZE-DOCUMENT-TYPE </item>
+        <item> INITIATE </item>
+        <item> INSERT </item>
+        <item> INSERT-BACKTAB </item>
+        <item> INSERT-BEFORE </item>
+        <item> INSERT-FILE </item>
+        <item> INSERT-ROW </item>
+        <item> INSERT-STRING </item>
+        <item> INSERT-TAB </item>
+        <item> INVOKE </item>
+        <item> IS-ROW-SELECTED </item>
+        <item> IS-SELECTED </item>
+        <item> LOAD </item>
+        <item> LoadControls </item>
+        <item> LOAD-ICON </item>
+        <item> LOAD-IMAGE </item>
+        <item> LOAD-IMAGE-DOWN </item>
+        <item> LOAD-IMAGE-INSENSITIVE </item>
+        <item> LOAD-IMAGE-UP </item>
+        <item> LOAD-MOUSE-POINTER </item>
+        <item> LOAD-SMALL-ICON </item>
+        <item> LONGCHAR-TO-NODE-VALUE </item>
+        <item> LOOKUP </item>
+        <item> MEMPTR-TO-NODE-VALUE </item>
+        <item> MERGE-CHANGES </item>
+        <item> MERGE-ROW-CHANGES </item>
+        <item> MOVE-AFTER-TAB-ITEM </item>
+        <item> MOVE-BEFORE-TAB-ITEM </item>
+        <item> MOVE-COLUMN </item>
+        <item> MOVE-TO-BOTTOM </item>
+        <item> MOVE-TO-EOF </item>
+        <item> MOVE-TO-TOP </item>
+        <item> NODE-VALUE-TO-LONGCHAR </item>
+        <item> NODE-VALUE-TO-MEMPTR </item>
+        <item> NORMALIZE </item>
+        <item> QUERY-CLOSE </item>
+        <item> QUERY-OPEN </item>
+        <item> QUERY-PREPARE </item>
+        <item> RAW-TRANSFER </item>
+        <item> READ </item>
+        <item> READ-FILE </item>
+        <item> REFRESH </item>
+        <item> REJECT-CHANGES </item>
+        <item> REJECT-ROW-CHANGES </item>
+        <item> REMOVE-ATTRIBUTE </item>
+        <item> REMOVE-CHILD </item>
+        <item> REMOVE-EVENTS-PROCEDURE </item>
+        <item> REMOVE-SUPER-PROCEDURE </item>
+        <item> REPLACE </item>
+        <item> REPLACE-CHILD </item>
+        <item> REPLACE-SELECTION-TEXT </item>
+        <item> REPOSITION-BACKWARD </item>
+        <item> REPOSITION-FORWARD </item>
+        <item> REPOSITION-TO-ROW </item>
+        <item> REPOSITION-TO-ROWID </item>
+        <item> SAVE </item>
+        <item> SAVE-FILE </item>
+        <item> SAVE-ROW-CHANGES </item>
+        <item> SAX-PARSE </item>
+        <item> SAX-PARSE-FIRST </item>
+        <item> SAX-PARSE-NEXT </item>
+        <item> SCROLL-TO-CURRENT-ROW </item>
+        <item> SCROLL-TO-ITEM </item>
+        <item> SCROLL-TO-SELECTED-ROW </item>
+        <item> SEARCH </item>
+        <item> SELECT-ALL </item>
+        <item> SELECT-FOCUSED-ROW </item>
+        <item> SELECT-NEXT-ROW </item>
+        <item> SELECT-PREV-ROW </item>
+        <item> SELECT-ROW </item>
+        <item> SET-ACTOR </item>
+        <item> SET-ATTRIBUTE </item>
+        <item> SET-ATTRIBUTE-NODE </item>
+        <item> SET-BLUE-VALUE </item>
+        <item> SET-BREAK </item>
+        <item> SET-BUFFERS </item>
+        <item> SET-CALLBACK-PROCEDURE </item>
+        <item> SET-COMMIT </item>
+        <item> SET-CONNECT-PROCEDURE </item>
+        <item> SET-DYNAMIC </item>
+        <item> SET-GREEN-VALUE </item>
+        <item> SET-INPUT-SOURCE </item>
+        <item> SET-MUST-UNDERSTAND </item>
+        <item> SET-NODE </item>
+        <item> SET-NUMERIC-FORMAT </item>
+        <item> SET-PARAMETER </item>
+        <item> SET-READ-RESPONSE-PROCEDURE </item>
+        <item> SET-RED-VALUE </item>
+        <item> SET-REPOSITIONED-ROW </item>
+        <item> SET-RGB-VALUE </item>
+        <item> SET-ROLLBACK </item>
+        <item> SET-SELECTION </item>
+        <item> SET-SERIALIZED </item>
+        <item> SET-SOCKET-OPTION </item>
+        <item> SET-WAIT-STATE </item>
+        <item> STOP-PARSING </item>
+        <item> SYNCHRONIZE </item>
+        <item> TEMP-TABLE-PREPARE </item>
+        <item> VALIDATE </item>
+        <item> WRITE </item>
+</list>
+
+
     <contexts>
-      <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
-        <keyword attribute="Keyword" context="#stay" String="keywords"/>
-        <keyword attribute="Operator" context="#stay" String="operators"/>
-        <keyword attribute="Function" context="#stay" String="functions"/>
-        <keyword attribute="Data Type" context="#stay" String="types"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Ff][Oo][Uu][Nn][Dd]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b"/>
-        <RegExpr attribute="Data Type" context="#stay" String="%[Tt][Yy][Pp][Ee]\b"/>
-        <Float attribute="Float" context="#stay"/>
+
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+
+        <keyword attribute="Data_Type" context="#stay" String="mytypes"/>
+        <keyword attribute="Operators" context="#stay" String="operators"/>
+        <keyword attribute="Preprocvar" context="#stay" String="preprocvar"/>
+        <keyword attribute="Phrases" context="#stay" String="phrases"/>
+        <keyword attribute="Functions" context="#stay" String="functions"/>
+        <keyword attribute="Statements" context="#stay" String="statements"/>
+        <keyword attribute="Widgets" context="#stay" String="widgets"/>
+        <keyword attribute="Handles" context="#stay" String="handles"/>
+        <keyword attribute="Properties" context="#stay" String="properties"/>
+        <keyword attribute="Attributes" context="#stay" String="attributes"/>
+        <keyword attribute="Methods" context="#stay" String="methods"/>
+
+        <Int attribute="Integer" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
         <DetectChar attribute="String" context="String" char="'"/>
-        <Detect2Chars attribute="Comment" context="Comment 1" char="-" char1="-"/>
-        <Detect2Chars attribute="Comment" context="Comment 2" char="/" char1="*"/>
-        <RegExpr attribute="Comment" context="Comment 3" String="^[Rr][Ee][Mm]\b"/>
-        <DetectChar attribute="Identifier" context="Identifier" char="&quot;"/>
+        <Detect2Chars attribute="Comment" context="MultiLineComment" char="/" char1="*" beginRegion="Comment"/>
+        <RegExpr attribute="Comment" context="SingleLineComment" String="^[Rr][Ee][Mm]\b"/>
+        <DetectChar attribute="Comment" context="Identifier" char="&quot;"/>
         <AnyChar attribute="Symbol" context="#stay" String=":&#38;"/>
         <RegExpr attribute="Symbol" context="#stay" String="^/$"/>
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^@@?[^@ \t\r\n]"/>
+        <DetectChar attribute="String" context="#stay" char="&quot;"/>
+        <DetectChar attribute="String" context="#stay" char="'"/>
+        <DetectChar attribute="Symbol" context="#stay" char="{"/>
+        <DetectChar attribute="Symbol" context="#stay" char="}"/>
+
       </context>
+
       <context name="String" attribute="String" lineEndContext="#stay">
+
         <LineContinue attribute="String" context="#pop"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="Symbol" context="#stay" char="&#38;"/>
         <DetectChar attribute="String" context="#pop" char="'"/>
+
       </context>
-      <context name="Comment 1" attribute="Comment" lineEndContext="#pop"/>
-      <context name="Comment 2" attribute="Comment" lineEndContext="#stay">
+      <context name="SingleLineComment" attribute="Comment" lineEndContext="#pop"/>
+      <context name="MultiLineComment" attribute="Comment" lineEndContext="#stay">
         <LineContinue attribute="Comment" context="#pop"/>
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
-      <context name="Comment 3" attribute="Comment" lineEndContext="#pop"/>
       <context name="Identifier" attribute="Identifier" lineEndContext="#pop">
         <DetectChar attribute="Identifier" context="#pop" char="&quot;"/>
       </context>
-      <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop"/>
     </contexts>
     <itemDatas>
+      <itemData name="Phrases" defStyleNum="dsKeyword" />
+      <itemData name="Statements" defStyleNum="dsKeyword"/>
+      <itemData name="Widgets" defStyleNum="dsKeyword"/>
+      <itemData name="Handles" defStyleNum="dsDecVal"/>
+      <itemData name="Properties" defStyleNum="dsOthers"/>
+      <itemData name="Attributes" defStyleNum="dsDataType"/>
+      <itemData name="Methods" defStyleNum="dsOthers"/>
+      <itemData name="Functions" defStyleNum="dsKeyword"/>
+
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword" defStyleNum="dsKeyword"/>
-      <itemData name="Operator" defStyleNum="dsNormal"/>
-      <itemData name="Function" defStyleNum="dsKeyword"/>
-      <itemData name="Data Type" defStyleNum="dsDataType"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
-      <itemData name="Float"  defStyleNum="dsFloat"/>
+      <itemData name="Integer"  defStyleNum="dsBaseN"/>
       <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="String Char" defStyleNum="dsChar"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Identifier" defStyleNum="dsOthers"/>
       <itemData name="Symbol"  defStyleNum="dsChar"/>
-      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
+      <itemData name="Data_Type" defStyleNum="dsDataType"/>
+      <itemData name="Preprocvar" defStyleNum="dsChar"/>
+      <itemData name="Operators" defStyleNum="dsString"/>
     </itemDatas>
-  </highlighting>
+
+</highlighting>
+
   <general>
     <comments>
-      <comment name="singleLine" start="--"/>
+      <comment name="singleLine" start="/*" end="*/"/>
       <comment name="multiLine" start="/*" end="*/"/>
     </comments>
-    <keywords casesensitive="0"/>
+
+    <keywords  casesensitive="1" weakDeliminator="-" />
+    <mytypes casesensitive="1" weakDeliminator="-" />
+    <phrases casesensitive="1" weakDeliminator="-" />
+    <functions casesensitive="1" weakDeliminator="-" />
+    <statements casesensitive="1" weakDeliminator="-" />
+    <widgets casesensitive="1" weakDeliminator="-" />
+    <handles casesensitive="1" weakDeliminator="-" />
+    <properties casesensitive="1" weakDeliminator="-" />
+    <attributes casesensitive="1" weakDeliminator="-" />
+    <methods casesensitive="1" weakDeliminator="-" />
+    <preprocvar casesensitive="1" weakDeliminator="-" />
+
   </general>
+
 </language>

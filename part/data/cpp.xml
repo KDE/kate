@@ -163,7 +163,7 @@
       <context attribute="Normal Text" lineEndContext="#pop" name="Member">
         <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
-        <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
         <keyword attribute="Decimal" context="#stay" String="attention" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">

@@ -553,7 +553,7 @@ bool KatePrinter::print (KateDocument *doc)
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
            paint.setFont( renderer.config()->fontStruct()->font( false, false ) );
-           paint.setPen( renderer.config()->selectionColor() ); // using "selected" color for now...
+           paint.setPen( renderer.config()->lineNumberColor() );
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
                         lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );

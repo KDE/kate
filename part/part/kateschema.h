@@ -174,6 +174,7 @@ class KateSchemaConfigColorTab : public QWidget
     KColorButton *m_wwmarker;
     KColorButton *m_iconborder;
     KColorButton *m_tmarker;
+    KColorButton *m_linenumber;
 
     KColorButton *m_markers;           // bg color for current selected marker
     QMap<int, QColor> m_markerColors;  // stores all markerColors

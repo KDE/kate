@@ -384,7 +384,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
   QPainter p ( this );
   p.setFont ( *m_view->renderer()->config()->font() ); // for line numbers
-  p.setPen ( m_view->renderer()->attribute(0)->textColor() );
+  // the line number color is for the line numbers, vertical separator lines
+  // and for for the code folding lines.
+  p.setPen ( m_view->renderer()->config()->lineNumberColor() );
 
   KateLineInfo oldInfo;
   if (startz < lineRangesSize)

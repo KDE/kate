@@ -322,6 +322,12 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   label = new QLabel( i18n("Left border background:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_iconborder = new KColorButton(b);
+  
+  b = new QHBox (gbBorder);
+  b->setSpacing(KDialog::spacingHint());
+  label = new QLabel( i18n("Line numbers:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_linenumber = new KColorButton(b);
 
   b = new QHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
@@ -387,6 +393,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   m_iconborder->disconnect( SIGNAL( changed( const QColor & ) ) );
   m_tmarker   ->disconnect( SIGNAL( changed( const QColor & ) ) );
   m_markers   ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_linenumber->disconnect( SIGNAL( changed( const QColor & ) ) );
 
   QColor tmp0 (KGlobalSettings::baseColor());
   QColor tmp1 (KGlobalSettings::highlightColor());
@@ -395,6 +402,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   QColor tmp4 (tmp2.dark());
   QColor tmp5 ( KGlobalSettings::textColor() );
   QColor tmp6 ( "#EAE9E8" );
+  QColor tmp7 ( "#000000" );
 
   m_back->setColor(config->readColorEntry("Color Background", &tmp0));
   m_selected->setColor(config->readColorEntry("Color Selection", &tmp1));
@@ -403,6 +411,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   m_wwmarker->setColor(config->readColorEntry("Color Word Wrap Marker", &tmp4));
   m_tmarker->setColor(config->readColorEntry("Color Tab Marker", &tmp5));
   m_iconborder->setColor(config->readColorEntry("Color Icon Bar", &tmp6));
+  m_linenumber->setColor(config->readColorEntry("Color Line Number", &tmp7));
 
   // same std colors like in KateDocument::markColor
   QValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
@@ -433,6 +442,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   connect( m_wwmarker  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_linenumber, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 
@@ -445,6 +455,7 @@ void KateSchemaConfigColorTab::writeConfig (KConfig *config)
   config->writeEntry("Color Word Wrap Marker", m_wwmarker->color());
   config->writeEntry("Color Tab Marker", m_tmarker->color());
   config->writeEntry("Color Icon Bar", m_iconborder->color());
+  config->writeEntry("Color Line Number", m_linenumber->color());
 
   for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
   {

@@ -870,6 +870,7 @@ KateRendererConfig::KateRendererConfig ()
    m_wordWrapMarkerColorSet (true),
    m_tabMarkerColorSet(true),
    m_iconBarColorSet (true),
+   m_lineNumberColorSet (true),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (0)
 {
@@ -897,6 +898,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_wordWrapMarkerColorSet (false),
    m_tabMarkerColorSet(false),
    m_iconBarColorSet (false),
+   m_lineNumberColorSet (false),
    m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (renderer)
 {
@@ -968,6 +970,7 @@ void KateRendererConfig::setSchema (uint schema)
   QColor tmp4 (tmp2.dark());
   QColor tmp5 ( KGlobalSettings::textColor() );
   QColor tmp6 ( "#EAE9E8" );
+  QColor tmp7 ( "#000000" );
 
   setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
   setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
@@ -976,6 +979,7 @@ void KateRendererConfig::setSchema (uint schema)
   setWordWrapMarkerColor (config->readColorEntry("Color Word Wrap Marker", &tmp4));
   setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
   setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp6));
+  setLineNumberColor (config->readColorEntry("Color Line Number", &tmp7));
 
     // same std colors like in KateDocument::markColor
   QColor mark[7];
@@ -1199,6 +1203,23 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
   configEnd ();
 }
 
+const QColor& KateRendererConfig::lineNumberColor() const
+{
+  if (m_lineNumberColorSet || isGlobal())
+    return m_lineNumberColor;
+
+  return s_global->lineNumberColor();
+}
+
+void KateRendererConfig::setLineNumberColor (const QColor &col)
+{
+  configStart ();
+
+  m_lineNumberColorSet = true;
+  m_lineNumberColor = col;
+
+  configEnd ();
+}
 //END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

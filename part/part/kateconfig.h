@@ -444,6 +444,11 @@ class KateRendererConfig : public KateConfig
     const QColor& iconBarColor() const;
     void setIconBarColor (const QColor &col);
 
+    // the line number color is used for the line numbers on the left bar and
+    // for vertical separator lines and for code folding lines.
+    const QColor& lineNumberColor() const;
+    void setLineNumberColor (const QColor &col);
+
   private:
     uint m_schema;
     KateFontStruct *m_font;
@@ -455,6 +460,7 @@ class KateRendererConfig : public KateConfig
     QColor m_wordWrapMarkerColor;
     QColor m_tabMarkerColor;
     QColor m_iconBarColor;
+    QColor m_lineNumberColor;
     QValueVector<QColor> m_lineMarkerColor;
 
     bool m_schemaSet : 1;
@@ -467,6 +473,7 @@ class KateRendererConfig : public KateConfig
     bool m_wordWrapMarkerColorSet : 1;
     bool m_tabMarkerColorSet : 1;
     bool m_iconBarColorSet : 1;
+    bool m_lineNumberColorSet : 1;
     QBitArray m_lineMarkerColorSet;
 
   private:

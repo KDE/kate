@@ -97,7 +97,10 @@
 #include <qwidgetstack.h>
 //END
 
-// FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and there is a need for an itemUnset(XYZ)
+// FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and
+// there is a need for an itemUnset(XYZ)
+// a) is done. itemUnset(N) == !itemSet(N); right???
+// there is a unsetItem(), just (not all logic) called "KateAttribute::clearAttribute(int)";
 
 using namespace Kate;
 
@@ -1150,7 +1153,7 @@ void StyleListItem::updateStyle()
   if ( is->itemSet(KateAttribute::BGColor) )
   {
     if ( is->bgColor() != st->bgColor() &&
-        is->bgColor() != ds->bgColor() )
+        ( !ds->itemSet(KateAttribute::BGColor) || is->bgColor() != ds->bgColor() ) )
       st->setBGColor( is->bgColor() );
     else
       st->clearAttribute(KateAttribute::BGColor);
@@ -1158,14 +1161,11 @@ void StyleListItem::updateStyle()
   if ( is->itemSet(KateAttribute::SelectedBGColor) )
   {
     if ( is->selectedBGColor() != st->selectedBGColor() &&
-        is->selectedBGColor() != ds->selectedBGColor() )
+        ( ! ds->itemSet(KateAttribute::SelectedBGColor) || is->selectedBGColor() != ds->selectedBGColor() ) )
       st->setSelectedBGColor( is->selectedBGColor() );
     else
       st->clearAttribute(KateAttribute::SelectedBGColor);
   }
-  /*
-    unset unset items
-  */
   //kdDebug()<<"after update: "<<st->itemsSet()<<endl;
   //kdDebug()<<"bold: "<<st->bold()<<" ("<<is->bold()<<")"<<endl;
 }
@@ -1244,16 +1244,15 @@ void StyleListItem::changeProperty( Property p )
 
 void StyleListItem::toggleDefStyle()
 {
-  if ( !st->isSomethingSet() ) {
+  if ( *is == *ds ) {
     KMessageBox::information( listView(),
          i18n("\"Use Default Style\" will be automatically unset when you change any style properties."),
          i18n("Kate Styles"),
          "Kate hl config use defaults" );
   }
   else {
-//    st->setdefStyle = 1;
-    //is = ds;
-    is->clear();
+    delete is;
+    is = new KateAttribute( *ds );
     repaint();
   }
 }
@@ -1352,7 +1351,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
           (col == Italic && is->italic()) ||
           (col == Underline && is->underline()) ||
           (col == Strikeout && is->strikeOut()) ||
-          (col == UseDefStyle && !st->isSomethingSet()) )
+          (col == UseDefStyle && *is == *ds ) )
       {
         QPointArray a( 7*2 );
         int i, xx, yy;

@@ -50,6 +50,8 @@
 
 #include <qtimer.h>
 
+#include <kdebug.h>
+
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
   , m_view (view)
@@ -523,7 +525,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) const
 {
   int x = 0;
-
   if( m_iconBorderOn ) {
     x += iconPaneWidth;
     if( p.x() <= x )
@@ -546,9 +547,13 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
 {
   m_lastClickedLine = m_viewInternal->yToKateLineRange(e->y()).line;
 
-  QMouseEvent forward( QEvent::MouseButtonPress,
-    QPoint( 0, e->y() ), e->button(), e->state() );
-  m_viewInternal->mousePressEvent( &forward );
+  if ( positionToArea( e->pos() ) != IconBorder )
+  {
+    QMouseEvent forward( QEvent::MouseButtonPress,
+      QPoint( 0, e->y() ), e->button(), e->state() );
+    m_viewInternal->mousePressEvent( &forward );
+  }
+  e->accept();
 }
 
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )

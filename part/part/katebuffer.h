@@ -331,12 +331,36 @@ class KateBuffer : public QObject
     /**
      * Return line @p i
      */
-    KateTextLine::Ptr line(uint i);
+    inline KateTextLine::Ptr line(uint i)
+    {
+      KateBufBlock *buf = findBlock(i);
+      if (!buf)
+        return 0;
+        
+      if (i < m_lineHighlighted)
+        return buf->line (i - buf->startLine());
+      
+      return line_internal (buf, i);
+    }
+    
+  private:
+    /**
+     * line needs hl
+     */
+     KateTextLine::Ptr line_internal (KateBufBlock *buf, uint i);
 
+  public:
     /**
      * Return line @p i without triggering highlighting
      */
-    KateTextLine::Ptr plainLine(uint i);
+    inline KateTextLine::Ptr plainLine(uint i)
+    {
+      KateBufBlock *buf = findBlock(i);
+      if (!buf)
+        return 0;
+    
+      return buf->line(i - buf->startLine());
+    }
     
     /**
      * Return the total number of lines in the buffer.

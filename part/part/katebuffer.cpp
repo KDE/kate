@@ -454,13 +454,8 @@ bool KateBuffer::saveFile (const QString &m_file)
   return (file.status() == IO_Ok);
 }
 
-KateTextLine::Ptr KateBuffer::line(uint i)
+KateTextLine::Ptr KateBuffer::line_internal (KateBufBlock *buf, uint i)
 {
-  KateBufBlock *buf = findBlock(i);
-
-  if (!buf)
-    return 0;
-
   // update hl until this line + max KATE_HL_LOOKAHEAD
   KateBufBlock *buf2 = 0;
   while ((i >= m_lineHighlighted) && (buf2 = findBlock(m_lineHighlighted)))
@@ -480,15 +475,6 @@ KateTextLine::Ptr KateBuffer::line(uint i)
     m_lineHighlightedMax = m_lineHighlighted;
 
   return buf->line (i - buf->startLine());
-}
-
-KateTextLine::Ptr KateBuffer::plainLine(uint i)
-{
-  KateBufBlock *buf = findBlock(i);
-  if (!buf)
-    return 0;
-
-  return buf->line(i - buf->startLine());
 }
 
 KateBufBlock *KateBuffer::findBlock(uint i, uint *index)

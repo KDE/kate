@@ -1,0 +1,8 @@
+Name=Text Editor
+Comment=The text editor service provides applications with a text viewer and editor. KDE applications that provide text editing facilities should use this service.
+ServiceTypeToConfigure=KTextEditor/Document
+MimeTypeOfInterest=text/plain
+defaultImplementation=katepart
+storeInFile=default_components
+valueSection=KTextEditor
+valueName=embeddedEditor

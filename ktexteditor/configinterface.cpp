@@ -56,6 +56,9 @@ unsigned int ConfigInterface::configInterfaceNumber () const
 }
 
 ConfigInterface *KTextEditor::configInterface (Document *doc)
-{
+{                       
+  if (!doc)
+    return 0;
+
   return static_cast<ConfigInterface*>(doc->qt_cast("KTextEditor::ConfigInterface"));
 }

@@ -42,6 +42,9 @@ unsigned int SearchInterface::searchInterfaceNumber () const
 }
 
 SearchInterface *KTextEditor::searchInterface (Document *doc)
-{
+{  
+  if (!doc)
+    return 0;
+
   return static_cast<SearchInterface*>(doc->qt_cast("KTextEditor::SearchInterface"));
 }

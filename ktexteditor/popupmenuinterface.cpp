@@ -56,6 +56,9 @@ unsigned int PopupMenuInterface::popupMenuInterfaceNumber () const
 }
 
 PopupMenuInterface *KTextEditor::popupMenuInterface (View *view)
-{
+{        
+  if (!view)
+    return 0;
+
   return static_cast<PopupMenuInterface*>(view->qt_cast("KTextEditor::PopupMenuInterface"));
 }

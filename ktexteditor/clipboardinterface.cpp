@@ -43,6 +43,9 @@ unsigned int ClipboardInterface::clipboardInterfaceNumber () const
 }
 
 ClipboardInterface *KTextEditor::clipboardInterface (View *view)
-{
+{                                    
+  if (!view)
+    return 0;
+
   return static_cast<ClipboardInterface*>(view->qt_cast("KTextEditor::ClipboardInterface"));
 }

@@ -43,5 +43,8 @@ unsigned int SelectionInterface::selectionInterfaceNumber () const
 
 SelectionInterface *KTextEditor::selectionInterface (Document *doc)
 {
+  if (!doc)
+    return 0;
+
   return static_cast<SelectionInterface*>(doc->qt_cast("KTextEditor::SelectionInterface"));
 }

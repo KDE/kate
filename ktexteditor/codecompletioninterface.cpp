@@ -36,7 +36,10 @@ unsigned int CodeCompletionInterface::codeCompletionInterfaceNumber () const
 }
 
 CodeCompletionInterface *KTextEditor::codeCompletionInterface (View *view)
-{
+{                
+  if (!view)
+    return 0;
+
   return static_cast<CodeCompletionInterface*>(view->qt_cast("KTextEditor::CodeCompletionInterface"));
 }
 

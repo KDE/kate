@@ -56,6 +56,9 @@ unsigned int ViewConfigInterface::viewConfigInterfaceNumber () const
 }
 
 ViewConfigInterface *KTextEditor::viewConfigInterface (View *view)
-{
+{                   
+  if (!view)
+    return 0;
+
   return static_cast<ViewConfigInterface*>(view->qt_cast("KTextEditor::ViewConfigInterface"));
 }

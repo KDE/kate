@@ -56,6 +56,9 @@ unsigned int BlockSelectionInterface::blockSelectionInterfaceNumber () const
 }
 
 BlockSelectionInterface *KTextEditor::blockSelectionInterface (Document *doc)
-{
+{                                              
+  if (!doc)
+    return 0;
+
   return static_cast<BlockSelectionInterface*>(doc->qt_cast("KTextEditor::BlockSelectionInterface"));
 }

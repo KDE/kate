@@ -56,6 +56,9 @@ unsigned int PrintInterface::printInterfaceNumber () const
 }
 
 PrintInterface *KTextEditor::printInterface (Document *doc)
-{
+{           
+  if (!doc)
+    return 0;
+
   return static_cast<PrintInterface*>(doc->qt_cast("KTextEditor::PrintInterface"));
 }

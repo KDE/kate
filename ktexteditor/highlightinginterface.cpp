@@ -56,6 +56,9 @@ unsigned int HighlightingInterface::highlightingInterfaceNumber () const
 }
 
 HighlightingInterface *KTextEditor::highlightingInterface (Document *doc)
-{
+{       
+  if (!doc)
+    return 0;
+
   return static_cast<HighlightingInterface*>(doc->qt_cast("KTextEditor::HighlightingInterface"));
 }

@@ -61,6 +61,9 @@ unsigned int ConfigInterfaceExtension::configInterfaceExtensionNumber () const
 }
 
 ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (Document *doc)
-{
+{           
+  if (!doc)
+    return 0;
+
   return static_cast<ConfigInterfaceExtension*>(doc->qt_cast("KTextEditor::ConfigInterfaceExtension"));
 }

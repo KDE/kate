@@ -48,10 +48,10 @@ class KateBookmarks : public QObject
   private slots:
     void toggleBookmark();
     void clearBookmarks();
+
     void bookmarkMenuAboutToShow();
     void bookmarkMenuAboutToHide();
-    
-    void gotoBookmark( int );
+
     void goNext();
     void goPrevious();
 

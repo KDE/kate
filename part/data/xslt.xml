@@ -28,13 +28,15 @@
     
     DONE: highlight entity references
       Do not replace the <RegExpr> by <IncludeEntities>, this is a kate 2.1 workaround !
-        
+
+    Changed:
+    - use the Alerts (alert.xml) for the highlighting of todo and fixme (Wilbert Berendsen, wbsoft@xs4all.nl)
+
+
       
 -->
 
-<language version="1.01" kateversion="2.1" name="XSLT" section="Markup" extensions="*.xsl;*.xslt"
-  license="LGPL" author="Peter Lammich (views@gmx.de)"
->
+<language version="1.02" kateversion="2.1" name="XSLT" section="Markup" extensions="*.xsl;*.xslt" license="LGPL" author="Peter Lammich (views@gmx.de)">
   <highlighting>
     <list name="keytags">
       <item> xsl:value-of </item>
@@ -175,9 +177,8 @@
        </context>
        
        <context name="comment" attribute="Comment" lineEndContext="#stay">
-         <StringDetect attribute="Todo" context="#stay" String="TODO" />
-         <StringDetect attribute="Fixme" context="#stay" String="FIXME" />
          <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
+         <IncludeRules context="##Alerts" />
        </context>
 
        <context name="xpath" attribute="XPath" lineEndContext="#stay">

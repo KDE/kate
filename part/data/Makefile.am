@@ -14,7 +14,7 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
                 rsiidl.xml coldfusion.xml picsrc.xml uscript.xml lpc.xml velocity.xml sci.xml ldif.xml \
                 inform.xml xharbour.xml yacas.xml component-pascal.xml asm6502.xml gdl.xml bibtex.xml d.xml \
                 vrml.xml rexx.xml cue.xml progress.xml e.xml sieve.xml modula-2.xml awk.xml cisco.xml \
-                doxygen.xml
+                doxygen.xml lua.xml pike.xml debianchangelog.xml debiancontrol.xml
 
 partrcdir   = $(kde_confdir)
 partrc_DATA = katesyntaxhighlightingrc

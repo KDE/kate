@@ -19,6 +19,8 @@
 #ifndef __kate_jscript_h__
 #define __kate_jscript_h__
 
+#include <qdict.h>
+
 /**
  * Some common stuff
  */
@@ -89,6 +91,27 @@ class KateJScript
      * js interpreter
      */
     KJS::Interpreter *m_interpreter;
+};
+
+class KateJScriptManager
+{
+  public:
+    class Script
+    {
+      public:
+        QString name;
+        QString filename;
+    };
+
+  public:
+    KateJScriptManager ();
+    ~KateJScriptManager ();
+
+  private:
+    void collectScripts (bool force = false);
+
+  private:
+    QDict<KateJScriptManager::Script> m_scripts;
 };
 
 #endif

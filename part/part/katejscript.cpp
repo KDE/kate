@@ -21,11 +21,21 @@
 #include "katedocument.h"
 #include "kateview.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <kdebug.h>
+#include <kstandarddirs.h>
+#include <klocale.h>
+#include <kmessagebox.h>
+#include <kconfig.h>
 
 #include <kjs/function_object.h>
 #include <kjs/interpreter.h>
 #include <kjs/lookup.h>
+
+#include <qfile.h>
 
 namespace KJS {
 
@@ -409,6 +419,69 @@ void KateJSView::putValueProperty(KJS::ExecState *exec, int token, const KJS::Va
     return;
 
 
+}
+
+//END
+
+//BEGIN KateJScriptManager
+
+KateJScriptManager::KateJScriptManager ()
+{
+  m_scripts.setAutoDelete (true);
+  collectScripts ();
+}
+
+KateJScriptManager::~KateJScriptManager ()
+{
+}
+
+void KateJScriptManager::collectScripts (bool force)
+{
+// If there's something in myModeList the Mode List was already built so, don't do it again
+  if (!m_scripts.isEmpty())
+    return;
+
+  // We'll store the scripts list in this config
+  KConfig config("katepartjscriptrc", false, false);
+
+  // figure our if the kate install is too new
+  config.setGroup ("General");
+  if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
+  {
+    config.writeEntry ("CachedVersion", config.readNumEntry ("Version"));
+    force = true;
+  }
+
+  // Let's get a list of all the xml files for hl
+  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/scripts/*.js",false,true);
+
+  // Let's iterate through the list and build the Mode List
+  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
+  {
+    // Each file has a group called:
+    QString Group="Cache "+ *it;
+
+    // Let's go to this group
+    config.setGroup(Group);
+
+    // stat the file
+    struct stat sbuf;
+    memset (&sbuf, 0, sizeof(sbuf));
+    stat(QFile::encodeName(*it), &sbuf);
+
+    // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
+    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
+    {
+    }
+    else
+    {
+      kdDebug (13010) << "UPDATE hl cache for: " << *it << endl;
+
+    }
+  }
+
+  // Syncronize with the file katesyntax...rc
+  config.sync();
 }
 
 //END

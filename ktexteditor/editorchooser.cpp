@@ -1,4 +1,6 @@
 #include <editorchooser.h>
+#include <editorchooser.moc>
+
 #include <qcombobox.h>
 #include <ktrader.h>
 #include <kconfig.h>
@@ -6,10 +8,10 @@
 #include <kservice.h>
 #include <klocale.h>
 #include <qlabel.h>
-#include <kapplication.h>   
+#include <kapplication.h>
 #include <qlayout.h>
 
-#include "editorchooser_ui.h"      
+#include "editorchooser_ui.h"
 
 using namespace KTextEditor;
 
@@ -32,23 +34,23 @@ namespace KTextEditor
 
 EditorChooser::EditorChooser(QWidget *parent,const char *name) :
 	QWidget (parent,name)
-  {     
+  {
   d = new PrivateEditorChooser ();
-             
+
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
-  
-              
+
+
   d->chooser = new EditorChooser_UI (this, name);
-    
+
   grid->addWidget( d->chooser, 0, 0);
-  
-  
+
+
 	KTrader::OfferList offers = KTrader::self()->query("text/plain", "'KTextEditor/Document' in ServiceTypes");
 	KConfig *config=new KConfig("default_components");
   	config->setGroup("KTextEditor");
   	QString editor = config->readEntry("embeddedEditor", "");
-	
+
   if (editor.isEmpty()) editor="katepart";
 
 	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
@@ -59,7 +61,7 @@ EditorChooser::EditorChooser(QWidget *parent,const char *name) :
 			break;
 		}
   	}
-	
+
   	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
   	{
     		d->chooser->editorCombo->insertItem((*it)->name());
@@ -114,7 +116,7 @@ KTextEditor::Document *EditorChooser::createDocument(QObject *parent,const char*
 	  	editor = config->readEntry("embeddedEditor", "katepart");
 		delete config;
 	}
-	
+
 	KService::Ptr serv=KService::serviceByDesktopName(editor);
 	if (serv)
 	{

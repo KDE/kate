@@ -16,7 +16,7 @@
     Boston, MA 02111-1307, USA.
  */
 
-#include <qtoolbutton.h>
+#include <qlabel.h>
 #include <qregexp.h>
 #include <qstyle.h>
 #include <qpopupmenu.h>
@@ -31,40 +31,6 @@
 #include "ISearchPlugin.moc"
 
 K_EXPORT_COMPONENT_FACTORY( ktexteditor_isearch, KGenericFactory<ISearchPlugin>( "ktexteditor_isearch" ) )
-
-namespace
-{
-
-// Copied from kdebase/konqueror/konq_misc.cc with modifications.
-// Yay code duplication. Hacking widgets to support a specific
-// style is bad bad bad. Why oh why doesn't the toolbar draw the
-// darn gradient once, and then have buttons paint themselves with
-// a mask? (John)
-// Use a toolbutton instead of a label so it is styled correctly. (gallium)
-class KToolBarLabel : public QToolButton
-{
-public:
-	KToolBarLabel( const QString & text, QWidget* parent, const char* name = 0 )
-		: QToolButton( parent, name )
-	{ setText( text ); }
-
-protected:
-	QSize sizeHint() const { return QSize( fontMetrics().width( text() ),
-	                                       fontMetrics().height() ); }
-	void drawButton( QPainter * p )
-	{
-		// Draw the background
-		style().drawComplexControl( QStyle::CC_ToolButton, p, this, rect(), colorGroup(),
-		    QStyle::Style_Enabled, QStyle::SC_ToolButton );
-		// Draw the label
-		style().drawControl( QStyle::CE_ToolButtonLabel, p, this, rect(), colorGroup(),
-		     QStyle::Style_Enabled );
-}
-	void enterEvent( QEvent* ) {};
-	void leaveEvent( QEvent* ) {};
-};
-
-}
 
 ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	: QObject ( view ), KXMLGUIClient (view)
@@ -107,7 +73,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 		this, SLOT(slotSearchBackwardAction()),
 		actionCollection(), "edit_isearch_reverse" );
 
-	m_label = new KToolBarLabel( i18n("I-Search:"), 0L );
+	m_label = new QLabel( i18n("I-Search:"), 0L, "kde toolbar widget" );
 	KWidgetAction* labelAction = new KWidgetAction(
 		m_label,
 		i18n("I-Search:"), 0, 0, 0,

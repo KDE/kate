@@ -31,10 +31,6 @@
 #include <qguardedptr.h>
 
 class QLabel;
-namespace
-{
-class KToolBarLabel;
-}
 
 class ISearchPlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
 {
@@ -99,7 +95,7 @@ private:
 	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
 	KWidgetAction*         m_comboAction;
-	QGuardedPtr<KToolBarLabel> m_label;
+	QGuardedPtr<QLabel>    m_label;
 	QGuardedPtr<KHistoryCombo> m_combo;
 	QString        m_lastString;
 	bool           m_searchBackward;

@@ -591,15 +591,20 @@ void KateCSmartIndent::processChar(QChar c)
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), 0, doc);
 
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
   if (c == 'n')
   {
-    KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
     if (textLine->getChar(textLine->firstChar()) != '#')
       return;
   }
 
+  // anders: don't change the indent of doxygen lines here.
+  if ( textLine->attribute( begin.col() ) == doxyCommentAttrib )
+     return;
+
   processLine(begin);
 }
+
 
 uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
 {
@@ -1884,13 +1889,17 @@ void KateCSAndSIndent::processChar(QChar c)
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), 0, doc);
 
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
   if ( c == 'n' )
   {
-    KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
     int first = textLine->firstChar();
     if( first < 0 || textLine->getChar(first) != '#' )
       return;
   }
+
+  // anders: don't change the indent of doxygen lines here.
+  if ( textLine->attribute( begin.col() ) == doxyCommentAttrib )
+    return;
 
   processLine(begin);
 }

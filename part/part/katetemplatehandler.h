@@ -54,7 +54,7 @@ class KateTemplateHandler: public QObject, public KateKeyInterceptorFunctor {
 		QPtrList<KateTemplatePlaceHolder> m_tabOrder;
 		QDict<KateTemplatePlaceHolder> m_dict;
 		void generateRangeTable(uint insertLine,uint insertCol, const QString& insertString, const QValueList<KateTemplateHandlerPlaceHolderInfo> &buildList);
-		int m_currentTabStop;;
+		int m_currentTabStop;
 		KateSuperRange *m_currentRange;
 		void locateRange(const KateTextCursor &cursor );
 		bool m_initOk;

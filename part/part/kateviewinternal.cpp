@@ -77,7 +77,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.eXPos = -1;
 
   // create a one line lineRanges array
-  updateLineRanges (false);
+  updateLineRanges ();
 
   QWidget::setCursor(ibeamCursor);
   KCursor::setAutoHideCursor( this, true, true );
@@ -626,7 +626,7 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &ne
 }
 
 // init the line dirty cache
-void KateViewInternal::updateLineRanges(bool keepLineData)
+void KateViewInternal::updateLineRanges()
 {
   int lines = 0;
   int oldStartLine = startLine;
@@ -659,10 +659,28 @@ void KateViewInternal::updateLineRanges(bool keepLineData)
 
   for (uint z = 0; z < lines; z++)
   {
-    lineRanges[z].line = myDoc->getRealLine (startLine+z);
+	  if (z < oldLines)
+		{
+    uint newLine = myDoc->getRealLine (startLine+z);
+		
+		if (newLine != lineRanges[z].line)
+		{
+		  lineRanges[z].line = newLine;
+      lineRanges[z].dirty = true;
+		}
+
     lineRanges[z].startCol = 0;
     lineRanges[z].endCol = -1;
     lineRanges[z].wrapped = false;
+		}
+		else
+		{
+	  	lineRanges[z].line = myDoc->getRealLine (startLine+z);
+      lineRanges[z].startCol = 0;
+      lineRanges[z].endCol = -1;
+      lineRanges[z].wrapped = false;
+			lineRanges[z].dirty = true;
+		}
   }
 
   if (lines < oldLines)

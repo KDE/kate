@@ -86,7 +86,7 @@ class KateViewInternal : public QWidget
     void updateCursor();
     void updateCursor(VConfig &c,bool keepSel=false);//KateTextCursor &newCursor);
     void updateCursor(KateTextCursor &newCursor, bool keepSel=false);
-    void updateLineRanges(bool keepLineData = true);
+    void updateLineRanges();
     void tagLines(int start, int end);
     void tagRealLines(int start, int end);
     void tagAll();

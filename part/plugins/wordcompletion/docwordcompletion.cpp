@@ -423,7 +423,7 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
       "Enable the automatic completion list popup as default. The popup can "
       "be disabled on a view basis from the 'Tools' menu.") );
   QWhatsThis::add( sbAutoPopup, i18n(
-      "Define the length a word should have before the comletion list "
+      "Define the length a word should have before the completion list "
       "is displayed.") );
 
   cbAutoPopup->setChecked( m_completion->autoPopupEnabled() );

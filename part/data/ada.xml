@@ -7,6 +7,7 @@
                         <item> abs </item>
                         <item> accept </item>
                         <item> access </item>
+                        <item> aliased </item>
                         <item> all </item>
                         <item> and </item>
                         <item> array </item>
@@ -96,6 +97,6 @@
     <comments>
       <comment name="singleLine" start="--" />
     </comments>
-    <keywords casesensitive="1" />
+    <keywords casesensitive="0" />
   </general>
 </language>

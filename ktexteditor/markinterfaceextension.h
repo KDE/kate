@@ -46,7 +46,7 @@ class MarkInterfaceExtension
 
     virtual void setPixmap(MarkInterface::MarkTypes, const QPixmap &)=0;
     virtual void setDescription(MarkInterface::MarkTypes, const QString &)=0;
-    virtual void setUserChangable(uint markMask)=0;
+    virtual void setMarksUserChangable(uint markMask)=0;
 
     enum MarkChangeAction {
 		MarkAdded=0,

@@ -2318,6 +2318,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     } break;
 
     case QEvent::DragLeave:
+      // happens only when pressing ESC while dragging
       stopDragScroll();
       break;
 
@@ -2886,7 +2887,7 @@ void KateViewInternal::doDrag()
 {
   dragInfo.state = diDragging;
   dragInfo.dragObject = new QTextDrag(m_doc->selection(), this);
-  dragInfo.dragObject->dragCopy();
+  dragInfo.dragObject->drag();
 }
 
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
@@ -2899,6 +2900,10 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 {
   // track the cursor to the current drop location
   placeCursor( event->pos(), true, false );
+  
+  // important: accept action to switch between copy and move mode
+  // without this, the text will always be copied.
+  event->acceptAction();
 }
 
 void KateViewInternal::dropEvent( QDropEvent* event )
@@ -2928,12 +2933,20 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       return;
     }
 
-    // atm only copy the text, no move
+    // on move: remove selected text; on copy: duplicate text
+    if ( event->action() != QDropEvent::Copy )
+      m_doc->removeSelectedText();
     m_doc->insertText( cursor.line(), cursor.col(), text );
     placeCursor( event->pos() );
 
+    event->acceptAction();
     updateView();
   }
+
+  // finally finish drag and drop mode
+  dragInfo.state = diNone;
+  // important, because the eventFilter`s DragLeave does not occure
+  stopDragScroll();
 }
 
 void KateViewInternal::imStartEvent( QIMEvent *e )

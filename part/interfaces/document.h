@@ -168,14 +168,15 @@ class CommandExtension
      *
      * @param cmdname the command name associated with this query.
      */
-    virtual bool wantsToProcessText( const QString &/*cmdname*/) { return false; }
+    virtual bool wantsToProcessText( const QString &/*cmdname*/ ) { return false; }
 
     /**
      * This is called by the commandline each time the argument text for the
      * command changes, if wantsToProcessText() returns true.
+     * @param view The current view
      * @param text The current command text typed by the user.
      */ // ### yet to be tested. The obvious candidate is isearch.
-    virtual void processText( const QString &/*text*/ ) {;}
+    virtual void processText( Kate::View */*view*/, const QString &/*text*/ ) {;}
 };
 
 /** This interface provides access to the Kate Document class.

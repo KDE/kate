@@ -342,10 +342,10 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   }
   else if ( m_command )// check if we should call the commands processText()
   {
-    //kdDebug()<<"keypress in commandline: Checking processing text is desired!"<<endl;
-    Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>(m_command);
-    if ( ce && ce->wantsToProcessText( text().left( m_cmdend ).stripWhiteSpace() ) )
-      ce->processText( text() );
+    Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>( m_command );
+    if ( ce && ce->wantsToProcessText( text().left( m_cmdend ).stripWhiteSpace() )
+         && ! ( ev->text().isNull() || ev->text().isEmpty() ) )
+      ce->processText( m_view, text() );
   }
 }
 

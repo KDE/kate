@@ -43,6 +43,7 @@
 //BEGIN KateSearch
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
+QString KateSearch::s_pattern = QString();
 static const bool arbitraryHLExample = false;
 
 KateSearch::KateSearch( KateView* view )
@@ -101,17 +102,20 @@ void KateSearch::find()
 
   if( findDialog->exec() == QDialog::Accepted ) {
     s_searchList =  findDialog->findHistory () ;
-    find( s_searchList.first(), findDialog->options() );
+    find( s_searchList.first(), findDialog->options(), true, true );
   }
 
   delete findDialog;
   m_view->repaintText ();
 }
 
-void KateSearch::find( const QString &pattern, long flags )
+void KateSearch::find( const QString &pattern, long flags, bool add, bool shownotfound )
 {
   KateViewConfig::global()->setSearchFlags( flags );
-  addToList( s_searchList, pattern );
+  if( add )
+    addToList( s_searchList, pattern );
+
+   s_pattern = pattern;
 
   SearchFlags searchFlags;
 
@@ -137,6 +141,7 @@ void KateSearch::find( const QString &pattern, long flags )
 
   s.wrappedEnd = s.cursor;
   s.wrapped = false;
+  s.showNotFound = shownotfound;
 
   search( searchFlags );
 }
@@ -173,6 +178,7 @@ void KateSearch::replace( const QString& pattern, const QString &replacement, lo
   if (!doc()->isReadWrite()) return;
 
   addToList( s_searchList, pattern );
+   s_pattern = pattern;
   addToList( s_replaceList, replacement );
   m_replacement = replacement;
   KateViewConfig::global()->setSearchFlags( flags );
@@ -220,7 +226,7 @@ void KateSearch::findAgain( bool back )
 
   searchFlags.backward = searchFlags.backward != back;
   searchFlags.fromBeginning = false;
-  searchFlags.prompt = true;
+  searchFlags.prompt = true; // ### why is the above assignment there?
   s.cursor = getCursor();
 
   search( searchFlags );
@@ -285,14 +291,12 @@ void KateSearch::wrapSearch()
 
 void KateSearch::findAgain()
 {
-  QString searchFor = s_searchList.first();
-
-  if( searchFor.isEmpty() ) {
+  if(  s_pattern.isEmpty() ) {
     find();
     return;
   }
 
-  if ( doSearch( searchFor ) ) {
+  if ( doSearch(  s_pattern ) ) {
     exposeFound( s.cursor, s.matchedLength );
   } else if( !s.flags.finished ) {
     if( askContinue() ) {
@@ -303,20 +307,19 @@ void KateSearch::findAgain()
     }
   } else {
     if (arbitraryHLExample) m_arbitraryHLList->clear();
-    KMessageBox::sorry( view(),
+    if ( s.showNotFound )
+      KMessageBox::sorry( view(),
         i18n("Search string '%1' not found!")
-             .arg( KStringHandler::csqueeze( searchFor ) ),
+             .arg( KStringHandler::csqueeze(  s_pattern ) ),
         i18n("Find"));
   }
 }
 
 void KateSearch::replaceAll()
 {
-  QString searchFor = s_searchList.first();
-
   doc()->editStart ();
 
-  while( doSearch( searchFor ) )
+  while( doSearch(  s_pattern ) )
     replaceOne();
 
   doc()->editEnd ();
@@ -335,8 +338,7 @@ void KateSearch::replaceAll()
 
 void KateSearch::promptReplace()
 {
-  QString searchFor = s_searchList.first();
-  if ( doSearch( searchFor ) ) {
+  if ( doSearch(  s_pattern ) ) {
     exposeFound( s.cursor, s.matchedLength );
     replacePrompt->show();
     replacePrompt->setFocus ();
@@ -715,24 +717,36 @@ bool SearchCommand::exec(class Kate::View *view, const QString &cmd, QString &ms
   if ( cmd.startsWith( "find" ) )
   {
 
-    QRegExp re("find(?::([bcersw]*))?\\s+(.+)");
-    if ( re.search( cmd ) < 0 )
+    static QRegExp re_find("find(?::([bcersw]*))?\\s+(.+)");
+    if ( re_find.search( cmd ) < 0 )
     {
       msg = i18n("Usage: find[:[bcersw]] PATTERN");
       return false;
     }
-    flags = re.cap( 1 );
-    pattern = re.cap( 2 );
+    flags = re_find.cap( 1 );
+    pattern = re_find.cap( 2 );
+  }
+
+  else if ( cmd.startsWith( "ifind" ) )
+  {
+    static QRegExp re_ifind("ifind(?::([bcrs]*))?\\s+(.*)");
+    if ( re_ifind.search( cmd ) < 0 )
+    {
+      msg = i18n("Usage: ifind[:[bcrs]] PATTERN");
+      return false;
+    }
+    ifindClear();
+    return true;
   }
 
   else if ( cmd.startsWith( "replace" ) )
   {
     // Try if the pattern and replacement is quoted, using a quote character [^\w\s\\]
-    QRegExp re("replace(?::([bceprsw]*))?\\s+([^\\w\\s\\\\])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s+\\2((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
+    static QRegExp re_rep("replace(?::([bceprsw]*))?\\s+([^\\w\\s\\\\])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s+\\2((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
     // Or one quoted argument
-    QRegExp re1("replace(?::([bceprsw]*))?\\s+([^\\w\\s\\\\])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
+    QRegExp re_rep1("replace(?::([bceprsw]*))?\\s+([^\\w\\s\\\\])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
     // Else, it's just one or two (space separated) words
-    QRegExp re2("replace(?::([bceprsw]*))?\\s+(\\S+)\\s*(.*)");
+    QRegExp re_rep2("replace(?::([bceprsw]*))?\\s+(\\S+)\\s*(.*)");
 #define unbackslash(s) p=0;\
 while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
 {\
@@ -741,34 +755,34 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
   p++;\
 }
 
-    if ( re.search( cmd ) >= 0 )
+    if ( re_rep.search( cmd ) >= 0 )
     {
-      flags = re.cap(1);
-      pattern = re.cap( 3 );
-      replacement = re.cap( 4 );
+      flags = re_rep.cap(1);
+      pattern = re_rep.cap( 3 );
+      replacement = re_rep.cap( 4 );
 
       int p(0);
       // unbackslash backslashed delimiter strings
       // in pattern ..
-      QString delim = re.cap( 2 );
+      QString delim = re_rep.cap( 2 );
       unbackslash(pattern);
       // .. and in replacement
       unbackslash(replacement);
     }
-    else if ( re1.search( cmd ) >= 0 )
+    else if ( re_rep1.search( cmd ) >= 0 )
     {
-      flags = re1.cap(1);
-      pattern = re1.cap( 3 );
+      flags = re_rep1.cap(1);
+      pattern = re_rep1.cap( 3 );
 
       int p(0);
-      QString delim = re1.cap( 2 );
+      QString delim = re_rep1.cap( 2 );
       unbackslash(pattern);
     }
-    else if ( re2.search( cmd ) >= 0 )
+    else if ( re_rep2.search( cmd ) >= 0 )
     {
-      flags = re2.cap( 1 );
-      pattern = re2.cap( 2 );
-      replacement = re2.cap( 3 );
+      flags = re_rep2.cap( 1 );
+      pattern = re_rep2.cap( 2 );
+      replacement = re_rep2.cap( 3 );
     }
     else
     {
@@ -806,18 +820,28 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
 bool SearchCommand::help(class Kate::View *, const QString &cmd, QString &msg)
 {
   if ( cmd == "find" )
-    msg = i18n("<p>Usage: <code>find[:bcersw] PATTERN</code>");
-  else msg = i18n("<p>Usage: <code>replace[:bceprsw] PATTERN REPLACEMENT</code>");
+    msg = i18n("<p>Usage: <code>find[:bcersw] PATTERN</code></p>");
+
+  else if ( cmd == "ifind" )
+    msg = i18n("<p>Usage: <code>ifind:[:bcrs] PATTERN</code>"
+        "<br>ifind does incremental or 'as-you-type' search</p>");
+
+  else
+    msg = i18n("<p>Usage: <code>replace[:bceprsw] PATTERN REPLACEMENT</code></p>");
 
   msg += i18n(
       "<h4><caption>Options</h4><p>"
       "<b>b</b> - Search backward"
       "<br><b>c</b> - Search from cursor"
-      "<br><b>E</b> - Search in selected text only"
       "<br><b>r</b> - Pattern is a regular expression"
       "<br><b>s</b> - Case sensitive search"
-      "<br><b>w</b> - Search whole words only"
              );
+
+  if ( cmd == "find" )
+    msg += i18n(
+        "<br><b>e</b> - Search in selected text only"
+        "<br><b>w</b> - Search whole words only"
+               );
 
   if ( cmd == "replace" )
     msg += i18n(
@@ -826,17 +850,71 @@ bool SearchCommand::help(class Kate::View *, const QString &cmd, QString &msg)
         "<p>If you want to have whitespace in your PATTERN, you need to "
         "quote both PATTERN and REPLACEMENT with either single or double "
         "quotes. To have the quote characters in the strings, prepend them "
-        "with a backslash.</p>");
+        "with a backslash.");
 
-  msg += "</p></ul>";
+  msg += "</p>";
   return true;
 }
 
 QStringList SearchCommand::cmds()
 {
   QStringList l;
-  l << "find" << "replace";
+  l << "find" << "replace" << "ifind";
   return l;
+}
+
+bool SearchCommand::wantsToProcessText( const QString &cmdname )
+{
+  return  cmdname == "ifind";
+}
+
+void SearchCommand::processText( Kate::View *view, const QString &cmd )
+{
+  static QRegExp re_ifind("ifind(?::([bcrs]*))?\\s(.*)");
+  if ( re_ifind.search( cmd ) > -1 )
+  {
+    QString flags = re_ifind.cap( 1 );
+    QString pattern = re_ifind.cap( 2 );
+
+
+    // if there is no setup, or the text length is 0, set up the properties
+    if ( ! m_ifindFlags || pattern.isEmpty() )
+      ifindInit( flags );
+    // if there is no fromCursor, add it if this is not the first character
+    else if ( ! ( m_ifindFlags & KFindDialog::FromCursor ) && ! pattern.isEmpty() )
+      m_ifindFlags |= KFindDialog::FromCursor;
+
+    // search..
+    if ( ! pattern.isEmpty() )
+    {
+      KateView *v = (KateView*)view;
+
+      // If it *looks like* we are continuing, place the cursor
+      // at the beginning of the selection, so that the search continues.
+      // ### check more carefully, like is  the cursor currently at the end
+      // of the selection.
+      if ( pattern.startsWith( v->getDoc()->selection() ) &&
+           v->getDoc()->selection().length() + 1 == pattern.length() )
+        v->setCursorPositionInternal( v->getDoc()->selStartLine(), v->getDoc()->selStartCol() );
+
+      v->find( pattern, m_ifindFlags, false );
+    }
+  }
+}
+
+void SearchCommand::ifindInit( const QString &flags )
+{
+  long f = 0;
+  if ( flags.contains( 'b' ) ) f |= KFindDialog::FindBackwards;
+  if ( flags.contains( 'c' ) ) f |= KFindDialog::FromCursor;
+  if ( flags.contains( 'r' ) ) f |= KFindDialog::RegularExpression;
+  if ( flags.contains( 's' ) ) f |= KFindDialog::CaseSensitive;
+  m_ifindFlags = f;
+}
+
+void SearchCommand::ifindClear()
+{
+  m_ifindFlags = 0;
 }
 //END SearchCommand
 

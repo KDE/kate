@@ -67,6 +67,7 @@ class KateSearch : public QObject
         KateTextCursor cursor;
         KateTextCursor wrappedEnd; // after wraping around, search/replace until here
         bool wrapped; // have we allready wrapped around ?
+        bool showNotFound; // pop up annoying dialogs?
         uint matchedLength;
         KateTextCursor selBegin;
         KateTextCursor selEnd;
@@ -95,8 +96,12 @@ class KateSearch : public QObject
      * KateView.
      * @param pattern string or regex pattern to search for.
      * @param flags a OR'ed combination of @see KFindDialog::Options
+     * @param add wether this string should be added to the recent search list
+     * @param shownotfound wether to pop up "Not round: PATTERN" when that happens.
+     * That must now be explicitly required -- the find dialog does, but the commandline
+     * incremental search does not.
      */
-    void find( const QString &pattern, long flags );
+    void find( const QString &pattern, long flags, bool add=true, bool shownotfound=false );
     void replace();
     /**
      * Replace @p pattern with @p replacement given @p flags.
@@ -118,8 +123,9 @@ class KateSearch : public QObject
     static void addToList( QStringList&, const QString& );
     static void addToSearchList( const QString& s )  { addToList( s_searchList, s ); }
     static void addToReplaceList( const QString& s ) { addToList( s_replaceList, s ); }
-    static QStringList s_searchList;
-    static QStringList s_replaceList;
+    static QStringList s_searchList; ///< recent patterns
+    static QStringList s_replaceList; ///< recent replacement strings
+    static QString s_pattern; ///< the string to search for
 
     void search( SearchFlags flags );
     void wrapSearch();
@@ -211,9 +217,24 @@ class KateReplacePrompt : public KDialogBase
 class SearchCommand : public Kate::Command, public Kate::CommandExtension
 {
   public:
+    SearchCommand() : m_ifindFlags(0) {;}
     bool exec(class Kate::View *view, const QString &cmd, QString &errorMsg);
     bool help(class Kate::View *, const QString &, QString &);
     QStringList cmds();
+    bool wantsToProcessText( const QString &/*cmdname*/ );
+    void processText( Kate::View *, const QString& );
+
+  private:
+    /**
+     * set up properties for incremental find
+     */
+    void ifindInit( const QString &cmd );
+    /**
+     * clear properties for incremental find
+     */
+    void ifindClear();
+
+    long m_ifindFlags;
 };
 
 #endif

@@ -3621,7 +3621,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   const QChar *s;
   const uchar *a;
 
-	 // selection startcol/endcol calc
+   // selection startcol/endcol calc
   bool hasSel = false;
   uint startSel = 0;
   uint endSel = 0;
@@ -3629,11 +3629,11 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   // was the selection background allready completly painted ?
   bool selectionPainted = false;
 
-	// should the cursor be painted (if it is in the current xstart - xend range)
-	bool cursorVisible = false;
-	int cursorXPos = 0;
-	int cursorMaxWidth = 0;
-	QColor *cursorColor = 0;
+  // should the cursor be painted (if it is in the current xstart - xend range)
+  bool cursorVisible = false;
+  int cursorXPos = 0;
+  int cursorMaxWidth = 0;
+  QColor *cursorColor = 0;
 
   textLine = buffer->line(line);
 
@@ -3692,8 +3692,8 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   Attribute *curAt = 0;
   Attribute *oldAt = 0;
 
-	QColor *curColor = 0;
-	QColor *oldColor = 0;
+  QColor *curColor = 0;
+  QColor *oldColor = 0;
 
   if (showSelections && !selectionPainted)
   {
@@ -3732,29 +3732,29 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     }
   }
 
-	uint oldCol = startcol;
-	uint oldXPos = xPos;
-	const QChar *oldS = s;
+  uint oldCol = startcol;
+  uint oldXPos = xPos;
+  const QChar *oldS = s;
 
-	bool isSel = false;
+  bool isSel = false;
   bool isTab = false;
 
-	//kdDebug()<<"paint 1"<<endl;
+  //kdDebug()<<"paint 1"<<endl;
 
-	if (len < 1)
-	{
-	  //  kdDebug()<<"paint 2"<<endl;
+  if (len < 1)
+  {
+    //  kdDebug()<<"paint 2"<<endl;
 
-	  if ((showCursor > -1) && (showCursor == curCol))
-	  {
-		  cursorVisible = true;
-			cursorXPos = xPos;
-			cursorMaxWidth = xPosAfter - xPos;
-			cursorColor = &at[0].col;
-	  }
-	  //  kdDebug()<<"paint 3"<<endl;
+    if ((showCursor > -1) && (showCursor == curCol))
+    {
+      cursorVisible = true;
+      cursorXPos = xPos;
+      cursorMaxWidth = xPosAfter - xPos;
+      cursorColor = &at[0].col;
+    }
+    //  kdDebug()<<"paint 3"<<endl;
 
-	}
+  }
   else
     {
   for (uint tmp = len; (tmp > 0); tmp--)
@@ -3813,19 +3813,19 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
     if (xPosAfter >= xStart)
     {
-		  curColor = &(curAt->col);
-			isSel = false;
+      curColor = &(curAt->col);
+      isSel = false;
 
       if (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel))
-			{
-			/*  if (!selectionPainted)
+      {
+      /*  if (!selectionPainted)
           paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);*/
 
-				curColor = &(curAt->selCol);
-				isSel = true;
-			}
+        curColor = &(curAt->selCol);
+        isSel = true;
+      }
 
-			if (curColor != oldColor)
+      if (curColor != oldColor)
         paint.setPen(*curColor);
 
       // make sure we redraw the right character groups on attrib/selection changes
@@ -3835,14 +3835,14 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
            (((*(s+1)) == QChar('\t')) && !isTab)
          )
       {
-			  if (!printerfriendly && isSel && !selectionPainted)
+        if (!printerfriendly && isSel && !selectionPainted)
           paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(oldXPos-xStart, y, str.string());
 
-	      if (xPos > xEnd)
-				  break;
+        if (xPos > xEnd)
+          break;
 
         oldCol = curCol+1;
         oldXPos = xPosAfter;
@@ -3865,13 +3865,13 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         oldS = s+1;
       }
 
-	    if ((showCursor > -1) && (showCursor == curCol))
-			{
-			  cursorVisible = true;
-			  cursorXPos = xPos;
-				cursorMaxWidth = xPosAfter - xPos;
-			  cursorColor = &curAt->col;
-			}
+      if ((showCursor > -1) && (showCursor == curCol))
+      {
+        cursorVisible = true;
+        cursorXPos = xPos;
+        cursorMaxWidth = xPosAfter - xPos;
+        cursorColor = &curAt->col;
+      }
     }
     else
     {
@@ -3891,21 +3891,21 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
     // to only switch font/color if needed
     oldAt = curAt;
-		oldColor = curColor;
+    oldColor = curColor;
 
     // col move
     curCol++;
   }
   // kdDebug()<<"paint 7"<<endl;
-	if ((showCursor > -1) && (showCursor == curCol))
-	{
-	  cursorVisible = true;
-	  cursorXPos = xPos;
-		cursorMaxWidth = xPosAfter - xPos;
-	  cursorColor = &curAt->col;
-	}
+  if ((showCursor > -1) && (showCursor == curCol))
+  {
+    cursorVisible = true;
+    cursorXPos = xPos;
+    cursorMaxWidth = xPosAfter - xPos;
+    cursorColor = &curAt->col;
+  }
 }
-	//kdDebug()<<"paint 8"<<endl;
+  //kdDebug()<<"paint 8"<<endl;
   if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
   {
     paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
@@ -3913,12 +3913,12 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   }
 
   if (cursorVisible)
-	{
-	  if (replaceCursor && (cursorMaxWidth > 2))
-	    paint.fillRect(cursorXPos, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
-		else
-	    paint.fillRect(cursorXPos, oldY, 2, fs->fontHeight, *cursorColor);
-	}
+  {
+    if (replaceCursor && (cursorMaxWidth > 2))
+      paint.fillRect(cursorXPos, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
+    else
+      paint.fillRect(cursorXPos, oldY, 2, fs->fontHeight, *cursorColor);
+  }
 
   return true;
 }
@@ -4316,137 +4316,137 @@ void KateDocument::setConfigFlags (uint flags)
 
 void KateDocument::exportAs(const QString& filter)
 {
-	if (filter=="kate_html_export")
-	{
-		QString filename=KFileDialog::getSaveFileName(QString::null,QString::null,0,i18n("Export File As"));
-		if (filename.isEmpty())
-			{
-				return;
-			}
-		KSaveFile *savefile=new KSaveFile(filename);
-		if (!savefile->status())
-		{
-			if (exportDocumentToHTML(savefile->textStream(),filename)) savefile->close(); 
-				else savefile->abort();
-			//if (!savefile->status()) --> Error
-		} else {/*ERROR*/}
-		delete savefile;
-	}
+  if (filter=="kate_html_export")
+  {
+    QString filename=KFileDialog::getSaveFileName(QString::null,QString::null,0,i18n("Export File As"));
+    if (filename.isEmpty())
+      {
+        return;
+      }
+    KSaveFile *savefile=new KSaveFile(filename);
+    if (!savefile->status())
+    {
+      if (exportDocumentToHTML(savefile->textStream(),filename)) savefile->close(); 
+        else savefile->abort();
+      //if (!savefile->status()) --> Error
+    } else {/*ERROR*/}
+    delete savefile;
+  }
 }
 
 /* For now, this should become an plugin */
 bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString &name)
 {
-	outputStream->setEncoding(QTextStream::UnicodeUTF8);
-	// let's write the HTML header :
-	(*outputStream) << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
-	(*outputStream) << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
-	(*outputStream) << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
-	(*outputStream) << "<head>" << endl;
-	(*outputStream) << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
-	(*outputStream) << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
-	// for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
-	(*outputStream) << "<title>" << name.right(name.length() - name.findRev('/') -1) << "</title>" << endl;
-	(*outputStream) << "</head>" << endl;
+  outputStream->setEncoding(QTextStream::UnicodeUTF8);
+  // let's write the HTML header :
+  (*outputStream) << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
+  (*outputStream) << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
+  (*outputStream) << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
+  (*outputStream) << "<head>" << endl;
+  (*outputStream) << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
+  (*outputStream) << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
+  // for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
+  (*outputStream) << "<title>" << name.right(name.length() - name.findRev('/') -1) << "</title>" << endl;
+  (*outputStream) << "</head>" << endl;
 
-	(*outputStream) << "<body><pre>" << endl;
-	// for each line :
+  (*outputStream) << "<body><pre>" << endl;
+  // for each line :
 
-	// some variables :
-	bool previousCharacterWasBold = false;
-	bool previousCharacterWasItalic = false;
-	// when entering a new color, we'll close all the <b> & <i> tags,
-	// for HTML compliancy. that means right after that font tag, we'll
-	// need to reinitialize the <b> and <i> tags.
-	bool needToReinitializeTags = false;
-	QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
-	(*outputStream) << "<span style='color=#000000'>";
+  // some variables :
+  bool previousCharacterWasBold = false;
+  bool previousCharacterWasItalic = false;
+  // when entering a new color, we'll close all the <b> & <i> tags,
+  // for HTML compliancy. that means right after that font tag, we'll
+  // need to reinitialize the <b> and <i> tags.
+  bool needToReinitializeTags = false;
+  QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
+  (*outputStream) << "<span style='color=#000000'>";
 
-	for (uint curLine=0;curLine<numLines();curLine++)
-	{ // html-export that line :
-		TextLine::Ptr textLine = buffer->line(curLine);
-		//ASSERT(textLine != NULL);
-		// for each character of the line : (curPos is the position in the line)
-		for (uint curPos=0;curPos<textLine->length();curPos++)
-		{
-			Attribute *charAttributes = attribute(textLine->getAttr(curPos));
-			//ASSERT(charAttributes != NULL);
-			// let's give the color for that character :
-			if ( (charAttributes->col != previousCharacterColor))
-			{	// the new character has a different color :
-				// if we were in a bold or italic section, close it
-				if (previousCharacterWasBold)
-					(*outputStream) << "</b>";
-				if (previousCharacterWasItalic)
-					(*outputStream) << "</i>";
+  for (uint curLine=0;curLine<numLines();curLine++)
+  { // html-export that line :
+    TextLine::Ptr textLine = buffer->line(curLine);
+    //ASSERT(textLine != NULL);
+    // for each character of the line : (curPos is the position in the line)
+    for (uint curPos=0;curPos<textLine->length();curPos++)
+    {
+      Attribute *charAttributes = attribute(textLine->getAttr(curPos));
+      //ASSERT(charAttributes != NULL);
+      // let's give the color for that character :
+      if ( (charAttributes->col != previousCharacterColor))
+      {  // the new character has a different color :
+        // if we were in a bold or italic section, close it
+        if (previousCharacterWasBold)
+          (*outputStream) << "</b>";
+        if (previousCharacterWasItalic)
+          (*outputStream) << "</i>";
 
-				// close the previous font tag :
-				(*outputStream) << "</span>";
-				// let's read that color :
-				int red, green, blue;
-				// getting the red, green, blue values of the color :
-				charAttributes->col.rgb(&red, &green, &blue);
-				(*outputStream) << "<span style='color:#"
-							<< ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
-							<< QString::number(red, 16) // html wants the hex value here (hence the 16)
-							<< ( (green < 0x10)?"0":"")
-							<< QString::number(green, 16)
-							<< ( (blue < 0x10)?"0":"")
-							<< QString::number(blue, 16)
-							<< "'>";
-				// we need to reinitialize the bold/italic status, since we closed all the tags
-				needToReinitializeTags = true;
-			}
-			// bold status :
-			if ( (needToReinitializeTags && charAttributes->bold) ||
-			    (!previousCharacterWasBold && charAttributes->bold) )
-				// we enter a bold section
-				(*outputStream) << "<b>";
-			if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->bold) )
-				// we leave a bold section
-				(*outputStream) << "</b>";
+        // close the previous font tag :
+        (*outputStream) << "</span>";
+        // let's read that color :
+        int red, green, blue;
+        // getting the red, green, blue values of the color :
+        charAttributes->col.rgb(&red, &green, &blue);
+        (*outputStream) << "<span style='color:#"
+              << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
+              << QString::number(red, 16) // html wants the hex value here (hence the 16)
+              << ( (green < 0x10)?"0":"")
+              << QString::number(green, 16)
+              << ( (blue < 0x10)?"0":"")
+              << QString::number(blue, 16)
+              << "'>";
+        // we need to reinitialize the bold/italic status, since we closed all the tags
+        needToReinitializeTags = true;
+      }
+      // bold status :
+      if ( (needToReinitializeTags && charAttributes->bold) ||
+          (!previousCharacterWasBold && charAttributes->bold) )
+        // we enter a bold section
+        (*outputStream) << "<b>";
+      if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->bold) )
+        // we leave a bold section
+        (*outputStream) << "</b>";
 
-			// italic status :
-			if ( (needToReinitializeTags && charAttributes->italic) ||
-			     (!previousCharacterWasItalic && charAttributes->italic) )
-				// we enter an italic section
-				(*outputStream) << "<i>";
-			if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->italic) )
-				// we leave an italic section
-				(*outputStream) << "</i>";
+      // italic status :
+      if ( (needToReinitializeTags && charAttributes->italic) ||
+           (!previousCharacterWasItalic && charAttributes->italic) )
+        // we enter an italic section
+        (*outputStream) << "<i>";
+      if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->italic) )
+        // we leave an italic section
+        (*outputStream) << "</i>";
 
-			// write the actual character :
-			(*outputStream) << HTMLEncode(textLine->getChar(curPos));
+      // write the actual character :
+      (*outputStream) << HTMLEncode(textLine->getChar(curPos));
 
-			// save status for the next character :
-			previousCharacterWasItalic = charAttributes->italic;
-			previousCharacterWasBold = charAttributes->bold;
-			previousCharacterColor = charAttributes->col;
-			needToReinitializeTags = false;
-		}
-		// finish the line :
-		(*outputStream) << endl;
-	}
-	// HTML document end :
-	(*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
-	(*outputStream) << "</pre></body>";
-	(*outputStream) << "</html>";
-	// close the file :
-	return true;
+      // save status for the next character :
+      previousCharacterWasItalic = charAttributes->italic;
+      previousCharacterWasBold = charAttributes->bold;
+      previousCharacterColor = charAttributes->col;
+      needToReinitializeTags = false;
+    }
+    // finish the line :
+    (*outputStream) << endl;
+  }
+  // HTML document end :
+  (*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
+  (*outputStream) << "</pre></body>";
+  (*outputStream) << "</html>";
+  // close the file :
+  return true;
 }
 
 QString KateDocument::HTMLEncode(QChar theChar)
 {
-	switch (theChar.latin1())
-	{
-	case '>':
-		return QString("&gt;");
-	case '<':
-		return QString("&lt;");
-	case '&':
-		return QString("&amp;");
-	};
-	return theChar;
+  switch (theChar.latin1())
+  {
+  case '>':
+    return QString("&gt;");
+  case '<':
+    return QString("&lt;");
+  case '&':
+    return QString("&amp;");
+  };
+  return theChar;
 }
 
 Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
@@ -4508,22 +4508,22 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 
 void KateDocument::dumpRegionTree()
 {
-	regionTree->debugDump();
+  regionTree->debugDump();
 }
 
 unsigned int KateDocument::getRealLine(unsigned int virtualLine)
 {
-	return regionTree->getRealLine(virtualLine);
+  return regionTree->getRealLine(virtualLine);
 }
 
 unsigned int KateDocument::getVirtualLine(unsigned int realLine)
 {
-	return regionTree->getVirtualLine(realLine);
+  return regionTree->getVirtualLine(realLine);
 }
 
 unsigned int KateDocument::visibleLines ()
 {
-	return numLines() - regionTree->getHiddenLinesCount();
+  return numLines() - regionTree->getHiddenLinesCount();
 }
 
 /**
@@ -4532,22 +4532,22 @@ unsigned int KateDocument::visibleLines ()
 
 void KateDocument::setPixmap(MarkInterface::MarkTypes, const QPixmap &)
 {
-	;
+  ;
 }
 void KateDocument::setDescription(MarkInterface::MarkTypes, const QString &)
 {
-	;
+  ;
 }
 
 void KateDocument::setMarksUserChangable(uint markMask)
 {
-	m_editableMarks=markMask;
+  m_editableMarks=markMask;
 }
 
 // -----------------------
 uint KateDocument::editableMarks()
 {
-	return m_editableMarks;
+  return m_editableMarks;
 }
 
 /**

@@ -20,7 +20,7 @@
   
   ========================================================================
 -->
-<language name="Yacc/Bison" version="1.01" kateversion="2.4" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
+<language name="Yacc/Bison" version="1.02" kateversion="2.4" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -39,8 +39,7 @@
   
   <context name="Declarations" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <RegExpr attribute="Directive" context="Union Start" String="%union" />
-<!--    <StringDetect attribute="Directive" context="Union Start" String="%union" /> -->
+    <StringDetect attribute="Directive" context="Union Start" String="%union" />
     <Detect2Chars attribute="Content-Type Delimiter" context="Rules" char="%" char1="%" beginRegion="rules" endRegion="declarations" />
     
     <!-- not sure that strict yacc allows that ... but it is commonly used -->

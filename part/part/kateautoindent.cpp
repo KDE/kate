@@ -1906,7 +1906,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   // and take the position from that
   int ln = line.line();
   int pos = -1;
-  KateTextLine::Ptr ktl;
+  KateTextLine::Ptr ktl = 0;
   int fc;
   if ( ln > 0 )
   do
@@ -1922,24 +1922,24 @@ void KateVarIndent::processLine ( KateDocCursor &line )
 
   // check if we should indent, unless the line starts with comment text,
   // or the match is in comment text
-  //kdDebug()<<"starting indent: "<<pos<<endl;
+  kdDebug()<<"starting indent: "<<pos<<endl;
   // check if the above line indicates that we shuld add indentation
   int matchpos = 0;
-  if ( ! d->reIndentAfter.isEmpty()
+  if ( ktl && ! d->reIndentAfter.isEmpty()
          && (matchpos = d->reIndentAfter.search( doc->textLine( ln ) )) > -1
          && ktl->attribute( ktl->firstChar() ) != commentAttrib
          && ktl->attribute( matchpos ) != commentAttrib )
     pos += indentWidth;
-  //kdDebug()<<"after indent-after: "<<pos<<endl;
+  kdDebug()<<"after indent-after: "<<pos<<endl;
 
   // else, check if this line should indent unless ...
   ktl = doc->plainKateTextLine( line.line() );
-  if ( matchpos < 0 && ! d->reIndent.isEmpty()
+  if ( /*matchpos < 0 &&*/ ! d->reIndent.isEmpty()
          && (matchpos = d->reIndent.search( doc->textLine( line.line() ) )) > -1
          && ktl->attribute( ktl->firstChar() ) != commentAttrib
          && ktl->attribute( matchpos ) != commentAttrib )
     pos += indentWidth;
-  //kdDebug()<<"after indent-indent: "<<endl;
+  kdDebug()<<"after indent-indent: "<<pos<<endl;
 
   // else, check if the current line indicates if we should remove indentation unless ...
   if ( ! d->reUnindent.isEmpty()
@@ -1948,7 +1948,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
        && ktl->attribute( matchpos ) != commentAttrib )
     pos -= indentWidth;
 
-  //kdDebug()<<"after indent-unindent: "<<pos<<endl;
+  kdDebug()<<"after indent-unindent: "<<pos<<endl;
 
   ln = line.line();
   fc = doc->plainKateTextLine( ln )->firstChar();

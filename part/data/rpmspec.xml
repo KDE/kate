@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="RPM Spec" version="1.03" kateversion="2.1" section="Other" extensions="*.spec" mimetype="">
+<language name="RPM Spec" version="1.04" kateversion="2.4" section="Other" extensions="*.spec" mimetype="">
   <highlighting>
     <list name="keywords">
         <item> Name </item>
@@ -15,7 +15,7 @@
                 <item> Url </item>
                 <item> URL </item>
                 <item> Prefix </item>
-		<item> Provides </item>
+                <item> Provides </item>
                 <item> Requires </item>
                 <item> BuildRequires </item>
                 <item> Serial </item>
@@ -32,25 +32,25 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
          <keyword attribute="Keyword" context="#stay" String="keywords"/>
          <keyword attribute="Data" context="#stay" String="types"/>
-         <RegExpr attribute="Red" context="#stay" String="%[a-zA-Z0-9_]*" />
+         <RegExpr attribute="Red" context="#stay" String="%\w*" />
          <DetectChar attribute="Comment" context="Comment" char="#" />
-         <RegExpr attribute="Keyword" context="Some Context" String="\{[a-zA-Z0-9_]*" />
-         <RegExpr attribute="Blue" context="Some Context2" String="&lt;\s*[a-zA-Z0-9_@\.]*" />
-         <RegExpr attribute="Data" context="#stay" String="\$[a-zA-Z0-9_]*" />
-         <RegExpr attribute="Keyword" context="#stay" String="(Source|Patch)[0-9]*" />
-         <RegExpr attribute="Keyword" context="#stay" String="^\*.*" />    <!-- ChangeLog -->
+         <RegExpr attribute="Keyword" context="Some Context" String="\{\w*" />
+         <RegExpr attribute="Blue" context="Some Context2" String="&lt;\s*[\w@\.]*" />
+         <RegExpr attribute="Data" context="#stay" String="\$\w*" />
+         <RegExpr attribute="Keyword" context="#stay" String="(Source|Patch)\d*" />
+         <RegExpr attribute="Keyword" context="#stay" String="\*.*" firstNonSpace="true"/>    <!-- ChangeLog -->
          <Int attribute="Blue" context="#stay" />
-   </context>
+      </context>
 
-       <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
+      <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
 
-       <context attribute="Keyword" lineEndContext="#pop" name="Some Context">
-          <DetectChar attribute="Keyword" char="}" context="#pop"/>
-       </context>
+      <context attribute="Keyword" lineEndContext="#pop" name="Some Context">
+         <DetectChar attribute="Keyword" char="}" context="#pop"/>
+      </context>
 
-       <context attribute="Blue" lineEndContext="#pop" name="Some Context2">
-           <DetectChar attribute="Blue" char="&gt;" context="#pop"/>
-       </context>
+      <context attribute="Blue" lineEndContext="#pop" name="Some Context2">
+         <DetectChar attribute="Blue" char="&gt;" context="#pop"/>
+      </context>
 
     </contexts>
     <itemDatas>

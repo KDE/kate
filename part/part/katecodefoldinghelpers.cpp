@@ -29,11 +29,19 @@
 
 KateCodeFoldingNode::KateCodeFoldingNode():parentNode(0),
 		childnodes(0),startLineValid(false),startLineRel(0),endLineValid(false),
-		endLineRel(0),type(0),visible(true),deleteOpening(false),deleteEnding(false){;}
+		endLineRel(0),type(0),visible(true),deleteOpening(false),deleteEnding(false)
+{
+		childnodes=new QPtrList<KateCodeFoldingNode>;  // temporary true fix is to check, if a node has that member initialized before accessing it
+
+}
 
 KateCodeFoldingNode::KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel): parentNode(par),childnodes(0),
 		startLineValid(true),startLineRel(sLRel),endLineValid(false),endLineRel(20000),type(typ),visible(true),
-		deleteOpening(false),deleteEnding(false){;} //the endline fields should be initialised to not valid
+		deleteOpening(false),deleteEnding(false)
+{
+		childnodes=new QPtrList<KateCodeFoldingNode>;  // temporary true fix is to check, if a node has that member initialized before accessing it
+
+} //the endline fields should be initialised to not valid
 
 KateCodeFoldingNode::~KateCodeFoldingNode(){;}
 
@@ -320,7 +328,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 				else
 				{
 					int startLine=getStartLine(node);
-					if ((insertPos==-1) || (insertPos==node->childnodes->count()))
+					if ((insertPos==-1) || (insertPos>=node->childnodes->count()))
 					{
 				                KateCodeFoldingNode *newNode=new KateCodeFoldingNode (node,data,line-startLine);
 						something_changed=true;

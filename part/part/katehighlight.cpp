@@ -820,8 +820,11 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, c
 
 Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
 {
+  errorsAndWarnings="";
+  building=false;
   noHl = false;
   folding=false;
+  internalIDList.setAutoDelete(true);
   if (def == 0)
   {
     noHl = true;
@@ -1313,20 +1316,25 @@ void Highlight::createItemData(ItemDataList &list)
      return;
   }
 
-  QString color;
-  QString selColor;
-  QString bold;
-  QString italic;
-
   // If the internal list isn't already available read the config file
-  if (internalIDList.count()==0)
+  if ((internalIDList.count()==0))
   {
-    //if all references to the list are destried the contents will also be deleted
-    internalIDList.setAutoDelete(true);
+	makeContextList();
+  }
+  list=internalIDList;
+}
+
+
+void Highlight::addToItemDataList()
+  {
     syntaxContextData *data;
+    QString color;
+    QString selColor;
+    QString bold;
+    QString italic;
 
     //Tell the syntax document class which file we want to parse and which data group
-    HlManager::self()->syntax->setIdentifier(identifier);
+    HlManager::self()->syntax->setIdentifier(buildIdentifier);
     data=HlManager::self()->syntax->getGroupInfo("highlighting","itemData");
     //begin with the real parsing
     while (HlManager::self()->syntax->nextGroup(data))
@@ -1341,7 +1349,7 @@ void Highlight::createItemData(ItemDataList &list)
                 {
                         //create a user defined style
                         internalIDList.append(new ItemData(
-                                HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+                                buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
                                 getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))),
                                 QColor(color),QColor(selColor),(bold=="true") || (bold=="1"), (italic=="true") || (italic=="1")
                                 ));
@@ -1350,7 +1358,7 @@ void Highlight::createItemData(ItemDataList &list)
                 {
                         //assign a default style
                         internalIDList.append(new ItemData(
-                                HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+                                buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
                                 getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum")))));
 
                 }
@@ -1359,9 +1367,6 @@ void Highlight::createItemData(ItemDataList &list)
     if (data) HlManager::self()->syntax->freeGroupInfo(data);
   }
 
-  //set the ouput reference
-  list=internalIDList;
-}
 
 
 /*******************************************************************************************
@@ -1383,7 +1388,7 @@ int  Highlight::lookupAttrName(const QString& name, ItemDataList &iDl)
 {
 	for (uint i=0;i<iDl.count();i++)
 		{
-			if (iDl.at(i)->name==name) return i;
+			if (iDl.at(i)->name==buildPrefix+name) return i;
 		}
 	kdDebug(13010)<<"Couldn't resolve itemDataName"<<endl;
 	return 0;
@@ -1422,7 +1427,11 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
                 QString tmpAttr=HlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
                 int attr;
                 if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
+		{
+		  errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
+			arg(buildIdentifier).arg(tmpAttr);
                   attr=tmpAttr.toInt();
+		}
                 else
                   attr=lookupAttrName(tmpAttr,iDl);
                 // END - Translation of the attribute parameter
@@ -1431,7 +1440,9 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 		int context;
 		QString tmpcontext=HlManager::self()->syntax->groupItemData(data,QString("context"));
 
-	  	context=getIdFromString(ContextNameList, tmpcontext);
+
+		QString unresolvedContext;
+	  	context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
 
                 // Get the char parameter (eg DetectChar)
                 char chr;
@@ -1486,6 +1497,8 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 
 		
                 //Create the item corresponding to it's type and set it's parameters
+		HlItem *tmpItem;
+
                 if (dataname=="keyword")
                 {
                   HlKeyword *keyword=new HlKeyword(attr,context,regionId,casesensitive,
@@ -1493,27 +1506,32 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 
                    //Get the entries for the keyword lookup list
                   keyword->addList(HlManager::self()->syntax->finddata("highlighting",stringdata));
-                  return keyword;
+                  tmpItem=keyword;
                 } else
-                if (dataname=="Float") return (new HlFloat(attr,context,regionId)); else
-                if (dataname=="Int") return(new HlInt(attr,context,regionId)); else
-                if (dataname=="DetectChar") return(new HlCharDetect(attr,context,regionId,chr)); else
-                if (dataname=="Detect2Chars") return(new Hl2CharDetect(attr,context,regionId,chr,chr1)); else
-                if (dataname=="RangeDetect") return(new HlRangeDetect(attr,context,regionId, chr, chr1)); else
-                if (dataname=="LineContinue") return(new HlLineContinue(attr,context,regionId)); else
-                if (dataname=="StringDetect") return(new HlStringDetect(attr,context,regionId,stringdata,insensitive)); else
-                if (dataname=="AnyChar") return(new HlAnyChar(attr,context,regionId,stringdata.unicode(), stringdata.length())); else
-                if (dataname=="RegExpr") return(new HlRegExpr(attr,context,regionId,stringdata, insensitive, minimal)); else
-                if(dataname=="HlCChar") return ( new HlCChar(attr,context,regionId));else
-                if(dataname=="HlCHex") return (new HlCHex(attr,context,regionId));else
-                if(dataname=="HlCOct") return (new HlCOct(attr,context,regionId)); else
-		if(dataname=="HlCFloat") return (new HlCFloat(attr,context,regionId)); else
-                if(dataname=="HlCStringChar") return (new HlCStringChar(attr,context,regionId)); else
+                if (dataname=="Float") tmpItem= (new HlFloat(attr,context,regionId)); else
+                if (dataname=="Int") tmpItem=(new HlInt(attr,context,regionId)); else
+                if (dataname=="DetectChar") tmpItem=(new HlCharDetect(attr,context,regionId,chr)); else
+                if (dataname=="Detect2Chars") tmpItem=(new Hl2CharDetect(attr,context,regionId,chr,chr1)); else
+                if (dataname=="RangeDetect") tmpItem=(new HlRangeDetect(attr,context,regionId, chr, chr1)); else
+                if (dataname=="LineContinue") tmpItem=(new HlLineContinue(attr,context,regionId)); else
+                if (dataname=="StringDetect") tmpItem=(new HlStringDetect(attr,context,regionId,stringdata,insensitive)); else
+                if (dataname=="AnyChar") tmpItem=(new HlAnyChar(attr,context,regionId,stringdata.unicode(), stringdata.length())); else
+                if (dataname=="RegExpr") tmpItem=(new HlRegExpr(attr,context,regionId,stringdata, insensitive, minimal)); else
+                if(dataname=="HlCChar") tmpItem= ( new HlCChar(attr,context,regionId));else
+                if(dataname=="HlCHex") tmpItem= (new HlCHex(attr,context,regionId));else
+                if(dataname=="HlCOct") tmpItem= (new HlCOct(attr,context,regionId)); else
+		if(dataname=="HlCFloat") tmpItem= (new HlCFloat(attr,context,regionId)); else
+                if(dataname=="HlCStringChar") tmpItem= (new HlCStringChar(attr,context,regionId)); else
 
                   {
                     // oops, unknown type. Perhaps a spelling error in the xml file
                     return 0;
                   }
+		if (!unresolvedContext.isEmpty())
+		{
+			unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);					
+		}
+		return tmpItem;
 
 
 }
@@ -1554,7 +1572,7 @@ void Highlight::readCommentConfig()
 {
 
   cslStart = "";
-  HlManager::self()->syntax->setIdentifier(identifier);
+  HlManager::self()->syntax->setIdentifier(buildIdentifier);
 
   syntaxContextData *data=HlManager::self()->syntax->getGroupInfo("general","comment");
   if (data)
@@ -1594,7 +1612,7 @@ void Highlight::readGlobalKeywordConfig()
 {
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readGlobalKeywordConfig:BEGIN"<<endl;
-  HlManager::self()->syntax->setIdentifier(identifier);
+  HlManager::self()->syntax->setIdentifier(buildIdentifier);
 
   // Get the keywords config entry
   syntaxContextData * data=HlManager::self()->syntax->getConfig("general","keywords");
@@ -1645,26 +1663,31 @@ void Highlight::readGlobalKeywordConfig()
 
 
 
-void  Highlight::createContextNameList(QStringList *ContextNameList)
+void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
 {
   syntaxContextData *data;
 
   kdDebug(13010)<<"creatingContextNameList:BEGIN"<<endl;
 
-  ContextNameList->clear();
+  if (ctx0=0) ContextNameList->clear();
 
-  HlManager::self()->syntax->setIdentifier(identifier);
+  HlManager::self()->syntax->setIdentifier(buildIdentifier);
 
   data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
 
-  int id=0;
+  int id=ctx0;
 
   if (data)
   {
      while (HlManager::self()->syntax->nextGroup(data))    
      {
           QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace();
-	  if (tmpAttr.isEmpty()) tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
+	  if (tmpAttr.isEmpty())
+	  {
+		 tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
+		 errorsAndWarnings +=i18n("<B>%1</B>: Deprecated syntax. Context %2 has no symbolic name<BR>").arg(buildIdentifier).arg(id-ctx0);
+	  }
+          else tmpAttr=buildPrefix+tmpAttr;
 	  (*ContextNameList)<<tmpAttr;
           id++;
      }
@@ -1674,8 +1697,9 @@ void  Highlight::createContextNameList(QStringList *ContextNameList)
 
 }
 
-int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext)
+int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext, /*NO CONST*/ QString &unres)
 {
+  unres="";
   int context;
   if (tmpLineEndContext=="#stay") context=-1;
       else if (tmpLineEndContext.startsWith("#pop"))
@@ -1688,10 +1712,24 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
            }
       }
       else
-      {
-           context=ContextNameList->findIndex(tmpLineEndContext);
-           if (context==-1) context=tmpLineEndContext.toInt();
-      }
+	if ( tmpLineEndContext.startsWith("##"))
+	{
+		QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
+		if (!embeddedHls.contains(tmp))	embeddedHls.insert(tmp,EmbeddedHlInfo());
+		unres=tmp;
+		context=0;
+	}
+	else
+	{
+		context=ContextNameList->findIndex(buildPrefix+tmpLineEndContext);
+		if (context==-1) 
+		{
+			context=tmpLineEndContext.toInt();
+			errorsAndWarnings+=i18n("<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name").arg(buildIdentifier).arg(tmpLineEndContext);
+		}
+#warning restructure this the name list storage.
+		context=context+buildContext0Offset;
+	}
   return context;
 }
 
@@ -1715,19 +1753,81 @@ void Highlight::makeContextList()
   if (noHl)
     return;
 
+  embeddedHls.clear();
+  embeddedHls.insert(iName,EmbeddedHlInfo());
+  unresolvedContextReferences.clear();
+  bool something_changed;
+  int startctx=0;
+  building=true;
+  do 
+  {
+	kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
+	kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
+	something_changed=false;
+	for (EmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
+	{
+		if (!it.data().loaded)
+		{
+			kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
+			QString identifierToUse;
+			kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
+			if (iName==it.key()) identifierToUse=identifier;
+			else
+			{
+				identifierToUse=HlManager::self()->identifierForName(it.key());
+			}
+			buildPrefix=it.key()+':';
+			kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
+			if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
+			kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
+			it=embeddedHls.insert(it.key(),EmbeddedHlInfo(true,startctx));
+			buildContext0Offset=startctx;
+			startctx=addToContextList(identifierToUse,startctx);
+			if (noHl) return;
+			something_changed=true;
+/*
+			kdDebug()<<"*********************************************"<<endl;
+			for (EmbeddedHlInfos::const_iterator it1=embeddedHls.begin(); it1!=embeddedHls.end();++it1)
+			{
+				kdDebug()<<it1.key()<<endl;
+			}
+			kdDebug()<<"*********************************************"<<endl;
+*/
+		}
+	}
+  } while (something_changed);
+  kdDebug(13010)<<"Unresolved contexts: "<<unresolvedContextReferences.count()<<endl;
+//optimize this a littlebit
+  for (UnresolvedContextReferences::iterator unresIt=unresolvedContextReferences.begin();
+		unresIt!=unresolvedContextReferences.end();++unresIt)
+	{
+		EmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(unresIt.data());
+		if (hlIt!=embeddedHls.end())
+			*(unresIt.key())=hlIt.data().context0;
+	}
+	if (!errorsAndWarnings.isEmpty())
+	KMessageBox::information(0L,i18n("<qt>The following warning(s) and/or error(s) have been encountered: <BR>%1</qt>").
+			arg(errorsAndWarnings));
+	
+  building=false;
+}
+
+int Highlight::addToContextList(const QString &ident, int ctx0)
+{
+  buildIdentifier=ident;
   syntaxContextData *data, *datasub;
   HlItem *c;
 
   QStringList RegionList;
   QStringList ContextNameList;
-
+  QString dummy;
 
   // Let the syntax document class know, which file we'd like to parse
-  if (!HlManager::self()->syntax->setIdentifier(identifier))
+  if (!HlManager::self()->syntax->setIdentifier(ident))
   {
 	noHl=true;
 	KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
-	return;
+	return 0;
   }
 
   RegionList<<"!KateInternal_TopLevel!";
@@ -1736,15 +1836,15 @@ void Highlight::makeContextList()
 
 
   // This list is needed for the translation of the attribute parameter, if the itemData name is given instead of the index
-  ItemDataList iDl;
-  createItemData(iDl);
+  addToItemDataList();
+  ItemDataList iDl=internalIDList;
 
-  createContextNameList(&ContextNameList);
+  createContextNameList(&ContextNameList,ctx0);
 
   kdDebug(13010)<<"Parsing Context structure"<<endl;
   //start the real work
   data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
-  uint i=0;
+  uint i=ctx0;
   if (data)
     {
       while (HlManager::self()->syntax->nextGroup(data))
@@ -1762,7 +1862,7 @@ void Highlight::makeContextList()
 	  QString tmpLineEndContext=HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
 	  int context;
 
-	  context=getIdFromString(&ContextNameList, tmpLineEndContext);
+	  context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
 
           // BEGIN get fallthrough props
           bool ft = false;
@@ -1774,24 +1874,9 @@ void Highlight::makeContextList()
             if ( ft ) {
               QString tmpFtc = HlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
-  	      ftc=getIdFromString(&ContextNameList, tmpFtc);
+  	      ftc=getIdFromString(&ContextNameList, tmpFtc,dummy);
 	      if (ftc == -1) ftc =0;
 
-#if 0			// This shouldn't be needed anymore (jowenn)
-
-              if ( ! tmpFtc.isEmpty() ) {
-                //kdDebug(13010)<<"fallthgoughContext = "<<tmpFtc<<endl;
-                if ( tmpFtc.startsWith("#pop") ) {
-                  ftc = -1;
-                  for ( ; tmpFtc.startsWith("#pop") ; ftc-- )
-                    tmpFtc.remove( 0, 4 );
-                }
-                else
-                  ftc = tmpFtc.toInt();
-                if ( ftc == -1 ) // better make damned sure not, staying in a context that does not match any rule == infinite loop:(
-                  ftc = 0;
-              }
-#endif
               kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
             }
           }
@@ -1815,7 +1900,8 @@ void Highlight::makeContextList()
                 QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
-                  int ctxId = HlManager::self()->syntax->groupItemData( data, QString("context") ).toInt(); // the index is *required*
+                  int ctxId = getIdFromString(&ContextNameList,
+			HlManager::self()->syntax->groupItemData( data, QString("context")),dummy); // the index is *required*
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
                     if ( ctxId < (int) i ) { // must be defined
@@ -1853,7 +1939,7 @@ void Highlight::makeContextList()
 
   HlManager::self()->syntax->freeGroupInfo(data);
   if (RegionList.count()!=1) folding=true;
-
+  return i;
 }
 
 HlManager::HlManager() : QObject(0)
@@ -2108,5 +2194,14 @@ void HlManager::setHlDataList(HlDataList &list) {
   }
   //notify documents about changes in highlight configuration
   emit changed();
+}
+
+QString HlManager::identifierForName(const QString& name)
+{
+//FIXME optimize this 
+	for(int z=0;z<(int)hlList.count();z++) {
+		if (hlList.at(z)->name()==name) return hlList.at(z)->getIdentifier(); 
+	}
+	return QString();
 }
 

@@ -124,6 +124,20 @@ class HlContext {
     int ftctx; // where to go after no rules matched
 };
 
+
+class EmbeddedHlInfo
+{
+public:
+	EmbeddedHlInfo() {loaded=false;context0=-1;}
+	EmbeddedHlInfo(bool l, int ctx0) {loaded=l;context0=ctx0;}
+	bool loaded;
+	int context0;
+};
+
+typedef QMap<QString,EmbeddedHlInfo> EmbeddedHlInfos;
+
+typedef QMap<int*,QString> UnresolvedContextReferences; // need to be made more efficient, but it works for the moment
+
 class Highlight
 {
   public:
@@ -143,6 +157,7 @@ class Highlight
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
     inline QString version() const {return iVersion;}
+    inline QString getIdentifier() const {return identifier;}
     void use();
     void release();
     bool isInWord(QChar c);
@@ -155,6 +170,8 @@ class Highlight
     void init();
     void done();
     void makeContextList ();
+    int addToContextList(const QString &ident, int ctx0);
+    void addToItemDataList();
     void createItemData (ItemDataList &list);
     void readGlobalKeywordConfig();
     void readCommentConfig();
@@ -165,13 +182,15 @@ class Highlight
     HlItem *createHlItem(struct syntaxContextData *data, ItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, ItemDataList &iDl);
 
-    void createContextNameList(QStringList *ContextNameList);
-    int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext);
+    void createContextNameList(QStringList *ContextNameList, int ctx0);
+    int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
 
     ItemDataList internalIDList;
 
     QIntDict<HlContext> contextList;
     HlContext *contextNum (uint n);
+    EmbeddedHlInfos embeddedHls;
+    UnresolvedContextReferences unresolvedContextReferences;
 
     bool noHl;
     bool folding;
@@ -191,6 +210,12 @@ class Highlight
     QString iVersion;
     int refCount;
 
+    QString errorsAndWarnings;
+    QString buildIdentifier;
+    QString buildPrefix;
+    bool building;
+    uint itemData0;
+    uint buildContext0Offset;    
     public:
     	bool allowsFolding(){return folding;}
 };
@@ -211,7 +236,7 @@ class HlManager : public QObject
     int wildcardFind(const QString &fileName);
     int mimeFind(const QByteArray &contents, const QString &fname);
     int findHl(Highlight *h) {return hlList.find(h);}
-
+    QString identifierForName(const QString&);
     void makeAttribs(class KateDocument *, Highlight *);
 
     int defaultStyles();

@@ -4277,7 +4277,7 @@ void KateDocument::reloadFile()
   {
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
-
+    buffer->resetCodeFoldingTree();
     KateDocument::openURL( url() );
     setMTime();
     

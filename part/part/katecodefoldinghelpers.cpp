@@ -59,8 +59,25 @@ KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFo
 	endLineRel=60000;   // temporary;
 }
 
-KateCodeFoldingTree::~KateCodeFoldingTree(){;}
+KateCodeFoldingTree::~KateCodeFoldingTree()
+{
+	freeRecursive(this);	
+}
 
+void KateCodeFoldingTree::freeRecursive(KateCodeFoldingNode *node)
+{
+//later perhaps let Qt Handle this (autodelete)
+	KateCodeFoldingNode *tmp;
+	if (!node) return;
+	if (!(node->childnodes)) return;
+	while (!(node->childnodes->isEmpty()))
+	{
+		tmp=node->childnodes->take(0);
+		freeRecursive(tmp);
+		delete tmp;
+	}
+	delete node->childnodes;
+}
 
 bool KateCodeFoldingTree::isTopLevel(unsigned int line)
 {

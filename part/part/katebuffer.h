@@ -99,7 +99,8 @@ class KateBuffer : public QObject
 	 {
 	   return m_regionTree;
 	 }
-
+	
+	 
 	 void dumpRegionTree ();
 
    /**
@@ -217,6 +218,7 @@ public slots:
     */
     void setLineVisible(unsigned int lineNr, bool visible);
 
+    void resetCodeFoldingTree();
 
 private:
    /**
@@ -257,6 +259,7 @@ private:
     */
    bool needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint from, uint to);
 
+   
 private slots:
    void slotLoadFile();
 

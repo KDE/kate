@@ -204,19 +204,28 @@ KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
   m_blocks.setAutoDelete(true);     
   m_loader.setAutoDelete(true);     
   
-  m_regionTree=new KateCodeFoldingTree(this);
-
-  connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(slotLoadFile()));     
+  m_regionTree=0;
   
-  connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
-  connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
+  connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(slotLoadFile()));     
 
+  resetCodeFoldingTree();
+  
   clear();
 }     
+
 
 KateBuffer::~KateBuffer()
 {
    delete m_vm;
+}
+
+void KateBuffer::resetCodeFoldingTree()
+{
+	delete m_regionTree;
+  	m_regionTree=new KateCodeFoldingTree(this);
+  	connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
+  	connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
+
 }
      
 /**     

@@ -4581,7 +4581,7 @@ void KateDocument::exportAs(const QString& filter)
 {
   if (filter=="kate_html_export")
   {
-    QString filename=KFileDialog::getSaveFileName(QString::null,QString::null,0,i18n("Export File As"));
+    QString filename=KFileDialog::getSaveFileName(QString::null,"text/html",0,i18n("Export File As"));
     if (filename.isEmpty())
       {
         return;

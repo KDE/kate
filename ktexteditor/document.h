@@ -25,33 +25,34 @@
 namespace KTextEditor
 {
 
-class View;
-class DocumentPrivate;
-
 class Document : public KTextEditor::Editor
 {
+  friend class PrivateDocument;
+
   Q_OBJECT
 
   public:
     Document ( QObject *parent = 0, const char *name = 0 );
     virtual ~Document ();
 
+    unsigned int documentNumber () const;
+
     /**
     * Create a view that will display the document data. You can create as many
     * views as you like. When the user modifies data in one view then all other
     * views will be updated as well.
     */
-    virtual View *createView ( QWidget *parent, const char *name = 0 ) = 0;
+    virtual class View *createView ( QWidget *parent, const char *name = 0 ) = 0;
 
     /*
     * Accessor to the list of views.
     */
-    virtual QPtrList<View> views () const = 0;
-    
-    private:
-	// dPointer so we can add the interface
-	DocumentPrivate *d;
+    virtual QPtrList<class View> views () const = 0;
 
+  private:
+    class PrivateDocument *d;
+    static unsigned int globalDocumentNumber;
+    unsigned int myDocumentNumber;
 };
 
 };

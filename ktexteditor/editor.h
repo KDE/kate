@@ -31,12 +31,14 @@ namespace KTextEditor
  * the Document and View (the view interfaces should be applied to the widget()))
  * KTextEditor::Editor is baseclass of KTextEditor::Document, mostly to give the
  * implementors of both interface the chance to use the same class to implement both
- * at once only with minor changes, please don'T cast a KTextEditor::Document to a 
+ * at once only with minor changes, please don'T cast a KTextEditor::Document to a
  * KTextEditor::Editor and think there must be a widget() !!!!!!!!!!!!
  */
 
 class Editor : public KParts::ReadWritePart
 {
+  friend class PrivateEditor;
+
   Q_OBJECT
 
   public:
@@ -45,6 +47,13 @@ class Editor : public KParts::ReadWritePart
     */
     Editor ( QObject *parent = 0, const char *name = 0  );
     virtual ~Editor ();
+    
+    unsigned int editorNumber () const;
+
+  private:
+    class PrivateEditor *d;
+    static unsigned int globalEditorNumber;
+    unsigned int myEditorNumber;
 };
 
 };

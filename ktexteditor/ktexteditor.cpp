@@ -44,41 +44,88 @@ using namespace KTextEditor;
 
 namespace KTextEditor
 {
-	class DocumentPrivate
-	{
-	public:
-		DocumentPrivate()
-		{
-		}
+  class PrivateDocument
+  {
+  public:
+    PrivateDocument ()
+    {
+    }
 
-		~DocumentPrivate()
-		{
-		}
+    ~PrivateDocument()
+    {
+    }
+  };
+  
+  class PrivateView
+  {
+  public:
+    PrivateView ()
+    {
+    }
 
-	};
+    ~PrivateView()
+    {
+    }
+  };
+
+  class PrivateEditor
+  {
+  public:
+    PrivateEditor ()
+    {
+    }
+
+    ~PrivateEditor()
+    {
+    }
+  };
 };
 
-View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
-{
-}
-
-View::~View()
-{
-}
+unsigned int Document::globalDocumentNumber = 0;
+unsigned int View::globalViewNumber = 0;
+unsigned int Editor::globalEditorNumber = 0;
 
 Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
 {
-
+  globalDocumentNumber++;
+  myDocumentNumber = globalDocumentNumber;
 }
 
 Document::~Document()
 {
 }
 
+unsigned int Document::documentNumber () const
+{
+  return myDocumentNumber;
+}
+
+View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
+{
+  globalViewNumber++;
+  myViewNumber = globalViewNumber;
+}
+
+View::~View()
+{
+}
+
+unsigned int View::viewNumber () const
+{
+  return myViewNumber;
+}
+
 Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
 {
+  globalEditorNumber++;
+  myEditorNumber = globalEditorNumber;
 }
 
 Editor::~Editor()
 {
+}
+
+unsigned int Editor::editorNumber () const
+{
+  return myEditorNumber;
 }

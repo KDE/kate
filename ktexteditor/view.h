@@ -26,27 +26,34 @@
 namespace KTextEditor
 {
 
-class Document;
-
 /**
  * The View class encapsulates a single view into the document.
  */
 
 class View : public QWidget, public KXMLGUIClient
 {
+  friend class PrivateView;
+
   Q_OBJECT
 
   public:
     /**
     * Create a new view to the given document. The document must be non-null.
     */
-    View ( Document *, QWidget *parent, const char *name = 0 );
+    View ( class Document *, QWidget *parent, const char *name = 0 );
     virtual ~View ();
+
+    unsigned int viewNumber () const;
 
     /**
     * Acessor to the parent Document.
     */
-    virtual Document *document () const = 0;
+    virtual class Document *document () const = 0;
+    
+  private:
+    class PrivateView *d;
+    static unsigned int globalViewNumber;
+    unsigned int myViewNumber;
 };
 
 };

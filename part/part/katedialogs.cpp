@@ -180,7 +180,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   m_indentMode = new KComboBox (indentLayout);
   m_indentMode->insertStringList (KateAutoIndent::listModes());
   indentLabel->setBuddy(m_indentMode);
-  m_configPage = new QPushButton(i18n("Configure..."), indentLayout);
+  m_configPage = new QPushButton(SmallIconSet("configure"), i18n("Configure..."), indentLayout);
 
   opt[5] = new QCheckBox(i18n("Insert leading Doxygen \"*\" when typing"), gbAuto);
 

@@ -1985,7 +1985,7 @@ bool KateDocument::printDialog ()
      bool needWrap = true;
      bool pageStarted = true;
      
-     kdDebug(13020)<<"pdm width: "<<pdmWidth<<endl;
+//     kdDebug(13020)<<"pdm width: "<<pdmWidth<<endl;
 
      // Text Settings Page
      bool selectionOnly = ( hasSelection() &&
@@ -2205,16 +2205,6 @@ bool KateDocument::printDialog ()
          int _items ( 0 );
          while ( ( _d = it.current()) != 0 )
          {
-           /*
-           _kfm = _d->bold ?
-             _d->italic ?
-               printFont.myFontMetricsBI :
-               printFont.myFontMetricsBold :
-           _d->italic ?
-             printFont.myFontMetricsItalic :
-             printFont.myFontMetrics; // ahemn
-           _widest = QMAX( _widest, ((QFontMetrics)_kfm).width( _d->name ) );
-           */
            _widest = QMAX( _widest, ((QFontMetrics)(
                                 _d->bold ?
                                   _d->italic ?
@@ -2224,7 +2214,7 @@ bool KateDocument::printDialog ()
                                     printFont.myFontMetricsItalic :
                                     printFont.myFontMetrics
                                     ) ).width( _d->name ) );
-                                _items++;
+           _items++;
            ++it;
          }
          guideCols = _w/( _widest + innerMargin );
@@ -2278,9 +2268,9 @@ bool KateDocument::printDialog ()
            }
          }
          if ( _lt ) _pages++; // last page
-         kdDebug(13020)<<"... Number of pages to print: "<<_pages<<endl;
+//         kdDebug(13020)<<"... Number of pages to print: "<<_pages<<endl;
          // substitute both tag lists
-         kdDebug(13020)<<"... lines total: "<<_c<<endl;
+//         kdDebug(13020)<<"... lines total: "<<_c<<endl;
          QRegExp re("%P");
          QStringList::Iterator it;
          for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
@@ -2300,7 +2290,7 @@ uint _count = 0;
        endCol = 0;
        needWrap = true;
 
-       kdDebug(13020)<<"Starting real new line "<<lineCount<<endl;
+//       kdDebug(13020)<<"Starting real new line "<<lineCount<<endl;
        
        while (needWrap)
        {
@@ -2456,8 +2446,8 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              }
              if ( _i%guideCols ) y += printFont.fontHeight;// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
-        kdDebug(13020)<<"DONE HL GUIDE! Starting to print from line "<<lineCount<<endl;
-        kdDebug(13020)<<"max width for lines: "<<maxWidth<<endl;
+//        kdDebug(13020)<<"DONE HL GUIDE! Starting to print from line "<<lineCount<<endl;
+//        kdDebug(13020)<<"max width for lines: "<<maxWidth<<endl;
            }
 
            pageStarted = false;
@@ -2471,9 +2461,9 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                         lineNumberWidth, printFont.fontHeight,
                         Qt::AlignRight, QString("%1 ").arg( lineCount + 1 ) );
          }
-        kdDebug(13020)<<"Calling textWidth( startCol="<<startCol<<", maxWidth="<<maxWidth<<", needWrap="<<needWrap<<")"<<endl;
+//        kdDebug(13020)<<"Calling textWidth( startCol="<<startCol<<", maxWidth="<<maxWidth<<", needWrap="<<needWrap<<")"<<endl;
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         kdDebug(13020)<<"REAL WIDTH: " << pdmWidth << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" line length: "<< buffer->line(lineCount)->length()<< "; need Wrap: " << needWrap <<" !?"<<endl;
+//         kdDebug(13020)<<"REAL WIDTH: " << pdmWidth << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" line length: "<< buffer->line(lineCount)->length()<< "; need Wrap: " << needWrap <<" !?"<<endl;
          
          if ( endCol < startCol )
          {
@@ -2519,7 +2509,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          }
          else
          {
-kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<", maxWidth: "<<maxWidth<<endl;
+//kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<", maxWidth: "<<maxWidth<<endl;
            startCol = endCol;
          }
 
@@ -2529,7 +2519,7 @@ _count++;
 
        lineCount++;
      } // done lineCount <= lastline
-kdDebug(13020)<<"lines printed in total: "<<_count<<endl;
+//kdDebug(13020)<<"lines printed in total: "<<_count<<endl;
      return true;
   }
 

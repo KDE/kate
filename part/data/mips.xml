@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MIPS Assembler" version="1.01" kateversion="2.1" section="Sources" extensions="*.s;" mimetype="text/x-mips" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="-1">
+<language name="MIPS Assembler" version="1.02" kateversion="2.1" section="Sources" extensions="*.s;" mimetype="text/x-mips" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="-1">
   <highlighting>
     <list name="type">
-      <item> .asciiz </item>
+      <item> .align </item>
       <item> .ascii </item>
+      <item> .asciiz </item>
+      <item> .byte </item>
+      <item> .double </item>
+      <item> .extern </item>
+      <item> .float </item>
+      <item> .globl </item>
+      <item> .half </item>
+      <item> .sdata </item>
+      <item> .set </item>
       <item> .space </item>
       <item> .word </item>
-      <item> .halfword </item>
-      <item> .float </item>
-      <item> .double </item>
-      <item> .byte </item>
-      <item> .align </item>
-      <item> .globl </item>
     </list>
     <list name="section">
       <item> .data </item>
+      <item> .kdata </item>
+      <item> .ktext </item>
       <item> .text </item>
     </list>
     <list name="hardware">
@@ -160,15 +165,15 @@
       <item> la </item>
       <item> ld </item>
       <item> li </item>
-      <item> li.s </item>
       <item> li.d </item>
+      <item> li.s </item>
       <item> mfc0.d </item>
       <item> mfc1.d </item>
       <item> mfc2.d </item>
       <item> mfc3.d </item>
-      <item> move </item>
       <item> mov.d </item>
       <item> mov.s </item>
+      <item> move </item>
       <item> mul </item>
       <item> mulo </item>
       <item> mulou </item>

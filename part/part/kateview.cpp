@@ -730,45 +730,17 @@ void KateView::slotReadWriteChanged ()
   m_editUndo->setEnabled (m_doc->isReadWrite());
   m_editRedo->setEnabled (m_doc->isReadWrite());
 
+  QStringList l;
+
+  l << "edit_replace" << "set_insert" << "tools_spelling" << "tools_indent"
+      << "tools_unindent" << "tools_cleanIndent"  << "tools_comment"
+      << "tools_uncomment" << "tools_uppercase" << "tools_lowercase"
+      << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap";
+
   KAction *a = 0;
-  if ((a = actionCollection()->action( "edit_replace" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "set_insert" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_spelling" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_indent" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_unindent" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_cleanIndent" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_comment" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_uncomment" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_uppercase" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_lowercase" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_capitalize" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_join_lines" )))
-    a->setEnabled (m_doc->isReadWrite());
-
-  if ((a = actionCollection()->action( "tools_apply_wordwrap" )))
-    a->setEnabled (m_doc->isReadWrite());
+  for (uint z = 0; z < l.size(); z++)
+    if ((a = actionCollection()->action( l[z].ascii() )))
+      a->setEnabled (m_doc->isReadWrite());
 }
 
 void KateView::slotNewUndo()

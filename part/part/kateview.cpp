@@ -1075,6 +1075,9 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   y2 = y1 + myDoc->viewFont.fontHeight              +30;
 #endif
 
+  VConfig c;
+  myViewInternal->getVConfig(c);
+  myDoc->selectLength(cursor,slen,c.flags);
 
   if ((myViewInternal->startLine>cursor.line) || (myViewInternal->endLine<cursor.line))
 		  myViewInternal->changeYPos( myDoc->viewFont.fontHeight * cursor.line);

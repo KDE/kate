@@ -53,9 +53,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   xCoord = 0;
   yCoord = 0;
 
-  // create a one line lineRanges array
-  updateLineRanges (0, false);
-
   scrollTimer = 0;
 
   cursor.col = 0;
@@ -77,6 +74,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.sXPos = 0;
   bm.eXPos = -1;
 
+  // create a one line lineRanges array
+  updateLineRanges (0, false);
+
   QWidget::setCursor(ibeamCursor);
   KCursor::setAutoHideCursor( this, true, true );
 
@@ -88,7 +88,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
   connect(yScroll,SIGNAL(valueChanged(int)),SLOT(changeYPos(int)));
-  
+
   setAcceptDrops(true);
   dragInfo.state = diNone;
 }

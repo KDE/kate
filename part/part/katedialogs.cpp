@@ -349,7 +349,10 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
   for( int i = 0; i < hlManager->highlights(); i++) {
-    hlCombo->insertItem(hlManager->hlName(i));
+    if (hlManager->hlSection(i).length() > 0)
+      hlCombo->insertItem(hlManager->hlSection(i) + QString ("/") + hlManager->hlName(i));
+    else
+      hlCombo->insertItem(hlManager->hlName(i));
   }
   hlCombo->setCurrentItem(0);
   QPushButton *btnEdit = new QPushButton( i18n("&Edit..."), hbHl );

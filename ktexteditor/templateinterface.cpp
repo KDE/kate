@@ -142,7 +142,7 @@ bool TemplateInterface::insertTemplateText ( uint line, uint column, const QStri
 {
   QMap<QString, QString> enhancedInitValues( initialValues );
 
-  QRegExp rx( "[$%]\\{([a-zA-Z0-9_]+)\\}" );
+  QRegExp rx( "[$%]\\{([^}\\s]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
   int opos = 0;

@@ -44,7 +44,8 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
 
     /**
      * Parses @p templateString for macros in the form [$%]{NAME} and finds
-     * the value corresponding to NAME if any.
+     * the value corresponding to NAME if any. The NAME string may contain
+     * any non-whitespace character execpt '}'
      * @param map a map with the keys for the macros to expand. keys with a value
      * are ignored.
      * @see insertTemplateText for a list of supported macros

@@ -574,7 +574,9 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
   if (s.isEmpty())
     return true;
 
-  if (line > lastLine())
+	if (line == numLines())
+		editInsertLine(line,"");
+	else if (line > lastLine())
     return false;
 
   editStart ();

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- PIC (14 bits) assembler syntaxfile for gpasm/mpasm assembler by
+	Alain GIBAUD  (alain.gibaud@univ-valenciennes.fr) -->
+<language name="PicAsm" version="1.00" kateversion="2.0" section="Sources" 
+		extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC;*.inc;*.INC" mimetype="text/x-PicSrc;text/x-PicHdr">
+
+
+  <highlighting>
+    <list name="directives">
+      <item> __BADRAM </item>
+      <item> __CONFIG </item>
+      <item> __IDLOCS </item>
+      <item> __MAXRAM </item>
+      
+      <item> cblock </item>
+      <item> constant </item>
+      <item> da </item>
+      <item> data </item>
+      <item> db </item>
+      <item> de </item>
+      <item> dt </item>
+      <item> dw </item>
+      <item> endm </item>
+      <item> equ </item>
+      <item> error </item>
+      <item> errorlevel </item>
+      <item> exitm </item>
+      <item> fill </item>
+      <item> list </item>
+      <item> local </item>
+      <item> macro </item>
+      <item> messg </item>
+      <item> noexpand </item>
+      <item> nolist </item>
+      <item> org </item>
+      <item> page </item>
+      <item> processor </item>
+      <item> radix </item>
+      <item> res </item>
+      <item> set </item>
+      <item> space </item>
+      <item> subtitle </item>
+      <item> title </item>
+      <item> variable </item>
+      <item> end </item>
+      
+      <ITEM> CBLOCK </ITEM>
+      <ITEM> CONSTANT </ITEM>
+      <ITEM> DA </ITEM>
+      <ITEM> DATA </ITEM>
+      <ITEM> DB </ITEM>
+      <ITEM> DE </ITEM>
+      <ITEM> DT </ITEM>
+      <ITEM> DW </ITEM>
+      <ITEM> ENDM </ITEM>
+      <ITEM> EQU </ITEM>
+      <ITEM> ERROR </ITEM>
+      <ITEM> ERRORLEVEL </ITEM>
+      <ITEM> EXITM </ITEM>
+      <ITEM> FILL </ITEM>
+      <ITEM> LIST </ITEM>
+      <ITEM> LOCAL </ITEM>
+      <ITEM> MACRO </ITEM>
+      <ITEM> MESSG </ITEM>
+      <ITEM> NOEXPAND </ITEM>
+      <ITEM> NOLIST </ITEM>
+      <ITEM> ORG </ITEM>
+      <ITEM> PAGE </ITEM>
+      <ITEM> PROCESSOR </ITEM>
+      <ITEM> RADIX </ITEM>
+      <ITEM> RES </ITEM>
+      <ITEM> SET </ITEM>
+      <ITEM> SPACE </ITEM>
+      <ITEM> SUBTITLE </ITEM>
+      <ITEM> TITLE </ITEM>
+      <ITEM> VARIABLE </ITEM>
+      <ITEM> END </ITEM>
+   </list>
+   
+    <list name="conditionnal" insensitive="TRUE">
+      <item> if </item>
+      <item> else </item>
+      <item> idef </item>
+      <item> ifndef </item>
+      <item> endif </item>
+      <item> while </item>
+      <item> include </item>
+      <item> endw </item>
+      <item> { </item>
+      <item> } </item>
+    </list>
+
+    <list name="gpasm_macro" insensitive="TRUE">
+      <item> addcf </item>
+      <item> b </item>
+      <item> bc </item>
+      <item> bz </item>
+      <item> bnc </item>
+      <item> bnz </item>
+      <item> clrc </item>
+      <item> clrz </item>
+      <item> setc </item>
+      <item> setz </item>
+      <item> movfw </item>
+      <item> negf </item>
+      <item> skpc </item>
+      <item> skpz </item>
+      <item> skpnc </item>
+      <item> skpnz </item>
+      <item> subcf </item>
+      <item> tstf </item>
+      
+      <ITEM> ADDCF </ITEM>
+      <ITEM> B </ITEM>
+      <ITEM> BC </ITEM>
+      <ITEM> BZ </ITEM>
+      <ITEM> BNC </ITEM>
+      <ITEM> BNZ </ITEM>
+      <ITEM> CLRC </ITEM>
+      <ITEM> CLRZ </ITEM>
+      <ITEM> SETC </ITEM>
+      <ITEM> SETZ </ITEM>
+      <ITEM> MOVFW </ITEM>
+      <ITEM> NEGF </ITEM>
+      <ITEM> SKPC </ITEM>
+      <ITEM> SKPZ </ITEM>
+      <ITEM> SKPNC </ITEM>
+      <ITEM> SKPNZ </ITEM>
+      <ITEM> SUBCF </ITEM>
+      <ITEM> TSTF </ITEM>
+    </list>
+    
+    <list name="instructions" insensitive="TRUE">
+      <item> addlw </item>
+      <item> addwf </item>
+      <item> bcf </item>
+      <item> bsf </item>
+      <item> btfsc </item>
+      <item> btfss </item>
+      <item> call </item>
+      <item> clrf </item>
+      <item> clrw </item>
+      <item> clrwtd </item>
+      <item> comf </item>
+      <item> decf </item>
+      <item> decfsz </item>
+      <item> goto </item>
+      <item> incf </item>
+      <item> incfsz </item>
+      <item> iorlw </item>
+      <item> movf </item>
+      <item> movlw </item>
+      <item> movwf </item>
+      <item> nop </item>
+      <item> option </item>
+      <item> retfie </item>
+      <item> retlw </item>
+      <item> return </item>
+      <item> rlf </item>
+      <item> rrf </item>
+      <item> sleep </item>
+      <item> sublw </item>
+      <item> subwf </item>
+      <item> swapf </item>
+      <item> tris </item>
+      <item> xorlw </item>
+      <item> xorwf </item>
+      
+      <ITEM> ADDLW </ITEM>
+      <ITEM> ADDWF </ITEM>
+      <ITEM> BCF </ITEM>
+      <ITEM> BSF </ITEM>
+      <ITEM> BTFSC </ITEM>
+      <ITEM> BTFSS </ITEM>
+      <ITEM> CALL </ITEM>
+      <ITEM> CLRF </ITEM>
+      <ITEM> CLRW </ITEM>
+      <ITEM> CLRWTD </ITEM>
+      <ITEM> COMF </ITEM>
+      <ITEM> DECF </ITEM>
+      <ITEM> DECFSZ </ITEM>
+      <ITEM> GOTO </ITEM>
+      <ITEM> INCF </ITEM>
+      <ITEM> INCFSZ </ITEM>
+      <ITEM> IORLW </ITEM>
+      <ITEM> MOVF </ITEM>
+      <ITEM> MOVLW </ITEM>
+      <ITEM> MOVWF </ITEM>
+      <ITEM> NOP </ITEM>
+      <ITEM> OPTION </ITEM>
+      <ITEM> RETFIE </ITEM>
+      <ITEM> RETLW </ITEM>
+      <ITEM> RETURN </ITEM>
+      <ITEM> RLF </ITEM>
+      <ITEM> RRF </ITEM>
+      <ITEM> SLEEP </ITEM>
+      <ITEM> SUBLW </ITEM>
+      <ITEM> SUBWF </ITEM>
+      <ITEM> SWAPF </ITEM>
+      <ITEM> TRIS </ITEM>
+      <ITEM> XORLW </ITEM>
+      <ITEM> XORWF </ITEM>
+    </list>
+    <contexts>
+    
+      <context name="normal" attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Directives" context="#stay" String="directives"/>
+        <keyword attribute="Instructions" context="#stay" String="instructions"/>
+        <keyword attribute="Preprocessor" context="#stay" String="conditionnal"/>
+        <keyword attribute="GPASM-macros" context="#stay" String="gpasm_macro"/>
+        <HlCHex attribute="Based Numbers" context="#stay"/>
+        <RegExpr attribute="Based Numbers" context="#stay" String="([0-9A-F]+H)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([0-9]+D)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([0-7]+O)" insensitive="TRUE" />
+        <RegExpr attribute="Based Numbers" context="#stay" String="([0-1]+B)" insensitive="TRUE" />
+        <Int attribute="Non Based Numbers" context="#stay" />
+        <HlCChar attribute="Char" context="#stay"/>
+        <StringDetect attribute="Char" context="ASCIIChar" String="A'" insensitive="TRUE" />
+        <StringDetect attribute="Based Numbers" context="binaryDigits" String="B'" insensitive="TRUE" />
+        <StringDetect attribute="Based Numbers" context="hexDigits" String="H'" insensitive="TRUE" />
+        <StringDetect attribute="Based Numbers" context="octDigits" String="O'" insensitive="TRUE" />
+        <StringDetect attribute="Based Numbers" context="decimalDigits" String="D'" insensitive="TRUE" />
+        <DetectChar attribute="String" context="string" char="&quot;"/>
+        <DetectChar attribute="Comment" context="comment" char=";" />
+        <RegExpr attribute="Symbol" context="#stay" String="[-/*%+=&gt;&lt;&amp;|^!~]"/>        
+        <RegExpr attribute="Symbol" context="#stay" String="(HIGH|LOW)"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="(#define|#undefine|#v)"/>        
+      </context>
+      
+      <context name="string" attribute="String" lineEndContext="#pop">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      
+      
+      <context name="comment" attribute="Comment" lineEndContext="#pop">
+        <RegExpr attribute="Instructions" context="#stay" 
+           String="(FIXME|TODO|fixme|todo|INPUT|OUTPUT|PARAMETERS|AUTHOR|EMAIL)" />
+      </context>
+      
+          
+       <context name="decimalDigits" attribute="Based Numbers" lineEndContext="#pop">
+        <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
+        <RegExpr attribute="0" context="#pop" String="[^0-9]" />
+      </context>
+
+       <context name="binaryDigits" attribute="Based Numbers" lineEndContext="#pop">
+        <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
+        <RegExpr attribute="0" context="#pop" String="[^0-1]" />
+      </context>
+
+       <context name="hexDigits" attribute="Based Numbers" lineEndContext="#pop">
+        <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
+        <RegExpr attribute="0" context="#pop" String="[^0-9A-Fa-f]" />
+      </context>
+
+       <context name="octDigits" attribute="Based Numbers" lineEndContext="#pop">
+        <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
+        <RegExpr attribute="0" context="#pop" String="[^0-7]" />
+      </context>
+      
+      <context name="ASCIIChar" attribute="Char" lineEndContext="#pop">
+        <DetectChar attribute="Char" context="#pop" char="'"/>
+      </context>
+  	
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" 		defStyleNum="dsNormal"/>
+      <itemData name="Directives"  		defStyleNum="dsOthers"/>
+      <itemData name="Preprocessor"  	defStyleNum="dsNormal" color="#D819D8" selColor="#D819D8" bold="0" italic="0"/>
+      <itemData name="Instructions"  	defStyleNum="dsKeyword"/>
+      <itemData name="Non Based Numbers"  	defStyleNum="dsDecVal"/>
+      <itemData name="Char"  			defStyleNum="dsChar"/>
+      <itemData name="String"  			defStyleNum="dsString"/>
+      <itemData name="Comment"  		defStyleNum="dsNormal" color="#FF3118" selColor="#FF3118" bold="0" italic="1" />
+      <itemData name="Symbol"  			defStyleNum="dsNormal" color="#FF0000" selColor="#083194" bold="0" italic="0" />
+      <itemData name="Prep. Lib"  		defStyleNum="dsOthers"/>
+      <itemData name="Based Numbers"  	defStyleNum="dsBaseN" /> 
+      <itemData name="GPASM-macros"  	defStyleNum="dsNormal" color="#000000" selcolor="#000000" bold="1" italic="1"/> 
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+            <comment name="singleLine" start=";" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

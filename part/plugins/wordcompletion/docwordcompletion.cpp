@@ -319,3 +319,5 @@ QValueList<KTextEditor::CompletionEntry> DocWordCompletionPluginView::allMatches
 }
 
 //END
+
+#include "docwordcompletion.moc"

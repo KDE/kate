@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="scilab" version="1.02" kateversion="2.3" section="Scientific" extensions="*.sci;*.sce" mimetype="text/x-sci">
+<language name="scilab" version="1.03" kateversion="2.3" section="Scientific" extensions="*.sci;*.sce" mimetype="text/x-sci">
   <highlighting>
     <list name="Structure-keywords">
       <item> do </item>
@@ -1186,6 +1186,6 @@
     <comments>
       <comment name="singleLine" start="//" />
     </comments>
-    <keywords casesensitive="1" weakDeliminator="%" />
+    <keywords casesensitive="1" weakDeliminator="%$" />
   </general>
 </language>

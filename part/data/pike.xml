@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- FIXME: Find a way to prevent ranges (e.g. [1..] or [0..99]) from matching as floats. -pp -->
-<language name="Pike" version="1.06" kateversion="2.3" section="Scripts" extensions="*.pike" mimetype="application/x-pike;text/x-pike" casesensitive="1" author="Paul Pogonyshev" license="">
+<language name="Pike" version="1.07" kateversion="2.4" section="Scripts" extensions="*.pike" mimetype="application/x-pike;text/x-pike" casesensitive="1" author="Paul Pogonyshev" license="">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -56,8 +56,8 @@
 	<Detect2Chars attribute="Comment" context="Line Comment" char="/" char1="/"/>
 	<Detect2Chars attribute="Comment" context="Line Comment" char="#" char1="!"/>
 	<Detect2Chars attribute="Comment" context="Block Comment" char="/" char1="*" beginRegion="Comment"/>
-	<RegExpr attribute="Preprocessor" context="Outscoped" String="^\s*#\s*if\s+0" beginRegion="Outscoped"/>
-	<RegExpr attribute="Preprocessor" context="Preprocessor" String="^\s*#"/>
+	<RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true"/>
+	<DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
 	<RegExpr attribute="String Char" context="#stay" String="\\d[0-9]+"/>
@@ -82,13 +82,13 @@
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped">
 	<RegExpr attribute="Note" context="#stay" String="(FIXME|TODO|NOT(IC)?E):?"/>
 	<Detect2Chars attribute="Comment" context="Block Comment" char="/" char1="*" beginRegion="Comment"/>
-	<RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
-	<RegExpr attribute="Preprocessor" context="#pop" String="^\s*#\s*(endif|elif|else)" endRegion="Outscoped"/>
+	<RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true"/>
+	<RegExpr attribute="Preprocessor" context="#pop" String="#\s*(endif|elif|else)" endRegion="Outscoped" firstNonSpace="true"/>
       </context>         
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
 	<Detect2Chars attribute="Comment" context="Block Comment" char="/" char1="*" beginRegion="Comment"/>
-	<RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
-	<RegExpr attribute="Comment" context="#pop" String="^\s*#\s*endif" endRegion="Outscoped"/>
+	<RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true"/>
+	<RegExpr attribute="Comment" context="#pop" String="#\s*endif" endRegion="Outscoped" firstNonSpace="true"/>
       </context>
     </contexts>
     <itemDatas>

@@ -4,7 +4,7 @@
 <!-- Christoph Hormann <chris_hormann@gmx.de>, March 2004       -->
 <!-- features full POV-Ray 3.6 syntax with special highlighting -->
 <!-- of variable and macro declarations                         -->
-<language name="POV-Ray" version="1.03" kateversion="2.1" section="Other" extensions="*.inc;*.pov" mimetype="text/x-povray-script;text/x-povray-include" priority="2">
+<language name="POV-Ray" version="1.04" kateversion="2.4" section="Other" extensions="*.inc;*.pov" mimetype="text/x-povray-script;text/x-povray-include" priority="2">
   <highlighting>
     <list name="keywords">
       <item> aa_threshold </item>
@@ -797,8 +797,8 @@
         <Int attribute="Float" context="#stay"/>     
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1" firstNonSpace="true"/>
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
@@ -807,13 +807,13 @@
       </context>
 
       <context attribute="Declaration" lineEndContext="#pop" name="Declaration">      
-        <RegExpr attribute="Declare Keyword" context="Declare_Keyword" String="[A-Za-z0-9_]+" />
+        <RegExpr attribute="Declare Keyword" context="Declare_Keyword" String="\w+" />
         <LineContinue attribute="Declaration" context="#stay"/>
         <AnyChar attribute="Symbol" context="#pop#pop" String="=[("/>
       </context>
       
       <context attribute="Macro" lineEndContext="#pop" name="Macro">      
-        <RegExpr attribute="Declare Macro" context="Declare_Macro" String="[A-Za-z0-9_]+" />
+        <RegExpr attribute="Declare Macro" context="Declare_Macro" String="\w+" />
         <LineContinue attribute="Macro" context="#stay"/>
         <DetectChar attribute="Symbol" context="#pop#pop" char="("/>
       </context>
@@ -868,7 +868,7 @@
       <itemData name="String Char"     defStyleNum="dsChar"     color="#ff00ff" selColor="#ff00ff" bold="0" italic="0"/>
       <itemData name="Comment"         defStyleNum="dsComment"  color="#008000" selColor="#008000" bold="0" italic="0"/>
       <itemData name="Symbol"          defStyleNum="dsNormal"   color="#660099" selColor="#660099" bold="0" italic="0"/>
-      <itemData name="Region Marker" defStyleNum="dsNormal" color="#0000ff"/>
+      <itemData name="Region Marker"   defStyleNum="dsRegionMarker"/>
 <!--      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />-->
     </itemDatas>
   </highlighting>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- By: Rares Stanciulescu <rstanciu@operamail.com> -->
-<language name="Progress" version="1.05" kateversion="2.3" section="Database" extensions="*.p;*.w;*.i" casesensitive="0" author="Rares Stanciulescu (rstanciu@operamail.com)" license="">
+<language name="Progress" version="1.06" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i" casesensitive="0" author="Rares Stanciulescu (rstanciu@operamail.com)" license="">
 
 <highlighting>
 
@@ -1366,10 +1366,10 @@
         <Int attribute="Decimal" context="#stay"/>
         <DetectChar attribute="String" context="String" char="'"/>
         <Detect2Chars attribute="Comment" context="MultiLineComment" char="/" char1="*" beginRegion="Comment"/>
-        <RegExpr attribute="Comment" context="SingleLineComment" String="^[Rr][Ee][Mm]\b"/>
+        <RegExpr attribute="Comment" context="SingleLineComment" String="[Rr][Ee][Mm]\b" column="0"/>
         <DetectChar attribute="Comment" context="Identifier" char="&quot;"/>
         <AnyChar attribute="Symbol" context="#stay" String=":&#38;"/>
-        <RegExpr attribute="Symbol" context="#stay" String="^/$"/>
+        <RegExpr attribute="Symbol" context="#stay" String="/$" column="0"/>
         <DetectChar attribute="String" context="#stay" char="&quot;"/>
         <DetectChar attribute="String" context="#stay" char="'"/>
         <DetectChar attribute="Symbol" context="#stay" char="{"/>
@@ -1425,17 +1425,7 @@
       <comment name="multiLine" start="/*" end="*/"/>
     </comments>
 
-    <keywords  casesensitive="1" weakDeliminator="-" />
-    <mytypes casesensitive="1" weakDeliminator="-" />
-    <phrases casesensitive="1" weakDeliminator="-" />
-    <functions casesensitive="1" weakDeliminator="-" />
-    <statements casesensitive="1" weakDeliminator="-" />
-    <widgets casesensitive="1" weakDeliminator="-" />
-    <handles casesensitive="1" weakDeliminator="-" />
-    <properties casesensitive="1" weakDeliminator="-" />
-    <attributes casesensitive="1" weakDeliminator="-" />
-    <methods casesensitive="1" weakDeliminator="-" />
-    <preprocvar casesensitive="1" weakDeliminator="-" />
+    <keywords  casesensitive="1" weakDeliminator="+-*/=&lt;&gt;" />
 
   </general>
 

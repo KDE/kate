@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MIPS Assembler" version="1.02" kateversion="2.1" section="Assembler" extensions="*.s;" mimetype="text/x-mips" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="-1">
+<language name="MIPS Assembler" version="1.03" kateversion="2.4" section="Assembler" extensions="*.s;" mimetype="text/x-mips" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" priority="-1">
   <highlighting>
     <list name="type">
       <item> .align </item>
@@ -315,10 +315,10 @@
         <keyword attribute="Floating Point Register" context="#stay" String="fp"/>
         <keyword attribute="Type" context="#stay" String="section"/>
         <keyword attribute="Section" context="#stay" String="type"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*#\s*BEGIN.*$" beginRegion="region"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*#\s*END.*$" endRegion="region"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="region" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="region" firstNonSpace="true"/>
         <RegExpr attribute="Comment" context="#stay" String="#.*$" />
-        <RegExpr attribute="Label" context="#stay" String="^\s*[\w_\.]+:" />
+        <RegExpr attribute="Label" context="#stay" String="[\w_\.]+:" firstNonSpace="true"/>
         <DetectChar attribute="String" context="string" char="&quot;" />
         <Float attribute="Float" context="#stay"/>
         <HlCOct attribute="Octal" context="#stay"/>

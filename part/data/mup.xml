@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Music Publisher" version="1.04" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Music Publisher" version="1.05" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
 
@@ -650,7 +650,7 @@
 
       <context attribute="Print Command" lineEndContext="#pop" name="Print Command"
 		fallthrough="true" fallthroughContext="#pop">
-	<RegExpr attribute="Print Command" context="#stay" String="\s+" />
+	<DetectSpaces />
 	<keyword attribute="Print Command" context="#stay" String="mupfontstyles" />
 	<RegExpr attribute="Print Command" context="#stay" String="\bnl\b" />
 	<RegExpr attribute="Print Command" context="#pop" String="\([0-9]+\)" />
@@ -659,7 +659,7 @@
 
       <context attribute="Barline" lineEndContext="#pop" name="Barline"
 		fallthrough="true" fallthroughContext="#pop">
-	<RegExpr attribute="Barline" context="#stay" String="\s+" />
+	<DetectSpaces />
 	<RegExpr attribute="Barline" context="#stay" String="\b(ending|endending|hidechanges)\b" />
 	<RegExpr attribute="Barline" context="Bar Rehearsal" String="\breh(earsal)?\b" />
 	<RegExpr attribute="Barline" context="#stay" String="\bmnum\s*=\s*[0-9]+" />
@@ -857,6 +857,6 @@
     <comments>
       <comment name="singleLine" start="//"/>
     </comments>
-    <keywords casesensitive="1" />
+    <keywords casesensitive="1" weakDeliminator="^:`'/@~"/>
   </general>
 </language>

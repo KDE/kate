@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Modula-2" version="1.02" kateversion="2.1" section="Sources" extensions="*.mod;*.def;*.mi;*.md" mimetype="text/x-modula-2">
+<language name="Modula-2" version="1.03" kateversion="2.1" section="Sources" extensions="*.mod;*.def;*.mi;*.md" mimetype="text/x-modula-2">
   <highlighting>
     <list name="directives">
-			<item> ASSEMBLER </item>
+      <item> ASSEMBLER </item>
       <item> ALLOCATE </item>
       <item> DEALLOCATE </item>
       <item> SIZE </item>
-			<item> Write </item>
-			<item> WriteString </item>
-			<item> WriteCard </item>
-			<item> WriteLn </item>
-			<item> WriteBf </item>
-			<item> WriteInt </item>
-			<item> WriteReal </item>
-			<item> WriteLongReal </item>
-			<item> Read </item>
-			<item> ReadString </item>
-			<item> ReadCard </item>
-			<item> ReadInt </item>
-			<item> ReadReal </item>
-			<item> ReadLongReal </item>
-			<item> Open </item>
-			<item> Close </item>
-			<item> OpenInput </item>
-			<item> OpenOutput </item>
-			<item> Accessible </item>
-			<item> Erase </item>
-			<item> EOF </item>
-			<item> Done </item>
-			<item> EmptyString </item>
-			<item> Assign </item>
-			<item> Append </item>
-			<item> Length </item>
-			<item> StrEq </item>
-			<item> Copy </item>
-			<item> Concat </item>
-			<item> pos </item>
-			<item> Delete </item>
-			<item> Insert </item>
-			<item> compare </item>
-			<item> CAPS </item>
-			<item> PutBf </item>
-			<item> GetArgs </item>
-			<item> GetEnv </item>
-			<item> ResetClock </item>
-			<item> UserTime </item>
-			<item> SystemTime </item>
-			<item> GetChar </item>
-			<item> GetInt </item>
-			<item> GetCard </item>
-			<item> GetString </item>
-			<item> GetReal </item>
-			<item> GetLongReal </item>
-			<item> PutChar </item>
-			<item> PutInt </item>
-			<item> PutCard </item>
-			<item> PutString </item>
-			<item> PutReal </item>
-			<item> PutLongReal </item>
-			<item> PutLn </item>
-		</list>
+      <item> Write </item>
+      <item> WriteString </item>
+      <item> WriteCard </item>
+      <item> WriteLn </item>
+      <item> WriteBf </item>
+      <item> WriteInt </item>
+      <item> WriteReal </item>
+      <item> WriteLongReal </item>
+      <item> Read </item>
+      <item> ReadString </item>
+      <item> ReadCard </item>
+      <item> ReadInt </item>
+      <item> ReadReal </item>
+      <item> ReadLongReal </item>
+      <item> Open </item>
+      <item> Close </item>
+      <item> OpenInput </item>
+      <item> OpenOutput </item>
+      <item> Accessible </item>
+      <item> Erase </item>
+      <item> EOF </item>
+      <item> Done </item>
+      <item> EmptyString </item>
+      <item> Assign </item>
+      <item> Append </item>
+      <item> Length </item>
+      <item> StrEq </item>
+      <item> Copy </item>
+      <item> Concat </item>
+      <item> pos </item>
+      <item> Delete </item>
+      <item> Insert </item>
+      <item> compare </item>
+      <item> CAPS </item>
+      <item> PutBf </item>
+      <item> GetArgs </item>
+      <item> GetEnv </item>
+      <item> ResetClock </item>
+      <item> UserTime </item>
+      <item> SystemTime </item>
+      <item> GetChar </item>
+      <item> GetInt </item>
+      <item> GetCard </item>
+      <item> GetString </item>
+      <item> GetReal </item>
+      <item> GetLongReal </item>
+      <item> PutChar </item>
+      <item> PutInt </item>
+      <item> PutCard </item>
+      <item> PutString </item>
+      <item> PutReal </item>
+      <item> PutLongReal </item>
+      <item> PutLn </item>
+    </list>
     <list name="keywords">
       <item> AND </item>
       <item> ARRAY </item>
@@ -71,30 +71,30 @@
       <item> DIV </item>
       <item> DO </item>
       <item> ELSE </item>
-			<item> ELSIF </item>
+      <item> ELSIF </item>
       <item> END </item>
       <item> FOR </item>
       <item> IF </item>
       <item> IMPLEMENTATION </item>
       <item> IN </item>
-			<item> SET </item>
-			<item> INCL </item>
-			<item> EXCL </item>
-			<item> ABS </item>
-			<item> BITSET </item>
-			<item> CAP </item>
-			<item> CHR </item>
-			<item> DEC </item>
-			<item> HALT </item>
-			<item> HIGH </item>
-			<item> INC </item>
-			<item> MAX </item>
-			<item> MIN </item>
-			<item> ODD </item>
-			<item> ORD </item>
-			<item> PROC </item>
-			<item> TRUNC </item>
-			<item> VAL </item>
+      <item> SET </item>
+      <item> INCL </item>
+      <item> EXCL </item>
+      <item> ABS </item>
+      <item> BITSET </item>
+      <item> CAP </item>
+      <item> CHR </item>
+      <item> DEC </item>
+      <item> HALT </item>
+      <item> HIGH </item>
+      <item> INC </item>
+      <item> MAX </item>
+      <item> MIN </item>
+      <item> ODD </item>
+      <item> ORD </item>
+      <item> PROC </item>
+      <item> TRUNC </item>
+      <item> VAL </item>
       <item> MOD </item>
       <item> NIL </item>
       <item> NOT </item>
@@ -120,26 +120,26 @@
       <item> FROM </item>
       <item> IMPORT </item>
       <item> EXPORT </item>
-			<item> QUALIFIED </item>
-			<item> RETURN </item>
-			<item> NEWPROCESS </item>
-			<item> TRANSFER </item>
-			<item> IOTRANSFER </item>
-			<item> FOREIGN </item>
+      <item> QUALIFIED </item>
+      <item> RETURN </item>
+      <item> NEWPROCESS </item>
+      <item> TRANSFER </item>
+      <item> IOTRANSFER </item>
+      <item> FOREIGN </item>
     </list>
     <list name="types">
       <item> INTEGER </item>
       <item> CARDINAL </item>
       <item> SHORTINT </item>
       <item> SHORTCARD </item>
-			<item> LONGINT </item>
-			<item> LONGREAL </item>
+      <item> LONGINT </item>
+      <item> LONGREAL </item>
       <item> CHAR </item>
       <item> BOOLEAN </item>
       <item> POINTER </item>
       <item> ADDRESS </item>
-			<item> ADR </item>
-			<item> REAL </item>
+      <item> ADR </item>
+      <item> REAL </item>
       <item> File </item>
     </list>
     <contexts>
@@ -169,15 +169,15 @@
       </context>
 
     </contexts>
-		<itemDatas>
-			<itemData name="Normal Text" defStyleNum="dsNormal" />
-			<itemData name="Keyword"     defStyleNum="dsKeyword" />
-			<itemData name="Type"        defStyleNum="dsDataType"/>
-			<itemData name="Number"      defStyleNum="dsDecVal" />
-			<itemData name="String"      defStyleNum="dsString" />
-			<itemData name="Directive"   defStyleNum="dsOthers" />
-			<itemData name="Comment"     defStyleNum="dsComment" />
-		</itemDatas>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Keyword"     defStyleNum="dsKeyword" />
+      <itemData name="Type"        defStyleNum="dsDataType"/>
+      <itemData name="Number"      defStyleNum="dsDecVal" />
+      <itemData name="String"      defStyleNum="dsString" />
+      <itemData name="Directive"   defStyleNum="dsOthers" />
+      <itemData name="Comment"     defStyleNum="dsComment" />
+    </itemDatas>
   </highlighting>
   <general>
     <keywords casesensitive="1" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Highlighting for Sieve scripts (RFC 3028) written by Petter E. Stokke -->
-<language name="Sieve" version="1.04" kateversion="2.3" section="Scripts" extensions="*.siv" mimetype="application/sieve" priority="5" author="Petter E. Stokke" license="">
+<language name="Sieve" version="1.05" kateversion="2.4" section="Scripts" extensions="*.siv" mimetype="application/sieve" priority="5" author="Petter E. Stokke" license="">
   <highlighting>
     <list name="keywords">
       <item> require </item>
@@ -20,7 +20,7 @@
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
-        <RegExpr attribute="Decimal" context="#stay" String="[0-9]+[KMG]?" />
+        <RegExpr attribute="Decimal" context="#stay" String="\d+[KMG]?" />
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <RegExpr attribute="String" context="MultilineString" String="text:$" beginRegion="String" />
         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="Comment"/>
@@ -35,11 +35,11 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="String" name="MultilineString">
-        <RegExpr attribute="String" context="#pop" String="^\.$" />
+        <RegExpr attribute="String" context="#pop" String="\.$" column="0"/>
         <HlCStringChar attribute="String Char" context="#stay" />
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
+        <RegExpr attribute="Function" context="#pop" String="\b[_a-zA-Z]\w*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>

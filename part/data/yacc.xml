@@ -20,7 +20,7 @@
 
   ========================================================================
 -->
-<language name="Yacc/Bison" version="1.02" kateversion="2.4" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
+<language name="Yacc/Bison" version="1.03" kateversion="2.4" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -130,7 +130,7 @@
     <RegExpr attribute="Data Type" context="DolEnd" String="&lt;[^&gt;]+&gt;" />
   </context>
   <context name="DolEnd" attribute="Normal Text">
-    <RegExpr attribute="Directive" context="#pop#pop" String="[0-9]+" />
+    <RegExpr attribute="Directive" context="#pop#pop" String="\d+" />
     <DetectChar attribute="Directive" context="#pop#pop" char="$" />
   </context>
 </contexts>
@@ -156,3 +156,4 @@
   </comments>
 </general>
 </language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

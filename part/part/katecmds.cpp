@@ -411,7 +411,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
     }
   }
 
-  msg = i18n("%1 replacements done").arg( res );
+  msg = i18n("1 replacement done", "%n replacements done",res );
 
   doc->editEnd();
 

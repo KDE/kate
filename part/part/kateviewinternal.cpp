@@ -1048,6 +1048,19 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
                                           (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
                                           myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
 
+      if (cXPos > r->lengthPixel)
+      
+      if (cursorOn && (r->line == cursor.line))
+     {     
+        if (b)
+	{
+	  int cursorMaxWidth = myDoc->viewFont.myFontMetrics.width(QChar (' '));
+          paint.fillRect(cXPos-xPos, 0, cursorMaxWidth, myDoc->viewFont.fontHeight, myDoc->myAttribs[0].col);
+	}
+       else
+         paint.fillRect(cXPos-xPos, 0, 2, myDoc->viewFont.fontHeight, myDoc->myAttribs[0].col);
+      }
+					  
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
 
       leftBorder->paintLine(line, r);
@@ -1395,7 +1408,20 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
       myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xStart, xEnd,
                                           (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
                                           myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
-    }
+   
+     if ((cXPos > r->lengthPixel) && (cXPos>=xStart) && (cXPos<=xEnd))
+      if (cursorOn && (r->line == cursor.line))
+     {     
+        if (b)
+	{
+	  int cursorMaxWidth = myDoc->viewFont.myFontMetrics.width(QChar (' '));
+          paint.fillRect(cXPos-xPos, 0, cursorMaxWidth, myDoc->viewFont.fontHeight, myDoc->myAttribs[0].col);
+	}
+       else
+         paint.fillRect(cXPos-xPos, 0, 2, myDoc->viewFont.fontHeight, myDoc->myAttribs[0].col);
+      }
+   }
+  
 
     bitBlt(this, updateR.x(), (line-startLine)*h, drawBuffer, 0, 0, updateR.width(), h);
 

@@ -218,6 +218,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   int cursorXPos = 0, cursorXPos2 = 0;
   int cursorMaxWidth = 0;
 
+  // should we paint the word wrap marker?
+  bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && QFontInfo( fs->myFont ).fixedPitch();
+  
   // Normal background color
   QColor backgroundColor (*config()->backgroundColor());
 
@@ -277,13 +280,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
     // Draw line background
     paint.fillRect(0, 0, xEnd - xStart, fs->fontHeight, backgroundColor);
-  }
-
-  // show word wrap marker if desirable
-  if ( !isPrinterFriendly() && config()->wordWrapMarker() && fs->myFont.fixedPitch() ) {
-    paint.setPen( *config()->wordWrapMarkerColor() );
-    int _x = m_doc->config()->wordWrapAt() * fs->myFontMetrics.width('x') - xStart;
-    paint.drawLine( _x,0,_x,fs->fontHeight );
   }
 
   if (startcol > (int)len)
@@ -608,6 +604,13 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       else
         paint.fillRect(cursorXPos2-xStart, 0, 2, fs->fontHeight, attribute(0)->textColor());
     }
+  }
+  
+  // show word wrap marker if desirable
+  if ( paintWWMarker ) {
+    paint.setPen( *config()->wordWrapMarkerColor() );
+    int _x = m_doc->config()->wordWrapAt() * fs->myFontMetrics.width('x') - xStart;
+    paint.drawLine( _x,0,_x,fs->fontHeight );
   }
 
   // cleanup ;)

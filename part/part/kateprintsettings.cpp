@@ -18,7 +18,7 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
-// $Id:$
+// $Id$
  
 #include "kateprintsettings.h"
 
@@ -67,7 +67,7 @@ KatePrintTextSettings::KatePrintTextSettings( KPrinter */*printer*/, QWidget *pa
         "<p>If enabled, line numbers will be printed on the left side of the page(s).</p>") );
   QWhatsThis::add( cbGuide, i18n(
         "<p>Print a box displaying typographical conventions for the document type, as "
-        "defined by the syntax highlightning beeing used.") );
+        "defined by the syntax highlighting being used.") );
 }
 
 void KatePrintTextSettings::getOptions( QMap<QString,QString>& opts, bool )
@@ -193,14 +193,14 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   QString  s = i18n("<p>Format of the page header. The following tags are supported:</p>");
   QString s1 = i18n(
       "<ul><li><tt>%u</tt> : current user name</li>"
-      "<li><tt>%d</tt> : complete date/time in short format</li>"
-      "<li><tt>%D</tt> : complete date/time in long format</li>"
-      "<li><tt>%h</tt> : current time</li>"
-      "<li><tt>%y</tt> : current date in short format</li>"
-      "<li><tt>%Y</tt> : current date in long format</li>"
-      "<li><tt>%f</tt> : file name</li>"
-      "<li><tt>%U</tt> : full URL of the document</li>"
-      "<li><tt>%p</tt> : page number</li>"
+      "<li><tt>%d</tt>: complete date/time in short format</li>"
+      "<li><tt>%D</tt>: complete date/time in long format</li>"
+      "<li><tt>%h</tt>: current time</li>"
+      "<li><tt>%y</tt>: current date in short format</li>"
+      "<li><tt>%Y</tt>: current date in long format</li>"
+      "<li><tt>%f</tt>: file name</li>"
+      "<li><tt>%U</tt>: full URL of the document</li>"
+      "<li><tt>%p</tt>: page number</li>"
       "</ul><br>"
       "<u>Note:</u> Do <b>not</b> use the '|' (vertical bar) character.");
   QWhatsThis::add(leHeaderRight, s + s1 );
@@ -344,16 +344,15 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
   // whatsthis
   QWhatsThis::add( cbDrawBackground, i18n(
         "<p>If enabled, the background color of the editor will be used.</p>"
-        "<p>This may be usefull if your color scheme is designed for a dark background, "
-        "but may mean a huge waste of bleach.</p>") );
+        "<p>This may be useful if your color scheme is designed for a dark background.</p>") );
   QWhatsThis::add( cbEnableBox, i18n(
         "<p>If enabled, a box as defined in the properties below will be drawn "
-        "around the contents of each page. Header and Footer will be weparated "
-        "from contents with a line as well</p>") );
+        "around the contents of each page. The Header and Footer will be separated "
+        "from the contents with a line as well.</p>") );
   QWhatsThis::add( sbBoxWidth, i18n(
         "The width of the box outline" ) );
   QWhatsThis::add( sbBoxMargin, i18n(
-        "The margin inside boxes in pixels") );
+        "The margin inside boxes, in pixels") );
   QWhatsThis::add( kcbtnBoxColor, i18n(
         "The line color to use for boxes") );
 }

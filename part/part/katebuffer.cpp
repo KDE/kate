@@ -249,7 +249,7 @@ KateBuffer::~KateBuffer()
  */
 void KateBuffer::checkLoadedMax ()
 {
-  if (!m_cacheWriteError && m_loadedBlocks.count() > 40)
+  if (m_loadedBlocks.count() > 40)
   {
     KateBufBlock *buf2 = m_loadedBlocks.take(2);
     bool ok = buf2->swapOut ();

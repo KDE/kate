@@ -3395,10 +3395,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
     w = config()->tabWidth();
 
   if (first_char < 0)
-    first_char = ((int) textline->length()) - 1;
-
-  if (first_char < 0)
-    first_char = 0;
+    first_char = textline->length();
 
   int space =  textline->cursorX(first_char, config()->tabWidth()) + change * w;
   if (space < 0)
@@ -3415,6 +3412,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
     }
   }
 
+  kdDebug() << "replace With Op: " << line << " " << first_char << " " << space << endl;
   replaceWithOptimizedSpace(line, first_char, space, flags);
 }
 

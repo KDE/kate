@@ -39,6 +39,7 @@
 #include <kmimetype.h>
 #include <klocale.h>
 #include <kregexp.h>
+#include <kpopupmenu.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
@@ -1167,43 +1168,39 @@ void Highlight::doHighlight(QMemArray<short> oCtx, TextLine *textLine,bool lineC
   if (item==0)
     textLine->setHlLineContinue(false);
   else
-  {
     textLine->setHlLineContinue(item->lineContinue());
-
-    if (item->lineContinue())
-      kdDebug(13010)<<"Setting line continue flag"<<endl;
-  }
 
   textLine->setContext(ctx.data(), ctx.size());
 }
 
-KConfig *Highlight::getKConfig()
-{
-  KConfig *config = HlManager::getKConfig();
-
-  config->setGroup(iName + QString(" Highlight"));
-
-  return config;
-}
-
 QString Highlight::getWildcards()
 {
-  return getKConfig()->readEntry("Wildcards", iWildcards);
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName);
+
+  return config->readEntry("Wildcards", iWildcards);
 }
 
 QString Highlight::getMimetypes()
 {
-  return getKConfig()->readEntry("Mimetypes", iMimetypes);
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName);
+
+  return config->readEntry("Mimetypes", iMimetypes);
 }
 
 int Highlight::priority()
 {
-  return getKConfig()->readNumEntry("Priority", m_priority);
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName);
+
+  return config->readNumEntry("Priority", m_priority);
 }
 
 HlData *Highlight::getData()
 {
-  KConfig *config = getKConfig();
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName);
 
   HlData *hlData = new HlData(
   config->readEntry("Wildcards", iWildcards),
@@ -1216,22 +1213,19 @@ HlData *Highlight::getData()
 
 void Highlight::setData(HlData *hlData)
 {
-  KConfig *config = getKConfig();
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName);
 
   config->writeEntry("Wildcards",hlData->wildcards);
   config->writeEntry("Mimetypes",hlData->mimetypes);
   config->writeEntry("Priority",hlData->priority);
-
-  config->sync ();
 }
 
-void Highlight::getItemDataList(ItemDataList &list)
+void Highlight::getItemDataList (uint schema, ItemDataList &list)
 {
-  getItemDataList(list, getKConfig());
-}
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName + " - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
-void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
-{
   list.clear();
   createItemData(list);
 
@@ -1290,8 +1284,11 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
                         * return value: none
 *******************************************************************************************/
 
-void Highlight::setItemDataList(ItemDataList &list, KConfig *config)
+void Highlight::setItemDataList(uint schema, ItemDataList &list)
 {
+  KConfig *config = HlManager::self()->getKConfig();
+  config->setGroup("Highlighting " + iName + " - Schema " + KateFactory::self()->schemaManager()->name(schema));
+
   QStringList settings;
 
   for (ItemData *p = list.first(); p != 0L; p = list.next())
@@ -2235,7 +2232,7 @@ void Highlight::clearAttributeArrays ()
     HlManager::self()->getDefaults(it.currentKey(), defaultStyleList);
   
     ItemDataList itemDataList;
-    getItemDataList(itemDataList);
+    getItemDataList(it.currentKey(), itemDataList);
   
     uint nAttribs = itemDataList.count();
     QMemArray<KateAttribute> *array = it.current();
@@ -2281,7 +2278,7 @@ QMemArray<KateAttribute> *Highlight::attributes (uint schema)
   HlManager::self()->getDefaults(schema, defaultStyleList);
 
   ItemDataList itemDataList;
-  getItemDataList(itemDataList);
+  getItemDataList(schema, itemDataList);
 
   uint nAttribs = itemDataList.count();
   array = new QMemArray<KateAttribute> (nAttribs);
@@ -2362,11 +2359,6 @@ HlManager *HlManager::self()
     sdHlMan.setObject(s_self, new HlManager ());
 
   return s_self;
-}
-
-KConfig *HlManager::getKConfig()
-{
-  return &(self()->m_config);
 }
 
 Highlight *HlManager::getHl(int n)
@@ -2600,8 +2592,8 @@ void HlManager::getDefaults(uint schema, KateAttributeList &list)
   others->setSelectedTextColor(Qt::green);
   list.append(others);
 
-  KConfig *config = HlManager::getKConfig();
-  config->setGroup(KateFactory::self()->schemaManager()->name(schema) + ": Default Item Styles");
+  KConfig *config = HlManager::self()->self()->getKConfig();
+  config->setGroup("Default Item Styles - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
@@ -2643,8 +2635,8 @@ void HlManager::getDefaults(uint schema, KateAttributeList &list)
 
 void HlManager::setDefaults(uint schema, KateAttributeList &list)
 {
-  KConfig *config =  HlManager::getKConfig();
-  config->setGroup(KateFactory::self()->schemaManager()->name(schema) + ": Default Item Styles");
+  KConfig *config =  HlManager::self()->self()->getKConfig();
+  config->setGroup("Default Item Styles - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
@@ -2682,21 +2674,6 @@ QString HlManager::hlSection(int n)
   return hlList.at(n)->section();
 }
 
-void HlManager::getHlDataList(HlDataList &list)
-{
-  for (uint z = 0; z < hlList.count(); z++)
-    list.append(hlList.at(z)->getData());
-}
-
-void HlManager::setHlDataList(HlDataList &list)
-{
-  for (uint z = 0; z < hlList.count(); z++)
-    hlList.at(z)->setData(list.at(z));
-
-  //notify documents about changes in highlight configuration
-  emit changed();
-}
-
 QString HlManager::identifierForName(const QString& name)
 {
   Highlight *hl = 0;
@@ -2707,9 +2684,6 @@ QString HlManager::identifierForName(const QString& name)
   return QString();
 }
 //END
-
-
-#include <kpopupmenu.h>
 
 void KateViewHighlightAction::init()
 {

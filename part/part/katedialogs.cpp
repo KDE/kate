@@ -327,6 +327,8 @@ void HlConfigPage::apply ()
       hlManager->getHl( it.currentKey() )->setData( it.current() );
       hlManager->emitChanged( (uint)it.currentKey() );
     }
+    
+    hlManager->getKConfig()->sync ();
   }
 }
 

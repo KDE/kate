@@ -95,7 +95,6 @@ typedef QPtrList<ItemData> ItemDataList;
 class HlData {
   public:
     HlData(const QString &wildcards, const QString &mimetypes,const QString &identifier, int priority);
-    ItemDataList itemDataList;
     QString wildcards;
     QString mimetypes;
     QString identifier;
@@ -103,9 +102,6 @@ class HlData {
 };
 
 typedef QPtrList<HlData> HlDataList;
-
-class HlManager;
-class KConfig;
 
 //context
 class HlContext {
@@ -148,14 +144,16 @@ class Highlight
 
     void doHighlight(QMemArray<short> oCtx, TextLine *,bool lineContinue,QMemArray<signed char> *foldingList);
 
-    KConfig *getKConfig();
     QString getWildcards();
     QString getMimetypes();
+    
+    // this pointer needs to be deleted !!!!!!!!!!
     HlData *getData();
     void setData(HlData *);
-    void getItemDataList(ItemDataList &);
-    void getItemDataList(ItemDataList &, KConfig *);
-    void setItemDataList(ItemDataList &, KConfig *);
+
+    void getItemDataList(uint schema, ItemDataList &);
+    void setItemDataList(uint schema, ItemDataList &);
+    
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
     inline QString version() const {return iVersion;}
@@ -256,7 +254,7 @@ class HlManager : public QObject
 
     static HlManager *self();
     
-    static KConfig *getKConfig();
+    inline KConfig *getKConfig() { return &m_config; };
     
     Highlight *getHl(int n);
     int nameFind(const QString &name);
@@ -276,8 +274,6 @@ class HlManager : public QObject
     int highlights();
     QString hlName(int n);
     QString hlSection(int n);
-    void getHlDataList(HlDataList &);
-    void setHlDataList(HlDataList &);
 
   signals:
     void changed();

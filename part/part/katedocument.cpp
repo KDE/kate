@@ -2502,7 +2502,9 @@ bool KateDocument::printDialog ()
 
          // see how many columns we can fit in
          int _widest( 0 );
-         QPtrListIterator<ItemData> it( m_highlight->getData()->itemDataList );
+         ItemDataList ilist;
+         m_highlight->getItemDataList(renderer.config()->schema(), ilist);
+         QPtrListIterator<ItemData> it( ilist );
          ItemData *_d;
 
          int _items ( 0 );
@@ -2718,7 +2720,9 @@ bool KateDocument::printDialog ()
              paint.drawLine( _x, y, _x + _w, y );
              y += 1 + innerMargin;
              // draw attrib names using their styles
-             QPtrListIterator<ItemData> _it( m_highlight->getData()->itemDataList );
+             ItemDataList ilist;
+             m_highlight->getItemDataList(renderer.config()->schema(), ilist);
+             QPtrListIterator<ItemData> _it( ilist );
              ItemData *_d;
              int _cw = _w/guideCols;
              int _i(0);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.18" kateversion="2.3" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.19" kateversion="2.3" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -2684,7 +2684,7 @@
         <keyword attribute="Other" context="#stay" String="Others" />
       </context>
       <context name="onelinecomment" attribute="Comment" lineEndContext="#pop">
-        <StringDetect attribute="Keyword" context="#pop#pop" String="?&gt;" />
+        <StringDetect attribute="Keyword" context="#pop" lookAhead="true" String="?&gt;" />
       </context>
       <context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />

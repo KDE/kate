@@ -994,8 +994,6 @@ KateBufBlock::buildStringList()
       }
    }
    assert(m_stringList.size() == (m_endState.lineNr - m_beginState.lineNr));
-   m_stringListIt = m_stringList.begin();
-   m_stringListCurrent = 0;
    b_stringListValid = true;
    b_needHighlight = true;
 }
@@ -1145,8 +1143,6 @@ KateBufBlock::buildStringListFast()
 
   //kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
   assert(m_stringList.size() == (m_endState.lineNr - m_beginState.lineNr));
-  m_stringListIt = m_stringList.begin();
-  m_stringListCurrent = 0;
   b_stringListValid = true;
   //b_needHighlight = true;
 }
@@ -1193,25 +1189,6 @@ KateBufBlock::disposeSwap(KVMAllocator *vm)
 }     
 
 /**
- * Make line @p i the current line
- */
-void KateBufBlock::seek(uint i)
-{
-   if (m_stringListCurrent == (int)i)
-      return;
-   while(m_stringListCurrent < (int)i)
-   {
-      ++m_stringListCurrent;
-      ++m_stringListIt;
-   }
-   while(m_stringListCurrent > (int)i)
-   {
-      --m_stringListCurrent;
-      --m_stringListIt;
-   }
-}
-
-/**
  * Return line @p i
  * The first line of this block is line 0.
  */
@@ -1220,8 +1197,8 @@ KateBufBlock::line(uint i)
 {     
    assert(b_stringListValid);     
    assert(i < m_stringList.size());
-   seek(i);
-   return *m_stringListIt;
+ 
+   return m_stringList[i];
 }
 
 void
@@ -1229,9 +1206,8 @@ KateBufBlock::insertLine(uint i, TextLine::Ptr line)
 {
    assert(b_stringListValid);
    assert(i <= m_stringList.size());
-   seek(i);
-   m_stringListIt = m_stringList.insert(m_stringListIt, line);
-   m_stringListCurrent = i;
+   
+   m_stringList.insert(m_stringList.begin()+i, line);
    m_endState.lineNr++;
 }
 
@@ -1240,9 +1216,8 @@ KateBufBlock::removeLine(uint i)
 {
    assert(b_stringListValid);
    assert(i < m_stringList.size());
-   seek(i);
-   m_stringListIt = m_stringList.erase(m_stringListIt);
-   m_stringListCurrent = i;
+   
+   m_stringList.erase(m_stringList.begin()+i);
    m_endState.lineNr--;
 }
 

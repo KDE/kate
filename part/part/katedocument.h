@@ -610,6 +610,9 @@ class KateDocument : public Kate::Document
     bool removeStringFromBegining(int line, QString &str);
     bool removeStringFromEnd(int line, QString &str);
 
+    bool nextNonSpaceCharPos(int &line, int &col);
+    bool previousNonSpaceCharPos(int &line, int &col);
+
     void addStartLineCommentToSingleLine(int line);
     bool removeStartLineCommentFromSingleLine(int line);
 

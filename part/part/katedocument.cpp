@@ -3335,6 +3335,44 @@ void KateDocument::addStartLineCommentToSelection()
 }
 
 /*
+  Find the position (line and col) of the next char
+  that is not a space. Return true if found.
+*/
+bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
+{
+  for(; line < buffer->count(); line++) {
+    TextLine::Ptr textLine = buffer->line(line);
+    col = textLine->nextNonSpaceChar(col);
+    if(col != -1)
+      return true; // Next non-space char found 
+    col = 0;
+  }
+  // No non-space char found
+  line = -1;
+  col = -1;
+  return false;
+}
+
+/*
+  Find the position (line and col) of the previous char
+  that is not a space. Return true if found.
+*/
+bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
+{
+  for(; line < buffer->count(); line++) {
+    TextLine::Ptr textLine = buffer->line(line);
+    col = textLine->previousNonSpaceChar(col);
+    if(col != -1)
+      return true; // Previous non space char found 
+    col = 0;
+  }
+  // No non space char found
+  line = -1;
+  col = -1;
+  return false;
+}
+
+/*
   Remove from the selection a start comment mark at
   the begining and a stop comment mark at the end.
 */

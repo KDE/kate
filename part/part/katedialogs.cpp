@@ -850,111 +850,47 @@ void SaveConfigTab::defaults()
 
 //END SaveConfigTab
 
-// FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and
-// there is a need for an itemUnset(XYZ)
-// a) is done. itemUnset(N) == !itemSet(N); right???
-// there is a unsetItem(), just (not all logic) called "KateAttribute::clearAttribute(int)";
-
 //BEGIN PluginListItem
-PluginListItem::PluginListItem(const bool _exclusive, bool _checked, KatePartPluginInfo *_info, QListView *_parent)
-  : QCheckListItem(_parent, _info->service->name(), CheckBox)
-  , mInfo(_info)
-  , silentStateChange(false)
-  , exclusive(_exclusive)
+class KatePartPluginListItem : public QCheckListItem
 {
-  setChecked(_checked);
-  if(_checked) static_cast<PluginListView *>(listView())->count++;
-}
-
-
-void PluginListItem::setChecked(bool b)
+  public:
+    KatePartPluginListItem(bool checked, KatePartPluginInfo *info, QListView *parent);
+    KatePartPluginInfo *info() const { return mInfo; }
+  
+  protected:        
+    void stateChange(bool);
+    
+  private:
+    KatePartPluginInfo *mInfo;
+    bool silentStateChange;
+};
+         
+KatePartPluginListItem::KatePartPluginListItem(bool checked, KatePartPluginInfo *info, QListView *parent)
+  : QCheckListItem(parent, info->service->name(), CheckBox)
+  , mInfo(info)
+  , silentStateChange(false)
 {
   silentStateChange = true;
-  setOn(b);
+  setOn(checked);
   silentStateChange = false;
 }
 
-void PluginListItem::stateChange(bool b)
+void KatePartPluginListItem::stateChange(bool b)
 {
   if(!silentStateChange)
-    static_cast<PluginListView *>(listView())->stateChanged(this, b);
-}
-
-void PluginListItem::paintCell(QPainter *p, const QColorGroup &cg, int a, int b, int c)
-{
-  if(exclusive) myType = RadioButton;
-  QCheckListItem::paintCell(p, cg, a, b, c);
-  if(exclusive) myType = CheckBox;
+    static_cast<KatePartPluginListView *>(listView())->stateChanged(this, b);
 }
 //END
 
 //BEGIN PluginListView
-PluginListView::PluginListView(unsigned _min, unsigned _max, QWidget *_parent, const char *_name)
-  : KListView(_parent, _name)
-  , hasMaximum(true)
-  , max(_max)
-  , min(_min <= _max ? _min : _max)
-  , count(0)
+KatePartPluginListView::KatePartPluginListView(QWidget *parent, const char *name)
+  : KListView(parent, name)
 {
 }
 
-PluginListView::PluginListView(unsigned _min, QWidget *_parent, const char *_name)
-  : KListView(_parent, _name)
-  , hasMaximum(false)
-  , min(_min)
-  , count(0)
+void KatePartPluginListView::stateChanged(KatePartPluginListItem *item, bool b)
 {
-}
-
-PluginListView::PluginListView(QWidget *_parent, const char *_name)
-  : KListView(_parent, _name)
-  , hasMaximum(false)
-  , min(0)
-  , count(0)
-{
-}
-
-void PluginListView::clear()
-{
-  count = 0;
-  KListView::clear();
-}
-
-void PluginListView::stateChanged(PluginListItem *item, bool b)
-{
-  if(b)
-  {
-    count++;
-    emit stateChange(item, b);
-
-    if(hasMaximum && count > max)
-    {
-      // Find a different one and turn it off
-
-      QListViewItem *cur = firstChild();
-      PluginListItem *curItem = dynamic_cast<PluginListItem *>(cur);
-
-      while(cur == item || !curItem || !curItem->isOn())
-      {
-        cur = cur->nextSibling();
-        curItem = dynamic_cast<PluginListItem *>(cur);
-      }
-
-      curItem->setOn(false);
-    }
-  }
-  else
-  {
-    if(count == min)
-    {
-      item->setChecked(true);
-    }
-    else
-    {
-      count--;
-      emit stateChange(item, b);
-    }
-  }
+  emit stateChange(item, b);
 }
 //END
 
@@ -966,16 +902,16 @@ PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : KateCo
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 
-  PluginListView* listView = new PluginListView(0, this);
+  KatePartPluginListView* listView = new KatePartPluginListView(this);
   listView->addColumn(i18n("Name"));
   listView->addColumn(i18n("Comment"));
-  connect(listView, SIGNAL(stateChange(PluginListItem *, bool)), this, SLOT(stateChange(PluginListItem *, bool)));
+  connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(stateChange(KatePartPluginListItem *, bool)));
 
   grid->addWidget( listView, 0, 0);
 
   for (uint i=0; i<m_doc->s_plugins.count(); i++)
   {
-    PluginListItem *item = new PluginListItem(false, m_doc->s_plugins.at(i)->load, m_doc->s_plugins.at(i), listView);
+    KatePartPluginListItem *item = new KatePartPluginListItem(m_doc->s_plugins.at(i)->load, m_doc->s_plugins.at(i), listView);
     item->setText(0, m_doc->s_plugins.at(i)->service->name());
     item->setText(1, m_doc->s_plugins.at(i)->service->comment());
   }
@@ -985,7 +921,7 @@ PluginConfigPage::~PluginConfigPage ()
 {
 }
 
-void PluginConfigPage::stateChange(PluginListItem *item, bool b)
+void PluginConfigPage::stateChange(KatePartPluginListItem *item, bool b)
 {
   if(b)
     loadPlugin(item);
@@ -994,7 +930,7 @@ void PluginConfigPage::stateChange(PluginListItem *item, bool b)
   emit changed();
 }
 
-void PluginConfigPage::loadPlugin (PluginListItem *item)
+void PluginConfigPage::loadPlugin (KatePartPluginListItem *item)
 {
   item->info()->load = true;
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
@@ -1003,7 +939,7 @@ void PluginConfigPage::loadPlugin (PluginListItem *item)
   item->setOn(true);
 }
 
-void PluginConfigPage::unloadPlugin (PluginListItem *item)
+void PluginConfigPage::unloadPlugin (KatePartPluginListItem *item)
 {
   item->info()->load = false;
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)

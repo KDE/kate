@@ -29,10 +29,7 @@
 
 #include "../interfaces/document.h"
 
-#define private protected
 #include <klistview.h>
-#undef private
-
 #include <kdialogbase.h>
 #include <kmimetype.h>
 
@@ -42,7 +39,7 @@
 #include <qvbox.h>
 #include <qtabwidget.h>
 
-class KatePartPluginInfo;
+class KatePartPluginListItem;
 
 struct syntaxContextData;
 
@@ -263,46 +260,22 @@ class SaveConfigTab : public KateConfigPage
   KateDocument *m_doc;
 };
 
-class PluginListItem : public QCheckListItem
-{
-  public:
-    PluginListItem(const bool _exclusive, bool _checked, KatePartPluginInfo *_info, QListView *_parent);
-    KatePartPluginInfo *info() const { return mInfo; }
+class KatePartPluginListItem;
 
-    void setChecked(bool);
-  
-  protected:
-    virtual void stateChange(bool);
-    virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
-  
-  private:
-    KatePartPluginInfo *mInfo;
-    bool silentStateChange;
-    bool exclusive;
-};
-
-class PluginListView : public KListView
+class KatePartPluginListView : public KListView
 {
   Q_OBJECT
   
-  friend class PluginListItem;
+  friend class KatePartPluginListItem;
   
   public:
-    PluginListView(QWidget *_parent = 0, const char *_name = 0);
-    PluginListView(unsigned _min, QWidget *_parent = 0, const char *_name = 0);
-    PluginListView(unsigned _min, unsigned _max, QWidget *_parent = 0, const char *_name = 0);
-  
-    virtual void clear();
+    KatePartPluginListView (QWidget *parent = 0, const char *name = 0);
   
   signals:
-    void stateChange(PluginListItem *, bool);
+    void stateChange(KatePartPluginListItem *, bool);
   
   private:
-    void stateChanged(PluginListItem *, bool);
-  
-    bool hasMaximum;
-    unsigned max, min;
-    unsigned count;
+    void stateChanged(KatePartPluginListItem *, bool);
 };
 
 class PluginConfigPage : public KateConfigPage
@@ -317,11 +290,11 @@ class PluginConfigPage : public KateConfigPage
     KateDocument *m_doc;
 
   private slots:
-    void stateChange(PluginListItem *, bool);
+    void stateChange(KatePartPluginListItem *, bool);
 
   private slots:
-    void loadPlugin (PluginListItem *);
-    void unloadPlugin (PluginListItem *);
+    void loadPlugin (KatePartPluginListItem *);
+    void unloadPlugin (KatePartPluginListItem *);
 
   signals:
     void changed();

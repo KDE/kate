@@ -62,7 +62,7 @@ class ConfigPage : public QWidget
 
 /**
 * This is an interface to extend the configuration of the
-* \ref Document, \ref Plugin and \ref PluginViewInterface classes.
+* Document, Plugin and PluginViewInterface classes.
 */
 class ConfigInterfaceExtension
 {

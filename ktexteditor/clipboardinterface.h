@@ -25,7 +25,7 @@ namespace KTextEditor
 {
 
 /**
-* This is an interface for accessing the clipboard through the \ref View class.
+* This is an interface for accessing the clipboard through the View class.
 */
 class ClipboardInterface
 {

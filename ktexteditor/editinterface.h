@@ -26,7 +26,7 @@ namespace KTextEditor
 
 /**
 * This is the main interface for accessing and modifying
-* text of the \ref Document class.
+* text of the Document class.
 */
 class EditInterface
 {

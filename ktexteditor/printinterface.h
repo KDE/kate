@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface to printing functions of a \ref Document.
+*  This is an interface to printing functions of a Document.
 */
 class PrintInterface
 {

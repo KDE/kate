@@ -25,7 +25,7 @@ namespace KTextEditor
 {
 
 /**
- * An interface for the \ref Document class which allows the selection
+ * An interface for the Document class which allows the selection
  * method to be changed between selecting rectangular blocks of text and normal mode
  * (all text between the start cursor and the current cursor).
  */

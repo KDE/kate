@@ -29,7 +29,7 @@ namespace KTextEditor
 
 /**
     Provide access to seleciton positions.
-    This is an interface for the \ref Document class.
+    This is an interface for the Document class.
     Mainly here for dcop and the sake of scripting.
     @author Anders Lund <anders@alweb.dk>
 */

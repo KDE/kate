@@ -28,7 +28,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface to allow searching of a \ref Document.
+*  This is an interface to allow searching of a Document.
 */
 class SearchInterface
 {

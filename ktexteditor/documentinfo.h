@@ -27,7 +27,7 @@ namespace KTextEditor
 
 /**
  * This is an interface for accessing information about files open
- * in the \ref Document, \ref Plugin and \ref PluginViewInterface classes.
+ * in the Document, Plugin and PluginViewInterface classes.
  */
 class DocumentInfoInterface
 {

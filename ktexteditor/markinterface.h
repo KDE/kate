@@ -35,7 +35,7 @@ class Mark
 };
 
 /**
-*  This is an interface to enable marks to be made in the iconborder of the \ref Document class.
+*  This is an interface to enable marks to be made in the iconborder of the Document class.
 */
 class MarkInterface
 {
@@ -68,7 +68,7 @@ class MarkInterface
     /**
      * Pre-defined mark types.
      *
-     * To create a non-standard mark type, use \ref MarkInterfaceExtension.
+     * To create a non-standard mark type, use MarkInterfaceExtension.
      * To add a new standard mark type, edit this interface to document the type.
      */
     enum MarkTypes

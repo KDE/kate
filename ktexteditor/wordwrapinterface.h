@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface to control fixed-column word-wrapping of a \ref Document.
+*  This is an interface to control fixed-column word-wrapping of a Document.
 */
 class WordWrapInterface
 {

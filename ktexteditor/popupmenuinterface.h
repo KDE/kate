@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface to provide custom popup menus for a \ref View.
+*  This is an interface to provide custom popup menus for a View.
 */
 class PopupMenuInterface
 {

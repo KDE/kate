@@ -28,8 +28,8 @@ class Document;
 class View;
 
 /**
- * Basic \ref KTextEditor plugin class.
- * This plugin will be bound to a \ref Document.
+ * Basic KTextEditor plugin class.
+ * This plugin will be bound to a Document.
  */                     
 class Plugin : public QObject
 {
@@ -55,7 +55,7 @@ Plugin *createPlugin ( const char* libname, Document *document = 0, const char *
 
 /**
  * View plugin class.
- * This plugin will be bound to a \ref View
+ * This plugin will be bound to a View
  */
 class PluginViewInterface
 {

@@ -43,7 +43,7 @@ class Cursor
 };
 
 /**
-*  This is an interface for accessing the cursor of the \ref Document class.
+*  This is an interface for accessing the cursor of the Document class.
 */
 class CursorInterface
 {

@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface to the text encoding of a \ref Document class.
+*  This is an interface to the text encoding of a Document class.
 */
 class EncodingInterface
 {

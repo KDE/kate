@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface for retrieving status bar messages from the \ref Document class.
+*  This is an interface for retrieving status bar messages from the Document class.
 */
 class ViewStatusMsgInterface
 {

@@ -27,7 +27,7 @@ namespace KTextEditor
 
 /**
 * This is an interface for accessing the configuration of the
-* \ref Document and \ref Plugin classes.
+* Document and Plugin classes.
 */
 class ConfigInterface
 {

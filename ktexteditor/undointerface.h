@@ -25,7 +25,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface to undo functionality of a \ref Document.
+*  This is an interface to undo functionality of a Document.
 */
 class UndoInterface
 {

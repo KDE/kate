@@ -28,9 +28,9 @@ namespace KTextEditor
 {
 
 /**
- * This is a simplfied version of the \ref Document & \ref View classes
+ * This is a simplfied version of the Document & View classes
  * Usage: Load it, merge it's gui + be happy
- * Extensibility: Use the \ref Document / \ref View classes if you want
+ * Extensibility: Use the Document / View classes if you want
  * advanced features, interfaces, etc. This class is just a good text editor
  * widget replacement for applications which just need an embedded text edtor
  * and are not interested in using advanced interfaces.

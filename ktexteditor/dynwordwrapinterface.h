@@ -27,7 +27,7 @@ namespace KTextEditor
 
 /**
  * This is an interface for accessing dynamic word wrapping functionality
- * of the \ref View class.
+ * of the View class.
  */
 class DynWordWrapInterface
 {

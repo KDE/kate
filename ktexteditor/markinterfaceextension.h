@@ -32,7 +32,7 @@ namespace KTextEditor
 
 
 /**
-*  This is an interface for custom extensions of the \ref MarkInterface.
+*  This is an interface for custom extensions of the MarkInterface.
 *  It allows the developer to set pixmaps for custom marks and to indicate which
 *  marks are settable by the user, for example (in kate), as actions in the iconborder's popup menu.
 */

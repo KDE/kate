@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
- * The View class represents a single view of a \ref Document .
+ * The View class represents a single view of a Document .
  */
 
 class View : public QWidget, public KXMLGUIClient
@@ -53,7 +53,7 @@ class View : public QWidget, public KXMLGUIClient
     QCString viewDCOPSuffix () const;
 
     /**
-    * Acess the parent \ref Document.
+    * Acess the parent Document.
     */
     virtual class Document *document () const = 0;
     

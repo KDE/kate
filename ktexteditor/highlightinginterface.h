@@ -27,7 +27,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface for syntax highlighting of a \ref Document.
+*  This is an interface for syntax highlighting of a Document.
 */
 class HighlightingInterface
 {

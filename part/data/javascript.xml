@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
+<!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Minimal javascript support //-->
-<language name="JavaScript" version="1.01" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
+<language name="JavaScript1" version="1.02" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
   <highlighting>
     <list name="keywords">
         <item> if </item>
@@ -33,65 +34,66 @@
         <item> default </item>
     </list>
     <contexts>
-      <context attribute="0" lineEndContext="#stay" name="Normal">
-        <Float attribute="2" context="0">
-          <AnyChar String="fF" attribute="2" context="0" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <Float attribute="Number" context="#stay">
+          <AnyChar String="fF" attribute="Number" context="#stay" />
         </Float>
-        <Int attribute="2" context="#stay" />
-        <keyword attribute="1" context="0" String="keywords" />
-        <DetectChar attribute="3" context="1" char="&quot;" />
-        <DetectChar attribute="3" context="2" char="'" />
-        <Detect2Chars attribute="5" context="4" char="/" char1="/" />
-        <Detect2Chars attribute="5" context="5" char="/" char1="*" />
-        <RegExpr attribute="0" context="7" String="\s*[=?:]\s*" />
-        <RegExpr attribute="0" context="7" String="(search|replace)\s*\(\s*" />
+        <Int attribute="Number" context="#stay" />
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <DetectChar attribute="String" context="String (2)" char="'" />
+        <Detect2Chars attribute="Comment" context="Single Line Comment" char="/" char1="/" />
+        <Detect2Chars attribute="Comment" context="Multiline/Inline Comment" char="/" char1="*" />
+        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\s*[=?:]\s*" />
+        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="(search|replace)\s*\(\s*" />
+	<StringDetect attribute="Keyword" context="#pop" String="&lt;/SCRIPT&gt;" />
       </context>
-      <context attribute="3" lineEndContext="#stay" name="String">
-        <Detect2Chars attribute="3" context="#stay" char="\" char1="&quot;" />
-        <HlCStringChar attribute="4" context="#stay" />
-        <DetectChar attribute="3" context="#pop" char="&quot;" />
+      <context attribute="String" lineEndContext="#stay" name="String">
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="&quot;" />
+        <HlCStringChar attribute="String Char" context="#stay" />
+        <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
-      <context attribute="3" lineEndContext="#stay" name="String (2)">
-        <Detect2Chars attribute="3" context="#stay" char="\" char1="'" />
-        <HlCStringChar attribute="4" context="#stay" />
-        <DetectChar attribute="3" context="#pop" char="'" />
+      <context attribute="String" lineEndContext="#stay" name="String (2)">
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
+        <HlCStringChar attribute="String Char" context="#stay" />
+        <DetectChar attribute="String" context="#pop" char="'" />
       </context>
-      <context attribute="0" lineEndContext="0" name="Comment common">
-        <RegExpr attribute="6" context= "#stay" String="\b(?:fixme|todo|note)\b" insensitive="TRUE" />
+      <context attribute="Normal Text" lineEndContext="#pop" name="Comment common">
+        <RegExpr attribute="Note" context= "#stay" String="\b(?:fixme|todo|note)\b" insensitive="TRUE" />
       </context>
-      <context attribute="5" lineEndContext="#pop" name="Single Line Comment">
-        <IncludeRules context="3" />
+      <context attribute="Comment" lineEndContext="#pop" name="Single Line Comment">
+        <IncludeRules context="Comment common" />
       </context>
-      <context attribute="5" lineEndContext="#stay" name="Multiline/Inline Comment">
-        <Detect2Chars attribute="5" context="#pop" char="*" char1="/" />
-        <IncludeRules context="3" />
+      <context attribute="Comment" lineEndContext="#stay" name="Multiline/Inline Comment">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
+        <IncludeRules context="Comment common" />
       </context>
-      <context attribute="7" lineEndContext="#stay" name="Regular Expression">
-        <RegExpr attribute="7" context="#pop#pop#pop" String="/[ig]{0,2}" />
-        <RegExpr attribute="8" context="#stay" String="\{[\d, ]+\}" />
-        <RegExpr attribute="8" context="#stay" String="\\[bB]" />
-        <RegExpr attribute="9" context="#stay" String="\\[nrtvfDdSsWw]" />
-        <RegExpr attribute="7" context="#stay" String="\\." />
-        <DetectChar attribute="9" context="10" char="[" />
-        <RegExpr attribute="8" context="#stay" String="\$(?=/)" />
-        <AnyChar attribute="8" context="#stay" String="?+*()|" />
+      <context attribute="Regular Expression" lineEndContext="#stay" name="Regular Expression">
+        <RegExpr attribute="Regular Expression" context="#pop#pop#pop" String="/[ig]{0,2}" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\{[\d, ]+\}" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[bB]" />
+        <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[nrtvfDdSsWw]" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\." />
+        <DetectChar attribute="Patttern Character Class" context="(charclass caret first check)" char="[" />
+        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\$(?=/)" />
+        <AnyChar attribute="Pattern Internal Operator" context="#stay" String="?+*()|" />
       </context>
-      <context attribute="0" lineEndContext="#stay" name="(Internal regex catch)" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="0" context="#stay" String="\s*" />
-        <RegExpr attribute="7" context="#pop" String="//(?=;)" />
-        <Detect2Chars attribute="5" context="4" char="/" char1="/" />
-        <Detect2Chars attribute="5" context="5" char="/" char1="*" />
-        <DetectChar attribute="7" context="9" char="/" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="(Internal regex catch)" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*" />
+        <RegExpr attribute="Regular Expression" context="#pop" String="//(?=;)" />
+        <Detect2Chars attribute="Comment" context="Single Line Comment" char="/" char1="/" />
+        <Detect2Chars attribute="Comment" context="Multiline/Inline Comment" char="/" char1="*" />
+        <DetectChar attribute="Regular Expression" context="(regex caret first check)" char="/" />
       </context>
-      <context attribute="9" lineEndcontext="#stay" name="Regular Expression Character Class">
-        <RegExpr attribute="9" context="#stay" String="\\[\[\]]" />
-        <DetectChar attribute="9" context="#pop#pop" char="]" />
+      <context attribute="Pattern Character Class" lineEndcontext="#stay" name="Regular Expression Character Class">
+        <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[\[\]]" />
+        <DetectChar attribute="Pattern Character Class" context="#pop#pop" char="]" />
       </context>
-      <context attribute="8" lineEndContext="#pop" name="(regex caret first check)" fallthrough="true" fallthroughContext="6">
-        <DetectChar attribute="8" context="6" char="^" />
+      <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(regex caret first check)" fallthrough="true" fallthroughContext="Regular Expression">
+        <DetectChar attribute="Pattern Internal Operator" context="Regular Expression" char="^" />
       </context>
-      <context attribute="8" lineEndContext="#pop" name="(charclass caret first check)" fallthrough="true" fallthroughContext="8">
-        <DetectChar attribute="8" context="8" char="^" />
+      <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(charclass caret first check)" fallthrough="true" fallthroughContext="Regular Expression Character Class">
+        <DetectChar attribute="Pattern Internal Operator" context="Regular Expression Character Class" char="^" />
       </context>
     </contexts>
     <itemDatas>

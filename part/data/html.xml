@@ -1,34 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="HTML" version="1.01" kateversion="2.1" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
+<language name="HTML" version="1.03" kateversion="2.1" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
   <highlighting>
     <contexts>
-       <context attribute="0" lineEndContext="#stay">
-	 <StringDetect attribute="Comment" context="6" String="&lt;!--"/>
-         <RegExpr attribute="1" context="1" String="&lt;\s*\/?\s*[a-zA-Z0-9_]*" />
+       <context attribute="Normal Text" lineEndContext="#stay" name="normal">
+	 <StringDetect attribute="Comment" context="comment" String="&lt;!--"/>
+	 <StringDetect attribute="Keyword" context="##JavaScript" String="&lt;SCRIPT&gt;" />
+         <RegExpr attribute="Keyword" context="tagname" String="&lt;\s*\/?\s*[a-zA-Z0-9_]*" />
        </context>
 
-       <context attribute="2" lineEndContext="#stay">
-         <DetectChar attribute="1" context="#pop" char="&gt;"/>
-         <RegExpr attribute="0" context="2" String="\s*=\s*"/>
+       <context attribute="Identifier" lineEndContext="#stay" name="tagname">
+         <DetectChar attribute="Keyword" context="#pop" char="&gt;"/>
+         <RegExpr attribute="Normal Text" context="values" String="\s*=\s*"/>
        </context>
 
-       <context attribute="8" lineEndContext="#stay">
-         <RegExpr attribute="3" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
-         <DetectChar attribute="3" context="3" char="&quot;" />
+       <context attribute="Wrong Values" lineEndContext="#stay" name="values">
+         <RegExpr attribute="Types" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
+         <DetectChar attribute="Types" context="string" char="&quot;" />
        </context>
 
-       <context attribute="3" lineEndContext="#stay">
-         <DetectChar attribute="3" context="#pop#pop" char="&quot;" />
+       <context attribute="Types" lineEndContext="#stay" name="string">
+         <DetectChar attribute="Type" context="#pop#pop" char="&quot;" />
        </context>
 
-       <context attribute="5" lineEndContext="#pop"/>
-       <context attribute="4" lineEndContext="#pop">
-         <DetectChar attribute="4" context="#pop" char="'"/>
-       </context>
-
-       <context attribute="Comment" lineEndContext="#stay">
-	 <String---Detect attribute="Comment" context="6" String="&lt;!--"/>
+       <context attribute="Comment" lineEndContext="#stay" name="comment">
 	 <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
        </context>
     </contexts>
@@ -39,6 +34,7 @@
       <itemData name="Types" defStyleNum="dsDataType"/>
       <itemData name="String" defStyleNum="dsString"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Wrong Values"  defStyleNum="dsNormal" color="#ff0000" selColor="#ffffff" italic="0" bold="1"/>
     </itemDatas>
   </highlighting>
   <general>

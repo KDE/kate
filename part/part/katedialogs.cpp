@@ -16,6 +16,27 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
+       
+// Copyright (c) 2000-2001 Charles Samuels <charles@kde.org>
+// Copyright (c) 2000-2001 Neil Stevens <multivac@fcmail.com>
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIAB\ILITY, WHETHER IN
+// AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ 
 
 // $Id$
 
@@ -79,7 +100,106 @@
 #define TAG_INT "Int"
 #define TAG_FLOAT "Float"
 #define TAG_KEYWORD "keyword"
-  
+                           
+PluginListItem::PluginListItem(const bool _exclusive, bool _checked, PluginInfo *_info, QListView *_parent)
+	: QCheckListItem(_parent, _info->service->name(), CheckBox)
+	, mInfo(_info)
+	, silentStateChange(false)
+	, exclusive(_exclusive)
+{
+	setChecked(_checked);
+	if(_checked) static_cast<PluginListView *>(listView())->count++;
+}
+
+
+void PluginListItem::setChecked(bool b)
+{
+	silentStateChange = true;
+	setOn(b);
+	silentStateChange = false;
+}
+
+void PluginListItem::stateChange(bool b)
+{
+	if(!silentStateChange)
+		static_cast<PluginListView *>(listView())->stateChanged(this, b);
+}
+
+void PluginListItem::paintCell(QPainter *p, const QColorGroup &cg, int a, int b, int c)
+{
+	if(exclusive) myType = RadioButton;
+	QCheckListItem::paintCell(p, cg, a, b, c);
+	if(exclusive) myType = CheckBox;
+}
+
+PluginListView::PluginListView(unsigned _min, unsigned _max, QWidget *_parent, const char *_name)
+	: KListView(_parent, _name)
+	, hasMaximum(true)
+	, max(_max)
+	, min(_min <= _max ? _min : _max)
+	, count(0)
+{
+}
+
+PluginListView::PluginListView(unsigned _min, QWidget *_parent, const char *_name)
+	: KListView(_parent, _name)
+	, hasMaximum(false)
+	, min(_min)
+	, count(0)
+{
+}
+
+PluginListView::PluginListView(QWidget *_parent, const char *_name)
+	: KListView(_parent, _name)
+	, hasMaximum(false)
+	, min(0)
+	, count(0)
+{
+}
+
+void PluginListView::clear()
+{
+	count = 0;
+	KListView::clear();
+}
+
+void PluginListView::stateChanged(PluginListItem *item, bool b)
+{
+	if(b)
+	{
+		count++;
+		emit stateChange(item, b);
+		
+		if(hasMaximum && count > max)
+		{
+			// Find a different one and turn it off
+
+			QListViewItem *cur = firstChild();
+			PluginListItem *curItem = dynamic_cast<PluginListItem *>(cur);
+
+			while(cur == item || !curItem || !curItem->isOn())
+			{
+				cur = cur->nextSibling();
+				curItem = dynamic_cast<PluginListItem *>(cur);
+			}
+
+			curItem->setOn(false);
+		}
+	}
+	else
+	{
+		if(count == min)
+		{
+			item->setChecked(true);
+		}
+		else
+		{
+			count--;
+			emit stateChange(item, b);
+		}
+	}
+}
+
  PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   m_doc = doc;

@@ -57,8 +57,6 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
   public:
     KateView( KateDocument* doc, QWidget* parent = 0L, const char* name = 0 );
     ~KateView ();  
-    
-    QPtrList<KTextEditor::Plugin> loadedPlugins;
 
   //
   // KTextEditor::View

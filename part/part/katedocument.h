@@ -31,6 +31,9 @@
 #include "katetextline.h"
 #include "katebrowserextension.h"
 #include "../interfaces/document.h"
+                                  
+#include <ktrader.h>
+#include <kservice.h>
 
 #include <qobject.h>
 #include <qptrlist.h>
@@ -45,6 +48,16 @@ class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateViewInternal; 
+
+class PluginInfo
+{
+  public:
+    bool load;
+    KService::Ptr service;
+    KTextEditor::Plugin *plugin;
+};
+
+typedef QPtrList<PluginInfo> PluginList;
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -66,7 +79,16 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     
     bool closeURL(); 
     
-    QPtrList<KTextEditor::Plugin> loadedPlugins;
+    PluginList *plugins () { return &m_plugins; };
+    
+    void loadAllEnabledPlugins ();
+    void enableAllPluginsGUI (KateView *view);
+    
+    void loadPlugin (PluginInfo *item);
+    void unloadPlugin (PluginInfo *item);
+    void enablePluginGUI (PluginInfo *item, KateView *view);
+    void enablePluginGUI (PluginInfo *item);
+    void disablePluginGUI (PluginInfo *item);
 
   private:
     // only to make part work, don't change it !
@@ -74,6 +96,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
+    PluginList m_plugins;
     
   //
   // KTextEditor::Document stuff

@@ -179,7 +179,21 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   colors[3] = QColor( "#FFFF99" );
 
   m_highlight = 0L;
-  tabChars = 8;
+  tabChars = 8;      
+  
+  KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
+  for( ; it != KateFactory::plugins()->end(); ++it)
+  {
+    KService::Ptr ptr = (*it);
+                         
+    PluginInfo *info=new PluginInfo;
+
+    info->load = false;
+    info->service = ptr;
+    info->plugin = 0L;
+
+    m_plugins.append(info);
+  }
 
   clear();
 
@@ -196,25 +210,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     insertChildClient( view );
     view->show();
     setWidget( view );
-  }
-  
-  KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
-  for( ; it != KateFactory::plugins()->end(); ++it)
-  {
-    KService::Ptr ptr = (*it);
-
-    if (KTextEditor::Plugin *plugin = KTextEditor::createPlugin (QFile::encodeName(ptr->library()), this))
-    {
-      loadedPlugins.append (plugin);
-         
-      if (KTextEditor::pluginViewInterface (plugin))
-        for (uint z=0; z < m_views.count(); z++)
-        {
-          m_views.at(z)->loadedPlugins.append (plugin);
-          KTextEditor::pluginViewInterface(plugin)->addView (m_views.at(z));
-        }
-    }
-  }
+  }  
 }
 
 //
@@ -233,6 +229,67 @@ KateDocument::~KateDocument()
   myMarks.clear ();
   
   KateFactory::deregisterDocument (this);
+}      
+
+void KateDocument::loadAllEnabledPlugins ()
+{
+  for (uint i=0; i<m_plugins.count(); i++)
+  {
+    if  (m_plugins.at(i)->load)
+      loadPlugin (m_plugins.at(i));
+  }
+}
+
+void KateDocument::enableAllPluginsGUI (KateView *view)
+{
+  for (uint i=0; i<m_plugins.count(); i++)
+  {
+    if  (m_plugins.at(i)->load)
+      enablePluginGUI (m_plugins.at(i), view);
+  }
+}
+
+void KateDocument::loadPlugin (PluginInfo *item)
+{  
+  item->load = (item->plugin = KTextEditor::createPlugin (QFile::encodeName(item->service->library()), this));
+}
+
+void KateDocument::unloadPlugin (PluginInfo *item)
+{
+  disablePluginGUI (item);
+  if (item->plugin) delete item->plugin;
+  item->plugin = 0L;
+  item->load = false;
+}
+
+void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
+{
+  if (!item->plugin) return;
+  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+
+  KTextEditor::pluginViewInterface(item->plugin)->addView(view);
+}
+
+void KateDocument::enablePluginGUI (PluginInfo *item)
+{
+  if (!item->plugin) return;
+  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+
+  for (uint i=0; i< m_views.count(); i++)
+  {
+    KTextEditor::pluginViewInterface(item->plugin)->addView(m_views.at(i));
+  }
+}
+
+void KateDocument::disablePluginGUI (PluginInfo *item)
+{
+  if (!item->plugin) return;
+  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+  
+  for (uint i=0; i< m_views.count(); i++)
+  {
+    KTextEditor::pluginViewInterface(item->plugin)->removeView(m_views.at(i));       
+  }
 }
 
 bool KateDocument::closeURL()
@@ -1563,7 +1620,11 @@ void KateDocument::readConfig(KConfig *config)
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
-
+    
+  for (uint i=0; i<m_plugins.count(); i++)
+    if  (config->readBoolEntry(m_plugins.at(i)->service->library(), false))
+      m_plugins.at(i)->load = true;
+  
   if (myWordWrap)
   {
     editStart (false);
@@ -1589,7 +1650,10 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
-  config->writeEntry("Color Bracket Highlight", colors[3]);
+  config->writeEntry("Color Bracket Highlight", colors[3]);     
+  
+  for (uint i=0; i<m_plugins.count(); i++)
+    config->writeEntry(m_plugins.at(i)->service->library(), m_plugins.at(i)->load);
 }
 
 void KateDocument::readConfig()

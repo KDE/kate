@@ -426,14 +426,7 @@ void KateView::setupCodeCompletion()
 
 void KateView::setupViewPlugins()
 {    
-  for (uint z=0; z < m_doc->loadedPlugins.count(); z++)
-  {
-    if (KTextEditor::PluginViewInterface *iface = KTextEditor::pluginViewInterface (m_doc->loadedPlugins.at(z)))
-    {
-      loadedPlugins.append (m_doc->loadedPlugins.at(z));
-      iface->addView (this);
-      }
-  }
+  m_doc->enableAllPluginsGUI (this);
 }
 
 void KateView::slotGotFocus()

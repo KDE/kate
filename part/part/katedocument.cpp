@@ -1111,6 +1111,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   }
   for( QPtrListIterator<KTextEditor::Mark> it( list );
        it.current(); ++it ) {
+       kdDebug(13000)<<"editInsertLine: updating mark at line "<<it.current()->line<<endl;
     KTextEditor::Mark* mark = m_marks.take( it.current()->line );
     mark->line++;
     m_marks.insert( mark->line, mark );
@@ -1973,15 +1974,18 @@ bool KateDocument::printDialog ()
         2) prepare data according to those settings
         3) draw to the printer
      */
+     uint pdmWidth = pdm.width();
      uint y = 0;
      uint xstart = 0; // beginning point for painting lines
      uint lineCount = 0;
-     uint maxWidth = pdm.width();
-     uint headerWidth = pdm.width();
+     uint maxWidth = pdmWidth;
+     uint headerWidth = pdmWidth;
      int startCol = 0;
      int endCol = 0;
      bool needWrap = true;
      bool pageStarted = true;
+     
+     kdDebug(13020)<<"pdm width: "<<pdmWidth<<endl;
 
      // Text Settings Page
      bool selectionOnly = ( hasSelection() &&
@@ -2178,7 +2182,7 @@ bool KateDocument::printDialog ()
          // calculate the height required
          // the number of columns is a side effect, saved for drawing time
          // first width is needed
-         int _w = pdm.width() - innerMargin * 2;
+         int _w = pdmWidth - innerMargin * 2;
          if ( useBox )
            _w -= boxWidth * 2;
          else
@@ -2197,10 +2201,11 @@ bool KateDocument::printDialog ()
          int _widest( 0 );
          QPtrListIterator<ItemData> it( m_highlight->getData()->itemDataList );
          ItemData *_d;
-         KateFontMetrics _kfm = KateFontMetrics(QFont()); // eew
+         /////KateFontMetrics _kfm = KateFontMetrics(QFont()); // eew
          int _items ( 0 );
          while ( ( _d = it.current()) != 0 )
          {
+           /*
            _kfm = _d->bold ?
              _d->italic ?
                printFont.myFontMetricsBI :
@@ -2209,7 +2214,17 @@ bool KateDocument::printDialog ()
              printFont.myFontMetricsItalic :
              printFont.myFontMetrics; // ahemn
            _widest = QMAX( _widest, ((QFontMetrics)_kfm).width( _d->name ) );
-           _items++;
+           */
+           _widest = QMAX( _widest, ((QFontMetrics)(
+                                _d->bold ?
+                                  _d->italic ?
+                                    printFont.myFontMetricsBI :
+                                    printFont.myFontMetricsBold :
+                                  _d->italic ?
+                                    printFont.myFontMetricsItalic :
+                                    printFont.myFontMetrics
+                                    ) ).width( _d->name ) );
+                                _items++;
            ++it;
          }
          guideCols = _w/( _widest + innerMargin );
@@ -2375,13 +2390,13 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                  _h += innerMargin;
                }
              }
-             paint.fillRect( 0, _y, pdm.width(), _h, colors[0] );
+             paint.fillRect( 0, _y, pdmWidth, _h, colors[0] );
            }
 
            if ( useBox )
            {
              paint.setPen(QPen(boxColor, boxWidth));
-             paint.drawRect(0, 0, pdm.width(), pdm.height());
+             paint.drawRect(0, 0, pdmWidth, pdm.height());
              if (useHeader)
                paint.drawLine(0, headerHeight, headerWidth, headerHeight);
              else
@@ -2405,17 +2420,17 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              {
                if ( useBackground )
                  _marg += 2*innerMargin;
-               paint.drawRect( _marg, y, pdm.width()-(2*_marg), guideHeight );
+               paint.drawRect( _marg, y, pdmWidth-(2*_marg), guideHeight );
                _marg += 1;
                y += 1 + innerMargin;
              }
              // draw a title string
              paint.setFont( printFont.myFontBold );
              QRect _r;
-             paint.drawText( _marg, y, pdm.width()-(2*_marg), maxHeight - y,
+             paint.drawText( _marg, y, pdmWidth-(2*_marg), maxHeight - y,
                 Qt::AlignTop|Qt::AlignHCenter,
                 i18n("Typographical Conventions for ") + m_highlight->name(), -1, &_r );
-             int _w = pdm.width() - (_marg*2) - (innerMargin*2);
+             int _w = pdmWidth - (_marg*2) - (innerMargin*2);
              int _x = _marg + innerMargin;
              y += _r.height() + innerMargin;
              paint.drawLine( _x, y, _x + _w, y );
@@ -2441,6 +2456,8 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              }
              if ( _i%guideCols ) y += printFont.fontHeight;// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
+        kdDebug(13020)<<"DONE HL GUIDE! Starting to print from line "<<lineCount<<endl;
+        kdDebug(13020)<<"max width for lines: "<<maxWidth<<endl;
            }
 
            pageStarted = false;
@@ -2454,9 +2471,9 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                         lineNumberWidth, printFont.fontHeight,
                         Qt::AlignRight, QString("%1 ").arg( lineCount + 1 ) );
          }
-
+        kdDebug(13020)<<"Calling textWidth( startCol="<<startCol<<", maxWidth="<<maxWidth<<", needWrap="<<needWrap<<")"<<endl;
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         kdDebug(13020)<<"REAL WIDTH: " << pdm.width() << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " need Wrap" << needWrap <<" !?"<<endl;
+         kdDebug(13020)<<"REAL WIDTH: " << pdmWidth << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" line length: "<< buffer->line(lineCount)->length()<< "; need Wrap: " << needWrap <<" !?"<<endl;
          
          if ( endCol < startCol )
          {
@@ -2502,7 +2519,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          }
          else
          {
-//kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<endl;
+kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<", maxWidth: "<<maxWidth<<endl;
            startCol = endCol;
          }
 
@@ -2793,7 +2810,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   int lastWhiteSpaceX = -1;
 
   *needWrap = false;
-
+  
   uint z = startcol;
   for (; z < textLine->length(); z++)
   {
@@ -2851,7 +2868,6 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   {
     if (endX)
       *endX = endX2;
-
     return endcolwithsym;
   }
   else

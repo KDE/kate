@@ -602,58 +602,55 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
   return true;
 }
 
-bool KateDocument::removeText ( uint startLine, uint startCol,
-				  uint endLine, uint endCol )
-{
-  TextLine::Ptr l = buffer->line(startLine);
-
-  if (!l)
+bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol )
+{    
+  if ( startLine > lastLine() )
     return false;
-    
-  editStart ();
-    
-  TextLine::Ptr tl;
-  uint deletePos = 0;
-  uint endPos = 0;
-  uint line = 0;
 
+  if ( endLine > lastLine() )
+  {
+    endLine = lastLine()+1;
+    endCol = 0;
+  }
+        
+  editStart ();
+ 
   if (startLine == endLine)
   {
     editRemoveText (startLine, startCol, endCol-startCol);
   }
   else if ((startLine+1) == endLine)
   {
-    editRemoveText (startLine, startCol, l->length()-startCol);
+    if ( (kateTextLine(startLine)->length()-startCol) > 0 )
+      editRemoveText (startLine, startCol, kateTextLine(startLine)->length()-startCol);
+
     editRemoveText (startLine+1, 0, endCol);
     editUnWrapLine (startLine, startCol);
   }
   else
   {
-    for (line = startLine; line <= endLine; line++)
+    for (uint line = endLine; line >= startLine; line--)
     {
       if ((line > startLine) && (line < endLine))
       {
-        deletePos = 0;
-
-        editRemoveText (startLine, deletePos, l->length()-startCol);
-        editUnWrapLine (startLine, deletePos);
+        editRemoveLine (line);
       }
       else
       {
-        if (line == startLine)
+        if (line == endLine)
         {
-          deletePos = startCol;
-          endPos = l->length();
+          if ( endLine <= lastLine() )
+            editRemoveText (line, 0, endCol);
         }
          else
         {
-          deletePos = 0;
-          endPos = endCol;
-        }
-
-        l->replace (deletePos, endPos-deletePos, 0, 0);
-        editRemoveText (startLine, deletePos, endPos-deletePos);
+          if ( (kateTextLine(line)->length()-startCol) > 0 )
+            editRemoveText (line, startCol, kateTextLine(line)->length()-startCol);
+        }        
       }
+      
+      if ( line == 0 )
+        break;
     }
   }
   

@@ -961,7 +961,7 @@ void KateDocument::editEnd ()
   buffer->setHlUpdate (true);
 
   if (editTagLineStart <= editTagLineEnd)
-    buffer->updateHighlighting (editTagLineStart, editTagLineEnd+1, true);
+    buffer->updateHighlighting (editTagLineStart, editTagLineEnd+2, true);
 
   if (editWithUndo)
     undoEnd();

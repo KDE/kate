@@ -884,22 +884,31 @@ QString KateBuffer::text()
   return s;
 }
 
-QString KateBuffer::text ( uint startLine, uint startCol,
-			   uint endLine, uint endCol )
+QString KateBuffer::text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise )
 {
+  if ( blockwise && (startCol > endCol) )
+    return QString ();
+  
   QString s;
 
   for (uint i = startLine; (i <= endLine) && (i < count()); i++)
   {
     TextLine::Ptr textLine = line(i);
 
-    if (i == startLine)
-      s.append(textLine->string().mid (startCol, textLine->length()-startCol));
-    else if (i == endLine)
-      s.append(textLine->string().mid (0, endCol));
+    if ( !blockwise )
+    {
+      if (i == startLine)
+        s.append (textLine->string(startCol, textLine->length()-startCol));
+      else if (i == endLine)
+        s.append (textLine->string(0, endCol));
+      else
+        s.append (textLine->string());
+    }
     else
-      s.append(textLine->string());
-
+    {
+      s.append (textLine->string (startCol, endCol - startCol));
+    }
+    
     if ( i < endLine )
       s.append('\n');
   }

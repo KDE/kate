@@ -136,7 +136,7 @@ class KateBuffer : public QObject
    /**
     * Get the text between the two given positions.
     */
-   QString text(uint startLine, uint startCol, uint endLine, uint endCol);
+   QString text(uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise = false);
 
    inline bool allowHlUpdate () const
    {

@@ -525,10 +525,14 @@ QString KateDocument::text() const
   return buffer->text();
 }
 
-QString KateDocument::text ( uint startLine, uint startCol,
-			     uint endLine, uint endCol ) const
+QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol ) const
 {
-  return buffer->text(startLine, startCol, endLine, endCol);
+  return text(startLine, startCol, endLine, endCol, false);
+}
+
+QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
+{
+  return buffer->text(startLine, startCol, endLine, endCol, blockwise);
 }
 
 QString KateDocument::textLine( uint line ) const
@@ -1202,36 +1206,22 @@ bool KateDocument::hasSelection() const
 
 QString KateDocument::selection() const
 {
-  QString s;
-
-  for (int z=selectStart.line; z <= selectEnd.line; z++)
+  int sl = selectStart.line;
+  int el = selectEnd.line;
+  int sc = selectStart.col;
+  int ec = selectEnd.col;
+  
+  if ( blockSelect )
   {
-      QString line = textLine(z);
-
-      if (!blockSelect)
-      {
-        if ((z > selectStart.line) && (z < selectEnd.line))
-          s.append (line);
-        else
-        {
-          if ((z == selectStart.line) && (z == selectEnd.line))
-            s.append (line.mid(selectStart.col, selectEnd.col-selectStart.col));
-          else if ((z == selectStart.line))
-            s.append (line.mid(selectStart.col, line.length()-selectStart.col));
-          else if ((z == selectEnd.line))
-            s.append (line.mid(0, selectEnd.col));
-        }
-      }
-      else
-      {
-        s.append (line.mid(selectStart.col, selectEnd.col-selectStart.col));
-      }
-
-      if (z < selectEnd.line)
-        s.append (QChar('\n'));
+    if (sc > ec)
+    {
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
     }
+  }
 
-  return s;
+  return text (sl, sc, el, ec, blockSelect);
 }
 
 bool KateDocument::removeSelectedText ()

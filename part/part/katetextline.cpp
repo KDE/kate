@@ -172,6 +172,17 @@ int TextLine::lastChar() const
     return previousNonSpaceChar(m_text.size() - 1);
 }
 
+QString TextLine::string (uint startCol, uint length) const
+{
+  if ( startCol >= m_text.size() )
+    return QString ();
+    
+  if ( (startCol + length) > m_text.size())
+    length = m_text.size() - startCol;
+    
+  return QString (m_text.data() + startCol, length);
+}
+
 void TextLine::removeSpaces()
 {
   truncate(lastChar() + 1);

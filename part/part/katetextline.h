@@ -105,6 +105,11 @@ class TextLine : public KShared
       Gets a QString
     */
     inline QString string() const { return QString (m_text.data(), m_text.size()); };
+    
+    /**
+      Gets a QString
+    */
+    QString string (uint startCol, uint length) const;
 
     /*
       Gets a null terminated pointer to first non space char

@@ -131,6 +131,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   //
   public slots:
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol ) const;
+    QString text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise ) const;
+    
     QString textLine ( uint line ) const;
 
     bool setText(const QString &);

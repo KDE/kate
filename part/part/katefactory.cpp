@@ -21,7 +21,6 @@
 // $Id$
 
 #include "katefactory.h"
-#include "katefactory.moc"
 
 #include "katedocument.h"
 #include "kateview.h"

@@ -2922,7 +2922,7 @@ bool KateDocument::saveFile()
   if (m_url.isLocalFile())
     KateFactory::dirWatch ()->addFile (m_file);
 
-  if (m_modOnHd)
+  if (success && m_modOnHd)
   {
     m_modOnHd = false;
     m_modOnHdReason = 0;
@@ -4265,18 +4265,11 @@ void KateDocument::setDocName (QString docName)
   emit nameChanged ((Kate::Document *) this);
 }
 
-void KateDocument::isModOnHD(bool forceReload)
+void KateDocument::isModOnHD(bool )
 {
   if (m_modOnHd && !url().isEmpty())
   {
-      if ( forceReload ||
-           (KMessageBox::warningYesNo(0,
-               (i18n("The file %1 has changed on disk.\nDo you want to reload the modified file?\n\nIf you choose Discard and subsequently save the file, you will lose those modifications.")).arg(url().fileName()),
-               i18n("File has Changed on Disk"),
-               i18n("Reload"),
-               KStdGuiItem::discard() ) == KMessageBox::Yes)
-          )
-        reloadFile();
+    reloadFile();
   }
 }
 
@@ -4284,6 +4277,22 @@ void KateDocument::reloadFile()
 {
   if ( !url().isEmpty() )
   {
+    if (m_modOnHd)
+    {
+      QString str;
+
+      if (m_modOnHdReason == 1)
+        str = i18n("The file %1 was changed (modified) on disc by an other program !\n\n").arg(url().fileName());
+      else if (m_modOnHdReason == 2)
+        str = i18n("The file %1 was changed (created) on disc by an other program !\n\n").arg(url().fileName());
+      else if (m_modOnHdReason == 3)
+        str = i18n("The file %1 was changed (deleted) on disc by an other program !\n\n").arg(url().fileName());
+
+      if (!(KMessageBox::warningYesNo(0,
+               str + i18n("Do you really want to reload the modified file, could cause data loss ?")) == KMessageBox::Yes))
+        return;
+    }
+
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
     KateDocument::openURL( url() );

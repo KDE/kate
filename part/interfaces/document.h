@@ -137,9 +137,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
   public:
     /**
-     * Checks if the file on disk is newer than document contents.
-     * If forceReload is true, the document is reloaded without asking the user,
-     * otherwise [default] the user is asked what to do.
+     * deprecated for KDE 4.0, just does reloadFile, which will ask
+     * the normal "do you want it really" questions
      */
     virtual void isModOnHD(bool =false) { ; };
 

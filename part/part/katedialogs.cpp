@@ -20,28 +20,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-//BEGIN Really??
-// Copyright (c) 2000-2001 Charles Samuels <charles@kde.org>
-// Copyright (c) 2000-2001 Neil Stevens <multivac@fcmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIAB\ILITY, WHETHER IN
-// AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-//END
-
 // $Id$
 
 //BEGIN Includes
@@ -100,20 +78,8 @@
 // a) is done. itemUnset(N) == !itemSet(N); right???
 // there is a unsetItem(), just (not all logic) called "KateAttribute::clearAttribute(int)";
 
-using namespace Kate;
-
-#define TAG_DETECTCHAR "DetectChar"
-#define TAG_DETECT2CHARS "Detect2Chars"
-#define TAG_RANGEDETECT "RangeDetect"
-#define TAG_STRINGDETECT "StringDetect"
-#define TAG_ANYCHAR "AnyChar"
-#define TAG_REGEXPR "RegExpr"
-#define TAG_INT "Int"
-#define TAG_FLOAT "Float"
-#define TAG_KEYWORD "keyword"
-
 //BEGIN PluginListItem
-PluginListItem::PluginListItem(const bool _exclusive, bool _checked, PluginInfo *_info, QListView *_parent)
+PluginListItem::PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent)
   : QCheckListItem(_parent, _info->service->name(), CheckBox)
   , mInfo(_info)
   , silentStateChange(false)
@@ -245,7 +211,6 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
 PluginConfigPage::~PluginConfigPage ()
 {
 }
-
 
  void PluginConfigPage::stateChange(PluginListItem *item, bool b)
 {
@@ -414,9 +379,8 @@ void HlConfigPage::showMTDlg()
 /*********************************************************************/
 /*                  StyleListView Implementation                     */
 /*********************************************************************/
-StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor textcol )
-    : QListView( parent ),
-      normalcol( textcol )
+StyleListView::StyleListView( QWidget *parent, bool showUseDefaults )
+    : QListView( parent )
 {
   addColumn( i18n("Context") );
   addColumn( SmallIconSet("text_bold"), QString::null/*i18n("Bold")*/ );
@@ -434,6 +398,7 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
   connect( this, SIGNAL(spacePressed(QListViewItem*)),
            this, SLOT(showPopupMenu(QListViewItem*)) );
   // grap the bg color, selected color and default font
+  normalcol = KGlobalSettings::textColor();
   bgcol = *KateRendererConfig::global()->backgroundColor();
   selcol = *KateRendererConfig::global()->selectionColor();
   docfont = *KateRendererConfig::global()->font();
@@ -520,27 +485,23 @@ static const int ColorBtnWidth = 32;
 StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
                               KateAttribute *style, ItemData *data )
         : QListViewItem( parent, stylename ),
-          /*styleName( stylename ),*/
           ds( style ),
           st( data )
 {
   if ( st )
   {
     KateAttribute shit( *ds );
-    is = new KateAttribute( shit += *dynamic_cast<KateAttribute*>(st) );
+    is = new KateAttribute( shit += *st );
   }
   else
     is = ds;
 }
 
 void StyleListItem::updateStyle()
-{
-  //kdDebug()<<text(0)<<": set: "<<st->itemsSet()<<endl;
-  /*
-  save a atom if
-      it is set and has changed and
-      the setting is different from the default
-  */
+{  
+  if (!st)
+    return;
+  
   if ( is->itemSet(KateAttribute::Weight) )
   {
     if ( is->weight() != st->weight() &&

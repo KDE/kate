@@ -87,6 +87,17 @@ QString HLParamEdit::text()
 }
 
 //BEGIN HlEditDialog
+
+#define TAG_DETECTCHAR "DetectChar"
+#define TAG_DETECT2CHARS "Detect2Chars"
+#define TAG_RANGEDETECT "RangeDetect"
+#define TAG_STRINGDETECT "StringDetect"
+#define TAG_ANYCHAR "AnyChar"
+#define TAG_REGEXPR "RegExpr"
+#define TAG_INT "Int"
+#define TAG_FLOAT "Float"
+#define TAG_KEYWORD "keyword"
+
 /******************************************************************************/
 /*                     HlEditDialog implementation                            */
 /******************************************************************************/

@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __kate_schema_h__
-#define __kate_schema_h__
+#ifndef __KATE_SCHEMA_H__
+#define __KATE_SCHEMA_H__
 
 #include "../interfaces/document.h"
 
@@ -115,10 +115,9 @@ class KateSchemaConfigColorTab : public QWidget
 {
   Q_OBJECT
 
-public:
-
-  KateSchemaConfigColorTab( QWidget *parent = 0, const char *name = 0 );
-  ~KateSchemaConfigColorTab();
+  public:
+    KateSchemaConfigColorTab( QWidget *parent = 0, const char *name = 0 );
+    ~KateSchemaConfigColorTab();
 
   private:
     KColorButton *m_back;
@@ -138,10 +137,9 @@ class KateSchemaConfigFontTab : public QWidget
 {
   Q_OBJECT
 
-public:
-
-  KateSchemaConfigFontTab( QWidget *parent = 0, const char *name = 0 );
-  ~KateSchemaConfigFontTab();
+  public:
+    KateSchemaConfigFontTab( QWidget *parent = 0, const char *name = 0 );
+    ~KateSchemaConfigFontTab();
 
   public:
     void readConfig (KConfig *config);
@@ -159,10 +157,9 @@ class KateSchemaConfigFontColorTab : public QWidget
 {
   Q_OBJECT
 
-public:
-
-  KateSchemaConfigFontColorTab( QWidget *parent = 0, const char *name = 0 );
-  ~KateSchemaConfigFontColorTab();
+  public:
+    KateSchemaConfigFontColorTab( QWidget *parent = 0, const char *name = 0 );
+    ~KateSchemaConfigFontColorTab();
 
   public:
     void schemaChanged (uint schema);
@@ -178,10 +175,9 @@ class KateSchemaConfigHighlightTab : public QWidget
 {
   Q_OBJECT
 
-public:
-
-  KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0 );
-  ~KateSchemaConfigHighlightTab();
+  public:
+    KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0 );
+    ~KateSchemaConfigHighlightTab();
 
   public:
     void schemaChanged (uint schema);
@@ -233,3 +229,5 @@ class KateSchemaConfigPage : public Kate::ConfigPage
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

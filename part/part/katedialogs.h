@@ -20,29 +20,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-// Copyright (c) 2000-2001 Charles Samuels <charles@kde.org>
-// Copyright (c) 2000-2001 Neil Stevens <multivac@fcmail.com>
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
-// AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIAB\ILITY, WHETHER IN
-// AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-// CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-#ifndef KATE_DIALOGS_H
-#define KATE_DIALOGS_H
+#ifndef __KATE_DIALOGS_H__
+#define __KATE_DIALOGS_H__
 
 #include "katehighlight.h"
 #include "kateattribute.h"
@@ -54,7 +33,9 @@
 #undef private
 
 #include <kdialogbase.h>
+#include <kmimetype.h>
 
+#include <qstringlist.h>
 #include <qcolor.h>
 #include <qintdict.h>
 #include <qvbox.h>
@@ -72,51 +53,46 @@ class QVBox;
 class QListViewItem;
 class QCheckBox;
 
-#define HlEUnknown 0
-#define HlEContext 1
-#define HlEItem 2
-
 class PluginListItem : public QCheckListItem
 {
-public:
-  PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent);
-  Kate::PluginInfo *info() const { return mInfo; }
+  public:
+    PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent);
+    Kate::PluginInfo *info() const { return mInfo; }
 
-  // This will toggle the state without "emitting" the stateChange
-  void setChecked(bool);
-
-protected:
-  virtual void stateChange(bool);
-  virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
-
-private:
-  Kate::PluginInfo *mInfo;
-  bool silentStateChange;
-  bool exclusive;
+    void setChecked(bool);
+  
+  protected:
+    virtual void stateChange(bool);
+    virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
+  
+  private:
+    Kate::PluginInfo *mInfo;
+    bool silentStateChange;
+    bool exclusive;
 };
 
 class PluginListView : public KListView
 {
-Q_OBJECT
-
-friend class PluginListItem;
-
-public:
-  PluginListView(QWidget *_parent = 0, const char *_name = 0);
-  PluginListView(unsigned _min, QWidget *_parent = 0, const char *_name = 0);
-  PluginListView(unsigned _min, unsigned _max, QWidget *_parent = 0, const char *_name = 0);
-
-  virtual void clear();
-
-signals:
-  void stateChange(PluginListItem *, bool);
-
-private:
-  void stateChanged(PluginListItem *, bool);
-
-  bool hasMaximum;
-  unsigned max, min;
-  unsigned count;
+  Q_OBJECT
+  
+  friend class PluginListItem;
+  
+  public:
+    PluginListView(QWidget *_parent = 0, const char *_name = 0);
+    PluginListView(unsigned _min, QWidget *_parent = 0, const char *_name = 0);
+    PluginListView(unsigned _min, unsigned _max, QWidget *_parent = 0, const char *_name = 0);
+  
+    virtual void clear();
+  
+  signals:
+    void stateChange(PluginListItem *, bool);
+  
+  private:
+    void stateChanged(PluginListItem *, bool);
+  
+    bool hasMaximum;
+    unsigned max, min;
+    unsigned count;
 };
 
 class PluginConfigPage : public Kate::ConfigPage
@@ -147,7 +123,6 @@ class PluginConfigPage : public Kate::ConfigPage
     void defaults () {};
 };
 
-
 /*
     QListViewItem subclass to display/edit a style, bold/italic is check boxes,
     normal and selected colors are boxes, which will display a color chooser when
@@ -159,7 +134,8 @@ class PluginConfigPage : public Kate::ConfigPage
     This widget is designed to work with the StyleListView class exclusively.
     Added by anders, jan 23 2002.
 */
-class StyleListItem : public QListViewItem {
+class StyleListItem : public QListViewItem
+{
   public:
     StyleListItem( QListView *parent=0, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class ItemData *data=0 );
@@ -185,9 +161,11 @@ class StyleListItem : public QListViewItem {
     /* whichever style is active (st for hl mode styles not using
        the default style, ds otherwise) */
     class KateAttribute* style() { return is; };
+  
   protected:
     /* reimp */
     void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
+  
   private:
     /* private methods to change properties */
     void toggleDefStyle();
@@ -206,18 +184,19 @@ class StyleListItem : public QListViewItem {
     popup menu and a slot to edit a style using the keyboard.
     Added by anders, jan 23 2002.
 */
-class StyleListView : public QListView {
-    Q_OBJECT
+class StyleListView : public QListView
+{
+  Q_OBJECT
+  
   friend class StyleListItem;
+  
   public:
-    StyleListView( QWidget *parent=0, bool showUseDefaults=false, QColor textcol=QColor() );
+    StyleListView( QWidget *parent=0, bool showUseDefaults=false);
     ~StyleListView() {};
     /* Display a popupmenu for item i at the specified global position, eventually with a title,
        promoting the context name of that item */
     void showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle=false );
     void emitChanged() { emit changed(); };
-    
-    void setDefaultColor (QColor color) { normalcol = color; repaint (); };
     
   private slots:
     /* Display a popupmenu for item i at item position */
@@ -226,8 +205,10 @@ class StyleListView : public QListView {
     void slotMousePressed( int, QListViewItem*, const QPoint&, int );
     /* asks item to change the property in q */
     void mSlotPopupHandler( int z );
+  
   signals:
     void changed();
+  
   private:
     QColor bgcol, selcol, normalcol;
     QFont docfont;
@@ -240,19 +221,21 @@ class StyleListView : public QListView {
    Mime types is presented in a list view, with name, comment and patterns columns.
    Added by anders, jan 23, 2002
 */
-#include <kmimetype.h>
-#include <qstringlist.h>
-class KMimeTypeChooser : public QVBox {
-    Q_OBJECT
+class KMimeTypeChooser : public QVBox
+{
+  Q_OBJECT
+  
   public:
     KMimeTypeChooser( QWidget *parent=0, const QString& text=QString::null, const QStringList &selectedMimeTypes=0,
                       bool editbutton=true, bool showcomment=true, bool showpattern=true );
     ~KMimeTypeChooser() {};
     QStringList selectedMimeTypesStringList();
     QStringList patterns();
+
   public slots:
     void editMimeType();
     void slotCurrentChanged(QListViewItem* i);
+
   private:
     QListView *lvMimeTypes;
     QPushButton *btnEditMimeType;
@@ -271,15 +254,18 @@ class KMimeTypeChooser : public QVBox {
    @param showpatterns If this is true, a column displaying the mimetype's patterns will be added to the list view.
    Added by anders, dec 19, 2001
 */
-class KMimeTypeChooserDlg : public KDialogBase {
+class KMimeTypeChooserDlg : public KDialogBase
+{
   public:
     KMimeTypeChooserDlg( QWidget *parent=0,
                          const QString &caption=QString::null, const QString& text=QString::null,
                          const QStringList &selectedMimeTypes=QStringList(),
                          bool editbutton=true, bool showcomment=true, bool showpatterns=true );
     ~KMimeTypeChooserDlg();
+
     QStringList mimeTypes();
     QStringList patterns();
+
   private:
     KMimeTypeChooser *chooser;
 };
@@ -322,7 +308,9 @@ class ItemInfo
 {
   public:
     ItemInfo():trans_i18n(),length(0){};
+    
     ItemInfo(QString _trans,int _length):trans_i18n(_trans),length(_length){};
+    
     QString trans_i18n;
     int length;
 };

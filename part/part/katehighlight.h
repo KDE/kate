@@ -323,3 +323,5 @@ class KateViewHighlightAction: public Kate::ActionMenu
 
 
 #endif //_HIGHLIGHT_H_
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

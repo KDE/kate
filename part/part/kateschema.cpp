@@ -242,7 +242,6 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
         "<p>Sets the color of the tabulator marks:</p>"));
 }
 
-
 KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
 {
 }
@@ -347,8 +346,6 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
     
     m_defaultStyleLists.insert (schema, list);
   }
-  
-  m_defaultStyles->setDefaultColor (m_defaultStyleLists[schema]->at(0)->textColor());
 
   for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
   {
@@ -379,7 +376,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   m_hl = 0;
   
   m_hlDict.setAutoDelete (true);
-
+  
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
@@ -427,6 +424,8 @@ void KateSchemaConfigHighlightTab::hlChanged(int z)
 void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 {
   m_schema = schema;
+  
+  kdDebug () << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
 
   QListViewItemIterator it ( m_styles );
   while( it.current() )
@@ -448,11 +447,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   {
     ItemDataList *list = new ItemDataList ();
     HlManager::self()->getHl( m_hl )->getItemDataList (m_schema, *list);
-    
     m_hlDict[m_schema]->insert (m_hl, list);
   }
-  
-  m_styles->setDefaultColor (m_hlDict[m_schema]->find(m_hl)->at(0)->textColor());
 
   KateAttributeList list;
   HlManager::self()->getDefaults(m_schema, list);
@@ -462,7 +458,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
   {
     m_styles->insertItem( new StyleListItem( m_styles, i18n(itemData->name.latin1()),
-                                 list.at(itemData->defStyleNum), itemData ) );
+                          list.at(itemData->defStyleNum), itemData ) );
   }
 }
 

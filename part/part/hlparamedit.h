@@ -45,6 +45,10 @@ class HLParamEdit:public QHBox
     void textChanged(const QString&);
 };
 
+#define HlEUnknown 0
+#define HlEContext 1
+#define HlEItem 2
+
 class HlEditDialog : public KDialogBase
 {
     Q_OBJECT

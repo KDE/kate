@@ -2240,18 +2240,12 @@ void Highlight::clearAttributeArrays ()
   
     for (uint z = 0; z < nAttribs; z++)
     {
-      KateAttribute n;
       ItemData *itemData = itemDataList.at(z);
-  
-      KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
-      n+= *defaultStyle;
-  
-      if (itemData->isSomethingSet())
-      {
-        // custom style
+      KateAttribute n = *defaultStyleList.at(itemData->defStyleNum);
+
+      if (itemData && itemData->isSomethingSet())
         n += *itemData;
-      }
-  
+
       array->at(z) = n;
     }
   }
@@ -2285,17 +2279,11 @@ QMemArray<KateAttribute> *Highlight::attributes (uint schema)
 
   for (uint z = 0; z < nAttribs; z++)
   {
-    KateAttribute n;
     ItemData *itemData = itemDataList.at(z);
+    KateAttribute n = *defaultStyleList.at(itemData->defStyleNum);
 
-    KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
-    n+= *defaultStyle;
-
-    if (itemData->isSomethingSet())
-    {
-      // custom style
+    if (itemData && itemData->isSomethingSet())
       n += *itemData;
-    }
 
     array->at(z) = n;
   }

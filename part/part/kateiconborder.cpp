@@ -288,7 +288,12 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   p.setFont ( KateRenderer::getFont(KateRenderer::ViewFont) ); // for line numbers
   p.setPen ( m_doc->myAttribs[0].textColor() );
 
-  bool wasLineBefore = false;
+  KateLineInfo oldInfo;
+  if ((m_viewInternal->lineRanges[startz].line-1) < 0)
+    oldInfo.topLevel = true;
+  else
+     m_doc->lineInfo(&oldInfo,m_viewInternal->lineRanges[startz].line-1);
+
   for (uint z=startz; z <= endz; z++)
   {
     int y = h * z;
@@ -355,12 +360,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         {
           if (info.startsVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
           {
-            p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+            if (oldInfo.topLevel)
+              p.drawLine(lnX+halfIPW,y+m_px,lnX+halfIPW,y+h-1);
+            else
+              p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+
             p.drawPixmap(lnX+4,y+m_px,minus_px);
           }
           else if (info.startsInVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
           {
-            p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+            if (oldInfo.topLevel)
+              p.drawLine(lnX+halfIPW,y+m_px,lnX+halfIPW,y+h-1);
+            else
+              p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+
             p.drawPixmap(lnX+4,y+m_px,plus_px);
           }
           else
@@ -372,7 +385,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
           }
         }
 
-        wasLineBefore = true;
+        oldInfo = info;
       }
 
       lnX += iconPaneWidth;

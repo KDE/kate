@@ -896,10 +896,15 @@ void KateViewInternal::updateView(int flags)
     uint stmp = 0;
     if (yScrollVis)
       stmp = scrollbarWidth;
+      
+    int pageScroll = w - (w % fontHeight) - fontHeight;
+    if (pageScroll <= 0)
+      pageScroll = fontHeight;
 
     xScroll->blockSignals(true);
     xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width()-stmp,scrollbarWidth);
     xScroll->setRange(0,maxLen);
+    xScroll->setSteps(fontHeight,pageScroll);
     xScroll->blockSignals(false);
     xScroll->show();
 

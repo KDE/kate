@@ -1537,9 +1537,6 @@ void KateView::setupActions()
     // connect bookmarks menu aboutToshow
     connect(bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
 
-    new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), actionCollection(), "view_border");
-    new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()), actionCollection(), "view_line_numbers");
-
     // setup Tools menu
     KStdAction::spelling(myDoc, SLOT(spellcheck()), actionCollection());
     new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),

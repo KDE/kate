@@ -728,13 +728,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static uint _configFlags;
 
     // defaults for all views !!!
-    static bool m_dynWordWrap;
-    static int m_dynWrapIndicators;
-    static bool m_lineNumbers;
-    static bool m_iconBar;
-    static bool m_foldingBar;
-    static int m_bookmarkSort;
-    static bool m_wordWrapMarker;
     static bool m_collapseTopLevelOnLoad;
 
     static bool s_configLoaded;
@@ -752,9 +745,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KSpell*         m_kspell;
     int             m_mispellCount;
     int             m_replaceCount;
-
-  public:
-    void updateViewDefaults ();
 
   public:
     /**

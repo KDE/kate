@@ -83,6 +83,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_active( false )
     , m_hasWrap( false )
     , m_userWantsFoldingMarkersOff( false )
+    , m_startingUp (true)
 {
   KateFactory::registerView( this );
   m_config = new KateViewConfig (this);
@@ -129,10 +130,12 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setupCodeFolding();
   setupCodeCompletion();
   setupViewPlugins();
-  updateViewDefaults ();
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
+
+  m_startingUp = false;
+  updateConfig ();
 
   m_viewInternal->show ();
 
@@ -593,6 +596,11 @@ void KateView::slotLostFocus()
   m_editActions->accel()->setEnabled( false );
 }
 
+void KateView::setDynWrapIndicators(int mode)
+{
+  config()->setDynWordWrapIndicators (mode);
+}
+
 void KateView::slotStatusMsg ()
 {
   QString ovrstr;
@@ -670,8 +678,9 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::updateFoldingMarkersAction()
 {
-  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() && m_doc->m_foldingBar &&
+  setFoldingMarkersOn ( m_doc->highlight() && m_doc->highlight()->allowsFolding() && config()->foldingBar() &&
                         !m_userWantsFoldingMarkersOff );
+
   m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }
@@ -853,61 +862,47 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
 
 void KateView::setIconBorder( bool enable )
 {
-  m_viewInternal->leftBorder->setIconBorderOn( enable );
+  config()->setIconBar (enable);
 }
 
 void KateView::toggleIconBorder()
 {
-  m_viewInternal->leftBorder->toggleIconBorder();
+  config()->setIconBar (!config()->iconBar());
 }
 
 void KateView::setLineNumbersOn( bool enable )
 {
-  m_viewInternal->leftBorder->setLineNumbersOn( enable );
+  config()->setLineNumbers (enable);
 }
 
 void KateView::toggleLineNumbersOn()
 {
-  m_viewInternal->leftBorder->toggleLineNumbers();
+  config()->setLineNumbers (!config()->lineNumbers());
 }
 
 void KateView::toggleDynWordWrap()
 {
-  setDynWordWrap (!dynWordWrap());
+  config()->setDynWordWrap( !config()->dynWordWrap() );
 }
 
 void KateView::setDynWordWrap( bool b )
 {
-  if (m_hasWrap != b) {
-    m_viewInternal->prepareForDynWrapChange();
-
-    m_hasWrap = b;
-
-    m_viewInternal->dynWrapChanged();
-
-    m_setDynWrapIndicators->setEnabled(b);
-  }
-}
-
-void KateView::setDynWrapIndicators( int state )
-{
-  m_viewInternal->leftBorder->setDynWrapIndicators( m_doc->m_dynWrapIndicators = state );
+  config()->setDynWordWrap( b );
 }
 
 void KateView::toggleWWMarker()
 {
-  m_doc->m_wordWrapMarker = !m_doc->m_wordWrapMarker;
-  m_viewInternal->update();
+  //m_renderer->setWordWrapMarker (!m_renderer->wordWrapMarker());
 }
 
 void KateView::setFoldingMarkersOn( bool enable )
 {
-  m_viewInternal->leftBorder->setFoldingMarkersOn( enable );
+  config()->setFoldingBar ( enable );
 }
 
 void KateView::toggleFoldingMarkers()
 {
-  m_viewInternal->leftBorder->toggleFoldingMarkers();
+  config()->setFoldingBar ( !config()->foldingBar() );
 
   // if the user has turned off View/Show Folding Markers,
   // then s/he _really_ doesn't want them to reappear when s/he saves
@@ -955,31 +950,6 @@ void KateView::setCmdLine ( bool enabled )
 void KateView::toggleCmdLine ()
 {
   setCmdLine (!m_cmdLineOn);
-}
-
-void KateView::updateViewDefaults ()
-{
-  m_editActions->readShortcutSettings();
-  setDynWordWrap( m_doc->m_dynWordWrap );
-  m_toggleDynWrap->setChecked( dynWordWrap() );
-
-  setDynWrapIndicators( m_doc->m_dynWrapIndicators );
-  m_setDynWrapIndicators->setCurrentItem( dynWrapIndicators() );
-  m_setDynWrapIndicators->setEnabled( dynWordWrap() );
-
-  setLineNumbersOn( m_doc->m_lineNumbers );
-  m_toggleLineNumbers->setChecked( lineNumbersOn() );
-
-  setIconBorder( m_doc->m_iconBar );
-  m_toggleIconBar->setChecked( iconBorder() );
-
-  updateFoldingMarkersAction();
-
-  m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
-
-  m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
-
-  setAutoCenterLines(m_doc->autoCenterLines());
 }
 
 void KateView::setAutoCenterLines(int viewLines)
@@ -1069,5 +1039,53 @@ KateRenderer *KateView::renderer ()
 
 void KateView::updateConfig ()
 {
+  if (m_startingUp)
+    return;
 
+  m_editActions->readShortcutSettings();
+
+  // dyn. word wrap & markers
+  if (m_hasWrap != config()->dynWordWrap()) {
+    m_viewInternal->prepareForDynWrapChange();
+
+    m_hasWrap = config()->dynWordWrap();
+
+    m_viewInternal->dynWrapChanged();
+
+    m_setDynWrapIndicators->setEnabled(config()->dynWordWrap());
+    m_toggleDynWrap->setChecked( config()->dynWordWrap() );
+  }
+
+  m_viewInternal->leftBorder->setDynWrapIndicators( config()->dynWordWrapIndicators() );
+  m_setDynWrapIndicators->setCurrentItem( config()->dynWordWrapIndicators() );
+
+  // line numbers
+  m_viewInternal->leftBorder->setLineNumbersOn( config()->lineNumbers() );
+  m_toggleLineNumbers->setChecked( config()->lineNumbers() );
+
+  // icon bar
+  m_viewInternal->leftBorder->setIconBorderOn( config()->iconBar() );
+  m_toggleIconBar->setChecked( config()->iconBar() );
+
+  // folding bar
+  bool doit = m_doc->highlight() && m_doc->highlight()->allowsFolding() && config()->foldingBar() && !m_userWantsFoldingMarkersOff;
+  m_viewInternal->leftBorder->setFoldingMarkersOn(doit);
+  m_toggleFoldingMarkers->setChecked( doit );
+  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
+
+  // bookmark
+  m_bookmarks->setSorting( (KateBookmarks::Sorting) config()->bookmarkSort() );
+
+  //setAutoCenterLines(m_doc->autoCenterLines());
+}
+
+void KateView::updateRendererConfig()
+{
+  if (m_startingUp)
+    return;
+
+  m_toggleWWMarker->setChecked( m_renderer->config()->wordWrapMarker()  );
+
+  m_viewInternal->updateView (true);
+  m_viewInternal->repaint ();
 }

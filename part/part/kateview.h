@@ -246,7 +246,7 @@ class KateView : public Kate::View,
     void toggleLineNumbersOn();
     void toggleDynWordWrap ();
     void toggleCmdLine ();
-    void setDynWrapIndicators( int state );
+    void setDynWrapIndicators(int mode);
 
   public:
     class KateRenderer *renderer ();
@@ -301,16 +301,15 @@ class KateView : public Kate::View,
     void slotLostFocus();
     void slotDropEventPass( QDropEvent* ev );
     void slotSetEncoding( const QString& descriptiveName );
-    void updateFoldingMarkersAction();
     void slotStatusMsg();
     void slotSelectionTypeChanged();
     void slotSaveCanceled( const QString& error );
     void slotExpandToplevel();
     void slotCollapseLocal();
     void slotExpandLocal();
+    void updateFoldingMarkersAction();
 
   public:
-    void updateViewDefaults ();
     void setAutoCenterLines(int viewLines);
 
   private:
@@ -372,8 +371,11 @@ class KateView : public Kate::View,
 
     void updateConfig ();
 
+    void updateRendererConfig();
+
   private:
     KateViewConfig *m_config;
+    bool m_startingUp;
 };
 
 #endif

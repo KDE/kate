@@ -302,7 +302,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   }
 
   // show word wrap marker if desirable
-  if ( !isPrinterFriendly() && m_doc->m_wordWrapMarker && fs->myFont.fixedPitch() ) {
+  if ( !isPrinterFriendly() && config()->wordWrapMarker() && fs->myFont.fixedPitch() ) {
     paint.setPen( m_doc->colors[4] );
     int _x = m_doc->config()->wordWrapAt() * fs->myFontMetrics.width('x') - xStart;
     paint.drawLine( _x,0,_x,fs->fontHeight );
@@ -885,9 +885,6 @@ bool KateRenderer::selectBounds(uint line, uint &start, uint &end, uint lineLeng
 void KateRenderer::updateConfig ()
 {
   if (m_view)
-  {
-    m_view->m_viewInternal->updateView (true);
-    m_view->m_viewInternal->repaint ();
-  }
+    m_view->updateRendererConfig();
 }
 

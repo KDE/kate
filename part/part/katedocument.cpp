@@ -102,14 +102,7 @@ QColor KateDocument::colors[6];
 uint KateDocument::myBackupConfig = 1;
 QString KateDocument::myBackupSuffix ("~");
 
-bool KateDocument::m_dynWordWrap = true;
-int KateDocument::m_dynWrapIndicators = 1;  // follow line numbers
-bool KateDocument::m_lineNumbers = false;
 bool KateDocument::m_collapseTopLevelOnLoad = false;
-bool KateDocument::m_iconBar = false;
-bool KateDocument::m_foldingBar = true;
-int KateDocument::m_bookmarkSort = 0;
-bool KateDocument::m_wordWrapMarker = true;
 int KateDocument::m_autoCenterLines = 0;
 int KateDocument::m_getSearchTextFrom = KateDocument::SelectionOnly;
 
@@ -1868,25 +1861,12 @@ void KateDocument::readConfig(KConfig *config)
       s_plugins.at(i)->load = true;
 
   config->setGroup("Kate View");
-  m_dynWordWrap = config->readBoolEntry( "Dynamic Word Wrap", m_dynWordWrap );
-  m_dynWrapIndicators = config->readNumEntry( "Dynamic Word Wrap Indicators", m_dynWrapIndicators );
-  m_lineNumbers = config->readBoolEntry( "Line Numbers", m_lineNumbers );
-  m_iconBar = config->readBoolEntry( "Icon Bar", m_iconBar );
-  m_foldingBar = config->readBoolEntry( "Folding Markers", m_foldingBar );
   m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
-  m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", m_bookmarkSort );
-  m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
   m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
   m_getSearchTextFrom = config->readNumEntry( "Get Search Text From", m_getSearchTextFrom );
 
   for (uint z=0; z < KateFactory::documents()->count(); z++)
     KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
-
-  // update view defaults
-  for (uint z=0; z < KateFactory::views()->count(); z++)
-  {
-    KateFactory::views()->at(z)->updateViewDefaults ();;
-  }
 
   // update the remaining document stuff
   for (uint z=0; z < KateFactory::documents()->count(); z++)
@@ -1894,12 +1874,6 @@ void KateDocument::readConfig(KConfig *config)
     KateFactory::documents()->at(z)->tagAll();
     KateFactory::documents()->at(z)->updateViews();
   }
-}
-
-void KateDocument::updateViewDefaults ()
-{
-  for (uint i=0; i<m_views.count(); i++)
-    m_views.at(i)->updateViewDefaults ();
 }
 
 void KateDocument::writeConfig(KConfig *config)
@@ -1933,14 +1907,7 @@ void KateDocument::writeConfig(KConfig *config)
     config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
 
   config->setGroup("Kate View");
-  config->writeEntry( "Dynamic Word Wrap", m_dynWordWrap );
-  config->writeEntry( "Dynamic Word Wrap Indicators", m_dynWrapIndicators );
-  config->writeEntry( "Line Numbers", m_lineNumbers );
-  config->writeEntry( "Icon Bar", m_iconBar );
-  config->writeEntry( "Folding Markers", m_foldingBar );
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
-  config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
-  config->writeEntry( "Word Wrap Marker", m_wordWrapMarker );
   config->writeEntry( "Auto Center Lines", m_autoCenterLines );
   config->writeEntry( "Get Search Text From", m_getSearchTextFrom );
 
@@ -2464,14 +2431,16 @@ bool KateDocument::printDialog ()
 
          // base of height: margins top/bottom, above and below tetle sep line
          guideHeight = ( innerMargin * 4 ) + 1;
-         // get a title and add the height required to draw it
+
+	 // get a title and add the height required to draw it
          QString _title = i18n("Typographical Conventions for %1").arg(m_highlight->name());
          guideHeight += paint.boundingRect( 0, 0, _w, 1000, Qt::AlignTop|Qt::AlignHCenter, _title ).height();
+
          // see how many columns we can fit in
          int _widest( 0 );
          QPtrListIterator<ItemData> it( m_highlight->getData()->itemDataList );
          ItemData *_d;
-         /////KateFontMetrics _kfm = KateFontMetrics(QFont()); // eew
+
          int _items ( 0 );
          while ( ( _d = it.current()) != 0 )
          {
@@ -2508,6 +2477,7 @@ bool KateDocument::printDialog ()
            _ph -= innerMargin;
          int _lpp = _ph / renderer.fontHeight();
          uint _lt = 0, _c=0;
+
          // add space for guide if required
          if ( useGuide )
            _lt += (guideHeight + (renderer.fontHeight() /2)) / renderer.fontHeight();

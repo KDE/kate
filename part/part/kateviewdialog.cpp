@@ -534,26 +534,26 @@ ViewDefaultsConfig::~ViewDefaultsConfig()
 
 void ViewDefaultsConfig::apply ()
 {
-  m_doc->m_dynWordWrap = m_dynwrap->isChecked();
-  m_doc->m_dynWrapIndicators = m_dynwrapIndicatorsCombo->currentItem ();
-  m_doc->m_wordWrapMarker = m_wwmarker->isChecked();
-  m_doc->m_lineNumbers = m_line->isChecked();
-  m_doc->m_iconBar = m_icons->isChecked();
-  m_doc->m_foldingBar = m_folding->isChecked();
+  KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
+  KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentItem ());
+  KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
+  KateViewConfig::global()->setLineNumbers (m_line->isChecked());
+  KateViewConfig::global()->setIconBar (m_icons->isChecked());
+  KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
   m_doc->m_collapseTopLevelOnLoad = m_collapseTopLevel->isChecked();
-  m_doc->m_bookmarkSort = m_bmSort->id (m_bmSort->selected());
+  KateViewConfig::global()->setBookmarkSort (m_bmSort->id (m_bmSort->selected()));
 }
 
 void ViewDefaultsConfig::reload ()
 {
-  m_dynwrap->setChecked(m_doc->m_dynWordWrap);
-  m_dynwrapIndicatorsCombo->setCurrentItem( m_doc->m_dynWrapIndicators );
-  m_wwmarker->setChecked( m_doc->m_wordWrapMarker );
-  m_line->setChecked(m_doc->m_lineNumbers);
-  m_icons->setChecked(m_doc->m_iconBar);
-  m_folding->setChecked(m_doc->m_foldingBar);
+  m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
+  m_dynwrapIndicatorsCombo->setCurrentItem( KateViewConfig::global()->dynWordWrapIndicators() );
+  m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
+  m_line->setChecked(KateViewConfig::global()->lineNumbers());
+  m_icons->setChecked(KateViewConfig::global()->iconBar());
+  m_folding->setChecked(KateViewConfig::global()->foldingBar());
   m_collapseTopLevel->setChecked( m_doc->m_collapseTopLevelOnLoad );
-  m_bmSort->setButton( m_doc->m_bookmarkSort  );
+  m_bmSort->setButton( KateViewConfig::global()->bookmarkSort()  );
 }
 
 void ViewDefaultsConfig::reset () {;}

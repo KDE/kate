@@ -154,8 +154,38 @@ class KateViewConfig : public KateConfig
     void updateConfig ();
 
   public:
+    bool dynWordWrap () const;
+    void setDynWordWrap (bool wrap);
+
+    int dynWordWrapIndicators () const;
+    void setDynWordWrapIndicators (int mode);
+
+    bool lineNumbers () const;
+    void setLineNumbers (bool on);
+
+    bool iconBar () const;
+    void setIconBar (bool on);
+
+    bool foldingBar () const;
+    void setFoldingBar (bool on);
+
+    int bookmarkSort () const;
+    void setBookmarkSort (int mode);
 
   private:
+    bool m_dynWordWrap;
+    int m_dynWordWrapIndicators;
+    bool m_lineNumbers;
+    bool m_iconBar;
+    bool m_foldingBar;
+    int m_bookmarkSort;
+
+    bool m_dynWordWrapSet : 1;
+    bool m_dynWordWrapIndicatorsSet : 1;
+    bool m_lineNumbersSet : 1;
+    bool m_iconBarSet : 1;
+    bool m_foldingBarSet : 1;
+    bool m_bookmarkSortSet : 1;
 
   private:
     KateView *m_view;
@@ -208,18 +238,23 @@ class KateRendererConfig : public KateConfig
       PrintFont = 2
     };
 
-    void setFont(int whichFont, QFont font);
-
     const FontStruct *fontStruct (int whichFont);
     const QFont *font(int whichFont);
     const QFontMetrics *fontMetrics(int whichFont);
 
+    void setFont(int whichFont, QFont font);
+
+    bool wordWrapMarker () const;
+    void setWordWrapMarker (bool on);
+
   private:
     FontStruct* m_viewFont;
     FontStruct* m_printFont;
+    bool m_wordWrapMarker;
 
     bool m_viewFontSet : 1;
     bool m_printFontSet : 1;
+    bool m_wordWrapMarkerSet : 1;
 
   private:
     KateRenderer *m_renderer;

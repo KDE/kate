@@ -101,9 +101,15 @@ int ArbitraryHighlight::weight() const
 
 void ArbitraryHighlight::setWeight(int weight)
 {
-  m_itemsSet |= Weight;
+  bool isChanged = !(m_itemsSet & Weight) || m_weight != weight;
 
-  m_weight = weight;
+  if (isChanged) {
+    m_itemsSet |= Weight;
+
+    m_weight = weight;
+
+    changed();
+  }
 }
 
 void ArbitraryHighlight::setBold(bool enable)
@@ -118,9 +124,15 @@ bool ArbitraryHighlight::italic() const
 
 void ArbitraryHighlight::setItalic(bool enable)
 {
-  m_itemsSet |= Italic;
+  bool isChanged = !(m_itemsSet & Italic) || m_italic != enable;
 
-  m_italic = enable;
+  if (isChanged) {
+    m_itemsSet |= Italic;
+
+    m_italic = enable;
+
+    changed();
+  }
 }
 
 bool ArbitraryHighlight::underline() const
@@ -130,9 +142,15 @@ bool ArbitraryHighlight::underline() const
 
 void ArbitraryHighlight::setUnderline(bool enable)
 {
-  m_itemsSet |= Underline;
+  bool isChanged = !(m_itemsSet & Underline) || m_underline != enable;
 
-  m_underline = enable;
+  if (isChanged) {
+    m_itemsSet |= Underline;
+
+    m_underline = enable;
+
+    changed();
+  }
 }
 
 bool ArbitraryHighlight::strikeOut() const
@@ -142,9 +160,15 @@ bool ArbitraryHighlight::strikeOut() const
 
 void ArbitraryHighlight::setStrikeOut(bool enable)
 {
-  m_itemsSet |= StrikeOut;
+  bool isChanged = !(m_itemsSet & StrikeOut) || m_strikeout != enable;
 
-  m_strikeout = enable;
+  if (isChanged) {
+    m_itemsSet |= StrikeOut;
+
+    m_strikeout = enable;
+
+    changed();
+  }
 }
 
 const QColor& ArbitraryHighlight::textColor() const
@@ -154,9 +178,13 @@ const QColor& ArbitraryHighlight::textColor() const
 
 void ArbitraryHighlight::setTextColor(const QColor& color)
 {
-  m_itemsSet |= TextColor;
+  bool isChanged = !(m_itemsSet & TextColor) || m_textColor != color;
 
-  m_textColor = color;
+  if (isChanged) {
+    m_itemsSet |= TextColor;
+
+    m_textColor = color;
+  }
 }
 
 const QColor& ArbitraryHighlight::bgColor() const
@@ -166,9 +194,15 @@ const QColor& ArbitraryHighlight::bgColor() const
 
 void ArbitraryHighlight::setBGColor(const QColor& color)
 {
-  m_itemsSet |= BGColor;
+  bool isChanged = !(m_itemsSet & BGColor) || m_bgColor != color;
 
-  m_bgColor = color;
+  if (isChanged) {
+    m_itemsSet |= BGColor;
+
+    m_bgColor = color;
+
+    changed();
+  }
 }
 
 bool operator ==(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2)
@@ -226,7 +260,8 @@ void KateArbitraryHighlight::addHighlightToView(KateSuperRangeList* list, KateVi
 
   m_viewHLs[view]->append(list);
 
-  connect(list, SIGNAL(rangeEliminated(KateSuperRange*)), SLOT(slotRangeEliminated(KateSuperRange*)));
+  connect(list, SIGNAL(rangeEliminated(KateSuperRange*)), SLOT(slotTagRange(KateSuperRange*)));
+  connect(list, SIGNAL(tagRange(KateSuperRange*)), SLOT(slotTagRange(KateSuperRange*)));
 }
 
 KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView* view)
@@ -270,7 +305,7 @@ KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView*
   return s_return;
 }
 
-void KateArbitraryHighlight::slotRangeEliminated(KateSuperRange* range)
+void KateArbitraryHighlight::slotTagRange(KateSuperRange* range)
 {
   emit tagLines(viewForRange(range), range);
 }

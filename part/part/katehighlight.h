@@ -51,7 +51,13 @@ class HlItem {
     HlItem(int attribute, int context,signed char regionId);
     virtual ~HlItem();
     virtual bool startEnable(QChar);
-    virtual const QChar *checkHgl(const QChar *, int len, bool) = 0;
+
+    // Changed from using QChar*, because it makes the regular expression check very
+    // inefficient (forces it to copy the string, very bad for long strings)
+    // Now, the function returns the offset detected, or 0 if no match is found.
+    // bool linestart isn't needed, this is equivalent to offset == 0.
+    virtual int checkHgl(const QString& text, int offset, int len) = 0;
+
     virtual bool lineContinue(){return false;}
 
     QPtrList<HlItem> *subItems;
@@ -176,8 +182,8 @@ class Highlight
 
     inline QString getCommentStart() const {return cmlStart;};
     inline QString getCommentEnd()  const {return cmlEnd;};
-    inline QString getCommentSingleLineStart() const { return cslStart;};      
-  
+    inline QString getCommentSingleLineStart() const { return cslStart;};
+
   private:
     void init();
     void done();
@@ -215,8 +221,8 @@ class Highlight
     bool casesensitive;
     QString weakDeliminator;
     QString deliminator;
-    const QChar *deliminatorChars;
-    uint deliminatorLen;
+    //const QChar *deliminatorChars;
+    //uint deliminatorLen;
     QString cmlStart;
     QString cmlEnd;
     QString cslStart;
@@ -233,7 +239,7 @@ class Highlight
     QString buildPrefix;
     bool building;
     uint itemData0;
-    uint buildContext0Offset;    
+    uint buildContext0Offset;
     IncludeRules includeRules;
     QValueList<int> contextsIncludingSomething;
     public:
@@ -278,7 +284,7 @@ class HlManager : public QObject
   private:
     QPtrList<Highlight> hlList;
     QDict<Highlight> hlDict;
-    
+
     static HlManager *s_pSelf;
     static KConfig *s_pConfig;
 };

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>  
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -18,7 +18,7 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-           
+
 // $Id$
 
 #include "katesearch.h"
@@ -90,7 +90,7 @@ void KateSearch::addToList( QStringList& list, const QString& s )
 void KateSearch::find()
 {
   KFindDialog *findDialog = new KFindDialog (  m_view, "", s_options,
-                                               s_searchList, m_doc->hasSelection() ); 
+                                               s_searchList, m_doc->hasSelection() );
 
   findDialog->setPattern (getSearchText());
 
@@ -129,7 +129,7 @@ void KateSearch::replace()
   if (!doc()->isReadWrite()) return;
 
   KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", s_options,
-                                               s_searchList, s_replaceList, m_doc->hasSelection() ); 
+                                               s_searchList, s_replaceList, m_doc->hasSelection() );
 
   replaceDialog->setPattern (getSearchText());
 
@@ -182,21 +182,20 @@ void KateSearch::findAgain( bool back )
   searchFlags.fromBeginning = false;
   searchFlags.prompt = true;
   s.cursor = getCursor();
-  
+
   search( searchFlags );
 }
 
 void KateSearch::search( SearchFlags flags )
 {
   s.flags = flags;
-  
+
   if( s.flags.fromBeginning ) {
     if( !s.flags.backward ) {
-      s.cursor.col = 0;
-      s.cursor.line = 0;
+      s.cursor.setPos(0, 0);
     } else {
-      s.cursor.line = doc()->numLines() - 1;
-      s.cursor.col = doc()->lineLength( s.cursor.line );
+      s.cursor.setLine(doc()->numLines() - 1);
+      s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
     }
   } else if( s.flags.backward ) {
     // If we are continuing a backward search, make sure
@@ -204,25 +203,25 @@ void KateSearch::search( SearchFlags flags )
     QString txt = view()->currentTextLine();
     QString searchFor = s_searchList.first();
     uint length = searchFor.length();
-    int pos = s.cursor.col - length;
+    int pos = s.cursor.col() - length;
     kdDebug(13000) << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
     if( searchFor.find( txt.mid( pos, length ), 0, s.flags.caseSensitive ) == 0 ) {
       if( pos > 0 ) {
-        s.cursor.col = pos - 1;
-      } else if ( pos == 0 && s.cursor.line > 0 ) {
-        s.cursor.line--;
-        s.cursor.col = doc()->lineLength( s.cursor.line );
-      } else if ( pos == 0 && s.cursor.line == 0 ) {
+        s.cursor.setCol(pos - 1);
+      } else if ( pos == 0 && s.cursor.line() > 0 ) {
+        s.cursor.setLine(s.cursor.line() - 1);
+        s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
+      } else if ( pos == 0 && s.cursor.line() == 0 ) {
         // TODO: FIXME
       }
     }
   }
   if((!s.flags.backward &&
-       s.cursor.col == 0 &&
-       s.cursor.line == 0 ) ||
+       s.cursor.col() == 0 &&
+       s.cursor.line() == 0 ) ||
      ( s.flags.backward &&
-       s.cursor.col == doc()->lineLength( s.cursor.line ) &&
-       s.cursor.line == (((int)doc()->numLines()) - 1) ) ) {
+       s.cursor.col() == doc()->lineLength( s.cursor.line() ) &&
+       s.cursor.line() == (((int)doc()->numLines()) - 1) ) ) {
     s.flags.finished = true;
   }
 
@@ -246,11 +245,10 @@ void KateSearch::wrapSearch()
   else
   {
     if( !s.flags.backward ) {
-      s.cursor.col = 0;
-      s.cursor.line = 0;
+      s.cursor.setPos(0, 0);
     } else {
-      s.cursor.line = doc()->numLines() - 1;
-      s.cursor.col = doc()->lineLength( s.cursor.line );
+      s.cursor.setLine(doc()->numLines() - 1);
+      s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
     }
   }
   replaces = 0;
@@ -260,12 +258,12 @@ void KateSearch::wrapSearch()
 void KateSearch::findAgain()
 {
   QString searchFor = s_searchList.first();
-  
+
   if( searchFor.isEmpty() ) {
     find();
     return;
   }
-  
+
   if ( doSearch( searchFor ) ) {
     exposeFound( s.cursor, s.matchedLength );
   } else if( !s.flags.finished ) {
@@ -346,29 +344,29 @@ void KateSearch::replaceOne()
           kdDebug()<<"KateSearch::replaceOne(): you don't have "<<ccap<<" backreferences in regexp '"<<m_re.pattern()<<"'"<<endl;
         }
       }
-      pos = br.search( replaceWith, pos+QMAX(br.matchedLength(), sc.length()) );
+      pos = br.search( replaceWith, pos+QMAX(br.matchedLength(), (int)sc.length()) );
     }
   }
-  
-  doc()->removeText( s.cursor.line, s.cursor.col,
-      s.cursor.line, s.cursor.col + s.matchedLength );
-  doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
+
+  doc()->removeText( s.cursor.line(), s.cursor.col(),
+      s.cursor.line(), s.cursor.col() + s.matchedLength );
+  doc()->insertText( s.cursor.line(), s.cursor.col(), replaceWith );
 
   replaces++;
-  
-  if( s.flags.selected && s.cursor.line == s.selEnd.line )
+
+  if( s.flags.selected && s.cursor.line() == s.selEnd.line() )
   {
-    s.selEnd.col += ( replaceWith.length() - s.matchedLength );
+    s.selEnd.setCol(s.selEnd.col() + replaceWith.length() - s.matchedLength );
   }
-  
+
   if( !s.flags.backward ) {
-    s.cursor.col += replaceWith.length();
-  } else if( s.cursor.col > 0 ) {
-    s.cursor.col--;
+    s.cursor.setCol(s.cursor.col() + replaceWith.length());
+  } else if( s.cursor.col() > 0 ) {
+    s.cursor.setCol(s.cursor.col() - 1);
   } else {
-    s.cursor.line--;
-    if( s.cursor.line >= 0 ) {
-      s.cursor.col = doc()->lineLength( s.cursor.line );
+    s.cursor.setLine(s.cursor.line() - 1);
+    if( s.cursor.line() >= 0 ) {
+      s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
     }
   }
 }
@@ -376,13 +374,13 @@ void KateSearch::replaceOne()
 void KateSearch::skipOne()
 {
   if( !s.flags.backward ) {
-    s.cursor.col += s.matchedLength;
-  } else if( s.cursor.col > 0 ) {
-    s.cursor.col--;
+    s.cursor.setCol(s.cursor.col() + s.matchedLength);
+  } else if( s.cursor.col() > 0 ) {
+    s.cursor.setCol(s.cursor.col() - 1);
   } else {
-    s.cursor.line--;
-    if( s.cursor.line >= 0 ) {
-      s.cursor.col = doc()->lineLength(s.cursor.line);
+    s.cursor.setLine(s.cursor.line() - 1);
+    if( s.cursor.line() >= 0 ) {
+      s.cursor.setCol(doc()->lineLength(s.cursor.line()));
     }
   }
 }
@@ -432,51 +430,64 @@ QString KateSearch::getSearchText()
   // If the user has marked some text we use that otherwise
   // use the word under the cursor.
   QString str;
-  
+
   if( doc()->hasSelection() )
     str = doc()->selection();
   else
     str = view()->currentWord();
-  
+
   str.replace( QRegExp("^\\n"), "" );
   str.replace( QRegExp("\\n.*"), "" );
-  
+
   return str;
 }
 
 KateTextCursor KateSearch::getCursor()
 {
-  KateTextCursor c;
-  c.line = view()->cursorLine();
-  c.col = view()->cursorColumnReal();
-  return c;
+  return KateTextCursor(view()->cursorLine(), view()->cursorColumnReal());
 }
 
 bool KateSearch::doSearch( const QString& text )
 {
-  uint line = s.cursor.line;
-  uint col = s.cursor.col;
+/*
+  rodda: Still Working on this... :)
+
+  bool result = false;
+
+  if (m_searchResults.count()) {
+    m_resultIndex++;
+    if (m_resultIndex < (int)m_searchResults.count()) {
+      s = m_searchResults[m_resultIndex];
+      result = true;
+    }
+
+  } else {
+    int temp = 0;
+    do {*/
+
+  uint line = s.cursor.line();
+  uint col = s.cursor.col();// + (result ? s.matchedLength : 0);
   bool backward = s.flags.backward;
   bool caseSensitive = s.flags.caseSensitive;
   bool regExp = s.flags.regExp;
   bool wholeWords = s.flags.wholeWords;
   uint foundLine, foundCol, matchLen;
   bool found = false;
-//  kdDebug(13000) << "Searching at " << line << ", " << col << endl;
+  //kdDebug() << "Searching at " << line << ", " << col << endl;
   if( regExp ) {
     m_re = QRegExp( text, caseSensitive );
     found = doc()->searchText( line, col, m_re,
-                               &foundLine, &foundCol,
-                               &matchLen, backward );
+                              &foundLine, &foundCol,
+                              &matchLen, backward );
   } else if ( wholeWords ) {
     QRegExp re( "\\b" + text + "\\b", caseSensitive );
     found = doc()->searchText( line, col, re,
-                               &foundLine, &foundCol,
-                               &matchLen, backward );
+                              &foundLine, &foundCol,
+                              &matchLen, backward );
   } else {
     found = doc()->searchText( line, col, text,
-                               &foundLine, &foundCol,
-                               &matchLen, caseSensitive, backward );
+                              &foundLine, &foundCol,
+                              &matchLen, caseSensitive, backward );
   }
   if ( found && s.flags.selected )
   {
@@ -484,28 +495,45 @@ bool KateSearch::doSearch( const QString& text )
       ||  s.flags.backward && KateTextCursor( foundLine, foundCol ) < s.selBegin )
       found = false;
   }
-  if( !found ) return false;
-//  kdDebug(13000) << "Found at " << foundLine << ", " << foundCol << endl;
-  s.cursor.line = foundLine;
-  s.cursor.col = foundCol;
+  if( !found ) return false; //break;
+
+  //result = true;
+
+  s.cursor.setPos(foundLine, foundCol);
+  //kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;
   s.matchedLength = matchLen;
 
+  //m_searchResults.append(s);
+
   if (arbitraryHLExample)  {
-    ArbitraryHighlightRange* hl = new ArbitraryHighlightRange(new KateSuperCursor(m_doc, s.cursor), new KateSuperCursor(m_doc, s.cursor.line, s.cursor.col + s.matchedLength), this);
+    ArbitraryHighlightRange* hl = new ArbitraryHighlightRange(new KateSuperCursor(m_doc, s.cursor), new KateSuperCursor(m_doc, s.cursor.line(), s.cursor.col() + s.matchedLength), this);
     hl->setBold();
-    hl->setItalic();
-    hl->setTextColor(Qt::blue);
-    hl->setBGColor(Qt::yellow);
+    hl->setTextColor(Qt::white);
+    hl->setBGColor(Qt::black);
+    // destroy the highlight upon change
+    connect(hl, SIGNAL(contentsChanged()), hl, SIGNAL(eliminated()));
     m_arbitraryHLList->append(hl);
   }
 
   return true;
+
+    /* rodda: more of my search highlighting work
+
+    } while (++temp < 100);
+
+    if (result) {
+      s = m_searchResults.first();
+      m_resultIndex = 0;
+    }
+  }
+
+  return result;*/
 }
 
 void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 {
-  view()->setCursorPositionReal( cursor.line, cursor.col + slen );
-  doc()->setSelection( cursor.line, cursor.col, cursor.line, cursor.col + slen );
+  view()->setCursorPositionReal( cursor.line(), cursor.col() + slen );
+  doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
 
 // vim: noet ts=2

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>  
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -26,6 +26,7 @@
 #include <qregexp.h>
 #include <qptrlist.h>
 #include <qdialog.h>
+#include <qvaluelist.h>
 
 #include "katecursor.h"
 
@@ -117,6 +118,9 @@ class KateSearch : public QObject
       KateTextCursor selBegin;
       KateTextCursor selEnd;
     } s;
+
+    QValueList<SConfig> m_searchResults;
+    int                 m_resultIndex;
 
     static long s_options;
     int           replaces;

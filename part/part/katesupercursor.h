@@ -90,7 +90,18 @@ public:
    */
   operator QString();
 
+  // Reimplementations;
+  virtual void setLine(int lineNum);
+  virtual void setCol(int colNum);
+  virtual void setPos(const KateTextCursor& pos);
+  virtual void setPos(int lineNum, int colNum);
+
 signals:
+  /**
+   * The cursor's position was directly changed by the program.
+   */
+  void positionDirectlyChanged();
+
   /**
    * The cursor's position was changed.
    */
@@ -136,6 +147,7 @@ private slots:
   void slotTextUnWrapped(TextLine::Ptr linePtr, TextLine::Ptr nextLine, uint pos, uint len);
 
 /*
+  void slotPositionDirectlyChanged();
   void slotPositionChanged();
   void slotPositionUnChanged();
   void slotPositionDeleted();
@@ -147,7 +159,7 @@ private slots:
 private:
   void connectSS();
 
-  TextLine::Ptr m_line;
+  TextLine::Ptr m_linePtr;
   bool m_moveOnInsert : 1;
   bool m_lineRemoved : 1;
 };
@@ -233,12 +245,12 @@ public:
   /**
    * Returns true if the range includes @p line
    */
-  bool includes(uint line) const;
+  bool includes(uint lineNum) const;
 
   /**
    * Returns true if the range totally encompasses @p line
    */
-  bool includesWholeLine(uint line) const;
+  bool includesWholeLine(uint lineNum) const;
 
   /**
    * Returns whether @p cursor is the site of a boundary of this range.
@@ -248,7 +260,7 @@ public:
   /**
    * Returns whether there is a boundary of this range on @p line.
    */
-  bool boundaryOn(uint line) const;
+  bool boundaryOn(uint lineNum) const;
 
 signals:
   /**
@@ -284,6 +296,14 @@ signals:
    * to this signal.
    */
   void eliminated();
+
+  /**
+   * Indicates the region needs re-drawing.
+   */
+  void tagRange(KateSuperRange* range);
+
+public slots:
+  void slotTagRange();
 
 private slots:
   void slotEvaluateChanged();
@@ -330,14 +350,15 @@ public:
    * Does not copy auto-manage value, as that would make it too easy to perform
    * double-deletions.
    *
-   * Also, should not connect signals and slots, to save time, as this is mainly
+   * Also, does not connect signals and slots to save time, as this is mainly
    * used by the document itself while drawing (call connectAll() to re-constitute)
    */
   KateSuperRangeList(const QPtrList<KateSuperRange>& rangeList, QObject* parent = 0L, const char* name = 0L);
 
   /**
-   * Combine lists into one.
-   * Does not connect items, call connectAll().
+   * Append another list.
+   * If this object was created by the semi-copy constructor, it may not connect items
+   * (unless connectAll() has already been called), call connectAll().
    */
   void appendList(const QPtrList<KateSuperRange>& rangeList);
 
@@ -365,12 +386,15 @@ public:
 
   /**
    * This is just a straight-forward list so that there is no confusion about whether
-   * this list can be auto-managed.
-   * @todo implement copy constructor to make the returned list able to be auto-managed.
+   * this list should be auto-managed (ie. it shouldn't, to avoid double deletions).
    */
   QPtrList<KateSuperRange> rangesIncluding(const KateTextCursor& cursor);
   QPtrList<KateSuperRange> rangesIncluding(uint line);
 
+  /**
+   * @retval true if one of the ranges in the list includes @p cursor
+   * @retval false otherwise
+   */
   bool rangesInclude(const KateTextCursor& cursor);
 
   /**
@@ -409,8 +433,20 @@ signals:
    */
   void listEmpty();
 
+  /**
+   * Connected to all ranges if connect()ed.
+   */
+  void tagRange(KateSuperRange* range);
+
 protected:
+  /**
+   * internal reimplementation
+   */
   virtual int compareItems(QPtrCollection::Item item1, QPtrCollection::Item item2);
+
+  /**
+   * internal reimplementation
+   */
   virtual QPtrCollection::Item newItem(QPtrCollection::Item d);
 
 private slots:

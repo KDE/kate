@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
    Copyright (C) 2001,2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -55,7 +56,7 @@
 class HlCharDetect : public HlItem {
   public:
     HlCharDetect(int attribute, int context,signed char regionId, QChar);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
   private:
     QChar sChar;
 };
@@ -65,7 +66,7 @@ class Hl2CharDetect : public HlItem {
     Hl2CharDetect(int attribute, int context, signed char regionId,  QChar ch1, QChar ch2);
    	Hl2CharDetect(int attribute, int context,signed char regionId,  const QChar *ch);
 
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
   private:
     QChar sChar1;
     QChar sChar2;
@@ -75,7 +76,7 @@ class HlStringDetect : public HlItem {
   public:
     HlStringDetect(int attribute, int context, signed char regionId, const QString &, bool inSensitive=false);
     virtual ~HlStringDetect();
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
   private:
     const QString str;
     bool _inSensitive;
@@ -84,7 +85,7 @@ class HlStringDetect : public HlItem {
 class HlRangeDetect : public HlItem {
   public:
     HlRangeDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
   private:
     QChar sChar1;
     QChar sChar2;
@@ -93,25 +94,24 @@ class HlRangeDetect : public HlItem {
 class HlKeyword : public HlItem
 {
   public:
-    HlKeyword(int attribute, int context,signed char regionId, bool casesensitive, const QChar *deliminator, uint deliLen);
+    HlKeyword(int attribute, int context,signed char regionId, bool casesensitive, const QString& delims);
     virtual ~HlKeyword();
 
     virtual void addWord(const QString &);
     virtual void addList(const QStringList &);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool startEnable(QChar c);
 
   private:
     QDict<bool> dict;
     bool _caseSensitive;
-    const QChar *deliminatorChars;
-    uint deliminatorLen;
+    const QString& deliminators;
 };
 
 class HlInt : public HlItem {
   public:
     HlInt(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool startEnable(QChar c);
 
 };
@@ -119,29 +119,29 @@ class HlInt : public HlItem {
 class HlFloat : public HlItem {
   public:
     HlFloat(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool startEnable(QChar c);
 };
 
 class HlCOct : public HlItem {
   public:
     HlCOct(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool startEnable(QChar c);
 };
 
 class HlCHex : public HlItem {
   public:
     HlCHex(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool startEnable(QChar c);
 };
 
 class HlCFloat : public HlFloat {
   public:
     HlCFloat(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
-    const QChar *checkIntHgl(const QChar *, int, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
+    int checkIntHgl(const QString& text, int offset, int len);
     virtual bool startEnable(QChar c);
 };
 
@@ -149,34 +149,33 @@ class HlLineContinue : public HlItem {
   public:
     HlLineContinue(int attribute, int context, signed char regionId);
     virtual bool endEnable(QChar c) {return c == '\0';}
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool lineContinue(){return true;}
 };
 
 class HlCStringChar : public HlItem {
   public:
     HlCStringChar(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
 };
 
 class HlCChar : public HlItem {
   public:
     HlCChar(int attribute, int context,signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual int checkHgl(const QString& text, int offset, int len);
 };
 
 class HlAnyChar : public HlItem {
   public:
-    HlAnyChar(int attribute, int context, signed char regionId, const QChar* charList, uint len);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
-    const QChar* _charList;
-    uint _charListLen;
+    HlAnyChar(int attribute, int context, signed char regionId, const QString& charList);
+    virtual int checkHgl(const QString& text, int offset, int len);
+    const QString _charList;
 };
 
 class HlRegExpr : public HlItem {
   public:
   HlRegExpr(int attribute, int context,signed char regionId ,QString expr, bool insensitive, bool minimal);
-  virtual const QChar *checkHgl(const QChar *, int len, bool);
+  virtual int checkHgl(const QString& text, int offset, int len);
   ~HlRegExpr(){delete Expr;};
 
   QRegExp *Expr;
@@ -194,9 +193,6 @@ enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar
 
 static bool trueBool = true;
 static QString stdDeliminator = QString ("!%&()*+,-./:;<=>?[]^{|}~ \t\\");
-
-static const QChar *stdDeliminatorChars = stdDeliminator.unicode();
-static int stdDeliminatorLen=stdDeliminator.length();
 //END
 
 //BEGIN NON MEMBER FUNCTIONS
@@ -215,18 +211,6 @@ static int getDefStyleNum(QString name)
 
   return dsNormal;
 }
-
-static bool ustrchr(const QChar *s, uint len, QChar c)
-{
-  for (uint z=0; z < len; z++)
-  {
-    if (*s == c) return true;
-    s++;
-  }
-
-  return false;
-}
-
 //END
 
 
@@ -252,9 +236,9 @@ HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId, QCh
   : HlItem(attribute,context,regionId), sChar(c) {
 }
 
-const QChar *HlCharDetect::checkHgl(const QChar *str, int len, bool) {
-  if ((len > 0) && (*str == sChar)) return str + 1;
-  return 0L;
+int HlCharDetect::checkHgl(const QString& text, int offset, int len) {
+  if (len && text.at(offset) == sChar) return offset + 1;
+  return 0;
 }
 //END
 
@@ -265,10 +249,11 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, Q
   sChar2 = ch2;
 }
 
-const QChar *Hl2CharDetect::checkHgl(const QChar *str, int len, bool) {
-  if (len <2) return 0L;
-  if (str[0] == sChar1 && str[1] == sChar2) return str + 2;
-  return 0L;
+int Hl2CharDetect::checkHgl(const QString& text, int offset, int len)
+{
+  if (len < 2) return offset;
+  if (text[offset++] == sChar1 && text[offset++] == sChar2) return offset;
+  return 0;
 }
 //END
 
@@ -280,15 +265,16 @@ HlStringDetect::HlStringDetect(int attribute, int context, signed char regionId,
 HlStringDetect::~HlStringDetect() {
 }
 
-const QChar *HlStringDetect::checkHgl(const QChar *s, int len , bool) {
-  if (len<(int)str.length()) return 0L;
-  if (!_inSensitive) {if (memcmp(s, str.unicode(), str.length()*sizeof(QChar)) == 0) return s + str.length();}
-     else
-       {
-	 QString tmp=QString(s,str.length()).upper();
-	 if (tmp==str) return s+str.length();
-       }
-  return 0L;
+int HlStringDetect::checkHgl(const QString& text, int offset, int len)
+{
+  if (len < (int)str.length()) return 0;
+
+  int offset2 = text.find(str, offset, !_inSensitive);
+
+  if (offset2 == -1)
+    return 0;
+
+  return offset + str.length() - 1;
 }
 //END
 
@@ -300,30 +286,31 @@ HlRangeDetect::HlRangeDetect(int attribute, int context, signed char regionId, Q
   sChar2 = ch2;
 }
 
-const QChar *HlRangeDetect::checkHgl(const QChar *s, int len, bool) {
-  if ((len > 0) && (*s == sChar1))
+int HlRangeDetect::checkHgl(const QString& text, int offset, int len)
+{
+  if ((len > 0) && (text[offset] == sChar1))
   {
     do
     {
-      s++;
+      offset++;
       len--;
-      if (len < 1) return 0L;
+      if (len < 1) return 0;
     }
-    while (*s != sChar2);
+    while (text[offset] != sChar2);
 
-    return s + 1;
+    return offset + 1;
   }
-  return 0L;
+  return 0;
 }
 //END
 
 //BEGIN HlKeyword
-HlKeyword::HlKeyword (int attribute, int context, signed char regionId, bool casesensitive, const QChar *deliminator, uint deliLen)
-  : HlItem(attribute,context,regionId), dict (113, casesensitive)
+HlKeyword::HlKeyword (int attribute, int context, signed char regionId, bool casesensitive, const QString& delims)
+  : HlItem(attribute,context,regionId)
+  , dict (113, casesensitive)
+  , _caseSensitive(casesensitive)
+  , deliminators(delims)
 {
-  deliminatorChars = deliminator;
-  deliminatorLen = deliLen;
-  _caseSensitive=casesensitive;
 }
 
 HlKeyword::~HlKeyword() {
@@ -331,7 +318,7 @@ HlKeyword::~HlKeyword() {
 
 bool HlKeyword::startEnable(QChar c)
 {
-  return ustrchr(deliminatorChars, deliminatorLen, c);
+  return deliminators.find(c) != -1;
 }
 
 // If we use a dictionary for lookup we don't really need
@@ -346,66 +333,67 @@ void HlKeyword::addList(const QStringList& list)
   for(uint i=0;i<list.count();i++) dict.insert(list[i], &trueBool);
 }
 
-const QChar *HlKeyword::checkHgl(const QChar *s, int len, bool )
+int HlKeyword::checkHgl(const QString& text, int offset, int len)
 {
-  if (len == 0) return 0L;
+  if (len == 0) return 0;
 
-  const QChar *s2 = s;
+  int offset2 = offset;
 
-  while ( (len > 0) && (!ustrchr(deliminatorChars, deliminatorLen, *s2)) )
+  while (len > 0 && deliminators.find(text[offset2]) == -1 )
   {
-    s2++;
+    offset2++;
     len--;
   }
 
-  if (s2 == s) return 0L;
+  if (offset2 == offset) return 0;
 
-  QString lookup = QString(s,s2-s);
+  QString lookup = text.mid(offset, offset2 - offset);
 
-  if ( dict.find(lookup) ) return s2;
-  return 0L;
+  if ( dict.find(lookup) ) return offset2;
+
+  return 0;
 }
 //END
 
 
 //BEGIN HlInt
 HlInt::HlInt(int attribute, int context, signed char regionId)
-  : HlItem(attribute,context,regionId) {
+  : HlItem(attribute,context,regionId)
+{
 }
 
 
 bool HlInt::startEnable(QChar c)
 {
 //  return ustrchr(deliminatorChars, deliminatorLen, c);
-    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    return stdDeliminator.find(c) != 1;
 }
 
-const QChar *HlInt::checkHgl(const QChar *str, int len, bool)
+int HlInt::checkHgl(const QString& text, int offset, int len)
 {
-  const QChar *s,*s1;
+  int offset2 = offset;
 
-  s = str;
-  while ((len > 0) && s->isDigit())
+  while ((len > 0) && text[offset2].isDigit())
   {
-    s++;
+    offset2++;
     len--;
   }
 
-  if (s > str)
+  if (offset2 > offset)
   {
     if (subItems)
     {
-      for (HlItem *it=subItems->first();it;it=subItems->next())
+      for (HlItem *it = subItems->first(); it; it = subItems->next())
       {
-        s1=it->checkHgl(s, len, false);
-        if (s1) return s1;
+        offset = it->checkHgl(text, offset2, len);
+        if (offset) return offset;
       }
     }
 
-    return s;
+    return offset2;
   }
 
-  return 0L;
+  return 0;
 }
 //END
 
@@ -418,77 +406,77 @@ HlFloat::HlFloat(int attribute, int context, signed char regionId)
 bool HlFloat::startEnable(QChar c)
 {
 //  return ustrchr(deliminatorChars, deliminatorLen, c);
-    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    return stdDeliminator.find(c) != -1;
 }
 
-const QChar *HlFloat::checkHgl(const QChar *s, int len, bool)
+int HlFloat::checkHgl(const QString& text, int offset, int len)
 {
   bool b, p;
-  const QChar *s1;
 
   b = false;
   p = false;
 
-  while ((len > 0) && s->isDigit())
+  while ((len > 0) && text[offset].isDigit())
   {
-    s++;
+    offset++;
     len--;
     b = true;
   }
 
-  if ((len > 0) && (p = (*s == '.')))
+  if ((len > 0) && (p = (text[offset] == '.')))
   {
-    s++;
+    offset++;
     len--;
 
-    while ((len > 0) && s->isDigit())
+    while ((len > 0) && text[offset].isDigit())
     {
-      s++;
+      offset++;
       len--;
       b = true;
     }
   }
 
   if (!b)
-    return 0L;
+    return 0;
 
-  if ((len > 0) && ((*s&0xdf) == 'E'))
+  if ((len > 0) && ((text[offset] & 0xdf) == 'E'))
   {
-    s++;
+    offset++;
     len--;
   }
   else
   {
     if (!p)
-      return 0L;
+      return 0;
     else
     {
       if (subItems)
       {
-        for (HlItem *it=subItems->first();it;it=subItems->next())
+        for (HlItem *it = subItems->first(); it; it = subItems->next())
         {
-          s1=it->checkHgl(s, len, false);
+          int offset2 = it->checkHgl(text, offset, len);
 
-          if (s1)
-            return s1;
+          if (offset2)
+            return offset2;
         }
       }
 
-      return s;
+      return offset;
     }
   }
 
-  if ((len > 0) && ((*s == '-')||(*s =='+')))
+  if ((len > 0) && (text[offset] == '-' || text[offset] =='+'))
   {
-    s++;
+    offset++;
     len--;
   }
 
   b = false;
 
-  while ((len > 0) && s->isDigit())
+  while ((len > 0) && text[offset].isDigit())
   {
-    s++;
+    offset++;
     len--;
     b = true;
   }
@@ -497,19 +485,19 @@ const QChar *HlFloat::checkHgl(const QChar *s, int len, bool)
   {
     if (subItems)
     {
-      for (HlItem *it=subItems->first();it;it=subItems->next())
+      for (HlItem *it = subItems->first(); it; it = subItems->next())
       {
-        s1=it->checkHgl(s, len, false);
+        int offset2 = it->checkHgl(text, offset, len);
 
-        if (s1)
-          return s1;
+        if (offset2)
+          return offset2;
       }
     }
 
-    return s;
+    return offset;
   }
 
-  return 0L;
+  return 0;
 }
 //END
 
@@ -521,34 +509,35 @@ HlCOct::HlCOct(int attribute, int context, signed char regionId)
 bool HlCOct::startEnable(QChar c)
 {
 //  return ustrchr(deliminatorChars, deliminatorLen, c);
-    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    return stdDeliminator.find(c) != -1;
 }
 
-const QChar *HlCOct::checkHgl(const QChar *str, int len, bool) {
-  const QChar *s;
-
-  if ((len > 0) && (*str == '0'))
+int HlCOct::checkHgl(const QString& text, int offset, int len)
+{
+  if ((len > 0) && text[offset] == '0')
   {
-    str++;
+    offset++;
     len--;
 
-    s = str;
+    int offset2 = offset;
 
-    while ((len > 0) && (*s >= '0' && *s <= '7'))
+    while ((len > 0) && (text[offset2] >= '0' && text[offset2] <= '7'))
     {
-      s++;
+      offset2++;
       len--;
     }
 
-    if (s > str)
+    if (offset2 > offset)
     {
-      if ((len >0) && ((*s&0xdf) == 'L' || (*s&0xdf) == 'U' )) s++;
+      if ((len > 0) && ((text[offset2] & 0xdf) == 'L' || (text[offset] & 0xdf) == 'U' ))
+        offset2++;
 
-      return s;
+      return offset2;
     }
   }
 
-  return 0L;
+  return 0;
 }
 //END
 
@@ -560,34 +549,34 @@ HlCHex::HlCHex(int attribute, int context,signed char regionId)
 bool HlCHex::startEnable(QChar c)
 {
 //  return ustrchr(deliminatorChars, deliminatorLen, c);
-    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    return stdDeliminator.find(c) != -1;
 }
 
-const QChar *HlCHex::checkHgl(const QChar *str, int len, bool)
+int HlCHex::checkHgl(const QString& text, int offset, int len)
 {
-  const QChar *s=str;
-
-  if ((len > 1) && (str[0] == '0') && ((str[1]&0xdf) == 'X' ))
+  if ((len > 1) && (text[offset++] == '0') && ((text[offset++] & 0xdf) == 'X' ))
   {
-    str += 2;
     len -= 2;
 
-    s = str;
+    int offset2 = offset;
 
-    while ((len > 0) && (s->isDigit() || ((*s&0xdf) >= 'A' && (*s&0xdf) <= 'F')))
+    while ((len > 0) && (text[offset2].isDigit() || ((text[offset2] & 0xdf) >= 'A' && (text[offset2] & 0xdf) <= 'F')))
     {
-      s++;
+      offset2++;
       len--;
     }
 
-    if (s > str)
+    if (offset2 > offset)
     {
-      if ((len > 0) && ((*s&0xdf) == 'L' || (*s&0xdf) == 'U' )) s++;
+      if ((len > 0) && ((text[offset2] & 0xdf) == 'L' || (text[offset2] & 0xdf) == 'U' ))
+        offset2++;
 
-      return s;
+      return offset2;
     }
   }
-  return 0L;
+
+  return 0;
 }
 //END
 
@@ -599,75 +588,78 @@ HlCFloat::HlCFloat(int attribute, int context, signed char regionId)
 bool HlCFloat::startEnable(QChar c)
 {
 //  return ustrchr(deliminatorChars, deliminatorLen, c);
-    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+    return stdDeliminator.find(c) != -1;
 }
 
-const QChar *HlCFloat::checkIntHgl(const QChar *str, int, bool)
+int HlCFloat::checkIntHgl(const QString& text, int offset, int len)
 {
-  const QChar *s;
+  int offset2 = offset;
 
-  s = str;
-  while (s->isDigit()) s++;
-  if (s > str)
-   {
-     return s;
+  while ((len > 0) && text[offset].isDigit()) {
+    offset2++;
+    len--;
   }
-  return 0L;
+
+  if (offset2 > offset)
+     return offset2;
+
+  return 0;
 }
 
-const QChar *HlCFloat::checkHgl(const QChar *s, int len, bool lineStart) {
-  const QChar *tmp;
-  tmp=s;
+int HlCFloat::checkHgl(const QString& text, int offset, int len)
+{
+  int offset2 = HlFloat::checkHgl(text, offset, len);
 
-  s = HlFloat::checkHgl(s, len, lineStart);
-  if (s)
+  if (offset2)
   {
-     if (s && ((*s&0xdf) == 'F' )) s++;
-     return s;
+    if ((text[offset2] & 0xdf) == 'F' )
+      offset2++;
+
+    return offset2;
   }
   else
   {
-     tmp=checkIntHgl(tmp,len,lineStart);
-     if (tmp && ((*tmp&0xdf) == 'F' ))
-     {
-	 tmp++;
-     	return tmp;
-     }
-     else
-        return 0;
+    offset2 = checkIntHgl(text, offset, len);
+
+    if (offset2 && ((text[offset2] & 0xdf) == 'F' ))
+      return ++offset2;
+    else
+      return 0;
   }
 }
 
-HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId, const QChar* charList, uint len)
-  : HlItem(attribute, context,regionId) {
-  _charList=charList;
-  _charListLen=len;
+HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId, const QString& charList)
+  : HlItem(attribute, context,regionId)
+  , _charList(charList)
+{
 }
 
-const QChar *HlAnyChar::checkHgl(const QChar *s, int len, bool)
+int HlAnyChar::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 0) && ustrchr(_charList, _charListLen, *s)) return s + 1;
-  return 0L;
+  if ((len > 0) && _charList.find(text[offset]) != -1) return ++offset;
+  return 0;
 }
 
 HlRegExpr::HlRegExpr( int attribute, int context, signed char regionId, QString regexp, bool insensitive, bool minimal )
-  : HlItem(attribute, context, regionId) {
-
+  : HlItem(attribute, context, regionId)
+{
     handlesLinestart=regexp.startsWith("^");
     if(!handlesLinestart) regexp.prepend("^");
     Expr=new QRegExp(regexp, !insensitive);
     Expr->setMinimal(minimal);
 }
 
-const QChar *HlRegExpr::checkHgl(const QChar *s, int len, bool lineStart)
+int HlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
 {
-  if ((!lineStart) && handlesLinestart) return 0;
+  if (offset && handlesLinestart)
+    return 0;
 
-  QString line(s,len);
-  int pos = Expr->search( line, 0 );
-  if (pos==-1) return 0L;
-    else
-	 return (s+Expr->matchedLength());
+  int offset2 = Expr->search( text, offset );
+
+  if (offset2 == -1) return 0L;
+
+  return (offset + Expr->matchedLength());
 };
 
 
@@ -675,13 +667,12 @@ HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-const QChar *HlLineContinue::checkHgl(const QChar *s, int len, bool) {
+int HlLineContinue::checkHgl(const QString& text, int offset, int len)
+{
+  if ((len == 1) && (text[offset] == '\\'))
+    return ++offset;
 
-  if ((len == 1) && (s[0] == '\\'))
-	{
-           return s + 1;
-	}
-  return 0L;
+  return 0;
 }
 
 
@@ -690,53 +681,73 @@ HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId)
 }
 
 // checks for C escaped chars \n and escaped hex/octal chars
-static const QChar *checkEscapedChar(const QChar *s, int *len) {
+static int checkEscapedChar(const QString& text, int offset, int& len)
+{
   int i;
-  if (s[0] == '\\' && ((*len) > 1) )
+  if (text[offset] == '\\' && len > 1)
   {
-        s++;
-        (*len) = (*len) - 1;
-        switch(*s)
+    offset++;
+    len--;
+
+    switch(text[offset])
+    {
+      case  'a': // checks for control chars
+      case  'b': // we want to fall through
+      case  'e':
+      case  'f':
+
+      case  'n':
+      case  'r':
+      case  't':
+      case  'v':
+      case '\'':
+      case '\"':
+      case '?' : // added ? ANSI C classifies this as an escaped char
+      case '\\':
+        offset++;
+        len--;
+        break;
+
+      case 'x': // if it's like \xff
+        offset++; // eat the x
+        len--;
+        // these for loops can probably be
+        // replaced with something else but
+        // for right now they work
+        // check for hexdigits
+        for (i = 0; (len > 0) && (i < 2) && (text[offset] >= '0' && text[offset] <= '9' || (text[offset] & 0xdf) >= 'A' && (text[offset] & 0xdf) <= 'F'); i++)
         {
-                case  'a': // checks for control chars
-                case  'b': // we want to fall through
-                case  'e':
-                case  'f':
-
-                case  'n':
-                case  'r':
-                case  't':
-                case  'v':
-                case '\'':
-                case '\"':
-                case '?' : // added ? ANSI C classifies this as an escaped char
-                case '\\': s++;
-                               (*len) = (*len) - 1;
-                           break;
-                case 'x': // if it's like \xff
-                        s++; // eat the x
-                         (*len) = (*len) - 1;
-                        // these for loops can probably be
-                        // replaced with something else but
-                        // for right now they work
-                        // check for hexdigits
-                        for(i=0; ((*len) > 0) && (i<2) && (*s >= '0' && *s <= '9' || (*s&0xdf) >= 'A' && (*s&0xdf) <= 'F'); i++) {s++;  (*len) = (*len) - 1;}
-                        if(i==0) return 0L; // takes care of case '\x'
-                        break;
-
-                case '0': case '1': case '2': case '3' :
-                case '4': case '5': case '6': case '7' :
-                        for(i=0; ((*len) > 0) && (i < 3) &&(*s >='0'&& *s<='7');i++) {s++;  (*len) = (*len) - 1; }
-                        break;
-                        default: return 0L;
+          offset++;
+          len--;
         }
-  return s;
+
+        if (i == 0)
+          return 0; // takes care of case '\x'
+
+        break;
+
+      case '0': case '1': case '2': case '3' :
+      case '4': case '5': case '6': case '7' :
+        for (i = 0; (len > 0) && (i < 3) && (text[offset] >='0'&& text[offset] <='7'); i++)
+        {
+          offset++;
+          len--;
+        }
+        break;
+
+      default:
+        return 0;
+    }
+
+    return offset;
   }
-  return 0L;
+
+  return 0;
 }
 
-const QChar *HlCStringChar::checkHgl(const QChar *str, int len, bool) {
-  return checkEscapedChar(str, &len);
+int HlCStringChar::checkHgl(const QString& text, int offset, int len)
+{
+  return checkEscapedChar(text, offset, len);
 }
 
 
@@ -744,32 +755,35 @@ HlCChar::HlCChar(int attribute, int context,signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-const QChar *HlCChar::checkHgl(const QChar *str, int len, bool) {
-  const QChar *s;
-
-  if ((len > 1) && (str[0] == '\'') && (str[1] != '\''))
+int HlCChar::checkHgl(const QString& text, int offset, int len)
+{
+  if ((len > 1) && (text[offset] == '\'') && (text[offset+1] != '\''))
   {
     int oldl;
     oldl = len;
 
     len--;
 
-    s = checkEscapedChar(&str[1], &len);
+    int offset2 = checkEscapedChar(text, offset + 1, len);
 
-    if (!s)
+    if (!offset2)
     {
       if (oldl > 2)
       {
-        s = &str[2];
+        offset2 = offset + 2;
         len = oldl - 2;
       }
-      else return 0L;
+      else
+      {
+        return 0;
+      }
     }
 
-    if ((len > 0) && (*s == '\'')) return s + 1;
+    if ((len > 0) && (text[offset2] == '\''))
+      return ++offset2;
   }
 
-  return 0L;
+  return 0;
 }
 
 
@@ -837,8 +851,8 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
     iVersion=def->version;
   }
   deliminator = stdDeliminator;
-  deliminatorChars = deliminator.unicode();
-  deliminatorLen = deliminator.length();
+/*  deliminatorChars = deliminator.unicode();
+  deliminatorLen = deliminator.length();*/
 }
 
 Highlight::~Highlight()
@@ -945,7 +959,6 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 //  kdDebug(13010)<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
 
   HlContext *context;
-  const QChar *s2;
   HlItem *item=0;
 
   // if (lineContinue) kdDebug(13010)<<"Entering with lineContinue flag set"<<endl;
@@ -1003,12 +1016,12 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
   QChar lastChar = ' ';
 
-  // first char
-  const QChar *str = textLine->text();
+  // text
+  const QString text = textLine->string();
 
   // non space char - index of that char
 //  const QChar *s1 = textLine->firstNonSpace();
-  const QChar *s1 = textLine->text();
+  int offset1 = 0, offset2 = 0;
   uint z=0;
 //  uint z = textLine->firstChar();
 
@@ -1016,50 +1029,58 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
   uint len = textLine->length();
 
   bool found = false;
+
+  //kdDebug() << k_funcinfo << len << " z " << z << endl;
+
   while (z < len)
   {
+    //kdDebug() << "offset1" << offset1 << " offset2 " << offset2 << endl;
+
     found = false;
 
     for (item = context->items.first(); item != 0L; item = context->items.next())
     {
       if (item->startEnable(lastChar))
       {
-        s2 = item->checkHgl(s1, len-z, z==0);
-        if (s2 > s1)
+        offset2 = item->checkHgl(text, offset1, len-z);
+
+        if (offset2 > offset1)
         {
-          textLine->setAttribs(item->attr,s1 - str,s2 - str);
+          textLine->setAttribs(item->attr,offset1,offset2);
           //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
-    if (item->region)
-		{
-      //  kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+          if (item->region)
+          {
+            //  kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
 
-      if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-      {
-        foldingList->resize (foldingList->size()-1);
-      }
-      else
-      {
-        foldingList->resize (foldingList->size()+1);
-			  (*foldingList)[foldingList->size()-1] = item->region;
-      }
+            if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
+            {
+              foldingList->resize (foldingList->size()-1);
+            }
+            else
+            {
+              foldingList->resize (foldingList->size()+1);
+              (*foldingList)[foldingList->size()-1] = item->region;
+            }
 
-		}
+          }
 
-	      generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
-		//kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
-	//    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
-	    context=contextNum(ctxNum);
+          generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
 
-            z = z + s2 - s1 - 1;
-            s1 = s2 - 1;
-            found = true;
-            break;
+      //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
+    //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
+
+          context=contextNum(ctxNum);
+
+          z = z + offset2 - offset1 - 1;
+          offset1 = offset2 - 1;
+          found = true;
+          break;
         }
       }
     }
 
-    lastChar = *s1;
+    lastChar = text[offset1];
 
     // nothing found: set attribute of one char
     // anders: unless this context does not want that!
@@ -1072,22 +1093,19 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
         // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
         // immediately after fallthrough fails. Is it bad?
         // jowenn, can you come up with a nicer way to do this?
-        if (z) {
-          const QChar *cheat;
-          cheat = s1;
-          cheat--;
-          lastChar = *cheat;
-        }
+        if (z)
+          lastChar = text[offset1 - 1];
         else
           lastChar = '\\';
         continue;
       }
       else {
-        textLine->setAttribs(context->attr,s1 - str,s1 - str + 1);
+        textLine->setAttribs(context->attr,offset1,offset1 + 1);
       }
     }
-        s1++;
-        z++;
+
+    offset1++;
+    z++;
   }
 
   if (item==0)
@@ -1417,120 +1435,119 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
   if (noHl)
     return 0;
 
-                // get the (tagname) itemd type
-                QString dataname=HlManager::self()->syntax->groupItemData(data,QString(""));
+  // get the (tagname) itemd type
+  QString dataname=HlManager::self()->syntax->groupItemData(data,QString(""));
 
-                // BEGIN - Translation of the attribute parameter
-                QString tmpAttr=HlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
-                int attr;
-                if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
-		{
-		  errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
-			arg(buildIdentifier).arg(tmpAttr);
-                  attr=tmpAttr.toInt();
-		}
-                else
-                  attr=lookupAttrName(tmpAttr,iDl);
-                // END - Translation of the attribute parameter
+  // BEGIN - Translation of the attribute parameter
+  QString tmpAttr=HlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
+  int attr;
+  if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
+  {
+    errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
+    arg(buildIdentifier).arg(tmpAttr);
+    attr=tmpAttr.toInt();
+  }
+  else
+    attr=lookupAttrName(tmpAttr,iDl);
+  // END - Translation of the attribute parameter
 
-                // Info about context switch
-		int context;
-		QString tmpcontext=HlManager::self()->syntax->groupItemData(data,QString("context"));
-
-
-		QString unresolvedContext;
-	  	context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
-
-                // Get the char parameter (eg DetectChar)
-                char chr;
-                if (! HlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
-                  chr= (HlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
-                else
-                  chr=0;
-
-                // Get the String parameter (eg. StringDetect)
-                QString stringdata=HlManager::self()->syntax->groupItemData(data,QString("String"));
-
-                // Get a second char parameter (char1) (eg Detect2Chars)
-                char chr1;
-                if (! HlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
-                  chr1= (HlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
-                else
-                  chr1=0;
-
-                // Will be removed eventuall. Atm used for StringDetect
-                bool insensitive=(HlManager::self()->syntax->groupItemData(data,QString("insensitive"))==QString("TRUE"));
-                // anders: very resonable for regexp too!
-
-                // for regexp only
-                bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == "true" );
+  // Info about context switch
+  int context;
+  QString tmpcontext=HlManager::self()->syntax->groupItemData(data,QString("context"));
 
 
-		// code folding region handling:
-		QString beginRegionStr=HlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
-		QString endRegionStr=HlManager::self()->syntax->groupItemData(data,QString("endRegion"));
+  QString unresolvedContext;
+  context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
 
-		signed char regionId=0;
-		if (!beginRegionStr.isEmpty())
-		{
-			regionId=RegionList->findIndex(beginRegionStr);
-			if (regionId==-1) // if the region name doesn't already exist, add it to the list
-				{
-					(*RegionList)<<beginRegionStr;
-					regionId=RegionList->findIndex(beginRegionStr);
-				}
-		}
-		else
-		{
-			if (!endRegionStr.isEmpty())
-			regionId=RegionList->findIndex(endRegionStr);
-			if (regionId==-1) // if the region name doesn't already exist, add it to the list
-				{
-					(*RegionList)<<endRegionStr;
-					regionId=RegionList->findIndex(endRegionStr);
-				}
-			regionId=-regionId;
-		}
+  // Get the char parameter (eg DetectChar)
+  char chr;
+  if (! HlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
+    chr= (HlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
+  else
+    chr=0;
+
+  // Get the String parameter (eg. StringDetect)
+  QString stringdata=HlManager::self()->syntax->groupItemData(data,QString("String"));
+
+  // Get a second char parameter (char1) (eg Detect2Chars)
+  char chr1;
+  if (! HlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
+    chr1= (HlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
+  else
+    chr1=0;
+
+  // Will be removed eventuall. Atm used for StringDetect
+  bool insensitive=(HlManager::self()->syntax->groupItemData(data,QString("insensitive"))==QString("TRUE"));
+  // anders: very resonable for regexp too!
+
+  // for regexp only
+  bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == "true" );
+
+
+  // code folding region handling:
+  QString beginRegionStr=HlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
+  QString endRegionStr=HlManager::self()->syntax->groupItemData(data,QString("endRegion"));
+
+  signed char regionId=0;
+  if (!beginRegionStr.isEmpty())
+  {
+    regionId=RegionList->findIndex(beginRegionStr);
+    if (regionId==-1) // if the region name doesn't already exist, add it to the list
+    {
+      (*RegionList)<<beginRegionStr;
+      regionId=RegionList->findIndex(beginRegionStr);
+    }
+  }
+  else
+  {
+    if (!endRegionStr.isEmpty())
+    regionId=RegionList->findIndex(endRegionStr);
+    if (regionId==-1) // if the region name doesn't already exist, add it to the list
+    {
+      (*RegionList)<<endRegionStr;
+      regionId=RegionList->findIndex(endRegionStr);
+    }
+    regionId=-regionId;
+  }
 
 
                 //Create the item corresponding to it's type and set it's parameters
-		HlItem *tmpItem;
+  HlItem *tmpItem;
 
-                if (dataname=="keyword")
-                {
-                  HlKeyword *keyword=new HlKeyword(attr,context,regionId,casesensitive,
-                     deliminatorChars, deliminatorLen);
+  if (dataname=="keyword")
+  {
+    HlKeyword *keyword=new HlKeyword(attr,context,regionId,casesensitive,
+      deliminator);
 
-                   //Get the entries for the keyword lookup list
-                  keyword->addList(HlManager::self()->syntax->finddata("highlighting",stringdata));
-                  tmpItem=keyword;
-                } else
-                if (dataname=="Float") tmpItem= (new HlFloat(attr,context,regionId)); else
-                if (dataname=="Int") tmpItem=(new HlInt(attr,context,regionId)); else
-                if (dataname=="DetectChar") tmpItem=(new HlCharDetect(attr,context,regionId,chr)); else
-                if (dataname=="Detect2Chars") tmpItem=(new Hl2CharDetect(attr,context,regionId,chr,chr1)); else
-                if (dataname=="RangeDetect") tmpItem=(new HlRangeDetect(attr,context,regionId, chr, chr1)); else
-                if (dataname=="LineContinue") tmpItem=(new HlLineContinue(attr,context,regionId)); else
-                if (dataname=="StringDetect") tmpItem=(new HlStringDetect(attr,context,regionId,stringdata,insensitive)); else
-                if (dataname=="AnyChar") tmpItem=(new HlAnyChar(attr,context,regionId,stringdata.unicode(), stringdata.length())); else
-                if (dataname=="RegExpr") tmpItem=(new HlRegExpr(attr,context,regionId,stringdata, insensitive, minimal)); else
-                if(dataname=="HlCChar") tmpItem= ( new HlCChar(attr,context,regionId));else
-                if(dataname=="HlCHex") tmpItem= (new HlCHex(attr,context,regionId));else
-                if(dataname=="HlCOct") tmpItem= (new HlCOct(attr,context,regionId)); else
-		if(dataname=="HlCFloat") tmpItem= (new HlCFloat(attr,context,regionId)); else
-                if(dataname=="HlCStringChar") tmpItem= (new HlCStringChar(attr,context,regionId)); else
+    //Get the entries for the keyword lookup list
+    keyword->addList(HlManager::self()->syntax->finddata("highlighting",stringdata));
+    tmpItem=keyword;
+  } else
+    if (dataname=="Float") tmpItem= (new HlFloat(attr,context,regionId)); else
+    if (dataname=="Int") tmpItem=(new HlInt(attr,context,regionId)); else
+    if (dataname=="DetectChar") tmpItem=(new HlCharDetect(attr,context,regionId,chr)); else
+    if (dataname=="Detect2Chars") tmpItem=(new Hl2CharDetect(attr,context,regionId,chr,chr1)); else
+    if (dataname=="RangeDetect") tmpItem=(new HlRangeDetect(attr,context,regionId, chr, chr1)); else
+    if (dataname=="LineContinue") tmpItem=(new HlLineContinue(attr,context,regionId)); else
+    if (dataname=="StringDetect") tmpItem=(new HlStringDetect(attr,context,regionId,stringdata,insensitive)); else
+    if (dataname=="AnyChar") tmpItem=(new HlAnyChar(attr,context,regionId,stringdata)); else
+    if (dataname=="RegExpr") tmpItem=(new HlRegExpr(attr,context,regionId,stringdata, insensitive, minimal)); else
+    if (dataname=="HlCChar") tmpItem= ( new HlCChar(attr,context,regionId));else
+    if (dataname=="HlCHex") tmpItem= (new HlCHex(attr,context,regionId));else
+    if (dataname=="HlCOct") tmpItem= (new HlCOct(attr,context,regionId)); else
+    if (dataname=="HlCFloat") tmpItem= (new HlCFloat(attr,context,regionId)); else
+    if (dataname=="HlCStringChar") tmpItem= (new HlCStringChar(attr,context,regionId)); else
 
-                  {
-                    // oops, unknown type. Perhaps a spelling error in the xml file
-                    return 0;
-                  }
-		if (!unresolvedContext.isEmpty())
-		{
-			unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
-		}
-		return tmpItem;
+  {
+    // oops, unknown type. Perhaps a spelling error in the xml file
+    return 0;
+  }
 
-
+  if (!unresolvedContext.isEmpty())
+  {
+    unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
+  }
+  return tmpItem;
 }
 
 
@@ -1547,8 +1564,9 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 bool Highlight::isInWord(QChar c)
 {
   const QString sq("\"'");
-  const QChar *q = sq.unicode();
-  return !ustrchr(deliminatorChars, deliminatorLen, c) && !ustrchr( q, 2, c);
+  //const QChar *q = sq.unicode();
+  //return !ustrchr(deliminatorChars, deliminatorLen, c) && !ustrchr( q, 2, c);
+  return deliminator.find(c) == -1 && sq.find(c) == -1;
 }
 
 
@@ -1636,8 +1654,8 @@ void Highlight::readGlobalKeywordConfig()
 
      QString addDelim=(HlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));
      if (!addDelim.isEmpty()) deliminator=deliminator+addDelim;
-     deliminatorChars = deliminator.unicode();
-     deliminatorLen = deliminator.length();
+//      deliminatorChars = deliminator.unicode();
+//      deliminatorLen = deliminator.length();
 
 
 	HlManager::self()->syntax->freeGroupInfo(data);
@@ -1795,7 +1813,7 @@ void Highlight::makeContextList()
 	}
   } while (something_changed);	// as long as there has been another file parsed repeat everything, there could be newly added embedded hls.
 
-	
+
   /* at this point all needed highlighing (sub)definitions are loaded. It's time to resolve cross file
      references (if there are some
   */
@@ -1810,7 +1828,7 @@ void Highlight::makeContextList()
 			*(unresIt.key())=hlIt.data().context0;
 	}
 
-	/*eventually handle IncludeRules items, if they exist. 
+	/*eventually handle IncludeRules items, if they exist.
 		This has to be done after the cross file references, because it is allowed
 		to include the context0 from a different definition, than the one the rule belongs to */
 	handleIncludeRules();
@@ -1851,7 +1869,7 @@ void Highlight::handleIncludeRules()
 
 	if ((*it)->incCtx==-1) // context unresolved ?
 	{ //yes
-		
+
 		if ((*it)->incCtxN.isEmpty())
 		{
 			// no context name given, and no valid context id set, so this item is going to be removed
@@ -1868,7 +1886,7 @@ void Highlight::handleIncludeRules()
 			kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
 			// It would be good to look here somehow, if the result is valid
 		}
-	} else ++it; //nothing to do, already resolved (by the cross defintion reference resolver 
+	} else ++it; //nothing to do, already resolved (by the cross defintion reference resolver
   }
 
   // now that all IncludeRule items should be valid and completely resolved, do the real inclusion of the rules.
@@ -1877,7 +1895,7 @@ void Highlight::handleIncludeRules()
 //TODO: catch circular references: eg 0->1->2->3->1
   while (includeRules.count()>0)
   	handleIncludeRulesRecursive(includeRules.begin(),&includeRules);
-  
+
 
 }
 
@@ -1892,12 +1910,12 @@ void Highlight::handleIncludeRulesRecursive(IncludeRules::iterator it, IncludeRu
 	  eg: context 0:
 		pos 3 - include context 2
 		pos 5 - include context 3
-	  During the building of the includeRules list the items are inserted in ascending order, now we need it 
+	  During the building of the includeRules list the items are inserted in ascending order, now we need it
 	  descending to make our life easier.
 	*/
 	while ((it!=list->end()) && ((*it)->ctx==ctx))
 	{
-		it1=it; 
+		it1=it;
 		++it;
 //		kdDebug()<<"loop1"<<endl;
 	}
@@ -1908,7 +1926,7 @@ void Highlight::handleIncludeRulesRecursive(IncludeRules::iterator it, IncludeRu
 
 
 		int ctx1=(*it1)->incCtx;
-		
+
 		//let's see, if the the included context includes other contexts
 		for (IncludeRules::iterator it2=list->begin();it2!=list->end();++it2)
 		{
@@ -1929,7 +1947,7 @@ void Highlight::handleIncludeRulesRecursive(IncludeRules::iterator it, IncludeRu
 		uint p=(*it1)->pos; //insert the included context's rules starting at position p
 		for ( HlItem *c = src->items.first(); c; c=src->items.next(), p++ )
                         dest->items.insert(p,c);
-		
+
 		it=it1; //backup the iterator
 		--it1; //move to the next entry, which has to be take care of
 		delete (*it); //free the already handled data structure
@@ -1985,7 +2003,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
           // END - Translation of the attribute parameter
 
 	  ctxName=buildPrefix+HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
-	  
+
 	  QString tmpLineEndContext=HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
 	  int context;
 
@@ -2024,7 +2042,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 //		kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
 
                 // IncludeRules : add a pointer to each item in that context
-		
+
                 QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) { //if the new item is an Include rule, we have to take special care
 			QString incCtx=HlManager::self()->syntax->groupItemData( data, QString("context"));
@@ -2041,12 +2059,12 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 					if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
 						embeddedHls.insert(incCtx.right(incCtx.length()-2),EmbeddedHlInfo());
 					unresolvedContextReferences.insert(&(ir->incCtx),
-							incCtx.right(incCtx.length()-2));	
+							incCtx.right(incCtx.length()-2));
 					includeRules.append(ir);
 				}
 			}
 			continue;
-		}		
+		}
 #if 0
                 QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {

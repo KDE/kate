@@ -53,6 +53,7 @@ class KateViewInternal;
 class LineRange;
 class KateArbitraryHighlight;
 class KateSuperRange;
+class QTimer;
 
 namespace Kate
 {
@@ -239,10 +240,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //
     // KTextEditor::SelectionInterfaceExt
     //
-    int selStartLine() { return selectStart.line; };
-    int selStartCol()  { return selectStart.col; };
-    int selEndLine()   { return selectEnd.line; };
-    int selEndCol()    { return selectEnd.col; };
+    int selStartLine() { return selectStart.line(); };
+    int selStartCol()  { return selectStart.col(); };
+    int selEndLine()   { return selectEnd.line(); };
+    int selEndCol()    { return selectEnd.col(); };
 
   private:
     // some internal functions to get selection state of a line/col
@@ -299,6 +300,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QPtrList<KateUndoGroup> redoItems;
     bool m_undoDontMerge;
     bool m_undoIgnoreCancel;
+    QTimer* m_undoMergeTimer;
     // these two variables are for resetting the document to
     // non-modified if all changes have been undone...
     KateUndoGroup* lastUndoGroupWhenSaved;

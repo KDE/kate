@@ -76,6 +76,8 @@ public:
   friend bool operator ==(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2);
   friend bool operator !=(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2);
 
+  virtual void changed() {};
+
 private:
   int m_weight;
   bool m_italic, m_underline, m_strikeout;
@@ -89,6 +91,8 @@ class ArbitraryHighlightRange : public KateSuperRange, public ArbitraryHighlight
 
 public:
   ArbitraryHighlightRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L, const char* name = 0L);
+
+  virtual void changed() { slotTagRange(); };
 };
 
 /**
@@ -98,6 +102,10 @@ public:
  * - integration with syntax highlighting:
  *   - eg. a signal for when a new context is created, destroyed, changed
  *   - hopefully make this extension more complimentary to the current syntax highlighting
+ * - signal for cursor movement
+ * - signal for mouse movement
+ * - indentical highlight for whole list
+ * - signals for view movement
  */
 class KateArbitraryHighlight : public QObject
 {
@@ -115,7 +123,7 @@ signals:
   void tagLines(KateView* view, KateSuperRange* range);
 
 private slots:
-  void slotRangeEliminated(KateSuperRange* range);
+  void slotTagRange(KateSuperRange* range);
 
 private:
   KateView* viewForRange(KateSuperRange* range);

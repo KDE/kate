@@ -166,7 +166,7 @@ void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
   KAction *a;
-  
+
   m_toggleWriteLock = 0;
 
   if (!m_doc->m_bReadOnly)
@@ -218,8 +218,8 @@ void KateView::setupActions()
                                  ac, "tools_uncomment");
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
 		"The characters for single/multiple line comments are defined within the language's highlighting."));
-    a = m_toggleWriteLock = new KToggleAction( 
-                i18n("Write &Lock"), 0, 0, 
+    a = m_toggleWriteLock = new KToggleAction(
+                i18n("Write &Lock"), 0, 0,
                 this, SLOT( toggleWriteLock() ),
                 ac, "tools_toggle_write_lock" );
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
@@ -290,7 +290,7 @@ void KateView::setupActions()
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
-  
+
   a = m_toggleWWMarker = new KToggleAction(
         i18n("Show &Word Wrap Marker"), 0,
         this, SLOT( toggleWWMarker() ),
@@ -471,7 +471,7 @@ void KateView::setupEditActions()
       this, SLOT(deleteWordRight()),
       ac, "delete_word_right" );
   }
-  
+
   connect( this, SIGNAL(gotFocus(Kate::View*)),
            this, SLOT(slotGotFocus()) );
   connect( this, SIGNAL(lostFocus(Kate::View*)),
@@ -481,13 +481,13 @@ void KateView::setupEditActions()
     slotGotFocus();
   else
     slotLostFocus();
-    
+
   m_editActions->readShortcutSettings();
 }
 
 void KateView::setupCodeFolding()
 {
-  KActionCollection *ac=this->actionCollection(); 
+  KActionCollection *ac=this->actionCollection();
   new KAction( i18n("Collapse Toplevel"), CTRL+SHIFT+Key_Minus,
        m_doc->foldingTree(),SLOT(collapseToplevelNodes()),ac,"folding_toplevel");
   new KAction( i18n("Expand Toplevel"), CTRL+SHIFT+Key_Plus,
@@ -768,7 +768,7 @@ void KateView::gotoLine()
 {
   GotoLineDialog *dlg;
 
-  dlg = new GotoLineDialog(this, m_viewInternal->getCursor().line + 1, m_doc->numLines());
+  dlg = new GotoLineDialog(this, m_viewInternal->getCursor().line() + 1, m_doc->numLines());
 
   if (dlg->exec() == QDialog::Accepted)
     gotoLineNumber( dlg->getLine() - 1 );
@@ -788,8 +788,8 @@ void KateView::readSessionConfig(KConfig *config)
 
 void KateView::writeSessionConfig(KConfig *config)
 {
-  config->writeEntry("CursorLine",m_viewInternal->cursor.line);
-  config->writeEntry("CursorColumn",m_viewInternal->cursor.col);
+  config->writeEntry("CursorLine",m_viewInternal->cursor.line());
+  config->writeEntry("CursorColumn",m_viewInternal->cursor.col());
 }
 
 void KateView::setEol(int eol)
@@ -912,9 +912,9 @@ void KateView::updateViewDefaults ()
   updateFoldingMarkersAction();
 
   m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
-  
+
   m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
-  
+
   setAutoCenterLines(m_doc->autoCenterLines());
 }
 
@@ -930,7 +930,7 @@ void KateView::toggleWriteLock()
 
 void KateView::enableTextHints(int timeout)
 {
-  m_viewInternal->enableTextHints(timeout);	
+  m_viewInternal->enableTextHints(timeout);
 }
 
 void KateView::disableTextHints()

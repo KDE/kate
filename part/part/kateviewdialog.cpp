@@ -307,7 +307,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   e4->setRange(0, 1000000, 1, false);
   e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
   mainLayout->addWidget(e4);
-  
+
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
   e3->setRange(0, 1000000, 1, false);
   e3->setSpecialValueText( i18n("Unlimited") );
@@ -324,7 +324,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(opt[2], i18n("KateView will automatically eliminate extra spaces at the ends of lines of text."));
   QWhatsThis::add(opt[3], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
   QWhatsThis::add(opt[4], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
-  QWhatsThis::add(opt[5], i18n("Not yet implemented."));
+  QWhatsThis::add(opt[5], i18n("When selected, pressing the home key will cause the cursor to skip whitespace and go to the start of a line's text."));
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
   QWhatsThis::add(e4, i18n("Sets the number of lines to maintain visible above and below the cursor when possible."));
   QWhatsThis::add(opt[6], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
@@ -351,7 +351,7 @@ void EditConfigTab::getData(KateDocument *view)
     view->setUndoSteps(0);
   else
     view->setUndoSteps(e3->value());
-    
+
   view->setAutoCenterLines(QMAX(0, e4->value()));
 }
 
@@ -382,7 +382,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
   m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),this);
-  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this ); 
+  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this );
 	m_line=new QCheckBox(i18n("Show &line numbers"),this);
 	m_icons=new QCheckBox(i18n("Show &icon border"),this);
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
@@ -478,7 +478,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   m_bracket = new KColorButton( this );
   glay->addWidget( label, 6, 0 );
   glay->addWidget( m_bracket, 6, 1 );
-  
+
   label = new QLabel( i18n("Word wrap:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_wwmarker = new KColorButton( this );
@@ -657,9 +657,9 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   QLabel *lBuSuffix = new QLabel( i18n("&Suffix:"), hbBuSuffix );
   leBuSuffix = new QLineEdit( hbBuSuffix );
   lBuSuffix->setBuddy( leBuSuffix );
-  
+
   layout->addStretch();
-  
+
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;filename&gt;&lt;suffix&gt;' before saving changes."
@@ -670,7 +670,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
         "Check this if you want backups of remote files when saving") );
   QWhatsThis::add( leBuSuffix, i18n(
         "Enter the suffix to add to the backup file names" ) );
-  
+
   reload();
 }
 
@@ -682,7 +682,7 @@ void SaveConfigTab::apply()
                 i18n("You didn't provide a backup suffix. Using default: '~'"),
                 i18n("No Backup Suffix")
                         );
-    leBuSuffix->setText( "~" );     
+    leBuSuffix->setText( "~" );
   }
   uint f( 0 );
   if ( cbLocalFiles->isChecked() )
@@ -713,4 +713,4 @@ void SaveConfigTab::defaults()
   //apply(); // ? the base classes are terribly undocumented!!!
 }
 
-//END SaveConfigTab                            
+//END SaveConfigTab

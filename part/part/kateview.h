@@ -62,7 +62,7 @@ class KateView : public Kate::View,
 
   public:
     KateView( KateDocument* doc, QWidget* parent = 0L, const char* name = 0 );
-    ~KateView ();  
+    ~KateView ();
 
   //
   // KTextEditor::View
@@ -85,7 +85,7 @@ class KateView : public Kate::View,
   public:
     void installPopup( QPopupMenu* menu ) { m_rmbMenu = menu; }
     QPopupMenu* popup() const             { return m_rmbMenu; }
-    
+
   //
   // KTextEditor::ViewCursorInterface
   //
@@ -101,11 +101,11 @@ class KateView : public Kate::View,
     bool setCursorPositionReal( uint line, uint col)
         { return setCursorPositionInternal( line, col, 1 );           }
     uint cursorLine()
-        { return m_viewInternal->getCursor().line;                    }
+        { return m_viewInternal->getCursor().line();                    }
     uint cursorColumn()
         { return m_doc->currentColumn(m_viewInternal->getCursor());   }
     uint cursorColumnReal()
-        { return m_viewInternal->getCursor().col;                     }
+        { return m_viewInternal->getCursor().col();                     }
   signals:
     void cursorPositionChanged();
 
@@ -130,7 +130,7 @@ class KateView : public Kate::View,
   public:
 	virtual void enableTextHints(int timeout);
         virtual void disableTextHints();
-	
+
   signals:
         virtual void needTextHint(int line, int col, QString &text);
 
@@ -170,14 +170,14 @@ class KateView : public Kate::View,
     void flush();
     saveResult save();
     saveResult saveAs();
-    
+
     void indent()             { m_doc->indent( cursorLine() );       }
     void unIndent()           { m_doc->unIndent( cursorLine() );     }
     void cleanIndent()        { m_doc->cleanIndent( cursorLine() );  }
     void comment()            { m_doc->comment( cursorLine() );      }
     void uncomment()          { m_doc->unComment( cursorLine() );    }
     void killLine()           { m_doc->removeLine( cursorLine() );     }
-    
+
     void keyReturn()          { m_viewInternal->doReturn();          }
     void backspace()          { m_viewInternal->doBackspace();       }
     void deleteWordLeft()     { m_viewInternal->doDeleteWordLeft();  }
@@ -246,10 +246,10 @@ class KateView : public Kate::View,
     bool lineNumbersOn();
     bool foldingMarkersOn();
     Kate::Document* getDoc()    { return m_doc; }
-    
+
     void setActive( bool b )    { m_active = b; }
     bool isActive()             { return m_active; }
-    
+
   public slots:
     void slotIncFontSizes();
     void slotDecFontSizes();
@@ -268,7 +268,7 @@ class KateView : public Kate::View,
     KateDocument*  doc() const       { return m_doc; }
 
     KActionCollection* editActionCollection() const { return m_editActions; }
-    
+
   public slots:
     void slotNewUndo();
     void slotUpdate();
@@ -280,7 +280,7 @@ class KateView : public Kate::View,
   signals:
     void dropEventPass(QDropEvent*);
     void viewStatusMsg (const QString &msg);
-    
+
   protected:
     void customEvent( QCustomEvent* );
     void contextMenuEvent( QContextMenuEvent* );
@@ -310,13 +310,13 @@ class KateView : public Kate::View,
     void setupCodeFolding();
     void setupCodeCompletion();
     void setupViewPlugins();
-    
+
     bool setCursorPositionInternal( uint line, uint col, uint tabwidth );
 
     KActionCollection*     m_editActions;
     KAction*               m_editUndo;
     KAction*               m_editRedo;
-    KRecentFilesAction*    m_fileRecent; 
+    KRecentFilesAction*    m_fileRecent;
     KToggleAction*         m_toggleFoldingMarkers;
     KToggleAction*         m_toggleIconBar;
     KToggleAction*         m_toggleLineNumbers;

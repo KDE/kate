@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Christian Couder <christian@kdevelop.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -34,20 +34,20 @@ class KateDocument;
 class KateTextCursor
 {
   public:
-    KateTextCursor() : line(0), col(0) {};
-    KateTextCursor(int _line, int _col) : line(_line), col(_col) {};
+    KateTextCursor() : m_line(0), m_col(0) {};
+    KateTextCursor(int line, int col) : m_line(line), m_col(col) {};
 
     friend bool operator==(const KateTextCursor& c1, const KateTextCursor& c2)
-      { return c1.line == c2.line && c1.col == c2.col; }
+      { return c1.m_line == c2.m_line && c1.m_col == c2.m_col; }
 
     friend bool operator!=(const KateTextCursor& c1, const KateTextCursor& c2)
       { return !(c1 == c2); }
 
     friend bool operator>(const KateTextCursor& c1, const KateTextCursor& c2)
-      { return c1.line > c2.line || (c1.line == c2.line && c1.col > c2.col); }
+      { return c1.m_line > c2.m_line || (c1.m_line == c2.m_line && c1.m_col > c2.m_col); }
 
     friend bool operator>=(const KateTextCursor& c1, const KateTextCursor& c2)
-      { return c1.line > c2.line || (c1.line == c2.line && c1.col >= c2.col); }
+      { return c1.m_line > c2.m_line || (c1.m_line == c2.m_line && c1.m_col >= c2.m_col); }
 
     friend bool operator<(const KateTextCursor& c1, const KateTextCursor& c2)
       { return !(c1 >= c2); }
@@ -56,27 +56,51 @@ class KateTextCursor
       { return !(c1 > c2); }
 
     inline void pos(int *pline, int *pcol) const {
-      if(pline) *pline = line;
-      if(pcol) *pcol = col;
-    }
-
-    inline void setPos(int _line, int _col) {
-      line = _line;
-      col = _col;
-    }
-
-    inline void setPos(const KateTextCursor & c) {
-      line = c.line;
-      col = c.col;
+      if(pline) *pline = m_line;
+      if(pcol) *pcol = m_col;
     }
 
     inline bool subjectToChangeAt(const KateTextCursor & c) const {
-      return line == c.line && col > c.col;
+      return m_line == c.line() && m_col > c.col();
     }
 
-  public:
-    int line;
-    int col;
+    inline int line() const { return m_line; };
+    inline int col() const { return m_col; };
+
+    virtual void setLine(int line) { m_line = line; };
+    virtual void setCol(int col) { m_col = col; };
+    virtual void setPos(const KateTextCursor& pos) { m_line = pos.line(); m_col = pos.col(); };
+    virtual void setPos(int line, int col) { m_line = line; m_col = col; };
+
+  protected:
+    int m_line;
+    int m_col;
+};
+
+/**
+ * We need something a bit special for the internal view implementation:
+ * a cursor with a mode to allow setting to new settings, while still returning the old
+ * settings, unless instructed to return the new ones.
+ *
+ * Works around a design issue with emitting textChanged() and apps which access the
+ * cursor immediately after and expect it to be updated already.
+ */
+class KateMutableTextCursor : public KateTextCursor
+{
+public:
+    KateMutableTextCursor();
+
+    void setImmutable(bool immutable);
+    const KateTextCursor& mutableCursor() const;
+
+    virtual void setLine(int line);
+    virtual void setCol(int col);
+    virtual void setPos(const KateTextCursor& pos);
+    virtual void setPos(int line, int col);
+
+private:
+    bool m_immutable;
+    KateTextCursor m_newSettings;
 };
 
 // This doesn't belong here
@@ -103,10 +127,10 @@ class KateDocCursor : public KateTextCursor
   public:
 
     KateDocCursor(KateDocument *doc);
-    KateDocCursor(int _line, int _col, KateDocument *doc);
-    ~KateDocCursor();
+    KateDocCursor(int line, int col, KateDocument *doc);
+    virtual ~KateDocCursor();
 
-    bool validPosition(uint _line, uint _col);
+    bool validPosition(uint line, uint col);
     bool validPosition();
 
     bool gotoNextLine();

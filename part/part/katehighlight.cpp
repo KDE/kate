@@ -1194,7 +1194,8 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
 
 KateHighlighting::~KateHighlighting()
 {
-  contextList.setAutoDelete( true );
+  for (uint i=0; i < m_contexts.size(); ++i)
+    delete m_contexts[i];
 }
 
 void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<short>* ctxs, int *prevLine)
@@ -1269,10 +1270,13 @@ int KateHighlighting::makeDynamicContext(KateHlContext *model, const QStringList
     value = dynamicCtxs[key];
   else
   {
-    ++startctx;
+    kdDebug () << "new stuff: " << startctx << endl;
+
     KateHlContext *newctx = model->clone(args);
-    contextList.insert(startctx, newctx);
-    value = startctx;
+
+    m_contexts.push_back (newctx);
+
+    value = startctx++;
     dynamicCtxs[key] = value;
     KateHlManager::self()->incDynamicCtxs();
   }
@@ -1288,15 +1292,10 @@ int KateHighlighting::makeDynamicContext(KateHlContext *model, const QStringList
  */
 void KateHighlighting::dropDynamicContexts()
 {
-  QMap< QPair<KateHlContext *, QString>, short>::Iterator it;
-  for (it = dynamicCtxs.begin(); it != dynamicCtxs.end(); ++it)
-  {
-    if (contextList[it.data()] != 0 && contextList[it.data()]->dynamicChild)
-    {
-      KateHlContext *todelete = contextList.take(it.data());
-      delete todelete;
-    }
-  }
+  for (uint i=base_startctx; i < m_contexts.size(); ++i)
+    delete m_contexts[i];
+
+  m_contexts.resize (base_startctx);
 
   dynamicCtxs.clear();
   startctx = base_startctx;
@@ -1320,7 +1319,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   if (noHl)
   {
-    textLine->setAttribs(0, 0, textLine->length());
+    if (textLine->length() > 0)
+      memset (textLine->attributes(), 0, textLine->length());
+
     return;
   }
 
@@ -1490,8 +1491,13 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // dominik: look ahead w/o changing offset?
       if (!item->lookAhead)
       {
+        if (offset2 > len)
+          offset2 = len;
+
         // even set attributes ;)
-        textLine->setAttribs(item->onlyConsume ? context->attr : item->attr,offset,offset2);
+        memset ( textLine->attributes()+offset
+               , item->onlyConsume ? context->attr : item->attr
+               , len-offset);
 
         offset = offset2;
         lastChar = text[offset-1];
@@ -1524,7 +1530,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     }
     else
     {
-      textLine->setAttribs(context->attr, offset, offset + 1);
+      *(textLine->attributes() + offset) = context->attr;
       lastChar = text[offset];
       offset++;
     }
@@ -1734,7 +1740,7 @@ void KateHighlighting::init()
   if (noHl)
     return;
 
-  contextList.clear ();
+  m_contexts.clear ();
   makeContextList();
 }
 
@@ -1748,7 +1754,7 @@ void KateHighlighting::done()
   if (noHl)
     return;
 
-  contextList.clear ();
+  m_contexts.clear ();
   internalIDList.clear();
 }
 
@@ -2501,8 +2507,8 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
     }
 
     // if the context we want to include had sub includes, they are already inserted there.
-    KateHlContext *dest=contextList[ctx];
-    KateHlContext *src=contextList[ctx1];
+    KateHlContext *dest=m_contexts[ctx];
+    KateHlContext *src=m_contexts[ctx1];
 //     kdDebug(3010)<<"linking included rules from "<<ctx<<" to "<<ctx1<<endl;
 
     // If so desired, change the dest attribute to the one of the src.
@@ -2633,12 +2639,16 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       if ( tmpDynamic.lower() == "true" ||  tmpDynamic.toInt() == 1 )
         dynamic = true;
 
-      contextList.insert (i, new KateHlContext (
+      KateHlContext *ctxNew = new KateHlContext (
         attr,
         context,
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-        ft, ftc, dynamic));
+        ft, ftc, dynamic);
+
+      m_contexts.push_back (ctxNew);
+
+      kdDebug () << "INDEX: " << i << " LENGTH " << m_contexts.size()-1 << endl;
 
       //Let's create all items for the context
       while (KateHlManager::self()->syntax->nextItem(data))
@@ -2661,13 +2671,13 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           {
             // a local reference -> just initialize the include rule structure
             incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
-            includeRules.append(new KateHlIncludeRule(i,contextList[i]->items.count(),incCtx, includeAttrib));
+            includeRules.append(new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtx, includeAttrib));
           }
           else
           {
             //a cross highlighting reference
             kdDebug(13010)<<"Cross highlight reference <IncludeRules>"<<endl;
-            KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count(),"",includeAttrib);
+            KateHlIncludeRule *ir=new KateHlIncludeRule(i,m_contexts[i]->items.count(),"",includeAttrib);
 
             //use the same way to determine cross hl file references as other items do
             if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
@@ -2692,8 +2702,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
                     if ( ctxId < (int) i ) { // must be defined
-                      for ( c = contextList[ctxId]->items.first(); c; c = contextList[ctxId]->items.next() )
-                        contextList[i]->items.append(c);
+                      for ( c = m_contexts[ctxId]->items.first(); c; c = m_contexts[ctxId]->items.next() )
+                        m_contexts[i]->items.append(c);
                     }
                     else
                       kdDebug(13010)<<"Context "<<ctxId<<"not defined. You can not include the rules of an undefined context"<<endl;
@@ -2704,7 +2714,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       c=createKateHlItem(data,iDl,&RegionList,&ContextNameList);
       if (c)
       {
-        contextList[i]->items.append(c);
+        m_contexts[i]->items.append(c);
 
         // Not supported completely atm and only one level. Subitems.(all have to be matched to at once)
         datasub=KateHlManager::self()->syntax->getSubItems(data);

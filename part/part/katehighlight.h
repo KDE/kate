@@ -30,6 +30,7 @@
 
 #include <qptrlist.h>
 #include <qvaluelist.h>
+#include <qvaluevector.h>
 #include <qregexp.h>
 #include <qdict.h>
 #include <qintdict.h>
@@ -242,8 +243,8 @@ class KateHighlighting
 
     KateHlItemDataList internalIDList;
 
-    QIntDict<KateHlContext> contextList;
-    inline KateHlContext *contextNum (uint n) { return contextList[n]; }
+    QValueVector<KateHlContext*> m_contexts;
+    inline KateHlContext *contextNum (uint n) { if (n < m_contexts.size()) return m_contexts[n]; return 0; }
 
     QMap< QPair<KateHlContext *, QString>, short> dynamicCtxs;
 

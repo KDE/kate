@@ -233,15 +233,6 @@ uint KateTextLine::lengthWithTabs (uint tabChars) const
   return x;
 }
 
-void KateTextLine::setAttribs(uchar attribute, uint start, uint end)
-{
-  if (end > m_attributes.size())
-    end = m_attributes.size();
-
-  for (uint z = start; z < end; z++)
-    m_attributes[z] = attribute;
-}
-
 bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive, bool backwards)
 {
   int index;

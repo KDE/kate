@@ -334,14 +334,6 @@ class KateTextLine : public KShared
     }
 
     /**
-     * Sets the attributes from start to end -1
-     * @param attribute attribue to fill in
-     * @param start start of filling
-     * @param end end of filling
-     */
-    void setAttribs(uchar attribute, uint start, uint end);
-
-    /**
      * Sets the syntax highlight context number
      * @param val new context array
      */

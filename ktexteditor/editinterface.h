@@ -89,6 +89,7 @@ class EditInterface
     /**
     *  Inserts text at line "line", column "col"
     *  returns true if success
+		*  Use insertText(numLines(), ...) to append text at end of document
     */
     virtual bool insertText ( uint line, uint col, const QString &text ) = 0;
 
@@ -99,14 +100,13 @@ class EditInterface
     virtual bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol ) = 0;
 
     /**
-    * Insert line(s) at the given line number. If the line number is -1
-    * (the default) then the line is added to end of the document
+    * Insert line(s) at the given line number. 
+		* Use insertLine(numLines(), text) to append line at end of document
     */
     virtual bool insertLine ( uint line, const QString &text ) = 0;
 
     /**
-    * Insert line(s) at the given line number. If the line number is -1
-    * (the default) then the line is added to end of the document
+    * Remove line(s) at the given line number.
     */
     virtual bool removeLine ( uint line ) = 0;
 

@@ -697,7 +697,7 @@ void KateView::flush()
 
 KateView::saveResult KateView::save()
 {
-  if( !doc()->isModified() )
+  if( !doc()->isModified() && !m_doc->url().fileName().isEmpty() )
     return SAVE_OK;
 
   if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )

@@ -320,7 +320,7 @@
       <item>widetilde</item>
       </list>
     <contexts>
-  <context attribute="Normal Text" lineEndContext="Normal" name="Normal">
+  <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
     <StringDetect String="\begin{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
     <StringDetect String="\end{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
     <StringDetect String="\section{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
@@ -332,18 +332,18 @@
     <StringDetect String="\usepackage[" attribute="Begin End" context="Paren" insensitive="FALSE"/>
     <StringDetect String="\(" attribute="Math" context="Keyword 2"/>
     <DetectChar char="\" attribute="Keyword" context="Keyword 1" />
-    <RegExpr String="%.*$" attribute="Comment" context="Normal"/>
+    <RegExpr String="%.*$" attribute="Comment" context="#stay"/>
   </context>
-  <context attribute="Environment" lineEndContext="Paren" name="Paren">
-    <DetectChar char="}" attribute="Begin End" context="Normal"/>
-    <DetectChar char="]" attribute="Begin End" context="Normal"/>
+  <context attribute="Environment" lineEndContext="#stay" name="Paren">
+    <DetectChar char="}" attribute="Begin End" context="#pop"/>
+    <DetectChar char="]" attribute="Begin End" context="#pop"/>
   </context>
-  <context attribute="Normal Text" lineEndContext="Normal" name="Keyword 1">
-    <keyword String="keywords" attribute="Keyword" context="Normal" />
+  <context attribute="Normal Text" lineEndContext="#pop" name="Keyword 1">
+    <keyword String="keywords" attribute="Keyword" context="#pop" />
   </context>
-  <context attribute="Math" lineEndContext="Keyword 2" name="Keyword 2">
-    <keyword String="keywords" attribute="Keyword" context="Keyword 2"/>
-    <StringDetect String="\)" attribute="Math" context="Normal"/>
+  <context attribute="Math" lineEndContext="#stay" name="Keyword 2">
+    <keyword String="keywords" attribute="Keyword" context="#stay"/>
+    <StringDetect String="\)" attribute="Math" context="#pop"/>
   </context>
     </contexts>
     <itemDatas>

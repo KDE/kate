@@ -66,7 +66,7 @@ void KateDynWWBar::updateFont()
 
   h=m_doc->viewFont.fontAscent;
 
-  p.setPen(Qt::black);
+  p.setPen(m_doc->colors[4]);
   p.drawLine(w/2, h/2, w/2, 0);
   p.lineTo(w*3/4, h/4);
   p.lineTo(w-1,0);

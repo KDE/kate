@@ -93,6 +93,7 @@ class DocWordCompletionPluginView
   private slots:
     void completeBackwards();
     void completeForwards();
+    void shellComplete();
 
     void popupCompletionList( QString word=QString::null );
     void autoPopupCompletionList();
@@ -102,8 +103,10 @@ class DocWordCompletionPluginView
 
   private:
     void complete( bool fw=true );
+
     QString word();
     QValueList<KTextEditor::CompletionEntry> allMatches( const QString &word );
+    QString findLongestUnique(const QValueList < KTextEditor::CompletionEntry > &matches);
     KTextEditor::View *m_view;
     struct DocWordCompletionPluginViewPrivate *d;
 };

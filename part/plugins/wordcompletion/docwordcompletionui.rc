@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="ktexteditor_docwordcompletion" library="ktexteditor_docwordcompletion" version="3">
+<kpartplugin name="ktexteditor_docwordcompletion" library="ktexteditor_docwordcompletion" version="4">
 <MenuBar>
  <Menu name="tools"><Text>&amp;Tools</Text>
     <separator group="tools_operations" />
@@ -7,6 +7,7 @@
       <Action name="doccomplete_fw" />
       <Action name="doccomplete_bw" />
       <Action name="doccomplete_pu" />
+      <Action name="doccomplete_sh" />
       <separator />
       <action name="enable_autopopup" />
     </menu>

@@ -150,6 +150,8 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
     SLOT(completeForwards()), actionCollection(), "doccomplete_fw" );
   (void) new KAction( i18n("Pop Up Completion List"), 0, this,
     SLOT(popupCompletionList()), actionCollection(), "doccomplete_pu" );
+  (void) new KAction( i18n("Shell Completion"), 0, this,
+    SLOT(shellComplete()), actionCollection(), "doccomplete_sh" );
   d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), 0, this,
     SLOT(toggleAutoPopup()), actionCollection(), "enable_autopopup" );
 
@@ -221,6 +223,34 @@ void DocWordCompletionPluginView::autoPopupCompletionList()
   if ( w.length() >= d->treshold )
   {
       popupCompletionList( w );
+  }
+}
+
+// Contributed by <brain@hdsnet.hu>
+void DocWordCompletionPluginView::shellComplete()
+{
+    // setup
+  KTextEditor::EditInterface * ei = KTextEditor::editInterface(m_view->document());
+    // find the word we are typing
+  uint cline, ccol;
+  viewCursorInterface(m_view)->cursorPositionReal(&cline, &ccol);
+  QString wrd = word();
+  if (wrd.isEmpty())
+    return;
+
+  QValueList < KTextEditor::CompletionEntry > matches = allMatches(wrd);
+  if (matches.size() == 0)
+    return;
+  QString partial = findLongestUnique(matches);
+  if (partial.length() == wrd.length())
+  {
+    KTextEditor::CodeCompletionInterface * cci = codeCompletionInterface(m_view);
+    cci->showCompletionBox(matches, wrd.length());
+  }
+  else
+  {
+    partial.remove(0, wrd.length());
+    ei->insertText(cline, ccol, partial);
   }
 }
 
@@ -345,57 +375,32 @@ void DocWordCompletionPluginView::complete( bool fw )
     }
   } // while true
 }
-void DocWordCompletionPluginView::complete()
-{
-    // setup
-	KTextEditor::EditInterface * ei = KTextEditor::editInterface(m_view->document());
-    // find the word we are typing
-	uint cline, ccol;
-	viewCursorInterface(m_view)->cursorPositionReal(&cline, &ccol);
-	QString wrd = word();
-	if (wrd.isEmpty())
-		return;
 
-	QValueList < KTextEditor::CompletionEntry > matches = allMatches(wrd);
-	if (matches.size() == 0)
-		return;
-	QString partial = findLongestUnique(matches);
-	if (partial.length() == wrd.length())
-	{
-		KTextEditor::CodeCompletionInterface * cci = codeCompletionInterface(m_view);
-		cci->showCompletionBox(matches, wrd.length());
-	}
-	else
-	{
-		partial.remove(0, wrd.length());
-		ei->insertText(cline, ccol, partial);
-	}
-}
-
-
+// Contributed by <brain@hdsnet.hu>
 QString DocWordCompletionPluginView::findLongestUnique(const QValueList < KTextEditor::CompletionEntry > &matches)
 {
-	QString partial = matches.front().text;
-	QValueList < KTextEditor::CompletionEntry >::const_iterator i = matches.begin();
-	for (++i; i != matches.end(); ++i)
-	{
-		if (!(*i).text.startsWith(partial))
-		{
-			while(partial.length() > 0)
-			{
-				partial.remove(partial.length() - 1, 1);
-				if ((*i).text.startsWith(partial))
-				{
-					break;
-				}
-			}
-			if (partial.length() == 0)
-				return QString();
-		}
-	}
+  QString partial = matches.front().text;
+  QValueList < KTextEditor::CompletionEntry >::const_iterator i = matches.begin();
+  for (++i; i != matches.end(); ++i)
+  {
+    if (!(*i).text.startsWith(partial))
+    {
+      while(partial.length() > 0)
+      {
+        partial.remove(partial.length() - 1, 1);
+        if ((*i).text.startsWith(partial))
+        {
+          break;
+        }
+      }
+      if (partial.length() == 0)
+        return QString();
+    }
+  }
 
-	return partial;
+  return partial;
 }
+
 // Return the string to complete (the letters behind the cursor)
 QString DocWordCompletionPluginView::word()
 {

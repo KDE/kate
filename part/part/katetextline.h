@@ -153,8 +153,8 @@ class KateTextLine : public KShared
      *
      * This contains the index for the attributes (so you can only
      * have a maximum of 2^8 different highlighting styles in a document)
-     *
-     * To turn this into actual attributes (bold, green, etc),
+     * 
+     * To turn this into actual attributes (bold, green, etc), 
      * you need to feed these values into KRenderer::attributes
      *
      * e.g:  m_renderer->attributes(attributes[3]);
@@ -188,22 +188,22 @@ class KateTextLine : public KShared
      * @param renderer The katerenderer.  This will have the schema
      *                 information that describes how to render the
      *                 attributes.
-     * @param outputStream A stream to write the html to
+     * @param outputStream A stream to write the html to 
      */
     void stringAsHtml(uint startCol, uint length, KateRenderer *renderer, QTextStream *outputStream) const;
 
     /**
      * Gets the string a valid-xml html.
      * Overloaded version of stringAsHtml
-     *
+     * 
      * @param renderer The katerenderer.  This will have the schema
      *                 information that describes how to render the
      *                 attributes.
-     * @param outputStream A stream to write the html to
+     * @param outputStream A stream to write the html to 
      */
     void stringAsHtml(KateRenderer *renderer, QTextStream *outputStream) const
     { stringAsHtml(0,m_text.length(),renderer, outputStream);}
-
+    
     /**
      * Gets a null terminated pointer to first non space char
      * @return array of QChars starting at first non-whitespace char
@@ -225,16 +225,6 @@ class KateTextLine : public KShared
      * @return position with tabulators calculated
      */
     int cursorX(uint pos, uint tabChars) const;
-
-    /**
-     * Returns the position in the string of the visual position @p visualPos.
-     * If the character at the returned position is a TAB, @p remainder is set
-     * to the number of spaces needed to reach the visual position.
-     * @param visualPos the visible position given
-     * @param tabChars the tab width to use for the calculation
-     * @param remainder is a pointer to an int, which will be set to the number of spaces needed reach the exact position.
-     */
-    uint position( uint visualPos, uint tabChars, int *remainder );
 
     /**
      * Returns the text length with tabs calced in

@@ -134,7 +134,6 @@
 				<RegExpr attribute = "Global Variable" String = "$[a-zA-Z_0-9]+" context="#stay"/>
 				<RegExpr attribute = "Instance Variable" String = "@[a-zA-Z_0-9]+" context="#stay"/>
 				<RegExpr attribute = "Class Variable" String = "@@[a-zA-Z_0-9]+" context="#stay"/>
-				<RegExpr attribute = "Argument Modifier" String = "(\*|&amp;|:)[a-zA-Z_]+[\w]*" context="#stay"/>	
 				<DetectChar attribute = "Regular Expression" char = "/" context="RegEx 1"/>
 				<RegExpr attribute = "Regular Expression" String = "\%r\{" context="RegEx 2"/>
 				<RegExpr attribute = "String" String = "\%[xqQw]\{" context="Flexible Literal"/>
@@ -210,7 +209,6 @@
 			<itemData name = "Global Variable" defStyleNum ="dsOthers"/>
 			<itemData name = "Instance Variable" defStyleNum ="dsOthers"/>
 			<itemData name = "Class Variable" defStyleNum ="dsOthers"/>
-            <itemData name = "Argument Modifier" defStyleNum ="dsOthers" color ="#ff0000"/>
 			<itemData name = "Expression" defStyleNum ="dsOthers"/>
 			<itemData name = "Operator" defStyleNum ="dsChar"/>
 			

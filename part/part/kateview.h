@@ -162,7 +162,7 @@ class KateView : public Kate::View,
     void cleanIndent()        { m_doc->cleanIndent( cursorLine() );  }
     void comment()            { m_doc->comment( cursorLine() );      }
     void uncomment()          { m_doc->unComment( cursorLine() );    }
-    void killLine()           { m_doc->killLine( cursorLine() );     }
+    void killLine()           { m_doc->removeLine( cursorLine() );     }
     
     void keyReturn()          { m_viewInternal->doReturn();          }
     void backspace()          { m_viewInternal->doBackspace();       }

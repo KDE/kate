@@ -1892,10 +1892,12 @@ bool KateDocument::printDialog ()
      // Text Settings Page
      bool selectionOnly = ( hasSelection() && 
                            ( printer.option("app-kate-printselection") == "true" ) );
-     int selStartCol, selEndCol;
+     int selStartCol = 0;
+     int selEndCol = 0;
      
      bool useGuide = ( printer.option("app-kate-printguide") == "true" );
-     int guideHeight, guideCols;
+     int guideHeight = 0;
+     int guideCols = 0;
      
      bool printLineNumbers = ( printer.option("app-kate-printlinenumbers") == "true" );
      uint lineNumberWidth( 0 );
@@ -1915,8 +1917,8 @@ bool KateDocument::printDialog ()
      QColor footerBgColor(printer.option("app-kate-footerbg"));
      QColor footerFgColor(printer.option("app-kate-footerfg"));     
      uint footerHeight( 0 ); // further init only if needed
-     QStringList footerTagList; // do
-     bool footerDrawBg; // do
+     QStringList footerTagList = 0; // do
+     bool footerDrawBg = 0; // do
           
      // Layout Page
      bool useBackground = ( printer.option("app-kate-usebackground") == "true" );
@@ -2964,12 +2966,6 @@ void KateDocument::newLine( KateTextCursor& c )
   
   editEnd();
 }
-
-void KateDocument::killLine( uint line )
-{
-  removeLine( line );
-}
-
 
 void KateDocument::transpose( const KateTextCursor& cursor)
 {

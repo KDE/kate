@@ -66,6 +66,7 @@ class SearchDialog : public KDialogBase
   protected:
     KComboBox *m_search;
     KComboBox *m_replace;
+    QPushButton* regexpButton;
     QCheckBox *m_opt1;
     QCheckBox *m_opt2;
     QCheckBox *m_opt3;

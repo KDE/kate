@@ -499,7 +499,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     uint currentColumn( const KateTextCursor& );
     void newLine(             KateTextCursor& ); // Changes input
-    void killLine( uint line );
     void backspace(     const KateTextCursor& );
     void del(           const KateTextCursor& );
     void transpose(     const KateTextCursor& );

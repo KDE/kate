@@ -42,6 +42,7 @@
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <knuminput.h>
+#include <kmessagebox.h>
 #include <kparts/componentfactory.h>
 #include <kregexpeditorinterface.h>
 #include <kcolorbutton.h>
@@ -99,7 +100,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor,
 
   // Add the Edit button if KRegExp exists.
   if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() ) {
-    QPushButton* regexpButton = new QPushButton( i18n("&Edit..."), page );
+    regexpButton = new QPushButton( i18n("&Edit..."), page );
 
     regexpLayout->addWidget( regexpButton );
     regexpLayout->addStretch(1);
@@ -237,6 +238,9 @@ void SearchDialog::slotEditRegExp()
   if ( !m_regExpDialog )
   {
     regexpButton->setEnabled( false );
+    
+    KMessageBox::sorry(this, i18n("Your version of the KDE Regular Expression Editor seems to be broken, disabled until a working version is installed." ));
+    
     return;
   }
     

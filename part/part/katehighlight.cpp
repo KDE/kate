@@ -1722,8 +1722,8 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
 			context=tmpLineEndContext.toInt();
 			errorsAndWarnings+=i18n("<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name").arg(buildIdentifier).arg(tmpLineEndContext);
 		}
-#warning restructure this the name list storage.
-		context=context+buildContext0Offset;
+//#warning restructure this the name list storage.
+//		context=context+buildContext0Offset;
 	}
   return context;
 }
@@ -1745,54 +1745,57 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
 
 void Highlight::makeContextList()
 {
-  if (noHl)
+  if (noHl)	// if this a highlighting for "normal texts" only, tere is no need for a context list creation
     return;
 
   embeddedHls.clear();
-  embeddedHls.insert(iName,EmbeddedHlInfo());
   unresolvedContextReferences.clear();
+  RegionList.clear();
+  ContextNameList.clear();
+
+  // prepare list creation. To reuse as much code as possible handle this highlighting the same way as embedded onces
+  embeddedHls.insert(iName,EmbeddedHlInfo());
+
   bool something_changed;
-  int startctx=0;
-  building=true;
+  int startctx=0;	// the context "0" id is 0 for this hl, all embedded context "0"s have offsets
+  building=true;	// inform everybody that we are building the highlighting contexts and itemlists
   do 
   {
 	kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
 	kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
-	something_changed=false;
+	something_changed=false; //assume all "embedded" hls have already been loaded
 	for (EmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
 	{
-		if (!it.data().loaded)
+		if (!it.data().loaded)	// we found one, we still have to load
 		{
 			kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
 			QString identifierToUse;
 			kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
-			if (iName==it.key()) identifierToUse=identifier;
+			if (iName==it.key()) identifierToUse=identifier;	// the own identifier is known
 			else
-			{
-				identifierToUse=HlManager::self()->identifierForName(it.key());
-			}
-			buildPrefix=it.key()+':';
+				identifierToUse=HlManager::self()->identifierForName(it.key()); // all others have to be looked up
+
 			kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
+
+			buildPrefix=it.key()+':';	// attribute names get prefixed by the names of the highlighting definitions they belong to
+
 			if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
+
 			kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
-			it=embeddedHls.insert(it.key(),EmbeddedHlInfo(true,startctx));
-			buildContext0Offset=startctx;
-			startctx=addToContextList(identifierToUse,startctx);
-			if (noHl) return;
-			something_changed=true;
-/*
-			kdDebug()<<"*********************************************"<<endl;
-			for (EmbeddedHlInfos::const_iterator it1=embeddedHls.begin(); it1!=embeddedHls.end();++it1)
-			{
-				kdDebug()<<it1.key()<<endl;
-			}
-			kdDebug()<<"*********************************************"<<endl;
-*/
+			it=embeddedHls.insert(it.key(),EmbeddedHlInfo(true,startctx)); //mark hl as loaded
+			buildContext0Offset=startctx;	//set class member for context 0 offset, so we don't need to pass it around
+			startctx=addToContextList(identifierToUse,startctx);	//parse one hl definition file
+			if (noHl) return;	// an error occured
+			something_changed=true; // something has been loaded
+
 		}
 	}
-  } while (something_changed);
+  } while (something_changed);	// as long as there has been another file parsed repeat everything, there could be newly added embedded hls.
+
   kdDebug(13010)<<"Unresolved contexts: "<<unresolvedContextReferences.count()<<endl;
+
 //optimize this a littlebit
+//resolve cross hl file context references
   for (UnresolvedContextReferences::iterator unresIt=unresolvedContextReferences.begin();
 		unresIt!=unresolvedContextReferences.end();++unresIt)
 	{
@@ -1800,12 +1803,22 @@ void Highlight::makeContextList()
 		if (hlIt!=embeddedHls.end())
 			*(unresIt.key())=hlIt.data().context0;
 	}
+
+	embeddedHls.clear(); //save some memory.
+	unresolvedContextReferences.clear(); //save some memory
+	RegionList.clear();	// I think you get the idea ;)
+	ContextNameList.clear();
+
+
+// if there have been errors show them
 	if (!errorsAndWarnings.isEmpty())
 	KMessageBox::information(0L,i18n("<qt>The following warning(s) and/or error(s) have been encountered: <BR>%1</qt>").
 			arg(errorsAndWarnings));
 	
+// we have finished
   building=false;
 }
+
 
 int Highlight::addToContextList(const QString &ident, int ctx0)
 {
@@ -1813,8 +1826,6 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   syntaxContextData *data, *datasub;
   HlItem *c;
 
-  QStringList RegionList;
-  QStringList ContextNameList;
   QString dummy;
 
   // Let the syntax document class know, which file we'd like to parse
@@ -1839,7 +1850,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   kdDebug(13010)<<"Parsing Context structure"<<endl;
   //start the real work
   data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
-  uint i=ctx0;
+  uint i=buildContext0Offset;
   if (data)
     {
       while (HlManager::self()->syntax->nextGroup(data))

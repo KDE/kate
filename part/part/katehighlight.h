@@ -189,8 +189,12 @@ class Highlight
 
     QIntDict<HlContext> contextList;
     HlContext *contextNum (uint n);
+
+    // make them pointers perhaps
     EmbeddedHlInfos embeddedHls;
     UnresolvedContextReferences unresolvedContextReferences;
+    QStringList RegionList;
+    QStringList ContextNameList;
 
     bool noHl;
     bool folding;

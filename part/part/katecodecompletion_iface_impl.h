@@ -81,8 +81,11 @@ private:
   uint m_lineCursor;
   uint m_colCursor;
   int m_offset;
+  bool m_caseSensitive;
+
   KateCodeCompletionCommentLabel *m_commentLabel;
   void deleteCommentLabel();
+
 public slots:
 	void slotCursorPosChanged();
 	void showComment();

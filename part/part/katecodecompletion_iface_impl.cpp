@@ -58,6 +58,7 @@ CodeCompletion_Impl::CodeCompletion_Impl(KateView *view):QObject(view),m_view(vi
 void CodeCompletion_Impl::showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset,bool casesensitive){
   kdDebug() << "showCompletionBox " << endl;
 
+  m_caseSensitive=casesensitive;
   m_complList = complList;
   // align the prefix (begin)
   QValueList<KTextEditor::CompletionEntry>::Iterator it;
@@ -160,12 +161,26 @@ void CodeCompletion_Impl::updateBox(bool newCoordinate){
   kdDebug() << "TEXT:" << currentComplText<<endl;
   QValueList<KTextEditor::CompletionEntry>::Iterator it;
   kdDebug() << "Count:" << m_complList.count()<<endl;
+
+  if (m_caseSensitive)
   for( it = m_complList.begin(); it != m_complList.end(); ++it ){
     kdDebug()<< "insert "<<endl;
     if((*it).text.startsWith(currentComplText)){
       new CompletionItem(m_completionListBox,*it);
     }
   }
+  else
+  {
+    currentComplText=currentComplText.upper();
+    for( it = m_complList.begin(); it != m_complList.end(); ++it ){
+      kdDebug()<< "insert "<<endl;
+      if((*it).text.upper().startsWith(currentComplText)){
+        new CompletionItem(m_completionListBox,*it);
+      }
+    }
+
+  }
+
   if(m_completionListBox->count()==0){
     m_completionPopup->hide();
     deleteCommentLabel();

@@ -66,14 +66,6 @@ KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *
   return part;
 }
 
-QObject* KateFactory::createObject( QObject* parent, const char* name, const char*, const QStringList & )
-{
-  KParts::ReadWritePart *part = new KateDocument (false, false, 0L, 0L, parent, name);
-  part->setReadWrite( true );
-
-  return (QObject *) part;
-}
-
 KInstance *KateFactory::instance()
 {
   if ( !s_instance )

@@ -35,7 +35,6 @@ public:
   virtual ~KateFactory();
 
   virtual KParts::Part *createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
-  virtual QObject* createObject( QObject* parent = 0, const char* pname = 0, const char* name = "QObject", const QStringList &args = QStringList() );
 
   static const KAboutData *aboutData();
   static KInstance *instance();

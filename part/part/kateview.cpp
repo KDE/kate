@@ -413,11 +413,9 @@ void KateView::setupViewPlugins()
   for( ; it != KateFactory::viewPlugins()->end(); ++it)
   {
     KService::Ptr ptr = (*it);
-
-    KLibFactory *factory = KLibLoader::self()->factory( QFile::encodeName(ptr->library()) );
-    if (factory)
+    
+    if (KTextEditor::ViewPlugin *plugin = KTextEditor::createViewPlugin (QFile::encodeName(ptr->library()), this))
     {
-      KTextEditor::ViewPlugin *plugin = static_cast<KTextEditor::ViewPlugin *>(factory->create(this, ptr->name().latin1(), "KTextEditor::ViewPlugin"));
       insertChildClient (plugin);
       plugin->setView (this);
     }

@@ -203,10 +203,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   {
     KService::Ptr ptr = (*it);
 
-    KLibFactory *factory = KLibLoader::self()->factory( QFile::encodeName(ptr->library()) );
-    if (factory)
+    if (KTextEditor::Plugin *plugin = KTextEditor::createPlugin (QFile::encodeName(ptr->library()), this))
     {
-      KTextEditor::Plugin *plugin = static_cast<KTextEditor::Plugin *>(factory->create(this, ptr->name().latin1(), "KTextEditor::Plugin"));
       plugin->setDocument (this);
     }
   }

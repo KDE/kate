@@ -471,7 +471,7 @@ ISearchPlugin::~ISearchPlugin()
 
 void ISearchPlugin::addView(KTextEditor::View *view)
 {                                          
-  ISearchPluginView *nview = new ISearchPluginView ();
+  ISearchPluginView *nview = new ISearchPluginView (view);
   view->insertChildClient (nview);
   nview->setView (view); 
   m_views.append (nview);

@@ -84,7 +84,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.sXPos = 0;
   bm.eXPos = -1;
 
-  setFocusPolicy( StrongFocus );
+  setFocusPolicy( StrongFocus );    
+  viewport()->setFocusProxy( this );   
   viewport()->setAcceptDrops( true );
   setDragAutoScroll( true );
   setFrameStyle( NoFrame );

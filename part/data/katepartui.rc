@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="17">
+<kpartgui name="KatePartView" version="18">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -34,7 +34,9 @@
     <Action name="view_line_numbers" group="view_operations" />
     <Action name="set_encoding" group="view_operations" />
     <Menu name="codefolding" group="view_operations"><text>&amp;Code Folding</text>
-	    <Action name="folding_toplevel" group="view_operations" />
+      <Action name="folding_toplevel" group="view_operations" />
+      <Action name="folding_collapselocal" group="view_operations" />
+      <Action name="folding_expandlocal" group="view_operations" />
     </Menu>
   </Menu>
 

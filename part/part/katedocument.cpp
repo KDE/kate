@@ -4331,7 +4331,8 @@ void KateDocument::reloadFile()
     if (m_modOnHd && s_fileChangedDialogsActivated)
     {
       int i = KMessageBox::warningYesNoCancel
-                (0, reasonedMOHString() + "\n\n" + i18n("Do you really want to reload the modified file? Data loss may occur."));
+                (0, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"), 
+                i18n("File Was Changed on Disk"), i18n("&Reload File"), i18n("&Ignore Changes"));
 
       if ( i != KMessageBox::Yes)
       {

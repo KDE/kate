@@ -1,9 +1,9 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org> 
+   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002,2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
-   
+
    Based on:
      KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -27,7 +27,7 @@
 #include "kateviewinternal.h"
 #include "kateview.h"
 #include "kateviewinternal.moc"
-#include "katedocument.h"   
+#include "katedocument.h"
 #include "katecodefoldinghelpers.h"
 #include "kateiconborder.h"
 #include "katedynwwbar.h"
@@ -443,7 +443,16 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
   m_lineScroll->blockSignals(false);
   
   uint oldSize = lineRanges.size ();
-  lineRanges.resize((height() / m_doc->viewFont.fontHeight) + 1);
+  uint newSize = (height() / m_doc->viewFont.fontHeight) + 1;
+  if (oldSize != newSize) {
+    lineRanges.resize((height() / m_doc->viewFont.fontHeight) + 1);
+    if (newSize > oldSize) {
+      static LineRange blank;
+      for (uint i = oldSize; i < newSize; i++) {
+        lineRanges[i] = blank;
+      }
+    }
+  }
   
   if (oldSize < lineRanges.size ())
   {
@@ -508,15 +517,15 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
       {
         if (lineRanges[z].line != realLine)
           alreadyDirty = lineRanges[z].dirty = true;
-        
+
         if (lineRanges[z].dirty || (changed && alreadyDirty)) {
           alreadyDirty = true;
-          
+
           lineRanges[z].visibleLine = line;
           lineRanges[z].line = realLine;
 
           int tempEndX = 0;
-          
+
           int endCol = m_doc->textWidth(text, startCol, width(), (uint)0, KateDocument::ViewFont, &wrap, &tempEndX);
 
           endX += tempEndX;
@@ -533,9 +542,6 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             lineRanges[z].endX = endX;
             lineRanges[z].viewLine = newViewLine;
             lineRanges[z].wrap = true;
-            
-            //equal to !wrap
-            //lineRanges[z].lineEnd =  (endCol==(text->length()+1));
 
             startCol = endCol;
             startX = endX;
@@ -552,12 +558,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             lineRanges[z].endX = endX;
             lineRanges[z].viewLine = newViewLine;
             lineRanges[z].wrap = false;
-            
-            //equal to !wrap
-            //lineRanges[z].lineEnd = true;
+
             line++;
           }
-          
+
         } else {
           // The cached data is still intact
           if (lineRanges[z].wrap) {
@@ -588,9 +592,6 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         lineRanges[z].endX = m_doc->textWidth( m_doc->kateTextLine( lineRanges[z].line ), -1 );
         lineRanges[z].viewLine = 0;
         lineRanges[z].wrap = false;
-            
-//        equal to !wrap
-//        lineRanges[z].lineEnd=true;
       }
     }
 
@@ -605,7 +606,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     if (scrollbarVisible(startLine()))
     {
       m_columnScroll->blockSignals(true);
-      
+
       int max = maxLen(startLine()) - width();
       if (max < 0)
         max = 0;
@@ -648,7 +649,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint lineRangesSize = lineRanges.size();
   
   QPainter paint ( this );
-  
+
   for (uint z=startz; z <= endz; z++)
   {
     if ( (z >= lineRangesSize) || ((lineRanges[z].line == -1) && (!paintOnlyDirty || lineRanges[z].dirty)) )
@@ -960,7 +961,8 @@ public:
 void KateViewInternal::moveChar( Bias bias, bool sel )
 {
   KateTextCursor c;
-  if( m_doc->configFlags() & KateDocument::cfWrapCursor ) {
+  // Wrap cursor off and dynamic word wrap are mutually exclusive for now, supporting it would be too hackish
+  if ( m_view->dynWordWrap() || m_doc->configFlags() & KateDocument::cfWrapCursor ) {
     c = WrappingCursor( *m_doc, cursor ) += bias;
   } else {
     c = BoundedCursor( *m_doc, cursor ) += bias;
@@ -1019,7 +1021,7 @@ void KateViewInternal::home( bool sel )
 
   KateTextCursor c = cursor;
   int lc = m_doc->kateTextLine( c.line )->firstChar();
-  
+
   if( lc < 0 || c.col == lc ) {
     c.col = 0;
   } else {
@@ -1330,7 +1332,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
             thisRange = range(realLine, requiredViewLine);
           }
         }
-        
+
         KateTextCursor ret(virtualLine, thisRange.startCol);
         
         // keep column position
@@ -1340,7 +1342,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
           int visibleX = m_doc->textWidth(virtualCopy) - range(virtualCursor).startX;
           int xOffset = thisRange.startX;
           
-          if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > visibleX)
+          if (m_currentMaxX > visibleX)
             visibleX = m_currentMaxX;
 
           cXPos = xOffset + visibleX;
@@ -1393,7 +1395,7 @@ void KateViewInternal::cursorUp(bool sel)
 {
   if (displayCursor.line == 0 && (!m_view->dynWordWrap() || viewLine(cursor) == 0))
     return;
-    
+
   int newLine = cursor.line, newCol = 0, xOffset = 0, startCol = 0;
   m_preserveMaxX = true;
 
@@ -1402,34 +1404,34 @@ void KateViewInternal::cursorUp(bool sel)
     LineRange thisRange = currentRange();
     // This is not the first line because that is already simplified out above
     LineRange pRange = previousRange();
-        
+
     // Ensure we're in the right spot
     Q_ASSERT((cursor.line == thisRange.line) &&
              (cursor.col >= thisRange.startCol) &&
              (!thisRange.wrap || cursor.col < thisRange.endCol));
-    
+
     int visibleX = m_doc->textWidth(cursor) - thisRange.startX;
-    
+
     startCol = pRange.startCol;
     xOffset = pRange.startX;
     newLine = pRange.line;
-    
-    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > visibleX)
+
+    if (m_currentMaxX > visibleX)
       visibleX = m_currentMaxX;
 
     cXPos = xOffset + visibleX;
-    
+
     cXPos = QMIN(cXPos, lineMaxCursorX(pRange));
-        
+
     newCol = QMIN((int)m_doc->textPos(newLine, visibleX, KateDocument::ViewFont, startCol), lineMaxCol(pRange));
-    
+
   } else {
     newLine = m_doc->getRealLine(displayCursor.line - 1);
-    
+
     if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
-  
+
   KateTextCursor c(newLine, newCol);
   m_doc->textWidth(c, cXPos);
 
@@ -1455,7 +1457,7 @@ void KateViewInternal::cursorDown(bool sel)
     Q_ASSERT((cursor.line == thisRange.line) &&
              (cursor.col >= thisRange.startCol) &&
              (!thisRange.wrap || cursor.col < thisRange.endCol));
-     
+
     int visibleX = m_doc->textWidth(cursor) - thisRange.startX;
 
     if (!thisRange.wrap) {
@@ -1464,16 +1466,16 @@ void KateViewInternal::cursorDown(bool sel)
       startCol = thisRange.endCol;
       xOffset = thisRange.endX;
     }
-    
-    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > visibleX)
+
+    if (m_currentMaxX > visibleX)
       visibleX = m_currentMaxX;
-  
+
     cXPos = xOffset + visibleX;
-    
+
     cXPos = QMIN(cXPos, lineMaxCursorX(nRange));
- 
+
     newCol = QMIN((int)m_doc->textPos(newLine, visibleX, KateDocument::ViewFont, startCol), lineMaxCol(nRange));
-  
+
   } else {
     newLine = m_doc->getRealLine(displayCursor.line + 1);
     
@@ -1677,7 +1679,7 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
 
 void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 {
-  if ( cursor == newCursor ) {    
+  if ( cursor == newCursor ) {
     if ( !m_madeVisible ) {
       makeVisible ( displayCursor, displayCursor.col );
     }
@@ -1687,14 +1689,16 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   // remove trailing spaces when leaving a line
   if (m_doc->configFlags() & KateDocument::cfRemoveSpaces && cursor.line != newCursor.line) {
     TextLine::Ptr textLine = m_doc->kateTextLine(cursor.line);
-    int newLen = textLine->lastChar();
-    if (newLen == -1) {
-      textLine->truncate(0);
-    } else if (newLen != (int)textLine->length()) {
-      textLine->truncate(newLen + 1);
+    if (textLine) {
+      int newLen = textLine->lastChar();
+      if (newLen == -1) {
+        textLine->truncate(0);
+      } else if (newLen != (int)textLine->length()) {
+        textLine->truncate(newLen + 1);
+      }
     }
   }
-  
+
   // unfold if required
   TextLine::Ptr l = m_doc->kateTextLine( newCursor.line );
   if ( l && ! l->isVisible() )
@@ -2437,12 +2441,12 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
     if (!QTextDrag::decode(event, text))
       return;
-    
+
     // is the source our own document?
     bool priv = false;
     if (event->source() && event->source()->inherits("KateViewInternal"))
       priv = m_doc->ownedView( ((KateViewInternal*)(event->source()))->m_view );
-      
+
     // dropped on a text selection area?
     bool selected = isTargetSelected( event->pos() );
 
@@ -2611,7 +2615,7 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
     } else {
       scrollViewLines(-((e->delta() / 120) * QApplication::wheelScrollLines()));
     }
-        
+
   } else if (!m_columnScroll->isHidden()) {
     QWheelEvent copy = *e;
     QApplication::sendEvent(m_columnScroll, &copy);

@@ -124,6 +124,8 @@ class Highlight
     void clearAttributeArrays ();
     
     QMemArray<KateAttribute> *attributes (uint schema);
+    
+    inline bool noHighlighting () const { return noHl; };
 
   private:
     // make this private, nobody should play with the internal data pointers

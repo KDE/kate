@@ -254,48 +254,33 @@ bool TextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCo
   return false;
 }
 
-uint TextLine::dumpSize () const
-{
-  uint attributesLen = 0;
-
-  if ( ! m_attributes.isEmpty())
-  {
-    attributesLen = 1;
-
-    uint lastAttrib = m_attributes[0];
-
-    for (uint z=0; z < m_attributes.size(); z++)
-    {
-      if (m_attributes[z] != lastAttrib)
-      {
-        attributesLen++;
-        lastAttrib = m_attributes[z];
-      }
-    }
-  }
-
-  return (1 + 5*sizeof(uint)) + (m_text.length()*sizeof(QChar)) + (attributesLen * (sizeof(uchar) + sizeof(uint))) + (m_ctx.size() * sizeof(short)) + (m_foldingList.size() * sizeof(signed char) + (m_indentationDepth.size() * sizeof(unsigned short)));
-}
-
-char *TextLine::dump (char *buf) const
+char *TextLine::dump (char *buf, bool withHighlighting) const
 {
   uint l = m_text.length();
-  uint lctx = m_ctx.size();
-  uint lfold = m_foldingList.size();
-  uint lind = m_indentationDepth.size();
-
+  char f = m_flags;
+  
+  if (!withHighlighting)
+    f = f | TextLine::flagNoOtherData;
+  
+  memcpy(buf, (char *) &f, 1);
+  buf += 1;
+  
   memcpy(buf, &l, sizeof(uint));
   buf += sizeof(uint);
 
   memcpy(buf, (char *) m_text.unicode(), sizeof(QChar)*l);
-  buf += sizeof(QChar)*l;
+  buf += sizeof(QChar) * l;
 
-  memcpy(buf, (char *) &m_flags, 1);
-  buf += 1;
+  if (!withHighlighting)
+    return buf;
 
-  char *attribLenPos = buf;
-  buf += sizeof(uint);
-
+  memcpy(buf, (char *)m_attributes.data(), sizeof(uchar) * l);
+  buf += sizeof (uchar) * l;
+    
+  uint lctx = m_ctx.size();
+  uint lfold = m_foldingList.size();
+  uint lind = m_indentationDepth.size();
+  
   memcpy(buf, &lctx, sizeof(uint));
   buf += sizeof(uint);
 
@@ -304,50 +289,6 @@ char *TextLine::dump (char *buf) const
 
   memcpy(buf, &lind, sizeof(uint));
   buf += sizeof(uint);
-
-  // hl size runlength encoding START
-
-  uint attributesLen = 0;
-
-  if ( ! m_attributes.isEmpty() )
-  {
-    attributesLen = 1;
-
-    uchar lastAttrib = m_attributes[0];
-    uint lastStart = 0;
-    uint length = 0;
-
-    for (uint z=0; z < m_attributes.size(); z++)
-    {
-      if (m_attributes[z] != lastAttrib)
-      {
-        length = z - lastStart;
-
-        memcpy(buf, &lastAttrib, sizeof(uchar));
-        buf += sizeof(uchar);
-
-        memcpy(buf, &length, sizeof(uint));
-        buf += sizeof(uint);
-
-        lastStart = z;
-        lastAttrib = m_attributes[z];
-
-        attributesLen ++;
-      }
-    }
-
-    length = m_attributes.size() - lastStart;
-
-    memcpy(buf, &lastAttrib, sizeof(uchar));
-    buf += sizeof(uchar);
-
-    memcpy(buf, &length, sizeof(uint));
-    buf += sizeof(uint);
-  }
-
-  memcpy(attribLenPos, &attributesLen, sizeof(uint));
-
-  // hl size runlength encoding STOP
 
   memcpy(buf, (char *)m_ctx.data(), sizeof(short) * lctx);
   buf += sizeof (short) * lctx;
@@ -364,36 +305,42 @@ char *TextLine::dump (char *buf) const
 char *TextLine::restore (char *buf)
 {
   uint l = 0;
-  uint lattrib = 0;
-  uint lctx = 0;
-  uint lfold = 0;
-  uint lind = 0;
+  char f = 0;
 
+  memcpy((char *) &f, buf, 1);
+  buf += 1;
+  
   // text + context length read
   memcpy((char *) &l, buf, sizeof(uint));
   buf += sizeof(uint);
 
   // text + attributes
   m_text.setUnicode ((QChar *) buf, l);
-  buf += sizeof(QChar)*l;
-
-  m_attributes.resize (l);
-
-  memcpy((char *) &m_flags, buf, 1);
-  buf += 1;
+  buf += sizeof(QChar) * l;
 
   // we just restore a TextLine from a buffer first time
-  if (m_flags == TextLine::flagNoOtherData)
-  {
+  if (f & TextLine::flagNoOtherData)
+  { 
     m_flags = TextLine::flagVisible;
-    m_attributes.fill (0);
+  
+    if (f & TextLine::flagAutoWrapped)
+      m_flags = m_flags | TextLine::flagAutoWrapped;
+    
+    // fill with clean empty attribs !
+    m_attributes.fill (0, l);
 
     return buf;
   }
+  else
+    m_flags = f;
 
-  memcpy((char *) &lattrib, buf, sizeof(uint));
-  buf += sizeof(uint);
-
+  m_attributes.duplicate ((uchar *) buf, l);
+  buf += sizeof(uchar) * l;
+  
+  uint lctx = 0;
+  uint lfold = 0;
+  uint lind = 0;
+  
   memcpy((char *) &lctx, buf, sizeof(uint));
   buf += sizeof(uint);
 
@@ -402,36 +349,6 @@ char *TextLine::restore (char *buf)
 
   memcpy((char *) &lind, buf, sizeof(uint));
   buf += sizeof(uint);
-
-  // hl size runlength encoding START
-
-  uchar *attr = m_attributes.data();
-
-  uchar attrib = 0;
-  uint length = 0;
-  uint pos = 0;
-
-  for (uint z=0; z < lattrib; z++)
-  {
-    if (pos >= m_attributes.size())
-      break;
-
-    memcpy((char *) &attrib, buf, sizeof(uchar));
-    buf += sizeof(uchar);
-
-    memcpy((char *) &length, buf, sizeof(uint));
-    buf += sizeof(uint);
-
-    if ((pos+length) > m_attributes.size())
-      length = m_attributes.size() - pos;
-
-    memset (attr, attrib, length);
-
-    pos += length;
-    attr += length;
-  }
-
-  // hl size runlength encoding STOP
 
   m_ctx.duplicate ((short *) buf, lctx);
   buf += sizeof(short) * lctx;

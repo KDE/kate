@@ -1400,9 +1400,6 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   
   bool eof = false; 
   char *buf = rawData.data ();
-  uint pos = 0;
-  char attr = TextLine::flagNoOtherData;
-
   uint size = 0;
   uint blockSize = 0;
   while (blockSize < KATE_AVG_BLOCK_SIZE)
@@ -1415,25 +1412,28 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
     {
       if (swap)
       {
-        size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
-      
+        // create the swapped data on the fly, no need to waste time
+        // via going over the textline classes and dump them !
+        char attr = TextLine::flagNoOtherData;
+        uint pos = size;
+        
+        // calc new size
+        size = size + 1 + sizeof(uint) + (sizeof(QChar)*length);
+        
         if (size > rawData.size ())
         {
           rawData.resize (size);
           buf = rawData.data ();
         }
+        
+        memcpy(buf+pos, (char *) &attr, 1);
+        pos += 1;
   
         memcpy(buf+pos, (char *) &length, sizeof(uint));
         pos += sizeof(uint);
   
-        if (!line.isNull())
-        {
-          memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
-          pos += sizeof(QChar)*length;
-        }
-  
-        memcpy(buf+pos, (char *) &attr, 1);
-        pos += 1;
+        memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
+        pos += sizeof(QChar)*length;
       }
       else
       {
@@ -1530,7 +1530,17 @@ void KateBufBlock::markDirty ()
     // LRU
     if (!m_parent->m_loadedBlocks.isLast(this))
       m_parent->m_loadedBlocks.append (this);
-  
+      
+    if (m_state == KateBufBlock::stateClean)
+    {
+      // if we have some swapped data allocated which is dirty, free it now
+      if (m_vmblock)
+        m_parent->vm()->free(m_vmblock);
+      
+      m_vmblock = 0;
+      m_vmblockSize = 0;
+    }
+    
     // we are dirty
     m_state = KateBufBlock::stateDirty;
   }
@@ -1578,24 +1588,24 @@ void KateBufBlock::swapOut ()
     
   if (m_state == KateBufBlock::stateDirty)
   {
-    // if we have some swapped data allocated which is dirty, free it now
-    if (m_vmblock)
-      m_parent->vm()->free(m_vmblock);
-      
-    m_vmblock = 0;
-    m_vmblockSize = 0;
+    bool haveHl = m_parent->m_highlight && !m_parent->m_highlight->noHighlighting();
   
     // Calculate size.
     uint size = 0;
     for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-      size += (*it)->dumpSize ();
+      size += (*it)->dumpSize (haveHl);
   
     QByteArray rawData (size);
     char *buf = rawData.data();
+    
+    kdDebug () << "CALCED END: " << uint (buf+size) << endl;
   
     // Dump textlines
     for(TextLine::List::iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-      buf = (*it)->dump (buf);
+      buf = (*it)->dump (buf, haveHl);
+      
+    
+    kdDebug () << "REAL END: " << uint (buf) << endl;
   
     m_vmblock = m_parent->vm()->allocate(rawData.size());
     m_vmblockSize = rawData.size();
@@ -1617,7 +1627,7 @@ void KateBufBlock::swapOut ()
     }
     
     // important infos for hl, let us access them
-    if (m_lines > 0)
+    if (haveHl && (m_lines > 0))
     {
       m_firstLineIndentation = m_stringList[0]->indentDepth (m_parent->tabWidth());
       m_firstLineOnlySpaces = (m_stringList[0]->firstChar() == -1);

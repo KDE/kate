@@ -265,13 +265,27 @@ class TextLine : public KShared
     /**
       Dumpsize in bytes
     */
-    uint dumpSize () const;
+    inline uint dumpSize (bool withHighlighting) const
+    {
+      return ( 1
+               + sizeof(uint)
+               + (m_text.length() * sizeof(QChar))
+               + ( withHighlighting ?
+                     ( (3 * sizeof(uint))
+                       + (m_text.length() * sizeof(uchar))
+                       + (m_ctx.size() * sizeof(short))
+                       + (m_foldingList.size() * sizeof(signed char))
+                       + (m_indentationDepth.size() * sizeof(unsigned short))
+                     ) : 0
+                 )      
+             );
+    }
 
     /**
       Dumps the line to *buf and counts buff dumpSize bytes up
       as return value
     */
-    char *dump (char *buf) const;
+    char *dump (char *buf, bool withHighlighting) const;
 
     /**
       Restores the line from *buf and counts buff dumpSize bytes up

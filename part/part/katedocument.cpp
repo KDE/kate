@@ -2738,6 +2738,12 @@ bool KateDocument::save()
   if ( ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles ) ||
          ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
        && isModified() ) {
+    if (s_fileChangedDialogsActivated && m_modOnHd)
+    {
+      if (!(KMessageBox::warningYesNo(0,
+            reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur.")) == KMessageBox::Yes))
+        return false;
+    }
     KURL u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
     if ( ! KIO::NetAccess::upload( url().path(), u, kapp->mainWidget() ) )
@@ -4586,77 +4592,59 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
   {
     m_isasking = 1;
 
-    QString title, btnOK;
-    if ( m_modOnHdReason == 3 )
+    KateModOnHdPrompt p( this, m_modOnHdReason, reasonedMOHString(), widget() );
+    switch ( p.exec() )
     {
-      title = i18n("File Was Deleted on Disk");
-      btnOK = i18n("&Save File As...");
-    } else {
-      title = i18n("File Changed on Disk");
-      btnOK = i18n("&Reload File");
-    }
+      case KateModOnHdPrompt::Save:
+      {
+        m_modOnHd = false;
+        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+            url().url(),QString::null,widget(),i18n("Save File"));
 
-    switch ( KMessageBox::warningYesNoCancel( widget(),
-             reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-             title, btnOK, i18n("&Ignore Changes")) )
-    {
-      case KMessageBox::Yes: // "reload file" OR "save file as"
-        m_modOnHd = false; // trick reloadFile() to not ask again
-        if ( m_modOnHdReason == 3 ) // deleted
+        kdDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
+        if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
         {
-          KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
-              url().url(),QString::null,widget(),i18n("Save File"));
+          setEncoding( res.encoding );
 
-          kdDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
-          if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
+          if( ! saveAs( res.URLs.first() ) )
           {
-            setEncoding( res.encoding );
-
-            if( ! saveAs( res.URLs.first() ) )
-            {
-              KMessageBox::error( widget(), i18n("Save failed") );
-              m_modOnHd = true;
-            }
-            else
-              emit modifiedOnDisc( this, false, 0 );
-          }
-          else // the save as dialog was cancelled, we are still modified on disk
-          {
-            //setURL( KURL() ); // force saveAs on next save?
+            KMessageBox::error( widget(), i18n("Save failed") );
             m_modOnHd = true;
           }
-
-          m_isasking = 0;
+          else
+            emit modifiedOnDisc( this, false, 0 );
         }
-        else
+        else // the save as dialog was cancelled, we are still modified on disk
         {
-          emit modifiedOnDisc( this, false, 0 );
-          reloadFile();
-          m_isasking = 0;
+          m_modOnHd = true;
         }
+
+        m_isasking = 0;
+        break;
+      }
+
+      case KateModOnHdPrompt::Reload:
+        m_modOnHd = false;
+        emit modifiedOnDisc( this, false, 0 );
+        reloadFile();
+        m_isasking = 0;
         break;
 
-        case KMessageBox::No:  // "ignore changes"
-          if ( KMessageBox::warningContinueCancel(
-               widget(),
-               i18n("Ignoring means that you will not be warned again (unless "
-               "the disk file changes once more): if you save the document, you "
-               "will overwrite the file on disk; if you do not save then the disk file "
-               "(if present) is what you have."),
-               i18n("You are on your own"),
-               KStdGuiItem::cont(),
-               "kate_ignore_modonhd") == KMessageBox::Continue )
-          {
-            m_modOnHd = false;
-            emit modifiedOnDisc( this, false, 0 );
-            m_isasking = 0;
-          }
-          else
-            m_isasking = 0;
-          break;
+      case KateModOnHdPrompt::Ignore:
+        m_modOnHd = false;
+        emit modifiedOnDisc( this, false, 0 );
+        m_isasking = 0;
+        break;
 
-          default:               // cancel: ignore next focus event
-            m_isasking = -1;
+      case KateModOnHdPrompt::Overwrite:
+        m_modOnHd = false;
+        emit modifiedOnDisc( this, false, 0 );
+        m_isasking = 0;
+        save();
+        break;
+
+      default:               // cancel: ignore next focus event
+        m_isasking = -1;
     }
   }
 }

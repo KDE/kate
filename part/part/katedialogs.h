@@ -366,4 +366,48 @@ class KateHlDownloadDialog: public KDialogBase
     void slotUser1();
 };
 
+class KProcIO;
+class KProcess;
+/**
+ * This dialog will prompt the user for what do with a file that is
+ * modified on disk.
+ * If the file wasn't deleted, it has a 'diff' button, which will create
+ * a diff file (uing diff(1)) and launch that using KRun.
+ */
+class KateModOnHdPrompt : public KDialogBase
+{
+  Q_OBJECT
+  public:
+    enum Status {
+      Reload=1, // 0 is KDialogBase::Cancel
+      Save,
+      Overwrite,
+      Ignore
+    };
+    KateModOnHdPrompt( KateDocument *doc, int modtype, const QString &reason, QWidget *parent  );
+    ~KateModOnHdPrompt();
+
+  public slots:
+    /**
+     * Show a diff between the document text and the disk file.
+     * This will not close the dialog, since we still need a
+     * decision from the user.
+     */
+    void slotDiff();
+
+    void slotOk();
+    void slotApply();
+    void slotUser1();
+
+  private slots:
+    void slotPRead(KProcIO*); ///< Read from the diff process
+    void slotPDone(KProcess*); ///< Runs the diff file when done
+
+  private:
+    KateDocument *m_doc;
+    int m_modtype;
+    class KTempFile *m_tmpfile; ///< The diff file. Deleted by KRun when the viewer is exited.
+
+};
+
 #endif

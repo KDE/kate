@@ -50,6 +50,7 @@
 #include <kcombobox.h>
 #include <kdebug.h>
 #include <kprocess.h>
+#include <kprocio.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
@@ -76,6 +77,7 @@
 #include <kfontdialog.h>
 #include <knuminput.h>
 #include <kmimetypechooser.h>
+#include <ktempfile.h>
 
 #include <qcheckbox.h>
 #include <qcombobox.h>
@@ -120,6 +122,7 @@
 #include <qwhatsthis.h>
 #include <qdom.h>
 #include <qslider.h>
+// #include <qcursor.h>
 
 // trailing slash is important
 #define HLDOWNLOADPATH "http://www.kde.org/apps/kate/syntax/"
@@ -1511,5 +1514,151 @@ int KateGotoLineDialog::getLine() {
   return e1->value();
 }
 //END KateGotoLineDialog
+
+//BEGIN KateModOnHdPrompt
+KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
+                                      int modtype,
+                                      const QString &reason,
+                                      QWidget *parent )
+  : KDialogBase( parent, "", true, "", Ok|Apply|Cancel|User1 ),
+    m_doc( doc ),
+    m_modtype ( modtype ),
+    m_tmpfile( 0 )
+{
+  QString title, btnOK, whatisok;
+  if ( modtype == 3 ) // deleted
+  {
+    title = i18n("File Was Deleted on Disk");
+    btnOK = i18n("&Save File As...");
+    whatisok = i18n("Lets you select a location and save the file again.");
+  } else {
+    title = i18n("File Changed on Disk");
+    btnOK = i18n("&Reload File");
+    whatisok = i18n("Reload the file from disk. If you have unsaved changes, "
+        "they will be lost.");
+  }
+
+  setButtonText( Ok, btnOK);
+  setButtonText( Apply, i18n("&Ignore") );
+
+  setButtonWhatsThis( Ok, whatisok );
+  setButtonWhatsThis( Apply, i18n("Ignore the changes. You will not be prompted again.") );
+  setButtonWhatsThis( Cancel, i18n("Do nothing. Next time you focus the file, "
+      "or try to save it or close it, you will be prompted again.") );
+
+  enableButtonSeparator( true );
+  setCaption( title );
+
+  QFrame *w = makeMainWidget();
+  QVBoxLayout *lo = new QVBoxLayout( w );
+  QHBoxLayout *lo1 = new QHBoxLayout( lo );
+  QLabel *icon = new QLabel( w );
+  icon->setPixmap( DesktopIcon("messagebox_warning" ) );
+  lo1->addWidget( icon );
+  lo1->addWidget( new QLabel( reason + "\n\n" + i18n("What do you want to do?"), w ) );
+
+  // If the file isn't deleted, present a diff button, and a overwrite action.
+  if ( modtype != 3 )
+  {
+    QHBoxLayout *lo2 = new QHBoxLayout( lo );
+    QPushButton *btnDiff = new QPushButton( i18n("&View Difference..."), w );
+    lo2->addStretch( 1 );
+    lo2->addWidget( btnDiff );
+    connect( btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
+    QWhatsThis::add( btnDiff, i18n(
+        "Calculates the difference between the editor contents and the disk "
+        "file using diff(1) and opens the diff file with the default application "
+        "for that.") );
+
+    setButtonText( User1, i18n("Overwrite") );
+    setButtonWhatsThis( User1, i18n("Overwrite the disk file with the editor content.") );
+  }
+  else
+    showButton( User1, false );
+}
+
+KateModOnHdPrompt::~KateModOnHdPrompt()
+{
+}
+
+void KateModOnHdPrompt::slotDiff()
+{
+  // Start a KProcess that creates a diff
+  KProcIO *p = new KProcIO();
+  p->setComm( KProcess::All );
+  *p << "diff" << "-ub" << "-" <<  m_doc->url().path();
+  connect( p, SIGNAL(processExited(KProcess*)), this, SLOT(slotPDone(KProcess*)) );
+  connect( p, SIGNAL(readReady(KProcIO*)), this, SLOT(slotPRead(KProcIO*)) );
+
+  setCursor( WaitCursor );
+
+  p->start( KProcess::NotifyOnExit, true );
+
+  uint lastln =  m_doc->numLines();
+  for ( uint l = 0; l <  lastln; l++ )
+    p->writeStdin(  m_doc->textLine( l ), l < lastln );
+
+  p->closeWhenDone();
+}
+
+void KateModOnHdPrompt::slotPRead( KProcIO *p)
+{
+  // create a file for the diff if we haven't one allready
+  if ( ! m_tmpfile )
+    m_tmpfile = new KTempFile();
+  // put all the data we have in it
+  QString stmp;
+  while ( p->readln( stmp, false ) > -1 )
+    *m_tmpfile->textStream() << stmp << endl;
+
+  p->ackRead();
+}
+
+void KateModOnHdPrompt::slotPDone( KProcess *p )
+{
+  setCursor( ArrowCursor );
+  m_tmpfile->close();
+
+  if ( ! p->normalExit() /*|| p->exitStatus()*/ )
+  {
+    KMessageBox::sorry( this,
+                        i18n("The diff command failed. Please make sure that"
+                             "diff(1) is installed and in your PATH."),
+                        i18n("Error creating diff") );
+    return;
+  }
+
+  KRun::runURL( m_tmpfile->name(), "text/x-diff", true );
+  delete m_tmpfile;
+  m_tmpfile = 0;
+}
+
+void KateModOnHdPrompt::slotApply()
+{
+  if ( KMessageBox::warningContinueCancel(
+       this,
+       i18n("Ignoring means that you will not be warned again (unless "
+            "the disk file changes once more): if you save the document, you "
+            "will overwrite the file on disk; if you do not save then the disk file "
+            "(if present) is what you have."),
+       i18n("You are on your own"),
+       KStdGuiItem::cont(),
+       "kate_ignore_modonhd" ) != KMessageBox::Continue )
+    return;
+
+  done(Ignore);
+}
+
+void KateModOnHdPrompt::slotOk()
+{
+  done( m_modtype == 3 ? Save : Reload );
+}
+
+void KateModOnHdPrompt::slotUser1()
+{
+  done( Overwrite );
+}
+
+//END KateModOnHdPrompt
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

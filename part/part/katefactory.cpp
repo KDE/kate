@@ -24,6 +24,7 @@
 #include "katecmds.h"
 #include "katefiletype.h"
 #include "kateschema.h"
+#include "katesearch.h"
 #include "kateconfig.h"
 #include <kvmallocator.h>
 
@@ -135,6 +136,7 @@ KateFactory::KateFactory ()
   m_cmds.push_back (new KateCommands::SedReplace ());
   m_cmds.push_back (new KateCommands::Character ());
   m_cmds.push_back (new KateCommands::Date ());
+  m_cmds.push_back (new SearchCommand());
 
   for ( QValueList<Kate::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
     KateCmd::self()->registerCommand (*it);

@@ -23,6 +23,7 @@
 #define __KATE_SEARCH_H__
 
 #include "katecursor.h"
+#include "../interfaces/document.h"
 
 #include <kdialogbase.h>
 
@@ -56,6 +57,7 @@ class KateSearch : public QObject
         bool replace           :1;
         bool finished          :1;
         bool regExp            :1;
+        bool useBackRefs       :1;
     };
 
     class SConfig
@@ -87,7 +89,24 @@ class KateSearch : public QObject
 
   public slots:
     void find();
+    /**
+     * Search for @p pattern given @p flags
+     * This is for the commandline "find", and is forwarded by
+     * KateView.
+     * @param pattern string or regex pattern to search for.
+     * @param flags a OR'ed combination of @see KFindDialog::Options
+     */
+    void find( const QString &pattern, long flags );
     void replace();
+    /**
+     * Replace @p pattern with @p replacement given @p flags.
+     * This is for the commandline "replace" and is forwarded
+     * by KateView.
+     * @param pattern string or regular expression to search for
+     * @param replacement Replacement string.
+     * @param flags OR'd combination of @see KFindDialog::Options
+     */
+    void replace( const QString &pattern, const QString &replacement, long flags );
     void findAgain( bool back );
 
   private slots:
@@ -187,6 +206,14 @@ class KateReplacePrompt : public KDialogBase
      * @param result dialog result
      */
     void done (int result);
+};
+
+class SearchCommand : public Kate::Command, public Kate::CommandExtension
+{
+  public:
+    bool exec(class Kate::View *view, const QString &cmd, QString &errorMsg);
+    bool help(class Kate::View *, const QString &, QString &);
+    QStringList cmds();
 };
 
 #endif

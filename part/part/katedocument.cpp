@@ -3402,38 +3402,11 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     else
       curAt = &at[*a];
 
-    if (curAt->bold && curAt->italic)
-    {
-      if (!isTab)
-	width = fs->myFontMetricsBI.width(*s);
+    if (!isTab)
+      width = curAt->width(fs, *s);
 
-      if (curAt != oldAt)
-        paint.setFont(fs->myFontBI);
-    }
-    else if (curAt->bold)
-    {
-      if (!isTab)
-        width = fs->myFontMetricsBold.width(*s);
-
-      if (curAt != oldAt)
-        paint.setFont(fs->myFontBold);
-    }
-    else if (curAt->italic)
-    {
-      if (!isTab)
-        width = fs->myFontMetricsItalic.width(*s);
-
-      if (curAt != oldAt)
-        paint.setFont(fs->myFontItalic);
-    }
-    else
-    {
-      if (!isTab)
-        width = fs->myFontMetrics.width(*s);
-
-      if (curAt != oldAt)
-        paint.setFont(fs->myFont);
-    }
+    if (curAt != oldAt)
+      paint.setFont(fs->getFont(curAt->bold, curAt->italic));
 
     xPosAfter += width;
 

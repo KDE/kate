@@ -69,6 +69,8 @@ class FontStruct
 
     void updateFontData(int tabChars);
 
+    QFont & getFont(bool bold, bool italic);
+
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;
 

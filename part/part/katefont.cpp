@@ -123,3 +123,10 @@ int FontStruct::width(QChar ch, bool bold, bool italic)
       myFontMetricsItalic.width(ch) :
       myFontMetrics.width(ch) );
 }
+
+QFont & FontStruct::getFont(bool bold, bool italic)
+{
+  return (bold) ?
+    ( (italic) ? myFontBI : myFontBold ) :
+    ( (italic) ? myFontItalic : myFont );
+}

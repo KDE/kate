@@ -922,9 +922,7 @@ PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::
 
   PluginListView* listView = new PluginListView(0, this);
   listView->addColumn(i18n("Name"));
-  listView->addColumn(i18n("Description"));
-  listView->addColumn(i18n("Author"));
-  listView->addColumn(i18n("License"));
+  listView->addColumn(i18n("Comment"));
   connect(listView, SIGNAL(stateChange(PluginListItem *, bool)), this, SLOT(stateChange(PluginListItem *, bool)));
 
   grid->addWidget( listView, 0, 0);
@@ -934,8 +932,6 @@ PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::
     PluginListItem *item = new PluginListItem(false, m_doc->s_plugins.at(i)->load, m_doc->s_plugins.at(i), listView);
     item->setText(0, m_doc->s_plugins.at(i)->service->name());
     item->setText(1, m_doc->s_plugins.at(i)->service->comment());
-    item->setText(2, "");
-    item->setText(3, "");
   }
 }
 

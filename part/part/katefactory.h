@@ -37,17 +37,46 @@ class KDirWatch;
 class KateFactory
 {
   private:
+    /**
+     * Default constructor, private, as singleton
+     */
     KateFactory ();
     
   public:
+    /**
+     * Destructor
+     */
     ~KateFactory ();
 
+    /**
+     * singleton accessor
+     * @return instance of the factory
+     */
     static KateFactory *self ();
     
-    KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
+    /**
+     * reimplemented create object method
+     * @param parentWidget parent widget
+     * @param widgetName widget name
+     * @param parent QObject parent
+     * @param name object name
+     * @param args additional arguments
+     * @return constructed part object
+     */
+    KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName,
+                                     QObject *parent, const char *name, const char *classname,
+                                     const QStringList &args );
 
+    /**
+     * public accessor to the instance
+     * @return instance
+     */
     inline KInstance *instance () { return &m_instance; };
 
+    /**
+     * register document at the factory
+     * @param doc document to register
+     */
     void registerDocument ( class KateDocument *doc );
     void deregisterDocument ( class KateDocument *doc );
 

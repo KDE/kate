@@ -357,7 +357,6 @@ class KateView : public Kate::View,
     void setupEditActions();
     void setupCodeFolding();
     void setupCodeCompletion();
-    void setupViewPlugins();
 
     KActionCollection*     m_editActions;
     KAction*               m_editUndo;

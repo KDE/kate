@@ -307,6 +307,17 @@ KateDocument::~KateDocument()
 
   delete m_editCurrentUndo;
 
+  delete m_arbitraryHL;
+  
+  // cleanup the undo items, very important, truee :/
+  undoItems.setAutoDelete(true);
+  undoItems.clear();
+  
+  // clean up plugins
+  unloadAllPlugins ();
+  m_plugins.setAutoDelete(true);
+  m_plugins.clear();
+  
   delete m_config;
   delete m_indenter;
   KateFactory::self()->deregisterDocument (this);
@@ -325,12 +336,30 @@ void KateDocument::loadAllEnabledPlugins ()
   }
 }
 
+void KateDocument::unloadAllPlugins ()
+{
+  for (uint i=0; i<s_plugins.count(); i++)
+  {
+    if (s_plugins.at(i)->plugin)
+      unloadPlugin (m_plugins.at(i));
+  }
+}
+
 void KateDocument::enableAllPluginsGUI (KateView *view)
 {
   for (uint i=0; i<m_plugins.count(); i++)
   {
     if  (m_plugins.at(i)->plugin)
       enablePluginGUI (m_plugins.at(i), view);
+  }
+}
+
+void KateDocument::disableAllPluginsGUI (KateView *view)
+{
+  for (uint i=0; i<m_plugins.count(); i++)
+  {
+    if  (m_plugins.at(i)->plugin)
+      disablePluginGUI (m_plugins.at(i), view);
   }
 }
 
@@ -358,13 +387,14 @@ void KateDocument::enablePluginGUI (KatePartPluginInfo *item, KateView *view)
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
 
+  KXMLGUIFactory *factory = view->factory();
+  if ( factory )
+    factory->removeClient( view );
+  
   KTextEditor::pluginViewInterface(item->plugin)->addView(view);
-
-  if (KXMLGUIFactory *factory = view->factory())
-  {
-    factory->removeClient (view);
-    factory->addClient (view);
-  }
+  
+  if ( factory )
+    factory->addClient( view );
 }
 
 void KateDocument::enablePluginGUI (KatePartPluginInfo *item)
@@ -378,23 +408,30 @@ void KateDocument::enablePluginGUI (KatePartPluginInfo *item)
   }
 }
 
+void KateDocument::disablePluginGUI (KatePartPluginInfo *item, KateView *view)
+{
+  if (!item->plugin) return;
+  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+
+  KXMLGUIFactory *factory = view->factory();
+  if ( factory )
+    factory->removeClient( view );
+
+  KTextEditor::pluginViewInterface( item->plugin )->removeView( view );
+
+  if ( factory )
+    factory->addClient( view );
+}
+
 void KateDocument::disablePluginGUI (KatePartPluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
 
-  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
+  for (uint i=0; i< m_views.count(); i++)
   {
-    KXMLGUIFactory *factory = view->factory();
-    if ( factory )
-      factory->removeClient( view );
-
-    KTextEditor::PluginViewInterface *viewIface = KTextEditor::pluginViewInterface( item->plugin );
-    viewIface->removeView( view );
-
-    if ( factory )
-      factory->addClient( view );
-   }
+    disablePluginGUI (item, m_views.at(i));
+  }
 }
 //END
 

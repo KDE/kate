@@ -101,12 +101,18 @@ class KateDocument : public Kate::Document,
     KatePartPluginList *plugins () { return &m_plugins; };
 
     void loadAllEnabledPlugins ();
+    void unloadAllPlugins ();
+    
     void enableAllPluginsGUI (KateView *view);
+    void disableAllPluginsGUI (KateView *view);
 
     void loadPlugin (KatePartPluginInfo *item);
     void unloadPlugin (KatePartPluginInfo *item);
+    
     void enablePluginGUI (KatePartPluginInfo *item, KateView *view);
     void enablePluginGUI (KatePartPluginInfo *item);
+    
+    void disablePluginGUI (KatePartPluginInfo *item, KateView *view);
     void disablePluginGUI (KatePartPluginInfo *item);
 
   private:

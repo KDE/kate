@@ -58,6 +58,7 @@ KateSearch::KateSearch( KateView* view )
 
 KateSearch::~KateSearch()
 {
+  delete m_arbitraryHLList;
 }
 
 void KateSearch::createActions( KActionCollection* ac )

@@ -127,7 +127,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setupEditActions();
   setupCodeFolding();
   setupCodeCompletion();
-  setupViewPlugins();
+  
+  // enable the plugins of this view
+  m_doc->enableAllPluginsGUI (this);
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
@@ -150,6 +152,8 @@ KateView::~KateView()
   if (m_doc && !m_doc->m_bSingleViewMode)
     m_doc->removeView( this );
 
+  m_doc->disableAllPluginsGUI (this);
+    
   delete m_viewInternal;
   delete m_codeCompletion;
 
@@ -625,11 +629,6 @@ void KateView::setupCodeCompletion()
            this,             SIGNAL(completionDone(KTextEditor::CompletionEntry)));
   connect( m_codeCompletion, SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)),
            this,             SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)));
-}
-
-void KateView::setupViewPlugins()
-{
-  m_doc->enableAllPluginsGUI (this);
 }
 
 void KateView::slotGotFocus()

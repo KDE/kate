@@ -35,7 +35,7 @@ KateFontMetrics::KateFontMetrics(const QFont& f) : QFontMetrics(f)
 KateFontMetrics::~KateFontMetrics()
 {
   for (int i=0; i<256; i++)
-    if (warray[i]) delete[] warray[i];
+    delete[] warray[i];
 }
 
 short * KateFontMetrics::createRow (short *wa, uchar row)

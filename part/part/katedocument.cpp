@@ -1023,7 +1023,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   editAddUndo (KateUndoGroup::editUnWrapLine, line, col, 0, 0);
 
   l->unWrap (col, tl, tl->length());
-  l->setContext (tl->ctx(), tl->ctxLength());
+  l->setContext (tl->ctx(), tl->ctxSize());
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);

@@ -44,7 +44,7 @@ class TextLine : public KShared
   public:  
     /**  
       Creates an empty text line with given attribute and syntax highlight  
-      context  
+      context
     */  
     TextLine(); 
     ~TextLine();
@@ -140,12 +140,17 @@ class TextLine : public KShared
     /**
       Gets the syntax highlight context number
     */
-    inline signed char *ctx () const { return m_ctx.data(); };
+    inline uint *ctx () const { return m_ctx.data (); };
     
     /**
-      Gets the syntax highlight context number
+      Gets size of the ctxArray
     */
-    inline uint ctxLength() const { return m_ctx.size(); };
+    inline bool ctxSize () const { return m_ctx.size (); };
+    
+    /**
+      Empty ctx stack ?
+    */
+    inline bool ctxEmpty () const { return m_ctx.isEmpty (); };
 
     bool searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive = true, bool backwards = false);
     bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false); 
@@ -169,7 +174,7 @@ class TextLine : public KShared
     */
     inline const QMemArray<QChar> &textArray () const { return m_text; };
     inline const QMemArray<uchar> &attributesArray () const { return m_attributes; };
-    inline const QMemArray<signed char> &ctxArray () const { return m_ctx; };
+    inline const QMemArray<uint> &ctxArray () const { return m_ctx; };
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };      
          
   /**
@@ -225,7 +230,7 @@ class TextLine : public KShared
     /**
       Sets the syntax highlight context number
     */
-    inline void setContext(signed char *newctx, uint len)
+    inline void setContext(uint *newctx, uint len)
     {
       m_ctx.duplicate (newctx, len);
     }
@@ -250,7 +255,7 @@ class TextLine : public KShared
     /**
       Dumpsize in bytes
     */
-    uint dumpInit () const;
+    uint dumpSize () const;
     
     /**
       Dumps the line to *buf and counts buff dumpSize bytes up 
@@ -277,7 +282,7 @@ class TextLine : public KShared
     /**
      Data for context + folding 
      */
-    QMemArray<signed char> m_ctx; 
+    QMemArray<uint> m_ctx; 
     QMemArray<signed char> m_foldingList;
                                      
     enum Flags

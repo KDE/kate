@@ -558,7 +558,7 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 //  kdDebug(13000)<<"needHighlight:startLine:"<< startLine <<" endline:"<<endLine<<endl;
 
   TextLine::Ptr textLine;
-  QMemArray<signed char> ctxNum, endCtx;
+  QMemArray<uint> ctxNum, endCtx;
 
   uint last_line = buf->m_endState.lineNr - buf->m_beginState.lineNr;
   uint current_line = startLine - buf->m_beginState.lineNr;
@@ -1254,7 +1254,7 @@ KateBufBlock::flushStringList()
   // Calculate size.
   uint size = 0;
   for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-    size += (*it)->dumpInit ();
+    size += (*it)->dumpSize ();
    
   //kdDebug(13020)<<"Size = "<< size<<endl;
   m_rawData2 = QByteArray(size);

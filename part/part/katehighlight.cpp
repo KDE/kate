@@ -827,26 +827,27 @@ Highlight::~Highlight()
 {
 }
 
-void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char>* ctxs, int *prevLine, bool lineContinue)
+void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs, int *prevLine, bool lineContinue)
 {
   //kdDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
-
+  
   if (lineContinue)
-	{
-	  if (ctxs->size()>0)
-	  {
-		(*ctxNum)=(*ctxs)[ctxs->size()-1];
-		(*prevLine)--;
-          } else
-	  {
-		 //kdDebug(13010)<<QString("generateContextStack: line continue: len ==0");
-		 (*ctxNum)=0;
-	  }
+  {
+    if ( !ctxs->isEmpty() )
+    {
+      (*ctxNum)=(*ctxs)[ctxs->size()-1];
+      (*prevLine)--;
+    }
+    else
+    {
+      //kdDebug(13010)<<QString("generateContextStack: line continue: len ==0");
+      (*ctxNum)=0;
+    }
 
-	  return;
-	}
+    return;
+  }
 
-  if (ctx>=0)
+  if (ctx >= 0)
   {
     (*ctxNum) = ctx;
 
@@ -855,44 +856,45 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
   }
   else
   {
-    if (ctx<-1)
+    if (ctx < -1)
     {
-      while (ctx<-1)
+      while (ctx < -1)
       {
-        if (ctxs->size()==0)
-        (*ctxNum)=0;
+        if ( ctxs->isEmpty() )
+          (*ctxNum)=0;
         else
         {
           ctxs->truncate (ctxs->size()-1);
-	  //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
-          (*ctxNum) = ((ctxs->size()==0)?0:(*ctxs)[ctxs->size()-1]);
+          //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
+          (*ctxNum) = ( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
         }
-      ctx++;
+        
+        ctx++;
       }
 
-     ctx=0;
+      ctx = 0;
 
-     if ((*prevLine)>=(int)(ctxs->size()-1))
-     {
-       *prevLine=ctxs->size()-1;
+      if ((*prevLine) >= (int)(ctxs->size()-1))
+      {
+        *prevLine=ctxs->size()-1;
 
-       if (ctxs->size()==0)
-         return;
+        if ( ctxs->isEmpty() )
+          return;
 
-       if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
-       {
-		//kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
-         generateContextStack(ctxNum, contextNum((*ctxs)[ctxs->size()-1])->ctx,ctxs, prevLine);
-         return;
-       }
-     }
+        if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
+        {
+          //kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
+          generateContextStack(ctxNum, contextNum((*ctxs)[ctxs->size()-1])->ctx,ctxs, prevLine);
+          return;
+        }
+      }
     }
     else
     {
-      if (ctx==-1)
-        (*ctxNum)=((ctxs->size()==0)?0:(*ctxs)[ctxs->size()-1]);
+      if (ctx == -1)
+        (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
     }
- }
+  }
 }
 
 
@@ -909,7 +911,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
                         * return value: signed char*	new context stack at the end of the line
 *******************************************************************************************/
 
-void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool lineContinue,
+void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineContinue,
 				QMemArray<signed char>* foldingList)
 {
   if (!textLine)
@@ -932,10 +934,10 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
   int ctxNum;
   int prevLine;
 
-  QMemArray<signed char> ctx;
+  QMemArray<uint> ctx;
   ctx.duplicate (oCtx);
 
-  if (oCtx.size() == 0)
+  if ( oCtx.isEmpty() )
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
     ctxNum=0;

@@ -137,72 +137,128 @@ void KateView::setupConnections()
 void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
-
+  KAction *a;
+  
   if (!m_doc->m_bReadOnly)
   {
-    KStdAction::save(this, SLOT(save()), ac);
-    m_editUndo = KStdAction::undo(m_doc, SLOT(undo()), ac);
-    m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
-    KStdAction::cut(this, SLOT(cut()), ac);
-    KStdAction::paste(this, SLOT(paste()), ac);
-    new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap");
-    new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd");
+    a=KStdAction::save(this, SLOT(save()), ac);
+    a->setWhatsThis(i18n("Save the current document"));
+
+    a=m_editUndo = KStdAction::undo(m_doc, SLOT(undo()), ac);
+    a->setWhatsThis(i18n("Revert the most recent editing actions"));
+
+    a=m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
+    a->setWhatsThis(i18n("Revert the most recent undo operation"));
+
+    a=KStdAction::cut(this, SLOT(cut()), ac);
+    a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
+    
+    a=KStdAction::paste(this, SLOT(paste()), ac);
+    a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
+
+    (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
+	i18n("Use this command to wrap all lines of the current document, which are longer than the width of the"
+		" current view to fit into this view.<br><br> This is a static word wrap. That means it doesn't get updated" 
+		" when the view gets resized"));
+    
+    (new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd"))->setWhatsThis(
+	i18n("Use this command to execute VI like commands. This effects the whole document."
+	"<ul><li>You can eg. enter <b>time</b> to insert the current time.</li>"
+	" <li>Vi/Sed/Perl like regular replace commands are possible too eg.: <b>s/hello/good bye/</b>.</li></ul>" ));
 
     // setup Tools menu
-    new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
+    a=new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
                               ac, "tools_indent");
-    new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),
+    a->setWhatsThis(i18n("Use this to indent a selected textblock.<br><br>"
+		"You can configure if tabs should be honoured and used or if you prefere spaces in the configuration dialog"));
+    a=new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),
                                 ac, "tools_unindent");
-    new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
+    a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
+    a=new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
                                    ac, "tools_cleanIndent");
-    new KAction(i18n("C&omment"), CTRL+Qt::Key_NumberSign, this, SLOT(comment()),
+    a->setWhatsThis(i18n("Use this to clean the indentation of  a selected text block (only tabs/only spaces)<br><br>"
+		"You can configure if tabs should be honoured and used or if you prefere spaces in the configuration dialog"));
+
+    a=new KAction(i18n("C&omment"), CTRL+Qt::Key_NumberSign, this, SLOT(comment()),
                                ac, "tools_comment");
-    new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_NumberSign, this, SLOT(uncomment()),
+    a->setWhatsThis(i18n("This command comments the current line or a selected block of text out.<BR><BR>"
+		"The signs for single / multi line comments are defined within the language's highlighting"));
+
+    a=new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_NumberSign, this, SLOT(uncomment()),
                                  ac, "tools_uncomment");
+    a->setWhatsThis(i18n("This command removes comment signs from the current line or a selected block of text.<BR><BR>"
+		"The signs for single / multi line comments are defined within the language's highlighting"));
   }
 
-  KStdAction::copy(this, SLOT(copy()), ac);
 
-  KStdAction::print( m_doc, SLOT(print()), ac );
-  
-  new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
-  
-  KStdAction::saveAs(this, SLOT(saveAs()), ac);
-  KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
-  new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
+  a=KStdAction::copy(this, SLOT(copy()), ac);
+  a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard"));
+
+  a=KStdAction::print( m_doc, SLOT(print()), ac );
+  a->setWhatsThis(i18n("Print the current document"));  
+
+  a=new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
+  a->setWhatsThis(i18n("Reload the current document from disc"));
+
+  a=KStdAction::saveAs(this, SLOT(saveAs()), ac);
+  a->setWhatsThis(i18n("Save the current document with a name of your choice to disk"));
+
+  a=KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
+  a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line you want the cursor to move to"));
+
+  a=new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
+  a->setWhatsThis(i18n("Configure various aspects of this editor"));
+
   m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
   m_doc->exportActionMenu (i18n("&Export"),ac,"file_export");
-  KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
-  KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
-  new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
-  new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
-  new KAction(i18n("&Toggle Block Selection"), Key_F4, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
-  new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
+
+  a=KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
+  a->setWhatsThis(i18n("Select the complete text of the current document"));
+
+  a=KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
+  a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected"));
+
+  a=new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
+  a->setWhatsThis(i18n("This increases the font size used for displaying"));
+
+  a=new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
+  a->setWhatsThis(i18n("This decreases the font size used for displaying"));
+
+  a=new KAction(i18n("&Toggle Block Selection"), Key_F4, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
+  a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode"));
+
+  a=new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
+  a->setWhatsThis(i18n("Choose if you want the text you type to be inserted or to overwrite existing text"));
     
   KConfig *config = KateFactory::instance()->config();
   config->setGroup("Kate ViewDefaults");  
   
-  m_toggleFoldingMarkers = new KToggleAction(
+  a=m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show &Folding Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
+  a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible"));
   updateFoldingMarkersAction();
   
   KToggleAction* toggleAction = new KToggleAction(
     i18n("Show &Icon Border"), Key_F6,
     this, SLOT(toggleIconBorder()),
     ac, "view_border");
+  a=toggleAction;
+  a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols for instance"));
   setIconBorder( config->readBoolEntry( "Iconbar", false ) );  
   toggleAction->setChecked( iconBorder() );
   
-  toggleAction = new KToggleAction(
+  a=toggleAction = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );   
+  a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view"));
   setLineNumbersOn( config->readBoolEntry( "LineNumbers", false ) );       
   toggleAction->setChecked( lineNumbersOn() );
 
-  m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
+  a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
+  a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
   QStringList list;
   list.append("&Unix");

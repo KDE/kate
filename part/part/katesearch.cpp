@@ -57,10 +57,14 @@ KateSearch::~KateSearch()
 
 void KateSearch::createActions( KActionCollection* ac )
 {
-	KStdAction::find( this, SLOT(find()), ac );
-	KStdAction::findNext( this, SLOT(slotFindNext()), ac );
-	KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
-	KStdAction::replace( this, SLOT(replace()), ac );
+	KStdAction::find( this, SLOT(find()), ac )->setWhatsThis(
+		i18n("lookup the first occurance of piece of text or regular expression"));
+	KStdAction::findNext( this, SLOT(slotFindNext()), ac )->setWhatsThis(
+		i18n("lookup the next occurance of the search phrase"));
+	KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" )->setWhatsThis(
+		i18n("lookup the previous occurance othe search phrase"));
+	KStdAction::replace( this, SLOT(replace()), ac )->setWhatsThis(
+		i18n("lookup a piece of text or regular expression and replace the result with a given text"));
 }
 
 void KateSearch::addToList( QStringList& list, const QString& s )

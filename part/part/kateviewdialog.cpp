@@ -535,6 +535,10 @@ void EditConfigTab::wordWrapToggled() {
 ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocument *doc)
 	:Kate::ConfigPage(parent)
 {
+
+	QRadioButton *rb1;
+	QRadioButton *rb2;
+
 	m_doc = doc;
 
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
@@ -543,13 +547,21 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
         m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
         m_bmSort->setRadioButtonExclusive( true );
-        m_bmSort->insert( new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
-        m_bmSort->insert( new QRadioButton( i18n("By &creation"), m_bmSort ), 1 );
+        m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
+        m_bmSort->insert( rb2=new QRadioButton( i18n("By &creation"), m_bmSort ), 1 );
 	blay->addWidget(m_line,0);
 	blay->addWidget(m_icons,0);
 	blay->addWidget(m_folding,0);
         blay->addWidget( m_bmSort, 0 );
 	blay->addStretch(1000);
+
+	QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side"));
+	QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side<br><br>The icon border shows for instance bookmark signs"));
+	QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available"));
+
+	QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu"));
+	QWhatsThis::add(rb1,i18n("The bookmarks will be orderd by the line numbers they are placed at"));
+	QWhatsThis::add(rb2,i18n("Each new bookmark will be added to the bottom, independently from where it is placed in the document"));
 	reload();
 }
 
@@ -623,7 +635,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
   QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the \"<b>Configure Highlighting</b>\" dialog."));
   QWhatsThis::add(m_current, i18n("Sets the background color of the currently active line, which means the line where your cursor is positioned."));
-
+  QWhatsThis::add(m_bracket, i18n("Sets the bracket matching color. This means, if your place the cursor eg. at an <b>(</b> the matching <b>)</b> will be highlighted with this color."));
   reload ();
 }
 

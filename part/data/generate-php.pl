@@ -48,7 +48,7 @@ else
 
 $findphp = "<context name=\"FindPHP\">\n<RegExpr context=\"##PHP/PHP\" String=\"&lt;\\?(?:=|php)?\" lookAhead=\"true\" />\n</context>\n";
 
-$file =~ s/<IncludeRules\s([^>]*)context="##([^"]+)"/<IncludeRules $1context="##$2\/PHP"/g;
+$file =~ s/<IncludeRules\s([^>]*)context="##(?!Alerts)([^"]+)"/<IncludeRules $1context="##$2\/PHP"/g;
 $file =~ s/(<context\s[^>]*>)/$1\n<IncludeRules context="FindPHP" \/>/g;
 $file =~ s/(?=<\/contexts\s*>)/$findphp/;
 

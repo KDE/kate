@@ -1706,7 +1706,8 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
 void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &list)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
-  config->setGroup("Highlighting " + iName + " - Schema " + KateFactory::self()->schemaManager()->name(schema));
+  config->setGroup("Highlighting " + iName + " - Schema "
+      + KateFactory::self()->schemaManager()->name(schema));
 
   QStringList settings;
 
@@ -1877,7 +1878,10 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &i
  *
  * @return A pointer to the newly created item object
  */
-KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, KateHlItemDataList &iDl,QStringList *RegionList, QStringList *ContextNameList)
+KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
+                                               KateHlItemDataList &iDl,
+                                               QStringList *RegionList,
+                                               QStringList *ContextNameList)
 {
   // No highlighting -> exit
   if (noHl)
@@ -1932,7 +1936,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   {
     if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
     {
-      errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
+      errorsAndWarnings+=i18n(
+          "<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
       arg(buildIdentifier).arg(tmpAttr);
       attr=tmpAttr.toInt();
     }
@@ -2185,10 +2190,11 @@ void KateHighlighting::readGlobalKeywordConfig()
 }
 
 /**
- * Helper for makeContextList. It parses the xml file for any wordwrap deliminators, characters
- * at which line can be broken. In case no keyword tag is found in the xml file,
- * the wordwrap deliminators list defaults to the standard denominators. In case a keyword tag
- * is defined, but no wordWrapDeliminator attribute is specified, the deliminator list as computed
+ * Helper for makeContextList. It parses the xml file for any wordwrap
+ * deliminators, characters * at which line can be broken. In case no keyword
+ * tag is found in the xml file, the wordwrap deliminators list defaults to the
+ * standard denominators. In case a keyword tag is defined, but no
+ * wordWrapDeliminator attribute is specified, the deliminator list as computed
  * in readGlobalKeywordConfig is used.
  *
  * @return the computed delimiter string.
@@ -2376,14 +2382,15 @@ void KateHighlighting::makeContextList()
         kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
         QString identifierToUse;
         kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
-        if (iName==it.key())
-          identifierToUse=identifier;  // the own identifier is known
-        else
-          identifierToUse=KateHlManager::self()->identifierForName(it.key()); // all others have to be looked up
+        if (iName==it.key()) // the own identifier is known
+          identifierToUse=identifier;
+        else                 // all others have to be looked up
+          identifierToUse=KateHlManager::self()->identifierForName(it.key());
 
         kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
 
-        buildPrefix=it.key()+':';  // attribute names get prefixed by the names of the highlighting definitions they belong to
+        buildPrefix=it.key()+':';  // attribute names get prefixed by the names
+                                   // of the highlighting definitions they belong to
 
         if (identifierToUse.isEmpty() ) kdDebug(13010)<<"OHOH, unknown highlighting description referenced"<<endl;
 
@@ -2434,7 +2441,10 @@ void KateHighlighting::makeContextList()
 
   // if there have been errors show them
   if (!errorsAndWarnings.isEmpty())
-  KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlighting Parser"));
+  KMessageBox::detailedSorry(0L,i18n(
+        "There were warning(s) and/or error(s) while parsing the syntax "
+        "highlighting configuration."),
+        errorsAndWarnings, i18n("Kate Syntax Highlighting Parser"));
 
   // we have finished
   building=false;
@@ -2462,7 +2472,8 @@ void KateHighlighting::handleKateHlIncludeRules()
 
       if ((*it)->incCtxN.isEmpty())
       {
-        // no context name given, and no valid context id set, so this item is going to be removed
+        // no context name given, and no valid context id set, so this item is
+        // going to be removed
         KateHlIncludeRules::iterator it1=it;
         ++it1;
         delete (*it);
@@ -2480,8 +2491,10 @@ void KateHighlighting::handleKateHlIncludeRules()
     else ++it; //nothing to do, already resolved (by the cross defintion reference resolver
   }
 
-  // now that all KateHlIncludeRule items should be valid and completely resolved, do the real inclusion of the rules.
-  // recursiveness is needed, because context 0 could include context 1, which itself includes context 2 and so on.
+  // now that all KateHlIncludeRule items should be valid and completely resolved,
+  // do the real inclusion of the rules.
+  // recursiveness is needed, because context 0 could include context 1, which
+  // itself includes context 2 and so on.
   //  In that case we have to handle context 2 first, then 1, 0
   //TODO: catch circular references: eg 0->1->2->3->1
   while (!includeRules.isEmpty())
@@ -2491,6 +2504,7 @@ void KateHighlighting::handleKateHlIncludeRules()
 void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::iterator it, KateHlIncludeRules *list)
 {
   if (it==list->end()) return;  //invalid iterator, shouldn't happen, but better have a rule prepared ;)
+
   KateHlIncludeRules::iterator it1=it;
   int ctx=(*it1)->ctx;
 
@@ -2580,7 +2594,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   if (!KateHlManager::self()->syntax->setIdentifier(ident))
   {
     noHl=true;
-    KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
+    KMessageBox::information(0L,i18n(
+        "Since there has been an error parsing the highlighting description, "
+        "this highlighting will be disabled"));
     return 0;
   }
 
@@ -2720,9 +2736,11 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 #if 0
                 QString tag = KateHlManager::self()->syntax->groupKateHlItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {
-                  // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
+                  // attrib context: the index (jowenn, i think using names here
+                  // would be a cool feat, goes for mentioning the context in
+                  // any item. a map or dict?)
                   int ctxId = getIdFromString(&ContextNameList,
-      KateHlManager::self()->syntax->groupKateHlItemData( data, QString("context")),dummy); // the index is *required*
+                                               KateHlManager::self()->syntax->groupKateHlItemData( data, QString("context")),dummy); // the index is *required*
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
                     if ( ctxId < (int) i ) { // must be defined
@@ -2740,7 +2758,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       {
         m_contexts[i]->items.append(c);
 
-        // Not supported completely atm and only one level. Subitems.(all have to be matched to at once)
+        // Not supported completely atm and only one level. Subitems.(all have
+        // to be matched to at once)
         datasub=KateHlManager::self()->syntax->getSubItems(data);
         bool tmpbool;
         if (tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
@@ -2769,7 +2788,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   if (!m_additionalData[ ident ]->multiLineRegion.isEmpty()) {
     long commentregionid=RegionList.findIndex( m_additionalData[ ident ]->multiLineRegion );
     if (-1==commentregionid) {
-      errorsAndWarnings+=i18n("<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>").arg(buildIdentifier).arg( m_additionalData[ ident ]->multiLineRegion );
+      errorsAndWarnings+=i18n(
+          "<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>"
+                             ).arg(buildIdentifier).arg( m_additionalData[ ident ]->multiLineRegion );
       m_additionalData[ ident ]->multiLineRegion = QString();
       kdDebug()<<"ERROR comment region attribute could not be resolved"<<endl;
 

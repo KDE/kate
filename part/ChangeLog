@@ -1,4 +1,4 @@
-2002-05-14 Christian Couder <christian@kdevelop.org>
+2002-05-17 Christian Couder <christian@kdevelop.org>
   * Move font stuff from katedocument into new katefont.h and
     katefont.cpp files, and clean up katedocument font stuff. 
 

@@ -124,6 +124,7 @@
       <item> @pre </item>
       <item> @remarks </item>
       <item> @return </item>
+      <item> @returns </item>
       <item> @sa </item>
       <item> @see </item>
       <item> @showinitializer </item>

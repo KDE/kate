@@ -4293,6 +4293,16 @@ void KateDocument::applyWordWrap ()
     wrapText (config()->wordWrapAt());
 }
 
+void KateDocument::setPageUpDownMovesCursor (bool on)
+{
+  config()->setPageUpDownMovesCursor (on);
+}
+
+bool KateDocument::pageUpDownMovesCursor ()
+{
+  return config()->pageUpDownMovesCursor ();
+}
+
 void KateDocument::setGetSearchTextFrom (int where)
 {
   m_getSearchTextFrom = where;

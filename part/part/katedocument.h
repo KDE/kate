@@ -636,6 +636,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void setWordWrapAt (uint col);
     uint wordWrapAt ();
 
+  public slots:
+    void setPageUpDownMovesCursor(bool on);
+    bool pageUpDownMovesCursor();
+
   signals:
     void modStateChanged (Kate::Document *doc);
     void nameChanged (Kate::Document *doc);

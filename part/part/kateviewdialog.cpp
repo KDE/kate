@@ -329,6 +329,10 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   opt[4]->setChecked(configFlags & flags[4]);
   connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
+  e6 = new QCheckBox(i18n("PageUp/PageDown moves cursor"), gbCursor);
+  e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
+  connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
   e4 = new KIntNumInput(KateViewConfig::global()->autoCenterLines(), gbCursor);
   e4->setRange(0, 1000000, 1, false);
   e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
@@ -373,6 +377,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
   QWhatsThis::add(e4, i18n("Sets the number of lines to maintain visible above and below the cursor when possible."));
   QWhatsThis::add(opt[4], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
+  QWhatsThis::add(e6, i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
   QString gstfwt = i18n("This determines where KateView will get the search text from "
                         "(this will be automatically entered into the Find Text dialog): "
                         "<br>"
@@ -423,6 +428,7 @@ void EditConfigTab::getData(KateDocument *view)
 
   KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
   view->setGetSearchTextFrom(e5->currentItem());
+  KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
 }
 
 void EditConfigTab::apply ()

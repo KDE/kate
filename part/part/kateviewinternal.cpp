@@ -1686,7 +1686,7 @@ void KateViewInternal::pageUp( bool sel )
     }
   }
 
-  if (/** FIXME config here instead of 0 */ 0 && !atTop) {
+  if (!m_doc->pageUpDownMovesCursor () && !atTop) {
     int xPos = m_view->renderer()->textWidth(cursor) - currentRange().startX;
 
     KateTextCursor newStartPos = viewLineOffset(startPos(), linesToScroll - 1);
@@ -1741,7 +1741,7 @@ void KateViewInternal::pageDown( bool sel )
     }
   }
 
-  if (/** FIXME config here instead of 0 */ 0 && !atEnd) {
+  if (!m_doc->pageUpDownMovesCursor () && !atEnd) {
     int xPos = m_view->renderer()->textWidth(cursor) - currentRange().startX;
 
     KateTextCursor newStartPos = viewLineOffset(startPos(), linesToScroll + 1);

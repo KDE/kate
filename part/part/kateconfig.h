@@ -104,6 +104,9 @@ class KateDocumentConfig : public KateConfig
     uint undoSteps () const;
     void setUndoSteps ( uint undoSteps );
 
+    bool pageUpDownMovesCursor () const;
+    void setPageUpDownMovesCursor (bool on);
+
     enum ConfigFlags
     {
       cfAutoIndent= 0x1,
@@ -166,6 +169,7 @@ class KateDocumentConfig : public KateConfig
     bool m_wordWrap;
     int m_wordWrapAt;
     uint m_undoSteps;
+    bool m_pageUpDownMovesCursor;
     uint m_configFlags;
     QString m_encoding;
     int m_eol;
@@ -176,6 +180,7 @@ class KateDocumentConfig : public KateConfig
     bool m_indentationWidthSet : 1;
     bool m_wordWrapSet : 1;
     bool m_wordWrapAtSet : 1;
+    bool m_pageUpDownMovesCursorSet : 1;
     bool m_undoStepsSet : 1;
     uint m_configFlagsSet;
     bool m_encodingSet : 1;

@@ -227,6 +227,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     };
 };
 
+Document *document (KTextEditor::Document *doc);
+
 };
 
 #endif

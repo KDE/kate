@@ -293,6 +293,9 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     virtual void setActive (bool b) = 0;
     virtual bool isActive () = 0;
 };
+
+View *view (KTextEditor::View *view);
+
 };
 
 #endif

@@ -65,4 +65,21 @@ void ConfigPage::slotChanged()
   emit changed();
 }
 
+
+Document *document (KTextEditor::Document *doc)
+{
+  if (!doc)
+    return 0;
+
+  return static_cast<Document*>(doc->qt_cast("Kate::Document"));
+}
+
+View *view (KTextEditor::View *view)
+{
+  if (!view)
+    return 0;
+
+  return static_cast<View*>(view->qt_cast("Kate::View"));
+}
+
 };

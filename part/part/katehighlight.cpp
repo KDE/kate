@@ -2263,7 +2263,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
                 // KateHlIncludeRules : add a pointer to each item in that context
 
                 QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
-                if ( tag == "KateHlIncludeRules" ) { //if the new item is an Include rule, we have to take special care
+                if ( tag == "IncludeRules" ) { //if the new item is an Include rule, we have to take special care
       QString incCtx=KateHlManager::self()->syntax->groupItemData( data, QString("context"));
       // only context refernces of type NAME and ##Name are allowed
       if (incCtx.startsWith("##") || (!incCtx.startsWith("#"))) { //#stay, #pop is not interesting here
@@ -2272,7 +2272,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           includeRules.append(new KateHlIncludeRule(i,contextList[i]->items.count(),incCtx));
         }
         else { //a cross highlighting reference
-          kdDebug()<<"Cross highlight reference <KateHlIncludeRules>"<<endl;
+          kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
           KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count());
           //use the same way to determine cross hl file references as other items do
           if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
@@ -2286,7 +2286,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     }
 #if 0
                 QString tag = KateHlManager::self()->syntax->groupKateHlItemData(data,QString(""));
-                if ( tag == "KateHlIncludeRules" ) {
+                if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
                   int ctxId = getIdFromString(&ContextNameList,
       KateHlManager::self()->syntax->groupKateHlItemData( data, QString("context")),dummy); // the index is *required*

@@ -37,6 +37,7 @@
 #include "highlightinginterface.h"
 #include "codecompletioninterface.h"
 #include "configinterface.h"
+#include "markinterface.h"
 
 using namespace KTextEditor;
 

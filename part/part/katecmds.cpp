@@ -301,6 +301,17 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
   KateTextLine *ln = doc->kateTextLine( line );
   if ( ! ln ) return 0;
 
+  // HANDLING "\n"s in PATTERN
+  // * Do s,\n,$\n^,g on PATTERN (only unescaped "\n"'s) so that we match
+  //   the ends and beginnings of lines correctly.
+  // * Create a list of patterns, splitting PATTERN on (unescaped) "\n"
+  // * When matching patterhs after the first one, replace \N with the captured
+  //   text.
+  // * If all patterns in the list match sequentiel lines, there is a match, so
+  // * remove line/start to line + patterns.count()-1/patterns.last.length
+  // * handle capatures by putting them in one list.
+  // * the existing insertion is fine, including the line calculation.
+
   while ( ln->searchText( startcol, matcher, &startcol, &len ) )
   {
 
@@ -355,7 +366,8 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
       {
       //  if ( endcol  >= startcol + len )
           endcol -= (startcol + len);
-        matches += sedMagic( doc, line, find, repOld, delim, noCase, repeat, 0, endcol );
+          uint sc = rep.length() - rep.findRev('\n') - 1;
+        matches += sedMagic( doc, line, find, repOld, delim, noCase, repeat, sc, endcol );
       }
     }
 
@@ -413,7 +425,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
     uint startcol = doc->selStartCol();
     int endcol = -1;
     do {
-      if ( (int)startline == doc->selEndLine() )
+      if ( startline == doc->selEndLine() )
         endcol = doc->selEndCol();
 
       res += sedMagic( doc, startline, find, replace, d, !noCase, repeat, startcol, endcol );

@@ -214,7 +214,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
 
   buffer = new KateBuffer (this);
-  clear();
+  clearMarks ();
+  clearUndo ();
+  clearRedo ();
+  setModified (false);
+  internalSetHlMode (0);
   docWasSavedWhenUndoWasEmpty = true;
 
   m_extension = new KateBrowserExtension( this );
@@ -386,7 +390,16 @@ bool KateDocument::closeURL()
   fileInfo->setFile (QString());
   setMTime();
 
-  clear();
+  buffer->clear();
+  clearMarks ();
+
+  clearUndo();
+  clearRedo();
+
+  setModified(false);
+
+  internalSetHlMode(0);
+
   updateViews();
 
   emit fileNameChanged ();
@@ -610,8 +623,32 @@ QString KateDocument::textLine( uint line ) const
 
 bool KateDocument::setText(const QString &s)
 {
-  clear();
-  return insertText (0, 0, s);
+  QPtrList<KTextEditor::Mark> m = marks ();
+  QValueList<KTextEditor::Mark> msave;
+
+  for (uint i=0; i < m.count(); i++)
+    msave.append (*m.at(i));
+
+  editStart ();
+
+  if (!clear())
+  {
+    editEnd ();
+    return false;
+  }
+
+  if (!insertText (0, 0, s))
+  {
+    editEnd ();
+    return false;
+  }
+
+  editEnd ();
+
+  for (uint i=0; i < msave.count(); i++)
+    setMark (msave[i].line, msave[i].type);
+
+  return true;
 }
 
 bool KateDocument::clear()
@@ -622,17 +659,9 @@ bool KateDocument::clear()
     view->m_viewInternal->update();
   }
 
-  buffer->clear();
   clearMarks ();
 
-  clearUndo();
-  clearRedo();
-
-  setModified(false);
-
-  internalSetHlMode(0); //calls updateFontData()
-
-  return true;
+  return removeText (0,0,lastLine()+1, 0);
 }
 
 bool KateDocument::insertText( uint line, uint col, const QString &s)

@@ -1570,7 +1570,6 @@ bool KateDocument::internalSetHlMode (uint mode)
   }
 
   emit hlChanged();
-
   return true;
 }
 
@@ -2072,7 +2071,7 @@ bool KateDocument::openFile()
     {
       QString line = buffer->plainLine(i);
       len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
-kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
+//kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
 //kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
       memcpy(&buf[bufpos], (line+"\n").latin1(), len);
@@ -2128,15 +2127,16 @@ bool KateDocument::saveFile()
   if (hl == -1)
   {
     // fill the detection buffer with the contents of the text
+    // anders: fixed to work. I thought I allready did :(
     const int HOWMANY = 1024;
     QByteArray buf(HOWMANY);
     int bufpos = 0, len;
     for (uint i=0; i < buffer->count(); i++)
     {
-      TextLine::Ptr textLine = buffer->line(i);
-      len = textLine->length();
+      QString line = buffer->plainLine( i );
+      len = line.length() + 1;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-      memcpy(&buf[bufpos], textLine->text(), len);
+      memcpy(&buf[bufpos], (line + "\n").latin1(), len);
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }

@@ -355,6 +355,8 @@ class KateDocument : public Kate::Document
 
     KateFontMetrics getFontMetrics (WhichFont wf);
 
+    bool selectBounds(uint line, uint &start, uint &end, uint lineLength);
+
   private:
     // fonts structures for the view + printing font
     FontStruct viewFont;

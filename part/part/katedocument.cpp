@@ -3229,9 +3229,48 @@ bool KateDocument::lineIsSelection (int line)
   return (line == selectStart.line && line == selectEnd.line);
 }
 
-bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int xPos2, int y, int xStart, int xEnd,
-                                  int showCursor, bool replaceCursor, int cursorXPos2, bool showSelections, bool showTabs,
-                                  WhichFont wf, bool currentLine, bool printerfriendly)
+bool KateDocument::selectBounds(uint line, uint &start, uint &end, uint lineLength)
+{
+  bool hasSel = false;
+
+  if (hasSelection() && !blockSelect)
+  {
+    if (lineIsSelection(line))
+    {
+      start = selectStart.col;
+      end = selectEnd.col;
+      hasSel = true;
+    }
+    else if ((int)line == selectStart.line)
+    {
+      start = selectStart.col;
+      end = lineLength;
+      hasSel = true;
+    }
+    else if ((int)line == selectEnd.line)
+    {
+      start = 0;
+      end = selectEnd.col;
+      hasSel = true;
+    }
+  }
+  else if (lineHasSelected(line))
+  {
+    start = selectStart.col;
+    end = selectEnd.col;
+    hasSel = true;
+  }
+
+  return hasSel;
+}
+
+bool KateDocument::paintTextLine(QPainter &paint, uint line,
+				 int startcol, int endcol,
+				 int xPos2, int y, int xStart, int xEnd,
+				 int showCursor, bool replaceCursor,
+				 int cursorXPos2, bool showSelections,
+				 bool showTabs, WhichFont wf,
+				 bool currentLine, bool printerfriendly)
 {
   // font data
   FontStruct & fs = getFontStruct(wf);
@@ -3241,10 +3280,17 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   uint atLen = myAttribs.size();
 
   // textline
-  TextLine::Ptr textLine;
+  TextLine::Ptr textLine = buffer->line(line);
+
+  if (!textLine)
+    return false;
+
+  if (!textLine->isVisible())
+    return false;
 
   // length, chars + raw attribs
-  uint len = 0;
+  uint len = textLine->length();
+  uint oldLen = len;
   const QChar *s;
   const uchar *a;
 
@@ -3261,17 +3307,6 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   int cursorXPos = 0;
   int cursorMaxWidth = 0;
   QColor *cursorColor = 0;
-
-  textLine = buffer->line(line);
-
-  if (!textLine)
-    return false;
-
-  if (!textLine->isVisible())
-    return false;
-
-  len = textLine->length();
-  uint oldLen = len;
 
   if (!printerfriendly && showSelections && lineSelected (line))
   {
@@ -3322,33 +3357,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
   if (showSelections && !selectionPainted)
   {
-    if (hasSelection() && !blockSelect)
-    {
-      if (lineIsSelection(line))
-      {
-	startSel = selectStart.col;
-	endSel = selectEnd.col;
-	hasSel = true;
-      }
-      else if ((int)line == selectStart.line)
-      {
-	startSel = selectStart.col;
-	endSel = oldLen;
-	hasSel = true;
-      }
-      else if ((int)line == selectEnd.line)
-      {
-	startSel = 0;
-	endSel = selectEnd.col;
-	hasSel = true;
-      }
-    }
-    else if (lineHasSelected(line))
-    {
-      startSel = selectStart.col;
-      endSel = selectEnd.col;
-      hasSel = true;
-    }
+    hasSel = selectBounds(line, startSel, endSel, oldLen);
   }
 
   uint oldCol = startcol;

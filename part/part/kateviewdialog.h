@@ -264,4 +264,21 @@ class EditKeyConfiguration: public Kate::ConfigPage
     KKeyChooser* m_keyChooser;
 };
 
+class SaveConfigTab : public Kate::ConfigPage
+{
+  Q_OBJECT
+  public:
+  SaveConfigTab( QWidget *parent, KateDocument * );
+  
+  public slots:
+  void apply();
+  void reload();
+  void reset();
+  void defaults();
+  
+  protected:
+  QCheckBox *cbLocalFiles, *cbRemoteFiles;
+  KateDocument *m_doc;
+};
+
 #endif

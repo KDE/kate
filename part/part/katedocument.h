@@ -113,6 +113,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void enablePluginGUI (Kate::PluginInfo *item, KateView *view);
     void enablePluginGUI (Kate::PluginInfo *item);
     void disablePluginGUI (Kate::PluginInfo *item);
+    
+    // Which files to backup on save
+    enum BackupOnSave { LocalFiles=1, RemoteFiles=2 };
+    uint backupConfig() const { return myBackupConfig; };
+    void setBackupConfig( uint c ) { myBackupConfig = c; }; 
 
   private:
     // only to make part work, don't change it !
@@ -121,6 +126,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
     Kate::PluginList m_plugins;
+    
+    uint myBackupConfig;
 
   //
   // KTextEditor::Document stuff
@@ -401,6 +408,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   // KParts::ReadWrite stuff
   //
   public:
+    /* Anders: 
+      I reimplemented this, since i need to check if backup succeeded 
+      if requested */
+    bool save();
+    
     bool openFile ();
     bool saveFile ();
 
@@ -409,7 +421,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     void setModified(bool);
     bool isModified() const;
-
+  
   //
   // Kate::Document stuff
   //
@@ -422,6 +434,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     Kate::ConfigPage *keysConfigPage (QWidget *);
     Kate::ConfigPage *hlConfigPage (QWidget *);
     Kate::ConfigPage *viewDefaultsConfigPage (QWidget *);
+    Kate::ConfigPage *saveConfigPage( QWidget * );
 
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);

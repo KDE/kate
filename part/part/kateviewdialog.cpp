@@ -19,6 +19,7 @@
 
 // $Id$
 
+//BEGIN Includes
 #include "kateviewdialog.h"
 #include "kateviewdialog.moc"
 
@@ -67,7 +68,9 @@
 #include <qvbox.h>
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
+//END Includes
 
+//BEGIN ReplacePrompt
 // this dialog is not modal
 ReplacePrompt::ReplacePrompt( QWidget *parent )
   : KDialogBase(parent, 0L, true, i18n( "Replace Text" ),
@@ -98,7 +101,9 @@ void ReplacePrompt::done(int r) {
   setResult(r);
   emit clicked();
 }
+//END ReplacePrompt
 
+//BEGIN GotoLineDialog
 GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
   : KDialogBase(parent, 0L, true, i18n("Goto Line"), Ok | Cancel, Ok) {
 
@@ -121,7 +126,9 @@ GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
 int GotoLineDialog::getLine() {
   return e1->value();
 }
+//END GotoLineDialog
 
+//BEGIN IndentConfigTab
 const int IndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::cfSpaceIndent,
   KateDocument::cfBackspaceIndents,KateDocument::cfTabIndents, KateDocument::cfKeepIndentProfile, KateDocument::cfKeepExtraSpaces};
 
@@ -191,7 +198,9 @@ void IndentConfigTab::reload ()
 {
 
 }
+//END IncentConfigTab
 
+//BEGIN SelectConfigTab
 const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::cfDelOnInput};
 
 SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
@@ -237,7 +246,9 @@ void SelectConfigTab::reload ()
 {
 
 }
+//END SelectConfigTab
 
+//BEGIN EditConfigTab
 const int EditConfigTab::flags[] = {KateDocument::cfWordWrap, KateDocument::cfReplaceTabs, KateDocument::cfRemoveSpaces,
   KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
 
@@ -349,8 +360,9 @@ void EditConfigTab::reload ()
 void EditConfigTab::wordWrapToggled() {
   e1->setEnabled(opt[0]->isChecked());
 }
+//END EditConfigTab
 
-
+//BEGIN ViewDefaultsConfig
 ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocument *doc)
 	:Kate::ConfigPage(parent)
 {
@@ -421,7 +433,9 @@ void ViewDefaultsConfig::reload ()
 void ViewDefaultsConfig::reset () {;}
 
 void ViewDefaultsConfig::defaults (){;}
+//END ViewDefaultsConfig
 
+//BEGIN ColorConfig
 ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
@@ -495,7 +509,9 @@ void ColorConfig::reload ()
 {
   setColors(m_doc->colors);
 }
+//END ColorConfig
 
+//BEGIN FontConfig
 FontConfig::FontConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
@@ -561,6 +577,10 @@ void FontConfig::reload ()
   setFont (m_doc->getFont(KateDocument::ViewFont));
   setFontPrint (m_doc->getFont(KateDocument::PrintFont));
 }
+//END FontConfig
+
+//BEGIN EditKeyConfiguration
+
 
 EditKeyConfiguration::EditKeyConfiguration( QWidget* parent, KateDocument* doc )
   : Kate::ConfigPage( parent )
@@ -591,3 +611,58 @@ void EditKeyConfiguration::apply()
     m_keyChooser->save();
   }
 }
+//END EditKeyConfiguration
+
+//BEGIN SaveConfigTab
+SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
+  : Kate::ConfigPage( parent ),
+    m_doc( doc )
+{
+  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+  QGroupBox *gb = new QGroupBox( 1, Qt::Horizontal, i18n("Backup on Save"), this );
+  layout->addWidget( gb );
+  cbLocalFiles = new QCheckBox( i18n("&Local Files"), gb );
+  cbRemoteFiles = new QCheckBox( i18n("&Remote Files"), gb );
+  
+  layout->addStretch();
+  
+  QWhatsThis::add( gb, i18n(
+        "<p>Backing up on save will cause kate to copy the disk file to "
+        "'&lt;filename&gt;~' before saving changes." ) );
+  QWhatsThis::add( cbLocalFiles, i18n(
+        "Check this if you want backups of local files when saving") );
+  QWhatsThis::add( cbRemoteFiles, i18n(
+        "Check this if you want backups of remote files when saving") );
+  
+  reload();
+}
+
+void SaveConfigTab::apply()
+{
+  uint f( 0 );
+  if ( cbLocalFiles->isChecked() )
+    f |= KateDocument::LocalFiles;
+  if ( cbRemoteFiles->isChecked() )
+    f |= KateDocument::RemoteFiles;
+  m_doc->setBackupConfig( f );
+}
+
+void SaveConfigTab::reload()
+{
+  uint f ( m_doc->backupConfig() );
+  cbLocalFiles->setChecked( f & KateDocument::LocalFiles );
+  cbRemoteFiles->setChecked( f & KateDocument::RemoteFiles );
+}
+
+void SaveConfigTab::reset()
+{
+}
+
+void SaveConfigTab::defaults()
+{
+  cbLocalFiles->setChecked( true );
+  cbRemoteFiles->setChecked( false );
+  //apply(); // ? the base classes are terribly undocumented!!!
+}
+
+//END SaveConfigTab                            

@@ -83,6 +83,7 @@
 #include <kglobalsettings.h>
 #include <ksavefile.h>
 #include <klibloader.h>
+#include <kio/netaccess.h>
 
 #include "kateviewhighlightaction.h"
 
@@ -382,7 +383,7 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 uint KateDocument::configPages () const
 {
-  return 9;
+  return 10;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
@@ -415,6 +416,9 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
 
     case 8:
       return new PluginConfigPage (parent, this);
+      
+    case 9:
+      return saveConfigPage( parent );
 
     default:
       return 0;
@@ -451,6 +455,9 @@ QString KateDocument::configPageName (uint number) const
 
     case 8:
       return i18n ("Plugins");
+    
+    case 9:
+      return i18n("Saving");
 
     default:
       return 0;
@@ -487,6 +494,9 @@ QString KateDocument::configPageFullName (uint number) const
 
     case 8:
       return i18n ("Plugin Manager");
+      
+    case 9:
+      return i18n("Saving and Backups");
 
     default:
       return 0;
@@ -523,6 +533,9 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
 
     case 8:
       return BarIcon("misc", size);
+      
+    case 9:
+      return BarIcon("filesave", size);
 
     default:
       return 0;
@@ -1663,6 +1676,8 @@ void KateDocument::readConfig(KConfig *config)
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
+  
+  myBackupConfig = config->readNumEntry( "Backup", 1 );
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
@@ -1711,6 +1726,8 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
   config->writeEntry("Color Bracket Highlight", colors[3]);
+  
+  config->writeEntry("Backup", myBackupConfig );
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
@@ -2611,6 +2628,19 @@ bool KateDocument::openFile()
   emit fileNameChanged();
 
   return success;
+}
+
+bool KateDocument::save()
+{
+  bool l ( url().isLocalFile() );
+  if ( ( ( l && myBackupConfig & LocalFiles ) ||
+         ( ! l && myBackupConfig & RemoteFiles ) )
+       && modified ) {
+    KURL u( url().path() + "~" );
+    if ( ! KIO::NetAccess::upload( url().path(), u ) )
+      kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+  }
+  return KParts::ReadWritePart::save();
 }
 
 bool KateDocument::saveFile()
@@ -4705,6 +4735,11 @@ Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)
 Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)
 {
   return (Kate::ConfigPage*) new HlConfigPage (p, this);
+}
+
+Kate::ConfigPage *KateDocument::saveConfigPage(QWidget *p)
+{
+  return (Kate::ConfigPage*) new SaveConfigTab(p, this);
 }
 
 Kate::ActionMenu *KateDocument::hlActionMenu (const QString& text, QObject* parent, const char* name)

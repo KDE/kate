@@ -576,28 +576,28 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
               paint.save();
               paint.setPen( m_view->colorGroup().color( QColorGroup::BrightText ) );
             }
-          }
 
-          // Draw indentation markers.
-          if (m_showIndentLines && curCol < lastIndentColumn)
-          {
-            // Draw multiple guides when tab width greater than indent width.
-            const int charWidth = isTab ? m_tabWidth - curPos % m_tabWidth : 1;
-
-            // Do not draw indent guides on the first line.
-            int i = 0;
-            if (curPos == 0 || curPos % m_indentWidth > 0)
-              i = m_indentWidth - curPos % m_indentWidth;
-
-            for (; i < charWidth; i += m_indentWidth)
+                        // Draw indentation markers.
+            if (m_showIndentLines && curCol < lastIndentColumn)
             {
-              // In most cases this is done one or zero times.
-              paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
+              // Draw multiple guides when tab width greater than indent width.
+              const int charWidth = isTab ? m_tabWidth - curPos % m_tabWidth : 1;
 
-              // Draw highlighted line.
-              if (curPos+i == minIndent)
+              // Do not draw indent guides on the first line.
+              int i = 0;
+              if (curPos == 0 || curPos % m_indentWidth > 0)
+                i = m_indentWidth - curPos % m_indentWidth;
+
+              for (; i < charWidth; i += m_indentWidth)
               {
-                paintTabMarker(paint, xPos - xStart + 1 + i * spaceWidth, line+1);
+                // In most cases this is done one or zero times.
+                paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
+
+                // Draw highlighted line.
+                if (curPos+i == minIndent)
+                {
+                  paintTabMarker(paint, xPos - xStart + 1 + i * spaceWidth, line+1);
+                }
               }
             }
           }

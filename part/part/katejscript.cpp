@@ -197,8 +197,8 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 #
 # edit interface stuff + editBegin/End, this is nice start
 #
-  fullText       KateJSDocument::FullText      DontDelete|Function 0
-  text           KateJSDocument::Text          DontDelete|Function 4
+  textFull       KateJSDocument::FullText      DontDelete|Function 0
+  textPart       KateJSDocument::Text          DontDelete|Function 4
   textLine       KateJSDocument::TextLine      DontDelete|Function 1
   numLines       KateJSDocument::NumLines      DontDelete|Function 0
   length         KateJSDocument::Length        DontDelete|Function 0

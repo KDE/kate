@@ -243,7 +243,7 @@ KateBuffer::~KateBuffer()
 }
 
 /**
- * Check if we allready have to much loaded stuff
+ * Check if we already have to much loaded stuff
  */
 void KateBuffer::checkLoadedMax ()
 {
@@ -255,7 +255,7 @@ void KateBuffer::checkLoadedMax ()
 }
 
 /**
- * Check if we allready have to much clean stuff
+ * Check if we already have to much clean stuff
  */
 void KateBuffer::checkCleanMax ()
 {
@@ -270,7 +270,7 @@ void KateBuffer::checkCleanMax ()
 }
 
 /**
- * Check if we allready have to much dirty stuff
+ * Check if we already have to much dirty stuff
  */
 void KateBuffer::checkDirtyMax ()
 {
@@ -318,7 +318,7 @@ void KateBuffer::loadBlock(KateBufBlock *buf)
   if (m_loadedBlocks.findRef (buf) > -1)
     return;
 
-  // does we have allready to much loaded blocks ?
+  // does we have already to much loaded blocks ?
   checkLoadedMax ();
 
   // swap the data in
@@ -339,7 +339,7 @@ void KateBuffer::parseBlock(KateBufBlock *buf)
   if (!buf->b_rawDataValid)
     loadBlock(buf);
 
-  // does we have allready to much clean blocks ?
+  // does we have already to much clean blocks ?
   checkCleanMax ();
 
   // now you are clean my little block
@@ -357,7 +357,7 @@ void KateBuffer::dirtyBlock(KateBufBlock *buf)
   if (m_dirtyBlocks.findRef (buf) > -1)
     return;
 
-  // does we have allready to much dirty blocks ?
+  // does we have already to much dirty blocks ?
   checkDirtyMax ();
 
   // dispose the dirty raw data
@@ -539,7 +539,7 @@ bool KateBuffer::openFile (const QString &m_file)
   m_loader->codec = codec;
   m_loader->prev = 0;
 
-  // trash away the one unneeded allready existing block
+  // trash away the one unneeded already existing block
   m_loadedBlocks.clear();
   m_blocks.clear();
   m_lines = 0;

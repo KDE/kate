@@ -2865,7 +2865,7 @@ bool KateDocument::saveFile()
     if (hl == -1)
     {
       // fill the detection buffer with the contents of the text
-      // anders: fixed to work. I thought I allready did :(
+      // anders: fixed to work. I thought I already did :(
       const int HOWMANY = 1024;
       QByteArray buf(HOWMANY);
       int bufpos = 0, len;

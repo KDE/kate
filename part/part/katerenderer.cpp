@@ -231,7 +231,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   uint startSel = 0;
   uint endSel = 0;
 
-  // was the selection background allready completly painted ?
+  // was the selection background already completly painted ?
   bool selectionPainted = false;
 
   // should the cursor be painted (if it is in the current xstart - xend range)

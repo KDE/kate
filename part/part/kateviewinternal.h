@@ -30,7 +30,6 @@
 
 #include <qscrollbar.h>
 #include <qpoint.h>
-#include <qpixmap.h>
 #include <qtimer.h>
 
 class KateView;
@@ -263,8 +262,6 @@ class KateViewInternal : public QWidget
     QWidget* m_dummy;
     QVBoxLayout* m_lineLayout;
     QHBoxLayout* m_colLayout;
-
-    QPixmap drawBuffer;
 
     // These are now cursors to account for word-wrap.
     KateTextCursor m_startPos;

@@ -51,6 +51,7 @@
 #include <qpainter.h>
 #include <qlayout.h>
 #include <qclipboard.h>
+#include <qpixmap.h>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
@@ -703,16 +704,16 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
 
-  // TODO config option?
-  static bool doublebuffer = true;
-
-  if (doublebuffer && drawBuffer.width() != KateViewInternal::width() || drawBuffer.height() != (int)h)
+  static QPixmap drawBuffer;
+  
+  if (drawBuffer.width() < KateViewInternal::width() || drawBuffer.height() < (int)h)
     drawBuffer.resize(KateViewInternal::width(), (int)h);
 
-  if (doublebuffer && drawBuffer.isNull())
+  if (drawBuffer.isNull())
     return;
 
-  QPainter paint;
+  QPainter paint (this);
+  QPainter paintDrawBuffer (&drawBuffer);
 
   // TODO put in the proper places
   m_view->renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Replace : KateRenderer::Insert);
@@ -725,28 +726,15 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
       if (!(z >= lineRangesSize))
         lineRanges[z].dirty = false;
 
-      paint.begin(this);
       paint.fillRect( x, z * h, width, h, *m_view->renderer()->config()->backgroundColor() );
-      paint.end();
     }
     else if (!paintOnlyDirty || lineRanges[z].dirty)
     {
       lineRanges[z].dirty = false;
 
-      if (doublebuffer) {
-        paint.begin(&drawBuffer);
+      m_view->renderer()->paintTextLine(paintDrawBuffer, &lineRanges[z], xStart, xEnd, &cursor, &bm);
 
-      } else {
-        paint.begin(this);
-        paint.translate(x, z*h);
-      }
-
-      m_view->renderer()->paintTextLine(paint, &lineRanges[z], xStart, xEnd, &cursor, &bm);
-
-      if (doublebuffer)
-        bitBlt (this, x, z * h, &drawBuffer, 0, 0, width);
-
-      paint.end();
+      paint.drawPixmap (x, z * h, drawBuffer, 0, 0, width);
     }
   }
 }

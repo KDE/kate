@@ -50,7 +50,7 @@
             <itemData name="Keyword"  defStyleNum="dsKeyword"/>
             <itemData name="Version"  defStyleNum="dsDecVal"/>
             <itemData name="Value"  defStyleNum="dsDataType"/>
-            <itemData name="Variable" defStyleNum="dsDataType"/>
+            <itemData name="Variable" defStyleNum="dsOthers"/>
             <itemData name="Email" defStyleNum="dsOthers"/>
         </itemDatas>
     </highlighting>

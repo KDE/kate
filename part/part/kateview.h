@@ -212,14 +212,18 @@ class KateView : public Kate::View
     void findAgain()              { findAgain( false );          }
     void findPrev()               { findAgain( true );           }
     void slotEditCommand();
+
+    void setFoldingMarkersOn( bool enable ); // Not in Kate::View, but should be
     void setIconBorder( bool enable );
-    void toggleIconBorder();
     void setLineNumbersOn( bool enable );
+    void toggleFoldingMarkers();
+    void toggleIconBorder();
     void toggleLineNumbersOn();
 
   public:
     bool iconBorder();
     bool lineNumbersOn();
+    bool foldingMarkersOn();
     Kate::Document* getDoc()    { return myDoc; }
     
     void setActive( bool b )    { m_active = b; }
@@ -239,7 +243,6 @@ class KateView : public Kate::View
     void setupEditKeys();
 
   public slots:
-    void setFoldingMarkersOn(bool enable);
     void slotNewUndo();
     void slotUpdate();
     void toggleInsert();
@@ -261,6 +264,7 @@ class KateView : public Kate::View
   private slots:
     void slotDropEventPass( QDropEvent* ev );
     void slotSetEncoding( const QString& descriptiveName );
+    void updateFoldingMarkersAction();
 
   private:
     KAccel* createEditKeys();
@@ -273,7 +277,8 @@ class KateView : public Kate::View
 
     KAction*               m_editUndo;
     KAction*               m_editRedo;
-    KRecentFilesAction*    m_fileRecent;
+    KRecentFilesAction*    m_fileRecent; 
+    KToggleAction*         m_toggleFoldingMarkers;
     KSelectAction*         m_setEndOfLine;
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;

@@ -216,7 +216,7 @@ KateIconBorder::KateIconBorder( KateViewInternal* internalView )
   setFont( myDoc->getFont(KateDocument::ViewFont) ); // for line numbers
 }
 
-void KateIconBorder::setIconBorder( bool enable )
+void KateIconBorder::setIconBorderOn( bool enable )
 {
   if( enable == m_iconBorderOn )
     return;

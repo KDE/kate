@@ -34,14 +34,15 @@ class KateIconBorder : public QWidget
     virtual QSize sizeHint() const;
     virtual QSize minimumSizeHint() const;
     
-    // TODO: Standardize naming
-    void setIconBorder(       bool enable );
+    void setIconBorderOn(     bool enable );
     void setLineNumbersOn(    bool enable );
     void setFoldingMarkersOn( bool enable );
-    void toggleIconBorder()    { setIconBorder(    !iconBorder() );    }
-    void toggleLineNumbersOn() { setLineNumbersOn( !lineNumbersOn() ); }
-    bool iconBorder()    const { return m_iconBorderOn;  }
-    bool lineNumbersOn() const { return m_lineNumbersOn; }
+    void toggleIconBorder()     { setIconBorderOn(     !iconBorderOn() );     }
+    void toggleLineNumbers()    { setLineNumbersOn(    !lineNumbersOn() );    }
+    void toggleFoldingMarkers() { setFoldingMarkersOn( !foldingMarkersOn() ); }
+    bool iconBorderOn()       const { return m_iconBorderOn;     }
+    bool lineNumbersOn()      const { return m_lineNumbersOn;    }
+    bool foldingMarkersOn()   const { return m_foldingMarkersOn; }
 
     // When border options change, updateGeometry() is called.
     // Normally the layout would handle it automatically, but

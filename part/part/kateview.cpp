@@ -125,10 +125,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",myDoc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);
 
-  if (doc->highlight()==0)
-    setFoldingMarkersOn(false);
-  else
-    setFoldingMarkersOn(doc->highlight()->allowsFolding());
+  setFoldingMarkersOn( myDoc->highlight() && myDoc->highlight()->allowsFolding() );
   
   KTrader::OfferList::Iterator it(KateFactory::viewPlugins()->begin());
   for( ; it != KateFactory::viewPlugins()->end(); ++it)
@@ -261,18 +258,28 @@ void KateView::setupActions()
   new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
   new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
   new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
-  new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), ac, "view_border");
+  
+  m_toggleFoldingMarkers = new KToggleAction(
+    i18n("Show &Folding Markers"), Key_F9,
+    this, SLOT(toggleFoldingMarkers()),
+    ac, "view_folding_markers" );
+  connect( myDoc, SIGNAL(hlChanged()),
+           this, SLOT(updateFoldingMarkersAction()) );
+  updateFoldingMarkersAction();
   KToggleAction* toggleAction = new KToggleAction(
+    i18n("Show &Icon Border"), Key_F6,
+    this, SLOT(toggleIconBorder()),
+    ac, "view_border");
+  toggleAction->setChecked( iconBorder() );
+  toggleAction = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
-     0, 0,
+     this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
-  connect( toggleAction, SIGNAL(toggled(bool)),
-           this,SLOT(setLineNumbersOn(bool)) );
+  toggleAction->setChecked( lineNumbersOn() );
 
-  QStringList list;
   m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
-  list.clear();
+  QStringList list;
   list.append("&Unix");
   list.append("&Windows/Dos");
   list.append("&Macintosh");
@@ -326,6 +333,12 @@ void KateView::slotDropEventPass( QDropEvent * ev )
   KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
   if ( ok && ext )
     emit ext->openURLRequest( lstDragURLs.first() );
+}
+
+void KateView::updateFoldingMarkersAction()
+{
+  m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
+  m_toggleFoldingMarkers->setEnabled( myDoc->highlight() && myDoc->highlight()->allowsFolding() );
 }
 
 void KateView::keyPressEvent( QKeyEvent *ev )
@@ -577,7 +590,7 @@ void KateView::readSessionConfig(KConfig *config)
   setLineNumbersOn( myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );*/
 }
 
-void KateView::writeSessionConfig(KConfig *config)
+void KateView::writeSessionConfig(KConfig */*config*/)
 {
 /*FIXME
   config->writeEntry("XPos",myViewInternal->xPos);
@@ -656,10 +669,10 @@ void KateView::slotEditCommand ()
 
 void KateView::setIconBorder( bool enable )
 {
-  myViewInternal->leftBorder->setIconBorder( enable );
+  myViewInternal->leftBorder->setIconBorderOn( enable );
 }
 
-void KateView::toggleIconBorder ()
+void KateView::toggleIconBorder()
 {
   myViewInternal->leftBorder->toggleIconBorder();
 }
@@ -671,7 +684,7 @@ void KateView::setLineNumbersOn( bool enable )
 
 void KateView::toggleLineNumbersOn()
 {
-  myViewInternal->leftBorder->toggleLineNumbersOn();
+  myViewInternal->leftBorder->toggleLineNumbers();
 }
 
 void KateView::setFoldingMarkersOn( bool enable )
@@ -679,12 +692,21 @@ void KateView::setFoldingMarkersOn( bool enable )
   myViewInternal->leftBorder->setFoldingMarkersOn( enable );
 }
 
+void KateView::toggleFoldingMarkers()
+{
+  myViewInternal->leftBorder->toggleFoldingMarkers();
+}
+
 bool KateView::iconBorder() {
-  return myViewInternal->leftBorder->iconBorder();
+  return myViewInternal->leftBorder->iconBorderOn();
 }
 
 bool KateView::lineNumbersOn() {
   return myViewInternal->leftBorder->lineNumbersOn();
+}
+
+bool KateView::foldingMarkersOn() {
+  return myViewInternal->leftBorder->foldingMarkersOn();
 }
 
 void KateView::slotIncFontSizes ()

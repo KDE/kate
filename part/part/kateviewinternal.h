@@ -91,15 +91,10 @@ class KateViewInternal : public QWidget
 
     void editSetCursor (const KateTextCursor &cursor);
 
-    void setViewTagLinesFrom(int line);
-
   private:
-    void setTagLinesFrom(int line);
-
     uint editSessionNumber;
     bool editIsRunning;
     KateTextCursor editOldCursor;
-    int tagLinesFrom;
   // END
 
   // BEGIN TAG & CLEAR & UPDATE STUFF

@@ -146,8 +146,6 @@ class KateView : public Kate::View,
     void editEnd (int editTagLineStart, int editTagLineEnd);
 
     void editSetCursor (const KateTextCursor &cursor);
-
-    void setViewTagLinesFrom(int line);
   // END
 
   // BEGIN TAG & CLEAR

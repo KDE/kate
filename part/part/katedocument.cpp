@@ -1066,8 +1066,8 @@ void KateDocument::editTagLine (uint line)
 
 void KateDocument::editInsertTagLine (uint line)
 {
-  if (line <= editTagLineStart)
-    editTagLineStart++;
+  if (line < editTagLineStart)
+    editTagLineStart = line;
 
   if (line <= editTagLineEnd)
     editTagLineEnd++;
@@ -1076,7 +1076,7 @@ void KateDocument::editInsertTagLine (uint line)
 void KateDocument::editRemoveTagLine (uint line)
 {
   if ((line < editTagLineStart) && (editTagLineStart > 0))
-    editTagLineStart--;
+    editTagLineStart = line;
 
   if ((line < editTagLineEnd) && (editTagLineEnd > 0))
     editTagLineEnd--;
@@ -1143,10 +1143,10 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
   TextLine::Ptr nl = buffer->line(line+1);
-  TextLine::Ptr tl = new TextLine();
 
   if (!nl || !autowrap)
   {
+    TextLine::Ptr tl = new TextLine();
     int pos = l->length() - col;
 
     if (pos > 0)
@@ -1195,7 +1195,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
-    it.current()->editLineWrapped (line, col);
+    it.current()->editLineWrapped (line, col, !nl || !autowrap);
 
   editEnd ();
 

@@ -1142,11 +1142,6 @@ void KateView::editSetCursor (const KateTextCursor &cursor)
 {
   m_viewInternal->editSetCursor (cursor);
 }
-
-void KateView::setViewTagLinesFrom(int line)
-{
-  m_viewInternal->setViewTagLinesFrom (line);
-}
 // END
 
 // BEGIN TAG & CLEAR

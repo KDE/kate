@@ -56,7 +56,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
   , editSessionNumber (0)
   , editIsRunning (false)
-  , tagLinesFrom (-1)
   , m_view (view)
   , m_doc (doc)
   , cursor (doc, true, 0, 0, this)
@@ -2657,20 +2656,10 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   if (editSessionNumber > 0)
     return;
 
-  if (editTagLineStart < (int)m_doc->getRealLine(startLine()))
-  {
+  if (editTagLineStart <= int(m_doc->getRealLine(startLine())))
     tagAll();
-  }
-  else if (tagLinesFrom > -1)
-  {
-    int startTagging = QMIN( tagLinesFrom, editTagLineStart );
-    int endTagging = m_doc->numLines() - 1;
-    tagLines (startTagging, endTagging, true);
-  }
-  else
-    tagLines (editTagLineStart, editTagLineEnd, true);
-
-  tagLinesFrom = -1;
+  else if (editTagLineStart <= int(m_doc->getRealLine(endLine())))
+    tagLines (editTagLineStart, m_doc->lastLine(), true);
 
   if (editOldCursor == cursor)
     updateBracketMarks();
@@ -2696,18 +2685,6 @@ void KateViewInternal::editSetCursor (const KateTextCursor &cursor)
   {
     this->cursor.setPos (cursor);
   }
-}
-
-void KateViewInternal::setViewTagLinesFrom(int line)
-{
-  if (line >= (int)m_doc->getRealLine(startLine()))
-    setTagLinesFrom(line);
-}
-
-void KateViewInternal::setTagLinesFrom(int line)
-{
-  if ( tagLinesFrom > line || tagLinesFrom == -1)
-    tagLinesFrom = line;
 }
 // END
 

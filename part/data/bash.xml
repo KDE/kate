@@ -62,7 +62,7 @@
                         </context>
                         <context name = "String" attribute = "String" lineEndContext="#stay">
 				<StringDetect String = "\\" attribute = "String" context = "#stay"/>
-				<StringDetect String = "\&quote" attribute = "String" context = "#stay"/>
+				<StringDetect String = "\&quot;" attribute = "String" context = "#stay"/>
                                 <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
                         </context>
 			<context name = "Single Quote" attribute = "String" lineEndContext="#stay">

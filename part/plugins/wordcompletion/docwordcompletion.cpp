@@ -27,6 +27,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/viewcursorinterface.h>
 #include <ktexteditor/editinterface.h>
+#include <ktexteditor/variableinterface.h>
 
 #include <kapplication.h>
 #include <kconfig.h>
@@ -93,6 +94,27 @@ void DocWordCompletionPlugin::removeView(KTextEditor::View *view)
        delete nview;
     }
 }
+
+KTextEditor::ConfigPage* DocWordCompletionPlugin::configPage( uint, QWidget *parent, const char *name )
+{
+  return new DocWordCompletionConfigPage( this, parent, name );
+}
+
+QString DocWordCompletionPlugin::configPageName( uint ) const
+{
+  return i18n("Word Completion Plugin");
+}
+
+QString DocWordCompletionPlugin::configPageFullName( uint ) const
+{
+  return i18n("Configure the Word Completion Plugin");
+}
+
+// FIXME provide sucn a icon
+       QPixmap DocWordCompletionPlugin::configPagePixmap( uint, int size ) const
+{
+  return UserIcon( "kte_wordcompletion", size );
+}
 //END
 
 //BEGIN DocWordCompletionPluginView
@@ -131,6 +153,19 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
   toggleAutoPopup();
 
   setXMLFile("docwordcompletionui.rc");
+
+  KTextEditor::VariableInterface *vi = KTextEditor::variableInterface( view->document() );
+  kdDebug()<<"looking for variable interface, got "<<vi<<endl;
+  if ( vi )
+  {
+    kdDebug()<<"=== Found a variable interface at "<<vi<<"!!!"<<endl;
+    QString e = vi->variable("wordcompletion-autopopup");
+    if ( ! e.isEmpty() )
+      d->autopopup->setEnabled( e == "true" );
+
+    connect( view->document(), SIGNAL(variableChanged(const QString &, const QString &)),
+             this, SLOT(slotVariableChanged(const QString &, const QString &)) );
+  }
 }
 
 void DocWordCompletionPluginView::settreshold( uint t )
@@ -352,27 +387,14 @@ QValueList<KTextEditor::CompletionEntry> DocWordCompletionPluginView::allMatches
   return l;
 }
 
-KTextEditor::ConfigPage* DocWordCompletionPlugin::configPage( uint, QWidget *parent, const char *name )
+void DocWordCompletionPluginView::slotVariableChanged( const QString &var, const QString &val )
 {
-  return new DocWordCompletionConfigPage( this, parent, name );
+  kdDebug()<<"=== variable changed: "<<var<<"="<<val<<endl;
+  if ( var == "wordcompletion-autopopup" )
+    d->autopopup->setEnabled( val == "true" );
+  else if ( var == "wordcompletion-treshold" )
+    d->treshold = val.toInt();
 }
-
-QString DocWordCompletionPlugin::configPageName( uint ) const
-{
-  return i18n("Word Completion Plugin");
-}
-
-QString DocWordCompletionPlugin::configPageFullName( uint ) const
-{
-  return i18n("Configure the Word Completion Plugin");
-}
-
-// FIXME provide sucn a icon
-QPixmap DocWordCompletionPlugin::configPagePixmap( uint, int size ) const
-{
-  return UserIcon( "kte_wordcompletion", size );
-}
-
 //END
 
 //BEGIN DocWordCompletionConfigPage

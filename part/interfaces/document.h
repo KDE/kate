@@ -24,6 +24,7 @@
 #include <ktexteditor/editinterface.h>
 #include <ktexteditor/undointerface.h>
 #include <ktexteditor/cursorinterface.h>
+// #include <ktexteditor/documentinfo.h>
 #include <ktexteditor/selectioninterface.h>
 #include <ktexteditor/selectioninterfaceext.h>
 #include <ktexteditor/blockselectioninterface.h>
@@ -35,6 +36,7 @@
 #include <ktexteditor/markinterfaceextension.h>
 #include <ktexteditor/wordwrapinterface.h>
 #include <ktexteditor/printinterface.h>
+#include <ktexteditor/variableinterface.h>
 
 #include <kaction.h>
 
@@ -119,7 +121,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
                      public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface,
                      public KTextEditor::MarkInterfaceExtension,
-                     public KTextEditor::SelectionInterfaceExt
+                     public KTextEditor::SelectionInterfaceExt/*, public KTextEditor::DocumentInfoInterface*/,
+                     public KTextEditor::VariableInterface
 {
   Q_OBJECT
 
@@ -244,13 +247,13 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
     // default false
     static void setFileChangedDialogsActivated (bool on);
-    
+
     static const QString &defaultEncoding ();
 
   protected:
     static bool s_openErrorDialogsActivated;
     static bool s_fileChangedDialogsActivated;
-    
+
     static QString s_defaultEncoding;
 };
 
@@ -274,7 +277,7 @@ class DocumentExt
       Created = 2,    ///< The file was created by another program
       Deleted = 3     ///< The file was deleted
     };
-    
+
   public:
     /**
      * For client apps that want to deal with files modified on disk, it is
@@ -282,7 +285,7 @@ class DocumentExt
      * @p reason is a ModifiedOnDiskReason.
      */
     virtual void setModifiedOnDisk( int reason ) = 0;
-    
+
   /**
    * These stuff is implemented as slots in the real document
    */

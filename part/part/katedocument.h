@@ -38,6 +38,7 @@
 #include <klocale.h>
 
 #include <qintdict.h>
+#include <qmap.h>
 #include <qdatetime.h>
 
 namespace KTextEditor { class Plugin; }
@@ -474,6 +475,18 @@ class KateDocument : public Kate::Document,
   KMimeType::Ptr mimeTypeForContent();
 
   //
+  // KTextEditor::VariableInterface
+  //
+  public:
+    QString variable( const QString &name ) const;
+
+  signals:
+    void variableChanged( const QString &, const QString & );
+
+  private:
+    QMap<QString, QString> m_storedVariables;
+
+  //
   // KParts::ReadWrite stuff
   //
   public:
@@ -635,7 +648,7 @@ class KateDocument : public Kate::Document,
       Find the position (line and col) of the previous char
       that is not a space. If found line and col point to the found character.
       Otherwise they have both the value -1.
-      @returns True if the specified or a preceding character is not a space.
+      @return True if the specified or a preceding character is not a space.
                Otherwise false.
     */
     bool previousNonSpaceCharPos(int &line, int &col);

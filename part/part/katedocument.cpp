@@ -4348,6 +4348,8 @@ void KateDocument::reloadFile()
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
 
+    m_storedVariables.clear();
+
     m_reloading = true;
     KateDocument::openURL( url() );
     m_reloading = false;
@@ -4998,8 +5000,13 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         }
 
         // VIEW SETTINGS
-        else if ( vvl.contains( var ) ) // FIXME define above
+        else if ( vvl.contains( var ) )
           setViewVariable( var, val );
+        else
+        {
+          m_storedVariables.insert( var, val );
+          emit variableChanged( var, val );
+        }
       }
     }
   }
@@ -5089,6 +5096,15 @@ bool KateDocument::checkColorValue( QString val, QColor &c )
 {
   c.setNamedColor( val );
   return c.isValid();
+}
+
+// KTextEditor::variable
+QString KateDocument::variable( const QString &name ) const
+{
+  if ( m_storedVariables.contains( name ) )
+    return m_storedVariables[ name ];
+
+  return "";
 }
 
 //END

@@ -95,6 +95,8 @@ class DocWordCompletionPluginView
     void autoPopupCompletionList();
     void toggleAutoPopup();
 
+    void slotVariableChanged( const QString &, const QString & );
+
   private:
     void complete( bool fw=true );
     QString word();

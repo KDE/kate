@@ -21,18 +21,18 @@
 #define _KATE_BUFFER_H_
 
 #include "katetextline.h"
+#include "katecodefoldinghelpers.h"
+
+#include <kvmallocator.h>
 
 #include <qptrlist.h>
 #include <qobject.h>
 #include <qtimer.h>
 
-class KateCodeFoldingTree;
 class KateLineInfo;
 class KateBufBlock;
 class KateDocument;
 class Highlight;
-
-class KVMAllocator;
 
 class QTextCodec;
 
@@ -49,6 +49,8 @@ class QTextCodec;
 class KateBuffer : public QObject
 {
   Q_OBJECT
+  
+  friend class KateBufBlock;
 
   public:
     /**
@@ -197,7 +199,7 @@ class KateBuffer : public QObject
     
     inline uint tabWidth () const { return m_tabWidth; }
     
-    inline KVMAllocator *vm () { return m_vm; }
+    inline KVMAllocator *vm () { return &m_vm; }
 
   signals:
     /**
@@ -223,30 +225,11 @@ class KateBuffer : public QObject
 
   private:
     /**
-     * Make sure @p buf gets loaded.
-     */
-    void loadBlock(KateBufBlock *buf);
-
-    /**
-     * Make sure @p buf gets parsed.
-     */
-    void parseBlock(KateBufBlock *buf);
-
-    /**
-     * Mark @p buf dirty.
-     */
-    void dirtyBlock(KateBufBlock *buf);
-
-    /**
      * Find the block containing line @p i
      * index pointer gets filled with index of block in m_blocks
      * index only valid if returned block != 0 !
      */
     KateBufBlock *findBlock (uint i, uint *index = 0);
-
-    void checkLoadedMax ();
-    void checkCleanMax ();
-    void checkDirtyMax ();
 
     /**
      * Highlight information needs to be updated.
@@ -292,10 +275,10 @@ class KateBuffer : public QObject
     // List of blocks that are dirty.
     QPtrList<KateBufBlock> m_dirtyBlocks;
 
-    KVMAllocator *m_vm;
+    KVMAllocator m_vm;
 
     // folding tree
-    KateCodeFoldingTree *m_regionTree;
+    KateCodeFoldingTree m_regionTree;
 
     QTimer m_highlightTimer;
 

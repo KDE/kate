@@ -3293,7 +3293,11 @@ void KateDocument::updateLines(int startLine, int endLine)
     }
     else { if (endCtx) {free(endCtx); endCtx=0;}}
 
+    kdDebug()<<"teststarti"<<endl;
+
     m_highlight->doHighlight(ctxNum, ctxNumLen, textLine,line_continue);
+
+    kdDebug()<<"testendi"<<endl;
 
     ctxNumLen = textLine->getContextLength();
     line_continue=textLine->getHlLineContinue();

@@ -154,7 +154,7 @@ public:
     bool searchText (unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards = false);
 
     uchar *getAttribs() { return attributes; }
- 
+
     void setHlLineContinue(bool cont){hlContinue=cont;}
     bool getHlLineContinue() {return hlContinue;}
   protected: 
@@ -164,7 +164,7 @@ public:
     QChar *text; 
     uchar *attributes;
     uint textLen;
-    bool hlContinue;
+
     /**
       The attribute of the free space behind the end
     */
@@ -175,6 +175,7 @@ public:
     */
     signed char *ctx;
     uint ctxLen;
+    bool hlContinue;
 };
 
 #endif

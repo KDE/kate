@@ -50,7 +50,7 @@
 //END
 
 // same as in kmimemagic, no need to feed more data
-#define HOWMANY 1024
+#define KATE_HL_HOWMANY 1024
 
 //BEGIN  Prviate HL classes
 
@@ -2480,21 +2480,21 @@ int HlManager::detectHighlighting (KateDocument *doc)
 
   if (hl == -1)
   {
-    QByteArray buf (HOWMANY);
+    QByteArray buf (KATE_HL_HOWMANY);
     uint bufpos = 0;
     for (uint i=0; i < doc->numLines(); i++)
     {
       QString line = doc->textLine( i );
       uint len = line.length() + 1;
       
-      if (bufpos + len > HOWMANY)
-        len = HOWMANY - bufpos;
+      if (bufpos + len > KATE_HL_HOWMANY)
+        len = KATE_HL_HOWMANY - bufpos;
 
       memcpy(&buf[bufpos], (line + "\n").latin1(), len);
       
       bufpos += len;
       
-      if (bufpos >= HOWMANY)
+      if (bufpos >= KATE_HL_HOWMANY)
         break;
     }
     buf.resize( bufpos );

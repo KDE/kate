@@ -51,6 +51,8 @@
 #include <qwhatsthis.h>
 #include <qwidgetstack.h>
 
+#define KATE_FT_HOWMANY 1024
+
 KateFileTypeManager::KateFileTypeManager ()
 {
   m_types.setAutoDelete (true);
@@ -168,24 +170,24 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   //
   // now use the KMimeType POWER ;)
   //
-  const int HOWMANY = 16384;
-  QByteArray buf(HOWMANY);
-
-  int bufpos = 0;
+  QByteArray buf (KATE_FT_HOWMANY);
+  uint bufpos = 0;
   for (uint i=0; i < doc->numLines(); i++)
   {
-    QString line = doc->textLine(i);
-    int len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
+    QString line = doc->textLine( i );
+    uint len = line.length() + 1;
+    
+    if (bufpos + len > KATE_FT_HOWMANY)
+      len = KATE_FT_HOWMANY - bufpos;
 
-    if (bufpos + len > HOWMANY)
-      len = HOWMANY - bufpos;
-
-    memcpy(&buf[bufpos], (line+"\n").latin1(), len);
+    memcpy(&buf[bufpos], (line + "\n").latin1(), len);
+    
     bufpos += len;
-
-    if (bufpos >= HOWMANY)
+    
+    if (bufpos >= KATE_FT_HOWMANY)
       break;
   }
+  buf.resize( bufpos );
 
   int accuracy;
   KMimeType::Ptr mt = KMimeType::findByContent( buf, &accuracy );

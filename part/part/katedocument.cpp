@@ -3097,7 +3097,7 @@ void KateDocument::del( const KateTextCursor& c )
   }
   else
   {
-    regionTree->lineHasBeenRemoved(c.line);
+    //regionTree->lineHasBeenRemoved(c.line);
     removeText(c.line, c.col, c.line+1, 0);
   }
 }

@@ -358,6 +358,7 @@ KateBuffer::line(uint i)
 {
    KateBufBlock *buf = findBlock(i);
    if (!buf)
+
       return 0;
 
    if (!buf->b_stringListValid)
@@ -365,20 +366,20 @@ KateBuffer::line(uint i)
       parseBlock(buf);
    }
    
-  if (!noHlUpdate)
-  {
-    if (buf->b_needHighlight)
-    {
+   if (!noHlUpdate)
+   {
+   if (buf->b_needHighlight)
+   {
       buf->b_needHighlight = false;
       if (m_highlightedTo > buf->m_beginState.lineNr)
       {
          needHighlight(buf, buf->m_beginState.line, buf->m_beginState.lineNr, buf->m_endState.lineNr);
          *buf->m_endState.line = *(buf->line(buf->m_endState.lineNr - buf->m_beginState.lineNr - 1));
       }
-    }
-    if ((m_highlightedRequested <= i) &&
-        (m_highlightedTo <= i))
-    {
+   }
+   if ((m_highlightedRequested <= i) &&
+       (m_highlightedTo <= i))
+   {
       m_highlightedRequested = buf->m_endState.lineNr;
       emit pleaseHighlight(m_highlightedTo, buf->m_endState.lineNr);
 
@@ -387,15 +388,14 @@ KateBuffer::line(uint i)
       {
          parseBlock(buf);
       }
-    }
-  }
+   }
+   }
 
-  return buf->line(i - buf->m_beginState.lineNr);
+   return buf->line(i - buf->m_beginState.lineNr);
 }
 
-bool
-KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint startLine,uint endLine)
-{
+bool 
+KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint startLine,uint endLine) {
   if (!m_highlight)
      return false;
 
@@ -415,6 +415,10 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 
   bool stillcontinue=false;
 
+
+  QValueList<signed char> foldingList;
+  bool retVal_folding;
+  bool CodeFoldingUpdated=false;
   do
   {
     textLine = buf->line(current_line);
@@ -424,8 +428,11 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 
     endCtx.duplicate (textLine->ctxArray ());
 
-    m_highlight->doHighlight(ctxNum, textLine, line_continue);
-
+    foldingList.clear();
+    m_highlight->doHighlight(ctxNum, textLine, line_continue,&foldingList);
+    retVal_folding=false;
+    emit foldingUpdate(current_line + buf->m_beginState.lineNr,&foldingList,&retVal_folding);
+    CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;
     line_continue=textLine->getHlLineContinue();
     ctxNum.duplicate (textLine->ctxArray());
 
@@ -445,8 +452,11 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 
   current_line += buf->m_beginState.lineNr;
   emit tagLines(startLine, current_line - 1);
+  if (CodeFoldingUpdated) emit codeFoldingUpdated();
   return (current_line >= buf->m_endState.lineNr);
 }
+
+
 
 void
 KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
@@ -457,16 +467,16 @@ KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
      from = m_highlightedTo;
    uint done = 0;
    bool endStateChanged = true;
-
+   
    while (done < to)
    {
-      KateBufBlock *buf = findBlock(from);
+      KateBufBlock *buf = findBlock(from);     
       if (!buf)
-         return;
-
-      if (!buf->b_stringListValid)
-      {
-         parseBlock(buf);
+         return;     
+     
+      if (!buf->b_stringListValid)     
+      {     
+         parseBlock(buf);     
       }
 
       if (buf->b_needHighlight || invalidate ||
@@ -489,7 +499,7 @@ KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
          buf->b_needHighlight = false;
          endStateChanged = needHighlight(buf, startState, fromLine, tillLine);
          *buf->m_endState.line = *(buf->line(buf->m_endState.lineNr - buf->m_beginState.lineNr - 1));
-      }
+      }         
       done = buf->m_endState.lineNr;
       from = done;
    }
@@ -519,19 +529,19 @@ KateBuffer::invalidateHighlighting()
 QString
 KateBuffer::plainLine(uint i)
 {
-   KateBufBlock *buf = findBlock(i);
+   KateBufBlock *buf = findBlock(i);     
    if (!buf)
-      return 0;
-
-   if (!buf->b_stringListValid)
-   {
-      parseBlock(buf);
+      return 0;     
+     
+   if (!buf->b_stringListValid)     
+   {     
+      parseBlock(buf);     
    }
    TextLine::Ptr l = buf->line(i - buf->m_beginState.lineNr);
    return l->getString();
 }
-
-void
+     
+void     
 KateBuffer::insertLine(uint i, TextLine::Ptr line)
 {
    KateBufBlock *buf;
@@ -679,6 +689,16 @@ KateBuffer::dirtyBlock(KateBufBlock *buf)
    if (buf->b_vmDataValid)     
       buf->disposeSwap(m_vm);     
 }     
+
+void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
+{
+//   kdDebug()<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
+   TextLine::Ptr l=line(lineNr);
+   if (l) l->setVisible(visible);
+//   else
+//   kdDebug()<<QString("Invalid line %1").arg(lineNr)<<endl;
+}
+
      
 //-----------------------------------------------------------------     
      

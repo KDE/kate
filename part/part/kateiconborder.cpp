@@ -22,10 +22,60 @@
 
 #include "kateiconborder.h"
 #include "kateview.h"
+#include "kateviewinternal.h"
 #include "katedocument.h"
 #include "kateiconborder.moc"
+#include "katecodefoldinghelpers.h"
+
 #include <kdebug.h>
 #include <qpainter.h>
+
+
+
+const char * plus_xpm[] = {
+"12 16 3 1",
+"       c None",
+".      c #000000",
+"+      c #FFFFFF",
+"      .     ",
+"      .     ",
+" .........  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++.+++.  ",
+" .+++.+++.  ",
+" .+.....+.  ",
+" .+++.+++.  ",
+" .+++.+++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .........  ",
+"      .     ",
+"      .     "};
+
+const  char * minus_xpm[] = {
+"12 16 3 1",
+"       c None",
+".      c #000000",
+"+      c #FFFFFF",
+"      .     ",
+"      .     ",
+" .........  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+.....+.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .+++++++.  ",
+" .........  ",
+"      .     ",
+"      .     "};
+
 
 const char*bookmark_xpm[]={
 "12 16 4 1",
@@ -177,19 +227,22 @@ int KateIconBorder::width()
     }
     w += cachedLNWidth;
   }
+  if (myView->iconBorderStatus & FoldingMarkers)
+    w+=iconPaneWidth;
   return w;
 }
 
 
-void KateIconBorder::paintLine(int i)
+void KateIconBorder::paintLine(int i,int pos)
 {
   if ( myView->iconBorderStatus == None ) return;
+  if ( (uint)i > myView->myDoc->numLines() ) return;
 
-//kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
+//  kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
   QPainter p(this);
 
   int fontHeight = myView->myDoc->viewFont.fontHeight;
-  int y = i*fontHeight - myInternalView->yPos;
+  int y = pos*fontHeight - myInternalView->originCoordinates().y();
   int lnX = 0;
 
   // icon pane
@@ -200,19 +253,48 @@ void KateIconBorder::paintLine(int i)
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine(iconPaneWidth-1, y, iconPaneWidth-1, y + fontHeight);
 
-    uint mark = myView->myDoc->mark (i);
+    uint mark = myView->myDoc->mark (*(myInternalView->m_lineMapping[i-myInternalView->startLine]));
     if (mark&KateDocument::markType01)
         p.drawPixmap(2, y, QPixmap(bookmark_xpm));
     lnX += iconPaneWidth;
   }
 
+  // folding markers
+  if  (myView->iconBorderStatus & FoldingMarkers)
+  {
+    p.fillRect(lnX,y,iconPaneWidth-1,fontHeight,colorGroup().background());
+    p.setPen(black);
+    KateLineInfo info;
+    myView->myDoc->regionTree->getLineInfo(&info,*(myInternalView->m_lineMapping[i-myInternalView->startLine]));
+    if (!info.topLevel)
+     {
+         if (info.startsVisibleBlock)
+            p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
+            else
+	    if (info.startsInVisibleBlock)
+              p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
+	      else
+              if (info.endsBlock)
+	      {
+	       p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
+	       p.drawLine(lnX+iconPaneWidth/2,y+fontHeight-1,lnX+iconPaneWidth-2,y+fontHeight-1);
+              }
+               else
+	       p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
+
+    }
+    lnX+=iconPaneWidth;
+  }
+
+
   // line number
-  if ( (myView->iconBorderStatus & LineNumbers) ) {
+  if ( (myView->iconBorderStatus & LineNumbers) && i < myView->doc()->numLines() ) {
     p.fillRect( lnX, y, width()-2, fontHeight, colorGroup().light() );
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine( width()-1, y, width()-1, y + fontHeight );
-    if ( (uint)i < myView->myDoc->numLines() )
-      p.drawText( lnX + 1, y, width()-lnX-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg(i+1) );
+//    kdDebug()<<"IconBorder::paintLine"<<endl;
+      p.drawText( lnX + 1, y, width()-lnX-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
+          QString("%1").arg((*(myInternalView->m_lineMapping[i-myInternalView->startLine]))+1) );
   }
          /*
     if ((line->breakpointId() != -1)) {
@@ -225,14 +307,18 @@ void KateIconBorder::paintLine(int i)
     }
     if (line->isExecutionPoint())
         p.drawPixmap(2, y, QPixmap(ddd_xpm));    */
+
+
 }
 
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
-
+//	return;
   if (myView->iconBorderStatus == None)
     return;
+
+  kdDebug()<<"KateIconBorder::paintEvent()"<<endl;
 
   KateDocument *doc = myView->doc();
   if ( myView->iconBorderStatus & LineNumbers && linesAtLastCheck != doc->numLines() ) {
@@ -242,6 +328,8 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     return; // we get a new paint event at resize
   }
 
+
+  uint topLine=myInternalView->startLine;
   uint lineStart = 0; // first line to paint
   uint lineEnd = 0;   // last line to paint
   uint lnX = 0;       // line numbers X position
@@ -249,8 +337,8 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   QRect ur = e->rect();
 
   int h = fontMetrics().height();
-  int yPos = myInternalView->yPos;
-  lineStart = ( yPos + ur.top() ) / h;
+  int yPos = myInternalView->originCoordinates().y();
+  lineStart = topLine; //( yPos + ur.top() ) / h;
   // number of lines the rect can display +1 (to compensate for half lines)
   uint vl = ( ur.height() / h ) + 1;
   lineEnd = QMIN( lineStart + vl, doc->numLines() );
@@ -266,6 +354,15 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     p.drawLine( iconPaneWidth-1, 0, iconPaneWidth-1, height() );
     lnX += iconPaneWidth;
   }
+
+
+  // folding markers
+  if  (myView->iconBorderStatus & FoldingMarkers)
+  {
+    p.fillRect(0,0,iconPaneWidth-1,height(),colorGroup().background());
+    lnX+=iconPaneWidth;
+  }
+
   // paint the background of the line numbers pane if required
   if ( myView->iconBorderStatus & LineNumbers ) {
     p.fillRect( lnX, 0, width()-2, height(), colorGroup().light() );
@@ -275,16 +372,58 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
   QString s;             // line number
   int adj = yPos%h;      // top line may be obscured
+
+  int mappedLine=1;
   for( uint i = lineStart; i <= lineEnd; ++i ) {
-    // paint icon if required
-    if (myView->iconBorderStatus & Icons) {
-      if ( doc->mark(i) & KateDocument::markType01 )
-        p.drawPixmap(2, (i - lineStart)*h - adj, QPixmap(bookmark_xpm));
-    }
+    
+    kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
+    
+    bool mappedLineValid=true;
+    if (myInternalView->m_lineMapping[i-topLine]) mappedLine=*(myInternalView->m_lineMapping[i-topLine]);
+    else mappedLineValid=false;
+ 
+    if (mappedLineValid)
+    {
+       // paint icon if required
+       lnX=0;
+       if (myView->iconBorderStatus & Icons) {
+         if ( doc->mark(mappedLine) & KateDocument::markType01 )
+           p.drawPixmap(2, (i)*h - adj, QPixmap(bookmark_xpm));
+         lnX+=iconPaneWidth;
+       }
+
+       if (myView->iconBorderStatus & FoldingMarkers) {
+         p.setPen(black);
+ 
+   		KateLineInfo info;
+        
+		myView->myDoc->regionTree->getLineInfo(&info,mappedLine);
+		if (!info.topLevel)
+		{
+			if (info.startsVisibleBlock)
+				p.drawPixmap(lnX+2,(i-lineStart)*h-adj,QPixmap(minus_xpm));
+			else
+			if (info.startsInVisibleBlock)
+				p.drawPixmap(lnX+2,(i-lineStart)*h-adj,QPixmap(plus_xpm));
+	                else
+			if (info.endsBlock)
+        		{
+	                  p.drawLine(lnX+iconPaneWidth/2,(i-lineStart)*h-adj,lnX+iconPaneWidth/2,(i-lineStart+1)*h-1);
+        	          p.drawLine(lnX+iconPaneWidth/2,(i-lineStart+1)*h-1,lnX+iconPaneWidth-2,(i-lineStart+1)*h-1);
+	                }
+		        else
+		           p.drawLine(lnX+iconPaneWidth/2,(i-lineStart)*h-adj,lnX+iconPaneWidth/2,(i-lineStart+1)*h-adj-1);
+	
+		}
+	      lnX+=iconPaneWidth;
+	    p.setPen(QColor(colorGroup().background()).dark());
+	    }
+	}
     // paint line number if required
     if (myView->iconBorderStatus & LineNumbers) {
-      s.setNum( i );
-      p.drawText( lnX + 1, (i-lineStart-1)*h - adj, width()-lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
+      s.setNum( mappedLine +1);
+      mappedLine++;
+      p.drawText( lnX + 1, (i-lineStart/*JWTEST*/)*h - adj, width()-lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
     }
   }
 }
@@ -292,71 +431,100 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
 void KateIconBorder::mousePressEvent(QMouseEvent* e)
 {
-    // return if the event is in linenumbers pane
-    if ( !myView->iconBorderStatus & Icons || e->x() > iconPaneWidth )
+    // return if the event is in linenumbers pane    
+    if ( (!myView->iconBorderStatus & Icons) && (!myView->iconBorderStatus & FoldingMarkers) )
       return;
+    int xwidth=0;
+    if (myView->iconBorderStatus & Icons) xwidth+=iconPaneWidth;
+    if (myView->iconBorderStatus & FoldingMarkers) xwidth+=iconPaneWidth;
+    if (e->x()>xwidth) return;
     myInternalView->placeCursor( 0, e->y(), 0 );
 
-    uint cursorOnLine = (e->y() + myInternalView->yPos) / myView->myDoc->viewFont.fontHeight;
+    uint cursorOnLine = (e->y() + myInternalView->originCoordinates().y()) / myView->myDoc->viewFont.fontHeight;
+    if (myInternalView->m_lineMapping[cursorOnLine-myInternalView->startLine])
+    	cursorOnLine=*(myInternalView->m_lineMapping[cursorOnLine-myInternalView->startLine]);
 
     if (cursorOnLine > myView->myDoc->lastLine())
       return;
 
     uint mark = myView->myDoc->mark (cursorOnLine);
 
-    switch (e->button()) {
-    case LeftButton:
-            if (mark&KateDocument::markType01)
-              myView->myDoc->removeMark (cursorOnLine, KateDocument::markType01);
-            else
-              myView->myDoc->addMark (cursorOnLine, KateDocument::markType01);
-        break;
- /*   case RightButton:
-        {
-            if (!line)
+    if ((myView->iconBorderStatus & Icons) && (e->x()<iconPaneWidth))
+    {
+        switch (e->button()) {
+        case LeftButton:
+                if (mark&KateDocument::markType01)
+                  myView->myDoc->removeMark (cursorOnLine, KateDocument::markType01);
+                else
+                  myView->myDoc->addMark (cursorOnLine, KateDocument::markType01);
+            break;
+ /*       case RightButton:
+            {
+                if (!line)
+                    break;
+                KPopupMenu popup;
+                popup.setCheckable(true);
+                popup.insertTitle(i18n("Breakpoints/Bookmarks"));
+                int idToggleBookmark =     popup.insertItem(i18n("Toggle bookmark"));
+                popup.insertSeparator();
+                int idToggleBreakpoint =   popup.insertItem(i18n("Toggle breakpoint"));
+                int idEditBreakpoint   =   popup.insertItem(i18n("Edit breakpoint"));
+                int idEnableBreakpoint =   popup.insertItem(i18n("Disable breakpoint"));
+                popup.insertSeparator();
+                popup.insertSeparator();
+                int idLmbSetsBreakpoints = popup.insertItem(i18n("LMB sets breakpoints"));
+                int idLmbSetsBookmarks   = popup.insertItem(i18n("LMB sets bookmarks"));
+
+                popup.setItemChecked(idLmbSetsBreakpoints, lmbSetsBreakpoints);
+                popup.setItemChecked(idLmbSetsBookmarks, !lmbSetsBreakpoints);
+
+                if (line->breakpointId() == -1) {
+                    popup.setItemEnabled(idEditBreakpoint, false);
+                    popup.setItemEnabled(idEnableBreakpoint, false);
+                    popup.changeItem(idEnableBreakpoint, i18n("Enable breakpoint"));
+                }
+                int res = popup.exec(mapToGlobal(e->pos()));
+                if (res == idToggleBookmark) {
+                    line->toggleBookmark();
+                    doc->tagLines(cursorOnLine, cursorOnLine);
+                    doc->updateViews();
+                } else if (res == idToggleBreakpoint)
+                    emit myView->toggledBreakpoint(cursorOnLine);
+                else if (res == idEditBreakpoint)
+                    emit myView->editedBreakpoint(cursorOnLine);
+                else if (res == idEnableBreakpoint)
+                    emit myView->toggledBreakpointEnabled(cursorOnLine+1);
+                else if (res == idLmbSetsBreakpoints || res == idLmbSetsBookmarks)
+                    lmbSetsBreakpoints = !lmbSetsBreakpoints;
                 break;
-            KPopupMenu popup;
-            popup.setCheckable(true);
-            popup.insertTitle(i18n("Breakpoints/Bookmarks"));
-            int idToggleBookmark =     popup.insertItem(i18n("Toggle bookmark"));
-            popup.insertSeparator();
-            int idToggleBreakpoint =   popup.insertItem(i18n("Toggle breakpoint"));
-            int idEditBreakpoint   =   popup.insertItem(i18n("Edit breakpoint"));
-            int idEnableBreakpoint =   popup.insertItem(i18n("Disable breakpoint"));
-            popup.insertSeparator();
-            popup.insertSeparator();
-            int idLmbSetsBreakpoints = popup.insertItem(i18n("LMB sets breakpoints"));
-            int idLmbSetsBookmarks   = popup.insertItem(i18n("LMB sets bookmarks"));
-
-            popup.setItemChecked(idLmbSetsBreakpoints, lmbSetsBreakpoints);
-            popup.setItemChecked(idLmbSetsBookmarks, !lmbSetsBreakpoints);
-
-            if (line->breakpointId() == -1) {
-                popup.setItemEnabled(idEditBreakpoint, false);
-                popup.setItemEnabled(idEnableBreakpoint, false);
-                popup.changeItem(idEnableBreakpoint, i18n("Enable breakpoint"));
             }
-            int res = popup.exec(mapToGlobal(e->pos()));
-            if (res == idToggleBookmark) {
-                line->toggleBookmark();
-                doc->tagLines(cursorOnLine, cursorOnLine);
-                doc->updateViews();
-            } else if (res == idToggleBreakpoint)
-                emit myView->toggledBreakpoint(cursorOnLine);
-            else if (res == idEditBreakpoint)
-                emit myView->editedBreakpoint(cursorOnLine);
-            else if (res == idEnableBreakpoint)
-                emit myView->toggledBreakpointEnabled(cursorOnLine+1);
-            else if (res == idLmbSetsBreakpoints || res == idLmbSetsBookmarks)
-                lmbSetsBreakpoints = !lmbSetsBreakpoints;
+        case MidButton:
+            line->toggleBookmark();
+            doc->tagLines(cursorOnLine, cursorOnLine);
+            doc->updateViews();
+            break;      */
+        default:
             break;
         }
-    case MidButton:
-        line->toggleBookmark();
-        doc->tagLines(cursorOnLine, cursorOnLine);
-        doc->updateViews();
-        break;      */
-    default:
-        break;
+    }
+
+    if (myView->iconBorderStatus & FoldingMarkers)
+    {
+	kdDebug()<<"checking if a folding marker has been clicked"<<endl;
+
+        int xMin=(myView->iconBorderStatus & Icons)?iconPaneWidth:0;
+        int xMax=xMin+iconPaneWidth;
+	if ((e->x()>=xMin) && (e->x()<xMax))
+        {
+	    kdDebug()<<"The click was within a marker range, is it valid though ?"<<endl;
+            KateLineInfo info;
+            myView->myDoc->regionTree->getLineInfo(&info,cursorOnLine);
+	    if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
+            {
+               kdDebug()<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
+	        emit toggleRegionVisibility(cursorOnLine);
+
+            }
+        }
     }
 }

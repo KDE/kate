@@ -270,7 +270,7 @@ class Highlight
     Highlight(const syntaxModeListItem *def);
     ~Highlight();
 
-    void doHighlight(QMemArray<signed char> oCtx, TextLine *,bool lineContinue);
+    void doHighlight(QMemArray<signed char> oCtx, TextLine *,bool lineContinue,QValueList<signed char> *foldingList);
 
     KConfig *getKConfig();
     QString getWildcards();

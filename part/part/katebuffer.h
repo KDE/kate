@@ -135,7 +135,15 @@ signals:
     */
    void linesChanged(int lines);
    
+   /**
+    * Emitted when some code folding related attributes changed
+    */
+   void foldingUpdate(unsigned int , QValueList<signed char>*,bool *changed);
 
+   /**
+    * Emittend if codefolding returned with a changed list
+    */
+    void codeFoldingUpdated();
    /**
     * Emitted when the highlighting of a certain range has
     * changed.
@@ -146,6 +154,14 @@ signals:
     * Advice to update highlighting a certain range.
     */
    void pleaseHighlight(uint from, uint to);
+
+public slots:
+
+   /**
+    * change the visibility of a given line
+    */
+    void setLineVisible(unsigned int lineNr, bool visible);
+
 
 protected:
    /**

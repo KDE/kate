@@ -57,10 +57,22 @@ class TextLine : public KShared
       Returns the length  
     */
     uint length() const { return text.size(); }
+
+    /**
+      Returns the visibility flag
+     */
+     bool isVisible() {return m_visible;}
+
+     /**
+      Sets the visibility flag
+      */
+     void setVisible(bool val){m_visible=val;}
+
     /**
       Universal text manipulation method. It can be used to insert, delete
       or replace text.
     */
+
     void replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs = 0L);
     /**
       Appends a string of length l to the textline
@@ -179,6 +191,8 @@ class TextLine : public KShared
       The line continue flag
     */
     bool hlContinue;
+
+    bool m_visible;
 };
 
 #endif

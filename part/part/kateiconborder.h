@@ -35,8 +35,8 @@ public:
     KateIconBorder(KateView *view, class KateViewInternal *internalView);
     ~KateIconBorder();
 
-    enum Status { None=0, Icons=1, LineNumbers=2 };
-    void paintLine(int i);
+    enum Status { None=0, Icons=1, LineNumbers=2, FoldingMarkers=4 };
+    void paintLine(int i,int pos);
     int width();
 
 protected:
@@ -51,5 +51,8 @@ private:
     int iconPaneWidth;
     int cachedLNWidth;
     uint linesAtLastCheck; // only calculate width if number of lines has changed
+
+signals:
+    void toggleRegionVisibility(unsigned int);
 };
 #endif

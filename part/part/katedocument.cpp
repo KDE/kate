@@ -31,6 +31,7 @@
 #include "katecmd.h"
 #include "kateglobal.h"
 #include "kateexportaction.h"
+#include "katecodefoldinghelpers.h"
 
 #include <qfileinfo.h>
 #include <qfile.h>
@@ -271,7 +272,9 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
                                            QObject *, const char *)
   : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
 {
+  regionTree=new KateCodeFoldingTree(this);
   myActiveView = 0L;
+
   hlSetByUser = false;
   setInstance( KateFactory::instance() );
 
@@ -333,10 +336,16 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
 
   buffer = new KateBuffer;
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
+
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
+
+  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QValueList<signed char>*,bool*)),regionTree,SLOT(updateLine(unsigned int, QValueList<signed char>*,bool *)));
+  connect(regionTree,SIGNAL(setLineVisible(unsigned int, bool)), buffer,SLOT(setLineVisible(unsigned int,bool)));
+  connect(buffer,SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
   m_highlightTimer = new QTimer(this);
   connect(m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
+
 
   colors[0] = KGlobalSettings::baseColor();
   colors[1] = KGlobalSettings::highlightColor();
@@ -461,7 +470,7 @@ bool KateDocument::clear()
 
   cursor.col = cursor.line = 0;
   for (view = myViews.first(); view != 0L; view = myViews.next() ) {
-    view->myViewInternal->updateCursor(cursor);
+    view->myViewInternal->clear();//updateCursor(cursor);
     view->myViewInternal->tagAll();
   }
 
@@ -617,6 +626,11 @@ uint KateDocument::numLines() const
   return buffer->count();
 }
 
+uint KateDocument::numVisLines() const
+{
+  return buffer->count()-regionTree->getHiddenLinesCount();
+}
+
 int KateDocument::lineLength ( uint line ) const
 {
   return textLength(line);
@@ -639,7 +653,6 @@ void KateDocument::editStart (bool withUndo)
   editIsRunning = true;
   noViewUpdates = true;
   editWithUndo = withUndo;
-
   buffer->noHlUpdate = true;
 
   editTagLineStart = 0xffffff;
@@ -648,12 +661,7 @@ void KateDocument::editStart (bool withUndo)
   if (editWithUndo)
   {
     if (undoItems.count () > myUndoSteps)
-    {
-      undoItems.setAutoDelete (true);
       undoItems.removeFirst ();
-      undoItems.setAutoDelete (false);
-    }
-
     editCurrentUndo = new KateUndoGroup (this);
   }
   else
@@ -663,7 +671,7 @@ void KateDocument::editStart (bool withUndo)
   {
     KateView *v = myViews.at(z);
     v->cursorCacheChanged = false;
-    v->cursorCache = v->myViewInternal->cursor;
+    v->cursorCache = v->myViewInternal->getCursor();
   }
 }
 
@@ -875,14 +883,13 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
 bool KateDocument::editWrapLine ( uint line, uint col )
 {
-  TextLine::Ptr l = getTextLine(line);
+  TextLine::Ptr l, tl;
+  KateView *view;
 
-  if (!l)
-    return false;
+  l = getTextLine(line);
+  tl = new TextLine();
 
-  TextLine::Ptr tl = new TextLine();
-
-  if (!tl)
+  if (!l || !tl)
     return false;
 
   editStart ();
@@ -915,15 +922,15 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   editTagLine(line);
   editTagLine(line+1);
 
+  regionTree->lineHasBeenInserted(line); //test line or line +1
+
   newDocGeometry = true;
-  KateView *view;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
     view->myViewInternal->insLine(line+1);
-
     // correct cursor position
-    if (view->cursorCache.line > (int)line)
+    if (view->cursorCache.line > (int)line) 
     {
       view->cursorCache.line++;
       view->cursorCacheChanged = true;
@@ -938,7 +945,6 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   }
   editEnd ();
-
   return true;
 }
 
@@ -1028,6 +1034,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   editInsertTagLine (line);
   editTagLine(line);
 
+
   if (!myMarks.isEmpty())
   {
     bool b = false;
@@ -1045,6 +1052,8 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
       emit marksChanged ();
   }
 
+  regionTree->lineHasBeenInserted(line);
+
   newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
@@ -1061,6 +1070,8 @@ bool KateDocument::editRemoveLine ( uint line )
 {
   KateView *view;
   uint cLine, cCol;
+
+//  regionTree->lineHasBeenRemoved(line);// is this the right place ?
 
   if (numLines() == 1)
     return false;
@@ -1092,6 +1103,9 @@ bool KateDocument::editRemoveLine ( uint line )
     if (b)
       emit marksChanged ();
   }
+
+  kdDebug()<<"KateDocument::editRemoveLine"<<endl;
+  regionTree->lineHasBeenRemoved(line);
 
   newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
@@ -1717,21 +1731,14 @@ void KateDocument::readSessionConfig(KConfig *config)
   restoreMarks = true;
 
   m_url = config->readEntry("URL"); // ### doesn't this break the encoding? (Simon)
-  // restore a hl set by the user
-  QString hl( config->readEntry("Highlight") );
-  if ( !hl.isEmpty() ) {
-    internalSetHlMode(hlManager->nameFind(hl));
-    hlSetByUser = true;
-  }
+  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
 
-  // restore bookmarks, unless it was modified since last open
-  if ( mTime <= config->readDateTimeEntry( "Modtime", &mTime ) ) {
-    QValueList<int> l = config->readIntListEntry("Bookmarks");
-    if ( l.count() )
-    {
-      for (uint i=0; i < l.count(); i++)
-        setMark( l[i], KateDocument::markType01 );
-    }
+  // restore bookmarks
+  QValueList<int> l = config->readIntListEntry("Bookmarks");
+  if ( l.count() )
+  {
+    for (uint i=0; i < l.count(); i++)
+      setMark( l[i], KateDocument::markType01 );
   }
 
   restoreMarks = false;
@@ -1740,10 +1747,7 @@ void KateDocument::readSessionConfig(KConfig *config)
 void KateDocument::writeSessionConfig(KConfig *config)
 {
   config->writeEntry("URL", m_url.url() ); // ### encoding?? (Simon)
-  // anders: save hl only if set by user.
-  config->writeEntry("Highlight", hlSetByUser ? m_highlight->name() : "");
-  // anders: save mod time - if changed when reopened, we will not restore bookmarks
-  config->writeEntry( "Modtime", mTime );
+  config->writeEntry("Highlight", m_highlight->name());
   // anders: save bookmarks
   QValueList<int> ml;
   for (uint i=0; i < myMarks.count(); i++) {
@@ -2054,11 +2058,14 @@ bool KateDocument::openFile()
     {
       QString line = buffer->plainLine(i);
       len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
+//kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
+//kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
       memcpy(&buf[bufpos], (line+"\n").latin1(), len);
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }
+//kdDebug(13020)<<"openFile(): calling hlManager->mimeFind() with data:"<<endl<<buf.data()<<endl<<"--"<<endl;
     hl = hlManager->mimeFind( buf, m_file );
   }
 
@@ -2104,28 +2111,28 @@ bool KateDocument::saveFile()
 
   if (!hlSetByUser)
   {
-    int hl = hlManager->wildcardFind( m_file );
+  int hl = hlManager->wildcardFind( m_file );
 
-    if (hl == -1)
+  if (hl == -1)
+  {
+    // fill the detection buffer with the contents of the text
+    const int HOWMANY = 1024;
+    QByteArray buf(HOWMANY);
+    int bufpos = 0, len;
+    for (uint i=0; i < buffer->count(); i++)
     {
-      // fill the detection buffer with the contents of the text
-      const int HOWMANY = 1024;
-      QByteArray buf(HOWMANY);
-      int bufpos = 0, len;
-      for (uint i=0; i < buffer->count(); i++)
-      {
-        QString line = buffer->plainLine(i);
-        len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
-        if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-        memcpy(&buf[bufpos], (line+"\n").latin1(), len);
-        bufpos += len;
-        if (bufpos >= HOWMANY) break;
-      }
-
-    hl = hlManager->mimeFind( buf, m_file );
+      TextLine::Ptr textLine = buffer->line(i);
+      len = textLine->length();
+      if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
+      memcpy(&buf[bufpos], textLine->getText(), len);
+      bufpos += len;
+      if (bufpos >= HOWMANY) break;
     }
 
-    internalSetHlMode(hl);
+    hl = hlManager->mimeFind( buf, m_file );
+  }
+
+  internalSetHlMode(hl);
   }
   emit fileNameChanged ();
 
@@ -2421,7 +2428,7 @@ void KateDocument::updateFontData() {
   KateView *view;
 
   for (view = myViews.first(); view != 0L; view = myViews.next() ) {
-    view->myViewInternal->drawBuffer->resize(view->width(),viewFont.fontHeight);
+    view->myViewInternal->resizeDrawBuffer(view->width(),viewFont.fontHeight);
     view->myViewInternal->tagAll();
     view->myViewInternal->updateCursor();
   }
@@ -2761,11 +2768,14 @@ void KateDocument::newLine(VConfig &c)
   if (!(_configFlags & KateDocument::cfAutoIndent)) {
     insertText (c.cursor.line, c.cursor.col, "\n");
     c.cursor.line++;
+//    c.displayCursor.line++;
+//    c.displayCursor.col=0;
     c.cursor.col = 0;
   } else {
     TextLine::Ptr textLine = getTextLine(c.cursor.line);
     int pos = textLine->firstChar();
     if (c.cursor.col < pos) c.cursor.col = pos; // place cursor on first char if before
+
 
     int y = c.cursor.line;
     while ((y > 0) && (pos < 0)) { // search a not empty text line
@@ -2793,6 +2803,8 @@ void KateDocument::newLine(VConfig &c)
 void KateDocument::killLine(VConfig &c)
 {
   removeLine (c.cursor.line);
+//  regionTree->lineHasBeenRemoved(c.cursor.line);// is this the right place ?
+
 }
 
 void KateDocument::backspace(uint line, uint col)
@@ -2841,7 +2853,10 @@ void KateDocument::backspace(uint line, uint col)
   {
     // col == 0: wrap to previous line
     if (line >= 1)
+    {
+      regionTree->lineHasBeenRemoved(line);
       removeText (line-1, getTextLine(line-1)->length(), line, 0);
+    }
   }
 }
 
@@ -2853,6 +2868,7 @@ void KateDocument::del(VConfig &c)
   }
   else
   {
+    regionTree->lineHasBeenRemoved(c.cursor.line);
     removeText(c.cursor.line, c.cursor.col, c.cursor.line+1, 0);
   }
 }
@@ -3282,6 +3298,7 @@ bool KateDocument::removeStartStopCommentFromSelection()
     sc++;
   }
   if ( l->getString().mid( sc, startCommentLen ) != startComment ) {
+    kdDebug(13020)<<"removeBlaBla(): '"<<startComment<<"' not found after skipping space ("<<sl<<", "<<sc<<") - giving up :("<<endl;
     return false;
   }
   // repat kinda reversed for end.....
@@ -3289,6 +3306,7 @@ bool KateDocument::removeStartStopCommentFromSelection()
   ec--;
   while ( el >= sl /*&& ec > sc*/ && l->getChar(ec).isSpace() ) {
     if ( ec < 0 ) {
+      kdDebug(13020)<<"removeBlaBla(): up a line = "<<el-1<<endl;
       el--;
       l = getTextLine( el );
       if (!l) return false; // hopefully _VERY_ unlikely
@@ -3298,11 +3316,13 @@ bool KateDocument::removeStartStopCommentFromSelection()
   }
   ec++; // we went one char too far to find a nonspace
   if ( ec - endCommentLen < 0 || l->getString().mid(ec-endCommentLen,endCommentLen) != endComment ) {
+    kdDebug(13020)<<"removeBlaBla(): '"<<endComment<<"' not found after skipping space ("<<el<<", "<<ec-endCommentLen<<") - giving up :("<<endl;
     return false;
   }
   removeText (el, ec-endCommentLen, el, ec);
   removeText (sl, sc, sl, sc+startCommentLen);
   // TODO anders: redefine selection
+  kdDebug(13020)<<"removeBlaBla(): I DID IT!! I'm DANCING AROUND"<<endl;
   return true;
 }
 
@@ -3559,17 +3579,17 @@ bool KateDocument::lineHasSelected (int line)
   return false;
 }
 
-void KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEnd, bool showTabs)
+bool KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEnd, bool showTabs)
 {
-  paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
+  return paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
 }
 
-void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
+bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
 {
-  paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
+  return paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
 }
 
-void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
+bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
 {
   TextLine::Ptr textLine;
   int len;
@@ -3586,13 +3606,20 @@ void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   if (line > lastLine())
   {
     paint.fillRect(0, y, xEnd - xStart,fs->fontHeight, colors[0]);
-    return;
+    return true;
   }
 
   textLine = getTextLine(line);
 
   if (!textLine)
-    return;
+    return true ;
+
+  if (!textLine->isVisible())
+  {
+    paint.fillRect(0, y, xEnd - xStart,fs->fontHeight, colors[0]);
+    return false;
+  }
+	
 
   if (endcol < 0)
     len = textLine->length() - startcol;
@@ -3789,6 +3816,8 @@ void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     QConstString str((QChar *) &s[zc], z - zc);
     paint.drawText(x - xStart, y, str.string());
   }
+
+return true;
 }
 
 // Applies the search context, and returns whether a match was found. If one is,
@@ -4372,6 +4401,25 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 
   return (Kate::ActionMenu *)menu;
 }
+
+
+void KateDocument::dumpRegionTree()
+{
+	regionTree->debugDump();
+}
+
+unsigned int KateDocument::getRealLine(unsigned int virtualLine)
+{
+	return regionTree->getRealLine(virtualLine);
+}
+
+unsigned int KateDocument::getVirtualLine(unsigned int realLine)
+{
+	return regionTree->getVirtualLine(realLine);
+}
+
+
+
 
 KateCursor::KateCursor ( KateDocument *doc)
 {

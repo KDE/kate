@@ -20,6 +20,7 @@
 
 // $Id$
 
+//BEGIN INCLUDES
 #include <string.h>
 #include <qstringlist.h>
 
@@ -45,8 +46,9 @@
 #include "katesyntaxdocument.h"
 
 #include "katefactory.h"
+//END
 
-
+//BEGIN STATICS
 HlManager *HlManager::s_pSelf = 0;
 KConfig *HlManager::s_pConfig =0;
 
@@ -57,7 +59,9 @@ static QString stdDeliminator = QString ("!%&()*+,-./:;<=>?[]^{|}~ \t\\");
 
 static const QChar *stdDeliminatorChars = stdDeliminator.unicode();
 static int stdDeliminatorLen=stdDeliminator.length();
+//END
 
+//BEGIN NON MEMBER FUNCTIONS
 int getDefStyleNum(QString name)
 {
   if (name=="dsNormal") return dsNormal;
@@ -85,6 +89,10 @@ bool ustrchr(const QChar *s, uint len, QChar c)
   return false;
 }
 
+//END
+
+
+//BEGIN HlItem
 HlItem::HlItem(int attribute, int context,signed char regionId)
   : attr(attribute), ctx(context),region(regionId)  {subItems=0;
 }
@@ -99,7 +107,9 @@ bool HlItem::startEnable(QChar)
 {
   return true;
 }
+//END
 
+//BEGIN HLCharDetect
 HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId, QChar c)
   : HlItem(attribute,context,regionId), sChar(c) {
 }
@@ -108,19 +118,23 @@ const QChar *HlCharDetect::checkHgl(const QChar *str, int len, bool) {
   if ((len > 0) && (*str == sChar)) return str + 1;
   return 0L;
 }
+//END
 
+//BEGIN Hl2CharDetect
 Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2)
   : HlItem(attribute,context,regionId) {
   sChar1 = ch1;
   sChar2 = ch2;
 }
 
-const QChar *Hl2CharDetect::checkHgl(const QChar *str, int len , bool) {
-  if (len < 2) return 0L;
+const QChar *Hl2CharDetect::checkHgl(const QChar *str, int len, bool) {
+  if (len <2) return 0L;
   if (str[0] == sChar1 && str[1] == sChar2) return str + 2;
   return 0L;
 }
+//END
 
+//BEGIN HlStringDetect
 HlStringDetect::HlStringDetect(int attribute, int context, signed char regionId,const QString &s, bool inSensitive)
   : HlItem(attribute, context,regionId), str(inSensitive ? s.upper():s), _inSensitive(inSensitive) {
 }
@@ -128,9 +142,8 @@ HlStringDetect::HlStringDetect(int attribute, int context, signed char regionId,
 HlStringDetect::~HlStringDetect() {
 }
 
-const QChar *HlStringDetect::checkHgl(const QChar *s, int len, bool) {
-  if (len < str.length()) return 0L;
-
+const QChar *HlStringDetect::checkHgl(const QChar *s, int len , bool) {
+  if (len<str.length()) return 0L;
   if (!_inSensitive) {if (memcmp(s, str.unicode(), str.length()*sizeof(QChar)) == 0) return s + str.length();}
      else
        {
@@ -139,8 +152,10 @@ const QChar *HlStringDetect::checkHgl(const QChar *s, int len, bool) {
        }
   return 0L;
 }
+//END
 
 
+//BEGIN HLRangeDetect
 HlRangeDetect::HlRangeDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2)
   : HlItem(attribute,context,regionId) {
   sChar1 = ch1;
@@ -162,7 +177,9 @@ const QChar *HlRangeDetect::checkHgl(const QChar *s, int len, bool) {
   }
   return 0L;
 }
+//END
 
+//BEGIN HlKeyword
 HlKeyword::HlKeyword (int attribute, int context, signed char regionId, bool casesensitive, const QChar *deliminator, uint deliLen)
   : HlItem(attribute,context,regionId), dict (113, casesensitive)
 {
@@ -210,7 +227,10 @@ const QChar *HlKeyword::checkHgl(const QChar *s, int len, bool )
   if ( dict.find(lookup) ) return s2;
   return 0L;
 }
+//END
 
+
+//BEGIN HlInt
 HlInt::HlInt(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
@@ -249,7 +269,10 @@ const QChar *HlInt::checkHgl(const QChar *str, int len, bool)
 
   return 0L;
 }
+//END
 
+
+//BEGIN HlFloat
 HlFloat::HlFloat(int attribute, int context, signed char regionId)
   : HlItem(attribute,context, regionId) {
 }
@@ -350,7 +373,9 @@ const QChar *HlFloat::checkHgl(const QChar *s, int len, bool)
 
   return 0L;
 }
+//END
 
+//BEGIN HlCOct
 HlCOct::HlCOct(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
@@ -381,7 +406,9 @@ const QChar *HlCOct::checkHgl(const QChar *str, int len, bool) {
 
   return 0L;
 }
+//END
 
+//BEGIN HlCHex
 HlCHex::HlCHex(int attribute, int context,signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
@@ -412,6 +439,8 @@ const QChar *HlCHex::checkHgl(const QChar *str, int len, bool)
   }
   return 0L;
 }
+//END
+
 
 HlCFloat::HlCFloat(int attribute, int context, signed char regionId)
   : HlFloat(attribute,context,regionId) {
@@ -739,7 +768,8 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
                         * return value: signed char*	new context stack at the end of the line
 *******************************************************************************************/
 
-void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool lineContinue)
+void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool lineContinue,
+				QValueList<signed char> *foldingList)
 {
   if (!textLine)
     return;
@@ -837,7 +867,7 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 		if (item->region)
 		{
 //			kdDebug()<<QString("Region mark detected: %1").arg(item->region)<<endl;
-//			foldingList->prepend(item->region);
+			foldingList->prepend(item->region);
 
 		}
 
@@ -944,6 +974,7 @@ void Highlight::setData(HlData *hlData) {
   KConfig *config;
 
   config = getKConfig();
+
 //  iWildcards = hlData->wildcards;
 //  iMimetypes = hlData->mimetypes;
 
@@ -1886,8 +1917,6 @@ void HlManager::setHlDataList(HlDataList &list) {
   for (z = 0; z < (int) hlList.count(); z++) {
     hlList.at(z)->setData(list.at(z));
   }
-  // anders: this actually works - changes from config box gets saved :-)))
-  getKConfig()->sync();
   //notify documents about changes in highlight configuration
   emit changed();
 }

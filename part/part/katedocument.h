@@ -23,6 +23,7 @@
 
 #include "kateglobal.h"
 #include "kateview.h"
+#include "kateviewinternal.h"
 #include "katehighlight.h"
 #include "katebuffer.h"
 #include "katetextline.h"
@@ -39,6 +40,7 @@
 #include <kspell.h>
 
 class KateCmd;
+class KateCodeFoldingTree;
 
 class Attribute {
   public:
@@ -189,6 +191,7 @@ class KateDocument : public Kate::Document
     bool removeLine ( uint line );
 
     uint numLines() const;
+    uint numVisLines() const;
     uint length () const;
     int lineLength ( uint line ) const;
 
@@ -570,12 +573,11 @@ class KateDocument : public Kate::Document
 
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
-    void paintTextLine(QPainter &, uint line, int xStart, int xEnd, bool showTabs);
-    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int xStart, 
+    bool paintTextLine(QPainter &, uint line, int xStart, int xEnd, bool showTabs);
+    bool paintTextLine(QPainter &, uint line, int startcol, int endcol, int xStart, 
         int xEnd, bool showTabs);
-    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, 
+    bool  paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, 
         int xStart, int xEnd, bool showTabs,WhichFont wf=ViewFont);
-
     bool doSearch(SConfig &s, const QString &searchFor);
 
   public:
@@ -785,6 +787,18 @@ class KateDocument : public Kate::Document
     uint _configFlags;
     uint _searchFlags;
     SConfig s;
+
+  // code folding
+  public:
+        unsigned int getRealLine(unsigned int virtualLine);
+        unsigned int getVirtualLine(unsigned int realLine);
+  signals:
+	void codeFoldingUpdated();
+  public slots:
+	void dumpRegionTree();
+  protected:
+	KateCodeFoldingTree *regionTree;
+
 };
 
 #endif

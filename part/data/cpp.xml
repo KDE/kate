@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.00" kateversion="2.0" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-c++src">
+<language name="C++" version="1.00" kateversion="2.0" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-c++src">
   <highlighting>
     <list name="keywords">
       <item> class </item>
@@ -108,6 +108,8 @@
     </list>
     <contexts>
       <context attribute="0" lineEndContext="#stay" name="Normal">
+	<RegExpr attribute="3" context="#stay" String="//BEGIN.*$" beginRegion="Region1"/>
+	<RegExpr attribute="3" context="#stay" String="//END.*$" endRegion="Region1"/>
         <keyword attribute="1" context="#stay" String="keywords" />
         <keyword attribute="2" context="#stay" String="types" />
         <Float attribute="6" context="#stay">
@@ -126,9 +128,11 @@
           <StringDetect attribute="3" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
         <HlCChar attribute="7" context="#stay"/>
-        <DetectChar attribute="8" context="1" char="&quot;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="3" char="/" char1="*"/>
+        <DetectChar attribute="8" context="String" char="&quot;"/>
+        <Detect2Chars attribute="10" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="10" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
+	<DetectChar attribute="0" context="#stay" char="{" beginRegion="Brace1" />
+	<DetectChar attribute="0" context="#stay" char="}" endRegion="Brace1" />
         <AnyChar attribute="11" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
         <StringDetect attribute="12" context="8" String="#if 0" insensitive="FALSE"/>
         <RegExpr attribute="12" context="4" String="#"/>
@@ -143,14 +147,14 @@
       </context>
       <context attribute="10" lineEndContext="#stay" name="Commentar 2">
         <RegExpr attribute="3" context="#stay" String="(FIXME|TODO)" />
-        <Detect2Chars attribute="10" context="#pop" char="*" char1="/"/>
+        <Detect2Chars attribute="10" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
-      <context attribute="12" lineEndContext="0" name="Preprocessor">
+      <context attribute="12" lineEndContext="Normal" name="Preprocessor">
         <LineContinue attribute="12" context="#stay"/>
         <RangeDetect attribute="13" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="13" context="#stay" char="&lt;" char1="&gt;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="5" char="/" char1="*"/>
+        <Detect2Chars attribute="10" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="10" context="Commentar/Preprocessor" char="/" char1="*"/>
       </context>
       <context attribute="10" lineEndContext="#stay" name="Commentar/Preprocessor">
         <Detect2Chars attribute="10" context="#pop" char="*" char1="/" />

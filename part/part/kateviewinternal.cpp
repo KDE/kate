@@ -215,6 +215,11 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
     case KateView::cmUncomment:
       myDoc->unComment(c);
       return;
+    case KateView::cmTranspose:
+      myDoc->transpose(c.cursor.line, c.cursor.col);
+      ++c.cursor.col;
+      cursorRight(c);  //move the cursor left
+      return;
   }
 }
 

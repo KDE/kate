@@ -289,6 +289,7 @@ class KateView : public Kate::View
     void keyReturn() {doEditCommand(KateView::cmReturn);};
     void keyDelete() {doEditCommand(KateView::cmDelete);};
     void backspace() {doEditCommand(KateView::cmBackspace);};
+    void transpose() {doEditCommand(KateView::cmTranspose);};
     void killLine() {doEditCommand(KateView::cmKillLine);};
 
 
@@ -450,7 +451,8 @@ public slots:
 		    cmReturn=1,cmDelete,cmBackspace,cmKillLine,
         cmCut,cmCopy,cmPaste,cmIndent,cmUnindent,cmCleanIndent,
         cmComment,
-        cmUncomment};
+	cmUncomment,
+        cmTranspose};
 //find commands
     enum Find_commands { cmFind=1,cmReplace,cmFindAgain,cmGotoLine};
 

@@ -402,6 +402,9 @@ void KateView::keyPressEvent( QKeyEvent *ev )
             myDoc->removeSelectedText();
             myViewInternal->update();
             break;
+        case CTRL+Key_T:
+	    transpose();
+	    break;
         case Key_Backspace:
         case SHIFT+Key_Backspace:
             backspace();

@@ -106,8 +106,6 @@ class KateViewInternal : public QWidget
     void bottomOfView(bool sel=false);
     void pageUp(bool sel=false);
     void pageDown(bool sel=false);
-/*    void cursorPageUp(bool sel=false);
-    void cursorPageDown(bool sel=false);*/
     void top(bool sel=false);
     void bottom(bool sel=false);
     void top_home(bool sel=false);
@@ -257,9 +255,21 @@ class KateViewInternal : public QWidget
     
     // holds the current range
     void findCurrentRange();
-    // find which line number in the view contains cursor c
-    int viewLine(const KateTextCursor& c) const;
-    uint m_currentRange;
+    
+    // get the values for a specific range
+    // specify width for extra speed; specify lastLine to get the next line of a range.
+    // if you don't specify the visibleLine, it returns the range that the cursor is currently on.
+    // i.e. if you specify a visibleLine of -x, it finds the range of displayLine - (x+1)
+    LineRange getRange(int visibleLine = -1, int startCol = 0, int startX = 0, int width = -1);
+    
+    // find which virutal in the view contains cursor c
+    int viewLine(const KateTextCursor& c);
+    
+    // find how many visible lines needed to gain the desired virtual offset
+    int linesForOffset(const KateTextCursor& c, int offset);
+    
+    // DO NOT access this, use getRange() instead...
+    int m_currentRange;
 
     // These variable holds the most recent maximum real & visible column number
     bool m_preserveMaxX;

@@ -245,7 +245,7 @@ void KateIconBorder::paintBorder (int x, int y, int width, int height)
   int w( this->width() );                     // sane value/calc only once
   int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once 
 
-  int currentLine( m_viewInternal->cursor.line );
+  int currentLine( (int)m_viewInternal->cursor.line );
   
   QPainter p ( this );
   p.setFont ( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers

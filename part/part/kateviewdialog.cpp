@@ -145,28 +145,34 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   opt[0] = new QCheckBox(i18n("A&utomatically indent"), this);
   layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
+  connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[1] = new QCheckBox(i18n("Use &spaces to indent"), this);
   layout->addWidget(opt[1], 0, AlignLeft);
   opt[1]->setChecked(configFlags & flags[1]);
+  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[3] = new QCheckBox(i18n("&Tab key indents"), this);
   layout->addWidget(opt[3], 0, AlignLeft);
   opt[3]->setChecked(configFlags & flags[3]);
+  connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[2] = new QCheckBox(i18n("&Backspace key indents"), this);
   layout->addWidget(opt[2], 0, AlignLeft);
   opt[2]->setChecked(configFlags & flags[2]);
+  connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
   layout->addWidget(opt[4], 0, AlignLeft);
   opt[4]->setChecked(configFlags & flags[4]);
+  connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 //   opt[4]->setChecked(true);
 //   opt[4]->hide();
 
   opt[5] = new QCheckBox(i18n("&Keep extra spaces"), this);
   layout->addWidget(opt[5], 0, AlignLeft);
   opt[5]->setChecked(configFlags & flags[5]);
+  connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   layout->addStretch();
 
@@ -216,10 +222,12 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   opt[0] = new QCheckBox(i18n("&Persistent selections"), this);
   layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
+  connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   opt[1] = new QCheckBox(i18n("O&verwrite selected text"), this);
   layout->addWidget(opt[1], 0, AlignLeft);
   opt[1]->setChecked(configFlags & flags[1]);
+  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   layout->addStretch();
 
@@ -268,11 +276,13 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   opt[0] = new QCheckBox(i18n("Enable &word wrap"), gbWordWrap);
   opt[0]->setChecked(view->wordWrap());
+  connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(wordWrapToggled()));
 
   e1 = new KIntNumInput(view->wordWrapAt(), gbWordWrap);
   e1->setRange(20, 200, 1, false);
   e1->setLabel(i18n("Wrap words at:"), AlignVCenter);
+  connect(e1, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   mainLayout->addWidget(gbWordWrap);
 
@@ -280,41 +290,50 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   opt[4] = new QCheckBox(i18n("&Show tabs"), gbWhiteSpace);
   opt[4]->setChecked(configFlags & flags[4]);
+  connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   opt[1] = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
   opt[1]->setChecked(configFlags & flags[1]);
+  connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   opt[2] = new QCheckBox(i18n("&Remove trailing spaces"), gbWhiteSpace);
   opt[2]->setChecked(configFlags & flags[2]);
+  connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   e2 = new KIntNumInput(e1, view->tabWidth(), gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
   e2->setLabel(i18n("Tab and indent width:"), AlignVCenter);
+  connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   mainLayout->addWidget(gbWhiteSpace);
 
   opt[3] = new QCheckBox(i18n("Auto &brackets"), this);
   mainLayout->addWidget(opt[3]);
   opt[3]->setChecked(configFlags & flags[3]);
+  connect(opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   opt[5] = new QCheckBox(i18n("Smart ho&me"), this);
   mainLayout->addWidget(opt[5]);
   opt[5]->setChecked(configFlags & flags[5]);
+  connect(opt[5], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   opt[6] = new QCheckBox(i18n("Wrap c&ursor"), this);
   mainLayout->addWidget(opt[6]);
   opt[6]->setChecked(configFlags & flags[6]);
+  connect(opt[6], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   e4 = new KIntNumInput(view->autoCenterLines(), this);
   e4->setRange(0, 1000000, 1, false);
   e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
   mainLayout->addWidget(e4);
+  connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
   e3->setRange(0, 1000000, 1, false);
   e3->setSpecialValueText( i18n("Unlimited") );
   e3->setLabel(i18n("Maximum undo steps:"), AlignVCenter);
   mainLayout->addWidget(e3);
+  connect(e3, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   mainLayout->addStretch();
 
@@ -392,6 +411,13 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
         m_bmSort->setRadioButtonExclusive( true );
         m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
         m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
+  connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	blay->addWidget(m_dynwrap,0);
         blay->addWidget( m_wwmarker, 0 );
   blay->addWidget(m_line,0);
@@ -462,29 +488,34 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   m_back = new KColorButton( this );
   glay->addWidget( label, 0, 0 );
   glay->addWidget( m_back, 0, 1 );
+  connect( m_back, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   label = new QLabel( i18n("Selected:"), this);
   label->setAlignment( AlignRight|AlignVCenter );
   m_selected = new KColorButton( this );
   glay->addWidget( label, 2, 0 );
   glay->addWidget( m_selected, 2, 1 );
+  connect( m_selected, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   label = new QLabel( i18n("Current line:"), this);
   label->setAlignment( AlignRight|AlignVCenter );
   m_current = new KColorButton( this );
   glay->addWidget( label, 4, 0 );
   glay->addWidget( m_current, 4, 1 );
+  connect( m_current, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   label = new QLabel( i18n("Bracket highlight:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_bracket = new KColorButton( this );
   glay->addWidget( label, 6, 0 );
   glay->addWidget( m_bracket, 6, 1 );
+  connect( m_bracket, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   label = new QLabel( i18n("Word wrap:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_wwmarker = new KColorButton( this );
   label->setBuddy( m_wwmarker );
+  connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
   glay->addWidget( label, 7, 0 );
   glay->addWidget( m_wwmarker, 7, 1 );
 
@@ -577,6 +608,8 @@ FontConfig::FontConfig( QWidget *parent, const char *, KateDocument *doc )
 
   connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
   connect (m_fontchooserPrint, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelectedPrint( const QFont & )));
+  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotChanged()));
+  connect (m_fontchooserPrint, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotChanged()));
 
   reload ();
 }
@@ -637,6 +670,7 @@ void EditKeyConfiguration::showEvent ( QShowEvent * )
     (new QVBoxLayout(this))->setAutoAdd(true);
     KateView* view = (KateView*)m_doc->views().at(0);
     m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
+    connect( m_keyChooser, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
     m_keyChooser->show ();
 
     m_ready = true;
@@ -669,6 +703,9 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   leBuSuffix = new QLineEdit( hbBuSuffix );
   lBuSuffix->setBuddy( leBuSuffix );
 
+  connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   layout->addStretch();
 
   QWhatsThis::add( gb, i18n(

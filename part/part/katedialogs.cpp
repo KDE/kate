@@ -239,6 +239,7 @@ PluginConfigPage::~PluginConfigPage ()
 		loadPlugin(item);
 	else
 		unloadPlugin(item);
+	emit changed();
 }
 
 void PluginConfigPage::loadPlugin (PluginListItem *item)
@@ -286,6 +287,7 @@ void HlConfigPage::showEvent ( QShowEvent * )
 
     page = new HighlightDialogPage(hlManager, &defaultStyleList, &hlDataList, 0, this);
     grid->addWidget( page, 0, 0);
+    connect( page, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
     page->show ();
 
     m_ready = true;
@@ -358,10 +360,13 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
   QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), hbFE );
   wildcards  = new QLineEdit( hbFE );
   lFileExts->setBuddy( wildcards );
+  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   QHBox *hbMT = new QHBox( gbProps );
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
   mimetypes = new QLineEdit( hbMT );
+  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+
   QToolButton *btnMTW = new QToolButton(hbMT);
   btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
@@ -464,6 +469,11 @@ void HighlightDialogPage::showMTDlg()
     wildcards->setText(d->patterns().join(";"));
     mimetypes->setText(d->mimeTypes().join(";"));
   }
+}
+
+void HighlightDialogPage::slotChanged()
+{
+  emit configChanged();
 }
 
 /******************************************************************************/
@@ -1372,5 +1382,7 @@ SpellConfigPage::SpellConfigPage( QWidget* parent, KSpellConfig* config )
 	: Kate::ConfigPage( parent)
 {
 	QVBoxLayout* l = new QVBoxLayout( this );
-	l->addWidget( new KSpellConfig( this, 0L, config, false ) );
+	KSpellConfig *cPage = new KSpellConfig( this, 0L, config, false );
+	l->addWidget( cPage );
+	connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 }

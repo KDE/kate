@@ -137,6 +137,9 @@ class PluginConfigPage : public Kate::ConfigPage
     void loadPlugin (PluginListItem *);
     void unloadPlugin (PluginListItem *);
 
+  signals:
+    void changed();
+
   public slots:
     void apply () {};
     void reload () {};
@@ -319,6 +322,11 @@ class HighlightDialogPage : public QTabWidget
     void hlNew();
     void hlDownload();
     void showMTDlg();
+    void slotChanged();
+
+  signals:
+    void configChanged();
+
   protected:
     KateAttributeList *defaultItemStyleList;
 

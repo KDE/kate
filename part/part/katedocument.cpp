@@ -589,7 +589,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
 
 QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
 {
-  kdDebug() << "textAsHtml" << endl;
+  kdDebug(13020) << "textAsHtml" << endl;
   if ( blockwise && (startCol > endCol) )
     return QString ();
 
@@ -614,12 +614,11 @@ QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, 
     if ( !textLine )
       return QString ();
 
-    kdDebug() << "there are " << m_views.count() << " view for this document.  Using the first one" << endl;
+    kdDebug(13020) << "there are " << m_views.count() << " view for this document.  Using the first one" << endl;
 
     KateView *firstview =  m_views.getFirst();
     KateRenderer *renderer = firstview->renderer();
     textLine->stringAsHtml(startCol, endCol-startCol, renderer, &ts);
-    kdDebug() << "html is: " << s << endl;
   }
   else
   {
@@ -646,14 +645,14 @@ QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, 
       }
 
       if ( i < endLine )
-        ts << "<br/>\n";
+        ts << "\n";    //we are inside a <pre>, so a \n is a new line
     }
   }
   ts << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
   ts << "</pre></body>";
   ts << "</html>";
 
-  kdDebug() << "html is: " << s << endl;
+  kdDebug(13020) << "html is: " << s << endl;
   return s;
 }
 
@@ -3359,7 +3358,7 @@ void KateDocument::cut()
 
 void KateDocument::copy()
 {
-  kdDebug() << "in katedocument::copy()" << endl;
+  kdDebug(13020) << "in katedocument::copy()" << endl;
   if (!hasSelection())
     return;
 #ifndef QT_NO_MIMECLIPBOARD
@@ -4800,7 +4799,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
   (*outputStream) << "<title>" << name.right(name.length() - name.findRev('/') -1) << "</title>" << endl;
   (*outputStream) << "</head>" << endl;
 
-  (*outputStream) << "<body>" << endl;
+  (*outputStream) << "<body><pre>" << endl;
   // for each line :
 
   // some variables :
@@ -4895,7 +4894,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
 
   // HTML document end :
   (*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
-  (*outputStream) << "</body>";
+  (*outputStream) << "</pre></body>";
   (*outputStream) << "</html>";
   // close the file :
   return true;

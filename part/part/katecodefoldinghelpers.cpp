@@ -55,7 +55,6 @@ KateCodeFoldingTree::KateCodeFoldingTree(QObject *par):QObject(par),KateCodeFold
 	startLineValid=true;
 	endLineValid=true; // temporary, should be false;
 	endLineRel=60000;   // temporary;
-	childnodes=new QPtrList<KateCodeFoldingNode>; // since the root node has most probably child nodes allocate it
 }
 
 KateCodeFoldingTree::~KateCodeFoldingTree(){;}

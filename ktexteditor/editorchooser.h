@@ -3,6 +3,9 @@
 
 #include <editorchooser_ui.h>
 
+class KConfig;
+class QString;
+
 namespace KTextEditor
 {
 
@@ -11,11 +14,12 @@ class EditorChooser: public EditorChooser_UI {
 Q_OBJECT
 
 public:
-	EditorChooser(QWidget *parent=0,const char *name=0);
+	enum ChooserType {AppSetting=0,SysSetting};
+	EditorChooser(QWidget *parent=0,const char *name=0,const ChooserType type=AppSetting);
 	virtual ~EditorChooser();
 	void writeSysDefault();
-//	readAppSetting(KConfig *cfg,const QString& prefix);
-//	writeAppSetting(KConfig *cfg,const QString& prefix);
+	void readAppSetting(KConfig *cfg,const QString& postfix);
+	void writeAppSetting(KConfig *cfg,const QString& postfix);
 };
 };
 #endif

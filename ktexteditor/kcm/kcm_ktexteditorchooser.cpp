@@ -3,7 +3,7 @@
 KCMKTextEditorChooser::KCMKTextEditorChooser( QWidget *parent, const char *name ):
 	KCModule(parent,name) {
 
-	m_chooser=new KTextEditor::EditorChooser(this);
+	m_chooser=new KTextEditor::EditorChooser(this,"EditorChooser",KTextEditor::EditorChooser::SysSetting);
 }
  
 void KCMKTextEditorChooser::load(){

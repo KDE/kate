@@ -42,7 +42,7 @@
                         <item> invariant </item>
                 </list>
                 <contexts>
-                        <context attribute="Normal Text" lineEndContext="#stay">
+                        <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
                                 <keyword attribute="Keyword" context="#stay" String="keywords"/>
                                 <Float attribute="Float" context="#stay"/>
                                 <Int attribute="Decimal" context="#stay"/>

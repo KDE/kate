@@ -168,10 +168,11 @@ TODO:
   endRegion:    End a region of type endRegion [optional]
 -->
 <!ENTITY % commonAttributes
- "attribute     CDATA   #REQUIRED
-  context       CDATA   #REQUIRED
-  beginRegion   CDATA   #IMPLIED
-  endRegion     CDATA   #IMPLIED"
+ "attribute     CDATA       #REQUIRED
+  context       CDATA       #REQUIRED
+  beginRegion   CDATA       #IMPLIED
+  endRegion     CDATA       #IMPLIED
+  lookAhead     (%boolean;) #IMPLIED"
 >
 
 <!-- Detect members of a keyword list

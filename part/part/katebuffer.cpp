@@ -1354,7 +1354,7 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
     m_lines++;
    
     // is allready too much stuff around in mem ?
-    bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
+    bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) >= KATE_MAX_BLOCKS_LOADED);
   
     if (swap && m_parent->m_cleanBlocks.count() > 0)
       m_parent->m_cleanBlocks.first()->swapOut();
@@ -1387,16 +1387,16 @@ KateBufBlock::~KateBufBlock ()
 bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 {
   // is allready too much stuff around in mem ?
-  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
+  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) >= KATE_MAX_BLOCKS_LOADED);
 
-  QByteArray m_rawData;
+  QByteArray rawData;
   
   // calcs the approx size for KATE_AVG_BLOCK_SIZE chars !
   if (swap)
-    m_rawData.resize ((KATE_AVG_BLOCK_SIZE * sizeof(QChar)) + ((KATE_AVG_BLOCK_SIZE/80) * 8));
+    rawData.resize ((KATE_AVG_BLOCK_SIZE * sizeof(QChar)) + ((KATE_AVG_BLOCK_SIZE/80) * 8));
   
   bool eof = false; 
-  char *buf = m_rawData.data ();
+  char *buf = rawData.data ();
   uint pos = 0;
   char attr = TextLine::flagNoOtherData;
 
@@ -1414,10 +1414,10 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
       {
         size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
       
-        if (size > m_rawData.size ())
+        if (size > rawData.size ())
         {
-          m_rawData.resize (size);
-          buf = m_rawData.data ();
+          rawData.resize (size);
+          buf = rawData.data ();
         }
   
         memcpy(buf+pos, (char *) &length, sizeof(uint));
@@ -1454,9 +1454,9 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
     m_vmblock = m_parent->vm()->allocate(size);
     m_vmblockSize = size;
   
-    if (!m_rawData.isEmpty())
+    if (!rawData.isEmpty())
     {
-      if (!m_parent->vm()->copyBlock(m_vmblock, m_rawData.data(), 0, size))
+      if (!m_parent->vm()->copyBlock(m_vmblock, rawData.data(), 0, size))
       {
         if (m_vmblock)
           m_parent->vm()->free(m_vmblock);
@@ -1538,15 +1538,14 @@ void KateBufBlock::swapIn ()
   if (m_state != KateBufBlock::stateSwapped)
     return;
   
-  QByteArray m_rawData;
-  m_rawData.resize(m_vmblockSize);
+  QByteArray rawData (m_vmblockSize);
   
   // what to do if that fails ?
-  if (!m_parent->vm()->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize))
+  if (!m_parent->vm()->copyBlock(rawData.data(), m_vmblock, 0, rawData.size()))
     m_parent->m_cacheReadError = true;
     
-  char *buf = m_rawData.data();
-  char *end = buf + m_rawData.count();
+  char *buf = rawData.data();
+  char *end = buf + rawData.size();
 
   while(buf < end)
   {
@@ -1561,7 +1560,7 @@ void KateBufBlock::swapIn ()
   m_lastLine = 0;
   
   // is allready too much stuff around in mem ?
-  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
+  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) >= KATE_MAX_BLOCKS_LOADED);
 
   if (swap && m_parent->m_cleanBlocks.count() > 0)
     m_parent->m_cleanBlocks.first()->swapOut();
@@ -1579,27 +1578,25 @@ void KateBufBlock::swapOut ()
     return;
     
   if (m_state == KateBufBlock::stateDirty)
-  {
-    QByteArray m_rawData;
-      
+  {  
     // Calculate size.
     uint size = 0;
     for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
       size += (*it)->dumpSize ();
   
-    m_rawData.resize (size);
-    char *buf = m_rawData.data();
+    QByteArray rawData (size);
+    char *buf = rawData.data();
   
     // Dump textlines
     for(TextLine::List::iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
       buf = (*it)->dump (buf);
   
-    m_vmblock = m_parent->vm()->allocate(m_rawData.count());
-    m_vmblockSize = m_rawData.count();
+    m_vmblock = m_parent->vm()->allocate(rawData.size());
+    m_vmblockSize = rawData.size();
     
-    if (!m_rawData.isEmpty())
+    if (!rawData.isEmpty())
     {
-      if (!m_parent->vm()->copyBlock(m_vmblock, m_rawData.data(), 0, m_rawData.count()))
+      if (!m_parent->vm()->copyBlock(m_vmblock, rawData.data(), 0, rawData.size()))
       {
         if (m_vmblock)
           m_parent->vm()->free(m_vmblock);

@@ -304,17 +304,19 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" />
-        <DetectChar attribute="Normal Text" context="Rules" char="{" />
+        <RegExpr attribute="Notice" context="#stay" String="/\*BEGIN.*\*/" beginRegion="UserDefined" />
+        <RegExpr attribute="Notice" context="#stay" String="/\*END.*\*/" endRegion="UserDefined" />
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="Comment" />
+        <DetectChar attribute="Normal Text" context="Rules" char="{" beginRegion="RuleSet" />
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Rules">
-        <DetectChar attribute="Normal Text" context="#pop" char="}" />
-        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" />
+        <DetectChar attribute="Normal Text" context="#pop" char="}" endRegion="RuleSet" />
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="Comment" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Data Type" context="#stay" String="types" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />
         <RegExpr attribute="Notice" context= "#stay" string="(FIXME|TODO|NOTE)" />
       </context>
     </contexts>
@@ -325,7 +327,7 @@
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="Float"  defStyleNum="dsFloat"/>
       <itemData name="Comment" defStyleNum="dsComment" />
-      <itemData name="Notice" defStyleNum="dsString" />
+      <itemData name="Notice" defStyleNum="dsString" bold="1"/>
     </itemDatas>
   </highlighting>
   <general>

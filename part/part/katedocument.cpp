@@ -1697,7 +1697,7 @@ void KateDocument::readConfig(KConfig *config)
   }
 
   config->setGroup("Kate View");
-  m_dynWordWrap = config->readBoolEntry( "DynamicWordWrap", false );
+  m_dynWordWrap = config->readBoolEntry( "DynamicWordWrap", true );
   m_lineNumbers = config->readBoolEntry( "LineNumbers", false );
   m_iconBar = config->readBoolEntry( "Iconbar", false );
   m_foldingBar = config->readBoolEntry( "FoldingMarkers", true );
@@ -4131,7 +4131,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
     paint.fillRect( bm.startX - startXCol, y, bm.startW, fs.fontHeight, colors[3] );
   if( !printerfriendly && bm.valid && (bm.endLine == line) && ((int)bm.endCol >= startcol) && ((endcol == -1) || ((int)bm.endCol < endcol)) )
     paint.fillRect( bm.endX - startXCol, y, bm.endW, fs.fontHeight, colors[3] );
-    
+
   // show word wrap marker if desirable
   if ( !printerfriendly && m_wordWrapMarker && fs.myFont.fixedPitch() ) {
     paint.setPen( colors[4] );

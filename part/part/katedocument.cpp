@@ -2272,10 +2272,10 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          {
            QString s( i18n("(Selection of) ") );
            tags["f"].prepend( s );
-           tags["F"].prepend( s );
+           tags["U"].prepend( s );
          }
 
-         QRegExp reTags( "%([dDfFhuyY])" ); // TODO tjeck for "%%<TAG>"
+         QRegExp reTags( "%([dDfUhuyY])" ); // TODO tjeck for "%%<TAG>"
 
          if (useHeader)
          {
@@ -2460,6 +2460,7 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
            (*it).replace( re, QString( "%1" ).arg( _pages ) );
        }
      } // end prepare block
+     kdDebug(13020)<<"lines should start at "<<xstart<<endl;
 
      /*
         On to draw something :-)

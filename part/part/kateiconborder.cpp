@@ -337,7 +337,6 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   QRect ur = e->rect();
 
   int h = fontMetrics().height();
-  int yPos = myInternalView->originCoordinates().y();
   lineStart = topLine; //( yPos + ur.top() ) / h;
   // number of lines the rect can display +1 (to compensate for half lines)
   uint vl = ( ur.height() / h ) + 1;
@@ -371,49 +370,48 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   }
 
   QString s;             // line number
-  int adj = yPos%h;      // top line may be obscured
 
   int mappedLine=1;
   for( uint i = lineStart; i <= lineEnd; ++i ) {
-    
+
     //kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
-    
+
     bool mappedLineValid=true;
     if ((i-topLine) > 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
     else mappedLineValid=false;
- 
+
     if (mappedLineValid)
     {
        // paint icon if required
        lnX=0;
        if (myView->iconBorderStatus & Icons) {
          if ( doc->mark(mappedLine) & KateDocument::markType01 )
-           p.drawPixmap(2, (i)*h - adj, QPixmap(bookmark_xpm));
+           p.drawPixmap(2, (i)*h, QPixmap(bookmark_xpm));
          lnX+=iconPaneWidth;
        }
 
        if (myView->iconBorderStatus & FoldingMarkers) {
          p.setPen(black);
- 
+
    		KateLineInfo info;
-        
+
 		myView->myDoc->regionTree->getLineInfo(&info,mappedLine);
 		if (!info.topLevel)
 		{
 			if (info.startsVisibleBlock)
-				p.drawPixmap(lnX+2,(i-lineStart)*h-adj,QPixmap(minus_xpm));
+				p.drawPixmap(lnX+2,(i-lineStart)*h,QPixmap(minus_xpm));
 			else
 			if (info.startsInVisibleBlock)
-				p.drawPixmap(lnX+2,(i-lineStart)*h-adj,QPixmap(plus_xpm));
+				p.drawPixmap(lnX+2,(i-lineStart)*h,QPixmap(plus_xpm));
 	                else
 			if (info.endsBlock)
         		{
-	                  p.drawLine(lnX+iconPaneWidth/2,(i-lineStart)*h-adj,lnX+iconPaneWidth/2,(i-lineStart+1)*h-1);
+	                  p.drawLine(lnX+iconPaneWidth/2,(i-lineStart)*h,lnX+iconPaneWidth/2,(i-lineStart+1)*h-1);
         	          p.drawLine(lnX+iconPaneWidth/2,(i-lineStart+1)*h-1,lnX+iconPaneWidth-2,(i-lineStart+1)*h-1);
 	                }
 		        else
-		           p.drawLine(lnX+iconPaneWidth/2,(i-lineStart)*h-adj,lnX+iconPaneWidth/2,(i-lineStart+1)*h-adj-1);
-	
+		           p.drawLine(lnX+iconPaneWidth/2,(i-lineStart)*h,lnX+iconPaneWidth/2,(i-lineStart+1)*h-1);
+
 		}
 	      lnX+=iconPaneWidth;
 	    p.setPen(QColor(colorGroup().background()).dark());
@@ -423,7 +421,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     if (myView->iconBorderStatus & LineNumbers) {
       s.setNum( mappedLine +1);
       mappedLine++;
-      p.drawText( lnX + 1, (i-lineStart/*JWTEST*/)*h - adj, width()-lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
+      p.drawText( lnX + 1, (i-lineStart/*JWTEST*/)*h, width()-lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
     }
   }
 }
@@ -440,7 +438,7 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
     if (e->x()>xwidth) return;
     myInternalView->placeCursor( 0, e->y(), 0 );
 
-    uint cursorOnLine = (e->y() + myInternalView->originCoordinates().y()) / myView->myDoc->viewFont.fontHeight;
+    uint cursorOnLine = (e->y() / myView->myDoc->viewFont.fontHeight) + myInternalView->startLine;
     //if (myInternalView->lineRanges[cursorOnLine-myInternalView->startLine])
     	cursorOnLine=myInternalView->lineRanges[cursorOnLine-myInternalView->startLine].line;
 

@@ -132,7 +132,7 @@ public:
     void setCursor (KateTextCursor c){cursor=c;}
     void resizeDrawBuffer(int w, int h){drawBuffer->resize(w,h);}
     QPoint cursorCoordinates(){return QPoint(xCoord,yCoord);}
-    QPoint originCoordinates(){return QPoint(xPos,0);}
+    
 private:
     void calculateDisplayPositions(KateTextCursor &, KateTextCursor, bool, bool);
 

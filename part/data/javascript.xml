@@ -389,7 +389,7 @@
         <item>x</item>
         <item>y</item>
         <item>zIndex</item>
-	 </list>
+    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <RegExpr attribute="Decimal" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
@@ -408,9 +408,9 @@
         <Detect2Chars attribute="Comment" context="Multi/inline Comment" char="/" char1="*" beginRegion="Comment"/>
         <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\s*[=?:]\s*" />
         <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\(\s*" />
-	<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
-        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
-        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
@@ -459,7 +459,6 @@
       <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(charclass caret first check)" fallthrough="true" fallthroughContext="Regular Expression Character Class">
         <DetectChar attribute="Pattern Internal Operator" context="Regular Expression Character Class" char="^" />
       </context>
-
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>

@@ -74,7 +74,7 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="SingleLineComment" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="MultiLineComment" char="/" char1="*"/>
-        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="^#"/>
         <Detect2Chars attribute="String" context="String" char="@" char1="&quot;" />
       </context>

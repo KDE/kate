@@ -141,12 +141,12 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
-        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
-        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]{|}~^&#59;"/>
         <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#"/>
-        <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
+        <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\d\w]*(?=[\s]*[(])" />
         <RegExpr attribute="Normal Text" context="Member" String="([.]{1,1}|[:]{2,2})" />
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">

@@ -113,7 +113,7 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
-        <AnyChar attribute="Symbol" context="#stay" String="-+*/!~%^|=.?:[()]"/>
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="block1"/>
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="block1"/>
         <RegExpr attribute="Decimal" context="#stay" String="#region.*$" beginRegion="Region1"/>

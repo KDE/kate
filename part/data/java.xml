@@ -2806,25 +2806,25 @@
 				<DetectChar attribute="String" context="String" char="&quot;"/>
 				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
 				<Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1"/>
-				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1"/>
-				<AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-                                <RegExpr attribute="Keyword" context="Imports" String="^\s*(package|import)" />
-                                <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
-                                <RegExpr attribute="Normal Text" context="Member" String="[.]{1,1}" />
-                        </context>
+				<DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1"/>
+				<DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1"/>
+				<AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
+				<RegExpr attribute="Keyword" context="Imports" String="^\s*(package|import)" />
+				<RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
+				<RegExpr attribute="Normal Text" context="Member" String="[.]{1,1}" />
+			</context>
 			<context attribute="String" lineEndContext="#pop" name="String">
 				<LineContinue attribute="String" context="#stay"/>
 				<HlCStringChar attribute="String Char" context="#stay"/>
 				<DetectChar attribute="String" context="#pop" char="&quot;"/>
 			</context>
-                        <context attribute="Normal Text" lineEndContext="#pop" name="Member">
-                                <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
-                        </context>
-                        <context attribute="Normal Text" lineEndContext="#pop" name="Imports">
-                                <RegExpr attribute="Imports" context="#pop" String="\s*.*$" />
-                        </context>
-                        <context attribute="Comment" lineEndContext="#pop" name="Commentar 1"/>
+			<context attribute="Normal Text" lineEndContext="#pop" name="Member">
+				<RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
+			</context>
+			<context attribute="Normal Text" lineEndContext="#pop" name="Imports">
+				<RegExpr attribute="Imports" context="#pop" String="\s*.*$" />
+			</context>
+			<context attribute="Comment" lineEndContext="#pop" name="Commentar 1"/>
 			<context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
 				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
 			</context>
@@ -2832,8 +2832,8 @@
 		<itemDatas>
 			<itemData name="Normal Text"  defStyleNum="dsNormal"/>
 			<itemData name="Keyword"      defStyleNum="dsKeyword"/>
-                        <itemData name="Function"     defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
-                        <itemData name="Imports"      defStyleNum="dsKeyword" color="#808000" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Function"     defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Imports"      defStyleNum="dsKeyword" color="#808000" selColor="#ffffff" bold="0" italic="0"/>
 			<itemData name="Data Type"    defStyleNum="dsDataType"/>
 			<itemData name="Decimal"      defStyleNum="dsDecVal"/>
 			<itemData name="Octal"        defStyleNum="dsBaseN"/>

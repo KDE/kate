@@ -16,8 +16,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 //BEGIN includes
 #include "kate_kdatatool.h"
 #include "kate_kdatatool.moc"

@@ -16,8 +16,7 @@ License:     Artistic
 -->
 
 
-<language name="LPC" version="0.74" kateversion="2.2"
-          section="Sources" extensions="*.c;*.h;*.inc;*.o" author="Andreas Klauer (Andreas.Klauer@metamorpher.de)" license="Artistic" >
+<language name="LPC" version="0.75" kateversion="2.2" section="Sources" extensions="*.c;*.h;*.inc;*.o" author="Andreas Klauer (Andreas.Klauer@metamorpher.de)" license="Artistic" >
 
   <highlighting>
 

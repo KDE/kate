@@ -71,6 +71,7 @@
 #include <kwin.h>
 #include <kencodingfiledialog.h>
 #include <ktempfile.h>
+#include <kmdcodec.h>
 
 #include <qtimer.h>
 #include <qfile.h>
@@ -563,7 +564,7 @@ QString KateDocument::text() const
   for (uint i = 0; i < m_buffer->count(); i++)
   {
     KateTextLine::Ptr textLine = m_buffer->plainLine(i);
-  
+
     if (textLine)
     {
       s.append (textLine->string());
@@ -631,7 +632,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
 QString KateDocument::textLine( uint line ) const
 {
   KateTextLine::Ptr l = m_buffer->plainLine(line);
-  
+
   if (!l)
     return QString();
 
@@ -860,7 +861,7 @@ uint KateDocument::length() const
   for (uint i = 0; i < m_buffer->count(); i++)
   {
     KateTextLine::Ptr line = m_buffer->plainLine(i);
-    
+
     if (line)
       l += line->length();
   }
@@ -881,7 +882,7 @@ uint KateDocument::numVisLines() const
 int KateDocument::lineLength ( uint line ) const
 {
   KateTextLine::Ptr l = m_buffer->plainLine(line);
-  
+
   if (!l)
     return -1;
 
@@ -1025,9 +1026,9 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
   editStart ();
 
   for (uint line = startLine; (line <= endLine) && (line < numLines()); line++)
-  {  
+  {
     KateTextLine::Ptr l = m_buffer->line(line);
-    
+
     if (!l)
       return false;
 
@@ -1921,7 +1922,7 @@ bool KateDocument::setHlMode (uint mode)
 bool KateDocument::internalSetHlMode (uint mode)
 {
    KateHighlighting *h = KateHlManager::self()->getHl(mode);
-   
+
    // aha, hl will change
    if (h != m_highlight)
    {
@@ -2445,7 +2446,7 @@ bool KateDocument::openFile(KIO::Job * job)
       // The buffer's highlighting gets nuked by KateBuffer::clear()
       m_buffer->setHighlight(m_highlight);
     }
-    
+
     // update our hl type if needed
     if (!hlSetByUser)
     {
@@ -2454,12 +2455,14 @@ bool KateDocument::openFile(KIO::Job * job)
       if (hl >= 0)
         internalSetHlMode(hl);
     }
-        
     // update file type
     updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 
     // read vars
     readVariables();
+
+    // update the md5 digest
+    createDigest( m_digest );
   }
 
   //
@@ -2486,7 +2489,7 @@ bool KateDocument::openFile(KIO::Job * job)
     m_modOnHdReason = 0;
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
-  
+
   //
   // display errors
   //
@@ -2570,13 +2573,16 @@ bool KateDocument::saveFile()
 
   // remove file from dirwatch
   deactivateDirWatch ();
-  
+
   //
   // try to save
   //
   if (reallySaveIt && canEncode)
     success = m_buffer->saveFile (m_file);
-    
+
+  // update the md5 digest
+  createDigest( m_digest );
+
   // add m_file again to dirwatch
   activateDirWatch ();
 
@@ -2589,7 +2595,7 @@ bool KateDocument::saveFile()
     if (!hlSetByUser)
     {
       int hl (KateHlManager::self()->detectHighlighting (this));
-      
+
       if (hl >= 0)
         internalSetHlMode(hl);
     }
@@ -2643,10 +2649,10 @@ void KateDocument::activateDirWatch ()
 
   // remove the old watched file
   deactivateDirWatch ();
-  
+
   // add new file if needed
   if (m_url.isLocalFile() && !m_file.isEmpty())
-  {  
+  {
     KateFactory::self()->dirWatch ()->addFile (m_file);
     m_dirWatchFile = m_file;
   }
@@ -2700,7 +2706,7 @@ bool KateDocument::closeURL()
   //
   m_url = KURL ();
   m_file = QString::null;
-  
+
   // we are not modified
   if (m_modOnHd)
   {
@@ -4068,8 +4074,16 @@ void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )
     emit selectionChanged();
 }
 
-void KateDocument::setDocName (QString )
+void KateDocument::setDocName (QString name )
 {
+  if ( !name.isEmpty() )
+  {
+    // TODO check for similarly named documents
+    m_docName = name;
+    emit nameChanged((Kate::Document *) this);
+    return;
+  }
+
   int count = -1;
 
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
@@ -4124,16 +4138,16 @@ void KateDocument::reloadFile()
 
       int i = KMessageBox::warningYesNoCancel
                 (0, str + i18n("Do you really want to reload the modified file? Data loss may occur."));
-      
+
       if ( i != KMessageBox::Yes)
       {
-        if (i == KMessageBox::No)     
+        if (i == KMessageBox::No)
         {
           m_modOnHd = false;
           m_modOnHdReason = 0;
           emit modifiedOnDisc (this, m_modOnHd, 0);
         }
-        
+
         return;
       }
     }
@@ -4882,6 +4896,13 @@ void KateDocument::slotModOnHdDirty (const QString &path)
 {
   if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 1))
   {
+    // compare md5 with the one we have (if we have one)
+    if ( ! m_digest.isEmpty() )
+    {
+      QCString tmp;
+      if ( createDigest( tmp ) && tmp == m_digest )
+        return;
+    }
     m_modOnHd = true;
     m_modOnHdReason = 1;
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
@@ -4906,6 +4927,24 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
     m_modOnHdReason = 3;
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
   }
+}
+
+bool KateDocument::createDigest( QCString &result )
+{
+  bool ret = false;
+  result = "";
+  if ( url().isLocalFile() )
+  {
+    QFile f ( url().path() );
+    if ( f.open( IO_ReadOnly) )
+    {
+      KMD5 md5("");
+      ret = md5.update( f );
+      md5.hexDigest( result );
+      f.close();
+    }
+  }
+  return ret;
 }
 
 bool KateDocument::wrapCursor ()

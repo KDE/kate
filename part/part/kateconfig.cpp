@@ -1037,7 +1037,7 @@ void KateRendererConfig::setSchema (uint schema)
   mark[3] = Qt::magenta;
   mark[4] = Qt::gray;
   mark[5] = Qt::green;
-  mark[6] = Qt::cyan;
+  mark[6] = Qt::red;
 
   for (int i = 1; i < 8; i++) {
     setLineMarkerColor(config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]),

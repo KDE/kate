@@ -425,7 +425,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   mark[3] = Qt::magenta;
   mark[4] = Qt::gray;
   mark[5] = Qt::green;
-  mark[6] = Qt::cyan;
+  mark[6] = Qt::red;
 
   // map from 0..reservedMarkersCount()-1 - the same index as in markInterface
   for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)

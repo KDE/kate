@@ -30,6 +30,15 @@
       <item> function </item>
       <item> default </item>
       <item> extends </item>
+      <item> abstract </item>
+      <item> implements </item>
+      <item> interface </item>
+      <item> self </item>
+      <item> static </item>
+      <item> parent </item>
+      <item> private </item>
+      <item> protected </item>
+      <item> public </item>
       <item> E_ALL </item>
       <item> E_ERROR </item>
       <item> E_NOTICE </item>

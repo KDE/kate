@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!--
-  This is a language description for debian package control files.
-  It should work, but is fairly untested.
-
-  Changelog:
-  0.6
-  - changed all keyword to StringDetect in main
-  - generalized to work with the 'debian control file format' not only used in control, but also in template...
-  - made multiline fields working
-  - the ':' following fieldnames is now highlighted as Keyword
-  - nicer indetation
-  - removed control from extensions
-
-  TODO:
-  - use <IncludeRules context="Field"/> in DependencyField.
-	When I tried this, I got some strange results I wasn't able to crack down.
-
-  Any comments are warmly welcome!
-  Simon Huerlimann <simon.huerlimann@access.unizh.ch>
--->
-<language name="Debian Control" version="0.6" kateversion="2.1" section="Other" extensions="" mimetype="">
+<language name="Debian Control" version="0.7" kateversion="2.1" section="Other" extensions="" mimetype="">
     <highlighting>
         <contexts>
             <context attribute="Normal Text" lineEndContext="#stay">
@@ -54,12 +34,14 @@
 	            <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
 	            <RegExpr attribute="Keyword" context="#stay" String="[,\|]"/>
 	            <DetectChar attribute="Keyword" context="Constrain" char="("/>
+	            <DetectChar attribute="Keyword" context="Constrain" char="["/>
             </context>
 
             <context attribute="Version" lineEndContext="#stay" name="Constrain">
 	            <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
-	            <RegExpr attribute="Keyword" context="#stay" String="[&lt;=&gt;]"/>
+	            <RegExpr attribute="Keyword" context="#stay" String="[!&lt;=&gt;]"/>
 	            <DetectChar attribute="Keyword" context="#pop" char=")"/>
+	            <DetectChar attribute="Keyword" context="#pop" char="]"/>
             </context>
         </contexts>
 

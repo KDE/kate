@@ -2745,8 +2745,8 @@
 				<DetectChar attribute="String" context="#pop" char="'" />
 			</context>
 			<context name="htmltag" attribute="Identifier" lineEndContext="#stay">
-				<Detect2Chars attribute="HTML Tag" context="#push" char="/" char1="&gt;" />
-				<DetectChar attribute="HTML Tag" context="#push" char="&gt;"/>
+				<Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
+				<DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
 				<RegExpr attribute="Normal Text" context="identifiers" String="\s*=\s*"/>
 			</context>
 

@@ -9,13 +9,14 @@
        </context>
 
        <context attribute="2" lineEndContext="#stay">
-	 <Detect2Chars attribute="1" context="#push" char="/" char1="&gt;" />
-	 <DetectChar attribute="1" context="#push" char="&gt;" />
-         <RegExpr attribute="0" context="2" String="\s*=\s*" />
+          <Detect2Chars attribute="1" context="#pop" char="/" char1="&gt;" />
+          <DetectChar attribute="1" context="#pop" char="&gt;" />
+          <RegExpr attribute="0" context="2" String="\s*=\s*" />
        </context>
 
        <context attribute="3" lineEndContext="#stay">
-	 <RegExpr attribute="3" context="#push" String="[A-Za-z0-9.-]*" />
+         <Detect2Chars attribute="1" context="#pop#pop" char="/" char1="&gt;" />
+          <DetectChar attribute="1" context="#pop#pop" char="&gt;" />
          <DetectChar attribute="3" context="3" char="&quot;" />
        </context>
 
@@ -24,7 +25,6 @@
        </context>
 
        <context attribute="Comment" lineEndContext="#stay">
-         <String---Detect attribute="Comment" context="4" String="&lt;!--"/>
          <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
        </context>
 

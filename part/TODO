@@ -8,7 +8,7 @@ For 3.1 and later:
            A context of #pop returns to the next higher one (pop) (#pop#pop returns two steps and so on)
            A context of #stay stays in the current context (no more context="5" within context 5 (this
            is supported, but should be avoided in new definitions, because you run into problems when using
-           #pop than. If a context >=0 is given as the argument a new entry is appended to the stack (push)
+           #pop than. If a context >= is given as the argument a new entry is appended to the stack
 
  - code completion : some keyboard handling fixes
 

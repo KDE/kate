@@ -1242,7 +1242,7 @@ bool KateDocument::removeSelectedText ()
   for (uint z = 0; z < myViews.count(); z++)
   {
     KateView *v = myViews.at(z);
-    if (selectStart.line <= v->cursorCache.line <= selectEnd.line)
+    if ((selectStart.line <= v->cursorCache.line) && (v->cursorCache.line<= selectEnd.line))
     {
       v->cursorCache.line = selectStart.line;
       v->cursorCache.col = selectStart.col;

@@ -411,7 +411,12 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force, bool calledExter
       return;
   }
 
-  int viewLinesScrolled = displayViewLine(c);
+  int viewLinesScrolled = 0;
+
+  // only calculate if this is really used and usefull, could be wrong here, please recheck
+  // for larger scrolls this makes 2-4 seconds difference on my xeon with dyn. word wrap on
+  if (!force && (c.line() >= startLine()) && (c.line() <= endLine()))
+    viewLinesScrolled = displayViewLine(c);
 
   m_oldStartPos = m_startPos;
   m_startPos = c;

@@ -1574,8 +1574,12 @@ void KateView::keyPressEvent( QKeyEvent *ev )
   int key=KKey(ev).keyCodeQt();
   VConfig c;
 
-  switch(key)
-  {
+  if( (key & ~SHIFT) < 0x1000 )
+    KTextEditor::View::keyPressEvent( ev );
+  
+  else {
+    switch(key)
+    {
         case Key_PageUp:
             pageUp();
             break;
@@ -1626,8 +1630,9 @@ void KateView::keyPressEvent( QKeyEvent *ev )
             KTextEditor::View::keyPressEvent( ev );
             return;
             break; // never reached ;)
+      }
+      ev->accept();
     }
-    ev->accept();
 }
 
 void KateView::customEvent( QCustomEvent *ev )

@@ -169,6 +169,8 @@ class Highlight
     inline QString getCommentEnd()  const {return cmlEnd;};
     inline QString getCommentSingleLineStart() const { return cslStart;};
     
+    void clearAttributeArrays ();
+    
     QMemArray<KateAttribute> *attributes (uint schema);
 
   private:

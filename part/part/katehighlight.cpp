@@ -2229,6 +2229,40 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   return i;
 }
 
+void Highlight::clearAttributeArrays ()
+{
+  for ( QIntDictIterator< QMemArray<KateAttribute> > it( m_attributeArrays ); it.current(); ++it )
+  {
+    // k, schema correct, let create the data
+    KateAttributeList defaultStyleList;
+    defaultStyleList.setAutoDelete(true);
+    HlManager::self()->getDefaults(it.currentKey(), defaultStyleList);
+  
+    ItemDataList itemDataList;
+    getItemDataList(itemDataList);
+  
+    uint nAttribs = itemDataList.count();
+    QMemArray<KateAttribute> *array = it.current();
+    array->resize (nAttribs);
+  
+    for (uint z = 0; z < nAttribs; z++)
+    {
+      KateAttribute n;
+      ItemData *itemData = itemDataList.at(z);
+  
+      KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
+      n+= *defaultStyle;
+  
+      if (itemData->isSomethingSet())
+      {
+        // custom style
+        n += *itemData;
+      }
+  
+      array->at(z) = n;
+    }
+  }
+}
 
 QMemArray<KateAttribute> *Highlight::attributes (uint schema)
 {
@@ -2321,11 +2355,7 @@ HlManager::HlManager() : QObject(0), m_config ("katesyntaxhighlightingrc", false
 
 HlManager::~HlManager()
 {
-  if(syntax)
-  {
-    delete syntax;
-    syntax = 0;
-  }
+  delete syntax;
 }
 
 static KStaticDeleter<HlManager> sdHlMan; 
@@ -2582,10 +2612,10 @@ void HlManager::getDefaults(uint schema, KateAttributeList &list)
     KateAttribute *i = list.at(z);
     QStringList s = config->readListEntry(defaultStyleName(z));
 
-    if (s.count()>0)
+    if (!s.isEmpty())
     {
-
-     while(s.count()<8) s<<"";
+      while( s.count()<8)
+        s << "";
 
       QString tmp;
       QRgb col;
@@ -2620,23 +2650,22 @@ void HlManager::setDefaults(uint schema, KateAttributeList &list)
   KConfig *config =  HlManager::getKConfig();
   config->setGroup(KateFactory::self()->schemaManager()->name(schema) + ": Default Item Styles");
 
-  QStringList settings;
-
   for (uint z = 0; z < defaultStyles(); z++)
   {
+    QStringList settings;
     KateAttribute *i = list.at(z);
 
-        settings.clear();
-        settings<<(i->itemSet(KateAttribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
-        settings<<(i->itemSet(KateAttribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
-        settings<<(i->itemSet(KateAttribute::Bold)?(i->bold()?"1":0):"");
-        settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":0):"");
-        settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":0):"");
-        settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":0):"");
-        settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
-        settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
-  settings<<"---";
-        config->writeEntry(defaultStyleName(z),settings);
+    settings<<(i->itemSet(KateAttribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
+    settings<<(i->itemSet(KateAttribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
+    settings<<(i->itemSet(KateAttribute::Bold)?(i->bold()?"1":0):"");
+    settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":0):"");
+    settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":0):"");
+    settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":0):"");
+    settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
+    settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
+    settings<<"---";
+    
+    config->writeEntry(defaultStyleName(z),settings);
   }
 
   emit changed();

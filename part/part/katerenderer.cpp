@@ -59,6 +59,7 @@ KateRenderer::~KateRenderer()
 
 void KateRenderer::updateAttributes ()
 {
+  m_schema = config()->schema ();
   m_attributes = m_doc->m_highlight->attributes (m_schema);
 }
 
@@ -847,8 +848,6 @@ bool KateRenderer::selectBounds(uint line, uint &start, uint &end, uint lineLeng
 
 void KateRenderer::updateConfig ()
 {
-  m_schema = config()->schema ();
-  
   // update the attribute list pointer
   updateAttributes ();
 

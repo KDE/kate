@@ -2126,9 +2126,7 @@ void KateDocument::makeAttribs()
 }
 
 void KateDocument::updateFontData() {
-  for (KateView * view = myViews.first(); view != 0L; view = myViews.next() ) {
-     view->myViewInternal->tagAll();
-  }
+  tagAll();
 }
 
 void KateDocument::internalHlChanged() { //slot

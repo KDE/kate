@@ -27,8 +27,6 @@
 #include <kdebug.h>
 
 #include <qregexp.h>
-#include <qstring.h>
-#include <qdatetime.h>
 
 namespace KateCommands
 {

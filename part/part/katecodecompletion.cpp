@@ -84,6 +84,10 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
            this, SLOT(slotCursorPosChanged()) );
 }
 
+bool KateCodeCompletion::codeCompletionVisible () {
+  return m_completionPopup->isVisible();
+}
+
 void KateCodeCompletion::showCompletionBox(
     QValueList<KTextEditor::CompletionEntry> complList, int offset, bool casesensitive )
 {

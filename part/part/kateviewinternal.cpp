@@ -638,12 +638,14 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     emit m_view->gotFocus( m_view );
     break;
   case QEvent::FocusOut:
-    if( cursorTimer ) {
-      killTimer( cursorTimer );
-      cursorTimer = 0;
+    if( ! m_view->m_codeCompletion->codeCompletionVisible() ) {
+      if( cursorTimer ) {
+    	killTimer( cursorTimer );
+    	cursorTimer = 0;
+      }
+      paintCursor();
+      emit m_view->lostFocus( m_view );
     }
-    paintCursor();
-    emit m_view->lostFocus( m_view );
     break;
   case QEvent::KeyPress: {
     QKeyEvent *k = (QKeyEvent *)e;
@@ -828,7 +830,7 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
     } else {
       m_doc->paintTextLine( *paint, realLine, 0, -1,
                             cx, line*h, cx, cx+cw,
-                            (cursorOn && hasFocus() && (realLine == uint(cursor.line))) ? cursor.col : -1,
+                            (cursorOn && (hasFocus()||m_view->m_codeCompletion->codeCompletionVisible()) && (realLine == uint(cursor.line))) ? cursor.col : -1,
                             m_view->isOverwriteMode(), cXPos, true,
                             m_doc->configFlags() & KateDocument::cfShowTabs,
                             KateDocument::ViewFont, realLine == uint(cursor.line),

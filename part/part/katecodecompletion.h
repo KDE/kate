@@ -65,6 +65,8 @@ class KateCodeCompletion : public QObject
 public:
   KateCodeCompletion(KateView *view);
 
+  bool codeCompletionVisible ();
+
   void showArgHint(
       QStringList functionList, const QString& strWrapping, const QString& strDelimiter );
   void showCompletionBox( 

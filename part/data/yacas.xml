@@ -227,7 +227,7 @@
       <itemData name="Comment"  defStyleNum="dsComment"/>
       <itemData name="Symbol"  defStyleNum="dsOthers"/>
       <itemData name="Parens"  defStyleNum="dsNormal"/>
-      <itemData name="Highlight"  defStyleNum="dsString"/>
+      <itemData name="Highlight"  defStyleNum="dsAlert"/>
     </itemDatas>
   </highlighting>
   <general>

@@ -66,11 +66,11 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Multiline Comment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
@@ -85,7 +85,7 @@
       <context attribute="Normal Text" lineEndContext="#pop" name="unknown" />
       <context attribute="Normal Text" lineEndContext="#pop" name ="unknown 2" />
       <context attribute="Comment" lineEndContext="#stay" name="Undeffed">
-          <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+          <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
           <RegExpr attribute="Comment" context="#pop" String="^#endif" />
       </context>
     </contexts>
@@ -104,6 +104,7 @@
       <itemData name="Symbol"  defStyleNum="dsNormal"/>
       <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
       <itemData name="Prep. Lib"  defStyleNum="dsOthers"/>
+      <itemData name="Alert"        defStyleNum="dsAlert" />
     </itemDatas>
   </highlighting>
   <general>

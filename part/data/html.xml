@@ -40,7 +40,7 @@
        </context>
        <context attribute="Comment" lineEndContext="#pop" name="javascript_comment">
         <StringDetect attribute="Keyword" context="#pop#pop#pop" String="&lt;/SCRIPT&gt;" insensitive="TRUE" endRegion="Script" />
-	<RegExpr attribute="Wrong Values" context="#stay" String="(FIXME|TODO)" />
+	<RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
        </context>
 
        <context attribute="Identifier" lineEndContext="#stay" name="CSS_hook">
@@ -60,6 +60,7 @@
       <itemData name="String" defStyleNum="dsString"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Wrong Values"  defStyleNum="dsNormal" color="#ff0000" selColor="#ffffff" italic="0" bold="1"/>
+      <itemData name="Alert"        defStyleNum="dsAlert" />
     </itemDatas>
   </highlighting>
   <general>

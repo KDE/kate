@@ -687,7 +687,7 @@
       <itemData name="Comment"                   defStyleNum="dsComment" />
       <itemData name="Pod"                       defStyleNum="dsComment" />
       <itemData name="Nothing"                   defStyleNum="dsComment" />
-      <itemData name="Note"                      defStyleNum="dsDecVal" color="#0000FF" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="Note"                      defStyleNum="dsAlert" selColor="#ffffff" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>
   <general>

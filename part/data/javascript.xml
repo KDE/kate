@@ -427,10 +427,10 @@
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Multi/inline Comment">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
 
@@ -480,6 +480,7 @@
       <itemData name="Regular Expression" defStyleNum="dsOthers"   />
       <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
       <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
+      <itemData name="Alert"        defStyleNum="dsAlert" />
     </itemDatas>
   </highlighting>
   <general>

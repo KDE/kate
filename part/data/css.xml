@@ -53,7 +53,7 @@
       <item> list-style-image </item>
       <item> list-style-position </item>
       <item> list-style-keyword </item>
-      <item> list-style-type </item> 
+      <item> list-style-type </item>
       <item> margin-top </item>
       <item> margin-right </item>
       <item> margin-bottom </item>
@@ -328,7 +328,7 @@
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="Float"  defStyleNum="dsFloat"/>
       <itemData name="Comment" defStyleNum="dsComment" />
-      <itemData name="Notice" defStyleNum="dsString" bold="1"/>
+      <itemData name="Notice" defStyleNum="dsAlert"/>
     </itemDatas>
   </highlighting>
   <general>

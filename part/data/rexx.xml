@@ -110,7 +110,7 @@
         <DetectChar attribute="String" context="#pop" char="&apos;"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 1">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
     </contexts>
@@ -122,6 +122,7 @@
       <itemData name="String"       defStyleNum="dsString"/>
       <itemData name="Comment"      defStyleNum="dsComment"/>
       <itemData name="Symbol"       defStyleNum="dsNormal"/>
+      <itemData name="Alert"        defStyleNum="dsAlert" />
     </itemDatas>
   </highlighting>
   <general>

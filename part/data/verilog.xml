@@ -164,10 +164,10 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
@@ -182,7 +182,7 @@
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context"/>
       <context attribute="Comment" lineEndContext="#stay" name="Some Context2">
-          <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+          <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
           <RegExpr attribute="Comment" context="#pop" String="^#endif" />
       </context>
 
@@ -205,6 +205,7 @@
       <itemData name="String"  defStyleNum="dsString"/>
       <itemData name="String Char"  defStyleNum="dsChar"/>
       <itemData name="Comment"  defStyleNum="dsComment"/>
+      <itemData name="Alert"        defStyleNum="dsAlert" />
       <itemData name="Symbol"  defStyleNum="dsNormal"/>
       <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
       <itemData name="Prep. Lib"  defStyleNum="dsFloat"/>
@@ -216,7 +217,7 @@
       <itemData name="Drive/charge strength" defStyleNum="dsBaseN"/>
       <itemData name="Gate instantiation" defStyleNum="dsDataType"/>
       <itemData name="Port connection" defStyleNum="dsDataType"/>
-    </itemDatas>
+      </itemDatas>
   </highlighting>
   <general>
     <comments>

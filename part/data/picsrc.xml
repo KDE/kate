@@ -239,7 +239,8 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
 
       <context name="comment" attribute="Comment" lineEndContext="#pop">
         <RegExpr attribute="Instructions" context="#stay"
-           String="(FIXME|TODO|fixme|todo|INPUT|OUTPUT|PARAMETERS|AUTHOR|EMAIL)" />
+           String="(INPUT|OUTPUT|PARAMETERS|AUTHOR|EMAIL)" />
+        <RegExpr attribute="Alert" context="#stay" String="FIXME|TODO|fixme|todo" />
       </context>
 
 
@@ -281,7 +282,8 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <itemData name="Prep. Lib"  		defStyleNum="dsOthers"/>
       <itemData name="Based Numbers"  	defStyleNum="dsBaseN" />
       <itemData name="GPASM-macros"  	defStyleNum="dsNormal" color="#000000" selColor="#000000" bold="1" italic="1"/>
-    </itemDatas>
+      <itemData name="Alert"        defStyleNum="dsAlert" />
+      </itemDatas>
   </highlighting>
   <general>
     <comments>

@@ -105,7 +105,7 @@
       <itemData name="String"		defStyleNum="dsString"/>
       <itemData name="String Char"	defStyleNum="dsChar"/>
       <itemData name="Comment"		defStyleNum="dsComment"/>
-      <itemData name="Note"		defStyleNum="dsDecimal"/>
+      <itemData name="Note"		defStyleNum="dsAlert"/>
       <itemData name="Preprocessor"	defStyleNum="dsOthers"/>
       <itemData name="Preprocessor Lib" defStyleNum="dsString"/>
     </itemDatas>

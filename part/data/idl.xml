@@ -65,10 +65,10 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
@@ -84,7 +84,7 @@
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context"/>
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context2"/>
       <context attribute="Normal Text" lineEndContext="#stay" name="Some Context3">
-          <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+          <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
           <RegExpr attribute="Comment" context="#pop" String="^#endif" />
       </context>
     </contexts>
@@ -103,6 +103,7 @@
       <itemData name="Symbol"  defStyleNum="dsNormal"/>
       <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
       <itemData name="Prep. Lib"  defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
+      <itemData name="Alert"        defStyleNum="dsAlert" />
     </itemDatas>
   </highlighting>
   <general>

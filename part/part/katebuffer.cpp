@@ -219,56 +219,71 @@ bool KateBuffer::openFile (const QString &m_file)
 {
   QFile file (m_file);
 
-  if ( !file.open( IO_ReadOnly ) || !file.isDirectAccess() )
+  if ( !file.open( IO_ReadOnly ) || 
+       (m_file.startsWith("/dev/") && !file.isDirectAccess()) )
   {
     clear();
 
     return false; // Error
   }
 
-  // detect eol
-  while (true)
-  {
-     int ch = file.getch();
-
-     if (ch == -1)
-       break;
-
-     if ((ch == '\r'))
-     {
-       ch = file.getch ();
-
-       if (ch == '\n')
-       {
-         m_doc->config()->setEol (KateDocumentConfig::eolDos);
-         break;
-       }
-       else
-       {
-         m_doc->config()->setEol (KateDocumentConfig::eolMac);
-         break;
-       }
-     }
-     else if (ch == '\n')
-     {
-       m_doc->config()->setEol (KateDocumentConfig::eolUnix);
-       break;
-     }
-  }
-
+  bool seekable = false;
   // eol detection
   bool lastCharEOL = false;
-  if (file.size () > 0)
+  if (!file.isDirectAccess())
+  {
+    lastCharEOL = true;
+  }
+  else if (file.size () > 0)
   {
     file.at (file.size () - 1);
-
+    
     int ch = file.getch();
 
     if ((ch == '\n') || (ch == '\r'))
       lastCharEOL = true;
+
+    file.reset ();
   }
 
-  file.reset ();
+  if (file.isDirectAccess())
+  {  
+    // detect eol
+    while (true)
+    {
+      int ch = file.getch();
+
+      if (ch == -1)
+        break;
+
+      if ((ch == '\r'))
+      {
+        ch = file.getch ();
+
+        if (ch == '\n')
+        {
+          m_doc->config()->setEol (KateDocumentConfig::eolDos);
+          break;
+        }
+        else
+        {
+          m_doc->config()->setEol (KateDocumentConfig::eolMac);
+          break;
+        }
+      }
+      else if (ch == '\n')
+      {
+        m_doc->config()->setEol (KateDocumentConfig::eolUnix);
+        break;
+      }
+    }
+
+    file.reset ();
+  }
+  else
+  {
+    m_doc->config()->setEol (KateDocumentConfig::eolUnix);
+  }
 
   QTextStream stream (&file);
   QTextCodec *codec = m_doc->config()->codec();

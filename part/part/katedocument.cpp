@@ -1236,9 +1236,9 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editTextInserted (line, col, s.length());
-  
+
   editEnd ();
-  
+
   return true;
 }
 
@@ -1885,6 +1885,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards)
 {
+  kdDebug()<<"KateDocument::searchText( "<<startLine<<", "<<startCol<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
   if (regexp.isEmpty() || !regexp.isValid())
     return false;
 
@@ -2422,6 +2423,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 
 bool KateDocument::openURL( const KURL &url )
 {
+//   kdDebug(13020)<<"KateDocument::openURL( "<<url.prettyURL()<<")"<<endl;
   // no valid URL
   if ( !url.isValid() )
     return false;
@@ -2470,7 +2472,7 @@ bool KateDocument::openURL( const KURL &url )
            SLOT( slotFinishedKate( KIO::Job* ) ) );
 
     // set text mode
-    m_job->addMetaData ("textmode", "true");
+//     m_job->addMetaData ("textmode", "true");
 
     QWidget *w = widget ();
     if (!w && !m_views.isEmpty ())
@@ -2487,7 +2489,7 @@ bool KateDocument::openURL( const KURL &url )
 
 void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
 {
-  kdDebug(13020) << "KateDocument::slotData" << endl;
+//   kdDebug(13020) << "KateDocument::slotData" << endl;
 
   if (!m_tempFile || !m_tempFile->file())
     return;
@@ -2497,7 +2499,7 @@ void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
 
 void KateDocument::slotFinishedKate ( KIO::Job * job )
 {
-  kdDebug(13020) << "KateDocument::slotJobFinished" << endl;
+//   kdDebug(13020) << "KateDocument::slotJobFinished" << endl;
 
   if (!m_tempFile)
     return;
@@ -2512,7 +2514,6 @@ void KateDocument::slotFinishedKate ( KIO::Job * job )
   {
     if ( openFile(job) )
       emit setWindowCaption( m_url.prettyURL() );
-
     emit completed();
   }
 }
@@ -2561,7 +2562,6 @@ bool KateDocument::openFile(KIO::Job * job)
 
   // do we have success ?
   bool success = m_buffer->openFile (m_file);
-
   //
   // yeah, success
   //
@@ -3066,7 +3066,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   int oldLine = view->cursorLine ();
   int oldCol = view->cursorColumnReal ();
 
-    
+
   if (config()->configFlags()  & KateDocument::cfOvr)
     removeText (view->cursorLine(), view->cursorColumnReal(), view->cursorLine(), QMIN( view->cursorColumnReal()+buf.length(), textLine->length() ) );
 
@@ -3827,7 +3827,7 @@ bool KateDocument::removeStartStopCommentFromRegion(const KateTextCursor &start,
   QString endComment = m_highlight->getCommentEnd( attrib );
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
-    
+
     bool remove = m_buffer->plainLine(start.line())->stringAtPos(start.col(), startComment)
       && ( (end.col() - endCommentLen ) >= 0 )
       && m_buffer->plainLine(end.line())->stringAtPos(end.col() - endCommentLen , endComment);
@@ -3940,7 +3940,7 @@ void KateDocument::comment( KateView *, uint line,uint column, int change)
 
   bool removed = false;
 
-  if (change > 0)
+  if (change > 0) // comment
   {
     if ( !hassel )
     {
@@ -3968,7 +3968,7 @@ void KateDocument::comment( KateView *, uint line,uint column, int change)
         addStartLineCommentToSelection( startAttrib );
     }
   }
-  else
+  else // uncomment
   {
     if ( !hassel )
     {

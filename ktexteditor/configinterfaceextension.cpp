@@ -22,7 +22,6 @@
 #include "configinterfaceextension.moc"
 
 #include "document.h"
-#include "view.h"
 #include "plugin.h"
 
 namespace KTextEditor
@@ -71,14 +70,6 @@ ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (Document *doc)
   return static_cast<ConfigInterfaceExtension*>(doc->qt_cast("KTextEditor::ConfigInterfaceExtension"));
 }
                       
-ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (View *view)
-{                       
-  if (!view)
-    return 0;
-
-  return static_cast<ConfigInterfaceExtension*>(view->qt_cast("KTextEditor::ConfigInterfaceExtension"));
-}
-
 ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (Plugin *plugin)
 {                       
   if (!plugin)

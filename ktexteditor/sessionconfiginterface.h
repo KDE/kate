@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_configinterface_h__
-#define __ktexteditor_configinterface_h__
+#ifndef __ktexteditor_sessionconfiginterface_h__
+#define __ktexteditor_sessionconfiginterface_h__
 
 class KConfig;
 
@@ -25,15 +25,15 @@ namespace KTextEditor
 {
 
 /*
-*  This is an interface for the KTextEditor::Document/Plugin/ViewPlugin classes !!!
+*  This is an interface for the KTextEditor::Document/View/Plugin/ViewPlugin classes !!!
 */
-class ConfigInterface
+class SessionConfigInterface
 {
-  friend class PrivateConfigInterface;
+  friend class PrivateSessionConfigInterface;
 
   public:
-    ConfigInterface();
-    virtual ~ConfigInterface();
+    SessionConfigInterface();
+    virtual ~SessionConfigInterface();
 
     unsigned int configInterfaceNumber () const;
 
@@ -70,14 +70,15 @@ class ConfigInterface
     virtual void configDialog () = 0;
 
   private:
-    class PrivateConfigInterface *d;
-    static unsigned int globalConfigInterfaceNumber;
-    unsigned int myConfigInterfaceNumber;
+    class PrivateSessionConfigInterface *d;
+    static unsigned int globalSessionConfigInterfaceNumber;
+    unsigned int mySessionConfigInterfaceNumber;
 };
 
-ConfigInterface *configInterface (class Document *doc);
-ConfigInterface *configInterface (class Plugin *plugin);
-ConfigInterface *configInterface (class ViewPlugin *plugin);
+SessionConfigInterface *sessionSessionConfigInterface (class Document *doc);
+SessionConfigInterface *sessionSessionConfigInterface (class View *view);
+SessionConfigInterface *sessionSessionConfigInterface (class Plugin *plugin);
+SessionConfigInterface *sessionSessionConfigInterface (class ViewPlugin *plugin);
 
 };
 

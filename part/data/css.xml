@@ -305,8 +305,8 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr attribute="Notice" context="#stay" String="/\*BEGIN.*\*/" beginRegion="UserDefined" />
-        <RegExpr attribute="Notice" context="#stay" String="/\*END.*\*/" endRegion="UserDefined" />
+        <RegExpr attribute="RegionMarker" context="#stay" String="/\*BEGIN.*\*/" beginRegion="UserDefined" />
+        <RegExpr attribute="RegionMarker" context="#stay" String="/\*END.*\*/" endRegion="UserDefined" />
         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="Comment" />
         <DetectChar attribute="Normal Text" context="Rules" char="{" beginRegion="RuleSet" />
       </context>
@@ -329,6 +329,7 @@
       <itemData name="Float"  defStyleNum="dsFloat"/>
       <itemData name="Comment" defStyleNum="dsComment" />
       <itemData name="Notice" defStyleNum="dsAlert"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
     </itemDatas>
   </highlighting>
   <general>

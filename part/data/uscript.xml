@@ -81,7 +81,7 @@
 			<item> none </item>
 			<item> self </item>
 		</list>
-		
+
 		<list name="types">
 			<item> boolean </item>
 			<item> char </item>
@@ -132,8 +132,8 @@
 					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
 				</Int>
 				<HlCChar attribute="Char" context="#stay"/>
-				<RegExpr attribute="Decimal" context="#stay" String="//BEGIN.*$" beginRegion="Region1"/>
-				<RegExpr attribute="Decimal" context="#stay" String="//END.*$" endRegion="Region1"/>
+				<RegExpr attribute="Region Marker" context="#stay" String="//BEGIN.*$" beginRegion="Region1"/>
+				<RegExpr attribute="Region Marker" context="#stay" String="//END.*$" endRegion="Region1"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
 				<DetectChar attribute="String" context="String" char="&#39;"/>
 				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
@@ -172,6 +172,7 @@
 			<itemData name="Comment" defStyleNum="dsComment"/>
 			<itemData name="Symbol" defStyleNum="dsNormal"/>
 			<itemData name="Preprocessor"  defStyleNum="dsOthers"/>
+			<itemData name="Region Marker" defStyleNum="dsRegionMarker" />
 		</itemDatas>
 	</highlighting>
 	<general>

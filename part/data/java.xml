@@ -2801,8 +2801,8 @@
 					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
 				</Int>
 				<HlCChar attribute="Char" context="#stay"/>
-				<RegExpr attribute="Decimal" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
-				<RegExpr attribute="Decimal" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
+				<RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
+				<RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
 				<IncludeRules context="##Doxygen" />
 				<Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
@@ -2846,6 +2846,7 @@
 			<itemData name="Comment"      defStyleNum="dsComment"/>
 			<itemData name="Symbol"       defStyleNum="dsNormal"/>
 			<itemData name="Java14"       defStyleNum="dsNormal" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
+			<itemData name="Region Marker" defStyleNum="dsRegionMarker" />
 		</itemDatas>
 	</highlighting>
 	<general>

@@ -622,17 +622,11 @@ bool KateDocument::setText(const QString &s)
 
   editStart ();
 
-  if (!clear())
-  {
-    editEnd ();
-    return false;
-  }
-
-  if (!insertText (0, 0, s))
-  {
-    editEnd ();
-    return false;
-  }
+  // delete the text
+  clear();
+  
+  // insert the new text
+  insertText (0, 0, s);
 
   editEnd ();
 
@@ -665,10 +659,8 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
   if (s.isEmpty())
     return true;
 
-  bool b = false;
-
   if (line == numLines())
-    b = editInsertLine(line,"");
+    editInsertLine(line,"");
   else if (line > lastLine())
     return false;
 
@@ -686,15 +678,15 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
     {
       if ( !blockwise )
       {
-        b = editInsertText (line, insertPos, buf);
-        b = editWrapLine (line, insertPos + buf.length());
+        editInsertText (line, insertPos, buf);
+        editWrapLine (line, insertPos + buf.length());
       }
       else
       {
-        b = editInsertText (line, col, buf);
+        editInsertText (line, col, buf);
 
         if ( line == lastLine() )
-          b = editWrapLine (line, col + buf.length());
+          editWrapLine (line, col + buf.length());
       }
 
       line++;
@@ -706,13 +698,13 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
   }
 
   if ( !blockwise )
-    b = editInsertText (line, insertPos, buf);
+    editInsertText (line, insertPos, buf);
   else
-    b = editInsertText (line, col, buf);
+    editInsertText (line, col, buf);
 
   editEnd ();
 
-  return b;
+  return true;
 }
 
 bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol )
@@ -733,8 +725,6 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
   editStart ();
 
-  bool b = false;
-
   if ( !blockwise )
   {
     if ( endLine > lastLine() )
@@ -745,15 +735,15 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
     if (startLine == endLine)
     {
-      b = editRemoveText (startLine, startCol, endCol-startCol);
+      editRemoveText (startLine, startCol, endCol-startCol);
     }
     else if ((startLine+1) == endLine)
     {
       if ( (buffer->plainLine(startLine)->length()-startCol) > 0 )
-        b = editRemoveText (startLine, startCol, buffer->plainLine(startLine)->length()-startCol);
+        editRemoveText (startLine, startCol, buffer->plainLine(startLine)->length()-startCol);
 
-      b = editRemoveText (startLine+1, 0, endCol);
-      b = editUnWrapLine (startLine);
+      editRemoveText (startLine+1, 0, endCol);
+      editUnWrapLine (startLine);
     }
     else
     {
@@ -761,21 +751,21 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
       {
         if ((line > startLine) && (line < endLine))
         {
-          b = editRemoveLine (line);
+          editRemoveLine (line);
         }
         else
         {
           if (line == endLine)
           {
             if ( endLine <= lastLine() )
-              b = editRemoveText (line, 0, endCol);
+              editRemoveText (line, 0, endCol);
           }
           else
           {
             if ( (buffer->plainLine(line)->length()-startCol) > 0 )
-              b = editRemoveText (line, startCol, buffer->plainLine(line)->length()-startCol);
+              editRemoveText (line, startCol, buffer->plainLine(line)->length()-startCol);
 
-            b = editUnWrapLine (startLine);
+            editUnWrapLine (startLine);
           }
         }
 
@@ -791,7 +781,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
     for (uint line = endLine; line >= startLine; line--)
     {
-      b = editRemoveText (line, startCol, endCol-startCol);
+      editRemoveText (line, startCol, endCol-startCol);
 
       if ( line == 0 )
         break;
@@ -800,7 +790,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
   editEnd ();
 
-  return b;
+  return true;
 }
 
 bool KateDocument::insertLine( uint l, const QString &str )

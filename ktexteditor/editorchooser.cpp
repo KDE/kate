@@ -49,7 +49,7 @@ EditorChooser::EditorChooser(QWidget *parent,const char *name) :
 	KTrader::OfferList offers = KTrader::self()->query("text/plain", "'KTextEditor/Document' in ServiceTypes");
 	KConfig *config=new KConfig("default_components");
   	config->setGroup("KTextEditor");
-  	QString editor = config->readEntry("embeddedEditor", "");
+  	QString editor = config->readPathEntry("embeddedEditor");
 
         if (editor.isEmpty()) editor="katepart";
 
@@ -78,7 +78,7 @@ void EditorChooser::readAppSetting(const QString& postfix){
 	KConfig *cfg=kapp->config();
 	QString previousGroup=cfg->group();
 	cfg->setGroup("KTEXTEDITOR:"+postfix);
-	QString editor=cfg->readEntry("editor","");
+	QString editor=cfg->readPathEntry("editor");
 	if (editor.isEmpty()) d->chooser->editorCombo->setCurrentItem(0);
 	else
 	{
@@ -94,7 +94,8 @@ void EditorChooser::writeAppSetting(const QString& postfix){
 	QString previousGroup=cfg->group();
 	cfg->setGroup("KTEXTEDITOR:"+postfix);
 	cfg->writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
-	cfg->writeEntry("editor",d->chooser->editorCombo->currentItem()==0?"":(*d->elements.at(d->chooser->editorCombo->currentItem()-1)));
+	cfg->writePathEntry("editor", (d->chooser->editorCombo->currentItem()==0) ? 
+		QString::null : (*d->elements.at(d->chooser->editorCombo->currentItem()-1)));
 	cfg->sync();
 	cfg->setGroup(previousGroup);
 
@@ -107,13 +108,13 @@ KTextEditor::Document *EditorChooser::createDocument(QObject *parent,const char*
 	KConfig *cfg=kapp->config();
         QString previousGroup=cfg->group();
         cfg->setGroup("KTEXTEDITOR:"+postfix);
-        QString editor=cfg->readEntry("editor","");
+        QString editor=cfg->readPathEntry("editor");
 	cfg->setGroup(previousGroup);
 	if (editor.isEmpty())
 	{
 		KConfig *config=new KConfig("default_components");
   		config->setGroup("KTextEditor");
-	  	editor = config->readEntry("embeddedEditor", "katepart");
+	  	editor = config->readPathEntry("embeddedEditor", "katepart");
 		delete config;
 	}
 
@@ -137,13 +138,13 @@ KTextEditor::Editor *EditorChooser::createEditor(QWidget *parentWidget,QObject *
         KConfig *cfg=kapp->config();
         QString previousGroup=cfg->group();
         cfg->setGroup("KTEXTEDITOR:"+postfix);
-        QString editor=cfg->readEntry("editor","");
+        QString editor=cfg->readPathEntry("editor");
         cfg->setGroup(previousGroup);
         if (editor.isEmpty())
         {
                 KConfig *config=new KConfig("default_components");
                 config->setGroup("KTextEditor");
-                editor = config->readEntry("embeddedEditor", "katepart");
+                editor = config->readPathEntry("embeddedEditor", "katepart");
                 delete config;
         }
 

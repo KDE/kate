@@ -1545,7 +1545,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   if ( modtype != 3 )
   {
     QHBoxLayout *lo2 = new QHBoxLayout( lo );
-    QPushButton *btnDiff = new QPushButton( i18n("&View Difference..."), w );
+    QPushButton *btnDiff = new QPushButton( i18n("&View Difference"), w );
     lo2->addStretch( 1 );
     lo2->addWidget( btnDiff );
     connect( btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
@@ -1608,7 +1608,7 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
     KMessageBox::sorry( this,
                         i18n("The diff command failed. Please make sure that"
                              "diff(1) is installed and in your PATH."),
-                        i18n("Error creating diff") );
+                        i18n("Error Creating Diff") );
     return;
   }
 
@@ -1625,7 +1625,7 @@ void KateModOnHdPrompt::slotApply()
             "the disk file changes once more): if you save the document, you "
             "will overwrite the file on disk; if you do not save then the disk file "
             "(if present) is what you have."),
-       i18n("You are on your own"),
+       i18n("You Are on Your Own"),
        KStdGuiItem::cont(),
        "kate_ignore_modonhd" ) != KMessageBox::Continue )
     return;

@@ -94,7 +94,7 @@ QString KateAutoIndent::modeDescription (uint mode)
   else if (mode == KateDocumentConfig::imCSAndS)
     return i18n ("S&S C Style");
   else if ( mode == KateDocumentConfig::imVarIndent )
-    return i18n("Variable based Indenter");
+    return i18n("Variable Based Indenter");
 
   return i18n ("None");
 }

@@ -50,6 +50,8 @@ class KateBookmarks : public QObject
     void clearBookmarks();
     void bookmarkMenuAboutToShow();
     void bookmarkMenuAboutToHide();
+    
+    void gotoBookmark( int );
     void goNext();
     void goPrevious();
 
@@ -67,4 +69,5 @@ class KateBookmarks : public QObject
 
 #endif // _KateBookmarks_H_
 
+// kate: space-indent on; indent-width 2; replace-tabs on;
 // vim: noet ts=2

@@ -216,6 +216,13 @@ void KateBookmarks::bookmarkMenuAboutToHide()
   m_bookmarkMenu->insert (m_goPrevious );
 }
 
+void KateBookmarks::gotoBookmark( int id )
+{
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+  if ( m.count() < (uint)id ) return; // unlikely
+  m_view->gotoLineNumber( m.at( id )->line );
+}
+
 void KateBookmarks::goNext()
 {
   QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();

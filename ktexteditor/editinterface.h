@@ -35,11 +35,6 @@ class EditInterface
     virtual QString text () const = 0;
 
     /**
-    *  @return a QString
-    */
-    virtual QString text ( int line, int col, int len ) const = 0;
-
-    /**
     * @return All the text from the requested line.
     */
     virtual QString textLine ( int line ) const = 0;

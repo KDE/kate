@@ -101,6 +101,7 @@ LineRange::LineRange()
   , dirty(false)
   , viewLine(-1)
   , wrap(false)
+  , startsInvisibleBlock(false)
 {
 }
 
@@ -114,6 +115,7 @@ void LineRange::clear()
   endX = -1;
   viewLine = -1;
   wrap = false;
+  startsInvisibleBlock = false;
 }
 
 //
@@ -4068,7 +4070,6 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
   static QPixmap* doubleBufferBuf = 0L;
 
   const bool doubleBuffer = true;
-  int saveY = y;
 
   // font data
   const FontStruct & fs = getFontStruct(wf);
@@ -4172,7 +4173,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
   uint curCol = startcol;
 
   // or we will see no text ;)
-  uint oldY = y;
+  const uint oldY = y;
   y += fs.fontAscent;
 
   // painting loop
@@ -4196,7 +4197,14 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
   bool isSel = false;
 
   //kdDebug(13020)<<"paint 1"<<endl;
-
+  
+  if (range.startsInvisibleBlock) {
+    localPaint->save();
+    localPaint->setPen(QPen(colors[4], 1, Qt::DashLine));
+    localPaint->drawLine(xPos2, oldY + fs.fontHeight - 1, xPos2 + xEnd - xStart, oldY + fs.fontHeight - 1);
+    localPaint->restore();
+  }
+  
   if (len < 1)
   {
     //  kdDebug(13020)<<"paint 2"<<endl;
@@ -4354,7 +4362,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
 
   if (doubleBuffer) {
     localPaint->end();
-    bitBlt(paint.device(), xPos2, saveY, doubleBufferBuf);
+    bitBlt(paint.device(), xPos2, oldY, doubleBufferBuf);
 
     //These are static, so don't worry...
     //delete localPaint;

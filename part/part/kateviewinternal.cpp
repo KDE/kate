@@ -375,7 +375,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
     int lines = linesDisplayed();
     if ((int)m_doc->numVisLines() < lines) {
       KateTextCursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
-      lines = QMIN(linesDisplayed(), displayViewLine(end) + 1);
+      lines = QMIN((int)linesDisplayed(), displayViewLine(end) + 1);
     }
 
     Q_ASSERT(lines >= 0);
@@ -496,6 +496,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     {
       if (oldLine != line) {
         realLine = (int)m_doc->getRealLine(line);
+        
+        if (z)
+          lineRanges[z-1].startsInvisibleBlock = (realLine != lineRanges[z-1].line + 1);
+          
         text = m_doc->kateTextLine(realLine);
         startCol = 0;
         startX = 0;
@@ -584,7 +588,11 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     {
       if (lineRanges[z].dirty || lineRanges[z].line != (int)m_doc->getRealLine(z + startLine())) {
         lineRanges[z].dirty = true;
+        
         lineRanges[z].line = m_doc->getRealLine( z + startLine() );
+        if (z)
+          lineRanges[z-1].startsInvisibleBlock = (lineRanges[z-1].line != lineRanges[z].line + 1);
+
         lineRanges[z].visibleLine = z + startLine();
         lineRanges[z].startCol = 0;
         lineRanges[z].endCol = m_doc->lineLength(lineRanges[z].line);
@@ -753,11 +761,11 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
 {
   kdDebug(13030) << "slotRegionVisibilityChangedAt()" << endl;
-  m_cachedMaxStartPos.line = -1;  
+  m_cachedMaxStartPos.line = -1;
   KateTextCursor max = maxStartPos();
   if (startPos() > max)
     scrollPos(max);
-  
+
   updateView();
   update();
   leftBorder->update();

@@ -80,8 +80,7 @@ class LineRange
     bool dirty;
     int viewLine;
     bool wrap;
-// This variable is always equal to !wrap
-//    bool lineEnd;
+    bool startsInvisibleBlock;
 };
 
 //

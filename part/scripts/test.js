@@ -1,13 +1,12 @@
-$test = 1;
+var test = 1;
 
-$start = document.numLines ()
+var start = document.numLines ()
 
 document.editBegin();
-for ($t = 0; $t < 1000; $t++)
+for (var t = 0; t < 10000; t++)
 {
-  document.insertLine ($start+$t, document.lineLength(0));
-  document.insertText ($start+$t, 0, " muh");
-  document.insertText ($start+$t, 0, view.cursorLine());
+  document.insertLine (start+t, document.lineLength(0));
+  document.insertText (start+t, 0, " muh");
+  document.insertText (start+t, 0, view.cursorLine());
 }
 document.editEnd();
-

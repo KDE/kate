@@ -41,6 +41,7 @@
 #include "katesearch.h"
 #include "kateconfig.h"
 #include "katefiletype.h"
+#include "kateautoindent.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -295,6 +296,9 @@ void KateView::setupActions()
 
   m_schemaMenu = new KateViewSchemaAction (i18n("&Schema"),ac,"view_schemas");
   m_schemaMenu->updateMenu (this);
+
+  // indentation menu
+  new KateViewIndentationAction (m_doc, i18n("&Indentation Mode"),ac,"tools_indentation");
 
   m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 

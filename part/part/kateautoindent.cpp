@@ -26,7 +26,7 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <qpopupmenu.h>
+#include <kpopupmenu.h>
 
 //BEGIN KateAutoIndent
 
@@ -126,6 +126,29 @@ KateAutoIndent::~KateAutoIndent ()
 }
 
 //END KateAutoIndent
+
+//BEGIN KateHighlightAction
+KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, QObject* parent, const char* name)
+       : KActionMenu (text, parent, name), doc(_doc)
+{
+  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KateViewIndentationAction::slotAboutToShow()
+{
+  QStringList modes = KateAutoIndent::listModes ();
+
+  for (uint z=0; z<modes.size(); ++z)
+    popupMenu()->insertItem ( '&' + KateAutoIndent::modeDescription(z), this, SLOT(setMode(int)), 0,  z);
+
+  popupMenu()->setItemChecked (doc->config()->indentationMode(), true);
+}
+
+void KateViewIndentationAction::setMode (int mode)
+{
+  doc->config()->setIndentationMode((uint)mode);
+}
+//END KateViewIndentationAction
 
 //BEGIN KateNormalIndent
 

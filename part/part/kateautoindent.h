@@ -136,6 +136,25 @@ class KateAutoIndent
     KateDocument *doc;
 };
 
+class KateViewIndentationAction : public KActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KateViewIndentationAction(KateDocument *_doc, const QString& text, QObject* parent = 0, const char* name = 0);
+
+    ~KateViewIndentationAction(){;};
+
+  private:
+    KateDocument* doc;
+
+  public  slots:
+    void slotAboutToShow();
+
+  private slots:
+    void setMode (int mode);
+};
+
 /**
  * Provides Auto-Indent functionality for katepart.
  */

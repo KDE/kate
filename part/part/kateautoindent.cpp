@@ -1092,10 +1092,13 @@ void KateXmlIndent::processLine (KateDocCursor &line)
   processLine (line.line());
 }
 
-void KateXmlIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
+void KateXmlIndent::processSection (KateDocCursor &cur, KateDocCursor &end)
 {
   uint endLine = end.line();
-  for(uint line = begin.line(); line <= endLine; ++line) processLine(line);
+  do {
+    processLine(cur.line());
+    if(!cur.gotoNextLine()) break;
+  }while(cur.line() < endLine);
 }
 
 void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
@@ -1198,6 +1201,7 @@ void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
 uint KateXmlIndent::processLine (uint line)
 {
   KateTextLine::Ptr kateLine = doc->plainKateTextLine(line);
+  if(!kateLine) return 0; // sanity check
 
   // get details from previous line
   uint prevIndent = 0, attrCol = 0;

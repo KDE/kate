@@ -25,9 +25,7 @@
 
 #include "kateglobal.h"
 #include "katedocument.h"
-
-#include <qptrlist.h>
-#include <qdialog.h>
+#include "katesearch.h"
 
 class KToggleAction;
 class KAction;
@@ -37,12 +35,6 @@ class KateDocument;
 class KateViewInternal;
 class KateBookmarks;
 class KateBrowserExtension;
-
-//state commands
-enum State_commands {
-  cmToggleInsert      = 1,
-  cmToggleVertical    = 2
-};
 
 //
 // Kate KTextEditor::View class ;)
@@ -229,39 +221,14 @@ class KateView : public Kate::View
 
 //search/replace functions
   public slots:
-    /**
-      Presents a search dialog to the user
-    */
-    void find();
-    /**
-      Presents a replace dialog to the user
-    */
-    void replace();
-    /**
-      Presents a "Goto Line" dialog to the user
-    */
+    void find()                   { m_search->find(); }
+    void replace()                { m_search->replace(); }
+    void findAgain( bool back )   { m_search->findAgain( back ); }
+    void findAgain()              { findAgain( false ); }
+    void findPrev()               { findAgain( true ); }
+
     void gotoLine();
-    /**
-      Goes to a given line number; also called by the gotoline slot.
-    */
     void gotoLineNumber( int linenumber );
-    void findAgain(bool back=false);
-//    void findAgain () { findAgain(false); };
-    void findPrev () { findAgain(true); };
-    
-  private:
-    void initSearch(SConfig &, int flags);
-    void continueSearch(SConfig &);
-    void findAgain(SConfig &);
-    void replaceAgain();
-    void doReplaceAction(int result, bool found = false);
-    void exposeFound(KateTextCursor &cursor, int slen, int flags, bool replace);
-    void deleteReplacePrompt();
-    bool askReplaceEnd();
-
-  private slots:
-    void replaceSlot();
-
 
 //code completion
   private:
@@ -304,13 +271,6 @@ class KateView : public Kate::View
     void setEol(int eol);
   
 public:
-    enum Dialog_results {
-      srYes = QDialog::Accepted,
-      srNo = 10,
-      srAll,
-      srCancel = QDialog::Rejected
-    };
-
     enum Edit_commands {
         cmReturn = 1,
         cmDelete, cmBackspace, cmKillLine,
@@ -318,10 +278,6 @@ public:
         cmIndent, cmUnindent, cmCleanIndent,
         cmComment, cmUncomment,
         cmTranspose
-    };
-
-    enum Find_commands {
-        cmFind = 1, cmReplace, cmFindAgain, cmGotoLine
     };
 
 public:
@@ -414,6 +370,7 @@ private:
     KateDocument*          myDoc;
     KateViewInternal*      myViewInternal;
     KAccel*                m_editAccels;
+    KateSearch*            m_search;
     KateBookmarks*         m_bookmarks;
     KateBrowserExtension*  m_extension;
     QPopupMenu*            m_rmbMenu;
@@ -421,10 +378,6 @@ private:
     bool       m_active;
     int        m_iconBorderStatus;
     bool       m_hasWrap;
-
-    uint       searchFlags;
-    int        replaces;
-    QDialog*   replacePrompt;
 };
 
 #endif

@@ -1,6 +1,6 @@
 lib_LTLIBRARIES = libkatepart.la
 
-libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attrib_skel.ui \
+libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attrib_skel.ui \
 			 katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
 			 katesyntaxdocument.cpp katetextline.cpp kateview.cpp \
 			 kateviewdialog.cpp kateviewhighlightaction.cpp \
@@ -8,8 +8,7 @@ libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attr
 			 kateiconborder.cpp katecodecompletion_arghint.cpp \
 			 katecodecompletion_iface_impl.cpp hlparamedit.cpp kateexportaction.cpp \
 			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
-			 katebookmarks.cpp katebrowserextension.cpp
-
+			 katebookmarks.cpp katebrowserextension.cpp 
 
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kspell/libkspell.la $(top_builddir)/kdeprint/libkdeprint.la
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN) -module -avoid-version

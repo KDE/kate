@@ -20,7 +20,7 @@
 // $Id$
 
 #include "kateviewdialog.h"
-#include "kateview.h"
+#include "katesearch.h"
 #include "katedocument.h"
 
 #include <stdio.h>
@@ -100,7 +100,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
     regexpButton->setEnabled( false );
   }
 
-  if( flags & KateDocument::sfReplace )
+  if( flags & SConfig::sfReplace )
   {
     // make it a replace dialog
     setCaption( i18n( "Replace Text" ) );
@@ -131,7 +131,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   m_opt3 = new QCheckBox(i18n("&From beginning" ), group );
   gbox->addWidget( m_opt3, 2, 1 );
 
-  if( flags & KateDocument::sfReplace )
+  if( flags & SConfig::sfReplace )
   {
     m_opt5 = new QCheckBox(i18n("&Selected text" ), group );
     gbox->addWidget( m_opt5, 2, 1 );
@@ -139,15 +139,15 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
     gbox->addWidget( m_opt6, 3, 1 );
     connect(m_opt5, SIGNAL(stateChanged(int)), this, SLOT(selectedStateChanged(int)));
     connect(m_opt6, SIGNAL(stateChanged(int)), this, SLOT(selectedStateChanged(int)));
-    m_opt5->setChecked( flags & KateDocument::sfSelected );
-    m_opt6->setChecked( flags & KateDocument::sfPrompt );
+    m_opt5->setChecked( flags & SConfig::sfSelected );
+    m_opt6->setChecked( flags & SConfig::sfPrompt );
   }
 
-  m_opt1->setChecked( flags & KateDocument::sfCaseSensitive );
-  m_opt2->setChecked( flags & KateDocument::sfWholeWords );
-  m_opt3->setChecked( flags & KateDocument::sfFromBeginning );
-  m_optRegExp->setChecked( flags & KateDocument::sfRegularExpression );
-  m_opt4->setChecked( flags & KateDocument::sfBackward );
+  m_opt1->setChecked( flags & SConfig::sfCaseSensitive );
+  m_opt2->setChecked( flags & SConfig::sfWholeWords );
+  m_opt3->setChecked( flags & SConfig::sfFromBeginning );
+  m_optRegExp->setChecked( flags & SConfig::sfRegularExpression );
+  m_opt4->setChecked( flags & SConfig::sfBackward );
 
   m_search->setFocus();
 }
@@ -179,22 +179,22 @@ int SearchDialog::getFlags()
 {
   int flags = 0;
 
-  if( m_opt1->isChecked() ) flags |= KateDocument::sfCaseSensitive;
-  if( m_opt2->isChecked() ) flags |= KateDocument::sfWholeWords;
-  if( m_opt3->isChecked() ) flags |= KateDocument::sfFromBeginning;
-  if( m_opt4->isChecked() ) flags |= KateDocument::sfBackward;
-  if( m_optRegExp->isChecked() ) flags |= KateDocument::sfRegularExpression;
+  if( m_opt1->isChecked() ) flags |= SConfig::sfCaseSensitive;
+  if( m_opt2->isChecked() ) flags |= SConfig::sfWholeWords;
+  if( m_opt3->isChecked() ) flags |= SConfig::sfFromBeginning;
+  if( m_opt4->isChecked() ) flags |= SConfig::sfBackward;
+  if( m_optRegExp->isChecked() ) flags |= SConfig::sfRegularExpression;
   if( m_replace )
   {
     if( m_opt6->isChecked() )
-      flags |= KateDocument::sfPrompt;
+      flags |= SConfig::sfPrompt;
     else
     {
       if( m_opt5->isChecked() )
-        flags |= KateDocument::sfSelected;
+        flags |= SConfig::sfSelected;
     }
 
-    flags |= KateDocument::sfReplace;
+    flags |= SConfig::sfReplace;
   }
 
   return flags;
@@ -262,11 +262,11 @@ ReplacePrompt::ReplacePrompt( QWidget *parent )
 }
 
 void ReplacePrompt::slotUser1( void ) { // All
-  done(KateView::srAll);
+  done(KateSearch::srAll);
 }
 
 void ReplacePrompt::slotUser2( void ) { // No
-  done(KateView::srNo);
+  done(KateSearch::srNo);
 }
 
 void ReplacePrompt::slotUser3( void ) { // Yes

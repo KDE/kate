@@ -21,9 +21,6 @@
 
 #include <config.h>
 
-#include <qstring.h>
-#include <qregexp.h>
-
 class KateTextCursor
 {
   public:
@@ -47,28 +44,6 @@ class BracketMark
     KateTextCursor cursor;
     int sXPos;
     int eXPos;
-};
-
-//
-// config + options for the user search
-//
-class SConfig
-{
-  public:
-    KateTextCursor cursor;
-    int flags;
-
-    // Set the pattern to be used for searching.
-    void setPattern(QString &newPattern);
-
-    // The length of the last match found using pattern or regExp.
-    int matchedLength;
-
-    QString m_pattern;
-
-    // The regular expression corresponding to pattern. Only guaranteed valid if
-    // flags has sfRegularExpression set.
-    QRegExp m_regExp;
 };
 
 #endif

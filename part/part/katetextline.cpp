@@ -21,6 +21,7 @@
 
 #include "katetextline.h"
 #include <kdebug.h>
+#include <qregexp.h>
 
 TextLine::TextLine()
   : foldingListValid(false),attr (0), hlContinue(false),m_visible(true)

@@ -22,6 +22,7 @@
 #define kate_document_h
 
 #include "kateglobal.h"
+#include "katesearch.h"
 #include "katetextline.h"
 #include "../interfaces/document.h"
 
@@ -717,21 +718,6 @@ class KateDocument : public Kate::Document
   // Some flags for internal ONLY use !
   //
   public:
-    // Search flags
-    enum SearchFlags
-    {
-      sfCaseSensitive=1,
-      sfWholeWords=2,
-      sfFromBeginning=4,
-      sfBackward=8,
-      sfSelected=16,
-      sfPrompt=32,
-      sfReplace=64,
-      sfAgain=128,
-      sfWrapped=256,
-      sfFinished=512,
-      sfRegularExpression=1024
-    };
 
     // result flags for katepart's internal dialogs
     enum DialogResults
@@ -789,18 +775,12 @@ class KateDocument : public Kate::Document
 
     class KateCmd *myCmd;
 
-    static QStringList searchForList;
-    static QStringList replaceWithList;
-
     QMemArray<Attribute> myAttribs;
 
     //
     // core katedocument config !
     //
     uint _configFlags;
-    uint _searchFlags;
-    SConfig s;
-
 
    /**
     * Implementation of the mark interface

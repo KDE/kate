@@ -392,13 +392,13 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   //hbmt->setStretchFactor(mimetypes, 1);
 
   // styles listview
-  QLabel *lSt = new QLabel( i18n("Context &styles:"), gbProps );
+  /*QLabel *lSt = new QLabel( i18n("Context &styles:"), gbProps );
   lvStyles = new StyleListView( gbProps, true );
   lSt->setBuddy( lvStyles );
 
   lvStyles->hide();
-  new QLabel("<b><font size=6>DISABLED</font></b>", gbProps);
-
+ // new QLabel("<b><font size=6>DISABLED</font></b>", gbProps);
+*/
   // download/new buttons
   QHBox *hbBtns = new QHBox( this );
   layout->add (hbBtns);
@@ -418,7 +418,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   QWhatsThis::add( wildcards, i18n("The list of file extensions used to determine which files to highlight using the current syntax highlight mode.") );
   QWhatsThis::add( mimetypes, i18n("The list of Mime Types used to determine which files to highlight using the current highlight mode.<p>Click the wizard button on the left of the entry field to display the MimeType selection dialog.") );
   QWhatsThis::add( btnMTW,    i18n("Display a dialog with a list of all available mime types to choose from.<p>The <strong>File Extensions</strong> entry will automatically be edited as well.") );
-  QWhatsThis::add( lvStyles,  i18n("This list displays the contexts of the current syntax highlight mode and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
+  //QWhatsThis::add( lvStyles,  i18n("This list displays the contexts of the current syntax highlight mode and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
   QWhatsThis::add( btnDl,     i18n("Click this button to download new or updated syntax highlight descriptions from the Kate website.") );
   QWhatsThis::add( btnNew,    i18n("Click this button to create a new syntax highlight mode using the Highlight Mode Editor(tm)") );
 
@@ -429,9 +429,9 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   layout->addStretch ();
 }
 
-void HighlightDialogPage::hlChanged(int /*z*/)
+void HighlightDialogPage::hlChanged(int z)
 {
-/*  writeback();
+  writeback();
 
   if ( ! hlDataDict->find( z ) ) {
     kdDebug()<<"getting hl data ("<<z<<") - count is "<<hlDataDict->count()<<endl;
@@ -441,16 +441,6 @@ void HighlightDialogPage::hlChanged(int /*z*/)
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
   priority->setValue(hlData->priority);
-
-  lvStyles->clear();
-  int xx(0);
-  for (ItemData *itemData = hlData->itemDataList.first();
-          itemData != 0L;
-             itemData = hlData->itemDataList.next()) {
-   kdDebug()<<xx++<<": "<<itemData->name.latin1()<<" :defStyleNum "<<itemData->defStyleNum<<endl;
-    lvStyles->insertItem( new StyleListItem( lvStyles, i18n(itemData->name.latin1()),
-                                 defaultItemStyleList->at(itemData->defStyleNum), itemData ) );
-  }*/
 }
 
 void HighlightDialogPage::writeback() {
@@ -458,14 +448,6 @@ void HighlightDialogPage::writeback() {
     hlData->wildcards = wildcards->text();
     hlData->mimetypes = mimetypes->text();
     hlData->priority = priority->value();
-
-    QListViewItemIterator it ( lvStyles );
-    while( it.current() )
-    {
-      ((StyleListItem*)it.current())->updateStyle();
-      kdDebug()<<"updated "<<it.current()->text(0)<<endl;
-      ++it;
-    }
   }
 }
 

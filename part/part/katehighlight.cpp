@@ -1206,14 +1206,12 @@ HlData *Highlight::getData()
   KConfig *config = getKConfig();
 
   HlData *hlData = new HlData(
-    config->readEntry("Wildcards", iWildcards),
-    config->readEntry("Mimetypes", iMimetypes),
-    config->readEntry("Identifier", identifier),
-    config->readNumEntry("Priority", m_priority));
-
-  getItemDataList(hlData->itemDataList, config);
-
-  return hlData;
+  config->readEntry("Wildcards", iWildcards),
+  config->readEntry("Mimetypes", iMimetypes),
+  config->readEntry("Identifier", identifier),
+  config->readNumEntry("Priority", m_priority));
+ 
+ return hlData;
 }
 
 void Highlight::setData(HlData *hlData)
@@ -1223,8 +1221,6 @@ void Highlight::setData(HlData *hlData)
   config->writeEntry("Wildcards",hlData->wildcards);
   config->writeEntry("Mimetypes",hlData->mimetypes);
   config->writeEntry("Priority",hlData->priority);
-
-  setItemDataList(hlData->itemDataList,config);
 
   config->sync ();
 }

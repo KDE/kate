@@ -328,6 +328,8 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
 
   m_defaultStyles = new StyleListView( this, false );
   grid->addWidget( m_defaultStyles, 0, 0);
+  
+  connect (m_defaultStyles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
 
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()

@@ -522,9 +522,12 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 
   m_doc->newBracketMark( cursor, bm );
 
-  tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
-  tagLines( displayCursor.line, displayCursor.line );
-  tagLines( bm.cursor.line, bm.cursor.line );
+  bool b ( oldDisplayCursor.line != displayCursor.line );
+  if ( b )
+    tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
+  tagLines( displayCursor.line, displayCursor.line, b );
+  if ( bm.eXPos > -1 ) // anders: don't unless required!
+    tagLines( bm.cursor.line, bm.cursor.line, bm.cursor.line != displayCursor.line );
 
   QPoint cursorP = cursorCoordinates();
   setMicroFocusHint( cursorP.x(), cursorP.y(), 0, m_doc->viewFont.fontHeight );
@@ -538,13 +541,14 @@ void KateViewInternal::tagRealLines( int start, int end )
   tagLines( m_doc->getVirtualLine( start ), m_doc->getVirtualLine( end ) );
 }
 
-void KateViewInternal::tagLines( int start, int end )
+void KateViewInternal::tagLines( int start, int end, bool updateLeftBorder )
 {
   //kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
   int y = lineToContentsY( start );
   int h = (end - start + 1) * m_doc->viewFont.fontHeight;
   updateContents( contentsX(), y, visibleWidth(), h );  
-  leftBorder->update (0, y-contentsY(), leftBorder->width(), h);
+  if ( updateLeftBorder )
+    leftBorder->update (0, y-contentsY(), leftBorder->width(), h);
 }
 
 void KateViewInternal::tagAll()

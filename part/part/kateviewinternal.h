@@ -151,7 +151,7 @@ class KateViewInternal : public QScrollView
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& );
     
-    void tagLines(int start, int end);
+    void tagLines(int start, int end, bool updateLeftBorder=true );
     void tagRealLines(int start, int end);
     void tagAll();
 

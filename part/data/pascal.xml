@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.05" kateversion="2.1" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.06" kateversion="2.1" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
         <highlighting>
                 <list name="keywords">
                         <item> and </item>
@@ -130,7 +130,7 @@
                                 <Detect2Chars attribute="Comment" context="Comment3" char="/" char1="/"/>
                         </context>
                         <context attribute="String" lineEndContext="#pop" name="String">
-                                <DetectChar attribute="String" context="#pop" char="&quot;"/>
+                                <DetectChar attribute="String" context="#pop" char="&apos;"/>
                         </context>
                         <context attribute="Directive" lineEndContext="#pop" name="Prep1">
                                 <Detect2Chars attribute="Directive" context="#pop" char="*" char1=")"/>

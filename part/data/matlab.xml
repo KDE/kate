@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Matlab M-File" version="1.04" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
+<language name="Matlab M-File" version="1.05" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -143,7 +143,7 @@
           <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
           <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
-        <RegExpr String="\b([\w]+[\d\w]*)?[\s]*([([][],:[\d\s\w]*[])])?[']" attribute="Transpose" context="#stay"/>
+        <RegExpr String="\b([\w]+[\d\w]*)?[\s]*([([][]-,:[+*/\d\s\w]*[])])?[']" attribute="Transpose" context="#stay"/>
         <RegExpr String= "%.*$" attribute="Comment" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&apos;"/>
       </context>
@@ -154,16 +154,16 @@
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword"  defStyleNum="dsKeyword" color="#1414e4" selColor="#ffd60b"/>
-      <itemData name="Data Type"  defStyleNum="dsDataType"/>
-      <itemData name="Decimal"  defStyleNum="dsDecVal" color="#000000" selColor="#ffffff"/>
-      <itemData name="Octal"  defStyleNum="dsBaseN"/>
-      <itemData name="Hex"  defStyleNum="dsBaseN"/>
-      <itemData name="Float"  defStyleNum="dsFloat"/>
-      <itemData name="Transpose"  defStyleNum="dsNormal" color="#000080"/>
-      <itemData name="String"  defStyleNum="dsString" color="#ff0000" selColor="#ff0000"/>
-      <itemData name="Comment"  defStyleNum="dsComment" color="#2b7805" selColor="#945ca4"/>
-      <itemData name="Command"  defStyleNum="dsCommand" color="#000000" selColor="#ffffff" bold="1"/>
+      <itemData name="Keyword"     defStyleNum="dsKeyword" color="#1414e4" selColor="#ffd60b"/>
+      <itemData name="Data Type"   defStyleNum="dsDataType"/>
+      <itemData name="Decimal"     defStyleNum="dsDecVal" color="#000000" selColor="#ffffff"/>
+      <itemData name="Octal"       defStyleNum="dsBaseN"/>
+      <itemData name="Hex"         defStyleNum="dsBaseN"/>
+      <itemData name="Float"       defStyleNum="dsFloat"/>
+      <itemData name="Transpose"   defStyleNum="dsNormal" color="#000080"/>
+      <itemData name="String"      defStyleNum="dsString" color="#ff0000" selColor="#ff0000"/>
+      <itemData name="Comment"     defStyleNum="dsComment" color="#2b7805" selColor="#945ca4"/>
+      <itemData name="Command"     defStyleNum="dsCommand" color="#000000" selColor="#ffffff" bold="1"/>
     </itemDatas>
   </highlighting>
   <general>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="scilab" version="1.00" kateversion="2.0/2.1" section="Sources" extensions="*.sci;*.sce" mimetype="text/x-sci">
+<language name="scilab" version="1.01" kateversion="2.0/2.1" section="Sources" extensions="*.sci;*.sce" mimetype="text/x-sci">
   <highlighting>
     <list name="Structure-keywords">
       <item> do </item>
@@ -1161,12 +1161,6 @@
         <keyword attribute="Function-keywords" context="#stay" String="Function-keywords"/>
         <keyword attribute="Warning-keywords" context="#stay" String="Warning-keywords"/>
         <keyword attribute="Constants-keyword" context="#stay" String="Constants-keyword"/>
-        <StringDetect String= "%inf" attribute = "Constants-keyword" context="#stay"/>
-        <StringDetect String= "%pi" attribute = "Constants-keyword" context="#stay"/>
-        <StringDetect String= "%io" attribute = "Constants-keyword" context="#stay"/>
-        <StringDetect String= "%nan" attribute = "Constants-keyword" context="#stay"/>
-        <StringDetect String= "%eps" attribute = "Constants-keyword" context="#stay"/>
-        <RegExpr String= "%[FfTteisz]" attribute = "Constants-keyword" context="#stay"/>
         <keyword attribute="functions" context="#stay" String="functions"/>
         <Float attribute = "Flo" context="#stay"/>
         <Int attribute = "Decimal" context="#stay"/>
@@ -1185,13 +1179,13 @@
       <itemData name="Decimal" defStyleNum = "dsDecVal"/>
       <itemData name="Float" defStyleNum = "dsFloat"/>
       <itemData name="Comment" defStyleNum = "dsComment"/>
-      <itemData name = "String" defStyleNum = "dsString"/>
+      <itemData name="String" defStyleNum = "dsString"/>
     </itemDatas>
   </highlighting>
   <general>
     <comments>
       <comment name="singleLine" start="//" />
     </comments>
-    <keywords casesensitive="1" />
+    <keywords casesensitive="1" weakDeliminator="%" />
   </general>
 </language>

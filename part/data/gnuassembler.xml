@@ -9,6 +9,10 @@
 *                                                                       *
 *************************************************************************
 
+Updated:  Roland Pabel <roland@pabel.name>
+Date:     15th August, 2002
+Version:  1.01
+
 Author:   John Zaitseff <J.Zaitseff@zap.org.au>
 Date:     15th April, 2002
 Version:  1.0
@@ -35,8 +39,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 -->
 
-<language name="GNU Assembler" section="Sources"
-  extensions="*.s;*.S;*.inc" mimetype="text/x-asm">
+<language name="GNU Assembler" version="1.01" kateversion="2.0" section="Sources" extensions="*.s;*.S;*.inc" mimetype="text/x-asm">
   <highlighting>
     <list name="keywords">
       <item>.abort</item>
@@ -221,40 +224,34 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     </list>
 
     <contexts>
-      <context attribute="0" lineEndContext="0">
-	<RegExpr      attribute="1" context="0"
-	  String="^\s*[A-Za-z0-9_.$]+:" />
-	<keyword      attribute="2" context="0" String="keywords"
-	  weakDelimiter="_.$" />
-	<HlCOct       attribute="4" context="0" />
-	<HlCHex       attribute="5" context="0" />
-	<RegExpr      attribute="6" context="0" String="0[bB][01]+" />
-	<Int          attribute="3" context="0" />
-	<RegExpr      attribute="7" context="0"
-	  String="0[fFeEdD][-+]?[0-9]*\.?[0-9]*[eE]?[-+]?[0-9]+" />
-	<RegExpr      attribute="0" context="0"
-	  String="[A-Za-z_.$][A-Za-z0-9_.$]*" />
-	<RegExpr      attribute="8" context="0"
-	  String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)" />
-	<DetectChar   attribute="9" context="4" char="&quot;" />
-	<Detect2Chars attribute="12" context="1" char="/" char1="*" />
-	<DetectChar   attribute="12" context="2" char="@" />
-	<DetectChar   attribute="12" context="2" char=";" />
-	<AnyChar      attribute="11" context="0"
-	  String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
-	<RegExpr      attribute="13" context="3" String="^#" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <RegExpr      attribute="Label" context="#stay" String="^\s*[A-Za-z0-9_.$]+:" />
+        <keyword      attribute="Keyword" context="#stay" String="keywords"/>
+        <HlCOct       attribute="Octal" context="#stay" />
+        <HlCHex       attribute="Hex" context="#stay" />
+        <RegExpr      attribute="Binary" context="#stay" String="0[bB][01]+" />
+        <Int          attribute="Decimal" context="#stay" />
+        <RegExpr      attribute="Float" context="#stay" String="0[fFeEdD][-+]?[0-9]*\.?[0-9]*[eE]?[-+]?[0-9]+" />
+        <RegExpr      attribute="Normal Text" context="#stay" String="[A-Za-z_.$][A-Za-z0-9_.$]*" />
+        <RegExpr      attribute="Char" context="#stay" String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)" />
+        <DetectChar   attribute="String" context="String" char="&quot;" />
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="*" />
+        <DetectChar   attribute="Comment" context="Commentar 2" char="@" />
+        <DetectChar   attribute="Comment" context="Commentar 2" char=";" />
+        <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
+        <RegExpr      attribute="Preprocessor" context="Preprocessor" String="^#" />
       </context>
-      <context attribute="12" lineEndContext="1">
-	<Detect2Chars attribute="12" context="0" char="*" char1="/" />
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar 1">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
       </context>
-      <context attribute="12" lineEndContext="0" />
-      <context attribute="13" lineEndContext="0" />
-      <context attribute="9" lineEndContext="0">
-	<LineContinue  attribute="9" context="5" />
-	<HlCStringChar attribute="10" context="4" />
-	<DetectChar    attribute="9" context="0" char="&quot;" />
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" />
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor" />
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue  attribute="String" context="Some Context" />
+        <HlCStringChar attribute="String Char" context="#stay" />
+        <DetectChar    attribute="String" context="#pop" char="&quot;" />
       </context>
-      <context attribute="0" lineEndContext="4" />
+      <context attribute="Normal Text" lineEndContext="#pop" name="Some Context" />
     </contexts>
 
     <itemDatas>
@@ -281,6 +278,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <comment name="singleLine" start="@" />
       <comment name="multiLine"  start="/*" end="*/" />
     </comments>
-    <keywords casesensitive="1" weakDelimiter="_.$" />
+    <keywords casesensitive="1" weakDeliminator="_.$" />
   </general>
 </language>

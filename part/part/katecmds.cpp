@@ -80,7 +80,7 @@ static int backslashString(const QString &haystack, const QString &needle, int i
 		index++;
 
 	}
-	
+
 	return -1;
 }
 
@@ -116,9 +116,9 @@ QString SedReplace::sedMagic(QString textLine, const QString &find, const QStrin
 		start=matcher.search(textLine, start);
 
 		if (start==-1) break;
-		
+
 		int length=matcher.matchedLength();
-		
+
 
 		QString rep=repOld;
 
@@ -144,7 +144,7 @@ QString SedReplace::sedMagic(QString textLine, const QString &find, const QStrin
 					index+=(*i).length();
 				}
 			}
-			
+
 			refnum++;
 		}
 
@@ -156,11 +156,11 @@ QString SedReplace::sedMagic(QString textLine, const QString &find, const QStrin
 		start+=rep.length();
 	}
 
-	
+
 	return textLine;
 }
-	
-	
+
+
 static void setLineText(KateView *view, int line, const QString &text)
 {
 	if (view->doc()->insertLine(line, text))
@@ -180,7 +180,7 @@ bool SedReplace::execCmd(QString cmd, KateView *view)
 	bool onlySelect=cmd[0]=='$';
 
 
-	QRegExp splitter("^s/((?:[^\\\\/]|\\\\.)*)/((?:[^\\\\/]|\\\\.)*)/[ig]*$");
+	QRegExp splitter("^[$%]?s/((?:[^\\\\/]|\\\\.)*)/((?:[^\\\\/]|\\\\.)*)/[ig]*$");
 	if (splitter.search(cmd)<0) return false;
 
 	QString find=splitter.cap(1);

@@ -1556,7 +1556,7 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 
   // Will be removed eventuall. Atm used for StringDetect
   bool insensitive=( HlManager::self()->syntax->groupItemData(data,QString("insensitive")).lower() == QString("true") );
-  // anders: very resonable for regexp too!
+  // anders: very reasonable for regexp too!
 
   // for regexp only
   bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == QString("true") );
@@ -1878,7 +1878,7 @@ void Highlight::makeContextList()
       it=embeddedHls.insert(it.key(),EmbeddedHlInfo(true,startctx)); //mark hl as loaded
       buildContext0Offset=startctx;  //set class member for context 0 offset, so we don't need to pass it around
       startctx=addToContextList(identifierToUse,startctx);  //parse one hl definition file
-      if (noHl) return;  // an error occured
+      if (noHl) return;  // an error occurred
       something_changed=true; // something has been loaded
 
     }

@@ -259,7 +259,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
   QString currentLine = m_view->currentTextLine();
   int len = m_view->cursorColumnReal() - m_colCursor;
   QString currentComplText = currentLine.mid(m_colCursor,len);
-/* Noone really badly wants those, or?
+/* No-one really badly wants those, or?
   kdDebug(13035) << "Column: " << m_colCursor << endl;
   kdDebug(13035) << "Line: " << currentLine << endl;
   kdDebug(13035) << "CurrentColumn: " << m_view->cursorColumnReal() << endl;

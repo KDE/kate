@@ -51,12 +51,15 @@
 #include <qclipboard.h>
 #include <qpixmap.h>
 
+static const int TimeMarkerEvent = 4321;
+
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
   , editSessionNumber (0)
   , editIsRunning (false)
   , m_view (view)
   , m_doc (doc)
+  , m_scrollTranslateHack(0)
   , cursor (doc, true, 0, 0, this)
   , m_startPos(0,0)
   , m_oldStartPos(0,0)
@@ -420,15 +423,21 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
       int scrollHeight = -(viewLinesScrolled * m_view->renderer()->fontHeight());
       int scrollbarWidth = style().scrollBarExtent().width();
 
+      // Post time-marking event
+      qApp->postEvent(this, new QCustomEvent(QEvent::User + TimeMarkerEvent));
+
       //
-      // repaints are for working around the scrollbar leaving blocks in the view
+      // updates are for working around the scrollbar leaving blocks in the view
       //
       scroll(0, scrollHeight);
-      repaint (0, height()+scrollHeight-scrollbarWidth, width(), 2*scrollbarWidth);
+      update(0, height()+scrollHeight-scrollbarWidth, width(), 2*scrollbarWidth);
 
       leftBorder->scroll(0, scrollHeight);
-      leftBorder->repaint (0, leftBorder->height()+scrollHeight-scrollbarWidth, leftBorder->width(), 2*scrollbarWidth);
+      leftBorder->update(0, leftBorder->height()+scrollHeight-scrollbarWidth, leftBorder->width(), 2*scrollbarWidth);
 
+      // Turning on translations
+      m_scrollTranslateHack = scrollHeight;
+      
       return;
     }
   }
@@ -713,7 +722,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
   m_updatingView = false;
 
   if (changed)
-    paintText (0,0,width(), height(), true);
+    paintText(0, 0, width(), height(), true);
 }
 
 void KateViewInternal::paintText (int x, int y, int width, int height, bool paintOnlyDirty)
@@ -734,8 +743,8 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   if (drawBuffer.isNull())
     return;
 
-  QPainter paint (this);
-  QPainter paintDrawBuffer (&drawBuffer);
+  QPainter paint(this);
+  QPainter paintDrawBuffer(&drawBuffer);
 
   // TODO put in the proper places
   m_view->renderer()->setCaretStyle(m_view->isOverwriteMode() ? KateRenderer::Replace : KateRenderer::Insert);
@@ -1888,7 +1897,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
       if ( l && ! l->isVisible() )
         m_doc->foldingTree()->ensureVisible( newCursor.line() );
 
-      makeVisible ( displayCursor, displayCursor.col() );
+      makeVisible ( displayCursor, displayCursor.col(), false, center );
     }
 
     return;
@@ -2160,6 +2169,10 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
     case QEvent::DragLeave:
       stopDragScroll();
+      break;
+      
+    case QEvent::User + TimeMarkerEvent:
+      m_scrollTranslateHack = 0;
       break;
 
     default:
@@ -2483,8 +2496,30 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  QRect updateR = e->rect();
-  paintText (updateR.x(), updateR.y(), updateR.width(), updateR.height());
+  static bool forgetNext = false;
+
+  if (!forgetNext && m_scrollTranslateHack) {
+    // Have to paint both the requested area and the scrolled area due to race conditions...
+    QRect updateR = e->rect();
+    
+    // Translate area by scroll amount
+    updateR.moveBy(0, m_scrollTranslateHack);
+    
+    // Restrict to area that may have been obscured at the time
+    updateR = updateR.intersect(QRect(0, m_scrollTranslateHack < 0 ? 0 : m_scrollTranslateHack, width(), m_scrollTranslateHack < 0 ? height() + m_scrollTranslateHack : height()));
+    
+    // Subtract region that's about to be redrawn anyway
+    if (updateR.intersects(e->rect()))
+      updateR = QRegion(updateR).subtract(e->region()).boundingRect();
+    
+    // Send off the request to repaint immediately
+    forgetNext = true;
+    repaint(updateR.x(), updateR.y(), updateR.width(), updateR.height(), false);
+  }
+  
+  forgetNext = false;
+  
+  paintText(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
 void KateViewInternal::resizeEvent(QResizeEvent* e)
@@ -2631,7 +2666,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       emit dropEventPass(event);
 
   } else if ( QTextDrag::canDecode(event) && m_doc->isReadWrite() ) {
-
+    
     QString text;
 
     if (!QTextDrag::decode(event, text))
@@ -2683,6 +2718,8 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
     return;
   }
 
+  m_doc->editBegin();
+  
   if ( m_imPreeditLength > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
                        cursor.line(), m_imPreeditStart + m_imPreeditLength );
@@ -2693,6 +2730,9 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
                               true );
 
   m_doc->insertText( cursor.line(), cursor.col(), e->text() );
+  
+  m_doc->editEnd();
+  
   updateView( true );
   updateCursor( cursor, true );
   m_imPreeditLength = e->text().length();
@@ -2704,6 +2744,8 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     e->ignore();
     return;
   }
+  
+  m_doc->editBegin();
 
   if ( m_imPreeditLength > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
@@ -2718,8 +2760,13 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     if ( !m_cursorTimer.isActive() )
       m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
 
+    m_doc->editEnd();
+    
     updateView( true );
     updateCursor( cursor, true );
+  
+  } else {
+    m_doc->editEnd();
   }
 
   m_imPreeditStart = 0;

@@ -3887,7 +3887,10 @@ bool KateDocument::lineColSelected (int line, int col)
 
   KateTextCursor cursor(line, col);
 
-  return (cursor >= selectStart) && (cursor < selectEnd);
+  if (blockSelect)
+    return cursor.line() >= selectStart.line() && cursor.line() <= selectEnd.line() && cursor.col() >= selectStart.col() && cursor.col() < selectEnd.col();
+  else
+    return (cursor >= selectStart) && (cursor < selectEnd);
 }
 
 bool KateDocument::lineSelected (int line)
@@ -3940,25 +3943,6 @@ void KateDocument::newBracketMark( const KateTextCursor& cursor, KateTextRange& 
     return;
 
   bm.setValid(true);
-
-//   TextLine::Ptr textLine;
-//   KateAttribute* a;
-
-  /* Calculate starting geometry */
-  /*textLine = buffer->plainLine( bm.start().line() );
-  a = attribute( textLine->attribute( bm.start().col() ) );
-  bm.startCol = start.col();
-  bm.startLine = start.line();*/
-//   bm.startX = textWidth( textLine, start.col() );
-//   bm.startW = a->width( KateRenderer::getFontStruct(KateRenderer::ViewFont, textLine->getChar( start.col() ) );
-
-  /* Calculate ending geometry */
-  /*textLine = buffer->plainLine( end.line() );
-  a = attribute( textLine->attribute( end.col() ) );
-  bm.endCol = end.col();
-  bm.endLine = end.line();*/
-/*  bm.endX = textWidth( textLine, end.col() );
-  bm.endW = a->width( viewFont, textLine->getChar( end.col() ) );*/
 }
 
 bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& end )

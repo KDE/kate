@@ -349,8 +349,30 @@ int KateIconBorder::lineNumberWidth() const
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
-  QRect updateR = e->rect();
-  paintBorder (updateR.x(), updateR.y(), updateR.width(), updateR.height());
+  static bool forgetNext = false;
+
+  if (!forgetNext && m_viewInternal->m_scrollTranslateHack) {
+    // Have to paint both the requested area and the scrolled area due to race conditions...
+    QRect updateR = e->rect();
+    
+    // Translate area by scroll amount
+    updateR.moveBy(0, m_viewInternal->m_scrollTranslateHack);
+    
+    // Restrict to area that may have been obscured at the time
+    updateR = updateR.intersect(QRect(0, m_viewInternal->m_scrollTranslateHack < 0 ? 0 : m_viewInternal->m_scrollTranslateHack, width(), m_viewInternal->m_scrollTranslateHack < 0 ? height() + m_viewInternal->m_scrollTranslateHack : height()));
+    
+    // Subtract region that's about to be redrawn anyway
+    if (updateR.intersects(e->rect()))
+      updateR = QRegion(updateR).subtract(e->region()).boundingRect();
+    
+    // Send off the request to repaint immediately
+    forgetNext = true;
+    repaint(updateR.x(), updateR.y(), updateR.width(), updateR.height(), false);
+  }
+  
+  forgetNext = false;
+  
+  paintBorder(e->rect().x(), e->rect().y(), e->rect().width(), e->rect().height());
 }
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)

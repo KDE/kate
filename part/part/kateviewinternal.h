@@ -239,6 +239,9 @@ class KateViewInternal : public QWidget
     int mouseY;
     int scrollX;
     int scrollY;
+    
+    // Holds the offset for the scroll paint translation hack
+    int m_scrollTranslateHack;
 
     KateSuperCursor cursor;
     KateTextCursor displayCursor;

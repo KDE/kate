@@ -142,8 +142,6 @@ class CommandExtension
      * is changed, so that the available flags can be adjusted. When completions
      * are displayed, existing flags are left out.
      *
-     * @param current the current flags string
-     * @param list Add the strings here.
      */ //### this is yet to be tried
     virtual void flagCompletions( QStringList& /*list*/ ) {;}
 
@@ -156,19 +154,19 @@ class CommandExtension
      *
      * @param cmdname The command name associated with this request.
      */
-    virtual KCompletion *completionObject( const QString &/*cmdname*/, Kate::View */*view*/ ) { return 0L; }
+    virtual KCompletion *completionObject( const QString & cmdname, Kate::View */*view*/ ) { Q_UNUSED(cmdname); return 0L; }
 
     /**
-     * @return wheather this command want to process text interactively given @p cmdname.
-     * If true, the commands processText() method is called when the
+     * @return whether this command wants to process text interactively given the @p cmdname.
+     * If true, the command's processText() method is called when the
      * text in the command line is changed.
      *
-     * Reimplement this to return true, if you commands wants to process the
+     * Reimplement this to return true, if your commands wants to process the
      * text as typed.
      *
      * @param cmdname the command name associated with this query.
      */
-    virtual bool wantsToProcessText( const QString &/*cmdname*/ ) { return false; }
+    virtual bool wantsToProcessText( const QString &cmdname ) { Q_UNUSED(cmdname); return false; }
 
     /**
      * This is called by the commandline each time the argument text for the
@@ -176,7 +174,7 @@ class CommandExtension
      * @param view The current view
      * @param text The current command text typed by the user.
      */ // ### yet to be tested. The obvious candidate is isearch.
-    virtual void processText( Kate::View */*view*/, const QString &/*text*/ ) {;}
+    virtual void processText( Kate::View *view, const QString &text ) { Q_UNUSED(view); Q_UNUSED(text); }
 };
 
 /** This interface provides access to the Kate Document class.
@@ -209,6 +207,7 @@ class KATEPARTINTERFACES_EXPORT Document : public KTextEditor::Document, public 
     /**
      * deprecated for KDE 4.0, just does reloadFile, which will ask
      * the normal "do you want it really" questions
+     * @deprecated
      */
     virtual void isModOnHD(bool =false) { ; };
 
@@ -221,6 +220,7 @@ class KATEPARTINTERFACES_EXPORT Document : public KTextEditor::Document, public 
      * Sets the document name.
      * deprecated for KDE 4.0, is done internally, calling it won't hurt
      * but changes nothing beside triggers signal
+     * @deprecated
      */
     virtual void setDocName (QString ) { ; };
 
@@ -260,13 +260,21 @@ class KATEPARTINTERFACES_EXPORT Document : public KTextEditor::Document, public 
   /** @deprecated */
   // FIXME: Remove when BIC allowed.
   public:
+    /** @deprecated */
     virtual ConfigPage *colorConfigPage (QWidget *) = 0;
+    /** @deprecated */
     virtual ConfigPage *fontConfigPage (QWidget *) = 0;
+    /** @deprecated */
     virtual ConfigPage *indentConfigPage (QWidget *) = 0;
+    /** @deprecated */
     virtual ConfigPage *selectConfigPage (QWidget *) = 0;
+    /** @deprecated */
     virtual ConfigPage *editConfigPage (QWidget *) = 0;
+    /** @deprecated */
     virtual ConfigPage *keysConfigPage (QWidget *) = 0;
+    /** @deprecated */
     virtual ConfigPage *kSpellConfigPage (QWidget *) { return 0L; }
+    /** @deprecated */
     virtual ConfigPage *hlConfigPage (QWidget *) = 0;
 
   public:
@@ -298,7 +306,16 @@ class KATEPARTINTERFACES_EXPORT Document : public KTextEditor::Document, public 
     };
 
   signals:
-    /* reason = 0 nothing, 1 dirty, 2 created, 3 deleted */
+    /**
+     * Indicate this file is modified on disk
+     * @param doc the Kate::Document object that represents the file on disk
+     * @param isModified indicates the file was modified rather than created or deleted
+     * @param reason the reason we are emitting the signal.
+     * @li 0  - nothing
+     * @li 1 - dirty
+     * @li 2 - created
+     * @li 3 - deleted
+     */
     void modifiedOnDisc (Kate::Document *doc, bool isModified, unsigned char reason);
 
   /*
@@ -367,19 +384,22 @@ class KATEPARTINTERFACES_EXPORT DocumentExt
 };
 
 /**
- * query if given document is a Kate::Document
+ * Check if given document is a Kate::Document
  * @param doc KTextEditor document
  * @return 0 if no success, else the Kate::Document
  */
 KATEPARTINTERFACES_EXPORT Document *document (KTextEditor::Document *doc);
 
 /**
- * query if given document is a Kate::DocumentExt
+ * Check if given document is a Kate::DocumentExt
  * @param doc KTextEditor document
  * @return 0 if no success, else the Kate::DocumentExt
  */
 KATEPARTINTERFACES_EXPORT DocumentExt *documentExt (KTextEditor::Document *doc);
 
+/**
+ * Creates a new Kate::Document object
+ */
 KATEPARTINTERFACES_EXPORT Document *createDocument ( QObject *parent = 0, const char *name = 0 );
 
 }

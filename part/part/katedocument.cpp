@@ -3275,7 +3275,7 @@ void KateDocument::paste ( KateView* view )
     return;
 
   uint lines = s.contains (QChar ('\n'));
-  
+
   m_undoDontMerge = true;
 
   editStart ();
@@ -3299,12 +3299,12 @@ void KateDocument::paste ( KateView* view )
   if (m_indenter->canProcessLine())
   {
     editStart();
-    
-    KateDocCursor begin(editTagLineStart, 0, this);
-    KateDocCursor end(editTagLineStart + lines, 0, this);
-    
+
+    KateDocCursor begin(line, 0, this);
+    KateDocCursor end(line + lines, 0, this);
+
     m_indenter->processSection (begin, end);
-    
+
     editEnd();
   }
 

@@ -691,7 +691,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void dumpRegionTree();
 
   private slots:
-    void slotModOnHd (const QString &path);
+    void slotModOnHdDirty (const QString &path);
+    void slotModOnHdCreated (const QString &path);
+    void slotModOnHdDeleted (const QString &path);
 
   //
   // REALLY internal data ;)
@@ -710,6 +712,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool hlSetByUser;
 
     bool m_modOnHd;
+    unsigned char m_modOnHdReason;
 
     QString m_docName;
 

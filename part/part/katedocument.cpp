@@ -112,7 +112,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
   hlManager(HlManager::self ()),
-  m_modOnHd (false)
+  m_modOnHd (false),
+  m_modOnHdReason (0)
 {
   setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
@@ -135,13 +136,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_config = new KateDocumentConfig (this);
 
   connect( KateFactory::dirWatch(), SIGNAL(dirty (const QString &)),
-           this, SLOT(slotModOnHd (const QString &)) );
+           this, SLOT(slotModOnHdDirty (const QString &)) );
 
   connect( KateFactory::dirWatch(), SIGNAL(created (const QString &)),
-           this, SLOT(slotModOnHd (const QString &)) );
+           this, SLOT(slotModOnHdCreated (const QString &)) );
 
   connect( KateFactory::dirWatch(), SIGNAL(deleted (const QString &)),
-           this, SLOT(slotModOnHd (const QString &)) );
+           this, SLOT(slotModOnHdDeleted (const QString &)) );
 
   // init global plugin list
   if (!s_configLoaded)
@@ -397,7 +398,8 @@ bool KateDocument::closeURL()
   if (m_modOnHd)
   {
     m_modOnHd = false;
-    emit modifiedOnDisc (this, m_modOnHd);
+    m_modOnHdReason = 0;
+    emit modifiedOnDisc (this, m_modOnHd, 0);
   }
 
   buffer->clear();
@@ -2796,7 +2798,8 @@ bool KateDocument::openFile()
   if (m_modOnHd)
   {
     m_modOnHd = false;
-    emit modifiedOnDisc (this, m_modOnHd);
+    m_modOnHdReason = 0;
+    emit modifiedOnDisc (this, m_modOnHd, 0);
   }
 
   QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
@@ -2921,7 +2924,8 @@ bool KateDocument::saveFile()
   if (m_modOnHd)
   {
     m_modOnHd = false;
-    emit modifiedOnDisc (this, m_modOnHd);
+    m_modOnHdReason = 0;
+    emit modifiedOnDisc (this, m_modOnHd, 0);
   }
 
   return success;
@@ -4972,16 +4976,30 @@ bool KateDocument::checkColorValue( QString val, QColor &c )
   return c.isValid();
 }
 
-void KateDocument::slotModOnHd (const QString &path)
+void KateDocument::slotModOnHdDirty (const QString &path)
 {
-  bool b = (path == m_file);
-
-  kdDebug() << "mod " << path << " " << b << endl;
-
-  if (b != m_modOnHd)
+  if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 1))
   {
-    m_modOnHd = b;
-    emit modifiedOnDisc (this, m_modOnHd);
+    m_modOnHd = true;
+    emit modifiedOnDisc (this, m_modOnHd, 1);
+  }
+}
+
+void KateDocument::slotModOnHdCreated (const QString &path)
+{
+  if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 2))
+  {
+    m_modOnHd = true;
+    emit modifiedOnDisc (this, m_modOnHd, 2);
+  }
+}
+
+void KateDocument::slotModOnHdDeleted (const QString &path)
+{
+  if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 3))
+  {
+    m_modOnHd = true;
+    emit modifiedOnDisc (this, m_modOnHd, 3);
   }
 }
 

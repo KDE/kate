@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="XML/SGML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.sgml" mimetype="text/sgml;text/xml;text/book">
+<language name="XML/SGML" version="1.00" kateversion="2.0" section="Markup" extensions="*.docbook;*.xml;*.rc;*.sgml" mimetype="text/sgml;text/xml;text/book">
   <highlighting>
     <contexts>
        <context attribute="0" lineEndContext="#stay">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SQL" section="Scripts" extensions="*.sql;*.SQL" mimetype="text/x-sql">
+<language name="SQL" version="1.00" kateversion="2.0" section="Scripts" extensions="*.sql;*.SQL" mimetype="text/x-sql">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>

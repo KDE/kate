@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Kate Part JavaScript Test
+Comment=Script for testing kate part's scripting
+X-Kate-Command=jstest
+X-Kate-Help=<p>Usage: <code>jstest</code></p>

@@ -1,2 +1,2 @@
 scriptskatedir = $(kde_datadir)/katepart/scripts
-scriptskate_DATA = jstest.js
+scriptskate_DATA = jstest.desktop jstest.js

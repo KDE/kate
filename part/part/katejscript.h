@@ -101,8 +101,26 @@ class KateJScriptManager : public Kate::Command
     class Script
     {
       public:
+        QString desktopFilename ()
+        {
+          return filename.left(filename.length()-2).append ("desktop");
+        }
+
+      public:
+        /**
+         * command name, as used for command line and more
+         */
         QString name;
+
+        /**
+         * filename of the script
+         */
         QString filename;
+
+        /**
+         * has it a desktop file?
+         */
+        bool desktopFileExists;
     };
 
   public:
@@ -125,7 +143,7 @@ class KateJScriptManager : public Kate::Command
      */
     bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
 
-    bool help( class Kate::View *, const QString &, QString & );
+    bool help( class Kate::View *view, const QString &cmd, QString &msg );
 
     /**
      * supported commands as prefixes

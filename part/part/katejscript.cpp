@@ -493,7 +493,27 @@ void KateJScriptManager::collectScripts (bool force)
 
       if (dfi.exists())
       {
+        KConfig df (desktopFile, true, false);
+        df.setDesktopGroup ();
 
+        // get cmdname, fallback to baseName, if it is empty, therefor not use the kconfig fallback
+        QString cmdname = df.readEntry ("X-Kate-Command");
+        if (cmdname.isEmpty())
+        {
+          QFileInfo fi (*it);
+          cmdname = fi.baseName();
+        }
+
+        if (m_scripts[cmdname])
+          continue;
+
+        KateJScriptManager::Script *s = new KateJScriptManager::Script ();
+
+        s->name = cmdname;
+        s->filename = *it;
+        s->desktopFileExists = true;
+
+        m_scripts.insert (s->name, s);
       }
       else // no desktop file around, fall back to scriptfilename == commandname
       {
@@ -508,6 +528,7 @@ void KateJScriptManager::collectScripts (bool force)
 
         s->name = fi.baseName();
         s->filename = *it;
+        s->desktopFileExists = false;
 
         m_scripts.insert (s->name, s);
       }
@@ -518,7 +539,7 @@ void KateJScriptManager::collectScripts (bool force)
   config.sync();
 }
 
-bool KateJScriptManager::exec( class Kate::View *view, const QString &_cmd, QString &errorMsg )
+bool KateJScriptManager::exec( Kate::View *view, const QString &_cmd, QString &errorMsg )
 {
   // cast it hardcore, we know that it is really a kateview :)
   KateView *v = (KateView*) view;
@@ -560,9 +581,20 @@ bool KateJScriptManager::exec( class Kate::View *view, const QString &_cmd, QStr
   return KateFactory::self()->jscript()->execute(v, source, errorMsg);
 }
 
-bool KateJScriptManager::help( class Kate::View *, const QString &, QString & )
+bool KateJScriptManager::help( Kate::View *, const QString &cmd, QString &msg )
 {
-  return false;
+  if (!m_scripts[cmd] || !m_scripts[cmd]->desktopFileExists)
+    return false;
+
+  KConfig df (m_scripts[cmd]->desktopFilename(), true, false);
+  df.setDesktopGroup ();
+
+  msg = df.readEntry ("X-Kate-Help");
+
+  if (msg.isEmpty())
+    return false;
+
+  return true;
 }
 
 QStringList KateJScriptManager::cmds()

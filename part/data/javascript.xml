@@ -449,7 +449,7 @@
         <Detect2Chars attribute="Comment" context="Multi/inline Comment" char="/" char1="*" />
         <DetectChar attribute="Regular Expression" context="(regex caret first check)" char="/" />
       </context>
-      <context attribute="Pattern Character Class" lineEndcontext="#stay" name="Regular Expression Character Class">
+      <context attribute="Pattern Character Class" lineEndContext="#stay" name="Regular Expression Character Class">
         <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[\[\]]" />
         <DetectChar attribute="Pattern Character Class" context="#pop#pop" char="]" />
       </context>

@@ -554,33 +554,6 @@ void KateViewInternal::changeState(VConfig &c) {
   if (!nullMove)
     emit myView->cursorPositionChanged();
 }
-/*
-void KateViewInternal::insLine(int line) {
-
-  if (line <= cursor.line) {
-    cursor.line++;
-    displayCursor.line++;
-  }
-  if (line < startLine) {
-    startLine++;
-    endLine++;
-  } else if (line <= endLine) {
-    tagAll();
-  }
-}
-
-void KateViewInternal::delLine(int line) {
-
-  if (line <= cursor.line && cursor.line > 0) {
-    cursor.line--;
-  }
-  if (line < startLine) {
-    startLine--;
-    endLine--;
-  } else if (line <= endLine) {
-    tagAll();
-  }
-} */
 
 void KateViewInternal::updateCursor()
 {

@@ -93,6 +93,7 @@
 
 //END  includes
 
+//BEGIN variables
 using namespace Kate;
 
 bool KateDocument::s_configLoaded = false;
@@ -123,7 +124,9 @@ bool KateDocument::m_wordWrapMarker = true;
 int KateDocument::m_autoCenterLines = 0;
 
 Kate::PluginList KateDocument::s_plugins;
+//END variables
 
+// BEGIN d'tor, c'tor
 //
 // KateDocument Constructor
 //
@@ -209,7 +212,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_editCurrentUndo = 0L;
   editWithUndo = false;
 
-  // spell check stuff start
+  // start spelling stuff
 
   m_kspell = 0L;
   m_kspellConfig = new KSpellConfig();
@@ -335,7 +338,9 @@ KateDocument::~KateDocument()
   KateFactory::deregisterDocument (this);
   delete fileInfo;
 }
+//END
 
+//BEGIN Plugins
 void KateDocument::loadAllEnabledPlugins ()
 {
   for (uint i=0; i<s_plugins.count(); i++)
@@ -435,10 +440,9 @@ bool KateDocument::closeURL()
 
   return true;
 }
+//END
 
-//
-// KTextEditor::Document stuff
-//
+//BEGIN KTextEditor::Document stuff
 
 KTextEditor::View *KateDocument::createView( QWidget *parent, const char *name )
 {
@@ -451,10 +455,9 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 {
   return m_textEditViews;
 };
+//END
 
-//
-// KTextEditor::ConfigInterfaceExtension stuff
-//
+//BEGIN KTextEditor::ConfigInterfaceExtension stuff
 
 uint KateDocument::configPages () const
 {
@@ -628,10 +631,9 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
       return 0;
   }
 }
+//END
 
-//
-// KTextEditor::EditInterface stuff
-//
+//BEGIN KTextEditor::EditInterface stuff
 
 QString KateDocument::text() const
 {
@@ -873,11 +875,9 @@ int KateDocument::lineLength ( uint line ) const
 {
   return buffer->lineLength(line);
 }
+//END
 
-//
-// KTextEditor::EditInterface internal stuff
-//
-
+//BEGIN KTextEditor::EditInterface internal stuff
 //
 // Starts an edit session with (or without) undo, update of view disabled during session
 //
@@ -1328,10 +1328,9 @@ bool KateDocument::editRemoveLine ( uint line )
 
   return true;
 }
+//END
 
-//
-// KTextEditor::SelectionInterface stuff
-//
+//BEGIN KTextEditor::SelectionInterface stuff
 
 bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCursor& end )
 {
@@ -1458,10 +1457,9 @@ bool KateDocument::selectAll()
 {
   return setSelection (0, 0, lastLine(), lineLength(lastLine()));
 }
+//END
 
-//
-// KTextEditor::BlockSelectionInterface stuff
-//
+//BEGIN KTextEditor::BlockSelectionInterface stuff
 
 bool KateDocument::blockSelectionMode ()
 {
@@ -1491,11 +1489,9 @@ bool KateDocument::toggleBlockSelectionMode ()
 {
   return setBlockSelectionMode (!blockSelect);
 }
+//END
 
-
-//
-// KTextEditor::UndoInterface stuff
-//
+//BEGIN KTextEditor::UndoInterface stuff
 
 uint KateDocument::undoCount () const
 {
@@ -1583,10 +1579,9 @@ QPtrList<KTextEditor::Cursor> KateDocument::cursors () const
 {
   return myCursors;
 }
+//END
 
-//
-// KTextEditor::SearchInterface stuff
-//
+//BEGIN KTextEditor::SearchInterface stuff
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive, bool backwards)
 {
@@ -1723,10 +1718,9 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
   return false;
 }
+//END
 
-//
-// KTextEditor::HighlightingInterface stuff
-//
+//BEGIN KTextEditor::HighlightingInterface stuff
 
 uint KateDocument::hlMode ()
 {
@@ -1782,9 +1776,9 @@ void KateDocument::setDontChangeHlOnSave()
 {
   hlSetByUser = true;
 }
+//END
 
-//
-// KTextEditor::ConfigInterface stuff
+//BEGIN KTextEditor::ConfigInterface stuff
 //
 
 void KateDocument::readConfig(KConfig *config)
@@ -2128,10 +2122,9 @@ uint KateDocument::editableMarks()
 {
   return m_editableMarks;
 }
+//END
 
-//
-// KTextEditor::PrintInterface stuff
-//
+//BEGIN KTextEditor::PrintInterface stuff
 
 bool KateDocument::printDialog ()
 {
@@ -2174,7 +2167,7 @@ bool KateDocument::printDialog ()
      bool pageStarted = true;
 
 //     kdDebug(13020)<<"pdm width: "<<pdmWidth<<endl;
-
+kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer::PrintFont).myFont.toString()<<endl;
      // Text Settings Page
      bool selectionOnly = ( hasSelection() &&
                            ( printer.option("app-kate-printselection") == "true" ) );
@@ -2425,14 +2418,14 @@ bool KateDocument::printDialog ()
          if ( useFooter )
            _ph -= innerMargin;
          int _lpp = _ph/KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;
-         kdDebug(13020)<<"... Printer Pixel Hunt: "<<
-                "\n- printer heignt:    "<<pdm.height()<<
-                "\n- max height:        "<<maxHeight<<
-                "\n- header Height:     "<<headerHeight<<
-                "\n- footer height:     "<<footerHeight<<
-                "\n- inner margin:      "<<innerMargin<<
-                "\n- contents height:   "<<_ph<<
-                "\n- print font height: "<<KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight<<endl;
+//          kdDebug(13020)<<"... Printer Pixel Hunt: "<<
+//                 "\n- printer heignt:    "<<pdm.height()<<
+//                 "\n- max height:        "<<maxHeight<<
+//                 "\n- header Height:     "<<headerHeight<<
+//                 "\n- footer height:     "<<footerHeight<<
+//                 "\n- inner margin:      "<<innerMargin<<
+//                 "\n- contents height:   "<<_ph<<
+//                 "\n- print font height: "<<KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight<<endl;
          kdDebug(13020)<<"...Lines pr page is "<<_lpp<<endl;
          uint _lt = 0, _c=0;
          // add space for guide if required
@@ -2645,9 +2638,9 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          {
            paint.setFont( KateRenderer::getFontStruct(KateRenderer::PrintFont).font( false, false ) );
            paint.setPen( colors[1] ); // using "selected" color for now...
-           paint.drawText( ( useBox || useBackground ) ? innerMargin : 0, y,
+           paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
                         lineNumberWidth, KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight,
-                        Qt::AlignRight, QString("%1 ").arg( lineCount + 1 ) );
+                        Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
          }
 //        kdDebug(13020)<<"Calling textWidth( startCol="<<startCol<<", maxWidth="<<maxWidth<<", needWrap="<<needWrap<<")"<<endl;
          endCol = renderer.textWidth (buffer->line(lineCount), startCol, maxWidth, &needWrap);
@@ -2692,7 +2685,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          range.wrap = needWrap;
          paint.resetXForm();
          paint.translate(xstart, y);
-         renderer.paintTextLine(paint, &range, 0, maxWidth);
+         renderer.paintTextLine(paint, &range, xstart, maxWidth);
          if ( skip )
          {
            needWrap = false;
@@ -2721,10 +2714,9 @@ bool KateDocument::print ()
 {
   return printDialog ();
 }
+//END
 
-//
-// KParts::ReadWrite stuff
-//
+//BEGIN KParts::ReadWrite stuff
 
 bool KateDocument::openFile()
 {
@@ -2882,10 +2874,9 @@ void KateDocument::setModified(bool m) {
 bool KateDocument::isModified() const {
   return modified;
 }
+//END
 
-//
-// Kate specific stuff ;)
-//
+//BEGIN Kate specific stuff ;)
 
 void KateDocument::setTabWidth(int chars)
 {
@@ -4442,10 +4433,10 @@ TextLine::Ptr KateDocument::kateTextLine(uint i)
 {
   return buffer->line (i);
 }
+//END
 
-//
-// KTextEditor::CursorInterface stuff
-//
+//BEGIN KTextEditor::CursorInterface stuff
+
 KTextEditor::Cursor *KateDocument::createCursor ( )
 {
   return new KateCursor (this);
@@ -4557,3 +4548,4 @@ void KateDocument::spellCleanDone()
 	delete m_kspell;
 	m_kspell = 0;
 }
+//END

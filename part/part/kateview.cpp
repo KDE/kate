@@ -205,7 +205,7 @@ void KateView::setupActions()
   {
     KStdAction::spelling( m_doc, SLOT(spellcheck()), ac );
     a = new KAction( i18n("Spelling (from cursor)..."), "spellcheck", 0, this, SLOT(spellcheckFromCursor()), ac, "tools_spelling_from_cursor" );
-    a->setWhatsThis(i18n("Check the documents spelling from the cursor and forward"));
+    a->setWhatsThis(i18n("Check the document's spelling from the cursor and forward"));
 
     m_spellcheckSelection = new KAction( i18n("Spellcheck Selection..."), "spellcheck", 0, this, SLOT(spellcheckSelection()), ac, "tools_spelling_selection" );
     m_spellcheckSelection->setWhatsThis(i18n("Check spelling of the selected text"));

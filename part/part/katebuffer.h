@@ -238,8 +238,10 @@ class KateBuffer : public QObject
 
     /**
      * Find the block containing line @p i
+     * index pointer gets filled with index of block in m_blocks
+     * index only valid if returned block != 0 !
      */
-    KateBufBlock *findBlock(uint i);
+    KateBufBlock *findBlock (uint i, uint *index = 0);
 
     void checkLoadedMax ();
     void checkCleanMax ();
@@ -281,7 +283,8 @@ class KateBuffer : public QObject
     QTimer m_loadTimer;
 
     // ALL blocks
-    QPtrList<KateBufBlock> m_blocks;
+    QValueVector<KateBufBlock*> m_blocks;
+    uint m_lastFoundBlock;
 
     // List of blocks that can be swapped out.
     QPtrList<KateBufBlock> m_loadedBlocks;

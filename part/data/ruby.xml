@@ -34,7 +34,7 @@
 -->
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
-<language name="Ruby" version="1.15" kateversion="2.3" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
+<language name="Ruby" version="1.16" kateversion="2.4" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Stefan Lang (langstefan@gmx.at), Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
 	
 	<highlighting>
 	
@@ -191,17 +191,17 @@
 				<LineContinue attribute="Normal Text" context="Line Continue"/>
 				
 				<!-- __END__ token on own line. -->
-				<RegExpr attribute="Keyword" String="^__END__$" context="DATA"/>
+				<RegExpr attribute="Keyword" String="__END__$" context="DATA" column="0"/>
 			
 				<!-- "shebang" line -->
-				<RegExpr attribute="Keyword" String="^#!\/.*" context="#stay"/>
+				<RegExpr attribute="Keyword" String="#!\/.*" context="#stay" column="0"/>
 				
 				<!-- "def" - "end" blocks -->
 				<!-- check for statement modifiers with regexes -->
 				<RegExpr attribute="Keyword" String="(\=|\(|\[|\{)\s*(if|unless|while|until)\b" context="#stay" beginRegion="def block"/>
-				<RegExpr attribute="Keyword" String="^\s*(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block"/>
+				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block" firstNonSpace="true"/>
 				<RegExpr attribute="Keyword" String="\;\s*(while|until)\b(?!.*\bdo\b)" context="#stay" beginRegion="def block"/>
-				<RegExpr attribute="Keyword" String="^\s*(if|unless)\b" context="#stay" beginRegion="def block"/>
+				<RegExpr attribute="Keyword" String="(if|unless)\b" context="#stay" beginRegion="def block" firstNonSpace="true"/>
 				<RegExpr attribute="Keyword" String="\;\s*(if|unless)\b" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="\bclass\b" context="#stay" beginRegion="def block"/>
 				<RegExpr attribute="Keyword" String="\bmodule\b" context="#stay" beginRegion="def block"/>
@@ -251,7 +251,7 @@
 				<HlCChar attribute="Char" context="#stay"/>
 				
 				<!-- Check for =begin before assignment operator. -->
-				<RegExpr attribute="Blockcomment" String="^=begin\s*.*$" context="Embedded documentation" beginRegion="comment block"/>
+				<StringDetect attribute="Blockcomment" String="=begin" context="Embedded documentation" beginRegion="comment block" column="0"/>
 				
 				<!-- recognize the beginning of a HEREDOC
 					This uses new features in Kate 2.3 and later
@@ -264,17 +264,15 @@
 				<RegExpr attribute="Operator" context="find_heredoc" String="\s*&lt;&lt;(?=\w+|[&quot;'])" beginRegion="HereDocument" />
 				
 				<DetectChar attribute="Operator" char="." context="#stay"/>
-				<StringDetect attribute="Operator" String="&amp;&amp;" context="#stay" insensitive="FALSE"/>
-				<StringDetect attribute="Operator" String="||" context="#stay" insensitive="FALSE"/>
-				<RegExpr attribute="Operator" String="\s\?\s" context="#stay"/>
-				<RegExpr attribute="Operator" String="\s\:\s" context="#stay"/>
+				<Detect2Chars attribute="Operator" char="&amp;" char1="&amp;" context="#stay" insensitive="FALSE"/>
+				<Detect2Chars attribute="Operator" char="|" char1="|" context="#stay" insensitive="FALSE"/>
+				<RegExpr attribute="Operator" String="\s[\?\:\%/]\s" context="#stay"/>
 				<RegExpr attribute="Operator" String="[|&amp;&lt;&gt;\^\+*~\-=]+" context="#stay"/>
 				<!-- regexp hack -->
-				<RegExpr attribute="Operator" String="\s[\%/]\s" context="#stay"/>
 				<RegExpr attribute="Operator" String="\s!" context="#stay"/>
 				<RegExpr attribute="Operator" String="/=\s" context="#stay" insensitive="0"/>
 				<StringDetect attribute="Operator" String="%=" context="#stay" insensitive="0"/>
-				<RegExpr attribute="Operator" String="::" context="Member Access"/>
+				<Detect2Chars attribute="Operator" char=":" char1=":" context="Member Access"/>
 				
 				<RegExpr attribute="Symbol" String=":[a-zA-Z_][a-zA-Z0-9_]*" context="#stay"/>
 				
@@ -284,9 +282,9 @@
 				
 				<StringDetect attribute="Normal Text" String="?#" context="#stay"/>
 				
-				<RegExpr attribute="Comment" String="^#\s*BEGIN.*$"  context="#stay" beginRegion="marker"/>
-				<RegExpr attribute="Comment" String="^#\s*END.*$"  context="#stay" endRegion="marker"/>
-				<RegExpr attribute="Comment" String="^\s*#"  context="Comment Line"/>
+				<RegExpr attribute="Comment" String="#\s*BEGIN.*$"  context="#stay" beginRegion="marker" column="0"/>
+				<RegExpr attribute="Comment" String="#\s*END.*$"  context="#stay" endRegion="marker" column="0"/>
+				<RegExpr attribute="Comment" String="#"  context="Comment Line" firstNonSpace="true"/>
 				<RegExpr attribute="Comment" String="\s#"  context="General Comment"/>
 				
 				<RegExpr attribute="Delimiter" String="[\[\]]+"  context="#stay"/>
@@ -306,8 +304,8 @@
 			</context>
 			
 			<context name="Line Continue" attribute="Normal Text" lineEndContext="#pop">
-				<RegExpr attribute="Keyword" String="^\s*(while|until)\b(?!.*\bdo\b)" context="#stay"/>
-				<RegExpr attribute="Keyword" String="^\s*(if|unless)\b" context="#stay"/>
+				<RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" firstNonSpace="true"/>
+				<RegExpr attribute="Keyword" String="(if|unless)\b" context="#stay" firstNonSpace="true"/>
 				<IncludeRules context="Normal"/>
 			</context>
 			
@@ -337,7 +335,7 @@
 			</context>
 			
 			<context name="Embedded documentation" attribute="Comment" lineEndContext="#stay">
-				<RegExpr attribute="Comment" String="^=end\s*" context="#pop" endRegion="comment block"/>
+				<StringDetect attribute="Comment" String="=end" context="#pop" endRegion="comment block" column="0"/>
 			</context>
 			
 			<context name="RegEx 1" attribute="Regular Expression" lineEndContext="#stay">
@@ -358,16 +356,16 @@
 			<context name="Short Subst" attribute="Substitution" lineEndContext="#pop">
 				<!-- Check for e.g.: "#@var#@@xy" -->
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="#stay"/>
-				<RegExpr attribute="Substitution" String="[_a-zA-Z0-9](?=[^_a-zA-Z0-9])" context="#pop"/>
+				<RegExpr attribute="Substitution" String="\w(?!\w)" context="#pop"/>
 			</context>
 			
 			<!-- This handles access of nested module classes and class methods -->
 			<context name="Member Access" attribute="Member" lineEndContext="#pop">
 				<!-- marks a message (being sent, not defined) -->
-				<RegExpr attribute="Message" String="\.?[_a-z][_a-zA-Z0-9]*(\?|\!)?(?=[^\w\d\.\:])" context="#pop"/>
-				<RegExpr attribute="Message" String="\.?[_a-z][_a-zA-Z0-9]*(\?|\!)?" context="#stay"/>
-				<RegExpr attribute="Constant" String="[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*(?=[^\w\d\.\:])" context="#pop"/>
-				<RegExpr attribute="Constant" String="[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*" context="#stay"/>
+				<RegExpr attribute="Message" String="\.?[_a-z]\w*(\?|\!)?(?=[^\w\d\.\:])" context="#pop"/>
+				<RegExpr attribute="Message" String="\.?[_a-z]\w*(\?|\!)?" context="#stay"/>
+				<RegExpr attribute="Constant" String="[A-Z]+_*(\d|[a-z])\w*(?=[^\w\d\.\:])" context="#pop"/>
+				<RegExpr attribute="Constant" String="[A-Z]+_*([0-9]|[a-z])\w*" context="#stay"/>
 				<RegExpr attribute="Constant Value" String="[_A-Z][_A-Z0-9]*(?=[^\w\d\.\:])" context="#pop"/>
 				<RegExpr attribute="Constant Value" String="[_A-Z][_A-Z0-9]*" context="#stay"/>
 				<Detect2Chars attribute="Operator" char=":" char1=":" context="#stay"/>
@@ -376,11 +374,11 @@
 				<AnyChar attribute="Operator" String="=+-*/%|&amp;[]{}~" context="#pop"/>
 				<DetectChar attribute="Comment" char="#" context="#pop"/>
 				<AnyChar attribute="Normal Text" String="()\" context="#pop"/>
-				<RegExpr attribute="Member" String="[^_A-Za-z0-9]" context="#pop"/>
+				<RegExpr attribute="Member" String="\W" context="#pop"/>
 			</context>
 			
 			<context name="Comment Line" attribute="Comment" lineEndContext="#pop">
-				<RegExpr attribute="Comment" String="[_a-zA-Z0-9]\:\:\s" context="RDoc Label"/>
+				<RegExpr attribute="Comment" String="\w\:\:\s" context="RDoc Label"/>
 				<keyword attribute="Alert" String="attention" context="#stay"/>
 			</context>
 			
@@ -404,19 +402,23 @@
 			</context>
 			<!-- these are the real heredoc contexts -->
 			<context name="indented_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>
+<!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>-->
+				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
 				<IncludeRules context="heredoc_rules" />
 			</context>
 			<context name="apostrophed_indented_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>
+<!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^\s*%1$" dynamic="true" endRegion="HereDocument"/>-->
+				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" firstNonSpace="true"/>
 			</context>
 			
 			<context name="normal_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>
+<!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>-->
+				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" column="0"/>
 				<IncludeRules context="heredoc_rules" />
 			</context>
 			<context name="apostrophed_normal_heredoc" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
-				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>
+<!--				<RegExpr attribute="Keyword" context="#pop#pop" String="^%1$" dynamic="true" endRegion="HereDocument"/>-->
+				<RegExpr attribute="Keyword" context="#pop#pop" String="%1$" dynamic="true" endRegion="HereDocument" column="0"/>
 			</context>
 			
 			<!-- rules for heredoc types -->
@@ -478,49 +480,49 @@
 			<!-- double-quoted string specific contexts follow -->
 			<context name="gdl_dq_string_1" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="dq_string_rules" />
-				<RegExpr attribute="String" String="\\\)" context="#stay"/>
-				<StringDetect attribute="String" context="gdl_dq_string_1_nested" String="(" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String=")" endRegion="GdlInput" />
+				<Detect2Chars attribute="String" char="\" char1=")" context="#stay"/>
+				<DetectChar attribute="String" context="gdl_dq_string_1_nested" char="(" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char=")" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_dq_string_1_nested" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="dq_string_rules" />
-				<StringDetect attribute="String" context="gdl_dq_string_1_nested" String="(" />
-				<StringDetect attribute="String" context="#pop" String=")" />
+				<DetectChar attribute="String" context="gdl_dq_string_1_nested" char="(" />
+				<DetectChar attribute="String" context="#pop" char=")" />
 			</context>
 			<!-- note that here substitution should win over nesting -->
 			<context name="gdl_dq_string_2" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="dq_string_rules" />
-				<RegExpr attribute="String" String="\\\}" context="#stay"/>
-				<StringDetect attribute="GDL input" context="#pop#pop" String="}" endRegion="GdlInput" />
-				<StringDetect attribute="String" context="gdl_dq_string_2_nested" String="{" />
+				<Detect2Chars attribute="String" char="\" char1="}" context="#stay"/>
+				<DetectChar attribute="GDL input" context="#pop#pop" char="}" endRegion="GdlInput" />
+				<DetectChar attribute="String" context="gdl_dq_string_2_nested" char="{" />
 			</context>
 			<context name="gdl_dq_string_2_nested" attribute="String" lineEndContext="#stay" >
-				<StringDetect attribute="String" context="gdl_dq_string_2_nested" String="{" />
-				<StringDetect attribute="String" context="#pop" String="}" />
+				<DetectChar attribute="String" context="gdl_dq_string_2_nested" char="{" />
+				<DetectChar attribute="String" context="#pop" char="}" />
 				<IncludeRules context="dq_string_rules" />
 			</context>
 	
 			<context name="gdl_dq_string_3" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="dq_string_rules" />
-				<RegExpr attribute="String" String="\\\]" context="#stay"/>
-				<StringDetect attribute="String" context="gdl_dq_string_3_nested" String="[" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="]" endRegion="GdlInput" />
+				<Detect2Chars attribute="String" char="\" char1="]" context="#stay"/>
+				<DetectChar attribute="String" context="gdl_dq_string_3_nested" char="[" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="]" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_dq_string_3_nested" attribute="String" lineEndContext="#stay" >
-				<StringDetect attribute="String" context="gdl_dq_string_3_nested" String="[" />
-				<StringDetect attribute="String" context="#pop" String="]" />
+				<DetectChar attribute="String" context="gdl_dq_string_3_nested" char="[" />
+				<DetectChar attribute="String" context="#pop" char="]" />
 				<IncludeRules context="dq_string_rules" />
 			</context>
 	
 			<context name="gdl_dq_string_4" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="dq_string_rules" />
-				<RegExpr attribute="String" String="\\\&gt;" context="#stay"/>
-				<StringDetect attribute="String" context="gdl_dq_string_4_nested" String="&lt;" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="&gt;" endRegion="GdlInput" />
+				<Detect2Chars attribute="String" char="\" char1="&gt;" context="#stay"/>
+				<DetectChar attribute="String" context="gdl_dq_string_4_nested" char="&lt;" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="&gt;" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_dq_string_4_nested" attribute="String" lineEndContext="#stay" >
-				<StringDetect attribute="String" context="gdl_dq_string_4_nested" String="&lt;" />
-				<StringDetect attribute="String" context="#pop" String="&gt;" />
+				<DetectChar attribute="String" context="gdl_dq_string_4_nested" char="&lt;" />
+				<DetectChar attribute="String" context="#pop" char="&gt;" />
 				<IncludeRules context="dq_string_rules" />
 			</context>
 			
@@ -534,7 +536,7 @@
 			</context>
 			<!-- rules to be included in all dq_string contexts -->
 			<context name="dq_string_rules" attribute="String" lineEndContext="#stay" >
-				<StringDetect attribute="String" String="\\" context="#stay"/>
+				<Detect2Chars attribute="String" char="\" char1="\" context="#stay"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
 			</context>
@@ -543,50 +545,50 @@
 			
 			<context name="gdl_token_array_1" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<RegExpr attribute="String" String="\\\)" context="#stay"/>
-				<StringDetect attribute="String" context="gdl_token_array_1_nested" String="(" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String=")" endRegion="GdlInput" />
+				<Detect2Chars attribute="String" char="\" char1=")" context="#stay"/>
+				<DetectChar attribute="String" context="gdl_token_array_1_nested" char="(" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char=")" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_token_array_1_nested" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<StringDetect attribute="String" context="gdl_token_array_1_nested" String="(" />
-				<StringDetect attribute="String" context="#pop" String=")" />
+				<DetectChar attribute="String" context="gdl_token_array_1_nested" char="(" />
+				<DetectChar attribute="String" context="#pop" char=")" />
 			</context>
 			
 			<context name="gdl_token_array_2" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<RegExpr attribute="String" String="\\\}" context="#stay"/>
-				<StringDetect attribute="GDL input" context="#pop#pop" String="}" endRegion="GdlInput" />
-				<StringDetect attribute="String" context="gdl_token_array_2_nested" String="{" />
+				<Detect2Chars attribute="String" char="\" char1="}" context="#stay"/>
+				<DetectChar attribute="GDL input" context="#pop#pop" char="}" endRegion="GdlInput" />
+				<DetectChar attribute="String" context="gdl_token_array_2_nested" char="{" />
 			</context>
 			<context name="gdl_token_array_2_nested" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<StringDetect attribute="String" context="gdl_token_array_2_nested" String="{" />
-				<StringDetect attribute="String" context="#pop" String="}" />
+				<DetectChar attribute="String" context="gdl_token_array_2_nested" char="{" />
+				<DetectChar attribute="String" context="#pop" char="}" />
 			</context>
 	
 			<context name="gdl_token_array_3" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<RegExpr attribute="String" String="\\\]" context="#stay"/>
-				<StringDetect attribute="String" context="gdl_token_array_3_nested" String="[" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="]" endRegion="GdlInput" />
+				<Detect2Chars attribute="String" char="\" char1="]" context="#stay"/>
+				<DetectChar attribute="String" context="gdl_token_array_3_nested" char="[" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="]" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_token_array_3_nested" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<StringDetect attribute="String" context="gdl_token_array_3_nested" String="[" />
-				<StringDetect attribute="String" context="#pop" String="]" />
+				<DetectChar attribute="String" context="gdl_token_array_3_nested" char="[" />
+				<DetectChar attribute="String" context="#pop" char="]" />
 			</context>
 	
 			<context name="gdl_token_array_4" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<RegExpr attribute="String" String="\\\&gt;" context="#stay"/>
-				<StringDetect attribute="String" context="gdl_token_array_4_nested" String="&lt;" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="&gt;" endRegion="GdlInput" />
+				<Detect2Chars attribute="String" char="\" char1="&gt;" context="#stay"/>
+				<DetectChar attribute="String" context="gdl_token_array_4_nested" char="&lt;" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="&gt;" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_token_array_4_nested" attribute="String" lineEndContext="#stay" >
 				<IncludeRules context="token_array_rules" />
-				<StringDetect attribute="String" context="gdl_token_array_4_nested" String="&lt;" />
-				<StringDetect attribute="String" context="#pop" String="&gt;" />
+				<DetectChar attribute="String" context="gdl_token_array_4_nested" char="&lt;" />
+				<DetectChar attribute="String" context="#pop" char="&gt;" />
 			</context>
 			
 			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
@@ -607,50 +609,50 @@
 			
 			<context name="gdl_apostrophed_1" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<RegExpr attribute="Raw String" String="\\\)" context="#stay"/>
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_1_nested" String="(" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String=")" endRegion="GdlInput" />
+				<Detect2Chars attribute="Raw String" char="\" char1=")" context="#stay"/>
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_1_nested" char="(" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char=")" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_apostrophed_1_nested" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_1_nested" String="(" />
-				<StringDetect attribute="Raw String" context="#pop" String=")" />
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_1_nested" char="(" />
+				<DetectChar attribute="Raw String" context="#pop" char=")" />
 			</context>
 			
 			<context name="gdl_apostrophed_2" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<RegExpr attribute="Raw String" String="\\\}" context="#stay"/>
-				<StringDetect attribute="GDL input" context="#pop#pop" String="}" endRegion="GdlInput" />
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_2_nested" String="{" />
+				<Detect2Chars attribute="Raw String" char="\" char1="}" context="#stay"/>
+				<DetectChar attribute="GDL input" context="#pop#pop" char="}" endRegion="GdlInput" />
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_2_nested" char="{" />
 			</context>
 			<context name="gdl_apostrophed_2_nested" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_2_nested" String="{" />
-				<StringDetect attribute="Raw String" context="#pop" String="}" />
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_2_nested" char="{" />
+				<DetectChar attribute="Raw String" context="#pop" char="}" />
 			</context>
 	
 			<context name="gdl_apostrophed_3" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<RegExpr attribute="Raw String" String="\\\]" context="#stay"/>
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_3_nested" String="[" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="]" endRegion="GdlInput" />
+				<Detect2Chars attribute="Raw String" char="\" char1="]" context="#stay"/>
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_3_nested" char="[" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="]" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_apostrophed_3_nested" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_3_nested" String="[" />
-				<StringDetect attribute="Raw String" context="#pop" String="]" />
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_3_nested" char="[" />
+				<DetectChar attribute="Raw String" context="#pop" char="]" />
 			</context>
 	
 			<context name="gdl_apostrophed_4" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<RegExpr attribute="Raw String" String="\\\&gt;" context="#stay"/>
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_4_nested" String="&lt;" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="&gt;" endRegion="GdlInput" />
+				<Detect2Chars attribute="Raw String" char="\" char1="&gt;" context="#stay"/>
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_4_nested" char="&lt;" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="&gt;" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_apostrophed_4_nested" attribute="Raw String" lineEndContext="#stay" >
 				<IncludeRules context="apostrophed_rules" />
-				<StringDetect attribute="Raw String" context="gdl_apostrophed_4_nested" String="&lt;" />
-				<StringDetect attribute="Raw String" context="#pop" String="&gt;" />
+				<DetectChar attribute="Raw String" context="gdl_apostrophed_4_nested" char="&lt;" />
+				<DetectChar attribute="Raw String" context="#pop" char="&gt;" />
 			</context>
 			
 			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
@@ -664,57 +666,57 @@
 			
 			<!-- rules to be included in all apostrophed contexts -->
 			<context name="apostrophed_rules" attribute="Raw String" lineEndContext="#stay" >
-				<StringDetect attribute="Raw String" String="\\" context="#stay"/>
+				<Detect2Chars attribute="Raw String" char="\" char1="\" context="#stay"/>
 			</context>
 			
 			<!-- shell command specific contexts -->
 			
 			<context name="gdl_shell_command_1" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<RegExpr attribute="Command" String="\\\)" context="#stay"/>
-				<StringDetect attribute="Command" context="gdl_shell_command_1_nested" String="(" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String=")" endRegion="GdlInput" />
+				<Detect2Chars attribute="Command" char="\" char1=")" context="#stay"/>
+				<DetectChar attribute="Command" context="gdl_shell_command_1_nested" char="(" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char=")" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_shell_command_1_nested" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<StringDetect attribute="Command" context="gdl_shell_command_1_nested" String="(" />
-				<StringDetect attribute="Command" context="#pop" String=")" />
+				<DetectChar attribute="Command" context="gdl_shell_command_1_nested" char="(" />
+				<DetectChar attribute="Command" context="#pop" char=")" />
 			</context>
 			
 			<context name="gdl_shell_command_2" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<RegExpr attribute="Command" String="\\\}" context="#stay"/>
-				<StringDetect attribute="GDL input" context="#pop#pop" String="}" endRegion="GdlInput" />
-				<StringDetect attribute="Command" context="gdl_shell_command_2_nested" String="{" />
+				<Detect2Chars attribute="Command" char="\" char1="}" context="#stay"/>
+				<DetectChar attribute="GDL input" context="#pop#pop" char="}" endRegion="GdlInput" />
+				<DetectChar attribute="Command" context="gdl_shell_command_2_nested" char="{" />
 			</context>
 			<context name="gdl_shell_command_2_nested" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<StringDetect attribute="Command" context="gdl_shell_command_2_nested" String="{" />
-				<StringDetect attribute="Command" context="#pop" String="}" />
+				<DetectChar attribute="Command" context="gdl_shell_command_2_nested" char="{" />
+				<DetectChar attribute="Command" context="#pop" char="}" />
 			</context>
 	
 			<context name="gdl_shell_command_3" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<RegExpr attribute="Command" String="\\\]" context="#stay"/>
-				<StringDetect attribute="Command" context="gdl_shell_command_3_nested" String="[" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="]" endRegion="GdlInput" />
+				<Detect2Chars attribute="Command" char="\" char1="]" context="#stay"/>
+				<DetectChar attribute="Command" context="gdl_shell_command_3_nested" char="[" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="]" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_shell_command_3_nested" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<StringDetect attribute="Command" context="gdl_shell_command_3_nested" String="[" />
-				<StringDetect attribute="Command" context="#pop" String="]" />
+				<DetectChar attribute="Command" context="gdl_shell_command_3_nested" char="[" />
+				<DetectChar attribute="Command" context="#pop" char="]" />
 			</context>
 	
 			<context name="gdl_shell_command_4" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<RegExpr attribute="Command" String="\\\&gt;" context="#stay"/>
-				<StringDetect attribute="Command" context="gdl_shell_command_4_nested" String="&lt;" />
-				<StringDetect attribute="GDL input" context="#pop#pop" String="&gt;" endRegion="GdlInput" />
+				<Detect2Chars attribute="Command" char="\" char1="&gt;" context="#stay"/>
+				<DetectChar attribute="Command" context="gdl_shell_command_4_nested" char="&lt;" />
+				<DetectChar attribute="GDL input" context="#pop#pop" char="&gt;" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_shell_command_4_nested" attribute="Command" lineEndContext="#stay" >
 				<IncludeRules context="shell_command_rules" />
-				<StringDetect attribute="Command" context="gdl_shell_command_4_nested" String="&lt;" />
-				<StringDetect attribute="Command" context="#pop" String="&gt;" />
+				<DetectChar attribute="Command" context="gdl_shell_command_4_nested" char="&lt;" />
+				<DetectChar attribute="Command" context="#pop" char="&gt;" />
 			</context>
 			
 			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
@@ -728,7 +730,7 @@
 			
 			<!-- rules to be included in all shell_command contexts -->
 			<context name="shell_command_rules" attribute="Command" lineEndContext="#stay" >
-				<StringDetect attribute="Command" String="\\" context="#stay"/>
+				<Detect2Chars attribute="Command" char="\" char1="\" context="#stay"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
 			</context>
@@ -737,50 +739,50 @@
 			
 			<context name="gdl_regexpr_1" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<RegExpr attribute="Regular Expression" String="\\\)" context="#stay"/>
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_1_nested" String="(" />
+				<Detect2Chars attribute="Regular Expression" char="\" char1=")" context="#stay"/>
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_1_nested" char="(" />
 				<RegExpr attribute="GDL input" context="#pop#pop" String="\)[uiomxn]*" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_regexpr_1_nested" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_1_nested" String="(" />
-				<StringDetect attribute="Regular Expression" context="#pop" String=")" />
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_1_nested" char="(" />
+				<DetectChar attribute="Regular Expression" context="#pop" char=")" />
 			</context>
 			
 			<context name="gdl_regexpr_2" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<RegExpr attribute="Regular Expression" String="\\\}" context="#stay"/>
+				<Detect2Chars attribute="Regular Expression" char="\" char1="}" context="#stay"/>
 				<RegExpr attribute="GDL input" context="#pop#pop" String="\}[uiomxn]*" endRegion="GdlInput" />
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_2_nested" String="{" />
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_2_nested" char="{" />
 			</context>
 			<context name="gdl_regexpr_2_nested" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_2_nested" String="{" />
-				<StringDetect attribute="Regular Expression" context="#pop" String="}" />
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_2_nested" char="{" />
+				<DetectChar attribute="Regular Expression" context="#pop" char="}" />
 			</context>
 	
 			<context name="gdl_regexpr_3" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<RegExpr attribute="Regular Expression" String="\\\]" context="#stay"/>
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_3_nested" String="[" />
+				<Detect2Chars attribute="Regular Expression" char="\" char1="]" context="#stay"/>
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_3_nested" char="[" />
 				<RegExpr attribute="GDL input" context="#pop#pop" String="\][uiomxn]*" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_regexpr_3_nested" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_3_nested" String="[" />
-				<StringDetect attribute="Regular Expression" context="#pop" String="]" />
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_3_nested" char="[" />
+				<DetectChar attribute="Regular Expression" context="#pop" char="]" />
 			</context>
 	
 			<context name="gdl_regexpr_4" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<RegExpr attribute="Regular Expression" String="\\\&gt;" context="#stay"/>
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_4_nested" String="&lt;" />
+				<Detect2Chars attribute="Regular Expression" char="\" char1="&gt;" context="#stay"/>
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_4_nested" char="&lt;" />
 				<RegExpr attribute="GDL input" context="#pop#pop" String="&gt;[uiomxn]*" endRegion="GdlInput" />
 			</context>
 			<context name="gdl_regexpr_4_nested" attribute="Regular Expression" lineEndContext="#stay" >
 				<IncludeRules context="regexpr_rules" />
-				<StringDetect attribute="Regular Expression" context="gdl_regexpr_4_nested" String="&lt;" />
-				<StringDetect attribute="Regular Expression" context="#pop" String="&gt;" />
+				<DetectChar attribute="Regular Expression" context="gdl_regexpr_4_nested" char="&lt;" />
+				<DetectChar attribute="Regular Expression" context="#pop" char="&gt;" />
 			</context>
 			
 			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
@@ -794,7 +796,7 @@
 			
 			<!-- rules to be included in all regexpr contexts -->
 			<context name="regexpr_rules" attribute="Regular Expression" lineEndContext="#stay" >
-				<StringDetect attribute="Regular Expression" String="\\" context="#stay"/>
+				<Detect2Chars attribute="Regular Expression" char="\" char1="\" context="#stay"/>
 				<RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
 				<Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
 			</context>

@@ -123,6 +123,7 @@ class KateDocument : public Kate::Document,
     bool browserView () const { return m_bBrowserView; }
     bool singleViewMode () const { return m_bSingleViewMode; }
     KateBrowserExtension *browserExtension () { return m_extension; }
+    void textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts) const;
 
   private:
     // only to make part work, don't change it !
@@ -165,7 +166,7 @@ class KateDocument : public Kate::Document,
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise ) const;
 
     QString textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const;
-
+    
     QString textLine ( uint line ) const;
 
     bool setText(const QString &);

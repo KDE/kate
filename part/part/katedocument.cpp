@@ -4151,6 +4151,9 @@ void KateDocument::setDocName (QString name )
     return;
   }
 
+  // if the name is set, and starts with FILENAME, it should not be changed!
+  if ( m_docName.startsWith( url().filename() ) ) return;
+
   int count = -1;
 
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)

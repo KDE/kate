@@ -1,7 +1,7 @@
 <?xml version="1.02" encoding="UTF-8"?>
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
-<language name="Python" version="1.01" kateversion="2.0" section="Scripts" extensions="*.py;*.pyw" mimetype="text/x-python" casesensitive="1">
+<language name="Python" version="1.02" kateversion="2.0" section="Scripts" extensions="*.py;*.pyw" mimetype="text/x-python" casesensitive="1">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -107,87 +107,87 @@
 		</list>
 
 		<contexts>
-			<context name="Normal" attribute="Normal Text" lineEndContext="0">
-				<keyword attribute="Preprocessor" String="prep" context="0"/>
-				<keyword attribute="Keyword" String="statements" context="0"/>
-				<keyword attribute="Builtin Function" String="builtinfuncs" context="0"/>
-				<keyword attribute="Special Variable" String="specialvars" context="0"/>
-				<RegExpr attribute="Normal" String="[a-zA-Z][a-zA-Z0-9]+" context="0"/>
-				<RegExpr attribute="Long" String="[1-9][0-9]*([eE][0-9.]+)?[Ll]" context="0"/>
-				<RegExpr attribute="Hex" String="0[Xx][0-9a-fA-F]+" context="0"/>
-				<RegExpr attribute="Octal" String="0[1-9][0-9]*" context="0"/>
-				<RegExpr attribute="Complex" String="[0-9+.-]+[Jj]" context="0"/>
-				<RegExpr attribute="Float" String="([1-9][0-9]*)?\.[0-9]*([eE][1-9][0-9]*(\.[0-9]*)?)?" context="0"/>
-				<RegExpr attribute="Int" String="([1-9][0-9]*([eE][0-9]+)?|0)" context="0"/>
+			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+				<keyword attribute="Preprocessor" String="prep" context="#stay"/>
+				<keyword attribute="Keyword" String="statements" context="#stay"/>
+				<keyword attribute="Builtin Function" String="builtinfuncs" context="#stay"/>
+				<keyword attribute="Special Variable" String="specialvars" context="#stay"/>
+				<RegExpr attribute="Normal" String="[a-zA-Z][a-zA-Z0-9]+" context="#stay"/>
+				<RegExpr attribute="Long" String="[1-9][0-9]*([eE][0-9.]+)?[Ll]" context="#stay"/>
+				<RegExpr attribute="Hex" String="0[Xx][0-9a-fA-F]+" context="#stay"/>
+				<RegExpr attribute="Octal" String="0[1-9][0-9]*" context="#stay"/>
+				<RegExpr attribute="Complex" String="[0-9+.-]+[Jj]" context="#stay"/>
+				<RegExpr attribute="Float" String="([1-9][0-9]*)?\.[0-9]*([eE][1-9][0-9]*(\.[0-9]*)?)?" context="#stay"/>
+				<RegExpr attribute="Int" String="([1-9][0-9]*([eE][0-9]+)?|0)" context="#stay"/>
 
-				<RegExpr attribute="Raw String" String="[rR]'" context="9"/>
-				<RegExpr attribute="Raw String" String="[rR]&quot;" context="10"/>
+				<RegExpr attribute="Raw String" String="[rR]'" context="Raw A-string"/>
+				<RegExpr attribute="Raw String" String="[rR]&quot;" context="Raw Q-string"/>
 
-				<RegExpr attribute="Comment" String="#.*$" context="0"/>
-				<RegExpr attribute="Comment" String="^\s*'''" context="1"/>
-				<RegExpr attribute="Comment" String="^\s*&quot;&quot;&quot;" context="2"/>
+				<RegExpr attribute="Comment" String="#.*$" context="#stay"/>
+				<RegExpr attribute="Comment" String="^\s*'''" context="Tripple A-comment"/>
+				<RegExpr attribute="Comment" String="^\s*&quot;&quot;&quot;" context="Tripple Q-comment"/>
 
-				<StringDetect attribute="String" String="'''" context="3"/>
-				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="4"/>
-				<DetectChar attribute="String" char="'" context="7"/>
-				<DetectChar attribute="String" char="&quot;" context="8"/>
+				<StringDetect attribute="String" String="'''" context="Tripple A-string"/>
+				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="Tripple Q-string"/>
+				<DetectChar attribute="String" char="'" context="Single A-string"/>
+				<DetectChar attribute="String" char="&quot;" context="Single Q-string"/>
 
-				<RegExpr attribute="Operator" String="[+*/\(\)%\|\[\]\{\}:=;\!&lt;&gt;!^&amp;~-]" context="0"/>
+				<RegExpr attribute="Operator" String="[+*/\(\)%\|\[\]\{\}:=;\!&lt;&gt;!^&amp;~-]" context="#stay"/>
 
 			</context>
 
-			<context name="Tripple A-comment" attribute="Comment" lineEndContext="1">
-				<HlCChar attribute="Comment" context="1"/>
-				<RegExpr attribute="Comment" String="'''" context="0"/>
+			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay">
+				<HlCChar attribute="Comment" context="#stay"/>
+				<RegExpr attribute="Comment" String="'''" context="#pop"/>
 			</context>
 
-			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="2">
-				<HlCChar attribute="Comment" context="2"/>
-				<RegExpr attribute="Comment" String="&quot;&quot;&quot;" context="0"/>
+			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay">
+				<HlCChar attribute="Comment" context="#stay"/>
+				<RegExpr attribute="Comment" String="&quot;&quot;&quot;" context="#pop"/>
 			</context>
 
-			<context name="Tripple A-string" attribute="String" lineEndContext="3">
-				<HlCChar attribute="String" context="3"/>
-				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="3"/>
-				<RegExpr attribute="String" String="'''" context="0"/>
+			<context name="Tripple A-string" attribute="String" lineEndContext="#stay">
+				<HlCChar attribute="String" context="#stay"/>
+				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String" String="'''" context="#pop"/>
 			</context>
 
-			<context name="Tripple Q-string" attribute="String" lineEndContext="4">
-				<HlCStringChar attribute="String" context="4"/>
-				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="4"/>
-				<RegExpr attribute="String" String="&quot;&quot;&quot;" context="0"/>
+			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay">
+				<HlCStringChar attribute="String" context="#stay"/>
+				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="#stay"/>
+				<RegExpr attribute="String" String="&quot;&quot;&quot;" context="#pop"/>
 			</context>
 
-			<context name="Single A-comment" attribute="Comment" lineEndContext="5">
-				<HlCStringChar attribute="Comment" context="5"/>
-				<DetectChar attribute="Comment" char="'" context="0"/>
+			<context name="Single A-comment" attribute="Comment" lineEndContext="#stay">
+				<HlCStringChar attribute="Comment" context="#stay"/>
+				<DetectChar attribute="Comment" char="'" context="#pop"/>
 			</context>
 
-			<context name="Single Q-comment" attribute="Comment" lineEndContext="6">
-				<HlCStringChar attribute="Comment" context="6"/>
-				<DetectChar attribute="Comment" char="&quot;" context="0"/>
+			<context name="Single Q-comment" attribute="Comment" lineEndContext="#stay">
+				<HlCStringChar attribute="Comment" context="#stay"/>
+				<DetectChar attribute="Comment" char="&quot;" context="#pop"/>
 			</context>
 
-			<context name="Single A-string" attribute="String" lineEndContext="7">
-				<HlCStringChar attribute="String" context="7"/>
-				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="7"/>
-				<DetectChar attribute="String" char="'" context="0"/>
+			<context name="Single A-string" attribute="String" lineEndContext="#stay">
+				<HlCStringChar attribute="String" context="#stay"/>
+				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="#stay"/>
+				<DetectChar attribute="String" char="'" context="#pop"/>
 			</context>
 
-			<context name="Single Q-string" attribute="String" lineEndContext="8">
-				<HlCStringChar attribute="String" context="8"/>
-				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="8"/>
-				<DetectChar attribute="String" char="&quot;" context="0"/>
+			<context name="Single Q-string" attribute="String" lineEndContext="#stay">
+				<HlCStringChar attribute="String" context="#stay"/>
+				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="#stay"/>
+				<DetectChar attribute="String" char="&quot;" context="#pop"/>
 			</context>
 
-			<context name="Raw A-string" attribute="Raw String" lineEndContext="9">
-				<HlCStringChar attribute="Raw String" context="9"/>
-				<DetectChar attribute="Raw String" char="'" context="0"/>
+			<context name="Raw A-string" attribute="Raw String" lineEndContext="#stay">
+				<HlCStringChar attribute="Raw String" context="#stay"/>
+				<DetectChar attribute="Raw String" char="'" context="#pop"/>
 			</context>
 
-			<context name="Raw Q-string" attribute="Raw String" lineEndContext="10">
-				<HlCStringChar attribute="Raw String" context="10"/>
-				<DetectChar attribute="Raw String" char="&quot;" context="0"/>
+			<context name="Raw Q-string" attribute="Raw String" lineEndContext="#stay">
+				<HlCStringChar attribute="Raw String" context="#stay"/>
+				<DetectChar attribute="Raw String" char="&quot;" context="#pop"/>
 			</context>
 
 

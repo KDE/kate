@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Prolog" version="1.00" kateversion="2.0" section="Sources" extensions="*.pl" mimetype="text/x-prolog">
+<language name="Prolog" version="1.01" kateversion="2.0" section="Sources" extensions="*.pl" mimetype="text/x-prolog">
     <highlighting>
         <list name="keywordl">
             <item> abstract </item>
@@ -177,31 +177,31 @@
         </list>
 
         <contexts>
-            <context name="normal" attribute="5" lineEndContext="#stay">
-                <keyword attribute="1" context="#stay"  String="keywordl"/>
-                <keyword attribute="1" context="#stay"  String="keywordu"/>
-                <keyword attribute="9" context="#stay"  String="arith"/>
-                <keyword attribute="1" context="#stay"  String="compiler"/>
-                <keyword attribute="1" context="#stay"  String="special"/>
-                <keyword attribute="2" context="#stay"  String="basetype"/>
-                <RegExpr String = "[A-Z_][A-Za-z0-9_]*" attribute = "8" context="#stay"/>
-                <RegExpr String = "[a-z][A-Za-z0-9_]*" attribute = "7" context="#stay"/>
-                <DetectChar attribute="3" context="1" char="%"/>
-                <Detect2Chars attribute="3" context="4" char="/" char1="*"/>
-                <Int attribute="4" context="#stay" />
-                <DetectChar attribute="6" context="2" char="&quot;" />
-                <DetectChar attribute="6" context="3" char="'" />
-                <AnyChar attribute="5" context="#stay" String="~!^*()-+=[]|\:;,./?&amp;&lt;&gt;" />
+            <context name="normal" attribute="Symbol" lineEndContext="#stay">
+                <keyword attribute="Keyword" context="#stay"  String="keywordl"/>
+                <keyword attribute="Keyword" context="#stay"  String="keywordu"/>
+                <keyword attribute="Arithmetic" context="#stay"  String="arith"/>
+                <keyword attribute="Keyword" context="#stay"  String="compiler"/>
+                <keyword attribute="Keyword" context="#stay"  String="special"/>
+                <keyword attribute="Data Type" context="#stay"  String="basetype"/>
+                <RegExpr String = "[A-Z_][A-Za-z0-9_]*" attribute = "Variable" context="#stay"/>
+                <RegExpr String = "[a-z][A-Za-z0-9_]*" attribute = "Identifier" context="#stay"/>
+                <DetectChar attribute="Comment" context="comment" char="%"/>
+                <Detect2Chars attribute="Comment" context="comment region" char="/" char1="*"/>
+                <Int attribute="Integer" context="#stay" />
+                <DetectChar attribute="String" context="string" char="&quot;" />
+                <DetectChar attribute="String" context="string2" char="'" />
+                <AnyChar attribute="Symbol" context="#stay" String="~!^*()-+=[]|\:;,./?&amp;&lt;&gt;" />
             </context>
-            <context name="comment" attribute="3" lineEndContext="0" />
-            <context name="string" attribute="6" lineEndContext="#stay" >
-                <DetectChar attribute="6" context="0" char="&quot;" />
+            <context name="comment" attribute="Comment" lineEndContext="#pop" />
+            <context name="string" attribute="String" lineEndContext="#stay" >
+                <DetectChar attribute="String" context="#pop" char="&quot;" />
             </context>
-            <context name="string2" attribute="6" lineEndContext="#stay">
-                <DetectChar attribute="6" context="0" char="'" />
+            <context name="string2" attribute="String" lineEndContext="#stay">
+                <DetectChar attribute="String" context="#pop" char="'" />
             </context>
-            <context name="comment region" attribute="3" lineEndContext="#stay">
-                <Detect2Chars attribute="3" context="0" char="*" char1="/" />
+            <context name="comment region" attribute="Comment" lineEndContext="#stay">
+                <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
             </context>
         </contexts>
         <itemDatas>

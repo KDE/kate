@@ -9,4 +9,4 @@ libkatepartinterfaces_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN)  
 kateinclude_HEADERS = document.h view.h
 kateincludedir = $(includedir)/kate
 
-INCLUDES= $(all_includes) -I$(top_srcdir)/interfaces
+INCLUDES= $(all_includes) -I$(top_srcdir)/interfaces -I$(top_srcdir)/kparts

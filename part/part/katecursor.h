@@ -25,21 +25,27 @@
 #include <config.h>
 #include "../interfaces/document.h"
 
+class KateDocument;
+
+
+/*
+  Simple cursor class with no document pointer.
+*/
 class KateTextCursor
 {
   public:
-    KateTextCursor() : line( 0 ), col( 0 ) {};
-    KateTextCursor( int _line, int _col ) : line( _line ), col( _col ) {};
+    KateTextCursor() : line(0), col(0) {};
+    KateTextCursor(int _line, int _col) : line(_line), col(_col) {};
 
-    friend bool operator==( const KateTextCursor& c1, const KateTextCursor& c2 )
+    friend bool operator==(const KateTextCursor& c1, const KateTextCursor& c2)
       { return c1.line == c2.line && c1.col == c2.col; }
 
-    inline void pos ( uint *pline, uint *pcol ) const {
+    inline void pos(uint *pline, uint *pcol) const {
       if(pline) *pline = line;
       if(pcol) *pcol = col;
     }
 
-    inline void setPos ( uint _line, uint _col ) {
+    inline void setPos(uint _line, uint _col) {
       line = _line;
       col = _col;
     }    
@@ -57,24 +63,41 @@ class BracketMark
     int eXPos;
 };
 
-class KateCursor : public KateTextCursor, public Kate::Cursor
+/*
+  Cursor class with a pointer to its document.
+*/
+class KateDocCursor : public KateTextCursor
 {
   public:
-    KateCursor (class KateDocument *doc);
-    ~KateCursor ();
 
-    void position ( uint *line, uint *col ) const;
+    KateDocCursor(KateDocument *doc);
+    ~KateDocCursor();
 
-    bool setPosition ( uint line, uint col );
+  protected:
+    KateDocument *myDoc;
+};
 
-    bool insertText ( const QString& text );
+/*
+  Complex cursor class implementing the KTextEditor::Cursor interface
+  through Kate::Cursor using KateDocCursor features.
 
-    bool removeText ( uint numberOfCharacters );
+  (KTextEditor::Cursor objects should hold their position, which
+  means: You set some cursor to line 10/col 10, the user deletes lines
+  2-4 -> the cursor should move automagically to line 7 to stay at
+  it's old position in the text. At least it was thought so.)
+*/
+class KateCursor : public KateDocCursor, public Kate::Cursor
+{
+  public:
+    KateCursor(KateDocument *doc);
+    ~KateCursor();
 
-    QChar currentChar () const;
-
-  private:
-    class KateDocument *myDoc;
+    // KTextEditor::Cursor interface
+    void position(uint *line, uint *col) const;
+    bool setPosition(uint line, uint col);
+    bool insertText(const QString& text);
+    bool removeText(uint numberOfCharacters);
+    QChar currentChar() const;
 };
 
 #endif

@@ -4125,13 +4125,15 @@ bool KateDocument::findMatchingBracket( const KateTextCursor &cursor, KateTextCu
   int x, line, count, attr;
   QChar bracket, opposite, ch;
 
-  x = cursor.col -1; // -1 to look at left side of cursor
+  x = cursor.col; // -1 to look at left side of cursor
   if (x < 0) return false;
   line = cursor.line; //current line
   count = 0; //bracket counter for nested brackets
 
   textLine = buffer->line(line);
   if (!textLine) return false;
+
+  kdDebug()<<"Cursor position for bracket lookup:"<<x<<endl;
 
   bracket = textLine->getChar(x);
   attr = textLine->attribute(x);
@@ -4193,7 +4195,7 @@ bool KateDocument::findMatchingBracket( const KateTextCursor &cursor, KateTextCu
       x--;
       if(!unlimitedRange)
 		{
-		stopCondition = cursor.line -line < 20;
+		stopCondition = cursor.line -line < 40;
 		}
     }
   }
@@ -4218,7 +4220,7 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
   QChar bracket;
 
   bm.eXPos = -1; //mark bracked mark as invalid
-  x = cursor.col -1; // -1 to look at left side of cursor
+  x = cursor.col; //-1; // -1 to look at left side of cursor
   if (x < 0) return;
   line = cursor.line; //current line
   count = 0; //bracket counter for nested brackets

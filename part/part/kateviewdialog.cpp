@@ -556,7 +556,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
   QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the \"<b>Configure Highlighting</b>\" dialog."));
-  QWhatsThis::add(m_current, i18n("Sets the background color of the current active line, which means the line where your cursor is positioned"));
+  QWhatsThis::add(m_current, i18n("Sets the background color of the currently active line, which means the line where your cursor is positioned."));
 
   reload ();
 }

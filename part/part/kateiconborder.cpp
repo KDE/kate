@@ -200,9 +200,9 @@ const char*exec_xpm[]={
 "..........."};
 
 
-KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
-  : QWidget(view, ""),
-    myView(view), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
+KateIconBorder::KateIconBorder(QWidget *parent, KateViewInternal *internalView)
+  : QWidget(parent, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase),
+    myView(internalView->myView), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
 {                                                  
   myDoc = myInternalView->myDoc;
 

@@ -23,42 +23,36 @@
 
 #include <qwidget.h>
 
-class KateView;
-class KateViewInternal;
-class QPopupMenu;
-
 class KateIconBorder : public QWidget
 {
   Q_OBJECT      
   
   public:
-    KateIconBorder(class KateView *view, class KateViewInternal *internalView);
+    KateIconBorder(QWidget *parent, class KateViewInternal *internalView);
     ~KateIconBorder();
-
+    
+    int width(); 
+  
     enum status { None=0, Icons=1, LineNumbers=2, FoldingMarkers=4 };
-       
-    int width();
+             
+  signals:
+    void toggleRegionVisibility(unsigned int);
 
-  private:
+  private:        
+    void createMarkMenu();               
+    
     void paintEvent(QPaintEvent* e);
     void mousePressEvent(QMouseEvent* e);
-
-private:
-
-    class KateView *myView;      
-    class KateDocument *myDoc;
-    class KateViewInternal *myInternalView;
+                  
     bool lmbSetsBreakpoints;
     int iconPaneWidth;
     int cachedLNWidth;
     uint linesAtLastCheck; // only calculate width if number of lines has changed
-
-    unsigned int oldEditableMarks;                 
-    QPopupMenu *markMenu;
-
-    void createMarkMenu();
-
-signals:
-    void toggleRegionVisibility(unsigned int);
+    uint oldEditableMarks;  
+                      
+    class KateView *myView;      
+    class KateDocument *myDoc;
+    class KateViewInternal *myInternalView;
+    class QPopupMenu *markMenu;                     
 };
 #endif

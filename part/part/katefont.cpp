@@ -79,14 +79,15 @@ int KateFontMetrics::width(QChar c)
 //
 
 
-FontStruct::FontStruct() : myFont(KGlobalSettings::fixedFont()), 
-			   myFontBold(KGlobalSettings::fixedFont()),
-			   myFontItalic(KGlobalSettings::fixedFont()),
-			   myFontBI(KGlobalSettings::fixedFont()),
-			   myFontMetrics(myFont),
-			   myFontMetricsBold(myFontBold),
-			   myFontMetricsItalic(myFontItalic),
-			   myFontMetricsBI(myFontBI)
+FontStruct::FontStruct()
+: myFont(KGlobalSettings::fixedFont()), 
+  myFontBold(KGlobalSettings::fixedFont()),
+  myFontItalic(KGlobalSettings::fixedFont()),
+  myFontBI(KGlobalSettings::fixedFont()),
+  myFontMetrics(myFont),
+  myFontMetricsBold(myFontBold),
+  myFontMetricsItalic(myFontItalic),
+  myFontMetricsBI(myFontBI)
 {
 }
 

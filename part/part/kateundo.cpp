@@ -50,12 +50,12 @@
 };
 
 KateUndo::KateUndo (uint type, uint line, uint col, uint len, const QString &text)
+: m_type (type),
+  m_line (line),
+  m_col (col),
+  m_len (len),
+  m_text (text)  
 {
-  m_type = type;
-  m_line = line;
-  m_col = col;
-  m_len = len;
-  m_text = text;
 }
 
 KateUndo::~KateUndo ()
@@ -119,8 +119,8 @@ void KateUndo::redo (KateDocument *doc)
 }
 
 KateUndoGroup::KateUndoGroup (KateDocument *doc)
-{
-  m_doc = doc;  
+: m_doc (doc)  
+{  
   m_items.setAutoDelete (true);
 }
 
@@ -141,9 +141,9 @@ void KateUndoGroup::undo ()
 
     if (m_doc->myActiveView != 0L)
     {
-      m_doc->myActiveView->myViewInternal->cursorCache.line = m_items.at(pos)->line();
-      m_doc->myActiveView->myViewInternal->cursorCache.col = m_items.at(pos)->col();
-      m_doc->myActiveView->myViewInternal->cursorCacheChanged = true;
+      m_doc->myActiveView->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
+      m_doc->myActiveView->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
+      m_doc->myActiveView->m_viewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -163,9 +163,9 @@ void KateUndoGroup::redo ()
 
     if (m_doc->myActiveView != 0L)
     {
-      m_doc->myActiveView->myViewInternal->cursorCache.line = m_items.at(pos)->line();
-      m_doc->myActiveView->myViewInternal->cursorCache.col = m_items.at(pos)->col();
-      m_doc->myActiveView->myViewInternal->cursorCacheChanged = true;
+      m_doc->myActiveView->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
+      m_doc->myActiveView->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
+      m_doc->myActiveView->m_viewInternal->cursorCacheChanged = true;
     }
   }
 

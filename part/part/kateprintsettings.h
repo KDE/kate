@@ -16,7 +16,7 @@
  *  the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  *  Boston, MA 02111-1307, USA.
  **/
-
+ 
 #ifndef KATEPRINTSETTINGS_H
 #define KATEPRINTSETTINGS_H
 
@@ -30,20 +30,21 @@ class QLineEdit;
 
 class KatePrintSettings : public KPrintDialogPage
 {
-	Q_OBJECT
-public:
-	KatePrintSettings(KPrinter *printer, QWidget *parent = 0, const char *name = 0);
-	~KatePrintSettings();
+  Q_OBJECT
 
-	void getOptions(QMap<QString,QString>& opts, bool incldef = false);
-	void setOptions(const QMap<QString,QString>& opts);
+  public:
+    KatePrintSettings(KPrinter *printer, QWidget *parent = 0, const char *name = 0);
+    ~KatePrintSettings();
 
-private:
-	QCheckBox	*m_usebox, *m_useheader;
-	KColorButton	*m_boxcolor, *m_headercolor, *m_fontcolor;
-	QLineEdit	*m_headerright, *m_headercenter, *m_headerleft;
-	QSpinBox	*m_boxwidth;
-	KPrinter	*m_printer;
+    void getOptions(QMap<QString,QString>& opts, bool incldef = false);
+    void setOptions(const QMap<QString,QString>& opts);
+
+  private:
+    QCheckBox  *m_usebox, *m_useheader;
+    KColorButton  *m_boxcolor, *m_headercolor, *m_fontcolor;
+    QLineEdit  *m_headerright, *m_headercenter, *m_headerleft;
+    QSpinBox  *m_boxwidth;
+    KPrinter  *m_printer;
 };
 
 #endif

@@ -37,7 +37,7 @@ public:
    void updateMenu (Kate::Document *doc);
 
 private:
-	QGuardedPtr<Kate::Document>  myDoc;
+	QGuardedPtr<Kate::Document>  m_doc;
 	QStringList filter;
 	void init();
 

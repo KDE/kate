@@ -140,12 +140,12 @@ class KateBuffer : public QObject
 
    inline bool allowHlUpdate () const
    {
-      return !noHlUpdate;
+      return !m_noHlUpdate;
    }
    
    inline void setAllowHlUpdate (bool b)
    {
-     noHlUpdate = !b;
+     m_noHlUpdate = !b;
    }
     
 signals:
@@ -187,7 +187,7 @@ public slots:
     void setLineVisible(unsigned int lineNr, bool visible);
 
 
-protected:
+private:
    /**
     * Make sure @p buf gets loaded.
     */
@@ -226,7 +226,7 @@ protected:
     */
    bool needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint from, uint to);
 
-protected slots:
+private slots:
    void slotLoadFile();
 
 private:
@@ -234,10 +234,10 @@ private:
    uint m_highlightedTo; // The highest line with correct highlight info
    uint m_highlightedRequested; // The highest line that we requested highlight for
 
-   bool noHlUpdate;
+   bool m_noHlUpdate;
 
    class Highlight *m_highlight;
-   class KateDocument *myDoc;
+   class KateDocument *m_doc;
 
    QPtrList<KateBufBlock> m_blocks;
    QPtrList<KateBufFileLoader> m_loader;

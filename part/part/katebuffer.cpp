@@ -85,8 +85,9 @@ public:
  */
 class KateBufBlock
 {
-   friend class KateBuffer;
-public:
+  friend class KateBuffer;
+
+  public:
    /*
     * Create an empty block.
     */
@@ -164,13 +165,15 @@ public:
     */
    void removeLine(uint i);
 
-protected:
+private:
    /**
     * Create a valid stringList from intern format.
     */
    void buildStringListFast();
 
-protected:
+private:
+   KateBufState m_beginState;
+   KateBufState m_endState;
    TextLine::List m_stringList;
    QByteArray m_rawData1;
    int m_rawData1Start;
@@ -184,8 +187,7 @@ protected:
    bool b_emptyBlock : 1; // Buffer is empty
    bool b_needHighlight : 1; // Buffer requires highlighting.
    uint m_lastLine; // Start of last line if buffer is without EOL.
-   KateBufState m_beginState;
-   KateBufState m_endState;
+   
    QTextCodec *m_codec;
    KVMAllocator::Block *m_vmblock;
 };
@@ -193,16 +195,16 @@ protected:
 /**     
  * Create an empty buffer.
  */     
-KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc)
+KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
+  m_noHlUpdate (false),
+  m_highlight (0),
+  m_doc (doc),
+  m_vm (0)  
 {
-  myDoc = doc;
-  noHlUpdate = false;
-   m_blocks.setAutoDelete(true);     
-   m_loader.setAutoDelete(true);     
-   connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(slotLoadFile()));     
-   m_vm = 0;
-   m_highlight = 0;
-   clear();     
+  m_blocks.setAutoDelete(true);     
+  m_loader.setAutoDelete(true);     
+  connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(slotLoadFile()));     
+  clear();     
 }     
 
 KateBuffer::~KateBuffer()
@@ -513,7 +515,7 @@ KateBuffer::line(uint i)
       parseBlock(buf);
    }
    
-   if (!noHlUpdate)
+   if (!m_noHlUpdate)
    {
    if (buf->b_needHighlight)
    {
@@ -917,20 +919,21 @@ QString KateBuffer::text ( uint startLine, uint startCol,
  * Create an empty block.
  */
 KateBufBlock::KateBufBlock(const KateBufState &beginState)
- : m_beginState(beginState), m_endState(beginState)
+: m_beginState (beginState),
+  m_endState (beginState),
+  m_rawData1Start (0),
+  m_rawData2End (0),
+  m_rawSize (0),
+  b_stringListValid (false),
+  b_rawDataValid (false),
+  b_vmDataValid (false),
+  b_appendEOL (false),
+  b_emptyBlock (false),
+  b_needHighlight (true),
+  m_lastLine (0),
+  m_codec (0),
+  m_vmblock (0)
 {
-   m_rawData1Start = 0;
-   m_rawData2End = 0;
-   m_rawSize = 0;
-   m_vmblock = 0;
-   b_stringListValid = false;
-   b_rawDataValid = false;
-   b_vmDataValid = false;
-   b_appendEOL = false;
-   b_emptyBlock = false;
-   b_needHighlight = true;
-   m_lastLine = 0;
-   m_codec = 0;
 }
 
 /**

@@ -97,13 +97,16 @@
 //
 // KateDocument Constructor
 //
-KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, 
-			   bool bReadOnly, QWidget *parentWidget, 
-			   const char *widgetName, QObject *, const char *)
-  : Kate::Document (), selectStart(-1, -1), selectEnd(-1, -1),
-    selectAnchor(-1, -1), viewFont(), printFont(),
-    hlManager(HlManager::self ())
-    
+KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView, 
+                                                    bool bReadOnly, QWidget *parentWidget, 
+                                                    const char *widgetName, QObject *, const char *)
+: Kate::Document (),
+  selectStart(-1, -1),
+  selectEnd(-1, -1),
+  selectAnchor(-1, -1),
+  viewFont(),
+  printFont(),
+  hlManager(HlManager::self ())  
 {
   KateFactory::registerDocument (this);
 
@@ -147,7 +150,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
   setFont (ViewFont,KGlobalSettings::fixedFont());
   setFont (PrintFont,KGlobalSettings::fixedFont());
 
-  myDocName = QString ("");
+  m_docName = QString ("");
   fileInfo = new QFileInfo ();
 
   myCmd = new KateCmd (this);
@@ -214,9 +217,9 @@ KateDocument::~KateDocument()
 {
   if ( !m_bSingleViewMode )
   {
-    myViews.setAutoDelete( true );
-    myViews.clear();
-    myViews.setAutoDelete( false );
+    m_views.setAutoDelete( true );
+    m_views.clear();
+    m_views.setAutoDelete( false );
   }
 
   m_highlight->release();
@@ -267,9 +270,9 @@ bool KateDocument::setText(const QString &s)
 
 bool KateDocument::clear()
 {
-  for (KateView * view = myViews.first(); view != 0L; view = myViews.next() ) {
-    view->myViewInternal->clear();
-    view->myViewInternal->tagAll();
+  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() ) {
+    view->m_viewInternal->clear();
+    view->m_viewInternal->tagAll();
   }
 
   eolMode = KateDocument::eolUnix;
@@ -484,12 +487,12 @@ void KateDocument::editStart (bool withUndo)
   else
     editCurrentUndo = 0L;
 
-  for (uint z = 0; z < myViews.count(); z++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateView *v = myViews.at(z);
-    v->myViewInternal->cursorCacheChanged = false;
-    v->myViewInternal->tagLinesFrom = -1;
-    v->myViewInternal->cursorCache = v->myViewInternal->getCursor();
+    KateView *v = m_views.at(z);
+    v->m_viewInternal->cursorCacheChanged = false;
+    v->m_viewInternal->tagLinesFrom = -1;
+    v->m_viewInternal->cursorCache = v->m_viewInternal->getCursor();
   }
 }
 
@@ -523,9 +526,9 @@ void KateDocument::editEnd ()
     emit undoChanged ();
   }
 
-  for (uint z = 0; z < myViews.count(); z++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *v = (myViews.at(z))->myViewInternal;
+    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
 
     if (v->tagLinesFrom > -1)
     {
@@ -672,9 +675,9 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   editTagLine(line);
 
-  for (uint z = 0; z < myViews.count(); z++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *v = (myViews.at(z))->myViewInternal;
+    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
 
     cLine = v->cursorCache.line;
     cCol = v->cursorCache.col;
@@ -741,9 +744,9 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   regionTree->lineHasBeenInserted(line); //test line or line +1
 
-  for (uint z2 = 0; z2 < myViews.count(); z2++)
+  for (uint z2 = 0; z2 < m_views.count(); z2++)
   {
-    KateViewInternal *view = (myViews.at(z2))->myViewInternal;
+    KateViewInternal *view = (m_views.at(z2))->m_viewInternal;
 
     setViewTagLinesFrom(view, line);
 
@@ -806,9 +809,9 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   editTagLine(line);
   editTagLine(line+1);
 
-  for (uint z2 = 0; z2 < myViews.count(); z2++)
+  for (uint z2 = 0; z2 < m_views.count(); z2++)
   {
-    KateViewInternal * view = (myViews.at(z2))->myViewInternal;
+    KateViewInternal * view = (m_views.at(z2))->m_viewInternal;
     
     setViewTagLinesFrom(view, line);
 
@@ -861,9 +864,9 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   regionTree->lineHasBeenInserted(line);
 
-  for (uint z2 = 0; z2 < myViews.count(); z2++)
+  for (uint z2 = 0; z2 < m_views.count(); z2++)
   {
-    KateViewInternal * view = (myViews.at(z2))->myViewInternal;    
+    KateViewInternal * view = (m_views.at(z2))->m_viewInternal;    
     setViewTagLinesFrom(view, line);
   }
 
@@ -909,9 +912,9 @@ bool KateDocument::editRemoveLine ( uint line )
 
   regionTree->lineHasBeenRemoved(line);
 
-  for (uint z2 = 0; z2 < myViews.count(); z2++)
+  for (uint z2 = 0; z2 < m_views.count(); z2++)
   {
-    KateViewInternal * view = (myViews.at(z2))->myViewInternal;
+    KateViewInternal * view = (m_views.at(z2))->m_viewInternal;
 
     setViewTagLinesFrom(view, line);
 
@@ -1030,9 +1033,9 @@ bool KateDocument::removeSelectedText ()
 
   editStart ();
 
-  for (uint z = 0; z < myViews.count(); z++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *v = (myViews.at(z))->myViewInternal;
+    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
     if (lineHasSelected(v->cursorCache.line))
     {
       v->cursorCache = selectStart;
@@ -1134,7 +1137,7 @@ bool KateDocument::setBlockSelectionMode (bool on)
     blockSelect = on;
     setSelection (selectStart, selectEnd);
     KTextEditor::View *view;
-    for (view = myViews.first(); view != 0L; view = myViews.next() ) {
+    for (view = m_views.first(); view != 0L; view = m_views.next() ) {
       emit static_cast<KateView *>( view )->newStatus();
     }
   }
@@ -1397,7 +1400,7 @@ bool KateDocument::internalSetHlMode (uint mode)
   }
 
   KateView *view;
-  for (view = myViews.first(); view != 0L; view = myViews.next() )
+  for (view = m_views.first(); view != 0L; view = m_views.next() )
      {
          view->setFoldingMarkersOn(m_highlight->allowsFolding());
      }
@@ -1987,7 +1990,7 @@ void KateDocument::setReadWrite( bool rw )
   {
     readOnly = !rw;
     KParts::ReadWritePart::setReadWrite (rw);
-    for (view = myViews.first(); view != 0L; view = myViews.next() ) {
+    for (view = m_views.first(); view != 0L; view = m_views.next() ) {
       emit static_cast<KateView *>( view )->newStatus();
     }
   }
@@ -2004,7 +2007,7 @@ void KateDocument::setModified(bool m) {
   if (m != modified) {
     modified = m;
     KParts::ReadWritePart::setModified (m);
-    for (view = myViews.first(); view != 0L; view = myViews.next() ) {
+    for (view = m_views.first(); view != 0L; view = m_views.next() ) {
       emit static_cast<KateView *>( view )->newStatus();
     }
     emit modifiedChanged ();
@@ -2125,7 +2128,7 @@ void KateDocument::internalHlChanged() { //slot
 }
 
 void KateDocument::addView(KTextEditor::View *view) {
-  myViews.append( (KateView *) view  );
+  m_views.append( (KateView *) view  );
   _views.append( view );
   myActiveView = (KateView *) view;
 }
@@ -2134,7 +2137,7 @@ void KateDocument::removeView(KTextEditor::View *view) {
   if (myActiveView == view)
     myActiveView = 0L;
 
-  myViews.removeRef( (KateView *) view );
+  m_views.removeRef( (KateView *) view );
   _views.removeRef( view  );
 }
 
@@ -2148,11 +2151,11 @@ void KateDocument::removeCursor(KTextEditor::Cursor *cursor) {
 
 bool KateDocument::ownedView(KateView *view) {
   // do we own the given view?
-  return (myViews.containsRef(view) > 0);
+  return (m_views.containsRef(view) > 0);
 }
 
 bool KateDocument::isLastView(int numViews) {
-  return ((int) myViews.count() == numViews);
+  return ((int) m_views.count() == numViews);
 }
 
 uint KateDocument::textWidth(const TextLine::Ptr &textLine, 
@@ -2331,8 +2334,8 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
     if (hasSelection())
     {
       removeSelectedText();
-      line = view->myViewInternal->cursorCache.line;
-      col = view->myViewInternal->cursorCache.col;
+      line = view->m_viewInternal->cursorCache.line;
+      col = view->m_viewInternal->cursorCache.col;
     }
   }
 
@@ -2348,8 +2351,8 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   col += pos;
 
   // editEnd will set the cursor from this cache right ;))
-  view->myViewInternal->cursorCache.setPos(line, col);
-  view->myViewInternal->cursorCacheChanged = true;
+  view->m_viewInternal->cursorCache.setPos(line, col);
+  view->m_viewInternal->cursorCacheChanged = true;
 
   editEnd ();
 
@@ -2555,8 +2558,8 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 
   // editEnd will set the cursor from this cache right ;))
   // Totally breaking the whole idea of the doc view model here...
-  view->myViewInternal->cursorCache.setPos(line, col);
-  view->myViewInternal->cursorCacheChanged = true;
+  view->m_viewInternal->cursorCache.setPos(line, col);
+  view->m_viewInternal->cursorCacheChanged = true;
 
   editEnd();
 }
@@ -3124,8 +3127,8 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
 
 void KateDocument::tagLines(int start, int end)
 {
-  for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->myViewInternal->tagRealLines(start, end);
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->m_viewInternal->tagRealLines(start, end);
 }
 
 void KateDocument::tagSelection()
@@ -3135,8 +3138,8 @@ void KateDocument::tagSelection()
 
 void KateDocument::tagAll()
 {
-  for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->myViewInternal->tagAll();
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->m_viewInternal->tagAll();
 }
 
 void KateDocument::updateLines()
@@ -3159,15 +3162,15 @@ void KateDocument::updateViews()
   if (noViewUpdates)
     return;
 
-  for (KateView * view = myViews.first(); view != 0L; view = myViews.next() )
+  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
   {
-    view->myViewInternal->updateView();
+    view->m_viewInternal->updateView();
   }
 }
 
 void KateDocument::updateEditAccels()
 {
-  for (KateView * view = myViews.first(); view != 0L; view = myViews.next() )
+  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
   {
     view->setupEditKeys();
   }
@@ -3595,7 +3598,7 @@ void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )
 
 void KateDocument::setDocName (QString docName)
 {
-  myDocName = docName;
+  m_docName = docName;
   emit nameChanged ((Kate::Document *) this);
 }
 

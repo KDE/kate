@@ -78,7 +78,7 @@ class KateDocument : public Kate::Document
     QPtrList<KTextEditor::View> views () const;
     
   private:
-    QPtrList<KateView> myViews;
+    QPtrList<KateView> m_views;
     QPtrList<KTextEditor::View> _views;
     KateView *myActiveView;
 
@@ -510,7 +510,7 @@ class KateDocument : public Kate::Document
      */
     void isModOnHD(bool forceReload=false);
 
-    QString docName () {return myDocName;};
+    QString docName () {return m_docName;};
 
     void setDocName (QString docName);
 
@@ -635,7 +635,7 @@ class KateDocument : public Kate::Document
     void setMTime();
     class QFileInfo* fileInfo;
     class QDateTime mTime;
-    QString myDocName;
+    QString m_docName;
 
     class KateCmd *myCmd;
 

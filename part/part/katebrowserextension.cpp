@@ -26,8 +26,8 @@
 #include "katedocument.h"
 
 KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
-  : KParts::BrowserExtension( doc, "katepartbrowserextension" )
-  , m_doc( doc )
+: KParts::BrowserExtension( doc, "katepartbrowserextension" ),
+  m_doc (doc)
 {
   connect( doc, SIGNAL( selectionChanged() ),
            this, SLOT( slotSelectionChanged() ) );

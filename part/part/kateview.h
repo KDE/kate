@@ -57,16 +57,16 @@ class KateView : public Kate::View
   // KTextEditor::View
   //
   public:
-    KTextEditor::Document* document() const       { return myDoc; }
+    KTextEditor::Document* document() const       { return m_doc; }
 
   //
   // KTextEditor::ClipboardInterface
   //
   public slots:
-    void cut()           { myDoc->cut();    }
-    void copy() const    { myDoc->copy();   }
-    // TODO: Factor out of myViewInternal
-    void paste()         { myViewInternal->doPaste();  }
+    void cut()           { m_doc->cut();    }
+    void copy() const    { m_doc->copy();   }
+    // TODO: Factor out of m_viewInternal
+    void paste()         { m_viewInternal->doPaste();  }
 
   //
   // KTextEditor::PopupMenuInterface
@@ -80,7 +80,7 @@ class KateView : public Kate::View
   //
   public slots:
     QPoint cursorCoordinates()
-        { return myViewInternal->cursorCoordinates();                 }
+        { return m_viewInternal->cursorCoordinates();                 }
     void cursorPosition( uint* l, uint* c )
         { if( l ) *l = cursorLine(); if( c ) *c = cursorColumn();     }
     void cursorPositionReal( uint* l, uint* c )
@@ -90,11 +90,11 @@ class KateView : public Kate::View
     bool setCursorPositionReal( uint line, uint col)
         { return setCursorPositionInternal( line, col, 1 );           }
     uint cursorLine()
-        { return myViewInternal->getCursor().line;                    }
+        { return m_viewInternal->getCursor().line;                    }
     uint cursorColumn()
-        { return myDoc->currentColumn(myViewInternal->getCursor());   }
+        { return m_doc->currentColumn(m_viewInternal->getCursor());   }
     uint cursorColumnReal()
-        { return myViewInternal->getCursor().col;                     }
+        { return m_viewInternal->getCursor().col;                     }
   signals:
     void cursorPositionChanged();
 
@@ -126,71 +126,71 @@ class KateView : public Kate::View
   //
   public:
     bool isOverwriteMode() const
-        { return myDoc->_configFlags & KateDocument::cfOvr; }
+        { return m_doc->_configFlags & KateDocument::cfOvr; }
     void setOverwriteMode( bool b );
     // TODO: As this method can be implemented in terms of KTextEditor
     // methods, it should be dropped.
     QString currentTextLine()
         { return getDoc()->textLine( cursorLine() ); }
     QString currentWord()
-        { return myDoc->getWord( myViewInternal->getCursor() ); }
+        { return m_doc->getWord( m_viewInternal->getCursor() ); }
 //    QString word(int x, int y)
-//        { return myDoc->getWord( x, y ); }
+//        { return m_doc->getWord( x, y ); }
     // TODO: As this method can be implemented in terms of KTextEditor
     // methods, it should be dropped.
     void insertText( const QString& text )
         { getDoc()->insertText( cursorLine(), cursorColumnReal(), text ); }
     bool canDiscard();
-    int tabWidth()                { return myDoc->tabChars;      }
-    void setTabWidth( int w )     { myDoc->setTabWidth(w);       }
-    void setEncoding( QString e ) { myDoc->setEncoding(e);       }
-    bool isLastView()             { return myDoc->isLastView(1); }
+    int tabWidth()                { return m_doc->tabChars;      }
+    void setTabWidth( int w )     { m_doc->setTabWidth(w);       }
+    void setEncoding( QString e ) { m_doc->setEncoding(e);       }
+    bool isLastView()             { return m_doc->isLastView(1); }
 
   public slots:
     void flush();
     saveResult save();
     saveResult saveAs();
     
-    void indent()      { myDoc->indent( cursorLine() );      }
-    void unIndent()    { myDoc->unIndent( cursorLine() );    }
-    void cleanIndent() { myDoc->cleanIndent( cursorLine() ); }
-    void comment()     { myDoc->comment( cursorLine() );     }
-    void uncomment()   { myDoc->unComment( cursorLine() );   }
-    // TODO: Factor these out of myViewInternal
-    void keyReturn()   { myViewInternal->doReturn();      }
-    void keyDelete()   { myViewInternal->doDelete();      }
-    void backspace()   { myViewInternal->doBackspace();   }
-    void transpose()   { myViewInternal->doTranspose();   }
-    void killLine()    { myDoc->killLine( cursorLine() );    }
+    void indent()      { m_doc->indent( cursorLine() );      }
+    void unIndent()    { m_doc->unIndent( cursorLine() );    }
+    void cleanIndent() { m_doc->cleanIndent( cursorLine() ); }
+    void comment()     { m_doc->comment( cursorLine() );     }
+    void uncomment()   { m_doc->unComment( cursorLine() );   }
+    // TODO: Factor these out of m_viewInternal
+    void keyReturn()   { m_viewInternal->doReturn();      }
+    void keyDelete()   { m_viewInternal->doDelete();      }
+    void backspace()   { m_viewInternal->doBackspace();   }
+    void transpose()   { m_viewInternal->doTranspose();   }
+    void killLine()    { m_doc->killLine( cursorLine() );    }
     
-    void cursorLeft()         { myViewInternal->cursorLeft();      }
-    void shiftCursorLeft()    { myViewInternal->cursorLeft(true);  }
-    void cursorRight()        { myViewInternal->cursorRight();     }
-    void shiftCursorRight()   { myViewInternal->cursorRight(true); }
-    void wordLeft()           { myViewInternal->wordLeft();        }
-    void shiftWordLeft()      { myViewInternal->wordLeft(true);    }
-    void wordRight()          { myViewInternal->wordRight();       }
-    void shiftWordRight()     { myViewInternal->wordRight(true);   }
-    void home()               { myViewInternal->home();            }
-    void shiftHome()          { myViewInternal->home(true);        }
-    void end()                { myViewInternal->end();             }
-    void shiftEnd()           { myViewInternal->end(true);         }
-    void up()                 { myViewInternal->cursorUp();        }
-    void shiftUp()            { myViewInternal->cursorUp(true);    }
-    void down()               { myViewInternal->cursorDown();      }
-    void shiftDown()          { myViewInternal->cursorDown(true);  }
-    void scrollUp()           { myViewInternal->scrollUp();        }
-    void scrollDown()         { myViewInternal->scrollDown();      }
-    void topOfView()          { myViewInternal->topOfView();       }
-    void bottomOfView()       { myViewInternal->bottomOfView();    }
-    void pageUp()             { myViewInternal->pageUp();          }
-    void shiftPageUp()        { myViewInternal->pageUp(true);      }
-    void pageDown()           { myViewInternal->pageDown();        }
-    void shiftPageDown()      { myViewInternal->pageDown(true);    }
-    void top()                { myViewInternal->top_home();        }
-    void shiftTop()           { myViewInternal->top_home(true);    }
-    void bottom()             { myViewInternal->bottom_end();      }
-    void shiftBottom()        { myViewInternal->bottom_end(true);  }
+    void cursorLeft()         { m_viewInternal->cursorLeft();      }
+    void shiftCursorLeft()    { m_viewInternal->cursorLeft(true);  }
+    void cursorRight()        { m_viewInternal->cursorRight();     }
+    void shiftCursorRight()   { m_viewInternal->cursorRight(true); }
+    void wordLeft()           { m_viewInternal->wordLeft();        }
+    void shiftWordLeft()      { m_viewInternal->wordLeft(true);    }
+    void wordRight()          { m_viewInternal->wordRight();       }
+    void shiftWordRight()     { m_viewInternal->wordRight(true);   }
+    void home()               { m_viewInternal->home();            }
+    void shiftHome()          { m_viewInternal->home(true);        }
+    void end()                { m_viewInternal->end();             }
+    void shiftEnd()           { m_viewInternal->end(true);         }
+    void up()                 { m_viewInternal->cursorUp();        }
+    void shiftUp()            { m_viewInternal->cursorUp(true);    }
+    void down()               { m_viewInternal->cursorDown();      }
+    void shiftDown()          { m_viewInternal->cursorDown(true);  }
+    void scrollUp()           { m_viewInternal->scrollUp();        }
+    void scrollDown()         { m_viewInternal->scrollDown();      }
+    void topOfView()          { m_viewInternal->topOfView();       }
+    void bottomOfView()       { m_viewInternal->bottomOfView();    }
+    void pageUp()             { m_viewInternal->pageUp();          }
+    void shiftPageUp()        { m_viewInternal->pageUp(true);      }
+    void pageDown()           { m_viewInternal->pageDown();        }
+    void shiftPageDown()      { m_viewInternal->pageDown(true);    }
+    void top()                { m_viewInternal->top_home();        }
+    void shiftTop()           { m_viewInternal->top_home(true);    }
+    void bottom()             { m_viewInternal->bottom_end();      }
+    void shiftBottom()        { m_viewInternal->bottom_end(true);  }
 
     void gotoLine();
     void gotoLineNumber( int linenumber );
@@ -201,7 +201,7 @@ class KateView : public Kate::View
     void writeSessionConfig(KConfig *);
 
   public slots:
-    int getEol()                  { return myDoc->eolMode; }
+    int getEol()                  { return m_doc->eolMode; }
     void setEol( int eol );
     void setFocus();
     
@@ -223,7 +223,7 @@ class KateView : public Kate::View
     bool iconBorder();
     bool lineNumbersOn();
     bool foldingMarkersOn();
-    Kate::Document* getDoc()    { return myDoc; }
+    Kate::Document* getDoc()    { return m_doc; }
     
     void setActive( bool b )    { m_active = b; }
     bool isActive()             { return m_active; }
@@ -238,7 +238,7 @@ class KateView : public Kate::View
   //
   public:
     // Is it really necessary to have 3 methods for this?! :)
-    KateDocument*  doc() const       { return myDoc; }
+    KateDocument*  doc() const       { return m_doc; }
     void setupEditKeys();
 
   public slots:
@@ -282,8 +282,8 @@ class KateView : public Kate::View
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;
 
-    KateDocument*          myDoc;
-    KateViewInternal*      myViewInternal;
+    KateDocument*          m_doc;
+    KateViewInternal*      m_viewInternal;
     KAccel*                m_editAccels;
     KateSearch*            m_search;
     KateBookmarks*         m_bookmarks;

@@ -31,7 +31,7 @@ class KateCmdParser
     virtual bool execCmd (QString cmd=0L, class KateView *view=0L)=0;
 
   private:
-    class KateDocument *myDoc;
+    class KateDocument *m_doc;
 };
 
 class KateCmd : public QObject
@@ -45,8 +45,8 @@ class KateCmd : public QObject
     void execCmd (QString cmd=0L, class KateView *view=0L);
 
   private:
-    class KateDocument *myDoc;
-    QPtrList<KateCmdParser> myParser;
+    class KateDocument *m_doc;
+    QPtrList<KateCmdParser> m_parser;
 };
 
 #endif

@@ -19,36 +19,37 @@
 #define _KateBookmarks_H_
 
 #include <qobject.h>
+#include <qptrlist.h>
 
 class KAction;
 class KActionMenu;
 class KActionCollection;
-#include <qptrlist.h>
+
 namespace Kate { class View; }
 namespace KTextEditor { class Mark; }
 
 class KateBookmarks : public QObject
 {
-	Q_OBJECT
-	
-public:
-	KateBookmarks( Kate::View* parent );
-	virtual ~KateBookmarks();
-	
-	void createActions( KActionCollection* );
-	
-private slots:
-	void toggleBookmark();
-	void clearBookmarks();
-	void bookmarkMenuAboutToShow();
-	void gotoBookmark(int n);
-	
-private:
-	Kate::View*                  m_view;
-	KAction*                     m_bookmarkToggle;
-	KAction*                     m_bookmarkClear;
-	KActionMenu*                 m_bookmarkMenu;
-	QPtrList<KTextEditor::Mark>  m_marks;
+  Q_OBJECT
+  
+  public:
+    KateBookmarks( Kate::View* parent );
+    virtual ~KateBookmarks();
+  
+    void createActions( KActionCollection* );
+  
+  private slots:
+    void toggleBookmark();
+    void clearBookmarks();
+    void bookmarkMenuAboutToShow();
+    void gotoBookmark(int n);
+  
+  private:
+    Kate::View*                  m_view;
+    KAction*                     m_bookmarkToggle;
+    KAction*                     m_bookmarkClear;
+    KActionMenu*                 m_bookmarkMenu;
+    QPtrList<KTextEditor::Mark>  m_marks;
 };
 
 #endif // _KateBookmarks_H_

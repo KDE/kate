@@ -41,7 +41,7 @@ class KateViewHighlightAction: public Kate::ActionMenu
     void updateMenu (Kate::Document *doc);
 
   private:
-    QGuardedPtr<Kate::Document>  myDoc;
+    QGuardedPtr<Kate::Document>  m_doc;
     void init();
     QStringList subMenusName;
     QStringList names;

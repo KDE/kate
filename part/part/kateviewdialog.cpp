@@ -298,7 +298,7 @@ const int IndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::
 IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   : Kate::ConfigPage(parent)
 {
-  myDoc = view;
+  m_doc = view;
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = view->configFlags();
@@ -353,7 +353,7 @@ void IndentConfigTab::getData(KateDocument *view) {
 
 void IndentConfigTab::apply ()
 {
-  getData(myDoc);
+  getData(m_doc);
 }
 
 
@@ -367,7 +367,7 @@ const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::
 SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   : Kate::ConfigPage(parent)
 {
-  myDoc = view;
+  m_doc = view;
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = view->configFlags();
@@ -400,7 +400,7 @@ void SelectConfigTab::getData(KateDocument *view) {
 
 void SelectConfigTab::apply ()
 {
-  getData (myDoc);
+  getData (m_doc);
 }
 
 void SelectConfigTab::reload ()
@@ -416,7 +416,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   QVBoxLayout *mainLayout;
   int configFlags;
-  myDoc = view;
+  m_doc = view;
 
   mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   configFlags = view->configFlags();
@@ -503,7 +503,7 @@ void EditConfigTab::getData(KateDocument *view)
 
 void EditConfigTab::apply ()
 {
-  getData (myDoc);
+  getData (m_doc);
 }
 
 void EditConfigTab::reload ()
@@ -518,7 +518,7 @@ void EditConfigTab::wordWrapToggled() {
 ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
-  myDoc = doc;
+  m_doc = doc;
 
   QGridLayout *glay = new QGridLayout( this, 6, 2, 0, KDialog::spacingHint());
   glay->setColStretch(1,1);
@@ -573,18 +573,18 @@ void ColorConfig::getColors(QColor *colors)
 
 void ColorConfig::apply ()
 {
-  getColors(myDoc->colors);
+  getColors(m_doc->colors);
 }
 
 void ColorConfig::reload ()
 {
-  setColors(myDoc->colors);
+  setColors(m_doc->colors);
 }
 
 FontConfig::FontConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
-  myDoc = doc;
+  m_doc = doc;
 
     // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
@@ -637,14 +637,14 @@ void FontConfig::slotFontSelectedPrint( const QFont &font )
 
 void FontConfig::apply ()
 {
-  myDoc->setFont (KateDocument::ViewFont,getFont());
-  myDoc->setFont (KateDocument::PrintFont,getFontPrint());
+  m_doc->setFont (KateDocument::ViewFont,getFont());
+  m_doc->setFont (KateDocument::PrintFont,getFontPrint());
 }
 
 void FontConfig::reload ()
 {
-  setFont (myDoc->getFont(KateDocument::ViewFont));
-  setFontPrint (myDoc->getFont(KateDocument::PrintFont));
+  setFont (m_doc->getFont(KateDocument::ViewFont));
+  setFontPrint (m_doc->getFont(KateDocument::PrintFont));
 }
 
 EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, const char *): Kate::ConfigPage(parent)

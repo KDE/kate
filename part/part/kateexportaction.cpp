@@ -30,17 +30,17 @@ void KateExportAction::init()
 	filter<<QString("kate_html_export");
 	popupMenu()->insertItem (i18n("&HTML..."),0);
 	connect(popupMenu(),SIGNAL(activated(int)),this,SLOT(filterChoosen(int)));
-	myDoc=0L;
+	m_doc=0L;
 }
 
 void KateExportAction::updateMenu (Kate::Document *doc)
 {
-  myDoc = doc;
+  m_doc = doc;
 }
 
 void KateExportAction::filterChoosen(int id)
 {
-  Kate::Document *doc = myDoc;
+  Kate::Document *doc = m_doc;
 
   if (!doc)
     return;

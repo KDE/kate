@@ -29,12 +29,12 @@
 // KateDocCursor implementation
 //
 
-KateDocCursor::KateDocCursor(KateDocument *doc) : KateTextCursor(), myDoc(doc)
+KateDocCursor::KateDocCursor(KateDocument *doc) : KateTextCursor(), m_doc(doc)
 {
 }
 
 KateDocCursor::KateDocCursor(int _line, int _col, KateDocument *doc)
-  : KateTextCursor(_line, _col), myDoc(doc)
+  : KateTextCursor(_line, _col), m_doc(doc)
 {
 }
 
@@ -44,7 +44,7 @@ KateDocCursor::~KateDocCursor()
 
 bool KateDocCursor::validPosition(uint _line, uint _col)
 {
-  return _line < myDoc->numLines() && (int)_col <= myDoc->textLength(_line);
+  return _line < m_doc->numLines() && (int)_col <= m_doc->textLength(_line);
 }
 
 bool KateDocCursor::validPosition()
@@ -54,7 +54,7 @@ bool KateDocCursor::validPosition()
 
 int KateDocCursor::nbCharsOnLineAfter()
 {
-  return ((int)myDoc->textLength(line) - (int)col);
+  return ((int)m_doc->textLength(line) - (int)col);
 }
 
 void KateDocCursor::position(uint *pline, uint *pcol) const
@@ -75,7 +75,7 @@ bool KateDocCursor::setPosition(uint _line, uint _col)
 
 bool KateDocCursor::gotoNextLine()
 {
-  bool ok = (line + 1 < (int)myDoc->numLines());
+  bool ok = (line + 1 < (int)m_doc->numLines());
  
   if (ok) {
     line++;
@@ -101,7 +101,7 @@ bool KateDocCursor::gotoEndOfNextLine()
 {
   bool ok = gotoNextLine();
   if(ok)
-    col = myDoc->textLength(line);
+    col = m_doc->textLength(line);
 
   return ok;
 }
@@ -110,7 +110,7 @@ bool KateDocCursor::gotoEndOfPreviousLine()
 {
   bool ok = gotoPreviousLine();
   if(ok)
-    col = myDoc->textLength(line);
+    col = m_doc->textLength(line);
 
   return ok;
 }
@@ -140,7 +140,7 @@ bool KateDocCursor::moveBackward(uint nbChar)
 
 bool KateDocCursor::insertText(const QString& s)
 {
-  return myDoc->insertText(line, col, s);
+  return m_doc->insertText(line, col, s);
 }
 
 bool KateDocCursor::removeText(uint nbChar)
@@ -150,13 +150,13 @@ bool KateDocCursor::removeText(uint nbChar)
   endCursor.moveForward(nbChar);
 
   // Remove the text
-  return myDoc->removeText((uint)line, (uint)col, 
+  return m_doc->removeText((uint)line, (uint)col, 
 			   (uint)endCursor.line, (uint)endCursor.col);
 }
 
 QChar KateDocCursor::currentChar() const
 {
-  return myDoc->kateTextLine(line)->getChar(col);
+  return m_doc->kateTextLine(line)->getChar(col);
 }
 
 
@@ -166,12 +166,12 @@ QChar KateDocCursor::currentChar() const
 
 KateCursor::KateCursor(KateDocument *doc) : KateDocCursor(doc)
 {
-  myDoc->addCursor(this);
+  m_doc->addCursor(this);
 }
 
 KateCursor::~KateCursor()
 {
-  myDoc->removeCursor (this);
+  m_doc->removeCursor (this);
 }
 
 void KateCursor::position(uint *pline, uint *pcol) const

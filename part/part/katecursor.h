@@ -118,7 +118,7 @@ class KateDocCursor : public KateTextCursor
     QChar currentChar() const;
 
   protected:
-    KateDocument *myDoc;
+    KateDocument *m_doc;
 };
 
 /**

@@ -67,8 +67,8 @@
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
-    , myDoc( doc )
-    , myViewInternal( new KateViewInternal( this, doc ) )
+    , m_doc( doc )
+    , m_viewInternal( new KateViewInternal( this, doc ) )
     , m_editAccels( createEditKeys() )
     , m_search( new KateSearch( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
@@ -83,12 +83,12 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   doc->addView( this );
 
-  connect( myViewInternal, SIGNAL(dropEventPass(QDropEvent*)),
+  connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
 
-  setFocusProxy( myViewInternal );
-  myViewInternal->setFocus();
-  myViewInternal->installEventFilter( this );
+  setFocusProxy( m_viewInternal );
+  m_viewInternal->setFocus();
+  m_viewInternal->installEventFilter( this );
 
   if (!doc->m_bSingleViewMode)
   {
@@ -117,10 +117,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   slotUpdate();
 
   KAccel* debugAccels = new KAccel(this,this);
-  debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",myDoc,SLOT(dumpRegionTree()));
+  debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);
 
-  setFoldingMarkersOn( myDoc->highlight() && myDoc->highlight()->allowsFolding() );
+  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 
   KTrader::OfferList::Iterator it(KateFactory::viewPlugins()->begin());
   for( ; it != KateFactory::viewPlugins()->end(); ++it)
@@ -142,10 +142,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
 KateView::~KateView()
 {
-  if (myDoc && !myDoc->m_bSingleViewMode)
-    myDoc->removeView( this );
+  if (m_doc && !m_doc->m_bSingleViewMode)
+    m_doc->removeView( this );
 
-  delete myViewInternal;
+  delete m_viewInternal;
   delete myCC_impl;
   
   KateFactory::deregisterView (this);
@@ -205,7 +205,7 @@ KAccel* KateView::createEditKeys()
   KConfig config("kateeditkeysrc");
   accel->readSettings(&config);
 
-  if (!(myViewInternal->hasFocus())) accel->setEnabled(false);
+  if (!(m_viewInternal->hasFocus())) accel->setEnabled(false);
   
   return accel;
 }
@@ -214,14 +214,14 @@ void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
 
-  if (!myDoc->m_bReadOnly)
+  if (!m_doc->m_bReadOnly)
   {
     KStdAction::save(this, SLOT(save()), ac);
-    m_editUndo = KStdAction::undo(myDoc, SLOT(undo()), ac);
-    m_editRedo = KStdAction::redo(myDoc, SLOT(redo()), ac);
+    m_editUndo = KStdAction::undo(m_doc, SLOT(undo()), ac);
+    m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
     KStdAction::cut(this, SLOT(cut()), ac);
     KStdAction::paste(this, SLOT(paste()), ac);
-    new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap");
+    new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap");
     new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd");
 
     // setup Tools menu
@@ -239,26 +239,26 @@ void KateView::setupActions()
 
   KStdAction::copy(this, SLOT(copy()), ac);
 
-  KStdAction::print( myDoc, SLOT(print()), ac );
+  KStdAction::print( m_doc, SLOT(print()), ac );
   
   new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
   
   KStdAction::saveAs(this, SLOT(saveAs()), ac);
   KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
-  new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");
-  m_setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
-  myDoc->exportActionMenu (i18n("&Export"),ac,"file_export");
-  KStdAction::selectAll(myDoc, SLOT(selectAll()), ac);
-  KStdAction::deselect(myDoc, SLOT(clearSelection()), ac);
+  new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
+  m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
+  m_doc->exportActionMenu (i18n("&Export"),ac,"file_export");
+  KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
+  KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
   new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
   new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
-  new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
+  new KAction(i18n("&Toggle Block Selection"), Key_F4, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
   
   m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show &Folding Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
-  connect( myDoc, SIGNAL(hlChanged()),
+  connect( m_doc, SIGNAL(hlChanged()),
            this, SLOT(updateFoldingMarkersAction()) );
   updateFoldingMarkersAction();
   KToggleAction* toggleAction = new KToggleAction(
@@ -297,9 +297,9 @@ void KateView::reloadFile()
   uint cc = cursorColumn();
   
   // save bookmarks
-  myDoc->reloadFile();
+  m_doc->reloadFile();
   
-  if (myDoc->numLines() >= cl)
+  if (m_doc->numLines() >= cl)
     setCursorPosition( cl, cc );
 }
 
@@ -310,14 +310,14 @@ void KateView::slotUpdate()
 
 void KateView::slotNewUndo()
 {
-  if (myDoc->m_bReadOnly)
+  if (m_doc->m_bReadOnly)
     return;
 
-  if ((myDoc->undoCount() > 0) != m_editUndo->isEnabled())
-    m_editUndo->setEnabled(myDoc->undoCount() > 0);
+  if ((m_doc->undoCount() > 0) != m_editUndo->isEnabled())
+    m_editUndo->setEnabled(m_doc->undoCount() > 0);
 
-  if ((myDoc->redoCount() > 0) != m_editRedo->isEnabled())
-    m_editRedo->setEnabled(myDoc->redoCount() > 0);
+  if ((m_doc->redoCount() > 0) != m_editRedo->isEnabled())
+    m_editRedo->setEnabled(m_doc->redoCount() > 0);
 }
 
 void KateView::slotDropEventPass( QDropEvent * ev )
@@ -333,7 +333,7 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 void KateView::updateFoldingMarkersAction()
 {
   m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
-  m_toggleFoldingMarkers->setEnabled( myDoc->highlight() && myDoc->highlight()->allowsFolding() );
+  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }
 
 void KateView::keyPressEvent( QKeyEvent *ev )
@@ -366,8 +366,8 @@ void KateView::keyPressEvent( QKeyEvent *ev )
     break;
   case CTRL+Key_Delete:
     shiftWordRight();
-    myDoc->removeSelectedText();
-    myViewInternal->update();
+    m_doc->removeSelectedText();
+    m_viewInternal->update();
     break;
   case Key_Backspace:
   case SHIFT+Key_Backspace:
@@ -375,8 +375,8 @@ void KateView::keyPressEvent( QKeyEvent *ev )
     break;
   case CTRL+Key_Backspace:
     shiftWordLeft();
-    myDoc->removeSelectedText();
-    myViewInternal->update();
+    m_doc->removeSelectedText();
+    m_viewInternal->update();
     break;
   case Key_Insert:
     toggleInsert();
@@ -401,20 +401,20 @@ void KateView::customEvent( QCustomEvent *ev )
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
-    if ( !myDoc || !myDoc->m_extension  )
+    if ( !m_doc || !m_doc->m_extension  )
         return;
     
-    emit myDoc->m_extension->popupMenu( ev->globalPos(), myDoc->url(),
+    emit m_doc->m_extension->popupMenu( ev->globalPos(), m_doc->url(),
                                         QString::fromLatin1( "text/plain" ) );
     ev->accept();
 }
 
 bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
 {
-  if( line > myDoc->lastLine() )
+  if( line > m_doc->lastLine() )
     return false;
 
-  QString line_str = myDoc->textLine( line );
+  QString line_str = m_doc->textLine( line );
 
   uint z;
   uint x = 0;
@@ -422,8 +422,8 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
-  myViewInternal->updateCursor( KateTextCursor( line, x ) );
-  myViewInternal->centerCursor();
+  m_viewInternal->updateCursor( KateTextCursor( line, x ) );
+  m_viewInternal->centerCursor();
   
   return true;
 }
@@ -431,13 +431,13 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
 void KateView::setOverwriteMode( bool b )
 {
   if ( isOverwriteMode() && !b )
-    myDoc->setConfigFlags( myDoc->_configFlags ^ KateDocument::cfOvr );
+    m_doc->setConfigFlags( m_doc->_configFlags ^ KateDocument::cfOvr );
   else
-    myDoc->setConfigFlags( myDoc->_configFlags | KateDocument::cfOvr );
+    m_doc->setConfigFlags( m_doc->_configFlags | KateDocument::cfOvr );
 }
 
 void KateView::toggleInsert() {
-  myDoc->setConfigFlags(myDoc->_configFlags ^ KateDocument::cfOvr);
+  m_doc->setConfigFlags(m_doc->_configFlags ^ KateDocument::cfOvr);
   emit newStatus();
 }
 
@@ -466,25 +466,25 @@ bool KateView::canDiscard() {
 
 void KateView::flush()
 {
-  if (canDiscard()) myDoc->flush();
+  if (canDiscard()) m_doc->flush();
 }
 
 KateView::saveResult KateView::save() {
   int query = KMessageBox::Yes;
   if (doc()->isModified()) {
-    if (!myDoc->url().fileName().isEmpty() && doc()->isReadWrite()) {
+    if (!m_doc->url().fileName().isEmpty() && doc()->isReadWrite()) {
       // If document is new but has a name, check if saving it would
       // overwrite a file that has been created since the new doc
       // was created:
-      if( myDoc->isNewDoc() )
+      if( m_doc->isNewDoc() )
       {
-        query = checkOverwrite( myDoc->url() );
+        query = checkOverwrite( m_doc->url() );
         if( query == KMessageBox::Cancel )
           return SAVE_CANCEL;
       }
       if( query == KMessageBox::Yes )
       {
-         if( !myDoc->saveAs(myDoc->url()) ) {
+         if( !m_doc->saveAs(m_doc->url()) ) {
        KMessageBox::sorry(this,
         i18n("The file could not be saved. Please check if you have write permission."));
       return SAVE_ERROR;
@@ -529,7 +529,7 @@ KateView::saveResult KateView::saveAs() {
   do {
     query = KMessageBox::Yes;
 
-    dialog = new KateFileDialog (myDoc->url().url(),doc()->encoding(), this, i18n ("Save File"), KateFileDialog::saveDialog);
+    dialog = new KateFileDialog (m_doc->url().url(),doc()->encoding(), this, i18n ("Save File"), KateFileDialog::saveDialog);
     data = dialog->exec ();
     delete dialog;
     if (data.url.isEmpty())
@@ -541,8 +541,8 @@ KateView::saveResult KateView::saveAs() {
   if( query == KMessageBox::Cancel )
     return SAVE_CANCEL;
 
-  myDoc->setEncoding (data.encoding);
-  if( !myDoc->saveAs(data.url) ) {
+  m_doc->setEncoding (data.encoding);
+  if( !m_doc->saveAs(data.url) ) {
     KMessageBox::sorry(this,
       i18n("The file could not be saved. Please check if you have write permission."));
     return SAVE_ERROR;
@@ -555,7 +555,7 @@ void KateView::gotoLine()
 {
   GotoLineDialog *dlg;
 
-  dlg = new GotoLineDialog(this, myViewInternal->getCursor().line + 1, myDoc->numLines());
+  dlg = new GotoLineDialog(this, m_viewInternal->getCursor().line + 1, m_doc->numLines());
 
   if (dlg->exec() == QDialog::Accepted)
     gotoLineNumber( dlg->getLine() - 1 );
@@ -565,8 +565,8 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
-  myViewInternal->updateCursor( KateTextCursor( line, 0 ) );
-  myViewInternal->centerCursor();
+  m_viewInternal->updateCursor( KateTextCursor( line, 0 ) );
+  m_viewInternal->centerCursor();
 }
 
 void KateView::readSessionConfig(KConfig *config)
@@ -574,35 +574,35 @@ void KateView::readSessionConfig(KConfig *config)
   KateTextCursor cursor;
 
 /*FIXME 
-  myViewInternal->xPos = config->readNumEntry("XPos");
-  myViewInternal->yPos = config->readNumEntry("YPos");
+  m_viewInternal->xPos = config->readNumEntry("XPos");
+  m_viewInternal->yPos = config->readNumEntry("YPos");
 */
   cursor.col = config->readNumEntry("CursorX");
   cursor.line = config->readNumEntry("CursorY");
-  myViewInternal->updateCursor(cursor);
-/*  myViewInternal->m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
-  setIconBorder( myViewInternal->m_iconBorderStatus & KateIconBorder::Icons );
-  setLineNumbersOn( myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );*/
+  m_viewInternal->updateCursor(cursor);
+/*  m_viewInternal->m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
+  setIconBorder( m_viewInternal->m_iconBorderStatus & KateIconBorder::Icons );
+  setLineNumbersOn( m_viewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );*/
 }
 
 void KateView::writeSessionConfig(KConfig */*config*/)
 {
 /*FIXME
-  config->writeEntry("XPos",myViewInternal->xPos);
-  config->writeEntry("YPos",myViewInternal->yPos);
-  config->writeEntry("CursorX",myViewInternal->cursor.col);
-  config->writeEntry("CursorY",myViewInternal->cursor.line);
+  config->writeEntry("XPos",m_viewInternal->xPos);
+  config->writeEntry("YPos",m_viewInternal->yPos);
+  config->writeEntry("CursorX",m_viewInternal->cursor.col);
+  config->writeEntry("CursorY",m_viewInternal->cursor.line);
 */
 
-//  config->writeEntry("IconBorderStatus", myViewInternal->m_iconBorderStatus );
+//  config->writeEntry("IconBorderStatus", m_viewInternal->m_iconBorderStatus );
 }
 
 void KateView::setEol(int eol) {
   if (!doc()->isReadWrite())
     return;
 
-  myDoc->eolMode = eol;
-  myDoc->setModified(true);
+  m_doc->eolMode = eol;
+  m_doc->setModified(true);
 }
 
 void KateView::slotSetEncoding( const QString& descriptiveName )
@@ -610,15 +610,15 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
   setEncoding( KGlobal::charsets()->encodingForName( descriptiveName ) );
 
   if( !doc()->isReadWrite() ) {
-      myDoc->reloadFile();
-      myViewInternal->tagAll();
+      m_doc->reloadFile();
+      m_viewInternal->tagAll();
   }
 }
 
 void KateView::resizeEvent(QResizeEvent *)
 {
   // resize viewinternal
-  myViewInternal->resize(width(),height());
+  m_viewInternal->resize(width(),height());
 }
 
 void KateView::setFocus ()
@@ -630,7 +630,7 @@ void KateView::setFocus ()
 
 bool KateView::eventFilter (QObject *object, QEvent *event)
 {
-  if ( object == myViewInternal )
+  if ( object == m_viewInternal )
     KCursor::autoHideEventFilter( object, event );
 
   if ( event->type() == QEvent::FocusIn ) {
@@ -645,7 +645,7 @@ bool KateView::eventFilter (QObject *object, QEvent *event)
   if ( event->type() == QEvent::KeyPress ) {
     QKeyEvent* ke = (QKeyEvent*)event;
     if ((ke->key()==Qt::Key_Tab) || (ke->key()==Qt::Key_BackTab)) {
-      myViewInternal->keyPressEvent(ke);
+      m_viewInternal->keyPressEvent(ke);
       return true;
     }
   }
@@ -659,61 +659,61 @@ void KateView::slotEditCommand ()
   QString cmd = KLineEditDlg::getText(i18n("Editing Command"), "", &ok, this);
 
   if (ok)
-    myDoc->cmd()->execCmd (cmd, this);
+    m_doc->cmd()->execCmd (cmd, this);
 }
 
 void KateView::setIconBorder( bool enable )
 {
-  myViewInternal->leftBorder->setIconBorderOn( enable );
+  m_viewInternal->leftBorder->setIconBorderOn( enable );
 }
 
 void KateView::toggleIconBorder()
 {
-  myViewInternal->leftBorder->toggleIconBorder();
+  m_viewInternal->leftBorder->toggleIconBorder();
 }
 
 void KateView::setLineNumbersOn( bool enable )
 {
-  myViewInternal->leftBorder->setLineNumbersOn( enable );
+  m_viewInternal->leftBorder->setLineNumbersOn( enable );
 }
 
 void KateView::toggleLineNumbersOn()
 {
-  myViewInternal->leftBorder->toggleLineNumbers();
+  m_viewInternal->leftBorder->toggleLineNumbers();
 }
 
 void KateView::setFoldingMarkersOn( bool enable )
 {
-  myViewInternal->leftBorder->setFoldingMarkersOn( enable );
+  m_viewInternal->leftBorder->setFoldingMarkersOn( enable );
 }
 
 void KateView::toggleFoldingMarkers()
 {
-  myViewInternal->leftBorder->toggleFoldingMarkers();
+  m_viewInternal->leftBorder->toggleFoldingMarkers();
 }
 
 bool KateView::iconBorder() {
-  return myViewInternal->leftBorder->iconBorderOn();
+  return m_viewInternal->leftBorder->iconBorderOn();
 }
 
 bool KateView::lineNumbersOn() {
-  return myViewInternal->leftBorder->lineNumbersOn();
+  return m_viewInternal->leftBorder->lineNumbersOn();
 }
 
 bool KateView::foldingMarkersOn() {
-  return myViewInternal->leftBorder->foldingMarkersOn();
+  return m_viewInternal->leftBorder->foldingMarkersOn();
 }
 
 void KateView::slotIncFontSizes ()
 {
-  QFont font = myDoc->getFont(KateDocument::ViewFont);
+  QFont font = m_doc->getFont(KateDocument::ViewFont);
   font.setPointSize (font.pointSize()+1);
-  myDoc->setFont (KateDocument::ViewFont,font);
+  m_doc->setFont (KateDocument::ViewFont,font);
 }
 
 void KateView::slotDecFontSizes ()
 {
-  QFont font = myDoc->getFont(KateDocument::ViewFont);
+  QFont font = m_doc->getFont(KateDocument::ViewFont);
   font.setPointSize (font.pointSize()-1);
-  myDoc->setFont (KateDocument::ViewFont,font);
+  m_doc->setFont (KateDocument::ViewFont,font);
 }

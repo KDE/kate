@@ -201,20 +201,20 @@ const char*exec_xpm[]={
 
 const int iconPaneWidth = 16;
 
-KateIconBorder::KateIconBorder( KateViewInternal* internalView )
+KateIconBorder::KateIconBorder ( KateViewInternal* internalView )
   : QWidget(internalView, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
-  , myView( internalView->myView )
-  , myDoc( internalView->myDoc )
-  , myViewInternal( internalView )
-  , markMenu(0)
+  , m_view( internalView->m_view )
+  , m_doc( internalView->m_doc )
+  , m_viewInternal( internalView )
+  , m_markMenu(0)
   , m_iconBorderOn( false )
   , m_lineNumbersOn( false )
   , m_foldingMarkersOn( false )
-  , lmbSetsBreakpoints( true )
-  , oldEditableMarks(0)
+  , m_lmbSetsBreakpoints( true )
+  , m_oldEditableMarks(0)
 {                                        
   setBackgroundMode( NoBackground );
-  setFont( myDoc->getFont(KateDocument::ViewFont) ); // for line numbers
+  setFont( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
 }
 
 void KateIconBorder::setIconBorderOn( bool enable )
@@ -252,7 +252,7 @@ QSize KateIconBorder::sizeHint() const
   int w = 0;
   
   if (m_lineNumbersOn) {
-    w += fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
+    w += fontMetrics().width( QString().setNum(m_view->doc()->numLines()) );
   }
 
   if (m_iconBorderOn)
@@ -276,20 +276,20 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 {      
   QRect rect = e->rect();
   
-  uint startline = myViewInternal->contentsYToLine( myViewInternal->yPosition() + rect.y() );
-  uint endline   = myViewInternal->contentsYToLine( myViewInternal->yPosition() + rect.y() + rect.height() - 1 );
+  uint startline = m_viewInternal->contentsYToLine( m_viewInternal->yPosition() + rect.y() );
+  uint endline   = m_viewInternal->contentsYToLine( m_viewInternal->yPosition() + rect.y() + rect.height() - 1 );
                                     
   QPainter p (this);   
-  p.translate (0, -myViewInternal->yPosition());
+  p.translate (0, -m_viewInternal->yPosition());
    
-  int fontHeight = myDoc->viewFont.fontHeight;          
-  int lnWidth = fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
+  int fontHeight = m_doc->viewFont.fontHeight;          
+  int lnWidth = fontMetrics().width( QString().setNum(m_view->doc()->numLines()) );
    
    //kdDebug(13030)<<"iconborder repaint !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
                  
   for( uint line = startline; line <= endline; line++ )
   {
-    uint realLine = myDoc->getRealLine( line );    
+    uint realLine = m_doc->getRealLine( line );    
     
     int y = line * fontHeight;
     int lnX = 0;
@@ -301,7 +301,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     {
       p.setPen(QColor(colorGroup().background()).dark());
       p.drawLine( lnWidth-1, y, lnWidth-1, y+fontHeight );
-      if( realLine <= myDoc->lastLine() )
+      if( realLine <= m_doc->lastLine() )
         p.drawText( lnX + 1, y, lnWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
           QString("%1").arg( realLine + 1 ) );
 
@@ -313,9 +313,9 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
       p.setPen(QColor(colorGroup().background()).dark());
       p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y+fontHeight);
 
-      if( realLine <= myDoc->lastLine() )
+      if( realLine <= m_doc->lastLine() )
       {
-        uint mark = myView->myDoc->mark (realLine);
+        uint mark = m_doc->mark (realLine);
         switch (mark)
         {
         case KateDocument::markType01:
@@ -344,11 +344,11 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     // folding markers
     if( m_foldingMarkersOn )
     {
-      if( realLine <= myDoc->lastLine() )
+      if( realLine <= m_doc->lastLine() )
       {
         p.setPen(black);
         KateLineInfo info;
-        myView->myDoc->regionTree->getLineInfo(&info,realLine);
+        m_doc->regionTree->getLineInfo(&info,realLine);
         if (!info.topLevel)
         {
           if (info.startsVisibleBlock)
@@ -373,7 +373,7 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
 {
   int x = 0;
   if( m_lineNumbersOn ) {
-    x += fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
+    x += fontMetrics().width( QString().setNum(m_view->doc()->numLines()) );
     if( p.x() <= x )
       return LineNumbers;
   }
@@ -392,16 +392,16 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
 
 void KateIconBorder::mousePressEvent( QMouseEvent* e )
 {
-  m_lastClickedLine = myDoc->getRealLine(
-    (e->y() + myViewInternal->contentsY()) / myView->myDoc->viewFont.fontHeight );
+  m_lastClickedLine = m_doc->getRealLine(
+    (e->y() + m_viewInternal->contentsY()) / m_doc->viewFont.fontHeight );
   
   BorderArea area = positionToArea( e->pos() );
   if( area == FoldingMarkers ||
       area == None )
   {
     QMouseEvent forward( QEvent::MouseButtonPress, 
-      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
-    myViewInternal->contentsMousePressEvent( &forward );
+      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+    m_viewInternal->contentsMousePressEvent( &forward );
   }
 }
 
@@ -412,15 +412,15 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
       area == None )
   {
     QMouseEvent forward( QEvent::MouseMove, 
-      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
-    myViewInternal->contentsMouseMoveEvent( &forward );
+      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+    m_viewInternal->contentsMouseMoveEvent( &forward );
   }
 }
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
-  uint cursorOnLine = myDoc->getRealLine(
-    (e->y() + myViewInternal->contentsY()) / myView->myDoc->viewFont.fontHeight );
+  uint cursorOnLine = m_doc->getRealLine(
+    (e->y() + m_viewInternal->contentsY()) / m_doc->viewFont.fontHeight );
   
   switch( positionToArea( e->pos() ) ) {
   case LineNumbers:
@@ -428,29 +428,29 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
   case IconBorder:
     if( e->button() == LeftButton &&
         cursorOnLine == m_lastClickedLine &&
-        cursorOnLine <= myDoc->lastLine() )
+        cursorOnLine <= m_doc->lastLine() )
     {
-      uint mark = myView->myDoc->mark (cursorOnLine);
+      uint mark = m_doc->mark (cursorOnLine);
       createMarkMenu();
-      if (oldEditableMarks) {
-        if (markMenu) {
-          markMenu->exec(QCursor::pos());	
+      if (m_oldEditableMarks) {
+        if (m_markMenu) {
+          m_markMenu->exec(QCursor::pos());	
         } else {
-          if (mark&oldEditableMarks)
-            myView->myDoc->removeMark (cursorOnLine, oldEditableMarks);
+          if (mark&m_oldEditableMarks)
+            m_doc->removeMark (cursorOnLine, m_oldEditableMarks);
           else
-            myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
+            m_doc->addMark (cursorOnLine, m_oldEditableMarks);
         }
       }
     }
     break;
   case FoldingMarkers:
     if( cursorOnLine == m_lastClickedLine &&
-        cursorOnLine <= myDoc->lastLine() )
+        cursorOnLine <= m_doc->lastLine() )
     {
       kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
       KateLineInfo info;
-      myView->myDoc->regionTree->getLineInfo(&info,cursorOnLine);
+      m_doc->regionTree->getLineInfo(&info,cursorOnLine);
       if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
       {
          kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
@@ -460,8 +460,8 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     // Fall through
   default:
     QMouseEvent forward( QEvent::MouseButtonRelease, 
-      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
-    myViewInternal->contentsMouseReleaseEvent( &forward );
+      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+    m_viewInternal->contentsMouseReleaseEvent( &forward );
     break;
   }
 }
@@ -473,23 +473,23 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
       area == None )
   {
     QMouseEvent forward( QEvent::MouseButtonDblClick, 
-      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
-    myViewInternal->contentsMouseDoubleClickEvent( &forward );
+      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+    m_viewInternal->contentsMouseDoubleClickEvent( &forward );
   }
 }
 
 void KateIconBorder::createMarkMenu()
 {
   unsigned int tmpMarks;
-  if (myView->myDoc->editableMarks()==oldEditableMarks) return;	
-  oldEditableMarks=myView->myDoc->editableMarks();
-  if ((markMenu) && (!oldEditableMarks)) {
-    delete markMenu;
-    markMenu=0;
+  if (m_doc->editableMarks()==m_oldEditableMarks) return;	
+  m_oldEditableMarks=m_doc->editableMarks();
+  if ((m_markMenu) && (!m_oldEditableMarks)) {
+    delete m_markMenu;
+    m_markMenu=0;
     return;
   }
-  else if ((markMenu) && oldEditableMarks) markMenu->clear();
-  tmpMarks=oldEditableMarks;
+  else if ((m_markMenu) && m_oldEditableMarks) m_markMenu->clear();
+  tmpMarks=m_oldEditableMarks;
 
   bool first_found=false;
   for(unsigned int tmpMark=1;tmpMark;tmpMark=tmpMark<<1) {
@@ -499,17 +499,17 @@ void KateIconBorder::createMarkMenu()
 
       if (!first_found) {
         if (!tmpMarks) {
-          if (markMenu) {
-            delete markMenu;
-            markMenu=0;
+          if (m_markMenu) {
+            delete m_markMenu;
+            m_markMenu=0;
           } 
           return;
         }
-        if (!markMenu) markMenu=new QPopupMenu(this);
-        markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
+        if (!m_markMenu) m_markMenu=new QPopupMenu(this);
+        m_markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
         first_found=true;
       }
-      else markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
+      else m_markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
 
     }
     if (!tmpMarks) return;

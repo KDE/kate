@@ -53,30 +53,30 @@ class KateIconBorder : public QWidget
     void sizeHintChanged();
     void toggleRegionVisibility( unsigned int );
 
-  protected:
+  private:
     void paintEvent( QPaintEvent* );
     void mousePressEvent( QMouseEvent* );
     void mouseMoveEvent( QMouseEvent* );
     void mouseReleaseEvent( QMouseEvent* );
     void mouseDoubleClickEvent( QMouseEvent* );
-                  
-  private:        
+                          
     enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
     BorderArea positionToArea( const QPoint& ) const;
 
     void createMarkMenu();
-                      
-    class KateView *myView;   
-    class KateDocument *myDoc;
-    class KateViewInternal *myViewInternal;
-    class QPopupMenu *markMenu;
+            
+  private:          
+    class KateView *m_view;   
+    class KateDocument *m_doc;
+    class KateViewInternal *m_viewInternal;
+    class QPopupMenu *m_markMenu;
                     
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
     bool m_foldingMarkersOn:1;
     
-    bool lmbSetsBreakpoints;
-    uint oldEditableMarks;
+    bool m_lmbSetsBreakpoints;
+    uint m_oldEditableMarks;
     uint m_lastClickedLine;
 };
 #endif

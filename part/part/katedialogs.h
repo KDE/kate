@@ -184,7 +184,7 @@ class HlConfigPage : public Kate::ConfigPage
     ~HlConfigPage ();
 
   private:
-    KateDocument *myDoc;
+    KateDocument *m_doc;
     class HighlightDialogPage *page;
     class HlManager *hlManager;
     HlDataList hlDataList;

@@ -81,7 +81,7 @@
 
 HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
-  myDoc = doc;
+  m_doc = doc;
 
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 

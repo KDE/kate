@@ -147,8 +147,8 @@ class KateViewInternal : public QScrollView
 
     void doDrag();
 
-    KateView *myView;
-    KateDocument *myDoc;
+    KateView *m_view;
+    KateDocument *m_doc;
     class KateIconBorder *leftBorder;
     
     int mouseX;

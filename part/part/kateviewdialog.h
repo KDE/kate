@@ -118,7 +118,7 @@ class IndentConfigTab : public Kate::ConfigPage
     void getData(KateDocument *);
 
   protected:
-    KateDocument *myDoc;
+    KateDocument *m_doc;
 
     enum { numFlags = 6 };
     static const int flags[numFlags];
@@ -137,7 +137,7 @@ class SelectConfigTab : public Kate::ConfigPage
 
     SelectConfigTab(QWidget *parent, KateDocument *);
     void getData(KateDocument *);
-    KateDocument *myDoc;
+    KateDocument *m_doc;
 
   protected:
 
@@ -168,7 +168,7 @@ class EditConfigTab : public Kate::ConfigPage
     KIntNumInput *e1;
     KIntNumInput *e2;
     KIntNumInput *e3;
-    KateDocument *myDoc;
+    KateDocument *m_doc;
   
   public slots:
     void apply ();
@@ -191,7 +191,7 @@ public:
   void getColors( QColor * );
 
 private:
-  KateDocument *myDoc;
+  KateDocument *m_doc;
 
   KColorButton *m_back;
   KColorButton *m_selected;
@@ -222,7 +222,7 @@ public:
     class KFontChooser *m_fontchooserPrint;
     QFont myFont;
     QFont myFontPrint;
-    KateDocument *myDoc;
+    KateDocument *m_doc;
 
   private slots:
     void slotFontSelected( const QFont &font );

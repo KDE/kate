@@ -29,20 +29,20 @@
 void KateViewHighlightAction::init()
 {
 	subMenus.setAutoDelete( true );
-  myDoc = 0L;
+  m_doc = 0L;
 	connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewHighlightAction::updateMenu (Kate::Document *doc)
 {
-  myDoc = doc;
+  m_doc = doc;
 }
 
 void KateViewHighlightAction::slotAboutToShow()
 {
   kdDebug(13000)<<"KateViewHighlightAction::slotAboutToShow()"<<endl;
 
-  Kate::Document *doc=myDoc;
+  Kate::Document *doc=m_doc;
 
   int count = HlManager::self()->highlights();
   static QString oldActiveSec;
@@ -95,7 +95,7 @@ void KateViewHighlightAction::slotAboutToShow()
 
 void KateViewHighlightAction::setHl (int mode)
 {
-  Kate::Document *doc=myDoc;
+  Kate::Document *doc=m_doc;
   
   if (!doc) return;
 

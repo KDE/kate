@@ -145,7 +145,7 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 	return FALSE;
       }
 
-      QApplication::sendEvent(m_view->myViewInternal, e ); // redirect the event to the editor
+      QApplication::sendEvent(m_view->m_viewInternal, e ); // redirect the event to the editor
       if(m_colCursor+m_offset > m_view->cursorColumnReal()){ // the cursor is to far left
 	kdDebug(13000)<< "Aborting Codecompletion after sendEvent"<<endl;
 	kdDebug(13000)<<QString("%1").arg(m_view->cursorColumnReal())<<endl;
@@ -214,7 +214,7 @@ void CodeCompletion_Impl::updateBox(bool newCoordinate){
     m_completionPopup->resize( m_completionListBox->sizeHint() +
 			       QSize( m_completionListBox->verticalScrollBar()->width() + 4,
 				      m_completionListBox->horizontalScrollBar()->height() + 4 ) );
-    m_view->myViewInternal->paintCursor();
+    m_view->m_viewInternal->paintCursor();
     m_completionPopup->move(m_view->mapToGlobal(m_view->cursorCoordinates()));
   }
   m_completionPopup->show();
@@ -240,7 +240,7 @@ void CodeCompletion_Impl::showArgHint ( QStringList functionList, const QString&
 
 		nNum++;
 	}
-	m_view->myViewInternal->paintCursor();
+	m_view->m_viewInternal->paintCursor();
 	m_pArgHint->move(m_view->mapToGlobal(m_view->cursorCoordinates()));
 	m_pArgHint->show();
 

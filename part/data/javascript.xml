@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Author: Anders Lund <anders@alweb.dk> //-->
-<!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
-<!-- Minimal javascript support //-->
-<language name="JavaScript" version="1.02" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
+<language name="C++" version="1.05" kateversion="2.1" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr">
   <highlighting>
     <list name="keywords">
         <item> if </item>
@@ -23,7 +20,6 @@
         <item> var </item>
         <item> function </item>
         <item> return </item>
-        <item> this </item>
         <item> delete </item>
         <item> true </item>
         <item> false </item>
@@ -32,81 +28,150 @@
         <item> typeof </item>
         <item> const </item>
         <item> default </item>
+        <item> Date </item>
+        <item> Boolean </item>
     </list>
+    <list name="functions">
+        <item> parseInt </item>
+        <item> parseFloat </item>
+        <item> Number </item>
+        <item> String </item>
+        <item> Image </item>
+        <item> escape </item>
+        <item> unescape </item>
+        <item> eval </item>
+        <item> close </item>
+        <item> reload </item>
+        <item> alert </item>
+        <item> confirm </item>
+        <item> prompt </item>
+        <item> isFinite </item>
+        <item> isNaN </item>
+	 </list>
+    <list name="objects">
+        <item>document</item>
+        <item>top</item>
+        <item>window</item>
+        <item>parent</item>
+        <item>this</item>
+        <item>Math</item>
+	 </list>
+    <list name="types">
+        <item>cookie</item>
+        <item>toString</item>
+        <item>focus</item>
+        <item>getElementById</item>
+        <item>getElementByTag</item>
+        <item>getObjectById</item>
+        <item>getObjectByTag</item>
+        <item>backgroundColor</item>
+        <item>style</item>
+        <item>src</item>
+        <item>value</item>
+        <item>history</item>
+        <item>go</item>
+        <item>back</item>
+        <item>location</item>
+        <item>href</item>
+        <item>cursor</item>
+        <item>getHours</item>
+        <item>getMinutes</item>
+        <item>getSeconds</item>
+
+        <item> sin </item>
+        <item> cos </item>
+        <item> round </item>
+        <item> floor </item>
+        <item> ceil </item>
+        <item> tan </item>
+        <item> ctg </item>
+	 </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <Float attribute="Number" context="#stay">
-          <AnyChar String="fF" attribute="Number" context="#stay" />
-        </Float>
-        <Int attribute="Number" context="#stay" />
+        <RegExpr attribute="Decimal" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
+        <RegExpr attribute="Decimal" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />
-        <DetectChar attribute="String" context="String" char="&quot;" />
-        <DetectChar attribute="String" context="String (2)" char="'" />
-        <Detect2Chars attribute="Comment" context="Single Line Comment" char="/" char1="/" />
-        <Detect2Chars attribute="Comment" context="Multiline/Inline Comment" char="/" char1="*" />
-        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\s*[=?:]\s*" />
-        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="(search|replace)\s*\(\s*" />
+        <keyword attribute="Function" context="#stay" String="functions" />
+        <keyword attribute="Objects" context="#stay" String="objects" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <Float attribute="Float" context="#stay">
+          <AnyChar String="fF" attribute="Float" context="#stay"/>
+        </Float>
+        <HlCOct attribute="Octal" context="#stay"/>
+        <HlCHex attribute="Hex" context="#stay"/>
+        <Int attribute="Decimal" context="#stay">
+          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
+        </Int>
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
+        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
+        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#"/>
       </context>
-      <context attribute="String" lineEndContext="#stay" name="String">
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="&quot;" />
-        <HlCStringChar attribute="String Char" context="#stay" />
-        <DetectChar attribute="String" context="#pop" char="&quot;" />
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="String" lineEndContext="#stay" name="String (2)">
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
-        <HlCStringChar attribute="String Char" context="#stay" />
-        <DetectChar attribute="String" context="#pop" char="'" />
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
       </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Comment common">
-        <RegExpr attribute="Note" context= "#stay" String="\b(?:fixme|todo|note)\b" insensitive="TRUE" />
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
+        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Single Line Comment">
-        <IncludeRules context="Comment common" />
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
+        <LineContinue attribute="Preprocessor" context="#stay"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*"/>
       </context>
-      <context attribute="Comment" lineEndContext="#stay" name="Multiline/Inline Comment">
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
-        <IncludeRules context="Comment common" />
       </context>
-      <context attribute="Regular Expression" lineEndContext="#stay" name="Regular Expression">
-        <RegExpr attribute="Regular Expression" context="#pop#pop#pop" String="/[ig]{0,2}" />
-        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\{[\d, ]+\}" />
-        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[bB]" />
-        <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[nrtvfDdSsWw]" />
-        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\." />
-        <DetectChar attribute="Patttern Character Class" context="(charclass caret first check)" char="[" />
-        <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\$(?=/)" />
-        <AnyChar attribute="Pattern Internal Operator" context="#stay" String="?+*()|" />
+      <context attribute="Normal Text" lineEndcontext="String" name="Some Context"/>
+      <context attribute="Normal Text" lineEndcontext="Preprocessor" name="Some Context2"/>
+      <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
+        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="#endif" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="#else" />
       </context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="(Internal regex catch)" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Normal Text" context="#stay" String="\s*" />
-        <RegExpr attribute="Regular Expression" context="#pop" String="//(?=;)" />
-        <Detect2Chars attribute="Comment" context="Single Line Comment" char="/" char1="/" />
-        <Detect2Chars attribute="Comment" context="Multiline/Inline Comment" char="/" char1="*" />
-        <DetectChar attribute="Regular Expression" context="(regex caret first check)" char="/" />
-      </context>
-      <context attribute="Pattern Character Class" lineEndcontext="#stay" name="Regular Expression Character Class">
-        <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[\[\]]" />
-        <DetectChar attribute="Pattern Character Class" context="#pop#pop" char="]" />
-      </context>
-      <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(regex caret first check)" fallthrough="true" fallthroughContext="Regular Expression">
-        <DetectChar attribute="Pattern Internal Operator" context="Regular Expression" char="^" />
-      </context>
-      <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(charclass caret first check)" fallthrough="true" fallthroughContext="Regular Expression Character Class">
-        <DetectChar attribute="Pattern Internal Operator" context="Regular Expression Character Class" char="^" />
+      <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
+        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
+        <RegExpr attribute="Comment" context="#pop" String="#endif" />
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text"        defStyleNum="dsNormal"   />
-      <itemData name="Keyword"            defStyleNum="dsKeyword"  />
-      <itemData name="Number"             defStyleNum="dsDecVal"   />
-      <itemData name="String"             defStyleNum="dsString"   />
-      <itemData name="String Char"        defStyleNum="dsChar"     />
-      <itemData name="Comment"            defStyleNum="dsComment"  />
-      <itemData name="Note"               defStyleNum="dsDecVal"   />
-      <itemData name="Regular Expression" defStyleNum="dsOthers"   />
-      <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
-      <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
-     </itemDatas>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
+      <itemData name="Keyword"      defStyleNum="dsKeyword"/>
+		<itemData name="Function" defStyleNum="dsKeyword" color="#0000FF" selColor="#00ffff" bold="0" italic="0"/>
+		<itemData name="Objects" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0"/>
+      <itemData name="Data Type"    defStyleNum="dsDataType"/>
+      <itemData name="Decimal"      defStyleNum="dsDecVal"/>
+      <itemData name="Octal"        defStyleNum="dsBaseN"/>
+      <itemData name="Hex"          defStyleNum="dsBaseN"/>
+      <itemData name="Float"        defStyleNum="dsFloat"/>
+      <itemData name="Char"         defStyleNum="dsChar"/>
+      <itemData name="String"       defStyleNum="dsString"/>
+      <itemData name="String Char"  defStyleNum="dsChar"/>
+      <itemData name="Comment"      defStyleNum="dsComment"/>
+      <itemData name="Symbol"       defStyleNum="dsNormal"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
+      <itemData name="Prep. Lib"    defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
+    </itemDatas>
   </highlighting>
   <general>
     <comments>

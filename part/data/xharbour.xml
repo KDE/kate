@@ -2,21 +2,16 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- author: Giancarlo Niccolai (giancarlo@niccolai.ws) -->
 <!-- This file is released under GPL license 2.0 or any later version at your choice. -->
-<!--  Id  -->
-<language name="xHarbour" version="0.1" kateversion="2.1" section="Sources" extensions="*.prg;*.ch" mimetype="text/x-xharbour-src">
+<!--  $Id  -->
+<language name="xHarbour" version="1.0" kateversion="2.1" section="Sources" extensions="*.prg;*.ch" mimetype="text/x-xharbour-src">
 <highlighting>
-      
+
    <list name="keywords">
       <item> local </item>
       <item> global </item>
       <item> extern </item>
       <item> field </item>
-      <item> data </item>
-      <item> method </item>
-      <item> class </item>
-      <item> from </item>
-      <item> endclass </item>
-      <item> declare </item>
+      <item> each </item>
       <item> as </item>
       <item> set </item>
       <item> clear </item>
@@ -26,35 +21,68 @@
       <item> close </item>
       <item> color </item>
       <item> date </item>
-      <item> if </item>
       <item> else </item>
-      <item> for </item>
-      <item> each </item>
+      <item> elseif </item>
       <item> in </item>
       <item> to </item>
       <item> do </item>
-      <item> while </item>
-      <item> enddo </item>
       <item> loop </item>
+      <item> catch </item>
       <item> exit </item>
       <item> box </item>
       <item> say </item>
       <item> case </item>
-      <item> endcase </item>
       <item> switch </item>
       <item> self </item>
+      <item> super </item>
       <item> say </item>
       <item> get </item>
       <item> read </item>
       <item> use </item>
+      <item> select </item>
+      <item> otherwise</item>
       <item> index </item>
-      <item> alias </item>      
+      <item> alias </item>
       <item> like </item>
       <item> has </item>
       <item> return </item>
       <item> static </item>
       <item> on </item>
       <item> off </item>
+      <item> nil </item>
+      <item> ? </item>
+      <item> class </item>
+      <item> external</item>
+   </list>
+
+   <list name="context_beginners">
+      <item> FOR </item>
+      <item> IF </item>
+      <item> SWITCH </item>
+      <item> WHILE </item>
+      <item> TRY </item>
+      <item> BEGIN </item>
+      <item> PROCEDURE </item>
+      <item> FUNCTION </item>
+      <item> METHOD </item>
+   </list>
+
+   <list name="context_terminators">
+      <item> NEXT </item>
+      <item> END </item>
+      <item> ENDIF </item>
+      <item> ENDDO </item>
+      <item> ENDCASE </item>
+   </list>
+
+   <list name="class_keywords">
+      <item> data </item>
+      <item> inline </item>
+      <item> method </item>
+      <item> classdata </item>
+      <item> init </item>
+      <item> from </item>
+      <item> hidden </item>
    </list>
 
    <list name="set_commands">
@@ -113,7 +141,7 @@
       <item> TRACESTACK </item>
       <item> FILECASE </item>
       <item> DIRCASE </item>
-      <item> DIRSEPARATOR </item>  
+      <item> DIRSEPARATOR </item>
    </list>
 
    <list name="functions">
@@ -130,7 +158,8 @@
       <item> atail </item>
       <item> asort </item>
       <item> array </item>
-      
+      <item> TAssociativeArray </item>
+
       <item> bin21 </item>
       <item> bin2l </item>
       <item> bin2u </item>
@@ -139,26 +168,26 @@
       <item> l2bin </item>
       <item> u2bin </item>
       <item> w2bin </item>
-      
+
       <item> eval </item>
       <item> fieldblock </item>
       <item> fieldwblock </item>
-      
+
       <item> inkey </item>
       <item> lastkey </item>
       <item> mcol </item>
       <item> mrow </item>
       <item> nextkey </item>
-      
+
       <item> empty </item>
       <item> word </item>
       <item> descend </item>
       <item> __dbdelim </item>
       <item> __dbsdf </item>
-      
+
       <item> os </item>
       <item> __run </item>
-      
+
       <item> alert </item>
       <item> browse </item>
       <item> dbedit </item>
@@ -173,7 +202,7 @@
       <item> __typefile </item>
       <item> __xrestscreen </item>
       <item> __xsavescreen </item>
-      
+
       <item> DBAPPEND </item>
       <item> DBCLEARFILTER </item>
       <item> DBCLOSEALL </item>
@@ -240,7 +269,7 @@
       <item> DTOS </item>
       <item> MONTH </item>
       <item> YEAR </item>
-      
+
       <item> GETENV </item>
       <item> SET </item>
       <item> SETMODE </item>
@@ -251,18 +280,20 @@
 
       <item> break </item>
       <item> errorsys </item>
-      
+      <item> throw </item>
+      <item> errornew </item>
+
       <item> HB_SETKEYSAVE </item>
       <item> HB_SetKeyCheck </item>
       <item> HB_SetKeyGet </item>
       <item> SETKEY </item>
       <item> __QUIT </item>
       <item> __WAIT </item>
-      
+
       <item> file </item>
       <item> frename </item>
       <item> __dir </item>
-      
+
       <item> col </item>
       <item> maxcol </item>
       <item> maxrow </item>
@@ -296,15 +327,16 @@
       <item> MOD </item>
       <item> ROUND </item>
       <item> SQRT </item>
- 
+
       <item> HB_ISBYREF </item>
       <item> PROCFILE </item>
       <item> PROCLINE </item>
       <item> PROCNAME </item>
       <item> TYPE </item>
       <item> VALTYPE </item>
+      <item> valtoprg </item>
       <item> tone </item>
-      
+
       <item> HB_LANGNAME </item>
       <item> HB_LANGSELECT </item>
       <item> ISAFFIRM </item>
@@ -313,7 +345,7 @@
 
       <item> pcount </item>
       <item> HB_pvalue </item>
- 
+
       <item> ALLTRIM </item>
       <item> ASC </item>
       <item> AT </item>
@@ -347,14 +379,14 @@
       <item> TRIM </item>
       <item> UPPER </item>
       <item> VAL </item>
-      
+
       <item> devoutpict </item>
-      
+
       <item> elaptime </item>
       <item> seconds </item>
       <item> secs </item>
       <item> time </item>
-      
+
       <item> do </item>
 
       <item> ThreadStart </item>
@@ -362,15 +394,17 @@
       <item> ThreadSleep </item>
       <item> ThreadKill </item>
       <item> ThreadJoin </item>
-      <item> MutexCreate </item>
-      <item> MutexDestroy </item>
+      <item> CreateMutex </item>
+      <item> DestroyMutex </item>
+      <item> MutexLock </item>
+      <item> MutexUnlock </item>
       <item> Subscribe </item>
       <item> SubscribeNow </item>
       <item> Notify </item>
       <item> NotifyAll </item>
       <item> WaitForThreads </item>
       <item> KillAllThreads </item>
-      
+
       <item> InetInit </item>
       <item> InetCleanup </item>
       <item> InetCreate </item>
@@ -394,10 +428,11 @@
       <item> InetErrorDesc </item>
       <item> InetGetHosts </item>
       <item> InetConnectIP </item>
-      
+
       <item> hb_regex </item>
       <item> hb_regexmatch </item>
       <item> hb_regexsplit </item>
+      <item> hb_regexcomp </item>
       <item> hb_readini </item>
       <item> hb_writeini </item>
       <item> hb_random </item>
@@ -408,10 +443,11 @@
       <item> hb_numtohex </item>
       <item> hb_exec </item>
       <item> hb_execfromarray </item>
-      
+
       <item> hb_class </item>
       <item> hb_keyput </item>
       <item> hb_osnewline </item>
+
    </list>
 
    <list name="pragma">
@@ -421,61 +457,42 @@
       <item> #ifndef </item>
       <item> #endif </item>
       <item> #else </item>
+      <item> #define </item>
    </list>
 
    <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="TopLevel">
-         <StringDetect attribute="Comment" context="ml_comment" String="/*" 
-               beginRegion="comment"/>
-         <RegExpr attribute="Comment" context="comment" String="^[ ]*[*]" />
+
+         <StringDetect attribute="Comment" context="ml_comment" String="/*"
+               beginRegion="comment_region"/>
+         <RegExpr attribute="Comment" context="comment" String="^[\t ]*[*]" />
          <StringDetect attribute="Comment" context="comment" String="//" />
+
          <DetectChar attribute="String" context="string" char="&quot;" />
          <DetectChar attribute="String" context="stringc" char="'" />
-         <DetectChar attribute="Operator" context="logic" char="." />
+
+         <StringDetect attribute="Operator" context="#stay" String=".and." insensitive="TRUE"/>
+         <StringDetect attribute="Operator" context="#stay" String=".or." insensitive="TRUE"/>
+         <StringDetect attribute="Operator" context="#stay" String=".not." insensitive="TRUE"/>
+         <StringDetect attribute="Operator" context="#stay" String=".f." insensitive="TRUE"/>
+         <StringDetect attribute="Operator" context="#stay" String=".t." insensitive="TRUE"/>
+
          <DetectChar attribute="Operator" context="#stay" char=":"/>
          <DetectChar attribute="Operator" context="#stay" char="="/>
          <DetectChar attribute="Operator" context="#stay" char="!"/>
          <DetectChar attribute="Keyword" context="#stay" char="@"/>
-         <DetectChar attribute="Keyword" context="#stay" char="?"/>
-         
-         <StringDetect String="procedure " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="ProcOrFunc" />
-         <StringDetect String="function " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="ProcOrFunc" />
-         <RegExpr String="method[\t ]+.*class[\t ]+" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="ProcOrFunc" />
-         <RegExpr String="^return ?" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" endRegion="ProcOrFunc" />
-         
-         <RegExpr String="^[\t ]*CLASS " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="CLASS" />
-         <RegExpr String="^[\t ]*ENDCLASS *$" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" endRegion="CLASS" />
-                
-         <RegExpr String="^[\t ]*DO +WHILE " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="DOWHILE" />
-         <RegExpr String="^[\t ]*enddo *$" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" endRegion="DOWHILE" />
-         
-         <RegExpr String="^[\t ]*DO +CASE " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="DOCASE" />
-         <RegExpr String="^[\t ]*endcase *$" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" endRegion="DOCASE" />
-         
-         <RegExpr String="^[\t ]*FOR " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="FORNEXT" />
-         <RegExpr String="^[\t ]*next *$" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" endRegion="FORNEXT" />
-         
-         <RegExpr String="^[\t ]*SWITCH " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="SWITCH" />
-         <RegExpr String="^[\t ]*ENDSWITCH *$" attribute="Keyword" context="#stay"  
-                insensitive="TRUE" endRegion="SWITCH" />
 
-         <RegExpr String="^[\t ]*if " attribute="Keyword" context="#stay"  
-                insensitive="TRUE" beginRegion="IF" />
-         <RegExpr String="^[\t ]*endif *$" attribute="Keyword" context="#stay" 
-            insensitive="TRUE" endRegion="IF"/>
+         <RegExpr String="^[\t ]*CLASS[\t ]+" attribute="Keyword" context="ClassContext"
+                insensitive="TRUE" beginRegion="ClassDeclRegion" />
+
+         <RegExpr String="^[\t ]*DO[\t ]+CASE[\t ]*$" attribute="Keyword" context="#stay"
+                insensitive="TRUE" beginRegion="IndentRegion" />
+         <keyword attribute="Keyword" context="#stay" String="context_beginners"
+                insensitive="TRUE" beginRegion="IndentRegion" />
+         <keyword attribute="Keyword" context="#stay" String="context_terminators"
+                insensitive="TRUE" endRegion="IndentRegion" />
+         <RegExpr String="^return ?" attribute="Keyword" context="#stay"
+                insensitive="TRUE" endRegion="IndentRegion" />
 
          <keyword attribute="Keyword" context="#stay" String="keywords" />
          <keyword attribute="Keyword" context="#stay" String="set_commands" />
@@ -488,8 +505,8 @@
       <context attribute="Comment" lineEndContext="#pop" name="comment"/>
 
       <context attribute="Comment" lineEndContext="#stay" name="ml_comment">
-         <StringDetect attribute="Comment" context="#pop" String="*/" 
-            endRegion="comment"/>
+         <StringDetect attribute="Comment" context="#pop" String="*/"
+            endRegion="comment_region"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="string">
@@ -502,6 +519,19 @@
       <context attribute="Operator" lineEndContext="#pop" name="logic">
          <DetectChar attribute="Operator" context="#pop" char="." />
       </context>
+
+      <context attribute="Normal Text" lineEndContext="#stay" name="ClassContext">
+
+         <StringDetect attribute="Comment" context="ml_comment" String="/*"
+               beginRegion="comment_region"/>
+         <RegExpr attribute="Comment" context="comment" String="^[ ]*[*]" />
+         <StringDetect attribute="Comment" context="comment" String="//" />
+
+         <keyword attribute="Keyword" context="#stay" String="class_keywords" />
+         <RegExpr String="^[\t ]*END(CLASS)? *$" attribute="Keyword" context="#pop"
+               insensitive="TRUE" endRegion="ClassDeclRegion" />
+      </context>
+
    </contexts>
 
    <itemDatas>

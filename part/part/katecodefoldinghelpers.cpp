@@ -354,6 +354,12 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
     dontDeleteEnding(node);
     return;
   }
+  
+  if (!node->visible)
+  {
+	toggleRegionVisibility(getStartLine(node));
+  }
+
   KateCodeFoldingNode *parent = node->parentNode;
   int mypos = parent->childnodes()->find(node);
 

@@ -689,6 +689,8 @@ void KateView::slotStatusMsg ()
 
 void KateView::slotSelectionTypeChanged()
 {
+  m_toggleBlockSelection->setChecked( m_doc->blockSelectionMode() );
+
   emit newStatus();
 }
 

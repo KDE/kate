@@ -19,6 +19,8 @@
 // $Id$
 
 #include "katebuffer.h"
+#include "katedocument.h"
+#include "katehighlight.h"
 
 // Includes for reading file
 #include <sys/types.h>
@@ -44,8 +46,9 @@
 /**     
  * Create an empty buffer.     
  */     
-KateBuffer::KateBuffer()     
-{     
+KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc)
+{
+  myDoc = doc;
   noHlUpdate = false;
    m_blocks.setAutoDelete(true);     
    m_loader.setAutoDelete(true);     

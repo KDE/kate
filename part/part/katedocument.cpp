@@ -337,13 +337,13 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
 
   connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
 
-  buffer = new KateBuffer;
+  buffer = new KateBuffer (this);
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
 
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
 
-  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QValueList<signed char>*,bool*,bool)),regionTree,SLOT(updateLine(unsigned int, QValueList<signed char>*,bool *,bool)));
+  //connect(buffer,SIGNAL(foldingUpdate(unsigned int , QValueList<signed char>*,bool*,bool)),regionTree,SLOT(updateLine(unsigned int, QValueList<signed char>*,bool *,bool)));
   connect(regionTree,SIGNAL(setLineVisible(unsigned int, bool)), buffer,SLOT(setLineVisible(unsigned int,bool)));
   connect(buffer,SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
   m_highlightTimer = new QTimer(this);
@@ -394,8 +394,6 @@ KateDocument::~KateDocument()
 
   m_highlight->release();
   myMarks.clear ();
-
-  delete buffer;
 }
 
 //

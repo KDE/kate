@@ -21,7 +21,6 @@
 
 #include "kateglobal.h"
 #include "katetextline.h"
-#include "katehighlight.h"
 
 #include <kvmallocator.h>
 
@@ -55,7 +54,7 @@ public:
    /**
     * Create an empty buffer.
     */
-   KateBuffer();
+   KateBuffer(KateDocument *doc);
    ~KateBuffer();
 
    /**
@@ -111,7 +110,7 @@ public:
     * @p highlight may be 0 in which case highlighting
     * will be disabled.
     */
-   void setHighlight(Highlight *highlight);
+   void setHighlight(class Highlight *highlight);
    
    /**
     * Update the highlighting.
@@ -212,7 +211,8 @@ private:
 
    bool noHlUpdate;
 
-   Highlight *m_highlight;
+   class Highlight *m_highlight;
+   class KateDocument *myDoc;
 
    QPtrList<KateBufBlock> m_blocks;
    QPtrList<KateBufFileLoader> m_loader;

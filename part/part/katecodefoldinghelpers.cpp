@@ -1294,3 +1294,17 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
   
   return hiddenLinesCountCache;
 }
+
+
+void KateCodeFoldingTree::collapseToplevelNodes()
+{
+  for ( KateCodeFoldingNode *node = m_childnodes->first(); node; node = m_childnodes->next() )
+    if (node->visible && node->startLineValid && node->endLineValid)
+    {
+	node->visible=false;
+        lineMapping.clear();
+        hiddenLinesCountCacheValid = false;
+        addHiddenLineBlock(node,node->startLineRel);
+        emit regionVisibilityChangedAt(node->startLineRel);
+    }
+}

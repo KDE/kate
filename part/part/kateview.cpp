@@ -478,6 +478,10 @@ void KateView::setupEditActions()
 
 void KateView::setupCodeFolding()
 {
+  KActionCollection *ac=this->actionCollection(); 
+  new KAction( i18n("Collapse toplevel"), CTRL+ALT+Key_C,
+       m_doc->foldingTree(),SLOT(collapseToplevelNodes()),ac,"folding_toplevel");
+
   KAccel* debugAccels = new KAccel(this,this);
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);

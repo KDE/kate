@@ -308,6 +308,7 @@ void KateSearch::promptReplace()
   if ( doSearch( searchFor ) ) {
     exposeFound( s.cursor, s.matchedLength );
     replacePrompt->show();
+    replacePrompt->setFocus ();
   } else if( !s.flags.finished && askContinue() ) {
     wrapSearch();
     promptReplace();

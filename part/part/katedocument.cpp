@@ -1187,12 +1187,7 @@ bool KateDocument::removeSelectedText ()
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
-    if (lineHasSelected(v->cursorCache.line))
-    {
-      v->cursorCache = selectStart;
-      v->cursorCacheChanged = true;
-    }
+    (m_views.at(z))->m_viewInternal->removeSelectedText(selectStart);
   }
 
   int sl = selectStart.line;

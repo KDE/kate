@@ -94,6 +94,7 @@ class KateViewInternal : public QScrollView
     void editEnd(int editTagLineStart, int editTagLineEnd);
 
     void editRemoveText(int line, int col, int len);
+    void removeSelectedText(KateTextCursor & start);
 
     /**
        Set the tagLinesFrom member if usefull. 

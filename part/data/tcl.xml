@@ -183,7 +183,7 @@
                         <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
                         <Float attribute = "Float" context="#stay"/>
                         <Int attribute ="Decimal" context="#stay"/>
-                        <RegExpr String = " -\D\w+" attribute = "Parameter" content="#stay"/>
+                        <RegExpr String = " -\D\w+" attribute = "Parameter" context="#stay"/>
                         <DetectChar char = "&quot;" attribute = "String" context="String"/>
                         <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
                         <DetectChar char = '{' attribute = "Keyword" context="#stay" beginRegion="brace1"/>
@@ -211,11 +211,11 @@
                 <itemData name = "Comment" defStyleNum = "dsComment"/>
                 <itemData name = "Parameter" defStyleNum = "dsOthers"/>
         </itemDatas>
+</highlighting>
   <general>
     <comments>
       <comment name="singleLine" start="#" />
     </comments>
     <keywords casesensitive="1" />
   </general>
-</highlighting>
 </language>

@@ -82,7 +82,7 @@ public:
     bool moveOnInsert() const;
 
     /**
-    * Change the behaviour of the cursor when text is inserted at the cursor.
+    * Change the behavior of the cursor when text is inserted at the cursor.
     *
     * If @p moveOnInsert is true, the cursor will end up at the end of the insert.
     */
@@ -217,7 +217,7 @@ public:
   /**
    * Determine how the range should react to characters inserted immediately outside the range.
    *
-   * TODO does this need a custom function to enable determining of the behaviour based on the
+   * TODO does this need a custom function to enable determining of the behavior based on the
    * text that is inserted / deleted?
    *
    * @sa InsertBehaviour

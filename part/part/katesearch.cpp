@@ -432,7 +432,7 @@ QString KateSearch::getSearchText()
       str = doc()->selection();
     break;
 
-  case KateDocument::SelectionWord: // (classic Kate behaviour)
+  case KateDocument::SelectionWord: // (classic Kate behavior)
     //kdDebug() << "getSearchText(): SelectionWord" << endl;
     if( doc()->hasSelection() )
       str = doc()->selection();

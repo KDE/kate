@@ -3500,7 +3500,7 @@ void KateDocument::paste ( KateView* view )
   insertText ( line, column, s, blockSelect );
 
   // move cursor right for block select, as the user is moved right internal
-  // even in that case, but user expects other behaviour in block selection
+  // even in that case, but user expects other behavior in block selection
   // mode !
   if (blockSelect)
   {

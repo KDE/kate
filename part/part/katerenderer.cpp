@@ -331,7 +331,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   }
   else
   {
-    // draw word-wrap-honour-indent filling
+    // draw word-wrap-honor-indent filling
     if (range->xOffset() && range->xOffset() > xStart)
       paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(*config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
 

@@ -2835,7 +2835,7 @@ void KateDocument::paste (VConfig &c)
     }
     else {
       line++;
-      ln = getTextLine( c.cursor.line );
+      ln = getTextLine( line );
       col = 0;
     }
     l--;

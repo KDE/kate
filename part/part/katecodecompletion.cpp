@@ -477,6 +477,7 @@ void KateArgHint::addFunction( int id, const QString& prot )
     m_functionMap[ id ] = prot;
     QLabel* label = new QLabel( prot.stripWhiteSpace().simplifyWhiteSpace(), this );
     label->setBackgroundColor( QColor(255, 255, 238) );
+    label->setPaletteForegroundColor( QColor("black") );
     label->show();
     labelDict.insert( id, label );
 

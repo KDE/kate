@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Matlab M-File" version="1.03" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
+<language name="Matlab M-File" version="1.04" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -28,41 +28,100 @@
       <item> double </item>
     </list>
     <list name="commands">
-      <item> filter </item>
+      <item> abs </item>
+      <item> acos </item>
+      <item> acot </item>
+      <item> acsc </item>
+      <item> angle </item>
+      <item> asec </item>
+      <item> asin </item>
+      <item> atan </item>
+      <item> bar </item>
+      <item> ceil </item>
+      <item> close </item>
+      <item> cond </item>
+      <item> condeig </item>
+      <item> complex </item>
+      <item> conj </item>
+      <item> cos </item>
+      <item> cot </item>
+      <item> csc </item>
+      <item> det </item>
       <item> disp </item>
-      <item> sprintf </item>
+      <item> display </item>
+      <item> exp </item>
+      <item> figure </item>
+      <item> filter </item>
+      <item> fix </item>
+      <item> fft </item>
+      <item> floor </item>
       <item> fprintf </item>
       <item> freqz </item>
-      <item> title </item>
-      <item> figure </item>
-      <item> set </item>
       <item> get </item>
-      <item> fft </item>
-      <item> zplane </item>
-      <item> abs </item>
-      <item> real </item>
+      <item> gcd </item>
+      <item> grid </item>
       <item> imag </item>
-      <item> angle </item>
-      <item> waitforbuttonpress </item>
-      <item> stem </item>
-      <item> plot </item>
-      <item> subplot </item>
-      <item> scatter </item>
-      <item> stairs </item>
       <item> impz </item>
+      <item> isempty </item>
+      <item> isequal </item>
+      <item> islogical </item>
+      <item> isnumeric </item>
+      <item> isprime </item>
+      <item> isreal </item>
+      <item> issparse </item>
+      <item> lcm </item>
+      <item> length </item>
+      <item> linspace </item>
+      <item> load </item>
+      <item> log </item>
+      <item> log2 </item>
+      <item> log10 </item>
+      <item> logspace </item>
       <item> mesh </item>
-      <item> zoom </item>
+      <item> mod </item>
+      <item> ndims </item>
+      <item> nextpow2 </item>
+      <item> norm </item>
+      <item> normest </item>
+      <item> null </item>
+      <item> numel </item>
+      <item> open </item>
+      <item> orth </item>
+      <item> perms </item>
+      <item> primes </item>
+      <item> poly </item>
+      <item> pow2 </item>
+      <item> plot </item>
+      <item> rank </item>
+      <item> rcond </item>
+      <item> real </item>
+      <item> reallog </item>
+      <item> realpow </item>
+      <item> realsqrt </item>
+      <item> rem </item>
+      <item> roots </item>
+      <item> rref </item>
+      <item> save </item>
+      <item> scatter </item>
+      <item> sec </item>
       <item> semilogx </item>
       <item> semilogy </item>
-      <item> bar </item>
-      <item> grid </item>
-      <item> linspace </item>
+      <item> set </item>
+      <item> sin </item>
+      <item> sign </item>
       <item> size </item>
-      <item> length </item>
-      <item> load </item>
-      <item> save </item>
-      <item> open </item>
-      <item> close </item>
+      <item> sprintf </item>
+      <item> sqrt </item>
+      <item> stairs </item>
+      <item> stem </item>
+      <item> subplot </item>
+      <item> subspace </item>
+      <item> tan </item>
+      <item> title </item>
+      <item> trace </item>
+      <item> waitforbuttonpress </item>
+      <item> zoom </item>
+      <item> zplane </item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
@@ -84,15 +143,12 @@
           <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
           <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
-        <HlCChar attribute="Char" context="#stay"/>
-        <DetectChar attribute="String" context="String" char="&apos;"/>
-        <DetectChar attribute="String Char" context="String" char="&apos;"/>
-        <RegExpr String="[\\w]*([(].*[)])?[']" attribute="Normal" context="#stay"/>
+        <RegExpr String="\b([\w]+[\d\w]*)?[\s]*([([][],:[\d\s\w]*[])])?[']" attribute="Transpose" context="#stay"/>
         <RegExpr String= "%.*$" attribute="Comment" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&apos;"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#stay"/>
-        <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&apos;"/>
       </context>
     </contexts>
@@ -104,9 +160,8 @@
       <itemData name="Octal"  defStyleNum="dsBaseN"/>
       <itemData name="Hex"  defStyleNum="dsBaseN"/>
       <itemData name="Float"  defStyleNum="dsFloat"/>
-      <itemData name="Char"  defStyleNum="dsChar"/>
+      <itemData name="Transpose"  defStyleNum="dsNormal" color="#000080"/>
       <itemData name="String"  defStyleNum="dsString" color="#ff0000" selColor="#ff0000"/>
-      <itemData name="String Char"  defStyleNum="dsChar" color="#ff0000" selColor="#ff0000"/>
       <itemData name="Comment"  defStyleNum="dsComment" color="#2b7805" selColor="#945ca4"/>
       <itemData name="Command"  defStyleNum="dsCommand" color="#000000" selColor="#ffffff" bold="1"/>
     </itemDatas>
@@ -114,7 +169,6 @@
   <general>
     <comments>
       <comment name="singleLine" start="% " />
-      <comment name="singleLine" start="%%" />
     </comments>
     <keywords casesensitive="1" />
   </general>

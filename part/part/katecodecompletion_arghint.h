@@ -55,15 +55,21 @@ class ArgHintArrow : public QButton
 
 
 
-/** KDevArgHint is the base class of the porject */
+/**
+ * KDevArgHint is the base class of the porject
+ */
 class KDevArgHint : public QFrame
 {
 	Q_OBJECT
 
 	public:
-		/** construtor */
+		/**
+		 * construtor
+		 */
 		KDevArgHint ( QWidget* parent );
-		/** destructor */
+		/**
+		 * destructor
+		 */
 		virtual ~KDevArgHint();
 
 //  		bool eventFilter( QObject *o, QEvent *e );
@@ -101,14 +107,20 @@ class KDevArgHint : public QFrame
 		void cursorPositionChanged (KateView *view, int nLine, int nCol );
 
 	private slots:
-		/** No descriptions */
+		/**
+		 * No descriptions
+		 */
 		void gotoNext();
 
-		 /** No descriptions */
+	        /**
+		 * No descriptions
+		 */
 		void gotoPrev();
 
 	protected:
-		  /** No descriptions */
+		/**
+		 * No descriptions
+		 */
 		void updateState();
 		QString markCurArg();
 

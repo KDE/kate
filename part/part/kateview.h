@@ -257,35 +257,45 @@ class KateView : public Kate::View
   //
   public slots:
     /**
-      Moves the marked text into the clipboard
-    */
+     * Moves the marked text into the clipboard
+     */
     void cut() {doEditCommand(KateView::cmCut);}
     /**
-      Copies the marked text into the clipboard
-    */
+     * Copies the marked text into the clipboard
+     */
     void copy() const;
     /**
-      Inserts text from the clipboard at the actual cursor position
-    */
+     * Inserts text from the clipboard at the actual cursor position
+     */
     void paste() {doEditCommand(KateView::cmPaste);}
 
   //
   // KTextEditor::ViewCursorInterface stuff
   //
   public slots:
-    /** Get the current cursor coordinates in pixels. */
+    /**
+     * Get the current cursor coordinates in pixels.
+     */
     QPoint cursorCoordinates ();
 
-    /** Get the cursor position */
+    /**
+     * Get the cursor position
+     */
     void cursorPosition (uint *line, uint *col);
 
-    /** Get the cursor position, calculated with 1 character per tab */
+    /**
+     * Get the cursor position, calculated with 1 character per tab
+     */
     void cursorPositionReal (uint *line, uint *col);
 
-    /** Set the cursor position */
+    /**
+     * Set the cursor position
+     */
     bool setCursorPosition (uint line, uint col);
 
-    /** Set the cursor position, use 1 character per tab */
+    /**
+     * Set the cursor position, use 1 character per tab
+     */
     bool setCursorPositionReal (uint line, uint col);
 
     uint cursorLine ();
@@ -294,8 +304,8 @@ class KateView : public Kate::View
     
   private:
     /**
-      Sets the current cursor position (only for internal use)
-    */
+     * Sets the current cursor position (only for internal use)
+     */
     void setCursorPositionInternal(int line, int col, int tabwidth);
 
   signals:
@@ -306,9 +316,9 @@ class KateView : public Kate::View
   //
   public:
     /**
-      Install a Popup Menu. The Popup Menu will be activated on
-      a right mouse button press event.
-    */
+     * Install a Popup Menu. The Popup Menu will be activated on
+     * a right mouse button press event.
+     */
     void installPopup(QPopupMenu *rmb_Menu);
 
   private:
@@ -336,12 +346,12 @@ class KateView : public Kate::View
     void setEncoding (QString e);
 
     /**
-      Returns true if this editor is the only owner of its document
-    */
+     * Returns true if this editor is the only owner of its document
+     */
     bool isLastView();
     /**
-      Returns the document object
-    */
+     * Returns the document object
+     */
     KateDocument *doc();
 
     void setupActions();
@@ -364,14 +374,14 @@ class KateView : public Kate::View
 
   public slots:
     /**
-      Toggles Insert mode
-    */
+     * Toggles Insert mode
+     */
     void toggleInsert();
 
   signals:
     /**
-      Modified flag or config flags have changed
-    */
+     * Modified flag or config flags have changed
+     */
     void newStatus();
 
   protected:
@@ -379,7 +389,7 @@ class KateView : public Kate::View
     void customEvent( QCustomEvent *ev );
     virtual void contextMenuEvent( QContextMenuEvent *ev );
 
-    /*
+    /**
      * Check if the given URL already exists. Currently used by both save() and saveAs()
      *
      * Asks the user for permission and returns the message box result and defaults to
@@ -390,70 +400,70 @@ class KateView : public Kate::View
 //text access
   public:
      /**
-       Gets the text line where the cursor is on
-     */
+      * Gets the text line where the cursor is on
+      */
      QString currentTextLine();
      /**
-       Gets the word where the cursor is on
-     */
+      * Gets the word where the cursor is on
+      */
      QString currentWord();
      /**
-       Gets the word at position x, y. Can be used to find
-       the word under the mouse cursor
-     */
+      * Gets the word at position x, y. Can be used to find
+      * the word under the mouse cursor
+      */
      QString word(int x, int y);
      /**
-       Insert text at the current cursor position.
-       The parameter @param mark is unused.
-     */
+      * Insert text at the current cursor position.
+      * The parameter @param mark is unused.
+      */
      void insertText(const QString &);
 
   public:
 
     /**
-      Returns true if the current document can be
-      discarded. If the document is modified, the user is asked if he wants
-      to save it. On "cancel" the function returns false.
-    */
+     * Returns true if the current document can be
+     * discarded. If the document is modified, the user is asked if he wants
+     * to save it. On "cancel" the function returns false.
+     */
     bool canDiscard();
 
   public slots:
     /**
-      Flushes the document of the text widget. The user is given
-      a chance to save the current document if the current document has
-      been modified.
-    */
+     * Flushes the document of the text widget. The user is given
+     * a chance to save the current document if the current document has
+     * been modified.
+     */
     void flush ();
     /**
-      Saves the file if necessary under the current file name. If the current file
-      name is Untitled, as it is after a call to newFile(), this routine will
-      call saveAs().
-    */
+     * Saves the file if necessary under the current file name. If the current file
+     * name is Untitled, as it is after a call to newFile(), this routine will
+     * call saveAs().
+     */
     saveResult save();
     /**
-      Allows the user to save the file under a new name. This starts the
-      automatic highlight selection.
-    */
+     * Allows the user to save the file under a new name. This starts the
+     * automatic highlight selection.
+     */
     saveResult saveAs();
     /**
-      Moves the current line or the selection one position to the right
-    */
+     * Moves the current line or the selection one position to the right
+     */
     void indent() {doEditCommand(KateView::cmIndent);};
     /**
-      Moves the current line or the selection one position to the left
-    */
+     * Moves the current line or the selection one position to the left
+     */
     void unIndent() {doEditCommand(KateView::cmUnindent);};
     /**
-      Optimizes the selected indentation, replacing tabs and spaces as needed
-    */
+     * Optimizes the selected indentation, replacing tabs and spaces as needed
+     */
     void cleanIndent() {doEditCommand(KateView::cmCleanIndent);};
     /**
-      comments out current line
-    */
+     * comments out current line
+     */
     void comment() {doEditCommand(KateView::cmComment);};
     /**
-      removes comment signs in the current line
-    */
+     * removes comment signs in the current line
+     */
     void uncomment() {doEditCommand(KateView::cmUncomment);};
 
     void keyReturn() {doEditCommand(KateView::cmReturn);};
@@ -501,22 +511,22 @@ public slots:
 //search/replace functions
   public slots:
     /**
-      Presents a search dialog to the user
-    */
+     * Presents a search dialog to the user
+     */
     void find();
     /**
-      Presents a replace dialog to the user
-    */
+     * Presents a replace dialog to the user
+     */
     void replace();
 
     /**
-      Presents a "Goto Line" dialog to the user
-    */
+     * Presents a "Goto Line" dialog to the user
+     */
     void gotoLine();
 
     /**
-      Goes to a given line number; also called by the gotoline slot.
-    */
+     * Goes to a given line number; also called by the gotoline slot.
+     */
     void gotoLineNumber( int linenumber );
 
   private:
@@ -563,24 +573,24 @@ public slots:
 //config file / session management functions
   public:
     /**
-      Reads session config out of the KConfig object. This also includes
-      the actual cursor position and the bookmarks.
-    */
+     * Reads session config out of the KConfig object. This also includes
+     * the actual cursor position and the bookmarks.
+     */
     void readSessionConfig(KConfig *);
     /**
-      Writes session config into the KConfig object
-    */
+     * Writes session config into the KConfig object
+     */
     void writeSessionConfig(KConfig *);
 
   // syntax highlight
   public slots:
     /**
-      Get the end of line mode (Unix, Macintosh or Dos)
-    */
+     * Get the end of line mode (Unix, Macintosh or Dos)
+     */
     int getEol();
     /**
-      Set the end of line mode (Unix, Macintosh or Dos)
-    */
+     * Set the end of line mode (Unix, Macintosh or Dos)
+     */
     void setEol(int);
 
   private:

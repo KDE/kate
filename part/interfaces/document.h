@@ -90,17 +90,21 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     virtual ~Document ();
 
   public:
-    /** Checks if the file on disk is newer than document contents.
-      If forceReload is true, the document is reloaded without asking the user,
-      otherwise [default] the user is asked what to do. */
+    /**
+     * Checks if the file on disk is newer than document contents.
+     * If forceReload is true, the document is reloaded without asking the user,
+     * otherwise [default] the user is asked what to do.
+     */
     virtual void isModOnHD(bool =false) { ; };
 
-    /** Returns the document name.
-    */
+    /**
+     * Returns the document name.
+     */
     virtual QString docName () { return 0L; };
 
-    /** Sets the document name.
-    */
+    /**
+     * Sets the document name.
+     */
     virtual void setDocName (QString ) { ; };
 
     virtual ActionMenu *hlActionMenu (const QString& , QObject* =0, const char* = 0) = 0;
@@ -110,7 +114,9 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     // clear buffer/filename - update the views
     virtual void flush () { ; };
 
-    /** Reloads the current document from disk if possible */
+    /**
+     * Reloads the current document from disk if possible
+     */
     virtual void reloadFile() = 0;
 
     virtual void spellcheck() = 0;

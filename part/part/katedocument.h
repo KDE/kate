@@ -419,15 +419,15 @@ class KateDocument : public Kate::Document
     uint lastLine() const { return numLines()-1;}
 
     /**
-      gets the given line
-      @return  the TextLine object at the given line
-      @see     TextLine
-    */
+     * gets the given line
+     * @return  the TextLine object at the given line
+     * @see     TextLine
+     */
     TextLine::Ptr getTextLine(int line) const;
 
     /**
-      get the length in pixels of the given line
-    */
+     * get the length in pixels of the given line
+     */
     int textLength(int line) const;
 
     void setTabWidth(int);
@@ -448,10 +448,12 @@ class KateDocument : public Kate::Document
     void tagLines(int start, int end);
 
   signals:
-    /** This says spellchecking is <i>percent</i> done.
-      */
+    /**
+     * This says spellchecking is <i>percent</i> done.
+     */
     void  spellcheck_progress (unsigned int percent);
-    /** Emitted when spellcheck is complete.
+    /**
+     * Emitted when spellcheck is complete.
      */
     void spellcheck_done ();
 
@@ -533,9 +535,9 @@ class KateDocument : public Kate::Document
     void cut(VConfig &);
     void copy(int flags);
     /** 
-        Inserts the text in the clipboard and adds to the cursor
-        of the VConfig object the length of the inserted text.
-    */
+     * Inserts the text in the clipboard and adds to the cursor
+     * of the VConfig object the length of the inserted text.
+     */
     void paste(VConfig &);
 
     void selectTo(VConfig &c, KateTextCursor &cursor, int cXPos);
@@ -608,9 +610,11 @@ class KateDocument : public Kate::Document
     void slotBufferUpdateHighlight();
 
   public:
-    /** Checks if the file on disk is newer than document contents.
-      If forceReload is true, the document is reloaded without asking the user,
-      otherwise [default] the user is asked what to do. */
+    /**
+     * Checks if the file on disk is newer than document contents.
+     * If forceReload is true, the document is reloaded without asking the user,
+     * otherwise [default] the user is asked what to do.
+     */
     void isModOnHD(bool forceReload=false);
 
     QString docName () {return myDocName;};
@@ -618,7 +622,9 @@ class KateDocument : public Kate::Document
     void setDocName (QString docName);
 
   public slots:
-    /** Reloads the current document from disk if possible */
+    /**
+     * Reloads the current document from disk if possible
+     */
     void reloadFile();
 
   private slots:
@@ -648,9 +654,9 @@ class KateDocument : public Kate::Document
 
   signals:
     /**
-      The file has been saved (perhaps the name has changed). The main window
-      can use this to change its caption
-    */
+     * The file has been saved (perhaps the name has changed). The main window
+     * can use this to change its caption
+     */
     void fileNameChanged ();
 
   public:
@@ -749,8 +755,10 @@ class KateDocument : public Kate::Document
 
     QWidget *pseudoModal;   //the replace prompt is pseudo modal
 
-    /** updates mTime to reflect file on fs.
-     called from constructor and from saveFile. */
+    /**
+     * updates mTime to reflect file on fs.
+     * called from constructor and from saveFile.
+     */
     void setMTime();
     class QFileInfo* fileInfo;
     class QDateTime mTime;

@@ -677,6 +677,8 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
           {
             if ( (kateTextLine(line)->length()-startCol) > 0 )
               editRemoveText (line, startCol, kateTextLine(line)->length()-startCol);
+              
+            editUnWrapLine (startLine, startCol);
           }        
         }
       

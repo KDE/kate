@@ -69,25 +69,25 @@ class EditInterface
     *  Inserts text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool insertText ( const QString &text, int line = -1, int col = -1 ) = 0;
+    virtual bool insertText ( int line, int col, const QString &text ) = 0;
 
     /**
     *  remove text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool removeText ( int line = 0, int col = 0, int len = -1 ) = 0;
+    virtual bool removeText ( int line, int col, int len ) = 0;
 
     /**
     * Insert line(s) at the given line number. If the line number is -1
     * (the default) then the line is added to end of the document
     */
-    virtual bool insertLine ( const QString &text, int line = -1 ) = 0;
+    virtual bool insertLine ( int line, const QString &text ) = 0;
 
     /**
     * Insert line(s) at the given line number. If the line number is -1
     * (the default) then the line is added to end of the document
     */
-    virtual bool removeLine ( int line = -1 ) = 0;
+    virtual bool removeLine ( int line ) = 0;
 };
 
 

@@ -2816,9 +2816,15 @@ bool KateDocument::print ()
 
 bool KateDocument::openFile()
 {
+  //
+  // add the file to dirwatch
+  //
   if (!m_file.isEmpty())
     KateFactory::dirWatch ()->addFile (m_file);
 
+  //
+  // to houston, we are not modified
+  //
   if (m_modOnHd)
   {
     m_modOnHd = false;
@@ -2826,49 +2832,38 @@ bool KateDocument::openFile()
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
 
+  //
+  // service type magic to get encoding right
+  //
   QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
-  kdDebug(13020) << "servicetype: " << serviceType << endl;
   int pos = serviceType.find(';');
   if (pos != -1)
     setEncoding (serviceType.mid(pos+1));
-  kdDebug(13020) << "myEncoding: " << encoding() << endl;
 
+  // do we have success ?
   bool success = buffer->openFile (m_file);
 
+  //
+  // yeah, success
+  //
   if (success)
+  {
+    // update hl
+    int hl (hlManager->detectHighlighting (this));
+
+    if (hl >= 0)
+      internalSetHlMode(hl);
+
+    // update file type
     updateFileType ();
 
-  int hl = hlManager->wildcardFind( m_url.url() );
-
-  if (hl == -1)
-  {
-    // fill the detection buffer with the contents of the text
-    // anders: I fixed this to work :^)
-    const int HOWMANY = 1024;
-    QByteArray buf(HOWMANY);
-
-    int bufpos = 0;
-    for (uint i=0; i < buffer->count(); i++)
-    {
-      QString line = textLine(i);
-      int len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
-
-      if (bufpos + len > HOWMANY)
-        len = HOWMANY - bufpos;
-
-      memcpy(&buf[bufpos], (line+"\n").latin1(), len);
-      bufpos += len;
-
-      if (bufpos >= HOWMANY)
-        break;
-    }
-
-    hl = hlManager->mimeFind( buf, m_url.url() );
+    // read vars
+    readVariables();
   }
 
-  if (hl >= 0)
-    internalSetHlMode(hl);
-
+  //
+  // update all lines + views
+  //
   updateLines();
   updateViews();
 
@@ -2879,17 +2874,27 @@ bool KateDocument::openFile()
     foldingTree()->collapseToplevelNodes();
   }
 
-  readVariables();
+  //
+  // emit the signal we need for example for kate app
+  //
+  emit fileNameChanged ();
 
-  emit fileNameChanged();
+  //
+  // set doc name, dummy value as arg, don't need it
+  //
+  setDocName  (QString::null);
 
-  setDocName  (url().fileName());
-
+  //
+  // display errors
+  //
   if (!success && buffer->loadingBorked())
     KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
   else if (!success)
     KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was impossible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
 
+  //
+  // return the success
+  //
   return success;
 }
 
@@ -2904,63 +2909,80 @@ bool KateDocument::save()
     if ( ! KIO::NetAccess::upload( url().path(), u ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
   }
-  readVariables();
+
   return KParts::ReadWritePart::save();
 }
 
 bool KateDocument::saveFile()
 {
+  //
+  // we really want to save this file ?
+  //
   bool reallySaveIt = !buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
       i18n("This file couldn't be loaded right because of not enough temporary disk space, saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
 
+  //
+  // can we encode it if we want to save it ?
+  //
   bool canEncode = reallySaveIt && buffer->canEncode ();
 
+  //
+  // remove the m_file before saving from dirwatch
+  //
   if (!m_file.isEmpty())
     KateFactory::dirWatch ()->removeFile (m_file);
 
+  //
+  // start with worst case, we had no success
+  //
   bool success = false;
 
+  //
+  // try to load it if needed
+  //
   if (reallySaveIt && canEncode)
     success = buffer->saveFile (m_file);
 
+  //
+  // hurray, we had success, do stuff we need
+  //
   if (success)
-    updateFileType ();
-
-  if (!hlSetByUser)
   {
-    int hl = hlManager->wildcardFind( m_url.url() );
-
-    if (hl == -1)
+    // update our hl type if needed
+    if (!hlSetByUser)
     {
-      // fill the detection buffer with the contents of the text
-      // anders: fixed to work. I thought I already did :(
-      const int HOWMANY = 1024;
-      QByteArray buf(HOWMANY);
-      int bufpos = 0, len;
-      for (uint i=0; i < buffer->count(); i++)
-      {
-        QString line = textLine( i );
-        len = line.length() + 1;
-        if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-        memcpy(&buf[bufpos], (line + "\n").latin1(), len);
-        bufpos += len;
-        if (bufpos >= HOWMANY) break;
-      }
+      int hl (hlManager->detectHighlighting (this));
 
-      hl = hlManager->mimeFind( buf, m_url.url() );
+      if (hl >= 0)
+        internalSetHlMode(hl);
     }
 
-    if (hl >= 0)
-      internalSetHlMode(hl);
+    // update our file type
+    updateFileType ();
+
+    // read our vars
+    readVariables();
   }
 
+  //
+  // emit the signal we need for example for kate app
+  //
   emit fileNameChanged ();
 
-  setDocName  (url().fileName());
+  //
+  // set doc name, dummy value as arg, don't need it
+  //
+  setDocName  (QString::null);
 
+  //
+  // add file again
+  //
   if (!m_file.isEmpty())
     KateFactory::dirWatch ()->addFile (m_file);
 
+  //
+  // we are not modified
+  //
   if (success && m_modOnHd)
   {
     m_modOnHd = false;
@@ -2968,11 +2990,17 @@ bool KateDocument::saveFile()
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
 
+  //
+  // display errors
+  //
   if (reallySaveIt && !canEncode)
     KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding can't encode every unicode character in it!"));
   else if (reallySaveIt && !success)
     KMessageBox::error (widget(), i18n ("The document could not been saved, as it was impossible to write to %1!\n\nCheck if you have write access to this file or if enough disc spaces is available.").arg(m_url.url()));
 
+  //
+  // return success
+  //
   return success;
 }
 

@@ -239,8 +239,8 @@ class HlManager : public QObject
     int defaultHl();
     int nameFind(const QString &name);
 
-    int wildcardFind(const QString &fileName);
-    int mimeFind(const QByteArray &contents, const QString &fname);
+    int detectHighlighting (class KateDocument *doc);
+
     int findHl(Highlight *h) {return hlList.find(h);}
     QString identifierForName(const QString&);
     void makeAttribs(class KateDocument *, Highlight *);
@@ -270,6 +270,8 @@ class HlManager : public QObject
     void emitChanged(uint n) { emit changed( n ); };
 
   private:
+    int wildcardFind(const QString &fileName);
+    int mimeFind(const QByteArray &contents, const QString &fname);
     int realWildcardFind(const QString &fileName);
 
   private:

@@ -2282,6 +2282,33 @@ int HlManager::nameFind(const QString &name)
   return z;
 }
 
+int HlManager::detectHighlighting (KateDocument *doc)
+{
+  int hl = wildcardFind( doc->url().prettyURL() );
+
+  if (hl == -1)
+  {
+    // fill the detection buffer with the contents of the text
+    // anders: fixed to work. I thought I already did :(
+    const int HOWMANY = 16384;
+    QByteArray buf(HOWMANY);
+    int bufpos = 0, len;
+    for (uint i=0; i < doc->numLines(); i++)
+    {
+      QString line = doc->textLine( i );
+      len = line.length() + 1;
+      if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
+      memcpy(&buf[bufpos], (line + "\n").latin1(), len);
+      bufpos += len;
+      if (bufpos >= HOWMANY) break;
+    }
+
+    hl = mimeFind( buf, doc->url().prettyURL() );
+  }
+
+  return hl;
+}
+
 int HlManager::wildcardFind(const QString &fileName)
 {
   int result;

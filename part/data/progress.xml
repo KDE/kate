@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- By: Rares Stanciulescu <rstanciu@operamail.com> -->
-<language name="progress" version="1.05" kateversion="2.3" section="Other" extensions="*.p;*.w;*.i" casesensitive="0" author="Rares Stanciulescu (rstanciu@operamail.com)" license="">
+<language name="Progress" version="1.05" kateversion="2.3" section="Database" extensions="*.p;*.w;*.i" casesensitive="0" author="Rares Stanciulescu (rstanciu@operamail.com)" license="">
 
 <highlighting>
 

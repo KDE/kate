@@ -29,7 +29,7 @@
 
 <!-- Store this in /usr/share/apps/katepart/syntax -->
 
-<language name="Euphoria" version="2.07" kateversion="2.1" section="Sources" extensions="*.e;*.ex;*.exw;*.exu" mimetype="text/x-euphoria" author="Irv Mullins (irvm@ellijay.com)" license="LGPL">
+<language name="Euphoria" version="2.07" kateversion="2.1" section="Scripts" extensions="*.e;*.ex;*.exw;*.exu" mimetype="text/x-euphoria" author="Irv Mullins (irvm@ellijay.com)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> abort </item>
@@ -225,7 +225,7 @@
       <item> entry </item>
       <item> euget </item>
       <item> event_box </item>
-      <item> flatten </item> 
+      <item> flatten </item>
       <item> font </item>
       <item> frame </item>
       <item> get </item>

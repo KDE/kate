@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Asm6502" version="1.03" kateversion="2.1" section="Sources" extensions="*.asm" mimetype="text/x-asm6502">
+<language name="Asm6502" version="1.03" kateversion="2.1" section="Assembler" extensions="*.asm" mimetype="text/x-asm6502">
         <highlighting>
                 <list name = "opcodes6502">
 

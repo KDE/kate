@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- mySQL SQL, syntax definition based on sql.xml by Yury Lebedev -->
-<language name="SQL-MySQL" version="1.06" kateversion="2.3" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
+<language name="SQL (MySQL)" version="1.06" kateversion="2.3" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>

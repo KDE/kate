@@ -32,6 +32,7 @@
 #include <qfile.h>
 #include <qtimer.h>
 #include <qtextcodec.h>
+#include <qstringlist.h>
 
 #include <assert.h>
 #include <kdebug.h>
@@ -41,7 +42,153 @@
 // Somewhat smaller than 8192 so that it will still fit in 8192 after we add 
 // some overhead.
 #define AVG_BLOCK_SIZE		8000
+
+/**
+  Some private classes
+*/
+                    
+class KateBufFileLoader
+{
+public:
+  int fd;
+  QByteArray lastBlock;
+  int dataStart;
+  int blockNr;
+  QTextCodec *codec;
+};
+
+class KateBufState
+{
+public:
+   KateBufState() { line = new TextLine(); }
+   KateBufState(const KateBufState &c)
+   { 
+     lineNr = c.lineNr;
+     line = new TextLine();
+     *line = *c.line;
+   }
+   KateBufState &operator=(const KateBufState &c)
+   {
+     lineNr = c.lineNr;
+     line = new TextLine();
+     *line = *c.line;
+     return *this;
+   }
      
+   uint lineNr;
+   TextLine::Ptr line; // Used for context & hlContinue flag.
+};
+
+/**
+ * The KateBufBlock class contains an amount of data representing
+ * a certain number of lines.
+ */
+class KateBufBlock
+{
+   friend class KateBuffer;
+public:
+   /*
+    * Create an empty block.
+    */
+   KateBufBlock(const KateBufState &beginState);
+
+   /**
+    * Fill block with lines from @p data1 and @p data2.
+    * The first line starts at @p data1[@p dataStart].
+    * If @p last is true, all bytes from @p data2 are stored.
+    * @return The number of bytes stored form @p data2
+    */
+   int blockFill(int dataStart, QByteArray data1, QByteArray data2, bool last);
+
+   /**
+    * Remove the last line from the block. The lastLine is returned
+    * at offset @p lastLine in @p data1
+    * Pre Condition: b_rawDataValid is true.
+    */
+   void truncateEOL( int &lastLine, QByteArray &data1 );
+
+   /**
+    * Create a valid stringList.
+    * Post Condition: b_stringListValid is true.
+    */
+   void buildStringList();
+
+   /**
+    * Dispose of a stringList.
+    * Post Condition: b_stringListValid is false.
+    */
+   void disposeStringList();
+
+   /**
+    * Copy stringlist back to raw data.
+    * Post Condition: b_rawDataValid is true.
+    */
+   void flushStringList();
+
+   /**
+    * Dispose of raw data.
+    * Post Condition: b_rawDataValid is false.
+    */
+   void disposeRawData();
+
+   /**
+    * Post Condition: b_vmDataValid is true, b_rawDataValid is false
+    */
+   void swapOut(KVMAllocator *vm);
+
+   /**
+    * Swaps raw data from secondary storage.
+    * Post Condition: b_rawDataValid is true.
+    */
+   void swapIn(KVMAllocator *vm);
+
+   /**
+    * Dispose of swap data.
+    * Post Condition: b_vmDataValid is false.
+    */
+   void disposeSwap(KVMAllocator *vm);
+
+   /**
+    * Return line @p i
+    * The first line of this block is line 0.
+    */
+   TextLine::Ptr line(uint i);
+
+   /**
+    * Insert @p line in front of line @p i
+    */
+   void insertLine(uint i, TextLine::Ptr line);
+
+   /**
+    * Remove line @p i
+    */
+   void removeLine(uint i);
+
+protected:
+   /**
+    * Create a valid stringList from intern format.
+    */
+   void buildStringListFast();
+
+protected:
+   TextLine::List m_stringList;
+   QByteArray m_rawData1;
+   int m_rawData1Start;
+   QByteArray m_rawData2;
+   int m_rawData2End;
+   uint m_rawSize;
+   bool b_stringListValid : 1;
+   bool b_rawDataValid : 1;
+   bool b_vmDataValid : 1;
+   bool b_appendEOL : 1; // Buffer is not terminated with '\n'.
+   bool b_emptyBlock : 1; // Buffer is empty
+   bool b_needHighlight : 1; // Buffer requires highlighting.
+   uint m_lastLine; // Start of last line if buffer is without EOL.
+   KateBufState m_beginState;
+   KateBufState m_endState;
+   QTextCodec *m_codec;
+   KVMAllocator::Block *m_vmblock;
+};
      
 /**     
  * Create an empty buffer.

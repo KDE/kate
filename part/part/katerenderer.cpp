@@ -753,7 +753,7 @@ uint KateRenderer::textWidth(const KateTextCursor &cursor)
 
 uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
 {
-  bool wrapCursor = m_doc->wrapCursor();
+  bool wrapCursor = m_view->wrapCursor();
   int len;
   int x, oldX;
 

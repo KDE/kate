@@ -907,10 +907,6 @@ class KateDocument : public Kate::Document,
     void removeTrailingSpace( uint line );
 
   public:
-    // should cursor be wrapped ? take config + blockselection state in account
-    bool wrapCursor ();
-
-  public:
     void updateFileType (int newType, bool user = false);
 
     int fileType () const { return m_fileType; };

@@ -1684,6 +1684,11 @@ bool KateView::toggleBlockSelectionMode ()
   return setBlockSelectionMode (!blockSelect);
 }
 
+bool KateView::wrapCursor ()
+{
+  return !blockSelectionMode() && (m_doc->configFlags() & KateDocument::cfWrapCursor);
+}
+
 //END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

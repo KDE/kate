@@ -1005,7 +1005,7 @@ public:
 
   void makeValid() {
     m_line = QMAX( 0, QMIN( int( m_vi->m_doc->numLines() - 1 ), line() ) );
-    if (m_vi->m_doc->wrapCursor())
+    if (m_vi->m_view->wrapCursor())
       m_col = QMAX( 0, QMIN( m_vi->m_doc->lineLength( line() ), col() ) );
     else
       m_col = QMAX( 0, col() );
@@ -1033,7 +1033,7 @@ protected:
     return line() >= 0 &&
             uint( line() ) < m_vi->m_doc->numLines() &&
             col() >= 0 &&
-            (!m_vi->m_doc->wrapCursor() || col() <= m_vi->m_doc->lineLength( line() ));
+            (!m_vi->m_view->wrapCursor() || col() <= m_vi->m_doc->lineLength( line() ));
   }
   KateViewInternal* m_vi;
 };
@@ -1129,7 +1129,7 @@ public:
 void KateViewInternal::moveChar( Bias bias, bool sel )
 {
   KateTextCursor c;
-  if ( m_doc->wrapCursor() ) {
+  if ( m_view->wrapCursor() ) {
     c = WrappingCursor( this, cursor ) += bias;
   } else {
     c = BoundedCursor( this, cursor ) += bias;
@@ -1141,7 +1141,7 @@ void KateViewInternal::moveChar( Bias bias, bool sel )
 
 void KateViewInternal::cursorLeft(  bool sel )
 {
-  if ( ! m_doc->wrapCursor() && cursor.col() == 0 )
+  if ( ! m_view->wrapCursor() && cursor.col() == 0 )
     return;
 
   moveChar( left, sel );
@@ -1503,7 +1503,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
       if (m_currentMaxX > cXPos)
         cXPos = m_currentMaxX;
 
-      if (m_doc->wrapCursor())
+      if (m_view->wrapCursor())
         cXPos = QMIN(cXPos, (int)m_view->renderer()->textWidth(textLine(realLine), m_doc->lineLength(realLine)));
 
       m_view->renderer()->textWidth(ret, cXPos);
@@ -1609,7 +1609,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
 
 int KateViewInternal::lineMaxCursorX(const KateLineRange& range)
 {
-  if (!m_doc->wrapCursor() && !range.wrap)
+  if (!m_view->wrapCursor() && !range.wrap)
     return INT_MAX;
 
   int maxX = range.endX;
@@ -1688,7 +1688,7 @@ void KateViewInternal::cursorUp(bool sel)
   } else {
     newLine = m_doc->getRealLine(displayCursor.line() - 1);
 
-    if ((m_doc->wrapCursor()) && m_currentMaxX > cXPos)
+    if ((m_view->wrapCursor()) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
 
@@ -1758,7 +1758,7 @@ void KateViewInternal::cursorDown(bool sel)
   } else {
     newLine = m_doc->getRealLine(displayCursor.line() + 1);
 
-    if ((m_doc->wrapCursor()) && m_currentMaxX > cXPos)
+    if ((m_view->wrapCursor()) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
 
@@ -2926,7 +2926,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     }
 
     if (width() < e->oldSize().width()) {
-      if (!m_doc->wrapCursor()) {
+      if (!m_view->wrapCursor()) {
         // May have to restrain cursor to new smaller width...
         if (cursor.col() > m_doc->lineLength(cursor.line())) {
           KateLineRange thisRange = currentRange();

@@ -194,6 +194,9 @@ class KateView : public Kate::View,
      */
     inline const KateSuperCursor &selEnd () const { return selectEnd; }
 
+    // should cursor be wrapped ? take config + blockselection state in account
+    bool wrapCursor ();
+
     // some internal functions to get selection state of a line/col
     bool lineColSelected (int line, int col);
     bool lineSelected (int line);

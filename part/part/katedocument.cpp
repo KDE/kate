@@ -5191,11 +5191,6 @@ void KateDocument::removeTrailingSpace( uint line )
   }
 }
 
-bool KateDocument::wrapCursor ()
-{
-  return (configFlags() & KateDocument::cfWrapCursor); // !blockSelect && TODO
-}
-
 void KateDocument::updateFileType (int newType, bool user)
 {
   if (user || !m_fileTypeSetByUser)

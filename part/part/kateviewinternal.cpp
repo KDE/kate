@@ -2124,7 +2124,9 @@ void KateViewInternal::updateBracketMarks()
     tagLine(bmEnd);
   }
 
-  m_doc->newBracketMark( cursor, bm );
+  // add some limit to this, this is really endless on big files without limit
+  int maxLines = linesDisplayed () * 3;
+  m_doc->newBracketMark( cursor, bm, maxLines );
 
   if ( bm.isValid() ) {
     KateTextCursor bmStart(m_doc->getVirtualLine(bm.start().line()), bm.start().col());

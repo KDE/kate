@@ -4277,19 +4277,19 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
    to the right of the cursor is an ending bracket, match it. Otherwise, don't
    match anything.
 */
-void KateDocument::newBracketMark( const KateTextCursor& cursor, KateTextRange& bm )
+void KateDocument::newBracketMark( const KateTextCursor& cursor, KateTextRange& bm, int maxLines )
 {
   bm.setValid(false);
 
   bm.start() = cursor;
 
-  if( !findMatchingBracket( bm.start(), bm.end() ) )
+  if( !findMatchingBracket( bm.start(), bm.end(), maxLines ) )
     return;
 
   bm.setValid(true);
 }
 
-bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& end )
+bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& end, int maxLines )
 {
   KateTextLine::Ptr textLine = m_buffer->plainLine( start.line() );
   if( !textLine )
@@ -4334,6 +4334,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
   bool forward = isStartBracket( bracket );
   int startAttr = textLine->attribute( start.col() );
   uint count = 0;
+  int lines = 0;
   end = start;
 
   while( true ) {
@@ -4345,6 +4346,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
           return false;
         end.setPos(end.line() + 1, 0);
         textLine = m_buffer->plainLine( end.line() );
+        lines++;
       }
     } else {
       end.setCol(end.col() - 1);
@@ -4354,8 +4356,12 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
         end.setLine(end.line() - 1);
         end.setCol(lineLength( end.line() ) - 1);
         textLine = m_buffer->plainLine( end.line() );
+        lines++;
       }
     }
+
+    if ((maxLines != -1) && (lines > maxLines))
+      return false;
 
     /* Easy way to skip comments */
     if( textLine->attribute( end.col() ) != startAttr )

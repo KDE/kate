@@ -799,8 +799,8 @@ class KateDocument : public Kate::Document,
     void tagAll();
     void updateViews();
 
-    void newBracketMark( const KateTextCursor& start, KateTextRange& bm );
-    bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end );
+    void newBracketMark( const KateTextCursor& start, KateTextRange& bm, int maxLines = -1 );
+    bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end, int maxLines = -1 );
 
   private:
     void guiActivateEvent( KParts::GUIActivateEvent *ev );

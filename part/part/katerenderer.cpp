@@ -466,10 +466,42 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
         if (renderNow)
         {
-          if (!isPrinterFriendly() && !selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor)))
+          if (!isPrinterFriendly())
           {
-            QColor fillColor = isSel ? config()->selectionColor() : currentHL.bgColor();
-            paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, fillColor);
+            bool paintBackground = true;
+            QColor fillColor;
+            if (isIMSel && !isTab)
+            {
+              // input method selection
+              fillColor = m_view->colorGroup().color(QColorGroup::Foreground);
+            }
+            else if (isIMEdit && !isTab)
+            {
+              // XIM support
+              // input method edit area
+              const QColorGroup& cg = m_view->colorGroup();
+              int h1, s1, v1, h2, s2, v2;
+              cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
+              cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
+              fillColor.setHsv( h1, s1, ( v1 + v2 ) / 2 );
+            }
+            else if (!selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor)))
+            {
+              fillColor = isSel ? config()->selectionColor() : currentHL.bgColor();
+            }
+            else
+            {
+              paintBackground = false;
+            }
+
+            if (paintBackground)
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, fillColor);
+
+            if (isIMSel && paintBackground && !isTab)
+            {
+              paint.save();
+              paint.setPen( m_view->colorGroup().color( QColorGroup::BrightText ) );
+            }
           }
 
           // make sure we redraw the right character groups on attrib/selection changes
@@ -493,25 +525,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           else
           {
             if (!isPrinterFriendly()) {
-              // XIM support
-              // input method edit area
-              if ( isIMEdit ) {
-                const QColorGroup& cg = m_view->colorGroup();
-                int h1, s1, v1, h2, s2, v2;
-                cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
-                cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
-                QColor imCol;
-                imCol.setHsv( h1, s1, ( v1 + v2 ) / 2 );
-                paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, imCol );
-              }
 
-              // input method selection
-              if ( isIMSel ) {
-                const QColorGroup& cg = m_view->colorGroup();
-                paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, cg.color( QColorGroup::Foreground ) );
-                paint.save();
-                paint.setPen( cg.color( QColorGroup::BrightText ) );
-              }
             }
 
             // Here's where the money is...

@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
 #include "katetextline.h"
 #include "katebrowserextension.h"
 #include "../interfaces/document.h"
-                                  
+
 #include <ktrader.h>
 #include <kservice.h>
 
@@ -49,7 +49,7 @@ class KateCmd;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
-class KateViewInternal; 
+class KateViewInternal;
 
 namespace Kate
 {
@@ -71,25 +71,25 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
                      public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
 {
   Q_OBJECT
-  
+
   friend class KateViewInternal;
   friend class KateView;
   friend class KateIconBorder;
   friend class ColorConfig;
   friend class ViewDefaultsConfig;
 
-  public:    
-    KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false, 
+  public:
+    KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
         QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
     ~KateDocument ();
-    
-    bool closeURL(); 
-    
+
+    bool closeURL();
+
     Kate::PluginList *plugins () { return &m_plugins; };
-    
+
     void loadAllEnabledPlugins ();
     void enableAllPluginsGUI (KateView *view);
-    
+
     void loadPlugin (Kate::PluginInfo *item);
     void unloadPlugin (Kate::PluginInfo *item);
     void enablePluginGUI (Kate::PluginInfo *item, KateView *view);
@@ -103,16 +103,16 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
     Kate::PluginList m_plugins;
-    
+
   //
   // KTextEditor::Document stuff
   //
   public:
     KTextEditor::View *createView( QWidget *parent, const char *name );
     QPtrList<KTextEditor::View> views () const;
-    
+
      inline KateView *activeView () const { return m_activeView; }
-    
+
   private:
     QPtrList<KateView> m_views;
     QPtrList<KTextEditor::View> m_textEditViews;
@@ -125,18 +125,18 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     uint configPages () const;
     KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name=0 );
     QString configPageName (uint number = 0) const;
-    QString configPageFullName (uint number = 0) const;   
+    QString configPageFullName (uint number = 0) const;
     QPixmap configPagePixmap (uint number = 0, int size = KIcon::SizeSmall) const;
-    
+
   //
   // KTextEditor::EditInterface stuff
   //
   public slots:
     QString text() const;
-  
+
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol ) const;
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise ) const;
-    
+
     QString textLine ( uint line ) const;
 
     bool setText(const QString &);
@@ -144,7 +144,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     bool insertText ( uint line, uint col, const QString &s );
     bool insertText ( uint line, uint col, const QString &s, bool blockwise );
-    
+
     bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol );
     bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise );
 
@@ -167,7 +167,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //
     void editStart (bool withUndo = true);
     void editEnd ();
-    
+
     //
     // functions for insert/remove stuff (atomic)
     //
@@ -212,7 +212,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool removeSelectedText ();
 
     bool selectAll();
-    
+
     //
     // KTextEditor::SelectionInterfaceExt
     //
@@ -232,7 +232,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // stores the current selection
     KateTextCursor selectStart;
     KateTextCursor selectEnd;
-    
+
     // only to make the selection from the view easier
     KateTextCursor selectAnchor;
 
@@ -246,7 +246,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool blockSelectionMode ();
     bool setBlockSelectionMode (bool on);
     bool toggleBlockSelectionMode ();
-    
+
   private:
     // do we select normal or blockwise ?
     bool blockSelect;
@@ -272,7 +272,15 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //
     QPtrList<KateUndoGroup> undoItems;
     QPtrList<KateUndoGroup> redoItems;
+    // these two variables are for resetting the document to
+    // non-modified if all changes have been undone...
+    KateUndoGroup* lastUndoGroupWhenSaved;
+    bool docWasSavedWhenUndoWasEmpty;
+
     uint myUndoSteps;
+
+    // this sets
+    void updateModified();
 
   signals:
     void undoChanged ();
@@ -283,7 +291,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   public slots:
     KTextEditor::Cursor *createCursor ();
     QPtrList<KTextEditor::Cursor> cursors () const;
-    
+
   private:
     QPtrList<KTextEditor::Cursor> myCursors;
 
@@ -341,26 +349,26 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     QPtrList<KTextEditor::Mark> marks();
     void clearMarks();
-    
+
     void setPixmap( MarkInterface::MarkTypes, const QPixmap& );
     void setDescription( MarkInterface::MarkTypes, const QString& );
     QString markDescription( MarkInterface::MarkTypes );
     QPixmap markPixmap( MarkInterface::MarkTypes );
-    
+
     void setMarksUserChangable( uint markMask );
     uint editableMarks();
-  
+
   signals:
     void marksChanged();
     void markChanged( KTextEditor::Mark, KTextEditor::MarkInterfaceExtension::MarkChangeAction );
-  
+
   private:
     QIntDict<KTextEditor::Mark> m_marks;
     QIntDict<QPixmap>           m_markPixmaps;
     QIntDict<QString>           m_markDescriptions;
     bool                        restoreMarks;
     uint                        m_editableMarks;
-  
+
   //
   // KTextEditor::PrintInterface
   //
@@ -393,7 +401,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     Kate::ConfigPage *keysConfigPage (QWidget *);
     Kate::ConfigPage *hlConfigPage (QWidget *);
     Kate::ConfigPage *viewDefaultsConfigPage (QWidget *);
-    
+
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
 
@@ -447,14 +455,14 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
      * gets the last line number (numLines() -1)
      */
     uint lastLine() const { return numLines()-1;}
-    
+
     TextLine::Ptr kateTextLine(uint i);
 
     void setTabWidth(int);
     int tabWidth() {return tabChars;}
     void setNewDoc( bool );
     bool isNewDoc() const;
-    
+
     /**
        Tag the lines in the current selection.
      */
@@ -576,12 +584,12 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QString docName () {return m_docName;};
 
     void setDocName (QString docName);
-		
+
 		inline void lineInfo (KateLineInfo *info, unsigned int line)
 	 {
 	   buffer->lineInfo(info,line);
 	 }
-	 
+
 	 inline KateCodeFoldingTree *foldingTree ()
 	 {
 	   return buffer->foldingTree();
@@ -693,7 +701,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool hlSetByUser;
 
     QString myEncoding;
-       
+
     /**
      * updates mTime to reflect file on fs.
      * called from constructor and from saveFile.
@@ -706,12 +714,12 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     class KateCmd *myCmd;
 
     QMemArray<Attribute> myAttribs;
-    
+
     //
     // core katedocument config !
     //
     uint _configFlags;
-    
+
   private:
     // defaults for all views !!!
     bool m_dynWordWrap;
@@ -719,11 +727,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_iconBar;
     bool m_foldingBar;
     int m_bookmarkSort;
-    
+
   public:
     void updateViewDefaults ();
 
-  public: 
+  public:
     /**
       Allow the HlManager to fill the array
     */

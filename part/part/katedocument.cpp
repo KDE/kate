@@ -105,6 +105,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   selectStart(-1, -1),
   selectEnd(-1, -1),
   selectAnchor(-1, -1),
+  docWasSavedWhenUndoWasEmpty( true ),
+  lastUndoGroupWhenSaved( 0 ),
   viewFont(),
   printFont(),
   hlManager(HlManager::self ())
@@ -212,6 +214,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   }
 
   clear();
+  docWasSavedWhenUndoWasEmpty = true;
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -785,6 +788,7 @@ void KateDocument::editStart (bool withUndo)
       undoItems.setAutoDelete (true);
       undoItems.removeFirst ();
       undoItems.setAutoDelete (false);
+      docWasSavedWhenUndoWasEmpty = false;
     }
 
     editCurrentUndo = new KateUndoGroup (this);
@@ -1165,8 +1169,8 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
     tagSelection();
 
   for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);  
-    
+    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
+
   emit selectionChanged ();
 
   return true;
@@ -1190,7 +1194,7 @@ bool KateDocument::clearSelection()
 
   for (uint z = 0; z < m_views.count(); z++)
     m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
-  
+
   emit selectionChanged();
 
   return true;
@@ -1324,6 +1328,7 @@ void KateDocument::undo()
     undoItems.last()->undo();
     redoItems.append (undoItems.last());
     undoItems.removeLast ();
+    updateModified();
 
     emit undoChanged ();
   }
@@ -1336,16 +1341,32 @@ void KateDocument::redo()
     redoItems.last()->redo();
     undoItems.append (redoItems.last());
     redoItems.removeLast ();
+    updateModified();
 
     emit undoChanged ();
   }
 }
+
+void KateDocument::updateModified()
+{
+  if ( ( lastUndoGroupWhenSaved &&
+         !undoItems.isEmpty() &&
+         undoItems.last() == lastUndoGroupWhenSaved )
+       || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty && myUndoSteps != 0 ) )
+  {
+    setModified( false );
+    kdDebug() << k_funcinfo << "setting modified to false !" << endl;
+  };
+};
 
 void KateDocument::clearUndo()
 {
   undoItems.setAutoDelete (true);
   undoItems.clear ();
   undoItems.setAutoDelete (false);
+
+  lastUndoGroupWhenSaved = 0;
+  docWasSavedWhenUndoWasEmpty = false;
 
   emit undoChanged ();
 }
@@ -1598,7 +1619,7 @@ void KateDocument::readConfig(KConfig *config)
     setModified(false);
     emit textChanged ();
   }
-  
+
   config->setGroup("Kate View");
   m_dynWordWrap = config->readBoolEntry( "DynamicWordWrap", false );
   m_lineNumbers = config->readBoolEntry( "LineNumbers", false );
@@ -1635,7 +1656,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
     config->writeEntry(m_plugins.at(i)->service->library(), m_plugins.at(i)->load);
-    
+
   config->setGroup("Kate View");
   config->writeEntry( "DynamicWordWrap", m_dynWordWrap );
   config->writeEntry( "LineNumbers", m_lineNumbers );
@@ -2612,6 +2633,12 @@ void KateDocument::setModified(bool m) {
     }
     emit modifiedChanged ();
   }
+  if ( m == false && ! undoItems.isEmpty() )
+  {
+    lastUndoGroupWhenSaved = undoItems.last();
+  };
+  if ( m == false ) docWasSavedWhenUndoWasEmpty = undoItems.isEmpty();
+
 }
 
 bool KateDocument::isModified() const {
@@ -2788,7 +2815,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   int endXWithSym = 0;
   int lastWhiteSpace = -1;
   int lastWhiteSpaceX = -1;
-    
+
   *needWrap = false;
 
   for (uint z = startcol; z < textLine->length(); z++)
@@ -2802,7 +2829,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
       lastWhiteSpace = z+1;
       lastWhiteSpaceX = x;
     }
-    
+
     // How should tabs be treated when they word-wrap on a print-out?
     // if startcol != 0, this messes up (then again, word wrapping messes up anyway)
     if (textLine->getChar(z) == QChar('\t'))
@@ -2820,7 +2847,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
         endcol = z+1;
         endX2 = x;
       }
-      
+
       if (x <= maxwidth-wrapsymwidth )
       {
         if (lastWhiteSpace > -1)
@@ -2847,14 +2874,14 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   {
     if (endX)
       *endX = endX2;
-      
+
     return endcolwithsym;
   }
   else
   {
     if (endX)
       *endX = endXWithSym;
-  
+
     return endcol;
   }
 }
@@ -2889,15 +2916,15 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf, uin
     oldX = x;
 
     Attribute *a = attribute(textLine->attribute(z));
-    
-    
+
+
     int width = 0;
-    
+
     if (z < len)
       width = a->width(fs, textLine->getChar(z));
     else
       width = a->width(fs, QChar (' '));
-    
+
     x += width;
 
     if (textLine->getChar(z) == QChar('\t'))
@@ -2923,7 +2950,7 @@ uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf,
 
   int x, oldX;
   x = oldX = 0;
-  
+
   uint z = startCol;
   uint len= textLine->length();
   while ( (x < xPos)  && (z < len)) {

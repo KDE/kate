@@ -92,7 +92,7 @@ KateJScript::~KateJScript ()
 bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &script)
 {
   // put some stuff into env.
-  m_global->put(m_interpreter->globalExec(), "document", KJS::Object(new KateJSDocument(m_interpreter->globalExec(), doc)));
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", KJS::Object(new KateJSDocument(m_interpreter->globalExec(), doc)));
 
   // run
   KJS::Completion comp (m_interpreter->evaluate(script));

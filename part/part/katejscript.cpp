@@ -62,59 +62,69 @@ public:
   virtual KJS::UString className() const { return "global"; }
 };
 
-class KateJSDocument : public KJS::ObjectImp {
-public:
-  KateJSDocument (KJS::ExecState *exec, KateDocument *_doc);
+class KateJSDocument : public KJS::ObjectImp
+{
+  public:
+    KateJSDocument (KJS::ExecState *exec, KateDocument *_doc);
 
-  virtual const KJS::ClassInfo* classInfo() const { return &info; }
+    const KJS::ClassInfo* classInfo() const { return &info; }
 
-  static const KJS::ClassInfo info;
+    enum { FullText,
+          Text,
+          TextLine,
+          NumLines,
+          Length,
+          LineLength,
+          SetText,
+          Clear,
+          InsertText,
+          RemoveText,
+          InsertLine,
+          RemoveLine,
+          EditBegin,
+          EditEnd
+    };
 
-  enum { FullText,
-         Text,
-         TextLine,
-         NumLines,
-         Length,
-         LineLength,
-         SetText,
-         Clear,
-         InsertText,
-         RemoveText,
-         InsertLine,
-         RemoveLine,
-         EditBegin,
-         EditEnd
-  };
+  public:
+    KateDocument *doc;
 
-public:
-  KateDocument *doc;
+    static const KJS::ClassInfo info;
 };
 
-class KateJSView : public KJS::ObjectImp {
-public:
-  KateJSView (KJS::ExecState *exec, KateView *_view);
+class KateJSView : public KJS::ObjectImp
+{
+  public:
+    KateJSView (KJS::ExecState *exec, KateView *_view);
 
-  virtual const KJS::ClassInfo* classInfo() const { return &info; }
+    KJS::Value get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const;
 
-  static const KJS::ClassInfo info;
+    KJS::Value getValueProperty(KJS::ExecState *exec, int token) const;
 
-  enum { CursorLine,
-         CursorColumn,
-         CursorColumnReal,
-         Selection,
-         HasSelection,
-         SetSelection,
-         RemoveSelection,
-         SelectAll,
-         ClearSelection,
-         SelStartLine,
-         SelStartCol,
-         SelEndLine,
-         SelEndCol
-  };
+    void put(KJS::ExecState *exec, const KJS::Identifier &propertyName, const KJS::Value& value, int attr = KJS::None);
 
-public:
-  KateView *view;
+    void putValueProperty(KJS::ExecState *exec, int token, const KJS::Value& value, int attr);
+
+    const KJS::ClassInfo* classInfo() const { return &info; }
+
+    enum { CursorLine,
+          CursorColumn,
+          CursorColumnReal,
+          Selection,
+          HasSelection,
+          SetSelection,
+          RemoveSelection,
+          SelectAll,
+          ClearSelection,
+          SelStartLine,
+          SelStartCol,
+          SelEndLine,
+          SelEndCol
+    };
+
+  public:
+    KateView *view;
+
+    static const KJS::ClassInfo info;
 };
 
 #include "katejscript.lut.h"
@@ -291,10 +301,15 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
   removeSelection     KateJSView::RemoveSelection     DontDelete|Function 0
   selectAll           KateJSView::SelectAll           DontDelete|Function 0
   clearSelection      KateJSView::ClearSelection      DontDelete|Function 0
-  selStartLine        KateJSView::SelStartLine        DontDelete|Function 0
-  selStartCol         KateJSView::SelStartCol         DontDelete|Function 0
-  selEndLine          KateJSView::SelEndLine          DontDelete|Function 0
-  selEndCol           KateJSView::SelEndCol           DontDelete|Function 0
+@end
+*/
+
+/* Source for KateJSViewTable.
+@begin KateJSViewTable 5
+  selStartLine        KateJSView::SelStartLine        DontDelete
+  selStartCol         KateJSView::SelStartCol         DontDelete
+  selEndLine          KateJSView::SelEndLine          DontDelete
+  selEndCol           KateJSView::SelEndCol           DontDelete
 @end
 */
 
@@ -302,7 +317,7 @@ DEFINE_PROTOTYPE("KateJSView",KateJSViewProto)
 IMPLEMENT_PROTOFUNC(KateJSViewProtoFunc)
 IMPLEMENT_PROTOTYPE(KateJSViewProto,KateJSViewProtoFunc)
 
-const KJS::ClassInfo KateJSView::info = { "KateJSView", 0, 0, 0 };
+const KJS::ClassInfo KateJSView::info = { "KateJSView", 0, &KateJSViewTable, 0 };
 
 Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, const KJS::List &args)
 {
@@ -345,7 +360,28 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
 
     case KateJSView::ClearSelection:
       return KJS::Boolean( view->getDoc()->clearSelection() );
+  }
 
+  return KJS::Undefined();
+}
+
+KateJSView::KateJSView (KJS::ExecState *exec, KateView *_view)
+    : KJS::ObjectImp (KateJSViewProto::self(exec))
+    , view (_view)
+{
+}
+
+KJS::Value KateJSView::get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const
+{
+  return KJS::lookupGetValue<KateJSView,KJS::ObjectImp>(exec, propertyName, &KateJSViewTable, this );
+}
+
+KJS::Value KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
+{
+  if (!view)
+    return KJS::Undefined ();
+
+  switch (token) {
     case KateJSView::SelStartLine:
       return KJS::Number( view->getDoc()->selStartLine() );
 
@@ -357,15 +393,25 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
 
     case KateJSView::SelEndCol:
       return KJS::Number( view->getDoc()->selEndCol() );
-  }
+    }
 
-  return KJS::Undefined();
+  return KJS::Undefined ();
 }
 
-KateJSView::KateJSView (KJS::ExecState *exec, KateView *_view)
-    : KJS::ObjectImp (KateJSViewProto::self(exec))
-    , view (_view)
+void KateJSView::put(KJS::ExecState *exec, const KJS::Identifier &propertyName, const KJS::Value& value, int attr)
 {
+   KJS::lookupPut<KateJSView,KJS::ObjectImp>(exec, propertyName, value, attr, &KateJSViewTable, this );
+}
+
+void KateJSView::putValueProperty(KJS::ExecState *exec, int token, const KJS::Value& value, int attr)
+{
+  if (!view)
+    return;
+
+  switch (token) {
+    case KateJSView::SelStartLine:
+    return;
+    }
 }
 
 //END

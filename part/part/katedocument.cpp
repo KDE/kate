@@ -65,7 +65,7 @@
 #include <kglobal.h>
 #include <kurldrag.h>
 #include <kprinter.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kpopupmenu.h>
 #include <klineeditdlg.h>
 #include <kconfig.h>

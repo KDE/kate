@@ -24,7 +24,7 @@
 #include "katehighlight.h"
 #include "katedocument.h"
 
-#include <kapp.h>
+#include <kapplication.h>
 #include <kbuttonbox.h>
 #include <kcharsets.h>
 #include <kcolorcombo.h>

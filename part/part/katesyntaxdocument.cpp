@@ -26,7 +26,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <qstringlist.h>
-#include <kapp.h>
+#include <kapplication.h>
 #include <kconfig.h>
 
 /** Constructor

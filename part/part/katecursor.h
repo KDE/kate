@@ -28,7 +28,7 @@
 class KateDocument;
 
 
-/*
+/**
   Simple cursor class with no document pointer.
 */
 class KateTextCursor
@@ -63,7 +63,11 @@ class KateTextCursor
     inline void setPos(int _line, int _col) {
       line = _line;
       col = _col;
-    }    
+    }
+
+    bool subjectToChangeAt(const KateTextCursor & c) const {
+      return line == c.line && col > c.col;
+    }
 
   public:
     int line;
@@ -78,7 +82,7 @@ class BracketMark
     int eXPos;
 };
 
-/*
+/**
   Cursor class with a pointer to its document.
 */
 class KateDocCursor : public KateTextCursor
@@ -112,7 +116,7 @@ class KateDocCursor : public KateTextCursor
     KateDocument *myDoc;
 };
 
-/*
+/**
   Complex cursor class implementing the KTextEditor::Cursor interface
   through Kate::Cursor using KateDocCursor features.
 

@@ -132,12 +132,14 @@ class HlCOct : public HlItem {
   public:
     HlCOct(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual bool startEnable(QChar c);
 };
 
 class HlCHex : public HlItem {
   public:
     HlCHex(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
+    virtual bool startEnable(QChar c);
 };
 
 class HlCFloat : public HlFloat {
@@ -145,6 +147,7 @@ class HlCFloat : public HlFloat {
     HlCFloat(int attribute, int context, signed char regionId);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     const QChar *checkIntHgl(const QChar *, int, bool);
+    virtual bool startEnable(QChar c);
 };
 
 class HlLineContinue : public HlItem {
@@ -520,6 +523,12 @@ HlCOct::HlCOct(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
+bool HlCOct::startEnable(QChar c)
+{
+//  return ustrchr(deliminatorChars, deliminatorLen, c);
+    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+}
+
 const QChar *HlCOct::checkHgl(const QChar *str, int len, bool) {
   const QChar *s;
 
@@ -551,6 +560,12 @@ const QChar *HlCOct::checkHgl(const QChar *str, int len, bool) {
 //BEGIN HlCHex
 HlCHex::HlCHex(int attribute, int context,signed char regionId)
   : HlItem(attribute,context,regionId) {
+}
+
+bool HlCHex::startEnable(QChar c)
+{
+//  return ustrchr(deliminatorChars, deliminatorLen, c);
+    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
 }
 
 const QChar *HlCHex::checkHgl(const QChar *str, int len, bool)
@@ -586,7 +601,11 @@ HlCFloat::HlCFloat(int attribute, int context, signed char regionId)
   : HlFloat(attribute,context,regionId) {
 }
 
-
+bool HlCFloat::startEnable(QChar c)
+{
+//  return ustrchr(deliminatorChars, deliminatorLen, c);
+    return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
+}
 
 const QChar *HlCFloat::checkIntHgl(const QChar *str, int, bool)
 {
@@ -1488,6 +1507,7 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
                 if(dataname=="HlCChar") return ( new HlCChar(attr,context,regionId));else
                 if(dataname=="HlCHex") return (new HlCHex(attr,context,regionId));else
                 if(dataname=="HlCOct") return (new HlCOct(attr,context,regionId)); else
+		if(dataname=="HlCFloat") return (new HlCFloat(attr,context,regionId)); else
                 if(dataname=="HlCStringChar") return (new HlCStringChar(attr,context,regionId)); else
 
                   {

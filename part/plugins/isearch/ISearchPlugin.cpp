@@ -31,6 +31,9 @@
 
 K_EXPORT_COMPONENT_FACTORY( ktexteditor_isearch, KGenericFactory<ISearchPlugin>( "ktexteditor_isearch" ) );
 
+namespace
+{
+
 // Copied from kdebase/konqueror/konq_misc.cc with modifications.
 // Yay code duplication. Hacking widgets to support a specific
 // style is bad bad bad. Why oh why doesn't the toolbar draw the
@@ -59,6 +62,8 @@ protected:
 	void enterEvent( QEvent* ) {};
 	void leaveEvent( QEvent* ) {};
 };
+
+}
                                             
 ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	: QObject ( view ), KXMLGUIClient (view)

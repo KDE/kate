@@ -30,7 +30,10 @@
 #include <qobject.h>
 
 class QLabel;
+namespace 
+{
 class KToolBarLabel;
+}
 
 class ISearchPlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
 {             

@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.03" kateversion="2.1" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.04" kateversion="2.1" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
         <highlighting>
                 <list name="keywords">
                         <item> and </item>
                         <item> array </item>
                         <item> asm </item>
-                        <item> begin </item>
                         <item> case </item>
                         <item> const </item>
                         <item> div </item>
                         <item> do </item>
                         <item> downto </item>
                         <item> else </item>
-                        <item> end </item>
                         <item> for </item>
                         <item> function </item>
                         <item> goto </item>
@@ -118,6 +116,8 @@
                 </list>
                 <contexts>
                         <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+                                <StringDetect attribute="Keyword" context="#stay" String="begin" insensitive="TRUE" beginRegion="Region1"/>
+                                <StringDetect attribute="Keyword" context="#stay" String="end" insensitive="TRUE" endRegion="Region1"/>
                                 <keyword attribute="Keyword" context="#stay" String="keywords"/>
                                 <keyword attribute="Type" context="#stay" String="types"/>
                                 <Float attribute="Number" context="#stay"/>

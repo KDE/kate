@@ -265,23 +265,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
-  //BEGIN spellcheck stuff
-  if( m_kspell )
+  if (!singleViewMode())
   {
-    m_kspell->setAutoDelete(true);
-    m_kspell->cleanUp(); // need a way to wait for this to complete
-    delete m_kspell;
-  }
-  //END
-
-  //
-  // other stuff
-  //
-  if ( !m_bSingleViewMode )
-  {
+    // clean up remaining views
     m_views.setAutoDelete( true );
     m_views.clear();
-    m_views.setAutoDelete( false );
   }
 
   m_highlight->release();
@@ -298,7 +286,15 @@ KateDocument::~KateDocument()
   unloadAllPlugins ();
   m_plugins.setAutoDelete (true);
   m_plugins.clear ();
-  
+ 
+  // kspell stuff
+  if( m_kspell )
+  {
+    m_kspell->setAutoDelete(true);
+    m_kspell->cleanUp(); // need a way to wait for this to complete
+    delete m_kspell;
+  }
+   
   delete m_config;
   delete m_indenter;
   KateFactory::self()->deregisterDocument (this);

@@ -74,7 +74,7 @@ namespace Kate
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document, public KateDocumentDCOPIface,
+class KateDocument : public Kate::Document, virtual public KateDocumentDCOPIface,
                      public KTextEditor::ConfigInterfaceExtension,
                      public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
 {

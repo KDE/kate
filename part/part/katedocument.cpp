@@ -3319,7 +3319,7 @@ void KateDocument::selectWord( const KateTextCursor& cursor ) {
 void KateDocument::selectLine( const KateTextCursor& cursor ) {
   if (!(_configFlags & KateDocument::cfKeepSelection))
     clearSelection ();
-  setSelection (cursor.line, 0, cursor.line+1, 0);
+  setSelection (cursor.line, 0, cursor.line/*+1, 0*/, buffer->line(cursor.line)->length() );
 }
 
 void KateDocument::selectLength( const KateTextCursor& cursor, int length ) {

@@ -49,7 +49,7 @@ class ConfigInterface
     /**
       Read/Write the config to the standard place where this editor
       part saves it config, say: read/save default values for that
-      editor part
+      editor part, which means for all current open documents
     */
     virtual void readConfig () = 0;
     virtual void writeConfig () = 0;           

@@ -39,7 +39,7 @@ class ConfigPage : public QWidget
   //
   public:
     /**
-      Applies the changes to the document
+      Applies the changes to all documents
     */
     virtual void apply () = 0;
     

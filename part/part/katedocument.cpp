@@ -124,6 +124,7 @@ bool KateDocument::m_foldingBar = true;
 int KateDocument::m_bookmarkSort = 0;
 bool KateDocument::m_wordWrapMarker = true;
 int KateDocument::m_autoCenterLines = 0;
+int KateDocument::m_getSearchTextFrom = KateDocument::SelectionOnly;
 
 Kate::PluginList KateDocument::s_plugins;
 //END variables
@@ -1872,6 +1873,7 @@ void KateDocument::readConfig(KConfig *config)
   m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
   m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
+  m_getSearchTextFrom = config->readNumEntry( "Get Search Text From", m_getSearchTextFrom );
 
   for (uint z=0; z < KateFactory::documents()->count(); z++)
     KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
@@ -1932,6 +1934,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   config->writeEntry( "Word Wrap Marker", m_wordWrapMarker );
   config->writeEntry( "Auto Center Lines", m_autoCenterLines );
+  config->writeEntry( "Get Search Text From", m_getSearchTextFrom );
 
   config->sync();
 }
@@ -4279,6 +4282,16 @@ void KateDocument::setAutoCenterLines(int viewLines)
 int KateDocument::autoCenterLines() const
 {
   return m_autoCenterLines;
+}
+
+void KateDocument::setGetSearchTextFrom (int where)
+{
+  m_getSearchTextFrom = where;
+}
+
+int KateDocument::getSearchTextFrom() const
+{
+  return m_getSearchTextFrom;
 }
 
 uint KateDocument::configFlags ()

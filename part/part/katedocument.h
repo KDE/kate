@@ -659,6 +659,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     int autoCenterLines() const;
 
   public:
+    enum GetSearchTextFrom {Nowhere, SelectionOnly, SelectionWord, WordOnly, WordSelection};
+    void setGetSearchTextFrom (int where);
+    int getSearchTextFrom() const;
+
+  public:
     uint configFlags ();
     void setConfigFlags (uint flags);
 
@@ -712,6 +717,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static uint myWordWrapAt;
 
     static int m_autoCenterLines;
+
+    static int m_getSearchTextFrom;
 
     bool hlSetByUser;
 

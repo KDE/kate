@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2003 Clarence Dang <dang@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -413,14 +414,45 @@ bool KateSearch::askContinue()
 
 QString KateSearch::getSearchText()
 {
-  // If the user has marked some text we use that otherwise
-  // use the word under the cursor.
+  // SelectionOnly: use selection
+  // WordOnly: use word under cursor
+  // SelectionWord: use selection if available, else use word under cursor
+  // WordSelection: use word if available, else use selection
   QString str;
 
-  if( doc()->hasSelection() )
-    str = doc()->selection();
-  else
+  int getFrom = doc()->getSearchTextFrom();
+  switch (getFrom)
+  {
+  case KateDocument::SelectionOnly: // (Windows)
+    kdDebug() << "getSearchText(): SelectionOnly" << endl;
+    if( doc()->hasSelection() )
+      str = doc()->selection();
+    break;
+
+  case KateDocument::SelectionWord: // (classic Kate behaviour)
+    kdDebug() << "getSearchText(): SelectionWord" << endl;
+    if( doc()->hasSelection() )
+      str = doc()->selection();
+    else
+      str = view()->currentWord();
+    break;
+
+  case KateDocument::WordOnly: // (weird?)
+    kdDebug() << "getSearchText(): WordOnly" << endl;
     str = view()->currentWord();
+    break;
+
+  case KateDocument::WordSelection: // (persistent selection lover)
+    kdDebug() << "getSearchText(): WordSelection" << endl;
+    str = view()->currentWord();
+    if (str.isEmpty() && doc()->hasSelection() )
+      str = doc()->selection();
+    break;
+
+  default: // (nowhere)
+    kdDebug() << "getSearchText(): Nowhere" << endl;
+    break;
+  }
 
   str.replace( QRegExp("^\\n"), "" );
   str.replace( QRegExp("\\n.*"), "" );

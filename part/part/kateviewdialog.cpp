@@ -343,13 +343,27 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   mainLayout->addWidget(e3);
   connect(e3, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
+  QHBoxLayout *e5Layout = new QHBoxLayout(mainLayout);
+  QLabel *e5Label = new QLabel(i18n("Smart Search T&ext From:"), this);
+  e5Layout->addWidget(e5Label);
+  e5 = new KComboBox (this);
+  e5->insertItem( i18n("Nowhere") );
+  e5->insertItem( i18n("Selection Only") );
+  e5->insertItem( i18n("Selection, then Current Word") );
+  e5->insertItem( i18n("Current Word Only") );
+  e5->insertItem( i18n("Current Word, then Selection") );
+  e5->setCurrentItem(view->getSearchTextFrom());
+  e5Layout->addWidget(e5);
+  e5Label->setBuddy(e5);
+  connect(e5, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+
   mainLayout->addStretch();
 
   // What is this? help
   QWhatsThis::add(opt[0], i18n("Word wrap is a feature that causes the editor to automatically start a new line of text and move (wrap) the cursor to the beginning of that new line. KateView will automatically start a new line of text when the current line reaches the length specified by the Wrap Words At: option.<p><b>NOTE:</b> Word Wrap will not change existing lines or wrap them for easy reading as in some applications."));
   QWhatsThis::add(e1, i18n("If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line."));
   QWhatsThis::add(opt[1], i18n("KateView will replace any tabs with the number of spaces indicated in the Tab Width: entry."));
-  QWhatsThis::add(e2, i18n("If the Replace Tabs By Spaces option is selected this entry determines the number of spaces with which the editor will automatically replace tabs."));
+  QWhatsThis::add(e2, i18n("If the Replace Tabs With Spaces option is selected this entry determines the number of spaces with which the editor will automatically replace tabs."));
   QWhatsThis::add(opt[2], i18n("KateView will automatically eliminate extra spaces at the ends of lines of text."));
   QWhatsThis::add(opt[3], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
   QWhatsThis::add(opt[4], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
@@ -357,6 +371,30 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
   QWhatsThis::add(e4, i18n("Sets the number of lines to maintain visible above and below the cursor when possible."));
   QWhatsThis::add(opt[6], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
+  QString gstfwt = i18n("This determines where KateView will get the search text from "
+                        "(this will be automatically entered into the Find Text dialog): "
+                        "<br>"
+                        "<ul>"
+                        "<li><b>Nowhere:</b> Don't guess the search text."
+                        "</li>"
+                        "<li><b>Selection Only:</b> Use the current text selection, "
+                        "if available."
+                        "</li>"
+                        "<li><b>Selection, then Current Word:</b> Use the current "
+                        "selection if available, else use the current word."
+                        "</li>"
+                        "<li><b>Current Word Only:</b> Use the word that the cursor "
+                        "is currently resting on, if available."
+                        "</li>"
+                        "<li><b>Current Word, then Selection:</b> Use the current "
+                        "word if available, else use the current selection."
+                        "</li>"
+                        "</ul>"
+                        "Note that, in all the above modes, if a search string has "
+                        "not been or cannot be determined, then the Find Text Dialog "
+                        "will fall back to the last search text.");
+  QWhatsThis::add(e5Label, gstfwt);
+  QWhatsThis::add(e5, gstfwt);
 
   wordWrapToggled();
 }
@@ -382,6 +420,7 @@ void EditConfigTab::getData(KateDocument *view)
     view->setUndoSteps(e3->value());
 
   view->setAutoCenterLines(QMAX(0, e4->value()));
+  view->setGetSearchTextFrom(e5->currentItem());
 }
 
 void EditConfigTab::apply ()

@@ -112,10 +112,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 {
   KateFactory::registerDocument (this);
   
-  QCString docNumber;
-  docNumber.setNum (documentNumber());
-
-  setEditInterfaceDCOPPrefix (QCString ("Document#") + docNumber);
+  setEditInterfaceDCOPSuffix (documentDCOPSuffix());
   
   regionTree=new KateCodeFoldingTree(this);
   m_activeView = 0L;

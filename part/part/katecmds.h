@@ -165,7 +165,7 @@ class Date : public Kate::Command
     QStringList cmds () { return QStringList("date"); };
 };
 
-}; // namespace KateCommands
+} // namespace KateCommands
 #endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

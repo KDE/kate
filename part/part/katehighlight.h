@@ -78,7 +78,8 @@ class KateHlItemData : public KateAttribute
       dsOthers,
       dsAlert,
       dsFunction,
-      dsRegionMarker };
+      dsRegionMarker,
+      dsError };
 
   public:
     const QString name;

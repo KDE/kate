@@ -312,6 +312,7 @@ static KateHlItemData::ItemStyles getDefStyleNum(QString name)
   else if (name=="dsAlert") return KateHlItemData::dsAlert;
   else if (name=="dsFunction") return KateHlItemData::dsFunction;
   else if (name=="dsRegionMarker") return KateHlItemData::dsRegionMarker;
+  else if (name=="dsError") return KateHlItemData::dsError;
 
   return KateHlItemData::dsNormal;
 }
@@ -2618,7 +2619,7 @@ int KateHlManager::mimeFind(/*const QByteArray &contents*/KateDocument *doc)
 
 uint KateHlManager::defaultStyles()
 {
-  return 13;
+  return 14;
 }
 
 QString KateHlManager::defaultStyleName(int n)
@@ -2641,6 +2642,8 @@ QString KateHlManager::defaultStyleName(int n)
     names << i18n("Function");
     // this next one is for denoting the beginning/end of a user defined folding region
     names << i18n("Region Marker");
+    // this one is for marking invalid input
+    names << i18n("Error");
   }
 
   return names[n];
@@ -2687,7 +2690,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   list.append(charAttribute);
 
   KateAttribute* string = new KateAttribute();
-  string->setTextColor(Qt::red);
+  string->setTextColor(QColor::QColor("#D00"));
   string->setSelectedTextColor(Qt::red);
   list.append(string);
 
@@ -2719,6 +2722,12 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   regionmarker->setBGColor(Qt::gray);
   regionmarker->setSelectedTextColor(Qt::gray);
   list.append(regionmarker);
+
+  KateAttribute* error = new KateAttribute();
+  error->setTextColor(Qt::red);
+  error->setUnderline(true);
+  error->setSelectedTextColor(Qt::red);
+  list.append(error);
 
   KConfig *config = KateHlManager::self()->self()->getKConfig();
   config->setGroup("Default Item Styles - Schema " + KateFactory::self()->schemaManager()->name(schema));

@@ -1784,7 +1784,7 @@ void KateDocument::configDialog()
   Kate::ConfigPage *mindentConfigPage = indentConfigPage(page);
 
   // select options
-  page=kd->addVBoxPage(i18n("Select"), i18n("Selection behavior"),
+  page=kd->addVBoxPage(i18n("Select"), i18n("Selection Behavior"),
                        BarIcon("misc") );
   Kate::ConfigPage *mselectConfigPage = selectConfigPage(page);
 
@@ -1794,18 +1794,18 @@ void KateDocument::configDialog()
   Kate::ConfigPage *meditConfigPage = editConfigPage (page);
 
   // Cursor key options
-  page=kd->addVBoxPage(i18n("Keyboard"), i18n("Keyboard configuration"),
+  page=kd->addVBoxPage(i18n("Keyboard"), i18n("Keyboard Configuration"),
                        BarIcon("edit", KIcon::SizeMedium ) );
   Kate::ConfigPage *mkeysConfigPage = keysConfigPage (page);
 
   // spell checker
-  page = kd->addVBoxPage( i18n("Spelling"), i18n("Spell checker behavior"),
+  page = kd->addVBoxPage( i18n("Spelling"), i18n("Spell Checker Behavior"),
                           BarIcon("spellcheck", KIcon::SizeMedium) );
   Kate::ConfigPage *mkSpellConfigPage = kSpellConfigPage (page);
 
   kwin.setIcons(kd->winId(), kapp->icon(), kapp->miniIcon());
 
-  page=kd->addVBoxPage(i18n("Highlighting"),i18n("Highlighting configuration"),
+  page=kd->addVBoxPage(i18n("Highlighting"),i18n("Highlighting Configuration"),
                         BarIcon("edit",KIcon::SizeMedium));
   Kate::ConfigPage *mhlConfigPage = hlConfigPage (page);
 

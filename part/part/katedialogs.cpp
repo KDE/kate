@@ -548,7 +548,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   QWhatsThis::add(e5, gstfwt);
   QWhatsThis::add( opt[5], i18n(
       "If this is enabled, the editor will calculate the number of spaces up to "
-      "the next tab position as defined by the tab with, and insert that number "
+      "the next tab position as defined by the tab width, and insert that number "
       "of spaces instead of a TAB character." ) );
   QWhatsThis::add( opt[6], i18n(
       "If this is enabled, the editor will remove any trailing whitespace on "

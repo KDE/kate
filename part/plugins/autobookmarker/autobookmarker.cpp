@@ -319,7 +319,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
       "<p>A list of filename masks, separated by semicolons. This can be used "
       "to limit the usage of this entity to files with matching names.</p>"
       "<p>Use the wizard button to the right of the mimetype entry below to "
-      "easily fill out both lists.<p>" ) );
+      "easily fill out both lists.</p>" ) );
 
   l = new QLabel( i18n("MIME &types:"), w );
   leMimeTypes = new QLineEdit( e->mimemask.join( "; " ), w );

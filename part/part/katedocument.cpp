@@ -115,7 +115,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_imStart( 0 ),
   m_imEnd( 0 ),
   m_imSelStart( 0 ),
-  m_imSelEnd( 0 )
+  m_imSelEnd( 0 ),
+  m_imComposeEvent( false )
 {
   // my dcop object
   setObjId ("KateDocument#"+documentDCOPSuffix());
@@ -887,7 +888,7 @@ void KateDocument::editStart (bool withUndo)
 
 void KateDocument::undoStart()
 {
-  if (m_editCurrentUndo) return;
+  if (m_editCurrentUndo || m_imComposeEvent) return;
 
   // Make sure the buffer doesn't get bigger than requested
   if ((config()->undoSteps() > 0) && (undoItems.count() > config()->undoSteps()))
@@ -904,6 +905,9 @@ void KateDocument::undoStart()
 
 void KateDocument::undoEnd()
 {
+  if (m_imComposeEvent)
+    return;
+
   if (m_editCurrentUndo)
   {
     if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo))
@@ -4972,16 +4976,19 @@ void KateDocument::setDefaultEncoding (const QString &encoding)
   s_defaultEncoding = encoding;
 }
 
-void KateDocument::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd, uint imSelStart, uint imSelEnd )
+void KateDocument::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
+                                        uint imSelStart, uint imSelEnd, bool imComposeEvent )
 {
   m_imStartLine = imStartLine;
   m_imStart = imStart;
   m_imEnd = imEnd;
   m_imSelStart = imSelStart;
   m_imSelEnd = imSelEnd;
+  m_imComposeEvent = imComposeEvent;
 }
 
-void KateDocument::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd, uint *imSelStart, uint *imSelEnd )
+void KateDocument::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
+                                        uint *imSelStart, uint *imSelEnd )
 {
   *imStartLine = m_imStartLine;
   *imStart = m_imStart;

@@ -94,7 +94,7 @@ signals:
     void completionAborted();
     void completionDone();
     void argHintHidden();
-    virtual void completionDone(KTextEditor::CompletionEntry*);
+    virtual void completionDone(KTextEditor::CompletionEntry);
     virtual void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 };
 

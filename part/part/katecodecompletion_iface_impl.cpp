@@ -111,7 +111,7 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 	  deleteCommentLabel();
 	  m_view->setFocus();
 
-	  emit  completionDone(&(item->m_entry));
+	  emit  completionDone((item->m_entry));
 	  emit completionDone();
 	}
 	return FALSE;

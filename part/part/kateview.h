@@ -560,7 +560,7 @@ public slots:
     void completionAborted();
     void completionDone();
     void argHintHidden();
-    void completionDone(KTextEditor::CompletionEntry*);
+    void completionDone(KTextEditor::CompletionEntry);
     void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 
 

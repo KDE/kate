@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -134,13 +135,14 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   slotUpdate();
 
-  KAccel *m_debugAccels=new KAccel(this,this);
-  m_debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",myDoc,SLOT(dumpRegionTree()));
-  m_debugAccels->setEnabled(true);
+  KAccel* debugAccels = new KAccel(this,this);
+  debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",myDoc,SLOT(dumpRegionTree()));
+  debugAccels->setEnabled(true);
+
   if (doc->highlight()==0)
-  	setFoldingMarkersOn(false);
+    setFoldingMarkersOn(false);
   else
-  	setFoldingMarkersOn(doc->highlight()->allowsFolding());
+    setFoldingMarkersOn(doc->highlight()->allowsFolding());
   myViewInternal->updateView (KateViewInternal::ufDocGeometry);
   
   
@@ -266,7 +268,6 @@ void KateView::setupActions()
     KStdAction::cut(this, SLOT(cut()), ac);
     KStdAction::paste(this, SLOT(paste()), ac);
     new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap");
-    KStdAction::replace(this, SLOT(replace()), ac);
     new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd");
 
     // setup Tools menu
@@ -328,9 +329,6 @@ void KateView::setupActions()
 
 void KateView::reloadFile()
 {
-  if (!canDiscard())
-    return;
-    
   // save cursor position
   uint cl = cursorLine();
   uint cc = cursorColumn();
@@ -352,21 +350,21 @@ void KateView::slotNewUndo()
   if (myDoc->m_bReadOnly)
     return;
 
-   if ((myDoc->undoCount() > 0) != m_editUndo->isEnabled())
+  if ((myDoc->undoCount() > 0) != m_editUndo->isEnabled())
     m_editUndo->setEnabled(myDoc->undoCount() > 0);
 
-   if ((myDoc->redoCount() > 0) != m_editRedo->isEnabled())
+  if ((myDoc->redoCount() > 0) != m_editRedo->isEnabled())
     m_editRedo->setEnabled(myDoc->redoCount() > 0);
 }
 
 void KateView::slotDropEventPass( QDropEvent * ev )
 {
-    KURL::List lstDragURLs;
-    bool ok = KURLDrag::decode( ev, lstDragURLs );
+  KURL::List lstDragURLs;
+  bool ok = KURLDrag::decode( ev, lstDragURLs );
 
-    KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
-    if ( ok && ext )
-        emit ext->openURLRequest( lstDragURLs.first() );
+  KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
+  if ( ok && ext )
+    emit ext->openURLRequest( lstDragURLs.first() );
 }
 
 void KateView::keyPressEvent( QKeyEvent *ev )
@@ -442,27 +440,21 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
     ev->accept();
 }
 
-bool KateView::setCursorPositionInternal(int line, int col, int tabwidth)
+bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
 {
-  if ((uint)line > myDoc->lastLine())
+  if( line > myDoc->lastLine() )
     return false;
 
-  KateTextCursor cursor;
+  QString line_str = myDoc->textLine( line );
 
-  TextLine::Ptr textLine = myDoc->kateTextLine(line);
-  QString line_str = QString(textLine->getText(), textLine->length());
-
-  int z;
-  int x = 0;
-  for (z = 0; z < (int)line_str.length() && z < col; z++) {
+  uint z;
+  uint x = 0;
+  for (z = 0; z < line_str.length() && z < col; z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
-  cursor.col = x;
-  cursor.line = line;
-  myViewInternal->updateCursor(cursor);
+  myViewInternal->updateCursor( KateTextCursor( line, x ) );
   myViewInternal->center();
-  myViewInternal->updateView();
   
   return true;
 }
@@ -610,15 +602,10 @@ void KateView::gotoLine()
   delete dlg;
 }
 
-void KateView::gotoLineNumber( int linenumber )
+void KateView::gotoLineNumber( int line )
 {
-  KateTextCursor cursor;
-
-  cursor.col = 0;
-  cursor.line = linenumber;
-  myViewInternal->updateCursor(cursor);
+  myViewInternal->updateCursor( KateTextCursor( line, 0 ) );
   myViewInternal->center();
-  myViewInternal->updateView();
  }
 
 void KateView::readSessionConfig(KConfig *config)
@@ -672,7 +659,7 @@ void KateView::slotSetEncoding(const QString& descriptiveName) {
 
 void KateView::resizeEvent(QResizeEvent *)
 {
-  myViewInternal->updateView(KateViewInternal::ufRepaint);
+  myViewInternal->updateView( KateViewInternal::ufRepaint | KateViewInternal::ufDocGeometry );
 }
 
 void KateView::dropEventPassEmited (QDropEvent* e)
@@ -684,7 +671,7 @@ void KateView::setFocus ()
 {
   QWidget::setFocus ();
 
-  emit gotFocus ((Kate::View *) this);
+  emit gotFocus( this );
 }
 
 bool KateView::eventFilter (QObject *object, QEvent *event)
@@ -692,29 +679,26 @@ bool KateView::eventFilter (QObject *object, QEvent *event)
   if ( object == myViewInternal )
     KCursor::autoHideEventFilter( object, event );
 
-  if ( (event->type() == QEvent::FocusIn) )
-  {
+  if ( event->type() == QEvent::FocusIn ) {
     m_editAccels->setEnabled(true);
-    emit gotFocus (this);
+    emit gotFocus( this );
   }
 
-  if ( (event->type() == QEvent::FocusOut) )
-  {
-  	m_editAccels->setEnabled(false);
+  if ( event->type() == QEvent::FocusOut ) {
+    m_editAccels->setEnabled(false);
   }
 
-  if ( (event->type() == QEvent::KeyPress) )
-    {
-        QKeyEvent * ke=(QKeyEvent *)event;
-
-        if ((ke->key()==Qt::Key_Tab) || (ke->key()==Qt::Key_BackTab))
-          {
-            myViewInternal->keyPressEvent(ke);
-            return true;
-          }
+  if ( event->type() == QEvent::KeyPress ) {
+    QKeyEvent* ke = (QKeyEvent*)event;
+    if ((ke->key()==Qt::Key_Tab) || (ke->key()==Qt::Key_BackTab)) {
+      myViewInternal->keyPressEvent(ke);
+      return true;
     }
+  }
+
   if (object == myViewInternal->leftBorder && event->type() == QEvent::Resize)
     updateIconBorder();
+
   return QWidget::eventFilter (object, event);
 }
 

@@ -55,6 +55,13 @@ class KateLineRange
 
 };
 
+
+  enum Bias {
+    left  = -1,
+    none  =  0,
+    right =  1
+  };
+
 class KateViewInternal : public QWidget
 {
     Q_OBJECT
@@ -65,23 +72,17 @@ class KateViewInternal : public QWidget
     friend class KateIconBorder;
     friend class CodeCompletion_Impl;
 
-  private:
-    //uint iconBorderWidth;
-    uint iconBorderHeight;
-
   public:
-    KateViewInternal(KateView *view, KateDocument *doc);
+    KateViewInternal( KateView* view, KateDocument* doc );
     ~KateViewInternal();
     
     // update flags
     enum updateFlags
     {
      ufRepaint,
-     ufExposeCursor,
      ufDocGeometry,
      ufFoldingChanged
      };
-
 
     void doReturn();
     void doDelete();
@@ -97,8 +98,8 @@ class KateViewInternal : public QWidget
     void end(bool sel=false);
     void cursorUp(bool sel=false);
     void cursorDown(bool sel=false);
-    void scrollUp(bool sel=false);
-    void scrollDown(bool sel=false);
+    void scrollUp();
+    void scrollDown();
     void topOfView(bool sel=false);
     void bottomOfView(bool sel=false);
     void pageUp(bool sel=false);
@@ -110,32 +111,48 @@ class KateViewInternal : public QWidget
     void top_home(bool sel=false);
     void bottom_end(bool sel=false);
 
+    void clear();
+    const KateTextCursor& getCursor()  { return cursor; }
+    void resizeDrawBuffer( int w, int h ) { drawBuffer->resize(w,h); }
+    QPoint cursorCoordinates();
+
+  signals:
+    // emitted when KateViewInternal is not handling its own URI drops
+    void dropEventPass(QDropEvent*);
+    
   private slots:
     void changeXPos(int);
     void changeYPos(int);
     void tripleClickTimeout();
 
   private:
+    void moveChar( Bias bias, bool sel );
+    void moveWord( Bias bias, bool sel );
+    void moveEdge( Bias bias, bool sel );
+    void scrollLines( int lines, bool sel );
+    
+    uint linesDisplayed() const;
+    
     void getVConfig(VConfig &);
 
-    void updateCursor();
-    void updateCursor(KateTextCursor &newCursor, bool keepSel=false, int updateViewFlags = 0);
+    void exposeCursor();
+
+    void updateCursor( const KateTextCursor&, bool keepSel = false, int updateViewFlags = 0);
     
     void updateLineRanges();
     void tagLines(int start, int end);
     void tagRealLines(int start, int end);
     void tagAll();
-    void setPos(int x, int y);
     void center();
 
     void updateView(int flags = 0);
 
-    void paintTextLines(int xPos, int yPos);
+    void paintTextLines( int xPos );
     void paintCursor();
     void paintBracketMark();
 
-    void placeCursor(int x, int y, int flags = 0);
-    bool isTargetSelected(int x, int y);
+    void placeCursor( int x, int y, bool keepSelection = false );
+    bool isTargetSelected( int x, int y );
 
     void doDrag();
 
@@ -159,19 +176,7 @@ class KateViewInternal : public QWidget
     class QScrollBar *xScroll;
     class QScrollBar *yScroll;
     class KateIconBorder *leftBorder;
-
-  public:
-    void clear();
-    KateTextCursor& getCursor(){return cursor;}
-    void setCursor (KateTextCursor c){cursor=c;}
-    void resizeDrawBuffer(int w, int h){drawBuffer->resize(w,h);}
-    QPoint cursorCoordinates(){return QPoint(xCoord,yCoord);}
     
-  private:
-    // cursor position in pixels:
-    int xCoord;
-    int yCoord;
-
     int xPos;
 
     int mouseX;
@@ -185,10 +190,8 @@ class KateViewInternal : public QWidget
     bool cursorOn;
     int cursorTimer;
     int cXPos;
-    int cOldXPos;
 
     bool possibleTripleClick;
-    bool exposeCursor;
     int updateState;
 
     // start line virtual / real
@@ -206,8 +209,6 @@ class KateViewInternal : public QWidget
     // for use from doc: tag lines from here (if larger than -1)
     int tagLinesFrom;
 
-    uint maxLen;
-
     // array with the line data
     QMemArray<KateLineRange> lineRanges;
     
@@ -217,8 +218,6 @@ class KateViewInternal : public QWidget
     //
     KateTextCursor cursorCache;
     bool cursorCacheChanged;
-
-    int newXPos;
 
     QPixmap *drawBuffer;
 
@@ -232,13 +231,9 @@ class KateViewInternal : public QWidget
       QTextDrag       *dragObject;
     } dragInfo;
 
-  signals:
-    // emitted when KateViewInternal is not handling its own URI drops
-    void dropEventPass(QDropEvent*);
-
-   protected slots:
-   void singleShotUpdateView();
-
+    //uint iconBorderWidth;
+    uint iconBorderHeight;
 
 };
+
 #endif

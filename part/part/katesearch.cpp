@@ -58,6 +58,7 @@ void KateSearch::createActions( KActionCollection* ac )
 	KStdAction::find( this, SLOT(find()), ac );
 	KStdAction::findNext( this, SLOT(slotFindNext()), ac );
 	KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
+	KStdAction::replace( this, SLOT(replace()), ac );
 }
 
 void KateSearch::addToList( QStringList& list, const QString& s )

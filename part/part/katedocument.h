@@ -439,7 +439,7 @@ class KateDocument : public Kate::Document
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
     uint textWidth(KateTextCursor &cursor);
-    uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
+    uint textWidth(KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
     uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
     uint textHeight(WhichFont wf=ViewFont);
 
@@ -561,30 +561,26 @@ class KateDocument : public Kate::Document
     bool ownedView(KateView *);
     bool isLastView(int numViews);
 
-    uint currentColumn(KateTextCursor &cursor);
-    void newLine(VConfig &);
+    uint currentColumn( const KateTextCursor& );
+    void newLine(             KateTextCursor& ); // Changes input
     void killLine( uint line );
-    void backspace(uint line, uint col);
-    void transpose(KateTextCursor &cursor);
-    void del(VConfig &);
+    void backspace(     const KateTextCursor& );
+    void del(           const KateTextCursor& );
+    void transpose(     const KateTextCursor& );
     void cut();
     void copy();
-    /**
-     * Inserts the text in the clipboard and adds to the cursor
-     * of the VConfig object the length of the inserted text.
-     */
-    void paste(VConfig &);
+    void paste( VConfig& );
 
-    void selectTo(VConfig &c, KateTextCursor &cursor, int cXPos);
-    void selectWord(KateTextCursor &cursor, int flags);
-    void selectLine(KateTextCursor &cursor, int flags);
-    void selectLength(KateTextCursor &cursor, int length, int flags);
+    void selectTo(     const KateTextCursor& from, const KateTextCursor& to );
+    void selectWord(   const KateTextCursor& cursor );
+    void selectLine(   const KateTextCursor& cursor );
+    void selectLength( const KateTextCursor& cursor, int length );
 
-    void indent( uint line )      { doIndent( line,  1 );  }
-    void unIndent( uint line )    { doIndent( line, -1 );  }
+    void indent(      uint line ) { doIndent( line,  1 );  }
+    void unIndent(    uint line ) { doIndent( line, -1 );  }
     void cleanIndent( uint line ) { doIndent( line,  0 );  }
-    void comment( uint line )     { doComment( line,  1 ); }
-    void unComment( uint line )   { doComment( line, -1 ); }
+    void comment(     uint line ) { doComment( line,  1 ); }
+    void unComment(   uint line ) { doComment( line, -1 ); }
     private:
     void doIndent( uint line, int change );
     void optimizeLeadingSpace( uint line, int flags, int change );
@@ -592,7 +588,7 @@ class KateDocument : public Kate::Document
     public:
 
     QString text() const;
-    QString getWord(KateTextCursor &cursor);
+    QString getWord( const KateTextCursor& cursor );
 
   public:
     void tagAll();
@@ -601,7 +597,7 @@ class KateDocument : public Kate::Document
     void updateViews(int flags = 0);
     void updateEditAccels();
 
-    void newBracketMark(KateTextCursor &, BracketMark &);
+    void newBracketMark( const KateTextCursor&, BracketMark& );
 
   private:
     void guiActivateEvent( KParts::GUIActivateEvent *ev );

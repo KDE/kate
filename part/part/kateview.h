@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>  
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -70,7 +71,7 @@ class KateView : public Kate::View
     void paste()         { myViewInternal->doPaste();  }
 
   //
-  // KTextEditor::PopupMenuInterface stuff
+  // KTextEditor::PopupMenuInterface
   //
   public:
     void installPopup( QPopupMenu* menu ) { m_rmbMenu = menu; }
@@ -275,7 +276,7 @@ class KateView : public Kate::View
     
     void doCursorCommand( int cmdNum );
     void doEditCommand( int cmdNum );
-    bool setCursorPositionInternal( int line, int col, int tabwidth );
+    bool setCursorPositionInternal( uint line, uint col, uint tabwidth );
 
     KAction*               m_editUndo;
     KAction*               m_editRedo;

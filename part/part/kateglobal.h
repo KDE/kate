@@ -24,8 +24,12 @@
 class KateTextCursor
 {
   public:
-    int col;
+    KateTextCursor() : line( 0 ), col( 0 ) {};
+    KateTextCursor( int _line, int _col ) : line( _line ), col( _col ) {};
+    friend bool operator==( const KateTextCursor& c1, const KateTextCursor& c2 )
+      { return c1.line == c2.line && c1.col == c2.col; }
     int line;
+    int col;
 };
 
 class VConfig

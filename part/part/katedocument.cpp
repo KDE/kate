@@ -2533,7 +2533,7 @@ bool KateDocument::openFile()
 
   emit fileNameChanged();
 
-  return true;
+  return success;
 }
 
 bool KateDocument::saveFile()

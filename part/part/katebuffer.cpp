@@ -36,17 +36,16 @@
 
 #include <assert.h>
 #include <kdebug.h>
-#define LOADED_BLOCKS_MAX	40
-#define DIRTY_BLOCKS_MAX        10
 
-// Somewhat smaller than 8192 so that it will still fit in 8192 after we add 
-// some overhead.
-#define AVG_BLOCK_SIZE		8000
+// SOME LIMITS, may need testing what limits are clever
+#define LOADED_BLOCKS_MAX                32
+#define PARSED_CLEAN_BLOCKS_MAX   8
+#define PARSED_DIRTY_BLOCKS_MAX    8
+#define AVG_BLOCK_SIZE                         8000
 
 /**
   Some private classes
-*/
-                    
+*/                    
 class KateBufFileLoader
 {
   public:
@@ -247,14 +246,18 @@ KateBuffer::~KateBuffer()
 void     
 KateBuffer::clear()     
 {     
+  // reset the folding tree hard !
   delete m_regionTree;
   m_regionTree=new KateCodeFoldingTree(this);
   connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
   connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
   
-  delete m_loader;
+  // delete the last loader
+  if (m_loader)
+    delete m_loader;
   m_loader = 0;
   
+  // cleanup the blocks
   m_parsedBlocksClean.clear();     
   m_parsedBlocksDirty.clear();     
   m_loadedBlocks.clear();
@@ -262,9 +265,10 @@ KateBuffer::clear()
   delete m_vm;     
   m_vm = new KVMAllocator;
   m_highlight = 0;
+  
+  // create a bufblock with one line, we need that, only in openFile we won't have that
   KateBufState state;
-  // Initial state.
-  state.lineNr = 0;     
+  state.lineNr = 0;      
   KateBufBlock *block = new KateBufBlock(state);     
   m_blocks.insert(0, block);     
   block->b_rawDataValid = true;
@@ -290,16 +294,19 @@ bool KateBuffer::openFile(const QString &file, QTextCodec *codec)
 {
   clear();
   
-  m_loadedBlocks.clear();
-  m_blocks.clear();
-  m_totalLines = 0;
-  
+  // here we open the file
   int fd = open(QFile::encodeName(file), O_RDONLY);
   if (fd < 0)
   {
     return false;
   }
+  
+  // trash away the one unneeded allready existing block
+  m_loadedBlocks.clear();
+  m_blocks.clear();
+  m_totalLines = 0;
 
+  // here we feed the loader with info
   m_loader = new KateBufFileLoader ();
   m_loader->fd = fd;
   m_loader->dataStart = 0;
@@ -307,6 +314,7 @@ bool KateBuffer::openFile(const QString &file, QTextCodec *codec)
   m_loader->codec = codec;
   m_loader->block = 0;
 
+  // here the real work will be done
   loadFilePart();
   
   return true;
@@ -383,6 +391,18 @@ KateBuffer::loadFilePart()
      close( m_loader->fd );
      delete m_loader;
      m_loader = 0;
+     
+     // trigger the creation of a block with one line if there is no data in the buffer now
+     // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
+     if ((m_blocks.count() == 1) && (m_blocks.at(0)->m_endState.lineNr == 0))
+     { 
+       m_blocks.at(0)->b_rawDataValid = true;
+       m_blocks.at(0)->b_emptyBlock = true;     
+       m_blocks.at(0)->m_endState.lineNr++;     
+       m_totalLines = m_blocks.at(0)->m_endState.lineNr;
+       m_highlightedTo = 0;
+       m_highlightedRequested = 0;
+     }
      
      emit linesChanged(m_totalLines);
      emit loadingFinished ();
@@ -778,7 +798,7 @@ KateBuffer::parseBlock(KateBufBlock *buf)
    if (!buf->b_rawDataValid)
       loadBlock(buf);
       
-   if (m_parsedBlocksClean.count() > 5)
+   if (m_parsedBlocksClean.count() > PARSED_CLEAN_BLOCKS_MAX)
    {
       KateBufBlock *buf2 = m_parsedBlocksClean.take(2);
       buf2->disposeStringList();
@@ -819,7 +839,7 @@ KateBuffer::dirtyBlock(KateBufBlock *buf)
 {
    kdDebug(13020)<<"dirtyBlock "<<buf<<endl;
    buf->b_emptyBlock = false;
-   if (m_parsedBlocksDirty.count() > DIRTY_BLOCKS_MAX)
+   if (m_parsedBlocksDirty.count() > PARSED_DIRTY_BLOCKS_MAX)
    {
       KateBufBlock *buf2 = m_parsedBlocksDirty.take(0);
       buf2->flushStringList(); // Copy stringlist to raw

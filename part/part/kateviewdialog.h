@@ -187,7 +187,6 @@ private:
   QCheckBox *m_wwmarker;
   QLabel *m_dynwrapIndicatorsLabel;
   KComboBox *m_dynwrapIndicatorsCombo;
-  QHBoxLayout *m_dynwrapIndicatorsLay;
   QButtonGroup *m_bmSort;
 
 public slots:

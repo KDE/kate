@@ -59,6 +59,7 @@
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qlistbox.h>
+#include <qhbox.h>
 #include <qobjectlist.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
@@ -326,26 +327,27 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   mainLayout->addWidget(gbWordWrap);
 
+  QVGroupBox *gbCursor = new QVGroupBox(i18n("Textcursor Movement"), this);
+
+  opt[3] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
+  opt[3]->setChecked(configFlags & flags[3]);
+  connect(opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  opt[4] = new QCheckBox(i18n("Wrap c&ursor"), gbCursor);
+  opt[4]->setChecked(configFlags & flags[4]);
+  connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  e4 = new KIntNumInput(view->autoCenterLines(), gbCursor);
+  e4->setRange(0, 1000000, 1, false);
+  e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
+  connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
+  mainLayout->addWidget(gbCursor);
+
   opt[1] = new QCheckBox(i18n("Auto &brackets"), this);
   mainLayout->addWidget(opt[1]);
   opt[1]->setChecked(configFlags & flags[1]);
   connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  opt[3] = new QCheckBox(i18n("Smart ho&me"), this);
-  mainLayout->addWidget(opt[3]);
-  opt[3]->setChecked(configFlags & flags[3]);
-  connect(opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  opt[4] = new QCheckBox(i18n("Wrap c&ursor"), this);
-  mainLayout->addWidget(opt[4]);
-  opt[4]->setChecked(configFlags & flags[4]);
-  connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  e4 = new KIntNumInput(view->autoCenterLines(), this);
-  e4->setRange(0, 1000000, 1, false);
-  e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
-  mainLayout->addWidget(e4);
-  connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
   e3->setRange(0, 1000000, 1, false);
@@ -458,24 +460,35 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 
   QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
 
-  m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),this);
-  blay->addWidget(m_dynwrap,0);
+  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
-  m_dynwrapIndicatorsLay = new QHBoxLayout(blay);
-  m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"), this );
-  m_dynwrapIndicatorsLay->addWidget( m_dynwrapIndicatorsLabel );
-  m_dynwrapIndicatorsCombo = new KComboBox( this );
+  m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),gbWordWrap);
+  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), gbWordWrap );
+
+  QHBox *m_dynwrapIndicatorsLay = new QHBox (gbWordWrap);
+  m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"), m_dynwrapIndicatorsLay );
+  m_dynwrapIndicatorsCombo = new KComboBox( m_dynwrapIndicatorsLay );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Off") );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Follow line numbers") );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Always on") );
-  m_dynwrapIndicatorsLay->addWidget( m_dynwrapIndicatorsCombo );
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
 
-  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this );
-  m_icons=new QCheckBox(i18n("Show &icon border"),this);
-  m_line=new QCheckBox(i18n("Show &line numbers"),this);
-  m_folding=new QCheckBox(i18n("Show &folding markers (if available)"),this);
-  m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), this );
+  blay->addWidget(gbWordWrap);
+
+  QVGroupBox *gbFold = new QVGroupBox(i18n("Code Folding"), this);
+
+  m_folding=new QCheckBox(i18n("Show &folding markers (if available)"), gbFold );
+  m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), gbFold );
+
+  blay->addWidget(gbFold);
+
+  QVGroupBox *gbBar = new QVGroupBox(i18n("Left Border"), this);
+
+  m_icons=new QCheckBox(i18n("Show &icon border"),gbBar);
+  m_line=new QCheckBox(i18n("Show &line numbers"),gbBar);
+
+  blay->addWidget(gbBar);
+
   m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
   m_bmSort->setRadioButtonExclusive( true );
   m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
@@ -490,11 +503,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  blay->addWidget(m_wwmarker, 0 );
-  blay->addWidget(m_icons,0);
-  blay->addWidget(m_line,0);
-  blay->addWidget(m_folding,0);
-  blay->addWidget(m_collapseTopLevel,0);
+
   blay->addWidget(m_bmSort, 0 );
   blay->addStretch(1000);
 

@@ -92,6 +92,8 @@ class KateStyleListItem : public QListViewItem
     /* mainly for readability */
     enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
 
+    /* initializes the style from the default and the hldata */
+    void initStyle();
     /* updates the hldata's style */
     void updateStyle();
     /* reimp */
@@ -1114,15 +1116,7 @@ KateStyleListItem::KateStyleListItem( QListViewItem *parent, const QString & sty
           ds( style ),
           st( data )
 {
-  if (!st)
-    is = ds;
-  else
-  {
-    is = new KateAttribute (*style);
-
-    if (data->isSomethingSet())
-      *is += *data;
-  }
+  initStyle();
 }
 
 KateStyleListItem::KateStyleListItem( QListView *parent, const QString & stylename,
@@ -1131,14 +1125,19 @@ KateStyleListItem::KateStyleListItem( QListView *parent, const QString & stylena
           ds( style ),
           st( data )
 {
+  initStyle();
+}
+
+void KateStyleListItem::initStyle()
+{
   if (!st)
     is = ds;
   else
   {
-    is = new KateAttribute (*style);
+    is = new KateAttribute (*ds);
 
-    if (data->isSomethingSet())
-      *is += *data;
+    if (st->isSomethingSet())
+      *is += *st;
   }
 }
 
@@ -1217,7 +1216,7 @@ int KateStyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv,
     case ContextName:
       // FIXME: width for name column should reflect bold/italic
       // (relevant for non-fixed fonts only - nessecary?)
-      return QFontMetrics( ((KateStyleListView*)lv)->docfont).width( text(0) ) + m;
+      return QListViewItem::width( QFontMetrics( ((KateStyleListView*)lv)->docfont), lv, col);
     case Bold:
     case Italic:
     case UseDefStyle:
@@ -1439,10 +1438,6 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       // Bold/Italic/use default checkboxes
       // code allmost identical to QCheckListItem
       int x = 0;
-      if ( align == AlignCenter ) {
-        QFontMetrics fm( lv->font() );
-        x = (width - BoxSize - fm.width(text(0)))/2;
-      }
       int y = (height() - BoxSize) / 2;
 
       if ( isEnabled() )

@@ -1,3 +1,24 @@
+/* This file is part of the KDE libraries
+   Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+*/
+
+// $Id$
+
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "kateviewinternal.moc"
@@ -12,23 +33,10 @@
 #include <qpainter.h>
 #include <qclipboard.h>
 
-class KateLineRange
-{
-  public:
-    int line;
-    int startCol;
-    int endCol;
-    bool wrapped;
-    int start;
-    int end;
-};
-
-
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
  : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
 {
   setBackgroundMode(NoBackground);
-  m_lineMapping.setAutoDelete(true);
 
   myView = view;
   myDoc = doc;
@@ -486,9 +494,9 @@ void KateViewInternal::changeYPos(int p) {
 	{
 //		kdDebug()<<QString("moving lines %1").arg(i)<<endl;
 		int helper;
-		if (m_lineMapping[i+removedLines])
+		if ((i+removedLines) < lineRanges.size())
 		{
-			m_lineMapping.replace(i,m_lineMapping.take(i+removedLines));
+			lineRanges[i] = lineRanges[i+removedLines];
 		}
 	}
     }
@@ -498,9 +506,9 @@ void KateViewInternal::changeYPos(int p) {
 //	kdDebug()<<QString("moving  %1 lines down").arg(removedLines)<<endl;
 	for (int i=(endLine-startLine);i>=removedLines;i--)
 	{
-		if (m_lineMapping[i-removedLines])
+		if ((i-removedLines) >= 0)
 		{
-			m_lineMapping.replace(i,m_lineMapping.take(i-removedLines));
+			lineRanges[i] = lineRanges[i-removedLines];
 		}
 	}
     }
@@ -758,7 +766,6 @@ void KateViewInternal::updateView(int flags)
 				if (yScrollVis) w -= scrollbarWidth;
 		  		if (w != width() || h != height()) {
 			    		clearDirtyCache(h);
-					m_lineMapping.clear();
 			   	 	resize(w,h);
 				}
 			}
@@ -1110,14 +1117,14 @@ void KateViewInternal::placeCursor(int x, int y, int flags) {
 
   getVConfig(c);
 
-  unsigned int newDisplayLine;
+  int newDisplayLine;
   newDisplayLine=(yPos+y)/myDoc->viewFont.fontHeight;
   if (newDisplayLine>=myDoc->numVisLines()) return;
-  if (!m_lineMapping[newDisplayLine-startLine]) return;// not sure yet, if this is ther correct way;
+  if (((newDisplayLine-startLine) < 0) || ((newDisplayLine-startLine) >= lineRanges.size())) return;// not sure yet, if this is ther correct way;
 
   c.flags |= flags;
   displayCursor.line=newDisplayLine;
-  cursor.line = *(m_lineMapping[displayCursor.line-startLine]);
+  cursor.line = lineRanges[displayCursor.line-startLine].line;
   cXPos = cOldXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor, xPos + x);
   displayCursor.col=cursor.col;
   changeState(c);
@@ -1131,9 +1138,9 @@ bool KateViewInternal::isTargetSelected(int x, int y) {
 #warning "This needs changing for dynWW"
   y=(yPos+y)/myDoc->viewFont.fontHeight;
 
-  if (!m_lineMapping[y-startLine]) return false;
+  if (((y-startLine) < 0) || ((y-startLine) >= lineRanges.size())) return false;
 
-  y= *(m_lineMapping[y-startLine]);
+  y= lineRanges[y-startLine].line;
 
   TextLine::Ptr line = myDoc->getTextLine(y);
   if (!line)
@@ -1385,7 +1392,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
   yEnd = updateR.y() + updateR.height();
 
   int disppos=line-startLine;
- 
+
   bool isVisible=false;
   while (y < yEnd)
   {
@@ -1394,9 +1401,8 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
 
 //    kdDebug()<<QString("paintevent: line %1, realLine %2").arg(line).arg(realLine)<<endl;
-    int *tmp=new int;
-    (*tmp)=realLine;
-    m_lineMapping.replace(disppos,tmp);
+
+    lineRanges[disppos].line = realLine;
     leftBorder->paintLine(line,line);
     disppos++;
     y += h;

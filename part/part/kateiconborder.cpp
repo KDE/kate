@@ -253,7 +253,7 @@ void KateIconBorder::paintLine(int i,int pos)
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine(iconPaneWidth-1, y, iconPaneWidth-1, y + fontHeight);
 
-    uint mark = myView->myDoc->mark (*(myInternalView->m_lineMapping[i-myInternalView->startLine]));
+    uint mark = myView->myDoc->mark (myInternalView->lineRanges[i-myInternalView->startLine].line);
     if (mark&KateDocument::markType01)
         p.drawPixmap(2, y, QPixmap(bookmark_xpm));
     lnX += iconPaneWidth;
@@ -265,7 +265,7 @@ void KateIconBorder::paintLine(int i,int pos)
     p.fillRect(lnX,y,iconPaneWidth-1,fontHeight,colorGroup().background());
     p.setPen(black);
     KateLineInfo info;
-    myView->myDoc->regionTree->getLineInfo(&info,*(myInternalView->m_lineMapping[i-myInternalView->startLine]));
+    myView->myDoc->regionTree->getLineInfo(&info,myInternalView->lineRanges[i-myInternalView->startLine].line);
     if (!info.topLevel)
      {
          if (info.startsVisibleBlock)
@@ -294,7 +294,7 @@ void KateIconBorder::paintLine(int i,int pos)
     p.drawLine( width()-1, y, width()-1, y + fontHeight );
 //    kdDebug()<<"IconBorder::paintLine"<<endl;
       p.drawText( lnX + 1, y, width()-lnX-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
-          QString("%1").arg((*(myInternalView->m_lineMapping[i-myInternalView->startLine]))+1) );
+          QString("%1").arg(myInternalView->lineRanges[i-myInternalView->startLine].line + 1 ));
   }
          /*
     if ((line->breakpointId() != -1)) {
@@ -379,7 +379,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     //kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
     
     bool mappedLineValid=true;
-    if (myInternalView->m_lineMapping[i-topLine]) mappedLine=*(myInternalView->m_lineMapping[i-topLine]);
+    if ((i-topLine) > 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
     else mappedLineValid=false;
  
     if (mappedLineValid)
@@ -441,8 +441,8 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
     myInternalView->placeCursor( 0, e->y(), 0 );
 
     uint cursorOnLine = (e->y() + myInternalView->originCoordinates().y()) / myView->myDoc->viewFont.fontHeight;
-    if (myInternalView->m_lineMapping[cursorOnLine-myInternalView->startLine])
-    	cursorOnLine=*(myInternalView->m_lineMapping[cursorOnLine-myInternalView->startLine]);
+    //if (myInternalView->lineRanges[cursorOnLine-myInternalView->startLine])
+    	cursorOnLine=myInternalView->lineRanges[cursorOnLine-myInternalView->startLine].line;
 
     if (cursorOnLine > myView->myDoc->lastLine())
       return;

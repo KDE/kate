@@ -1,8 +1,39 @@
+/* This file is part of the KDE libraries
+   Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+*/
+
 #ifndef _KATE_VIEW_INTERNAL_
 #define _KATE_VIEW_INTERNAL_
 
 #include "kateview.h"
-#include <qintdict.h>
+
+
+class KateLineRange
+{
+  public:
+    int line;
+    int startCol;
+    int endCol;
+    bool wrapped;
+    int start;
+    int end;
+};
+
 class KateViewInternal : public QWidget
 {
     Q_OBJECT
@@ -104,8 +135,6 @@ public:
     QPoint originCoordinates(){return QPoint(xPos,yPos);}
 private:
     void calculateDisplayPositions(KateTextCursor &, KateTextCursor, bool, bool);
-
-    QIntDict <int> m_lineMapping;
 
     // cursor position in pixels:
     int xCoord;

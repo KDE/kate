@@ -25,6 +25,9 @@
 #include "kateconfig.h"
 #include "kateautoindent.h"
 #include "katetextline.h"
+#include "katefactory.h"
+#include "katejscript.h"
+
 #include "../interfaces/katecmd.h"
 
 #include <kdebug.h>
@@ -77,7 +80,7 @@ QStringList KateCommands::CoreCommands::cmds()
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
-    << "set-highlight";
+    << "set-highlight" << "run-myself";
   return l;
 }
 
@@ -102,6 +105,10 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   {
     v->indent();
     return true;
+  }
+  else if ( cmd == "run-myself" )
+  {
+    return KateFactory::self()->jscript()->execute(v->doc(), v, v->doc()->text());
   }
   else if ( cmd == "unindent" )
   {

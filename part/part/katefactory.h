@@ -37,6 +37,7 @@ class KateRendererConfig;
 class KateDocument;
 class KateRenderer;
 class KateView;
+class KateJScript;
 
 class KDirWatch;
 class KVMAllocator;
@@ -190,6 +191,11 @@ class KateFactory
      */
     inline KVMAllocator *vm () { return m_vm; }
 
+    /**
+     * global interpreter, for nice js stuff
+     */
+    KateJScript *jscript ();
+
   private:
     /**
      * instance of this factory
@@ -265,6 +271,11 @@ class KateFactory
      * internal commands
      */
     QValueList<Kate::Command *> m_cmds;
+
+    /**
+     * js interpreter
+     */
+    KateJScript *m_jscript;
 };
 
 #endif

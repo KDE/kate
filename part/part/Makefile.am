@@ -8,12 +8,13 @@ libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
   katecodefoldinghelpers.cpp kateviewinternal.cpp katebookmarks.cpp \
   kateprinter.cpp katefont.cpp katelinerange.cpp katesupercursor.cpp \
   katearbitraryhighlight.cpp katerenderer.cpp kateattribute.cpp \
-  kateautoindent.cpp katefiletype.cpp kateschema.cpp katedocument.skel katetemplatehandler.cpp
+  kateautoindent.cpp katefiletype.cpp kateschema.cpp katedocument.skel \
+  katetemplatehandler.cpp katejscript.cpp
 
-libkatepart_la_LIBADD = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la
+libkatepart_la_LIBADD = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la $(top_builddir)/kjs/libkjs.la
 
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN)
 
-INCLUDES= -I../interfaces -I$(top_srcdir) -I$(top_srcdir)/kdeprint -I$(top_srcdir)/interfaces  -I$(top_srcdir)/interfaces/kregexpeditor -I$(top_srcdir)/kdefx -I$(top_srcdir)/kutils $(all_includes)
+INCLUDES= -I../interfaces -I$(top_srcdir) -I$(top_srcdir)/kdeprint -I$(top_srcdir)/interfaces  -I$(top_srcdir)/interfaces/kregexpeditor -I$(top_srcdir)/kdefx -I$(top_srcdir)/kutils -I$(top_builddir)/kjs $(all_includes)
 
 METASOURCES = AUTO

@@ -20,6 +20,7 @@
 #define __ktexteditor_configinterfaceextension_h__
 
 #include <qwidget.h>
+#include <qpixmap.h>
 
 namespace KTextEditor
 {
@@ -77,7 +78,11 @@ class ConfigInterfaceExtension
     */ 
     virtual ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name=0 ) = 0;
   
-
+    virtual QString configPageName (uint number = 0) const = 0;
+    virtual QString configPageFullName (uint number = 0) const = 0;
+    virtual QPixmap configPagePixmap (uint number = 0) const = 0;
+    
+    
   private:
     class PrivateConfigInterfaceExtension *d;
     static unsigned int globalConfigInterfaceExtensionNumber;

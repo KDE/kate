@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
- <!DOCTYPE language SYSTEM "language.dtd">
-
-<language name="Perl" version="1.04" kateversion="2.1" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Perl" version="1.05" kateversion="2.1" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
  <highlighting>
      <list name="keywords"> 
          <item> if </item>
@@ -394,7 +393,7 @@
              <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
              <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&quot;" />
              <DetectChar attribute="String (interpolated)" context="#pop" char="&quot;"/>
-             <IncludeRules context="2" />
+             <IncludeRules context="ipstring_internal" />
          </context>
          <context attribute="String" lineEndContext="#stay" name="string">
              <LineContinue attribute="String" context="#stay"/>
@@ -408,7 +407,7 @@
              <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1=")" />
              <RangeDetect attribute="String (interpolated)" context="#stay" char="(" char1=")" />
              <DetectChar attribute="String (interpolated)" context="#pop" char=")" />
-             <IncludeRules context="2" />
+             <IncludeRules context="ipstring_internal" />
          </context>
          <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_3">
              <LineContinue attribute="String (interpolated)" context="#stay" />
@@ -416,7 +415,7 @@
              <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="}" />
              <RangeDetect attribute="String (interpolated)" context="#stay" char="{" char1="}" />
              <DetectChar attribute="String (interpolated)" context="#pop" char="}" />
-             <IncludeRules context="2" />
+             <IncludeRules context="ipstring_internal" />
          </context>
          <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_4">
              <LineContinue attribute="String (interpolated)" context="#stay" />
@@ -424,7 +423,7 @@
              <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="]" />
              <RangeDetect attribute="String (interpolated)" context="#stay" char="[" char1="]" />
              <DetectChar attribute="String (interpolated)" context="#pop" char="]" />
-             <IncludeRules context="2" />
+             <IncludeRules context="ipstring_internal" />
          </context>
          <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_5">
              <LineContinue attribute="String (interpolated)" context="#stay" />
@@ -432,7 +431,7 @@
              <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&gt;" />
              <RangeDetect attribute="String (interpolated)" context="#stay" char="&lt;" char1="&gt;" />
              <DetectChar attribute="String (interpolated)" context="#pop" char="&gt;" />
-             <IncludeRules context="2" />
+             <IncludeRules context="ipstring_internal" />
          </context>
          <context attribute="String" lineEndContext="#stay" name="string_2">
              <LineContinue attribute="String" context="#stay" />
@@ -467,7 +466,7 @@
              <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
              <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="{" />
              <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="}" />
-             <IncludeRules context="3" />
+             <IncludeRules context="regex_pattern_internal" />
              <DetectChar attribute="Pattern" context="op_s_replace" char="}" />
          </context>
          <context attribute="Normal Text" lineEndContext="#stay" name="op_s_replace">
@@ -477,9 +476,10 @@
              <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
              <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
              <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <keyword attribute="Keyword" context="0" String="keywords" />
-             <keyword attribute="Operator" context="0" String="operators" />
-             <keyword attribute="Function" context="0" String="functions" />
+             <!-- rodda: not too sure about the next three contexts... they were originally "context 0" -->
+             <keyword attribute="Keyword" context="#stay" String="keywords" />
+             <keyword attribute="Operator" context="#stay" String="operators" />
+             <keyword attribute="Function" context="#stay" String="functions" />
              <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="{" />
              <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="}" />
              <DetectChar attribute="Pattern" context="#stay" char="{" />
@@ -495,7 +495,7 @@
          <context attribute="Pattern" lineEndContext="#stay" name="pattern_slash">
              <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
              <LineContinue attribute="Pattern" context="#stay" />
-             <IncludeRules context="3" />
+             <IncludeRules context="regex_pattern_internal" />
              <DetectChar attribute="Pattern" context="#pop" char="/" />
          </context>
          <context attribute="Data" lineEndContext="#stay" name="data_handle">
@@ -568,33 +568,33 @@
              <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
          </context>
          <context attribute="String (interpolated)" name="Backticked">
-             <IncludeRules context="2"/>
+             <IncludeRules context="ipstring_internal"/>
              <DetectChar attribute="Operator" context="#pop" char="`"/>
          </context>
      </contexts>
      <itemDatas>
-         <itemData name="Normal Text"  defStyleNum="dsNormal" />
-         <itemData name="Keyword"      defStyleNum="dsKeyword" />
-         <itemData name="Pragma"       defStyleNum="dsKeyword" />
-         <itemData name="Function"     defStyleNum="dsNormal" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
-         <itemData name="Operator"     defStyleNum="dsKeyword" />
-         <itemData name="Data Type"    defStyleNum="dsDataType" />
-         <itemData name="Special Variable" defStyleNum="dsDataType" color="#C00000" selColor="#C00000" bold="0" italic="0" />
-         <itemData name="Decimal"      defStyleNum="dsDecVal" />
-         <itemData name="Octal"        defStyleNum="dsBaseN" />
-         <itemData name="Hex"          defStyleNum="dsBaseN" />
-         <itemData name="Float"        defStyleNum="dsFloat" />
-         <itemData name="String"       defStyleNum="dsString" color="#FF6C6C" selColor="#FF6C6C" bold="0" italic="0" />
-         <itemData name="String (interpolated)" defStyleNum="dsString" />
-         <itemData name="String Special Character" defStyleNum="dsChar" />
-         <itemData name="Pattern"      defStyleNum="dsOthers" />
+         <itemData name="Normal Text"               defStyleNum="dsNormal" />
+         <itemData name="Keyword"                   defStyleNum="dsKeyword" />
+         <itemData name="Pragma"                    defStyleNum="dsKeyword" />
+         <itemData name="Function"                  defStyleNum="dsNormal" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
+         <itemData name="Operator"                  defStyleNum="dsKeyword" />
+         <itemData name="Data Type"                 defStyleNum="dsDataType" />
+         <itemData name="Special Variable"          defStyleNum="dsDataType" color="#C00000" selColor="#C00000" bold="0" italic="0" />
+         <itemData name="Decimal"                   defStyleNum="dsDecVal" />
+         <itemData name="Octal"                     defStyleNum="dsBaseN" />
+         <itemData name="Hex"                       defStyleNum="dsBaseN" />
+         <itemData name="Float"                     defStyleNum="dsFloat" />
+         <itemData name="String"                    defStyleNum="dsString" color="#FF6C6C" selColor="#FF6C6C" bold="0" italic="0" />
+         <itemData name="String (interpolated)"     defStyleNum="dsString" />
+         <itemData name="String Special Character"  defStyleNum="dsChar" />
+         <itemData name="Pattern"                   defStyleNum="dsOthers" />
          <itemData name="Pattern Internal Operator" defStyleNum="dsChar" />
-         <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
-         <itemData name="Data"         defStyleNum="dsNormal" />
-         <itemData name="Comment"      defStyleNum="dsComment" />
-         <itemData name="Pod"          defStyleNum="dsComment" />
-         <itemData name="Nothing"      defStyleNum="dsComment" />
-         <itemData name="Note"         defStyleNum="dsDecVal" color="#0000FF" selColor="#ffffff" bold="1" italic="0"/>
+         <itemData name="Pattern Character Class"   defStyleNum="dsBaseN" />
+         <itemData name="Data"                      defStyleNum="dsNormal" />
+         <itemData name="Comment"                   defStyleNum="dsComment" />
+         <itemData name="Pod"                       defStyleNum="dsComment" />
+         <itemData name="Nothing"                   defStyleNum="dsComment" />
+         <itemData name="Note"                      defStyleNum="dsDecVal" color="#0000FF" selColor="#ffffff" bold="1" italic="0"/>
      </itemDatas>
    </highlighting>
    <general>

@@ -385,7 +385,7 @@
       <context name="String" attribute="String" lineEndContext="#stay">
         <LineContinue attribute="String" context="#pop"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
-        <DetectChar attribute="Symbol" context="#stay" char="\'"/>
+        <DetectChar attribute="Symbol" context="#stay" char="&#38;"/>
         <DetectChar attribute="String" context="#pop" char="'"/>
       </context>
       <context name="SingleLineComment" attribute="Comment" lineEndContext="#pop"/>

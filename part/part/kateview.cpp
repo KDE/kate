@@ -232,7 +232,7 @@ void KateView::setupActions()
   a=KStdAction::print( m_doc, SLOT(print()), ac );
   a->setWhatsThis(i18n("Print the current document."));
 
-  a=new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
+  a=new KAction(i18n("Reloa&d"), "reload", KStdAccel::reload(), this, SLOT(reloadFile()), ac, "file_reload");
   a->setWhatsThis(i18n("Reload the current document from disk."));
 
   a=KStdAction::saveAs(this, SLOT(saveAs()), ac);

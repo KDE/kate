@@ -79,10 +79,6 @@ class KateHlItem
     virtual ~KateHlItem();
 
   public:
-    virtual bool alwaysStartEnable() const { return true; };
-    virtual bool hasCustomStartEnable() const { return false; };
-    virtual bool startEnable(const QChar&);
-
     // caller must keep in mind: LEN > 0 is a must !!!!!!!!!!!!!!!!!!!!!1
     // Now, the function returns the offset detected, or 0 if no match is found.
     // bool linestart isn't needed, this is equivalent to offset == 0.
@@ -108,6 +104,11 @@ class KateHlItem
     bool firstNonSpace;
     bool justConsume;
     int column;
+
+    // start enable flags, nicer than the virtual methodes
+    // saves function calls
+    bool alwaysStartEnable;
+    bool customStartEnable;
 };
 
 class KateHlContext
@@ -224,11 +225,8 @@ class KateHlKeyword : public KateHlItem
     KateHlKeyword(int attribute, int context,signed char regionId,signed char regionId2, bool casesensitive, const QString& delims);
     virtual ~KateHlKeyword ();
 
-    virtual void addList(const QStringList &);
+    void addList(const QStringList &);
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(const QChar& c);
-    virtual bool alwaysStartEnable() const;
-    virtual bool hasCustomStartEnable() const;
 
   private:
     QMemArray< QDict<bool>* > dict;
@@ -244,7 +242,6 @@ class KateHlInt : public KateHlItem
     KateHlInt(int attribute, int context, signed char regionId,signed char regionId2);
 
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool alwaysStartEnable() const;
 };
 
 class KateHlFloat : public KateHlItem
@@ -254,7 +251,6 @@ class KateHlFloat : public KateHlItem
     virtual ~KateHlFloat () {}
 
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool alwaysStartEnable() const;
 };
 
 class KateHlCFloat : public KateHlFloat
@@ -264,7 +260,6 @@ class KateHlCFloat : public KateHlFloat
 
     virtual int checkHgl(const QString& text, int offset, int len);
     int checkIntHgl(const QString& text, int offset, int len);
-    virtual bool alwaysStartEnable() const;
 };
 
 class KateHlCOct : public KateHlItem
@@ -273,7 +268,6 @@ class KateHlCOct : public KateHlItem
     KateHlCOct(int attribute, int context, signed char regionId,signed char regionId2);
 
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool alwaysStartEnable() const;
 };
 
 class KateHlCHex : public KateHlItem
@@ -282,7 +276,6 @@ class KateHlCHex : public KateHlItem
     KateHlCHex(int attribute, int context, signed char regionId,signed char regionId2);
 
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool alwaysStartEnable() const;
 };
 
 class KateHlLineContinue : public KateHlItem
@@ -413,7 +406,9 @@ KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed ch
     dynamicChild(false),
     firstNonSpace(false),
     justConsume(false),
-    column (-1)
+    column (-1),
+    alwaysStartEnable (true),
+    customStartEnable (false)
 {
 }
 
@@ -422,14 +417,6 @@ KateHlItem::~KateHlItem()
   //kdDebug(13010)<<"In hlItem::~KateHlItem()"<<endl;
   for (uint i=0; i < subItems.size(); i++)
     delete subItems[i];
-}
-
-bool KateHlItem::startEnable(const QChar& c)
-{
-  // ONLY called when alwaysStartEnable() overridden
-  // IN FACT not called at all, copied into doHighlight()...
-  Q_ASSERT(false);
-  return kateInsideString (stdDeliminator, c);
 }
 
 void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
@@ -603,27 +590,14 @@ KateHlKeyword::KateHlKeyword (int attribute, int context, signed char regionId,s
   , minLen (0xFFFFFF)
   , maxLen (0)
 {
+  alwaysStartEnable = false;
+  customStartEnable = true;
 }
 
 KateHlKeyword::~KateHlKeyword ()
 {
   for (uint i=0; i < dict.size(); ++i)
     delete dict[i];
-}
-
-bool KateHlKeyword::alwaysStartEnable() const
-{
-  return false;
-}
-
-bool KateHlKeyword::hasCustomStartEnable() const
-{
-  return true;
-}
-
-bool KateHlKeyword::startEnable(const QChar& c)
-{
-  return kateInsideString (deliminators, c);
 }
 
 void KateHlKeyword::addList(const QStringList& list)
@@ -680,11 +654,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 KateHlInt::KateHlInt(int attribute, int context, signed char regionId,signed char regionId2)
   : KateHlItem(attribute,context,regionId,regionId2)
 {
-}
-
-bool KateHlInt::alwaysStartEnable() const
-{
-  return false;
+  alwaysStartEnable = false;
 }
 
 int KateHlInt::checkHgl(const QString& text, int offset, int len)
@@ -719,11 +689,7 @@ int KateHlInt::checkHgl(const QString& text, int offset, int len)
 KateHlFloat::KateHlFloat(int attribute, int context, signed char regionId,signed char regionId2)
   : KateHlItem(attribute,context, regionId,regionId2)
 {
-}
-
-bool KateHlFloat::alwaysStartEnable() const
-{
-  return false;
+  alwaysStartEnable = false;
 }
 
 int KateHlFloat::checkHgl(const QString& text, int offset, int len)
@@ -819,11 +785,7 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
 KateHlCOct::KateHlCOct(int attribute, int context, signed char regionId,signed char regionId2)
   : KateHlItem(attribute,context,regionId,regionId2)
 {
-}
-
-bool KateHlCOct::alwaysStartEnable() const
-{
-  return false;
+  alwaysStartEnable = false;
 }
 
 int KateHlCOct::checkHgl(const QString& text, int offset, int len)
@@ -858,11 +820,7 @@ int KateHlCOct::checkHgl(const QString& text, int offset, int len)
 KateHlCHex::KateHlCHex(int attribute, int context,signed char regionId,signed char regionId2)
   : KateHlItem(attribute,context,regionId,regionId2)
 {
-}
-
-bool KateHlCHex::alwaysStartEnable() const
-{
-  return false;
+  alwaysStartEnable = false;
 }
 
 int KateHlCHex::checkHgl(const QString& text, int offset, int len)
@@ -896,11 +854,7 @@ int KateHlCHex::checkHgl(const QString& text, int offset, int len)
 KateHlCFloat::KateHlCFloat(int attribute, int context, signed char regionId,signed char regionId2)
   : KateHlFloat(attribute,context,regionId,regionId2)
 {
-}
-
-bool KateHlCFloat::alwaysStartEnable() const
-{
-  return false;
+  alwaysStartEnable = false;
 }
 
 int KateHlCFloat::checkIntHgl(const QString& text, int offset, int len)
@@ -1436,9 +1390,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   const int len = textLine->length();
 
   // calc at which char the first char occurs, set it to lenght of line if never
-  int firstChar = textLine->firstChar();
-  int startNonSpace = (firstChar == -1) ? len : firstChar;
+  const int firstChar = textLine->firstChar();
+  const int startNonSpace = (firstChar == -1) ? len : firstChar;
 
+  // last found item
   KateHlItem *item = 0;
 
   // loop over the line, offset gives current offset
@@ -1447,7 +1402,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   {
     bool found = false;
     bool standardStartEnableDetermined = false;
+    bool customStartEnableDetermined = false;
     bool standardStartEnable = false;
+    bool customStartEnable = false;
 
     uint index = 0;
     for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
@@ -1480,11 +1437,21 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       {
         bool thisStartEnabled = false;
 
-        if (item->alwaysStartEnable())
+        if (item->alwaysStartEnable)
         {
           thisStartEnabled = true;
         }
-        else if (!item->hasCustomStartEnable())
+        else if (item->customStartEnable)
+        {
+          if (!customStartEnableDetermined)
+          {
+            customStartEnable = kateInsideString (deliminator, lastChar);
+            customStartEnableDetermined = true;
+          }
+
+          thisStartEnabled = customStartEnable;
+        }
+        else
         {
           if (!standardStartEnableDetermined)
           {
@@ -1493,10 +1460,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           }
 
           thisStartEnabled = standardStartEnable;
-        }
-        else if (item->startEnable(lastChar))
-        {
-          thisStartEnabled = true;
         }
 
         if (!thisStartEnabled)

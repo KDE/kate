@@ -2,6 +2,7 @@
         Copyright (c) 2001 Joseph Wenninger <jowenn@kde.org>
         modified (c) 2002 Anders Lund <anders@alweb.dk>
         modified (c) 2003 Simon Huerlimann <simon.huerlimann@access.unizh.ch>
+        modified (c) 2005 Dominik Haumann <dhdev@gmx.de>
 
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
@@ -55,6 +56,25 @@ TODO
 -->
 <!ENTITY % boolean "true|false|TRUE|FALSE|0|1">
 
+<!-- Default Styles
+  Allowed predefined default styles for itemData, available are:
+    - dsNormal,   used for normal text
+    - dsKeyword,  used for keywords
+    - dsDataType, used for data types
+    - dsDecVal,   used for decimal values
+    - dsBaseN,    used for values with a base other than 10
+    - dsFloat,    used for float values
+    - dsChar,     used for a character
+    - dsString,   used for strings
+    - dsComment,  used for comments
+    - dsOthers,   used for 'other' things
+    - dsAlert,    used for warning messages
+    - dsFunction, used for function calls
+    - dsRegionMarker, used for region markers
+    - dsError,    used for error highlighting.
+-->
+<!ENTITY % defStyles "dsNormal|dsKeyword|dsDataType|dsDecVal|dsBaseN|dsFloat|dsChar|dsString|dsComment|dsOthers|dsAlert|dsFunction|dsRegionMarker|dsError">
+
 <!-- Language specification
   name:        The name of this syntax description. Used in the Highlightning Mode menu
   section:     The logical group to which this syntax description belongs. Used for sub menus
@@ -97,7 +117,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
   indentationsensitive: If true, the code folding is indentation based.
 -->
 <!ELEMENT folding EMPTY>
-<!ATTLIST folding 
+<!ATTLIST folding
   indentationsensitive (%boolean;) #IMPLIED
 >
 
@@ -121,9 +141,8 @@ WARNING: due to helper scripts, the language opening tag must be on a
   casesensitive:        Whether keywords are matched case sensitive. [boolean, optional, default=false]
   weakDeliminator:      Add weak deliminators [optional]
   additionalDeliminator: Add deliminators [optional]
+  wordWrapDeliminator:  characters that are used to wrap long lines [optional]
 
-TODO
-  - Explain (weak) deliminators
 -->
 <!ELEMENT keywords EMPTY>
 <!ATTLIST keywords
@@ -423,7 +442,7 @@ TODO:
 <!ELEMENT itemData EMPTY>
 <!ATTLIST itemData
   name          CDATA   #REQUIRED
-  defStyleNum   CDATA   #REQUIRED
+  defStyleNum   (%defStyles;) #REQUIRED
   color         CDATA   #IMPLIED
   selColor      CDATA   #IMPLIED
   italic        (%boolean;) #IMPLIED

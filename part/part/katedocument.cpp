@@ -3162,6 +3162,10 @@ void KateDocument::addStartStopCommentToSelection()
   doInsertText (sl, sc, startComment);
 
   editEnd ();
+
+  // Set the new selection
+  ec += endComment.length() + ( (el == sl) ? startComment.length() : 0 );
+  setSelection(sl, sc, el, ec);
 }
 
 /*
@@ -3251,8 +3255,6 @@ bool KateDocument::removeStartStopCommentFromSelection()
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
 
-  // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$1/
-
   bool remove = nextNonSpaceCharPos(sl, sc)
       && buffer->line(sl)->stringAtPos(sc, startComment)
       && previousNonSpaceCharPos(el, ec)
@@ -3266,9 +3268,11 @@ bool KateDocument::removeStartStopCommentFromSelection()
     doRemoveText (sl, sc, sl, sc + startCommentLen);
 
     editEnd ();
- }
 
-  // TODO anders: redefine selection
+    // Set the new selection
+    ec -= endComment.length() + ( (el == sl) ? startComment.length() : 0 );
+    setSelection(sl, sc, el, ec);
+  }
 
   return remove;
 }

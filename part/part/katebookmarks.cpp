@@ -64,8 +64,8 @@ KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   , m_sorting( sort )
 {
   connect (view->getDoc(), SIGNAL(marksChanged()), this, SLOT(marksChanged()));
-//  connect( view, SIGNAL(gotFocus(Kate::View*)), this, SLOT(connectMenuAndDisConnectAgain()) );
   m_view->installEventFilter( this );
+  _tries=0;
 }
 
 KateBookmarks::~KateBookmarks()
@@ -111,6 +111,7 @@ bool KateBookmarks::eventFilter( QObject *o, QEvent *e )
 
 void KateBookmarks::connectMenuAndDisConnectAgain()
 {
+  kdDebug()<<"KateBookmarks::connectMenuAndDisConnectAgain()"<<endl;
     if ( m_view->factory() )
     {
       QPopupMenu *m = static_cast<QPopupMenu*>(m_view->factory()->container("bookmarks", m_view));
@@ -125,14 +126,21 @@ void KateBookmarks::connectMenuAndDisConnectAgain()
       connect( m, SIGNAL(aboutToHide()),
               this, SLOT(bookmarkMenuAboutToHide()) );
 
-//       disconnect( m_view, 0, this, SLOT(connectMenuAndDisConnectAgain()) );
       m_view->removeEventFilter( this );
       return;
     }
 
     // FUCKY-SUCKY -- try later
+    if ( _tries > 3 ) // give up
+    {
+      m_view->removeEventFilter( this );
+      return;
+    }
+
     if ( m_view->isVisible() )
-    QTimer::singleShot( 0, this, SLOT(connectMenuAndDisConnectAgain()));
+      QTimer::singleShot( 0, this, SLOT(connectMenuAndDisConnectAgain()));
+
+    _tries++;
 }
 
 void KateBookmarks::toggleBookmark ()

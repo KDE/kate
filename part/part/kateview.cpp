@@ -248,17 +248,17 @@ void KateView::setupActions()
 
     a = new KAction( i18n("Uppercase"), CTRL + Qt::Key_U, this,
       SLOT(uppercase()), ac, "tools_uppercase" );
-    a->setWhatsThis( i18n("Uppercase the selection, or the character on the "
-      "right side of the cursor if no text is selected.") );
+    a->setWhatsThis( i18n("Convert the selection to uppercase, or the character to the "
+      "right of the cursor if no text is selected.") );
 
-    a = new KAction( i18n("Lovercase"), CTRL + SHIFT + Qt::Key_U, this,
+    a = new KAction( i18n("Lowercase"), CTRL + SHIFT + Qt::Key_U, this,
       SLOT(lowercase()), ac, "tools_lowercase" );
-    a->setWhatsThis( i18n("Lowercase the selection, or the character on the "
-      "right side of the cursor if no text is selected.") );
+    a->setWhatsThis( i18n("Convert the selection to lowercase, or the character to the "
+      "right of the cursor if no text is selected.") );
 
     a = new KAction( i18n("Capitalize"), CTRL + ALT + Qt::Key_U, this,
       SLOT(capitalize()), ac, "tools_capitalize" );
-    a->setWhatsThis( i18n("Capitalizes the selection, or the word under the "
+    a->setWhatsThis( i18n("Capitalize the selection, or the word under the "
       "cursor if no text is selected.") );
   }
   else

@@ -2986,10 +2986,17 @@ void KateViewInternal::dropEvent( QDropEvent* event )
       return;
     }
 
+    // use one transaction
+    m_doc->editStart ();
+
     // on move: remove selected text; on copy: duplicate text
     if ( event->action() != QDropEvent::Copy )
       m_doc->removeSelectedText();
+
     m_doc->insertText( cursor.line(), cursor.col(), text );
+
+    m_doc->editEnd ();
+
     placeCursor( event->pos() );
 
     event->acceptAction();

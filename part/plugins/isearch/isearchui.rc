@@ -1,0 +1,15 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="ktexteditorviewpluginisearch" library="ktexteditorviewpluginisearch" version="2">      
+<MenuBar>
+	<Menu name="edit"><text>&amp;Edit</text>
+		<Action name="edit_isearch" />
+	</Menu>
+	<Menu name="settings"><text>&amp;Settings</text>
+		<Action name="settings_show_search_toolbar" group="settings_show_toolbar_group" />
+	</Menu>
+</MenuBar>
+<ToolBar name="isearchToolBar"><text>Search Toolbar</text>
+	<Action name="isearch_label"/>
+	<Action name="isearch_combo"/>
+</ToolBar>
+</kpartplugin>

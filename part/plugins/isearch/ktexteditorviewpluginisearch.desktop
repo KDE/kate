@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=test
+Name[af]=toets
+Name[sv]=Test
+X-KDE-Library=ktexteditorviewpluginisearch
+Icon=testicon
+ServiceTypes=KTextEditor/ViewPlugin
+Type=Service
+InitialPreference=8
+MimeType=text/plain

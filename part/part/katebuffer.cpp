@@ -611,7 +611,9 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
   }
   while ((current_line < last_line) && ((current_line < endLine) || stillcontinue));
 
+#ifdef __GNUC__
 #warning FIXME FIXME
+#endif
 #if 0
   if (current_line>=endLine)
   {

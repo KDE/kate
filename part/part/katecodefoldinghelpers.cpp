@@ -926,8 +926,9 @@ void KateCodeFoldingTree::incrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
 
 void KateCodeFoldingTree::findAndMarkAllNodesforRemovalOpenedOrClosedAt(unsigned int line)
 {
-
+#ifdef __GNUC__
 #warning "FIXME:  make this multiple region changes per line save";
+#endif
 //	return;
 	markedForDeleting.clear();
 	KateCodeFoldingNode *node = findNodeForLine(line);
@@ -949,7 +950,9 @@ void KateCodeFoldingTree::findAndMarkAllNodesforRemovalOpenedOrClosedAt(unsigned
 
 void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned int line)
 {
+#ifdef __GNUC__
 #warning "FIXME:  make this multiple region changes per line save";
+#endif
 	unsigned int startLine=getStartLine(node);
 	if ((startLine==line) && (node->startLineValid))
 		node->deleteOpening = true;

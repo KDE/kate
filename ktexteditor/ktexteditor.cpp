@@ -197,22 +197,22 @@ Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, 
 Document *KTextEditor::createDocument ( const char* libname, QObject *parent, const char *name )
 {
   if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
-  {
-    if ( QObject *obj = factory->create( parent, name, "KTextEditor::Document" ) )
-    return static_cast<Document *>(obj->qt_cast ("KTextEditor::Document"));
-  }
-   
+  {
+    if ( QObject *obj = factory->create( parent, name, "KTextEditor::Document" ) )
+      return static_cast<Document *>(obj->qt_cast ("KTextEditor::Document"));
+  }
+  
   return 0;
-}     
+}
 
 Plugin *KTextEditor::createPlugin ( const char* libname, Document *document, const char *name )
 {
   if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
-  {
-    if ( QObject *obj = factory->create( document, name, "KTextEditor::Plugin" ) )
-      return static_cast<Plugin *>(obj->qt_cast ("KTextEditor::Plugin"));
-  }
-   
+  {
+    if ( QObject *obj = factory->create( document, name, "KTextEditor::Plugin" ) )
+      return static_cast<Plugin *>(obj->qt_cast ("KTextEditor::Plugin"));
+  }
+  
   return 0;
 }
 

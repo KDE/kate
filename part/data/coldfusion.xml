@@ -530,21 +530,21 @@
 
 			<context name="ctxCFSCRIPT Tag" attribute="Script Tags" lineEndContext="#stay">
 				<DetectChar attribute="Script Tags" context="ctxCFSCRIPT Block" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
    
 			<context name="ctxSCRIPT Tag" attribute="Script Tags" lineEndContext="#stay">
 				<DetectChar attribute="Script Tags" context="ctxSCRIPT Block" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxSTYLE Tag" attribute="Style Tags" lineEndContext="#stay">
 				<DetectChar attribute="Style Tags" context="ctxSTYLE Block" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
@@ -553,49 +553,49 @@
 
 			<context name="ctxTag" attribute="Tags" lineEndContext="#stay">
 				<DetectChar attribute="Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxTable Tag" attribute="Table Tags" lineEndContext="#stay">
 				<DetectChar attribute="Table Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxAnchor Tag" attribute="Anchor Tags" lineEndContext="#stay">
 				<DetectChar attribute="Anchor Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxImage Tag" attribute="Image Tags" lineEndContext="#stay">
 				<DetectChar attribute="Image Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxCF Tag" attribute="CF Tags" lineEndContext="#stay">
 				<DetectChar attribute="CF Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxCustom Tag" attribute="Custom Tags" lineEndContext="#stay">
 				<DetectChar attribute="Custom Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
 
 			<context name="ctxCFX Tag" attribute="CFX Tags" lineEndContext="#stay">
 				<DetectChar attribute="CFX Tags" context="#pop" char="&gt;" />
-				<DetectChar attribute="Normal Text" context="#stay" String="=" />
+				<DetectChar attribute="Normal Text" context="#stay" char="=" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="&quot;[^&quot;]*&quot;" />
 				<RegExpr attribute="Attribute Values" context="#stay" String="'[^']*'" />
 			</context>
@@ -691,32 +691,32 @@
 
 		<itemDatas>
 
-			<itemData name="Normal Text" defStyleNum="dsNormal"			color="#000000" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Tags" defStyleNum="dsNormal"				color="#000080" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Table Tags" defStyleNum="dsNormal"			color="#008080" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Script Tags" defStyleNum="dsNormal"			color="#800000" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Image Tags" defStyleNum="dsNormal"			color="#800080" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Style Tags" defStyleNum="dsNormal"			color="#800080" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Anchor Tags" defStyleNum="dsNormal"			color="#008000" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Attribute Values" defStyleNum="dsNormal"	color="#0000ff" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="HTML Comment" defStyleNum="dsComment"		color="#008000" selcolor="#999999" bold="0" italic="0" />
-			<itemData name="CF Comment" defStyleNum="dsComment"			color="#ff9900" selcolor="#999999" bold="0" italic="0" />
-			<itemData name="Script Comment" defStyleNum="dsComment"		color="#ff9900" selcolor="#999999" bold="0" italic="0" />
-			<itemData name="CF Tags" defStyleNum="dsNormal"				color="#800000" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Custom Tags" defStyleNum="dsNormal"			color="#cc6666" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="CFX Tags" defStyleNum="dsNormal"			color="#008000" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Numbers" defStyleNum="dsNormal"				color="#0000ff" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="HTML Entities" defStyleNum="dsNormal"		color="#000000" selcolor="#ffffff" bold="1" italic="0" />
-			<itemData name="Style Selectors" defStyleNum="dsNormal"		color="#ff00ff" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Style Properties" defStyleNum="dsNormal"	color="#000080" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Style Values" defStyleNum="dsNormal"		color="#ff0000" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Brackets" defStyleNum="dsNormal"			color="#000080" selcolor="#ffffff" bold="1" italic="0" />
-			<itemData name="Script Numbers" defStyleNum="dsNormal"		color="#ff00ff" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Script Strings" defStyleNum="dsNormal"		color="#008080" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Script Operators" defStyleNum="dsNormal"	color="#0000ff" selcolor="#ffffff" bold="0" italic="0" />
-			<itemData name="Script Keywords" defStyleNum="dsNormal"		color="#0000cc" selcolor="#ffffff" bold="1" italic="0" />
-			<itemData name="Script Functions" defStyleNum="dsNormal"	color="#000080" selcolor="#ffffff" bold="1" italic="0" />
-			<itemData name="Script Objects" defStyleNum="dsNormal"		color="#0000cc" selcolor="#ffffff" bold="1" italic="0" />
+			<itemData name="Normal Text" defStyleNum="dsNormal"			color="#000000" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Tags" defStyleNum="dsNormal"				color="#000080" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Table Tags" defStyleNum="dsNormal"			color="#008080" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Script Tags" defStyleNum="dsNormal"			color="#800000" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Image Tags" defStyleNum="dsNormal"			color="#800080" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Style Tags" defStyleNum="dsNormal"			color="#800080" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Anchor Tags" defStyleNum="dsNormal"			color="#008000" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Attribute Values" defStyleNum="dsNormal"	color="#0000ff" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="HTML Comment" defStyleNum="dsComment"		color="#008000" selColor="#999999" bold="0" italic="0" />
+			<itemData name="CF Comment" defStyleNum="dsComment"			color="#ff9900" selColor="#999999" bold="0" italic="0" />
+			<itemData name="Script Comment" defStyleNum="dsComment"		color="#ff9900" selColor="#999999" bold="0" italic="0" />
+			<itemData name="CF Tags" defStyleNum="dsNormal"				color="#800000" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Custom Tags" defStyleNum="dsNormal"			color="#cc6666" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="CFX Tags" defStyleNum="dsNormal"			color="#008000" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Numbers" defStyleNum="dsNormal"				color="#0000ff" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="HTML Entities" defStyleNum="dsNormal"		color="#000000" selColor="#ffffff" bold="1" italic="0" />
+			<itemData name="Style Selectors" defStyleNum="dsNormal"		color="#ff00ff" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Style Properties" defStyleNum="dsNormal"	color="#000080" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Style Values" defStyleNum="dsNormal"		color="#ff0000" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Brackets" defStyleNum="dsNormal"			color="#000080" selColor="#ffffff" bold="1" italic="0" />
+			<itemData name="Script Numbers" defStyleNum="dsNormal"		color="#ff00ff" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Script Strings" defStyleNum="dsNormal"		color="#008080" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Script Operators" defStyleNum="dsNormal"	color="#0000ff" selColor="#ffffff" bold="0" italic="0" />
+			<itemData name="Script Keywords" defStyleNum="dsNormal"		color="#0000cc" selColor="#ffffff" bold="1" italic="0" />
+			<itemData name="Script Functions" defStyleNum="dsNormal"	color="#000080" selColor="#ffffff" bold="1" italic="0" />
+			<itemData name="Script Objects" defStyleNum="dsNormal"		color="#0000cc" selColor="#ffffff" bold="1" italic="0" />
 
 		</itemDatas>
 
@@ -732,7 +732,7 @@
 
 		</comments>
 
-		<keywords casesensitive="0" weakDelimiter="-" />
+		<keywords casesensitive="0" weakDeliminator="-" />
 
 	</general>
 

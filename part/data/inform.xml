@@ -313,9 +313,9 @@
          <RegExpr String="[a-zA-Z_]+[a-zA-Z_0-9]*" attribute="Normal Text" context="#stay" />
          <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
          <DetectChar char="{" attribute="Keyword" context="#stay"  
-               insensitive="TRUE" beginRegion="reg_compound" />
+               beginRegion="reg_compound" />
          <DetectChar char="}" attribute="Keyword" context="#stay"  
-               insensitive="TRUE" endRegion="reg_compound" />
+               endRegion="reg_compound" />
          <RegExpr attribute="Operator" context="#stay" String="[%&amp;()+-&lt;=&gt;{|}~]"/>
       </context>
 
@@ -394,7 +394,7 @@
       <itemData name="Function"  defStyleNum="dsNormal" color="#000090" selColor="#ffffff" bold="0" italic="0"/>
       <itemData name="Comment"  defStyleNum="dsComment" color="#707070" selColor="#ffffff" bold="0" italic="1"/>
       <itemData name="String"  defStyleNum="dsString" color="#007000" selColor="#007000" bold="0" italic="0"/>
-      <itemData name="Word"  defStyleNum="dsChar" defStyleNum="dsString" color="#007000" selColor="#007000" bold="0" italic="1"/>
+      <itemData name="Word"  defStyleNum="dsString" color="#007000" selColor="#007000" bold="0" italic="1"/>
    </itemDatas>
 </highlighting>
 <general>

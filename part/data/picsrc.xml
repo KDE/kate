@@ -47,40 +47,40 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> variable </item>
       <item> end </item>
       
-      <ITEM> CBLOCK </ITEM>
-      <ITEM> CONSTANT </ITEM>
-      <ITEM> DA </ITEM>
-      <ITEM> DATA </ITEM>
-      <ITEM> DB </ITEM>
-      <ITEM> DE </ITEM>
-      <ITEM> DT </ITEM>
-      <ITEM> DW </ITEM>
-      <ITEM> ENDM </ITEM>
-      <ITEM> EQU </ITEM>
-      <ITEM> ERROR </ITEM>
-      <ITEM> ERRORLEVEL </ITEM>
-      <ITEM> EXITM </ITEM>
-      <ITEM> FILL </ITEM>
-      <ITEM> LIST </ITEM>
-      <ITEM> LOCAL </ITEM>
-      <ITEM> MACRO </ITEM>
-      <ITEM> MESSG </ITEM>
-      <ITEM> NOEXPAND </ITEM>
-      <ITEM> NOLIST </ITEM>
-      <ITEM> ORG </ITEM>
-      <ITEM> PAGE </ITEM>
-      <ITEM> PROCESSOR </ITEM>
-      <ITEM> RADIX </ITEM>
-      <ITEM> RES </ITEM>
-      <ITEM> SET </ITEM>
-      <ITEM> SPACE </ITEM>
-      <ITEM> SUBTITLE </ITEM>
-      <ITEM> TITLE </ITEM>
-      <ITEM> VARIABLE </ITEM>
-      <ITEM> END </ITEM>
+      <item> CBLOCK </item>
+      <item> CONSTANT </item>
+      <item> DA </item>
+      <item> DATA </item>
+      <item> DB </item>
+      <item> DE </item>
+      <item> DT </item>
+      <item> DW </item>
+      <item> ENDM </item>
+      <item> EQU </item>
+      <item> ERROR </item>
+      <item> ERRORLEVEL </item>
+      <item> EXITM </item>
+      <item> FILL </item>
+      <item> LIST </item>
+      <item> LOCAL </item>
+      <item> MACRO </item>
+      <item> MESSG </item>
+      <item> NOEXPAND </item>
+      <item> NOLIST </item>
+      <item> ORG </item>
+      <item> PAGE </item>
+      <item> PROCESSOR </item>
+      <item> RADIX </item>
+      <item> RES </item>
+      <item> SET </item>
+      <item> SPACE </item>
+      <item> SUBTITLE </item>
+      <item> TITLE </item>
+      <item> VARIABLE </item>
+      <item> END </item>
    </list>
    
-    <list name="conditionnal" insensitive="TRUE">
+    <list name="conditionnal">
       <item> if </item>
       <item> else </item>
       <item> idef </item>
@@ -93,7 +93,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> } </item>
     </list>
 
-    <list name="gpasm_macro" insensitive="TRUE">
+    <list name="gpasm_macro">
       <item> addcf </item>
       <item> b </item>
       <item> bc </item>
@@ -113,27 +113,27 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> subcf </item>
       <item> tstf </item>
       
-      <ITEM> ADDCF </ITEM>
-      <ITEM> B </ITEM>
-      <ITEM> BC </ITEM>
-      <ITEM> BZ </ITEM>
-      <ITEM> BNC </ITEM>
-      <ITEM> BNZ </ITEM>
-      <ITEM> CLRC </ITEM>
-      <ITEM> CLRZ </ITEM>
-      <ITEM> SETC </ITEM>
-      <ITEM> SETZ </ITEM>
-      <ITEM> MOVFW </ITEM>
-      <ITEM> NEGF </ITEM>
-      <ITEM> SKPC </ITEM>
-      <ITEM> SKPZ </ITEM>
-      <ITEM> SKPNC </ITEM>
-      <ITEM> SKPNZ </ITEM>
-      <ITEM> SUBCF </ITEM>
-      <ITEM> TSTF </ITEM>
+      <item> ADDCF </item>
+      <item> B </item>
+      <item> BC </item>
+      <item> BZ </item>
+      <item> BNC </item>
+      <item> BNZ </item>
+      <item> CLRC </item>
+      <item> CLRZ </item>
+      <item> SETC </item>
+      <item> SETZ </item>
+      <item> MOVFW </item>
+      <item> NEGF </item>
+      <item> SKPC </item>
+      <item> SKPZ </item>
+      <item> SKPNC </item>
+      <item> SKPNZ </item>
+      <item> SUBCF </item>
+      <item> TSTF </item>
     </list>
-    
-    <list name="instructions" insensitive="TRUE">
+
+    <list name="instructions">
       <item> addlw </item>
       <item> addwf </item>
       <item> bcf </item>
@@ -169,40 +169,40 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> xorlw </item>
       <item> xorwf </item>
       
-      <ITEM> ADDLW </ITEM>
-      <ITEM> ADDWF </ITEM>
-      <ITEM> BCF </ITEM>
-      <ITEM> BSF </ITEM>
-      <ITEM> BTFSC </ITEM>
-      <ITEM> BTFSS </ITEM>
-      <ITEM> CALL </ITEM>
-      <ITEM> CLRF </ITEM>
-      <ITEM> CLRW </ITEM>
-      <ITEM> CLRWTD </ITEM>
-      <ITEM> COMF </ITEM>
-      <ITEM> DECF </ITEM>
-      <ITEM> DECFSZ </ITEM>
-      <ITEM> GOTO </ITEM>
-      <ITEM> INCF </ITEM>
-      <ITEM> INCFSZ </ITEM>
-      <ITEM> IORLW </ITEM>
-      <ITEM> MOVF </ITEM>
-      <ITEM> MOVLW </ITEM>
-      <ITEM> MOVWF </ITEM>
-      <ITEM> NOP </ITEM>
-      <ITEM> OPTION </ITEM>
-      <ITEM> RETFIE </ITEM>
-      <ITEM> RETLW </ITEM>
-      <ITEM> RETURN </ITEM>
-      <ITEM> RLF </ITEM>
-      <ITEM> RRF </ITEM>
-      <ITEM> SLEEP </ITEM>
-      <ITEM> SUBLW </ITEM>
-      <ITEM> SUBWF </ITEM>
-      <ITEM> SWAPF </ITEM>
-      <ITEM> TRIS </ITEM>
-      <ITEM> XORLW </ITEM>
-      <ITEM> XORWF </ITEM>
+      <item> ADDLW </item>
+      <item> ADDWF </item>
+      <item> BCF </item>
+      <item> BSF </item>
+      <item> BTFSC </item>
+      <item> BTFSS </item>
+      <item> CALL </item>
+      <item> CLRF </item>
+      <item> CLRW </item>
+      <item> CLRWTD </item>
+      <item> COMF </item>
+      <item> DECF </item>
+      <item> DECFSZ </item>
+      <item> GOTO </item>
+      <item> INCF </item>
+      <item> INCFSZ </item>
+      <item> IORLW </item>
+      <item> MOVF </item>
+      <item> MOVLW </item>
+      <item> MOVWF </item>
+      <item> NOP </item>
+      <item> OPTION </item>
+      <item> RETFIE </item>
+      <item> RETLW </item>
+      <item> RETURN </item>
+      <item> RLF </item>
+      <item> RRF </item>
+      <item> SLEEP </item>
+      <item> SUBLW </item>
+      <item> SUBWF </item>
+      <item> SWAPF </item>
+      <item> TRIS </item>
+      <item> XORLW </item>
+      <item> XORWF </item>
     </list>
     <contexts>
     
@@ -279,8 +279,8 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <itemData name="Comment"  		defStyleNum="dsNormal" color="#FF3118" selColor="#FF3118" bold="0" italic="1" />
       <itemData name="Symbol"  			defStyleNum="dsNormal" color="#FF0000" selColor="#083194" bold="0" italic="0" />
       <itemData name="Prep. Lib"  		defStyleNum="dsOthers"/>
-      <itemData name="Based Numbers"  	defStyleNum="dsBaseN" /> 
-      <itemData name="GPASM-macros"  	defStyleNum="dsNormal" color="#000000" selcolor="#000000" bold="1" italic="1"/> 
+      <itemData name="Based Numbers"  	defStyleNum="dsBaseN" />
+      <itemData name="GPASM-macros"  	defStyleNum="dsNormal" color="#000000" selColor="#000000" bold="1" italic="1"/>
     </itemDatas>
   </highlighting>
   <general>

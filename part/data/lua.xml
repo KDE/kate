@@ -222,7 +222,7 @@
 			<itemData name="String" defStyleNum="dsString"/>
 			<itemData name="Decimal" defStyleNum="dsDecVal"/>
 			<itemData name="Number" defStyleNum="dsBaseN"/>
-			<itemData name="Symbol" defStayleNum="dsNormal"/>
+			<itemData name="Symbol" defStyleNum="dsNormal"/>
 			<itemData name="BaseFunc" defStyleNum="dsNormal" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
 		</itemDatas>
 	</highlighting>

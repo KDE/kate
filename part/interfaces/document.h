@@ -231,6 +231,6 @@ Document *document (KTextEditor::Document *doc);
 
 Document *createDocument ( QObject *parent = 0, const char *name = 0 );
 
-};
+}
 
 #endif

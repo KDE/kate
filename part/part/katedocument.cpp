@@ -420,7 +420,7 @@ KTextEditor::View *KateDocument::createView( QWidget *parent, const char *name )
 QPtrList<KTextEditor::View> KateDocument::views () const
 {
   return m_textEditViews;
-};
+}
 //END
 
 //BEGIN KTextEditor::ConfigInterfaceExtension stuff
@@ -1578,7 +1578,7 @@ void KateDocument::updateModified()
     setModified( false );
     kdDebug() << k_funcinfo << "setting modified to false !" << endl;
   };
-};
+}
 
 void KateDocument::clearUndo()
 {

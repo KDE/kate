@@ -71,6 +71,6 @@ protected slots:
 	void slotNotAvailable();
 };
 
-};
+}
 
 #endif

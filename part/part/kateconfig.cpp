@@ -707,7 +707,7 @@ KateRendererConfig *KateRendererConfig::global ()
     s_global = new KateRendererConfig ();
 
   return s_global;
-};
+}
 
 void KateRendererConfig::readConfig (KConfig *config)
 {

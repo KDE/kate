@@ -21,7 +21,7 @@
 
 #include <kdialogbase.h>
 
-namespace KIO { class Job; };
+namespace KIO { class Job; }
 
 class HlDownloadDialog: public KDialogBase
 {

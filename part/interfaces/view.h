@@ -296,6 +296,6 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
 
 View *view (KTextEditor::View *view);
 
-};
+}
 
 #endif

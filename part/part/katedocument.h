@@ -36,7 +36,7 @@
 #include <qintdict.h>
 #include <qdatetime.h>
 
-namespace KTextEditor { class Plugin; };
+namespace KTextEditor { class Plugin; }
 
 class KateUndoGroup;
 class KateCmd;

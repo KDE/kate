@@ -87,4 +87,4 @@ View *view (KTextEditor::View *view)
   return static_cast<View*>(view->qt_cast("Kate::View"));
 }
 
-};
+}

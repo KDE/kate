@@ -231,4 +231,4 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 }
 
 
-};
+}

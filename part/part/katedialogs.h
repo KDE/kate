@@ -59,7 +59,7 @@
 #include <qvbox.h>
 #include <qtabwidget.h>
 
-namespace Kate { class PluginInfo; };
+namespace Kate { class PluginInfo; }
 
 struct syntaxContextData;
 

@@ -703,7 +703,7 @@ int HlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   if (offset2 == -1) return 0;
 
   return (offset + Expr->matchedLength());
-};
+}
 
 HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {

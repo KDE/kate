@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C" version="1.19" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
+<language name="C" version="1.20" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -76,7 +76,6 @@
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
-        <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
         <RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
@@ -125,7 +124,6 @@
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
-      <itemData name="Function"     defStyleNum="dsFunction" bold="0"/>
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>

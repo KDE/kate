@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.26" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.27" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -147,17 +147,12 @@
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
         <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
-        <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\d\w]*(?=[\s]*[(])" />
-        <RegExpr attribute="Symbol" context="Member" String="([.]{1,1}|[:]{2,2})" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]{|}~^&#59;"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#stay"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
-      </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
         <IncludeRules context="##Alerts" />
@@ -198,7 +193,6 @@
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
       <itemData name="Extensions"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0"/>
-      <itemData name="Function"     defStyleNum="dsFunction" />
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>

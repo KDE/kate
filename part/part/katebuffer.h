@@ -273,11 +273,6 @@ class KateBuffer : public QObject
     
   signals:
     /**
-     * Emitted during loading when the line count changes.
-     */
-    void linesChanged(int lines);
-
-    /**
      * Emittend if codefolding returned with a changed list
      */
     void codeFoldingUpdated();
@@ -287,11 +282,6 @@ class KateBuffer : public QObject
      * changed.
      */
     void tagLines(int start, int end);
-
-    /**
-     * Loading of the file finished
-     */
-    void loadingFinished ();
 
   private:
     /**

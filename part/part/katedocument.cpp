@@ -200,7 +200,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_indenter->updateConfig ();
 
   // some nice signals from the buffer
-  connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
 
@@ -3797,11 +3796,6 @@ void KateDocument::tagAll()
     m_views.at(z)->tagAll();
     m_views.at(z)->updateView (true);
   }
-}
-
-void KateDocument::slotBufferChanged()
-{
-  updateViews();
 }
 
 void KateDocument::updateViews()

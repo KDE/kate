@@ -431,8 +431,6 @@ void KateBuffer::clear()
   m_cacheWriteError = false;
   m_cacheReadError = false;
   m_loadingBorked = false;
-
-  emit linesChanged(m_lines);
 }
 
 void KateBuffer::setHighlight(Highlight *highlight)
@@ -451,9 +449,7 @@ bool KateBuffer::openFile (const QString &m_file)
   if ( !file.open( IO_ReadOnly ) || !file.isDirectAccess() )
   {
     clear();
-    
-    emit loadingFinished ();
-    
+
     return false; // Error
   }
 
@@ -550,12 +546,7 @@ bool KateBuffer::openFile (const QString &m_file)
   {
     // fix region tree
     m_regionTree.fixRoot (m_lines);
-    
-    // emit the new line count
-    emit linesChanged(m_lines);
   }
-  
-  emit loadingFinished ();
 
   return !m_loadingBorked;
 }

@@ -631,9 +631,6 @@ class KateDocument : public Kate::Document,
   private:
     void guiActivateEvent( KParts::GUIActivateEvent *ev );
 
-  private slots:
-    void slotBufferChanged();
-
   public:
     /**
      * Checks if the file on disk is newer than document contents.

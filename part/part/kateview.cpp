@@ -885,7 +885,7 @@ bool KateView::checkOverwrite( KURL u )
 
   QFileInfo info( u.path() );
   if( !info.exists() )
-    return true;
+    return false;
 
   return KMessageBox::Cancel != KMessageBox::warningContinueCancel( this,
     i18n( "A file named \"%1\" already exists. "

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Music Publisher" version="1.02" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Music Publisher" version="1.03" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
 
@@ -339,7 +339,7 @@
       <item> Zcaron </item>
       <item> Zv </item>
       <item> zcaron </item>
-      <item> Zv </item>
+      <item> zv </item>
       <item> bullet </item>
       <item> space </item>
    </list>

@@ -24,7 +24,7 @@
  Boston, MA  02111-1307, USA.
 
  -->
-<language name="ANSI C89" version="1.03" kateversion="2.3" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="ANSI C89" version="1.05" kateversion="2.3" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -86,8 +86,8 @@
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="Comment"/>
-        <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
-        <DetectChar attribute="Preprocessor" context="Preprocessor" char="#"/>
+        <RegExpr attribute="Preprocessor" context="Outscoped" String="^\s*#\s*if\s+0"/>
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^\s*#"/>
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
         <RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
@@ -118,14 +118,14 @@
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
         <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="blockcomment"/>
 <!--        <IncludeRules context="##Alerts" />-->
-        <StringDetect attribute="Comment" context="Outscoped intern" String="#if" />
-        <StringDetect attribute="Preprocessor" context="#pop" String="#endif" />
-        <StringDetect attribute="Preprocessor" context="#pop" String="#else" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if\s+0" />
+        <RegExpr attribute="Comment" context="Outscoped" String="^\s*#\s*if" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="^\s*#\s*(endif|else|elif)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
         <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="blockcomment"/>
-        <StringDetect attribute="Comment" context="Outscoped intern" String="#if" />
-        <StringDetect attribute="Comment" context="#pop" String="#endif" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" />
+        <RegExpr attribute="Comment" context="#pop" String="^\s*#\s*endif" />
       </context>
     </contexts>
     <itemDatas>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Oracle9i SQL and PL/SQL syntax - ANSI SQL superset -->
-<language name="SQL" version="1.07" kateversion="2.3" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
+<language name="SQL" version="1.08" kateversion="2.3" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -831,20 +831,20 @@
         <keyword attribute="Operator" String="operators" context="#stay"/>
         <keyword attribute="Function" String="functions" context="#stay"/>
         <keyword attribute="Data Type" String="types" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Ff][Oo][Uu][Nn][Dd]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b" context="#stay"/>
-        <RegExpr attribute="Data Type" String="%[Tt][Yy][Pp][Ee]\b" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%bulk_exceptions\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%bulk_rowcount\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%found\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%isopen\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%notfound\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%rowcount\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%rowtype\b" insensitive="true" context="#stay"/>
+	<RegExpr attribute="Data Type" String="%type\b" insensitive="true" context="#stay"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
         <DetectChar attribute="String" context="String literal" char="'"/>
         <Detect2Chars attribute="Comment" context="Singleline PL/SQL-style comment" char="-" char1="-"/>
         <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*"/>
-        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="^[Rr][Ee][Mm]\b"/>
+        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="^rem\b" insensitive="true"/>
         <DetectChar attribute="Identifier" context="User-defined identifier" char="&quot;"/>
         <RegExpr attribute="External Variable" context="#stay" String="(:|&amp;&amp;?)\w+"/>
         <RegExpr attribute="Symbol" context="#stay" String="^/$"/>

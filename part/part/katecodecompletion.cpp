@@ -289,3 +289,6 @@ void KateCodeCompletion::showComment()
   m_commentLabel->move(finalPoint);
   m_commentLabel->show();
 }
+
+#undef kdDebug
+

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.92" kateversion="2.2" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="1.93" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
   
   <highlighting>
     <list name="properties">
@@ -464,8 +464,8 @@
 
       <!-- finds comments -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindComments">
-        <RegExpr attribute="Notice" context="#stay" String="/\*BEGIN.*\*/" beginRegion="UserDefined" />
-        <RegExpr attribute="Notice" context="#stay" String="/\*END.*\*/" endRegion="UserDefined" />
+        <RegExpr attribute="Region Marker" context="#stay" String="/\*BEGIN.*\*/" beginRegion="UserDefined" />
+        <RegExpr attribute="Region Marker" context="#stay" String="/\*END.*\*/" endRegion="UserDefined" />
         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="comment" />
       </context>
             
@@ -503,7 +503,7 @@
       
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment" />
-        <RegExpr attribute="Notice" context= "#stay" String="(FIXME|TODO|NOTE)" />
+        <RegExpr attribute="Alert" context= "#stay" String="(FIXME|TODO)" />
       </context>
       
       <context attribute="Normal Text" lineEndContext="#stay" name="RuleSet">
@@ -576,7 +576,8 @@
       <itemData name="Selector Class"  defStyleNum="dsFloat" />
       <itemData name="Selector Pseudo"  defStyleNum="dsDecVal" />
       <itemData name="Comment" defStyleNum="dsComment" />
-      <itemData name="Notice" defStyleNum="dsComment" bold="1"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
+      <itemData name="Alert" defStyleNum="dsAlert"/>
       <itemData name="Error" defStyleNum="dsNormal" color="#f11" underline="1" />
     </itemDatas>
   </highlighting>

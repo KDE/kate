@@ -2,9 +2,11 @@
  * This is a pseudo CSS file to test Kate's CSS syntax highlighting.
  */
 
+@import url("othersheet.css") screen, tv;
+
 body {
 	font-size: 15pt;
-	font-family: Verdana,Helvetica,sans-serif;
+	font-family: Verdana,Helvetica,"Bitstream Vera Sans", sans-serif;
 	margin-top: 0px;			/* yet another comment */
 	margin-bottom: 0px;
 	// this is no comment, it's just broken!
@@ -18,6 +20,24 @@ body {
 }
 
 a:hover {
+}
+
+#header,
+p.intro:first-letter,
+p:lang(nl),
+img[align="right"]
+{
+	border: 1px solid red !important;
+	-moz-border-radius: 15px; /* unknown properties render italic */
+}
+
+@media print {
+
+	#header
+	{
+		display: none;
+	}
+
 }
 
 /*

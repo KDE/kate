@@ -207,7 +207,7 @@ bool Character::exec (Kate::View *view, const QString &_cmd, QString &)
   QString cmd = _cmd;
 
   // hex, octal, base 9+1
-  QRegExp num("^char: *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,3})$");
+  QRegExp num("^char *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,3})$");
   if (num.search(cmd)==-1) return false;
 
   cmd=num.cap(1);
@@ -244,10 +244,13 @@ bool Character::exec (Kate::View *view, const QString &_cmd, QString &)
 
 bool Goto::exec (Kate::View *view, const QString &cmd, QString &)
 {
-  if (cmd.left(5) != "goto:")
+  if (cmd.left(4) != "goto")
     return false;
 
-  view->gotoLineNumber (cmd.mid(5, cmd.length()-5).toInt());
+  QStringList args( QStringList::split( QRegExp("\\s+"), cmd ) );
+  args.remove( args.first() );
+
+  view->gotoLineNumber (args[0].toInt());
 
   return true;
 }

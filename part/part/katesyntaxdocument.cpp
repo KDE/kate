@@ -352,21 +352,22 @@ void KateSyntaxDocument::setupModeList (bool force)
   {
     // Each file has a group called:
     QString Group="Cache "+ *it;
-    
+
     // Let's go to this group
     config.setGroup(Group);
-    
+
     // stat the file
     struct stat sbuf;
     memset (&sbuf, 0, sizeof(sbuf));
     stat(QFile::encodeName(*it), &sbuf);
-    
+
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
     if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
     {
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
-      mli->name       = config.readEntry("name"); // ### TODO: translation (bug #72220)
+      mli->name       = config.readEntry("name");
+      mli->nameTranslated = i18n("Language",mli->name.utf8());
       mli->section    = i18n("Language Section",config.readEntry("section").utf8());
       mli->mimetype   = config.readEntry("mimetype");
       mli->extension  = config.readEntry("extension");
@@ -383,7 +384,7 @@ void KateSyntaxDocument::setupModeList (bool force)
     else
     {
       kdDebug (13010) << "UPDATE hl cache for: " << *it << endl;
-    
+
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);
 
@@ -418,12 +419,12 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->priority  = root.attribute("priority");
               mli->author    = root.attribute("author");
               mli->license   = root.attribute("license");
-              
+
               QString hidden = root.attribute("hidden");
               mli->hidden    = (hidden == "true" || hidden == "TRUE");
 
               mli->identifier = *it;
-              
+
               // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
               config.setGroup(Group);
               config.writeEntry("name",mli->name);
@@ -435,13 +436,14 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("author",mli->author);
               config.writeEntry("license",mli->license);
               config.writeEntry("hidden",mli->hidden);
-              
+
               // modified time to keep cache in sync
               config.writeEntry("lastModified", sbuf.st_mtime);
 
               // Now that the data is in the config file, translate section
               mli->section    = i18n("Language Section",mli->section.utf8());
-              
+              mli->nameTranslated = i18n("Language",mli->name.utf8());
+
               // Append the new item to the list.
               myModeList.append(mli);
             }
@@ -455,7 +457,8 @@ void KateSyntaxDocument::setupModeList (bool force)
           emli->mimetype="invalid_file/invalid_file";
           emli->extension="invalid_file.invalid_file";
           emli->version="1.";
-          emli->name=i18n("Error: %1").arg(*it);
+          emli->name=QString ("Error: %1").arg(*it); // internal
+          emli->nameTranslated=i18n("Error: %1").arg(*it); // translated
           emli->identifier=(*it);
 
           myModeList.append(emli);

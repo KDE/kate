@@ -830,12 +830,12 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   layout->addWidget( gb );
   cbLocalFiles = new QCheckBox( i18n("&Local files"), gb );
   cbRemoteFiles = new QCheckBox( i18n("&Remote files"), gb );
-  
+
   QHBox *hbBuPrefix = new QHBox( gb );
   QLabel *lBuPrefix = new QLabel( i18n("&Prefix:"), hbBuPrefix );
   leBuPrefix = new QLineEdit( hbBuPrefix );
   lBuPrefix->setBuddy( leBuPrefix );
-  
+
   QHBox *hbBuSuffix = new QHBox( gb );
   QLabel *lBuSuffix = new QLabel( i18n("&Suffix:"), hbBuSuffix );
   leBuSuffix = new QLineEdit( hbBuSuffix );
@@ -1188,9 +1188,9 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
-      hlCombo->insertItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlName(i));
+      hlCombo->insertItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlNameTranslated(i));
     else
-      hlCombo->insertItem(KateHlManager::self()->hlName(i));
+      hlCombo->insertItem(KateHlManager::self()->hlNameTranslated(i));
   }
   hlCombo->setCurrentItem(0);
 

@@ -31,6 +31,7 @@ class KateSyntaxModeListItem
 {
   public:
     QString name;
+    QString nameTranslated;
     QString section;
     QString mimetype;
     QString extension;
@@ -152,7 +153,7 @@ class KateSyntaxDocument : public QDomDocument
      * current parsed filename
      */
     QString currentFile;
-    
+
     /**
      * last found data out of the xml
      */

@@ -129,29 +129,24 @@ class KateHighlighting
     // keep track that you delete them, or mem will be lost
     void getKateHlItemDataListCopy (uint schema, KateHlItemDataList &);
 
-    inline QString name() const {return iName;}
-    inline QString section() const {return iSection;}
-    inline bool hidden() const {return iHidden;}
-    inline QString version() const {return iVersion;}
-    QString author () const { return iAuthor; }
-    QString license () const { return iLicense; }
+    const QString &name() const {return iName;}
+    const QString &nameTranslated() const {return iNameTranslated;}
+    const QString &section() const {return iSection;}
+    bool hidden() const {return iHidden;}
+    const QString &version() const {return iVersion;}
+    const QString &author () const { return iAuthor; }
+    const QString &license () const { return iLicense; }
     int priority();
-    inline QString getIdentifier() const {return identifier;}
+    const QString &getIdentifier() const {return identifier;}
     void use();
     void release();
-    // bool isInWord(QChar c); // ### obsolete
-
-    // ### obsolete
-    // inline QString getCommentStart() const {return cmlStart;};
-    // inline QString getCommentEnd()  const {return cmlEnd;};
-    // inline QString getCommentSingleLineStart() const { return cslStart;};
 
     /**
      * @return true if the character @p c is not a deliminator character
      *     for the corresponding highlight.
      */
     bool isInWord( QChar c, int attrib=0 ) const;
-    
+
     /**
      * @return true if the character @p c is a wordwrap deliminator as specified
      * in the general keyword section of the xml file.
@@ -254,6 +249,7 @@ class KateHighlighting
     QString deliminator;
 
     QString iName;
+    QString iNameTranslated;
     QString iSection;
     bool iHidden;
     QString iWildcards;
@@ -279,7 +275,7 @@ class KateHighlighting
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
 
     /**
-     * This contains a list of comment data, the deliminator string and 
+     * This contains a list of comment data, the deliminator string and
      * wordwrap deliminator pr highlight.
      * The key is the highlights entry position in internalIDList.
      * This is used to look up the correct comment and delimitor strings
@@ -332,6 +328,7 @@ class KateHlManager : public QObject
 
     int highlights();
     QString hlName(int n);
+    QString hlNameTranslated (int n);
     QString hlSection(int n);
     bool hlHidden(int n);
 

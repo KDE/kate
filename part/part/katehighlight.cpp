@@ -1134,7 +1134,8 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
   if (def == 0)
   {
     noHl = true;
-    iName = I18N_NOOP("None");
+    iName = "None"; // not translated internal name (for config and more)
+    iNameTranslated = I18N_NOOP("None"); // user visible name
     iSection = "";
     m_priority = 0;
     iHidden = false;
@@ -1142,6 +1143,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
   else
   {
     iName = def->name;
+    iNameTranslated = def->nameTranslated;
     iSection = def->section;
     iHidden = def->hidden;
     iWildcards = def->extension;
@@ -2108,7 +2110,7 @@ QString KateHighlighting::readGlobalKeywordConfig()
 
 /**
  * Helper for makeContextList. It parses the xml file for any wordwrap deliminators, characters
- * at which line can be broken. In case no keyword tag is found in the xml file, 
+ * at which line can be broken. In case no keyword tag is found in the xml file,
  * the wordwrap deliminators list defaults to the standard denominators. In case a keyword tag
  * is defined, but no wordWrapDeliminator attribute is specified, the deliminator list as computed
  * in readGlobalKeywordConfig is used.
@@ -2131,7 +2133,7 @@ QString KateHighlighting::readWordWrapConfig()
     wordWrapDeliminator = (KateHlManager::self()->syntax->groupItemData(data,QString("wordWrapDeliminator")));
     //when no wordWrapDeliminator is defined use the deliminator list
     if ( wordWrapDeliminator.length() == 0 ) wordWrapDeliminator = deliminator;
-    
+
     kdDebug(13010) << "word wrap deliminators are " << wordWrapDeliminator << endl;
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
@@ -2484,7 +2486,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   QStringList additionaldata = readCommentConfig();
   additionaldata << readGlobalKeywordConfig();
   additionaldata << readWordWrapConfig();
-  
+
   readFoldingConfig ();
 
   m_additionalData.insert( internalIDList.count(), additionaldata );
@@ -2758,8 +2760,8 @@ KateHlManager::KateHlManager()
       if (insert == hlList.count())
         break;
 
-      if ( QString(hlList.at(insert)->section() + hlList.at(insert)->name()).lower()
-            > QString(hl->section() + hl->name()).lower() )
+      if ( QString(hlList.at(insert)->section() + hlList.at(insert)->nameTranslated()).lower()
+            > QString(hl->section() + hl->nameTranslated()).lower() )
         break;
     }
 
@@ -3104,6 +3106,11 @@ QString KateHlManager::hlName(int n)
   return hlList.at(n)->name();
 }
 
+QString KateHlManager::hlNameTranslated(int n)
+{
+  return hlList.at(n)->nameTranslated();
+}
+
 QString KateHlManager::hlSection(int n)
 {
   return hlList.at(n)->section();
@@ -3164,7 +3171,7 @@ void KateViewHighlightAction::slotAboutToShow()
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateHlManager::self()->hlName (z);
+    QString hlName = KateHlManager::self()->hlNameTranslated (z);
     QString hlSection = KateHlManager::self()->hlSection (z);
 
     if (!KateHlManager::self()->hlHidden(z))

@@ -65,7 +65,7 @@ class HlCharDetect : public HlItem {
   public:
     HlCharDetect(int attribute, int context,signed char regionId, QChar);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
-  protected:
+  private:
     QChar sChar;
 };
 
@@ -75,7 +75,7 @@ class Hl2CharDetect : public HlItem {
    	Hl2CharDetect(int attribute, int context,signed char regionId,  const QChar *ch);
 
     virtual const QChar *checkHgl(const QChar *, int len, bool);
-  protected:
+  private:
     QChar sChar1;
     QChar sChar2;
 };
@@ -85,7 +85,7 @@ class HlStringDetect : public HlItem {
     HlStringDetect(int attribute, int context, signed char regionId, const QString &, bool inSensitive=false);
     virtual ~HlStringDetect();
     virtual const QChar *checkHgl(const QChar *, int len, bool);
-  protected:
+  private:
     const QString str;
     bool _inSensitive;
 };
@@ -94,7 +94,7 @@ class HlRangeDetect : public HlItem {
   public:
     HlRangeDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2);
     virtual const QChar *checkHgl(const QChar *, int len, bool);
-  protected:
+  private:
     QChar sChar1;
     QChar sChar2;
 };
@@ -110,7 +110,7 @@ class HlKeyword : public HlItem
     virtual const QChar *checkHgl(const QChar *, int len, bool);
     virtual bool startEnable(QChar c);
 
-  protected:
+  private:
     QDict<bool> dict;
     bool _caseSensitive;
     const QChar *deliminatorChars;
@@ -290,7 +290,7 @@ class Highlight
     QString getCommentEnd()  {return cmlEnd;};
     QString getCommentSingleLineStart() { return cslStart;};
 
-  protected:
+  private:
     void init();
     void done();
     void makeContextList ();
@@ -367,7 +367,7 @@ class HlManager : public QObject {
   signals:
     void changed();
 
-  protected:
+  private:
     QPtrList<Highlight> hlList;
     static HlManager *s_pSelf;
     static KConfig *s_pConfig;

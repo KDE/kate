@@ -129,7 +129,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   /*test texthint
   connect(this,SIGNAL(needTextHint(int, int, QString &)),
-	this,SLOT(slotNeedTextHint(int, int, QString &)));
+  this,SLOT(slotNeedTextHint(int, int, QString &)));
   enableTextHints(1000);
   test texthint*/
 }
@@ -197,32 +197,32 @@ void KateView::setupActions()
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
 
     (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
-	i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
-		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated"
-		" when the view is resized."));
+  i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
+    " current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated"
+    " when the view is resized."));
 
     // setup Tools menu
     a=new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
                               ac, "tools_indent");
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br><br>"
-		"You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
+    "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     a=new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),
                                 ac, "tools_unindent");
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
     a=new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
                                    ac, "tools_cleanIndent");
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br><br>"
-		"You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
+    "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
 
     a=new KAction(i18n("C&omment"), CTRL+Qt::Key_D, this, SLOT(comment()),
                                ac, "tools_comment");
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<BR><BR>"
-		"The characters for single/multiple line comments are defined within the language's highlighting."));
+    "The characters for single/multiple line comments are defined within the language's highlighting."));
 
     a=new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_D, this, SLOT(uncomment()),
                                  ac, "tools_uncomment");
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
-		"The characters for single/multiple line comments are defined within the language's highlighting."));
+    "The characters for single/multiple line comments are defined within the language's highlighting."));
     a = m_toggleWriteLock = new KToggleAction(
                 i18n("Write &Lock"), 0, 0,
                 this, SLOT( toggleWriteLock() ),
@@ -463,7 +463,7 @@ void KateView::setupEditActions()
     ac, "select_matching_bracket" );
 
   new KAction(
-    i18n("Switch to Command Line"),      Qt::Key_Escape,
+    i18n("Switch to Command Line"),      Qt::Key_F7,
     this, SLOT(switchToCmdLine()),
     ac, "switch_to_cmd_line" );
 
@@ -986,7 +986,7 @@ void KateView::disableTextHints()
 
 void KateView::slotNeedTextHint(int line, int col, QString &text)
 {
-	text=QString("test %1 %2").arg(line).arg(col);
+  text=QString("test %1 %2").arg(line).arg(col);
 }
 
 void KateView::find()

@@ -703,6 +703,8 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       textLine->setFoldingList(foldingList);
 
     retVal_folding = false;
+
+    //kdDebug()<<"Folding update for" <<current_line <<" end line is "<<endLine<<endl;
     emit foldingUpdate(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
 
     CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;
@@ -724,6 +726,8 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     }
 
     current_line++;
+//  stillcontinue=true;
+
   }
   while ((current_line < last_line) && ((current_line < endLine) || stillcontinue));
 
@@ -748,8 +752,11 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
 void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
 {
+   //kdDebug()<<"KateBuffer::updateHighlight("<<from<<","<<to<<","<<invalidate<<")"<<endl;
    if (!m_hlUpdate)
     return;
+    
+   //kdDebug()<<"passed the no update check"<<endl;
 
    if (from > m_highlightedTo )
      from = m_highlightedTo;
@@ -788,7 +795,8 @@ void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
          }
 
          buf->b_needHighlight = false;
-
+         
+	 //kdDebug()<<"Calling need highlight: "<<fromLine<<","<<tillLine<<endl;
          endStateChanged = needHighlight (buf, fromLine, tillLine);
 
           if (buf->b_rawDataValid)
@@ -936,7 +944,7 @@ void KateBuffer::insertLine(uint i, TextLine::Ptr line)
      m_lastInSyncBlock = m_blocks.findRef (buf);
 
    m_regionTree->lineHasBeenInserted (i);
-   updateHighlighting(i, i+2, true);
+   // updateHighlighting(i, i+2, true); this doesn't succseed, since updating is not allowed before an editEnd call
    emit lineInsertedBefore(KateBuffer::line(i), i-1);
 }
 

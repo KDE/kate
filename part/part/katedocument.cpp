@@ -984,7 +984,7 @@ void KateDocument::editEnd ()
   buffer->setHlUpdate (true);
 
   if (editTagLineStart <= editTagLineEnd)
-    updateLines(editTagLineStart, editTagLineEnd);
+    updateLines(editTagLineStart, editTagLineEnd+1);
 
   if (editWithUndo)
     undoEnd();

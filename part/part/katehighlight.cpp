@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2001,2002 Joseph Wenninger <jowenn@kde.org>
@@ -55,7 +63,7 @@
 
 class HlCharDetect : public HlItem {
   public:
-    HlCharDetect(int attribute, int context,signed char regionId, QChar);
+    HlCharDetect(int attribute, int context,signed char regionId,signed char regionId2, QChar);
     virtual int checkHgl(const QString& text, int offset, int len);
   private:
     QChar sChar;
@@ -63,8 +71,8 @@ class HlCharDetect : public HlItem {
 
 class Hl2CharDetect : public HlItem {
   public:
-    Hl2CharDetect(int attribute, int context, signed char regionId,  QChar ch1, QChar ch2);
-   	Hl2CharDetect(int attribute, int context,signed char regionId,  const QChar *ch);
+    Hl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2,  QChar ch1, QChar ch2);
+   	Hl2CharDetect(int attribute, int context,signed char regionId,signed char regionId2,  const QChar *ch);
 
     virtual int checkHgl(const QString& text, int offset, int len);
   private:
@@ -74,7 +82,7 @@ class Hl2CharDetect : public HlItem {
 
 class HlStringDetect : public HlItem {
   public:
-    HlStringDetect(int attribute, int context, signed char regionId, const QString &, bool inSensitive=false);
+    HlStringDetect(int attribute, int context, signed char regionId,signed char regionId2, const QString &, bool inSensitive=false);
     virtual ~HlStringDetect();
     virtual int checkHgl(const QString& text, int offset, int len);
   private:
@@ -84,7 +92,7 @@ class HlStringDetect : public HlItem {
 
 class HlRangeDetect : public HlItem {
   public:
-    HlRangeDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2);
+    HlRangeDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2);
     virtual int checkHgl(const QString& text, int offset, int len);
   private:
     QChar sChar1;
@@ -94,7 +102,7 @@ class HlRangeDetect : public HlItem {
 class HlKeyword : public HlItem
 {
   public:
-    HlKeyword(int attribute, int context,signed char regionId, bool casesensitive, const QString& delims);
+    HlKeyword(int attribute, int context,signed char regionId,signed char regionId2, bool casesensitive, const QString& delims);
     virtual ~HlKeyword();
 
     virtual void addWord(const QString &);
@@ -112,35 +120,35 @@ class HlKeyword : public HlItem
 
 class HlInt : public HlItem {
   public:
-    HlInt(int attribute, int context, signed char regionId);
+    HlInt(int attribute, int context, signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
 class HlFloat : public HlItem {
   public:
-    HlFloat(int attribute, int context, signed char regionId);
+    HlFloat(int attribute, int context, signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
 class HlCOct : public HlItem {
   public:
-    HlCOct(int attribute, int context, signed char regionId);
+    HlCOct(int attribute, int context, signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
 class HlCHex : public HlItem {
   public:
-    HlCHex(int attribute, int context, signed char regionId);
+    HlCHex(int attribute, int context, signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
 class HlCFloat : public HlFloat {
   public:
-    HlCFloat(int attribute, int context, signed char regionId);
+    HlCFloat(int attribute, int context, signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
     int checkIntHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
@@ -148,7 +156,7 @@ class HlCFloat : public HlFloat {
 
 class HlLineContinue : public HlItem {
   public:
-    HlLineContinue(int attribute, int context, signed char regionId);
+    HlLineContinue(int attribute, int context, signed char regionId,signed char regionId2);
     virtual bool endEnable(QChar c) {return c == '\0';}
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool lineContinue(){return true;}
@@ -156,26 +164,26 @@ class HlLineContinue : public HlItem {
 
 class HlCStringChar : public HlItem {
   public:
-    HlCStringChar(int attribute, int context, signed char regionId);
+    HlCStringChar(int attribute, int context, signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
 };
 
 class HlCChar : public HlItem {
   public:
-    HlCChar(int attribute, int context,signed char regionId);
+    HlCChar(int attribute, int context,signed char regionId,signed char regionId2);
     virtual int checkHgl(const QString& text, int offset, int len);
 };
 
 class HlAnyChar : public HlItem {
   public:
-    HlAnyChar(int attribute, int context, signed char regionId, const QString& charList);
+    HlAnyChar(int attribute, int context, signed char regionId,signed char regionId2, const QString& charList);
     virtual int checkHgl(const QString& text, int offset, int len);
     const QString _charList;
 };
 
 class HlRegExpr : public HlItem {
   public:
-  HlRegExpr(int attribute, int context,signed char regionId ,QString expr, bool insensitive, bool minimal);
+  HlRegExpr(int attribute, int context,signed char regionId,signed char regionId2 ,QString expr, bool insensitive, bool minimal);
   virtual int checkHgl(const QString& text, int offset, int len);
   ~HlRegExpr(){delete Expr;};
 
@@ -216,8 +224,8 @@ static int getDefStyleNum(QString name)
 
 
 //BEGIN HlItem
-HlItem::HlItem(int attribute, int context,signed char regionId)
-  : attr(attribute), ctx(context),region(regionId)  {subItems=0;
+HlItem::HlItem(int attribute, int context,signed char regionId,signed char regionId2)
+  : attr(attribute), ctx(context),region(regionId),region2(regionId2)  {subItems=0;
 }
 
 HlItem::~HlItem()
@@ -236,8 +244,8 @@ bool HlItem::startEnable(const QChar& c)
 //END
 
 //BEGIN HLCharDetect
-HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId, QChar c)
-  : HlItem(attribute,context,regionId), sChar(c) {
+HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar c)
+  : HlItem(attribute,context,regionId,regionId2), sChar(c) {
 }
 
 int HlCharDetect::checkHgl(const QString& text, int offset, int len) {
@@ -247,8 +255,8 @@ int HlCharDetect::checkHgl(const QString& text, int offset, int len) {
 //END
 
 //BEGIN Hl2CharDetect
-Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2)
-  : HlItem(attribute,context,regionId) {
+Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
+  : HlItem(attribute,context,regionId,regionId2) {
   sChar1 = ch1;
   sChar2 = ch2;
 }
@@ -262,8 +270,8 @@ int Hl2CharDetect::checkHgl(const QString& text, int offset, int len)
 //END
 
 //BEGIN HlStringDetect
-HlStringDetect::HlStringDetect(int attribute, int context, signed char regionId,const QString &s, bool inSensitive)
-  : HlItem(attribute, context,regionId), str(inSensitive ? s.upper():s), _inSensitive(inSensitive) {
+HlStringDetect::HlStringDetect(int attribute, int context, signed char regionId,signed char regionId2,const QString &s, bool inSensitive)
+  : HlItem(attribute, context,regionId,regionId2), str(inSensitive ? s.upper():s), _inSensitive(inSensitive) {
 }
 
 HlStringDetect::~HlStringDetect() {
@@ -284,8 +292,8 @@ int HlStringDetect::checkHgl(const QString& text, int offset, int len)
 
 
 //BEGIN HLRangeDetect
-HlRangeDetect::HlRangeDetect(int attribute, int context, signed char regionId, QChar ch1, QChar ch2)
-  : HlItem(attribute,context,regionId) {
+HlRangeDetect::HlRangeDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
+  : HlItem(attribute,context,regionId,regionId2) {
   sChar1 = ch1;
   sChar2 = ch2;
 }
@@ -309,8 +317,8 @@ int HlRangeDetect::checkHgl(const QString& text, int offset, int len)
 //END
 
 //BEGIN HlKeyword
-HlKeyword::HlKeyword (int attribute, int context, signed char regionId, bool casesensitive, const QString& delims)
-  : HlItem(attribute,context,regionId)
+HlKeyword::HlKeyword (int attribute, int context, signed char regionId,signed char regionId2, bool casesensitive, const QString& delims)
+  : HlItem(attribute,context,regionId,regionId2)
   , dict (113, casesensitive)
   , _caseSensitive(casesensitive)
   , deliminators(delims)
@@ -371,8 +379,8 @@ int HlKeyword::checkHgl(const QString& text, int offset, int len)
 
 
 //BEGIN HlInt
-HlInt::HlInt(int attribute, int context, signed char regionId)
-  : HlItem(attribute,context,regionId)
+HlInt::HlInt(int attribute, int context, signed char regionId,signed char regionId2)
+  : HlItem(attribute,context,regionId,regionId2)
 {
 }
 
@@ -411,8 +419,8 @@ int HlInt::checkHgl(const QString& text, int offset, int len)
 
 
 //BEGIN HlFloat
-HlFloat::HlFloat(int attribute, int context, signed char regionId)
-  : HlItem(attribute,context, regionId) {
+HlFloat::HlFloat(int attribute, int context, signed char regionId,signed char regionId2)
+  : HlItem(attribute,context, regionId,regionId2) {
 }
 
 bool HlFloat::alwaysStartEnable() const
@@ -512,8 +520,8 @@ int HlFloat::checkHgl(const QString& text, int offset, int len)
 //END
 
 //BEGIN HlCOct
-HlCOct::HlCOct(int attribute, int context, signed char regionId)
-  : HlItem(attribute,context,regionId) {
+HlCOct::HlCOct(int attribute, int context, signed char regionId,signed char regionId2)
+  : HlItem(attribute,context,regionId,regionId2) {
 }
 
 bool HlCOct::alwaysStartEnable() const
@@ -550,8 +558,8 @@ int HlCOct::checkHgl(const QString& text, int offset, int len)
 //END
 
 //BEGIN HlCHex
-HlCHex::HlCHex(int attribute, int context,signed char regionId)
-  : HlItem(attribute,context,regionId) {
+HlCHex::HlCHex(int attribute, int context,signed char regionId,signed char regionId2)
+  : HlItem(attribute,context,regionId,regionId2) {
 }
 
 bool HlCHex::alwaysStartEnable() const
@@ -587,8 +595,8 @@ int HlCHex::checkHgl(const QString& text, int offset, int len)
 //END
 
 
-HlCFloat::HlCFloat(int attribute, int context, signed char regionId)
-  : HlFloat(attribute,context,regionId) {
+HlCFloat::HlCFloat(int attribute, int context, signed char regionId,signed char regionId2)
+  : HlFloat(attribute,context,regionId,regionId2) {
 }
 
 bool HlCFloat::alwaysStartEnable() const
@@ -633,8 +641,8 @@ int HlCFloat::checkHgl(const QString& text, int offset, int len)
   }
 }
 
-HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId, const QString& charList)
-  : HlItem(attribute, context,regionId)
+HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId,signed char regionId2, const QString& charList)
+  : HlItem(attribute, context,regionId,regionId2)
   , _charList(charList)
 {
 }
@@ -647,8 +655,8 @@ int HlAnyChar::checkHgl(const QString& text, int offset, int len)
   return 0;
 }
 
-HlRegExpr::HlRegExpr( int attribute, int context, signed char regionId, QString regexp, bool insensitive, bool minimal )
-  : HlItem(attribute, context, regionId)
+HlRegExpr::HlRegExpr( int attribute, int context, signed char regionId,signed char regionId2, QString regexp, bool insensitive, bool minimal )
+  : HlItem(attribute, context, regionId,regionId2)
 {
     handlesLinestart=regexp.startsWith("^");
     if(!handlesLinestart) regexp.prepend("^");
@@ -669,8 +677,8 @@ int HlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
 };
 
 
-HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId)
-  : HlItem(attribute,context,regionId) {
+HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId,signed char regionId2)
+  : HlItem(attribute,context,regionId,regionId2) {
 }
 
 int HlLineContinue::checkHgl(const QString& text, int offset, int len)
@@ -682,8 +690,8 @@ int HlLineContinue::checkHgl(const QString& text, int offset, int len)
 }
 
 
-HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId)
-  : HlItem(attribute,context,regionId) {
+HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId,signed char regionId2)
+  : HlItem(attribute,context,regionId,regionId2) {
 }
 
 // checks for C escaped chars \n and escaped hex/octal chars
@@ -757,8 +765,8 @@ int HlCStringChar::checkHgl(const QString& text, int offset, int len)
 }
 
 
-HlCChar::HlCChar(int attribute, int context,signed char regionId)
-  : HlItem(attribute,context,regionId) {
+HlCChar::HlCChar(int attribute, int context,signed char regionId,signed char regionId2)
+  : HlItem(attribute,context,regionId,regionId2) {
 }
 
 int HlCChar::checkHgl(const QString& text, int offset, int len)
@@ -811,8 +819,8 @@ HlContext::HlContext (int attribute, int lineEndContext, int _lineBeginContext, 
   ftctx = _fallthroughContext;
 }
 
-Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, const QChar *s)
-  : HlItem(attribute,context,regionId) {
+Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, const QChar *s)
+  : HlItem(attribute,context,regionId,regionId2) {
   sChar1 = s[0];
   sChar2 = s[1];
 }
@@ -1063,7 +1071,7 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
           if (item->region)
           {
-            //  kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+//              kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
 
             if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
             {
@@ -1073,6 +1081,22 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
             {
               foldingList->resize (foldingList->size()+1);
               (*foldingList)[foldingList->size()-1] = item->region;
+            }
+
+          }
+
+          if (item->region2)
+          {
+//              kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
+
+            if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-1] == -item->region2 ) )
+            {
+              foldingList->resize (foldingList->size()-1);
+            }
+            else
+            {
+              foldingList->resize (foldingList->size()+1);
+              (*foldingList)[foldingList->size()-1] = item->region2;
             }
 
           }
@@ -1514,18 +1538,11 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
   QString endRegionStr=HlManager::self()->syntax->groupItemData(data,QString("endRegion"));
 
   signed char regionId=0;
-  if (!beginRegionStr.isEmpty())
+  signed char regionId2=0;
+
+  signed char *regionIdToSet=&regionId;
+  if (!endRegionStr.isEmpty())
   {
-    regionId=RegionList->findIndex(beginRegionStr);
-    if (regionId==-1) // if the region name doesn't already exist, add it to the list
-    {
-      (*RegionList)<<beginRegionStr;
-      regionId=RegionList->findIndex(beginRegionStr);
-    }
-  }
-  else
-  {
-    if (!endRegionStr.isEmpty())
     regionId=RegionList->findIndex(endRegionStr);
     if (regionId==-1) // if the region name doesn't already exist, add it to the list
     {
@@ -1533,35 +1550,46 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
       regionId=RegionList->findIndex(endRegionStr);
     }
     regionId=-regionId;
+    regionIdToSet=&regionId2;
   }
-
+ 
+  if (!beginRegionStr.isEmpty())
+  {  
+    *regionIdToSet=RegionList->findIndex(beginRegionStr);
+    if (*regionIdToSet==-1) // if the region name doesn't already exist, add it to the list
+    {
+      (*RegionList)<<beginRegionStr;
+      *regionIdToSet=RegionList->findIndex(beginRegionStr);
+    }
+//    *regionIdToSet=-(*regionIdToSet);
+  }
 
                 //Create the item corresponding to it's type and set it's parameters
   HlItem *tmpItem;
 
   if (dataname=="keyword")
   {
-    HlKeyword *keyword=new HlKeyword(attr,context,regionId,casesensitive,
+    HlKeyword *keyword=new HlKeyword(attr,context,regionId,regionId2,casesensitive,
       deliminator);
 
     //Get the entries for the keyword lookup list
     keyword->addList(HlManager::self()->syntax->finddata("highlighting",stringdata));
     tmpItem=keyword;
   } else
-    if (dataname=="Float") tmpItem= (new HlFloat(attr,context,regionId)); else
-    if (dataname=="Int") tmpItem=(new HlInt(attr,context,regionId)); else
-    if (dataname=="DetectChar") tmpItem=(new HlCharDetect(attr,context,regionId,chr)); else
-    if (dataname=="Detect2Chars") tmpItem=(new Hl2CharDetect(attr,context,regionId,chr,chr1)); else
-    if (dataname=="RangeDetect") tmpItem=(new HlRangeDetect(attr,context,regionId, chr, chr1)); else
-    if (dataname=="LineContinue") tmpItem=(new HlLineContinue(attr,context,regionId)); else
-    if (dataname=="StringDetect") tmpItem=(new HlStringDetect(attr,context,regionId,stringdata,insensitive)); else
-    if (dataname=="AnyChar") tmpItem=(new HlAnyChar(attr,context,regionId,stringdata)); else
-    if (dataname=="RegExpr") tmpItem=(new HlRegExpr(attr,context,regionId,stringdata, insensitive, minimal)); else
-    if (dataname=="HlCChar") tmpItem= ( new HlCChar(attr,context,regionId));else
-    if (dataname=="HlCHex") tmpItem= (new HlCHex(attr,context,regionId));else
-    if (dataname=="HlCOct") tmpItem= (new HlCOct(attr,context,regionId)); else
-    if (dataname=="HlCFloat") tmpItem= (new HlCFloat(attr,context,regionId)); else
-    if (dataname=="HlCStringChar") tmpItem= (new HlCStringChar(attr,context,regionId)); else
+    if (dataname=="Float") tmpItem= (new HlFloat(attr,context,regionId,regionId2)); else
+    if (dataname=="Int") tmpItem=(new HlInt(attr,context,regionId,regionId2)); else
+    if (dataname=="DetectChar") tmpItem=(new HlCharDetect(attr,context,regionId,regionId2,chr)); else
+    if (dataname=="Detect2Chars") tmpItem=(new Hl2CharDetect(attr,context,regionId,regionId2,chr,chr1)); else
+    if (dataname=="RangeDetect") tmpItem=(new HlRangeDetect(attr,context,regionId,regionId2, chr, chr1)); else
+    if (dataname=="LineContinue") tmpItem=(new HlLineContinue(attr,context,regionId,regionId2)); else
+    if (dataname=="StringDetect") tmpItem=(new HlStringDetect(attr,context,regionId,regionId2,stringdata,insensitive)); else
+    if (dataname=="AnyChar") tmpItem=(new HlAnyChar(attr,context,regionId,regionId2,stringdata)); else
+    if (dataname=="RegExpr") tmpItem=(new HlRegExpr(attr,context,regionId,regionId2,stringdata, insensitive, minimal)); else
+    if (dataname=="HlCChar") tmpItem= ( new HlCChar(attr,context,regionId,regionId2));else
+    if (dataname=="HlCHex") tmpItem= (new HlCHex(attr,context,regionId,regionId2));else
+    if (dataname=="HlCOct") tmpItem= (new HlCOct(attr,context,regionId,regionId2)); else
+    if (dataname=="HlCFloat") tmpItem= (new HlCFloat(attr,context,regionId,regionId2)); else
+    if (dataname=="HlCStringChar") tmpItem= (new HlCStringChar(attr,context,regionId,regionId2)); else
 
   {
     // oops, unknown type. Perhaps a spelling error in the xml file

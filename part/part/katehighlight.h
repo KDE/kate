@@ -48,7 +48,7 @@ class QStringList;
 
 class HlItem {
   public:
-    HlItem(int attribute, int context,signed char regionId);
+    HlItem(int attribute, int context,signed char regionId, signed char regionId2);
     virtual ~HlItem();
     virtual bool alwaysStartEnable() const { return true; };
     virtual bool hasCustomStartEnable() const { return false; };
@@ -66,6 +66,7 @@ class HlItem {
     int attr;
     int ctx;
     signed char region;
+    signed char region2;
 };
 
 //Item Style: color, selected color, bold, italic

@@ -36,6 +36,7 @@
 #include <qintdict.h>
 #include <qdatetime.h>
 #include <kglobalsettings.h>
+#include <kspell.h>
 
 class KateCmd;
 
@@ -431,8 +432,8 @@ class KateDocument : public Kate::Document
   public slots:    //please keep prototypes and implementations in same order
     void spellcheck();
     void spellcheck2(KSpell*);
-    void misspelling (QString word, QStringList *, unsigned pos);
-    void corrected (QString originalword, QString newword, unsigned);
+    void misspelling (const QString & word, const QStringList &, unsigned int pos);
+    void corrected (const QString & originalword, const QString & newword, unsigned int);
     void spellResult (const QString &newtext);
     void spellCleanDone();
 

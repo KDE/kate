@@ -53,6 +53,7 @@
 #include <klistview.h>
 #include <qlayout.h>
 #include <kconfig.h>
+#include <kspell.h>
 
 #include <kmainwindow.h>
 #include <kaccel.h>

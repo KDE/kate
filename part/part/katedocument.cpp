@@ -2171,10 +2171,10 @@ void KateDocument::spellcheck()
 
   connect (kspell.kspell, SIGNAL (progress (unsigned int)),
           this, SIGNAL (spellcheck_progress (unsigned int)) );
-  connect (kspell.kspell, SIGNAL (misspelling (QString , QStringList *, unsigned)),
-          this, SLOT (misspelling (QString, QStringList *, unsigned)));
-  connect (kspell.kspell, SIGNAL (corrected (QString, QString, unsigned)),
-          this, SLOT (corrected (QString, QString, unsigned)));
+  connect (kspell.kspell, SIGNAL (misspelling (const QString &, const QStringList &, unsigned int)),
+          this, SLOT (misspelling (const QString &, const QStringList &, unsigned int)));
+  connect (kspell.kspell, SIGNAL (corrected (const QString&, const QString&, unsigned int)),
+          this, SLOT (corrected (const QString&, const QString&, unsigned int)));
   connect (kspell.kspell, SIGNAL (done(const QString&)),
           this, SLOT (spellResult (const QString&)));
 }
@@ -2201,7 +2201,7 @@ void KateDocument::spellcheck2(KSpell *)
   kspell.kspell->check(kspell.spell_tmptext);
 }
 
-void KateDocument::misspelling (QString origword, QStringList *, unsigned pos)
+void KateDocument::misspelling (const QString &origword, const QStringList &, unsigned pos)
 {
   uint line;
   uint cnt;
@@ -2233,7 +2233,7 @@ void KateDocument::misspelling (QString origword, QStringList *, unsigned pos)
   updateViews();
 }
 
-void KateDocument::corrected (QString originalword, QString newword, unsigned)
+void KateDocument::corrected (const QString & originalword, const QString & newword, unsigned)
 {
   removeText(selectStart.line, selectStart.col, selectStart.line, selectStart.col + originalword.length());
   insertText(selectStart.line, selectStart.col, newword);

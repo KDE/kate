@@ -36,6 +36,7 @@ class KPushButton;
 class KMainWindow;
 class KAccel;
 class KKeyChooser;
+class KSpellConfig;
 
 #include <kdialogbase.h>
 #include "kateview.h"
@@ -246,6 +247,7 @@ protected slots:
     void apply ();
     void reload ();
 };
+
 
 class KSpellConfigPage : public Kate::ConfigPage
 {

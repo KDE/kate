@@ -34,7 +34,6 @@
 #include <qregexp.h>
 #include <qstring.h>
 #include <qdialog.h>
-#include <kspell.h>
 
 class KToggleAction;
 class KActionMenu;

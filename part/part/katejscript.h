@@ -65,7 +65,7 @@ class KateJScript
     KJS::ObjectImp *wrapDocument (KJS::ExecState *exec, KateDocument *doc);
 
     /**
-     * creates a JS wrapper object for given KateDocument
+     * creates a JS wrapper object for given KateView
      * @param exec execution state, to find out interpreter to use
      * @param doc document object to wrap
      * @return new js wrapper object

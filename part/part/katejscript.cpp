@@ -21,6 +21,10 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katefactory.h"
+#include "kateconfig.h"
+#include "kateautoindent.h"
+#include "katehighlight.h"
+#include "katetextline.h"
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -114,6 +118,14 @@ class KateJSDocument : public KJS::ObjectImp
   public:
     KateJSDocument (KJS::ExecState *exec, KateDocument *_doc);
 
+    KJS::Value get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const;
+
+    KJS::Value getValueProperty(KJS::ExecState *exec, int token) const;
+
+    void put(KJS::ExecState *exec, const KJS::Identifier &propertyName, const KJS::Value& value, int attr = KJS::None);
+
+    void putValueProperty(KJS::ExecState *exec, int token, const KJS::Value& value, int attr);
+
     const KJS::ClassInfo* classInfo() const { return &info; }
 
     enum { FullText,
@@ -129,7 +141,19 @@ class KateJSDocument : public KJS::ObjectImp
           InsertLine,
           RemoveLine,
           EditBegin,
-          EditEnd
+          EditEnd,
+          IndentWidth,
+          IndentMode,
+          SpaceIndent,
+          MixedIndent,
+          HighlightMode,
+          IsInWord,
+          CanBreakAt,
+          CanComment,
+          CommentMarker,
+          CommentStart,
+          CommentEnd,
+          Attribute
     };
 
   public:
@@ -156,6 +180,8 @@ class KateJSView : public KJS::ObjectImp
     enum { CursorLine,
           CursorColumn,
           CursorColumnReal,
+          SetCursorPosition,
+          SetCursorPositionReal,
           Selection,
           HasSelection,
           SetSelection,
@@ -255,7 +281,7 @@ bool KateJScript::execute (KateView *view, const QString &script, QString &error
 
 // -------------------------------------------------------------------------
 /* Source for KateJSDocumentProtoTable.
-@begin KateJSDocumentProtoTable 15
+@begin KateJSDocumentProtoTable 21
 #
 # edit interface stuff + editBegin/End, this is nice start
 #
@@ -273,6 +299,27 @@ bool KateJScript::execute (KateView *view, const QString &script, QString &error
   removeLine     KateJSDocument::RemoveLine    DontDelete|Function 1
   editBegin      KateJSDocument::EditBegin     DontDelete|Function 0
   editEnd        KateJSDocument::EditEnd       DontDelete|Function 0
+#
+# methods from highlight (and around)
+#
+  isInWord       KateJSDocument::IsInWord         DontDelete|Function 2
+  canBreakAt     KateJSDocument::CanBreakAt       DontDelete|Function 2
+  canComment     KateJSDocument::CanComment       DontDelete|Function 2
+  commentMarker  KateJSDocument::CommentMarker    DontDelete|Function 1
+  commentStart   KateJSDocument::CommentStart     DontDelete|Function 1
+  commentEnd     KateJSDocument::CommentEnd       DontDelete|Function 1
+  attribute      KateJSDocument::Attribute        DontDelete|Function 2
+@end
+
+@begin KateJSDocumentTable 6
+#
+# Configuration properties
+#
+  indentWidth     KateJSDocument::IndentWidth   DontDelete|ReadOnly
+  indentMode      KateJSDocument::IndentMode    DontDelete|ReadOnly
+  spaceIndent     KateJSDocument::SpaceIndent   DontDelete|ReadOnly
+  mixedIndent     KateJSDocument::MixedIndent   DontDelete|ReadOnly
+  highlightMode   KateJSDocument::HighlightMode DontDelete|ReadOnly
 @end
 */
 
@@ -336,9 +383,71 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
     case KateJSDocument::EditEnd:
       doc->editEnd ();
       return KJS::Null ();
+
+    case KateJSDocument::IsInWord:
+      return KJS::Boolean( doc->highlight()->isInWord( args[0].toString(exec).qstring().at(0), args[1].toUInt32(exec) ) );
+
+    case KateJSDocument::CanBreakAt:
+      return KJS::Boolean( doc->highlight()->canBreakAt( args[0].toString(exec).qstring().at(0), args[1].toUInt32(exec) ) );
+
+    case KateJSDocument::CanComment:
+      return KJS::Boolean( doc->highlight()->canComment( args[0].toUInt32(exec), args[1].toUInt32(exec) ) );
+
+    case KateJSDocument::CommentMarker:
+      return KJS::String( doc->highlight()->getCommentSingleLineStart( args[0].toUInt32(exec) ) );
+
+    case KateJSDocument::CommentStart:
+      return KJS::String( doc->highlight()->getCommentStart( args[0].toUInt32(exec) ) );
+
+    case KateJSDocument::CommentEnd:
+      return KJS::String( doc->highlight()->getCommentEnd(  args[0].toUInt32(exec) ) );
+
+    case KateJSDocument::Attribute:
+      return KJS::Number( doc->kateTextLine(args[0].toUInt32(exec))->attribute(args[1].toUInt32(exec)) );
   }
 
   return KJS::Undefined();
+}
+
+KJS::Value KateJSDocument::get( KJS::ExecState *exec, const  KJS::Identifier &propertyName) const
+{
+  return KJS::lookupGetValue<KateJSDocument,KJS::ObjectImp>(exec, propertyName, &KateJSDocumentTable, this );
+}
+
+KJS::Value KateJSDocument::getValueProperty(KJS::ExecState *exec, int token) const
+{
+  if (!doc)
+    return KJS::Undefined ();
+
+  switch (token) {
+    case KateJSDocument::IndentWidth:
+      return KJS::Number( doc->config()->indentationWidth() );
+
+    case KateJSDocument::IndentMode:
+      return KJS::String( KateAutoIndent::modeName( doc->config()->indentationMode() ) );
+
+    case KateJSDocument::SpaceIndent:
+      return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfSpaceIndent );
+
+    case KateJSDocument::MixedIndent:
+      return KJS::Boolean( doc->config()->configFlags() & KateDocumentConfig::cfMixedIndent );
+
+    case KateJSDocument::HighlightMode:
+      return KJS::String( doc->hlModeName( doc->hlMode() ) );
+  }
+
+  return KJS::Undefined ();
+}
+
+void KateJSDocument::put(KJS::ExecState *exec, const KJS::Identifier &propertyName, const KJS::Value& value, int attr)
+{
+  KJS::lookupPut<KateJSDocument,KJS::ObjectImp>(exec, propertyName, value, attr, &KateJSDocumentTable, this );
+}
+
+void KateJSDocument::putValueProperty(KJS::ExecState *exec, int token, const KJS::Value& value, int attr)
+{
+  if (!doc)
+    return;
 }
 
 KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
@@ -357,6 +466,8 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
   cursorLine          KateJSView::CursorLine            DontDelete|Function 0
   cursorColumn        KateJSView::CursorColumn          DontDelete|Function 0
   cursorColumnReal    KateJSView::CursorColumnReal      DontDelete|Function 0
+  setCursorPosition   KateJSView::SetCursorPosition     DontDelete|Function 2
+  setCursorPositionReal KateJSView::SetCursorPositionReal DontDelete|Function 2
   selection           KateJSView::Selection             DontDelete|Function 0
   hasSelection        KateJSView::HasSelection          DontDelete|Function 0
   setSelection        KateJSView::SetSelection          DontDelete|Function 4
@@ -401,6 +512,12 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
     case KateJSView::CursorColumnReal:
       return KJS::Number (view->cursorColumnReal());
 
+    case KateJSView::SetCursorPosition:
+      return KJS::Boolean( view->setCursorPosition( args[0].toUInt32(exec), args[1].toUInt32(exec) ) );
+
+    case KateJSView::SetCursorPositionReal:
+      return KJS::Boolean( view->setCursorPositionReal( args[0].toUInt32(exec), args[1].toUInt32(exec) ) );
+
     // SelectionInterface goes in the view, in anticipation of the future
     case KateJSView::Selection:
       return KJS::String( view->selection() );
@@ -410,9 +527,9 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
 
     case KateJSView::SetSelection:
       return KJS::Boolean( view->setSelection(args[0].toUInt32(exec),
-                                                     args[1].toUInt32(exec),
-                                                     args[2].toUInt32(exec),
-                                                     args[3].toUInt32(exec)) );
+                                              args[1].toUInt32(exec),
+                                              args[2].toUInt32(exec),
+                                              args[3].toUInt32(exec)) );
 
     case KateJSView::RemoveSelectedText:
       return KJS::Boolean( view->removeSelectedText() );

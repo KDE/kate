@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="D" version="0.68" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
+<language name="D" version="d.0.69.xml.0.02" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
 	<highlighting>
 		<list name="keywords">
 			<item> abstract </item>
@@ -102,6 +102,10 @@
 			<item> cdouble </item>
 			<item> char </item>
 			<item> wchar </item>
+			<item> dchar </item>
+		</list>
+		<list name="phobos">
+			<item> printf </item>
 		</list>
 		<list name="linkage">
 			<item> extern </item>
@@ -111,6 +115,12 @@
 			<item> D </item>
 			<item> Windows </item>
 			<item> Pascal </item>
+		</list>
+		<list name="debug">
+			<item> debug </item>
+		</list>
+		<list name="assert">
+			<item> assert </item>
 		</list>
 		<list name="version">
 			<item> version </item>
@@ -125,21 +135,6 @@
 			<item> D_InlineAsm </item>
 			<item> none </item>
 		</list>
-		<list name="debug">
-			<item> debug </item>
-		</list>
-		<list name="assert">
-			<item> assert </item>
-		</list>
-		<list name="phobos">
-			<item> printf </item>
-		</list>
-		<list name="pragmas">
-			<item> # </item>
-		</list>
-		<list name="ptypes">
-			<item> line </item>
-		</list>
 		<list name="unittest">
 			<item> unittest </item>
 		</list>
@@ -148,30 +143,53 @@
 				<keyword attribute="Keyword"					context="#stay"		String="keywords"/>
 				<keyword attribute="Module"					context="ModuleName"	String="modules"/>
 				<keyword attribute="Type"						context="#stay"		String="types"/>
-				<keyword attribute="Pragmas"					context="Pragmas"		String="pragmas"/>
 				<keyword attribute="Phobos Library"		context="#stay"		String="phobos"/>
 				<keyword attribute="Linkage"					context="Linkage"		String="linkage"/>
-				<keyword attribute="Debug"					context="Debug"		String="debug"/>
-				<keyword attribute="Assert"					context="Assert"		String="assert"/>
+				<keyword attribute="Debug"					context="#stay"		String="debug"/>
+				<keyword attribute="Assert"					context="#stay"		String="assert"/>
 				<keyword attribute="Version"					context="Version"		String="version"/>
 				<keyword attribute="Unit Test"				context="#stay"		String="unittest"/>
 
-				<Float attribute="Float" context="#stay">
-					<RegExpr attribute="Float" context="#stay" String="(FI|IF|LI|IL|I|F|L)" insensitive="TRUE"/>
-				</Float>
-				<HlCOct attribute="Octal" context="#stay"/>
-				<HlCHex attribute="Hex" context="#stay"/>
-				<Int attribute="Decimal" context="#stay">
-					<RegExpr attribute="Float" context="#stay" String="(UL|LU|U|L)" insensitive="TRUE"/>
-				</Int>
-				<HlCChar attribute="Char" context="#stay"/>
+				<Detect2Chars attribute="Wysiwyg" context="Wysiwyg" char="r" char1="&quot;"/>
+				<Detect2Chars attribute="Hex" context="Hex" char="x" char1="&quot;"/>
+
+				<RegExpr attribute="Normal Text" context="#pop" String="[_a-z][\w]*" insensitive="TRUE"/>
+
+				<RegExpr attribute="Pragmas" context="#pop" String="\#[ ]*line"/>
+
+				<RegExpr attribute="Escape String" context="#pop" String="\\[n|t|&quot;]"/>
+				<RegExpr attribute="Escape String" context="#pop" String="(\\r\\n)"/>
+				<RegExpr attribute="Escape String" context="#pop" String="\\0[0-7]+"/>
+				<RegExpr attribute="Escape String" context="#pop" String="\\u[\d]+" insensitive="TRUE"/>
+				<RegExpr attribute="Escape String" context="#pop" String="\\x[\da-fA-F]+"/>
+
+				<RegExpr attribute="Binary" context="#pop" String="0b[01]+[_01]*[ ]*\.\.[ ]*0b[01]+[_01]*(UL|LU|U|L)?" insensitive="TRUE"/>
+				<RegExpr attribute="Octal" context="#pop" String="0[0-7]+[_0-7]*[ ]*\.\.[ ]*0[0-7]+[_0-7]*(UL|LU|U|L)?" insensitive="TRUE"/>
+				<RegExpr attribute="Hex" context="#pop" String="0x[\da-f]+[_\da-f]*[ ]*\.\.[ ]*0x[\da-f]+[_\da-f]*(UL|LU|U|L)?" insensitive="TRUE"/>
+				<RegExpr attribute="Integer" context="#pop" String="[\d]+[_\d]*(UL|LU|U|L)?[ ]*\.\.[ ]*[\d]+[_\d]*(UL|LU|U|L)?" insensitive="TRUE"/>
+
+				<RegExpr attribute="Float" context="#pop" String="[\d]*[_\d]*\.[_\d]*(e-|e|e\+)?[\d]+[_\d]*(F|L|I|FI|LI|)?" insensitive="TRUE"/>
+				<RegExpr attribute="Float" context="#pop" String="[\d]*[_\d]*\.?[_\d]*(e-|e|e\+)[\d]+[_\d]*(F|L|I|FI|LI|)?" insensitive="TRUE"/>
+				<RegExpr attribute="Float" context="#pop" String="0x[\da-f]+[_\da-f]*\.[_\da-f]*(p-|p|p\+)?[\da-f]+[_\da-f]*(F|L|I|FI|LI)?" insensitive="TRUE"/>
+				<RegExpr attribute="Float" context="#pop" String="0x[\da-f]+[_\da-f]*\.?[_\da-f]*(p-|p|p\+)[\da-f]+[_\da-f]*(F|L|I|FI|LI)?" insensitive="TRUE"/>
+
+				<RegExpr attribute="Binary" context="#pop" String="0B[01]+[_01]*(UL|LU|U|L)?" insensitive="TRUE"/>
+				<RegExpr attribute="Octal" context="#pop" String="0[0-7]+[_0-7]*(UL|LU|U|L)?" insensitive="TRUE"/>
+				<RegExpr attribute="Hex" context="#pop" String="0x[\da-f]+[_\da-f]*(UL|LU|U|L)?" insensitive="TRUE"/>
+				<RegExpr attribute="Integer" context="#pop" String="[\d]+[_\d]*(UL|LU|U|L)?" insensitive="TRUE"/>
+
+				<DetectChar attribute="Char" context="Char" char="'"/>
 				<DetectChar attribute="String" context="String" char="&quot;"/>
+				<DetectChar attribute="Wysiwyg" context="Wysiwyg" char="`"/>
+
 				<Detect2Chars attribute="Comment" context="CommentLine" char="/" char1="/"/>
 				<Detect2Chars attribute="Comment" context="CommentBlockA" char="/" char1="*" beginRegion="CommentA"/>
 				<Detect2Chars attribute="Comment" context="CommentBlockB" char="/" char1="+" beginRegion="CommentB"/>
+
 				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="BraceA" />
 				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="BraceA" />
 			</context>
+
 			<context attribute="Module Name" lineEndContext="#stay" name="ModuleName">
 				<DetectChar attribute="Normal Text" context="#stay" char=","/>
 				<DetectChar attribute="Normal Text" context="#pop" char=";"/>
@@ -179,6 +197,38 @@
 				<Detect2Chars attribute="Comment" context="CommentBlockA" char="/" char1="*" beginRegion="CommentA"/>
 				<Detect2Chars attribute="Comment" context="CommentBlockB" char="/" char1="+" beginRegion="CommentB"/>
 			</context>
+
+			<context attribute="Linkage" lineEndContext="#pop" name="Linkage">
+				<keyword attribute="Type" context="#pop" String="types"/>
+				<DetectChar attribute="Normal Text" context="#stay" char="("/>
+				<keyword attribute="Linkage Type" context="#stay" String="ltypes"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=")"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=";"/>
+			</context>
+			<context attribute="Version" lineEndContext="#pop" name="Version">
+				<DetectChar attribute="Normal Text" context="#pop" char="="/>
+            <DetectChar attribute="Normal Text" context="#stay" char="("/>
+				<keyword attribute="Version Type" context="#stay" String="vtypes"/>
+            <RegExpr attribute="Normal Text" context="#pop" String="\w" insensitive="TRUE"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=")"/>
+			</context>
+
+			<context attribute="Wysiwyg" lineEndContext="#stay" name="Wysiwyg">
+				<DetectChar attribute="Wysiwyg" context="#pop" char="&quot;"/>
+				<DetectChar attribute="Wysiwyg" context="#pop" char="`"/>
+			</context>
+			<context attribute="Hex" lineEndContext="#stay" name="Hex">
+				<DetectChar attribute="Hex" context="#pop" char="&quot;"/>
+			</context>
+			<context attribute="Char" lineEndContext="#stay" name="Char">
+	         <Detect2Chars attribute="Char" context="#stay" char="\" char1="'"/>
+            <Detect2Chars attribute="Char" context="#stay" char="\" char1="\"/>
+				<DetectChar attribute="Char" context="#pop" char="'"/>
+			</context>
+			<context attribute="String" lineEndContext="#stay" name="String">
+				<DetectChar attribute="String" context="#pop" char="&quot;"/>
+			</context>
+
 			<context attribute="Comment" lineEndContext="#pop" name="CommentLine">
 			</context>
 			<context attribute="Comment" lineEndContext="#stay" name="CommentBlockA">
@@ -187,48 +237,35 @@
 			<context attribute="Comment" lineEndContext="#stay" name="CommentBlockB">
 				<Detect2Chars attribute="Comment" context="#pop" char="+" char1="/" endRegion="CommentB"/>
 			</context>
-			<context attribute="String" lineEndContext="#stay" name="String">
-				<DetectChar attribute="String" context="#pop" char="&quot;"/>
-			</context>
-			<context attribute="Linkage" lineEndContext="#pop" name="Linkage">
-				<DetectChar attribute="Normal Text" context="#stay" char="("/>
-				<keyword attribute="Linkage Type" context="#stay" String="ltypes"/>
-				<DetectChar attribute="Normal Text" context="#pop" char=")"/>
-				<DetectChar attribute="Normal Text" context="#pop" char=";"/>
-			</context>
-			<context attribute="Version" lineEndContext="#pop" name="Version">
-				<DetectChar attribute="Normal Text" context="#stay" char="("/>
-				<keyword attribute="Version Type" context="#stay" String="vtypes"/>
-				<DetectChar attribute="Normal Text" context="#pop" char=")"/>
-			</context>
-			<context attribute="Pragmas" lineEndContext="#pop" name="Pragmas">
-				<keyword attribute="Pragmas" context="#pop" String="ptypes"/>
-			</context>
 		</contexts>
 		<itemDatas>
 			<itemData name="Normal Text"		defStyleNum="dsNormal"/>
 			<itemData name="Keyword"			defStyleNum="dsKeyWord"		color="#000000" selColor="#ffffff" bold="1" italic="0"/>
 			<itemData name="Module"			defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
 			<itemData name="Module Name"		defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="1" italic="1"/>
-			<itemData name="Phobos Library"	defStyleNum="dsKeyWord"		color="#000000" selColor="#ffffff" bold="1" italic="1"/>
-			<itemData name="Pragmas"			defStyleNum="dsKeyWord"		color="#00aa00" selColor="#ffffff" bold="1" italic="0"/>
-			<itemData name="Linkage"			defStyleNum="dsKeyWord"		color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
-			<itemData name="Version"			defStyleNum="dsKeyWord"		color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
-			<itemData name="Assert"			defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
-			<itemData name="Debug"				defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
-			<itemData name="Unit Test"		defStyleNum="dsKeyWord"		color="#ff00ff" selColor="#ffffff" bold="1" italic="0"/>
-
 			<itemData name="Type"				defStyleNum="dsDataType"/>
+			<itemData name="Phobos Library"	defStyleNum="dsKeyWord"		color="#000000" selColor="#ffffff" bold="1" italic="1"/>
+			<itemData name="Linkage"			defStyleNum="dsKeyWord"		color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
 			<itemData name="Linkage Type"	defStyleNum="dsDataType"	color="#ff0000" selColor="#ffffff" bold="1" italic="1"/>
+			<itemData name="Debug"				defStyleNum="dsKeyWord"		color="#ff00ff" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Assert"			defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Version"			defStyleNum="dsKeyWord"		color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
 			<itemData name="Version Type"	defStyleNum="dsDataType"	color="#ff0000" selColor="#ffffff" bold="1" italic="1"/>
+			<itemData name="Unit Test"		defStyleNum="dsKeyWord"		color="#ff00ff" selColor="#ffffff" bold="1" italic="0"/>
+			<itemData name="Pragmas"			defStyleNum="dsKeyWord"		color="#00aa00" selColor="#ffffff" bold="1" italic="0"/>
 
-			<itemData name="Decimal"			defStyleNum="dsDecVal"		color="#00dddd" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Integer"			defStyleNum="dsDecVal"		color="#ea9d0d" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Binary"			defStyleNum="dsBaseN"		color="#00dddd" selColor="#00ffff" bold="0" italic="0"/>
 			<itemData name="Octal"				defStyleNum="dsBaseN"		color="#00aaaa" selColor="#00ffff" bold="0" italic="0"/>
 			<itemData name="Hex"				defStyleNum="dsBaseN"		color="#006666" selColor="#00ffff" bold="0" italic="0"/>
 			<itemData name="Float"				defStyleNum="dsFloat"/>
-			<itemData name="Char"				defStyleNum="dsChar"			color="#ff00ff" selColor="#ff00ff" bold="0" italic="0"/>
-			<itemData name="Comment"			defStyleNum="dsComment"/>
+
+			<itemData name="Escape String"	defStyleNum="dsString"		color="#00aa00" selColor="#ff0000" bold="0" italic="0"/>
 			<itemData name="String"			defStyleNum="dsString"		color="#00aa00" selColor="#ff0000" bold="0" italic="0"/>
+			<itemData name="Char"				defStyleNum="dsChar"			color="#ff00ff" selColor="#ff00ff" bold="0" italic="0"/>
+			<itemData name="Wysiwyg"			defStyleNum="dsChar"			color="#a100a1" selColor="#ff00ff" bold="0" italic="0"/>
+
+			<itemData name="Comment"			defStyleNum="dsComment"/>
 		</itemDatas>
 	</highlighting>
 	<general>

@@ -20,8 +20,11 @@
 #ifndef __ktexteditor_selectioninterface_h__
 #define __ktexteditor_selectioninterface_h__
 
+#include <qstring.h>
 namespace KTextEditor
 {
+static int SelectionInterfaceNumber;
+class PrivateSelectionInterface;
 
 /*
 *  This is an interface for the KTextEditor::Document class !!!
@@ -32,6 +35,8 @@ class SelectionInterface
 	// slots !!!
 	//
   public:
+	SelectionInterface();
+	virtual ~SelectionInterface();
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */
@@ -72,6 +77,8 @@ class SelectionInterface
 	//
 	public:
 	  virtual void selectionChanged () = 0;
+	private:
+		PrivateSelectionInterface *d;
 };
 
 };

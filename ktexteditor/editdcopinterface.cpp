@@ -1,61 +1,61 @@
 #include "editdcopinterface.h"
 #include "editinterface.h"
-#include "document.h"
 
 #include <dcopclient.h>
+using namespace KTextEditor;
 
-EditDCOPInterface::EditDCOPInterface( Document *ParentDocument)
-	: DCOPObject(ParentDocument->name())
+EditDCOPInterface::EditDCOPInterface( EditInterface *Parent, const char *name)
+	: DCOPObject(name)
 {
-	m_Document = ParentDocument;
+	m_parent = Parent;
 }
 
-EditDCOPInterface::~KMainWindowInterface()
+EditDCOPInterface::~EditDCOPInterface()
 {
 
 }
 
 QString EditDCOPInterface::text ()
 {
-	return m_Document->text();
+	return m_parent->text();
 }
 
 QString EditDCOPInterface::textLine ( int line )
 {
-	return m_Document->textLine(line);
+	return m_parent->textLine(line);
 }
 
 int EditDCOPInterface::numLines ()
 {
-	return m_Document->numLines();
+	return m_parent->numLines();
 }
 
 int EditDCOPInterface::length ()
 {
-	return m_Document->linghth();
+	return m_parent->length();
 }
 
-void EditDCOPInterface::setText ( QString &text )
+void EditDCOPInterface::setText ( const QString &text )
 {
-	m_Document->setText(text);
+	m_parent->setText(text);
 }
 
-bool EditDCOPInterface::insertText ( QString &text, int line, int col )
+bool EditDCOPInterface::insertText ( uint line, uint col, const QString &text )
 {
-	return m_Document->insertText( text, line, col);
+	return m_parent->insertText( line, col, text);
 }
 
-bool EditDCOPInterface::removeText ( int line, int col, int len )
+bool EditDCOPInterface::removeText ( uint startLine, uint startCol, uint endLine, uint endCol )
 {
-	return m_Document->removeText( line, col, len);
+	return m_parent->removeText( startLine, startCol, endLine, endCol);
 }
 
-bool EditDCOPInterface::insertLine (QString &text, int line)
+bool EditDCOPInterface::insertLine ( uint line, const QString &text )
 {
-	return m_Document->insertLine( text, line);
+	return m_parent->insertLine( line, text);
 }
 
 bool EditDCOPInterface::removeLine ( int line )
 {
-	return m_Document->removeLine( line );
+	return m_parent->removeLine( line );
 }

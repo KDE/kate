@@ -19,19 +19,26 @@
 
 #ifndef __ktexteditor_editinterface_h__
 #define __ktexteditor_editinterface_h__
+#include <qstring.h>
 
 namespace KTextEditor
 {
+static int EditInterfaceNumber;
+
+class PrivateEditInterface;
 
 /*
 *  This is an interface for the KTextEditor::Document class !!!
 */
 class EditInterface
 {
-  //
+  public:
+	EditInterface();
+	virtual ~EditInterface();
+
+	//
 	// slots !!!
 	//
-  public:
     /**
     * @return the complete document as a single QString
     */
@@ -103,6 +110,8 @@ class EditInterface
 	//
 	public:
 	  virtual void textChanged () = 0;
+private:
+		PrivateEditInterface *d;
 };
 
 

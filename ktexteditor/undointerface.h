@@ -20,6 +20,7 @@
 #ifndef __ktexteditor_undointerface_h__
 #define __ktexteditor_undointerface_h__
 
+
 namespace KTextEditor
 {
 

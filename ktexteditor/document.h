@@ -26,6 +26,7 @@ namespace KTextEditor
 {
 
 class View;
+class DocumentPrivate;
 
 class Document : public KParts::ReadWritePart
 {
@@ -46,6 +47,11 @@ class Document : public KParts::ReadWritePart
     * Accessor to the list of views.
     */
     virtual QPtrList<View> views () const = 0;
+    
+    private:
+	// dPointer so we can add the interface
+	DocumentPrivate *d;
+
 };
 
 };

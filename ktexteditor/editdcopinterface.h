@@ -5,85 +5,86 @@
 #include <dcopref.h>
 #include <qstringlist.h>
 #include <qcstring.h>
-
-class EditInterface;
-class Document;
-/**
-This is the main interface to the @ref EditInterface of KTextEdit.
-This will provide a consistant dcop interface to all KDE applications that use it.
-@short DCOP interface to @ref EditInterface.
-@author Ian Reinhart Geiser <geiseri@yahoo.com>
-*/
-class EditDCOPInterface : virtual public DCOPObject
+//#include "editdcopinterface.moc"
+namespace KTextEditor
 {
-K_DCOP
+	class EditInterface;
+	/**
+	This is the main interface to the @ref EditInterface of KTextEdit.
+	This will provide a consistant dcop interface to all KDE applications that use it.
+	@short DCOP interface to @ref EditInterface.
+	@author Ian Reinhart Geiser <geiseri@yahoo.com>
+	*/
+	class EditDCOPInterface : virtual public DCOPObject
+	{
+	K_DCOP
 
-public:
-	/**
-	Construct a new interface object for the text editor.
-	@param ParentEditInterface - The parent @ref EditInterface object
-	that will provide us with the functions for the interface.
-	*/
-	EditDCOPInterface( EditInterface *ParentDocument );
-	/**
-	Destructor
-	Cleans up the object.
-	**/
-	~EditDCOPInterface();
-k_dcop:
-	/**
-	* @return the complete document as a single QString
-	*/
-	virtual QString text ();
+	public:
+		/**
+		Construct a new interface object for the text editor.
+		@param ParentEditInterface - The parent @ref EditInterface object
+		that will provide us with the functions for the interface.
+		*/
+		EditDCOPInterface( EditInterface *Parent, const char *name );
+		/**
+		Destructor
+		Cleans up the object.
+		**/
+		virtual ~EditDCOPInterface();
+	k_dcop:
+		/**
+		* @return the complete document as a single QString
+		*/
+		virtual QString text ();
 
-	/**
-	* @return All the text from the requested line.
-	*/
-	virtual QString textLine ( int line );
+		/**
+		* @return All the text from the requested line.
+		*/
+		virtual QString textLine ( int line );
 
-	/**
-	* @return The current number of lines in the document
-	*/
-	virtual int numLines ();
+		/**
+		* @return The current number of lines in the document
+		*/
+		virtual int numLines ();
 
-	/**
-	* @return the number of characters in the document
-	*/
-	virtual int length ();
+		/**
+		* @return the number of characters in the document
+		*/
+		virtual int length ();
 
-	/**
-	* Set the given text into the view.
-	* Warning: This will overwrite any data currently held in this view.
-	*/
-	virtual void setText (QString &text );
+		/**
+		* Set the given text into the view.
+		* Warning: This will overwrite any data currently held in this view.
+		*/
+		virtual void setText (const QString &text );
 
-	/**
-	*  Inserts text at line "line", column "col"
-	*  returns true if success
-	*/
-	virtual bool insertText ( QString &text, int line, int col);
+		/**
+		*  Inserts text at line "line", column "col"
+		*  returns true if success
+		*/
+		virtual bool insertText ( uint line, uint col, const QString &text );
 
-	/**
-	*  remove text at line "line", column "col"
-	*  returns true if success
-	*/
-	virtual bool removeText ( int line, int col, int len );
+		/**
+		*  remove text at line "line", column "col"
+		*  returns true if success
+		*/
+		virtual bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol) ;
 
-	/**
-	* Insert line(s) at the given line number. If the line number is -1
-	* (the default) then the line is added to end of the document
-	*/
-	virtual bool insertLine ( QString &text, int line );
+		/**
+		* Insert line(s) at the given line number. If the line number is -1
+		* (the default) then the line is added to end of the document
+		*/
+		virtual bool insertLine ( uint line, const QString &text );
 
-	/**
-	* Insert line(s) at the given line number. If the line number is -1
-	* (the default) then the line is added to end of the document
-	*/
-	virtual bool removeLine ( int line );
-private:
-	Document *m_Document;
+		/**
+		* Insert line(s) at the given line number. If the line number is -1
+		* (the default) then the line is added to end of the document
+		*/
+		virtual bool removeLine ( int line );
+	private:
+		EditInterface *m_parent;
+	};
 };
-
 #endif
 
 

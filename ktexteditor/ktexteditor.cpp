@@ -32,6 +32,22 @@
 
 using namespace KTextEditor;
 
+namespace KTextEditor
+{
+	class DocumentPrivate
+	{
+	public:
+		DocumentPrivate()
+		{
+		}
+
+		~DocumentPrivate()
+		{
+		}
+
+	};
+};
+
 View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
 {
 }
@@ -42,6 +58,7 @@ View::~View()
 
 Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
 {
+
 }
 
 Document::~Document()

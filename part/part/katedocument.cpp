@@ -3312,7 +3312,7 @@ void KateDocument::doIndent( uint line, int change)
       // if any line we may unindent is already full left, don't do anything
       for (line = sl; line <= el; line++) {
         textLine = buffer->line(line);
-        if (lineSelected(line) || lineHasSelected(line)) {
+        if ((textLine->length() > 0) && (lineSelected(line) || lineHasSelected(line))) {
           for (z = 0; z < tabChars; z++) {
             ch = textLine->getChar(z);
             if (ch == '\t') break;

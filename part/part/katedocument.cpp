@@ -1357,6 +1357,11 @@ bool KateDocument::setBlockSelectionMode (bool on)
     oldSelectEnd = selectEnd;
     clearSelection();
     setSelection(oldSelectStart, oldSelectEnd);
+
+    for (KateView * view = m_views.first(); view; view = m_views.next())
+    {
+      view->slotSelectionTypeChanged();
+    }
   }
 
   return true;

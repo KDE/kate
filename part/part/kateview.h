@@ -293,6 +293,7 @@ class KateView : public Kate::View,
     void slotSetEncoding( const QString& descriptiveName );
     void updateFoldingMarkersAction();
     void slotStatusMsg();
+    void slotSelectionTypeChanged();
     void slotSaveCanceled( const QString& error );
     
   public:

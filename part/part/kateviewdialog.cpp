@@ -556,7 +556,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	blay->addStretch(1000);
 
 	QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
-	QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side<br><br>The icon border shows bookmark signs, for instance."));
+	QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
 	QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
 
 	QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));

@@ -174,14 +174,14 @@ void KateView::setupActions()
     a=new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
                               ac, "tools_indent");
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br><br>"
-		"You can configure whether tabs should be honored and used or replace with spaces, in the configuration dialog."));
+		"You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     a=new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),
                                 ac, "tools_unindent");
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
     a=new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
                                    ac, "tools_cleanIndent");
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br><br>"
-		"You can configure whether tabs should be honored and used or replace with spaces, in the configuration dialog."));
+		"You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
 
     a=new KAction(i18n("C&omment"), CTRL+Qt::Key_NumberSign, this, SLOT(comment()),
                                ac, "tools_comment");
@@ -202,7 +202,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Print the current document."));  
 
   a=new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
-  a->setWhatsThis(i18n("Reload the current document from disc."));
+  a->setWhatsThis(i18n("Reload the current document from disk."));
 
   a=KStdAction::saveAs(this, SLOT(saveAs()), ac);
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));

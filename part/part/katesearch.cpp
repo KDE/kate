@@ -58,11 +58,11 @@ KateSearch::~KateSearch()
 void KateSearch::createActions( KActionCollection* ac )
 {
 	KStdAction::find( this, SLOT(find()), ac )->setWhatsThis(
-		i18n("Look up the first occurence of a piece of text or regular expression."));
+		i18n("Look up the first occurrence of a piece of text or regular expression."));
 	KStdAction::findNext( this, SLOT(slotFindNext()), ac )->setWhatsThis(
-		i18n("Look up the next occurence of the search phrase."));
+		i18n("Look up the next occurrence of the search phrase."));
 	KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" )->setWhatsThis(
-		i18n("Look up the previous occurence of the search phrase."));
+		i18n("Look up the previous occurrence of the search phrase."));
 	KStdAction::replace( this, SLOT(replace()), ac )->setWhatsThis(
 		i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 }

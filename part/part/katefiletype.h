@@ -108,6 +108,7 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
     class QLineEdit *varLine;
 
     QPtrList<KateFileType> m_types;
+    KateFileType *m_lastType;
 };
 
 #endif

@@ -262,6 +262,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   : Kate::ConfigPage( parent )
 {
   m_types.setAutoDelete (true);
+  m_lastType = 0;
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
@@ -281,52 +282,47 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   QPushButton *btnnew = new QPushButton( i18n("&New"), hbHl );
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newType()) );
 
-  gbProps = new QGroupBox( 1, Qt::Horizontal, i18n("Properties"), this );
+  gbProps = new QGroupBox( 2, Qt::Horizontal, i18n("Properties"), this );
   layout->add (gbProps);
 
   // file & mime types
-  QHBox *hba = new QHBox( gbProps);
-  QLabel *lname = new QLabel( i18n("N&ame:"), hba );
-  name  = new QLineEdit( hba );
+  QLabel *lname = new QLabel( i18n("N&ame:"), gbProps );
+  name  = new QLineEdit( gbProps );
   lname->setBuddy( name );
   connect( name, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   // file & mime types
-  QHBox *hbb = new QHBox( gbProps);
-  QLabel *lsec = new QLabel( i18n("&Section:"), hbb );
-  section  = new QLineEdit( hbb );
+  QLabel *lsec = new QLabel( i18n("&Section:"), gbProps );
+  section  = new QLineEdit( gbProps );
   lsec->setBuddy( section );
   connect( section, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   // file & mime types
-  QHBox *hbc = new QHBox( gbProps);
-  QLabel *lvar = new QLabel( i18n("&Variables:"), hbc );
-  varLine  = new QLineEdit( hbc );
+  QLabel *lvar = new QLabel( i18n("&Variables:"), gbProps );
+  varLine  = new QLineEdit( gbProps );
   lvar->setBuddy( varLine );
   connect( varLine, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   // file & mime types
-  QHBox *hbFE = new QHBox( gbProps);
-  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), hbFE );
-  wildcards  = new QLineEdit( hbFE );
+  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), gbProps );
+  wildcards  = new QLineEdit( gbProps );
   lFileExts->setBuddy( wildcards );
   connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
-  QHBox *hbMT = new QHBox( gbProps );
-  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
+  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
+  QHBox *hbMT = new QHBox (gbProps);
   mimetypes = new QLineEdit( hbMT );
-  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   lMimeTypes->setBuddy( mimetypes );
+  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   QToolButton *btnMTW = new QToolButton(hbMT);
   btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
 
-  QHBox *hbMT2 = new QHBox( gbProps );
-  QLabel *lprio = new QLabel( i18n("Prio&rity:"), hbMT2);
-  priority = new KIntNumInput( hbMT2 );
-  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
+  priority = new KIntNumInput( gbProps );
   lprio->setBuddy( priority );
+  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 
   layout->addStretch();
 
@@ -365,6 +361,8 @@ void KateFileTypeConfigTab::defaults()
 
 void KateFileTypeConfigTab::update ()
 {
+  m_lastType = 0;
+
   typeCombo->clear ();
 
   for( uint i = 0; i < m_types.count(); i++) {
@@ -398,6 +396,16 @@ void KateFileTypeConfigTab::newType ()
 
 void KateFileTypeConfigTab::typeChanged (int type)
 {
+  if (m_lastType)
+  {
+    m_lastType->name = name->text ();
+    m_lastType->section = section->text ();
+    m_lastType->varLine = varLine->text ();
+    m_lastType->wildcards = QStringList::split (";", wildcards->text ());
+    m_lastType->mimetypes = QStringList::split (";", mimetypes->text ());
+    m_lastType->priority = priority->value();
+  }
+
   KateFileType *t = 0;
 
   if ((type > -1) && ((uint)type < m_types.count()))
@@ -410,6 +418,9 @@ void KateFileTypeConfigTab::typeChanged (int type)
     gbProps->setEnabled (true);
     btndel->setEnabled (true);
 
+    name->setText(t->name);
+    section->setText(t->section);
+    varLine->setText(t->varLine);
     wildcards->setText(t->wildcards.join (";"));
     mimetypes->setText(t->mimetypes.join (";"));
     priority->setValue(t->priority);
@@ -421,10 +432,15 @@ void KateFileTypeConfigTab::typeChanged (int type)
     gbProps->setEnabled (false);
     btndel->setEnabled (false);
 
+    name->clear();
+    section->clear();
+    varLine->clear();
     wildcards->clear();
     mimetypes->clear();
     priority->setValue(0);
   }
+
+  m_lastType = t;
 }
 
 void KateFileTypeConfigTab::showMTDlg()

@@ -53,6 +53,164 @@
 
 #include <kdebug.h>
 
+//BEGIN KateScrollBar
+KateScrollBar::KateScrollBar (Orientation orientation, KateViewInternal* parent, const char* name)
+  : QScrollBar (orientation, parent->m_view, name)
+  , m_middleMouseDown (false)
+  , m_view(parent->m_view)
+  , m_doc(parent->m_doc)
+  , m_viewInternal(parent)
+  , m_topMargin(-1)
+  , m_bottomMargin(-1)
+  , m_savVisibleLines(0)
+  , m_showMarks(false)
+{
+  connect(this, SIGNAL(valueChanged(int)), SLOT(sliderMaybeMoved(int)));
+  connect(m_doc, SIGNAL(marksChanged()), this, SLOT(marksChanged()));
+
+  m_lines.setAutoDelete(true);
+}
+
+void KateScrollBar::mousePressEvent(QMouseEvent* e)
+{
+  if (e->button() == MidButton)
+    m_middleMouseDown = true;
+
+  QScrollBar::mousePressEvent(e);
+
+  redrawMarks();
+}
+
+void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
+{
+  QScrollBar::mouseReleaseEvent(e);
+
+  m_middleMouseDown = false;
+
+  redrawMarks();
+}
+
+void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
+{
+  QScrollBar::mouseMoveEvent(e);
+
+  if (e->state() | LeftButton)
+    redrawMarks();
+}
+
+void KateScrollBar::paintEvent(QPaintEvent *e)
+{
+  QScrollBar::paintEvent(e);
+  redrawMarks();
+}
+
+void KateScrollBar::resizeEvent(QResizeEvent *e)
+{
+  QScrollBar::resizeEvent(e);
+  recomputeMarksPositions();
+}
+
+void KateScrollBar::styleChange(QStyle &s)
+{
+  QScrollBar::styleChange(s);
+  m_topMargin = -1;
+  recomputeMarksPositions();
+}
+
+void KateScrollBar::valueChange()
+{
+  QScrollBar::valueChange();
+  redrawMarks();
+}
+
+void KateScrollBar::rangeChange()
+{
+  QScrollBar::rangeChange();
+  recomputeMarksPositions();
+}
+
+void KateScrollBar::marksChanged()
+{
+  recomputeMarksPositions(true);
+}
+
+void KateScrollBar::redrawMarks()
+{
+  if (!m_showMarks)
+    return;
+
+  QPainter painter(this);
+  QRect rect = sliderRect();
+  for (QIntDictIterator<QColor> it(m_lines); it.current(); ++it)
+  {
+    if (it.currentKey() < rect.top() || it.currentKey() > rect.bottom())
+    {
+      painter.setPen(*it.current());
+      painter.drawLine(0, it.currentKey(), width(), it.currentKey());
+    }
+  }
+}
+
+void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
+{
+  if (m_topMargin == -1)
+    watchScrollBarSize();
+
+  m_lines.clear();
+  m_savVisibleLines = m_doc->visibleLines();
+
+  int realHeight = frameGeometry().height() - m_topMargin - m_bottomMargin;
+
+  QPtrList<KTextEditor::Mark> marks = m_doc->marks();
+  KateCodeFoldingTree *tree = m_doc->foldingTree();
+
+  for (KTextEditor::Mark *mark = marks.first(); mark; mark = marks.next())
+  {
+    uint line = mark->line;
+
+    if (tree)
+    {
+      KateCodeFoldingNode *node = tree->findNodeForLine(line);
+
+      while (node)
+      {
+        if (!node->isVisible())
+          line = tree->getStartLine(node);
+        node = node->getParentNode();
+      }
+    }
+
+    line = m_doc->getVirtualLine(line);
+
+    double d = (double)line / (m_savVisibleLines - 1);
+    m_lines.insert(m_topMargin + (int)(d * realHeight),
+                   new QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
+  }
+
+  if (forceFullUpdate)
+    update();
+  else
+    redrawMarks();
+}
+
+void KateScrollBar::watchScrollBarSize()
+{
+  int savMax = maxValue();
+  setMaxValue(0);
+  QRect rect = sliderRect();
+  setMaxValue(savMax);
+
+  m_topMargin = rect.top();
+  m_bottomMargin = frameGeometry().height() - rect.bottom();
+}
+
+void KateScrollBar::sliderMaybeMoved(int value)
+{
+  if (m_middleMouseDown)
+    emit sliderMMBMoved(value);
+}
+//END
+
 //BEGIN KateCmdLnWhatsThis
 class KateCmdLnWhatsThis : public QWhatsThis
 {

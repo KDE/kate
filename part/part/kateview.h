@@ -517,6 +517,26 @@ class KateView : public Kate::View,
 
     // do we select normal or blockwise ?
     bool blockSelect;
+
+  /**
+   * IM input stuff
+   */
+  public:
+    void setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
+                              uint imSelStart, uint imSelEnd, bool m_imComposeEvent );
+    void getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
+                              uint *imSelStart, uint *imSelEnd );
+    bool isIMSelection( int _line, int _column );
+    bool isIMEdit( int _line, int _column );
+    bool imComposeEvent () const { return m_imComposeEvent; }
+
+  private:
+    uint m_imStartLine;
+    uint m_imStart;
+    uint m_imEnd;
+    uint m_imSelStart;
+    uint m_imSelEnd;
+    bool m_imComposeEvent;
 };
 
 #endif

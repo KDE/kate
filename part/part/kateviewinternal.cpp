@@ -2193,7 +2193,7 @@ void KateViewInternal::updateBracketMarks()
   if ( bm.isValid() ) {
     KateTextCursor bmStart(m_doc->getVirtualLine(bm.start().line()), bm.start().col());
     KateTextCursor bmEnd(m_doc->getVirtualLine(bm.end().line()), bm.end().col());
-    
+
     if( bm.getMinIndent() != 0 )
     {
       // @@ Do this only when cursor near start/end.
@@ -2220,7 +2220,7 @@ void KateViewInternal::updateBracketMarks()
   if ( bm.isValid() ) {
     KateTextCursor bmStart(m_doc->getVirtualLine(bm.start().line()), bm.start().col());
     KateTextCursor bmEnd(m_doc->getVirtualLine(bm.end().line()), bm.end().col());
-    
+
     if( bm.getMinIndent() != 0 )
     {
       // @@ Do this only when cursor near start/end.
@@ -3122,88 +3122,6 @@ void KateViewInternal::dropEvent( QDropEvent* event )
   // important, because the eventFilter`s DragLeave does not occure
   stopDragScroll();
 }
-
-void KateViewInternal::imStartEvent( QIMEvent *e )
-{
-  if ( m_doc->m_bReadOnly ) {
-    e->ignore();
-    return;
-  }
-
-  if ( m_view->hasSelection() )
-    m_view->removeSelectedText();
-
-  m_imPreeditStartLine = cursor.line();
-  m_imPreeditStart = cursor.col();
-  m_imPreeditLength = 0;
-  m_imPreeditSelStart = m_imPreeditStart;
-
-  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, true );
-}
-
-void KateViewInternal::imComposeEvent( QIMEvent *e )
-{
-  if ( m_doc->m_bReadOnly ) {
-    e->ignore();
-    return;
-  }
-
-  // remove old preedit
-  if ( m_imPreeditLength > 0 ) {
-    cursor.setPos( m_imPreeditStartLine, m_imPreeditStart );
-    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
-                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
-  }
-
-  m_imPreeditLength = e->text().length();
-  m_imPreeditSelStart = m_imPreeditStart + e->cursorPos();
-
-  // update selection
-  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, m_imPreeditStart + m_imPreeditLength,
-                              m_imPreeditSelStart, m_imPreeditSelStart + e->selectionLength(),
-                              true );
-
-  // insert new preedit
-  m_doc->insertText( m_imPreeditStartLine, m_imPreeditStart, e->text() );
-
-
-  // update cursor
-  cursor.setPos( m_imPreeditStartLine, m_imPreeditSelStart );
-  updateCursor( cursor, true );
-
-  updateView( true );
-}
-
-void KateViewInternal::imEndEvent( QIMEvent *e )
-{
-  if ( m_doc->m_bReadOnly ) {
-    e->ignore();
-    return;
-  }
-
-  if ( m_imPreeditLength > 0 ) {
-    cursor.setPos( m_imPreeditStartLine, m_imPreeditStart );
-    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
-                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
-  }
-
-  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, false );
-
-  if ( e->text().length() > 0 ) {
-    m_doc->insertText( cursor.line(), cursor.col(), e->text() );
-
-    if ( !m_cursorTimer.isActive() && KApplication::cursorFlashTime() > 0 )
-      m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
-
-    updateView( true );
-    updateCursor( cursor, true );
-  }
-
-  m_imPreeditStart = 0;
-  m_imPreeditLength = 0;
-  m_imPreeditSelStart = 0;
-}
-
 //END EVENT HANDLING STUFF
 
 void KateViewInternal::clear()
@@ -3355,162 +3273,87 @@ void KateViewInternal::viewSelectionChanged ()
     selectAnchor.setPos (-1, -1);
 }
 
-//BEGIN KateScrollBar
-KateScrollBar::KateScrollBar (Orientation orientation, KateViewInternal* parent, const char* name)
-  : QScrollBar (orientation, parent->m_view, name)
-  , m_middleMouseDown (false)
-  , m_view(parent->m_view)
-  , m_doc(parent->m_doc)
-  , m_viewInternal(parent)
-  , m_topMargin(-1)
-  , m_bottomMargin(-1)
-  , m_savVisibleLines(0)
-  , m_showMarks(false)
+//BEGIN IM INPUT STUFF
+void KateViewInternal::imStartEvent( QIMEvent *e )
 {
-  connect(this, SIGNAL(valueChanged(int)), SLOT(sliderMaybeMoved(int)));
-  connect(m_doc, SIGNAL(marksChanged()), this, SLOT(marksChanged()));
-
-  m_lines.setAutoDelete(true);
-}
-
-void KateScrollBar::mousePressEvent(QMouseEvent* e)
-{
-  if (e->button() == MidButton)
-    m_middleMouseDown = true;
-
-  QScrollBar::mousePressEvent(e);
-
-  redrawMarks();
-}
-
-void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
-{
-  QScrollBar::mouseReleaseEvent(e);
-
-  m_middleMouseDown = false;
-
-  redrawMarks();
-}
-
-void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
-{
-  QScrollBar::mouseMoveEvent(e);
-
-  if (e->state() | LeftButton)
-    redrawMarks();
-}
-
-void KateScrollBar::paintEvent(QPaintEvent *e)
-{
-  QScrollBar::paintEvent(e);
-  redrawMarks();
-}
-
-void KateScrollBar::resizeEvent(QResizeEvent *e)
-{
-  QScrollBar::resizeEvent(e);
-  recomputeMarksPositions();
-}
-
-void KateScrollBar::styleChange(QStyle &s)
-{
-  QScrollBar::styleChange(s);
-  m_topMargin = -1;
-  recomputeMarksPositions();
-}
-
-void KateScrollBar::valueChange()
-{
-  QScrollBar::valueChange();
-  redrawMarks();
-}
-
-void KateScrollBar::rangeChange()
-{
-  QScrollBar::rangeChange();
-  recomputeMarksPositions();
-}
-
-void KateScrollBar::marksChanged()
-{
-  recomputeMarksPositions(true);
-}
-
-void KateScrollBar::redrawMarks()
-{
-  if (!m_showMarks)
+  if ( m_doc->m_bReadOnly ) {
+    e->ignore();
     return;
-
-  QPainter painter(this);
-  QRect rect = sliderRect();
-  for (QIntDictIterator<QColor> it(m_lines); it.current(); ++it)
-  {
-    if (it.currentKey() < rect.top() || it.currentKey() > rect.bottom())
-    {
-      painter.setPen(*it.current());
-      painter.drawLine(0, it.currentKey(), width(), it.currentKey());
-    }
-  }
-}
-
-void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
-{
-  if (m_topMargin == -1)
-    watchScrollBarSize();
-
-  m_lines.clear();
-  m_savVisibleLines = m_doc->visibleLines();
-
-  int realHeight = frameGeometry().height() - m_topMargin - m_bottomMargin;
-
-  QPtrList<KTextEditor::Mark> marks = m_doc->marks();
-  KateCodeFoldingTree *tree = m_doc->foldingTree();
-
-  for (KTextEditor::Mark *mark = marks.first(); mark; mark = marks.next())
-  {
-    uint line = mark->line;
-
-    if (tree)
-    {
-      KateCodeFoldingNode *node = tree->findNodeForLine(line);
-
-      while (node)
-      {
-        if (!node->isVisible())
-          line = tree->getStartLine(node);
-        node = node->getParentNode();
-      }
-    }
-
-    line = m_doc->getVirtualLine(line);
-
-    double d = (double)line / (m_savVisibleLines - 1);
-    m_lines.insert(m_topMargin + (int)(d * realHeight),
-                   new QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
   }
 
-  if (forceFullUpdate)
-    update();
-  else
-    redrawMarks();
+  if ( m_view->hasSelection() )
+    m_view->removeSelectedText();
+
+  m_imPreeditStartLine = cursor.line();
+  m_imPreeditStart = cursor.col();
+  m_imPreeditLength = 0;
+  m_imPreeditSelStart = m_imPreeditStart;
+
+  m_view->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, true );
 }
 
-void KateScrollBar::watchScrollBarSize()
+void KateViewInternal::imComposeEvent( QIMEvent *e )
 {
-  int savMax = maxValue();
-  setMaxValue(0);
-  QRect rect = sliderRect();
-  setMaxValue(savMax);
+  if ( m_doc->m_bReadOnly ) {
+    e->ignore();
+    return;
+  }
 
-  m_topMargin = rect.top();
-  m_bottomMargin = frameGeometry().height() - rect.bottom();
+  // remove old preedit
+  if ( m_imPreeditLength > 0 ) {
+    cursor.setPos( m_imPreeditStartLine, m_imPreeditStart );
+    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
+                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
+  }
+
+  m_imPreeditLength = e->text().length();
+  m_imPreeditSelStart = m_imPreeditStart + e->cursorPos();
+
+  // update selection
+  m_view->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, m_imPreeditStart + m_imPreeditLength,
+                              m_imPreeditSelStart, m_imPreeditSelStart + e->selectionLength(),
+                              true );
+
+  // insert new preedit
+  m_doc->insertText( m_imPreeditStartLine, m_imPreeditStart, e->text() );
+
+
+  // update cursor
+  cursor.setPos( m_imPreeditStartLine, m_imPreeditSelStart );
+  updateCursor( cursor, true );
+
+  updateView( true );
 }
 
-void KateScrollBar::sliderMaybeMoved(int value)
+void KateViewInternal::imEndEvent( QIMEvent *e )
 {
-  if (m_middleMouseDown)
-    emit sliderMMBMoved(value);
+  if ( m_doc->m_bReadOnly ) {
+    e->ignore();
+    return;
+  }
+
+  if ( m_imPreeditLength > 0 ) {
+    cursor.setPos( m_imPreeditStartLine, m_imPreeditStart );
+    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
+                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
+  }
+
+  m_view->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, false );
+
+  if ( e->text().length() > 0 ) {
+    m_doc->insertText( cursor.line(), cursor.col(), e->text() );
+
+    if ( !m_cursorTimer.isActive() && KApplication::cursorFlashTime() > 0 )
+      m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
+
+    updateView( true );
+    updateCursor( cursor, true );
+  }
+
+  m_imPreeditStart = 0;
+  m_imPreeditLength = 0;
+  m_imPreeditSelStart = 0;
 }
-//END
+//END IM INPUT STUFF
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -102,13 +102,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHdReason (0),
   m_job (0),
   m_tempFile (0),
-  m_tabInterceptor(0),
-  m_imStartLine( 0 ),
-  m_imStart( 0 ),
-  m_imEnd( 0 ),
-  m_imSelStart( 0 ),
-  m_imSelEnd( 0 ),
-  m_imComposeEvent( false )
+  m_tabInterceptor(0)
 {
   m_undoComplexMerge=false;
   // my dcop object
@@ -389,9 +383,6 @@ void KateDocument::setActiveView( KateView *view )
   if ( m_activeView == view ) return;
 
   m_activeView = view;
-
-//   if ( m_modOnHdReason )
-//     slotModifiedOnDisk();
 }
 //END
 
@@ -1043,7 +1034,7 @@ void KateDocument::editStart (bool withUndo)
 
 void KateDocument::undoStart()
 {
-  if (m_editCurrentUndo || m_imComposeEvent) return;
+  if (m_editCurrentUndo || (m_activeView && m_activeView->imComposeEvent())) return;
 
   // Make sure the buffer doesn't get bigger than requested
   if ((config()->undoSteps() > 0) && (undoItems.count() > config()->undoSteps()))
@@ -1060,7 +1051,7 @@ void KateDocument::undoStart()
 
 void KateDocument::undoEnd()
 {
-  if (m_imComposeEvent)
+  if (m_activeView && m_activeView->imComposeEvent())
     return;
 
   if (m_editCurrentUndo)
@@ -5259,40 +5250,6 @@ bool KateDocument::removeTabInterceptor(KateKeyInterceptorFunctor *interceptor) 
   return true;
 }
 //END KTextEditor::TemplateInterface
-
-
-void KateDocument::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
-                                        uint imSelStart, uint imSelEnd, bool imComposeEvent )
-{
-  m_imStartLine = imStartLine;
-  m_imStart = imStart;
-  m_imEnd = imEnd;
-  m_imSelStart = imSelStart;
-  m_imSelEnd = imSelEnd;
-  m_imComposeEvent = imComposeEvent;
-}
-
-bool KateDocument::isIMSelection( int _line, int _column )
-{
-  return ( ( int( m_imStartLine ) == _line ) && ( m_imSelStart < m_imSelEnd ) && ( _column >= int( m_imSelStart ) ) &&
-    ( _column < int( m_imSelEnd ) ) );
-}
-
-bool KateDocument::isIMEdit( int _line, int _column )
-{
-  return ( ( int( m_imStartLine ) == _line ) && ( m_imStart < m_imEnd ) && ( _column >= int( m_imStart ) ) &&
-    ( _column < int( m_imEnd ) ) );
-}
-
-void KateDocument::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
-                                        uint *imSelStart, uint *imSelEnd )
-{
-  *imStartLine = m_imStartLine;
-  *imStart = m_imStart;
-  *imEnd = m_imEnd;
-  *imSelStart = m_imSelStart;
-  *imSelEnd = m_imSelEnd;
-}
 
 //BEGIN DEPRECATED STUFF
  bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, uint endCol )

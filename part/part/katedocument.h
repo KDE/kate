@@ -1046,24 +1046,6 @@ class KateDocument : public Kate::Document,
       void testTemplateCode();
       void dumpRegionTree();
 
-  // IM input stuff
-  //
-  public:
-    void setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
-                              uint imSelStart, uint imSelEnd, bool m_imComposeEvent );
-    void getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
-                              uint *imSelStart, uint *imSelEnd );
-    bool isIMSelection( int _line, int _column );
-    bool isIMEdit( int _line, int _column );
-
-  private:
-    uint m_imStartLine;
-    uint m_imStart;
-    uint m_imEnd;
-    uint m_imSelStart;
-    uint m_imSelEnd;
-    bool m_imComposeEvent;
-
   //BEGIN DEPRECATED
   //
   // KTextEditor::SelectionInterface stuff

@@ -43,7 +43,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_showSelections(true)
     , m_showTabs(true)
     , m_printerFriendly(false)
-    , m_showIndentLines(true)    
+    , m_showIndentLines(true)
 {
   KateFactory::self()->registerRenderer ( this );
   m_config = new KateRendererConfig (this);
@@ -52,7 +52,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
   m_indentWidth = m_tabWidth;
   if (m_doc->config()->configFlags() & KateDocumentConfig::cfSpaceIndent)
   {
-    m_indentWidth = m_doc->config()->indentationWidth();  
+    m_indentWidth = m_doc->config()->indentationWidth();
   }
 
   updateAttributes ();
@@ -287,15 +287,15 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       bracketEndRange->setBold(true);
       superRanges.append(bracketEndRange);
     }
-    
+
     Q_ASSERT(bracketmark->start().line() <= bracketmark->end().line());
     if (bracketmark->start().line() < line && bracketmark->end().line() >= line)
     {
       minIndent = bracketmark->getMinIndent();
     }
   }
-  
-  
+
+
   // length, chars + raw attribs
   uint len = textLine->length();
   uint oldLen = len;
@@ -448,10 +448,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
         isSel = (showSelections() && hasSel && (curCol >= startSel) && (curCol < endSel));
 
         // input method edit area
-        isIMEdit = m_doc->isIMEdit( line, curCol );
+        isIMEdit = m_view && m_view->isIMEdit( line, curCol );
 
         // input method selection
-        isIMSel = m_doc->isIMSelection( line, curCol );
+        isIMSel = m_view && m_view->isIMSelection( line, curCol );
 
         // Determine current color, taking into account selection
         curColor = isSel ? &(curAt->selectedTextColor()) : &(curAt->textColor());
@@ -497,7 +497,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
           // the rest of the line is trailing whitespace OR
           || (curCol + 1 >= trailingWhitespaceColumn)
-          
+
           // indentation lines OR
           || (m_showIndentLines && curCol < lastIndentColumn)
 
@@ -515,10 +515,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || (textLine->string()[nextCol] == tabChar)
 
           // input method edit area
-          || ( isIMEdit != m_doc->isIMEdit( line, nextCol ) )
+          || ( m_view && (isIMEdit != m_view->isIMEdit( line, nextCol )) )
 
           // input method selection
-          || ( isIMSel != m_doc->isIMSelection( line, nextCol ) )
+          || ( m_view && (isIMSel !=  m_view->isIMSelection( line, nextCol )) )
         )
         {
           renderNow = true;
@@ -583,17 +583,17 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           {
             // Draw multiple guides when tab width greater than indent width.
             const int charWidth = isTab ? m_tabWidth - curPos % m_tabWidth : 1;
-            
+
             // Do not draw indent guides on the first line.
             int i = 0;
             if (curPos == 0 || curPos % m_indentWidth > 0)
               i = m_indentWidth - curPos % m_indentWidth;
-            
+
             for (; i < charWidth; i += m_indentWidth)
             {
               // In most cases this is done one or zero times.
               paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
-              
+
               // Draw highlighted line.
               if (curPos+i == minIndent)
               {

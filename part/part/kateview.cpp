@@ -87,6 +87,12 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , selectStart (m_doc, true)
     , selectEnd (m_doc, true)
     , blockSelect (false)
+    , m_imStartLine( 0 )
+    , m_imStart( 0 )
+    , m_imEnd( 0 )
+    , m_imSelStart( 0 )
+    , m_imSelEnd( 0 )
+    , m_imComposeEvent( false )
 {
   KateFactory::self()->registerView( this );
   m_config = new KateViewConfig (this);
@@ -1690,5 +1696,40 @@ bool KateView::wrapCursor ()
 }
 
 //END
+
+//BEGIN IM INPUT STUFF
+void KateView::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
+                                        uint imSelStart, uint imSelEnd, bool imComposeEvent )
+{
+  m_imStartLine = imStartLine;
+  m_imStart = imStart;
+  m_imEnd = imEnd;
+  m_imSelStart = imSelStart;
+  m_imSelEnd = imSelEnd;
+  m_imComposeEvent = imComposeEvent;
+}
+
+bool KateView::isIMSelection( int _line, int _column )
+{
+  return ( ( int( m_imStartLine ) == _line ) && ( m_imSelStart < m_imSelEnd ) && ( _column >= int( m_imSelStart ) ) &&
+    ( _column < int( m_imSelEnd ) ) );
+}
+
+bool KateView::isIMEdit( int _line, int _column )
+{
+  return ( ( int( m_imStartLine ) == _line ) && ( m_imStart < m_imEnd ) && ( _column >= int( m_imStart ) ) &&
+    ( _column < int( m_imEnd ) ) );
+}
+
+void KateView::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
+                                        uint *imSelStart, uint *imSelEnd )
+{
+  *imStartLine = m_imStartLine;
+  *imStart = m_imStart;
+  *imEnd = m_imEnd;
+  *imSelStart = m_imSelStart;
+  *imSelEnd = m_imSelEnd;
+}
+//END IM INPUT STUFF
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

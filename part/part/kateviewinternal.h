@@ -30,76 +30,23 @@
 #include "katetextline.h"
 #include "katedocument.h"
 
-#include <qscrollbar.h>
 #include <qpoint.h>
 #include <qtimer.h>
 #include <qintdict.h>
 
 class KateView;
 class KateIconBorder;
+class KateScrollBar;
 
 class QHBoxLayout;
 class QVBoxLayout;
+class QScrollBar;
 
 enum Bias
 {
     left  = -1,
     none  =  0,
     right =  1
-};
-
-/**
- * This class is required because QScrollBar's sliderMoved() signal is
- * really supposed to be a sliderDragged() signal... so this way we can capture
- * MMB slider moves as well
- *
- * Also, it adds some usefull indicators on the scrollbar.
- */
-class KateScrollBar : public QScrollBar
-{
-  Q_OBJECT
-
-  public:
-    KateScrollBar(Orientation orientation, class KateViewInternal *parent, const char* name = 0L);
-
-    inline bool showMarks() { return m_showMarks; };
-    inline void setShowMarks(bool b) { m_showMarks = b; update(); };
-
-  signals:
-    void sliderMMBMoved(int value);
-
-  protected:
-    virtual void mousePressEvent(QMouseEvent* e);
-    virtual void mouseReleaseEvent(QMouseEvent* e);
-    virtual void mouseMoveEvent (QMouseEvent* e);
-    virtual void paintEvent(QPaintEvent *);
-    virtual void resizeEvent(QResizeEvent *);
-    virtual void styleChange(QStyle &oldStyle);
-    virtual void valueChange();
-    virtual void rangeChange();
-
-  protected slots:
-    void sliderMaybeMoved(int value);
-    void marksChanged();
-
-  private:
-    void redrawMarks();
-    void recomputeMarksPositions(bool forceFullUpdate = false);
-    void watchScrollBarSize();
-
-  bool m_middleMouseDown;
-
-    KateView *m_view;
-    KateDocument *m_doc;
-    class KateViewInternal *m_viewInternal;
-
-    int m_topMargin;
-    int m_bottomMargin;
-    uint m_savVisibleLines;
-
-    QIntDict<QColor> m_lines;
-
-    bool m_showMarks;
 };
 
 class KateViewInternal : public QWidget
@@ -228,10 +175,6 @@ class KateViewInternal : public QWidget
     void focusOutEvent (QFocusEvent *);
 
     void contextMenuEvent ( QContextMenuEvent * e );
-
-    void imStartEvent( QIMEvent *e );
-    void imComposeEvent( QIMEvent *e );
-    void imEndEvent( QIMEvent *e );
 
   private slots:
     void tripleClickTimeout();
@@ -438,10 +381,19 @@ class KateViewInternal : public QWidget
    int m_textHintMouseX;
    int m_textHintMouseY;
 
-   int m_imPreeditStartLine;
-   int m_imPreeditStart;
-   int m_imPreeditLength;
-   int m_imPreeditSelStart;
+  /**
+   * IM input stuff
+   */
+  protected:
+    void imStartEvent( QIMEvent *e );
+    void imComposeEvent( QIMEvent *e );
+    void imEndEvent( QIMEvent *e );
+
+  private:
+    int m_imPreeditStartLine;
+    int m_imPreeditStart;
+    int m_imPreeditLength;
+    int m_imPreeditSelStart;
 };
 
 #endif

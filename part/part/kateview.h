@@ -92,19 +92,6 @@ class SConfig
 };
 
 //
-// a piece of data for each visible real/wrapped line
-//
-struct KateLineRange
-{
-    int line;
-    int startCol;
-    int endCol;
-    bool wrapped;
-    int start;
-    int end;
-};
-
-//
 // the real widget with the textarea inside
 //
 class KateViewInternal : public QWidget
@@ -162,9 +149,7 @@ class KateViewInternal : public QWidget
     void delLine(int line);
     void updateCursor();
     void updateCursor(KateTextCursor &newCursor);
-
     void clearDirtyCache(int height);
-
     void tagLines(int start, int end, int x1, int x2);
     void tagAll();
     void setPos(int x, int y);
@@ -221,19 +206,14 @@ class KateViewInternal : public QWidget
     int cXPos;
     int cOldXPos;
 
-    // REAL startLine + endLine
     int startLine;
     int endLine;
-
-    // REAL max width of all visible lines
     uint maxLen;
-    
-    // number of WRAPPED LINES visible + some data about them
-    uint numLines;
-    QMemArray<KateLineRange> lineRanges;
 
     bool exposeCursor;
     int updateState;
+    uint numLines;
+    class KateLineRange *lineRanges;
     int newXPos;
     int newYPos;
 

@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -79,6 +79,17 @@
 #include "kateiconborder.h"
 #include "kateexportaction.h"
 
+class KateLineRange
+{
+  public:
+    int line;
+    int startCol;
+    int endCol;
+    bool wrapped;
+    int start;
+    int end;
+};
+
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
  : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
 {
@@ -91,8 +102,14 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   iconBorderWidth  = 16;
   iconBorderHeight = 800;
 
-  numLines = 0;
-  lineRanges.resize (64);
+  numLines = 64;
+  lineRanges = new KateLineRange[numLines];
+
+  for (uint z = 0; z < numLines; z++)
+  {
+    lineRanges[z].start = 0xffffff;
+    lineRanges[z].end = -2;
+  }
 
   maxLen = 0;
   startLine = 0;
@@ -143,6 +160,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
 KateViewInternal::~KateViewInternal()
 {
+  delete [] lineRanges;
   delete drawBuffer;
 }
 
@@ -274,7 +292,7 @@ void KateViewInternal::cursorLeft(VConfig &c) {
     cursor.line--;
     cursor.col = myDoc->textLength(cursor.line);
   }
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
   changeState(c);
 }
 
@@ -288,7 +306,7 @@ void KateViewInternal::cursorRight(VConfig &c) {
     }
   }
   cursor.col++;
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
   changeState(c);
 }
 
@@ -312,7 +330,7 @@ void KateViewInternal::wordLeft(VConfig &c) {
     }
   }
 
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
   changeState(c);
 }
 
@@ -338,7 +356,7 @@ void KateViewInternal::wordRight(VConfig &c) {
     }
   }
 
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
   changeState(c);
 }
 
@@ -351,7 +369,7 @@ void KateViewInternal::home(VConfig &c) {
     cOldXPos = cXPos = 0;
   } else {
     cursor.col = lc;
-    cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+    cOldXPos = cXPos = myDoc->textWidth(cursor);
   }
 
   changeState(c);
@@ -359,7 +377,7 @@ void KateViewInternal::home(VConfig &c) {
 
 void KateViewInternal::end(VConfig &c) {
   cursor.col = myDoc->textLength(cursor.line);
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
   changeState(c);
 }
 
@@ -379,7 +397,7 @@ void KateViewInternal::cursorDown(VConfig &c) {
     x = myDoc->textLength(cursor.line);
     if (cursor.col >= x) return;
     cursor.col = x;
-    cXPos = myDoc->textWidth(0, cursor);
+    cXPos = myDoc->textWidth(cursor);
   } else {
     cursor.line++;
     cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor, cOldXPos);
@@ -495,7 +513,7 @@ void KateViewInternal::bottom_end(VConfig &c) {
 
   cursor.line = myDoc->lastLine();
   cursor.col = myDoc->textLength(cursor.line);
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
   changeState(c);
 }
 
@@ -616,8 +634,9 @@ void KateViewInternal::delLine(int line) {
 
 void KateViewInternal::updateCursor()
 {
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
 }
+
 
 void KateViewInternal::updateCursor(KateTextCursor &newCursor)
 {
@@ -635,77 +654,35 @@ void KateViewInternal::updateCursor(KateTextCursor &newCursor)
   myDoc->newBracketMark(newCursor, bm);
 
   cursor = newCursor;
-  cOldXPos = cXPos = myDoc->textWidth(0, cursor);
+  cOldXPos = cXPos = myDoc->textWidth(cursor);
 }
 
 // init the line dirty cache
-void KateViewInternal::clearDirtyCache(int height)
-{
+void KateViewInternal::clearDirtyCache(int height) {
+  int lines, z;
+
   // calc start and end line of visible part
   startLine = yPos/myDoc->viewFont.fontHeight;
   endLine = (yPos + height -1)/myDoc->viewFont.fontHeight;
-  numLines = endLine - startLine +1;
 
   updateState = 0;
 
-  if (numLines >= lineRanges.size())
-  {
-    lineRanges.resize (numLines+1);
+  lines = endLine - startLine +1;
+  if (lines > numLines) { // resize the dirty cache
+    numLines = lines*2;
+    delete [] lineRanges;
+    lineRanges = new KateLineRange[numLines];
   }
 
-  for (uint z = 0; z < numLines; z++)
-  {
-    lineRanges[z].line = startLine + z;
-    lineRanges[z].startCol = 0;
-    lineRanges[z].endCol = -1;
-    lineRanges[z].wrapped = false;
+  for (z = 0; z < lines; z++) { // clear all lines
     lineRanges[z].start = 0xffffff;
     lineRanges[z].end = -2;
   }
-
-  if (myView->_hasWrap)
-  {
-    uint lineCount = startLine;
-    uint visibleLine = 0;
-    uint maxWidth = width();
-    int startCol = 0;
-    int endCol = 0;
-    bool needWrap = true;
-
-    while (  (visibleLine < numLines) && (lineCount <= myDoc->lastLine())  )
-    {
-      startCol = 0;
-      endCol = 0;
-      needWrap = true;
-
-      while (needWrap)
-      {
-        endCol = myDoc->textWidth (myDoc->getTextLine(lineCount), startCol, maxWidth, 0, KateDocument::ViewFont, &needWrap);
-
-        lineRanges[visibleLine].line = lineCount;
-        lineRanges[visibleLine].startCol = startCol;
-        lineRanges[visibleLine].endCol = endCol;
-        lineRanges[visibleLine].wrapped = needWrap;
-
-        // test debug stuff kdDebug()<<"line"<<lineCount<<"  start -end"<<startCol<<" - "<<endCol<<endl;
-
-        startCol = endCol;
-        visibleLine++;
-
-        if (visibleLine >= numLines)
-          needWrap = false;
-      }
-
-      lineCount++;
-    }
-
-    endLine = lineRanges[numLines-1].line;
-  }
-
   newXPos = newYPos = -1;
 }
 
 void KateViewInternal::tagLines(int start, int end, int x1, int x2) {
+  KateLineRange *r;
   int z;
 
   start -= startLine;
@@ -718,9 +695,11 @@ void KateViewInternal::tagLines(int start, int end, int x1, int x2) {
   if (x2 > width() + xPos-2) x2 = width() + xPos-2;
   if (x1 >= x2) return;
 
+  r = &lineRanges[start];
   for (z = start; z <= end; z++) {
-    if (x1 < lineRanges[z].start) lineRanges[z].start = x1;
-    if (x2 > lineRanges[z].end) lineRanges[z].end = x2;
+    if (x1 < r->start) r->start = x1;
+    if (x2 > r->end) r->end = x2;
+    r++;
     updateState |= 1;
   }
 }
@@ -762,7 +741,7 @@ void KateViewInternal::updateView(int flags) {
     {
       for (int tline = startLine; (tline <= endLine) && (tline <= myDoc->lastLine ()); tline++)
       {
-        uint len = myDoc->textWidth (myDoc->getTextLine (tline), 0, myDoc->getTextLine (tline)->length());
+        uint len = myDoc->textWidth (myDoc->getTextLine (tline), myDoc->getTextLine (tline)->length());
 
         if (len > maxLen)
           maxLen = len;
@@ -913,9 +892,11 @@ void KateViewInternal::updateView(int flags) {
 }
 
 
-void KateViewInternal::paintTextLines(int xPos, int yPos)
-{
+void KateViewInternal::paintTextLines(int xPos, int yPos) {
+//  int xStart, xEnd;
+  int line;//, z;
   int h;
+  KateLineRange *r;
 
   if (!drawBuffer) return;
   if (drawBuffer->isNull()) return;
@@ -924,15 +905,16 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
   paint.begin(drawBuffer);
 
   h = myDoc->viewFont.fontHeight;
-
-  for (uint line = 0; line < numLines; line++)
-  {
-    if (lineRanges[line].start < lineRanges[line].end)
-    {
-      myDoc->paintTextLine(paint, lineRanges[line].line, lineRanges[line].startCol, lineRanges[line].endCol, lineRanges[line].start, lineRanges[line].end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
-      bitBlt(this, lineRanges[line].start - (xPos-2), line*h - yPos, drawBuffer, 0, 0, lineRanges[line].end - lineRanges[line].start, h);
-      leftBorder->paintLine(lineRanges[line].line+startLine);
+  r = lineRanges;
+  for (line = startLine; line <= endLine; line++) {
+    if (r->start < r->end) {
+//debug("painttextline %d %d %d", line, r->start, r->end);
+      myDoc->paintTextLine(paint, line, r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+      bitBlt(this, r->start - (xPos-2), line*h - yPos, drawBuffer, 0, 0,
+        r->end - r->start, h);
+        leftBorder->paintLine(line);
     }
+    r++;
   }
 
   paint.end();
@@ -1229,20 +1211,16 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
 
   h = myDoc->viewFont.fontHeight;
   line = (yPos + updateR.y()) / h;
-
-  uint lstart = updateR.y() / h;
-
   y = line*h - yPos;
   yEnd = updateR.y() + updateR.height();
-
   waitForPreHighlight=myDoc->needPreHighlight(waitForPreHighlight=line+((uint)(yEnd-y)/h)+5);
 
   while (y < yEnd)
   {
-    myDoc->paintTextLine(paint, lineRanges[lstart].line, lineRanges[lstart].startCol, lineRanges[lstart].endCol, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+    myDoc->paintTextLine(paint, line, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
-    leftBorder->paintLine(lineRanges[lstart].line);
-    lstart++;
+    leftBorder->paintLine(line);
+    line++;
     y += h;
   }
   paint.end();
@@ -2249,8 +2227,8 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   myDoc->selectLength(cursor,slen,c.flags);
 
   TextLine::Ptr textLine = myDoc->getTextLine(cursor.line);
-  x1 = myDoc->textWidth(textLine,0, cursor.col)        -10;
-  x2 = myDoc->textWidth(textLine,0, cursor.col + slen) +20;
+  x1 = myDoc->textWidth(textLine,cursor.col)        -10;
+  x2 = myDoc->textWidth(textLine,cursor.col + slen) +20;
   y1 = myDoc->viewFont.fontHeight*cursor.line                 -10;
   y2 = y1 + myDoc->viewFont.fontHeight                     +30;
 

@@ -2352,7 +2352,7 @@ int KateDocument::charWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont
   FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
 
   if (ch == '\t')
-    x = fs->m_tabWidth - (textWidth(textLine, 0, cursorX) % fs->m_tabWidth);
+    x = fs->m_tabWidth - (textWidth(textLine, cursorX) % fs->m_tabWidth);
   else if (a->bold && a->italic)
     x = fs->myFontMetricsBI.width(ch);
   else if (a->bold)
@@ -2375,7 +2375,7 @@ int KateDocument::charWidth(KateTextCursor &cursor) {
   return charWidth(getTextLine(cursor.line),cursor.col);
 }
 
-uint KateDocument::textWidth(const TextLine::Ptr &textLine, int startCol, int cursorX,WhichFont wf)
+uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf)
 {
   int x;
   int z;
@@ -2384,7 +2384,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, int startCol, int cu
   FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
 
   x = 0;
-  for (z = startCol; z < cursorX; z++) {
+  for (z = 0; z < cursorX; z++) {
     ch = textLine->getChar(z);
     a = attribute(textLine->getAttr(z));
 
@@ -2448,7 +2448,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
     return endcol;
 }
 
-uint KateDocument::textWidth(int startCol, KateTextCursor &cursor)
+uint KateDocument::textWidth(KateTextCursor &cursor)
 {
   if (cursor.col < 0)
      cursor.col = 0;
@@ -2456,7 +2456,7 @@ uint KateDocument::textWidth(int startCol, KateTextCursor &cursor)
      cursor.line = 0;
   if (cursor.line >= (int)numLines())
      cursor.line = lastLine();
-  return textWidth(getTextLine(cursor.line), startCol, cursor.col);
+  return textWidth(getTextLine(cursor.line),cursor.col);
 }
 
 uint KateDocument::textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf)
@@ -3474,7 +3474,7 @@ void KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEn
 
 void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
 {
-  paintTextLine (paint, line, startcol, endcol, 0, xStart, xEnd, showTabs);
+  paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
 }
 
 void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
@@ -3942,7 +3942,7 @@ found:
   bm.cursor.col = x;
   bm.cursor.line = line;
   //x position (start and end) of related bracket
-  bm.sXPos = textWidth(textLine, 0, x);
+  bm.sXPos = textWidth(textLine, x);
   a = attribute(attr);
 
    if (a->bold && a->italic)

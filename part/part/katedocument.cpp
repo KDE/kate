@@ -246,6 +246,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     s_configLoaded = true;
   }
 
+  m_indenter->updateConfig ();
+
   // load all plugins
   loadAllEnabledPlugins ();
 

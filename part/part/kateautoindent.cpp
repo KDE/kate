@@ -248,7 +248,7 @@ void KateAutoIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/
 //END
 
 // BEGIN KateCSmartIndent
- 
+
 KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
  :  KateAutoIndent (doc),
     allowSemi (false)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LPC" version="0.11" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.inc;*.o">
+<language name="LPC" version="0.12" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.o">
     <highlighting>
         <list name="l_mod">
             <item> private </item>

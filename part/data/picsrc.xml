@@ -4,8 +4,8 @@
 	Alain GIBAUD  (alain.gibaud@univ-valenciennes.fr)
 Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
  -->
-<language name="PicAsm" version="1.00" kateversion="2.0" section="Sources" 
-		extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC;*.inc;*.INC" mimetype="text/x-PicSrc;text/x-PicHdr">
+<language name="PicAsm" version="1.01" kateversion="2.0" section="Sources"
+		extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr">
 
 
   <highlighting>
@@ -14,7 +14,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> __CONFIG </item>
       <item> __IDLOCS </item>
       <item> __MAXRAM </item>
-      
+
       <item> cblock </item>
       <item> constant </item>
       <item> da </item>
@@ -46,7 +46,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> title </item>
       <item> variable </item>
       <item> end </item>
-      
+
       <item> CBLOCK </item>
       <item> CONSTANT </item>
       <item> DA </item>
@@ -79,7 +79,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> VARIABLE </item>
       <item> END </item>
    </list>
-   
+
     <list name="conditionnal">
       <item> if </item>
       <item> else </item>
@@ -112,7 +112,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> skpnz </item>
       <item> subcf </item>
       <item> tstf </item>
-      
+
       <item> ADDCF </item>
       <item> B </item>
       <item> BC </item>
@@ -168,7 +168,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> tris </item>
       <item> xorlw </item>
       <item> xorwf </item>
-      
+
       <item> ADDLW </item>
       <item> ADDWF </item>
       <item> BCF </item>
@@ -205,7 +205,7 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
       <item> XORWF </item>
     </list>
     <contexts>
-    
+
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Directives" context="#stay" String="directives"/>
         <keyword attribute="Instructions" context="#stay" String="instructions"/>
@@ -225,24 +225,24 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
         <StringDetect attribute="Based Numbers" context="decimalDigits" String="D'" insensitive="TRUE" />
         <DetectChar attribute="String" context="string" char="&quot;"/>
         <DetectChar attribute="Comment" context="comment" char=";" />
-        <RegExpr attribute="Symbol" context="#stay" String="[-/*%+=&gt;&lt;&amp;|^!~]"/>        
+        <RegExpr attribute="Symbol" context="#stay" String="[-/*%+=&gt;&lt;&amp;|^!~]"/>
         <RegExpr attribute="Symbol" context="#stay" String="(HIGH|LOW)"/>
-        <RegExpr attribute="Preprocessor" context="#stay" String="(#define|#undefine|#v)"/>        
+        <RegExpr attribute="Preprocessor" context="#stay" String="(#define|#undefine|#v)"/>
       </context>
-      
+
       <context name="string" attribute="String" lineEndContext="#pop">
         <LineContinue attribute="String" context="#stay"/>
         <HlCStringChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      
-      
+
+
       <context name="comment" attribute="Comment" lineEndContext="#pop">
-        <RegExpr attribute="Instructions" context="#stay" 
+        <RegExpr attribute="Instructions" context="#stay"
            String="(FIXME|TODO|fixme|todo|INPUT|OUTPUT|PARAMETERS|AUTHOR|EMAIL)" />
       </context>
-      
-          
+
+
        <context name="decimalDigits" attribute="Based Numbers" lineEndContext="#pop">
         <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
         <RegExpr attribute="Normal Text" context="#pop" String="[^0-9]" />
@@ -262,11 +262,11 @@ Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
         <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
         <RegExpr attribute="Normal Text" context="#pop" String="[^0-7]" />
       </context>
-      
+
       <context name="ASCIIChar" attribute="Char" lineEndContext="#pop">
         <DetectChar attribute="Char" context="#pop" char="'"/>
       </context>
-  	
+
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" 		defStyleNum="dsNormal"/>

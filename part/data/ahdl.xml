@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Altera AHDL" version="1.01" kateversion="2.3" section="Sources" extensions="*.ahdl;*.tdf" mimetype="text/x-ahdl" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="Altera AHDL" version="1.02" kateversion="2.3" section="Sources" extensions="*.ahdl;*.tdf" mimetype="text/x-ahdl" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> assert </item>
@@ -85,6 +85,8 @@
     </list>
     <contexts>
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr attribute="Keyword" context="#stay" String="\bdefaults\b" insensitive="true" beginRegion="def"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s+defaults\b" insensitive="true" endRegion="def"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bif\b" insensitive="true" beginRegion="if"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bend\s+if\b" insensitive="true" endRegion="if"/>
         <RegExpr attribute="Keyword" context="#stay" String="\btable\b" insensitive="true" beginRegion="table"/>

@@ -51,7 +51,7 @@ class KateIconBorder : public QWidget
     
   signals:
     void sizeHintChanged();
-    void toggleRegionVisibility( uint );
+    void toggleRegionVisibility( unsigned int );
 
   protected:
     void paintEvent( QPaintEvent* );

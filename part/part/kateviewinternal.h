@@ -184,7 +184,6 @@ class KateViewInternal : public QWidget
     void mouseDoubleClickEvent( QMouseEvent* );
     void mouseReleaseEvent(     QMouseEvent* );
     void mouseMoveEvent(        QMouseEvent* );
-    void timerEvent( QTimerEvent* );
     void dragEnterEvent( QDragEnterEvent* );
     void dragMoveEvent( QDragMoveEvent* );
     void dropEvent( QDropEvent* );
@@ -236,11 +235,9 @@ class KateViewInternal : public QWidget
     int mouseY;
     int scrollX;
     int scrollY;
-    int scrollTimer;
 
     KateSuperCursor cursor;
     KateTextCursor displayCursor;
-    int cursorTimer;
     int cXPos;
 
     bool possibleTripleClick;
@@ -353,8 +350,11 @@ class KateViewInternal : public QWidget
     void stopDragScroll();
 
   private:
-    // Timer for drag & scroll
+    // Timers
     QTimer m_dragScrollTimer;
+    QTimer m_scrollTimer;
+    QTimer m_cursorTimer;
+    QTimer m_textHintTimer;
 
     static const int scrollTime = 30;
     static const int scrollMargin = 16;
@@ -362,13 +362,17 @@ class KateViewInternal : public QWidget
     // needed to stop the column scroll bar from hiding / unhiding during a dragScroll.
     bool m_suppressColumnScrollBar;
 
+  private slots:
+    void scrollTimeout ();
+    void cursorTimeout ();
+    void textHintTimeout ();
+
   //TextHint
  public:
    void enableTextHints(int timeout);
    void disableTextHints();
 
  private:
-   int m_textHintTimer;
    bool m_textHintEnabled;
    int m_textHintTimeout;
    int m_textHintMouseX;

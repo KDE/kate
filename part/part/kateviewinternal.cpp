@@ -70,6 +70,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_updatingView(true)
   , m_cachedMaxStartPos(-1, -1)
   , m_dragScrollTimer(this)
+  , m_scrollTimer (this)
+  , m_cursorTimer (this)
+  , m_textHintTimer (this)
   , m_suppressColumnScrollBar(false)
   , m_textHintEnabled(false)
   , m_textHintMouseX(-1)
@@ -147,14 +150,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
            this, SLOT(slotCodeFoldingChanged()) );
 
   displayCursor.setPos(0, 0);
-
-  scrollTimer = 0;
-
   cursor.setPos(0, 0);
-  cursorTimer = 0;
   cXPos = 0;
-
-  m_textHintTimer=0;
 
   possibleTripleClick = false;
 
@@ -169,9 +166,18 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   dragInfo.state = diNone;
 
-  // Drag & scroll
+  // timers
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),
              this, SLOT( doDragScroll() ) );
+
+  connect( &m_scrollTimer, SIGNAL( timeout() ),
+             this, SLOT( scrollTimeout() ) );
+
+  connect( &m_cursorTimer, SIGNAL( timeout() ),
+             this, SLOT( cursorTimeout() ) );
+
+  connect( &m_textHintTimer, SIGNAL( timeout() ),
+             this, SLOT( textHintTimeout() ) );
 
   updateView ();
 }
@@ -1879,9 +1885,9 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
   QPoint cursorP = cursorCoordinates();
   setMicroFocusHint( cursorP.x(), cursorP.y(), 0, m_view->renderer()->fontHeight() );
 
-  if (cursorTimer) {
-    killTimer(cursorTimer);
-    cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+  if (m_cursorTimer.isActive ())
+  {
+    m_cursorTimer.start( KApplication::cursorFlashTime() / 2 );
     m_view->renderer()->setDrawCaret(true);
   }
 
@@ -2285,8 +2291,8 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           placeCursor( e->pos(), e->state() & ShiftButton );
           scrollX = 0;
           scrollY = 0;
-          if( !scrollTimer )
-            scrollTimer = startTimer(50);
+
+          m_scrollTimer.start (50);
         }
 
         e->accept ();
@@ -2361,10 +2367,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       if (dragInfo.state == diPending)
         placeCursor( e->pos() );
       else if (dragInfo.state == diNone)
-      {
-        killTimer(scrollTimer);
-        scrollTimer = 0;
-      }
+        m_scrollTimer.stop ();
 
       dragInfo.state = diNone;
 
@@ -2438,8 +2441,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
   {
     if (m_textHintEnabled)
     {
-       if (m_textHintTimer) killTimer(m_textHintTimer);
-       m_textHintTimer=startTimer(m_textHintTimeout);
+       m_textHintTimer.start(m_textHintTimeout);
        m_textHintMouseX=e->x();
        m_textHintMouseY=e->y();
     }
@@ -2504,44 +2506,55 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
   }
 }
 
-void KateViewInternal::timerEvent( QTimerEvent* e )
+void KateViewInternal::scrollTimeout ()
 {
-  if (e->timerId() == cursorTimer)
-  {
-    m_view->renderer()->setDrawCaret(!m_view->renderer()->drawCaret());
-    paintCursor();
-  }
-  else if (e->timerId() == scrollTimer && (scrollX | scrollY))
+  if (scrollX || scrollY)
   {
     scrollLines (startPos().line() + (scrollY / (int)m_view->renderer()->fontHeight()));
-
     placeCursor( QPoint( mouseX, mouseY ), true );
-    //kdDebug()<<"scroll timer: X: "<<mouseX<<" Y: "<<mouseY<<endl;
   }
-  else if ((e->timerId() == m_textHintTimer) && m_textHintEnabled) //the m_textHintEnabled shouldn't be needed
-  {
-      killTimer(m_textHintTimer);
-      m_textHintTimer=0;
+}
 
-      LineRange thisRange = yToLineRange(m_textHintMouseY);
-      if (thisRange.line == -1) return;
-      if (m_textHintMouseX> (lineMaxCursorX(thisRange) - thisRange.startX)) return;
-      int realLine = thisRange.line;
-      int startCol = thisRange.startCol;
-      KateTextCursor c(realLine, 0);
-      m_view->renderer()->textWidth( c, startX() + m_textHintMouseX, startCol);
-      QString tmp;
-      emit m_view->needTextHint(c.line(), c.col(), tmp);
-      if (!tmp.isEmpty()) kdDebug()<<"Hint text: "<<tmp<<endl;
-  }
+void KateViewInternal::cursorTimeout ()
+{
+  m_view->renderer()->setDrawCaret(!m_view->renderer()->drawCaret());
+  paintCursor();
+}
+
+void KateViewInternal::textHintTimeout ()
+{
+  m_textHintTimer.stop ();
+
+  LineRange thisRange = yToLineRange(m_textHintMouseY);
+
+  if (thisRange.line == -1) return;
+
+  if (m_textHintMouseX> (lineMaxCursorX(thisRange) - thisRange.startX)) return;
+
+  int realLine = thisRange.line;
+  int startCol = thisRange.startCol;
+
+  KateTextCursor c(realLine, 0);
+  m_view->renderer()->textWidth( c, startX() + m_textHintMouseX, startCol);
+
+  QString tmp;
+
+  emit m_view->needTextHint(c.line(), c.col(), tmp);
+
+  if (!tmp.isEmpty()) kdDebug()<<"Hint text: "<<tmp<<endl;
 }
 
 void KateViewInternal::focusInEvent (QFocusEvent *)
 {
-  cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
-  if ((m_textHintTimer==0) && m_textHintEnabled) m_textHintTimer = startTimer( m_textHintTimeout );
+  m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
+
+  if (m_textHintEnabled)
+    m_textHintTimer.start( m_textHintTimeout );
+
   paintCursor();
+
   m_doc->m_activeView = m_view;
+
   emit m_view->gotFocus( m_view );
 }
 
@@ -2549,19 +2562,13 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
 {
   if( ! m_view->m_codeCompletion->codeCompletionVisible() )
   {
-    if( cursorTimer )
-    {
-      killTimer( cursorTimer );
-      cursorTimer = 0;
-    }
+    m_cursorTimer.stop();
+
     paintCursor();
     emit m_view->lostFocus( m_view );
   }
-  if (m_textHintTimer)
-  {
-  killTimer(m_textHintTimer);
-  m_textHintTimer=0;
-  }
+
+  m_textHintTimer.stop();
 }
 
 void KateViewInternal::doDrag()
@@ -2694,17 +2701,13 @@ void KateViewInternal::enableTextHints(int timeout)
 {
   m_textHintTimeout=timeout;
   m_textHintEnabled=true;
-  if (!m_textHintTimer) m_textHintTimer=startTimer(timeout);
+  m_textHintTimer.start(timeout);
 }
 
 void KateViewInternal::disableTextHints()
 {
   m_textHintEnabled=false;
-  if (m_textHintTimer)
-  {
-    killTimer(m_textHintTimer);
-    m_textHintTimer=0;
-  }
+  m_textHintTimer.stop ();
 }
 
 // BEGIN EDIT STUFF

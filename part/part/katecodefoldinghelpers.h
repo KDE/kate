@@ -53,15 +53,15 @@ class KateCodeFoldingNode
 {
   public:
     KateCodeFoldingNode();
-    KateCodeFoldingNode(KateCodeFoldingTree *tree,KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
+    KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
     ~KateCodeFoldingNode();
 
    inline int nodeType() { return type;}
    inline bool isVisible() {return visible;}
    inline KateCodeFoldingNode *getParentNode() {return parentNode;}
-   bool getBegin(KateTextCursor* begin);
-   bool getEnd(KateTextCursor *end);
-    
+   bool getBegin(KateCodeFoldingTree *tree, KateTextCursor* begin);
+   bool getEnd(KateCodeFoldingTree *tree, KateTextCursor *end);
+
     protected:
     friend class KateCodeFoldingTree;
     inline QPtrList<KateCodeFoldingNode> *childnodes ()
@@ -83,16 +83,16 @@ class KateCodeFoldingNode
       return !m_childnodes->isEmpty ();
     }
 
-    int cmpPos(uint line,uint col);
+    int cmpPos(KateCodeFoldingTree *tree, uint line,uint col);
 
     // temporary public to avoid friend an be able to disallow the access of m_childnodes directly ;)
     KateCodeFoldingNode                *parentNode;
     unsigned int startLineRel;
     unsigned int endLineRel;
-    
+
     unsigned int startCol;
     unsigned int endCol;
-    
+
     bool startLineValid;
     bool endLineValid;
 
@@ -102,7 +102,6 @@ class KateCodeFoldingNode
     bool deleteEnding;
 
     QPtrList<KateCodeFoldingNode>    *m_childnodes;
-    KateCodeFoldingTree *m_tree;
 };
 
 

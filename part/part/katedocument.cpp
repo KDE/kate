@@ -3982,7 +3982,7 @@ void KateDocument::comment( KateView *, uint line,uint column, int change)
            KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
            if (n) {
             KateTextCursor start,end;
-             if ((n->nodeType()==commentRegion) && n->getBegin(&start) && n->getEnd(&end)) {
+             if ((n->nodeType()==commentRegion) && n->getBegin(foldingTree(), &start) && n->getEnd(foldingTree(), &end)) {
                 kdDebug(13020)<<"Enclosing region found:"<<start.col()<<"/"<<start.line()<<"-"<<end.col()<<"/"<<end.line()<<endl;
                 removeStartStopCommentFromRegion(start,end,startAttrib);
              } else {

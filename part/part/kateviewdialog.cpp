@@ -393,13 +393,13 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
                         "if available."
                         "</li>"
                         "<li><b>Selection, then Current Word:</b> Use the current "
-                        "selection if available, else use the current word."
+                        "selection if available, otherwise use the current word."
                         "</li>"
                         "<li><b>Current Word Only:</b> Use the word that the cursor "
                         "is currently resting on, if available."
                         "</li>"
                         "<li><b>Current Word, then Selection:</b> Use the current "
-                        "word if available, else use the current selection."
+                        "word if available, otherwise use the current selection."
                         "</li>"
                         "</ul>"
                         "Note that, in all the above modes, if a search string has "
@@ -508,7 +508,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   QWhatsThis::add(m_dynwrapIndicatorsCombo, wtstr);
   QWhatsThis::add( m_wwmarker, i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "
-        "wrap column as defined  in the <strong>Editing</strong> properties."
+        "wrap column as defined in the <strong>Editing</strong> properties."
         "<p>Note that the word wrap marker is only drawn if you use a fixed "
         "pitch font." ));
   QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
@@ -616,7 +616,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QWhatsThis::add(m_selected, i18n("<p>Sets the background color of the selection.</p>"
         "<p>To set the text color for selected text, use the \"<b>Configure "
         "Highlighting</b>\" dialog.</p>"));
-  QWhatsThis::add(m_current, i18n("<p<Sets the background color of the currently "
+  QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
         "active line, which means the line where your cursor is positioned.</p>"));
   QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "

@@ -111,7 +111,11 @@ void KateFileTypeManager::save (QPtrList<KateFileType> *v)
     config.writeEntry ("Wildcards", v->at(z)->wildcards, ';');
     config.writeEntry ("Mimetypes", v->at(z)->mimetypes, ';');
     config.writeEntry ("Priority", v->at(z)->priority);
-    config.writeEntry ("Variables", v->at(z)->varLine);
+
+    QString varLine = v->at(z)->varLine;
+    if (QRegExp("kate:(.*)").search(varLine) < 0)
+      varLine = "kate: " + varLine;
+    config.writeEntry ("Variables", varLine);
 
     newg << v->at(z)->name;
   }

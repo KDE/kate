@@ -86,10 +86,12 @@ void KateSearch::find()
 {	
 	KFindDialog *findDialog = new KFindDialog (  m_view, "", options,
 	                                             s_searchList, m_doc->hasSelection() ); 
+                                               
+  findDialog->setPattern (getSearchText());
 	
 		
 	if( findDialog->exec() == QDialog::Accepted ) {
-		addToSearchList( findDialog->pattern () );
+		s_searchList =  findDialog->findHistory () ;
 	        options = findDialog->options ();
 
 		
@@ -114,11 +116,12 @@ void KateSearch::replace()
   
   KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", options,
 	                                             s_searchList, s_replaceList, m_doc->hasSelection() ); 
-	
+
+  replaceDialog->setPattern (getSearchText());
 		
 	if( replaceDialog->exec() == QDialog::Accepted ) {
-		addToSearchList( replaceDialog->pattern () );
-    addToReplaceList( replaceDialog->replacement() );
+		s_searchList =  replaceDialog->findHistory () ;
+    s_replaceList =  replaceDialog->replacementHistory () ;
 	        options = replaceDialog->options ();
 
 	m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;

@@ -14,6 +14,7 @@
     <Action name="set_verticalSelect"/>
     <Separator />
     <Action name="go_goto_line" />
+    <Action name="bookmarks" />
     <Separator />
     <Action name="edit_find" />
     <Action name="edit_find_next" />
@@ -24,8 +25,6 @@
     <Action name="set_highlight"/>
     <Action name="set_encoding" />
   </Menu>
-
-  <Action name="bookmarks" />
 
   <Menu name="settings"><text>&amp;Settings</text>
     <Action name="set_confdlg" group="config_merge"/>

@@ -82,7 +82,6 @@ KateFileDialog::KateFileDialog (const QString& startDir,
 
 KateFileDialog::~KateFileDialog ()
 {
-
 }
 
 KateFileDialogData KateFileDialog::exec()
@@ -99,10 +98,6 @@ KateFileDialogData KateFileDialog::exec()
   }
 
   return data;
-}
-
-void KateFileDialog::slotApply()
-{
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

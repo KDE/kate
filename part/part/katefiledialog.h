@@ -27,9 +27,6 @@
 class KateFileDialogData
 {
   public:
-    KateFileDialogData () { ; }
-    ~KateFileDialogData () { ; }
-
     KURL::List urls;
     KURL url;
     QString encoding;
@@ -45,12 +42,9 @@ class KateFileDialog : public KFileDialog
                     QWidget *parent= 0, const QString& caption = QString::null,
                     OperationMode = Opening );
 
-    ~KateFileDialog ();
+    virtual ~KateFileDialog ();
 
     virtual KateFileDialogData exec ();
-
-  private slots:
-    void slotApply();
 
   private:
     class KComboBox *m_encoding;

@@ -561,7 +561,7 @@ class KateDocument : public Kate::Document
     void newLine(VConfig &);
     void killLine(VConfig &);
     void backspace(uint line, uint col);
-    void transpose(uint line, uint col);
+    void transpose(KateTextCursor &cursor);
     void del(VConfig &);
     void cut(VConfig &);
     void copy(int flags);

@@ -246,7 +246,7 @@ void KateView::setupEditKeys()
   m_editAccels->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"",Key_Down,this,SLOT(down()));
   m_editAccels->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"",SHIFT+Key_Down,this,SLOT(shiftDown()));
   m_editAccels->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"",CTRL+Key_Down,this,SLOT(scrollDown()));
-
+  m_editAccels->insert("KATE TRANSPOSE", i18n("Transpose two adjacent characters"),"",CTRL+Key_T,this,SLOT(transpose()));
   KConfig config("kateeditkeysrc");
   m_editAccels->readSettings(&config);
 
@@ -401,9 +401,6 @@ void KateView::keyPressEvent( QKeyEvent *ev )
             myDoc->removeSelectedText();
             myViewInternal->update();
             break;
-        case CTRL+Key_T:
-	    transpose();
-	    break;
         case Key_Backspace:
         case SHIFT+Key_Backspace:
             backspace();

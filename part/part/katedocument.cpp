@@ -2848,10 +2848,13 @@ void KateDocument::killLine(VConfig &c)
 }
 
 
-void KateDocument::transpose(uint line, uint col)
+void KateDocument::transpose(KateTextCursor & cursor)
 {
-  TextLine::Ptr textLine = buffer->line(line);
-  
+  TextLine::Ptr textLine = buffer->line(cursor.line);
+  // KateTextCursor newCursor = cursor;
+  uint line = cursor.line;
+  uint col = cursor.col;
+
   if (!textLine)
     return;
 
@@ -2869,6 +2872,12 @@ void KateDocument::transpose(uint line, uint col)
   editStart ();
   editRemoveText (line, col, 2);
   editInsertText (line, col, s);
+
+  // I am not 100% certain about this line cursor should move to the right
+  // ++cursor.col;
+  // myActiveView->myViewInternal->updateCursor(cursor);
+  // myActiveView->myViewInternal->cursorRight();
+
   editEnd ();
 }
 

@@ -193,6 +193,10 @@ class KateBufBlock
  * Create an empty buffer. (with one block with one empty line)
  */
 KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
+  m_hlUpdate (true),
+  m_lines (0),
+  m_highlightedTo (0),
+  m_highlightedRequested (0),
   m_lastInSyncBlock (0),
   m_highlight (0),
   m_doc (doc),
@@ -576,6 +580,9 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   if (!m_highlight)
     return false;
 
+  if (!m_hlUpdate)
+    return;
+    
   TextLine::Ptr textLine;
   QMemArray<uint> ctxNum, endCtx;
 
@@ -669,17 +676,22 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   }
 #endif
   current_line += buf->startLine();
+  
+  kdDebug() << "EMIT TAG LINES FROM BUFFER: " << startLine << " to " << current_line-1 << endl; 
   emit tagLines(startLine, current_line - 1);
+  
   if (CodeFoldingUpdated) emit codeFoldingUpdated();
   return (current_line >= buf->endLine());
 }
 
 void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
 {
-//  kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl;
-   assert(to > 0);
+   if (!m_hlUpdate)
+    return;
+
    if (from > m_highlightedTo )
      from = m_highlightedTo;
+     
    uint done = 0;
    bool endStateChanged = true;
 

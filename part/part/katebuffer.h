@@ -102,6 +102,11 @@ class KateBuffer : public QObject
     {
       return m_regionTree;
     }
+    
+    inline void setHlUpdate (bool b)
+    {
+      m_hlUpdate = b;
+    }
 
     void dumpRegionTree ();
 
@@ -263,6 +268,8 @@ class KateBuffer : public QObject
     void slotBufferUpdateHighlight ();
 
   private:
+    bool m_hlUpdate;
+  
     uint m_lines;
     uint m_highlightedTo; // The highest line with correct highlight info
     uint m_highlightedRequested; // The highest line that we requested highlight for

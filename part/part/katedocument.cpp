@@ -792,6 +792,8 @@ void KateDocument::editStart (bool withUndo)
 
   if (editSessionNumber > 1)
     return;
+    
+  buffer->setHlUpdate (false);
 
   editIsRunning = true;
   noViewUpdates = true;
@@ -839,6 +841,8 @@ void KateDocument::editEnd ()
   if (editSessionNumber > 0)
     return;
 
+  buffer->setHlUpdate (true);
+  
   if (editTagLineStart <= editTagLineEnd)
     updateLines(editTagLineStart, editTagLineEnd);
 

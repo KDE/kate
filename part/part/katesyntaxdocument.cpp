@@ -61,10 +61,10 @@ void SyntaxDocument::setupModeList(bool force)
 {
   if (myModeList.count() > 0) return;
 
-  KConfig config("katesyntaxhighlightingrc");
+  KConfig config("kateparthighlightingrc");
   KStandardDirs *dirs = KGlobal::dirs();
 
-  QStringList list=dirs->findAllResources("data","kate/syntax/*.xml",false,true);
+  QStringList list=dirs->findAllResources("data","katepart/syntax/*.xml",false,true);
 
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {

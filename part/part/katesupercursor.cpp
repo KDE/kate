@@ -714,6 +714,12 @@ void KateSuperRangeList::slotEliminated()
 void KateSuperRangeList::slotDeleted(QObject* range)
 {
   KateSuperRange* r = static_cast<KateSuperRange*>(range);
+
+  if (m_trackingBoundaries) {
+    m_columnBoundaries.remove(&(r->superStart()));
+    m_columnBoundaries.remove(&(r->superEnd()));
+  }
+
   int index = findRef(r);
   if (index != -1)
     take(index);

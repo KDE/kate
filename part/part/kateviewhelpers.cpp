@@ -558,9 +558,12 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
 
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
-  QMouseEvent forward( QEvent::MouseMove,
-    QPoint( 0, e->y() ), e->button(), e->state() );
-  m_viewInternal->mouseMoveEvent( &forward );
+  if ( positionToArea( e->pos() ) != IconBorder )
+  {
+    QMouseEvent forward( QEvent::MouseMove,
+      QPoint( 0, e->y() ), e->button(), e->state() );
+    m_viewInternal->mouseMoveEvent( &forward );
+  }
 }
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )

@@ -28,6 +28,7 @@
 #include <qptrlist.h>
 #include <qobject.h>
 #include <qtimer.h>
+#include <qvaluevector.h>
 
 class KateLineInfo;
 class KateDocument;
@@ -201,7 +202,7 @@ class KateBufBlock
     /**
      * list of textlines
      */
-    KateTextLine::List m_stringList;
+    QValueVector<KateTextLine::Ptr> m_stringList;
 
     /**
      * parent buffer.

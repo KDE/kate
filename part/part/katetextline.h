@@ -27,113 +27,167 @@
 
 #include <qmemarray.h>
 #include <qstring.h>
-#include <qvaluevector.h>
 
 /**
-  The KateTextLine represents a line of text. A text line that contains the
-  text, an attribute for each character, an attribute for the free space
-  behind the last character and a context number for the syntax highlight.
-  The attribute stores the index to a table that contains fonts and colors
-  and also if a character is selected.
-*/
-
+ * The KateTextLine represents a line of text. A text line that contains the
+ * text, an attribute for each character, an attribute for the free space
+ * behind the last character and a context number for the syntax highlight.
+ * The attribute stores the index to a table that contains fonts and colors
+ * and also if a character is selected.
+ */
 class KateTextLine : public KShared
 {
   public:
+    /**
+     * Define a Shared-Pointer type
+     */
     typedef KSharedPtr<KateTextLine> Ptr;
-    typedef QValueVector<Ptr> List;
+    
+  public:
+    /**
+     * Used Flags
+     */
+    enum Flags
+    {
+      flagNoOtherData = 0x1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
+      flagHlContinue = 0x2,
+      flagVisible = 0x4,
+      flagAutoWrapped = 0x8
+    };
 
   public:
     /**
-      Creates an empty text line with given attribute and syntax highlight
-      context
-    */
+     * Constructor
+     * Creates an empty text line with given attribute and syntax highlight
+     * context
+     */
     KateTextLine ();
+    
+    /**
+     * Destructor
+     */
     ~KateTextLine ();
 
   /**
-    Methods to get data
-  */
+   * Methods to get data
+   */
   public:
     /**
-      Returns the length
-    */
+     * Returns the length
+     * @return length of text in line 
+     */
     inline uint length() const { return m_text.length(); }
 
     /**
-      Return some flags
-    */
+     * has the line the hl continue flag set
+     * @return hl continue set? 
+     */
     inline bool hlLineContinue () const { return m_flags & KateTextLine::flagHlContinue; }
 
+    /**
+     * is this line marked as visible by the folding
+     * @return line visible
+     */
     inline bool isVisible () const { return m_flags & KateTextLine::flagVisible; }
 
+    /**
+     * was this line automagically wrapped
+     * @return line auto-wrapped
+     */
     inline bool isAutoWrapped () const { return m_flags & KateTextLine::flagAutoWrapped; }
 
     /**
-      Returns the position of the first character which is not a white space
-    */
+     * Returns the position of the first character which is not a white space
+     * @return position of first non-whitespace char
+     */
     int firstChar() const;
 
     /**
-      Returns the position of the last character which is not a white space
-    */
+     * Returns the position of the last character which is not a white space
+     * @return position of last non-whitespace char
+     */
     int lastChar() const;
 
     /**
-      Find the position of the next char
-      that is not a space.
-      @param pos Column of the character which is examined first.
-      @returns True if the specified or a following character is not a space
-               Otherwise false.
-    */
+     * Find the position of the next char
+     * that is not a space.
+     * @param pos Column of the character which is examined first.
+     * @return True if the specified or a following character is not a space
+     *          Otherwise false.
+     */
     int nextNonSpaceChar(uint pos) const;
 
     /**
-      Find the position of the previous char
-      that is not a space.
-      @param pos Column of the character which is examined first.
-      @return The position of the first none-whitespace character preceeding pos,
-        or -1 if none is found.
-    */
+     * Find the position of the previous char
+     * that is not a space.
+     * @param pos Column of the character which is examined first.
+     * @return The position of the first none-whitespace character preceeding pos,
+     *   or -1 if none is found.
+     */
     int previousNonSpaceChar(uint pos) const;
 
     /**
-      Gets the char at the given position
-    */
-    inline QChar getChar (uint pos) const
-    {
-      return m_text[pos];
-    }
+     * Gets the char at the given position
+     * @return character at given position
+     */
+    inline QChar getChar (uint pos) const { return m_text[pos]; }
 
     /**
-      Gets the text.
-    */
-    inline const QChar *text() const { return m_text.unicode(); };
+     * Gets the text.
+     * @return text of this line as QChar array
+     */
+    inline const QChar *text() const { return m_text.unicode(); }
 
+    /**
+     * Highlighting array
+     * @return hl-attributes array
+     */
     inline uchar *attributes () const { return m_attributes.data(); }
 
     /**
-      Gets a QString
-    */
-    inline const QString& string() const { return m_text; };
+     * Gets a QString
+     * @return text of line as QString reference
+     */
+    inline const QString& string() const { return m_text; }
 
     /**
-      Gets a QString.
-    */
-    inline QString string(uint startCol, uint length) const { return m_text.mid(startCol, length); };
-    inline QConstString constString(uint startCol, uint length) const { return QConstString(m_text.unicode() + startCol, length); };
+     * Gets a substring.
+     * @param startCol start column of substring
+     * @param length lenght of substring
+     * @return wanted substring
+     */
+    inline QString string(uint startCol, uint length) const
+    { return m_text.mid(startCol, length); }
+    
+    /**
+     * Gets a substring as constant string.
+     * @param startCol start column of substring
+     * @param length lenght of substring
+     * @return wanted substring
+     */
+    inline QConstString constString(uint startCol, uint length) const
+    { return QConstString(m_text.unicode() + startCol, length); }
 
-    /*
-      Gets a null terminated pointer to first non space char
-    */
+    /**
+     * Gets a null terminated pointer to first non space char
+     * @return array of QChars starting at first non-whitespace char
+     */
     const QChar *firstNonSpace() const;
 
+    /**
+     * indentation depth of this line
+     * @param tabwidth width of the tabulators
+     * @return indentation width
+     */
     uint indentDepth (uint tabwidth) const;
 
     /**
-      Returns the x position of the cursor at the given position, which
-      depends on the number of tab characters
-    */
+     * Returns the x position of the cursor at the given position, which
+     * depends on the number of tab characters
+     * @param pos position in chars
+     * @param tabChars tabulator width in chars
+     * @return position with tabulators calculated
+     */
     int cursorX(uint pos, uint tabChars) const;
 
     /**
@@ -150,21 +204,6 @@ class KateTextLine : public KShared
       Is the line ending with the given string
     */
     bool endingWith(const QString& match) const;
-
-    /**
-      Gets the syntax highlight context number
-    */
-    inline short *ctx () const { return m_ctx.data (); };
-
-    /**
-      Gets size of the ctxArray
-    */
-    inline bool ctxSize () const { return m_ctx.size (); };
-
-    /**
-      Empty ctx stack ?
-    */
-    inline bool ctxEmpty () const { return m_ctx.isEmpty (); };
 
     bool searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive = true, bool backwards = false);
     bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false);
@@ -187,10 +226,6 @@ class KateTextLine : public KShared
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
     inline const QMemArray<unsigned short> &indentationDepthArray () const { return m_indentationDepth; };
 
-  /**
-    Methodes to manipulate data
-  */
-  public:
      /**
       Universal text manipulation methoda. They can be used to insert or delete text
     */
@@ -206,11 +241,6 @@ class KateTextLine : public KShared
       Truncates the textline to the new length
     */
     void truncate(uint newLen);
-
-    /**
-      Removes trailing spaces
-    */
-    QString withoutTrailingSpaces();
 
     /**
       Sets some flags
@@ -248,12 +278,14 @@ class KateTextLine : public KShared
     inline void setIndentationDepth (QMemArray<unsigned short> &val) { m_indentationDepth.assign (val); }
 
   /**
-    Methodes for dump/restore of the line in the buffer
-  */
+   * Methodes for dump/restore of the line in the buffer
+   */
   public:
     /**
-      Dumpsize in bytes
-    */
+     * Dumpsize in bytes
+     * @param withHighlighting should we dump the hl, too?
+     * @return size of line for dumping
+     */
     inline uint dumpSize (bool withHighlighting) const
     {
       return ( 1
@@ -271,45 +303,54 @@ class KateTextLine : public KShared
     }
 
     /**
-      Dumps the line to *buf and counts buff dumpSize bytes up
-      as return value
-    */
+     * Dumps the line to *buf and counts buff dumpSize bytes up
+     * as return value
+     * @param buf buffer to dump to
+     * @param withHighlight dump hl data, too?
+     * @return buffer index after dumping
+     */
     char *dump (char *buf, bool withHighlighting) const;
 
     /**
-      Restores the line from *buf and counts buff dumpSize bytes up
-      as return value
-    */
+     * Restores the line from *buf and counts buff dumpSize bytes up
+     * as return value
+     * @param buf buffer to restore from
+     * @return buffer index after restoring
+     */
     char *restore (char *buf);
 
-    enum Flags
-    {
-      flagNoOtherData = 0x1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
-      flagHlContinue = 0x2,
-      flagVisible = 0x4,
-      flagAutoWrapped = 0x8
-    };
-
   /**
-   REALLY PRIVATE ;) please no new friend classes
+   * REALLY PRIVATE ;) please no new friend classes
    */
   private:
     /**
-      The text & attributes
-    */
+     * text of line as unicode
+     */
     QString m_text;
+    
+    /**
+     * array of highlighting attributes
+     */
     QMemArray<uchar> m_attributes;
 
     /**
-     Data for context + folding
+     * context stack
      */
     QMemArray<short> m_ctx;
+    
+    /**
+     * list of folding starts/ends
+     */
     QMemArray<signed char> m_foldingList;
+    
+    /**
+     * indentation stack
+     */
     QMemArray<unsigned short> m_indentationDepth;
 
     /**
-     Some bools packed
-    */
+     * flags
+     */
     uchar m_flags;
 };
 

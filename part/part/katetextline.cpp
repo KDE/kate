@@ -145,11 +145,6 @@ int KateTextLine::lastChar() const
   return previousNonSpaceChar(m_text.length() - 1);
 }
 
-QString KateTextLine::withoutTrailingSpaces()
-{
-  return m_text.left (lastChar() + 1);
-}
-
 const QChar *KateTextLine::firstNonSpace() const
 {
   int first = firstChar();

@@ -112,7 +112,7 @@ class KateView : public Kate::View,
   //
   // KTextEditor::CodeCompletionInterface
   //
-  public:
+  public slots:
     void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
         { m_codeCompletion->showArgHint( arg1, arg2, arg3 ); }
     void showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset = 0, bool cs = true )

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MAB" version="1.00" kateversion="2.0" section="Sources" extensions="*.mab;*.MAB;*.Mab;*.pap;*.Pap;*.PAP" section="Personal" mimetype="text/x-mab;text/x-pap" casesensitive="0">
+<language name="MAB-DB" version="1.00" kateversion="2.0" extensions="*.mab;*.MAB;*.Mab" section="Markup" mimetype="text/x-mab" casesensitive="0">
   <highlighting>
     <contexts>
       <context attribute="0" name="Section" lineEndContext="0" >
@@ -9,6 +9,8 @@
 	<RegExpr String="^\*\*\*\**M.*" attribute="HeaderMedium" />
 	<RegExpr String="^\*\*\*\* BIBLIOTHECA.*" attribute="HeaderDb" />
 	<RegExpr String="^\*M [a-zA-Z01-9]* " attribute="MabM" />
+	<RegExpr String="^\*X TYP .*" attribute="MabCommentDescription" />
+	<RegExpr String="^\*X DESC .*" attribute="MabCommentType" />
 	<RegExpr String="^\*X .*" attribute="MabComment" />
       </context>
       <context attribute="1" name="Mab">
@@ -22,6 +24,8 @@
       <itemData name="HeaderDb" 	defStyleNum="dsKeyword" color="#FF3322" selColor="#ffffff" italic="0" bold="1" />
       <itemData name="MabM" 		defStyleNum="dsKeyword" color="#003366" selColor="#ffffff" italic="0" bold="1" />
       <itemData name="MabI" 		defStyleNum="dsKeyword" color="#330066" selColor="#ffffff" italic="0" bold="1" />
+      <itemData name="MabCommentDescription"  	defStyleNum="dsKeyword" color="#3333FF" selColor="#ffffff" italic="1" bold="1" />
+      <itemData name="MabCommentType"  	defStyleNum="dsKeyword" color="#BB3333" selColor="#ffffff" italic="1" bold="1" />
       <itemData name="MabComment"  	defStyleNum="dsKeyword" color="#999999" selColor="#ffffff" italic="1" bold="1" />
     </itemDatas>
   </highlighting>

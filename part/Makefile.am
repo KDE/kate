@@ -1,4 +1,5 @@
 SUBDIRS = interfaces part data
+EXTRA_DIST = AUTHORS COPYING.LIB ChangeLog NEWS README TODO
 
 messages:
 	$(EXTRACTRC) ./*/*.rc >> ./rc.cpp

@@ -1,0 +1,18 @@
+TODO:
+ - complete the kate view/document interfaces
+ - dynamic word wrap
+ - code folding
+ - code completion
+ - search whole words
+ - static word wrap
+ - blockwise paste must be done !
+ - better indent/unindent
+ - exhaustive testing of the new highlighting structure
+ - porting all .xml files to the new scheme.
+    Small help: 
+           A context of #pop returns to the next higher one (pop) (#pop#pop returns two steps and so on)
+           A context of #stay stays in the current context (no more context="5" within context 5 (this 
+           is supported, but should be avoided in new definitions, because you run into problems when using
+           #pop than. If a context >=0 is given as the argument a new entry is appended to the stack (push)
+
+>>>> IMPORTANT, __DON_T__ USE -1 and -2 anymore

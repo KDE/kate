@@ -455,7 +455,7 @@ KateHlCharDetect::KateHlCharDetect(int attribute, int context, signed char regio
 {
 }
 
-int KateHlCharDetect::checkHgl(const QString& text, int offset, int len)
+int KateHlCharDetect::checkHgl(const QString& text, int offset, int)
 {
   if (text[offset] == sChar)
     return offset + 1;
@@ -1227,20 +1227,23 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
     }
     else
     {
-      if (ctx < -1)
+      if (ctx == -1)
       {
-        while (ctx < -1)
-        {
-          if ( ctxs->isEmpty() )
-            (*ctxNum)=0;
-          else
-          {
-            ctxs->resize (ctxs->size()-1, QGArray::SpeedOptim);
-            //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
-            (*ctxNum) = ( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
-          }
+        (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
+      }
+      else
+      {
+        int size = ctxs->size() + ctx + 1;
 
-          ctx++;
+        if (size > 0)
+        {
+          ctxs->resize (size, QGArray::SpeedOptim);
+          (*ctxNum)=(*ctxs)[size-1];
+        }
+        else
+        {
+          ctxs->resize (0, QGArray::SpeedOptim);
+          (*ctxNum)=0;
         }
 
         ctx = 0;
@@ -1261,11 +1264,6 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
             continue;
           }
         }
-      }
-      else
-      {
-        if (ctx == -1)
-          (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
       }
     }
 
@@ -1419,138 +1417,105 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if ((item->column != -1) && (item->column != offset))
         continue;
 
-      bool thisStartEnabled = false;
-
-      if (item->alwaysStartEnable)
+      if (!item->alwaysStartEnable)
       {
-        thisStartEnabled = true;
-      }
-      else if (item->customStartEnable)
-      {
-        if (!customStartEnableDetermined)
+        if (item->customStartEnable)
         {
-          customStartEnable = kateInsideString (deliminator, lastChar);
-          customStartEnableDetermined = true;
+          if (customStartEnableDetermined || kateInsideString (deliminator, lastChar))
+            customStartEnableDetermined = true;
+          else
+            continue;
         }
-
-        thisStartEnabled = customStartEnable;
-      }
-      else
-      {
-        if (!standardStartEnableDetermined)
+        else
         {
-          standardStartEnable = kateInsideString (stdDeliminator, lastChar);
-          standardStartEnableDetermined = true;
+          if (standardStartEnableDetermined || kateInsideString (stdDeliminator, lastChar))
+            standardStartEnableDetermined = true;
+          else
+            continue;
         }
-
-        thisStartEnabled = standardStartEnable;
       }
-
-      if (!thisStartEnabled)
-        continue;
 
       int offset2 = item->checkHgl(text, offset, len-offset);
 
       if (offset2 <= offset)
         continue;
 
-      // do we only consume stuff, than don't look at any other properties ?
-      if (item->onlyConsume)
+      if (item->region2)
       {
-        // set attribute of this context
-        textLine->setAttribs(context->attr,offset,offset2);
-
-        offset = offset2 - 1;
-
-        found = true;
-        break;
-      }
-      else
-      {
-        if(!item->lookAhead)
-          textLine->setAttribs(item->attr,offset,offset2);
-
-        //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
-
-        if (item->region2)
+        // kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
+        if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
         {
-          // kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
-          if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
-          {
-            foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
-          }
+          foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
+        }
+        else
+        {
+          foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+          (*foldingList)[foldingList->size()-2] = (uint)item->region2;
+          if (item->region2<0) //check not really needed yet
+            (*foldingList)[foldingList->size()-1] = offset2;
           else
-          {
-            foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
-            (*foldingList)[foldingList->size()-2] = (uint)item->region2;
-            if (item->region2<0) //check not really needed yet
-              (*foldingList)[foldingList->size()-1] = offset2;
-            else
-            (*foldingList)[foldingList->size()-1] = offset;
-          }
-
+          (*foldingList)[foldingList->size()-1] = offset;
         }
 
-        if (item->region)
-        {
-          // kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
-
-        /* if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-          {
-            foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
-          }
-          else*/
-          {
-            foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
-            (*foldingList)[foldingList->size()-2] = item->region;
-            if (item->region<0) //check not really needed yet
-              (*foldingList)[foldingList->size()-1] = offset2;
-            else
-              (*foldingList)[foldingList->size()-1] = offset;
-          }
-
-        }
-
-        if (item->ctx != -1)
-        {
-          generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
-
-    //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
-  //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
-
-          context=contextNum(ctxNum);
-        }
-
-        // dynamic context: substitute the model with an 'instance'
-        if (context->dynamic)
-        {
-          QStringList *lst = item->capturedTexts();
-          if (lst != 0)
-          {
-            // Replace the top of the stack and the current context
-            int newctx = makeDynamicContext(context, lst);
-            if (ctx.size() > 0)
-              ctx[ctx.size() - 1] = newctx;
-            ctxNum = newctx;
-            context = contextNum(ctxNum);
-          }
-          delete lst;
-        }
-
-        // dominik: look ahead w/o changing offset?
-        if (!item->lookAhead)
-        {
-          offset = offset2 - 1;
-        }
-
-        found = true;
-        break;
       }
+
+      if (item->region)
+      {
+        // kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+
+      /* if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
+        {
+          foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
+        }
+        else*/
+        {
+          foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+          (*foldingList)[foldingList->size()-2] = item->region;
+          if (item->region<0) //check not really needed yet
+            (*foldingList)[foldingList->size()-1] = offset2;
+          else
+            (*foldingList)[foldingList->size()-1] = offset;
+        }
+
+      }
+
+      if (item->ctx != -1)
+      {
+        generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
+        context = contextNum(ctxNum);
+      }
+
+      // dynamic context: substitute the model with an 'instance'
+      if (context->dynamic)
+      {
+        QStringList *lst = item->capturedTexts();
+        if (lst != 0)
+        {
+          // Replace the top of the stack and the current context
+          int newctx = makeDynamicContext(context, lst);
+          if (ctx.size() > 0)
+            ctx[ctx.size() - 1] = newctx;
+          ctxNum = newctx;
+          context = contextNum(ctxNum);
+        }
+        delete lst;
+      }
+
+      // dominik: look ahead w/o changing offset?
+      if (!item->lookAhead)
+      {
+        textLine->setAttribs(item->onlyConsume ? context->attr : item->attr, offset, offset2);
+        offset = offset2 - 1;
+        lastChar = text[offset++];
+      }
+
+      found = true;
+      break;
     }
 
+    // no item found for this offset
     if (!found)
     {
-
       // nothing found: set attribute of one char
       // anders: unless this context does not want that!
       if ( context->fallthrough )
@@ -1566,17 +1531,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           lastChar = text[offset - 1];
         else
           lastChar = '\\';
+
         continue;
       }
-      else
-        textLine->setAttribs(context->attr, offset, offset + 1);
-    }
 
-    // dominik: do not change offset if we look ahead
-    if (!(item && item->lookAhead))
-    {
       lastChar = text[offset];
-      offset++;
+      textLine->setAttribs(context->attr, offset, ++offset);
     }
   }
 
@@ -1912,12 +1872,6 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   // get the (tagname) itemd type
   QString dataname=KateHlManager::self()->syntax->groupItemData(data,QString(""));
 
-  bool onlyConsume = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("onlyConsume")) );
-
-  int attr;
-  int context;
-  QString unresolvedContext;
-
   // code folding region handling:
   QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
   QString endRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("endRegion"));
@@ -1925,12 +1879,43 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   signed char regionId=0;
   signed char regionId2=0;
 
+  if (!beginRegionStr.isEmpty())
+  {
+    regionId = RegionList->findIndex(beginRegionStr);
+
+    if (regionId==-1) // if the region name doesn't already exist, add it to the list
+    {
+      (*RegionList)<<beginRegionStr;
+      regionId = RegionList->findIndex(beginRegionStr);
+    }
+
+    regionId++;
+
+    kdDebug () << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
+  }
+
+  if (!endRegionStr.isEmpty())
+  {
+    regionId2 = RegionList->findIndex(endRegionStr);
+
+    if (regionId2==-1) // if the region name doesn't already exist, add it to the list
+    {
+      (*RegionList)<<endRegionStr;
+      regionId2 = RegionList->findIndex(endRegionStr);
+    }
+
+    regionId2 = -regionId2 - 1;
+
+    kdDebug () << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
+  }
+
+  int attr = 0;
+  QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
+  bool onlyConsume = tmpAttr.isEmpty();
+
   // only relevant for non consumer
   if (!onlyConsume)
   {
-    //BEGIN - Translation of the attribute parameter
-    QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
-
     if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
     {
       errorsAndWarnings+=i18n("<B>%1</B>: Deprecated syntax. Attribute (%2) not addressed by symbolic name<BR>").
@@ -1939,44 +1924,14 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
     }
     else
       attr=lookupAttrName(tmpAttr,iDl);
-    //END - Translation of the attribute parameter
-
-    // Info about context switch
-
-    QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
-
-    context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
-
-    if (!beginRegionStr.isEmpty())
-    {
-      regionId = RegionList->findIndex(beginRegionStr);
-
-      if (regionId==-1) // if the region name doesn't already exist, add it to the list
-      {
-        (*RegionList)<<beginRegionStr;
-        regionId = RegionList->findIndex(beginRegionStr);
-      }
-
-      regionId++;
-
-      kdDebug () << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
-    }
-
-    if (!endRegionStr.isEmpty())
-    {
-      regionId2 = RegionList->findIndex(endRegionStr);
-
-      if (regionId2==-1) // if the region name doesn't already exist, add it to the list
-      {
-        (*RegionList)<<endRegionStr;
-        regionId2 = RegionList->findIndex(endRegionStr);
-      }
-
-      regionId2 = -regionId2 - 1;
-
-      kdDebug () << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
-    }
   }
+
+  // Info about context switch
+  int context = -1;
+  QString unresolvedContext;
+  QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
+  if (!tmpcontext.isEmpty())
+    context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
 
   // Get the char parameter (eg DetectChar)
   char chr;
@@ -2058,6 +2013,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   {
     unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
   }
+
   return tmpItem;
 }
 

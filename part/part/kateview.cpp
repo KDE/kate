@@ -1022,20 +1022,23 @@ void KateViewInternal::keyPressEvent(QKeyEvent *e) {
   VConfig c;
   getVConfig(c);
 
+  KKey key(e);
   if (myView->doc()->isReadWrite()) {
     if (c.flags & KateDocument::cfTabIndents && myDoc->hasSelection()) {
-      if (e->key() == Qt::Key_Tab) {
+      if (key == Qt::Key_Tab) {
         myDoc->indent(c);
         myDoc->updateViews();
         return;
       }
-      if (e->key() == Qt::Key_Backtab) {
+      if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab) {
         myDoc->unIndent(c);
         myDoc->updateViews();
         return;
       }
     }
-    if ( !(e->state() & ControlButton ) && myDoc->insertChars (c.cursor.line, c.cursor.col, e->text(), this->myView) )
+    // If neither Ctrl nor Alt are held down, try to insert text.
+    if ( !(e->state() & ControlButton) && !(e->state() & AltButton)
+         && myDoc->insertChars(c.cursor.line, c.cursor.col, e->text(), this->myView) )
     {
       myDoc->updateViews();
       e->accept();
@@ -1574,62 +1577,57 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::keyPressEvent( QKeyEvent *ev )
 {
-  int key=ev->key();
-
+  int key=KKey(ev).keyCodeQt();
+  VConfig c;
 
   switch(key)
   {
         case Key_PageUp:
-            if ( ev->state() & ShiftButton )
-                shiftPageUp();
-            else if ( ev->state() & ControlButton )
-                topOfView();
-            else
-                pageUp();
+            pageUp();
+            break;
+        case SHIFT+Key_PageUp:
+            shiftPageUp();
+            break;
+        case CTRL+Key_PageUp:
+            topOfView();
             break;
         case Key_PageDown:
-            if ( ev->state() & ShiftButton )
-                shiftPageDown();
-            else if ( ev->state() & ControlButton )
-                bottomOfView();
-            else
-                pageDown();
+            pageDown();
+            break;
+        case SHIFT+Key_PageDown:
+            shiftPageDown();
+            break;
+        case CTRL+Key_PageDown:
+            bottomOfView();
             break;
         case Key_Return:
         case Key_Enter:
             doEditCommand(KateView::cmReturn);
             break;
         case Key_Delete:
-            if ( ev->state() & ControlButton )
-            {
-               VConfig c;
-               shiftWordRight();
-               myViewInternal->getVConfig(c);
-               myDoc->removeSelectedText();
-               myViewInternal->update();
-            }
-            else keyDelete();
+            keyDelete();
+            break;
+        case CTRL+Key_Delete:
+            shiftWordRight();
+            myViewInternal->getVConfig(c);
+            myDoc->removeSelectedText();
+            myViewInternal->update();
             break;
         case Key_Backspace:
-            if ( ev->state() & ControlButton )
-            {
-               VConfig c;
-               shiftWordLeft();
-               myViewInternal->getVConfig(c);
-               myDoc->removeSelectedText();
-               myViewInternal->update();
-            }
-            else backspace();
+            backspace();
+            break;
+        case CTRL+Key_Backspace:
+            shiftWordLeft();
+            myViewInternal->getVConfig(c);
+            myDoc->removeSelectedText();
+            myViewInternal->update();
             break;
         case Key_Insert:
             toggleInsert();
             break;
-        case Key_K:
-            if ( ev->state() & ControlButton )
-            {
-                killLine();
-                break;
-            }
+        case CTRL+Key_K:
+            killLine();
+            break;
         default:
             KTextEditor::View::keyPressEvent( ev );
             return;

@@ -63,10 +63,10 @@ class MarkInterface
     enum MarkTypes
     {
       markType01= 0x1, // Bookmark !!!
-      markType02= 0x2, // Breakpoint !!!
-      markType03= 0x4,
-      markType04= 0x8,
-      markType05= 0x10,
+      markType02= 0x2, // Breakpoint active !!!
+      markType03= 0x4, // Breakpoint reached !!!
+      markType04= 0x8, // Breakpoint disabled !!!
+      markType05= 0x10,// Execution mark !!!
       markType06= 0x20,
       markType07= 0x40,
       markType08= 0x80,

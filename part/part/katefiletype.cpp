@@ -90,8 +90,6 @@ void KateFileTypeManager::update ()
     type->varLine = config.readEntry ("Variables");
 
     m_types.append (type);
-
-    kdDebug(13020) << "INIT LIST: " << type->name << endl;
   }
 }
 

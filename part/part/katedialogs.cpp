@@ -227,8 +227,12 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   QLabel *label = new QLabel( i18n("Highlight:"), vbox1 );
   hlCombo = new QComboBox( false, vbox1 );
   QHBox *modHl = new QHBox(vbox1);
-  connect(new QPushButton(i18n("New"),modHl),SIGNAL(clicked()),this,SLOT(hlNew()));
-  connect(new QPushButton(i18n("Edit"),modHl),SIGNAL(clicked()),this,SLOT(hlEdit()));
+  
+  QPushButton *newHl = new QPushButton(i18n("New"),modHl);
+  QPushButton *editHl = new QPushButton(i18n("Edit"),modHl);
+
+  connect(newHl,SIGNAL(clicked()),this,SLOT(hlNew()));
+  connect(editHl,SIGNAL(clicked()),this,SLOT(hlEdit()));
   connect(new QPushButton(i18n("Download"),vbox1),SIGNAL(clicked()),this,SLOT(hlDownload()));
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
@@ -251,6 +255,10 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   styleDefault = new QCheckBox(i18n("Default"), vbox2 );
   connect(styleDefault,SIGNAL(clicked()),SLOT(changed()));
   styleChanger = new StyleChanger( vbox2 );
+  
+  // not finished for 3.0
+  newHl->hide ();
+  editHl->hide ();
 
   hlDataList = highlightDataList;
   hlChanged(hlNumber);

@@ -45,6 +45,7 @@ class KPrinter;
 class Highlight;
 class KateIconBorder;
 class KateDocument;
+class KateBrowserExtension;
 
 //state commands
 enum State_commands {
@@ -379,6 +380,7 @@ class KateView : public Kate::View
   protected:
     void keyPressEvent( QKeyEvent *ev );
     void customEvent( QCustomEvent *ev );
+    virtual void contextMenuEvent( QContextMenuEvent *ev );
 
     /*
      * Check if the given URL already exists. Currently used by both save() and saveAs()
@@ -687,6 +689,7 @@ public slots:
   private:
     KateTextCursor cursorCache;
     bool cursorCacheChanged;
+    KateBrowserExtension *extension;
 };
 
 class KateBrowserExtension : public KParts::BrowserExtension

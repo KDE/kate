@@ -1326,6 +1326,7 @@ void KateViewInternal::dropEvent( QDropEvent *event )
 }
 
 KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate::View (doc, parent, name)
+    , extension( 0 )
 {
   m_editAccels=0;
   setInstance( KateFactory::instance() );
@@ -1362,7 +1363,7 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   }
   else
   {
-    (void)new KateBrowserExtension( myDoc, this );
+    extension = new KateBrowserExtension( myDoc, this );
     myDoc->setXMLFile( "katepartbrowserui.rc" );
   }
 
@@ -1664,6 +1665,16 @@ void KateView::customEvent( QCustomEvent *ev )
 
     KTextEditor::View::customEvent( ev );
     return;
+}
+
+void KateView::contextMenuEvent( QContextMenuEvent *ev )
+{
+    if ( !extension || !myDoc )
+        return;
+    
+    emit extension->popupMenu( ev->globalPos(), myDoc->url(),
+                               QString::fromLatin1( "text/plain" ) );
+    ev->accept();
 }
 
 bool KateView::setCursorPosition( uint line, uint col )

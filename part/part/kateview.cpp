@@ -782,30 +782,13 @@ void KateView::gotoLineNumber( int line )
 
 void KateView::readSessionConfig(KConfig *config)
 {
-  KateTextCursor cursor;
-
-/*FIXME
-  m_viewInternal->xPos = config->readNumEntry("XPos");
-  m_viewInternal->yPos = config->readNumEntry("YPos");
-*/
-  cursor.col = config->readNumEntry("CursorX");
-  cursor.line = config->readNumEntry("CursorY");
-  m_viewInternal->updateCursor(cursor);
-/*  m_viewInternal->m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
-  setIconBorder( m_viewInternal->m_iconBorderStatus & KateIconBorder::Icons );
-  setLineNumbersOn( m_viewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );*/
+  setCursorPositionReal (config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn"));
 }
 
-void KateView::writeSessionConfig(KConfig */*config*/)
+void KateView::writeSessionConfig(KConfig *config)
 {
-/*FIXME
-  config->writeEntry("XPos",m_viewInternal->xPos);
-  config->writeEntry("YPos",m_viewInternal->yPos);
-  config->writeEntry("CursorX",m_viewInternal->cursor.col);
-  config->writeEntry("CursorY",m_viewInternal->cursor.line);
-*/
-
-//  config->writeEntry("IconBorderStatus", m_viewInternal->m_iconBorderStatus );
+  config->writeEntry("CursorLine",m_viewInternal->cursor.line);
+  config->writeEntry("CursorColumn",m_viewInternal->cursor.col);
 }
 
 void KateView::setEol(int eol)

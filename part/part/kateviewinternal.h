@@ -226,6 +226,8 @@ class KateViewInternal : public QWidget
     void focusInEvent (QFocusEvent *);
     void focusOutEvent (QFocusEvent *);
 
+    void contextMenuEvent ( QContextMenuEvent * e );
+
     void imStartEvent( QIMEvent *e );
     void imComposeEvent( QIMEvent *e );
     void imEndEvent( QIMEvent *e );

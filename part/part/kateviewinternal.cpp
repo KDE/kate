@@ -2520,6 +2520,20 @@ void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
   return;
 }
 
+void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
+{
+  // try to show popup menu
+
+  if ( ! isTargetSelected( e->pos() ) )
+    placeCursor( e->pos() );
+
+  // popup is a qguardedptr now
+  if (m_view->popup())
+    m_view->popup()->popup( mapToGlobal( e->pos() ) );
+
+  e->accept ();
+}
+
 void KateViewInternal::mousePressEvent( QMouseEvent* e )
 {
   switch (e->button())
@@ -2581,18 +2595,6 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
         e->accept ();
         break;
-
-    // try to show popup menu
-    case RightButton:
-      if ( ! isTargetSelected( e->pos() ) )
-        placeCursor( e->pos() );
-
-      // popup is a qguardedptr now
-      if (m_view->popup())
-        m_view->popup()->popup( mapToGlobal( e->pos() ) );
-
-      e->accept ();
-      break;
 
     default:
       e->ignore ();

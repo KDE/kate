@@ -7,6 +7,7 @@
 #include <qcstring.h>
 
 class EditInterface;
+class Document;
 /**
 This is the main interface to the @ref EditInterface of KTextEdit.
 This will provide a consistant dcop interface to all KDE applications that use it.
@@ -23,7 +24,7 @@ public:
 	@param ParentEditInterface - The parent @ref EditInterface object
 	that will provide us with the functions for the interface.
 	*/
-	EditDCOPInterface( EditInterface *ParentEditInterface );
+	EditDCOPInterface( EditInterface *ParentDocument );
 	/**
 	Destructor
 	Cleans up the object.
@@ -80,7 +81,7 @@ k_dcop:
 	*/
 	virtual bool removeLine ( int line );
 private:
-	EditInterface *m_EditInterface;
+	Document *m_Document;
 };
 
 #endif

@@ -1212,8 +1212,10 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
 
 KateHighlighting::~KateHighlighting()
 {
+  // cu contexts
   for (uint i=0; i < m_contexts.size(); ++i)
     delete m_contexts[i];
+  m_contexts.clear ();
 }
 
 void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<short>* ctxs, int *prevLine)
@@ -1759,7 +1761,11 @@ void KateHighlighting::init()
   if (noHl)
     return;
 
+  // cu contexts
+  for (uint i=0; i < m_contexts.size(); ++i)
+    delete m_contexts[i];
   m_contexts.clear ();
+
   makeContextList();
 }
 
@@ -1773,7 +1779,11 @@ void KateHighlighting::done()
   if (noHl)
     return;
 
+  // cu contexts
+  for (uint i=0; i < m_contexts.size(); ++i)
+    delete m_contexts[i];
   m_contexts.clear ();
+
   internalIDList.clear();
 }
 

@@ -4061,7 +4061,8 @@ void KateDocument::joinLines( uint first, uint last )
     int pos = tl->firstChar();
     if ( pos >= 0 )
     {
-      editRemoveText( line + 1, 0, pos );
+      if (pos != 0)
+        editRemoveText( line + 1, 0, pos );
       if ( !( l->length() == 0 || l->getChar( l->length() - 1 ).isSpace() ) )
         editInsertText( line + 1, 0, " " );
     }

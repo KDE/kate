@@ -936,7 +936,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   QPtrList<KTextEditor::Mark> list;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
        it.current(); ++it ) {
-    if( it.current()->line > line + 1 )
+    if( it.current()->line > line || ( col == 0 && it.current()->line == line ) )
       list.append( it.current() );
   }
   for( QPtrListIterator<KTextEditor::Mark> it( list );

@@ -491,32 +491,14 @@ void KateView::toggleInsert() {
   emit newStatus();
 }
 
-bool KateView::canDiscard() {
-  int query;
-
-  if (doc()->isModified()) {
-    query = KMessageBox::warningYesNoCancel(this,
-      i18n("The current Document has been modified.\nWould you like to save it?"));
-    switch (query) {
-      case KMessageBox::Yes: //yes
-        if (save() == SAVE_CANCEL) return false;
-        if (doc()->isModified()) {
-            query = KMessageBox::warningContinueCancel(this,
-               i18n("Could not save the document.\nDiscard it and continue?"),
-           QString::null, i18n("&Discard"));
-          if (query == KMessageBox::Cancel) return false;
-        }
-        break;
-      case KMessageBox::Cancel: //cancel
-        return false;
-    }
-  }
-  return true;
+bool KateView::canDiscard()
+{
+  return m_doc->closeURL ();
 }
 
 void KateView::flush()
 {
-  if (canDiscard()) m_doc->flush();
+  m_doc->closeURL();
 }
 
 KateView::saveResult KateView::save() {

@@ -86,9 +86,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     */
     virtual void insertText(const QString & ) { ; };
     /**
-      Returns true if the current document can be
-      discarded. If the document is modified, the user is asked if he wants
-      to save it. On "cancel" the function returns false.
+      Works exactly like closeURL() of KParts::ReadWritePart
     */
     virtual bool canDiscard() { return false; };
     

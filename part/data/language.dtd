@@ -71,7 +71,7 @@
 
 <!ELEMENT contexts (context)+>
 
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
 <!ATTLIST context
   attribute CDATA #REQUIRED
   lineEndContext NMTOKEN #REQUIRED
@@ -101,6 +101,11 @@
 
 <!ELEMENT HlCHex EMPTY                  -- Detect a hexadecimal number -- >
 <!ATTLIST HlCHex
+  %ruleattrs;
+>
+
+<!ELEMENT HlCFloat EMPTY                  -- Detect a float number -- >
+<!ATTLIST HlCFloat
   %ruleattrs;
 >
 

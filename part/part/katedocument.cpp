@@ -614,6 +614,9 @@ QString KateDocument::textLine( uint line ) const
 
 bool KateDocument::setText(const QString &s)
 {
+  if (!isReadWrite())
+    return false;
+
   QPtrList<KTextEditor::Mark> m = marks ();
   QValueList<KTextEditor::Mark> msave;
 
@@ -638,6 +641,9 @@ bool KateDocument::setText(const QString &s)
 
 bool KateDocument::clear()
 {
+  if (!isReadWrite())
+    return false;
+
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() ) {
     view->clear();
     view->tagAll();
@@ -656,6 +662,9 @@ bool KateDocument::insertText( uint line, uint col, const QString &s)
 
 bool KateDocument::insertText( uint line, uint col, const QString &s, bool blockwise )
 {
+  if (!isReadWrite())
+    return false;
+
   if (s.isEmpty())
     return true;
 
@@ -714,6 +723,9 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
 bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise )
 {
+  if (!isReadWrite())
+    return false;
+
   if ( blockwise && (startCol > endCol) )
     return false;
 
@@ -795,6 +807,9 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
 bool KateDocument::insertLine( uint l, const QString &str )
 {
+  if (!isReadWrite())
+    return false;
+
   if (l > numLines())
     return false;
 
@@ -803,6 +818,9 @@ bool KateDocument::insertLine( uint l, const QString &str )
 
 bool KateDocument::removeLine( uint line )
 {
+  if (!isReadWrite())
+    return false;
+
   if (line > lastLine())
     return false;
 

@@ -74,6 +74,11 @@ Document *document (KTextEditor::Document *doc)
   return static_cast<Document*>(doc->qt_cast("Kate::Document"));
 }
 
+Document *createDocument ( QObject *parent, const char *name )
+{
+  return (Document* ) KTextEditor::createDocument ("libkatepart", parent, name);
+}
+
 View *view (KTextEditor::View *view)
 {
   if (!view)

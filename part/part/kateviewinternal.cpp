@@ -1729,11 +1729,6 @@ void KateViewInternal::tagAll()
   leftBorder->update ();
 }
 
-void KateViewInternal::centerCursor()
-{
- // center( cXPos, lineToContentsY( displayCursor.line ) );
-}
-
 void KateViewInternal::paintCursor()
 {
   if (tagLine(displayCursor))

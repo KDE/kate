@@ -178,8 +178,6 @@ class KateViewInternal : public QWidget
 
     inline int lineToY ( uint viewLine ) const { return (viewLine-startLine()) * m_doc->viewFont.fontHeight; }
 
-    void centerCursor();
-
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& newCursor );
     void updateBracketMarks();

@@ -658,7 +658,6 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
   }
 
   m_viewInternal->updateCursor( KateTextCursor( line, x ) );
-  m_viewInternal->centerCursor();
 
   return true;
 }
@@ -771,7 +770,6 @@ void KateView::gotoLine()
 void KateView::gotoLineNumber( int line )
 {
   m_viewInternal->updateCursor( KateTextCursor( line, 0 ) );
-  m_viewInternal->centerCursor();
 }
 
 void KateView::readSessionConfig(KConfig *config)

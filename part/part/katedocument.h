@@ -1069,6 +1069,8 @@ class KateDocument : public Kate::Document,
                               uint imSelStart, uint imSelEnd, bool m_imComposeEvent );
     void getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
                               uint *imSelStart, uint *imSelEnd );
+    bool isIMSelection( int _line, int _column );
+    bool isIMEdit( int _line, int _column );
 
   private:
     uint m_imStartLine;

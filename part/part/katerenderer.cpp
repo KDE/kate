@@ -344,9 +344,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
     KateAttribute currentHL;
 
-    uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
-    m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
-
     uint blockStartCol = startcol;
 
     // text + attrib data from line
@@ -383,10 +380,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
         isSel = (showSelections() && hasSel && (curCol >= startSel) && (curCol < endSel));
 
         // input method edit area
-        isIMEdit = ( ( int( imStartLine ) == line ) & ( imStart < imEnd ) & ( curCol >= imStart ) & ( curCol < imEnd ) );
+        isIMEdit = m_doc->isIMEdit( line, curCol );
 
         // input method selection
-        isIMSel = ( ( int( imStartLine ) == line ) & ( imSelStart < imSelEnd ) & ( curCol >= imSelStart ) & ( curCol < imSelEnd ) );
+        isIMSel = m_doc->isIMSelection( line, curCol );
 
         // Determine current color, taking into account selection
         curColor = isSel ? &(curAt->selectedTextColor()) : &(curAt->textColor());
@@ -444,10 +441,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || (textLine->string()[nextCol] == tabChar)
 
           // input method edit area
-          || ( isIMEdit != ( imStart < imEnd && ( nextCol >= imStart && nextCol < imEnd ) ) )
+          || ( isIMEdit != m_doc->isIMEdit( line, nextCol ) )
 
           // input method selection
-          || ( isIMSel != ( imSelStart < imSelEnd && ( nextCol >= imSelStart && nextCol < imSelEnd ) ) )
+          || ( isIMSel != m_doc->isIMSelection( line, nextCol ) )
         )
         {
           renderNow = true;

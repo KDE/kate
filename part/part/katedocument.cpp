@@ -5394,6 +5394,18 @@ void KateDocument::setIMSelectionValue( uint imStartLine, uint imStart, uint imE
   m_imComposeEvent = imComposeEvent;
 }
 
+bool KateDocument::isIMSelection( int _line, int _column )
+{
+  return ( ( int( m_imStartLine ) == _line ) && ( m_imSelStart < m_imSelEnd ) && ( _column >= int( m_imSelStart ) ) &&
+    ( _column < int( m_imSelEnd ) ) );
+}
+
+bool KateDocument::isIMEdit( int _line, int _column )
+{
+  return ( ( int( m_imStartLine ) == _line ) && ( m_imStart < m_imEnd ) && ( _column >= int( m_imStart ) ) &&
+    ( _column < int( m_imEnd ) ) );
+}
+
 void KateDocument::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *imEnd,
                                         uint *imSelStart, uint *imSelEnd )
 {

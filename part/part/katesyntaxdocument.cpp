@@ -331,26 +331,30 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& t
 /** Generate the list of hl modes, store them in myModeList
     force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
 */
-void SyntaxDocument::setupModeList(bool force){
+void SyntaxDocument::setupModeList (bool force)
+{
   // If there's something in myModeList the Mode List was already built so, don't do it again
-  if (myModeList.count() > 0) return;
+  if (!myModeList.isEmpty())
+    return;
 
   // We'll store the ModeList in katesyntaxhighlightingrc
   KConfig config("katesyntaxhighlightingrc");
 
   // Let's get a list of all the xml files for hl
-  KStandardDirs *dirs = KGlobal::dirs();
-  QStringList list=dirs->findAllResources("data","katepart/syntax/*.xml",false,true);
+  QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",false,true);
 
   // Let's iterate trhu the list and build the Mode List
-  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )  {
+  for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
+  {
     // Each file has a group called:
     QString Group="Highlighting_Cache"+*it;
 
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
-    if ((config.hasGroup(Group)) && (!force)){
+    if ((config.hasGroup(Group)) && (!force))
+    {
       // Let's go to this group
       config.setGroup(Group);
+
       // Let's make a new syntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       syntaxModeListItem *mli=new syntaxModeListItem;
       mli->name = config.readEntry("name","");
@@ -359,76 +363,87 @@ void SyntaxDocument::setupModeList(bool force){
       mli->extension = config.readEntry("extension","");
       mli->version = config.readEntry("version","");
       mli->identifier = *it;
+
       // Apend the item to the list
       myModeList.append(mli);
     }
-    else {
+    else
+    {
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);
 
-      if (f.open(IO_ReadOnly)) {
+      if (f.open(IO_ReadOnly))
+      {
         // Ok we opened the file, let's read the contents and close the file
         /* the return of setContent should be checked because a false return shows a parsing error */
-    	QString errMsg;
-	int line,col;
-	bool success=setContent(&f,&errMsg,&line,&col);
+        QString errMsg;
+        int line, col;
+
+        bool success = setContent(&f,&errMsg,&line,&col);
+
         f.close();
-	if (success)
-	{
-	        QDomElement n = documentElement();
-        	if (!n.isNull()){
-	          // What does this do ???? Pupeno
-	          QDomElement e=n.toElement();
 
-          	// If the 'first' tag is language, go on
-	          if (e.tagName()=="language"){
-	            // let's make the mode list item.
-	            syntaxModeListItem *mli=new syntaxModeListItem;
-	            mli->name = e.attribute("name");
-	            // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
-	            // This could be done by a switch or ifs with the allowed sections but a new
-	            // section will can't be added without recompiling and it's not a very versatil
-	            // way, adding a new section (from the xml files) would break the translations.
-	            // Why don't we store everything in english internaly and we translate it just when showing it.
-	            mli->section = i18n(e.attribute("section").utf8());
-	            mli->mimetype = e.attribute("mimetype");
-	            mli->extension = e.attribute("extensions");
-	            mli->version = e.attribute("version");
+        if (success)
+        {
+          QDomElement n = documentElement();
 
-	            // I think this solves the proble, everything not in the .po is Other.
-	            if (mli->section.isEmpty()){
-	              mli->section=i18n("Other");
-	             }
+          if (!n.isNull())
+          {
+            // What does this do ???? Pupeno
+            QDomElement e=n.toElement();
 
-	            mli->identifier = *it;
+            // If the 'first' tag is language, go on
+            if (e.tagName()=="language")
+            {
+              // let's make the mode list item.
+              syntaxModeListItem *mli=new syntaxModeListItem;
 
-	            // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
-	            config.setGroup(Group);
-	            config.writeEntry("name",mli->name);
-	            config.writeEntry("section",mli->section);
-	            config.writeEntry("mimetype",mli->mimetype);
-	            config.writeEntry("extension",mli->extension);
-	            config.writeEntry("version",mli->version);
-	            // Append the new item to the list.
-	            myModeList.append(mli);
-	          }
-	        }
-	}
-	else
-	{
-		syntaxModeListItem *emli=new syntaxModeListItem;
-		emli->section=i18n("Errors!");
-		emli->mimetype="invalid_file/invalid_file";
-		emli->extension="invalid_file.invalid_file";
-		emli->version="1.";
-		emli->name=i18n("Error: %1").arg(*it);
-		emli->identifier=(*it);
-		myModeList.append(emli);
-	}
+              mli->name = e.attribute("name");
+              // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
+              // This could be done by a switch or ifs with the allowed sections but a new
+              // section will can't be added without recompiling and it's not a very versatil
+              // way, adding a new section (from the xml files) would break the translations.
+              // Why don't we store everything in english internaly and we translate it just when showing it.
+              mli->section = i18n(e.attribute("section").utf8());
+              mli->mimetype = e.attribute("mimetype");
+              mli->extension = e.attribute("extensions");
+              mli->version = e.attribute("version");
+
+              // I think this solves the problem, everything not in the .po is Other.
+              if (mli->section.isEmpty())
+                mli->section=i18n("Other");
+
+              mli->identifier = *it;
+
+              // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
+              config.setGroup(Group);
+              config.writeEntry("name",mli->name);
+              config.writeEntry("section",mli->section);
+              config.writeEntry("mimetype",mli->mimetype);
+              config.writeEntry("extension",mli->extension);
+              config.writeEntry("version",mli->version);
+
+              // Append the new item to the list.
+              myModeList.append(mli);
+            }
+          }
+        }
+        else
+        {
+          syntaxModeListItem *emli=new syntaxModeListItem;
+
+          emli->section=i18n("Errors!");
+          emli->mimetype="invalid_file/invalid_file";
+          emli->extension="invalid_file.invalid_file";
+          emli->version="1.";
+          emli->name=i18n("Error: %1").arg(*it);
+          emli->identifier=(*it);
+
+          myModeList.append(emli);
+        }
       }
     }
   }
   // Syncronize with the file katesyntax...rc
   config.sync();
 }
-

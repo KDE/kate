@@ -126,7 +126,8 @@
                                 <StringDetect attribute="Directive" context="Prep1" String="(*$"/>
                                 <Detect2Chars attribute="Directive" context="Prep2" char="{" char1="$"/>
                                 <DetectChar attribute="Comment" context="Comment1" char="{"/>
-                                <Detect2Chars attribute="Comment" context="Comment2" char="/" char1="/"/>
+                                <Detect2Chars attribute="Comment" context="Comment2" char="(" char1="*"/>
+                                <Detect2Chars attribute="Comment" context="Comment3" char="/" char1="/"/>
                         </context>
                         <context attribute="String" lineEndContext="#pop" name="String">
                                 <DetectChar attribute="String" context="#pop" char="&quot;"/>
@@ -140,7 +141,10 @@
                         <context attribute="Comment" lineEndContext="#stay" name="Comment1">
                                 <DetectChar attribute="Comment" context="#pop" char="}"/>
                         </context>
-                        <context attribute="Comment" lineEndContext="#pop" name="Comment2" />
+                        <context attribute="Comment" lineEndContext="#stay" name="Comment2">
+                                <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")"/>
+                        </context>
+                        <context attribute="Comment" lineEndContext="#pop" name="Comment3" />
                 </contexts>
                 <itemDatas>
                         <itemData name="Normal Text" defStyleNum="dsNormal" />

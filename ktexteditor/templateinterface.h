@@ -45,12 +45,12 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
     /**
      * Parses @p templateString for macros in the form [$%]{NAME} and finds
      * the value corresponding to NAME if any.
-     * @param templateString The string containing the macros to expand
-     * @param map a map in which the values are placed.
+     * @param map a map with the keys for the macros to expand. keys with a value
+     * are ignored.
      * @see insertTemplateText for a list of supported macros
      * @return true if all macros was sucessfully expanded
      */
-    bool expandMacros( QString templateString, QMap<QString, QString> &initialValues, QWidget *parentWindow );
+    bool expandMacros( QMap<QString, QString> &initialValues, QWidget *parentWindow );
 
     uint templateInterfaceNumber () const;
 

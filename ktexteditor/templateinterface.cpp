@@ -63,13 +63,85 @@ void TemplateInterface::setTemplateInterfaceDCOPSuffix ( const QCString &suffix 
   } \
 } while(false)
 
-bool TemplateInterface::expandMacros( QString templateString, QMap<QString, QString> &map, QWidget *parentWindow )
+bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *parentWindow )
 {
   KABC::StdAddressBook *addrBook = 0;
   KABC::Addressee userAddress;
   QDateTime datetime = QDateTime::currentDateTime();
   QDate date = datetime.date();
   QTime time = datetime.time();
+
+  QMap<QString,QString>::Iterator it;
+  for ( it = map.begin(); it != map.end(); ++it )
+  {
+    QString placeholder = it.key();
+    if ( map[ placeholder ].isEmpty() )
+    {
+      if ( placeholder == "index" ) map[ placeholder ] = "i";
+      else if ( placeholder == "loginname" )
+      {}
+      else if ( placeholder == "firstname" )
+      {
+        INITKABC;
+        map[ placeholder ] = userAddress.givenName();
+      }
+      else if ( placeholder == "lastname" )
+      {
+        INITKABC;
+        map[ placeholder ] = userAddress.familyName();
+      }
+      else if ( placeholder == "fullname" )
+      {
+        INITKABC;
+        map[ placeholder ] = userAddress.assembledName();
+      }
+      else if ( placeholder == "email" )
+      {
+        INITKABC;
+        map[ placeholder ] = userAddress.preferredEmail();
+      }
+      else if ( placeholder == "date" )
+      {
+        map[ placeholder ] = KGlobal::locale() ->formatDate( date, true );
+      }
+      else if ( placeholder == "time" )
+      {
+        map[ placeholder ] = KGlobal::locale() ->formatTime( time, true, false );
+      }
+      else if ( placeholder == "year" )
+      {
+        map[ placeholder ] = KGlobal::locale() ->calendar() ->yearString( date, false );
+      }
+      else if ( placeholder == "month" )
+      {
+        map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->month( date ) );
+      }
+      else if ( placeholder == "day" )
+      {
+        map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->day( date ) );
+      }
+      else if ( placeholder == "hostname" )
+      {
+        char hostname[ 256 ];
+        hostname[ 0 ] = 0;
+        gethostname( hostname, 255 );
+        hostname[ 255 ] = 0;
+        map[ placeholder ] = QString::fromLocal8Bit( hostname );
+      }
+      else if ( placeholder == "cursor" )
+      {
+        map[ placeholder ] = "|";
+      }
+      else map[ placeholder ] = placeholder;
+    }
+  }
+  return true;
+}
+
+bool TemplateInterface::insertTemplateText ( uint line, uint column, const QString &templateString, const QMap<QString, QString> &initialValues, QWidget *parentWindow )
+{
+  QMap<QString, QString> enhancedInitValues( initialValues );
+
   QRegExp rx( "[$%]\\{([a-zA-Z0-9_]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
@@ -89,79 +161,16 @@ bool TemplateInterface::expandMacros( QString templateString, QMap<QString, QStr
           continue;
         }
       }
-
       QString placeholder = rx.cap( 1 );
+      if ( ! enhancedInitValues.contains( placeholder ) )
+        enhancedInitValues[ placeholder ] = "";
+
       pos += rx.matchedLength();
       opos = pos;
-
-      if ( map[ placeholder ].isEmpty() )
-      {
-        if ( placeholder == "index" ) map[ placeholder ] = "i";
-        else if ( placeholder == "loginname" )
-        {}
-        else if ( placeholder == "firstname" )
-        {
-          INITKABC;
-          map[ placeholder ] = userAddress.givenName();
-        }
-        else if ( placeholder == "lastname" )
-        {
-          INITKABC;
-          map[ placeholder ] = userAddress.familyName();
-        }
-        else if ( placeholder == "fullname" )
-        {
-          INITKABC;
-          map[ placeholder ] = userAddress.assembledName();
-        }
-        else if ( placeholder == "email" )
-        {
-          INITKABC;
-          map[ placeholder ] = userAddress.preferredEmail();
-        }
-        else if ( placeholder == "date" )
-        {
-          map[ placeholder ] = KGlobal::locale() ->formatDate( date, true );
-        }
-        else if ( placeholder == "time" )
-        {
-          map[ placeholder ] = KGlobal::locale() ->formatTime( time, true, false );
-        }
-        else if ( placeholder == "year" )
-        {
-          map[ placeholder ] = KGlobal::locale() ->calendar() ->yearString( date, false );
-        }
-        else if ( placeholder == "month" )
-        {
-          map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->month( date ) );
-        }
-        else if ( placeholder == "day" )
-        {
-          map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->day( date ) );
-        }
-        else if ( placeholder == "hostname" )
-        {
-          char hostname[ 256 ];
-          hostname[ 0 ] = 0;
-          gethostname( hostname, 255 );
-          hostname[ 255 ] = 0;
-          map[ placeholder ] = QString::fromLocal8Bit( hostname );
-        }
-        else if ( placeholder == "cursor" )
-        {
-          map[ placeholder ] = "|";
-        }
-        else map[ placeholder ] = placeholder;
-      }
     }
   }
-  return true;
-}
 
-bool TemplateInterface::insertTemplateText ( uint line, uint column, const QString &templateString, const QMap<QString, QString> &initialValues, QWidget *parentWindow )
-{
-  QMap<QString, QString> enhancedInitValues( initialValues );
-  return expandMacros( templateString, enhancedInitValues, parentWindow )
+  return expandMacros( enhancedInitValues, parentWindow )
          && insertTemplateTextImplementation( line, column, templateString, enhancedInitValues, parentWindow );
 }
 

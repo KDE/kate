@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="RPM Spec" version="1.02" kateversion="2.1" section="Other" extensions="*.spec" mimetype="">
+<language name="RPM Spec" version="1.03" kateversion="2.1" section="Other" extensions="*.spec" mimetype="">
   <highlighting>
     <list name="keywords">
         <item> Name </item>
@@ -15,6 +15,7 @@
                 <item> Url </item>
                 <item> URL </item>
                 <item> Prefix </item>
+		<item> Provides </item>
                 <item> Requires </item>
                 <item> BuildRequires </item>
                 <item> Serial </item>

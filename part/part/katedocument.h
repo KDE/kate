@@ -451,28 +451,47 @@ class KateDocument : public Kate::Document,
     bool print ();
 
   //
-  // KTextEditor::DocumentInfoInterface ( ### not inherited, unfinished )
+  // KTextEditor::DocumentInfoInterface ( ### unfinished )
   //
   public:
-  /**
-   * @return a pointer to the KMimeType for the document.
-   *
-   * This method is using @see KMimeType::findByURL, and if the pointer
-   * is then still the default MimeType for a nonlocal or unsaved file,
-   * uses mimeTypeForContent().
-   *
-   * @since Kate 2.3
-   */
-  KMimeType::Ptr mimeType();
-  /**
-   * @return a pointer to the KMimeType for this document, found by analyzing the
-   * actual content.
-   *
-   * Note that this method is *not* part of the DocumentInfoInterface.
-   *
-   * @since Kate 2.3
-   */
-  KMimeType::Ptr mimeTypeForContent();
+    /**
+     * @return the name of the mimetype for the document.
+     *
+     * This method is using @see KMimeType::findByURL, and if the pointer
+     * is then still the default MimeType for a nonlocal or unsaved file,
+     * uses mimeTypeForContent().
+     *
+     * @since Kate 2.3
+     */
+    QString mimeType();
+
+    /**
+     * @return the calculated size in bytes that the document would have when saved to
+     * disk.
+     *
+     * @since Kate 2.3
+     * @todo implement this (it returns 0 right now)
+     */
+    long fileSize();
+
+    /**
+     * @return the calculated size the document would have when saved to disk
+     * as a human readable string.
+     *
+     * @since Kate 2.3
+     * @todo implement this (it returns "UNKNOWN")
+     */
+    QString niceFileSize();
+
+    /**
+     * @return a pointer to the KMimeType for this document, found by analyzing the
+     * actual content.
+     *
+     * Note that this method is *not* part of the DocumentInfoInterface.
+     *
+     * @since Kate 2.3
+     */
+    KMimeType::Ptr mimeTypeForContent();
 
   //
   // KTextEditor::VariableInterface

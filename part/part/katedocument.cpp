@@ -2333,7 +2333,7 @@ bool KateDocument::print ()
 //END
 
 //BEGIN KTextEditor::DocumentInfoInterface (### unfinished)
-KMimeType::Ptr KateDocument::mimeType()
+QString KateDocument::mimeType()
 {
   KMimeType::Ptr result = KMimeType::defaultMimeTypePtr();
 
@@ -2344,7 +2344,19 @@ KMimeType::Ptr KateDocument::mimeType()
   else if ( m_url.isEmpty() || ! m_url.isLocalFile() )
     result = mimeTypeForContent();
 
-  return result;
+  return result->name();
+}
+
+// TODO implement this -- how to calculate?
+long KateDocument::fileSize()
+{
+  return 0;
+}
+
+// TODO implement this
+QString KateDocument::niceFileSize()
+{
+  return "UNKNOWN";
 }
 
 KMimeType::Ptr KateDocument::mimeTypeForContent()
@@ -4693,7 +4705,7 @@ void KateDocument::spellcheck()
   if( !isReadWrite() || text().isEmpty())
     return;
 
-  QString mt = mimeType()->name();
+  QString mt = mimeType()/*->name()*/;
 
   KSpell::SpellerType type = KSpell::Text;
   if ( mt == "text/x-tex" || mt == "text/x-latex" )

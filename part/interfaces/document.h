@@ -24,7 +24,7 @@
 #include <ktexteditor/editinterface.h>
 #include <ktexteditor/undointerface.h>
 #include <ktexteditor/cursorinterface.h>
-// #include <ktexteditor/documentinfo.h>
+#include <ktexteditor/documentinfo.h>
 #include <ktexteditor/selectioninterface.h>
 #include <ktexteditor/selectioninterfaceext.h>
 #include <ktexteditor/blockselectioninterface.h>
@@ -121,7 +121,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
                      public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface,
                      public KTextEditor::MarkInterfaceExtension,
-                     public KTextEditor::SelectionInterfaceExt/*, public KTextEditor::DocumentInfoInterface*/,
+                     public KTextEditor::SelectionInterfaceExt, public KTextEditor::DocumentInfoInterface,
                      public KTextEditor::VariableInterface
 {
   Q_OBJECT

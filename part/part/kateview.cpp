@@ -2167,7 +2167,6 @@ void KateView::doReplaceAction(int result, bool found) {
   int pos;
 
   rlen = replaceWith.length();
-
   int tmpRlen = rlen;
 
       // anders:  allow backreferences in replace strings:)

@@ -639,7 +639,7 @@ void KateDocument::editStart (bool withUndo)
   editIsRunning = true;
   noViewUpdates = true;
   editWithUndo = withUndo;
-  
+
   buffer->noHlUpdate = true;
 
   editTagLineStart = 0xffffff;
@@ -670,12 +670,10 @@ void KateDocument::editEnd ()
   if (editSessionNumber == 0)
     return;
 
-  /*
   // wrap the new/changed text
   if (editSessionNumber == 1)
     if (myWordWrap)
       wrapText (editTagLineStart, editTagLineEnd, myWordWrapAt);
-  */
 
   editSessionNumber--;
 
@@ -714,7 +712,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 {
   if (endLine < startLine)
     return false;
-    
+
   if (col == 0)
     return false;
 
@@ -739,6 +737,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
       if (!(z < 1))
       {
+        z++; // (anders: avoid the space at the beginning of the line)
         editWrapLine (line, z);
         endLine++;
       }
@@ -915,8 +914,22 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   {
     view = myViews.at(z2);
     view->myViewInternal->insLine(line+1);
-  }
 
+    // correct cursor position
+    if (view->cursorCache.line > (int)line) 
+    {
+      view->cursorCache.line++;
+      view->cursorCacheChanged = true;
+    }
+    else if ( view->cursorCache.line == (int)line 
+              && view->cursorCache.col >= (int)col ) 
+    {
+      view->cursorCache.col = tl->length();
+      view->cursorCache.line++;
+      view->cursorCacheChanged = true;
+    }
+
+  }
   editEnd ();
 
   return true;
@@ -1639,8 +1652,6 @@ void KateDocument::readConfig(KConfig *config)
 
   myWordWrap = config->readBoolEntry("Word Wrap On", false);
   myWordWrapAt = config->readNumEntry("Word Wrap At", 80);
-  if (myWordWrap)
-    wrapText (myWordWrapAt);
 
   setTabWidth(config->readNumEntry("TabWidth", 8));
   setUndoSteps(config->readNumEntry("UndoSteps", 256));
@@ -1649,6 +1660,15 @@ void KateDocument::readConfig(KConfig *config)
 
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
+
+  if (myWordWrap)
+  {
+    editStart (false);
+    wrapText (myWordWrapAt);
+    editEnd ();
+    setModified(false);
+    emit textChanged ();
+  }
 
   tagAll();
   updateEditAccels();
@@ -1998,7 +2018,13 @@ bool KateDocument::openFile()
   setMTime();
 
   if (myWordWrap)
+  {
+    editStart (false);
     wrapText (myWordWrapAt);
+    editEnd ();
+    setModified(false);
+    emit textChanged ();
+  }
 
   int hl = hlManager->wildcardFind( m_file );
 

@@ -91,6 +91,9 @@
 #include "attribeditor.h"
 #include "katefactory.h"
 
+
+#warning FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and there is a need for an itemUnset(XYZ)
+
 using namespace Kate;
 
 #define TAG_DETECTCHAR "DetectChar"
@@ -1023,11 +1026,11 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
           ds( style ),
           st( data )
 {
-  is = st ? st->defStyle ? ds : st : ds;
+  is = st ? st->isSomethingSet() /*defStyle*/ ? ds : st : ds;
 }
 
 /* only true for a hl mode item using it's default style */
-bool StyleListItem::defStyle() { return st && st->defStyle; }
+bool StyleListItem::defStyle() { return st && st->isSomethingSet(); }
 
 /* true for default styles */
 bool StyleListItem::isDefault() { return st ? false : true; }
@@ -1091,28 +1094,28 @@ void StyleListItem::changeProperty( Property p )
 }
 void StyleListItem::toggleBold()
 {
-  if (st && st->defStyle) setCustStyle();
+  if (st && st->isSomethingSet()) setCustStyle();
   is->setBold(!is->bold());
   repaint();
 }
 
 void StyleListItem::toggleItalic()
 {
-  if (st && st->defStyle) setCustStyle();
+  if (st && st->isSomethingSet()) setCustStyle();
   is->setItalic(!is->italic());
   repaint();
 }
 
 void StyleListItem::toggleDefStyle()
 {
-  if ( st->defStyle ) {
+  if ( st->isSomethingSet() ) {
     KMessageBox::information( listView(),
          i18n("\"Use Default Style\" will be automatically unset when you change any style properties."),
          i18n("Kate Styles"),
          "Kate hl config use defaults" );
   }
   else {
-    st->defStyle = 1;
+//    st->setdefStyle = 1;
     is = ds;
     repaint();
   }
@@ -1122,7 +1125,7 @@ void StyleListItem::setCol()
 {
   QColor c = is->textColor();
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
-  if (st && st->defStyle) setCustStyle();
+  if (st && st->isSomethingSet()) setCustStyle();
   is->setTextColor(c);
   repaint();
 }
@@ -1131,7 +1134,7 @@ void StyleListItem::setSelCol()
 {
   QColor c = is->selectedTextColor();
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
-  if (st && st->defStyle) setCustStyle();
+  if (st && st->isSomethingSet()) setCustStyle();
   is->setSelectedTextColor(c);
   repaint();
 }
@@ -1140,7 +1143,7 @@ void StyleListItem::setCustStyle()
 {
   is = st;
   *is += *ds;
-  st->defStyle = 0;
+//  st->defStyle = 0;
 }
 
 void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int width, int align )
@@ -1195,7 +1198,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
     x++;
     y++;
-    if ( (col == 1 && is->bold()) || (col == 2 && is->italic()) || (col == 5 && st->defStyle) ) {
+    if ( (col == 1 && is->bold()) || (col == 2 && is->italic()) || (col == 5 && st->isSomethingSet()) ) {
       QPointArray a( 7*2 );
       int i, xx, yy;
       xx = x+1+marg;

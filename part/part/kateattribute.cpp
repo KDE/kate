@@ -27,9 +27,16 @@ KateAttribute::KateAttribute()
 {
 }
 
+
 KateAttribute::~KateAttribute()
 {
 }
+
+void KateAttribute::clear()
+{
+  m_itemsSet=0;
+}
+
 
 KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
 {

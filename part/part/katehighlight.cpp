@@ -228,6 +228,7 @@ static const bool trueBool = true;
 static const QString stdDeliminator = QString (" \t.():!+,-<=>%&*/;?[]^{|}~\\");
 //END
 
+
 //BEGIN NON MEMBER FUNCTIONS
 static int getDefStyleNum(QString name)
 {
@@ -827,7 +828,7 @@ int HlCChar::checkHgl(const QString& text, int offset, int len)
 }
 
 ItemData::ItemData(const QString  name, int defStyleNum)
-  : name(name), defStyleNum(defStyleNum), defStyle(true) {
+  : name(name), defStyleNum(defStyleNum) {
 }
 
 HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString &identifier, int priority)
@@ -1225,6 +1226,7 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
   list.clear();
   createItemData(list);
 
+return ;
   for (ItemData *p = list.first(); p != 0L; p = list.next())
   {
     QString s = config->readEntry(p->name);
@@ -1232,9 +1234,9 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
     if (!s.isEmpty())
     {
       QRgb col, selCol;
-      int bold, italic;
-
-      sscanf(s.latin1(),"%d,%X,%X,%d,%d", &p->defStyle,&col,&selCol,&bold,&italic);
+      int bold, italic,strikeOut, underline;
+#warning FIXME
+//      sscanf(s.latin1(),"%d,%X,%X,%d,%d,%d,%d", &p->isSomethingSet(),&col,&selCol,&bold,&italic,&strikeOut,&underline);
 
       QColor color = p->textColor();
       color.setRgb(col);
@@ -1246,6 +1248,8 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
 
       p->setBold(bold);
       p->setItalic(italic);
+      p->setStrikeOut(strikeOut);
+      p->setStrikeOut(underline);
     }
   }
 }
@@ -1268,15 +1272,17 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
 
 void Highlight::setItemDataList(ItemDataList &list, KConfig *config)
 {
+#if 0
   for (ItemData *p = list.first(); p != 0L; p = list.next())
   {
     QString s;
 
-    s.sprintf("%d,%X,%X,%d,%d",
-      p->defStyle,p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic());
+    s.sprintf("%d,%X,%X,%d,%d,%d,%d",
+      p->isSomethingSet(),p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic(),p->strikeOut(),p->underline());
 
     config->writeEntry(p->name,s);
   }
+#endif
 }
 
 /*******************************************************************************************
@@ -1407,29 +1413,28 @@ void Highlight::addToItemDataList()
     QString selColor = HlManager::self()->syntax->groupData(data,QString("selColor"));
     QString bold = HlManager::self()->syntax->groupData(data,QString("bold"));
     QString italic = HlManager::self()->syntax->groupData(data,QString("italic"));
+    QString underline = HlManager::self()->syntax->groupData(data,QString("underline"));
+    QString strikeOut = HlManager::self()->syntax->groupData(data,QString("strikeOut"));
+    QString bgColor = HlManager::self()->syntax->groupData(data,QString("backgroundColor"));
+    QString selBgColor = HlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
 
-    //check if the user overrides something
-    if ( (!color.isEmpty()) && (!selColor.isEmpty()) && (!bold.isEmpty()) && (!italic.isEmpty()))
-    {
-      //create a user defined style
       ItemData* newData = new ItemData(
               buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
               getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
-      newData->setTextColor(QColor(color));
-      newData->setSelectedTextColor(QColor(selColor));
-      newData->setBold(bold=="true" || bold=="1");
-      newData->setItalic(italic=="true" || italic=="1");
+
+      /* here the custom style overrides are specified, if needed */
+      if (!color.isEmpty()) newData->setTextColor(QColor(color));
+      if (!selColor.isEmpty()) newData->setSelectedTextColor(QColor(selColor));
+      if (!bold.isEmpty()) newData->setBold(bold=="true" || bold=="1");
+      if (!italic.isEmpty()) newData->setItalic(italic=="true" || italic=="1");
+      // new attributes for the new rendering view
+      if (!underline.isEmpty()) newData->setUnderline(underline=="true" || underline=="1");
+      if (!strikeOut.isEmpty()) newData->setStrikeOut(strikeOut=="true" || strikeOut=="1"); 
+      if (!bgColor.isEmpty()) newData->setBGColor(QColor(bgColor));
+      if (!selBgColor.isEmpty()) newData->setSelectedBGColor(QColor(selBgColor));
 
       internalIDList.append(newData);
-    }
-    else
-    {
-      //assign a default style
-      internalIDList.append(new ItemData(
-              buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
-              getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum")))));
-    }
   }
 
   //clean up
@@ -2364,13 +2369,10 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
     KateAttribute n;
     ItemData *itemData = itemDataList.at(z);
 
-    if (itemData->defStyle)
-    {
-      // default style
       KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
-      n += *defaultStyle;
-    }
-    else
+      n+= *defaultStyle;
+
+    if (itemData->isSomethingSet())
     {
       // custom style
       n += *itemData;
@@ -2493,6 +2495,7 @@ void HlManager::getDefaults(KateAttributeList &list)
 
 void HlManager::setDefaults(KateAttributeList &list)
 {
+#if 0
   KConfig *config =  KateFactory::instance()->config();
   config->setGroup("Default Item Styles");
 
@@ -2507,6 +2510,7 @@ void HlManager::setDefaults(KateAttributeList &list)
   }
 
   emit changed();
+#endif
 }
 
 int HlManager::highlights()

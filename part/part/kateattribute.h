@@ -61,6 +61,9 @@ public:
   inline bool itemSet(int item) const
   { return item & m_itemsSet; };
 
+  inline bool isSomethingSet() const
+  { return m_itemsSet; };
+
   inline int itemsSet() const
   { return m_itemsSet; };
 
@@ -103,6 +106,8 @@ public:
 
   virtual void changed() { m_changed = true; };
   bool isChanged() { bool ret = m_changed; m_changed = false; return ret; };
+
+  void clear();
 
 private:
   int m_weight;

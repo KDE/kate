@@ -89,7 +89,6 @@ class ItemData : public KateAttribute {
     ItemData(const QString  name, int defStyleNum);
     const QString name;
     int defStyleNum;
-    int defStyle; //boolean value
 };
 
 typedef QPtrList<ItemData> ItemDataList;

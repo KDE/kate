@@ -641,19 +641,10 @@ void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
   
   kdDebug()<<"endLine: "<<endLine<<endl;
 
-  updateState = 0;
-
   lines = endLine - startLine + 1;
 
   if (lines > oldLines)
     lineRanges.resize (lines);
-
-  // blank repaint attribs
-  for (uint z = 0; z < lines; z++)
-  {
-    lineRanges[z].start = 0xffffff;
-    lineRanges[z].end = 0;
-  }
 
   for (uint z = 0; z < lines; z++)
   {
@@ -789,11 +780,13 @@ void KateViewInternal::updateView(int flags)
 		} while (reUpdate);
 	}
 
+  int oldU = updateState;
+
    if (updateState > 0)  paintTextLines(oldXPos, oldYPos);
 
    if (updateState==3)
    {
-	if ((!needLineRangesUpdate) || 
+	if ((!needLineRangesUpdate) ||
 	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 	needLineRangesUpdate=true;
 	//updateLineRanges(height());update();}
@@ -837,6 +830,21 @@ void KateViewInternal::updateView(int flags)
   else
   {
 	if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
+  }
+
+  if (oldU > 0)
+    leftBorder->update ();
+    
+  //
+  // updateView done, reset the update flag + repaint flags
+  //
+  updateState = 0;
+  
+  // blank repaint attribs
+  for (uint z = 0; z < lineRanges.size(); z++)
+  {
+    lineRanges[z].start = 0xffffff;
+    lineRanges[z].end = 0;
   }
 
 //   updateLineRanges(height());

@@ -937,11 +937,17 @@ void KateViewInternal::doReturn()
 void KateViewInternal::doDelete()
 {
   m_doc->del( cursor );
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    m_view->m_codeCompletion->updateBox();
+  }
 }
 
 void KateViewInternal::doBackspace()
 {
   m_doc->backspace( cursor );
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    m_view->m_codeCompletion->updateBox();
+  }
 }
 
 void KateViewInternal::doPaste()
@@ -1136,8 +1142,21 @@ void KateViewInternal::moveChar( Bias bias, bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::cursorLeft(  bool sel ) { moveChar( left,  sel ); }
-void KateViewInternal::cursorRight( bool sel ) { moveChar( right, sel ); }
+void KateViewInternal::cursorLeft(  bool sel )
+{
+  moveChar( left,  sel );
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    m_view->m_codeCompletion->updateBox();
+  }
+}
+
+void KateViewInternal::cursorRight( bool sel )
+{
+  moveChar( right, sel );
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    m_view->m_codeCompletion->updateBox();
+  }
+}
 
 void KateViewInternal::moveWord( Bias bias, bool sel )
 {
@@ -1185,6 +1204,12 @@ void KateViewInternal::moveEdge( Bias bias, bool sel )
 
 void KateViewInternal::home( bool sel )
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
+
   if (m_view->dynWordWrap() && currentRange().startCol) {
     // Allow us to go to the real start if we're already at the start of the view line
     if (cursor.col() != currentRange().startCol) {
@@ -1215,6 +1240,13 @@ void KateViewInternal::home( bool sel )
 
 void KateViewInternal::end( bool sel )
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
+
+
   if (m_view->dynWordWrap() && currentRange().wrap) {
     // Allow us to go to the real end if we're already at the end of the view line
     if (cursor.col() < currentRange().endCol - 1) {
@@ -1601,6 +1633,12 @@ int KateViewInternal::lineMaxCol(const KateLineRange& range)
 
 void KateViewInternal::cursorUp(bool sel)
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Up, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
+
   if (displayCursor.line() == 0 && (!m_view->dynWordWrap() || viewLine(cursor) == 0))
     return;
 
@@ -1662,6 +1700,12 @@ void KateViewInternal::cursorUp(bool sel)
 
 void KateViewInternal::cursorDown(bool sel)
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Down, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
+
   if ((displayCursor.line() >= (int)m_doc->numVisLines() - 1) && (!m_view->dynWordWrap() || viewLine(cursor) == lastViewLine(cursor.line())))
     return;
 
@@ -1791,6 +1835,12 @@ void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
 
 void KateViewInternal::pageUp( bool sel )
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageUp, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
+
   // remember the view line and x pos
   int viewLine = displayViewLine(displayCursor);
   bool atTop = (startPos().line() == 0 && startPos().col() == 0);
@@ -1847,6 +1897,12 @@ void KateViewInternal::pageUp( bool sel )
 
 void KateViewInternal::pageDown( bool sel )
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_PageDown, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
+
   // remember the view line
   int viewLine = displayViewLine(displayCursor);
   bool atEnd = startPos() >= m_cachedMaxStartPos;
@@ -2375,51 +2431,52 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       e->accept();
       return;
     }
-
-    if( (e->key() == Key_Up)    || (e->key() == Key_Down ) ||
-        (e->key() == Key_Home ) || (e->key() == Key_End)   ||
-        (e->key() == Key_Prior) || (e->key() == Key_Next )) {
-       m_view->m_codeCompletion->handleKey (e);
-       e->accept();
-       return;
-    }
   }
 
-  if (key == Qt::Key_Left)
-  {
-    m_view->cursorLeft();
-    e->accept();
-
-    if (codeComp)
-      m_view->m_codeCompletion->updateBox ();
-
-    return;
-  }
-
-  if (key == Qt::Key_Right)
-  {
-    m_view->cursorRight();
-    e->accept();
-
-    if (codeComp)
-      m_view->m_codeCompletion->updateBox ();
-
-    return;
-  }
-
-  if (key == Qt::Key_Down)
-  {
-    m_view->down();
-    e->accept();
-    return;
-  }
-
-  if (key == Qt::Key_Up)
-  {
-    m_view->up();
-    e->accept();
-    return;
-  }
+//     if( (e->key() == Key_Up)    || (e->key() == Key_Down ) ||
+//         (e->key() == Key_Home ) || (e->key() == Key_End)   ||
+//         (e->key() == Key_Prior) || (e->key() == Key_Next )) {
+//        m_view->m_codeCompletion->handleKey (e);
+//        e->accept();
+//        return;
+//     }
+//   }
+//
+//   if (key == Qt::Key_Left)
+//   {
+//     m_view->cursorLeft();
+//     e->accept();
+//
+//     if (codeComp)
+//       m_view->m_codeCompletion->updateBox ();
+//
+//     return;
+//   }
+//
+//   if (key == Qt::Key_Right)
+//   {
+//     m_view->cursorRight();
+//     e->accept();
+//
+//     if (codeComp)
+//       m_view->m_codeCompletion->updateBox ();
+//
+//     return;
+//   }
+//
+//   if (key == Qt::Key_Down)
+//   {
+//     m_view->down();
+//     e->accept();
+//     return;
+//   }
+//
+//   if (key == Qt::Key_Up)
+//   {
+//     m_view->up();
+//     e->accept();
+//     return;
+//   }
 
   if( !m_doc->isReadWrite() )
   {

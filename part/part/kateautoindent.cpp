@@ -1094,11 +1094,11 @@ void KateXmlIndent::processLine (KateDocCursor &line)
 
 void KateXmlIndent::processSection (KateDocCursor &cur, KateDocCursor &end)
 {
-  uint endLine = end.line();
+  int endLine = end.line();
   do {
     processLine(cur.line());
     if(!cur.gotoNextLine()) break;
-  }while(cur.line() < endLine);
+  } while(cur.line() < endLine);
 }
 
 void KateXmlIndent::getLineInfo (uint line, uint &prevIndent, int &numTags,
@@ -1255,12 +1255,17 @@ KateCSAndSIndent::~KateCSAndSIndent ()
 
 void KateCSAndSIndent::processLine (KateDocCursor &line)
 {
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
+
+  if (!textLine)
+    return;
+
   updateIndentString();
 
   const int oldCol = line.col();
   QString whitespace = calcIndent(line);
   // strip off existing whitespace
-  int oldIndent = doc->plainKateTextLine(line.line())->firstChar();
+  int oldIndent = textLine->firstChar();
   if ( oldIndent < 0 )
     oldIndent = doc->lineLength( line.line() );
   if( oldIndent > 0 )

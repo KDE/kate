@@ -781,6 +781,8 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
     return;
   }
 
+//  kdDebug()<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
+
   HlContext *context;
   const QChar *s2;
   HlItem *item=0;

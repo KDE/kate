@@ -176,7 +176,7 @@ const char*breakpoint_gr_xpm[]={
 "...........",
 "..........."};
 
-const char*ddd_xpm[]={
+const char*exec_xpm[]={
 "11 16 4 1",
 "a c #00ff00",
 "b c #000000",
@@ -254,8 +254,24 @@ void KateIconBorder::paintLine(int i,int pos)
     p.drawLine(iconPaneWidth-1, y, iconPaneWidth-1, y + fontHeight);
 
     uint mark = myView->myDoc->mark (myInternalView->lineRanges[i-myInternalView->startLine].line);
-    if (mark&KateDocument::markType01)
-        p.drawPixmap(2, y, QPixmap(bookmark_xpm));
+    switch (mark)
+    {
+       case KateDocument::markType01:	p.drawPixmap(2, y, QPixmap(bookmark_xpm));
+					break;
+       case KateDocument::markType02: p.drawPixmap(2, y, QPixmap(breakpoint_xpm));
+					break;
+       case KateDocument::markType03: p.drawPixmap(2, y, QPixmap(breakpoint_gr_xpm));
+		                        break;
+       case KateDocument::markType04: p.drawPixmap(2, y, QPixmap(breakpoint_bl_xpm));
+		                        break;
+       case KateDocument::markType05: p.drawPixmap(2, y, QPixmap(exec_xpm));
+		                        break;
+       default: break;
+
+    }
+//    if (mark&KateDocument::markType01)
+//        p.drawPixmap(2, y, QPixmap(bookmark_xpm));
+
     lnX += iconPaneWidth;
   }
 
@@ -386,9 +402,26 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     {
        // paint icon if required
        lnX=0;
+
        if (myView->iconBorderStatus & Icons) {
-         if ( doc->mark(mappedLine) & KateDocument::markType01 )
-           p.drawPixmap(2, (i)*h, QPixmap(bookmark_xpm));
+       switch (doc->mark(mappedLine))
+       {
+	       case KateDocument::markType01: p.drawPixmap(2, (i)*h, QPixmap(bookmark_xpm));
+		        	                break;
+	       case KateDocument::markType02: p.drawPixmap(2, (i)*h, QPixmap(breakpoint_xpm));
+			                        break;
+	       case KateDocument::markType03: p.drawPixmap(2, (i)*h, QPixmap(breakpoint_gr_xpm));
+			                        break;
+	       case KateDocument::markType04: p.drawPixmap(2, (i)*h, QPixmap(breakpoint_bl_xpm));
+		        	                break;
+	       case KateDocument::markType05: p.drawPixmap(2, (i)*h, QPixmap(exec_xpm));
+	        		                break;
+	       default: break;
+       }
+
+
+//         if ( doc->mark(mappedLine) & KateDocument::markType01 )
+//           p.drawPixmap(2, (i)*h, QPixmap(bookmark_xpm));
          lnX+=iconPaneWidth;
        }
 

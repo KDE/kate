@@ -59,6 +59,7 @@ class KateBuffer : public QObject
      */
     ~KateBuffer();
 
+  public slots:
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -101,7 +102,6 @@ class KateBuffer : public QObject
     {
       return m_regionTree;
     }
-
 
     void dumpRegionTree ();
 
@@ -175,7 +175,13 @@ class KateBuffer : public QObject
     QString text(uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise = false);
    
     uint length ();
+    
     int lineLength ( uint line );
+    
+    /**
+     * change the visibility of a given line
+     */
+    void setLineVisible (unsigned int lineNr, bool visible);
    
   signals:
     /**
@@ -208,12 +214,6 @@ class KateBuffer : public QObject
      * Loading of the file finished
      */
     void loadingFinished ();
-
-  public slots:
-    /**
-     * change the visibility of a given line
-     */
-    void setLineVisible(unsigned int lineNr, bool visible);
 
   private:
     /**
@@ -258,6 +258,9 @@ class KateBuffer : public QObject
      * Load a part of the file that is currently loading.
      */
     void loadFilePart();
+    
+    void slotBufferUpdateHighlight (uint,uint);
+    void slotBufferUpdateHighlight ();
 
   private:
     uint m_lines;
@@ -289,6 +292,11 @@ class KateBuffer : public QObject
 
     // folding tree
     KateCodeFoldingTree *m_regionTree;
+    
+    QTimer m_highlightTimer;
+    
+    uint m_highlightedTill;
+    uint m_highlightedEnd;
 };
 
 #endif

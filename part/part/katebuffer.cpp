@@ -198,11 +198,16 @@ KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
   m_doc (doc),
   m_loader (0),
   m_vm (0),
-  m_regionTree (0)
+  m_regionTree (0),
+  m_highlightedTill (0),
+  m_highlightedEnd (0)
 {
   m_blocks.setAutoDelete(true);
   
   connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(loadFilePart()));
+  connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
+  
+  connect( this, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
     
   clear();
 }     
@@ -732,6 +737,56 @@ void KateBuffer::invalidateHighlighting()
 {
    m_highlightedTo = 0;
    m_highlightedRequested = 0;
+}
+
+void KateBuffer::slotBufferUpdateHighlight(uint from, uint to)
+{
+  if (to > m_highlightedEnd)
+     m_highlightedEnd = to;
+     
+  uint till = from + 100;
+  if (till > m_highlightedEnd)
+     till = m_highlightedEnd;
+  
+  updateHighlighting(from, till, false);
+  
+  m_highlightedTill = till;
+  if (m_highlightedTill >= m_highlightedEnd)
+  {
+      m_highlightedTill = 0;
+      m_highlightedEnd = 0;
+      m_highlightTimer.stop();
+  }
+  else
+  {
+      m_highlightTimer.start(100, true);
+  }
+}
+
+void KateBuffer::slotBufferUpdateHighlight()
+{
+  uint till = m_highlightedTill + 1000;
+
+  uint max = m_lines;
+  if (m_highlightedEnd > max)
+    m_highlightedEnd = max;
+
+  if (till > m_highlightedEnd)
+     till = m_highlightedEnd;
+     
+  updateHighlighting(m_highlightedTill, till, false);
+  
+  m_highlightedTill = till;
+  if (m_highlightedTill >= m_highlightedEnd)
+  {
+      m_highlightedTill = 0;
+      m_highlightedEnd = 0;
+      m_highlightTimer.stop();
+  }
+  else
+  {
+      m_highlightTimer.start(100, true);
+  }
 }
 
 /**

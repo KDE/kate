@@ -185,7 +185,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   newDoc = false;
 
   modified = false;
-  m_highlightedEnd = 0;
 
   // some defaults
   _configFlags = KateDocument::cfAutoIndent | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
@@ -208,15 +207,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   buffer = new KateBuffer (this);
 
   connect(buffer, SIGNAL(loadingFinished()), this, SLOT(slotLoadingFinished()));
-
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
-
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
-  connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
-
   connect(buffer,SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
-  m_highlightTimer = new QTimer(this);
-  connect(m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
 
   colors[0] = KGlobalSettings::baseColor();
   colors[1] = KGlobalSettings::highlightColor();
@@ -2684,51 +2677,6 @@ void KateDocument::setFont (WhichFont wf, QFont font)
   {
     updateFontData();
     updateViews();
-  }
-}
-
-void KateDocument::slotBufferUpdateHighlight(uint from, uint to)
-{
-  if (to > m_highlightedEnd)
-     m_highlightedEnd = to;
-  uint till = from + 100;
-  if (till > m_highlightedEnd)
-     till = m_highlightedEnd;
-  buffer->updateHighlighting(from, till, false);
-  m_highlightedTill = till;
-  if (m_highlightedTill >= m_highlightedEnd)
-  {
-      m_highlightedTill = 0;
-      m_highlightedEnd = 0;
-      m_highlightTimer->stop();
-  }
-  else
-  {
-      m_highlightTimer->start(100, true);
-  }
-}
-
-void KateDocument::slotBufferUpdateHighlight()
-{
-  uint till = m_highlightedTill + 1000;
-
-  uint max = numLines();
-  if (m_highlightedEnd > max)
-    m_highlightedEnd = max;
-
-  if (till > m_highlightedEnd)
-     till = m_highlightedEnd;
-  buffer->updateHighlighting(m_highlightedTill, till, false);
-  m_highlightedTill = till;
-  if (m_highlightedTill >= m_highlightedEnd)
-  {
-      m_highlightedTill = 0;
-      m_highlightedEnd = 0;
-      m_highlightTimer->stop();
-  }
-  else
-  {
-      m_highlightTimer->start(100, true);
   }
 }
 

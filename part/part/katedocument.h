@@ -595,8 +595,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   private slots:
     void slotBufferChanged();
-    void slotBufferUpdateHighlight(uint,uint);
-    void slotBufferUpdateHighlight();
 
   public:
     /**
@@ -708,9 +706,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QColor colors[4];
     class HlManager *hlManager;
     class Highlight *m_highlight;
-    uint m_highlightedTill;
-    uint m_highlightedEnd;
-    QTimer *m_highlightTimer;
 
     int eolMode;
     int tabChars;

@@ -1504,7 +1504,10 @@ void KateBufBlock::swapIn ()
     return;
   
   m_rawData.resize(m_vmblockSize);
-  m_parent->vm()->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
+  
+  // what to do if that fails ?
+  if (!m_parent->vm()->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize))
+    m_parent->m_cacheReadError = true;
   
   setState (KateBufBlock::stateLoaded);
 }
@@ -1559,6 +1562,8 @@ void KateBufBlock::swapOut ()
       m_vmblock = 0;
       m_vmblockSize = 0;
     
+      m_parent->m_cacheWriteError = true;
+      
       return;
     }
   }

@@ -180,10 +180,13 @@ unsigned int Editor::editorNumber () const
 
 Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name )
 {
-  if ( KParts::Factory *factory = static_cast<KParts::Factory *>(KLibLoader::self()->factory( libname )->qt_cast ("KParts::Factory")) )
-  { 
-    if ( QObject *obj = factory->createPart( parentWidget, widgetName, parent, name, "KTextEditor::Editor" ) )    
-      return static_cast<Editor *>(obj->qt_cast ("KTextEditor::Editor"));
+  if ( KLibFactory *tmpFactory = KLibLoader::self()->factory( libname ) )
+  {   
+    if ( KParts::Factory *factory = static_cast<KParts::Factory *>(tmpFactory->qt_cast ("KParts::Factory")) )
+    {
+      if ( QObject *obj = factory->createPart( parentWidget, widgetName, parent, name, "KTextEditor::Editor" ) )    
+        return static_cast<Editor *>(obj->qt_cast ("KTextEditor::Editor"));
+    }
   }
                
   return 0;

@@ -1,7 +1,9 @@
 /* This file is part of the KDE libraries
+
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 by Victor Röder <Victor_Roeder@GMX.de>
+   Copyright (C) 2002 by Roberto Raggi <roberto@kdevelop.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -22,10 +24,11 @@
 /* Trolltech doesn't mind, if we license that piece of code as LGPL, because there isn't much
  * left from the desigener code */
 
+// $Id$
+ 
 #include "katecodecompletion.h"
 #include "katecodecompletion.moc"
 
-#include "katecodecompletion_arghint.h"
 #include "katedocument.h"
 #include "kateview.h"
 #include "katerenderer.h"
@@ -42,6 +45,9 @@
 #include <qapplication.h>
 #include <qsizegrip.h>
 #include <qfontmetrics.h>
+#include <qlayout.h>
+#include <qregexp.h>
+
 /**
  * This class is used as the codecompletion listbox. It can be resized according to its contents,
  *  therfor the needed size is provided by sizeHint();
@@ -126,7 +132,7 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   m_completionPopup->installEventFilter( this );
   m_completionPopup->setFocusProxy( m_completionListBox );
 
-  m_pArgHint = new KDevArgHint( m_view );
+  m_pArgHint = new KateArgHint( m_view );
   connect( m_pArgHint, SIGNAL(argHintHidden()),
            this, SIGNAL(argHintHidden()) );
 
@@ -373,6 +379,177 @@ void KateCodeCompletion::showComment()
 
   m_commentLabel->move(finalPoint);
   m_commentLabel->show();
+}
+
+KateArgHint::KateArgHint( KateView* parent, const char* name )
+    : QFrame( parent, name, WType_Popup )
+{
+    setBackgroundColor( black );
+
+    labelDict.setAutoDelete( true );
+    layout = new QVBoxLayout( this, 1, 2 );
+    layout->setAutoAdd( true );
+    editorView = parent;
+
+    m_markCurrentFunction = true;
+
+    setFocusPolicy( StrongFocus );
+    setFocusProxy( parent );
+
+    reset( -1, -1 );
+}
+
+KateArgHint::~KateArgHint()
+{
+}
+
+void KateArgHint::setArgMarkInfos( const QString& wrapping, const QString& delimiter )
+{
+    m_wrapping = wrapping;
+    m_delimiter = delimiter;
+    m_markCurrentFunction = true;
+}
+
+void KateArgHint::reset( int line, int col )
+{
+    m_functionMap.clear();
+    m_currentFunction = -1;
+    labelDict.clear();
+
+    m_currentLine = line;
+    m_currentCol = col - 1;
+}
+
+void KateArgHint::slotDone(bool completed)
+{
+    hide();
+
+    m_currentLine = m_currentCol = -1;
+
+    emit argHintHidden();
+    if (completed)
+        emit argHintCompleted();
+    else
+        emit argHintAborted();
+}
+
+void KateArgHint::cursorPositionChanged( KateView* view, int line, int col )
+{
+    if( m_currentCol == -1 || m_currentLine == -1 ){
+        slotDone(false);
+        return;
+    }
+
+    int nCountDelimiter = 0;
+    int count = 0;
+
+    QString currentTextLine = view->doc()->textLine( line );
+    QString text = currentTextLine.mid( m_currentCol, col - m_currentCol );
+    QRegExp strconst_rx( "\"[^\"]*\"" );
+    QRegExp chrconst_rx( "'[^']*'" );
+
+    text = text
+        .replace( strconst_rx, "\"\"" )
+        .replace( chrconst_rx, "''" );
+
+    int index = 0;
+    while( index < (int)text.length() ){
+        if( text[index] == m_wrapping[0] ){
+            ++count;
+        } else if( text[index] == m_wrapping[1] ){
+            --count;
+        } else if( count > 0 && text[index] == m_delimiter[0] ){
+            ++nCountDelimiter;
+        }
+        ++index;
+    }
+
+    if( (m_currentLine > 0 && m_currentLine != line) || (m_currentLine < col) || (count == 0) ){
+        slotDone(count == 0);
+        return;
+    }
+
+    // setCurArg ( nCountDelimiter + 1 );
+
+}
+
+void KateArgHint::addFunction( int id, const QString& prot )
+{
+    m_functionMap[ id ] = prot;
+    QLabel* label = new QLabel( prot.stripWhiteSpace().simplifyWhiteSpace(), this );
+    label->setBackgroundColor( QColor(255, 255, 238) );
+    label->show();
+    labelDict.insert( id, label );
+
+    if( m_currentFunction < 0 )
+        setCurrentFunction( id );
+}
+
+void KateArgHint::setCurrentFunction( int currentFunction )
+{
+    if( m_currentFunction != currentFunction ){
+
+        if( currentFunction < 0 )
+            currentFunction = (int)m_functionMap.size() - 1;
+
+        if( currentFunction > (int)m_functionMap.size()-1 )
+            currentFunction = 0;
+
+        if( m_markCurrentFunction && m_currentFunction >= 0 ){
+            QLabel* label = labelDict[ m_currentFunction ];
+            label->setFont( font() );
+        }
+
+        m_currentFunction = currentFunction;
+
+        if( m_markCurrentFunction ){
+            QLabel* label = labelDict[ currentFunction ];
+            QFont fnt( font() );
+            fnt.setBold( true );
+            label->setFont( fnt );
+        }
+
+        adjustSize();
+    }
+}
+
+void KateArgHint::show()
+{
+    QFrame::show();
+    adjustSize();
+}
+
+bool KateArgHint::eventFilter( QObject*, QEvent* e )
+{
+    if( isVisible() && e->type() == QEvent::KeyPress ){
+        QKeyEvent* ke = static_cast<QKeyEvent*>( e );
+        if( (ke->state() & ControlButton) && ke->key() == Key_Left ){
+            setCurrentFunction( currentFunction() - 1 );
+            ke->accept();
+            return true;
+        } else if( ke->key() == Key_Escape ){
+            slotDone(false);
+            return false;
+        } else if( (ke->state() & ControlButton) && ke->key() == Key_Right ){
+            setCurrentFunction( currentFunction() + 1 );
+            ke->accept();
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void KateArgHint::adjustSize( )
+{
+    QRect screen = QApplication::desktop()->screenGeometry( pos() );
+
+    QFrame::adjustSize();
+    if( width() > screen.width() )
+        resize( screen.width(), height() );
+
+    if( x() + width() > screen.width() )
+        move( screen.width() - width(), y() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -138,11 +138,28 @@ void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
 
 uint KateViewInternal::contentsYToLine( int y ) const
 {
+  if ((y > yPosition()) && m_view->dynWordWrap())
+  {
+    int vl = (y - yPosition()) / m_doc->viewFont.fontHeight;
+    
+    if ((vl >= 0) && (vl < lineRanges.size()))
+      return lineRanges[vl].visibleLine;
+  }
+
   return y / m_doc->viewFont.fontHeight;
 }
 
 int KateViewInternal::lineToContentsY( uint line ) const
 {
+  if (m_view->dynWordWrap())
+  {
+    for (uint z=0; z < lineRanges.size(); z++)
+    {
+      if (lineRanges[z].visibleLine == line)
+        return yPosition() + (z * m_doc->viewFont.fontHeight);
+    } 
+  }
+
   return line * m_doc->viewFont.fontHeight;
 }
 
@@ -599,13 +616,78 @@ void KateViewInternal::updateView()
     
   if (lastLineCalc() < m_doc->visibleLines ())
     endLine = lastLineCalc();  
+   
+  lineRanges.resize (1 + (visibleHeight() / m_doc->viewFont.fontHeight));
+     
+  kdDebug()<<"sdlfjkdklsjfdsjklfsjkl"<<endl;
+  
+  if (m_view->dynWordWrap())
+  {
+    uint line = firstLine ();
+    uint startCol = 0;
+    bool wrap = false;
+    
+    kdDebug()<<"nuh: "<<wrap<<endl;
+  
+    for (uint z=0; z < lineRanges.size(); z++)
+    {
+      if (line >= m_doc->visibleLines())
+      {
+      kdDebug()<<"nuh: 122"<<wrap<<endl;
+        lineRanges[z].line = -1;
+        line++;
+      }
+      else
+      {
+       kdDebug()<<"23434: sdfdf"<<wrap<<endl;
+      lineRanges[z].visibleLine = line;
+      lineRanges[z].line = m_doc->getRealLine (line);
       
-  for( uint line = firstLine(); line <= endLine; line++ ) {
-    maxLen = QMAX( maxLen, m_doc->textWidth( m_doc->kateTextLine( m_doc->getRealLine( line ) ), -1 ) );
+      int endCol = m_doc->textWidth ( m_doc->kateTextLine (m_doc->getRealLine (line)),
+                                  startCol, (uint) visibleWidth(), (uint)0, KateDocument::ViewFont, &wrap);
+                             
+      kdDebug()<<"kjskjklfdl wrap: "<<wrap<<endl;
+                                       
+      if (wrap)
+      {
+        lineRanges[z].startCol = startCol;
+        lineRanges[z].endCol = endCol;
+        startCol = endCol;
+      }
+      else
+      {
+        lineRanges[z].startCol = startCol;
+        lineRanges[z].endCol = -1;
+        line++;
+        startCol = 0;
+      }   
+      
+      }
+    }
+  
+    maxLen = 100;
   }
+  else
+  {  
+    uint last = 0;
+    
+    for( uint line = firstLine(); line <= endLine; line++ )
+    {
+      lineRanges[line-firstLine()].line = m_doc->getRealLine( line );
+      lineRanges[line-firstLine()].visibleLine = line;
+      lineRanges[line-firstLine()].startCol = 0;
+      lineRanges[line-firstLine()].endCol = -1;
+      maxLen = QMAX( maxLen, m_doc->textWidth( m_doc->kateTextLine( lineRanges[line-firstLine()].line ), -1 ) );
+    
+      last = line-firstLine();
+    }
+    
+    for (uint z = last - firstLine(); z < lineRanges.size(); z++)
+      lineRanges[z].line = -1;
 
-  // Nice bit of extra space
-  maxLen += 8;
+    // Nice bit of extra space
+    maxLen += 8;
+  }
 
   resizeContents( maxLen, m_doc->visibleLines() * m_doc->viewFont.fontHeight );
 }
@@ -836,6 +918,31 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
 {
   uint h = m_doc->viewFont.fontHeight;
 
+  if (m_view->dynWordWrap())
+  {
+    for (uint z=(cy-yPosition()) / h; z < (((cy+cw-yPosition()) / h) + 1); z++)
+    {
+      if (z >= lineRanges.size())
+        break;
+        
+        
+       if( lineRanges[z].line == -1 ) {
+      paint->fillRect( cx, firstLine() + (z*h), cw, h, m_doc->colors[0] );
+    } else {
+      m_doc->paintTextLine( *paint, lineRanges[z].line, lineRanges[z].startCol, lineRanges[z].endCol,
+                            cx, firstLine() + (z*h), cx, cx+cw,
+                            (cursorOn && (hasFocus()||m_view->m_codeCompletion->codeCompletionVisible()) && (lineRanges[z].line == uint(cursor.line))) ? cursor.col : -1,
+                            m_view->isOverwriteMode(), cXPos, true,
+                            m_doc->configFlags() & KateDocument::cfShowTabs,
+                            KateDocument::ViewFont, lineRanges[z].line == uint(cursor.line),
+                            false, bm );
+    }
+    }
+  }
+  else
+  {
+  
+
   uint startline = contentsYToLine( cy );
   uint endline   = contentsYToLine( cy + ch - 1 );
   
@@ -856,6 +963,7 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
                             KateDocument::ViewFont, realLine == uint(cursor.line),
                             false, bm );
     }
+  }
   }
 }
 

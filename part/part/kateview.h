@@ -123,7 +123,7 @@ class KateView : public Kate::View,
   // KTextEditor::DynWordWrapInterface
   //
   public:
-    // These don't actually do anything!
+    // These WILL DO SOMETIME SOMETHING
     void setDynWordWrap( bool b ) { m_hasWrap = b; }
     bool dynWordWrap() const      { return m_hasWrap; }
 

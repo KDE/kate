@@ -27,17 +27,27 @@
 #include "katecursor.h"
 
 #include <qscrollview.h>
+#include <qmemarray.h>
 #include <qpoint.h>
 
 class KateDocument;
 class KateView;
 class KateIconBorder;
 
-  enum Bias {
+enum Bias {
     left  = -1,
     none  =  0,
     right =  1
-  };
+};
+  
+class LineRange
+{
+  public:
+    int line;
+    int visibleLine;
+    int startCol;
+    int endCol;
+};
 
 class KateViewInternal : public QScrollView
 {
@@ -195,6 +205,8 @@ class KateViewInternal : public QScrollView
     bool cursorCacheChanged;
 
     BracketMark bm;
+    
+    QMemArray<LineRange> lineRanges;
 
     enum DragState { diNone, diPending, diDragging };
 

@@ -39,7 +39,7 @@ TODO
 -->
 
 <!-- Entity declarations
-  You can use '&per;' instead of '.'. This seems to be usefull in <item> elements.
+  You can use '&per;' instead of '.'. This seems to be useful in <item> elements.
 
 TODO
   - Are there any more such pre-defined entities?

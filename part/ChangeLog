@@ -92,7 +92,7 @@
   * new print and mark interfaces ;)
   * bugfixes for some stuff in kateview/document.*
   * move more of the document stuff from the view to the document
-    (old kwritedoc/view was very mixed, no real seperation, but that should be nearly done)
+    (old kwritedoc/view was very mixed, no real separation, but that should be nearly done)
 
 2001-11-17 Christoph Cullmann <cullmann@kde.org>
   * new selection code (bit buggy at the moment, but better than the old way
@@ -105,7 +105,7 @@
 2001-10-27 Christoph Cullmann <cullmann@kde.org>
   * undo/redo works now without errors
   * fix many memleaks + some crashs in buffer + hl
-  * fix ctx managment (almost)
+  * fix ctx management (almost)
 
 2001-10-27 Joseph Wenninger <jowenn@kde.org
   * Highlighting isn't updated completely yet (should be fixed now), but uses:
@@ -285,7 +285,7 @@
   * fileist, sync for all mainwindows, all open docs listed
 
 2001-03-03 Christoph Cullmann <cullmann@kde.org>
-  * session managment (Anders Lund)
+  * session management (Anders Lund)
   * removed some debug stuff
 
 2001-02-26 Joseph Wenninger <jowenn@kde.org>

@@ -262,7 +262,7 @@
 
    <list name="operators">
       <item> has </item>
-      <item> hasnt </item>
+      <item> hasn't </item>
       <item> in </item>
       <item> notin </item>
       <item> provides </item>

@@ -13,7 +13,7 @@ function printNames (str)
 #		print type,a[i]
 #	}
 	# ATTENTION: The loop above does not work for some strange reason.
-	# The following statements imitate it for a limited ammount of elements.
+	# The following statements imitate it for a limited amount of elements.
 	# If you happen to have more then the ones given here, you have to extend it!
 	printName(a[0]);
 	printName(a[1]);

@@ -52,7 +52,7 @@ public:
  *   - hopefully make this extension more complimentary to the current syntax highlighting
  * - signal for cursor movement
  * - signal for mouse movement
- * - indentical highlight for whole list
+ * - identical highlight for whole list
  * - signals for view movement
  */
 class KateArbitraryHighlight : public QObject

@@ -43,7 +43,7 @@ class syntaxModeListItem{
 */
 typedef QPtrList<syntaxModeListItem> SyntaxModeList;
 
-/** Class holding the data arround the current QDomElement
+/** Class holding the data around the current QDomElement
 */
 class syntaxContextData{
   public:

@@ -939,7 +939,7 @@ void KateDocument::undoEnd()
     m_editCurrentUndo = 0L;
 
     // (Re)Start the single-shot timer to cancel the undo merge
-    // the user has 5 seconds to input more data, or undo merging gets cancelled for the current undo item.
+    // the user has 5 seconds to input more data, or undo merging gets canceled for the current undo item.
     m_undoMergeTimer->start(5000, true);
 
     emit undoChanged();
@@ -2874,7 +2874,7 @@ bool KateDocument::openFile()
   setDocName  (url().fileName());
 
   if (!success && buffer->loadingBorked())
-    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completly, as there is not enough temporary disk storage for it!").arg(m_url.url()));
+    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
   else if (!success)
     KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was impossible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
 
@@ -3416,7 +3416,7 @@ void KateDocument::indent ( KateView *, uint line, int change)
     }
 
     if (config()->configFlags() & KateDocument::cfKeepIndentProfile && change < 0) {
-      // unindent so that the existing indent profile doesnt get screwed
+      // unindent so that the existing indent profile doesn't get screwed
       // if any line we may unindent is already full left, don't do anything
       int adjustedChange = -change;
 

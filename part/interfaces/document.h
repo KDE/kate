@@ -145,8 +145,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     virtual uint wordWrapAt () = 0;
 
 
-    virtual void setEncoding (QString e) = 0;
-    virtual QString encoding() = 0;
+    virtual void setEncoding (const QString &e) = 0;
+    virtual QString encoding() const = 0;
         
   public:
     virtual ConfigPage *colorConfigPage (QWidget *) = 0;

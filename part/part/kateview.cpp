@@ -538,7 +538,7 @@ KateView::saveResult KateView::saveAs() {
   if( query == KMessageBox::Cancel )
     return SAVE_CANCEL;
 
-  m_doc->setEncoding (data.encoding);
+  ((KTextEditor::EncodingInterface *)m_doc)->setEncoding (data.encoding);
   if( !m_doc->saveAs(data.url) ) {
     KMessageBox::sorry(this,
       i18n("The file could not be saved. Please check if you have write permission."));

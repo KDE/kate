@@ -22,6 +22,8 @@
 #ifndef kate_view_h
 #define kate_view_h
 
+#include <ktexteditor/viewconfiginterface.h>
+
 #include "../interfaces/view.h"
 
 #include "katedocument.h"
@@ -39,7 +41,7 @@ class KateBookmarks;
 //
 // Kate KTextEditor::View class ;)
 //
-class KateView : public Kate::View
+class KateView : public Kate::View, public KTextEditor::ViewConfigInterface
 {
     Q_OBJECT
     friend class KateViewInternal;

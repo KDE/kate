@@ -22,6 +22,7 @@
 #define kate_document_h
 
 #include <ktexteditor/configinterfaceextension.h>
+#include <ktexteditor/encodinginterface.h>
 
 #include "katecursor.h"
 #include "katefont.h"
@@ -47,7 +48,8 @@ class KateViewInternal;
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document, KTextEditor::ConfigInterfaceExtension
+class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceExtension,
+                                                public KTextEditor::EncodingInterface
 {
   Q_OBJECT
   friend class KateConfigDialog;
@@ -60,6 +62,8 @@ class KateDocument : public Kate::Document, KTextEditor::ConfigInterfaceExtensio
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false, 
         QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
     ~KateDocument ();
+    
+    bool closeURL();
 
   private:
     // only to make part work, don't change it !
@@ -538,9 +542,9 @@ class KateDocument : public Kate::Document, KTextEditor::ConfigInterfaceExtensio
   public:
     KateCmd *cmd () { return myCmd; };
 
-  public:
-    void setEncoding (QString e) { myEncoding = e; };
-    QString encoding() { return myEncoding; };
+  public slots:
+    void setEncoding (const QString &e) { myEncoding = e; };
+    QString encoding() const { return myEncoding; };
 
   public slots:
     void setWordWrap (bool on);

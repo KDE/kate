@@ -229,6 +229,13 @@ KateDocument::~KateDocument()
   KateFactory::deregisterDocument (this);
 }
 
+bool KateDocument::closeURL()
+{
+  flush ();
+
+  return KParts::ReadWritePart::closeURL ();
+}
+
 //
 // KTextEditor::Document stuff
 //

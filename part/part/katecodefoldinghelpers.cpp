@@ -305,8 +305,6 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 				{
 					KateCodeFoldingNode *newNode = new KateCodeFoldingNode (node,data,line-startLine);
 					something_changed = true;
-					if (!node->childnodes)
-						node->childnodes=new QPtrList<KateCodeFoldingNode>();
 					node->childnodes->append(newNode);
 					addOpening(newNode, data, regionChanges, line);
 					insertPos = node->childnodes->find(newNode)+1;
@@ -323,8 +321,6 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 //							kdDebug(13000)<<"ADDING NODE "<<endl;
 						KateCodeFoldingNode *newNode = new KateCodeFoldingNode (node,data,line-startLine);
 						something_changed = true;
-						if (!node->childnodes)
-							node->childnodes=new QPtrList<KateCodeFoldingNode>();
 						node->childnodes->insert(insertPos, newNode);
 						addOpening(newNode, data, regionChanges, line);
 						insertPos++;
@@ -406,17 +402,12 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 			count = i-mypos-1;
 			if (count > 0)
 			{
-				if (!node->childnodes)
-					node->childnodes=new QPtrList<KateCodeFoldingNode>();
 				for (int i=0; i<count; i++)
 				{
 					KateCodeFoldingNode *tmp = parent->childnodes->take(mypos+1);
 					tmp->startLineRel -= node->startLineRel;
-					if (tmp)
-					{
-						tmp->parentNode = node; //should help 16.04.2002
-						node->childnodes->append(tmp);
-					}
+					tmp->parentNode = node; //should help 16.04.2002
+					node->childnodes->append(tmp);
 				}
 			}
 			return;
@@ -429,14 +420,8 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 		{
 			KateCodeFoldingNode *tmp = parent->childnodes->take(mypos+1);
 			tmp->startLineRel -= node->startLineRel;
-
-			if (tmp)
-			{
-				if (!node->childnodes)
-					node->childnodes=new QPtrList<KateCodeFoldingNode>();
-				tmp->parentNode = node; // SHOULD HELP 16.04.2002
-				node->childnodes->append(tmp);
-			}
+			tmp->parentNode = node; // SHOULD HELP 16.04.2002
+			node->childnodes->append(tmp);
 		}
 
 		// this should fix the bug of wrongly closed nodes
@@ -474,8 +459,6 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 		newNode->endLineRel = 0;
 		if (node->childnodes)
 		{
-			if (!node->childnodes)
-				node->childnodes=new QPtrList<KateCodeFoldingNode>();
 			if ((insertPos==-1) || (insertPos==(int)node->childnodes->count()))
 				node->childnodes->append(newNode);
 			else
@@ -485,8 +468,6 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 		}
 		else
 		{
-			// MEMLEAK ???
-			node->childnodes = new QPtrList<KateCodeFoldingNode>();
 			node->childnodes->append(newNode);
 		}
 		return false;
@@ -646,8 +627,6 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 
 					if (count>0)
 					{
-						if (!node->childnodes)
-							node->childnodes=new QPtrList<KateCodeFoldingNode>();
 						for (int i=0;i<count;i++)
 						{
 							KateCodeFoldingNode *tmp;
@@ -668,8 +647,6 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 	{ // create a new region
 		KateCodeFoldingNode *newNode = new KateCodeFoldingNode (node,nType,line-startLine);
 		something_changed = true;
-		if (!node->childnodes)
-			node->childnodes = new QPtrList<KateCodeFoldingNode>();
 
 		int insert_position=-1;
 		if (node->childnodes->count() > 0)
@@ -728,8 +705,6 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 				}
 				if (count > 0)
 				{
-					// MEMLEAK ???
-					newNode->childnodes = new QPtrList<KateCodeFoldingNode>();
 					for (int i=0;i<count;i++)
 					{
 						KateCodeFoldingNode *tmp;
@@ -808,8 +783,6 @@ void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *nod
 				{
 					something_changed = true;
 					KateCodeFoldingNode *newNode = new KateCodeFoldingNode(node, data, line-startLine);
-					if (!node->childnodes)
-						node->childnodes=new QPtrList<KateCodeFoldingNode>();
 					node->childnodes->insert(current, newNode);	//find the correct position later
 				}
 

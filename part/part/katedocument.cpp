@@ -2023,8 +2023,7 @@ void KateDocument::writeSessionConfig(KConfig *config)
        ++it )
      marks << it.current()->line;
 
-  if( !marks.isEmpty() )
-    config->writeEntry( "Bookmarks", marks );
+  config->writeEntry( "Bookmarks", marks );
 }
 
 void KateDocument::configDialog()

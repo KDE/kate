@@ -1899,7 +1899,7 @@ KateView::saveResult KateView::saveAs() {
       return SAVE_CANCEL;
     query = checkOverwrite( data.url );
   }
-  while (query != KMessageBox::Yes);
+  while ((query != KMessageBox::Cancel) && (query != KMessageBox::Yes));
 
   if( query == KMessageBox::Cancel )
     return SAVE_CANCEL;

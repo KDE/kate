@@ -117,30 +117,30 @@
                         <item> Text </item>
                 </list>
                 <contexts>
-                        <context attribute="0" lineEndContext="0">
-                                <keyword attribute="1" context="0" String="keywords"/>
-                                <keyword attribute="2" context="0" String="types"/>
-                                <Float attribute="3" context="0"/>
-                                <Int attribute="3" context="0"/>
-                                <DetectChar attribute="4" context="1" char="&quot;"/>
-                                <StringDetect attribute="5" context="2" String="(*$"/>
-                                <Detect2Chars attribute="5" context="3" char="{" char1="$"/>
-                                <DetectChar attribute="6" context="4" char="{"/>
-                                <Detect2Chars attribute="6" context="5" char="/" char1="/"/>
+                        <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+                                <keyword attribute="Keyword" context="#stay" String="keywords"/>
+                                <keyword attribute="Type" context="#stay" String="types"/>
+                                <Float attribute="Number" context="#stay"/>
+                                <Int attribute="Number" context="#stay"/>
+                                <DetectChar attribute="String" context="String" char="&quot;" />
+                                <StringDetect attribute="Directive" context="Prep1" String="(*$"/>
+                                <Detect2Chars attribute="Directive" context="Prep2" char="{" char1="$"/>
+                                <DetectChar attribute="Comment" context="Comment1" char="{"/>
+                                <Detect2Chars attribute="Comment" context="Comment2" char="/" char1="/"/>
                         </context>
-                        <context attribute="4" lineEndContext="0">
-                                <DetectChar attribute="4" context="0" char="&quot;"/>
+                        <context attribute="String" lineEndContext="#pop" name="String">
+                                <DetectChar attribute="String" context="#pop" char="&quot;"/>
                         </context>
-                        <context attribute="5" lineEndContext="0">
-                                <Detect2Chars attribute="5" context="0" char="*" char1=")"/>
+                        <context attribute="Directive" lineEndContext="#pop" name="Prep1">
+                                <Detect2Chars attribute="Directive" context="#pop" char="*" char1=")"/>
                         </context>
-                        <context attribute="5" lineEndContext="0">
-                                <DetectChar attribute="5" context="0" char="}"/>
+                        <context attribute="Directive" lineEndContext="#pop" name="Prep2">
+                                <DetectChar attribute="Directive" context="#pop" char="}"/>
                         </context>
-                        <context attribute="6" lineEndContext="4">
-                                <DetectChar attribute="6" context="0" char="}"/>
+                        <context attribute="Comment" lineEndContext="#stay" name="Comment1">
+                                <DetectChar attribute="Comment" context="#pop" char="}"/>
                         </context>
-                        <context attribute="6" lineEndContext="0"/>
+                        <context attribute="Comment" lineEndContext="#pop" name="Comment2" />
                 </contexts>
                 <itemDatas>
                         <itemData name="Normal Text" defStyleNum="dsNormal" />

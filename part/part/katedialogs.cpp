@@ -613,7 +613,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
         "pitch font." ));
   QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
   QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
-  QWhatsThis::add(m_scrollBarMarks,i18n("If this option is checked, every new view will show marks onto the vertical scrollbar.<br><br>This will show bookmarks, for instance."));
+  QWhatsThis::add(m_scrollBarMarks,i18n("If this option is checked, every new view will show marks on the vertical scrollbar.<br><br>These marks will, for instance, show bookmarks."));
   QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
 
   QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));

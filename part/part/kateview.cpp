@@ -361,7 +361,7 @@ void KateView::setupActions()
      i18n("Show Scroll&bar Marks"), 0,
      this, SLOT(toggleScrollBarMarks()),
      ac, "view_scrollbar_marks");
-  a->setWhatsThis(i18n("Show/hide the marks onto the vertical scrollbar.<BR><BR> It shows bookmarks, for instance."));
+  a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<BR><BR>The marks, for instance, show bookmarks."));
 
   a = m_toggleWWMarker = new KToggleAction(
         i18n("Show Static &Word Wrap Marker"), 0,

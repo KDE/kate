@@ -4901,7 +4901,7 @@ void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
 //
 void KateDocument::spellcheck()
 {
-  if( !isReadWrite() )
+  if( !isReadWrite() || text().isEmpty())
     return;
 
   m_kspell = new KSpell( 0, i18n("Spellcheck"),

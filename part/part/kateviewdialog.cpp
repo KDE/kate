@@ -232,8 +232,14 @@ void SearchDialog::slotEditRegExp()
   if ( m_regExpDialog == 0 )
     m_regExpDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );
 
-  assert( m_regExpDialog );
-
+  // DON'T EVER EVER EVER ADD AGAIN A ASSERT IF IT IS NO CRITICAL FAILURE !!!!!!!!
+  // PLEASE ;)))) BUHH
+  if ( !m_regExpDialog )
+  {
+    regexpButton->setEnabled( false );
+    return;
+  }
+    
   KRegExpEditorInterface *iface = static_cast<KRegExpEditorInterface *>( m_regExpDialog->qt_cast( "KRegExpEditorInterface" ) );
   if (!iface)
     return;

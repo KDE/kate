@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.00" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<language name="Doxygen" version="1.02" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -278,12 +278,12 @@
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
-      <itemData name="Tags"   defStyleNum="dsKeyword" color="#ca60ca" selColor="#ffffff" bold="1" italic="0" backgroundColor="#f0f0f0"/>
-      <itemData name="TagWord"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0" backgroundColor="#f0f0f0"/>
-      <itemData name="TagWordWord"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0" backgroundColor="#f0f0f0"/>
-      <itemData name="TagString"       defStyleNum="dsString" color="#ff0000" backgroundColor="#f0f0f0"/>
-      <itemData name="Comment"      defStyleNum="dsComment" color="#222222" backgroundColor="#f0f0f0" italic="0" />
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Tags"        defStyleNum="dsKeyword" color="#ca60ca" bold="1" italic="0" />
+      <itemData name="TagWord"     defStyleNum="dsKeyword" color="#0095ff" bold="1" italic="0" />
+      <itemData name="TagWordWord" defStyleNum="dsKeyword" color="#0095ff" bold="1" italic="0" />
+      <itemData name="TagString"   defStyleNum="dsString"  color="#ff0000" />
+      <itemData name="Comment"     defStyleNum="dsComment" color="#0000ff" italic="1" />
     </itemDatas>
   </highlighting>
   <general>

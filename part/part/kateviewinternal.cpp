@@ -46,6 +46,9 @@
 #include <qscrollbar.h>
 
 static bool paintDebug = false;
+const int KateViewInternal::scrollTime = 30;
+const int KateViewInternal::scrollMargin = 16;
+
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )    

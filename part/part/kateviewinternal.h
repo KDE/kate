@@ -328,8 +328,8 @@ class KateViewInternal : public QWidget
     // Timer for drag & scroll
     QTimer m_dragScrollTimer;
 
-    static const int scrollTime = 30;
-    static const int scrollMargin = 16;
+    static const int scrollTime;
+    static const int scrollMargin;
     
     // needed to stop the column scroll bar from hiding / unhiding during a dragScroll.
     bool m_suppressColumnScrollBar;

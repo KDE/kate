@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Quake, Wolfenstein, Half-Life" version="1.01" kateversion="2.1" section="Games" extensions="*.cfg" mimetype="">
+<language name="Quake, Wolfenstein, Half-Life" version="1.02" kateversion="2.1" section="Games" extensions="*.cfg" mimetype="">
 
 <highlighting>
 <list name="Commands">
@@ -2066,60 +2066,60 @@
   </list>
 
     <contexts>
-          <context attribute="3" lineEndContext="#stay" name="Normal Text">
-                <keyword attribute="0" context="Arg area" String="Commands"/>
-                <keyword attribute="2" context="Arg area" String="Variables"/>
-                <keyword attribute="1" context="#stay" String="Actions"/>
-                <keyword attribute="10" context="#stay" String="Symbols"/>
-                <keyword attribute="0" context="Bind phrase" String="BindFamily"/>
-                <keyword attribute="0" context="Alias phrase" String="setFamily"/>
-                <keyword attribute="0" context="Echo" String="PrintsString"/>
-                <StringDetect attribute="0" context="Alias phrase" String="alias" insensitive="TRUE"/>
-                <keyword attribute="0" context="Echo" String="PrintsString"/>
-                <DetectChar attribute="10" context="#stay" char="$"/>
-                <Detect2Chars attribute="4" context="Comment" char="/" char1="/"/>
+          <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
+                <keyword attribute="Command" context="Arg area" String="Commands"/>
+                <keyword attribute="Variable" context="Arg area" String="Variables"/>
+                <keyword attribute="Action" context="#stay" String="Actions"/>
+                <keyword attribute="Symbol" context="#stay" String="Symbols"/>
+                <keyword attribute="Command" context="Bind phrase" String="BindFamily"/>
+                <keyword attribute="Command" context="Alias phrase" String="setFamily"/>
+                <keyword attribute="Command" context="Echo" String="PrintsString"/>
+                <StringDetect attribute="Command" context="Alias phrase" String="alias" insensitive="TRUE"/>
+                <keyword attribute="Command" context="Echo" String="PrintsString"/>
+                <DetectChar attribute="Symbol" context="#stay" char="$"/>
+                <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
           </context>
-          <context attribute="4" lineEndContext="Normal Text" name="Comment"/>
-          <context attribute="7" lineEndContext="Normal Text" name="String">
-                <DetectChar attribute="7" context="#pop" char="&quot;"/>
+          <context attribute="Comment" lineEndContext="Normal Text" name="Comment"/>
+          <context attribute="String" lineEndContext="Normal Text" name="String">
+                <DetectChar attribute="String" context="#pop" char="&quot;"/>
           </context>
-          <context attribute="3" lineEndContext="Normal Text" name="Arg area">
-                <DetectChar attribute="7" context="String" char="&quot;"/>
-                <Float attribute="5" context="#stay"/>
-                <Int attribute="6" context="#stay"/>
-                <DetectChar attribute="10" context="#pop" char=";"/>
-                <Detect2Chars attribute="4" context="Comment" char="/" char1="/"/>
-                <DetectChar attribute="10" context="Normal Text" char="$"/>
+          <context attribute="Normal Text" lineEndContext="Normal Text" name="Arg area">
+                <DetectChar attribute="String" context="String" char="&quot;"/>
+                <Float attribute="Float" context="#stay"/>
+                <Int attribute="Int" context="#stay"/>
+                <DetectChar attribute="Symbol" context="#pop" char=";"/>
+                <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+                <DetectChar attribute="Symbol" context="Normal Text" char="$"/>
           </context>
-          <context attribute="3" lineEndContext="Normal Text" name="Arg area in sub phrase">
-                <Float attribute="5" context="#stay"/>
-                <Int attribute="6" context="#stay"/>
-                <Detect2Chars attribute="4" context="Comment" char="/" char1="/"/>
-                <DetectChar attribute="10" context="#pop" char=";"/>
+          <context attribute="Normal Text" lineEndContext="Normal Text" name="Arg area in sub phrase">
+                <Float attribute="Float" context="#stay"/>
+                <Int attribute="Int" context="#stay"/>
+                <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+                <DetectChar attribute="Symbol" context="#pop" char=";"/>
           </context>
-          <context attribute="3" lineEndContext="Normal Text" name="Sub phrase">
-                <keyword attribute="0" context="Arg area in sub phrase" String="Commands"/>
-                <keyword attribute="2" context="Arg area in sub phrase" String="Variables"/>
-                <keyword attribute="1" context="#stay" String="Actions"/>
-                <keyword attribute="10" context="#stay" String="Symbols"/>
-                <keyword attribute="0" context="Bind phrase" String="BindFamily"/>
-                <keyword attribute="0" context="Normal Text" String="setFamily"/>
-                <keyword attribute="0" context="Echo" String="PrintsString"/>
-                <StringDetect attribute="0" context="Alias phrase" String="alias"/>
-                <Detect2Chars attribute="4" context="Comment" char="/" char1="/"/>
-                <DetectChar attribute="10" context="#stay" char=";"/>
-                <Int attribute="6" context="#stay"/>
-                <DetectChar attribute="10" context="#pop" char=";"/>
+          <context attribute="Normal Text" lineEndContext="Normal Text" name="Sub phrase">
+                <keyword attribute="Command" context="Arg area in sub phrase" String="Commands"/>
+                <keyword attribute="Variable" context="Arg area in sub phrase" String="Variables"/>
+                <keyword attribute="Action" context="#stay" String="Actions"/>
+                <keyword attribute="Symbol" context="#stay" String="Symbols"/>
+                <keyword attribute="Command" context="Bind phrase" String="BindFamily"/>
+                <keyword attribute="Command" context="Normal Text" String="setFamily"/>
+                <keyword attribute="Command" context="Echo" String="PrintsString"/>
+                <StringDetect attribute="Command" context="Alias phrase" String="alias"/>
+                <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+                <DetectChar attribute="Symbol" context="#stay" char=";"/>
+                <Int attribute="Int" context="#stay"/>
+                <DetectChar attribute="Symbol" context="#pop" char=";"/>
           </context>
-          <context attribute="3" lineEndContext="Normal Text" name="Bind phrase">
-                <keyword attribute="9" context="Sub phrase" String="KeyTypes"/>
+          <context attribute="Normal Text" lineEndContext="Normal Text" name="Bind phrase">
+                <keyword attribute="Hex" context="Sub phrase" String="KeyTypes"/>
           </context>
-          <context attribute="11" lineEndContext="Normal Text" name="Alias phrase">
-                <DetectChar attribute="11" context="Sub phrase" char=" "/>
+          <context attribute="Identifier" lineEndContext="Normal Text" name="Alias phrase">
+                <DetectChar attribute="Identifier" context="Sub phrase" char=" "/>
           </context>
-          <context attribute="7" lineEndContext="Normal Text" name="Echo">
-                <DetectChar attribute="10" context="#pop" char=";"/>
-                <Detect2Chars attribute="4" context="Comment" char="/" char1="/"/>
+          <context attribute="String" lineEndContext="Normal Text" name="Echo">
+                <DetectChar attribute="Symbol" context="#pop" char=";"/>
+                <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
           </context>
     </contexts>
     <itemDatas>

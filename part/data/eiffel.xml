@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Eiffel" version="1.01" kateversion="2.1" section="Sources" extensions="*.e" mimetype="text/x-eiffel-src">
+<language name="Eiffel" version="1.02" kateversion="2.1" section="Sources" extensions="*.e" mimetype="text/x-eiffel-src">
         <highlighting>
                 <list name="keywords">
                         <item> indexing </item>
@@ -42,19 +42,19 @@
                         <item> invariant </item>
                 </list>
                 <contexts>
-                        <context attribute="0" lineEndContext="#stay">
-                                <keyword attribute="1" context="#stay" String="keywords"/>
-                                <Float attribute="3" context="#stay"/>
-                                <Int attribute="2" context="#stay"/>
-                                <RegExpr attribute="4" context="#stay" String="'.'"/>
-                                <DetectChar attribute="5" context="1" char="&quot;"/>
-                                <Detect2Chars attribute="6" context="2" char="-" char1="-"/>
-                                <keyword attribute="7" context="#stay" String="assertions"/>
+                        <context attribute="Normal Text" lineEndContext="#stay">
+                                <keyword attribute="Keyword" context="#stay" String="keywords"/>
+                                <Float attribute="Float" context="#stay"/>
+                                <Int attribute="Decimal" context="#stay"/>
+                                <RegExpr attribute="Char" context="#stay" String="'.'"/>
+                                <DetectChar attribute="String" context="String" char="&quot;"/>
+                                <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
+                                <keyword attribute="Assertions" context="#stay" String="assertions"/>
                         </context>
-                        <context attribute="5" lineEndContext="#pop">
-                                <DetectChar attribute="5" context="#pop" char="&quot;"/>
+                        <context attribute="String" lineEndContext="#pop" name="String">
+                                <DetectChar attribute="String" context="#pop" char="&quot;"/>
                         </context>
-                        <context attribute="6" lineEndContext="#pop"/>
+                        <context attribute="Comment" name="Comment" lineEndContext="#pop"/>
                 </contexts>
                 <itemDatas>
                         <itemData name="Normal Text" defStyleNum="dsNormal" />

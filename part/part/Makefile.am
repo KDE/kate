@@ -18,3 +18,13 @@ libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN)
 INCLUDES= -I../interfaces -I$(top_srcdir) -I$(top_srcdir)/kdeprint -I$(top_srcdir)/interfaces  -I$(top_srcdir)/interfaces/kregexpeditor -I$(top_srcdir)/kdefx -I$(top_srcdir)/kutils -I$(top_builddir)/kjs $(all_includes)
 
 METASOURCES = AUTO
+
+LUT_FILES = katejscript.lut.h
+
+CREATE_HASH_TABLE = $(top_srcdir)/kjs/create_hash_table
+
+katejscript.lut.h : $(srcdir)/katejscript.cpp $(CREATE_HASH_TABLE)
+	$(PERL) $(CREATE_HASH_TABLE) $(srcdir)/katejscript.cpp > $@
+katejscript.lo: katejscript.lut.h
+
+CLEANFILES = $(LUT_FILES)

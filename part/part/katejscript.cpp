@@ -23,7 +23,9 @@
 
 #include <kdebug.h>
 
+#include <kjs/function_object.h>
 #include <kjs/interpreter.h>
+#include <kjs/lookup.h>
 
 namespace KJS {
 
@@ -38,13 +40,30 @@ UString::UString(const QString &d)
 
 }
 
-class GlobalImp : public KJS::ObjectImp {
+class KateJSGlobal : public KJS::ObjectImp {
 public:
   virtual KJS::UString className() const { return "global"; }
 };
 
+class KateJSDocument : public KJS::ObjectImp {
+public:
+  KateJSDocument (KJS::ExecState *exec, KateDocument *_doc);
+
+  virtual const KJS::ClassInfo* classInfo() const { return &info; }
+
+  static const KJS::ClassInfo info;
+
+  enum { InsertLine,
+         RemoveLine,
+         Name
+  };
+
+public:
+  KateDocument *doc;
+};
+
 KateJScript::KateJScript ()
- : m_global (new KJS::Object (new GlobalImp ()))
+ : m_global (new KJS::Object (new KateJSGlobal ()))
  , m_interpreter (new KJS::Interpreter (*m_global))
 {
 }
@@ -57,6 +76,9 @@ KateJScript::~KateJScript ()
 
 bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &script)
 {
+  // put some stuff into env.
+  m_global->put(m_interpreter->globalExec(), "document", KJS::Object(new KateJSDocument(m_interpreter->globalExec(), doc)));
+
   // run
   KJS::Completion comp (m_interpreter->evaluate(script));
 
@@ -86,5 +108,52 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
   kdDebug () << "script executed" << endl;
   return true;
 }
+
+//BEGIN KateJSDocument
+
+#include "katejscript.lut.h"
+
+// -------------------------------------------------------------------------
+/* Source for KateJSDocumentProtoTable.
+@begin KateJSDocumentProtoTable 3
+  insertLine KateJSDocument::InsertLine  DontDelete|Function 2
+  removeLine KateJSDocument::RemoveLine  DontDelete|Function 1
+@end
+*/
+
+/* Source for KateJSDocumentTable.
+@begin KateJSDocumentTable 2
+  nodeName  KateJSDocument::Name DontDelete|ReadOnly
+@end
+*/
+
+DEFINE_PROTOTYPE("KateJSDocument",KateJSDocumentProto)
+IMPLEMENT_PROTOFUNC(KateJSDocumentProtoFunc)
+IMPLEMENT_PROTOTYPE(KateJSDocumentProto,KateJSDocumentProtoFunc)
+
+const KJS::ClassInfo KateJSDocument::info = { "KateJSDocument", 0, &KateJSDocumentTable, 0 };
+
+Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, const KJS::List &args)
+{
+  KJS_CHECK_THIS( KateJSDocument, thisObj );
+
+  KateDocument *doc = static_cast<KateJSDocument *>( thisObj.imp() )->doc;
+
+  switch (id) {
+    case KateJSDocument::InsertLine:
+      doc->insertLine (0, "TEST LINE");
+      break;
+  }
+
+  return KJS::Undefined();
+}
+
+KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
+    : KJS::ObjectImp (KateJSDocumentProto::self(exec))
+    , doc (_doc)
+{
+}
+
+//END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -188,7 +188,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     virtual void setWordWrap (bool ) = 0;
     virtual bool wordWrap () = 0;
 
-    virtual void setWordWrapAt (uint) = 0;
+    virtual void setWordWrapAt (unsigned int) = 0;
     virtual uint wordWrapAt () = 0;
 
 

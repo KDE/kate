@@ -314,7 +314,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   uint xPos = range->xOffset();
   uint xPosAfter = xPos;
 
-  KateAttribute* oldAt = 0;
+  KateAttribute* oldAt = &at[0];
 
   const QColor *curColor = 0;
   const QColor *oldColor = 0;
@@ -896,5 +896,6 @@ void KateRenderer::updateConfig ()
   if (m_view)
     m_view->updateRendererConfig();
 }
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

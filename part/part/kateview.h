@@ -98,15 +98,16 @@ class KateView : public Kate::View,
     void cursorPositionReal( uint* l, uint* c )
         { if( l ) *l = cursorLine(); if( c ) *c = cursorColumnReal(); }
     bool setCursorPosition( uint line, uint col )
-        { return setCursorPositionInternal( line, col, tabWidth() );  }
+        { return setCursorPositionInternal( line, col, tabWidth(), false );  }
     bool setCursorPositionReal( uint line, uint col)
-        { return setCursorPositionInternal( line, col, 1 );           }
+        { return setCursorPositionInternal( line, col, 1, false );           }
     uint cursorLine()
         { return m_viewInternal->getCursor().line();                    }
     uint cursorColumn()
         { return m_doc->currentColumn(m_viewInternal->getCursor());   }
     uint cursorColumnReal()
         { return m_viewInternal->getCursor().col();                     }
+
   signals:
     void cursorPositionChanged();
 
@@ -326,6 +327,9 @@ class KateView : public Kate::View,
     void dropEventPass(QDropEvent*);
     void viewStatusMsg (const QString &msg);
 
+  public:
+    bool setCursorPositionInternal( uint line, uint col, uint tabwidth, bool internalUse = true );
+
   protected:
     void customEvent( QCustomEvent* );
     void contextMenuEvent( QContextMenuEvent* );
@@ -353,8 +357,6 @@ class KateView : public Kate::View,
     void setupCodeFolding();
     void setupCodeCompletion();
     void setupViewPlugins();
-
-    bool setCursorPositionInternal( uint line, uint col, uint tabwidth );
 
     KActionCollection*     m_editActions;
     KAction*               m_editUndo;

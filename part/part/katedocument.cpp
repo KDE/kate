@@ -3291,7 +3291,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   editEnd ();
 
   if (bracketInserted)
-    view->setCursorPositionReal (view->cursorLine(), view->cursorColumnReal()-1);
+    view->setCursorPositionInternal (view->cursorLine(), view->cursorColumnReal()-1, 1);
 
   emit charactersInteractivelyInserted (oldLine, oldCol, chars);
 
@@ -3505,7 +3505,7 @@ void KateDocument::paste ( KateView* view )
   if (blockSelect)
   {
     uint lines = s.contains (QChar ('\n'));
-    view->setCursorPositionReal (line+lines, column);
+    view->setCursorPositionInternal (line+lines, column, 1);
   }
 
   editEnd();

@@ -786,7 +786,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
     ev->accept();
 }
 
-bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
+bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bool internalUse )
 {
   TextLine::Ptr l = m_doc->kateTextLine( line );
 
@@ -804,8 +804,11 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
   if (!l->isVisible() )
     m_doc->foldingTree()->ensureVisible( line );
 
-  KateTextCursor c ( line, x );
-  m_viewInternal->scrollPos (c);
+  if (!internalUse)
+  {
+    KateTextCursor c ( line, x );
+    m_viewInternal->scrollPos (c);
+  }
 
   m_viewInternal->updateCursor( KateTextCursor( line, x ) );
 

@@ -175,6 +175,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_activeView = 0L;
 
   hlSetByUser = false;
+  m_fileType = -1;
   m_fileTypeSetByUser = false;
   setInstance( KateFactory::instance() );
 
@@ -5150,9 +5151,7 @@ bool KateDocument::wrapCursor ()
 
 void KateDocument::updateFileType (bool force)
 {
-  QString oldType (m_fileType);
-
-  if (!m_fileTypeSetByUser || !KateFactory::fileTypeManager()->exists (m_fileType))
+  if (!m_fileTypeSetByUser)
   {
     kdDebug(13020) << "KATE FILE TYPE DETECTION STARTS ......................." << endl;
 
@@ -5163,7 +5162,7 @@ void KateDocument::updateFileType (bool force)
     kdDebug(13020) << "KATE FILE TYPE DETECTION ENDS" << endl;
   }
 
-  if (force || (oldType != m_fileType))
+  if (force && (m_fileType > -1))
   {
 
   }

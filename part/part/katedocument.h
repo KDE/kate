@@ -700,7 +700,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   public:
     void updateFileType (bool force = false);
 
-    inline const QString &fileType () const { return m_fileType; };
+    inline int fileType () const { return m_fileType; };
 
   //
   // REALLY internal data ;)
@@ -736,7 +736,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QPtrList<class KateSuperCursor> m_superCursors;
 
     // file type !!!
-    QString m_fileType;
+    int m_fileType;
     bool m_fileTypeSetByUser;
 
   public slots:

@@ -37,7 +37,6 @@ KateFileTypeManager::KateFileTypeManager ()
  : m_config (new KConfig ("katepart/filetypesrc"))
 {
   m_types.setAutoDelete (true);
-  m_typesNum.setAutoDelete (false);
 
   update ();
 }
@@ -54,57 +53,31 @@ void KateFileTypeManager::update ()
   QStringList g (m_config->groupList());
 
   m_types.clear ();
-  m_typesNum.resize (g.count()+1);
+  m_types.resize (g.count());
 
-  KateFileType *def = new KateFileType ();
-  def->number = 0;
-  def->highlighting = "Normal";
-  m_types.insert (QString ("K"), def);
-  m_typesNum.insert (0, def);
-
-  uint i = 1;
   for (uint z=0; z < g.count(); z++)
   {
     m_config->setGroup (g[z]);
 
-    if (!g[z].isEmpty() && m_config->readBoolEntry ("Active"))
-    {
-      KateFileType *type = new KateFileType ();
+    KateFileType *type = new KateFileType ();
 
-      type->number = i;
-      type->name = g[z];
-      type->section = m_config->readEntry ("Section");
-      type->wildcards = m_config->readListEntry ("Wildcards", ';');
-      type->mimetypes = m_config->readListEntry ("Mimetypes", ';');
-      type->priority = m_config->readNumEntry ("Priority");
-      type->highlighting = m_config->readEntry ("Highlighting");
+    type->number = z;
+    type->name = g[z];
+    type->section = m_config->readEntry ("Section");
+    type->wildcards = m_config->readListEntry ("Wildcards", ';');
+    type->mimetypes = m_config->readListEntry ("Mimetypes", ';');
+    type->priority = m_config->readNumEntry ("Priority");
 
-      m_types.insert (QString ("K") + type->name, type);
-      m_typesNum.insert (i, type);
+    m_types.insert (z, type);
 
-      kdDebug(13020) << "INIT LIST: " << type->name << endl;
-
-      i++;
-    }
+    kdDebug(13020) << "INIT LIST: " << type->name << endl;
   }
-
-  m_typesNum.resize (m_types.count());
 }
 
-bool KateFileTypeManager::exists (const QString &fileType)
-{
-  return (m_types[QString ("K") + fileType] != 0);
-}
-
-bool KateFileTypeManager::isDefault (const QString &fileType)
-{
-  return fileType.isEmpty();
-}
-
-QString KateFileTypeManager::fileType (KateDocument *doc)
+int KateFileTypeManager::fileType (KateDocument *doc)
 {
   if (!doc)
-    return QString::null;
+    return -1;
 
   QString fileName = doc->url().prettyURL();
   int length = doc->url().prettyURL().length();
@@ -116,18 +89,18 @@ QString KateFileTypeManager::fileType (KateDocument *doc)
 
   int result;
   if ((result = wildcardsFind(fileName)) != -1)
-    return m_typesNum[result]->name;
+    return result;
 
   QString backupSuffix = KateDocumentConfig::global()->backupSuffix();
   if (fileName.endsWith(backupSuffix)) {
     if ((result = wildcardsFind(fileName.left(length - backupSuffix.length()))) != -1)
-      return m_typesNum[result]->name;
+      return result;
   }
 
   for (QStringList::Iterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
     if (*it != backupSuffix && fileName.endsWith(*it)) {
       if ((result = wildcardsFind(fileName.left(length - (*it).length()))) != -1)
-        return m_typesNum[result]->name;
+        return result;
     }
   }
 
@@ -160,10 +133,10 @@ QString KateFileTypeManager::fileType (KateDocument *doc)
 
   QPtrList<KateFileType> types;
 
-  for (uint z=0; z < m_typesNum.size(); z++)
+  for (uint z=0; z < m_types.size(); z++)
   {
-    if (m_typesNum[z]->mimetypes.findIndex (mt->name()) > -1)
-      types.append (m_typesNum[z]);
+    if (m_types[z]->mimetypes.findIndex (mt->name()) > -1)
+      types.append (m_types[z]);
   }
 
   if ( !types.isEmpty() )
@@ -180,26 +153,25 @@ QString KateFileTypeManager::fileType (KateDocument *doc)
       }
     }
 
-    if (hl > -1)
-      return m_typesNum[hl]->name;
+    return hl;
   }
 
-  return QString::null;
+  return -1;
 }
 
 int KateFileTypeManager::wildcardsFind (const QString &fileName)
 {
   QPtrList<KateFileType> types;
 
-  for (uint z=0; z < m_typesNum.size(); z++)
+  for (uint z=0; z < m_types.size(); z++)
   {
-    for( QStringList::Iterator it = m_typesNum[z]->wildcards.begin(); it != m_typesNum[z]->wildcards.end(); ++it )
+    for( QStringList::Iterator it = m_types[z]->wildcards.begin(); it != m_types[z]->wildcards.end(); ++it )
     {
       // anders: we need to be sure to match the end of string, as eg a css file
       // would otherwise end up with the c hl
       QRegExp re(*it, true, true);
       if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
-        types.append (m_typesNum[z]);
+        types.append (m_types[z]);
     }
   }
 
@@ -223,14 +195,9 @@ int KateFileTypeManager::wildcardsFind (const QString &fileName)
   return -1;
 }
 
-QString KateFileTypeManager::fileType (uint number)
+KateFileType *KateFileTypeManager::fileType (uint number)
 {
-  return ((number < m_typesNum.size()) ? m_typesNum[number]->name : QString::null);
-}
-
-KateFileType *KateFileTypeManager::fileType (const QString &name)
-{
-  return m_types[QString ("K") + name];
+  return m_types[number];
 }
 
 KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )

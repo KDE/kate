@@ -258,6 +258,13 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
   }
   else
   {
+    for (int i=0;i<regionChanges->size() / 2;i++) {
+        signed char tmp=(*regionChanges)[regionChanges->size()-1-i];
+        (*regionChanges)[regionChanges->size()-1-i]=(*regionChanges)[i];
+        (*regionChanges)[i]=tmp;
+    }
+
+
     signed char data= (*regionChanges)[regionChanges->size()-1];
     regionChanges->resize (regionChanges->size()-1);
 
@@ -985,17 +992,28 @@ void KateCodeFoldingTree::findAndMarkAllNodesforRemovalOpenedOrClosedAt(unsigned
 
 void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned int line)
 {
+  bool add=false;
 #ifdef __GNUC__
 #warning "FIXME:  make this multiple region changes per line save";
 #endif
   unsigned int startLine=getStartLine(node);
   if ((startLine==line) && (node->startLineValid))
+  {
+    add=true;
     node->deleteOpening = true;
-
+  }
   if ((startLine+node->endLineRel==line) || ((node->endLineValid==false) && (node->deleteOpening)))
+  {
+    int myPos=node->parentNode->childnodes()->find(node); // this has to be implemented nicely
+    if (node->parentNode->childnodes()->count()>myPos+1)
+		 addNodeToRemoveList(node->parentNode->childnodes()->at(myPos+1),line);
+    add=true;
     node->deleteEnding = true;
+  }
 
+  if(add)
   markedForDeleting.append(node);
+  
 }
 
 

@@ -60,7 +60,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   xScroll = new QScrollBar(QScrollBar::Horizontal,myView);
   yScroll = new QScrollBar(QScrollBar::Vertical,myView);
   xScroll->hide(); //TEMPORARY
-   
+
   xPos = 0;
   yPos = 0;
 
@@ -1024,11 +1024,12 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
   uint h = myDoc->viewFont.fontHeight;
   KateLineRange *r = lineRanges;
 
-  uint tmplineRangesLen=0;
+  uint tmplineRangesLen = 0;
+  uint rpos = 0;
   kdDebug()<<QString("startLine: %1, endLine %2").arg(startLine).arg(endLine)<<endl;
-  if (endLine>=startLine) 
+  if (endLine>=startLine)
   {
-    for ( uint line = startLine; line <= endLine; line++, tmplineRangesLen++)
+    for ( uint line = startLine; (line <= endLine) && (rpos < lineRangesLen); line++, tmplineRangesLen++)
     {
       if (tmplineRangesLen<lineRangesLen)
       {
@@ -1038,8 +1039,9 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
           bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0, r->end - r->start, h);
 //	if (m_lineMapping[line-startLine]) leftBorder->paintLine(line,line);
         }
-    
+
         r++;
+        rpos++;
       }
 
     }

@@ -73,9 +73,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 {
   setMinimumSize (0,0);
 
-  // Hack until config works
-  setAutoCenterLines(4, false);
-
   //
   // scrollbar for lines
   //
@@ -143,6 +140,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
            m_doc->foldingTree(), SLOT(toggleRegionVisibility(unsigned int)));
+//   connect( leftBorder, SIGNAL(toggleRegionVisibilityRecursive(unsigned int, unsigned int)),
+//            m_doc->foldingTree(), SLOT(toggleRegionVisibilityRecursive(unsigned int, unsigned int)));
 
   connect( doc->foldingTree(), SIGNAL(regionVisibilityChangedAt(unsigned int)),
            this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
@@ -527,6 +526,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
           lineRanges[z].visibleLine = line;
           lineRanges[z].line = realLine;
+          lineRanges[z].startsInvisibleBlock = false;
 
           int tempEndX = 0;
 

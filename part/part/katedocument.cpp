@@ -4621,7 +4621,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         << "background-color" << "selection-color"
         << "current-line-color" << "bracket-highlight-color"
         << "word-wrap-marker-color"
-        << "font" << "font-size";
+        << "font" << "font-size" << "colorscheme";
     int p( 0 );
     QString s = kvLine.cap(1);
     QString  var, val;
@@ -4771,6 +4771,10 @@ void KateDocument::setViewVariable( QString var, QString val )
         _f.setPointSize( n );
 
       v->renderer()->config()->setFont( _f );
+    }
+    else if ( var == "colorscheme" )
+    {
+      v->renderer()->config()->setSchema( KateFactory::self()->schemaManager()->number( val ) );
     }
   }
 }

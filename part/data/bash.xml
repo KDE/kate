@@ -3,7 +3,7 @@
 [
 	<!ENTITY funcname "[A-Za-z_:][A-Za-z0-9_:#&#37;@-]*">
 ]>
-<language name="Bash" version="1.98" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="1.99" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->

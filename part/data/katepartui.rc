@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="28">
+<kpartgui name="KatePartView" version="29">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -54,7 +54,12 @@
     <Action name="set_encoding" group="view_operations" />
   </Menu>
 
-  <Action name="bookmarks"/>
+  <Menu name="bookmarks"><text>&amp;Bookmarks</text>
+    <Action name="bookmarks_toggle" />
+    <Action name="bookmarks_clear" />
+    <Action name="bookmarks_next" />
+    <Action name="bookmarks_previous" />
+  </Menu>
 
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
     <Action name="tools_toggle_write_lock" group="tools_operations" />

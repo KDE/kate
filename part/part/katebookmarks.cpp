@@ -99,7 +99,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
   m_goPrevious = new KAction(
     "Previous Bookmark", ALT + Key_PageUp,
     this, SLOT(goPrevious()),
-    ac, "bookmarks_pevious");
+    ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the nearest previous bookmark."));
   m_goPrevious->plug( m );
   

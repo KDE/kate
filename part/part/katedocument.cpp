@@ -2683,9 +2683,9 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          range.startCol = startCol;
          range.endCol = endCol;
          range.wrap = needWrap;
-         paint.resetXForm();
          paint.translate(xstart, y);
          renderer.paintTextLine(paint, &range, xstart, maxWidth);
+         paint.resetXForm();
          if ( skip )
          {
            needWrap = false;

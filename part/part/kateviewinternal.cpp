@@ -2235,6 +2235,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
 
   if (updateSelection)
     KateViewInternal::updateSelection( c, keepSelection );
+
   updateCursor( c );
 }
 
@@ -2899,7 +2900,7 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 {
   // track the cursor to the current drop location
   placeCursor( event->pos(), true, false );
-  
+
   // important: accept action to switch between copy and move mode
   // without this, the text will always be copied.
   event->acceptAction();
@@ -3077,17 +3078,21 @@ void KateViewInternal::doDragScroll()
   } else if ( p.y() > height() - scrollMargin ) {
     dy = scrollMargin - (height() - p.y());
   }
+
   if ( p.x() < scrollMargin ) {
     dx = p.x() - scrollMargin;
   } else if ( p.x() > width() - scrollMargin ) {
     dx = scrollMargin - (width() - p.x());
   }
+
   dy /= 4;
 
   if (dy)
     scrollLines(startPos().line() + dy);
-  if (dx)
-    scrollColumns(m_startX + dx);
+
+  if (!m_view->dynWordWrap() && m_columnScrollDisplayed && dx)
+    scrollColumns(kMin (m_startX + dx, m_columnScroll->maxValue()));
+
   if (!dy && !dx)
     stopDragScroll();
 }

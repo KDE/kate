@@ -1101,14 +1101,16 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
                                           myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
 
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
+      
+      leftBorder->paintLine(line,line);
     }
     else if (r->empty)
     {
       paint.fillRect(0, 0, this->width(), h, myDoc->colors[0]);
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
+      
+      leftBorder->paintLine(line,line);
     }
-
-    leftBorder->paintLine(line,line);
 
     if (r->line == cursor.line)
       again = false;
@@ -1456,7 +1458,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
 
       bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
     }
-
+    
     leftBorder->paintLine(line,line);
 
     if (lineRanges[disppos].line == cursor.line)

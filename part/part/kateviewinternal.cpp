@@ -186,8 +186,8 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
         myDoc->removeSelectedText();
       else
         myDoc->backspace(c.cursor.line, c.cursor.col);
-      if ( (uint)c.cursor.line >= myDoc->lastLine() )
-        leftBorder->update();
+    //  if ( (uint)c.cursor.line >= myDoc->lastLine() )
+     //   leftBorder->repaint();
       return;
     case KateView::cmKillLine:
       myDoc->killLine(c);
@@ -493,8 +493,8 @@ void KateViewInternal::changeYPos(int p)
   }
   else
   {
-    update();
-    leftBorder->update();
+    repaint();
+    leftBorder->repaint();
   }
 }
 
@@ -865,9 +865,6 @@ void KateViewInternal::updateView(int flags)
 	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 	needLineRangesUpdate=true;
 	  updateLineRanges();
-
-    update();
-    leftBorder->update();
   }
   else
   {
@@ -889,6 +886,12 @@ void KateViewInternal::updateView(int flags)
   for (uint z = 0; z < lineRanges.size(); z++)
   {
     lineRanges[z].dirty = false;
+  }
+
+  if ((flags & KateViewInternal::ufRepaint) || (flags & KateViewInternal::ufFoldingChanged))
+  {
+    repaint();
+    leftBorder->repaint();
   }
 
 //   updateLineRanges(height());

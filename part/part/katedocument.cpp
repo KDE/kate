@@ -3509,15 +3509,15 @@ void KateDocument::slotBufferChanged()
   updateViews();
 }
 
-void KateDocument::updateViews()
+void KateDocument::updateViews(int flags)
 {
   if (noViewUpdates)
     return;
 
   KateView *view;
-  int flags;
-
-  flags = (newDocGeometry) ? KateViewInternal::ufDocGeometry : 0;
+  
+  if (newDocGeometry)
+    flags = flags | KateViewInternal::ufDocGeometry;
 
   for (view = myViews.first(); view != 0L; view = myViews.next() )
   {
@@ -4558,7 +4558,7 @@ unsigned int KateDocument::visibleLines ()
 
 void KateDocument::slotLoadingFinished()
 {
-  updateViews ();
+  updateViews (KateViewInternal::ufRepaint);
 }
 
 /**

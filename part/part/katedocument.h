@@ -596,7 +596,7 @@ class KateDocument : public Kate::Document
     void tagAll();
     void updateLines(int startLine, int endLine);
     void updateLines();
-    void updateViews();
+    void updateViews(int flags = 0);
     void updateEditAccels();
 
     bool doSearch(SConfig &s, const QString &searchFor);

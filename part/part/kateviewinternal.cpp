@@ -433,7 +433,7 @@ void KateViewInternal::slotContentsMoving( int, int y)
 
   updateView();              
   
-  kdDebug ()<< "now Y: "<<contentsY() << " new Y: "<<y<<endl;
+  //kdDebug ()<< "now Y: "<<contentsY() << " new Y: "<<y<<endl;
 
   if (contentsY() != yPos)  
     leftBorder->scroll (0, contentsY()-yPos);

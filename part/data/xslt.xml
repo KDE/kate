@@ -30,7 +30,7 @@
       Do not replace the <RegExpr> by <IncludeEntities>, this is a kate 2.1 workaround !
 
     Changed:
-    - use the Alerts (alert.xml) for the highlighting of todo and fixme (Wilbert Berendsen, wbsoft@xs4all.nl)
+    - use the Alerts (alert.xml) for the highlighting of todo and fixme, etc. (Wilbert Berendsen, wbsoft@xs4all.nl)
 
 
       
@@ -178,7 +178,7 @@
        
        <context name="comment" attribute="Comment" lineEndContext="#stay">
          <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
-         <IncludeRules context="##Alerts" />
+	 <IncludeRules context="##Alerts" />
        </context>
 
        <context name="xpath" attribute="XPath" lineEndContext="#stay">
@@ -229,8 +229,6 @@
       <itemData name="XPath Attribute" defStyleNum="dsNormal" color="#008080" selColor="#ffffff" bold="0" italic="1" />
       <itemData name="Variable" defStyleNum="dsNormal" color="#008080" selColor="#ffffff" bold="0" italic="1" />
       <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="Todo" defStyleNum="dsOthers"/>
-      <itemData name="Fixme" defStyleNum="dsOthers"/>
       <itemData name="XSLT Tag" defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="Entity Reference" defStyleNum="dsDecVal" />
     </itemDatas>

@@ -1135,7 +1135,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
   {
     noHl = true;
     iName = "None"; // not translated internal name (for config and more)
-    iNameTranslated = I18N_NOOP("None"); // user visible name
+    iNameTranslated = i18n("None"); // user visible name
     iSection = "";
     m_priority = 0;
     iHidden = false;

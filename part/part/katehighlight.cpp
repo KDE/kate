@@ -1175,70 +1175,76 @@ KateHighlighting::~KateHighlighting()
 void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<short>* ctxs, int *prevLine, bool lineContinue)
 {
   //kdDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
-
-  if (lineContinue)
+  while (true)
   {
-    if ( !ctxs->isEmpty() )
+    if (lineContinue)
     {
-      (*ctxNum)=(*ctxs)[ctxs->size()-1];
-      (*prevLine)--;
+      if ( !ctxs->isEmpty() )
+      {
+        (*ctxNum)=(*ctxs)[ctxs->size()-1];
+        (*prevLine)--;
+      }
+      else
+      {
+        //kdDebug(13010)<<QString("generateContextStack: line continue: len ==0");
+        (*ctxNum)=0;
+      }
+
+      return;
+    }
+
+    if (ctx >= 0)
+    {
+      (*ctxNum) = ctx;
+
+      ctxs->resize (ctxs->size()+1, QGArray::SpeedOptim);
+      (*ctxs)[ctxs->size()-1]=(*ctxNum);
     }
     else
     {
-      //kdDebug(13010)<<QString("generateContextStack: line continue: len ==0");
-      (*ctxNum)=0;
+      if (ctx < -1)
+      {
+        while (ctx < -1)
+        {
+          if ( ctxs->isEmpty() )
+            (*ctxNum)=0;
+          else
+          {
+            ctxs->resize (ctxs->size()-1, QGArray::SpeedOptim);
+            //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
+            (*ctxNum) = ( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
+          }
+
+          ctx++;
+        }
+
+        ctx = 0;
+
+        if ((*prevLine) >= (int)(ctxs->size()-1))
+        {
+          *prevLine=ctxs->size()-1;
+
+          if ( ctxs->isEmpty() )
+            return;
+
+          if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
+          {
+            //kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
+            ctx = contextNum((*ctxs)[ctxs->size()-1])->ctx;
+            lineContinue = false;
+
+            continue;
+          }
+        }
+      }
+      else
+      {
+        if (ctx == -1)
+          (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
+      }
     }
 
     return;
-  }
-
-  if (ctx >= 0)
-  {
-    (*ctxNum) = ctx;
-
-    ctxs->resize (ctxs->size()+1, QGArray::SpeedOptim);
-    (*ctxs)[ctxs->size()-1]=(*ctxNum);
-  }
-  else
-  {
-    if (ctx < -1)
-    {
-      while (ctx < -1)
-      {
-        if ( ctxs->isEmpty() )
-          (*ctxNum)=0;
-        else
-        {
-          ctxs->resize (ctxs->size()-1, QGArray::SpeedOptim);
-          //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
-          (*ctxNum) = ( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
-        }
-
-        ctx++;
-      }
-
-      ctx = 0;
-
-      if ((*prevLine) >= (int)(ctxs->size()-1))
-      {
-        *prevLine=ctxs->size()-1;
-
-        if ( ctxs->isEmpty() )
-          return;
-
-        if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
-        {
-          //kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
-          generateContextStack(ctxNum, contextNum((*ctxs)[ctxs->size()-1])->ctx,ctxs, prevLine);
-          return;
-        }
-      }
-    }
-    else
-    {
-      if (ctx == -1)
-        (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
-    }
   }
 }
 

@@ -343,7 +343,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   lFileExts->setBuddy( wildcards );
 
   QHBox *hbMT = new QHBox( gbProps );
-  QLabel *lMimeTypes = new QLabel( i18n("Mime &types:"), hbMT);
+  QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
   mimetypes = new QLineEdit( hbMT );
   QToolButton *btnMTW = new QToolButton(hbMT);
   btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));

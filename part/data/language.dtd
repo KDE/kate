@@ -106,6 +106,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
   name      (singleLine|multiLine)  #REQUIRED
   start     CDATA                   #REQUIRED
   end       CDATA                   #IMPLIED
+  region    CDATA                   #IMPLIED
 >
 
 <!-- Keyword options

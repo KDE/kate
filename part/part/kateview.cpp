@@ -1243,6 +1243,7 @@ void KateView::repaintText (bool paintOnlyDirty)
 void KateView::updateView (bool changed)
 {
   m_viewInternal->updateView (changed);
+  m_viewInternal->leftBorder->update();
 }
 
 // END

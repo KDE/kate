@@ -3089,7 +3089,7 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
 
   if (!(config()->configFlags() & KateDocument::cfAutoIndent))
   {
-    insertText( c.line(), c.col(), "\n" );
+    editWrapLine (c.line(), c.col());
     c.setPos(c.line() + 1, 0);
   }
   else
@@ -3098,7 +3098,7 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
     if (c.col() < pos)
       c.setCol(pos); // place cursor on first char if before
 
-    insertText (c.line(), c.col(), "\n");
+    editWrapLine (c.line(), c.col());
 
     KateDocCursor cursor (c.line() + 1, pos, this);
     m_indenter->processNewline(cursor, true);

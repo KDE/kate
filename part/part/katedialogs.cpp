@@ -491,8 +491,13 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
 {
   if ( st )
   {
-    KateAttribute shit( *ds );
-    is = new KateAttribute( shit += *st );
+    if (st->isSomethingSet())
+    {
+      KateAttribute shit( *ds );
+      is = new KateAttribute( shit += *st );
+    }
+    else
+      is = new KateAttribute (*ds);
   }
   else
     is = ds;

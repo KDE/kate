@@ -122,7 +122,7 @@ void KateAutoIndent::updateConfig ()
   useSpaces   = config->configFlags() & KateDocument::cfSpaceIndent || config->configFlags() & KateDocumentConfig::cfReplaceTabsDyn;
   keepProfile = config->configFlags() & KateDocument::cfKeepIndentProfile;
   tabWidth    = config->tabWidth();
-  indentWidth = (config->configFlags() & KateDocument::cfSpaceIndent) ? config->indentationWidth() : tabWidth;
+  indentWidth = config->indentationWidth();
 
   commentAttrib = 255;
   doxyCommentAttrib = 255;

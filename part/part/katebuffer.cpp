@@ -705,7 +705,11 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 {
 //   kdDebug()<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
    TextLine::Ptr l=line(lineNr);
-   if (l) l->setVisible(visible);
+   if (l)
+   {
+     l->setVisible(visible);
+     changeLine (lineNr);
+   }
 //   else
 //   kdDebug()<<QString("Invalid line %1").arg(lineNr)<<endl;
 }

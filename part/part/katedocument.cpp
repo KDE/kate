@@ -236,7 +236,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     for (uint z = 0; z < m_views.count(); z++)
       connect( m_views.at(z), SIGNAL(gotFocus( Kate::View * )), this, SLOT(slotModifiedOnDisk()) );
 
-  m_isasking = false;
+  m_isasking = 0;
 }
 
 //
@@ -4278,19 +4278,13 @@ void KateDocument::setDocName (QString name )
 
 void KateDocument::slotModifiedOnDisk( Kate::View *v )
 {
-  if ( ! s_fileChangedDialogsActivated || m_isasking )
+  if ( !s_fileChangedDialogsActivated || m_isasking )
     return;
-
-  // we got focus after the dialog was canceled for the active view
-  if ( m_isasking < 0 )
-  {
-    m_isasking = 0;
-    return;
-  }
 
   if (m_modOnHd && !url().isEmpty())
   {
     m_isasking = 1;
+
     int exitval = ( v && v->hasFocus() ? 0 : -1 );
 
     switch ( KMessageBox::warningYesNoCancel( widget(),
@@ -4302,15 +4296,18 @@ void KateDocument::slotModifiedOnDisk( Kate::View *v )
         m_modOnHd = false; // trick reloadFile() to not ask again
         emit modifiedOnDisc( this, false, 0 );
         reloadFile();
+        m_isasking = 0;
         break;
+
       case KMessageBox::No:  // "ignore changes"
         m_modOnHd = false;
         emit modifiedOnDisc( this, false, 0 );
+        m_isasking = 0;
         break;
-//       default:               // cancel: ignore next focus event
-    }
 
-    m_isasking = exitval;
+      default:               // cancel: ignore next focus event
+        m_isasking = -1;
+    }
   }
 }
 
@@ -4334,7 +4331,7 @@ void KateDocument::reloadFile()
     if (m_modOnHd && s_fileChangedDialogsActivated)
     {
       int i = KMessageBox::warningYesNoCancel
-                (0, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"), 
+                (0, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
                 i18n("File Was Changed on Disk"), i18n("&Reload File"), i18n("&Ignore Changes"));
 
       if ( i != KMessageBox::Yes)
@@ -5142,6 +5139,11 @@ void KateDocument::slotModOnHdDirty (const QString &path)
 
     m_modOnHd = true;
     m_modOnHdReason = 1;
+
+    // reenable dialog if not running atm
+    if (m_isasking == -1)
+      m_isasking = false;
+
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
   }
 }
@@ -5152,6 +5154,11 @@ void KateDocument::slotModOnHdCreated (const QString &path)
   {
     m_modOnHd = true;
     m_modOnHdReason = 2;
+
+    // reenable dialog if not running atm
+    if (m_isasking == -1)
+      m_isasking = false;
+
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
   }
 }
@@ -5162,6 +5169,11 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
   {
     m_modOnHd = true;
     m_modOnHdReason = 3;
+
+    // reenable dialog if not running atm
+    if (m_isasking == -1)
+      m_isasking = false;
+
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
   }
 }

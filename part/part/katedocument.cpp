@@ -556,23 +556,23 @@ void KateDocument::editEnd ()
 
   for (uint z = 0; z < myViews.count(); z++)
   {
-    KateView *v = myViews.at(z);
+    KateViewInternal *v = (myViews.at(z))->myViewInternal;
 
-    if (v->myViewInternal->tagLinesFrom > -1)
+    if (v->tagLinesFrom > -1)
     {
-      int startTagging = QMIN( v->myViewInternal->tagLinesFrom, (int)editTagLineStart );
-      int endTagging = getRealLine( v->myViewInternal->lastLine() );
-      v->myViewInternal->tagRealLines (startTagging, endTagging);
+      int startTagging = QMIN( v->tagLinesFrom, (int)editTagLineStart );
+      int endTagging = getRealLine( v->lastLine() );
+      v->tagRealLines (startTagging, endTagging);
     }
     else
-      v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd);
+      v->tagRealLines (editTagLineStart, editTagLineEnd);
 
-    if (v->myViewInternal->cursorCacheChanged)
-      v->myViewInternal->updateCursor( v->myViewInternal->cursorCache );
-    v->myViewInternal->updateView();
+    if (v->cursorCacheChanged)
+      v->updateCursor( v->cursorCache );
+    v->updateView();
 
-    v->myViewInternal->tagLinesFrom = -1;
-    v->myViewInternal->cursorCacheChanged = false;
+    v->tagLinesFrom = -1;
+    v->cursorCacheChanged = false;
   }
 
   setModified(true);
@@ -710,10 +710,10 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   for (uint z = 0; z < myViews.count(); z++)
   {
-    KateView *v = myViews.at(z);
+    KateViewInternal *v = (myViews.at(z))->myViewInternal;
 
-    cLine = v->myViewInternal->cursorCache.line;
-    cCol = v->myViewInternal->cursorCache.col;
+    cLine = v->cursorCache.line;
+    cCol = v->cursorCache.col;
 
     if ( (cLine == line) && (cCol > col) )
     {
@@ -727,8 +727,8 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
       else
         cCol = col;
 
-      v->myViewInternal->cursorCache.setPos(line, cCol);
-      v->myViewInternal->cursorCacheChanged = true;
+      v->cursorCache.setPos(line, cCol);
+      v->cursorCacheChanged = true;
     }
   }
 
@@ -739,11 +739,8 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
 bool KateDocument::editWrapLine ( uint line, uint col )
 {
-  TextLine::Ptr l, tl;
-  KateView *view;
-
-  l = buffer->line(line);
-  tl = new TextLine();
+  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr tl = new TextLine();
 
   if (!l || !tl)
     return false;
@@ -782,29 +779,26 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
-    view = myViews.at(z2);
+    KateViewInternal *view = (myViews.at(z2))->myViewInternal;
 
-     if (line >= getRealLine( view->myViewInternal->firstLine() ) )
-     {
-       if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
-         view->myViewInternal->tagLinesFrom = line;
-     }
-//     else
-//       view->myViewInternal->newStartLineReal++;
+    if (line >= getRealLine( view->firstLine() ) )
+    {
+      if ((view->tagLinesFrom > (int)line) || (view->tagLinesFrom == -1))
+	view->tagLinesFrom = line;
+    }
 
     // correct cursor position
-    if (view->myViewInternal->cursorCache.line > (int)line)
+    if (view->cursorCache.line > (int)line)
     {
-      view->myViewInternal->cursorCache.line++;
-      view->myViewInternal->cursorCacheChanged = true;
+      view->cursorCache.line++;
+      view->cursorCacheChanged = true;
     }
-    else if ( view->myViewInternal->cursorCache.line == (int)line
-              && view->myViewInternal->cursorCache.col >= (int)col )
+    else if ( view->cursorCache.line == (int)line
+              && view->cursorCache.col >= (int)col )
     {
-      view->myViewInternal->cursorCache.setPos(line + 1, tl->length());
-      view->myViewInternal->cursorCacheChanged = true;
+      view->cursorCache.setPos(line + 1, tl->length());
+      view->cursorCacheChanged = true;
     }
-
   }
   editEnd ();
   return true;
@@ -2099,9 +2093,7 @@ void KateDocument::makeAttribs()
 }
 
 void KateDocument::updateFontData() {
-  KateView *view;
-
-  for (view = myViews.first(); view != 0L; view = myViews.next() ) {
+  for (KateView * view = myViews.first(); view != 0L; view = myViews.next() ) {
      view->myViewInternal->tagAll();
   }
 }
@@ -4076,7 +4068,5 @@ KTextEditor::Cursor *KateDocument::createCursor ( )
 {
   return new KateCursor (this);
 }
-
-
 
 

@@ -17,8 +17,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KATE_SYNTAXDOCUMENT_H_
-#define _KATE_SYNTAXDOCUMENT_H_
+#ifndef __KATE_SYNTAXDOCUMENT_H__
+#define __KATE_SYNTAXDOCUMENT_H__
 
 //BEGING INCLUDES
 #include <qdom.h>
@@ -26,9 +26,11 @@
 #include <qstringlist.h>
 //END INCLUDES
 
-/** Information about each syntax hl Mode
-*/
-class syntaxModeListItem{
+/**
+ * Information about each syntax hl Mode
+ */
+class KateSyntaxModeListItem
+{
   public:
     QString name;
     QString section;
@@ -39,13 +41,16 @@ class syntaxModeListItem{
     QString priority;
 };
 
-/** List of the SyntaxModeListItems holding all the syntax mode list items
-*/
-typedef QPtrList<syntaxModeListItem> SyntaxModeList;
+/**
+ * List of the KateSyntaxModeListItems holding all the syntax mode list items
+ */
+typedef QPtrList<KateSyntaxModeListItem> KateSyntaxModeList;
 
-/** Class holding the data around the current QDomElement
-*/
-class syntaxContextData{
+/**
+ * Class holding the data around the current QDomElement
+ */
+class KateSyntaxContextData
+{
   public:
     QDomElement parent;
     QDomElement currentGroup;
@@ -54,19 +59,19 @@ class syntaxContextData{
 
 /** Store and manage the information about Syntax Highlighting.
 */
-class SyntaxDocument : public QDomDocument
+class KateSyntaxDocument : public QDomDocument
 {
   public:
     /**
      * Constructor:
      * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
      */
-    SyntaxDocument(bool force = false);
+    KateSyntaxDocument(bool force = false);
 
     /**
      * Desctructor
      */
-    ~SyntaxDocument();
+    ~KateSyntaxDocument();
 
     /** If the open hl file is different from the one needed, it opens
      * the new one and assign some other things.
@@ -77,38 +82,38 @@ class SyntaxDocument : public QDomDocument
     /**
      * Get the mode list
      */
-    SyntaxModeList modeList();
+    KateSyntaxModeList modeList();
 
     /**
-     * Jump to the next group, syntaxContextData::currentGroup will point to the next group
+     * Jump to the next group, KateSyntaxContextData::currentGroup will point to the next group
      */
-    bool nextGroup(syntaxContextData* data);
+    bool nextGroup(KateSyntaxContextData* data);
 
     /**
-     * Jump to the next item, syntaxContextData::item will point to the next item
+     * Jump to the next item, KateSyntaxContextData::item will point to the next item
      */
-    bool nextItem(syntaxContextData* data);
+    bool nextItem(KateSyntaxContextData* data);
 
     /**
      * This function is used to fetch the atributes of the tags.
      */
-    QString groupItemData(const syntaxContextData* data,const QString& name);
-    QString groupData(const syntaxContextData* data,const QString& name);
+    QString groupItemData(const KateSyntaxContextData* data,const QString& name);
+    QString groupData(const KateSyntaxContextData* data,const QString& name);
 
-    void freeGroupInfo(syntaxContextData* data);
-    syntaxContextData* getSubItems(syntaxContextData* data);
-
-    /**
-     * Get the syntaxContextData of the DomElement Config inside mainGroupName
-     * It just fills syntaxContextData::item
-     */
-    syntaxContextData* getConfig(const QString& mainGroupName, const QString &config);
+    void freeGroupInfo(KateSyntaxContextData* data);
+    KateSyntaxContextData* getSubItems(KateSyntaxContextData* data);
 
     /**
-     * Get the syntaxContextData of the QDomElement Config inside mainGroupName
-     * syntaxContextData::parent will contain the QDomElement found
+     * Get the KateSyntaxContextData of the DomElement Config inside mainGroupName
+     * It just fills KateSyntaxContextData::item
      */
-    syntaxContextData* getGroupInfo(const QString& mainGroupName, const QString &group);
+    KateSyntaxContextData* getConfig(const QString& mainGroupName, const QString &config);
+
+    /**
+     * Get the KateSyntaxContextData of the QDomElement Config inside mainGroupName
+     * KateSyntaxContextData::parent will contain the QDomElement found
+     */
+    KateSyntaxContextData* getGroupInfo(const QString& mainGroupName, const QString &group);
 
     /**
      * Returns a list with all the keywords inside the list type
@@ -132,7 +137,7 @@ class SyntaxDocument : public QDomDocument
     /**
      * List of mode items
      */
-    SyntaxModeList myModeList;
+    KateSyntaxModeList myModeList;
 
     QString currentFile;
     QStringList m_data;

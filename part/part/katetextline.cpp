@@ -3,7 +3,7 @@
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
 
    Based on:
-     TextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+     KateTextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -25,16 +25,16 @@
 #include <qregexp.h>
 #include <kglobal.h>
 
-TextLine::TextLine ()
-  : m_flags(TextLine::flagVisible)
+KateTextLine::KateTextLine ()
+  : m_flags(KateTextLine::flagVisible)
 {
 }
 
-TextLine::~TextLine()
+KateTextLine::~KateTextLine()
 {
 }
 
-void TextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs)
+void KateTextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs)
 {
   // nothing to do
   if (insLen == 0)
@@ -71,7 +71,7 @@ void TextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *i
   }
 }
 
-void TextLine::removeText (uint pos, uint delLen)
+void KateTextLine::removeText (uint pos, uint delLen)
 {
   // nothing to do
   if (delLen == 0)
@@ -97,12 +97,12 @@ void TextLine::removeText (uint pos, uint delLen)
   m_attributes.resize (textLen);
 }
 
-void TextLine::append(const QChar *s, uint l)
+void KateTextLine::append(const QChar *s, uint l)
 {
   insertText (m_text.length(), l, s, 0);
 }
 
-void TextLine::truncate(uint newLen)
+void KateTextLine::truncate(uint newLen)
 {
   if (newLen < m_text.length())
   {
@@ -111,7 +111,7 @@ void TextLine::truncate(uint newLen)
   }
 }
 
-int TextLine::nextNonSpaceChar(uint pos) const
+int KateTextLine::nextNonSpaceChar(uint pos) const
 {
   for(int i = pos; i < (int)m_text.length(); i++)
   {
@@ -122,7 +122,7 @@ int TextLine::nextNonSpaceChar(uint pos) const
   return -1;
 }
 
-int TextLine::previousNonSpaceChar(uint pos) const
+int KateTextLine::previousNonSpaceChar(uint pos) const
 {
   if (pos >= m_text.length())
     pos = m_text.length() - 1;
@@ -136,28 +136,28 @@ int TextLine::previousNonSpaceChar(uint pos) const
   return -1;
 }
 
-int TextLine::firstChar() const
+int KateTextLine::firstChar() const
 {
   return nextNonSpaceChar(0);
 }
 
-int TextLine::lastChar() const
+int KateTextLine::lastChar() const
 {
   return previousNonSpaceChar(m_text.length() - 1);
 }
 
-QString TextLine::withoutTrailingSpaces()
+QString KateTextLine::withoutTrailingSpaces()
 {
   return m_text.left (lastChar() + 1);
 }
 
-const QChar *TextLine::firstNonSpace() const
+const QChar *KateTextLine::firstNonSpace() const
 {
   int first = firstChar();
   return (first > -1) ? ((QChar*)m_text.unicode())+first : m_text.unicode();
 }
 
-uint TextLine::indentDepth (uint tabwidth) const
+uint KateTextLine::indentDepth (uint tabwidth) const
 {
   uint d = 0;
 
@@ -177,22 +177,22 @@ uint TextLine::indentDepth (uint tabwidth) const
   return d;
 }
 
-bool TextLine::stringAtPos(uint pos, const QString& match) const
+bool KateTextLine::stringAtPos(uint pos, const QString& match) const
 {
   return (m_text.mid(pos, match.length()) == match);
 }
 
-bool TextLine::startingWith(const QString& match) const
+bool KateTextLine::startingWith(const QString& match) const
 {
   return (m_text.left(match.length()) == match);
 }
 
-bool TextLine::endingWith(const QString& match) const
+bool KateTextLine::endingWith(const QString& match) const
 {
   return (m_text.right(match.length()) == match);
 }
 
-int TextLine::cursorX(uint pos, uint tabChars) const
+int KateTextLine::cursorX(uint pos, uint tabChars) const
 {
   uint x = 0;
 
@@ -207,7 +207,7 @@ int TextLine::cursorX(uint pos, uint tabChars) const
   return x;
 }
 
-void TextLine::setAttribs(uchar attribute, uint start, uint end)
+void KateTextLine::setAttribs(uchar attribute, uint start, uint end)
 {
   if (end > m_text.length())
     end = m_text.length();
@@ -216,7 +216,7 @@ void TextLine::setAttribs(uchar attribute, uint start, uint end)
     m_attributes[z] = attribute;
 }
 
-bool TextLine::searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive, bool backwards)
+bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive, bool backwards)
 {
   int index;
 
@@ -235,7 +235,7 @@ bool TextLine::searchText (uint startCol, const QString &text, uint *foundAtCol,
   return false;
 }
 
-bool TextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards)
+bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards)
 {
   int index;
 
@@ -254,13 +254,13 @@ bool TextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCo
   return false;
 }
 
-char *TextLine::dump (char *buf, bool withHighlighting) const
+char *KateTextLine::dump (char *buf, bool withHighlighting) const
 {
   uint l = m_text.length();
   char f = m_flags;
   
   if (!withHighlighting)
-    f = f | TextLine::flagNoOtherData;
+    f = f | KateTextLine::flagNoOtherData;
   
   memcpy(buf, (char *) &f, 1);
   buf += 1;
@@ -302,7 +302,7 @@ char *TextLine::dump (char *buf, bool withHighlighting) const
   return buf;
 }
 
-char *TextLine::restore (char *buf)
+char *KateTextLine::restore (char *buf)
 {
   uint l = 0;
   char f = 0;
@@ -318,13 +318,13 @@ char *TextLine::restore (char *buf)
   m_text.setUnicode ((QChar *) buf, l);
   buf += sizeof(QChar) * l;
 
-  // we just restore a TextLine from a buffer first time
-  if (f & TextLine::flagNoOtherData)
+  // we just restore a KateTextLine from a buffer first time
+  if (f & KateTextLine::flagNoOtherData)
   { 
-    m_flags = TextLine::flagVisible;
+    m_flags = KateTextLine::flagVisible;
   
-    if (f & TextLine::flagAutoWrapped)
-      m_flags = m_flags | TextLine::flagAutoWrapped;
+    if (f & KateTextLine::flagAutoWrapped)
+      m_flags = m_flags | KateTextLine::flagAutoWrapped;
     
     // fill with clean empty attribs !
     m_attributes.fill (0, l);

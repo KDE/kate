@@ -242,7 +242,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     uint m_schema;
     int m_hl;
     
-    QIntDict< QIntDict<ItemDataList> > m_hlDict;
+    QIntDict< QIntDict<KateHlItemDataList> > m_hlDict;
 };
 
 class KateSchemaConfigPage : public KateConfigPage

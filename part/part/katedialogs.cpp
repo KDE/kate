@@ -1025,7 +1025,7 @@ void KateHlConfigPage::apply ()
 
   writeback();
 
-  for ( QIntDictIterator<HlData> it( hlDataDict ); it.current(); ++it )
+  for ( QIntDictIterator<KateHlData> it( hlDataDict ); it.current(); ++it )
     KateHlManager::self()->getHl( it.currentKey() )->setData( it.current() );
 
   KateHlManager::self()->getKConfig()->sync ();
@@ -1275,7 +1275,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
       doc.setContent(listData);
       QDomElement DocElem=doc.documentElement();
       QDomNode n=DocElem.firstChild();
-      Highlight *hl;
+      KateHighlighting *hl;
 
       if (n.isNull()) kdDebug(13000)<<"There is no usable childnode"<<endl;
       while (!n.isNull())
@@ -1321,7 +1321,7 @@ void KateHlDownloadDialog::slotUser1()
   }
 
   // update Config !!
-  SyntaxDocument doc (true);
+  KateSyntaxDocument doc (true);
 }
 
 //BEGIN KateGotoLineDialog

@@ -53,7 +53,7 @@ class KateSuperRange;
 class KateLineInfo;
 class KateBrowserExtension;
 class KateDocumentConfig;
-class Highlight;
+class KateHighlighting;
 class KatePartPluginItem;
 class KatePartPluginInfo;
 
@@ -499,8 +499,8 @@ class KateDocument : public Kate::Document,
      */
     uint lastLine() const { return numLines()-1;}
 
-    TextLine::Ptr kateTextLine(uint i);
-    TextLine::Ptr plainKateTextLine(uint i);
+    KateTextLine::Ptr kateTextLine(uint i);
+    KateTextLine::Ptr plainKateTextLine(uint i);
 
     uint configFlags ();
     void setConfigFlags (uint flags);
@@ -513,7 +513,7 @@ class KateDocument : public Kate::Document,
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
 
-    Highlight *highlight () { return m_highlight; }
+    KateHighlighting *highlight () { return m_highlight; }
 
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
@@ -720,7 +720,7 @@ class KateDocument : public Kate::Document,
     // text buffer
     KateBuffer *m_buffer;
 
-    Highlight *m_highlight;
+    KateHighlighting *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
 

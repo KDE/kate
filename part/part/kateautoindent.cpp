@@ -94,8 +94,8 @@ void KateAutoIndent::updateConfig ()
   indentWidth = (useSpaces) ? config->indentationWidth() : tabWidth;
 
   commentAttrib = 0;
-  ItemDataList items;
-  doc->highlight()->getItemDataListCopy (0, items);
+  KateHlItemDataList items;
+  doc->highlight()->getKateHlItemDataListCopy (0, items);
 
   for (uint i=0; i<items.count(); i++)
   {
@@ -114,7 +114,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
   uchar attrib = 0;
   bool parenFound = false;
 
-  TextLine::Ptr textLine = doc->kateTextLine(curLine);
+  KateTextLine::Ptr textLine = doc->kateTextLine(curLine);
 
   // Iterate one-by-one finding opening and closing chars
   // We assume that the opening and ending chars appear in same context
@@ -170,7 +170,7 @@ bool KateAutoIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool ne
   if (cur >= max)
     return false;
 
-  TextLine::Ptr textLine = doc->kateTextLine(curLine);
+  KateTextLine::Ptr textLine = doc->kateTextLine(curLine);
   do
   {
     if (textLine->attribute(cur.col()) != commentAttrib)
@@ -282,11 +282,12 @@ void KateCSmartIndent::processChar(QChar c)
 {
   if (c != '}' && c != '{' && c != '#' && c != ':')
     return;
+
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), view->cursorColumnReal() - 1, doc);
 
   // Make sure this is the only character on the line if it isn't a ':'
-  TextLine::Ptr textLine = doc->kateTextLine(begin.line());
+  KateTextLine::Ptr textLine = doc->kateTextLine(begin.line());
   if (c != ':')
   {
     if (textLine->firstChar() != begin.col())
@@ -342,7 +343,7 @@ void KateCSmartIndent::processChar(QChar c)
 
 uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
 {
-  TextLine::Ptr textLine;
+  KateTextLine::Ptr textLine;
   KateDocCursor cur = begin;
 
   uint anchorIndent = 0;
@@ -508,7 +509,7 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
   bool isFor = false;
   allowSemi = false;
 
-  TextLine::Ptr textLine = doc->kateTextLine(cur.line());
+  KateTextLine::Ptr textLine = doc->kateTextLine(cur.line());
   uint length = textLine->length();
 
   if (textLine->getChar(cur.col()) == '}')

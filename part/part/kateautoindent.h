@@ -71,7 +71,6 @@ class KateAutoIndent
     // Produces a string with the proper indentation characters for its length
     QString tabString (uint length) const;
 
-
     KateDocument *doc;
 
     uint tabWidth;

@@ -379,8 +379,8 @@ class KateHlConfigPage : public KateConfigPage
     QLineEdit *mimetypes;
     class KIntNumInput *priority;
 
-    QIntDict<HlData> hlDataDict;
-    HlData *hlData;
+    QIntDict<KateHlData> hlDataDict;
+    KateHlData *hlData;
 };
 
 class KateHlDownloadDialog: public KDialogBase

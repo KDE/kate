@@ -78,7 +78,7 @@ class KateStyleListItem : public QListViewItem
 {
   public:
     KateStyleListItem( QListView *parent=0, const QString & stylename=0,
-                   class KateAttribute* defaultstyle=0, class ItemData *data=0 );
+                   class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
     ~KateStyleListItem() { if (st) delete is; };
 
     /* mainly for readability */
@@ -110,13 +110,13 @@ class KateStyleListItem : public QListViewItem
     /* private methods to change properties */
     void toggleDefStyle();
     void setColor( int );
-    /* helper function to copy the default style into the ItemData,
+    /* helper function to copy the default style into the KateHlItemData,
        when a property is changed and we are using default style. */
     void setCustStyle();
 
     class KateAttribute *is, // the style currently in use
               *ds;           // default style for hl mode contexts and default styles
-    class ItemData *st;      // itemdata for hl mode contexts
+    class KateHlItemData *st;      // itemdata for hl mode contexts
 };
 
 QString KateSchemaManager::normalSchema ()
@@ -528,7 +528,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   {
     kdDebug () << "NEW SCHEMA, create dict" << endl;
 
-    m_hlDict.insert (schema, new QIntDict<ItemDataList>);
+    m_hlDict.insert (schema, new QIntDict<KateHlItemDataList>);
     m_hlDict[m_schema]->setAutoDelete (true);
   }
 
@@ -536,8 +536,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   {
     kdDebug () << "NEW HL, create list" << endl;
 
-    ItemDataList *list = new ItemDataList ();
-    KateHlManager::self()->getHl( m_hl )->getItemDataListCopy (m_schema, *list);
+    KateHlItemDataList *list = new KateHlItemDataList ();
+    KateHlManager::self()->getHl( m_hl )->getKateHlItemDataListCopy (m_schema, *list);
     m_hlDict[m_schema]->insert (m_hl, list);
   }
 
@@ -563,7 +563,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   p.setColor( QPalette::Normal, QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
     
-  for ( ItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
+  for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
   {
@@ -585,9 +585,9 @@ void KateSchemaConfigHighlightTab::reload ()
 
 void KateSchemaConfigHighlightTab::apply ()
 {
-  for ( QIntDictIterator< QIntDict<ItemDataList> > it( m_hlDict ); it.current(); ++it )
-    for ( QIntDictIterator< ItemDataList > it2( *it.current() ); it2.current(); ++it2 )
-       KateHlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));
+  for ( QIntDictIterator< QIntDict<KateHlItemDataList> > it( m_hlDict ); it.current(); ++it )
+    for ( QIntDictIterator< KateHlItemDataList > it2( *it.current() ); it2.current(); ++it2 )
+       KateHlManager::self()->getHl( it2.currentKey() )->setKateHlItemDataList (it.currentKey(), *(it2.current()));
 }
 
 //END KateSchemaConfigHighlightTab
@@ -903,7 +903,7 @@ static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
 KateStyleListItem::KateStyleListItem( QListView *parent, const QString & stylename,
-                              KateAttribute *style, ItemData *data )
+                              KateAttribute *style, KateHlItemData *data )
         : QListViewItem( parent, stylename ),
           ds( style ),
           st( data )

@@ -752,7 +752,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 
 bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
 {
-  TextLine::Ptr l = m_doc->kateTextLine( line );
+  KateTextLine::Ptr l = m_doc->kateTextLine( line );
 
   if (!l)
     return false;
@@ -1246,7 +1246,7 @@ void KateView::slotClipboardDataChanged()
 
 void KateView::slotHlChanged()
 {
-  Highlight *hl = m_doc->highlight();
+  KateHighlighting *hl = m_doc->highlight();
   bool ok ( ! ( hl->getCommentStart().isEmpty() && hl->getCommentSingleLineStart().isEmpty() ) );
 
   if (actionCollection()->action("tools_comment"))

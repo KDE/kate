@@ -370,7 +370,7 @@ bool KateBuffer::saveFile (const QString &m_file)
 
   for (uint i=0; i < m_lines; i++)
   {
-    TextLine::Ptr textLine = plainLine(i);
+    KateTextLine::Ptr textLine = plainLine(i);
   
     if (textLine)
     {    
@@ -407,7 +407,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   return (file.status() == IO_Ok);
 }
 
-TextLine::Ptr KateBuffer::line(uint i)
+KateTextLine::Ptr KateBuffer::line(uint i)
 {
   KateBufBlock *buf = findBlock(i);
 
@@ -435,7 +435,7 @@ TextLine::Ptr KateBuffer::line(uint i)
   return buf->line (i - buf->startLine());
 }
 
-TextLine::Ptr KateBuffer::plainLine(uint i)
+KateTextLine::Ptr KateBuffer::plainLine(uint i)
 {
   KateBufBlock *buf = findBlock(i);
   if (!buf)
@@ -523,7 +523,7 @@ void KateBuffer::changeLine(uint i)
     buf->markDirty ();
 }
 
-void KateBuffer::insertLine(uint i, TextLine::Ptr line)
+void KateBuffer::insertLine(uint i, KateTextLine::Ptr line)
 {
   uint index = 0;
   KateBufBlock *buf;
@@ -616,7 +616,7 @@ void KateBuffer::setTabWidth (uint w)
   }
 }
 
-void KateBuffer::setHighlight(Highlight *highlight)
+void KateBuffer::setHighlight(KateHighlighting *highlight)
 {
   m_highlight = highlight;
   invalidateHighlighting();
@@ -643,14 +643,14 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
   
   // get the previous line, if we start at the beginning of this block
   // take the last line of the previous block
-  TextLine::Ptr prevLine = 0;
+  KateTextLine::Ptr prevLine = 0;
   
   if ((startLine == buf->startLine()) && buf->prev() && (buf->prev()->lines() > 0))
     prevLine = buf->prev()->line (buf->prev()->lines() - 1);
   else if ((startLine > buf->startLine()) && (startLine <= buf->endLine()))
     prevLine = buf->line(startLine - buf->startLine() - 1);
   else
-    prevLine = new TextLine ();
+    prevLine = new KateTextLine ();
   
   bool line_continue = prevLine->hlLineContinue();
   
@@ -672,7 +672,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
           && (stillcontinue || ((current_line + buf->startLine()) <= endLine)) )
   {    
     // current line  
-    TextLine::Ptr textLine = buf->line(current_line);
+    KateTextLine::Ptr textLine = buf->line(current_line);
   
     endCtx.duplicate (textLine->ctxArray ());
 
@@ -847,7 +847,7 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
    if (!buf)
      return;
      
-   TextLine::Ptr l = buf->line(lineNr - buf->startLine());
+   KateTextLine::Ptr l = buf->line(lineNr - buf->startLine());
    
    if (l && (l->isVisible () != visible))
    {
@@ -896,7 +896,7 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
   else // init the block if no stream given !
   {
     // fill in one empty line !
-    TextLine::Ptr textLine = new TextLine ();
+    KateTextLine::Ptr textLine = new KateTextLine ();
     m_stringList.push_back (textLine);
     m_lines++;
 
@@ -954,7 +954,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
       {
         // create the swapped data on the fly, no need to waste time
         // via going over the textline classes and dump them !
-        char attr = TextLine::flagNoOtherData;
+        char attr = KateTextLine::flagNoOtherData;
         uint pos = size;
         
         // calc new size
@@ -977,7 +977,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
       }
       else
       {
-        TextLine::Ptr textLine = new TextLine ();
+        KateTextLine::Ptr textLine = new KateTextLine ();
         textLine->insertText (0, length, line.unicode ());
         m_stringList.push_back (textLine);
       }
@@ -1028,7 +1028,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   return eof;
 }
 
-TextLine::Ptr KateBufBlock::line(uint i)
+KateTextLine::Ptr KateBufBlock::line(uint i)
 {
   // take care that the string list is around !!!
   if (m_state == KateBufBlock::stateSwapped)
@@ -1041,7 +1041,7 @@ TextLine::Ptr KateBufBlock::line(uint i)
   return m_stringList[i];
 }
 
-void KateBufBlock::insertLine(uint i, TextLine::Ptr line)
+void KateBufBlock::insertLine(uint i, KateTextLine::Ptr line)
 {
   // take care that the string list is around !!!
   if (m_state == KateBufBlock::stateSwapped)
@@ -1105,7 +1105,7 @@ void KateBufBlock::swapIn ()
   char *buf = rawData.data();
   for (uint i=0; i < m_lines; i++)
   {
-    TextLine::Ptr textLine = new TextLine ();
+    KateTextLine::Ptr textLine = new KateTextLine ();
     buf = textLine->restore (buf);
     m_stringList.push_back (textLine);
   }

@@ -30,7 +30,7 @@
 /** Constructor
     Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
 */
-SyntaxDocument::SyntaxDocument(bool force)
+KateSyntaxDocument::KateSyntaxDocument(bool force)
   : QDomDocument()
 {
   // Let's build the Mode List (katesyntaxhighlightingrc)
@@ -41,7 +41,7 @@ SyntaxDocument::SyntaxDocument(bool force)
 /** Destructor
     Do nothing yet
 */
-SyntaxDocument::~SyntaxDocument()
+KateSyntaxDocument::~KateSyntaxDocument()
 {
 }
 
@@ -49,7 +49,7 @@ SyntaxDocument::~SyntaxDocument()
     the new one and assign some other things.
     identifier = File name and path of the new xml needed
 */
-bool SyntaxDocument::setIdentifier(const QString& identifier)
+bool KateSyntaxDocument::setIdentifier(const QString& identifier)
 {
   // if the current file is the same as the new one don't do anything.
   if(currentFile != identifier)
@@ -91,15 +91,15 @@ bool SyntaxDocument::setIdentifier(const QString& identifier)
 
 /** Get the complete syntax mode list
 */
-SyntaxModeList SyntaxDocument::modeList()
+KateSyntaxModeList KateSyntaxDocument::modeList()
 {
   return myModeList;
 }
 
 /**
- * Jump to the next group, syntaxContextData::currentGroup will point to the next group
+ * Jump to the next group, KateSyntaxContextData::currentGroup will point to the next group
  */
-bool SyntaxDocument::nextGroup( syntaxContextData* data)
+bool KateSyntaxDocument::nextGroup( KateSyntaxContextData* data)
 {
   if(!data)
     return false;
@@ -128,9 +128,9 @@ bool SyntaxDocument::nextGroup( syntaxContextData* data)
 }
 
 /**
- * Jump to the next item, syntaxContextData::item will point to the next item
+ * Jump to the next item, KateSyntaxContextData::item will point to the next item
  */
-bool SyntaxDocument::nextItem( syntaxContextData* data)
+bool KateSyntaxDocument::nextItem( KateSyntaxContextData* data)
 {
   if(!data)
     return false;
@@ -156,9 +156,9 @@ bool SyntaxDocument::nextItem( syntaxContextData* data)
 }
 
 /**
- * This function is used to fetch the atributes of the tags of the item in a syntaxContextData.
+ * This function is used to fetch the atributes of the tags of the item in a KateSyntaxContextData.
  */
-QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QString& name){
+QString KateSyntaxDocument::groupItemData( const KateSyntaxContextData* data, const QString& name){
   if(!data)
     return QString::null;
 
@@ -178,7 +178,7 @@ QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QStr
 
 }
 
-QString SyntaxDocument::groupData( const syntaxContextData* data,const QString& name)
+QString KateSyntaxDocument::groupData( const KateSyntaxContextData* data,const QString& name)
 {
   if(!data)
     return QString::null;
@@ -193,15 +193,15 @@ QString SyntaxDocument::groupData( const syntaxContextData* data,const QString& 
   }
 }
 
-void SyntaxDocument::freeGroupInfo( syntaxContextData* data)
+void KateSyntaxDocument::freeGroupInfo( KateSyntaxContextData* data)
 {
   if (data)
     delete data;
 }
 
-syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data)
+KateSyntaxContextData* KateSyntaxDocument::getSubItems(KateSyntaxContextData* data)
 {
-  syntaxContextData *retval = new syntaxContextData;
+  KateSyntaxContextData *retval = new KateSyntaxContextData;
 
   if (data != 0)
   {
@@ -212,7 +212,7 @@ syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data)
   return retval;
 }
 
-bool SyntaxDocument::getElement (QDomElement &element, const QString &mainGroupName, const QString &config)
+bool KateSyntaxDocument::getElement (QDomElement &element, const QString &mainGroupName, const QString &config)
 {
   kdDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\"." << endl;
 
@@ -249,15 +249,15 @@ bool SyntaxDocument::getElement (QDomElement &element, const QString &mainGroupN
 }
 
 /**
- * Get the syntaxContextData of the QDomElement Config inside mainGroupName
- * syntaxContextData::item will contain the QDomElement found
+ * Get the KateSyntaxContextData of the QDomElement Config inside mainGroupName
+ * KateSyntaxContextData::item will contain the QDomElement found
  */
-syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const QString &config)
+KateSyntaxContextData* KateSyntaxDocument::getConfig(const QString& mainGroupName, const QString &config)
 {
   QDomElement element;
   if (getElement(element, mainGroupName, config))
   {
-    syntaxContextData *data = new syntaxContextData;
+    KateSyntaxContextData *data = new KateSyntaxContextData;
     data->item = element;
     return data;
   }
@@ -265,15 +265,15 @@ syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const
 }
 
 /**
- * Get the syntaxContextData of the QDomElement Config inside mainGroupName
- * syntaxContextData::parent will contain the QDomElement found
+ * Get the KateSyntaxContextData of the QDomElement Config inside mainGroupName
+ * KateSyntaxContextData::parent will contain the QDomElement found
  */
-syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group)
+KateSyntaxContextData* KateSyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group)
 {
   QDomElement element;
   if (getElement(element, mainGroupName, group+"s"))
   {
-    syntaxContextData *data = new syntaxContextData;
+    KateSyntaxContextData *data = new KateSyntaxContextData;
     data->parent = element;
     return data;
   }
@@ -283,7 +283,7 @@ syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, co
 /**
  * Returns a list with all the keywords inside the list type
  */
-QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList)
+QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList)
 {
   kdDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\"."<<endl;
   if (clearList)
@@ -336,7 +336,7 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& t
 /** Generate the list of hl modes, store them in myModeList
     force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
 */
-void SyntaxDocument::setupModeList (bool force)
+void KateSyntaxDocument::setupModeList (bool force)
 {
   // If there's something in myModeList the Mode List was already built so, don't do it again
   if (!myModeList.isEmpty())
@@ -368,8 +368,8 @@ void SyntaxDocument::setupModeList (bool force)
       // Let's go to this group
       config.setGroup(Group);
 
-      // Let's make a new syntaxModeListItem to instert in myModeList from the information in katesyntax..rc
-      syntaxModeListItem *mli=new syntaxModeListItem;
+      // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
+      KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
       mli->name       = config.readEntry("name");
       mli->section    = i18n(config.readEntry("section").utf8());
       mli->mimetype   = config.readEntry("mimetype");
@@ -407,7 +407,7 @@ void SyntaxDocument::setupModeList (bool force)
             if (root.tagName()=="language")
             {
               // let's make the mode list item.
-              syntaxModeListItem *mli = new syntaxModeListItem;
+              KateSyntaxModeListItem *mli = new KateSyntaxModeListItem;
 
               mli->name = root.attribute("name");
               // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
@@ -443,7 +443,7 @@ void SyntaxDocument::setupModeList (bool force)
         }
         else
         {
-          syntaxModeListItem *emli=new syntaxModeListItem;
+          KateSyntaxModeListItem *emli=new KateSyntaxModeListItem;
 
           emli->section=i18n("Errors!");
           emli->mimetype="invalid_file/invalid_file";

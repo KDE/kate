@@ -550,7 +550,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     bool wrap = false;
     int newViewLine = startRange.viewLine;
     // z is the current display view line
-    TextLine::Ptr text = textLine(realLine);
+    KateTextLine::Ptr text = textLine(realLine);
 
     bool alreadyDirty = false;
 
@@ -1113,7 +1113,7 @@ void KateViewInternal::moveWord( Bias bias, bool sel )
 
   WrappingCursor c( this, cursor );
   if( !c.atEdge( bias ) ) {
-    Highlight* h = m_doc->highlight();
+    KateHighlighting* h = m_doc->highlight();
 
     bool moved = false;
     while( !c.atEdge( bias ) && !h->isInWord( m_doc->textLine( c.line() )[ c.col() - (bias == left ? 1 : 0) ] ) )
@@ -1208,7 +1208,7 @@ KateLineRange KateViewInternal::range(int realLine, const KateLineRange* previou
   // Not in the cache, we have to create it
   KateLineRange ret;
 
-  TextLine::Ptr text = textLine(realLine);
+  KateTextLine::Ptr text = textLine(realLine);
   if (!text) {
     return KateLineRange();
   }
@@ -1948,7 +1948,7 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
 
 void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force, bool center )
 {
-  TextLine::Ptr l = textLine( newCursor.line() );
+  KateTextLine::Ptr l = textLine( newCursor.line() );
 
   if ( !force && (cursor == newCursor) )
   {
@@ -2163,7 +2163,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 {
   KateLineRange thisRange = yToKateLineRange(p.y());
 
-  TextLine::Ptr l = textLine( thisRange.line );
+  KateTextLine::Ptr l = textLine( thisRange.line );
   if( !l )
     return false;
 
@@ -3012,7 +3012,7 @@ void KateScrollBar::sliderMaybeMoved(int value)
     emit sliderMMBMoved(value);
 }
 
-TextLine::Ptr KateViewInternal::textLine( int realLine )
+KateTextLine::Ptr KateViewInternal::textLine( int realLine )
 {
   if (m_usePlainLines)
     return m_doc->plainKateTextLine(realLine);

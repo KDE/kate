@@ -3,7 +3,7 @@
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
 
    Based on:
-     TextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+     KateTextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -20,8 +20,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KATE_TEXTLINE_H_
-#define _KATE_TEXTLINE_H_
+#ifndef __KATE_TEXTLINE_H__
+#define __KATE_TEXTLINE_H__
 
 #include <ksharedptr.h>
 
@@ -30,17 +30,17 @@
 #include <qvaluevector.h>
 
 /**
-  The TextLine represents a line of text. A text line that contains the
+  The KateTextLine represents a line of text. A text line that contains the
   text, an attribute for each character, an attribute for the free space
   behind the last character and a context number for the syntax highlight.
   The attribute stores the index to a table that contains fonts and colors
   and also if a character is selected.
 */
 
-class TextLine : public KShared
+class KateTextLine : public KShared
 {
   public:
-    typedef KSharedPtr<TextLine> Ptr;
+    typedef KSharedPtr<KateTextLine> Ptr;
     typedef QValueVector<Ptr> List;
 
   public:
@@ -48,8 +48,8 @@ class TextLine : public KShared
       Creates an empty text line with given attribute and syntax highlight
       context
     */
-    TextLine ();
-    ~TextLine ();
+    KateTextLine ();
+    ~KateTextLine ();
 
   /**
     Methods to get data
@@ -63,11 +63,11 @@ class TextLine : public KShared
     /**
       Return some flags
     */
-    inline bool hlLineContinue () const { return m_flags & TextLine::flagHlContinue; }
+    inline bool hlLineContinue () const { return m_flags & KateTextLine::flagHlContinue; }
 
-    inline bool isVisible () const { return m_flags & TextLine::flagVisible; }
+    inline bool isVisible () const { return m_flags & KateTextLine::flagVisible; }
 
-    inline bool isAutoWrapped () const { return m_flags & TextLine::flagAutoWrapped; }
+    inline bool isAutoWrapped () const { return m_flags & KateTextLine::flagAutoWrapped; }
 
     /**
       Returns the position of the first character which is not a white space
@@ -217,20 +217,20 @@ class TextLine : public KShared
     */
     inline void setHlLineContinue (bool cont)
     {
-      if (cont) m_flags = m_flags | TextLine::flagHlContinue;
-      else m_flags = m_flags & ~ TextLine::flagHlContinue;
+      if (cont) m_flags = m_flags | KateTextLine::flagHlContinue;
+      else m_flags = m_flags & ~ KateTextLine::flagHlContinue;
     }
 
     inline void setVisible(bool val)
     {
-      if (val) m_flags = m_flags | TextLine::flagVisible;
-      else m_flags = m_flags & ~ TextLine::flagVisible;
+      if (val) m_flags = m_flags | KateTextLine::flagVisible;
+      else m_flags = m_flags & ~ KateTextLine::flagVisible;
     }
 
     inline void setAutoWrapped (bool wrapped)
     {
-      if (wrapped) m_flags = m_flags | TextLine::flagAutoWrapped;
-      else m_flags = m_flags & ~ TextLine::flagAutoWrapped;
+      if (wrapped) m_flags = m_flags | KateTextLine::flagAutoWrapped;
+      else m_flags = m_flags & ~ KateTextLine::flagAutoWrapped;
     }
 
     /**

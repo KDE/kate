@@ -125,8 +125,8 @@ public:
 
     // Width calculators
     uint spaceWidth();
-    uint textWidth(const TextLine::Ptr &, int cursorCol);
-    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
+    uint textWidth(const KateTextLine::Ptr &, int cursorCol);
+    uint textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
     uint textWidth(const KateTextCursor &cursor);
 
     // Cursor constrainer
@@ -134,7 +134,7 @@ public:
 
     // Column calculators
     uint textPos(uint line, int xPos, uint startCol = 0);
-    uint textPos(const TextLine::Ptr &, int xPos, uint startCol = 0);
+    uint textPos(const KateTextLine::Ptr &, int xPos, uint startCol = 0);
 
     // Font height
     uint fontHeight();

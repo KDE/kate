@@ -152,7 +152,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   int line = range->line;
 
   // textline
-  TextLine::Ptr textLine = m_doc->kateTextLine(line);
+  KateTextLine::Ptr textLine = m_doc->kateTextLine(line);
 
   if (!textLine)
     return;
@@ -618,7 +618,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   delete bracketEndRange;
 }
 
-uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
+uint KateRenderer::textWidth(const KateTextLine::Ptr &textLine, int cursorCol)
 {
   if (!textLine)
     return 0;
@@ -651,7 +651,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
   return x;
 }
 
-uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX)
+uint KateRenderer::textWidth(const KateTextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX)
 {
   KateFontStruct *fs = config()->fontStruct();
   uint x = 0;
@@ -760,7 +760,7 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
 
   if (cursor.line() < 0) cursor.setLine(0);
   if (cursor.line() > (int)m_doc->lastLine()) cursor.setLine(m_doc->lastLine());
-  TextLine::Ptr textLine = m_doc->kateTextLine(cursor.line());
+  KateTextLine::Ptr textLine = m_doc->kateTextLine(cursor.line());
 
   if (!textLine) return 0;
 
@@ -810,7 +810,7 @@ uint KateRenderer::textPos(uint line, int xPos, uint startCol)
   return textPos(m_doc->kateTextLine(line), xPos, startCol);
 }
 
-uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCol)
+uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint startCol)
 {
   Q_ASSERT(textLine);
   if (!textLine)

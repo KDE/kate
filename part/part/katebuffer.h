@@ -31,7 +31,7 @@
 
 class KateLineInfo;
 class KateDocument;
-class Highlight;
+class KateHighlighting;
 class KateBufBlockList;
 class KateBuffer;
 
@@ -89,13 +89,13 @@ class KateBufBlock
      * The first line of this block is line 0.
      * if you modifiy this line, please mark the block as dirty
      */
-    TextLine::Ptr line(uint i);
+    KateTextLine::Ptr line(uint i);
     
     /**
      * insert @p line in front of line @p i
      * marks the block dirty
      */
-    void insertLine(uint i, TextLine::Ptr line);
+    void insertLine(uint i, KateTextLine::Ptr line);
     
     /**
      * remove line @p i
@@ -172,7 +172,7 @@ class KateBufBlock
     /**
      * list of textlines
      */
-    TextLine::List m_stringList;
+    KateTextLine::List m_stringList;
 
     /**
      * parent buffer.
@@ -331,12 +331,12 @@ class KateBuffer : public QObject
     /**
      * Return line @p i
      */
-    TextLine::Ptr line(uint i);
+    KateTextLine::Ptr line(uint i);
 
     /**
      * Return line @p i without triggering highlighting
      */
-    TextLine::Ptr plainLine(uint i);
+    KateTextLine::Ptr plainLine(uint i);
     
     /**
      * Return the total number of lines in the buffer.
@@ -360,7 +360,7 @@ class KateBuffer : public QObject
     /**
      * Insert @p line in front of line @p i
      */
-    void insertLine(uint i, TextLine::Ptr line);
+    void insertLine(uint i, KateTextLine::Ptr line);
 
     /**
      * Remove line @p i
@@ -389,9 +389,9 @@ class KateBuffer : public QObject
      * @p highlight may be 0 in which case highlighting
      * will be disabled.
      */
-    void setHighlight (Highlight *highlight);
+    void setHighlight (KateHighlighting *highlight);
 
-    Highlight *highlight () { return m_highlight; };
+    KateHighlighting *highlight () { return m_highlight; };
     
     /**
      * Invalidate highlighting of whole buffer.
@@ -484,7 +484,7 @@ class KateBuffer : public QObject
     /**
      * current highlighting mode or 0
      */
-    Highlight *m_highlight;
+    KateHighlighting *m_highlight;
     
     /**
      * folding tree
@@ -508,3 +508,5 @@ class KateBuffer : public QObject
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

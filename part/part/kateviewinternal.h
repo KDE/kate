@@ -350,7 +350,7 @@ class KateViewInternal : public QWidget
     int m_currentMaxX;
 
     bool m_usePlainLines; // accept non-highlighted lines if this is set
-    TextLine::Ptr textLine(int realLine);
+    KateTextLine::Ptr textLine(int realLine);
 
     bool m_updatingView;
     int m_wrapChangeViewLine;

@@ -38,7 +38,6 @@ class KateRendererConfig;
 /**
  * Handles all of the work in directly rendering Kate's view.
  *
- * TODO: move colours into this
  **/
 class KateRenderer
 {

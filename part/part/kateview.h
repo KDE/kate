@@ -72,28 +72,34 @@ struct BracketMark {
   int eXPos;
 };
 
+//
+// config + options for the user search
+//
 class SConfig
 {
   public:
-  KateTextCursor cursor;
-  KateTextCursor startCursor;
-  int flags;
+    KateTextCursor cursor;
+    KateTextCursor startCursor;
+    int flags;
 
-  // Set the pattern to be used for searching.
-  void setPattern(QString &newPattern);
+    // Set the pattern to be used for searching.
+    void setPattern(QString &newPattern);
 
-  // The length of the last match found using pattern or regExp.
-  int matchedLength;
+    // The length of the last match found using pattern or regExp.
+    int matchedLength;
 
-  QString m_pattern;
+    QString m_pattern;
 
-  // The regular expression corresponding to pattern. Only guaranteed valid if
-  // flags has sfRegularExpression set.
-  QRegExp m_regExp;
+    // The regular expression corresponding to pattern. Only guaranteed valid if
+    // flags has sfRegularExpression set.
+    QRegExp m_regExp;
 };
 
-
-class KateViewInternal : public QWidget {
+//
+// the real widget with the textarea inside
+//
+class KateViewInternal : public QWidget
+{
     Q_OBJECT
     friend class KateDocument;
     friend class KateView;
@@ -105,7 +111,7 @@ class KateViewInternal : public QWidget {
     uint iconBorderWidth;
     uint iconBorderHeight;
 
-  protected slots:
+  private slots:
     void slotPreHighlightUpdate(uint line);
 
   public:
@@ -136,11 +142,11 @@ class KateViewInternal : public QWidget {
     void top_home(VConfig &c);
     void bottom_end(VConfig &c);
 
-  protected slots:
+  private slots:
     void changeXPos(int);
     void changeYPos(int);
 
-  protected:
+  private:
     void getVConfig(VConfig &);
     void changeState(VConfig &);
     void insLine(int line);
@@ -355,7 +361,7 @@ class KateView : public Kate::View
     KSelectAction *setEndOfLine;
     Kate::ActionMenu *setHighlight;
 
-  protected slots:
+  private slots:
     void slotDropEventPass( QDropEvent * ev );
 
   public slots:
@@ -367,6 +373,7 @@ class KateView : public Kate::View
       Toggles Insert mode
     */
     void toggleInsert();
+
   signals:
     /**
       Modified flag or config flags have changed
@@ -517,7 +524,7 @@ public slots:
     */
     void gotoLineNumber( int linenumber );
 
-  protected:
+  private:
     void initSearch(SConfig &, int flags);
     void continueSearch(SConfig &);
     void findAgain(SConfig &);
@@ -526,23 +533,24 @@ public slots:
     void exposeFound(KateTextCursor &cursor, int slen, int flags, bool replace);
     void deleteReplacePrompt();
     bool askReplaceEnd();
-  protected slots:
+  
+  private slots:
     void replaceSlot();
-  protected:
+
+  private:
     uint searchFlags;
     int replaces;
     QDialog *replacePrompt;
-
 
   signals:
     void bookAddChanged(bool enabled);
     void bookClearChanged(bool enabled);
 
-
 //code completion
   private:
     CodeCompletion_Impl *myCC_impl;
     void initCodeCompletionImplementation();
+
   public:
     virtual void showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
     	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
@@ -580,8 +588,7 @@ public slots:
     */
     void setEol(int);
 
-//internal
-  protected:
+  private:
     void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
 
@@ -591,8 +598,7 @@ public slots:
     KateViewInternal *myViewInternal;
     KateDocument *myDoc;
 
-    // some kwriteview stuff
-  protected:
+  private:
     void insLine(int line) { myViewInternal->insLine(line); };
     void delLine(int line) { myViewInternal->delLine(line); };
     void updateCursor() { myViewInternal->updateCursor(); };
@@ -606,14 +612,11 @@ public slots:
 
     void updateView(int flags) { myViewInternal->updateView(flags); };
 
-  protected slots:
-    // to send dropEventPass
+  private slots:
     void dropEventPassEmited (QDropEvent* e);
 
-   signals:
-    // emitted when KateViewInternal is not handling its own URI drops
+  signals:
     void dropEventPass(QDropEvent*);
-  // end of kwriteview stuff
 
   public:
     enum Dialog_results {
@@ -660,7 +663,7 @@ public slots:
 //    void findAgain () { findAgain(false); };
     void findPrev () { findAgain(true); };
 
-  protected:
+  private:
     bool eventFilter(QObject* o, QEvent* e);
 
   signals:
@@ -690,7 +693,7 @@ public slots:
 
   public:
     KTextEditor::Document *document () const { return (KTextEditor::Document *)myDoc; };
-    
+
   //
   // cursor cache for document
   // here stores the document the view's cursor pos while editing before update

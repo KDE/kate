@@ -184,8 +184,23 @@ bool KateTextLine::endingWith(const QString& match) const
 int KateTextLine::cursorX(uint pos, uint tabChars) const
 {
   uint x = 0;
-  uint z;
-  for ( z = 0; z < kMin (pos, m_text.length()); z++)
+
+  for ( uint z = 0; z < kMin (pos, m_text.length()); z++)
+  {
+    if (m_text[z] == QChar('\t'))
+      x += tabChars - (x % tabChars);
+    else
+      x++;
+  }
+
+  return x;
+}
+
+uint KateTextLine::lengthWithTabs (uint tabChars) const
+{
+  uint x = 0;
+
+  for ( uint z = 0; z < m_text.length(); z++)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);

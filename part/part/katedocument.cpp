@@ -1049,17 +1049,37 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
     if (!l)
       return false;
 
-    if (l->length() > col)
+    kdDebug () << "try wrap line: " << line << endl;
+
+    if (l->lengthWithTabs(m_buffer->tabWidth()) > col)
     {
       KateTextLine::Ptr nextl = m_buffer->line(line+1);
 
+      kdDebug () << "do wrap line: " << line << endl;
+
       const QChar *text = l->text();
       uint eolPosition = l->length()-1;
-      uint searchStart = col;
 
-      //If where we are wrapping is an end of line and is a space we don't
-      //want to wrap there
-      if (col == eolPosition && text[col].isSpace())
+      // take tabs into account here, too
+      uint x = 0;
+      const QString & t = l->string();
+      uint z2 = 0;
+      for ( ; z2 < l->length(); z2++)
+      {
+        if (t[z2] == QChar('\t'))
+          x += m_buffer->tabWidth() - (x % m_buffer->tabWidth());
+        else
+          x++;
+
+        if (x > col)
+          break;
+      }
+
+      uint searchStart = KMIN (z2, l->length()-1);
+
+      // If where we are wrapping is an end of line and is a space we don't
+      // want to wrap there
+      if (searchStart == eolPosition && text[searchStart].isSpace())
         searchStart--;
 
       // Scan backwards looking for a place to break the line
@@ -1108,8 +1128,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
 
         editMarkLineAutoWrapped (line+1, true);
 
-        if (newLineAdded)
-          endLine++;
+        endLine++;
       }
     }
   }

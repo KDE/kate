@@ -42,7 +42,7 @@ class KateTextLine : public KShared
      * Define a Shared-Pointer type
      */
     typedef KSharedPtr<KateTextLine> Ptr;
-    
+
   public:
     /**
      * Used Flags
@@ -62,7 +62,7 @@ class KateTextLine : public KShared
      * context
      */
     KateTextLine ();
-    
+
     /**
      * Destructor
      */
@@ -74,13 +74,13 @@ class KateTextLine : public KShared
   public:
     /**
      * Returns the length
-     * @return length of text in line 
+     * @return length of text in line
      */
     inline uint length() const { return m_text.length(); }
 
     /**
      * has the line the hl continue flag set
-     * @return hl continue set? 
+     * @return hl continue set?
      */
     inline bool hlLineContinue () const { return m_flags & KateTextLine::flagHlContinue; }
 
@@ -158,7 +158,7 @@ class KateTextLine : public KShared
      */
     inline QString string(uint startCol, uint length) const
     { return m_text.mid(startCol, length); }
-    
+
     /**
      * Gets a substring as constant string.
      * @param startCol start column of substring
@@ -189,6 +189,13 @@ class KateTextLine : public KShared
      * @return position with tabulators calculated
      */
     int cursorX(uint pos, uint tabChars) const;
+
+    /**
+     * Returns the text length with tabs calced in
+     * @param tabChars tabulator width in chars
+     * @return text length
+     */
+    uint lengthWithTabs (uint tabChars) const;
 
     /**
      * Can we find the given string at the given position
@@ -226,7 +233,7 @@ class KateTextLine : public KShared
                      uint *foundAtCol, uint *matchLen,
                      bool casesensitive = true,
                      bool backwards = false);
-    
+
     /**
      * search given regexp
      * @param startCol column to start search
@@ -256,13 +263,13 @@ class KateTextLine : public KShared
      * @return context stack
      */
     inline const QMemArray<short> &ctxArray () const { return m_ctx; };
-    
+
     /**
      * folding list
      * @return folding array
      */
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
-    
+
     /**
      * indentation stack
      * @return indentation array
@@ -277,7 +284,7 @@ class KateTextLine : public KShared
      * @param insAttribs attributes for the insert text
      */
     void insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs = 0);
-    
+
     /**
      * remove text at given position
      * @param pos start position of remove
@@ -301,7 +308,7 @@ class KateTextLine : public KShared
       else m_flags = m_flags & ~ KateTextLine::flagHlContinue;
     }
 
-    /** 
+    /**
      * set visibility
      * @param val visible?
      */
@@ -397,7 +404,7 @@ class KateTextLine : public KShared
      * text of line as unicode
      */
     QString m_text;
-    
+
     /**
      * array of highlighting attributes
      */
@@ -407,12 +414,12 @@ class KateTextLine : public KShared
      * context stack
      */
     QMemArray<short> m_ctx;
-    
+
     /**
      * list of folding starts/ends
      */
     QMemArray<signed char> m_foldingList;
-    
+
     /**
      * indentation stack
      */

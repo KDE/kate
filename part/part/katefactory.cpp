@@ -56,11 +56,11 @@ KateFactory::~KateFactory()
 
 KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList & )
 {
-  bool bWantSingleView = (!( classname == QString("KTextEditor::Document") )  || ( classname == QString("KTextEditor::Editor") ));
+  bool bWantSingleView = !( classname == QString("KTextEditor::Document") );
   bool bWantBrowserView = ( classname == QString("Browser/View") );
   bool bWantReadOnly = (bWantBrowserView || ( classname == QString("KParts::ReadOnlyPart") ));
 
-  KParts::ReadWritePart *part = new KateDocument (bWantSingleView, bWantBrowserView, parentWidget, widgetName, parent, name);
+  KParts::ReadWritePart *part = new KateDocument (bWantSingleView, bWantBrowserView, bWantReadOnly, parentWidget, widgetName, parent, name);
   part->setReadWrite( !bWantReadOnly );
 
   return part;

@@ -254,7 +254,7 @@ void KateUndoGroup::addItem (KateUndo *undo)
 //
 // KateDocument Constructor
 //
-KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
+KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOnly,
                                            QWidget *parentWidget, const char *widgetName,
                                            QObject *, const char *)
   : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
@@ -272,8 +272,9 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
   blockSelect = false;
   restoreMarks = false;
 
-  m_bSingleViewMode=bSingleViewMode;
+  m_bSingleViewMode = bSingleViewMode;
   m_bBrowserView = bBrowserView;
+  m_bReadOnly = bReadOnly;
 
   myMarks.setAutoDelete (true);
 

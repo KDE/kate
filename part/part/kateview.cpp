@@ -1365,14 +1365,19 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
 
   myViewInternal->installEventFilter( this );
 
-  if (!doc->m_bBrowserView)
+  if (!doc->m_bSingleViewMode)
   {
     setXMLFile( "katepartui.rc" );
   }
   else
   {
-    extension = new KateBrowserExtension( myDoc, this );
-    myDoc->setXMLFile( "katepartbrowserui.rc" );
+    if (!doc->m_bBrowserView)
+      myDoc->setXMLFile( "katepartui.rc" );
+    else
+    {
+      extension = new KateBrowserExtension( myDoc, this );
+      myDoc->setXMLFile( "katepartbrowserui.rc" );
+    }
   }
 
   setupActions();
@@ -1462,102 +1467,73 @@ void KateView::setupEditKeys()
 
 void KateView::setupActions()
 {
-    KStdAction::close( this, SLOT(flush()), actionCollection(), "file_close" );
+  KActionCollection *ac = this->actionCollection ();
 
-    KStdAction::save(this, SLOT(save()), actionCollection());
+  if (myDoc->m_bSingleViewMode)
+  {
+    ac = myDoc->actionCollection ();
+  }
 
-    // setup edit menu
-    editUndo = KStdAction::undo(myDoc, SLOT(undo()), actionCollection());
-    editRedo = KStdAction::redo(myDoc, SLOT(redo()), actionCollection());
-
-    KStdAction::cut(this, SLOT(cut()), actionCollection());
-    KStdAction::copy(this, SLOT(copy()), actionCollection());
-    KStdAction::paste(this, SLOT(paste()), actionCollection());
-
-    if ( myDoc->m_bBrowserView )
-    {
-      KStdAction::saveAs(this, SLOT(saveAs()), myDoc->actionCollection());
-      KStdAction::find(this, SLOT(find()), myDoc->actionCollection(), "find");
-      KStdAction::findNext(this, SLOT(findAgain()), myDoc->actionCollection(), "find_again");
-      KStdAction::findPrev(this, SLOT(findPrev()), myDoc->actionCollection(), "find_prev");
-      KStdAction::gotoLine(this, SLOT(gotoLine()), myDoc->actionCollection(), "goto_line" );
-      new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),myDoc->actionCollection(), "set_confdlg");
-      setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),myDoc->actionCollection(),"set_highlight");
-      myDoc->exportActionMenu (i18n("&Export"),myDoc->actionCollection(),"file_export");
-      KStdAction::selectAll(myDoc, SLOT(selectAll()), myDoc->actionCollection(), "select_all");
-      KStdAction::deselect(myDoc, SLOT(clearSelection()), myDoc->actionCollection(), "unselect_all");
-      new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()),
-                myDoc->actionCollection(), "incFontSizes");
-      new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()),
-                myDoc->actionCollection(), "decFontSizes");
-      new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()),
-                                             myDoc->actionCollection(), "set_verticalSelect");
-      new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()),
-                                         myDoc->actionCollection(), "view_border");
-      new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()),
-                                         myDoc->actionCollection(), "view_line_numbers");
-      bookmarkMenu = new KActionMenu(i18n("&Marks"), myDoc->actionCollection(), "bookmarks");
-    }
-    else
-    {
-      KStdAction::saveAs(this, SLOT(saveAs()), actionCollection());
-      KStdAction::find(this, SLOT(find()), actionCollection());
-      KStdAction::findNext(this, SLOT(findAgain()), actionCollection());
-      KStdAction::findPrev(this, SLOT(findPrev()), actionCollection(), "edit_find_prev");
-      KStdAction::gotoLine(this, SLOT(gotoLine()), actionCollection());
-      new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),actionCollection(), "set_confdlg");
-      setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),actionCollection(),"set_highlight");
-      myDoc->exportActionMenu (i18n("&Export"),actionCollection(),"file_export");
-      KStdAction::selectAll(myDoc, SLOT(selectAll()), actionCollection());
-      KStdAction::deselect(myDoc, SLOT(clearSelection()), actionCollection());
-      new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()),
-                actionCollection(), "incFontSizes");
-      new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()),
-                actionCollection(), "decFontSizes");
-      new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()),
-                                             actionCollection(), "set_verticalSelect");
-      new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()),
-                                         actionCollection(), "view_border");
-      new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()),
-                                              actionCollection(), "view_line_numbers");
-      bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), actionCollection(), "bookmarks");
-    }
-
-  new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), actionCollection(), "edit_apply_wordwrap");
-
-  KStdAction::replace(this, SLOT(replace()), actionCollection());
-
-  new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()),
-                                  actionCollection(), "edit_cmd");
-
-    // setup bookmark menu
-    bookmarkToggle = new KAction(i18n("Toggle &Bookmark"), Qt::CTRL+Qt::Key_B, this, SLOT(toggleBookmark()), actionCollection(), "edit_bookmarkToggle");
-    bookmarkClear = new KAction(i18n("Clear Bookmarks"), 0, myDoc, SLOT(clearMarks()), actionCollection(), "edit_bookmarksClear");
-
-    // connect bookmarks menu aboutToshow
-    connect(bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
+  if (!myDoc->m_bReadOnly)
+  {
+    KStdAction::save(this, SLOT(save()), ac);
+    editUndo = KStdAction::undo(myDoc, SLOT(undo()), ac);
+    editRedo = KStdAction::redo(myDoc, SLOT(redo()), ac);
+    KStdAction::cut(this, SLOT(cut()), ac);
+    KStdAction::paste(this, SLOT(paste()), ac);
+    new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), ac, "edit_apply_wordwrap");
+    KStdAction::replace(this, SLOT(replace()), ac);
+    new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "edit_cmd");
 
     // setup Tools menu
-    KStdAction::spelling(myDoc, SLOT(spellcheck()), actionCollection());
+    KStdAction::spelling(myDoc, SLOT(spellcheck()), ac);
     new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
-                              actionCollection(), "tools_indent");
+                              ac, "tools_indent");
     new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::Key_U, this, SLOT(unIndent()),
-                                actionCollection(), "tools_unindent");
+                                ac, "tools_unindent");
     new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
-                                   actionCollection(), "tools_cleanIndent");
+                                   ac, "tools_cleanIndent");
     new KAction(i18n("C&omment"), CTRL+Qt::Key_NumberSign, this, SLOT(comment()),
-                               actionCollection(), "tools_comment");
+                               ac, "tools_comment");
     new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_NumberSign, this, SLOT(uncomment()),
-                                 actionCollection(), "tools_uncomment");
+                                 ac, "tools_uncomment");
+  }
 
-    QStringList list;
-    setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, actionCollection(), "set_eol");
-    connect(setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
-    list.clear();
-    list.append("&Unix");
-    list.append("&Windows/Dos");
-    list.append("&Macintosh");
-    setEndOfLine->setItems(list);
+  KStdAction::close( this, SLOT(flush()), ac, "file_close" );
+  KStdAction::copy(this, SLOT(copy()), ac);
+
+  KStdAction::saveAs(this, SLOT(saveAs()), ac);
+  KStdAction::find(this, SLOT(find()), ac);
+  KStdAction::findNext(this, SLOT(findAgain()), ac);
+  KStdAction::findPrev(this, SLOT(findPrev()), ac, "edit_find_prev");
+  KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
+  new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");
+  setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
+  myDoc->exportActionMenu (i18n("&Export"),ac,"file_export");
+  KStdAction::selectAll(myDoc, SLOT(selectAll()), ac);
+  KStdAction::deselect(myDoc, SLOT(clearSelection()), ac);
+  new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
+  new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
+  new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
+  new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), ac, "view_border");
+  new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()), ac, "view_line_numbers");
+  bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks");
+
+  // setup bookmark menu
+  bookmarkToggle = new KAction(i18n("Toggle &Bookmark"), Qt::CTRL+Qt::Key_B, this, SLOT(toggleBookmark()), ac, "edit_bookmarkToggle");
+  bookmarkClear = new KAction(i18n("Clear Bookmarks"), 0, myDoc, SLOT(clearMarks()), ac, "edit_bookmarksClear");
+
+  // connect bookmarks menu aboutToshow
+  connect(bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
+
+  QStringList list;
+  setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
+  connect(setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
+  list.clear();
+  list.append("&Unix");
+  list.append("&Windows/Dos");
+  list.append("&Macintosh");
+  setEndOfLine->setItems(list);
 }
 
 void KateView::slotUpdate()
@@ -1575,6 +1551,9 @@ void KateView::slotFileStatusChanged()
 
 void KateView::slotNewUndo()
 {
+  if (myDoc->m_bReadOnly)
+    return;
+
   if (doc()->undoCount() == 0)
   {
     editUndo->setEnabled(false);

@@ -79,13 +79,11 @@ static const char* const minus_xpm[] = {
 
 
 static const char* const bookmark_xpm[]={
-"12 16 4 1",
+"12 12 4 1",
 "b c #808080",
 "a c #000080",
 "# c #0000ff",
 ". c None",
-"............",
-"............",
 "........###.",
 ".......#...a",
 "......#.##.a",
@@ -97,9 +95,7 @@ static const char* const bookmark_xpm[]={
 "#.#.a.a.....",
 "#.#a.a...bbb",
 "#...a..bbb..",
-".aaa.bbb....",
-"............",
-"............"};
+".aaa.bbb...."};
 
 const int iconPaneWidth = 16;
 const int halfIPW = 8;
@@ -260,6 +256,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->lineRanges.size();
+
+  // center the folding boxes
   int m_px = (h - 11) / 2;
   if (m_px < 0)
     m_px = 0;
@@ -305,10 +303,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     //int y = line * fontHeight; // see below
     int lnX ( 0 );
 
-  /*  if ( (realLine > -1) && (realLine == currentLine) )
-      p.fillRect( 0, y, w, h, m_doc->colors[2] ); // needs fixing !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    else */
-    // fillbackground of border + the 4 pixel spacer
     p.fillRect( 0, y, w-4, h, m_doc->colors[5] );
     p.fillRect( w-4, y, w, h, m_doc->colors[0] );
 
@@ -319,14 +313,33 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
       if( (realLine > -1) && (m_viewInternal->lineRanges[z].startCol == 0) )
       {
-        uint mrk( m_doc->mark( realLine ) ); // call only once
-        if ( mrk ) // ;-]]
-          for( uint bit = 0; bit < 32; bit++ ) {
+        uint mrk ( m_doc->mark( realLine ) ); // call only once
+
+        if ( mrk )
+        {
+          for( uint bit = 0; bit < 32; bit++ )
+          {
             MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
-            if( mrk & markType ) {
-              p.drawPixmap( lnX+2, y, m_doc->markPixmap( markType ) );
+            if( mrk & markType )
+            {
+              QPixmap *px_mark (m_doc->markPixmap( markType ));
+
+              if (px_mark)
+              {
+                // center the mark pixmap
+                int x_px = (iconPaneWidth - px_mark->width()) / 2;
+                if (x_px < 0)
+                  x_px = 0;
+
+                int y_px = (h - px_mark->height()) / 2;
+                if (y_px < 0)
+                  y_px = 0;
+
+                p.drawPixmap( lnX+x_px, y+y_px, *px_mark);
+              }
             }
           }
+        }
       }
 
       lnX += iconPaneWidth + 1;

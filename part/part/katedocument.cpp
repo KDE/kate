@@ -2105,11 +2105,9 @@ void KateDocument::setDescription( MarkInterface::MarkTypes type, const QString&
   m_markDescriptions.replace( type, new QString( description ) );
 }
 
-QPixmap KateDocument::markPixmap( MarkInterface::MarkTypes type )
+QPixmap *KateDocument::markPixmap( MarkInterface::MarkTypes type )
 {
-  if( m_markPixmaps[type] )
-    return *m_markPixmaps[type];
-  return QPixmap();
+  return m_markPixmaps[type];
 }
 
 QString KateDocument::markDescription( MarkInterface::MarkTypes type )

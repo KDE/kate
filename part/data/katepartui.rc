@@ -71,6 +71,7 @@
     <Action name="tools_indent" group="tools_operations" />
     <Action name="tools_unindent" group="tools_operations" />
     <Action name="tools_cleanIndent" group="tools_operations" />
+    <Action name="tools_align" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_comment" group="tools_operations" />
     <Action name="tools_uncomment" group="tools_operations" />

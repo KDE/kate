@@ -174,6 +174,8 @@ class KateAutoIndent
     uchar regionAttrib;
     uchar symbolAttrib;
     uchar alertAttrib;
+    uchar tagAttrib;
+    uchar wordAttrib;
 
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
     bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file

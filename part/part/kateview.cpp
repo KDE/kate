@@ -219,22 +219,23 @@ void KateView::setupActions()
     " when the view is resized."));
 
     // setup Tools menu
-    a=new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
-                              ac, "tools_indent");
+    a=new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()), ac, "tools_indent");
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br><br>"
-    "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
-    a=new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),
-                                ac, "tools_unindent");
+        "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
+    a=new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()), ac, "tools_unindent");
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
-    a=new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
-                                   ac, "tools_cleanIndent");
+
+    a=new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()), ac, "tools_cleanIndent");
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br><br>"
-    "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
+        "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
+
+    a=new KAction(i18n("&Align"), CTRL+Qt::Key_Tab, this, SLOT(align()), ac, "tools_align");
+    a->setWhatsThis(i18n("Use this to align the current line or block of text to its proper indent level."));
 
     a=new KAction(i18n("C&omment"), CTRL+Qt::Key_D, this, SLOT(comment()),
-                               ac, "tools_comment");
+        ac, "tools_comment");
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<BR><BR>"
-    "The characters for single/multiple line comments are defined within the language's highlighting."));
+        "The characters for single/multiple line comments are defined within the language's highlighting."));
 
     a=new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_D, this, SLOT(uncomment()),
                                  ac, "tools_uncomment");

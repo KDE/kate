@@ -193,12 +193,13 @@ class KateView : public Kate::View,
     saveResult save();
     saveResult saveAs();
 
-    void indent()             { m_doc->indent( this, cursorLine(), 1 );       }
-    void unIndent()           { m_doc->indent( this, cursorLine(), -1 );     }
+    void indent()             { m_doc->indent( this, cursorLine(), 1 );  }
+    void unIndent()           { m_doc->indent( this, cursorLine(), -1 ); }
     void cleanIndent()        { m_doc->indent( this, cursorLine(), 0 );  }
-    void comment()            { m_doc->comment( this, cursorLine(), 1 );      }
-    void uncomment()          { m_doc->comment( this, cursorLine(), -1 );    }
-    void killLine()           { m_doc->removeLine( cursorLine() );     }
+    void align()              { m_doc->align( cursorLine() ); }
+    void comment()            { m_doc->comment( this, cursorLine(), 1 );  }
+    void uncomment()          { m_doc->comment( this, cursorLine(), -1 ); }
+    void killLine()           { m_doc->removeLine( cursorLine() ); }
 
     /**
       Uppercases selected text, or an alphabetic character next to the cursor.

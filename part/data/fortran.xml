@@ -53,7 +53,7 @@
       <item> parameter </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
         <Float attribute="Float" context="#stay">
@@ -68,7 +68,7 @@
         <RegExpr attribute="Preprocessor" context="#stay" String="^[\*#].*$"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
       </context>
-      <context attribute="String" lineEndContext="#pop">
+      <context attribute="String" lineEndContext="#pop" name="String">
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>

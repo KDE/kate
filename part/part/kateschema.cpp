@@ -479,10 +479,10 @@ void KateSchemaConfigHighlightTab::reload ()
 }
 
 void KateSchemaConfigHighlightTab::apply ()
-{/*
+{
   for ( QIntDictIterator< QIntDict<ItemDataList> > it( m_hlDict ); it.current(); ++it )
     for ( QIntDictIterator< ItemDataList > it2( *it.current() ); it2.current(); ++it2 )
-       HlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));*/
+       HlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));
 }
 
 //END HighlightConfig

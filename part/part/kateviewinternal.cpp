@@ -1,4 +1,4 @@
-/* This file is part of the KDE libraries
+/*/* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002,2003 Christoph Cullmann <cullmann@kde.org>
@@ -46,7 +46,7 @@
 
 #include <qstyle.h>
 #include <qdragobject.h>
-#include <qpopupmenu.h>
+#include <qpopupmenu.h>*/
 #include <qdropsite.h>
 #include <qpainter.h>
 #include <qlayout.h>
@@ -1706,6 +1706,7 @@ void KateViewInternal::pageUp( bool sel )
     m_view->renderer()->textWidth( newPos, cXPos );
 
     m_preserveMaxX = true;
+    updateSelection( newPos, sel );
     updateCursor(newPos);
 
   } else {
@@ -1761,6 +1762,7 @@ void KateViewInternal::pageDown( bool sel )
     m_view->renderer()->textWidth( newPos, cXPos );
 
     m_preserveMaxX = true;
+    updateSelection( newPos, sel );
     updateCursor(newPos);
 
   } else {

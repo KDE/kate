@@ -29,6 +29,7 @@
 #include <kmessagebox.h>
 #include <kstringhandler.h>
 #include <kdebug.h>
+#include <kfinddialog.h>
 
 #include "../interfaces/view.h"
 #include "../interfaces/document.h"
@@ -42,6 +43,7 @@ KateSearch::KateSearch( Kate::View* view )
 	, m_view( view )
 	, m_doc( view->getDoc() )
 	, m_searchFlags()
+	, options (0)
 	, replacePrompt( new ReplacePrompt( view ) )
 {
 	connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
@@ -84,20 +86,29 @@ void KateSearch::find()
 	m_searchFlags.selected &= doc()->hasSelection();
 	m_searchFlags.replace = false;
 	
-	SearchDialog* searchDialog = new SearchDialog(
-	    view(), s_searchList, s_replaceList,
-	    m_searchFlags );
 	
-	searchDialog->setSearchText( getSearchText() );
+	KFindDialog *findDialog = new KFindDialog (  m_view, "", options,
+	                                             s_searchList, m_doc->hasSelection() ); 
 	
-	if( searchDialog->exec() == QDialog::Accepted ) {
-		addToSearchList( searchDialog->getSearchFor() );
-		bool prompt = m_searchFlags.prompt;
-		m_searchFlags = searchDialog->getFlags();
-		m_searchFlags.prompt = prompt;
+		
+	if( findDialog->exec() == QDialog::Accepted ) {
+		addToSearchList( findDialog->pattern () );
+	        options = findDialog->options ();
+
+		
+	m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
+	m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
+	m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+	m_searchFlags.backward = options & KFindDialog::FindBackwards;
+	m_searchFlags.selected = options & KFindDialog::SelectedText;
+	m_searchFlags.prompt = false;
+	m_searchFlags.replace = false;
+	m_searchFlags.finished = false;
+	m_searchFlags.regExp = options & KFindDialog::RegularExpression;
+		
 		search( m_searchFlags );
 	}
-	delete searchDialog;
+	delete findDialog;
 }
 
 void KateSearch::replace()

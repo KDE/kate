@@ -102,10 +102,12 @@ private:
 	Kate::Document* m_doc;
 	
 	struct SConfig {
+	        long options;
 		SearchFlags flags;
 		KateTextCursor cursor;
 		uint matchedLength;
 	} s;
+	long options;
 	SearchFlags   m_searchFlags;
 	int           replaces;
 	QDialog*      replacePrompt;

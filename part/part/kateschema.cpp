@@ -573,6 +573,9 @@ void KateSchemaConfigFontTab::apply()
 
 void KateSchemaConfigFontTab::schemaChanged( int newSchema )
 {
+  if ( m_schema > -1 )
+    m_fonts[ m_schema ] = m_fontchooser->font();
+
   m_schema = newSchema;
 
   QFont f (KGlobalSettings::fixedFont());

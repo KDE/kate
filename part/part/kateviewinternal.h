@@ -104,7 +104,7 @@ class KateViewInternal : public QScrollView
     // emitted when KateViewInternal is not handling its own URI drops
     void dropEventPass(QDropEvent*);
   
-  protected:
+  private:
     void drawContents( QPainter*, int cx, int cy, int cw, int ch );
 
     void focusInEvent(  QFocusEvent* );
@@ -123,7 +123,11 @@ class KateViewInternal : public QScrollView
   private slots:
     void slotContentsMoving (int x, int y);                
     void tripleClickTimeout();
-    void updateView( int flags = 0 );
+    void updateView( int flags = 0 );    
+    
+    void slotRegionVisibilityChangedAt(unsigned int);
+    void slotRegionBeginEndAddedRemoved(unsigned int);
+    void slotCodeFoldingChanged();
 
   private:
     void moveChar( Bias bias, bool sel );

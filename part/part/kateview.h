@@ -243,9 +243,6 @@ class KateView : public Kate::View
     void slotNewUndo();
     void slotUpdate();
     void toggleInsert();
-    void slotRegionVisibilityChangedAt(unsigned int);
-    void slotRegionBeginEndAddedRemoved(unsigned int);
-    void slotCodeFoldingChanged();
     void reloadFile();
 
   signals:

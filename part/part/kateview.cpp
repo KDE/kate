@@ -82,13 +82,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   initCodeCompletionImplementation();
 
-  connect( doc->regionTree, SIGNAL(regionVisibilityChangedAt(unsigned int)),
-           this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
-//  connect( doc->regionTree, SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
-//           this, SLOT(slotRegionBeginEndAddedRemoved(unsigned int)) );
-  connect( doc, SIGNAL(codeFoldingUpdated()),
-           this, SLOT(slotCodeFoldingChanged()) );
-
   doc->addView( this );
 
   connect( myViewInternal, SIGNAL(dropEventPass(QDropEvent*)),
@@ -164,26 +157,6 @@ KateView::~KateView()
   delete myCC_impl;
   
   KateFactory::deregisterView (this);
-}
-
-void KateView::slotRegionVisibilityChangedAt(unsigned int)
-{
-  kdDebug(13000)<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
-  myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
-}
-
-void KateView::slotCodeFoldingChanged()
-{
-  myViewInternal->leftBorder->update();
-}
-
-void KateView::slotRegionBeginEndAddedRemoved(unsigned int line)
-{
-  kdDebug(13000)<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
-//  myViewInternal->repaint();   
-  // FIXME: performance problem
-//  if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)
-    myViewInternal->leftBorder->update();
 }
 
 void KateView::initCodeCompletionImplementation()

@@ -54,9 +54,17 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // iconborder ;)
   leftBorder = new KateIconBorder(this, this); 
   leftBorder->setFocusPolicy ((QWidget::FocusPolicy)0);       
-  updateIconBorder ();
+  updateIconBorder ();                            
+  
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
-           myDoc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));
+           myDoc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));  
+           
+  connect( doc->regionTree, SIGNAL(regionVisibilityChangedAt(unsigned int)),
+           this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
+//  connect( doc->regionTree, SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
+//           this, SLOT(slotRegionBeginEndAddedRemoved(unsigned int)) );
+  connect( doc, SIGNAL(codeFoldingUpdated()),
+           this, SLOT(slotCodeFoldingChanged()) );
   
   
   displayCursor.line=0;
@@ -108,6 +116,26 @@ void KateViewInternal::updateIconBorder()
 
   setMargins (leftBorder->width(), 0,0,0);
   leftBorder->resize(leftBorder->width(),visibleHeight());    
+  leftBorder->update();
+}       
+
+void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
+{
+  kdDebug(13000)<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
+  updateView(KateViewInternal::ufFoldingChanged);
+}
+
+void KateViewInternal::slotCodeFoldingChanged()
+{
+  leftBorder->update();
+}
+
+void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int line)
+{
+  kdDebug(13000)<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
+//  myViewInternal->repaint();   
+  // FIXME: performance problem
+//  if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)
   leftBorder->update();
 }
 

@@ -222,8 +222,8 @@ class KateHlKeyword : public KateHlItem
 {
   public:
     KateHlKeyword(int attribute, int context,signed char regionId,signed char regionId2, bool casesensitive, const QString& delims);
+    virtual ~KateHlKeyword ();
 
-    virtual void addWord(const QString &);
     virtual void addList(const QStringList &);
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool startEnable(const QChar& c);
@@ -231,7 +231,7 @@ class KateHlKeyword : public KateHlItem
     virtual bool hasCustomStartEnable() const;
 
   private:
-    QDict<bool> dict;
+    QMemArray< QDict<bool>* > dict;
     bool _caseSensitive;
     const QString& deliminators;
     int minLen;
@@ -579,12 +579,17 @@ int KateHlRangeDetect::checkHgl(const QString& text, int offset, int len)
 //BEGIN KateHlKeyword
 KateHlKeyword::KateHlKeyword (int attribute, int context, signed char regionId,signed char regionId2, bool casesensitive, const QString& delims)
   : KateHlItem(attribute,context,regionId,regionId2)
-  , dict (113, casesensitive)
   , _caseSensitive(casesensitive)
   , deliminators(delims)
   , minLen (0xFFFFFF)
-  , maxLen (-1)
+  , maxLen (0)
 {
+}
+
+KateHlKeyword::~KateHlKeyword ()
+{
+  for (uint i=0; i < dict.size(); ++i)
+    delete dict[i];
 }
 
 bool KateHlKeyword::alwaysStartEnable() const
@@ -602,19 +607,10 @@ bool KateHlKeyword::startEnable(const QChar& c)
   return kateInsideString (deliminators, c);
 }
 
-// If we use a dictionary for lookup we don't really need
-// an item as such we are using the key to lookup
-void KateHlKeyword::addWord(const QString &word)
-{
-  dict.insert(word,&trueBool);
-}
-
 void KateHlKeyword::addList(const QStringList& list)
 {
-  for(uint i=0;i<list.count();i++)
+  for(uint i=0; i < list.count(); ++i)
   {
-    dict.insert(list[i], &trueBool);
-
     int len = list[i].length();
 
     if (minLen > len)
@@ -622,6 +618,20 @@ void KateHlKeyword::addList(const QStringList& list)
 
     if (maxLen < len)
       maxLen = len;
+
+    if ((uint)len >= dict.size())
+    {
+      uint oldSize = dict.size();
+      dict.resize (len+1);
+
+      for (uint m=oldSize; m < dict.size(); ++m)
+        dict[m] = 0;
+    }
+
+    if (!dict[len])
+      dict[len] = new QDict<bool> (17, _caseSensitive);
+
+    dict[len]->insert(list[i], &trueBool);
   }
 }
 
@@ -644,7 +654,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 
   if (wordLen < minLen) return 0;
 
-  if ( dict.find(QConstString(text.unicode() + offset, wordLen).string()) ) return offset2;
+  if ( dict[wordLen] && dict[wordLen]->find(QConstString(text.unicode() + offset, wordLen).string()) ) return offset2;
 
   return 0;
 }

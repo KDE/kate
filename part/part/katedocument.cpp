@@ -3695,7 +3695,12 @@ void KateDocument::addStartLineCommentToSelection( int attrib )
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
 {
   for(; line < (int)m_buffer->count(); line++) {
-    col = m_buffer->plainLine(line)->nextNonSpaceChar(col);
+    KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+
+    if (!textLine)
+      break;
+
+    col = textLine->nextNonSpaceChar(col);
     if(col != -1)
       return true; // Next non-space char found
     col = 0;
@@ -3710,11 +3715,16 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 {
   while(true)
   {
-    col = m_buffer->plainLine(line)->previousNonSpaceChar(col);
+    KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+
+    if (!textLine)
+      break;
+
+    col = textLine->previousNonSpaceChar(col);
     if(col != -1) return true;
     if(line == 0) return false;
     --line;
-    col = m_buffer->plainLine(line)->length();
+    col = textLine->length();
 }
   // No non-space char found
   line = -1;
@@ -3731,8 +3741,8 @@ bool KateDocument::removeStartStopCommentFromSelection( int attrib )
   QString startComment = m_highlight->getCommentStart( attrib );
   QString endComment = m_highlight->getCommentEnd( attrib );
 
-  int sl = selectStart.line();
-  int el = selectEnd.line();
+  int sl = kMax<int> (0, selectStart.line());
+  int el = kMin<int>  (selectEnd.line(), lastLine());
   int sc = selectStart.col();
   int ec = selectEnd.col();
 

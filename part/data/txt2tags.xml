@@ -1,0 +1,61 @@
+<?xml version="1.01" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Created by Juliano Dorneles dos Santos <juliano_dorneles@yahoo.com.br> -->
+<!-- Fixed for 3.2 Helio Chissini de Castro <helio@kde.org> -->
+<language name="txt2tags" extensions="*.t2t" section="Markup" mimetype="text/txt2tags" casesensitive="1">
+<highlighting>
+
+<contexts>
+	<context name="Context">
+		<RegExpr attribute="Date" context="Context" String="%%date(\(.*\))?"/>
+		<RegExpr attribute="Comment" context="Context" String="%.*"/>
+		<RegExpr attribute="Bold" context="Context" String="\*\*.*\*\*"/>
+		<RegExpr attribute="Italic" context="Context" String="//.*//"/>
+		<RegExpr attribute="BoldItalic" context="Context" String="\*\*//.*//\*\*"/>
+		<RegExpr attribute="BoldItalic" context="Context" String="__.*__"/>
+		<RegExpr attribute="Monospaced" context="Context" String="``.*``"/>
+		<RegExpr attribute="Verbatim Line" context="Context" String="``` .*"/>
+		<RegExpr attribute="Title" context="Context" String="^ *=[^=].*[^=]=\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *==[^=].*[^=]==\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *===[^=].*[^=]===\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *====[^=].*[^=]====\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *=====[^=].*[^=]=====\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *\+[^=].*[^=]\+\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *\+\+[^=].*[^=]\+\+\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *\+\+\+[^=].*[^=]\+\+\+\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *\+\+\+\+[^=].*[^=]\+\+\+\+\s*$"/>
+		<RegExpr attribute="Title" context="Context" String="^ *\+\+\+\+\+[^=].*[^=]\+\+\+\+\+\s*$"/>
+		<RangeDetect attribute="Link" char="[" char1="]"/>
+		<RegExpr attribute="Tabel" context="Context" String="^ *\|\| .*"/>
+		<RegExpr attribute="Tabel" context="Context" String="^ *\| .*"/>
+		<RegExpr attribute="DefList" context="Context" String="^ *\: .*"/>
+		<RegExpr attribute="List" context="Context" String="^ *\- .*"/>
+		<RegExpr attribute="NumList" context="Context" String="^ *\+ .*"/>
+		<RegExpr attribute="Quote" context="Context" String="\t.*"/>
+		<RegExpr attribute="Bar" context="Context" String="(\s*)([_=-]{20,})\s*$"/>
+	</context>
+</contexts>
+
+<itemDatas>
+	<itemData name="Normal" defStyleNum="dsNormal" />
+	<itemData name="Date" defStyleNum="dsNormal" color="#FF0000" italic="1" />
+	<itemData name="Comment" defStyleNum="dsNormal" color="#666666" italic="1" />
+	<itemData name="Bold" defStyleNum="dsNormal" bold="1" />
+	<itemData name="Italic" defStyleNum="dsNormal" italic="1" />
+	<itemData name="BoldItalic" defStyleNum="dsNormal" bold="1" italic="1" />
+	<itemData name="Monospaced" defStyleNum="dsNormal" color="#006600" />
+	<itemData name="Verbatim Line" defStyleNum="dsNormal" color="#006600" />
+	<itemData name="Verbatim Area" defStyleNum="dsNormal" color="#006600" />
+	<itemData name="Title" defStyleNum="dsNormal" color="#990000" />
+	<itemData name="Link" defStyleNum="dsNormal" color="#000099" />
+	<itemData name="Tabel" defStyleNum="dsNormal" color="#FF0000" />
+	<itemData name="DefList" defStyleNum="dsNormal" color="#FFCC66" />
+	<itemData name="List" defStyleNum="dsNormal" color="#FFCC66" />
+	<itemData name="NumList" defStyleNum="dsNormal" color="#FFCC66" />
+	<itemData name="Quote" defStyleNum="dsNormal" color="brown" />
+	<itemData name="Bar" defStyleNum="dsNormal" color="#C0C0C0" />
+</itemDatas>
+
+</highlighting>
+
+</language>

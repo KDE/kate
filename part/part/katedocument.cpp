@@ -301,14 +301,16 @@ void KateDocument::disablePluginGUI (PluginInfo *item)
     
   for (uint i=0; i< m_views.count(); i++)
   {
-    KTextEditor::pluginViewInterface(item->plugin)->removeView(m_views.at(i));
+      KXMLGUIFactory *factory = m_views.at( i )->factory();
+      if ( factory )
+	  factory->removeClient( m_views.at( i ) );
+
+      KTextEditor::PluginViewInterface *viewIface = KTextEditor::pluginViewInterface( item->plugin );
+      viewIface->removeView(m_views.at(i));
     
-    if (KXMLGUIFactory *factory = m_views.at(i)->factory())
-  {
-    factory->removeClient (m_views.at(i));
-    factory->addClient (m_views.at(i));
-  }       
-  }
+      if ( factory )
+          factory->addClient( m_views.at( i ) );
+   }
 }
 
 bool KateDocument::closeURL()

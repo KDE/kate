@@ -229,6 +229,16 @@ int KateIconBorder::lineNumberWidth() const
 
         p.setPen(m_doc->colors[4]);
         p.drawLine(w/2, h/2, w/2, 0);
+#if 1
+        p.lineTo(w/4, h/4);
+        p.lineTo(0, 0);
+        p.lineTo(0, h/2);
+        p.lineTo(w/2, h-1);
+        p.lineTo(w*3/4, h-1);
+        p.lineTo(w-1, h*3/4);
+        p.lineTo(w*3/4, h/2);
+        p.lineTo(0, h/2);
+#else
         p.lineTo(w*3/4, h/4);
         p.lineTo(w-1,0);
         p.lineTo(w-1, h/2);
@@ -237,6 +247,7 @@ int KateIconBorder::lineNumberWidth() const
         p.lineTo(0, h*3/4);
         p.lineTo(w/4, h/2);
         p.lineTo(w-1, h/2);
+#endif
       }
     }
   }

@@ -741,18 +741,20 @@ void KateViewInternal::updateView(int flags) {
       maxLen = maxLen + 8;
     }
   }
-//kdDebug()<<"widest line to draw is "<<maxLen<<" px"<<endl;
-  if (exposeCursor || flags & KateView::ufDocGeometry) {
+
+  if (exposeCursor || flags & KateView::ufDocGeometry)
+  {
     emit myView->cursorPositionChanged();
-  } else {
+  }
+  else
+  {
     // anders: I stay for KateView::ufLeftBorder, to get xcroll updated when border elements
     // display change.
     if ( updateState == 0 && newXPos < 0 && newYPos < 0 && !( flags&KateView::ufLeftBorder ) ) return;
   }
 
-  if (cursorTimer) {
-    killTimer(cursorTimer);
-    cursorTimer = startTimer(KApplication::cursorFlashTime() / 2);
+  if (cursorTimer)
+  {
     cursorOn = true;
   }
 
@@ -785,19 +787,11 @@ void KateViewInternal::updateView(int flags) {
     }
 
     if (!exposeCursor) break;
-//    if (flags & KateView::ufNoScroll) break;
-/*
-    if (flags & KateView::ufCenter) {
-      cXPosMin = xPos + w/3;
-      cXPosMax = xPos + (w*2)/3;
-      cYPosMin = yPos + h/3;
-      cYPosMax = yPos + ((h - fontHeight)*2)/3;
-    } else {*/
+
       cXPosMin = xPos+ 4;
       cXPosMax = xPos + w - 8 - bw;
       cYPosMin = yPos;
       cYPosMax = yPos + (h - fontHeight);
-//    }
 
     if (cXPos < cXPosMin) {
       xPos -= cXPosMin - cXPos;

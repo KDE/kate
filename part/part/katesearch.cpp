@@ -595,22 +595,22 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 //BEGIN KateReplacePrompt
 // this dialog is not modal
 KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
-  : KDialogBase ( parent, 0L, false, i18n( "Replace Text" ),
+  : KDialogBase ( parent, 0L, false, i18n( "Replace Confirmation" ),
                   User3 | User2 | User1 | Close | Ok , Ok, true,
-                  i18n("&All"), i18n("&Last"), i18n("&No") )
+                  i18n("Replace &All"), i18n("Replace && Close"), i18n("&Replace") )
 {
-  setButtonOK( KStdGuiItem::yes() );
+  setButtonOK( i18n("Find Next") );
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 
   QBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
-  QLabel *label = new QLabel(i18n("Replace this occurrence?"),page);
+  QLabel *label = new QLabel(i18n("Found an occurrence of your search term. What do you want to do?"),page);
   topLayout->addWidget(label );
 }
 
 void KateReplacePrompt::slotOk ()
-{ // Yes
-  done(KateSearch::srYes);
+{ // Search Next
+  done(KateSearch::srNo);
 }
 
 void KateReplacePrompt::slotClose ()
@@ -619,18 +619,18 @@ void KateReplacePrompt::slotClose ()
 }
 
 void KateReplacePrompt::slotUser1 ()
-{ // All
+{ // Replace All
   done(KateSearch::srAll);
 }
 
 void KateReplacePrompt::slotUser2 ()
-{ // Last
+{ // Replace & Close
   done(KateSearch::srLast);
 }
 
 void KateReplacePrompt::slotUser3 ()
-{ // No
-  done(KateSearch::srNo);
+{ // Replace
+  done(KateSearch::srYes);
 }
 
 void KateReplacePrompt::done (int result)

@@ -5,7 +5,7 @@
 <!-- Copyright: BSD copyright -->
 <!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
 
-<language name="Tcl/Tk" version="1.02" kateversion="2.1" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.03" kateversion="2.1" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -183,11 +183,11 @@
                         <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
                         <Float attribute = "Float" context="#stay"/>
                         <Int attribute ="Decimal" context="#stay"/>
-                        <RegExpr String = "-\D\w+" attribute = "Parameter" content="#stay"/>
+                        <RegExpr String = " -\D\w+" attribute = "Parameter" content="#stay"/>
                         <DetectChar char = "&quot;" attribute = "String" context="String"/>
                         <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
-                        <DetectChar char = '{' attribute = "Keyword" context="#stay"/>
-                        <DetectChar char = '}' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = '{' attribute = "Keyword" context="#stay" beginRegion="brace1"/>
+                        <DetectChar char = '}' attribute = "Keyword" context="#stay" endRegion="brace1"/>
                         <DetectChar char = '[' attribute = "Keyword" context="#stay"/>
                         <DetectChar char = ']' attribute = "Keyword" context="#stay"/>
                         <RegExpr String  = '\\$' attribute = "Keyword" context="#stay"/>
@@ -196,7 +196,7 @@
                 <context name = "String" attribute = "String" lineEndContext="#stay">
                         <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
                         <DetectChar char = '{' attribute = "Keyword" context="#stay"/>
-                        <DetectChar char = '}' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = '}' attribute = "Keyword" context="#stay" endRegion="brace"/>
                         <DetectChar char = '[' attribute = "Keyword" context="#stay"/>
                         <DetectChar char = ']' attribute = "Keyword" context="#stay"/>
                         <RegExpr String  = '\\$' attribute = "Keyword" context="#stay"/>

@@ -372,7 +372,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   // jowenn, feel free to edit the below texts
   QWhatsThis::add( lvDefStyles, i18n("This list displays the default styles, used by all syntax highlight modes, and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
 
-  QWhatsThis::add( hlCombo,   i18n("Choose a <em>Syntax Highlight mode</em> from this list to view it's properties below.") );
+  QWhatsThis::add( hlCombo,   i18n("Choose a <em>Syntax Highlight mode</em> from this list to view its properties below.") );
   QWhatsThis::add( btnEdit,   i18n("Click this button to edit the currently selected syntax highlight mode using the Highlight Mode Editor(tm)") );
   QWhatsThis::add( wildcards, i18n("The list of file extensions used to determine which files to highlight using the current syntax highlight mode.") );
   QWhatsThis::add( mimetypes, i18n("The list of Mime Types used to determine which files to highlight using the current highlight mode.<p>Click the wizard button on the left of the entry field to display the MimeType selection dialog.") );

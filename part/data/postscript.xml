@@ -349,58 +349,6 @@
 		<item> undefineuserobject </item>
 		<item> UserObjects </item>
 		<item> cleardictstack </item>
-		<!--item> A </item>
-		<item> B </item>
-		<item> C </item>
-		<item> D </item>
-		<item> E </item>
-		<item> F </item>
-		<item> G </item>
-		<item> H </item>
-		<item> I </item>
-		<item> J </item>
-		<item> K </item>
-		<item> L </item>
-		<item> M </item>
-		<item> N </item>
-		<item> O </item>
-		<item> P </item>
-		<item> Q </item>
-		<item> R </item>
-		<item> S </item>
-		<item> T </item>
-		<item> U </item>
-		<item> V </item>
-		<item> W </item>
-		<item> X </item>
-		<item> Y </item>
-		<item> Z </item>
-		<item> a </item>
-		<item> b </item>
-		<item> c </item>
-		<item> d </item>
-		<item> e </item>
-		<item> f </item>
-		<item> g </item>
-		<item> h </item>
-		<item> i </item>
-		<item> j </item>
-		<item> k </item>
-		<item> l </item>
-		<item> m </item>
-		<item> n </item>
-		<item> o </item>
-		<item> p </item>
-		<item> q </item>
-		<item> r </item>
-		<item> s </item>
-		<item> t </item>
-		<item> u </item>
-		<item> v </item>
-		<item> w </item>
-		<item> x </item>
-		<item> y </item>
-		<item> z </item //-->
 		<item> setvmthreshold </item>
 		<item> &lt;&lt; </item>
 		<item> &gt;&gt; </item>
@@ -463,9 +411,8 @@
 			<DetectChar attribute="2" context="1" char="%"/>
 			<Float attribute="4" context="0"/>
 			<Int attribute="5" context="0"/>
-			<!-- DetectChar attribute="6" context="3" lineEndContext="3" char="("/ -->
 		        <DetectChar attribute="6" context="3" char="("/>
-			<RegExpr attribute="7" context="0" String="\/[a-zA-Z_0-9.]+"/>
+			<RegExpr attribute="7" context="0" String="\/{1,2}[^\s\(\)\{\}\[\]%/]*"/>
 		</context>
 		<context attribute="2" lineEndContext="0" name="Comment"/>
 		<context attribute="3" lineEndContext="0" name="Header"/>

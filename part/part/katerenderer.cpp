@@ -336,7 +336,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
       cursorMaxWidth = xPosAfter - xPos;
     }
-
   }
   else
   {
@@ -469,12 +468,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           )
         {
           if (!isPrinterFriendly()) {
-            // TODO: genericise background painting
-            if (!selectionPainted) {
-              if (isSel)
-                paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, config()->selectionColor());
-              else if (currentHL.itemSet(KateAttribute::BGColor))
-                paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
+            if (!selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor))) {
+              QColor fillColor = isSel ? config()->selectionColor() : currentHL.bgColor();
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, fillColor);
             }
 
             // XIM support

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  This is a language description for debian package control files.
+  It should work, but is fairly untested.
+
+  Changelog:
+  0.6
+  - changed all keyword to StringDetect in main
+  - generalized to work with the 'debian control file format' not only used in control, but also in template...
+  - made multiline fields working
+  - the ':' following fieldnames is now highlighted as Keyword
+  - nicer indetation
+  - removed control from extensions
+
+  TODO:
+  - use <IncludeRules context="Field"/> in DependencyField.
+	When I tried this, I got some strange results I wasn't able to crack down.
+
+  Any comments are warmly welcome!
+  Simon Huerlimann <simon.huerlimann@access.unizh.ch>
+-->
+<language name="Debian Control" version="0.6" kateversion="2.1" section="Other" extensions="" mimetype="">
+    <highlighting>
+        <contexts>
+            <context attribute="Normal Text" lineEndContext="#stay">
+                <StringDetect attribute="Keyword" context="DependencyField" String="Depends:"/>
+                <StringDetect attribute="Keyword" context="DependencyField" String="Recommends:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Suggests:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Conflicts:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Provides:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Replaces:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Enhances:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Pre-Depends:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Build-Depends:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Build-Depends-Indep:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Build-Conflicts:"/>
+				<StringDetect attribute="Keyword" context="DependencyField" String="Build-Conflicts-Indep:"/>
+                <RegExpr attribute="Keyword" context="Field" minimal="true" String="^[^ ]*:"/>
+	            <RegExpr attribute="Value" context="Field" String="^ "/>
+            </context>
+
+            <context attribute="Value" lineEndContext="#pop" name="Field">
+	            <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
+	            <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
+            </context>
+
+            <context attribute="Variable" lineEndContext="#pop" name="Variable">
+	            <DetectChar attribute="Keyword" context="#pop" char="}"/>
+            </context>
+
+			<context attribute="Value" lineEndContext="#pop" name="DependencyField">
+	            <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
+	            <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
+	            <RegExpr attribute="Keyword" context="#stay" String="[,\|]"/>
+	            <DetectChar attribute="Keyword" context="Constrain" char="("/>
+            </context>
+
+            <context attribute="Version" lineEndContext="#stay" name="Constrain">
+	            <Detect2Chars attribute="Keyword" context="Variable" char="$" char1="{"/>
+	            <RegExpr attribute="Keyword" context="#stay" String="[&lt;=&gt;]"/>
+	            <DetectChar attribute="Keyword" context="#pop" char=")"/>
+            </context>
+        </contexts>
+
+		<itemDatas>
+			<itemData name="Normal Text" defStyleNum="dsNormal"/>
+			<itemData name="Keyword"  defStyleNum="dsKeyword"/>
+			<itemData name="Version"  defStyleNum="dsDecVal"/>
+			<itemData name="Value"  defStyleNum="dsDataType"/>
+			<itemData name="Variable" defStyleNum="dsDataType"/>
+            <itemData name="Email" defStyleNum="dsOthers"/>
+        </itemDatas>
+    </highlighting>
+
+    <general>
+        <keywords casesensitive="1" />
+    </general>
+</language>

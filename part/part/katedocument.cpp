@@ -38,6 +38,7 @@
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
 #include "kateundo.h"
+#include "kateprintsettings.h"
 
 #include <qfileinfo.h>
 #include <qfile.h>
@@ -1727,6 +1728,8 @@ bool KateDocument::printDialog ()
   else
     printer.setDocName(i18n("Untitled"));
 
+  printer.addDialogPage(new KatePrintSettings(&printer, NULL));
+
    if ( printer.setup( kapp->mainWidget() ) )
    {
      QPainter paint( &printer );
@@ -1739,11 +1742,13 @@ bool KateDocument::printDialog ()
      int endCol = 0;
      bool needWrap = true;
      bool pageStarted = true;
-     bool useHeader = true /*(printer.option("app-kate-pageheader") == "true")*/;
-     bool useBox = false /*(printer.option("app-kate-pagebox") == "true")*/;
-     QColor headerColor("#E0E0E0" /*printer.option("app-kate-headercolor")*/);
-     QColor fontColor(Qt::black /*printer.option("app-kate-fontcolor")*/);
+     bool useHeader = (printer.option("app-kate-useheader") == "true");
+     bool useBox = (printer.option("app-kate-usebox") == "true");
+     QColor headerColor(printer.option("app-kate-headercolor"));
+     QColor fontColor(printer.option("app-kate-fontcolor"));
+     QColor boxColor(printer.option("app-kate-boxcolor"));
      uint currentPage = 1;
+     int boxWidth(printer.option("app-kate-boxwidth").toInt());
      uint headerHeight = printFont.fontHeight+10;
      QDateTime	dt = QDateTime::currentDateTime();
      int innerMargin = 5, maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
@@ -1751,7 +1756,7 @@ bool KateDocument::printDialog ()
 
      if (useHeader)
      {
-       tagList = QStringList::split('|', "%y (%u)|%P|%p" /*printer.option("app-kate-headerformat")*/, true);
+       tagList = QStringList::split('|', printer.option("app-kate-headerformat"), true);
        if (tagList.count() == 3)
          for (QStringList::Iterator it=tagList.begin(); it!=tagList.end(); ++it)
          {
@@ -1770,6 +1775,14 @@ bool KateDocument::printDialog ()
          headerColor = Qt::lightGray;
        if (!fontColor.isValid())
          fontColor = Qt::black;
+     }
+
+     if (useBox)
+     {
+       if (!boxColor.isValid())
+         boxColor = Qt::black;
+       if (boxWidth < 0)
+         boxWidth = 0;
      }
 
      while (  lineCount <= lastLine()  )
@@ -1811,7 +1824,7 @@ bool KateDocument::printDialog ()
            }
            if (useBox)
            {
-             paint.setPen(Qt::black);
+             paint.setPen(QPen(boxColor, boxWidth));
              paint.drawRect(0, 0, pdm.width(), pdm.height());
              if (useHeader)
                paint.drawLine(0, headerHeight, maxWidth, headerHeight);

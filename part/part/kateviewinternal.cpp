@@ -656,8 +656,8 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
 
-  if ((drawBuffer.width() != this->width()) || (drawBuffer.height() != h))
-    drawBuffer.resize (this->width(), h);
+  if ((drawBuffer.width() != width) || (drawBuffer.height() != h))
+    drawBuffer.resize (width, h);
 
   if (drawBuffer.isNull())
     return;
@@ -1203,7 +1203,7 @@ uint KateViewInternal::viewLine(const KateTextCursor& realCursor)
     thisRange = range(realCursor.line, first ? 0L : &thisRange);
     first = false;
   } while (thisRange.wrap && !(realCursor.col >= thisRange.startCol && realCursor.col < thisRange.endCol) && thisRange.startCol != thisRange.endCol);
-  
+
   return thisRange.viewLine;
 }
 
@@ -1225,10 +1225,10 @@ int KateViewInternal::displayViewLine(const KateTextCursor& virtualCursor, bool 
   if (work == virtualCursor) {
     return 0;
   }
-  
+
   int ret = -viewLine(work);
   bool forwards = (work < virtualCursor) ? true : false;
-  
+
   // FIXME switch to using ranges? faster?
   if (forwards) {
     while (work.line != virtualCursor.line) {
@@ -2280,22 +2280,22 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     
     if (mouseX < 0)
       scrollX = -d;
-    
+
     if (mouseX > width())
       scrollX = d;
-    
+
     if (mouseY < 0)
     {
       mouseY = 0;
       scrollY = -d;
     }
-    
+
     if (mouseY > height())
     {
       mouseY = height();
       scrollY = d;
     }
-    
+
     placeCursor( QPoint( mouseX, mouseY ), true );
   }
   else

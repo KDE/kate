@@ -3800,8 +3800,14 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
                             KateDocument::TextTransform t )
 {
   editStart();
+  uint cl( c.line() ), cc( c.col() );
+
   if ( hasSelection() )
   {
+    // cache the selection and cursor, so we can be sure to restore.
+    KateTextCursor s = selectStart;
+    KateTextCursor e = selectEnd;
+
     int ln = selStartLine();
     while ( ln <= selEndLine() )
     {
@@ -3841,32 +3847,39 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
 
       ln++;
     }
+
+    // restore selection
+    setSelection( s, e );
+
   } else {  // no selection
     QString s;
-    uint cline(c.line() ), ccol( c.col() );
-    int n ( ccol );
+    int n ( cc );
     switch ( t ) {
       case Uppercase:
-      s = text( cline, ccol, cline, ccol + 1 ).upper();
+      s = text( cl, cc, cl, cc + 1 ).upper();
       break;
       case Lowercase:
-      s = text( cline, ccol, cline, ccol + 1 ).lower();
+      s = text( cl, cc, cl, cc + 1 ).lower();
       break;
-      case Capitalize: // FIXME avoid/reset cursor jump!!
+      case Capitalize:
       {
-        KateTextLine::Ptr l = m_buffer->plainLine( cline );
+        KateTextLine::Ptr l = m_buffer->plainLine( cl );
         while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ) ) )
           n--;
-        s = text( cline, n, cline, n + 1 ).upper();
+        s = text( cl, n, cl, n + 1 ).upper();
       }
       break;
       default:
       break;
     }
-    removeText( cline, n, cline, n+1 );
-    insertText( cline, n, s );
+    removeText( cl, n, cl, n+1 );
+    insertText( cl, n, s );
   }
+
   editEnd();
+
+  if ( activeView() )
+    activeView()->setCursorPosition( cl, cc );
 }
 
 void KateDocument::joinLines( uint first, uint last )

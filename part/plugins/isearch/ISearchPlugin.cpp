@@ -179,6 +179,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 ISearchPluginView::~ISearchPluginView()
 {
 	writeConfig();
+	m_combo->lineEdit()->removeEventFilter( this );
 	delete m_combo;
 	delete m_label;
 }

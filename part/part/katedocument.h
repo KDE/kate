@@ -21,6 +21,7 @@
 #ifndef kate_document_h
 #define kate_document_h
 
+#include "kateautoindent.h"
 #include "katecursor.h"
 #include "katetextline.h"
 
@@ -706,6 +707,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     class Highlight *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
+
+    KateAutoIndent *m_indenter;
 
     static int m_getSearchTextFrom;
 

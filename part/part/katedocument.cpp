@@ -217,6 +217,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_extension = new KateBrowserExtension( this );
   m_arbitraryHL = new KateArbitraryHighlight();
+  m_indenter = new KateAutoIndent( this );
 
   // read the config THE FIRST TIME ONLY, we store everything in static vars
   // to ensure each document has the same config the whole time
@@ -299,6 +300,7 @@ KateDocument::~KateDocument()
   m_highlight->release();
 
   delete m_config;
+  delete m_indenter;
   KateFactory::deregisterDocument (this);
 }
 //END
@@ -3078,9 +3080,10 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   bool bracketInserted = false;
   QString buf;
+  QChar c;
   for( uint z = 0; z < chars.length(); z++ )
   {
-    QChar ch = chars[z];
+    QChar ch = c = chars[z];
 
     if (ch.isPrint() || ch == '\t')
     {
@@ -3107,6 +3110,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText (view->cursorLine(), view->cursorColumnReal(), view->cursorLine(), QMIN( view->cursorColumnReal()+buf.length(), textLine->length() ) );
 
   insertText (view->cursorLine(), view->cursorColumnReal(), buf);
+  m_indenter->processChar(c);
 
   editEnd ();
 
@@ -3116,20 +3120,6 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   emit charactersInteractivelyInserted (oldLine, oldCol, chars);
 
   return true;
-}
-
-static QString tabString(int pos, int tabChars)
-{
-  QString s;
-  while (pos >= tabChars) {
-    s += '\t';
-    pos -= tabChars;
-  }
-  while (pos > 0) {
-    s += ' ';
-    pos--;
-  }
-  return s;
 }
 
 void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
@@ -3142,8 +3132,6 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   // temporary hack to get the cursor pos right !!!!!!!!!
   c = v->getCursor ();
 
-  bool _b( c.col() <= 1 );
-
   if (c.line() > (int)lastLine())
    c.setLine(lastLine());
 
@@ -3151,32 +3139,22 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   if (c.col() > (int)textLine->length())
     c.setCol(textLine->length());
 
-  if (!(config()->configFlags() & KateDocument::cfAutoIndent)) {
+  if (!(config()->configFlags() & KateDocument::cfAutoIndent))
+  {
     insertText( c.line(), c.col(), "\n" );
     c.setPos(c.line() + 1, 0);
-  } else {
-    int pos = textLine->firstChar();
-    if (c.col() < pos) c.setCol(pos); // place cursor on first char if before
-
-    int y = c.line();
-    while ((y > 0) && (pos < 0)) { // search a not empty text line
-      textLine = buffer->plainLine(--y);
-      pos = textLine->firstChar();
-    }
-    insertText (c.line(), c.col(), "\n");
-    c.setPos(c.line() + 1, 0);
-
-    if (pos > 0) {
-      pos = textLine->cursorX(pos, config()->tabWidth());
-      QString s = tabString(pos, (config()->configFlags() & KateDocument::cfSpaceIndent) ? 0xffffff : config()->tabWidth());
-      insertText (c.line(), c.col(), s);
-      pos = s.length();
-      c.setCol(pos);
-    }
   }
+  else
+  {
+    int pos = textLine->firstChar();
+    if (c.col() < pos)
+      c.setCol(pos); // place cursor on first char if before
 
-  // move the marks if required
-  if ( _b ) {
+    insertText (c.line(), c.col(), "\n");
+
+    KateDocCursor cursor (c.line() + 1, pos, this);
+    m_indenter->processNewline(cursor, true);
+    c.setPos(cursor);
   }
 
   editEnd();
@@ -4824,6 +4802,8 @@ void KateDocument::updateConfig ()
   {
     view->updateDocumentConfig ();
   }
+
+  m_indenter->updateConfig();
 }
 
 //BEGIN Variable reader
@@ -4928,6 +4908,11 @@ void KateDocument::readVariableLine( QString t )
         m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
       else if ( var == "smart-home" && checkBoolValue( val, &state ) )
         m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
+      else if ( var == "smart-indent" && checkBoolValue( val, &state ) )
+      {
+        delete m_indenter;
+        m_indenter = new KateCSmartIndent( this );
+      }
 
       // INTEGER SETTINGS
       else if ( var == "tab-width" && checkIntValue( val, &n ) )

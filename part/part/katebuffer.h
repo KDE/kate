@@ -319,14 +319,13 @@ class KateBuffer : public QObject
     bool editIsRunning;
     uint editTagLineStart;
     uint editTagLineEnd;
-
-  public slots:
-    /**
-     * change the visibility of a given line
-     */
-    void setLineVisible (unsigned int lineNr, bool visible);
     
   public:
+    /**
+     * Clear the buffer.
+     */
+    void clear();
+  
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -341,7 +340,43 @@ class KateBuffer : public QObject
      * Save the buffer to a file, use the given filename + codec + end of line chars (internal use of qtextstream)
      */
     bool saveFile (const QString &m_file);
+    
+  public:
+    /**
+     * Return line @p i
+     */
+    TextLine::Ptr line(uint i);
 
+    /**
+     * Return line @p i without triggering highlighting
+     */
+    TextLine::Ptr plainLine(uint i);
+    
+  private:
+    /**
+     * Find the block containing line @p i
+     * index pointer gets filled with index of block in m_blocks
+     * index only valid if returned block != 0 !
+     */
+    KateBufBlock *findBlock (uint i, uint *index = 0);
+    
+  public:
+    /**
+     * Mark line @p i as changed !
+     */
+    void changeLine(uint i);
+  
+    /**
+     * Insert @p line in front of line @p i
+     */
+    void insertLine(uint i, TextLine::Ptr line);
+
+    /**
+     * Remove line @p i
+     */
+    void removeLine(uint i);
+    
+  public:
     /**
      * Return the total number of lines in the buffer.
      */
@@ -355,59 +390,12 @@ class KateBuffer : public QObject
 
     void lineInfo (KateLineInfo *info, unsigned int line);
 
-    KateCodeFoldingTree *foldingTree ();
-
     void dumpRegionTree ();
 
-    /**
-     * Return line @p i
-     */
-    TextLine::Ptr line(uint i);
-
-    /**
-     * Return line @p i without triggering highlighting
-     */
-    TextLine::Ptr plainLine(uint i);
-    
     /**
      * Return textline @p i without triggering highlighting
      */
     QString textLine(uint i);
-
-    /**
-     * Insert @p line in front of line @p i
-     */
-    void insertLine(uint i, TextLine::Ptr line);
-
-    /**
-     * Remove line @p i
-     */
-    void removeLine(uint i);
-
-    /**
-     * Change line @p i
-     */
-    void changeLine(uint i);
-
-    /**
-     * Clear the buffer.
-     */
-    void clear();
-
-    /**
-     * Use @p highlight for highlighting
-     *
-     * @p highlight may be 0 in which case highlighting
-     * will be disabled.
-     */
-    void setHighlight (Highlight *highlight);
-
-    Highlight *highlight () { return m_highlight; };
-
-    /**
-     * Invalidate highlighting of whole buffer.
-     */
-    void invalidateHighlighting();
 
     /**
      * Get the whole text in the buffer as a string.
@@ -434,15 +422,32 @@ class KateBuffer : public QObject
     inline uint tabWidth () const { return m_tabWidth; }
     
     inline KVMAllocator *vm () { return &m_vm; }
-
-  private:
+    
+  public:
     /**
-     * Find the block containing line @p i
-     * index pointer gets filled with index of block in m_blocks
-     * index only valid if returned block != 0 !
+     * Use @p highlight for highlighting
+     *
+     * @p highlight may be 0 in which case highlighting
+     * will be disabled.
      */
-    KateBufBlock *findBlock (uint i, uint *index = 0);
+    void setHighlight (Highlight *highlight);
 
+    Highlight *highlight () { return m_highlight; };
+    
+    /**
+     * Invalidate highlighting of whole buffer.
+     */
+    void invalidateHighlighting();
+    
+    KateCodeFoldingTree *foldingTree () { return &m_regionTree; };
+    
+  public slots:
+    /**
+     * change the visibility of a given line
+     */
+    void setLineVisible (unsigned int lineNr, bool visible);
+  
+  private:
     /**
      * Highlight information needs to be updated.
      *
@@ -450,11 +455,12 @@ class KateBuffer : public QObject
      * @param startState highlighting state of last line before range
      * @param from first line in range
      * @param to last line in range
+     * @param invalidat should the rehighlighted lines be tagged ?
      *
      * @returns true when the highlighting in the next block needs to be updated,
      * false otherwise.
      */
-    bool doHighlight (KateBufBlock *buf, uint from, uint to);
+    bool doHighlight (KateBufBlock *buf, uint from, uint to, bool invalidate);
     
   signals:
     /**

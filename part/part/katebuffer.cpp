@@ -129,7 +129,8 @@ void KateBuffer::editEnd ()
     {
       needContinue = doHighlight (buf2,
         (editTagLineStart > buf2->startLine()) ? editTagLineStart : buf2->startLine(),
-        (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd);
+        (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd,
+        true);
         
       editTagLineStart = (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd;
       
@@ -213,83 +214,6 @@ void KateBuffer::lineInfo (KateLineInfo *info, unsigned int line)
   m_regionTree.getLineInfo(info,line);
 }
 
-KateCodeFoldingTree *KateBuffer::foldingTree ()
-{
-  return &m_regionTree;
-}
-
-/**
- * Find a block for line i + correct start/endlines for blocks
- */
-KateBufBlock *KateBuffer::findBlock(uint i, uint *index)
-{
-  // out of range !
-  if (i >= m_lines)
-    return 0;
-
-  uint lastLine = m_blocks[m_lastInSyncBlock]->endLine ();
-    
-  if (lastLine > i) // we are in a allready known area !
-  {
-    if ((m_lastFoundBlock >= m_blocks.size()) || (m_lastFoundBlock > m_lastInSyncBlock))
-      m_lastFoundBlock = 0;
-     
-    while (true)
-    {
-      KateBufBlock *buf = m_blocks[m_lastFoundBlock];
-    
-      if ( (buf->startLine() <= i)
-           && (buf->endLine() > i) )
-      {
-        if (index)
-          (*index) = m_lastFoundBlock;
-        
-        return m_blocks[m_lastFoundBlock];
-      }
-    
-      if (i < buf->startLine())
-        m_lastFoundBlock--;
-      else
-        m_lastFoundBlock++;
-    }
-  }
-  else // we need first to resync the startLines !
-  {
-    if ((m_lastInSyncBlock+1) < m_blocks.size())
-      m_lastInSyncBlock++;
-    else
-      return 0;
-  
-    for (; m_lastInSyncBlock < m_blocks.size(); m_lastInSyncBlock++)
-    {
-      // get next block
-      KateBufBlock *buf = m_blocks[m_lastInSyncBlock];
-      
-      // sync startLine !
-      buf->setStartLine (lastLine);
-      
-      // is it allready the searched block ?
-      if ((i >= lastLine) && (i < buf->endLine()))
-      {
-        if (index)
-          (*index) = m_lastInSyncBlock;
-      
-        // remember this block as last found !
-        m_lastFoundBlock = m_lastInSyncBlock;
-        
-        return buf;
-      }
-      
-      // increase lastLine with blocklinecount
-      lastLine += buf->lines ();
-    }
-  }
-     
-  // no block found !
-  // index will not be set to any useful value in this case !
-  return 0;
-}
-
 void KateBuffer::clear()
 {
   m_regionTree.clear();
@@ -316,15 +240,6 @@ void KateBuffer::clear()
   m_lineHighlighted = 0;
 }
 
-void KateBuffer::setHighlight(Highlight *highlight)
-{
-  m_highlight = highlight;
-  invalidateHighlighting();
-}
-
-/**
- * Insert a file at line @p line in the buffer.
- */
 bool KateBuffer::openFile (const QString &m_file)
 {
   QFile file (m_file);
@@ -523,9 +438,6 @@ bool KateBuffer::saveFile (const QString &m_file)
   return (file.status() == IO_Ok);
 }
 
-/**
- * Return line @p i
- */
 TextLine::Ptr KateBuffer::line(uint i)
 {
   KateBufBlock *buf = findBlock(i);
@@ -541,7 +453,8 @@ TextLine::Ptr KateBuffer::line(uint i)
   
     doHighlight ( buf2,
                   kMax(m_lineHighlighted, buf2->startLine()),
-                  end);
+                  end,
+                  false );
       
     m_lineHighlighted = end;
   }
@@ -553,7 +466,189 @@ TextLine::Ptr KateBuffer::line(uint i)
   return buf->line (i - buf->startLine());
 }
 
-bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine)
+TextLine::Ptr KateBuffer::plainLine(uint i)
+{
+  KateBufBlock *buf = findBlock(i);
+  if (!buf)
+    return 0;
+
+  return buf->line(i - buf->startLine());
+}
+
+KateBufBlock *KateBuffer::findBlock(uint i, uint *index)
+{
+  // out of range !
+  if (i >= m_lines)
+    return 0;
+
+  uint lastLine = m_blocks[m_lastInSyncBlock]->endLine ();
+    
+  if (lastLine > i) // we are in a allready known area !
+  {
+    if ((m_lastFoundBlock >= m_blocks.size()) || (m_lastFoundBlock > m_lastInSyncBlock))
+      m_lastFoundBlock = 0;
+     
+    while (true)
+    {
+      KateBufBlock *buf = m_blocks[m_lastFoundBlock];
+    
+      if ( (buf->startLine() <= i)
+           && (buf->endLine() > i) )
+      {
+        if (index)
+          (*index) = m_lastFoundBlock;
+        
+        return m_blocks[m_lastFoundBlock];
+      }
+    
+      if (i < buf->startLine())
+        m_lastFoundBlock--;
+      else
+        m_lastFoundBlock++;
+    }
+  }
+  else // we need first to resync the startLines !
+  {
+    if ((m_lastInSyncBlock+1) < m_blocks.size())
+      m_lastInSyncBlock++;
+    else
+      return 0;
+  
+    for (; m_lastInSyncBlock < m_blocks.size(); m_lastInSyncBlock++)
+    {
+      // get next block
+      KateBufBlock *buf = m_blocks[m_lastInSyncBlock];
+      
+      // sync startLine !
+      buf->setStartLine (lastLine);
+      
+      // is it allready the searched block ?
+      if ((i >= lastLine) && (i < buf->endLine()))
+      {
+        if (index)
+          (*index) = m_lastInSyncBlock;
+      
+        // remember this block as last found !
+        m_lastFoundBlock = m_lastInSyncBlock;
+        
+        return buf;
+      }
+      
+      // increase lastLine with blocklinecount
+      lastLine += buf->lines ();
+    }
+  }
+     
+  // no block found !
+  // index will not be set to any useful value in this case !
+  return 0;
+}
+
+void KateBuffer::changeLine(uint i)
+{
+  KateBufBlock *buf = findBlock(i);
+
+  editTagLine (i);
+  
+  if (buf)
+    buf->markDirty ();
+}
+
+void KateBuffer::insertLine(uint i, TextLine::Ptr line)
+{
+  uint index = 0;
+  KateBufBlock *buf;
+  if (i == m_lines)
+    buf = findBlock(i-1, &index);
+  else
+    buf = findBlock(i, &index);
+
+  if (!buf)
+    return;
+
+  buf->insertLine(i -  buf->startLine(), line);
+
+  if (m_lineHighlightedMax > i)
+    m_lineHighlightedMax++;
+    
+  if (m_lineHighlighted > i)
+    m_lineHighlighted++;
+   
+  m_lines++;
+
+  // last sync block adjust
+  if (m_lastInSyncBlock > index)
+    m_lastInSyncBlock = index;
+    
+  editInsertTagLine (i);
+
+  m_regionTree.lineHasBeenInserted (i);
+}
+
+void KateBuffer::removeLine(uint i)
+{
+   uint index = 0;
+   KateBufBlock *buf = findBlock(i, &index);
+
+   if (!buf)
+     return;
+   
+  buf->removeLine(i -  buf->startLine());
+
+  if (m_lineHighlightedMax > i)
+    m_lineHighlightedMax--;
+    
+  if (m_lineHighlighted > i)
+    m_lineHighlighted--;
+    
+  m_lines--;
+
+  // trash away a empty block
+  if (buf->lines() == 0)
+  {
+    // we need to change which block is last in sync
+    if (m_lastInSyncBlock >= index)
+    {
+      m_lastInSyncBlock = index;
+      
+      if (buf->next())
+      {
+        if (buf->prev())
+          buf->next()->setStartLine (buf->prev()->endLine());
+        else
+          buf->next()->setStartLine (0);
+      }
+    }
+    
+    // cu block !
+    delete buf;
+    m_blocks.erase (m_blocks.begin()+index);
+  }
+  else
+  {
+    // last sync block adjust
+    if (m_lastInSyncBlock > index)
+      m_lastInSyncBlock = index;
+  }
+  
+  editRemoveTagLine (i);
+
+  m_regionTree.lineHasBeenRemoved (i);
+}
+
+void KateBuffer::setHighlight(Highlight *highlight)
+{
+  m_highlight = highlight;
+  invalidateHighlighting();
+}
+
+void KateBuffer::invalidateHighlighting()
+{
+  m_lineHighlightedMax = 0;
+  m_lineHighlighted = 0;
+}
+
+bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bool invalidate)
 {
   // no hl around, no stuff to do
   if (!m_highlight)
@@ -773,7 +868,8 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   buf->markDirty ();
   
   // tag the changed lines !
-  emit tagLines (startLine, current_line + buf->startLine());
+  if (invalidate)
+    emit tagLines (startLine, current_line + buf->startLine());
 
   // emit that we have changed the folding
   if (codeFoldingUpdate)
@@ -784,21 +880,6 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   return stillcontinue && ((current_line+1) == buf->lines());
 }
 
-void KateBuffer::invalidateHighlighting()
-{
-  m_lineHighlightedMax = 0;
-  m_lineHighlighted = 0;
-}
-
-TextLine::Ptr KateBuffer::plainLine(uint i)
-{
-  KateBufBlock *buf = findBlock(i);
-  if (!buf)
-    return 0;
-
-  return buf->line(i - buf->startLine());
-}
-
 QString KateBuffer::textLine(uint i)
 {
   TextLine::Ptr l = plainLine(i);
@@ -807,99 +888,6 @@ QString KateBuffer::textLine(uint i)
     return QString();
   
   return l->string();
-}
-
-void KateBuffer::insertLine(uint i, TextLine::Ptr line)
-{
-  uint index = 0;
-  KateBufBlock *buf;
-  if (i == m_lines)
-    buf = findBlock(i-1, &index);
-  else
-    buf = findBlock(i, &index);
-
-  if (!buf)
-    return;
-
-  buf->insertLine(i -  buf->startLine(), line);
-
-  if (m_lineHighlightedMax > i)
-    m_lineHighlightedMax++;
-    
-  if (m_lineHighlighted > i)
-    m_lineHighlighted++;
-   
-  m_lines++;
-
-  // last sync block adjust
-  if (m_lastInSyncBlock > index)
-    m_lastInSyncBlock = index;
-    
-  editInsertTagLine (i);
-
-  m_regionTree.lineHasBeenInserted (i);
-}
-
-void
-KateBuffer::removeLine(uint i)
-{
-   uint index = 0;
-   KateBufBlock *buf = findBlock(i, &index);
-
-   if (!buf)
-     return;
-   
-  buf->removeLine(i -  buf->startLine());
-
-  if (m_lineHighlightedMax > i)
-    m_lineHighlightedMax--;
-    
-  if (m_lineHighlighted > i)
-    m_lineHighlighted--;
-    
-  m_lines--;
-
-  // trash away a empty block
-  if (buf->lines() == 0)
-  {
-    // we need to change which block is last in sync
-    if (m_lastInSyncBlock >= index)
-    {
-      m_lastInSyncBlock = index;
-      
-      if (buf->next())
-      {
-        if (buf->prev())
-          buf->next()->setStartLine (buf->prev()->endLine());
-        else
-          buf->next()->setStartLine (0);
-      }
-    }
-    
-    // cu block !
-    delete buf;
-    m_blocks.erase (m_blocks.begin()+index);
-  }
-  else
-  {
-    // last sync block adjust
-    if (m_lastInSyncBlock > index)
-      m_lastInSyncBlock = index;
-  }
-  
-  editRemoveTagLine (i);
-
-  m_regionTree.lineHasBeenRemoved (i);
-}
-
-void KateBuffer::changeLine(uint i)
-{
-  KateBufBlock *buf = findBlock(i);
-
-  editTagLine (i);
-  
-  if (buf)
-    buf->markDirty ();
 }
 
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)

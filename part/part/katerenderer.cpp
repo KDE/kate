@@ -244,7 +244,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   // should the cursor be painted (if it is in the current xstart - xend range)
   bool cursorVisible = false;
-  int cursorXPos = 0, cursorXPos2 = 0;
   int cursorMaxWidth = 0;
 
   // font data
@@ -314,6 +313,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
 
   // Optimisation to quickly draw an empty line of text
+  int cursorXPos = 0;
+  int cursorXPos2 = 0;
+
   if (len < 1)
   {
     if ((showCursor > -1) && (showCursor >= (int)curCol))
@@ -352,9 +354,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
     // adjust to startcol ;)
     textAttributes = textAttributes + startcol;
-    // loop each character (tmp goes backwards, but curCol doesn't)
 
-    for (uint tmp = len; tmp > 0; tmp--)
+    uint len = textLine->length();
+    while (curCol < len)
     {
       // Determine cursor position
       if (showCursor > -1 && cursor->col() == (int)curCol)
@@ -430,7 +432,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol))
 
           // it is the end of the line OR
-          || (tmp < 2)
+          || (curCol >= len - 1 )
 
           // the x position is past the end OR
           || ((int)xPos > xEnd)
@@ -585,24 +587,17 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // Paint cursor
   if (cursorVisible)
   {
-    if (caretStyle() == Replace && (cursorMaxWidth > 2))
-      paint.fillRect(cursorXPos-xStart, 0, cursorMaxWidth, fs->fontHeight, *cursorColor);
-    else
-      paint.fillRect(cursorXPos-xStart, 0, 2, fs->fontHeight, *cursorColor);
+    uint cursorWidth = (caretStyle() == Replace && (cursorMaxWidth > 2)) ? cursorMaxWidth : 2;
+    paint.fillRect(cursorXPos-xStart, 0, cursorWidth, fs->fontHeight, *cursorColor);
   }
-  // Draw the cursor at the function user's specified position.
-  // TODO: Why?????
-  else if (showCursor > -1)
+  else if ((showCursor > -1) && (cursorXPos2 >= xStart) && (cursorXPos2 <= xEnd))
   {
-    if ((cursorXPos2>=xStart) && (cursorXPos2<=xEnd))
-    {
-      cursorMaxWidth = fs->myFontMetrics.width(spaceChar);
+    // Draw the cursor at the function user's specified position.
+    // TODO: Why?????
+    cursorMaxWidth = fs->myFontMetrics.width(spaceChar);
 
-      if (caretStyle() == Replace && (cursorMaxWidth > 2))
-        paint.fillRect(cursorXPos2-xStart, 0, cursorMaxWidth, fs->fontHeight, attribute(0)->textColor());
-      else
-        paint.fillRect(cursorXPos2-xStart, 0, 2, fs->fontHeight, attribute(0)->textColor());
-    }
+    uint cursorWidth = (caretStyle() == Replace && (cursorMaxWidth > 2)) ? cursorMaxWidth : 2;
+    paint.fillRect(cursorXPos2-xStart, 0, cursorWidth, fs->fontHeight, attribute(0)->textColor());
   }
 
   // show word wrap marker if desirable

@@ -603,7 +603,18 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
 }
 
 bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol )
+{
+  return removeText (startLine, startCol, endLine, endCol, false);
+}
+
+bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise )
 {    
+  if ( blockwise && (startCol > endCol) )
+    return false;
+      
+  if ( startLine > endLine )
+    return false;
+
   if ( startLine > lastLine() )
     return false;
 
@@ -615,39 +626,52 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
         
   editStart ();
  
-  if (startLine == endLine)
+  if ( !blockwise )
   {
-    editRemoveText (startLine, startCol, endCol-startCol);
-  }
-  else if ((startLine+1) == endLine)
-  {
-    if ( (kateTextLine(startLine)->length()-startCol) > 0 )
-      editRemoveText (startLine, startCol, kateTextLine(startLine)->length()-startCol);
+    if (startLine == endLine)
+    {
+      editRemoveText (startLine, startCol, endCol-startCol);
+    }
+    else if ((startLine+1) == endLine)
+    {
+      if ( (kateTextLine(startLine)->length()-startCol) > 0 )
+        editRemoveText (startLine, startCol, kateTextLine(startLine)->length()-startCol);
 
-    editRemoveText (startLine+1, 0, endCol);
-    editUnWrapLine (startLine, startCol);
+      editRemoveText (startLine+1, 0, endCol);
+      editUnWrapLine (startLine, startCol);
+    }
+    else
+    {
+      for (uint line = endLine; line >= startLine; line--)
+      {
+        if ((line > startLine) && (line < endLine))
+        {
+          editRemoveLine (line);
+        }
+        else
+        {
+          if (line == endLine)
+          {
+            if ( endLine <= lastLine() )
+              editRemoveText (line, 0, endCol);
+          }
+          else
+          {
+            if ( (kateTextLine(line)->length()-startCol) > 0 )
+              editRemoveText (line, startCol, kateTextLine(line)->length()-startCol);
+          }        
+        }
+      
+        if ( line == 0 )
+          break;
+      }
+    }
   }
   else
   {
-    for (uint line = endLine; line >= startLine; line--)
+     for (uint line = endLine; line >= startLine; line--)
     {
-      if ((line > startLine) && (line < endLine))
-      {
-        editRemoveLine (line);
-      }
-      else
-      {
-        if (line == endLine)
-        {
-          if ( endLine <= lastLine() )
-            editRemoveText (line, 0, endCol);
-        }
-         else
-        {
-          if ( (kateTextLine(line)->length()-startCol) > 0 )
-            editRemoveText (line, startCol, kateTextLine(line)->length()-startCol);
-        }        
-      }
+      editRemoveText (line, startCol, endCol-startCol);
       
       if ( line == 0 )
         break;
@@ -1208,87 +1232,19 @@ bool KateDocument::removeSelectedText ()
   int el = selectEnd.line;
   int sc = selectStart.col;
   int ec = selectEnd.col;
-
-  for (int z=el; z >= sl; z--)
+  
+  if ( blockSelect )
   {
-    TextLine::Ptr textLine = buffer->line(z);
-    if (!textLine)
-      break;
-
-    int delLine = 0;
-    int delStart = 0;
-    int delLen = 0;
-    
-    if (!blockSelect)
+    if (sc > ec)
     {
-      if ((z > sl) && (z < el))
-        delLine = 1;
-      else
-      {
-        if ((z == sl) && (z == el))
-        {
-          if ((sc==0) && (el==textLine->length()))
-             delLine=1;
-	  else
-	  {
-             delStart = sc;
-             delLen = ec-sc;
-	  }
-        }
-        else if ((z == sl))
-        {
-
-          if (sc==0)
-             delLine=1;
-	  else
-	  {	
-             delStart = sc;
-             delLen = textLine->length()-sc;
-
-             if (sl < el)
-                delLen++;
-	  }
-        }
-        else if ((z == el))
-        {
-	  if (ec==textLine->length())
-	  	delLine=1;
-	  else
-	  {
-          	delStart = 0;
-          	delLen = ec;
-	  }
-        }
-      }
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
     }
-    else
-    {
-      delStart = sc;
-      delLen = ec-sc;
-
-      if (delStart >= (int)textLine->length())
-      {
-        delStart = 0;
-        delLen = 0;
-      }
-      else if (delLen+delStart > (int)textLine->length())
-        delLen = textLine->length()-delStart;
-    }
-
-    if (delLine == 1)
-    {
-      kdDebug(13020)<<"KateDocument::removeSelectedText (): calling editRemoveLine"<<z<<endl;      
-      editRemoveLine (z);
-    }
-    else if (delStart+delLen > (int)textLine->length())
-    {
-      editRemoveText (z, delStart, textLine->length()-delStart);
-      editUnWrapLine (z, delStart);
-    }
-    else
-      editRemoveText (z, delStart, delLen);
   }
 
+  removeText (sl, sc, el, ec, blockSelect);
+   
   clearSelection();
 
   editEnd ();

@@ -135,6 +135,10 @@ class KateStyleListView : public QListView
     void showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle=false );
     void emitChanged() { emit changed(); };
     
+    void setBgCol( const QColor &c ) { bgcol = c; }
+    void setSelCol( const QColor &c ) { selcol = c; }
+    void setNormalCol( const QColor &c ) { normalcol = c; }
+    
   private slots:
     /* Display a popupmenu for item i at item position */
     void showPopupMenu( QListViewItem *i );

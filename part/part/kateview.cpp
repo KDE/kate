@@ -56,7 +56,6 @@
 #include <qevent.h>
 #include <qdir.h>
 #include <qvbox.h>
-#include <qprintdialog.h>
 #include <qpaintdevicemetrics.h>
 
 #include <qstyle.h>

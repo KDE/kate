@@ -81,7 +81,7 @@ class KateBufBlock
     /**
      * returns the current state of this block
      */
-    inline KateBufBlock::State state () const { return m_state; }
+    State state () const { return m_state; }
     
   public:
     /**
@@ -368,13 +368,13 @@ class KateBuffer : public QObject
     void removeLine(uint i);
     
   public:
-    inline uint KateBuffer::countVisible () { return m_lines - m_regionTree.getHiddenLinesCount(m_lines); }
+    inline uint countVisible () { return m_lines - m_regionTree.getHiddenLinesCount(m_lines); }
     
-    inline uint KateBuffer::lineNumber (uint visibleLine) { return m_regionTree.getRealLine (visibleLine); }
+    inline uint lineNumber (uint visibleLine) { return m_regionTree.getRealLine (visibleLine); }
     
-    inline uint KateBuffer::lineVisibleNumber (uint line) { return m_regionTree.getVirtualLine (line); }
+    inline uint lineVisibleNumber (uint line) { return m_regionTree.getVirtualLine (line); }
     
-    inline void KateBuffer::lineInfo (KateLineInfo *info, unsigned int line) { m_regionTree.getLineInfo(info,line); }
+    inline void lineInfo (KateLineInfo *info, unsigned int line) { m_regionTree.getLineInfo(info,line); }
 
     inline uint tabWidth () const { return m_tabWidth; }
     

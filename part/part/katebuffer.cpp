@@ -28,6 +28,7 @@
 #include <kglobal.h>
 #include <kcharsets.h>
 
+#include <qpopupmenu.h>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtimer.h>

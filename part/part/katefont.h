@@ -62,7 +62,7 @@ class KateFontStruct
     void updateFontData ();
 
   public:
-    inline int KateFontStruct::width (const QString& text, int col, bool bold, bool italic, int tabWidth)
+    inline int width (const QString& text, int col, bool bold, bool italic, int tabWidth)
     {
       if (text[col] == QChar('\t'))
         return tabWidth * myFontMetrics.width(' ');
@@ -76,7 +76,7 @@ class KateFontStruct
           myFontMetrics.charWidth(text, col) );
     }
     
-    inline int KateFontStruct::width (const QChar& c, bool bold, bool italic, int tabWidth)
+    inline int width (const QChar& c, bool bold, bool italic, int tabWidth)
     {
       if (c == QChar('\t'))
         return tabWidth * myFontMetrics.width(' ');

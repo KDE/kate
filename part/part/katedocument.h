@@ -62,18 +62,15 @@ class KTempFile;
 
 class QTimer;
 
-namespace Kate
+class KatePartPluginInfo
 {
-  class PluginInfo
-  {
-    public:
-      bool load;
-      KService::Ptr service;
-      KTextEditor::Plugin *plugin;
-  };
+  public:
+    bool load;
+    KService::Ptr service;
+    KTextEditor::Plugin *plugin;
+};
 
-  typedef QPtrList<PluginInfo> PluginList;
-}
+typedef QPtrList<KatePartPluginInfo> KatePartPluginList;
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -101,16 +98,16 @@ class KateDocument : public Kate::Document,
 
     bool closeURL();
 
-    Kate::PluginList *plugins () { return &m_plugins; };
+    KatePartPluginList *plugins () { return &m_plugins; };
 
     void loadAllEnabledPlugins ();
     void enableAllPluginsGUI (KateView *view);
 
-    void loadPlugin (Kate::PluginInfo *item);
-    void unloadPlugin (Kate::PluginInfo *item);
-    void enablePluginGUI (Kate::PluginInfo *item, KateView *view);
-    void enablePluginGUI (Kate::PluginInfo *item);
-    void disablePluginGUI (Kate::PluginInfo *item);
+    void loadPlugin (KatePartPluginInfo *item);
+    void unloadPlugin (KatePartPluginInfo *item);
+    void enablePluginGUI (KatePartPluginInfo *item, KateView *view);
+    void enablePluginGUI (KatePartPluginInfo *item);
+    void disablePluginGUI (KatePartPluginInfo *item);
 
   private:
     // only to make part work, don't change it !
@@ -118,8 +115,8 @@ class KateDocument : public Kate::Document,
     bool m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
-    static Kate::PluginList s_plugins;
-    Kate::PluginList m_plugins;
+    static KatePartPluginList s_plugins;
+    KatePartPluginList m_plugins;
 
   //
   // KTextEditor::Document stuff

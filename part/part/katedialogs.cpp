@@ -856,7 +856,7 @@ void SaveConfigTab::defaults()
 // there is a unsetItem(), just (not all logic) called "KateAttribute::clearAttribute(int)";
 
 //BEGIN PluginListItem
-PluginListItem::PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent)
+PluginListItem::PluginListItem(const bool _exclusive, bool _checked, KatePartPluginInfo *_info, QListView *_parent)
   : QCheckListItem(_parent, _info->service->name(), CheckBox)
   , mInfo(_info)
   , silentStateChange(false)

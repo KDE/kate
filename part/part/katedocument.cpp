@@ -81,11 +81,8 @@
 //END  includes
 
 //BEGIN variables
-using namespace Kate;
-
 bool KateDocument::s_configLoaded = false;
-
-Kate::PluginList KateDocument::s_plugins;
+KatePartPluginList KateDocument::s_plugins;
 //END variables
 
 // BEGIN d'tor, c'tor
@@ -154,7 +151,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     {
       KService::Ptr ptr = (*it);
 
-      PluginInfo *info=new PluginInfo;
+      KatePartPluginInfo *info=new KatePartPluginInfo;
 
       info->load = false;
       info->service = ptr;
@@ -171,7 +168,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   {
     KService::Ptr ptr = (*it);
 
-    PluginInfo *info=new PluginInfo;
+    KatePartPluginInfo *info=new KatePartPluginInfo;
 
     info->load = false;
     info->service = ptr;
@@ -337,7 +334,7 @@ void KateDocument::enableAllPluginsGUI (KateView *view)
   }
 }
 
-void KateDocument::loadPlugin (PluginInfo *item)
+void KateDocument::loadPlugin (KatePartPluginInfo *item)
 {
   if (item->plugin) return;
 
@@ -346,7 +343,7 @@ void KateDocument::loadPlugin (PluginInfo *item)
   enablePluginGUI (item);
 }
 
-void KateDocument::unloadPlugin (PluginInfo *item)
+void KateDocument::unloadPlugin (KatePartPluginInfo *item)
 {
   if (!item->plugin) return;
 
@@ -356,7 +353,7 @@ void KateDocument::unloadPlugin (PluginInfo *item)
   item->plugin = 0L;
 }
 
-void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
+void KateDocument::enablePluginGUI (KatePartPluginInfo *item, KateView *view)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
@@ -370,7 +367,7 @@ void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
   }
 }
 
-void KateDocument::enablePluginGUI (PluginInfo *item)
+void KateDocument::enablePluginGUI (KatePartPluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
@@ -381,7 +378,7 @@ void KateDocument::enablePluginGUI (PluginInfo *item)
   }
 }
 
-void KateDocument::disablePluginGUI (PluginInfo *item)
+void KateDocument::disablePluginGUI (KatePartPluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;

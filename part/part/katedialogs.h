@@ -42,7 +42,7 @@
 #include <qvbox.h>
 #include <qtabwidget.h>
 
-namespace Kate { class PluginInfo; }
+class KatePartPluginInfo;
 
 struct syntaxContextData;
 
@@ -266,8 +266,8 @@ class SaveConfigTab : public KateConfigPage
 class PluginListItem : public QCheckListItem
 {
   public:
-    PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent);
-    Kate::PluginInfo *info() const { return mInfo; }
+    PluginListItem(const bool _exclusive, bool _checked, KatePartPluginInfo *_info, QListView *_parent);
+    KatePartPluginInfo *info() const { return mInfo; }
 
     void setChecked(bool);
   
@@ -276,7 +276,7 @@ class PluginListItem : public QCheckListItem
     virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
   
   private:
-    Kate::PluginInfo *mInfo;
+    KatePartPluginInfo *mInfo;
     bool silentStateChange;
     bool exclusive;
 };

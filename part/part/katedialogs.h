@@ -16,21 +16,21 @@
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
-*/                                                           
+*/
 
 // Copyright (c) 2000-2001 Charles Samuels <charles@kde.org>
 // Copyright (c) 2000-2001 Neil Stevens <multivac@fcmail.com>
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
@@ -50,9 +50,9 @@
 #include <kdialogbase.h>
 #include <qtabwidget.h>
 #include <kcolorbutton.h>
-#include <qcolor.h>       
+#include <qcolor.h>
 #include <ktrader.h>
-  
+
 
 class QWidgetStack;
 class QVBox;
@@ -63,17 +63,17 @@ class QCheckBox;
 
 #define HlEUnknown 0
 #define HlEContext 1
-#define HlEItem 2     
-                     
-#include <qvbox.h>  
+#define HlEItem 2
+
+#include <qvbox.h>
 
 #define private protected
 #include <qlistview.h>
-#undef private 
+#undef private
 
 #include <klistview.h>
 
-class QListBoxItem;      
+class QListBoxItem;
 
 class PluginListItem : public QCheckListItem
 {
@@ -84,10 +84,10 @@ public:
 	// This will toggle the state without "emitting" the stateChange
 	void setChecked(bool);
 
-protected:	
+protected:
 	virtual void stateChange(bool);
 	virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
-   
+
 private:
 	Kate::PluginInfo *mInfo;
 	bool silentStateChange;
@@ -112,7 +112,7 @@ signals:
 
 private:
 	void stateChanged(PluginListItem *, bool);
-	
+
 	bool hasMaximum;
 	unsigned max, min;
 	unsigned count;
@@ -128,17 +128,17 @@ class PluginConfigPage : public Kate::ConfigPage
 
   private:
     KateDocument *m_doc;
-    
+
   private slots:
-    void stateChange(PluginListItem *, bool); 
-    
+    void stateChange(PluginListItem *, bool);
+
   private slots:
     void loadPlugin (PluginListItem *);
     void unloadPlugin (PluginListItem *);
 
   public slots:
     void apply () {};
-    void reload () {};   
+    void reload () {};
     void reset () {};
     void defaults () {};
 };
@@ -232,7 +232,6 @@ class StyleListView : public QListView {
    Added by anders, jan 23, 2002
 */
 #include <kmimetype.h>
-#include <qvbox.h>
 #include <qstringlist.h>
 class KMimeTypeChooser : public QVBox {
     Q_OBJECT
@@ -285,8 +284,8 @@ class HlConfigPage : public Kate::ConfigPage
     ~HlConfigPage ();
 
   protected:
-    void showEvent ( QShowEvent * );  
-    
+    void showEvent ( QShowEvent * );
+
   private:
     bool m_ready;
     KateDocument *m_doc;
@@ -297,7 +296,7 @@ class HlConfigPage : public Kate::ConfigPage
 
   public slots:
     void apply ();
-    void reload ();   
+    void reload ();
     void reset () {};
     void defaults () {};
 };

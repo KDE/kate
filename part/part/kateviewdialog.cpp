@@ -34,31 +34,23 @@
 #include <kaccel.h>
 #include <kcharsets.h>
 #include <kcolorbutton.h>
-#include <kcombobox.h>
-#include <kconfig.h>
-#include <kfontdialog.h>
 #include <kglobal.h>
 #include <kkeybutton.h>
 #include <kkeydialog.h>
 #include <klistview.h>
 #include <klocale.h>
 #include <kmainwindow.h>
-#include <knuminput.h>
 #include <kmessagebox.h>
 #include <kparts/componentfactory.h>
 #include <kregexpeditorinterface.h>
-#include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kconfig.h>
 #include <kfontdialog.h>
-#include <klocale.h>
 #include <knuminput.h>
-#include <kparts/componentfactory.h>
-#include <kregexpeditorinterface.h>
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
-#include <qcollection.h>
+#include <qptrcollection.h>
 #include <qdialog.h>
 #include <qgrid.h>
 #include <qgroupbox.h>
@@ -337,7 +329,7 @@ void EditConfigTab::getData(KateDocument *view)
   view->setWordWrapAt(e1->value());
   view->setWordWrap (opt[0]->isChecked());
   view->setTabWidth(e2->value());
-  
+
   if (e3->value() <= 0)
     view->setUndoSteps(0);
   else
@@ -576,11 +568,11 @@ void EditKeyConfiguration::showEvent ( QShowEvent * )
     KateView* view = (KateView*)m_doc->views().at(0);
     m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
     m_keyChooser->show ();
-    
+
     m_ready = true;
   }
-  
-  QWidget::show (); 
+
+  QWidget::show ();
 }
 
 void EditKeyConfiguration::apply()

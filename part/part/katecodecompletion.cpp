@@ -33,8 +33,7 @@
 #include <qwhatsthis.h>
 #include <qtimer.h>
 #include <qtooltip.h>
-#include <qsizegrip.h>
-#include <qapp.h>
+#include <qapplication.h>
 #include <qsizegrip.h>
 #include <kdebug.h>
 
@@ -51,7 +50,7 @@ public:
       setText( entry.prefix + " " + entry.text + " " + entry.postfix);
     }
   }
-  
+
   KTextEditor::CompletionEntry m_entry;
 };
 
@@ -96,14 +95,14 @@ void KateCodeCompletion::showCompletionBox(
   m_offset = offset;
   m_view->cursorPositionReal( &m_lineCursor, &m_colCursor );
   m_colCursor -= offset;
-  
+
   updateBox( true );
 }
 
 bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 {
-  if ( o != m_completionPopup && 
-       o != m_completionListBox && 
+  if ( o != m_completionPopup &&
+       o != m_completionListBox &&
        o != m_completionListBox->viewport() )
     return false;
 
@@ -176,7 +175,7 @@ void KateCodeCompletion::doComplete()
   if( item->m_entry.postfix == "()" )
     add += "(";
 
-  emit filterInsertString(&(item->m_entry),&add);      
+  emit filterInsertString(&(item->m_entry),&add);
   m_view->insertText(add);
   // HACK: move cursor. This needs to be handled in a clean way
   // by the doc/view.
@@ -206,18 +205,18 @@ void KateCodeCompletion::complete( KTextEditor::CompletionEntry entry )
 void KateCodeCompletion::updateBox( bool newCoordinate )
 {
   m_completionListBox->clear();
-  
+
   QString currentLine = m_view->currentTextLine();
   int len = m_view->cursorColumnReal() - m_colCursor;
   QString currentComplText = currentLine.mid(m_colCursor,len);
-  
+
   kdDebug(13035) << "Column: " << m_colCursor << endl;
   kdDebug(13035) << "Line: " << currentLine << endl;
   kdDebug(13035) << "CurrentColumn: " << m_view->cursorColumnReal() << endl;
   kdDebug(13035) << "Len: " << len << endl;
   kdDebug(13035) << "Text: " << currentComplText << endl;
   kdDebug(13035) << "Count: " << m_complList.count() << endl;
-  
+
   QValueList<KTextEditor::CompletionEntry>::Iterator it;
   if( m_caseSensitive ) {
     for( it = m_complList.begin(); it != m_complList.end(); ++it ) {
@@ -239,7 +238,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
     m_view->setFocus();
     return;
   }
-  
+
   if( newCoordinate ) {
     kdDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
     m_completionPopup->resize(
@@ -250,7 +249,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
     p += QPoint( 0, m_view->doc()->getFontMetrics( KateDocument::ViewFont ).height() );
     m_completionPopup->move( p );
   }
-  
+
   m_completionListBox->setCurrentItem( 0 );
   m_completionListBox->setSelected( 0, true );
   m_completionListBox->setFocus();
@@ -273,7 +272,7 @@ void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& 
 
     nNum++;
   }
-  
+
   m_pArgHint->move(m_view->mapToGlobal(m_view->cursorCoordinates()-QPoint(0,m_pArgHint->height())));
   m_pArgHint->show();
 }
@@ -286,17 +285,17 @@ void KateCodeCompletion::slotCursorPosChanged()
 void KateCodeCompletion::showComment()
 {
   CompletionItem* item = static_cast<CompletionItem*>(m_completionListBox->item(m_completionListBox->currentItem()));
-  
+
   if( !item )
     return;
   if( item->m_entry.comment.isEmpty() )
     return;
-  
+
   delete m_commentLabel;
   m_commentLabel = new KateCodeCompletionCommentLabel( 0, item->m_entry.comment );
   m_commentLabel->setFont(QToolTip::font());
   m_commentLabel->setPalette(QToolTip::palette());
-  
+
   QPoint rightPoint = m_completionPopup->mapToGlobal(QPoint(m_completionPopup->width(),0));
   QPoint leftPoint = m_completionPopup->mapToGlobal(QPoint(0,0));
   QRect screen = QApplication::desktop()->screenGeometry( m_commentLabel->x11Screen() );

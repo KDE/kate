@@ -16,27 +16,27 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-       
+
 // Copyright (c) 2000-2001 Charles Samuels <charles@kde.org>
 // Copyright (c) 2000-2001 Neil Stevens <multivac@fcmail.com>
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
 // AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIAB\ILITY, WHETHER IN
 // AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
+
 
 // $Id$
 
@@ -82,7 +82,6 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qwidgetstack.h>
-#include <katefactory.h>
 
 
 #include "hlparamedit.h"
@@ -103,7 +102,7 @@ using namespace Kate;
 #define TAG_INT "Int"
 #define TAG_FLOAT "Float"
 #define TAG_KEYWORD "keyword"
-                           
+
 PluginListItem::PluginListItem(const bool _exclusive, bool _checked, PluginInfo *_info, QListView *_parent)
 	: QCheckListItem(_parent, _info->service->name(), CheckBox)
 	, mInfo(_info)
@@ -172,7 +171,7 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
 	{
 		count++;
 		emit stateChange(item, b);
-		
+
 		if(hasMaximum && count > max)
 		{
 			// Find a different one and turn it off
@@ -206,19 +205,19 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
  PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   m_doc = doc;
-  
+
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
-  
+
   PluginListView* listView = new PluginListView(0, this);
   listView->addColumn(i18n("Name"));
   listView->addColumn(i18n("Description"));
   listView->addColumn(i18n("Author"));
   listView->addColumn(i18n("License"));
   connect(listView, SIGNAL(stateChange(PluginListItem *, bool)), this, SLOT(stateChange(PluginListItem *, bool)));
-              
+
   grid->addWidget( listView, 0, 0);
-  
+
   for (uint i=0; i<m_doc->plugins()->count(); i++)
   {
     PluginListItem *item = new PluginListItem(false, m_doc->plugins()->at(i)->load, m_doc->plugins()->at(i), listView);
@@ -235,25 +234,25 @@ PluginConfigPage::~PluginConfigPage ()
 
 
  void PluginConfigPage::stateChange(PluginListItem *item, bool b)
-{   
+{
 	if(b)
 		loadPlugin(item);
 	else
 		unloadPlugin(item);
 }
-                      
+
 void PluginConfigPage::loadPlugin (PluginListItem *item)
-{       
+{
   m_doc->loadPlugin (item->info());
   m_doc->enablePluginGUI (item->info());
-  
+
   item->setOn(true);
 }
 
 void PluginConfigPage::unloadPlugin (PluginListItem *item)
-{                                  
+{
   m_doc->unloadPlugin (item->info());
-    
+
   item->setOn(false);
 }
 
@@ -285,10 +284,10 @@ void HlConfigPage::showEvent ( QShowEvent * )
     page = new HighlightDialogPage(hlManager, &defaultStyleList, &hlDataList, 0, this);
     grid->addWidget( page, 0, 0);
     page->show ();
-  
+
     m_ready = true;
   }
-  
+
   QWidget::show ();
 }
 
@@ -410,7 +409,7 @@ void HighlightDialogPage::hlChanged(int z)
 
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
-  
+
   lvStyles->clear();
   for (ItemData *itemData = hlData->itemDataList.first();
           itemData != 0L;

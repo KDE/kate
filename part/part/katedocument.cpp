@@ -39,20 +39,17 @@
 #include "kateprintsettings.h"
 
 #include <qfileinfo.h>
-#include <qfile.h>
 #include <qfocusdata.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qevent.h>
 #include <qpaintdevicemetrics.h>
 #include <qiodevice.h>
-#include <qclipboard.h>
 #include <qregexp.h>
 #include <qtimer.h>
 #include <qobject.h>
 #include <qapplication.h>
 #include <qclipboard.h>
-#include <qpainter.h>
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
@@ -60,9 +57,7 @@
 #include <qdatetime.h>
 #include <qmap.h>
 
-#include <kmessagebox.h>
 #include <klocale.h>
-#include <kconfig.h>
 #include <kglobal.h>
 #include <kurldrag.h>
 #include <kprinter.h>

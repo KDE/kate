@@ -28,7 +28,6 @@
 #include <qframe.h>
 #include <qmap.h>
 #include <qbutton.h>
-#include <qpixmap.h>
 #include <qlabel.h>
 #include <qpainter.h>
 #include <qpixmap.h>

@@ -1,41 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.03" kateversion="2.1" section="Sources" extensions="*.f;*.F;*.x" mimetype="text/x-fortran-src">
+<language name="Fortran" version="1.04" kateversion="2.1" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP" mimetype="text/x-fortran-src">
   <highlighting>
     <list name="keywords">
-      <item> break </item>
       <item> common </item>
       <item> continue </item>
+      <item> block </item>
+      <item> data </item>
       <item> date </item>
-      <item> default </item>
-      <item> dimension </item>
-      <item> do </item>
-      <item> else </item>
-      <item> enddo </item>
-      <item> endif </item>
-      <item> for </item>
-      <item> goto </item>
-      <item> go </item>
-      <item> to </item>
+      <item> function </item>
+      <item> include </item>
+      <item> parameter </item>
+      <item> implicit </item>
+      <item> none </item>
+      <item> equivalence </item>
       <item> if </item>
       <item> then </item>
-      <item> return </item>
-      <item> end </item>
-      <item> format </item>
-      <item> write </item>
-      <item> read </item>
-      <item> subroutine </item>
-      <item> function </item>
-      <item> switch </item>
+      <item> else </item>
+      <item> elseif </item>
+      <item> endif </item>
+      <item> go </item>
+      <item> to </item>
+      <item> goto </item>
       <item> program </item>
+      <item> subroutine </item>
+      <item> end </item>
       <item> call </item>
       <item> while </item>
-      <item> &per;gt&per; </item>
-      <item> &per;lt&per; </item>
-      <item> &per;ge&per; </item>
-      <item> &per;le&per; </item>
-      <item> &per;eq&per; </item>
-      <item> &per;ne&per; </item>
+      <item> cycle </item>
+      <item> do </item>
+      <item> enddo </item>
+      <item> for </item>
+      <item> break </item>
+      <item> pause </item>
+      <item> return </item>
+      <item> stop </item>
+    </list>
+    <list name="io_functions">
+      <item> access </item>
+      <item> backspace </item>
+      <item> close </item>
+      <item> inquire </item>
+      <item> open </item>
+      <item> print </item>
+      <item> read </item>
+      <item> rewind </item>
+      <item> write </item>
+      <item> format </item>
+    </list>
+    <list name="maths">
+      <item> abs </item>
+      <item> acos </item>
+      <item> aimag </item>
+      <item> aint </item>
+      <item> alog </item>
+      <item> alog10 </item>
+      <item> amax0 </item>
+      <item> amax1 </item>
+      <item> amin0 </item>
+      <item> amin1 </item>
+      <item> amod </item>
+      <item> anint </item>
+      <item> aprime </item>
+      <item> asin </item>
+      <item> atan </item>
+      <item> atan2 </item>
+      <item> acos </item>
+      <item> cabs </item>
+      <item> cexp </item>
+      <item> clog </item>
+      <item> conjg </item>
+      <item> cos </item>
+      <item> cosh </item>
+      <item> ccos </item>
+      <item> csin </item>
+      <item> csqrt </item>
+      <item> dabs </item>
+      <item> dacos </item>
+      <item> dasin </item>
+      <item> datan </item>
+      <item> datan2 </item>
+      <item> dconjg </item>
+      <item> dcos </item>
+      <item> dcosh </item>
+      <item> dfloat </item>
+      <item> ddmim </item>
+      <item> dexp </item>
+      <item> dim </item>
+      <item> dint </item>
+      <item> dlog </item>
+      <item> dlog10 </item>
+      <item> dmax1 </item>
+      <item> dmin1 </item>
+      <item> dmod </item>
+      <item> dnint </item>
+      <item> dsign </item>
+      <item> dsin </item>
+      <item> dsinh </item>
+      <item> dsqrt </item>
+      <item> dtan </item>
+      <item> dtanh </item>
+      <item> exp </item>
+      <item> iabs </item>
+      <item> idim </item>
+      <item> index </item>
+      <item> isign </item>
+      <item> len </item>
+      <item> log </item>
+      <item> log10 </item>
+      <item> max </item>
+      <item> max0 </item>
+      <item> max1 </item>
+      <item> min </item>
+      <item> min0 </item>
+      <item> min1 </item>
+      <item> mod </item>
+      <item> rand </item>
+      <item> sign </item>
+      <item> sin </item>
+      <item> sinh </item>
+      <item> sqrt </item>
+      <item> tan </item>
+      <item> tanh </item>
     </list>
     <list name="types">
       <item> character </item>
@@ -45,32 +131,50 @@
       <item> real </item>
       <item> real*8 </item>
       <item> integer </item>
-      <item> common </item>
       <item> logical </item>
-      <item> implicit </item>
       <item> dimension </item>
       <item> external </item>
-      <item> parameter </item>
+      <item> intrinsic </item>
+      <item> save </item>
+
+      <item> char </item>
+      <item> cmplx </item>
+      <item> dble </item>
+      <item> dcmplx </item>
+      <item> float </item>
+      <item> ichar </item>
+      <item> idint </item>
+      <item> ifix </item>
+      <item> int </item>
+      <item> sngl </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+      <context attribute="Normal Text" lineEndContext="#stay" name="default" >
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
+        <keyword attribute="IO Function" context="#stay" String="io_functions"/>
+        <keyword attribute="Math Intrinsic" context="#stay" String="maths"/>
+        <RegExpr attribute="Conditional" context="#stay" String="\.(and|AND|or|OR|eqv|EQV|neqv|NEQV|lt|LT|le|LE|eq|EQ|ne|NE|eqv|EQV|neqv|NEQV|ge|GE|gt|GT|not|NOT|true|TRUE|false|FALSE)\."/>
+        <RegExpr attribute="Float" context="#stay" String="[0-9]*\.[0-9]*[dD][+|-]{0,1}[0-9]*"/>
         <Float attribute="Float" context="#stay">
           <AnyChar attribute="Float" context="#stay" String="fFdD"/>
         </Float>
-        <HlCOct attribute="Octal" context="#stay"/>
-        <HlCHex attribute="Hex" context="#stay"/>
         <Int attribute="Decimal" context="#stay" />
         <HlCChar attribute="Char" context="#stay"/>
-        <DetectChar attribute="String" context="String" char="&quot;"/>
-        <RegExpr attribute="Comment" context="#stay" String="^[cC].*$"/>
-        <RegExpr attribute="Preprocessor" context="#stay" String="^[\*#].*$"/>
+        <DetectChar attribute="String" context="strings 1" char="&quot;"/>
+        <DetectChar attribute="String" context="strings 2" char="&apos;"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="^(#|cDEC\$|CDEC\$).*$"/>
+        <RegExpr attribute="Comment" context="#stay" String="^[cC\*].*$"/>
+        <RegExpr attribute="Comment" context="#stay" String="!.*$"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
       </context>
-      <context attribute="String" lineEndContext="#pop" name="String">
+      <context attribute="String" lineEndContext="#pop" name="strings 1">
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      <context attribute="String" lineEndContext="#pop" name="strings 2">
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&apos;"/>
       </context>
     </contexts>
     <itemDatas>
@@ -87,13 +191,16 @@
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Symbol" defStyleNum="dsNormal"/>
       <itemData name="Preprocessor" defStyleNum="dsOthers"/>
-      <itemData name="Prep. Lib" defStyleNum="dsOthers"/>
+      <itemData name="Conditional" defStyleNum="dsOthers" color="#008000" selColor="#ffa0a0" bold="1" italic="0"/>
+      <itemData name="IO Function" defStyleNum="dsKeyword" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Math Intrinsic" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>
   <general>
     <keywords casesensitive="0"/>
     <comments>
       <comment name="singleLine" start="c"/>
+      <comment name="singleLine" start="!"/>
     </comments>
   </general>
 </language>

@@ -704,7 +704,11 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
 
   uint insertPos = col;
   uint len = s.length();
+
   QString buf;
+
+  bool replacetabs = ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn );
+  uint tw = config()->tabWidth();
 
   for (uint pos = 0; pos < len; pos++)
   {
@@ -730,7 +734,16 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
       buf.truncate(0);
     }
     else
-      buf += ch; // append char to buffer
+    {
+      if ( replacetabs && ch == '\t' )
+      {
+        uint tr = tw - ( ((blockwise?col:insertPos)+buf.length())%tw ); //###
+        for ( uint i=0; i < tr; i++ )
+          buf += ' ';
+      }
+      else
+        buf += ch; // append char to buffer
+    }
   }
 
   if ( !blockwise )
@@ -1052,7 +1065,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
       // boundry, using KateHighlight::isInWord().
       // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
-      int nw = 0; // alternative position, a non word character
+      uint nw = 0; // alternative position, a non word character
       for (z=searchStart; z > 0; z--)
       {
         if (text[z].isSpace()) break;
@@ -3291,9 +3304,7 @@ void KateDocument::indent ( KateView *, uint line, int change)
 
     if ((ec == 0) && ((el-1) >= 0))
     {
-
-      /* */
-      el--; /**/
+      el--; /* */
     }
 
     if (config()->configFlags() & KateDocument::cfKeepIndentProfile && change < 0) {
@@ -4898,7 +4909,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
 void KateDocument::setViewVariable( QString var, QString val )
 {
-  //TODO
   KateView *v;
   bool state;
   int n;
@@ -4908,7 +4918,6 @@ void KateDocument::setViewVariable( QString var, QString val )
     if ( var == "dynamic-word-wrap" && checkBoolValue( val, &state ) )
       v->config()->setDynWordWrap( state );
     //else if ( var = "dynamic-word-wrap-indicators" )
-    //TODO
     else if ( var == "line-numbers" && checkBoolValue( val, &state ) )
       v->config()->setLineNumbers( state );
     else if (var == "icon-border" && checkBoolValue( val, &state ) )

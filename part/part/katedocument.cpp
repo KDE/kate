@@ -4721,6 +4721,13 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
     // finish the line :
     (*outputStream) << endl;
   }
+
+  // Be good citizens and close our tags
+  if (previousCharacterWasBold)
+    (*outputStream) << "</b>";
+  if (previousCharacterWasItalic)
+    (*outputStream) << "</i>";
+
   // HTML document end :
   (*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
   (*outputStream) << "</pre></body>";

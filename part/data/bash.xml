@@ -3,10 +3,11 @@
 [
 	<!ENTITY funcname "[A-Za-z_:][A-Za-z0-9_:#&#37;@-]*">
 	<!ENTITY varname  "[A-Za-z_][A-Za-z0-9_]*">
+	<!ENTITY word     "[^|&amp;;()&lt;&gt;\s]+">	<!-- see man bash -->
 	<!ENTITY eos      "(?=($|\s))">			<!-- eol or space following -->
 	<!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
 ]>
-<language name="Bash" version="2.03" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.04" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -759,14 +760,14 @@
 
       <!-- HereDoc consumes Here-documents. It is called at the beginning of the "<<" construct. -->
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDoc">
-	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*&quot;(&varname;)&quot;)" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*'(&varname;)')" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*\\(&varname;))" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocNQ"  String="(&lt;&lt;\s*(&varname;))" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*&quot;(&varname;)&quot;)" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*'(&varname;)')" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*\\(&varname;))" lookAhead="true" />
-	<RegExpr attribute="Redirection" context="HereDocINQ" String="(&lt;&lt;-\s*(&varname;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*&quot;(&word;)&quot;)" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*'(&word;)')" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*\\(&word;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocNQ"  String="(&lt;&lt;\s*(&word;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*&quot;(&word;)&quot;)" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*'(&word;)')" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*\\(&word;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocINQ" String="(&lt;&lt;-\s*(&word;))" lookAhead="true" />
 	<StringDetect attribute="Redirection" context="#pop"  String="&lt;&lt;" /><!-- always met -->
       </context>
 

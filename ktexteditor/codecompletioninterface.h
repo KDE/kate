@@ -66,8 +66,8 @@ class CompletionEntry
  * is available or if the user presses Esc etc. The contents of the list
  * is automatically adapted to the string the user types.
  *
- * There is another signal, which should be implmemented, but isn't documented here, because
- * It would have been a BIC change.
+ * There is another signal, which may be implmemented, but isn't documented here, because
+ * it would have been a BIC change and I'm not sure if it is really of need
  * 
  * void completionExtendedComment(CompletionEntry)
  *

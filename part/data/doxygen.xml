@@ -50,7 +50,7 @@
       <item> \p </item>
       <item> \verbatim </item>
       <item> \xmlonly </item>
-      
+
       <item> @callgraph </item>
       <item> @hideinitializer </item>
       <item> @interface </item>
@@ -130,7 +130,7 @@
       <item> \dotfile </item>
       <item> \e </item>
       <item> \em </item>
-      
+
       <item> @addtogroup </item>
       <item> @class </item>
       <item> @def </item>
@@ -180,7 +180,7 @@
       <item> \subsection </item>
       <item> \subsubsection </item>
       <item> \paragraph </item>
-      
+
       <item> @defgroup </item>
       <item> @page </item>
       <item> @struct </item>
@@ -190,7 +190,7 @@
       <item> @section </item>
       <item> @subsection </item>
       <item> @subsubsection </item>
-      <item> @paragraph </item>          
+      <item> @paragraph </item>
     </list>
     <list name="TagString">
       <item> \fn </item>
@@ -209,7 +209,7 @@
       <item> \skip </item>
       <item> \skipline </item>
       <item> \until </item>
-      
+
       <item> @fn </item>
       <item> @ingroup </item>
       <item> @mainpage </item>
@@ -256,16 +256,24 @@
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWord">
+        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
         <RegExpr attribute="TagWord" context="#pop" String="\s*\S*\s" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWordWord">
+        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
         <RegExpr attribute="TagWord" context="#stay" String="\s*\S*\s" />
         <RegExpr attribute="TagWordWord" context="#stay" String="\s*\S*\s" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagString">
+        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment" />
         <RegExpr attribute="TagString" context="#stay" String="\s*.*$" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWordString">
+        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
         <RegExpr attribute="TagWord" context="TagString" String="\s*\S*\s*" />
       </context>
     </contexts>

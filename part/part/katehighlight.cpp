@@ -2251,7 +2251,7 @@ HlManager *HlManager::self()
 KConfig *HlManager::getKConfig()
 {
   if (!s_pConfig)
-    s_pConfig = new KConfig("katesyntaxhighlightingrc");
+    s_pConfig = new KConfig("katesyntaxhighlightingrc", false, false);
 
   return s_pConfig;
 }
@@ -2262,14 +2262,6 @@ Highlight *HlManager::getHl(int n)
     n = 0;
 
   return hlList.at(n);
-}
-
-int HlManager::defaultHl()
-{
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("General Options");
-
-  return nameFind(config->readEntry("Highlight"));
 }
 
 int HlManager::nameFind(const QString &name)
@@ -2525,7 +2517,7 @@ void HlManager::getDefaults(KateAttributeList &list)
   others->setSelectedTextColor(Qt::green);
   list.append(others);
 
-  KConfig *config = KateFactory::instance()->config();
+  KConfig *config = HlManager::getKConfig();
   config->setGroup("Default Item Styles");
 
   for (int z = 0; z < defaultStyles(); z++)
@@ -2569,7 +2561,7 @@ void HlManager::getDefaults(KateAttributeList &list)
 
 void HlManager::setDefaults(KateAttributeList &list)
 {
-  KConfig *config =  KateFactory::instance()->config();
+  KConfig *config =  HlManager::getKConfig();
   config->setGroup("Default Item Styles");
 
    QStringList settings;

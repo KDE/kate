@@ -1878,12 +1878,12 @@ void KateDocument::readConfig(KConfig *config)
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->readConfig (config);
 
-  config->setGroup("Kate Plugins");
+  config->setGroup("Kate KTextEditor Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
     if  (config->readBoolEntry(s_plugins.at(i)->service->library(), false))
       s_plugins.at(i)->load = true;
 
-  config->setGroup("Kate View");
+  config->setGroup("Kate View Defaults");
   m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
   m_getSearchTextFrom = config->readNumEntry( "Get Search Text From", m_getSearchTextFrom );
 
@@ -1902,11 +1902,11 @@ void KateDocument::writeConfig(KConfig *config)
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (config);
 
-  config->setGroup("Kate Plugins");
+  config->setGroup("Kate KTextEditor Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
     config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
 
-  config->setGroup("Kate View");
+  config->setGroup("Kate View Defaults");
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
   config->writeEntry( "Get Search Text From", m_getSearchTextFrom );
 

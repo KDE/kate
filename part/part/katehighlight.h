@@ -236,7 +236,6 @@ class HlManager : public QObject
     static HlManager *self();
     static KConfig *getKConfig();
     Highlight *getHl(int n);
-    int defaultHl();
     int nameFind(const QString &name);
 
     int detectHighlighting (class KateDocument *doc);

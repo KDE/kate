@@ -347,7 +347,7 @@ void SyntaxDocument::setupModeList (bool force)
     return;
 
   // We'll store the ModeList in katesyntaxhighlightingrc
-  KConfig config("katesyntaxhighlightingrc");
+  KConfig config("katesyntaxhighlightingrc", false, false);
 
   // Let's get a list of all the xml files for hl
   QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",false,true);

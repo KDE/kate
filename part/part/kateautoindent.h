@@ -19,6 +19,8 @@
 #ifndef __KATE_AUTO_INDENT_H__
 #define __KATE_AUTO_INDENT_H__
 
+#include <qobject.h>
+
 #include "katecursor.h"
 #include "kateconfig.h"
 
@@ -149,8 +151,7 @@ class KateAutoIndent
 
     /**
      * Measures the indention of the current textline marked by cur
-     *    // Produces a string with the proper indentation characters for its length
-     * @param cur The cursor position to measure the indent to.    QString tabString (uint length) const;
+     * @param cur The cursor position to measure the indent to.
      * @return The length of the indention in characters.
      */
     uint measureIndent (KateDocCursor &cur) const;
@@ -235,23 +236,23 @@ class KateXmlIndent : public KateAutoIndent
   public:
     KateXmlIndent (KateDocument *doc);
     ~KateXmlIndent ();
-    
+
     virtual uint modeNumber () const { return KateDocumentConfig::imXmlStyle; }
     virtual void processNewline (KateDocCursor &begin, bool needContinue);
     virtual void processChar (QChar c);
     virtual void processLine (KateDocCursor &line);
     virtual bool canProcessLine() { return true; }
     virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
-    
+
   private:
     // sets the indentation of a single line based on previous line
     //  (returns indentation width)
     uint processLine (uint line);
-    
+
     // gets information about a line
     void getLineInfo (uint line, uint &prevIndent, int &numTags,
       uint &attrCol, bool &unclosedTag);
-    
+
     // useful regular expressions
     static const QRegExp startsWithCloseTag;
     static const QRegExp unclosedDoctype;
@@ -275,22 +276,61 @@ class KateCSAndSIndent : public KateAutoIndent
 
   private:
     void updateIndentString();
-    
+
     bool inForStatement( int line );
     int lastNonCommentChar( const KateDocCursor &line );
     bool startsWithLabel( int line );
     bool inStatement( const KateDocCursor &begin );
     QString continuationIndent( const KateDocCursor &begin );
-    
+
     QString calcIndent (const KateDocCursor &begin);
     QString calcIndentAfterKeyword(const KateDocCursor &indentCursor, const KateDocCursor &keywordCursor, int keywordPos, bool blockKeyword);
     QString calcIndentInBracket(const KateDocCursor &indentCursor, const KateDocCursor &bracketCursor, int bracketPos);
     QString calcIndentInBrace(const KateDocCursor &indentCursor, const KateDocCursor &braceCursor, int bracePos);
-    
+
     bool handleDoxygen (KateDocCursor &begin);
     QString findOpeningCommentIndentation (const KateDocCursor &start);
-    
+
     QString indentString;
+};
+
+/**
+ * This indenter uses document variables to determine when to add/remove indents.
+ *
+ * It attempts to get the following variables from the document:
+ * - var-indent-indent-after - A rerular expression which will cause a line to
+ *   be indented by one unit, if the first non-whitespace-only line above matches.
+ * - var-indent-indent - A regular expression, which will cause a matching line
+ *   to be indented by one unit.
+ * - var-indent-unindent - A regular expression which will cause the line to be
+ *   unindented by one unit if matching.
+ * - var-indent-triggerchars - a list of characters that should cause the
+ *   indentiou to be recalculated immediately when typed.
+ *
+ * The idea is to provide a somewhat intelligent indentation for perl, php,
+ * bash, scheme and in general formats with humble indentation needs.
+ */
+class KateVarIndent :  public QObject, public KateAutoIndent
+{
+  Q_OBJECT
+  public:
+    KateVarIndent( KateDocument *doc );
+    virtual ~KateVarIndent();
+
+    virtual void processNewline (KateDocCursor &begin, bool needContinue);
+    virtual void processChar (QChar c);
+
+    virtual void processLine (KateDocCursor &line);
+    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+
+    virtual bool canProcessLine() { return true; }
+
+    virtual uint modeNumber () const { return KateDocumentConfig::imVarIndent; };
+
+  private slots:
+    void slotVariableChanged(const QString&, const QString&);
+  private:
+    class KateVarIndentPrivate *d;
 };
 
 #endif

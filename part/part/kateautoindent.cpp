@@ -17,6 +17,7 @@
 */
 
 #include "kateautoindent.h"
+#include "kateautoindent.moc"
 
 #include "kateconfig.h"
 #include "katehighlight.h"
@@ -37,6 +38,8 @@ KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
     return new KateXmlIndent (doc);
   else if (mode == KateDocumentConfig::imCSAndS)
     return new KateCSAndSIndent (doc);
+  else if ( mode == KateDocumentConfig::imVarIndent )
+    return new KateVarIndent ( doc );
 
   return new KateAutoIndent (doc);
 }
@@ -50,6 +53,7 @@ QStringList KateAutoIndent::listModes ()
   l << modeDescription(KateDocumentConfig::imPythonStyle);
   l << modeDescription(KateDocumentConfig::imXmlStyle);
   l << modeDescription(KateDocumentConfig::imCSAndS);
+  l << modeDescription( KateDocumentConfig::imVarIndent );
 
   return l;
 }
@@ -64,6 +68,8 @@ QString KateAutoIndent::modeName (uint mode)
     return QString ("xml");
   else if (mode == KateDocumentConfig::imCSAndS)
     return QString ("csands");
+  else if ( mode  == KateDocumentConfig::imVarIndent )
+    return QString( "varindent" );
 
   return QString ("normal");
 }
@@ -78,6 +84,8 @@ QString KateAutoIndent::modeDescription (uint mode)
     return i18n ("XML Style");
   else if (mode == KateDocumentConfig::imCSAndS)
     return i18n ("S&S C Style");
+  else if ( mode == KateDocumentConfig::imVarIndent )
+    return i18n("Variable based Indenter");
 
   return i18n ("Normal");
 }
@@ -92,6 +100,8 @@ uint KateAutoIndent::modeNumber (const QString &name)
     return KateDocumentConfig::imXmlStyle;
   else if (modeName(KateDocumentConfig::imCSAndS) == name)
     return KateDocumentConfig::imCSAndS;
+  else if ( modeName( KateDocumentConfig::imVarIndent ) == name )
+    return KateDocumentConfig::imVarIndent;
 
   return KateDocumentConfig::imNormal;
 }
@@ -522,7 +532,7 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 void KateCSmartIndent::processChar(QChar c)
 {
   static const QString triggers("}{)/:;#n");
-  if (triggers.find(c) == -1)
+  if (triggers.find(c) < 0)
     return;
 
   KateView *view = doc->activeView();
@@ -1836,5 +1846,155 @@ void KateCSAndSIndent::processChar(QChar c)
 }
 
 // END
+
+//BEGIN KateVarIndent
+class KateVarIndentPrivate {
+  public:
+    QRegExp reIndentAfter, reIndent, reUnindent;
+    QString triggers;
+};
+
+KateVarIndent::KateVarIndent( KateDocument *doc )
+  : QObject( 0, "variable indenter"), KateAutoIndent( doc )
+{
+  d = new KateVarIndentPrivate;
+  d->reIndentAfter = QRegExp( doc->variable( "var-indent-indent-after" ) );
+  d->reIndent = QRegExp( doc->variable( "var-indent-indent" ) );
+  d->reUnindent = QRegExp( doc->variable( "var-indent-unindent" ) );
+  d->triggers = doc->variable( "var-indent-triggerchars" );
+
+  // update if the settings are changed
+  connect( doc, SIGNAL(variableChanged( const QString&, const QString&) ),
+           this, SLOT(slotVariableChanged( const QString&, const QString& )) );
+}
+
+KateVarIndent::~KateVarIndent()
+{
+  delete d;
+}
+
+void KateVarIndent::processNewline ( KateDocCursor &begin, bool /*needContinue*/ )
+{
+  // process the line left, as well as the one entered
+  KateDocCursor left( begin.line()-1, 0, doc );
+  processLine( left );
+  processLine( begin );
+}
+
+void KateVarIndent::processChar ( QChar c )
+{
+  // process line if the c is in our list, and we are not in comment text
+  if ( d->triggers.contains( c ) )
+  {
+    KateTextLine::Ptr ln = doc->plainKateTextLine( doc->activeView()->cursorLine() );
+    if ( ln->attribute( doc->activeView()->cursorColumn()-1 ) == commentAttrib )
+      return;
+
+    KateView *view = doc->activeView();
+    KateDocCursor begin( view->cursorLine(), 0, doc );
+    processLine( begin );
+  }
+}
+
+void KateVarIndent::processLine ( KateDocCursor &line )
+{
+  updateConfig(); // ### is it really nessecary *each time* ??
+
+  QString indent; // store the indent string here
+
+  // find the first line with content that is not starting with comment text,
+  // and take the position from that
+  int ln = line.line();
+  int pos = -1;
+  KateTextLine::Ptr ktl;
+  int fc;
+  if ( ln > 0 )
+  do
+  {
+    ktl = doc->plainKateTextLine( --ln );
+    fc = ktl->firstChar();
+    if ( ktl->attribute( fc ) != commentAttrib )
+      pos = fc;
+  }
+  while ( (ln > 0) && (pos < 0) ); // search a not empty text line
+
+  if ( pos < 0 ) pos = 0;
+
+  // check if we should indent, unless the line starts with comment text,
+  // or the match is in comment text
+  //kdDebug()<<"starting indent: "<<pos<<endl;
+  // check if the above line indicates that we shuld add indentation
+  int matchpos = 0;
+  if ( ! d->reIndentAfter.isEmpty()
+         && (matchpos = d->reIndentAfter.search( doc->textLine( ln ) )) > -1
+         && ktl->attribute( ktl->firstChar() ) != commentAttrib
+         && ktl->attribute( matchpos ) != commentAttrib )
+    pos += indentWidth;
+  //kdDebug()<<"after indent-after: "<<pos<<endl;
+
+  // else, check if this line should indent unless ...
+  ktl = doc->plainKateTextLine( line.line() );
+  if ( matchpos < 0 && ! d->reIndent.isEmpty()
+         && (matchpos = d->reIndent.search( doc->textLine( line.line() ) )) > -1
+         && ktl->attribute( ktl->firstChar() ) != commentAttrib
+         && ktl->attribute( matchpos ) != commentAttrib )
+    pos += indentWidth;
+  //kdDebug()<<"after indent-indent: "<<endl;
+
+  // else, check if the current line indicates if we should remove indentation unless ...
+  if ( ! d->reUnindent.isEmpty()
+       && (matchpos = d->reUnindent.search( doc->textLine( line.line() ) )) > -1
+       && ktl->attribute( ktl->firstChar() ) != commentAttrib
+       && ktl->attribute( matchpos ) != commentAttrib )
+    pos -= indentWidth;
+
+  //kdDebug()<<"after indent-unindent: "<<pos<<endl;
+
+  ln = line.line();
+  fc = doc->plainKateTextLine( ln )->firstChar();
+
+  // dont change if there is no change.
+  // ### should I actually compare the strings?
+  // FIXME for some odd reason, the document gets marked as changed
+  //       even if we don't change it !?
+  if ( fc == pos )
+    return;
+
+  if ( fc > 0 )
+    doc->removeText (ln, 0, ln, fc );
+
+  if ( pos > 0 )
+    indent = tabString( pos );
+
+  if ( pos > 0 )
+    doc->insertText (ln, 0, indent);
+
+  // try to restore cursor ?
+  line.setCol( pos );
+}
+
+void KateVarIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
+{
+  KateDocCursor cur = begin;
+  while (cur.line() <= end.line())
+  {
+    processLine (cur);
+    if (!cur.gotoNextLine())
+      break;
+  }
+}
+
+void KateVarIndent::slotVariableChanged( const QString &var, const QString &val )
+{
+  if ( var == "var-indent-indent-after" )
+    d->reIndentAfter.setPattern( val );
+  else if ( var == "var-indent-indent" )
+    d->reIndent.setPattern( val );
+  else if ( var == "var-indent-unindent" )
+    d->reUnindent.setPattern( val );
+  else if ( var == "var-indent-triggerchars" )
+    d->triggers = val;
+}
+//END KateVarIndent
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

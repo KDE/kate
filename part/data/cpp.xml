@@ -168,8 +168,8 @@
       <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
       </context>
-      <context attribute="Normal Text" lineEndcontext="String" name="Some Context"/>
-      <context attribute="Normal Text" lineEndcontext="Preprocessor" name="Some Context2"/>
+      <context attribute="Normal Text" lineEndContext="String" name="Some Context"/>
+      <context attribute="Normal Text" lineEndContext="Preprocessor" name="Some Context2"/>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
         <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
         <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />

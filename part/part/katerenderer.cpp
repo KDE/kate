@@ -323,7 +323,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     if (showCursor && (cursor->col() >= int(curCol)))
     {
       cursorVisible = true;
-      cursorXPos = xPos + (cursor->col() - int(curCol)) * fs->myFontMetrics.width(spaceChar);
+      cursorXPos = xPos + cursor->col() * fs->myFontMetrics.width(spaceChar);
     }
   }
   else

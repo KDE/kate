@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Author: John Christopher <John@animalsinneed.net> //-->
-<language name="Velocity" version="1.02" kateversion="2.1" section="Scripts" extensions="*.vm;" mimetype="text/x-velocity-src;text/x-vm-src">
+<language name="Velocity" version="1.03" kateversion="2.1" section="Scripts"
+          extensions="*.vm;" mimetype="text/x-velocity-src;text/x-vm-src"
+          author="John Christopher (John@animalsinneed.net)" license="">
 	<highlighting>
 		<list name="keywords">
 			<item> #set </item>

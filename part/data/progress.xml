@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- By: Rares Stanciulescu <rstanciu@operamail.com> -->
-<!-- File location: ~/.kde/share/apps/katepart/syntax/progress.xml -->
 <language name="progress" version="1.03" kateversion="2.1"
- section="Other" extensions="*.p;*.w;*.i" casesensitive="0">
+          section="Other" extensions="*.p;*.w;*.i" casesensitive="0"
+          author="Rares Stanciulescu (rstanciu@operamail.com)" license="">
 
 <highlighting>
 

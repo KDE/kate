@@ -4,9 +4,9 @@
 	Alain GIBAUD  (alain.gibaud@univ-valenciennes.fr)
 Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
  -->
-<language name="PicAsm" version="1.01" kateversion="2.0" section="Sources"
-		extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr">
-
+<language name="PicAsm" version="1.02" kateversion="2.0" section="Sources"
+          extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC" mimetype="text/x-PicSrc;text/x-PicHdr"
+          author="Alain GIBAUD (alain.gibaud@univ-valenciennes.fr)" license="">
 
   <highlighting>
     <list name="directives">

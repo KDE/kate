@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SML" version="1.04" kateversion="2.1" section="Scripts" extensions="*.sml;*.ml" mimetype="">
+<language name="SML" version="1.05" kateversion="2.1" section="Scripts"
+          extensions="*.sml;*.ml" mimetype=""
+          author="Christoph Cullmann (cullmann@kde.org)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> abstype </item>

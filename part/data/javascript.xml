@@ -3,7 +3,9 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
-<language name="JavaScript" version="1.07" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
+<language name="JavaScript" version="1.07" kateversion="2.1" section="Scripts"
+          extensions="*.js" mimetype="text/x-javascript"
+          author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser" license="">
   <highlighting>
     <list name="keywords">
         <item> if </item>

@@ -31,11 +31,10 @@
       $hask{ $key }{ value }; ## comments are not detected
 
    HERE document delimiters - requires support for saving data in contexts.
-
-
-   $Id$
 -->
-<language name="Perl" version="1.09" kateversion="2.2" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
+<language name="Perl" version="1.10" kateversion="2.2" section="Scripts"
+          extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl"
+          author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>

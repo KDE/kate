@@ -39,7 +39,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 -->
 
-<language name="GNU Assembler" version="1.03" kateversion="2.1" section="Sources" extensions="*.s;*.S" mimetype="text/x-asm">
+<language name="GNU Assembler" version="1.04" kateversion="2.1" section="Sources"
+          extensions="*.s;*.S" mimetype="text/x-asm"
+          author="John Zaitseff (J.Zaitseff@zap.org.au), Roland Pabel (roland@pabel.name)" license="GPL">
   <highlighting>
     <list name="keywords">
       <item>.abort</item>

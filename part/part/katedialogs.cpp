@@ -971,6 +971,7 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
   QHBox *hb1 = new QHBox( gbInfo);
   new QLabel( i18n("Author:"), hb1 );
   author  = new QLabel (hb1);
+  author->setTextFormat (Qt::RichText);
   
   // license
   QHBox *hb2 = new QHBox( gbInfo);
@@ -1068,7 +1069,10 @@ void KateHlConfigPage::hlChanged(int z)
   mimetypes->setText(hlData->mimetypes);
   priority->setValue(hlData->priority);
   
-  author->setText (hl->author());
+  // split author string if needed into multiple lines !
+  QStringList l= QStringList::split (QRegExp("[,;]"), hl->author());
+  author->setText (l.join ("<br>"));
+  
   license->setText (hl->license());
 }
 

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Author: Shane Wright <me@shanewright.co.uk> -->
 <!-- PostgreSQL SQL, syntax definition based on sql.xml by Yury Lebedev -->
-<language name="SQL-PostgreSQL" version="1.03" kateversion="2.1" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0">
+<language name="SQL-PostgreSQL" version="1.04" kateversion="2.1" section="Other"
+          extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0"
+          author="Shane Wright (me@shanewright.co.uk)" license="">
   <highlighting>
     <list name="keywords">
       <item> ABORT </item>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- author: Yevgen Voronenko (ysv22@drexel.edu) -->
-<!-- $Id$ -->
-<language name="Verilog" version="1.04" kateversion="2.1" section="Sources" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src">
+<language name="Verilog" version="1.05" kateversion="2.1" section="Sources"
+          extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src"
+          author="Yevgen Voronenko (ysv22@drexel.edu)" license="">
   <highlighting>
     <list name="keywords">
       <item> module </item>

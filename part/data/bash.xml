@@ -6,7 +6,7 @@
 	<!ENTITY eos      "(?=($|\s))">			<!-- eol or space following -->
 	<!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
 ]>
-<language name="Bash" version="2.02" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.03" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -514,8 +514,6 @@
         <keyword attribute="Command" context="#stay" String="unixcommands" />
 	<!-- handle commands that have variable names as argument -->
 	<keyword attribute="Builtin" context="VarName" String="builtins_var" />
-	<!-- handle &, &&, | and || -->
-	<RegExpr attribute="Control" context="#stay" String="([|&amp;])\1?" />
         <!-- handle here-string -->
 	<StringDetect attribute="Redirection" context="#stay" String="&lt;&lt;&lt;" />
 	<!-- handle here document -->
@@ -524,6 +522,8 @@
         <RegExpr attribute="Redirection" context="ProcessSubst" String="[&lt;&gt;]\(" />
         <!-- handle redirection -->
         <RegExpr attribute="Redirection" context="#stay" String="([0-9]*(&gt;{1,2}|&lt;)(&amp;[0-9]+-?)?|&amp;&gt;|&gt;&amp;|[0-9]*&lt;&gt;)" />
+	<!-- handle &, &&, | and || -->
+	<RegExpr attribute="Control" context="#stay" String="([|&amp;])\1?" />
 	<!-- mark function definitions without function keyword -->
         <RegExpr attribute="Function" context="#stay" String="&funcname;\s*\(\)" />
       </context>

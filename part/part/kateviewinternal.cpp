@@ -571,10 +571,18 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     if (scrollbarVisible(startLine()))
     {
       m_columnScroll->blockSignals(true);
-      m_columnScroll->setRange(0, maxLen(startLine()) - width());
+      
+      int max = maxLen(startLine()) - width();
+      if (max < 0)
+        max = 0;
+      
+      m_columnScroll->setRange(0, max);
+      
       m_columnScroll->setValue(m_startX);
+      
       // Approximate linescroll
       m_columnScroll->setSteps(m_doc->viewFont.width('a', false, false), width());
+      
       m_columnScroll->blockSignals(false);
       
       if (!m_columnScroll->isVisible ()  && !m_suppressColumnScrollBar)

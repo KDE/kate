@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KTextEditor KDataTool Plugin
+X-KDE-Library=ktexteditor_kdatatool
+ServiceTypes=KTextEditor/Plugin
+Type=Service
+InitialPreference=8
+MimeType=text/plain

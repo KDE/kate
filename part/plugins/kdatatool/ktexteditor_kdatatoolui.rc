@@ -1,0 +1,8 @@
+<!DOCTYPE kpartgui>
+<kpartplugin name="ktexteditor_kdatatoolui" library="ktexteditor_kdatatool" version="1">
+
+<Menu name="ktexteditor_popup" noMerge="1"><text></text>
+		<Action name="popup_dataTool" group="popup_operations"/>
+</Menu>
+
+</kpartplugin>

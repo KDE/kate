@@ -278,7 +278,7 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
     do {
       index = regexp.searchRev (m_text, col);
       col--;
-    } while ( col >= 0 && regexp.matchedLength() + index >= startCol );
+    } while ( col >= 0 && regexp.matchedLength() + index >= (int)startCol );
   }
   else
     index = regexp.search (m_text, startCol);

@@ -766,6 +766,7 @@ KateBuffer::insertLine(uint i, TextLine::Ptr line)
    m_totalLines++;
    
    m_regionTree->lineHasBeenInserted (i);
+   updateHighlighting(i, i+2, true);
 }
 
 void

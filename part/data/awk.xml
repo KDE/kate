@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="AWK" version="0.21" kateversion="2.3" section="Scripts" extensions="*.awk" mimetype="text/x-awk">
+<language name="AWK" version="0.90" kateversion="2.3" section="Scripts" extensions="*.awk" mimetype="text/x-awk">
   <highlighting>
     <list name="keywords">
-      <item>BEGIN</item>
-      <item>END</item>
       <item>if</item>
       <item>else</item>
       <item>while</item>
@@ -41,6 +39,7 @@
     </list>
     <list name="functions">
       <item>gsub</item>
+      <item>gensub</item>
       <item>index</item>
       <item>length</item>
       <item>match</item>
@@ -63,29 +62,33 @@
       <item>fflush</item>
       <item>system</item>
     </list>
+
     <contexts>
+
       <context name="Base" attribute="Normal" lineEndContext="#stay">
+	<RegExpr String="\b(BEGIN|END)\b" attribute="Pattern" context="#stay" />
+	<RegExpr String="/([^\/[]|\\.|\[\]?(\[[^]]+\]|.)+\])+/" attribute="Pattern" context="#stay" />
+	<DetectChar char="{" attribute="Keyword" context="#stay" beginRegion="block" />
+	<DetectChar char="}" attribute="Keyword" context="#stay" endRegion="block" />
+	<DetectChar char="#" attribute="Comment" context="Comment" />
+        <DetectChar char="&quot;" attribute="String"  context="String"/>
         <keyword String="keywords" attribute="Keyword" context="#stay"/>
         <keyword String="builtins" attribute="Builtin" context="#stay"/>
         <keyword String="functions" attribute="Function" context="#stay"/>
-        <Int   attribute="Decimal" context="#stay"/>
         <Float attribute="Float"   context="#stay"/>
+        <Int   attribute="Decimal" context="#stay"/>
         <RegExpr String="\$[A-Za-z0-9_]+" attribute="Field" context="#stay"/>
-        <DetectChar char="&quot;" attribute="String"  context="String"/>
-        <DetectChar char="/"      attribute="Pattern" context="Pattern"/>
-        <RegExpr String="#.*$" attribute="Comment" context="#stay"/>
       </context>
+
       <context name="String" attribute="String" lineEndContext="#stay">
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
         <HlCStringChar attribute="String" context="#stay"/>
       </context>
-      <context name="Pattern" attribute="Pattern" lineEndContext="#stay">
-        <DetectChar char="/" attribute="Pattern" context="#pop"/>
-        <RegExpr String="\\." attribute="Pattern" context="#stay"/>
+
+      <context name="Comment" attribute="Comment" lineEndContext="#pop">
+	<IncludeRules context="##Alerts" />
       </context>
-      <context name="Field" attribute="Field" lineEndContext="#stay">
-        <RegExpr String="\$[A-Za-z0-9_]+" attribute="Field" context="#pop"/>
-      </context>
+
     </contexts>
     <itemDatas>
       <itemData name="Normal"   defStyleNum="dsNormal"/>

@@ -519,7 +519,7 @@ bool KateBuffer::openFile (const QString &m_file)
      int ch = f.getch();
 
      if (ch == -1)
-       return;
+       break;
 
      if ((ch == '\r'))
      {

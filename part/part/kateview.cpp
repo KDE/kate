@@ -1737,7 +1737,11 @@ uint KateView::cursorColumnReal() {
   return myViewInternal->cursor.col;
 }
 
-void KateView::setCursorPositionInternal(int line, int col, int tabwidth) {
+void KateView::setCursorPositionInternal(int line, int col, int tabwidth)
+{
+  if ((uint)line > myDoc->lastLine())
+    return;
+
   KateTextCursor cursor;
 
   TextLine::Ptr textLine = myDoc->getTextLine(line);

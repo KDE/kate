@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="GDL" version="1.01" kateversion="2.0" section="Sources" extensions="*.gdl;*.vcg;*.GDL;*.VCG" mimetype="">
+<language name="GDL" version="1.01" kateversion="2.0" section="Scientific" extensions="*.gdl;*.vcg;*.GDL;*.VCG" mimetype="">
  <highlighting>
   <list name="colors">
    <item> white </item>

@@ -55,7 +55,7 @@
 
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Matlab" version="1.20" kateversion="2.2" section="Sources" extensions="*.m;*.M" mimetype="text/mfile" casesensitive="1">
+<language name="Matlab" version="1.20" kateversion="2.2" section="Scientific" extensions="*.m;*.M" mimetype="text/mfile" casesensitive="1">
   <highlighting>
 
     <!-- Reserved keywords in MATLAB -->
@@ -100,7 +100,7 @@
         <RegExpr context="#stay" attribute="Variable" String="[a-zA-Z]\w*" />
         <RegExpr context="#stay" attribute="Number" String="(\d+(\.\d+)?|\.\d+)([eE][+-]?\d+)?[ij]?" />
         <AnyChar context="#stay" attribute="Delimiter" String="()[]{}"/>
-        
+
         <!-- Three and two-character operators -->
         <StringDetect context="#stay" attribute="Operator" String="..."/>
         <StringDetect context="#stay" attribute="Operator" String="=="/>

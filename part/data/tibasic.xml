@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="TI Basic" version="1.00" kateversion="2.3" section="Sources" priority="9">
+<language name="TI Basic" version="1.00" kateversion="2.3" section="Scripts" priority="9">
   <highlighting>
     <list name="keywords" casesensitive="0">
       <item>If </item>

@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Created by Juliano Dorneles dos Santos <juliano_dorneles@yahoo.com.br> -->
 <!-- Fixed for 3.2 Helio Chissini de Castro <helio@kde.org> -->
-<language name="txt2tags" extensions="*.t2t" section="Markup" mimetype="text/txt2tags" casesensitive="1">
+<language name="txt2tags" extensions="*.t2t" section="Markup" mimetype="text/txt2tags" version="1.01" kateversion="2.4" casesensitive="1">
 <highlighting>
 
 <contexts>
@@ -15,24 +15,24 @@
 		<RegExpr attribute="BoldItalic" context="Context" String="__.*__"/>
 		<RegExpr attribute="Monospaced" context="Context" String="``.*``"/>
 		<RegExpr attribute="Verbatim Line" context="Context" String="``` .*"/>
-		<RegExpr attribute="Title" context="Context" String="^ *=[^=].*[^=]=\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *==[^=].*[^=]==\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *===[^=].*[^=]===\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *====[^=].*[^=]====\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *=====[^=].*[^=]=====\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *\+[^=].*[^=]\+\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *\+\+[^=].*[^=]\+\+\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *\+\+\+[^=].*[^=]\+\+\+\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *\+\+\+\+[^=].*[^=]\+\+\+\+\s*$"/>
-		<RegExpr attribute="Title" context="Context" String="^ *\+\+\+\+\+[^=].*[^=]\+\+\+\+\+\s*$"/>
+		<RegExpr attribute="Title" context="Context" String=" *=[^=].*[^=]=\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *==[^=].*[^=]==\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *===[^=].*[^=]===\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *====[^=].*[^=]====\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *=====[^=].*[^=]=====\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *\+[^=].*[^=]\+\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *\+\+[^=].*[^=]\+\+\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *\+\+\+[^=].*[^=]\+\+\+\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *\+\+\+\+[^=].*[^=]\+\+\+\+\s*$" column="0"/>
+		<RegExpr attribute="Title" context="Context" String=" *\+\+\+\+\+[^=].*[^=]\+\+\+\+\+\s*$" column="0"/>
 		<RangeDetect attribute="Link" char="[" char1="]"/>
-		<RegExpr attribute="Tabel" context="Context" String="^ *\|\| .*"/>
-		<RegExpr attribute="Tabel" context="Context" String="^ *\| .*"/>
-		<RegExpr attribute="DefList" context="Context" String="^ *\: .*"/>
-		<RegExpr attribute="List" context="Context" String="^ *\- .*"/>
-		<RegExpr attribute="NumList" context="Context" String="^ *\+ .*"/>
+		<RegExpr attribute="Tabel" context="Context" String=" *\|\| .*" column="0"/>
+		<RegExpr attribute="Tabel" context="Context" String=" *\| .*" column="0"/>
+		<RegExpr attribute="DefList" context="Context" String=" *\: .*" column="0"/>
+		<RegExpr attribute="List" context="Context" String=" *\- .*" column="0"/>
+		<RegExpr attribute="NumList" context="Context" String=" *\+ .*" column="0"/>
 		<RegExpr attribute="Quote" context="Context" String="\t.*"/>
-		<RegExpr attribute="Bar" context="Context" String="(\s*)([_=-]{20,})\s*$"/>
+		<RegExpr attribute="Bar" context="Context" String="\s*([_=-]{20,})\s*$"/>
 	</context>
 </contexts>
 

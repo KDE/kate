@@ -558,7 +558,20 @@ void KateViewInternal::centerCursor()
 void KateViewInternal::updateView()
 {
   uint maxLen = 0;
-  uint endLine = lastLine();
+  uint endLine = lastLine();                                      
+  uint first = firstLine ();
+ 
+  // try to avoid flicker if the last line is too long and the scrollbar appears
+  // -> last line not in view -> scrollbar disappear -> last line in view -> 
+  // whole cycles endless, need some better adjustment, as one line could be
+  // not enough in all cases and we perhaps should only do it if there is allready
+  // a visible scrollbar
+  if (first > 0)
+    first--;
+    
+  if (endLine+1 < myDoc->visibleLines ())
+    endLine++;  
+  
   for( uint line = firstLine(); line <= endLine; line++ ) {
     maxLen = QMAX( maxLen, myDoc->textWidth( myDoc->kateTextLine( myDoc->getRealLine( line ) ), -1 ) );
   }

@@ -205,14 +205,15 @@ KateIconBorder::KateIconBorder( KateViewInternal* internalView )
   : QWidget(internalView, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
   , myView( internalView->myView )
   , myDoc( internalView->myDoc )
-  , myInternalView( internalView )
+  , myViewInternal( internalView )
   , markMenu(0)
   , m_iconBorderOn( false )
   , m_lineNumbersOn( false )
   , m_foldingMarkersOn( false )
   , lmbSetsBreakpoints( true )
   , oldEditableMarks(0)
-{
+{                                        
+  setBackgroundMode( NoBackground );
   setFont( myDoc->getFont(KateDocument::ViewFont) ); // for line numbers
 }
 
@@ -275,11 +276,11 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 {      
   QRect rect = e->rect();
   
-  uint startline = myInternalView->contentsYToLine( myInternalView->yPosition() + rect.y() );
-  uint endline   = myInternalView->contentsYToLine( myInternalView->yPosition() + rect.y() + rect.height() - 1 );
+  uint startline = myViewInternal->contentsYToLine( myViewInternal->yPosition() + rect.y() );
+  uint endline   = myViewInternal->contentsYToLine( myViewInternal->yPosition() + rect.y() + rect.height() - 1 );
                                     
   QPainter p (this);   
-  p.translate (0, -myInternalView->yPosition());
+  p.translate (0, -myViewInternal->yPosition());
    
   int fontHeight = myDoc->viewFont.fontHeight;          
   int lnWidth = fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
@@ -392,15 +393,15 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
 void KateIconBorder::mousePressEvent( QMouseEvent* e )
 {
   m_lastClickedLine = myDoc->getRealLine(
-    (e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight );
+    (e->y() + myViewInternal->contentsY()) / myView->myDoc->viewFont.fontHeight );
   
   BorderArea area = positionToArea( e->pos() );
   if( area == FoldingMarkers ||
       area == None )
   {
     QMouseEvent forward( QEvent::MouseButtonPress, 
-      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
-    myInternalView->contentsMousePressEvent( &forward );
+      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
+    myViewInternal->contentsMousePressEvent( &forward );
   }
 }
 
@@ -411,15 +412,15 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
       area == None )
   {
     QMouseEvent forward( QEvent::MouseMove, 
-      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
-    myInternalView->contentsMouseMoveEvent( &forward );
+      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
+    myViewInternal->contentsMouseMoveEvent( &forward );
   }
 }
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
   uint cursorOnLine = myDoc->getRealLine(
-    (e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight );
+    (e->y() + myViewInternal->contentsY()) / myView->myDoc->viewFont.fontHeight );
   
   switch( positionToArea( e->pos() ) ) {
   case LineNumbers:
@@ -459,8 +460,8 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     // Fall through
   default:
     QMouseEvent forward( QEvent::MouseButtonRelease, 
-      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
-    myInternalView->contentsMouseReleaseEvent( &forward );
+      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
+    myViewInternal->contentsMouseReleaseEvent( &forward );
     break;
   }
 }
@@ -472,8 +473,8 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
       area == None )
   {
     QMouseEvent forward( QEvent::MouseButtonDblClick, 
-      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
-    myInternalView->contentsMouseDoubleClickEvent( &forward );
+      QPoint( 0, e->y() + myViewInternal->contentsY() ), e->button(), e->state() );
+    myViewInternal->contentsMouseDoubleClickEvent( &forward );
   }
 }
 

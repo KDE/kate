@@ -68,7 +68,7 @@ class KateIconBorder : public QWidget
                       
     class KateView *myView;   
     class KateDocument *myDoc;
-    class KateViewInternal *myInternalView;
+    class KateViewInternal *myViewInternal;
     class QPopupMenu *markMenu;
                     
     bool m_iconBorderOn:1;

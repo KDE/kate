@@ -32,7 +32,7 @@
   mimetype      CDATA   #REQUIRED       -- A list of mimetypes to decide for which documents
                                            to use this syntax description --
   version       CDATA   #IMPLIED        -- Version number of this syntax description --
-  kateverison   CDATA   #IMPLIED        -- Kate version required for using this file --
+  kateversion   CDATA   #IMPLIED        -- Kate version required for using this file --
   casesensitive (0|1)   #IMPLIED        -- ?? --
   priority       CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
 >

@@ -17,52 +17,27 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "document.h"
-#include "view.h"
-
-#include "document.moc"
-#include "view.moc"
-
-#include "editinterface.h"
-#include "selectioninterface.h"
-#include "cursorinterface.h"
-#include "undointerface.h"
-#include "clipboardinterface.h"
-#include "popupmenuinterface.h"
-#include "viewcursorinterface.h"
-#include "searchinterface.h"
-
-using namespace KTextEditor;
+#ifndef __ktexteditor_searchinterface_h__
+#define __ktexteditor_searchinterface_h__
 
 namespace KTextEditor
 {
-	class DocumentPrivate
-	{
-	public:
-		DocumentPrivate()
-		{
-		}
 
-		~DocumentPrivate()
-		{
-		}
+/*
+*  This is an interface for the KTextEditor::Document class !!!
+*/
+class SearchInterface
+{
+  //
+	// slots !!!
+	//
+  public:
+	  virtual bool searchString (uint startLine, uint startCol, const QString &text, uint &foundAtLine, uint &foundAtCol, uint matchLen) = 0;
 
-	};
+		virtual bool searchRegExp (uint startLine, uint startCol, const QString &regexp, uint &foundAtLine, uint &foundAtCol, uint matchLen) = 0;
 };
 
-View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
-{
-}
 
-View::~View()
-{
-}
+};
 
-Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
-{
-
-}
-
-Document::~Document()
-{
-}
+#endif

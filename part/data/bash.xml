@@ -45,8 +45,8 @@
                                 <RegExpr attribute="Keyword" context="#stay" String="\besac\b" insensitive="TRUE" endRegion="case1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="^[^()]+\)" insensitive="TRUE" beginRegion="subcase1"/>
                                 <StringDetect attribute="Keyword" context="#stay" String=";;" insensitive="TRUE" endRegion="subcase1"/>
-                                <DetectChar attribute="Keyword" context="#stay" char="{" insensitive="TRUE" beginRegion="func1"/>
-                                <DetectChar attribute="Keyword" context="#stay" char="}" insensitive="TRUE" endRegion="func1"/>
+                                <DetectChar attribute="Keyword" context="#stay" char="{" beginRegion="func1"/>
+                                <DetectChar attribute="Keyword" context="#stay" char="}" endRegion="func1"/>
 
                                 <keyword String = "keywords" attribute = "Keyword" context = "#stay"/>
                                 <keyword String = "commands" attribute = "Command" context = "#stay"/>

@@ -5,6 +5,7 @@
                 <list name="keywords">
                         <item> abort </item>
                         <item> abs </item>
+                        <item> abstract </item>
                         <item> accept </item>
                         <item> access </item>
                         <item> aliased </item>
@@ -48,20 +49,24 @@
                         <item> pragma </item>
                         <item> private </item>
                         <item> procedure </item>
+                        <item> protected </item>
                         <item> raise </item>
                         <item> range </item>
                         <item> rem </item>
                         <item> record </item>
                         <item> renames </item>
+                        <item> requeue </item>
                         <item> return </item>
                         <item> reverse </item>
                         <item> select </item>
                         <item> separate </item>
                         <item> subtype </item>
+                        <item> tagged </item>
                         <item> task </item>
                         <item> terminate </item>
                         <item> then </item>
                         <item> type </item>
+                        <item> until </item>
                         <item> use </item>
                         <item> when </item>
                         <item> while </item>

@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -24,75 +24,24 @@
 #include <qmap.h>
 #include <qcolor.h>
 
+#include "kateattribute.h"
 #include "katesupercursor.h"
 
 class KateDocument;
 class KateView;
 
-class ArbitraryHighlight
-{
-public:
-  enum items {
-    Weight = 0x1,
-    Bold = 0x2,
-    Italic = 0x4,
-    Underline = 0x8,
-    StrikeOut = 0x10,
-    TextColor = 0x20,
-    BGColor = 0x40
-  };
-
-  static ArbitraryHighlight merge(QPtrList<KateSuperRange> ranges);
-
-  ArbitraryHighlight();
-
-  QFont font(QFont ref);
-
-  inline bool itemSet(int item) const
-    { return item & m_itemsSet; };
-
-  int itemsSet() const;
-
-  int weight() const;
-  void setWeight(int weight);
-
-  void setBold(bool enable = true);
-
-  bool italic() const;
-  void setItalic(bool enable = true);
-
-  bool underline() const;
-  void setUnderline(bool enable = true);
-
-  bool strikeOut() const;
-  void setStrikeOut(bool enable = true);
-
-  const QColor& textColor() const;
-  void setTextColor(const QColor& color);
-
-  const QColor& bgColor() const;
-  void setBGColor(const QColor& color);
-
-  friend bool operator ==(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2);
-  friend bool operator !=(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2);
-
-  virtual void changed() {};
-
-private:
-  int m_weight;
-  bool m_italic, m_underline, m_strikeout;
-  QColor m_textColor, m_bgColor;
-  int m_itemsSet;
-};
-
-class ArbitraryHighlightRange : public KateSuperRange, public ArbitraryHighlight
+class ArbitraryHighlightRange : public KateSuperRange, public KateAttribute
 {
   Q_OBJECT
 
 public:
   ArbitraryHighlightRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L, const char* name = 0L);
+  ArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
+  ArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
 
   virtual void changed() { slotTagRange(); };
+
+  static KateAttribute merge(QPtrList<KateSuperRange> ranges);
 };
 
 /**

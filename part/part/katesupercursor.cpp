@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -22,7 +22,6 @@
 
 #include <kdebug.h>
 
-#include "katetextline.h"
 #include "katebuffer.h"
 #include "katedocument.h"
 
@@ -58,12 +57,12 @@ KateSuperCursor::~KateSuperCursor()
 }
 #endif
 
-bool KateSuperCursor::atStartOfLine()
+bool KateSuperCursor::atStartOfLine() const
 {
   return col() == 0;
 }
 
-bool KateSuperCursor::atEndOfLine()
+bool KateSuperCursor::atEndOfLine() const
 {
   return col() >= (int)m_linePtr->length();
 }
@@ -318,16 +317,41 @@ KateSuperRange::KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QOb
   , m_startChanged(false)
   , m_endChanged(false)
 {
+  init();
+}
+
+KateSuperRange::KateSuperRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
+  : QObject(parent, name)
+  , m_start(new KateSuperCursor(doc, range.start()))
+  , m_end(new KateSuperCursor(doc, range.end()))
+  , m_evaluate(false)
+  , m_startChanged(false)
+  , m_endChanged(false)
+{
+  init();
+}
+
+KateSuperRange::KateSuperRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
+  : QObject(parent, name)
+  , m_start(new KateSuperCursor(doc, start))
+  , m_end(new KateSuperCursor(doc, end))
+  , m_evaluate(false)
+  , m_startChanged(false)
+  , m_endChanged(false)
+{
+  init();
+}
+
+void KateSuperRange::init()
+{
   Q_ASSERT(isValid());
+  if (!isValid())
+    kdDebug() << superStart() << " " << superEnd() << endl;
 
   insertChild(m_start);
   insertChild(m_end);
 
   setBehaviour(DoNotExpand);
-
-  m_evaluate = false;
-  m_startChanged = false;
-  m_endChanged = false;
 
 #ifdef DEBUGTESTING
   if (!debugRange) {
@@ -359,12 +383,42 @@ KateSuperRange::~KateSuperRange()
 }
 #endif
 
-KateSuperCursor& KateSuperRange::start() const
+KateTextCursor& KateSuperRange::start()
 {
   return *m_start;
 }
 
-KateSuperCursor& KateSuperRange::end() const
+const KateTextCursor& KateSuperRange::start() const
+{
+  return *m_start;
+}
+
+KateTextCursor& KateSuperRange::end()
+{
+  return *m_end;
+}
+
+const KateTextCursor& KateSuperRange::end() const
+{
+  return *m_end;
+}
+
+KateSuperCursor& KateSuperRange::superStart()
+{
+  return *m_start;
+}
+
+const KateSuperCursor& KateSuperRange::superStart() const
+{
+  return *m_start;
+}
+
+KateSuperCursor& KateSuperRange::superEnd()
+{
+  return *m_end;
+}
+
+const KateSuperCursor& KateSuperRange::superEnd() const
 {
   return *m_end;
 }
@@ -382,7 +436,7 @@ void KateSuperRange::setBehaviour(int behaviour)
 
 bool KateSuperRange::isValid() const
 {
-  return start() <= end();
+  return superStart() <= superEnd();
 }
 
 bool KateSuperRange::owns(const KateTextCursor& cursor) const
@@ -400,27 +454,27 @@ bool KateSuperRange::owns(const KateTextCursor& cursor) const
 
 bool KateSuperRange::includes(const KateTextCursor& cursor) const
 {
-  return isValid() && cursor >= start() && cursor < end();
+  return isValid() && cursor >= superStart() && cursor < superEnd();
 }
 
 bool KateSuperRange::includes(uint lineNum) const
 {
-  return isValid() && (int)lineNum >= start().line() && (int)lineNum <= end().line();
+  return isValid() && (int)lineNum >= superStart().line() && (int)lineNum <= superEnd().line();
 }
 
 bool KateSuperRange::includesWholeLine(uint lineNum) const
 {
-  return isValid() && ((int)lineNum > start().line() || ((int)lineNum == start().line() && start().atStartOfLine())) && ((int)lineNum < end().line() || ((int)lineNum == end().line() && end().atEndOfLine()));
+  return isValid() && ((int)lineNum > superStart().line() || ((int)lineNum == superStart().line() && superStart().atStartOfLine())) && ((int)lineNum < superEnd().line() || ((int)lineNum == superEnd().line() && superEnd().atEndOfLine()));
 }
 
 bool KateSuperRange::boundaryAt(const KateTextCursor& cursor) const
 {
-  return isValid() && (cursor == start() || cursor == end());
+  return isValid() && (cursor == superStart() || cursor == superEnd());
 }
 
 bool KateSuperRange::boundaryOn(uint lineNum) const
 {
-  return isValid() && (start().line() == (int)lineNum || end().line() == (int)lineNum);
+  return isValid() && (superStart().line() == (int)lineNum || superEnd().line() == (int)lineNum);
 }
 
 void KateSuperRange::slotEvaluateChanged()
@@ -500,7 +554,7 @@ void KateSuperRange::slotTagRange()
 
 void KateSuperRange::evaluateEliminated()
 {
-  if (start() == end())
+  if (superStart() == superEnd())
     emit eliminated();
   else
     emit contentsChanged();
@@ -508,7 +562,7 @@ void KateSuperRange::evaluateEliminated()
 
 void KateSuperRange::evaluatePositionChanged()
 {
-  if (start() == end())
+  if (superStart() == superEnd())
     emit eliminated();
   else
     emit positionChanged();
@@ -645,8 +699,8 @@ void KateSuperRangeList::slotEliminated()
     emit rangeEliminated(range);
 
     if (m_trackingBoundaries) {
-      m_columnBoundaries.removeRef(&(range->start()));
-      m_columnBoundaries.removeRef(&(range->end()));
+      m_columnBoundaries.removeRef(&(range->superStart()));
+      m_columnBoundaries.removeRef(&(range->superEnd()));
     }
 
     if (m_autoManage)
@@ -676,8 +730,8 @@ KateSuperCursor* KateSuperRangeList::firstBoundary(const KateTextCursor* start)
     m_trackingBoundaries = true;
 
     for (KateSuperRange* r = first(); r; r = next()) {
-      m_columnBoundaries.append(&(r->start()));
-      m_columnBoundaries.append(&(r->end()));
+      m_columnBoundaries.append(&(r->superStart()));
+      m_columnBoundaries.append(&(r->superEnd()));
     }
   }
 
@@ -712,15 +766,15 @@ KateSuperCursor* KateSuperRangeList::currentBoundary()
 
 int KateSuperRangeList::compareItems(QPtrCollection::Item item1, QPtrCollection::Item item2)
 {
-  if (static_cast<KateSuperRange*>(item1)->start() == static_cast<KateSuperRange*>(item2)->start()) {
-    if (static_cast<KateSuperRange*>(item1)->end() == static_cast<KateSuperRange*>(item2)->end()) {
+  if (static_cast<KateSuperRange*>(item1)->superStart() == static_cast<KateSuperRange*>(item2)->superStart()) {
+    if (static_cast<KateSuperRange*>(item1)->superEnd() == static_cast<KateSuperRange*>(item2)->superEnd()) {
       return 0;
     } else {
-      return static_cast<KateSuperRange*>(item1)->end() < static_cast<KateSuperRange*>(item2)->end() ? -1 : 1;
+      return static_cast<KateSuperRange*>(item1)->superEnd() < static_cast<KateSuperRange*>(item2)->superEnd() ? -1 : 1;
     }
   }
 
-  return static_cast<KateSuperRange*>(item1)->start() < static_cast<KateSuperRange*>(item2)->start() ? -1 : 1;
+  return static_cast<KateSuperRange*>(item1)->superStart() < static_cast<KateSuperRange*>(item2)->superStart() ? -1 : 1;
 }
 
 QPtrCollection::Item KateSuperRangeList::newItem(QPtrCollection::Item d)
@@ -735,8 +789,8 @@ QPtrCollection::Item KateSuperRangeList::newItem(QPtrCollection::Item d)
   }
 
   if (m_trackingBoundaries) {
-    m_columnBoundaries.append(&(static_cast<KateSuperRange*>(d)->start()));
-    m_columnBoundaries.append(&(static_cast<KateSuperRange*>(d)->end()));
+    m_columnBoundaries.append(&(static_cast<KateSuperRange*>(d)->superStart()));
+    m_columnBoundaries.append(&(static_cast<KateSuperRange*>(d)->superEnd()));
   }
 
   return QPtrList<KateSuperRange>::newItem(d);

@@ -33,6 +33,7 @@
 #include "katetextline.h"
 #include "katebrowserextension.h"
 #include "../interfaces/document.h"
+#include "kateattribute.h"
 
 #include <ktrader.h>
 #include <kservice.h>
@@ -84,6 +85,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   friend class ColorConfig;
   friend class ViewDefaultsConfig;
   friend class PluginConfigPage;
+  friend class KateRenderer;
 
   public:
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
@@ -450,46 +452,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
 
-  //
-  // displaying related stuff
-  //
-  public:
-     // use different fonts for screen and printing
-    enum WhichFont
-    {
-      ViewFont = 1,
-      PrintFont = 2
-    };
-
-    // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
-    bool paintTextLine ( QPainter &, const LineRange* range, int xPos, int y,
-                                int xStart, int xEnd, int showCursor, bool replaceCursor, int cursorXPos,
-                                bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
-                                bool printerfriendly = false, const BracketMark& bm = BracketMark(), int startColX = 0, KateView* view = 0L );
-
-    uint textWidth(const TextLine::Ptr &, int cursorCol, WhichFont wf=ViewFont);
-    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap, int *endX = 0);
-    uint textWidth(KateTextCursor &cursor);
-    uint textWidth(KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont, uint startCol = 0);
-    uint textPos(uint line, int xPos, WhichFont wf=ViewFont, uint startCol = 0);
-    uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont, uint startCol = 0);
-    uint textHeight(WhichFont wf=ViewFont);
-
-    QColor &backCol(int x, int y);
-    QColor &cursorCol(int x, int y);
-
-    const FontStruct& getFontStruct( WhichFont wf );
-    void setFont( WhichFont wf, QFont font );
-    const QFont& getFont( WhichFont wf );
-    const KateFontMetrics& getFontMetrics( WhichFont wf );
-
-    bool selectBounds(uint line, uint &start, uint &end, uint lineLength);
-
-  private:
-    // fonts structures for the view + printing font
-    static FontStruct viewFont;
-    static FontStruct printFont;
-
   public:
     //
     // internal edit stuff (mostly for view)
@@ -533,7 +495,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void preHighlightChanged(uint);
 
   private:
-    Attribute *attribute (uint pos);
+    KateAttribute* attribute(uint pos);
 
   public:
     class Highlight *highlight() { return m_highlight; }
@@ -589,7 +551,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void updateLines();
     void updateViews();
 
-    void newBracketMark( const KateTextCursor& start, BracketMark& );
+    void newBracketMark( const KateTextCursor& start, KateTextRange& bm );
     bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end );
 
   private:
@@ -765,7 +727,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     class KateCmd *myCmd;
 
-    QMemArray<Attribute> myAttribs;
+    QMemArray<KateAttribute> myAttribs;
 
     //
     // core katedocument config !
@@ -806,7 +768,7 @@ private:
     /**
       Allow the HlManager to fill the array
     */
-    QMemArray<Attribute> *attribs() { return &myAttribs; }
+    QMemArray<KateAttribute>* attribs() { return &myAttribs; }
 };
 
 #endif

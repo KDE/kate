@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Christian Couder <christian@kdevelop.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -26,24 +26,30 @@
 #include <qfontmetrics.h>
 #include <qcolor.h>
 
+
+/**
+ * rodda: obsolete this and replace with KateAttribute functions
+ */
+
+
 //
 // KateFontMetrics definition
 //
 
-class KateFontMetrics : public QFontMetrics
+/*class KateFontMetrics : public QFontMetrics
 {
   public:
     KateFontMetrics(const QFont& f);
     ~KateFontMetrics();
 
     int width(QChar c) const;
-  
+
   private:
     short *createRow (short *wa, uchar row);
-                         
+
   private:
     short *warray[256];
-};
+};*/
 
 //
 // FontStruct definition
@@ -55,7 +61,8 @@ class FontStruct
     FontStruct();
     ~FontStruct();
 
-    int width(QChar ch, bool bold, bool italic) const;
+    int width(const QString& text, int col, bool bold, bool italic) const;
+    int width(const QChar& c, bool bold, bool italic) const;
 
     void updateFontData(int tabChars);
 
@@ -66,8 +73,8 @@ class FontStruct
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;
 
-    KateFontMetrics myFontMetrics, myFontMetricsBold; 
-    KateFontMetrics myFontMetricsItalic, myFontMetricsBI;
+    QFontMetrics myFontMetrics, myFontMetricsBold;
+    QFontMetrics myFontMetricsItalic, myFontMetricsBI;
 
     int m_tabWidth;
     int fontHeight;
@@ -78,7 +85,7 @@ class FontStruct
 // Attribute definition
 //
 
-class Attribute
+/*class Attribute
 {
   public:
     Attribute();
@@ -96,7 +103,7 @@ class Attribute
     QColor selCol;
     bool bold;
     bool italic;
-};
+};*/
 
 
 #endif

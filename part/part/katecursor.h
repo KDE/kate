@@ -77,6 +77,51 @@ class KateTextCursor
     int m_col;
 };
 
+class KateRange
+{
+public:
+  virtual bool isValid() const = 0;
+  virtual KateTextCursor& start() = 0;
+  virtual KateTextCursor& end() = 0;
+  virtual const KateTextCursor& start() const = 0;
+  virtual const KateTextCursor& end() const = 0;
+};
+
+class KateTextRange : public KateRange
+{
+public:
+  KateTextRange()
+    : m_valid(false)
+  {
+  };
+
+  KateTextRange(int startline, int startcol, int endline, int endcol)
+    : m_start(startline, startcol)
+    , m_end(endline, endcol)
+    , m_valid(true)
+  {
+  };
+
+  KateTextRange(const KateTextCursor& start, const KateTextCursor& end)
+    : m_start(start)
+    , m_end(end)
+    , m_valid(true)
+  {
+  };
+
+  virtual bool isValid() const { return m_valid; };
+  void setValid(bool valid) { m_valid = valid; };
+
+  virtual KateTextCursor& start() { return m_start; };
+  virtual KateTextCursor& end() { return m_end; };
+  virtual const KateTextCursor& start() const { return m_start; };
+  virtual const KateTextCursor& end() const { return m_end; };
+
+protected:
+  KateTextCursor m_start, m_end;
+  bool m_valid;
+};
+
 /**
  * We need something a bit special for the internal view implementation:
  * a cursor with a mode to allow setting to new settings, while still returning the old
@@ -101,22 +146,6 @@ public:
 private:
     bool m_immutable;
     KateTextCursor m_newSettings;
-};
-
-// This doesn't belong here
-class BracketMark
-{
-  public:
-    BracketMark() : valid( false ) {}
-    bool valid;
-    uint startLine;
-    uint startCol;
-    uint startX;
-    uint startW;
-    uint endLine;
-    uint endCol;
-    uint endX;
-    uint endW;
 };
 
 /**

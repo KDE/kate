@@ -251,8 +251,6 @@ class KateView : public Kate::View,
     bool isActive()             { return m_active; }
 
   public slots:
-    void slotIncFontSizes();
-    void slotDecFontSizes();
     void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionReal( mark->line, 0 ); }
     void selectionChanged ();
 

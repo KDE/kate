@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2001,2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -789,22 +789,16 @@ int HlCChar::checkHgl(const QString& text, int offset, int len)
 
 
 //--------
-ItemStyle::ItemStyle() : selCol(Qt::white), bold(false), italic(false) {
+/*ItemStyle::ItemStyle() : selCol(Qt::white), bold(false), italic(false) {
 }
 
 ItemStyle::ItemStyle(const QColor &col, const QColor &selCol,
   bool bold, bool italic)
   : col(col), selCol(selCol), bold(bold), italic(italic) {
-}
+}*/
 
 ItemData::ItemData(const QString  name, int defStyleNum)
   : name(name), defStyleNum(defStyleNum), defStyle(true) {
-}
-
-ItemData::ItemData(const QString name, int defStyleNum,
-  const QColor &col, const QColor &selCol, bool bold, bool italic)
-  : ItemStyle(col,selCol,bold,italic), name(name), defStyleNum(defStyleNum),
-  defStyle(false) {
 }
 
 HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString &identifier)
@@ -1193,9 +1187,18 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config) {
   for (p = list.first(); p != 0L; p = list.next()) {
     s = config->readEntry(p->name);
     if (!s.isEmpty()) {
-      sscanf(s.latin1(),"%d,%X,%X,%d,%d", &p->defStyle,&col,&selCol,&p->bold,&p->italic);
-      p->col.setRgb(col);
-      p->selCol.setRgb(selCol);
+      int bold, italic;
+      sscanf(s.latin1(),"%d,%X,%X,%d,%d", &p->defStyle,&col,&selCol,&bold,&italic);
+      QColor color = p->textColor();
+      color.setRgb(col);
+      p->setTextColor(color);
+
+      QColor selColor = p->selectedTextColor();
+      selColor.setRgb(selCol);
+      p->setSelectedTextColor(selColor);
+
+      p->setBold(bold);
+      p->setItalic(italic);
     }
   }
 }
@@ -1222,7 +1225,7 @@ void Highlight::setItemDataList(ItemDataList &list, KConfig *config) {
 
   for (p = list.first(); p != 0L; p = list.next()) {
     s.sprintf("%d,%X,%X,%d,%d",
-      p->defStyle,p->col.rgb(),p->selCol.rgb(),p->bold,p->italic);
+      p->defStyle,p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic());
     config->writeEntry(p->name,s);
   }
 }
@@ -1363,11 +1366,16 @@ void Highlight::addToItemDataList()
         if ( (!color.isEmpty()) && (!selColor.isEmpty()) && (!bold.isEmpty()) && (!italic.isEmpty()))
                 {
                         //create a user defined style
-                        internalIDList.append(new ItemData(
+                        ItemData* newData = new ItemData(
                                 buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
-                                getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))),
-                                QColor(color),QColor(selColor),(bold=="true") || (bold=="1"), (italic=="true") || (italic=="1")
-                                ));
+                                getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
+
+                        newData->setTextColor(QColor(color));
+                        newData->setSelectedTextColor(QColor(selColor));
+                        newData->setBold(bold=="true" || bold=="1");
+                        newData->setItalic(italic=="true" || italic=="1");
+
+                        internalIDList.append(newData);
                 }
         else
                 {
@@ -1401,12 +1409,12 @@ void Highlight::addToItemDataList()
 
 int  Highlight::lookupAttrName(const QString& name, ItemDataList &iDl)
 {
-	for (uint i=0;i<iDl.count();i++)
-		{
-			if (iDl.at(i)->name==buildPrefix+name) return i;
-		}
-	kdDebug(13010)<<"Couldn't resolve itemDataName"<<endl;
-	return 0;
+  for (uint i = 0; i < iDl.count(); i++)
+    if (iDl.at(i)->name == buildPrefix+name)
+      return i;
+
+  kdDebug(13010)<<"Couldn't resolve itemDataName"<<endl;
+  return 0;
 }
 
 
@@ -1980,7 +1988,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 
   // This list is needed for the translation of the attribute parameter, if the itemData name is given instead of the index
   addToItemDataList();
-  ItemDataList iDl=internalIDList;
+  ItemDataList iDl = internalIDList;
 
   createContextNameList(&ContextNameList,ctx0);
 
@@ -2227,8 +2235,8 @@ int HlManager::mimeFind(const QByteArray &contents, const QString &)
 
 void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
 {
-  ItemStyleList defaultStyleList;
-  ItemStyle *defaultStyle;
+  KateAttributeList defaultStyleList;
+  KateAttribute *defaultStyle;
   ItemDataList itemDataList;
   ItemData *itemData;
   uint nAttribs, z;
@@ -2242,29 +2250,23 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
   doc->attribs()->resize (nAttribs);
 
   for (z = 0; z < nAttribs; z++)
-	{
-	  Attribute n;
+  {
+    KateAttribute n;
 
     itemData = itemDataList.at(z);
     if (itemData->defStyle)
-		{
+    {
       // default style
       defaultStyle = defaultStyleList.at(itemData->defStyleNum);
-      n.col = defaultStyle->col;
-      n.selCol = defaultStyle->selCol;
-      n.bold = defaultStyle->bold;
-      n.italic = defaultStyle->italic;
+      n += *defaultStyle;
     }
-		else
-		{
+    else
+    {
       // custom style
-      n.col = itemData->col;
-      n.selCol = itemData->selCol;
-      n.bold = itemData->bold;
-      n.italic = itemData->italic;
+      n += *itemData;
     }
 
-		doc->attribs()->at(z) = n;
+    doc->attribs()->at(z) = n;
   }
 }
 
@@ -2293,25 +2295,65 @@ QString HlManager::defaultStyleName(int n)
   return names[n];
 }
 
-void HlManager::getDefaults(ItemStyleList &list) {
+void HlManager::getDefaults(KateAttributeList &list) {
   KConfig *config;
   int z;
-  ItemStyle *i;
+  KateAttribute *i;
   QString s;
   QRgb col, selCol;
 
   list.setAutoDelete(true);
   //ItemStyle(color, selected color, bold, italic)
-  list.append(new ItemStyle(black,white,false,false));     //normal
-  list.append(new ItemStyle(black,white,true,false));      //keyword
-  list.append(new ItemStyle(darkRed,white,false,false));   //datatype
-  list.append(new ItemStyle(blue,cyan,false,false));       //decimal/value
-  list.append(new ItemStyle(darkCyan,cyan,false,false));   //base n
-  list.append(new ItemStyle(darkMagenta,cyan,false,false));//float
-  list.append(new ItemStyle(magenta,magenta,false,false)); //char
-  list.append(new ItemStyle(red,red,false,false));         //string
-  list.append(new ItemStyle(darkGray,gray,false,true));    //comment
-  list.append(new ItemStyle(darkGreen,green,false,false)); //others
+
+  KateAttribute* normal = new KateAttribute();
+  normal->setTextColor(Qt::black);
+  normal->setSelectedTextColor(Qt::white);
+  list.append(normal);
+
+  KateAttribute* keyword = new KateAttribute();
+  normal->setTextColor(Qt::black);
+  normal->setSelectedTextColor(Qt::white);
+  list.append(keyword);
+
+  KateAttribute* dataType = new KateAttribute();
+  normal->setTextColor(Qt::darkRed);
+  normal->setSelectedTextColor(Qt::white);
+  list.append(dataType);
+
+  KateAttribute* decimal = new KateAttribute();
+  normal->setTextColor(Qt::blue);
+  normal->setSelectedTextColor(Qt::cyan);
+  list.append(decimal);
+
+  KateAttribute* basen = new KateAttribute();
+  normal->setTextColor(Qt::darkCyan);
+  normal->setSelectedTextColor(Qt::cyan);
+  list.append(basen);
+
+  KateAttribute* floatAttribute = new KateAttribute();
+  normal->setTextColor(Qt::darkMagenta);
+  normal->setSelectedTextColor(Qt::cyan);
+  list.append(floatAttribute);
+
+  KateAttribute* charAttribute = new KateAttribute();
+  normal->setTextColor(Qt::magenta);
+  normal->setSelectedTextColor(Qt::magenta);
+  list.append(charAttribute);
+
+  KateAttribute* string = new KateAttribute();
+  normal->setTextColor(Qt::red);
+  normal->setSelectedTextColor(Qt::red);
+  list.append(string);
+
+  KateAttribute* comment = new KateAttribute();
+  normal->setTextColor(Qt::darkGray);
+  normal->setSelectedTextColor(Qt::gray);
+  list.append(comment);
+
+  KateAttribute* others = new KateAttribute();
+  normal->setTextColor(Qt::darkGreen);
+  normal->setSelectedTextColor(Qt::green);
+  list.append(others);
 
   config = KateFactory::instance()->config();
   config->setGroup("Default Item Styles");
@@ -2319,24 +2361,33 @@ void HlManager::getDefaults(ItemStyleList &list) {
     i = list.at(z);
     s = config->readEntry(defaultStyleName(z));
     if (!s.isEmpty()) {
-      sscanf(s.latin1(),"%X,%X,%d,%d",&col,&selCol,&i->bold,&i->italic);
-      i->col.setRgb(col);
-      i->selCol.setRgb(selCol);
+      int bold, italic;
+      sscanf(s.latin1(),"%X,%X,%d,%d",&col,&selCol,&bold,&italic);
+      QColor color = i->textColor();
+      color.setRgb(col);
+      i->setTextColor(color);
+
+      QColor selColor = i->selectedTextColor();
+      selColor.setRgb(selCol);
+      i->setSelectedTextColor(selColor);
+
+      i->setItalic(italic);
+      i->setBold(bold);
     }
   }
 }
 
-void HlManager::setDefaults(ItemStyleList &list) {
+void HlManager::setDefaults(KateAttributeList &list) {
   KConfig *config;
   int z;
-  ItemStyle *i;
+  KateAttribute *i;
   char s[64];
 
   config =  KateFactory::instance()->config();
   config->setGroup("Default Item Styles");
   for (z = 0; z < defaultStyles(); z++) {
     i = list.at(z);
-    sprintf(s,"%X,%X,%d,%d",i->col.rgb(),i->selCol.rgb(),i->bold, i->italic);
+    sprintf(s,"%X,%X,%d,%d",i->textColor().rgb(),i->selectedTextColor().rgb(),i->bold(), i->italic());
     config->writeEntry(defaultStyleName(z),s);
   }
 

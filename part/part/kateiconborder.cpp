@@ -28,6 +28,7 @@
 #include "kateviewinternal.h"
 #include "katedocument.h"
 #include "katecodefoldinghelpers.h"
+#include "katerenderer.h"
 
 #include <math.h>
 
@@ -123,14 +124,14 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_foldingMarkersOn( false )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
-{                            
+{
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 
   setBackgroundMode( NoBackground );
-  
+
   m_doc->setDescription( MarkInterface::markType01, i18n("Bookmark") );
   m_doc->setPixmap( MarkInterface::markType01, QPixmap((const char**)bookmark_xpm) );
-  
+
   updateFont();
 }
 
@@ -140,7 +141,7 @@ void KateIconBorder::setIconBorderOn( bool enable )
     return;
 
   m_iconBorderOn = enable;
-  
+
   updateGeometry();
   update ();
 }
@@ -151,7 +152,7 @@ void KateIconBorder::setLineNumbersOn( bool enable )
     return;
 
   m_lineNumbersOn = enable;
-  
+
   updateGeometry();
   update ();
 }
@@ -160,9 +161,9 @@ void KateIconBorder::setFoldingMarkersOn( bool enable )
 {
   if( enable == m_foldingMarkersOn )
     return;
-  
+
   m_foldingMarkersOn = enable;
-  
+
   updateGeometry();
   update ();
 }
@@ -196,7 +197,7 @@ QSize KateIconBorder::sizeHint() const
 // for graceful handling of variable-width fonts as the linenumber font.
 void KateIconBorder::updateFont()
 {
-  const KateFontMetrics& fm = m_doc->getFontMetrics(KateDocument::ViewFont);
+  const QFontMetrics& fm = KateRenderer::getFontMetrics(KateRenderer::ViewFont);
   m_maxCharWidth = 0;
   // Loop to determine the widest numeric character in the current font.
   // 48 is ascii '0'
@@ -215,7 +216,7 @@ int KateIconBorder::lineNumberWidth() const
 
     if (m_cachedLNWidth != width || m_oldBackgroundColor != m_doc->colors[0]) {
       int w = style().scrollBarExtent().width();
-      int h = m_doc->getFontMetrics(KateDocument::ViewFont).height();
+      int h = KateRenderer::getFontMetrics(KateRenderer::ViewFont).height();
 
       QSize newSize(w, h);
       if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_doc->colors[0]) && !newSize.isEmpty()) {
@@ -224,7 +225,7 @@ int KateIconBorder::lineNumberWidth() const
         QPainter p(&m_arrow);
         p.fillRect( 0, 0, w, h, m_doc->colors[0] );
 
-        h = m_doc->getFontMetrics(KateDocument::ViewFont).ascent();
+        h = KateRenderer::getFontMetrics(KateRenderer::ViewFont).ascent();
 
         p.setPen(m_doc->colors[4]);
         p.drawLine(w/2, h/2, w/2, 0);
@@ -252,7 +253,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
   // int xStart = x;
-  uint h = m_doc->viewFont.fontHeight;
+  uint h = KateRenderer::getFontStruct(KateRenderer::ViewFont).fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->lineRanges.size();
@@ -279,8 +280,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once
 
   QPainter p ( this );
-  p.setFont ( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
-  p.setPen ( m_doc->myAttribs[0].col );
+  p.setFont ( KateRenderer::getFont(KateRenderer::ViewFont) ); // for line numbers
+  p.setPen ( m_doc->myAttribs[0].textColor() );
 
   for (uint z=startz; z <= endz; z++)
   {
@@ -385,15 +386,15 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
 void KateIconBorder::mousePressEvent( QMouseEvent* e )
 {
   m_lastClickedLine = m_viewInternal->yToLineRange(e->y()).line;
-  
-  QMouseEvent forward( QEvent::MouseButtonPress, 
+
+  QMouseEvent forward( QEvent::MouseButtonPress,
     QPoint( 0, e->y() ), e->button(), e->state() );
   m_viewInternal->mousePressEvent( &forward );
 }
 
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
-  QMouseEvent forward( QEvent::MouseMove, 
+  QMouseEvent forward( QEvent::MouseMove,
     QPoint( 0, e->y() ), e->button(), e->state() );
   m_viewInternal->mouseMoveEvent( &forward );
 }
@@ -401,7 +402,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
   uint cursorOnLine = m_viewInternal->yToLineRange(e->y()).line;
-  
+
   BorderArea area = positionToArea( e->pos() );
   if( area == IconBorder &&
       e->button() == LeftButton &&
@@ -430,15 +431,15 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
       emit toggleRegionVisibility(cursorOnLine);
     }
   }
-  
-  QMouseEvent forward( QEvent::MouseButtonRelease, 
+
+  QMouseEvent forward( QEvent::MouseButtonRelease,
     QPoint( 0, e->y() ), e->button(), e->state() );
   m_viewInternal->mouseReleaseEvent( &forward );
 }
 
 void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 {
-  QMouseEvent forward( QEvent::MouseButtonDblClick, 
+  QMouseEvent forward( QEvent::MouseButtonDblClick,
     QPoint( 0, e->y() ), e->button(), e->state() );
   m_viewInternal->mouseDoubleClickEvent( &forward );
 }

@@ -308,7 +308,7 @@ void HlConfigPage::reload ()
 {
 }
 
-HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *styleList,
+HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList *styleList,
                               HlDataList* highlightDataList,
                               int hlNumber,QWidget *parent, const char *name)
    :QTabWidget(parent,name),defaultItemStyleList(styleList),hlData(0L)
@@ -323,7 +323,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   page1->setSpacing( spacing );
   page1->setMargin( spacing );
 
-  QColor normalcol( defaultItemStyleList->at(0)->col );
+  QColor normalcol( defaultItemStyleList->at(0)->textColor() );
   StyleListView *lvDefStyles = new StyleListView( page1, false, normalcol );
   for ( int i = 0; i < hlManager->defaultStyles(); i++ )
     lvDefStyles->insertItem( new StyleListItem( lvDefStyles, hlManager->defaultStyleName(i),
@@ -927,20 +927,20 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
 void StyleListView::showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle )
 {
   KPopupMenu m( this );
-  ItemStyle *is = i->style();
+  KateAttribute *is = i->style();
   int id;
   // the title is used, because the menu obscures the context name when
   // displayed on behalf of spacePressed().
   QPixmap cl(16,16);
-  cl.fill( i->style()->col );
+  cl.fill( i->style()->textColor() );
   QPixmap scl(16,16);
-  scl.fill( i->style()->selCol );
+  scl.fill( i->style()->selectedTextColor() );
   if ( showtitle )
     m.insertTitle( i->contextName(), StyleListItem::ContextName );
   id = m.insertItem( i18n("&Bold"), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::Bold );
-  m.setItemChecked( id, is->bold );
+  m.setItemChecked( id, is->bold() );
   id = m.insertItem( i18n("&Italic"), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::Italic );
-  m.setItemChecked( id, is->italic );
+  m.setItemChecked( id, is->italic() );
   m.insertItem( QIconSet(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::Color );
   m.insertItem( QIconSet(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::SelColor );
   if ( ! i->isDefault() ) {
@@ -999,7 +999,7 @@ static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
 StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
-                              ItemStyle *style, ItemData *data )
+                              KateAttribute *style, ItemData *data )
         : QListViewItem( parent, stylename ),
           /*styleName( stylename ),*/
           ds( style ),
@@ -1074,14 +1074,14 @@ void StyleListItem::changeProperty( Property p )
 void StyleListItem::toggleBold()
 {
   if (st && st->defStyle) setCustStyle();
-  is->bold = is->bold ? 0 : 1;
+  is->setBold(!is->bold());
   repaint();
 }
 
 void StyleListItem::toggleItalic()
 {
   if (st && st->defStyle) setCustStyle();
-  is->italic = is->italic ? 0 : 1;
+  is->setItalic(!is->italic());
   repaint();
 }
 
@@ -1102,29 +1102,26 @@ void StyleListItem::toggleDefStyle()
 
 void StyleListItem::setCol()
 {
-  QColor c = is->col;
+  QColor c = is->textColor();
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
   if (st && st->defStyle) setCustStyle();
-  is->col = c;
+  is->setTextColor(c);
   repaint();
 }
 
 void StyleListItem::setSelCol()
 {
-  QColor c = is->selCol;
+  QColor c = is->selectedTextColor();
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
   if (st && st->defStyle) setCustStyle();
-  is->selCol = c;
+  is->setSelectedTextColor(c);
   repaint();
 }
 
 void StyleListItem::setCustStyle()
 {
   is = st;
-  is->bold = ds->bold;
-  is->italic = ds->italic;
-  is->col = ds->col;
-  is->selCol = ds->selCol;
+  *is += *ds;
   st->defStyle = 0;
 }
 
@@ -1145,12 +1142,10 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
   QColorGroup mcg = cg;
 
   if ( col == 0 ) {
-    mcg.setColor(QColorGroup::Text, is->col);
-    mcg.setColor(QColorGroup::HighlightedText, is->selCol);
+    mcg.setColor(QColorGroup::Text, is->textColor());
+    mcg.setColor(QColorGroup::HighlightedText, is->selectedTextColor());
     QFont f ( ((StyleListView*)lv)->docfont );
-    f.setBold( is->bold );
-    f.setItalic( is->italic );
-    p->setFont( f );
+    p->setFont( is->font(f) );
     // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
     // Maybe I need painting the string myself :(
     QListViewItem::paintCell( p, mcg, col, width, align );
@@ -1182,7 +1177,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
     x++;
     y++;
-    if ( (col == 1 && is->bold) || (col == 2 && is->italic) || (col == 5 && st->defStyle) ) {
+    if ( (col == 1 && is->bold()) || (col == 2 && is->italic()) || (col == 5 && st->defStyle) ) {
       QPointArray a( 7*2 );
       int i, xx, yy;
       xx = x+1+marg;
@@ -1212,7 +1207,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     else
       p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
     p->drawRect( x+marg, y+2, ColorBtnWidth-4, BoxSize-4 );
-    p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush(col == 3 ? is->col : is->selCol) );
+    p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush(col == 3 ? is->textColor() : is->selectedTextColor()) );
   }
 }
 

@@ -28,6 +28,7 @@
 #include "katecodecompletion_arghint.h"
 #include "katedocument.h"
 #include "kateview.h"
+#include "katerenderer.h"
 
 #include <qwhatsthis.h>
 #include <qtimer.h>
@@ -245,7 +246,7 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
       QSize( m_completionListBox->verticalScrollBar()->width() + 4,
              m_completionListBox->horizontalScrollBar()->height() + 4 ) );
     QPoint p = m_view->mapToGlobal( m_view->cursorCoordinates() );
-    p += QPoint( 0, m_view->doc()->getFontMetrics( KateDocument::ViewFont ).height() );
+    p += QPoint( 0, KateRenderer::getFontMetrics( KateRenderer::ViewFont ).height() );
     m_completionPopup->move( p );
   }
 

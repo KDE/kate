@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
@@ -255,10 +255,10 @@ void KateView::setupActions()
   m_deSelect = a=KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
-  a=new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
+  a=new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, m_viewInternal, SLOT(slotIncFontSizes()), ac, "incFontSizes");
   a->setWhatsThis(i18n("This increases the display font size."));
 
-  a=new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
+  a=new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, m_viewInternal, SLOT(slotDecFontSizes()), ac, "decFontSizes");
   a->setWhatsThis(i18n("This decreases the display font size."));
 
   a=new KAction(i18n("T&oggle Block Selection"), CTRL + SHIFT + Key_B, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
@@ -884,20 +884,6 @@ bool KateView::lineNumbersOn() {
 
 bool KateView::foldingMarkersOn() {
   return m_viewInternal->leftBorder->foldingMarkersOn();
-}
-
-void KateView::slotIncFontSizes ()
-{
-  QFont font = m_doc->getFont(KateDocument::ViewFont);
-  font.setPointSize (font.pointSize()+1);
-  m_doc->setFont (KateDocument::ViewFont,font);
-}
-
-void KateView::slotDecFontSizes ()
-{
-  QFont font = m_doc->getFont(KateDocument::ViewFont);
-  font.setPointSize (font.pointSize()-1);
-  m_doc->setFont (KateDocument::ViewFont,font);
 }
 
 void KateView::updateViewDefaults ()

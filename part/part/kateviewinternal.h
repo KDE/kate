@@ -36,6 +36,7 @@
 class KateView;
 class KateIconBorder;
 class KateDynWWBar;
+class KateRenderer;
 
   enum Bias {
     left  = -1,
@@ -90,10 +91,14 @@ class KateViewInternal : public QWidget
     KateTextCursor endPos () const;
     uint endLine () const;
 
-    LineRange yToLineRange ( uint y ) const { return lineRanges[y / m_doc->viewFont.fontHeight]; };
+    LineRange yToLineRange(uint y) const;
 
     void prepareForDynWrapChange();
     void dynWrapChanged();
+
+  public slots:
+    void slotIncFontSizes();
+    void slotDecFontSizes();
 
   private slots:
     void scrollLines(int line); // connected to the sliderMoved of the m_lineScroll
@@ -205,7 +210,7 @@ class KateViewInternal : public QWidget
 
     uint linesDisplayed() const;
 
-    inline int lineToY ( uint viewLine ) const { return (viewLine-startLine()) * m_doc->viewFont.fontHeight; }
+    int lineToY(uint viewLine) const;
 
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& newCursor );
@@ -235,7 +240,6 @@ class KateViewInternal : public QWidget
 
     KateTextCursor cursor;
     KateTextCursor displayCursor;
-    bool cursorOn;
     int cursorTimer;
     int cXPos;
 
@@ -251,7 +255,8 @@ class KateViewInternal : public QWidget
     KateTextCursor cursorCache;
     bool cursorCacheChanged;
 
-    BracketMark bm;
+    // Bracket mark
+    KateTextRange bm;
 
     enum DragState { diNone, diPending, diDragging };
 
@@ -353,6 +358,8 @@ class KateViewInternal : public QWidget
     bool m_updatingView;
     int m_wrapChangeViewLine;
     KateTextCursor m_cachedMaxStartPos;
+
+    KateRenderer* m_renderer;
 
   private slots:
     void doDragScroll();

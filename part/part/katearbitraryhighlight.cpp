@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -30,20 +30,26 @@ ArbitraryHighlightRange::ArbitraryHighlightRange(KateSuperCursor* start, KateSup
 {
 }
 
-ArbitraryHighlight::ArbitraryHighlight()
-  : m_weight(QFont::Normal)
-  , m_italic(false)
-  , m_underline(false)
-  , m_strikeout(false)
-  , m_itemsSet(0)
+ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
+  : KateSuperRange(doc, range, parent, name)
 {
 }
 
-ArbitraryHighlight ArbitraryHighlight::merge(QPtrList<KateSuperRange> ranges)
+ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
+  : KateSuperRange(doc, start, end, parent, name)
+{
+}
+
+KateArbitraryHighlight::KateArbitraryHighlight(KateDocument* parent, const char* name)
+  : QObject(parent, name)
+{
+}
+
+KateAttribute ArbitraryHighlightRange::merge(QPtrList<KateSuperRange> ranges)
 {
   ranges.sort();
 
-  ArbitraryHighlight ret;
+  KateAttribute ret;
 
   if (ranges.first() && ranges.current()->inherits("ArbitraryHighlightRange"))
     ret = *(static_cast<ArbitraryHighlightRange*>(ranges.current()));
@@ -52,199 +58,11 @@ ArbitraryHighlight ArbitraryHighlight::merge(QPtrList<KateSuperRange> ranges)
   while ((r = ranges.next())) {
     if (r->inherits("ArbitraryHighlightRange")) {
       ArbitraryHighlightRange* hl = static_cast<ArbitraryHighlightRange*>(r);
-      if (hl->itemSet(Weight))
-        ret.setWeight(hl->weight());
-
-      if (hl->itemSet(Italic))
-        ret.setItalic(hl->italic());
-
-      if (hl->itemSet(Underline))
-        ret.setUnderline(hl->underline());
-
-      if (hl->itemSet(StrikeOut))
-        ret.setStrikeOut(hl->strikeOut());
-
-      if (hl->itemSet(TextColor))
-        ret.setTextColor(hl->textColor());
-
-      if (hl->itemSet(BGColor))
-        ret.setBGColor(hl->bgColor());
+      ret += *hl;
     }
   }
 
   return ret;
-}
-
-QFont ArbitraryHighlight::font(QFont ref)
-{
-  if (itemSet(Weight))
-    ref.setWeight(weight());
-  if (itemSet(Italic))
-    ref.setItalic(italic());
-  if (itemSet(Underline))
-    ref.setUnderline(underline());
-  if (itemSet(StrikeOut))
-    ref.setStrikeOut(strikeOut());
-
-  return ref;
-}
-
-int ArbitraryHighlight::itemsSet() const
-{
-  return m_itemsSet;
-}
-
-int ArbitraryHighlight::weight() const
-{
-  return m_weight;
-}
-
-void ArbitraryHighlight::setWeight(int weight)
-{
-  bool isChanged = !(m_itemsSet & Weight) || m_weight != weight;
-
-  if (isChanged) {
-    m_itemsSet |= Weight;
-
-    m_weight = weight;
-
-    changed();
-  }
-}
-
-void ArbitraryHighlight::setBold(bool enable)
-{
-  setWeight(enable ? QFont::Bold : QFont::Normal);
-}
-
-bool ArbitraryHighlight::italic() const
-{
-  return m_italic;
-}
-
-void ArbitraryHighlight::setItalic(bool enable)
-{
-  bool isChanged = !(m_itemsSet & Italic) || m_italic != enable;
-
-  if (isChanged) {
-    m_itemsSet |= Italic;
-
-    m_italic = enable;
-
-    changed();
-  }
-}
-
-bool ArbitraryHighlight::underline() const
-{
-  return m_underline;
-}
-
-void ArbitraryHighlight::setUnderline(bool enable)
-{
-  bool isChanged = !(m_itemsSet & Underline) || m_underline != enable;
-
-  if (isChanged) {
-    m_itemsSet |= Underline;
-
-    m_underline = enable;
-
-    changed();
-  }
-}
-
-bool ArbitraryHighlight::strikeOut() const
-{
-  return m_strikeout;
-}
-
-void ArbitraryHighlight::setStrikeOut(bool enable)
-{
-  bool isChanged = !(m_itemsSet & StrikeOut) || m_strikeout != enable;
-
-  if (isChanged) {
-    m_itemsSet |= StrikeOut;
-
-    m_strikeout = enable;
-
-    changed();
-  }
-}
-
-const QColor& ArbitraryHighlight::textColor() const
-{
-  return m_textColor;
-}
-
-void ArbitraryHighlight::setTextColor(const QColor& color)
-{
-  bool isChanged = !(m_itemsSet & TextColor) || m_textColor != color;
-
-  if (isChanged) {
-    m_itemsSet |= TextColor;
-
-    m_textColor = color;
-  }
-}
-
-const QColor& ArbitraryHighlight::bgColor() const
-{
-  return m_bgColor;
-}
-
-void ArbitraryHighlight::setBGColor(const QColor& color)
-{
-  bool isChanged = !(m_itemsSet & BGColor) || m_bgColor != color;
-
-  if (isChanged) {
-    m_itemsSet |= BGColor;
-
-    m_bgColor = color;
-
-    changed();
-  }
-}
-
-bool operator ==(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2)
-{
-  if (h1.m_itemsSet != h2.m_itemsSet)
-    return false;
-
-  if (h1.itemSet(ArbitraryHighlight::Weight))
-    if (h1.m_weight != h2.m_weight)
-      return false;
-
-  if (h1.itemSet(ArbitraryHighlight::Italic))
-    if (h1.m_italic != h2.m_italic)
-      return false;
-
-  if (h1.itemSet(ArbitraryHighlight::Underline))
-    if (h1.m_underline != h2.m_underline)
-      return false;
-
-  if (h1.itemSet(ArbitraryHighlight::StrikeOut))
-    if (h1.m_strikeout != h2.m_strikeout)
-      return false;
-
-  if (h1.itemSet(ArbitraryHighlight::TextColor))
-    if (h1.m_textColor != h2.m_textColor)
-      return false;
-
-  if (h1.itemSet(ArbitraryHighlight::BGColor))
-    if (h1.m_bgColor != h2.m_bgColor)
-      return false;
-
-  return true;
-}
-
-bool operator !=(const ArbitraryHighlight& h1, const ArbitraryHighlight& h2)
-{
-  return !(h1 == h2);
-}
-
-KateArbitraryHighlight::KateArbitraryHighlight(KateDocument* parent, const char* name)
-  : QObject(parent, name)
-{
 }
 
 void KateArbitraryHighlight::addHighlightToDocument(KateSuperRangeList* list)

@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -63,12 +63,12 @@ public:
   /**
    * @returns true if the cursor is situated at the start of the line, false if it isn't.
    */
-  bool atStartOfLine();
+  bool atStartOfLine() const;
 
   /**
    * @returns true if the cursor is situated at the end of the line, false if it isn't.
    */
-  bool atEndOfLine();
+  bool atEndOfLine() const;
 
   /**
    * Returns how this cursor behaves when text is inserted at the cursor.
@@ -167,7 +167,7 @@ private:
  *
  * Also tracks its position and emits useful signals.
  */
-class KateSuperRange : public QObject
+class KateSuperRange : public QObject, public KateRange
 {
   Q_OBJECT
 
@@ -186,20 +186,30 @@ public:
    * Constructor.  Takes posession of @p start and @p end.
    */
   KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L, const char* name = 0L);
+  KateSuperRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
+  KateSuperRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
 
 #ifdef DEBUGTESTING
   virtual ~KateSuperRange();
 #endif
 
-  /**
-   * Returns the start cursor.
-   */
-  KateSuperCursor& start() const;
+  // fulfill KateRange requirements
+  virtual KateTextCursor& start();
+  virtual KateTextCursor& end();
+  virtual const KateTextCursor& start() const;
+  virtual const KateTextCursor& end() const;
 
   /**
-   * Returns the end cursor.
+   * Returns the super start cursor.
    */
-  KateSuperCursor& end() const;
+  KateSuperCursor& superStart();
+  const KateSuperCursor& superStart() const;
+
+  /**
+   * Returns the super end cursor.
+   */
+  KateSuperCursor& superEnd();
+  const KateSuperCursor& superEnd() const;
 
   /**
    * Returns how this range reacts to characters inserted immediately outside the range.
@@ -219,7 +229,7 @@ public:
   /**
    * Start and end must be valid and start <= end.
    */
-  bool isValid() const;
+  virtual bool isValid() const;
 
   /**
    * This is for use where the ranges are used in a heirachy,
@@ -316,6 +326,7 @@ private slots:
 */
 
 private:
+  void init();
   void evaluateEliminated();
   void evaluatePositionChanged();
 

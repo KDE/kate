@@ -1,0 +1,279 @@
+/* This file is part of the KDE libraries
+   Copyright (C) 2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+*/
+
+#include "kateattribute.h"
+
+KateAttribute::KateAttribute()
+  : m_weight(QFont::Normal)
+  , m_italic(false)
+  , m_underline(false)
+  , m_strikeout(false)
+  , m_itemsSet(0)
+{
+}
+
+KateAttribute::~KateAttribute()
+{
+}
+
+KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
+{
+  if (a.itemSet(Weight))
+    setWeight(a.weight());
+
+  if (a.itemSet(Italic))
+    setItalic(a.italic());
+
+  if (a.itemSet(Underline))
+    setUnderline(a.underline());
+
+  if (a.itemSet(StrikeOut))
+    setStrikeOut(a.strikeOut());
+
+  if (a.itemSet(TextColor))
+    setTextColor(a.textColor());
+
+  if (a.itemSet(SelectedTextColor))
+    setSelectedTextColor(a.selectedTextColor());
+
+  if (a.itemSet(BGColor))
+    setBGColor(a.bgColor());
+
+  if (a.itemSet(SelectedBGColor))
+    setSelectedBGColor(a.selectedBGColor());
+
+  return *this;
+}
+
+QFont KateAttribute::font(QFont ref)
+{
+  if (itemSet(Weight))
+    ref.setWeight(weight());
+  if (itemSet(Italic))
+    ref.setItalic(italic());
+  if (itemSet(Underline))
+    ref.setUnderline(underline());
+  if (itemSet(StrikeOut))
+    ref.setStrikeOut(strikeOut());
+
+  return ref;
+}
+
+int KateAttribute::itemsSet() const
+{
+  return m_itemsSet;
+}
+
+int KateAttribute::weight() const
+{
+  return m_weight;
+}
+
+void KateAttribute::setWeight(int weight)
+{
+  bool isChanged = !(m_itemsSet & Weight) || m_weight != weight;
+
+  if (isChanged) {
+    m_itemsSet |= Weight;
+
+    m_weight = weight;
+
+    changed();
+  }
+}
+
+bool KateAttribute::bold() const
+{
+  return weight() >= QFont::Bold;
+}
+
+void KateAttribute::setBold(bool enable)
+{
+  setWeight(enable ? QFont::Bold : QFont::Normal);
+}
+
+bool KateAttribute::italic() const
+{
+  return m_italic;
+}
+
+void KateAttribute::setItalic(bool enable)
+{
+  bool isChanged = !(m_itemsSet & Italic) || m_italic != enable;
+
+  if (isChanged) {
+    m_itemsSet |= Italic;
+
+    m_italic = enable;
+
+    changed();
+  }
+}
+
+bool KateAttribute::underline() const
+{
+  return m_underline;
+}
+
+void KateAttribute::setUnderline(bool enable)
+{
+  bool isChanged = !(m_itemsSet & Underline) || m_underline != enable;
+
+  if (isChanged) {
+    m_itemsSet |= Underline;
+
+    m_underline = enable;
+
+    changed();
+  }
+}
+
+bool KateAttribute::strikeOut() const
+{
+  return m_strikeout;
+}
+
+void KateAttribute::setStrikeOut(bool enable)
+{
+  bool isChanged = !(m_itemsSet & StrikeOut) || m_strikeout != enable;
+
+  if (isChanged) {
+    m_itemsSet |= StrikeOut;
+
+    m_strikeout = enable;
+
+    changed();
+  }
+}
+
+const QColor& KateAttribute::textColor() const
+{
+  return m_textColor;
+}
+
+void KateAttribute::setTextColor(const QColor& color)
+{
+  bool isChanged = !(m_itemsSet & TextColor) || m_textColor != color;
+
+  if (isChanged) {
+    m_itemsSet |= TextColor;
+
+    m_textColor = color;
+
+    changed();
+  }
+}
+
+const QColor& KateAttribute::selectedTextColor() const
+{
+  return m_selectedTextColor;
+}
+
+void KateAttribute::setSelectedTextColor(const QColor& color)
+{
+  bool isChanged = !(m_itemsSet & SelectedTextColor) || m_selectedTextColor != color;
+
+  if (isChanged) {
+    m_itemsSet |= SelectedTextColor;
+
+    m_selectedTextColor = color;
+
+    changed();
+  }
+}
+
+const QColor& KateAttribute::bgColor() const
+{
+  return m_bgColor;
+}
+
+void KateAttribute::setBGColor(const QColor& color)
+{
+  bool isChanged = !(m_itemsSet & BGColor) || m_bgColor != color;
+
+  if (isChanged) {
+    m_itemsSet |= BGColor;
+
+    m_bgColor = color;
+
+    changed();
+  }
+}
+
+const QColor& KateAttribute::selectedBGColor() const
+{
+  return m_bgColor;
+}
+
+void KateAttribute::setSelectedBGColor(const QColor& color)
+{
+  bool isChanged = !(m_itemsSet & SelectedBGColor) || m_selectedBGColor != color;
+
+  if (isChanged) {
+    m_itemsSet |= SelectedBGColor;
+
+    m_selectedBGColor = color;
+
+    changed();
+  }
+}
+
+bool operator ==(const KateAttribute& h1, const KateAttribute& h2)
+{
+  if (h1.m_itemsSet != h2.m_itemsSet)
+    return false;
+
+  if (h1.itemSet(KateAttribute::Weight))
+    if (h1.m_weight != h2.m_weight)
+      return false;
+
+  if (h1.itemSet(KateAttribute::Italic))
+    if (h1.m_italic != h2.m_italic)
+      return false;
+
+  if (h1.itemSet(KateAttribute::Underline))
+    if (h1.m_underline != h2.m_underline)
+      return false;
+
+  if (h1.itemSet(KateAttribute::StrikeOut))
+    if (h1.m_strikeout != h2.m_strikeout)
+      return false;
+
+  if (h1.itemSet(KateAttribute::TextColor))
+    if (h1.m_textColor != h2.m_textColor)
+      return false;
+
+  if (h1.itemSet(KateAttribute::SelectedTextColor))
+    if (h1.m_selectedTextColor != h2.m_selectedTextColor)
+      return false;
+
+  if (h1.itemSet(KateAttribute::BGColor))
+    if (h1.m_bgColor != h2.m_bgColor)
+      return false;
+
+  if (h1.itemSet(KateAttribute::SelectedBGColor))
+    if (h1.m_selectedBGColor != h2.m_selectedBGColor)
+      return false;
+
+  return true;
+}
+
+bool operator !=(const KateAttribute& h1, const KateAttribute& h2)
+{
+  return !(h1 == h2);
+}

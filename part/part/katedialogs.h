@@ -159,7 +159,7 @@ class PluginConfigPage : public Kate::ConfigPage
 class StyleListItem : public QListViewItem {
   public:
     StyleListItem( QListView *parent=0, const QString & stylename=0,
-                   class ItemStyle *defaultstyle=0, class ItemData *data=0 );
+                   class KateAttribute* defaultstyle=0, class ItemData *data=0 );
     ~StyleListItem() {};
 
     /* mainly for readability */
@@ -179,7 +179,7 @@ class StyleListItem : public QListViewItem {
     bool isDefault();
     /* whichever style is active (st for hl mode styles not using
        the default style, ds otherwise) */
-    class ItemStyle* style() { return is; };
+    class KateAttribute* style() { return is; };
   protected:
     /* reimp */
     void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
@@ -194,7 +194,7 @@ class StyleListItem : public QListViewItem {
        when a property is changed and we are using default style. */
     void setCustStyle();
 
-    class ItemStyle *is, // the style currently in use
+    class KateAttribute *is, // the style currently in use
               *ds; // default style for hl mode contexts and default styles
     class ItemData *st;  // itemdata for hl mode contexts
 };
@@ -276,6 +276,8 @@ class KMimeTypeChooserDlg : public KDialogBase {
     KMimeTypeChooser *chooser;
 };
 
+typedef QPtrList<KateAttribute> KateAttributeList;
+
 class HlConfigPage : public Kate::ConfigPage
 {
   Q_OBJECT
@@ -293,7 +295,7 @@ class HlConfigPage : public Kate::ConfigPage
     class HighlightDialogPage *page;
     class HlManager *hlManager;
     HlDataList hlDataList;
-    ItemStyleList defaultStyleList;
+    KateAttributeList defaultStyleList;
 
   public slots:
     void apply ();
@@ -306,7 +308,7 @@ class HighlightDialogPage : public QTabWidget
 {
     Q_OBJECT
   public:
-    HighlightDialogPage(HlManager *, ItemStyleList *, HlDataList *, int hlNumber,
+    HighlightDialogPage(HlManager *, KateAttributeList *, HlDataList *, int hlNumber,
                     QWidget *parent=0, const char *name=0);
     void saveData();
 
@@ -318,7 +320,7 @@ class HighlightDialogPage : public QTabWidget
     void hlDownload();
     void showMTDlg();
   protected:
-    ItemStyleList *defaultItemStyleList;
+    KateAttributeList *defaultItemStyleList;
 
     void writeback();
     QComboBox *itemCombo, *hlCombo;

@@ -22,6 +22,7 @@
 #define _KATE_HIGHLIGHT_H_
 
 #include "katetextline.h"
+#include "kateattribute.h"
 
 #include <qptrlist.h>
 #include <qvaluelist.h>
@@ -42,7 +43,6 @@ class QComboBox;
 class QLineEdit;
 
 class TextLine;
-class Attribute;
 
 class QStringList;
 
@@ -67,7 +67,7 @@ class HlItem {
 };
 
 //Item Style: color, selected color, bold, italic
-class ItemStyle {
+/*class ItemStyle {
   public:
     ItemStyle();
 //    ItemStyle(const ItemStyle &);
@@ -78,9 +78,9 @@ class ItemStyle {
     QColor selCol;
     int bold;   //boolean value
     int italic; //boolean value
-};
+};*/
 
-typedef QPtrList<ItemStyle> ItemStyleList;
+typedef QPtrList<KateAttribute> KateAttributeList;
 
 
 class IncludeRule {
@@ -96,12 +96,9 @@ class IncludeRule {
 typedef QValueList<IncludeRule*> IncludeRules;
 
 //Item Properties: name, Item Style, Item Font
-class ItemData : public ItemStyle {
+class ItemData : public KateAttribute {
   public:
     ItemData(const QString  name, int defStyleNum);
-    ItemData(const QString  name, int defStyleNum,
-      const QColor&, const QColor&, bool bold, bool italic);
-    ItemData(ItemData *itd):ItemStyle((ItemStyle*)itd),name(itd->name),defStyleNum(itd->defStyleNum),defStyle(itd->defStyle){;}
     const QString name;
     int defStyleNum;
     int defStyle; //boolean value
@@ -267,8 +264,8 @@ class HlManager : public QObject
 
     int defaultStyles();
     QString defaultStyleName(int n);
-    void getDefaults(ItemStyleList &);
-    void setDefaults(ItemStyleList &);
+    void getDefaults(KateAttributeList &);
+    void setDefaults(KateAttributeList &);
 
     int highlights();
     QString hlName(int n);

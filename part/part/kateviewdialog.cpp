@@ -27,6 +27,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katefactory.h"
+#include "katerenderer.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -598,14 +599,14 @@ void FontConfig::slotFontSelectedPrint( const QFont &font )
 
 void FontConfig::apply ()
 {
-  m_doc->setFont (KateDocument::ViewFont,getFont());
-  m_doc->setFont (KateDocument::PrintFont,getFontPrint());
+  KateRenderer::setFont(KateRenderer::ViewFont,getFont());
+  KateRenderer::setFont(KateRenderer::PrintFont,getFontPrint());
 }
 
 void FontConfig::reload ()
 {
-  setFont (m_doc->getFont(KateDocument::ViewFont));
-  setFontPrint (m_doc->getFont(KateDocument::PrintFont));
+  setFont (KateRenderer::getFont(KateRenderer::ViewFont));
+  setFontPrint (KateRenderer::getFont(KateRenderer::PrintFont));
 }
 //END FontConfig
 

@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2002,2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2002,2003 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2003      Anakim Border <aborder@sources.sourceforge.net>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -18,6 +19,8 @@
 
 #include "katelinerange.h"
 
+#include <kdebug.h>
+
 LineRange::LineRange()
   : line(-1)
   , virtualLine(-1)
@@ -25,6 +28,7 @@ LineRange::LineRange()
   , endCol(-1)
   , startX(-1)
   , endX(-1)
+  , shiftX(0)
   , dirty(false)
   , viewLine(-1)
   , wrap(false)
@@ -39,8 +43,19 @@ void LineRange::clear()
   startCol = -1;
   endCol = -1;
   startX = -1;
+  shiftX = 0;
   endX = -1;
   viewLine = -1;
   wrap = false;
   startsInvisibleBlock = false;
+}
+
+int LineRange::getXOffset() const
+{
+  return startX ? shiftX : 0;
+}
+
+void LineRange::debugOutput() const
+{
+  kdDebug() << "LineRange: line " << line << " cols [" << startCol << " -> " << endCol << "] x [" << startX << " -> " << endX << " off " << shiftX << "] wrap " << wrap << endl;
 }

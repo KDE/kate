@@ -18,7 +18,7 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-      
+
 #include "katefont.h"
 
 #include <kglobalsettings.h>
@@ -28,19 +28,19 @@
 //
 
 
-Attribute::Attribute ()
+/*Attribute::Attribute ()
 {
 }
 
 Attribute::~Attribute()
 {
-}
+}*/
 
 //
 // KateFontMetrics implementation
 //
 
-KateFontMetrics::KateFontMetrics(const QFont& f) : QFontMetrics(f)
+/*KateFontMetrics::KateFontMetrics(const QFont& f) : QFontMetrics(f)
 {
   for (int i=0; i<256; i++) warray[i]=0;
 }
@@ -50,31 +50,31 @@ KateFontMetrics::~KateFontMetrics()
   for (int i=0; i<256; i++)
     if (warray[i]) delete[] warray[i];
 }
-    
+
 short * KateFontMetrics::createRow (short *wa, uchar row)
 {
   wa=warray[row]=new short[256];
-      
+
   for (int i=0; i<256; i++) wa[i]=-1;
-  
+
   return wa;
 }
-                         
+
 int KateFontMetrics::width(QChar c) const
 {
   uchar cell=c.cell();
   uchar row=c.row();
   short *wa=warray[row];
-  
+
   if (!wa) {
     KateFontMetrics* that = const_cast<KateFontMetrics*>(this);
     wa = that->createRow (wa, row);
   }
-  
+
   if (wa[cell]<0) wa[cell]=(short) QFontMetrics::width(c);
-  
+
   return (int)wa[cell];
-}
+}*/
 
 //
 // FontStruct implementation
@@ -82,7 +82,7 @@ int KateFontMetrics::width(QChar c) const
 
 
 FontStruct::FontStruct()
-: myFont(KGlobalSettings::fixedFont()), 
+: myFont(KGlobalSettings::fixedFont()),
   myFontBold(KGlobalSettings::fixedFont()),
   myFontItalic(KGlobalSettings::fixedFont()),
   myFontBI(KGlobalSettings::fixedFont()),
@@ -108,18 +108,32 @@ void FontStruct::updateFontData(int tabChars)
   m_tabWidth = tabChars*tabWidth;
 }
 
-int FontStruct::width(QChar ch, bool bold, bool italic) const
+int FontStruct::width(const QString& text, int col, bool bold, bool italic) const
 {
-  if (ch == '\t')
+  if (text[col] == '\t')
     return m_tabWidth;
 
   return (bold) ?
     ( (italic) ?
-      myFontMetricsBI.width(ch) :
-      myFontMetricsBold.width(ch) ) :
+      myFontMetricsBI.charWidth(text, col) :
+      myFontMetricsBold.charWidth(text, col) ) :
     ( (italic) ?
-      myFontMetricsItalic.width(ch) :
-      myFontMetrics.width(ch) );
+      myFontMetricsItalic.charWidth(text, col) :
+      myFontMetrics.charWidth(text, col) );
+}
+
+int FontStruct::width(const QChar& c, bool bold, bool italic) const
+{
+  if (c == '\t')
+    return m_tabWidth;
+
+  return (bold) ?
+    ( (italic) ?
+      myFontMetricsBI.width(c) :
+      myFontMetricsBold.width(c) ) :
+    ( (italic) ?
+      myFontMetricsItalic.width(c) :
+      myFontMetrics.width(c) );
 }
 
 const QFont& FontStruct::font(bool bold, bool italic) const
@@ -143,8 +157,8 @@ void FontStruct::setFont (QFont & font)
   myFontBI.setBold (true);
   myFontBI.setItalic (true);
 
-  myFontMetrics = KateFontMetrics (myFont);
-  myFontMetricsBold = KateFontMetrics (myFontBold);
-  myFontMetricsItalic = KateFontMetrics (myFontItalic);
-  myFontMetricsBI = KateFontMetrics (myFontBI);
+  myFontMetrics = QFontMetrics (myFont);
+  myFontMetricsBold = QFontMetrics (myFontBold);
+  myFontMetricsItalic = QFontMetrics (myFontItalic);
+  myFontMetricsBI = QFontMetrics (myFontBI);
 }

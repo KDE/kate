@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2002,2003 Hamish Rodda <meddie@yoyo.its.monash.edu.au>
+   Copyright (C) 2002,2003 Hamish Rodda <rodda@kde.org>
+   Copyright (C) 2003      Anakim Border <aborder@sources.sourceforge.net>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -25,6 +26,7 @@ class LineRange
     LineRange();
 
     void clear();
+    void debugOutput() const;
 
     int line;
     int virtualLine;
@@ -32,6 +34,17 @@ class LineRange
     int endCol;
     int startX;
     int endX;
+
+    // This variable is used as follows:
+    // non-dynamic-wrapping mode: unused
+    // dynamic wrapping mode:
+    //   first viewLine of a line: the X position of the first non-whitespace char
+    //   subsequent viewLines: the X offset from the left of the display.
+    //
+    // this is used to provide a dynamic-wrapping-retains-indent feature.
+    int shiftX;
+    int getXOffset() const;
+
     bool dirty;
     int viewLine;
     bool wrap;

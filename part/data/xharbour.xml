@@ -442,7 +442,7 @@
                 insensitive="TRUE" beginRegion="ProcOrFunc" />
          <StringDetect String="function " attribute="Keyword" context="#stay"  
                 insensitive="TRUE" beginRegion="ProcOrFunc" />
-         <StringDetect String="method " attribute="Keyword" context="#stay"  
+         <RegExpr String="method[\t ]+.*class[\t ]+" attribute="Keyword" context="#stay"  
                 insensitive="TRUE" beginRegion="ProcOrFunc" />
          <RegExpr String="^return ?" attribute="Keyword" context="#stay"  
                 insensitive="TRUE" endRegion="ProcOrFunc" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.08" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="application/x-shellscript">
+<language name="Bash" version="1.09" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="application/x-shellscript">
         <highlighting>
                 <list name = "keywords">
                         <item> break </item>
@@ -36,15 +36,21 @@
                 </list>
                 <contexts>
                         <context name = "Base" attribute = "Normal Text" lineEndContext = "#stay">
+                                <DetectChar attribute="Comment" context="Commentar" char="#" />
+                                
                                 <RegExpr attribute="Keyword" context="#stay" String="\bdone\b" insensitive="TRUE" endRegion="dodone1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="\bdo\b" insensitive="TRUE" beginRegion="dodone1"/>
+                                
                                 <RegExpr attribute="Keyword" context="#stay" String="\belif\b" insensitive="TRUE" beginRegion="iffi1" endRegion="iffi1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="\bif\b" insensitive="TRUE" beginRegion="iffi1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="\bfi\b" insensitive="TRUE" endRegion="iffi1"/>
+                                
                                 <RegExpr attribute="Keyword" context="#stay" String="\bcase\b" insensitive="TRUE" beginRegion="case1"/>
                                 <RegExpr attribute="Keyword" context="#stay" String="\besac\b" insensitive="TRUE" endRegion="case1"/>
+                                
                                 <RegExpr attribute="Keyword" context="#stay" String="^[^()]+\)" insensitive="TRUE" beginRegion="subcase1"/>
                                 <StringDetect attribute="Keyword" context="#stay" String=";;" insensitive="TRUE" endRegion="subcase1"/>
+                                
                                 <DetectChar attribute="Keyword" context="#stay" char="{" beginRegion="func1"/>
                                 <DetectChar attribute="Keyword" context="#stay" char="}" endRegion="func1"/>
 
@@ -57,8 +63,6 @@
                                 <DetectChar char="'" attribute = "String" context = "Single Quote"/>
                                 <DetectChar char="`" attribute = "Substitution" context = "Substitution"/>
                                 <Detect2Chars attribute = "Normal Text" context = "#stay" char = "\" char1 = "#"/>
-                                <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
-
                         </context>
                         <context name = "String" attribute = "String" lineEndContext="#stay">
 				<StringDetect String = "\\" attribute = "String" context = "#stay"/>
@@ -77,6 +81,8 @@
                         </context>
                         <context name = "Parameter" attribute = "Parameter" lineEndContext="#stay">
                                 <RegExpr String = "\$[A-Za-z0-9_?]+" attribute = "Parameter" context="#pop"/>
+                        </context>
+                        <context attribute="Comment" lineEndContext="#pop" name="Commentar">
                         </context>
                 </contexts>
                 <itemDatas>

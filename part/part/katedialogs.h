@@ -184,12 +184,10 @@ class ViewDefaultsConfig : public Kate::ConfigPage
   Q_OBJECT
 
   public:
-    ViewDefaultsConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
+    ViewDefaultsConfig( QWidget *parent );
     ~ViewDefaultsConfig();
   
   private:
-    KateDocument *m_doc;
-  
     QCheckBox *m_line;
     QCheckBox *m_folding;
     QCheckBox *m_collapseTopLevel;

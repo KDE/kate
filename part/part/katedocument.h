@@ -726,9 +726,6 @@ class KateDocument : public Kate::Document,
     QString m_docName;
     int m_docNameNumber;
 
-    // defaults for all views !!!
-    static bool m_collapseTopLevelOnLoad;
-
     static bool s_configLoaded;
 
     // file type !!!

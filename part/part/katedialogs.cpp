@@ -491,13 +491,11 @@ void EditConfigTab::wordWrapToggled() {
 //END EditConfigTab
 
 //BEGIN ViewDefaultsConfig
-ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocument *doc)
+ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
   :Kate::ConfigPage(parent)
 {
   QRadioButton *rb1;
   QRadioButton *rb2;
-
-  m_doc = doc;
 
   QVBoxLayout *blay=new QVBoxLayout(this,0,KDialog::spacingHint());
 
@@ -527,7 +525,8 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 
   m_folding=new QCheckBox(i18n("Show &folding markers (if available)"), gbFold );
   m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), gbFold );
-
+  m_collapseTopLevel->hide ();
+  
   blay->addWidget(gbFold);
 
   QVGroupBox *gbBar = new QVGroupBox(i18n("Left Border"), this);
@@ -590,7 +589,6 @@ void ViewDefaultsConfig::apply ()
   KateViewConfig::global()->setLineNumbers (m_line->isChecked());
   KateViewConfig::global()->setIconBar (m_icons->isChecked());
   KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
-  m_doc->m_collapseTopLevelOnLoad = m_collapseTopLevel->isChecked();
   KateViewConfig::global()->setBookmarkSort (m_bmSort->id (m_bmSort->selected()));
 }
 
@@ -603,7 +601,6 @@ void ViewDefaultsConfig::reload ()
   m_line->setChecked(KateViewConfig::global()->lineNumbers());
   m_icons->setChecked(KateViewConfig::global()->iconBar());
   m_folding->setChecked(KateViewConfig::global()->foldingBar());
-  m_collapseTopLevel->setChecked( m_doc->m_collapseTopLevelOnLoad );
   m_bmSort->setButton( KateViewConfig::global()->bookmarkSort()  );
 }
 

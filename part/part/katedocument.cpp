@@ -85,8 +85,6 @@ using namespace Kate;
 
 bool KateDocument::s_configLoaded = false;
 
-bool KateDocument::m_collapseTopLevelOnLoad = false;
-
 Kate::PluginList KateDocument::s_plugins;
 //END variables
 
@@ -1941,9 +1939,6 @@ void KateDocument::readConfig(KConfig *config)
   for (uint i=0; i<s_plugins.count(); i++)
     s_plugins.at(i)->load = config->readBoolEntry(s_plugins.at(i)->service->library(), false);
 
-  config->setGroup("Kate View Defaults");
-  m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
-
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
     KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
 }
@@ -1962,9 +1957,6 @@ void KateDocument::writeConfig(KConfig *config)
   config->setGroup("Kate KTextEditor Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
     config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
-
-  config->setGroup("Kate View Defaults");
-  config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
 }
 
 void KateDocument::readConfig()
@@ -2453,13 +2445,6 @@ bool KateDocument::openFile(KIO::Job * job)
   // update views
   //
   updateViews();
-
-  // FIXME clean up this feature
-  if ( m_collapseTopLevelOnLoad )
-  {
-    buffer->line (numLines()-1);
-    foldingTree()->collapseToplevelNodes();
-  }
 
   //
   // emit the signal we need for example for kate app
@@ -4331,7 +4316,7 @@ Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new ViewDefaultsConfig(p, "", this);
+  return (Kate::ConfigPage*) new ViewDefaultsConfig(p);
 }
 
 Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)

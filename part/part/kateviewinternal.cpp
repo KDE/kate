@@ -484,7 +484,6 @@ void KateViewInternal::changeYPos(int p)
   dy = (startLine - newStartLine)  * myDoc->viewFont.fontHeight;
 
   updateLineRanges();
-  updateView();
 
   if (QABS(dy) < height())
   {
@@ -496,6 +495,8 @@ void KateViewInternal::changeYPos(int p)
     repaint();
     leftBorder->repaint();
   }
+  
+  updateView();
 }
 
 
@@ -757,7 +758,6 @@ void KateViewInternal::updateView(int flags)
 	unsigned int oldXPos=xPos;
 	unsigned int oldYPos=startLine * myDoc->viewFont.fontHeight;
 	bool yScrollVis=yScroll->isVisible();
-	bool xScrollVis=xScroll->isVisible();
 	int fontHeight = myDoc->viewFont.fontHeight;
 	bool needLineRangesUpdate=false;
 	bool reUpdate;
@@ -817,8 +817,6 @@ void KateViewInternal::updateView(int flags)
 				yScrollVis=false;
 			}
 
-
-			xScrollVis=true;
 		} while (reUpdate);
 	}
 
@@ -891,6 +889,8 @@ void KateViewInternal::updateView(int flags)
 
   maxLen = maxLen + 8;
 
+  bool xScrollVis=xScroll->isVisible();
+
   if (maxLen > w)
   {
     uint stmp = 0;
@@ -902,9 +902,21 @@ void KateViewInternal::updateView(int flags)
     xScroll->setRange(0,maxLen);
     xScroll->blockSignals(false);
     xScroll->show();
+
+    if (!xScrollVis)
+      h -= scrollbarWidth;
   }
   else
+  {
     xScroll->hide();
+
+    if (xScrollVis)
+      h += scrollbarWidth;
+  }
+
+  if (h != height())
+    resize(w,h);
+
 
   if (oldU > 0)
    {

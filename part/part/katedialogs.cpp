@@ -244,7 +244,8 @@ PluginConfigPage::~PluginConfigPage ()
 void PluginConfigPage::loadPlugin (PluginListItem *item)
 {
   item->info()->load = true;
-  m_doc->loadAllEnabledPlugins ();
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+    KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
 
   item->setOn(true);
 }
@@ -252,7 +253,8 @@ void PluginConfigPage::loadPlugin (PluginListItem *item)
 void PluginConfigPage::unloadPlugin (PluginListItem *item)
 {
   item->info()->load = false;
-  m_doc->loadAllEnabledPlugins ();
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+    KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
 
   item->setOn(false);
 }

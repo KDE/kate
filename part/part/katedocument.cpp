@@ -261,6 +261,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     s_configLoaded = true;
   }
 
+  // load all plugins
+  loadAllEnabledPlugins ();
+
   // uh my, we got modified ;)
   connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
 
@@ -309,15 +312,9 @@ void KateDocument::loadAllEnabledPlugins ()
   for (uint i=0; i<s_plugins.count(); i++)
   {
     if (s_plugins.at(i)->load)
-    {
-      for (uint z=0; z < KateFactory::documents()->count(); z++)
-        KateFactory::documents()->at(z)->loadPlugin (KateFactory::documents()->at(z)->m_plugins.at(i));
-    }
+      loadPlugin (m_plugins.at(i));
     else
-    {
-      for (uint z=0; z < KateFactory::documents()->count(); z++)
-        KateFactory::documents()->at(z)->unloadPlugin (KateFactory::documents()->at(z)->m_plugins.at(i));
-    }
+      unloadPlugin (m_plugins.at(i));
   }
 }
 
@@ -1790,7 +1787,8 @@ void KateDocument::readConfig(KConfig *config)
   m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
   m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
 
-  loadAllEnabledPlugins ();
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+    KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
 
   // update view defaults
   for (uint z=0; z < KateFactory::views()->count(); z++)

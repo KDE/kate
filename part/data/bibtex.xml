@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
-<language name="BibTeX-Kile" version="0.1" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1">
+<language name="BibTeX" version="0.1" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1">
 	<highlighting>
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">

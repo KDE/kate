@@ -178,7 +178,7 @@ void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
   emit positionUnChanged();
 }
 
-void KateSuperCursor::editLineWrapped(uint line, uint col, uint len)
+void KateSuperCursor::editLineWrapped(uint line, uint col)
 {
   if (m_line > int(line))
   {
@@ -190,7 +190,7 @@ void KateSuperCursor::editLineWrapped(uint line, uint col, uint len)
   else if ( m_line == int(line) && m_col >= int(col) )
   {
     m_line++;
-    m_col = len - col;
+    m_col -= col;
 
     emit positionChanged();
     return;
@@ -211,7 +211,7 @@ void KateSuperCursor::editLineUnWrapped(uint line, uint col)
   else if ( m_line== int(line+1) )
   {
     m_line = line;
-    m_col = col + m_col;
+    m_col += col;
 
     emit positionChanged();
     return;

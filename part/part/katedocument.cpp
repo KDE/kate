@@ -1147,7 +1147,6 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
   TextLine::Ptr nl = buffer->line(line+1);
   TextLine::Ptr tl = new TextLine();
-  int llen = l->length(), nllen = 0;
 
   if (!nl || !autowrap)
   {
@@ -1183,7 +1182,6 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   }
   else
   {
-    int nlsave = nl->length();
     int pos = l->length() - col;
 
     if (pos > 0)
@@ -1191,8 +1189,6 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
       nl->insertText (0, pos, l->text()+col, l->attributes()+col);
       l->truncate(col);
     }
-
-    nllen = nl->length() - nlsave;
 
     buffer->changeLine(line);
     buffer->changeLine(line+1);
@@ -1202,7 +1198,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
-    it.current()->editLineWrapped (line, col, llen);
+    it.current()->editLineWrapped (line, col);
 
   editEnd ();
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.05" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="application/x-shellscript">
+<language name="Bash" version="1.06" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="application/x-shellscript">
         <highlighting>
                 <list name = "keywords">
                         <item> break </item>
@@ -54,6 +54,7 @@
                                 <RegExpr String = "\$[A-Za-z0-9_?{}!]+" attribute = "Parameter" context = "#stay"/>
                                 <RangeDetect char = "&quot;" char1 = "&quot;" attribute = "String" context = "#stay"/>
                                 <AnyChar String = "|&lt;&gt;=;" attribute = "Operator" context = "#stay"/>
+                                <DetectChar char="'" attribute = "String" context = "Single Quote"/>
                                 <DetectChar char="`" attribute = "Substitution" context = "Substitution"/>
                                 <Detect2Chars attribute = "Normal Text" context = "#stay" char = "\" char1 = "#"/>
                                 <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
@@ -61,6 +62,10 @@
                         </context>
                         <context name = "String" attribute = "String" lineEndContext="#stay">
                                 <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
+                        </context>
+			<context name = "Single Quote" attribute = "String" lineEndContext="#stay">
+				<StringDetect String = "\\'" attribute = "String" context = "#stay"/>
+				<DetectChar char = "'" attribute = "String" context = "#pop"/>
                         </context>
                         <context name = "Substitution" attribute = "Substitution" lineEndContext="#stay">
                                 <DetectChar char = "`" attribute = "Substitution" context = "#pop"/>

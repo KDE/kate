@@ -403,6 +403,7 @@ void KateView::keyPressEvent( QKeyEvent *ev )
             myViewInternal->update();
             break;
         case Key_Backspace:
+        case SHIFT+Key_Backspace:
             backspace();
             break;
         case CTRL+Key_Backspace:

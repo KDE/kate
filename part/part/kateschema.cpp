@@ -83,6 +83,8 @@
 class KateStyleListItem : public QListViewItem
 {
   public:
+    KateStyleListItem( QListViewItem *parent=0, const QString & stylename=0,
+                   class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
     KateStyleListItem( QListView *parent=0, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
     ~KateStyleListItem() { if (st) delete is; };
@@ -126,6 +128,25 @@ class KateStyleListItem : public QListViewItem
     class KateAttribute *is, // the style currently in use
               *ds;           // default style for hl mode contexts and default styles
     class KateHlItemData *st;      // itemdata for hl mode contexts
+};
+//END
+
+//BEGIN KateStyleListCaption decl
+/*
+    This is a simple subclass for drawing the language names in a nice treeview
+    with the styles.  It is needed because we do not like to mess with the default
+    palette of the containing ListView.  Only the paintCell method is overwritten
+    to use our own palette (that is set on the viewport rather than on the listview
+    itself).
+*/
+class KateStyleListCaption : public QListViewItem
+{
+  public:
+    KateStyleListCaption( QListView *parent, const QString & name );
+    ~KateStyleListCaption() {};
+  
+  protected:
+    void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
 };
 //END
 
@@ -546,8 +567,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 
   for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
   {
-    m_defaultStyles->insertItem( new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i),
-                              l->at( i ) ) );
+    new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i), l->at( i ) );
   }
 
   QWhatsThis::add( m_defaultStyles,  i18n(
@@ -684,15 +704,32 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   p.setColor( QPalette::Normal, QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
+  // wilbert: make captions from the buildprefixes
+  QDict<KateStyleListCaption> prefixes;
+  
   for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
   {
     kdDebug () << "insert items " << itemData->name << endl;
-
-    m_styles->insertItem( new KateStyleListItem( m_styles, itemData->name,
-                          l->at(itemData->defStyleNum), itemData ) );
-
+    int c = itemData->name.find(':');
+    if ( c > 0 )
+    {
+      QString prefix = itemData->name.left(c);
+      QString name   = itemData->name.mid(c+1);
+      
+      KateStyleListCaption *parent = prefixes.find( prefix );
+      if ( ! parent )
+      {
+        parent = new KateStyleListCaption( m_styles, prefix );
+        parent->setOpen(true);
+        prefixes.insert( prefix, parent );
+      }
+      new KateStyleListItem( parent, name, l->at(itemData->defStyleNum), itemData );
+    } else {
+      // will sometimes reach this (if there is no style but "Normal Text")
+      new KateStyleListItem( m_styles, itemData->name, l->at(itemData->defStyleNum), itemData );
+    }
   }
 }
 
@@ -978,6 +1015,8 @@ KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
 
 void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle )
 {
+  if ( !dynamic_cast<KateStyleListItem*>(i) ) return;
+
   KPopupMenu m( this );
   KateAttribute *is = i->style();
   int id;
@@ -1034,7 +1073,8 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
 
 void KateStyleListView::showPopupMenu( QListViewItem *i )
 {
-  showPopupMenu( (KateStyleListItem*)i, viewport()->mapToGlobal(itemRect(i).topLeft()), true );
+  if ( dynamic_cast<KateStyleListItem*>(i) )
+    showPopupMenu( (KateStyleListItem*)i, viewport()->mapToGlobal(itemRect(i).topLeft()), true );
 }
 
 void KateStyleListView::mSlotPopupHandler( int z )
@@ -1051,7 +1091,7 @@ void KateStyleListView::unsetColor( int c )
 // and also because this attempt offers more control, I connect mousePressed to this.
 void KateStyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& pos, int c)
 {
-  if ( i ) {
+  if ( dynamic_cast<KateStyleListItem*>(i) ) {
     if ( btn == Qt::RightButton ) {
       showPopupMenu( (KateStyleListItem*)i, /*mapToGlobal(*/pos/*)*/ );
     }
@@ -1067,6 +1107,23 @@ void KateStyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint
 //BEGIN KateStyleListItem
 static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
+
+KateStyleListItem::KateStyleListItem( QListViewItem *parent, const QString & stylename,
+                              KateAttribute *style, KateHlItemData *data )
+        : QListViewItem( parent, stylename ),
+          ds( style ),
+          st( data )
+{
+  if (!st)
+    is = ds;
+  else
+  {
+    is = new KateAttribute (*style);
+
+    if (data->isSomethingSet())
+      *is += *data;
+  }
+}
 
 KateStyleListItem::KateStyleListItem( QListView *parent, const QString & stylename,
                               KateAttribute *style, KateHlItemData *data )
@@ -1460,10 +1517,30 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush( c ) );
       // if this item is unset, draw a diagonal line over the button
       if ( ! set )
-        p->drawLine( x+marg, BoxSize-2, ColorBtnWidth-4, y+2 );
+        p->drawLine( x+marg-1, BoxSize-3, ColorBtnWidth-4, y+1 );
     }
     //case default: // no warning...
   }
+}
+//END
+
+//BEGIN KateStyleListCaption
+KateStyleListCaption::KateStyleListCaption( QListView *parent, const QString & name )
+      :  QListViewItem( parent, name )
+{
+}
+
+void KateStyleListCaption::paintCell( QPainter *p, const QColorGroup& /*cg*/, int col, int width, int align )
+{
+  QListView *lv = listView();
+  if ( !lv )
+    return;
+  Q_ASSERT( lv ); //###
+
+  // use the same colorgroup as the other items in the viewport
+  QColorGroup mcg = lv->viewport()->colorGroup();
+
+  QListViewItem::paintCell( p, mcg, col, width, align );
 }
 //END
 

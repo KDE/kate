@@ -32,6 +32,7 @@
 
 class KateView;
 class KateStyleListItem;
+class KateStyleListCaption;
 
 class KColorButton;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CGiS" version="1.01" kateversion="2.4" section="Sources" extensions="*.cgis" mimetype="">
+<language name="CGiS" version="1.02" kateversion="2.4" section="Sources" extensions="*.cgis" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> 1D </item>
@@ -79,7 +79,7 @@
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region1" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
-        < />
+        <DetectIdentifier />
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
         <Float attribute="Float" context="#stay">
@@ -96,7 +96,7 @@
       <context attribute="Hint" lineEndContext="#stay" name="Hint">
         <DetectSpaces />
         <DetectChar attribute="Hint" context="#pop" char=")" />
-        < />
+        <DetectIdentifier />
       </context>
 
       <context attribute="Region Marker" lineEndContext="#pop" name="Region Marker">

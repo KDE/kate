@@ -44,7 +44,7 @@
 #include <qclipboard.h>
 #include <qscrollbar.h>
 
-static bool paintDebug = true;
+static bool paintDebug = false;
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )    
@@ -52,11 +52,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_doc (doc)
   , m_startPos(0,0)
   , m_oldStartPos(0,0)
+  , m_madeVisible(false)
   , m_columnScrollDisplayed(false)
   , m_preserveMaxX(false)
   , m_currentMaxX(0)
   , m_updatingView(true)
-  , m_cachedEndVirtualLineScrollOffset(-1)
+  , m_cachedMaxStartPos(-1, -1)
   , m_dragScrollTimer(this)
   , m_suppressColumnScrollBar(false)
 {
@@ -68,14 +69,22 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_lineScroll = new QScrollBar(QScrollBar::Vertical, m_view);
   m_lineScroll->show();
   m_lineScroll->setTracking (true);
-  m_view->m_grid->addMultiCellWidget(m_lineScroll, 0, 1, 2, 2);
+  
+  m_lineLayout = new QVBoxLayout(m_view);
+  m_lineLayout->addWidget(m_lineScroll);
     
-  // bottom corner box
-//   QWidget* dummy = new QWidget(m_view);
-//   dummy->setFixedSize( style().scrollBarExtent().width(),
-//                                 style().scrollBarExtent().width() );
-//   m_view->m_grid->addWidget(dummy, 1, 2);
-//   dummy->show();
+  if (m_view->dynWordWrap()) {
+    m_dummy = 0L;
+  } else {
+    // bottom corner box
+    m_dummy = new QWidget(m_view);
+    m_dummy->setFixedSize( style().scrollBarExtent().width(),
+                                  style().scrollBarExtent().width() );
+    m_dummy->show();
+    m_lineLayout->addWidget(m_dummy);
+  }
+  
+  m_view->m_grid->addMultiCellLayout(m_lineLayout, 0, 1, 2, 2);
   
   // Hijack the line scroller's controls, so we can scroll nicely for word-wrap
   connect(m_lineScroll, SIGNAL(prevPage()), SLOT(scrollPrevPage()));
@@ -159,12 +168,37 @@ void KateViewInternal::prepareForDynWrapChange()
 {
   // Which is the current view line?
   m_wrapChangeViewLine = displayViewLine(displayCursor, true);
+
+  // Hijacking variable
+  m_madeVisible = m_view->dynWordWrap();
 }
 
 void KateViewInternal::dynWrapChanged()
 {
+  // Hijacked varible
+  if (m_madeVisible == m_view->dynWordWrap()) {
+    // !! The dynamic wrapping status did not change... !!
+    m_madeVisible = false;
+    return;
+  }
+
+  if (m_view->dynWordWrap()) {
+    delete m_dummy;
+    
+    m_columnScroll->hide();
+    m_columnScrollDisplayed = false;
+
+  } else {    
+    // bottom corner box
+    m_dummy = new QWidget(m_view);
+    m_dummy->setFixedSize( style().scrollBarExtent().width(),
+                                  style().scrollBarExtent().width() );
+    m_dummy->show();
+    m_lineLayout->addWidget(m_dummy);
+  }
+
   tagAll();
-  updateView(true);
+  updateView();
   
   if (m_view->dynWordWrap())
     scrollColumns(0);
@@ -172,7 +206,22 @@ void KateViewInternal::dynWrapChanged()
   // Determine where the cursor should be to get the cursor on the same view line
   if (m_wrapChangeViewLine != -1) {
     KateTextCursor newStart = viewLineOffset(displayCursor, -m_wrapChangeViewLine);
+    
+    // Account for the scrollbar in non-dyn-word-wrap mode
+    if (!m_view->dynWordWrap() && scrollbarVisible(newStart.line)) {
+      int lines = linesDisplayed() - 1;
+      
+      if (m_view->height() != height())
+        lines++;
+      
+      if (newStart.line + lines == displayCursor.line)
+        newStart = viewLineOffset(displayCursor, 1 - m_wrapChangeViewLine);
+    }
+    
     makeVisible(newStart, newStart.col, true);
+    
+  } else {
+    update();
   }
 }
 
@@ -261,28 +310,20 @@ void KateViewInternal::scrollNextLine()
   scrollViewLines(1);
 }
 
-KateTextCursor KateViewInternal::maxStartPos()
+KateTextCursor KateViewInternal::maxStartPos(bool changed)
 {
-  KateTextCursor limit;
-  
-  if (m_view->dynWordWrap()) {
-    // Word-wrap can cause some lines to be below this limit.  Calculate the new limit...
+  if (m_cachedMaxStartPos.line == -1 || changed) {
     KateTextCursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
-    limit = viewLineOffset(end, -(linesDisplayed() - 1));
-  
-  } else {
-    limit.setPos(m_doc->visibleLines() - linesDisplayed(), 0);
-
-    if (m_columnScroll->isHidden()) {
-      if (scrollbarVisible(limit.line)) {
-        limit.line++;
-      }
-    }
-    
-    if (limit.line < 0) limit.line = m_doc->visibleLines() - 1;
+    m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
   }
   
-  return limit;
+  // If we're not dynamic word-wrapping, the horizontal scrollbar is hidden and will appear, increment the maxStart by 1
+  if (!m_view->dynWordWrap() && m_columnScroll->isHidden() && scrollbarVisible(m_cachedMaxStartPos.line)) {
+    KateTextCursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
+    return viewLineOffset(end, -linesDisplayed());
+  }
+      
+  return m_cachedMaxStartPos;
 }
 
 // c is a virtual cursor
@@ -294,19 +335,16 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
   if (c.line < 0)
     c.line = 0;
   
-  if (c.line >= (int)m_doc->visibleLines() - (height() / m_doc->viewFont.fontHeight) || lineRanges[height() / m_doc->viewFont.fontHeight].line == -1) {
-    KateTextCursor limit = maxStartPos();
-    if (m_view->dynWordWrap()) {
-      if (limit < c) {
-        c = limit;
-        // overloading this variable, it's not used in word wrap
-        // used to set the lineScroll to the max value
-        m_suppressColumnScrollBar = true;
-      }
-    } else {
-      c.line = limit.line;
-    }
-    
+  KateTextCursor limit = maxStartPos();
+  if (c > limit) {
+    c = limit;
+
+    // overloading this variable, it's not used in non-word wrap
+    // used to set the lineScroll to the max value
+    if (m_view->dynWordWrap())
+      m_suppressColumnScrollBar = true;
+
+    // Re-check we're not just scrolling to the same place
     if (!force && ((!m_view->dynWordWrap() && c.line == (int)startLine()) || c == startPos()))
       return;
   }
@@ -315,6 +353,9 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
   
   m_oldStartPos = m_startPos;
   m_startPos = c;
+  
+  // set false here but reversed if we return to makeVisible
+  m_madeVisible = false;
   
   if (!force) {
     int lines = linesDisplayed();
@@ -369,36 +410,16 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
   uint contentLines = m_doc->visibleLines();
   
   m_lineScroll->blockSignals(true);
+    
+  KateTextCursor maxStart = maxStartPos(changed);
+  int maxLineScrollRange = maxStart.line;
+  if (m_view->dynWordWrap() && maxStart.col != 0)
+    maxLineScrollRange++;
+  m_lineScroll->setRange(0, maxLineScrollRange);
   
-  int maxLineScrollNumber = contentLines - (height() / m_doc->viewFont.fontHeight);
-  
-  if (m_view->dynWordWrap()) {
-    if (m_cachedEndVirtualLineScrollOffset == -1 || changed) {
-      // Word-wrap can cause some lines to be below the expected limit.  Calculate the new limit...
-      uint cacheTemp = maxLineScrollNumber;
-      
-      KateTextCursor end(contentLines - 1, m_doc->lineLength(m_doc->getRealLine(contentLines - 1)));
-      KateTextCursor limit = viewLineOffset(end, -(linesDisplayed() - 1));
-
-      maxLineScrollNumber = limit.line;
-
-      if (limit.col != 0)
-        maxLineScrollNumber++;
-        
-      m_cachedEndVirtualLineScrollOffset = maxLineScrollNumber - cacheTemp;
-      
-    } else {
-      // :) cached
-      maxLineScrollNumber += m_cachedEndVirtualLineScrollOffset;
-    }
-  }
-  
-  if (maxLineScrollNumber < 0) maxLineScrollNumber = 0;
-  
-  m_lineScroll->setRange(0, maxLineScrollNumber);
   if (m_view->dynWordWrap() && m_suppressColumnScrollBar) {
     m_suppressColumnScrollBar = false;
-    m_lineScroll->setValue(maxLineScrollNumber);
+    m_lineScroll->setValue(maxStart.line);
   } else {
     m_lineScroll->setValue(startPos().line);
   }
@@ -469,13 +490,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
       }
       else
       {
-        if (lineRanges[z].line != realLine) {
-//           kdDebug() << "line " << z << " set dirty." << endl;
+        if (lineRanges[z].line != realLine)
           alreadyDirty = lineRanges[z].dirty = true;
-        }
         
         if (lineRanges[z].dirty || (changed && alreadyDirty)) {
-//           kdDebug() << "populating line " << z << endl;
           alreadyDirty = true;
           
           lineRanges[z].visibleLine = line;
@@ -490,10 +508,8 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
           if (wrap)
           {
             if ((lineRanges[z].startX != startX) || (lineRanges[z].endX != endX) ||
-                (lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol)) {
+                (lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol))
               lineRanges[z].dirty = true;
-//               kdDebug() << "line " << z << " start/end set dirty." << endl;
-            }
 
             lineRanges[z].startCol = startCol;
             lineRanges[z].endCol = endCol;
@@ -508,10 +524,8 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
           else
           {
             if ((lineRanges[z].startX != startX) || (lineRanges[z].endX != endX) ||
-                (lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol)) {
+                (lineRanges[z].startCol != startCol) || (lineRanges[z].endCol != endCol))
               lineRanges[z].dirty = true;
-//               kdDebug() << "line " << z << " start/end set dirty." << endl;
-            }
 
             lineRanges[z].startCol = startCol;
             lineRanges[z].endCol = endCol;
@@ -534,12 +548,6 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         }
       }
       newViewLine++;
-    }
-    
-    if (m_columnScroll->isVisible ())
-    {
-      m_columnScroll->hide();
-      m_columnScrollDisplayed = false;
     }
   }
   else
@@ -668,9 +676,14 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
  */
 void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool force)
 {
-  kdDebug() << "MakeVisible start [" << startPos().line << "," << startPos().col << "] end [" << endPos().line << "," << endPos().col << "] -> request: [" << c.line << "," << c.col << "]" <<endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
+  //kdDebug() << "MakeVisible start [" << startPos().line << "," << startPos().col << "] end [" << endPos().line << "," << endPos().col << "] -> request: [" << c.line << "," << c.col << "]" <<endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
   
-  if ( c > endPos() )
+  if ( force )
+  {
+    KateTextCursor scroll = c;
+    scrollPos(scroll, force);
+  }
+  else if ( c > endPos() )
   {
     KateTextCursor scroll = viewLineOffset(c, -(linesDisplayed() - 1));
     
@@ -678,12 +691,12 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
       if (scrollbarVisible(scroll.line))
         scroll.line++;
     
-    scrollPos(scroll, force);
+    scrollPos(scroll);
   }
   else if ( c < startPos() )
   {
     KateTextCursor scroll = c;
-    scrollPos(scroll, force);
+    scrollPos(scroll);
   }
   else
   {
@@ -697,7 +710,7 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
   if (!m_view->dynWordWrap() && endCol != (uint)-1)
   {
     int sX = (int)m_doc->textWidth (m_doc->kateTextLine( m_doc->getRealLine( c.line ) ), c.col );
-    int eX = (int)m_doc->textWidth (m_doc->kateTextLine( m_doc->getRealLine( c.line ) ), endCol );
+    //int eX = (int)m_doc->textWidth (m_doc->kateTextLine( m_doc->getRealLine( c.line ) ), endCol );
   
     int sXborder = sX-8;
     if (sXborder < 0)
@@ -712,6 +725,8 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
     if (eX > m_startX + width())
       m_columnScroll->setValue (eX + 8);*/
   }
+  
+  m_madeVisible = !force;
 }
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
@@ -1292,7 +1307,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
   }
   
   // Looks like we were asked for something a bit exotic.
-  // Return the max/min valid line.
+  // Return the max/min valid position.
   if (forwards)
     return KateTextCursor(m_doc->visibleLines() - 1, m_doc->lineLength(m_doc->visibleLines() - 1));
   else
@@ -1479,12 +1494,10 @@ void KateViewInternal::pageUp( bool sel )
     if (scrollbarVisible(startLine() + linesToScroll + displayViewLine(displayCursor))) {
       if (!m_columnScrollDisplayed) {
         linesToScroll++;
-        //kdDebug() << "Case 1" << endl;
       }
     } else {
       if (m_columnScrollDisplayed) {
         linesToScroll--;
-        //kdDebug() << "Case 2" << endl;
       }
     }
   }
@@ -1499,16 +1512,13 @@ void KateViewInternal::pageDown( bool sel )
   
   // don't scroll the full view in case the scrollbar appears
   if (!m_view->dynWordWrap()) {
-    // FIXME SUSPICIOUS
     if (scrollbarVisible(startLine() + linesToScroll + displayViewLine(displayCursor) - (linesDisplayed() - 1))) {
       if (!m_columnScrollDisplayed) {
         linesToScroll--;
-        //kdDebug() << "Case 3" << endl;
       }
     } else {
       if (m_columnScrollDisplayed) {
         linesToScroll--;
-        //kdDebug() << "Case 4" << endl;
       }
     }
   }
@@ -1527,8 +1537,6 @@ int KateViewInternal::maxLen(uint startLine)
   
   int displayLines = (m_view->height() / m_doc->viewFont.fontHeight) + 1;
      
-  //kdDebug() << "Starting at line " << startLine << " going to line " << (startLine + displayLines - 1) << endl;
-  
   int maxLen = 0;
     
   for (int z = 0; z < displayLines; z++) {
@@ -1538,12 +1546,10 @@ int KateViewInternal::maxLen(uint startLine)
       break;  
   
     LineRange thisRange = range((int)m_doc->getRealLine(virtualLine));
-    //kdDebug() << "Checking line " << virtualLine << ": " << thisRange.endX << endl;
     
     maxLen = QMAX(maxLen, thisRange.endX);
   }
   
-  //kdDebug() << k_funcinfo << startLine << " -> " << maxLen << endl;
   return maxLen;
 }
 
@@ -1594,11 +1600,14 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
   }
 }
 
-void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force )
+void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 {
-  kdDebug() << k_funcinfo << newCursor.line << " " << m_doc->numVisLines() << m_doc->getVirtualLine(newCursor.line) << endl;
-  if( !force && cursor == newCursor )
+  if ( cursor == newCursor ) {
+    if ( !m_madeVisible ) {
+      makeVisible ( displayCursor, displayCursor.col );
+    }
     return;
+  }
 
   KateTextCursor oldDisplayCursor = displayCursor;
   
@@ -1606,10 +1615,12 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
   displayCursor.line = m_doc->getVirtualLine(cursor.line);
   displayCursor.col = cursor.col;
   
+  //kdDebug(13030) << "updateCursor():" << endl;
+  //kdDebug(13030) << "Virtual: " << displayCursor.line << endl;
+  //kdDebug(13030) << "Real: " << cursor.line << endl;
+  
   cXPos = m_doc->textWidth( cursor );
   makeVisible ( displayCursor, displayCursor.col );
-  
-//  ensureVisible( cXPos, lineToContentsY( displayCursor.line+1 ), 0, 0 );
 
   if( bm.valid ) {
     KateTextCursor bmStart(bm.startLine, bm.startCol);
@@ -1626,10 +1637,6 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
     tagLine(bmStart);
     tagLine(bmEnd);
   }
-  
-  kdDebug(13030) << "updateCursor():" << endl;
-  kdDebug(13030) << "Virtual: " << displayCursor.line << endl;
-  kdDebug(13030) << "Real: " << cursor.line << endl;
   
   // It's efficient enough to just tag them both without checking to see if they're on the same view line
   tagLine(oldDisplayCursor);
@@ -1654,7 +1661,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
       m_currentMaxX = cXPos;
   
   //kdDebug() << "m_currentMaxX: " << m_currentMaxX << ", cXPos: " << cXPos << endl;
-  kdDebug() << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << displayCursor.line << ", " << displayCursor.col << "; Top is " << startLine() << ", " << startPos().col << "; Old top is " << m_oldStartPos.line << ", " << m_oldStartPos.col << endl;
+  //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << displayCursor.line << ", " << displayCursor.col << "; Top is " << startLine() << ", " << startPos().col << "; Old top is " << m_oldStartPos.line << ", " << m_oldStartPos.col << endl;
   
   paintText (0,0,width(), height(), true);
   
@@ -1832,7 +1839,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
   
   if (obj == m_lineScroll) {
     // the second condition is to make sure a scroll on the vertical bar doesn't cause a horizontal scroll ;)
-    if (e->type() == QEvent::Wheel && m_lineScroll->isEnabled()) {
+    if (e->type() == QEvent::Wheel && m_lineScroll->minValue() != m_lineScroll->maxValue()) {
       wheelEvent((QWheelEvent*)e);
       return true;
     } else {
@@ -2038,6 +2045,12 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
 { 
   bool expandedHorizontally = width() > e->oldSize().width();
   bool expandedVertically = height() > e->oldSize().height();
+  
+  m_madeVisible = false;
+  
+  if (height() != e->oldSize().height())
+    m_cachedMaxStartPos.setPos(-1, -1);
+  
   if (m_view->dynWordWrap()) {
     bool dirtied = false;
     
@@ -2067,7 +2080,9 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     
     if (expandedHorizontally && startX() > 0)
       scrollColumns(startX() - (width() - e->oldSize().width()));
-    
+  }
+  
+  if (expandedVertically) {
     KateTextCursor max = maxStartPos();
     if (startPos() > max)
       scrollPos(max);
@@ -2211,7 +2226,8 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   if (cursorCacheChanged)
   {
     cursorCacheChanged = false;
-    updateCursor( cursorCache, true );
+    m_madeVisible = false;
+    updateCursor( cursorCache );
   }
   else
   {
@@ -2303,7 +2319,7 @@ void KateViewInternal::editRemoveLine(int line)
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
-  if (m_lineScroll->isEnabled()) {//m_lineScroll->minValue() != m_lineScroll->maxValue()) {
+  if (m_lineScroll->minValue() != m_lineScroll->maxValue()) {
     // React to this as a vertical event
     if ( ( e->state() & ControlButton ) || ( e->state() & ShiftButton ) ) {
       if (e->delta() > 0)

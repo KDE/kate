@@ -28,6 +28,7 @@
 #include "katedocument.h"
 
 #include <qpoint.h>
+#include <qlayout.h>
 
 class QScrollBar;
 
@@ -169,7 +170,7 @@ class KateViewInternal : public QWidget
     void moveChar( Bias bias, bool sel );
     void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
-    KateTextCursor maxStartPos();
+    KateTextCursor maxStartPos(bool changed = false);
     void scrollPos(KateTextCursor& c, bool force = false);
     void scrollLines( int lines, bool sel );
     
@@ -180,7 +181,7 @@ class KateViewInternal : public QWidget
     void centerCursor();
 
     void updateSelection( const KateTextCursor&, bool keepSel );
-    void updateCursor( const KateTextCursor& newCursor, bool force = false );
+    void updateCursor( const KateTextCursor& newCursor );
     
     bool tagLine(const KateTextCursor& virtualCursor);
     bool tagLines(int start, int end, bool realLines = false );
@@ -238,10 +239,16 @@ class KateViewInternal : public QWidget
     // line scrollbar + first visible (virtual) line in the current view
     //
     QScrollBar *m_lineScroll;
+    QWidget* m_dummy;
+    QVBoxLayout* m_lineLayout;
     
     // These are now cursors to account for word-wrap.
     KateTextCursor m_startPos;
     KateTextCursor m_oldStartPos;
+    
+    // This is set to false on resize or scroll (other than that called by makeVisible),
+    // so that makeVisible is again called when a key is pressed and the cursor is in the same spot
+    bool m_madeVisible;
     
     //
     // column scrollbar + x position
@@ -305,7 +312,7 @@ class KateViewInternal : public QWidget
     
     bool m_updatingView;
     int m_wrapChangeViewLine;
-    int m_cachedEndVirtualLineScrollOffset;
+    KateTextCursor m_cachedMaxStartPos;
 
   private slots:
 #ifndef QT_NO_DRAGANDDROP

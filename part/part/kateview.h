@@ -584,7 +584,6 @@ public slots:
     void setEol(int);
 
   private:
-    void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
 
     void doCursorCommand(int cmdNum);

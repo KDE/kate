@@ -765,8 +765,8 @@ void KateViewInternal::updateView(int flags) {
   bw = leftBorder->width();
   z = 0;
   do {
-    w = myView->width() - 4;
-    h = myView->height() - 4;
+    w = myView->width();
+    h = myView->height();
 
     xMax = maxLen - (w - bw);
     b = (xPos > 0 || xMax > 0);
@@ -823,7 +823,7 @@ void KateViewInternal::updateView(int flags) {
       pageScroll = fontHeight;
 
     xScroll->blockSignals(true);
-    xScroll->setGeometry(2,h + 2,w,scrollbarWidth);
+    xScroll->setGeometry(0,h,w,scrollbarWidth);
     xScroll->setRange(0,xMax);
     xScroll->setValue(xPos);
     xScroll->setSteps(fontHeight,pageScroll);
@@ -838,7 +838,7 @@ void KateViewInternal::updateView(int flags) {
       pageScroll = fontHeight;
 
     yScroll->blockSignals(true);
-    yScroll->setGeometry(w + 2,2,scrollbarWidth,myView->height() - 4-scrollbarWidth);
+    yScroll->setGeometry(w,0,scrollbarWidth,myView->height()-scrollbarWidth);
     yScroll->setRange(0,yMax);
     yScroll->setValue(yPos);
     yScroll->setSteps(fontHeight,pageScroll);
@@ -1326,15 +1326,13 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   initCodeCompletionImplementation();
 
   active = false;
-  //myIconBorder = false;
   iconBorderStatus = KateIconBorder::None;
   _hasWrap = false;
 
   myDoc = doc;
   myViewInternal = new KateViewInternal (this,doc);
-  myViewInternal->move(2, 2);
   myViewInternal->leftBorder = new KateIconBorder(this, myViewInternal);
-  myViewInternal->leftBorder->setGeometry(2, 2, myViewInternal->leftBorder->width(), myViewInternal->iconBorderHeight);
+  myViewInternal->leftBorder->setGeometry(0, 0, myViewInternal->leftBorder->width(), myViewInternal->iconBorderHeight);
   myViewInternal->leftBorder->hide();
   myViewInternal->leftBorder->installEventFilter( this );
   doc->addView( this );
@@ -2326,55 +2324,8 @@ void KateView::setEol(int eol) {
   myDoc->setModified(true);
 }
 
-void KateView::paintEvent(QPaintEvent *e)
+void KateView::resizeEvent(QResizeEvent *)
 {
-  int x, y;
-
-  QRect updateR = e->rect();                    // update rectangle
-//  debug("Update rect = ( %i, %i, %i, %i )",
-//    updateR.col(),updateR.line(), updateR.width(), updateR.height() );
-
-  int ux1 = updateR.x();
-  int uy1 = updateR.y();
-  int ux2 = ux1 + updateR.width();
-  int uy2 = uy1 + updateR.height();
-
-  QPainter paint;
-  paint.begin(this);
-
-  QColorGroup g = colorGroup();
-  x = width();
-  y = height();
-
-  paint.setPen(g.dark());
-  if (uy1 <= 0) paint.drawLine(0,0,x-2,0);
-  if (ux1 <= 0) paint.drawLine(0,1,0,y-2);
-
-  paint.setPen(black);
-  if (uy1 <= 1) paint.drawLine(1,1,x-3,1);
-  if (ux1 <= 1) paint.drawLine(1,2,1,y-3);
-
-  paint.setPen(g.midlight());
-  if (uy2 >= y-1) paint.drawLine(1,y-2,x-3,y-2);
-  if (ux2 >= x-1) paint.drawLine(x-2,1,x-2,y-2);
-
-  paint.setPen(g.light());
-  if (uy2 >= y) paint.drawLine(0,y-1,x-2,y-1);
-  if (ux2 >= x) paint.drawLine(x-1,0,x-1,y-1);
-
-  x -= 2 + 16;
-  y -= 2 + 16;
-  if (ux2 > x && uy2 > y) {
-    paint.fillRect(x,y,16,16,g.background());
-  }
-  paint.end();
-}
-
-void KateView::resizeEvent(QResizeEvent *) {
-
-//  debug("Resize %d, %d",e->size().width(),e->size().height());
-
-//myViewInternal->resize(width() -20, height() -20);
   myViewInternal->tagAll();
   myViewInternal->updateView(0/*ufNoScroll*/);
 }
@@ -2510,11 +2461,10 @@ void KateView::updateIconBorder()
     myViewInternal->leftBorder->hide();
   }
   myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),myViewInternal->leftBorder->height());
-  myViewInternal->resize(width()-4-myViewInternal->leftBorder->width(), myViewInternal->height());
-  myViewInternal->move(myViewInternal->leftBorder->width()+2, 2);
+  myViewInternal->resize(width()-myViewInternal->leftBorder->width(), myViewInternal->height());
+  myViewInternal->move(myViewInternal->leftBorder->width(), 0);
   myViewInternal->updateView(ufLeftBorder);
 }
-
 
 void KateView::gotoMark (KTextEditor::Mark *mark)
 {

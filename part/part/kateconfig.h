@@ -136,7 +136,8 @@ class KateDocumentConfig : public KateConfig
     {
       imNormal = 0,
       imCStyle = 1,
-      imPythonStyle = 2
+      imPythonStyle = 2,
+      imXmlStyle = 3
     };
 
     uint indentationMode () const;

@@ -228,6 +228,33 @@ class KatePythonIndent : public KateAutoIndent
     static QRegExp blockBegin;
 };
 
+class KateXmlIndent : public KateAutoIndent
+{
+  public:
+    KateXmlIndent (KateDocument *doc);
+    ~KateXmlIndent ();
+    
+    virtual uint modeNumber () const { return KateDocumentConfig::imXmlStyle; }
+    virtual void processNewline (KateDocCursor &begin, bool needContinue);
+    virtual void processChar (QChar c);
+    virtual void processLine (KateDocCursor &line);
+    virtual bool canProcessLine() { return true; }
+    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+    
+  private:
+    static QRegExp openTag;
+    static QRegExp closeTag;
+    static QRegExp startsWithCloseTag;
+    static QRegExp openOrCloseTag;
+    
+    // sets the indentation of a single line based on previous lines
+    void processLine (uint line);
+    
+    // returns the indentation of the last line with an opening element,
+    // plus the number of elements that were opened
+    void findOpeningElemIndent (uint line, uint &indent, uint &numOpened);
+};
+
 #endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

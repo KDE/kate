@@ -2840,25 +2840,9 @@ bool KateDocument::saveFile()
         m_buffer->setHighlight(hl);
     }
 
-    // update our file type
-    updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
-
-    // read dir config (if possible and wanted)
-    readDirConfig ();
-
     // read our vars
     readVariables();
   }
-
-  //
-  // emit the signal we need for example for kate app
-  //
-  emit fileNameChanged ();
-
-  //
-  // set doc name, dummy value as arg, don't need it
-  //
-  setDocName  (QString::null);
 
   //
   // we are not modified
@@ -2880,6 +2864,25 @@ bool KateDocument::saveFile()
   // return success
   //
   return success;
+}
+
+bool KateDocument::saveAs( const KURL &u )
+{
+  QString oldDir = url().directory();
+
+  if ( KParts::ReadWritePart::saveAs( u ) )
+  {
+    // null means base on filename
+    setDocName( QString::null );
+
+    if ( u.directory() != oldDir )
+      readDirConfig();
+
+    emit fileNameChanged();
+    return true;
+  }
+
+  return false;
 }
 
 void KateDocument::readDirConfig ()
@@ -4557,10 +4560,14 @@ void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )
 
 void KateDocument::setDocName (QString name )
 {
+  if ( name == m_docName )
+    return;
+
   if ( !name.isEmpty() )
   {
     // TODO check for similarly named documents
     m_docName = name;
+    updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
     emit nameChanged((Kate::Document *) this);
     return;
   }
@@ -4587,6 +4594,7 @@ void KateDocument::setDocName (QString name )
   if (m_docNameNumber > 0)
     m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
 
+  updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
   emit nameChanged ((Kate::Document *) this);
 }
 

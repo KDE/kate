@@ -608,6 +608,9 @@ class KateDocument : public Kate::Document,
       if requested */
     bool save();
 
+    /* Anders: Reimplemented to do kate specific stuff */
+    bool saveAs( const KURL &url );
+
     bool openFile (KIO::Job * job);
     bool openFile ();
 

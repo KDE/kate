@@ -5222,8 +5222,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfAutoBrackets, state );
         else if ( var == "persistent-selection" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfPersistent, state );
-        else if ( var == "keep-selection" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
+//         else if ( var == "keep-selection" && checkBoolValue( val, &state ) )
+//           m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
         else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
         else if ( var == "keep-indent-profile" && checkBoolValue( val, &state ) )

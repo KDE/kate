@@ -18,38 +18,38 @@
 
 // $Id$
 
-#include "wordwrapinterface.h"
+#include "highlightinginterface.h"
 
 namespace KTextEditor
 {
 
-class PrivateWordWrapInterface
+class PrivateHighlightingInterface
 {
   public:
-    PrivateWordWrapInterface() {}
-    ~PrivateWordWrapInterface() {}
+    PrivateHighlightingInterface() {}
+    ~PrivateHighlightingInterface() {}
 };
 
 };
 
 using namespace KTextEditor;
 
-unsigned int WordWrapInterface::globalWordWrapInterfaceNumber = 0;
+unsigned int HighlightingInterface::globalHighlightingInterfaceNumber = 0;
 
-WordWrapInterface::WordWrapInterface()
+HighlightingInterface::HighlightingInterface()
 {
-  globalWordWrapInterfaceNumber++;
-  myWordWrapInterfaceNumber = globalWordWrapInterfaceNumber++;
+  globalHighlightingInterfaceNumber++;
+  myHighlightingInterfaceNumber = globalHighlightingInterfaceNumber++;
 
-  d = new PrivateWordWrapInterface();
+  d = new PrivateHighlightingInterface();
 }
 
-WordWrapInterface::~WordWrapInterface()
+HighlightingInterface::~HighlightingInterface()
 {
   delete d;
 }
 
-unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
+unsigned int HighlightingInterface::highlightingInterfaceNumber () const
 {
-  return myWordWrapInterfaceNumber;
+  return myHighlightingInterfaceNumber;
 }

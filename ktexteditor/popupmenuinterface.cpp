@@ -18,38 +18,38 @@
 
 // $Id$
 
-#include "wordwrapinterface.h"
+#include "popupmenuinterface.h"
 
 namespace KTextEditor
 {
 
-class PrivateWordWrapInterface
+class PrivatePopupMenuInterface
 {
   public:
-    PrivateWordWrapInterface() {}
-    ~PrivateWordWrapInterface() {}
+    PrivatePopupMenuInterface() {}
+    ~PrivatePopupMenuInterface() {}
 };
 
 };
 
 using namespace KTextEditor;
 
-unsigned int WordWrapInterface::globalWordWrapInterfaceNumber = 0;
+unsigned int PopupMenuInterface::globalPopupMenuInterfaceNumber = 0;
 
-WordWrapInterface::WordWrapInterface()
+PopupMenuInterface::PopupMenuInterface()
 {
-  globalWordWrapInterfaceNumber++;
-  myWordWrapInterfaceNumber = globalWordWrapInterfaceNumber++;
+  globalPopupMenuInterfaceNumber++;
+  myPopupMenuInterfaceNumber = globalPopupMenuInterfaceNumber++;
 
-  d = new PrivateWordWrapInterface();
+  d = new PrivatePopupMenuInterface();
 }
 
-WordWrapInterface::~WordWrapInterface()
+PopupMenuInterface::~PopupMenuInterface()
 {
   delete d;
 }
 
-unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
+unsigned int PopupMenuInterface::popupMenuInterfaceNumber () const
 {
-  return myWordWrapInterfaceNumber;
+  return myPopupMenuInterfaceNumber;
 }

@@ -28,6 +28,14 @@ namespace KTextEditor
 */
 class PopupMenuInterface
 {
+  friend class PrivatePopupMenuInterface;
+
+  public:
+    PopupMenuInterface ();
+    virtual ~PopupMenuInterface ();
+
+    unsigned int popupMenuInterfaceNumber () const;
+
   //
   // normal methodes
   //
@@ -37,6 +45,11 @@ class PopupMenuInterface
       a right mouse button press event.
     */
     virtual void installPopup (class QPopupMenu *rmb_Menu) = 0;
+
+  private:
+    class PrivatePopupMenuInterface *d;    
+    static unsigned int globalPopupMenuInterfaceNumber;
+    unsigned int myPopupMenuInterfaceNumber;
 };
 
 };

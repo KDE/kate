@@ -38,6 +38,13 @@ class Mark
 class MarkInterface
 {
   friend class PrivateMarkInterface;
+  
+  public:
+    MarkInterface ();
+    virtual ~MarkInterface ();
+
+    unsigned int markInterfaceNumber () const;
+
   //
   // slots !!!
   //
@@ -94,8 +101,11 @@ class MarkInterface
   //
   public:
     virtual void marksChanged () = 0;
-    private:
-    	class PrivateMarkInterface *d;
+  
+  private:
+    class PrivateMarkInterface *d;
+    static unsigned int globalMarkInterfaceNumber;
+    unsigned int myMarkInterfaceNumber;
 };
 
 };

@@ -30,7 +30,14 @@ namespace KTextEditor
 */
 class HighlightingInterface
 {
-friend class PrivateHighlightingInterface;
+  friend class PrivateHighlightingInterface;
+
+  public:
+    HighlightingInterface ();
+    virtual ~HighlightingInterface ();
+
+    unsigned int highlightingInterfaceNumber () const;
+
   //
 	// slots !!!
 	//
@@ -38,35 +45,38 @@ friend class PrivateHighlightingInterface;
 	/**
   * returns the current active highlighting mode
   */
-	virtual uint hlMode () = 0;
+	virtual unsigned int hlMode () = 0;
 
   /**
 	* set the current active highlighting mode
 	*/
-	virtual bool setHlMode (uint mode) = 0;
+	virtual bool setHlMode (unsigned int mode) = 0;
   
 	/**
 	* returns the number of available highlightings
 	*/
-  virtual uint hlModeCount () = 0;
+  virtual unsigned int hlModeCount () = 0;
 	
 	/**
 	* returns the name of the highlighting with number "mode"
 	*/
-	virtual QString hlModeName (uint mode) = 0;
+	virtual QString hlModeName (unsigned int mode) = 0;
 	
 	/**
 	* returns the sectionname of the highlighting with number "mode"
 	*/
-  virtual QString hlModeSectionName (uint mode) = 0;
+  virtual QString hlModeSectionName (unsigned int mode) = 0;
 
 	//
 	// signals !!!
 	//
 	public:
 	  virtual void hlChanged () = 0;
-	  private:
-	  class PrivateHighlightingInterface *d;
+
+  private:
+    class PrivateHighlightingInterface *d;
+    static unsigned int globalHighlightingInterfaceNumber;
+    unsigned int myHighlightingInterfaceNumber;
 };
 
 

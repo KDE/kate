@@ -18,38 +18,38 @@
 
 // $Id$
 
-#include "wordwrapinterface.h"
+#include "markinterface.h"
 
 namespace KTextEditor
 {
 
-class PrivateWordWrapInterface
+class PrivateMarkInterface
 {
   public:
-    PrivateWordWrapInterface() {}
-    ~PrivateWordWrapInterface() {}
+    PrivateMarkInterface() {}
+    ~PrivateMarkInterface() {}
 };
 
 };
 
 using namespace KTextEditor;
 
-unsigned int WordWrapInterface::globalWordWrapInterfaceNumber = 0;
+unsigned int MarkInterface::globalMarkInterfaceNumber = 0;
 
-WordWrapInterface::WordWrapInterface()
+MarkInterface::MarkInterface()
 {
-  globalWordWrapInterfaceNumber++;
-  myWordWrapInterfaceNumber = globalWordWrapInterfaceNumber++;
+  globalMarkInterfaceNumber++;
+  myMarkInterfaceNumber = globalMarkInterfaceNumber++;
 
-  d = new PrivateWordWrapInterface();
+  d = new PrivateMarkInterface();
 }
 
-WordWrapInterface::~WordWrapInterface()
+MarkInterface::~MarkInterface()
 {
   delete d;
 }
 
-unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
+unsigned int MarkInterface::markInterfaceNumber () const
 {
-  return myWordWrapInterfaceNumber;
+  return myMarkInterfaceNumber;
 }

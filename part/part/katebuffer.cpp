@@ -1539,10 +1539,10 @@ void KateBufBlock::markDirty ()
       
       m_vmblock = 0;
       m_vmblockSize = 0;
+      
+      // we are dirty
+      m_state = KateBufBlock::stateDirty;
     }
-    
-    // we are dirty
-    m_state = KateBufBlock::stateDirty;
   }
 }
 
@@ -1558,9 +1558,7 @@ void KateBufBlock::swapIn ()
     m_parent->m_cacheReadError = true;
     
   char *buf = rawData.data();
-  char *end = buf + rawData.size();
-
-  while(buf < end)
+  for (uint i=0; i < m_lines; i++)
   {
     TextLine::Ptr textLine = new TextLine ();
     buf = textLine->restore (buf);
@@ -1592,20 +1590,15 @@ void KateBufBlock::swapOut ()
   
     // Calculate size.
     uint size = 0;
-    for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-      size += (*it)->dumpSize (haveHl);
+    for (uint i=0; i < m_lines; i++)
+      size += m_stringList[i]->dumpSize (haveHl);
   
     QByteArray rawData (size);
     char *buf = rawData.data();
-    
-    kdDebug () << "CALCED END: " << uint (buf+size) << endl;
   
     // Dump textlines
-    for(TextLine::List::iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-      buf = (*it)->dump (buf, haveHl);
-      
-    
-    kdDebug () << "REAL END: " << uint (buf) << endl;
+    for (uint i=0; i < m_lines; i++)
+      buf = m_stringList[i]->dump (buf, haveHl);
   
     m_vmblock = m_parent->vm()->allocate(rawData.size());
     m_vmblockSize = rawData.size();

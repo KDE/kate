@@ -569,7 +569,7 @@ ReplacePrompt::ReplacePrompt( QWidget *parent )
   User3 | User2 | User1 | Close | Ok , Ok, true,
   i18n("&All"), i18n("&Last"), i18n("&No") ) {
 
-  setButtonOKText( i18n("&Yes") );
+  setButtonOK( KStdGuiItem::yes() );
   QWidget *page = new QWidget(this);
   setMainWidget(page);
 

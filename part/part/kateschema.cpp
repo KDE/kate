@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -31,7 +31,7 @@
 #include <kdialog.h>
 #include <kcolorbutton.h>
 #include <kcombobox.h>
-#include <klineeditdlg.h>
+#include <kinputdialog.h>
 #include <kfontdialog.h>
 #include <kdebug.h>
 #include <kiconloader.h>
@@ -143,7 +143,7 @@ bool KateSchemaManager::validSchema (uint number)
 {
   if (number < m_schemas.count())
     return true;
-    
+
   return false;
 }
 
@@ -345,7 +345,7 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
 
   m_defaultStyles = new StyleListView( this, false );
   grid->addWidget( m_defaultStyles, 0, 0);
-  
+
   connect (m_defaultStyles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
 
@@ -359,17 +359,17 @@ KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
   {
     KateAttributeList *list = new KateAttributeList ();
     HlManager::self()->getDefaults(schema, *list);
-    
+
     m_defaultStyleLists.insert (schema, list);
   }
-  
+
   return m_defaultStyleLists[schema];
 }
 
 void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 {
   m_defaultStyles->clear ();
-  
+
   KateAttributeList *l = attributeList (schema);
 
   for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
@@ -401,22 +401,22 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 
   m_schema = 0;
   m_hl = 0;
-  
+
   m_hlDict.setAutoDelete (true);
-  
+
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
   QHBox *hbHl = new QHBox( this );
   layout->add (hbHl);
-  
+
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
   hlCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( hlCombo );
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
-           
+
   for( int i = 0; i < HlManager::self()->highlights(); i++) {
     if (HlManager::self()->hlSection(i).length() > 0)
       hlCombo->insertItem(HlManager::self()->hlSection(i) + QString ("/") + HlManager::self()->hlName(i));
@@ -433,7 +433,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   hlChanged ( 0 );
 
   QWhatsThis::add( m_styles,  i18n("This list displays the contexts of the current syntax highlight mode and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
-  
+
   connect (m_styles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
 
@@ -444,35 +444,35 @@ KateSchemaConfigHighlightTab::~KateSchemaConfigHighlightTab()
 void KateSchemaConfigHighlightTab::hlChanged(int z)
 {
   m_hl = z;
-  
+
   schemaChanged (m_schema);
 }
 
 void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 {
   m_schema = schema;
-  
+
   kdDebug () << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
-  
+
   m_styles->clear ();
 
   if (!m_hlDict[m_schema])
   {
     kdDebug () << "NEW SCHEMA, create dict" << endl;
-  
+
     m_hlDict.insert (schema, new QIntDict<ItemDataList>);
     m_hlDict[m_schema]->setAutoDelete (true);
   }
-  
+
   if (!m_hlDict[m_schema]->find(m_hl))
   {
     kdDebug () << "NEW HL, create list" << endl;
-  
+
     ItemDataList *list = new ItemDataList ();
     HlManager::self()->getHl( m_hl )->getItemDataListCopy (m_schema, *list);
     m_hlDict[m_schema]->insert (m_hl, list);
   }
-  
+
   KateAttributeList *l = m_defaults->attributeList (schema);
 
   for ( ItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
@@ -480,10 +480,10 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
   {
     kdDebug () << "insert items " << itemData->name << endl;
-  
+
     m_styles->insertItem( new StyleListItem( m_styles, itemData->name,
                           l->at(itemData->defStyleNum), itemData ) );
-    
+
   }
 }
 
@@ -491,7 +491,7 @@ void KateSchemaConfigHighlightTab::reload ()
 {
   m_styles->clear ();
   m_hlDict.clear ();
-  
+
   hlChanged (0);
 }
 
@@ -528,21 +528,21 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   m_tabWidget = new QTabWidget ( this );
   m_tabWidget->setMargin (KDialog::marginHint());
   layout->add (m_tabWidget);
-  
+
   connect (m_tabWidget, SIGNAL (currentChanged (QWidget *)), this, SLOT (newCurrentPage (QWidget *)));
 
   m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
-  
+
   m_fontTab = new KateSchemaConfigFontTab (m_tabWidget);
   m_tabWidget->addTab (m_fontTab, i18n("Font"));
-  
+
   m_fontColorTab = new KateSchemaConfigFontColorTab (m_tabWidget);
   m_tabWidget->addTab (m_fontColorTab, i18n("Normal Text Styles"));
- 
+
   m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab);
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
-  
+
   hbHl = new QHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
@@ -574,11 +574,11 @@ void KateSchemaConfigPage::apply()
   KateFactory::self()->schemaManager()->update ();
 
   KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentItem());
-  
+
   // special for the highlighting stuff
   m_fontColorTab->apply ();
   m_highlightTab->apply ();
-  
+
   // sync the hl config for real
   HlManager::self()->getKConfig()->sync ();
 }
@@ -590,9 +590,9 @@ void KateSchemaConfigPage::reload()
 
   // special for the highlighting stuff
   m_fontColorTab->reload ();
-  
+
   update ();
-  
+
   defaultSchemaCombo->setCurrentItem (KateRendererConfig::global()->schema());
 }
 
@@ -634,7 +634,7 @@ void KateSchemaConfigPage::deleteSchema ()
 
 void KateSchemaConfigPage::newSchema ()
 {
-  QString t = KLineEditDlg::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
+  QString t = KInputDialog::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
 
   KateFactory::self()->schemaManager()->addSchema (t);
 
@@ -830,18 +830,18 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
   else
   {
     is = new KateAttribute (*style);
-    
+
     if (data->isSomethingSet())
-      *is += *data; 
+      *is += *data;
   }
 }
 
 void StyleListItem::updateStyle()
-{  
+{
   // nothing there, not update it, will crash
   if (!st)
     return;
-  
+
   if ( is->itemSet(KateAttribute::Weight) )
   {
     if ( is->weight() != st->weight() &&
@@ -850,7 +850,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::Weight);
   }
-  
+
   if ( is->itemSet(KateAttribute::Italic) )
   {
     if ( is->italic() != st->italic() &&
@@ -859,7 +859,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::Italic);
   }
-  
+
   if ( is->itemSet(KateAttribute::StrikeOut) )
   {
     if ( is->strikeOut() != st->strikeOut() &&
@@ -868,7 +868,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::StrikeOut);
   }
-  
+
   if ( is->itemSet(KateAttribute::Underline) )
   {
     if ( is->underline() != st->underline() &&
@@ -877,7 +877,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::Underline);
   }
-  
+
   if ( is->itemSet(KateAttribute::Outline) )
   {
     if ( is->outline() != st->outline() &&
@@ -895,7 +895,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::TextColor);
   }
-  
+
   if ( is->itemSet(KateAttribute::SelectedTextColor) )
   {
     if ( is->selectedTextColor() != st->selectedTextColor() &&
@@ -904,7 +904,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::SelectedTextColor);
   }
-  
+
   if ( is->itemSet(KateAttribute::BGColor) )
   {
     if ( is->bgColor() != st->bgColor() &&
@@ -996,9 +996,9 @@ void StyleListItem::changeProperty( Property p )
     toggleDefStyle();
   else
     setColor( p );
-    
+
   updateStyle ();
-    
+
   ((StyleListView*)listView())->emitChanged();
 }
 

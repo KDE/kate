@@ -527,7 +527,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     int startCol = startRange.startCol;
     int startX = startRange.startX;
     int endX = startRange.startX;
-    int shiftX = startRange.shiftX;
+    int shiftX = startRange.startCol ? startRange.shiftX : 0;
     bool wrap = false;
     int newViewLine = startRange.viewLine;
     // z is the current display view line
@@ -713,6 +713,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 
 void KateViewInternal::paintText (int x, int y, int width, int height, bool paintOnlyDirty)
 {
+  //kdDebug() << k_funcinfo << x << " " << y << " " << width << " " << height << " " << paintOnlyDirty << endl;
   int xStart = startX() + x;
   int xEnd = xStart + width;
   uint h = m_view->renderer()->fontHeight();

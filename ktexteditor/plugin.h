@@ -37,8 +37,7 @@ namespace KTextEditor
 
 /*
  * basic plugin class
- * this plugin will be bound to the qobject which holds the ktexteditor document interfaces
- * but which must not be necessarily a ktexteditor::document (could be a ktexteditor::editor, too)
+ * this plugin will be bound to a ktexteditor::document
  */
 class Plugin : public QObject
 {
@@ -53,8 +52,7 @@ class Plugin : public QObject
     unsigned int pluginNumber () const;
     
     /*
-     * This function will be called by the ktexteditor implementation after the plugin is loaded
-     * to bound it to a ktexteditor::document
+     * will be called from the part to bound the plugin to a document
      */
     virtual void setDocument (class Document *) = 0;
   
@@ -66,9 +64,9 @@ class Plugin : public QObject
 
 /*
  * view plugin class
- * this plugin will be bound to a ktexteditor::view in addition to the ktexteditor::document
+ * this plugin will be bound to a ktexteditor::view
  */
-class ViewPlugin : public Plugin, virtual public KXMLGUIClient
+class ViewPlugin : public QObject, virtual public KXMLGUIClient
 {
   friend class PrivateViewPlugin;
 
@@ -81,8 +79,7 @@ class ViewPlugin : public Plugin, virtual public KXMLGUIClient
     unsigned int viewPluginNumber () const;
   
     /*
-     * This function will be called by the ktexteditor implementation after the plugin is loaded
-     * to bound it to a object holding the interfaces defined for ktexteditor view
+     * will be called from the part to bound the plugin to a view
      */
     virtual void setView (class View *) = 0;
 

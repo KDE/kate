@@ -147,7 +147,7 @@ unsigned int Plugin::pluginNumber () const
   return myPluginNumber;
 }
 
-ViewPlugin::ViewPlugin( QObject *parent, const char *name ) : KTextEditor::Plugin (parent, name )
+ViewPlugin::ViewPlugin( QObject *parent, const char *name ) : QObject (parent, name )
 {
   globalViewPluginNumber++;
   myViewPluginNumber = globalViewPluginNumber;

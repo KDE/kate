@@ -367,7 +367,7 @@
             <item> write_bytes </item>
             <item> write_file </item>
             <item> xor_bits </item>
-        </list> 
+        </list>
         <contexts>
             <context attribute="iNormal" name="0" lineEndContext="0" >
                 <DetectChar attribute="iString" context="18" char="&quot;" />
@@ -425,8 +425,10 @@
                 <LineContinue attribute="iPreprocessor" context="17" />
             </context>
             <context name="18" attribute="iString" lineEndContext="18">
-                <DetectChar attribute="iString" char="&quot;" context="0" />
-            </context>
+             <LineContinue attribute="18" context="#stay"/>
+             <HlCStringChar attribute="iPreString" context="18"/>
+             <DetectChar attribute="iString" char="&quot;" context="0" />
+            </context>
             <context name="19" attribute="iComment Highlight" lineEndContext="0" />
             <context name="20" attribute="iPreprocessor directives" lineEndContext="0" />
             <context name="21" attribute="iPragmas" lineEndContext="0" />

@@ -169,6 +169,16 @@ void KateView::setupActions()
 
   m_toggleWriteLock = 0;
 
+  m_cut = a=KStdAction::cut(this, SLOT(cut()), ac);
+  a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
+
+  m_paste = a=KStdAction::paste(this, SLOT(paste()), ac);
+  a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
+
+  m_copy = a=KStdAction::copy(this, SLOT(copy()), ac);
+  a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
+
+
   if (!m_doc->m_bReadOnly)
   {
     KStdAction::spelling( m_doc, SLOT(spellcheck()), ac );
@@ -181,12 +191,6 @@ void KateView::setupActions()
 
     a=m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
-
-    m_cut = a=KStdAction::cut(this, SLOT(cut()), ac);
-    a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
-
-    m_paste = a=KStdAction::paste(this, SLOT(paste()), ac);
-    a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
 
     (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
 	i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
@@ -226,10 +230,11 @@ void KateView::setupActions()
                 ac, "tools_toggle_write_lock" );
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
   }
-
-
-  m_copy = a=KStdAction::copy(this, SLOT(copy()), ac);
-  a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
+  else
+  {
+    m_cut->setEnabled (false);
+    m_paste->setEnabled (false);
+  }
 
   a=KStdAction::print( m_doc, SLOT(print()), ac );
   a->setWhatsThis(i18n("Print the current document."));
@@ -949,19 +954,22 @@ void KateView::findAgain( bool back )
 
 void KateView::selectionChanged ()
 {
-  if (m_doc->m_bReadOnly)
-    return;
-
   if (m_doc->hasSelection())
   {
-    m_cut->setEnabled (true);
     m_copy->setEnabled (true);
     m_deSelect->setEnabled (true);
   }
   else
   {
-    m_cut->setEnabled (false);
     m_copy->setEnabled (false);
     m_deSelect->setEnabled (false);
   }
+
+  if (m_doc->m_bReadOnly)
+    return;
+
+  if (m_doc->hasSelection())
+    m_cut->setEnabled (true);
+  else
+    m_cut->setEnabled (false);
 }

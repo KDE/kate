@@ -8,10 +8,12 @@
   </Menu>
 
   <Menu name="edit"><text>&amp;Edit</text>
-    <Action name="edit_copy" />
-    <Action name="edit_select_all" />
-    <Action name="edit_deselect"/>
-    <Action name="set_verticalSelect"/>
+    <Action name="edit_cut" group="edit_paste_merge" />
+    <Action name="edit_copy" group="edit_paste_merge" />
+    <Action name="edit_paste" group="edit_paste_merge" />
+    <Action name="edit_select_all" group="edit_select_merge" />
+    <Action name="edit_deselect" group="edit_select_merge" />
+    <Action name="set_verticalSelect" group="edit_select_merge" />
     <Separator />
     <Action name="go_goto_line" />
     <Action name="bookmarks" />
@@ -49,7 +51,9 @@
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
   <Separator />
-  <Action name="edit_copy" />
+  <Action name="edit_cut" group="edit_operations" />
+  <Action name="edit_copy" group="edit_operations" />
+  <Action name="edit_paste" group="edit_operations" />
   <Separator />
   <Action name="edit_find" />
   <Separator />

@@ -484,6 +484,7 @@ void KateViewInternal::changeYPos(int p)
   dy = (startLine - newStartLine)  * myDoc->viewFont.fontHeight;
 
   updateLineRanges();
+  updateView();
 
   if (QABS(dy) < height())
   {

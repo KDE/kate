@@ -52,7 +52,7 @@ class KateBufBlock
    /*
     * Create an empty block.
     */
-   KateBufBlock (KateBuffer *parent, KateBufBlock *prev, KVMAllocator *vm);
+   KateBufBlock (KateBuffer *parent, KateBufBlock *prev);
 
    ~KateBufBlock ();
 
@@ -145,19 +145,36 @@ class KateBufBlock
    inline bool firstLineOnlySpaces () { return m_firstLineOnlySpaces; }
    
    inline TextLine::Ptr lastLine () { return m_lastLine; }
+   
+    enum State
+    {
+      stateNew = 0, // this state we had after creation of the block !
+      stateSwapped = 1,
+      stateLoaded = 2,
+      stateClean = 3,
+      stateDirty = 4
+    };
+    
+    KateBufBlock::State state () const { return m_state; }
 
+    void setState (KateBufBlock::State state) { m_state = state; }
+    
   private:
+    // VERY IMPORTANT, state of this block
+    // this uchar indicates if the block is swapped, loaded, clean or dirty
+    KateBufBlock::State m_state;
+    
     // IMPORTANT, start line + lines in block
     uint m_startLine;
     uint m_lines;
 
-    // Used for context & hlContinue flag if this bufblock has no stringlist
+    // context & hlContinue flag + indentation infos
+    // only used in the case that string list is not around
     uint m_firstLineIndentation;
     bool m_firstLineOnlySpaces;
     TextLine::Ptr m_lastLine;
 
     // here we swap our stuff
-    KVMAllocator *m_vm;
     KVMAllocator::Block *m_vmblock;
     uint m_vmblockSize;
     bool b_vmDataValid;
@@ -243,9 +260,9 @@ void KateBuffer::setTabWidth (uint w)
  */
 void KateBuffer::checkLoadedMax ()
 {
-  if (m_loadedBlocks.count() > 40)
+  if (m_loadedBlocks.count() > 16)
   {
-    KateBufBlock *buf2 = m_loadedBlocks.take(2);
+    KateBufBlock *buf2 = m_loadedBlocks.take(0);
     bool ok = buf2->swapOut ();
     if (!ok)
     {
@@ -260,11 +277,11 @@ void KateBuffer::checkLoadedMax ()
  */
 void KateBuffer::checkCleanMax ()
 {
-  if (m_cleanBlocks.count() > 10)
+  if (m_cleanBlocks.count() > 8)
   {
     checkLoadedMax ();
 
-    KateBufBlock *buf2 = m_cleanBlocks.take(2);
+    KateBufBlock *buf2 = m_cleanBlocks.take(0);
     buf2->disposeStringList();
     m_loadedBlocks.append(buf2);
   }
@@ -275,14 +292,13 @@ void KateBuffer::checkCleanMax ()
  */
 void KateBuffer::checkDirtyMax ()
 {
-  if (m_dirtyBlocks.count() > 10)
+  if (m_dirtyBlocks.count() > 4)
   {
-    checkLoadedMax ();
+    checkCleanMax ();
 
-    KateBufBlock *buf2 = m_dirtyBlocks.take(2);
+    KateBufBlock *buf2 = m_dirtyBlocks.take(0);
     buf2->flushStringList(); // Copy stringlist to raw
-    buf2->disposeStringList(); // dispose stringlist.
-    m_loadedBlocks.append(buf2);
+    m_cleanBlocks.append(buf2);
   }
 }
 
@@ -475,7 +491,7 @@ void KateBuffer::clear()
   m_highlight = 0;
 
   // create a bufblock with one line, we need that, only in openFile we won't have that
-  KateBufBlock *block = new KateBufBlock(this, 0, m_vm);
+  KateBufBlock *block = new KateBufBlock(this, 0);
   m_blocks.append (block);
   m_loadedBlocks.append (block);
 
@@ -589,7 +605,7 @@ bool KateBuffer::openFile (const QString &m_file)
     if (m_cacheWriteError)
       break;
 
-    KateBufBlock *block = new KateBufBlock(this, prev, m_vm);
+    KateBufBlock *block = new KateBufBlock(this, prev);
     eof = block->fillBlock (&stream, lastCharEOL);
 
     m_blocks.append (block);
@@ -1388,11 +1404,11 @@ void KateBuffer::dumpRegionTree()
 /**
  * Create an empty block.
  */
-KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KVMAllocator *vm)
-: m_firstLineIndentation (0),
+KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev)
+: m_state (KateBufBlock::stateNew),
+  m_firstLineIndentation (0),
   m_firstLineOnlySpaces (true),
   m_lastLine (0),
-  m_vm (vm),
   m_vmblock (0),
   m_vmblockSize (0),
   b_vmDataValid (false),
@@ -1505,12 +1521,12 @@ bool KateBufBlock::swapOut ()
 
   if (!b_vmDataValid)
   {
-    m_vmblock = m_vm->allocate(m_rawData.count());
+    m_vmblock = m_parent->vm()->allocate(m_rawData.count());
     m_vmblockSize = m_rawData.count();
 
     if (!m_rawData.isEmpty())
     {
-        bool ok = m_vm->copyBlock(m_vmblock, m_rawData.data(), 0, m_rawData.count());
+        bool ok = m_parent->vm()->copyBlock(m_vmblock, m_rawData.data(), 0, m_rawData.count());
         if (!ok)
            return false;
     }
@@ -1532,7 +1548,7 @@ bool KateBufBlock::swapIn ()
   assert(!b_rawDataValid);
   assert(m_vmblock);
   m_rawData.resize(m_vmblockSize);
-  bool ok = m_vm->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
+  bool ok = m_parent->vm()->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
   if (!ok)
       return false;
   b_rawDataValid = true;
@@ -1644,7 +1660,7 @@ void KateBufBlock::disposeRawData()
 void KateBufBlock::disposeSwap()
 {
   if (m_vmblock)
-    m_vm->free(m_vmblock);
+    m_parent->vm()->free(m_vmblock);
 
   m_vmblock = 0;
   m_vmblockSize = 0;

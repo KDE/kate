@@ -29,7 +29,6 @@
 class KateCodeFoldingTree;
 class KateLineInfo;
 class KateBufBlock;
-class KateBufFileLoader;
 class KateDocument;
 class Highlight;
 
@@ -197,6 +196,8 @@ class KateBuffer : public QObject
     void setTabWidth (uint w);
     
     inline uint tabWidth () const { return m_tabWidth; }
+    
+    inline KVMAllocator *vm () { return m_vm; }
 
   signals:
     /**

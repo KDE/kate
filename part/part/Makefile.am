@@ -4,7 +4,7 @@ libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attr
 			 katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
 			 katesyntaxdocument.cpp katetextline.cpp kateview.cpp \
   			 kateviewdialog.cpp kateviewhighlightaction.cpp \
-			 katevmallocator.cpp katehighlightdownload.cpp katefiledialog.cpp \
+			 katehighlightdownload.cpp katefiledialog.cpp \
 			 kateiconborder.cpp katecodecompletion_arghint.cpp \
 			 katecodecompletion_iface_impl.cpp hlparamedit.cpp kateexportaction.cpp
 

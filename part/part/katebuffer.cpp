@@ -30,8 +30,6 @@
 #include <qfile.h>     
 #include <qtimer.h>     
 #include <qtextcodec.h>     
-     
-#include "katevmallocator.h"     
 
 #include <assert.h>
 #include <kdebug.h>

@@ -22,7 +22,8 @@
 
 #include "kateglobal.h"
 #include "katetextline.h"
-#include "katevmallocator.h"
+
+#include <kvmallocator.h>
 
 #include <qstring.h>
 #include <qstringlist.h>

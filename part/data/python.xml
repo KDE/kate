@@ -1,4 +1,4 @@
-<?xml version="1.02" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
 <language name="Python" version="1.1" kateversion="2.1" section="Scripts" extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1">

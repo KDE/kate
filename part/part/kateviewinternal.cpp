@@ -776,12 +776,15 @@ void KateViewInternal::updateView(int flags)
 				int bw = leftBorder->width();
 				w -= bw;
 				if (yScrollVis) w -= scrollbarWidth;
+				if (xScrollVis) h -= scrollbarWidth;
+
 		  		if (w != width() || h != height()) {
 					needLineRangesUpdate=true;
 					lineRangesUpdateHeight=h;
 //			    		updateLineRanges(h);
 			   	 	resize(w,h);
 				}
+
 			}
 
 			unsigned int contentLines=myDoc->visibleLines(); /* temporary */
@@ -815,6 +818,16 @@ void KateViewInternal::updateView(int flags)
 				yScroll->hide();
 				yScrollVis=false;
 			}
+
+			
+//BEGIN TEST
+			xScroll->blockSignals(true);
+			xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width(),scrollbarWidth);
+			xScroll->setRange(0,60000);
+			xScroll->blockSignals(false);
+			xScroll->show();
+			xScrollVis=true;
+//END TEST
 
 
 		} while (reUpdate);

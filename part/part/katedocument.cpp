@@ -3945,9 +3945,9 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   if (cursorVisible)
   {
     if (replaceCursor && (cursorMaxWidth > 2))
-      paint.fillRect(cursorXPos, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
+      paint.fillRect(cursorXPos-xStart, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
     else
-      paint.fillRect(cursorXPos, oldY, 2, fs->fontHeight, *cursorColor);
+      paint.fillRect(cursorXPos-xStart, oldY, 2, fs->fontHeight, *cursorColor);
   }
 
   return true;

@@ -24,6 +24,7 @@
 
 #include "katedocument.h"
 #include "kateviewinternal.h"
+#include "kateconfig.h"
 
 #include "../interfaces/view.h"
 
@@ -165,8 +166,8 @@ class KateView : public Kate::View,
     void insertText( const QString& text )
         { getDoc()->insertText( cursorLine(), cursorColumnReal(), text ); }
     bool canDiscard();
-    int tabWidth()                { return KateDocument::tabChars; }
-    void setTabWidth( int w )     { KateDocument::setTabWidth(w);  }
+    int tabWidth()                { return m_doc->config()->tabWidth(); }
+    void setTabWidth( int w )     { m_doc->config()->setTabWidth(w);  }
     void setEncoding( QString e ) { m_doc->setEncoding(e);       }
     bool isLastView()             { return m_doc->isLastView(1); }
 

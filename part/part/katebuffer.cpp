@@ -24,6 +24,7 @@
 
 #include "katedocument.h"
 #include "katehighlight.h"
+#include "kateconfig.h"
 #include "katecodefoldinghelpers.h"
 
 #include <kvmallocator.h>
@@ -551,7 +552,7 @@ bool KateBuffer::saveFile (const QString &m_file, QTextCodec *codec, const QStri
 
   QString tabs;
   if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
-    tabs.fill (QChar(' '), m_doc->tabWidth());
+    tabs.fill (QChar(' '), m_doc->config()->tabWidth());
 
   for (uint i=0; i < m_lines; i++)
   {

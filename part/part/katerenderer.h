@@ -72,16 +72,6 @@ public:
     void setCaretStyle(int style);
 
     /**
-     * Returns the size of a tab (in chars)
-     */
-    static int tabWidth();
-
-    /**
-     * Sets the size of a tab in chars.
-     */
-    static void setTabWidth(int m_tabWidth);
-
-    /**
      * @returns whether tabs should be shown (ie. a small mark
      * drawn to identify a tab)
      */

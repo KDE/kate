@@ -307,7 +307,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   opt[2]->setChecked(configFlags & flags[2]);
   connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e2 = new KIntNumInput(view->tabWidth(), gbWhiteSpace);
+  e2 = new KIntNumInput(KateDocumentConfig::global()->tabWidth(), gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
   e2->setLabel(i18n("Tab width:"), AlignVCenter);
   connect(e2, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -423,7 +423,7 @@ void EditConfigTab::getData(KateDocument *view)
 
   view->setWordWrapAt(e1->value());
   view->setWordWrap (opt[0]->isChecked());
-  view->setTabWidth(e2->value());
+  KateDocumentConfig::global()->setTabWidth(e2->value());
 
   if (e3->value() <= 0)
     view->setUndoSteps(0);

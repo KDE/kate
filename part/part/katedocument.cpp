@@ -87,7 +87,6 @@ using namespace Kate;
 
 bool KateDocument::s_configLoaded = false;
 
-int KateDocument::tabChars = 8;
 int KateDocument::indentationChars = 2;
 
 uint KateDocument::_configFlags
@@ -255,9 +254,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // to ensure each document has the same config the whole time
   if (!s_configLoaded)
   {
-    // some sane defaults for the first try
-    KateRenderer::setTabWidth(8);
-
     colors[0] = KGlobalSettings::baseColor();
     colors[1] = KGlobalSettings::highlightColor();
     colors[2] = KGlobalSettings::alternateBackgroundColor();
@@ -1871,7 +1867,6 @@ void KateDocument::readConfig(KConfig *config)
   myWordWrapAt = config->readNumEntry("Word Wrap Column", myWordWrapAt);
 
   // tabs & indentations
-  setTabWidth(config->readNumEntry("Tab Width", tabChars));
   setIndentationWidth(config->readNumEntry("Indentation Width", indentationChars));
 
   // undo steps
@@ -1946,7 +1941,6 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Word Wrap", myWordWrap);
   config->writeEntry("Word Wrap Column", myWordWrapAt);
   config->writeEntry("Undo Steps", myUndoSteps);
-  config->writeEntry("Tab Width", tabChars);
   config->writeEntry("Indentation Width", indentationChars);
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
@@ -2994,23 +2988,6 @@ bool KateDocument::isModified() const {
 
 //BEGIN Kate specific stuff ;)
 
-void KateDocument::setTabWidth(int chars)
-{
-  if (tabChars == chars) return;
-  if (chars < 1) chars = 1;
-  if (chars > 16) chars = 16;
-
-  tabChars = chars;
-
-  KateRenderer::setTabWidth(tabChars);
-
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-  {
-    KateFactory::documents()->at(z)->updateFontData();
-    KateFactory::documents()->at(z)->updateViews();
-  }
-}
-
 void KateDocument::setIndentationWidth(int chars)
 {
   if (indentationChars == chars)
@@ -3086,7 +3063,7 @@ uint KateDocument::currentColumn( const KateTextCursor& cursor )
   TextLine::Ptr textLine = buffer->plainLine(cursor.line());
 
   if (textLine)
-    return textLine->cursorX(cursor.col(), tabChars);
+    return textLine->cursorX(cursor.col(), config()->tabWidth());
   else
     return 0;
 }
@@ -3196,8 +3173,8 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
     c.setPos(c.line() + 1, 0);
 
     if (pos > 0) {
-      pos = textLine->cursorX(pos, tabChars);
-      QString s = tabString(pos, (_configFlags & KateDocument::cfSpaceIndent) ? 0xffffff : tabChars);
+      pos = textLine->cursorX(pos, config()->tabWidth());
+      QString s = tabString(pos, (_configFlags & KateDocument::cfSpaceIndent) ? 0xffffff : config()->tabWidth());
       insertText (c.line(), c.col(), s);
       pos = s.length();
       c.setCol(pos);
@@ -3260,10 +3237,10 @@ void KateDocument::backspace( const KateTextCursor& c )
       // backspace indents: erase to next indent position
 
       TextLine::Ptr textLine = buffer->plainLine(line);
-      int colX = textLine->cursorX(col, tabChars);
+      int colX = textLine->cursorX(col, config()->tabWidth());
       int pos = textLine->firstChar();
       if (pos > 0)
-        pos = textLine->cursorX(pos, tabChars);
+        pos = textLine->cursorX(pos, config()->tabWidth());
 
       if (pos < 0 || pos >= (int)colX)
       {
@@ -3277,7 +3254,7 @@ void KateDocument::backspace( const KateTextCursor& c )
 
           if (pos >= 0)
           {
-            pos = textLine->cursorX(pos, tabChars);
+            pos = textLine->cursorX(pos, config()->tabWidth());
             if (pos < (int)colX)
             {
               replaceWithOptimizedSpace(line, col, pos, _configFlags);
@@ -3467,7 +3444,7 @@ void KateDocument::doIndent( uint line, int change)
         TextLine::Ptr textLine = buffer->plainLine(line);
         int firstChar = textLine->firstChar();
         if (firstChar >= 0 && (lineSelected(line) || lineHasSelected(line))) {
-          int maxUnindent = textLine->cursorX(firstChar, tabChars) / indentationChars;
+          int maxUnindent = textLine->cursorX(firstChar, config()->tabWidth()) / indentationChars;
           if (maxUnindent < adjustedChange)
             adjustedChange = maxUnindent;
         }
@@ -3507,7 +3484,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   if (first_char < 0)
     first_char = 0;
 
-  int space = textline->cursorX(first_char, tabChars) + change * indentationChars;
+  int space = textline->cursorX(first_char, config()->tabWidth()) + change * indentationChars;
   if (space < 0)
     space = 0;
 
@@ -3534,12 +3511,12 @@ void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint s
     new_space.fill(' ', length);
   }
   else {
-    length = space / tabChars;
+    length = space / config()->tabWidth();
     new_space.fill('\t', length);
 
     QString extra_space;
-    extra_space.fill(' ', space % tabChars);
-    length += space % tabChars;
+    extra_space.fill(' ', space % config()->tabWidth());
+    length += space % config()->tabWidth();
     new_space += extra_space;
   }
 
@@ -4717,4 +4694,10 @@ void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
 KateCodeFoldingTree *KateDocument::foldingTree ()
 {
   return buffer->foldingTree();
+}
+
+void KateDocument::updateConfig ()
+{
+    tagAll();
+    updateViews();
 }

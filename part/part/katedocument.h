@@ -465,9 +465,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     TextLine::Ptr kateTextLine(uint i);
 
-    static void setTabWidth(int);
     static void setIndentationWidth(int);
-    static int tabWidth() {return tabChars;}
     static int indentationWidth() {return indentationChars;}
     void setNewDoc( bool );
     bool isNewDoc() const;
@@ -703,7 +701,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KateArbitraryHighlight* m_arbitraryHL;
 
     int eolMode;
-    static int tabChars;
     static int indentationChars;
 
     bool readOnly;
@@ -778,6 +775,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
    */
   public:
     inline KateDocumentConfig *config () { return m_config; };
+
+    void updateConfig ();
 
   private:
     KateDocumentConfig *m_config;

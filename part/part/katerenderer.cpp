@@ -31,9 +31,6 @@
 
 #include <qpainter.h>
 
-// Static vars
-int s_tabWidth;
-
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 
@@ -45,8 +42,6 @@ public:
     , caretStyle(KateRenderer::Insert)
     , showSelections(true)
     , showTabs(true)
-    // sensible default but should be overwritten
-    , tabWidth(8)
     , font(KateRendererConfig::ViewFont)
     , printerFriendly(false)
   {
@@ -56,7 +51,6 @@ public:
   int caretStyle;
   bool showSelections;
   bool showTabs;
-  int tabWidth;
   int font;
   bool printerFriendly;
 };
@@ -91,19 +85,6 @@ bool KateRenderer::caretStyle() const
 void KateRenderer::setCaretStyle(int style)
 {
   m_currentSettings->caretStyle = style;
-}
-
-int KateRenderer::tabWidth()
-{
-  return s_tabWidth;
-}
-
-void KateRenderer::setTabWidth(int tabWidth)
-{
-  s_tabWidth = tabWidth;
-
-  //printFont()->updateFontData(s_tabWidth);
-  //viewFont()->updateFontData(s_tabWidth);
 }
 
 bool KateRenderer::showTabs() const

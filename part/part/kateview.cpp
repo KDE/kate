@@ -230,6 +230,8 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       if (c.flags & KateDocument::cfDelOnInput) myDoc->removeSelectedText();
       getVConfig(c);
       myDoc->newLine(c);
+      updateCursor( c.cursor );
+      updateView(0);
       return;
     case KateView::cmDelete:
       if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())

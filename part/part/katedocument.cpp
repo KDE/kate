@@ -2727,8 +2727,8 @@ void KateDocument::newLine(VConfig &c)
       c.cursor.col = pos;
     }
   }
-
-  c.view->myViewInternal->updateCursor(c.cursor);
+  // anders: document should _never_ care about the view
+  //c.view->myViewInternal->updateCursor(c.cursor);
 }
 
 void KateDocument::killLine(VConfig &c)

@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2001,2002 Joseph Wenninger <jowenn@kde.org>
@@ -1036,7 +1028,7 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
     bool standardStartEnableDetermined = false;
     bool standardStartEnable = false;
-    
+
     for (item = context->items.first(); item != 0L; item = context->items.next())
     {
       bool thisStartEnabled = false;
@@ -1526,11 +1518,11 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
     chr1=0;
 
   // Will be removed eventuall. Atm used for StringDetect
-  bool insensitive=(HlManager::self()->syntax->groupItemData(data,QString("insensitive"))==QString("TRUE"));
+  bool insensitive=( HlManager::self()->syntax->groupItemData(data,QString("insensitive")).lower() == QString("true") );
   // anders: very resonable for regexp too!
 
   // for regexp only
-  bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == "true" );
+  bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == QString("true") );
 
 
   // code folding region handling:
@@ -1552,9 +1544,9 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
     regionId=-regionId;
     regionIdToSet=&regionId2;
   }
- 
+
   if (!beginRegionStr.isEmpty())
-  {  
+  {
     *regionIdToSet=RegionList->findIndex(beginRegionStr);
     if (*regionIdToSet==-1) // if the region name doesn't already exist, add it to the list
     {

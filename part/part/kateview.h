@@ -374,7 +374,8 @@ class KateView : public Kate::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
-    KAction*         m_switchCmdLine;
+    KAction*               m_switchCmdLine;
+    KAction*               m_spellcheckSelection;
 
     KSelectAction*         m_setEndOfLine;
 
@@ -411,6 +412,13 @@ class KateView : public Kate::View,
   private slots:
     void slotNeedTextHint(int line, int col, QString &text);
     void slotHlChanged();
+
+  // spellcheck from cursor, selection
+  public slots:
+    void spellcheckFromCursor();
+    // defined here in anticipation of pr view selections ;)
+    void spellcheckSelection();
+
 
   /**
    * Configuration

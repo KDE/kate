@@ -4927,10 +4927,30 @@ void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
 //
 // Spellchecking IN again
 //
+
 void KateDocument::spellcheck()
 {
-  if( !isReadWrite() || text().isEmpty())
+  spellcheck( KateTextCursor( 0, 0 ) );
+}
+
+void KateDocument::spellcheck( const KateTextCursor &from, const KateTextCursor &to )
+{
+  if( !isReadWrite() || text().isEmpty() )
     return;
+
+
+  m_spellStart = from;
+  m_spellEnd = to;
+
+  if ( to.line() == 0 && to.col() == 0 )
+  {
+    int lln = lastLine();
+    m_spellEnd.setLine( lln );
+    m_spellEnd.setCol( lineLength( lln ) );
+  }
+
+  m_spellPosCursor = from;
+  m_spellLastPos = 0;
 
   QString mt = mimeType()/*->name()*/;
 
@@ -4958,25 +4978,34 @@ void KateDocument::ready(KSpell *)
 {
   m_kspell->setProgressResolution( 1 );
 
-  m_kspell->check( text() );
+  m_kspell->check( text( m_spellStart.line(), m_spellStart.col(), m_spellEnd.line(), m_spellEnd.col() ) );
 
   kdDebug () << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
 
 void KateDocument::locatePosition( uint pos, uint& line, uint& col )
 {
-  uint cnt = 0;
+  uint remains;
 
-  line = col = 0;
+  while ( m_spellLastPos < pos )
+  {
+    remains = pos - m_spellLastPos;
+    uint l = lineLength( m_spellPosCursor.line() ) - m_spellPosCursor.col();
+    if ( l > remains )
+    {
+      m_spellPosCursor.setCol( m_spellPosCursor.col() + remains );
+      m_spellLastPos = pos;
+    }
+    else
+    {
+      m_spellPosCursor.setLine( m_spellPosCursor.line() + 1 );
+      m_spellPosCursor.setCol(0);
+      m_spellLastPos += l + 1;
+    }
+  }
 
-  // Find pos  -- CHANGEME: store the last found pos's cursor
-  //   and do these searched relative to that to
-  //   (significantly) increase the speed of the spellcheck
-  for( ; line < numLines() && cnt <= pos; line++ )
-    cnt += lineLength(line) + 1;
-
-  line--;
-  col = pos - (cnt - lineLength(line)) + 1;
+  line = m_spellPosCursor.line();
+  col = m_spellPosCursor.col();
 }
 
 void KateDocument::misspelling( const QString& origword, const QStringList&, unsigned int pos )

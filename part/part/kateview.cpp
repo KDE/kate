@@ -204,6 +204,11 @@ void KateView::setupActions()
   if (!m_doc->readOnly())
   {
     KStdAction::spelling( m_doc, SLOT(spellcheck()), ac );
+    a = new KAction( i18n("Spelling (from cursor)..."), "spellcheck", 0, this, SLOT(spellcheckFromCursor()), ac, "tools_spelling_from_cursor" );
+    a->setWhatsThis(i18n("Check the documents spelling from the cursor and forward"));
+
+    m_spellcheckSelection = new KAction( i18n("Spellcheck Selection..."), "spellcheck", 0, this, SLOT(spellcheckSelection()), ac, "tools_spelling_selection" );
+    m_spellcheckSelection->setWhatsThis(i18n("Check spelling of the selected text"));
 
     a=KStdAction::save(this, SLOT(save()), ac);
     a->setWhatsThis(i18n("Save the current document"));
@@ -1112,10 +1117,9 @@ void KateView::selectionChanged ()
   if (m_doc->readOnly())
     return;
 
-  if (m_doc->hasSelection())
-    m_cut->setEnabled (true);
-  else
-    m_cut->setEnabled (false);
+  bool b = m_doc->hasSelection();
+  m_cut->setEnabled (b);
+  m_spellcheckSelection->setEnabled(b);
 }
 
 void KateView::switchToCmdLine ()
@@ -1327,6 +1331,18 @@ uint KateView::cursorColumn()
     r += m_viewInternal->getCursor().col() - m_doc->textLine( m_viewInternal->getCursor().line() ).length();
 
   return r;
+}
+
+void KateView::spellcheckFromCursor()
+{
+  m_doc->spellcheck( m_viewInternal->getCursor() );
+}
+
+void KateView::spellcheckSelection()
+{
+  KateTextCursor from( m_doc->selStartLine(), m_doc->selStartCol() );
+  KateTextCursor to( m_doc->selEndLine(), m_doc->selEndCol() );
+  m_doc->spellcheck( from, to );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

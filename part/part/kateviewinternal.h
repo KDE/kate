@@ -77,7 +77,7 @@ class KateViewInternal : public QWidget
   
   //public slots:
     void updateView (bool changed = false, int viewLinesScrolled = 0);
-    void makeVisible (KateTextCursor& c, uint endCol, bool force = false);
+    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false);
     
   public:
     void doReturn();
@@ -169,6 +169,7 @@ class KateViewInternal : public QWidget
     void moveChar( Bias bias, bool sel );
     void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
+    KateTextCursor maxStartPos();
     void scrollPos(KateTextCursor& c, bool force = false);
     void scrollLines( int lines, bool sel );
     
@@ -179,7 +180,7 @@ class KateViewInternal : public QWidget
     void centerCursor();
 
     void updateSelection( const KateTextCursor&, bool keepSel );
-    void updateCursor( const KateTextCursor& );
+    void updateCursor( const KateTextCursor& newCursor, bool force = false );
     
     bool tagLine(const KateTextCursor& virtualCursor);
     bool tagLines(int start, int end, bool realLines = false );

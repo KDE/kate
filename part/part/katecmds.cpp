@@ -233,7 +233,17 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
       else if ( cmd == "set-indent-spaces" )
         setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
       else if ( cmd == "set-mixed-indent" )
+      {
+        // this is special, in that everything is set up -- space-indent is enabled,
+        // and a indent-width is set if it is 0 (to tabwidth/2)
         setDocFlag( KateDocumentConfig::cfMixedIndent, enable, v->doc() );
+        if ( enable )
+        {
+          setDocFlag(  KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
+          if ( ! v->doc()->config()->indentationWidth() )
+            v->doc()->config()->setIndentationWidth( v->tabWidth()/2 );
+        }
+      }
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
       else if ( cmd == "set-replace-tabs-save" )

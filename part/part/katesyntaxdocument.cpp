@@ -179,6 +179,9 @@ syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data){
   return retval;
 }
 
+
+
+
 syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const QString &Config){
   QDomElement docElem = documentElement();
   QDomNode n = docElem.firstChild();
@@ -190,14 +193,23 @@ syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const
     // compare the tag of the current QDomElemnt to see if it is mainGroupName
     if (e.tagName().compare(mainGroupName)==0 ){
       QDomNode n1=e.firstChild();
-
+      
+      // Loop until we reach the last node in e
       while (!n1.isNull()){
         kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (inner loop) " <<endl;
+        /* Should this be done after the next if, e.firstChild is never tested */
         QDomElement e1=n1.toElement();
-
+        // if the name of the tag of the current node is equal to the Config
         if (e1.tagName()==Config){
+          // create a new syntaxContextData
           syntaxContextData *data=new ( syntaxContextData);
+          // Insert the current item into the syntaxContextData
+          /* should we add also data->parent and data->currentGroup, we have
+             the 'father node', nl */
           data->item=e1;
+          kdDebug(13010)<<"data->item="<<data->item.tagName()<<endl;
+          //kdDebug(13010)<<"data->item="<<el.tagName()<<endl;
+          // Return data
           return data;
         }
 

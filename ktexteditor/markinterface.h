@@ -98,11 +98,13 @@ class MarkInterface
       markType02= 0x2,
       /** Breakpoint reached */
       markType03= 0x4,
-      /** Breakpoint reached */
+      /** Breakpoint disabled */
       markType04= 0x8,
       /** Execution mark */
       markType05= 0x10,
+      /** Warning */
       markType06= 0x20,
+      /** Error */
       markType07= 0x40,
       markType08= 0x80,
       markType09= 0x100,

@@ -71,12 +71,13 @@ KateViewConfig *KateViewConfig::s_global = 0;
 KateRendererConfig *KateRendererConfig::s_global = 0;
 
 KateDocumentConfig::KateDocumentConfig ()
- : m_tabWidthSet (true),
+ : m_configFlags (0),
+   m_tabWidthSet (true),
    m_indentationWidthSet (true),
    m_wordWrapSet (true),
    m_wordWrapAtSet (true),
    m_undoStepsSet (true),
-   m_configFlagsSet (0),
+   m_configFlagsSet (0xFFFF),
    m_doc (0)
 {
   s_global = this;
@@ -88,7 +89,8 @@ KateDocumentConfig::KateDocumentConfig ()
 }
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
- : m_tabWidthSet (false),
+ : m_configFlags (0),
+   m_tabWidthSet (false),
    m_indentationWidthSet (false),
    m_wordWrapSet (false),
    m_wordWrapAtSet (false),

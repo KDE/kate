@@ -1001,7 +1001,7 @@ void StyleListView::mSlotPopupHandler( int z )
   ((StyleListItem*)currentItem())->changeProperty( (StyleListItem::Property)z );
 }
 
-// Because QListViewItem::activatePos() is going to become depricated,
+// Because QListViewItem::activatePos() is going to become deprecated,
 // and also because this attempt offers more control, I connect mousePressed to this.
 void StyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& pos, int c)
 {

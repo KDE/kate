@@ -6,7 +6,7 @@
    within comments, match should be caseless (to test for regexp insensitive attribute).
    The regex used for this rule is */
    String = /\b(?:fixme|todo|note)\b/
-   /* Thus,  for example "Notebook" is not catched by
+   /* Thus,  for example "Notebook" is not caught by
    this rule. (the "?:" in the subpattern is there to avoid the regex engine wasting time
    saving a backref, which is not used for anything. I do not know if the overhead of parsing
    that is greater than the time saved by not capturing the text...)

@@ -259,6 +259,7 @@ KateViewConfig::KateViewConfig ()
    m_iconBarSet (true),
    m_foldingBarSet (true),
    m_bookmarkSortSet (true),
+   m_autoCenterLinesSet (true),
    m_view (0)
 {
   s_global = this;
@@ -277,6 +278,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_iconBarSet (false),
    m_foldingBarSet (false),
    m_bookmarkSortSet (false),
+   m_autoCenterLinesSet (false),
    m_view (view)
 {
 }
@@ -308,6 +310,8 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setBookmarkSort (config->readNumEntry( "Bookmark Menu Sorting", 0 ));
 
+  setAutoCenterLines (config->readNumEntry( "Auto Center Lines", 0 ));
+
   configEnd ();
 }
 
@@ -323,6 +327,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry( "Folding Bar", foldingBar() );
 
   config->writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
+
+  config->writeEntry( "Auto Center Lines", autoCenterLines() );
 
   config->sync ();
 }
@@ -448,6 +454,27 @@ void KateViewConfig::setBookmarkSort (int mode)
 
   m_bookmarkSortSet = true;
   m_bookmarkSort = mode;
+
+  configEnd ();
+}
+
+int KateViewConfig::autoCenterLines () const
+{
+  if (m_autoCenterLinesSet || isGlobal())
+    return m_autoCenterLines;
+
+  return s_global->autoCenterLines();
+}
+
+void KateViewConfig::setAutoCenterLines (int lines)
+{
+  if (lines < 0)
+    return;
+
+  configStart ();
+
+  m_autoCenterLinesSet = true;
+  m_autoCenterLines = lines;
 
   configEnd ();
 }

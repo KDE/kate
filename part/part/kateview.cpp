@@ -952,11 +952,6 @@ void KateView::toggleCmdLine ()
   setCmdLine (!m_cmdLineOn);
 }
 
-void KateView::setAutoCenterLines(int viewLines)
-{
-  m_viewInternal->setAutoCenterLines(viewLines);
-}
-
 void KateView::toggleWriteLock()
 {
   m_doc->setReadWrite( ! m_doc->isReadWrite() );
@@ -1076,7 +1071,7 @@ void KateView::updateConfig ()
   // bookmark
   m_bookmarks->setSorting( (KateBookmarks::Sorting) config()->bookmarkSort() );
 
-  //setAutoCenterLines(m_doc->autoCenterLines());
+  m_viewInternal->setAutoCenterLines(config()->autoCenterLines ());
 }
 
 void KateView::updateRendererConfig()

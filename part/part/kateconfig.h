@@ -172,6 +172,9 @@ class KateViewConfig : public KateConfig
     int bookmarkSort () const;
     void setBookmarkSort (int mode);
 
+    int autoCenterLines() const;
+    void setAutoCenterLines (int lines);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -179,6 +182,7 @@ class KateViewConfig : public KateConfig
     bool m_iconBar;
     bool m_foldingBar;
     int m_bookmarkSort;
+    int m_autoCenterLines;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -186,6 +190,7 @@ class KateViewConfig : public KateConfig
     bool m_iconBarSet : 1;
     bool m_foldingBarSet : 1;
     bool m_bookmarkSortSet : 1;
+    bool m_autoCenterLinesSet : 1;
 
   private:
     KateView *m_view;

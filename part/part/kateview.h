@@ -309,9 +309,6 @@ class KateView : public Kate::View,
     void slotExpandLocal();
     void updateFoldingMarkersAction();
 
-  public:
-    void setAutoCenterLines(int viewLines);
-
   private:
     void setupConnections();
     void setupActions();

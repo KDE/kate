@@ -642,10 +642,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
      void applyWordWrap ();
 
   public:
-    void setAutoCenterLines(int viewLines);
-    int autoCenterLines() const;
-
-  public:
     enum GetSearchTextFrom
     {
       Nowhere, SelectionOnly, SelectionWord, WordOnly, WordSelection
@@ -702,8 +698,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool newDoc;          // True if the file is a new document (used to determine whether
                           // to check for overwriting files on save)
     bool modified;
-
-    static int m_autoCenterLines;
 
     static int m_getSearchTextFrom;
 

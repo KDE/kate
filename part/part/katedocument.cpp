@@ -103,7 +103,6 @@ uint KateDocument::myBackupConfig = 1;
 QString KateDocument::myBackupSuffix ("~");
 
 bool KateDocument::m_collapseTopLevelOnLoad = false;
-int KateDocument::m_autoCenterLines = 0;
 int KateDocument::m_getSearchTextFrom = KateDocument::SelectionOnly;
 
 Kate::PluginList KateDocument::s_plugins;
@@ -1862,7 +1861,6 @@ void KateDocument::readConfig(KConfig *config)
 
   config->setGroup("Kate View");
   m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
-  m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
   m_getSearchTextFrom = config->readNumEntry( "Get Search Text From", m_getSearchTextFrom );
 
   for (uint z=0; z < KateFactory::documents()->count(); z++)
@@ -1908,7 +1906,6 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate View");
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
-  config->writeEntry( "Auto Center Lines", m_autoCenterLines );
   config->writeEntry( "Get Search Text From", m_getSearchTextFrom );
 
   config->sync();
@@ -4230,21 +4227,6 @@ void KateDocument::applyWordWrap ()
     wrapText (selectStart.line(), selectEnd.line(), config()->wordWrapAt());
   else
     wrapText (config()->wordWrapAt());
-}
-
-void KateDocument::setAutoCenterLines(int viewLines)
-{
-  if (m_autoCenterLines != viewLines) {
-    m_autoCenterLines = viewLines;
-    for (uint z = 0; z < m_views.count(); z++) {
-      m_views.at(z)->setAutoCenterLines(m_autoCenterLines);
-    }
-  }
-}
-
-int KateDocument::autoCenterLines() const
-{
-  return m_autoCenterLines;
 }
 
 void KateDocument::setGetSearchTextFrom (int where)

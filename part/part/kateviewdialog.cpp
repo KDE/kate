@@ -338,7 +338,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   opt[4]->setChecked(configFlags & flags[4]);
   connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e4 = new KIntNumInput(view->autoCenterLines(), gbCursor);
+  e4 = new KIntNumInput(KateViewConfig::global()->autoCenterLines(), gbCursor);
   e4->setRange(0, 1000000, 1, false);
   e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
   connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -430,7 +430,7 @@ void EditConfigTab::getData(KateDocument *view)
   else
     KateDocumentConfig::global()->setUndoSteps(e3->value());
 
-  view->setAutoCenterLines(QMAX(0, e4->value()));
+  KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
   view->setGetSearchTextFrom(e5->currentItem());
 }
 

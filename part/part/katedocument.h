@@ -193,13 +193,13 @@ class KateDocument : public Kate::Document,
 
     bool editMarkLineAutoWrapped ( uint line, bool autowrapped );
 
-    bool editWrapLine ( uint line, uint col, bool newLine = true );
+    bool editWrapLine ( uint line, uint col, bool newLine = true, bool *newLineAdded = 0 );
     bool editUnWrapLine ( uint line, bool removeLine = true, uint length = 0 );
 
     bool editInsertLine ( uint line, const QString &s );
     bool editRemoveLine ( uint line );
 
-    bool wrapText (uint startLine, uint endLine, uint col);
+    bool wrapText (uint startLine, uint endLine);
 
   signals:
     /**
@@ -685,10 +685,6 @@ class KateDocument : public Kate::Document,
      * can use this to change its caption
      */
     void fileNameChanged ();
-
-  public:
-    // wrap the text of the document at the column col
-    void wrapText (uint col);
 
   public slots:
      void applyWordWrap ();

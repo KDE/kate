@@ -911,7 +911,7 @@ void KateDocument::editEnd ()
   // wrap the new/changed text
   if (editSessionNumber == 1)
     if (editWithUndo && config()->wordWrap())
-      wrapText (editTagLineStart, editTagLineEnd, config()->wordWrapAt());
+      wrapText (editTagLineStart, editTagLineEnd);
 
   editSessionNumber--;
 
@@ -940,22 +940,21 @@ void KateDocument::editEnd ()
   editIsRunning = false;
 }
 
-bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
+bool KateDocument::wrapText (uint startLine, uint endLine)
 {
-  if (endLine < startLine)
-    return false;
+  uint col = config()->wordWrapAt();
 
   if (col == 0)
     return false;
 
   editStart ();
-
-  uint line = startLine;
-  int z = 0;
-
-  while(line <= endLine)
-  {
+  
+  for (uint line = startLine; (line <= endLine) && (line < numLines()); line++)
+  {  
     TextLine::Ptr l = buffer->line(line);
+    
+    if (!l)
+      return false;
 
     if (l->length() > col)
     {
@@ -965,7 +964,6 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
       uint eolPosition = l->length()-1;
       uint searchStart = col;
 
-
       //If where we are wrapping is an end of line and is a space we don't
       //want to wrap there
       if (col == eolPosition && text[col].isSpace())
@@ -974,9 +972,9 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
       // Scan backwards looking for a place to break the line
       // We are not interested in breaking at the first char
       // of the line (if it is a space), but we are at the second
+      int z = 0;
       for (z=searchStart; z > 0; z--)
         if (text[z].isSpace()) break;
-
 
       if (z > 0)
       {
@@ -994,6 +992,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
       {
         editWrapLine (line, z, true);
         editMarkLineAutoWrapped (line+1, true);
+        
         endLine++;
       }
       else
@@ -1001,15 +1000,16 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
         if (nextl && (nextl->length() > 0) && !nextl->getChar(0).isSpace() && ((l->length() < 1) || !l->getChar(l->length()-1).isSpace()))
           editInsertText (line+1, 0, QString (" "));
 
-        editWrapLine (line, z, false);
+        bool newLineAdded = false;
+        editWrapLine (line, z, false, &newLineAdded);
+        
         editMarkLineAutoWrapped (line+1, true);
+        
+        if (newLineAdded)
+          endLine++;
       }
     }
-
-    line++;
-
-    if (line >= numLines()) break;
-  };
+  }
 
   editEnd ();
 
@@ -1145,7 +1145,7 @@ bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
   return true;
 }
 
-bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
+bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLineAdded)
 {
   if (!isReadWrite())
     return false;
@@ -1197,6 +1197,10 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
       emit marksChanged();
 
     editInsertTagLine (line);
+    
+    // yes, we added a new line !
+    if (newLineAdded)
+      (*newLineAdded) = true;
   }
   else
   {
@@ -1205,6 +1209,10 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
 
     buffer->changeLine(line);
     buffer->changeLine(line+1);
+    
+    // no, no new line added !
+    if (newLineAdded)
+      (*newLineAdded) = false;
   }
 
   editTagLine(line);
@@ -4071,11 +4079,6 @@ void KateDocument::flush ()
   closeURL ();
 }
 
-void KateDocument::wrapText (uint col)
-{
-  wrapText (0, lastLine(), col);
-}
-
 void KateDocument::setWordWrap (bool on)
 {
   config()->setWordWrap (on);
@@ -4099,9 +4102,9 @@ unsigned int KateDocument::wordWrapAt ()
 void KateDocument::applyWordWrap ()
 {
   if (hasSelection())
-    wrapText (selectStart.line(), selectEnd.line(), config()->wordWrapAt());
+    wrapText (selectStart.line(), selectEnd.line());
   else
-    wrapText (config()->wordWrapAt());
+    wrapText (0, lastLine());
 }
 
 void KateDocument::setPageUpDownMovesCursor (bool on)

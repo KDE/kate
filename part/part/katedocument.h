@@ -462,7 +462,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
                                 bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
                                 bool printerfriendly = false, const BracketMark& bm = BracketMark(), int startColX = 0 );
 
-    uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
+    uint textWidth(const TextLine::Ptr &, int cursorCol, WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap, int *endX = 0);
     uint textWidth(KateTextCursor &cursor);
     uint textWidth(KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont, uint startCol = 0);

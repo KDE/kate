@@ -886,8 +886,13 @@ public:
     }
   }
 protected:
-  bool valid() const { return line >= 0 && uint( line ) < m_doc.numLines() &&
-                              col  >= 0 && col <= m_doc.lineLength( line ); }
+  // Argh! Kate::Document::configFlags() is not const :(
+  bool valid() const {
+    return line >= 0 &&
+            uint( line ) < m_doc.numLines() &&
+            col  >= 0 &&
+            (!(const_cast<Kate::Document&>(m_doc).configFlags() & KateDocument::cfWrapCursor) || col <= m_doc.lineLength( line ));
+  }
   const Kate::Document& m_doc;
 };
 
@@ -902,7 +907,7 @@ public:
   virtual CalculatingCursor& operator+=( int n ) {
     col += n;
     col = QMAX( 0, col );
-    col = QMIN( col, m_doc.lineLength( line ) );
+    //col = QMIN( col, m_doc.lineLength( line ) );
     Q_ASSERT( valid() );
     return *this;
   }
@@ -1335,7 +1340,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
           int visibleX = m_doc->textWidth(virtualCopy) - range(virtualCursor).startX;
           int xOffset = thisRange.startX;
           
-          if (m_currentMaxX > visibleX)
+          if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > visibleX)
             visibleX = m_currentMaxX;
 
           cXPos = xOffset + visibleX;
@@ -1409,7 +1414,7 @@ void KateViewInternal::cursorUp(bool sel)
     xOffset = pRange.startX;
     newLine = pRange.line;
     
-    if (m_currentMaxX > visibleX)
+    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > visibleX)
       visibleX = m_currentMaxX;
 
     cXPos = xOffset + visibleX;
@@ -1421,7 +1426,7 @@ void KateViewInternal::cursorUp(bool sel)
   } else {
     newLine = m_doc->getRealLine(displayCursor.line - 1);
     
-    if (m_currentMaxX > cXPos)
+    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
   
@@ -1460,7 +1465,7 @@ void KateViewInternal::cursorDown(bool sel)
       xOffset = thisRange.endX;
     }
     
-    if (m_currentMaxX > visibleX)
+    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > visibleX)
       visibleX = m_currentMaxX;
   
     cXPos = xOffset + visibleX;
@@ -1472,7 +1477,7 @@ void KateViewInternal::cursorDown(bool sel)
   } else {
     newLine = m_doc->getRealLine(displayCursor.line + 1);
     
-    if (m_currentMaxX > cXPos)
+    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
   

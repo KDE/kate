@@ -52,7 +52,7 @@ void LineRange::clear()
 
 bool LineRange::includesCursor(const KateTextCursor& realCursor) const
 {
-  return realCursor.line() == line && (!wrap || realCursor.col() >= startCol && realCursor.col() <= endCol);
+  return realCursor.line() == line && realCursor.col() >= startCol && (!wrap || realCursor.col() < endCol);
 }
 
 int LineRange::xOffset() const

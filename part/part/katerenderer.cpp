@@ -201,7 +201,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
   static const bool timeDebug = false;
 
-  int showCursor = (drawCaret() && cursor && range->line == cursor->line() && cursor->col() >= range->startCol && (!range->wrap || cursor->col() < range->endCol)) ? cursor->col() : -1;
+  int showCursor = (drawCaret() && cursor && range->includesCursor(*cursor)) ? cursor->col() : -1;
 
   KateSuperRangeList& superRanges = m_doc->arbitraryHL()->rangesIncluding(range->line, m_view);
 

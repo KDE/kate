@@ -3359,14 +3359,14 @@ bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
 */
 bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 {
-  for(; line < buffer->count(); line++) {
+  for(; line >= 0; line--) {
     TextLine::Ptr textLine = buffer->line(line);
     col = textLine->previousNonSpaceChar(col);
     if(col != -1)
-      return true; // Previous non space char found 
+      return true; // Previous non-space char found 
     col = 0;
   }
-  // No non space char found
+  // No non-space char found
   line = -1;
   col = -1;
   return false;
@@ -3386,56 +3386,32 @@ bool KateDocument::removeStartStopCommentFromSelection()
   int sc = selectStart.col;
   int ec = selectEnd.col;
 
-   if ((ec == 0) && (el > 0))
+  if ((ec == 0) && (el > 0))
   {
     el--;
-    ec = buffer->line (el)->length();
+    ec = buffer->line(el)->length() - 1;
   }
 
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
 
   // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$1/
-  // check if both ends matches, allowing whitespace on outer side; return if eithre fails
-  TextLine::Ptr l;
-  l = buffer->line(sl);
-  // skip spaces/lines starting at selectStart
-  while ( (sl <= el) && (sc < ec) && l->getChar(sc).isSpace() ) {
-    if ( ((uint) sc) == l->length() ) {
-      sl++;
-      sc = 0;
-      l = buffer->line( sl );
-      if (!l) return false; // hopefully _VERY_ unlikely
-    }
-    sc++;
+
+  bool remove = nextNonSpaceCharPos(sl, sc)
+      && buffer->line(sl)->stringAtPos(sc, startComment)
+      && previousNonSpaceCharPos(el, ec)
+      && ( (ec - endCommentLen + 1) >= 0 )
+      && buffer->line(el)->stringAtPos(ec - endCommentLen + 1, endComment);
+ 
+  if (remove) {
+    kdDebug(13000) << "remove text" << endl;
+    removeText (el, ec - endCommentLen + 1, el, ec + 1);
+    removeText (sl, sc, sl, sc + startCommentLen);
   }
-  if ( l->getString().mid( sc, startCommentLen ) != startComment ) {
-    kdDebug(13020)<<"removeBlaBla(): '"<<startComment<<"' not found after skipping space ("<<sl<<", "<<sc<<") - giving up :("<<endl;
-    return false;
-  }
-  // repat kinda reversed for end.....
-  l = buffer->line( el );
-  ec--;
-  while ( el >= sl /*&& ec > sc*/ && l->getChar(ec).isSpace() ) {
-    if ( ec < 0 ) {
-      kdDebug(13020)<<"removeBlaBla(): up a line = "<<el-1<<endl;
-      el--;
-      l = buffer->line( el );
-      if (!l) return false; // hopefully _VERY_ unlikely
-      ec = l->length();
-    }
-    ec--;
-  }
-  ec++; // we went one char too far to find a nonspace
-  if ( ec - endCommentLen < 0 || l->getString().mid(ec-endCommentLen,endCommentLen) != endComment ) {
-    kdDebug(13020)<<"removeBlaBla(): '"<<endComment<<"' not found after skipping space ("<<el<<", "<<ec-endCommentLen<<") - giving up :("<<endl;
-    return false;
-  }
-  removeText (el, ec-endCommentLen, el, ec);
-  removeText (sl, sc, sl, sc+startCommentLen);
+
   // TODO anders: redefine selection
-  kdDebug(13020)<<"removeBlaBla(): I DID IT!! I'm DANCING AROUND"<<endl;
-  return true;
+
+  return remove;
 }
 
 /*

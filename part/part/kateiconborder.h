@@ -56,8 +56,14 @@ class KateIconBorder : public QWidget
   protected:
     void paintEvent( QPaintEvent* );
     void mousePressEvent( QMouseEvent* );
+    void mouseMoveEvent( QMouseEvent* );
+    void mouseReleaseEvent( QMouseEvent* );
+    void mouseDoubleClickEvent( QMouseEvent* );
                   
   private:        
+    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
+    BorderArea positionToArea( const QPoint& ) const;
+
     void createMarkMenu();
                       
     class KateView *myView;   
@@ -71,5 +77,6 @@ class KateIconBorder : public QWidget
     
     bool lmbSetsBreakpoints;
     uint oldEditableMarks;
+    uint m_lastClickedLine;
 };
 #endif

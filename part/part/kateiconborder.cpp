@@ -260,6 +260,9 @@ QSize KateIconBorder::sizeHint() const
   if (m_foldingMarkersOn)
     w += iconPaneWidth;
 
+  // A little extra makes selecting at the beginning easier
+  w = QMAX( w, 4 );
+
   return QSize( w, 0 );
 }
 
@@ -365,72 +368,84 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   }
 }
 
-void KateIconBorder::mousePressEvent(QMouseEvent* e)
+KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) const
 {
-  // return if the event is in linenumbers pane
-  if ( !m_iconBorderOn && !m_foldingMarkersOn )
-    return;
+  int x = 0;
+  if( m_lineNumbersOn ) {
+    x += fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
+    if( p.x() <= x )
+      return LineNumbers;
+  }
+  if( m_iconBorderOn ) {
+    x += iconPaneWidth;
+    if( p.x() <= x )
+      return IconBorder;
+  }
+  if( m_foldingMarkersOn ) {
+    x += iconPaneWidth;
+    if( p.x() <= x )
+      return FoldingMarkers;
+  }
+  return None;
+}
+
+void KateIconBorder::mousePressEvent( QMouseEvent* e )
+{
+  m_lastClickedLine = myDoc->getRealLine(
+    (e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight );
   
-  int lnWidth = fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
-  
-  int xwidth = 0;
-  if( m_iconBorderOn )
-    xwidth += iconPaneWidth;
-  if( m_foldingMarkersOn )
-    xwidth += iconPaneWidth;
-  if( m_lineNumbersOn )
-    xwidth += lnWidth;
-  if( e->x() > xwidth )
-    return;
-  
-  //myInternalView->placeCursor( 0, e->y(), 0 );
-
-  uint cursorOnLine = myDoc->getRealLine(  ((e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight)  );
-
-  if (cursorOnLine > myView->myDoc->lastLine())
-    return;
-
-  uint mark = myView->myDoc->mark (cursorOnLine);
-
-  if( m_iconBorderOn )
+  BorderArea area = positionToArea( e->pos() );
+  if( area == FoldingMarkers ||
+      area == None )
   {
-    int xMin = m_lineNumbersOn ? lnWidth : 0;
-    int xMax = xMin + iconPaneWidth;
+    QMouseEvent forward( QEvent::MouseButtonPress, 
+      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
+    myInternalView->contentsMousePressEvent( &forward );
+  }
+}
 
-    if ((e->x()>=xMin) && (e->x()<xMax))
+void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
+{
+  BorderArea area = positionToArea( e->pos() );
+  if( area == FoldingMarkers ||
+      area == None )
+  {
+    QMouseEvent forward( QEvent::MouseMove, 
+      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
+    myInternalView->contentsMouseMoveEvent( &forward );
+  }
+}
+
+void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
+{
+  uint cursorOnLine = myDoc->getRealLine(
+    (e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight );
+  
+  switch( positionToArea( e->pos() ) ) {
+  case LineNumbers:
+    break;
+  case IconBorder:
+    if( e->button() == LeftButton &&
+        cursorOnLine == m_lastClickedLine &&
+        cursorOnLine <= myDoc->lastLine() )
     {
-      switch (e->button()) {
-      case LeftButton:
-        createMarkMenu();
-        if (oldEditableMarks) {
-          if (markMenu) {
-            markMenu->exec(QCursor::pos());	
-          } else {
-            if (mark&oldEditableMarks)
-              myView->myDoc->removeMark (cursorOnLine, oldEditableMarks);
-            else
-              myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
-          }
+      uint mark = myView->myDoc->mark (cursorOnLine);
+      createMarkMenu();
+      if (oldEditableMarks) {
+        if (markMenu) {
+          markMenu->exec(QCursor::pos());	
+        } else {
+          if (mark&oldEditableMarks)
+            myView->myDoc->removeMark (cursorOnLine, oldEditableMarks);
+          else
+            myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
         }
-        break;
-      default:
-        break;
       }
     }
-  }
-
-  if( m_foldingMarkersOn )
-  {
-    kdDebug(13000)<<"checking if a folding marker has been clicked"<<endl;
-
-    int xMin = m_iconBorderOn ? iconPaneWidth : 0;
-
-    if( m_lineNumbersOn )
-      xMin += lnWidth;
-
-    int xMax = xMin + iconPaneWidth;
-    
-    if ((e->x()>=xMin) && (e->x()<xMax))
+    break;
+  case FoldingMarkers:
+    if( cursorOnLine == m_lastClickedLine &&
+        cursorOnLine <= myDoc->lastLine() )
     {
       kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
       KateLineInfo info;
@@ -441,6 +456,24 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
          emit toggleRegionVisibility(cursorOnLine);
       }
     }
+    // Fall through
+  default:
+    QMouseEvent forward( QEvent::MouseButtonRelease, 
+      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
+    myInternalView->contentsMouseReleaseEvent( &forward );
+    break;
+  }
+}
+
+void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
+{
+  BorderArea area = positionToArea( e->pos() );
+  if( area == FoldingMarkers ||
+      area == None )
+  {
+    QMouseEvent forward( QEvent::MouseButtonDblClick, 
+      QPoint( 0, e->y() + myInternalView->contentsY() ), e->button(), e->state() );
+    myInternalView->contentsMouseDoubleClickEvent( &forward );
   }
 }
 

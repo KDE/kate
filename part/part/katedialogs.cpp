@@ -288,7 +288,7 @@ void HlConfigPage::showEvent ( QShowEvent * )
     m_ready = true;
   }
   
-  QWidget:show ();
+  QWidget::show ();
 }
 
 void HlConfigPage::apply ()

@@ -1,6 +1,7 @@
 <!--
         Copyright (c) 2001 Joseph Wenninger <jowenn@kde.org>
-        modified (c) 2002 Anders >Lund anders@alweb.dk>
+        modified (c) 2002 Anders Lund <anders@alweb.dk>
+        modified (c) 2003 Simon Huerlimann <simon.huerlimann@access.unizh.ch>
 
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
@@ -12,27 +13,31 @@
         Files using this format should include a DOCTYPE declaration like this:
         <!DOCTYPE language SYSTEM "language.dtd">
 -->
-<!ENTITY % ruleattrs
- "attribute     CDATA   #REQUIRED
-  context       CDATA   #REQUIRED
-  beginRegion   CDATA   #IMPLIED
-  endRegion     CDATA   #IMPLIED        "
->
 
 <!ENTITY per "." >
+
+<!ENTITY % ruleattrs
+ "attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text --
+  context       CDATA   #REQUIRED       -- The name of the context to go to when this rule
+                                           matches --
+  beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
+  endRegion     CDATA   #IMPLIED        -- End a region of type endRegion --"
+>
+
 <!ELEMENT language (highlighting, general?)>
 <!ATTLIST language
-  name          CDATA   #REQUIRED
-  section NMTOKEN #REQUIRED
-
-
-  extensions    CDATA   #REQUIRED
-
-  mimetype      CDATA   #IMPLIED
-  version       CDATA   #IMPLIED
-  kateversion   CDATA   #IMPLIED
-  casesensitive (0|1)   #IMPLIED
-  priority       CDATA   #IMPLIED
+  name          CDATA   #REQUIRED       -- The name of this syntax description. Used in the
+                                           Highlightning Mode menu --
+  section       NMTOKEN #REQUIRED       -- The logical group to which this syntax description
+                                           belongs. Used for sub menus --
+  extensions    CDATA   #REQUIRED       -- A file glob or pattern to decide for which documents
+                                           to use this syntax description --
+  mimetype      CDATA   #IMPLIED        -- A list of mimetypes to decide for which documents
+                                           to use this syntax description --
+  version       CDATA   #IMPLIED        -- Version number of this syntax description --
+  kateversion   CDATA   #IMPLIED        -- Kate version required for using this file --
+  casesensitive (0|1)   #IMPLIED        -- ?? --
+  priority      CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
 >
 
 <!ELEMENT general (comments|keywords)*>
@@ -57,7 +62,8 @@
   additionalDeliminator CDATA #IMPLIED
 >
 
-<!ELEMENT highlighting (list*, contexts, itemDatas)  >
+<!ELEMENT highlighting (list*, contexts, itemDatas) -- Data, rules and attributes for
+                                           analyzing and rendering the relevant type of text -- >
 <!ATTLIST highlighting
 >
 
@@ -80,110 +86,116 @@
   fallthroughContext CDATA #IMPLIED
 >
 
-<!ELEMENT keyword EMPTY                  >
+<!ELEMENT keyword EMPTY                 -- Test for occurrence of members of a keyword list -- >
 <!ATTLIST keyword
   %ruleattrs;
   String CDATA #REQUIRED
-
+                                        -- The name of the list to try --
   weakDelimiter CDATA #IMPLIED
 >
 
-<!ELEMENT Float (AnyChar)*               >
+<!ELEMENT Float (AnyChar)*              -- Detect a floating point number -- >
 <!ATTLIST Float
   %ruleattrs;
 >
 
-<!ELEMENT HlCOct EMPTY                   >
+<!ELEMENT HlCOct EMPTY                  -- Detect a octal number -- >
 <!ATTLIST HlCOct
   %ruleattrs;
 >
 
-<!ELEMENT HlCHex EMPTY                   >
+<!ELEMENT HlCHex EMPTY                  -- Detect a hexadecimal number -- >
 <!ATTLIST HlCHex
   %ruleattrs;
 >
 
-<!ELEMENT HlCFloat EMPTY                   >
+<!ELEMENT HlCFloat EMPTY                  -- Detect a float number -- >
 <!ATTLIST HlCFloat
   %ruleattrs;
 >
 
-<!ELEMENT HlCChar EMPTY                  >
+<!ELEMENT HlCChar EMPTY                 --  -- >
 <!ATTLIST HlCChar
   %ruleattrs;
 >
 
-<!ELEMENT Int (StringDetect)*            >
+<!ELEMENT Int (StringDetect)*           -- Detect an integer number -- >
 <!ATTLIST Int
   %ruleattrs;
 >
 
-<!ELEMENT DetectChar EMPTY               >
+<!ELEMENT DetectChar EMPTY              -- Detect a single character -- >
 <!ATTLIST DetectChar
-  char          CDATA   #REQUIRED
+  char          CDATA   #REQUIRED       -- The character to look for --
   %ruleattrs;
 >
 
-<!ELEMENT Detect2Chars EMPTY             >
+<!ELEMENT Detect2Chars EMPTY            -- Detect two characters -- >
 <!ATTLIST Detect2Chars
-  char          CDATA   #REQUIRED
-  char1         CDATA   #REQUIRED
+  char          CDATA   #REQUIRED       -- The first character --
+  char1         CDATA   #REQUIRED       -- The second character --
   %ruleattrs;
 >
 
-<!ELEMENT AnyChar EMPTY                  >
+<!ELEMENT AnyChar EMPTY                 -- Detect any of a group of characters -- >
 <!ATTLIST AnyChar
-  String        CDATA   #REQUIRED
+  String        CDATA   #REQUIRED       -- A string representing the characters to look for --
   %ruleattrs;
 >
 
-<!ELEMENT StringDetect EMPTY             >
+<!ELEMENT StringDetect EMPTY            -- Detect a string -- >
 <!ATTLIST StringDetect
-  String        CDATA   #REQUIRED
-  insensitive (TRUE|FALSE) #IMPLIED
+  String        CDATA   #REQUIRED       -- The string to look for --
+  insensitive (TRUE|FALSE) #REQUIRED    -- Wheather to match case insensitive or not.
+                                           Defaults to false --
   %ruleattrs;
 >
 
-<!ELEMENT RegExpr EMPTY                  >
+<!ELEMENT RegExpr EMPTY                 -- Detect text matching a regular expression -- >
 <!ATTLIST RegExpr
-  String        CDATA   #REQUIRED
-  insensitive (FALSE|TRUE) #IMPLIED
-  minimal (false|true) #IMPLIED
+  String        CDATA   #REQUIRED       -- The regular expression pattern --
+  insensitive (FALSE|TRUE) #IMPLIED     -- Wheather to match insensitive or not
+                                           Defaults to false --
+  minimal (false|true) #IMPLIED         -- Wheather to use minimal matching for wild cards
+                                           in the pattern Defaults to false --
   %ruleattrs;
 >
 
-<!ELEMENT LineContinue EMPTY             >
+<!ELEMENT LineContinue EMPTY            --  -- >
 <!ATTLIST LineContinue
   %ruleattrs;
 >
 
-<!ELEMENT HlCStringChar EMPTY            >
+<!ELEMENT HlCStringChar EMPTY           -- Detect a C style escaped character -- >
 <!ATTLIST HlCStringChar
   %ruleattrs;
 >
 
-<!ELEMENT RangeDetect EMPTY              >
+<!ELEMENT RangeDetect EMPTY             -- Detect a range of characters -- >
 <!ATTLIST RangeDetect
-  char          CDATA   #REQUIRED
-  char1         CDATA   #REQUIRED
+  char          CDATA   #REQUIRED       -- The character starting the range --
+  char1         CDATA   #REQUIRED       -- The character terminating the range --
   %ruleattrs;
 >
 
-<!ELEMENT IncludeRules EMPTY             >
+<!ELEMENT IncludeRules EMPTY            -- Include another context at this position -- >
 <!ATTLIST IncludeRules
-  context       CDATA #REQUIRED
+  context       CDATA   #REQUIRED       -- The name or index of the context to include --
 >
 
-<!ELEMENT itemDatas (itemData)+          >
+<!ELEMENT itemDatas (itemData)+         -- Attribute list -- >
 <!ATTLIST itemDatas
 >
 
-<!ELEMENT itemData EMPTY                 >
+<!ELEMENT itemData EMPTY                -- One attribute or typographic style -- >
 <!ATTLIST itemData
-  name          CDATA   #REQUIRED
-  defStyleNum   CDATA   #REQUIRED
-  color         CDATA   #IMPLIED
-  selColor      CDATA   #IMPLIED
-  italic        CDATA   #IMPLIED
-  bold          CDATA   #IMPLIED
+  name          CDATA   #REQUIRED       -- The name of this attribute --
+  defStyleNum   CDATA   #REQUIRED       -- The index of the default style to use --
+  color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name
+                                           or some other format recognized by Qt --
+  selColor      CDATA   #IMPLIED        -- The color for this style when text is selected --
+  italic        CDATA   #IMPLIED        -- Wheather this attribute should be rendered using
+                                           an italic typeface --
+  bold          CDATA   #IMPLIED        -- Wheather this attribute should be renederd using
+                                           a bold typeface --
 >

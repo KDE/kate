@@ -617,17 +617,17 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
   if ( startLine > lastLine() )
     return false;
-
-  if ( endLine > lastLine() )
-  {
-    endLine = lastLine()+1;
-    endCol = 0;
-  }
         
   editStart ();
  
   if ( !blockwise )
   {
+    if ( endLine > lastLine() )
+    {
+      endLine = lastLine()+1;
+      endCol = 0;
+    }
+  
     if (startLine == endLine)
     {
       editRemoveText (startLine, startCol, endCol-startCol);
@@ -669,7 +669,10 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
   }
   else
   {
-     for (uint line = endLine; line >= startLine; line--)
+    if ( endLine > lastLine() ) 
+      endLine = lastLine ();
+  
+    for (uint line = endLine; line >= startLine; line--)
     {
       editRemoveText (line, startCol, endCol-startCol);
       

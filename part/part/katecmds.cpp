@@ -565,5 +565,5 @@ bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
 }
 //END Date
 
-
+#undef kdDebug
 // kate: space-indent on; indent-width 2; replace-tabs on;

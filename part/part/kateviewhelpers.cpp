@@ -127,7 +127,6 @@ class KateCmdLineFlagCompletion : public KCompletion
 //END KateCmdLineFlagCompletion
 
 //BEGIN KateCmdLine
-#define kdDebug() kdDebug(13025)
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
   , m_view (view)
@@ -268,11 +267,11 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         m_command = KateCmd::self()->queryCommand( text().stripWhiteSpace() );
         if ( m_command )
         {
-          //kdDebug()<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
+          //kdDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'"<<endl;
           // if the typed character is ":",
           // we try if the command has flag completions
           m_cmdend = cursorpos;
-          //kdDebug()<<"keypress in commandline: Set m_cmdend to "<<m_cmdend<<endl;
+          //kdDebug(13025)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend<<endl;
         }
         else
           m_cmdend = 0;
@@ -280,11 +279,11 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     }
     else // since cursor is inside the command name, we reconsider it
     {
-      kdDebug()<<"keypress in commandline: \\W -- text is "<<text()<<endl;
+      kdDebug(13025)<<"keypress in commandline: \\W -- text is "<<text()<<endl;
       m_command = KateCmd::self()->queryCommand( text().stripWhiteSpace() );
       if ( m_command )
       {
-        //kdDebug()<<"keypress in commandline: We have a command! "<<m_command<<endl;
+        //kdDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<endl;
         QString t = text();
         m_cmdend = 0;
         bool b = false;
@@ -299,7 +298,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         if ( c == ':' && cursorpos == m_cmdend )
         {
           // check if this command wants to complete flags
-          //kdDebug()<<"keypress in commandline: Checking if flag completion is desired!"<<endl;
+          //kdDebug(13025)<<"keypress in commandline: Checking if flag completion is desired!"<<endl;
         }
       }
       else
@@ -321,7 +320,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
     // if we got a command, check if it wants to do semething.
     if ( m_command )
     {
-      //kdDebug()<<"Checking for CommandExtension.."<<endl;
+      //kdDebug(13025)<<"Checking for CommandExtension.."<<endl;
       Kate::CommandExtension *ce = dynamic_cast<Kate::CommandExtension*>(m_command);
       if ( ce )
       {
@@ -331,7 +330,7 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
         // save the old completion object and use what the command provides
         // instead. We also need to prepend the current command name + flag string
         // when completion is done
-          //kdDebug()<<"keypress in commandline: Setting completion object!"<<endl;
+          //kdDebug(13025)<<"keypress in commandline: Setting completion object!"<<endl;
           if ( ! m_oldCompletionObject )
             m_oldCompletionObject = completionObject();
 
@@ -385,7 +384,6 @@ void KateCmdLine::fromHistory( bool up )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
 }
-#undef kdDebug
 //END KateCmdLine
 
 //BEGIN KateIconBorder

@@ -25,8 +25,6 @@
 #include <kdebug.h>
 #include <qvaluelist.h>
 
-#define kdDebug() kdDebug(13020)
-
 KateTemplateHandler::KateTemplateHandler(
   KateDocument *doc,
   uint line, uint column,

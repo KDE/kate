@@ -93,10 +93,10 @@ class CodeCompletionInterface
     virtual void showArgHint (QStringList functionList, const QString& strWrapping, const QString& strDelimiter) = 0;
 
     /**
-     * This shows a completion list. @param offset is the real start of the text that
-	 * should be completed. <code>0</code> means that the text starts at the current cursor
-	 * position. if @param casesensitive is @p true, the popup will only contain completions
-	 * that match the input text regarding case.
+     * This shows a completion list. @p offset is the real start of the text that
+     * should be completed. <code>0</code> means that the text starts at the current cursor
+     * position. if @p casesensitive is @p true, the popup will only contain completions
+     * that match the input text regarding case.
      */
     virtual void showCompletionBox (QValueList<CompletionEntry> complList,int offset=0, bool casesensitive=true)=0;
 

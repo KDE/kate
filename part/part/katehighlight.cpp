@@ -1440,11 +1440,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if (offset2 <= offset)
         continue;
 
-      if(!item->lookAhead)
-        textLine->setAttribs(item->onlyConsume ? context->attr : item->attr,offset,offset2);
-
-      //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
-
       if (item->region2)
       {
         // kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
@@ -1484,14 +1479,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
       }
 
+      // regenerate context stack if needed
       if (item->ctx != -1)
       {
-        generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
-
-  //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
-//    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
-
-        context=contextNum(ctxNum);
+        generateContextStack (&ctxNum, item->ctx, &ctx, &previousLine);
+        context = contextNum(ctxNum);
       }
 
       // dynamic context: substitute the model with an 'instance'
@@ -1513,6 +1505,9 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // dominik: look ahead w/o changing offset?
       if (!item->lookAhead)
       {
+        // even set attributes ;)
+        textLine->setAttribs(item->onlyConsume ? context->attr : item->attr,offset,offset2);
+
         offset = offset2;
         lastChar = text[offset-1];
       }

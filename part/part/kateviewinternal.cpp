@@ -632,45 +632,38 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
   return m_doc->lineColSelected( line, col );
 }
 
-// Overridden to handle tab key.
-bool KateViewInternal::event( QEvent* e )
-{
-  if( e->type() != QEvent::KeyPress )
-    return QScrollView::event( e );
-  
-  QKeyEvent *k = (QKeyEvent *)e;
-  if ( !(k->state() & ControlButton || k->state() & AltButton) ) {
-    keyPressEvent( k );
-    return k->isAccepted();
-  }
-  
-  return QScrollView::event( e );
-}
-
-// Overridden to pass events through KCursor auto-hide filter.
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
-  if( obj == viewport() ) {
+  if( obj != viewport() )
+    return QScrollView::eventFilter( obj, e );
+
+  KCursor::autoHideEventFilter( obj, e );
   
-    KCursor::autoHideEventFilter( obj, e );
-    
-    if( e->type() == QEvent::FocusIn ) {
-      cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
-      paintCursor();
-      
-      emit m_view->gotFocus( m_view );
-    } else if ( e->type() == QEvent::FocusOut ) {
-      if( cursorTimer ) {
-        killTimer( cursorTimer );
-        cursorTimer = 0;
-      }
-      paintCursor();
-      
-      emit m_view->lostFocus( m_view );
+  switch( e->type() ) {
+  case QEvent::FocusIn:
+    cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+    paintCursor();
+    emit m_view->gotFocus( m_view );
+    break;
+  case QEvent::FocusOut:
+    if( cursorTimer ) {
+      killTimer( cursorTimer );
+      cursorTimer = 0;
     }
-    
+    paintCursor();
+    emit m_view->lostFocus( m_view );
+    break;
+  case QEvent::KeyPress: {
+    QKeyEvent *k = (QKeyEvent *)e;
+    if ( !(k->state() & ControlButton || k->state() & AltButton) ) {
+      keyPressEvent( k );
+      return k->isAccepted();
+    }
+  } break;
+  default:
+    break;
   }
-    
+        
   return QScrollView::eventFilter( obj, e );
 }
 

@@ -98,7 +98,6 @@ class KateViewInternal : public QScrollView
   private:
     void drawContents( QPainter*, int cx, int cy, int cw, int ch );
 
-    bool event( QEvent* );
     bool eventFilter( QObject*, QEvent* );
     void keyPressEvent( QKeyEvent* );
     void contentsMousePressEvent(       QMouseEvent* );

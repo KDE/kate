@@ -25,7 +25,7 @@
  * left from the desigener code */
 
 // $Id$
- 
+
 #include "katecodecompletion.h"
 #include "katecodecompletion.moc"
 
@@ -171,7 +171,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
      m_view->setFocus();
      return false;
    }
-  
+
    if ( e->type() == QEvent::MouseButtonDblClick  ) {
     doComplete();
     return false;
@@ -202,12 +202,17 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
       return false;
     }
 
+    int qtKeyCode = ke->key() | ((ke->state() & Qt::ShiftButton) ? Qt::SHIFT : 0) | ((ke->state() & Qt::ControlButton) ? Qt::CTRL : 0) | ((ke->state() & Qt::AltButton) ? Qt::ALT : 0) | ((ke->state() & Qt::MetaButton) ? Qt::META : 0);
+
     // redirect the event to the editor
     if( ke->key() == Key_Backspace) {
       m_view->backspace();
+    } else if (qtKeyCode == m_view->m_editUndo->shortcut().keyCodeQt()) {
+      m_view->m_editUndo->activate();
     } else {
       QApplication::sendEvent( m_view->m_viewInternal, e );
     }
+
     if( m_colCursor > m_view->cursorColumnReal() ) {
       // the cursor is too far left
       kdDebug(13035) << "Aborting Codecompletion after sendEvent" << endl;
@@ -216,6 +221,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
       m_view->setFocus();
       return true;
     }
+
     updateBox();
     return true;
   }
@@ -354,7 +360,7 @@ void KateCodeCompletion::slotCursorPosChanged()
 void KateCodeCompletion::showComment()
 {
   if (!m_completionPopup->isVisible())
-    return;    
+    return;
   CompletionItem* item = static_cast<CompletionItem*>(m_completionListBox->item(m_completionListBox->currentItem()));
 
   if( !item )

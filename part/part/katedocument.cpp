@@ -1905,8 +1905,6 @@ void KateDocument::writeConfig(KConfig *config)
   config->setGroup("Kate View Defaults");
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
   config->writeEntry( "Get Search Text From", m_getSearchTextFrom );
-
-  config->sync();
 }
 
 void KateDocument::readConfig()
@@ -1919,6 +1917,7 @@ void KateDocument::writeConfig()
 {
   KConfig *config = KateFactory::instance()->config();
   writeConfig (config);
+  config->sync();
 }
 
 void KateDocument::readSessionConfig(KConfig *config)

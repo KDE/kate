@@ -190,8 +190,6 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Backup Config Flags", backupFlags());
 
   config->writeEntry("Backup Suffix", backupSuffix());
-
-  config->sync ();
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -568,8 +566,6 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Search Config Flags", searchFlags());
 
   config->writeEntry("Command Line", cmdLine());
-
-  config->sync ();
 }
 
 void KateViewConfig::updateConfig ()
@@ -846,8 +842,6 @@ void KateRendererConfig::writeConfig (KConfig *config)
   config->writeEntry ("Schema", KateFactory::schemaManager()->name(schema()));
 
   config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
-
-  config->sync ();
 }
 
 void KateRendererConfig::updateConfig ()

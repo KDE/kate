@@ -254,6 +254,7 @@ class KateView : public Kate::View,
     void slotIncFontSizes();
     void slotDecFontSizes();
     void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionReal( mark->line, 0 ); }
+    void selectionChanged ();
 
   signals:
     void gotFocus( Kate::View* );
@@ -326,6 +327,12 @@ class KateView : public Kate::View,
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;
     KToggleAction*         m_toggleWriteLock;
+
+    KAction *m_cut;
+    KAction *m_copy;
+    KAction *m_paste;
+    KAction *m_selectAll;
+    KAction *m_deSelect;
 
     KateDocument*          m_doc;
     KateViewInternal*      m_viewInternal;

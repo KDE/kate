@@ -182,10 +182,10 @@ void KateView::setupActions()
     a=m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
 
-    a=KStdAction::cut(this, SLOT(cut()), ac);
+    m_cut = a=KStdAction::cut(this, SLOT(cut()), ac);
     a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
 
-    a=KStdAction::paste(this, SLOT(paste()), ac);
+    m_paste = a=KStdAction::paste(this, SLOT(paste()), ac);
     a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
 
     (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
@@ -228,7 +228,7 @@ void KateView::setupActions()
   }
 
 
-  a=KStdAction::copy(this, SLOT(copy()), ac);
+  m_copy = a=KStdAction::copy(this, SLOT(copy()), ac);
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
   a=KStdAction::print( m_doc, SLOT(print()), ac );
@@ -249,10 +249,10 @@ void KateView::setupActions()
   m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
   m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 
-  a=KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
+  m_selectAll = a=KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
   a->setWhatsThis(i18n("Select the entire text of the current document."));
 
-  a=KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
+  m_deSelect = a=KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
   a=new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()), ac, "incFontSizes");
@@ -319,6 +319,10 @@ void KateView::setupActions()
 
   m_search->createActions( ac );
   m_bookmarks->createActions( ac );
+
+  selectionChanged ();
+
+  connect (m_doc, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
 }
 
 void KateView::setupEditActions()
@@ -699,9 +703,6 @@ void KateView::flush()
 
 KateView::saveResult KateView::save()
 {
-  if( !doc()->isModified() && !m_doc->url().fileName().isEmpty() )
-    return SAVE_OK;
-
   if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )
     return saveAs();
 
@@ -958,4 +959,20 @@ void KateView::replace()
 void KateView::findAgain( bool back )
 {
   m_search->findAgain( back );
+}
+
+void KateView::selectionChanged ()
+{
+  if (m_doc->hasSelection())
+  {
+    m_cut->setEnabled (true);
+    m_copy->setEnabled (true);
+    m_deSelect->setEnabled (true);
+  }
+  else
+  {
+    m_cut->setEnabled (false);
+    m_copy->setEnabled (false);
+    m_deSelect->setEnabled (false);
+  }
 }

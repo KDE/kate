@@ -180,7 +180,7 @@ bool SedReplace::execCmd(QString cmd, KateView *view)
 	bool onlySelect=cmd[0]=='$';
 
 
-	QRegExp splitter("^[$%]?s/((?:[^\\\\/]|\\\\[\\\\/\\$\\-\\{\\}\\[\\]\\^\\?0-9tadDsSwW])*)/((?:[^\\\\/]|\\\\[\\\\/\\$\\-\\{\\}\\[\\]\\^\\?0-9tadDsSwW])*)/[ig]*$");
+	QRegExp splitter("^s/((?:[^\\\\/]|\\\\.)*)/((?:[^\\\\/]|\\\\.)*)/[ig]*$");
 	if (splitter.search(cmd)<0) return false;
 
 	QString find=splitter.cap(1);

@@ -94,9 +94,9 @@ class ConfigInterfaceExtension
     unsigned int myConfigInterfaceExtensionNumber;
 };
 
-ConfigInterfaceExtension *configInterfaceExtension (class Document *doc);
-ConfigInterfaceExtension *configInterfaceExtension (class Plugin *plugin);
-ConfigInterfaceExtension *configInterfaceExtension (class ViewPlugin *plugin);
+ConfigInterfaceExtension *configInterfaceExtension (Document *doc);
+ConfigInterfaceExtension *configInterfaceExtension (Plugin *plugin);
+ConfigInterfaceExtension *configInterfaceExtension (ViewPlugin *plugin);
 
 };
 

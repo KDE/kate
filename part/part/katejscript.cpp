@@ -100,7 +100,17 @@ public:
 
   enum { CursorLine,
          CursorColumn,
-         CursorColumnReal
+         CursorColumnReal,
+         Selection,
+         HasSelection,
+         SetSelection,
+         RemoveSelection,
+         SelectAll,
+         ClearSelection,
+         SelStartLine,
+         SelStartCol,
+         SelEndLine,
+         SelEndCol
   };
 
 public:
@@ -271,10 +281,20 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
 
 // -------------------------------------------------------------------------
 /* Source for KateJSViewProtoTable.
-@begin KateJSViewProtoTable 4
+@begin KateJSViewProtoTable 14
   cursorLine          KateJSView::CursorLine            DontDelete|Function 0
   cursorColumn        KateJSView::CursorColumn          DontDelete|Function 0
   cursorColumnReal    KateJSView::CursorColumnReal      DontDelete|Function 0
+  selection           KateJSView::Selection         DontDelete|Function 0
+  hasSelection        KateJSView::HasSelection      DontDelete|Function 0
+  setSelection        KateJSView::SetSelection      DontDelete|Function 4
+  removeSelection     KateJSView::RemoveSelection     DontDelete|Function 0
+  selectAll           KateJSView::SelectAll           DontDelete|Function 0
+  clearSelection      KateJSView::ClearSelection      DontDelete|Function 0
+  selStartLine        KateJSView::SelStartLine        DontDelete|Function 0
+  selStartCol         KateJSView::SelStartCol         DontDelete|Function 0
+  selEndLine          KateJSView::SelEndLine          DontDelete|Function 0
+  selEndCol           KateJSView::SelEndCol           DontDelete|Function 0
 @end
 */
 
@@ -303,6 +323,40 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
 
     case KateJSView::CursorColumnReal:
       return KJS::Number (view->cursorColumnReal());
+
+    // SelectionInterface goes in the view, in anticipation of the future
+    case KateJSView::Selection:
+      return KJS::String( view->getDoc()->selection() );
+
+    case KateJSView::HasSelection:
+      return KJS::Boolean( view->getDoc()->hasSelection() );
+
+    case KateJSView::SetSelection:
+      return KJS::Boolean( view->getDoc()->setSelection(args[0].toUInt32(exec),
+                                                     args[1].toUInt32(exec),
+                                                     args[2].toUInt32(exec),
+                                                     args[3].toUInt32(exec)) );
+
+    case KateJSView::RemoveSelection:
+      return KJS::Boolean( view->getDoc()->removeSelectedText() );
+
+    case KateJSView::SelectAll:
+      return KJS::Boolean( view->getDoc()->selectAll() );
+
+    case KateJSView::ClearSelection:
+      return KJS::Boolean( view->getDoc()->clearSelection() );
+
+    case KateJSView::SelStartLine:
+      return KJS::Number( view->getDoc()->selStartLine() );
+
+    case KateJSView::SelStartCol:
+      return KJS::Number( view->getDoc()->selStartCol() );
+
+    case KateJSView::SelEndLine:
+      return KJS::Number( view->getDoc()->selEndLine() );
+
+    case KateJSView::SelEndCol:
+      return KJS::Number( view->getDoc()->selEndCol() );
   }
 
   return KJS::Undefined();

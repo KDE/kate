@@ -570,7 +570,7 @@
          <context attribute="Comment" name="comment" lineEndContext="#pop">
              <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
          </context>
-         <context attribute="String (interpolated)" name="Backticked" lineEndContext="stay">
+         <context attribute="String (interpolated)" name="Backticked" lineEndContext="#stay">
              <IncludeRules context="ipstring_internal"/>
              <DetectChar attribute="Operator" context="#pop" char="`"/>
          </context>

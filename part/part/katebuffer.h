@@ -30,6 +30,8 @@ class KateCodeFoldingTree;
 class KateLineInfo;
 class KateBufBlock;
 class KateBufFileLoader;
+class KateDocument;
+class Highlight;
 
 class KVMAllocator;
 
@@ -53,7 +55,7 @@ class KateBuffer : public QObject
     /**
      * Create an empty buffer.
      */
-    KateBuffer(class KateDocument *doc);
+    KateBuffer(KateDocument *doc);
 
     /**
      * Goodbye buffer
@@ -144,9 +146,9 @@ class KateBuffer : public QObject
      * @p highlight may be 0 in which case highlighting
      * will be disabled.
      */
-    void setHighlight(class Highlight *highlight);
+    void setHighlight (Highlight *highlight);
 
-    class Highlight *highlight () { return m_highlight; };
+    Highlight *highlight () { return m_highlight; };
 
     /**
      * Update the highlighting.
@@ -271,8 +273,8 @@ class KateBuffer : public QObject
 
     uint m_lastInSyncBlock;  // last block where the start/end line is in sync with real life
 
-    class Highlight *m_highlight;
-    class KateDocument *m_doc;
+    Highlight *m_highlight;
+    KateDocument *m_doc;
 
     // stuff we need to load a file
     KateBufFileLoader *m_loader;
@@ -290,10 +292,10 @@ class KateBuffer : public QObject
     // List of blocks that are dirty.
     QPtrList<KateBufBlock> m_dirtyBlocks;
 
-    class KVMAllocator *m_vm;
+    KVMAllocator *m_vm;
 
     // folding tree
-    class KateCodeFoldingTree *m_regionTree;
+    KateCodeFoldingTree *m_regionTree;
 
     QTimer m_highlightTimer;
 

@@ -4377,7 +4377,7 @@ Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::saveConfigPage(QWidget *p)
 {
-  return (Kate::ConfigPage*) new SaveConfigTab(p, this);
+  return (Kate::ConfigPage*) new SaveConfigTab(p);
 }
 
 Kate::ActionMenu *KateDocument::hlActionMenu (const QString& text, QObject* parent, const char* name)

@@ -115,7 +115,6 @@ class KateDocument : public Kate::Document,
     bool m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
-   
 
   //
   // KTextEditor::Document stuff
@@ -178,9 +177,9 @@ class KateDocument : public Kate::Document,
     //
     // start edit / end edit (start/end undo, cursor update, view update)
     //
-    virtual void editBegin() { editStart(); }
-    void editStart(bool withUndo = true);
-    virtual void editEnd();
+    void editBegin () { editStart(); }
+    void editStart (bool withUndo = true);
+    void editEnd ();
 
     //
     // functions for insert/remove stuff (atomic)
@@ -517,13 +516,13 @@ class KateDocument : public Kate::Document,
     void tagLines(int start, int end);
     void tagLines(KateTextCursor start, KateTextCursor end);
 
-   //export feature
-   public slots:
+  //export feature
+  public slots:
      void exportAs(const QString&);
 
-   private: //the following things should become plugins
-   bool exportDocumentToHTML(QTextStream *outputStream,const QString &name);
-   QString HTMLEncode(QChar theChar);
+  private: //the following things should become plugins
+    bool exportDocumentToHTML (QTextStream *outputStream,const QString &name);
+    QString HTMLEncode (QChar theChar);
 
   signals:
     void modifiedChanged ();
@@ -729,15 +728,15 @@ class KateDocument : public Kate::Document,
     bool m_fileTypeSetByUser;
 
   public slots:
-  void spellcheck();
-  void ready(KSpell *);
-  void misspelling( const QString&, const QStringList&, unsigned int );
-  void corrected  ( const QString&, const QString&, unsigned int);
-  void spellResult( const QString& );
-  void spellCleanDone();
-
-
-  void slotQueryClose_save(bool *handled, bool* abortClosing);
+    void spellcheck();
+    void ready(KSpell *);
+    void misspelling( const QString&, const QStringList&, unsigned int );
+    void corrected  ( const QString&, const QString&, unsigned int);
+    void spellResult( const QString& );
+    void spellCleanDone();
+  
+  
+    void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   private:
     void makeAttribs ();
@@ -807,11 +806,10 @@ class KateDocument : public Kate::Document,
 
     KIO::TransferJob *m_job;
     KTempFile *m_tempFile;
-
-  k_dcop:
-    uint documentNumber () const;
-
-  /* for IM */
+    
+  //
+  // IM input stuff
+  //
   public:
     void setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
                               uint imSelStart, uint imSelEnd, bool m_imComposeEvent );
@@ -826,6 +824,8 @@ class KateDocument : public Kate::Document,
     uint m_imSelEnd;
     bool m_imComposeEvent;
 
+  k_dcop:
+    uint documentNumber () const;
 };
 
 #endif

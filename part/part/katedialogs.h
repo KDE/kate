@@ -244,7 +244,7 @@ class SaveConfigTab : public KateConfigPage
 {
   Q_OBJECT
   public:
-  SaveConfigTab( QWidget *parent, KateDocument * );
+  SaveConfigTab( QWidget *parent );
 
   public slots:
   void apply();
@@ -257,7 +257,6 @@ class SaveConfigTab : public KateConfigPage
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces;
   QLineEdit *leBuSuffix;
-  KateDocument *m_doc;
 };
 
 class KatePartPluginListItem;

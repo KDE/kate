@@ -685,9 +685,8 @@ void EditKeyConfiguration::apply()
 //END EditKeyConfiguration
 
 //BEGIN SaveConfigTab
-SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
-  : KateConfigPage( parent ),
-    m_doc( doc )
+SaveConfigTab::SaveConfigTab( QWidget *parent )
+  : KateConfigPage( parent )
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );

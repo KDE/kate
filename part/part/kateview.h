@@ -41,6 +41,7 @@ class KateCmdLine;
 class KateCodeCompletion;
 class KateViewConfig;
 class KateViewSchemaAction;
+class KateRenderer;
 
 class KToggleAction;
 class KAction;
@@ -287,7 +288,7 @@ class KateView : public Kate::View,
     void setDynWrapIndicators(int mode);
 
   public:
-    class KateRenderer *renderer ();
+    KateRenderer *renderer ();
 
     bool iconBorder();
     bool lineNumbersOn();

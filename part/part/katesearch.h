@@ -79,7 +79,7 @@ class KateSearch : public QObject
 
   public:
     KateSearch( KateView* );
-    virtual ~KateSearch();
+    ~KateSearch();
 
     void createActions( KActionCollection* );
 

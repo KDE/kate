@@ -537,11 +537,7 @@ TextLine::Ptr KateBuffer::line(uint i)
   KateBufBlock *buf2 = 0;
   while ((i >= m_lineHighlighted) && (buf2 = findBlock(m_lineHighlighted)))
   {
-    uint end = buf2->endLine ();
-  
-    if ((buf2->startLine() + KATE_HL_LOOKAHEAD) > i)
-      end = kMin(buf2->startLine() + KATE_HL_LOOKAHEAD, buf2->endLine());
-  
+    uint end = kMin(i + KATE_HL_LOOKAHEAD, buf2->endLine());
   
     needHighlight ( buf2,
                     kMax(m_lineHighlighted, buf2->startLine()),

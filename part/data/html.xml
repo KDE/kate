@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="HTML" version="1.91" kateversion="2.2" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="HTML" version="1.92" kateversion="2.2" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -27,6 +27,7 @@
     <RegExpr attribute="Element" context="El Close" String="&lt;/div\b" insensitive="TRUE" endRegion="div" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/table\b" insensitive="TRUE" endRegion="table" />
     <RegExpr attribute="Element" context="El Close" String="&lt;/&name;" />
+    <!-- as long as kde gives DTDs the text/html mimetype--><IncludeRules context="FindDTDRules" />
     <IncludeRules context="FindEntityRefs" />
   </context>
 
@@ -45,6 +46,10 @@
     <RegExpr attribute="Attribute" context="#stay" String="^&name;" />
     <RegExpr attribute="Attribute" context="#stay" String="\s+&name;" />
     <DetectChar attribute="Attribute" context="Value" char="=" />
+  </context>
+
+  <context name="FindDTDRules" attribute="Normal Text" lineEndContext="#stay">
+    <RegExpr attribute="Doctype" context="Doctype Markupdecl" String="&lt;!(ELEMENT|ENTITY|ATTLIST|NOTATION)\b" />
   </context>
 
   
@@ -69,7 +74,7 @@
 
   <context name="Doctype Internal Subset" attribute="Normal Text" lineEndContext="#stay">
     <DetectChar attribute="Doctype" context="#pop" char="]" endRegion="int_subset" />
-    <RegExpr attribute="Doctype" context="Doctype Markupdecl" String="&lt;!(ELEMENT|ENTITY|ATTLIST|NOTATION)\b" />
+    <IncludeRules context="FindDTDRules" />
     <StringDetect attribute="Comment" context="Comment" String="&lt;!--" beginRegion="comment" />
     <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:_-]*" beginRegion="pi" />
     <IncludeRules context="FindPEntityRefs" />

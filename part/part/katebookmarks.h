@@ -17,8 +17,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KateBookmarks_H_
-#define _KateBookmarks_H_
+#ifndef __KATE_BOOKMARKS_H__
+#define __KATE_BOOKMARKS_H__
 
 #include <qobject.h>
 #include <qptrlist.h>
@@ -50,7 +50,6 @@ class KateBookmarks : public QObject
     void clearBookmarks();
     void bookmarkMenuAboutToShow();
     void bookmarkMenuAboutToHide();
-    void gotoBookmark(int n);
     void goNext();
     void goPrevious();
 
@@ -63,7 +62,6 @@ class KateBookmarks : public QObject
     KAction*                     m_goNext;
     KAction*                     m_goPrevious;
     KActionMenu*                 m_bookmarkMenu;
-    QPtrList<KTextEditor::Mark>  m_marks;
     Sorting                      m_sorting;
 };
 

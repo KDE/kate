@@ -74,8 +74,6 @@ void KateBookmarks::createActions( KActionCollection* ac )
   m_bookmarkMenu = new KActionMenu(
     i18n("&Bookmarks"), ac, "bookmarks" );
   m_bookmarkMenu->setWhatsThis(i18n("Bookmark manipulation"));
-  QPopupMenu *m = (QPopupMenu*)m_bookmarkMenu->popupMenu ();
-  //kdDebug()<<"menu m: "<<m<<endl;
 
   // setup bookmark menu
   m_bookmarkToggle = new KAction(
@@ -102,6 +100,8 @@ void KateBookmarks::createActions( KActionCollection* ac )
     ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
 
+  QPopupMenu *m = (QPopupMenu*)m_bookmarkMenu->popupMenu ();
+  
   // connect bookmarks menu aboutToshow
   connect( m, SIGNAL(aboutToShow()),
            this, SLOT(bookmarkMenuAboutToShow()));
@@ -112,6 +112,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
   connect( m, SIGNAL(aboutToHide()),
            this, SLOT(bookmarkMenuAboutToHide()) );
 
+  bookmarkMenuAboutToHide();
   marksChanged ();
 }
 
@@ -128,20 +129,21 @@ void KateBookmarks::toggleBookmark ()
 
 void KateBookmarks::clearBookmarks ()
 {
-  m_marks = m_view->getDoc()->marks();
-  QPtrListIterator<KTextEditor::Mark> it( m_marks );
-  for( ; *it; ++it ) {
-    m_view->getDoc()->removeMark( (*it)->line, KTextEditor::MarkInterface::markType01 );
-  }
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+  for (uint i=0; i < m.count(); i++)
+    m_view->getDoc()->removeMark( m.at(i)->line, KTextEditor::MarkInterface::markType01 );
+  
+  // just to be sure ;)
+  marksChanged ();
 }
 
 void KateBookmarks::bookmarkMenuAboutToShow()
 {
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+
   m_bookmarkMenu->popupMenu()->clear();
-  m_bookmarkToggle->plug( m_bookmarkMenu->popupMenu() );
-  m_bookmarkClear->plug( m_bookmarkMenu->popupMenu() );
-  //m_goNext->plug( m_bookmarkMenu->popupMenu() );
-  //m_goPrevious->plug( m_bookmarkMenu->popupMenu() );
+  m_bookmarkMenu->insert ( m_bookmarkToggle );
+  m_bookmarkMenu->insert ( m_bookmarkClear );
 
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
@@ -150,8 +152,8 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   const QRegExp re("&(?!&)");
 
   int idx( -1 );
-  QMemArray<uint> sortArray( m_marks.count() );
-  QPtrListIterator<KTextEditor::Mark> it( m_marks );
+  QMemArray<uint> sortArray( m.count() );
+  QPtrListIterator<KTextEditor::Mark> it( m );
   kdDebug()<<"Redoing bookmarks menu, "<<it.count()<<" bookmarks in file"<<endl;
   if ( it.count() > 0 )
         m_bookmarkMenu->popupMenu()->insertSeparator();
@@ -188,14 +190,14 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   {
     m_goNext->setText( i18n("&Next: %1 - \"%2\"").arg( next->line + 1 )
         .arg( KStringHandler::rsqueeze( m_view->getDoc()->textLine( next->line ), 24 ) ) );
-    m_goNext->plug( m_bookmarkMenu->popupMenu(), idx );
+    m_bookmarkMenu->insert ( m_goNext, idx );
     idx++;
   }
   if ( prev )
   {
     m_goPrevious->setText( i18n("&Previous: %1 - \"%2\"").arg(prev->line + 1 )
         .arg( KStringHandler::rsqueeze( m_view->getDoc()->textLine( prev->line ), 24 ) ) );
-    m_goPrevious->plug( m_bookmarkMenu->popupMenu(), idx );
+    m_bookmarkMenu->insert ( m_goPrevious, idx );
     idx++;
   }
   if ( next || prev )
@@ -208,81 +210,55 @@ void KateBookmarks::bookmarkMenuAboutToShow()
 void KateBookmarks::bookmarkMenuAboutToHide()
 {
   //kdDebug()<<"KateBookmarks::bookmarkMenuAboutToHide()"<<endl;
+  m_bookmarkMenu->insert ( m_bookmarkToggle );
+  m_bookmarkMenu->insert ( m_bookmarkClear );
   m_goNext->setText( i18n("Next Bookmark") );
-  m_goNext->plug( m_bookmarkMenu->popupMenu() );
+  m_bookmarkMenu->insert ( m_goNext );
   m_goPrevious->setText( i18n("Previous Bookmark") );
-  m_goPrevious->plug( m_bookmarkMenu->popupMenu() );
-}
-
-void KateBookmarks::gotoBookmark( int n )
-{
-  m_view->setCursorPositionInternal ( m_marks.at(n)->line, 0, 1 );
+  m_bookmarkMenu->insert (m_goPrevious );
 }
 
 void KateBookmarks::goNext()
 {
-  // hack to ensure we go to active view
-  KateDocument *kd = dynamic_cast<KateDocument*>(m_view->getDoc());
-  if (!kd) {
-    return;
-  }
-
-  KateView *v = kd->activeView();
-
-  m_marks = m_view->getDoc()->marks();
-  if ( ! m_marks.count() )
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+  if (m.isEmpty())
     return;
 
-  uint line = /*m_view*/v->cursorLine(); // <--
-  QMemArray<uint> a( m_marks.count() );
-  QPtrListIterator<KTextEditor::Mark> it( m_marks );
-  for ( int i=0; *it; ++i, ++it )
-    a[i] = (*it)->line;
-  ssort( a, m_marks.count()-1 );
-  for ( uint j=0; j < m_marks.count() ; j++ )
+  uint line = m_view->cursorLine();
+  int found = -1;
+  
+  for (uint z=0; z < m.count(); z++)
   {
-    if ( a[j] > line )
-    {
-      v->setCursorPositionInternal ( a[j], 0, 1 ); // <--
-      return;
-    }
+    if ((m.at(z)->line > line) && ((found == -1) || (uint(found) > m.at(z)->line)))
+      found = m.at(z)->line;
   }
+  
+  if (found != -1)
+    m_view->gotoLineNumber ( found );
 }
 
 void KateBookmarks::goPrevious()
-{
-  // hack to ensure we go to active view
-  KateDocument *kd = dynamic_cast<KateDocument*>(m_view->getDoc());
-  if (!kd) {
-    return;
-  }
-
-  KateView *v = kd->activeView();
-
-  m_marks = m_view->getDoc()->marks();
-  if ( ! m_marks.count() )
+{    
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+  if (m.isEmpty())
     return;
 
-  uint line = /*m_view*/v->cursorLine();
-  QMemArray<uint> a( m_marks.count() );
-  QPtrListIterator<KTextEditor::Mark> it( m_marks );
-  for ( int i=0; *it; ++i, ++it )
-    a[i] = (*it)->line;
-  ssort( a, m_marks.count()-1 );
-  for ( int j = m_marks.count() - 1; j >= 0 ; j-- )
+  uint line = m_view->cursorLine();
+  int found = -1;
+  
+  for (uint z=0; z < m.count(); z++)
   {
-    if ( a[j] < line )
-    {
-      v->setCursorPositionInternal ( a[j], 0, 1 );
-      return;
-    }
+    if ((m.at(z)->line < line) && ((found == -1) || (uint(found) < m.at(z)->line)))
+      found = m.at(z)->line;
   }
+  
+  if (found != -1)
+    m_view->gotoLineNumber ( found );
 }
 
 void KateBookmarks::marksChanged ()
 {
-  m_marks = m_view->getDoc()->marks();
-  m_bookmarkClear->setEnabled( m_marks.count() > 0 );
+  m_bookmarkClear->setEnabled( !m_view->getDoc()->marks().isEmpty() );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1009,7 +1009,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
   TextLine::Ptr nl = buffer->plainLine(line+1);
   TextLine::Ptr tl = new TextLine();
-  int llen, nllen;
+  int llen = l->length(), nllen;
 
   if (!nl || !autowrap)
   {
@@ -1038,7 +1038,6 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   else
   {
     int nlsave = nl->length();
-    llen = l->length();
     l->wrap (nl, col);
     nllen = nl->length() - nlsave;
 
@@ -1051,12 +1050,12 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    if(!nl || !autowrap)
+    if(!autowrap)
       (m_views.at(z))->m_viewInternal->editWrapLine(line, col, tl->length());
     else
     {
       int offset = llen - (m_views.at(z))->m_viewInternal->cursorCache.col;
-      offset = nllen - offset;
+      offset = (nl ? nllen:tl->length()) - offset;
       if(offset < 0) offset = 0;
       (m_views.at(z))->m_viewInternal->editWrapLine(line, col, offset);
     }
@@ -3201,7 +3200,13 @@ void KateDocument::backspace( const KateTextCursor& c )
     // col == 0: wrap to previous line
     if (line >= 1)
     {
-      removeText (line-1, buffer->line(line-1)->length(), line, 0);
+      if (myWordWrap && buffer->line(line-1)->endingWith(QString::fromLatin1(" ")))
+      {
+        // gg: in hard wordwrap mode, backspace must also eat the trailing space
+        removeText (line-1, buffer->line(line-1)->length()-1, line, 0);
+      }
+      else
+        removeText (line-1, buffer->line(line-1)->length(), line, 0);
     }
   }
   emit backspacePressed();

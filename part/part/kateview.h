@@ -332,7 +332,6 @@ class KateView : public Kate::View,
     bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1 );
 
   protected:
-    void customEvent( QCustomEvent* );
     void contextMenuEvent( QContextMenuEvent* );
     bool checkOverwrite( KURL );
 

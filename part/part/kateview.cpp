@@ -763,17 +763,6 @@ void KateView::slotDropEventPass( QDropEvent * ev )
     emit ext->openURLRequest( lstDragURLs.first() );
 }
 
-void KateView::customEvent( QCustomEvent *ev )
-{
-    if ( KParts::GUIActivateEvent::test( ev ) && static_cast<KParts::GUIActivateEvent *>( ev )->activated() )
-    {
-        installPopup(static_cast<QPopupMenu *>(factory()->container("ktexteditor_popup", this) ) );
-        return;
-    }
-
-    KTextEditor::View::customEvent( ev );
-}
-
 void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
     if ( !m_doc || !m_doc->m_extension  )

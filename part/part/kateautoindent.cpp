@@ -627,18 +627,21 @@ void KateCSmartIndent::processChar(QChar c)
       return;
   }
 
-  // anders: don't change the indent of doxygen lines here.
   if ( textLine->attribute( begin.col() ) == doxyCommentAttrib )
   {
      // dominik: if line is "* /", change it to "*/"
      if ( c == '/' )
      {
        int first = textLine->firstChar();
-       if ( first != -1 // if there is a first char
-            && textLine->getChar( first ) == '*' // and it is *
-            && textLine->nextNonSpaceChar( first+1 ) == view->cursorColumn()-1 ) // and the next char is in the same col as the cursor position
+       // if the first char exists and is a '*', and the next non-space-char
+       // is already the just typed '/', concatenate it to "*/".
+       if ( first != -1
+            && textLine->getChar( first ) == '*'
+            && textLine->nextNonSpaceChar( first+1 ) == view->cursorColumn()-1 )
          doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);      
      }
+  
+     // anders: don't change the indent of doxygen lines here.
      return;
   }
 
@@ -1939,9 +1942,23 @@ void KateCSAndSIndent::processChar(QChar c)
       return;
   }
 
-  // anders: don't change the indent of doxygen lines here.
   if ( textLine->attribute( begin.col() ) == doxyCommentAttrib )
-    return;
+  {
+     // dominik: if line is "* /", change it to "*/"
+     if ( c == '/' )
+     {
+       int first = textLine->firstChar();
+       // if the first char exists and is a '*', and the next non-space-char
+       // is already the just typed '/', concatenate it to "*/".
+       if ( first != -1
+            && textLine->getChar( first ) == '*'
+            && textLine->nextNonSpaceChar( first+1 ) == view->cursorColumn()-1 )
+         doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);      
+     }
+  
+     // anders: don't change the indent of doxygen lines here.
+     return;
+  }
 
   processLine(begin);
 }

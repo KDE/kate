@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.93" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="1.94" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
   
   <highlighting>
     <list name="properties">
@@ -578,7 +578,7 @@
       <itemData name="Comment" defStyleNum="dsComment" />
       <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
       <itemData name="Alert" defStyleNum="dsAlert"/>
-      <itemData name="Error" defStyleNum="dsNormal" color="#f11" underline="1" />
+      <itemData name="Error" defStyleNum="dsError"/>
     </itemDatas>
   </highlighting>
   <general>

@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="XML" version="1.92" kateversion="2.3" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="XML" version="1.93" kateversion="2.3" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -128,7 +128,7 @@
   <itemData name="Value" defStyleNum="dsString" color="#a00" />
   <itemData name="EntityRef" defStyleNum="dsDecVal" />
   <itemData name="PEntityRef" defStyleNum="dsDecVal" />
-  <itemData name="Error" defStyleNum="dsNormal" color="#f11" underline="1" />
+  <itemData name="Error" defStyleNum="dsError" />
   <itemData name="Alert" defStyleNum="dsAlert" />
 </itemDatas>
 

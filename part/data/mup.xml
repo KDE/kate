@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Music Publisher" version="1.01" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Music Publisher" version="1.02" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
 
@@ -836,10 +836,10 @@
       <itemData name="Location Probably" defStyleNum="dsKeyword" color="#0C4" bold="0" />
       <itemData name="String"            defStyleNum="dsString"  color="#E00" />
       <itemData name="String Special"    defStyleNum="dsString"  color="#E00" bold="1" />
-      <itemData name="String Error"      defStyleNum="dsString"  color="#F00" italic="1" underline="1" />
+      <itemData name="String Error"      defStyleNum="dsError" />
       <itemData name="String Lyrics"     defStyleNum="dsString"  color="#800" />
       <itemData name="Lyrics"            defStyleNum="dsBaseN"   bold="1" />
-      <itemData name="Error"             defStyleNum="dsNormal"  italic="1" underline="1" />
+      <itemData name="Error"             defStyleNum="dsError"   color="black" />
     </itemDatas>
 
   </highlighting>

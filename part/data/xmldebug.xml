@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.01" kateversion="2.1" name="XML (Debug)" section="Markup" extensions="" mimetype="">
+<language version="1.02" kateversion="2.3" name="XML (Debug)" section="Markup" extensions="" mimetype="">
   <highlighting>
     <list name="AttType">
         <item>CDATA</item>
@@ -581,7 +581,7 @@
       <itemData name="Processing Instruction" defStyleNum="dsKeyword"/>
       <itemData name="PI content" defStyleNum="dsOthers"/>
       <itemData name="Stylesheet" defStyleNum="dsKeyword"/>
-      <itemData name="Error" defStyleNum="dsDecVal"/>
+      <itemData name="Error" defStyleNum="dsError"/>
     </itemDatas>
   </highlighting>
   <general>

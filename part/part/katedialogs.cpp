@@ -331,7 +331,7 @@ void HlEditDialog::pageChanged(QWidget *widget)
 void HlEditDialog::newDocument()
 {
   KStandardDirs *dirs = KGlobal::dirs();
-  QStringList list=dirs->findAllResources("data","kate/syntax/syntax.template",false,true);
+  QStringList list=dirs->findAllResources("data","katepart/syntax/syntax.template",false,true);
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
       {
         HlData data("","",*it);

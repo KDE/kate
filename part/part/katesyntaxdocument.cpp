@@ -295,7 +295,7 @@ void SyntaxDocument::setupModeList(bool force){
                                    
   // Let's get a list of all the xml files for hl
   KStandardDirs *dirs = KGlobal::dirs();
-  QStringList list=dirs->findAllResources("data","kate/syntax/*.xml",false,true);
+  QStringList list=dirs->findAllResources("data","katepart/syntax/*.xml",false,true);
   
   // Let's iterate trhu the list and build the Mode List
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )  {

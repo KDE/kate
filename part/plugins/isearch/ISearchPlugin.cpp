@@ -177,7 +177,6 @@ ISearchPluginView::~ISearchPluginView()
 	writeConfig();   
   delete m_combo;
   delete m_label; 
-  m_view->removeChildClient (this);
 }
 
 void ISearchPluginView::setView( KTextEditor::View* view )

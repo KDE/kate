@@ -585,13 +585,14 @@ FontConfig::FontConfig( QWidget *parent, const char *, KateDocument *doc )
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 
   QTabWidget *tab = new QTabWidget (this);
+  tab->setMargin(KDialog::marginHint());
   grid->addWidget( tab, 0, 0);
 
-  m_fontchooser = new KFontChooser ( tab );
+  m_fontchooser = new KFontChooser ( tab, 0L, false, QStringList(), false );
   m_fontchooser->enableColumn(KFontChooser::StyleList, false);
   tab->addTab (m_fontchooser, i18n("Display Font"));
 
-  m_fontchooserPrint = new KFontChooser ( tab );
+  m_fontchooserPrint = new KFontChooser ( tab, 0L, false, QStringList(), false );
   m_fontchooserPrint->enableColumn(KFontChooser::StyleList, false);
   tab->addTab (m_fontchooserPrint, i18n("Printer Font"));
   

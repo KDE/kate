@@ -690,6 +690,8 @@ void KateView::reloadFile()
   if (m_doc->numLines() >= cl)
     // Explicitly call internal function because we want this to be registered as a non-external call
     setCursorPositionInternal( cl, cc, tabWidth(), false );
+  
+  emit newStatus();
 }
 
 void KateView::slotUpdate()

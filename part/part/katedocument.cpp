@@ -29,14 +29,12 @@
 #include "katefactory.h"
 #include "kateviewdialog.h"
 #include "katedialogs.h"
-#include "katebuffer.h"
 #include "katehighlight.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katetextline.h"
 #include "katecmd.h"
 #include "kateexportaction.h"
-#include "katecodefoldinghelpers.h"
 #include "kateundo.h"
 #include "kateprintsettings.h"
 
@@ -131,7 +129,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
 
-  regionTree=new KateCodeFoldingTree(this);
   m_activeView = 0L;
 
   hlSetByUser = false;
@@ -188,12 +185,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
 
-  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
-  connect(regionTree,SIGNAL(setLineVisible(unsigned int, bool)), buffer,SLOT(setLineVisible(unsigned int,bool)));
   connect(buffer,SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
   m_highlightTimer = new QTimer(this);
   connect(m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
-
 
   colors[0] = KGlobalSettings::baseColor();
   colors[1] = KGlobalSettings::highlightColor();
@@ -750,7 +744,7 @@ uint KateDocument::numLines() const
 
 uint KateDocument::numVisLines() const
 {
-  return buffer->count()-regionTree->getHiddenLinesCount();
+  return buffer->countVisible ();
 }
 
 int KateDocument::lineLength ( uint line ) const
@@ -1008,8 +1002,6 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   editTagLine(line);
   editTagLine(line+1);
 
-  regionTree->lineHasBeenInserted(line); //test line or line +1
-
   for (uint z = 0; z < m_views.count(); z++)
   {
     (m_views.at(z))->m_viewInternal->editWrapLine(line, col, tl->length());
@@ -1035,7 +1027,6 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);
-  regionTree->lineHasBeenRemoved(line);
   
   QPtrList<KTextEditor::Mark> list;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
@@ -1098,8 +1089,6 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   if( !list.isEmpty() )
     emit marksChanged();
 
-  regionTree->lineHasBeenInserted(line);
-
   for (uint z = 0; z < m_views.count(); z++)
   {
     (m_views.at(z))->m_viewInternal->setViewTagLinesFrom(line);
@@ -1140,8 +1129,6 @@ bool KateDocument::editRemoveLine ( uint line )
   }
   if( !list.isEmpty() )
     emit marksChanged();
-
-  regionTree->lineHasBeenRemoved(line);
 
   for (uint z = 0; z < m_views.count(); z++)
   {
@@ -2991,7 +2978,6 @@ void KateDocument::newLine( KateTextCursor& c )
 void KateDocument::killLine( uint line )
 {
   removeLine( line );
-//  regionTree->lineHasBeenRemoved(c.cursor.line);// is this the right place ?
 }
 
 
@@ -3077,7 +3063,6 @@ void KateDocument::backspace( const KateTextCursor& c )
     // col == 0: wrap to previous line
     if (line >= 1)
     {
-      //regionTree->lineHasBeenRemoved(line);
       removeText (line-1, buffer->line(line-1)->length(), line, 0);
     }
   }
@@ -3097,7 +3082,6 @@ void KateDocument::del( const KateTextCursor& c )
   }
   else
   {
-    //regionTree->lineHasBeenRemoved(c.line);
     removeText(c.line, c.col, c.line+1, 0);
   }
 }
@@ -4561,22 +4545,22 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 
 void KateDocument::dumpRegionTree()
 {
-  regionTree->debugDump();
+  buffer->dumpRegionTree();
 }
 
 unsigned int KateDocument::getRealLine(unsigned int virtualLine)
 {
-  return regionTree->getRealLine(virtualLine);
+  return buffer->lineNumber (virtualLine);
 }
 
 unsigned int KateDocument::getVirtualLine(unsigned int realLine)
 {
-  return regionTree->getVirtualLine(realLine);
+  return buffer->lineVisibleNumber (realLine);
 }
 
 unsigned int KateDocument::visibleLines ()
 {
-  return numLines() - regionTree->getHiddenLinesCount();
+  return buffer->countVisible ();
 }
 
 void KateDocument::slotLoadingFinished()

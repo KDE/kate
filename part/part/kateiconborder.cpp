@@ -274,7 +274,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
       {
         p.setPen(black);
         KateLineInfo info;
-        m_doc->regionTree->getLineInfo(&info,realLine);
+        m_doc->lineInfo(&info,realLine);
         if (!info.topLevel)
         {
           if (info.startsVisibleBlock)
@@ -360,7 +360,7 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
   {
     kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
     KateLineInfo info;
-    m_doc->regionTree->getLineInfo(&info,cursorOnLine);
+    m_doc->lineInfo(&info,cursorOnLine);
     if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
     {
       kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;

@@ -87,7 +87,6 @@ public:
 
 	bool isTopLevel (unsigned int line);
 
-//	void updateLine(unsigned int line,QValueList<signed char> *regionChanges);
 	void lineHasBeenInserted(unsigned int line);
 	void lineHasBeenRemoved	(unsigned int line);
 	void debugDump();

@@ -203,8 +203,15 @@ KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
 {
   m_blocks.setAutoDelete(true);     
   m_loader.setAutoDelete(true);     
+  
+  m_regionTree=new KateCodeFoldingTree(this);
+
   connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(slotLoadFile()));     
-  clear();     
+  
+  connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
+  connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
+
+  clear();
 }     
 
 KateBuffer::~KateBuffer()
@@ -750,6 +757,8 @@ KateBuffer::insertLine(uint i, TextLine::Ptr line)
    if (m_highlightedTo > i)
       m_highlightedTo++;
    m_totalLines++;
+   
+   m_regionTree->lineHasBeenInserted (i);
 }
 
 void
@@ -783,6 +792,8 @@ KateBuffer::removeLine(uint i)
       m_parsedBlocksDirty.removeRef(buf);
       m_loadedBlocks.removeRef(buf);
    }
+   
+  m_regionTree->lineHasBeenRemoved (i);
 }
 
 void
@@ -961,6 +972,10 @@ QString KateBuffer::text ( uint startLine, uint startCol, uint endLine, uint end
   return s;
 }
 
+void KateBuffer::dumpRegionTree()
+{
+  m_regionTree->debugDump();
+}
 
 //-----------------------------------------------------------------
 
@@ -1048,7 +1063,7 @@ KateBufBlock::blockFill(int dataStart, QByteArray data1, QByteArray data2, bool 
    while(p < e)     
    {     
       if ((*p == '\n') || (*p=='\r'))
-      {     
+      {
          lineNr++;
 	 if ((*p=='\r') &&((p+1)<e)) if (*(p+1)=='\n') p++;     
          l = p+1;     
@@ -1109,7 +1124,7 @@ KateBufBlock::swapOut(KVMAllocator *vm)
       b_vmDataValid = true;     
    }     
    disposeRawData();     
-}     
+}
      
 /**
  * Swaps m_rawSize bytes in from offset m_vmDataOffset in the file     
@@ -1170,7 +1185,7 @@ KateBufBlock::buildStringList()
          lastLine = m_codec->toUnicode(l, (e-l-1)+1);     
    }     
      
-   if (!m_rawData2.isEmpty())     
+   if (!m_rawData2.isEmpty())
    {     
       p = m_rawData2.data();     
       e = m_rawData2.data() + m_rawData2End;     
@@ -1348,7 +1363,7 @@ KateBufBlock::removeLine(uint i)
 {
    assert(b_stringListValid);
    assert(i < m_stringList.size());
-   
+
    m_stringList.erase(m_stringList.begin()+i);
    m_endState.lineNr--;
 }

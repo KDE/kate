@@ -60,11 +60,11 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   updateIconBorder();                            
   
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
-           m_doc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));  
+           m_doc->foldingTree(), SLOT(toggleRegionVisibility(unsigned int)));
            
-  connect( doc->regionTree, SIGNAL(regionVisibilityChangedAt(unsigned int)),
+  connect( doc->foldingTree(), SIGNAL(regionVisibilityChangedAt(unsigned int)),
            this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
-//  connect( doc->regionTree, SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
+//  connect( doc->foldingTree(), SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
 //           this, SLOT(slotRegionBeginEndAddedRemoved(unsigned int)) );
   connect( doc, SIGNAL(codeFoldingUpdated()),
            this, SLOT(slotCodeFoldingChanged()) );

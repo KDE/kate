@@ -27,6 +27,7 @@
 #include <ktexteditor/plugin.h>
 
 #include "katecursor.h"
+#include "katebuffer.h"
 #include "katefont.h"
 #include "katesearch.h"
 #include "katetextline.h"
@@ -581,6 +582,16 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QString docName () {return m_docName;};
 
     void setDocName (QString docName);
+		
+		inline void lineInfo (KateLineInfo *info, unsigned int line)
+	 {
+	   buffer->lineInfo(info,line);
+	 }
+	 
+	 inline KateCodeFoldingTree *foldingTree ()
+	 {
+	   return buffer->foldingTree();
+	 }
 
   public slots:
     /**
@@ -666,9 +677,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   private:
     // text buffer
     KateBuffer *buffer;
-    
-    // folding tree
-    KateCodeFoldingTree *regionTree;
 
     QColor colors[4];
     class HlManager *hlManager;

@@ -20,6 +20,7 @@
 #define _KATE_BUFFER_H_
 
 #include "katetextline.h"
+#include "katecodefoldinghelpers.h"
 
 #include <kvmallocator.h>
 
@@ -46,7 +47,7 @@ class QTextCodec;
 class KateBuffer : public QObject
 {
   Q_OBJECT
-  
+
   public:
    /**
     * Create an empty buffer.
@@ -73,6 +74,33 @@ class KateBuffer : public QObject
    {
      return m_totalLines;
    }
+
+   inline uint countVisible ()
+   {
+     return m_totalLines - m_regionTree->getHiddenLinesCount();
+   }
+
+   inline uint lineNumber (uint visibleLine)
+   {
+     return m_regionTree->getRealLine (visibleLine);
+   }
+
+   inline uint lineVisibleNumber (uint line)
+   {
+     return m_regionTree->getVirtualLine (line);
+   }
+
+	 inline void lineInfo (KateLineInfo *info, unsigned int line)
+	 {
+	   m_regionTree->getLineInfo(info,line);
+	 }
+	 
+	 inline KateCodeFoldingTree *foldingTree ()
+	 {
+	   return m_regionTree;
+	 }
+
+	 void dumpRegionTree ();
 
    /**
     * Return line @p i
@@ -255,6 +283,9 @@ private:
    QPtrList<KateBufBlock> m_loadedBlocks;
 
    KVMAllocator *m_vm;
+
+   // folding tree
+   KateCodeFoldingTree *m_regionTree;
 };
 
 #endif

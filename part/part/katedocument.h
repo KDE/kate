@@ -600,8 +600,6 @@ class KateDocument : public Kate::Document
     void updateViews(int flags = 0);
     void updateEditAccels();
 
-    bool doSearch(SConfig &s, const QString &searchFor);
-    
     void newBracketMark(KateTextCursor &, BracketMark &);
 
   private:

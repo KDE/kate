@@ -38,28 +38,8 @@ struct SearchFlags {
 	bool prompt            :1;
 	bool replace           :1;
 	bool again             :1;
-	bool wrapped           :1;
 	bool finished          :1;
 	bool regExp            :1;
-};
-
-class SConfig
-{
-public:
-	SearchFlags flags;
-	KateTextCursor cursor;
-	uint matchedLength;
-	QString m_pattern;
-	QRegExp m_regExp;
-	
-	void setPattern( QString &newPattern )
-	{
-		m_pattern = newPattern;
-		if( flags.regExp ) {
-			m_regExp.setCaseSensitive( flags.caseSensitive );
-			m_regExp.setPattern( m_pattern );
-		}
-	}
 };
 
 class KActionCollection;
@@ -101,17 +81,19 @@ private:
 	static QStringList s_searchList;
 	static QStringList s_replaceList;
 	
-	void initSearch( SearchFlags flags );
-	void continueSearch();
+	void search( SearchFlags flags );
 	void findAgain();
 	void replaceAgain();
-	void exposeFound( KateTextCursor &cursor, int slen );
-	bool askContinue( bool forward, bool replace, int replacements );
+	void wrapSearch();
 	void doReplaceAction(int result, bool found = false);
+	
+	bool askContinue( bool forward, bool replace, int replacements );
 	bool askReplaceEnd();
 	
 	QString getSearchText();
 	KateTextCursor getCursor();
+	bool doSearch( const QString& text );
+	void exposeFound( KateTextCursor &cursor, int slen );
 	
 	Kate::View* view()    { return m_view; }
 	Kate::Document* doc() { return m_doc;  }
@@ -119,7 +101,11 @@ private:
 	Kate::View*     m_view;
 	Kate::Document* m_doc;
 	
-	SConfig       s;
+	struct SConfig {
+		SearchFlags flags;
+		KateTextCursor cursor;
+		uint matchedLength;
+	} s;
 	SearchFlags   m_searchFlags;
 	int           replaces;
 	QDialog*      replacePrompt;

@@ -192,6 +192,7 @@ class KateEditConfigTab : public KateConfigPage
     KIntNumInput *e2;
     KIntNumInput *e3;
     KComboBox *e5;
+    QCheckBox *m_wwmarker;
 
   public slots:
     void apply ();
@@ -216,7 +217,6 @@ class KateViewDefaultsConfig : public KateConfigPage
     QCheckBox *m_scrollBarMarks;
     QCheckBox *m_dynwrap;
     KIntNumInput *m_dynwrapAlignLevel;
-    QCheckBox *m_wwmarker;
     QLabel *m_dynwrapIndicatorsLabel;
     KComboBox *m_dynwrapIndicatorsCombo;
     QButtonGroup *m_bmSort;

@@ -447,13 +447,13 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
 
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Tabulators"), this);
 
-  opt[2] = new QCheckBox(i18n("&Show tabs"), gbWhiteSpace);
-  opt[2]->setChecked(configFlags & flags[2]);
-  connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  opt[3] = new QCheckBox( i18n("&Replace tabs with spaces"), gbWhiteSpace );
+  opt[3] = new QCheckBox( i18n("&Insert spaces instead of tabulators"), gbWhiteSpace );
   opt[3]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
   connect( opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+
+   opt[2] = new QCheckBox(i18n("&Show tabulators"), gbWhiteSpace);
+  opt[2]->setChecked(configFlags & flags[2]);
+  connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   e2 = new KIntNumInput(KateDocumentConfig::global()->tabWidth(), gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
@@ -467,6 +467,10 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   opt[0] = new QCheckBox(i18n("Enable static &word wrap"), gbWordWrap);
   opt[0]->setChecked(KateDocumentConfig::global()->wordWrap());
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  m_wwmarker = new QCheckBox( i18n("&Show static word wrap marker (if applicable)"), gbWordWrap );
+  m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
+  connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   e1 = new KIntNumInput(KateDocumentConfig::global()->wordWrapAt(), gbWordWrap);
   e1->setRange(20, 200, 1, false);
@@ -562,6 +566,11 @@ QString gstfwt = i18n(
   QWhatsThis::add( opt[4], i18n(
       "If this is enabled, the editor will remove any trailing whitespace on "
       "lines when they are left by the insertion cursor.") );
+  QWhatsThis::add( m_wwmarker, i18n(
+        "<p>If this option is checked, a vertical line will be drawn at the word "
+        "wrap column as defined in the <strong>Editing</strong> properties."
+        "<p>Note that the word wrap marker is only drawn if you use a fixed "
+        "pitch font." ));
 }
 
 void KateEditConfigTab::apply ()
@@ -593,6 +602,8 @@ void KateEditConfigTab::apply ()
     KateDocumentConfig::global()->setUndoSteps(e3->value());
 
   KateViewConfig::global()->setTextToSearchMode(e5->currentItem());
+
+  KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -630,8 +641,6 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   // xgettext:no-c-format
   m_dynwrapAlignLevel->setSuffix(i18n("% of View Width"));
   m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
-
-  m_wwmarker = new QCheckBox( i18n("&Show static word wrap marker (if applicable)"), gbWordWrap );
 
   blay->addWidget(gbWordWrap);
 
@@ -675,11 +684,6 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
         "example, at 50%, lines whose indentation levels are deeper than 50% of "
         "the width of the screen will not have vertical alignment applied to "
         "subsequent wrapped lines.</p>"));
-  QWhatsThis::add( m_wwmarker, i18n(
-        "<p>If this option is checked, a vertical line will be drawn at the word "
-        "wrap column as defined in the <strong>Editing</strong> properties."
-        "<p>Note that the word wrap marker is only drawn if you use a fixed "
-        "pitch font." ));
   QWhatsThis::add(m_line,i18n(
         "If this option is checked, every new view will display line numbers "
         "on the left hand side."));
@@ -711,7 +715,6 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_scrollBarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -738,7 +741,6 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
   KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentItem ());
   KateViewConfig::global()->setDynWordWrapAlignIndent(m_dynwrapAlignLevel->value());
-  KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
   KateViewConfig::global()->setLineNumbers (m_line->isChecked());
   KateViewConfig::global()->setIconBar (m_icons->isChecked());
   KateViewConfig::global()->setScrollBarMarks (m_scrollBarMarks->isChecked());
@@ -754,7 +756,6 @@ void KateViewDefaultsConfig::reload ()
   m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
   m_dynwrapIndicatorsCombo->setCurrentItem( KateViewConfig::global()->dynWordWrapIndicators() );
   m_dynwrapAlignLevel->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
-  m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   m_line->setChecked(KateViewConfig::global()->lineNumbers());
   m_icons->setChecked(KateViewConfig::global()->iconBar());
   m_scrollBarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());

@@ -41,7 +41,6 @@
 
 // SOME LIMITS, may need testing which values are clever
 #define AVG_BLOCK_SIZE              32000
-#define LOAD_N_BLOCKS_AT_ONCE       16
 
 /**
   Some private classes

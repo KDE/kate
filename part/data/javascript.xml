@@ -30,7 +30,9 @@
         <item> default </item>
         <item> Date </item>
         <item> Boolean </item>
-    </list>
+        <item> Object </item>
+        <item> Array </item>
+	 </list>
     <list name="functions">
         <item> parseInt </item>
         <item> parseFloat </item>
@@ -47,6 +49,7 @@
         <item> prompt </item>
         <item> isFinite </item>
         <item> isNaN </item>
+        <item> write </item>
 	 </list>
     <list name="objects">
         <item>document</item>
@@ -55,6 +58,9 @@
         <item>parent</item>
         <item>this</item>
         <item>Math</item>
+        <item>Max</item>
+        <item>Min</item>
+        <item>RegExp</item>
 	 </list>
     <list name="types">
         <item>cookie</item>
@@ -85,6 +91,17 @@
         <item> ceil </item>
         <item> tan </item>
         <item> ctg </item>
+
+        <item> exec </item>
+        <item> test </item>
+        <item> match </item>
+        <item> search </item>
+        <item> replace </item>
+        <item> split </item>
+        <item> join </item>
+
+        <item> selectedIndex </item>
+        <item> options </item>
 	 </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">

@@ -16,7 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id: $
+// $Id$
 
 #ifndef _KATE_KDATATOOL_
 #define _KATE_KDATATOOL_
@@ -64,9 +64,11 @@ private:
 	QString m_wordUnderCursor;
 	QPtrList<KAction> m_actionList;
 	QGuardedPtr<KActionMenu> m_menu;
+	KAction *m_notAvailable;
 protected slots:
 	void aboutToShow();
 	void slotToolActivated( const KDataToolInfo &datatoolinfo, const QString &string );
+	void slotNotAvailable();
 };
 
 };

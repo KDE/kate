@@ -16,8 +16,9 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id: $
+// $Id$
 
+//BEGIN includes
 #include "kate_kdatatool.h"
 #include "kate_kdatatool.moc"
 #include <kgenericfactory.h>
@@ -30,6 +31,9 @@
 #include <kpopupmenu.h>
 #include <ktexteditor/viewcursorinterface.h>
 #include <ktexteditor/editinterface.h>
+#include <kmessagebox.h>
+//END includes
+
 
 K_EXPORT_COMPONENT_FACTORY( ktexteditor_kdatatool, KGenericFactory<KTextEditor::KDataToolPlugin>( "ktexteditor_kdatatool" ) );
 
@@ -54,7 +58,7 @@ void KDataToolPlugin::addView(KTextEditor::View *view)
 
 
 KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
-	:m_menu(0)
+	:m_menu(0),m_notAvailable(0)
 {
 
 	view->insertChildClient (this);
@@ -84,7 +88,11 @@ void KDataToolPluginView::aboutToShow()
 	for ( ac = m_actionList.first(); ac; ac = m_actionList.next() ) {
 		m_menu->remove(ac);
 	}
-
+	if (m_notAvailable) {
+		m_menu->remove(m_notAvailable);
+		delete m_notAvailable;
+		m_notAvailable=0;
+	}
 	if ( selectionInterface(m_view->document())->hasSelection() )
 	{
 		word = selectionInterface(m_view->document())->selection();
@@ -128,6 +136,9 @@ void KDataToolPluginView::aboutToShow()
 			m_singleWord = true;
 			m_singleWord_line = line;
 		} else {
+			m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this, 
+					SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
+			m_menu->insert(m_notAvailable);
 			return;
 		}
 	}
@@ -145,12 +156,17 @@ void KDataToolPluginView::aboutToShow()
 	for ( ac = m_actionList.first(); ac; ac = m_actionList.next() ) {
 		m_menu->insert(ac);
 	}
-	QString note(i18n("(not available)"));
-	/* fixme: don't show an empty submenu
+
 	if( m_actionList.isEmpty() ) {
-	KAction *empty = new KAction(i18n("(not available)"), QString::null, 0, this, SLOT(slotNotAvailable()));
-	m_menu->insert(empty);
-	} */
+	m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,
+			SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
+	m_menu->insert(m_notAvailable);
+	}
+}
+
+void KDataToolPluginView::slotNotAvailable()
+{
+	KMessageBox::sorry(0,i18n("You need to install some data tools, before you can use them. You can find some of them in the koffice package"));
 }
 
 void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QString &command )
@@ -175,7 +191,7 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 	// If unsupported (and if we have a single word indeed), try application/x-singleword
 	if ( !info.mimeTypes().contains( mimetype ) && m_singleWord )
 		mimetype = "application/x-singleword";
-
+	
 	kdDebug() << "Running tool with datatype=" << datatype << " mimetype=" << mimetype << endl;
 
 	QString origText = text;

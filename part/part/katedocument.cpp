@@ -1227,6 +1227,9 @@ bool KateDocument::setSelection( uint startLine, uint startCol, uint endLine, ui
   if (hasSelection())
     clearSelection(false);
   
+  selectAnchor.line = startLine;
+  selectAnchor.col = startCol;
+
   return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
 }
 

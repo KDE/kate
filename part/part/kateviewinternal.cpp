@@ -706,6 +706,11 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
 {
   kdDebug(13030) << "slotRegionVisibilityChangedAt()" << endl;
+  m_cachedMaxStartPos.line = -1;  
+  KateTextCursor max = maxStartPos();
+  if (startPos() > max)
+    scrollPos(max);
+  
   updateView();
   update();
   leftBorder->update();

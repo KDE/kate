@@ -23,7 +23,7 @@
 #include <qptrlist.h>
 #include <qguardedptr.h>
 
-#include "../interfaces/document.h"
+#include "katedialogs.h"
 
 class KateDocument;
 
@@ -77,7 +77,7 @@ class KateFileTypeManager
     QPtrList<KateFileType> m_types;
 };
 
-class KateFileTypeConfigTab : public Kate::ConfigPage
+class KateFileTypeConfigTab : public KateConfigPage
 {
   Q_OBJECT
 

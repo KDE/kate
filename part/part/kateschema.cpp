@@ -559,7 +559,7 @@ void KateSchemaConfigHighlightTab::apply ()
 //END HighlightConfig
 
 KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
-  : Kate::ConfigPage( parent ),
+  : KateConfigPage( parent ),
     m_lastSchema (-1)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
@@ -603,10 +603,11 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( defaultSchemaCombo );
+  
+  reload();
+  
   connect( defaultSchemaCombo, SIGNAL(activated(int)),
            this, SLOT(slotChanged()) );
-
-  reload();
 }
 
 KateSchemaConfigPage::~KateSchemaConfigPage ()

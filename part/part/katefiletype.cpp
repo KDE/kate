@@ -263,7 +263,7 @@ const KateFileType *KateFileTypeManager::fileType (uint number)
 }
 
 KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
-  : Kate::ConfigPage( parent )
+  : KateConfigPage( parent )
 {
   m_types.setAutoDelete (true);
   m_lastType = 0;
@@ -293,31 +293,26 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   QLabel *lname = new QLabel( i18n("N&ame:"), gbProps );
   name  = new QLineEdit( gbProps );
   lname->setBuddy( name );
-  connect( name, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   // file & mime types
   QLabel *lsec = new QLabel( i18n("&Section:"), gbProps );
   section  = new QLineEdit( gbProps );
   lsec->setBuddy( section );
-  connect( section, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   // file & mime types
   QLabel *lvar = new QLabel( i18n("&Variables:"), gbProps );
   varLine  = new QLineEdit( gbProps );
   lvar->setBuddy( varLine );
-  connect( varLine, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   // file & mime types
   QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), gbProps );
   wildcards  = new QLineEdit( gbProps );
   lFileExts->setBuddy( wildcards );
-  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), gbProps);
   QHBox *hbMT = new QHBox (gbProps);
   mimetypes = new QLineEdit( hbMT );
   lMimeTypes->setBuddy( mimetypes );
-  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 
   QToolButton *btnMTW = new QToolButton(hbMT);
   btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
@@ -326,15 +321,24 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   QLabel *lprio = new QLabel( i18n("Prio&rity:"), gbProps);
   priority = new KIntNumInput( gbProps );
   lprio->setBuddy( priority );
-  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 
   layout->addStretch();
 
   reload();
+  
+  connect( name, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( section, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( varLine, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 }
 
 void KateFileTypeConfigTab::apply()
 {
+  if (!changed())
+    return;
+
   save ();
 
   KateFactory::self()->fileTypeManager()->save(&m_types);

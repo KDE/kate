@@ -21,8 +21,7 @@
 #define __KATE_SCHEMA_H__
 
 #include "katehighlight.h"
-
-#include "../interfaces/document.h"
+#include "katedialogs.h"
 
 #include <qstringlist.h>
 #include <qintdict.h>
@@ -242,7 +241,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     QIntDict< QIntDict<ItemDataList> > m_hlDict;
 };
 
-class KateSchemaConfigPage : public Kate::ConfigPage
+class KateSchemaConfigPage : public KateConfigPage
 {
   Q_OBJECT
 

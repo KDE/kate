@@ -1166,20 +1166,25 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
     buffer->insertLine (line+1, tl);
     buffer->changeLine(line);
+
     QPtrList<KTextEditor::Mark> list;
-    for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it ) {
-      if( it.current()->line > line || ( col == 0 && it.current()->line == line ) )
+    for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+    {
+      if( it.current()->line > line )
         list.append( it.current() );
     }
-    for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it ) {
+
+    for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+    {
       KTextEditor::Mark* mark = m_marks.take( it.current()->line );
       mark->line++;
       m_marks.insert( mark->line, mark );
     }
+
     if( !list.isEmpty() )
       emit marksChanged();
 
-     editInsertTagLine (line);
+    editInsertTagLine (line);
   }
   else
   {
@@ -1228,15 +1233,29 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   buffer->removeLine(line+1);
 
   QPtrList<KTextEditor::Mark> list;
-  for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it ) {
-    if( it.current()->line > line )
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+  {
+    if( it.current()->line >= line+1 )
       list.append( it.current() );
+
+    if ( it.current()->line == line+1 )
+    {
+      KTextEditor::Mark* mark = m_marks.take( line );
+
+      if (mark)
+      {
+        it.current()->type |= mark->type;
+      }
+    }
   }
-  for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it ) {
+
+  for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+  {
     KTextEditor::Mark* mark = m_marks.take( it.current()->line );
     mark->line--;
     m_marks.insert( mark->line, mark );
   }
+
   if( !list.isEmpty() )
     emit marksChanged();
 
@@ -1272,16 +1291,19 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   editTagLine(line);
 
   QPtrList<KTextEditor::Mark> list;
-  for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it ) {
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+  {
     if( it.current()->line >= line )
       list.append( it.current() );
   }
-  for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it ) {
-    kdDebug(13000)<<"editInsertLine: updating mark at line "<<it.current()->line<<endl;
+
+  for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+  {
     KTextEditor::Mark* mark = m_marks.take( it.current()->line );
     mark->line++;
     m_marks.insert( mark->line, mark );
   }
+
   if( !list.isEmpty() )
     emit marksChanged();
 
@@ -1312,15 +1334,25 @@ bool KateDocument::editRemoveLine ( uint line )
   editRemoveTagLine (line);
 
   QPtrList<KTextEditor::Mark> list;
-  for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it ) {
-    if( it.current()->line >= line )
+  KTextEditor::Mark* rmark = 0;
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
+  {
+    if ( (it.current()->line > line) )
       list.append( it.current() );
+    else if ( (it.current()->line == line) )
+      rmark = it.current();
   }
-  for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it ) {
+
+  if (rmark)
+    delete (m_marks.take (rmark->line));
+
+  for( QPtrListIterator<KTextEditor::Mark> it( list ); it.current(); ++it )
+  {
     KTextEditor::Mark* mark = m_marks.take( it.current()->line );
     mark->line--;
     m_marks.insert( mark->line, mark );
   }
+
   if( !list.isEmpty() )
     emit marksChanged();
 

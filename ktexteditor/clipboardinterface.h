@@ -19,7 +19,7 @@
 #ifndef __ktexteditor_clipboardinterface_h__
 #define __ktexteditor_clipboardinterface_h__
 
-#include <qstring.h>
+class QCString;
 
 namespace KTextEditor
 {

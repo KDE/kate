@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_encodinginterface_h__
 #define __ktexteditor_encodinginterface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -34,6 +36,9 @@ class EncodingInterface
     virtual ~EncodingInterface();
 
     unsigned int encodingInterfaceNumber () const;
+    
+  protected:  
+    void setEncodingInterfaceDCOPSuffix (const QCString &suffix);  
 
   //
   // slots !!!

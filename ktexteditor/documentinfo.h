@@ -19,8 +19,8 @@
 #ifndef __ktexteditor_documentinfointerface_h__
 #define __ktexteditor_documentinfointerface_h__
 
-
 class QString;
+class QCString;
 
 namespace KTextEditor
 {
@@ -41,7 +41,9 @@ class DocumentInfoInterface
     virtual QString niceFileSize()=0;
 
     unsigned int documentInfoInterfaceNumber () const;
-
+    
+  protected:  
+    void setDocumentInfoInterfaceDCOPSuffix (const QCString &suffix);  
 
   private:
     class PrivateDocumentInfoInterface *d;

@@ -51,6 +51,9 @@ class CursorInterface
     virtual ~CursorInterface ();
 
     unsigned int cursorInterfaceNumber () const;
+    
+  protected:  
+    void setCursorInterfaceDCOPSuffix (const QCString &suffix);  
 
   public:
     /**

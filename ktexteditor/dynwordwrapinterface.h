@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_dynwordwrapinterface_h__
 #define __ktexteditor_dynwordwrapinterface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -35,6 +37,9 @@ class DynWordWrapInterface
     virtual ~DynWordWrapInterface ();
 
     unsigned int dynWordWrapInterfaceNumber () const;
+    
+  protected:  
+    void setDynWordWrapInterfaceDCOPSuffix (const QCString &suffix);  
 
   //
   // slots !!!

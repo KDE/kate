@@ -58,3 +58,8 @@ unsigned int DocumentInfoInterface::documentInfoInterfaceNumber () const
 {
   return myDocumentInfoInterfaceNumber;
 }
+
+void DocumentInfoInterface::setDocumentInfoInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("DocumentInfoInterface#"+suffix);
+}

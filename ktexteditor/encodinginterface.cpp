@@ -62,6 +62,11 @@ unsigned int EncodingInterface::encodingInterfaceNumber () const
   return myEncodingInterfaceNumber;
 }
 
+void EncodingInterface::setEncodingInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("EncodingInterface#"+suffix);
+}
+
 EncodingInterface *KTextEditor::encodingInterface (Document *doc)
 {         
   if (!doc)

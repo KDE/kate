@@ -19,8 +19,7 @@
 #ifndef __ktexteditor_configinterface_h__
 #define __ktexteditor_configinterface_h__
 
-#include <qstring.h>
-
+class QCString;
 class KConfig;
 
 namespace KTextEditor

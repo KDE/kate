@@ -1612,16 +1612,9 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   }
 
   // unfold if required
-  m_doc->foldingTree()->ensureVisible( newCursor.line );
-    // if the line is in a folded region, unfold all the way up
-    /*
-    KateCodeFoldingNode *n = m_doc->foldingTree()->findNodeForLine( newCursor.line );
-    do {
-      if ( ! n->visible )
-        m_doc->foldingTree()->toggleRegionVisibility( n->startLineRel );
-        n = n->parentNode;
-    } while ( n );
-    */
+  if ( ! m_doc->kateTextLine( newCursor.line )->isVisible() )
+    m_doc->foldingTree()->ensureVisible( newCursor.line );
+  
   KateTextCursor oldDisplayCursor = displayCursor;
   
   cursor = newCursor;

@@ -23,28 +23,28 @@
 #include "katebrowserextension.h"
 #include "katebrowserextension.moc"
 
-#include "kateview.h"
+#include "katedocument.h"
 
-KateBrowserExtension::KateBrowserExtension( KateView* view )
-  : KParts::BrowserExtension( view->doc(), "katepartbrowserextension" )
-  , m_view( view )
+KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
+  : KParts::BrowserExtension( doc, "katepartbrowserextension" )
+  , m_doc( doc )
 {
-  connect( m_view->doc(), SIGNAL( selectionChanged() ),
+  connect( doc, SIGNAL( selectionChanged() ),
            this, SLOT( slotSelectionChanged() ) );
   emit enableAction( "print", true );
 }
 
 void KateBrowserExtension::copy()
 {
-  m_view->doc()->copy();
+  m_doc->copy();
 }
 
 void KateBrowserExtension::print()
 {
-  m_view->doc()->printDialog();
+  m_doc->printDialog();
 }
 
 void KateBrowserExtension::slotSelectionChanged()
 {
-  emit enableAction( "copy", m_view->doc()->hasSelection() );
+  emit enableAction( "copy", m_doc->hasSelection() );
 }

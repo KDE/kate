@@ -1,3 +1,8 @@
+2002-05-12  Bernd Gehrmann  <bernd@mail.berlios.de>
+  * Moved browser extension from view to doc, where it belongs
+  * If servicetype in the browser extension specifies an encoding,
+    use that instead of user's local encoding
+
 2002-05-11 Christian Couder <christian@kdevelop.org>
   * implement the KTextEditor::Cursor in the KateCursor class 
 

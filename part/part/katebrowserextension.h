@@ -23,14 +23,14 @@
 
 #include <kparts/browserextension.h>
 
-class KateView;
+class KateDocument;
 
 class KateBrowserExtension : public KParts::BrowserExtension
 {
   Q_OBJECT
 
   public:
-    KateBrowserExtension( KateView* view );
+    KateBrowserExtension( KateDocument* doc );
 
   public slots:
     void copy();
@@ -38,7 +38,7 @@ class KateBrowserExtension : public KParts::BrowserExtension
     void print();
 
   private:
-    KateView* m_view;
+    KateDocument* m_doc;
 };
 
 #endif

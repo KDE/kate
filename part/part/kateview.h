@@ -35,7 +35,6 @@ class KRecentFilesAction;
 class KSelectAction;
 class KateDocument;
 class KateBookmarks;
-class KateBrowserExtension;
 
 //
 // Kate KTextEditor::View class ;)
@@ -288,7 +287,6 @@ class KateView : public Kate::View
     KAccel*                m_editAccels;
     KateSearch*            m_search;
     KateBookmarks*         m_bookmarks;
-    KateBrowserExtension*  m_extension;
     QPopupMenu*            m_rmbMenu;
     CodeCompletion_Impl*   myCC_impl;
 

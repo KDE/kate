@@ -72,7 +72,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_editAccels( createEditKeys() )
     , m_search( new KateSearch( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
-    , m_extension( 0 )
     , m_rmbMenu( 0 )
     , m_active( false )
     , m_hasWrap( false )
@@ -102,10 +101,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     else
       setXMLFile( "katepartui.rc" );
 
-    if (doc->m_bBrowserView)
-    {
-      m_extension = new KateBrowserExtension( this );
-    }
   }
 
   setupActions();
@@ -126,7 +121,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   debugAccels->setEnabled(true);
 
   setFoldingMarkersOn( myDoc->highlight() && myDoc->highlight()->allowsFolding() );
-  
+
   KTrader::OfferList::Iterator it(KateFactory::viewPlugins()->begin());
   for( ; it != KateFactory::viewPlugins()->end(); ++it)
   {
@@ -406,11 +401,11 @@ void KateView::customEvent( QCustomEvent *ev )
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
-    if ( !m_extension || !myDoc )
+    if ( !myDoc || !myDoc->m_extension  )
         return;
     
-    emit m_extension->popupMenu( ev->globalPos(), myDoc->url(),
-                               QString::fromLatin1( "text/plain" ) );
+    emit myDoc->m_extension->popupMenu( ev->globalPos(), myDoc->url(),
+                                        QString::fromLatin1( "text/plain" ) );
     ev->accept();
 }
 

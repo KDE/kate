@@ -186,6 +186,8 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
 
   readConfig();
 
+  m_extension = new KateBrowserExtension( this );
+  
   if ( m_bSingleViewMode )
   {
     KTextEditor::View *view = createView( parentWidget, widgetName );
@@ -1889,6 +1891,13 @@ bool KateDocument::openFile()
     return false;
 
   clear();
+  QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
+  kdDebug(13000) << "servicetype: " << serviceType << endl;
+  int pos = serviceType.find(';');
+  if (pos != -1)
+    myEncoding = serviceType.mid(pos+1);
+  kdDebug(13000) << "myEncoding: " << myEncoding << endl;
+      
   buffer->insertFile(0, m_file, KGlobal::charsets()->codecForName(myEncoding));
 
   setMTime();

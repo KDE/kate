@@ -24,6 +24,7 @@
 #include "katecursor.h"
 #include "katesearch.h"
 #include "katetextline.h"
+#include "katebrowserextension.h"
 #include "../interfaces/document.h"
 
 #include <qobject.h>
@@ -146,7 +147,8 @@ class KateDocument : public Kate::Document
     bool m_bSingleViewMode;
     bool m_bBrowserView;
     bool m_bReadOnly;
-
+    KateBrowserExtension *m_extension;
+    
   //
   // KTextEditor::Document stuff
   //

@@ -38,20 +38,22 @@ class SessionConfigInterface
     virtual ~SessionConfigInterface();
 
     unsigned int configInterfaceNumber () const;
-    
-  protected:  
-    void setSessionConfigInterfaceDCOPSuffix (const QCString &suffix); 
+
+  protected:
+    void setSessionConfigInterfaceDCOPSuffix (const QCString &suffix);
 
   //
   // slots !!!
   //
-  public:        
+  public:
     /**
-      Read/Write session config of only this document/view/plugin 
+     * Read/Write session config of only this document/view/plugin
+     * In case of the document, that means for example it should reload the file,
+     * restore all marks, ...
     */
     virtual void readSessionConfig (KConfig *) = 0;
     virtual void writeSessionConfig (KConfig *) = 0;
-    
+
   private:
     class PrivateSessionConfigInterface *d;
     static unsigned int globalSessionConfigInterfaceNumber;

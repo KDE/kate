@@ -195,7 +195,7 @@ Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, 
 
 Document *KTextEditor::createDocument ( const char* libname, QObject *parent, const char *name )
 {
-  return KParts::ComponentFactory::createInstanceFromLibrary<Document>( libname, parent, name );
+  return KParts::ComponentFactory::createPartInstanceFromLibrary<Document>( libname, 0, 0, parent, name );
 }     
 
 Plugin *KTextEditor::createPlugin ( const char* libname, Document *document, const char *name )

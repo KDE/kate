@@ -277,7 +277,7 @@ void KateSearch::wrapSearch()
       s.cursor.setPos(0, 0);
     } else {
       s.cursor.setLine(doc()->numLines() - 1);
-      s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
+      s.cursor.setCol(doc()->lineLength( s.cursor.line() ) );
     }
   }
 
@@ -741,12 +741,12 @@ bool SearchCommand::exec(class Kate::View *view, const QString &cmd, QString &ms
 
   else if ( cmd.startsWith( "replace" ) )
   {
-    // Try if the pattern and replacement is quoted, using a quote character [^\w\s\\]
-    static QRegExp re_rep("replace(?::([bceprsw]*))?\\s+([^\\w\\s\\\\])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s+\\2((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
+    // Try if the pattern and replacement is quoted, using a quote character ["']
+    static QRegExp re_rep("replace(?::([bceprsw]*))?\\s+([\"'])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s+\\2((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
     // Or one quoted argument
-    QRegExp re_rep1("replace(?::([bceprsw]*))?\\s+([^\\w\\s\\\\])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
+    QRegExp re_rep1("replace(?::([bceprsw]*))?\\s+([\"'])((?:[^\\\\\\\\2]|\\\\.)*)\\2\\s*$");
     // Else, it's just one or two (space separated) words
-    QRegExp re_rep2("replace(?::([bceprsw]*))?\\s+(\\S+)\\s*(.*)");
+    QRegExp re_rep2("replace(?::([bceprsw]*))?\\s+(\\S+)(.*)");
 #define unbackslash(s) p=0;\
 while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
 {\
@@ -782,7 +782,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
     {
       flags = re_rep2.cap( 1 );
       pattern = re_rep2.cap( 2 );
-      replacement = re_rep2.cap( 3 );
+      replacement = re_rep2.cap( 3 ).stripWhiteSpace();
     }
     else
     {

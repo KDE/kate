@@ -87,7 +87,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   m_viewInternal = new KateViewInternal( this, doc );
   m_grid->addWidget (m_viewInternal, 0, 1);
-  m_viewInternal->show ();
 
   setClipboardInterfaceDCOPSuffix (viewDCOPSuffix());
   setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
@@ -122,6 +121,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   // update the enabled state of the undo/redo actions...
   slotNewUndo();
+  
+  m_viewInternal->show ();
 }
 
 KateView::~KateView()

@@ -2547,29 +2547,13 @@ bool KateDocument::openFile()
 
 bool KateDocument::saveFile()
 {
-  QFile f( m_file );
-  if ( !f.open( IO_WriteOnly ) )
-    return false; // Error
-
-  QTextStream stream(&f);
-
-  stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
-  stream.setCodec(KGlobal::charsets()->codecForName(myEncoding)); // this line sets the mapper to the correct codec
-
-  uint maxLine = numLines();
-  uint line = 0;
-  while(true)
-  {
-    stream << textLine(line);
-    line++;
-    if (line >= maxLine) break;
-
-    if (eolMode == KateDocument::eolUnix) stream << "\n";
-    else if (eolMode == KateDocument::eolDos) stream << "\r\n";
-    else if (eolMode == KateDocument::eolMacintosh) stream << '\r';
-  }
-  f.close();
-
+  QString eol ("\n");
+  
+  if (eolMode == KateDocument::eolDos) eol = QString("\r\n");
+  else if (eolMode == KateDocument::eolMacintosh) eol = QString ("\r");
+    
+  bool success = buffer->saveFile (m_file, KGlobal::charsets()->codecForName(myEncoding), eol);
+  
   fileInfo->setFile (m_file);
   setMTime();
 
@@ -2597,13 +2581,14 @@ bool KateDocument::saveFile()
     hl = hlManager->mimeFind( buf, m_file );
   }
 
-  internalSetHlMode(hl);
+    internalSetHlMode(hl);
   }
+  
   emit fileNameChanged ();
 
   setDocName  (url().filename());
 
-  return (f.status() == IO_Ok);
+  return success;
 }
 
 void KateDocument::setReadWrite( bool rw )
@@ -4716,5 +4701,3 @@ KTextEditor::Cursor *KateDocument::createCursor ( )
 {
   return new KateCursor (this);
 }
-
-

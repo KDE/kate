@@ -294,6 +294,32 @@ bool KateBuffer::openFile(const QString &m_file, QTextCodec *codec)
   return true;
 }
 
+bool KateBuffer::saveFile(const QString &m_file, QTextCodec *codec, const QString &eol)
+{ 
+  QFile file (m_file);
+  QTextStream stream (&file);
+  
+  if ( !file.open( IO_WriteOnly ) )
+  {
+    return false; // Error
+  }
+  
+  stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
+  stream.setCodec(codec); // this line sets the mapper to the correct codec
+      
+  for (uint i=0; i < m_totalLines; i++)
+  {
+    stream << textLine (i);
+    
+    if (i < (m_totalLines-1))
+      stream << eol;
+  }
+  
+  file.close ();
+  
+  return (file.status() == IO_Ok);
+}
+
 void
 KateBuffer::loadFilePart()
 {
@@ -964,8 +990,6 @@ bool KateBufBlock::fillBlock (QTextStream *stream)
     memcpy(buf+pos, (char *) &attr, 1);
     pos += 1;
     
-    kdDebug()<<"line: "<<lineNr<<" length: "<<length<<" attr: "<<attr<<endl;
-
     lineNr++;
     
     if (stream->atEnd() && line.isNull())
@@ -979,14 +1003,12 @@ bool KateBufBlock::fillBlock (QTextStream *stream)
   {
     m_rawData.resize (size);
   }
-  
-  kdDebug()<<"array size: "<<m_rawData.size()<<endl;
           
-   m_endState.lineNr = lineNr;     
+  m_endState.lineNr = lineNr;     
   
-   b_rawDataValid = true;
+  b_rawDataValid = true;
    
-   return eof;     
+  return eof;     
 }     
      
 /**     
@@ -997,7 +1019,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream)
 void     
 KateBufBlock::swapOut(KVMAllocator *vm)     
 {     
-   kdDebug(13020)<<"KateBufBlock: swapout this ="<< this<<endl;
+   //kdDebug(13020)<<"KateBufBlock: swapout this ="<< this<<endl;
    assert(b_rawDataValid);
    // TODO: Error checking and reporting (?)
    
@@ -1022,7 +1044,7 @@ KateBufBlock::swapOut(KVMAllocator *vm)
 void     
 KateBufBlock::swapIn(KVMAllocator *vm)     
 {     
-   kdDebug(13020)<<"KateBufBlock: swapin this ="<< this<<endl;
+   //kdDebug(13020)<<"KateBufBlock: swapin this ="<< this<<endl;
    assert(b_vmDataValid);
    assert(!b_rawDataValid);
    assert(m_vmblock);
@@ -1037,7 +1059,7 @@ KateBufBlock::swapIn(KVMAllocator *vm)
 void     
 KateBufBlock::buildStringList()     
 {     
-  kdDebug(13020)<<"KateBufBlock: buildStringList this ="<< this<<endl;
+  //kdDebug(13020)<<"KateBufBlock: buildStringList this ="<< this<<endl;
   assert(m_stringList.empty());
 
   char *buf = m_rawData.data();
@@ -1050,12 +1072,11 @@ KateBufBlock::buildStringList()
     m_stringList.push_back (textLine);
   }
 
-  kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
+  //kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
 
   assert(m_stringList.size() == (m_endState.lineNr - m_beginState.lineNr));
   b_stringListValid = true;
-  
-  kdDebug(13020)<<"END: KateBufBlock: buildStringList LINES: "<<m_endState.lineNr - m_beginState.lineNr<<endl;
+  //kdDebug(13020)<<"END: KateBufBlock: buildStringList LINES: "<<m_endState.lineNr - m_beginState.lineNr<<endl;
 }
 
 /**
@@ -1065,7 +1086,7 @@ KateBufBlock::buildStringList()
 void
 KateBufBlock::flushStringList()
 {
-  kdDebug(13020)<<"KateBufBlock: flushStringList this ="<< this<<endl;
+  //kdDebug(13020)<<"KateBufBlock: flushStringList this ="<< this<<endl;
   assert(b_stringListValid);
   assert(!b_rawDataValid);
 
@@ -1073,8 +1094,7 @@ KateBufBlock::flushStringList()
   uint size = 0;
   for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
     size += (*it)->dumpSize ();
-   
-  kdDebug(13020)<<"Size = "<< size<<endl;
+
   m_rawData.resize (size);
   char *buf = m_rawData.data();
    
@@ -1092,7 +1112,7 @@ KateBufBlock::flushStringList()
 void
 KateBufBlock::disposeStringList()
 {
-   kdDebug(13020)<<"KateBufBlock: disposeStringList this = "<< this<<endl;
+   //kdDebug(13020)<<"KateBufBlock: disposeStringList this = "<< this<<endl;
    assert(b_rawDataValid || b_vmDataValid);
    m_stringList.clear();
    b_stringListValid = false;
@@ -1104,7 +1124,7 @@ KateBufBlock::disposeStringList()
 void
 KateBufBlock::disposeRawData()
 {
-   kdDebug(13020)<< "KateBufBlock: disposeRawData this = "<< this<<endl;
+   //kdDebug(13020)<< "KateBufBlock: disposeRawData this = "<< this<<endl;
    assert(b_stringListValid || b_vmDataValid);
    b_rawDataValid = false;
    m_rawData.resize (0);
@@ -1116,7 +1136,7 @@ KateBufBlock::disposeRawData()
 void     
 KateBufBlock::disposeSwap(KVMAllocator *vm)     
 {
-   kdDebug(13020)<<"KateBufBlock: disposeSwap this = "<< this<<endl;
+   //kdDebug(13020)<<"KateBufBlock: disposeSwap this = "<< this<<endl;
    assert(b_stringListValid || b_rawDataValid);
    vm->free(m_vmblock);
    m_vmblock = 0;

@@ -53,13 +53,21 @@ class KateBuffer : public QObject
     * Create an empty buffer.
     */
    KateBuffer(class KateDocument *doc);
+   
+   /**
+    * Goodbye buffer
+    */
    ~KateBuffer();
 
    /**
-    * Insert a file at line @p line in the buffer.
-    * Using @p codec to decode the file.
+    * Open a file, use the given filename + codec (internal use of qtextstream)
     */
    bool openFile (const QString &m_file, QTextCodec *codec);
+   
+   /**
+    * Save the buffer to a file, use the given filename + codec + end of line chars (internal use of qtextstream)
+    */
+   bool saveFile (const QString &m_file, QTextCodec *codec, const QString &eol);
 
    /**
     * Return the total number of lines in the buffer.

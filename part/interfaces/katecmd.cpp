@@ -52,7 +52,7 @@ bool KateCmd::unregisterCommand (Kate::Command *cmd)
 Kate::Command *KateCmd::queryCommand (const QString &cmd)
 {
   uint f = 0;
-  while (cmd[f].isLetterOrNumber())
+  while ( ! cmd[f].isSpace() && f < cmd.length() )
     f++;
 
   return m_dict[cmd.left(f)];

@@ -1021,7 +1021,7 @@ bool KateDocument::setSelection ( const KateTextCursor & start,
 				  const KateTextCursor & end )
 {
   if( hasSelection() )
-    tagLines( selectStart.line, selectEnd.line );
+    tagSelection();
 
   if (start <= end) {
     selectStart = start;
@@ -1032,7 +1032,7 @@ bool KateDocument::setSelection ( const KateTextCursor & start,
   }
 
   if( hasSelection() )
-    tagLines( selectStart.line, selectEnd.line );
+    tagSelection();
 
   emit selectionChanged ();
 
@@ -1051,7 +1051,7 @@ bool KateDocument::clearSelection ()
   if( !hasSelection() )
     return false;
 
-  tagLines(selectStart.line,selectEnd.line);
+  tagSelection();
 
   selectStart.setPos(-1, -1);
   selectEnd.setPos(-1, -1);
@@ -1103,9 +1103,6 @@ QString KateDocument::selection() const
 
 bool KateDocument::removeSelectedText ()
 {
-  TextLine::Ptr textLine = 0L;
-  int delLen, delStart, delLine;
-
   if (!hasSelection())
     return false;
 
@@ -1114,8 +1111,7 @@ bool KateDocument::removeSelectedText ()
   for (uint z = 0; z < myViews.count(); z++)
   {
     KateView *v = myViews.at(z);
-    int cline = v->myViewInternal->cursorCache.line;
-    if ((selectStart.line <= cline) && (cline <= selectEnd.line))
+    if (lineHasSelected(v->myViewInternal->cursorCache.line))
     {
       v->myViewInternal->cursorCache = selectStart;
       v->myViewInternal->cursorCacheChanged = true;
@@ -1129,13 +1125,13 @@ bool KateDocument::removeSelectedText ()
 
   for (int z=el; z >= sl; z--)
   {
-    textLine = buffer->line(z);
+    TextLine::Ptr textLine = buffer->line(z);
     if (!textLine)
       break;
 
-    delLine = 0;
-    delStart = 0;
-    delLen = 0;
+    int delLine = 0;
+    int delStart = 0;
+    int delLen = 0;
 
     if (!blockSelect)
     {
@@ -3193,6 +3189,11 @@ void KateDocument::tagLines(int start, int end)
 {
   for (uint z = 0; z < myViews.count(); z++)
     myViews.at(z)->myViewInternal->tagRealLines(start, end);
+}
+
+void KateDocument::tagSelection()
+{
+  tagLines(selectStart.line, selectEnd.line);
 }
 
 void KateDocument::tagAll()

@@ -470,6 +470,12 @@ class KateDocument : public Kate::Document
     int tabWidth() {return tabChars;}
     void setNewDoc( bool );
     bool isNewDoc() const;
+    
+    /**
+       Tag the lines in the current selection.
+     */
+    void tagSelection();
+
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
 

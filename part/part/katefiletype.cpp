@@ -333,7 +333,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
       "of masks.") );
   QWhatsThis::add( mimetypes, i18n(
       "The mime type mask allows you to select files by mimetype. The string is "
-      "a semicolon separated-list of mimetypes, for example "
+      "a semicolon-separated list of mimetypes, for example "
       "<code>text/plain; text/english</code>.") );
   QWhatsThis::add( btnMTW, i18n(
       "Displays a wizard that helps you easily select mimetypes.") );

@@ -42,8 +42,10 @@ KateFileDialog::KateFileDialog (const QString& startDir,
 
 	if (type == KateFileDialog::openDialog)
 	  setMode(KFile::Files);
-	else
+	else {
 	  setMode(KFile::File);
+	  setOperationMode( Saving );
+    }
 
 	this->encoding = toolBar()->getCombo(33333);
   

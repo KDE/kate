@@ -382,7 +382,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
         blay->addWidget( m_bmSort, 0 );
 	blay->addStretch(1000);
 
-  QWhatsThis::add(m_dynwrap,i18n("If this option is checked, the textlines will be wrapped at the view border on the screen."));
+  QWhatsThis::add(m_dynwrap,i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
 	QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
 	QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
 	QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));

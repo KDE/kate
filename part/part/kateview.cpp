@@ -255,7 +255,7 @@ void KateView::setupActions()
     i18n("&Dynamic Word Wrap"), Key_F12,
     this, SLOT(toggleDynWordWrap()),
     ac, "view_dynamic_word_wrap" );
-  a->setWhatsThis(i18n("If this option is checked, the textlines will be wrapped at the view border on the screen."));
+  a->setWhatsThis(i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
 
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show Folding &Markers"), Key_F9,

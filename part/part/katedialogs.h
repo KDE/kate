@@ -44,23 +44,7 @@ class QCheckBox;
 #define HlEUnknown 0
 #define HlEContext 1
 #define HlEItem 2
-/*
-class StyleChanger : public QWidget {
-    Q_OBJECT
-  public:
-    StyleChanger(QWidget *parent );
-    void setRef(ItemStyle *);
-    void setEnabled(bool);
-  protected slots:
-    void changed();
-  protected:
-    ItemStyle *style;
-    KColorButton *col;
-    KColorButton *selCol;
-    QCheckBox *bold;
-    QCheckBox *italic;
-};
-*/
+
 /*
     QListViewItem subclass to display/edit a style, bold/italic is check boxes,
     normal and selected colors are boxes, which will display a color chooser when
@@ -82,7 +66,7 @@ class StyleListItem : public QListViewItem {
     enum Property { ContextName, Bold, Italic, Color, SelColor, UseDefStyle };
 
     /* reimp */
-    int width ( const QFontMetrics & fm, const QListView * lv, int c );
+    virtual int width ( const QFontMetrics & fm, const QListView * lv, int c ) const;
     /* calls changeProperty() if it makes sense considering pos. */
     void activate( int column, const QPoint &localPos );
     /* For bool fields, toggles them, for color fields, display a color chooser */
@@ -122,8 +106,9 @@ class StyleListItem : public QListViewItem {
 */
 class StyleListView : public QListView {
     Q_OBJECT
+  friend class StyleListItem;
   public:
-    StyleListView( QWidget *parent=0, bool showUseDefaults=false );
+    StyleListView( QWidget *parent=0, bool showUseDefaults=false, QColor textcol=QColor() );
     ~StyleListView() {};
     /* Display a popupmenu for item i at the specified global position, eventually with a title,
        promoting the context name of that item */
@@ -135,6 +120,9 @@ class StyleListView : public QListView {
     void slotMousePressed( int, QListViewItem*, const QPoint&, int );
     /* asks item to change the property in q */
     void mSlotPopupHandler( int z );
+  private:
+    QColor bgcol, selcol, normalcol;
+    QFont docfont;
 };
 
 /**
@@ -218,17 +206,13 @@ class HighlightDialogPage : public QTabWidget
     void saveData();
 
   protected slots:
-//    void defaultChanged(int);
 
     void hlChanged(int);
-//    void itemChanged(int);
-//    void changed();
     void hlEdit();
     void hlNew();
     void hlDownload();
     void showMTDlg();
   protected:
-//    StyleChanger *defaultStyleChanger;
     ItemStyleList *defaultItemStyleList;
 
     void writeback();
@@ -236,8 +220,6 @@ class HighlightDialogPage : public QTabWidget
     QLineEdit *wildcards;
     QLineEdit *mimetypes;
     StyleListView *lvStyles;
-//    QCheckBox *styleDefault;
-//    StyleChanger *styleChanger;
 
     HlDataList *hlDataList;
     HlData *hlData;

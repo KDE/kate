@@ -29,6 +29,7 @@
 #include <kcombobox.h>
 #include <kdebug.h>
 #include <kglobal.h>
+#include <kglobalsettings.h>
 #include <kiconloader.h>
 #include <klineedit.h>
 #include <klocale.h>
@@ -63,6 +64,7 @@
 #include "katedialogs.moc"
 #include "katehighlightdownload.h"
 #include "attribeditor.h"
+#include "katefactory.h"
 
 #define TAG_DETECTCHAR "DetectChar"
 #define TAG_DETECT2CHARS "Detect2Chars"
@@ -74,76 +76,6 @@
 #define TAG_FLOAT "Float"
 #define TAG_KEYWORD "keyword"
 
-
-/*******************************************************************************************************************
-*                                        Context Editor                                                            *
-*******************************************************************************************************************/
-/*
-StyleChanger::StyleChanger( QWidget *parent )
-  : QWidget(parent)
-{
-  QLabel *label;
-
-  QGridLayout *glay = new QGridLayout( this, 4, 3, 0, KDialog::spacingHint() );
-  Q_CHECK_PTR(glay);
-  glay->addColSpacing( 1, KDialog::spacingHint() ); // Looks better
-  glay->setColStretch( 2, 10 );
-
-  col = new KColorButton(this);
-  Q_CHECK_PTR(col);
-  connect(col,SIGNAL(changed(const QColor &)),this,SLOT(changed()));
-  label = new QLabel(col,i18n("Normal:"),this);
-  Q_CHECK_PTR(label);
-  glay->addWidget(label,0,0);
-  glay->addWidget(col,1,0);
-
-  selCol = new KColorButton(this);
-  Q_CHECK_PTR(selCol);
-  connect(selCol,SIGNAL(changed(const QColor &)),this,SLOT(changed()));
-  label = new QLabel(selCol,i18n("Selected:"),this);
-  Q_CHECK_PTR(label);
-  glay->addWidget(label,2,0);
-  glay->addWidget(selCol,3,0);
-
-  bold = new QCheckBox(i18n("Bold"),this);
-  Q_CHECK_PTR(bold);
-  connect(bold,SIGNAL(clicked()),SLOT(changed()));
-  glay->addWidget(bold,1,2);
-
-  italic = new QCheckBox(i18n("Italic"),this);
-  Q_CHECK_PTR(italic);
-  connect(italic,SIGNAL(clicked()),SLOT(changed()));
-  glay->addWidget(italic,2,2);
-}
-
-void StyleChanger::setRef(ItemStyle *s) {
-
-  style = s;
-  col->setColor(style->col);
-  selCol->setColor(style->selCol);
-  bold->setChecked(style->bold);
-  italic->setChecked(style->italic);
-
-}
-
-void StyleChanger::setEnabled(bool enable) {
-
-  col->setEnabled(enable);
-  selCol->setEnabled(enable);
-  bold->setEnabled(enable);
-  italic->setEnabled(enable);
-}
-
-void StyleChanger::changed() {
-
-  if (style) {
-    style->col = col->color();
-    style->selCol = selCol->color();
-    style->bold = bold->isChecked();
-    style->italic = italic->isChecked();
-  }
-}
-*/
 HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   myDoc = doc;
@@ -205,81 +137,21 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
 
   // defaults =========================================================
 
-  //QFrame *page1 = new QFrame(this);
   QVBox *page1 = new QVBox ( this );
   addTab(page1,i18n("&Default Styles"));
   int spacing = KDialogBase::spacingHint();
   page1->setSpacing( spacing );
   page1->setMargin( spacing );
-  //QGridLayout *grid = new QGridLayout(page1, 1, 1);
 
-//  QVGroupBox *dvbox1 = new QVGroupBox( i18n("Default Item Styles"), page1 );
-  /*QLabel *label = *//*new QLabel( i18n("Item:"), dvbox1 );
-  QComboBox *styleCombo = new QComboBox( false, dvbox1 );
-  defaultStyleChanger = new StyleChanger( dvbox1 );
-  for( int i = 0; i < hlManager->defaultStyles(); i++ ) {
-    styleCombo->insertItem(hlManager->defaultStyleName(i));
-  }
-  connect(styleCombo, SIGNAL(activated(int)), this, SLOT(defaultChanged(int)));
-  grid->addWidget(dvbox1, 0,0);
-
-  defaultChanged(0);
-*/
-  StyleListView *lvDefStyles = new StyleListView( page1, false );
+  QColor normalcol( defaultItemStyleList->at(0)->col );
+  StyleListView *lvDefStyles = new StyleListView( page1, false, normalcol );
   for ( int i = 0; i < hlManager->defaultStyles(); i++ )
     lvDefStyles->insertItem( new StyleListItem( lvDefStyles, hlManager->defaultStyleName(i),
                                                 defaultItemStyleList->at( i ) ) );
   // highlight modes =====================================================
 
-//  QFrame *page2 = new QFrame(this);
   QVBox *page2 = new QVBox( this );
   addTab(page2,i18n("Highlight &Modes"));
-//  addTab(page2,i18n("&Highlight Modes"));
-  //grid = new QGridLayout(page2,2,2);
-/*
-  QVBoxLayout *bl=new QVBoxLayout(page2);
-  bl->setAutoAdd(true);
-  QHGroupBox *hbox1 = new QHGroupBox( i18n("Config Select"), page2 );
-  hbox1->layout()->setMargin(5);
-  QVBox *vbox1=new QVBox(hbox1);
-//  grid->addMultiCellWidget(vbox1,0,0,0,1);
-  QVGroupBox *vbox2 = new QVGroupBox( i18n("Item Style"), page2 );
-//  grid->addWidget(vbox2,1,0);
-  QVGroupBox *vbox3 = new QVGroupBox( i18n("Highlight Auto Select"), hbox1 );
-  //grid->addWidget(vbox3,1,1);
-
-  QLabel *label = new QLabel( i18n("Highlight:"), vbox1 );
-  hlCombo = new QComboBox( false, vbox1 );
-  QHBox *modHl = new QHBox(vbox1);
-
-  QPushButton *newHl = new QPushButton(i18n("New"),modHl);
-  QPushButton *editHl = new QPushButton(i18n("Edit"),modHl);
-
-  connect(newHl,SIGNAL(clicked()),this,SLOT(hlNew()));
-  connect(editHl,SIGNAL(clicked()),this,SLOT(hlEdit()));
-  connect(new QPushButton(i18n("Download"),vbox1),SIGNAL(clicked()),this,SLOT(hlDownload()));
-  connect( hlCombo, SIGNAL(activated(int)),
-           this, SLOT(hlChanged(int)) );
-  for( int i = 0; i < hlManager->highlights(); i++) {
-    hlCombo->insertItem(hlManager->hlName(i));
-  }
-  hlCombo->setCurrentItem(hlNumber);
-
-
-  label = new QLabel( i18n("Item:"), vbox2 );
-  itemCombo = new QComboBox( false, vbox2 );
-  connect( itemCombo, SIGNAL(activated(int)), this, SLOT(itemChanged(int)) );
-
-  label = new QLabel( i18n("File Extensions:"), vbox3 );
-  wildcards  = new QLineEdit( vbox3 );
-  label = new QLabel( i18n("Mime Types:"), vbox3 );
-  mimetypes = new QLineEdit( vbox3 );
-
-
-  styleDefault = new QCheckBox(i18n("Default"), vbox2 );
-  connect(styleDefault,SIGNAL(clicked()),SLOT(changed()));
-  styleChanger = new StyleChanger( vbox2 );
-*/
   page2->setSpacing( spacing );
   page2->setMargin( spacing );
 
@@ -318,7 +190,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
 
   // styles listview
   QLabel *lSt = new QLabel( i18n("Context &Styles:"), gbProps );
-  lvStyles = new StyleListView( gbProps, true );
+  lvStyles = new StyleListView( gbProps, true, normalcol );
   lSt->setBuddy( lvStyles );
 
   // download/new buttons
@@ -347,19 +219,10 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   QWhatsThis::add( btnNew,    i18n("Click this button to create a new syntax highlight mode using the Highlight Mode Editor(tm)") );
 
   // not finished for 3.0
-//  newHl->hide ();
-//  editHl->hide ();
   btnNew->hide();
   btnEdit->hide();
 
 }
-
-/*
-void HighlightDialogPage::defaultChanged(int z)
-{
-  defaultStyleChanger->setRef(defaultItemStyleList->at(z));
-}
-*/
 
 void HighlightDialogPage::hlChanged(int z)
 {
@@ -369,16 +232,7 @@ void HighlightDialogPage::hlChanged(int z)
 
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
-/*
-  itemCombo->clear();
-  for (ItemData *itemData = hlData->itemDataList.first(); itemData != 0L;
-    itemData = hlData->itemDataList.next()) {
-    kdDebug(13010) << itemData->name << endl;
-    itemCombo->insertItem(i18n(itemData->name.latin1()));
-  }
-
-  itemChanged(0);
-*/
+  
   lvStyles->clear();
   for (ItemData *itemData = hlData->itemDataList.first();
           itemData != 0L;
@@ -387,20 +241,7 @@ void HighlightDialogPage::hlChanged(int z)
                                  defaultItemStyleList->at(itemData->defStyleNum), itemData ) );
   }
 }
-/*
-void HighlightDialogPage::itemChanged(int z)
-{
-  itemData = hlData->itemDataList.at(z);
 
-  styleDefault->setChecked(itemData->defStyle);
-  styleChanger->setRef(itemData);
-}
-*//*
-void HighlightDialogPage::changed()
-{
-  itemData->defStyle = styleDefault->isChecked();
-}
-*/
 void HighlightDialogPage::writeback() {
   if (hlData) {
     hlData->wildcards = wildcards->text();
@@ -880,8 +721,9 @@ void HlEditDialog::ItemAddNew()
 /*********************************************************************/
 /*                  StyleListView Implementation                     */
 /*********************************************************************/
-StyleListView::StyleListView( QWidget *parent, bool showUseDefaults )
-    : QListView( parent )
+StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor textcol )
+    : QListView( parent ),
+      normalcol( textcol )
 {
   addColumn( i18n("Context") );
   addColumn( QIconSet(SmallIcon("text_bold")), QString::null );
@@ -892,6 +734,14 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults )
     addColumn( i18n("Use Default Style") );
   connect( this, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)), this, SLOT(slotMousePressed(int, QListViewItem*, const QPoint&, int)) );
   connect( this, SIGNAL(spacePressed(QListViewItem*)), this, SLOT(showPopupMenu(QListViewItem*)) );
+  // grap the bg color, selected color and default font
+  KConfig *ac = KateFactory::instance()->config();//kapp->config();
+  ac->setGroup("Kate Document");
+  bgcol = QColor( ac->readColorEntry( "Color Background", new QColor(KGlobalSettings::baseColor()) ) );
+  selcol = QColor( ac->readColorEntry( "Color Selected", new QColor(KGlobalSettings::highlightColor()) ) );
+  docfont = ac->readFontEntry( "Font", new QFont( KGlobalSettings::fixedFont()) );
+
+  viewport()->setPaletteBackgroundColor( bgcol );
 }
 
 void StyleListView::showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle )
@@ -978,20 +828,21 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
   is = st ? st->defStyle ? ds : st : ds;
 }
 
-// FIXME: width for name column should reflect bold/italic
-int StyleListItem::width( const QFontMetrics & fm, const QListView * lv, int col )
+int StyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int col ) const
 {
-  int w = 0;
+  int m = lv->itemMargin() * 2;
   switch ( col ) {
     case ContextName:
-      return lv->fontMetrics().width( text(0) ); // FIXME - bold/italic/font/size
+      // FIXME: width for name column should reflect bold/italic
+      // (relevant for non-fixed fonts only - nessecary?)
+      return QFontMetrics( ((StyleListView*)lv)->docfont).width( text(0) ) + m;
     case Bold:
     case Italic:
     case UseDefStyle:
-      return BoxSize;
+      return BoxSize + m;
     case Color:
     case SelColor:
-      return ColorBtnWidth;
+      return ColorBtnWidth +m;
     default:
       return 0;
   }
@@ -1101,21 +952,21 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
   if ( !lv )
     return;
 
-  p->fillRect( 0, 0, width, height(), cg.brush( QPalette::backgroundRoleFromMode( lv->viewport()->backgroundMode() ) ) );
+  p->fillRect( 0, 0, width, height(), QBrush( ((StyleListView*)lv)->bgcol ) );
   int marg = lv->itemMargin();
-  int r = marg;
+
+  // use a provate color group and set the text/highlighted text colors
+  QColorGroup mcg = cg;
 
   if ( col == 0 ) {
-    // use a provate color group and set the text/highlighted text colors
-    QColorGroup mcg = cg;
     mcg.setColor(QColorGroup::Text, is->col);
     mcg.setColor(QColorGroup::HighlightedText, is->selCol);
-    if (is->bold || is->italic) {
-      QFont f = p->font(); // FIXME use kate default font
-      f.setBold( is->bold );
-      f.setItalic( is->italic );
-      p->setFont( f );
-    }
+    QFont f ( ((StyleListView*)lv)->docfont );
+    f.setBold( is->bold );
+    f.setItalic( is->italic );
+    p->setFont( f );
+    // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
+    // Maybe I need painting the string myself :(
     QListViewItem::paintCell( p, mcg, col, width, align );
     return;
   }
@@ -1123,6 +974,8 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     // Bold/Italic/use default checkboxes
     // code allmost identical to QCheckListItem
     Q_ASSERT( lv ); //###
+    // I use the text color of defaultStyles[0], normalcol in parent listview
+    mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
     int x = 0;
     if ( align == AlignCenter ) {
       QFontMetrics fm( lv->font() );
@@ -1131,14 +984,14 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     int y = (height() - BoxSize) / 2;
 
     if ( isEnabled() )
-      p->setPen( QPen( cg.text(), 2 ) );
+      p->setPen( QPen( mcg.text(), 2 ) );
     else
       p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
     if ( isSelected() && lv->header()->mapToSection( 0 ) != 0 ) {
       p->fillRect( 0, 0, x + marg + BoxSize + 4, height(),
-             cg.brush( QColorGroup::Highlight ) );
-    if ( isEnabled() )
-      p->setPen( QPen( cg.highlightedText(), 2 ) );
+             mcg.brush( QColorGroup::Highlight ) );
+      if ( isEnabled() )
+        p->setPen( QPen( mcg.highlightedText(), 2 ) ); // FIXME! - use defaultstyles[0].selecol. luckily not used :)
     }
     p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
     x++;
@@ -1165,10 +1018,11 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
   else if ( col == 3 || col == 4 ) {
     // color "buttons"
     Q_ASSERT(lv);
+    mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
     int x = 0;
     int y = (height() - BoxSize) / 2;
     if ( isEnabled() )
-      p->setPen( QPen( cg.text(), 2 ) );
+      p->setPen( QPen( mcg.text(), 2 ) );
     else
       p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
     p->drawRect( x+marg, y+2, ColorBtnWidth-4, BoxSize-4 );

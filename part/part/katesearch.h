@@ -81,13 +81,14 @@ private:
 	static QStringList s_replaceList;
 	
 	void search( SearchFlags flags );
-	void findAgain();
-	void replaceAgain();
 	void wrapSearch();
-	void doReplaceAction(int result, bool found = false);
+	bool askContinue();
 	
-	bool askContinue( bool forward, bool replace, int replacements );
-	bool askReplaceEnd();
+	void findAgain();
+	void promptReplace();
+	void replaceAll();
+	void replaceOne();
+	void skipOne();
 	
 	QString getSearchText();
 	KateTextCursor getCursor();

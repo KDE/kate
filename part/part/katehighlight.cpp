@@ -1998,8 +1998,8 @@ bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
 {
   int k = hlKeyForAttrib( startAttrib );
   return ( k == hlKeyForAttrib( endAttrib ) &&
-      ( ( !m_additionalData[k][0].isEmpty() && !m_additionalData[k][1].isEmpty() ) ||
-       ! m_additionalData[k][2].isEmpty() ) );
+      ( ( !m_additionalData[k][Start].isEmpty() && !m_additionalData[k][End].isEmpty() ) ||
+       ! m_additionalData[k][SingleLine].isEmpty() ) );
 }
 
 QString KateHighlighting::getCommentString( int which, int attrib ) const
@@ -2179,8 +2179,8 @@ void KateHighlighting::readFoldingConfig()
 
     if (KateHlManager::self()->syntax->groupItemData(data,QString("indentationsensitive"))!="1")
       m_foldingIndentationSensitive=false;
-    else
-      m_foldingIndentationSensitive=true;
+//     else
+//       m_foldingIndentationSensitive=true;
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
   }

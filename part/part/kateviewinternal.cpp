@@ -287,7 +287,7 @@ void KateViewInternal::cursorDown(bool sel)
   updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::scrollUp(bool sel)
+void KateViewInternal::scrollUp(bool /*sel*/)
 {
 #if 0
   if (! yPos) return;
@@ -304,10 +304,10 @@ void KateViewInternal::scrollUp(bool sel)
 
 void KateViewInternal::scrollDown(bool sel) {
 
-  if (endLine >= (int)myDoc->lastLine()) return;
+  if (endLine >= myDoc->lastLine()) return;
 
   newStartLine = startLine + myDoc->viewFont.fontHeight;
-  if (cursor.line == startLine) {
+  if (cursor.line == (int)startLine) {
     KateTextCursor tmpCur = cursor;
     tmpCur.line++;
     myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
@@ -343,8 +343,8 @@ void KateViewInternal::pageUp(bool sel)
   if (lines <= 0) lines = 1;
 
   if (startLine > 0) {
-    newStartLine = startLine - lines;
-    if (newStartLine < 0) newStartLine = 0;
+    int res = startLine - lines;
+    newStartLine = (res < 0) ? 0 : res;
   }
 
   int displayCursorline = displayCursor.line;
@@ -362,8 +362,8 @@ void KateViewInternal::pageDown(bool sel)
   KateTextCursor tmpCur = cursor;
   int lines = (endLine - startLine - 1);
 
-  if (endLine < (int)myDoc->lastLine()) {
-    if (lines < (int)myDoc->lastLine() - endLine)
+  if (endLine < myDoc->lastLine()) {
+    if (lines < (((int)myDoc->lastLine()) - ((int)endLine)))
       newStartLine = startLine + lines;
     else
       newStartLine = startLine + (myDoc->lastLine() - endLine);
@@ -372,7 +372,8 @@ void KateViewInternal::pageDown(bool sel)
   int displayCursorline = displayCursor.line;
   displayCursorline += lines;
   
-  if (displayCursorline>myDoc->numVisLines()) displayCursorline=myDoc->numVisLines();
+  if (displayCursorline > (int)myDoc->numVisLines())
+    displayCursorline=myDoc->numVisLines();
   tmpCur.line=myDoc->getRealLine(displayCursorline);
   myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
 
@@ -515,7 +516,6 @@ void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel, int 
 void KateViewInternal::updateLineRanges()
 {
   int lines = 0;
-  int oldStartLine = startLine;
   int oldLines = lineRanges.size();
   uint height = this->height();
   bool slchanged = false;
@@ -534,25 +534,21 @@ void KateViewInternal::updateLineRanges()
     slchanged = true;
   }
 
-  uint tmpEnd = startLine + height/myDoc->viewFont.fontHeight - 1;
-  if (tmpEnd > lastLine)
-    endLine = lastLine;
-  else
-    endLine = tmpEnd;
+  int tmpEnd = startLine + height/myDoc->viewFont.fontHeight - 1;
+  tmpEnd = (tmpEnd > lastLine) ? lastLine : tmpEnd;
+  endLine = (tmpEnd < 0) ? 0 : tmpEnd;
 
   endLineReal = myDoc->getRealLine(endLine);
 
-  if (endLine < 0) endLine = 0;
-
   lines = height/myDoc->viewFont.fontHeight;
 
-  if ((lines * myDoc->viewFont.fontHeight) < height)
+  if ((lines * myDoc->viewFont.fontHeight) < (int)height)
     lines++;
 
   if (lines > oldLines)
     lineRanges.resize (lines);
 
-  for (uint z = 0; z < lines; z++)
+  for (int z = 0; z < lines; z++)
   {
     uint newLine = myDoc->getRealLine (startLine+z);
 
@@ -577,7 +573,7 @@ void KateViewInternal::updateLineRanges()
 			lineRanges[z].dirty = true;
 		}
 
-    if ((startLine+z) > lastLine)
+    if (((int)startLine+z) > lastLine)
       lineRanges[z].empty = true;
     else
       lineRanges[z].empty = false;
@@ -595,10 +591,10 @@ void KateViewInternal::tagRealLines(int start, int end)
 {
   for (uint z = 0; z < lineRanges.size(); z++)
   {
-    if (lineRanges[z].line > end)
+    if ((int)lineRanges[z].line > end)
       break;
 
-    if (lineRanges[z].line >= start)
+    if ((int)lineRanges[z].line >= start)
     {
       lineRanges[z].dirty = true;
       updateState |= 1;
@@ -613,9 +609,9 @@ void KateViewInternal::tagLines(int start, int end) {
   start -= startLine;
   if (start < 0) start = 0;
   end -= startLine;
-  if (end > endLine - startLine) end = endLine - startLine;
+  if (end > (int)endLine - (int)startLine) end = (int)endLine - (int)startLine;
 
-  if (start < lineRanges.size())
+  if (start < (int)lineRanges.size())
   {
     r = &lineRanges[start];
     uint rpos = start;
@@ -638,7 +634,7 @@ void KateViewInternal::tagAll() {
   updateState = 3;
 }
 
-void KateViewInternal::setPos(int x, int y) {
+void KateViewInternal::setPos(int x, int /* y */) {
   newXPos = x;
 //  newYPos = y;
 }
@@ -658,13 +654,11 @@ void KateViewInternal::singleShotUpdateView()
 
 void KateViewInternal::updateView(int flags)
 {
-	unsigned int oldXPos=xPos;
-	unsigned int oldYPos=startLine * myDoc->viewFont.fontHeight;
+  unsigned int oldYPos=startLine * myDoc->viewFont.fontHeight;
   int oldU = updateState;
   
-	int fontHeight = myDoc->viewFont.fontHeight;
-	bool needLineRangesUpdate=false;
-	bool reUpdate;
+  int fontHeight = myDoc->viewFont.fontHeight;
+  bool needLineRangesUpdate=false;
   int scrollbarWidth = style().scrollBarExtent().width();
 
   int w = myView->width();
@@ -722,7 +716,7 @@ void KateViewInternal::updateView(int flags)
 	{
     int he  = height();
 	
-		if (displayCursor.line>= (startLine+(he/fontHeight)))
+		if (displayCursor.line >= (int)(startLine+(he/fontHeight)))
 		{
 			tmpYPos=(displayCursor.line*fontHeight)-he+fontHeight;
 			if ((tmpYPos % fontHeight)!=0) tmpYPos=tmpYPos+fontHeight;
@@ -751,7 +745,7 @@ void KateViewInternal::updateView(int flags)
   }
 		}
 		else
-		if (displayCursor.line<startLine)
+		if (displayCursor.line < (int)startLine)
 		{
 			tmpYPos=(displayCursor.line*fontHeight);
    
@@ -815,7 +809,7 @@ void KateViewInternal::updateView(int flags)
 
   bool xScrollVis=xScroll->isVisible();
 
-  if (maxLen > w)
+  if ((int)maxLen > w)
   {
     if (!xScrollVis)
       h -= scrollbarWidth;
@@ -1024,7 +1018,7 @@ void KateViewInternal::updateView(int flags)
 }
 
 
-void KateViewInternal::paintTextLines(int xPos, int yPos)
+void KateViewInternal::paintTextLines(int xPos, int /* yPos */)
 {
   if (drawBuffer->isNull()) return;
 
@@ -1036,7 +1030,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
 
   uint rpos = 0;
 
-	bool b = myView->isOverwriteMode();
+  bool b = myView->isOverwriteMode();
 
   bool again = true;
 
@@ -1045,12 +1039,12 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
     if (r->dirty && !r->empty)
     {
       myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(),
-                                          (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
-                                          myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
+                                          (cursorOn && ((int)r->line == cursor.line)) ? cursor.col : -1, b, true,
+                                          myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && ((int)r->line == cursor.line));
 
-      if (cXPos > r->lengthPixel)
+      if (cXPos > (int)r->lengthPixel)
       
-      if (cursorOn && (r->line == cursor.line))
+      if (cursorOn && ((int)r->line == cursor.line))
      {     
         if (b)
 	{
@@ -1073,7 +1067,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
       leftBorder->paintLine(line, r);
     }
 
-    if (r->line == cursor.line)
+    if ((int)r->line == cursor.line)
       again = false;
 
     r++;
@@ -1084,7 +1078,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
 }
 
 void KateViewInternal::paintCursor() {
-  int h, w,w2,y, x;
+  int h, /* w,w2, */ y, x;
   static int cx = 0, cy = 0, ch = 0;
 
   h = myDoc->viewFont.fontHeight;
@@ -1122,8 +1116,8 @@ void KateViewInternal::placeCursor(int x, int y, int flags)
   KateTextCursor tmpCur;
   int newDisplayLine=startLine + y/myDoc->viewFont.fontHeight;
 
-  if (newDisplayLine>=myDoc->numVisLines()) return;
-  if (((int)(newDisplayLine-startLine) < 0) || ((newDisplayLine-startLine) >= lineRanges.size())) return;// not sure yet, if this is ther correct way;
+  if (newDisplayLine >= (int)myDoc->numVisLines()) return;
+  if (((newDisplayLine-(int)startLine) < 0) || ((newDisplayLine-(int)startLine) >= (int)lineRanges.size())) return;// not sure yet, if this is ther correct way;
 
   tmpCur.line = lineRanges[newDisplayLine-startLine].line;
   myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor, tmpCur, xPos + x);
@@ -1138,9 +1132,9 @@ bool KateViewInternal::isTargetSelected(int x, int y) {
 #warning "This needs changing for dynWW"
   y=startLine + y/myDoc->viewFont.fontHeight;
 
-  if (((y-startLine) < 0) || ((y-startLine) >= lineRanges.size())) return false;
+  if (((y-(int)startLine) < 0) || ((y-(int)startLine) >= (int)lineRanges.size())) return false;
 
-  y= lineRanges[y-startLine].line;
+  y= lineRanges[y-(int)startLine].line;
 
   TextLine::Ptr line = myDoc->kateTextLine(y);
   if (!line)
@@ -1406,11 +1400,11 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     else
     {
       myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xStart, xEnd,
-                                          (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
-                                          myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
+                                          (cursorOn && (((int)r->line) == cursor.line)) ? cursor.col : -1, b, true,
+                                          myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (((int)r->line) == cursor.line));
    
-     if ((cXPos > r->lengthPixel) && (cXPos>=xStart) && (cXPos<=xEnd))
-      if (cursorOn && (r->line == cursor.line))
+     if ((cXPos > (int)r->lengthPixel) && (cXPos>=xStart) && (cXPos<=xEnd))
+      if (cursorOn && (((int)r->line) == cursor.line))
      {     
         if (b)
 	{
@@ -1425,7 +1419,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
     bitBlt(this, updateR.x(), (line-startLine)*h, drawBuffer, 0, 0, updateR.width(), h);
 
-    if (r->line == cursor.line)
+    if (((int)r->line) == cursor.line)
       again = false;
 
     r++;

@@ -32,6 +32,7 @@
 #include <klocale.h>
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
+#include <kinstance.h>
 
 #include <qcolor.h>
 #include <qtextcodec.h>

@@ -3015,6 +3015,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   uint pos = 0;
   bool onlySpaces = true;
+  bool done = false;
   QString buf;
   for( uint z = 0; z < chars.length(); z++ )
   {
@@ -3028,11 +3029,11 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
       if (ch != ' ')
         onlySpaces = false;
 
-      if (config()->configFlags() & KateDocument::cfAutoBrackets)
+      if (!done && (config()->configFlags() & KateDocument::cfAutoBrackets))
       {
-        if (ch == '(') buf.insert(pos, ')');
-        if (ch == '[') buf.insert(pos, ']');
-        if (ch == '{') buf.insert(pos, '}');
+        if (ch == '(') { done = true; buf.insert(pos, ')'); }
+        if (ch == '[') { done = true; buf.insert(pos, ']'); }
+        if (ch == '{') { done = true; buf.insert(pos, '}'); }
       }
     }
   }
@@ -3051,6 +3052,9 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   insertText (view->cursorLine(), view->cursorColumnReal(), buf);
 
   editEnd ();
+
+  if (done)
+    view->setCursorPositionReal (view->cursorLine(), view->cursorColumnReal()-1);
 
   emit charactersInteractivelyInserted (oldLine, oldCol, chars);
 

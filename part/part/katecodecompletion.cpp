@@ -209,9 +209,6 @@ void KateCodeCompletion::doComplete()
 
   emit filterInsertString(&(item->m_entry),&add);
   m_view->insertText(add);
-  // HACK: move cursor. This needs to be handled in a clean way
-  // by the doc/view.
-  m_view->setCursorPositionReal( m_lineCursor, m_view->cursorColumnReal() + add.length() );
 
   complete( item->m_entry );
   m_view->setFocus();

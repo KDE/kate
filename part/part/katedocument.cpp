@@ -2806,11 +2806,19 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   len = textLine->length();
 
   x = oldX = z = 0;
-  while (x < xPos && !wrapCursor && (z < len)) {
+  while (x < xPos && (!wrapCursor || z < len)) {
     oldX = x;
 
     Attribute *a = attribute(textLine->attribute(z));
-    int width = a->width(fs, textLine->getChar(z));
+    
+    
+    int width = 0;
+    
+    if (z < len)
+      width = a->width(fs, textLine->getChar(z));
+    else
+      width = a->width(fs, QChar (' '));
+    
     x += width;
 
     if (textLine->getChar(z) == QChar('\t'))

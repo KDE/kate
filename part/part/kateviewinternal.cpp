@@ -822,7 +822,7 @@ void KateViewInternal::updateView(int flags)
         maxLen = len;
   }
 
-  maxLen = maxLen + 8;
+  maxLen += 8;
 
   bool xScrollVis=xScroll->isVisible();
 

@@ -302,6 +302,8 @@ KateDocument::~KateDocument()
 
   m_highlight->release();
 
+  delete m_editCurrentUndo;
+
   delete m_config;
   delete m_indenter;
   KateFactory::deregisterDocument (this);

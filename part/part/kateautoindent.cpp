@@ -423,7 +423,7 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
   while ((line > 0) && (first < 0))
     first = doc->plainKateTextLine(--line)->firstChar();
 
-  if (first > 0)
+  if (first >= 0)
   {
     KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
     bool insideDoxygen = false;
@@ -441,7 +441,7 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
       int indent = findOpeningComment(begin);
       QString filler = tabString (indent);
 
-      bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping; 
+      bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
       if ( doxygenAutoInsert &&
            (!textLine->stringAtPos(first, "*/") && !textLine->stringAtPos(first, "*")))
       {
@@ -453,7 +453,7 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
       begin.setCol(filler.length());
 
       return true;
-    }  
+    }
   }
 
   return false;
@@ -472,7 +472,7 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
     {
       QString filler = tabString (indent);
       doc->insertText (begin.line(), 0, filler);
-      begin.setCol(filler.length());    
+      begin.setCol(filler.length());
 
       // Handles cases where user hits enter at the beginning or middle of text
       if (inMiddle)

@@ -50,7 +50,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * @see insertTemplateText for a list of supported macros
      * @return true if all macros was sucessfully expanded
      */
-    bool expandMacros( QMap<QString, QString> &initialValues, QWidget *parentWindow );
+    static bool expandMacros( QMap<QString, QString> &initialValues, QWidget *parentWindow );
 
     uint templateInterfaceNumber () const;
 

@@ -428,6 +428,42 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           currentHL = hl;
         }
 
+        // Determine whether we can delay painting to draw a block of similarly formatted
+        // characters or not
+        // Reasons for NOT delaying the drawing until the next character
+        // You have to detect the change one character in advance.
+        // TODO: KateAttribute::canBatchRender()
+        bool delayPainting = true;
+        if ((isTab) ||
+          // formatting has changed OR
+          || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol))
+
+          // it is the end of the line OR
+          || (tmp < 2)
+
+          // the x position is past the end OR
+          ((int)xPos > xEnd) ||
+
+          // it is a different attribute OR
+          (!noAttribs && curAt != &at[*(a+1)]) ||
+
+          // the selection boundary was crossed OR
+          (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel))) ||
+
+          // the next char is a tab (removed the "and this isn't" because that's dealt with above)
+          // i.e. we have to draw the current text so the tab can be rendered as above.
+          (textLine->string()[nextCol] == tabChar) ||
+
+          // input method edit area
+          ( isIMEdit != ( imStart < imEnd && ( nextCol >= imStart && nextCol < imEnd ) ) ) ||
+
+          // input method selection
+          ( isIMSel != ( imSelStart < imSelEnd && ( nextCol >= imSelStart && nextCol < imSelEnd ) ) )
+        )
+        {
+          delayPainting = false;
+        }
+
         // make sure we redraw the right character groups on attrib/selection changes
         // Special case... de-special case some of it
         if (isTab)
@@ -452,36 +488,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           // variable advancement
           blockStartCol = nextCol;
           oldXPos = xPosAfter;
-        } // isTab
-        // Reasons for NOT delaying the drawing until the next character
-        // You have to detect the change one character in advance.
-        // TODO: KateAttribute::canBatchRender()
-        else if (
-            // formatting has changed OR
-            (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol)) ||
-
-            // it is the end of the line OR
-            (tmp < 2) ||
-
-            // the x position is past the end OR
-            ((int)xPos > xEnd) ||
-
-            // it is a different attribute OR
-            (!noAttribs && curAt != &at[*(a+1)]) ||
-
-            // the selection boundary was crossed OR
-            (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel))) ||
-
-            // the next char is a tab (removed the "and this isn't" because that's dealt with above)
-            // i.e. we have to draw the current text so the tab can be rendered as above.
-            (textLine->string()[nextCol] == tabChar) ||
-
-            // input method edit area
-            ( isIMEdit != ( imStart < imEnd && ( nextCol >= imStart && nextCol < imEnd ) ) ) ||
-
-            // input method selection
-            ( isIMSel != ( imSelStart < imSelEnd && ( nextCol >= imSelStart && nextCol < imSelEnd ) ) )
-          )
+        }
+        else if ( !delayPainting )
         {
           if (!isPrinterFriendly()) {
             if (!selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor))) {

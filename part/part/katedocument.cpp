@@ -25,6 +25,8 @@
 #include "katedocument.h"
 #include "katedocument.moc"
 
+#include <ktexteditor/plugin.h>
+
 #include "katefactory.h"
 #include "kateviewdialog.h"
 #include "katedialogs.h"
@@ -86,6 +88,7 @@
 #include <kinstance.h>
 #include <kglobalsettings.h>
 #include <ksavefile.h>
+#include <klibloader.h>
 
 #include "kateviewhighlightaction.h"
 
@@ -372,6 +375,19 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
     KTextEditor::View *view = createView( parentWidget, widgetName );
     view->show();
     setWidget( view );
+  }
+  
+  KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
+  for( ; it != KateFactory::plugins()->end(); ++it)
+  {
+    KService::Ptr ptr = (*it);
+
+    KLibFactory *factory = KLibLoader::self()->factory( QFile::encodeName(ptr->library()) );
+    if (factory)
+    {
+      KTextEditor::Plugin *plugin = static_cast<KTextEditor::Plugin *>(factory->create(this, ptr->name().latin1(), "KTextEditor::Plugin"));
+      plugin->setDocument (this);
+    }
   }
 }
 

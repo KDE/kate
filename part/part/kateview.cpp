@@ -23,6 +23,9 @@
 #include "kateview.h"
 #include "kateview.moc"
 
+#include <ktexteditor/plugin.h>
+
+#include "kateviewinternal.h"
 #include "katedocument.h"
 #include "katecmd.h"
 #include "katefactory.h"
@@ -59,6 +62,7 @@
 #include <kparts/event.h>
 #include <kxmlguifactory.h>
 #include <kaccel.h>
+#include <klibloader.h>
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
@@ -139,6 +143,20 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   	setFoldingMarkersOn(doc->highlight()->allowsFolding());
   myViewInternal->updateView (KateViewInternal::ufDocGeometry);
   
+  
+  KTrader::OfferList::Iterator it(KateFactory::viewPlugins()->begin());
+  for( ; it != KateFactory::viewPlugins()->end(); ++it)
+  {
+    KService::Ptr ptr = (*it);
+
+    KLibFactory *factory = KLibLoader::self()->factory( QFile::encodeName(ptr->library()) );
+    if (factory)
+    {
+      KTextEditor::ViewPlugin *plugin = static_cast<KTextEditor::ViewPlugin *>(factory->create(this, ptr->name().latin1(), "KTextEditor::ViewPlugin"));
+      plugin->setView (this);
+      insertChildClient (plugin);
+    }
+  }
 }
 
 KateView::~KateView()

@@ -25,6 +25,7 @@
 #include "kateglobal.h"
 
 #include <kparts/factory.h>
+#include <ktrader.h>
 
 class KInstance;
 class KAboutData;
@@ -46,6 +47,9 @@ public:
   static void registerView ( class KateView *view );
   static void deregisterView ( class KateView *view );
   
+  static KTrader::OfferList *plugins ();
+  static KTrader::OfferList *viewPlugins ();
+  
 private:
   static void ref();
   static void deref();
@@ -58,6 +62,9 @@ private:
   
   static KInstance *s_instance;
   static KAboutData *s_about;
+  
+  static KTrader::OfferList *s_plugins;
+  static KTrader::OfferList *s_viewPlugins; 
 };
 
 #endif

@@ -74,7 +74,7 @@
 //BEGIN ReplacePrompt
 // this dialog is not modal
 ReplacePrompt::ReplacePrompt( QWidget *parent )
-  : KDialogBase(parent, 0L, true, i18n( "Replace Text" ),
+  : KDialogBase(parent, 0L, false, i18n( "Replace Text" ),
   User3 | User2 | User1 | Close | Ok , Ok, true,
   i18n("&All"), i18n("&Last"), i18n("&No") ) {
 

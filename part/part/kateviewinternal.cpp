@@ -2562,10 +2562,7 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
 {
   // try to show popup menu
 
-//   if ( e->reason() == QContextMenuEvent::Keyboard )
-//     kdDebug()<<"=== KEYBOARD "<<endl;
-  // in this case, we should care for the selection and move the popup to
-//   the cursor if that is visibele in the view
+  QPoint p = e->pos();
 
   if ( m_view->m_doc->browserView() )
   {
@@ -2573,12 +2570,17 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
     return;
   }
 
-  if ( ! isTargetSelected( e->pos() ) )
+  if ( e->reason() == QContextMenuEvent::Keyboard )
+  {
+    makeVisible( cursor, 0 );
+    p = cursorCoordinates();
+  }
+  else if ( ! isTargetSelected( e->pos() ) )
     placeCursor( e->pos() );
 
   // popup is a qguardedptr now
   if (m_view->popup()) {
-    m_view->popup()->popup( mapToGlobal( e->pos() ) );
+    m_view->popup()->popup( mapToGlobal( p ) );
     e->accept ();
   }
 }

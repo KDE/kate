@@ -694,8 +694,6 @@ void KateViewInternal::contentsMousePressEvent( QMouseEvent* e )
   if( m_view->popup() && e->button() == RightButton ) {
     m_view->popup()->popup( mapToGlobal( contentsToViewport( e->pos() ) ) );
   }
-  m_view->mousePressEvent(e); // this doesn't do anything, does it?
-  // it does :-), we need this for KDevelop, so please don't uncomment it again -Sandy
 }
 
 void KateViewInternal::contentsMouseDoubleClickEvent(QMouseEvent *e)

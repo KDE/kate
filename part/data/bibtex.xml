@@ -1,4 +1,4 @@
-<?xml version="1.01" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
 <language name="BibTeX-Kile" version="0.1" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1">
 	<highlighting>

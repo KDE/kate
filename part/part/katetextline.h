@@ -142,7 +142,7 @@ class TextLine : public KShared
     /**
       Gets the syntax highlight context number
     */
-    inline uint *ctx () const { return m_ctx.data (); };
+    inline short *ctx () const { return m_ctx.data (); };
 
     /**
       Gets size of the ctxArray
@@ -176,9 +176,9 @@ class TextLine : public KShared
     */
     inline const QString &textArray () const { return m_text; };
     inline const QMemArray<uchar> &attributesArray () const { return m_attributes; };
-    inline const QMemArray<uint> &ctxArray () const { return m_ctx; };
+    inline const QMemArray<short> &ctxArray () const { return m_ctx; };
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
-    inline const QMemArray<uchar> &indentationDepthArray () const { return m_indentationDepth; };
+    inline const QMemArray<unsigned short> &indentationDepthArray () const { return m_indentationDepth; };
 
   /**
     Methodes to manipulate data
@@ -222,7 +222,7 @@ class TextLine : public KShared
     /**
       Sets the syntax highlight context number
     */
-    inline void setContext(uint *newctx, uint len)
+    inline void setContext(short *newctx, uint len)
     {
       m_ctx.duplicate (newctx, len);
     }
@@ -239,7 +239,7 @@ class TextLine : public KShared
       m_foldingList.detach();
     }
 
-    inline void setIndentationDepth (QMemArray<uchar> &val)
+    inline void setIndentationDepth (QMemArray<unsigned short> &val)
     {
       m_indentationDepth = val;
       m_indentationDepth.detach();
@@ -286,9 +286,9 @@ class TextLine : public KShared
     /**
      Data for context + folding
      */
-    QMemArray<uint> m_ctx;
+    QMemArray<short> m_ctx;
     QMemArray<signed char> m_foldingList;
-    QMemArray<uchar> m_indentationDepth;
+    QMemArray<unsigned short> m_indentationDepth;
 
     /**
      Some bools packed

@@ -714,8 +714,8 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     return false;
 
   TextLine::Ptr textLine;
-  QMemArray<uint> ctxNum, endCtx;
-  QMemArray<uchar> indentDepth;
+  QMemArray<short> ctxNum, endCtx;
+  QMemArray<unsigned short> indentDepth;
 
   uint last_line = buf->lines ();
   uint current_line = startLine - buf->startLine();

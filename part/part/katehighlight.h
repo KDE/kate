@@ -144,7 +144,7 @@ class Highlight
     Highlight(const syntaxModeListItem *def);
     ~Highlight();
 
-    void doHighlight(QMemArray<uint> oCtx, TextLine *,bool lineContinue,QMemArray<signed char> *foldingList);
+    void doHighlight(QMemArray<short> oCtx, TextLine *,bool lineContinue,QMemArray<signed char> *foldingList);
 
     KConfig *getKConfig();
     QString getWildcards();
@@ -181,7 +181,7 @@ class Highlight
     void readFoldingConfig ();
 
     // manipulates the ctxs array directly ;)
-    void generateContextStack(int *ctxNum, int ctx, QMemArray<uint> *ctxs, int *posPrevLine,bool lineContinue=false);
+    void generateContextStack(int *ctxNum, int ctx, QMemArray<short> *ctxs, int *posPrevLine,bool lineContinue=false);
 
     HlItem *createHlItem(struct syntaxContextData *data, ItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, ItemDataList &iDl);

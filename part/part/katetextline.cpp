@@ -277,7 +277,7 @@ uint TextLine::dumpSize () const
     }
   }
 
-  return (5*sizeof(uint)) + (m_text.length()*sizeof(QChar)) + (attributesLen * sizeof(uchar)) + (attributesLen * sizeof(uint)) + 1 + (m_ctx.size() * sizeof(uint)) + (m_foldingList.size() * sizeof(signed char));
+  return (1 + 5*sizeof(uint)) + (m_text.length()*sizeof(QChar)) + (attributesLen * (sizeof(uchar) + sizeof(uint))) + (m_ctx.size() * sizeof(short)) + (m_foldingList.size() * sizeof(signed char) + (m_indentationDepth.size() * sizeof(unsigned short)));
 }
 
 char *TextLine::dump (char *buf) const
@@ -352,14 +352,14 @@ char *TextLine::dump (char *buf) const
 
   // hl size runlength encoding STOP
 
-  memcpy(buf, (char *)m_ctx.data(), sizeof(uint) * lctx);
-  buf += sizeof (uint) * lctx;
+  memcpy(buf, (char *)m_ctx.data(), sizeof(short) * lctx);
+  buf += sizeof (short) * lctx;
 
   memcpy(buf, (char *)m_foldingList.data(), lfold);
   buf += sizeof (signed char) * lfold;
 
-  memcpy(buf, (char *)m_indentationDepth.data(), lind);
-  buf += sizeof (uchar) * lind;
+  memcpy(buf, (char *)m_indentationDepth.data(), sizeof(unsigned short) * lind);
+  buf += sizeof (unsigned short) * lind;
 
   return buf;
 }
@@ -436,14 +436,14 @@ char *TextLine::restore (char *buf)
 
   // hl size runlength encoding STOP
 
-  m_ctx.duplicate ((uint *) buf, lctx);
-  buf += sizeof(uint) * lctx;
+  m_ctx.duplicate ((short *) buf, lctx);
+  buf += sizeof(short) * lctx;
 
   m_foldingList.duplicate ((signed char *) buf, lfold);
   buf += lfold;
 
-  m_indentationDepth.duplicate ((uchar *) buf, lind);
-  buf += lind;
+  m_indentationDepth.duplicate ((unsigned short *) buf, lind);
+  buf += sizeof(unsigned short) * lind;
 
   return buf;
 }

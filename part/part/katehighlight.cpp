@@ -897,7 +897,7 @@ Highlight::~Highlight()
   contextList.setAutoDelete( true );
 }
 
-void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs, int *prevLine, bool lineContinue)
+void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<short>* ctxs, int *prevLine, bool lineContinue)
 {
   //kdDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
 
@@ -980,7 +980,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs
                         * return value: signed char*  new context stack at the end of the line
 *******************************************************************************************/
 
-void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineContinue,
+void Highlight::doHighlight(QMemArray<short> oCtx, TextLine *textLine,bool lineContinue,
         QMemArray<signed char>* foldingList)
 {
   if (!textLine)
@@ -1001,7 +1001,7 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
   int ctxNum;
   int prevLine;
 
-  QMemArray<uint> ctx;
+  QMemArray<short> ctx;
   ctx.duplicate (oCtx);
 
   if ( oCtx.isEmpty() )

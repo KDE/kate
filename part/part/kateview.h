@@ -271,7 +271,9 @@ class KateView : public Kate::View,
     int getEol();
     void setEol( int eol );
     void find();
+    void find( const QString&, long );
     void replace();
+    void replace( const QString&, const QString &, long );
     void findAgain( bool back );
     void findAgain()              { findAgain( false );          }
     void findPrev()               { findAgain( true );           }

@@ -1076,9 +1076,19 @@ void KateView::find()
   m_search->find();
 }
 
+void KateView::find( const QString& pattern, long flags )
+{
+  m_search->find( pattern, flags );
+}
+
 void KateView::replace()
 {
   m_search->replace();
+}
+
+void KateView::replace( const QString &pattern, const QString &replacement, long flags )
+{
+  m_search->replace( pattern, replacement, flags );
 }
 
 void KateView::findAgain( bool back )

@@ -5,7 +5,7 @@ METASOURCES = AUTO
 kde_module_LTLIBRARIES = ktexteditor_autobookmarker.la
 
 ktexteditor_autobookmarker_la_SOURCES = autobookmarker.cpp
-ktexteditor_autobookmarker_la_LIBADD = -lktexteditor
+ktexteditor_autobookmarker_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
 ktexteditor_autobookmarker_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
 
 kde_services_DATA = ktexteditor_autobookmarker.desktop

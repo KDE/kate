@@ -410,7 +410,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   opt[2]->setChecked(configFlags & flags[2]);
   connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  opt[5] = new QCheckBox( i18n("Replace tabs with spaces"), gbWhiteSpace );
+  opt[5] = new QCheckBox( i18n("&Replace tabs with spaces"), gbWhiteSpace );
   opt[5]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
   connect( opt[5], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
@@ -444,7 +444,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   opt[4]->setChecked(configFlags & flags[4]);
   connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e6 = new QCheckBox(i18n("PageUp/PageDown moves cursor"), gbCursor);
+  e6 = new QCheckBox(i18n("&PageUp/PageDown moves cursor"), gbCursor);
   e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
   connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
@@ -455,7 +455,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
 
   mainLayout->addWidget(gbCursor);
 
-  opt[6] = new QCheckBox( i18n("Remove trailing spaces"), this );
+  opt[6] = new QCheckBox( i18n("Remove &trailing spaces"), this );
   mainLayout->addWidget( opt[6] );
   opt[6]->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
   connect( opt[6], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );

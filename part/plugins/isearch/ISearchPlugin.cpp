@@ -129,6 +129,7 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 	KToggleAction* action = new KToggleAction(
 		i18n("Case Sensitive"), KShortcut(),
 		actionCollection(), "isearch_case_sensitive" );
+	action->setShortcutConfigurable( false );
 	connect( action, SIGNAL(toggled(bool)),
 	         this, SLOT(setCaseSensitive(bool)) );
 	action->setChecked( m_caseSensitive );
@@ -137,6 +138,7 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 	action = new KToggleAction(
 		i18n("From Beginning"), KShortcut(),
 		actionCollection(), "isearch_from_beginning" );
+	action->setShortcutConfigurable( false );
 	connect( action, SIGNAL(toggled(bool)),
 	         this, SLOT(setFromBeginning(bool)) );
 	action->setChecked( m_fromBeginning );
@@ -145,6 +147,7 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 	action = new KToggleAction(
 		i18n("Regular Expression"), KShortcut(),
 		actionCollection(), "isearch_reg_exp" );
+	action->setShortcutConfigurable( false );
 	connect( action, SIGNAL(toggled(bool)),
 	         this, SLOT(setRegExp(bool)) );
 	action->setChecked( m_regExp );
@@ -161,8 +164,6 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 // 	optionMenu->insert( action );
 	
 	setXMLFile( "ktexteditor_isearch/ktexteditor_isearchui.rc" );
-	
-	kdDebug() << "ISearchPlugin created" << endl;
 }
 
 ISearchPlugin::~ISearchPlugin()
@@ -377,7 +378,7 @@ void ISearchPlugin::startSearch()
 	m_combo->blockSignals( false );
 	m_combo->lineEdit()->selectAll();
 	
-	kdDebug() << "Starting search at " << m_startLine << ", " << m_startCol << endl;
+//	kdDebug() << "Starting search at " << m_startLine << ", " << m_startCol << endl;
 }
 
 void ISearchPlugin::endSearch()
@@ -425,7 +426,7 @@ bool ISearchPlugin::iSearch(
 {
 	if( !m_view ) return false;
 	
-	kdDebug() << "Searching for " << text << " at " << startLine << ", " << startCol << endl;
+//	kdDebug() << "Searching for " << text << " at " << startLine << ", " << startCol << endl;
 	bool found = false;
 	if( !m_regExp ) {
 		found = m_searchIF->searchText( startLine,
@@ -446,7 +447,7 @@ bool ISearchPlugin::iSearch(
 			           reverse );
 	}
 	if( found ) {
-		kdDebug() << "Found '" << text << "' at " << m_foundLine << ", " << m_foundCol << endl;
+//		kdDebug() << "Found '" << text << "' at " << m_foundLine << ", " << m_foundCol << endl;
 //		v->gotoLineNumber( m_foundLine );
 		m_cursorIF->setCursorPositionReal( m_foundLine, m_foundCol + m_matchLen );
 		m_selectIF->setSelection( m_foundLine, m_foundCol, m_foundLine, m_foundCol + m_matchLen );
@@ -458,7 +459,7 @@ bool ISearchPlugin::iSearch(
 	bool overwrapped = ( m_wrapped && 
 		((m_foundLine > m_startLine ) ||
 		 (m_foundLine == m_startLine && m_foundCol >= m_startCol)) );
-	kdDebug() << "Overwrap = " << overwrapped << ". Start was " << m_startLine << ", " << m_startCol << endl;
+//	kdDebug() << "Overwrap = " << overwrapped << ". Start was " << m_startLine << ", " << m_startCol << endl;
 	updateLabelText( !found, reverse, m_wrapped, overwrapped );
 	return found;
 }

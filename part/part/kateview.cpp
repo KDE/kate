@@ -76,7 +76,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_hasWrap( false )
 {
   KateFactory::registerView( this );
-  
+ 
+  setClipboardInterfaceDCOPSuffix (documentDCOPSuffix()); 
   setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
   
   

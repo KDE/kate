@@ -140,7 +140,7 @@ class StyleListItem : public QListViewItem
   public:
     StyleListItem( QListView *parent=0, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class ItemData *data=0 );
-    ~StyleListItem() {};
+    ~StyleListItem() { if (st) delete is; };
 
     /* mainly for readability */
     enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };

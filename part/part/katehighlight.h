@@ -151,8 +151,12 @@ class Highlight
     HlData *getData();
     void setData(HlData *);
 
-    void getItemDataList(uint schema, ItemDataList &);
     void setItemDataList(uint schema, ItemDataList &);
+    
+    // both methodes return hard copies of the internal lists
+    // the lists are cleared first + autodelete is set !
+    // keep track that you delete them, or mem will be lost
+    void getItemDataListCopy (uint schema, ItemDataList &);
     
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
@@ -172,6 +176,9 @@ class Highlight
     QMemArray<KateAttribute> *attributes (uint schema);
 
   private:
+    // make this private, nobody should play with the internal data pointers
+    void getItemDataList(uint schema, ItemDataList &);
+  
     void init();
     void done();
     void makeContextList ();

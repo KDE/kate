@@ -473,19 +473,15 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
           ds( style ),
           st( data )
 {
-  // have we ItemData around ?
-  if ( st )
-  {
-    if (st->isSomethingSet())
-    {
-      KateAttribute shit( *ds );
-      is = new KateAttribute( shit += *st );
-    }
-    else
-      is = new KateAttribute (*ds);
-  }
-  else
+  if (!st)
     is = ds;
+  else
+  {
+    is = new KateAttribute (*style);
+    
+    if (data->isSomethingSet())
+      *is += *data; 
+  }
 }
 
 void StyleListItem::updateStyle()
@@ -636,7 +632,6 @@ void StyleListItem::activate( int column, const QPoint &localPos )
 
 void StyleListItem::changeProperty( Property p )
 {
-  bool ch( true );
   if ( p == Bold )
     is->setBold( ! is->bold() );
   else if ( p == Italic )
@@ -649,9 +644,8 @@ void StyleListItem::changeProperty( Property p )
     toggleDefStyle();
   else
     setColor( p );
-
-  if ( ch )
-    ((StyleListView*)listView())->emitChanged();
+    
+  ((StyleListView*)listView())->emitChanged();
 }
 
 void StyleListItem::toggleDefStyle()

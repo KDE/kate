@@ -93,7 +93,7 @@ void KateAutoIndent::updateConfig ()
 
   commentAttrib = 0;
   ItemDataList items;
-  doc->highlight()->getItemDataList(0, items);
+  doc->highlight()->getItemDataListCopy (0, items);
                      
   for (uint i=0; i<items.count(); i++)
   {

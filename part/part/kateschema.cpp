@@ -336,10 +336,8 @@ KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
 {
 }
 
-void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
+KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
 {
-  m_defaultStyles->clear ();
-
   if (!m_defaultStyleLists[schema])
   {
     KateAttributeList *list = new KateAttributeList ();
@@ -347,11 +345,20 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
     
     m_defaultStyleLists.insert (schema, list);
   }
+  
+  return m_defaultStyleLists[schema];
+}
+
+void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
+{
+  m_defaultStyles->clear ();
+  
+  KateAttributeList *l = attributeList (schema);
 
   for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
   {
     m_defaultStyles->insertItem( new StyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
-                              m_defaultStyleLists[schema]->at( i ) ) );
+                              l->at( i ) ) );
   }
 }
 
@@ -370,9 +377,11 @@ void KateSchemaConfigFontColorTab::apply ()
 //END FontColorConfig
 
 //BEGIN FontColorConfig
-KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, const char * )
+KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, const char *, KateSchemaConfigFontColorTab *page )
   : QWidget (parent)
 {
+  m_defaults = page;
+
   m_schema = 0;
   m_hl = 0;
   
@@ -427,14 +436,6 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   m_schema = schema;
   
   kdDebug () << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
-
-  QListViewItemIterator it ( m_styles );
-  while( it.current() )
-  {
-    ((StyleListItem*)it.current())->updateStyle();
-
-    ++it;
-  }
   
   m_styles->clear ();
 
@@ -451,21 +452,21 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
     kdDebug () << "NEW HL, create list" << endl;
   
     ItemDataList *list = new ItemDataList ();
-    HlManager::self()->getHl( m_hl )->getItemDataList (m_schema, *list);
+    HlManager::self()->getHl( m_hl )->getItemDataListCopy (m_schema, *list);
     m_hlDict[m_schema]->insert (m_hl, list);
   }
-
-  KateAttributeList list;
-  HlManager::self()->getDefaults(m_schema, list);
   
+  KateAttributeList *l = m_defaults->attributeList (schema);
+
   for ( ItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
   {
     kdDebug () << "insert items " << itemData->name << endl;
   
-    m_styles->insertItem( new StyleListItem( m_styles, i18n(itemData->name.latin1()),
-                          list.at(itemData->defStyleNum), itemData ) );
+    m_styles->insertItem( new StyleListItem( m_styles, itemData->name,
+                          l->at(itemData->defStyleNum), itemData ) );
+    
   }
 }
 
@@ -478,18 +479,10 @@ void KateSchemaConfigHighlightTab::reload ()
 }
 
 void KateSchemaConfigHighlightTab::apply ()
-{
-  QListViewItemIterator it ( m_styles );
-  while( it.current() )
-  {
-    ((StyleListItem*)it.current())->updateStyle();
-
-    ++it;
-  }
-
+{/*
   for ( QIntDictIterator< QIntDict<ItemDataList> > it( m_hlDict ); it.current(); ++it )
     for ( QIntDictIterator< ItemDataList > it2( *it.current() ); it2.current(); ++it2 )
-       HlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));
+       HlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));*/
 }
 
 //END HighlightConfig
@@ -519,6 +512,8 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   m_tabWidget = new QTabWidget ( this );
   m_tabWidget->setMargin (KDialog::marginHint());
   layout->add (m_tabWidget);
+  
+  connect (m_tabWidget, SIGNAL (currentChanged (QWidget *)), this, SLOT (newCurrentPage (QWidget *)));
 
   m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
@@ -529,7 +524,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   m_fontColorTab = new KateSchemaConfigFontColorTab (m_tabWidget);
   m_tabWidget->addTab (m_fontColorTab, i18n("Normal Text Styles"));
  
-  m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget);
+  m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab);
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
 
   reload();
@@ -652,7 +647,13 @@ void KateSchemaConfigPage::schemaChanged (int schema)
   m_lastSchema = schema;
 }
 
+void KateSchemaConfigPage::newCurrentPage (QWidget *w)
+{
+  if (w == m_highlightTab)
+    m_highlightTab->schemaChanged (m_lastSchema);
+}
 
+// BEGIN SCHEMA ACTION
 void KateViewSchemaAction::init()
 {
   m_view = 0;
@@ -697,5 +698,6 @@ void KateViewSchemaAction::setSchema (int mode)
   if (view)
     view->renderer()->config()->setSchema (mode-1);
 }
+// END SCHEMA ACTION
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

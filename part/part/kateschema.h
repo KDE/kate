@@ -166,6 +166,8 @@ class KateSchemaConfigFontColorTab : public QWidget
     void schemaChanged (uint schema);
     void reload ();
     void apply ();
+    
+    KateAttributeList *attributeList (uint schema);
 
   private:
     StyleListView *m_defaultStyles;
@@ -177,7 +179,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0 );
+    KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0, KateSchemaConfigFontColorTab *page = 0 );
     ~KateSchemaConfigHighlightTab();
 
   public:
@@ -189,6 +191,8 @@ class KateSchemaConfigHighlightTab : public QWidget
     void hlChanged(int z);
 
   private:
+    KateSchemaConfigFontColorTab *m_defaults;
+  
     QComboBox *hlCombo;
     StyleListView *m_styles;
     
@@ -217,6 +221,8 @@ class KateSchemaConfigPage : public Kate::ConfigPage
     void deleteSchema ();
     void newSchema ();
     void schemaChanged (int schema);
+    
+    void newCurrentPage (QWidget *w);
 
   private:
     int m_lastSchema;

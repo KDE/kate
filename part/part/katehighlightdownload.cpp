@@ -114,7 +114,7 @@ void HlDownloadDialog::slotUser1()
       QString filename=src.fileName(false);
       QString dest = destdir+filename;
 
-      KIO::NetAccess::download(src,dest);
+      KIO::NetAccess::download(src,dest, this);
     }
   }
 

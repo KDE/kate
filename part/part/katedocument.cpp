@@ -2330,6 +2330,11 @@ bool KateDocument::printDialog ()
      uint currentPage( 1 );
      uint lastline = lastLine(); // nessecary to print selection only
      uint firstline( 0 );
+     
+     ItemDataList ilist;
+     
+     if (useGuide)
+       m_highlight->getItemDataListCopy (renderer.config()->schema(), ilist);
 
      /*
         Now on for preparations...
@@ -2501,8 +2506,7 @@ bool KateDocument::printDialog ()
 
          // see how many columns we can fit in
          int _widest( 0 );
-         ItemDataList ilist;
-         m_highlight->getItemDataList(renderer.config()->schema(), ilist);
+
          QPtrListIterator<ItemData> it( ilist );
          ItemData *_d;
 
@@ -2719,8 +2723,7 @@ bool KateDocument::printDialog ()
              paint.drawLine( _x, y, _x + _w, y );
              y += 1 + innerMargin;
              // draw attrib names using their styles
-             ItemDataList ilist;
-             m_highlight->getItemDataList(renderer.config()->schema(), ilist);
+
              QPtrListIterator<ItemData> _it( ilist );
              ItemData *_d;
              int _cw = _w/guideCols;

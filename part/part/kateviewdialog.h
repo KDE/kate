@@ -179,7 +179,7 @@ class ColorConfig : public Kate::ConfigPage
 
 public:
 
-  ColorConfig( QWidget *parent = 0, char *name = 0, KateDocument *doc=0 );
+  ColorConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
   ~ColorConfig();
 
   void setColors( QColor * );
@@ -202,7 +202,7 @@ class FontConfig : public Kate::ConfigPage
 
 public:
 
-  FontConfig( QWidget *parent = 0, char *name = 0, KateDocument *doc=0 );
+  FontConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
   ~FontConfig();
 
   void setFont ( const QFont &font );
@@ -232,7 +232,7 @@ class EditKeyConfiguration: public Kate::ConfigPage
 {
 	Q_OBJECT
 public:
-	EditKeyConfiguration(QWidget *parent=0, char *name=0);
+	EditKeyConfiguration(QWidget *parent=0, const char *name=0);
 	~EditKeyConfiguration();
 	void save();
 private:

@@ -549,7 +549,7 @@ void EditConfigTab::reload ()
 
 }
 
-ColorConfig::ColorConfig( QWidget *parent, char *name, KateDocument *doc )
+ColorConfig::ColorConfig( QWidget *parent, const char *name, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
   myDoc = doc;
@@ -606,7 +606,7 @@ void ColorConfig::reload ()
   setColors(myDoc->colors);
 }
 
-FontConfig::FontConfig( QWidget *parent, char *name, KateDocument *doc )
+FontConfig::FontConfig( QWidget *parent, const char *name, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
   myDoc = doc;
@@ -671,7 +671,7 @@ void FontConfig::reload ()
   setFontPrint (myDoc->getFont(KateDocument::PrintFont));
 }
 
-EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, char *name): Kate::ConfigPage(parent)
+EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, const char *name): Kate::ConfigPage(parent)
 {
 	(new QVBoxLayout(this))->setAutoAdd(true);
 	tmpWin=new KMainWindow(0);

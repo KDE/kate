@@ -87,7 +87,7 @@ static int backslashString(const QString &haystack, const QString &needle, int i
 static void exchangeAbbrevs(QString &str)
 {
 	// the format is (findreplace)*[nullzero]
-	char *magic="a\x07t\t";
+	const char *magic="a\x07t\t";
 
 	while (*magic)
 	{

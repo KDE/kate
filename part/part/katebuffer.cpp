@@ -55,34 +55,13 @@ class KateBufBlock
     /**
      * Create an empty block. (empty == ONE line)
      */
-    KateBufBlock (KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next, QTextStream *stream = 0, bool lastCharEOL = false, bool *eof = 0);
+    KateBufBlock ( KateBuffer *parent, KateBufBlock *prev = 0, KateBufBlock *next = 0,
+                   QTextStream *stream = 0, bool lastCharEOL = false, bool *eof = 0 );
     
     /**
      * destroy this block and take care of freeing all mem
      */
     ~KateBufBlock ();
-    
-  public:
-    /**
-     * return line @p i
-     * The first line of this block is line 0.
-     */
-    TextLine::Ptr line(uint i);
-    
-    /**
-     * insert @p line in front of line @p i
-     */
-    void insertLine(uint i, TextLine::Ptr line);
-    
-    /**
-     * remove line @p i
-     */
-    void removeLine(uint i);
-    
-    /**
-     * mark this block as dirty, will invalidate the swap/raw data
-     */
-    void markDirty ();
     
   private:
     /**
@@ -93,6 +72,48 @@ class KateBufBlock
      * returns EOL as bool
      */
     bool fillBlock (QTextStream *stream, bool lastCharEOL);
+    
+  public:
+    /**
+     * state flags
+     */
+    enum State
+    {
+      stateSwapped = 0,
+      stateClean = 1,
+      stateDirty = 2
+    };
+    
+    /**
+     * returns the current state of this block
+     */
+    inline KateBufBlock::State state () const { return m_state; }
+    
+  public:
+    /**
+     * return line @p i
+     * The first line of this block is line 0.
+     * if you modifiy this line, please mark the block as dirty
+     */
+    TextLine::Ptr line(uint i);
+    
+    /**
+     * insert @p line in front of line @p i
+     * marks the block dirty
+     */
+    void insertLine(uint i, TextLine::Ptr line);
+    
+    /**
+     * remove line @p i
+     * marks the block dirty
+     */
+    void removeLine(uint i);
+    
+    /**
+     * mark this block as dirty, will invalidate the swap data
+     * insert/removeLine will mark the block dirty itself
+     */
+    void markDirty ();
   
   public:
     /**
@@ -117,12 +138,14 @@ class KateBufBlock
     
     /**
      * get indenation date
+     * only valid if block is swapped
      */
-    inline uint firstLineIndentation () { return m_firstLineIndentation; }
-    inline bool firstLineOnlySpaces () { return m_firstLineOnlySpaces; }
+    inline uint firstLineIndentation () const { return m_firstLineIndentation; }
+    inline bool firstLineOnlySpaces () const { return m_firstLineOnlySpaces; }
     
     /**
      * get last line for highlighting
+     * only valid if block is swapped, expect to get 0
      */
     inline TextLine::Ptr lastLine () { return m_lastLine; }
 
@@ -131,28 +154,12 @@ class KateBufBlock
      */
     inline bool needHighlight () const { return b_needHighlight; }
     inline void setNeedHighlight (bool hl) { b_needHighlight = hl; };
-    
+
     /**
      * prev/next block
      */
     inline KateBufBlock *prev () { return m_prev; }
     inline KateBufBlock *next () { return m_next; }
-
-  public:
-    /**
-     * state flags
-     */
-    enum State
-    {
-      stateSwapped,
-      stateClean,
-      stateDirty
-    };
-    
-    /**
-     * returns the current state of this block
-     */
-    inline KateBufBlock::State state () const { return m_state; }
   
   /**
    * methodes to swap in/out
@@ -1352,18 +1359,14 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
     TextLine::Ptr textLine = new TextLine ();
     m_stringList.push_back (textLine);
     m_lines++;
-   
-    // is allready too much stuff around in mem ?
-    bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) >= KATE_MAX_BLOCKS_LOADED);
-  
-    if (swap && m_parent->m_cleanBlocks.count() > 0)
-      m_parent->m_cleanBlocks.first()->swapOut();
-    else if (swap)
-      m_parent->m_dirtyBlocks.first()->swapOut();
+
+    // if we have allready enough blocks around, swap one
+    if (m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED)
+      m_parent->m_loadedBlocks.first()->swapOut();
     
     // we are a new nearly empty dirty block
     m_state = KateBufBlock::stateDirty;
-    m_parent->m_dirtyBlocks.append (this);
+    m_parent->m_loadedBlocks.append (this);
   }
 }
 
@@ -1387,7 +1390,7 @@ KateBufBlock::~KateBufBlock ()
 bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 {
   // is allready too much stuff around in mem ?
-  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) >= KATE_MAX_BLOCKS_LOADED);
+  bool swap = m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED;
 
   QByteArray rawData;
   
@@ -1477,7 +1480,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   {    
     // we are a new dirty block without any swap data
     m_state = KateBufBlock::stateDirty;
-    m_parent->m_dirtyBlocks.append (this);
+    m_parent->m_loadedBlocks.append (this);
   }
   
   return eof;
@@ -1489,6 +1492,10 @@ TextLine::Ptr KateBufBlock::line(uint i)
   if (m_state == KateBufBlock::stateSwapped)
     swapIn ();
 
+  // LRU
+  if (!m_parent->m_loadedBlocks.isLast(this))
+    m_parent->m_loadedBlocks.append (this);
+    
   return m_stringList[i];
 }
 
@@ -1518,18 +1525,14 @@ void KateBufBlock::removeLine(uint i)
 
 void KateBufBlock::markDirty ()
 {
-  if (m_state == KateBufBlock::stateClean)
+  if (m_state != KateBufBlock::stateSwapped)
   {    
-    // if we have some swapped data allocated, free it now
-    if (m_vmblock)
-      m_parent->vm()->free(m_vmblock);
-      
-    m_vmblock = 0;
-    m_vmblockSize = 0;
+    // LRU
+    if (!m_parent->m_loadedBlocks.isLast(this))
+      m_parent->m_loadedBlocks.append (this);
   
     // we are dirty
     m_state = KateBufBlock::stateDirty;
-    m_parent->m_dirtyBlocks.append (this);
   }
 }
 
@@ -1559,17 +1562,13 @@ void KateBufBlock::swapIn ()
   m_firstLineOnlySpaces = true;
   m_lastLine = 0;
   
-  // is allready too much stuff around in mem ?
-  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) >= KATE_MAX_BLOCKS_LOADED);
-
-  if (swap && m_parent->m_cleanBlocks.count() > 0)
-    m_parent->m_cleanBlocks.first()->swapOut();
-  else if (swap)
-    m_parent->m_dirtyBlocks.first()->swapOut();
+  // if we have allready enough blocks around, swap one
+  if (m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED)
+    m_parent->m_loadedBlocks.first()->swapOut();
   
   // fine, we are now clean again, save state + append to clean list
   m_state = KateBufBlock::stateClean;
-  m_parent->m_cleanBlocks.append (this);
+  m_parent->m_loadedBlocks.append (this);
 }
 
 void KateBufBlock::swapOut ()
@@ -1578,7 +1577,14 @@ void KateBufBlock::swapOut ()
     return;
     
   if (m_state == KateBufBlock::stateDirty)
-  {  
+  {
+    // if we have some swapped data allocated which is dirty, free it now
+    if (m_vmblock)
+      m_parent->vm()->free(m_vmblock);
+      
+    m_vmblock = 0;
+    m_vmblockSize = 0;
+  
     // Calculate size.
     uint size = 0;
     for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)

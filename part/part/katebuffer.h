@@ -60,6 +60,21 @@ class KateBufBlockList
     inline KateBufBlock *first () { return m_first; };
     
     /**
+     * last block in this list or 0
+     */
+    inline KateBufBlock *last () { return m_last; };
+
+    /**
+     * is buf the last block ?
+     */
+    inline bool isFirst (KateBufBlock *buf) { return m_first == buf; };
+    
+    /**
+     * is buf the last block ?
+     */
+    inline bool isLast (KateBufBlock *buf) { return m_last == buf; };
+        
+    /**
      * append a block to this list !
      * will remove it from the list it belonged before !
      */
@@ -112,9 +127,7 @@ class KateBuffer : public QObject
      */
     void setLineVisible (unsigned int lineNr, bool visible);
 
-  public:
-    KateDocument* document() const { return m_doc; }
-    
+  public:    
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -133,10 +146,7 @@ class KateBuffer : public QObject
     /**
      * Return the total number of lines in the buffer.
      */
-    inline uint count() const
-    {
-      return m_lines;
-    }
+    inline uint count() const { return m_lines; }
 
     uint countVisible ();
 
@@ -148,10 +158,7 @@ class KateBuffer : public QObject
 
     KateCodeFoldingTree *foldingTree ();
 
-    inline void setHlUpdate (bool b)
-    {
-      m_hlUpdate = b;
-    }
+    inline void setHlUpdate (bool b) { m_hlUpdate = b; }
 
     void dumpRegionTree ();
 
@@ -234,10 +241,7 @@ class KateBuffer : public QObject
      * was the last loading broken because of not enough tmp disk space ?
      * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
      */
-    bool loadingBorked () const
-    {
-      return m_loadingBorked;
-    }
+    bool loadingBorked () const { return m_loadingBorked; }
 
     void setTabWidth (uint w);
     
@@ -370,19 +374,12 @@ class KateBuffer : public QObject
   
   /**
    * only used from the KateBufBlocks !
-   * lists to keep track of how much blocks are floating around
-   * in the different states
    */
   private:
     /**
-     * this blocks have valid data stored in the swap data
+     * all not swapped blocks !
      */
-    KateBufBlockList m_cleanBlocks;
-
-    /**
-     * this blocks have no valid swap data around
-     */
-    KateBufBlockList m_dirtyBlocks;
+    KateBufBlockList m_loadedBlocks;
 };
 
 #endif

@@ -57,7 +57,9 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * Use insertTemplateText(numLines(), ...) to append text at end of document
      * Template  strings look like
      * "for( int ${index}=0;${index}<10;${index}++) { ${cursor} };"
-     * This syntax is similiar to the one found in the Eclipse editor
+     *
+     * This syntax is similiar to the one found in the Eclipse editor.
+     *
      * There are certain common placeholders (variables), which get assigned a
      * default initialValue, If the second parameter does not a given value.
      * For all others the initial value is the name of the placeholder.

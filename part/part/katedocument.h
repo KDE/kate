@@ -751,6 +751,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KSpell*         m_kspell;
     int             m_mispellCount;
     int             m_replaceCount;
+    bool            m_reloading;
 
   public:
     /**

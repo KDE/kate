@@ -136,6 +136,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // register doc at factory
   KateFactory::registerDocument (this);
 
+  m_reloading = false;
+
   buffer = new KateBuffer (this);
 
   // init the config object, be careful not to use it
@@ -3002,7 +3004,7 @@ bool KateDocument::closeURL()
   //
   // file mod on hd
   //
-  if ( !url().isEmpty() )
+  if ( !m_reloading && !url().isEmpty() )
   {
     if (m_modOnHd)
     {
@@ -4481,7 +4483,10 @@ void KateDocument::reloadFile()
 
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
+
+    m_reloading = true;
     KateDocument::openURL( url() );
+    m_reloading = false;
 
     for (uint z=0; z < tmp.size(); z++)
     {

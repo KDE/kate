@@ -37,7 +37,6 @@
 #include <kdebug.h>
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
-#include <knotifyclient.h>
 
 #include <qlayout.h>
 #include <qlabel.h>
@@ -112,7 +111,7 @@ void KateSearch::find()
   m_view->repaintText ();
 }
 
-bool KateSearch::find( const QString &pattern, long flags, bool add, bool shownotfound )
+void KateSearch::find( const QString &pattern, long flags, bool add, bool shownotfound )
 {
   KateViewConfig::global()->setSearchFlags( flags );
   if( add )
@@ -146,7 +145,7 @@ bool KateSearch::find( const QString &pattern, long flags, bool add, bool showno
   s.wrapped = false;
   s.showNotFound = shownotfound;
 
-  return search( searchFlags );
+  search( searchFlags );
 }
 
 void KateSearch::replace()
@@ -167,7 +166,7 @@ void KateSearch::replace()
     long opts = replaceDialog->options();
     m_replacement = replaceDialog->replacement();
     s_searchList = replaceDialog->findHistory () ;
-    s_replaceList = replaceDialog->replacementHistory ();
+    s_replaceList = replaceDialog->replacementHistory () ;
 
     // Do *not* remove the QString() wrapping, it fixes a nasty crash
     replace( QString(s_searchList.first()), m_replacement, opts );
@@ -236,7 +235,7 @@ void KateSearch::findAgain( bool back )
   search( searchFlags );
 }
 
-bool KateSearch::search( SearchFlags flags )
+void KateSearch::search( SearchFlags flags )
 {
   s.flags = flags;
 
@@ -264,9 +263,8 @@ bool KateSearch::search( SearchFlags flags )
       promptReplace();
     else
       replaceAll();
-    return false; // FIXME
   } else {
-    return findAgain();
+    findAgain();
   }
 }
 
@@ -294,23 +292,21 @@ void KateSearch::wrapSearch()
   s.flags.finished = true;
 }
 
-bool KateSearch::findAgain()
+void KateSearch::findAgain()
 {
   if(  s_pattern.isEmpty() ) {
     find();
-    return false; // ### make find() return a bool too just to be consequent
+    return;
   }
 
   if ( doSearch(  s_pattern ) ) {
     exposeFound( s.cursor, s.matchedLength );
-    return true;
   } else if( !s.flags.finished ) {
     if( askContinue() ) {
       wrapSearch();
-      return findAgain();
+      findAgain();
     } else {
       if (arbitraryHLExample) m_arbitraryHLList->clear();
-      return false;
     }
   } else {
     if (arbitraryHLExample) m_arbitraryHLList->clear();
@@ -320,7 +316,6 @@ bool KateSearch::findAgain()
              .arg( KStringHandler::csqueeze(  s_pattern ) ),
         i18n("Find"));
   }
-  return false;
 }
 
 void KateSearch::replaceAll()
@@ -343,7 +338,7 @@ void KateSearch::replaceAll()
         i18n("Replace") );
   }
 
-  // FIXME workaround bad design in katedocument.
+  // FIXME ugly hack to work around bad design in katedocument
   if ( 0 == replaces )
     m_doc->setModified( false );
 }
@@ -816,8 +811,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
 
   if ( cmd.startsWith( "find" ) )
   {
-    if ( ! ((KateView*)view)->find( pattern, f ) )
-      msg = i18n("'%1' not found.").arg( pattern );
+    ((KateView*)view)->find( pattern, f );
     return true;
   }
   else if ( cmd.startsWith( "replace" ) )
@@ -910,8 +904,7 @@ void SearchCommand::processText( Kate::View *view, const QString &cmd )
            v->selection().length() + 1 == pattern.length() )
         v->setCursorPositionInternal( v->selStartLine(), v->selStartCol() );
 
-      if ( ! v->find( pattern, m_ifindFlags, false ) )
-        KNotifyClient::beep();
+      v->find( pattern, m_ifindFlags, false );
     }
   }
 }

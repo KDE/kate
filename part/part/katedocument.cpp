@@ -1940,36 +1940,47 @@ void KateDocument::writeConfig()
 
 void KateDocument::readSessionConfig(KConfig *config)
 {
-  m_url = config->readPathEntry("URL"); // ### doesn't this break the encoding? (Simon)
-  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
-  QString tmpenc=config->readEntry("Encoding");
+  // restore the url
+  KURL url (config->readEntry("URL"));
 
-  if (m_url.isValid() && (!tmpenc.isEmpty()) && (tmpenc!=encoding()))
-  {
-    kdDebug()<<"Reloading document because of encoding change to "<<tmpenc<<endl;
+  // get the encoding
+  QString tmpenc=config->readEntry("Encoding");
+  if (!tmpenc.isEmpty() && (tmpenc != encoding()))
     setEncoding(tmpenc);
-    reloadFile();
+
+  // open the file if url valid
+  if (!url.isEmpty() && url.isValid())
+  {
+    openURL (url);
   }
 
+  // restore the hl stuff
+  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
+
   // Restore Bookmarks
-  restoreMarks = true; // Hack: make sure we can set marks for lines > lastLine
   QValueList<int> marks = config->readIntListEntry("Bookmarks");
   for( uint i = 0; i < marks.count(); i++ )
     addMark( marks[i], KateDocument::markType01 );
-  restoreMarks = false;
 }
 
 void KateDocument::writeSessionConfig(KConfig *config)
 {
-  config->writePathEntry("URL", m_url.url() ); // ### encoding?? (Simon)
-  config->writeEntry("Highlight", m_highlight->name());
+  // save url
+  config->writeEntry("URL", m_url.prettyURL() );
+
+  // save encoding
   config->writeEntry("Encoding",encoding());
+
+  // save hl
+  config->writeEntry("Highlight", m_highlight->name());
+
   // Save Bookmarks
   QValueList<int> marks;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
-       it.current() && it.current()->type & KTextEditor::MarkInterface::markType01; ++it ) {
+       it.current() && it.current()->type & KTextEditor::MarkInterface::markType01;
+       ++it )
      marks << it.current()->line;
-  }
+
   if( !marks.isEmpty() )
     config->writeEntry( "Bookmarks", marks );
 }
@@ -2827,9 +2838,7 @@ bool KateDocument::openFile()
     hl = hlManager->mimeFind( buf, m_url.url() );
   }
 
-  uint mode = hl;
-  if (mode != hlMode ())
-    internalSetHlMode(hl);
+  internalSetHlMode(hl);
 
   updateLines();
   updateViews();
@@ -2842,7 +2851,10 @@ bool KateDocument::openFile()
   }
 
   readVariables();
+
   emit fileNameChanged();
+
+  setDocName  (url().fileName());
 
   if (!success && buffer->loadingBorked())
     KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completly, as there is not enough temporary disk storage for it!").arg(m_url.url()));
@@ -2905,9 +2917,7 @@ bool KateDocument::saveFile()
       hl = hlManager->mimeFind( buf, m_url.url() );
     }
 
-    uint mode = hl;
-    if (mode != hlMode ())
-      internalSetHlMode(hl);
+    internalSetHlMode(hl);
   }
 
   emit fileNameChanged ();

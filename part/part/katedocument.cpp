@@ -313,8 +313,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   m_highlightedEnd = 0;
 
   // some defaults
-  _configFlags = KateDocument::cfAutoIndent | KateDocument::cfBackspaceIndents
-    | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
+  _configFlags = KateDocument::cfAutoIndent | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
     | KateDocument::cfRemoveSpaces
     | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
     | KateDocument::cfShowTabs | KateDocument::cfSmartHome;

@@ -162,8 +162,8 @@ void KateView::setupActions()
 
     (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
 	i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
-		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it doesn't get updated." 
-		" when the view gets resized"));
+		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated" 
+		" when the view is resized."));
     
     (new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd"))->setWhatsThis(
 	i18n("Use this command to execute VI style commands. This affects the whole document."

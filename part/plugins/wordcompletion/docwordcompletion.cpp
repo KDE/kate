@@ -53,7 +53,7 @@
 #include <qwhatsthis.h>
 #include <qcheckbox.h>
 
-#include <kdebug.h>
+// #include <kdebug.h>
 //END
 
 //BEGIN DocWordCompletionPlugin
@@ -159,10 +159,8 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool au
   setXMLFile("docwordcompletionui.rc");
 
   KTextEditor::VariableInterface *vi = KTextEditor::variableInterface( view->document() );
-  kdDebug()<<"looking for variable interface, got "<<vi<<endl;
   if ( vi )
   {
-    kdDebug()<<"=== Found a variable interface at "<<vi<<"!!!"<<endl;
     QString e = vi->variable("wordcompletion-autopopup");
     if ( ! e.isEmpty() )
       d->autopopup->setEnabled( e == "true" );
@@ -343,7 +341,7 @@ void DocWordCompletionPluginView::complete( bool fw )
 QString DocWordCompletionPluginView::word()
 {
   uint cline, ccol;
-  viewCursorInterface( m_view )->cursorPosition( &cline, &ccol );
+  viewCursorInterface( m_view )->cursorPositionReal( &cline, &ccol );
   if ( ! ccol ) return QString::null; // no word
   KTextEditor::EditInterface *ei = KTextEditor::editInterface( m_view->document() );
   d->re.setPattern( "\\b(\\w+)$" );
@@ -393,7 +391,6 @@ QValueList<KTextEditor::CompletionEntry> DocWordCompletionPluginView::allMatches
 
 void DocWordCompletionPluginView::slotVariableChanged( const QString &var, const QString &val )
 {
-  kdDebug()<<"=== variable changed: "<<var<<"="<<val<<endl;
   if ( var == "wordcompletion-autopopup" )
     d->autopopup->setEnabled( val == "true" );
   else if ( var == "wordcompletion-treshold" )

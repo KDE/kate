@@ -1119,6 +1119,7 @@ void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString
 
 void KateView::showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset, bool cs )
 {
+  emit aboutToShowCompletionBox();
   m_codeCompletion->showCompletionBox( arg1, offset, cs );
 }
 

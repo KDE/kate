@@ -147,8 +147,6 @@ bool KateCodeCompletion::codeCompletionVisible () {
 void KateCodeCompletion::showCompletionBox(
     QValueList<KTextEditor::CompletionEntry> complList, int offset, bool casesensitive )
 {
-  emit aboutToShowCompletionBox();
-
   kdDebug(13035) << "showCompletionBox " << endl;
 
   m_caseSensitive = casesensitive;

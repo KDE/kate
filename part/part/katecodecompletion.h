@@ -82,7 +82,6 @@ class KateCodeCompletion : public QObject
     void showComment();
   
   signals:
-    void aboutToShowCompletionBox();
     void completionAborted();
     void completionDone();
     void argHintHidden();

@@ -124,6 +124,7 @@ class KateView : public Kate::View,
     void argHintHidden();
     void completionDone(KTextEditor::CompletionEntry);
     void filterInsertString(KTextEditor::CompletionEntry*,QString *);
+    void aboutToShowCompletionBox();
 
   //
   // KTextEditor::TextHintInterface

@@ -325,6 +325,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    editIsRunning (false),
    editTagLineStart (0xffffffff),
    editTagLineEnd (0),
+   editTagLineFrom (false),
    editChangesDone (false),
    m_doc (doc),
    m_lines (0),
@@ -369,6 +370,7 @@ void KateBuffer::editStart ()
 
   editTagLineStart = 0xffffffff;
   editTagLineEnd = 0;
+  editTagLineFrom = false;
 
   editChangesDone = false;
 }
@@ -760,6 +762,9 @@ void KateBuffer::insertLine(uint i, KateTextLine::Ptr line)
   if (i > editTagLineEnd)
     editTagLineEnd = i;
 
+  // line inserted
+  editTagLineFrom = true;
+
   m_regionTree.lineHasBeenInserted (i);
 }
 
@@ -825,6 +830,9 @@ void KateBuffer::removeLine(uint i)
 
   if (i > editTagLineEnd)
     editTagLineEnd = i;
+
+  // line removed
+  editTagLineFrom = true;
 
   m_regionTree.lineHasBeenRemoved (i);
 }

@@ -391,7 +391,25 @@ class KateBuffer : public QObject
      * editing session?
      * @return changes done?
      */
-    bool editChanged () const { return editChangesDone; };
+    inline bool editChanged () const { return editChangesDone; }
+
+    /**
+     * dirty lines start
+     * @return start line
+     */
+    inline uint editTagStart () const { return editTagLineStart; }
+
+    /**
+     * dirty lines end
+     * @return end line
+     */
+    inline uint editTagEnd () const { return editTagLineEnd; }
+
+    /**
+     * line inserted/removed?
+     * @return line inserted/removed?
+     */
+    inline bool editTagFrom () const { return editTagLineFrom; }
 
   private:
     /**
@@ -413,6 +431,11 @@ class KateBuffer : public QObject
      * dirty lines end at line
      */
     uint editTagLineEnd;
+
+    /**
+     * a line was inserted or removed
+     */
+    bool editTagLineFrom;
 
     /**
      * changes done?

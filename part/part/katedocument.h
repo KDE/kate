@@ -334,17 +334,10 @@ class KateDocument : public Kate::Document,
 
   private:
     void editAddUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
-    void editTagLine (uint line);
-    void editRemoveTagLine (uint line);
-    void editInsertTagLine (uint line);
 
     uint editSessionNumber;
     bool editIsRunning;
-    bool noViewUpdates;
     bool editWithUndo;
-    uint editTagLineStart;
-    uint editTagLineEnd;
-    bool editTagFrom;
     bool m_undoComplexMerge;
     KateUndoGroup* m_editCurrentUndo;
 
@@ -756,7 +749,6 @@ class KateDocument : public Kate::Document,
 
   public:
     void tagAll();
-    void updateViews();
 
     void newBracketMark( const KateTextCursor& start, KateBracketRange& bm, int maxLines = -1 );
     bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end, int maxLines = -1 );

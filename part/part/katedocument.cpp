@@ -150,10 +150,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   editSessionNumber = 0;
   editIsRunning = false;
-  noViewUpdates = false;
   m_editCurrentUndo = 0L;
   editWithUndo = false;
-  editTagFrom = false;
 
   m_docNameNumber = 0;
 
@@ -1012,12 +1010,7 @@ void KateDocument::editStart (bool withUndo)
     return;
 
   editIsRunning = true;
-  noViewUpdates = true;
   editWithUndo = withUndo;
-
-  editTagLineStart = 0xffffffff;
-  editTagLineEnd = 0;
-  editTagFrom = false;
 
   if (editWithUndo)
     undoStart();
@@ -1107,7 +1100,7 @@ void KateDocument::editEnd ()
   // wrap the new/changed text, if something really changed!
   if (m_buffer->editChanged() && (editSessionNumber == 1))
     if (editWithUndo && config()->wordWrap())
-      wrapText (editTagLineStart, editTagLineEnd);
+      wrapText (m_buffer->editTagStart(), m_buffer->editTagEnd());
 
   editSessionNumber--;
 
@@ -1115,6 +1108,7 @@ void KateDocument::editEnd ()
     return;
 
   // end buffer edit, will trigger hl update
+  // this will cause some possible adjustment of tagline start/end
   m_buffer->editEnd ();
 
   if (editWithUndo)
@@ -1125,14 +1119,13 @@ void KateDocument::editEnd ()
   {
     for (uint z = 0; z < m_views.count(); z++)
     {
-      m_views.at(z)->editEnd (editTagLineStart, editTagLineEnd, editTagFrom);
+      m_views.at(z)->editEnd (m_buffer->editTagStart(), m_buffer->editTagEnd(), m_buffer->editTagFrom());
     }
 
     setModified(true);
     emit textChanged ();
   }
 
-  noViewUpdates = false;
   editIsRunning = false;
 }
 
@@ -1255,43 +1248,6 @@ void KateDocument::editAddUndo (KateUndoGroup::UndoType type, uint line, uint co
   }
 }
 
-void KateDocument::editTagLine (uint line)
-{
-  if (line < editTagLineStart)
-    editTagLineStart = line;
-
-  if (line > editTagLineEnd)
-    editTagLineEnd = line;
-}
-
-void KateDocument::editInsertTagLine (uint line)
-{
-  if (line < editTagLineStart)
-    editTagLineStart = line;
-
-  if (line <= editTagLineEnd)
-    editTagLineEnd++;
-
-  if (line > editTagLineEnd)
-    editTagLineEnd = line;
-
-  editTagFrom = true;
-}
-
-void KateDocument::editRemoveTagLine (uint line)
-{
-  if (line < editTagLineStart)
-    editTagLineStart = line;
-
-  if (line < editTagLineEnd)
-    editTagLineEnd--;
-
-  if (line > editTagLineEnd)
-    editTagLineEnd = line;
-
-  editTagFrom = true;
-}
-
 bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
 {
   if (!isReadWrite())
@@ -1324,7 +1280,6 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
 //   removeTrailingSpace(line); // ### nessecary?
 
   m_buffer->changeLine(line);
-  editTagLine (line);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editTextInserted (line, col, s.length());
@@ -1352,8 +1307,6 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   removeTrailingSpace( line );
 
   m_buffer->changeLine(line);
-
-  editTagLine(line);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editTextRemoved (line, col, len);
@@ -1437,8 +1390,6 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
     if( !list.isEmpty() )
       emit marksChanged();
 
-    editInsertTagLine (line);
-
     // yes, we added a new line !
     if (newLineAdded)
       (*newLineAdded) = true;
@@ -1455,9 +1406,6 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
     if (newLineAdded)
       (*newLineAdded) = false;
   }
-
-  editTagLine(line);
-  editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editLineWrapped (line, col, !nextLine || newLine);
@@ -1528,12 +1476,6 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
   if( !list.isEmpty() )
     emit marksChanged();
 
-  if (removeLine)
-    editRemoveTagLine(line);
-
-  editTagLine(line);
-  editTagLine(line+1);
-
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editLineUnWrapped (line, col, removeLine, length);
 
@@ -1560,9 +1502,6 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   tl->insertText (0, s.length(), s.unicode(), 0);
   m_buffer->insertLine(line, tl);
   m_buffer->changeLine(line);
-
-  editInsertTagLine (line);
-  editTagLine(line);
 
   removeTrailingSpace( line ); // new line
 
@@ -1607,8 +1546,6 @@ bool KateDocument::editRemoveLine ( uint line )
   editAddUndo (KateUndoGroup::editRemoveLine, line, 0, lineLength(line), textLine(line));
 
   m_buffer->removeLine(line);
-
-  editRemoveTagLine (line);
 
   QPtrList<KTextEditor::Mark> list;
   KTextEditor::Mark* rmark = 0;
@@ -2518,7 +2455,10 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   // update views
   //
-  updateViews();
+  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
+  {
+    view->updateView(true);
+  }
 
   //
   // emit the signal we need for example for kate app
@@ -4104,17 +4044,6 @@ void KateDocument::tagAll()
   {
     m_views.at(z)->tagAll();
     m_views.at(z)->updateView (true);
-  }
-}
-
-void KateDocument::updateViews()
-{
-  if (noViewUpdates)
-    return;
-
-  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
-  {
-    view->updateView(true);
   }
 }
 

@@ -35,7 +35,7 @@ namespace KTextEditor
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */
-     bool setSelection ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol );
+     bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol );
 
     /**
     *  removes the current Selection (not Text)

@@ -20,7 +20,7 @@ namespace KTextEditor
 
 };
 
-unsigned int EditInterface::globalEditInterfaceNumber = 0;
+uint EditInterface::globalEditInterfaceNumber = 0;
 
 EditInterface::EditInterface()
 {
@@ -37,7 +37,7 @@ EditInterface::~EditInterface()
   delete d;
 }
 
-unsigned int EditInterface::editInterfaceNumber () const
+uint EditInterface::editInterfaceNumber () const
 {
   return myEditInterfaceNumber;
 }

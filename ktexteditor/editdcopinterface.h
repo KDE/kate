@@ -40,7 +40,7 @@ namespace KTextEditor
     /**
     * @return All the text from the requested line.
     */
-    virtual QString textLine ( unsigned int line );
+    virtual QString textLine ( uint line );
 
     /**
     * @return The current number of lines in the document
@@ -62,24 +62,24 @@ namespace KTextEditor
     *  Inserts text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool insertText ( unsigned int line, unsigned int col, const QString &text );
+    virtual bool insertText ( uint line, uint col, const QString &text );
 
     /**
     *  remove text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool removeText ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol) ;
+    virtual bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol) ;
 
     /**
     * Insert line(s) at the given line number.
     */
-    virtual bool insertLine ( unsigned int line, const QString &text );
+    virtual bool insertLine ( uint line, const QString &text );
 
     /**
     * Insert line(s) at the given line number.
     * If only one line is in the current document, removeLine will fail (return false)
     */
-    virtual bool removeLine ( unsigned int line );
+    virtual bool removeLine ( uint line );
   private:
     EditInterface *m_parent;
   };

@@ -20,7 +20,7 @@ QString EditDCOPInterface::text ()
 	return m_parent->text();
 }
 
-QString EditDCOPInterface::textLine ( unsigned int line )
+QString EditDCOPInterface::textLine ( uint line )
 {
 	return m_parent->textLine(line);
 }
@@ -40,22 +40,22 @@ void EditDCOPInterface::setText ( const QString &text )
 	m_parent->setText(text);
 }
 
-bool EditDCOPInterface::insertText ( unsigned int line, unsigned int col, const QString &text )
+bool EditDCOPInterface::insertText ( uint line, uint col, const QString &text )
 {
 	return m_parent->insertText( line, col, text);
 }
 
-bool EditDCOPInterface::removeText ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol )
+bool EditDCOPInterface::removeText ( uint startLine, uint startCol, uint endLine, uint endCol )
 {
 	return m_parent->removeText( startLine, startCol, endLine, endCol);
 }
 
-bool EditDCOPInterface::insertLine ( unsigned int line, const QString &text )
+bool EditDCOPInterface::insertLine ( uint line, const QString &text )
 {
 	return m_parent->insertLine( line, text);
 }
 
-bool EditDCOPInterface::removeLine ( unsigned int line )
+bool EditDCOPInterface::removeLine ( uint line )
 {
 	return m_parent->removeLine( line );
 }

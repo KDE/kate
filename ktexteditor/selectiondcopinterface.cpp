@@ -18,7 +18,7 @@ SelectionDCOPInterface::~SelectionDCOPInterface()
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */
-     bool SelectionDCOPInterface::setSelection ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol )
+     bool SelectionDCOPInterface::setSelection ( uint startLine, uint startCol, uint endLine, uint endCol )
      {
 	return m_parent->setSelection ( startLine, startCol, endLine, endCol );
      }

@@ -35,7 +35,7 @@ class EditInterface
     EditInterface();
     virtual ~EditInterface();
 
-    unsigned int editInterfaceNumber () const;
+    uint editInterfaceNumber () const;
 
   public:
   /**
@@ -49,27 +49,27 @@ class EditInterface
     /**
     * @return a QString
     */
-    virtual QString text ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol ) const = 0;
+    virtual QString text ( uint startLine, uint startCol, uint endLine, uint endCol ) const = 0;
 
     /**
     * @return All the text from the requested line.
     */
-    virtual QString textLine ( unsigned int line ) const = 0;
+    virtual QString textLine ( uint line ) const = 0;
 
     /**
     * @return The current number of lines in the document
     */
-    virtual unsigned int numLines () const = 0;
+    virtual uint numLines () const = 0;
 
     /**
     * @return the number of characters in the document
     */
-    virtual unsigned int length () const = 0;
+    virtual uint length () const = 0;
 
     /**
     * @return the number of characters in the line (-1 if no line "line")
     */
-    virtual int lineLength ( unsigned int line ) const = 0;
+    virtual int lineLength ( uint line ) const = 0;
 
     /**
     * Set the given text into the view.
@@ -87,25 +87,25 @@ class EditInterface
     *  Inserts text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool insertText ( unsigned int line, unsigned int col, const QString &text ) = 0;
+    virtual bool insertText ( uint line, uint col, const QString &text ) = 0;
 
     /**
     *  remove text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool removeText ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol ) = 0;
+    virtual bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol ) = 0;
 
     /**
     * Insert line(s) at the given line number. If the line number is -1
     * (the default) then the line is added to end of the document
     */
-    virtual bool insertLine ( unsigned int line, const QString &text ) = 0;
+    virtual bool insertLine ( uint line, const QString &text ) = 0;
 
     /**
     * Insert line(s) at the given line number. If the line number is -1
     * (the default) then the line is added to end of the document
     */
-    virtual bool removeLine ( unsigned int line ) = 0;
+    virtual bool removeLine ( uint line ) = 0;
 
   /**
   * signals !!!
@@ -120,8 +120,8 @@ class EditInterface
   */
   private:
     class PrivateEditInterface *d;
-    static unsigned int globalEditInterfaceNumber;
-    unsigned int myEditInterfaceNumber;
+    static uint globalEditInterfaceNumber;
+    uint myEditInterfaceNumber;
 };
 
 EditInterface *editInterface (class Document *doc);

@@ -3847,42 +3847,6 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   }
 
   return true;
-
-  /*
-
-
-      if (showTabs)
-      {
-        nextAttr = textLine->getAttr(z);
-
-          if ((nextAttr != attr) || (lineColSelected(line, col) != lineColSelected(line, z)))
-        {
-          attr = nextAttr;
-          a = attribute (attr);
-          col = z;
-
-          if (lineColSelected(line, col))
-            paint.setPen(a->selCol);
-          else
-            paint.setPen(a->col);
-
-            if (a->bold && a->italic)
-            paint.setFont(fs->myFontBI);
-            else if (a->bold)
-            paint.setFont(fs->myFontBold);
-            else if (a->italic)
-            paint.setFont(fs->myFontItalic);
-            else
-            paint.setFont(fs->myFont);
-        }
-        paint.drawPoint(x - xStart, y);
-        paint.drawPoint(x - xStart +1, y);
-        paint.drawPoint(x - xStart, y -1);
-      }
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
-    }
-
-*/
 }
 
 // Applies the search context, and returns whether a match was found. If one is,

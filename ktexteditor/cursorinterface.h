@@ -26,13 +26,13 @@ namespace KTextEditor
 class Cursor
 {
   public:
-    virtual void position ( int *line, int *col ) const = 0;
+    virtual void position ( uint *line, uint *col ) const = 0;
 
-    virtual bool setPosition ( int line, int col ) = 0;
+    virtual bool setPosition ( uint line, uint col ) = 0;
 
     virtual bool insertText ( const QString& text ) = 0;
 
-    virtual bool removeText ( int numberOfCharacters ) = 0;
+    virtual bool removeText ( uint numberOfCharacters ) = 0;
 
     virtual QChar currentChar () const = 0;
 };

@@ -752,6 +752,9 @@ class KateDocument : public Kate::Document,
   void spellResult( const QString& );
   void spellCleanDone();
 
+
+  void slotQueryClose_save(bool *handled, bool* abortClosing);
+
   private:
     void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
@@ -760,6 +763,7 @@ class KateDocument : public Kate::Document,
     bool            m_reloading;
 
   public:
+	bool checkOverwrite( KURL u );
     /**
       Allow the HlManager to fill the array
     */

@@ -73,6 +73,7 @@
 #include <klibloader.h>
 #include <kdirwatch.h>
 #include <kwin.h>
+#include <kencodingfiledialog.h>
 
 #include <qpainter.h>
 #include <qpaintdevicemetrics.h>
@@ -281,6 +282,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     view->show();
     setWidget( view );
   }
+
+  connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
 }
 
 //
@@ -5359,5 +5362,50 @@ uint KateDocument::documentNumber () const
 {
   return KTextEditor::Document::documentNumber ();
 }
+
+
+
+
+void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
+      *handled=true;
+      *abortClosing=true;
+      if (m_url.isEmpty())
+      {
+	KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+                QString::null,QString::null,0,i18n("Save File"));
+
+	if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) ) {
+		*abortClosing=true;
+		return;
+	}
+	setEncoding( res.encoding );
+  	saveAs( res.URLs.first() );
+	*abortClosing=false;
+      }
+      else
+      {
+          save();
+          *abortClosing=false;
+      }
+
+}
+
+
+bool KateDocument::checkOverwrite( KURL u )
+{
+  if( !u.isLocalFile() )
+    return true;
+
+  QFileInfo info( u.path() );
+  if( !info.exists() )   
+    return true;
+
+  return KMessageBox::Cancel != KMessageBox::warningContinueCancel( 0,
+    i18n( "A file named \"%1\" already exists. "
+          "Are you sure you want to overwrite it?" ).arg( info.fileName() ),
+    i18n( "Overwrite File?" ),
+    i18n( "&Overwrite" ) );
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

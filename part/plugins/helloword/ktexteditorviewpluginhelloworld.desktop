@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=test
-X-KDE-Library=ktexteditorviewpluginhelloworld
-Icon=testicon
-ServiceTypes=KTextEditor/ViewPlugin
-Type=Service
-InitialPreference=8
-MimeType=text/plain

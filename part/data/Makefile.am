@@ -16,7 +16,8 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
                 vrml.xml rexx.xml cue.xml progress.xml e.xml sieve.xml modula-2.xml awk.xml cisco.xml \
                 doxygen.xml lua.xml pike.xml debianchangelog.xml debiancontrol.xml fgl-4gl.xml fgl-per.xml alert.xml \
                 gettext.xml commonlisp.xml clipper.xml povray.xml euphoria.xml mup.xml jsp.xml ocaml.xml lex.xml yacc.xml \
-                cg.xml html-php.xml css-php.xml javascript-php.xml ahdl.xml ansic89.xml tibasic.xml
+                cg.xml html-php.xml css-php.xml javascript-php.xml ahdl.xml ansic89.xml tibasic.xml \
+                purebasic.xml
 
 partrcdir   = $(kde_confdir)
 partrc_DATA = katesyntaxhighlightingrc

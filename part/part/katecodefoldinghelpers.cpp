@@ -604,7 +604,9 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 
 				if (current != (int)parent->childnodes->count()-1)
 				{
+#ifdef __GNUC__
 #warning  "FIXME:  search for an unopened but closed region, even if the parent is of the same type"
+#endif
 					if (node->type != parent->type)
 					{
 						for (int i=current+1; i<(int)parent->childnodes->count(); i++)

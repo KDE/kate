@@ -544,7 +544,6 @@ class KateDocument : public Kate::Document
   public:
     uint needPreHighlight(uint till);
 
-    void tagLineRange(int line, int x1, int x2);
     void tagLines(int start, int end);
     void tagAll();
     void updateLines(int startLine = 0, int endLine = 0xffffff);

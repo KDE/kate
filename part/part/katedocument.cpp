@@ -1866,16 +1866,30 @@ bool KateDocument::printDialog ()
 
      uint y = 0;
      uint lineCount = 0;
+     uint maxWidth = pdm.width();
+     int startCol = 0;
+     int endCol = 0;
+     bool needWrap = true;
+
      while (  lineCount <= lastLine()  )
      {
-        if (y+printFont.fontHeight >= (uint)pdm.height() )
-       {
-         printer->newPage();
-         y=0;
-       }
+       startCol = 0;
+       endCol = 0;
+       needWrap = true;
 
-       paintTextLine ( paint, lineCount, y, 0, pdm.width(), false,PrintFont );
-       y += printFont.fontHeight;
+       while (needWrap)
+       {
+         if (y+printFont.fontHeight >= (uint)pdm.height() )
+         {
+           printer->newPage();
+           y=0;
+         }
+
+         endCol = textWidth (getTextLine(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
+         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, false,PrintFont );
+         startCol = endCol;
+         y += printFont.fontHeight;
+       }
 
        lineCount++;
      }
@@ -2416,10 +2430,10 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
       x += fs->myFontMetrics.width(ch);
 
     if (x <= maxwidth-wrapsymwidth )
-      endcolwithsym = z;
+      endcolwithsym = z+1;
 
     if (x <= maxwidth)
-      endcol = z;
+      endcol = z+1;
 
     if (x >= maxwidth)
     {
@@ -3207,12 +3221,6 @@ QString KateDocument::getWord(KateTextCursor &cursor) {
   while (end < len && m_highlight->isInWord(textLine->getChar(end))) end++;
   len = end - start;
   return QString(&textLine->getText()[start], len);
-}
-
-void KateDocument::tagLineRange(int line, int x1, int x2)
-{
-  for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->myViewInternal->tagLines(line, line, x1, x2);
 }
 
 void KateDocument::tagLines(int start, int end)

@@ -134,7 +134,7 @@ void InsertFilePluginView::insertFile()
     error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.").arg(_file.fileName());
 
   if ( ! error.isEmpty() ) {
-    KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );
+    KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert File Error") );
     return;
   }
 
@@ -156,7 +156,7 @@ void InsertFilePluginView::insertFile()
   if ( str.isEmpty() )
     error = i18n("<p>File <strong>%1</strong> had no contents.").arg(_file.fileName());
   if ( ! error.isEmpty() ) {
-    KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );
+    KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert File Error") );
     return;
   }
 

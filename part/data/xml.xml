@@ -13,14 +13,14 @@
   </context>
 
   <context name="FindXML" attribute="Normal Text" lineEndContext="#stay">
-    <DetectSpaces onlyConsume="true" />
+    <DetectSpaces />
     <StringDetect attribute="Comment" context="Comment" String="&lt;!--" beginRegion="comment" />
     <StringDetect attribute="CDATA" context="CDATA" String="&lt;![CDATA[" beginRegion="cdata" />
     <RegExpr attribute="Doctype" context="Doctype" String="&lt;!DOCTYPE\s+" beginRegion="doctype" />
     <RegExpr attribute="Processing Instruction" context="PI" String="&lt;\?[\w:_-]*" beginRegion="pi" />
     <RegExpr attribute="Element" context="Element" String="&lt;&name;" beginRegion="element" />
     <IncludeRules context="FindEntityRefs" />
-    <DetectIdentifier onlyConsume="true" />
+    <DetectIdentifier />
   </context>
 
   <context name="FindEntityRefs" attribute="Normal Text" lineEndContext="#stay">
@@ -36,16 +36,16 @@
 
 
   <context name="Comment" attribute="Comment" lineEndContext="#stay">
-    <DetectSpaces onlyConsume="true" />
+    <DetectSpaces />
     <StringDetect attribute="Comment" context="#pop" String="--&gt;" endRegion="comment" />
     <RegExpr attribute="Error" context="#stay" String="-(-(?!-&gt;))+" />
     <IncludeRules context="##Alerts" />
-    <DetectIdentifier onlyConsume="true" />
+    <DetectIdentifier />
   </context>
 
   <context name="CDATA" attribute="Normal Text" lineEndContext="#stay">
-    <DetectSpaces onlyConsume="true" />
-    <DetectIdentifier onlyConsume="true" />
+    <DetectSpaces />
+    <DetectIdentifier />
     <StringDetect attribute="CDATA" context="#pop" String="]]&gt;" endRegion="cdata" />
     <StringDetect attribute="EntityRef" context="#stay" String="]]&amp;gt;" />
   </context>

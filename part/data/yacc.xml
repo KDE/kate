@@ -26,7 +26,7 @@
 <contexts>
   <context name="Pre Start" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <DetectSpaces onlyConsume="true" />
+    <DetectSpaces />
     <Detect2Chars attribute="Content-Type Delimiter" context="C Declarations" char="%" char1="{" beginRegion="cdeclarations" column="0" />
     <RegExpr attribute="Normal Text" context="Declarations" String="." beginRegion="declarations" lookAhead="true" />
   </context>
@@ -50,7 +50,7 @@
 
   <context name="Union Start" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <DetectSpaces onlyConsume="true" />
+    <DetectSpaces />
     <DetectChar attribute="Normal Text" context="Union In" char="{" beginRegion="union" />
     <RegExpr attribute="Alert" context="#pop" String="." />
   </context>

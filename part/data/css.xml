@@ -430,7 +430,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Base">
       <lineContinue context="#stay"/>
-        <DetectSpace onlyConsume="true"/>
+        <DetectSpace/>
 	<IncludeRules context="FindRuleSets" />
       </context>
 
@@ -504,10 +504,10 @@
       </context>
 
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
-	<DetectSpace onlyConsume="true"/>
+	<DetectSpace/>
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment" />
         <IncludeRules context="##Alerts" />
-	<DetectIdentifier onlyConsume="true"/>
+	<DetectIdentifier/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="RuleSet">
@@ -563,7 +563,7 @@
 
       <context attribute="String" lineEndContext="#stay" name="InsideString">
         <RegExpr attribute="String" context="#stay" String="\\[&quot;']" />
-	<DetectIdentifier onlyConsume="true"/>
+	<DetectIdentifier/>
       </context>
 
     </contexts>

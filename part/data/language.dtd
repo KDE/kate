@@ -178,14 +178,13 @@ TODO:
   column: should this rule only match at given column in line (column == count of chars in front)
 -->
 <!ENTITY % commonAttributes
- "attribute     CDATA       #REQUIRED
-  context       CDATA       #REQUIRED
+ "attribute     CDATA       #IMPLIED
+  context       CDATA       #IMPLIED
   beginRegion   CDATA       #IMPLIED
   endRegion     CDATA       #IMPLIED
   lookAhead     (%boolean;) #IMPLIED
   firstNonSpace (%boolean;) #IMPLIED
-  column        CDATA       #IMPLIED
-  onlyConsume   (%boolean;) #IMPLIED"
+  column        CDATA       #IMPLIED"
 >
 
 <!-- Detect members of a keyword list

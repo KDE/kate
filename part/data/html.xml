@@ -13,8 +13,8 @@
   </context>
 
   <context name="FindHTML" attribute="Normal Text" lineEndContext="#stay">
-    <DetectSpaces onlyConsume="true"/>
-    <DetectIdentifier onlyConsume="true"/>
+    <DetectSpaces/>
+    <DetectIdentifier/>
     <StringDetect attribute="Comment" context="Comment" String="&lt;!--" beginRegion="comment" />
     <StringDetect attribute="CDATA" context="CDATA" String="&lt;![CDATA[" beginRegion="cdata" />
     <RegExpr attribute="Doctype" context="Doctype" String="&lt;!DOCTYPE\s+" beginRegion="doctype" />
@@ -56,16 +56,16 @@
 
 
   <context name="Comment" attribute="Comment" lineEndContext="#stay">
-    <DetectSpaces onlyConsume="true"/>
+    <DetectSpaces/>
     <IncludeRules context="##Alerts" />
-    <DetectIdentifier onlyConsume="true"/>
+    <DetectIdentifier/>
     <StringDetect attribute="Comment" context="#pop" String="--&gt;" endRegion="comment" />
     <RegExpr attribute="Error" context="#stay" String="-(-(?!-&gt;))+" />
   </context>
 
   <context name="CDATA" attribute="Normal Text" lineEndContext="#stay">
-    <DetectSpaces onlyConsume="true"/>
-    <DetectIdentifier onlyConsume="true"/>
+    <DetectSpaces/>
+    <DetectIdentifier/>
     <StringDetect attribute="CDATA" context="#pop" String="]]&gt;" endRegion="cdata" />
     <StringDetect attribute="EntityRef" context="#stay" String="]]&amp;gt;" />
   </context>

@@ -393,7 +393,7 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-	<DetectSpaces onlyConsume="true"/>
+	<DetectSpaces/>
         <StringDetect attribute="Region Marker" context="region_marker" String="//BEGIN" beginRegion="Region1"/>
         <RegExpr attribute="Region Marker" context="region_marker" String="//END" endRegion="Region1"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />
@@ -402,7 +402,7 @@
         <keyword attribute="Math" context="#stay" String="math" />
         <keyword attribute="Events" context="#stay" String="events" />
         <keyword attribute="Data Type" context="#stay" String="methods" />
-	<DetectIdentifier onlyConsume="true"/>
+	<DetectIdentifier/>
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
         <DetectChar attribute="String" context="String" char="&quot;"/>
@@ -417,20 +417,20 @@
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
-	<DetectIdentifier onlyConsume="true"/>
+	<DetectIdentifier/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="String Char" lineEndContext="#pop" name="String 1">
-	<DetectIdentifier onlyConsume="true"/>
+	<DetectIdentifier/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <DetectChar attribute="String Char" context="#pop" char="'"/>
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
-        <DetectSpaces onlyConsume="true" />
+        <DetectSpaces />
         <IncludeRules context="##Alerts" />
-        <DetectIdentifier onlyConsume="true" />
+        <DetectIdentifier />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Multi/inline Comment">
         <IncludeRules context="##Alerts" />
@@ -466,8 +466,8 @@
       </context>
 
       <context name="region_marker" attribute="Region Marker" lineEndContext="#pop" >
-	<DetectIdentifier onlyConsume="true" />
-	<DetectSpaces onlyConsume="true" />
+	<DetectIdentifier />
+	<DetectSpaces />
       </context>
     </contexts>
     <itemDatas>

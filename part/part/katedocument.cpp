@@ -1976,10 +1976,18 @@ void KateDocument::configDialog()
 
   if (kd->exec())
   {
+    KateDocumentConfig::global()->configStart ();
+    KateViewConfig::global()->configStart ();
+    KateRendererConfig::global()->configStart ();
+
     for (uint i=0; i<editorPages.count(); i++)
     {
       editorPages.at(i)->apply();
     }
+
+    KateDocumentConfig::global()->configEnd ();
+    KateViewConfig::global()->configEnd ();
+    KateRendererConfig::global()->configEnd ();
   }
 
   delete kd;

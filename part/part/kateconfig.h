@@ -39,10 +39,11 @@ class KateConfig
     KateConfig ();
     virtual ~KateConfig ();
 
-   protected:
+  public:
      void configStart ();
      void configEnd ();
 
+  protected:
     virtual void updateConfig () = 0;
 
   private:

@@ -219,6 +219,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_regionTree (0),
    m_highlightedTill (0),
    m_highlightedEnd (0),
+   m_highlightedSteps (0),
    m_cacheReadError(false),
    m_cacheWriteError(false),
    m_loadingBorked (false),
@@ -1019,50 +1020,65 @@ void KateBuffer::invalidateHighlighting()
 void KateBuffer::pleaseHighlight(uint from, uint to)
 {
   if (to > m_highlightedEnd)
-     m_highlightedEnd = to;
+    m_highlightedEnd = to;
 
-  uint till = from + 100;
+  if (m_highlightedEnd < from)
+    return;
+
+  //
+  // this calc makes much of the responsiveness
+  //
+  m_highlightedSteps = ((m_highlightedEnd-from) / 5) + 1;
+  if (m_highlightedSteps < 100)
+    m_highlightedSteps = 100;
+  else if (m_highlightedSteps > 2000)
+    m_highlightedSteps = 2000;
+
+  uint till = from + m_highlightedSteps;
   if (till > m_highlightedEnd)
-     till = m_highlightedEnd;
+    till = m_highlightedEnd;
 
   updateHighlighting(from, till, false);
 
   m_highlightedTill = till;
   if (m_highlightedTill >= m_highlightedEnd)
   {
-      m_highlightedTill = 0;
-      m_highlightedEnd = 0;
-      m_highlightTimer.stop();
+    m_highlightedTill = 0;
+    m_highlightedEnd = 0;
+    m_highlightTimer.stop();
   }
   else
   {
-      m_highlightTimer.start(100, true);
+    m_highlightTimer.start(100, true);
   }
 }
 
 void KateBuffer::pleaseHighlight()
 {
-  uint till = m_highlightedTill + 1000;
+  uint till = m_highlightedTill + m_highlightedSteps;
 
-  uint max = m_lines;
-  if (m_highlightedEnd > max)
-    m_highlightedEnd = max;
+  if (m_highlightedSteps == 0)
+    till += 100;
+
+  if (m_highlightedEnd > m_lines)
+    m_highlightedEnd = m_lines;
 
   if (till > m_highlightedEnd)
-     till = m_highlightedEnd;
+    till = m_highlightedEnd;
 
   updateHighlighting(m_highlightedTill, till, false);
 
   m_highlightedTill = till;
   if (m_highlightedTill >= m_highlightedEnd)
   {
-      m_highlightedTill = 0;
-      m_highlightedEnd = 0;
-      m_highlightTimer.stop();
+    m_highlightedTill = 0;
+    m_highlightedEnd = 0;
+    m_highlightedSteps = 0;
+    m_highlightTimer.stop();
   }
   else
   {
-      m_highlightTimer.start(100, true);
+    m_highlightTimer.start(100, true);
   }
 }
 

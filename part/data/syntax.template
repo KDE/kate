@@ -16,7 +16,7 @@
 <language name="" section="" version="1.00" kateversion="2.3" extensions="" mimetype="" author="" license="">
   <highlighting>
     <contexts>
-      <context name="Normal" attribute="0" lineEndContext="0"/>
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay"/>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

@@ -303,7 +303,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
   kspell.kspellon = false;
 
   myEncoding = QString::fromLatin1(QTextCodec::codecForLocale()->name());
-  maxLength = -1;
 
   setFont (ViewFont,KGlobalSettings::fixedFont());
   setFont (PrintFont,KGlobalSettings::fixedFont());
@@ -466,12 +465,9 @@ bool KateDocument::clear()
 
   buffer->clear();
   clearMarks ();
-  longestLine = buffer->line(0);
 
   clearUndo();
   clearRedo();
-
-  maxLength = 0;
 
   setModified(false);
 
@@ -749,7 +745,6 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   l->replace(col, 0, s.unicode(), s.length());
 
   buffer->changeLine(line);
-  updateMaxLength(l);
   editTagLine (line);
 
   if (b)
@@ -775,7 +770,6 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   l->replace(col, len, 0L, 0);
 
   buffer->changeLine(line);
-  updateMaxLength(l);
 
   editTagLine(line);
 
@@ -832,8 +826,6 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   buffer->insertLine (line+1, tl);
   buffer->changeLine(line);
 
-  updateMaxLength(l);
-
   if (!myMarks.isEmpty())
   {
     bool b = false;
@@ -887,13 +879,8 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   l->unWrap (col, tl, tl->length());
   l->setContext (tl->getContext(), tl->getContextLength());
 
-  if (longestLine == tl)
-    longestLine = 0L;
-
   buffer->changeLine(line);
   buffer->removeLine(line+1);
-
-  updateMaxLength(l);
 
   if (!myMarks.isEmpty())
   {
@@ -957,8 +944,6 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   buffer->insertLine(line,TL);
   buffer->changeLine(line);
 
-  updateMaxLength(TL);
-
   editInsertTagLine (line);
   editTagLine(line);
 
@@ -1003,9 +988,6 @@ bool KateDocument::editRemoveLine ( uint line )
   bool b = editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editRemoveLine, line, 0, getTextLine (line)->getString().length(), getTextLine (line)->getString()));
-
-  if (longestLine == getTextLine (line))
-    longestLine = 0L;
 
   buffer->removeLine(line);
 
@@ -2079,8 +2061,6 @@ void KateDocument::setFont (WhichFont wf,QFont font)
   fs->myFontMetricsBold = KateFontMetrics (fs->myFontBold);
   fs->myFontMetricsItalic = KateFontMetrics (fs->myFontItalic);
   fs->myFontMetricsBI = KateFontMetrics (fs->myFontBI);
-  int newwidth=fs->myFontMetrics.width('W'); //Quick & Dirty Hack (by JoWenn)  //Remove in KDE 3.0
-  maxLength=maxLength*(float)newwidth/(float)oldwidth; //Quick & Dirty Hack (by JoWenn)  //Remove in KDE 3.0
 
   fs->updateFontData(tabChars);
   if (wf==ViewFont)
@@ -2146,17 +2126,6 @@ void KateDocument::setTabWidth(int chars) {
   printFont.updateFontData(tabChars);
   viewFont.updateFontData(tabChars);
   updateFontData();
-
-  maxLength = -1;
-  for (uint i=0; i < buffer->count(); i++)
-  {
-    TextLine::Ptr textLine = buffer->line(i);
-    int len = textWidth(textLine,textLine->length());
-    if (len > maxLength) {
-      maxLength = len;
-      longestLine = textLine;
-    }
-  }
 }
 
 void KateDocument::setNewDoc( bool m )
@@ -2503,10 +2472,6 @@ uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf)
    // newXPos = oldX;
   }// else newXPos = x;
   return z;
-}
-
-uint KateDocument::textWidth() {
-  return (int) maxLength + 8;
 }
 
 uint KateDocument::textHeight(WhichFont wf) {
@@ -3309,32 +3274,6 @@ void KateDocument::updateLines(int startLine, int endLine)
     free (endCtx);
 
   tagLines(startLine, line - 1);
-}
-
-void KateDocument::updateMaxLength(TextLine::Ptr &textLine)
-{
-  int len;
-
-  len = textWidth(textLine,textLine->length());
-
-  if (len > maxLength) {
-    longestLine = textLine;
-    maxLength = len;
-    newDocGeometry = true;
-  } else {
-    if (!longestLine || (textLine == longestLine && len <= maxLength*3/4)) {
-      maxLength = -1;
-      for (uint i = 0; i < numLines();i++) {
-        textLine = getTextLine(i);
-        len = textWidth(textLine,textLine->length());
-        if (len > maxLength) {
-          maxLength = len;
-          longestLine = textLine;
-        }
-      }
-      newDocGeometry = true;
-    }
-  }
 }
 
 void KateDocument::slotBufferChanged() {

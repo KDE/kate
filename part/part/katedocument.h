@@ -508,7 +508,6 @@ class KateDocument : public Kate::Document
     uint textWidth(KateTextCursor &cursor);
     uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
     uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
-    uint textWidth();
     uint textHeight(WhichFont wf=ViewFont);
 
     uint currentColumn(KateTextCursor &cursor);
@@ -547,7 +546,6 @@ class KateDocument : public Kate::Document
     void tagLines(int start, int end);
     void tagAll();
     void updateLines(int startLine = 0, int endLine = 0xffffff);
-    void updateMaxLength(TextLine::Ptr &);
     void updateViews();
     void updateEditAccels();
 
@@ -708,10 +706,6 @@ class KateDocument : public Kate::Document
     QPtrList<KTextEditor::View> _views;
 
     bool newDocGeometry;
-
-    TextLine::Ptr longestLine;
-    float maxLength;
-
 
     // do we select normal or blockwise ?
     bool blockSelect;

@@ -526,6 +526,8 @@ void KateViewInternal::changeYPos(int p) {
   }
   else
     update();
+
+  updateView(KateView::ufDocGeometry);
 }
 
 
@@ -717,7 +719,17 @@ void KateViewInternal::updateView(int flags) {
   int scrollbarWidth = style().scrollBarExtent().width();
   int bw = 0; // width of borders
 
-//debug("upView %d %d %d %d %d", exposeCursor, updateState, flags, newXPos, newYPos);
+  int maxLen = 0;
+  for (int tline = startLine; (tline <= endLine) && (tline <= myDoc->lastLine ()); tline++)
+  {
+    int len = myDoc->textWidth (myDoc->getTextLine (tline), myDoc->getTextLine (tline)->length());
+
+    if (len > maxLen)
+      maxLen = len;
+  }
+  
+  maxLen = maxLen + 8;
+
   if (exposeCursor || flags & KateView::ufDocGeometry) {
     emit myView->cursorPositionChanged();
   } else {
@@ -732,11 +744,7 @@ void KateViewInternal::updateView(int flags) {
 
   oldXPos = xPos;
   oldYPos = yPos;
-/*  if (flags & ufPos) {
-    xPos = newXPos;
-    yPos = newYPos;
-    exposeCursor = true;
-  }*/
+
   if (newXPos >= 0) xPos = newXPos;
   if (newYPos >= 0) yPos = newYPos;
 
@@ -750,7 +758,7 @@ void KateViewInternal::updateView(int flags) {
     w = myView->width() - 4;
     h = myView->height() - 4;
 
-    xMax = myDoc->textWidth() - w - bw;
+    xMax = maxLen - w - bw;
     b = (xPos > 0 || xMax > 0);
     if (b) h -= scrollbarWidth;
     yMax = myDoc->textHeight() - h;

@@ -154,9 +154,15 @@ void KateSpellConfigPage::apply ()
 //END KateSpellConfigPage
 
 //BEGIN KateIndentConfigTab
-const int KateIndentConfigTab::flags[] = {KateDocument::cfSpaceIndent,
-  KateDocument::cfKeepIndentProfile, KateDocument::cfKeepExtraSpaces, KateDocument::cfTabIndents,
-  KateDocument::cfBackspaceIndents, KateDocumentConfig::cfDoxygenAutoTyping};
+const int KateIndentConfigTab::flags[] = {
+    KateDocument::cfSpaceIndent,
+    KateDocument::cfKeepIndentProfile,
+    KateDocument::cfKeepExtraSpaces,
+    KateDocument::cfTabIndents,
+    KateDocument::cfBackspaceIndents,
+    KateDocumentConfig::cfDoxygenAutoTyping,
+    KateDocumentConfig::cfMixedIndent
+};
 
 KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   : KateConfigPage(parent)
@@ -177,6 +183,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QVGroupBox *gbSpaces = new QVGroupBox(i18n("Indentation with Spaces"), this);
   QVBox *spaceLayout = new QVBox(gbSpaces);
   opt[0] = new QCheckBox(i18n("Use &spaces instead of tabs to indent"), spaceLayout );
+  opt[6] = new QCheckBox(i18n("Emacs style mixed mode"), spaceLayout);
 
   indentationWidth = new KIntNumInput(KateDocumentConfig::global()->indentationWidth(), spaceLayout);
   indentationWidth->setRange(1, 16, 1, false);
@@ -202,6 +209,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[3]->setChecked(configFlags & flags[3]);
   opt[4]->setChecked(configFlags & flags[4]);
   opt[5]->setChecked(configFlags & flags[5]);
+  opt[6]->setChecked(configFlags & flags[6]);
 
   layout->addWidget(gbAuto);
   layout->addWidget(gbSpaces);
@@ -227,6 +235,8 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QWhatsThis::add(opt[5], i18n(
         "Automatically inserts a leading \"*\" while typing within a Doxygen "
         "style comment."));
+  QWhatsThis::add( opt[6], i18n(
+      "Use a mix of tab and space characters for indentation.") );
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 
   reload ();
@@ -246,6 +256,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[6], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -256,6 +267,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
 void KateIndentConfigTab::somethingToggled() {
   indentationWidth->setEnabled(opt[0]->isChecked());
+  opt[6]->setEnabled(opt[0]->isChecked());
 }
 
 void KateIndentConfigTab::indenterSelected (int index)

@@ -139,7 +139,7 @@ class KateIndentConfigTab : public KateConfigPage
     void indenterSelected (int);
 
   protected:
-    enum { numFlags = 6 };
+    enum { numFlags = 7 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
     KIntNumInput *indentationWidth;

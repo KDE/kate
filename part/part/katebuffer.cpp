@@ -226,9 +226,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
 {
   m_blocks.setAutoDelete(true);
 
-  connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
-
-  connect( this, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
+  connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(pleaseHighlight()));
 
   clear();
 }
@@ -441,12 +439,8 @@ void KateBuffer::clear()
   else
   {
     m_regionTree=new KateCodeFoldingTree(this);
-    connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
     connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
   }
-  // delete the last loader
-  delete m_loader;
-  m_loader = 0;
 
   // cleanup the blocks
   m_cleanBlocks.clear();
@@ -494,9 +488,9 @@ bool KateBuffer::openFile (const QString &m_file)
   clear();
 
   // here we feed the loader with info
-  m_loader = new KateBufFileLoader (m_file);
+  KateBufFileLoader loader (m_file);
 
-  if ( !m_loader->file.open( IO_ReadOnly ) || !m_loader->file.isDirectAccess() )
+  if ( !loader.file.open( IO_ReadOnly ) || !loader.file.isDirectAccess() )
   {
     clear();
     return false; // Error
@@ -505,14 +499,14 @@ bool KateBuffer::openFile (const QString &m_file)
   // detect eol --- FIXME if you have time ;)
   while (true)
   {
-     int ch = m_loader->file.getch();
+     int ch = loader.file.getch();
 
      if (ch == -1)
        break;
 
      if ((ch == '\r'))
      {
-       ch = m_loader->file.getch ();
+       ch = loader.file.getch ();
 
        if (ch == '\n')
        {
@@ -532,32 +526,74 @@ bool KateBuffer::openFile (const QString &m_file)
      }
   }
 
-  if (m_loader->file.size () > 0)
+  if (loader.file.size () > 0)
   {
-    m_loader->file.at (m_loader->file.size () - 1);
+    loader.file.at (loader.file.size () - 1);
 
-    int ch = m_loader->file.getch();
+    int ch = loader.file.getch();
 
     if ((ch == '\n') || (ch == '\r'))
-      m_loader->lastCharEOL = true;
+      loader.lastCharEOL = true;
   }
 
-  m_loader->file.reset ();
+  loader.file.reset ();
 
   QTextCodec *codec = m_doc->config()->codec();
-  m_loader->stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
-  m_loader->stream.setCodec(codec); // this line sets the mapper to the correct codec
-  m_loader->codec = codec;
-  m_loader->prev = 0;
+  loader.stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
+  loader.stream.setCodec(codec); // this line sets the mapper to the correct codec
+  loader.codec = codec;
+  loader.prev = 0;
 
   // trash away the one unneeded already existing block
   m_loadedBlocks.clear();
   m_blocks.clear();
   m_lines = 0;
 
-  // here the real work will be done
+  // start with not borked
   m_loadingBorked = false;
-  loadFilePart();
+
+  // do the real work
+
+  bool eof = false;
+  while (true)
+  {
+    if (loader.stream.atEnd())
+      eof = true;
+
+    if (eof)
+      break;
+
+    checkLoadedMax ();
+    if (m_cacheWriteError)
+      break;
+
+    KateBufBlock *block = new KateBufBlock(this, loader.prev, m_vm);
+    eof = block->fillBlock (&loader.stream, loader.lastCharEOL);
+
+    m_blocks.append (block);
+    m_loadedBlocks.append (block);
+
+    loader.prev = block;
+    m_lines = block->endLine ();
+  }
+
+  if (m_cacheWriteError)
+  {
+    m_loadingBorked = true;
+  }
+
+  if (m_cacheWriteError)
+    kdDebug(13020)<<"Loading failed, no room for temp-file.\n";
+  else
+    kdDebug(13020)<<"Loading finished.\n";
+
+  // trigger the creation of a block with one line if there is no data in the buffer now
+  // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
+  if (m_blocks.isEmpty() || (count () == 0))
+    clear ();
+
+  emit linesChanged(m_lines);
+  emit loadingFinished ();
 
   return !m_loadingBorked;
 }
@@ -621,65 +657,6 @@ bool KateBuffer::saveFile (const QString &m_file)
   return (file.status() == IO_Ok);
 }
 
-void KateBuffer::loadFilePart()
-{
-  if (!m_loader)
-    return;
-
-  bool eof = false;
-
-  for (int i = 0; i < LOAD_N_BLOCKS_AT_ONCE; i++)
-  {
-    if (m_loader->stream.atEnd())
-      eof = true;
-
-    if (eof) break;
-
-    checkLoadedMax ();
-    if (m_cacheWriteError) break;
-
-    KateBufBlock *block = new KateBufBlock(this, m_loader->prev, m_vm);
-    eof = block->fillBlock (&m_loader->stream, m_loader->lastCharEOL);
-
-    m_blocks.append (block);
-    m_loadedBlocks.append (block);
-
-    m_loader->prev = block;
-    m_lines = block->endLine ();
-  }
-
-  if (m_cacheWriteError)
-  {
-    m_loadingBorked = true;
-    eof = true;
-  }
-
-  if (eof)
-  {
-    if (m_cacheWriteError)
-      kdDebug(13020)<<"Loading failed, no room for temp-file.\n";
-    else
-      kdDebug(13020)<<"Loading finished.\n";
-
-    // trigger the creation of a block with one line if there is no data in the buffer now
-    // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
-    if (m_blocks.isEmpty() || (count () == 0))
-      clear ();
-    else
-    {
-      delete m_loader;
-      m_loader = 0;
-      emit linesChanged(m_lines);
-    }
-
-    emit loadingFinished ();
-  }
-  else if (m_loader)
-  {
-    loadFilePart ();
-  }
-}
-
 /**
  * Return line @p i
  */
@@ -706,7 +683,8 @@ TextLine::Ptr KateBuffer::line(uint i)
   if ((m_highlightedRequested <= i) && (m_highlightedTo <= i))
   {
     m_highlightedRequested = buf->endLine();
-    emit pleaseHighlight (m_highlightedTo, buf->endLine());
+
+    pleaseHighlight (m_highlightedTo, buf->endLine());
 
     // Check again...
     if (!buf->b_stringListValid)
@@ -794,7 +772,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     retVal_folding = false;
 
     //kdDebug()<<"Folding update for" <<current_line <<" end line is "<<endLine<<endl;
-    emit foldingUpdate(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
+    m_regionTree->updateLine(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
 
     CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;
 
@@ -825,7 +803,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   if (current_line>=endLine)
   {
     foldingList.resize(0);
-    emit foldingUpdate(endLine,&foldingList,&retVal_folding,true);
+    m_regionTree->foldingUpdate(endLine,&foldingList,&retVal_folding,true);
   }
 #endif
 
@@ -916,7 +894,7 @@ void KateBuffer::invalidateHighlighting()
    m_highlightedRequested = 0;
 }
 
-void KateBuffer::slotBufferUpdateHighlight(uint from, uint to)
+void KateBuffer::pleaseHighlight(uint from, uint to)
 {
   if (to > m_highlightedEnd)
      m_highlightedEnd = to;
@@ -940,7 +918,7 @@ void KateBuffer::slotBufferUpdateHighlight(uint from, uint to)
   }
 }
 
-void KateBuffer::slotBufferUpdateHighlight()
+void KateBuffer::pleaseHighlight()
 {
   uint till = m_highlightedTill + 1000;
 

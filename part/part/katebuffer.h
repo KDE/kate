@@ -199,11 +199,6 @@ class KateBuffer : public QObject
     void linesChanged(int lines);
 
     /**
-     * Emitted when some code folding related attributes changed
-     */
-    void foldingUpdate(unsigned int , QMemArray<signed char>* ,bool *changed,bool foldingChanged);
-
-    /**
      * Emittend if codefolding returned with a changed list
      */
     void codeFoldingUpdated();
@@ -213,11 +208,6 @@ class KateBuffer : public QObject
      * changed.
      */
     void tagLines(int start, int end);
-
-    /**
-     * Advice to update highlighting a certain range.
-     */
-    void pleaseHighlight(uint from, uint to);
 
     /**
      * Loading of the file finished
@@ -262,14 +252,11 @@ class KateBuffer : public QObject
      */
     bool needHighlight(KateBufBlock *buf, uint from, uint to);
 
-    /**
-     * Load a part of the file that is currently loading.
-     */
-    void loadFilePart();
+  private:
+    void pleaseHighlight (uint,uint);
 
   private slots:
-    void slotBufferUpdateHighlight (uint,uint);
-    void slotBufferUpdateHighlight ();
+    void pleaseHighlight ();
 
   private:
     bool m_hlUpdate;

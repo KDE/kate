@@ -84,7 +84,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_cmdLineOn (false)
     , m_active( false )
     , m_hasWrap( false )
-    , m_userWantsFoldingMarkersOff( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
 {
@@ -692,15 +691,6 @@ void KateView::slotDropEventPass( QDropEvent * ev )
     emit ext->openURLRequest( lstDragURLs.first() );
 }
 
-void KateView::updateFoldingMarkersAction()
-{
-  setFoldingMarkersOn ( m_doc->highlight() && m_doc->highlight()->allowsFolding() &&
-                        !m_userWantsFoldingMarkersOff );
-
-  m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
-  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
-}
-
 void KateView::customEvent( QCustomEvent *ev )
 {
     if ( KParts::GUIActivateEvent::test( ev ) && static_cast<KParts::GUIActivateEvent *>( ev )->activated() )
@@ -926,11 +916,6 @@ void KateView::setFoldingMarkersOn( bool enable )
 void KateView::toggleFoldingMarkers()
 {
   config()->setFoldingBar ( !config()->foldingBar() );
-
-  // if the user has turned off View/Show Folding Markers,
-  // then s/he _really_ doesn't want them to reappear when s/he saves
-  // (but probably just for this time else s/he'd change the View Defaults)
-  m_userWantsFoldingMarkersOff = !foldingMarkersOn();
 }
 
 bool KateView::iconBorder() {

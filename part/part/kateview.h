@@ -306,7 +306,6 @@ class KateView : public Kate::View,
     void slotExpandToplevel();
     void slotCollapseLocal();
     void slotExpandLocal();
-    void updateFoldingMarkersAction();
 
   private:
     void setupConnections();
@@ -356,7 +355,6 @@ class KateView : public Kate::View,
 
     bool       m_active;
     bool       m_hasWrap;
-    bool       m_userWantsFoldingMarkersOff;
 
     private slots:
         void slotNeedTextHint(int line, int col, QString &text);

@@ -123,7 +123,6 @@ class KateDocument : public Kate::Document,
     bool browserView () const { return m_bBrowserView; }
     bool singleViewMode () const { return m_bSingleViewMode; }
     KateBrowserExtension *browserExtension () { return m_extension; }
-    void textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts) const;
 
   private:
     // only to make part work, don't change it !
@@ -175,8 +174,6 @@ class KateDocument : public Kate::Document,
 
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol ) const;
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise ) const;
-
-    QString textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const;
 
     QString textLine ( uint line ) const;
 
@@ -616,13 +613,9 @@ class KateDocument : public Kate::Document,
     void tagLines(int start, int end);
     void tagLines(KateTextCursor start, KateTextCursor end);
 
-  //export feature
+  //export feature, obsolute
   public slots:
-     void exportAs(const QString&);
-
-  private: //the following things should become plugins
-    bool exportDocumentToHTML (QTextStream *outputStream,const QString &name);
-    QString HTMLEncode (QChar theChar);
+     void exportAs(const QString&) { };
 
   signals:
     void modifiedChanged ();

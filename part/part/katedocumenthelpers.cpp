@@ -53,29 +53,4 @@ void KateBrowserExtension::slotSelectionChanged()
     emit enableAction( "copy", m_doc->activeView()->hasSelection() );
 }
 
-KateExportAction::KateExportAction(const QString& text, QObject* parent, const char* name)
-        : Kate::ActionMenu(text, parent, name)
-{
-  filter.clear();
-  filter<<QString("kate_html_export");
-  popupMenu()->insertItem (i18n("&HTML..."),0);
-  connect(popupMenu(),SIGNAL(activated(int)),this,SLOT(filterChoosen(int)));
-  m_doc=0L;
-}
-
-void KateExportAction::updateMenu (Kate::Document *doc)
-{
-  m_doc = doc;
-}
-
-void KateExportAction::filterChoosen(int id)
-{
-  Kate::Document *doc = m_doc;
-
-  if (!doc)
-    return;
-
-  doc->exportAs(*filter.at(id));
-}
-
 // kate: space-indent on; indent-width 2; replace-tabs on;

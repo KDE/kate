@@ -49,12 +49,12 @@ class KateBrowserExtension : public KParts::BrowserExtension
      * copy text to clipboard
      */
     void copy();
-    
+
     /**
      * selection has changed
      */
     void slotSelectionChanged();
-    
+
     /**
      * print the current file
      */
@@ -65,47 +65,6 @@ class KateBrowserExtension : public KParts::BrowserExtension
      * parent document
      */
     KateDocument* m_doc;
-};
-
-/**
- * Export to ... Submenu
- */
-class KateExportAction: public Kate::ActionMenu
-{
-  Q_OBJECT
-
-  public:
-    /**
-     * Constructor
-     * @param text name
-     * @param parent parent object
-     * @param name object name
-     */
-    KateExportAction(const QString& text, QObject* parent = 0, const char* name = 0);
-
-    /**
-     * update the menu for the given doc
-     * @param doc document
-     */
-    void updateMenu (Kate::Document *doc);
-    
-  private slots:
-    /**
-     * some filter was chosen
-     * @param f chosen filter index
-     */
-    void filterChoosen(int f);
-
-  private:
-    /**
-     * guarded pointer to the document we belong to
-     */
-    QGuardedPtr<Kate::Document>  m_doc;
-    
-    /**
-     * supported filter types
-     */
-    QStringList filter;
 };
 
 #endif

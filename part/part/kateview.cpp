@@ -47,6 +47,8 @@
 
 #include <kparts/event.h>
 
+#include <kio/netaccess.h>
+
 #include <kconfig.h>
 #include <kurldrag.h>
 #include <kdebug.h>
@@ -63,6 +65,8 @@
 #include <klibloader.h>
 #include <kencodingfiledialog.h>
 #include <kmultipledrag.h>
+#include <ktempfile.h>
+#include <ksavefile.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -71,6 +75,7 @@
 #include <qpopupmenu.h>
 #include <qlayout.h>
 #include <qclipboard.h>
+#include <qstylesheet.h>
 //END includes
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
@@ -210,6 +215,8 @@ void KateView::setupActions()
   m_copy = a=KStdAction::copy(this, SLOT(copy()), ac);
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
+  m_copyHTML = a = new KAction(i18n("Copy as &HTML"), "editcopy", 0, this, SLOT(copyHTML()), ac, "edit_copy_html");
+  a->setWhatsThis(i18n( "Use this command to copy the currently selected text as HTML to the system clipboard."));
 
   if (!m_doc->readOnly())
   {
@@ -317,10 +324,10 @@ void KateView::setupActions()
   // indentation menu
   new KateViewIndentationAction (m_doc, i18n("&Indentation"),ac,"tools_indentation");
 
-  KateExportAction *emenu = new KateExportAction (i18n("E&xport"),ac,"file_export");
-  emenu->updateMenu (m_doc);
-  emenu->setWhatsThis(i18n("This command allows you to export the current document"
-                      " with all highlighting information into a markup document, e.g. HTML."));
+  // html export
+  a = new KAction(i18n("E&xport as HTML"), 0, 0, this, SLOT(exportAsHTML()), ac, "file_export_html");
+  a->setWhatsThis(i18n("This command allows you to export the current document"
+                      " with all highlighting information into a HTML document."));
 
   m_selectAll = a=KStdAction::selectAll(this, SLOT(selectAll()), ac);
   a->setWhatsThis(i18n("Select the entire text of the current document."));
@@ -1114,16 +1121,9 @@ void KateView::findAgain( bool back )
 
 void KateView::slotSelectionChanged ()
 {
-  if (hasSelection())
-  {
-    m_copy->setEnabled (true);
-    m_deSelect->setEnabled (true);
-  }
-  else
-  {
-    m_copy->setEnabled (false);
-    m_deSelect->setEnabled (false);
-  }
+  m_copy->setEnabled (hasSelection());
+  m_copyHTML->setEnabled (hasSelection());
+  m_deSelect->setEnabled (hasSelection());
 
   if (m_doc->readOnly())
     return;
@@ -1431,23 +1431,6 @@ bool KateView::hasSelection() const
   return selectStart != selectEnd;
 }
 
-QString KateView::selectionAsHtml() const
-{
-  int sc = selectStart.col();
-  int ec = selectEnd.col();
-
-  if ( blockSelect )
-  {
-    if (sc > ec)
-    {
-      uint tmp = sc;
-      sc = ec;
-      ec = tmp;
-    }
-  }
-  return m_doc->textAsHtml (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
-}
-
 QString KateView::selection() const
 {
   int sc = selectStart.col();
@@ -1629,33 +1612,256 @@ void KateView::cut()
 
 void KateView::copy() const
 {
-  kdDebug(13020) << "in katedocument::copy()" << endl;
   if (!hasSelection())
     return;
-#ifndef QT_NO_MIMECLIPBOARD
-  QClipboard *cb = QApplication::clipboard();
+
+  QApplication::clipboard()->setText(selection ());
+}
+
+void KateView::copyHTML()
+{
+  if (!hasSelection())
+    return;
 
   KMultipleDrag *drag = new KMultipleDrag();
-  QString htmltext;
-  if(!cb->selectionModeEnabled())
-    htmltext = selectionAsHtml();
 
-  if(!htmltext.isEmpty()) {
-    QTextDrag *htmltextdrag = new QTextDrag(htmltext) ;
-    htmltextdrag->setSubtype("html");
+  QTextDrag *htmltextdrag = new QTextDrag(selectionAsHtml()) ;
+  htmltextdrag->setSubtype("html");
 
-    drag->addDragObject( htmltextdrag);
-  }
+  drag->addDragObject( htmltextdrag);
   drag->addDragObject( new QTextDrag( selection()));
 
   QApplication::clipboard()->setData(drag);
-#else
-  QApplication::clipboard()->setText(selection ());
-#endif
-
-  m_viewInternal->repaint();
 }
 
+QString KateView::selectionAsHtml()
+{
+  int sc = selectStart.col();
+  int ec = selectEnd.col();
+
+  if ( blockSelect )
+  {
+    if (sc > ec)
+    {
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
+    }
+  }
+
+  return textAsHtml (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+}
+
+QString KateView::textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise)
+{
+  kdDebug(13020) << "textAsHtml" << endl;
+  if ( blockwise && (startCol > endCol) )
+    return QString ();
+
+  QString s;
+  QTextStream ts( &s, IO_WriteOnly );
+  ts.setEncoding(QTextStream::UnicodeUTF8);
+  ts << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
+  ts << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
+  ts << "<head>" << endl;
+  ts << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
+  ts << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
+  ts << "</head>" << endl;
+
+  ts << "<body>" << endl;
+  textAsHtmlStream(startLine, startCol, endLine, endCol, blockwise, &ts);
+
+  ts << "</body>" << endl;
+  ts << "</html>" << endl;
+  kdDebug(13020) << "html is: " << s << endl;
+  return s;
+}
+
+void KateView::textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts)
+{
+  if ( (blockwise || startLine == endLine) && (startCol > endCol) )
+    return;
+
+  if (startLine == endLine)
+  {
+    KateTextLine::Ptr textLine = m_doc->kateTextLine(startLine);
+    if ( !textLine )
+      return;
+
+    (*ts) << "<pre>" << endl;
+
+    lineAsHTML(textLine, startCol, endCol-startCol, ts);
+  }
+  else
+  {
+    (*ts) << "<pre>" << endl;
+
+    for (uint i = startLine; (i <= endLine) && (i < m_doc->numLines()); i++)
+    {
+      KateTextLine::Ptr textLine = m_doc->kateTextLine(i);
+
+      if ( !blockwise )
+      {
+        if (i == startLine)
+          lineAsHTML(textLine, startCol, textLine->length()-startCol, ts);
+        else if (i == endLine)
+          lineAsHTML(textLine, 0, endCol, ts);
+        else
+          lineAsHTML(textLine, 0, textLine->length(), ts);
+      }
+      else
+      {
+        lineAsHTML( textLine, startCol, endCol-startCol, ts);
+      }
+
+      if ( i < endLine )
+        (*ts) << "\n";    //we are inside a <pre>, so a \n is a new line
+    }
+  }
+  (*ts) << "</pre>";
+}
+
+void KateView::lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, QTextStream *outputStream)
+{
+  if(length == 0) return;
+  // some variables :
+  bool previousCharacterWasBold = false;
+  bool previousCharacterWasItalic = false;
+  // when entering a new color, we'll close all the <b> & <i> tags,
+  // for HTML compliancy. that means right after that font tag, we'll
+  // need to reinitialize the <b> and <i> tags.
+  bool needToReinitializeTags = false;
+  QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
+  QColor blackColor(0,0,0);
+//  (*outputStream) << "<span style='color: #000000'>";
+
+
+  // for each character of the line : (curPos is the position in the line)
+  for (uint curPos=startCol;curPos<(length+startCol);curPos++)
+    {
+      KateAttribute* charAttributes = 0;
+
+      charAttributes = m_renderer->attribute(line->attribute(curPos));
+
+      //ASSERT(charAttributes != NULL);
+      // let's give the color for that character :
+      if ( (charAttributes->textColor() != previousCharacterColor))
+      {  // the new character has a different color :
+        // if we were in a bold or italic section, close it
+        if (previousCharacterWasBold)
+          (*outputStream) << "</b>";
+        if (previousCharacterWasItalic)
+          (*outputStream) << "</i>";
+
+        // close the previous font tag :
+  if(previousCharacterColor != blackColor)
+          (*outputStream) << "</span>";
+        // let's read that color :
+        int red, green, blue;
+        // getting the red, green, blue values of the color :
+        charAttributes->textColor().rgb(&red, &green, &blue);
+  if(!(red == 0 && green == 0 && blue == 0)) {
+          (*outputStream) << "<span style='color: #"
+              << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
+              << QString::number(red, 16) // html wants the hex value here (hence the 16)
+              << ( (green < 0x10)?"0":"")
+              << QString::number(green, 16)
+              << ( (blue < 0x10)?"0":"")
+              << QString::number(blue, 16)
+              << "'>";
+  }
+        // we need to reinitialize the bold/italic status, since we closed all the tags
+        needToReinitializeTags = true;
+      }
+      // bold status :
+      if ( (needToReinitializeTags && charAttributes->bold()) ||
+          (!previousCharacterWasBold && charAttributes->bold()) )
+        // we enter a bold section
+        (*outputStream) << "<b>";
+      if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->bold()) )
+        // we leave a bold section
+        (*outputStream) << "</b>";
+
+      // italic status :
+      if ( (needToReinitializeTags && charAttributes->italic()) ||
+           (!previousCharacterWasItalic && charAttributes->italic()) )
+        // we enter an italic section
+        (*outputStream) << "<i>";
+      if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->italic()) )
+        // we leave an italic section
+        (*outputStream) << "</i>";
+
+      // write the actual character :
+      (*outputStream) << QStyleSheet::escape(QString(line->getChar(curPos)));
+
+      // save status for the next character :
+      previousCharacterWasItalic = charAttributes->italic();
+      previousCharacterWasBold = charAttributes->bold();
+      previousCharacterColor = charAttributes->textColor();
+      needToReinitializeTags = false;
+    }
+  // Be good citizens and close our tags
+  if (previousCharacterWasBold)
+    (*outputStream) << "</b>";
+  if (previousCharacterWasItalic)
+    (*outputStream) << "</i>";
+
+  if(previousCharacterColor != blackColor)
+    (*outputStream) << "</span>";
+}
+
+void KateView::exportAsHTML ()
+{
+  KURL url = KFileDialog::getSaveURL(QString::null,"text/html",0,i18n("Export File As HTML"));
+
+  if ( url.isEmpty() )
+    return;
+
+  QString filename;
+  KTempFile tmp; // ### only used for network export
+
+  if ( url.isLocalFile() )
+    filename = url.path();
+  else
+    filename = tmp.name();
+
+  KSaveFile *savefile=new KSaveFile(filename);
+  if (!savefile->status())
+  {
+    QTextStream *outputStream = savefile->textStream();
+
+    outputStream->setEncoding(QTextStream::UnicodeUTF8);
+
+    // let's write the HTML header :
+    (*outputStream) << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
+    (*outputStream) << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
+    (*outputStream) << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
+    (*outputStream) << "<head>" << endl;
+    (*outputStream) << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
+    (*outputStream) << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
+    // for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
+    (*outputStream) << "<title>" << m_doc->docName () << "</title>" << endl;
+    (*outputStream) << "</head>" << endl;
+    (*outputStream) << "<body>" << endl;
+
+    textAsHtmlStream(0,0, m_doc->lastLine(), m_doc->lineLength(m_doc->lastLine()), false, outputStream);
+
+    (*outputStream) << "</body>" << endl;
+    (*outputStream) << "</html>" << endl;
+
+
+    savefile->close();
+    //if (!savefile->status()) --> Error
+  }
+//     else
+//       {/*ERROR*/}
+  delete savefile;
+
+  if ( url.isLocalFile() )
+      return;
+
+  KIO::NetAccess::upload( filename, url, 0 );
+}
 //END
 
 //BEGIN KTextEditor::BlockSelectionInterface stuff

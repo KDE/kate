@@ -61,7 +61,6 @@
 #include <kdialogbase.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
-#include <ksavefile.h>
 #include <klibloader.h>
 #include <kdirwatch.h>
 #include <kwin.h>
@@ -593,83 +592,6 @@ QString KateDocument::text() const
 QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol ) const
 {
   return text(startLine, startCol, endLine, endCol, false);
-}
-
-QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
-{
-  kdDebug(13020) << "textAsHtml" << endl;
-  if ( blockwise && (startCol > endCol) )
-    return QString ();
-
-  QString s;
-  QTextStream ts( &s, IO_WriteOnly );
-  ts.setEncoding(QTextStream::UnicodeUTF8);
-  ts << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
-  ts << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
-  ts << "<head>" << endl;
-  ts << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
-  ts << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
-  ts << "</head>" << endl;
-
-  ts << "<body>" << endl;
-  textAsHtmlStream(startLine, startCol, endLine, endCol, blockwise, &ts);
-
-  ts << "</body>" << endl;
-  ts << "</html>" << endl;
-  kdDebug(13020) << "html is: " << s << endl;
-  return s;
-}
-
-void KateDocument::textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts) const
-{
-  if ( (blockwise || startLine == endLine) && (startCol > endCol) )
-    return;
-
-
-  if (startLine == endLine)
-  {
-    KateTextLine::Ptr textLine = m_buffer->line(startLine);
-    if ( !textLine )
-      return;
-
-    (*ts) << "<pre>" << endl;
-
-    kdDebug(13020) << "there are " << m_views.count() << " view for this document.  Using the first one" << endl;
-
-    KateView *firstview =  m_views.getFirst();
-    KateRenderer *renderer = firstview->renderer();
-    textLine->stringAsHtml(startCol, endCol-startCol, renderer, ts);
-  }
-  else
-  {
-    (*ts) << "<pre>" << endl;
-
-    KateView *firstview =  m_views.getFirst();
-    KateRenderer *renderer = firstview->renderer();
-
-    for (uint i = startLine; (i <= endLine) && (i < m_buffer->count()); i++)
-    {
-      KateTextLine::Ptr textLine = m_buffer->line(i);
-
-      if ( !blockwise )
-      {
-        if (i == startLine)
-          textLine->stringAsHtml(startCol, textLine->length()-startCol, renderer,ts);
-        else if (i == endLine)
-          textLine->stringAsHtml(0, endCol, renderer,ts);
-        else
-          textLine->stringAsHtml(renderer,ts);
-      }
-      else
-      {
-        textLine->stringAsHtml( startCol, endCol-startCol, renderer,ts);
-      }
-
-      if ( i < endLine )
-        (*ts) << "\n";    //we are inside a <pre>, so a \n is a new line
-    }
-  }
-  (*ts) << "</pre>";
 }
 
 QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
@@ -4419,78 +4341,6 @@ void KateDocument::setPageUpDownMovesCursor (bool on)
 bool KateDocument::pageUpDownMovesCursor ()
 {
   return config()->pageUpDownMovesCursor ();
-}
-
-void KateDocument::exportAs(const QString& filter)
-{
-  if (filter=="kate_html_export")
-  {
-    KURL url = KFileDialog::getSaveURL(QString::null,"text/html",0,i18n("Export File As"));
-    if ( url.isEmpty() )
-      return;
-
-    QString filename;
-    KTempFile tmp; // ### only used for network export
-
-    if ( url.isLocalFile() )
-      filename = url.path();
-    else
-      filename = tmp.name();
-
-    KSaveFile *savefile=new KSaveFile(filename);
-    if (!savefile->status())
-    {
-      if (exportDocumentToHTML(savefile->textStream(),filename))
-        savefile->close();
-      else savefile->abort();
-      //if (!savefile->status()) --> Error
-    }
-//     else
-//       {/*ERROR*/}
-    delete savefile;
-
-    if ( url.isLocalFile() )
-        return;
-
-    KIO::NetAccess::upload( filename, url, 0 );
-  }
-}
-
-/* For now, this should become an plugin */
-bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString &name)
-{
-  outputStream->setEncoding(QTextStream::UnicodeUTF8);
-  // let's write the HTML header :
-  (*outputStream) << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
-  (*outputStream) << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
-  (*outputStream) << "<html xmlns=\"http://www.w3.org/1999/xhtml\">" << endl;
-  (*outputStream) << "<head>" << endl;
-  (*outputStream) << "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />" << endl;
-  (*outputStream) << "<meta name=\"Generator\" content=\"Kate, the KDE Advanced Text Editor\" />" << endl;
-  // for the title, we write the name of the file (/usr/local/emmanuel/myfile.cpp -> myfile.cpp)
-  (*outputStream) << "<title>" << name.right(name.length() - name.findRev('/')-1) << "</title>" << endl;
-  (*outputStream) << "</head>" << endl;
-  (*outputStream) << "<body>" << endl;
-
-  textAsHtmlStream(0,0,lastLine(), lineLength(lastLine()), false, outputStream);
-
-  (*outputStream) << "</body>" << endl;
-  (*outputStream) << "</html>" << endl;
-  return true;
-}
-
-QString KateDocument::HTMLEncode(QChar theChar)
-{
-  switch (theChar.latin1())
-  {
-  case '>':
-    return QString("&gt;");
-  case '<':
-    return QString("&lt;");
-  case '&':
-    return QString("&amp;");
-  };
-  return theChar;
 }
 
 void KateDocument::dumpRegionTree()

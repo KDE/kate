@@ -86,6 +86,34 @@ class KateView : public Kate::View,
     void cut();
     void copy() const;
 
+    /**
+     * internal use, copy text as HTML to clipboard
+     */
+    void copyHTML();
+
+  // helper to export text as html stuff
+  private:
+    QString selectionAsHtml ();
+    QString textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise);
+    void textAsHtmlStream ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise, QTextStream *ts);
+
+    /**
+     * Gets a substring in valid-xml html.
+     * Example:  "<b>const</b> b = <i>34</i>"
+     * It won't contain <p> or <body> or <html> or anything like that.
+     *
+     * @param startCol start column of substring
+     * @param length length of substring
+     * @param renderer The katerenderer.  This will have the schema
+     *                 information that describes how to render the
+     *                 attributes.
+     * @param outputStream A stream to write the html to
+     */
+    void lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, QTextStream *outputStream);
+
+  public slots:
+    void exportAsHTML ();
+
   //
   // KTextEditor::PopupMenuInterface
   //
@@ -161,7 +189,6 @@ class KateView : public Kate::View,
 
     bool hasSelection () const;
     QString selection () const ;
-    QString selectionAsHtml () const ;
 
     bool removeSelectedText ();
 
@@ -455,6 +482,7 @@ class KateView : public Kate::View,
 
     KAction *m_cut;
     KAction *m_copy;
+    KAction *m_copyHTML;
     KAction *m_paste;
     KAction *m_selectAll;
     KAction *m_deSelect;

@@ -23,10 +23,9 @@
 #include "katetextline.h"
 #include "katerenderer.h"
 
-#include <qregexp.h>
 #include <kglobal.h>
-#include <kdebug.h>
-#include <qstylesheet.h>
+
+#include <qregexp.h>
 
 KateTextLine::KateTextLine ()
   : m_flags(0)
@@ -405,97 +404,6 @@ char *KateTextLine::restore (char *buf)
   buf += sizeof(unsigned short) * lind;
 
   return buf;
-}
-
-
-void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *renderer, QTextStream *outputStream) const
-{
-  if(length == 0) return;
-  // some variables :
-  bool previousCharacterWasBold = false;
-  bool previousCharacterWasItalic = false;
-  // when entering a new color, we'll close all the <b> & <i> tags,
-  // for HTML compliancy. that means right after that font tag, we'll
-  // need to reinitialize the <b> and <i> tags.
-  bool needToReinitializeTags = false;
-  QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
-  QColor blackColor(0,0,0);
-//  (*outputStream) << "<span style='color: #000000'>";
-
-
-  // for each character of the line : (curPos is the position in the line)
-  for (uint curPos=startCol;curPos<(length+startCol);curPos++)
-    {
-      KateAttribute* charAttributes = 0;
-
-      charAttributes = renderer->attribute(attribute(curPos));
-
-
-      //ASSERT(charAttributes != NULL);
-      // let's give the color for that character :
-      if ( (charAttributes->textColor() != previousCharacterColor))
-      {  // the new character has a different color :
-        // if we were in a bold or italic section, close it
-        if (previousCharacterWasBold)
-          (*outputStream) << "</b>";
-        if (previousCharacterWasItalic)
-          (*outputStream) << "</i>";
-
-        // close the previous font tag :
-	if(previousCharacterColor != blackColor)
-          (*outputStream) << "</span>";
-        // let's read that color :
-        int red, green, blue;
-        // getting the red, green, blue values of the color :
-        charAttributes->textColor().rgb(&red, &green, &blue);
-	if(!(red == 0 && green == 0 && blue == 0)) {
-          (*outputStream) << "<span style='color: #"
-              << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
-              << QString::number(red, 16) // html wants the hex value here (hence the 16)
-              << ( (green < 0x10)?"0":"")
-              << QString::number(green, 16)
-              << ( (blue < 0x10)?"0":"")
-              << QString::number(blue, 16)
-              << "'>";
-	}
-        // we need to reinitialize the bold/italic status, since we closed all the tags
-        needToReinitializeTags = true;
-      }
-      // bold status :
-      if ( (needToReinitializeTags && charAttributes->bold()) ||
-          (!previousCharacterWasBold && charAttributes->bold()) )
-        // we enter a bold section
-        (*outputStream) << "<b>";
-      if ( !needToReinitializeTags && (previousCharacterWasBold && !charAttributes->bold()) )
-        // we leave a bold section
-        (*outputStream) << "</b>";
-
-      // italic status :
-      if ( (needToReinitializeTags && charAttributes->italic()) ||
-           (!previousCharacterWasItalic && charAttributes->italic()) )
-        // we enter an italic section
-        (*outputStream) << "<i>";
-      if ( !needToReinitializeTags && (previousCharacterWasItalic && !charAttributes->italic()) )
-        // we leave an italic section
-        (*outputStream) << "</i>";
-
-      // write the actual character :
-      (*outputStream) << QStyleSheet::escape(QString(getChar(curPos)));
-
-      // save status for the next character :
-      previousCharacterWasItalic = charAttributes->italic();
-      previousCharacterWasBold = charAttributes->bold();
-      previousCharacterColor = charAttributes->textColor();
-      needToReinitializeTags = false;
-    }
-  // Be good citizens and close our tags
-  if (previousCharacterWasBold)
-    (*outputStream) << "</b>";
-  if (previousCharacterWasItalic)
-    (*outputStream) << "</i>";
-
-  if(previousCharacterColor != blackColor)
-    (*outputStream) << "</span>";
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -154,8 +154,8 @@ class KateTextLine : public KShared
      *
      * This contains the index for the attributes (so you can only
      * have a maximum of 2^8 different highlighting styles in a document)
-     * 
-     * To turn this into actual attributes (bold, green, etc), 
+     *
+     * To turn this into actual attributes (bold, green, etc),
      * you need to feed these values into KRenderer::attributes
      *
      * e.g:  m_renderer->attributes(attributes[3]);
@@ -179,32 +179,6 @@ class KateTextLine : public KShared
     inline QString string(uint startCol, uint length) const
     { return m_text.mid(startCol, length); }
 
-    /**
-     * Gets a substring in valid-xml html.
-     * Example:  "<b>const</b> b = <i>34</i>"
-     * It won't contain <p> or <body> or <html> or anything like that.
-     *
-     * @param startCol start column of substring
-     * @param length length of substring
-     * @param renderer The katerenderer.  This will have the schema
-     *                 information that describes how to render the
-     *                 attributes.
-     * @param outputStream A stream to write the html to 
-     */
-    void stringAsHtml(uint startCol, uint length, KateRenderer *renderer, QTextStream *outputStream) const;
-
-    /**
-     * Gets the string a valid-xml html.
-     * Overloaded version of stringAsHtml
-     * 
-     * @param renderer The katerenderer.  This will have the schema
-     *                 information that describes how to render the
-     *                 attributes.
-     * @param outputStream A stream to write the html to 
-     */
-    void stringAsHtml(KateRenderer *renderer, QTextStream *outputStream) const
-    { stringAsHtml(0,m_text.length(),renderer, outputStream);}
-    
     /**
      * Gets a null terminated pointer to first non space char
      * @return array of QChars starting at first non-whitespace char

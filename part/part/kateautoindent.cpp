@@ -1017,10 +1017,10 @@ int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
 
 // BEGIN KateXmlIndent
 
-QRegExp KateXmlIndent::openTag = QRegExp( "(<[^\?!/][^>]*[^/]>)|(<[^\?!/>]>)" );
-QRegExp KateXmlIndent::closeTag = QRegExp( "</[^>]*>" );
+QRegExp KateXmlIndent::openTag = QRegExp( "<[^\?!/]" );
+QRegExp KateXmlIndent::closeTag = QRegExp( "(</[^>]*>)|/>" );
 QRegExp KateXmlIndent::startsWithCloseTag = QRegExp( "^[ \t]*</" );
-QRegExp KateXmlIndent::openOrCloseTag = QRegExp( "(<[^\?!][^>]*[^/]>)|(<[^\?!/>]>)" );
+QRegExp KateXmlIndent::openOrCloseTag = QRegExp( "(<[^\?!/])|(</)|(/>)" );
 
 KateXmlIndent::KateXmlIndent (KateDocument *doc)
   : KateAutoIndent (doc)
@@ -1157,7 +1157,7 @@ void KateXmlIndent::findOpeningElemIndent (uint line, uint &indent, uint &numOpe
           // count the number of (unclosed) open elements
           for(int pos2 = -1; pos2 != pos; ) {
             pos2 = openOrCloseTag.search(ln, pos2 + 1);
-            if(ln.at(pos2 + 1).unicode() == '/') {
+            if(ln.at(pos2 + 1).unicode() == '/' || ln.at(pos2).unicode() == '/') {
               if(numOpened) --numOpened;
             } else {
               ++numOpened;

@@ -230,7 +230,7 @@ void KateView::setupActions()
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces)<br><br>"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
 
-    a=new KAction(i18n("&Align"), CTRL+Qt::Key_Tab, this, SLOT(align()), ac, "tools_align");
+    a=new KAction(i18n("&Align"), 0, this, SLOT(align()), ac, "tools_align");
     a->setWhatsThis(i18n("Use this to align the current line or block of text to its proper indent level."));
 
     a=new KAction(i18n("C&omment"), CTRL+Qt::Key_D, this, SLOT(comment()),

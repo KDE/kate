@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class ClipboardInterface;
 	/**
-	This is the main interface to the @ref ClipboardInterface of KTextEdit.
+	This is the main interface to the ClipboardInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref ClipboardInterface.
+	@short DCOP interface to ClipboardInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class ClipboardDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref ClipboardInterface object
+		@param Parent the parent ClipboardInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

@@ -33,7 +33,7 @@ namespace KTextEditor
  * inserted text if a completion takes place. <code>comment</code> appears in a tooltip right of
  * the completion list for the currently selected item. <code>userdata</code> can be
  * free formed data, which the user of this interface can use in
- * @ref CodeCompletionInterface::filterInsertString().
+ * CodeCompletionInterface::filterInsertString().
  *
  *
  */
@@ -59,7 +59,7 @@ class CompletionEntry
 };
 
 /**
- * This is an interface for the @ref KTextEditor::View class. It can be used
+ * This is an interface for the KTextEditor::View class. It can be used
  * to show completion lists, i.e. lists that pop up while a user is typing.
  * The user can then choose from the list or he can just keep typing. The
  * completion list will disappear if an item is chosen, if no completion
@@ -144,7 +144,7 @@ class CodeCompletionInterface
     virtual void completionDone()=0;
 
 	/**
-	 * This signal is the same as @ref completionDone(), but additionally it carries
+	 * This signal is the same as completionDone(), but additionally it carries
 	 * the information which completion item was used.
 	 *
 	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
@@ -173,7 +173,7 @@ class CodeCompletionInterface
 
 	/**
 	 * This signal is emitted just before a completion takes place.
-	 * You can use it to modify the @ref CompletionEntry. The modified
+	 * You can use it to modify the CompletionEntry. The modified
 	 * entry will not be visible in the completion list (because that has
 	 * just disappeared) but it will be used when the completion is
 	 * inserted into the text.

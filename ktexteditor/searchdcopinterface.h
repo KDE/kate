@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class SearchInterface;
 	/**
-	This is the main interface to the @ref SearchInterface of KTextEdit.
+	This is the main interface to the SearchInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref SearchInterface.
+	@short DCOP interface to SearchInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class SearchDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref SearchInterface object
+		@param Parent the parent SearchInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

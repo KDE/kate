@@ -10,9 +10,9 @@ namespace KTextEditor
 {
   class EditInterface;
   /**
-  This is the main interface to the @ref EditInterface of KTextEdit.
+  This is the main interface to the EditInterface of KTextEdit.
   This will provide a consistant dcop interface to all KDE applications that use it.
-  @short DCOP interface to @ref EditInterface.
+  @short DCOP interface to EditInterface.
   @author Ian Reinhart Geiser <geiseri@kde.org>
   */
   class EditDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
   public:
     /**
     Construct a new interface object for the text editor.
-    @param Parent the parent @ref EditInterface object
+    @param Parent the parent EditInterface object
     that will provide us with the functions for the interface.
     @param name the QObject's name
     */

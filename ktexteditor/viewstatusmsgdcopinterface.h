@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class ViewStatusMsgInterface;
 	/**
-	This is the main interface to the @ref ViewStatusMsgInterface of KTextEdit.
+	This is the main interface to the ViewStatusMsgInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref ViewStatusMsgInterface.
+	@short DCOP interface to ViewStatusMsgInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class ViewStatusMsgDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref ViewStatusMsgInterface object
+		@param Parent the parent ViewStatusMsgInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class EncodingInterface;
 	/**
-	This is the main interface to the @ref EncodingInterface of KTextEdit.
+	This is the main interface to the EncodingInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref EncodingInterface.
+	@short DCOP interface to EncodingInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class EncodingDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref EncodingInterface object
+		@param Parent the parent EncodingInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class PrintInterface;
 	/**
-	This is the main interface to the @ref PrintInterface of KTextEdit.
+	This is the main interface to the PrintInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref PrintInterface.
+	@short DCOP interface to PrintInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class PrintDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref PrintInterface object
+		@param Parent the parent PrintInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

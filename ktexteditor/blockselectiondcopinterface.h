@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class BlockSelectionInterface;
 	/**
-	This is the main interface to the @ref BlockSelectionInterface of KTextEditor.
+	This is the main interface to the BlockSelectionInterface of KTextEditor.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref BlockSelectionInterface.
+	@short DCOP interface to BlockSelectionInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class BlockSelectionDCOPInterface :  virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref BlockSelectionInterface object
+		@param Parent the parent BlockSelectionInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

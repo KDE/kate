@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class ViewCursorInterface;
 	/**
-	This is the main interface to the @ref ViewCursorInterface of KTextEdit.
+	This is the main interface to the ViewCursorInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref ViewCursorInterface.
+	@short DCOP interface to ViewCursorInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class ViewCursorDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref ViewCursorInterface object
+		@param Parent the parent ViewCursorInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

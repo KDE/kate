@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
- * This is an interface for the @ref KTextEditor::View class.
+ * This is an interface for the KTextEditor::View class.
 
  */
 class TextHintInterface

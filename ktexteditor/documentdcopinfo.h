@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class DocumentInfoInterface;
 	/**
-	This is the main interface to the @ref DocumentInfoInterface of KTextEdit.
+	This is the main interface to the DocumentInfoInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref DocumentInfoInterface.
+	@short DCOP interface to DocumentInfoInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 
@@ -23,7 +23,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref DocumentInfoInterface object
+		@param Parent the parent DocumentInfoInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

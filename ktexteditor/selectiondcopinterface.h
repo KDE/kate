@@ -10,9 +10,9 @@ namespace KTextEditor
 {
 	class SelectionInterface;
 	/**
-	This is the main interface to the @ref SelectionInterface of KTextEdit.
+	This is the main interface to the SelectionInterface of KTextEdit.
 	This will provide a consistant dcop interface to all KDE applications that use it.
-	@short DCOP interface to @ref SelectionInterface.
+	@short DCOP interface to SelectionInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 	class SelectionDCOPInterface : virtual public DCOPObject
@@ -22,7 +22,7 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param Parent the parent @ref SelectionInterface object
+		@param Parent the parent SelectionInterface object
 		that will provide us with the functions for the interface.
 		@param name the QObject's name
 		*/

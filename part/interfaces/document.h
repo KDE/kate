@@ -176,39 +176,6 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
     virtual void applyWordWrap () = 0;
 
-    /**
-     * Ask the user what to do, if the file is modified on disk.
-     * The @p v argument is used to avoid asking again, when the
-     * editor regains focus after the dialog is hidden.
-     *
-     * @since 3.3
-     */
-    virtual void slotModifiedOnDisk( View *v=0 ) = 0;
-
-  public:
-    /**
-     * Reasons why a document is modified on disk.
-     *
-     * @since 3.3
-     */
-    enum ModifiedOnDiskReason {
-      Unmodified = 0, ///< Not modified
-      Modified = 1,   ///< The file was modified by another program
-      Created = 2,    ///< The file was created by another program
-      Deleted = 3     ///< The file was deleted
-    };
-    /**
-     * For client apps that want to deal with files modified on disk, it is
-     * nessecary to reset this property.
-     * @p reason is a ModifiedOnDiskReason.
-     *
-     * @since 3.3
-     */
-    virtual void setModifiedOnDisk( int reason ) = 0;
-
-  signals:
-    /* reason = 0 nothing, 1 dirty, 2 created, 3 deleted */
-    void modifiedOnDisc (Kate::Document *doc, bool isModified, unsigned char reason);
 
   public:
     virtual void setWordWrap (bool ) = 0;
@@ -240,26 +207,30 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     // Flags for katedocument config !
     enum ConfigFlags
     {
-      cfAutoIndent=       0x1,
+      cfAutoIndent= 0x1,
       cfBackspaceIndents= 0x2,
-      cfWordWrap=         0x4,
-      cfReplaceTabs=      0x8,
-      cfRemoveSpaces =    0x10,
-      cfWrapCursor=       0x20,
-      cfAutoBrackets=     0x40,
-      cfPersistent=       0x80,
-      cfKeepSelection=    0x100,
-      cfDelOnInput=       0x400,
-      cfXorSelect=        0x800,
-      cfOvr=              0x1000,
-      cfMark=             0x2000,
-      cfKeepIndentProfile=0x8000,
-      cfKeepExtraSpaces=  0x10000,
-      cfTabIndents=       0x80000,
-      cfShowTabs=         0x200000,
-      cfSpaceIndent=      0x400000,
-      cfSmartHome =       0x800000,
+      cfWordWrap= 0x4,
+      cfReplaceTabs= 0x8,
+      cfRemoveSpaces = 0x10,
+      cfWrapCursor= 0x20,
+      cfAutoBrackets= 0x40,
+      cfPersistent= 0x80,
+      cfKeepSelection= 0x100,
+      cfDelOnInput= 0x400,
+      cfXorSelect= 0x800,
+      cfOvr= 0x1000,
+      cfMark= 0x2000,
+      cfKeepIndentProfile= 0x8000,
+      cfKeepExtraSpaces= 0x10000,
+      cfTabIndents= 0x80000,
+      cfShowTabs= 0x200000,
+      cfSpaceIndent= 0x400000,
+      cfSmartHome = 0x800000
     };
+
+  signals:
+    /* reason = 0 nothing, 1 dirty, 2 created, 3 deleted */
+    void modifiedOnDisc (Kate::Document *doc, bool isModified, unsigned char reason);
 
   /*
    * there static methodes are usefull to turn on/off the dialogs
@@ -273,17 +244,70 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
     // default false
     static void setFileChangedDialogsActivated (bool on);
-
+    
     static const QString &defaultEncoding ();
 
   protected:
     static bool s_openErrorDialogsActivated;
     static bool s_fileChangedDialogsActivated;
-
+    
     static QString s_defaultEncoding;
 };
 
+/**
+ * Extensions to the Document Interface
+ * @since 3.3
+ */
+class DocumentExt
+{
+  public:
+    DocumentExt ();
+    virtual ~DocumentExt ();
+
+  public:
+    /**
+     * Reasons why a document is modified on disk.
+     */
+    enum ModifiedOnDiskReason {
+      Unmodified = 0, ///< Not modified
+      Modified = 1,   ///< The file was modified by another program
+      Created = 2,    ///< The file was created by another program
+      Deleted = 3     ///< The file was deleted
+    };
+    
+  public:
+    /**
+     * For client apps that want to deal with files modified on disk, it is
+     * nessecary to reset this property.
+     * @p reason is a ModifiedOnDiskReason.
+     */
+    virtual void setModifiedOnDisk( int reason ) = 0;
+    
+  /**
+   * These stuff is implemented as slots in the real document
+   */
+  public:
+    /**
+     * Ask the user what to do, if the file is modified on disk.
+     * The @p v argument is used to avoid asking again, when the
+     * editor regains focus after the dialog is hidden.
+     */
+    virtual void slotModifiedOnDisk( View *v=0 ) = 0;
+};
+
+/**
+ * query if given document is a Kate::Document
+ * @param doc KTextEditor document
+ * @return 0 if no success, else the Kate::Document
+ */
 Document *document (KTextEditor::Document *doc);
+
+/**
+ * query if given document is a Kate::DocumentExt
+ * @param doc KTextEditor document
+ * @return 0 if no success, else the Kate::DocumentExt
+ */
+DocumentExt *documentExt (KTextEditor::Document *doc);
 
 Document *createDocument ( QObject *parent = 0, const char *name = 0 );
 

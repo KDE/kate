@@ -69,6 +69,7 @@ class QTimer;
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
 class KateDocument : public Kate::Document,
+                     public Kate::DocumentExt,
                      public KTextEditor::ConfigInterfaceExtension,
                      public KTextEditor::EncodingInterface,
                      public KTextEditor::SessionConfigInterface,

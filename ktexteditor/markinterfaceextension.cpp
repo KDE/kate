@@ -19,6 +19,7 @@
 // $Id$
 
 #include "markinterfaceextension.h"
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ MarkInterfaceExtension::~MarkInterfaceExtension()
 unsigned int MarkInterfaceExtension::markInterfaceExtensionNumber () const
 {
   return myMarkInterfaceExtensionNumber;
+}
+
+MarkInterfaceExtension *KTextEditor::markInterfaceExtension (Document *doc)
+{
+  return static_cast<MarkInterfaceExtension*>(doc->qt_cast("KTextEditor::MarkInterfaceExtension"));
 }

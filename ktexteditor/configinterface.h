@@ -19,7 +19,6 @@
 #ifndef __ktexteditor_configinterface_h__
 #define __ktexteditor_configinterface_h__
 
-class QObject;
 class KConfig;
 
 namespace KTextEditor
@@ -67,7 +66,7 @@ class ConfigInterface
     unsigned int myConfigInterfaceNumber;
 };
 
-ConfigInterface *configInterface (QObject *obj);
+ConfigInterface *configInterface (class Document *doc);
 
 };
 

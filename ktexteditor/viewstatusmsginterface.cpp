@@ -18,7 +18,8 @@
 
 // $Id$
 
-#include "viewstatusmsginterface.h"
+#include "viewstatusmsginterface.h"        
+#include "view.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ ViewStatusMsgInterface::~ViewStatusMsgInterface()
 unsigned int ViewStatusMsgInterface::viewStatusMsgInterfaceNumber () const
 {
   return myViewStatusMsgInterfaceNumber;
+}
+
+ViewStatusMsgInterface *KTextEditor::viewStatusMsgInterface (View *view)
+{
+  return static_cast<ViewStatusMsgInterface*>(view->qt_cast("KTextEditor::ViewStatusMsgInterface"));
 }

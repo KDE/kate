@@ -1,5 +1,8 @@
 #include "clipboardinterface.h"
 #include "clipboarddcopinterface.h"
+
+#include "view.h"
+
 using namespace KTextEditor;
 
 namespace KTextEditor
@@ -37,4 +40,9 @@ ClipboardInterface::~ClipboardInterface()
 unsigned int ClipboardInterface::clipboardInterfaceNumber () const
 {
   return myClipboardInterfaceNumber;
+}
+
+ClipboardInterface *KTextEditor::clipboardInterface (View *view)
+{
+  return static_cast<ClipboardInterface*>(view->qt_cast("KTextEditor::ClipboardInterface"));
 }

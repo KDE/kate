@@ -51,6 +51,8 @@ class WordWrapInterface
     static unsigned int globalWordWrapInterfaceNumber;
     unsigned int myWordWrapInterfaceNumber;
 };
+                          
+WordWrapInterface *wordWrapInterface (class Document *doc);
 
 };
 

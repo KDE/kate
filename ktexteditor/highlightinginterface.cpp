@@ -19,6 +19,7 @@
 // $Id$
 
 #include "highlightinginterface.h"
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ HighlightingInterface::~HighlightingInterface()
 unsigned int HighlightingInterface::highlightingInterfaceNumber () const
 {
   return myHighlightingInterfaceNumber;
+}
+
+HighlightingInterface *KTextEditor::highlightingInterface (Document *doc)
+{
+  return static_cast<HighlightingInterface*>(doc->qt_cast("KTextEditor::HighlightingInterface"));
 }

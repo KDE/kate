@@ -1,5 +1,7 @@
+
 #include "codecompletioninterface.h"
-//#include "editdcopinterface.h"
+#include "view.h"
+
 using namespace KTextEditor;
 
 namespace KTextEditor
@@ -32,4 +34,10 @@ unsigned int CodeCompletionInterface::codeCompletionInterfaceNumber () const
 {
   return myCodeCompletionInterfaceNumber;
 }
+
+CodeCompletionInterface *KTextEditor::codeCompletionInterface (View *view)
+{
+  return static_cast<CodeCompletionInterface*>(view->qt_cast("KTextEditor::CodeCompletionInterface"));
+}
+
 

@@ -69,6 +69,8 @@ class MarkInterfaceExtension
     unsigned int myMarkInterfaceExtensionNumber;
 };
 
+MarkInterfaceExtension *markInterfaceExtension (class Document *doc);
+
 };
 
 #endif

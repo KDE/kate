@@ -19,8 +19,7 @@
 // $Id$
 
 #include "configinterface.h"
-
-#include <qobject.h>
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -56,7 +55,7 @@ unsigned int ConfigInterface::configInterfaceNumber () const
   return myConfigInterfaceNumber;
 }
 
-ConfigInterface *KTextEditor::configInterface (QObject *obj)
+ConfigInterface *KTextEditor::configInterface (Document *doc)
 {
-  return static_cast<ConfigInterface*>(obj->qt_cast("KTextEditor::ConfigInterface"));
+  return static_cast<ConfigInterface*>(doc->qt_cast("KTextEditor::ConfigInterface"));
 }

@@ -19,8 +19,7 @@
 // $Id$
 
 #include "encodinginterface.h"
-
-#include <qobject.h>
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -56,7 +55,7 @@ unsigned int EncodingInterface::encodingInterfaceNumber () const
   return myEncodingInterfaceNumber;
 }
 
-EncodingInterface *KTextEditor::encodingInterface (QObject *obj)
+EncodingInterface *KTextEditor::encodingInterface (Document *doc)
 {
-  return static_cast<EncodingInterface*>(obj->qt_cast("KTextEditor::EncodingInterface"));
+  return static_cast<EncodingInterface*>(doc->qt_cast("KTextEditor::EncodingInterface"));
 }

@@ -26,12 +26,12 @@ namespace KTextEditor
 
 /**
  * KTextEditor::Editor
- * this is the "easy to use" wrapper around the ktexteditor interfaces
- * this interfaces provides a plain kpart with a single view, you can use the
- * ktexteditor::document interfaces for it and the ktexteditor::view interfaces
- * for its view() widget, this class is just for "easy of use", we strongly recommend
- * to support the real ktexteditor::document/view interfaces, too, as stuff like plugins
- * will need them.
+ * This is just the dumb version of a KTextEditor::Document + View
+ * Usage: Load it, merge it's gui + be happy
+ * Extensibility: Use the KTextEditor::Document/View classes if you want
+ * advanced features, interfaces, ..., this class ist just a good edit widget
+ * replacement for apps which just need any kind of embedded edtor and
+ * don't care about using doc/view + interfaces
  */
 
 class Editor : public KParts::ReadWritePart

@@ -52,6 +52,8 @@ class SearchInterface
     unsigned int mySearchInterfaceNumber;
 };
 
+SearchInterface *searchInterface (class Document *doc);
+
 };
 
 #endif

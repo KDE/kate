@@ -19,6 +19,7 @@
 // $Id$
 
 #include "cursorinterface.h"
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ CursorInterface::~CursorInterface()
 unsigned int CursorInterface::cursorInterfaceNumber () const
 {
   return myCursorInterfaceNumber;
+}
+
+CursorInterface *KTextEditor::cursorInterface (Document *doc)
+{
+  return static_cast<CursorInterface*>(doc->qt_cast("KTextEditor::CursorInterface"));
 }

@@ -19,6 +19,7 @@
 // $Id$
 
 #include "dynwordwrapinterface.h"
+#include "view.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ DynWordWrapInterface::~DynWordWrapInterface()
 unsigned int DynWordWrapInterface::dynWordWrapInterfaceNumber () const
 {
   return myDynWordWrapInterfaceNumber;
+}
+
+DynWordWrapInterface *KTextEditor::dynWordWrapInterface (View *view)
+{
+  return static_cast<DynWordWrapInterface*>(view->qt_cast("KTextEditor::DynWordWrapInterface"));
 }

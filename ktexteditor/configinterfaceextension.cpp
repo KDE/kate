@@ -20,7 +20,7 @@
 
 #include "configinterfaceextension.h"
 #include "configinterfaceextension.moc"
-
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -58,4 +58,9 @@ ConfigInterfaceExtension::~ConfigInterfaceExtension()
 unsigned int ConfigInterfaceExtension::configInterfaceExtensionNumber () const
 {
   return myConfigInterfaceExtensionNumber;
+}
+
+ConfigInterfaceExtension *KTextEditor::configInterfaceExtension (Document *doc)
+{
+  return static_cast<ConfigInterfaceExtension*>(doc->qt_cast("KTextEditor::ConfigInterfaceExtension"));
 }

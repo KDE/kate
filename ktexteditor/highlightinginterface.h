@@ -79,6 +79,7 @@ class HighlightingInterface
     unsigned int myHighlightingInterfaceNumber;
 };
 
+HighlightingInterface *highlightingInterface (class Document *doc);
 
 };
 

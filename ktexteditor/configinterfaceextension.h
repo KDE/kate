@@ -89,6 +89,8 @@ class ConfigInterfaceExtension
     unsigned int myConfigInterfaceExtensionNumber;
 };
 
+ConfigInterfaceExtension *configInterfaceExtension (class Document *doc);
+
 };
 
 #endif

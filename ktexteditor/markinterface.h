@@ -108,6 +108,8 @@ class MarkInterface
     unsigned int myMarkInterfaceNumber;
 };
 
+MarkInterface *markInterface (class Document *doc);
+
 };
 
 #endif

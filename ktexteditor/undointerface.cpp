@@ -19,6 +19,7 @@
 // $Id$
 
 #include "undointerface.h"
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ UndoInterface::~UndoInterface()
 unsigned int UndoInterface::undoInterfaceNumber () const
 {
   return myUndoInterfaceNumber;
+}
+
+UndoInterface *KTextEditor::undoInterface (Document *doc)
+{
+  return static_cast<UndoInterface*>(doc->qt_cast("KTextEditor::UndoInterface"));
 }

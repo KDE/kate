@@ -19,8 +19,7 @@
 // $Id$
 
 #include "viewconfiginterface.h"
-
-#include <qobject.h>
+#include "view.h"
 
 namespace KTextEditor
 {
@@ -56,7 +55,7 @@ unsigned int ViewConfigInterface::viewConfigInterfaceNumber () const
   return myViewConfigInterfaceNumber;
 }
 
-ViewConfigInterface *KTextEditor::viewConfigInterface (QObject *obj)
+ViewConfigInterface *KTextEditor::viewConfigInterface (View *view)
 {
-  return static_cast<ViewConfigInterface*>(obj->qt_cast("KTextEditor::ViewConfigInterface"));
+  return static_cast<ViewConfigInterface*>(view->qt_cast("KTextEditor::ViewConfigInterface"));
 }

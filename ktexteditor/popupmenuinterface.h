@@ -51,6 +51,8 @@ class PopupMenuInterface
     unsigned int myPopupMenuInterfaceNumber;
 };
 
+PopupMenuInterface *popupMenuInterface (class View *view);
+
 };
 
 #endif

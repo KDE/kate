@@ -19,6 +19,7 @@
 // $Id$
 
 #include "popupmenuinterface.h"
+#include "view.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ PopupMenuInterface::~PopupMenuInterface()
 unsigned int PopupMenuInterface::popupMenuInterfaceNumber () const
 {
   return myPopupMenuInterfaceNumber;
+}
+
+PopupMenuInterface *KTextEditor::popupMenuInterface (View *view)
+{
+  return static_cast<PopupMenuInterface*>(view->qt_cast("KTextEditor::PopupMenuInterface"));
 }

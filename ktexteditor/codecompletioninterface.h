@@ -181,6 +181,7 @@ class CodeCompletionInterface
     unsigned int myCodeCompletionInterfaceNumber;
 };
 
+CodeCompletionInterface *codeCompletionInterface (class View *view);
 
 };
 

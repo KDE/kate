@@ -19,6 +19,7 @@
 // $Id$
 
 #include "blockselectioninterface.h"
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ BlockSelectionInterface::~BlockSelectionInterface()
 unsigned int BlockSelectionInterface::blockSelectionInterfaceNumber () const
 {
   return myBlockSelectionInterfaceNumber;
+}
+
+BlockSelectionInterface *KTextEditor::blockSelectionInterface (Document *doc)
+{
+  return static_cast<BlockSelectionInterface*>(doc->qt_cast("KTextEditor::BlockSelectionInterface"));
 }

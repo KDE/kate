@@ -20,8 +20,6 @@
 #ifndef __ktexteditor_printinterface_h__
 #define __ktexteditor_printinterface_h__
 
-class QObject;
-
 namespace KTextEditor
 {
 
@@ -51,7 +49,7 @@ class PrintInterface
     unsigned int myPrintInterfaceNumber;
 };
 
-PrintInterface *printInterface (QObject *obj);
+PrintInterface *printInterface (class Document *doc);
 
 };
 

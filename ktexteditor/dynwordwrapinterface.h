@@ -49,6 +49,8 @@ class DynWordWrapInterface
     unsigned int myDynWordWrapInterfaceNumber;
 };
 
+DynWordWrapInterface *dynWordWrapInterface (class View *view);
+
 };
 
 #endif

@@ -69,6 +69,8 @@ class CursorInterface
       unsigned int myCursorInterfaceNumber;
 };
 
+CursorInterface *cursorInterface (class Document *doc);
+
 };
 
 #endif

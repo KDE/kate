@@ -47,6 +47,8 @@ class ViewStatusMsgInterface
     static unsigned int globalViewStatusMsgInterfaceNumber;
     unsigned int myViewStatusMsgInterfaceNumber;
 };
+                  
+ViewStatusMsgInterface *viewStatusMsgInterface (class View *view);
 
 };
 

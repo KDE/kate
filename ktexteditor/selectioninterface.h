@@ -84,6 +84,8 @@ class SelectionInterface
     unsigned int mySelectionInterfaceNumber;
 };
 
+SelectionInterface *selectionInterface (class Document *doc);
+
 };
 
 #endif

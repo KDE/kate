@@ -1,5 +1,7 @@
 #include "selectioninterface.h"
 #include "selectiondcopinterface.h"
+#include "document.h"
+
 using namespace KTextEditor;
 
 namespace KTextEditor
@@ -37,4 +39,9 @@ SelectionInterface::~SelectionInterface()
 unsigned int SelectionInterface::selectionInterfaceNumber () const
 {
   return mySelectionInterfaceNumber;
+}
+
+SelectionInterface *KTextEditor::selectionInterface (Document *doc)
+{
+  return static_cast<SelectionInterface*>(doc->qt_cast("KTextEditor::SelectionInterface"));
 }

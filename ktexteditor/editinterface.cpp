@@ -1,5 +1,7 @@
 #include "editinterface.h"
 #include "editdcopinterface.h"
+#include "document.h"
+
 using namespace KTextEditor;
 
 namespace KTextEditor
@@ -38,4 +40,9 @@ EditInterface::~EditInterface()
 unsigned int EditInterface::editInterfaceNumber () const
 {
   return myEditInterfaceNumber;
+}
+
+EditInterface *KTextEditor::editInterface (Document *doc)
+{
+  return static_cast<EditInterface*>(doc->qt_cast("KTextEditor::EditInterface"));
 }

@@ -19,7 +19,6 @@
 #ifndef __ktexteditor_undointerface_h__
 #define __ktexteditor_undointerface_h__
 
-
 namespace KTextEditor
 {
 
@@ -68,6 +67,7 @@ class UndoInterface
     unsigned int myUndoInterfaceNumber;
 };
 
+UndoInterface *undoInterface (class Document *doc);
 
 };
 

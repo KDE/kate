@@ -1,5 +1,6 @@
 #include "searchinterface.h"
 #include "searchdcopinterface.h"
+#include "document.h"
 
 using namespace KTextEditor;
 
@@ -38,4 +39,9 @@ SearchInterface::~SearchInterface()
 unsigned int SearchInterface::searchInterfaceNumber () const
 {
   return mySearchInterfaceNumber;
+}
+
+SearchInterface *KTextEditor::searchInterface (Document *doc)
+{
+  return static_cast<SearchInterface*>(doc->qt_cast("KTextEditor::SearchInterface"));
 }

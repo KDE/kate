@@ -18,7 +18,8 @@
 
 // $Id$
 
-#include "wordwrapinterface.h"
+#include "wordwrapinterface.h"  
+#include "document.h"
 
 namespace KTextEditor
 {
@@ -52,4 +53,9 @@ WordWrapInterface::~WordWrapInterface()
 unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
 {
   return myWordWrapInterfaceNumber;
+}
+  
+WordWrapInterface *KTextEditor::wordWrapInterface (Document *doc)
+{
+  return static_cast<WordWrapInterface*>(doc->qt_cast("KTextEditor::WordWrapInterface"));
 }

@@ -60,6 +60,8 @@ class ClipboardInterface
     unsigned int myClipboardInterfaceNumber;
 };
 
+ClipboardInterface *clipboardInterface (class View *view);
+
 };
 
 #endif

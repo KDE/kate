@@ -65,6 +65,8 @@ class BlockSelectionInterface
       unsigned int myBlockSelectionInterfaceNumber;
 };
 
+BlockSelectionInterface *blockSelectionInterface (class Document *doc);
+
 };
 
 #endif

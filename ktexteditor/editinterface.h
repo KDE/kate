@@ -124,6 +124,7 @@ class EditInterface
     unsigned int myEditInterfaceNumber;
 };
 
+EditInterface *editInterface (class Document *doc);
 
 };
 

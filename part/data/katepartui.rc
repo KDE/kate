@@ -1,31 +1,28 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="10">
-<MenuBar noMerge="1">
-  <Menu name="file" noMerge="1"><text>&amp;File</text>
-    <Action name="file_save" group="save_operations" />
-    <Action name="file_save_as" group="save_operations" />
-    <Action name="file_reload" group="file_operations" />
-    <Action name="file_export" group="file_operations" />
-    <Action name="file_print" group="print_operations" />
+<kpartgui name="KatePartView" version="11">
+<MenuBar>
+  <Menu name="file"><text>&amp;File</text>
+    <Action name="file_save" group="save_merge" />
+    <Action name="file_save_as" group="save_merge" />
+    <Action name="file_reload" group="revert_merge" />
+    <Action name="file_export" />
+    <Action name="file_print" group="print_merge" />
   </Menu>
 
   <Menu name="edit" noMerge="1"><text>&amp;Edit</text>
-    <Action name="edit_undo" group="edit_operations" />
-    <Action name="edit_redo" group="edit_operations" />
-    <Separator group="edit_operations" />
-    <Action name="edit_cut" group="edit_operations" />
-    <Action name="edit_copy" group="edit_operations" />
-    <Action name="edit_paste" group="edit_operations" />
-    <Separator group="edit_operations" />
-    <Action name="edit_select_all" group="edit_operations" />
-    <Action name="edit_deselect" group="edit_operations" />
-    <Action name="set_verticalSelect" group="edit_operations" />
-    <Separator group="edit_operations" />
-    <Action name="go_goto_line" group="edit_operations" />
-    <Action name="edit_find" group="find_operations" />
-    <Action name="edit_find_next" group="find_operations" />
-    <Action name="edit_find_prev" group="find_operations" />
-    <Action name="edit_replace" group="find_operations" />
+    <Action name="edit_undo" group="edit_undo_merge" />
+    <Action name="edit_redo" group="edit_undo_merge" />
+    <Action name="edit_cut" group="edit_paste_merge" />
+    <Action name="edit_copy" group="edit_paste_merge" />
+    <Action name="edit_paste" group="edit_paste_merge" />
+    <Action name="edit_select_all" group="edit_select_merge" />
+    <Action name="edit_deselect" group="edit_select_merge" />
+    <Action name="set_verticalSelect" group="edit_select_merge" />
+    <Action name="edit_find" group="edit_find_merge" />
+    <Action name="edit_find_next" group="edit_find_merge" />
+    <Action name="edit_find_prev" group="edit_find_merge" />
+    <Action name="edit_replace" group="edit_find_merge" />
+    <Action name="go_goto_line" />
   </Menu>
   
   <Menu name="view" noMerge="1"><text>&amp;View</text>
@@ -52,7 +49,7 @@
   </Menu>
 
   <Menu name="settings" noMerge="1"><text>&amp;Settings</text>
-    <Action name="set_confdlg" group="settings_operations" />
+    <Action name="set_confdlg" group="configure_merge" />
   </Menu>
 </MenuBar>
 

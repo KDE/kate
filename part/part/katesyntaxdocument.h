@@ -82,11 +82,15 @@ class SyntaxDocument : public QDomDocument{
     SyntaxModeList modeList();
     
     /**
-     * Jump to the next group, data will point to the next group
+     * Jump to the next group, syntaxContextData::currentGroup will point to the next group
      */
     bool nextGroup(syntaxContextData* data);
     
+    /**
+     * Jump to the next item, syntaxContextData::item will point to the next item
+     */
     bool nextItem(syntaxContextData* data);
+
     QString groupItemData(const syntaxContextData* data,const QString& name);
     QString groupData(const syntaxContextData* data,const QString& name);
     

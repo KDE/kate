@@ -79,8 +79,9 @@ SyntaxModeList SyntaxDocument::modeList(){
   return myModeList;
 }
 
-/** Jump to the next group, data will point to the next group
-*/
+/**
+ * Jump to the next group, syntaxContextData::currentGroup will point to the next group
+ */
 bool SyntaxDocument::nextGroup( syntaxContextData* data){
   // If data is empty there's nothing we can do
   if(!data){
@@ -109,12 +110,13 @@ bool SyntaxDocument::nextGroup( syntaxContextData* data){
   }
 }
 
-
-
-
-
+/**
+ * Jump to the next item, syntaxContextData::item will point to the next item
+ */
 bool SyntaxDocument::nextItem( syntaxContextData* data){
-  if(!data) return false;
+  if(!data){
+    return false;
+  }
 
   if (data->item.isNull()){
     data->item=data->currentGroup.firstChild().toElement();
@@ -131,16 +133,21 @@ bool SyntaxDocument::nextItem( syntaxContextData* data){
   }
 }
 
-QString SyntaxDocument::groupItemData( const syntaxContextData* data,const QString& name){
+/**
+ *
+ */
+QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QString& name){
   if(!data){
     return QString::null;
   }
-
+  // If there's no name just return the tag name of data->item
   if ( (!data->item.isNull()) && (name.isEmpty())){
+    kdDebug() << "groupItemData no name " << data->item.tagName() << endl;
     return data->item.tagName();                   
   }
-
+  // if name is not empty return the value of the attribute name
   if (!data->item.isNull()){
+    kdDebug() << "groupItemData with name " << data->item.tagName() << "  " << data->item.attribute(name) <<endl;
     return data->item.attribute(name);
   }
   else {

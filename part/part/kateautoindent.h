@@ -47,7 +47,7 @@ class KateAutoIndent
     // Update indenter's configuration (indention width etc.)
     void updateConfig ();
 
-    // Called every time a newline character is inserted in the document
+    // Called every time a newline character is inserted in the document.
     // cur should contain the new cursor position afterwords
     // needContinue is used to determine whether to calculate a continue indent or not
     virtual void processNewline (KateDocCursor &cur, bool needContinue);
@@ -60,6 +60,7 @@ class KateAutoIndent
   protected:
     // Determines if the characters open and close are balanced between begin and end
     bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close) const;
+
     // Skip all whitespace starting at cur and ending at max   spanning lines if newline is set
     // cur is set to the current position afterwards
     bool skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const;
@@ -70,9 +71,12 @@ class KateAutoIndent
     // Produces a string with the proper indentation characters for its length
     QString tabString (uint length) const;
 
+
     KateDocument *doc;
+
     uint tabWidth;
     uint indentWidth;
+    uint commentAttrib;
     bool useSpaces;
 };
 

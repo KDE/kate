@@ -131,6 +131,7 @@ class KateHighlighting
 
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
+    inline bool hidden() const {return iHidden;}
     inline QString version() const {return iVersion;}
     QString author () const { return iAuthor; }
     QString license () const { return iLicense; }
@@ -247,6 +248,7 @@ class KateHighlighting
 
     QString iName;
     QString iSection;
+    bool iHidden;
     QString iWildcards;
     QString iMimetypes;
     QString identifier;
@@ -323,6 +325,7 @@ class KateHlManager : public QObject
     int highlights();
     QString hlName(int n);
     QString hlSection(int n);
+    bool hlHidden(int n);
 
     void incDynamicCtxs() { ++dynamicCtxsCount; };
     uint countDynamicCtxs() { return dynamicCtxsCount; };

@@ -40,7 +40,7 @@ if ($root == 1)
 }
 else
 {
-  $file =~ s/<language([^>]+)name="([^"]*)"/<language$1name="$2\/PHP"/s;
+  $file =~ s/<language([^>]+)name="([^"]*)"/<language$1name="$2\/PHP" hidden="true"/s;
   $file =~ s/<language([^>]+)section="[^"]*"/<language$1section="Other"/s;
   $file =~ s/<language([^>]+)extensions="[^"]*"/<language$1extensions=""/s;
   $file =~ s/<language([^>]+)mimetype="[^"]*"/<language$1mimetype=""/s;

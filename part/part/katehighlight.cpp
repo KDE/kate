@@ -1142,6 +1142,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
   {
     iName = def->name;
     iSection = def->section;
+    iHidden = def->hidden;
     iWildcards = def->extension;
     iMimetypes = def->mimetype;
     identifier = def->identifier;
@@ -3064,6 +3065,11 @@ QString KateHlManager::hlSection(int n)
   return hlList.at(n)->section();
 }
 
+bool KateHlManager::hlHidden(int n)
+{
+  return hlList.at(n)->hidden();
+}
+
 QString KateHlManager::identifierForName(const QString& name)
 {
   KateHighlighting *hl = 0;
@@ -3116,25 +3122,28 @@ void KateViewHighlightAction::slotAboutToShow()
   {
     QString hlName = KateHlManager::self()->hlName (z);
     QString hlSection = KateHlManager::self()->hlSection (z);
-
-    if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
+    
+    if (!KateHlManager::self()->hlHidden(z))
     {
-      if (subMenusName.contains(hlSection) < 1)
+      if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
       {
-        subMenusName << hlSection;
-        QPopupMenu *menu = new QPopupMenu ();
-        subMenus.append(menu);
-        popupMenu()->insertItem (hlSection, menu);
+        if (subMenusName.contains(hlSection) < 1)
+        {
+          subMenusName << hlSection;
+          QPopupMenu *menu = new QPopupMenu ();
+          subMenus.append(menu);
+          popupMenu()->insertItem (hlSection, menu);
+        }
+  
+        int m = subMenusName.findIndex (hlSection);
+        names << hlName;
+        subMenus.at(m)->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
       }
-
-      int m = subMenusName.findIndex (hlSection);
-      names << hlName;
-      subMenus.at(m)->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
-    }
-    else if (names.contains(hlName) < 1)
-    {
-      names << hlName;
-      popupMenu()->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
+      else if (names.contains(hlName) < 1)
+      {
+        names << hlName;
+        popupMenu()->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
+      }
     }
   }
 

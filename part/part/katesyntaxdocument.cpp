@@ -374,6 +374,7 @@ void KateSyntaxDocument::setupModeList (bool force)
       mli->priority   = config.readEntry("priority");
       mli->author    = config.readEntry("author");
       mli->license   = config.readEntry("license");
+      mli->hidden   =  config.readBoolEntry("hidden");
       mli->identifier = *it;
 
       // Apend the item to the list
@@ -417,6 +418,9 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->priority  = root.attribute("priority");
               mli->author    = root.attribute("author");
               mli->license   = root.attribute("license");
+              
+              QString hidden = root.attribute("hidden");
+              mli->hidden    = (hidden == "true" || hidden == "TRUE");
 
               mli->identifier = *it;
               
@@ -430,6 +434,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("priority",mli->priority);
               config.writeEntry("author",mli->author);
               config.writeEntry("license",mli->license);
+              config.writeEntry("hidden",mli->hidden);
               
               // modified time to keep cache in sync
               config.writeEntry("lastModified", sbuf.st_mtime);

@@ -66,6 +66,7 @@ TODO
   priority:    Priority of this language, if more than one are usable for the file [optional]
   author:      Name of author of this hl file [optional]
   license:     License for this hl file [optional]
+  hidden:      Should it be hidden in menu [boolean, optional, default=false]
 
 TODO
   - Which matches are affected by casesensitive? keyword, RegExpr, StringDetect...?
@@ -82,6 +83,7 @@ TODO
   priority      CDATA       #IMPLIED
   author        CDATA       #IMPLIED
   license       CDATA       #IMPLIED
+  hidden        (%boolean;) #IMPLIED
 >
 
 <!-- General options -->

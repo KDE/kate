@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="AHDL" version="1.03" kateversion="2.3" section="Hardware" extensions="*.ahdl;*.tdf" mimetype="text/x-ahdl" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="AHDL" version="1.04" kateversion="2.4" section="Hardware" extensions="*.ahdl;*.tdf" mimetype="text/x-ahdl" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> assert </item>
@@ -105,8 +105,8 @@
         <RegExpr attribute="Octal" context="#stay" String="\b(o|q)&quot;[0-7*]&quot;" insensitive="true"/>
         <RegExpr attribute="Hex" context="#stay" String="\b(h|x)&quot;[0-9a-f]*&quot;" insensitive="true"/>
         <DetectChar attribute="String" context="string" char="&quot;" />
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*--\s*BEGIN.*$" beginRegion="region"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="^\s*--\s*END.*$" endRegion="region"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="--\s*BEGIN.*$" beginRegion="region" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="--\s*END.*$" endRegion="region" firstNonSpace="true"/>
         <RegExpr attribute="Comment" context="#stay" String="--.*$" />
         <DetectChar attribute="Comment" context="comment" char="%" />
         <HlCChar attribute="Char" context="#stay"/>
@@ -142,3 +142,4 @@
     <keywords casesensitive="0" />
   </general>
 </language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

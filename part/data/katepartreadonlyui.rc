@@ -6,7 +6,6 @@
     <Action name="file_save"/>
     <Action name="file_save_as"/>
     <Action name="file_export"/>
-    <Action name="file_close" />
   </Menu>
 
   <Menu name="edit"><text>&amp;Edit</text>
@@ -45,7 +44,6 @@
 
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
-  <Action name="file_close" group="file_operations" />
   <Separator />
   <Action name="edit_copy" />
   <Separator />

@@ -937,7 +937,7 @@ void KateViewConfig::setDefaultMarkType (uint type)
 
 bool KateViewConfig::persistentSelection () const
 {
-  if (m_cmdLineSet || isGlobal())
+  if (m_persistentSelectionSet || isGlobal())
     return m_persistentSelection;
 
   return s_global->persistentSelection();

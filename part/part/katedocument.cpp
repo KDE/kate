@@ -4831,7 +4831,7 @@ Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new HlConfigPage (p, this);
+  return (Kate::ConfigPage*) new HlConfigPage (p);
 }
 
 Kate::ConfigPage *KateDocument::saveConfigPage(QWidget *p)

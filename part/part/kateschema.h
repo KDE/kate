@@ -174,6 +174,33 @@ public:
     QIntDict<KateAttributeList> m_defaultStyleLists;
 };
 
+class KateSchemaConfigHighlightTab : public QWidget
+{
+  Q_OBJECT
+
+public:
+
+  KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0 );
+  ~KateSchemaConfigHighlightTab();
+
+  public:
+    void schemaChanged (uint schema);
+    void reload ();
+    void apply ();
+    
+  protected slots:
+    void hlChanged(int z);
+
+  private:
+    QComboBox *hlCombo;
+    StyleListView *m_styles;
+    
+    uint m_schema;
+    int m_hl;
+    
+    QIntDict< QIntDict<KateAttributeList> > m_hlDict;
+};
+
 class KateSchemaConfigPage : public Kate::ConfigPage
 {
   Q_OBJECT
@@ -202,6 +229,7 @@ class KateSchemaConfigPage : public Kate::ConfigPage
     KateSchemaConfigColorTab *m_colorTab;
     KateSchemaConfigFontTab *m_fontTab;
     KateSchemaConfigFontColorTab *m_fontColorTab;
+    KateSchemaConfigHighlightTab *m_highlightTab;
 };
 
 #endif

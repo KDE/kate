@@ -292,59 +292,30 @@ class HlConfigPage : public Kate::ConfigPage
   Q_OBJECT
 
   public:
-    HlConfigPage (QWidget *parent, class KateDocument *doc);
+    HlConfigPage (QWidget *parent);
     ~HlConfigPage ();
-
-  protected:
-    void showEvent ( QShowEvent * );
-
-  private:
-    bool m_ready;
-    KateDocument *m_doc;
-    class HighlightDialogPage *page;
-    class HlManager *hlManager;
-    HlDataDict hlDataDict;
-    KateAttributeList defaultStyleList;
-    uint m_hlNumber;
 
   public slots:
     void apply ();
     void reload ();
     void reset () {};
     void defaults () {};
-};
-
-class HighlightDialogPage : public QWidget
-{
-    Q_OBJECT
-  public:
-    HighlightDialogPage(HlManager *, KateAttributeList *, HlDataDict *, int hlNumber,
-                    QWidget *parent=0, const char *name=0);
-    void saveData();
 
   protected slots:
-
     void hlChanged(int);
     void hlDownload();
     void showMTDlg();
-    void slotChanged();
 
-  signals:
-    void configChanged();
-
-  protected:
-    KateAttributeList *defaultItemStyleList;
-
-    void writeback();
-    QComboBox *itemCombo, *hlCombo;
+  private:
+    void writeback ();
+  
+    QComboBox *hlCombo;
     QLineEdit *wildcards;
     QLineEdit *mimetypes;
     class KIntNumInput *priority;
-    StyleListView *lvStyles;
 
-    HlDataDict *hlDataDict;
+    HlDataDict hlDataDict;
     HlData *hlData;
-    HlManager *hlManager;
 };
 
 class ItemInfo

@@ -501,16 +501,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   QHBox *hbHl = new QHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("&Default Schema:"), hbHl );
-  defaultSchemaCombo = new QComboBox( false, hbHl );
-  lHl->setBuddy( defaultSchemaCombo );
-  connect( defaultSchemaCombo, SIGNAL(activated(int)),
-           this, SLOT(slotChanged()) );
-  
-  hbHl = new QHBox( this );
-  layout->add (hbHl);
-  hbHl->setSpacing( KDialog::spacingHint() );
-  lHl = new QLabel( i18n("&Schema:"), hbHl );
+  QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
   schemaCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( schemaCombo );
   connect( schemaCombo, SIGNAL(activated(int)),
@@ -539,6 +530,15 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
  
   m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab);
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
+  
+  hbHl = new QHBox( this );
+  layout->add (hbHl);
+  hbHl->setSpacing( KDialog::spacingHint() );
+  lHl = new QLabel( i18n("&Default Schema:"), hbHl );
+  defaultSchemaCombo = new QComboBox( false, hbHl );
+  lHl->setBuddy( defaultSchemaCombo );
+  connect( defaultSchemaCombo, SIGNAL(activated(int)),
+           this, SLOT(slotChanged()) );
 
   reload();
 }

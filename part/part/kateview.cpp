@@ -22,6 +22,7 @@
 
 // $Id$
 
+//BEGIN includes
 #include "kateview.h"
 #include "kateview.moc"
 
@@ -71,6 +72,7 @@
 #include <qevent.h>
 #include <qpopupmenu.h>
 #include <qlayout.h>
+//END includes
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
@@ -455,6 +457,10 @@ void KateView::setupEditActions()
     i18n("Move to Top of View"),             CTRL +         Key_PageUp,
     this, SLOT(topOfView()),
     ac, "move_top_of_view" );
+  new KAction(
+    i18n("Select to Top of View"),             CTRL + SHIFT +  Key_PageUp,
+    this, SLOT(shiftTopOfView()),
+    ac, "select_top_of_view" );
 
   new KAction(
     i18n("Scroll Page Down"),                               Key_PageDown,
@@ -468,6 +474,10 @@ void KateView::setupEditActions()
     i18n("Move to Bottom of View"),          CTRL +         Key_PageDown,
     this, SLOT(bottomOfView()),
     ac, "move_bottom_of_view" );
+  new KAction(
+    i18n("Select to Bottom of View"),         CTRL + SHIFT + Key_PageDown,
+    this, SLOT(shiftBottomOfView()),
+    ac, "select_bottom_of_view" );
   new KAction(
     i18n("Move to Matching Bracket"),               CTRL + Key_6,
     this, SLOT(toMatchingBracket()),
@@ -960,7 +970,42 @@ void KateView::toggleCmdLine ()
 {
   setCmdLine (!m_cmdLineOn);
 }
+/*
+<<<<<<< kateview.cpp
+void KateView::updateViewDefaults ()
+{
+  m_editActions->readShortcutSettings();
+  setDynWordWrap( m_doc->m_dynWordWrap );
+  m_toggleDynWrap->setChecked( dynWordWrap() );
 
+  setDynWrapIndicators( m_doc->m_dynWrapIndicators );
+  m_setDynWrapIndicators->setCurrentItem( dynWrapIndicators() );
+  m_setDynWrapIndicators->setEnabled( dynWordWrap() );
+
+  setLineNumbersOn( m_doc->m_lineNumbers );
+  m_toggleLineNumbers->setChecked( lineNumbersOn() );
+
+  setIconBorder( m_doc->m_iconBar );
+  m_toggleIconBar->setChecked( iconBorder() );
+
+  updateFoldingMarkersAction();
+  //if ( m_doc->m_collapseTopLevelOnLoad )
+    //
+
+  m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
+
+  m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
+
+  setAutoCenterLines(m_doc->autoCenterLines());
+}
+
+void KateView::setAutoCenterLines(int viewLines)
+{
+  m_viewInternal->setAutoCenterLines(viewLines);
+}
+
+=======
+>>>>>>> 1.259*/
 void KateView::toggleWriteLock()
 {
   m_doc->setReadWrite( ! m_doc->isReadWrite() );

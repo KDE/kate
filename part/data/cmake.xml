@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Author: Alexander Neundorf <neundorf@kde.org> //-->
+<!-- cmake 2.0.3 syntax highlighting -->
+<!-- dsKeyword, dsDataType, dsDecVal, dsBaseN, dsFloat, dsChar, dsString, dsComment, dsOthers, new in KDE 3.3: dsAlert, dsFunction, dsRegionMarker, dsError -->
+<language name="CMake" version="1.01" kateversion="2.3" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="">
+  <highlighting>
+
+    <list name = "commands">
+      <item> ABSTRACT_FILES </item>
+      <item> ADD_CUSTOM_COMMAND </item>
+      <item> ADD_CUSTOM_TARGET </item>
+      <item> ADD_DEFINITIONS </item>
+      <item> ADD_DEPENDENCIES </item>
+      <item> ADD_EXECUTABLE </item>
+      <item> ADD_LIBRARY </item>
+      <item> ADD_TEST </item>
+      <item> AUX_SOURCE_DIRECTORY </item>
+      <item> BUILD_COMMAND </item>
+      <item> BUILD_NAME </item>
+      <item> CMAKE_MINIMUM_REQUIRED </item>
+      <item> CONFIGURE_FILE </item>
+      <item> CREATE_TEST_SOURCELIST </item>
+      <item> ELSE </item>
+      <item> ENABLE_TESTING </item>
+      <item> ENDFOREACH </item>
+      <item> ENDIF </item>
+      <item> ENDMACRO </item>
+      <item> EXEC_PROGRAM </item>
+      <item> EXPORT_LIBRARY_DEPENDENCIES </item>
+      <item> FILE </item>
+      <item> FIND_FILE </item>
+      <item> FIND_LIBRARY </item>
+      <item> FIND_PACKAGE </item>
+      <item> FIND_PATH </item>
+      <item> FIND_PROGRAM </item>
+      <item> FLTK_WRAP_UI  </item>
+      <item> FOREACH </item>
+      <item> GET_CMAKE_PROPERTY </item>
+      <item> GET_DIRECTORY_PROPERTY </item>
+      <item> GET_FILENAME_COMPONENT </item>
+      <item> GET_SOURCE_FILE_PROPERTY </item>
+      <item> GET_TARGET_PROPERTY </item>
+      <item> IF </item>
+      <item> INCLUDE </item>
+      <item> INCLUDE_DIRECTORIES </item>
+      <item> INCLUDE_EXTERNAL_MSPROJECT </item>
+      <item> INCLUDE_REGULAR_EXPRESSION </item>
+      <item> INSTALL_FILES </item>
+      <item> INSTALL_PROGRAMS </item>
+      <item> INSTALL_TARGETS </item>
+      <item> ITK_WRAP_TCL </item>
+      <item> LINK_DIRECTORIE </item>
+      <item> LINK_LIBRARIES </item>
+      <item> LOAD_CACHE </item>
+      <item> LOAD_COMMAND </item>
+      <item> MACRO </item>
+      <item> MAKE_DIRECTORY </item>
+      <item> MARK_AS_ADVANCED </item>
+      <item> MESSAGE </item>
+      <item> OPTION </item>
+      <item> OUTPUT_REQUIRED_FILES </item>
+      <item> PROJECT </item>
+      <item> QT_WRAP_CPP </item>
+      <item> QT_WRAP_UI </item>
+      <item> REMOVE </item>
+      <item> REMOVE_DEFINITIONS </item>
+      <item> SEPARATE_ARGUMENTS </item>
+      <item> SET </item>
+      <item> SET_DIRECTORY_PROPERTIES </item>
+      <item> SET_SOURCE_FILES_PROPERTIES </item>
+      <item> SET_TARGET_PROPERTIES </item>
+      <item> SITE_NAME </item>
+      <item> SOURCE_FILES </item>
+      <item> SOURCE_FILES_REMOVE </item>
+      <item> SOURCE_GROUP </item>
+      <item> STRING </item>
+      <item> SUBDIRS </item>
+      <item> SUBDIR_DEPENDS </item>
+      <item> TARGET_LINK_LIBRARIES </item>
+      <item> TRY_COMPILE </item>
+      <item> TRY_RUN </item>
+      <item> USE_MANGLED_MESA </item>
+      <item> UTILITY_SOURCE </item>
+      <item> VARIABLE_REQUIRES </item>
+      <item> VTK_MAKE_INSTANTIATOR </item>
+      <item> VTK_WRAP_JAVA </item>
+      <item> VTK_WRAP_PYTHON </item>
+      <item> VTK_WRAP_TCL </item>
+      <item> WRAP_EXCLUDE_FILES </item>
+      <item> WRITE_FILE </item>
+    </list>
+
+    <list name="special_args">
+      <item> ABSOLUTE </item>
+      <item> ABSTRACT </item>
+      <item> ADDITIONAL_MAKE_CLEAN_FILES </item>
+      <item> ALL </item>
+      <item> AND </item>
+      <item> APPEND </item>
+      <item> ARGS </item>
+      <item> ASCII </item>
+      <item> BEFORE </item>
+      <item> CACHE </item>
+      <item> CACHE_VARIABLES </item>
+      <item> CLEAR </item>
+      <item> COMMAND </item>
+      <item> COMMANDS </item>
+      <item> COMMAND_NAME </item>
+      <item> COMMENT </item>
+      <item> COMPARE </item>
+      <item> COMPILE_FLAGS </item>
+      <item> COPYONLY </item>
+      <item> DEFINED </item>
+      <item> DEFINE_SYMBOL </item>
+      <item> DEPENDS </item>
+      <item> DOC </item>
+      <item> EQUAL </item>
+      <item> ESCAPE_QUOTES </item>
+      <item> EXCLUDE </item>
+      <item> EXCLUDE_FROM_ALL </item>
+      <item> EXISTS </item>
+      <item> EXPORT_MACRO </item>
+      <item> EXT </item>
+      <item> EXTRA_INCLUDE </item>
+      <item> FATAL_ERROR </item>
+      <item> FILE </item>
+      <item> FILES </item>
+      <item> FORCE </item>
+      <item> FUNCTION </item>
+      <item> GENERATED </item>
+      <item> GLOB </item>
+      <item> GLOB_RECURSE </item>
+      <item> GREATER </item>
+      <item> GROUP_SIZE </item>
+      <item> HEADER_FILE_ONLY </item>
+      <item> HEADER_LOCATION </item>
+      <item> IMMEDIATE </item>
+      <item> INCLUDES </item>
+      <item> INCLUDE_DIRECTORIES </item>
+      <item> INCLUDE_INTERNALS </item>
+      <item> INCLUDE_REGULAR_EXPRESSION </item>
+      <item> LESS </item>
+      <item> LINK_DIRECTORIES </item>
+      <item> LINK_FLAGS </item>
+      <item> LOCATION </item>
+      <item> MACOSX_BUNDLE </item>
+      <item> MACROS </item>
+      <item> MAIN_DEPENDENCY </item>
+      <item> MAKE_DIRECTORY </item>
+      <item> MATCH </item>
+      <item> MATCHALL </item>
+      <item> MATCHES </item>
+      <item> MODULE </item>
+      <item> NAME </item>
+      <item> NAME_WE </item>
+      <item> NOT </item>
+      <item> NOTEQUAL </item>
+      <item> NO_SYSTEM_PATH </item>
+      <item> OBJECT_DEPENDS </item>
+      <item> OPTIONAL </item>
+      <item> OR </item>
+      <item> OUTPUT </item>
+      <item> OUTPUT_VARIABLE </item>
+      <item> PATH </item>
+      <item> PATHS </item>
+      <item> POST_BUILD </item>
+      <item> POST_INSTALL_SCRIPT </item>
+      <item> PREFIX </item>
+      <item> PREORDER </item>
+      <item> PRE_BUILD </item>
+      <item> PRE_INSTALL_SCRIPT </item>
+      <item> PRE_LINK </item>
+      <item> PROGRAM </item>
+      <item> PROGRAM_ARGS </item>
+      <item> PROPERTIES </item>
+      <item> QUIET </item>
+      <item> RANGE </item>
+      <item> READ </item>
+      <item> REGEX </item>
+      <item> REGULAR_EXPRESSION </item>
+      <item> REPLACE </item>
+      <item> REQUIRED </item>
+      <item> RETURN_VALUE </item>
+      <item> RUNTIME_DIRECTORY </item>
+      <item> SEND_ERROR </item>
+      <item> SHARED </item>
+      <item> SOURCES </item>
+      <item> STATIC </item>
+      <item> STATUS </item>
+      <item> STREQUAL </item>
+      <item> STRGREATER </item>
+      <item> STRLESS </item>
+      <item> SUFFIX </item>
+      <item> TARGET </item>
+      <item> TOLOWER </item>
+      <item> TOUPPER </item>
+      <item> VAR </item>
+      <item> VARIABLES </item>
+      <item> VERSION </item>
+      <item> WIN32 </item>
+      <item> WRAP_EXCLUDE </item>
+      <item> WRITE </item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
+        <keyword attribute="Commands" context="Function Args" String="commands" />
+        <RegExpr attribute="Region Marker" context="#stay" String="^\s*#\s*BEGIN.*$" beginRegion="block" />
+        <RegExpr attribute="Region Marker" context="#stay" String="^\s*#\s*END.*$" endRegion="block" />
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+        <RegExpr attribute="Macros" context="#stay" String="\s*\w+\s*(?=\(.*\))"/>
+      </context>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Function Args" >
+        <DetectChar attribute="Normal Text" context="#pop" char=")" />
+        <keyword attribute="Special Args" context="#stay" String="special_args" />
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <RegExpr attribute="Variable" context="#stay" String="\$\{\s*\w+\s*\}"/>
+      </context>
+
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Special Args" defStyleNum="dsOther" color="#000000" bold="0" italic="1"/>
+      <itemData name="Commands" defStyleNum="dsKeyword"/>
+      <itemData name="Macros"  defStyleNum="dsKeyword"/>
+      <itemData name="Variable" defStyleNum="dsDecVal"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
+    </itemDatas>
+  </highlighting>
+
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

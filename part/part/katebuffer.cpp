@@ -46,6 +46,7 @@
  */     
 KateBuffer::KateBuffer()     
 {     
+  noHlUpdate = false;
    m_blocks.setAutoDelete(true);     
    m_loader.setAutoDelete(true);     
    connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(slotLoadFile()));     
@@ -336,33 +337,36 @@ KateBuffer::findBlock(uint i)
          }
          // Adjust state
          *buf->m_beginState.line = *lastBuf->m_endState.line;
-      }     
-   }     
-
-   if (!buf)     
-   {     
-      // Huh? Strange, m_totalLines must have been out of sync?     
-      assert(lastLine == m_totalLines);     
-      assert(false);     
-      return 0;     
-   }     
-   return buf;     
-}
-     
-/**     
- * Return line @p i     
- */     
-TextLine::Ptr     
-KateBuffer::line(uint i)
-{     
-   KateBufBlock *buf = findBlock(i);     
-   if (!buf)
-      return 0;     
-     
-   if (!buf->b_stringListValid)     
-   {     
-      parseBlock(buf);     
+      }
    }
+
+   if (!buf)
+   {
+      // Huh? Strange, m_totalLines must have been out of sync?
+      assert(lastLine == m_totalLines);
+      assert(false);
+      return 0;
+   }
+   return buf;
+}
+
+/**
+ * Return line @p i
+ */
+TextLine::Ptr
+KateBuffer::line(uint i)
+{
+   KateBufBlock *buf = findBlock(i);
+   if (!buf)
+      return 0;
+
+   if (!buf->b_stringListValid)
+   {
+      parseBlock(buf);
+   }
+   
+   if (!noHlUpdate)
+   {
    if (buf->b_needHighlight)
    {
       buf->b_needHighlight = false;
@@ -379,19 +383,22 @@ KateBuffer::line(uint i)
       emit pleaseHighlight(m_highlightedTo, buf->m_endState.lineNr);
 
       // Check again...
-      if (!buf->b_stringListValid)     
-      {     
-         parseBlock(buf);     
+      if (!buf->b_stringListValid)
+      {
+         parseBlock(buf);
       }
    }
+   }
 
-   return buf->line(i - buf->m_beginState.lineNr);     
-}     
+   return buf->line(i - buf->m_beginState.lineNr);
+}
 
-bool 
+bool
 KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint startLine,uint endLine) {
   if (!m_highlight)
      return false;
+     
+  kdDebug()<<"hl running ;("<<endl;
 
   TextLine::Ptr textLine;
   QMemArray<signed char> ctxNum, endCtx;
@@ -453,16 +460,16 @@ kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl
      from = m_highlightedTo;
    uint done = 0;
    bool endStateChanged = true;
-   
+
    while (done < to)
    {
-      KateBufBlock *buf = findBlock(from);     
+      KateBufBlock *buf = findBlock(from);
       if (!buf)
-         return;     
-     
-      if (!buf->b_stringListValid)     
-      {     
-         parseBlock(buf);     
+         return;
+
+      if (!buf->b_stringListValid)
+      {
+         parseBlock(buf);
       }
 
       if (buf->b_needHighlight || invalidate ||
@@ -485,7 +492,7 @@ kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl
          buf->b_needHighlight = false;
          endStateChanged = needHighlight(buf, startState, fromLine, tillLine);
          *buf->m_endState.line = *(buf->line(buf->m_endState.lineNr - buf->m_beginState.lineNr - 1));
-      }         
+      }
       done = buf->m_endState.lineNr;
       from = done;
    }
@@ -515,86 +522,86 @@ KateBuffer::invalidateHighlighting()
 QString
 KateBuffer::plainLine(uint i)
 {
-   KateBufBlock *buf = findBlock(i);     
+   KateBufBlock *buf = findBlock(i);
    if (!buf)
-      return 0;     
-     
-   if (!buf->b_stringListValid)     
-   {     
-      parseBlock(buf);     
+      return 0;
+
+   if (!buf->b_stringListValid)
+   {
+      parseBlock(buf);
    }
    TextLine::Ptr l = buf->line(i - buf->m_beginState.lineNr);
    return l->getString();
 }
-     
-void     
+
+void
 KateBuffer::insertLine(uint i, TextLine::Ptr line)
-{     
-   KateBufBlock *buf;     
-   if (i == m_totalLines)     
-      buf = findBlock(i-1);     
-   else     
-      buf = findBlock(i);     
-     
-   if (!buf)     
-   {     
-      KateBufState state;     
-      // Initial state.     
-      state.lineNr = 0;     
-      buf = new KateBufBlock(state);     
-      m_blocks.insert(0, buf);     
+{
+   KateBufBlock *buf;
+   if (i == m_totalLines)
+      buf = findBlock(i-1);
+   else
+      buf = findBlock(i);
+
+   if (!buf)
+   {
+      KateBufState state;
+      // Initial state.
+      state.lineNr = 0;
+      buf = new KateBufBlock(state);
+      m_blocks.insert(0, buf);
       buf->b_rawDataValid = true;
       m_loadedBlocks.append(buf);
-   }     
-     
-   if (!buf->b_stringListValid)     
-   {     
-      parseBlock(buf);     
-   }     
-   if (buf->b_rawDataValid)     
+   }
+
+   if (!buf->b_stringListValid)
    {
-      dirtyBlock(buf);     
-   }     
+      parseBlock(buf);
+   }
+   if (buf->b_rawDataValid)
+   {
+      dirtyBlock(buf);
+   }
    buf->insertLine(i -  buf->m_beginState.lineNr, line);
-   if (m_highlightedTo > i) 
+   if (m_highlightedTo > i)
       m_highlightedTo++;
-   m_totalLines++;     
-}     
-     
-void     
+   m_totalLines++;
+}
+
+void
 KateBuffer::removeLine(uint i)
 {
-   KateBufBlock *buf = findBlock(i);     
-   assert(buf);     
-   if (!buf->b_stringListValid)     
-   {     
-      parseBlock(buf);     
-   }     
-   if (buf->b_rawDataValid)     
-   {     
-      dirtyBlock(buf);     
-   }     
+   KateBufBlock *buf = findBlock(i);
+   assert(buf);
+   if (!buf->b_stringListValid)
+   {
+      parseBlock(buf);
+   }
+   if (buf->b_rawDataValid)
+   {
+      dirtyBlock(buf);
+   }
    buf->removeLine(i -  buf->m_beginState.lineNr);
-   if (m_highlightedTo > i) 
+   if (m_highlightedTo > i)
       m_highlightedTo--;
-   m_totalLines--;     
+   m_totalLines--;
    if (buf->m_beginState.lineNr == buf->m_endState.lineNr)
    {
 kdDebug(13020)<< "Removing empty block "<< buf << endl;
-      if (buf->b_vmDataValid)     
+      if (buf->b_vmDataValid)
       {
 kdDebug(13020)<< "Empty block still has VM."<< buf << endl;
          assert(false);
          buf->disposeSwap(m_vm);
       }
-      m_blocks.removeRef(buf);     
-      m_parsedBlocksClean.removeRef(buf);     
-      m_parsedBlocksDirty.removeRef(buf);     
+      m_blocks.removeRef(buf);
+      m_parsedBlocksClean.removeRef(buf);
+      m_parsedBlocksDirty.removeRef(buf);
       m_loadedBlocks.removeRef(buf);
    }
-}     
-     
-void     
+}
+
+void
 KateBuffer::changeLine(uint i)
 {     
     ////kdDebug(13020)<<"changeLine "<< i<<endl;     
@@ -616,7 +623,7 @@ KateBuffer::parseBlock(KateBufBlock *buf)
    if (m_parsedBlocksClean.count() > 5)     
    {     
       KateBufBlock *buf2 = m_parsedBlocksClean.take(2);     
-      buf2->disposeStringList();     
+      buf2->disposeStringList();
       m_loadedBlocks.append(buf2);
       assert(m_parsedBlocksDirty.find(buf2) == -1);
    }     
@@ -651,7 +658,7 @@ KateBuffer::loadBlock(KateBufBlock *buf)
    //kdDebug(13020)<<"swapIn "<<buf<<endl;     
    buf->swapIn(m_vm);     
    m_loadedBlocks.append(buf);     
-   assert(m_parsedBlocksClean.find(buf) == -1);     
+   assert(m_parsedBlocksClean.find(buf) == -1);
    assert(m_parsedBlocksDirty.find(buf) == -1);     
 }     
 
@@ -686,7 +693,7 @@ KateBuffer::dirtyBlock(KateBufBlock *buf)
 /*     
  * Create an empty block.     
  */     
-KateBufBlock::KateBufBlock(const KateBufState &beginState)     
+KateBufBlock::KateBufBlock(const KateBufState &beginState)
  : m_beginState(beginState), m_endState(beginState)     
 {     
    m_rawData1Start = 0;

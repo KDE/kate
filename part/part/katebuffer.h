@@ -48,6 +48,8 @@ class QTextCodec;
  */
 class KateBuffer : public QObject
 {
+  friend class KateDocument;
+
    Q_OBJECT
 public:
    /**
@@ -187,10 +189,12 @@ protected:
 protected slots:
    void slotLoadFile();
 
-protected:
+private:
    uint m_totalLines;
    uint m_highlightedTo; // The highest line with correct highlight info
    uint m_highlightedRequested; // The highest line that we requested highlight for
+
+   bool noHlUpdate;
 
    Highlight *m_highlight;
 

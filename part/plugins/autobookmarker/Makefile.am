@@ -1,0 +1,17 @@
+INCLUDES    = $(all_includes)
+METASOURCES = AUTO
+
+# Install this plugin in the KDE modules directory
+kde_module_LTLIBRARIES = ktexteditor_autobookmarker.la
+
+ktexteditor_autobookmarker_la_SOURCES = autobookmarker.cpp
+ktexteditor_autobookmarker_la_LIBADD = -lktexteditor
+ktexteditor_autobookmarker_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
+
+kde_services_DATA = ktexteditor_autobookmarker.desktop
+
+confdir=$(kde_confdir)
+conf_DATA = ktexteditor_autobookmarkerrc
+
+messages: rc.cpp
+	$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_autobookmarker.pot

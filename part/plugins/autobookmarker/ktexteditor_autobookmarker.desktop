@@ -1,0 +1,9 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KTextEditor Autobookmarker
+Comment=Set bookmarks on lines matching a pattern when documents are loaded
+X-KDE-Library=ktexteditor_autobookmarker
+ServiceTypes=KTextEditor/Plugin
+Type=Service
+InitialPreference=8
+MimeType=text/plain

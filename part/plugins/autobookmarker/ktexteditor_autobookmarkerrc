@@ -1,0 +1,18 @@
+[autobookmark0]
+filemask=*.pl;*.pm
+flags=1
+mimemask=text/x-perl
+pattern=sub \\w+
+
+[autobookmark1]
+filemask=*.hh;*.h
+flags=1
+mimemask=text/x-c++hdr
+pattern=^class\\s+[^;]+$
+
+[autobookmark2]
+filemask=*.js;*.html;*.HTML;*.htm;*.HTM;*.xhtml;*.asp
+flags=1
+mimemask=application/x-javascript;text/html
+pattern=\\s*function\\s+\\w+
+

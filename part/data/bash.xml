@@ -6,7 +6,7 @@
 	<!ENTITY eos      "(?=($|\s))">			<!-- eol or space following -->
 	<!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
 ]>
-<language name="Bash" version="2.01" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.02" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -545,7 +545,7 @@
 	<Detect2Chars attribute="String Transl." context="StringDQ" char="$" char1="&quot;" />
       </context>
             
-      <!-- FindSubstitutions goes after anything starting with $ -->
+      <!-- FindSubstitutions goes after anything starting with $ and ` and their escapes -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindSubstitutions">
 	<RegExpr attribute="Variable" context="#stay" String="\$[*@#?$!_0-9-]" />
 	<RegExpr attribute="Variable" context="Subscript" String="\$&varname;\[" />
@@ -559,6 +559,7 @@
 	<StringDetect attribute="Redirection" context="SubstFile" String="$(&lt;" />
         <StringDetect attribute="Variable" context="SubstCommand" String="$(" />
 	<DetectChar attribute="Backquote" context="SubstBackq" char="`" />
+	<RegExpr attribute="Escape" context="#stay" String="\\[`$\\]" />
       </context>
 
       
@@ -781,7 +782,6 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocNQ" dynamic="true">
 	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
 	<RegExpr attribute="Redirection" context="#pop#pop" String="^%2[\s;]*$" dynamic="true" />
-	<RegExpr attribute="Escape" context="#stay" String="\\[`$\\]" />
 	<IncludeRules context="FindSubstitutions" />
       </context>
 
@@ -793,7 +793,6 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="HereDocINQ" dynamic="true">
 	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
 	<RegExpr attribute="Redirection" context="#pop#pop" String="^\s*%2[\s;]*$" dynamic="true" />
-	<RegExpr attribute="Escape" context="#stay" String="\\[`$\\]" />
 	<IncludeRules context="FindSubstitutions" />
       </context>
 

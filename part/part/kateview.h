@@ -342,6 +342,7 @@ class KateView : public Kate::View,
     void slotExpandToplevel();
     void slotCollapseLocal();
     void slotExpandLocal();
+    void configDialog ();
 
   private:
     void setupConnections();

@@ -287,6 +287,9 @@ void KateView::setupActions()
   a=new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
 
+  a=new KAction(i18n("&Configure Editor..."), 0, this, SLOT(configDialog()),ac, "set_confdlgreadonly");
+  a->setWhatsThis(i18n("Configure various aspects of this editor."));
+
   m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
 
   m_setFileType = new KateViewFileTypeAction (i18n("&Filetype Mode"),ac,"set_filetype");
@@ -396,6 +399,12 @@ void KateView::setupActions()
   connect( QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(slotClipboardDataChanged()) );
 
   slotClipboardDataChanged();
+}
+
+void KateView::configDialog ()
+{
+  m_doc->configDialog ();
+  m_doc->writeConfig ();
 }
 
 void KateView::setupEditActions()

@@ -213,19 +213,20 @@ class KateView : public Kate::View
 
     void setupActions();
 
-    KAction *editUndo, *editRedo, *bookmarkToggle, *bookmarkClear;
+    KAction *m_editUndo, *m_editRedo, *m_bookmarkToggle, *m_bookmarkClear;
 
-    KActionMenu *bookmarkMenu;
+    KActionMenu *m_bookmarkMenu;
 //    KToggleAction *viewBorder;
 //    KToggleAction *viewLineNumbers;
-    KRecentFilesAction *fileRecent;
-    KSelectAction *setEndOfLine;
-    KSelectAction *setCharset;
-    Kate::ActionMenu *setHighlight;
+    KRecentFilesAction *m_fileRecent;
+    KSelectAction *m_setEndOfLine;
+    KSelectAction *m_setEncoding;
+    Kate::ActionMenu *m_setHighlight;
 
   private slots:
     void slotDropEventPass( QDropEvent * ev );
     void slotDummy();   
+    void slotSetEncoding(const QString& descriptiveName);
 
   public slots:
     void slotUpdate();
@@ -450,11 +451,7 @@ public slots:
     /**
       Set the end of line mode (Unix, Macintosh or Dos)
     */
-    void setEol(int);
-    /**
-      Set the File Encoding
-    */
-    void setEncoding(int);
+    void setEol(int eol);
 
   private:
     void resizeEvent(QResizeEvent *);

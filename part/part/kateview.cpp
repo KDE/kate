@@ -265,8 +265,8 @@ void KateView::setupActions()
   if (!myDoc->m_bReadOnly)
   {
     KStdAction::save(this, SLOT(save()), ac);
-    editUndo = KStdAction::undo(myDoc, SLOT(undo()), ac);
-    editRedo = KStdAction::redo(myDoc, SLOT(redo()), ac);
+    m_editUndo = KStdAction::undo(myDoc, SLOT(undo()), ac);
+    m_editRedo = KStdAction::redo(myDoc, SLOT(redo()), ac);
     KStdAction::cut(this, SLOT(cut()), ac);
     KStdAction::paste(this, SLOT(paste()), ac);
     new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), ac, "edit_apply_wordwrap");
@@ -296,7 +296,7 @@ void KateView::setupActions()
   KStdAction::findPrev(this, SLOT(findPrev()), ac, "edit_find_prev");
   KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
   new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");
-  setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
+  m_setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
   myDoc->exportActionMenu (i18n("&Export"),ac,"file_export");
   KStdAction::selectAll(myDoc, SLOT(selectAll()), ac);
   KStdAction::deselect(myDoc, SLOT(clearSelection()), ac);
@@ -306,29 +306,29 @@ void KateView::setupActions()
   new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), ac, "view_border");
   connect(new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(slotDummy()), ac, "view_line_numbers"),
     SIGNAL(toggled(bool)),this,SLOT(setLineNumbersOn(bool)));
-  bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks");
+  m_bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks");
 
   // setup bookmark menu
-  bookmarkToggle = new KAction(i18n("Toggle &Bookmark"), Qt::CTRL+Qt::Key_B, this, SLOT(toggleBookmark()), ac, "edit_bookmarkToggle");
-  bookmarkClear = new KAction(i18n("Clear Bookmarks"), 0, myDoc, SLOT(clearMarks()), ac, "edit_bookmarksClear");
+  m_bookmarkToggle = new KAction(i18n("Toggle &Bookmark"), Qt::CTRL+Qt::Key_B, this, SLOT(toggleBookmark()), ac, "edit_bookmarkToggle");
+  m_bookmarkClear = new KAction(i18n("Clear Bookmarks"), 0, myDoc, SLOT(clearMarks()), ac, "edit_bookmarksClear");
 
   // connect bookmarks menu aboutToshow
-  connect(bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
+  connect(m_bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
 
   QStringList list;
-  setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
-  connect(setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
+  m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
+  connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
   list.clear();
   list.append("&Unix");
   list.append("&Windows/Dos");
   list.append("&Macintosh");
-  setEndOfLine->setItems(list);
+  m_setEndOfLine->setItems(list);
 
-  setCharset = new KSelectAction(i18n("&Charsets"), 0, ac, "set_charset");
-  connect(setCharset, SIGNAL(activated(int)), this, SLOT(setEncoding(int)));
-  list = KGlobal::charsets()->availableEncodingNames();
+  m_setEncoding = new KSelectAction(i18n("Set &Encoding"), 0, ac, "set_encoding");
+  connect(m_setEncoding, SIGNAL(activated(const QString&)), this, SLOT(slotSetEncoding(const QString&)));
+  list = KGlobal::charsets()->descriptiveEncodingNames();
   list.prepend( i18n( "Auto" ) );
-  setCharset->setItems(list);
+  m_setEncoding->setItems(list);
 }
 
 void KateView::slotUpdate()
@@ -338,17 +338,8 @@ void KateView::slotUpdate()
 
 void KateView::slotFileStatusChanged()
 {
-  int eol = getEol();
-  eol = eol>=1 ? eol : 0;
-
-  setEndOfLine->setCurrentItem(eol);
-
-  QString enc = myDoc->encoding();
-  int chset = KGlobal::charsets()->availableEncodingNames().findIndex(enc);
-  if (chset < 0) /* Try again with upper */
-    chset = KGlobal::charsets()->availableEncodingNames().findIndex(enc.lower());
-  chset = chset >= 0 ? chset + 1 : 0;
-  setCharset->setCurrentItem(chset);
+  // No need to mark the selected item in KSelectActions -- its already
+  // done for us by KSelectAction
 }
 
 void KateView::slotNewUndo()
@@ -356,11 +347,11 @@ void KateView::slotNewUndo()
   if (myDoc->m_bReadOnly)
     return;
 
-   if ((myDoc->undoCount() > 0) != editUndo->isEnabled())
-    editUndo->setEnabled(myDoc->undoCount() > 0);
+   if ((myDoc->undoCount() > 0) != m_editUndo->isEnabled())
+    m_editUndo->setEnabled(myDoc->undoCount() > 0);
 
-   if ((myDoc->redoCount() > 0) != editRedo->isEnabled())
-    editRedo->setEnabled(myDoc->redoCount() > 0);
+   if ((myDoc->redoCount() > 0) != m_editRedo->isEnabled())
+    m_editRedo->setEnabled(myDoc->redoCount() > 0);
 }
 
 void KateView::slotDropEventPass( QDropEvent * ev )
@@ -532,7 +523,6 @@ void KateView::setTabWidth(int w) {
 
 void KateView::setEncoding (QString e) {
   myDoc->setEncoding (e);
-  myDoc->updateViews();
 }
 
 bool KateView::isLastView() {
@@ -1183,19 +1173,16 @@ void KateView::setEol(int eol) {
   myDoc->setModified(true);
 }
 
-void KateView::setEncoding(int chset) {
-  QString enc;
-  if (chset == 0) {
-    enc = QTextCodec::codecForLocale()->name();
-  } else {
-    enc = KGlobal::charsets()->availableEncodingNames()[chset-1];
-    // enc = KGlobal::charsets()->encodingForName(KGlobal::charsets()->availableEncodingNames()[chset-1]);
-  }
-  // kdDebug() << "seEncoding(" << chset << "): encoding = " << enc << endl;
-  myDoc->setEncoding(enc);
+void KateView::slotSetEncoding(const QString& descriptiveName) {
+  setEncoding(KGlobal::charsets()->encodingForName(descriptiveName));
+
   // myDoc->setModified(true);
   if (!doc()->isReadWrite()) {
       myDoc->reloadFile();
+      // that's the only way I've found to make Kate redraw everything
+      // without optimizations
+      myViewInternal->tagAll();
+      myViewInternal->updateView(KateView::ufFoldingChanged);
   }
 }
 
@@ -1375,10 +1362,10 @@ void KateView::toggleBookmark ()
 
 void KateView::bookmarkMenuAboutToShow()
 {
-  bookmarkMenu->popupMenu()->clear ();
-  bookmarkToggle->plug (bookmarkMenu->popupMenu());
-  bookmarkClear->plug (bookmarkMenu->popupMenu());
-  bookmarkMenu->popupMenu()->insertSeparator ();
+  m_bookmarkMenu->popupMenu()->clear ();
+  m_bookmarkToggle->plug (m_bookmarkMenu->popupMenu());
+  m_bookmarkClear->plug (m_bookmarkMenu->popupMenu());
+  m_bookmarkMenu->popupMenu()->insertSeparator ();
 
   list = myDoc->marks();
   for (int i=0; (uint) i < list.count(); i++)
@@ -1388,7 +1375,7 @@ void KateView::bookmarkMenuAboutToShow()
       QString bText = myDoc->textLine(list.at(i)->line);
       bText.truncate(32);
       bText.append ("...");
-      bookmarkMenu->popupMenu()->insertItem ( QString("%1 - \"%2\"").arg(list.at(i)->line).arg(bText), this, SLOT (gotoBookmark(int)), 0, i );
+      m_bookmarkMenu->popupMenu()->insertItem ( QString("%1 - \"%2\"").arg(list.at(i)->line).arg(bText), this, SLOT (gotoBookmark(int)), 0, i );
     }
   }
 }

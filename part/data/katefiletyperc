@@ -1,4 +1,4 @@
-[C style]
+[C Style]
 Mimetypes=text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java
 Priority=1
 Section=Sources

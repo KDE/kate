@@ -57,7 +57,7 @@ class KateSearch : public QObject
         bool finished          :1;
         bool regExp            :1;
     };
-  
+
     class SConfig
     {
       public:
@@ -69,7 +69,7 @@ class KateSearch : public QObject
         KateTextCursor selBegin;
         KateTextCursor selEnd;
     };
-  
+
   public:
     enum Dialog_results {
       srCancel = KDialogBase::Cancel,
@@ -142,7 +142,7 @@ class KateSearch : public QObject
 class KateReplacePrompt : public KDialogBase
 {
   Q_OBJECT
-    
+
   public:
     /**
      * Constructor
@@ -161,27 +161,27 @@ class KateReplacePrompt : public KDialogBase
      * ok pressed
      */
     void slotOk ();
-    
+
     /**
      * close pressed
      */
     void slotClose ();
-    
+
     /**
      * replace all pressed
      */
     void slotUser1 ();
-    
+
     /**
      * last pressed
      */
     void slotUser2 ();
-    
+
     /**
      * Yes pressed
      */
     void slotUser3 ();
-    
+
     /**
      * dialog done
      * @param result dialog result

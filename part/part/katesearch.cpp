@@ -365,14 +365,21 @@ void KateSearch::replaceOne()
 
   replaces++;
 
+  // adjust selection endcursor if needed
   if( s.flags.selected && s.cursor.line() == s.selEnd.line() )
   {
     s.selEnd.setCol(s.selEnd.col() + replaceWith.length() - s.matchedLength );
   }
 
+  // adjust wrap cursor if needed
+  if( s.cursor.line() == s.wrappedEnd.line() && s.cursor.col() <= s.wrappedEnd.col())
+  {
+    s.wrappedEnd.setCol(s.wrappedEnd.col() + replaceWith.length() - s.matchedLength );
+  }
+
   if( !s.flags.backward ) {
     s.cursor.setCol(s.cursor.col() + replaceWith.length());
-  } else if( s.cursor.col() > 0 ) {
+  } else if( s.cursor.col()- > 0 ) {
     s.cursor.setCol(s.cursor.col() - 1);
   } else {
     s.cursor.setLine(s.cursor.line() - 1);
@@ -557,13 +564,7 @@ bool KateSearch::doSearch( const QString& text )
   }
   while (m_doc->blockSelectionMode() && found);
 
-
-
-  kdDebug () << "found: " << found << " found col: " << foundCol << "start: " << s.selEnd.col() << "end: " << s.selBegin.col() << endl;
-
-  if( !found ) return false; //break;
-
-  //result = true;
+  if( !found ) return false;
 
   // save the search result
   s.cursor.setPos(foundLine, foundCol);
@@ -574,13 +575,14 @@ bool KateSearch::doSearch( const QString& text )
   {
     if (s.flags.backward)
     {
-      if (s.cursor < s.wrappedEnd)
+      if ( (s.cursor.line() < s.wrappedEnd.line())
+           || ( (s.cursor.line() == s.wrappedEnd.line()) && ((s.cursor.col()+matchLen) <= uint(s.wrappedEnd.col())) ) )
         return false;
     }
     else
     {
       if ( (s.cursor.line() > s.wrappedEnd.line())
-           || ( (s.cursor.line() == s.wrappedEnd.line()) && ((s.cursor.col()+matchLen) > uint(s.wrappedEnd.col())) ) )
+           || ( (s.cursor.line() == s.wrappedEnd.line()) && (s.cursor.col() > uint(s.wrappedEnd.col())) ) )
         return false;
     }
   }

@@ -513,7 +513,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
           // make sure we redraw the right character groups on attrib/selection changes
           // Special case... de-special case some of it
-          if (isTab || (curCol >= trailingWhitespaceColumn))
+          if (isTab)
           {
             // Draw spaces too, because it might be eg. underlined
             static QString spaces;

@@ -32,17 +32,17 @@
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
 
-#include "../interfaces/view.h"
-#include "../interfaces/document.h"
+#include "kateview.h"
+#include "katedocument.h"
 #include "kateviewdialog.h"
 
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
 
-KateSearch::KateSearch( Kate::View* view )
+KateSearch::KateSearch( KateView* view )
 	: QObject( view, "kate search" )
 	, m_view( view )
-	, m_doc( view->getDoc() )
+	, m_doc( view->doc() )
 	, options (0)
 	, m_searchFlags()
 	, replacePrompt( new ReplacePrompt( view ) )
@@ -240,10 +240,15 @@ void KateSearch::findAgain()
 
 void KateSearch::replaceAll()
 {
-	QString searchFor = s_searchList.first();
-	while( doSearch( searchFor ) ) {
-		replaceOne();
-	}
+  QString searchFor = s_searchList.first();
+  
+  doc()->editStart ();
+  
+  while( doSearch( searchFor ) )
+    replaceOne();
+
+  doc()->editEnd ();
+    
 	if( !s.flags.finished ) {
 		if( askContinue() ) {
 			wrapSearch();

@@ -42,10 +42,9 @@ struct SearchFlags {
 };
 
 class KActionCollection;
-namespace Kate {
-	class View;
-	class Document;
-}
+
+class KateView;
+class KateDocument;
 
 class KateSearch : public QObject
 {
@@ -58,7 +57,7 @@ public:
       srCancel = QDialog::Rejected
     };
 public:
-	KateSearch( Kate::View* );
+	KateSearch( KateView* );
 	virtual ~KateSearch();
 	
 	void createActions( KActionCollection* );
@@ -95,11 +94,11 @@ private:
 	bool doSearch( const QString& text );
 	void exposeFound( KateTextCursor &cursor, int slen );
 	
-	inline Kate::View* view()    { return m_view; }
-	inline Kate::Document* doc() { return m_doc;  }
+	inline KateView* view()    { return m_view; }
+	inline KateDocument* doc() { return m_doc;  }
 	
-	Kate::View*     m_view;
-	Kate::Document* m_doc;
+	KateView*     m_view;
+	KateDocument* m_doc;
 	
 	struct SConfig {
 	        long options;

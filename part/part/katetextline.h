@@ -124,6 +124,10 @@ class TextLine : public KShared
     */
     int cursorX(uint pos, uint tabChars) const;
     /**
+      Can we find the given string at the given position
+    */
+    bool stringAtPos(uint pos, const QString& match) const;
+    /**
       Is the line starting with the given string
     */
     bool startingWith(const QString& match) const;

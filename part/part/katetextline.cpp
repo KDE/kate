@@ -177,6 +177,11 @@ QChar *TextLine::firstNonSpace() const
   return (first > -1) ? &text[first] : text.data();
 }
 
+bool TextLine::stringAtPos(uint pos, const QString& match) const
+{
+    return (getString().mid(pos, match.length()) == match);
+}
+
 bool TextLine::startingWith(const QString& match) const
 {
   return (getString().left(match.length()) == match);

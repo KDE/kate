@@ -1293,7 +1293,9 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 
 bool Highlight::isInWord(QChar c)
 {
-  return !ustrchr(deliminatorChars, deliminatorLen, c);
+  const QString sq("\"'");
+  const QChar *q = sq.unicode();
+  return !ustrchr(deliminatorChars, deliminatorLen, c) && !ustrchr( q, 2, c);
 }
 
 

@@ -584,8 +584,20 @@ void KateViewInternal::changeState(VConfig &c) {
   }
 
   if (c.flags & KateDocument::cfMark) {
-    if (! nullMove)
-      myDoc->selectTo(c, cursor, cXPos);
+    if (! nullMove) {
+      // anders: if we allready have a selection, we want to include all of that
+      if (myDoc->hasSelection()) {
+        // KateTextCursor::operator>(KateTextCursor) :)
+        if ( cursor.line >= myDoc->selectEnd.line && cursor.col > myDoc->selectEnd.col )
+          myDoc->setSelection( myDoc->selectStart.line, myDoc->selectStart.col, 
+                               cursor.line, cursor.col );
+        else
+          myDoc->setSelection( cursor.line, cursor.col, 
+                               myDoc->selectEnd.line, myDoc->selectEnd.col );
+      }
+      else
+        myDoc->selectTo(c, cursor, cXPos);
+    }
   } else {
     if (!(c.flags & KateDocument::cfPersistent))
       myDoc->clearSelection();
@@ -626,9 +638,9 @@ void KateViewInternal::updateCursor()
 }
 
 
-void KateViewInternal::updateCursor(KateTextCursor &newCursor)
+void KateViewInternal::updateCursor(KateTextCursor &newCursor, bool keepSel)
 {
-  if (!(myDoc->_configFlags & KateDocument::cfPersistent)) myDoc->clearSelection();
+  if (!(myDoc->_configFlags & KateDocument::cfPersistent) && !keepSel) myDoc->clearSelection();
 
   exposeCursor = true;
   if (cursorOn) {
@@ -1093,6 +1105,10 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e) {
     VConfig c;
     getVConfig(c);
     myDoc->selectWord(c.cursor, c.flags);
+    // anders: move cursor to end of selected word
+    cursor.col = myDoc->selectEnd.col;
+    cursor.line = myDoc->selectEnd.line;
+    updateCursor( cursor, true );
     myDoc->updateViews();
   }
 }
@@ -2270,8 +2286,8 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   TextLine::Ptr textLine = myDoc->getTextLine(cursor.line);
   x1 = myDoc->textWidth(textLine,cursor.col)        -10;
   x2 = myDoc->textWidth(textLine,cursor.col + slen) +20;
-  y1 = myDoc->viewFont.fontHeight*cursor.line                 -10;
-  y2 = y1 + myDoc->viewFont.fontHeight                     +30;
+  y1 = myDoc->viewFont.fontHeight*cursor.line       -10;
+  y2 = y1 + myDoc->viewFont.fontHeight              +30;
 
   xPos = myViewInternal->xPos;
   yPos = myViewInternal->yPos;

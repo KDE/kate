@@ -144,7 +144,7 @@ class KateViewInternal : public QWidget
     void insLine(int line);
     void delLine(int line);
     void updateCursor();
-    void updateCursor(KateTextCursor &newCursor);
+    void updateCursor(KateTextCursor &newCursor, bool keepSel=false);
     void clearDirtyCache(int height);
     void tagLines(int start, int end, int x1, int x2);
     void tagAll();

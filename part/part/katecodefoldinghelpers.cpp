@@ -340,7 +340,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
           if (node->childnodes()->at(insertPos)->startLineRel == line-startLine)
           {
             addOpening(node->childnodes()->at(insertPos), data, regionChanges, line);
-            insertPos++;;
+            insertPos++;
           }
           else
           {

@@ -17,6 +17,10 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include "katebuffer.h"
 #include "katebuffer.moc"
 
@@ -219,33 +223,22 @@ bool KateBuffer::openFile (const QString &m_file)
 {
   QFile file (m_file);
 
-  if ( !file.open( IO_ReadOnly ) || 
-       (m_file.startsWith("/dev/") && !file.isDirectAccess()) )
+  bool ok = false;
+  struct stat sbuf;
+  if (stat(QFile::encodeName(m_file), &sbuf) == 0)
+  {
+    if (S_ISREG(sbuf.st_mode) && file.open( IO_ReadOnly ))
+      ok = true;
+  }
+
+  if (!ok)
   {
     clear();
-
     return false; // Error
   }
 
-  bool seekable = false;
   // eol detection
   bool lastCharEOL = false;
-  if (!file.isDirectAccess())
-  {
-    lastCharEOL = true;
-  }
-  else if (file.size () > 0)
-  {
-    file.at (file.size () - 1);
-    
-    int ch = file.getch();
-
-    if ((ch == '\n') || (ch == '\r'))
-      lastCharEOL = true;
-
-    file.reset ();
-  }
-
   if (file.isDirectAccess())
   {  
     // detect eol
@@ -278,11 +271,22 @@ bool KateBuffer::openFile (const QString &m_file)
       }
     }
 
+    if (file.size () > 0)
+    {
+      file.at (file.size () - 1);
+    
+      int ch = file.getch();
+
+      if ((ch == '\n') || (ch == '\r'))
+        lastCharEOL = true;
+    }
+
     file.reset ();
   }
   else
   {
     m_doc->config()->setEol (KateDocumentConfig::eolUnix);
+    lastCharEOL = true;
   }
 
   QTextStream stream (&file);

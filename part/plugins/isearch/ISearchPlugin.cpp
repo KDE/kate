@@ -60,7 +60,7 @@ protected:
 };
                                             
 ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
-	: QObject ( view ), KXMLGUIClient ()
+	: QObject ( view ), KXMLGUIClient (view)
 	, m_view( 0L )
 	, m_doc( 0L )
 	, m_searchIF( 0L )

@@ -31,8 +31,10 @@
 class QLabel;
 class KToolBarLabel;
 
-class ISearchPlugin : public KTextEditor::Plugin, KTextEditor::PluginViewInterface
-{
+class ISearchPlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
+{             
+  Q_OBJECT
+
   public:
 	  ISearchPlugin( QObject *parent = 0, const char* name = 0, const QStringList &args = QStringList() );
 	  virtual ~ISearchPlugin();       
@@ -44,7 +46,7 @@ class ISearchPlugin : public KTextEditor::Plugin, KTextEditor::PluginViewInterfa
     QPtrList<class ISearchPluginView> m_views;
 };
 
-class ISearchPluginView : public QObject, KXMLGUIClient
+class ISearchPluginView : public QObject, public KXMLGUIClient
 {
 	Q_OBJECT
 	

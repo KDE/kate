@@ -150,11 +150,9 @@ int GotoLineDialog::getLine() {
 const int IndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::cfSpaceIndent,
   KateDocument::cfBackspaceIndents,KateDocument::cfTabIndents, KateDocument::cfKeepIndentProfile, KateDocument::cfKeepExtraSpaces};
 
-IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
+IndentConfigTab::IndentConfigTab(QWidget *parent)
   : Kate::ConfigPage(parent)
 {
-  m_doc = view;
-
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
@@ -277,11 +275,9 @@ void IndentConfigTab::reload ()
 //BEGIN SelectConfigTab
 const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::cfDelOnInput};
 
-SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
+SelectConfigTab::SelectConfigTab(QWidget *parent)
   : Kate::ConfigPage(parent)
 {
-  m_doc = view;
-
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 

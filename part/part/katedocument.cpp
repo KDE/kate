@@ -4806,12 +4806,12 @@ Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::indentConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new IndentConfigTab(p, this);
+  return (Kate::ConfigPage*) new IndentConfigTab(p);
 }
 
 Kate::ConfigPage *KateDocument::selectConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new SelectConfigTab(p, this);
+  return (Kate::ConfigPage*) new SelectConfigTab(p);
 }
 
 Kate::ConfigPage *KateDocument::editConfigPage (QWidget *p)

@@ -52,18 +52,15 @@ class QSpinBox;
 
 class ReplacePrompt : public KDialogBase
 {
-    Q_OBJECT
-
+  Q_OBJECT
+    
   public:
-
     ReplacePrompt(QWidget *parent);
 
   signals:
-
     void clicked();
 
   protected slots:
-
     void slotOk( void );
     void slotClose( void );
     void slotUser1( void ); // All
@@ -74,7 +71,7 @@ class ReplacePrompt : public KDialogBase
 
 class GotoLineDialog : public KDialogBase
 {
-    Q_OBJECT
+  Q_OBJECT
 
   public:
 
@@ -89,18 +86,15 @@ class GotoLineDialog : public KDialogBase
 
 class IndentConfigTab : public Kate::ConfigPage
 {
-    Q_OBJECT
+  Q_OBJECT
 
   public:
-
-    IndentConfigTab(QWidget *parent, KateDocument *);
+    IndentConfigTab(QWidget *parent);
 
   protected slots:
     void spacesToggled();
 
   protected:
-    KateDocument *m_doc;
-
     enum { numFlags = 6 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
@@ -111,18 +105,16 @@ class IndentConfigTab : public Kate::ConfigPage
   public slots:
     void apply ();
     void reload ();
-        void reset () {};
+    void reset () {};
     void defaults () {};
 };
 
 class SelectConfigTab : public Kate::ConfigPage
 {
-    Q_OBJECT
-
- public:
-
-    SelectConfigTab(QWidget *parent, KateDocument *);
-    KateDocument *m_doc;
+  Q_OBJECT
+  
+  public:
+    SelectConfigTab(QWidget *parent);
 
   protected:
 
@@ -133,7 +125,7 @@ class SelectConfigTab : public Kate::ConfigPage
   public slots:
     void apply ();
     void reload ();
-        void reset () {};
+    void reset () {};
     void defaults () {};
 };
 

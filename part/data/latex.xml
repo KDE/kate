@@ -36,8 +36,8 @@
       <context name="Environment" attribute="Environment" lineEndContext="#stay">
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop"/>
         <DetectChar char="]" attribute="Normal Text" context="#pop#pop"/>
-        <RegExpr String="(verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="VerbatimEnv"/>
-        <RegExpr String="(equation|displaymath|eqnarray|math|multline)\*?" attribute="Environment" context="MathEnv"/>
+        <RegExpr String="^(verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="VerbatimEnv"/>
+        <RegExpr String="^(equation|displaymath|eqnarray|math|multline)\*?" attribute="Environment" context="MathEnv"/>
       </context>
 
       <context name="Label" attribute="Normal Text" lineEndContext="#pop#pop" fallthrough="true" fallthroughContext="#pop#pop">

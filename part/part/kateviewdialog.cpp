@@ -532,7 +532,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
 	m_line=new QCheckBox(i18n("Show &line numbers"),this);
-	m_icons=new QCheckBox(i18n("Show &iconborder"),this);
+	m_icons=new QCheckBox(i18n("Show &icon border"),this);
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
         m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
         m_bmSort->setRadioButtonExclusive( true );

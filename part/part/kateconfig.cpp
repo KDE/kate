@@ -82,6 +82,7 @@ KateDocumentConfig::KateDocumentConfig ()
  : m_configFlags (0),
    m_tabWidthSet (true),
    m_indentationWidthSet (true),
+   m_indentationModeSet (true),
    m_wordWrapSet (true),
    m_wordWrapAtSet (true),
    m_pageUpDownMovesCursorSet (true),
@@ -105,6 +106,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_configFlags (0),
    m_tabWidthSet (false),
    m_indentationWidthSet (false),
+   m_indentationModeSet (false),
    m_wordWrapSet (false),
    m_wordWrapAtSet (false),
    m_pageUpDownMovesCursorSet (false),
@@ -138,6 +140,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setIndentationWidth (config->readNumEntry("Indentation Width", 2));
 
+  setIndentationMode (config->readNumEntry("Indentation Mode", 0));
+
   setWordWrap (config->readBoolEntry("Word Wrap", false));
   setWordWrapAt (config->readNumEntry("Word Wrap Column", 80));
   setPageUpDownMovesCursor (config->readNumEntry("PageUp/PageDown Moves Cursor", false));
@@ -168,6 +172,7 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Tab Width", tabWidth());
 
   config->writeEntry("Indentation Width", indentationWidth());
+  config->writeEntry("Indentation Mode", indentationMode());
 
   config->writeEntry("Word Wrap", wordWrap());
   config->writeEntry("Word Wrap Column", wordWrapAt());
@@ -244,6 +249,24 @@ void KateDocumentConfig::setIndentationWidth (int indentationWidth)
 
   m_indentationWidthSet = true;
   m_indentationWidth = indentationWidth;
+
+  configEnd ();
+}
+
+uint KateDocumentConfig::indentationMode () const
+{
+  if (m_indentationModeSet || isGlobal())
+    return m_indentationMode;
+
+  return s_global->indentationMode();
+}
+
+void KateDocumentConfig::setIndentationMode (uint indentationMode)
+{
+  configStart ();
+
+  m_indentationModeSet = true;
+  m_indentationMode = indentationMode;
 
   configEnd ();
 }

@@ -38,7 +38,7 @@ QStringList KateCoreCommands::cmds()
   l << "indent" << "unindent" << "cleanindent"
     << "comment" << "uncomment"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
-    << "set-indent-spaces" << "set-indent-width" << "set-auto-indent"
+    << "set-indent-spaces" << "set-indent-width" << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column";
   return l;
@@ -88,6 +88,7 @@ bool KateCoreCommands::exec(Kate::View *view,
   // ALL commands that takes exactly one integer argument.
   else if ( cmd == "set-tab-width" ||
             cmd == "set-indent-width" ||
+            cmd == "set-indent-mode" ||
             cmd == "set-word-wrap-column" )
   {
     // find a integer value > 0
@@ -110,6 +111,12 @@ bool KateCoreCommands::exec(Kate::View *view,
       if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
       v->doc()->config()->setIndentationWidth( val );
+    }
+    else if ( cmd == "set-indent-mode" )
+    {
+      if ( val < 0 )
+        KCC_ERR( i18n("Mode must be at least 0.") );
+      v->doc()->config()->setIndentationMode( val );
     }
     else if ( cmd == "set-word-wrap-column" )
     {

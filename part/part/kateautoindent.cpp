@@ -20,6 +20,14 @@
 #include "kateconfig.h"
 #include "kateview.h"
 
+KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
+{
+  if (mode == KateDocumentConfig::imCStyle)
+    return new KateCSmartIndent (doc);
+
+  return new KateAutoIndent (doc);
+}
+
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
  : doc(_doc)
 {

@@ -20,6 +20,9 @@
 #define kate_autoindent_h
 
 #include "katecursor.h"
+#include "kateconfig.h"
+
+#include <klocale.h>
 
 class KateDocument;
 
@@ -39,6 +42,11 @@ class KateAutoIndent
 
     // Called every time a character is inserted into the document
     virtual void processChar (QChar /*c*/) { }
+
+    virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
+    virtual QString modeName () const { return i18n("Normal"); };
+
+    static KateAutoIndent *createIndenter (KateDocument *doc, uint mode);
 
   protected:
     // Determines if the characters open and close are balanced between begin and end
@@ -67,6 +75,9 @@ class KateCSmartIndent : public KateAutoIndent
 
     virtual void processNewline (KateDocCursor &begin, bool needContinue);
     virtual void processChar (QChar c);
+
+    virtual uint modeNumber () const { return KateDocumentConfig::imCStyle; };
+    virtual QString modeName () const { return i18n("C Style"); };
 
   private:
     uint calcIndent (KateDocCursor &begin, bool needContinue);

@@ -219,7 +219,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_extension = new KateBrowserExtension( this );
   m_arbitraryHL = new KateArbitraryHighlight();
-  m_indenter = new KateAutoIndent( this );
+  m_indenter = KateAutoIndent::createIndenter ( this, 0 );
 
   // read the config THE FIRST TIME ONLY, we store everything in static vars
   // to ensure each document has the same config the whole time
@@ -4871,7 +4871,14 @@ void KateDocument::updateConfig ()
     view->updateDocumentConfig ();
   }
 
-  m_indenter->updateConfig();
+  // switch indenter if needed
+  if (m_indenter->modeNumber() != m_config->indentationMode())
+  {
+    delete m_indenter;
+    m_indenter = KateAutoIndent::createIndenter ( this, m_config->indentationMode() );
+  }
+  else
+    m_indenter->updateConfig();
 }
 
 //BEGIN Variable reader
@@ -4976,17 +4983,14 @@ void KateDocument::readVariableLine( QString t )
         m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
       else if ( var == "smart-home" && checkBoolValue( val, &state ) )
         m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
-      else if ( var == "smart-indent" && checkBoolValue( val, &state ) )
-      {
-        delete m_indenter;
-        m_indenter = new KateCSmartIndent( this );
-      }
 
       // INTEGER SETTINGS
       else if ( var == "tab-width" && checkIntValue( val, &n ) )
         m_config->setTabWidth( n );
       else if ( var == "indent-width"  && checkIntValue( val, &n ) )
         m_config->setIndentationWidth( n );
+      else if ( var == "indent-mode"   && checkIntValue( val, &n ) )
+        m_config->setIndentationMode( n );
       else if ( var == "word-wrap-column" && n > 0  && checkIntValue( val, &n ) ) // uint, but hard word wrap at 0 will be no fun ;)
         m_config->setWordWrapAt( n );
       else if ( var == "undo-steps"  && n >= 0  && checkIntValue( val, &n ) )

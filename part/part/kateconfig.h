@@ -95,6 +95,15 @@ class KateDocumentConfig : public KateConfig
     int indentationWidth () const;
     void setIndentationWidth (int indentationWidth);
 
+    enum IndentationMode
+    {
+      imNormal = 0,
+      imCStyle = 1
+    };
+
+    uint indentationMode () const;
+    void setIndentationMode (uint identationMode);
+
     bool wordWrap () const;
     void setWordWrap (bool on);
 
@@ -167,6 +176,7 @@ class KateDocumentConfig : public KateConfig
   private:
     int m_tabWidth;
     int m_indentationWidth;
+    uint m_indentationMode;
     bool m_wordWrap;
     int m_wordWrapAt;
     uint m_undoSteps;
@@ -179,6 +189,7 @@ class KateDocumentConfig : public KateConfig
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
+    bool m_indentationModeSet : 1;
     bool m_wordWrapSet : 1;
     bool m_wordWrapAtSet : 1;
     bool m_pageUpDownMovesCursorSet : 1;

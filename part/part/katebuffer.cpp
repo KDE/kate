@@ -121,8 +121,13 @@ void KateBuffer::editEnd ()
   // hl update !!!
   if ((editTagLineStart <= editTagLineEnd) && (editTagLineEnd <= m_lineHighlighted))
   {
+    // look one line too far, needed for linecontinue stuff
     editTagLineEnd++;
-    
+   
+    // look one line before, needed nearly 100% only for indentation based folding !
+    if (editTagLineStart > 0)
+      editTagLineStart--;
+     
     KateBufBlock *buf2 = 0;
     bool needContinue = false;
     while ((buf2 = findBlock(editTagLineStart)))

@@ -19,7 +19,6 @@
 // $Id$
 
 #include "katecmd.h"
-#include "katecmd.moc"
 
 #include "katecmds.h"
 
@@ -27,9 +26,10 @@ KateCmd::KateCmd ()
 {
   m_parser.setAutoDelete(true);
 
-  m_parser.append (new KateCommands::InsertTime ());
   m_parser.append (new KateCommands::SedReplace ());
   m_parser.append (new KateCommands::Character ());
+  m_parser.append (new KateCommands::Goto ());
+  m_parser.append (new KateCommands::Date ());
 
   for (uint i=0; i<m_parser.count(); i++)
     m_cmds += m_parser.at(i)->cmds ();

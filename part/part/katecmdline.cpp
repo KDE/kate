@@ -5,6 +5,8 @@
 #include "katecmd.h"
 #include "katefactory.h"
 
+// $Id$
+
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
   , m_view (view)

@@ -33,23 +33,6 @@
 namespace KateCommands
 {
 
-bool InsertTime::usable (const QString &cmd)
-{
-	if (cmd == "time")
-		return true;
-
-	return false;
-}
-
-bool InsertTime::exec (KateView *view, const QString &cmd, QString &)
-{
-  if (!usable (cmd))
-    return false;
-
-  view->insertText(QTime::currentTime().toString());
-  return true;
-}
-
 static void replace(QString &s, const QString &needle, const QString &with)
 {
 	int pos=0;
@@ -275,6 +258,45 @@ bool Character::exec (KateView *view, const QString &_cmd, QString &)
 	}
 
 	return true;
+}
+
+bool Goto::usable (const QString &cmd)
+{
+	if (cmd.left(5) == "goto:")
+		return true;
+
+	return false;
+}
+
+bool Goto::exec (KateView *view, const QString &cmd, QString &)
+{
+  if (!usable (cmd))
+    return false;
+
+  view->gotoLineNumber (cmd.mid(5, cmd.length()-5).toInt());
+
+	return true;
+}
+
+bool Date::usable (const QString &cmd)
+{
+	if (cmd.left(5) == "date:")
+		return true;
+
+	return false;
+}
+
+bool Date::exec (KateView *view, const QString &cmd, QString &)
+{
+  if (!usable (cmd))
+    return false;
+
+  if (QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)).length() > 0)
+    view->insertText(QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)));
+  else
+    view->insertText(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+
+  return true;
 }
 
 }

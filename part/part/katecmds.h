@@ -32,19 +32,6 @@ namespace KateCommands
 {
 
 /**
- * This is by Christoph Cullmann
- **/
-class InsertTime : public KateCmdParser
-{
-public:
-	bool usable (const QString &cmd);
-
-  bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
-
-  QStringList cmds () { return QStringList("time"); };
-};
-
-/**
  * -- Charles Samuels <charles@kde.org>
  * Support vim/sed find and replace
  * s/search/replace/ find search, replace with replace on this line
@@ -56,15 +43,15 @@ public:
  **/
 class SedReplace : public KateCmdParser
 {
-public:
-	bool usable (const QString &cmd);
+  public:
+    bool usable (const QString &cmd);
 
-  bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
-  QStringList cmds () { return QStringList("s/search/replace/"); };
+    QStringList cmds () { return QStringList("s/search/replace/"); };
 
-private:
-	static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
+  private:
+    static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
 };
 
 /**
@@ -77,12 +64,32 @@ private:
  **/
 class Character : public KateCmdParser
 {
-public:
-	bool usable (const QString &cmd);
+  public:
+    bool usable (const QString &cmd);
 
-  bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
-  QStringList cmds () { return QStringList("char:"); };
+    QStringList cmds () { return QStringList("char:"); };
+};
+
+class Goto : public KateCmdParser
+{
+  public:
+    bool usable (const QString &cmd);
+
+    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+
+    QStringList cmds () { return QStringList("goto:"); };
+};
+
+class Date : public KateCmdParser
+{
+  public:
+    bool usable (const QString &cmd);
+
+    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+
+    QStringList cmds () { return QStringList("date:"); };
 };
 
 }
@@ -90,4 +97,3 @@ public:
 // vim: noet
 
 #endif
-

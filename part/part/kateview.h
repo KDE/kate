@@ -26,13 +26,14 @@
 #include "kateglobal.h"
 #include "katedocument.h"
 #include "katesearch.h"
+#include "kateviewinternal.h"
+#include "katecodecompletion_iface_impl.h"
 
 class KToggleAction;
 class KAction;
 class KRecentFilesAction;
 class KSelectAction;
 class KateDocument;
-class KateViewInternal;
 class KateBookmarks;
 class KateBrowserExtension;
 
@@ -50,195 +51,62 @@ class KateView : public Kate::View
     friend class CodeCompletion_Impl;
 
   public:
-    KateView (KateDocument *doc, QWidget *parent = 0L, const char * name = 0);
+    KateView( KateDocument* doc, QWidget* parent = 0L, const char* name = 0 );
     ~KateView ();
 
   //
-  // KTextEditor::ClipboardInterface stuff
+  // KTextEditor::View
+  //
+  public:
+    KTextEditor::Document* document() const       { return myDoc; }
+
+  //
+  // KTextEditor::ClipboardInterface
   //
   public slots:
-    /**
-      Moves the marked text into the clipboard
-    */
-    void cut() {doEditCommand(KateView::cmCut);}
-    /**
-      Copies the marked text into the clipboard
-    */
-    void copy() const;
-    /**
-      Inserts text from the clipboard at the actual cursor position
-    */
-    void paste() {doEditCommand(KateView::cmPaste);}
-
-  //
-  // KTextEditor::ViewCursorInterface stuff
-  //
-  public slots:
-    /** Get the current cursor coordinates in pixels. */
-    QPoint cursorCoordinates ();
-
-    /** Get the cursor position */
-    void cursorPosition (uint *line, uint *col);
-
-    /** Get the cursor position, calculated with 1 character per tab */
-    void cursorPositionReal (uint *line, uint *col);
-
-    /** Set the cursor position */
-    bool setCursorPosition (uint line, uint col);
-
-    /** Set the cursor position, use 1 character per tab */
-    bool setCursorPositionReal (uint line, uint col);
-
-    uint cursorLine ();
-    uint cursorColumn ();
-    uint cursorColumnReal ();
-
-  signals:
-    void cursorPositionChanged ();
+    void cut()           { myDoc->cut();    }
+    void copy() const    { myDoc->copy();   }
+    // TODO: Factor out of myViewInternal
+    void paste()         { myViewInternal->doPaste();  }
 
   //
   // KTextEditor::PopupMenuInterface stuff
   //
   public:
-    /**
-      Install a Popup Menu. The Popup Menu will be activated on
-      a right mouse button press event.
-    */
-    void installPopup(QPopupMenu *rmb_Menu);
-    QPopupMenu* popup() { return m_rmbMenu; }
-
+    void installPopup( QPopupMenu* menu ) { m_rmbMenu = menu; }
+    QPopupMenu* popup() const              { return m_rmbMenu;     }
+    
   //
-  // KTextEditor::DynWordWrapInterface stuff
-  //
-  public:
-    void setDynWordWrap (bool b);
-    bool dynWordWrap () const;
-
-  //
-  // Kate::View stuff
+  // KTextEditor::ViewCursorInterface
   //
   public slots:
-    // cursor movement slots
-    void cursorLeft();
-    void shiftCursorLeft();
-    void cursorRight();
-    void shiftCursorRight();
-    void wordLeft();
-    void shiftWordLeft();
-    void wordRight();
-    void shiftWordRight();
-    void home();
-    void shiftHome();
-    void end();
-    void shiftEnd();
-    void up();
-    void shiftUp();
-    void down();
-    void shiftDown();
-    void scrollUp();
-    void scrollDown();
-    void topOfView();
-    void bottomOfView();
-    void pageUp();
-    void shiftPageUp();
-    void pageDown();
-    void shiftPageDown();
-    void top();
-    void shiftTop();
-    void bottom();
-    void shiftBottom();
+    QPoint cursorCoordinates()
+        { return myViewInternal->cursorCoordinates();                 }
+    void cursorPosition( uint* l, uint* c )
+        { if( l ) *l = cursorLine(); if( c ) *c = cursorColumn();     }
+    void cursorPositionReal( uint* l, uint* c )
+        { if( l ) *l = cursorLine(); if( c ) *c = cursorColumnReal(); }
+    bool setCursorPosition( uint line, uint col )
+        { return setCursorPositionInternal( line, col, tabWidth() );  }
+    bool setCursorPositionReal( uint line, uint col)
+        { return setCursorPositionInternal( line, col, 1 );           }
+    uint cursorLine()
+        { return myViewInternal->getCursor().line;                    }
+    uint cursorColumn()
+        { return myDoc->currentColumn(myViewInternal->getCursor());   }
+    uint cursorColumnReal()
+        { return myViewInternal->getCursor().col;                     }
+  signals:
+    void cursorPositionChanged();
 
+  //
+  // KTextEditor::CodeCompletionInterface
+  //
   public:
-    /**
-     Gets the text line where the cursor is on
-    */
-    QString currentTextLine();
-    /**
-     Gets the word where the cursor is on
-    */
-    QString currentWord();
-    /**
-     Gets the word at position x, y. Can be used to find
-     the word under the mouse cursor
-    */
-//FIXME     QString word(int x, int y);
-    /**
-     Insert text at the current cursor position.
-     The parameter @param mark is unused.
-    */
-    void insertText(const QString &);
-    /**
-     Returns true if the current document can be
-     discarded. If the document is modified, the user is asked if he wants
-     to save it. On "cancel" the function returns false.
-    */
-    bool canDiscard();
-
-  public slots:
-    /**
-      Flushes the document of the text widget. The user is given
-      a chance to save the current document if the current document has
-      been modified.
-    */
-    void flush ();
-    /**
-      Saves the file if necessary under the current file name. If the current file
-      name is Untitled, as it is after a call to newFile(), this routine will
-      call saveAs().
-    */
-    saveResult save();
-    /**
-      Allows the user to save the file under a new name. This starts the
-      automatic highlight selection.
-    */
-    saveResult saveAs();
-    /**
-      Moves the current line or the selection one position to the right
-    */
-    void indent() {doEditCommand(KateView::cmIndent);};
-    /**
-      Moves the current line or the selection one position to the left
-    */
-    void unIndent() {doEditCommand(KateView::cmUnindent);};
-    /**
-      Optimizes the selected indentation, replacing tabs and spaces as needed
-    */
-    void cleanIndent() {doEditCommand(KateView::cmCleanIndent);};
-    /**
-      comments out current line
-    */
-    void comment() {doEditCommand(KateView::cmComment);};
-    /**
-      removes comment signs in the current line
-    */
-    void uncomment() {doEditCommand(KateView::cmUncomment);};
-
-    void keyReturn() {doEditCommand(KateView::cmReturn);};
-    void keyDelete() {doEditCommand(KateView::cmDelete);};
-    void backspace() {doEditCommand(KateView::cmBackspace);};
-    void transpose() {doEditCommand(KateView::cmTranspose);};
-    void killLine() {doEditCommand(KateView::cmKillLine);};
-
-//search/replace functions
-  public slots:
-    void find()                   { m_search->find(); }
-    void replace()                { m_search->replace(); }
-    void findAgain( bool back )   { m_search->findAgain( back ); }
-    void findAgain()              { findAgain( false ); }
-    void findPrev()               { findAgain( true ); }
-
-    void gotoLine();
-    void gotoLineNumber( int linenumber );
-
-//code completion
-  private:
-    CodeCompletion_Impl *myCC_impl;
-    void initCodeCompletionImplementation();
-
-  public:
-    void showArgHint(QStringList arg1, const QString &arg2, const QString &arg3);
-    void showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0, bool arg3=true);
-
+    void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
+        { myCC_impl->showArgHint( arg1, arg2, arg3 ); }
+    void showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset = 0, bool cs = true )
+        { myCC_impl->showCompletionBox( arg1, offset, cs ); }
   signals:
     void completionAborted();
     void completionDone();
@@ -246,74 +114,133 @@ class KateView : public Kate::View
     void completionDone(KTextEditor::CompletionEntry);
     void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 
-
-//config file / session management functions
+  //
+  // KTextEditor::DynWordWrapInterface
+  //
   public:
-    /**
-      Reads session config out of the KConfig object. This also includes
-      the actual cursor position and the bookmarks.
-    */
+    void setDynWordWrap( bool b );
+    bool dynWordWrap() const { return m_hasWrap; }
+
+  //
+  // Kate::View
+  //
+  public:
+    bool isOverwriteMode() const
+        { return myDoc->_configFlags & KateDocument::cfOvr; }
+    void setOverwriteMode( bool b );
+    // TODO: As this method can be implemented in terms of KTextEditor
+    // methods, it should be dropped.
+    QString currentTextLine()
+        { return getDoc()->textLine( cursorLine() ); }
+    QString currentWord()
+        { return myDoc->getWord( myViewInternal->getCursor() ); }
+//    QString word(int x, int y)
+//        { return myDoc->getWord( x, y ); }
+    // TODO: As this method can be implemented in terms of KTextEditor
+    // methods, it should be dropped.
+    void insertText( const QString& text )
+        { getDoc()->insertText( cursorLine(), cursorColumnReal(), text ); }
+    bool canDiscard();
+    int tabWidth()                { return myDoc->tabChars;      }
+    void setTabWidth( int w )     { myDoc->setTabWidth(w);       }
+    void setEncoding( QString e ) { myDoc->setEncoding(e);       }
+    bool isLastView()             { return myDoc->isLastView(1); }
+
+  public slots:
+    void flush();
+    saveResult save();
+    saveResult saveAs();
+    
+    void indent()      { myDoc->indent( cursorLine() );      }
+    void unIndent()    { myDoc->unIndent( cursorLine() );    }
+    void cleanIndent() { myDoc->cleanIndent( cursorLine() ); }
+    void comment()     { myDoc->comment( cursorLine() );     }
+    void uncomment()   { myDoc->unComment( cursorLine() );   }
+    // TODO: Factor these out of myViewInternal
+    void keyReturn()   { myViewInternal->doReturn();      }
+    void keyDelete()   { myViewInternal->doDelete();      }
+    void backspace()   { myViewInternal->doBackspace();   }
+    void transpose()   { myViewInternal->doTranspose();   }
+    void killLine()    { myDoc->killLine( cursorLine() );    }
+    
+    void cursorLeft()         { myViewInternal->cursorLeft();      }
+    void shiftCursorLeft()    { myViewInternal->cursorLeft(true);  }
+    void cursorRight()        { myViewInternal->cursorRight();     }
+    void shiftCursorRight()   { myViewInternal->cursorRight(true); }
+    void wordLeft()           { myViewInternal->wordLeft();        }
+    void shiftWordLeft()      { myViewInternal->wordLeft(true);    }
+    void wordRight()          { myViewInternal->wordRight();       }
+    void shiftWordRight()     { myViewInternal->wordRight(true);   }
+    void home()               { myViewInternal->home();            }
+    void shiftHome()          { myViewInternal->home(true);        }
+    void end()                { myViewInternal->end();             }
+    void shiftEnd()           { myViewInternal->end(true);         }
+    void up()                 { myViewInternal->cursorUp();        }
+    void shiftUp()            { myViewInternal->cursorUp(true);    }
+    void down()               { myViewInternal->cursorDown();      }
+    void shiftDown()          { myViewInternal->cursorDown(true);  }
+    void scrollUp()           { myViewInternal->scrollUp();        }
+    void scrollDown()         { myViewInternal->scrollDown();      }
+    void topOfView()          { myViewInternal->topOfView();       }
+    void bottomOfView()       { myViewInternal->bottomOfView();    }
+    void pageUp()             { myViewInternal->pageUp();          }
+    void shiftPageUp()        { myViewInternal->pageUp(true);      }
+    void pageDown()           { myViewInternal->pageDown();        }
+    void shiftPageDown()      { myViewInternal->pageDown(true);    }
+    void top()                { myViewInternal->top_home();        }
+    void shiftTop()           { myViewInternal->top_home(true);    }
+    void bottom()             { myViewInternal->bottom_end();      }
+    void shiftBottom()        { myViewInternal->bottom_end(true);  }
+
+    void gotoLine();
+    void gotoLineNumber( int linenumber );
+
+  // config file / session management functions
+  public:
     void readSessionConfig(KConfig *);
-    /**
-      Writes session config into the KConfig object
-    */
     void writeSessionConfig(KConfig *);
 
-  // syntax highlight
   public slots:
-    /**
-      Get the end of line mode (Unix, Macintosh or Dos)
-    */
-    int getEol();
-    /**
-      Set the end of line mode (Unix, Macintosh or Dos)
-    */
-    void setEol(int eol);
-  
-public:
-    enum Edit_commands {
-        cmReturn = 1,
-        cmDelete, cmBackspace, cmKillLine,
-        cmCut, cmCopy, cmPaste,
-        cmIndent, cmUnindent, cmCleanIndent,
-        cmComment, cmUncomment,
-        cmTranspose
-    };
+    int getEol()                  { return myDoc->eolMode; }
+    void setEol( int eol );
+    void setFocus();
+    
+    void find()                   { m_search->find();            }
+    void replace()                { m_search->replace();         }
+    void findAgain( bool back )   { m_search->findAgain( back ); }
+    void findAgain()              { findAgain( false );          }
+    void findPrev()               { findAgain( true );           }
+    void slotEditCommand();
+    void setIconBorder( bool enable );
+    void toggleIconBorder();
+    void setLineNumbersOn( bool enable );
+    void toggleLineNumbersOn();
 
-public:
+  public:
     bool iconBorder();
     bool lineNumbersOn();
-    void setupEditKeys();
-    bool isOverwriteMode() const;
-    void setOverwriteMode( bool b );
-    int tabWidth();
-    void setTabWidth(int);
-    void setEncoding (QString e);
-    bool isLastView();
+    Kate::Document* getDoc()    { return myDoc; }
     
     void setActive( bool b )    { m_active = b; }
-    bool isActive() /* const */ { return m_active; }
+    bool isActive()             { return m_active; }
     
-    int iconBorderStatus() const { return m_iconBorderStatus; }
+  public slots:
+    void slotIncFontSizes();
+    void slotDecFontSizes();
+    void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionReal( mark->line, 0 ); }
 
-public:
+  //
+  // Extras
+  //
+  public:
+    int iconBorderStatus() const     { return m_iconBorderStatus; }
     // Is it really necessary to have 3 methods for this?! :)
-    KTextEditor::Document* document() const       { return myDoc; }
-    Kate::Document*        getDoc() /* const */   { return myDoc; }
-    KateDocument*          doc()      const       { return myDoc; }
+    KateDocument*  doc() const       { return myDoc; }
+    void setupEditKeys();
 
-public slots:
-    void slotEditCommand ();
-    void setIconBorder (bool enable);
-    void setLineNumbersOn(bool enable);
+  public slots:
     void setFoldingMarkersOn(bool enable);
-    void toggleIconBorder ();
-    void toggleLineNumbersOn();
-    void gotoMark (KTextEditor::Mark *mark) { setCursorPositionReal( mark->line, 0 ); }
-    void slotIncFontSizes ();
-    void slotDecFontSizes ();
-    void setFocus ();
-    void slotNewUndo ();
+    void slotNewUndo();
     void slotUpdate();
     void toggleInsert();
     void slotRegionVisibilityChangedAt(unsigned int);
@@ -321,43 +248,34 @@ public slots:
     void slotCodeFoldingChanged();
     void reloadFile();
 
-signals:
+  signals:
     void gotFocus (Kate::View *);
     void dropEventPass(QDropEvent*);
-    /**
-      Modified flag or config flags have changed
-    */
     void newStatus();
     
-protected:
+  protected:
     void keyPressEvent( QKeyEvent *ev );
     void customEvent( QCustomEvent *ev );
     void contextMenuEvent( QContextMenuEvent *ev );
     void resizeEvent( QResizeEvent* );
     bool eventFilter( QObject* o, QEvent* e );
- 
-    /*
-     * Check if the given URL already exists. Currently used by both save() and saveAs()
-     *
-     * Asks the user for permission and returns the message box result and defaults to
-     * KMessageBox::Yes in case of doubt
-     */
     int checkOverwrite( KURL u );
 
-private slots:
+  private slots:
     void slotDropEventPass( QDropEvent* ev );
     void dropEventPassEmited( QDropEvent* e );
     void slotSetEncoding( const QString& descriptiveName );
 
-private:
+  private:
     KAccel* createEditKeys();
     void setupActions();
-    
+    void initCodeCompletionImplementation();
+
     void updateIconBorder();
     
     void doCursorCommand( int cmdNum );
     void doEditCommand( int cmdNum );
-    void setCursorPositionInternal( int line, int col, int tabwidth );
+    bool setCursorPositionInternal( int line, int col, int tabwidth );
 
     KAction*               m_editUndo;
     KAction*               m_editRedo;
@@ -375,6 +293,7 @@ private:
     KateBookmarks*         m_bookmarks;
     KateBrowserExtension*  m_extension;
     QPopupMenu*            m_rmbMenu;
+    CodeCompletion_Impl*   myCC_impl;
 
     bool       m_active;
     int        m_iconBorderStatus;

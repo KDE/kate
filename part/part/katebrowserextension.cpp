@@ -34,12 +34,12 @@ KateBrowserExtension::KateBrowserExtension( KateView* view )
 
 void KateBrowserExtension::copy()
 {
-  m_view->doc()->copy( 0 );
+  m_view->doc()->copy();
 }
 
 void KateBrowserExtension::print()
 {
-  m_view->doc()->printDialog ();
+  m_view->doc()->printDialog();
 }
 
 void KateBrowserExtension::slotSelectionChanged()

@@ -2828,11 +2828,10 @@ void KateDocument::newLine(VConfig &c)
   //c.view->myViewInternal->updateCursor(c.cursor);
 }
 
-void KateDocument::killLine(VConfig &c)
+void KateDocument::killLine( uint line )
 {
-  removeLine (c.cursor.line);
+  removeLine( line );
 //  regionTree->lineHasBeenRemoved(c.cursor.line);// is this the right place ?
-
 }
 
 
@@ -2935,16 +2934,16 @@ void KateDocument::del(VConfig &c)
   }
 }
 
-void KateDocument::cut(VConfig &)
+void KateDocument::cut()
 {
   if (!hasSelection())
     return;
 
-  copy(_configFlags);
+  copy();
   removeSelectedText();
 }
 
-void KateDocument::copy(int )
+void KateDocument::copy()
 {
   if (!hasSelection())
     return;
@@ -3047,15 +3046,13 @@ void KateDocument::selectLength(KateTextCursor &cursor, int length, int flags) {
   setSelection (cursor.line, start, cursor.line, end);
 }
 
-void KateDocument::doIndent(VConfig &c, int change)
+void KateDocument::doIndent( uint line, int change)
 {
-  c.cursor.col = 0;
-
   editStart ();
 
   if (!hasSelection()) {
     // single line
-    optimizeLeadingSpace(c.cursor.line, _configFlags, change);
+    optimizeLeadingSpace( line, _configFlags, change);
   }
   else
   {
@@ -3111,7 +3108,7 @@ void KateDocument::doIndent(VConfig &c, int change)
   If excess space is removed depends on the flag cfKeepExtraSpaces
   which has to be set by the user
 */
-void KateDocument::optimizeLeadingSpace(int line, int flags, int change) {
+void KateDocument::optimizeLeadingSpace(uint line, int flags, int change) {
   int len;
   int chars, space, okLen;
   QChar ch;
@@ -3422,7 +3419,7 @@ bool KateDocument::removeStartLineCommentFromSelection()
   Comment or uncomment the selection or the current
   line if there is no selection.
 */
-void KateDocument::doComment(VConfig &c, int change)
+void KateDocument::doComment( uint line, int change)
 {
   bool hasStartLineCommentMark = !(m_highlight->getCommentSingleLineStart().isEmpty());
   bool hasStartStopCommentMark = ( !(m_highlight->getCommentStart().isEmpty())
@@ -3435,9 +3432,9 @@ void KateDocument::doComment(VConfig &c, int change)
     if ( !hasSelection() )
     {
       if ( hasStartLineCommentMark )
-        addStartLineCommentToSingleLine(c.cursor.line);
+        addStartLineCommentToSingleLine(line);
       else if ( hasStartStopCommentMark )
-        addStartStopCommentToSingleLine(c.cursor.line);
+        addStartStopCommentToSingleLine(line);
     }
     else
     {
@@ -3462,9 +3459,9 @@ void KateDocument::doComment(VConfig &c, int change)
     if ( !hasSelection() )
     {
       removed = ( hasStartLineCommentMark
-                  && removeStartLineCommentFromSingleLine(c.cursor.line) )
+                  && removeStartLineCommentFromSingleLine(line) )
         || ( hasStartStopCommentMark
-             && removeStartStopCommentFromSingleLine(c.cursor.line) );
+             && removeStartStopCommentFromSingleLine(line) );
     }
     else
     {

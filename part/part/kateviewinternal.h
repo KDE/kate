@@ -82,8 +82,13 @@ class KateViewInternal : public QWidget
      ufFoldingChanged
      };
 
-    void doEditCommand(VConfig &, int cmdNum);
 
+    void doReturn();
+    void doDelete();
+    void doBackspace();
+    void doPaste();
+    void doTranspose();
+    
     void cursorLeft(bool sel=false);
     void cursorRight(bool sel=false);
     void wordLeft(bool sel=false);

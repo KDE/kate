@@ -23,7 +23,6 @@
 #include "kateview.h"
 #include "kateview.moc"
 
-#include "kateviewinternal.h"
 #include "katedocument.h"
 #include "katecmd.h"
 #include "katefactory.h"
@@ -36,7 +35,6 @@
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
 #include "kateviewhighlightaction.h"
-#include "katecodecompletion_iface_impl.h"
 #include "katesearch.h"
 #include "katebookmarks.h"
 #include "katebrowserextension.h"
@@ -184,16 +182,6 @@ void KateView::initCodeCompletionImplementation()
   connect(myCC_impl,SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString *)),this,SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString *)));
 }
 
-QPoint KateView::cursorCoordinates()
-{
-  return myViewInternal->cursorCoordinates();
-}
-
-void KateView::copy () const
-{
-  myDoc->copy(myDoc->_configFlags);
-}
-
 void KateView::setupEditKeys()
 {
   delete m_editAccels;
@@ -232,7 +220,8 @@ KAccel* KateView::createEditKeys()
   accel->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"",SHIFT+Key_Down,this,SLOT(shiftDown()));
   accel->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"",CTRL+Key_Down,this,SLOT(scrollDown()));
   
-  accel->insert("KATE TRANSPOSE", i18n("Transpose two adjacent characters"),"",CTRL+Key_T,this,SLOT(transpose()));
+  accel->insert("KATE_TRANSPOSE", i18n("Transpose characters"),"",CTRL+Key_T,this,SLOT(transpose()));
+  accel->insert("KATE_KILL_LINE", i18n("Delete line"),"",CTRL+Key_K,this,SLOT(killLine()));
   
   KConfig config("kateeditkeysrc");
   accel->readSettings(&config);
@@ -385,7 +374,7 @@ void KateView::keyPressEvent( QKeyEvent *ev )
     break;
   case Key_Return:
   case Key_Enter:
-    doEditCommand(KateView::cmReturn);
+    keyReturn();
     break;
   case Key_Delete:
     keyDelete();
@@ -406,9 +395,6 @@ void KateView::keyPressEvent( QKeyEvent *ev )
     break;
   case Key_Insert:
     toggleInsert();
-    break;
-  case CTRL+Key_K:
-    killLine();
     break;
   default:
     KTextEditor::View::keyPressEvent( ev );
@@ -438,52 +424,10 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
     ev->accept();
 }
 
-bool KateView::setCursorPosition( uint line, uint col )
-{
-  setCursorPositionInternal( line, col, tabWidth() );
-  return true;
-}
-
-bool KateView::setCursorPositionReal( uint line, uint col)
-{
-  setCursorPositionInternal( line, col, 1 );
-  return true;
-}
-
-void KateView::cursorPosition( uint *line, uint *col )
-{
-  if ( line )
-    *line = cursorLine();
-
-  if ( col )
-    *col = cursorColumn();
-}
-
-void KateView::cursorPositionReal( uint *line, uint *col )
-{
-  if ( line )
-    *line = cursorLine();
-
-  if ( col )
-    *col = cursorColumnReal();
-}
-
-uint KateView::cursorLine() {
-  return myViewInternal->getCursor().line;
-}
-
-uint KateView::cursorColumn() {
-  return myDoc->currentColumn(myViewInternal->getCursor());
-}
-
-uint KateView::cursorColumnReal() {
-  return myViewInternal->getCursor().col;
-}
-
-void KateView::setCursorPositionInternal(int line, int col, int tabwidth)
+bool KateView::setCursorPositionInternal(int line, int col, int tabwidth)
 {
   if ((uint)line > myDoc->lastLine())
-    return;
+    return false;
 
   KateTextCursor cursor;
 
@@ -501,28 +445,8 @@ void KateView::setCursorPositionInternal(int line, int col, int tabwidth)
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
   myViewInternal->updateView();
-}
-
-int KateView::tabWidth() {
-  return myDoc->tabChars;
-}
-
-void KateView::setTabWidth(int w) {
-  myDoc->setTabWidth(w);
-  myDoc->updateViews();
-}
-
-void KateView::setEncoding (QString e) {
-  myDoc->setEncoding (e);
-}
-
-bool KateView::isLastView() {
-  return myDoc->isLastView(1);
-}
-
-bool KateView::isOverwriteMode() const
-{
-  return ( myDoc->_configFlags & KateDocument::cfOvr );
+  
+  return true;
 }
 
 void KateView::setOverwriteMode( bool b )
@@ -541,36 +465,9 @@ void KateView::setDynWordWrap( bool b )
   myViewInternal->updateView(KateViewInternal::ufDocGeometry);
 }
 
-bool KateView::dynWordWrap () const
-{
-  return m_hasWrap;
-}
-
 void KateView::toggleInsert() {
   myDoc->setConfigFlags(myDoc->_configFlags ^ KateDocument::cfOvr);
   emit newStatus();
-}
-
-QString KateView::currentTextLine() {
-  TextLine::Ptr textLine = myDoc->kateTextLine(myViewInternal->getCursor().line);
-  return QString(textLine->getText(), textLine->length());
-}
-
-QString KateView::currentWord() {
-  return myDoc->getWord(myViewInternal->getCursor());
-}
-
-void KateView::insertText(const QString &s)
-{
-  VConfig c;
-  myViewInternal->getVConfig(c);
-  myDoc->insertText(c.cursor.line, c.cursor.col, s);
-
-  // TODO: Better way to do this?
-  for( uint i=0; i < s.length(); i++ ) {
-    cursorRight();
-  }
-//  updateCursor(c.cursor);
 }
 
 bool KateView::canDiscard() {
@@ -683,152 +580,6 @@ KateView::saveResult KateView::saveAs() {
   return SAVE_OK;
 }
 
-void KateView::cursorLeft()
-{
-  myViewInternal->cursorLeft();
-}
-
-void KateView::shiftCursorLeft()
-{
-  myViewInternal->cursorLeft(true);
-}
-
-void KateView::cursorRight()
-{
-  myViewInternal->cursorRight();
-}
-
-void KateView::shiftCursorRight()
-{
-  myViewInternal->cursorRight(true);
-}
-
-void KateView::wordLeft()
-{
-  myViewInternal->wordLeft();
-}
-
-void KateView::shiftWordLeft() 
-{
-  myViewInternal->wordLeft(true);
-}
-
-void KateView::wordRight()
-{
-  myViewInternal->wordRight();
-}
-
-void KateView::shiftWordRight()
-{
-  myViewInternal->wordRight(true);
-}
-
-void KateView::home()
-{
-  myViewInternal->home();
-}
-
-void KateView::shiftHome()
-{
-  myViewInternal->home(true);
-}
-
-void KateView::end()
-{
-  myViewInternal->end();
-}
-
-void KateView::shiftEnd()
-{
-  myViewInternal->end(true);
-}
-
-void KateView::up()
-{
-  myViewInternal->cursorUp();
-}
-
-void KateView::shiftUp()
-{
-  myViewInternal->cursorUp(true);
-}
-
-void KateView::down()
-{
-  myViewInternal->cursorDown();
-}
-
-void KateView::shiftDown()
-{
-  myViewInternal->cursorDown(true);
-}
-
-void KateView::scrollUp()
-{
-  myViewInternal->scrollUp();
-}
-
-void KateView::scrollDown()
-{
-  myViewInternal->scrollDown();
-}
-
-void KateView::topOfView()
-{
-  myViewInternal->topOfView();
-}
-
-void KateView::bottomOfView()
-{
-  myViewInternal->bottomOfView();
-}
-
-void KateView::pageUp()
-{
-  myViewInternal->pageUp();
-}
-
-void KateView::shiftPageUp()
-{
-  myViewInternal->pageUp(true);
-}
-
-void KateView::pageDown()
-{
-  myViewInternal->pageDown();
-}
-
-void KateView::shiftPageDown()
-{
-  myViewInternal->pageDown(true);
-}
-
-void KateView::top()
-{
-  myViewInternal->top_home();
-}
-
-void KateView::shiftTop()
-{
-  myViewInternal->top_home(true);
-}
-
-void KateView::bottom()
-{
-  myViewInternal->bottom_end();
-}
-
-void KateView::shiftBottom()
-{
-  myViewInternal->bottom_end(true);
-}
-
-void KateView::doEditCommand(int cmdNum) {
-  VConfig c;
-  myViewInternal->getVConfig(c);
-  myViewInternal->doEditCommand(c, cmdNum);
-}
-
 void KateView::gotoLine()
 {
   GotoLineDialog *dlg;
@@ -851,11 +602,6 @@ void KateView::gotoLineNumber( int linenumber )
   myViewInternal->center();
   myViewInternal->updateView();
  }
-
-void KateView::installPopup(QPopupMenu *rmb_Menu)
-{
-  m_rmbMenu = rmb_Menu;
-}
 
 void KateView::readSessionConfig(KConfig *config)
 {
@@ -883,10 +629,6 @@ void KateView::writeSessionConfig(KConfig *config)
 */
 
   config->writeEntry("IconBorderStatus", m_iconBorderStatus );
-}
-
-int KateView::getEol() {
-  return myDoc->eolMode;
 }
 
 void KateView::setEol(int eol) {
@@ -1051,8 +793,3 @@ bool KateView::iconBorder() {
 bool KateView::lineNumbersOn() {
   return m_iconBorderStatus & KateIconBorder::LineNumbers;
 }
-
-void KateView::showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
-    	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
-void KateView::showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2, bool arg3)
-    	{ myCC_impl->showCompletionBox(arg1,arg2,arg3);}

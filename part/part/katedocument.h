@@ -560,12 +560,12 @@ class KateDocument : public Kate::Document
 
     uint currentColumn(KateTextCursor &cursor);
     void newLine(VConfig &);
-    void killLine(VConfig &);
+    void killLine( uint line );
     void backspace(uint line, uint col);
     void transpose(KateTextCursor &cursor);
     void del(VConfig &);
-    void cut(VConfig &);
-    void copy(int flags);
+    void cut();
+    void copy();
     /**
      * Inserts the text in the clipboard and adds to the cursor
      * of the VConfig object the length of the inserted text.
@@ -577,18 +577,16 @@ class KateDocument : public Kate::Document
     void selectLine(KateTextCursor &cursor, int flags);
     void selectLength(KateTextCursor &cursor, int length, int flags);
 
-    void indent(VConfig &c) {doIndent(c, 1);}
-    void unIndent(VConfig &c) {doIndent(c, -1);}
-    void cleanIndent(VConfig &c) {doIndent(c, 0);}
-    // called by indent/unIndent/cleanIndent
-    // just does some setup and then calls optimizeLeadingSpace()
-    void doIndent(VConfig &, int change);
-    // optimize leading whitespace on a single line - see kwdoc.cpp for full description
-    void optimizeLeadingSpace(int line, int flags, int change);
-
-    void comment(VConfig &c) {doComment(c, 1);}
-    void unComment(VConfig &c) {doComment(c, -1);}
-    void doComment(VConfig &, int change);
+    void indent( uint line )      { doIndent( line,  1 );  }
+    void unIndent( uint line )    { doIndent( line, -1 );  }
+    void cleanIndent( uint line ) { doIndent( line,  0 );  }
+    void comment( uint line )     { doComment( line,  1 ); }
+    void unComment( uint line )   { doComment( line, -1 ); }
+    private:
+    void doIndent( uint line, int change );
+    void optimizeLeadingSpace( uint line, int flags, int change );
+    void doComment( uint line, int change );
+    public:
 
     QString text() const;
     QString getWord(KateTextCursor &cursor);

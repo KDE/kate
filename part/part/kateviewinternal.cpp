@@ -102,69 +102,52 @@ KateViewInternal::~KateViewInternal()
   delete drawBuffer;
 }
 
-void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
+void KateViewInternal::doReturn()
 {
-  switch (cmdNum) {
-    case KateView::cmCopy:
-      myDoc->copy(c.flags);
-      return;
-  }
-
-  if (!myView->doc()->isReadWrite()) return;
-
-  switch (cmdNum) {
-    case KateView::cmReturn:
-      if (c.flags & KateDocument::cfDelOnInput) myDoc->removeSelectedText();
+      VConfig c;
       getVConfig(c);
+      if (c.flags & KateDocument::cfDelOnInput) myDoc->removeSelectedText();
       myDoc->newLine(c);
       updateCursor(c.cursor);
       updateView (0);
-      return;
-    case KateView::cmDelete:
-      if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())
+}
+
+void KateViewInternal::doDelete()
+{
+      VConfig c;
+       getVConfig(c);
+     if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())
         myDoc->removeSelectedText();
       else myDoc->del(c);
-      return;
-    case KateView::cmBackspace:
+}
+
+void KateViewInternal::doBackspace()
+{
+      VConfig c;
+      getVConfig(c);
       if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())
         myDoc->removeSelectedText();
       else
         myDoc->backspace(c.cursor.line, c.cursor.col);
     //  if ( (uint)c.cursor.line >= myDoc->lastLine() )
      //   leftBorder->repaint();
-      return;
-    case KateView::cmKillLine:
-      myDoc->killLine(c);
-      return;
-    case KateView::cmCut:
-      myDoc->cut(c);
-      return;
-    case KateView::cmPaste:
+}
+
+void KateViewInternal::doPaste()
+{
+       VConfig c;
+     getVConfig(c);
       if (c.flags & KateDocument::cfDelOnInput) myDoc->removeSelectedText();
-      getVConfig(c);
       myDoc->paste(c);
-      return;
-    case KateView::cmIndent:
-      myDoc->indent(c);
-      return;
-    case KateView::cmUnindent:
-      myDoc->unIndent(c);
-      return;
-    case KateView::cmCleanIndent:
-      myDoc->cleanIndent(c);
-      return;
-    case KateView::cmComment:
-      myDoc->comment(c);
-      return;
-    case KateView::cmUncomment:
-      myDoc->unComment(c);
-      return;
-    case KateView::cmTranspose:
+}
+
+void KateViewInternal::doTranspose()
+{
+       VConfig c;
+     getVConfig(c);
       myDoc->transpose(c.cursor);
       cursorRight();
       cursorRight();
-      return;
-  }
 }
 
 void KateViewInternal::cursorLeft (bool sel)
@@ -1187,11 +1170,11 @@ void KateViewInternal::keyPressEvent(QKeyEvent *e) {
   if (myView->doc()->isReadWrite()) {
     if (c.flags & KateDocument::cfTabIndents && myDoc->hasSelection()) {
       if (key == Qt::Key_Tab) {
-        myDoc->indent(c);
+        myDoc->indent(c.cursor.line);
         return;
       }
       if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab) {
-        myDoc->unIndent(c);
+        myDoc->unIndent(c.cursor.line);
         return;
       }
     }

@@ -112,7 +112,7 @@ class KateFileLoader
         if (c > 0)
           m_text = m_decoder->toUnicode (m_buffer, c);
 
-        m_eol = m_file.atEnd();
+        m_eof = m_file.atEnd();
 
         for (uint i=0; i < m_text.length(); i++)
         {

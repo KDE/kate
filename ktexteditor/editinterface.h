@@ -63,7 +63,13 @@ class EditInterface
     * Set the given text into the view.
     * Warning: This will overwrite any data currently held in this view.
     */
-    virtual void setText ( const QString &text ) = 0;
+    virtual bool setText ( const QString &text ) = 0;
+
+    /**
+    *  clears the document
+    * Warning: This will overwrite any data currently held in this view.
+    */
+    virtual bool clear () = 0;
 
     /**
     *  Inserts text at line "line", column "col"

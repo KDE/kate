@@ -32,7 +32,12 @@ class SelectionInterface
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */
-    virtual void setSelection ( int line_start, int col_start, int line_end, int col_end ) = 0;
+    virtual bool setSelection ( int line_start, int col_start, int line_end, int col_end ) = 0;
+
+    /**
+    *  removes the current Selection (not Text)
+    */
+    virtual bool clearSelection () = 0;
 
     /**
     *  @return true if there is a selection
@@ -43,6 +48,11 @@ class SelectionInterface
     *  @return a QString for the selected text
     */
     virtual QString selection () const = 0;
+
+    /**
+    *  removes the selected Text
+    */
+    virtual bool removeSelectedText () = 0;
 };
 
 };

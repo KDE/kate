@@ -727,7 +727,8 @@ void KateView::slotReadWriteChanged ()
     m_toggleWriteLock->setChecked( ! m_doc->isReadWrite() );
 
   m_cut->setEnabled (m_doc->isReadWrite());
-  m_paste->setEnabled (m_doc->isReadWrite());
+  slotClipboardDataChanged();
+  //m_paste->setEnabled (m_doc->isReadWrite());
 
   QStringList l;
 
@@ -1282,7 +1283,7 @@ void KateView::updateView (bool changed)
 void KateView::slotClipboardDataChanged()
 {
   QMimeSource *data = QApplication::clipboard()->data();
-  m_paste->setEnabled( data->provides( "text/plain" ) );
+  m_paste->setEnabled(m_doc->isReadWrite() &&  data->provides( "text/plain" ) );
 }
 
 void KateView::slotHlChanged()

@@ -590,7 +590,7 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 
   if (offset2 == offset) return 0;
 
-  if ( dict.find(text.mid(offset, offset2 - offset)) ) return offset2;
+  if ( dict.find(QConstString(text.unicode() + offset, offset2 - offset).string()) ) return offset2;
 
   return 0;
 }

@@ -168,17 +168,39 @@ uint KateTextLine::indentDepth (uint tabwidth) const
 
 bool KateTextLine::stringAtPos(uint pos, const QString& match) const
 {
-  return (m_text.mid(pos, match.length()) == match);
+  if ((pos+match.length()) > m_text.length())
+    return false;
+
+  for (uint i=0; i < match.length(); i++)
+    if (m_text[i+pos] != match[i])
+      return false;
+
+  return true;
 }
 
 bool KateTextLine::startingWith(const QString& match) const
 {
-  return (m_text.left(match.length()) == match);
+  if (match.length() > m_text.length())
+    return false;
+
+  for (uint i=0; i < match.length(); i++)
+    if (m_text[i] != match[i])
+      return false;
+
+  return true;
 }
 
 bool KateTextLine::endingWith(const QString& match) const
 {
-  return (m_text.right(match.length()) == match);
+  if (match.length() > m_text.length())
+    return false;
+
+  uint start = m_text.length() - match.length();
+  for (uint i=0; i < match.length(); i++)
+    if (m_text[start+i] != match[i])
+      return false;
+
+  return true;
 }
 
 int KateTextLine::cursorX(uint pos, uint tabChars) const

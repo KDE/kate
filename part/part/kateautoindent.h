@@ -29,6 +29,8 @@ class KateDocument;
 
 /**
  * Provides Auto-Indent functionality for katepart.
+ * This baseclass is a real dummy, does nothing beside remembering the document it belongs too,
+ * only to have the object around
  */
 class KateAutoIndent
 {
@@ -86,7 +88,13 @@ class KateAutoIndent
     /**
      * Update indenter's configuration (indention width, attributes etc.)
      */
-    void updateConfig ();
+    virtual void updateConfig () {};
+
+    /**
+     * does this indenter support processNewLine
+     * @return can you do it?
+     */
+    virtual bool canProcessNewLine () const { return false; }
 
     /**
      * Called every time a newline character is inserted in the document.
@@ -94,7 +102,7 @@ class KateAutoIndent
      * @param cur The position to start processing. Contains the new cursor position after the indention.
      * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
-    virtual void processNewline (KateDocCursor &cur, bool needContinue);
+    virtual void processNewline (KateDocCursor &/*cur*/, bool /*needContinue*/) {}
 
     /**
      * Called every time a character is inserted into the document.
@@ -116,15 +124,83 @@ class KateAutoIndent
      * Set to true if an actual implementation of 'processLine' is present.
      * This is used to prevent a needless Undo action from being created.
      */
-    virtual bool canProcessLine() { return false; }
+    virtual bool canProcessLine() const { return false; }
 
     /**
      * Mode index of this mode
      * @return modeNumber
      */
-    virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
+    virtual uint modeNumber () const { return KateDocumentConfig::imNone; };
 
   protected:
+    KateDocument *doc;
+};
+
+/**
+ * Provides Auto-Indent functionality for katepart.
+ */
+class KateNormalIndent : public KateAutoIndent
+{
+public:
+    /**
+     * Constructor
+     * @param doc parent document
+     */
+  KateNormalIndent (KateDocument *doc);
+
+    /**
+     * Virtual Destructor for the baseclass
+     */
+  virtual ~KateNormalIndent ();
+
+    /**
+     * Update indenter's configuration (indention width, attributes etc.)
+     */
+  virtual void updateConfig ();
+
+    /**
+     * does this indenter support processNewLine
+     * @return can you do it?
+     */
+  virtual bool canProcessNewLine () const { return true; }
+
+    /**
+     * Called every time a newline character is inserted in the document.
+     *
+     * @param cur The position to start processing. Contains the new cursor position after the indention.
+     * @param needContinue Used to determine whether to calculate a continue indent or not.
+     */
+  virtual void processNewline (KateDocCursor &cur, bool needContinue);
+
+    /**
+     * Called every time a character is inserted into the document.
+     * @param c character inserted
+     */
+  virtual void processChar (QChar /*c*/) { }
+
+    /**
+     * Aligns/indents the given line to the proper indent position.
+     */
+  virtual void processLine (KateDocCursor &/*line*/) { }
+
+    /**
+     * Processes a section of text, indenting each line in between.
+     */
+  virtual void processSection (KateDocCursor &/*begin*/, KateDocCursor &/*end*/) { }
+
+    /**
+     * Set to true if an actual implementation of 'processLine' is present.
+     * This is used to prevent a needless Undo action from being created.
+     */
+  virtual bool canProcessLine() { return false; }
+
+    /**
+     * Mode index of this mode
+     * @return modeNumber
+     */
+  virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
+
+protected:
 
     /**
      * Determines if the characters open and close are balanced between @p begin and @p end
@@ -137,7 +213,7 @@ class KateAutoIndent
      * @param pos Contains the position of the first @p open character in the line.
      * @return True if @p open and @p close have an equal number of occurances between @p begin and @p end. False otherwise.
      */
-    bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const;
+  bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const;
 
     /**
      * Skip all whitespace starting at @p cur and ending at @p max. Spans lines if @p newline is set.
@@ -148,14 +224,14 @@ class KateAutoIndent
      * @param newline Whether we are allowed to span multiple lines when skipping blanks
      * @return True if @p cur < @p max after processing.  False otherwise.
      */
-    bool skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const;
+  bool skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const;
 
     /**
      * Measures the indention of the current textline marked by cur
      * @param cur The cursor position to measure the indent to.
      * @return The length of the indention in characters.
      */
-    uint measureIndent (KateDocCursor &cur) const;
+  uint measureIndent (KateDocCursor &cur) const;
 
     /**
      * Produces a string with the proper indentation characters for its length.
@@ -163,30 +239,28 @@ class KateAutoIndent
      * @param length The length of the indention in characters.
      * @return A QString representing @p length characters (factoring in tabs and spaces)
      */
-    QString tabString(uint length) const;
+  QString tabString(uint length) const;
 
-    KateDocument *doc;
-
-    uint  tabWidth;     //!< The number of characters simulated for a tab
-    uint  indentWidth;  //!< The number of characters used when tabs are replaced by spaces
+  uint  tabWidth;     //!< The number of characters simulated for a tab
+  uint  indentWidth;  //!< The number of characters used when tabs are replaced by spaces
 
     // Attributes that we should skip over or otherwise know about
-    uchar commentAttrib;
-    uchar doxyCommentAttrib;
-    uchar regionAttrib;
-    uchar symbolAttrib;
-    uchar alertAttrib;
-    uchar tagAttrib;
-    uchar wordAttrib;
-    uchar keywordAttrib;
-    uchar normalAttrib;
-    uchar extensionAttrib;
+  uchar commentAttrib;
+  uchar doxyCommentAttrib;
+  uchar regionAttrib;
+  uchar symbolAttrib;
+  uchar alertAttrib;
+  uchar tagAttrib;
+  uchar wordAttrib;
+  uchar keywordAttrib;
+  uchar normalAttrib;
+  uchar extensionAttrib;
 
-    bool  useSpaces;    //!< Should we use spaces or tabs to indent
-    bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
+  bool  useSpaces;    //!< Should we use spaces or tabs to indent
+  bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
 };
 
-class KateCSmartIndent : public KateAutoIndent
+class KateCSmartIndent : public KateNormalIndent
 {
   public:
     KateCSmartIndent (KateDocument *doc);
@@ -215,7 +289,7 @@ class KateCSmartIndent : public KateAutoIndent
     bool processingBlock;
 };
 
-class KatePythonIndent : public KateAutoIndent
+class KatePythonIndent : public KateNormalIndent
 {
   public:
     KatePythonIndent (KateDocument *doc);
@@ -233,7 +307,7 @@ class KatePythonIndent : public KateAutoIndent
     static QRegExp blockBegin;
 };
 
-class KateXmlIndent : public KateAutoIndent
+class KateXmlIndent : public KateNormalIndent
 {
   public:
     KateXmlIndent (KateDocument *doc);
@@ -260,7 +334,7 @@ class KateXmlIndent : public KateAutoIndent
     static const QRegExp unclosedDoctype;
 };
 
-class KateCSAndSIndent : public KateAutoIndent
+class KateCSAndSIndent : public KateNormalIndent
 {
   public:
     KateCSAndSIndent (KateDocument *doc);
@@ -312,7 +386,7 @@ class KateCSAndSIndent : public KateAutoIndent
  * The idea is to provide a somewhat intelligent indentation for perl, php,
  * bash, scheme and in general formats with humble indentation needs.
  */
-class KateVarIndent :  public QObject, public KateAutoIndent
+class KateVarIndent :  public QObject, public KateNormalIndent
 {
   Q_OBJECT
   public:

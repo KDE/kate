@@ -3100,12 +3100,7 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   if (c.col() > (int)textLine->length())
     c.setCol(textLine->length());
 
-  if (!(config()->configFlags() & KateDocument::cfAutoIndent))
-  {
-    editWrapLine (c.line(), c.col());
-    c.setPos(c.line() + 1, 0);
-  }
-  else
+  if (m_indenter->canProcessNewLine ())
   {
     int pos = textLine->firstChar();
     if (c.col() < pos)
@@ -3116,6 +3111,11 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
     KateDocCursor cursor (c.line() + 1, pos, this);
     m_indenter->processNewline(cursor, true);
     c.setPos(cursor);
+  }
+  else
+  {
+    editWrapLine (c.line(), c.col());
+    c.setPos(c.line() + 1, 0);
   }
 
   removeTrailingSpace( ln );
@@ -5129,8 +5129,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           setBlockSelectionMode( state );
         // KateConfig::configFlags
         // FIXME should this be optimized to only a few calls? how?
-        else if ( var == "auto-indent" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfAutoIndent, state );
         else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
         else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )

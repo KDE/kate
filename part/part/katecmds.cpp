@@ -202,7 +202,6 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
             cmd == "set-remove-trailing-space" ||
             cmd == "set-show-tabs" ||
             cmd == "set-indent-spaces" ||
-            cmd == "set-auto-indent" ||
             cmd == "set-word-wrap" ||
             cmd == "set-replace-tabs-save" ||
             cmd == "set-remove-trailing-space-save" )
@@ -226,8 +225,6 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
         setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
       else if ( cmd == "set-indent-spaces" )
         setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
-      else if ( cmd == "set-auto-indent" )
-        setDocFlag( KateDocumentConfig::cfAutoIndent, enable, v->doc() );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
       else if ( cmd == "set-replace-tabs-save" )

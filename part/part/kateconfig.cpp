@@ -152,15 +152,14 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setIndentationWidth (config->readNumEntry("Indentation Width", 2));
 
-  setIndentationMode (config->readNumEntry("Indentation Mode", 0));
+  setIndentationMode (config->readNumEntry("Indentation Mode", KateDocumentConfig::imNone));
 
   setWordWrap (config->readBoolEntry("Word Wrap", false));
   setWordWrapAt (config->readNumEntry("Word Wrap Column", 80));
   setPageUpDownMovesCursor (config->readNumEntry("PageUp/PageDown Moves Cursor", false));
   setUndoSteps(config->readNumEntry("Undo Steps", 0));
 
-  setConfigFlags (config->readNumEntry("Basic Config Flags", KateDocumentConfig::cfAutoIndent
-    | KateDocumentConfig::cfTabIndents
+  setConfigFlags (config->readNumEntry("Basic Config Flags", KateDocumentConfig::cfTabIndents
     | KateDocumentConfig::cfKeepIndentProfile
     | KateDocumentConfig::cfWrapCursor
     | KateDocumentConfig::cfShowTabs

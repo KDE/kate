@@ -134,12 +134,13 @@ class KateDocumentConfig : public KateConfig
 
     enum IndentationMode
     {
-      imNormal = 0,
-      imCStyle = 1,
-      imPythonStyle = 2,
-      imXmlStyle = 3,
-      imCSAndS = 4,
-      imVarIndent = 5
+      imNone = 0,
+      imNormal = 1,
+      imCStyle = 2,
+      imPythonStyle = 3,
+      imXmlStyle = 4,
+      imCSAndS = 5,
+      imVarIndent = 6
     };
 
     uint indentationMode () const;
@@ -159,7 +160,6 @@ class KateDocumentConfig : public KateConfig
 
     enum ConfigFlags
     {
-      cfAutoIndent= 0x1,
       cfBackspaceIndents= 0x2,
       cfWordWrap= 0x4,
       cfReplaceTabs= 0x8,

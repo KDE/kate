@@ -32,7 +32,9 @@
 
 KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
 {
-  if (mode == KateDocumentConfig::imCStyle)
+  if (mode == KateDocumentConfig::imNormal)
+    return new KateNormalIndent (doc);
+  else if (mode == KateDocumentConfig::imCStyle)
     return new KateCSmartIndent (doc);
   else if (mode == KateDocumentConfig::imPythonStyle)
     return new KatePythonIndent (doc);
@@ -50,6 +52,7 @@ QStringList KateAutoIndent::listModes ()
 {
   QStringList l;
 
+  l << modeDescription(KateDocumentConfig::imNone);
   l << modeDescription(KateDocumentConfig::imNormal);
   l << modeDescription(KateDocumentConfig::imCStyle);
   l << modeDescription(KateDocumentConfig::imPythonStyle);
@@ -62,7 +65,9 @@ QStringList KateAutoIndent::listModes ()
 
 QString KateAutoIndent::modeName (uint mode)
 {
-  if (mode == KateDocumentConfig::imCStyle)
+  if (mode == KateDocumentConfig::imNormal)
+    return QString ("normal");
+  else if (mode == KateDocumentConfig::imCStyle)
     return QString ("cstyle");
   else if (mode == KateDocumentConfig::imPythonStyle)
     return QString ("python");
@@ -73,12 +78,14 @@ QString KateAutoIndent::modeName (uint mode)
   else if ( mode  == KateDocumentConfig::imVarIndent )
     return QString( "varindent" );
 
-  return QString ("normal");
+  return QString ("none");
 }
 
 QString KateAutoIndent::modeDescription (uint mode)
 {
-  if (mode == KateDocumentConfig::imCStyle)
+  if (mode == KateDocumentConfig::imNormal)
+    return i18n ("Normal");
+  else if (mode == KateDocumentConfig::imCStyle)
     return i18n ("C Style");
   else if (mode == KateDocumentConfig::imPythonStyle)
     return i18n ("Python Style");
@@ -89,12 +96,14 @@ QString KateAutoIndent::modeDescription (uint mode)
   else if ( mode == KateDocumentConfig::imVarIndent )
     return i18n("Variable based Indenter");
 
-  return i18n ("Normal");
+  return i18n ("None");
 }
 
 uint KateAutoIndent::modeNumber (const QString &name)
 {
-  if (modeName(KateDocumentConfig::imCStyle) == name)
+  if (modeName(KateDocumentConfig::imNormal) == name)
+    return KateDocumentConfig::imNormal;
+  else if (modeName(KateDocumentConfig::imCStyle) == name)
     return KateDocumentConfig::imCStyle;
   else if (modeName(KateDocumentConfig::imPythonStyle) == name)
     return KateDocumentConfig::imPythonStyle;
@@ -105,18 +114,30 @@ uint KateAutoIndent::modeNumber (const QString &name)
   else if ( modeName( KateDocumentConfig::imVarIndent ) == name )
     return KateDocumentConfig::imVarIndent;
 
-  return KateDocumentConfig::imNormal;
+  return KateDocumentConfig::imNone;
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
- : doc(_doc)
+: doc(_doc)
 {
 }
 KateAutoIndent::~KateAutoIndent ()
 {
 }
 
-void KateAutoIndent::updateConfig ()
+//END KateAutoIndent
+
+//BEGIN KateNormalIndent
+
+KateNormalIndent::KateNormalIndent (KateDocument *_doc)
+ : KateAutoIndent (_doc)
+{
+}
+KateNormalIndent::~KateNormalIndent ()
+{
+}
+
+void KateNormalIndent::updateConfig ()
 {
   KateDocumentConfig *config = doc->config();
 
@@ -185,7 +206,7 @@ void KateAutoIndent::updateConfig ()
   }
 }
 
-bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const
+bool KateNormalIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const
 {
   int parenOpen = 0;
   bool atLeastOne = false;
@@ -230,7 +251,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
   return (atLeastOne) ? false : true;
 }
 
-bool KateAutoIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const
+bool KateNormalIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const
 {
   int curLine = cur.line();
   if (newline)
@@ -266,7 +287,7 @@ bool KateAutoIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool ne
   return true;
 }
 
-uint KateAutoIndent::measureIndent (KateDocCursor &cur) const
+uint KateNormalIndent::measureIndent (KateDocCursor &cur) const
 {
   if (useSpaces && !keepProfile)
     return cur.col();
@@ -274,7 +295,7 @@ uint KateAutoIndent::measureIndent (KateDocCursor &cur) const
   return doc->plainKateTextLine(cur.line())->cursorX(cur.col(), tabWidth);
 }
 
-QString KateAutoIndent::tabString(uint pos) const
+QString KateNormalIndent::tabString(uint pos) const
 {
   QString s;
   pos = QMIN (pos, 80); // sanity check for large values of pos
@@ -295,7 +316,7 @@ QString KateAutoIndent::tabString(uint pos) const
   return s;
 }
 
-void KateAutoIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
+void KateNormalIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
 {
   int line = begin.line() - 1;
   int pos = begin.col();
@@ -318,7 +339,7 @@ void KateAutoIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/
 //BEGIN KateCSmartIndent
 
 KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
- :  KateAutoIndent (doc),
+:  KateNormalIndent (doc),
     allowSemi (false),
     processingBlock (false)
 {
@@ -425,7 +446,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
     indent = calcIndent(temp, true);
     if (indent == 0)
     {
-      KateAutoIndent::processNewline(line, true);
+      KateNormalIndent::processNewline(line, true);
       return;
     }
   }
@@ -527,7 +548,7 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
     }
     else
     {
-      KateAutoIndent::processNewline (begin, needContinue);
+      KateNormalIndent::processNewline (begin, needContinue);
     }
 
     if (begin.col() < 0)
@@ -956,7 +977,7 @@ QRegExp KatePythonIndent::stopStmt = QRegExp( "^\\s*(break|continue|raise|return
 QRegExp KatePythonIndent::blockBegin = QRegExp( "^\\s*(def|if|elif|else|for|while|try)\\b.*" );
 
 KatePythonIndent::KatePythonIndent (KateDocument *doc)
-  : KateAutoIndent (doc)
+: KateNormalIndent (doc)
 {
 }
 KatePythonIndent::~KatePythonIndent ()
@@ -1077,7 +1098,7 @@ const QRegExp KateXmlIndent::startsWithCloseTag("^[ \t]*</");
 const QRegExp KateXmlIndent::unclosedDoctype("<!DOCTYPE[^>]*$");
 
 KateXmlIndent::KateXmlIndent (KateDocument *doc)
-  : KateAutoIndent (doc)
+: KateNormalIndent (doc)
 {
 }
 
@@ -1253,7 +1274,7 @@ uint KateXmlIndent::processLine (uint line)
 //BEGIN KateCSAndSIndent
 
 KateCSAndSIndent::KateCSAndSIndent (KateDocument *doc)
- :  KateAutoIndent (doc)
+:  KateNormalIndent (doc)
 {
 }
 
@@ -1858,7 +1879,7 @@ class KateVarIndentPrivate {
 };
 
 KateVarIndent::KateVarIndent( KateDocument *doc )
-  : QObject( 0, "variable indenter"), KateAutoIndent( doc )
+: QObject( 0, "variable indenter"), KateNormalIndent( doc )
 {
   d = new KateVarIndentPrivate;
   d->reIndentAfter = QRegExp( doc->variable( "var-indent-indent-after" ) );

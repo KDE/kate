@@ -566,55 +566,56 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
 {
   m_doc = doc;
 
-  QGridLayout *glay = new QGridLayout( this, 10, 2, 0, KDialog::spacingHint());
-  glay->setColStretch(1,1);
-  glay->setRowStretch(9,1);
-
+  QHBox *b;
   QLabel *label;
 
-  label = new QLabel( i18n("Background:"), this);
-  label->setAlignment( AlignRight|AlignVCenter );
-  m_back = new KColorButton( this );
-  glay->addWidget( label, 0, 0 );
-  glay->addWidget( m_back, 0, 1 );
+  QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+
+  QVGroupBox *gbTextArea = new QVGroupBox(i18n("Textarea Background"), this);
+
+  b = new QHBox (gbTextArea);
+  m_back = new KColorButton(b);
+  label = new QLabel( i18n("Normal Text"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
   connect( m_back, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
-  label = new QLabel( i18n("Selected:"), this);
-  label->setAlignment( AlignRight|AlignVCenter );
-  m_selected = new KColorButton( this );
-  glay->addWidget( label, 2, 0 );
-  glay->addWidget( m_selected, 2, 1 );
+  b = new QHBox (gbTextArea);
+  m_selected = new KColorButton(b);
+  label = new QLabel( i18n("Selected Text"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
   connect( m_selected, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
-  label = new QLabel( i18n("Current line:"), this);
-  label->setAlignment( AlignRight|AlignVCenter );
-  m_current = new KColorButton( this );
-  glay->addWidget( label, 4, 0 );
-  glay->addWidget( m_current, 4, 1 );
+  b = new QHBox (gbTextArea);
+  m_current = new KColorButton(b);
+  label = new QLabel( i18n("Current Line"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
   connect( m_current, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
-  label = new QLabel( i18n("Bracket highlight:"), this );
-  label->setAlignment( AlignRight|AlignVCenter );
-  m_bracket = new KColorButton( this );
-  glay->addWidget( label, 6, 0 );
-  glay->addWidget( m_bracket, 6, 1 );
+  blay->addWidget(gbTextArea);
+
+  QVGroupBox *gbBorder = new QVGroupBox(i18n("Additional Elements"), this);
+
+  b = new QHBox (gbBorder);
+  m_iconborder = new KColorButton(b);
+  label = new QLabel( i18n("Left Border Background"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  connect( m_iconborder, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
+
+  b = new QHBox (gbBorder);
+  m_bracket = new KColorButton(b);
+  label = new QLabel( i18n("Bracket Highlight"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
   connect( m_bracket, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
-  label = new QLabel( i18n("Word wrap:"), this );
-  label->setAlignment( AlignRight|AlignVCenter );
-  m_wwmarker = new KColorButton( this );
-  label->setBuddy( m_wwmarker );
+  b = new QHBox (gbBorder);
+  m_wwmarker = new KColorButton(b);
+  label = new QLabel( i18n("Word Wrap Marker"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
   connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
-  glay->addWidget( label, 7, 0 );
-  glay->addWidget( m_wwmarker, 7, 1 );
 
-  label = new QLabel( i18n("Icon border:"), this );
-  label->setAlignment( AlignRight|AlignVCenter );
-  m_iconborder = new KColorButton( this );
-  label->setBuddy( m_iconborder );
-  connect( m_iconborder, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
-  glay->addWidget( label, 8, 0 );
-  glay->addWidget( m_iconborder, 8, 1 );
+  blay->addWidget(gbBorder);
+
+  blay->addStretch();
 
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("<p>Sets the background color of the editing area.</p>"));
@@ -627,19 +628,12 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
         "be highlighted with this color.</p>"));
   QWhatsThis::add(m_wwmarker, i18n(
-//<<<<<<< kateviewdialog.cpp
         "<p>Sets the color of Word Wrap-related markers:</p>"
         "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column where "
         "text is going to be wrapped</dd>"
         "<dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of "
         "visually-wrapped lines</dd></dl>"));
 
-//=======
-/*        "<qt>Sets the color of the static / dynamic word wrap markings. <br><hr>"
-        "<ul> <li><nobr>static: a vertical line which shows the column, where text is going to be wrapped</nobr></li>"
-        "<li> <nobr>dynamic: on the view's right hand side, symbols are shown if lines wrap to another one </nobr></li>"
-        "</ul></qt>"));*/
-//>>>>>>> 1.86
   reload ();
 }
 

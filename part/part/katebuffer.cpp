@@ -1147,12 +1147,10 @@ KateBufBlock::disposeRawData()
 void     
 KateBufBlock::disposeSwap()     
 {
-   //kdDebug(13020)<<"KateBufBlock: disposeSwap this = "<< this<<endl;
-   assert(b_stringListValid || b_rawDataValid);
-   m_vm->free(m_vmblock);
-   m_vmblock = 0;
-   m_vmblockSize = 0;     
-   b_vmDataValid = false;     
+  m_vm->free(m_vmblock);
+  m_vmblock = 0;
+  m_vmblockSize = 0;     
+  b_vmDataValid = false;     
 }     
 
 /**

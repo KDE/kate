@@ -76,33 +76,33 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_hasWrap( false )
 {
   KateFactory::registerView( this );
-  
+
   m_grid = new QGridLayout (this, 2, 3);
-  
+
   m_grid->setRowStretch ( 0, 10 );
   m_grid->setRowStretch ( 1, 0 );
   m_grid->setColStretch ( 0, 0 );
   m_grid->setColStretch ( 1, 10 );
   m_grid->setColStretch ( 2, 0 );
- 
+
   m_viewInternal = new KateViewInternal( this, doc );
   m_grid->addWidget (m_viewInternal, 0, 1);
   m_viewInternal->show ();
- 
-  setClipboardInterfaceDCOPSuffix (viewDCOPSuffix()); 
+
+  setClipboardInterfaceDCOPSuffix (viewDCOPSuffix());
   setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
   setDynWordWrapInterfaceDCOPSuffix (viewDCOPSuffix());
   setPopupMenuInterfaceDCOPSuffix (viewDCOPSuffix());
   setSessionConfigInterfaceDCOPSuffix (viewDCOPSuffix());
   setViewCursorInterfaceDCOPSuffix (viewDCOPSuffix());
   setViewStatusMsgInterfaceDCOPSuffix (viewDCOPSuffix());
-  
+
   setInstance( KateFactory::instance() );
   doc->addView( this );
 
   setFocusProxy( m_viewInternal );
   setFocusPolicy( StrongFocus );
-  
+
   if (!doc->m_bSingleViewMode) {
     setXMLFile( "katepartui.rc" );
   } else {
@@ -119,6 +119,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setupCodeCompletion();
   setupViewPlugins();
   updateViewDefaults ();
+
+  // update the enabled state of the undo/redo actions...
+  slotNewUndo();
 }
 
 KateView::~KateView()
@@ -128,7 +131,7 @@ KateView::~KateView()
 
   delete m_viewInternal;
   delete m_codeCompletion;
-  
+
   KateFactory::deregisterView (this);
 }
 
@@ -155,7 +158,7 @@ void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
   KAction *a;
-  
+
   if (!m_doc->m_bReadOnly)
   {
     a=KStdAction::save(this, SLOT(save()), ac);
@@ -169,15 +172,15 @@ void KateView::setupActions()
 
     a=KStdAction::cut(this, SLOT(cut()), ac);
     a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
-    
+
     a=KStdAction::paste(this, SLOT(paste()), ac);
     a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
 
     (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
 	i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
-		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated" 
+		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated"
 		" when the view is resized."));
-    
+
     (new KAction(i18n("E&diting Command..."), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd"))->setWhatsThis(
 	i18n("Use this command to execute VI style commands. This affects the whole document."
 	"<ul><li>For example, you can enter <b>time</b> to insert the current time.</li>"
@@ -212,7 +215,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
   a=KStdAction::print( m_doc, SLOT(print()), ac );
-  a->setWhatsThis(i18n("Print the current document."));  
+  a->setWhatsThis(i18n("Print the current document."));
 
   a=new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
   a->setWhatsThis(i18n("Reload the current document from disk."));
@@ -246,36 +249,36 @@ void KateView::setupActions()
 
   a=new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
   a->setWhatsThis(i18n("Choose whether you want the text you type to be inserted or to overwrite existing text."));
- 
+
   KToggleAction *toggleAction;
    a= m_toggleDynWrap = toggleAction = new KToggleAction(
     i18n("&Dynamic Word Wrap"), Key_F12,
     this, SLOT(toggleDynWordWrap()),
     ac, "view_dynamic_word_wrap" );
-  a->setWhatsThis(i18n("If this option is checked, the textlines will be wrapped at the view border on the screen.")); 
-  
+  a->setWhatsThis(i18n("If this option is checked, the textlines will be wrapped at the view border on the screen."));
+
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show Folding &Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
-  
+
    a= m_toggleIconBar = toggleAction = new KToggleAction(
     i18n("Show &Icon Border"), Key_F6,
     this, SLOT(toggleIconBorder()),
     ac, "view_border");
   a=toggleAction;
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
-  
+
   a= m_toggleLineNumbers = toggleAction = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
-     ac, "view_line_numbers" );   
+     ac, "view_line_numbers" );
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
 
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
-  
+
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
   QStringList list;
   list.append("&UNIX");
@@ -288,7 +291,7 @@ void KateView::setupActions()
   list = KGlobal::charsets()->descriptiveEncodingNames();
   list.prepend( i18n( "Auto" ) );
   m_setEncoding->setItems(list);
-  
+
   m_search->createActions( ac );
   m_bookmarks->createActions( ac );
 }
@@ -298,7 +301,7 @@ void KateView::setupEditActions()
   m_editActions = new KActionCollection( m_viewInternal );
   KActionCollection* ac = m_editActions;
 //  ac->setDefaultScope( KAction::ScopeWidget );
-  
+
   new KAction(
     i18n("Move Character Left"),                           Key_Left,
     this, SLOT(cursorLeft()),
@@ -379,7 +382,7 @@ void KateView::setupEditActions()
     i18n("Scroll Line Up"),"",              CTRL +          Key_Up,
     this, SLOT(scrollUp()),
     ac, "scroll_line_up" );
-    
+
   new KAction(
     i18n("Move to Next Line"),                              Key_Down,
     this, SLOT(down()),
@@ -405,7 +408,7 @@ void KateView::setupEditActions()
     i18n("Move to Top of View"),             CTRL +         Key_PageUp,
     this, SLOT(topOfView()),
     ac, "move_top_of_view" );
-    
+
   new KAction(
     i18n("Scroll Page Down"),                               Key_PageDown,
     this, SLOT(pageDown()),
@@ -426,7 +429,7 @@ void KateView::setupEditActions()
     i18n("Select to Matching Bracket"),      SHIFT +  CTRL + Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
-    
+
   new KAction(
     i18n("Transpose Characters"),           CTRL          + Key_T,
     this, SLOT(transpose()),
@@ -453,7 +456,7 @@ void KateView::setupEditActions()
     i18n("New Line"),                              Key_Return, // Key_Enter
     this, SLOT(keyReturn()),
     ac, "new_line" );
-    
+
   KShortcut bksp(Key_Backspace);
   bksp.append(QKeySequence(SHIFT + Key_Backspace));
   new KAction(
@@ -463,7 +466,7 @@ void KateView::setupEditActions()
   new KAction(
     i18n("Delete Word Left"),               CTRL + Key_Backspace,
     this, SLOT(deleteWordLeft()),
-    ac, "delete_word_left" );   
+    ac, "delete_word_left" );
 
   new KAction(
     i18n("Delete Character Right"),                Key_Delete,
@@ -473,12 +476,12 @@ void KateView::setupEditActions()
     i18n("Delete Word Right"),              CTRL + Key_Delete,
     this, SLOT(deleteWordRight()),
     ac, "delete_word_right" );
-    
+
   connect( this, SIGNAL(gotFocus(Kate::View*)),
            this, SLOT(slotGotFocus()) );
   connect( this, SIGNAL(lostFocus(Kate::View*)),
            this, SLOT(slotLostFocus()) );
-  
+
   if( hasFocus() )
     slotGotFocus();
   else
@@ -508,7 +511,7 @@ void KateView::setupCodeCompletion()
 }
 
 void KateView::setupViewPlugins()
-{    
+{
   m_doc->enableAllPluginsGUI (this);
 }
 
@@ -541,13 +544,13 @@ void KateView::slotStatusMsg ()
       ovr=2;
     }
   }
-  
+
   uint r = cursorLine();
   uint c = cursorColumn();
 
   int mod = (int)m_doc->isModified();
   bool block=m_doc->blockSelectionMode();
-  
+
   QString s1 = i18n("Line: %1").arg(KGlobal::locale()->formatNumber(r+1, 0));
   QString s2 = i18n("Col: %1").arg(KGlobal::locale()->formatNumber(c, 0));
 
@@ -566,8 +569,8 @@ void KateView::slotStatusMsg ()
     modstr = QString ("   ");
   QString blockstr;
   blockstr=block ? i18n(" BLK ") : i18n("NORM");
-  
-  
+
+
   emit viewStatusMsg (" " + s1 + " " + s2 + " " + ovrstr + " " + blockstr+ " " + modstr);
 }
 
@@ -576,10 +579,10 @@ void KateView::reloadFile()
   // save cursor position
   uint cl = cursorLine();
   uint cc = cursorColumn();
-  
+
   // save bookmarks
   m_doc->reloadFile();
-  
+
   if (m_doc->numLines() >= cl)
     setCursorPosition( cl, cc );
 }
@@ -614,7 +617,7 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::updateFoldingMarkersAction()
 {
-  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() && m_doc->m_foldingBar);  
+  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() && m_doc->m_foldingBar);
   m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }
@@ -634,7 +637,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
     if ( !m_doc || !m_doc->m_extension  )
         return;
-    
+
     emit m_doc->m_extension->popupMenu( ev->globalPos(), m_doc->url(),
                                         QString::fromLatin1( "text/plain" ) );
     ev->accept();
@@ -655,7 +658,7 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
 
   m_viewInternal->updateCursor( KateTextCursor( line, x ) );
   m_viewInternal->centerCursor();
-  
+
   return true;
 }
 
@@ -687,7 +690,7 @@ KateView::saveResult KateView::save()
 {
   if( !doc()->isModified() )
     return SAVE_OK;
-    
+
   if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )
     return saveAs();
 
@@ -702,7 +705,7 @@ KateView::saveResult KateView::save()
         i18n("The file could not be saved. Please check if you have write permission."));
     return SAVE_ERROR;
   }
-  
+
   return SAVE_OK;
 }
 
@@ -734,11 +737,11 @@ bool KateView::checkOverwrite( KURL u )
 {
   if( !u.isLocalFile() )
     return true;
-  
+
   QFileInfo info( u.path() );
   if( !info.exists() )
     return true;
-    
+
   return KMessageBox::Cancel != KMessageBox::warningContinueCancel( this,
     i18n( "A file named \"%1\" already exists. "
           "Are you sure you want to overwrite it?" ).arg( info.fileName() ),
@@ -774,7 +777,7 @@ void KateView::readSessionConfig(KConfig *config)
 {
   KateTextCursor cursor;
 
-/*FIXME 
+/*FIXME
   m_viewInternal->xPos = config->readNumEntry("XPos");
   m_viewInternal->yPos = config->readNumEntry("YPos");
 */
@@ -853,7 +856,7 @@ void KateView::toggleDynWordWrap()
 void KateView::setDynWordWrap( bool b )
 {
   m_hasWrap = b;
-  
+
   m_viewInternal->scrollColumns (0);
   m_viewInternal->updateView();
   m_viewInternal->update();
@@ -897,16 +900,16 @@ void KateView::slotDecFontSizes ()
 
 void KateView::updateViewDefaults ()
 {
-  setDynWordWrap( m_doc->m_dynWordWrap );       
+  setDynWordWrap( m_doc->m_dynWordWrap );
   m_toggleDynWrap->setChecked( dynWordWrap() );
 
-  setLineNumbersOn( m_doc->m_lineNumbers );       
+  setLineNumbersOn( m_doc->m_lineNumbers );
   m_toggleLineNumbers->setChecked( lineNumbersOn() );
-  
-  setIconBorder( m_doc->m_iconBar );  
+
+  setIconBorder( m_doc->m_iconBar );
   m_toggleIconBar->setChecked( iconBorder() );
-  
+
   updateFoldingMarkersAction();
-  
+
   m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
 }

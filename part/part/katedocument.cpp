@@ -4585,7 +4585,7 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
       title = i18n("File Was Deleted on Disk");
       btnOK = i18n("&Save File As...");
     } else {
-      title = i18n("File changed on Disk");
+      title = i18n("File Changed on Disk");
       btnOK = i18n("&Reload File");
     }
 

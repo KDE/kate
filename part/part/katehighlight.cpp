@@ -267,10 +267,11 @@ HlStringDetect::~HlStringDetect() {
 
 int HlStringDetect::checkHgl(const QString& text, int offset, int len)
 {
-  if (len < (int)str.length()) return 0;
+  if (len < (int)str.length())
+    return 0;
 
   if (text.mid(offset, str.length()).find(str, 0, !_inSensitive) == 0)
-    return offset + str.length() - 1;
+    return offset + str.length();
 
   return 0;
 }

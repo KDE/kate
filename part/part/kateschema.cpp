@@ -598,6 +598,7 @@ void KateSchemaConfigHighlightTab::apply ()
 
 //END KateSchemaConfigHighlightTab
 
+//BEGIN KateSchemaConfigPage
 KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   : KateConfigPage( parent ),
     m_lastSchema (-1)
@@ -775,6 +776,7 @@ void KateSchemaConfigPage::newCurrentPage (QWidget *w)
   if (w == m_highlightTab)
     m_highlightTab->schemaChanged (m_lastSchema);
 }
+//END KateSchemaConfigPage
 
 // BEGIN SCHEMA ACTION
 void KateViewSchemaAction::init()

@@ -239,17 +239,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
-  //
   // remove file from dirwatch
-  //
-  if (!m_oldFile.isEmpty() && (m_oldFile != m_file))
-  {
-    KateFactory::self()->dirWatch ()->removeFile (m_file);
-    m_oldFile = "";
-  }
-  
-  if (m_url.isLocalFile() && !m_file.isEmpty())
-    KateFactory::self()->dirWatch ()->removeFile (m_file);
+  deactivateDirWatch ();
 
   if (!singleViewMode())
   {
@@ -2420,26 +2411,8 @@ bool KateDocument::openFile()
 
 bool KateDocument::openFile(KIO::Job * job)
 {
-  //
-  // add the file to dirwatch
-  //
-  if (m_url.isLocalFile() && !m_file.isEmpty())
-  {
-    // save this new url
-    m_oldFile = m_file;
-    
-    KateFactory::self()->dirWatch ()->addFile (m_file);
-  }
-
-  //
-  // to houston, we are not modified
-  //
-  if (m_modOnHd)
-  {
-    m_modOnHd = false;
-    m_modOnHdReason = 0;
-    emit modifiedOnDisc (this, m_modOnHd, 0);
-  }
+  // add new m_file to dirwatch
+  activateDirWatch ();
 
   //
   // use metadata
@@ -2504,6 +2477,16 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   setDocName  (QString::null);
 
+  //
+  // to houston, we are not modified
+  //
+  if (m_modOnHd)
+  {
+    m_modOnHd = false;
+    m_modOnHdReason = 0;
+    emit modifiedOnDisc (this, m_modOnHd, 0);
+  }
+  
   //
   // display errors
   //
@@ -2581,27 +2564,21 @@ bool KateDocument::saveFile()
     canEncode = m_buffer->canEncode ();
 
   //
-  // remove the m_file before saving from dirwatch
-  //
-  if (!m_oldFile.isEmpty() && (m_oldFile != m_file))
-  {
-    KateFactory::self()->dirWatch ()->removeFile (m_file);
-    m_oldFile = "";
-  }
-  
-  if (m_url.isLocalFile() && !m_file.isEmpty())
-    KateFactory::self()->dirWatch ()->removeFile (m_file);
-  
-  //
   // start with worst case, we had no success
   //
   bool success = false;
 
+  // remove file from dirwatch
+  deactivateDirWatch ();
+  
   //
-  // try to load it if needed
+  // try to save
   //
   if (reallySaveIt && canEncode)
     success = m_buffer->saveFile (m_file);
+    
+  // add m_file again to dirwatch
+  activateDirWatch ();
 
   //
   // hurray, we had success, do stuff we need
@@ -2635,12 +2612,6 @@ bool KateDocument::saveFile()
   setDocName  (QString::null);
 
   //
-  // add file again
-  //
-  if (m_url.isLocalFile() && !m_file.isEmpty())
-    KateFactory::self()->dirWatch ()->addFile (m_file);
-
-  //
   // we are not modified
   //
   if (success && m_modOnHd)
@@ -2662,6 +2633,31 @@ bool KateDocument::saveFile()
   // return success
   //
   return success;
+}
+
+void KateDocument::activateDirWatch ()
+{
+  // same file as we are monitoring, return
+  if (m_file == m_dirWatchFile)
+    return;
+
+  // remove the old watched file
+  deactivateDirWatch ();
+  
+  // add new file if needed
+  if (m_url.isLocalFile() && !m_file.isEmpty())
+  {  
+    KateFactory::self()->dirWatch ()->addFile (m_file);
+    m_dirWatchFile = m_file;
+  }
+}
+
+void KateDocument::deactivateDirWatch ()
+{
+  if (!m_dirWatchFile.isEmpty())
+    KateFactory::self()->dirWatch ()->removeFile (m_dirWatchFile);
+
+  m_dirWatchFile = QString::null;
 }
 
 bool KateDocument::closeURL()
@@ -2696,24 +2692,15 @@ bool KateDocument::closeURL()
   if (!KParts::ReadWritePart::closeURL ())
     return false;
 
-  //
   // remove file from dirwatch
-  //
-  if (!m_oldFile.isEmpty() && (m_oldFile != m_file))
-  {
-    KateFactory::self()->dirWatch ()->removeFile (m_file);
-    m_oldFile = "";
-  }
-  
-  if (m_url.isLocalFile() && !m_file.isEmpty())
-    KateFactory::self()->dirWatch ()->removeFile (m_file);
+  deactivateDirWatch ();
 
   //
   // empty url + filename
   //
   m_url = KURL ();
   m_file = QString::null;
-
+  
   // we are not modified
   if (m_modOnHd)
   {

@@ -2702,7 +2702,7 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     return;
   }
 
-  if ( e->text().length() > 0 ) {
+  if ( m_imPreeditLength > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
                        cursor.line(), m_imPreeditStart + m_imPreeditLength );
   }

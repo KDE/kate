@@ -47,7 +47,7 @@ KTrader::OfferList *KateFactory::s_viewPlugins = 0;
 
 extern "C"
 {
-  void *init_libkatepart()
+  void *init_katepart()
   {
     return new KateFactory( true );
   }

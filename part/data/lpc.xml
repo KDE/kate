@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LPC" version="0.01" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.inc;*.o">
+<language name="LPC" version="0.10" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.inc;*.o">
     <highlighting>
         <list name="l_mod">
             <item> private </item>
@@ -369,72 +369,72 @@
             <item> xor_bits </item>
         </list> 
         <contexts>
-            <context attribute="0" name="0" lineEndContext="0" >
-                <DetectChar attribute="18" context="18" char="&quot;" />
-                <Detect2Chars attribute="12" context="12" char="/" char1="/" />
-                <Detect2Chars attribute="13" context="13" char="/" char1="*" beginRegion="multiLine" />
-                <keyword attribute="1" String="l_mod" context="0" />
-                <keyword attribute="2" String="l_typ" context="0" />
-                <keyword attribute="3" String="l_key" context="0" />
-                <keyword attribute="4" String="l_predef" context="0" />
-                <keyword attribute="5" String="l_efun" context="0" />
-                <Float attribute="9" context="0" />
-                <RegExpr attribute="6" String="0o[0-9]+" context="0" />
-                <RegExpr attribute="7" String="0x[0-9A-Fa-f]+" context="0" />
-                <RegExpr attribute="8" String="[0-9]+" context="0" />
-                <RegExpr attribute="10" String="'(\\.|.)'" context="0" />
-                <RegExpr attribute="11" context="0" String="#'[-_A-Za-z0-9]*" />
-                <Detect2Chars attribute="12" context="12" char="/" char1="/" />
-                <DetectChar attribute="14" char="(" beginRegion="rRoundBrace" context="0"/>
-                <DetectChar attribute="14" char=")" endRegion="rRoundBrace" context="0" />
-                <DetectChar attribute="15" char="{" beginRegion="rBlockBrace" context="0" />
-                <DetectChar attribute="15" char="}" endRegion="rBlockBrace" context="0" />
-                <DetectChar attribute="16" char="[" beginRegion="rIndexBrace" context="0" />
-                <DetectChar attribute="16" char="]" endRegion="rIndexBrace" context="0" />
-                <RegExpr attribute="17" String="^#" context="17" />
+            <context attribute="iNormal" name="0" lineEndContext="0" >
+                <DetectChar attribute="iString" context="18" char="&quot;" />
+                <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
+                <Detect2Chars attribute="iMulti Comment" context="13" char="/" char1="*" beginRegion="multiLine" />
+                <keyword attribute="iModifiers" String="l_mod" context="0" />
+                <keyword attribute="iData Types" String="l_typ" context="0" />
+                <keyword attribute="iKeywords" String="l_key" context="0" />
+                <keyword attribute="iPredefined" String="l_predef" context="0" />
+                <keyword attribute="iEFuns" String="l_efun" context="0" />
+                <Float attribute="iFloat" context="0" />
+                <RegExpr attribute="iOctal" String="0o[0-9]+" context="0" />
+                <RegExpr attribute="iHex" String="0x[0-9A-Fa-f]+" context="0" />
+                <RegExpr attribute="iInt" String="[0-9]+" context="0" />
+                <RegExpr attribute="iChar" String="'(\\.|.)'" context="0" />
+                <RegExpr attribute="iClosure" context="0" String="#'[-_A-Za-z0-9]*" />
+                <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
+                <DetectChar attribute="iRound Brace" char="(" beginRegion="rRoundBrace" context="0"/>
+                <DetectChar attribute="iRound Brace" char=")" endRegion="rRoundBrace" context="0" />
+                <DetectChar attribute="iBlock Brace" char="{" beginRegion="rBlockBrace" context="0" />
+                <DetectChar attribute="iBlock Brace" char="}" endRegion="rBlockBrace" context="0" />
+                <DetectChar attribute="iIndex Brace" char="[" beginRegion="rIndexBrace" context="0" />
+                <DetectChar attribute="iIndex Brace" char="]" endRegion="rIndexBrace" context="0" />
+                <RegExpr attribute="iPreprocessor" String="^#" context="17" />
             </context>
-            <context name="1" attribute="1" lineEndContext="0" />
-            <context name="2" attribute="2" lineEndContext="0" />
-            <context name="3" attribute="3" lineEndContext="0" />
-            <context name="4" attribute="4" lineEndContext="0" />
-            <context name="5" attribute="5" lineEndContext="0" />
-            <context name="6" attribute="6" lineEndContext="0" />
-            <context name="7" attribute="7" lineEndContext="0" />
-            <context name="8" attribute="8" lineEndContext="0" />
-            <context name="9" attribute="9" lineEndContext="0" />
-            <context name="10" attribute="10" lineEndContext="0" />
-            <context name="11" attribute="11" lineEndContext="0" />
-            <context name="12" attribute="12" lineEndContext="0">
-                <RegExpr attribute="19" String="([A-Z][A-Za-z]*( by)*:+|EOF|End of file[.]+)" context="12"/>
+            <context name="1" attribute="iModifiers" lineEndContext="0" />
+            <context name="2" attribute="iData Types" lineEndContext="0" />
+            <context name="3" attribute="iKeywords" lineEndContext="0" />
+            <context name="4" attribute="iPredefined" lineEndContext="0" />
+            <context name="5" attribute="iEFuns" lineEndContext="0" />
+            <context name="6" attribute="iOctal" lineEndContext="0" />
+            <context name="7" attribute="iHex" lineEndContext="0" />
+            <context name="8" attribute="iInt" lineEndContext="0" />
+            <context name="9" attribute="iFloat" lineEndContext="0" />
+            <context name="10" attribute="iChar" lineEndContext="0" />
+            <context name="11" attribute="iClosure" lineEndContext="0" />
+            <context name="12" attribute="iSingle Comment" lineEndContext="0">
+                <RegExpr attribute="iComment Highlight" String="([A-Z][A-Za-z]*( by)*:+|EOF|End of file[.]+)" context="12"/>
             </context>
-            <context name="13" attribute="13" lineEndContext="13">
-                <RegExpr attribute="19" String="([A-Z][A-Za-z]*( by)*:+|EOF|End of file[.]+)" context="13"/>
-                <Detect2Chars attribute="13" char="*" char1="/" context="0" endRegion="multiLine" />
+            <context name="13" attribute="iMulti Comment" lineEndContext="13">
+                <RegExpr attribute="iComment Highlight" String="([A-Z][A-Za-z]*( by)*:+|EOF|End of file[.]+)" context="13"/>
+                <Detect2Chars attribute="iMulti COmment" char="*" char1="/" context="0" endRegion="multiLine" />
             </context>
-            <context name="14" attribute="17" lineEndContext="0" />
-            <context name="15" attribute="18" lineEndContext="0" />
-            <context name="16" attribute="19" lineEndContext="0" />
-            <context name="17" attribute="17" lineEndContext="0">
-                <DetectChar attribute="22" char="&quot;" context="22" />
-                <DetectChar attribute="22" char="&lt;" context="23" />
-                <Detect2Chars attribute="12" context="12" char="/" char1="/" />
-                <RegExpr attribute="20" context="17"
+            <context name="14" attribute="iPreprocessor" lineEndContext="0" />
+            <context name="15" attribute="iString" lineEndContext="0" />
+            <context name="16" attribute="iComment Highlight" lineEndContext="0" />
+            <context name="17" attribute="iPreprocessor" lineEndContext="0">
+                <DetectChar attribute="iPreString" char="&quot;" context="22" />
+                <DetectChar attribute="iPreString" char="&lt;" context="23" />
+                <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
+                <RegExpr attribute="iPreprocessor directives" context="17"
     String="(defined|include|define|ifdef|ifndef|if|else|elif|endif|undef|line|echo|pragma)" />
-                <RegExpr attribute="21" context="17"
+                <RegExpr attribute="iPragmas" context="17"
     String="(combine_strings|no_combine_string|no_clone|no_inherit|no_shadow|weak_types|strict_types|save_types|no_local_scopes|pedantic|sloppy|warn_deprecated|no_warn_deprecated|set_code_window|show_code_window)" />
-                <LineContinue attribute="17" context="17" />
+                <LineContinue attribute="iPreprocessor" context="17" />
             </context>
-            <context name="18" attribute="18" lineEndContext="18">
-                <DetectChar attribute="18" char="&quot;" context="0" />
+            <context name="18" attribute="iString" lineEndContext="18">
+                <DetectChar attribute="iString" char="&quot;" context="0" />
             </context>
-            <context name="19" attribute="19" lineEndContext="0" />
-            <context name="20" attribute="20" lineEndContext="0" />
-            <context name="21" attribute="21" lineEndContext="0" />
-            <context name="22" attribute="22" lineEndContext="22">
-                <DetectChar attribute="22" char="&quot;" context="17" />
+            <context name="19" attribute="iComment Highlight" lineEndContext="0" />
+            <context name="20" attribute="iPreprocessor directives" lineEndContext="0" />
+            <context name="21" attribute="iPragmas" lineEndContext="0" />
+            <context name="22" attribute="iPreString" lineEndContext="22">
+                <DetectChar attribute="iPreString" char="&quot;" context="17" />
             </context>
-            <context name="23" attribute="22" lineEndContext="23">
-                <DetectChar attribute="22" char="&gt;" context="17" />
+            <context name="23" attribute="iPreString" lineEndContext="23">
+                <DetectChar attribute="iPreString" char="&gt;" context="17" />
             </context>
         </contexts>
         <itemDatas>

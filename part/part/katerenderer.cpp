@@ -192,6 +192,16 @@ bool KateRenderer::paintTextLineBackground(QPainter& paint, int line, bool isCur
   return selectionPainted;
 }
 
+void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
+{
+  QPen penBackup( paint.pen() );
+  paint.setPen( config()->tabMarkerColor() );
+  paint.drawPoint(x,     y);
+  paint.drawPoint(x + 1, y);
+  paint.drawPoint(x,     y - 1);
+  paint.setPen( penBackup );
+}
+
 void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
 {
   int line = range->line;
@@ -349,12 +359,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
       cursorMaxWidth = xPosAfter - xPos;
     }
-
   }
   else
   {
     // loop each character (tmp goes backwards, but curCol doesn't)
-    for (uint tmp = len; (tmp > 0); tmp--)
+    for (uint tmp = len; tmp > 0; tmp--)
     {
       // Determine cursor position
       if (showCursor > -1 && cursor->col() == (int)curCol)
@@ -438,14 +447,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           paint.drawText(oldXPos-xStart, y, spaces);
 
           if (showTabs())
-          {
-            QPen penBackup( paint.pen() );
-            paint.setPen( config()->tabMarkerColor() );
-            paint.drawPoint(xPos - xStart, y);
-            paint.drawPoint(xPos - xStart + 1, y);
-            paint.drawPoint(xPos - xStart, y - 1);
-            paint.setPen( penBackup );
-          }
+            paintWhitespaceMarker(paint, xPos - xStart, y);
 
           // variable advancement
           blockStartCol = nextCol;
@@ -564,7 +566,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &oldAt->textColor();
     }
-  } // Drawing non-empty lines
+  }
 
   // Draw dregs of the selection
   // TODO: genericise background painting

@@ -205,6 +205,13 @@ public:
     KateAttribute* attribute(uint pos);
 
   private:
+    /**
+     * Paint a whitespace marker on position (x, y).
+     *
+     * Currently only used by the tabs, but it will also be used for highlighting trailing whitespace
+     */
+    void paintWhitespaceMarker(QPainter &paint, uint x, uint y);
+
     KateDocument* m_doc;
     KateView *m_view;
 

@@ -82,11 +82,7 @@ void KateSearch::addToList( QStringList& list, const QString& s )
 }
 
 void KateSearch::find()
-{
-	m_searchFlags.selected &= doc()->hasSelection();
-	m_searchFlags.replace = false;
-	
-	
+{	
 	KFindDialog *findDialog = new KFindDialog (  m_view, "", options,
 	                                             s_searchList, m_doc->hasSelection() ); 
 	

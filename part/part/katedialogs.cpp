@@ -121,7 +121,9 @@
 #include <qdom.h>
 #include <qslider.h>
 
-#define HLDOWNLOADPATH "http://www.kde.org/apps/kate/hl/update.xml"
+// trailing slash is important
+#define HLDOWNLOADPATH "http://www.kde.org/apps/kate/syntax/"
+
 //END
 
 //BEGIN KateConfigPage
@@ -1406,8 +1408,12 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   new QLabel(i18n("Note: New versions are selected automatically."), vbox);
   actionButton (User1)->setIconSet(SmallIconSet("ok"));
 
-  KIO::TransferJob *getIt=KIO::get(KURL(HLDOWNLOADPATH), true, true );
-  connect(getIt,SIGNAL(data(KIO::Job *, const QByteArray &)),
+  transferJob = KIO::get(
+    KURL(QString(HLDOWNLOADPATH)
+       + QString("update-")
+       + QString(KATEPART_VERSION)
+       + QString(".xml")), true, true );
+  connect(transferJob, SIGNAL(data(KIO::Job *, const QByteArray &)),
     this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
 //        void data( KIO::Job *, const QByteArray &data);
   resize(450, 400);
@@ -1417,6 +1423,12 @@ KateHlDownloadDialog::~KateHlDownloadDialog(){}
 
 void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 {
+  if (!transferJob || transferJob->isErrorPage())
+  {
+    actionButton(User1)->setEnabled(false);
+    return;
+  }
+
   listData+=QString(data);
   kdDebug(13000)<<QString("CurrentListData: ")<<listData<<endl<<endl;
   kdDebug(13000)<<QString("Data length: %1").arg(data.size())<<endl;

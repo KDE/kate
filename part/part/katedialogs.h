@@ -46,7 +46,11 @@ struct syntaxContextData;
 class KateDocument;
 class KateView;
 
-namespace KIO { class Job; }
+namespace KIO
+{
+  class Job;
+  class TransferJob;
+}
 
 class KAccel;
 class KColorButton;
@@ -356,6 +360,7 @@ class KateHlDownloadDialog: public KDialogBase
   private:
     class QListView  *list;
     class QString listData;
+    KIO::TransferJob *transferJob;
 
   private slots:
     void listDataReceived(KIO::Job *, const QByteArray &data);

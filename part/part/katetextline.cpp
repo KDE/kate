@@ -27,7 +27,7 @@
 #include <qregexp.h>
 
 TextLine::TextLine()
-  : m_attr (0), m_hlContinue(false),m_visible(true), m_foldingListValid(false)
+  : m_flags(TextLine::flagVisible)
 {
 }
 
@@ -51,7 +51,7 @@ void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen,
 
   if (newLen < pos) newLen = pos;
   newLen += insLen;
-  newAttr = (pos < textLen) ? m_attributes[pos] : m_attr;
+  newAttr = (pos < textLen) ? m_attributes[pos] : 0;
 
   if (newLen > textLen)
   {
@@ -62,7 +62,7 @@ void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen,
   //fill up with spaces and attribute
   for (z = textLen; z < pos; z++) {
     m_text[z] = QChar(' ');
-    m_attributes[z] = m_attr;
+    m_attributes[z] = 0;
   }
 
   i = (insLen - delLen);
@@ -129,7 +129,6 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
   if (l > 0)
   {
     nextLine->replace(0, 0, &m_text[pos], l, &m_attributes[pos]);
-    m_attr = m_attributes[pos];
     truncate(pos);
   }
 }
@@ -137,7 +136,6 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
   replace(pos, 0, nextLine->m_text.data(), len, nextLine->m_attributes.data());
-  m_attr = nextLine->attribute(len);
   nextLine->replace(0, len, 0L, 0);
 }
 
@@ -260,7 +258,7 @@ bool TextLine::searchText (unsigned int startCol, const QRegExp &regexp, unsigne
 
 uint TextLine::dumpSize () const
 {  
-  return (3*sizeof(uint)) + (m_text.size()*(sizeof(QChar) + 1)) + 1 + 1+ 1 + (m_ctx.size() * sizeof(signed char)) + (m_foldingList.size() * sizeof(signed char));
+  return (3*sizeof(uint)) + (m_text.size()*(sizeof(QChar) + 1)) + 1 + (m_ctx.size() * sizeof(signed char)) + (m_foldingList.size() * sizeof(signed char));
 }
  
 char *TextLine::dump (char *buf) const
@@ -283,22 +281,8 @@ char *TextLine::dump (char *buf) const
 
   memcpy(buf, (char *) m_attributes.data(), l);
   buf += l;
-
-  memcpy(buf, (char *)&m_attr, 1);
-  buf += 1;
-
-  uchar tmp1 = 0;
-  if (m_hlContinue)
-    tmp1 = 1;
-
-  memcpy(buf, (char *)&tmp1, 1);
-  buf += 1;
-
-  uchar tmp2 = 0;
-  if (m_visible)
-    tmp2 = 1;
-
-  memcpy(buf, (char *)&tmp2, 1);
+  
+  memcpy(buf, (char *) &m_flags, 1);
   buf += 1;
 
   memcpy(buf, (signed char *)m_ctx.data(), lctx);
@@ -327,27 +311,11 @@ char *TextLine::restore (char *buf)
   // text + attributes
   m_text.duplicate ((QChar *) buf, l);
   m_attributes.duplicate ((uchar *) buf + (sizeof(QChar)*l), l);
-  buf += (sizeof(QChar)*l);
+  buf += sizeof(QChar)*l;
   buf += l;
 
-  uchar a = 0;
-  memcpy((char *)&a, buf, sizeof(uchar));
-  buf += sizeof(uchar);
-  m_attr = a;
-
-  uchar tmp1 = 0;
-  memcpy((char *)&tmp1, buf, sizeof(uchar));
-  buf += sizeof(uchar);
-
-  if (tmp1 == 1)
-    m_hlContinue = true;
-
-  uchar tmp2 = 0;
-  memcpy((char *)&tmp2, buf, sizeof(uchar));
-  buf += sizeof(uchar);
-
-  if (tmp2 == 1)
-    m_visible = true;
+  memcpy((char *)&m_flags, buf, sizeof(uchar));
+  buf += 1;
 
   m_ctx.duplicate ((signed char *) buf, lctx);
   buf += lctx;

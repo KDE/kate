@@ -61,9 +61,9 @@ class TextLine : public KShared
     /**
       Returns the visibility flag
     */
-    inline bool isVisible() const { return m_visible; }  
+    inline bool isVisible() const { return m_flags & TextLine::flagVisible; }  
      
-    inline bool isFoldingListValid() const { return m_foldingListValid; }
+    inline bool isFoldingListValid() const { return m_flags & TextLine::flagFoldingListValid; }
 
     /**
       Returns the position of the first character which is not a white space
@@ -151,20 +151,12 @@ class TextLine : public KShared
     inline uchar attribute (uint pos) const
     {
       if (pos < m_text.size()) return m_attributes[pos];
-      return m_attr;
+      return 0;
     }
-    
-    /**
-      Gets the attribute for the free space behind the last character
-    */
-    inline uchar attr() const
-    {
-      return m_attr;
-    }    
-    
+        
     inline bool hlLineContinue () const
     {
-      return m_hlContinue;
+      return m_flags & TextLine::flagHlContinue;
     }
                                                                                                        
     /**
@@ -216,21 +208,14 @@ class TextLine : public KShared
     */
     inline void setVisible(bool val)
     {
-      m_visible=val;
+      if (val) m_flags = m_flags | TextLine::flagVisible;
+      else m_flags = m_flags & ~ TextLine::flagVisible;
     }
     
     /**
       Sets the attributes from start to end -1
     */
     void setAttribs(uchar attribute, uint start, uint end);
-    
-    /**
-      Sets the attribute for the free space behind the last character
-    */
-    inline void setAttr(uchar attribute)
-    {
-      m_attr = attribute;
-    }
         
     /**
       Sets the syntax highlight context number
@@ -242,14 +227,15 @@ class TextLine : public KShared
     
     inline void setHlLineContinue (bool cont)
     {
-      m_hlContinue = cont;
+      if (cont) m_flags = m_flags | TextLine::flagHlContinue;
+      else m_flags = m_flags & ~ TextLine::flagHlContinue;
     }
         
     inline void setFoldingList (QMemArray<signed char> &val)
     {
       m_foldingList=val;
       m_foldingList.detach();
-      m_foldingListValid=true;
+      m_flags = m_flags | TextLine::flagFoldingListValid;
     }     
   
   /**
@@ -282,28 +268,24 @@ class TextLine : public KShared
     */
     QMemArray<QChar> m_text;
     QMemArray<unsigned char> m_attributes;
+    
+    /**
+     Data for context + folding 
+     */
     QMemArray<signed char> m_ctx; 
     QMemArray<signed char> m_foldingList;
+                                     
+    enum Flags
+    {
+      flagHlContinue,
+      flagVisible,
+      flagFoldingListValid
+    };
     
     /**
-      The attribute of the free space behind the end
+     Some bools packed
     */
-    uchar m_attr;
-
-    /**
-      The line continue flag
-    */
-    bool m_hlContinue;
-                              
-    /**
-      Is the line visible or folded away ?
-    */
-    bool m_visible; 
-    
-    /**
-      is the foldingList valid ?
-    */
-    bool m_foldingListValid;   
- };
+    uchar m_flags;
+};
 
 #endif

@@ -778,7 +778,6 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
   if (noHl)
   {
     textLine->setAttribs(0,0,textLine->length());
-    textLine->setAttr(0);
     return;
   }
 
@@ -933,9 +932,6 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
     textLine->setHlLineContinue(item->lineContinue());
     if (item->lineContinue()) kdDebug(13000)<<"Setting line continue flag"<<endl;
   }
-
-  //set "end of line"-properties
-  textLine->setAttr(context->attr);
 
 //  if (oCtxLen>0)
 //  kdDebug(13000)<<QString("Last line end context entry: %1").arg((int)ctx[oCtxLen-1])<<endl;

@@ -205,19 +205,32 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 	}
 	kdDebug()<<debugstr<<endl;
 #endif
+
+
+
+	// Remove all regions which are opened and closed on the same line something like "{{}{}{}}" will become ""
 	for (int i=regionChanges->size()-1;i>0;i--)
 	{
 #if JW_DEBUG
 		kdDebug()<<QString("i: %1, i-1: %2").arg((*regionChanges)[i]).arg((*regionChanges)[i-1])<<endl;
 #endif
+
+//	kdDebug()<<QString("Checking element %1 and %2, stacksize:").arg(i).arg(i-1).arg(regionChanges->size())<<endl;
+
+		// if item i is an opening element and i-1 is the corresponding closing element, remove it
 		if ((((*regionChanges)[i])>0) && (((*regionChanges)[i])==-((*regionChanges)[i-1])))
 		{
-    for (uint z4=i-1; (z4+2) < regionChanges->size(); z4++)
-        (*regionChanges)[z4] = (*regionChanges)[z4+2];
+			for (uint z4=i-1; (z4+2) < regionChanges->size(); z4++)
+			        (*regionChanges)[z4] = (*regionChanges)[z4+2];
 
-      regionChanges->resize (regionChanges->size()-2);
+			if (i==regionChanges->size()-1) i--;
+
+			regionChanges->resize (regionChanges->size()-2);
 		}
 	}
+
+
+
 
 #if JW_DEBUG
 	kdDebug()<<QString("KateCodeFoldingTree::updateLine: Line %1").arg(line)<<endl;
@@ -417,8 +430,11 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int li
 					tmp=node->parentNode->childnodes->take(mypos+1);
 					tmp->startLineRel=tmp->startLineRel-node->startLineRel;
 
-          if (tmp)
-            node->childnodes->append(tmp);
+			                if (tmp)
+					   {
+					      tmp->parentNode=node; //should help 16.04.2002
+				              node->childnodes->append(tmp);
+					   }
 				}
 			}
 			return;
@@ -436,6 +452,7 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int li
       if (tmp)
       {
         if (!node->childnodes) node->childnodes=new QPtrList<KateCodeFoldingNode>();
+			  tmp->parentNode=node; // SHOULD HELP 16.04.2002
 			  node->childnodes->append(tmp);
       }
 		}
@@ -456,6 +473,7 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int li
 
 bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *node,unsigned int line,int insertPos)
 {
+//	if (node->type==0) {kdError()<<"correct Ending should never be called with the root node"<<endl; return true;}
 	unsigned int startLine=getStartLine(node);
 	if (data!=-node->type)
 	{
@@ -552,6 +570,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 							while (removepos<node->childnodes->count())
 							{
 								node->parentNode->childnodes->append(moveNode=node->childnodes->take(removepos));
+								moveNode->parentNode=node->parentNode;
 								moveNode->startLineRel +=node->startLineRel;
 							}
 						}
@@ -751,7 +770,9 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 					newNode->childnodes=new QPtrList<KateCodeFoldingNode>();
 					for (int i=0;i<count;i++)
 					{
-						newNode->childnodes->append(node->childnodes->take(current+1));
+						KateCodeFoldingNode *on;
+						newNode->childnodes->append(on=node->childnodes->take(current+1));
+						on->parentNode=newNode;
 					}
 				}
 //			}

@@ -82,28 +82,28 @@ void KateBookmarks::createActions( KActionCollection* ac )
     this, SLOT(toggleBookmark()),
     ac, "bookmarks_toggle" );
   m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
-  m_bookmarkMenu->insert( m_bookmarkToggle );
+  m_bookmarkToggle->plug( m );
 
   m_bookmarkClear = new KAction(
     i18n("Clear Bookmarks"), 0,
     this, SLOT(clearBookmarks()),
     ac, "bookmarks_clear");
   m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
-  m_bookmarkMenu->insert( m_bookmarkClear );
+  m_bookmarkClear->plug( m );
 
   m_goNext = new KAction(
     "Next Bookmark", ALT + Key_PageDown,
     this, SLOT(goNext()),
     ac, "bookmarks_next");
   m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
-  m_bookmarkMenu->insert( m_goNext );
+  m_goNext->plug( m );
 
   m_goPrevious = new KAction(
     "Previous Bookmark", ALT + Key_PageUp,
     this, SLOT(goPrevious()),
     ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
-  m_bookmarkMenu->insert( m_goPrevious );
+  m_goPrevious->plug( m );
 
   // connect bookmarks menu aboutToshow
   connect( m, SIGNAL(aboutToShow()),

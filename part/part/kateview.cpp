@@ -44,6 +44,7 @@
 #include "katebookmarks.h"
 #include "katebrowserextension.h"
 #include "katesearch.h"
+#include "katecmdline.h"
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -67,7 +68,6 @@
 #include <kxmlguifactory.h>
 #include <kaccel.h>
 #include <klibloader.h>
-#include <klineedit.h>
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
@@ -75,10 +75,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_search( new KateSearch( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_rmbMenu( 0 )
-    , m_active( false )
-    , m_hasWrap( false )
     , m_cmdLine (0)
     , m_cmdLineOn (false)
+    , m_active( false )
+    , m_hasWrap( false )
 {
   KateFactory::registerView( this );
 
@@ -938,7 +938,7 @@ void KateView::setCmdLine ( bool enabled )
   {
     if (!m_cmdLine)
     {
-      m_cmdLine = new KLineEdit (this);
+      m_cmdLine = new KateCmdLine (this);
       m_grid->addMultiCellWidget (m_cmdLine, 2, 2, 0, 2);
     }
 

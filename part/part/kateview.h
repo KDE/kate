@@ -42,7 +42,7 @@ class KSelectAction;
 class KateDocument;
 class KateBookmarks;
 class KateSearch;
-class KLineEdit;
+class KateCmdLine;
 
 //
 // Kate KTextEditor::View class ;)
@@ -345,7 +345,7 @@ class KateView : public Kate::View,
     QPopupMenu*            m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
 
-    KLineEdit *m_cmdLine;
+    KateCmdLine *m_cmdLine;
     bool m_cmdLineOn;
 
     QGridLayout *m_grid;

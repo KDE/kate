@@ -614,6 +614,8 @@ void KateView::setupViewPlugins()
 void KateView::slotGotFocus()
 {
   m_editActions->accel()->setEnabled( true );
+
+  slotStatusMsg ();
 }
 
 void KateView::slotLostFocus()

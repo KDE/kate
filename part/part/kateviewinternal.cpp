@@ -2165,14 +2165,14 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     if( key == Qt::Key_Tab )
     {
-      m_doc->indent( cursor.line() );
+      m_doc->indent( m_view, cursor.line(), 1 );
       e->accept();
       return;
     }
 
     if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
     {
-      m_doc->unIndent( cursor.line() );
+      m_doc->indent( m_view, cursor.line(), -1 );
       e->accept();
       return;
     }

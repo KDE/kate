@@ -425,11 +425,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool openFile ();
     bool saveFile ();
 
-    void setReadWrite( bool );
-    bool isReadWrite() const;
+    void setReadWrite ( bool rw = true );
 
-    void setModified(bool);
-    bool isModified() const;
+    void setModified( bool m );
 
   //
   // Kate::Document stuff
@@ -528,19 +526,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void selectLine(   const KateTextCursor& cursor );
     void selectLength( const KateTextCursor& cursor, int length );
 
-    void indent(      uint line ) { doIndent( line,  1 );  }
-    void unIndent(    uint line ) { doIndent( line, -1 );  }
-    void cleanIndent( uint line ) { doIndent( line,  0 );  }
-    void comment(     uint line ) { doComment( line,  1 ); }
-    void unComment(   uint line ) { doComment( line, -1 ); }
+  public:
+    void indent ( KateView *view, uint line, int change );
+    void comment ( KateView *view, uint line, int change );
 
     enum TextTransform { Uppercase, Lowercase, Capitalize };
-
-    private:
-    void doIndent( uint line, int change );
-    void optimizeLeadingSpace( uint line, int flags, int change );
-    void replaceWithOptimizedSpace( uint line, uint upto_column, uint space, int flags );
-    void doComment( uint line, int change );
 
     /**
       Handling uppercase, lowercase and capitalize for the view.
@@ -550,26 +540,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
       the word under the cursor is transformed.
     */
     void doTransform( const KateTextCursor &, TextTransform );
-    public:
-
-    QString getWord( const KateTextCursor& cursor );
-
-  public:
-    void tagAll();
-    void updateLines(int startLine, int endLine);
-    void updateLines();
-    void updateViews();
-
-    void newBracketMark( const KateTextCursor& start, KateTextRange& bm );
-    bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end );
 
   private:
-    void guiActivateEvent( KParts::GUIActivateEvent *ev );
+    void optimizeLeadingSpace( uint line, int flags, int change );
+    void replaceWithOptimizedSpace( uint line, uint upto_column, uint space, int flags );
 
-  private:
-    //
-    // Comment, uncomment methods
-    //
     bool removeStringFromBegining(int line, QString &str);
     bool removeStringFromEnd(int line, QString &str);
 
@@ -587,6 +562,21 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     bool removeStartStopCommentFromSelection();
     bool removeStartLineCommentFromSelection();
+
+  public:
+    QString getWord( const KateTextCursor& cursor );
+
+  public:
+    void tagAll();
+    void updateLines(int startLine, int endLine);
+    void updateLines();
+    void updateViews();
+
+    void newBracketMark( const KateTextCursor& start, KateTextRange& bm );
+    bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end );
+
+  private:
+    void guiActivateEvent( KParts::GUIActivateEvent *ev );
 
   private slots:
     void slotBufferChanged();
@@ -695,10 +685,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     KateArbitraryHighlight* m_arbitraryHL;
 
-    bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether
                           // to check for overwriting files on save)
-    bool modified;
 
     static int m_getSearchTextFrom;
 

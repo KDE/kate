@@ -172,11 +172,11 @@ class KateView : public Kate::View,
     saveResult save();
     saveResult saveAs();
 
-    void indent()             { m_doc->indent( cursorLine() );       }
-    void unIndent()           { m_doc->unIndent( cursorLine() );     }
-    void cleanIndent()        { m_doc->cleanIndent( cursorLine() );  }
-    void comment()            { m_doc->comment( cursorLine() );      }
-    void uncomment()          { m_doc->unComment( cursorLine() );    }
+    void indent()             { m_doc->indent( this, cursorLine(), 1 );       }
+    void unIndent()           { m_doc->indent( this, cursorLine(), -1 );     }
+    void cleanIndent()        { m_doc->indent( this, cursorLine(), 0 );  }
+    void comment()            { m_doc->comment( this, cursorLine(), 1 );      }
+    void uncomment()          { m_doc->comment( this, cursorLine(), -1 );    }
     void killLine()           { m_doc->removeLine( cursorLine() );     }
 
     /**

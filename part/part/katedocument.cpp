@@ -200,10 +200,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   restoreMarks = false;
   setMarksUserChangable( markType01 );
 
-  readOnly = false;
   newDoc = false;
-
-  modified = false;
 
   m_docName = QString ("");
   fileInfo = new QFileInfo ();
@@ -2835,7 +2832,7 @@ bool KateDocument::save()
   bool l ( url().isLocalFile() );
   if ( ( ( l && myBackupConfig & LocalFiles ) ||
          ( ! l && myBackupConfig & RemoteFiles ) )
-       && modified ) {
+       && isModified() ) {
     KURL u( url().path() + myBackupSuffix );
     if ( ! KIO::NetAccess::upload( url().path(), u ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
@@ -2894,9 +2891,8 @@ bool KateDocument::saveFile()
 
 void KateDocument::setReadWrite( bool rw )
 {
-  if (rw == readOnly)
+  if (isReadWrite() != rw)
   {
-    readOnly = !rw;
     KParts::ReadWritePart::setReadWrite (rw);
     for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
       view->slotUpdate();
@@ -2904,19 +2900,16 @@ void KateDocument::setReadWrite( bool rw )
   }
 }
 
-bool KateDocument::isReadWrite() const
-{
-  return !readOnly;
-}
-
 void KateDocument::setModified(bool m) {
 
-  if (m != modified) {
-    modified = m;
+  if (isModified() != m) {
     KParts::ReadWritePart::setModified (m);
-    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
+
+    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() )
+    {
       view->slotUpdate();
     }
+
     emit modifiedChanged ();
   }
   if ( m == false && ! undoItems.isEmpty() )
@@ -2925,10 +2918,6 @@ void KateDocument::setModified(bool m) {
   }
 
   if ( m == false ) docWasSavedWhenUndoWasEmpty = undoItems.isEmpty();
-}
-
-bool KateDocument::isModified() const {
-  return modified;
 }
 //END
 
@@ -3353,7 +3342,7 @@ void KateDocument::selectLength( const KateTextCursor& cursor, int length ) {
   setSelection (cursor.line(), start, cursor.line(), end);
 }
 
-void KateDocument::doIndent( uint line, int change)
+void KateDocument::indent ( KateView *view, uint line, int change)
 {
   editStart ();
 
@@ -3813,7 +3802,7 @@ bool KateDocument::removeStartLineCommentFromSelection()
   Comment or uncomment the selection or the current
   line if there is no selection.
 */
-void KateDocument::doComment( uint line, int change)
+void KateDocument::comment( KateView *view, uint line, int change)
 {
   bool hasStartLineCommentMark = !(m_highlight->getCommentSingleLineStart().isEmpty());
   bool hasStartStopCommentMark = ( !(m_highlight->getCommentStart().isEmpty())

@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" version="1.05" kateversion="2.1" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.06" kateversion="2.1" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
     <list name="keywords">
       <item> abstract</item>
@@ -118,11 +118,16 @@
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="block1"/>
         <RegExpr attribute="Decimal" context="#stay" String="#region.*$" beginRegion="Region1"/>
         <RegExpr attribute="Decimal" context="#stay" String="#endregion.*$" endRegion="Region1"/>
+        <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
+        <RegExpr attribute="Normal Text" context="Member" String="[.]{1,1}" />
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#pop"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Member">
+        <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1"/>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
@@ -132,6 +137,7 @@
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
+      <itemData name="Function"     defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>

@@ -5151,8 +5151,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           if ( (n = l.findIndex( val.lower() )) != -1 )
             m_config->setEol( n );
         }
-        else if ( var == "document-name" || var == "doc-name" )
-          setDocName( val );
         else if ( var == "encoding" )
           m_config->setEncoding( val );
         else if ( var == "syntax" || var == "hl" )

@@ -138,7 +138,8 @@ class KateDocumentConfig : public KateConfig
       cfTabIndents= 0x80000,
       cfShowTabs= 0x200000,
       cfSpaceIndent= 0x400000,
-      cfSmartHome = 0x800000
+      cfSmartHome = 0x800000,
+      cfTabInsertsTab = 0x1000000
     };
 
     uint configFlags () const;

@@ -209,15 +209,17 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
 
   layout->addWidget(keys);
 
-  QRadioButton *rb1, *rb2;
+  QRadioButton *rb1, *rb2, *rb3;
 
   m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode if Nothing Selected"), this );
   m_tabs->setRadioButtonExclusive( true );
   m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &chars"), m_tabs ), 0 );
-  m_tabs->insert( rb2=new QRadioButton( i18n("Indent current &line"), m_tabs ), 1 );
+  m_tabs->insert( rb2=new QRadioButton( i18n("I&nsert tab char"), m_tabs ), 1 );
+  m_tabs->insert( rb3=new QRadioButton( i18n("Indent current &line"), m_tabs ), 2 );
 
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addWidget(m_tabs, 0 );
 
@@ -253,12 +255,18 @@ void IndentConfigTab::apply ()
 
   KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentItem());
 
-  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 1 == m_tabs->id (m_tabs->selected()));
+  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 2 == m_tabs->id (m_tabs->selected()));
+  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
 }
 
 void IndentConfigTab::reload ()
 {
-  m_tabs->setButton( (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabIndentsMode) ? 1 : 0  );
+  if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabIndentsMode)
+    m_tabs->setButton (2);
+  else if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabInsertsTab)
+    m_tabs->setButton (1);
+  else
+    m_tabs->setButton (0);
 
   m_indentMode->setCurrentItem (KateDocumentConfig::global()->indentationMode());
 

@@ -744,7 +744,7 @@ class KateDocument : public Kate::Document,
 
   public slots:
   void spellcheck();
-  void ready();
+  void ready(KSpell *);
   void misspelling( const QString&, const QStringList&, unsigned int );
   void corrected  ( const QString&, const QString&, unsigned int);
   void spellResult( const QString& );

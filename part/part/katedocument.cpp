@@ -4462,7 +4462,7 @@ void KateDocument::spellcheck()
     return;
 
   m_kspell = new KSpell( 0, i18n("Spellcheck"),
-                         this, SLOT(ready()) );
+                         this, SLOT(ready(KSpell *)) );
 
   connect( m_kspell, SIGNAL(death()),
            this, SLOT(spellCleanDone()) );
@@ -4475,16 +4475,16 @@ void KateDocument::spellcheck()
            this, SLOT(spellResult(const QString&)) );
 }
 
-void KateDocument::ready()
+void KateDocument::ready(KSpell *)
 {
-  setReadWrite( false );
-
   m_mispellCount = 0;
   m_replaceCount = 0;
 
   m_kspell->setProgressResolution( 1 );
 
   m_kspell->check( text() );
+  
+  kdDebug () << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
 
 void KateDocument::locatePosition( uint pos, uint& line, uint& col )
@@ -4532,7 +4532,6 @@ void KateDocument::corrected( const QString& originalword, const QString& newwor
 void KateDocument::spellResult( const QString& )
 {
   clearSelection();
-  setReadWrite( true );
   m_kspell->cleanUp();
 }
 
@@ -4546,13 +4545,14 @@ void KateDocument::spellCleanDone()
            "Please make sure you have ISpell "
            "properly configured and in your PATH."));
   } else if( status == KSpell::Crashed ) {
-    setReadWrite( true );
     KMessageBox::sorry( 0,
       i18n("ISpell seems to have crashed."));
   }
 
   delete m_kspell;
   m_kspell = 0;
+  
+  kdDebug () << "SPELLING END" << endl;
 }
 //END
 

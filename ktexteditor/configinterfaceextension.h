@@ -21,6 +21,7 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
+#include <kicontheme.h>
 
 namespace KTextEditor
 {
@@ -84,7 +85,7 @@ class ConfigInterfaceExtension
   
     virtual QString configPageName (uint number = 0) const = 0;
     virtual QString configPageFullName (uint number = 0) const = 0;
-    virtual QPixmap configPagePixmap (uint number = 0) const = 0;
+    virtual QPixmap configPagePixmap (uint number = 0, int size = KIcon::SizeSmall) const = 0;
     
     
   private:

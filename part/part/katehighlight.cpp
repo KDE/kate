@@ -100,7 +100,9 @@ class HlKeyword : public HlItem
     virtual void addWord(const QString &);
     virtual void addList(const QStringList &);
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(QChar c);
+    virtual bool startEnable(const QChar& c);
+    virtual bool alwaysStartEnable() const;
+    virtual bool hasCustomStartEnable() const;
 
   private:
     QDict<bool> dict;
@@ -112,29 +114,28 @@ class HlInt : public HlItem {
   public:
     HlInt(int attribute, int context, signed char regionId);
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(QChar c);
-
+    virtual bool alwaysStartEnable() const;
 };
 
 class HlFloat : public HlItem {
   public:
     HlFloat(int attribute, int context, signed char regionId);
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(QChar c);
+    virtual bool alwaysStartEnable() const;
 };
 
 class HlCOct : public HlItem {
   public:
     HlCOct(int attribute, int context, signed char regionId);
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(QChar c);
+    virtual bool alwaysStartEnable() const;
 };
 
 class HlCHex : public HlItem {
   public:
     HlCHex(int attribute, int context, signed char regionId);
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(QChar c);
+    virtual bool alwaysStartEnable() const;
 };
 
 class HlCFloat : public HlFloat {
@@ -142,7 +143,7 @@ class HlCFloat : public HlFloat {
     HlCFloat(int attribute, int context, signed char regionId);
     virtual int checkHgl(const QString& text, int offset, int len);
     int checkIntHgl(const QString& text, int offset, int len);
-    virtual bool startEnable(QChar c);
+    virtual bool alwaysStartEnable() const;
 };
 
 class HlLineContinue : public HlItem {
@@ -225,9 +226,12 @@ HlItem::~HlItem()
   if (subItems!=0) {subItems->setAutoDelete(true); subItems->clear(); delete subItems;}
 }
 
-bool HlItem::startEnable(QChar)
+bool HlItem::startEnable(const QChar& c)
 {
-  return true;
+  // ONLY called when alwaysStartEnable() overridden
+  // IN FACT not called at all, copied into doHighlight()...
+  Q_ASSERT(false);
+  return stdDeliminator.find(c) != 1;
 }
 //END
 
@@ -275,6 +279,7 @@ int HlStringDetect::checkHgl(const QString& text, int offset, int len)
 
   return 0;
 }
+
 //END
 
 
@@ -315,7 +320,17 @@ HlKeyword::HlKeyword (int attribute, int context, signed char regionId, bool cas
 HlKeyword::~HlKeyword() {
 }
 
-bool HlKeyword::startEnable(QChar c)
+bool HlKeyword::alwaysStartEnable() const
+{
+  return false;
+}
+
+bool HlKeyword::hasCustomStartEnable() const
+{
+  return true;
+}
+
+bool HlKeyword::startEnable(const QChar& c)
 {
   return deliminators.find(c) != -1;
 }
@@ -361,11 +376,9 @@ HlInt::HlInt(int attribute, int context, signed char regionId)
 {
 }
 
-
-bool HlInt::startEnable(QChar c)
+bool HlInt::alwaysStartEnable() const
 {
-//  return ustrchr(deliminatorChars, deliminatorLen, c);
-    return stdDeliminator.find(c) != 1;
+  return false;
 }
 
 int HlInt::checkHgl(const QString& text, int offset, int len)
@@ -402,11 +415,9 @@ HlFloat::HlFloat(int attribute, int context, signed char regionId)
   : HlItem(attribute,context, regionId) {
 }
 
-bool HlFloat::startEnable(QChar c)
+bool HlFloat::alwaysStartEnable() const
 {
-//  return ustrchr(deliminatorChars, deliminatorLen, c);
-    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
-    return stdDeliminator.find(c) != -1;
+  return false;
 }
 
 int HlFloat::checkHgl(const QString& text, int offset, int len)
@@ -505,11 +516,9 @@ HlCOct::HlCOct(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-bool HlCOct::startEnable(QChar c)
+bool HlCOct::alwaysStartEnable() const
 {
-//  return ustrchr(deliminatorChars, deliminatorLen, c);
-    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
-    return stdDeliminator.find(c) != -1;
+  return false;
 }
 
 int HlCOct::checkHgl(const QString& text, int offset, int len)
@@ -545,11 +554,9 @@ HlCHex::HlCHex(int attribute, int context,signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-bool HlCHex::startEnable(QChar c)
+bool HlCHex::alwaysStartEnable() const
 {
-//  return ustrchr(deliminatorChars, deliminatorLen, c);
-    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
-    return stdDeliminator.find(c) != -1;
+  return false;
 }
 
 int HlCHex::checkHgl(const QString& text, int offset, int len)
@@ -584,11 +591,9 @@ HlCFloat::HlCFloat(int attribute, int context, signed char regionId)
   : HlFloat(attribute,context,regionId) {
 }
 
-bool HlCFloat::startEnable(QChar c)
+bool HlCFloat::alwaysStartEnable() const
 {
-//  return ustrchr(deliminatorChars, deliminatorLen, c);
-    //return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
-    return stdDeliminator.find(c) != -1;
+  return false;
 }
 
 int HlCFloat::checkIntHgl(const QString& text, int offset, int len)
@@ -787,16 +792,6 @@ int HlCChar::checkHgl(const QString& text, int offset, int len)
   return 0;
 }
 
-
-//--------
-/*ItemStyle::ItemStyle() : selCol(Qt::white), bold(false), italic(false) {
-}
-
-ItemStyle::ItemStyle(const QColor &col, const QColor &selCol,
-  bool bold, bool italic)
-  : col(col), selCol(selCol), bold(bold), italic(italic) {
-}*/
-
 ItemData::ItemData(const QString  name, int defStyleNum)
   : name(name), defStyleNum(defStyleNum), defStyle(true) {
 }
@@ -846,8 +841,6 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
     iVersion=def->version;
   }
   deliminator = stdDeliminator;
-/*  deliminatorChars = deliminator.unicode();
-  deliminatorLen = deliminator.length();*/
 }
 
 Highlight::~Highlight()
@@ -1033,9 +1026,32 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
     found = false;
 
+    bool standardStartEnableDetermined = false;
+    bool standardStartEnable = false;
+    bool thisStartEnabled = false;
+
     for (item = context->items.first(); item != 0L; item = context->items.next())
     {
-      if (item->startEnable(lastChar))
+      if (item->alwaysStartEnable())
+      {
+        thisStartEnabled = true;
+      }
+      else if (!item->hasCustomStartEnable())
+      {
+        if (!standardStartEnableDetermined)
+        {
+          standardStartEnable = stdDeliminator.find(lastChar) != 1;
+          standardStartEnableDetermined = true;
+        }
+
+        thisStartEnabled = standardStartEnable;
+      }
+      else if (item->startEnable(lastChar))
+      {
+        thisStartEnabled = true;
+      }
+
+      if (thisStartEnabled)
       {
         offset2 = item->checkHgl(text, offset1, len-z);
 
@@ -2303,7 +2319,6 @@ void HlManager::getDefaults(KateAttributeList &list) {
   QRgb col, selCol;
 
   list.setAutoDelete(true);
-  //ItemStyle(color, selected color, bold, italic)
 
   KateAttribute* normal = new KateAttribute();
   normal->setTextColor(Qt::black);
@@ -2311,48 +2326,50 @@ void HlManager::getDefaults(KateAttributeList &list) {
   list.append(normal);
 
   KateAttribute* keyword = new KateAttribute();
-  normal->setTextColor(Qt::black);
-  normal->setSelectedTextColor(Qt::white);
+  keyword->setTextColor(Qt::black);
+  keyword->setSelectedTextColor(Qt::white);
+  keyword->setBold(true);
   list.append(keyword);
 
   KateAttribute* dataType = new KateAttribute();
-  normal->setTextColor(Qt::darkRed);
-  normal->setSelectedTextColor(Qt::white);
+  dataType->setTextColor(Qt::darkRed);
+  dataType->setSelectedTextColor(Qt::white);
   list.append(dataType);
 
   KateAttribute* decimal = new KateAttribute();
-  normal->setTextColor(Qt::blue);
-  normal->setSelectedTextColor(Qt::cyan);
+  decimal->setTextColor(Qt::blue);
+  decimal->setSelectedTextColor(Qt::cyan);
   list.append(decimal);
 
   KateAttribute* basen = new KateAttribute();
-  normal->setTextColor(Qt::darkCyan);
-  normal->setSelectedTextColor(Qt::cyan);
+  basen->setTextColor(Qt::darkCyan);
+  basen->setSelectedTextColor(Qt::cyan);
   list.append(basen);
 
   KateAttribute* floatAttribute = new KateAttribute();
-  normal->setTextColor(Qt::darkMagenta);
-  normal->setSelectedTextColor(Qt::cyan);
+  floatAttribute->setTextColor(Qt::darkMagenta);
+  floatAttribute->setSelectedTextColor(Qt::cyan);
   list.append(floatAttribute);
 
   KateAttribute* charAttribute = new KateAttribute();
-  normal->setTextColor(Qt::magenta);
-  normal->setSelectedTextColor(Qt::magenta);
+  charAttribute->setTextColor(Qt::magenta);
+  charAttribute->setSelectedTextColor(Qt::magenta);
   list.append(charAttribute);
 
   KateAttribute* string = new KateAttribute();
-  normal->setTextColor(Qt::red);
-  normal->setSelectedTextColor(Qt::red);
+  string->setTextColor(Qt::red);
+  string->setSelectedTextColor(Qt::red);
   list.append(string);
 
   KateAttribute* comment = new KateAttribute();
-  normal->setTextColor(Qt::darkGray);
-  normal->setSelectedTextColor(Qt::gray);
+  comment->setTextColor(Qt::darkGray);
+  comment->setSelectedTextColor(Qt::gray);
+  comment->setItalic(true);
   list.append(comment);
 
   KateAttribute* others = new KateAttribute();
-  normal->setTextColor(Qt::darkGreen);
-  normal->setSelectedTextColor(Qt::green);
+  others->setTextColor(Qt::darkGreen);
+  others->setSelectedTextColor(Qt::green);
   list.append(others);
 
   config = KateFactory::instance()->config();

@@ -50,7 +50,9 @@ class HlItem {
   public:
     HlItem(int attribute, int context,signed char regionId);
     virtual ~HlItem();
-    virtual bool startEnable(QChar);
+    virtual bool alwaysStartEnable() const { return true; };
+    virtual bool hasCustomStartEnable() const { return false; };
+    virtual bool startEnable(const QChar&);
 
     // Changed from using QChar*, because it makes the regular expression check very
     // inefficient (forces it to copy the string, very bad for long strings)

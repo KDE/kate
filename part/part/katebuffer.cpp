@@ -38,10 +38,10 @@
 #include <kdebug.h>
 
 // SOME LIMITS, may need testing what limits are clever
-#define LOADED_BLOCKS_MAX                32
-#define PARSED_CLEAN_BLOCKS_MAX   8
-#define PARSED_DIRTY_BLOCKS_MAX    8
-#define AVG_BLOCK_SIZE                         65536
+#define LOADED_BLOCKS_MAX                40
+#define PARSED_CLEAN_BLOCKS_MAX   10
+#define PARSED_DIRTY_BLOCKS_MAX    10
+#define AVG_BLOCK_SIZE                         24000
 #define LOAD_N_BLOCKS_AT_ONCE       3
 
 class KateBufState

@@ -143,7 +143,7 @@ class KateStyleListView : public QListView
 
   private slots:
     /* Display a popupmenu for item i at item position */
-    void showPopupMenu( QListViewItem *i );
+    void showPopupMenu( QListViewItem *i, const QPoint &globalPos );
     /* call item to change a property, or display a menu */
     void slotMousePressed( int, QListViewItem*, const QPoint&, int );
     /* asks item to change the property in q */

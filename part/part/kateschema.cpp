@@ -542,6 +542,14 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
   grid->addWidget( m_defaultStyles, 0, 0);
 
   connect (m_defaultStyles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
+
+  QWhatsThis::add( m_defaultStyles,  i18n(
+      "This list displays the default styles for the current schema and "
+      "offers the means to edit them. The style name reflects the current "
+      "style settings."
+      "<p>To edit the colors, click the colored squares, or select the color "
+      "to edit from the popup menu.<p>You can unset the Background and Selected "
+      "Background colors from the popup menu when appropriate.") );
 }
 
 KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
@@ -586,16 +594,6 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   {
     new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
   }
-
-  QWhatsThis::add( m_defaultStyles,  i18n(
-    "This list displays the default styles for the current schema and "
-    "offers the means to edit them. The style name reflects the current "
-    "style settings.<p>To edit using the keyboard, press "
-    "<strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu."
-    "<p>To edit the colors, click the colored squares, or select the color "
-    "to edit from the popup menu.<p>You can unset the Background and Selected "
-    "Background colors from the popup menu when appropriate.") );
-
 }
 
 void KateSchemaConfigFontColorTab::reload ()
@@ -1016,8 +1014,8 @@ KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
     addColumn( i18n("Use Default Style") );
   connect( this, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)),
            this, SLOT(slotMousePressed(int, QListViewItem*, const QPoint&, int)) );
-  connect( this, SIGNAL(spacePressed(QListViewItem*)),
-           this, SLOT(showPopupMenu(QListViewItem*)) );
+  connect( this, SIGNAL(contextMenuRequested(QListViewItem*,const QPoint&, int)),
+           this, SLOT(showPopupMenu(QListViewItem*, const QPoint&)) );
   // grap the bg color, selected color and default font
   normalcol = KGlobalSettings::textColor();
   bgcol = KateRendererConfig::global()->backgroundColor();
@@ -1085,10 +1083,10 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   m.exec( globalPos );
 }
 
-void KateStyleListView::showPopupMenu( QListViewItem *i )
+void KateStyleListView::showPopupMenu( QListViewItem *i, const QPoint &pos )
 {
   if ( dynamic_cast<KateStyleListItem*>(i) )
-    showPopupMenu( (KateStyleListItem*)i, viewport()->mapToGlobal(itemRect(i).topLeft()), true );
+    showPopupMenu( (KateStyleListItem*)i, pos, true );
 }
 
 void KateStyleListView::mSlotPopupHandler( int z )
@@ -1099,6 +1097,7 @@ void KateStyleListView::mSlotPopupHandler( int z )
 void KateStyleListView::unsetColor( int c )
 {
   ((KateStyleListItem*)currentItem())->unsetColor( c );
+  emitChanged();
 }
 
 // Because QListViewItem::activatePos() is going to become deprecated,
@@ -1106,10 +1105,7 @@ void KateStyleListView::unsetColor( int c )
 void KateStyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& pos, int c)
 {
   if ( dynamic_cast<KateStyleListItem*>(i) ) {
-    if ( btn == Qt::RightButton ) {
-      showPopupMenu( (KateStyleListItem*)i, /*mapToGlobal(*/pos/*)*/ );
-    }
-    else if ( btn == Qt::LeftButton && c > 0 ) {
+     if ( btn == Qt::LeftButton && c > 0 ) {
       // map pos to item/column and call KateStyleListItem::activate(col, pos)
       ((KateStyleListItem*)i)->activate( c, viewport()->mapFromGlobal( pos ) - QPoint( 0, itemRect(i).top() ) );
     }

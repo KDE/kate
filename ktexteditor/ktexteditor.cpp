@@ -163,6 +163,7 @@ Plugin::Plugin( Document *document, const char *name ) : QObject (document, name
 
 Plugin::~Plugin()
 {
+  delete d;
 }
 
 unsigned int Plugin::pluginNumber () const

@@ -28,7 +28,7 @@ class KATEPARTINTERFACES_EXPORT KateCmd
 {
   private:
     KateCmd ();
-    
+
   public:
     ~KateCmd ();
 
@@ -39,11 +39,15 @@ class KATEPARTINTERFACES_EXPORT KateCmd
     Kate::Command *queryCommand (const QString &cmd);
 
     QStringList cmds ();
+    void appendHistory( const QString &cmd );
+    const QString fromHistory( uint i ) const;
+    uint historyLength() const { return m_history.count(); }
 
   private:
     static KateCmd *s_self;
     QDict<Kate::Command> m_dict;
     QStringList m_cmds;
+    QStringList m_history;
 };
 
 #endif

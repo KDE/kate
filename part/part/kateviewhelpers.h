@@ -47,9 +47,11 @@ class KateCmdLine : public KLineEdit
     void keyPressEvent( QKeyEvent *ev );
 
   private:
+    void fromHistory( bool up );
     KateView *m_view;
     bool m_msgMode;
     QString m_oldText;
+    uint m_histpos;
 };
 
 class KateIconBorder : public QWidget

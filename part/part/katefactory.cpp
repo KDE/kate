@@ -134,7 +134,6 @@ KateFactory::KateFactory ()
   KateCmd::self()->registerCommand (new KateCommands::CoreCommands());
   KateCmd::self()->registerCommand (new KateCommands::SedReplace ());
   KateCmd::self()->registerCommand (new KateCommands::Character ());
-  KateCmd::self()->registerCommand (new KateCommands::Goto ());
   KateCmd::self()->registerCommand (new KateCommands::Date ());
 }
 

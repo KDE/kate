@@ -118,23 +118,6 @@ class Character : public Kate::Command
 };
 
 /**
- * goto the given line in the view
- */
-class Goto : public Kate::Command
-{
-  public:
-    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
-
-    bool help (class Kate::View *, const QString &, QString &) { return false; };
-
-    /**
-     * supported commands as prefixes
-     * @return prefix list
-     */
-    QStringList cmds () { return QStringList("goto"); };
-};
-
-/**
  * insert the current date/time in the given format
  */
 class Date : public Kate::Command

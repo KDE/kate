@@ -31,6 +31,7 @@
 
 #include <kglobalsettings.h>
 #include <klocale.h>
+#include <knotifyclient.h>
 
 #include <qpainter.h>
 #include <qpopupmenu.h>
@@ -52,11 +53,12 @@
 
 #include <kdebug.h>
 
-
+//BEGIN KateCmdLine
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
   , m_view (view)
   , m_msgMode (false)
+  , m_histpos( 0 )
 {
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
@@ -64,8 +66,14 @@ KateCmdLine::KateCmdLine (KateView *view)
   completionObject()->insertItems (KateCmd::self()->cmds());
 }
 
-void KateCmdLine::slotReturnPressed ( const QString& cmd )
+void KateCmdLine::slotReturnPressed ( const QString& text )
 {
+  uint n = 0;
+  while( text[n].isSpace() )
+    n++;
+
+  QString cmd = text.mid( n );
+
   if (cmd.length () > 0)
   {
     Kate::Command *p = KateCmd::self()->queryCommand (cmd);
@@ -79,7 +87,8 @@ void KateCmdLine::slotReturnPressed ( const QString& cmd )
 
       if (p->exec (m_view, cmd, msg))
       {
-        completionObject()->addItem (cmd);
+        KateCmd::self()->appendHistory( cmd );
+        m_histpos = KateCmd::self()->historyLength();
         m_oldText = QString ();
 
         if (msg.length() > 0)
@@ -93,22 +102,25 @@ void KateCmdLine::slotReturnPressed ( const QString& cmd )
           setText (i18n ("Error: ") + msg);
         else
           setText (i18n ("Command \"%1\" failed.").arg (cmd));
+        KNotifyClient::beep();
       }
     }
     else
+    {
       setText (i18n ("No such command: \"%1\"").arg (cmd));
+      KNotifyClient::beep();
+    }
   }
 
   m_view->setFocus ();
   QTimer::singleShot( 4000, this, SLOT(hideMe()) );
 }
 
-void KateCmdLine::hideMe ()
+void KateCmdLine::hideMe () // unless i have focus ;)
 {
-  if (isVisibleTo(parentWidget())) {
+  if ( isVisibleTo(parentWidget()) && ! hasFocus() ) {
      m_view->toggleCmdLine ();
   }
-  //m_view->/*show*/setCmdLine (false);
 }
 
 void KateCmdLine::focusInEvent ( QFocusEvent *ev )
@@ -128,12 +140,42 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   {
     m_view->setFocus ();
     hideMe();
-    //m_view->showCmdLine (false);
   }
+  else if ( ev->key() == Key_Up )
+    fromHistory( true );
+  else if ( ev->key() == Key_Down )
+    fromHistory( false );
 
   return KLineEdit::keyPressEvent (ev);
 }
 
+void KateCmdLine::fromHistory( bool up )
+{
+  if ( ! KateCmd::self()->historyLength() )
+    return;
+
+  if ( up )
+  {
+    if ( m_histpos > 0 )
+    {
+      m_histpos--;
+      setText( KateCmd::self()->fromHistory( m_histpos ) );
+    }
+  }
+  else
+  {
+    if ( m_histpos < KateCmd::self()->historyLength() - 1 )
+    {
+      ++m_histpos;
+      setText( KateCmd::self()->fromHistory( m_histpos ) );
+    }
+    else
+      setText(m_oldText);
+  }
+}
+//END KateCmdLine
+
+//BEGIN KateIconBorder
 using namespace KTextEditor;
 
 static const char* const plus_xpm[] = {
@@ -668,5 +710,5 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     }
   }
 }
-
+//END KateIconBorder
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -63,7 +63,7 @@ QStringList KateCommands::CoreCommands::cmds()
 {
   QStringList l;
   l << "indent" << "unindent" << "cleanindent"
-    << "comment" << "uncomment"
+    << "comment" << "uncomment" << "goto"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
     << "set-remove-trailing-space"
     << "set-indent-spaces" << "set-indent-width" << "set-indent-mode" << "set-auto-indent"
@@ -133,7 +133,8 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   // ALL commands that takes exactly one integer argument.
   else if ( cmd == "set-tab-width" ||
             cmd == "set-indent-width" ||
-            cmd == "set-word-wrap-column" )
+            cmd == "set-word-wrap-column" ||
+            cmd == "goto" )
   {
     // find a integer value > 0
     if ( ! args.count() )
@@ -161,6 +162,14 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
       if ( val < 2 )
         KCC_ERR( i18n("Column must be at least 1.") );
       v->doc()->setWordWrapAt( val );
+    }
+    else if ( cmd == "goto" )
+    {
+      if ( val < 1 )
+        KCC_ERR( i18n("Line must be at least 1") );
+      if ( (uint)val > v->doc()->numLines() )
+        KCC_ERR( i18n("There is not that many lines in this document") );
+      v->gotoLineNumber( val - 1 );
     }
     return true;
   }
@@ -422,19 +431,6 @@ bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QStri
     QChar c(number);
     view->insertText(QString(&c, 1));
   }
-
-  return true;
-}
-
-bool KateCommands::Goto::exec (Kate::View *view, const QString &cmd, QString &)
-{
-  if (cmd.left(4) != "goto")
-    return false;
-
-  QStringList args( QStringList::split( QRegExp("\\s+"), cmd ) );
-  args.remove( args.first() );
-
-  view->gotoLineNumber (args[0].toInt());
 
   return true;
 }

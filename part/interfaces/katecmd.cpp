@@ -21,6 +21,8 @@
 #include <kstaticdeleter.h>
 #include <kdebug.h>
 
+#define CMD_HIST_LENGTH 256
+
 KateCmd *KateCmd::s_self = 0;
 
 KateCmd::KateCmd ()
@@ -82,6 +84,24 @@ KateCmd *KateCmd::self ()
 {
   if (!s_self)
     sdCmd.setObject(s_self, new KateCmd ());
-    
+
   return s_self;
-} 
+}
+
+void KateCmd::appendHistory( const QString &cmd )
+{
+  if ( m_history.last() == cmd )
+    return;
+
+  if ( m_history.count() == CMD_HIST_LENGTH )
+    m_history.remove( m_history.first() );
+
+  m_history.append( cmd );
+}
+
+const QString KateCmd::fromHistory( uint index ) const
+{
+  if ( index > m_history.count() - 1 )
+    return QString();
+  return m_history[ index ];
+}

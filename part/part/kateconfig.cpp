@@ -782,6 +782,13 @@ KateRendererConfig::KateRendererConfig ()
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
  : m_font (0),
+   m_backgroundColor (0),
+   m_selectionColor (0),
+   m_highlightedLineColor (0),
+   m_highlightedBracketColor (0),
+   m_wordWrapMarkerColor (0),
+   m_tabMarkerColor (0),
+   m_iconBarColor (0),
    m_schemaSet (false),
    m_fontSet (false),
    m_wordWrapMarkerSet (false),

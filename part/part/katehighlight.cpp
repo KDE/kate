@@ -1727,7 +1727,7 @@ void KateHighlighting::createKateHlItemData(KateHlItemDataList &list)
   // If no highlighting is selected we need only one default.
   if (noHl)
   {
-    list.append(new KateHlItemData(I18N_NOOP("Normal Text"), KateHlItemData::dsNormal));
+    list.append(new KateHlItemData(i18n("Normal Text"), KateHlItemData::dsNormal));
     return;
   }
 

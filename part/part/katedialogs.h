@@ -145,6 +145,7 @@ class KateIndentConfigTab : public KateConfigPage
     KIntNumInput *indentationWidth;
     QButtonGroup *m_tabs;
     KComboBox *m_indentMode;
+    QCheckBox *m_showIndentLines;
 
   public slots:
     void apply ();

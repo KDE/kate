@@ -249,7 +249,7 @@ void KateRenderer::paintTabMarker(QPainter &paint, uint x, uint row)
 }
 
 
-void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
+void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateBracketRange* bracketmark)
 {
   int line = range->line;
 
@@ -261,6 +261,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   bool showCursor = drawCaret() && cursor && range->includesCursor(*cursor);
 
   KateSuperRangeList& superRanges = m_doc->arbitraryHL()->rangesIncluding(range->line, 0);
+
+  int minIndent = 0;
 
   // A bit too verbose for my tastes
   // Re-write a bracketmark class? put into its own function? add more helper constructors to the range stuff?
@@ -285,8 +287,15 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       bracketEndRange->setBold(true);
       superRanges.append(bracketEndRange);
     }
+    
+    Q_ASSERT(bracketmark->start().line() <= bracketmark->end().line());
+    if (bracketmark->start().line() < line && bracketmark->end().line() >= line)
+    {
+      minIndent = bracketmark->getMinIndent();
+    }
   }
-
+  
+  
   // length, chars + raw attribs
   uint len = textLine->length();
   uint oldLen = len;
@@ -573,35 +582,24 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           if (m_showIndentLines && curCol < lastIndentColumn)
           {
             // Draw multiple guides when tab width greater than indent width.
-            const int charWidth = isTab ? m_tabWidth : 1;
+            const int charWidth = isTab ? m_tabWidth - curPos % m_tabWidth : 1;
             
             // Do not draw indent guides on the first line.
-            int i = (curPos < m_indentWidth) ? m_indentWidth : curPos % m_indentWidth;
+            int i = 0;
+            if (curPos == 0 || curPos % m_indentWidth > 0)
+              i = m_indentWidth - curPos % m_indentWidth;
             
             for (; i < charWidth; i += m_indentWidth)
             {
               // In most cases this is done one or zero times.
               paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
-            }
-            
-            // Old version, more verbose, but does the same.
-            /*if (isTab && m_tabWidth > m_indentWidth)
-            {
-              for (int i = curPos % m_indentWidth; i < m_tabWidth; i += m_indentWidth)
+              
+              // Draw highlighted line.
+              if (curPos+i == minIndent)
               {
-                if ((curPos + i) > 0)
-                {
-                  paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
-                }
+                paintTabMarker(paint, xPos - xStart + 1 + i * spaceWidth, line+1);
               }
             }
-            else
-            {
-              if (curPos > 0 && curPos % m_indentWidth == 0)
-              {
-                paintTabMarker(paint, xPos - xStart, line);
-              }
-            }*/
           }
 
           // or we will see no text ;)

@@ -603,6 +603,7 @@ KateViewConfig::KateViewConfig ()
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
    m_textToSearchModeSet (true),
+   m_showIndentationLinesSet (true),
    m_view (0)
 {
   s_global = this;
@@ -629,6 +630,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
    m_textToSearchModeSet (false),
+   m_showIndentationLinesSet (false),
    m_view (view)
 {
 }
@@ -667,6 +669,8 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
 
+  setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", true));
+  
   configEnd ();
 }
 
@@ -697,6 +701,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Persistent Selection", persistentSelection());
 
   config->writeEntry("Text To Search Mode", textToSearchMode());
+  
+  config->writeEntry("Show Indentation Lines", showIndentationLines());
 }
 
 void KateViewConfig::updateConfig ()
@@ -970,6 +976,25 @@ void KateViewConfig::setTextToSearchMode (int mode)
 
   configEnd ();
 }
+
+bool KateViewConfig::showIndentationLines () const
+{
+  if (m_showIndentationLinesSet || isGlobal())
+    return m_showIndentationLines;
+    
+  return s_global->showIndentationLines();
+}
+
+void KateViewConfig::setShowIndentationLines (bool on)
+{
+  configStart ();
+  
+  m_showIndentationLinesSet = true;
+  m_showIndentationLines = on;
+  
+  configEnd ();
+}
+
 //END
 
 //BEGIN KateRendererConfig

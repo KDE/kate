@@ -53,6 +53,12 @@ class KateTextCursor
 
     friend bool operator<=(const KateTextCursor& c1, const KateTextCursor& c2)
       { return !(c1 > c2); }
+      
+    friend void qSwap(KateTextCursor & c1, KateTextCursor & c2) {
+      KateTextCursor tmp = c1;
+      c1 = c2;
+      c2 = tmp;
+    }
 
     inline void pos(int *pline, int *pcol) const {
       if(pline) *pline = m_line;
@@ -153,6 +159,7 @@ class KateTextRange : public KateRange
       , m_end(endline, endcol)
       , m_valid(true)
     {
+      normalize();
     };
 
     KateTextRange(const KateTextCursor& start, const KateTextCursor& end)
@@ -160,26 +167,75 @@ class KateTextRange : public KateRange
       , m_end(end)
       , m_valid(true)
     {
+      normalize();
     };
 
     virtual ~KateTextRange () {};
 
     virtual bool isValid() const { return m_valid; };
-    void setValid(bool valid) { m_valid = valid; };
+    void setValid(bool valid) { 
+      m_valid = valid; 
+      if( valid )
+        normalize(); 
+    };
 
     virtual KateTextCursor& start() { return m_start; };
     virtual KateTextCursor& end() { return m_end; };
     virtual const KateTextCursor& start() const { return m_start; };
     virtual const KateTextCursor& end() const { return m_end; };
+    
     /* if range is not valid, the result is undefined
       if cursor is before start -1 is returned, if cursor is within range 0 is returned if cursor is after end 1 is returned*/
     inline int cursorInRange(const KateTextCursor &cursor) const {
       return ((cursor<m_start)?(-1):((cursor>m_end)?1:0));
     }
+    
+    inline void normalize() {
+      if( m_start > m_end )
+        qSwap(m_start, m_end);
+    }
+    
   protected:
     KateTextCursor m_start, m_end;
     bool m_valid;
 };
+
+
+class KateBracketRange : public KateTextRange
+{
+  public:
+    KateBracketRange()
+      : KateTextRange()
+      , m_minIndent(0)
+    {
+    };
+    
+    KateBracketRange(int startline, int startcol, int endline, int endcol, int minIndent)
+      : KateTextRange(startline, startcol, endline, endcol)
+      , m_minIndent(minIndent)
+    {
+    };
+    
+    KateBracketRange(const KateTextCursor& start, const KateTextCursor& end, int minIndent)
+      : KateTextRange(start, end)
+      , m_minIndent(minIndent)
+    {
+    };
+    
+    int getMinIndent() const
+    {
+      return m_minIndent;
+    }
+    
+    void setIndentMin(int m)
+    {
+      m_minIndent = m;
+    }
+    
+  protected:
+    int m_minIndent;
+};
+
 
 #endif
 

@@ -347,6 +347,9 @@ class KateViewConfig : public KateConfig
     bool persistentSelection () const;
     void setPersistentSelection (bool on);
 
+    bool showIndentationLines () const;
+    void setShowIndentationLines (bool on);
+
     enum TextToSearch
     {
       Nowhere = 0,
@@ -374,6 +377,7 @@ class KateViewConfig : public KateConfig
     uint m_defaultMarkType;
     bool m_persistentSelection;
     int m_textToSearchMode;
+    bool m_showIndentationLines;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -389,6 +393,7 @@ class KateViewConfig : public KateConfig
     bool m_defaultMarkTypeSet : 1;
     bool m_persistentSelectionSet : 1;
     bool m_textToSearchModeSet : 1;
+    bool m_showIndentationLinesSet : 1;
 
   private:
     static KateViewConfig *s_global;

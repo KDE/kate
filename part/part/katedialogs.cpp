@@ -192,6 +192,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   opt[1] = new QCheckBox(i18n("Keep indent &profile"), this);
   opt[2] = new QCheckBox(i18n("&Keep extra spaces"), this);
+  m_showIndentLines = new QCheckBox(i18n("Show indentation lines"), this);
 
   QVGroupBox *keys = new QVGroupBox(i18n("Keys to Use"), this);
   opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
@@ -211,6 +212,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[4]->setChecked(configFlags & flags[4]);
   opt[5]->setChecked(configFlags & flags[5]);
   opt[6]->setChecked(configFlags & flags[6]);
+  m_showIndentLines->setChecked(KateViewConfig::global()->showIndentationLines());
 
   layout->addWidget(gbAuto);
   layout->addWidget(gbSpaces);
@@ -218,6 +220,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   layout->addWidget(opt[2]);
   layout->addWidget(keys);
   layout->addWidget(m_tabs, 0);
+  layout->addWidget(m_showIndentLines);
 
   layout->addStretch();
 
@@ -239,6 +242,9 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QWhatsThis::add( opt[6], i18n(
       "Use a mix of tab and space characters for indentation.") );
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
+  QWhatsThis::add(m_showIndentLines, i18n(
+        "If this is enabled, the editor will display vertical line to help "
+        "identifying indent lines.") );
 
   reload ();
 
@@ -258,12 +264,14 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[6], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
+  
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  
+  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));    
 }
 
 void KateIndentConfigTab::somethingToggled() {
@@ -305,6 +313,10 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
 
   KateDocumentConfig::global()->configEnd ();
+  
+  KateViewConfig::global()->configStart ();  
+  KateViewConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());  
+  KateViewConfig::global()->configEnd ();  
 }
 
 void KateIndentConfigTab::reload ()
@@ -451,7 +463,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   opt[3]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
   connect( opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
-   opt[2] = new QCheckBox(i18n("&Show tabulators"), gbWhiteSpace);
+  opt[2] = new QCheckBox(i18n("&Show tabulators"), gbWhiteSpace);
   opt[2]->setChecked(configFlags & flags[2]);
   connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
@@ -534,7 +546,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   QWhatsThis::add(e3, i18n(
         "Sets the number of undo/redo steps to record. More steps uses more memory."));
 
-QString gstfwt = i18n(
+  QString gstfwt = i18n(
         "This determines where KateView will get the search text from "
         "(this will be automatically entered into the Find Text dialog): "
         "<br>"

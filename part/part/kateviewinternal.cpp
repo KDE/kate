@@ -2193,8 +2193,24 @@ void KateViewInternal::updateBracketMarks()
   if ( bm.isValid() ) {
     KateTextCursor bmStart(m_doc->getVirtualLine(bm.start().line()), bm.start().col());
     KateTextCursor bmEnd(m_doc->getVirtualLine(bm.end().line()), bm.end().col());
-    tagLine(bmStart);
-    tagLine(bmEnd);
+    
+    if( bm.getMinIndent() != 0 )
+    {
+      // @@ Do this only when cursor near start/end.
+      if( bmStart > bmEnd )
+      {
+        tagLines(bmEnd, bmStart, true);
+      }
+      else
+      {
+        tagLines(bmStart, bmEnd, true);
+      }
+    }
+    else
+    {
+      tagLine(bmStart);
+      tagLine(bmEnd);
+    }
   }
 
   // add some limit to this, this is really endless on big files without limit
@@ -2204,8 +2220,24 @@ void KateViewInternal::updateBracketMarks()
   if ( bm.isValid() ) {
     KateTextCursor bmStart(m_doc->getVirtualLine(bm.start().line()), bm.start().col());
     KateTextCursor bmEnd(m_doc->getVirtualLine(bm.end().line()), bm.end().col());
-    tagLine(bmStart);
-    tagLine(bmEnd);
+    
+    if( bm.getMinIndent() != 0 )
+    {
+      // @@ Do this only when cursor near start/end.
+      if( bmStart > bmEnd )
+      {
+        tagLines(bmEnd, bmStart, true);
+      }
+      else
+      {
+        tagLines(bmStart, bmEnd, true);
+      }
+    }
+    else
+    {
+      tagLine(bmStart);
+      tagLine(bmEnd);
+    }
   }
 }
 

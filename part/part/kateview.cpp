@@ -1223,6 +1223,7 @@ void KateView::updateRendererConfig()
   if (m_startingUp)
     return;
 
+
   m_toggleWWMarker->setChecked( m_renderer->config()->wordWrapMarker()  );
 
   // update the text area
@@ -1232,6 +1233,8 @@ void KateView::updateRendererConfig()
   // update the left border right, for example linenumbers
   m_viewInternal->leftBorder->updateFont();
   m_viewInternal->leftBorder->repaint ();
+  
+  m_renderer->setShowIndentLines (config()->showIndentationLines());  
 }
 
 void KateView::updateFoldingConfig ()

@@ -4139,7 +4139,7 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
    to the right of the cursor is an ending bracket, match it. Otherwise, don't
    match anything.
 */
-void KateDocument::newBracketMark( const KateTextCursor& cursor, KateTextRange& bm, int maxLines )
+void KateDocument::newBracketMark( const KateTextCursor& cursor, KateBracketRange& bm, int maxLines )
 {
   bm.setValid(false);
 
@@ -4149,6 +4149,11 @@ void KateDocument::newBracketMark( const KateTextCursor& cursor, KateTextRange& 
     return;
 
   bm.setValid(true);
+  
+  const int tw = config()->tabWidth();
+  const int indentStart = m_buffer->plainLine(bm.start().line())->indentDepth(tw);
+  const int indentEnd = m_buffer->plainLine(bm.end().line())->indentDepth(tw);
+  bm.setIndentMin(QMIN(indentStart, indentEnd));
 }
 
 bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& end, int maxLines )

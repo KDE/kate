@@ -288,7 +288,7 @@ class KateViewInternal : public QWidget
     bool possibleTripleClick;
 
     // Bracket mark
-    KateTextRange bm;
+    KateBracketRange bm;
 
     enum DragState { diNone, diPending, diDragging };
 

@@ -1316,11 +1316,9 @@ bool KateDocument::removeSelectedText ()
       editRemoveText (z, delStart, delLen);
   }
 
-  editEnd ();
-
-kdDebug(13020) << "removeSelectedText() updateLines" << endl;
-  updateLines(sl, el);
   clearSelection();
+
+  editEnd ();
 
   return true;
 }

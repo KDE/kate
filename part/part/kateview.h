@@ -403,12 +403,10 @@ class KateView : public Kate::View,
     bool       m_active;
     bool       m_hasWrap;
 
-    private slots:
-        void slotNeedTextHint(int line, int col, QString &text);
-
-        void slotClipboardDataChanged();
-
-        void slotHlChanged();
+  private slots:
+    void slotNeedTextHint(int line, int col, QString &text);
+    void slotHlChanged();
+  
   /**
    * Configuration
    */

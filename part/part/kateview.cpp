@@ -395,12 +395,6 @@ void KateView::setupActions()
   selectionChanged ();
 
   connect (m_doc, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
-
-  // paste action
-
-  connect( QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(slotClipboardDataChanged()) );
-
-  slotClipboardDataChanged();
 }
 
 void KateView::setupEditActions()
@@ -704,8 +698,7 @@ void KateView::slotReadWriteChanged ()
     m_toggleWriteLock->setChecked( ! m_doc->isReadWrite() );
 
   m_cut->setEnabled (m_doc->isReadWrite());
-  slotClipboardDataChanged();
-  //m_paste->setEnabled (m_doc->isReadWrite());
+  m_paste->setEnabled (m_doc->isReadWrite());
 
   QStringList l;
 
@@ -1240,12 +1233,6 @@ void KateView::updateView (bool changed)
 }
 
 // END
-
-void KateView::slotClipboardDataChanged()
-{
-  QMimeSource *data = QApplication::clipboard()->data(QClipboard::Clipboard);
-  m_paste->setEnabled(m_doc->isReadWrite() &&  data->provides( "text/plain" ) );
-}
 
 void KateView::slotHlChanged()
 {

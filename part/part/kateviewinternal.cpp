@@ -1528,28 +1528,29 @@ void KateViewInternal::cursorUp(bool sel)
              (cursor.col() >= thisRange.startCol) &&
              (!thisRange.wrap || cursor.col() < thisRange.endCol));
 
+    // VisibleX is the distance from the start of the text to the cursor on the current line.
     int visibleX = m_view->renderer()->textWidth(cursor) - thisRange.startX;
+    int currentLineVisibleX = visibleX;
 
+    // Translate to new line
+    visibleX += thisRange.xOffset();
+    visibleX -= pRange.xOffset();
+    
+    // Limit to >= 0
+    visibleX = QMAX(0, visibleX);
+    
     startCol = pRange.startCol;
     xOffset = pRange.startX;
     newLine = pRange.line;
 
-    //kdDebug() << k_funcinfo << m_currentMaxX << " " << visibleX << endl;
-
-    // FIXME FIXME move this calculation into a seperate function
-    if (m_currentMaxX - thisRange.xOffset() > visibleX)
-      visibleX = m_currentMaxX - thisRange.xOffset();
-
-    //kdDebug() << m_currentMaxX << " " << visibleX << endl;
+    // Take into account current max X (ie. if the current line was smaller
+    // than the last definitely specified width)
+    if (thisRange.xOffset() && !pRange.xOffset() && currentLineVisibleX == 0) // Special case for where xOffset may be > m_currentMaxX
+      visibleX = m_currentMaxX;
+    else if (visibleX < m_currentMaxX - pRange.xOffset())
+      visibleX = m_currentMaxX - pRange.xOffset();
 
     cXPos = xOffset + visibleX;
-
-    //kdDebug() << cXPos << endl;
-
-    if (pRange.startX == 0 && pRange.wrap)
-      cXPos += pRange.shiftX;
-
-    //kdDebug() << cXPos << endl;
 
     cXPos = QMIN(cXPos, lineMaxCursorX(pRange));
 
@@ -1588,7 +1589,16 @@ void KateViewInternal::cursorDown(bool sel)
              (cursor.col() >= thisRange.startCol) &&
              (!thisRange.wrap || cursor.col() < thisRange.endCol));
 
+    // VisibleX is the distance from the start of the text to the cursor on the current line.
     int visibleX = m_view->renderer()->textWidth(cursor) - thisRange.startX;
+    int currentLineVisibleX = visibleX;
+     
+    // Translate to new line
+    visibleX += thisRange.xOffset();
+    visibleX -= nRange.xOffset();
+    
+    // Limit to >= 0
+    visibleX = QMAX(0, visibleX);
 
     if (!thisRange.wrap) {
       newLine = m_doc->getRealLine(displayCursor.line() + 1);
@@ -1596,26 +1606,19 @@ void KateViewInternal::cursorDown(bool sel)
       startCol = thisRange.endCol;
       xOffset = thisRange.endX;
     }
-
-/*    kdDebug() << k_funcinfo << m_currentMaxX << " " << visibleX << " " << cXPos << endl;*/
-
-    if (m_currentMaxX - nRange.xOffset() > visibleX)
+    
+    // Take into account current max X (ie. if the current line was smaller
+    // than the last definitely specified width)
+    if (thisRange.xOffset() && !nRange.xOffset() && currentLineVisibleX == 0) // Special case for where xOffset may be > m_currentMaxX
+      visibleX = m_currentMaxX;
+    else if (visibleX < m_currentMaxX - nRange.xOffset())
       visibleX = m_currentMaxX - nRange.xOffset();
 
     cXPos = xOffset + visibleX;
 
-    if (thisRange.startX == 0 && thisRange.wrap)
-      cXPos = QMAX(xOffset, cXPos - thisRange.shiftX);
-
-/*    kdDebug() << k_funcinfo << m_view->renderer()->textWidth(cursor) << " " << m_currentMaxX << " " << visibleX << " " << cXPos << endl;*/
-
     cXPos = QMIN(cXPos, lineMaxCursorX(nRange));
 
-//     kdDebug() << k_funcinfo << cXPos << endl;
-
     newCol = QMIN((int)m_view->renderer()->textPos(newLine, visibleX, startCol), lineMaxCol(nRange));
-
-//     kdDebug() << thisRange.startX << " -> " << thisRange.endX << ", " << nRange.startX << " -> " << nRange.endX << endl;
 
   } else {
     newLine = m_doc->getRealLine(displayCursor.line() + 1);
@@ -1939,7 +1942,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
     else
       m_currentMaxX = cXPos;
 
-  //kdDebug() << "m_currentMaxX: " << m_currentMaxX << ", cXPos: " << cXPos << endl;
+  //kdDebug() << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), cXPos: " << cXPos << endl;
   //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << displayCursor.line << ", " << displayCursor.col << "; Top is " << startLine() << ", " << startPos().col << "; Old top is " << m_oldStartPos.line << ", " << m_oldStartPos.col << endl;
 
   paintText(0, 0, width(), height(), true);
@@ -2718,8 +2721,6 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
     return;
   }
 
-  m_doc->editBegin();
-  
   if ( m_imPreeditLength > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
                        cursor.line(), m_imPreeditStart + m_imPreeditLength );
@@ -2730,8 +2731,6 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
                               true );
 
   m_doc->insertText( cursor.line(), cursor.col(), e->text() );
-  
-  m_doc->editEnd();
   
   updateView( true );
   updateCursor( cursor, true );
@@ -2745,8 +2744,6 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     return;
   }
   
-  m_doc->editBegin();
-
   if ( m_imPreeditLength > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
                        cursor.line(), m_imPreeditStart + m_imPreeditLength );
@@ -2760,13 +2757,9 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     if ( !m_cursorTimer.isActive() )
       m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
 
-    m_doc->editEnd();
-    
     updateView( true );
     updateCursor( cursor, true );
   
-  } else {
-    m_doc->editEnd();
   }
 
   m_imPreeditStart = 0;

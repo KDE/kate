@@ -118,6 +118,7 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal" skipSpaces="true">
+        <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />
@@ -145,8 +146,7 @@
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="^\s*#\s*if\s+0" beginRegion="Outscoped"/>
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^\s*#"/>
+        <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\d\w]*(?=[\s]*[(])" />
         <RegExpr attribute="Symbol" context="Member" String="([.]{1,1}|[:]{2,2})" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]{|}~^&#59;"/>
@@ -185,13 +185,13 @@
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <IncludeRules context="##Alerts" />
-        <RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
-        <RegExpr attribute="Preprocessor" context="#pop" String="^\s*#\s*(endif|else|elif)" endRegion="Outscoped"/>
+        <RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="#\s*(endif|else|elif)" endRegion="Outscoped" firstNonSpace="true" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
-        <RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
-        <RegExpr attribute="Comment" context="#pop" String="^\s*#\s*endif" endRegion="Outscoped"/>
+        <RegExpr attribute="Comment" context="Outscoped intern" String="#\s*if" beginRegion="Outscoped" firstNonSpace="true"/>
+        <RegExpr attribute="Comment" context="#pop" String="#\s*endif" endRegion="Outscoped" firstNonSpace="true"/>
       </context>
     </contexts>
     <itemDatas>

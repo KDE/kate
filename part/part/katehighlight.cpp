@@ -106,6 +106,7 @@ class KateHlItem
 
     bool dynamic;
     bool dynamicChild;
+    bool firstNonSpace;
 };
 
 class KateHlContext
@@ -377,7 +378,8 @@ KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed ch
     region2(regionId2),
     lookAhead(false),
     dynamic(false),
-    dynamicChild(false)
+    dynamicChild(false),
+    firstNonSpace(false)
 {
 }
 
@@ -1372,6 +1374,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   const QString& text = textLine->string();
   uint len = textLine->length();
 
+  // calc at which char the first char occurs, set it to lenght of line if never
+  int firstChar = textLine->firstChar();
+  uint startNonSpace = (firstChar == -1) ? len : firstChar;
+
   int offset1 = 0;
   uint z = 0;
   KateHlItem *item = 0;
@@ -1392,6 +1398,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       uint index = 0;
       for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
       {
+        // does we only match if we are firstNonSpace?
+        if (item->firstNonSpace && (z > startNonSpace))
+          continue;
+
         bool thisStartEnabled = false;
 
         if (item->alwaysStartEnable())
@@ -1909,7 +1919,9 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   // dominik: look ahead and do not change offset. so we can change contexts w/o changing offset1.
   bool lookAhead = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("lookAhead")) );
 
-  bool dynamic=( KateHlManager::self()->syntax->groupItemData(data,QString("dynamic")).lower() == QString("true") );
+  bool dynamic= IS_TRUE(KateHlManager::self()->syntax->groupItemData(data,QString("dynamic")) );
+
+  bool firstNonSpace = IS_TRUE(KateHlManager::self()->syntax->groupItemData(data,QString("firstNonSpace")) );
 
   // code folding region handling:
   QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
@@ -1983,6 +1995,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   // set lookAhead & dynamic properties
   tmpItem->lookAhead = lookAhead;
   tmpItem->dynamic = dynamic;
+  tmpItem->firstNonSpace = firstNonSpace;
 
   if (!unresolvedContext.isEmpty())
   {

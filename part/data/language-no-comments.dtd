@@ -16,7 +16,8 @@
  "attribute     CDATA   #REQUIRED
   context       CDATA   #REQUIRED
   beginRegion   CDATA   #IMPLIED
-  endRegion     CDATA   #IMPLIED        "
+  endRegion     CDATA   #IMPLIED
+  firstNonSpace (%boolean;) #IMPLIED        "
 >
 
 <!ENTITY per "." >

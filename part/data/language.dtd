@@ -181,7 +181,8 @@ TODO:
   context       CDATA       #REQUIRED
   beginRegion   CDATA       #IMPLIED
   endRegion     CDATA       #IMPLIED
-  lookAhead     (%boolean;) #IMPLIED"
+  lookAhead     (%boolean;) #IMPLIED
+  firstNonSpace (%boolean;) #IMPLIED"
 >
 
 <!-- Detect members of a keyword list

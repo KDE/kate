@@ -128,9 +128,7 @@ void KateViewInternal::doPaste()
 {
    if( myDoc->configFlags() & KateDocument::cfDelOnInput )
      myDoc->removeSelectedText();
-   VConfig c;
-   getVConfig(c);
-   myDoc->paste(c);
+   myDoc->paste( cursor, myView );
 }
 
 void KateViewInternal::doTranspose()
@@ -454,15 +452,6 @@ void KateViewInternal::changeYPos(int p)
   }
 
   updateView();
-}
-
-void KateViewInternal::getVConfig(VConfig &c)
-{
-  c.view = myView;
-  c.cursor = cursor;
-  c.displayCursor=displayCursor;
-  c.cXPos = cXPos;
-  c.flags = myDoc->configFlags();
 }
 
  QPoint KateViewInternal::cursorCoordinates()
@@ -1166,9 +1155,10 @@ void KateViewInternal::doDrag()
   dragInfo.dragObject->dragCopy();
 }
 
-void KateViewInternal::dragEnterEvent( QDragEnterEvent *event )
+void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
-  event->accept( (QTextDrag::canDecode(event) && myView->doc()->isReadWrite()) || QUriDrag::canDecode(event) );
+  event->accept( (QTextDrag::canDecode(event) && myView->doc()->isReadWrite()) ||
+                  QUriDrag::canDecode(event) );
 }
 
 void KateViewInternal::dropEvent( QDropEvent *event )
@@ -1189,38 +1179,18 @@ void KateViewInternal::dropEvent( QDropEvent *event )
     // dropped on a text selection area?
     bool selected = isTargetSelected(event->pos().x(), event->pos().y());
 
-    if (priv && selected) {
+    if( priv && selected ) {
       // this is a drag that we started and dropped on our selection
       // ignore this case
       return;
     }
 
-    VConfig c;
-    getVConfig(c);
-    KateTextCursor cursor = c.cursor;
-
-    if (priv) {
+    if( priv && event->action() == QDropEvent::Move ) {
       // this is one of mine (this document), not dropped on the selection
-      if (event->action() == QDropEvent::Move) {
-        myDoc->removeSelectedText();
-        getVConfig(c);
-        cursor = c.cursor;
-      }
-      placeCursor(event->pos().x(), event->pos().y());
-      getVConfig(c);
-      cursor = c.cursor;
-    } else {
-      // this did not come from this document
-      if (! selected) {
-        placeCursor(event->pos().x(), event->pos().y());
-        getVConfig(c);
-        cursor = c.cursor;
-      }
+      myDoc->removeSelectedText();
     }
-    myDoc->insertText(c.cursor.line, c.cursor.col, text);
-
-    cursor = c.cursor;
-    updateCursor(cursor);
+    placeCursor( event->pos().x(), event->pos().y() );
+    myDoc->insertText( cursor.line, cursor.col, text );
 
     updateView();
   }

@@ -32,16 +32,6 @@ class KateTextCursor
     int col;
 };
 
-class VConfig
-{
-  public:
-    class KateView *view;
-    KateTextCursor cursor;
-    KateTextCursor displayCursor;
-    int cXPos;
-    int flags;
-};
-
 class BracketMark
 {
   public:

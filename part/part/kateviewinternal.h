@@ -134,8 +134,6 @@ class KateViewInternal : public QWidget
     
     uint linesDisplayed() const;
     
-    void getVConfig(VConfig &);
-
     void exposeCursor();
 
     void updateSelection( const KateTextCursor&, bool keepSel );

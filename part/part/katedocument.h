@@ -523,7 +523,7 @@ class KateDocument : public Kate::Document
     void transpose(     const KateTextCursor& );
     void cut();
     void copy();
-    void paste( VConfig& );
+    void paste( const KateTextCursor& cursor, KateView* view );
 
     void selectTo(     const KateTextCursor& from, const KateTextCursor& to );
     void selectWord(   const KateTextCursor& cursor );

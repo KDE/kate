@@ -2656,7 +2656,7 @@ void KateDocument::copy()
   QApplication::clipboard()->setText(selection ());
 }
 
-void KateDocument::paste (VConfig &c)
+void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 {
   QString s = QApplication::clipboard()->text();
 
@@ -2665,8 +2665,8 @@ void KateDocument::paste (VConfig &c)
 
   editStart ();
 
-  uint line = c.cursor.line;
-  uint col = c.cursor.col;
+  uint line = cursor.line;
+  uint col = cursor.col;
   
   insertText( line, col, s );
 
@@ -2688,9 +2688,10 @@ void KateDocument::paste (VConfig &c)
   }
 
   // editEnd will set the cursor from this cache right ;))
-  c.view->myViewInternal->cursorCache.line = line;
-  c.view->myViewInternal->cursorCache.col = col;
-  c.view->myViewInternal->cursorCacheChanged = true;
+  // Totally breaking the whole idea of the doc view model here...
+  view->myViewInternal->cursorCache.line = line;
+  view->myViewInternal->cursorCache.col = col;
+  view->myViewInternal->cursorCacheChanged = true;
 
   editEnd();
 }

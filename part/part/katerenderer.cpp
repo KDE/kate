@@ -32,6 +32,7 @@
 #include <kdebug.h>
 
 #include <qpainter.h>
+#include <qpopupmenu.h>
 
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');

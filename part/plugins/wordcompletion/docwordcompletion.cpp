@@ -57,7 +57,7 @@
 //END
 
 //BEGIN DocWordCompletionPlugin
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_docwordcompletion, KGenericFactory<DocWordCompletionPlugin>( "ktexteditor_docwordcompletion" ) );
+K_EXPORT_COMPONENT_FACTORY( ktexteditor_docwordcompletion, KGenericFactory<DocWordCompletionPlugin>( "ktexteditor_docwordcompletion" ) )
 DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
                             const char* name,
                             const QStringList& /*args*/ )

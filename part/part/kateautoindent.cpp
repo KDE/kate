@@ -26,6 +26,7 @@
 
 #include <klocale.h>
 #include <kdebug.h>
+#include <qpopupmenu.h>
 
 //BEGIN KateAutoIndent
 

@@ -583,7 +583,7 @@ void KateDocument::editEnd ()
       v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd);
 
     if (v->myViewInternal->cursorCacheChanged)
-      v->myViewInternal->updateCursor (v->myViewInternal->cursorCache, false, flags);
+      v->myViewInternal->updateCursor (v->myViewInternal->cursorCache, flags);
     else
       v->myViewInternal->updateView (flags);
 
@@ -3419,8 +3419,8 @@ bool KateDocument::lineHasSelected (int line)
 }
 
 bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd,
-                                                 int showCursor, bool replaceCursor, bool showSelections, bool showTabs,
-                                                 WhichFont wf, bool currentLine, bool printerfriendly)
+                                  int showCursor, bool replaceCursor, bool showSelections, bool showTabs,
+                                  WhichFont wf, bool currentLine, bool printerfriendly)
 {
   // font data
   FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;

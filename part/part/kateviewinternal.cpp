@@ -248,7 +248,8 @@ void KateViewInternal::moveChar( Bias bias, bool sel )
   } else {
     c = BoundedCursor( *myDoc, cursor ) += bias;
   }
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::cursorLeft(  bool sel ) { moveChar( left,  sel ); }
@@ -267,7 +268,8 @@ void KateViewInternal::moveWord( Bias bias, bool sel )
   } else {
     c += bias;
   }
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::wordLeft ( bool sel ) { moveWord( left,  sel ); }
@@ -277,7 +279,8 @@ void KateViewInternal::moveEdge( Bias bias, bool sel )
 {
   BoundedCursor c( *myDoc, cursor );
   c.toEdge( bias );
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::home( bool sel )
@@ -296,7 +299,8 @@ void KateViewInternal::home( bool sel )
     tmpCur.col = lc;
   }
 
-  updateCursor (tmpCur, sel);
+  updateSelection( tmpCur, sel );
+  updateCursor( tmpCur );
 }
 
 void KateViewInternal::end( bool sel ) { moveEdge( right, sel ); }
@@ -308,7 +312,9 @@ void KateViewInternal::cursorUp(bool sel)
   
   KateTextCursor c( myDoc->getRealLine(displayCursor.line-1), cursor.col );
   myDoc->textWidth( c, cXPos );
-  updateCursor( c, sel );
+
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::cursorDown(bool sel)
@@ -327,20 +333,23 @@ void KateViewInternal::cursorDown(bool sel)
       tmpCur.col = x;
   }
   
-  updateCursor (tmpCur, sel);
+  updateSelection( tmpCur, sel );
+  updateCursor( tmpCur );
 }
 
 void KateViewInternal::topOfView( bool sel )
 {
   WrappingCursor c( *myDoc, startLineReal, 0 );
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::bottomOfView( bool sel )
 {
   int line = startLineReal + linesDisplayed() - 1;
   WrappingCursor c( *myDoc, line, 0 );
-  updateCursor( c, sel);
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::scrollLines( int lines, bool sel )
@@ -364,7 +373,8 @@ void KateViewInternal::scrollLines( int lines, bool sel )
   KateTextCursor c( myDoc->getRealLine( line ), cursor.col );
   myDoc->textWidth( c, cXPos );
 
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 // Maybe not the right thing to do for these actions, but
@@ -386,25 +396,30 @@ void KateViewInternal::top( bool sel )
 {
   KateTextCursor c( 0, cursor.col );  
   myDoc->textWidth( c, cXPos );
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::bottom( bool sel )
 {
   KateTextCursor c( myDoc->lastLine(), cursor.col );
   myDoc->textWidth( c, cXPos );
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::top_home( bool sel )
 {
-  updateCursor( KateTextCursor( 0, 0 ), sel );
+  KateTextCursor c( 0, 0 );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::bottom_end( bool sel )
 {
   KateTextCursor c( myDoc->lastLine(), myDoc->textLength( myDoc->lastLine() ) );
-  updateCursor( c, sel );
+  updateSelection( c, sel );
+  updateCursor( c );
 }
 
 void KateViewInternal::changeXPos(int p)
@@ -456,7 +471,16 @@ void KateViewInternal::getVConfig(VConfig &c)
     (displayCursor.line-startLine+1)*myDoc->viewFont.fontHeight );
 } 
 
-void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool keepSel, int updateViewFlags )
+void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool keepSel )
+{
+  if( keepSel ) {
+    myDoc->selectTo( cursor, newCursor );
+  } else if( !(myDoc->configFlags() & KateDocument::cfPersistent) ) {
+    myDoc->clearSelection();
+  }
+}
+
+void KateViewInternal::updateCursor( const KateTextCursor& newCursor, int updateViewFlags )
 {
   bool nullMove = cursor == newCursor;
 
@@ -470,12 +494,6 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool keepS
   }
 
   myDoc->newBracketMark( newCursor, bm );
-
-  if( keepSel ) {
-    myDoc->selectTo( cursor, newCursor );
-  } else if( !(myDoc->configFlags() & KateDocument::cfPersistent) ) {
-    myDoc->clearSelection();
-  }
   
   cursor = newCursor;
   displayCursor.line = myDoc->getVirtualLine(cursor.line);
@@ -702,8 +720,7 @@ void KateViewInternal::updateView(int flags)
 
   maxLen += 8;
 
-  if( maxLen > w )
-  {
+  if( maxLen > w ) {
     if (!xScroll->isVisible())
       h -= scrollbarWidth;
         
@@ -717,9 +734,7 @@ void KateViewInternal::updateView(int flags)
     xScroll->setSteps(fontHeight,pageScroll);
     xScroll->blockSignals(false);
     xScroll->show();
-  }
-  else
-  {
+  } else {
     if (xScroll->isVisible())
       h += scrollbarWidth;
   
@@ -830,15 +845,20 @@ void KateViewInternal::paintBracketMark()
 void KateViewInternal::placeCursor( int x, int y, bool keepSelection )
 {
   KateTextCursor tmpCur;
-  int newDisplayLine=startLine + y/myDoc->viewFont.fontHeight;
 
-  if (newDisplayLine>=myDoc->numVisLines()) return;
-  if (((int)(newDisplayLine-startLine) < 0) || ((newDisplayLine-startLine) >= lineRanges.size())) return;// not sure yet, if this is ther correct way;
+  int newDisplayLine = startLine + y / myDoc->viewFont.fontHeight;
+
+  if( newDisplayLine >= myDoc->numVisLines() )
+    return;
+  if( ( newDisplayLine - startLine < 0 ) ||
+      ( newDisplayLine - startLine >= lineRanges.size()))
+    return;// not sure yet, if this is ther correct way;
 
   tmpCur.line = lineRanges[newDisplayLine-startLine].line;
   myDoc->textWidth( tmpCur, xPos + x);
 
-  updateCursor( tmpCur, keepSelection );
+  updateSelection( tmpCur, keepSelection );
+  updateCursor( tmpCur );
 }
 
 // given physical coordinates, report whether the text there is selected
@@ -918,7 +938,7 @@ void KateViewInternal::mousePressEvent(QMouseEvent *e) {
       possibleTripleClick = false;
       myDoc->selectLine( cursor );
       cursor.col = 0;
-      updateCursor( cursor, true );
+      updateCursor( cursor );
       return;
     }
 
@@ -959,12 +979,12 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
     {
       cursor.col = myDoc->selectEnd.col;
       cursor.line = myDoc->selectEnd.line;
-      updateCursor( cursor, true );
+      updateCursor( cursor );
     }
 
     possibleTripleClick = true;
-    QTimer::singleShot( QApplication::doubleClickInterval(),this,
-            SLOT(tripleClickTimeout()) );
+    QTimer::singleShot( QApplication::doubleClickInterval(),
+      this, SLOT(tripleClickTimeout()) );
   }
 }
 

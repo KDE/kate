@@ -137,7 +137,8 @@ class KateViewInternal : public QWidget
 
     void exposeCursor();
 
-    void updateCursor( const KateTextCursor&, bool keepSel = false, int updateViewFlags = 0);
+    void updateSelection( const KateTextCursor&, bool keepSel );
+    void updateCursor( const KateTextCursor&, int updateViewFlags = 0 );
     
     void updateLineRanges();
     void tagLines(int start, int end);

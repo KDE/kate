@@ -1170,7 +1170,7 @@ void KateViewInternal::placeCursor(int x, int y, int flags) {
   int newDisplayLine;
   newDisplayLine=startLine + y/myDoc->viewFont.fontHeight;
   if (newDisplayLine>=myDoc->numVisLines()) return;
-  if (((newDisplayLine-startLine) < 0) || ((newDisplayLine-startLine) >= lineRanges.size())) return;// not sure yet, if this is ther correct way;
+  if (((int)(newDisplayLine-startLine) < 0) || ((newDisplayLine-startLine) >= lineRanges.size())) return;// not sure yet, if this is ther correct way;
 
   c.flags |= flags;
   displayCursor.line=newDisplayLine;
@@ -1448,6 +1448,9 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   {
     if (r->empty)
     {
+      paint.fillRect(0, 0, updateR.width(), h, myDoc->colors[0]);
+//      bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
+
       paint.fillRect(xStart, 0, xEnd-xStart, h, myDoc->colors[0]);
     }
     else

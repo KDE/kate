@@ -67,7 +67,7 @@ class KateBufBlock
    /*
     * Create an empty block.
     */
-   KateBufBlock (KateBufBlock *prev, KVMAllocator *vm);
+   KateBufBlock (KateBuffer *parent, KateBufBlock *prev, KVMAllocator *vm);
 
    ~KateBufBlock ();
 
@@ -186,9 +186,12 @@ class KateBufBlock
     bool b_stringListValid;
 
     // Buffer requires highlighting.
-    bool b_needHighlight; 
+    bool b_needHighlight;
+
+    // Parent buffer.
+    KateBuffer* m_parent;
 };
-     
+
 /**
  * Create an empty buffer. (with one block with one empty line)
  */
@@ -221,7 +224,7 @@ KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
  * Cleanup on destruction
  */
 KateBuffer::~KateBuffer()
-{ 
+{
   m_blocks.clear ();
 
   delete m_vm;
@@ -268,6 +271,28 @@ void KateBuffer::checkDirtyMax ()
     buf2->flushStringList(); // Copy stringlist to raw
     buf2->disposeStringList(); // dispose stringlist.
     m_loadedBlocks.append(buf2);
+  }
+}
+
+// Handle the emitting of detailed text changed signals.
+void KateBuffer::emitTextChanged(uint type, TextLine::Ptr thisLine, uint pos, uint len, TextLine::Ptr* nextLine)
+{
+  switch (type) {
+    case TextInserted:
+      emit textInserted(thisLine, pos, len);
+      break;
+
+    case TextRemoved:
+      emit textRemoved(thisLine, pos, len);
+      break;
+
+    case TextWrapped:
+      emit textWrapped(thisLine, *nextLine, pos);
+      break;
+
+    case TextUnWrapped:
+      emit textUnWrapped(thisLine, *nextLine, pos, len);
+      break;
   }
 }
 
@@ -408,7 +433,7 @@ void KateBuffer::clear()
   m_highlight = 0;
 
   // create a bufblock with one line, we need that, only in openFile we won't have that
-  KateBufBlock *block = new KateBufBlock(0, m_vm);
+  KateBufBlock *block = new KateBufBlock(this, 0, m_vm);
   block->b_rawDataValid = true;
   block->m_rawData.resize (sizeof(uint) + 1);
   char* buf = block->m_rawData.data ();
@@ -509,7 +534,7 @@ void KateBuffer::loadFilePart()
 
     checkLoadedMax ();
 
-    KateBufBlock *block = new KateBufBlock(m_loader->prev, m_vm);
+    KateBufBlock *block = new KateBufBlock(this, m_loader->prev, m_vm);
     eof = block->fillBlock (&m_loader->stream);
 
     m_blocks.append (block);
@@ -874,18 +899,19 @@ void KateBuffer::insertLine(uint i, TextLine::Ptr line)
    {
       dirtyBlock(buf);
    }
-   
+
    buf->insertLine(i -  buf->startLine(), line);
-   
+
    if (m_highlightedTo > i)
       m_highlightedTo++;
    m_lines++;
 
    if (m_lastInSyncBlock > m_blocks.findRef (buf))
      m_lastInSyncBlock = m_blocks.findRef (buf);
-   
+
    m_regionTree->lineHasBeenInserted (i);
    updateHighlighting(i, i+2, true);
+   emit lineInsertedBefore(KateBuffer::line(i), i-1);
 }
 
 void
@@ -927,6 +953,8 @@ KateBuffer::removeLine(uint i)
   }
 
   m_regionTree->lineHasBeenRemoved (i);
+
+  emit lineRemoved(i);
 }
 
 void KateBuffer::changeLine(uint i)
@@ -1051,14 +1079,15 @@ void KateBuffer::dumpRegionTree()
 /**
  * Create an empty block.
  */
-KateBufBlock::KateBufBlock(KateBufBlock *prev, KVMAllocator *vm)
+KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KVMAllocator *vm)
 : m_vm (vm),
   m_vmblock (0),
   m_vmblockSize (0),
   b_vmDataValid (false),
   b_rawDataValid (false),
   b_stringListValid (false),
-  b_needHighlight (true)
+  b_needHighlight (true),
+  m_parent (parent)
 {
   if (prev)
     m_startLine = prev->endLine ();
@@ -1189,7 +1218,7 @@ void KateBufBlock::buildStringList()
 
   while(buf < end)
   {
-    TextLine::Ptr textLine = new TextLine();
+    TextLine::Ptr textLine = new TextLine(m_parent);
     buf = textLine->restore (buf);
     m_stringList.push_back (textLine);
   }

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>  
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -25,7 +25,6 @@
 #include "../interfaces/view.h"
 
 #include "katedocument.h"
-#include "katesearch.h"
 #include "kateviewinternal.h"
 #include "katecodecompletion.h"
 
@@ -42,6 +41,7 @@ class KRecentFilesAction;
 class KSelectAction;
 class KateDocument;
 class KateBookmarks;
+class KateSearch;
 
 
 //
@@ -221,14 +221,14 @@ class KateView : public Kate::View,
   // config file / session management functions
   public:
     void readSessionConfig(KConfig *);
-    void writeSessionConfig(KConfig *);  
+    void writeSessionConfig(KConfig *);
 
   public slots:
     int getEol()                  { return m_doc->eolMode; }
     void setEol( int eol );
-    void find()                   { m_search->find();            }
-    void replace()                { m_search->replace();         }
-    void findAgain( bool back )   { m_search->findAgain( back ); }
+    void find();
+    void replace();
+    void findAgain( bool back );
     void findAgain()              { findAgain( false );          }
     void findPrev()               { findAgain( true );           }
     void slotEditCommand();
@@ -333,7 +333,7 @@ class KateView : public Kate::View,
     KateBookmarks*         m_bookmarks;
     QPopupMenu*            m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
-    
+
     QGridLayout *m_grid;
 
     bool       m_active;

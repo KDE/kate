@@ -26,8 +26,13 @@
 
 #include <qregexp.h>
 
-TextLine::TextLine()
+#include "katebuffer.h"
+
+bool TextLine::m_noSignal = false;
+
+TextLine::TextLine(KateBuffer* buf)
   : m_flags(TextLine::flagVisible)
+  , m_buf(buf)
 {
 }
 
@@ -83,6 +88,9 @@ void TextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *i
     else
       m_attributes[z+pos] = insAttribs[z];
   }
+
+  if (!m_noSignal)
+    m_buf->emitTextChanged(KateBuffer::TextInserted, Ptr(this), pos, insLen);
 }
 
 void TextLine::removeText (uint pos, uint delLen)
@@ -112,11 +120,16 @@ void TextLine::removeText (uint pos, uint delLen)
   // resize the stuff
   if (delLen < textLen)
     textLen -= delLen;
-  else // seems to happen when hitting Backspace at the beginning of a line...
+  else { // seems to happen when hitting Backspace at the beginning of a line...
+    delLen = textLen;
     textLen = 0;
+  }
 
   m_text.resize (textLen);
   m_attributes.resize (textLen);
+
+  if (!m_noSignal)
+    m_buf->emitTextChanged(KateBuffer::TextRemoved, Ptr(this), pos, delLen);
 }
 
 void TextLine::append(const QChar *s, uint l)
@@ -135,6 +148,8 @@ void TextLine::truncate(uint newLen)
 
 void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 {
+  m_noSignal = true;
+
   int l = m_text.size() - pos;
 
   if (l > 0)
@@ -142,12 +157,20 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
     nextLine->insertText (0, l, &m_text[pos], &m_attributes[pos]);
     truncate(pos);
   }
+
+  m_noSignal = false;
+  m_buf->emitTextChanged(KateBuffer::TextWrapped, Ptr(this), pos, 0, &nextLine);
 }
 
 void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
+  m_noSignal = true;
+
   insertText (pos, len, nextLine->m_text.data(), nextLine->m_attributes.data());
   nextLine->removeText (0, len);
+
+  m_noSignal = false;
+  m_buf->emitTextChanged(KateBuffer::TextUnWrapped, Ptr(this), pos, len, &nextLine);
 }
 
 int TextLine::nextNonSpaceChar(uint pos) const

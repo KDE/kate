@@ -32,6 +32,7 @@
 #include "kateiconborder.h"
 /*#include "katedynwwbar.h"*/
 #include "katehighlight.h"
+#include "katesupercursor.h"
 
 #include <kcursor.h>
 #include <kapplication.h>
@@ -107,21 +108,15 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_lineScroll->show();
   m_lineScroll->setTracking (true);
 
-//   m_dynWWBar=new KateDynWWBar(this,m_view);
-//   m_dynWWBar->setFixedWidth(style().scrollBarExtent().width());
-
   m_lineLayout = new QVBoxLayout();
   m_colLayout = new QHBoxLayout();
 
-/*  m_colLayout->addWidget(m_dynWWBar);*/
   m_colLayout->addWidget(m_lineScroll);
   m_lineLayout->addLayout(m_colLayout);
 
   if (m_view->dynWordWrap()) {
     m_dummy = 0L;
-/*    m_dynWWBar->show();*/
   } else {
-/*    m_dynWWBar->hide();*/
     // bottom corner box
     m_dummy = new QWidget(m_view);
 //    m_dummy->setFixedSize( style().scrollBarExtent().width(),
@@ -224,12 +219,10 @@ void KateViewInternal::dynWrapChanged()
 {
   if (m_view->dynWordWrap()) {
     delete m_dummy;
-/*    m_dynWWBar->show();*/
     m_columnScroll->hide();
     m_columnScrollDisplayed = false;
 
   } else {
-/*    m_dynWWBar->hide();*/
     // bottom corner box
     m_dummy = new QWidget(m_view);
     m_dummy->setFixedSize( style().scrollBarExtent().width(),
@@ -412,7 +405,6 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
       int scrollHeight = -(viewLinesScrolled * m_doc->viewFont.fontHeight);
       scroll(0, scrollHeight);
       leftBorder->scroll(0, scrollHeight);
-/*      m_dynWWBar->scroll(0, scrollHeight);*/
       return;
     }
   }
@@ -420,7 +412,6 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
   updateView();
   update();
   leftBorder->update();
-/*  m_dynWWBar->update();*/
 }
 
 void KateViewInternal::scrollColumns ( int x )
@@ -727,7 +718,8 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
              ( lineRanges[z].line == cursor.line && lineRanges[z].startCol <= cursor.col && (lineRanges[z].endCol > cursor.col || !lineRanges[z].wrap) ),
              false,
              bm,
-             lineRanges[z].startX + xStart );
+             lineRanges[z].startX + xStart,
+             m_view );
       paint.end ();
       bitBlt (this, x, z * h, &drawBuffer);
     }
@@ -808,13 +800,11 @@ void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
   updateView();
   update();
   leftBorder->update();
-/*  m_dynWWBar->update();*/
 }
 
 void KateViewInternal::slotCodeFoldingChanged()
 {
   leftBorder->update();
-/*  m_dynWWBar->update();*/
 }
 
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
@@ -824,7 +814,6 @@ void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
   // FIXME: performance problem
 //  if (m_doc->getVirtualLine(line)<=m_viewInternal->endLine)
   leftBorder->update();
-/*  m_dynWWBar->update();*/
 }
 
 void KateViewInternal::showEvent ( QShowEvent *e )
@@ -1737,12 +1726,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   if (m_doc->configFlags() & KateDocument::cfRemoveSpaces && cursor.line != newCursor.line) {
     TextLine::Ptr textLine = m_doc->kateTextLine(cursor.line);
     if (textLine) {
-      int newLen = textLine->lastChar();
-      if (newLen == -1) {
-        textLine->truncate(0);
-      } else if (newLen != (int)textLine->length()) {
-        textLine->truncate(newLen + 1);
-      }
+      textLine->removeSpaces();
     }
   }
 
@@ -1821,7 +1805,6 @@ bool KateViewInternal::tagLine(const KateTextCursor& virtualCursor)
   if (viewLine >= 0 && viewLine < (int)lineRanges.count()) {
     lineRanges[viewLine].dirty = true;
     leftBorder->update (0, lineToY(viewLine), leftBorder->width(), m_doc->viewFont.fontHeight);
-/*    m_dynWWBar->update (0, lineToY(viewLine), m_dynWWBar->width(), m_doc->viewFont.fontHeight);*/
     return true;
   }
   return false;
@@ -1873,7 +1856,6 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
       h = height();
 
     leftBorder->update (0, y, leftBorder->width(), h);
-/*    m_dynWWBar->update (0, y, m_dynWWBar->width(), h);*/
   }
   else
   {
@@ -1885,14 +1867,12 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
       {
         //justTagged = true;
         leftBorder->update (0, z * m_doc->viewFont.fontHeight, leftBorder->width(), leftBorder->height()); /*m_doc->viewFont.fontHeight*/
-/*        m_dynWWBar->update (0, z * m_doc->viewFont.fontHeight, m_dynWWBar->width(), m_dynWWBar->height());*/
         break;
       }
       /*else if (justTagged)
       {
         justTagged = false;
         leftBorder->update (0, z * m_doc->viewFont.fontHeight, leftBorder->width(), m_doc->viewFont.fontHeight);
-        m_dynWWBar->update (0, z * m_doc->viewFont.fontHeight, m_dynWWBar->width(), m_doc->viewFont.fontHeight);
         break;
       }*/
     }
@@ -1911,8 +1891,6 @@ void KateViewInternal::tagAll()
 
   leftBorder->updateFont();
   leftBorder->update ();
-/*  m_dynWWBar->updateFont();
-  m_dynWWBar->update ();*/
 }
 
 void KateViewInternal::paintCursor()
@@ -2382,7 +2360,6 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     if (dirtied || expandedVertically) {
       updateView(true);
       leftBorder->update();
-//       m_dynWWBar->update();
 
       // keep the cursor on-screen if it was previously
       if (currentViewLine >= 0)

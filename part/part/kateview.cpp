@@ -43,6 +43,7 @@
 #include "katesearch.h"
 #include "katebookmarks.h"
 #include "katebrowserextension.h"
+#include "katesearch.h"
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -940,4 +941,19 @@ void KateView::disableTextHints()
 void KateView::slotNeedTextHint(int line, int col, QString &text)
 {
 	text=QString("test %1 %2").arg(line).arg(col);
+}
+
+void KateView::find()
+{
+  m_search->find();
+}
+
+void KateView::replace()
+{
+  m_search->replace();
+}
+
+void KateView::findAgain( bool back )
+{
+  m_search->findAgain( back );
 }

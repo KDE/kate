@@ -38,6 +38,8 @@
 #include "kateundo.h"
 #include "kateprintsettings.h"
 #include "katelinerange.h"
+#include "katesupercursor.h"
+#include "katearbitraryhighlight.h"
 
 #include <qfileinfo.h>
 #include <qfocusdata.h>
@@ -218,6 +220,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   loadAllEnabledPlugins ();
 
   m_extension = new KateBrowserExtension( this );
+
+  m_arbitraryHL = new KateArbitraryHighlight();
+  connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KateSuperRange*)), SLOT(tagArbitraryLines(KateView*, KateSuperRange*)));
 
   if ( m_bSingleViewMode )
   {
@@ -1041,7 +1046,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
   TextLine::Ptr nl = buffer->line(line+1);
-  TextLine::Ptr tl = new TextLine();
+  TextLine::Ptr tl = new TextLine(buffer);
   int llen = l->length(), nllen = 0;
 
   if (!nl || !autowrap)
@@ -1147,7 +1152,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
-  TextLine::Ptr tl = new TextLine();
+  TextLine::Ptr tl = new TextLine(buffer);
   tl->append(s.unicode(),s.length());
   buffer->insertLine(line, tl);
   buffer->changeLine(line);
@@ -4096,8 +4101,10 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
 				 int cursorXPos2, bool showSelections,
 				 bool showTabs, WhichFont wf,
 				 bool currentLine, bool printerfriendly,
-				 const BracketMark& bm, int startXCol )
+				 const BracketMark& bm, int startXCol, KateView* view )
 {
+  KateSuperRangeList& superRanges = arbitraryHL()->rangesIncluding(range->line, view);
+
   // font data
   const FontStruct & fs = getFontStruct(wf);
 
@@ -4194,6 +4201,11 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
   QColor *curColor = 0;
   QColor *oldColor = 0;
 
+  // Start arbitrary highlighting
+  KateTextCursor currentPos(line, curCol);
+  superRanges.firstBoundary(&currentPos);
+  ArbitraryHighlight currentHL;
+
   if (showSelections && !selectionPainted)
   {
     hasSel = selectBounds(line, startSel, endSel, oldLen);
@@ -4229,37 +4241,60 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
 
   }
   else
-    {
+  {
+  // loop each character (tmp goes backwards, but curCol doesn't)
   for (uint tmp = len; (tmp > 0); tmp--)
   {
     bool isTab = ((*s) == '\t');
 
     Attribute * curAt = ((*a) >= atLen) ? &at[0] : &at[*a];
 
-    if (curAt != oldAt)
-      paint.setFont(curAt->font(fs));
-
     xPosAfter += curAt->width(fs, *s);
 
     if (isTab)
       xPosAfter -= (xPosAfter % curAt->width(fs, *s));
 
-    //  kdDebug(13020)<<"paint 5"<<endl;
-
+    // Only draw after the starting X value
     if ((int)xPosAfter >= xStart)
     {
       isSel = (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel));
 
       curColor = isSel ? &(curAt->selCol) : &(curAt->col);
 
-      if (curColor != oldColor)
-        paint.setPen(*curColor);
+      if (curAt != oldAt || curColor != oldColor || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == currentPos)) {
+        ArbitraryHighlight hl;
+
+        if (superRanges.count())
+          hl = ArbitraryHighlight::merge(superRanges.rangesIncluding(currentPos));
+
+        if (!hl.itemSet(ArbitraryHighlight::Weight))
+          hl.setBold(curAt->bold);
+
+        if (!hl.itemSet(ArbitraryHighlight::Italic))
+          hl.setItalic(curAt->italic);
+
+        // use default highlighting color if we haven't defined one above.
+        if (!hl.itemSet(ArbitraryHighlight::TextColor))
+          hl.setTextColor(*curColor);
+
+        paint.setPen(hl.textColor());
+        paint.setFont(hl.font(getFont(ViewFont)));
+
+        if (superRanges.currentBoundary() && *(superRanges.currentBoundary()) == currentPos)
+          superRanges.nextBoundary();
+
+        currentHL = hl;
+      }
 
       // make sure we redraw the right character groups on attrib/selection changes
       if (isTab)
       {
-        if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
+        if (!printerfriendly && !selectionPainted) {
+          if (isSel)
+            paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
+          else if (currentHL.itemSet(ArbitraryHighlight::BGColor))
+            paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, currentHL.bgColor());
+        }
 
         if (showTabs)
         {
@@ -4272,14 +4307,30 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
         oldXPos = xPosAfter;
         oldS = s+1;
       }
+      // Reasons for NOT delaying the drawing until the next character
+      // You have to detect the change one character in advance.
       else if (
-           (tmp < 2) || ((int)xPos > xEnd) || (curAt != &at[*(a+1)]) ||
+           // formatting has changed OR
+           (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, curCol+1)) ||
+           // it is the end of the line OR
+           (tmp < 2) ||
+           // the x position is past the end OR
+           ((int)xPos > xEnd) ||
+           // it is a different attribute OR
+           (curAt != &at[*(a+1)]) ||
+           // the selection boundary was crossed OR
            (isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))) ||
-           (((*(s+1)) == QChar('\t')) && !isTab)
+           // the next char is a tab (removed the "and this isn't" because that's dealt with above)
+           // i.e. we have to draw the current text so the tab can be rendered as above.
+           ((*(s+1)) == QChar('\t'))
          )
       {
-        if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
+        if (!printerfriendly && !selectionPainted) {
+          if (isSel)
+            paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
+          else if (currentHL.itemSet(ArbitraryHighlight::BGColor))
+            paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, currentHL.bgColor());
+        }
 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(xPos2 + oldXPos-xStart, y, str.string(), curCol+1-oldCol);
@@ -4323,6 +4374,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
 
     // col move
     curCol++;
+    currentPos.col++;
   }
   // kdDebug(13020)<<"paint 7"<<endl;
   if ((showCursor > -1) && (showCursor == (int)curCol))
@@ -4888,4 +4940,12 @@ TextLine::Ptr KateDocument::kateTextLine(uint i)
 KTextEditor::Cursor *KateDocument::createCursor ( )
 {
   return new KateCursor (this);
+}
+
+void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
+{
+  if (view)
+    view->m_viewInternal->tagLines(range->start(), range->end());
+  else
+    tagLines(range->start(), range->end());
 }

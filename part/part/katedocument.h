@@ -51,6 +51,8 @@ class KateBuffer;
 class KateView;
 class KateViewInternal;
 class LineRange;
+class KateArbitraryHighlight;
+class KateSuperRange;
 
 namespace Kate
 {
@@ -347,6 +349,15 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void hlChanged ();
 
   //
+  // Kate::ArbitraryHighlightingInterface stuff
+  //
+  public:
+    KateArbitraryHighlight* arbitraryHL() const { return m_arbitraryHL; };
+
+  private slots:
+    void tagArbitraryLines(KateView* view, KateSuperRange* range);
+
+  //
   // KTextEditor::ConfigInterface stuff
   //
   public slots:
@@ -403,7 +414,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   // KParts::ReadWrite stuff
   //
   public:
-    /* Anders: 
+    /* Anders:
       I reimplemented this, since i need to check if backup succeeded 
       if requested */
     bool save();
@@ -416,7 +427,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     void setModified(bool);
     bool isModified() const;
-  
+
   //
   // Kate::Document stuff
   //
@@ -449,7 +460,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool paintTextLine ( QPainter &, const LineRange* range, int xPos, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor, int cursorXPos,
                                 bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
-                                bool printerfriendly = false, const BracketMark& bm = BracketMark(), int startColX = 0 );
+                                bool printerfriendly = false, const BracketMark& bm = BracketMark(), int startColX = 0, KateView* view = 0L );
 
     uint textWidth(const TextLine::Ptr &, int cursorCol, WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap, int *endX = 0);
@@ -674,7 +685,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   public slots:
      void applyWordWrap ();
-     
+
   public:
     void setAutoCenterLines(int viewLines);
     int autoCenterLines() const;
@@ -718,6 +729,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QColor colors[5];
     class HlManager *hlManager;
     class Highlight *m_highlight;
+
+    KateArbitraryHighlight* m_arbitraryHL;
 
     int eolMode;
     int tabChars;

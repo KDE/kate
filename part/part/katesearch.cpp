@@ -35,10 +35,14 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateviewdialog.h"
+#include "katesupercursor.h"
+#include "katearbitraryhighlight.h"
 
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
-long KateSearch::s_options = KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace; 
+long KateSearch::s_options = KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace;
+
+static const bool arbitraryHLExample = false;
 
 KateSearch::KateSearch( KateView* view )
   : QObject( view, "kate search" )
@@ -46,6 +50,9 @@ KateSearch::KateSearch( KateView* view )
   , m_doc( view->doc() )
   , replacePrompt( new ReplacePrompt( view ) )
 {
+  m_arbitraryHLList = new KateSuperRangeList();
+  if (arbitraryHLExample) m_doc->arbitraryHL()->addHighlightToView(m_arbitraryHLList, m_view);
+
   connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
 // TODO: Configuration
 //  s_searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
@@ -92,7 +99,7 @@ void KateSearch::find()
     s_options = findDialog->options ();
 
     SearchFlags searchFlags;
-    
+
     searchFlags.caseSensitive = s_options & KFindDialog::CaseSensitive;
     searchFlags.wholeWords = s_options & KFindDialog::WholeWordsOnly;
     searchFlags.fromBeginning = !(s_options & KFindDialog::FromCursor)
@@ -210,15 +217,15 @@ void KateSearch::search( SearchFlags flags )
       }
     }
   }
-  if((!s.flags.backward && 
-       s.cursor.col == 0 && 
+  if((!s.flags.backward &&
+       s.cursor.col == 0 &&
        s.cursor.line == 0 ) ||
-     ( s.flags.backward && 
-       s.cursor.col == doc()->lineLength( s.cursor.line ) && 
+     ( s.flags.backward &&
+       s.cursor.col == doc()->lineLength( s.cursor.line ) &&
        s.cursor.line == (((int)doc()->numLines()) - 1) ) ) {
     s.flags.finished = true;
   }
-  
+
   if( s.flags.replace ) {
     replaces = 0;
     if( s.flags.prompt )
@@ -265,8 +272,11 @@ void KateSearch::findAgain()
     if( askContinue() ) {
       wrapSearch();
       findAgain();
+    } else {
+      if (arbitraryHLExample) m_arbitraryHLList->clear();
     }
   } else {
+    if (arbitraryHLExample) m_arbitraryHLList->clear();
     KMessageBox::sorry( view(),
         i18n("Search string '%1' not found!")
              .arg( KStringHandler::csqueeze( searchFor ) ),
@@ -277,14 +287,14 @@ void KateSearch::findAgain()
 void KateSearch::replaceAll()
 {
   QString searchFor = s_searchList.first();
-  
+
   doc()->editStart ();
-  
+
   while( doSearch( searchFor ) )
     replaceOne();
 
   doc()->editEnd ();
-    
+
   if( !s.flags.finished ) {
     if( askContinue() ) {
       wrapSearch();
@@ -307,6 +317,7 @@ void KateSearch::promptReplace()
     wrapSearch();
     promptReplace();
   } else {
+    if (arbitraryHLExample) m_arbitraryHLList->clear();
     replacePrompt->hide();
     KMessageBox::information( view(),
         i18n("%n replacement made","%n replacements made",replaces),
@@ -342,7 +353,7 @@ void KateSearch::replaceOne()
   doc()->removeText( s.cursor.line, s.cursor.col,
       s.cursor.line, s.cursor.col + s.matchedLength );
   doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
-  
+
   replaces++;
   
   if( s.flags.selected && s.cursor.line == s.selEnd.line )
@@ -467,6 +478,16 @@ bool KateSearch::doSearch( const QString& text )
   s.cursor.line = foundLine;
   s.cursor.col = foundCol;
   s.matchedLength = matchLen;
+
+  if (arbitraryHLExample)  {
+    ArbitraryHighlightRange* hl = new ArbitraryHighlightRange(new KateSuperCursor(m_doc, s.cursor), new KateSuperCursor(m_doc, s.cursor.line, s.cursor.col + s.matchedLength), this);
+    hl->setBold();
+    hl->setItalic();
+    hl->setTextColor(Qt::blue);
+    hl->setBGColor(Qt::yellow);
+    m_arbitraryHLList->append(hl);
+  }
+
   return true;
 }
 

@@ -1,10 +1,10 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001-2002 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-      
+
    Based on:
      TextLine : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-     
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -26,33 +26,40 @@
 #include <qmemarray.h>
 #include <ksharedptr.h>
 #include <qvaluevector.h>
- 
-/** 
-  The TextLine represents a line of text. A text line that contains the  
-  text, an attribute for each character, an attribute for the free space  
-  behind the last character and a context number for the syntax highlight.  
-  The attribute stores the index to a table that contains fonts and colors  
-  and also if a character is selected.  
-*/ 
- 
-class TextLine : public KShared  
-{  
+
+class KateBuffer;
+
+/**
+  The TextLine represents a line of text. A text line that contains the
+  text, an attribute for each character, an attribute for the free space
+  behind the last character and a context number for the syntax highlight.
+  The attribute stores the index to a table that contains fonts and colors
+  and also if a character is selected.
+*/
+
+class TextLine : public KShared
+{
   public:
     typedef KSharedPtr<TextLine> Ptr;
     typedef QValueVector<Ptr> List;
 
-  public:  
-    /**  
-      Creates an empty text line with given attribute and syntax highlight  
+  public:
+    /**
+      Creates an empty text line with given attribute and syntax highlight
       context
     */  
-    TextLine(); 
+    TextLine(KateBuffer* buf);
     ~TextLine();
 
   /**
-    Methodes to get data
+    Methods to get data
   */
   public:
+    /**
+     * Returns the parent buffer.
+     */
+    KateBuffer* buffer() const { return m_buf; }
+
     /**
       Returns the length
     */
@@ -93,19 +100,19 @@ class TextLine : public KShared
       if (pos < m_text.size()) return m_text[pos];
       return QChar();
     }
-    
+
     /**
       Gets the text. WARNING: it is not null terminated
     */
-    inline QChar *text() const { return m_text.data(); };    
-    
+    inline QChar *text() const { return m_text.data(); };
+
     inline uchar *attributes () const { return m_attributes.data(); }
 
     /**
       Gets a QString
     */
     inline QString string() const { return QString (m_text.data(), m_text.size()); };
-    
+
     /**
       Gets a QString
     */
@@ -115,33 +122,33 @@ class TextLine : public KShared
       Gets a null terminated pointer to first non space char
     */
     QChar *firstNonSpace() const;
-    
+
     /**
       Returns the x position of the cursor at the given position, which
       depends on the number of tab characters
     */
     int cursorX(uint pos, uint tabChars) const;
-    
+
     /**
       Can we find the given string at the given position
     */
     bool stringAtPos(uint pos, const QString& match) const;
-    
+
     /**
       Is the line starting with the given string
     */
     bool startingWith(const QString& match) const;
-    
+
     /**
       Is the line ending with the given string
     */
-    bool endingWith(const QString& match) const;    
-    
+    bool endingWith(const QString& match) const;
+
     /**
       Gets the syntax highlight context number
     */
     inline uint *ctx () const { return m_ctx.data (); };
-    
+
     /**
       Gets size of the ctxArray
     */
@@ -153,7 +160,7 @@ class TextLine : public KShared
     inline bool ctxEmpty () const { return m_ctx.isEmpty (); };
 
     bool searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive = true, bool backwards = false);
-    bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false); 
+    bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false);
     
      /**
       Gets the attribute at the given position
@@ -186,33 +193,33 @@ class TextLine : public KShared
     */
     void insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs = 0);
     void removeText (uint pos, uint delLen);
-    
+
     /**
       Appends a string of length l to the textline
     */
     void append(const QChar *s, uint l);
-    
+
     /**
       Wraps the text from the given position to the end to the next line
     */
     void wrap(TextLine::Ptr nextLine, uint pos);
-    
+
     /**
       Wraps the text of given length from the beginning of the next line to
       this line at the given position
     */
     void unWrap(uint pos, TextLine::Ptr nextLine, uint len);
-    
+
     /**
       Truncates the textline to the new length
     */
     void truncate(uint newLen);
-    
+
     /**
       Removes trailing spaces
     */
-    void removeSpaces();     
-    
+    void removeSpaces();
+
     /**
       Sets the visibility flag
     */
@@ -221,12 +228,12 @@ class TextLine : public KShared
       if (val) m_flags = m_flags | TextLine::flagVisible;
       else m_flags = m_flags & ~ TextLine::flagVisible;
     }
-    
+
     /**
       Sets the attributes from start to end -1
     */
     void setAttribs(uchar attribute, uint start, uint end);
-        
+
     /**
       Sets the syntax highlight context number
     */
@@ -234,29 +241,29 @@ class TextLine : public KShared
     {
       m_ctx.duplicate (newctx, len);
     }
-    
+
     inline void setHlLineContinue (bool cont)
     {
       if (cont) m_flags = m_flags | TextLine::flagHlContinue;
       else m_flags = m_flags & ~ TextLine::flagHlContinue;
     }
-        
+
     inline void setFoldingList (QMemArray<signed char> &val)
     {
       m_foldingList=val;
       m_foldingList.detach();
       m_flags = m_flags | TextLine::flagFoldingListValid;
-    }     
-  
+    }
+
   /**
     Methodes for dump/restore of the line in the buffer
-  */  
+  */
   public:                      
     /**
       Dumpsize in bytes
     */
     uint dumpSize () const;
-    
+
     /**
       Dumps the line to *buf and counts buff dumpSize bytes up 
       as return value
@@ -297,6 +304,12 @@ class TextLine : public KShared
      Some bools packed
     */
     uchar m_flags;
+
+    /**
+     * The parent buffer.
+     */
+    KateBuffer* m_buf;
+    static bool m_noSignal;
 };
 
 #endif

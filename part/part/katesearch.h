@@ -48,10 +48,12 @@ class KActionCollection;
 class KateView;
 class KateDocument;
 
+class KateSuperRangeList;
+
 class KateSearch : public QObject
 {
   Q_OBJECT
-  
+
   public:
     enum Dialog_results {
       srYes = QDialog::Accepted,
@@ -59,7 +61,7 @@ class KateSearch : public QObject
       srAll,
       srCancel = QDialog::Rejected
     };
-    
+
   public:
     KateSearch( KateView* );
     virtual ~KateSearch();
@@ -104,6 +106,8 @@ class KateSearch : public QObject
     KateView*     m_view;
     KateDocument* m_doc;
 
+    KateSuperRangeList* m_arbitraryHLList;
+
     struct SConfig {
       SearchFlags flags;
       KateTextCursor cursor;
@@ -111,7 +115,7 @@ class KateSearch : public QObject
       KateTextCursor selBegin;
       KateTextCursor selEnd;
     } s;
-    
+
     static long s_options;
     int           replaces;
     QDialog*      replacePrompt;

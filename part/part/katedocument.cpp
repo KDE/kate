@@ -1202,17 +1202,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
-  {
-    if(!autowrap)
-      it.current()->editLineWrapped (line, col, tl->length());
-    else
-    {
-      int offset = llen - it.current()->col();
-      offset = (nl ? nllen:tl->length()) - offset;
-      if(offset < 0) offset = 0;
-      it.current()->editLineWrapped (line, col, offset);
-    }
-  }
+    it.current()->editLineWrapped (line, col, llen);
 
   editEnd ();
 

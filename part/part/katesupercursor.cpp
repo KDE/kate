@@ -190,7 +190,7 @@ void KateSuperCursor::editLineWrapped(uint line, uint col, uint len)
   else if ( m_line == int(line) && m_col >= int(col) )
   {
     m_line++;
-    m_col = len;
+    m_col = len - col;
 
     emit positionChanged();
     return;

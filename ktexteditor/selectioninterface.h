@@ -67,11 +67,6 @@ class SelectionInterface
     */
     virtual bool selectAll () = 0;
 
-		/**
-    *  select the whole text
-    */
-    virtual bool invertSelection () = 0;
-
 	//
 	// signals !!!
 	//

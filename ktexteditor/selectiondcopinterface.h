@@ -62,11 +62,6 @@ namespace KTextEditor
     */
      bool selectAll ();
 
-	/**
-    *  select the whole text
-    */
-     bool invertSelection ();
-
 	private:
 		SelectionInterface *m_parent;
 	};

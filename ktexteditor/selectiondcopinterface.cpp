@@ -62,11 +62,3 @@ SelectionDCOPInterface::~SelectionDCOPInterface()
      {
 	return m_parent->selectAll();
      }
-
-	/**
-    *  select the whole text
-    */
-     bool SelectionDCOPInterface::invertSelection ()
-     {
-	return m_parent->invertSelection();
-     }

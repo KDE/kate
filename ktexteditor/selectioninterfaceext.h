@@ -16,15 +16,13 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
    
-   $Id:$
+   $Id$
 */
 
 #ifndef __ktexteditor_selectioninterface_ext_h__
 #define __ktexteditor_selectioninterface_ext_h__
 
 #include <qstring.h>
-#include <dcopobject.h>
-#include <dcopref.h>
 
 namespace KTextEditor
 {
@@ -62,29 +60,5 @@ class SelectionInterfaceExt
 
 SelectionInterfaceExt *selectionInterfaceExt (class Document *doc);
 
-/**
-    DCOP interface for the @ref SelectionInterfaceExt.
-    @author Anders Lund <anders@alweb.dk>
-*/
-class SelectionExtDCOPInterface : virtual public DCOPObject
-{
-  K_DCOP
-  public:
-    SelectionExtDCOPInterface( SelectionInterfaceExt *parent, const char *name );
-    virtual ~SelectionExtDCOPInterface();
-  k_dcop:
-    /** The selection start line number */
-    int selStartLine();
-    /** The selection start col */
-    int selStartCol();
-    /** The selection end line */
-    int selEndLine();
-    /** The selection end col */
-    int selEndCol();
-  private:
-    SelectionInterfaceExt *m_parent;
-};
-
 };  // namespace KTextEditor
-
 #endif

@@ -33,8 +33,18 @@ KateDocCursor::KateDocCursor(KateDocument *doc) : KateTextCursor(), myDoc(doc)
 {
 }
 
+KateDocCursor::KateDocCursor(int _line, int _col, KateDocument *doc)
+  : KateTextCursor(_line, _col), myDoc(doc)
+{
+}
+
 KateDocCursor::~KateDocCursor()
 {
+}
+
+bool KateDocCursor::validPosition(uint _line, uint _col)
+{
+  return _line < myDoc->numLines() && (int)_col <= myDoc->textLength(_line);
 }
 
 void KateDocCursor::position(uint *pline, uint *pcol) const
@@ -44,7 +54,7 @@ void KateDocCursor::position(uint *pline, uint *pcol) const
 
 bool KateDocCursor::setPosition(uint _line, uint _col)
 {
-  bool ok = _line < myDoc->numLines() && (int)_col <= myDoc->textLength(_line);
+  bool ok = validPosition(_line, _col);
 
   if(ok)
     setPos(_line, _col);

@@ -96,17 +96,17 @@ class KateDocument : public Kate::Document,
     void enableAllPluginsGUI (KateView *view);
     void disableAllPluginsGUI (KateView *view);
 
-    void loadPlugin (KatePartPluginInfo *info, KatePartPluginItem *item);
-    void unloadPlugin (KatePartPluginItem *item);
+    void loadPlugin (uint pluginIndex);
+    void unloadPlugin (uint pluginIndex);
     
-    void enablePluginGUI (KatePartPluginItem *item, KateView *view);
-    void enablePluginGUI (KatePartPluginItem *item);
+    void enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view);
+    void enablePluginGUI (KTextEditor::Plugin *plugin);
     
-    void disablePluginGUI (KatePartPluginItem *item, KateView *view);
-    void disablePluginGUI (KatePartPluginItem *item);
+    void disablePluginGUI (KTextEditor::Plugin *plugin, KateView *view);
+    void disablePluginGUI (KTextEditor::Plugin *plugin);
 
   private:
-     QPtrList<KatePartPluginItem> m_plugins; 
+     QMemArray<KTextEditor::Plugin *> m_plugins; 
    
   public:
     bool readOnly () const { return m_bReadOnly; }

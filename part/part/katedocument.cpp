@@ -100,6 +100,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              const char *widgetName, QObject *parent, const char *name)
 : Kate::Document(parent, name),
+  m_plugins (KateFactory::self()->plugins()->count()),
   selectStart(this, true),
   selectEnd(this, true),
   m_undoDontMerge(false),
@@ -138,6 +139,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
 
+  // init local plugin array
+  m_plugins.fill (0);
+
   // register doc at factory
   KateFactory::self()->registerDocument (this);
 
@@ -148,15 +152,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // init the config object, be careful not to use it
   // until the initial readConfig() call is done
   m_config = new KateDocumentConfig (this);
-
-  // init local plugin item list
-  for(uint z=0; z < KateFactory::self()->plugins()->count(); z++)
-  {
-    KatePartPluginItem *i=new KatePartPluginItem;
-    i->plugin = 0L;
-
-    m_plugins.append(i);
-  }
 
   // init some more vars !
   m_activeView = 0L;
@@ -284,8 +279,6 @@ KateDocument::~KateDocument()
   
   // clean up plugins
   unloadAllPlugins ();
-  m_plugins.setAutoDelete (true);
-  m_plugins.clear ();
  
   // kspell stuff
   if( m_kspell )
@@ -307,104 +300,95 @@ void KateDocument::loadAllEnabledPlugins ()
   for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
   {
     if (KateFactory::self()->plugins()->at(i)->load)
-      loadPlugin (KateFactory::self()->plugins()->at(i), m_plugins.at(i));
+      loadPlugin (i);
     else
-      unloadPlugin (m_plugins.at(i));
+      unloadPlugin (i);
   }
 }
 
 void KateDocument::unloadAllPlugins ()
 {
   for (uint i=0; i<m_plugins.count(); i++)
-  {
-    if (m_plugins.at(i)->plugin)
-      unloadPlugin (m_plugins.at(i));
-  }
+    unloadPlugin (i);
 }
 
 void KateDocument::enableAllPluginsGUI (KateView *view)
 {
   for (uint i=0; i<m_plugins.count(); i++)
-  {
-    if  (m_plugins.at(i)->plugin)
-      enablePluginGUI (m_plugins.at(i), view);
-  }
+    enablePluginGUI (m_plugins[i], view);
 }
 
 void KateDocument::disableAllPluginsGUI (KateView *view)
 {
   for (uint i=0; i<m_plugins.count(); i++)
-  {
-    if  (m_plugins.at(i)->plugin)
-      disablePluginGUI (m_plugins.at(i), view);
-  }
+    disablePluginGUI (m_plugins[i], view);
 }
 
-void KateDocument::loadPlugin (KatePartPluginInfo *info, KatePartPluginItem *item)
+void KateDocument::loadPlugin (uint pluginIndex)
 {
-  if (item->plugin) return;
+  if (m_plugins[pluginIndex]) return;
 
-  item->plugin = KTextEditor::createPlugin (QFile::encodeName(info->service->library()), this);
+  m_plugins[pluginIndex] = KTextEditor::createPlugin (QFile::encodeName(KateFactory::self()->plugins()->at(pluginIndex)->service->library()), this);
 
-  enablePluginGUI (item);
+  enablePluginGUI (m_plugins[pluginIndex]);
 }
 
-void KateDocument::unloadPlugin (KatePartPluginItem *item)
+void KateDocument::unloadPlugin (uint pluginIndex)
 {
-  if (!item->plugin) return;
+  if (!m_plugins[pluginIndex]) return;
 
-  disablePluginGUI (item);
+  disablePluginGUI (m_plugins[pluginIndex]);
 
-  delete item->plugin;
-  item->plugin = 0L;
+  delete m_plugins[pluginIndex];
+  m_plugins[pluginIndex] = 0L;
 }
 
-void KateDocument::enablePluginGUI (KatePartPluginItem *item, KateView *view)
+void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 {
-  if (!item->plugin) return;
-  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+  if (!plugin) return;
+  if (!KTextEditor::pluginViewInterface(plugin)) return;
 
   KXMLGUIFactory *factory = view->factory();
   if ( factory )
     factory->removeClient( view );
   
-  KTextEditor::pluginViewInterface(item->plugin)->addView(view);
+  KTextEditor::pluginViewInterface(plugin)->addView(view);
   
   if ( factory )
     factory->addClient( view );
 }
 
-void KateDocument::enablePluginGUI (KatePartPluginItem *item)
+void KateDocument::enablePluginGUI (KTextEditor::Plugin *plugin)
 {
-  if (!item->plugin) return;
-  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+  if (!plugin) return;
+  if (!KTextEditor::pluginViewInterface(plugin)) return;
 
   for (uint i=0; i< m_views.count(); i++)
-    enablePluginGUI (item, m_views.at(i));
+    enablePluginGUI (plugin, m_views.at(i));
 }
 
-void KateDocument::disablePluginGUI (KatePartPluginItem *item, KateView *view)
+void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin, KateView *view)
 {
-  if (!item->plugin) return;
-  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+  if (!plugin) return;
+  if (!KTextEditor::pluginViewInterface(plugin)) return;
 
   KXMLGUIFactory *factory = view->factory();
   if ( factory )
     factory->removeClient( view );
 
-  KTextEditor::pluginViewInterface( item->plugin )->removeView( view );
+  KTextEditor::pluginViewInterface( plugin )->removeView( view );
 
   if ( factory )
     factory->addClient( view );
 }
 
-void KateDocument::disablePluginGUI (KatePartPluginItem *item)
+void KateDocument::disablePluginGUI (KTextEditor::Plugin *plugin)
 {
-  if (!item->plugin) return;
-  if (!KTextEditor::pluginViewInterface(item->plugin)) return;
+  if (!plugin) return;
+  if (!KTextEditor::pluginViewInterface(plugin)) return;
 
   for (uint i=0; i< m_views.count(); i++)
-    disablePluginGUI (item, m_views.at(i));
+    disablePluginGUI (plugin, m_views.at(i));
 }
 //END
 

@@ -109,18 +109,12 @@ KateFactory::KateFactory ()
   // plugins
   //
   KTrader::OfferList l = KTrader::self()->query("KTextEditor/Plugin");
-  m_plugins.setAutoDelete (true);
-  for(KTrader::OfferList::Iterator it(l.begin());
-      it != l.end(); ++it)
+  m_plugins.resize (l.count());
+  for(uint i=0; i < l.count(); i++)
   {
-    KService::Ptr ptr = (*it);
-
-    KatePartPluginInfo *info=new KatePartPluginInfo;
-
-    info->load = false;
-    info->service = ptr;
-
-    m_plugins.append(info);
+    m_plugins[i] = new KatePartPluginInfo ();
+    m_plugins[i]->load = false;
+    m_plugins[i]->service = l[i];
   }
 
   //
@@ -153,6 +147,9 @@ KateFactory::~KateFactory()
   delete m_dirWatch;
   delete m_fileTypeManager;
   delete m_schemaManager;
+
+  for (uint i=0; i < m_plugins.count(); i++)
+    delete m_plugins[i];
 }
 
 static KStaticDeleter<KateFactory> sdFactory;

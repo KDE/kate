@@ -38,8 +38,6 @@ class KatePartPluginInfo
     KService::Ptr service;
 };
 
-typedef QPtrList<KatePartPluginInfo> KatePartPluginList;
-
 class KateFactory
 {
   private:
@@ -69,7 +67,7 @@ class KateFactory
 
     inline QPtrList<class KateRenderer> *renderers () { return &m_renderers; };
     
-    inline KatePartPluginList *plugins () { return &m_plugins; };
+    inline QMemArray<KatePartPluginInfo *> *plugins () { return &m_plugins; };
 
     inline KDirWatch *dirWatch () { return m_dirWatch; };
 
@@ -87,7 +85,7 @@ class KateFactory
     QPtrList<class KateView> m_views;
     QPtrList<class KateRenderer> m_renderers;
     
-    KatePartPluginList m_plugins;
+    QMemArray<KatePartPluginInfo *> m_plugins;
     
     KDirWatch *m_dirWatch;  
   

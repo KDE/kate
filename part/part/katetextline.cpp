@@ -23,7 +23,7 @@
 #include <kdebug.h>
 
 TextLine::TextLine()
-  : attr (0), hlContinue(false),m_visible(true)
+  : foldingListValid(false),attr (0), hlContinue(false),m_visible(true)
 {
 }
 

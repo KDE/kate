@@ -433,7 +433,8 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
     retVal_folding=false;
 //    kdDebug()<<QString("updateing folding for line %1").arg(current_line+buf->m_beginState.lineNr)<<endl;
 
-    bool foldingChanged= (foldingList!=textLine->foldingList);
+    bool foldingChanged= !textLine->foldingListValid;
+    if (!foldingChanged) foldingChanged=(foldingList!=textLine->foldingList);
     if (foldingChanged) textLine->setFoldingList(foldingList);
     emit foldingUpdate(current_line + buf->m_beginState.lineNr,&foldingList,&retVal_folding,foldingChanged);
     CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;

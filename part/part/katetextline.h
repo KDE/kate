@@ -174,8 +174,8 @@ class TextLine : public KShared
     QMemArray<unsigned char> attributesArray () { return attributes; };
     QMemArray<signed char> ctxArray () { return ctx; };
     QValueList<signed char> foldingList;
-
-    void setFoldingList(QValueList<signed char> val){foldingList=val;}
+    bool foldingListValid;
+    void setFoldingList(QValueList<signed char> val){foldingList=val; foldingListValid=true;}
   private:
     /**
       The text & attributes

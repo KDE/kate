@@ -25,47 +25,123 @@
 #include "katecursor.h"
 
 /**
- Private class, only for KateUndoGroup, no need to use it elsewhere
+ * Private class, only for KateUndoGroup, no need to use it elsewhere
  */
  class KateUndo
 {
   public:
-    KateUndo (uint type, uint line, uint col, uint len, const QString &text);
+    /**
+     * Constructor
+     * @param type undo item type
+     * @param line line affected
+     * @param col start column
+     * @param len lenght of change
+     * @param text text removed/inserted
+     */
+    KateUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
+    
+    /**
+     * Destructor
+     */
     ~KateUndo ();
 
   public:
-    // Invalid examples: insert / remove 0 length text
-    // I could probably fix this in KateDocument, but it's more work there
-    // (and probably better here too)
+    /**
+     * Invalid examples: insert / remove 0 length text
+     * I could probably fix this in KateDocument, but it's more work there
+     * (and probably better here too)
+     * @return validity
+     */
     bool isValid();
 
-    // Saves a bit of memory and potentially many calls when undo/redoing.
+    /**
+     * merge an undo item
+     * Saves a bit of memory and potentially many calls when undo/redoing.
+     * @param u undo item to merge
+     * @return success
+     */
     bool merge(KateUndo* u);
 
+    /**
+     * undo this item at given doc
+     * @param doc document
+     */
     void undo (KateDocument *doc);
+    
+    /**
+     * redo this item at given doc
+     * @param doc document
+     */
     void redo (KateDocument *doc);
 
-    // The cursor before the action took place
+    /**
+     * The cursor before the action took place
+     */
     KateTextCursor cursorBefore() const;
+    
+    /**
+     * The cursor after the action took place
+     */
     KateTextCursor cursorAfter() const;
 
-    inline uint type() const { return m_type; }
+    /**
+     * type of item
+     * @return type
+     */
+    inline KateUndoGroup::UndoType type() const { return m_type; }
 
+    /**
+     * line of changes
+     * @return line
+     */
     inline uint line () const { return m_line; }
+    
+    /**
+     * startcol of changes
+     * @return column
+     */
     inline uint col () const { return m_col; }
+    
+    /**
+     * length of changes
+     * @return length
+     */
     inline uint len() const { return m_len; }
 
+    /**
+     * text inserted/removed
+     * @return text
+     */
     inline const QString& text() const { return m_text; };
 
   private:
-    uint m_type;
+    /**
+     * type
+     */
+    KateUndoGroup::UndoType m_type;
+    
+    /**
+     * line
+     */
     uint m_line;
+    
+    /**
+     * column
+     */
     uint m_col;
+    
+    /**
+     * length
+     */
     uint m_len;
+    
+    /**
+     * text
+     */
     QString m_text;
 };
 
-KateUndo::KateUndo (uint type, uint line, uint col, uint len, const QString &text)
+KateUndo::KateUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text)
 : m_type (type),
   m_line (line),
   m_col (col),
@@ -253,7 +329,7 @@ void KateUndoGroup::redo ()
   m_doc->editEnd ();
 }
 
-void KateUndoGroup::addItem (uint type, uint line, uint col, uint len, const QString &text)
+void KateUndoGroup::addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text)
 {
   addItem(new KateUndo(type, line, col, len, text));
 }
@@ -282,9 +358,9 @@ bool KateUndoGroup::merge(KateUndoGroup* newGroup)
   return false;
 }
 
-uint KateUndoGroup::singleType()
+KateUndoGroup::UndoType KateUndoGroup::singleType()
 {
-  uint ret = editInvalid;
+  KateUndoGroup::UndoType ret = editInvalid;
 
   for (KateUndo* u = m_items.first(); u; u = m_items.next()) {
     if (ret == editInvalid)
@@ -296,7 +372,7 @@ uint KateUndoGroup::singleType()
   return ret;
 }
 
-bool KateUndoGroup::isOnlyType(uint type)
+bool KateUndoGroup::isOnlyType(KateUndoGroup::UndoType type)
 {
   if (type == editInvalid) return false;
 

@@ -25,21 +25,41 @@
 #include <qstring.h>
 
 class KateDocument;
+class KateUndo;
 
+/**
+ * Class to manage a group of undo items
+ */
 class KateUndoGroup
 {
   public:
+    /**
+     * Constructor
+     * @param doc document to belong to
+     */
     KateUndoGroup (KateDocument *doc);
+    
+    /**
+     * Destructor
+     */
     ~KateUndoGroup ();
 
+  public:
+    /**
+     * Undo the contained undo items
+     */
     void undo ();
+    
+    /**
+     * Redo the contained undo items
+     */
     void redo ();
 
-    void addItem (uint type, uint line, uint col, uint len, const QString &text);
-
-    bool merge(KateUndoGroup* newGroup);
-
-    enum types
+  public:
+    /**
+     * Types for undo items
+     */
+    enum UndoType
     {
       editInsertText,
       editRemoveText,
@@ -50,15 +70,53 @@ class KateUndoGroup
       editMarkLineAutoWrapped,
       editInvalid
     };
+    
+    /**
+     * add an item to the group
+     * @param type undo item type
+     * @param line line affected
+     * @param col start column
+     * @param len lenght of change
+     * @param text text removed/inserted
+     */
+    void addItem (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
+
+    /**
+     * merge this group with an other
+     * @param newGroup group to merge into this one
+     * @return success
+     */
+    bool merge(KateUndoGroup* newGroup);
 
   private:
-    // returns the type if it's only one type, or editInvalid if it contains multiple types.
-    uint singleType();
-    bool isOnlyType(uint type);
+    /**
+     * singleType
+     * @return the type if it's only one type, or editInvalid if it contains multiple types.
+     */
+    KateUndoGroup::UndoType singleType();
+    
+    /**
+     * are we only of this type ?
+     * @param type type to query
+     * @return we contain only the given type
+     */
+    bool isOnlyType(KateUndoGroup::UndoType type);
 
-    void addItem(class KateUndo* u);
+    /**
+     * add an undo item
+     * @param u item to add
+     */
+    void addItem (KateUndo *u);
 
+  private:
+    /**
+     * Document we belong to
+     */
     KateDocument *m_doc;
+    
+    /**
+     * list of items contained
+     */
     QPtrList<KateUndo> m_items;
 };
 

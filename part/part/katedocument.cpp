@@ -33,7 +33,6 @@
 #include "katedocumenthelpers.h"
 #include "katebuffer.h"
 #include "katecodefoldinghelpers.h"
-#include "kateundo.h"
 #include "kateprinter.h"
 #include "katelinerange.h"
 #include "katesupercursor.h"
@@ -1124,7 +1123,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
   return true;
 }
 
-void KateDocument::editAddUndo (uint type, uint line, uint col, uint len, const QString &text)
+void KateDocument::editAddUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text)
 {
   if (editIsRunning && editWithUndo && m_editCurrentUndo) {
     m_editCurrentUndo->addItem(type, line, col, len, text);

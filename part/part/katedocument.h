@@ -23,6 +23,7 @@
 
 #include "katesupercursor.h"
 #include "katetextline.h"
+#include "kateundo.h"
 
 #include "../interfaces/document.h"
 
@@ -244,7 +245,7 @@ class KateDocument : public Kate::Document,
     void undoCancel();
 
   private:
-    void editAddUndo (uint type, uint line, uint col, uint len, const QString &text);
+    void editAddUndo (KateUndoGroup::UndoType type, uint line, uint col, uint len, const QString &text);
     void editTagLine (uint line);
     void editRemoveTagLine (uint line);
     void editInsertTagLine (uint line);

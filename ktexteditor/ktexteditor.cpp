@@ -27,6 +27,7 @@
 
 #include "editinterface.h"
 #include "selectioninterface.h"
+#include "blockselectioninterface.h"
 #include "cursorinterface.h"
 #include "undointerface.h"
 #include "clipboardinterface.h"

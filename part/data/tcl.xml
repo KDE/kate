@@ -5,7 +5,7 @@
 <!-- Copyright: BSD copyright & Irsid - Arcelor Innovation R&D -->
 <!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
 
-<language name="Tcl/Tk" version="1.05" kateversion="2.1" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.06" kateversion="2.3" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -441,6 +441,8 @@
 
     <contexts>
       <context name = "Base" attribute = "Normal Text" lineEndContext="#stay">
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="region"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="region"/>
         <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
         <keyword String = "keywords-opt" attribute = "Parameter" context="#stay"/>
         <Float attribute = "Float" context="#stay"/>
@@ -450,20 +452,16 @@
         <RegExpr String = "[^\\]&quot;&quot;" attribute = "String" context="#stay"/>
         <RegExpr String = "[^\\]&quot;" attribute = "String" context="String"/>
         <RegExpr String= "(^|[^\\])#.*$" attribute = "Comment" context="#stay"/>
-        <DetectChar char = "{" attribute = "Keyword" context="#stay"/>
-        <DetectChar char = "}" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "{" attribute = "Keyword" context="#stay" beginRegion="block"/>
+        <DetectChar char = "}" attribute = "Keyword" context="#stay" endRegion="block"/>
         <DetectChar char = "[" attribute = "Keyword" context="#stay"/>
         <DetectChar char = "]" attribute = "Keyword" context="#stay"/>
         <RegExpr String  = "\\$" attribute = "Keyword" context="#stay"/>
       </context>
 
       <context name = "String" attribute = "String" lineEndContext="#stay">
-        <RegExpr String = "[^\\]&quot;" attribute = "String" context = "#pop"/>
-        <DetectChar char = "{" attribute = "Keyword" context="#stay"/>
-        <DetectChar char = "}" attribute = "Keyword" context="#stay"/>
-        <DetectChar char = "[" attribute = "Keyword" context="#stay"/>
-        <DetectChar char = "]" attribute = "Keyword" context="#stay"/>
-        <RegExpr String  = "\$" attribute = "Variable" context="#stay"/>
+        <RegExpr String="\\." attribute = "Char" context = "#stay"/>
+        <DetectChar char="&quot;" attribute = "String" context = "#pop"/>
       </context>
     </contexts>
 
@@ -476,6 +474,8 @@
       <itemData name = "Comment" defStyleNum = "dsComment"/>
       <itemData name = "Parameter" defStyleNum = "dsOthers"/>
       <itemData name = "Variable" defStyleNum = "dsDataType"/>
+      <itemData name="Char"        defStyleNum="dsChar"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>
 
     <general>

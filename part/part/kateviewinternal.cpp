@@ -1806,6 +1806,17 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
   
   switch( e->type() )
 	{
+  case QEvent::KeyPress: {
+    QKeyEvent *k = (QKeyEvent *)e;
+    if (k->key() == Qt::Key_Escape && !(m_doc->configFlags() & KateDocument::cfPersistent) ) {
+      m_doc->clearSelection();
+      return true;
+    } else if ( !(k->state() & ControlButton || k->state() & AltButton) ) {
+      keyPressEvent( k );
+      return k->isAccepted();
+    }
+  } break;
+  
 #ifndef QT_NO_DRAGANDDROP
   case QEvent::DragMove:
     {
@@ -1882,12 +1893,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     m_view->keyDelete();
     return;
-  }
-    
-  if (key == Qt::Key_Escape && !(m_doc->configFlags() & KateDocument::cfPersistent) )
-  {
-      m_doc->clearSelection();
-      return;
   }
 
   if( m_doc->configFlags() & KateDocument::cfTabIndents && m_doc->hasSelection() )

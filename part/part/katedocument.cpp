@@ -895,12 +895,12 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
       if (!(z < 1))
       {
         z++; // (anders: avoid the space at the beginning of the line)
-        editWrapLine (line, z);
+        editWrapLine (line, z, true);
         endLine++;
       }
       else
       {
-        editWrapLine (line, col);
+        editWrapLine (line, col, true);
         endLine++;
       }
     }
@@ -996,7 +996,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   return true;
 }
 
-bool KateDocument::editWrapLine ( uint line, uint col )
+bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 {
   TextLine::Ptr l = buffer->plainLine(line);
 
@@ -1007,34 +1007,59 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
+  TextLine::Ptr nl = buffer->plainLine(line+1);
   TextLine::Ptr tl = new TextLine();
-  l->wrap (tl, col);
+  int llen, nllen;
 
-  buffer->insertLine (line+1, tl);
-  buffer->changeLine(line);
+  if (!nl || !autowrap)
+  {
+    l->wrap (tl, col);
 
-  QPtrList<KTextEditor::Mark> list;
-  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
-       it.current(); ++it ) {
-    if( it.current()->line > line || ( col == 0 && it.current()->line == line ) )
-      list.append( it.current() );
+    buffer->insertLine (line+1, tl);
+    buffer->changeLine(line);
+    QPtrList<KTextEditor::Mark> list;
+    for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+         it.current(); ++it ) {
+      if( it.current()->line > line || ( col == 0 && it.current()->line == line ) )
+        list.append( it.current() );
+    }
+
+    for( QPtrListIterator<KTextEditor::Mark> it( list );
+         it.current(); ++it ) {
+      KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+      mark->line++;
+      m_marks.insert( mark->line, mark );
+    }
+    if( !list.isEmpty() )
+      emit marksChanged();
+
+     editInsertTagLine (line);
   }
-  for( QPtrListIterator<KTextEditor::Mark> it( list );
-       it.current(); ++it ) {
-    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
-    mark->line++;
-    m_marks.insert( mark->line, mark );
-  }
-  if( !list.isEmpty() )
-    emit marksChanged();
+  else
+  {
+    int nlsave = nl->length();
+    llen = l->length();
+    l->wrap (nl, col);
+    nllen = nl->length() - nlsave;
 
-  editInsertTagLine (line);
+    buffer->changeLine(line);
+    buffer->changeLine(line+1);
+  }
+
   editTagLine(line);
   editTagLine(line+1);
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    (m_views.at(z))->m_viewInternal->editWrapLine(line, col, tl->length());
+    if(!nl || !autowrap)
+      (m_views.at(z))->m_viewInternal->editWrapLine(line, col, tl->length());
+    else
+    {
+      int offset = llen - (m_views.at(z))->m_viewInternal->cursorCache.col;
+      offset = nllen - offset;
+      if(offset < 0) offset = 0;
+      (m_views.at(z))->m_viewInternal->editWrapLine(line, col, offset);
+    }
   }
   editEnd ();
   return true;

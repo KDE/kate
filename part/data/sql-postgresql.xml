@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- PostgreSQL SQL, syntax definition based on sql.xml by Yury Lebedev -->
-<language name="SQL-PostgreSQL" version="1.05" kateversion="2.3" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
+<language name="SQL-PostgreSQL" version="1.06" kateversion="2.3" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
   <highlighting>
     <list name="keywords">
       <item> ABORT </item>
       <item> ACCESS </item>
       <item> ACTION </item>
-      <item> ADA </item>
+      <item> ADD </item>
       <item> ADMIN </item>
       <item> AFTER </item>
       <item> AGGREGATE </item>
@@ -198,6 +198,7 @@
       <item> IGNORE </item>
       <item> ILIKE </item>
       <item> IMMEDIATE </item>
+      <item> IMMUTABLE </item>
       <item> IMPLEMENTATION </item>
       <item> IN </item>
       <item> INCREMENT </item>
@@ -411,6 +412,7 @@
       <item> SQLEXCEPTION </item>
       <item> SQLSTATE </item>
       <item> SQLWARNING </item>
+      <item> STABLE </item>
       <item> START </item>
       <item> STATE </item>
       <item> STATEMENT </item>
@@ -485,6 +487,7 @@
       <item> VERBOSE </item>
       <item> VERSION </item>
       <item> VIEW </item>
+      <item> VOLATILE </item>
       <item> WHEN </item>
       <item> WHENEVER </item>
       <item> WHERE </item>
@@ -724,6 +727,7 @@
       <item> TIMETZ </item>
       <item> TIMESTAMP </item>
       <item> TIMESTAMPTZ </item>
+      <item> TIMESTAMP WITH TIMEZONE </item>
     </list>
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">

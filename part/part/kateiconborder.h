@@ -37,7 +37,7 @@ public:
     ~KateIconBorder();
 
     enum Status { None=0, Icons=1, LineNumbers=2, FoldingMarkers=4 };
-    void paintLine(int i,int pos);
+    void paintLine(int linepos, class KateLineRange *r);
     int width();
 
 protected:

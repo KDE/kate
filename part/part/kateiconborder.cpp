@@ -239,10 +239,15 @@ int KateIconBorder::width()
 }
 
 
-void KateIconBorder::paintLine(int i,int pos)
+void KateIconBorder::paintLine(int linepos, KateLineRange *r)
 {
-  if ( myView->iconBorderStatus == None ) return;
-  if ( (uint)i >= myView->myDoc->numLines() ) return;
+  if ( myView->iconBorderStatus == None )
+    return;
+    
+  if (!r)
+    return;
+
+  int pos = linepos;
 
   //kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
   QPainter p(this);
@@ -252,13 +257,15 @@ void KateIconBorder::paintLine(int i,int pos)
   int lnX = 0;
 
   // line number
-  if ( (myView->iconBorderStatus & LineNumbers) && i < myView->doc()->numLines() ) {
+  if ( (myView->iconBorderStatus & LineNumbers) ) {
     p.fillRect( lnX, y, cachedLNWidth-2, fontHeight, colorGroup().light() );
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine( cachedLNWidth-1, y, cachedLNWidth-1, y + fontHeight );
 //    kdDebug()<<"IconBorder::paintLine"<<endl;
-      p.drawText( lnX + 1, y, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
-          QString("%1").arg(myInternalView->lineRanges[i-myInternalView->startLine].line + 1 ));
+ 
+      if (!r->empty)
+        p.drawText( lnX + 1, y, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
+          QString("%1").arg(r->line + 1 ));
 
       lnX+=cachedLNWidth;
   }
@@ -269,7 +276,9 @@ void KateIconBorder::paintLine(int i,int pos)
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
 
-    uint mark = myView->myDoc->mark (myInternalView->lineRanges[i-myInternalView->startLine].line);
+    if (!r->empty)
+    {
+    uint mark = myView->myDoc->mark (r->line);
     switch (mark)
     {
        case KateDocument::markType01:	p.drawPixmap(lnX+2, y, QPixmap(bookmark_xpm));
@@ -285,8 +294,7 @@ void KateIconBorder::paintLine(int i,int pos)
        default: break;
 
     }
-//    if (mark&KateDocument::markType01)
-//        p.drawPixmap(2, y, QPixmap(bookmark_xpm));
+    }
 
     lnX += iconPaneWidth;
   }
@@ -295,12 +303,12 @@ void KateIconBorder::paintLine(int i,int pos)
   if  (myView->iconBorderStatus & FoldingMarkers)
   {
     p.fillRect(lnX,y,iconPaneWidth/*-2*/,fontHeight,colorGroup().light());
-    p.setPen(QColor(colorGroup().background()).dark());
-    //p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
-
+    
+    if (!r->empty)
+    {
     p.setPen(black);
     KateLineInfo info;
-    myView->myDoc->regionTree->getLineInfo(&info,myInternalView->lineRanges[i-myInternalView->startLine].line);
+    myView->myDoc->regionTree->getLineInfo(&info,r->line);
     if (!info.topLevel)
      {
          if (info.startsVisibleBlock)
@@ -318,6 +326,8 @@ void KateIconBorder::paintLine(int i,int pos)
 	       p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
 
     }
+    }
+
     lnX+=iconPaneWidth;
   }
 }
@@ -325,7 +335,6 @@ void KateIconBorder::paintLine(int i,int pos)
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {
-//	return;
   if (myView->iconBorderStatus == None)
     return;
 
@@ -338,20 +347,28 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     resize( width(), height() );
     return; // we get a new paint event at resize
   }
-	
-	QRect updateR = e->rect();
 
-	uint h = myInternalView->myDoc->viewFont.fontHeight;
-	uint sline = myInternalView->startLine + (updateR.y() / h);
-  uint endLine = sline + 1 + (updateR.height() / h);
+  QRect updateR = e->rect();
 
-	int disppos=sline-myInternalView->startLine;
-	for ( uint line = sline; (line <= endLine) && (disppos < myInternalView->lineRanges.size()); line++)
+  uint h = myInternalView->myDoc->viewFont.fontHeight;
+  uint startline = myInternalView->startLine + (updateR.y() / h);
+  uint endline = startline + 1 + (updateR.height() / h);
+
+  KateLineRange *r = myInternalView->lineRanges.data();
+  uint rpos = startline-myInternalView->startLine;
+
+  if (rpos <= myInternalView->lineRanges.size())
+    r += rpos;
+  else
+    return;
+
+  for ( uint line = startline; (line <= endline) && (rpos < myInternalView->lineRanges.size()); line++)
   {
-    paintLine(line,line);
-	  disppos++;
-	}
+    paintLine(line,r);
 
+    r++;
+    rpos++;
+  }
 }
 
 

@@ -1103,14 +1103,14 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
 
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
 
-      leftBorder->paintLine(line,line);
+      leftBorder->paintLine(line, r);
     }
     else if (r->empty)
     {
       paint.fillRect(0, 0, this->width(), h, myDoc->colors[0]);
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
 
-      leftBorder->paintLine(line,line);
+      leftBorder->paintLine(line, r);
     }
 
     if (r->line == cursor.line)

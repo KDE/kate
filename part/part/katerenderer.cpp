@@ -227,6 +227,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       startend.setCol(startend.col()+1);
       bracketStartRange = new KateArbitraryHighlightRange(m_doc, bracketmark->start(), startend);
       bracketStartRange->setBGColor(config()->highlightedBracketColor());
+      bracketStartRange->setBold(true);
       superRanges.append(bracketStartRange);
     }
 
@@ -235,6 +236,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       endend.setCol(endend.col()+1);
       bracketEndRange = new KateArbitraryHighlightRange(m_doc, bracketmark->end(), endend);
       bracketEndRange->setBGColor(config()->highlightedBracketColor());
+      bracketEndRange->setBold(true);
       superRanges.append(bracketEndRange);
     }
   }

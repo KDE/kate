@@ -4247,7 +4247,7 @@ void KateDocument::reloadFile()
 {
   if ( !url().isEmpty() )
   {
-    if (m_modOnHd)
+    if (m_modOnHd && s_fileChangedDialogsActivated)
     {
       int i = KMessageBox::warningYesNoCancel
                 (0, reasonedMOHString() + "\n\n" + i18n("Do you really want to reload the modified file? Data loss may occur."));

@@ -33,6 +33,7 @@
 #include <klocale.h>
 #include <kdirwatch.h>
 #include <kstaticdeleter.h>
+#include <qapplication.h>
 
 /**
  * dummy wrapper factory to be sure nobody external deletes our katefactory
@@ -144,6 +145,18 @@ KateFactory::KateFactory ()
 
 KateFactory::~KateFactory()
 {
+  /* ?hack? If  MainApplication-Interface::quit is called by dcop the factory gets destroyed before all documents are destroyed eg in kwrite.
+  This could happen in other apps too. Since the documents try to unregister a new factory is created (in the ::self call) and registered with a 
+  KStaticDeleter which causes a crash. That's why I ensure here that all documents are destroyed before the factory goes down (JOWENN)*/
+  while (KateDocument *doc=m_documents.first()) {
+    s_self=this; /* this is needed because the KStaticDeleter sets the global reference to 0, before it deletes the object it handles.
+    To prevent a crash again restore the factory pointer temporarily. (jowenn)*/
+    delete doc;
+    s_self=0;
+  }
+  /*another solution would be to set a flag in the documents, and inhibit calling of the deregistering methods, but I don't see a problem
+  if all created objects are deleted before their factory. If somebody sees a problem, let me know*/
+  
   delete m_documentConfig;
   delete m_viewConfig;
   delete m_rendererConfig;
@@ -163,9 +176,9 @@ static KStaticDeleter<KateFactory> sdFactory;
 
 KateFactory *KateFactory::self ()
 {
-  if (!s_self)
+  if (!s_self) {
     sdFactory.setObject(s_self, new KateFactory ());
-
+  }
   return s_self;
 }
 

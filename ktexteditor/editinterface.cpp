@@ -42,6 +42,11 @@ uint EditInterface::editInterfaceNumber () const
   return myEditInterfaceNumber;
 }
 
+void EditInterface::setEditInterfaceDCOPPrefix (const QCString &prefix)
+{
+  d->interface->setObjId (prefix + "-EditInterface");
+}
+
 EditInterface *KTextEditor::editInterface (Document *doc)
 {                    
   if (!doc)

@@ -219,15 +219,14 @@ void KateUndoGroup::undo ()
   if (items.count() == 0)
     return;
 
-  bool b = myDoc->editStart (false);
+  myDoc->editStart (false);
 
   for (int pos=(int)items.count()-1; pos >= 0; pos--)
   {
     items.at(pos)->undo();
   }
 
-  if (b)
-    myDoc->editEnd ();
+  myDoc->editEnd ();
 }
 
 void KateUndoGroup::redo ()
@@ -235,15 +234,14 @@ void KateUndoGroup::redo ()
   if (items.count() == 0)
     return;
 
-  bool b = myDoc->editStart (false);
+  myDoc->editStart (false);
 
   for (uint pos=0; pos < items.count(); pos++)
   {
     items.at(pos)->redo();
   }
 
-  if (b)
-    myDoc->editEnd ();
+  myDoc->editEnd ();
 }
 
 void KateUndoGroup::addItem (KateUndo *undo)
@@ -262,6 +260,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   hlSetByUser = false;
   setInstance( KateFactory::instance() );
 
+  editSessionNumber = 0;
   editIsRunning = false;
   noViewUpdates = false;
   editCurrentUndo = 0L;
@@ -460,7 +459,7 @@ bool KateDocument::clear()
   clearRedo();
 
   setModified(false);
-  
+
   internalSetHlMode(0); //calls updateFontData()
 
   return true;
@@ -482,7 +481,7 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
   endLine = line;
   endCol = col;
 
-  bool b = editStart ();
+  editStart ();
 
   for (uint pos = 0; pos < len; pos++)
   {
@@ -504,8 +503,7 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
 
   editInsertText (line, insertPos, buf);
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -522,7 +520,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
   if (!l)
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   if (startLine == endLine)
   {
@@ -564,8 +562,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
     }
   }
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -575,23 +572,22 @@ bool KateDocument::insertLine( uint l, const QString &str )
   if (l > buffer->count())
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   editInsertLine (l, str);
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
 
 bool KateDocument::removeLine( uint line )
 {
-  bool b = editStart ();
+  editStart ();
+  
   bool end = editRemoveLine (line);
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return end;
 }
@@ -618,10 +614,12 @@ int KateDocument::lineLength ( uint line ) const
 //
 // Starts an edit session with (or without) undo, update of view disabled during session
 //
-bool KateDocument::editStart (bool withUndo)
+void KateDocument::editStart (bool withUndo)
 {
-  if (editIsRunning)
-    return false;
+  editSessionNumber++;
+
+  if (editSessionNumber > 1)
+    return;
 
   editIsRunning = true;
   noViewUpdates = true;
@@ -645,8 +643,6 @@ bool KateDocument::editStart (bool withUndo)
     v->cursorCacheChanged = false;
     v->cursorCache = v->myViewInternal->cursor;
   }
-
-  return true;
 }
 
 //
@@ -654,7 +650,9 @@ bool KateDocument::editStart (bool withUndo)
 //
 void KateDocument::editEnd ()
 {
-  if (!editIsRunning)
+  editSessionNumber--;
+
+  if (editSessionNumber > 0)
     return;
 
   if (editTagLineStart <= editTagLineEnd)
@@ -730,7 +728,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   if (!l)
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editInsertText, line, col, s.length(), s));
 
@@ -739,8 +737,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   buffer->changeLine(line);
   editTagLine (line);
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -755,7 +752,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   if (!l)
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editRemoveText, line, col, len, l->getString().mid(col, len)));
 
@@ -792,8 +789,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
     }
   }
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -809,7 +805,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   if (!l || !tl)
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editWrapLine, line, col, 0, 0));
 
@@ -846,8 +842,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
     view->myViewInternal->insLine(line+1);
   }
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -864,7 +859,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   if (!l || !tl)
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editUnWrapLine, line, col, 0, 0));
 
@@ -917,8 +912,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
     }
   }
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -927,7 +921,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 {
   KateView *view;
 
-  bool b = editStart ();
+  editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editInsertLine, line, 0, s.length(), s));
 
@@ -963,8 +957,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
     view->myViewInternal->insLine(line);
   }
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
   return true;
 }
@@ -977,7 +970,7 @@ bool KateDocument::editRemoveLine ( uint line )
   if (numLines() == 1)
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editRemoveLine, line, 0, textLength(line), textLine(line) ));
 
@@ -1027,8 +1020,7 @@ bool KateDocument::editRemoveLine ( uint line )
     }
   }
 
-  if (b)
-    editEnd();
+  editEnd();
 
   return true;
 }
@@ -1157,7 +1149,7 @@ bool KateDocument::removeSelectedText ()
   if (!hasSelection())
     return false;
 
-  bool b = editStart ();
+  editStart ();
 
   for (uint z = 0; z < myViews.count(); z++)
   {
@@ -1236,8 +1228,7 @@ bool KateDocument::removeSelectedText ()
       editRemoveText (z, delStart, delLen);
   }
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
 kdDebug(13020) << "removeSelectedText() updateLines" << endl;
   updateLines(sl, el);
@@ -2599,7 +2590,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   //return false if nothing has to be inserted
   if (buf.isEmpty()) return false;
 
-  bool b = editStart ();
+  editStart ();
 
   if (_configFlags & KateDocument::cfDelOnInput)
   {
@@ -2627,8 +2618,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   view->cursorCache.col = col;
   view->cursorCacheChanged = true;
 
-  if (b)
-    editEnd ();
+  editEnd ();
 
 /*
   // FIXME anders: Make this work...
@@ -2822,7 +2812,7 @@ void KateDocument::paste (VConfig &c)
 
   if (!s.isEmpty())
   {
-    bool b = editStart ();
+    editStart ();
 
     if (!blockSelect)
       insertText(c.cursor.line, c.cursor.col, s);
@@ -2850,14 +2840,13 @@ void KateDocument::paste (VConfig &c)
     }
     l--;
   }
-  
+
 // editEnd will set the cursor from this cache right ;))
   c.view->cursorCache.line = line;
   c.view->cursorCache.col = col;
   c.view->cursorCacheChanged = true;
 
-    if (b)
-      editEnd ();
+    editEnd ();
   }
 }
 
@@ -2910,7 +2899,7 @@ void KateDocument::doIndent(VConfig &c, int change)
 {
   c.cursor.col = 0;
 
-  bool b = editStart ();
+  editStart ();
 
   if (!hasSelection()) {
     // single line
@@ -2958,9 +2947,8 @@ void KateDocument::doIndent(VConfig &c, int change)
       }
     }
   }
-  
-  if (b)
-    editEnd ();
+
+  editEnd ();
 }
 
 /*

@@ -196,17 +196,20 @@ class KateDocument : public Kate::Document
     void textChanged ();
     void charactersInteractivelyInserted(int ,int ,const QString&);
 
-  private:
+  public:
     //
     // start edit / end edit (start/end undo, cursor update, view update)
     //
-    bool editStart (bool withUndo = true);
+    void editStart (bool withUndo = true);
     void editEnd ();
+
+  private:
     void editAddUndo (KateUndo *undo);
     void editTagLine (uint line);
     void editRemoveTagLine (uint line);
     void editInsertTagLine (uint line);
 
+    uint editSessionNumber;
     bool editIsRunning;
     bool noViewUpdates;
     bool editWithUndo;

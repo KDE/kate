@@ -39,7 +39,8 @@ QStringList KateCoreCommands::cmds()
     << "comment" << "uncomment"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
     << "set-indent-spaces" << "set-indent-width" << "set-auto-indent"
-    << "set-line-numbers" << "set-folding-markers" << "set-icon-border";
+    << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
+    << "set-word-wrap" << "set-word-wrap-column";
   return l;
 }
 
@@ -86,7 +87,8 @@ bool KateCoreCommands::exec(Kate::View *view,
 
   // ALL commands that takes exactly one integer argument.
   else if ( cmd == "set-tab-width" ||
-            cmd == "set-indent-width" )
+            cmd == "set-indent-width" ||
+            cmd == "set-word-wrap-column" )
   {
     // find a integer value > 0
     if ( ! args.count() )
@@ -109,6 +111,12 @@ bool KateCoreCommands::exec(Kate::View *view,
         KCC_ERR( i18n("Width must be at least 1.") );
       v->doc()->config()->setIndentationWidth( val );
     }
+    else if ( cmd == "set-word-wrap-column" )
+    {
+      if ( val < 2 )
+        KCC_ERR( i18n("Column must be at least 1.") );
+      v->doc()->setWordWrapAt( val );
+    }
     return true;
   }
 
@@ -119,7 +127,8 @@ bool KateCoreCommands::exec(Kate::View *view,
             cmd == "set-replace-tabs" ||
             cmd == "set-show-tabs" ||
             cmd == "set-indent-spaces" ||
-            cmd == "set-auto-indent" )
+            cmd == "set-auto-indent" ||
+            cmd == "set-word-wrap" )
   {
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
@@ -140,6 +149,9 @@ bool KateCoreCommands::exec(Kate::View *view,
         setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
       else if ( cmd == "set-auto-indent" )
         setDocFlag( KateDocumentConfig::cfAutoIndent, enable, v->doc() );
+      else if ( cmd == "set-word-wrap" )
+        v->doc()->setWordWrap( enable );
+
       return true;
     }
     else

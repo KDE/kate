@@ -451,7 +451,7 @@
       
       <!-- finds arguments to properties -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindValues">
-	<RegExpr attribute="Value" context="#stay" String="[-+]?\b[0-9.]+(em|ex|px|in|cm|mm|pt|pc|deg|rad|grad|ms|s|Hz|kHz)\b" />
+	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+(em|ex|px|in|cm|mm|pt|pc|deg|rad|grad|ms|s|Hz|kHz)\b" />
 	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+[%]?" />
 	<RegExpr attribute="Normal Text" context="#stay" String="[\w_-]+" />
       </context>

@@ -2875,13 +2875,14 @@ bool KateDocument::save()
 
 bool KateDocument::saveFile()
 {
-  if (!buffer->canEncode ())
-    KMessageBox::error (0, i18n ("The document has been saved, but the selected encoding cannot encode every unicode character in it. "
-    "If you don't save it again with another encoding, some characters will be lost after closing this document."));
+  bool canEncode = buffer->canEncode ();
 
   KateFactory::dirWatch ()->removeFile (m_file);
 
-  bool success = buffer->saveFile (m_file);
+  bool success = false;
+
+  if (canEncode)
+    success = buffer->saveFile (m_file);
 
   if (!hlSetByUser)
   {
@@ -2925,6 +2926,11 @@ bool KateDocument::saveFile()
     m_modOnHdReason = 0;
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
+
+  if (!canEncode)
+    KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding can't encode every unicode character in it!"));
+  else if (!success)
+    KMessageBox::error (widget(), i18n ("The document could not been saved, as it was impossible to write to %1!\n\nCheck if you have write access to this file or if enough disc spaces is available.").arg(m_url.url()));
 
   return success;
 }

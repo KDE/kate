@@ -795,13 +795,10 @@ KateView::saveResult KateView::save()
   if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )
     return saveAs();
 
-  if( !m_doc->save() ) {
-    KMessageBox::sorry(this,
-        i18n("The file could not be saved. Please check if you have write permission."));
-    return SAVE_ERROR;
-  }
+  if( m_doc->save() )
+    return SAVE_OK;
 
-  return SAVE_OK;
+  return SAVE_ERROR;
 }
 
 KateView::saveResult KateView::saveAs()
@@ -820,13 +817,11 @@ KateView::saveResult KateView::saveAs()
     return SAVE_CANCEL;
 
   m_doc->setEncoding( data.encoding );
-  if( !m_doc->saveAs( data.url ) ) {
-    KMessageBox::sorry(this,
-      i18n("The file could not be saved. Please check if you have write permission."));
-    return SAVE_ERROR;
-  }
 
-  return SAVE_OK;
+  if( m_doc->saveAs( data.url ) )
+    return SAVE_OK;
+
+  return SAVE_ERROR;
 }
 
 bool KateView::checkOverwrite( KURL u )

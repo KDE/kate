@@ -4545,17 +4545,7 @@ uint KateDocument::editableMarks()
  * End of the implementaion of the MarkInterfaceExtension
  **/
 
-
-
-
-
-
-
-
-
-
-
-
+ 
 QFont KateDocument::getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;}
 
 KateFontMetrics KateDocument::getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;}

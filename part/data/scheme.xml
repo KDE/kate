@@ -50,7 +50,9 @@
     </list>
     <list name="predicates2">
       <item> char </item>
+      <item> char-ci </item>
       <item> string </item>
+      <item> string-ci </item>
     </list>
     <list name="assignments">
       <item> append </item>
@@ -69,8 +71,8 @@
       <item> atan </item>
       <item> cos </item>
       <item> denominator </item>
-      <item> exp </item>
       <item> expt </item>
+      <item> exp </item>
       <item> floor </item>
       <item> gcd </item>
       <item> lcm </item>
@@ -166,82 +168,88 @@
       <item> write-char </item>
     </list>
     <contexts>
-      <context name="Intro" attribute="0" lineEndContext="0">
-        <DetectChar attribute="8" context="2" char=";"/>
-        <DetectChar attribute="9" context="1" char="("/>
+      <context name="Intro" attribute="Error" lineEndContext="#stay">
+        <DetectChar attribute="Comment" context="Comment" char=";"/>
+        <Detect2Chars attribute="Comment" context="MultiLineComment" char="|" char1="#"/>
+        <DetectChar attribute="Operator" context="Normal" char="("/>
       </context>
-      <context name="Normal" attribute="0" lineEndContext="1">
-        <DetectChar attribute="8" context="2" char=";"/>
-        <DetectChar attribute="9" context="1" char="("/>
-        <DetectChar attribute="9" context="1" char=")"/>
-        <StringDetect attribute="13" context="1" String="list-&gt;string"/>
-        <StringDetect attribute="13" context="1" String="string-&gt;list"/>
-        <StringDetect attribute="13" context="1" String="char-&gt;integer"/>
-        <StringDetect attribute="13" context="1" String="integer-&gt;char"/>
-        <StringDetect attribute="13" context="1" String="string-&gt;symbol"/>
-        <StringDetect attribute="13" context="1" String="symbol-&gt;string"/>
-        <StringDetect attribute="13" context="1" String="exact-&gt;inexact"/>
-        <StringDetect attribute="13" context="1" String="inexact-&gt;exact"/>
-        <StringDetect attribute="13" context="1" String="number-&gt;string"/>
-        <StringDetect attribute="13" context="1" String="string-&gt;number"/>
-        <keyword attribute="7" context="1" String="blocks" weakDelimiter="-"/>
-        <keyword attribute="1" context="1" String="keywords" weakDelimiter="-"/>
-        <keyword attribute="1" context="3" String="predicates" weakDelimiter="-"/>
-        <keyword attribute="1" context="4" String="predicates2"/>
-        <RegExpr attribute="10" context="1" String="[&lt;&gt;]?=?\s"/>
-        <RegExpr attribute="13" context="1" String="=&gt;\s"/>
-        <keyword attribute="1" context="5" String="assignments" weakDelimiter="-"/>
-        <keyword attribute="12" context="1" String="mathops"/>
-        <DetectChar attribute="8" context="7" char="&quot;"/>
-        <StringDetect attribute="3" context="1" String="'()"/>
-        <RegExpr attribute="13" context="1" String="['`]"/>
-        <RegExpr attribute="6" context="6" String="#[bodxei]"/>
-        <RegExpr attribute="3" context="1" String="#[tf]"/>
-        <Float attribute="5" context="1"/>
-        <Int attribute="3" context="1"/>
+      <context name="Normal" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="Comment" context="Comment" char=";"/>
+        <Detect2Chars attribute="Comment" context="MultiLineComment" char="|" char1="#"/>
+        <DetectChar attribute="Operator" context="Normal" char="("/>
+        <DetectChar attribute="Operator" context="#pop" char=")"/>
+        <keyword attribute="String" context="#stay" String="blocks"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Keyword" context="Predicates" String="predicates"/>
+        <keyword attribute="Keyword" context="Predicates2" String="predicates2"/>
+        <keyword attribute="Keyword" context="Assignments" String="assignments"/>
+        <keyword attribute="MathOps" context="#stay" String="mathops"/>
+        <RegExpr attribute="MathOps" context="#stay" String="[\+\-\*\/]?\s"/>
+        <StringDetect attribute="Special" context="#stay" String="list-&gt;string"/>
+        <StringDetect attribute="Special" context="#stay" String="string-&gt;list"/>
+        <StringDetect attribute="Special" context="#stay" String="char-&gt;integer"/>
+        <StringDetect attribute="Special" context="#stay" String="integer-&gt;char"/>
+        <StringDetect attribute="Special" context="#stay" String="string-&gt;symbol"/>
+        <StringDetect attribute="Special" context="#stay" String="symbol-&gt;string"/>
+        <StringDetect attribute="Special" context="#stay" String="exact-&gt;inexact"/>
+        <StringDetect attribute="Special" context="#stay" String="inexact-&gt;exact"/>
+        <StringDetect attribute="Special" context="#stay" String="number-&gt;string"/>
+        <StringDetect attribute="Special" context="#stay" String="string-&gt;number"/>
+        <RegExpr attribute="Predicate" context="#stay" String="[&lt;&gt;]?=?\s"/>
+        <DetectChar attribute="Comment" context="String" char="&quot;"/>
+        <StringDetect attribute="Decimal" context="#stay" String="'()"/>
+        <RegExpr attribute="Special" context="#stay" String="['`]"/>
+        <RegExpr attribute="Char" context="SpecialNumber" String="#[bodxei]"/>
+        <RegExpr attribute="Decimal" context="#stay" String="#[tf]"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
       </context>
-      <context name="Comment" attribute="8" lineEndContext="1"/>
-      <context name="Predicates" attribute="0" lineEndContext="1">
-        <DetectChar attribute="10" context="1" char="?"/>
+      <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
+      <context name="MultiLineComment" attribute="Comment" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="#" char1="|"/>
       </context>
-      <context name="Predicates2" attribute="0" lineEndContext="1">
-        <RegExpr attribute="1" context="4" String="-ci"/>
-        <RegExpr attribute="10" context="1" String="[&lt;&gt;]?=?\?"/>
+      <context name="Predicates" attribute="Normal" lineEndContext="#pop">
+        <DetectChar attribute="Predicate" context="#pop" char="?"/>
       </context>
-      <context name="Assignments" attribute="0" lineEndContext="1">
-        <DetectChar attribute="11" context="1" char="!"/>
+      <context name="Predicates2" attribute="Normal" lineEndContext="#pop">
+        <RegExpr attribute="Predicate" context="#pop" String="[&lt;&gt;]?=?\?"/>
       </context>
-      <context name="SpecialNumber" attribute="0" lineEndContext="1">
-        <Float attribute="5" context="1"/>
-        <Int attribute="3" context="1"/>
-        <HlCOct attribute="4" context="1"/>
-        <HlCHex attribute="5" context="1"/>
+      <context name="Assignments" attribute="Normal" lineEndContext="#pop">
+        <DetectChar attribute="Assignments" context="#pop" char="!"/>
       </context>
-      <context name="String" attribute="2" lineEndContext="7">
-        <DetectChar attribute="8" context="1" char="&quot;"/>
+      <context name="SpecialNumber" attribute="Normal" lineEndContext="#pop">
+        <Float attribute="Float" context="#pop"/>
+        <Int attribute="Decimal" context="#pop"/>
+        <HlCOct attribute="BaseN" context="#pop"/>
+        <HlCHex attribute="Float" context="#pop"/>
+      </context>
+      <context name="String" attribute="String" lineEndContext="#stay">
+        <DetectChar attribute="Comment" context="#pop" char="&quot;"/>
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Normal" defStyleNum="dsNormal"/>
-      <itemData name="Keyword" defStyleNum="dsKeyword"/>
-      <itemData name="Data" defStyleNum="dsDataType"/>
-      <itemData name="Decimal" defStyleNum="dsDecVal"/>
-      <itemData name="BaseN" defStyleNum="dsBaseN"/>
-      <itemData name="Float" defStyleNum="dsFloat"/>
-      <itemData name="Char" defStyleNum="dsChar"/>
-      <itemData name="String" defStyleNum="dsString"/>
-      <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="Operator" defStyleNum="dsOthers"/>
-      <itemData name="Predicate" defStyleNum="dsNormal" color="#ff00ff" selColor="#fffa00" bold="1" italic="0"/>
-      <itemData name="Assignments" defStyleNum="dsNormal" color="#ff0000" selColor="#fffa00" bold="1" italic="0"/>
-      <itemData name="MathOps" defStyleNum="dsNormal" color="#239bbc" selColor="#fffa00" bold="0" italic="0"/>
-      <itemData name="Special" defStyleNum="dsNormal" color="#543491" selColor="#fffa00" bold="1" italic="0"/>
+      <itemData name="Normal"      defStyleNum="dsNormal"/>
+      <itemData name="Keyword"     defStyleNum="dsKeyword"/>
+      <itemData name="Data"        defStyleNum="dsDataType"/>
+      <itemData name="Decimal"     defStyleNum="dsDecVal"/>
+      <itemData name="BaseN"       defStyleNum="dsBaseN"/>
+      <itemData name="Float"       defStyleNum="dsFloat"/>
+      <itemData name="Char"        defStyleNum="dsChar"/>
+      <itemData name="String"      defStyleNum="dsString"/>
+      <itemData name="Comment"     defStyleNum="dsComment"/>
+      <itemData name="Operator"    defStyleNum="dsNormal" color="#008100" selColor="#00ff00" bold="1" italic="0"/>
+      <itemData name="Predicate"   defStyleNum="dsNormal" color="#ff00ff" selColor="#ff00ff" bold="1" italic="0"/>
+      <itemData name="Assignments" defStyleNum="dsNormal" color="#ff0000" selColor="#ff0000" bold="1" italic="0"/>
+      <itemData name="MathOps"     defStyleNum="dsNormal" color="#00aaff" selColor="#fffa00" bold="0" italic="0"/>
+      <itemData name="Special"     defStyleNum="dsNormal" color="#543491" selColor="#fffa00" bold="1" italic="0"/>
+      <itemData name="Error"       defStyleNum="dsNormal" color="#845322" selColor="#fffa00" bold="1" italic="1"/>
     </itemDatas>
   </highlighting>
   <general>
+    <keywords casesensitive="1" weakDeliminator="-"/>
     <comments>
-      <comment name="singleLine" start=";"/>
+      <comment name="singleLine" start=";" />
+      <comment name="multiLine" start="#|" end="|#" />
     </comments>
-    <keywords casesensitive="0"/>
   </general>
 </language>

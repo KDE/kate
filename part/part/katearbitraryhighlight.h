@@ -29,16 +29,16 @@
 class KateDocument;
 class KateView;
 
-class ArbitraryHighlightRange : public KateSuperRange, public KateAttribute
+class KateArbitraryHighlightRange : public KateSuperRange, public KateAttribute
 {
   Q_OBJECT
 
 public:
-  ArbitraryHighlightRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L, const char* name = 0L);
-  ArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
-  ArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
+  KateArbitraryHighlightRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent = 0L, const char* name = 0L);
+  KateArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
+  KateArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
 
-	virtual ~ArbitraryHighlightRange();
+	virtual ~KateArbitraryHighlightRange();
 
   virtual void changed() { slotTagRange(); };
 

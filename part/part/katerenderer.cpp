@@ -164,13 +164,13 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // A bit too verbose for my tastes
   // Re-write a bracketmark class? put into its own function? add more helper constructors to the range stuff?
   // Also, need a light-weight arbitraryhighlightrange class for static stuff
-  ArbitraryHighlightRange* bracketStartRange (0L);
-  ArbitraryHighlightRange* bracketEndRange (0L);
+  KateArbitraryHighlightRange* bracketStartRange (0L);
+  KateArbitraryHighlightRange* bracketEndRange (0L);
   if (bracketmark && bracketmark->isValid()) {
     if (range->includesCursor(bracketmark->start())) {
       KateTextCursor startend = bracketmark->start();
       startend.setCol(startend.col()+1);
-      bracketStartRange = new ArbitraryHighlightRange(m_doc, bracketmark->start(), startend);
+      bracketStartRange = new KateArbitraryHighlightRange(m_doc, bracketmark->start(), startend);
       bracketStartRange->setBGColor(*config()->highlightedBracketColor());
       superRanges.append(bracketStartRange);
     }
@@ -178,7 +178,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     if (range->includesCursor(bracketmark->end())) {
       KateTextCursor endend = bracketmark->end();
       endend.setCol(endend.col()+1);
-      bracketEndRange = new ArbitraryHighlightRange(m_doc, bracketmark->end(), endend);
+      bracketEndRange = new KateArbitraryHighlightRange(m_doc, bracketmark->end(), endend);
       bracketEndRange->setBGColor(*config()->highlightedBracketColor());
       superRanges.append(bracketEndRange);
     }
@@ -403,7 +403,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
         // Incorporate in arbitrary highlighting
         if (curAt != oldAt || curColor != oldColor || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == currentPos)) {
           if (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == currentPos)
-            customHL = ArbitraryHighlightRange::merge(superRanges.rangesIncluding(currentPos));
+            customHL = KateArbitraryHighlightRange::merge(superRanges.rangesIncluding(currentPos));
 
           KateAttribute hl = customHL;
 

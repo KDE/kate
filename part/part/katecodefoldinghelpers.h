@@ -28,8 +28,9 @@
 class QString;
 //END
 
-struct hiddenLineBlock
+class KateHiddenLineBlock
 {
+  public:
     unsigned int start;
     unsigned int length;
 };
@@ -118,7 +119,7 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
 
     QPtrList<KateCodeFoldingNode> markedForDeleting;
     QPtrList<KateCodeFoldingNode> nodesForLine;
-    QValueList<hiddenLineBlock>   hiddenLines;
+    QValueList<KateHiddenLineBlock>   hiddenLines;
 
     unsigned int hiddenLinesCountCache;
     bool         something_changed;

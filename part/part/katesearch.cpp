@@ -531,7 +531,7 @@ bool KateSearch::doSearch( const QString& text )
   //m_searchResults.append(s);
 
   if (arbitraryHLExample)  {
-    ArbitraryHighlightRange* hl = new ArbitraryHighlightRange(new KateSuperCursor(m_doc, true, s.cursor), new KateSuperCursor(m_doc, true, s.cursor.line(), s.cursor.col() + s.matchedLength), this);
+    KateArbitraryHighlightRange* hl = new KateArbitraryHighlightRange(new KateSuperCursor(m_doc, true, s.cursor), new KateSuperCursor(m_doc, true, s.cursor.line(), s.cursor.col() + s.matchedLength), this);
     hl->setBold();
     hl->setTextColor(Qt::white);
     hl->setBGColor(Qt::black);

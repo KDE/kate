@@ -26,22 +26,22 @@
 
 #include <qfont.h>
 
-ArbitraryHighlightRange::ArbitraryHighlightRange(KateSuperCursor* start,
+KateArbitraryHighlightRange::KateArbitraryHighlightRange(KateSuperCursor* start,
 KateSuperCursor* end, QObject* parent, const char* name)   :
 KateSuperRange(start, end, parent, name) {
 }
 
-ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
+KateArbitraryHighlightRange::KateArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
   : KateSuperRange(doc, range, parent, name)
 {
 }
 
-ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
+KateArbitraryHighlightRange::KateArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
   : KateSuperRange(doc, start, end, parent, name)
 {
 }
 
-ArbitraryHighlightRange::~ArbitraryHighlightRange()
+KateArbitraryHighlightRange::~KateArbitraryHighlightRange()
 {
 }
 
@@ -50,19 +50,19 @@ KateArbitraryHighlight::KateArbitraryHighlight(KateDocument* parent, const char*
 {
 }
 
-KateAttribute ArbitraryHighlightRange::merge(QPtrList<KateSuperRange> ranges)
+KateAttribute KateArbitraryHighlightRange::merge(QPtrList<KateSuperRange> ranges)
 {
   ranges.sort();
 
   KateAttribute ret;
 
-  if (ranges.first() && ranges.current()->inherits("ArbitraryHighlightRange"))
-    ret = *(static_cast<ArbitraryHighlightRange*>(ranges.current()));
+  if (ranges.first() && ranges.current()->inherits("KateArbitraryHighlightRange"))
+    ret = *(static_cast<KateArbitraryHighlightRange*>(ranges.current()));
 
   KateSuperRange* r;
   while ((r = ranges.next())) {
-    if (r->inherits("ArbitraryHighlightRange")) {
-      ArbitraryHighlightRange* hl = static_cast<ArbitraryHighlightRange*>(r);
+    if (r->inherits("KateArbitraryHighlightRange")) {
+      KateArbitraryHighlightRange* hl = static_cast<KateArbitraryHighlightRange*>(r);
       ret += *hl;
     }
   }

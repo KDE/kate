@@ -1555,11 +1555,15 @@ void KateViewInternal::bottom_end( bool sel )
 
 void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool keepSel )
 {
-  if( keepSel ) {
+  if( keepSel )
+  {
     m_doc->selectTo( cursor, newCursor );
-  } else if( !(m_doc->configFlags() & KateDocument::cfPersistent) ) {
-    m_doc->clearSelection();
+    QApplication::clipboard()->setSelectionMode( true );
+    m_doc->copy();
+    QApplication::clipboard()->setSelectionMode( false );
   }
+  else if ( !(m_doc->configFlags() & KateDocument::cfPersistent) )
+    m_doc->clearSelection();
 }
 
 void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
@@ -1869,7 +1873,12 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
   if (e->button() == LeftButton) {
     if (possibleTripleClick) {
       possibleTripleClick = false;
+      
       m_doc->selectLine( cursor );
+      QApplication::clipboard()->setSelectionMode( true );
+      m_doc->copy();
+      QApplication::clipboard()->setSelectionMode( false );
+      
       cursor.col = 0;
       updateCursor( cursor );
       return;
@@ -1905,6 +1914,10 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
     // Move cursor to end of selected word
     if (m_doc->hasSelection())
     {
+      QApplication::clipboard()->setSelectionMode( true );
+      m_doc->copy();
+      QApplication::clipboard()->setSelectionMode( false );
+    
       cursor.col = m_doc->selectEnd.col;
       cursor.line = m_doc->selectEnd.line;
       updateCursor( cursor );
@@ -1929,10 +1942,6 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       // so now we kill the selection
       placeCursor( e->pos() );
     } else if (dragInfo.state == diNone) {
-      QApplication::clipboard()->setSelectionMode( true );
-      m_doc->copy();
-      QApplication::clipboard()->setSelectionMode( false );
-
       killTimer(scrollTimer);
       scrollTimer = 0;
     }

@@ -1,2 +1,2 @@
-SUBDIRS = isearch insertfile kdatatool wordcompletion
+SUBDIRS = isearch insertfile kdatatool
 

@@ -60,37 +60,41 @@ class KateCodeFoldingNode
 
     ~KateCodeFoldingNode ();
 
-  inline int nodeType () { return type;}
+    inline int nodeType () { return type;}
 
-  inline bool isVisible () {return visible;}
+    inline bool isVisible () {return visible;}
 
-  inline KateCodeFoldingNode *getParentNode () {return parentNode;}
+    inline KateCodeFoldingNode *getParentNode () {return parentNode;}
 
-  bool getBegin (KateCodeFoldingTree *tree, KateTextCursor* begin);
-  bool getEnd (KateCodeFoldingTree *tree, KateTextCursor *end);
+    bool getBegin (KateCodeFoldingTree *tree, KateTextCursor* begin);
+    bool getEnd (KateCodeFoldingTree *tree, KateTextCursor *end);
 
   /**
    * accessors for the child nodes
    */
-protected:
-  inline bool noChildren () const { return m_children.isEmpty(); }
+  protected:
+    inline bool noChildren () const { return m_children.isEmpty(); }
 
-  inline uint childCount () const { return m_children.size(); }
+    inline uint childCount () const { return m_children.size(); }
 
-  inline KateCodeFoldingNode *child (uint index) const { return m_children[index]; }
+    inline KateCodeFoldingNode *child (uint index) const { return m_children[index]; }
 
-  inline int findChild (KateCodeFoldingNode *node, uint start = 0) const { return m_children.find (node, start); }
+    inline int findChild (KateCodeFoldingNode *node, uint start = 0) const { return m_children.find (node, start); }
 
-  inline void appendChild (KateCodeFoldingNode *node) { m_children.resize(m_children.size()+1); m_children[m_children.size()-1] = node; }
+    inline void appendChild (KateCodeFoldingNode *node) { m_children.resize(m_children.size()+1); m_children[m_children.size()-1] = node; }
 
-  void insertChild (uint index, KateCodeFoldingNode *node);
+    void insertChild (uint index, KateCodeFoldingNode *node);
 
-  KateCodeFoldingNode *takeChild (uint index);
+    KateCodeFoldingNode *takeChild (uint index);
 
-  void clearChildren ();
+    void clearChildren ();
 
     int cmpPos(KateCodeFoldingTree *tree, uint line, uint col);
 
+  /**
+   * data members
+   */
+  private:
     // temporary public to avoid friend an be able to disallow the access of m_childnodes directly ;)
     KateCodeFoldingNode                *parentNode;
     unsigned int startLineRel;

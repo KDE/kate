@@ -25,7 +25,7 @@
 
 #include <qstring.h>
 
-#define JW_DEBUG 0
+#define JW_DEBUG 1
 
 bool KateCodeFoldingTree::trueVal = true;
 
@@ -119,7 +119,7 @@ void KateCodeFoldingNode::insertChild (uint index, KateCodeFoldingNode *node)
 
   m_children.resize (++s);
 
-  for (uint i=index+1; i < s; ++i)
+  for (uint i=s-1; i > index; --i)
     m_children[i] = m_children[i-1];
 
   m_children[index] = node;

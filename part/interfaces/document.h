@@ -60,8 +60,9 @@ class ConfigPage : public KTextEditor::ConfigPage
 
   public slots:
     virtual void apply () { ; };
-    virtual void reload () { ; };
-};
+    virtual void reload () { ; };  
+    virtual void reset () {};
+    virtual void defaults () {};};
 
 class ActionMenu : public KActionMenu
 {

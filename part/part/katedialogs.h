@@ -192,7 +192,9 @@ class HlConfigPage : public Kate::ConfigPage
 
   public slots:
     void apply ();
-    void reload ();
+    void reload ();   
+    void reset () {};
+    void defaults () {};
 };
 
 class HighlightDialogPage : public QTabWidget

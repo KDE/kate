@@ -126,7 +126,9 @@ class IndentConfigTab : public Kate::ConfigPage
     
   public slots:
     void apply ();
-    void reload ();
+    void reload ();            
+        void reset () {};
+    void defaults () {};
 };
 
 class SelectConfigTab : public Kate::ConfigPage
@@ -148,6 +150,8 @@ class SelectConfigTab : public Kate::ConfigPage
   public slots:
     void apply ();
     void reload ();
+        void reset () {};
+    void defaults () {};
 };
 
 class EditConfigTab : public Kate::ConfigPage
@@ -172,7 +176,9 @@ class EditConfigTab : public Kate::ConfigPage
   
   public slots:
     void apply ();
-    void reload ();
+    void reload ();        
+        void reset () {};
+    void defaults () {};
 
   protected slots:
     void wordWrapToggled();
@@ -200,7 +206,9 @@ private:
 
   public slots:
     void apply ();
-    void reload ();
+    void reload ();    
+        void reset () {};
+    void defaults () {};
 };
 
 class FontConfig : public Kate::ConfigPage
@@ -231,7 +239,9 @@ public:
 
   public slots:
     void apply ();
-    void reload ();
+    void reload ();   
+        void reset () {};
+    void defaults () {};
 };
 
 
@@ -252,7 +262,9 @@ protected slots:
   
   public slots:
     void apply ();
-    void reload ();
+    void reload ();    
+        void reset () {};
+    void defaults () {};
 };
 
 #endif

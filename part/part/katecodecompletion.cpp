@@ -384,6 +384,7 @@ KateArgHint::KateArgHint( KateView* parent, const char* name )
     : QFrame( parent, name, WType_Popup )
 {
     setBackgroundColor( black );
+    setPaletteForegroundColor( QColor("black") );
 
     labelDict.setAutoDelete( true );
     layout = new QVBoxLayout( this, 1, 2 );
@@ -477,7 +478,6 @@ void KateArgHint::addFunction( int id, const QString& prot )
     m_functionMap[ id ] = prot;
     QLabel* label = new QLabel( prot.stripWhiteSpace().simplifyWhiteSpace(), this );
     label->setBackgroundColor( QColor(255, 255, 238) );
-    label->setPaletteForegroundColor( QColor("black") );
     label->show();
     labelDict.insert( id, label );
 

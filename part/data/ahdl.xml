@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Altera AHDL" version="1.00" kateversion="2.1" section="Sources" extensions="*.ahdl;" mimetype="text/x-ahdl" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="Altera AHDL" version="1.01" kateversion="2.3" section="Sources" extensions="*.ahdl;*.tdf" mimetype="text/x-ahdl" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> assert </item>
-      <item> begin </item>
       <item> bidir </item>
       <item> bits </item>
       <item> buried </item>
@@ -18,13 +17,11 @@
       <item> device </item>
       <item> else </item>
       <item> elsif </item>
-      <item> end </item>
       <item> for </item>
       <item> function </item>
       <item> generate </item>
       <item> gnd </item>
       <item> help_id </item>
-      <item> if </item>
       <item> in </item>
       <item> include </item>
       <item> input </item>
@@ -39,7 +36,6 @@
       <item> returns </item>
       <item> states </item>
       <item> subdesign </item>
-      <item> table </item>
       <item> then </item>
       <item> title </item>
       <item> to </item>
@@ -91,41 +87,26 @@
       <context name="normal" attribute="Normal Text" lineEndContext="#stay">
         <RegExpr attribute="Keyword" context="#stay" String="\bif\b" insensitive="true" beginRegion="if"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bend\s+if\b" insensitive="true" endRegion="if"/>
-        
         <RegExpr attribute="Keyword" context="#stay" String="\btable\b" insensitive="true" beginRegion="table"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bend\s+table\b" insensitive="true" endRegion="table"/>
-        
         <RegExpr attribute="Keyword" context="#stay" String="\bcase\b" insensitive="true" beginRegion="case"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bend\s+case\b" insensitive="true" endRegion="case"/>
-
         <RegExpr attribute="Keyword" context="#stay" String="\bbegin\b" insensitive="true" beginRegion="block"/>
         <RegExpr attribute="Keyword" context="#stay" String="\bend\b" insensitive="true" endRegion="block"/>
-
         <DetectChar attribute="Normal Text" context="#stay" char="(" beginRegion="bracket"/>
         <DetectChar attribute="Normal Text" context="#stay" char=")" endRegion="bracket"/>
-
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
         <keyword attribute="Operator" context="#stay" String="operator"/>
-<RegExpr attribute="Bit" context="#stay" String="\bB&quot;[01]*&quot;" />
+        <RegExpr attribute="Decimal" context="#stay" String="\b(\d+)\b" />
+        <RegExpr attribute="Bit" context="#stay" String="\bb&quot;(0|1|x)+&quot;" insensitive="true"/>
+        <RegExpr attribute="Octal" context="#stay" String="\b(o|q)&quot;[0-7*]&quot;" insensitive="true"/>
+        <RegExpr attribute="Hex" context="#stay" String="\b(h|x)&quot;[0-9a-f]*&quot;" insensitive="true"/>
         <DetectChar attribute="String" context="string" char="&quot;" />
         <RegExpr attribute="Region Marker" context="#stay" String="^\s*--\s*BEGIN.*$" beginRegion="region"/>
         <RegExpr attribute="Region Marker" context="#stay" String="^\s*--\s*END.*$" endRegion="region"/>
         <RegExpr attribute="Comment" context="#stay" String="--.*$" />
         <DetectChar attribute="Comment" context="comment" char="%" />
-
-        <HlCOct attribute="Octal" context="#stay"/>
-        <HlCHex attribute="Hex" context="#stay"/>
-        <Int attribute="Decimal" context="#stay">
-          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
-          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
-        </Int>
         <HlCChar attribute="Char" context="#stay"/>
       </context>
       <context name="string" attribute="String" lineEndContext="#stay" >
@@ -148,8 +129,7 @@
       <itemData name="Decimal" defStyleNum="dsDecVal"/>
       <itemData name="Octal" defStyleNum="dsBaseN"/>
       <itemData name="Hex" defStyleNum="dsBaseN"/>
-      <itemData name="Float" defStyleNum="dsFloat"/>
-      <itemData name="Region Marker" defStyleNum="dsNormal" color="#0000ff"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>
   </highlighting>
   <general>

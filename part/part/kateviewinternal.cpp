@@ -27,7 +27,6 @@
 #include "kateviewinternal.moc"
 
 #include "kateview.h"
-#include "katedocument.h"
 #include "katecodefoldinghelpers.h"
 #include "kateviewhelpers.h"
 #include "katehighlight.h"
@@ -3323,15 +3322,6 @@ void KateScrollBar::sliderMaybeMoved(int value)
   if (m_middleMouseDown)
     emit sliderMMBMoved(value);
 }
-
-KateTextLine::Ptr KateViewInternal::textLine( int realLine )
-{
-  if (m_usePlainLines)
-    return m_doc->plainKateTextLine(realLine);
-  else
-    return m_doc->kateTextLine(realLine);
-}
-
 // END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

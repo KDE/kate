@@ -24,6 +24,8 @@
 #include "katesupercursor.h"
 #include "katetextline.h"
 #include "kateundo.h"
+#include "katebuffer.h"
+#include "katecodefoldinghelpers.h"
 
 #include "../interfaces/document.h"
 
@@ -563,10 +565,7 @@ class KateDocument : public Kate::Document,
     /**
      * gets the last line number (numLines() -1)
      */
-    uint lastLine() const { return numLines()-1;}
-
-    KateTextLine::Ptr kateTextLine(uint i);
-    KateTextLine::Ptr plainKateTextLine(uint i);
+    inline uint lastLine() const { return numLines()-1; }
 
     uint configFlags ();
     void setConfigFlags (uint flags);
@@ -579,7 +578,7 @@ class KateDocument : public Kate::Document,
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
 
-    KateHighlighting *highlight () { return m_highlight; }
+    inline KateHighlighting *highlight () { return m_highlight; }
 
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
@@ -801,13 +800,32 @@ class KateDocument : public Kate::Document,
   public slots:
      void applyWordWrap ();
 
+   // code folding
   public:
+    inline uint getRealLine(unsigned int virtualLine)
+    {
+      return m_buffer->lineNumber (virtualLine);
+    }
 
- // code folding
-  public:
-    unsigned int getRealLine(unsigned int virtualLine);
-    unsigned int getVirtualLine(unsigned int realLine);
-    unsigned int visibleLines ();
+    inline uint getVirtualLine(unsigned int realLine)
+    {
+      return m_buffer->lineVisibleNumber (realLine);
+    }
+
+    inline uint visibleLines ()
+    {
+      return m_buffer->countVisible ();
+    }
+
+    inline KateTextLine::Ptr kateTextLine(uint i)
+    {
+      return m_buffer->line (i);
+    }
+
+    inline KateTextLine::Ptr plainKateTextLine(uint i)
+    {
+      return m_buffer->plainLine (i);
+    }
 
   signals:
     void codeFoldingUpdated();

@@ -31,8 +31,6 @@
 #include "kateautoindent.h"
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
-#include "katebuffer.h"
-#include "katecodefoldinghelpers.h"
 #include "kateprinter.h"
 #include "katelinerange.h"
 #include "katesupercursor.h"
@@ -4700,31 +4698,6 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 void KateDocument::dumpRegionTree()
 {
   m_buffer->foldingTree()->debugDump();
-}
-
-unsigned int KateDocument::getRealLine(unsigned int virtualLine)
-{
-  return m_buffer->lineNumber (virtualLine);
-}
-
-unsigned int KateDocument::getVirtualLine(unsigned int realLine)
-{
-  return m_buffer->lineVisibleNumber (realLine);
-}
-
-unsigned int KateDocument::visibleLines ()
-{
-  return m_buffer->countVisible ();
-}
-
-KateTextLine::Ptr KateDocument::kateTextLine(uint i)
-{
-  return m_buffer->line (i);
-}
-
-KateTextLine::Ptr KateDocument::plainKateTextLine(uint i)
-{
-  return m_buffer->plainLine (i);
 }
 //END
 

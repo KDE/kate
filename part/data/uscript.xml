@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="UnrealScript" version="0.7" kateversion="2.2" section="Games" extensions="*.uc" mimetype="text/x-uscript">
+<language name="UnrealScript" version="0.8" kateversion="2.2" section="Games" extensions="*.uc" mimetype="text/x-uscript">
 	<highlighting>
 		<list name="keywords">
 			<item> break </item>
@@ -13,9 +13,7 @@
 			<item> do </item>
 			<item> foreach </item>
 			<item> true </item>
-			<item> True </item>
 			<item> false </item>
-			<item> False </item>
 			<item> null </item>
 			<item> new </item>
 			<item> instanceof </item>
@@ -38,7 +36,6 @@
 			<item> volatile </item>
 			<item> final </item>
 			<item> throws </item>
-			<item> class </item>
 			<item> extends </item>
 			<item> expands </item>
 			<item> public </item>
@@ -79,13 +76,9 @@
 			<item> placeable </item>
 			<item> virtual </item>
 			<item> hidecategories </item>
-			<item> Super </item>
 			<item> super </item>
-			<item> Global </item>
 			<item> global </item>
-			<item> None </item>
 			<item> none </item>
-			<item> Self </item>
 			<item> self </item>
 		</list>
 		
@@ -116,6 +109,8 @@
 			<item> package </item>
 			<item> color </item>
 			<item> coords </item>
+			<item> material </item>
+			<item> class </item>
 		</list>
 		<contexts>
 			<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
@@ -146,7 +141,7 @@
 				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1"/>
 				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1"/>
 				<AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-				<RegExpr attribute="Preprocessor" context="Preprocessor" String="#exec"/>
+				<RegExpr attribute="Preprocessor" context="Preprocessor" insensitive="TRUE" String="#exec"/>
 			</context>
 			<context attribute="String" lineEndContext="#pop" name="String">
 				<LineContinue attribute="String" context="#stay"/>
@@ -184,7 +179,7 @@
 			<comment name="singleLine" start="//"/>
 			<comment name="multiLine" start="/*" end="*/"/>
 		</comments>
-		<keywords casesensitive="1"/>
+		<keywords casesensitive="0" additionalDeliminator="&quot;&#39;"/>
 	</general>
 </language>
 

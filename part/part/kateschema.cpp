@@ -146,7 +146,7 @@ class KateStyleListCaption : public QListViewItem
   public:
     KateStyleListCaption( QListView *parent, const QString & name );
     ~KateStyleListCaption() {};
-  
+
   protected:
     void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
 };
@@ -322,7 +322,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   label = new QLabel( i18n("Left border background:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_iconborder = new KColorButton(b);
-  
+
   b = new QHBox (gbBorder);
   b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Line numbers:"), b);
@@ -365,6 +365,9 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   QWhatsThis::add(m_combobox, i18n("<p>Select the marker type you want to change.</p>"));
   QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
         "active line, which means the line where your cursor is positioned.</p>"));
+  QWhatsThis::add( m_linenumber, i18n(
+        "<p>This color will be used to draw the line numbers (if enabled) and the "
+        "lines in the code folding folding pane.</p>" ) );
   QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
         "be highlighted with this color.</p>"));
@@ -721,14 +724,14 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
         itemData = m_hlDict[m_schema]->find(m_hl)->prev())
   {
     kdDebug () << "insert items " << itemData->name << endl;
-    
+
     // All stylenames have their language mode prefixed, e.g. HTML:Comment
     // split them and put them into nice substructures.
     int c = itemData->name.find(':');
     if ( c > 0 ) {
       QString prefix = itemData->name.left(c);
       QString name   = itemData->name.mid(c+1);
-      
+
       KateStyleListCaption *parent = prefixes.find( prefix );
       if ( ! parent )
       {

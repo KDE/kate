@@ -34,7 +34,6 @@
 #include "kateviewdialog.h"
 #include "kateiconborder.h"
 #include "katedialogs.h"
-#include "katefiledialog.h"
 #include "katetextline.h"
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
@@ -66,6 +65,7 @@
 #include <kxmlguifactory.h>
 #include <kaccel.h>
 #include <klibloader.h>
+#include <kencodingfiledialog.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -863,22 +863,16 @@ KateView::saveResult KateView::save()
 
 KateView::saveResult KateView::saveAs()
 {
-  KateFileDialog *dialog = new KateFileDialog (
-    m_doc->url().url(),
-    doc()->config()->encoding(),
-    this,
-    i18n("Save File") );
 
-  KateFileDialogData data = dialog->exec();
+  KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(doc()->config()->encoding(),
+		m_doc->url().url(),QString::null,this,i18n("Save File"));
 
-  delete dialog;
-
-  if( data.url.isEmpty() || !checkOverwrite( data.url ) )
+  if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) )
     return SAVE_CANCEL;
 
-  m_doc->setEncoding( data.encoding );
+  m_doc->setEncoding( res.encoding );
 
-  if( m_doc->saveAs( data.url ) )
+  if( m_doc->saveAs( res.URLs.first() ) )
     return SAVE_OK;
 
   return SAVE_ERROR;

@@ -34,6 +34,7 @@
 #include <klocale.h>
 #include <kinstance.h>
 #include <kaboutdata.h>
+#include <kdirwatch.h>
 
 template class QPtrList<KateDocument>;
 template class QPtrList<KateView>;
@@ -47,6 +48,7 @@ QPtrList<class KateDocument> KateFactory::s_documents;
 QPtrList<class KateView> KateFactory::s_views;
 QPtrList<class KateRenderer> KateFactory::s_renderers;
 KTrader::OfferList *KateFactory::s_plugins = 0;
+KDirWatch *KateFactory::s_dirWatch = 0;
 
 extern "C"
 {
@@ -79,10 +81,12 @@ KateFactory::~KateFactory()
     delete s_instance;
     delete s_about;
     delete s_plugins;
+    delete s_dirWatch;
 
     s_instance = 0;
     s_about = 0;
     s_plugins = 0;
+    s_dirWatch = 0;
   }
   else
     deref();
@@ -168,6 +172,14 @@ KTrader::OfferList *KateFactory::plugins ()
    s_plugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/Plugin"));
 
   return s_plugins;
+}
+
+KDirWatch *KateFactory::dirWatch ()
+{
+  if ( !s_dirWatch )
+   s_dirWatch = new KDirWatch ();
+
+  return s_dirWatch;
 }
 
 KInstance *KateFactory::instance()

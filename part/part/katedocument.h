@@ -690,6 +690,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   public slots:
     void dumpRegionTree();
 
+  private slots:
+    void slotModOnHd (const QString &path);
+
   //
   // REALLY internal data ;)
   //
@@ -706,13 +709,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     bool hlSetByUser;
 
-    /**
-     * updates mTime to reflect file on fs.
-     * called from constructor and from saveFile.
-     */
-    void setMTime();
-    class QFileInfo* fileInfo;
-    QDateTime mTime;
+    bool m_modOnHd;
+
     QString m_docName;
 
     QMemArray<KateAttribute> myAttribs;

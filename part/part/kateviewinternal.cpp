@@ -46,7 +46,7 @@
 
 #include <qstyle.h>
 #include <qdragobject.h>
-#include <qpopupmenu.h>*/
+#include <qpopupmenu.h>
 #include <qdropsite.h>
 #include <qpainter.h>
 #include <qlayout.h>

@@ -225,6 +225,9 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
       cfSpaceIndent= 0x400000,
       cfSmartHome = 0x800000
     };
+
+  signals:
+    void modifiedOnDisc (Document *doc, bool isModified);
 };
 
 Document *document (KTextEditor::Document *doc);

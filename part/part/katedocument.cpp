@@ -70,6 +70,7 @@
 #include <kglobalsettings.h>
 #include <ksavefile.h>
 #include <klibloader.h>
+#include <kdirwatch.h>
 
 #include <qfileinfo.h>
 #include <qpainter.h>
@@ -110,7 +111,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoIgnoreCancel(false),
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
-  hlManager(HlManager::self ())
+  hlManager(HlManager::self ()),
+  m_modOnHd (false)
 {
   setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
@@ -131,6 +133,15 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   KateFactory::registerDocument (this);
   m_config = new KateDocumentConfig (this);
+
+  connect( KateFactory::dirWatch(), SIGNAL(dirty (const QString &)),
+           this, SLOT(slotModOnHd (const QString &)) );
+
+  connect( KateFactory::dirWatch(), SIGNAL(created (const QString &)),
+           this, SLOT(slotModOnHd (const QString &)) );
+
+  connect( KateFactory::dirWatch(), SIGNAL(deleted (const QString &)),
+           this, SLOT(slotModOnHd (const QString &)) );
 
   // init global plugin list
   if (!s_configLoaded)
@@ -200,8 +211,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setMarksUserChangable( markType01 );
 
   m_docName = QString ("");
-  fileInfo = new QFileInfo ();
-
   m_highlight = 0L;
 
   m_undoMergeTimer = new QTimer(this);
@@ -264,6 +273,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  KateFactory::dirWatch ()->removeFile (m_file);
+
   //BEGIN spellcheck stuff
   if( m_kspell )
   {
@@ -284,8 +295,6 @@ KateDocument::~KateDocument()
   }
 
   m_highlight->release();
-
-  delete fileInfo;
 
   delete m_config;
   KateFactory::deregisterDocument (this);
@@ -381,9 +390,15 @@ bool KateDocument::closeURL()
   if (!KParts::ReadWritePart::closeURL ())
     return false;
 
+  KateFactory::dirWatch ()->removeFile (m_file);
+
   m_url = KURL();
-  fileInfo->setFile (QString());
-  setMTime();
+
+  if (m_modOnHd)
+  {
+    m_modOnHd = false;
+    emit modifiedOnDisc (this, m_modOnHd);
+  }
 
   buffer->clear();
   clearMarks ();
@@ -2766,14 +2781,22 @@ bool KateDocument::print ()
 
 bool KateDocument::openFile()
 {
-  fileInfo->setFile (m_file);
-  setMTime();
+  QFileInfo fileInfo (m_file);
 
-  if (!fileInfo->exists() || !fileInfo->isReadable())
+  if (!fileInfo.exists() || !fileInfo.isReadable())
   {
     // m_file && m_url have changed e.g. with "kwrite filethatdoesntexist"
     emit fileNameChanged();
     return false;
+  }
+
+  if (m_url.isLocalFile())
+    KateFactory::dirWatch ()->addFile (m_file);
+
+  if (m_modOnHd)
+  {
+    m_modOnHd = false;
+    emit modifiedOnDisc (this, m_modOnHd);
   }
 
   QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
@@ -2784,8 +2807,6 @@ bool KateDocument::openFile()
   kdDebug(13020) << "myEncoding: " << encoding() << endl;
 
   bool success = buffer->openFile (m_file);
-
-  setMTime();
 
   int hl = hlManager->wildcardFind( m_file );
 
@@ -2857,6 +2878,8 @@ bool KateDocument::saveFile()
     KMessageBox::error (0, i18n ("The document has been saved, but the selected encoding cannot encode every unicode character in it. "
     "If you don't save it again with another encoding, some characters will be lost after closing this document."));
 
+  KateFactory::dirWatch ()->removeFile (m_file);
+
   bool success = buffer->saveFile (m_file);
 
   if (!hlSetByUser)
@@ -2892,9 +2915,14 @@ bool KateDocument::saveFile()
 
   setDocName  (url().fileName());
 
-  // last stuff to do
-  fileInfo->setFile (m_file);
-  setMTime();
+  if (m_url.isLocalFile())
+    KateFactory::dirWatch ()->addFile (m_file);
+
+  if (m_modOnHd)
+  {
+    m_modOnHd = false;
+    emit modifiedOnDisc (this, m_modOnHd);
+  }
 
   return success;
 }
@@ -4232,24 +4260,10 @@ void KateDocument::setDocName (QString docName)
   emit nameChanged ((Kate::Document *) this);
 }
 
-void KateDocument::setMTime()
-{
-  if (fileInfo && !fileInfo->fileName().isEmpty()) {
-    fileInfo->refresh();
-    mTime = fileInfo->lastModified();
-  }
-}
-
 void KateDocument::isModOnHD(bool forceReload)
 {
-  if (fileInfo && !fileInfo->fileName().isEmpty())
+  if (m_modOnHd && !url().isEmpty())
   {
-    fileInfo->refresh();
-
-    if (fileInfo->lastModified() != mTime)
-    {
-      setMTime();
-
       if ( forceReload ||
            (KMessageBox::warningYesNo(0,
                (i18n("The file %1 has changed on disk.\nDo you want to reload the modified file?\n\nIf you choose Discard and subsequently save the file, you will lose those modifications.")).arg(url().fileName()),
@@ -4258,18 +4272,16 @@ void KateDocument::isModOnHD(bool forceReload)
                KStdGuiItem::discard() ) == KMessageBox::Yes)
           )
         reloadFile();
-    }
   }
 }
 
 void KateDocument::reloadFile()
 {
-  if (fileInfo && !fileInfo->fileName().isEmpty())
+  if ( !url().isEmpty() )
   {
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
     KateDocument::openURL( url() );
-    setMTime();
 
     if (byUser)
       setHlMode (mode);
@@ -4958,6 +4970,19 @@ bool KateDocument::checkColorValue( QString val, QColor &c )
 {
   c.setNamedColor( val );
   return c.isValid();
+}
+
+void KateDocument::slotModOnHd (const QString &path)
+{
+  bool b = (path == m_file);
+
+  kdDebug() << "mod " << path << " " << b << endl;
+
+  if (b != m_modOnHd)
+  {
+    m_modOnHd = b;
+    emit modifiedOnDisc (this, m_modOnHd);
+  }
 }
 
 //END

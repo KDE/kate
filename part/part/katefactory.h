@@ -29,6 +29,7 @@ class KateCmd;
 
 class KInstance;
 class KAboutData;
+class KDirWatch;
 
 class KateFactory : public KParts::Factory
 {
@@ -59,6 +60,8 @@ class KateFactory : public KParts::Factory
 
     static QPtrList<class KateRenderer> *renderers () { return &s_renderers; };
 
+    static KDirWatch *dirWatch ();
+
   private:
     static void ref();
     static void deref();
@@ -72,6 +75,7 @@ class KateFactory : public KParts::Factory
 
     static KInstance *s_instance;
     static KAboutData *s_about;
+    static KDirWatch *s_dirWatch;
 
     static KTrader::OfferList *s_plugins;
 };

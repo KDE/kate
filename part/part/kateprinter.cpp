@@ -2,6 +2,7 @@
  *  This file is part of the KDE libraries
  *  Copyright (c) 2001-2002 Michael Goffioul <goffioul@imec.be>
  *  Complete rewrite on Sat Jun 15 2002 (c) Anders Lund <anders@alweb.dk>
+ *  Copyright (c) 2002, 2003 Anders Lund <anders@alweb.dk>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -167,10 +168,11 @@ bool KatePrinter::print (KateDocument *doc)
          s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
                           // FIXME calculate which is actually the widest...
          lineNumberWidth = renderer.currentFontMetrics()->width( s );
-         //lineNumberWidth = printFont.myFontMetrics.maxWidth() * s.length(); // BAD!
+         // a small space between the line numbers and the text
+         int _adj = renderer.currentFontMetrics()->width( "5" );
          // adjust available width and set horizontal start point for data
-         maxWidth -= lineNumberWidth;
-         xstart += lineNumberWidth;
+         maxWidth -= (lineNumberWidth + _adj);
+         xstart += lineNumberWidth + _adj;
        }
 
        if ( useHeader || useFooter )

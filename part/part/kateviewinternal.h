@@ -401,3 +401,5 @@ class KateViewInternal : public QWidget
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

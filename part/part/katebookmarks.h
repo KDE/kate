@@ -73,7 +73,7 @@ class KateBookmarks : public QObject
     uint _tries;
 };
 
-#endif // _KateBookmarks_H_
+#endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 // vim: noet ts=2

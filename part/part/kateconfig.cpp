@@ -1200,4 +1200,5 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
 }
 
 //END
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -63,10 +63,6 @@ KateCmdLine::KateCmdLine (KateView *view)
   completionObject()->insertItems (KateCmd::self()->cmds());
 }
 
-KateCmdLine::~KateCmdLine ()
-{
-}
-
 void KateCmdLine::slotReturnPressed ( const QString& cmd )
 {
   if (cmd.length () > 0)

@@ -27,7 +27,9 @@
 #include <qpixmap.h>
 #include <qcolor.h>
 
+class KateDocument;
 class KateView;
+class KateViewInternal;
 
 class KateCmdLine : public KLineEdit
 {
@@ -35,7 +37,6 @@ class KateCmdLine : public KLineEdit
 
   public:
     KateCmdLine (KateView *view);
-    virtual ~KateCmdLine ();
 
   private slots:
     void slotReturnPressed ( const QString& cmd );
@@ -56,8 +57,7 @@ class KateIconBorder : public QWidget
   Q_OBJECT
 
   public:
-    KateIconBorder( class KateViewInternal* internalView, QWidget *parent );
-    ~KateIconBorder() {};
+    KateIconBorder( KateViewInternal* internalView, QWidget *parent );
 
     // VERY IMPORTANT ;)
     virtual QSize sizeHint() const;
@@ -95,9 +95,9 @@ class KateIconBorder : public QWidget
 
     void showMarkMenu( uint line, const QPoint& pos );
 
-    class KateView *m_view;
-    class KateDocument *m_doc;
-    class KateViewInternal *m_viewInternal;
+    KateView *m_view;
+    KateDocument *m_doc;
+    KateViewInternal *m_viewInternal;
 
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
@@ -116,3 +116,5 @@ class KateIconBorder : public QWidget
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

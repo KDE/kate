@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Anders Lund <anders@alweb.dk>
-   Copyright (C) 2001, 2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Charles Samuels <charles@kde.org>
 
    This library is free software; you can redistribute it and/or
@@ -24,28 +24,33 @@
 #include "../interfaces/document.h"
 #include "../interfaces/view.h"
 
-/**
- * this namespace will be maintained by Charles Samuels <charles@kde.org>
- * so we're going to be using this indentation style here.
- *
- * Respect my style, and I'll respect yours!
- **/
 namespace KateCommands
 {
 
-/*
-  This Kate::Command provides access to a lot of the core functionality
-  of kate part, settings, utilities, navigation etc.
-  it needs to get a kateview pointer, it will cast the kate::view pointer
-  hard to kateview
-*/
+/**
+ * This Kate::Command provides access to a lot of the core functionality
+ * of kate part, settings, utilities, navigation etc.
+ * it needs to get a kateview pointer, it will cast the kate::view pointer
+ * hard to kateview
+ */
 class CoreCommands : public Kate::Command
 {
   public:
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param errorMsg error to return if no success
+     * @return success
+     */
     bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
   
     bool help( class Kate::View *, const QString &, QString & ) {return false;};
   
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
     QStringList cmds();
 };
 
@@ -62,10 +67,21 @@ class CoreCommands : public Kate::Command
 class SedReplace : public Kate::Command
 {
   public:
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param errorMsg error to return if no success
+     * @return success
+     */
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     bool help (class Kate::View *, const QString &, QString &) { return false; };
 
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
     QStringList cmds () { return QStringList("s"); };
 
   private:
@@ -83,13 +99,27 @@ class SedReplace : public Kate::Command
 class Character : public Kate::Command
 {
   public:
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param errorMsg error to return if no success
+     * @return success
+     */
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     bool help (class Kate::View *, const QString &, QString &) { return false; };
 
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
     QStringList cmds () { return QStringList("char"); };
 };
 
+/**
+ * goto the given line in the view
+ */
 class Goto : public Kate::Command
 {
   public:
@@ -97,21 +127,39 @@ class Goto : public Kate::Command
 
     bool help (class Kate::View *, const QString &, QString &) { return false; };
 
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
     QStringList cmds () { return QStringList("goto"); };
 };
 
+/**
+ * insert the current date/time in the given format
+ */
 class Date : public Kate::Command
 {
   public:
+    /**
+     * execute command
+     * @param view view to use for execution
+     * @param cmd cmd string
+     * @param errorMsg error to return if no success
+     * @return success
+     */
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     bool help (class Kate::View *, const QString &, QString &) { return false; };
 
+    /**
+     * supported commands as prefixes
+     * @return prefix list
+     */
     QStringList cmds () { return QStringList("date"); };
 };
 
 }
 
-// vim: noet
-
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

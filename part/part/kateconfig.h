@@ -26,17 +26,16 @@
 #include <qobject.h>
 #include <qvaluevector.h>
 
-
 class KateView;
 class KateDocument;
 class KateRenderer;
 class KateFontStruct;
+class KateFontMetrics;
 
 class KConfig;
 
 class QFont;
 class QTextCodec;
-class KateFontMetrics;
 
 class KateConfig
 {
@@ -445,3 +444,5 @@ class KateRendererConfig : public KateConfig
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -20,11 +20,9 @@
 #ifndef __KATE_SYNTAXDOCUMENT_H__
 #define __KATE_SYNTAXDOCUMENT_H__
 
-//BEGING INCLUDES
 #include <qdom.h>
 #include <qptrlist.h>
 #include <qstringlist.h>
-//END INCLUDES
 
 /**
  * Information about each syntax hl Mode
@@ -59,14 +57,16 @@ class KateSyntaxContextData
     QDomElement item;
 };
 
-/** Store and manage the information about Syntax Highlighting.
-*/
+/**
+ * Store and manage the information about Syntax Highlighting.
+ */
 class KateSyntaxDocument : public QDomDocument
 {
   public:
     /**
      * Constructor:
      * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
+     * @param force fore the update of the hl cache
      */
     KateSyntaxDocument(bool force = false);
 
@@ -122,7 +122,6 @@ class KateSyntaxDocument : public QDomDocument
      */
     QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
 
-
   private:
     /**
      * Generate the list of hl modes, store them in myModeList
@@ -141,8 +140,17 @@ class KateSyntaxDocument : public QDomDocument
      */
     KateSyntaxModeList myModeList;
 
+    /**
+     * current parsed filename
+     */
     QString currentFile;
+    
+    /**
+     * last found data out of the xml
+     */
     QStringList m_data;
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

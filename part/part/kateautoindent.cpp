@@ -677,4 +677,4 @@ int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
 
 // END
 
-// kate: space-indent on; indent-width 2; replace-tabs on; indent-mode cstyle;
+// kate: space-indent on; indent-width 2; replace-tabs on;

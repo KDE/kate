@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Clarence Dang <dang@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -594,11 +594,11 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 
 //BEGIN KateReplacePrompt
 // this dialog is not modal
-KateReplacePrompt::KateReplacePrompt( QWidget *parent )
-  : KDialogBase(parent, 0L, false, i18n( "Replace Text" ),
-  User3 | User2 | User1 | Close | Ok , Ok, true,
-  i18n("&All"), i18n("&Last"), i18n("&No") ) {
-
+KateReplacePrompt::KateReplacePrompt ( QWidget *parent )
+  : KDialogBase ( parent, 0L, false, i18n( "Replace Text" ),
+                  User3 | User2 | User1 | Close | Ok , Ok, true,
+                  i18n("&All"), i18n("&Last"), i18n("&No") )
+{
   setButtonOK( KStdGuiItem::yes() );
   QWidget *page = new QWidget(this);
   setMainWidget(page);
@@ -608,28 +608,35 @@ KateReplacePrompt::KateReplacePrompt( QWidget *parent )
   topLayout->addWidget(label );
 }
 
-void KateReplacePrompt::slotOk( void ) { // Yes
+void KateReplacePrompt::slotOk ()
+{ // Yes
   done(KateSearch::srYes);
 }
 
-void KateReplacePrompt::slotClose( void ) { // Close
+void KateReplacePrompt::slotClose ()
+{ // Close
   done(KateSearch::srCancel);
 }
 
-void KateReplacePrompt::slotUser1( void ) { // All
+void KateReplacePrompt::slotUser1 ()
+{ // All
   done(KateSearch::srAll);
 }
 
-void KateReplacePrompt::slotUser2( void ) { // Last
+void KateReplacePrompt::slotUser2 ()
+{ // Last
   done(KateSearch::srLast);
 }
 
-void KateReplacePrompt::slotUser3( void ) { // No
+void KateReplacePrompt::slotUser3 ()
+{ // No
   done(KateSearch::srNo);
 }
 
-void KateReplacePrompt::done(int r) {
-  setResult(r);
+void KateReplacePrompt::done (int result)
+{
+  setResult(result);
+  
   emit clicked();
 }
 //END KateReplacePrompt

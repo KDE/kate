@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -136,23 +136,59 @@ class KateSearch : public QObject
     QRegExp m_re;
 };
 
+/**
+ * simple replace prompt dialog
+ */
 class KateReplacePrompt : public KDialogBase
 {
   Q_OBJECT
     
   public:
+    /**
+     * Constructor
+     * @param parent parent widget for the dialog
+     */
     KateReplacePrompt(QWidget *parent);
 
   signals:
+    /**
+     * button clicked
+     */
     void clicked();
 
   protected slots:
-    void slotOk( void );
-    void slotClose( void );
-    void slotUser1( void ); // All
-    void slotUser2( void ); // Last
-    void slotUser3( void ); // Yes
-    virtual void done(int);
+    /**
+     * ok pressed
+     */
+    void slotOk ();
+    
+    /**
+     * close pressed
+     */
+    void slotClose ();
+    
+    /**
+     * replace all pressed
+     */
+    void slotUser1 ();
+    
+    /**
+     * last pressed
+     */
+    void slotUser2 ();
+    
+    /**
+     * Yes pressed
+     */
+    void slotUser3 ();
+    
+    /**
+     * dialog done
+     * @param result dialog result
+     */
+    void done (int result);
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

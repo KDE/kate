@@ -50,7 +50,8 @@ void KateBrowserExtension::slotSelectionChanged()
   emit enableAction( "copy", m_doc->hasSelection() );
 }
 
-void KateExportAction::init()
+KateExportAction::KateExportAction(const QString& text, QObject* parent, const char* name)
+        : Kate::ActionMenu(text, parent, name)
 {
   filter.clear();
   filter<<QString("kate_html_export");

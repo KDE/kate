@@ -2179,8 +2179,8 @@ void KateHighlighting::readFoldingConfig()
 
     if (KateHlManager::self()->syntax->groupItemData(data,QString("indentationsensitive"))!="1")
       m_foldingIndentationSensitive=false;
-//     else
-//       m_foldingIndentationSensitive=true;
+    else
+      m_foldingIndentationSensitive=true;
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
   }

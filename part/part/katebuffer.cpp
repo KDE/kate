@@ -988,8 +988,9 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
       // add folding start to the list !
       if (newIn)
       {
-        foldingList.resize (foldingList.size() + 1, QGArray::SpeedOptim);
-        foldingList[foldingList.size()-1] = 1;
+        foldingList.resize (foldingList.size() + 2, QGArray::SpeedOptim);
+        foldingList[foldingList.size()-2] = 1;
+        foldingList[foldingList.size()-1] = 0;
       }
 
       // calculate how much end folding symbols must be added to the list !
@@ -1006,10 +1007,13 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
 
       if (remIn > 0)
       {
-        foldingList.resize (foldingList.size() + remIn, QGArray::SpeedOptim);
+        foldingList.resize (foldingList.size() + (remIn*2), QGArray::SpeedOptim);
 
-        for (uint z= foldingList.size()-remIn; z < foldingList.size(); z++)
+        for (uint z= foldingList.size()-(remIn*2); z < foldingList.size(); z=z+2)
+        {
           foldingList[z] = -1;
+          foldingList[z+1] = 0;
+        }
       }
     }
     bool foldingColChanged=false;

@@ -2964,9 +2964,9 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 
   KateAttribute* alert = new KateAttribute();
   alert->setTextColor(Qt::white);
-  alert->setSelectedTextColor(Qt::red);
+  alert->setSelectedTextColor( QColor::QColor("#FCC") );
   alert->setBold(true);
-  alert->setBGColor(Qt::red);
+  alert->setBGColor( QColor::QColor("#FCC") );
   list.append(alert);
 
   KateAttribute* functionAttribute = new KateAttribute();
@@ -3122,7 +3122,7 @@ void KateViewHighlightAction::slotAboutToShow()
   {
     QString hlName = KateHlManager::self()->hlName (z);
     QString hlSection = KateHlManager::self()->hlSection (z);
-    
+
     if (!KateHlManager::self()->hlHidden(z))
     {
       if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
@@ -3134,7 +3134,7 @@ void KateViewHighlightAction::slotAboutToShow()
           subMenus.append(menu);
           popupMenu()->insertItem (hlSection, menu);
         }
-  
+
         int m = subMenusName.findIndex (hlSection);
         names << hlName;
         subMenus.at(m)->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);

@@ -2172,6 +2172,8 @@ bool KateDocument::saveFile()
   }
   emit fileNameChanged ();
 
+  setDocName  (url().filename());
+  
   return (f.status() == IO_Ok);
 }
 

@@ -645,7 +645,7 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
   if (s.isEmpty())
     return true;
 
-  if (line == numLines())		
+  if (line == numLines())
     editInsertLine(line,"");
   else if (line > lastLine())
     return false;
@@ -972,40 +972,39 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
     if (l->length() > col)
     {
       const QChar *text = l->text();
-      const QChar aSpace = ' ';
+      const QString aSpace = QString(" ");
       uint eolPosition = l->length()-1;
       uint searchStart = col;
       //If where we are wrapping is an end of line and is a space we don't
       //want to wrap there
       if (col == eolPosition && text[col].isSpace())
-	searchStart--; 
-         		      
+	searchStart--;
+
       // Scan backwards looking for a place to break the line
       // We are not interested in breaking at the first char
       // of the line (if it is a space), but we are at the second
       for (z=searchStart; z>0; z--)
         if (text[z].isSpace()) break;
-      
+
 
       if (z > 0)
       {
       	//We found a space in which to wrap so break just after it
         z++; // (anders: avoid the space at the beginning of the line)
-      
+
 	// If the last character of the line is not a space, but we
         // are going to break on a previous space, then we assume that the
         // line is broken into words and we need to add a space so that when the
         // back end of the line is inserted into the next line there is
         // a word boundary.
         if (!text[eolPosition].isSpace())
-	  l->insertText(eolPosition+1,1,&aSpace);
- 
+	  editInsertText (line, eolPosition+1, aSpace);
       }
       else
       	//There was no space to break at so break at full line
 	//and don't try and add any white space for the break
       	z= col;
-      
+
       editWrapLine (line, z, true);
       endLine++;
     }

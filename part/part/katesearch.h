@@ -113,6 +113,7 @@ private:
   int           replaces;
   QDialog*      replacePrompt;
   QString m_replacement;
+  QRegExp m_re;
 };
 
 #endif

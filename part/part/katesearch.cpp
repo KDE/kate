@@ -283,10 +283,34 @@ void KateSearch::promptReplace()
 void KateSearch::replaceOne()
 {
   QString replaceWith = m_replacement;
+  if ( s.flags.regExp ) {
+    // replace each "(?!\)\d+" with the corresponding capture
+    QRegExp br("\\\\(\\d+)");
+    int pos = br.search( replaceWith );
+    int ncaps = m_re.numCaptures();
+    while ( pos >= 0 ) {
+      QString sc;
+      if ( !pos ||  replaceWith.at( pos-1) != '\\' ) {
+        int ccap = br.cap(1).toInt();
+        if (ccap <= ncaps ) {
+          sc = m_re.cap( ccap );
+          replaceWith.replace( pos, br.matchedLength(), sc );
+        }
+        else {
+          // TODO add a sanity check at some point prior to this
+          kdDebug()<<"KateSearch::replaceOne(): you don't have "<<ccap<<" backreferences in regexp '"<<m_re.pattern()<<"'"<<endl;
+        }
+      }
+      pos = br.search( replaceWith, pos+QMAX(br.matchedLength(), sc.length()) );
+    }
+  }
+  
   doc()->removeText( s.cursor.line, s.cursor.col,
       s.cursor.line, s.cursor.col + s.matchedLength );
   doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
+  
   replaces++;
+  
   if( !s.flags.backward ) {
     s.cursor.col += replaceWith.length();
   } else if( s.cursor.col > 0 ) {
@@ -379,8 +403,8 @@ bool KateSearch::doSearch( const QString& text )
   bool found = false;
 //  kdDebug(13000) << "Searching at " << line << ", " << col << endl;
   if( regExp ) {
-    QRegExp re( text, caseSensitive );
-    found = doc()->searchText( line, col, re,
+    m_re = QRegExp( text, caseSensitive );
+    found = doc()->searchText( line, col, m_re,
                                &foundLine, &foundCol,
                                &matchLen, backward );
   } else if ( wholeWords ) {

@@ -65,8 +65,6 @@ class TextLine : public KShared
     */
     inline bool isVisible() const { return m_flags & TextLine::flagVisible; }
 
-    inline bool isFoldingListValid() const { return m_flags & TextLine::flagFoldingListValid; }
-
     /**
       Returns the position of the first character which is not a white space
     */
@@ -117,6 +115,8 @@ class TextLine : public KShared
       Gets a null terminated pointer to first non space char
     */
     const QChar *firstNonSpace() const;
+
+    uint indentDepth () const;
 
     /**
       Returns the x position of the cursor at the given position, which
@@ -178,6 +178,7 @@ class TextLine : public KShared
     inline const QMemArray<uchar> &attributesArray () const { return m_attributes; };
     inline const QMemArray<uint> &ctxArray () const { return m_ctx; };
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
+    inline const QMemArray<uchar> &indentationDepthArray () const { return m_indentationDepth; };
 
   /**
     Methodes to manipulate data
@@ -236,7 +237,12 @@ class TextLine : public KShared
     {
       m_foldingList=val;
       m_foldingList.detach();
-      m_flags = m_flags | TextLine::flagFoldingListValid;
+    }
+
+    inline void setIndentationDepth (QMemArray<uchar> &val)
+    {
+      m_indentationDepth = val;
+      m_indentationDepth.detach();
     }
 
   /**
@@ -264,8 +270,7 @@ class TextLine : public KShared
     {
       flagHlContinue = 0x1,
       flagVisible = 0x2,
-      flagFoldingListValid = 0x4,
-      flagNoOtherData = 0x8 // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
+      flagNoOtherData = 0x4 // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
     };
 
   /**
@@ -283,6 +288,7 @@ class TextLine : public KShared
      */
     QMemArray<uint> m_ctx;
     QMemArray<signed char> m_foldingList;
+    QMemArray<uchar> m_indentationDepth;
 
     /**
      Some bools packed

@@ -213,7 +213,8 @@
 		</itemDatas>
 	</highlighting>
    <general>
-     <comments>
+     <folding indentationsensitive="1" />
+		 <comments>
        <comment name="singleLine" start="#" />
      </comments>
      <keywords casesensitive="1" />

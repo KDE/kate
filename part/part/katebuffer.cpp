@@ -703,6 +703,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
   TextLine::Ptr textLine;
   QMemArray<uint> ctxNum, endCtx;
+  QMemArray<uchar> indentDepth;
 
   uint last_line = buf->lines ();
   uint current_line = startLine - buf->startLine();
@@ -712,6 +713,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   bool line_continue=false;
 
   TextLine::Ptr startState = 0;
+  TextLine::Ptr prevLine = 0;
 
   if (startLine == buf->startLine())
   {
@@ -738,48 +740,113 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   {
     line_continue=startState->hlLineContinue();
     ctxNum.duplicate (startState->ctxArray ());
+    prevLine = startState;
   }
+  else
+    prevLine = new TextLine ();
 
   bool stillcontinue=false;
   QMemArray<signed char> foldingList;
-  bool retVal_folding;
-  bool CodeFoldingUpdated=false;
+  bool CodeFoldingUpdated = false;
   do
   {
     if (!buf->b_stringListValid)
       parseBlock(buf);
 
-    textLine = buf->line(current_line);
-
-    if (!textLine)
+    if (!(textLine = buf->line(current_line)))
       break;
 
     endCtx.duplicate (textLine->ctxArray ());
 
-    foldingList.resize(0);
+    foldingList.resize (0);
 
     m_highlight->doHighlight(ctxNum, textLine, line_continue, &foldingList);
 
-    bool foldingChanged= !textLine->isFoldingListValid();
+    bool foldingChanged = false;
+    bool retVal_folding = false;
+
+    //
+    // indentation sensitive folding
+    //
+    if (m_highlight->foldingIndentationSensitive())
+    {
+      indentDepth.duplicate (prevLine->indentationDepthArray());
+
+      uint newIn = 0;
+      uint remIn = 0;
+
+      uint iDepth = textLine->indentDepth();
+      bool ch = false;
+
+      if (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth))
+      {
+        indentDepth.resize (indentDepth.size()+1);
+        indentDepth[indentDepth.size()-1] = iDepth;
+        ch = true;
+        newIn = 1;
+      }
+      else
+      {
+        for (int z=indentDepth.size()-1; z > -1; z--)
+        {
+          if (indentDepth[z] > iDepth)
+          {
+            indentDepth.resize (z);
+            ch = true;
+            remIn++;
+          }
+        }
+      }
+
+      if (ch)
+        kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
+
+      textLine->setIndentationDepth (indentDepth);
+
+      if (remIn > 0)
+      {
+        QMemArray<signed char> test;
+
+        test.duplicate (prevLine->foldingListArray());
+
+        test.resize (test.size() + remIn);
+
+        for (uint z= test.size()-remIn; z < test.size(); z++)
+          test[z] = -1;
+
+        foldingChanged = true;
+
+        prevLine->setFoldingList (test);
+
+        m_regionTree->updateLine(current_line-1 + buf->startLine(), &test, &retVal_folding, true);
+
+        CodeFoldingUpdated = CodeFoldingUpdated | retVal_folding;
+      }
+
+      if (newIn == 1)
+      {
+        foldingList.resize (foldingList.size() + newIn);
+        foldingList[foldingList.size()-1] = 1;
+
+        foldingChanged = true;
+      }
+    }
 
     if (!foldingChanged)
-      foldingChanged=(foldingList!=textLine->foldingListArray());
+      foldingChanged = (foldingList != textLine->foldingListArray());
 
     if (foldingChanged)
       textLine->setFoldingList(foldingList);
 
-    retVal_folding = false;
-
-    //kdDebug()<<"Folding update for" <<current_line <<" end line is "<<endLine<<endl;
     m_regionTree->updateLine(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
 
-    CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;
+    CodeFoldingUpdated = CodeFoldingUpdated | retVal_folding;
 
     line_continue=textLine->hlLineContinue();
 
     ctxNum.duplicate (textLine->ctxArray());
 
-    if (endCtx.size() != ctxNum.size())
+    if ((endCtx.size() != ctxNum.size()) || (m_highlight->foldingIndentationSensitive() && indentDepth.size() != prevLine->indentationDepthArray().size()))
     {
       stillcontinue = true;
     }
@@ -787,13 +854,13 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     {
       stillcontinue = false;
 
-      if (ctxNum != endCtx)
+      if ((ctxNum != endCtx) || (m_highlight->foldingIndentationSensitive() && indentDepth != prevLine->indentationDepthArray()))
         stillcontinue = true;
     }
 
     current_line++;
-//  stillcontinue=true;
 
+    prevLine = textLine;
   }
   while ((current_line < last_line) && ((current_line < endLine) || stillcontinue));
 

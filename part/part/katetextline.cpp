@@ -158,6 +158,27 @@ const QChar *TextLine::firstNonSpace() const
   return (first > -1) ? ((QChar*)m_text.unicode())+first : m_text.unicode();
 }
 
+uint TextLine::indentDepth () const
+{
+  uint d = 0;
+  static QChar t ('\t');
+
+  for(uint i = 0; i < m_text.length(); i++)
+  {
+    if(m_text[i].isSpace())
+    {
+      if (m_text[i] == t)
+        d += 8;
+      else
+        d++;
+    }
+    else
+      return d;
+  }
+
+  return d;
+}
+
 bool TextLine::stringAtPos(uint pos, const QString& match) const
 {
   return (m_text.mid(pos, match.length()) == match);
@@ -256,7 +277,7 @@ uint TextLine::dumpSize () const
     }
   }
 
-  return (4*sizeof(uint)) + (m_text.length()*sizeof(QChar)) + (attributesLen * sizeof(uchar)) + (attributesLen * sizeof(uint)) + 1 + (m_ctx.size() * sizeof(uint)) + (m_foldingList.size() * sizeof(signed char));
+  return (5*sizeof(uint)) + (m_text.length()*sizeof(QChar)) + (attributesLen * sizeof(uchar)) + (attributesLen * sizeof(uint)) + 1 + (m_ctx.size() * sizeof(uint)) + (m_foldingList.size() * sizeof(signed char));
 }
 
 char *TextLine::dump (char *buf) const
@@ -264,6 +285,7 @@ char *TextLine::dump (char *buf) const
   uint l = m_text.length();
   uint lctx = m_ctx.size();
   uint lfold = m_foldingList.size();
+  uint lind = m_indentationDepth.size();
 
   memcpy(buf, &l, sizeof(uint));
   buf += sizeof(uint);
@@ -281,6 +303,9 @@ char *TextLine::dump (char *buf) const
   buf += sizeof(uint);
 
   memcpy(buf, &lfold, sizeof(uint));
+  buf += sizeof(uint);
+
+  memcpy(buf, &lind, sizeof(uint));
   buf += sizeof(uint);
 
   // hl size runlength encoding START
@@ -333,6 +358,9 @@ char *TextLine::dump (char *buf) const
   memcpy(buf, (char *)m_foldingList.data(), lfold);
   buf += sizeof (signed char) * lfold;
 
+  memcpy(buf, (char *)m_indentationDepth.data(), lind);
+  buf += sizeof (uchar) * lind;
+
   return buf;
 }
 
@@ -342,6 +370,7 @@ char *TextLine::restore (char *buf)
   uint lattrib = 0;
   uint lctx = 0;
   uint lfold = 0;
+  uint lind = 0;
 
   // text + context length read
   memcpy((char *) &l, buf, sizeof(uint));
@@ -372,6 +401,9 @@ char *TextLine::restore (char *buf)
   buf += sizeof(uint);
 
   memcpy((char *) &lfold, buf, sizeof(uint));
+  buf += sizeof(uint);
+
+  memcpy((char *) &lind, buf, sizeof(uint));
   buf += sizeof(uint);
 
   // hl size runlength encoding START
@@ -409,6 +441,9 @@ char *TextLine::restore (char *buf)
 
   m_foldingList.duplicate ((signed char *) buf, lfold);
   buf += lfold;
+
+  m_indentationDepth.duplicate ((uchar *) buf, lind);
+  buf += lind;
 
   return buf;
 }

@@ -867,6 +867,7 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
   errorsAndWarnings = "";
   building=false;
   noHl = false;
+  m_foldingIndentationSensitive = false;
   folding=false;
   internalIDList.setAutoDelete(true);
 
@@ -1298,22 +1299,18 @@ void Highlight::setItemDataList(ItemDataList &list, KConfig *config)
 
   for (ItemData *p = list.first(); p != 0L; p = list.next())
   {
-  settings.clear();
-  settings<<QString::number(p->defStyleNum,10);
-  settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
-  settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
-  settings<<(p->itemSet(KateAttribute::Bold)?(p->bold()?"1":0):"");
-  settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":0):"");
-  settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":0):"");
-  settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":0):"");
-  settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
-  settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
-  settings<<"---";
-//    s.sprintf("%d,%X,%X,%d,%d,%d,%d",
-//      p->isSomethingSet(),p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic(),p->strikeOut(),p->underline());
-
-//    config->writeEntry(p->name,s);
-      config->writeEntry(p->name,settings);
+    settings.clear();
+    settings<<QString::number(p->defStyleNum,10);
+    settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
+    settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
+    settings<<(p->itemSet(KateAttribute::Bold)?(p->bold()?"1":0):"");
+    settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":0):"");
+    settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":0):"");
+    settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":0):"");
+    settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
+    settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
+    settings<<"---";
+    config->writeEntry(p->name,settings);
   }
 }
 
@@ -1580,31 +1577,37 @@ HlItem *Highlight::createHlItem(struct syntaxContextData *data, ItemDataList &iD
   signed char regionId=0;
   signed char regionId2=0;
 
-  signed char *regionIdToSet=&regionId;
-  if (!endRegionStr.isEmpty())
-  {
-    regionId=RegionList->findIndex(endRegionStr);
-    if (regionId==-1) // if the region name doesn't already exist, add it to the list
-    {
-      (*RegionList)<<endRegionStr;
-      regionId=RegionList->findIndex(endRegionStr);
-    }
-    regionId=-regionId;
-    regionIdToSet=&regionId2;
-  }
-
   if (!beginRegionStr.isEmpty())
   {
-    *regionIdToSet=RegionList->findIndex(beginRegionStr);
-    if (*regionIdToSet==-1) // if the region name doesn't already exist, add it to the list
+    regionId = RegionList->findIndex(beginRegionStr);
+
+    if (regionId==-1) // if the region name doesn't already exist, add it to the list
     {
       (*RegionList)<<beginRegionStr;
-      *regionIdToSet=RegionList->findIndex(beginRegionStr);
+      regionId = RegionList->findIndex(beginRegionStr);
     }
-//    *regionIdToSet=-(*regionIdToSet);
+
+    regionId++;
+
+    kdDebug () << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
   }
 
-                //Create the item corresponding to it's type and set it's parameters
+  if (!endRegionStr.isEmpty())
+  {
+    regionId2 = RegionList->findIndex(endRegionStr);
+
+    if (regionId2==-1) // if the region name doesn't already exist, add it to the list
+    {
+      (*RegionList)<<endRegionStr;
+      regionId2 = RegionList->findIndex(endRegionStr);
+    }
+
+    regionId2 = -regionId2 - 1;
+
+    kdDebug () << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
+  }
+
+  //Create the item corresponding to it's type and set it's parameters
   HlItem *tmpItem;
 
   if (dataname=="keyword")
@@ -1763,6 +1766,37 @@ void Highlight::readGlobalKeywordConfig()
   kdDebug(13010)<<"readGlobalKeywordConfig:END"<<endl;
 
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
+}
+
+
+void Highlight::readFoldingConfig()
+{
+  // Tell the syntax document class which file we want to parse
+  kdDebug(13010)<<"readfoldignConfig:BEGIN"<<endl;
+
+  HlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data = HlManager::self()->syntax->getConfig("general","folding");
+
+  if (data)
+  {
+    kdDebug(13010)<<"Found global keyword config"<<endl;
+
+    if (HlManager::self()->syntax->groupItemData(data,QString("indentationsensitive"))!="1")
+      m_foldingIndentationSensitive=false;
+    else
+      m_foldingIndentationSensitive=true;
+
+    HlManager::self()->syntax->freeGroupInfo(data);
+  }
+  else
+  {
+    //Default values
+    m_foldingIndentationSensitive = false;
+  }
+
+  kdDebug(13010)<<"readfoldingConfig:END"<<endl;
+
+  kdDebug(13010)<<"############################ use indent for fold are: "<<m_foldingIndentationSensitive<<endl;
 }
 
 void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
@@ -2056,7 +2090,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   RegionList<<"!KateInternal_TopLevel!";
   readCommentConfig();
   readGlobalKeywordConfig();
-
+  readFoldingConfig ();
 
   QString ctxName;
 
@@ -2190,6 +2224,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 
   HlManager::self()->syntax->freeGroupInfo(data);
   if (RegionList.count()!=1) folding=true;
+  folding = folding || m_foldingIndentationSensitive;
   return i;
 }
 //END

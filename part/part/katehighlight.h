@@ -178,6 +178,7 @@ class Highlight
     void createItemData (ItemDataList &list);
     void readGlobalKeywordConfig();
     void readCommentConfig();
+    void readFoldingConfig ();
 
     // manipulates the ctxs array directly ;)
     void generateContextStack(int *ctxNum, int ctx, QMemArray<uint> *ctxs, int *posPrevLine,bool lineContinue=false);
@@ -226,8 +227,11 @@ class Highlight
     uint buildContext0Offset;
     IncludeRules includeRules;
     QValueList<int> contextsIncludingSomething;
+    bool m_foldingIndentationSensitive;
+
     public:
-      bool allowsFolding(){return folding;}
+      inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
+      inline bool allowsFolding(){return folding;}
 };
 
 class HlManager : public QObject

@@ -47,6 +47,7 @@ class LineRange
     int visibleLine;
     int startCol;
     int endCol;
+    int y;
 };
 
 class KateViewInternal : public QScrollView

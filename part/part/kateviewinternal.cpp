@@ -653,6 +653,9 @@ void KateViewInternal::updateView()
       if (line >= m_doc->visibleLines())
       {
         lineRanges[z].line = -1;
+        lineRanges[z].visibleLine = -1;
+        lineRanges[z].startCol = -1;
+        lineRanges[z].endCol = -1;
         line++;
       }
       else
@@ -692,19 +695,34 @@ void KateViewInternal::updateView()
       lineRanges[line-firstLine()].visibleLine = line;
       lineRanges[line-firstLine()].startCol = 0;
       lineRanges[line-firstLine()].endCol = -1;
+      lineRanges[line-firstLine()].y = (firstLine()+line-firstLine()) * m_doc->viewFont.fontHeight - yPosition();
       maxLen = QMAX( maxLen, m_doc->textWidth( m_doc->kateTextLine( lineRanges[line-firstLine()].line ), -1 ) );
     
       last = line-firstLine();
     }
     
-    for (uint z = last - firstLine(); z < lineRanges.size(); z++)
+    for (uint z = last+1; z < lineRanges.size(); z++)
+    {
       lineRanges[z].line = -1;
+      lineRanges[z].visibleLine = -1;
+      lineRanges[z].startCol = -1;
+      lineRanges[z].endCol = -1;
+      lineRanges[z].y = (firstLine()+z) * m_doc->viewFont.fontHeight - yPosition();
+    }
 
     // Nice bit of extra space
     maxLen += 8;
   }
 
+  kdDebug()<<"BUUUHHHH START"<<endl;
+  for (uint z=0; z < lineRanges.size(); z++)
+  {
+    kdDebug()<<"z: "<<z<<" l: "<<lineRanges[z].line<<" vl: "<<lineRanges[z].visibleLine<<" sc: "<<lineRanges[z].startCol<<" ec: "<<lineRanges[z].endCol<<endl;
+  }
+  
   resizeContents( maxLen, m_doc->visibleLines() * m_doc->viewFont.fontHeight );
+  
+  kdDebug()<<"STOP"<<endl;
 }
 
 void KateViewInternal::paintCursor()
@@ -932,16 +950,17 @@ void KateViewInternal::contentsMouseMoveEvent( QMouseEvent* e )
 void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, int ch )
 {
   uint h = m_doc->viewFont.fontHeight;
+  uint startz = (cy - yPosition()) / m_doc->viewFont.fontHeight;
+  uint endz = (cy + ch - yPosition()) / m_doc->viewFont.fontHeight;
+    
 
-  if (m_view->dynWordWrap())
-  {
-    for (uint z=0; z < lineRanges.size(); z++)
+    for (uint z=startz; (z <= endz ) && (z < lineRanges.size()); z++)
     {   
        if( lineRanges[z].line == -1 ) {
-      paint->fillRect( cx, firstLine() + (z*h), cw, h, m_doc->colors[0] );
+      paint->fillRect( cx, yPosition() + lineRanges[z].y, cw, h, m_doc->colors[0] );
     } else {
       m_doc->paintTextLine( *paint, lineRanges[z].line, lineRanges[z].startCol, lineRanges[z].endCol,
-                            cx, yPosition() + (z*h), cx, cx+cw,
+                            cx, yPosition() + lineRanges[z].y, cx, cx+cw,
                             (cursorOn && (hasFocus()||m_view->m_codeCompletion->codeCompletionVisible()) && (lineRanges[z].line == uint(cursor.line))) ? cursor.col : -1,
                             m_view->isOverwriteMode(), cXPos, true,
                             m_doc->configFlags() & KateDocument::cfShowTabs,
@@ -949,33 +968,9 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
                             false, bm );
     }
     }
-  }
-  else
-  {
-  
 
-  uint startline = contentsYToLine( cy );
-  uint endline   = contentsYToLine( cy + ch - 1 );
-  
-  //kdDebug(13030) << "drawContents(): y = " << cy << " h = " << ch << endl; 
-  //kdDebug(13030) << "drawContents(): x = " << cx << " w = " << cw << endl;
-  //kdDebug(13030) << "Repainting " << startline << " - " << endline << endl;
 
-  for( uint line = startline; line <= endline; line++ ) {
-    uint realLine = m_doc->getRealLine( line );
-    if( realLine > m_doc->lastLine() ) {
-      paint->fillRect( cx, line*h, cw, h, m_doc->colors[0] );
-    } else {
-      m_doc->paintTextLine( *paint, realLine, 0, -1,
-                            cx, line*h, cx, cx+cw,
-                            (cursorOn && (hasFocus()||m_view->m_codeCompletion->codeCompletionVisible()) && (realLine == uint(cursor.line))) ? cursor.col : -1,
-                            m_view->isOverwriteMode(), cXPos, true,
-                            m_doc->configFlags() & KateDocument::cfShowTabs,
-                            KateDocument::ViewFont, realLine == uint(cursor.line),
-                            false, bm );
-    }
-  }
-  }
+  
 }
 
 void KateViewInternal::viewportResizeEvent( QResizeEvent* )

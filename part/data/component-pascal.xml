@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Author: Werner Braun <wb@o3-software.de> -->
+<language name="Component-Pascal" version="1.00" kateversion="2.1" section="Sources" extensions="*.cp" mimetype="text/x-component-pascal">
+	<highlighting>
+		<list name="keywords">
+			<item> BEGIN </item>
+			<item> BY </item>
+			<item> CASE </item>
+			<item> CLOSE </item>
+			<item> CONST </item>
+			<item> DIV </item>
+			<item> DO </item>
+			<item> ELSE </item>
+			<item> ELSIF </item>
+			<item> END </item>
+			<item> EXIT </item>
+			<item> FOR </item>
+			<item> IF </item>
+			<item> IMPORT </item>
+			<item> IN </item>
+			<item> IS </item>
+			<item> LOOP </item>
+			<item> MOD </item>
+			<item> MODULE </item>
+			<item> NEW </item>
+			<item> NIL </item>
+			<item> OF </item>
+			<item> OR </item>
+			<item> OUT </item>
+			<item> PROCEDURE </item>
+			<item> REPEAT </item>
+			<item> RETURN </item>
+			<item> THEN </item>
+			<item> TO </item>
+			<item> TYPE </item>
+			<item> UNTIL </item>
+			<item> VAR </item>
+			<item> WHILE </item>
+			<item> WITH </item>
+		</list>
+		<list name="assertions">
+			<item> ASSERT </item>
+			<item> HALT </item>
+		</list>
+		<list name="types">
+			<item> ANYPTR </item>
+			<item> ANYREC </item>
+			<item> ARRAY </item>
+			<item> BOOLEAN </item>
+			<item> SHORTCHAR </item>
+			<item> CHAR </item>
+			<item> BYTE </item>
+			<item> SHORTINT </item>
+			<item> INTEGER </item>
+			<item> LONGINT </item>
+			<item> POINTER </item>
+			<item> RECORD </item>
+			<item> SHORTREAL </item>
+			<item> REAL </item>
+			<item> SET </item>
+		</list>
+		<list name="attributes">
+			<item> ABSTRACT </item>
+			<item> EMPTY </item>
+			<item> EXTENSIBLE </item>
+			<item> LIMITED </item>
+		</list>
+		<contexts>
+			<context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+				<keyword attribute="Keyword" context="#stay" String="keywords"/>
+				<keyword attribute="Assertion" context="#stay" String="assertions"/>
+				<keyword attribute="Type" context="#stay" String="types"/>
+				<keyword attribute="Attribute" context="#stay" String="attributes"/>
+				<Float attribute="Number" context="#stay"/>
+				<Int attribute="Number" context="#stay"/>
+				<DetectChar attribute="String" context="String" char="&quot;" />
+				<Detect2Chars attribute="Comment" context="Commentar" char="(" char1="*"/>
+				<RegExpr attribute="Exported" context="#stay" String="[A-Z,a-z][A-Z,a-z,0-9]*\*"/>
+			</context>
+			<context attribute="String" lineEndContext="#stay" name="String">
+				<DetectChar attribute="String" context="#pop" char="&quot;"/>
+			</context>
+			<context attribute="Comment" lineEndContext="#stay" name="Commentar">
+				<Detect2Chars attribute="Comment" context="#pop" char="*" char1=")"/>
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name="Normal Text"	defStyleNum="dsNormal" />
+			<itemData name="Keyword"		defStyleNum="dsKeyword" />
+			<itemData name="Assertion"		defStyleNum="dsChar"/>
+			<itemData name="Type"			defStyleNum="dsDataType"/>
+			<itemData name="Attribute"		defStyleNum="dsOthers"/>
+			<itemData name="Number"			defStyleNum="dsDecVal" />
+			<itemData name="String"			defStyleNum="dsString" />
+			<itemData name="Comment"		defStyleNum="dsComment" />
+			<itemData name="Exported"		defStyleNum="dsKeyword" color="#0095FF" selColor="#FFFFFF" bold="1" italic="0"/>
+		</itemDatas>
+	</highlighting>
+	<general>
+		<keywords casesensitive="1" />
+		<comments>
+			<comment name="singleLine" start="(*" end="*)" />
+			<comment name="multiLine" start="(*" end="*)" />
+		</comments>
+	</general>
+</language>

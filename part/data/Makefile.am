@@ -12,4 +12,4 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
 		sml.xml winehq.xml cs.xml sgml.xml idconsole.xml xmldebug.xml fortran.xml haskell.xml \
 		literate-haskell.xml r.xml gnuassembler.xml ilerpg.xml mab.xml mason.xml idl.xml prolog.xml \
 		rsiidl.xml coldfusion.xml picsrc.xml uscript.xml lpc.xml velocity.xml sci.xml ldif.xml \
-		inform.xml xharbour.xml yacas.xml
+		inform.xml xharbour.xml yacas.xml component-pascal.xml

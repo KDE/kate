@@ -499,41 +499,35 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, *config()->selectionColor());
             else if (currentHL.itemSet(KateAttribute::BGColor))
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
-            
+          }
+
+          // XIM support
+          if (!isPrinterFriendly()) {
             // input method edit area
             if ( isIMEdit ) {
-	      const QColorGroup& cg = m_view->colorGroup();
+              const QColorGroup& cg = m_view->colorGroup();
               int h1, s1, v1, h2, s2, v2;
-	      cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
-	      cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
-	      QColor imCol;
-	      imCol.setHsv( h1, s1, ( v1 + v2 ) / 2 );
+              cg.color( QColorGroup::Base ).hsv( &h1, &s1, &v1 );
+              cg.color( QColorGroup::Background ).hsv( &h2, &s2, &v2 );
+              QColor imCol;
+              imCol.setHsv( h1, s1, ( v1 + v2 ) / 2 );
               paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, imCol );
-	    }
-            
+            }
+
             // input method selection
             if ( isIMSel ) {
               const QColorGroup& cg = m_view->colorGroup();
               paint.fillRect( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, cg.color( QColorGroup::Foreground ) );
-	      paint.setPen( cg.color( QColorGroup::BrightText ) );
-	    }
-            else {
-		paint.setPen( currentHL.textColor() );
+              paint.save();
+              paint.setPen( cg.color( QColorGroup::BrightText ) );
             }
-
           }
-
-          // paint outline
-          /*if (currentHL.itemSet(KateAttribute::Outline)) {
-            paint.save();
-            paint.setPen(currentHL.outline());
-            paint.drawLine(oldXPos-xStart, 0, xPosAfter, 0);
-            paint.drawLine(oldXPos-xStart, fs->fontHeight - 1, xPosAfter, fs->fontHeight - 1);
-            paint.restore();
-          }*/
 
           // Here's where the money is...
           paint.drawText(oldXPos-xStart, y, textLine->string(), oldCol, curCol+1-oldCol);
+
+          // Put pen color back
+          if (isIMSel) paint.restore();
 
           // We're done drawing?
           if ((int)xPos > xEnd)

@@ -2507,8 +2507,7 @@ int KateHlManager::nameFind(const QString &name)
 int KateHlManager::detectHighlighting (KateDocument *doc)
 {
   int hl = wildcardFind( doc->url().filename() );
-
-  if ( ! hl )
+  if ( hl < 0 )
     hl = mimeFind ( doc );
 
   return hl;
@@ -2570,7 +2569,7 @@ int KateHlManager::realWildcardFind(const QString &fileName)
         hl = hlList.findRef (highlight);
       }
     }
-
+kdDebug()<<"=== realwildcardfind: returning "<<hl<<endl;
     return hl;
   }
 
@@ -2584,6 +2583,8 @@ int KateHlManager::mimeFind(/*const QByteArray &contents*/KateDocument *doc)
 //   int accuracy = 0;
 //   KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
   KMimeType::Ptr mt = doc->mimeTypeForContent();
+
+  kdDebug()<<"=== mimeFind(): "<<mt->name()<<endl;
 
   QPtrList<KateHighlighting> highlights;
 

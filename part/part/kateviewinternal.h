@@ -35,7 +35,6 @@
 
 class KateView;
 class KateIconBorder;
-class KateDynWWBar;
 class KateRenderer;
 
   enum Bias {
@@ -78,7 +77,7 @@ class KateViewInternal : public QWidget
     friend class KateUndo;
     friend class KateView;
     friend class KateIconBorder;
-    friend class KateDynWWBar;
+
   public:
     KateViewInternal ( KateView *view, KateDocument *doc );
     ~KateViewInternal ();
@@ -275,8 +274,6 @@ class KateViewInternal : public QWidget
     QWidget* m_dummy;
     QVBoxLayout* m_lineLayout;
     QHBoxLayout* m_colLayout;
-
-    KateDynWWBar *m_dynWWBar;
 
     QPixmap drawBuffer;
 

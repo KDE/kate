@@ -396,7 +396,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   // for tab replacement, initialize only once
   uint pos, found, ml, l;
   QChar onespace(' ');
-  QString onetab("\\t");
+  QString onetab("\t");
   uint tw = m_doc->config()->tabWidth();
 
   for (uint i=0; i < m_lines; i++)

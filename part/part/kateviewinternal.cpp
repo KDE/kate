@@ -2486,7 +2486,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       e->accept();
       return;
     } else
-    if (m_doc->configFlags() & KateDocumentConfig::cfTabIndents) 
+    if (m_doc->configFlags() & KateDocumentConfig::cfTabIndents)
     {
       if( key == Qt::Key_Tab )
       {
@@ -2561,6 +2561,17 @@ void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
 {
   // try to show popup menu
+
+//   if ( e->reason() == QContextMenuEvent::Keyboard )
+//     kdDebug()<<"=== KEYBOARD "<<endl;
+  // in this case, we should care for the selection and move the popup to
+//   the cursor if that is visibele in the view
+
+  if ( m_view->m_doc->browserView() )
+  {
+    m_view->contextMenuEvent( e );
+    return;
+  }
 
   if ( ! isTargetSelected( e->pos() ) )
     placeCursor( e->pos() );
@@ -3024,7 +3035,7 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
 
   updateView( true );
   updateCursor( cursor, true );
-  
+
   m_imPreeditLength = e->text().length();
   m_imPreeditSelStart = m_imPreeditStart + e->cursorPos();
 }

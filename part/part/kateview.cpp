@@ -884,9 +884,17 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
+  TextLine::Ptr l = m_doc->kateTextLine( line );
+
+  if (!l)
+    return;
+
+  if (!l->isVisible() )
+    m_doc->foldingTree()->ensureVisible( line );
+
   KateTextCursor c ( line, 0 );
   m_viewInternal->scrollPos (c);
-  setCursorPositionReal( c.line(), 0 );
+  setCursorPositionReal ( line, 0 );
 }
 
 void KateView::joinLines()

@@ -1165,15 +1165,15 @@ void KateBuffer::changeLine(uint i)
 
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 {
-//   kdDebug(13000)<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
+   kdDebug(13000)<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
    TextLine::Ptr l=plainLine(lineNr);
    if (l)
    {
      l->setVisible(visible);
      changeLine (lineNr);
    }
-//   else
-//   kdDebug(13000)<<QString("Invalid line %1").arg(lineNr)<<endl;
+   else
+   kdDebug(13000)<<QString("Invalid line %1").arg(lineNr)<<endl;
 }
 
 uint KateBuffer::length ()

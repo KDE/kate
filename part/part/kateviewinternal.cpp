@@ -1832,15 +1832,21 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
 
 void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force )
 {
-  if ( !force && (cursor == newCursor) ) {
-    if ( !m_madeVisible ) {
+  TextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
+
+  if ( !force && (cursor == newCursor) )
+  {
+    // unfold if required
+    if ( l && ! l->isVisible() )
+      m_doc->foldingTree()->ensureVisible( newCursor.line() );
+
+    if ( !m_madeVisible )
       makeVisible ( displayCursor, displayCursor.col() );
-    }
+
     return;
   }
 
   // unfold if required
-  TextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
   if ( l && ! l->isVisible() )
     m_doc->foldingTree()->ensureVisible( newCursor.line() );
 

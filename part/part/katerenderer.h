@@ -191,6 +191,17 @@ public:
      */
     void paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
 
+    /**
+     * Paint the background of a line
+     *
+     * Split off from the main @ref paintTextLine method to make it smaller. As it's being
+     * called only once per line it shouldn't noticably affect performance and it
+     * helps readability a LOT.
+     *
+     * @return whether the selection has been painted or not
+     */
+    bool paintTextLineBackground(QPainter& paint, int line, bool isCurrentLine, int xStart, int xEnd);
+
     KateAttribute* attribute(uint pos);
 
   private:

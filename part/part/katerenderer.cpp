@@ -127,6 +127,71 @@ void KateRenderer::setPrinterFriendly(bool printerFriendly)
   setDrawCaret(false);
 }
 
+bool KateRenderer::paintTextLineBackground(QPainter& paint, int line, bool isCurrentLine, int xStart, int xEnd)
+{
+  if (isPrinterFriendly())
+    return false;
+
+  // font data
+  KateFontStruct *fs = config()->fontStruct();
+
+  // Normal background color
+  QColor backgroundColor (config()->backgroundColor());
+
+  bool selectionPainted = false;
+  if (showSelections() && m_doc->lineSelected(line))
+  {
+    backgroundColor = config()->selectionColor();
+    selectionPainted = true;
+  }
+  else
+  {
+    // paint the current line background if we're on the current line
+    if (isCurrentLine)
+      backgroundColor = config()->highlightedLineColor();
+
+    // Check for mark background
+    int markRed = 0, markGreen = 0, markBlue = 0, markCount = 0;
+
+    // Retrieve marks for this line
+    uint mrk = m_doc->mark( line );
+    if (mrk)
+    {
+      for (uint bit = 0; bit < 32; bit++)
+      {
+        KTextEditor::MarkInterface::MarkTypes markType = (KTextEditor::MarkInterface::MarkTypes)(1<<bit);
+        if (mrk & markType)
+        {
+          QColor markColor = m_doc->markColor( markType );
+
+          if (markColor.isValid()) {
+            markCount++;
+            markRed += markColor.red();
+            markGreen += markColor.green();
+            markBlue += markColor.blue();
+          }
+        }
+      } // for
+    } // Marks
+
+    if (markCount) {
+      markRed /= markCount;
+      markGreen /= markCount;
+      markBlue /= markCount;
+      backgroundColor.setRgb(
+        int((backgroundColor.red() * 0.9) + (markRed * 0.1)),
+        int((backgroundColor.green() * 0.9) + (markGreen * 0.1)),
+        int((backgroundColor.blue() * 0.9) + (markBlue * 0.1))
+      );
+    }
+  } // background preprocessing
+
+  // Draw line background
+  paint.fillRect(0, 0, xEnd - xStart, fs->fontHeight, backgroundColor);
+
+  return selectionPainted;
+}
+
 void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
 {
   int line = range->line;
@@ -167,10 +232,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // font data
   KateFontStruct * fs = config()->fontStruct();
 
-  bool currentLine = false;
-
+  bool isCurrentLine = false;
   if (cursor && range->includesCursor(*cursor))
-    currentLine = true;
+    isCurrentLine = true;
 
   int startcol = range->startCol;
   int endcol = range->wrap ? range->endCol : -1;
@@ -185,14 +249,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   //const QChar *s;
   const uchar *a;
 
-   // selection startcol/endcol calc
-  bool hasSel = false;
-  uint startSel = 0;
-  uint endSel = 0;
-
-  // was the selection background already completely painted ?
-  bool selectionPainted = false;
-
   // should the cursor be painted (if it is in the current xstart - xend range)
   bool cursorVisible = false;
   int cursorXPos = 0, cursorXPos2 = 0;
@@ -201,64 +257,21 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // should we paint the word wrap marker?
   bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch();
 
-  // Normal background color
-  QColor backgroundColor (config()->backgroundColor());
-
   // Paint selection background as the whole line is selected
-  if (!isPrinterFriendly())
+  // selection startcol/endcol calc
+  bool hasSel = false;
+  uint startSel = 0;
+  uint endSel = 0;
+
+  // was the selection background already completely painted ?
+  bool selectionPainted = false;
+
+  selectionPainted = paintTextLineBackground(paint, line, isCurrentLine, xStart, xEnd);
+  if (selectionPainted)
   {
-    if (showSelections() && m_doc->lineSelected(line))
-    {
-      backgroundColor = config()->selectionColor();
-      selectionPainted = true;
-      hasSel = true;
-      startSel = 0;
-      endSel = len + 1;
-    }
-    else
-    {
-      // paint the current line background if we're on the current line
-      if (currentLine)
-        backgroundColor = config()->highlightedLineColor();
-
-      // Check for mark background
-      int markRed = 0, markGreen = 0, markBlue = 0, markCount = 0;
-
-      // Retrieve marks for this line
-      uint mrk = m_doc->mark( line );
-      if (mrk)
-      {
-        for (uint bit = 0; bit < 32; bit++)
-        {
-          KTextEditor::MarkInterface::MarkTypes markType = (KTextEditor::MarkInterface::MarkTypes)(1<<bit);
-          if (mrk & markType)
-          {
-            QColor markColor = m_doc->markColor( markType );
-
-            if (markColor.isValid()) {
-              markCount++;
-              markRed += markColor.red();
-              markGreen += markColor.green();
-              markBlue += markColor.blue();
-            }
-          }
-        } // for
-      } // Marks
-
-      if (markCount) {
-        markRed /= markCount;
-        markGreen /= markCount;
-        markBlue /= markCount;
-        backgroundColor.setRgb(
-          int((backgroundColor.red() * 0.9) + (markRed * 0.1)),
-          int((backgroundColor.green() * 0.9) + (markGreen * 0.1)),
-          int((backgroundColor.blue() * 0.9) + (markBlue * 0.1))
-        );
-      }
-    } // background preprocessing
-
-    // Draw line background
-    paint.fillRect(0, 0, xEnd - xStart, fs->fontHeight, backgroundColor);
+    hasSel = true;
+    startSel = 0;
+    endSel = len + 1;
   }
 
   if (startcol > (int)len)

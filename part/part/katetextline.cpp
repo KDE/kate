@@ -221,6 +221,7 @@ int KateTextLine::cursorX(uint pos, uint tabChars) const
   return x;
 }
 
+
 uint KateTextLine::lengthWithTabs (uint tabChars) const
 {
   uint x = 0;
@@ -244,6 +245,9 @@ bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAt
   {
     int col = startCol;
     uint l = text.length();
+    // allow finding the string ending at eol
+    if ( col == m_text.length() ) startCol++;
+
     do {
       index = m_text.findRev( text, col, casesensitive );
       col--;
@@ -271,6 +275,9 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
   if (backwards)
   {
     int col = startCol;
+
+    // allow finding the string ending at eol
+    if ( col == m_text.length() ) startCol++;
     do {
       index = regexp.searchRev (m_text, col);
       col--;
@@ -415,7 +422,7 @@ void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *render
   QColor blackColor(0,0,0);
 //  (*outputStream) << "<span style='color: #000000'>";
 
-  
+
   // for each character of the line : (curPos is the position in the line)
   for (uint curPos=startCol;curPos<(length+startCol);curPos++)
     {
@@ -423,7 +430,7 @@ void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *render
 
       charAttributes = renderer->attribute(attribute(curPos));
 
-      
+
       //ASSERT(charAttributes != NULL);
       // let's give the color for that character :
       if ( (charAttributes->textColor() != previousCharacterColor))

@@ -896,7 +896,7 @@ void KateRenderer::updateConfig ()
   if (m_view)
   {
     m_view->m_viewInternal->updateView (true);
-    m_view->update ();
+    m_view->m_viewInternal->repaint ();
   }
 }
 

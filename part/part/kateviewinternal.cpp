@@ -1012,18 +1012,28 @@ void KateViewInternal::cursorRight( bool sel ) { moveChar( right, sel ); }
 
 void KateViewInternal::moveWord( Bias bias, bool sel )
 {
+  // This matches the word-moving in QTextEdit, QLineEdit etc.
+
   WrappingCursor c( *m_doc, cursor );
   if( !c.atEdge( bias ) ) {
     Highlight* h = m_doc->highlight();
-    c += bias;
+
+    bool moved = false;
     while( !c.atEdge( bias ) && !h->isInWord( m_doc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )
-      c += bias;
-    while( !c.atEdge( bias ) &&  h->isInWord( m_doc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )
-      c += bias;
-    if ( bias == right )
     {
-      while ( !c.atEdge( bias ) && m_doc->textLine( c.line )[ c.col ].isSpace() )
-        c+= bias;
+      c += bias;
+      moved = true;
+    }
+
+    if ( bias != right || !moved )
+    {
+      while( !c.atEdge( bias ) &&  h->isInWord( m_doc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )
+        c += bias;
+      if ( bias == right )
+      {
+        while ( !c.atEdge( bias ) && m_doc->textLine( c.line )[ c.col ].isSpace() )
+          c+= bias;
+      }
     }
       
   } else {

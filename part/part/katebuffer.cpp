@@ -72,7 +72,7 @@ static QByteArray readBlock(int fd, int size)
    {     
       int n = ::read(fd, result.data()+bytesRead, bytesToRead);     
       if (n == 0) break; // Done     
-      if ((n == -1) && (errno == EAGAIN))     
+      if ((n == -1) && (errno == EAGAIN))
          continue;     
       if (n == -1)     
       {     
@@ -115,7 +115,7 @@ KateBuffer::clear()
    m_vm = new KVMAllocator;
    m_highlight = 0;
    KateBufState state;     
-   // Initial state.     
+   // Initial state.
    state.lineNr = 0;     
    KateBufBlock *block = new KateBufBlock(state);     
    m_blocks.insert(0, block);     
@@ -201,7 +201,7 @@ KateBuffer::loadFilePart()
      }     
      block->m_codec = loader->codec;     
      loader->dataStart = block->blockFill(loader->dataStart,     
-                                  loader->lastBlock, currentBlock, eof);     
+                                  loader->lastBlock, currentBlock, eof);
      state = block->m_endState;     
      //kdDebug(13020)<<"current->ref ="<<currentBlock.nrefs()<<" last->ref ="<<loader->lastBlock.nrefs()<<endl;     
      loader->lastBlock = currentBlock;     
@@ -330,7 +330,7 @@ KateBuffer::findBlock(uint i)
          
          // Adjust line numbering....     
          if (buf->m_beginState.lineNr != lastLine)     
-         {     
+         {
             int offset = lastLine - buf->m_beginState.lineNr;     
             buf->m_beginState.lineNr += offset;     
             buf->m_endState.lineNr += offset;     
@@ -474,7 +474,7 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 void
 KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
 {
-//kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl;
+  kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl;
    assert(to > 0);
    if (from > m_highlightedTo )
      from = m_highlightedTo;
@@ -545,7 +545,7 @@ KateBuffer::plainLine(uint i)
    KateBufBlock *buf = findBlock(i);     
    if (!buf)
       return 0;     
-     
+
    if (!buf->b_stringListValid)     
    {     
       parseBlock(buf);     
@@ -633,75 +633,75 @@ KateBuffer::changeLine(uint i)
       dirtyBlock(buf);
    }
 }     
-     
-void     
+
+void
 KateBuffer::parseBlock(KateBufBlock *buf)
-{     
-   //kdDebug(13020)<<"parseBlock "<< buf<<endl;     
-   if (!buf->b_rawDataValid)     
-      loadBlock(buf);     
-   if (m_parsedBlocksClean.count() > 5)     
-   {     
-      KateBufBlock *buf2 = m_parsedBlocksClean.take(2);     
+{
+   //kdDebug(13020)<<"parseBlock "<< buf<<endl;
+   if (!buf->b_rawDataValid)
+      loadBlock(buf);
+   if (m_parsedBlocksClean.count() > 5)
+   {
+      KateBufBlock *buf2 = m_parsedBlocksClean.take(2);
       buf2->disposeStringList();
       m_loadedBlocks.append(buf2);
       assert(m_parsedBlocksDirty.find(buf2) == -1);
-   }     
-   buf->buildStringList();     
-   assert(m_parsedBlocksClean.find(buf) == -1);     
-   m_parsedBlocksClean.append(buf);
-   assert(m_loadedBlocks.find(buf) != -1);     
-   m_loadedBlocks.removeRef(buf);
-     
-#if 0
-   // From now on store the raw block in unicode.     
-   // As a side-effect this will also store the highlighting info, which     
-   // is the real reason that we do this.     
-   if (buf->m_codec)     
-      dirtyBlock(buf);     
-#endif
-}     
-     
-void     
-KateBuffer::loadBlock(KateBufBlock *buf)     
-{     
-    //kdDebug(13020)<<"loadBlock "<<buf<<endl;     
-   if (m_loadedBlocks.count() > LOADED_BLOCKS_MAX)     
-   {     
-      KateBufBlock *buf2 = m_loadedBlocks.take(2);     
-      //kdDebug(13020)<<"swapOut "<<buf2<<endl;     
-      buf2->swapOut(m_vm);     
-      assert(m_parsedBlocksClean.find(buf2) == -1);     
-      assert(m_parsedBlocksDirty.find(buf2) == -1);
-   }     
-     
-   //kdDebug(13020)<<"swapIn "<<buf<<endl;     
-   buf->swapIn(m_vm);     
-   m_loadedBlocks.append(buf);     
+   }
+   buf->buildStringList();
    assert(m_parsedBlocksClean.find(buf) == -1);
-   assert(m_parsedBlocksDirty.find(buf) == -1);     
-}     
+   m_parsedBlocksClean.append(buf);
+   assert(m_loadedBlocks.find(buf) != -1);
+   m_loadedBlocks.removeRef(buf);
 
-void     
-KateBuffer::dirtyBlock(KateBufBlock *buf)     
-{     
-   kdDebug(13020)<<"dirtyBlock "<<buf<<endl;     
-   buf->b_emptyBlock = false;     
-   if (m_parsedBlocksDirty.count() > DIRTY_BLOCKS_MAX)     
-   {     
-      KateBufBlock *buf2 = m_parsedBlocksDirty.take(0);     
-      buf2->flushStringList(); // Copy stringlist to raw     
-      buf2->disposeStringList(); // dispose stringlist.     
-      m_loadedBlocks.append(buf2);     
+#if 0
+   // From now on store the raw block in unicode.
+   // As a side-effect this will also store the highlighting info, which
+   // is the real reason that we do this.
+   if (buf->m_codec)
+      dirtyBlock(buf);
+#endif
+}
+
+void
+KateBuffer::loadBlock(KateBufBlock *buf)
+{
+    //kdDebug(13020)<<"loadBlock "<<buf<<endl;
+   if (m_loadedBlocks.count() > LOADED_BLOCKS_MAX)
+   {
+      KateBufBlock *buf2 = m_loadedBlocks.take(2);
+      //kdDebug(13020)<<"swapOut "<<buf2<<endl;
+      buf2->swapOut(m_vm);
       assert(m_parsedBlocksClean.find(buf2) == -1);
-   }     
+      assert(m_parsedBlocksDirty.find(buf2) == -1);
+   }
+
+   //kdDebug(13020)<<"swapIn "<<buf<<endl;
+   buf->swapIn(m_vm);
+   m_loadedBlocks.append(buf);
+   assert(m_parsedBlocksClean.find(buf) == -1);
+   assert(m_parsedBlocksDirty.find(buf) == -1);
+}
+
+void
+KateBuffer::dirtyBlock(KateBufBlock *buf)
+{
+   kdDebug(13020)<<"dirtyBlock "<<buf<<endl;
+   buf->b_emptyBlock = false;
+   if (m_parsedBlocksDirty.count() > DIRTY_BLOCKS_MAX)
+   {
+      KateBufBlock *buf2 = m_parsedBlocksDirty.take(0);
+      buf2->flushStringList(); // Copy stringlist to raw
+      buf2->disposeStringList(); // dispose stringlist.
+      m_loadedBlocks.append(buf2);
+      assert(m_parsedBlocksClean.find(buf2) == -1);
+   }
    assert(m_loadedBlocks.find(buf) == -1);
-   m_parsedBlocksClean.removeRef(buf);     
-   m_parsedBlocksDirty.append(buf);     
-   buf->disposeRawData();     
-   if (buf->b_vmDataValid)     
-      buf->disposeSwap(m_vm);     
-}     
+   m_parsedBlocksClean.removeRef(buf);
+   m_parsedBlocksDirty.append(buf);
+   buf->disposeRawData();
+   if (buf->b_vmDataValid)
+      buf->disposeSwap(m_vm);
+}
 
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 {
@@ -712,55 +712,55 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 //   kdDebug()<<QString("Invalid line %1").arg(lineNr)<<endl;
 }
 
-     
-//-----------------------------------------------------------------     
-     
-/**     
- * The KateBufBlock class contains an amount of data representing     
- * a certain number of lines.     
- */     
-     
-/*     
- * Create an empty block.     
- */     
+
+//-----------------------------------------------------------------
+
+/**
+ * The KateBufBlock class contains an amount of data representing
+ * a certain number of lines.
+ */
+
+/*
+ * Create an empty block.
+ */
 KateBufBlock::KateBufBlock(const KateBufState &beginState)
- : m_beginState(beginState), m_endState(beginState)     
-{     
+ : m_beginState(beginState), m_endState(beginState)
+{
    m_rawData1Start = 0;
-   m_rawData2End = 0;     
-   m_rawSize = 0;     
-   m_vmblock = 0;     
-   b_stringListValid = false;     
-   b_rawDataValid = false;     
-   b_vmDataValid = false;     
-   b_appendEOL = false;     
+   m_rawData2End = 0;
+   m_rawSize = 0;
+   m_vmblock = 0;
+   b_stringListValid = false;
+   b_rawDataValid = false;
+   b_vmDataValid = false;
+   b_appendEOL = false;
    b_emptyBlock = false;
-   b_needHighlight = true;   
+   b_needHighlight = true;
    m_lastLine = 0;
    m_codec = 0;
-}     
+}
 
-/**     
- * Remove the last line of this block.     
- */     
-void     
-KateBufBlock::truncateEOL( int &lastLine, QByteArray &data1 )     
-{     
-   assert(b_appendEOL);     
-   assert(b_rawDataValid);     
-     
-   data1 = m_rawData2;     
-   lastLine = m_lastLine;     
-   b_appendEOL = false;     
-   m_rawData2End = m_lastLine;     
-   m_rawSize = m_rawData1.count() - m_rawData1Start + m_rawData2End;     
-     
-   m_endState.lineNr--;     
-   if (b_stringListValid)     
-      m_stringList.pop_back();     
-}     
-     
-/**     
+/**
+ * Remove the last line of this block.
+ */
+void
+KateBufBlock::truncateEOL( int &lastLine, QByteArray &data1 )
+{
+   assert(b_appendEOL);
+   assert(b_rawDataValid);
+
+   data1 = m_rawData2;
+   lastLine = m_lastLine;
+   b_appendEOL = false;
+   m_rawData2End = m_lastLine;
+   m_rawSize = m_rawData1.count() - m_rawData1Start + m_rawData2End;
+
+   m_endState.lineNr--;
+   if (b_stringListValid)
+      m_stringList.pop_back();
+}
+
+/**
  * Fill block with lines from @p data1 and @p data2.     
  * The first line starts at @p data1[@p dataStart].     
  * If @p last is true, all bytes from @p data2 are stored.     
@@ -803,7 +803,7 @@ KateBufBlock::blockFill(int dataStart, QByteArray data1, QByteArray data2, bool 
 	 if ((*p=='\r') &&((p+1)<e)) if (*(p+1)=='\n') p++;     
          l = p+1;     
       }     
-      p++;     
+      p++;
    }     
      
    // If this is the end of the data OR     
@@ -846,7 +846,7 @@ KateBufBlock::swapOut(KVMAllocator *vm)
    if (!b_vmDataValid)     
    {     
       m_vmblock = vm->allocate(m_rawSize);     
-      off_t ofs = 0;     
+      off_t ofs = 0;
       if (!m_rawData1.isEmpty())     
       {     
          ofs = m_rawData1.count() - m_rawData1Start;     
@@ -889,7 +889,7 @@ KateBufBlock::buildStringList()
    assert(m_stringList.empty());     
    if (!m_codec && !m_rawData2.isEmpty())     
    {     
-      buildStringListFast();     
+      buildStringListFast();
       return;     
    }     
      
@@ -932,7 +932,7 @@ KateBufBlock::buildStringList()
             QString line = m_codec->toUnicode(l, (p-l-1)+1);     
             if (!lastLine.isEmpty())     
             {     
-               line = lastLine + line;     
+               line = lastLine + line;
                lastLine.truncate(0);     
             }     
             TextLine::Ptr textLine = new TextLine();     
@@ -997,7 +997,9 @@ KateBufBlock::flushStringList()
        it != m_stringList.end(); ++it)
    {
       uint l = (*it)->text.size();
-      size += sizeof(uint) + l*sizeof(QChar);
+      uint lctx = (*it)->ctx.size();
+      size += (2*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + 1+ (lctx * sizeof(signed char));
+      //size += sizeof(uint) + l*sizeof(QChar);
    }
    //kdDebug(13020)<<"Size = "<< size<<endl;
    m_rawData2 = QByteArray(size);
@@ -1010,12 +1012,32 @@ KateBufBlock::flushStringList()
    {
       TextLine *tl = (*it).data();
       uint l = tl->text.size();
+      uint lctx = tl->ctx.size();
 
-      memcpy(buf, &l, sizeof(uint));
+       memcpy(buf, &l, sizeof(uint));
+       buf += sizeof(uint);
+
+      memcpy(buf, &lctx, sizeof(uint));
       buf += sizeof(uint);
 
       memcpy(buf, (char *) tl->text.data(), sizeof(QChar)*l);
       buf += sizeof(QChar)*l;
+
+      memcpy(buf, (char *) tl->attributes.data(), l);
+      buf += l;
+
+      memcpy(buf, (char *)&tl->attr, 1);
+      buf += 1;
+
+      uchar tmp = 0;
+      if (tl->hlContinue)
+        tmp = 1;
+
+      memcpy(buf, (char *)&tmp, 1);
+      buf += 1;
+
+      memcpy(buf, (signed char *)tl->ctx.data(), lctx);
+      buf += sizeof (signed char) * lctx;
    }
    assert(buf-m_rawData2.data() == (int)size);
    m_codec = 0; // No codec
@@ -1036,14 +1058,36 @@ KateBufBlock::buildStringListFast()
   while(buf < end)
   {
     uint l = 0;
+    uint lctx = 0;
 
     // text + context length read
     memcpy((char *) &l, buf, sizeof(uint));
     buf += sizeof(uint);
+    memcpy((char *) &lctx, buf, sizeof(uint));
+    buf += sizeof(uint);
 
     TextLine::Ptr textLine = new TextLine();
-    textLine->append((QChar *) buf, l);
+
+    // text + attributes
+    textLine->text.duplicate ((QChar *) buf, l);
+    textLine->attributes.duplicate ((uchar *) buf + (sizeof(QChar)*l), l);
     buf += (sizeof(QChar)*l);
+    buf += l;
+
+    uchar a = 0;
+    memcpy((char *)&a, buf, sizeof(uchar));
+    buf += sizeof(uchar);
+    textLine->attr = a;
+
+    uchar tmp = 0;
+    memcpy((char *)&tmp, buf, sizeof(uchar));
+    buf += sizeof(uchar);
+
+    if (tmp == 1)
+      textLine->hlContinue = true;
+
+    textLine->ctx.duplicate ((signed char *) buf, lctx);
+    buf += lctx;
 
     m_stringList.push_back (textLine);
   }
@@ -1053,7 +1097,7 @@ KateBufBlock::buildStringListFast()
   m_stringListIt = m_stringList.begin();
   m_stringListCurrent = 0;
   b_stringListValid = true;
-  b_needHighlight = true;
+  //b_needHighlight = true;
 }
 
 /**
@@ -1066,7 +1110,7 @@ KateBufBlock::disposeStringList()
    assert(b_rawDataValid || b_vmDataValid);
    m_stringList.clear();
    b_stringListValid = false;
-   b_needHighlight = true;
+   //b_needHighlight = true;
 }
 
 /**

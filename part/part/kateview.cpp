@@ -444,7 +444,7 @@ void KateView::setupEditActions()
     this, SLOT(home()),
     ac, "beginning_of_line" );
   new KAction(
-    i18n("Move to Beginning of Document"),           CTRL + Key_Home,
+    i18n("Move to Beginning of Document"),           KStdAccel::home(),
     this, SLOT(top()),
     ac, "beginning_of_document" );
   new KAction(
@@ -461,7 +461,7 @@ void KateView::setupEditActions()
     this, SLOT(end()),
     ac, "end_of_line" );
   new KAction(
-    i18n("Move to End of Document"),                 CTRL + Key_End,
+    i18n("Move to End of Document"),                 KStdAccel::end(),
     this, SLOT(bottom()),
     ac, "end_of_document" );
   new KAction(
@@ -482,6 +482,18 @@ void KateView::setupEditActions()
     this, SLOT(scrollUp()),
     ac, "scroll_line_up" );
 
+  new KAction(i18n("Move to Next Line"), Key_Down, this, SLOT(down()),
+	      ac, "move_line_down");
+
+  new KAction(i18n("Move to Previous Line"), Key_Up, this, SLOT(up()),
+	      ac, "move_line_up");
+
+  new KAction(i18n("Move Character Right"), Key_Right, this, SLOT(cursorRight()),
+	      ac, "move_cursor_right");
+
+  new KAction(i18n("Move Character Left"), Key_Left, this, SLOT(cursorLeft()),
+	      ac, "move_cusor_left");
+
   new KAction(
     i18n("Select to Next Line"),                    SHIFT + Key_Down,
     this, SLOT(shiftDown()),
@@ -492,7 +504,7 @@ void KateView::setupEditActions()
     ac, "scroll_line_down" );
 
   new KAction(
-    i18n("Scroll Page Up"),                                 Key_PageUp,
+    i18n("Scroll Page Up"),                         KStdAccel::prior(),
     this, SLOT(pageUp()),
     ac, "scroll_page_up" );
   new KAction(
@@ -509,7 +521,7 @@ void KateView::setupEditActions()
     ac, "select_top_of_view" );
 
   new KAction(
-    i18n("Scroll Page Down"),                               Key_PageDown,
+    i18n("Scroll Page Down"),                          KStdAccel::next(),
     this, SLOT(pageDown()),
     ac, "scroll_page_down" );
   new KAction(
@@ -553,14 +565,22 @@ void KateView::setupEditActions()
       ac, "delete_line" );
 
     new KAction(
-      i18n("Delete Word Left"),               CTRL + Key_Backspace,
+      i18n("Delete Word Left"),               KStdAccel::deleteWordBack(),
       this, SLOT(deleteWordLeft()),
       ac, "delete_word_left" );
 
     new KAction(
-      i18n("Delete Word Right"),              CTRL + Key_Delete,
+      i18n("Delete Word Right"),              KStdAccel::deleteWordForward(),
       this, SLOT(deleteWordRight()),
       ac, "delete_word_right" );
+
+    new KAction(i18n("Delete next Character"), Key_Delete,
+		this, SLOT(keyDelete()),
+		ac, "delete_next_character");
+
+    new KAction(i18n("Backspace"), Key_Backspace,
+		this, SLOT(backspace()),
+		ac, "backspace");
   }
 
   connect( this, SIGNAL(gotFocus(Kate::View*)),

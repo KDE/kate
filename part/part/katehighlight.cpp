@@ -46,7 +46,7 @@
 #include "katesyntaxdocument.h"
 
 #include "katefactory.h"
-//END       
+//END
 
 /**
   Prviate HL classes
@@ -820,6 +820,7 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
   noHl = false;
   folding=false;
   internalIDList.setAutoDelete(true);
+
   if (def == 0)
   {
     noHl = true;
@@ -842,12 +843,13 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
 
 Highlight::~Highlight()
 {
+    contextList.setAutoDelete( true );
 }
 
 void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs, int *prevLine, bool lineContinue)
 {
   //kdDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
-  
+
   if (lineContinue)
   {
     if ( !ctxs->isEmpty() )
@@ -885,7 +887,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs
           //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
           (*ctxNum) = ( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
         }
-        
+
         ctx++;
       }
 
@@ -1027,11 +1029,11 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
         {
           textLine->setAttribs(item->attr,s1 - str,s2 - str);
           //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
-		
+
     if (item->region)
 		{
       //  kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
-      
+
       if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
       {
         foldingList->resize (foldingList->size()-1);
@@ -1152,7 +1154,7 @@ void Highlight::setData(HlData *hlData) {
   config->writeEntry("Mimetypes",hlData->mimetypes);
 
   setItemDataList(hlData->itemDataList,config);
-  
+
   config->sync ();
 }
 
@@ -1490,7 +1492,7 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 			regionId=-regionId;
 		}
 
-		
+
                 //Create the item corresponding to it's type and set it's parameters
 		HlItem *tmpItem;
 
@@ -1524,7 +1526,7 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
                   }
 		if (!unresolvedContext.isEmpty())
 		{
-			unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);					
+			unresolvedContextReferences.insert(&(tmpItem->ctx),unresolvedContext);
 		}
 		return tmpItem;
 
@@ -1632,12 +1634,12 @@ void Highlight::readGlobalKeywordConfig()
           deliminator.remove (f, 1);
      }
 
-     QString addDelim=(HlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));      
+     QString addDelim=(HlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));
      if (!addDelim.isEmpty()) deliminator=deliminator+addDelim;
      deliminatorChars = deliminator.unicode();
      deliminatorLen = deliminator.length();
 
-     
+
 	HlManager::self()->syntax->freeGroupInfo(data);
     }
   else
@@ -1646,8 +1648,8 @@ void Highlight::readGlobalKeywordConfig()
        casesensitive=true;
        weakDeliminator=QString("");
     }
-  
-  
+
+
   kdDebug(13010)<<"readGlobalKeywordConfig:END"<<endl;
 
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
@@ -1664,7 +1666,8 @@ void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
 
   kdDebug(13010)<<"creatingContextNameList:BEGIN"<<endl;
 
-  if (ctx0=0) ContextNameList->clear();
+  if (ctx0 == 0)
+      ContextNameList->clear();
 
   HlManager::self()->syntax->setIdentifier(buildIdentifier);
 
@@ -1674,7 +1677,7 @@ void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
 
   if (data)
   {
-     while (HlManager::self()->syntax->nextGroup(data))    
+     while (HlManager::self()->syntax->nextGroup(data))
      {
           QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace();
 	  if (tmpAttr.isEmpty())
@@ -1717,7 +1720,7 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
 	else
 	{
 		context=ContextNameList->findIndex(buildPrefix+tmpLineEndContext);
-		if (context==-1) 
+		if (context==-1)
 		{
 			context=tmpLineEndContext.toInt();
 			errorsAndWarnings+=i18n("<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name").arg(buildIdentifier).arg(tmpLineEndContext);
@@ -1759,7 +1762,7 @@ void Highlight::makeContextList()
   bool something_changed;
   int startctx=0;	// the context "0" id is 0 for this hl, all embedded context "0"s have offsets
   building=true;	// inform everybody that we are building the highlighting contexts and itemlists
-  do 
+  do
   {
 	kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
 	kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
@@ -1814,7 +1817,7 @@ void Highlight::makeContextList()
 	if (!errorsAndWarnings.isEmpty())
 	KMessageBox::information(0L,i18n("<qt>The following warning(s) and/or error(s) have been encountered: <BR>%1</qt>").
 			arg(errorsAndWarnings));
-	
+
 // we have finished
   building=false;
 }
@@ -1959,20 +1962,22 @@ HlManager::HlManager() : QObject(0)
   Highlight *hl = new Highlight(0);
   hlList.append (hl);
   hlDict.insert (hl->name(), hl);
-  
+
   uint i=0;
   while (i < modeList.count())
   {
     hl = new Highlight(modeList.at(i));
     hlList.append (hl);
     hlDict.insert (hl->name(), hl);
-    
+
     i++;
   }
 }
 
 HlManager::~HlManager() {
-  if(syntax) delete syntax;
+    if(syntax)
+        delete syntax;
+
 }
 
 HlManager *HlManager::self()
@@ -2212,7 +2217,7 @@ void HlManager::setHlDataList(HlDataList &list) {
 QString HlManager::identifierForName(const QString& name)
 {
   Highlight *hl = 0;
-  
+
   if ((hl = hlDict[name]))
     return hl->getIdentifier ();
 

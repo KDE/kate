@@ -153,13 +153,15 @@ void KateView::setupConnections()
            this, SLOT(slotSaveCanceled(const QString&)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
-  if ( m_doc->m_bBrowserView ) {
-    connect( this, SIGNAL(dropEventPass(QDropEvent*)),
-             this, SLOT(slotDropEventPass(QDropEvent*)) );
-  }
   connect(this,SIGNAL(cursorPositionChanged()),this,SLOT(slotStatusMsg()));
   connect(this,SIGNAL(newStatus()),this,SLOT(slotStatusMsg()));
   connect(m_doc, SIGNAL(undoChanged()), this, SLOT(slotStatusMsg()));
+
+  if ( m_doc->m_bBrowserView )
+  {
+    connect( this, SIGNAL(dropEventPass(QDropEvent*)),
+             this, SLOT(slotDropEventPass(QDropEvent*)) );
+  }
 }
 
 void KateView::setupActions()
@@ -334,7 +336,6 @@ void KateView::setupEditActions()
 {
   m_editActions = new KActionCollection( m_viewInternal );
   KActionCollection* ac = m_editActions;
-//  ac->setDefaultScope( KAction::ScopeWidget );
 
   new KAction(
     i18n("Move Word Left"),                         CTRL + Key_Left,
@@ -447,6 +448,7 @@ void KateView::setupEditActions()
     i18n("Select to Matching Bracket"),      SHIFT +  CTRL + Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
+
   // anders: shortcuts doing any changes should not be created in browserextension
   if ( !m_doc->m_bReadOnly )
   {

@@ -50,4 +50,3 @@ class KateCmd : public QObject
 };
 
 #endif
-

@@ -1196,24 +1196,27 @@ void Highlight::setData(HlData *hlData) {
   config->sync ();
 }
 
-void Highlight::getItemDataList(ItemDataList &list) {
+void Highlight::getItemDataList(ItemDataList &list)
+{
   getItemDataList(list, getKConfig());
 }
 
-void Highlight::getItemDataList(ItemDataList &list, KConfig *config) {
-  ItemData *p;
-  QString s;
-  QRgb col, selCol;
-
+void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
+{
   list.clear();
-//JW  list.setAutoDelete(true);
   createItemData(list);
 
-  for (p = list.first(); p != 0L; p = list.next()) {
-    s = config->readEntry(p->name);
-    if (!s.isEmpty()) {
+  for (ItemData *p = list.first(); p != 0L; p = list.next())
+  {
+    QString s = config->readEntry(p->name);
+
+    if (!s.isEmpty())
+    {
+      QRgb col, selCol;
       int bold, italic;
+
       sscanf(s.latin1(),"%d,%X,%X,%d,%d", &p->defStyle,&col,&selCol,&bold,&italic);
+
       QColor color = p->textColor();
       color.setRgb(col);
       p->setTextColor(color);
@@ -1244,13 +1247,15 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config) {
                         * return value: none
 *******************************************************************************************/
 
-void Highlight::setItemDataList(ItemDataList &list, KConfig *config) {
-  ItemData *p;
-  QString s;
+void Highlight::setItemDataList(ItemDataList &list, KConfig *config)
+{
+  for (ItemData *p = list.first(); p != 0L; p = list.next())
+  {
+    QString s;
 
-  for (p = list.first(); p != 0L; p = list.next()) {
     s.sprintf("%d,%X,%X,%d,%d",
       p->defStyle,p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic());
+
     config->writeEntry(p->name,s);
   }
 }
@@ -1268,7 +1273,9 @@ void Highlight::setItemDataList(ItemDataList &list, KConfig *config) {
 
 void Highlight::use()
 {
-  if (refCount == 0) init();
+  if (refCount == 0)
+    init();
+
   refCount++;
 }
 
@@ -1286,7 +1293,9 @@ void Highlight::use()
 void Highlight::release()
 {
   refCount--;
-  if (refCount == 0) done();
+
+  if (refCount == 0)
+    done();
 }
 
 /*******************************************************************************************
@@ -1354,8 +1363,8 @@ void Highlight::createItemData(ItemDataList &list)
   // If no highlighting is selected we need only one default.
   if (noHl)
   {
-     list.append(new ItemData(I18N_NOOP("Normal Text"), dsNormal));
-     return;
+    list.append(new ItemData(I18N_NOOP("Normal Text"), dsNormal));
+    return;
   }
 
   // If the internal list isn't already available read the config file
@@ -1410,8 +1419,8 @@ void Highlight::addToItemDataList()
                 }
       }
     //clean up
-    if (data) HlManager::self()->syntax->freeGroupInfo(data);
-  }
+  if (data) HlManager::self()->syntax->freeGroupInfo(data);
+}
 
 /*******************************************************************************************
         Highlight - lookupAttrName
@@ -2169,16 +2178,20 @@ HlManager::HlManager() : QObject(0)
   hlDict.insert (hl->name(), hl);
 }
 
-HlManager::~HlManager() {
-    if(syntax)
-        delete syntax;
-
+HlManager::~HlManager()
+{
+  if(syntax)
+  {
+    delete syntax;
+    syntax = 0;
+  }
 }
 
 HlManager *HlManager::self()
 {
   if ( !s_pSelf )
     s_pSelf = new HlManager;
+
   return s_pSelf;
 }
 
@@ -2186,29 +2199,34 @@ KConfig *HlManager::getKConfig()
 {
   if (!s_pConfig)
     s_pConfig = new KConfig("katesyntaxhighlightingrc");
+
   return s_pConfig;
 }
 
-Highlight *HlManager::getHl(int n) {
-  if (n < 0 || n >= (int) hlList.count()) n = 0;
+Highlight *HlManager::getHl(int n)
+{
+  if (n < 0 || n >= (int) hlList.count())
+    n = 0;
+
   return hlList.at(n);
 }
 
-int HlManager::defaultHl() {
-  KConfig *config;
-
-  config = KateFactory::instance()->config();
+int HlManager::defaultHl()
+{
+  KConfig *config = KateFactory::instance()->config();
   config->setGroup("General Options");
+
   return nameFind(config->readEntry("Highlight"));
 }
 
 
-int HlManager::nameFind(const QString &name) {
-  int z;
+int HlManager::nameFind(const QString &name)
+{
+  int z (hlList.count() - 1);
+  for (; z > 0; z--)
+    if (hlList.at(z)->name() == name)
+      return z;
 
-  for (z = hlList.count() - 1; z > 0; z--) {
-    if (hlList.at(z)->name() == name) break;
-  }
   return z;
 }
 
@@ -2237,12 +2255,13 @@ int HlManager::wildcardFind(const QString &fileName)
 
 int HlManager::realWildcardFind(const QString &fileName)
 {
-  Highlight *highlight;
-  QStringList l;
-  QRegExp sep("\\s*;\\s*");
-  for (highlight = hlList.first(); highlight != 0L; highlight = hlList.next()) {
+  static QRegExp sep("\\s*;\\s*");
+
+  for (Highlight *highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
+  {
     // anders: this is more likely to catch the right one ;)
     QStringList l = QStringList::split( sep, highlight->getWildcards() );
+
     for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
     {
       // anders: we need to be sure to match the end of string, as eg a css file
@@ -2252,31 +2271,24 @@ int HlManager::realWildcardFind(const QString &fileName)
         return hlList.at();
     }
   }
+
   return -1;
 }
 
 int HlManager::mimeFind(const QByteArray &contents, const QString &)
 {
-//  kdDebug(13010)<<"hlManager::mimeFind( [contents], "<<fname<<")"<<endl;
-//  kdDebug(13010)<<"file contents: "<<endl<<contents.data()<<endl<<"- - - - - - END CONTENTS - - - - -"<<endl;
+  static QRegExp sep("\\s*;\\s*");
 
-  // detect the mime type
-  KMimeType::Ptr mt;
-  int accuracy; // just for debugging
-  mt = KMimeType::findByContent( contents, &accuracy );
-  QString mtname = mt->name();
-//  kdDebug(13010)<<"KMimeType::findByContent() returned '"<<mtname<<"', accuracy: "<<accuracy<<endl;
+  int accuracy;
+  KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
 
-  Highlight *highlight;
-  for (highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
+  for (Highlight *highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
   {
-//    kdDebug(13010)<<"KMimeType::findByContent(): considering hl "<<highlight->name()<<endl;
-    QRegExp sep("\\s*;\\s*");
     QStringList l = QStringList::split( sep, highlight->getMimetypes() );
+
     for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
     {
-//      kdDebug(13010)<<"..trying "<<*it<<endl;
-      if ( *it == mtname ) // faster than a regexp i guess?
+      if ( *it == mt->name() ) // faster than a regexp i guess?
         return hlList.at();
     }
   }
@@ -2287,28 +2299,24 @@ int HlManager::mimeFind(const QByteArray &contents, const QString &)
 void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
 {
   KateAttributeList defaultStyleList;
-  KateAttribute *defaultStyle;
-  ItemDataList itemDataList;
-  ItemData *itemData;
-  uint nAttribs, z;
-
   defaultStyleList.setAutoDelete(true);
   getDefaults(defaultStyleList);
 
+  ItemDataList itemDataList;
   highlight->getItemDataList(itemDataList);
-  nAttribs = itemDataList.count();
 
+  uint nAttribs = itemDataList.count();
   doc->attribs()->resize (nAttribs);
 
-  for (z = 0; z < nAttribs; z++)
+  for (uint z = 0; z < nAttribs; z++)
   {
     KateAttribute n;
+    ItemData *itemData = itemDataList.at(z);
 
-    itemData = itemDataList.at(z);
     if (itemData->defStyle)
     {
       // default style
-      defaultStyle = defaultStyleList.at(itemData->defStyleNum);
+      KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
       n += *defaultStyle;
     }
     else
@@ -2321,7 +2329,8 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
   }
 }
 
-int HlManager::defaultStyles() {
+int HlManager::defaultStyles()
+{
   return 10;
 }
 
@@ -2346,7 +2355,8 @@ QString HlManager::defaultStyleName(int n)
   return names[n];
 }
 
-void HlManager::getDefaults(KateAttributeList &list) {
+void HlManager::getDefaults(KateAttributeList &list)
+{
   KConfig *config;
   int z;
   KateAttribute *i;

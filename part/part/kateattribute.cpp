@@ -79,21 +79,10 @@ QFont KateAttribute::font(const QFont& ref)
   return ret;
 }
 
-int KateAttribute::itemsSet() const
-{
-  return m_itemsSet;
-}
-
-int KateAttribute::weight() const
-{
-  return m_weight;
-}
-
 void KateAttribute::setWeight(int weight)
 {
-  bool isChanged = !(m_itemsSet & Weight) || m_weight != weight;
-
-  if (isChanged) {
+  if (!(m_itemsSet & Weight) || m_weight != weight)
+  {
     m_itemsSet |= Weight;
 
     m_weight = weight;
@@ -119,9 +108,8 @@ bool KateAttribute::italic() const
 
 void KateAttribute::setItalic(bool enable)
 {
-  bool isChanged = !(m_itemsSet & Italic) || m_italic != enable;
-
-  if (isChanged) {
+  if (!(m_itemsSet & Italic) || m_italic != enable)
+  {
     m_itemsSet |= Italic;
 
     m_italic = enable;
@@ -137,9 +125,8 @@ bool KateAttribute::underline() const
 
 void KateAttribute::setUnderline(bool enable)
 {
-  bool isChanged = !(m_itemsSet & Underline) || m_underline != enable;
-
-  if (isChanged) {
+  if (!(m_itemsSet & Underline) || m_underline != enable)
+  {
     m_itemsSet |= Underline;
 
     m_underline = enable;
@@ -155,9 +142,8 @@ bool KateAttribute::strikeOut() const
 
 void KateAttribute::setStrikeOut(bool enable)
 {
-  bool isChanged = !(m_itemsSet & StrikeOut) || m_strikeout != enable;
-
-  if (isChanged) {
+  if (!(m_itemsSet & StrikeOut) || m_strikeout != enable)
+  {
     m_itemsSet |= StrikeOut;
 
     m_strikeout = enable;
@@ -173,9 +159,8 @@ const QColor& KateAttribute::outline() const
 
 void KateAttribute::setOutline(const QColor& color)
 {
-  bool isChanged = !(m_itemsSet & Outline) || m_outline != color;
-
-  if (isChanged) {
+  if (!(m_itemsSet & Outline) || m_outline != color)
+  {
     m_itemsSet |= Outline;
 
     m_outline = color;
@@ -191,9 +176,8 @@ const QColor& KateAttribute::textColor() const
 
 void KateAttribute::setTextColor(const QColor& color)
 {
-  bool isChanged = !(m_itemsSet & TextColor) || m_textColor != color;
-
-  if (isChanged) {
+  if (!(m_itemsSet & TextColor) || m_textColor != color)
+  {
     m_itemsSet |= TextColor;
 
     m_textColor = color;
@@ -209,9 +193,8 @@ const QColor& KateAttribute::selectedTextColor() const
 
 void KateAttribute::setSelectedTextColor(const QColor& color)
 {
-  bool isChanged = !(m_itemsSet & SelectedTextColor) || m_selectedTextColor != color;
-
-  if (isChanged) {
+  if (!(m_itemsSet & SelectedTextColor) || m_selectedTextColor != color)
+  {
     m_itemsSet |= SelectedTextColor;
 
     m_selectedTextColor = color;
@@ -227,9 +210,8 @@ const QColor& KateAttribute::bgColor() const
 
 void KateAttribute::setBGColor(const QColor& color)
 {
-  bool isChanged = !(m_itemsSet & BGColor) || m_bgColor != color;
-
-  if (isChanged) {
+  if (!(m_itemsSet & BGColor) || m_bgColor != color)
+  {
     m_itemsSet |= BGColor;
 
     m_bgColor = color;
@@ -245,9 +227,8 @@ const QColor& KateAttribute::selectedBGColor() const
 
 void KateAttribute::setSelectedBGColor(const QColor& color)
 {
-  bool isChanged = !(m_itemsSet & SelectedBGColor) || m_selectedBGColor != color;
-
-  if (isChanged) {
+  if (!(m_itemsSet & SelectedBGColor) || m_selectedBGColor != color)
+  {
     m_itemsSet |= SelectedBGColor;
 
     m_selectedBGColor = color;

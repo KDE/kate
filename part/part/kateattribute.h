@@ -61,9 +61,12 @@ public:
   inline bool itemSet(int item) const
   { return item & m_itemsSet; };
 
-  int itemsSet() const;
+  inline int itemsSet() const
+  { return m_itemsSet; };
 
-  int weight() const;
+  inline int weight() const
+  { return m_weight; };
+
   void setWeight(int weight);
 
   bool bold() const;

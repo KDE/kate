@@ -48,16 +48,15 @@ void FontStruct::updateFontData(int tabChars)
 {
   int maxAscent = myFontMetrics.ascent();
   int maxDescent = myFontMetrics.descent();
-  int tabWidth = myFontMetrics.width(' ');
 
   fontHeight = maxAscent + maxDescent + 1;
   fontAscent = maxAscent;
-  m_tabWidth = tabChars*tabWidth;
+  m_tabWidth = tabChars * myFontMetrics.width(' ');
 }
 
 int FontStruct::width(const QString& text, int col, bool bold, bool italic) const
 {
-  if (text[col] == '\t')
+  if (text[col] == QChar('\t'))
     return m_tabWidth;
 
   return (bold) ?
@@ -71,7 +70,7 @@ int FontStruct::width(const QString& text, int col, bool bold, bool italic) cons
 
 int FontStruct::width(const QChar& c, bool bold, bool italic) const
 {
-  if (c == '\t')
+  if (c == QChar('\t'))
     return m_tabWidth;
 
   return (bold) ?

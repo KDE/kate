@@ -31,18 +31,19 @@
 class KateViewHighlightAction: public Kate::ActionMenu
 {
   Q_OBJECT
-  
+
   public:
     KateViewHighlightAction(const QString& text, QObject* parent = 0, const char* name = 0)
        : Kate::ActionMenu(text, parent, name) { init(); };
 
     ~KateViewHighlightAction(){;};
-    
+
     void updateMenu (Kate::Document *doc);
 
   private:
-    QGuardedPtr<Kate::Document>  m_doc;
     void init();
+
+    QGuardedPtr<Kate::Document> m_doc;
     QStringList subMenusName;
     QStringList names;
     QPtrList<QPopupMenu> subMenus;

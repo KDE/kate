@@ -31,8 +31,6 @@
 #include <kinstance.h>
 #include <kaboutdata.h>
 
-#include <assert.h>
-
 template class QPtrList<KateDocument>;
 template class QPtrList<KateView>;
 
@@ -65,42 +63,38 @@ KateFactory::~KateFactory()
 {
   if ( s_self == this )
   {
-        assert( !s_refcnt );
+    if ( s_instance )
+      delete s_instance;
 
-        if ( s_instance )
-            delete s_instance;
+    if ( s_about )
+      delete s_about;
 
-        if ( s_about )
-            delete s_about;
+    if ( s_plugins )
+      delete s_plugins;
 
-	if ( s_plugins )
-	  delete s_plugins;
-
-        s_instance = 0;
-        s_about = 0;
-	s_plugins = 0;
-    }
-    else
-        deref();
+    s_instance = 0;
+    s_about = 0;
+    s_plugins = 0;
+  }
+  else
+    deref();
 }
 
 void KateFactory::ref()
 {
-    if ( !s_refcnt && !s_self )
-    {
-      s_self = new KateFactory;
-    }
+  if ( !s_refcnt && !s_self )
+    s_self = new KateFactory;
 
-    s_refcnt++;
+  s_refcnt++;
 }
 
 void KateFactory::deref()
 {
-    if ( !--s_refcnt && s_self )
-    {
-        delete s_self;
-        s_self = 0;
-    }
+  if ( !--s_refcnt && s_self )
+  {
+    delete s_self;
+    s_self = 0;
+  }
 }
 
 KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList & )
@@ -117,44 +111,32 @@ KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *
 
 void KateFactory::registerDocument ( KateDocument *doc )
 {
-    if ( !s_documents.containsRef( doc ) )
-    {
-        s_documents.append( doc );
-        ref();
-    }
+  if ( !s_documents.containsRef( doc ) )
+  {
+    s_documents.append( doc );
+    ref();
+  }
 }
 
 void KateFactory::deregisterDocument ( KateDocument *doc )
 {
-
-    if ( s_documents.removeRef( doc ) )
-    {
-
-
-        deref();
-    }
+  if ( s_documents.removeRef( doc ) )
+    deref();
 }
 
 void KateFactory::registerView ( KateView *view )
 {
-
-    if ( !s_views.containsRef( view ) )
-    {
-        s_views.append( view );
-        ref();
-    }
+  if ( !s_views.containsRef( view ) )
+  {
+    s_views.append( view );
+    ref();
+  }
 }
 
 void KateFactory::deregisterView ( KateView *view )
 {
-
-
-    if ( s_views.removeRef( view ) )
-    {
-
-
-        deref();
-    }
+  if ( s_views.removeRef( view ) )
+    deref();
 }
 
 KTrader::OfferList *KateFactory::plugins ()
@@ -167,8 +149,6 @@ KTrader::OfferList *KateFactory::plugins ()
 
 KInstance *KateFactory::instance()
 {
-  assert( s_self );
-
   if ( !s_instance )
   {
     s_about = new KAboutData  ("katepart", I18N_NOOP("Kate Part"), "2.2",

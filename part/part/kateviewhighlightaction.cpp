@@ -28,9 +28,10 @@
 
 void KateViewHighlightAction::init()
 {
-	subMenus.setAutoDelete( true );
-  m_doc = 0L;
-	connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+  m_doc = 0;
+  subMenus.setAutoDelete( true );
+
+  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
 void KateViewHighlightAction::updateMenu (Kate::Document *doc)
@@ -79,7 +80,7 @@ void KateViewHighlightAction::slotAboutToShow()
   for (uint i=0;i<subMenus.count();i++)
   {
     for (uint i2=0;i2<subMenus.at(i)->count();i2++)
-      	subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
+      subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
   }
   popupMenu()->setItemChecked (0, false);
 
@@ -96,8 +97,7 @@ void KateViewHighlightAction::slotAboutToShow()
 void KateViewHighlightAction::setHl (int mode)
 {
   Kate::Document *doc=m_doc;
-  
-  if (!doc) return;
 
-  doc->setHlMode((uint)mode);
+  if (doc)
+    doc->setHlMode((uint)mode);
 }

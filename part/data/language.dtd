@@ -260,7 +260,7 @@ TODO
 <!-- Detect a string
   commonAttributes: Common attributes
   String:           The string to look for
-  insensitive:      Whether the string is matched case INsensitive. [boolean, optional]
+  insensitive:      Whether the string is matched case INsensitive. [boolean, optional, default='false']
 -->
 <!ELEMENT StringDetect EMPTY>
 <!ATTLIST StringDetect

@@ -256,6 +256,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect( KateFactory::dirWatch(), SIGNAL(deleted (const QString &)),
            this, SLOT(slotModOnHdDeleted (const QString &)) );
 
+  // update doc name
+  setDocName ("");
+
   // if single view mode, like in the konqui embedding, create a default view ;)
   if ( m_bSingleViewMode )
   {

@@ -25,4 +25,3 @@ view.setSelection( line, 0, line, document.lineLength(line) );
 
 document.insertText( line, document.lineLength( line ), " Selection is " + view.selStartLine() + "," + view.selStartCol() + " - " + view.selEndLine() + "," + view.selEndCol() );
 
-

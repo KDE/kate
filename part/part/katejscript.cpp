@@ -476,19 +476,34 @@ void KateJScriptManager::collectScripts (bool force)
     }
     else
     {
-      kdDebug (13010) << "add script: " << *it << endl;
+      kdDebug (13050) << "add script: " << *it << endl;
 
-      QFileInfo fi (*it);
+      QString desktopFile =  (*it).left((*it).length()-2).append ("desktop");
 
-      if (m_scripts[fi.baseName()])
-        continue;
+      kdDebug (13050) << "add script (desktop file): " << desktopFile << endl;
 
-      KateJScriptManager::Script *s = new KateJScriptManager::Script ();
+      QFileInfo dfi (desktopFile);
 
-      s->name = fi.baseName();
-      s->filename = *it;
+      if (dfi.exists())
+      {
 
-      m_scripts.insert (s->name, s);
+      }
+      else // no desktop file around, fall back to scriptfilename == commandname
+      {
+        kdDebug (13050) << "add script: fallback, no desktop file around!" << endl;
+
+        QFileInfo fi (*it);
+
+        if (m_scripts[fi.baseName()])
+          continue;
+
+        KateJScriptManager::Script *s = new KateJScriptManager::Script ();
+
+        s->name = fi.baseName();
+        s->filename = *it;
+
+        m_scripts.insert (s->name, s);
+      }
     }
   }
 

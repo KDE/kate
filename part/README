@@ -1,10 +1,11 @@
    *** Kate Part ***
-The Kate Part supports the most of th KDE KTextEditor interfaces and it is
+The Kate Part supports the majority of KTextEditor interfaces and it is
 highly approciated to use them (as the Kate::View/Document interfaces
-are more or less only for private use in the Kate app and may become BIC)
+are more or less only for private use in the Kate app and may become BIC
+in future versions)
    
 Homepage: http://kate.kde.org
 
 Licensing:
-The Kate Part and its interfaces are licensed under the LGPL version 2, not any later
-version !!!
+The Kate Part and its interfaces are licensed under the LGPL version 2,
+not any later version !!!

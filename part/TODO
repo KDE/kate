@@ -12,6 +12,7 @@ For 3.1 and later:
 
  - code completion : some keyboard handling fixes
 
+For 3.2 and later:
  - dynamic word wrap
  
  - print/export only selected text

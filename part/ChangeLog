@@ -1,3 +1,7 @@
+2002-09-06 Christoph Cullmann <cullmann@kde.org>
+  * commiting a fix from Nicolai Haehnle <prefect_@gmx.net> for the
+    cursorDown()/cursorUp() behaviour
+
 2002-09-03 Christoph Cullmann <cullmann@kde.org>
   * some minor fixes in the last days (redraw stuff, memset, ...)
 

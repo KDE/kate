@@ -1395,8 +1395,7 @@
 			<item> msql_dbname </item>
 			<item> msql_drop_db </item>
 			<item> msql_dropdb </item>
-			<item> </item>
-			<item>msql_error </item>
+			<item> msql_error </item>
 			<item> msql_fetch_array </item>
 			<item> msql_fetch_field </item>
 			<item> msql_fetch_object </item>
@@ -2696,15 +2695,15 @@
 			<context name="nosource" attribute="Normal Text" lineEndContext="#stay">
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-				<RegExpr attribute="HTML Tag" context="scripts" String="&lt;\s*(SCRIPT|Script|script)\s*" />
-			 	<RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+				<RegExpr attribute="HTML Tag" context="scripts" String="&lt;\s*script(\s|&gt;)" insensitive="TRUE" />
+				<RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
 				<StringDetect attribute="HTML Comment" context="htmlcomment" String="&lt;!--" />
 			</context>
 			<context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
 				<StringDetect attribute="Keyword" context="#pop" String="?&gt;" />
 				<Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
 				<Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" />
-				<DetectChar attribute="Comment" context="onelinecomment_2" char="#"/>
+				<DetectChar attribute="Comment" context="onelinecomment_2" char="#" />
 				<keyword attribute="Control Structures" context="#stay" String="control structures" />
 				<keyword attribute="Keyword" context="#stay" String="keywords" />
 				<keyword attribute="Function" context="#stay" String="functions" />
@@ -2727,14 +2726,14 @@
 			<context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
 				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
 			</context>
-			<context name="onelinecomment_2" attribute="Comment" lineEndContext="#pop"/>
+			<context name="onelinecomment_2" attribute="Comment" lineEndContext="#pop" />
 			<context name="doblequotestring" attribute="String" lineEndContext="#stay">
 				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
-				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\"/>
-				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="n"/>
-				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="r"/>
-				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="t"/>
-				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="$"/>
+				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\" />
+				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="n" />
+				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="r" />
+				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="t" />
+				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="$" />
 				<RegExpr attribute="Backslash Code" context="#stay" String="\\[0-7]{1,3}" />
 				<RegExpr attribute="Backslash Code" context="#stay"String="\\x[0-9A-Fa-f]{1,2}" />
 				<RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
@@ -2762,21 +2761,21 @@
 			</context>
 			<context name="identifiers" attribute="Identifier" lineEndContext="#stay">
 				<RegExpr attribute="String" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
-    			<DetectChar attribute="Types" context="types1" char="'" />
-    			<DetectChar attribute="Types" context="types2" char="&quot;" />
+				<DetectChar attribute="Types" context="types1" char="'" />
+				<DetectChar attribute="Types" context="types2" char="&quot;" />
 			</context>
 
 			<context name="types1" attribute="Types" lineEndContext="#stay">
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
-   				<DetectChar attribute="Types" context="#pop#pop" char="'" />
-   			</context>
+				<DetectChar attribute="Types" context="#pop#pop" char="'" />
+			</context>
 
 			<context name="types2" attribute="Types" lineEndContext="#stay">
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
 				<DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
-    		</context>
+			</context>
 
 			<context name="scripts" attribute="Normal Text" lineEndContext="#stay">
 				<Detect2Chars attribute="Comment" context="onelinecomment" char="/" char1="/" />
@@ -2786,7 +2785,7 @@
 				<keyword attribute="Function" context="#stay" String="functions" />
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php"/>
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?"/>
-				<RegExpr attribute="HTML Tag" context="#pop" String="&lt;\s*\/\s*(SCRIPT|Script|script)\s*&gt;" />
+				<RegExpr attribute="HTML Tag" context="#pop" String="&lt;\s*\/\s*script\s*&gt;" insensitive="TRUE" />
 
 				<DetectChar attribute="String" context="doblequotestring" char="&quot;" />
 				<DetectChar attribute="String" context="singlequotestring" char="&#39;" />
@@ -2820,10 +2819,10 @@
 			<itemData name="Backslash Code" defStyleNum="dsKeyword" color="#0F0F8F" selColor="#ffffff" bold="1" italic="0" />
 			<itemData name="Other" defStyleNum="dsOthers" />
 
-			<itemData name="HTML Tag" defStyleNum="dsKeyword" color="#0F0000" selColor="#ffffff" bold="1" italic="0"/>
+			<itemData name="HTML Tag" defStyleNum="dsKeyword" color="#0F0000" selColor="#ffffff" bold="1" italic="0" />
 			<itemData name="HTML Comment" defStyleNum="dsComment" />
-			<itemData name="Identifier" defStyleNum="dsOthers"/>
-			<itemData name="Types" defStyleNum="dsDataType"/>
+			<itemData name="Identifier" defStyleNum="dsOthers" />
+			<itemData name="Types" defStyleNum="dsDataType" />
 
 		</itemDatas>
 	</highlighting>

@@ -255,7 +255,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(HlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
-  connect(HlManager::self(),SIGNAL(changed( uint )),SLOT(internalHlChanged( uint )));
 
   // signal for the arbitrary HL
   connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KateSuperRange*)), SLOT(tagArbitraryLines(KateView*, KateSuperRange*)));
@@ -3182,14 +3181,10 @@ void KateDocument::makeAttribs()
   updateLines();
 }
 
-void KateDocument::internalHlChanged() { //slot
-  makeAttribs();
-}
-
-void KateDocument::internalHlChanged( uint mode )
+// the attributes of a hl have changed, update
+void KateDocument::internalHlChanged()
 {
-  if ( mode == hlMode() )
-    makeAttribs();
+  makeAttribs();
 }
 
 void KateDocument::addView(KTextEditor::View *view) {

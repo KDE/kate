@@ -209,8 +209,7 @@ class Highlight
     bool casesensitive;
     QString weakDeliminator;
     QString deliminator;
-    //const QChar *deliminatorChars;
-    //uint deliminatorLen;
+    
     QString cmlStart;
     QString cmlEnd;
     QString cslStart;
@@ -242,8 +241,6 @@ class Highlight
 
 class HlManager : public QObject
 {
-  friend class Highlight;
-
   Q_OBJECT
   
   private:
@@ -278,21 +275,14 @@ class HlManager : public QObject
   signals:
     void changed();
 
-    // A highlight hlNumber changes the hlData.
-    void changed( uint hlNumber );
-
-  public:
-    void emitChanged() { emit changed(); }; // ehm, needed atm. I'll try making something nicer. Anders.
-    void emitChanged(uint n) { emit changed( n ); };
-
   private:
     int wildcardFind(const QString &fileName);
     int mimeFind(const QByteArray &contents, const QString &fname);
     int realWildcardFind(const QString &fileName);
 
   private:
-    friend class HlEditDialog;
-  
+    friend class Highlight;
+    
     QPtrList<Highlight> hlList;
     QDict<Highlight> hlDict;
 

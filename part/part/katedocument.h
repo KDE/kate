@@ -519,7 +519,6 @@ class KateDocument : public Kate::Document,
 
   private slots:
     void internalHlChanged();
-    void internalHlChanged( uint );
     void slotLoadingFinished();
 
   public:

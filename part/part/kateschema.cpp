@@ -403,14 +403,12 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 
   // styles listview
   m_styles = new StyleListView( this, true );
-  layout->add (m_styles);
+  layout->addWidget (m_styles, 999);
 
   hlCombo->setCurrentItem ( 0 );
   hlChanged ( 0 );
 
   QWhatsThis::add( m_styles,  i18n("This list displays the contexts of the current syntax highlight mode and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
-  
-  layout->addStretch ();
   
   connect (m_styles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
@@ -445,6 +443,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
     m_hlDict.insert (schema, new QIntDict<ItemDataList>);
     m_hlDict[m_schema]->setAutoDelete (true);
   }
+  
   if (!m_hlDict[m_schema]->find(m_hl))
   {
     ItemDataList *list = new ItemDataList ();
@@ -485,8 +484,9 @@ void KateSchemaConfigHighlightTab::apply ()
     ++it;
   }
 
- // for ( QIntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
-   // HlManager::self()->setDefaults(it.currentKey(), *(it.current()));
+  for ( QIntDictIterator< QIntDict<ItemDataList> > it( m_hlDict ); it.current(); ++it )
+    for ( QIntDictIterator< ItemDataList > it2( *it.current() ); it2.current(); ++it2 )
+       HlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));
 }
 
 //END HighlightConfig

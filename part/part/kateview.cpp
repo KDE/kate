@@ -261,8 +261,12 @@ void KateView::setupActions()
   setLineNumbersOn( config->readBoolEntry( "LineNumbers", false ) );       
   toggleAction->setChecked( lineNumbersOn() );
 
+  
+  m_bookmarks->setSorting( (KateBookmarks::Sorting)config->readNumEntry("Bookmark Menu Sorting") );
+  
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
-  a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document."));
+  a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
+  
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
   QStringList list;
   list.append("&Unix");

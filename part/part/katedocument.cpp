@@ -60,6 +60,7 @@
 #include <qtextcodec.h>
 #include <qptrstack.h>
 #include <qdatetime.h>
+#include <qmap.h>
 
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -1276,7 +1277,7 @@ bool KateDocument::removeSelectedText ()
 
     if (delLine == 1)
     {
-      kdDebug(13000)<<"KateDocument::removeSelectedText (): calling editRemoveLine"<<z<<endl;      
+      kdDebug(13020)<<"KateDocument::removeSelectedText (): calling editRemoveLine"<<z<<endl;      
       editRemoveLine (z);
     }
     else if (delStart+delLen > (int)textLine->length())
@@ -1916,64 +1917,327 @@ bool KateDocument::printDialog ()
   else
     printer.setDocName(i18n("Untitled"));
 
-  printer.addDialogPage(new KatePrintSettings(&printer, NULL));
+  KatePrintTextSettings *kpts = new KatePrintTextSettings(&printer, NULL); 
+  kpts->enableSelection( hasSelection() );
+  printer.addDialogPage( kpts );
+  printer.addDialogPage( new KatePrintHeaderFooter(&printer, NULL) );
+  printer.addDialogPage( new KatePrintLayout(&printer, NULL) );
 
    if ( printer.setup( kapp->mainWidget() ) )
    {
      QPainter paint( &printer );
      QPaintDeviceMetrics pdm( &printer );
-
+     /*
+        We work in tree cycles:
+        1) initialize variables and retrieve print settings
+        2) prepare data according to those settings
+        3) draw to the printer
+     */
      uint y = 0;
+     uint xstart = 0; // beginning point for painting lines
      uint lineCount = 0;
      uint maxWidth = pdm.width();
+     uint headerWidth = pdm.width();
      int startCol = 0;
      int endCol = 0;
      bool needWrap = true;
      bool pageStarted = true;
+     
+     // Text Settings Page
+     bool selectionOnly = ( hasSelection() && 
+                           ( printer.option("app-kate-printselection") == "true" ) );
+     int selStartCol, selEndCol;
+     
+     bool useGuide = ( printer.option("app-kate-printguide") == "true" );
+     int guideHeight, guideCols;
+     
+     bool printLineNumbers = ( printer.option("app-kate-printlinenumbers") == "true" );
+     uint lineNumberWidth( 0 );
+
+     // Header/Footer Page
+     QFont headerFont; // used for header/footer
+     headerFont.fromString( printer.option("app-kate-hffont") );
+                                
      bool useHeader = (printer.option("app-kate-useheader") == "true");
+     QColor headerBgColor(printer.option("app-kate-headerbg"));
+     QColor headerFgColor(printer.option("app-kate-headerfg"));
+     uint headerHeight( 0 ); // further init only if needed
+     QStringList headerTagList; // do
+     bool headerDrawBg; // do
+     
+     bool useFooter = (printer.option("app-kate-usefooter") == "true");
+     QColor footerBgColor(printer.option("app-kate-footerbg"));
+     QColor footerFgColor(printer.option("app-kate-footerfg"));     
+     uint footerHeight( 0 ); // further init only if needed
+     QStringList footerTagList; // do
+     bool footerDrawBg; // do
+          
+     // Layout Page
+     bool useBackground = ( printer.option("app-kate-usebackground") == "true" );
      bool useBox = (printer.option("app-kate-usebox") == "true");
-     QColor headerColor(printer.option("app-kate-headercolor"));
-     QColor fontColor(printer.option("app-kate-fontcolor"));
-     QColor boxColor(printer.option("app-kate-boxcolor"));
-     uint currentPage = 1;
      int boxWidth(printer.option("app-kate-boxwidth").toInt());
-     uint headerHeight = printFont.fontHeight+10;
-     QDateTime	dt = QDateTime::currentDateTime();
-     int innerMargin = 5, maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
-     QStringList tagList;
-
-     if (useHeader)
-     {
-       tagList = QStringList::split('|', printer.option("app-kate-headerformat"), true);
-       if (tagList.count() == 3)
-         for (QStringList::Iterator it=tagList.begin(); it!=tagList.end(); ++it)
+     QColor boxColor(printer.option("app-kate-boxcolor"));
+     int innerMargin = useBox ? printer.option("app-kate-boxmargin").toInt() : 6;
+     
+     // Post initialization
+     uint maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
+     uint currentPage( 1 );
+     uint lastline = lastLine(); // nessecary to print selection only
+     uint firstline( 0 );
+          
+     /* 
+        Now on for preparations...
+        during preparations, variable names starting with a "_" means
+        those variables are local to the enclosing block.
+     */
+     { 
+       if ( selectionOnly )
+       {
+         // set a line range from the first selected line to the last
+         if ( selectStart.line < selectEnd.line )
          {
-           if ((*it).find("%u") != -1) (*it).replace(QRegExp("%u"), getenv("USER"));
-           if ((*it).find("%d") != -1) (*it).replace(QRegExp("%d"), KGlobal::locale()->formatDateTime(dt, true, false));
-           if ((*it).find("%D") != -1) (*it).replace(QRegExp("%D"), KGlobal::locale()->formatDateTime(dt, false, false));
-           if ((*it).find("%h") != -1) (*it).replace(QRegExp("%h"), KGlobal::locale()->formatTime(dt.time(), false));
-           if ((*it).find("%y") != -1) (*it).replace(QRegExp("%y"), KGlobal::locale()->formatDate(dt.date(), true));
-           if ((*it).find("%Y") != -1) (*it).replace(QRegExp("%Y"), KGlobal::locale()->formatDate(dt.date(), false));
-           if ((*it).find("%f") != -1) (*it).replace(QRegExp("%f"), url().fileName());
-           if ((*it).find("%P") != -1) (*it).replace(QRegExp("%P"), url().path());
+           firstline = selectStart.line;
+           selStartCol = selectStart.col;
+           lastline = selectEnd.line;
+           selEndCol = selectEnd.col;
          }
+         else // TODO check if this is possible!
+         {
+           kdDebug()<<"selectStart > selectEnd!"<<endl; 
+           firstline = selectEnd.line;
+           selStartCol = selectEnd.col;
+           lastline = selectStart.line;
+           selEndCol = selectStart.col;
+         }
+         lineCount = firstline; 
+       }
+       
+       if ( printLineNumbers )
+       {
+         // figure out the horiizontal space required
+         QString s( QString("%1 ").arg( numLines() ) );
+         s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
+                          // FIXME calculate which is actually the widest...
+         lineNumberWidth = ((QFontMetrics)printFont.myFontMetrics).width( s );
+         //lineNumberWidth = printFont.myFontMetrics.maxWidth() * s.length(); // BAD!
+         // adjust available width and set horizontal start point for data
+         maxWidth -= lineNumberWidth;
+         xstart += lineNumberWidth;
+       }
+       
+       if ( useHeader || useFooter )
+       {
+         // Set up a tag map
+         // This retrieves all tags, ued or not, but
+         // none of theese operations should be expensive,
+         // and searcing each tag in the format strings is avoided.
+         QDateTime dt = QDateTime::currentDateTime();
+         QMap<QString,QString> tags;
+         tags["u"] = getenv("USER");
+         tags["d"] = KGlobal::locale()->formatDateTime(dt, true, false);
+         tags["D"] =  KGlobal::locale()->formatDateTime(dt, false, false);
+         tags["h"] =  KGlobal::locale()->formatTime(dt.time(), false);
+         tags["y"] =  KGlobal::locale()->formatDate(dt.date(), true);
+         tags["Y"] =  KGlobal::locale()->formatDate(dt.date(), false);
+         tags["f"] =  url().fileName();
+         tags["F"] =  url().prettyURL();
+         if ( selectionOnly )
+         {
+           QString s( i18n("(Selection of) ") );
+           tags["f"].prepend( s );
+           tags["F"].prepend( s );
+         }
+         
+         QRegExp reTags( "%([dDfFhuyY])" ); // TODO tjeck for "%%<TAG>"
+         
+         if (useHeader)
+         {
+           headerDrawBg = ( printer.option("app-kate-headerusebg") == "true" );
+           headerHeight = QFontMetrics( headerFont ).height();
+           if ( useBox || headerDrawBg )
+             headerHeight += innerMargin * 2;
+           else
+             headerHeight += 1 + QFontMetrics( headerFont ).leading();
+
+           QString headerTags = printer.option("app-kate-headerformat");
+           int pos = reTags.search( headerTags );
+           QString rep;
+           while ( pos > -1 )
+           {
+             rep = tags[reTags.cap( 1 )];
+             headerTags.replace( (uint)pos, 2, rep );
+             pos += rep.length();
+             pos = reTags.search( headerTags, pos );
+           }
+           headerTagList = QStringList::split('|', headerTags, true);
+           
+           if (!headerBgColor.isValid())
+             headerBgColor = Qt::lightGray;
+           if (!headerFgColor.isValid())
+             headerFgColor = Qt::black;
+         }
+         
+         if (useFooter)
+         {
+           footerDrawBg = ( printer.option("app-kate-footerusebg") == "true" );
+           footerHeight = QFontMetrics( headerFont ).height();
+           if ( useBox || footerDrawBg )
+             footerHeight += 2*innerMargin;
+           else
+             footerHeight += 1; // line only
+           
+           QString footerTags = printer.option("app-kate-footerformat");
+           int pos = reTags.search( footerTags );
+           QString rep;
+           while ( pos > 0 )
+           {
+             rep = tags[reTags.cap( 1 )];
+             footerTags.replace( (uint)pos, 2, rep );
+             pos += rep.length();
+             pos = reTags.search( footerTags, pos );
+           }
+           
+           footerTagList = QStringList::split('|', footerTags, true);
+           if (!footerBgColor.isValid())
+             footerBgColor = Qt::lightGray;
+           if (!footerFgColor.isValid())
+             footerFgColor = Qt::black;
+           // adjust maxheight, so we can know when/where to print footer
+           maxHeight -= footerHeight;
+         }
+       } // if ( useHeader || useFooter )
+       
+       if ( useBackground )
+       {
+         if ( ! useBox )
+         {
+           xstart += innerMargin;
+           maxWidth -= innerMargin * 2;
+         }       
+       }
+
+       if ( useBox )
+       {
+         if (!boxColor.isValid())
+           boxColor = Qt::black;
+         if (boxWidth < 1) // shouldn't be pssible no more!
+           boxWidth = 1;
+         // set maxwidth to something sensible
+         maxWidth -= ( ( boxWidth + innerMargin )  * 2 );
+         xstart += boxWidth + innerMargin;
+         // maxheight too..
+         maxHeight -= boxWidth;
+       }
        else
-         tagList.clear();
-       if (!headerColor.isValid())
-         headerColor = Qt::lightGray;
-       if (!fontColor.isValid())
-         fontColor = Qt::black;
-     }
-
-     if (useBox)
-     {
-       if (!boxColor.isValid())
-         boxColor = Qt::black;
-       if (boxWidth < 0)
          boxWidth = 0;
-     }
-
-     while (  lineCount <= lastLine()  )
+       
+       if ( useGuide )
+       {
+         // calculate the height required
+         // the number of columns is a side effect, saved for drawing time
+         // first width is needed
+         int _w = pdm.width() - innerMargin * 2;
+         if ( useBox )
+           _w -= boxWidth * 2;
+         else
+         {
+           if ( useBackground )
+             _w -= ( innerMargin * 2 );
+           _w -= 2; // 1 px line on each side
+         }
+         
+         // base of height: margins top/bottom, above and below tetle sep line
+         guideHeight = ( innerMargin * 4 ) + 1;
+         // get a title and add the height required to draw it
+         QString _title = i18n("Typographical Conventions for ") + m_highlight->name();
+         guideHeight += paint.boundingRect( 0, 0, _w, 1000, Qt::AlignTop|Qt::AlignHCenter, _title ).height();
+         // see how many columns we can fit in
+         int _widest( 0 );
+         QPtrListIterator<ItemData> it( m_highlight->getData()->itemDataList );
+         ItemData *_d;
+         KateFontMetrics _kfm = KateFontMetrics(QFont()); // eew
+         int _items ( 0 );
+         while ( ( _d = it.current()) != 0 )
+         {
+           _kfm = _d->bold ? 
+             _d->italic ? 
+               printFont.myFontMetricsBI : 
+               printFont.myFontMetricsBold :
+           _d->italic ?
+             printFont.myFontMetricsItalic :
+             printFont.myFontMetrics; // ahemn
+           _widest = QMAX( _widest, ((QFontMetrics)_kfm).width( _d->name ) );
+           _items++;
+           ++it;
+         }
+         guideCols = _w/( _widest + innerMargin );
+         // add height for required number of lines needed given columns
+         guideHeight += printFont.fontHeight * ( _items/guideCols );
+         if ( _items%guideCols )
+           guideHeight += printFont.fontHeight;
+       }
+         
+       // now that we know the vertical amount of space needed,
+       // it is possible to calculate the total number of pages
+       // if needed, that is if any header/footer tag contains "%P".
+       if ( headerTagList.grep("%P").count() || footerTagList.grep("%P").count() )
+       {
+         kdDebug(13020)<<"'%P' found! calculating number of pages..."<<endl;
+         uint _pages = 0;
+         uint _ph = maxHeight;
+         if ( useHeader )
+           _ph -= ( headerHeight + innerMargin );
+         if ( useFooter )
+           _ph -= innerMargin;
+         int _lpp = _ph/printFont.fontHeight;
+         kdDebug(13020)<<"... Printer Pixel Hunt: "<<
+                "\n- printer heignt:    "<<pdm.height()<<
+                "\n- max height:        "<<maxHeight<<
+                "\n- header Height:     "<<headerHeight<<
+                "\n- footer height:     "<<footerHeight<<
+                "\n- inner margin:      "<<innerMargin<<
+                "\n- contents height:   "<<_ph<<
+                "\n- print font height: "<<printFont.fontHeight<<endl;
+         kdDebug(13020)<<"...Lines pr page is "<<_lpp<<endl;
+         uint _lt = 0, _c=0;
+         // add space for guide if required
+         if ( useGuide )
+           _lt += (guideHeight + (printFont.fontHeight/2))/printFont.fontHeight;
+         long _lw;
+         for ( uint i = firstline; i < lastline; i++ )
+         {
+           _lw = textWidth( kateTextLine( i ), -1, PrintFont );
+           while ( _lw >= 0 )
+           {
+             _c++;
+             _lt++;
+             if ( _lt  == _lpp )
+             {
+               _pages++;
+               _lt = 0;
+             }
+             _lw -= maxWidth;
+             if ( ! _lw ) _lw--; // skip lines matching exactly!
+           }
+         }
+         if ( _lt ) _pages++; // last page
+         kdDebug(13020)<<"... Number of pages to print: "<<_pages<<endl;
+         // substitute both tag lists
+         kdDebug(13020)<<"... lines total: "<<_c<<endl;
+         QRegExp re("%P");
+         QStringList::Iterator it;
+         for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
+           (*it).replace( re, QString( "%1" ).arg( _pages ) );
+         for ( it=footerTagList.begin(); it!=footerTagList.end(); ++it )
+           (*it).replace( re, QString( "%1" ).arg( _pages ) );
+       }
+     } // end prepare block 
+     
+     /*
+        On to draw something :-)    
+     */
+uint _count = 0;
+     while (  lineCount <= lastline  )
      {
        startCol = 0;
        endCol = 0;
@@ -1981,56 +2245,222 @@ bool KateDocument::printDialog ()
 
        while (needWrap)
        {
-         if (y+printFont.fontHeight >= (uint)(maxHeight) )
+         if ( y+printFont.fontHeight >= (uint)(maxHeight) )
          {
+kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            printer.newPage();
-	   currentPage++;
+           currentPage++;
            pageStarted = true;
            y=0;
          }
 
-         if (pageStarted)
+         if ( pageStarted )
          {
-           paint.setPen(fontColor);
-           paint.setFont(printFont.myFontBold);
-           if (useHeader)
+           
+           if ( useHeader )
            {
-             paint.fillRect(0, 0, maxWidth, headerHeight, headerColor);
-	     if (tagList.count() == 3)
-	     {
-               int align = Qt::AlignVCenter|Qt::AlignLeft;
-	       QString s;
-	       for (int i=0; i<3; i++)
-	       {
-                 s = tagList[i];
-		 if (s.find("%p") != -1) s.replace(QRegExp("%p"), QString::number(currentPage));
-		 paint.drawText(innerMargin, 0, maxWidth-2*innerMargin, headerHeight, align, s);
-		 align = Qt::AlignVCenter|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
-	       }
-	     }
-             y += (headerHeight+innerMargin);
+             paint.setPen(headerFgColor);
+             paint.setFont(headerFont);
+             if ( headerDrawBg )
+                paint.fillRect(0, 0, headerWidth, headerHeight, headerBgColor);
+             if (headerTagList.count() == 3)
+             {
+               int valign = ( (useBox||headerDrawBg||useBackground) ?
+                              Qt::AlignVCenter : Qt::AlignTop );
+               int align = valign|Qt::AlignLeft;
+               int marg = ( useBox || headerDrawBg ) ? innerMargin : 0;
+               if ( useBox ) marg += boxWidth;
+               QString s;
+               for (int i=0; i<3; i++)
+               {
+                 s = headerTagList[i];
+                 if (s.find("%p") != -1) s.replace(QRegExp("%p"), QString::number(currentPage));
+                 paint.drawText(marg, 0, headerWidth-(marg*2), headerHeight, align, s);
+                 align = valign|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
+               }
+             }
+             if ( ! ( headerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate header from contents 
+             {
+               paint.drawLine( 0, headerHeight-1, headerWidth, headerHeight-1 );
+               //y += 1; now included in headerHeight
+             }
+             y += headerHeight + innerMargin;
            }
-           if (useBox)
+           
+           if ( useFooter )
+           {
+             if ( ! ( footerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate footer from contents 
+               paint.drawLine( 0, maxHeight + innerMargin - 1, headerWidth, maxHeight + innerMargin - 1 );
+             if ( footerDrawBg )
+                paint.fillRect(0, maxHeight+innerMargin+boxWidth, headerWidth, footerHeight, footerBgColor);
+             if (footerTagList.count() == 3)
+             {
+               int align = Qt::AlignVCenter|Qt::AlignLeft;
+               int marg = ( useBox || footerDrawBg ) ? innerMargin : 0;
+               if ( useBox ) marg += boxWidth;
+               QString s;
+               for (int i=0; i<3; i++)
+               {
+                 s = footerTagList[i];
+                 if (s.find("%p") != -1) s.replace(QRegExp("%p"), QString::number(currentPage));
+                 paint.drawText(marg, maxHeight+innerMargin, headerWidth-(marg*2), footerHeight, align, s);
+                 align = Qt::AlignVCenter|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
+               }
+             }
+           } // done footer
+           
+           if ( useBackground )
+           {
+             // If we have a box, or the header/footer has backgrounds, we want to paint
+             // to the border of those. Otherwise just the contents area.
+             int _y = y, _h = maxHeight - y;
+             if ( useBox )
+             {
+               _y -= innerMargin;
+               _h += 2 * innerMargin;
+             }
+             else 
+             {
+               if ( headerDrawBg )
+               {
+                 _y -= innerMargin;
+                 _h += innerMargin;
+               }
+               if ( footerDrawBg )
+               {
+                 _h += innerMargin;
+               }
+             }
+             paint.fillRect( 0, _y, pdm.width(), _h, colors[0] );
+           }
+                      
+           if ( useBox )
            {
              paint.setPen(QPen(boxColor, boxWidth));
              paint.drawRect(0, 0, pdm.width(), pdm.height());
              if (useHeader)
-               paint.drawLine(0, headerHeight, maxWidth, headerHeight);
+               paint.drawLine(0, headerHeight, headerWidth, headerHeight);
              else
                y += innerMargin;
+               
+             if ( useFooter ) // drawline is not trustable, grr.
+               paint.fillRect( 0, maxHeight+innerMargin, headerWidth, boxWidth, boxColor );
            }
+           
+           if ( useGuide && currentPage == 1 )
+           {  // FIXME - this may span more pages...
+             // draw a box unless we have boxes, in which case we end with a box line
+             paint.setPen( colors[1] );
+             int _marg = 0; // this could be available globally!??
+             if ( useBox ) 
+             {
+               _marg += (2*boxWidth) + (2*innerMargin);
+               paint.fillRect( 0, y+guideHeight-innerMargin-boxWidth, headerWidth, boxWidth, boxColor );
+             }
+             else
+             {
+               if ( useBackground ) 
+                 _marg += 2*innerMargin;
+               paint.drawRect( _marg, y, pdm.width()-(2*_marg), guideHeight );
+               _marg += 1;
+               y += 1 + innerMargin;
+             }
+             // draw a title string
+             paint.setFont( printFont.myFontBold );
+             QRect _r;
+             paint.drawText( _marg, y, pdm.width()-(2*_marg), maxHeight - y,
+                Qt::AlignTop|Qt::AlignHCenter, 
+                i18n("Typographical Conventions for ") + m_highlight->name(), -1, &_r );
+             int _w = pdm.width() - (_marg*2) - (innerMargin*2);
+             int _x = _marg + innerMargin;
+             y += _r.height() + innerMargin;
+             paint.drawLine( _x, y, _x + _w, y );
+             y += 1 + innerMargin;
+             // draw attrib names using their styles
+             QPtrListIterator<ItemData> _it( m_highlight->getData()->itemDataList );
+             ItemData *_d;
+             int _cw = _w/guideCols;
+             int _i(0);
+//      kdDebug()<<"guide cols: "<<guideCols<<endl;
+             while ( ( _d = _it.current() ) != 0 )
+             {
+//      kdDebug()<<"style: "<<_d->name<<", color:"<<attribute(_i)->col.name()<<endl;
+               paint.setPen( attribute(_i)->col );
+               paint.setFont( attribute(_i)->font( printFont ) );
+//      kdDebug()<<"x: "<<( _x + ((_i%guideCols)*_cw))<<", y: "<<y<<", w: "<<_cw<<endl;
+               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, printFont.fontHeight, 
+                        Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
+//      kdDebug()<<"painted in rect: "<<_r.x()<<", "<<_r.y()<<", "<<_r.width()<<", "<<_r.height()<<endl;
+               _i++;
+               if ( _i && ! ( _i%guideCols ) ) y += printFont.fontHeight;
+               ++_it; 
+             }
+             if ( _i%guideCols ) y += printFont.fontHeight;// last row not full
+             y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
+           }
+         
            pageStarted = false;
+         } // pageStarted; move on to contents:)
+         
+         if ( printLineNumbers && ! startCol ) // don't repeat!
+         {
+           paint.setFont( printFont.font( false, false ) );
+           paint.setPen( colors[1] ); // using "selected" color for now...
+           paint.drawText( ( useBox || useBackground ) ? innerMargin : 0, y, 
+                        lineNumberWidth, printFont.fontHeight, 
+                        Qt::AlignRight, QString("%1 ").arg( lineCount + 1 ) );
          }
-
+         
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         paintTextLine ( paint, lineCount, startCol, endCol, 0, y, 0, maxWidth, -1, 0, false, false, false, PrintFont, false, true );
-         startCol = endCol;
+         if ( endCol < startCol )
+         {
+           kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" !?"<<endl;
+           continue; // strange case...
+                     // Happens if the line fits exactly.
+                     // When it happens, a line of garbage would be printed.
+                     // FIXME Most likely this is an error in textWidth(),
+                     // failing to correctly set needWrap to false in this case?
+         }         
+         // if we print only selection:
+         // print only selected range of chars.
+         bool skip = false;
+         if ( selectionOnly )
+         {
+           bool inBlockSelection = ( blockSelect && lineCount >= firstline && lineCount <= lastline );
+           if ( lineCount == firstline || inBlockSelection )
+           {
+             if ( startCol < selStartCol )
+               startCol = selStartCol;
+           }
+           if ( lineCount == lastline  || inBlockSelection )
+           {
+             if ( endCol > selEndCol )
+             {
+               endCol = selEndCol;
+               skip = true;
+             }
+           }
+         }
+         // HA! this is where we print [part of] a line ;]]
+         paintTextLine ( paint, lineCount, startCol, endCol, xstart, y, 0, maxWidth, -1, 0, false, false, false, PrintFont, false, true );
+         if ( skip )
+         {
+           needWrap = false;
+           startCol = 0;
+         }
+         else 
+         {
+//kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<endl;         
+           startCol = endCol;
+         }
+         
          y += printFont.fontHeight;
-       }
+_count++;       
+       } // done while ( needWrap )
 
        lineCount++;
-     }
-
+     } // done lineCount <= lastline
+kdDebug(13020)<<"lines printed in total: "<<_count<<endl;
      return true;
   }
 
@@ -2055,11 +2485,11 @@ bool KateDocument::openFile()
     return false;
 
   QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
-  kdDebug(13000) << "servicetype: " << serviceType << endl;
+  kdDebug(13020) << "servicetype: " << serviceType << endl;
   int pos = serviceType.find(';');
   if (pos != -1)
     myEncoding = serviceType.mid(pos+1);
-  kdDebug(13000) << "myEncoding: " << myEncoding << endl;
+  kdDebug(13020) << "myEncoding: " << myEncoding << endl;
       
   buffer->insertFile(0, m_file, KGlobal::charsets()->codecForName(myEncoding));
 
@@ -3567,11 +3997,11 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 
   bool isSel = false;
 
-  //kdDebug(13000)<<"paint 1"<<endl;
+  //kdDebug(13020)<<"paint 1"<<endl;
 
   if (len < 1)
   {
-    //  kdDebug(13000)<<"paint 2"<<endl;
+    //  kdDebug(13020)<<"paint 2"<<endl;
 
     if ((showCursor > -1) && (showCursor == (int)curCol))
     {
@@ -3580,7 +4010,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &at[0].col;
     }
-    //  kdDebug(13000)<<"paint 3"<<endl;
+    //  kdDebug(13020)<<"paint 3"<<endl;
 
   }
   else
@@ -3601,7 +4031,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
     if (isTab)
       xPosAfter -= (xPosAfter % curAt->width(fs, *s)); */
 
-    //  kdDebug(13000)<<"paint 5"<<endl;
+    //  kdDebug(13020)<<"paint 5"<<endl;
 
     if ((int)xPosAfter >= xStart)
     {
@@ -3666,7 +4096,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
       oldS = s+1;
     }
 
-    //   kdDebug(13000)<<"paint 6"<<endl;
+    //   kdDebug(13020)<<"paint 6"<<endl;
 
     // increase xPos
     xPos = xPosAfter;
@@ -3682,7 +4112,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
     // col move
     curCol++;
   }
-  // kdDebug(13000)<<"paint 7"<<endl;
+  // kdDebug(13020)<<"paint 7"<<endl;
   if ((showCursor > -1) && (showCursor == (int)curCol))
   {
     cursorVisible = true;
@@ -3691,7 +4121,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
     cursorColor = &oldAt->col;
   }
 }
-  //kdDebug(13000)<<"paint 8"<<endl;
+  //kdDebug(13020)<<"paint 8"<<endl;
   if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
   {
     paint.fillRect(xPos2 + xPos-xStart, oldY, xEnd - xStart, fs.fontHeight, colors[1]);

@@ -1,6 +1,7 @@
 /*
  *  This file is part of the KDE libraries
  *  Copyright (c) 2002 Michael Goffioul <goffioul@imec.be>
+ *  Complete rewrite on Sat Jun 15 2002 (c) Anders Lund <anders@alweb.dk>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -27,24 +28,96 @@ class QCheckBox;
 class KColorButton;
 class QSpinBox;
 class QLineEdit;
+class QGroupBox;
+class QLabel;
 
-class KatePrintSettings : public KPrintDialogPage
+//BEGIN Text settings
+/*
+  Text settings page:
+  - [ ] Print Selection (enabled if there is a selection in the view)
+  - Print Line Numbers
+    () Smart () Yes () No
+*/
+class KatePrintTextSettings : public KPrintDialogPage
 {
   Q_OBJECT
-
   public:
-    KatePrintSettings(KPrinter *printer, QWidget *parent = 0, const char *name = 0);
-    ~KatePrintSettings();
+    KatePrintTextSettings( KPrinter *printer, QWidget *parent=0, const char *name=0 );
+    ~KatePrintTextSettings(){};
+
+    void getOptions(QMap<QString,QString>& opts, bool incldef = false);
+    void setOptions(const QMap<QString,QString>& opts);
+    
+    /* call if view has a selection, enables the seelction checkbox according to the arg */
+    void enableSelection( bool );
+  
+  private:
+    QCheckBox *cbSelection, *cbLineNumbers, *cbGuide;
+};
+//END Text Settings
+
+//BEGIN Header/Footer
+/*
+  Header & Footer page:
+  - enable header/footer
+  - header/footer props
+    o formats
+    0 colors
+*/
+
+class KatePrintHeaderFooter : public KPrintDialogPage
+{
+  Q_OBJECT
+  public:
+    KatePrintHeaderFooter( KPrinter *printer, QWidget *parent=0, const char *name=0 );
+    ~KatePrintHeaderFooter(){};
 
     void getOptions(QMap<QString,QString>& opts, bool incldef = false);
     void setOptions(const QMap<QString,QString>& opts);
 
+  public slots:  
+    void setHFFont();
+        
   private:
-    QCheckBox  *m_usebox, *m_useheader;
-    KColorButton  *m_boxcolor, *m_headercolor, *m_fontcolor;
-    QLineEdit  *m_headerright, *m_headercenter, *m_headerleft;
-    QSpinBox  *m_boxwidth;
-    KPrinter  *m_printer;
+    QCheckBox *cbEnableHeader, *cbEnableFooter;
+    QLabel *lFontPreview;
+    QString strFont;
+    QGroupBox *gbHeader, *gbFooter;
+    QLineEdit *leHeaderLeft, *leHeaderCenter, *leHeaderRight;
+    KColorButton *kcbtnHeaderFg, *kcbtnHeaderBg;
+    QCheckBox *cbHeaderEnableBgColor;
+    QLineEdit *leFooterLeft, *leFooterCenter, *leFooterRight;
+    KColorButton *kcbtnFooterFg, *kcbtnFooterBg;
+    QCheckBox *cbFooterEnableBgColor;    
 };
+
+//END Header/Footer
+
+//BEGIN Layout
+/*
+  Layout page:
+  - Use Box
+  - Box properties
+    o Width
+    o Margin
+    o Color
+*/
+class KatePrintLayout : public KPrintDialogPage
+{
+  Q_OBJECT
+  public:
+    KatePrintLayout( KPrinter *printer, QWidget *parent=0, const char *name=0 );
+    ~KatePrintLayout(){};
+
+    void getOptions(QMap<QString,QString>& opts, bool incldef = false);
+    void setOptions(const QMap<QString,QString>& opts);
+  
+  private:
+    QCheckBox *cbEnableBox, *cbDrawBackground;
+    QGroupBox *gbBoxProps;
+    QSpinBox *sbBoxWidth, *sbBoxMargin;
+    KColorButton* kcbtnBoxColor;
+};
+//END Layout
 
 #endif

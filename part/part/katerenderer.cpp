@@ -300,6 +300,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
   // text + attrib data from line
   a = textLine->attributes ();
+  bool noAttribs = !a;
 
   // adjust to startcol ;)
   a = a + startcol;
@@ -373,7 +374,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
       // Determine current syntax highlighting attribute
       // A bit legacy but doesn't need to change
-      KateAttribute* curAt = ((*a) >= atLen) ? &at[0] : &at[*a];
+      KateAttribute* curAt = (!noAttribs && (*a) >= atLen) ? &at[0] : &at[*a];
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
@@ -465,7 +466,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
             ((int)xPos > xEnd) ||
 
             // it is a different attribute OR
-            (curAt != &at[*(a+1)]) ||
+            (!noAttribs && curAt != &at[*(a+1)]) ||
 
             // the selection boundary was crossed OR
             (isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))) ||

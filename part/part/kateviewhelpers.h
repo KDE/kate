@@ -111,11 +111,6 @@ class KateIconBorder : public QWidget
 
     int m_maxCharWidth;
 
-// Should the default m_defaultMarkType really be ...
-//    #include <markinterface.h>
-//    KTextEditor::MarkInterface::MarkTypes m_defaultMarkType;
-    uint m_defaultMarkType;
-
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
 };

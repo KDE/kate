@@ -494,6 +494,7 @@ KateViewConfig::KateViewConfig ()
    m_autoCenterLinesSet (true),
    m_searchFlagsSet (true),
    m_cmdLineSet (true),
+   m_defaultMarkType (true),
    m_view (0)
 {
   s_global = this;
@@ -516,6 +517,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_autoCenterLinesSet (false),
    m_searchFlagsSet (false),
    m_cmdLineSet (false),
+   m_defaultMarkType (false),
    m_view (view)
 {
 }
@@ -555,6 +557,8 @@ void KateViewConfig::readConfig (KConfig *config)
   setSearchFlags (config->readNumEntry("Search Config Flags", KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
   setCmdLine (config->readBoolEntry( "Command Line", false));
+  
+  setDefaultMarkType (config->readNumEntry( "Default Mark Type", MarkInterface::markType01 ));
 
   configEnd ();
 }
@@ -578,6 +582,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Search Config Flags", searchFlags());
 
   config->writeEntry("Command Line", cmdLine());
+  
+  config->writeEntry("Default Mark Type", defaultMarkType());
 }
 
 void KateViewConfig::updateConfig ()
@@ -776,6 +782,24 @@ void KateViewConfig::setCmdLine (bool on)
 
   m_cmdLineSet = true;
   m_cmdLine = on;
+
+  configEnd ();
+}
+
+uint KateViewConfig::defaultMarkType () const
+{
+  if (m_defaultMarkTypeSet || isGlobal())
+    return m_defaultMarkType;
+
+  return s_global->defaultMarkType();
+}
+
+void KateViewConfig::setDefaultMarkType (uint type)
+{
+  configStart ();
+
+  m_defaultMarkTypeSet = true;
+  m_defaultMarkType = type;
 
   configEnd ();
 }

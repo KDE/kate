@@ -207,7 +207,6 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
-  , m_defaultMarkType(MarkInterface::markType01)
 {
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 
@@ -572,11 +571,11 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     BorderArea area = positionToArea( e->pos() );
     if( area == IconBorder) {
       if (e->button() == LeftButton) {
-        if( m_doc->editableMarks() & m_defaultMarkType ) {
-          if( m_doc->mark( cursorOnLine ) & m_defaultMarkType )
-            m_doc->removeMark( cursorOnLine, m_defaultMarkType );
+        if( m_doc->editableMarks() & KateViewConfig::global()->defaultMarkType() ) {
+          if( m_doc->mark( cursorOnLine ) & KateViewConfig::global()->defaultMarkType() )
+            m_doc->removeMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
           else
-            m_doc->addMark( cursorOnLine, m_defaultMarkType );
+            m_doc->addMark( cursorOnLine, KateViewConfig::global()->defaultMarkType() );
           } else {
             showMarkMenu( cursorOnLine, QCursor::pos() );
           }
@@ -633,7 +632,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     if( m_doc->mark( line ) & markType )
       markMenu.setItemChecked( i, true );
 
-    if( markType & m_defaultMarkType )
+    if( markType & KateViewConfig::global()->defaultMarkType() )
       selectDefaultMark.setItemChecked( i+100, true );
 
     vec[i++] = markType;
@@ -650,7 +649,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     return;
 
   if ( result > 100)
-     m_defaultMarkType  = vec[result-100];
+     KateViewConfig::global()->setDefaultMarkType (vec[result-100]);
   else
   {
     MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes) vec[result];

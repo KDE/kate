@@ -275,6 +275,9 @@ class KateViewConfig : public KateConfig
 
     bool cmdLine () const;
     void setCmdLine (bool on);
+    
+    uint defaultMarkType () const;
+    void setDefaultMarkType (uint type);
 
   private:
     bool m_dynWordWrap;
@@ -287,6 +290,7 @@ class KateViewConfig : public KateConfig
     int m_autoCenterLines;
     long m_searchFlags;
     bool m_cmdLine;
+    uint m_defaultMarkType;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -298,6 +302,7 @@ class KateViewConfig : public KateConfig
     bool m_autoCenterLinesSet : 1;
     bool m_searchFlagsSet : 1;
     bool m_cmdLineSet : 1;
+    bool m_defaultMarkTypeSet : 1;
 
   private:
     KateView *m_view;

@@ -554,13 +554,13 @@ public slots:
   public:
     virtual void showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
     	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
-    virtual void showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0)
-    	{ myCC_impl->showCompletionBox(arg1,arg2);}
+    virtual void showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0, bool arg3=true)
+    	{ myCC_impl->showCompletionBox(arg1,arg2,arg3);}
 
   signals:
     void completionAborted();
     void completionDone();
-    void argHintHided();
+    void argHintHidden();
     void completionDone(KTextEditor::CompletionEntry*);
     void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 

@@ -226,14 +226,14 @@ void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
 	if ( m_nCurLine > 0 && m_nCurLine != nLine)
 	{
 		hide();
-		emit argHintHided();
+		emit argHintHidden();
 		return;
 	}
 
 	if ( view->document()->hasSelection() )
 	{
 		hide();
-		emit argHintHided();
+		emit argHintHidden();
 		return;
 	}
 
@@ -256,7 +256,7 @@ void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
 	//nBegin != -1 && strLineAfterCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // the first wrap was found before the cursor and the second beyond
 	{
 		hide();
-		emit argHintHided();
+		emit argHintHidden();
 		//m_nCurLine = 0; // reset m_nCurLine so that ArgHint is finished
 	}
 

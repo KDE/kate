@@ -50,12 +50,12 @@ CodeCompletion_Impl::CodeCompletion_Impl(KateView *view):QObject(view),m_view(vi
   //m_completionListBox->setFont(QFont(font.family(),font.pointSize()));
 
   m_pArgHint = new KDevArgHint ( m_view );
-  connect(m_pArgHint,SIGNAL(argHintHided()),SIGNAL(argHintHided()));
+  connect(m_pArgHint,SIGNAL(argHintHidden()),SIGNAL(argHintHidden()));
 
   connect(m_view, SIGNAL ( cursorPositionChanged() ), this, SLOT ( slotCursorPosChanged () ) );
 }
 
-void CodeCompletion_Impl::showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset){
+void CodeCompletion_Impl::showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset,bool casesensitive){
   kdDebug() << "showCompletionBox " << endl;
 
   m_complList = complList;

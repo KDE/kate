@@ -68,7 +68,7 @@ class CodeCompletion_Impl : public QObject {
   CodeCompletion_Impl(KateView *view);
 
   void showArgHint ( QStringList functionList, const QString& strWrapping, const QString& strDelimiter );
-  void showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset=0);
+  void showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset=0, bool casesensitive=true);
   bool eventFilter( QObject *o, QEvent *e );
 
 private:
@@ -90,7 +90,7 @@ public slots:
 signals:
     void completionAborted();
     void completionDone();
-    void argHintHided();
+    void argHintHidden();
     virtual void completionDone(KTextEditor::CompletionEntry*);
     virtual void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 };

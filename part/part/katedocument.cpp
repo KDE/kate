@@ -4285,9 +4285,9 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
 /*
    Bracket matching uses the following algorithm:
    If in overwrite mode, match the bracket currently underneath the cursor.
-   Otherwise, if the character to the left of the cursor is an ending bracket,
-   match it. Otherwise if the character to the right of the cursor is a
-   starting bracket, match it. Otherwise, if the the character to the left
+   Otherwise, if the character to the right of the cursor is an starting bracket,
+   match it. Otherwise if the character to the left of the cursor is a
+   ending bracket, match it. Otherwise, if the the character to the left
    of the cursor is an starting bracket, match it. Otherwise, if the character
    to the right of the cursor is an ending bracket, match it. Otherwise, don't
    match anything.
@@ -4320,11 +4320,11 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
     } else {
       return false;
     }
+  } else if ( isStartBracket( right ) ) {
+    bracket = right;
   } else if ( isEndBracket( left ) ) {
     start.setCol(start.col() - 1);
     bracket = left;
-  } else if ( isStartBracket( right ) ) {
-    bracket = right;
   } else if ( isBracket( left ) ) {
     start.setCol(start.col() - 1);
     bracket = left;

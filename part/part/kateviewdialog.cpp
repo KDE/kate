@@ -574,21 +574,21 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QVGroupBox *gbTextArea = new QVGroupBox(i18n("Textarea Background"), this);
 
   b = new QHBox (gbTextArea);
-  m_back = new KColorButton(b);
-  label = new QLabel( i18n("Normal Text"), b);
+  label = new QLabel( i18n("Normal Text:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
+  m_back = new KColorButton(b);
   connect( m_back, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbTextArea);
-  m_selected = new KColorButton(b);
-  label = new QLabel( i18n("Selected Text"), b);
+  label = new QLabel( i18n("Selected Text:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
+  m_selected = new KColorButton(b);
   connect( m_selected, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbTextArea);
-  m_current = new KColorButton(b);
-  label = new QLabel( i18n("Current Line"), b);
+  label = new QLabel( i18n("Current Line:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
+  m_current = new KColorButton(b);
   connect( m_current, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   blay->addWidget(gbTextArea);
@@ -596,21 +596,21 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QVGroupBox *gbBorder = new QVGroupBox(i18n("Additional Elements"), this);
 
   b = new QHBox (gbBorder);
-  m_iconborder = new KColorButton(b);
-  label = new QLabel( i18n("Left Border Background"), b);
+  label = new QLabel( i18n("Left Border Background:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
+  m_iconborder = new KColorButton(b);
   connect( m_iconborder, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
-  m_bracket = new KColorButton(b);
-  label = new QLabel( i18n("Bracket Highlight"), b);
+  label = new QLabel( i18n("Bracket Highlight:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
+  m_bracket = new KColorButton(b);
   connect( m_bracket, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
-  m_wwmarker = new KColorButton(b);
-  label = new QLabel( i18n("Word Wrap Marker"), b);
+  label = new QLabel( i18n("Word Wrap Marker:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
+  m_wwmarker = new KColorButton(b);
   connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   blay->addWidget(gbBorder);

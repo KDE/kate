@@ -553,7 +553,8 @@ public slots:
     void completionAborted();
     void completionDone();
     void argHintHided();
-
+    void completionDone(KTextEditor::CompletionEntry*);
+    void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 
 
 //config file / session management functions

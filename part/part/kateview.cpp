@@ -1386,6 +1386,8 @@ void KateView::initCodeCompletionImplementation()
   connect(myCC_impl,SIGNAL(completionAborted()),this,SIGNAL(completionAborted()));
   connect(myCC_impl,SIGNAL(completionDone()),this,SIGNAL(completionDone()));
   connect(myCC_impl,SIGNAL(argHintHided()),this,SIGNAL(argHintHided()));
+  connect(myCC_impl,SIGNAL(completionDone(KTextEditor::CompletionEntry*)),this,SIGNAL(completionDone(KTextEditor::CompletionEntry*)));
+  connect(myCC_impl,SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString *)),this,SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString *)));
 }
 
 QPoint KateView::cursorCoordinates()

@@ -33,6 +33,7 @@
 #include <qvbox.h>
 #include <qlistbox.h>
 #include <qlabel.h>
+#include <ktexteditor/codecompletioninterface.h>
 
 //class KWrite;
 class KDevArgHint;
@@ -58,7 +59,6 @@ public:
         adjustSize();
     }
 };
-
 
 
 class CodeCompletion_Impl : public QObject {
@@ -91,6 +91,8 @@ signals:
     void completionAborted();
     void completionDone();
     void argHintHided();
+    virtual void completionDone(KTextEditor::CompletionEntry*);
+    virtual void filterInsertString(KTextEditor::CompletionEntry*,QString *);
 };
 
 

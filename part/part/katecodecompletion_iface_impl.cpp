@@ -102,18 +102,16 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 	  int len = m_view->cursorColumnReal() - m_colCursor;
 	  QString currentComplText = currentLine.mid(m_colCursor,len);
 	  QString add = text.mid(currentComplText.length());
-	  if(item->m_entry.postfix == "()"){ // add (
-	    m_view->insertText(add + "(");
-	    //	    VConfig c;
-	    //	    m_edit->view()->getVConfig(c);
-	    //	    m_edit->view()->cursorLeft(c);
-	  }
-	  else{
-	    m_view->insertText(add);
-	  }
+	  if(item->m_entry.postfix == "()") add=add+"(";
+
+   	  emit filterInsertString(&(item->m_entry),&add);      
+          m_view->insertText(add);
+
 	  m_completionPopup->hide();
 	  deleteCommentLabel();
 	  m_view->setFocus();
+
+	  emit  completionDone(&(item->m_entry));
 	  emit completionDone();
 	}
 	return FALSE;

@@ -108,8 +108,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
     m_lineLayout->addWidget(m_dummy);
   }
 
-  m_view->m_grid->addMultiCellLayout(m_lineLayout, 0, 1, 2, 2);
-
   // Hijack the line scroller's controls, so we can scroll nicely for word-wrap
   connect(m_lineScroll, SIGNAL(prevPage()), SLOT(scrollPrevPage()));
   connect(m_lineScroll, SIGNAL(nextPage()), SLOT(scrollNextPage()));
@@ -129,7 +127,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_columnScroll = new QScrollBar(QScrollBar::Horizontal,m_view);
   m_columnScroll->hide();
   m_columnScroll->setTracking(true);
-  m_view->m_grid->addMultiCellWidget(m_columnScroll, 1, 1, 0, 1);
   m_startX = 0;
   m_oldStartX = 0;
 
@@ -140,7 +137,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // iconborder ;)
   //
   leftBorder = new KateIconBorder( this, m_view );
-  m_view->m_grid->addWidget(leftBorder, 0, 0);
   leftBorder->show ();
 
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
@@ -184,7 +180,23 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // selection changed to set anchor
   connect( m_doc, SIGNAL( selectionChanged() ),
              this, SLOT( docSelectionChanged() ) );
-             
+
+
+// this is a work arround for RTL desktops
+// should be changed in kde 3.3
+// BTW: this comment has been "ported" from 3.1.X tree
+//      any hacker with BIDI knowlege is welcomed to fix kate problems :)
+  if (QApplication::reverseLayout()){
+      m_view->m_grid->addMultiCellWidget(leftBorder,     0, 1, 2, 2);
+      m_view->m_grid->addMultiCellWidget(m_columnScroll, 1, 1, 0, 1);
+      m_view->m_grid->addMultiCellLayout(m_lineLayout, 0, 0, 0, 0);
+  }
+  else{
+      m_view->m_grid->addMultiCellLayout(m_lineLayout, 0, 1, 2, 2);
+      m_view->m_grid->addMultiCellWidget(m_columnScroll, 1, 1, 0, 1);
+      m_view->m_grid->addWidget(leftBorder, 0, 0);
+  }
+
   updateView ();
 }
 
@@ -705,7 +717,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint lineRangesSize = lineRanges.size();
 
   static QPixmap drawBuffer;
-  
+
   if (drawBuffer.width() < KateViewInternal::width() || drawBuffer.height() < (int)h)
     drawBuffer.resize(KateViewInternal::width(), (int)h);
 
@@ -1845,11 +1857,11 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
              && ((cursor < m_doc->selectStart) || (cursor > m_doc->selectEnd))) )
     {
       selectAnchor = cursor;
-      m_doc->setSelection( cursor, newCursor );    
+      m_doc->setSelection( cursor, newCursor );
     }
     else
-      m_doc->setSelection( selectAnchor, newCursor);   
-    
+      m_doc->setSelection( selectAnchor, newCursor);
+
     m_selChangedByUser = true;
   }
   else if ( !(m_doc->configFlags() & KateDocument::cfPersistent) )

@@ -3389,21 +3389,14 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   {
     // kdDebug(13000)<<"paint 4"<<endl;
 
-    if ((*s) == QChar('\t'))
-    {
-      isTab = true;
-      width = fs->m_tabWidth;
-    }
-    else
-      isTab = false;
+    isTab = ((*s) == QChar('\t'));
 
     if ((*a) >= atLen)
       curAt = &at[0];
     else
       curAt = &at[*a];
 
-    if (!isTab)
-      width = curAt->width(fs, *s);
+    width = curAt->width(fs, *s);
 
     if (curAt != oldAt)
       paint.setFont(fs->getFont(curAt->bold, curAt->italic));
@@ -3542,7 +3535,6 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
   TextLine::Ptr textLine;
   int x, line, count, attr;
   QChar bracket, opposite, ch;
-  Attribute *a;
 
   bm.eXPos = -1; //mark bracked mark as invalid
   x = cursor.col -1; // -1 to look at left side of cursor
@@ -3613,20 +3605,13 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
 
 found:
   //cursor position of opposite bracket
-  bm.cursor.col = x;
-  bm.cursor.line = line;
+  bm.cursor.setPos(line, x);
+
   //x position (start and end) of related bracket
   bm.sXPos = textWidth(textLine, x);
-  a = attribute(attr);
 
-   if (a->bold && a->italic)
-      bm.eXPos = bm.sXPos + viewFont.myFontMetricsBI.width(bracket);
-    else if (a->bold)
-      bm.eXPos = bm.sXPos + viewFont.myFontMetricsBold.width(bracket);
-    else if (a->italic)
-      bm.eXPos = bm.sXPos + viewFont.myFontMetricsItalic.width(bracket);
-    else
-      bm.eXPos = bm.sXPos + viewFont.myFontMetrics.width(bracket);
+  Attribute *a = attribute(attr);
+  bm.eXPos = bm.sXPos + a->width(&viewFont, bracket);
 }
 
 void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )

@@ -1137,6 +1137,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iName = I18N_NOOP("None");
     iSection = "";
     m_priority = 0;
+    iHidden = false;
   }
   else
   {

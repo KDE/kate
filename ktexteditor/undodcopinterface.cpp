@@ -49,9 +49,9 @@ uint UndoDCOPInterface::undoSteps ()
 }
 void UndoDCOPInterface::setUndoSteps ( uint steps )
 {
-	return m_parent->setUndoSteps(steps);
+	m_parent->setUndoSteps(steps);
 }
 void UndoDCOPInterface::undoChanged ()
 {
 	m_parent->undoChanged();
-}  
+}

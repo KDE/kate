@@ -4,30 +4,26 @@ using namespace KTextEditor;
 
 namespace KTextEditor
 {
-	class PrivateCodeCompletionInterface
-	{
-	public:
-		PrivateCodeCompletionInterface()
-		{
-//		interface = 0;
-		}
-		~PrivateCodeCompletionInterface(){}
-	// Data Members
-	//CodeCompletionDCOPInterface *interface;
-	};
+  class PrivateCodeCompletionInterface
+  {
+    public:
+      PrivateCodeCompletionInterface() {}
+      ~PrivateCodeCompletionInterface(){}
 
+  };
 };
 
+unsigned int CodeCompletionInterface::globalCodeCompletionInterfaceNumber = 0;
 
 CodeCompletionInterface::CodeCompletionInterface()
 {
-	d = new PrivateCodeCompletionInterface();
-	CodeCompletionInterfaceNumber++;
-	QString name = "CodeCompletion-Interface#" + QString::number(CodeCompletionInterfaceNumber);
-	 //d->interface = new CodeCompletionDCOPInterface(this, name.latin1());
+  globalCodeCompletionInterfaceNumber++;
+  myCodeCompletionInterfaceNumber = globalCodeCompletionInterfaceNumber++;
+
+  d = new PrivateCodeCompletionInterface();
 }
+
 CodeCompletionInterface::~CodeCompletionInterface()
 {
- 	//delete d->interface;
   delete d;
 }

@@ -6,7 +6,7 @@ libktexteditor_la_SOURCES = ktexteditor.cpp editinterface.cpp editdcopinterface.
 		editdcopinterface.skel clipboardinterface.cpp clipboarddcopinterface.cpp \
 		clipboarddcopinterface.skel selectioninterface.cpp selectiondcopinterface.cpp \
 		selectiondcopinterface.skel searchinterface.cpp searchdcopinterface.cpp \
-		searchdcopinterface.skel codecompletioninterface.cpp 
+		searchdcopinterface.skel codecompletioninterface.cpp wordwrapinterface.cpp
 
 libktexteditor_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 libktexteditor_la_LIBADD = $(top_builddir)/kparts/libkparts.la $(top_builddir)/dcop/libDCOP.la
@@ -16,7 +16,8 @@ ktexteditorinclude_HEADERS = document.h view.h editor.h editinterface.h undointe
                              clipboardinterface.h popupmenuinterface.h \
                              viewcursorinterface.h searchinterface.h highlightinginterface.h \
                              blockselectioninterface.h codecompletioninterface.h \
-                             configinterface.h markinterface.h printinterface.h
+                             configinterface.h markinterface.h printinterface.h wordwrapinterface.h \
+                             dynwordwrapinterface.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

@@ -24,10 +24,9 @@
 
 namespace KTextEditor
 {
-static int CodeCompletionInterfaceNumber;
 
-
-  class CompletionEntry {
+class CompletionEntry
+{
   public:
     QString type;
     QString text;
@@ -46,16 +45,15 @@ static int CodeCompletionInterfaceNumber;
 	       c.comment == comment &&
                c.userdata == userdata);
     }
-  };
-
-
-class PrivateCodeCompletionInterface;
+};
 
 /*
 *  This is an interface for the KTextEditor::View class !!!
 */
 class CodeCompletionInterface
 {
+  friend class PrivateCodeCompletionInterface;
+
   public:
 	CodeCompletionInterface();
 	virtual ~CodeCompletionInterface();
@@ -67,7 +65,7 @@ class CodeCompletionInterface
      * This shows an argument hint
      */
     virtual void showArgHint ( QStringList functionList, const QString& strWrapping, const QString& strDelimiter ) = 0;
-    
+
     /**
      * This shows a completion list box
      */
@@ -84,8 +82,10 @@ class CodeCompletionInterface
     virtual void completionDone(CompletionEntry*)=0;
     virtual void filterInsertString(CompletionEntry*,QString *)=0;
 
-private:
-		PrivateCodeCompletionInterface *d;
+  private:
+    PrivateCodeCompletionInterface *d;
+    static unsigned int globalCodeCompletionInterfaceNumber;
+    unsigned int myCodeCompletionInterfaceNumber;
 };
 
 

@@ -17,35 +17,29 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_configinterface_h__
-#define __ktexteditor_configinterface_h__
-
-class KConfig;
+#ifndef __ktexteditor_dynwordwrapinterface_h__
+#define __ktexteditor_dynwordwrapinterface_h__
 
 namespace KTextEditor
 {
 
 /*
-*  This is an interface for the KTextEditor::Document class !!!
+*  This is an interface for the KTextEditor::View class !!!
 */
-class ConfigInterface
+class DynWordWrapInterface
 {
+	friend class PrivateDynWordWrapInterface;
   //
   // slots !!!
   //
   public:
-    virtual void readConfig () = 0;
-    virtual void writeConfig () = 0;
-    virtual void readConfig (KConfig *) = 0;
-    virtual void writeConfig (KConfig *) = 0;
-    virtual void readSessionConfig (KConfig *) = 0;
-    virtual void writeSessionConfig (KConfig *) = 0;
-    virtual void configDialog () = 0;
-    
+    virtual void setDynWordWrap (bool) = 0;
+    virtual bool dynWordWrap () const = 0;
+
   private:
-    class PrivateConfigInterface *d;
-    static unsigned int globalConfigInterfaceNumber;
-    unsigned int myConfigInterfaceNumber;
+    class PrivateDynWordWrapInterface *d;
+    static unsigned int globalDynWordWrapInterfaceNumber;
+    unsigned int myDynWordWrapInterfaceNumber;
 };
 
 };

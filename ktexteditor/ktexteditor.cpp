@@ -39,6 +39,8 @@
 #include "configinterface.h"
 #include "markinterface.h"
 #include "printinterface.h"
+#include "wordwrapinterface.h"
+#include "dynwordwrapinterface.h"
 
 using namespace KTextEditor;
 

@@ -35,6 +35,9 @@ class Cursor
     virtual bool removeText ( uint numberOfCharacters ) = 0;
 
     virtual QChar currentChar () const = 0;
+    
+  private:
+      class PrivateCursor *d;
 };
 
 /*
@@ -53,8 +56,9 @@ class CursorInterface
     * Accessor to the list of views.
     */
     virtual QPtrList<Cursor> cursors () const = 0;
+
     private:
-    	class PrivateCursorInterface *d;
+      class PrivateCursorInterface *d;
 };
 
 };

@@ -338,10 +338,10 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // Optimisation to quickly draw an empty line of text
   if (len < 1)
   {
-    if ((showCursor > -1) && (showCursor == (int)curCol))
+    if ((showCursor > -1) && (showCursor >= (int)curCol))
     {
       cursorVisible = true;
-      cursorXPos = xPos;
+      cursorXPos = xPos + (showCursor - (int) curCol) * fs.myFontMetrics.width(QChar (' '));
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &at[0].textColor();
     }
@@ -404,7 +404,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
           else
             paint.setPen(hl.selectedTextColor());
 
-          paint.setFont(hl.font(getFont(ViewFont)));
+          paint.setFont(hl.font(getFont(font())));
 
           if (superRanges.currentBoundary() && *(superRanges.currentBoundary()) == currentPos)
             superRanges.nextBoundary();
@@ -512,11 +512,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       currentPos.setCol(currentPos.col() + 1);
     }
 
-    // Determine cursor position (dupe of above code due to loop funniness)
-    if ((showCursor > -1) && (showCursor == (int)curCol))
+    // Determine cursor position (if it is not within the range being drawn)
+    if ((showCursor > -1) && (showCursor >= (int)curCol))
     {
       cursorVisible = true;
-      cursorXPos = xPos;
+      cursorXPos = xPos + (showCursor - (int) curCol) * fs.myFontMetrics.width(QChar (' '));
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &oldAt->textColor();
     }
@@ -710,7 +710,7 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
   TextLine::Ptr textLine = m_doc->kateTextLine(cursor.line());
 
   if (!textLine) return 0;
-  
+
   len = textLine->length();
 
   x = oldX = 0;

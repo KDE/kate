@@ -926,7 +926,10 @@ public:
   CalculatingCursor& operator--() { return operator-=( 1 ); }
   void makeValid() {
     m_line = QMAX( 0, QMIN( int( m_doc.numLines() - 1 ), line() ) );
-    m_col  = QMAX( 0, QMIN( m_doc.lineLength( line() ), col() ) );
+    if (const_cast<Kate::Document&>(m_doc).configFlags() & KateDocument::cfWrapCursor)
+      m_col = QMAX( 0, QMIN( m_doc.lineLength( line() ), col() ) );
+    else
+      m_col = QMAX( 0, col() );
     Q_ASSERT( valid() );
   }
   void toEdge( Bias bias ) {

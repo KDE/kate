@@ -3829,7 +3829,23 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         paint.setPen(*curColor);
 
       // make sure we redraw the right character groups on attrib/selection changes
-      if (
+      if (isTab)
+      {
+        if (!printerfriendly && isSel && !selectionPainted)
+          paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+
+        if (showTabs)
+        {
+          paint.drawPoint(xPos - xStart, y);
+          paint.drawPoint(xPos - xStart + 1, y);
+          paint.drawPoint(xPos - xStart, y - 1);
+        }
+
+        oldCol = curCol+1;
+        oldXPos = xPosAfter;
+        oldS = s+1;
+      }
+      else if (
            (tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) ||
            (isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))) ||
            (((*(s+1)) == QChar('\t')) && !isTab)
@@ -3848,22 +3864,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         oldXPos = xPosAfter;
         oldS = s+1;
       }
-      else  if (isTab)
-      {
-        if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
 
-        if (showTabs)
-        {
-          paint.drawPoint(xPos - xStart, y);
-          paint.drawPoint(xPos - xStart + 1, y);
-          paint.drawPoint(xPos - xStart, y - 1);
-        }
-
-        oldCol = curCol+1;
-        oldXPos = xPosAfter;
-        oldS = s+1;
-      }
 
       if ((showCursor > -1) && (showCursor == curCol))
       {

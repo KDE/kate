@@ -1098,7 +1098,7 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e) {
       cursor.line = myDoc->selectEnd.line;
       updateCursor( cursor, true );
     }
-    //myDoc->updateViews(); allready called by document->setSelection()
+    
     possibleTripleClick=true;
     QTimer::singleShot( QApplication::doubleClickInterval(),this,
             SLOT(tripleClickTimeout()) );
@@ -1816,7 +1816,7 @@ void KateView::insertText(const QString &s)
   VConfig c;
   myViewInternal->getVConfig(c);
   myDoc->insertText(c.cursor.line, c.cursor.col, s);
-  myDoc->updateViews();
+
 //JW BEGIN
       for (int i=0;i<s.length();i++)
 	{

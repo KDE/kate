@@ -331,6 +331,8 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
 
 void KateFileTypeConfigTab::apply()
 {
+  save ();
+
   KateFactory::fileTypeManager()->save(&m_types);
 }
 
@@ -394,7 +396,7 @@ void KateFileTypeConfigTab::newType ()
 {
 }
 
-void KateFileTypeConfigTab::typeChanged (int type)
+void KateFileTypeConfigTab::save ()
 {
   if (m_lastType)
   {
@@ -405,6 +407,11 @@ void KateFileTypeConfigTab::typeChanged (int type)
     m_lastType->mimetypes = QStringList::split (";", mimetypes->text ());
     m_lastType->priority = priority->value();
   }
+}
+
+void KateFileTypeConfigTab::typeChanged (int type)
+{
+  save ();
 
   KateFileType *t = 0;
 

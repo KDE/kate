@@ -95,6 +95,7 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
     void newType ();
     void typeChanged (int type);
     void showMTDlg();
+    void save ();
 
   private:
     class QGroupBox *gbProps;

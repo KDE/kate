@@ -629,7 +629,18 @@ void KateCSmartIndent::processChar(QChar c)
 
   // anders: don't change the indent of doxygen lines here.
   if ( textLine->attribute( begin.col() ) == doxyCommentAttrib )
+  {
+     // dominik: if line is "* /", change it to "*/"
+     if ( c == '/' )
+     {
+       int first = textLine->firstChar();
+       if ( first != -1 // if there is a first char
+            && textLine->getChar( first ) == '*' // and it is *
+            && textLine->nextNonSpaceChar( first+1 ) == view->cursorColumn()-1 ) // and the next char is in the same col as the cursor position
+         doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);      
+     }
      return;
+  }
 
   processLine(begin);
 }

@@ -486,30 +486,14 @@ void KateViewInternal::updateCursor()
 
 void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel, int updateViewFlags)
 {
-  //kdDebug()<<"WARNING: look, if this call is really used only with real cursor positions"<<endl;
-  VConfig tmp;
-  tmp.cursor=newCursor;
-  tmp.displayCursor.col=newCursor.col;
-  tmp.displayCursor.line=myDoc->getVirtualLine(newCursor.line);
-
- // kdDebug()<<QString("cursor %1/%2, displayCursor %3/%4").arg(tmp.cursor.col).arg(tmp.cursor.line).arg(tmp.displayCursor.col).arg(tmp.displayCursor.line)<<endl;
-
-  updateCursor(tmp,keepSel, updateViewFlags);
-}
-
-void KateViewInternal::updateCursor(VConfig &c,bool keepSel, int updateViewFlags)
-{
   VConfig oldC;
   oldC.cursor = cursor;
 
-#warning "FIXME, FIXME, display/document cursor"
+  bool nullMove = (cursor.col == newCursor.col && cursor.line == newCursor.line);
 
-  bool nullMove = (cursor.col == c.cursor.col && cursor.line == c.cursor.line);
-
-  exposeCursor = true;
-  if (cursorOn) {
+  if (cursorOn)
+  {
     tagLines(displayCursor.line, displayCursor.line);
-//    tagLines(cursor.line, cursor.line, cXPos, cXPos +myDoc->charWidth(cursor));
     cursorOn = false;
   }
 
@@ -517,11 +501,11 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel, int updateViewFlags
     tagLines(bm.cursor.line, bm.cursor.line);
   }
 
+  myDoc->newBracketMark(newCursor, bm);
 
-  myDoc->newBracketMark(c.cursor, bm);
-
-  cursor = c.cursor;//newCursor;
-  displayCursor=c.displayCursor;
+  cursor = newCursor;
+  displayCursor.line = myDoc->getVirtualLine(cursor.line);
+  displayCursor.col = cursor.col;
   cOldXPos = cXPos = myDoc->textWidth(cursor);
 
  if (keepSel) {
@@ -532,7 +516,7 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel, int updateViewFlags
       myDoc->clearSelection();
   }
 
-  updateView (updateViewFlags);
+  updateView (updateViewFlags | KateViewInternal::ufExposeCursor);
   
   if (!nullMove)
     emit myView->cursorPositionChanged();
@@ -687,101 +671,121 @@ void KateViewInternal::updateView(int flags)
 {
 	unsigned int oldXPos=xPos;
 	unsigned int oldYPos=startLine * myDoc->viewFont.fontHeight;
-	bool yScrollVis=yScroll->isVisible();
+  
 	int fontHeight = myDoc->viewFont.fontHeight;
 	bool needLineRangesUpdate=false;
 	bool reUpdate;
   int scrollbarWidth = style().scrollBarExtent().width();
 
+  int w = myView->width();
+  int h = myView->height();
+  
+  int bw = leftBorder->width();
+  w -= bw;
+  
   //
   //  update yScrollbar (first that, as we need if it should be shown for the width() of the view)
   //
-	if (!exposeCursor)
-	{
-		do
-		{
-			reUpdate=false;
-			int w = myView->width();
-			int h = myView->height();
+  if (!(flags & KateViewInternal::ufExposeCursor) || (flags & KateViewInternal::ufFoldingChanged) || (flags && KateViewInternal::ufDocGeometry))
+  {
+    uint contentLines=myDoc->visibleLines();
+    int viewLines=height()/fontHeight;
+    int yMax=(contentLines-viewLines)*fontHeight;
+    
+    if (yMax>0)
+    {
+      int pageScroll = h - (h % fontHeight) - fontHeight;
+      if (pageScroll <= 0)
+        pageScroll = fontHeight;
 
-			if (!flags) { //exposeCursor|| (flags & KateViewInternal::ufDocGeometry)) {
-				int bw = leftBorder->width();
-				w -= bw;
-				if (yScrollVis) w -= scrollbarWidth;
+      yScroll->blockSignals(true);
+      yScroll->setGeometry(myView->width()-scrollbarWidth,0,scrollbarWidth, myView->height()-scrollbarWidth);
+      yScroll->setRange(0,yMax);
+      yScroll->setValue(startLine * myDoc->viewFont.fontHeight);
+      yScroll->setSteps(fontHeight,pageScroll);
+      yScroll->blockSignals(false);
+      yScroll->show();
+    }
+    else
+      yScroll->hide();
+      
+    if (yScroll->isVisible())
+      w -= scrollbarWidth;
+      
+    if (w < 0)
+      w = 0;
 
-		  		if (w != width() || h != height()) {
-					needLineRangesUpdate=true;
-             resize(w,h);
-				}
-
-			}
-
-			unsigned int contentLines=myDoc->visibleLines(); /* temporary */
-
-			unsigned int contentHeight=contentLines*fontHeight;
-			int viewLines=height()/fontHeight;
-			int yMax=(contentLines-viewLines)*fontHeight;
-
-			if (yMax>0)
-			{
-				int pageScroll = h - (h % fontHeight) - fontHeight;
-				if (pageScroll <= 0)
-					pageScroll = fontHeight;
-
-				yScroll->blockSignals(true);
-				yScroll->setGeometry(myView->width()-scrollbarWidth,0,scrollbarWidth, myView->height()-scrollbarWidth);
-				yScroll->setRange(0,yMax);
-				yScroll->setValue(startLine * myDoc->viewFont.fontHeight);
-				yScroll->setSteps(fontHeight,pageScroll);
-				yScroll->blockSignals(false);
-				reUpdate=reUpdate || (!yScrollVis);
-				yScrollVis=true;
-				yScroll->show();
-			//	kdDebug()<<"Showing yScroll"<<endl;
-			}
-			else
-			{
-			//	kdDebug()<<"Hiding yScroll"<<endl;
-				reUpdate=reUpdate || (yScrollVis);
-				yScroll->hide();
-				yScrollVis=false;
-			}
-
-		} while (reUpdate);
-	}
-
-  int w = myView->width();
-	int h = myView->height();
-
-  if (yScrollVis) w -= scrollbarWidth;
-
-  int oldU = updateState;
+    if (w != width() || h != height())
+    {
+      needLineRangesUpdate=true;
+      resize(w,h);
+    }
+  }
 
    if (updateState==3)
      needLineRangesUpdate=true;
 
   int tmpYPos;
 
-	if (exposeCursor)
+	if (flags & KateViewInternal::ufExposeCursor)
 	{
-		exposeCursor=false;
+    int he  =myView->height();
+   
+	
 		if (displayCursor.line>=endLine)
 		{
-			tmpYPos=(displayCursor.line*fontHeight)-height()+fontHeight;
+			tmpYPos=(displayCursor.line*fontHeight)-he+fontHeight;
 			if ((tmpYPos % fontHeight)!=0) tmpYPos=tmpYPos+fontHeight;
-			yScroll->setValue(tmpYPos);
+			
+      
+       newStartLine = tmpYPos  / myDoc->viewFont.fontHeight;
+      
+      yScroll->blockSignals(true);
+      yScroll->setValue(tmpYPos);
+      yScroll->blockSignals(false);
+      
+             int dy;
+  dy = (startLine - newStartLine)  * myDoc->viewFont.fontHeight;
 
-		        needLineRangesUpdate=true;
-//			updateLineRanges(height());
+  updateLineRanges();
+
+  if (QABS(dy) < height())
+  {
+    scroll(0, dy);
+    leftBorder->scroll(0,dy);
+  }
+  else
+  {
+    repaint();
+    leftBorder->repaint();
+  }
 		}
 		else
 		if (displayCursor.line<startLine)
 		{
 			tmpYPos=(displayCursor.line*fontHeight);
-			yScroll->setValue(tmpYPos);
+   
+      newStartLine = tmpYPos  / myDoc->viewFont.fontHeight;
+      
+      yScroll->blockSignals(true);
+      yScroll->setValue(tmpYPos);
+      yScroll->blockSignals(false);
+      
+       int dy;
+  dy = (startLine - newStartLine)  * myDoc->viewFont.fontHeight;
 
-                	needLineRangesUpdate=true;
-//			updateLineRanges(height());
+  updateLineRanges();
+
+  if (QABS(dy) < height())
+  {
+    scroll(0, dy);
+    leftBorder->scroll(0,dy);
+  }
+  else
+  {
+    repaint();
+    leftBorder->repaint();
+  }
 		}
 	}
 
@@ -790,7 +794,7 @@ void KateViewInternal::updateView(int flags)
   //
   if (flags & KateViewInternal::ufFoldingChanged)
   {
-	needLineRangesUpdate=true;
+	  needLineRangesUpdate=true;
 	  updateLineRanges();
   }
   else
@@ -823,52 +827,47 @@ void KateViewInternal::updateView(int flags)
 
   if (maxLen > w)
   {
-    uint stmp = 0;
-    if (yScrollVis)
-      stmp = scrollbarWidth;
-      
+    if (!xScrollVis)
+      h -= scrollbarWidth;
+        
     int pageScroll = w - (w % fontHeight) - fontHeight;
     if (pageScroll <= 0)
       pageScroll = fontHeight;
 
     xScroll->blockSignals(true);
-    xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width()-stmp,scrollbarWidth);
+    xScroll->setGeometry(0,myView->height()-scrollbarWidth,w,scrollbarWidth);
     xScroll->setRange(0,maxLen);
     xScroll->setSteps(fontHeight,pageScroll);
     xScroll->blockSignals(false);
     xScroll->show();
-
-    if (!xScrollVis)
-      h -= scrollbarWidth;
   }
   else
   {
-    xScroll->hide();
-
     if (xScrollVis)
       h += scrollbarWidth;
+  
+    xScroll->hide();
   }
 
   if (h != height())
     resize(w,h);
-
-
-  if (oldU > 0)
-   {
-     paintTextLines(xPos, oldYPos);
-   //  kdDebug()<<"repaint lines"<<endl;
-   }
-
+    
   if ((flags & KateViewInternal::ufRepaint) || (flags & KateViewInternal::ufFoldingChanged))
   {
     repaint();
     leftBorder->repaint();
   }
+  else if (updateState > 0)
+   {
+     paintTextLines(xPos, oldYPos);
+   //  kdDebug()<<"repaint lines"<<endl;
+   }
 
   //
   // updateView done, reset the update flag + repaint flags
   //
   updateState = 0;
+  exposeCursor=false;
 
   // blank repaint attribs
   for (uint z = 0; z < lineRanges.size(); z++)

@@ -8,7 +8,7 @@ libktexteditor_la_LIBADD = $(top_builddir)/kparts/libkparts.la
 
 ktexteditorinclude_HEADERS = document.h view.h editinterface.h undointerface.h \
                              selectioninterface.h cursorinterface.h \
-                             clipboardinterface.h
+                             clipboardinterface.h popupmenuinterface.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

@@ -151,7 +151,6 @@ class KateHlStringDetect : public KateHlItem
   public:
     KateHlStringDetect(int attribute, int context, signed char regionId,signed char regionId2, const QString &, bool inSensitive=false);
 
-    virtual ~KateHlStringDetect();
     virtual int checkHgl(const QString& text, int offset, int len);
 
   private:
@@ -175,7 +174,6 @@ class KateHlKeyword : public KateHlItem
 {
   public:
     KateHlKeyword(int attribute, int context,signed char regionId,signed char regionId2, bool casesensitive, const QString& delims);
-    virtual ~KateHlKeyword();
 
     virtual void addWord(const QString &);
     virtual void addList(const QStringList &);
@@ -203,8 +201,19 @@ class KateHlFloat : public KateHlItem
 {
   public:
     KateHlFloat(int attribute, int context, signed char regionId,signed char regionId2);
+    virtual ~KateHlFloat () {}
 
     virtual int checkHgl(const QString& text, int offset, int len);
+    virtual bool alwaysStartEnable() const;
+};
+
+class KateHlCFloat : public KateHlFloat
+{
+  public:
+    KateHlCFloat(int attribute, int context, signed char regionId,signed char regionId2);
+
+    virtual int checkHgl(const QString& text, int offset, int len);
+    int checkIntHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
@@ -223,16 +232,6 @@ class KateHlCHex : public KateHlItem
     KateHlCHex(int attribute, int context, signed char regionId,signed char regionId2);
 
     virtual int checkHgl(const QString& text, int offset, int len);
-    virtual bool alwaysStartEnable() const;
-};
-
-class KateHlCFloat : public KateHlFloat
-{
-  public:
-    KateHlCFloat(int attribute, int context, signed char regionId,signed char regionId2);
-
-    virtual int checkHgl(const QString& text, int offset, int len);
-    int checkIntHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
@@ -277,7 +276,7 @@ class KateHlRegExpr : public KateHlItem
 {
   public:
     KateHlRegExpr(int attribute, int context,signed char regionId,signed char regionId2 ,QString expr, bool insensitive, bool minimal);
-    ~KateHlRegExpr(){delete Expr;};
+    ~KateHlRegExpr() { delete Expr; };
 
     virtual int checkHgl(const QString& text, int offset, int len);
 
@@ -340,7 +339,8 @@ bool KateHlItem::startEnable(const QChar& c)
 
 //BEGIN HLCharDetect
 KateHlCharDetect::KateHlCharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar c)
-  : KateHlItem(attribute,context,regionId,regionId2), sChar(c)
+  : KateHlItem(attribute,context,regionId,regionId2)
+  , sChar(c)
 {
 }
 
@@ -356,9 +356,9 @@ int KateHlCharDetect::checkHgl(const QString& text, int offset, int len)
 //BEGIN KateHl2CharDetect
 KateHl2CharDetect::KateHl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
   : KateHlItem(attribute,context,regionId,regionId2)
+  , sChar1 (ch1)
+  , sChar2 (ch2)
 {
-  sChar1 = ch1;
-  sChar2 = ch2;
 }
 
 int KateHl2CharDetect::checkHgl(const QString& text, int offset, int len)
@@ -375,10 +375,10 @@ int KateHl2CharDetect::checkHgl(const QString& text, int offset, int len)
 
 //BEGIN KateHlStringDetect
 KateHlStringDetect::KateHlStringDetect(int attribute, int context, signed char regionId,signed char regionId2,const QString &s, bool inSensitive)
-  : KateHlItem(attribute, context,regionId,regionId2), str(inSensitive ? s.upper():s), _inSensitive(inSensitive) {
-}
-
-KateHlStringDetect::~KateHlStringDetect() {
+  : KateHlItem(attribute, context,regionId,regionId2)
+  , str(inSensitive ? s.upper() : s)
+  , _inSensitive(inSensitive)
+{
 }
 
 int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
@@ -396,9 +396,10 @@ int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
 
 //BEGIN HLRangeDetect
 KateHlRangeDetect::KateHlRangeDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
-  : KateHlItem(attribute,context,regionId,regionId2) {
-  sChar1 = ch1;
-  sChar2 = ch2;
+  : KateHlItem(attribute,context,regionId,regionId2)
+  , sChar1 (ch1)
+  , sChar2 (ch2)
+{
 }
 
 int KateHlRangeDetect::checkHgl(const QString& text, int offset, int len)
@@ -426,9 +427,6 @@ KateHlKeyword::KateHlKeyword (int attribute, int context, signed char regionId,s
   , _caseSensitive(casesensitive)
   , deliminators(delims)
 {
-}
-
-KateHlKeyword::~KateHlKeyword() {
 }
 
 bool KateHlKeyword::alwaysStartEnable() const
@@ -519,7 +517,8 @@ int KateHlInt::checkHgl(const QString& text, int offset, int len)
 
 //BEGIN KateHlFloat
 KateHlFloat::KateHlFloat(int attribute, int context, signed char regionId,signed char regionId2)
-  : KateHlItem(attribute,context, regionId,regionId2) {
+  : KateHlItem(attribute,context, regionId,regionId2)
+{
 }
 
 bool KateHlFloat::alwaysStartEnable() const
@@ -618,7 +617,8 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
 
 //BEGIN KateHlCOct
 KateHlCOct::KateHlCOct(int attribute, int context, signed char regionId,signed char regionId2)
-  : KateHlItem(attribute,context,regionId,regionId2) {
+  : KateHlItem(attribute,context,regionId,regionId2)
+{
 }
 
 bool KateHlCOct::alwaysStartEnable() const
@@ -656,7 +656,8 @@ int KateHlCOct::checkHgl(const QString& text, int offset, int len)
 
 //BEGIN KateHlCHex
 KateHlCHex::KateHlCHex(int attribute, int context,signed char regionId,signed char regionId2)
-  : KateHlItem(attribute,context,regionId,regionId2) {
+  : KateHlItem(attribute,context,regionId,regionId2)
+{
 }
 
 bool KateHlCHex::alwaysStartEnable() const
@@ -693,7 +694,8 @@ int KateHlCHex::checkHgl(const QString& text, int offset, int len)
 
 //BEGIN KateHlCFloat
 KateHlCFloat::KateHlCFloat(int attribute, int context, signed char regionId,signed char regionId2)
-  : KateHlFloat(attribute,context,regionId,regionId2) {
+  : KateHlFloat(attribute,context,regionId,regionId2)
+{
 }
 
 bool KateHlCFloat::alwaysStartEnable() const
@@ -758,11 +760,13 @@ int KateHlAnyChar::checkHgl(const QString& text, int offset, int len)
 //BEGIN KateHlRegExpr
 KateHlRegExpr::KateHlRegExpr( int attribute, int context, signed char regionId,signed char regionId2, QString regexp, bool insensitive, bool minimal )
   : KateHlItem(attribute, context, regionId,regionId2)
+  , handlesLinestart (regexp.startsWith("^"))
 {
-    handlesLinestart=regexp.startsWith("^");
-    if(!handlesLinestart) regexp.prepend("^");
-    Expr=new QRegExp(regexp, !insensitive);
-    Expr->setMinimal(minimal);
+  if (!handlesLinestart)
+    regexp.prepend("^");
+  
+  Expr = new QRegExp(regexp, !insensitive);
+  Expr->setMinimal(minimal);
 }
 
 int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)

@@ -331,13 +331,13 @@
 
       
       <context name="funcdef" attribute="Normal Text" lineEndContext="#stay" >
-         <IncludeRules context="1" />
-         <Detect2Chars attribute="Function" context="#pop" char="]" char1=";" 
+         <IncludeRules context="Normal" />
+         <Detect2Chars attribute="Function" context="#pop" char="]" char1=";"
             endRegion="reg_function"/>
       </context>
 
      <context name="ClassDecl" attribute="Normal Text" lineEndContext="ClassDecl_1">
-        <IncludeRules context="2" />
+        <IncludeRules context="PropDefVal rules" />
      </context>
      
      <context name="ClassDecl_1" attribute="Normal Text" lineEndContext="#stay">
@@ -360,27 +360,27 @@
       <context name="prop_func_def" attribute="Normal Text" lineEndContext="#stay">
          <DetectChar context="#pop" char="]" attribute="Function" 
             endRegion="reg_prop_func"/>
-         <IncludeRules context="1" />
+         <IncludeRules context="Normal" />
       </context>
 
       <context name="prop_def" attribute="Normal Text" lineEndContext="#stay" >
-         <DetectChar char="," context="#pop"  attribute="Function" 
+         <DetectChar char="," context="#pop"  attribute="Function"
             endRegion="reg_prop"/>
          <DetectChar char=";" context="#pop#pop#pop" attribute="Pragma" endRegion="reg_class"/>
-         <DetectChar char="[" context="prop_func_def"  attribute="Function" 
-            beginRegion="reg_prop_func"/>           
-         <IncludeRules context="2" />
+         <DetectChar char="[" context="prop_func_def"  attribute="Function"
+            beginRegion="reg_prop_func"/>
+         <IncludeRules context="PropDefVal rules" />
       </context>
-      
+
       <context name="has_decl" attribute="Normal Text" lineEndContext="#stay" >
          <DetectChar char=";" context="#pop#pop#pop"  attribute="Pragma" endRegion="reg_class"/>
-         <IncludeRules context="2" />
+         <IncludeRules context="PropDefVal rules" />
       </context>
-               
+
       <context attribute="Comment" lineEndContext="#pop" name="comment"/>
 
    </contexts>
-   
+
    <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>

@@ -511,6 +511,7 @@ KateBufBlock::KateBufBlock(const KateBufState &beginState)
    b_appendEOL = false;     
    b_emptyBlock = false;     
    m_lastLine = 0;
+   m_codec = 0;
 }     
 
 /**     

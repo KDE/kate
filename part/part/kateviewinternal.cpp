@@ -2163,27 +2163,18 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   if( (key == Qt::Key_Tab || key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
       && (m_doc->configFlags() & KateDocument::cfTabIndents) )
   {
-    TextLine::Ptr line;
-
-    if ( m_doc->hasSelection() ||
-         ( (line = m_doc->kateTextLine(cursor.line())) && (
-           (line->firstChar() < 0) || (cursor.col() <= line->firstChar()))
-         )
-       )
+    if( key == Qt::Key_Tab )
     {
-      if( key == Qt::Key_Tab )
-      {
-        m_doc->indent( cursor.line() );
-        e->accept();
-        return;
-      }
+      m_doc->indent( cursor.line() );
+      e->accept();
+      return;
+    }
 
-      if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
-      {
-        m_doc->unIndent( cursor.line() );
-        e->accept();
-        return;
-      }
+    if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
+    {
+      m_doc->unIndent( cursor.line() );
+      e->accept();
+      return;
     }
   }
 

@@ -215,7 +215,7 @@ void IndentConfigTab::spacesToggled() {
   indentationWidth->setEnabled(opt[1]->isChecked());
 }
 
-void IndentConfigTab::getData(KateDocument *view)
+void IndentConfigTab::apply ()
 {
   int configFlags, z;
 
@@ -227,12 +227,6 @@ void IndentConfigTab::getData(KateDocument *view)
   KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 }
-
-void IndentConfigTab::apply ()
-{
-  getData(m_doc);
-}
-
 
 void IndentConfigTab::reload ()
 {
@@ -268,8 +262,9 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(opt[1], i18n("When this is on, any keyed character input or paste operation will replace the selected text."));
 }
 
-void SelectConfigTab::getData(KateDocument *view) {
-  int configFlags, z;
+void SelectConfigTab::apply ()
+{
+   int configFlags, z;
 
   configFlags = KateDocumentConfig::global()->configFlags();
   for (z = 0; z < numFlags; z++) {
@@ -277,11 +272,6 @@ void SelectConfigTab::getData(KateDocument *view) {
     if (opt[z]->isChecked()) configFlags |= flags[z]; // set flag if checked
   }
   KateDocumentConfig::global()->setConfigFlags(configFlags);
-}
-
-void SelectConfigTab::apply ()
-{
-  getData (m_doc);
 }
 
 void SelectConfigTab::reload ()

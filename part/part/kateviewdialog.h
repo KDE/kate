@@ -93,7 +93,6 @@ class IndentConfigTab : public Kate::ConfigPage
   public:
 
     IndentConfigTab(QWidget *parent, KateDocument *);
-    void getData(KateDocument *);
 
   protected slots:
     void spacesToggled();
@@ -120,7 +119,6 @@ class SelectConfigTab : public Kate::ConfigPage
  public:
 
     SelectConfigTab(QWidget *parent, KateDocument *);
-    void getData(KateDocument *);
     KateDocument *m_doc;
 
   protected:

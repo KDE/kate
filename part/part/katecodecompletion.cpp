@@ -167,6 +167,13 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
        o != m_completionListBox->viewport() )
     return false;
 
+   if( e->type() == QEvent::FocusOut )
+   {
+     abortCompletion();
+     m_view->setFocus();
+     return false;
+   }
+  
    if ( e->type() == QEvent::MouseButtonDblClick  ) {
     doComplete();
     return false;
@@ -215,8 +222,6 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     return true;
   }
 
-  if( e->type() == QEvent::FocusOut )
-    abortCompletion();
   return false;
 }
 
@@ -350,6 +355,8 @@ void KateCodeCompletion::slotCursorPosChanged()
 
 void KateCodeCompletion::showComment()
 {
+  if (!m_completionPopup->isVisible())
+    return;    
   CompletionItem* item = static_cast<CompletionItem*>(m_completionListBox->item(m_completionListBox->currentItem()));
 
   if( !item )

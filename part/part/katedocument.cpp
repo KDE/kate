@@ -98,8 +98,8 @@ using namespace Kate;
 //
 // KateDocument Constructor
 //
-KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView, 
-                                                    bool bReadOnly, QWidget *parentWidget, 
+KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
+                                                    bool bReadOnly, QWidget *parentWidget,
                                                     const char *widgetName, QObject *, const char *)
 : Kate::Document (),
   selectStart(-1, -1),
@@ -107,10 +107,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   selectAnchor(-1, -1),
   viewFont(),
   printFont(),
-  hlManager(HlManager::self ())  
+  hlManager(HlManager::self ())
 {
   KateFactory::registerDocument (this);
-  
+
   setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceExtensionDCOPSuffix (documentDCOPSuffix());
@@ -141,7 +141,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editWithUndo = false;
 
   blockSelect = false;
-  
+
   m_bSingleViewMode = bSingleViewMode;
   m_bBrowserView = bBrowserView;
   m_bReadOnly = bReadOnly;
@@ -195,13 +195,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   colors[3] = QColor( "#FFFF99" );
 
   m_highlight = 0L;
-  tabChars = 8;      
-  
+  tabChars = 8;
+
   KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
   for( ; it != KateFactory::plugins()->end(); ++it)
   {
     KService::Ptr ptr = (*it);
-                         
+
     PluginInfo *info=new PluginInfo;
 
     info->load = false;
@@ -216,18 +216,18 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // if the user changes the highlight with the dialog, notify the doc
   connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
 
-  readConfig();  
+  readConfig();
   loadAllEnabledPlugins ();
 
   m_extension = new KateBrowserExtension( this );
-  
+
   if ( m_bSingleViewMode )
   {
     KTextEditor::View *view = createView( parentWidget, widgetName );
     insertChildClient( view );
     view->show();
     setWidget( view );
-  }  
+  }
 }
 
 //
@@ -243,9 +243,10 @@ KateDocument::~KateDocument()
   }
 
   m_highlight->release();
-    
+
   KateFactory::deregisterDocument (this);
-}      
+  delete fileInfo;
+}
 
 void KateDocument::loadAllEnabledPlugins ()
 {
@@ -266,18 +267,18 @@ void KateDocument::enableAllPluginsGUI (KateView *view)
 }
 
 void KateDocument::loadPlugin (PluginInfo *item)
-{  
+{
   item->load = (item->plugin = KTextEditor::createPlugin (QFile::encodeName(item->service->library()), this));
 }
 
 void KateDocument::unloadPlugin (PluginInfo *item)
 {
   item->load = false;
-  
+
   if (!item->plugin) return;
-  
+
   disablePluginGUI (item);
-  
+
   delete item->plugin;
   item->plugin = 0L;
 }
@@ -286,9 +287,9 @@ void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
-                                     
+
   KTextEditor::pluginViewInterface(item->plugin)->addView(view);
-  
+
   if (KXMLGUIFactory *factory = view->factory())
   {
     factory->removeClient (view);
@@ -300,7 +301,7 @@ void KateDocument::enablePluginGUI (PluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
-                     
+
   for (uint i=0; i< m_views.count(); i++)
   {
     enablePluginGUI (item, m_views.at(i));
@@ -311,7 +312,7 @@ void KateDocument::disablePluginGUI (PluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
-    
+
   for (uint i=0; i< m_views.count(); i++)
   {
       KXMLGUIFactory *factory = m_views.at( i )->factory();
@@ -320,7 +321,7 @@ void KateDocument::disablePluginGUI (PluginInfo *item)
 
       KTextEditor::PluginViewInterface *viewIface = KTextEditor::pluginViewInterface( item->plugin );
       viewIface->removeView(m_views.at(i));
-    
+
       if ( factory )
           factory->addClient( m_views.at( i ) );
    }
@@ -330,7 +331,7 @@ bool KateDocument::closeURL()
 {
   if (!KParts::ReadWritePart::closeURL ())
     return false;
-  
+
   m_url = KURL();
   fileInfo->setFile (QString());
   setMTime();
@@ -339,7 +340,7 @@ bool KateDocument::closeURL()
   updateViews();
 
   emit fileNameChanged ();
-  
+
   return true;
 }
 
@@ -393,7 +394,7 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
 
     case 7:
       return viewDefaultsConfigPage(parent);
-      
+
     case 8:
       return new PluginConfigPage (parent, this);
 
@@ -408,7 +409,7 @@ QString KateDocument::configPageName (uint number) const
   {
     case 0:
       return i18n ("Colors");
-      
+
     case 1:
       return i18n ("Fonts");
 
@@ -428,8 +429,8 @@ QString KateDocument::configPageName (uint number) const
       return i18n ("Highlighting");
 
     case 7:
-      return i18n ("View defaults");     
-     
+      return i18n ("View defaults");
+
     case 8:
       return i18n ("Plugins");
 
@@ -444,7 +445,7 @@ QString KateDocument::configPageFullName (uint number) const
   {
     case 0:
       return i18n ("Color Settings");
-      
+
     case 1:
       return i18n ("Font Settings");
 
@@ -465,14 +466,14 @@ QString KateDocument::configPageFullName (uint number) const
 
     case 7:
       return i18n("View Defaults");
-    
+
     case 8:
       return i18n ("Plugin Manager");
 
     default:
       return 0;
   }
-}  
+}
 
 QPixmap KateDocument::configPagePixmap (uint number, int size) const
 {
@@ -480,7 +481,7 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
   {
     case 0:
       return BarIcon("colorize", size);
-      
+
     case 1:
       return BarIcon("fonts", size);
 
@@ -498,10 +499,10 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
 
     case 6:
       return BarIcon("misc", size);
-   
+
     case 7:
       return BarIcon("misc",size);
-      
+
     case 8:
       return BarIcon("misc", size);
 
@@ -571,16 +572,16 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
 {
   if (s.isEmpty())
     return true;
-    
+
   if (line > lastLine())
     return false;
 
   editStart ();
-    
+
   uint insertPos = col;
   uint len = s.length();
   QString buf;
-  
+
   for (uint pos = 0; pos < len; pos++)
   {
     QChar ch = s[pos];
@@ -595,7 +596,7 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
       else
       {
         editInsertText (line, col, buf);
-        
+
         if ( line == lastLine() )
           editWrapLine (line, col + buf.length());
       }
@@ -612,7 +613,7 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
     editInsertText (line, insertPos, buf);
   else
     editInsertText (line, col, buf);
-  
+
   editEnd ();
 
   return true;
@@ -624,18 +625,18 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 }
 
 bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise )
-{    
+{
   if ( blockwise && (startCol > endCol) )
     return false;
-      
+
   if ( startLine > endLine )
     return false;
 
   if ( startLine > lastLine() )
     return false;
-        
+
   editStart ();
- 
+
   if ( !blockwise )
   {
     if ( endLine > lastLine() )
@@ -643,7 +644,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
       endLine = lastLine()+1;
       endCol = 0;
     }
-  
+
     if (startLine == endLine)
     {
       editRemoveText (startLine, startCol, endCol-startCol);
@@ -675,11 +676,11 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
           {
             if ( (kateTextLine(line)->length()-startCol) > 0 )
               editRemoveText (line, startCol, kateTextLine(line)->length()-startCol);
-              
+
             editUnWrapLine (startLine, startCol);
-          }        
+          }
         }
-      
+
         if ( line == 0 )
           break;
       }
@@ -687,20 +688,20 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
   }
   else
   {
-    if ( endLine > lastLine() ) 
+    if ( endLine > lastLine() )
       endLine = lastLine ();
-  
+
     for (uint line = endLine; line >= startLine; line--)
     {
       editRemoveText (line, startCol, endCol-startCol);
-      
+
       if ( line == 0 )
         break;
     }
   }
-  
+
   editEnd ();
-  
+
   return true;
 }
 
@@ -724,7 +725,7 @@ bool KateDocument::removeLine( uint line )
     return false;
 
   editStart ();
-  
+
   bool end = editRemoveLine (line);
 
   editEnd ();
@@ -782,7 +783,7 @@ void KateDocument::editStart (bool withUndo)
       undoItems.removeFirst ();
       undoItems.setAutoDelete (false);
     }
-    
+
     editCurrentUndo = new KateUndoGroup (this);
   }
   else
@@ -801,7 +802,7 @@ void KateDocument::editEnd ()
 {
   if (editSessionNumber == 0)
     return;
-   
+
   // wrap the new/changed text
   if (editSessionNumber == 1)
     if (myWordWrap)
@@ -965,7 +966,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 bool KateDocument::editWrapLine ( uint line, uint col )
 {
   TextLine::Ptr l = buffer->line(line);
-  
+
   if (!l)
     return false;
 
@@ -993,7 +994,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   }
   if( !list.isEmpty() )
     emit marksChanged();
-  
+
   editInsertTagLine (line);
   editTagLine(line);
   editTagLine(line+1);
@@ -1022,7 +1023,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);
-  
+
   QPtrList<KTextEditor::Mark> list;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
        it.current(); ++it ) {
@@ -1101,15 +1102,15 @@ bool KateDocument::editRemoveLine ( uint line )
 
   if ( numLines() == 1 )
     return editRemoveText (0, 0, kateTextLine(0)->length());
-    
+
   editStart ();
-  
+
   editAddUndo (KateUndoGroup::editRemoveLine, line, 0, lineLength(line), textLine(line));
 
   buffer->removeLine(line);
 
   editRemoveTagLine (line);
-  
+
   QPtrList<KTextEditor::Mark> list;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
        it.current(); ++it ) {
@@ -1149,7 +1150,7 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
     selectEnd.setPos(end);
   } else {
     selectStart.setPos(end);
-    selectEnd.setPos(start);    
+    selectEnd.setPos(start);
   }
 
   if( hasSelection() )
@@ -1190,7 +1191,7 @@ QString KateDocument::selection() const
 {
   int sc = selectStart.col;
   int ec = selectEnd.col;
-  
+
   if ( blockSelect )
   {
     if (sc > ec)
@@ -1223,7 +1224,7 @@ bool KateDocument::removeSelectedText ()
 
   int sc = selectStart.col;
   int ec = selectEnd.col;
-  
+
   if ( blockSelect )
   {
     if (sc > ec)
@@ -1235,7 +1236,7 @@ bool KateDocument::removeSelectedText ()
   }
 
   removeText (selectStart.line, sc, selectEnd.line, ec, blockSelect);
-   
+
   clearSelection();
 
   editEnd ();
@@ -1263,7 +1264,7 @@ bool KateDocument::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
     setSelection (selectStart, selectEnd);
-    
+
     for( KateView* view = m_views.first(); view != 0L; view = m_views.next() )
       view->slotUpdate();
   }
@@ -1359,10 +1360,10 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
   int searchEnd;
   TextLine::Ptr textLine;
   uint foundAt, myMatchLen;
-  bool found;                
-  
+  bool found;
+
   Q_ASSERT( startLine < numLines() );
-  
+
   if (text.isEmpty())
     return false;
 
@@ -1568,11 +1569,11 @@ void KateDocument::readConfig(KConfig *config)
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
-    
+
   for (uint i=0; i<m_plugins.count(); i++)
     if  (config->readBoolEntry(m_plugins.at(i)->service->library(), false))
       m_plugins.at(i)->load = true;
-  
+
   if (myWordWrap)
   {
     editStart (false);
@@ -1598,8 +1599,8 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
-  config->writeEntry("Color Bracket Highlight", colors[3]);     
-  
+  config->writeEntry("Color Bracket Highlight", colors[3]);
+
   for (uint i=0; i<m_plugins.count(); i++)
     config->writeEntry(m_plugins.at(i)->service->library(), m_plugins.at(i)->load);
 }
@@ -1664,12 +1665,12 @@ void KateDocument::configDialog()
                                     i18n("Configure"),
                                     KDialogBase::Ok | KDialogBase::Cancel |
                                     KDialogBase::Help ,
-                                    KDialogBase::Ok, kapp->mainWidget());   
-                                    
+                                    KDialogBase::Ok, kapp->mainWidget());
+
   kwin.setIcons(kd->winId(), kapp->icon(), kapp->miniIcon());
-                           
-  QPtrList<KTextEditor::ConfigPage> editorPages;                                  
-            
+
+  QPtrList<KTextEditor::ConfigPage> editorPages;
+
   for (uint i = 0; i < KTextEditor::configInterfaceExtension (this)->configPages (); i++)
   {
     QStringList path;
@@ -1677,17 +1678,17 @@ void KateDocument::configDialog()
     path << KTextEditor::configInterfaceExtension (this)->configPageName (i);
     QVBox *page = kd->addVBoxPage(path, KTextEditor::configInterfaceExtension (this)->configPageFullName (i),
                               KTextEditor::configInterfaceExtension (this)->configPagePixmap(i, KIcon::SizeMedium) );
-  
+
     editorPages.append (KTextEditor::configInterfaceExtension (this)->configPage(i, page));
-  }                                  
-    
+  }
+
   if (kd->exec())
   {
     for (uint i=0; i<editorPages.count(); i++)
     {
       editorPages.at(i)->apply();
-    }        
-    
+    }
+
     // save the config, reload it to update doc + all views
     writeConfig();
     readConfig();
@@ -1715,7 +1716,7 @@ void KateDocument::clearMark( uint line )
     return;
   if( !m_marks[line] )
     return;
- 
+
   KTextEditor::Mark* mark = m_marks.take( line );
   emit markChanged( *mark, MarkRemoved );
   emit marksChanged();
@@ -1729,16 +1730,16 @@ void KateDocument::addMark( uint line, uint markType )
     return;
   if( markType == 0 )
     return;
-  
+
   if( m_marks[line] ) {
     KTextEditor::Mark* mark = m_marks[line];
-    
+
     // Remove bits already set
     markType &= ~mark->type;
-    
+
     if( markType == 0 )
       return;
-    
+
     // Add bits
     mark->type |= markType;
   } else {
@@ -1753,7 +1754,7 @@ void KateDocument::addMark( uint line, uint markType )
   temp.line = line;
   temp.type = markType;
   emit markChanged( temp, MarkAdded );
-  
+
   emit marksChanged();
   tagLines( line, line );
 }
@@ -1764,24 +1765,24 @@ void KateDocument::removeMark( uint line, uint markType )
     return;
   if( !m_marks[line] )
     return;
-  
+
   KTextEditor::Mark* mark = m_marks[line];
-  
+
   // Remove bits not set
   markType &= mark->type;
-  
+
   if( markType == 0 )
     return;
-  
+
   // Subtract bits
   mark->type &= ~markType;
-  
+
   // Emit with a mark having only the types removed.
   KTextEditor::Mark temp;
   temp.line = line;
   temp.type = markType;
   emit markChanged( temp, MarkRemoved );
-    
+
   if( mark->type == 0 )
     m_marks.remove( line );
 
@@ -1792,12 +1793,12 @@ void KateDocument::removeMark( uint line, uint markType )
 QPtrList<KTextEditor::Mark> KateDocument::marks()
 {
   QPtrList<KTextEditor::Mark> list;
-  
+
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
        it.current(); ++it ) {
     list.append( it.current() );
   }
-  
+
   return list;
 }
 
@@ -1809,7 +1810,7 @@ void KateDocument::clearMarks()
     emit markChanged( *mark, MarkRemoved );
     tagLines( mark->line, mark->line );
   }
-  
+
   m_marks.clear();
 
   emit marksChanged();
@@ -1863,7 +1864,7 @@ bool KateDocument::printDialog ()
   else
     printer.setDocName(i18n("Untitled"));
 
-  KatePrintTextSettings *kpts = new KatePrintTextSettings(&printer, NULL); 
+  KatePrintTextSettings *kpts = new KatePrintTextSettings(&printer, NULL);
   kpts->enableSelection( hasSelection() );
   printer.addDialogPage( kpts );
   printer.addDialogPage( new KatePrintHeaderFooter(&printer, NULL) );
@@ -1888,57 +1889,57 @@ bool KateDocument::printDialog ()
      int endCol = 0;
      bool needWrap = true;
      bool pageStarted = true;
-     
+
      // Text Settings Page
-     bool selectionOnly = ( hasSelection() && 
+     bool selectionOnly = ( hasSelection() &&
                            ( printer.option("app-kate-printselection") == "true" ) );
      int selStartCol = 0;
      int selEndCol = 0;
-     
+
      bool useGuide = ( printer.option("app-kate-printguide") == "true" );
      int guideHeight = 0;
      int guideCols = 0;
-     
+
      bool printLineNumbers = ( printer.option("app-kate-printlinenumbers") == "true" );
      uint lineNumberWidth( 0 );
 
      // Header/Footer Page
      QFont headerFont; // used for header/footer
      headerFont.fromString( printer.option("app-kate-hffont") );
-                                
+
      bool useHeader = (printer.option("app-kate-useheader") == "true");
      QColor headerBgColor(printer.option("app-kate-headerbg"));
      QColor headerFgColor(printer.option("app-kate-headerfg"));
      uint headerHeight( 0 ); // further init only if needed
      QStringList headerTagList; // do
      bool headerDrawBg; // do
-     
+
      bool useFooter = (printer.option("app-kate-usefooter") == "true");
      QColor footerBgColor(printer.option("app-kate-footerbg"));
-     QColor footerFgColor(printer.option("app-kate-footerfg"));     
+     QColor footerFgColor(printer.option("app-kate-footerfg"));
      uint footerHeight( 0 ); // further init only if needed
      QStringList footerTagList = 0; // do
      bool footerDrawBg = 0; // do
-          
+
      // Layout Page
      bool useBackground = ( printer.option("app-kate-usebackground") == "true" );
      bool useBox = (printer.option("app-kate-usebox") == "true");
      int boxWidth(printer.option("app-kate-boxwidth").toInt());
      QColor boxColor(printer.option("app-kate-boxcolor"));
      int innerMargin = useBox ? printer.option("app-kate-boxmargin").toInt() : 6;
-     
+
      // Post initialization
      uint maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
      uint currentPage( 1 );
      uint lastline = lastLine(); // nessecary to print selection only
      uint firstline( 0 );
-          
-     /* 
+
+     /*
         Now on for preparations...
         during preparations, variable names starting with a "_" means
         those variables are local to the enclosing block.
      */
-     { 
+     {
        if ( selectionOnly )
        {
          // set a line range from the first selected line to the last
@@ -1951,15 +1952,15 @@ bool KateDocument::printDialog ()
          }
          else // TODO check if this is possible!
          {
-           kdDebug()<<"selectStart > selectEnd!"<<endl; 
+           kdDebug()<<"selectStart > selectEnd!"<<endl;
            firstline = selectEnd.line;
            selStartCol = selectEnd.col;
            lastline = selectStart.line;
            selEndCol = selectStart.col;
          }
-         lineCount = firstline; 
+         lineCount = firstline;
        }
-       
+
        if ( printLineNumbers )
        {
          // figure out the horiizontal space required
@@ -1972,7 +1973,7 @@ bool KateDocument::printDialog ()
          maxWidth -= lineNumberWidth;
          xstart += lineNumberWidth;
        }
-       
+
        if ( useHeader || useFooter )
        {
          // Set up a tag map
@@ -1995,9 +1996,9 @@ bool KateDocument::printDialog ()
            tags["f"].prepend( s );
            tags["F"].prepend( s );
          }
-         
+
          QRegExp reTags( "%([dDfFhuyY])" ); // TODO tjeck for "%%<TAG>"
-         
+
          if (useHeader)
          {
            headerDrawBg = ( printer.option("app-kate-headerusebg") == "true" );
@@ -2018,13 +2019,13 @@ bool KateDocument::printDialog ()
              pos = reTags.search( headerTags, pos );
            }
            headerTagList = QStringList::split('|', headerTags, true);
-           
+
            if (!headerBgColor.isValid())
              headerBgColor = Qt::lightGray;
            if (!headerFgColor.isValid())
              headerFgColor = Qt::black;
          }
-         
+
          if (useFooter)
          {
            footerDrawBg = ( printer.option("app-kate-footerusebg") == "true" );
@@ -2033,7 +2034,7 @@ bool KateDocument::printDialog ()
              footerHeight += 2*innerMargin;
            else
              footerHeight += 1; // line only
-           
+
            QString footerTags = printer.option("app-kate-footerformat");
            int pos = reTags.search( footerTags );
            QString rep;
@@ -2044,7 +2045,7 @@ bool KateDocument::printDialog ()
              pos += rep.length();
              pos = reTags.search( footerTags, pos );
            }
-           
+
            footerTagList = QStringList::split('|', footerTags, true);
            if (!footerBgColor.isValid())
              footerBgColor = Qt::lightGray;
@@ -2054,14 +2055,14 @@ bool KateDocument::printDialog ()
            maxHeight -= footerHeight;
          }
        } // if ( useHeader || useFooter )
-       
+
        if ( useBackground )
        {
          if ( ! useBox )
          {
            xstart += innerMargin;
            maxWidth -= innerMargin * 2;
-         }       
+         }
        }
 
        if ( useBox )
@@ -2078,7 +2079,7 @@ bool KateDocument::printDialog ()
        }
        else
          boxWidth = 0;
-       
+
        if ( useGuide )
        {
          // calculate the height required
@@ -2093,7 +2094,7 @@ bool KateDocument::printDialog ()
              _w -= ( innerMargin * 2 );
            _w -= 2; // 1 px line on each side
          }
-         
+
          // base of height: margins top/bottom, above and below tetle sep line
          guideHeight = ( innerMargin * 4 ) + 1;
          // get a title and add the height required to draw it
@@ -2107,9 +2108,9 @@ bool KateDocument::printDialog ()
          int _items ( 0 );
          while ( ( _d = it.current()) != 0 )
          {
-           _kfm = _d->bold ? 
-             _d->italic ? 
-               printFont.myFontMetricsBI : 
+           _kfm = _d->bold ?
+             _d->italic ?
+               printFont.myFontMetricsBI :
                printFont.myFontMetricsBold :
            _d->italic ?
              printFont.myFontMetricsItalic :
@@ -2124,7 +2125,7 @@ bool KateDocument::printDialog ()
          if ( _items%guideCols )
            guideHeight += printFont.fontHeight;
        }
-         
+
        // now that we know the vertical amount of space needed,
        // it is possible to calculate the total number of pages
        // if needed, that is if any header/footer tag contains "%P".
@@ -2179,10 +2180,10 @@ bool KateDocument::printDialog ()
          for ( it=footerTagList.begin(); it!=footerTagList.end(); ++it )
            (*it).replace( re, QString( "%1" ).arg( _pages ) );
        }
-     } // end prepare block 
-     
+     } // end prepare block
+
      /*
-        On to draw something :-)    
+        On to draw something :-)
      */
 uint _count = 0;
      while (  lineCount <= lastline  )
@@ -2204,7 +2205,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
 
          if ( pageStarted )
          {
-           
+
            if ( useHeader )
            {
              paint.setPen(headerFgColor);
@@ -2227,17 +2228,17 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                  align = valign|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
                }
              }
-             if ( ! ( headerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate header from contents 
+             if ( ! ( headerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate header from contents
              {
                paint.drawLine( 0, headerHeight-1, headerWidth, headerHeight-1 );
                //y += 1; now included in headerHeight
              }
              y += headerHeight + innerMargin;
            }
-           
+
            if ( useFooter )
            {
-             if ( ! ( footerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate footer from contents 
+             if ( ! ( footerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate footer from contents
                paint.drawLine( 0, maxHeight + innerMargin - 1, headerWidth, maxHeight + innerMargin - 1 );
              if ( footerDrawBg )
                 paint.fillRect(0, maxHeight+innerMargin+boxWidth, headerWidth, footerHeight, footerBgColor);
@@ -2256,7 +2257,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                }
              }
            } // done footer
-           
+
            if ( useBackground )
            {
              // If we have a box, or the header/footer has backgrounds, we want to paint
@@ -2267,7 +2268,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                _y -= innerMargin;
                _h += 2 * innerMargin;
              }
-             else 
+             else
              {
                if ( headerDrawBg )
                {
@@ -2281,7 +2282,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              }
              paint.fillRect( 0, _y, pdm.width(), _h, colors[0] );
            }
-                      
+
            if ( useBox )
            {
              paint.setPen(QPen(boxColor, boxWidth));
@@ -2290,24 +2291,24 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                paint.drawLine(0, headerHeight, headerWidth, headerHeight);
              else
                y += innerMargin;
-               
+
              if ( useFooter ) // drawline is not trustable, grr.
                paint.fillRect( 0, maxHeight+innerMargin, headerWidth, boxWidth, boxColor );
            }
-           
+
            if ( useGuide && currentPage == 1 )
            {  // FIXME - this may span more pages...
              // draw a box unless we have boxes, in which case we end with a box line
              paint.setPen( colors[1] );
              int _marg = 0; // this could be available globally!??
-             if ( useBox ) 
+             if ( useBox )
              {
                _marg += (2*boxWidth) + (2*innerMargin);
                paint.fillRect( 0, y+guideHeight-innerMargin-boxWidth, headerWidth, boxWidth, boxColor );
              }
              else
              {
-               if ( useBackground ) 
+               if ( useBackground )
                  _marg += 2*innerMargin;
                paint.drawRect( _marg, y, pdm.width()-(2*_marg), guideHeight );
                _marg += 1;
@@ -2317,7 +2318,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              paint.setFont( printFont.myFontBold );
              QRect _r;
              paint.drawText( _marg, y, pdm.width()-(2*_marg), maxHeight - y,
-                Qt::AlignTop|Qt::AlignHCenter, 
+                Qt::AlignTop|Qt::AlignHCenter,
                 i18n("Typographical Conventions for ") + m_highlight->name(), -1, &_r );
              int _w = pdm.width() - (_marg*2) - (innerMargin*2);
              int _x = _marg + innerMargin;
@@ -2336,29 +2337,29 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                paint.setPen( attribute(_i)->col );
                paint.setFont( attribute(_i)->font( printFont ) );
 //      kdDebug()<<"x: "<<( _x + ((_i%guideCols)*_cw))<<", y: "<<y<<", w: "<<_cw<<endl;
-               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, printFont.fontHeight, 
+               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, printFont.fontHeight,
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
 //      kdDebug()<<"painted in rect: "<<_r.x()<<", "<<_r.y()<<", "<<_r.width()<<", "<<_r.height()<<endl;
                _i++;
                if ( _i && ! ( _i%guideCols ) ) y += printFont.fontHeight;
-               ++_it; 
+               ++_it;
              }
              if ( _i%guideCols ) y += printFont.fontHeight;// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
            }
-         
+
            pageStarted = false;
          } // pageStarted; move on to contents:)
-         
+
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
            paint.setFont( printFont.font( false, false ) );
            paint.setPen( colors[1] ); // using "selected" color for now...
-           paint.drawText( ( useBox || useBackground ) ? innerMargin : 0, y, 
-                        lineNumberWidth, printFont.fontHeight, 
+           paint.drawText( ( useBox || useBackground ) ? innerMargin : 0, y,
+                        lineNumberWidth, printFont.fontHeight,
                         Qt::AlignRight, QString("%1 ").arg( lineCount + 1 ) );
          }
-         
+
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
          if ( endCol < startCol )
          {
@@ -2368,7 +2369,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                      // When it happens, a line of garbage would be printed.
                      // FIXME Most likely this is an error in textWidth(),
                      // failing to correctly set needWrap to false in this case?
-         }         
+         }
          // if we print only selection:
          // print only selected range of chars.
          bool skip = false;
@@ -2396,14 +2397,14 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            needWrap = false;
            startCol = 0;
          }
-         else 
+         else
          {
-//kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<endl;         
+//kdDebug()<<"Line: "<<lineCount<<", Start Col: "<<startCol<<", End Col: "<<endCol<<", Need Wrap: "<<needWrap<<endl;
            startCol = endCol;
          }
-         
+
          y += printFont.fontHeight;
-_count++;       
+_count++;
        } // done while ( needWrap )
 
        lineCount++;
@@ -2438,7 +2439,7 @@ bool KateDocument::openFile()
   if (pos != -1)
     myEncoding = serviceType.mid(pos+1);
   kdDebug(13020) << "myEncoding: " << myEncoding << endl;
-      
+
   buffer->insertFile(0, m_file, KGlobal::charsets()->codecForName(myEncoding));
 
   setMTime();
@@ -2543,7 +2544,7 @@ bool KateDocument::saveFile()
   emit fileNameChanged ();
 
   setDocName  (url().filename());
-  
+
   return (f.status() == IO_Ok);
 }
 
@@ -2716,7 +2717,7 @@ bool KateDocument::isLastView(int numViews) {
   return ((int) m_views.count() == numViews);
 }
 
-uint KateDocument::textWidth(const TextLine::Ptr &textLine, 
+uint KateDocument::textWidth(const TextLine::Ptr &textLine,
 			     int cursorX, WhichFont wf)
 {
   if (!textLine)
@@ -2754,7 +2755,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
     Attribute *a = attribute(textLine->attribute(z));
     int width = a->width(fs, textLine->getChar(z));
     x += width;
- 
+
     // How should tabs be treated when they word-wrap on a print-out?
     // if startcol != 0, this messes up (then again, word wrapping messes up anyway)
     if (textLine->getChar(z) == QChar('\t'))
@@ -2811,7 +2812,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
     Attribute *a = attribute(textLine->attribute(z));
     int width = a->width(fs, textLine->getChar(z));
     x += width;
- 
+
     if (textLine->getChar(z) == QChar('\t'))
       x -= x % width;
 
@@ -2943,13 +2944,13 @@ QString tabString(int pos, int tabChars)
 void KateDocument::newLine( KateTextCursor& c )
 {
   editStart();
-  
+
   if( configFlags() & cfDelOnInput && hasSelection() )
     removeSelectedText();
-    
+
   if (c.line > lastLine())
    c.line = lastLine();
-  
+
   if (c.col > kateTextLine(c.line)->length())
     c.col = kateTextLine(c.line)->length();
 
@@ -2979,7 +2980,7 @@ void KateDocument::newLine( KateTextCursor& c )
       c.col = pos;
     }
   }
-  
+
   editEnd();
 }
 
@@ -3001,7 +3002,7 @@ void KateDocument::transpose( const KateTextCursor& cursor)
   s.append (textLine->getChar(col+1));
   s.append (textLine->getChar(col));
   //do the swap
-  
+
   // do it right, never ever manipulate a textline
   editStart ();
   editRemoveText (line, col, 2);
@@ -3022,7 +3023,7 @@ void KateDocument::backspace( const KateTextCursor& c )
 
   if ((col == 0) && (line == 0))
     return;
-  
+
   if (col > 0)
   {
     if (!(_configFlags & KateDocument::cfBackspaceIndents))
@@ -3113,17 +3114,17 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
     return;
 
   editStart ();
-  
+
   uint line = cursor.line;
   uint col = cursor.col;
-  
+
   if (_configFlags & KateDocument::cfDelOnInput && hasSelection() )
   {
     removeSelectedText();
     line = view->m_viewInternal->cursorCache.line;
     col = view->m_viewInternal->cursorCache.col;
   }
-  
+
   insertText( line, col, s, blockSelect );
 
   // anders: we want to be able to move the cursor to the
@@ -3512,7 +3513,7 @@ bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
     TextLine::Ptr textLine = buffer->line(line);
     col = textLine->nextNonSpaceChar(col);
     if(col != -1)
-      return true; // Next non-space char found 
+      return true; // Next non-space char found
     col = 0;
   }
   // No non-space char found
@@ -3531,7 +3532,7 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
     TextLine::Ptr textLine = buffer->line(line);
     col = textLine->previousNonSpaceChar(col);
     if(col != -1)
-      return true; // Previous non-space char found 
+      return true; // Previous non-space char found
     col = 0;
   }
   // No non-space char found
@@ -3554,7 +3555,7 @@ bool KateDocument::removeStartStopCommentFromSelection()
   int sc = selectStart.col;
   int ec = selectEnd.col;
 
-  // The selection ends on the char before selectEnd 
+  // The selection ends on the char before selectEnd
   if (ec != 0) {
     ec--;
   } else {
@@ -3574,7 +3575,7 @@ bool KateDocument::removeStartStopCommentFromSelection()
       && previousNonSpaceCharPos(el, ec)
       && ( (ec - endCommentLen + 1) >= 0 )
       && buffer->line(el)->stringAtPos(ec - endCommentLen + 1, endComment);
- 
+
   if (remove) {
     editStart();
 
@@ -3613,7 +3614,7 @@ bool KateDocument::removeStartLineCommentFromSelection()
   if (buffer->line(el)->startingWith(longCommentMark))
     removeLength = longCommentMark.length();
   else if (buffer->line(el)->startingWith(shortCommentMark))
-    removeLength = shortCommentMark.length();    
+    removeLength = shortCommentMark.length();
 
   bool removed = false;
 
@@ -3668,7 +3669,7 @@ void KateDocument::doComment( uint line, int change)
       // or ends before the last char of the last line, we may use
       // multiline comment markers.
       // TODO We should try to detect nesting.
-      //    - if selection ends at col 0, most likely she wanted that 
+      //    - if selection ends at col 0, most likely she wanted that
       // line ignored
       if ( hasStartStopCommentMark &&
            ( !hasStartLineCommentMark || (
@@ -3988,7 +3989,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
     {
       isSel = (showSelections && hasSel
 	       && (curCol >= startSel) && (curCol < endSel));
- 
+
       curColor = isSel ? &(curAt->selCol) : &(curAt->col);
 
       if (curColor != oldColor)
@@ -4089,9 +4090,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   else if (showCursor > -1)
   {
     if ((cursorXPos2>=xStart) && (cursorXPos2<=xEnd))
-    {                           
+    {
       cursorMaxWidth = fs.myFontMetrics.width(QChar (' '));
-    
+
       if (replaceCursor && (cursorMaxWidth > 2))
         paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, cursorMaxWidth, fs.fontHeight, myAttribs[0].col);
       else
@@ -4119,17 +4120,17 @@ inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isE
 void KateDocument::newBracketMark( const KateTextCursor& cursor, BracketMark& bm )
 {
   bm.valid = false;
-  
+
   KateTextCursor start( cursor ), end;
-  
+
   if( !findMatchingBracket( start, end ) )
     return;
-  
+
   bm.valid = true;
-  
+
   TextLine::Ptr textLine;
   Attribute* a;
-  
+
   /* Calculate starting geometry */
   textLine = buffer->line( start.line );
   a = attribute( textLine->attribute( start.col ) );
@@ -4150,11 +4151,11 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
   TextLine::Ptr textLine = buffer->line( start.line );
   if( !textLine )
     return false;
-    
+
   QChar right = textLine->getChar( start.col );
   QChar left  = textLine->getChar( start.col - 1 );
   QChar bracket;
-  
+
   if ( _configFlags & cfOvr ) {
     if( isBracket( right ) ) {
       bracket = right;
@@ -4174,7 +4175,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
   } else {
     return false;
   }
-  
+
   QChar opposite;
 
   switch( bracket ) {
@@ -4193,7 +4194,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
   end = start;
 
   while( true ) {
-  
+
     /* Increment or decrement, check base cases */
     if( forward ) {
       end.col++;
@@ -4214,11 +4215,11 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
         textLine = buffer->line( end.line );
       }
     }
-    
+
     /* Easy way to skip comments */
     if( textLine->attribute( end.col ) != startAttr )
       continue;
-    
+
     /* Check for match */
     QChar c = textLine->getChar( end.col );
     if( c == bracket ) {
@@ -4228,7 +4229,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
         return true;
       count--;
     }
-    
+
   }
 }
 
@@ -4280,7 +4281,7 @@ void KateDocument::reloadFile()
     buffer->resetCodeFoldingTree();
     KateDocument::openURL( url() );
     setMTime();
-    
+
     if (byUser)
       setHlMode (mode);
   }
@@ -4339,7 +4340,7 @@ void KateDocument::setConfigFlags( uint flags )
 {
   if( flags == _configFlags )
     return;
-    
+
   // update the view if visibility of tabs has changed
   bool updateView = (flags ^ _configFlags) & KateDocument::cfShowTabs;
   _configFlags = flags;
@@ -4359,7 +4360,7 @@ void KateDocument::exportAs(const QString& filter)
     KSaveFile *savefile=new KSaveFile(filename);
     if (!savefile->status())
     {
-      if (exportDocumentToHTML(savefile->textStream(),filename)) savefile->close(); 
+      if (exportDocumentToHTML(savefile->textStream(),filename)) savefile->close();
         else savefile->abort();
       //if (!savefile->status()) --> Error
     } else {/*ERROR*/}

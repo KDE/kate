@@ -22,16 +22,6 @@
 #include <qwidget.h>
 #include <kxmlguiclient.h>
 
-/*
-
-THIS IS A TEST VERSION OF THIS INTERFACE
-THIS WILL CHANGE IN A VERY VERY VERY BIC WAY BEFORE 3.1 !!!!!!!!!!!!!
-DON'T USE IT ANYWHERE UNTIL THIS COMMENT HAS GONE AWAY
-
-by cullmann
-
-*/
-
 namespace KTextEditor
 {                       
 

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- author: Yevgen Voronenko (ysv22@drexel.edu) -->
+<!-- $Id$ -->
+<language name="Verilog" version="1.2" kateversion="2.0" section="Sources" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src">
+  <highlighting>
+    <list name="keywords">
+      <item> module </item>
+      <item> macromodule </item>
+      <item> endmodule </item>
+      <item> task </item>
+      <item> endtask </item>
+      <item> function </item>
+      <item> endfunction </item>
+      <item> table </item>
+      <item> endtable </item>
+      <item> specify </item>
+      <item> specparam </item>
+      <item> endspecify </item>
+      <item> case </item>
+      <item> casex </item>
+      <item> casez </item>
+      <item> endcase </item>
+      <item> fork </item>
+      <item> join </item>
+
+      <item> defparam </item>
+      <item> default </item>
+      <item> begin </item>
+      <item> end </item>
+      <item> if </item>
+      <item> ifnone </item>
+      <item> else </item>
+      <item> forever </item>
+      <item> while </item>
+      <item> for </item>
+      <item> wait </item>
+      <item> repeat </item>
+      <item> disable </item>
+
+      <item> assign </item>
+      <item> deassign </item>
+      <item> force </item>
+      <item> release </item>
+
+      <item> always </item>
+      <item> initial </item>
+      <item> edge </item>
+      <item> posedge </item>
+      <item> negedge </item>
+    </list>
+
+    <list name="strength">
+	<!-- drive strength supply0/supply1 omitted, its in types.. -->
+	<item> strong0 </item>
+	<item> strong1 </item>
+	<item> pull0 </item>
+	<item> pull1 </item>
+	<item> weak0 </item>
+	<item> weak1 </item>
+	<item> highz0 </item>
+	<item> highz1 </item>
+	<!-- charge strength -->
+	<item> small </item>
+	<item> medium </item>
+	<item> large </item>
+    </list>
+
+    <list name="gates">
+       <item> pullup </item>
+       <item> pulldown </item>
+       <item> cmos </item>
+       <item> rcmos </item>
+       <item> nmos </item>
+       <item> pmos </item>
+       <item> rnmos </item>
+       <item> rpmos </item>
+       <item> and </item>
+       <item> nand </item>
+       <item> or </item>
+       <item> nor </item>
+       <item> xor </item>
+       <item> xnor </item>
+       <item> not </item>
+       <item> buf </item>
+       <item> tran </item>
+       <item> rtran </item>
+       <item> tranif0 </item>
+       <item> tranif1 </item>
+       <item> rtranif0 </item>
+       <item> rtranif1 </item>
+       <item> bufif0 </item>
+       <item> bufif1 </item>
+       <item> notif0 </item>
+       <item> notif1 </item>
+    </list>
+
+    <list name="types">
+      <!-- port direction -->
+      <item> input </item>
+      <item> output </item>
+      <item> inout </item>
+      <!-- net type -->
+      <item> wire </item>
+      <item> tri </item>
+      <item> tri0 </item>
+      <item> tri1 </item>
+      <item> wand </item>
+      <item> wor </item>
+      <item> triand </item>
+      <item> trior </item>
+      <item> supply0 </item>
+      <item> supply1 </item>
+      <!-- reg/variable -->
+      <item> reg </item>
+      <item> integer </item>
+      <item> real </item>
+      <item> realtime </item>
+      <item> time </item>
+      <!-- modifier -->
+      <item> vectored </item>
+      <item> scalared </item>
+      <item> trireg </item>
+      <!-- other -->
+      <item> parameter </item>
+      <item> event </item>
+    </list>
+
+    <contexts>
+      <context attribute="0" lineEndContext="0" name="Normal">
+	<RegExpr attribute="1" context="9" String="begin\ *:"/>
+	<keyword attribute="1" context="0" String="keywords" />
+        <keyword attribute="2" context="0" String="types" />
+        <keyword attribute="18" context="0" String="strength" />
+        <keyword attribute="19" context="0" String="gates" />
+
+	<RegExpr attribute="0" context="0" String="[a-zA-Z]+[a-zA-Z0-9_$]*"/>
+	<RegExpr attribute="0" context="0" String="\\[^ ]+ "/>
+
+	<RegExpr attribute="3" context="0" String="[0-9_]*'d[0-9_]+"/>
+	<RegExpr attribute="4" context="0" String="[0-9_]*'o[0-7xXzZ_]+"/>
+	<RegExpr attribute="5" context="0" String="[0-9_]*'h[0-9a-fA-FxXzZ_]+"/>
+	<RegExpr attribute="6" context="0" String="[0-9_]*'b[01_zZxX]+"/>
+	<Float attribute="7" context="0"/>
+        <Int attribute="15" context="0" />
+
+	<RegExpr attribute="20" context="0" String="[^a-zA-Z0-9_$]\.[a-zA-Z]+[a-zA-Z0-9_$]*"/>
+
+	<DetectChar attribute="8" context="1" char="&quot;"/>
+        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
+        <Detect2Chars attribute="10" context="3" char="/" char1="*"/>
+        <AnyChar attribute="11" context="0" String="!%&amp;()+,-&lt;=+/:;&gt;?[]^{|}~@"/>
+
+	<StringDetect attribute="10" context="8" String="#if 0" insensitive="FALSE"/>
+
+	<RegExpr attribute="12" context="4" String="^`"/>
+	<RegExpr attribute="12" context="0" String="\`[a-zA-Z_]+[a-zA-Z0-9_]*" />
+	<RegExpr attribute="14" context="0" String="\$[a-zA-Z_]+[a-zA-Z0-9_]*" />
+	<RegExpr attribute="16" context="0" String="#[0-9_]+" />
+      </context>
+      <context attribute="8" lineEndContext="0" name="String">
+        <LineContinue attribute="8" context="6"/>
+        <HlCStringChar attribute="9" context="1"/>
+        <DetectChar attribute="8" context="0" char="&quot;"/>
+      </context>
+      <context attribute="10" lineEndContext="0" name="Commentar 1">
+        <RegExpr attribute="3" context="2" String="(FIXME|TODO)" />
+      </context>
+      <context attribute="10" lineEndContext="3" name="Commentar 2">
+        <RegExpr attribute="3" context="3" String="(FIXME|TODO)" />
+        <Detect2Chars attribute="10" context="0" char="*" char1="/"/>
+      </context>
+      <context attribute="12" lineEndContext="0" name="Preprocessor">
+        <LineContinue attribute="12" context="7"/>
+        <RangeDetect attribute="13" context="4" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="13" context="4" char="&lt;" char1="&gt;"/>
+        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
+        <Detect2Chars attribute="10" context="5" char="/" char1="*"/>
+      </context>
+      <context attribute="10" lineEndContext="5" name="Commentar/Preprocessor">
+        <Detect2Chars attribute="10" context="4" char="*" char1="/" />
+      </context>
+      <context attribute="0" lineEndContext="1" name="Some Context"/>
+      <context attribute="0" lineEndContext="4" name="Some Context2"/>
+      <context attribute="10" lineEndContext="8">
+          <RegExpr attribute="3" context="8" String="(FIXME|TODO)" />
+          <RegExpr attribute="10" context="0" String="^#endif" />
+      </context>
+
+      <context attribute="17" lineEndContext="0" name="Block name">
+          <RegExpr attribute="2" context="0" String="[^ ]+"/>
+      </context>
+    </contexts>
+    
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Data Type"  defStyleNum="dsDataType"/>
+
+      <itemData name="Decimal"  defStyleNum="dsBaseN"/>
+      <itemData name="Octal"  defStyleNum="dsBaseN"/>
+      <itemData name="Hex"  defStyleNum="dsBaseN"/>
+      <itemData name="Binary"  defStyleNum="dsBaseN"/>
+      <itemData name="Float"  defStyleNum="dsFloat"/>
+
+      <itemData name="String"  defStyleNum="dsString"/>
+      <itemData name="String Char"  defStyleNum="dsChar"/>
+      <itemData name="Comment"  defStyleNum="dsComment"/>
+      <itemData name="Symbol"  defStyleNum="dsNormal"/>
+      <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
+      <itemData name="Prep. Lib"  defStyleNum="dsFloat"/>
+      <itemData name="System Task" defStyleNum="dsDataType"/>
+
+      <itemData name="Integer" defStyleNum="dsDecVal"/>
+      <itemData name="Delay" defStyleNum="dsBaseN"/>
+      <itemData name="Block name" defStyleNum="dsDataType"/>
+      <itemData name="Drive/charge strength" defStyleNum="dsBaseN"/>
+      <itemData name="Gate instantiation" defStyleNum="dsDataType"/>
+      <itemData name="Port connection" defStyleNum="dsDataType"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="//" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

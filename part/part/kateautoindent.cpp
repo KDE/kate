@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Jesse Yurkovich <yurkjes@iit.edu>
+   Copyright (C) 2004 >Anders Lund <anders@alweb.dk> (KateVarIndent class)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -1906,11 +1907,18 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   // and take the position from that
   int ln = line.line();
   int pos = -1;
-  KateTextLine::Ptr ktl = 0;
+  KateTextLine::Ptr ktl = doc->plainKateTextLine( ln );
+
+  // skip blank lines, except for the cursor line
+  KateView *v = doc->activeView();
+  if ( ktl && ktl->firstChar() < 0 && (!v || v->cursorLine() != ln ) )
+    return;
+
   int fc;
   if ( ln > 0 )
   do
   {
+
     ktl = doc->plainKateTextLine( --ln );
     fc = ktl->firstChar();
     if ( ktl->attribute( fc ) != commentAttrib )
@@ -1918,34 +1926,36 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   }
   while ( (ln > 0) && (pos < 0) ); // search a not empty text line
 
-  if ( pos < 0 ) pos = 0;
+  if ( pos < 0 )
+    pos = 0;
+  else
+    pos = ktl->cursorX( pos, tabWidth );
 
+#define ISCOMMENTATTR(attr) (attr==commentAttrib||attr==doxyCommentAttrib)
+#define ISCOMMENT (ISCOMMENTATTR(ktl->attribute(ktl->firstChar()))||ISCOMMENTATTR(ktl->attribute(matchpos)))
   // check if we should indent, unless the line starts with comment text,
   // or the match is in comment text
   kdDebug()<<"starting indent: "<<pos<<endl;
   // check if the above line indicates that we shuld add indentation
   int matchpos = 0;
   if ( ktl && ! d->reIndentAfter.isEmpty()
-         && (matchpos = d->reIndentAfter.search( doc->textLine( ln ) )) > -1
-         && ktl->attribute( ktl->firstChar() ) != commentAttrib
-         && ktl->attribute( matchpos ) != commentAttrib )
+       && (matchpos = d->reIndentAfter.search( doc->textLine( ln ) )) > -1
+       && ! ISCOMMENT )
     pos += indentWidth;
   kdDebug()<<"after indent-after: "<<pos<<endl;
 
   // else, check if this line should indent unless ...
   ktl = doc->plainKateTextLine( line.line() );
-  if ( /*matchpos < 0 &&*/ ! d->reIndent.isEmpty()
+  if ( ! d->reIndent.isEmpty()
          && (matchpos = d->reIndent.search( doc->textLine( line.line() ) )) > -1
-         && ktl->attribute( ktl->firstChar() ) != commentAttrib
-         && ktl->attribute( matchpos ) != commentAttrib )
+         && ! ISCOMMENT )
     pos += indentWidth;
   kdDebug()<<"after indent-indent: "<<pos<<endl;
 
   // else, check if the current line indicates if we should remove indentation unless ...
   if ( ! d->reUnindent.isEmpty()
        && (matchpos = d->reUnindent.search( doc->textLine( line.line() ) )) > -1
-       && ktl->attribute( ktl->firstChar() ) != commentAttrib
-       && ktl->attribute( matchpos ) != commentAttrib )
+       && ! ISCOMMENT )
     pos -= indentWidth;
 
   kdDebug()<<"after indent-unindent: "<<pos<<endl;

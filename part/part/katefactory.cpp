@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -38,14 +38,15 @@
 class KateFactoryPublic : public KParts::Factory
 {
   public:
-    KateFactoryPublic ()
-    {
-    }
-
-    ~KateFactoryPublic ()
-    {
-    }
-
+    /**
+     * reimplemented create object method
+     * @param parentWidget parent widget
+     * @param widgetName widget name
+     * @param parent QObject parent
+     * @param name object name
+     * @param args additional arguments
+     * @return constructed part object
+     */
     KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args )
     {
       return KateFactory::self()->createPartObject (parentWidget, widgetName, parent, name, classname, args);

@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -31,6 +31,9 @@ class KateSchemaManager;
 class KateDocumentConfig;
 class KateViewConfig;
 class KateRendererConfig;
+class KateDocument;
+class KateRenderer;
+class KateView;
 
 class KDirWatch;
 
@@ -75,54 +78,168 @@ class KateFactory
 
     /**
      * register document at the factory
+     * this allows us to loop over all docs for example on config changes
      * @param doc document to register
      */
-    void registerDocument ( class KateDocument *doc );
-    void deregisterDocument ( class KateDocument *doc );
-
-    void registerView ( class KateView *view );
-    void deregisterView ( class KateView *view );
-
-    void registerRenderer ( class KateRenderer  *renderer );
-    void deregisterRenderer ( class KateRenderer  *renderer );
-
-    inline QPtrList<class KateDocument> *documents () { return &m_documents; };
-
-    inline QPtrList<class KateView> *views () { return &m_views; };
-
-    inline QPtrList<class KateRenderer> *renderers () { return &m_renderers; };
+    void registerDocument ( KateDocument *doc );
     
+    /**
+     * unregister document at the factory
+     * @param doc document to register
+     */
+    void deregisterDocument ( KateDocument *doc );
+
+    /**
+     * register view at the factory
+     * this allows us to loop over all views for example on config changes
+     * @param view view to register
+     */
+    void registerView ( KateView *view );
+    
+    /**
+     * unregister view at the factory
+     * @param view view to unregister
+     */
+    void deregisterView ( KateView *view );
+
+     /**
+     * register renderer at the factory
+     * this allows us to loop over all views for example on config changes
+     * @param renderer renderer to register
+     */
+    void registerRenderer ( KateRenderer  *renderer );
+    
+    /**
+     * unregister renderer at the factory
+     * @param renderer renderer to unregister
+     */
+    void deregisterRenderer ( KateRenderer  *renderer );
+
+    /**
+     * return a list of all registered docs
+     * @return all known documents
+     */
+    inline QPtrList<KateDocument> *documents () { return &m_documents; };
+
+    /**
+     * return a list of all registered views
+     * @return all known views
+     */
+    inline QPtrList<KateView> *views () { return &m_views; };
+
+    /**
+     * return a list of all registered renderers
+     * @return all known renderers
+     */
+    inline QPtrList<KateRenderer> *renderers () { return &m_renderers; };
+    
+    /**
+     * on start detected plugins
+     * @return list of all at launch detected ktexteditor::plugins
+     */
     inline const KTrader::OfferList &plugins () { return m_plugins; };
 
+    /**
+     * global dirwatch
+     * @return dirwatch instance
+     */
     inline KDirWatch *dirWatch () { return m_dirWatch; };
 
+    /**
+     * global filetype manager
+     * used to manage the file types centrally
+     * @return filetype manager
+     */
     inline KateFileTypeManager *fileTypeManager () { return m_fileTypeManager; };
 
+    /**
+     * manager for the katepart schemas
+     * @return schema manager
+     */
     inline KateSchemaManager *schemaManager () { return m_schemaManager; };
 
+    /**
+     * fallback document config
+     * @return default config for all documents
+     */
     inline KateDocumentConfig *documentConfig () { return m_documentConfig; }
+    
+    /**
+     * fallback view config
+     * @return default config for all views
+     */
     inline KateViewConfig *viewConfig () { return m_viewConfig; }
+    
+    /**
+     * fallback renderer config
+     * @return default config for all renderers
+     */
     inline KateRendererConfig *rendererConfig () { return m_rendererConfig; }
 
   private:
+    /**
+     * instance of this factory
+     */
     static KateFactory *s_self;
     
+    /**
+     * about data (authors and more)
+     */
     KAboutData m_aboutData;
+    
+    /**
+     * our kinstance
+     */
     KInstance m_instance;
     
-    QPtrList<class KateDocument> m_documents;
-    QPtrList<class KateView> m_views;
-    QPtrList<class KateRenderer> m_renderers;
+    /**
+     * registered docs
+     */
+    QPtrList<KateDocument> m_documents;
     
+    /**
+     * registered views
+     */
+    QPtrList<KateView> m_views;
+    
+    /**
+     * registered renderers
+     */
+    QPtrList<KateRenderer> m_renderers;
+    
+    /**
+     * global dirwatch object
+     */
     KDirWatch *m_dirWatch;  
   
+    /**
+     * filetype manager
+     */
     KateFileTypeManager *m_fileTypeManager;
+    
+    /**
+     * schema manager
+     */
     KateSchemaManager *m_schemaManager;
 
+    /**
+     * at start found plugins
+     */
     KTrader::OfferList m_plugins;
 
+    /**
+     * fallback document config
+     */
     KateDocumentConfig *m_documentConfig;
+    
+    /**
+     * fallback view config
+     */
     KateViewConfig *m_viewConfig;
+    
+    /**
+     * fallback renderer config
+     */
     KateRendererConfig *m_rendererConfig;
 };
 

@@ -1266,7 +1266,7 @@ uint KateView::cursorColumn()
 {
   uint r = m_doc->currentColumn(m_viewInternal->getCursor());
   if ( !( m_doc->config()->configFlags() & KateDocumentConfig::cfWrapCursor ) &&
-       m_viewInternal->getCursor().col() > m_doc->textLine( m_viewInternal->getCursor().line() ).length()  )
+       (uint)m_viewInternal->getCursor().col() > m_doc->textLine( m_viewInternal->getCursor().line() ).length()  )
     r += m_viewInternal->getCursor().col() - m_doc->textLine( m_viewInternal->getCursor().line() ).length();
 
   return r;

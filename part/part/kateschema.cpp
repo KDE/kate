@@ -322,6 +322,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newSchema()) );
 
   m_tabWidget = new QTabWidget ( this );
+  m_tabWidget->setMargin (KDialog::marginHint());
   layout->add (m_tabWidget);
 
   m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);

@@ -22,7 +22,7 @@
 #define __kate_filetype_h__
 
 #include <qstringlist.h>
-#include <qptrvector.h>
+#include <qptrlist.h>
 
 #include "../interfaces/document.h"
 
@@ -51,7 +51,7 @@ class KateFileTypeManager
      */
     void update ();
 
-    void save (QPtrVector<KateFileType> *v);
+    void save (QPtrList<KateFileType> *v);
 
     /**
      * get the right fileType for the given document
@@ -67,13 +67,13 @@ class KateFileTypeManager
     /**
      * Don't modify
      */
-    QPtrVector<KateFileType> *list () { return &m_types; }
+    QPtrList<KateFileType> *list () { return &m_types; }
 
   private:
     int wildcardsFind (const QString &fileName);
 
   private:
-    QPtrVector<KateFileType> m_types;
+    QPtrList<KateFileType> m_types;
 };
 
 class KateFileTypeConfigTab : public Kate::ConfigPage
@@ -94,13 +94,20 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
     void deleteType ();
     void newType ();
     void typeChanged (int type);
+    void showMTDlg();
 
+  private:
+    class QGroupBox *gbProps;
+    class QPushButton *btndel;
     class QComboBox *typeCombo;
     class QLineEdit *wildcards;
     class QLineEdit *mimetypes;
     class KIntNumInput *priority;
+    class QLineEdit *name;
+    class QLineEdit *section;
+    class QLineEdit *varLine;
 
-    QPtrVector<KateFileType> m_types;
+    QPtrList<KateFileType> m_types;
 };
 
 #endif

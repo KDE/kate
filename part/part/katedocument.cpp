@@ -721,10 +721,10 @@ void KateDocument::editEnd ()
       if (v->myViewInternal->tagLinesFrom < editTagLineStart)
         startTagging = v->myViewInternal->tagLinesFrom;
 
-      v->myViewInternal->tagRealLines (startTagging, endTagging, 0, 0xffff);
+      v->myViewInternal->tagRealLines (startTagging, endTagging);
     }
     else
-      v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd, 0, 0xffff);
+      v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd);
 
     if (v->myViewInternal->cursorCacheChanged)
       v->myViewInternal->updateCursor (v->myViewInternal->cursorCache);
@@ -2048,7 +2048,7 @@ bool KateDocument::printDialog ()
          }
 
          endCol = textWidth (getTextLine(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, false,PrintFont );
+         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, -1, false, false, PrintFont );
          startCol = endCol;
          y += printFont.fontHeight;
        }
@@ -3478,7 +3478,7 @@ QString KateDocument::getWord(KateTextCursor &cursor) {
 void KateDocument::tagLines(int start, int end)
 {
   for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->myViewInternal->tagRealLines(start, end, 0, 0xffffff);
+    myViews.at(z)->myViewInternal->tagRealLines(start, end);
 }
 
 void KateDocument::tagAll()
@@ -3626,17 +3626,7 @@ bool KateDocument::lineHasSelected (int line)
   return false;
 }
 
-bool KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEnd, bool showTabs)
-{
-  return paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
-}
-
-bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
-{
-  return paintTextLine (paint, line, startcol, endcol, 0, xStart, xEnd, showTabs);
-}
-
-bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
+bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, int showCursor, bool showSelections, bool showTabs, WhichFont wf)
 {
   // font data
   FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;
@@ -3654,7 +3644,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   const uchar *a;
 
   // was the selection background allready completly painted ?
-  bool selectionPainted = false;
+  bool selectionPainted = !showSelections;
 
   if (!selectionPainted && lineSelected (line))
   {
@@ -3812,6 +3802,14 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     {
       if (!selectionPainted && hasSel && (curCol >= startSel) && (curCol < endSel))
         paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
+
+	    if ((showCursor > -1) && (showCursor = curCol))
+			{
+			  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
+			
+
+			}
+
 
       if (((tmp < 2) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
       {

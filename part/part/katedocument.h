@@ -573,11 +573,10 @@ class KateDocument : public Kate::Document
 
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
-    bool paintTextLine(QPainter &, uint line, int xStart, int xEnd, bool showTabs);
-    bool paintTextLine(QPainter &, uint line, int startcol, int endcol, int xStart, 
-        int xEnd, bool showTabs);
+
     bool  paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, 
-        int xStart, int xEnd, bool showTabs,WhichFont wf=ViewFont);
+        int xStart, int xEnd, int showCursor, bool showSelections, bool showTabs,WhichFont wf=ViewFont);
+
     bool doSearch(SConfig &s, const QString &searchFor);
 
   public:

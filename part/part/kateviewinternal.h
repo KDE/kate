@@ -29,8 +29,7 @@ class KateLineRange
     int startCol;
     int endCol;
     bool wrapped;
-    int start;
-    int end;
+    bool dirty;
 };
 
 class KateViewInternal : public QWidget
@@ -88,8 +87,8 @@ class KateViewInternal : public QWidget
     void updateCursor(VConfig &c,bool keepSel=false);//KateTextCursor &newCursor);
     void updateCursor(KateTextCursor &newCursor, bool keepSel=false);
     void updateLineRanges(bool keepLineData = true);
-    void tagLines(int start, int end, int x1, int x2);
-    void tagRealLines(int start, int end, int x1, int x2);
+    void tagLines(int start, int end);
+    void tagRealLines(int start, int end);
     void tagAll();
     void setPos(int x, int y);
     void center();

@@ -1109,9 +1109,10 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 #endif
         if (node->type > 0)
           removeOpening(node, line);
-        something_changed = true;
-        dontDeleteOpening(node);
+        else
+          dontDeleteOpening(node);
 
+        something_changed = true;
       }
       else
       {

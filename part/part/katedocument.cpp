@@ -609,6 +609,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
   }
   else
   {
+
     for (uint i = startLine; (i <= endLine) && (i < m_buffer->count()); i++)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(i);
@@ -624,7 +625,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
       }
       else
       {
-        s.append (textLine->string (startCol, endCol - startCol));
+        s.append( textLine->string( startCol, endCol-startCol));
       }
 
       if ( i < endLine )
@@ -834,7 +835,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
           break;
       }
     }
-  }
+  } // if ( ! blockwise )
   else
   {
     if ( endLine > lastLine() )
@@ -842,6 +843,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
 
     for (uint line = endLine; line >= startLine; line--)
     {
+
       editRemoveText (line, startCol, endCol-startCol);
 
       if ( line == 0 )
@@ -4433,6 +4435,12 @@ void KateDocument::setDocName (QString name )
 
 void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
 {
+  if ( m_isasking < 0 )
+  {
+    m_isasking = 0;
+    return;
+  }
+
   if ( !s_fileChangedDialogsActivated || m_isasking )
     return;
 
@@ -4440,21 +4448,29 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
   {
     m_isasking = 1;
 
-    if ( m_modOnHdReason == 3 ) // deleted
+    QString title, btnOK;
+    if ( m_modOnHdReason == 3 )
     {
-      switch ( KMessageBox::warningYesNoCancel( widget(),
-               reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-               i18n("File Was Deleted on Disk"),
-               i18n("&Save File As..."), i18n("&Ignore Changes")) )
-      {
-        case KMessageBox::Yes: // "save file"
-        {
-          m_modOnHd = false; // trick save() to not ask again
+      title = i18n("File Was Deleted on Disk");
+      btnOK = i18n("&Save File As...");
+    } else {
+      title = i18n("File changed on Disk");
+      btnOK = i18n("&Reload File");
+    }
 
+    switch ( KMessageBox::warningYesNoCancel( widget(),
+             reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
+             title, btnOK, i18n("&Ignore Changes")) )
+    {
+      case KMessageBox::Yes: // "reload file" OR "save file as"
+        m_modOnHd = false; // trick reloadFile() to not ask again
+        if ( m_modOnHdReason == 3 ) // deleted
+        {
           KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
               url().url(),QString::null,widget(),i18n("Save File"));
 
-          if( ! res.URLs.isEmpty() && checkOverwrite( res.URLs.first() ) )
+          kdDebug(13020)<<"got "<<res.URLs.count()<<" URLs"<<endl;
+          if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first() ) )
           {
             setEncoding( res.encoding );
 
@@ -4467,43 +4483,42 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
               emit modifiedOnDisc( this, false, 0 );
           }
           else // the save as dialog was cancelled, we are still modified on disk
+          {
+            //setURL( KURL() ); // force saveAs on next save?
             m_modOnHd = true;
-
-          m_isasking = 0;
           }
-          break;
 
-        case KMessageBox::No:  // "ignore changes"
-          m_modOnHd = false;
-          emit modifiedOnDisc( this, false, 0 );
           m_isasking = 0;
-          break;
-
-        default:               // cancel: ignore next focus event
-          m_isasking = -1;
-      }
-    } else {
-      switch ( KMessageBox::warningYesNoCancel( widget(),
-                  reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-                  i18n("File Was Modified on Disk"),
-                  i18n("&Reload File"), i18n("&Ignore Changes")) )
-      {
-        case KMessageBox::Yes: // "reload file"
-          m_modOnHd = false; // trick reloadFile() to not ask again
+        }
+        else
+        {
           emit modifiedOnDisc( this, false, 0 );
           reloadFile();
           m_isasking = 0;
-          break;
+        }
+        break;
 
         case KMessageBox::No:  // "ignore changes"
-          m_modOnHd = false;
-          emit modifiedOnDisc( this, false, 0 );
-          m_isasking = 0;
+          if ( KMessageBox::warningContinueCancel(
+               widget(),
+               i18n("Ignoring means that you will not be warned again (unless "
+               "the disk file changes once more): if you save the document you "
+               "overwrite the disk file, if you don't save then the disk file "
+               "(if present) is what you have."),
+               i18n("You are on your own"),
+               KStdGuiItem::cont(),
+               "kate_ignore_modonhd") == KMessageBox::Continue )
+          {
+            m_modOnHd = false;
+            emit modifiedOnDisc( this, false, 0 );
+            m_isasking = 0;
+          }
+          else
+            m_isasking = 0;
           break;
 
-        default:               // cancel: ignore next focus event
-          m_isasking = -1;
-      }
+          default:               // cancel: ignore next focus event
+            m_isasking = -1;
     }
   }
 }

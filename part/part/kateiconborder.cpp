@@ -377,8 +377,10 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     //kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
 
     bool mappedLineValid=true;
-    if ((i-topLine) > 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
+    if ((i-topLine) >= 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
     else mappedLineValid=false;
+    
+//    kdDebug()<<QString("mapped Line is invalid !!!! %1").arg(i)<<endl;
 
     if (mappedLineValid)
     {

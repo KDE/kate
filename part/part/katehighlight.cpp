@@ -1427,6 +1427,7 @@ void Highlight::readCommentConfig()
 void Highlight::readGlobalKeywordConfig()
 {
   // Tell the syntax document class which file we want to parse
+  kdDebug()<<"readGlobalKeywordConfig:BEGIN"<<endl;
   HlManager::self()->syntax->setIdentifier(identifier);
 
   // Get the keywords config entry
@@ -1468,6 +1469,7 @@ void Highlight::readGlobalKeywordConfig()
     }
   
   
+  kdDebug()<<"readGlobalKeywordConfig:END";
 
   kdDebug()<<"delimiterCharacters are: "<<deliminator<<endl;
 }
@@ -1480,6 +1482,8 @@ void Highlight::readGlobalKeywordConfig()
 void  Highlight::createContextNameList(QStringList *ContextNameList)
 {
   syntaxContextData *data;
+  
+  kdDebug()<<"creatingContextNameList:BEGIN"<<endl;
 
   ContextNameList->clear();
 
@@ -1500,6 +1504,8 @@ void  Highlight::createContextNameList(QStringList *ContextNameList)
      }
      HlManager::self()->syntax->freeGroupInfo(data);
   }
+  kdDebug()<<"creatingContextNameList:END"<<endl;
+
 }
 
 int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext)
@@ -1562,6 +1568,7 @@ void Highlight::makeContextList()
   
   createContextNameList(&ContextNameList);
 
+  kdDebug()<<"Parsing Context structure"<<endl;
   //start the real work
   data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
   uint i=0;
@@ -1569,7 +1576,7 @@ void Highlight::makeContextList()
     {
       while (HlManager::self()->syntax->nextGroup(data))
         {
-
+	  kdDebug()<<"Found a context in file, building structure now"<<endl;
           // BEGIN - Translation of the attribute parameter
           QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
           int attr;

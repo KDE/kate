@@ -136,6 +136,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // register doc at factory
   KateFactory::registerDocument (this);
 
+  buffer = new KateBuffer (this);
+
   // init the config object, be careful not to use it
   // until the initial readConfig() call is done
   m_config = new KateDocumentConfig (this);
@@ -212,7 +214,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoMergeTimer = new QTimer(this);
   connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
 
-  buffer = new KateBuffer (this);
   clearMarks ();
   clearUndo ();
   clearRedo ();
@@ -4900,6 +4901,8 @@ void KateDocument::updateConfig ()
   }
   else
     m_indenter->updateConfig();
+
+  buffer->setTabWidth (config()->tabWidth());
 }
 
 //BEGIN Variable reader

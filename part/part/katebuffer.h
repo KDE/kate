@@ -192,6 +192,8 @@ class KateBuffer : public QObject
       return m_loadingBorked;
     }
 
+    void setTabWidth (uint w);
+
   signals:
     /**
      * Emitted during loading when the line count changes.
@@ -299,6 +301,9 @@ class KateBuffer : public QObject
     bool m_cacheReadError;
     bool m_cacheWriteError;
     bool m_loadingBorked;
+
+    // for the scrapty indent sensitive langs
+    uint m_tabWidth;
 };
 
 #endif

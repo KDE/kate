@@ -221,7 +221,8 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_highlightedEnd (0),
    m_cacheReadError(false),
    m_cacheWriteError(false),
-   m_loadingBorked (false)
+   m_loadingBorked (false),
+   m_tabWidth (0)
 {
   m_blocks.setAutoDelete(true);
 
@@ -239,6 +240,17 @@ KateBuffer::~KateBuffer()
 
   delete m_vm;
   delete m_loader;
+}
+
+void KateBuffer::setTabWidth (uint w)
+{
+  if (m_tabWidth != w)
+  {
+    m_tabWidth = w;
+
+    if (m_highlight && m_highlight->foldingIndentationSensitive())
+      invalidateHighlighting();
+  }
 }
 
 /**
@@ -775,7 +787,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       uint newIn = 0;
       uint remIn = 0;
 
-      uint iDepth = textLine->indentDepth();
+      uint iDepth = textLine->indentDepth(m_tabWidth);
 
       if ((textLine->length() > 0) || ((current_line+buf->startLine()) >= (m_lines-1)))
       {

@@ -144,7 +144,7 @@ int TextLine::firstChar() const
 
 int TextLine::lastChar() const
 {
-    return previousNonSpaceChar(m_text.length() - 1);
+  return previousNonSpaceChar(m_text.length() - 1);
 }
 
 QString TextLine::withoutTrailingSpaces()
@@ -158,7 +158,7 @@ const QChar *TextLine::firstNonSpace() const
   return (first > -1) ? ((QChar*)m_text.unicode())+first : m_text.unicode();
 }
 
-uint TextLine::indentDepth () const
+uint TextLine::indentDepth (uint tabwidth) const
 {
   uint d = 0;
   static QChar t ('\t');
@@ -168,7 +168,7 @@ uint TextLine::indentDepth () const
     if(m_text[i].isSpace())
     {
       if (m_text[i] == t)
-        d += 8;
+        d += tabwidth;
       else
         d++;
     }

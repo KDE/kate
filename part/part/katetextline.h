@@ -116,7 +116,7 @@ class TextLine : public KShared
     */
     const QChar *firstNonSpace() const;
 
-    uint indentDepth () const;
+    uint indentDepth (uint tabwidth) const;
 
     /**
       Returns the x position of the cursor at the given position, which

@@ -56,7 +56,7 @@ KateTemplateHandler::KateTemplateHandler(
   hlr->setOverline(true);
   l->append(hlr);*/
   QValueList<KateTemplateHandlerPlaceHolderInfo> buildList;
-  QRegExp rx( "\\$\\{([a-zA-Z0-9_]+)\\}" );
+  QRegExp rx( "([$%])\\{([a-zA-Z0-9_]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
   int opos = 0;
@@ -78,10 +78,13 @@ KateTemplateHandler::KateTemplateHandler(
         }
       }
 
-      kdDebug() << "matched placeholder:" << rx.cap( 0 ) << endl;
-      QString placeholder = rx.cap( 1 );
+      QString placeholder = rx.cap( 2 );
       QString value = initialValues[ placeholder ];
-      buildList.append( KateTemplateHandlerPlaceHolderInfo( pos, value.length(), placeholder ) );
+
+      // don't add %{MACRO} to the tab navigation, unless there was not value
+      if ( rx.cap( 1 ) != "%" || placeholder == value )
+        buildList.append( KateTemplateHandlerPlaceHolderInfo( pos, value.length(), placeholder ) );
+
       insertString.replace( pos, rx.matchedLength(), value );
       pos += value.length();
       opos = pos;

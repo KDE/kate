@@ -238,7 +238,7 @@ class HlManager : public QObject
 
   private:
     int wildcardFind(const QString &fileName);
-    int mimeFind(const QByteArray &contents, const QString &fname);
+    int mimeFind(const QByteArray &contents);
     int realWildcardFind(const QString &fileName);
 
   private:

@@ -72,7 +72,7 @@ class SyntaxDocument : public QDomDocument{
      * the new one and assign some other things.
      * identifier = File name and path of the new xml needed
      */
-    void setIdentifier(const QString& identifier);
+    bool setIdentifier(const QString& identifier);
     
     /**
      * Get the mode list

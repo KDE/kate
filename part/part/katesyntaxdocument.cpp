@@ -50,7 +50,7 @@ SyntaxDocument::~SyntaxDocument(){
     the new one and assign some other things.
     identifier = File name and path of the new xml needed
 */
-void SyntaxDocument::setIdentifier(const QString& identifier){
+bool SyntaxDocument::setIdentifier(const QString& identifier){
   // if the current file is the same as the new one don't do anything.
   if(currentFile!=identifier){
     // let's open the new file
@@ -60,17 +60,28 @@ void SyntaxDocument::setIdentifier(const QString& identifier){
       // Let's parse the contets of the xml file
       /* The result of this function should be check for robustness, 
          a false returned means a parse error */
-      setContent(&f);                           
+	QString errorMsg;
+	int line, col;
+	bool success=setContent(&f,&errorMsg,&line,&col);                           
       // Ok, now the current file is the pretended one (identifier)
       currentFile=identifier;                                      
       // Close the file, is not longer needed
       f.close();
+      if (!success)
+	{
+		KMessageBox::error(0L,i18n("<qt>The error </B> %4<B><BR> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
+			.arg(line).arg(col).arg(errorMsg));
+		return false;
+	}
+
     }
     else {                                   
       // Oh o, we couldn't open the file.
       KMessageBox::error( 0L, i18n("Can't open %1").arg(identifier) );
+	return false;
     }
   }
+  return true;
 }
 
 /** Get the complete syntax mode list
@@ -358,46 +369,62 @@ void SyntaxDocument::setupModeList(bool force){
       if (f.open(IO_ReadOnly)) {
         // Ok we opened the file, let's read the contents and close the file
         /* the return of setContent should be checked because a false return shows a parsing error */
-        setContent(&f);
+    	QString errMsg;
+	int line,col;
+	bool success=setContent(&f,&errMsg,&line,&col);
         f.close();
-        QDomElement n = documentElement();
-        if (!n.isNull()){
-          // What does this do ???? Pupeno
-          QDomElement e=n.toElement();
+	if (success)
+	{
+	        QDomElement n = documentElement();
+        	if (!n.isNull()){
+	          // What does this do ???? Pupeno
+	          QDomElement e=n.toElement();
           
-          // If the 'first' tag is language, go on 
-          if (e.tagName()=="language"){
-            // let's make the mode list item.
-            syntaxModeListItem *mli=new syntaxModeListItem;
-            mli->name = e.attribute("name"); 
-            // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
-            // This could be done by a switch or ifs with the allowed sections but a new
-            // section will can't be added without recompiling and it's not a very versatil
-            // way, adding a new section (from the xml files) would break the translations.
-            // Why don't we store everything in english internaly and we translate it just when showing it.
-            mli->section = i18n(e.attribute("section").utf8());
-            mli->mimetype = e.attribute("mimetype");
-            mli->extension = e.attribute("extensions");
-            mli->version = e.attribute("version");	
+          	// If the 'first' tag is language, go on 
+	          if (e.tagName()=="language"){
+	            // let's make the mode list item.
+	            syntaxModeListItem *mli=new syntaxModeListItem;
+	            mli->name = e.attribute("name"); 
+	            // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
+	            // This could be done by a switch or ifs with the allowed sections but a new
+	            // section will can't be added without recompiling and it's not a very versatil
+	            // way, adding a new section (from the xml files) would break the translations.
+	            // Why don't we store everything in english internaly and we translate it just when showing it.
+	            mli->section = i18n(e.attribute("section").utf8());
+	            mli->mimetype = e.attribute("mimetype");
+	            mli->extension = e.attribute("extensions");
+	            mli->version = e.attribute("version");	
             
-            // I think this solves the proble, everything not in the .po is Other.
-            if (mli->section.isEmpty()){
-              mli->section=i18n("Other");
-             }
+	            // I think this solves the proble, everything not in the .po is Other.
+	            if (mli->section.isEmpty()){
+	              mli->section=i18n("Other");
+	             }
 
-            mli->identifier = *it;
+	            mli->identifier = *it;
             
-            // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
-            config.setGroup(Group);
-            config.writeEntry("name",mli->name);
-            config.writeEntry("section",mli->section);
-            config.writeEntry("mimetype",mli->mimetype);
-            config.writeEntry("extension",mli->extension);
-            config.writeEntry("version",mli->version);
-            // Append the new item to the list.
-            myModeList.append(mli);
-          }
-        }
+	            // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
+	            config.setGroup(Group);
+	            config.writeEntry("name",mli->name);
+	            config.writeEntry("section",mli->section);
+	            config.writeEntry("mimetype",mli->mimetype);
+	            config.writeEntry("extension",mli->extension);
+	            config.writeEntry("version",mli->version);
+	            // Append the new item to the list.
+	            myModeList.append(mli);
+	          }
+	        }
+	}
+	else
+	{
+		syntaxModeListItem *emli=new syntaxModeListItem;
+		emli->section=i18n("!Errors!");
+		emli->mimetype="invalid_file/invalid_file";
+		emli->extension="invalid_file.invalid_file";
+		emli->version="1.";
+		emli->name=i18n("Error: %1").arg(*it);
+		emli->identifier=(*it);
+		myModeList.append(emli);
+	}
       }
     }
   }

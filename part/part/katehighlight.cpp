@@ -35,7 +35,7 @@
 #include <kglobalsettings.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
-
+#include <kmessagebox.h>
 #include <kapplication.h>
 
 #include "katehighlight.h"
@@ -1694,12 +1694,19 @@ void Highlight::makeContextList()
   QStringList RegionList;
   QStringList ContextNameList;
 
+
+  // Let the syntax document class know, which file we'd like to parse
+  if (!HlManager::self()->syntax->setIdentifier(identifier))
+  {
+	noHl=true;
+	KMessageBox::information(0L,i18n("Since there had been an parsing error of the highlighting description, this highlighing will be disabled"));
+	return;
+  }
+
   RegionList<<"!KateInternal_TopLevel!";
   readCommentConfig();
   readGlobalKeywordConfig();
 
-  // Let the syntax document class know, which file we'd like to parse
-  HlManager::self()->syntax->setIdentifier(identifier);
 
   // This list is needed for the translation of the attribute parameter, if the itemData name is given instead of the index
   ItemDataList iDl;

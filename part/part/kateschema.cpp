@@ -722,8 +722,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   {
     kdDebug () << "insert items " << itemData->name << endl;
     
-    // if the styles belong to another language mode than the current,
-    // put them into nice substructures, else put them in the toplevel
+    // All stylenames have their language mode prefixed, e.g. HTML:Comment
+    // split them and put them into nice substructures.
     int c = itemData->name.find(':');
     if ( c > 0 ) {
       QString prefix = itemData->name.left(c);

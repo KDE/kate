@@ -114,6 +114,8 @@ void KateView::setupConnections()
 {
   connect( m_doc, SIGNAL(undoChanged()),
            this, SLOT(slotNewUndo()) );
+  connect( m_doc, SIGNAL(hlChanged()),
+           this, SLOT(updateFoldingMarkersAction()) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
   if ( m_doc->m_bBrowserView ) {
@@ -170,30 +172,27 @@ void KateView::setupActions()
   new KAction(i18n("&Toggle Block Selection"), Key_F4, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
   new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
     
+  KConfig *config = KateFactory::instance()->config();
+  config->setGroup("Kate ViewDefaults");  
+  
   m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show &Folding Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
-  connect( m_doc, SIGNAL(hlChanged()),
-           this, SLOT(updateFoldingMarkersAction()) );
   updateFoldingMarkersAction();
+  
   KToggleAction* toggleAction = new KToggleAction(
     i18n("Show &Icon Border"), Key_F6,
     this, SLOT(toggleIconBorder()),
     ac, "view_border");
-  
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate ViewDefaults");  
-  /*configure the border action */
-  setIconBorder(config->readBoolEntry( "Iconbar", false ));  
+  setIconBorder( config->readBoolEntry( "Iconbar", false ) );  
   toggleAction->setChecked( iconBorder() );
-    
+  
   toggleAction = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
-     ac, "view_line_numbers" );
-  /*configure the line number action */
-  setLineNumbersOn(config->readBoolEntry( "LineNumbers", false ));       
+     ac, "view_line_numbers" );   
+  setLineNumbersOn( config->readBoolEntry( "LineNumbers", false ) );       
   toggleAction->setChecked( lineNumbersOn() );
 
   m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
@@ -401,13 +400,7 @@ void KateView::setupCodeFolding()
   KAccel* debugAccels = new KAccel(this,this);
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);
-  
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate ViewDefaults");
-  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() &&
-  config->readBoolEntry( "FoldingMarkers", true ));  
 }
-
 
 void KateView::setupCodeCompletion()
 {
@@ -531,6 +524,10 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::updateFoldingMarkersAction()
 {
+  KConfig *config = KateFactory::instance()->config();
+  config->setGroup("Kate ViewDefaults");
+  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() &&
+                       config->readBoolEntry( "FoldingMarkers", true ));  
   m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }

@@ -1569,13 +1569,7 @@ bool KateDocument::internalSetHlMode (uint mode)
     makeAttribs();
   }
 
-  KateView *view;
-  for (view = m_views.first(); view != 0L; view = m_views.next() )
-     {
-         view->setFoldingMarkersOn(m_highlight->allowsFolding());
-     }
-
-  emit(hlChanged());
+  emit hlChanged();
 
   return true;
 }

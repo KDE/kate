@@ -661,7 +661,12 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     }
   }
   else if ((startLine > buf->startLine()) && (startLine <= buf->endLine()))
+  {
+    if (!buf->b_stringListValid)
+      parseBlock(buf);
+
     startState = buf->line(startLine - buf->startLine() - 1);
+  }
 
   if (startState)
   {
@@ -675,6 +680,9 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   bool CodeFoldingUpdated=false;
   do
   {
+    if (!buf->b_stringListValid)
+      parseBlock(buf);
+
     textLine = buf->line(current_line);
 
     if (!textLine)
@@ -913,13 +921,10 @@ void KateBuffer::insertLine(uint i, TextLine::Ptr line)
     return;
 
    if (!buf->b_stringListValid)
-   {
       parseBlock(buf);
-   }
+
    if (buf->b_rawDataValid)
-   {
       dirtyBlock(buf);
-   }
 
    buf->insertLine(i -  buf->startLine(), line);
 

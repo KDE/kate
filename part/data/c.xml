@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C" version="1.07" kateversion="2.1" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
+<language name="C" version="1.08" kateversion="2.1" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -108,7 +108,7 @@
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context2"/>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
         <keyword attribute="Decimal" context="#stay" String="attention" />
-        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="^#if" />
         <RegExpr attribute="Preprocessor" context="#pop" String="#endif" />
         <RegExpr attribute="Preprocessor" context="#pop" String="#else" />
       </context>

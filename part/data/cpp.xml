@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.14" kateversion="2.1" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.15" kateversion="2.1" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -149,7 +149,7 @@
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
-        <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
+        <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0"/>
         <DetectChar attribute="Preprocessor" context="Preprocessor" char="#"/>
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\d\w]*(?=[\s]*[(])" />
         <RegExpr attribute="Symbol" context="Member" String="([.]{1,1}|[:]{2,2})" />
@@ -189,7 +189,7 @@
       <context attribute="Normal Text" lineEndContext="Preprocessor" name="Some Context2"/>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
         <keyword attribute="Decimal" context="#stay" String="attention" />
-        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="^#if" />
         <RegExpr attribute="Preprocessor" context="#pop" String="#endif" />
         <RegExpr attribute="Preprocessor" context="#pop" String="#else" />
       </context>

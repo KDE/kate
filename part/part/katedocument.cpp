@@ -294,7 +294,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   _configFlags = KateDocument::cfAutoIndent | KateDocument::cfBackspaceIndents
     | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
     | KateDocument::cfRemoveSpaces
-    | KateDocument::cfDelOnInput | KateDocument::cfMouseAutoCopy | KateDocument::cfWrapCursor
+    | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
     | KateDocument::cfShowTabs | KateDocument::cfSmartHome;
 
   _searchFlags = 0;
@@ -2064,8 +2064,7 @@ bool KateDocument::isModified() const {
 void KateDocument::setFont (WhichFont wf,QFont font)
 {
   FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
-  //kdDebug()<<"Kate:: setFont"<<endl;
-  int oldwidth=fs->myFontMetrics.width('W');  //Quick & Dirty Hack (by JoWenn) //Remove in KDE 3.0
+
   fs->myFont = font;
   fs->myFontBold = QFont (font);
   fs->myFontBold.setBold (true);

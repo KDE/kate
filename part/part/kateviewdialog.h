@@ -139,7 +139,7 @@ class SelectConfigTab : public Kate::ConfigPage
 
   protected:
 
-    enum { numFlags = 5 };
+    enum { numFlags = 2 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
 

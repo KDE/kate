@@ -364,8 +364,7 @@ void IndentConfigTab::reload ()
 
 }
 
-const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::cfDelOnInput,
-  KateDocument::cfMouseAutoCopy, KateDocument::cfSingleSelection, KateDocument::cfXorSelect};
+const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::cfDelOnInput};
 
 SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   : Kate::ConfigPage(parent)
@@ -383,29 +382,11 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   layout->addWidget(opt[1], 0, AlignLeft);
   opt[1]->setChecked(configFlags & flags[1]);
 
-  opt[2] = new QCheckBox(i18n("Mouse &Autocopy"), this);
-  layout->addWidget(opt[2], 0, AlignLeft);
-  opt[2]->setChecked(configFlags & flags[2]);
-
-  opt[3] = new QCheckBox(i18n("&X11-like Single Selection"), this);
-  layout->addWidget(opt[3], 0, AlignLeft);
-  opt[3]->setChecked(configFlags & flags[3]);
-  // anders I hide this for now
-  opt[3]->hide();
-
-  opt[4] = new QCheckBox(i18n("&Toggle Old"), this);
-  layout->addWidget(opt[4], 0, AlignLeft);
-  opt[4]->setChecked(configFlags & flags[4]);
-  // anders: this one 2
-  opt[4]->hide();
   layout->addStretch();
 
   // What is this? help
   QWhatsThis::add(opt[0], i18n("Enabling this prevents key input or cursor movement by way of the arrow keys from causing the elimination of text selection.<p><b>Note:</b> If the Overwrite Selections option is activated then any typed character input or paste operation will replace the selected text."));
   QWhatsThis::add(opt[1], i18n("When this is on, any keyed character input or paste operation will replace the selected text."));
-  QWhatsThis::add(opt[2], i18n("When this is on, any text selected with the mouse will be automatically copied to the clipboard."));
-  //QWhatsThis::add(opt[3], i18n("Not implemented yet."));
-  //QWhatsThis::add(opt[4], i18n("Not yet implemented."));
 }
 
 void SelectConfigTab::getData(KateDocument *view) {

@@ -6,6 +6,7 @@
 #include <kservice.h>
 #include <klocale.h>
 #include <qlabel.h>
+#include <kapplication.h>
 using namespace KTextEditor;
 
 namespace KTextEditor {
@@ -65,11 +66,11 @@ void EditorChooser::writeAppSetting(const QString& postfix){
 
 }
 
-KTextEditor::Document *EditorChooser::createDocument(const QString& postfix=QString::null,bool fallBackToKatePart=true){
+KTextEditor::Document *EditorChooser::createDocument(const QString& postfix,bool fallBackToKatePart){
 ;
 }
 
-KTextEditor::Editor *EditorChooser::createEditor(const QString& postfix=QString::null,bool fallBackToKatePart=true){
+KTextEditor::Editor *EditorChooser::createEditor(const QString& postfix,bool fallBackToKatePart){
 ;
 }
 

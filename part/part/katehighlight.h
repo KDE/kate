@@ -76,14 +76,26 @@ class ItemStyle {
 
 typedef QPtrList<ItemStyle> ItemStyleList;
 
+
+class IncludeRule {
+	public:
+		IncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
+		IncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
+		uint pos;
+		int ctx;
+		int incCtx;
+		QString incCtxN;
+};
+
+typedef QValueList<IncludeRule*> IncludeRules;
+
 //Item Properties: name, Item Style, Item Font
 class ItemData : public ItemStyle {
   public:
     ItemData(const QString  name, int defStyleNum);
     ItemData(const QString  name, int defStyleNum,
       const QColor&, const QColor&, bool bold, bool italic);
-    ItemData(ItemData
-*itd):ItemStyle((ItemStyle*)itd),name(itd->name),defStyleNum(itd->defStyleNum),defStyle(itd->defStyle){;}
+    ItemData(ItemData *itd):ItemStyle((ItemStyle*)itd),name(itd->name),defStyleNum(itd->defStyleNum),defStyle(itd->defStyle){;}
     const QString name;
     int defStyleNum;
     int defStyle; //boolean value
@@ -170,6 +182,8 @@ class Highlight
     void init();
     void done();
     void makeContextList ();
+    void handleIncludeRules ();
+    void handleIncludeRulesRecursive(IncludeRules::iterator it, IncludeRules *list);
     int addToContextList(const QString &ident, int ctx0);
     void addToItemDataList();
     void createItemData (ItemDataList &list);
@@ -220,6 +234,8 @@ class Highlight
     bool building;
     uint itemData0;
     uint buildContext0Offset;    
+    IncludeRules includeRules;
+    QValueList<int> contextsIncludingSomething;
     public:
     	bool allowsFolding(){return folding;}
 };

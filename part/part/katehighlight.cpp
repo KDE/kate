@@ -1795,17 +1795,25 @@ void Highlight::makeContextList()
 	}
   } while (something_changed);	// as long as there has been another file parsed repeat everything, there could be newly added embedded hls.
 
-  kdDebug(13010)<<"Unresolved contexts: "<<unresolvedContextReferences.count()<<endl;
-
+	
+  /* at this point all needed highlighing (sub)definitions are loaded. It's time to resolve cross file
+     references (if there are some
+  */
+  kdDebug(13010)<<"Unresolved contexts, which need attention: "<<unresolvedContextReferences.count()<<endl;
 //optimize this a littlebit
-//resolve cross hl file context references
   for (UnresolvedContextReferences::iterator unresIt=unresolvedContextReferences.begin();
 		unresIt!=unresolvedContextReferences.end();++unresIt)
 	{
+		//try to find the context0 id for a given unresolvedReference
 		EmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(unresIt.data());
 		if (hlIt!=embeddedHls.end())
 			*(unresIt.key())=hlIt.data().context0;
 	}
+
+	/*eventually handle IncludeRules items, if they exist. 
+		This has to be done after the cross file references, because it is allowed
+		to include the context0 from a different definition, than the one the rule belongs to */
+	handleIncludeRules();
 
 	embeddedHls.clear(); //save some memory.
 	unresolvedContextReferences.clear(); //save some memory
@@ -1821,6 +1829,113 @@ void Highlight::makeContextList()
   building=false;
 }
 
+
+void Highlight::handleIncludeRules()
+{
+
+  // if there are noe include rules to take care of, just return
+  kdDebug(13010)<<"IncludeRules, which need attention: " <<includeRules.count()<<endl;
+  if (includeRules.count()==0) return;
+
+  buildPrefix="";
+  QString dummy;
+
+  /*by now the context0 references are resolved, now more or less only inner file references are resolved.
+	If we decide that arbitrary inclusion is needed, this doesn't need to be changed, only the addToContextList
+	method
+   */
+
+  //resolove context names
+  for (IncludeRules::iterator it=includeRules.begin();it!=includeRules.end();)
+  {
+
+	if ((*it)->incCtx==-1) // context unresolved ?
+	{ //yes
+		
+		if ((*it)->incCtxN.isEmpty())
+		{
+			// no context name given, and no valid context id set, so this item is going to be removed
+			IncludeRules::iterator it1=it;
+			++it1;
+			delete (*it);
+			includeRules.remove(it);
+			it=it1;
+		}
+		else
+		{
+			// resolve name to id
+			(*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
+			kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
+			// It would be good to look here somehow, if the result is valid
+		}
+	} else ++it; //nothing to do, already resolved (by the cross defintion reference resolver 
+  }
+
+  // now that all IncludeRule items should be valid and completely resolved, do the real inclusion of the rules.
+  // recursiveness is needed, because context 0 could include context 1, which itself includes context 2 and so on.
+  //	In that case we have to handle context 2 first, then 1, 0
+//TODO: catch circular references: eg 0->1->2->3->1
+  while (includeRules.count()>0)
+  	handleIncludeRulesRecursive(includeRules.begin(),&includeRules);
+  
+
+}
+
+void Highlight::handleIncludeRulesRecursive(IncludeRules::iterator it, IncludeRules *list)
+{
+	if (it==list->end()) return;  //invalid iterator, shouldn't happen, but better have a rule prepared ;)
+	IncludeRules::iterator it1=it;
+	int ctx=(*it1)->ctx;
+
+	/*find the last entry for the given context in the IncludeRules list
+ 	  this is need if one context includes more than one. This saves us from updating all insert positions:
+	  eg: context 0:
+		pos 3 - include context 2
+		pos 5 - include context 3
+	  During the building of the includeRules list the items are inserted in ascending order, now we need it 
+	  descending to make our life easier.
+	*/
+	while ((it!=list->end()) && ((*it)->ctx==ctx))
+	{
+		it1=it; 
+		++it;
+//		kdDebug()<<"loop1"<<endl;
+	}
+	// iterate over each include rule for the context the function has been called for.
+	while ((it1!=list->end()) && ((*it1)->ctx==ctx))
+	{
+//		kdDebug()<<"loop2"<<endl;
+
+
+		int ctx1=(*it1)->incCtx;
+		
+		//let's see, if the the included context includes other contexts
+		for (IncludeRules::iterator it2=list->begin();it2!=list->end();++it2)
+		{
+//			kdDebug()<<"loop3"<<endl;
+
+			if ((*it2)->ctx==ctx1)
+			{
+				//yes it does, so first handle that include rules, since we want to
+				// include those subincludes too
+				handleIncludeRulesRecursive(it2,list);
+				break;
+			}
+		}
+
+		// if the context we want to include had sub includes, they are already inserted there.
+		HlContext *dest=contextList[ctx];
+		HlContext *src=contextList[ctx1];
+		uint p=(*it1)->pos; //insert the included context's rules starting at position p
+		for ( HlItem *c = src->items.first(); c; c=src->items.next(), p++ )
+                        dest->items.insert(p,c);
+		
+		it=it1; //backup the iterator
+		--it1; //move to the next entry, which has to be take care of
+		delete (*it); //free the already handled data structure
+		list->remove(it); // remove it from the list
+	}
+}
 
 int Highlight::addToContextList(const QString &ident, int ctx0)
 {
@@ -1842,6 +1957,8 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   readCommentConfig();
   readGlobalKeywordConfig();
 
+
+  QString ctxName;
 
   // This list is needed for the translation of the attribute parameter, if the itemData name is given instead of the index
   addToItemDataList();
@@ -1867,6 +1984,8 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
             attr=lookupAttrName(tmpAttr,iDl);
           // END - Translation of the attribute parameter
 
+	  ctxName=buildPrefix+HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+	  
 	  QString tmpLineEndContext=HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
 	  int context;
 
@@ -1905,6 +2024,30 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 //		kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
 
                 // IncludeRules : add a pointer to each item in that context
+		
+                QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
+                if ( tag == "IncludeRules" ) { //if the new item is an Include rule, we have to take special care
+			QString incCtx=HlManager::self()->syntax->groupItemData( data, QString("context"));
+			// only context refernces of type NAME and ##Name are allowed
+			if (incCtx.startsWith("##") || (!incCtx.startsWith("#"))) { //#stay, #pop is not interesting here
+				if (!incCtx.startsWith("#")) { // a local reference -> just initialize the include rule structure
+					incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
+					includeRules.append(new IncludeRule(i,contextList[i]->items.count(),incCtx));
+				}
+				else { //a cross highlighting reference
+					kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
+					IncludeRule *ir=new IncludeRule(i,contextList[i]->items.count());
+					//use the same way to determine cross hl file references as other items do
+					if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
+						embeddedHls.insert(incCtx.right(incCtx.length()-2),EmbeddedHlInfo());
+					unresolvedContextReferences.insert(&(ir->incCtx),
+							incCtx.right(incCtx.length()-2));	
+					includeRules.append(ir);
+				}
+			}
+			continue;
+		}		
+#if 0
                 QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
@@ -1921,7 +2064,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
                   }
                   continue; // while nextItem
                 }
-
+#endif
 		c=createHlItem(data,iDl,&RegionList,&ContextNameList);
 		if (c)
 			{

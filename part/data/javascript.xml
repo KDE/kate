@@ -46,7 +46,6 @@
         <Detect2Chars attribute="Comment" context="Multiline/Inline Comment" char="/" char1="*" />
         <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\s*[=?:]\s*" />
         <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="(search|replace)\s*\(\s*" />
-	<StringDetect attribute="Keyword" context="#pop" String="&lt;/SCRIPT&gt;" />
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
         <Detect2Chars attribute="String" context="#stay" char="\" char1="&quot;" />

@@ -5,7 +5,7 @@
     <contexts>
        <context attribute="Normal Text" lineEndContext="#stay" name="normal">
 	 <StringDetect attribute="Comment" context="comment" String="&lt;!--"/>
-	 <StringDetect attribute="Keyword" context="##JavaScript" String="&lt;SCRIPT&gt;" />
+	 <StringDetect attribute="Keyword" context="javascript" String="&lt;SCRIPT&gt;" />
          <RegExpr attribute="Keyword" context="tagname" String="&lt;\s*\/?\s*[a-zA-Z0-9_]*" />
        </context>
 
@@ -25,6 +25,11 @@
 
        <context attribute="Comment" lineEndContext="#stay" name="comment">
 	 <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
+       </context>
+
+       <context attribute="Normal Text" lineEndContext="#stay" name="javascript">
+	<IncludeRules context="##JavaScript"/>
+        <StringDetect attribute="Keyword" context="#pop" String="&lt;/SCRIPT&gt;" />	
        </context>
     </contexts>
     <itemDatas>

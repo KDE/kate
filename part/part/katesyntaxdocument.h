@@ -98,8 +98,6 @@ class SyntaxDocument : public QDomDocument
     void freeGroupInfo(syntaxContextData* data);
     syntaxContextData* getSubItems(syntaxContextData* data);
 
-    bool getElement (QDomElement &element, const QString &mainGroupName, const QString &config);
-
     /**
      * Get the syntaxContextData of the DomElement Config inside mainGroupName
      * It just fills syntaxContextData::item
@@ -124,6 +122,12 @@ class SyntaxDocument : public QDomDocument
      * force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
     */
     void setupModeList(bool force=false);
+
+    /**
+     * Used by getConfig and getGroupInfo to traverse the xml nodes and
+     * evenually return the found element
+    */
+    bool getElement (QDomElement &element, const QString &mainGroupName, const QString &config);
 
     /**
      * List of mode items

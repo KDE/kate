@@ -28,6 +28,7 @@ class KateView;
 namespace KTextEditor { class Mark; }
 
 class KAction;
+class KToggleAction;
 class KActionCollection;
 class QPopupMenu;
 
@@ -63,7 +64,7 @@ class KateBookmarks : public QObject
 
   private:
     KateView*                    m_view;
-    KAction*                     m_bookmarkToggle;
+    KToggleAction*               m_bookmarkToggle;
     KAction*                     m_bookmarkClear;
     KAction*                     m_goNext;
     KAction*                     m_goPrevious;

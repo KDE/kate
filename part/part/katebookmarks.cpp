@@ -75,14 +75,15 @@ KateBookmarks::~KateBookmarks()
 
 void KateBookmarks::createActions( KActionCollection* ac )
 {
-  m_bookmarkToggle = new KAction(
-    i18n("Toggle &Bookmark"), "bookmark", CTRL+Key_B,
+  m_bookmarkToggle = new KToggleAction(
+    i18n("Set &Bookmark"), "bookmark", CTRL+Key_B,
     this, SLOT(toggleBookmark()),
     ac, "bookmarks_toggle" );
   m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
+  m_bookmarkToggle->setCheckedState( i18n("Clear &Bookmark") );
 
   m_bookmarkClear = new KAction(
-    i18n("Clear Bookmarks"), 0,
+    i18n("Clear &All Bookmarks"), 0,
     this, SLOT(clearBookmarks()),
     ac, "bookmarks_clear");
   m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
@@ -187,6 +188,8 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
 
   m_bookmarksMenu->clear();
+  m_bookmarkToggle->setChecked( m_view->getDoc()->mark( m_view->cursorLine() )
+                                & KTextEditor::MarkInterface::markType01 );
   m_bookmarkToggle->plug( m_bookmarksMenu );
   m_bookmarkClear->plug( m_bookmarksMenu );
   KTextEditor::Mark *next = 0;

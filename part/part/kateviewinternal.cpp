@@ -2095,15 +2095,15 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
   KKey key(e);
-    
+
   if (key == SHIFT)
     m_shiftKeyPressed = true;
   else
   {
     if (m_shiftKeyPressed)
-    {    
+    {
       m_shiftKeyPressed = false;
-  
+
       if (m_selChangedByUser)
       {
         QApplication::clipboard()->setSelectionMode( true );
@@ -2114,8 +2114,8 @@ void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
       }
     }
   }
-  
-  e->accept();
+
+  e->ignore();
   return;
 }
 
@@ -2125,7 +2125,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
   {
     case LeftButton:
         m_selChangedByUser = false;
-        
+
         if (possibleTripleClick)
         {
           possibleTripleClick = false;

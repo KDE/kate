@@ -238,6 +238,12 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
       connect( m_views.at(z), SIGNAL(gotFocus( Kate::View * )), this, SLOT(slotModifiedOnDisk()) );
 
   m_isasking = 0;
+  // plugins
+  for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
+  {
+    if (config()->plugin (i))
+      loadPlugin (i);
+  }
 }
 
 //

@@ -447,6 +447,12 @@ class KateBuffer : public QObject
     bool loadingBorked () const { return m_loadingBorked; }
 
     /**
+     * is this file a binary?
+     * @return binary file?
+     */
+    bool binary () const { return m_binary; }
+
+    /**
      * Can the current codec handle all chars
      * @return chars can be encoded
      */
@@ -642,6 +648,11 @@ class KateBuffer : public QObject
      * had we cache error while loading ?
      */
     bool m_loadingBorked;
+
+    /**
+     * binary file loaded ?
+     */
+    bool m_binary;
 
   /**
    * highlighting & folding relevant stuff

@@ -92,6 +92,8 @@ class KateFileLoader
       , lastWasEndOfLine (true) // at start of file, we had a virtual newline
       , lastWasR (false) // we have not found a \r as last char
       , m_eol (-1) // no eol type detected atm
+      , m_twoByteEncoding (QString(codec->name()) == "ISO-10646-UCS-2")
+      , m_binary (false)
     {
     }
 
@@ -110,7 +112,10 @@ class KateFileLoader
         int c = m_file.readBlock (m_buffer.data(), m_buffer.size());
 
         if (c > 0)
+        {
+          processNull (c);
           m_text = m_decoder->toUnicode (m_buffer, c);
+        }
 
         m_eof = (c == -1) || (c == 0) || (m_text.length() == 0) || m_file.atEnd();
 
@@ -148,6 +153,9 @@ class KateFileLoader
     // eol mode ? autodetected on open(), -1 for no eol found in the first block!
     inline int eol () const { return m_eol; }
 
+    // binary ?
+    inline bool binary () const { return m_binary; }
+
     // internal unicode data array
     inline const QChar *unicode () const { return m_text.unicode(); }
 
@@ -169,6 +177,8 @@ class KateFileLoader
             uint readString = 0;
             if (c > 0)
             {
+              processNull (c);
+
               QString str (m_decoder->toUnicode (m_buffer, c));
               readString = str.length();
 
@@ -246,6 +256,34 @@ class KateFileLoader
       }
     }
 
+    // this nice methode will kill all 0 bytes (or double bytes)
+    // and remember if this was a binary or not ;)
+    void processNull (uint length)
+    {
+      if (m_twoByteEncoding)
+      {
+        for (uint i=1; i < length; i+=2)
+        {
+          if ((m_buffer[i] == 0) && (m_buffer[i-1] == 0))
+          {
+            m_binary = true;
+            m_buffer[i] = ' ';
+          }
+        }
+      }
+      else
+      {
+        for (uint i=0; i < length; i++)
+        {
+          if (m_buffer[i] == 0)
+          {
+            m_binary = true;
+            m_buffer[i] = ' ';
+          }
+        }
+      }
+    }
+
   private:
     QFile m_file;
     QByteArray m_buffer;
@@ -257,6 +295,8 @@ class KateFileLoader
     bool lastWasEndOfLine;
     bool lastWasR;
     int m_eol;
+    bool m_twoByteEncoding;
+    bool m_binary;
 };
 
 /**
@@ -275,6 +315,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_cacheReadError(false),
    m_cacheWriteError(false),
    m_loadingBorked (false),
+   m_binary (false),
    m_highlight (0),
    m_regionTree (this),
    m_tabWidth (8),
@@ -417,6 +458,7 @@ void KateBuffer::clear()
   m_cacheWriteError = false;
   m_cacheReadError = false;
   m_loadingBorked = false;
+  m_binary = false;
 
   m_lineHighlightedMax = 0;
   m_lineHighlighted = 0;
@@ -495,6 +537,9 @@ bool KateBuffer::openFile (const QString &m_file)
     m_lineHighlighted = m_lines;
     m_lineHighlightedMax = m_lines;
   }
+
+  // binary?
+  m_binary = file.binary ();
 
   kdDebug (13020) << "LOADING DONE" << endl;
 

@@ -2651,6 +2651,18 @@ bool KateDocument::openFile(KIO::Job * job)
       KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.").arg(m_url.url()));
   }
 
+  // warn -> opened binary file!!!!!!!
+  if (m_buffer->binary())
+  {
+    // this file can't be saved again without killing it
+    setModified (true);
+
+    KMessageBox::information (widget()
+      , i18n ("The file %1 is a binary, saving it will result in a corrupt file.").arg(m_url.url())
+      , i18n ("Binary File Opened")
+      , "Binary File Opened Warning");
+  }
+
   //
   // return the success
   //
@@ -5502,7 +5514,7 @@ void KateDocument::setDefaultEncoding (const QString &encoding)
 }
 
 //BEGIN KTextEditor::TemplateInterface
-bool KateDocument::insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow ) {
+bool KateDocument::insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *) {
       return (new KateTemplateHandler(this,line,column,templateString,initialValues))->initOk();
 }
 

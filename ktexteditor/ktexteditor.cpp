@@ -91,7 +91,6 @@ unsigned int Document::documentNumber () const
 
 View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
 {
-  //actionCollection()->setWidget( this );
   globalViewNumber++;
   myViewNumber = globalViewNumber;
 }

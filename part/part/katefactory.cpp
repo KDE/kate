@@ -31,6 +31,8 @@
 #include <kinstance.h>
 #include <kaboutdata.h>
 
+#include <assert.h>
+
 template class QPtrList<KateDocument>;
 template class QPtrList<KateView>;
 

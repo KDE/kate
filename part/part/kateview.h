@@ -22,14 +22,15 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include <ktexteditor/viewconfiginterface.h>
-
 #include "../interfaces/view.h"
 
 #include "katedocument.h"
 #include "katesearch.h"
 #include "kateviewinternal.h"
 #include "katecodecompletion_iface_impl.h"
+
+#include <ktexteditor/viewconfiginterface.h>
+#include <ktexteditor/viewstatusmsginterface.h>
 
 class KToggleAction;
 class KAction;
@@ -41,7 +42,8 @@ class KateBookmarks;
 //
 // Kate KTextEditor::View class ;)
 //
-class KateView : public Kate::View, public KTextEditor::ViewConfigInterface
+class KateView : public Kate::View, public KTextEditor::ViewConfigInterface,
+                            public KTextEditor::ViewStatusMsgInterface
 {
     Q_OBJECT
     friend class KateViewInternal;
@@ -253,6 +255,7 @@ class KateView : public Kate::View, public KTextEditor::ViewConfigInterface
     void gotFocus (Kate::View *);
     void dropEventPass(QDropEvent*);
     void newStatus();
+    void viewStatusMsg (const QString &msg);
     
   protected:
     void keyPressEvent( QKeyEvent *ev );
@@ -266,6 +269,7 @@ class KateView : public Kate::View, public KTextEditor::ViewConfigInterface
     void slotDropEventPass( QDropEvent* ev );
     void slotSetEncoding( const QString& descriptiveName );
     void updateFoldingMarkersAction();
+    void slotStatusMsg ();
 
   private:
     KAccel* createEditKeys();

@@ -488,7 +488,7 @@ void KateView::setupEditActions()
   new KAction(i18n("Move to Previous Line"), Key_Up, this, SLOT(up()),
 	      ac, "move_line_up");
 
-  new KAction(i18n("Move Character Right"), Key_Right, this, 
+  new KAction(i18n("Move Character Right"), Key_Right, this,
 	      SLOT(cursorRight()), ac, "move_cursor_right");
 
   new KAction(i18n("Move Character Left"), Key_Left, this, SLOT(cursorLeft()),
@@ -574,7 +574,7 @@ void KateView::setupEditActions()
       this, SLOT(deleteWordRight()),
       ac, "delete_word_right" );
 
-    new KAction(i18n("Delete next Character"), Key_Delete,
+    new KAction(i18n("Delete Next Character"), Key_Delete,
 		this, SLOT(keyDelete()),
 		ac, "delete_next_character");
 

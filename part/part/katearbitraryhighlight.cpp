@@ -93,9 +93,6 @@ KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView*
 
   static KateSuperRangeList s_return(false);
 
-  for (uint i=0; i < s_return.count(); i++)
-    kdDebug () << "ADDR " << s_return.at(i) << endl;
-
   Q_ASSERT(!s_return.autoDelete());
   s_return.clear();
 

@@ -652,6 +652,16 @@ void KateDocument::editStart (bool withUndo)
 //
 void KateDocument::editEnd ()
 {
+  if (editSessionNumber == 0)
+    return;
+
+  /*
+  // wrap the new/changed text
+  if (editSessionNumber == 1)
+    if (myWordWrap)
+      wrapText (editTagLineStart, editTagLineEnd, myWordWrapAt);
+  */
+
   editSessionNumber--;
 
   if (editSessionNumber > 0)

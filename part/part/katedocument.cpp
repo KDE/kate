@@ -3978,7 +3978,7 @@ void KateDocument::transform( KateView *v, const KateTextCursor &c,
     }
 
     // restore selection
-    setSelection( s, e );
+    v->setSelection( s, e );
 
   } else {  // no selection
     QString s;

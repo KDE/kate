@@ -352,16 +352,11 @@ class KateDocument : public Kate::Document,
   // KTextEditor::SelectionInterface stuff
   //
   public slots:
-    bool setSelection ( const KateTextCursor & start,
-      const KateTextCursor & end ) { return false; }
-    bool setSelection ( uint startLine, uint startCol,
-      uint endLine, uint endCol ) { return false; }
+    bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol ) { return false; }
     bool clearSelection () { return false; }
-    bool clearSelection (bool redraw, bool finishedChangingSelection = true) { return false; }
 
     bool hasSelection () const { return false; }
     QString selection () const { return ""; }
-    QString selectionAsHtml () const { return ""; }
 
     bool removeSelectedText () { return false; }
 

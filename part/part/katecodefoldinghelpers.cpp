@@ -216,9 +216,9 @@ void KateCodeFoldingTree::debugDump()
 void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node,QString prefix)
 {
   //output node properties
-  kdDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5").
+  kdDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5, visible %6").
       arg(node->type).arg(node->startLineValid).arg(node->startLineRel).arg(node->endLineValid).
-      arg(node->endLineRel)<<endl;
+      arg(node->endLineRel).arg(node->visible)<<endl;
 
   //output child node properties recursive
   if (node->hasChildNodes())
@@ -1152,7 +1152,8 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
   findAllNodesOpenedOrClosedAt(line);
   for (int i=0; i<(int)nodesForLine.count(); i++)
   {
-    if (getStartLine(nodesForLine.at(i)) != line)
+    KateCodeFoldingNode *node=nodesForLine.at(i);
+    if ( (!node->startLineValid) || (getStartLine(node) != line) )
     {
       nodesForLine.remove(i);
       i--;
@@ -1383,7 +1384,7 @@ int KateCodeFoldingTree::collapseOne(int realLine)
       // optimisation
       break;
 
-    if (line.endsBlock  && i != realLine) {
+    if (line.endsBlock  && ( line.invalidBlockEnd ) && (i != realLine)) {
       unrelatedBlocks++;
     }
 

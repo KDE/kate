@@ -2943,11 +2943,9 @@ void KateViewInternal::wheelEvent(QWheelEvent* e)
         scrollNextPage();
     } else {
       scrollViewLines(-((e->delta() / 120) * QApplication::wheelScrollLines()));
-      if (e->delta() > 0) {
-        // maybe a menu was opened -> we shall erase it
-        update();
-        leftBorder->update();
-      }
+      // maybe a menu was opened or a bubbled window title is on us -> we shall erase it
+      update();
+      leftBorder->update();
     }
 
   } else if (!m_columnScroll->isHidden()) {

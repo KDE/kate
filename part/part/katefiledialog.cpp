@@ -41,7 +41,7 @@ KateFileDialog::KateFileDialog (const QString& startDir,
 
   toolBar()->insertCombo(QStringList(), 33333, false, 0L, 0L, 0L, true);
 
-  setFilter ("all/allfiles test/plain");
+  setFilter ("all/allfiles text/plain");
 
   setMode(KFile::File);
   setOperationMode( Saving );

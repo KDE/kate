@@ -1,364 +1,168 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.06" kateversion="2.1" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
+<language name="LaTeX" version="1.08" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
   <highlighting>
-    <list name="keywords">
-      <item>mu</item>
-      <item>multline</item>
-      <item>nu</item>
-      <item>psi</item>
-      <item>phi</item>
-      <item>varphi</item>
-      <item>pi</item>
-      <item>epsilon</item>
-      <item>sigma</item>
-      <item>eta</item>
-      <item>left</item>
-      <item>right</item>
-      <item>partial</item>
-      <item>ldots</item>
-      <item>abovedisplayskip</item>
-      <item>abovedisplayshortskip</item>
-      <item>abstract</item>
-      <item>acute</item>
-      <item>addcontentsline</item>
-      <item>address</item>
-      <item>addtocontents</item>
-      <item>addtocounter</item>
-      <item>addtolength</item>
-      <item>addvspace</item>
-      <item>Alph</item>
-      <item>alph</item>
-      <item>alpha</item>
-      <item>and</item>
-      <item>appendix</item>
-      <item>arabic</item>
-      <item>array</item>
-      <item>arraycolsep</item>
-      <item>arrayrulewidth</item>
-      <item>arraystretch</item>
-      <item>author</item>
-      <item>bar</item>
-      <item>baselineskip</item>
-      <item>baselinestretch</item>
-      <item>begin</item>
-      <item>belowdisplayskip</item>
-      <item>belowdisplayshortskip</item>
-      <item>bf</item>
-      <item>bibitem</item>
-      <item>bibliography</item>
-      <item>bibliographystyle</item>
-      <item>bigskip</item>
-      <item>bigskipamount</item>
-      <item>boldmath</item>
-      <item>bottomfraction</item>
-      <item>bottomnumber</item>
-      <item>breve</item>
-      <item>cal</item>
-      <item>caption</item>
-      <item>cc</item>
-      <item>cdot</item>
-      <item>center</item>
-      <item>centering</item>
-      <item>centerline</item>
+    <list name="kw_structure">
       <item>chapter</item>
-      <item>check</item>
-      <item>circle</item>
       <item>cite</item>
-      <item>cleardoublepage</item>
-      <item>clearpage</item>
-      <item>cline</item>
-      <item>closing</item>
-      <item>columnsep</item>
-      <item>columnseprule</item>
-      <item>dashbox</item>
-      <item>date</item>
-      <item>dblfloatpagefraction</item>
-      <item>dblfloatsep</item>
-      <item>dbltextfloatsep</item>
-      <item>dbltopfraction</item>
-      <item>dbltopnumber</item>
-      <item>ddot</item>
-      <item>description</item>
-      <item>discretionary</item>
-      <item>displaymath</item>
-      <item>displaystyle</item>
-      <item>document</item>
-      <item>documentclass</item>
-      <item>documentstyle</item>
-      <item>dot</item>
-      <item>dotfill</item>
-      <item>doublerulesep</item>
-      <item>em</item>
-      <item>emph</item>
-      <item>encl</item>
-      <item>end</item>
-      <item>enumerate</item>
-      <item>eqnarray</item>
-      <item>equation</item>
-      <item>evensidemargin</item>
-      <item>extracolsep</item>
-      <item>fbox</item>
-      <item>fboxrule</item>
-      <item>fboxsep</item>
-      <item>figure</item>
-      <item>fill</item>
-      <item>floatpagefraction</item>
-      <item>floatsep</item>
-      <item>flushbottom</item>
-      <item>flushleft</item>
-      <item>flushright</item>
-      <item>fnsymbol</item>
-      <item>footheight</item>
-      <item>footnote</item>
-      <item>footnotemark</item>
-      <item>footnotesep</item>
-      <item>footnotesize</item>
-      <item>footnotetext</item>
-      <item>footskip</item>
-      <item>frac</item>
-      <item>frame</item>
-      <item>framebox</item>
-      <item>frenchspacing</item>
-      <item>fussy</item>
-      <item>fussypar</item>
-      <item>grave</item>
-      <item>hat</item>
-      <item>headheight</item>
-      <item>headsep</item>
-      <item>hfill</item>
-      <item>hline</item>
-      <item>hoffset</item>
-      <item>hrulefill</item>
-      <item>hspace</item>
-      <item>Huge</item>
-      <item>huge</item>
-      <item>imath</item>
-      <item>include</item>
-      <item>includeonly</item>
-      <item>indent</item>
-      <item>input</item>
-      <item>intextsep</item>
-      <item>int</item>
-      <item>it</item>
-      <item>item</item>
-      <item>itemize</item>
-      <item>itemsep</item>
-      <item>jmath</item>
-      <item>jot</item>
-      <item>kill</item>
       <item>label</item>
-      <item>LARGE</item>
-      <item>Large</item>
-      <item>large</item>
-      <item>LaTeX</item>
-      <item>LaTeXe</item>
-      <item>letter</item>
-      <item>line</item>
-      <item>linebreak</item>
-      <item>linethickness</item>
-      <item>listoffigures</item>
-      <item>listoftables</item>
-      <item>makebox</item>
-      <item>maketitle</item>
-      <item>marginpar</item>
-      <item>marginparpush</item>
-      <item>marginparsep</item>
-      <item>marginparwidth</item>
-      <item>markboth</item>
-      <item>markright</item>
-      <item>math</item>
-      <item>mathindent</item>
-      <item>mbox</item>
-      <item>medskip</item>
-      <item>medskipamount</item>
-      <item>minipage</item>
-      <item>multicolumn</item>
-      <item>multiput</item>
-      <item>name</item>
-      <item>newcommand</item>
-      <item>newcounter</item>
-      <item>newenvironment</item>
-      <item>newfont</item>
-      <item>newlength</item>
-      <item>newline</item>
-      <item>newpage</item>
-      <item>newsavebox</item>
-      <item>newtheorem</item>
-      <item>noindent</item>
-      <item>nolinebreak</item>
-      <item>nonfrenchspacing</item>
-      <item>nonumber</item>
-      <item>nopagebreak</item>
-      <item>normalmarginpar</item>
-      <item>normalsize</item>
-      <item>numberline</item>
-      <item>oddsidemargin</item>
-      <item>onecolumn</item>
-      <item>opening</item>
-      <item>oval</item>
-      <item>overbrace</item>
-      <item>overline</item>
-      <item>pagebreak</item>
-      <item>pagenumbering</item>
       <item>pageref</item>
-      <item>pagestyle</item>
-      <item>par</item>
       <item>paragraph</item>
-      <item>parbox</item>
-      <item>parindent</item>
-      <item>parsep</item>
-      <item>parskip</item>
       <item>part</item>
-      <item>picture</item>
-      <item>poptabs</item>
-      <item>protect</item>
-      <item>ps</item>
-      <item>pushtabs</item>
-      <item>put</item>
-      <item>quotation</item>
-      <item>quote</item>
-      <item>raggedbottom</item>
-      <item>raggedleft</item>
-      <item>raggedright</item>
-      <item>raisebox</item>
       <item>ref</item>
-      <item>refstepcounter</item>
-      <item>renewcommand</item>
-      <item>renewenvironment</item>
-      <item>reversemarginpar</item>
-      <item>rm</item>
-      <item>Roman</item>
-      <item>roman</item>
-      <item>rule</item>
-      <item>samepage</item>
-      <item>savebox</item>
-      <item>sbox</item>
-      <item>sc</item>
-      <item>scriptscriptstyle</item>
-      <item>scriptsize</item>
-      <item>scriptstyle</item>
       <item>section</item>
-      <item>setcounter</item>
-      <item>setlanguage</item>
-      <item>setlength</item>
-      <item>settowidth</item>
-      <item>sf</item>
-      <item>shortstack</item>
-      <item>signature</item>
-      <item>sl</item>
-      <item>sloppy</item>
-      <item>sloppypar</item>
-      <item>small</item>
-      <item>smallskip</item>
-      <item>smallskipamount</item>
-      <item>sqrt</item>
-      <item>stackrel</item>
-      <item>stepcounter</item>
       <item>subparagraph</item>
       <item>subsection</item>
       <item>subsubsection</item>
-      <item>symbol</item>
-      <item>tabbing</item>
-      <item>tabbingsep</item>
-      <item>tabcolsep</item>
-      <item>table</item>
-      <item>tableofcontents</item>
-      <item>tabular</item>
-      <item>TeX</item>
-      <item>textbf</item>
-      <item>textit</item>
-      <item>textfraction</item>
-      <item>textfloatsep</item>
-      <item>textheight</item>
-      <item>textmd</item>
-      <item>textrm</item>
-      <item>textsc</item>
-      <item>textsf</item>
-      <item>textsl</item>
-      <item>textstyle</item>
-      <item>texttt</item>
-      <item>textup</item>
-      <item>textwidth</item>
-      <item>thanks</item>
-      <item>thebibliography</item>
-      <item>thicklines</item>
-      <item>thinlines</item>
-      <item>thispagestyle</item>
-      <item>tilde</item>
-      <item>tiny</item>
-      <item>title</item>
-      <item>titlepage</item>
-      <item>today</item>
-      <item>topfraction</item>
-      <item>topmargin</item>
-      <item>topnumber</item>
-      <item>topsep</item>
-      <item>topskip</item>
-      <item>totalnumber</item>
-      <item>tt</item>
-      <item>twocolumn</item>
-      <item>typein</item>
-      <item>typeout</item>
-      <item>unboldmath</item>
-      <item>underbrace</item>
-      <item>underline</item>
-      <item>unitlength</item>
-      <item>usebox</item>
-      <item>usepackage</item>
-      <item>value</item>
-      <item>vec</item>
-      <item>vector</item>
-      <item>verb</item>
-      <item>verbatim</item>
-      <item>verse</item>
-      <item>vfill</item>
-      <item>vline</item>
-      <item>voffset</item>
-      <item>vspace</item>
-      <item>widehat</item>
-      <item>widetilde</item>
-      </list>
+    </list>
+    <list name="kw_mathenv">
+      <item>displaymath</item>
+      <item>eqnarray</item>
+      <item>equation</item>
+      <item>math</item>
+      <item>multline</item>
+    </list>
+    <list name="kw_verbenv">
+      <item>boxedverbatim</item>
+      <item>lstlisting</item>
+      <item>Verbatim</item>
+    </list>
     <contexts>
-  <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-    <StringDetect String="\begin{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\end{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\section{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\subsection{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\subsubsection{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\title{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\author{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\usepackage{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\usepackage[" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\(" attribute="Math" context="Keyword 2"/>
-    <DetectChar char="\" attribute="Keyword" context="Keyword 1" />
-    <RegExpr String="%.*$" attribute="Comment" context="#stay"/>
-  </context>
-  <context attribute="Environment" lineEndContext="#stay" name="Paren">
-    <DetectChar char="}" attribute="Begin End" context="#pop"/>
-    <DetectChar char="]" attribute="Begin End" context="#pop"/>
-  </context>
-  <context attribute="Normal Text" lineEndContext="#pop" name="Keyword 1">
-    <keyword String="keywords" attribute="Keyword" context="#pop" />
-  </context>
-  <context attribute="Math" lineEndContext="#stay" name="Keyword 2">
-    <keyword String="keywords" attribute="Keyword" context="#stay"/>
-    <StringDetect String="\)" attribute="Math" context="#pop"/>
-  </context>
+      <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" beginRegion="block" />
+        <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
+        <RegExpr String="\\(label|pageref|ref|cite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
+        <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)(?=[^a-zA-Z])" attribute="Structure" context="#stay"/>
+        <StringDetect String="\renewcommand" attribute="Keyword" context="ToEndOfLine"/>
+        <StringDetect String="\newcommand" attribute="Keyword" context="ToEndOfLine"/>
+        <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <StringDetect String="\[" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
+
+        <StringDetect String="$$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <RegExpr String="^\s*%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" />
+        <RegExpr String="^\s*%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+      </context>
+      <context name="ContrSeq" attribute="Keyword" lineEndContext="#pop">
+        <StringDetect String="verb*" attribute="Keyword" context="Verb"/>
+        <StringDetect String="verb" attribute="Keyword" context="Verb"/>
+        <RegExpr String="[a-zA-Z]+" attribute="Keyword" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Keyword" context="#pop" />
+      </context>
+      <context name="ToEndOfLine" attribute="Normal Text" lineEndContext="#pop">
+      </context>
+
+      <context name="FindEnvironment" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar char="{" attribute="Normal Text" context="Environment"/>
+        <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
+      </context>
+      <context name="Environment" attribute="Environment" lineEndContext="#stay">
+        <DetectChar char="}" attribute="Normal Text" context="#pop#pop"/>
+        <DetectChar char="]" attribute="Normal Text" context="#pop#pop"/>
+        <StringDetect String="verbatim" attribute="Environment" context="VerbatimEnv"/>
+        <keyword String="kw_mathenv" attribute="Environment" context="MathEnv"/>
+        <keyword String="kw_verbenv" attribute="Environment" context="SpecialEnv"/>
+      </context>
+
+      <context name="Label" attribute="Normal Text" lineEndContext="#pop#pop" fallthrough="true" fallthroughContext="#pop#pop">
+        <RegExpr String="\s*\{\s*" attribute="Normal Text" context="#stay"/>
+        <RegExpr String="[^\}\{]+" attribute="Environment" context="#stay"/>
+        <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop"/>
+      </context>
+
+      <context name="Verb" attribute="Verbatim" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr String="(.).*\1" attribute="Verbatim" context="#pop#pop" minimal="true"/>
+      </context>
+      <context name="VerbatimEnv" attribute="Environment" lineEndContext="#stay">
+        <DetectChar char="*" attribute="Normal Text" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="Verbatim"/>
+        <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
+      </context>
+      <context name="Verbatim" attribute="Verbatim" lineEndContext="#stay">
+        <RegExpr String="\\end(?=\{verbatim\*\})" attribute="Structure"  context="VerbFindEnd"/>
+        <RegExpr String="\\end(?=\{verbatim\})" attribute="Structure"  context="VerbFindEnd"/>
+      </context>
+      <context name="VerbFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <DetectChar char="{" attribute="Normal Text" context="#stay"/>
+        <StringDetect String="verbatim*" attribute="Environment" context="#stay"/>
+        <StringDetect String="verbatim" attribute="Environment" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop"/>
+      </context>
+
+      <context name="SpecialEnv" attribute="Verbatim" lineEndContext="#stay">
+        <DetectChar char="}" attribute="Normal Text" context="#stay"/>
+        <RegExpr String="\\end" attribute="Structure" context="SpecialFindEnd"/>
+      </context>
+      <context name="SpecialFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <DetectChar char="{" attribute="Normal Text" context="#stay"/>
+        <keyword String="kw_verbenv" attribute="Environment" context="#stay"/>
+        <RegExpr String="\s*" attribute="Normal Text" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop"/>
+      </context>
+
+      <context name="MathMode" attribute="Math" lineEndContext="#stay">
+        <Detect2Chars char="\" char1="]" attribute="Math" context="#pop" endRegion="mathMode" />
+        <Detect2Chars char="\" char1=")" attribute="Math" context="#pop" endRegion="mathMode" />
+        <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" beginRegion="block" />
+        <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Structure" context="FindEnvironment" endRegion="block" />
+        <DetectChar char="\" attribute="Keyword Mathmode" context="MathContrSeq"/>
+        <StringDetect String="$$" attribute="Math" context="#pop" endRegion="mathMode" />
+        <DetectChar char="$" attribute="Math" context="#pop" endRegion="mathMode" />
+        <RegExpr String="^\s*%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" />
+        <RegExpr String="^\s*%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+      </context>
+      <context name="MathModeEnv" attribute="Math" lineEndContext="#stay">
+        <RegExpr String="\\end(?=\s*\{\s*equation\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{\s*displaymath\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{\s*eqnarray\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{\s*math\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{\s*multline\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <StringDetect String="\[" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="\" attribute="Keyword Mathmode" context="MathContrSeq"/>
+        <StringDetect String="$$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
+        <RegExpr String="^\s*%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" />
+        <RegExpr String="^\s*%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+      </context>
+      <context name="MathEnv" attribute="Environment" lineEndContext="#stay">
+        <DetectChar char="}" attribute="Normal Text" context="MathModeEnv"/>
+        <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
+      </context>
+      <context name="MathFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <DetectChar char="{" attribute="Normal Text" context="#stay"/>
+        <keyword String="kw_mathenv" attribute="Environment" context="#stay"/>
+        <RegExpr String="\s*" attribute="Normal Text" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop"/>
+      </context>
+      <context name="MathContrSeq" attribute="Keyword Mathmode" lineEndContext="#pop">
+        <RegExpr String="[a-zA-Z]+" attribute="Keyword Mathmode" context="#pop"/>
+        <RegExpr String="[^a-zA-Z]" attribute="Keyword Mathmode" context="#pop" />
+      </context>
+
+      <context name="Comment" attribute="Comment" lineEndContext="#pop">
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword" defStyleNum="dsNormal" color="#0000A0" selColor="#ff0000"/>
+      <itemData name="Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="Begin End" defStyleNum="dsNormal" color="#000000" selColor="#ffffff" bold="1" italic="1"/>
-      <itemData name="Math" defStyleNum="dsNormal" color="#FF8080" selColor="#008080" bold="0" italic="0"/>
-      <itemData name="Environment" defStyleNum="dsNormal" color="#900000" selColor="#000080" bold="1" italic="0"/>
+      <itemData name="Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0"/>
+      <itemData name="Structure" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0"/>
+      <itemData name="Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0"/>
+      <itemData name="Environment" defStyleNum="dsNormal" color="#0000D0" selColor="#FFFF90" bold="0" italic="0"/>
+      <itemData name="Verbatim" defStyleNum="dsNormal" color="#a08000" selColor="#80D0FF" bold="0" italic="0"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>
   </highlighting>
   <general>
+    <keywords weakDeliminator=",{}[]"/>
     <comments>
       <comment name="singleLine" start="%" />
     </comments>
   </general>
 </language>
-

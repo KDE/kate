@@ -1414,7 +1414,7 @@ bool KateView::lineNumbersOn() { return iconBorderStatus & KateIconBorder::LineN
 
 void KateView::showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
     	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
-void KateView::showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0, bool arg3=true)
+void KateView::showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2, bool arg3)
     	{ myCC_impl->showCompletionBox(arg1,arg2,arg3);}
 
 KateBrowserExtension::KateBrowserExtension( KateDocument *doc, KateView *view )

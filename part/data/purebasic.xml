@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PureBasic" version="3.82" kateversion="2.3" section="Sources" extensions="*.pb" mimetype="text/x-purebasic" author="Sven Langenkamp (ace@kylixforum.de)" license="LGPL">
+<language name="PureBasic" version="3.91" kateversion="2.3" section="Sources" extensions="*.pb" mimetype="text/x-purebasic" author="Sven Langenkamp (ace@kylixforum.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> For </item>
@@ -108,12 +108,12 @@
       <item> Box </item>
       <item> ButtonGadget </item>
       <item> ButtonImageGadget </item>
-      <item> CallCFunction </item>
       <item> CallCFunctionFast </item>
+      <item> CallCFunction </item>
       <item> CallCOM </item>
       <item> CallDX </item>
-      <item> CallFunction </item>
       <item> CallFunctionFast </item>
+      <item> CallFunction </item>
       <item> CameraBackColor </item>
       <item> CameraFOV </item>
       <item> CameraLocate </item>
@@ -131,8 +131,9 @@
       <item> CDAudioName </item>
       <item> CDAudioStatus </item>
       <item> CDAudioTrackLength </item>
-      <item> CDAudioTracks </item>
       <item> CDAudioTrackSeconds </item>
+      <item> CDAudioTracks </item>
+      <item> ChangeAlphaIntensity </item>
       <item> ChangeAlphaIntensity </item>
       <item> ChangeCurrentElement </item>
       <item> ChangeGamma </item>
@@ -213,8 +214,8 @@
       <item> CreateParticleEmitter </item>
       <item> CreatePopupMenu </item>
       <item> CreatePreferences </item>
-      <item> CreateSprite </item>
       <item> CreateSprite3D </item>
+      <item> CreateSprite </item>
       <item> CreateStatusBar </item>
       <item> CreateTerrain </item>
       <item> CreateTexture </item>
@@ -240,6 +241,7 @@
       <item> DESFingerprint </item>
       <item> DetachMenu </item>
       <item> DirectoryEntryAttributes </item>
+      <item> DirectoryEntryAttributes </item>
       <item> DirectoryEntryName </item>
       <item> DirectoryEntrySize </item>
       <item> DisableGadget </item>
@@ -248,13 +250,15 @@
       <item> DisableToolBarButton </item>
       <item> DisASMCommand </item>
       <item> DisplayAlphaSprite </item>
+      <item> DisplayAlphaSprite </item>
       <item> DisplayPalette </item>
       <item> DisplayPopupMenu </item>
       <item> DisplayRGBFilter </item>
       <item> DisplayShadowSprite </item>
+      <item> DisplayShadowSprite </item>
       <item> DisplaySolidSprite </item>
-      <item> DisplaySprite </item>
       <item> DisplaySprite3D </item>
+      <item> DisplaySprite </item>
       <item> DisplayTranslucideSprite </item>
       <item> DisplayTransparentSprite </item>
       <item> DrawImage </item>
@@ -324,8 +328,8 @@
       <item> FreePalette </item>
       <item> FreeParticleEmitter </item>
       <item> FreeSound </item>
-      <item> FreeSprite </item>
       <item> FreeSprite3D </item>
+      <item> FreeSprite </item>
       <item> FreeStatusBar </item>
       <item> FreeTexture </item>
       <item> FreeToolBar </item>
@@ -404,8 +408,8 @@
       <item> InitNetwork </item>
       <item> InitPalette </item>
       <item> InitSound </item>
-      <item> InitSprite </item>
       <item> InitSprite3D </item>
+      <item> InitSprite </item>
       <item> Inkey </item>
       <item> Input </item>
       <item> InputRequester </item>
@@ -414,10 +418,28 @@
       <item> IPAddressField </item>
       <item> IPAddressGadget </item>
       <item> IPString </item>
+      <item> IPString </item>
+      <item> IsDatabase </item>
+      <item> IsDirectory </item>
+      <item> IsFile </item>
       <item> IsFilename </item>
-      <item> IsFunction </item>
+      <item> IsFont </item>
       <item> IsFunctionEntry </item>
+      <item> IsFunction </item>
+      <item> IsGadget </item>
+      <item> IsImage </item>
+      <item> IsLibrary </item>
+      <item> IsMenu </item>
+      <item> IsModule </item>
+      <item> IsMovie </item>
+      <item> IsPalette </item>
       <item> IsScreenActive </item>
+      <item> IsSprite3D </item>
+      <item> IsSprite </item>
+      <item> IsStatusBar </item>
+      <item> IsSysTrayIcon </item>
+      <item> IsToolBar </item>
+      <item> IsWindow </item>
       <item> JoystickAxisX </item>
       <item> JoystickAxisY </item>
       <item> JoystickButton </item>
@@ -450,13 +472,14 @@
       <item> LoadSprite </item>
       <item> LoadTexture </item>
       <item> LoadWorld </item>
-      <item> Loc </item>
       <item> Locate </item>
+      <item> Loc </item>
       <item> Lof </item>
-      <item> Log </item>
       <item> Log10 </item>
+      <item> Log </item>
       <item> LSet </item>
       <item> LTrim </item>
+      <item> MakeIPAddress </item>
       <item> MakeIPAddress </item>
       <item> MaterialAmbientColor </item>
       <item> MaterialBlendingMode </item>
@@ -487,8 +510,8 @@
       <item> MouseWheel </item>
       <item> MouseX </item>
       <item> MouseY </item>
-      <item> MoveBillboard </item>
       <item> MoveBillboardGroup </item>
+      <item> MoveBillboard </item>
       <item> MoveCamera </item>
       <item> MoveEntity </item>
       <item> MoveLight </item>
@@ -535,8 +558,8 @@
       <item> OpenScreen </item>
       <item> OpenSubMenu </item>
       <item> OpenTreeGadgetNode </item>
-      <item> OpenWindow </item>
       <item> OpenWindowedScreen </item>
+      <item> OpenWindow </item>
       <item> OptionGadget </item>
       <item> OSVersion </item>
       <item> PackerCallback </item>
@@ -580,10 +603,10 @@
       <item> PreferenceGroup </item>
       <item> PreviousDatabaseRow </item>
       <item> PreviousElement </item>
-      <item> Print </item>
       <item> PrinterOutput </item>
       <item> PrinterPageHeight </item>
       <item> PrinterPageWidth </item>
+      <item> Print </item>
       <item> PrintN </item>
       <item> PrintRequester </item>
       <item> ProgramParameter </item>
@@ -630,10 +653,10 @@
       <item> ResumeMovie </item>
       <item> ResumeThread </item>
       <item> RGB </item>
-      <item> RichEditBackground </item>
       <item> RichEditBackgroundColor </item>
-      <item> RichEditFont </item>
+      <item> RichEditBackground </item>
       <item> RichEditFontFace </item>
+      <item> RichEditFont </item>
       <item> RichEditFontSize </item>
       <item> RichEditHeight </item>
       <item> RichEditID </item>
@@ -696,6 +719,7 @@
       <item> SetGadgetItemText </item>
       <item> SetGadgetState </item>
       <item> SetGadgetText </item>
+      <item> Set/GetWindowTitle </item>
       <item> SetMenuItemState </item>
       <item> SetMeshData </item>
       <item> SetModulePosition </item>
@@ -741,12 +765,12 @@
       <item> StopPrinting </item>
       <item> StopSound </item>
       <item> StopSpecialFX </item>
-      <item> Str </item>
       <item> StreamFileIn </item>
       <item> StreamFileOut </item>
       <item> StrF </item>
       <item> StringField </item>
       <item> StringGadget </item>
+      <item> Str </item>
       <item> StrU </item>
       <item> SysTrayIconToolTip </item>
       <item> Tan </item>
@@ -789,8 +813,8 @@
       <item> UseTGAImageDecoder </item>
       <item> UseTIFFImageDecoder </item>
       <item> UseWindow </item>
-      <item> Val </item>
       <item> ValF </item>
+      <item> Val </item>
       <item> WaitThread </item>
       <item> WaitWindowEvent </item>
       <item> WebGadget </item>

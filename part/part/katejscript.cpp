@@ -68,7 +68,17 @@ public:
 
   static const KJS::ClassInfo info;
 
-  enum { InsertLine,
+  enum { FullText,
+         Text,
+         TextLine,
+         NumLines,
+         Length,
+         LineLength,
+         SetText,
+         Clear,
+         InsertText,
+         RemoveText,
+         InsertLine,
          RemoveLine,
          Name
   };
@@ -131,8 +141,18 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 // -------------------------------------------------------------------------
 /* Source for KateJSDocumentProtoTable.
 @begin KateJSDocumentProtoTable 3
-  insertLine KateJSDocument::InsertLine  DontDelete|Function 2
-  removeLine KateJSDocument::RemoveLine  DontDelete|Function 1
+  fullText       KateJSDocument::FullText      DontDelete|Function 0
+  text           KateJSDocument::Text          DontDelete|Function 4
+  textLine       KateJSDocument::TextLine      DontDelete|Function 1
+  numLines       KateJSDocument::NumLines      DontDelete|Function 0
+  length         KateJSDocument::Length        DontDelete|Function 0
+  lineLength     KateJSDocument::LineLength    DontDelete|Function 1
+  setText        KateJSDocument::SetText       DontDelete|Function 1
+  clear          KateJSDocument::Clear         DontDelete|Function 0
+  insertText     KateJSDocument::InsertText    DontDelete|Function 3
+  removeText     KateJSDocument::RemoveText    DontDelete|Function 4
+  insertLine     KateJSDocument::InsertLine    DontDelete|Function 2
+  removeLine     KateJSDocument::RemoveLine    DontDelete|Function 1
 @end
 */
 
@@ -159,6 +179,36 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
 
   switch (id)
   {
+    case KateJSDocument::FullText:
+      return KJS::String (doc->text());
+
+    case KateJSDocument::Text:
+      return KJS::String (doc->text(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec)));
+
+    case KateJSDocument::TextLine:
+      return KJS::String (doc->textLine (args[0].toUInt32(exec)));
+
+    case KateJSDocument::NumLines:
+      return KJS::Number (doc->numLines());
+
+    case KateJSDocument::Length:
+      return KJS::Number (doc->length());
+
+    case KateJSDocument::LineLength:
+      return KJS::Number (doc->lineLength(args[0].toUInt32(exec)));
+
+    case KateJSDocument::SetText:
+      return KJS::Boolean (doc->setText(args[0].toString(exec).qstring()));
+
+    case KateJSDocument::Clear:
+      return KJS::Boolean (doc->clear());
+
+    case KateJSDocument::InsertText:
+      return KJS::Boolean (doc->insertText (args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toString(exec).qstring()));
+
+    case KateJSDocument::RemoveText:
+      return KJS::Boolean (doc->removeText(args[0].toUInt32(exec), args[1].toUInt32(exec), args[2].toUInt32(exec), args[3].toUInt32(exec)));
+
     case KateJSDocument::InsertLine:
       return KJS::Boolean (doc->insertLine (args[0].toUInt32(exec), args[1].toString(exec).qstring()));
 

@@ -111,6 +111,7 @@ private:
 	SearchFlags   m_searchFlags;
 	int           replaces;
 	QDialog*      replacePrompt;
+  QString m_replacement;
 };
 
 #endif

@@ -119,6 +119,7 @@ void KateSearch::replace()
   replaceDialog->setPattern (getSearchText());
 
 	if( replaceDialog->exec() == QDialog::Accepted ) {
+    m_replacement = replaceDialog->replacement();
 		s_searchList =  replaceDialog->findHistory () ;
     s_replaceList =  replaceDialog->replacementHistory () ;
 	        options = replaceDialog->options ();
@@ -276,7 +277,7 @@ void KateSearch::promptReplace()
 
 void KateSearch::replaceOne()
 {
-	QString replaceWith = s_replaceList.first();
+	QString replaceWith = m_replacement;
 	doc()->removeText( s.cursor.line, s.cursor.col,
 			s.cursor.line, s.cursor.col + s.matchedLength );
 	doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );

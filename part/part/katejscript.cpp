@@ -67,7 +67,40 @@ QConstString UString::qconststring() const
   return QConstString((QChar*) data(), size());
 }
 
+//BEGIN global methods
+class KateJSGlobalFunctions : public ObjectImp
+{
+  public:
+    KateJSGlobalFunctions(int i, int length);
+    virtual bool implementsCall() const { return true; }
+    virtual Value call(ExecState *exec, Object &thisObj, const List &args);
+
+    enum {
+      Debug
+    };
+
+  private:
+    int id;
+};
+KateJSGlobalFunctions::KateJSGlobalFunctions(int i, int length) : ObjectImp(), id(i)
+{
+  putDirect(lengthPropertyName,length,DontDelete|ReadOnly|DontEnum);
 }
+Value KateJSGlobalFunctions::call(ExecState *exec, Object &/*thisObj*/, const List &args)
+{
+  switch (id) {
+    case Debug:
+      kdDebug(13051) << args[0].toString(exec).ascii() << endl;
+      return Undefined();
+    default:
+      break;
+  }
+
+  return Undefined();
+}
+//END global methods
+
+} // namespace KJS
 
 //BEGIN JS API STUFF
 
@@ -155,6 +188,8 @@ KateJScript::KateJScript ()
   // references to the inserted KJS::Objects, this should avoid any garbage collection
   m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", *m_document);
   m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", *m_view);
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "debug",
+        KJS::Object(new KateJSGlobalFunctions(KateJSGlobalFunctions::Debug,1)));
 }
 
 KateJScript::~KateJScript ()
@@ -322,12 +357,12 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
   cursorLine          KateJSView::CursorLine            DontDelete|Function 0
   cursorColumn        KateJSView::CursorColumn          DontDelete|Function 0
   cursorColumnReal    KateJSView::CursorColumnReal      DontDelete|Function 0
-  selection           KateJSView::Selection         DontDelete|Function 0
-  hasSelection        KateJSView::HasSelection      DontDelete|Function 0
-  setSelection        KateJSView::SetSelection      DontDelete|Function 4
-  removeSelectedText  KateJSView::RemoveSelectedText  DontDelete|Function 0
-  selectAll           KateJSView::SelectAll           DontDelete|Function 0
-  clearSelection      KateJSView::ClearSelection      DontDelete|Function 0
+  selection           KateJSView::Selection             DontDelete|Function 0
+  hasSelection        KateJSView::HasSelection          DontDelete|Function 0
+  setSelection        KateJSView::SetSelection          DontDelete|Function 4
+  removeSelectedText  KateJSView::RemoveSelectedText    DontDelete|Function 0
+  selectAll           KateJSView::SelectAll             DontDelete|Function 0
+  clearSelection      KateJSView::ClearSelection        DontDelete|Function 0
 @end
 */
 

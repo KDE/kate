@@ -85,9 +85,9 @@
           <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
         <HlCChar attribute="Char" context="#stay"/>
-        <RegExpr String="[\\w]*([(].*[)])?[']" attribute="Normal" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&apos;"/>
         <DetectChar attribute="String Char" context="String" char="&apos;"/>
+        <RegExpr String="[\\w]*([(].*[)])?[']" attribute="Normal" context="#stay"/>
         <RegExpr String= "%.*$" attribute="Comment" context="#stay"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">

@@ -33,7 +33,7 @@
 #include <qregexp.h>
 
 KateFileTypeManager::KateFileTypeManager ()
- : m_config (new KConfig ("katefiletypesrc"))
+ : m_config (new KConfig ("katepart/katefiletypesrc"))
 {
   m_types.setAutoDelete (true);
   m_typesNum.setAutoDelete (false);

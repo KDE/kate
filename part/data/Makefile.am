@@ -16,5 +16,5 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
 		vrml.xml rexx.xml cue.xml
 
 
-configrcdir   = $(kde_confdir)
+configrcdir   = $(kde_confdir)/katepart
 configrc_DATA = katefiletypesrc

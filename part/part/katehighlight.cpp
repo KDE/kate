@@ -455,7 +455,7 @@ KateHlCharDetect::KateHlCharDetect(int attribute, int context, signed char regio
 {
 }
 
-int KateHlCharDetect::checkHgl(const QString& text, int offset, int)
+int KateHlCharDetect::checkHgl(const QString& text, int offset, int len)
 {
   if (text[offset] == sChar)
     return offset + 1;
@@ -904,7 +904,7 @@ KateHlAnyChar::KateHlAnyChar(int attribute, int context, signed char regionId,si
 {
 }
 
-int KateHlAnyChar::checkHgl(const QString& text, int offset, int len)
+int KateHlAnyChar::checkHgl(const QString& text, int offset, int)
 {
   if (kateInsideString (_charList, text[offset]))
     return ++offset;
@@ -1417,7 +1417,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if ((item->column != -1) && (item->column != offset))
         continue;
 
-      if (!item->alwaysStartEnable)
+     if (!item->alwaysStartEnable)
       {
         if (item->customStartEnable)
         {
@@ -1439,6 +1439,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
       if (offset2 <= offset)
         continue;
+
+      if(!item->lookAhead)
+        textLine->setAttribs(item->onlyConsume ? context->attr : item->attr,offset,offset2);
+
+      //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
       if (item->region2)
       {
@@ -1482,7 +1487,11 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if (item->ctx != -1)
       {
         generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
-        context = contextNum(ctxNum);
+
+  //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
+//    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
+
+        context=contextNum(ctxNum);
       }
 
       // dynamic context: substitute the model with an 'instance'
@@ -1504,18 +1513,16 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // dominik: look ahead w/o changing offset?
       if (!item->lookAhead)
       {
-        textLine->setAttribs(item->onlyConsume ? context->attr : item->attr, offset, offset2);
         offset = offset2 - 1;
-        lastChar = text[offset++];
       }
 
       found = true;
       break;
     }
 
-    // no item found for this offset
     if (!found)
     {
+
       // nothing found: set attribute of one char
       // anders: unless this context does not want that!
       if ( context->fallthrough )
@@ -1531,12 +1538,17 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           lastChar = text[offset - 1];
         else
           lastChar = '\\';
-
         continue;
       }
+      else
+        textLine->setAttribs(context->attr, offset, offset + 1);
+    }
 
+    // dominik: do not change offset if we look ahead
+    if (!(item && item->lookAhead))
+    {
       lastChar = text[offset];
-      textLine->setAttribs(context->attr, offset, ++offset);
+      offset++;
     }
   }
 

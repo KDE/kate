@@ -694,7 +694,7 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::updateFoldingMarkersAction()
 {
-  setFoldingMarkersOn ( m_doc->highlight() && m_doc->highlight()->allowsFolding() && config()->foldingBar() &&
+  setFoldingMarkersOn ( m_doc->highlight() && m_doc->highlight()->allowsFolding() &&
                         !m_userWantsFoldingMarkersOff );
 
   m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
@@ -1121,7 +1121,7 @@ void KateView::updateConfig ()
   m_toggleIconBar->setChecked( config()->iconBar() );
 
   // folding bar
-  bool doit = m_doc->highlight() && m_doc->highlight()->allowsFolding() && config()->foldingBar() && !m_userWantsFoldingMarkersOff;
+  bool doit = config()->foldingBar() && m_doc->highlight() && m_doc->highlight()->allowsFolding();
   m_viewInternal->leftBorder->setFoldingMarkersOn(doit);
   m_toggleFoldingMarkers->setChecked( doit );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );

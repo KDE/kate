@@ -177,23 +177,17 @@ QSize KateIconBorder::sizeHint() const
 {
   int w = 0;
 
+  if (m_iconBorderOn)
+    w += iconPaneWidth + 1;
+
   if (m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn)) {
     w += lineNumberWidth();
   }
-
-  if (m_iconBorderOn)
-    w += iconPaneWidth + 1;
 
   if (m_foldingMarkersOn)
     w += iconPaneWidth;
 
   w += 4;
-  // A little extra makes selecting at the beginning easier and looks nicer
-  // Anders: And this belongs in the border? Apart from that job obviously belonging
-  // to the view, the icon border may not have the same color as the
-  // editor content area...
-//  if( !m_foldingMarkersOn )
-//    w += 4;
 
   return QSize( w, 0 );
 }
@@ -316,11 +310,10 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     if (z < lineRangesSize)
      realLine = m_viewInternal->lineRanges[z].line;
 
-    //int y = line * fontHeight; // see below
     int lnX ( 0 );
 
     p.fillRect( 0, y, w-4, h, *m_view->config()->iconBarColor() );
-    p.fillRect( w-4, y, w, h, *m_view->renderer()->config()->backgroundColor() );
+    p.fillRect( w-4, y, 4, h, *m_view->renderer()->config()->backgroundColor() );
 
     // icon pane
     if( m_iconBorderOn )

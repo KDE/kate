@@ -3,7 +3,7 @@
     Insert any readable file at cursor position
     
     begin                : Thu Jun 13 13:14:52 CEST 2002
-    $Id
+    $Id:$
     copyright            : (C) 2002 by Anders Lund
     email                : anders@alweb.dk
  ***************************************************************************/

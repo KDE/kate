@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2003, 2004 Anders Lund <anders@alweb.dk>
    Copyright (C) 2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2001,2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
@@ -49,6 +50,7 @@
 #include <qtextstream.h>
 //END
 
+// BEGIN defines
 // same as in kmimemagic, no need to feed more data
 #define KATE_HL_HOWMANY 1024
 
@@ -57,6 +59,7 @@ static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
 
 // x is a QString. if x is "true" or "1" this expression returns "true"
 #define IS_TRUE(x) x.lower() == QString("true") || x.toInt() == 1
+// END defines
 
 //BEGIN  Prviate HL classes
 
@@ -1261,19 +1264,14 @@ void KateHighlighting::dropDynamicContexts()
   startctx = base_startctx;
 }
 
-/*******************************************************************************************
-        KateHighlighting - doHighlight
-        Increase the usage count and trigger initialization if needed
-
-                        * input: signed char *oCtx  Pointer to the "stack" of the previous line
-         uint *oCtxLen    Size of the stack
-         KateTextLine *textline  Current textline to work on
-                        *************
-                        * output: (KateTextLine *textline)
-                        *************
-                        * return value: signed char*  new context stack at the end of the line
-*******************************************************************************************/
-
+/**
+ * Parse the text and fill in the context array and folding list array
+ *
+ * @param prevLine The previous line, the context array is picked up from that if present.
+ * @param textLine The text line to parse
+ * @param foldinglist will be filled
+ * @param ctxChanged will be set to reflect if the context changed
+ */
 void KateHighlighting::doHighlight ( KateTextLine *prevLine,
                                      KateTextLine *textLine,
                                      QMemArray<signed char>* foldingList,
@@ -1413,7 +1411,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
             }
 
           }
-
 
           generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
 
@@ -1626,22 +1623,12 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
   }
 }
 
-/*******************************************************************************************
-        KateHighlighting - setKateHlItemDataList
-        saves the KateHlItemData / attribute / style definitions to the apps configfile.
-        Especially needed for user overridden values.
-
-                        * input: KateHlItemDataList &list             :reference to the list, whose
-                        *                                        items should be saved
-                        *        KConfig *config                :Pointer KDE configuration
-                        *                                        class, which should be used
-                        *                                        as storage
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * Saves the KateHlData attribute definitions to the config file.
+ *
+ * @param schema The id of the schema group to save
+ * @param list KateHlItemDataList containing the data to be used
+ */
 void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &list)
 {
   KConfig *config = KateHlManager::self()->getKConfig();
@@ -1666,17 +1653,9 @@ void KateHighlighting::setKateHlItemDataList(uint schema, KateHlItemDataList &li
   }
 }
 
-/*******************************************************************************************
-        KateHighlighting - use
-        Increase the usage count and trigger initialization if needed
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * Increase the usage count, and trigger initialization if needed.
+ */
 void KateHighlighting::use()
 {
   if (refCount == 0)
@@ -1685,17 +1664,9 @@ void KateHighlighting::use()
   refCount++;
 }
 
-/*******************************************************************************************
-        KateHighlighting - release
-        Decrease the usage count and trigger a cleanup if needed
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * Decrease the usage count, and trigger cleanup if needed.
+ */
 void KateHighlighting::release()
 {
   refCount--;
@@ -1704,16 +1675,9 @@ void KateHighlighting::release()
     done();
 }
 
-/*******************************************************************************************
-        KateHighlighting - init
-        If it's the first time a particular highlighting is used create the needed contextlist
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
+/**
+ * Initialize a context for the first time.
+ */
 
 void KateHighlighting::init()
 {
@@ -1725,18 +1689,10 @@ void KateHighlighting::init()
 }
 
 
-/*******************************************************************************************
-        KateHighlighting - done
-        If the there is no document using the highlighting style free the complete context
-        structure.
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * If the there is no document using the highlighting style free the complete
+ * context structure.
+ */
 void KateHighlighting::done()
 {
   if (noHl)
@@ -1745,20 +1701,13 @@ void KateHighlighting::done()
   contextList.clear ();
 }
 
-/*******************************************************************************************
-        KateHighlighting - createKateHlItemData
-        This function reads the itemData entries from the config file, which specifies the
-        default attribute styles for matched items/contexts.
-
-                        * input: none
-                        *************
-                        * output: KateHlItemDataList &list            :A reference to the internal
-                                                                list containing the parsed
-                                                                default config
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * KateHighlighting - createKateHlItemData
+ * This function reads the itemData entries from the config file, which specifies the
+ * default attribute styles for matched items/contexts.
+ *
+ * @param list A reference to the internal list containing the parsed default config
+ */
 void KateHighlighting::createKateHlItemData(KateHlItemDataList &list)
 {
   // If no highlighting is selected we need only one default.
@@ -1794,23 +1743,22 @@ void KateHighlighting::addToKateHlItemDataList()
     QString bgColor = KateHlManager::self()->syntax->groupData(data,QString("backgroundColor"));
     QString selBgColor = KateHlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
 
-      KateHlItemData* newData = new KateHlItemData(
-              buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
-              getDefStyleNum(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
+    KateHlItemData* newData = new KateHlItemData(
+            buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+            getDefStyleNum(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
+    /* here the custom style overrides are specified, if needed */
+    if (!color.isEmpty()) newData->setTextColor(QColor(color));
+    if (!selColor.isEmpty()) newData->setSelectedTextColor(QColor(selColor));
+    if (!bold.isEmpty()) newData->setBold( IS_TRUE(bold) );
+    if (!italic.isEmpty()) newData->setItalic( IS_TRUE(italic) );
+    // new attributes for the new rendering view
+    if (!underline.isEmpty()) newData->setUnderline( IS_TRUE(underline) );
+    if (!strikeOut.isEmpty()) newData->setStrikeOut( IS_TRUE(strikeOut) );
+    if (!bgColor.isEmpty()) newData->setBGColor(QColor(bgColor));
+    if (!selBgColor.isEmpty()) newData->setSelectedBGColor(QColor(selBgColor));
 
-      /* here the custom style overrides are specified, if needed */
-      if (!color.isEmpty()) newData->setTextColor(QColor(color));
-      if (!selColor.isEmpty()) newData->setSelectedTextColor(QColor(selColor));
-      if (!bold.isEmpty()) newData->setBold( IS_TRUE(bold) );
-      if (!italic.isEmpty()) newData->setItalic( IS_TRUE(italic) );
-      // new attributes for the new rendering view
-      if (!underline.isEmpty()) newData->setUnderline( IS_TRUE(underline) );
-      if (!strikeOut.isEmpty()) newData->setStrikeOut( IS_TRUE(strikeOut) );
-      if (!bgColor.isEmpty()) newData->setBGColor(QColor(bgColor));
-      if (!selBgColor.isEmpty()) newData->setSelectedBGColor(QColor(selBgColor));
-
-      internalIDList.append(newData);
+    internalIDList.append(newData);
   }
 
   //clean up
@@ -1818,21 +1766,16 @@ void KateHighlighting::addToKateHlItemDataList()
     KateHlManager::self()->syntax->freeGroupInfo(data);
 }
 
-/*******************************************************************************************
-        KateHighlighting - lookupAttrName
-        This function is  a helper for makeContextList and createKateHlItem. It looks the given
-        attribute name in the itemData list up and returns it's index
-
-                        * input: QString &name                  :the attribute name to lookup
-                        *        KateHlItemDataList &iDl               :the list containing all
-                        *                                         available attributes
-                        *************
-                        * output: none
-                        *************
-                        * return value: int                     :The index of the attribute
-                        *                                        or 0
-*******************************************************************************************/
-
+/**
+ * KateHighlighting - lookupAttrName
+ * This function is  a helper for makeContextList and createKateHlItem. It looks the given
+ * attribute name in the itemData list up and returns it's index
+ *
+ * @param name the attribute name to lookup
+ * @param iDl the list containing all available attributes
+ *
+ * @return The index of the attribute, or 0 if the attribute isn't found
+ */
 int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &iDl)
 {
   for (uint i = 0; i < iDl.count(); i++)
@@ -1843,25 +1786,19 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &i
   return 0;
 }
 
-/*******************************************************************************************
-        KateHighlighting - createKateHlItem
-        This function is  a helper for makeContextList. It parses the xml file for
-        information, how single or multi line comments are marked
-
-                        * input: KateSyntaxContextData *data : Data about the item read from
-                        *                                  the xml file
-                        *        KateHlItemDataList &iDl :       List of all available itemData
-                        *                                   entries. Needed for attribute
-                        *                                   name->index translation
-      *   QStringList *RegionList  : list of code folding region names
-      *   QStringList ContextList  : list of context names
-                        *************
-                        * output: none
-                        *************
-                        * return value: KateHlItem * :          Pointer to the newly created item
-                        *                                   object
-*******************************************************************************************/
-
+/**
+ * KateHighlighting - createKateHlItem
+ * This function is  a helper for makeContextList. It parses the xml file for
+ * information, how single or multi line comments are marked
+ *
+ * @param data Data about the item read from the xml file
+ * @param iDl List of all available itemData entries.
+ *            Needed for attribute name->index translation
+ * @param RegionList list of code folding region names
+ * @param ContextNameList list of context names
+ *
+ * @return A pointer to the newly created item object
+ */
 KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *data, KateHlItemDataList &iDl,QStringList *RegionList, QStringList *ContextNameList)
 {
   // No highlighting -> exit
@@ -1888,7 +1825,6 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
   int context;
   QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
 
-
   QString unresolvedContext;
   context=getIdFromString(ContextNameList, tmpcontext,unresolvedContext);
 
@@ -1909,9 +1845,8 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
   else
     chr1=0;
 
-  // Will be removed eventuall. Atm used for StringDetect
+  // Will be removed eventuall. Atm used for StringDetect and RegExp
   bool insensitive = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("insensitive")) );
-  // anders: very reasonable for regexp too!
 
   // for regexp only
   bool minimal = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("minimal")) );
@@ -1969,22 +1904,22 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
     //Get the entries for the keyword lookup list
     keyword->addList(KateHlManager::self()->syntax->finddata("highlighting",stringdata));
     tmpItem=keyword;
-  } else
-    if (dataname=="Float") tmpItem= (new KateHlFloat(attr,context,regionId,regionId2)); else
-    if (dataname=="Int") tmpItem=(new KateHlInt(attr,context,regionId,regionId2)); else
-    if (dataname=="DetectChar") tmpItem=(new KateHlCharDetect(attr,context,regionId,regionId2,chr)); else
-    if (dataname=="Detect2Chars") tmpItem=(new KateHl2CharDetect(attr,context,regionId,regionId2,chr,chr1)); else
-    if (dataname=="RangeDetect") tmpItem=(new KateHlRangeDetect(attr,context,regionId,regionId2, chr, chr1)); else
-    if (dataname=="LineContinue") tmpItem=(new KateHlLineContinue(attr,context,regionId,regionId2)); else
-    if (dataname=="StringDetect") tmpItem=(new KateHlStringDetect(attr,context,regionId,regionId2,stringdata,insensitive)); else
-    if (dataname=="AnyChar") tmpItem=(new KateHlAnyChar(attr,context,regionId,regionId2,stringdata)); else
-    if (dataname=="RegExpr") tmpItem=(new KateHlRegExpr(attr,context,regionId,regionId2,stringdata, insensitive, minimal)); else
-    if (dataname=="HlCChar") tmpItem= ( new KateHlCChar(attr,context,regionId,regionId2));else
-    if (dataname=="HlCHex") tmpItem= (new KateHlCHex(attr,context,regionId,regionId2));else
-    if (dataname=="HlCOct") tmpItem= (new KateHlCOct(attr,context,regionId,regionId2)); else
-    if (dataname=="HlCFloat") tmpItem= (new KateHlCFloat(attr,context,regionId,regionId2)); else
-    if (dataname=="HlCStringChar") tmpItem= (new KateHlCStringChar(attr,context,regionId,regionId2)); else
-
+  }
+  else if (dataname=="Float") tmpItem= (new KateHlFloat(attr,context,regionId,regionId2));
+  else if (dataname=="Int") tmpItem=(new KateHlInt(attr,context,regionId,regionId2));
+  else if (dataname=="DetectChar") tmpItem=(new KateHlCharDetect(attr,context,regionId,regionId2,chr));
+  else if (dataname=="Detect2Chars") tmpItem=(new KateHl2CharDetect(attr,context,regionId,regionId2,chr,chr1));
+  else if (dataname=="RangeDetect") tmpItem=(new KateHlRangeDetect(attr,context,regionId,regionId2, chr, chr1));
+  else if (dataname=="LineContinue") tmpItem=(new KateHlLineContinue(attr,context,regionId,regionId2));
+  else if (dataname=="StringDetect") tmpItem=(new KateHlStringDetect(attr,context,regionId,regionId2,stringdata,insensitive));
+  else if (dataname=="AnyChar") tmpItem=(new KateHlAnyChar(attr,context,regionId,regionId2,stringdata));
+  else if (dataname=="RegExpr") tmpItem=(new KateHlRegExpr(attr,context,regionId,regionId2,stringdata, insensitive, minimal));
+  else if (dataname=="HlCChar") tmpItem= ( new KateHlCChar(attr,context,regionId,regionId2));
+  else if (dataname=="HlCHex") tmpItem= (new KateHlCHex(attr,context,regionId,regionId2));
+  else if (dataname=="HlCOct") tmpItem= (new KateHlCOct(attr,context,regionId,regionId2));
+  else if (dataname=="HlCFloat") tmpItem= (new KateHlCFloat(attr,context,regionId,regionId2));
+  else if (dataname=="HlCStringChar") tmpItem= (new KateHlCStringChar(attr,context,regionId,regionId2));
+  else
   {
     // oops, unknown type. Perhaps a spelling error in the xml file
     return 0;
@@ -2002,34 +1937,23 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
 }
 
 
-/*******************************************************************************************
-        KateHighlighting - isInWord
-
-                        * input: Qchar c       Character to investigate
-                        *************
-                        * output: none
-                        *************
-                        * return value: returns true, if c is no deliminator
-*******************************************************************************************/
-
+/**
+ * See if a character is "a word" character, that is not a quote or
+ * listed in the famous "diliminator" string.
+ *
+ * @param c Character to investigate
+ * @return true, if c is no deliminator
+ */
 bool KateHighlighting::isInWord(QChar c)
 {
   static const QString sq("\"'");
   return deliminator.find(c) == -1 && sq.find(c) == -1;
 }
 
-/*******************************************************************************************
-        KateHighlighting - readCommentConfig
-        This function is  a helper for makeContextList. It parses the xml file for
-        information, how single or multi line comments are marked
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * Helper for makeContextList. It parses the xml file for
+ * information, how single or multi line comments are marked
+ */
 void KateHighlighting::readCommentConfig()
 {
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
@@ -2059,20 +1983,11 @@ void KateHighlighting::readCommentConfig()
   }
 }
 
-/*******************************************************************************************
-        KateHighlighting - readGlobalKeyWordConfig
-        This function is  a helper for makeContextList. It parses the xml file for
-        information, if keywords should be treated case(in)sensitive and creates the keyword
-        delimiter list. Which is the default list, without any given weak deliminiators
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
-
+/**
+ * Helper for makeContextList. It parses the xml file for information,
+ * if keywords should be treated case(in)sensitive and creates the keyword
+ * delimiter list. Which is the default list, without any given weak deliminiators
+ */
 void KateHighlighting::readGlobalKeywordConfig()
 {
   // Tell the syntax document class which file we want to parse
@@ -2191,31 +2106,36 @@ int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpL
 {
   unres="";
   int context;
-  if ((tmpLineEndContext=="#stay") || (tmpLineEndContext.simplifyWhiteSpace().isEmpty())) context=-1;
-      else if (tmpLineEndContext.startsWith("#pop"))
-      {
-           context=-1;
-           for(;tmpLineEndContext.startsWith("#pop");context--)
-           {
-               tmpLineEndContext.remove(0,4);
-               kdDebug(13010)<<"#pop found"<<endl;
-           }
-      }
-      else
-  if ( tmpLineEndContext.startsWith("##"))
+  if ((tmpLineEndContext=="#stay") || (tmpLineEndContext.simplifyWhiteSpace().isEmpty()))
+    context=-1;
+
+  else if (tmpLineEndContext.startsWith("#pop"))
+  {
+    context=-1;
+    for(;tmpLineEndContext.startsWith("#pop");context--)
+    {
+      tmpLineEndContext.remove(0,4);
+      kdDebug(13010)<<"#pop found"<<endl;
+    }
+  }
+
+  else if ( tmpLineEndContext.startsWith("##"))
   {
     QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
     if (!embeddedHls.contains(tmp))  embeddedHls.insert(tmp,KateEmbeddedHlInfo());
     unres=tmp;
     context=0;
   }
+
   else
   {
     context=ContextNameList->findIndex(buildPrefix+tmpLineEndContext);
     if (context==-1)
     {
       context=tmpLineEndContext.toInt();
-      errorsAndWarnings+=i18n("<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name").arg(buildIdentifier).arg(tmpLineEndContext);
+      errorsAndWarnings+=i18n(
+        "<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name"
+        ).arg(buildIdentifier).arg(tmpLineEndContext);
     }
 //#warning restructure this the name list storage.
 //    context=context+buildContext0Offset;
@@ -2223,19 +2143,11 @@ int KateHighlighting::getIdFromString(QStringList *ContextNameList, QString tmpL
   return context;
 }
 
-/*******************************************************************************************
-        KateHighlighting - makeContextList
-        That's the most important initialization function for each highlighting. It's called
-        each time a document gets a highlighting style assigned. parses the xml file and
-        creates a corresponding internal structure
-
-                        * input: none
-                        *************
-                        * output: none
-                        *************
-                        * return value: none
-*******************************************************************************************/
-
+/**
+ * The most important initialization function for each highlighting. It's called
+ * each time a document gets a highlighting style assigned. parses the xml file
+ * and creates a corresponding internal structure
+ */
 void KateHighlighting::makeContextList()
 {
   if (noHl)  // if this a highlighting for "normal texts" only, tere is no need for a context list creation
@@ -2246,52 +2158,61 @@ void KateHighlighting::makeContextList()
   RegionList.clear();
   ContextNameList.clear();
 
-  // prepare list creation. To reuse as much code as possible handle this highlighting the same way as embedded onces
+  // prepare list creation. To reuse as much code as possible handle this
+  // highlighting the same way as embedded onces
   embeddedHls.insert(iName,KateEmbeddedHlInfo());
 
   bool something_changed;
-  startctx=base_startctx=0;  // the context "0" id is 0 for this hl, all embedded context "0"s have offsets
-  building=true;  // inform everybody that we are building the highlighting contexts and itemlists
+  // the context "0" id is 0 for this hl, all embedded context "0"s have offsets
+  startctx=base_startctx=0;
+  // inform everybody that we are building the highlighting contexts and itemlists
+  building=true;
+
   do
   {
-  kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
-  kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
-  something_changed=false; //assume all "embedded" hls have already been loaded
-  for (KateEmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
-  {
-    if (!it.data().loaded)  // we found one, we still have to load
+    kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
+    kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
+    something_changed=false; //assume all "embedded" hls have already been loaded
+    for (KateEmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
     {
-      kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
-      QString identifierToUse;
-      kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
-      if (iName==it.key()) identifierToUse=identifier;  // the own identifier is known
-      else
-        identifierToUse=KateHlManager::self()->identifierForName(it.key()); // all others have to be looked up
+      if (!it.data().loaded)  // we found one, we still have to load
+      {
+        kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
+        QString identifierToUse;
+        kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
+        if (iName==it.key()) identifierToUse=identifier;  // the own identifier is known
+        else
+          identifierToUse=KateHlManager::self()->identifierForName(it.key()); // all others have to be looked up
 
-      kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
+        kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
 
-      buildPrefix=it.key()+':';  // attribute names get prefixed by the names of the highlighting definitions they belong to
+        buildPrefix=it.key()+':';  // attribute names get prefixed by the names of the highlighting definitions they belong to
 
-      if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
+        if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
 
-      kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
-      it=embeddedHls.insert(it.key(),KateEmbeddedHlInfo(true,startctx)); //mark hl as loaded
-      buildContext0Offset=startctx;  //set class member for context 0 offset, so we don't need to pass it around
-      startctx=addToContextList(identifierToUse,startctx);  //parse one hl definition file
-      base_startctx = startctx;
-      if (noHl) return;  // an error occurred
-      something_changed=true; // something has been loaded
+        kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
 
+        //mark hl as loaded
+        it=embeddedHls.insert(it.key(),KateEmbeddedHlInfo(true,startctx));
+        //set class member for context 0 offset, so we don't need to pass it around
+        buildContext0Offset=startctx;
+        //parse one hl definition file
+        startctx=addToContextList(identifierToUse,startctx);
+
+        if (noHl) return;  // an error occurred
+
+        base_startctx = startctx;
+        something_changed=true; // something has been loaded
+      }
     }
-  }
-  } while (something_changed);  // as long as there has been another file parsed repeat everything, there could be newly added embedded hls.
+  } while (something_changed);  // as long as there has been another file parsed
+                  // repeat everything, there could be newly added embedded hls.
 
 
-  /* at this point all needed highlighing (sub)definitions are loaded. It's time to resolve cross file
-     references (if there are some
-  */
+  // at this point all needed highlighing (sub)definitions are loaded. It's time
+  // to resolve cross file  references (if there are any )
   kdDebug(13010)<<"Unresolved contexts, which need attention: "<<unresolvedContextReferences.count()<<endl;
-//optimize this a littlebit
+  //optimize this a littlebit
   for (KateHlUnresolvedCtxRefs::iterator unresIt=unresolvedContextReferences.begin();
     unresIt!=unresolvedContextReferences.end();++unresIt)
   {
@@ -2301,9 +2222,10 @@ void KateHighlighting::makeContextList()
       *(unresIt.key())=hlIt.data().context0;
   }
 
-  /*eventually handle KateHlIncludeRules items, if they exist.
-    This has to be done after the cross file references, because it is allowed
-    to include the context0 from a different definition, than the one the rule belongs to */
+  // eventually handle KateHlIncludeRules items, if they exist.
+  // This has to be done after the cross file references, because it is allowed
+  // to include the context0 from a different definition, than the one the rule
+  // belongs to
   handleKateHlIncludeRules();
 
   embeddedHls.clear(); //save some memory.
@@ -2312,11 +2234,11 @@ void KateHighlighting::makeContextList()
   ContextNameList.clear();
 
 
-// if there have been errors show them
+  // if there have been errors show them
   if (!errorsAndWarnings.isEmpty())
   KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlighting Parser"));
 
-// we have finished
+  // we have finished
   building=false;
 }
 
@@ -2330,41 +2252,41 @@ void KateHighlighting::handleKateHlIncludeRules()
   buildPrefix="";
   QString dummy;
 
-  /*by now the context0 references are resolved, now more or less only inner file references are resolved.
-  If we decide that arbitrary inclusion is needed, this doesn't need to be changed, only the addToContextList
-  method
-   */
+  // By now the context0 references are resolved, now more or less only inner
+  // file references are resolved. If we decide that arbitrary inclusion is
+  // needed, this doesn't need to be changed, only the addToContextList
+  // method.
 
   //resolove context names
   for (KateHlIncludeRules::iterator it=includeRules.begin();it!=includeRules.end();)
   {
-
-  if ((*it)->incCtx==-1) // context unresolved ?
-  { //yes
-
-    if ((*it)->incCtxN.isEmpty())
+    if ((*it)->incCtx==-1) // context unresolved ?
     {
-      // no context name given, and no valid context id set, so this item is going to be removed
-      KateHlIncludeRules::iterator it1=it;
-      ++it1;
-      delete (*it);
-      includeRules.remove(it);
-      it=it1;
+
+      if ((*it)->incCtxN.isEmpty())
+      {
+        // no context name given, and no valid context id set, so this item is going to be removed
+        KateHlIncludeRules::iterator it1=it;
+        ++it1;
+        delete (*it);
+        includeRules.remove(it);
+        it=it1;
+      }
+      else
+      {
+        // resolve name to id
+        (*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
+        kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
+        // It would be good to look here somehow, if the result is valid
+      }
     }
-    else
-    {
-      // resolve name to id
-      (*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
-      kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
-      // It would be good to look here somehow, if the result is valid
-    }
-  } else ++it; //nothing to do, already resolved (by the cross defintion reference resolver
+    else ++it; //nothing to do, already resolved (by the cross defintion reference resolver
   }
 
   // now that all KateHlIncludeRule items should be valid and completely resolved, do the real inclusion of the rules.
   // recursiveness is needed, because context 0 could include context 1, which itself includes context 2 and so on.
   //  In that case we have to handle context 2 first, then 1, 0
-//TODO: catch circular references: eg 0->1->2->3->1
+  //TODO: catch circular references: eg 0->1->2->3->1
   while (!includeRules.isEmpty())
     handleKateHlIncludeRulesRecursive(includeRules.begin(),&includeRules);
 
@@ -2377,33 +2299,28 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
   KateHlIncludeRules::iterator it1=it;
   int ctx=(*it1)->ctx;
 
-  /*find the last entry for the given context in the KateHlIncludeRules list
-     this is need if one context includes more than one. This saves us from updating all insert positions:
-    eg: context 0:
-    pos 3 - include context 2
-    pos 5 - include context 3
-    During the building of the includeRules list the items are inserted in ascending order, now we need it
-    descending to make our life easier.
-  */
+  // find the last entry for the given context in the KateHlIncludeRules list
+  // this is need if one context includes more than one. This saves us from
+  // updating all insert positions:
+  // eg: context 0:
+  // pos 3 - include context 2
+  // pos 5 - include context 3
+  // During the building of the includeRules list the items are inserted in
+  // ascending order, now we need it descending to make our life easier.
   while ((it!=list->end()) && ((*it)->ctx==ctx))
   {
     it1=it;
     ++it;
-//    kdDebug()<<"loop1"<<endl;
   }
+
   // iterate over each include rule for the context the function has been called for.
   while ((it1!=list->end()) && ((*it1)->ctx==ctx))
   {
-//    kdDebug()<<"loop2"<<endl;
-
-
     int ctx1=(*it1)->incCtx;
 
     //let's see, if the the included context includes other contexts
     for (KateHlIncludeRules::iterator it2=list->begin();it2!=list->end();++it2)
     {
-//      kdDebug()<<"loop3"<<endl;
-
       if ((*it2)->ctx==ctx1)
       {
         //yes it does, so first handle that include rules, since we want to
@@ -2421,7 +2338,7 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
                         dest->items.insert(p,c);
 
     it=it1; //backup the iterator
-    --it1; //move to the next entry, which has to be take care of
+    --it1;  //move to the next entry, which has to be take care of
     delete (*it); //free the already handled data structure
     list->remove(it); // remove it from the list
   }
@@ -2461,88 +2378,99 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   data=KateHlManager::self()->syntax->getGroupInfo("highlighting","context");
   uint i=buildContext0Offset;
   if (data)
+  {
+    while (KateHlManager::self()->syntax->nextGroup(data))
     {
-      while (KateHlManager::self()->syntax->nextGroup(data))
+      kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
+      // BEGIN - Translation of the attribute parameter
+      QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
+      int attr;
+      if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
+        attr=tmpAttr.toInt();
+      else
+        attr=lookupAttrName(tmpAttr,iDl);
+      // END - Translation of the attribute parameter
+
+      ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+
+      QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+      int context;
+
+      context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
+
+      // BEGIN get fallthrough props
+      bool ft = false;
+      int ftc = 0; // fallthrough context
+      if ( i > 0 )  // fallthrough is not smart in context 0
+      {
+        QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
+        if ( IS_TRUE(tmpFt) )
+          ft = true;
+        if ( ft )
         {
-    kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
-          // BEGIN - Translation of the attribute parameter
-          QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
-          int attr;
-          if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
-            attr=tmpAttr.toInt();
-          else
-            attr=lookupAttrName(tmpAttr,iDl);
-          // END - Translation of the attribute parameter
-
-    ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
-
-    QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
-    int context;
-
-    context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
-
-          // BEGIN get fallthrough props
-          bool ft = false;
-          int ftc = 0; // fallthrough context
-          if ( i > 0 ) { // fallthrough is not smart in context 0
-            QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
-            if ( IS_TRUE(tmpFt) )
-              ft = true;
-            if ( ft ) {
-              QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
+          QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
           ftc=getIdFromString(&ContextNameList, tmpFtc,dummy);
-        if (ftc == -1) ftc =0;
+          if (ftc == -1) ftc =0;
 
-              kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
-            }
-          }
-
-          // END falltrhough props
-
-          bool dynamic = false;
-          QString tmpDynamic = KateHlManager::self()->syntax->groupData(data, QString("dynamic") );
-          if ( tmpDynamic.lower() == "true" ||  tmpDynamic.toInt() == 1 )
-            dynamic = true;
-
-          contextList.insert (i, new KateHlContext (
-            attr,
-            context,
-            (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
-            (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-            ft, ftc, dynamic
-                                       ));
-
-
-            //Let's create all items for the context
-            while (KateHlManager::self()->syntax->nextItem(data))
-              {
-//    kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
-
-                // KateHlIncludeRules : add a pointer to each item in that context
-
-                QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
-                if ( tag == "IncludeRules" ) { //if the new item is an Include rule, we have to take special care
-      QString incCtx=KateHlManager::self()->syntax->groupItemData( data, QString("context"));
-      // only context refernces of type NAME and ##Name are allowed
-      if (incCtx.startsWith("##") || (!incCtx.startsWith("#"))) { //#stay, #pop is not interesting here
-        if (!incCtx.startsWith("#")) { // a local reference -> just initialize the include rule structure
-          incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
-          includeRules.append(new KateHlIncludeRule(i,contextList[i]->items.count(),incCtx));
-        }
-        else { //a cross highlighting reference
-          kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
-          KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count());
-          //use the same way to determine cross hl file references as other items do
-          if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
-            embeddedHls.insert(incCtx.right(incCtx.length()-2),KateEmbeddedHlInfo());
-          unresolvedContextReferences.insert(&(ir->incCtx),
-              incCtx.right(incCtx.length()-2));
-          includeRules.append(ir);
+          kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
         }
       }
-      continue;
-    }
+      // END falltrhough props
+
+      bool dynamic = false;
+      QString tmpDynamic = KateHlManager::self()->syntax->groupData(data, QString("dynamic") );
+      if ( tmpDynamic.lower() == "true" ||  tmpDynamic.toInt() == 1 )
+        dynamic = true;
+
+      contextList.insert (i, new KateHlContext (
+        attr,
+        context,
+        (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
+        (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
+        ft, ftc, dynamic ));
+
+      //Let's create all items for the context
+      while (KateHlManager::self()->syntax->nextItem(data))
+      {
+//    kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
+
+      // KateHlIncludeRules : add a pointer to each item in that context
+
+      QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
+      if ( tag == "IncludeRules" ) //if the new item is an Include rule, we have to take special care
+      {
+        QString incCtx=KateHlManager::self()->syntax->groupItemData( data, QString("context"));
+        // only context refernces of type NAME and ##Name are allowed
+        if (incCtx.startsWith("##") || (!incCtx.startsWith("#")))
+        {
+          //#stay, #pop is not interesting here
+          if (!incCtx.startsWith("#"))
+          {
+            // a local reference -> just initialize the include rule structure
+            incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
+            includeRules.append(new KateHlIncludeRule(i,contextList[i]->items.count(),incCtx));
+          }
+          else
+          {
+            //a cross highlighting reference
+            kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
+            KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count());
+
+            //use the same way to determine cross hl file references as other items do
+            if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
+              embeddedHls.insert(incCtx.right(incCtx.length()-2),KateEmbeddedHlInfo());
+
+            unresolvedContextReferences.insert(&(ir->incCtx),
+                incCtx.right(incCtx.length()-2));
+
+            includeRules.append(ir);
+          }
+        }
+
+        continue;
+      }
+      // TODO -- can we remove the block below??
 #if 0
                 QString tag = KateHlManager::self()->syntax->groupKateHlItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {
@@ -2561,32 +2489,36 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
                   continue; // while nextItem
                 }
 #endif
-    c=createKateHlItem(data,iDl,&RegionList,&ContextNameList);
-    if (c)
+      c=createKateHlItem(data,iDl,&RegionList,&ContextNameList);
+      if (c)
       {
-                                contextList[i]->items.append(c);
+        contextList[i]->items.append(c);
 
-                                // Not supported completely atm and only one level. Subitems.(all have to be matched to at once)
+        // Not supported completely atm and only one level. Subitems.(all have to be matched to at once)
         datasub=KateHlManager::self()->syntax->getSubItems(data);
         bool tmpbool;
         if (tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
+        {
+          c->subItems=new QPtrList<KateHlItem>;
+          for (;tmpbool;tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
           {
-            c->subItems=new QPtrList<KateHlItem>;
-            for (;tmpbool;tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
-                                            c->subItems->append(createKateHlItem(datasub,iDl,&RegionList,&ContextNameList));
-                                        }
-        KateHlManager::self()->syntax->freeGroupInfo(datasub);
-                                // end of sublevel
-      }
-//    kdDebug(13010)<<"Last line in loop"<<endl;
-              }
-          i++;
+            c->subItems->append(createKateHlItem(datasub,iDl,&RegionList,&ContextNameList));
+          }                             }
+          KateHlManager::self()->syntax->freeGroupInfo(datasub);
+                              // end of sublevel
         }
       }
+      i++;
+    }
+  }
 
   KateHlManager::self()->syntax->freeGroupInfo(data);
-  if (RegionList.count()!=1) folding=true;
+
+  if (RegionList.count()!=1)
+    folding=true;
+
   folding = folding || m_foldingIndentationSensitive;
+
   return i;
 }
 
@@ -2818,12 +2750,10 @@ int KateHlManager::realWildcardFind(const QString &fileName)
   return -1;
 }
 
-int KateHlManager::mimeFind(/*const QByteArray &contents*/KateDocument *doc)
+int KateHlManager::mimeFind( KateDocument *doc )
 {
   static QRegExp sep("\\s*;\\s*");
 
-//   int accuracy = 0;
-//   KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
   KMimeType::Ptr mt = doc->mimeTypeForContent();
 
   QPtrList<KateHighlighting> highlights;
@@ -3005,9 +2935,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 
       tmp=s[7]; if (!tmp.isEmpty()) {
          col=tmp.toUInt(0,16); i->setSelectedBGColor(col); }
-
     }
-
   }
 }
 
@@ -3130,7 +3058,9 @@ void KateViewHighlightAction::slotAboutToShow()
   for (uint i=0;i<subMenus.count();i++)
   {
     for (uint i2=0;i2<subMenus.at(i)->count();i2++)
+    {
       subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
+    }
   }
   popupMenu()->setItemChecked (0, false);
 

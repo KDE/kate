@@ -27,6 +27,7 @@
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/viewcursorinterface.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/dynwordwrapinterface.h>
 
 class KConfig;
 
@@ -40,8 +41,8 @@ class Document;
   @author Cullmann Christoph, modified by rokrau (6/21/01)
 */
 class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
-             public KTextEditor::PopupMenuInterface, public KTextEditor::ViewCursorInterface,
-	     public KTextEditor::CodeCompletionInterface
+              public KTextEditor::PopupMenuInterface, public KTextEditor::ViewCursorInterface,
+              public KTextEditor::CodeCompletionInterface, public KTextEditor::DynWordWrapInterface
 {
   Q_OBJECT
 

@@ -33,6 +33,7 @@
 #include <ktexteditor/highlightinginterface.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/markinterface.h>
+#include <ktexteditor/wordwrapinterface.h>
 #include <ktexteditor/printinterface.h>
 
 namespace Kate
@@ -80,7 +81,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::SelectionInterface, public KTextEditor::SearchInterface,
                      public KTextEditor::HighlightingInterface, public KTextEditor::BlockSelectionInterface,
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
-                     public KTextEditor::PrintInterface
+                     public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface
 {
   Q_OBJECT
 

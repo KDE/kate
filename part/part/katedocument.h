@@ -615,6 +615,7 @@ class KateDocument : public Kate::Document
     void setEncoding (QString e) { myEncoding = e; };
     QString encoding() { return myEncoding; };
 
+   public slots:
     void setWordWrap (bool on);
     bool wordWrap () { return myWordWrap; };
 

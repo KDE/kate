@@ -4819,7 +4819,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
   // need to reinitialize the <b> and <i> tags.
   bool needToReinitializeTags = false;
   QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
-  (*outputStream) << "<span style='color=#000000'>";
+  (*outputStream) << "<span style='color: #000000'>";
 
   for (uint curLine=0;curLine<numLines();curLine++)
   { // html-export that line :
@@ -4845,7 +4845,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
         int red, green, blue;
         // getting the red, green, blue values of the color :
         charAttributes->col.rgb(&red, &green, &blue);
-        (*outputStream) << "<span style='color:#"
+        (*outputStream) << "<span style='color: #"
               << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
               << QString::number(red, 16) // html wants the hex value here (hence the 16)
               << ( (green < 0x10)?"0":"")

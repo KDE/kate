@@ -190,6 +190,7 @@ private:
     KateDocument* m_doc;
     KateView* m_view;
     QMap<KateView*, class KateRendererSettings*> m_settings;
+    KateRendererSettings* m_currentSettings;
 };
 
 #endif

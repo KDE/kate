@@ -86,26 +86,28 @@ void KateRenderer::setView(KateView* view)
   m_view = view;
   if (!m_settings.contains(m_view))
     m_settings.insert(m_view, new KateRendererSettings());
+
+  m_currentSettings = m_settings[m_view];
 }
 
 bool KateRenderer::drawCaret() const
 {
-  return m_settings[m_view]->drawCaret;
+  return m_currentSettings->drawCaret;
 }
 
 void KateRenderer::setDrawCaret(bool drawCaret)
 {
-  m_settings[m_view]->drawCaret = drawCaret;
+  m_currentSettings->drawCaret = drawCaret;
 }
 
 bool KateRenderer::caretStyle() const
 {
-  return m_settings[m_view]->caretStyle;
+  return m_currentSettings->caretStyle;
 }
 
 void KateRenderer::setCaretStyle(int style)
 {
-  m_settings[m_view]->caretStyle = style;
+  m_currentSettings->caretStyle = style;
 }
 
 int KateRenderer::tabWidth()
@@ -123,54 +125,54 @@ void KateRenderer::setTabWidth(int tabWidth)
 
 bool KateRenderer::showTabs() const
 {
-  return m_settings[m_view]->showTabs;
+  return m_currentSettings->showTabs;
 }
 
 void KateRenderer::setShowTabs(bool showTabs)
 {
-  m_settings[m_view]->showTabs = showTabs;
+  m_currentSettings->showTabs = showTabs;
 }
 
 bool KateRenderer::showSelections() const
 {
-  return m_settings[m_view]->showSelections;
+  return m_currentSettings->showSelections;
 }
 
 void KateRenderer::setShowSelections(bool showSelections)
 {
-  m_settings[m_view]->showSelections = showSelections;
+  m_currentSettings->showSelections = showSelections;
 }
 
 int KateRenderer::font() const
 {
-  return m_settings[m_view]->font;
+  return m_currentSettings->font;
 }
 
 void KateRenderer::setFont(int whichFont)
 {
-  m_settings[m_view]->font = whichFont;
+  m_currentSettings->font = whichFont;
 }
 
 void KateRenderer::increaseFontSizes()
 {
   // FIXME broken!!
-  //m_settings[m_view]->font.setPointSize(font.pointSize()+1);
+  //m_currentSettings->font.setPointSize(font.pointSize()+1);
 }
 
 void KateRenderer::decreaseFontSizes()
 {
   // FIXME broken!!
-  // m_settings[m_view]->font.setPointSize(m_settings[m_view]->font.pointSize()-1);
+  // m_currentSettings->font.setPointSize(m_currentSettings->font.pointSize()-1);
 }
 
 bool KateRenderer::isPrinterFriendly() const
 {
-  return m_settings[m_view]->printerFriendly;
+  return m_currentSettings->printerFriendly;
 }
 
 void KateRenderer::setPrinterFriendly(bool printerFriendly)
 {
-  m_settings[m_view]->printerFriendly = printerFriendly;
+  m_currentSettings->printerFriendly = printerFriendly;
   setFont(PrintFont);
   setShowTabs(false);
   setShowSelections(false);
@@ -617,6 +619,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   {
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
     int width = a->width(fs, textLine->string(), z);
+    Q_ASSERT(width);
     x += width;
 
     if (textLine->getChar(z).isSpace())

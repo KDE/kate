@@ -33,13 +33,11 @@ class CursorInterface
 
     virtual bool setPosition ( int line, int col ) = 0;
 
-    virtual bool move ( int numberOfCharacters ) = 0;
-
     virtual bool insert ( const QString& text, bool overwrite = false ) = 0;
 
     virtual bool remove ( int numberOfCharacters, bool backwards = false ) = 0;
 
-    virtual QChar current() const = 0;
+    virtual QChar currentChar () const = 0;
 };
 
 };

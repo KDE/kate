@@ -67,6 +67,12 @@ class EditInterface
     virtual bool insertText ( const QString &text, int line = -1, int col = -1 ) = 0;
 
     /**
+    *  remove text at line "line", column "col"
+    *  returns true if success
+    */
+    virtual bool removeText ( int line = 0, int col = 0, len = -1; ) = 0;
+
+    /**
     * Insert line(s) at the given line number. If the line number is -1
     * (the default) then the line is added to end of the document
     */

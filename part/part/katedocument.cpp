@@ -192,6 +192,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   if ( m_bSingleViewMode )
   {
     KTextEditor::View *view = createView( parentWidget, widgetName );
+    insertChildClient( view );
     view->show();
     setWidget( view );
   }

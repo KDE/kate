@@ -135,9 +135,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
       plugin->setView (this);
     }
   }     
-  
-  if (doc->m_bSingleViewMode)
-    doc->insertChildClient (this);
 }
 
 KateView::~KateView()

@@ -480,16 +480,16 @@ KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
      from = m_highlightedTo;
    uint done = 0;
    bool endStateChanged = true;
-   
+
    while (done < to)
    {
-      KateBufBlock *buf = findBlock(from);     
+      KateBufBlock *buf = findBlock(from);
       if (!buf)
-         return;     
-     
-      if (!buf->b_stringListValid)     
-      {     
-         parseBlock(buf);     
+         return;
+
+      if (!buf->b_stringListValid)
+      {
+         parseBlock(buf);
       }
 
       if (buf->b_needHighlight || invalidate ||
@@ -512,7 +512,13 @@ KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
          buf->b_needHighlight = false;
          endStateChanged = needHighlight(buf, startState, fromLine, tillLine);
          *buf->m_endState.line = *(buf->line(buf->m_endState.lineNr - buf->m_beginState.lineNr - 1));
-      }         
+
+          if (buf->b_rawDataValid)
+          {
+            dirtyBlock(buf);
+          }
+      }
+
       done = buf->m_endState.lineNr;
       from = done;
    }
@@ -652,14 +658,6 @@ KateBuffer::parseBlock(KateBufBlock *buf)
    m_parsedBlocksClean.append(buf);
    assert(m_loadedBlocks.find(buf) != -1);
    m_loadedBlocks.removeRef(buf);
-
-#if 0
-   // From now on store the raw block in unicode.
-   // As a side-effect this will also store the highlighting info, which
-   // is the real reason that we do this.
-   if (buf->m_codec)
-      dirtyBlock(buf);
-#endif
 }
 
 void

@@ -30,7 +30,6 @@
 #include "katedocument.h"
 #include "katecodefoldinghelpers.h"
 #include "kateiconborder.h"
-/*#include "katedynwwbar.h"*/
 #include "katehighlight.h"
 #include "katesupercursor.h"
 

@@ -171,7 +171,7 @@ QSize KateIconBorder::sizeHint() const
 {
   int w = 0;
 
-  if (m_lineNumbersOn || true /* FIXME preference */) {
+  if (m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */)) {
     w += lineNumberWidth();
   }
 
@@ -237,8 +237,6 @@ int KateIconBorder::lineNumberWidth() const
         p.lineTo(w/4, h/2);
         p.lineTo(w-1, h/2);
       }
-
-      m_oldBackgroundColor = m_doc->colors[0];
     }
   }
 
@@ -260,7 +258,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   uint lineRangesSize = m_viewInternal->lineRanges.size();
 
   int lnWidth( 0 );
-  if ( m_lineNumbersOn || true /* FIXME preference */ ) // avoid calculating unless needed ;-)
+  if ( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) ) // avoid calculating unless needed ;-)
   {
     lnWidth = lineNumberWidth();
     if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != m_doc->colors[0] )
@@ -270,6 +268,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       // are displayed, but sizeHint() is supposed to be const so we can't set
       // the cached value there.
       m_cachedLNWidth = lnWidth;
+      m_oldBackgroundColor = m_doc->colors[0];
+      kdDebug() << k_lineinfo << lnWidth << " " << m_cachedLNWidth << endl;
       updateGeometry();
       update ();
       return;
@@ -300,7 +300,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       p.fillRect( 0, y, w, h, m_doc->colors[0] );
 
     // line number
-    if( m_lineNumbersOn || true /* FIXME preference */)
+    if( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) )
     {
       lnX +=2;
       p.drawLine( lnbx, y, lnbx, y+h );
@@ -309,7 +309,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         if (m_viewInternal->lineRanges[z].startCol == 0) {
           if (m_lineNumbersOn)
             p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
-        } else if (true /* FIXME preference */) {
+        } else if (m_view->dynWordWrap() /* && FIXME preference */) {
           p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
         }
 

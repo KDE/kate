@@ -16,6 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+// $Id$
+
 #include "katecmdline.h"
 #include "katecmdline.moc"
 
@@ -27,7 +29,7 @@
 
 #include <klocale.h>
 
-// $Id$
+#include <qtimer.h>
 
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
@@ -80,6 +82,12 @@ void KateCmdLine::slotReturnPressed ( const QString& cmd )
   }
 
   m_view->setFocus ();
+  QTimer::singleShot( 4000, this, SLOT(hideMe()) );
+}
+
+void KateCmdLine::hideMe ()
+{
+  m_view->showCmdLine (false);
 }
 
 void KateCmdLine::focusInEvent ( QFocusEvent *ev )
@@ -91,6 +99,17 @@ void KateCmdLine::focusInEvent ( QFocusEvent *ev )
   }
 
   KLineEdit::focusInEvent (ev);
+}
+
+void KateCmdLine::keyPressEvent( QKeyEvent *ev )
+{
+  if (ev->key() == Key_Escape)
+  {
+    m_view->setFocus ();
+    m_view->showCmdLine (false);
+  }
+
+  return KLineEdit::keyPressEvent (ev);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

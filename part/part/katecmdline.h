@@ -33,9 +33,11 @@ class KateCmdLine : public KLineEdit
 
   private slots:
     void slotReturnPressed ( const QString& cmd );
+    void hideMe ();
 
   protected:
     void focusInEvent ( QFocusEvent *ev );
+    void keyPressEvent( QKeyEvent *ev );
 
   private:
     KateView *m_view;

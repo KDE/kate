@@ -1792,7 +1792,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 }
 
 //
-// START EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// START EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
@@ -1957,8 +1957,8 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
   }
 
   if( m_view->popup() && e->button() == RightButton ) {
-    if( !isTargetSelected( e->pos() ) )
-      placeCursor( e->pos() );
+    //if( !isTargetSelected( e->pos() ) )
+    //  placeCursor( e->pos() );
     m_view->popup()->popup( mapToGlobal( e->pos() ) );
   }
 }

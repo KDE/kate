@@ -1050,8 +1050,10 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
                         * return value: signed char*  new context stack at the end of the line
 *******************************************************************************************/
 
-void KateHighlighting::doHighlight(QMemArray<short> oCtx, KateTextLine *textLine,bool lineContinue,
-        QMemArray<signed char>* foldingList)
+void KateHighlighting::doHighlight ( const QMemArray<short> &oCtx,
+                                     KateTextLine *textLine,
+                                     bool lineContinue,
+                                     QMemArray<signed char>* foldingList )
 {
   if (!textLine)
     return;

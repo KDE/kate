@@ -654,8 +654,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
   
   bool line_continue = prevLine->hlLineContinue();
   
-  QMemArray<short> ctxNum, endCtx;
-  ctxNum.duplicate (prevLine->ctxArray ()); 
+  QMemArray<short> endCtx;
 
   // does we need to emit a signal for the folding changes ?
   bool codeFoldingUpdate = false;
@@ -677,7 +676,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
     endCtx.duplicate (textLine->ctxArray ());
 
     QMemArray<signed char> foldingList;
-    m_highlight->doHighlight(ctxNum, textLine, line_continue, &foldingList);
+    m_highlight->doHighlight(prevLine->ctxArray(), textLine, line_continue, &foldingList);
 
     //
     // indentation sensitive folding
@@ -804,9 +803,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
 
     line_continue=textLine->hlLineContinue();
 
-    ctxNum.duplicate (textLine->ctxArray());
-
-    if ( indentChanged || (endCtx.size() != ctxNum.size()) )
+    if ( indentChanged || (endCtx.size() != textLine->ctxArray().size()) )
     {
       stillcontinue = true;
     }
@@ -814,7 +811,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
     {
       stillcontinue = false;
 
-      if ((ctxNum != endCtx))
+      if ((endCtx != textLine->ctxArray()))
         stillcontinue = true;
     }
 

@@ -244,7 +244,7 @@ void KateView::setupActions()
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
     "The characters for single/multiple line comments are defined within the language's highlighting."));
     a = m_toggleWriteLock = new KToggleAction(
-                i18n("Write &Lock"), 0, 0,
+                i18n("&Read Only Mode"), 0, 0,
                 this, SLOT( toggleWriteLock() ),
                 ac, "tools_toggle_write_lock" );
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );

@@ -106,8 +106,7 @@ class KateView : public Kate::View,
         { return setCursorPositionInternal( line, col, 1, true );           }
     uint cursorLine()
         { return m_viewInternal->getCursor().line();                    }
-    uint cursorColumn()
-        { return m_doc->currentColumn(m_viewInternal->getCursor());   }
+    uint cursorColumn();
     uint cursorColumnReal()
         { return m_viewInternal->getCursor().col();                     }
 

@@ -25,6 +25,8 @@
 #include <qobject.h>
 #include <qintdict.h>
 
+class KateBuffer;
+
 class QString;
 //END
 
@@ -94,7 +96,7 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
   Q_OBJECT
 
   public:
-    KateCodeFoldingTree (QObject *);
+    KateCodeFoldingTree (KateBuffer *buffer);
     ~KateCodeFoldingTree ();
 
     KateCodeFoldingNode *findNodeForLine (unsigned int line);
@@ -116,6 +118,8 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void clear ();
 
   private:
+    KateBuffer *m_buffer;
+
     QIntDict<unsigned int> lineMapping;
     QIntDict<bool>         dontIgnoreUnchangedLines;
 

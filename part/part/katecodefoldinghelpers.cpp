@@ -19,6 +19,8 @@
 #include "katecodefoldinghelpers.h"
 #include "katecodefoldinghelpers.moc"
 
+#include "katebuffer.h"
+
 #include <kdebug.h>
 
 #include <qstring.h>
@@ -63,7 +65,7 @@ KateCodeFoldingNode::~KateCodeFoldingNode()
 }
 
 
-KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFoldingNode()
+KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer): QObject(buffer), KateCodeFoldingNode(), m_buffer (buffer)
 {
   clear();
 }
@@ -421,7 +423,7 @@ bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 
   if (!parent)
     return false;
-  
+
   if (node->type == 0)
     return false;
 
@@ -1145,6 +1147,9 @@ void KateCodeFoldingTree::dontDeleteOpening(KateCodeFoldingNode* node)
 
 void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 {
+  // hl whole file
+  m_buffer->line (m_buffer->count()-1);
+
   lineMapping.clear();
   hiddenLinesCountCacheValid = false;
   kdDebug(13000)<<QString("KateCodeFoldingTree::toggleRegionVisibility() %1").arg(line)<<endl;
@@ -1342,9 +1347,11 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
   return hiddenLinesCountCache;
 }
 
-
 void KateCodeFoldingTree::collapseToplevelNodes()
 {
+  // hl whole file
+  m_buffer->line (m_buffer->count()-1);
+
   if( !hasChildNodes ())
     return;
 
@@ -1364,6 +1371,9 @@ void KateCodeFoldingTree::collapseToplevelNodes()
 
 void KateCodeFoldingTree::expandToplevelNodes(int numLines)
 {
+  // hl whole file
+  m_buffer->line (m_buffer->count()-1);
+
   KateLineInfo line;
   for (int i = 0; i < numLines; i++) {
     getLineInfo(&line, i);
@@ -1375,6 +1385,9 @@ void KateCodeFoldingTree::expandToplevelNodes(int numLines)
 
 int KateCodeFoldingTree::collapseOne(int realLine)
 {
+  // hl whole file
+  m_buffer->line (m_buffer->count()-1);
+
   KateLineInfo line;
   int unrelatedBlocks = 0;
   for (int i = realLine; i >= 0; i--) {
@@ -1401,6 +1414,9 @@ int KateCodeFoldingTree::collapseOne(int realLine)
 
 void KateCodeFoldingTree::expandOne(int realLine, int numLines)
 {
+  // hl whole file
+  m_buffer->line (m_buffer->count()-1);
+
   KateLineInfo line;
   int blockTrack = 0;
   for (int i = realLine; i >= 0; i--) {

@@ -134,7 +134,7 @@ bool SyntaxDocument::nextItem( syntaxContextData* data){
 }
 
 /**
- *
+ * This function is used to fetch the atributes of the tags of the item in a syntaxContextData.
  */
 QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QString& name){
   if(!data){

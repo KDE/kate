@@ -1084,9 +1084,12 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e) {
     getVConfig(c);
     myDoc->selectWord(c.cursor, c.flags);
     // anders: move cursor to end of selected word
-    cursor.col = myDoc->selectEnd.col;
-    cursor.line = myDoc->selectEnd.line;
-    updateCursor( cursor, true );
+    if (myDoc->hasSelection())
+    {
+      cursor.col = myDoc->selectEnd.col;
+      cursor.line = myDoc->selectEnd.line;
+      updateCursor( cursor, true );
+    }
     //myDoc->updateViews(); allready called by document->setSelection()
   }
 }

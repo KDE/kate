@@ -2673,6 +2673,7 @@ void KateDocument::backspace( const KateTextCursor& c )
       removeText (line-1, buffer->line(line-1)->length(), line, 0);
     }
   }
+  emit backspacePressed();
 }
 
 void KateDocument::del( const KateTextCursor& c )

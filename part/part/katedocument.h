@@ -149,6 +149,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   signals:
     void textChanged ();
     void charactersInteractivelyInserted(int ,int ,const QString&);
+    void backspacePressed();
 
   public:
     //

@@ -691,6 +691,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void slotModOnHdCreated (const QString &path);
     void slotModOnHdDeleted (const QString &path);
 
+  public:
+    // should cursor be wrapped ? take config + blockselection state in account
+    bool wrapCursor ();
+
   //
   // REALLY internal data ;)
   //

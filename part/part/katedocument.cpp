@@ -5047,6 +5047,8 @@ bool KateDocument::checkColorValue( QString val, QColor &c )
   return c.isValid();
 }
 
+//END
+
 void KateDocument::slotModOnHdDirty (const QString &path)
 {
   if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 1))
@@ -5077,6 +5079,9 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
   }
 }
 
-//END
+bool KateDocument::wrapCursor ()
+{
+  return !blockSelect && (configFlags() & KateDocument::cfWrapCursor);
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

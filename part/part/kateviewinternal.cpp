@@ -891,14 +891,14 @@ void KateViewInternal::doDeleteWordRight()
 
 class CalculatingCursor : public KateTextCursor {
 public:
-  CalculatingCursor( const Kate::Document& doc )
+  CalculatingCursor( const KateDocument& doc )
     : KateTextCursor(), m_doc( doc )
     { Q_ASSERT( valid() ); }
-  CalculatingCursor( const Kate::Document& doc, const KateTextCursor& c )
+  CalculatingCursor( const KateDocument& doc, const KateTextCursor& c )
     : KateTextCursor( c ), m_doc( doc )
     { Q_ASSERT( valid() ); }
   // This one constrains its arguments to valid positions
-  CalculatingCursor( const Kate::Document& doc, uint line, uint col )
+  CalculatingCursor( const KateDocument& doc, uint line, uint col )
     : KateTextCursor( line, col ), m_doc( doc )
     { makeValid(); }
   virtual CalculatingCursor& operator+=( int n ) = 0;
@@ -907,7 +907,7 @@ public:
   CalculatingCursor& operator--() { return operator-=( 1 ); }
   void makeValid() {
     m_line = QMAX( 0, QMIN( int( m_doc.numLines() - 1 ), line() ) );
-    if (const_cast<Kate::Document&>(m_doc).configFlags() & KateDocument::cfWrapCursor)
+    if (const_cast<KateDocument&>(m_doc).wrapCursor())
       m_col = QMAX( 0, QMIN( m_doc.lineLength( line() ), col() ) );
     else
       m_col = QMAX( 0, col() );
@@ -927,23 +927,23 @@ public:
     }
   }
 protected:
-  // Argh! Kate::Document::configFlags() is not const :(
+  // Argh! KateDocument::configFlags() is not const :(
   bool valid() const {
     return line() >= 0 &&
             uint( line() ) < m_doc.numLines() &&
             col()  >= 0 &&
-            (!(const_cast<Kate::Document&>(m_doc).configFlags() & KateDocument::cfWrapCursor) || col() <= m_doc.lineLength( line() ));
+            (!(const_cast<KateDocument&>(m_doc).wrapCursor()) || col() <= m_doc.lineLength( line() ));
   }
-  const Kate::Document& m_doc;
+  const KateDocument& m_doc;
 };
 
 class BoundedCursor : public CalculatingCursor {
 public:
-  BoundedCursor( const Kate::Document& doc )
+  BoundedCursor( const KateDocument& doc )
     : CalculatingCursor( doc ) {};
-  BoundedCursor( const Kate::Document& doc, const KateTextCursor& c )
+  BoundedCursor( const KateDocument& doc, const KateTextCursor& c )
     : CalculatingCursor( doc, c ) {};
-  BoundedCursor( const Kate::Document& doc, uint line, uint col )
+  BoundedCursor( const KateDocument& doc, uint line, uint col )
     : CalculatingCursor( doc, line, col ) {};
   virtual CalculatingCursor& operator+=( int n ) {
     m_col += n;
@@ -959,11 +959,11 @@ public:
 
 class WrappingCursor : public CalculatingCursor {
 public:
-  WrappingCursor( const Kate::Document& doc )
+  WrappingCursor( const KateDocument& doc )
     : CalculatingCursor( doc ) {};
-  WrappingCursor( const Kate::Document& doc, const KateTextCursor& c )
+  WrappingCursor( const KateDocument& doc, const KateTextCursor& c )
     : CalculatingCursor( doc, c ) {};
-  WrappingCursor( const Kate::Document& doc, uint line, uint col )
+  WrappingCursor( const KateDocument& doc, uint line, uint col )
     : CalculatingCursor( doc, line, col ) {};
   virtual CalculatingCursor& operator+=( int n ) {
     if( n < 0 ) return operator-=( -n );
@@ -1002,7 +1002,7 @@ void KateViewInternal::moveChar( Bias bias, bool sel )
 {
   KateTextCursor c;
   // Wrap cursor off and dynamic word wrap are mutually exclusive for now, supporting it would be too hackish
-  if ( m_view->dynWordWrap() || m_doc->configFlags() & KateDocument::cfWrapCursor ) {
+  if ( m_view->dynWordWrap() || m_doc->wrapCursor() ) {
     c = WrappingCursor( *m_doc, cursor ) += bias;
   } else {
     c = BoundedCursor( *m_doc, cursor ) += bias;
@@ -1345,7 +1345,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
       if (m_currentMaxX > cXPos)
         cXPos = m_currentMaxX;
 
-      if (m_doc->configFlags() & KateDocument::cfWrapCursor)
+      if (m_doc->wrapCursor())
         cXPos = QMIN(cXPos, (int)m_view->renderer()->textWidth(m_doc->kateTextLine(realLine), m_doc->lineLength(realLine)));
 
       m_view->renderer()->textWidth(ret, cXPos);
@@ -1520,7 +1520,7 @@ void KateViewInternal::cursorUp(bool sel)
   } else {
     newLine = m_doc->getRealLine(displayCursor.line() - 1);
 
-    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > cXPos)
+    if ((m_doc->wrapCursor()) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
 
@@ -1582,7 +1582,7 @@ void KateViewInternal::cursorDown(bool sel)
   } else {
     newLine = m_doc->getRealLine(displayCursor.line() + 1);
 
-    if ((m_doc->configFlags() & KateDocument::cfWrapCursor) && m_currentMaxX > cXPos)
+    if ((m_doc->wrapCursor()) && m_currentMaxX > cXPos)
       cXPos = m_currentMaxX;
   }
 

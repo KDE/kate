@@ -420,7 +420,7 @@ void KateView::customEvent( QCustomEvent *ev )
 {
     if ( KParts::GUIActivateEvent::test( ev ) && static_cast<KParts::GUIActivateEvent *>( ev )->activated() )
     {
-        installPopup(static_cast<QPopupMenu *>(factory()->container("rb_popup", this) ) );
+        installPopup(static_cast<QPopupMenu *>(factory()->container("katepart_popup", this) ) );
         return;
     }
 

@@ -35,7 +35,7 @@
   </Menu>
 </MenuBar>
 
-<Menu name="rb_popup">
+<Menu name="katepart_popup">
   <Action name="file_save_as"/>
   <Separator />
   <Action name="edit_copy"/>

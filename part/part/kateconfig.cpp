@@ -862,7 +862,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 {
   configStart ();
 
-  setSchema (KateFactory::self()->schemaManager()->number (config->readEntry("Schema", "Kate Normal Schema")));
+  setSchema (KateFactory::self()->schemaManager()->number (config->readEntry("Schema", KateSchemaManager::normalSchema())));
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 

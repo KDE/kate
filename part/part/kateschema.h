@@ -76,6 +76,9 @@ class KateSchemaManager
      * Don't modify, list with the names of the schemas (i18n name for the default ones)
      */
     const QStringList &list () { return m_schemas; }
+    
+    static QString normalSchema ();
+    static QString printingSchema ();
 
   private:
     KConfig m_config;

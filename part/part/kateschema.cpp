@@ -65,12 +65,12 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 
-static QString normalSchema ()
+QString KateSchemaManager::normalSchema ()
 {
   return KApplication::kApplication()->aboutData()->appName () + QString (" - Normal");
 }
 
-static QString printingSchema ()
+QString KateSchemaManager::printingSchema ()
 {
   return KApplication::kApplication()->aboutData()->appName () + QString (" - Printing");
 }
@@ -546,7 +546,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   hbHl = new QHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  lHl = new QLabel( i18n("&Default Schema:"), hbHl );
+  lHl = new QLabel( i18n("&Default Schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( defaultSchemaCombo );
   connect( defaultSchemaCombo, SIGNAL(activated(int)),

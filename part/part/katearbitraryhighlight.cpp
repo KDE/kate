@@ -22,6 +22,8 @@
 #include "katesupercursor.h"
 #include "katedocument.h"
 
+#include <kdebug.h>
+
 #include <qfont.h>
 
 ArbitraryHighlightRange::ArbitraryHighlightRange(KateSuperCursor* start,
@@ -36,6 +38,10 @@ ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateRa
 
 ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
   : KateSuperRange(doc, start, end, parent, name)
+{
+}
+
+ArbitraryHighlightRange::~ArbitraryHighlightRange()
 {
 }
 
@@ -86,6 +92,10 @@ KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView*
   // OPTIMISE make return value persistent
 
   static KateSuperRangeList s_return(false);
+
+  for (uint i=0; i < s_return.count(); i++)
+    kdDebug () << "ADDR " << s_return.at(i) << endl;
+
   Q_ASSERT(!s_return.autoDelete());
   s_return.clear();
 

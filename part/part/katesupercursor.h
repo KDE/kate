@@ -167,6 +167,8 @@ public:
  */
 class KateSuperRange : public QObject, public KateRange
 {
+			  friend class KateSuperRangeList;
+
   Q_OBJECT
 
 public:
@@ -419,12 +421,6 @@ signals:
    * If autoManage() is true, the range will be deleted after the signal has processed.
    */
   void rangeEliminated(KateSuperRange* range);
-
-  /**
-   * The range was deleted.  This is not emitted when the range is deleted through
-   * auto-management.
-   */
-  void rangeDeleted(KateSuperRange* range);
 
   /**
    * There are no ranges left.

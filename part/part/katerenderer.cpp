@@ -125,9 +125,13 @@ void KateRenderer::setPrinterFriendly(bool printerFriendly)
 
 void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
 {
-  static QTime timer;
+  int line = range->line;
 
-  static const bool timeDebug = false;
+  // textline
+  TextLine::Ptr textLine = m_doc->kateTextLine(line);
+
+  if (!textLine)
+    return;
 
   int showCursor = (drawCaret() && cursor && range->includesCursor(*cursor)) ? cursor->col() : -1;
 
@@ -136,9 +140,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // A bit too verbose for my tastes
   // Re-write a bracketmark class? put into its own function? add more helper constructors to the range stuff?
   // Also, need a light-weight arbitraryhighlightrange class for static stuff
-  ArbitraryHighlightRange* bracketStartRange = 0L;
-  ArbitraryHighlightRange* bracketEndRange = 0L;
-  ArbitraryHighlightRange* bracketRange = 0L;
+  ArbitraryHighlightRange* bracketStartRange (0L);
+  ArbitraryHighlightRange* bracketEndRange (0L);
   if (bracketmark && bracketmark->isValid()) {
     if (range->includesCursor(bracketmark->start())) {
       KateTextCursor startend = bracketmark->start();
@@ -155,22 +158,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       bracketEndRange->setBGColor(*config()->highlightedBracketColor());
       superRanges.append(bracketEndRange);
     }
-
-    /*if (*range >= bracketmark->start() && *range <= bracketmark->end()) {
-      if (bracketmark->start() < bracketmark->end())
-        bracketRange = new ArbitraryHighlightRange(m_doc, bracketmark->start(), bracketmark->end());
-      else
-        bracketRange = new ArbitraryHighlightRange(m_doc, bracketmark->end(), bracketmark->start());
-
-      bracketRange->setOutline(*config()->highlightedBracketColor());
-      superRanges.append(bracketRange);
-    }*/
   }
 
   // font data
   FontStruct * fs = config()->fontStruct();
 
-  int line = range->line;
   bool currentLine = false;
 
   if (cursor && range->includesCursor(*cursor))
@@ -182,13 +174,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // text attribs font/style data
   KateAttribute* at = m_doc->attribs()->data();
   uint atLen = m_doc->attribs()->size();
-
-  // textline
-  TextLine::Ptr textLine = m_doc->kateTextLine(line);
-
-  if (!textLine)
-    // no success
-    return;
 
   // length, chars + raw attribs
   uint len = textLine->length();
@@ -560,27 +545,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     }
   }
 
-  //range->debugOutput();
-  if (timeDebug /*&& timer.elapsed() > 10*/) {
-    kdDebug() << k_funcinfo << "Elapsed: " << timer.elapsed() << "ms" << endl;
-    //kdDebug() << textLine->string() << endl;
-  }
-
-  // unneeded?
-  if (bracketStartRange) {
-    Q_ASSERT(superRanges.removeRef(bracketStartRange));
-    delete bracketStartRange;
-  }
-
-  if (bracketEndRange) {
-    Q_ASSERT(superRanges.removeRef(bracketEndRange));
-    delete bracketEndRange;
-  }
-
-  if (bracketRange) {
-    Q_ASSERT(superRanges.removeRef(bracketRange));
-    delete bracketRange;
-  }
+  // cleanup ;)
+  delete bracketStartRange;
+  delete bracketEndRange;
 }
 
 uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)

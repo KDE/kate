@@ -38,6 +38,8 @@ public:
   ArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
   ArbitraryHighlightRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
 
+	virtual ~ArbitraryHighlightRange();
+
   virtual void changed() { slotTagRange(); };
 
   static KateAttribute merge(QPtrList<KateSuperRange> ranges);

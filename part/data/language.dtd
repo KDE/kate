@@ -1,19 +1,19 @@
-<!--    
+<!--
         Copyright (c) 2001 Joseph Wenninger <jowenn@kde.org>
         modified (c) 2002 Anders >Lund anders@alweb.dk>
-        
+
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
         desktop environment (http://www.kde.org).
-        
+
         This format is identified using the SYSTEM identifier
         SYSTEM "language.dtd"
-        
+
         Files using this format should include a DOCTYPE declaration like this:
         <!DOCTYPE language SYSTEM "language.dtd">
 -->
 <!ENTITY % ruleattrs
- "attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text -- 
+ "attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text --
   context       NMTOKEN #REQUIRED       -- The name of the context to go to when this rule
                                            matches --
   beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
@@ -34,6 +34,7 @@
   version       CDATA   #IMPLIED        -- Version number of this syntax description --
   kateverison   CDATA   #IMPLIED        -- Kate version required for using this file --
   casesensitive (0|1)   #IMPLIED        -- ?? --
+  priority       CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
 >
 
 <!ELEMENT general (comments?, keywords?)>
@@ -57,7 +58,7 @@
   weakDeliminator CDATA #IMPLIED
 >
 
-<!ELEMENT highlighting (list*, contexts, itemDatas) -- Data, rules and attributes for 
+<!ELEMENT highlighting (list*, contexts, itemDatas) -- Data, rules and attributes for
                                            analyzing and rendering the relevant type of text -- >
 <!ATTLIST highlighting
 >
@@ -175,7 +176,7 @@
 
 <!ELEMENT IncludeRules EMPTY            -- Include another context at this position -- >
 <!ATTLIST IncludeRules
-  context       NMTOKEN #REQUIRED       -- The name or index of the context to include -- 
+  context       NMTOKEN #REQUIRED       -- The name or index of the context to include --
 >
 
 <!ELEMENT itemDatas (itemData)+         -- Attribute list -- >
@@ -186,11 +187,11 @@
 <!ATTLIST itemData
   name          CDATA   #REQUIRED       -- The name of this attribute --
   defStyleNum   CDATA   #REQUIRED       -- The index of the default style to use --
-  color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name 
+  color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name
                                            or some other format recognized by Qt --
   selColor      CDATA   #IMPLIED        -- The color for this style when text is selected --
   italic        CDATA   #IMPLIED        -- Wheather this attribute should be rendered using
-                                           an italic typeface --         
+                                           an italic typeface --
   bold          CDATA   #IMPLIED        -- Wheather this attribute should be renederd using
                                            a bold typeface --
 >

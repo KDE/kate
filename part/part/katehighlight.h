@@ -96,11 +96,12 @@ typedef QPtrList<ItemData> ItemDataList;
 
 class HlData {
   public:
-    HlData(const QString &wildcards, const QString &mimetypes,const QString &identifier);
+    HlData(const QString &wildcards, const QString &mimetypes,const QString &identifier, int priority);
     ItemDataList itemDataList;
     QString wildcards;
     QString mimetypes;
     QString identifier;
+    int priority;
 };
 
 typedef QPtrList<HlData> HlDataList;
@@ -160,6 +161,7 @@ class Highlight
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
     inline QString version() const {return iVersion;}
+    int priority();
     inline QString getIdentifier() const {return identifier;}
     void use();
     void release();
@@ -217,6 +219,7 @@ class Highlight
     QString iMimetypes;
     QString identifier;
     QString iVersion;
+    int m_priority;
     int refCount;
 
     QString errorsAndWarnings;

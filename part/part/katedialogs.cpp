@@ -366,12 +366,18 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
   QLabel *lMimeTypes = new QLabel( i18n("MIME &types:"), hbMT);
   mimetypes = new QLineEdit( hbMT );
   connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+  lMimeTypes->setBuddy( mimetypes );
+
+  QHBox *hbMT2 = new QHBox( gbProps );
+  QLabel *lprio = new QLabel( i18n("Prio&rity:"), hbMT2);
+  priority = new KIntNumInput( hbMT2 );
+  connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+  lprio->setBuddy( priority );
 
   QToolButton *btnMTW = new QToolButton(hbMT);
   btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
   connect(btnMTW, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   //hbmt->setStretchFactor(mimetypes, 1);
-  lMimeTypes->setBuddy( mimetypes );
 
   // styles listview
   QLabel *lSt = new QLabel( i18n("Context &styles:"), gbProps );
@@ -417,6 +423,7 @@ void HighlightDialogPage::hlChanged(int z)
 
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
+  priority->setValue(hlData->priority);
 
   lvStyles->clear();
   for (ItemData *itemData = hlData->itemDataList.first();
@@ -431,6 +438,7 @@ void HighlightDialogPage::writeback() {
   if (hlData) {
     hlData->wildcards = wildcards->text();
     hlData->mimetypes = mimetypes->text();
+    hlData->priority = priority->value();
   }
 }
 
@@ -538,7 +546,7 @@ void HlEditDialog::newDocument()
   QStringList list=dirs->findAllResources("data","katepart/syntax/syntax.template",false,true);
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
       {
-        HlData data("","",*it);
+        HlData data("","",*it,0);
         loadFromDocument(&data);
         return;
       }

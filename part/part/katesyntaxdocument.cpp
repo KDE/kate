@@ -362,6 +362,7 @@ void SyntaxDocument::setupModeList (bool force)
       mli->mimetype = config.readEntry("mimetype","");
       mli->extension = config.readEntry("extension","");
       mli->version = config.readEntry("version","");
+      mli->priority = config.readEntry("priority","");
       mli->identifier = *it;
 
       // Apend the item to the list
@@ -408,6 +409,7 @@ void SyntaxDocument::setupModeList (bool force)
               mli->mimetype = e.attribute("mimetype");
               mli->extension = e.attribute("extensions");
               mli->version = e.attribute("version");
+              mli->priority = e.attribute("priority");
 
               // I think this solves the problem, everything not in the .po is Other.
               if (mli->section.isEmpty())
@@ -422,6 +424,7 @@ void SyntaxDocument::setupModeList (bool force)
               config.writeEntry("mimetype",mli->mimetype);
               config.writeEntry("extension",mli->extension);
               config.writeEntry("version",mli->version);
+              config.writeEntry("priority",mli->priority);
 
               // Append the new item to the list.
               myModeList.append(mli);

@@ -830,8 +830,8 @@ ItemData::ItemData(const QString  name, int defStyleNum)
   : name(name), defStyleNum(defStyleNum), defStyle(true) {
 }
 
-HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString &identifier)
-  : wildcards(wildcards), mimetypes(mimetypes), identifier(identifier)
+HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString &identifier, int priority)
+  : wildcards(wildcards), mimetypes(mimetypes), identifier(identifier), priority(priority)
 {
 }
 
@@ -863,6 +863,7 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
     noHl = true;
     iName = I18N_NOOP("Normal");
     iSection = "";
+    m_priority = 0;
   }
   else
   {
@@ -872,6 +873,7 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
     iMimetypes = def->mimetype;
     identifier = def->identifier;
     iVersion=def->version;
+    m_priority=def->priority.toInt();
   }
 
   deliminator = stdDeliminator;
@@ -1180,6 +1182,11 @@ QString Highlight::getMimetypes()
   return getKConfig()->readEntry("Mimetypes", iMimetypes);
 }
 
+int Highlight::priority()
+{
+  return getKConfig()->readNumEntry("Priority", m_priority);
+}
+
 HlData *Highlight::getData()
 {
   KConfig *config = getKConfig();
@@ -1187,7 +1194,8 @@ HlData *Highlight::getData()
   HlData *hlData = new HlData(
     config->readEntry("Wildcards", iWildcards),
     config->readEntry("Mimetypes", iMimetypes),
-    config->readEntry("Identifier", identifier));
+    config->readEntry("Identifier", identifier),
+    config->readNumEntry("Priority", m_priority));
 
   getItemDataList(hlData->itemDataList, config);
 
@@ -1200,6 +1208,7 @@ void Highlight::setData(HlData *hlData)
 
   config->writeEntry("Wildcards",hlData->wildcards);
   config->writeEntry("Mimetypes",hlData->mimetypes);
+  config->writeEntry("Priority",hlData->priority);
 
   setItemDataList(hlData->itemDataList,config);
 
@@ -2261,6 +2270,8 @@ int HlManager::realWildcardFind(const QString &fileName)
 {
   static QRegExp sep("\\s*;\\s*");
 
+  QPtrList<Highlight> highlights;
+
   for (Highlight *highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
   {
     // anders: this is more likely to catch the right one ;)
@@ -2272,8 +2283,25 @@ int HlManager::realWildcardFind(const QString &fileName)
       // would otherwise end up with the c hl
       QRegExp re(*it, true, true);
       if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
-        return hlList.at();
+        highlights.append (highlight);
     }
+  }
+
+  if ( !highlights.isEmpty() )
+  {
+    int pri = -1;
+    int hl = -1;
+
+    for (Highlight *highlight = highlights.first(); highlight != 0L; highlight = highlights.next())
+    {
+      if (highlight->priority() > pri)
+      {
+        pri = highlight->priority();
+        hl = hlList.findRef (highlight);
+      }
+    }
+
+    return hl;
   }
 
   return -1;
@@ -2286,6 +2314,8 @@ int HlManager::mimeFind(const QByteArray &contents, const QString &)
   int accuracy;
   KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
 
+  QPtrList<Highlight> highlights;
+
   for (Highlight *highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
   {
     QStringList l = QStringList::split( sep, highlight->getMimetypes() );
@@ -2293,8 +2323,25 @@ int HlManager::mimeFind(const QByteArray &contents, const QString &)
     for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
     {
       if ( *it == mt->name() ) // faster than a regexp i guess?
-        return hlList.at();
+        highlights.append (highlight);
     }
+  }
+
+  if ( !highlights.isEmpty() )
+  {
+    int pri = -1;
+    int hl = -1;
+
+    for (Highlight *highlight = highlights.first(); highlight != 0L; highlight = highlights.next())
+    {
+      if (highlight->priority() > pri)
+      {
+        pri = highlight->priority();
+        hl = hlList.findRef (highlight);
+      }
+    }
+
+    return hl;
   }
 
   return -1;

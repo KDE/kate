@@ -334,6 +334,7 @@ class HighlightDialogPage : public QTabWidget
     QComboBox *itemCombo, *hlCombo;
     QLineEdit *wildcards;
     QLineEdit *mimetypes;
+    class KIntNumInput *priority;
     StyleListView *lvStyles;
 
     HlDataList *hlDataList;

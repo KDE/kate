@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- author: Giancarlo Niccolai (giancarlo@niccolai.ws) -->
+<!-- This file is released under GPL license 2.0 or any later version at your choice. -->
+<!--  Id  -->
+<language name="xHarbour" version="0.1" kateversion="2.1" section="Sources" extensions="*.prg;*.ch" mimetype="text/x-xharbour-src">
+<highlighting>
+      
+   <list name="keywords">
+      <item> local </item>
+      <item> global </item>
+      <item> extern </item>
+      <item> field </item>
+      <item> data </item>
+      <item> method </item>
+      <item> class </item>
+      <item> from </item>
+      <item> endclass </item>
+      <item> declare </item>
+      <item> as </item>
+      <item> set </item>
+      <item> clear </item>
+      <item> screen </item>
+      <item> databases </item>
+      <item> all </item>
+      <item> close </item>
+      <item> color </item>
+      <item> date </item>
+      <item> if </item>
+      <item> else </item>
+      <item> for </item>
+      <item> each </item>
+      <item> in </item>
+      <item> to </item>
+      <item> do </item>
+      <item> while </item>
+      <item> enddo </item>
+      <item> loop </item>
+      <item> exit </item>
+      <item> box </item>
+      <item> say </item>
+      <item> case </item>
+      <item> endcase </item>
+      <item> switch </item>
+      <item> self </item>
+      <item> say </item>
+      <item> get </item>
+      <item> read </item>
+      <item> use </item>
+      <item> index </item>
+      <item> alias </item>      
+      <item> like </item>
+      <item> has </item>
+      <item> return </item>
+      <item> static </item>
+      <item> on </item>
+      <item> off </item>
+   </list>
+
+   <list name="set_commands">
+      <item> INVALID </item>
+      <item> EXACT </item>
+      <item> FIXED </item>
+      <item> DECIMALS </item>
+      <item> DATEFORMAT </item>
+      <item> EPOCH </item>
+      <item> PATH </item>
+      <item> DEFAULT </item>
+      <item> EXCLUSIVE </item>
+      <item> SOFTSEEK </item>
+      <item> UNIQUE </item>
+      <item> DELETED </item>
+      <item> CANCEL </item>
+      <item> DEBUG </item>
+      <item> TYPEAHEAD </item>
+      <item> COLOR </item>
+      <item> CURSOR </item>
+      <item> CONSOLE </item>
+      <item> ALTERNATE </item>
+      <item> ALTFILE </item>
+      <item> DEVICE </item>
+      <item> EXTRA </item>
+      <item> EXTRAFILE </item>
+      <item> PRINTER </item>
+      <item> PRINTFILE </item>
+      <item> MARGIN </item>
+      <item> BELL </item>
+      <item> CONFIRM </item>
+      <item> ESCAPE </item>
+      <item> INSERT </item>
+      <item> EXIT </item>
+      <item> INTENSITY </item>
+      <item> SCOREBOARD </item>
+      <item> DELIMITERS </item>
+      <item> DELIMCHARS </item>
+      <item> WRAP </item>
+      <item> MESSAGE </item>
+      <item> MCENTER </item>
+      <item> SCROLLBREAK </item>
+      <item> EVENTMASK </item>
+      <item> VIDEOMODE </item>
+      <item> MBLOCKSIZE </item>
+      <item> MFILEEXT </item>
+      <item> STRICTREAD </item>
+      <item> OPTIMIZE </item>
+      <item> AUTOPEN </item>
+      <item> AUTORDER </item>
+      <item> AUTOSHARE </item>
+      <item> LANGUAGE </item>
+      <item> IDLEREPEAT </item>
+      <item> TRACE </item>
+      <item> TRACEFILE </item>
+      <item> TRACESTACK </item>
+      <item> FILECASE </item>
+      <item> DIRCASE </item>
+      <item> DIRSEPARATOR </item>  
+   </list>
+
+   <list name="functions">
+      <item> aadd </item>
+      <item> adel </item>
+      <item> achoice </item>
+      <item> aclone </item>
+      <item> aeval </item>
+      <item> ains </item>
+      <item> ascan </item>
+      <item> asize </item>
+      <item> adir </item>
+      <item> afill </item>
+      <item> atail </item>
+      <item> asort </item>
+      <item> array </item>
+      
+      <item> bin21 </item>
+      <item> bin2l </item>
+      <item> bin2u </item>
+      <item> bin2w </item>
+      <item> i2bin </item>
+      <item> l2bin </item>
+      <item> u2bin </item>
+      <item> w2bin </item>
+      
+      <item> eval </item>
+      <item> fieldblock </item>
+      <item> fieldwblock </item>
+      
+      <item> inkey </item>
+      <item> lastkey </item>
+      <item> mcol </item>
+      <item> mrow </item>
+      <item> nextkey </item>
+      
+      <item> empty </item>
+      <item> word </item>
+      <item> descend </item>
+      <item> __dbdelim </item>
+      <item> __dbsdf </item>
+      
+      <item> os </item>
+      <item> __run </item>
+      
+      <item> alert </item>
+      <item> browse </item>
+      <item> dbedit </item>
+      <item> outerr </item>
+      <item> outstd </item>
+      <item> readkey </item>
+      <item> readvar </item>
+      <item> __atprompt </item>
+      <item> __input </item>
+      <item> __menuto </item>
+      <item> __nonoallert </item>
+      <item> __typefile </item>
+      <item> __xrestscreen </item>
+      <item> __xsavescreen </item>
+      
+      <item> DBAPPEND </item>
+      <item> DBCLEARFILTER </item>
+      <item> DBCLOSEALL </item>
+      <item> DBCLOSEAREA </item>
+      <item> DBCOMMIT </item>
+      <item> DBCOMMITALL </item>
+      <item> DBCREATE </item>
+      <item> DBDELETE </item>
+      <item> DBEVAL </item>
+      <item> DBF </item>
+      <item> DBFILTER </item>
+      <item> DBGOBOTTOM </item>
+      <item> DBGOTO </item>
+      <item> DBGOTOP </item>
+      <item> DBRECALL </item>
+      <item> DBRLOCK </item>
+      <item> DBRLOCKLIST </item>
+      <item> DBRUNLOCK </item>
+      <item> DBSEEK </item>
+      <item> DBSELECTAREA </item>
+      <item> DBSETDRIVER </item>
+      <item> DBSETFILTER </item>
+      <item> DBSKIP </item>
+      <item> DBSTRUCT </item>
+      <item> DBUNLOCK </item>
+      <item> DBUNLOCKALL </item>
+      <item> DBUSEAREA </item>
+      <item> INDEXEXT </item>
+      <item> INDEXKEY </item>
+      <item> INDEXORD </item>
+      <item> ORDBAGEXT </item>
+      <item> ORDBAGNAME </item>
+      <item> ORDCONDSET </item>
+      <item> ORDCREATE </item>
+      <item> ORDDESTROY </item>
+      <item> ORDFOR </item>
+      <item> ORDKEY </item>
+      <item> ORDLISTADD </item>
+      <item> ORDLISTCLEAR </item>
+      <item> ORDLISTREBUILD </item>
+      <item> ORDNAME </item>
+      <item> ORDNUMBER </item>
+      <item> ORDSETFOCUS </item>
+      <item> RDDLIST </item>
+      <item> RDDNAME </item>
+      <item> RDDSETDEFAULT </item>
+      <item> __DBCONTINUE </item>
+      <item> __DBZAP </item>
+      <item> __FLEDIT </item>
+      <item> __RDDSETDEFAULT </item>
+      <item> __dbCopyStruct </item>
+      <item> __dbCopyXStruct </item>
+      <item> __dbCreate </item>
+      <item> __dbStructFilter </item>
+      <item> dbSkipper </item>
+      <item> CDOW </item>
+      <item> CMONTH </item>
+      <item> CTOD </item>
+      <item> DATE </item>
+      <item> DAY </item>
+      <item> DAYS </item>
+      <item> DOW </item>
+      <item> DTOC </item>
+      <item> DTOS </item>
+      <item> MONTH </item>
+      <item> YEAR </item>
+      
+      <item> GETENV </item>
+      <item> SET </item>
+      <item> SETMODE </item>
+      <item> SETTYPEAHEAD </item>
+      <item> VERSION </item>
+      <item> __SETCENTURY </item>
+      <item> __SetFunction </item>
+
+      <item> break </item>
+      <item> errorsys </item>
+      
+      <item> HB_SETKEYSAVE </item>
+      <item> HB_SetKeyCheck </item>
+      <item> HB_SetKeyGet </item>
+      <item> SETKEY </item>
+      <item> __QUIT </item>
+      <item> __WAIT </item>
+      
+      <item> file </item>
+      <item> frename </item>
+      <item> __dir </item>
+      
+      <item> col </item>
+      <item> maxcol </item>
+      <item> maxrow </item>
+      <item> row </item>
+      <item> hb_colorindex </item>
+
+      <item> CURDIR </item>
+      <item> DIRCHANGE </item>
+      <item> DIRREMOVE </item>
+      <item> DISKSPACE </item>
+      <item> FCLOSE </item>
+      <item> FCREATE </item>
+      <item> FERASE </item>
+      <item> FERROR </item>
+      <item> FOPEN </item>
+      <item> FREAD </item>
+      <item> FREADSTR </item>
+      <item> FSEEK </item>
+      <item> FWRITE </item>
+      <item> HB_DISKSPACE </item>
+      <item> HB_FEOF </item>
+      <item> ISDISK </item>
+      <item> MAKEDIR </item>
+
+      <item> ABS </item>
+      <item> EXP </item>
+      <item> INT </item>
+      <item> LOG </item>
+      <item> MAX </item>
+      <item> MIN </item>
+      <item> MOD </item>
+      <item> ROUND </item>
+      <item> SQRT </item>
+ 
+      <item> HB_ISBYREF </item>
+      <item> PROCFILE </item>
+      <item> PROCLINE </item>
+      <item> PROCNAME </item>
+      <item> TYPE </item>
+      <item> VALTYPE </item>
+      <item> tone </item>
+      
+      <item> HB_LANGNAME </item>
+      <item> HB_LANGSELECT </item>
+      <item> ISAFFIRM </item>
+      <item> ISNEGATIVE </item>
+      <item> NATIONMSG </item>
+
+      <item> pcount </item>
+      <item> HB_pvalue </item>
+ 
+      <item> ALLTRIM </item>
+      <item> ASC </item>
+      <item> AT </item>
+      <item> CHR </item>
+      <item> HARDCR </item>
+      <item> HB_ANSITOOEM </item>
+      <item> HB_OEMTOANSI </item>
+      <item> HB_VALTOSTR </item>
+      <item> ISALPHA </item>
+      <item> ISDIGIT </item>
+      <item> ISLOWER </item>
+      <item> ISUPPER </item>
+      <item> LEFT </item>
+      <item> LEN </item>
+      <item> LOWER </item>
+      <item> LTRIM </item>
+      <item> MEMOTRAN </item>
+      <item> PADC </item>
+      <item> PADL </item>
+      <item> PADR </item>
+      <item> RAT </item>
+      <item> REPLICATE </item>
+      <item> RIGHT </item>
+      <item> RTRIM </item>
+      <item> SPACE </item>
+      <item> STR </item>
+      <item> STRTRAN </item>
+      <item> STRZERO </item>
+      <item> SUBSTR </item>
+      <item> TRANSFORM </item>
+      <item> TRIM </item>
+      <item> UPPER </item>
+      <item> VAL </item>
+      
+      <item> devoutpict </item>
+      
+      <item> elaptime </item>
+      <item> seconds </item>
+      <item> secs </item>
+      <item> time </item>
+      
+      <item> do </item>
+
+      <item> ThreadStart </item>
+      <item> ThreadStop </item>
+      <item> ThreadSleep </item>
+      <item> ThreadKill </item>
+      <item> ThreadJoin </item>
+      <item> MutexCreate </item>
+      <item> MutexDestroy </item>
+      <item> Subscribe </item>
+      <item> SubscribeNow </item>
+      <item> Notify </item>
+      <item> NotifyAll </item>
+      <item> WaitForThreads </item>
+      <item> KillAllThreads </item>
+      
+      <item> InetInit </item>
+      <item> InetCleanup </item>
+      <item> InetCreate </item>
+      <item> InetDestroy </item>
+      <item> InetConnect </item>
+      <item> InetServer </item>
+      <item> InetAccept </item>
+      <item> InetSetTimeout </item>
+      <item> InetGetTimeout </item>
+      <item> InetClearTimeout </item>
+      <item> InetRecv </item>
+      <item> InetRecvAll </item>
+      <item> InetSend </item>
+      <item> InetSendAll </item>
+      <item> InetDGram </item>
+      <item> InetDGramRecv </item>
+      <item> InetDGramSend </item>
+      <item> InetAddress </item>
+      <item> InetPort </item>
+      <item> InetError </item>
+      <item> InetErrorDesc </item>
+      <item> InetGetHosts </item>
+      <item> InetConnectIP </item>
+      
+      <item> hb_regex </item>
+      <item> hb_regexmatch </item>
+      <item> hb_regexsplit </item>
+      <item> hb_readini </item>
+      <item> hb_writeini </item>
+      <item> hb_random </item>
+      <item> hb_chechsum </item>
+      <item> hb_crypt </item>
+      <item> hb_decrypt </item>
+      <item> hb_hextonum </item>
+      <item> hb_numtohex </item>
+      <item> hb_exec </item>
+      <item> hb_execfromarray </item>
+      
+      <item> hb_class </item>
+      <item> hb_keyput </item>
+      <item> hb_osnewline </item>
+   </list>
+
+   <list name="pragma">
+      <item> #include </item>
+      <item> #if </item>
+      <item> #ifdef </item>
+      <item> #ifndef </item>
+      <item> #endif </item>
+      <item> #else </item>
+   </list>
+
+   <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="TopLevel">
+         <StringDetect attribute="Comment" context="ml_comment" String="/*" 
+               beginRegion="comment"/>
+         <RegExpr attribute="Comment" context="comment" String="^[ ]*[*]" />
+         <StringDetect attribute="Comment" context="comment" String="//" />
+         <DetectChar attribute="String" context="string" char="&quot;" />
+         <DetectChar attribute="String" context="stringc" char="'" />
+         <DetectChar attribute="Operator" context="logic" char="." />
+         <DetectChar attribute="Operator" context="#stay" char=":"/>
+         <DetectChar attribute="Operator" context="#stay" char="="/>
+         <DetectChar attribute="Operator" context="#stay" char="!"/>
+         <DetectChar attribute="Keyword" context="#stay" char="@"/>
+         <DetectChar attribute="Keyword" context="#stay" char="?"/>
+         
+         <StringDetect String="procedure " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="ProcOrFunc" />
+         <StringDetect String="function " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="ProcOrFunc" />
+         <StringDetect String="method " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="ProcOrFunc" />
+         <RegExpr String="^return ?" attribute="Keyword" context="#stay"  
+                insensitive="TRUE" endRegion="ProcOrFunc" />
+         
+         <RegExpr String="^[\t ]*CLASS " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="CLASS" />
+         <RegExpr String="^[\t ]*ENDCLASS *$" attribute="Keyword" context="#stay"  
+                insensitive="TRUE" endRegion="CLASS" />
+                
+         <RegExpr String="^[\t ]*DO +WHILE " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="DOWHILE" />
+         <RegExpr String="^[\t ]*enddo *$" attribute="Keyword" context="#stay"  
+                insensitive="TRUE" endRegion="DOWHILE" />
+         
+         <RegExpr String="^[\t ]*DO +CASE " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="DOCASE" />
+         <RegExpr String="^[\t ]*endcase *$" attribute="Keyword" context="#stay"  
+                insensitive="TRUE" endRegion="DOCASE" />
+         
+         <RegExpr String="^[\t ]*FOR " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="FORNEXT" />
+         <RegExpr String="^[\t ]*next *$" attribute="Keyword" context="#stay"  
+                insensitive="TRUE" endRegion="FORNEXT" />
+         
+         <RegExpr String="^[\t ]*SWITCH " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="SWITCH" />
+         <RegExpr String="^[\t ]*ENDSWITCH *$" attribute="Keyword" context="#stay"  
+                insensitive="TRUE" endRegion="SWITCH" />
+
+         <RegExpr String="^[\t ]*if " attribute="Keyword" context="#stay"  
+                insensitive="TRUE" beginRegion="IF" />
+         <RegExpr String="^[\t ]*endif *$" attribute="Keyword" context="#stay" 
+            insensitive="TRUE" endRegion="IF"/>
+
+         <keyword attribute="Keyword" context="#stay" String="keywords" />
+         <keyword attribute="Keyword" context="#stay" String="set_commands" />
+         <keyword attribute="Function" context="#stay" String="functions" />
+         <keyword attribute="Preprocessor" context="#stay" String="pragma" />
+         <RegExpr attribute="Operator" context="#stay" String="->" />
+         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
+      </context>
+
+      <context attribute="Comment" lineEndContext="#pop" name="comment"/>
+
+      <context attribute="Comment" lineEndContext="#stay" name="ml_comment">
+         <StringDetect attribute="Comment" context="#pop" String="*/" 
+            endRegion="comment"/>
+      </context>
+
+      <context attribute="String" lineEndContext="#pop" name="string">
+         <DetectChar attribute="String" context="#pop" char="&quot;" />
+      </context>
+      <context attribute="String" lineEndContext="#pop" name="stringc">
+         <DetectChar attribute="String" context="#pop" char="'" />
+      </context>
+
+      <context attribute="Operator" lineEndContext="#pop" name="logic">
+         <DetectChar attribute="Operator" context="#pop" char="." />
+      </context>
+   </contexts>
+
+   <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Operator"  defStyleNum="dsBaseN" color="#A01060" selColor="#400040" bold="0" italic="0"/>
+      <itemData name="Number"  defStyleNum="dsDecVal" color="#5050C0" selColor="#000000" bold="0" italic="0"/>
+      <itemData name="Function"  defStyleNum="dsNormal" color="#000090" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="String"  defStyleNum="dsString"/>
+      <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
+   </itemDatas>
+</highlighting>
+
+<general>
+   <comments>
+      <comment name="singleLine" start="*" />
+      <comment name="singleLine1" start="//" />
+      <comment name="multiLine" start="/*" end="*/" />
+   </comments>
+   <keywords casesensitive="0" />
+</general>
+</language>

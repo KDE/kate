@@ -11,4 +11,5 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
 		ferite.xml scheme.xml matlab.xml tcl.xml ilerpg.xml verilog.xml javascript.xml \
 		sml.xml winehq.xml cs.xml sgml.xml idconsole.xml xmldebug.xml fortran.xml haskell.xml \
 		literate-haskell.xml r.xml gnuassembler.xml ilerpg.xml mab.xml mason.xml idl.xml prolog.xml \
-		rsiidl.xml coldfusion.xml picsrc.xml uscript.xml lpc.xml velocity.xml sci.xml ldif.xml
+		rsiidl.xml coldfusion.xml picsrc.xml uscript.xml lpc.xml velocity.xml sci.xml ldif.xml \
+		inform.xml xharbour.xml

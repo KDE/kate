@@ -12,10 +12,10 @@
 # ============== Tests: ===============
 
 # basic types:
-'single quoted string'
-"double quoted string"
-$'string with esc\apes\x0din it'
-$"string meant to be translated"
+echo 'single quoted string'
+echo "double quoted string"
+echo $'string with esc\apes\x0din it'
+echo $"string meant to be translated"
 
 
 # comments:
@@ -34,39 +34,39 @@ echo \(output\) \&\| \> \< \" \' \*
 
 
 # variable substitution:
-$filename.ext
-$filename_ext
-${filename}_ext
-text${array[$subscript]}.text
-text${array["string"]}.text
-${!prefix*}
-${!redir}
-short are $_, $$, $?, ${@}, etc.
-${variable//a/d}
-${1:-default}
+echo $filename.ext
+echo $filename_ext
+echo ${filename}_ext
+echo text${array[$subscript]}.text
+echo text${array["string"]}.text
+echo ${!prefix*}
+echo ${!redir}
+echo short are $_, $$, $?, ${@}, etc.
+echo ${variable/a/d}
+echo ${1:-default}
 
 
 # expression subst:
-$(( cd << ed + 1 ))
+echo $(( cd << ed + 1 ))
 
 
 # command subst:
-$(ls -l)
+echo $(ls -l)
 echo `cat myfile`
 
 
 # file subst:
-$(<$filename)
-$(</path/to/myfile)
+echo $(<$filename)
+echo $(</path/to/myfile)
 
 # process subst:
 sort <(show_labels) | sed 's/a/bg' > my_file.txt 2>&1
 
 
 # All substitutions also work in strings:
-"subst ${in}side string"  'not $inside this ofcourse'
-"The result is $(( $a + $b )). Thanks!"
-"Your homedir contains `ls $HOME |wc -l` files."
+echo "subst ${in}side string"  'not $inside this ofcourse'
+echo "The result is $(( $a + $b )). Thanks!"
+echo "Your homedir contains `ls $HOME |wc -l` files."
 
 
 # Escapes in strings:
@@ -139,6 +139,7 @@ ARR2=([this]=too [and]="this too")
 usage="$0 -- version $VERSION
 Multiple lines of output
 can be possible."
+ANSWER=yes	# here 'yes' isn't highlighed as command
 
 
 # Some commands expect variable names, these are colored correctly:
@@ -178,9 +179,9 @@ __EOF__
 
 
 # quoted:
-cat << "EOF"
+cat << "EOF" | egrep "this" >&4   # the rest of the line is still considered bash source
 You're right, this is definitely no bash code
-But ls more $parameters should be expanded.
+But ls more $parameters should be expanded. :->
 EOF
 
 

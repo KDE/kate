@@ -23,6 +23,7 @@
 #define KATERENDERER_H
 
 #include "katecursor.h"
+#include "kateattribute.h"
 #include "katetextline.h"
 
 #include <qfont.h>
@@ -47,6 +48,8 @@ public:
 
     KateRenderer(KateDocument* doc, KateView *view = 0);
     ~KateRenderer();
+    
+    void updateAttributes ();
 
     /**
      * Determine whether the caret (text cursor) will be drawn.
@@ -150,11 +153,15 @@ public:
      */
     void paintTextLine(QPainter& paint, const LineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
 
+    KateAttribute* attribute(uint pos);
+    
   private:
     KateDocument* m_doc;
     KateView *m_view;
 
+    // cache of config values
     int m_tabWidth;
+    uint m_schema;
 
     // some internal flags
     int  m_caretStyle;
@@ -162,7 +169,9 @@ public:
     bool m_showSelections;
     bool m_showTabs;
     bool m_printerFriendly;
-
+    
+    QMemArray<KateAttribute> *m_attributes;
+    
   /**
    * Configuration
    */

@@ -32,6 +32,7 @@
 #include <kcombobox.h>
 #include <klineeditdlg.h>
 #include <kfontdialog.h>
+#include <kdebug.h>
 #include <kpopupmenu.h>
 
 #include <qbuttongroup.h>
@@ -118,6 +119,14 @@ void KateSchemaManager::removeSchema (uint number)
   m_config.deleteGroup (name (number));
 
   update (false);
+}
+
+bool KateSchemaManager::validSchema (uint number)
+{
+  if (number < m_schemas.count())
+    return true;
+    
+  return false;
 }
 
 uint KateSchemaManager::number (const QString &name)
@@ -308,6 +317,59 @@ void KateSchemaConfigFontTab::writeConfig (KConfig *config)
 
 //END FontConfig
 
+//BEGIN FontColorConfig
+KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, const char * )
+  : QWidget (parent)
+{
+  m_defaultStyleLists.setAutoDelete(true);
+
+  // sizemanagment
+  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+
+  m_defaultStyles = new StyleListView( this, false );
+  grid->addWidget( m_defaultStyles, 0, 0);
+}
+
+KateSchemaConfigFontColorTab::~KateSchemaConfigFontColorTab()
+{
+}
+
+void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
+{
+  m_defaultStyles->clear ();
+
+  if (!m_defaultStyleLists[schema])
+  {
+    KateAttributeList *list = new KateAttributeList ();
+    HlManager::self()->getDefaults(schema, *list);
+    
+    m_defaultStyleLists.insert (schema, list);
+  }
+  
+  m_defaultStyles->setDefaultColor (m_defaultStyleLists[schema]->at(0)->textColor());
+
+  for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
+  {
+    kdDebug()<<i<<" itemsSet: "<<m_defaultStyleLists[schema]->at( i )->itemsSet()<<endl;
+    m_defaultStyles->insertItem( new StyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
+                              m_defaultStyleLists[schema]->at( i ) ) );
+  }
+}
+
+void KateSchemaConfigFontColorTab::reload ()
+{
+  m_defaultStyles->clear ();
+  m_defaultStyleLists.clear ();
+}
+
+void KateSchemaConfigFontColorTab::apply ()
+{
+  for ( QIntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
+    HlManager::self()->setDefaults(it.currentKey(), *(it.current()));
+}
+
+//END FontConfig
+
 KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   : Kate::ConfigPage( parent ),
     m_lastSchema (-1)
@@ -336,9 +398,12 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
 
   m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
-
+  
   m_fontTab = new KateSchemaConfigFontTab (m_tabWidget);
-  m_tabWidget->addTab (m_fontTab, i18n("Font"));
+  m_tabWidget->addTab (m_fontTab, i18n("Text Font"));
+  
+  m_fontColorTab = new KateSchemaConfigFontColorTab (m_tabWidget);
+  m_tabWidget->addTab (m_fontColorTab, i18n("Text Style"));
 
   reload();
 }
@@ -362,6 +427,12 @@ void KateSchemaConfigPage::apply()
   KateFactory::self()->schemaManager()->update ();
 
   KateRendererConfig::global()->setSchema (KateRendererConfig::global()->schema());
+  
+  // special for the highlighting stuff
+  m_fontColorTab->apply ();
+  
+  // sync the hl config for real
+  HlManager::self()->getKConfig()->sync ();
 }
 
 void KateSchemaConfigPage::reload()
@@ -369,6 +440,9 @@ void KateSchemaConfigPage::reload()
   // just reload the config from disc
   KateFactory::self()->schemaManager()->update ();
 
+  // special for the highlighting stuff
+  m_fontColorTab->reload ();
+  
   update ();
 }
 
@@ -442,6 +516,7 @@ void KateSchemaConfigPage::schemaChanged (int schema)
 
   m_colorTab->readConfig (KateFactory::self()->schemaManager()->schema(schema));
   m_fontTab->readConfig (KateFactory::self()->schemaManager()->schema(schema));
+  m_fontColorTab->schemaChanged (schema);
 
   m_lastSchema = schema;
 }

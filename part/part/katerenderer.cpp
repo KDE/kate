@@ -25,6 +25,7 @@
 #include "katedocument.h"
 #include "katearbitraryhighlight.h"
 #include "kateconfig.h"
+#include "katehighlight.h"
 #include "katefactory.h"
 #include "kateview.h"
 
@@ -46,12 +47,27 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
   m_config = new KateRendererConfig (this);
 
   m_tabWidth = m_doc->config()->tabWidth();
+  
+  updateAttributes ();
 }
 
 KateRenderer::~KateRenderer()
 {
   delete m_config;
   KateFactory::self()->deregisterRenderer ( this );
+}
+
+void KateRenderer::updateAttributes ()
+{
+  m_attributes = m_doc->m_highlight->attributes (m_schema);
+}
+
+KateAttribute* KateRenderer::attribute(uint pos)
+{
+  if (pos < m_attributes->size())
+    return &m_attributes->at(pos);
+
+  return &m_attributes->at(0);
 }
 
 bool KateRenderer::drawCaret() const
@@ -179,8 +195,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   int endcol = range->wrap ? range->endCol : -1;
 
   // text attribs font/style data
-  KateAttribute* at = m_doc->attribs()->data();
-  uint atLen = m_doc->attribs()->size();
+  KateAttribute* at = m_doc->m_highlight->attributes(m_schema)->data();
+  uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
   // length, chars + raw attribs
   uint len = textLine->length();
@@ -546,9 +562,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       cursorMaxWidth = fs->myFontMetrics.width(spaceChar);
 
       if (caretStyle() == Replace && (cursorMaxWidth > 2))
-        paint.fillRect(cursorXPos2-xStart, 0, cursorMaxWidth, fs->fontHeight, m_doc->myAttribs[0].textColor());
+        paint.fillRect(cursorXPos2-xStart, 0, cursorMaxWidth, fs->fontHeight, attribute(0)->textColor());
       else
-        paint.fillRect(cursorXPos2-xStart, 0, 2, fs->fontHeight, m_doc->myAttribs[0].textColor());
+        paint.fillRect(cursorXPos2-xStart, 0, 2, fs->fontHeight, attribute(0)->textColor());
     }
   }
 
@@ -572,7 +588,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
   int x = 0;
   int width;
   for (int z = 0; z < cursorCol; z++) {
-    KateAttribute* a = m_doc->attribute(textLine->attribute(z));
+    KateAttribute* a = attribute(textLine->attribute(z));
 
     if (z < len) {
       width = a->width(*fs, textLine->string(), z, m_tabWidth);
@@ -609,7 +625,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   uint z = startcol;
   for (; z < textLine->length(); z++)
   {
-    KateAttribute* a = m_doc->attribute(textLine->attribute(z));
+    KateAttribute* a = attribute(textLine->attribute(z));
     int width = a->width(*fs, textLine->string(), z, m_tabWidth);
     Q_ASSERT(width);
     x += width;
@@ -710,7 +726,7 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
   while (x < xPos && (!wrapCursor || z < len)) {
     oldX = x;
 
-    KateAttribute* a = m_doc->attribute(textLine->attribute(z));
+    KateAttribute* a = attribute(textLine->attribute(z));
 
     int width = 0;
 
@@ -765,7 +781,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
   while ( (x < xPos)  && (z < len)) {
     oldX = x;
 
-    KateAttribute* a = m_doc->attribute(textLine->attribute(z));
+    KateAttribute* a = attribute(textLine->attribute(z));
     x += a->width(*fs, textLine->string(), z, m_tabWidth);
 
     z++;
@@ -831,6 +847,11 @@ bool KateRenderer::selectBounds(uint line, uint &start, uint &end, uint lineLeng
 
 void KateRenderer::updateConfig ()
 {
+  m_schema = config()->schema ();
+  
+  // update the attribute list pointer
+  updateAttributes ();
+
   if (m_view)
     m_view->updateRendererConfig();
 }

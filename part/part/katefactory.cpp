@@ -118,7 +118,7 @@ KateFactory::KateFactory ()
   //
   // dir watch
   //
-  m_dirWatch = new KDirWatch (this);
+  m_dirWatch = new KDirWatch ();
   
   //
   // filetype man
@@ -142,6 +142,7 @@ KateFactory::KateFactory ()
 
 KateFactory::~KateFactory()
 {
+  delete m_dirWatch;
   delete m_fileTypeManager;
   delete m_schemaManager;
 }

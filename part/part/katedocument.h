@@ -514,14 +514,8 @@ class KateDocument : public Kate::Document,
     void modifiedChanged ();
     void preHighlightChanged(uint);
 
-  private:
-    KateAttribute* attribute(uint pos);
-
   public:
     class Highlight *highlight() { return m_highlight; }
-
-  private:
-    void makeAttribs();
 
   private slots:
     void internalHlChanged();
@@ -714,7 +708,6 @@ class KateDocument : public Kate::Document,
     // text buffer
     KateBuffer *buffer;
 
-    class HlManager *hlManager;
     class Highlight *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
@@ -730,8 +723,6 @@ class KateDocument : public Kate::Document,
 
     QString m_docName;
     int m_docNameNumber;
-
-    QMemArray<KateAttribute> myAttribs;
 
     // defaults for all views !!!
     static bool m_collapseTopLevelOnLoad;
@@ -756,6 +747,8 @@ class KateDocument : public Kate::Document,
   void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   private:
+    void makeAttribs ();
+  
     void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
     int             m_mispellCount;
@@ -763,11 +756,7 @@ class KateDocument : public Kate::Document,
     bool            m_reloading;
 
   public:
-        bool checkOverwrite( KURL u );
-    /**
-      Allow the HlManager to fill the array
-    */
-    QMemArray<KateAttribute>* attribs() { return &myAttribs; }
+    bool checkOverwrite( KURL u );
     
     static void setDefaultEncoding (const QString &encoding);
 

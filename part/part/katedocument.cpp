@@ -113,7 +113,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoIgnoreCancel(false),
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
-  hlManager(HlManager::self ()),
   m_modOnHd (false),
   m_modOnHdReason (0)
 {
@@ -255,8 +254,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
 
   // if the user changes the highlight with the dialog, notify the doc
-  connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
-  connect(hlManager,SIGNAL(changed( uint )),SLOT(internalHlChanged( uint )));
+  connect(HlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
+  connect(HlManager::self(),SIGNAL(changed( uint )),SLOT(internalHlChanged( uint )));
 
   // signal for the arbitrary HL
   connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KateSuperRange*)), SLOT(tagArbitraryLines(KateView*, KateSuperRange*)));
@@ -1852,7 +1851,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 uint KateDocument::hlMode ()
 {
-  return hlManager->findHl(m_highlight);
+  return HlManager::self()->findHl(m_highlight);
 }
 
 bool KateDocument::setHlMode (uint mode)
@@ -1870,7 +1869,7 @@ bool KateDocument::internalSetHlMode (uint mode)
 {
   Highlight *h;
 
-  h = hlManager->getHl(mode);
+  h = HlManager::self()->getHl(mode);
   if (h == m_highlight) {
     updateLines();
   } else {
@@ -1978,7 +1977,7 @@ void KateDocument::readSessionConfig(KConfig *config)
     setEncoding(tmpenc);
 
   // restore the hl stuff
-  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlighting")));
+  internalSetHlMode(HlManager::self()->nameFind(config->readEntry("Highlighting")));
 
   // open the file if url valid
   if (!url.isEmpty() && url.isValid())
@@ -2726,8 +2725,8 @@ bool KateDocument::printDialog ()
 
              while ( ( _d = _it.current() ) != 0 )
              {
-               paint.setPen( attribute(_i)->textColor() );
-               paint.setFont( attribute(_i)->font( *renderer.currentFont() ) );
+               paint.setPen( renderer.attribute(_i)->textColor() );
+               paint.setFont( renderer.attribute(_i)->font( *renderer.currentFont() ) );
                paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, renderer.fontHeight(),
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
                _i++;
@@ -2860,7 +2859,7 @@ bool KateDocument::openFile()
     // update our hl type if needed
     if (!hlSetByUser)
     {
-      int hl (hlManager->detectHighlighting (this));
+      int hl (HlManager::self()->detectHighlighting (this));
 
       if (hl >= 0)
         internalSetHlMode(hl);
@@ -2994,7 +2993,7 @@ bool KateDocument::saveFile()
     // update our hl type if needed
     if (!hlSetByUser)
     {
-      int hl (hlManager->detectHighlighting (this));
+      int hl (HlManager::self()->detectHighlighting (this));
 
       if (hl >= 0)
         internalSetHlMode(hl);
@@ -3170,7 +3169,9 @@ void KateDocument::setModified(bool m) {
 
 void KateDocument::makeAttribs()
 {
-  hlManager->makeAttribs(this, m_highlight);
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->renderer()->updateAttributes ();
+
   tagAll();
   updateLines();
 }
@@ -4584,14 +4585,6 @@ void KateDocument::flush ()
   closeURL ();
 }
 
-KateAttribute* KateDocument::attribute(uint pos)
-{
-  if (pos < myAttribs.size())
-    return &myAttribs[pos];
-
-  return &myAttribs[0];
-}
-
 void KateDocument::wrapText (uint col)
 {
   wrapText (0, lastLine(), col);
@@ -4700,7 +4693,15 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
     // for each character of the line : (curPos is the position in the line)
     for (uint curPos=0;curPos<textLine->length();curPos++)
     {
-      KateAttribute* charAttributes = attribute(textLine->attribute(curPos));
+      // atm hardcode default schema, later add selector to the exportAs methode :)
+      QMemArray<KateAttribute> *attributes = m_highlight->attributes (0);
+      KateAttribute* charAttributes = 0;
+      
+      if (textLine->attribute(curPos) < attributes->size())
+        charAttributes = &attributes->at(textLine->attribute(curPos));
+      else
+        charAttributes = &attributes->at(0);
+      
       //ASSERT(charAttributes != NULL);
       // let's give the color for that character :
       if ( (charAttributes->textColor() != previousCharacterColor))

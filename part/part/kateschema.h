@@ -21,7 +21,10 @@
 
 #include "../interfaces/document.h"
 
+#include "katedialogs.h"
+
 #include <qstringlist.h>
+#include <qintdict.h>
 
 #include <kconfig.h>
 #include <kaction.h>
@@ -51,6 +54,11 @@ class KateSchemaManager
     void addSchema (const QString &t);
 
     void removeSchema (uint number);
+    
+    /**
+     * is this schema valid ? (does it exist ?)
+     */
+    bool validSchema (uint number);
 
     /**
      * if not found, defaults to 0
@@ -139,12 +147,31 @@ public:
     void readConfig (KConfig *config);
     void writeConfig (KConfig *config);
 
-	private:
-			class KFontChooser *m_fontchooser;
-			QFont myFont;
+  private:
+    class KFontChooser *m_fontchooser;
+    QFont myFont;
 
-		private slots:
-			void slotFontSelected( const QFont &font );
+  private slots:
+    void slotFontSelected( const QFont &font );
+};
+
+class KateSchemaConfigFontColorTab : public QWidget
+{
+  Q_OBJECT
+
+public:
+
+  KateSchemaConfigFontColorTab( QWidget *parent = 0, const char *name = 0 );
+  ~KateSchemaConfigFontColorTab();
+
+  public:
+    void schemaChanged (uint schema);
+    void reload ();
+    void apply ();
+
+  private:
+    StyleListView *m_defaultStyles;
+    QIntDict<KateAttributeList> m_defaultStyleLists;
 };
 
 class KateSchemaConfigPage : public Kate::ConfigPage
@@ -173,7 +200,8 @@ class KateSchemaConfigPage : public Kate::ConfigPage
     class QPushButton *btndel;
     class QComboBox *schemaCombo;
     KateSchemaConfigColorTab *m_colorTab;
-		KateSchemaConfigFontTab *m_fontTab;
+    KateSchemaConfigFontTab *m_fontTab;
+    KateSchemaConfigFontColorTab *m_fontColorTab;
 };
 
 #endif

@@ -26,6 +26,8 @@
 
 #include "../interfaces/document.h"
 
+#include <kconfig.h>
+
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include <qregexp.h>
@@ -166,6 +168,8 @@ class Highlight
     inline QString getCommentStart() const {return cmlStart;};
     inline QString getCommentEnd()  const {return cmlEnd;};
     inline QString getCommentSingleLineStart() const { return cslStart;};
+    
+    QMemArray<KateAttribute> *attributes (uint schema);
 
   private:
     void init();
@@ -228,6 +232,8 @@ class Highlight
     IncludeRules includeRules;
     QValueList<int> contextsIncludingSomething;
     bool m_foldingIndentationSensitive;
+    
+    QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
 
     public:
       inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
@@ -236,13 +242,20 @@ class Highlight
 
 class HlManager : public QObject
 {
-    Q_OBJECT
-  public:
+  friend class Highlight;
+
+  Q_OBJECT
+  
+  private:
     HlManager();
+    
+  public:
     ~HlManager();
 
     static HlManager *self();
+    
     static KConfig *getKConfig();
+    
     Highlight *getHl(int n);
     int nameFind(const QString &name);
 
@@ -250,12 +263,13 @@ class HlManager : public QObject
 
     int findHl(Highlight *h) {return hlList.find(h);}
     QString identifierForName(const QString&);
-    void makeAttribs(class KateDocument *, Highlight *);
 
-    int defaultStyles();
-    QString defaultStyleName(int n);
-    void getDefaults(KateAttributeList &);
-    void setDefaults(KateAttributeList &);
+    // methodes to get the default style count + names
+    static uint defaultStyles();
+    static QString defaultStyleName(int n);
+    
+    void getDefaults(uint schema, KateAttributeList &);
+    void setDefaults(uint schema, KateAttributeList &);
 
     int highlights();
     QString hlName(int n);
@@ -263,13 +277,10 @@ class HlManager : public QObject
     void getHlDataList(HlDataList &);
     void setHlDataList(HlDataList &);
 
-    SyntaxDocument *syntax;
-
   signals:
     void changed();
-    /*
-       A highlight hlNumber changes the hlData.
-    */
+
+    // A highlight hlNumber changes the hlData.
     void changed( uint hlNumber );
 
   public:
@@ -282,13 +293,17 @@ class HlManager : public QObject
     int realWildcardFind(const QString &fileName);
 
   private:
+    friend class HlEditDialog;
+  
     QPtrList<Highlight> hlList;
     QDict<Highlight> hlDict;
 
-    static HlManager *s_pSelf;
-    static KConfig *s_pConfig;
-
-    static QStringList commonSuffixes;
+    static HlManager *s_self;
+    
+    KConfig m_config;
+    QStringList commonSuffixes;
+    
+    SyntaxDocument *syntax;
 };
 
 class KateViewHighlightAction: public Kate::ActionMenu

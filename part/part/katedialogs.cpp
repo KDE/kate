@@ -298,7 +298,7 @@ void HlConfigPage::showEvent ( QShowEvent * )
     hlManager = HlManager::self();
 
     defaultStyleList.setAutoDelete(true);
-    hlManager->getDefaults(defaultStyleList);
+    hlManager->getDefaults(0, defaultStyleList);
 
     hlDataDict.setAutoDelete( true );
 
@@ -319,7 +319,7 @@ void HlConfigPage::apply ()
   {
     kdDebug()<<"HlConfigPage::apply()"<<endl;
     page->saveData();
-    hlManager->setDefaults(defaultStyleList);
+    hlManager->setDefaults(0, defaultStyleList);
 // TODO anders: Make sure this works ;)
     QIntDictIterator<HlData> it( hlDataDict );
     for ( ; it.current(); ++it )
@@ -340,34 +340,14 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
                               KateAttributeList *styleList,
                               HlDataDict* hlDataD,
                               int hlNumber,QWidget *parent, const char *name)
-   :QTabWidget(parent,name),defaultItemStyleList(styleList),hlDataDict(hlDataD),hlData(0L),hlManager(_hlManager)
-
+   :QWidget(parent,name),defaultItemStyleList(styleList),hlDataDict(hlDataD),hlData(0L),hlManager(_hlManager)
 {
-
-  // defaults =========================================================
-
-  QVBox *page1 = new QVBox ( this );
-  addTab(page1,i18n("&Default Styles"));
-  page1->setSpacing( KDialog::spacingHint() );
-  page1->setMargin( KDialog::marginHint() );
-
-  QColor normalcol( defaultItemStyleList->at(0)->textColor() );
-  StyleListView *lvDefStyles = new StyleListView( page1, false, normalcol );
-//   for ( int i = 0; i < hlManager->defaultStyles(); i++ )
-//   {
-// //     kdDebug()<<i<<" itemsSet: "<<defaultItemStyleList->at( i )->itemsSet()<<endl;
-//     lvDefStyles->insertItem( new StyleListItem( lvDefStyles, hlManager->defaultStyleName(i),
-//                                                 defaultItemStyleList->at( i ) ) );
-//   }
-  // highlight modes =====================================================
-
-  QVBox *page2 = new QVBox( this );
-  addTab(page2,i18n("Highlight &Modes"));
-  page2->setSpacing( KDialog::spacingHint() );
-  page2->setMargin( KDialog::marginHint() );
+  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
-  QHBox *hbHl = new QHBox( page2 );
+  QHBox *hbHl = new QHBox( this );
+  layout->add (hbHl);
+  
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
   hlCombo = new QComboBox( false, hbHl );
@@ -384,8 +364,8 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   QPushButton *btnEdit = new QPushButton( i18n("&Edit..."), hbHl );
   connect( btnEdit, SIGNAL(clicked()), this, SLOT(hlEdit()) );
 
-  QGroupBox *gbProps = new QGroupBox( 1, Qt::Horizontal, i18n("Properties"), page2 );
-  //gbProps->setSpacing( spacing );
+  QGroupBox *gbProps = new QGroupBox( 1, Qt::Horizontal, i18n("Properties"), this );
+  layout->add (gbProps);
 
   // file & mime types
   QHBox *hbFE = new QHBox( gbProps);
@@ -413,14 +393,16 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
 
   // styles listview
   QLabel *lSt = new QLabel( i18n("Context &styles:"), gbProps );
-  lvStyles = new StyleListView( gbProps, true, normalcol );
+  lvStyles = new StyleListView( gbProps, true );
   lSt->setBuddy( lvStyles );
 
   lvStyles->hide();
   new QLabel("<b><font size=6>DISABLED</font></b>", gbProps);
 
   // download/new buttons
-  QHBox *hbBtns = new QHBox( page2 );
+  QHBox *hbBtns = new QHBox( this );
+  layout->add (hbBtns);
+  
   ((QBoxLayout*)hbBtns->layout())->addStretch(1); // hmm.
   hbBtns->setSpacing( KDialog::spacingHint() );
   QPushButton *btnDl = new QPushButton(i18n("Do&wnload..."), hbBtns);
@@ -430,9 +412,6 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
 
   hlCombo->setCurrentItem( hlNumber );
   hlChanged(hlNumber);
-
-  // jowenn, feel free to edit the below texts
-  QWhatsThis::add( lvDefStyles, i18n("This list displays the default styles, used by all syntax highlight modes, and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
 
   QWhatsThis::add( hlCombo,   i18n("Choose a <em>Syntax Highlight mode</em> from this list to view its properties below.") );
   QWhatsThis::add( btnEdit,   i18n("Click this button to edit the currently selected syntax highlight mode using the Highlight Mode Editor(tm)") );
@@ -446,7 +425,8 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   // not finished for 3.0
   btnNew->hide();
   btnEdit->hide();
-
+  
+  layout->addStretch ();
 }
 
 void HighlightDialogPage::hlChanged(int /*z*/)

@@ -33,7 +33,7 @@ class KateSchemaManager;
 
 class KDirWatch;
 
-class KateFactory : public KParts::Factory
+class KateFactory
 {
   private:
     KateFactory ();

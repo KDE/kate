@@ -28,7 +28,9 @@
 #include "katetextline.h"
 #include "katedocument.h"
 #include "katesyntaxdocument.h"
+#include "katerenderer.h"
 #include "katefactory.h"
+#include "kateschema.h"
 #include "kateconfig.h"
 
 #include <kconfig.h>
@@ -41,6 +43,7 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
+#include <kstaticdeleter.h>
 #include <kapplication.h>
 
 #include <qstringlist.h>
@@ -215,11 +218,7 @@ class HlRegExpr : public HlItem
 //END
 
 //BEGIN STATICS
-HlManager *HlManager::s_pSelf = 0;
-KConfig *HlManager::s_pConfig =0;
-
-// Make this configurable?
-QStringList HlManager::commonSuffixes = QStringList::split(";", ".orig;.new;~;.bak;.BAK");
+HlManager *HlManager::s_self = 0;
 
 enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar,dsString,dsComment,dsOthers};
 
@@ -864,6 +863,8 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId,si
 //BEGIN Highlight
 Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
 {
+  m_attributeArrays.setAutoDelete (true);
+
   errorsAndWarnings = "";
   building=false;
   noHl = false;
@@ -2227,13 +2228,65 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   folding = folding || m_foldingIndentationSensitive;
   return i;
 }
+
+
+QMemArray<KateAttribute> *Highlight::attributes (uint schema)
+{
+  QMemArray<KateAttribute> *array;
+
+  // found it, allready floating around
+  if ((array = m_attributeArrays[schema]))
+    return array;
+
+  // ohh, not found, check if valid schema number
+  if (!KateFactory::self()->schemaManager()->validSchema(schema))
+  {
+    // uhh, not valid :/, stick with normal default schema, it's always there !
+    return attributes (0);
+  }
+  
+  // k, schema correct, let create the data
+  KateAttributeList defaultStyleList;
+  defaultStyleList.setAutoDelete(true);
+  HlManager::self()->getDefaults(schema, defaultStyleList);
+
+  ItemDataList itemDataList;
+  getItemDataList(itemDataList);
+
+  uint nAttribs = itemDataList.count();
+  array = new QMemArray<KateAttribute> (nAttribs);
+
+  for (uint z = 0; z < nAttribs; z++)
+  {
+    KateAttribute n;
+    ItemData *itemData = itemDataList.at(z);
+
+    KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
+    n+= *defaultStyle;
+
+    if (itemData->isSomethingSet())
+    {
+      // custom style
+      n += *itemData;
+    }
+
+    array->at(z) = n;
+  }
+  
+  m_attributeArrays.insert(schema, array);
+  
+  return array;
+}
+
 //END
 
 //BEGIN HlManager
-HlManager::HlManager() : QObject(0)
+HlManager::HlManager() : QObject(0), m_config ("katesyntaxhighlightingrc", false, false)
 {
   hlList.setAutoDelete(true);
   hlDict.setAutoDelete(false);
+  
+  commonSuffixes = QStringList::split(";", ".orig;.new;~;.bak;.BAK");
 
   syntax = new SyntaxDocument();
   SyntaxModeList modeList = syntax->modeList();
@@ -2275,20 +2328,19 @@ HlManager::~HlManager()
   }
 }
 
+static KStaticDeleter<HlManager> sdHlMan; 
+
 HlManager *HlManager::self()
 {
-  if ( !s_pSelf )
-    s_pSelf = new HlManager;
+  if ( !s_self )
+    sdHlMan.setObject(s_self, new HlManager ());
 
-  return s_pSelf;
+  return s_self;
 }
 
 KConfig *HlManager::getKConfig()
 {
-  if (!s_pConfig)
-    s_pConfig = new KConfig("katesyntaxhighlightingrc", false, false);
-
-  return s_pConfig;
+  return &(self()->m_config);
 }
 
 Highlight *HlManager::getHl(int n)
@@ -2440,37 +2492,7 @@ int HlManager::mimeFind(const QByteArray &contents, const QString &)
   return -1;
 }
 
-void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
-{
-  KateAttributeList defaultStyleList;
-  defaultStyleList.setAutoDelete(true);
-  getDefaults(defaultStyleList);
-
-  ItemDataList itemDataList;
-  highlight->getItemDataList(itemDataList);
-
-  uint nAttribs = itemDataList.count();
-  doc->attribs()->resize (nAttribs);
-
-  for (uint z = 0; z < nAttribs; z++)
-  {
-    KateAttribute n;
-    ItemData *itemData = itemDataList.at(z);
-
-      KateAttribute *defaultStyle = defaultStyleList.at(itemData->defStyleNum);
-      n+= *defaultStyle;
-
-    if (itemData->isSomethingSet())
-    {
-      // custom style
-      n += *itemData;
-    }
-
-    doc->attribs()->at(z) = n;
-  }
-}
-
-int HlManager::defaultStyles()
+uint HlManager::defaultStyles()
 {
   return 10;
 }
@@ -2496,7 +2518,7 @@ QString HlManager::defaultStyleName(int n)
   return names[n];
 }
 
-void HlManager::getDefaults(KateAttributeList &list)
+void HlManager::getDefaults(uint schema, KateAttributeList &list)
 {
   list.setAutoDelete(true);
 
@@ -2553,14 +2575,13 @@ void HlManager::getDefaults(KateAttributeList &list)
   list.append(others);
 
   KConfig *config = HlManager::getKConfig();
-  config->setGroup("Default Item Styles");
+  config->setGroup(KateFactory::self()->schemaManager()->name(schema) + ": Default Item Styles");
 
-  for (int z = 0; z < defaultStyles(); z++)
+  for (uint z = 0; z < defaultStyles(); z++)
   {
     KateAttribute *i = list.at(z);
     QStringList s = config->readListEntry(defaultStyleName(z));
 
-//    kdDebug()<<defaultStyleName(z)<<s.count()<<endl;
     if (s.count()>0)
     {
 
@@ -2594,14 +2615,14 @@ void HlManager::getDefaults(KateAttributeList &list)
   }
 }
 
-void HlManager::setDefaults(KateAttributeList &list)
+void HlManager::setDefaults(uint schema, KateAttributeList &list)
 {
   KConfig *config =  HlManager::getKConfig();
-  config->setGroup("Default Item Styles");
+  config->setGroup(KateFactory::self()->schemaManager()->name(schema) + ": Default Item Styles");
 
-   QStringList settings;
+  QStringList settings;
 
-  for (int z = 0; z < defaultStyles(); z++)
+  for (uint z = 0; z < defaultStyles(); z++)
   {
     KateAttribute *i = list.at(z);
 
@@ -2616,7 +2637,6 @@ void HlManager::setDefaults(KateAttributeList &list)
         settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
   settings<<"---";
         config->writeEntry(defaultStyleName(z),settings);
-//    config->writeEntry(defaultStyleName(z),s);
   }
 
   emit changed();

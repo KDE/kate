@@ -216,6 +216,9 @@ class StyleListView : public QListView {
        promoting the context name of that item */
     void showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle=false );
     void emitChanged() { emit changed(); };
+    
+    void setDefaultColor (QColor color) { normalcol = color; repaint (); };
+    
   private slots:
     /* Display a popupmenu for item i at item position */
     void showPopupMenu( QListViewItem *i );
@@ -311,7 +314,7 @@ class HlConfigPage : public Kate::ConfigPage
     void defaults () {};
 };
 
-class HighlightDialogPage : public QTabWidget
+class HighlightDialogPage : public QWidget
 {
     Q_OBJECT
   public:

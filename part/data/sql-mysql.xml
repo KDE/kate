@@ -150,26 +150,26 @@
       <item> YEAR_MONTH </item>
       <item> ZEROFILL </item>
     </list>
-    <list name="operators">
-      <item> + </item>
-      <item> - </item>
-      <item> * </item>
-      <item> / </item>
-      <item> || </item>
-      <item> = </item>
-      <item> != </item>
-      <item> &lt;&gt; </item>
-      <item> &lt; </item>
-      <item> &lt;= </item>
-      <item> &gt; </item>
-      <item> &gt;= </item>
-      <item> ~= </item>
-      <item> ^= </item>
-      <item> := </item>
-      <item> =&gt; </item>
-      <item> ** </item>
-      <item> .. </item>
-     </list>
+    <list name="operators">
+      <item> + </item>
+      <item> - </item>
+      <item> * </item>
+      <item> / </item>
+      <item> || </item>
+      <item> = </item>
+      <item> != </item>
+      <item> &lt;&gt; </item>
+      <item> &lt; </item>
+      <item> &lt;= </item>
+      <item> &gt; </item>
+      <item> &gt;= </item>
+      <item> ~= </item>
+      <item> ^= </item>
+      <item> := </item>
+      <item> =&gt; </item>
+      <item> ** </item>
+      <item> .. </item>
+    </list>
      <list name="functions">
       <!-- string functions -->
       <item> ASCII </item>

@@ -279,17 +279,13 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   else
     len = endcol - startcol;
 
-  uint curCol = startcol;
-  uint nextCol = curCol + 1;
-
   // text attribs font/style data
   KateAttribute* attr = m_doc->m_highlight->attributes(m_schema)->data();
-  uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
   const QColor *cursorColor = &attr[0].textColor();
 
   // Start arbitrary highlighting
-  KateTextCursor currentPos(line, curCol);
+  KateTextCursor currentPos(line, startcol);
   superRanges.firstBoundary(&currentPos);
 
   if (showSelections() && !selectionPainted)
@@ -315,7 +311,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // Optimisation to quickly draw an empty line of text
   if (len < 1)
   {
-    if (showCursor && (cursor->col() >= int(curCol)))
+    if (showCursor && (cursor->col() >= int(startcol)))
     {
       cursorVisible = true;
       cursorXPos = xPos + cursor->col() * fs->myFontMetrics.width(spaceChar);
@@ -341,6 +337,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     KateAttribute currentHL;
 
     uint blockStartCol = startcol;
+    uint curCol = startcol;
+    uint nextCol = curCol + 1;
 
     // text + attrib data from line
     const uchar *textAttributes = textLine->attributes ();
@@ -348,6 +346,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
     // adjust to startcol ;)
     textAttributes = textAttributes + startcol;
+
+    uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
     while (curCol - startcol < len)
     {
@@ -451,7 +451,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           if (!isPrinterFriendly())
           {
             bool paintBackground = true;
+            uint width = xPosAfter - oldXPos;
             QColor fillColor;
+
             if (isIMSel && !isTab)
             {
               // input method selection
@@ -469,7 +471,19 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             }
             else if (!selectionPainted && (isSel || currentHL.itemSet(KateAttribute::BGColor)))
             {
-              fillColor = isSel ? config()->selectionColor() : currentHL.bgColor();
+              if (isSel)
+              {
+                fillColor = config()->selectionColor();
+
+                // If this is the last block of text, fill up to the end of the line if the
+                // selection stretches that far
+                if ((curCol >= len - 1) && m_doc->lineEndSelected (line, endcol))
+                  width = xEnd - oldXPos;
+              }
+              else
+              {
+                fillColor = currentHL.bgColor();
+              }
             }
             else
             {
@@ -477,7 +491,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             }
 
             if (paintBackground)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, fillColor);
+              paint.fillRect(oldXPos - xStart, 0, width, fs->fontHeight, fillColor);
 
             if (isIMSel && paintBackground && !isTab)
             {
@@ -566,14 +580,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &oldAt->textColor();
     }
-  }
-
-  // Draw dregs of the selection
-  // TODO: genericise background painting
-  if (!isPrinterFriendly() && showSelections() && !selectionPainted && m_doc->lineEndSelected (line, endcol))
-  {
-    paint.fillRect(xPos-xStart, 0, xEnd - xStart, fs->fontHeight, config()->selectionColor());
-    selectionPainted = true;
   }
 
   // Paint cursor

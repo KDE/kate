@@ -59,6 +59,8 @@ TODO
   name:        The name of this syntax description. Used in the Highlightning Mode menu
   section:     The logical group to which this syntax description belongs. Used for sub menus
   extensions:  A file glob or pattern to decide for which documents to use this syntax description
+               NOTE: due to performance reasons, for globs starting with "*.", the extension will not be
+               matched as a regular expression.  Start your regexp with something else if you need it to be.
   mimetype:    A list of mimetypes to decide for which documents to use this syntax description [optional]
   version:     Version number of this syntax description [optional]
   kateversion: Kate version required for using this file [optional]

@@ -621,12 +621,18 @@ Highlight::~Highlight()
 signed char *Highlight::generateContextStack(int *ctxNum, int ctx,signed char *ctxs, uint *ctxsLen, int *prevLine, bool lineContinue)
 {
   if (lineContinue) 
-	{ ctx=-1;
+	{
+//	{ ctx=-1;
 	  if (ctxsLen>0)
 	  {
-		(*ctxNum)=ctxs[*(ctxsLen)-1];
-          } else (*ctxNum)=0;
-	  generateContextStack(ctxNum,*ctxNum,ctxs,ctxsLen,prevLine,false);
+		(*ctxNum)=ctxs[(*ctxsLen-1)];
+		(*prevLine)--;
+          } else
+	  {
+		 kdDebug()<<QString("generateContextStack: line continue: len ==0");
+		 (*ctxNum)=0;
+	  }
+//	 return  (generateContextStack(ctxNum,-1,ctxs,ctxsLen,prevLine,false));
 	  return ctxs;
 	}
 
@@ -741,6 +747,9 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
     //kdDebug()<<"test1-2-1-text1"<<endl;
 
     //kdDebug() << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
+
+    if (lineContinue)   kdDebug()<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
+
     if (contextList[ctxNum])
       context=contextList[ctxNum]; //context structure
     else
@@ -751,11 +760,15 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
     prevLine=oCtxLen-1;	//position of the last context ID of th previous line within the stack
 
     //kdDebug()<<"test1-2-1-text3"<<endl;
-    ctx=generateContextStack(&ctxNum, context->ctx, ctx, &oCtxLen, &prevLine,lineContinue);	//get stack ID to use
+	    ctx=generateContextStack(&ctxNum, context->ctx, ctx, &oCtxLen, &prevLine,lineContinue);	//get stack ID to use
+  	
     //kdDebug()<<"test1-2-1-text4"<<endl;
 
     context=contextList[ctxNum];	//current context to use
     //kdDebug()<<"test1-2-2"<<endl;
+
+    if (lineContinue)   kdDebug()<<QString("The new context is %1").arg((int)ctxNum)<<endl;
+
   }
 
   QChar lastChar = ' ';

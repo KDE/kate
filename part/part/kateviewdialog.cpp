@@ -199,7 +199,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
 
   QRadioButton *rb1, *rb2;
 
-  m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode if nothing selected"), this );
+  m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode if Nothing Selected"), this );
   m_tabs->setRadioButtonExclusive( true );
   m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &chars"), m_tabs ), 0 );
   m_tabs->insert( rb2=new QRadioButton( i18n("Indent current &line"), m_tabs ), 1 );

@@ -269,8 +269,9 @@ QSize KateIconBorder::sizeHint() const
   if (m_foldingMarkersOn)
     w += iconPaneWidth;
 
-  // A little extra makes selecting at the beginning easier
-  w = QMAX( w, 4 );
+  // A little extra makes selecting at the beginning easier and looks nicer
+  if( !m_foldingMarkersOn )
+    w += 4;
 
   return QSize( w, 0 );
 }
@@ -387,26 +388,16 @@ void KateIconBorder::mousePressEvent( QMouseEvent* e )
   m_lastClickedLine = m_doc->getRealLine(
     (e->y() + m_viewInternal->contentsY()) / m_doc->viewFont.fontHeight );
   
-  BorderArea area = positionToArea( e->pos() );
-  if( area == FoldingMarkers ||
-      area == None )
-  {
-    QMouseEvent forward( QEvent::MouseButtonPress, 
-      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
-    m_viewInternal->contentsMousePressEvent( &forward );
-  }
+  QMouseEvent forward( QEvent::MouseButtonPress, 
+    QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+  m_viewInternal->contentsMousePressEvent( &forward );
 }
 
 void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 {
-  BorderArea area = positionToArea( e->pos() );
-  if( area == FoldingMarkers ||
-      area == None )
-  {
-    QMouseEvent forward( QEvent::MouseMove, 
-      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
-    m_viewInternal->contentsMouseMoveEvent( &forward );
-  }
+  QMouseEvent forward( QEvent::MouseMove, 
+    QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+  m_viewInternal->contentsMouseMoveEvent( &forward );
 }
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
@@ -414,56 +405,44 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
   uint cursorOnLine = m_doc->getRealLine(
     (e->y() + m_viewInternal->contentsY()) / m_doc->viewFont.fontHeight );
   
-  switch( positionToArea( e->pos() ) ) {
-  case LineNumbers:
-    break;
-  case IconBorder:
-    if( e->button() == LeftButton &&
-        cursorOnLine == m_lastClickedLine &&
-        cursorOnLine <= m_doc->lastLine() )
-    {
-      if( m_doc->editableMarks() == MarkInterface::markType01 ) {
-        if( m_doc->mark( cursorOnLine ) & MarkInterface::markType01 )
-          m_doc->removeMark( cursorOnLine, MarkInterface::markType01 );
-        else
-          m_doc->addMark( cursorOnLine, MarkInterface::markType01 );
-      } else {
-        showMarkMenu( cursorOnLine, QCursor::pos() );
-      }
+  BorderArea area = positionToArea( e->pos() );
+  if( area == IconBorder &&
+      e->button() == LeftButton &&
+      cursorOnLine == m_lastClickedLine &&
+      cursorOnLine <= m_doc->lastLine() )
+  {
+    if( m_doc->editableMarks() == MarkInterface::markType01 ) {
+      if( m_doc->mark( cursorOnLine ) & MarkInterface::markType01 )
+        m_doc->removeMark( cursorOnLine, MarkInterface::markType01 );
+      else
+        m_doc->addMark( cursorOnLine, MarkInterface::markType01 );
+    } else {
+      showMarkMenu( cursorOnLine, QCursor::pos() );
     }
-    break;
-  case FoldingMarkers:
-    if( cursorOnLine == m_lastClickedLine &&
-        cursorOnLine <= m_doc->lastLine() )
-    {
-      kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
-      KateLineInfo info;
-      m_doc->regionTree->getLineInfo(&info,cursorOnLine);
-      if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
-      {
-         kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
-         emit toggleRegionVisibility(cursorOnLine);
-      }
-    }
-    // Fall through
-  default:
-    QMouseEvent forward( QEvent::MouseButtonRelease, 
-      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
-    m_viewInternal->contentsMouseReleaseEvent( &forward );
-    break;
   }
+  if( area == FoldingMarkers &&
+      cursorOnLine == m_lastClickedLine &&
+      cursorOnLine <= m_doc->lastLine() )
+  {
+    kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
+    KateLineInfo info;
+    m_doc->regionTree->getLineInfo(&info,cursorOnLine);
+    if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
+    {
+      kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
+      emit toggleRegionVisibility(cursorOnLine);
+    }
+  }
+  QMouseEvent forward( QEvent::MouseButtonRelease, 
+    QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+  m_viewInternal->contentsMouseReleaseEvent( &forward );
 }
 
 void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 {
-  BorderArea area = positionToArea( e->pos() );
-  if( area == FoldingMarkers ||
-      area == None )
-  {
-    QMouseEvent forward( QEvent::MouseButtonDblClick, 
-      QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
-    m_viewInternal->contentsMouseDoubleClickEvent( &forward );
-  }
+  QMouseEvent forward( QEvent::MouseButtonDblClick, 
+    QPoint( 0, e->y() + m_viewInternal->contentsY() ), e->button(), e->state() );
+  m_viewInternal->contentsMouseDoubleClickEvent( &forward );
 }
 
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )

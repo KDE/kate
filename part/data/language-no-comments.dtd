@@ -71,7 +71,7 @@
 
 <!ELEMENT contexts (context)+>
 
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | ConsumeSpaces | ConsumeIdentifier)*>
 <!ATTLIST context
   attribute CDATA #REQUIRED
   lineEndContext CDATA #REQUIRED
@@ -80,7 +80,6 @@
   fallthrough (false|true) #IMPLIED
   fallthroughContext CDATA #IMPLIED
   dynamic           (%boolean;) #IMPLIED
-  skipSpaces        (%boolean;) #IMPLIED
 >
 
 <!ELEMENT keyword EMPTY                  >
@@ -176,6 +175,16 @@
 <!ATTLIST IncludeRules
   context       CDATA #REQUIRED
   includeAttrib (false|true) #IMPLIED
+>
+
+<!ELEMENT ConsumeSpaces EMPTY>
+<!ATTLIST ConsumeSpaces
+          %commonAttributes;
+          >
+
+<!ELEMENT ConsumeIdentifier EMPTY>
+<!ATTLIST ConsumeIdentifier
+          %commonAttributes;
 >
 
 <!ELEMENT itemDatas (itemData)+          >

@@ -49,10 +49,12 @@
       <item> ### </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Normal" skipSpaces="true">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <ConsumeSpaces />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
+        <ConsumeIdentifier />
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
         <Float attribute="Float" context="#stay">

@@ -107,13 +107,18 @@ class KateHlItem
     bool dynamic;
     bool dynamicChild;
     bool firstNonSpace;
+
+    inline bool justConsume () const { return m_justConsume; }
+
+  protected:
+    bool m_justConsume;
 };
 
 class KateHlContext
 {
   public:
     KateHlContext(int attribute, int lineEndContext,int _lineBeginContext,
-                  bool _fallthrough, int _fallthroughContext, bool _dynamic, bool _skipSpaces);
+                  bool _fallthrough, int _fallthroughContext, bool _dynamic);
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
 
@@ -131,7 +136,6 @@ class KateHlContext
 
     bool dynamic;
     bool dynamicChild;
-    bool skipSpaces;
 };
 
 class KateEmbeddedHlInfo
@@ -339,6 +343,30 @@ class KateHlRegExpr : public KateHlItem
     bool _minimal;
 };
 
+class KateHlConsumeSpaces : public KateHlItem
+{
+  public:
+    KateHlConsumeSpaces () : KateHlItem (0,0,0,0) { m_justConsume = true; }
+
+    virtual int checkHgl(const QString& text, int offset, int len)
+    {
+      while (text[offset].isSpace()) offset++;
+      return offset;
+    }
+};
+
+class KateHlConsumeIdentifier : public KateHlItem
+{
+  public:
+    KateHlConsumeIdentifier () : KateHlItem (0,0,0,0) { m_justConsume = true; }
+
+    virtual int checkHgl(const QString& text, int offset, int len)
+    {
+      while (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_'))) offset++;
+      return offset;
+    }
+};
+
 //END
 
 //BEGIN STATICS
@@ -379,7 +407,8 @@ KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed ch
     lookAhead(false),
     dynamic(false),
     dynamicChild(false),
-    firstNonSpace(false)
+    firstNonSpace(false),
+    m_justConsume(false)
 {
 }
 
@@ -1095,7 +1124,7 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 }
 
 //BEGIN KateHlContext
-KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic, bool _skipSpaces)
+KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic)
 {
   attr = attribute;
   ctx = lineEndContext;
@@ -1104,12 +1133,11 @@ KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginC
   ftctx = _fallthroughContext;
   dynamic = _dynamic;
   dynamicChild = false;
-  skipSpaces = _skipSpaces;
 }
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false, skipSpaces);
+  KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false);
 
   for (uint n=0; n < items.size(); ++n)
   {
@@ -1388,20 +1416,32 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     bool standardStartEnableDetermined = false;
     bool standardStartEnable = false;
 
-    if (context->skipSpaces && text[z].isSpace())
+    uint index = 0;
+    for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
     {
-      // skip the space
-      textLine->setAttribs(context->attr,offset1,offset1 + 1);
-    }
-    else
-    {
-      uint index = 0;
-      for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
+      // does we only match if we are firstNonSpace?
+      if (item->firstNonSpace && (z > startNonSpace))
+        continue;
+
+      // do we only consume stuff?
+      if (item->justConsume())
       {
-        // does we only match if we are firstNonSpace?
-        if (item->firstNonSpace && (z > startNonSpace))
+        int offset2 = item->checkHgl(text, offset1, len-z);
+
+        if (offset2 <= offset1)
           continue;
 
+        // set attribute of this context
+        textLine->setAttribs(context->attr,offset1,offset2);
+
+        z = z + offset2 - offset1 - 1;
+        offset1 = offset2 - 1;
+
+        found = true;
+        break;
+      }
+      else
+      {
         bool thisStartEnabled = false;
 
         if (item->alwaysStartEnable())
@@ -1423,113 +1463,115 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           thisStartEnabled = true;
         }
 
-        if (thisStartEnabled)
+        if (!thisStartEnabled)
+          continue;
+
+        int offset2 = item->checkHgl(text, offset1, len-z);
+
+        if (offset2 <= offset1)
+          continue;
+
+        if(!item->lookAhead)
+          textLine->setAttribs(item->attr,offset1,offset2);
+
+          //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
+
+        if (item->region2)
         {
-          int offset2 = item->checkHgl(text, offset1, len-z);
-
-          if (offset2 > offset1)
+          // kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
+          if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
           {
-            if(!item->lookAhead)
-              textLine->setAttribs(item->attr,offset1,offset2);
-            //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
-
-
-            if (item->region2)
-            {
-  //              kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
-              if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
-              {
-                foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
-              }
-              else
-              {
-                foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
-                (*foldingList)[foldingList->size()-2] = (uint)item->region2;
-                if (item->region2<0) //check not really needed yet
-                  (*foldingList)[foldingList->size()-1] = offset2;
-                else
-                (*foldingList)[foldingList->size()-1] = offset1;
-              }
-
-            }
-
-            if (item->region)
-            {
-  //              kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
-
-  /*            if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-              {
-                foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
-              }
-              else*/
-              {
-                foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
-                (*foldingList)[foldingList->size()-2] = item->region;
-                if (item->region<0) //check not really needed yet
-                  (*foldingList)[foldingList->size()-1] = offset2;
-                else
-                  (*foldingList)[foldingList->size()-1] = offset1;
-              }
-
-            }
-
-            generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
-
-        //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
-      //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
-
-            context=contextNum(ctxNum);
-
-            // dynamic context: substitute the model with an 'instance'
-            if (context->dynamic)
-            {
-              QStringList *lst = item->capturedTexts();
-              if (lst != 0)
-              {
-                // Replace the top of the stack and the current context
-                int newctx = makeDynamicContext(context, lst);
-                if (ctx.size() > 0)
-                  ctx[ctx.size() - 1] = newctx;
-                ctxNum = newctx;
-                context = contextNum(ctxNum);
-              }
-              delete lst;
-            }
-
-            // dominik: look ahead w/o changing offset?
-            if (!item->lookAhead)
-            {
-              z = z + offset2 - offset1 - 1;
-              offset1 = offset2 - 1;
-            }
-            found = true;
-            break;
+            foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
           }
+          else
+          {
+            foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+            (*foldingList)[foldingList->size()-2] = (uint)item->region2;
+            if (item->region2<0) //check not really needed yet
+              (*foldingList)[foldingList->size()-1] = offset2;
+            else
+            (*foldingList)[foldingList->size()-1] = offset1;
+          }
+
         }
+
+        if (item->region)
+        {
+          // kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+
+        /* if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
+          {
+            foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
+          }
+          else*/
+          {
+            foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+            (*foldingList)[foldingList->size()-2] = item->region;
+            if (item->region<0) //check not really needed yet
+              (*foldingList)[foldingList->size()-1] = offset2;
+            else
+              (*foldingList)[foldingList->size()-1] = offset1;
+          }
+
+        }
+
+        generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
+
+    //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
+  //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
+
+        context=contextNum(ctxNum);
+
+        // dynamic context: substitute the model with an 'instance'
+        if (context->dynamic)
+        {
+          QStringList *lst = item->capturedTexts();
+          if (lst != 0)
+          {
+            // Replace the top of the stack and the current context
+            int newctx = makeDynamicContext(context, lst);
+            if (ctx.size() > 0)
+              ctx[ctx.size() - 1] = newctx;
+            ctxNum = newctx;
+            context = contextNum(ctxNum);
+          }
+          delete lst;
+        }
+
+        // dominik: look ahead w/o changing offset?
+        if (!item->lookAhead)
+        {
+          z = z + offset2 - offset1 - 1;
+          offset1 = offset2 - 1;
+        }
+
+        found = true;
+        break;
       }
+    }
+
+    if (!found)
+    {
 
       // nothing found: set attribute of one char
       // anders: unless this context does not want that!
-      if (!found)
+      if ( context->fallthrough )
       {
-        if ( context->fallthrough )
-        {
-        // set context to context->ftctx.
-          generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
-          context=contextNum(ctxNum);
-        //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
-        // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
-        // immediately after fallthrough fails. Is it bad?
-        // jowenn, can you come up with a nicer way to do this?
-          if (z)
-            lastChar = text[offset1 - 1];
-          else
-            lastChar = '\\';
-          continue;
-        }
+      // set context to context->ftctx.
+        generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
+        context=contextNum(ctxNum);
+      //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
+      // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
+      // immediately after fallthrough fails. Is it bad?
+      // jowenn, can you come up with a nicer way to do this?
+        if (z)
+          lastChar = text[offset1 - 1];
         else
-          textLine->setAttribs(context->attr,offset1,offset1 + 1);
+          lastChar = '\\';
+        continue;
       }
+      else
+        textLine->setAttribs(context->attr,offset1,offset1 + 1);
     }
 
     // dominik: do not change offset if we look ahead
@@ -1986,6 +2028,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   else if (dataname=="HlCOct") tmpItem= (new KateHlCOct(attr,context,regionId,regionId2));
   else if (dataname=="HlCFloat") tmpItem= (new KateHlCFloat(attr,context,regionId,regionId2));
   else if (dataname=="HlCStringChar") tmpItem= (new KateHlCStringChar(attr,context,regionId,regionId2));
+  else if (dataname=="ConsumeSpaces") tmpItem= (new KateHlConsumeSpaces());
+  else if (dataname=="ConsumeIdentifier") tmpItem= (new KateHlConsumeIdentifier());
   else
   {
     // oops, unknown type. Perhaps a spelling error in the xml file
@@ -2635,8 +2679,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         context,
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-        ft, ftc, dynamic,
-        IS_TRUE(KateHlManager::self()->syntax->groupData(data,QString("skipSpaces")))));
+        ft, ftc, dynamic));
 
       //Let's create all items for the context
       while (KateHlManager::self()->syntax->nextItem(data))

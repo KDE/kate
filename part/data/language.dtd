@@ -158,7 +158,7 @@ TODO:
   - Do we need fallthrough at all? It could be true, if fallthroughContext is set, false otherwhise.
   - Make lineEndContext optional, defaults to '#stay'. Reasonable?
 -->
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules | ConsumeSpaces | ConsumeIdentifier)*>
 <!ATTLIST context
   name              CDATA       #IMPLIED
   attribute         CDATA       #REQUIRED
@@ -167,7 +167,6 @@ TODO:
   fallthrough       (%boolean;) #IMPLIED
   fallthroughContext CDATA      #IMPLIED
   dynamic           (%boolean;) #IMPLIED
-  skipSpaces        (%boolean;) #IMPLIED
 >
 
 <!-- Common attributes
@@ -365,6 +364,20 @@ TODO:
 <!ATTLIST IncludeRules
   context       CDATA   #REQUIRED
   includeAttrib (%boolean;) #IMPLIED
+>
+
+<!-- Consume Spaces
+-->
+<!ELEMENT ConsumeSpaces EMPTY>
+<!ATTLIST ConsumeSpaces
+          %commonAttributes;
+>
+
+<!-- Consume Identifier
+     -->
+<!ELEMENT ConsumeIdentifier EMPTY>
+<!ATTLIST ConsumeIdentifier
+          %commonAttributes;
 >
 
 <!-- List of attributes -->

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.02" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
+<language version="1.03" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
   <highlighting>
     <list name="blocks">
       <item> begin </item>
@@ -210,9 +210,11 @@
       </context>
       <context name="Predicates" attribute="Normal" lineEndContext="#pop">
         <DetectChar attribute="Predicate" context="#pop" char="?"/>
+        <RegExpr attribute="Normal" context="#pop" String="\s" />
       </context>
       <context name="Predicates2" attribute="Normal" lineEndContext="#pop">
         <RegExpr attribute="Predicate" context="#pop" String="[&lt;&gt;]?=?\?"/>
+        <RegExpr attribute="Normal" context="#pop" String="\s" />
       </context>
       <context name="Assignments" attribute="Normal" lineEndContext="#pop">
         <DetectChar attribute="Assignments" context="#pop" char="!"/>

@@ -40,7 +40,6 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_caretStyle(KateRenderer::Insert)
     , m_showSelections(true)
     , m_showTabs(true)
-    , m_font(KateRendererConfig::ViewFont)
     , m_printerFriendly(false)
 {
   KateFactory::registerRenderer ( this );
@@ -93,32 +92,22 @@ void KateRenderer::setShowSelections(bool showSelections)
   m_showSelections = showSelections;
 }
 
-int KateRenderer::font() const
-{
-  return m_font;
-}
-
-void KateRenderer::setFont(int whichFont)
-{
-  m_font = whichFont;
-}
-
 void KateRenderer::increaseFontSizes()
 {
-  QFont f ( *config()->font (font()) );
+  QFont f ( *config()->font () );
   f.setPointSize (f.pointSize ()+1);
 
-  config()->setFont (font (), f);
+  config()->setFont (f);
 }
 
 void KateRenderer::decreaseFontSizes()
 {
-  QFont f ( *config()->font (font()) );
+  QFont f ( *config()->font () );
 
   if ((f.pointSize ()-1) > 0)
     f.setPointSize (f.pointSize ()-1);
 
-  config()->setFont (font (), f);
+  config()->setFont (f);
 }
 
 bool KateRenderer::isPrinterFriendly() const
@@ -129,7 +118,6 @@ bool KateRenderer::isPrinterFriendly() const
 void KateRenderer::setPrinterFriendly(bool printerFriendly)
 {
   m_printerFriendly = printerFriendly;
-  setFont(KateRendererConfig::PrintFont);
   setShowTabs(false);
   setShowSelections(false);
   setDrawCaret(false);
@@ -180,7 +168,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   }
 
   // font data
-  const FontStruct * fs = config()->fontStruct(font());
+  const FontStruct * fs = config()->fontStruct();
 
   int line = range->line;
   bool currentLine = false;
@@ -605,7 +593,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
   if (cursorCol < 0)
     cursorCol = len;
 
-  const FontStruct *fs = config()->fontStruct(font());
+  const FontStruct *fs = config()->fontStruct();
 
   int x = 0;
   int width;
@@ -630,7 +618,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
 
 uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX)
 {
-  const FontStruct *fs = config()->fontStruct(font());
+  const FontStruct *fs = config()->fontStruct();
   uint x = 0;
   uint endcol = startcol;
   int endX2 = 0;
@@ -733,7 +721,7 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
   int len;
   int x, oldX;
 
-  const FontStruct *fs = config()->fontStruct(font());
+  const FontStruct *fs = config()->fontStruct();
 
   if (cursor.line() < 0) cursor.setLine(0);
   if (cursor.line() > (int)m_doc->lastLine()) cursor.setLine(m_doc->lastLine());
@@ -774,12 +762,12 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
 
 const QFont *KateRenderer::currentFont()
 {
-  return config()->font(font());
+  return config()->font();
 }
 
 const QFontMetrics* KateRenderer::currentFontMetrics()
 {
-  return config()->fontMetrics(font());
+  return config()->fontMetrics();
 }
 
 uint KateRenderer::textPos(uint line, int xPos, uint startCol)
@@ -793,7 +781,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
   if (!textLine)
     return 0;
 
-  const FontStruct *fs = config()->fontStruct(font());
+  const FontStruct *fs = config()->fontStruct();
 
   int x, oldX;
   x = oldX = 0;
@@ -817,7 +805,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
 
 uint KateRenderer::fontHeight()
 {
-  return config()->fontStruct (font())->fontHeight;
+  return config()->fontStruct ()->fontHeight;
 }
 
 uint KateRenderer::documentHeight()

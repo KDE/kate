@@ -91,14 +91,8 @@ public:
     void setShowSelections(bool showSelections);
 
     /**
-     * Index of the current font (or soon to be font set?)
-     */
-    int font() const;
-
-    /**
      * Change to a different font (soon to be font set?)
      */
-    void setFont(int whichFont);
     void increaseFontSizes();
     void decreaseFontSizes();
     const QFont* currentFont();
@@ -160,7 +154,6 @@ public:
     int m_caretStyle;
     bool m_showSelections;
     bool m_showTabs;
-    int m_font;
     bool m_printerFriendly;
 
   /**

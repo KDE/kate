@@ -197,67 +197,6 @@ public slots:
  void defaults ();
 };
 
-class ColorConfig : public Kate::ConfigPage
-{
-  Q_OBJECT
-
-public:
-
-  ColorConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
-  ~ColorConfig();
-
-private:
-  KateDocument *m_doc;
-
-  KColorButton *m_back;
-  KColorButton *m_selected;
-  KColorButton *m_current;
-  KColorButton *m_bracket;
-  KColorButton *m_wwmarker;
-  KColorButton *m_iconborder;
-  KColorButton *m_tmarker;
-
-  public slots:
-    void apply ();
-    void reload ();
-    void reset () {};
-    void defaults () {};
-};
-
-class FontConfig : public Kate::ConfigPage
-{
-  Q_OBJECT
-
-public:
-
-  FontConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
-  ~FontConfig();
-
-  void setFont ( const QFont &font );
-  QFont getFont ( ) { return myFont; };
-
-  void setFontPrint ( const QFont &font );
-  QFont getFontPrint ( ) { return myFontPrint; };
-
- private:
-    class KFontChooser *m_fontchooser;
-    class KFontChooser *m_fontchooserPrint;
-    QFont myFont;
-    QFont myFontPrint;
-    KateDocument *m_doc;
-
-  private slots:
-    void slotFontSelected( const QFont &font );
-    void slotFontSelectedPrint ( const QFont &font );
-
-  public slots:
-    void apply ();
-    void reload ();
-    void reset () {};
-    void defaults () {};
-};
-
-
 class EditKeyConfiguration: public Kate::ConfigPage
 {
   Q_OBJECT

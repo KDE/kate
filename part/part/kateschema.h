@@ -43,10 +43,20 @@ class KateSchemaManager
      */
     KConfig *schema (uint number);
 
-		void addSchema (const QString &t);
+    void addSchema (const QString &t);
 
     /**
-     * Don't modify
+     * if not found, defaults to 0
+     */
+    uint number (const QString &name);
+
+    /**
+     * group names in the end, no i18n involved
+     */
+    QString name (uint number);
+
+    /**
+     * Don't modify, list with the names of the schemas (i18n name for the default ones)
      */
     const QStringList &list () { return m_schemas; }
 
@@ -54,6 +64,10 @@ class KateSchemaManager
     KConfig m_config;
     QStringList m_schemas;
 };
+
+//
+// DIALOGS
+//
 
 class KateSchemaConfigColorTab : public QWidget
 {
@@ -76,6 +90,27 @@ public:
   public:
     void readConfig (KConfig *config);
     void writeConfig (KConfig *config);
+};
+
+class KateSchemaConfigFontTab : public QWidget
+{
+  Q_OBJECT
+
+public:
+
+  KateSchemaConfigFontTab( QWidget *parent = 0, const char *name = 0 );
+  ~KateSchemaConfigFontTab();
+
+  public:
+    void readConfig (KConfig *config);
+    void writeConfig (KConfig *config);
+
+	private:
+			class KFontChooser *m_fontchooser;
+			QFont myFont;
+
+		private slots:
+			void slotFontSelected( const QFont &font );
 };
 
 class KateSchemaConfigPage : public Kate::ConfigPage
@@ -104,6 +139,7 @@ class KateSchemaConfigPage : public Kate::ConfigPage
     class QPushButton *btndel;
     class QComboBox *schemaCombo;
     KateSchemaConfigColorTab *m_colorTab;
+		KateSchemaConfigFontTab *m_fontTab;
 };
 
 #endif

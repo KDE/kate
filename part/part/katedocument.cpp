@@ -412,7 +412,7 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 uint KateDocument::configPages () const
 {
-  return 12;
+  return 11;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
@@ -423,36 +423,33 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
       return colorConfigPage (parent);
 
     case 1:
-      return fontConfigPage(parent);
-
-    case 2:
       return editConfigPage (parent);
 
-    case 3:
+    case 2:
       return keysConfigPage (parent);
 
-    case 4:
+    case 3:
       return indentConfigPage(parent);
 
-    case 5:
+    case 4:
       return selectConfigPage(parent);
 
-    case 6:
+    case 5:
       return saveConfigPage( parent );
 
-    case 7:
+    case 6:
       return viewDefaultsConfigPage(parent);
 
-    case 8:
+    case 7:
       return hlConfigPage (parent);
 
-    case 10:
+    case 9:
       return new SpellConfigPage (parent);
 
-    case 11:
+    case 10:
       return new PluginConfigPage (parent, this);
 
-    case 9:
+    case 8:
       return new KateFileTypeConfigTab (parent);
 
     default:
@@ -467,37 +464,34 @@ QString KateDocument::configPageName (uint number) const
     case 0:
       return i18n ("Schemas");
 
-    case 1:
-      return i18n ("Fonts");
-
-    case 4:
+    case 3:
       return i18n ("Indentation");
 
-    case 5:
+    case 4:
       return i18n ("Selection");
 
-    case 2:
+    case 1:
       return i18n ("Editing");
 
-    case 3:
+    case 2:
       return i18n ("Shortcuts");
 
-    case 8:
+    case 7:
       return i18n ("Highlighting");
 
-    case 7:
+    case 6:
       return i18n ("View Defaults");
 
-    case 11:
+    case 10:
       return i18n ("Plugins");
 
-    case 6:
+    case 5:
       return i18n("Open/Save");
 
-    case 10:
+    case 9:
       return i18n("Spelling");
 
-    case 9:
+    case 8:
       return i18n("Filetypes");
 
     default:
@@ -512,37 +506,34 @@ QString KateDocument::configPageFullName (uint number) const
     case 0:
       return i18n ("Color & Fonts Schemas");
 
-    case 1:
-      return i18n ("Font Settings");
-
-    case 4:
+    case 3:
       return i18n ("Indentation Rules");
 
-    case 5:
+    case 4:
       return i18n ("Selection Behavior");
 
-    case 2:
+    case 1:
       return i18n ("Editing Options");
 
-    case 3:
+    case 2:
       return i18n ("Shortcuts Configuration");
 
-    case 8:
+    case 7:
       return i18n ("Highlighting Rules");
 
-    case 7:
+    case 6:
       return i18n("View Defaults");
 
-    case 11:
+    case 10:
       return i18n ("Plugin Manager");
 
-    case 6:
+    case 5:
       return i18n("File Opening & Saving");
 
-    case 10:
+    case 9:
       return i18n("Spell Checker Behavior");
 
-    case 9:
+    case 8:
       return i18n("Filetype Specific Settings");
 
     default:
@@ -557,37 +548,34 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
     case 0:
       return BarIcon("colorize", size);
 
-    case 1:
-      return BarIcon("fonts", size);
-
-    case 4:
+    case 3:
       return BarIcon("rightjust", size);
 
-    case 5:
+    case 4:
       return BarIcon("frame_edit", size);
 
-    case 2:
+    case 1:
       return BarIcon("edit", size);
 
-    case 3:
+    case 2:
       return BarIcon("key_enter", size);
 
-    case 8:
+    case 7:
       return BarIcon("source", size);
 
-    case 7:
+    case 6:
       return BarIcon("view_text",size);
 
-    case 11:
+    case 10:
       return BarIcon("connect_established", size);
 
-    case 6:
+    case 5:
       return BarIcon("filesave", size);
 
-    case 10:
+    case 9:
       return BarIcon("spellcheck", size);
 
-    case 9:
+    case 8:
       return BarIcon("edit", size);
 
     default:
@@ -2226,6 +2214,7 @@ bool KateDocument::printDialog ()
    if ( printer.setup( kapp->mainWidget(), i18n("Print %1").arg(printer.docName()) ) )
    {
      KateRenderer renderer(this);
+     renderer.config()->setSchema (1);
      renderer.setPrinterFriendly(true);
 
      QPainter paint( &printer );
@@ -2470,11 +2459,11 @@ bool KateDocument::printDialog ()
            _widest = QMAX( _widest, ((QFontMetrics)(
                                 _d->bold() ?
                                   _d->italic() ?
-                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetricsBI :
-                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetricsBold :
+                                    renderer.config()->fontStruct()->myFontMetricsBI :
+                                    renderer.config()->fontStruct()->myFontMetricsBold :
                                   _d->italic() ?
-                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetricsItalic :
-                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetrics
+                                    renderer.config()->fontStruct()->myFontMetricsItalic :
+                                    renderer.config()->fontStruct()->myFontMetrics
                                     ) ).width( _d->name ) );
            _items++;
            ++it;
@@ -2666,7 +2655,7 @@ bool KateDocument::printDialog ()
                y += 1 + innerMargin;
              }
              // draw a title string
-             paint.setFont( renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontBold );
+             paint.setFont( renderer.config()->fontStruct()->myFontBold );
              QRect _r;
              paint.drawText( _marg, y, pdmWidth-(2*_marg), maxHeight - y,
                 Qt::AlignTop|Qt::AlignHCenter,
@@ -2701,7 +2690,7 @@ bool KateDocument::printDialog ()
 
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
-           paint.setFont( renderer.config()->fontStruct(KateRendererConfig::PrintFont)->font( false, false ) );
+           paint.setFont( renderer.config()->fontStruct()->font( false, false ) );
            paint.setPen( *renderer.config()->selectionColor() ); // using "selected" color for now...
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
                         lineNumberWidth, renderer.fontHeight(),
@@ -4671,7 +4660,7 @@ Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new FontConfig(p, "", this);
+  return (Kate::ConfigPage*) new KateSchemaConfigPage (p);
 }
 
 Kate::ConfigPage *KateDocument::indentConfigPage (QWidget *p)
@@ -5112,7 +5101,7 @@ void KateDocument::setViewVariable( QString var, QString val )
       v->renderer()->config()->setWordWrapMarkerColor( c );
     else if ( var == "font" || ( var == "font-size" && checkIntValue( val, &n ) ) )
     {
-      QFont _f( *v->renderer()->config()->font( KateRendererConfig::ViewFont ) );
+      QFont _f( *v->renderer()->config()->font(  ) );
 
       if ( var == "font" )
       {
@@ -5122,7 +5111,7 @@ void KateDocument::setViewVariable( QString var, QString val )
       else
         _f.setPointSize( n );
 
-      v->renderer()->config()->setFont( KateRendererConfig::ViewFont, _f );
+      v->renderer()->config()->setFont( _f );
     }
   }
 }

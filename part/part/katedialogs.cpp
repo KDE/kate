@@ -988,7 +988,7 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
   // grap the bg color, selected color and default font
   bgcol = *KateRendererConfig::global()->backgroundColor();
   selcol = *KateRendererConfig::global()->selectionColor();
-  docfont = *KateRendererConfig::global()->font( KateRendererConfig::ViewFont );
+  docfont = *KateRendererConfig::global()->font();
 
   viewport()->setPaletteBackgroundColor( bgcol );
 }

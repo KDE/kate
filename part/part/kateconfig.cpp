@@ -759,11 +759,9 @@ void KateViewConfig::setCmdLine (bool on)
 //BEGIN KateRendererConfig
 KateRendererConfig::KateRendererConfig ()
  :
-   m_viewFont (new FontStruct ()),
-   m_printFont (new FontStruct ()),
+   m_font (new FontStruct ()),
    m_schemaSet (true),
-   m_viewFontSet (true),
-   m_printFontSet (true),
+   m_fontSet (true),
    m_wordWrapMarkerSet (true),
    m_backgroundColorSet (true),
    m_selectionColorSet (true),
@@ -783,11 +781,9 @@ KateRendererConfig::KateRendererConfig ()
 }
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
- : m_viewFont (0),
-   m_printFont (0),
+ : m_font (0),
    m_schemaSet (false),
-   m_viewFontSet (false),
-   m_printFontSet (false),
+   m_fontSet (false),
    m_wordWrapMarkerSet (false),
    m_backgroundColorSet (false),
    m_selectionColorSet (false),
@@ -802,8 +798,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
 
 KateRendererConfig::~KateRendererConfig ()
 {
-  delete m_viewFont;
-  delete m_printFont;
+  delete m_font;
 }
 
 KateRendererConfig *KateRendererConfig::global ()
@@ -818,12 +813,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 {
   configStart ();
 
-  setSchema (config->readNumEntry("Schema", 0));
-
-  QFont f (KGlobalSettings::fixedFont());
-
-  setFont(KateRendererConfig::ViewFont, config->readFontEntry("View Font", &f));
-  setFont(KateRendererConfig::PrintFont, config->readFontEntry("Printer Font", &f));
+  setSchema (KateFactory::schemaManager()->number (config->readEntry("Schema", "Kate Normal Schema")));
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
@@ -832,10 +822,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 
 void KateRendererConfig::writeConfig (KConfig *config)
 {
-  config->writeEntry ("Schema", schema());
-
-  config->writeEntry("View Font", *font(KateRendererConfig::ViewFont));
-  config->writeEntry("Printer Font", *font(KateRendererConfig::PrintFont));
+  config->writeEntry ("Schema", KateFactory::schemaManager()->name(schema()));
 
   config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
 
@@ -892,59 +879,42 @@ void KateRendererConfig::setSchema (uint schema)
   setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
   setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp6));
 
+  QFont f (KGlobalSettings::fixedFont());
+
+  setFont(config->readFontEntry("Font", &f));
+
   configEnd ();
 }
 
-const FontStruct *KateRendererConfig::fontStruct (int whichFont)
+const FontStruct *KateRendererConfig::fontStruct ()
 {
-  if (whichFont == ViewFont)
-  {
-    if (m_viewFontSet || isGlobal())
-      return m_viewFont;
+  if (m_fontSet || isGlobal())
+    return m_font;
 
-    return s_global->fontStruct (whichFont);
-  }
-  else
-  {
-    if (m_printFontSet || isGlobal())
-      return m_printFont;
-
-    return s_global->fontStruct (whichFont);
-  }
+  return s_global->fontStruct ();
 }
 
-const QFont *KateRendererConfig::font(int whichFont)
+const QFont *KateRendererConfig::font()
 {
-  return &(fontStruct (whichFont)->myFont);
+  return &(fontStruct ()->myFont);
 }
 
-const QFontMetrics *KateRendererConfig::fontMetrics(int whichFont)
+const QFontMetrics *KateRendererConfig::fontMetrics()
 {
-  return &(fontStruct (whichFont)->myFontMetrics);
+  return &(fontStruct ()->myFontMetrics);
 }
 
-void KateRendererConfig::setFont(int whichFont, const QFont &font)
+void KateRendererConfig::setFont(const QFont &font)
 {
   configStart ();
 
-  if (whichFont == ViewFont) {
-    if (!m_viewFontSet)
-    {
-      m_viewFontSet = true;
-      m_viewFont = new FontStruct ();
-    }
-
-     m_viewFont->setFont(font);
-
-  } else {
-    if (!m_printFontSet)
-    {
-      m_printFontSet = true;
-      m_printFont = new FontStruct ();
-    }
-
-    m_printFont->setFont(font);
+  if (!m_fontSet)
+  {
+    m_fontSet = true;
+    m_font = new FontStruct ();
   }
+
+  m_font->setFont(font);
 
   configEnd ();
 }

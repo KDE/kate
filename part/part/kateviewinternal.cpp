@@ -648,7 +648,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
       m_columnScroll->setValue(m_startX);
 
       // Approximate linescroll
-      m_columnScroll->setSteps(m_view->renderer()->config()->fontMetrics(m_view->renderer()->font())->width('a'), width());
+      m_columnScroll->setSteps(m_view->renderer()->config()->fontMetrics()->width('a'), width());
 
       m_columnScroll->blockSignals(false);
 
@@ -1452,7 +1452,7 @@ int KateViewInternal::lineMaxCursorX(const LineRange& range)
 
   if (maxX && range.wrap) {
     QChar lastCharInLine = m_doc->kateTextLine(range.line)->getChar(range.endCol - 1);
-    maxX -= m_view->renderer()->config()->fontMetrics(m_view->renderer()->font())->width(lastCharInLine);
+    maxX -= m_view->renderer()->config()->fontMetrics()->width(lastCharInLine);
   }
 
   return maxX;

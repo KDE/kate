@@ -197,7 +197,7 @@ QSize KateIconBorder::sizeHint() const
 // for graceful handling of variable-width fonts as the linenumber font.
 void KateIconBorder::updateFont()
 {
-  const QFontMetrics *fm = m_view->renderer()->config()->fontMetrics(KateRendererConfig::ViewFont);
+  const QFontMetrics *fm = m_view->renderer()->config()->fontMetrics();
   m_maxCharWidth = 0;
   // Loop to determine the widest numeric character in the current font.
   // 48 is ascii '0'
@@ -216,7 +216,7 @@ int KateIconBorder::lineNumberWidth() const
 
     if (m_cachedLNWidth != width || m_oldBackgroundColor != *m_view->renderer()->config()->iconBarColor()) {
       int w = style().scrollBarExtent().width();
-      int h = m_view->renderer()->config()->fontMetrics(KateRendererConfig::ViewFont)->height();
+      int h = m_view->renderer()->config()->fontMetrics()->height();
 
       QSize newSize(w, h);
       if ((m_arrow.size() != newSize || m_oldBackgroundColor != *m_view->renderer()->config()->iconBarColor()) && !newSize.isEmpty()) {
@@ -225,7 +225,7 @@ int KateIconBorder::lineNumberWidth() const
         QPainter p(&m_arrow);
         p.fillRect( 0, 0, w, h, *m_view->renderer()->config()->iconBarColor() );
 
-        h = m_view->renderer()->config()->fontMetrics(KateRendererConfig::ViewFont)->ascent();
+        h = m_view->renderer()->config()->fontMetrics()->ascent();
 
         p.setPen(m_doc->attribs()->at(0).textColor());
         p.drawLine(w/2, h/2, w/2, 0);
@@ -263,7 +263,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
-  uint h = m_view->renderer()->config()->fontStruct(KateRendererConfig::ViewFont)->fontHeight;
+  uint h = m_view->renderer()->config()->fontStruct()->fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->lineRanges.size();
@@ -294,7 +294,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   int w( this->width() );                     // sane value/calc only once
 
   QPainter p ( this );
-  p.setFont ( *m_view->renderer()->config()->font(KateRendererConfig::ViewFont) ); // for line numbers
+  p.setFont ( *m_view->renderer()->config()->font() ); // for line numbers
   p.setPen ( m_doc->attribs()->at(0).textColor() );
 
   KateLineInfo oldInfo;

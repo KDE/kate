@@ -339,18 +339,11 @@ class KateRendererConfig : public KateConfig
     uint schema () const;
     void setSchema (uint schema);
 
-    // use different fonts for screen and printing
-    enum WhichFont
-    {
-      ViewFont = 1,
-      PrintFont = 2
-    };
+    const FontStruct *fontStruct ();
+    const QFont *font();
+    const QFontMetrics *fontMetrics();
 
-    const FontStruct *fontStruct (int whichFont);
-    const QFont *font(int whichFont);
-    const QFontMetrics *fontMetrics(int whichFont);
-
-    void setFont(int whichFont, const QFont &font);
+    void setFont(const QFont &font);
 
     bool wordWrapMarker () const;
     void setWordWrapMarker (bool on);
@@ -378,8 +371,7 @@ class KateRendererConfig : public KateConfig
 
   private:
     uint m_schema;
-    FontStruct* m_viewFont;
-    FontStruct* m_printFont;
+    FontStruct* m_font;
     bool m_wordWrapMarker;
     QColor *m_backgroundColor;
     QColor *m_selectionColor;
@@ -390,8 +382,7 @@ class KateRendererConfig : public KateConfig
     QColor *m_iconBarColor;
 
     bool m_schemaSet : 1;
-    bool m_viewFontSet : 1;
-    bool m_printFontSet : 1;
+    bool m_fontSet : 1;
     bool m_wordWrapMarkerSet : 1;
     bool m_backgroundColorSet : 1;
     bool m_selectionColorSet : 1;

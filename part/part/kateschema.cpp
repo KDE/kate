@@ -29,6 +29,7 @@
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <klineeditdlg.h>
+#include <kfontdialog.h>
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
@@ -99,6 +100,27 @@ void KateSchemaManager::addSchema (const QString &t)
 {
   m_config.setGroup (t);
   m_config.writeEntry("Color Background", KGlobalSettings::baseColor());
+
+  update (false);
+}
+
+uint KateSchemaManager::number (const QString &name)
+{
+  int i;
+  if ((i = m_schemas.findIndex(name)) > -1)
+    return i;
+
+  return 0;
+}
+
+QString KateSchemaManager::name (uint number)
+{
+  if ((number>1) && (number < m_schemas.count()))
+    return m_schemas[number];
+  else if (number == 1)
+    return "Kate Printing Schema";
+
+  return "Kate Normal Schema";
 }
 
 //
@@ -226,6 +248,43 @@ void KateSchemaConfigColorTab::writeConfig (KConfig *config)
 
 //END KateSchemaConfigColorTab
 
+//BEGIN FontConfig
+KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * )
+  : QWidget (parent)
+{
+    // sizemanagment
+  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+
+  m_fontchooser = new KFontChooser ( this, 0L, false, QStringList(), false );
+  m_fontchooser->enableColumn(KFontChooser::StyleList, false);
+  grid->addWidget( m_fontchooser, 0, 0);
+
+  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
+  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), parent->parentWidget(), SLOT (slotChanged()));
+}
+
+KateSchemaConfigFontTab::~KateSchemaConfigFontTab()
+{
+}
+
+void KateSchemaConfigFontTab::slotFontSelected( const QFont &font )
+{
+  myFont = font;
+}
+
+void KateSchemaConfigFontTab::readConfig (KConfig *config)
+{
+  QFont f (KGlobalSettings::fixedFont());
+
+  m_fontchooser->setFont (config->readFontEntry("Font", &f));
+}
+
+void KateSchemaConfigFontTab::writeConfig (KConfig *config)
+{
+  config->writeEntry("Font", myFont);
+}
+
+//END FontConfig
 
 KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   : Kate::ConfigPage( parent ),
@@ -255,6 +314,9 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);
   m_tabWidget->addTab (m_colorTab, i18n("Colors"));
 
+  m_fontTab = new KateSchemaConfigFontTab (m_tabWidget);
+  m_tabWidget->addTab (m_fontTab, i18n("Font"));
+
   reload();
 }
 
@@ -267,7 +329,10 @@ KateSchemaConfigPage::~KateSchemaConfigPage ()
 void KateSchemaConfigPage::apply()
 {
   if (m_lastSchema > -1)
+  {
     m_colorTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+    m_fontTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+  }
 
   // just sync the config
   KateFactory::schemaManager()->schema (0)->sync();
@@ -349,9 +414,13 @@ void KateSchemaConfigPage::schemaChanged (int schema)
   }
 
   if (m_lastSchema > -1)
+  {
     m_colorTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+    m_fontTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+  }
 
   m_colorTab->readConfig (KateFactory::schemaManager()->schema(schema));
+  m_fontTab->readConfig (KateFactory::schemaManager()->schema(schema));
 
   m_lastSchema = schema;
 }

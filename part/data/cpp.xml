@@ -149,7 +149,7 @@
         <RegExpr attribute="3" context="#stay" String="(FIXME|TODO)" />
         <Detect2Chars attribute="10" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
-      <context attribute="12" lineEndContext="Normal" name="Preprocessor">
+      <context attribute="12" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="12" context="#stay"/>
         <RangeDetect attribute="13" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="13" context="#stay" char="&lt;" char1="&gt;"/>

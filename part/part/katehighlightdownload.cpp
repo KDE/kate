@@ -76,9 +76,9 @@ void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 				if (!e.isNull())
 				kdDebug(13000)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
 				n=n.nextSibling();
-				
+
 				QString Name=e.attribute("name");
-				
+
 				for (int i=0;i<hlm->highlights();i++)
 				{
 					hl=hlm->getHl(i);
@@ -103,9 +103,9 @@ void HlDownloadDialog::slotUser1()
 		if (list->isSelected(it))
 		{
 			KURL src(it->text(4));
-			QString filename=src.filename(false);
+			QString filename=src.fileName(false);
 			QString dest = destdir+filename;
-	
+
 
 			KIO::NetAccess::download(src,dest);
 		}

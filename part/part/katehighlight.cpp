@@ -829,7 +829,7 @@ Highlight::~Highlight()
 
 void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char>* ctxs, int *prevLine, bool lineContinue)
 {
-  //kdDebug(13000)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
+  //kdDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
 
   if (lineContinue)
 	{
@@ -839,7 +839,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
 		(*prevLine)--;
           } else
 	  {
-		 //kdDebug(13000)<<QString("generateContextStack: line continue: len ==0");
+		 //kdDebug(13010)<<QString("generateContextStack: line continue: len ==0");
 		 (*ctxNum)=0;
 	  }
 
@@ -864,7 +864,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
         else
         {
           ctxs->truncate (ctxs->size()-1);
-	  //kdDebug(13000)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
+	  //kdDebug(13010)<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
           (*ctxNum) = ((ctxs->size()==0)?0:(*ctxs)[ctxs->size()-1]);
         }
       ctx++;
@@ -881,7 +881,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
 
        if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
        {
-		//kdDebug(13000)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
+		//kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
          generateContextStack(ctxNum, contextNum((*ctxs)[ctxs->size()-1])->ctx,ctxs, prevLine);
          return;
        }
@@ -921,13 +921,13 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
     return;
   }
 
-//  kdDebug(13000)<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
+//  kdDebug(13010)<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
 
   HlContext *context;
   const QChar *s2;
   HlItem *item=0;
 
-  // if (lineContinue) kdDebug(13000)<<"Entering with lineContinue flag set"<<endl;
+  // if (lineContinue) kdDebug(13010)<<"Entering with lineContinue flag set"<<endl;
 
   int ctxNum;
   int prevLine;
@@ -944,40 +944,40 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
   }
   else
   {
-    //  kdDebug(13000)<<"test1-2-1"<<endl;
+    //  kdDebug(13010)<<"test1-2-1"<<endl;
 
      /*QString tmpStr="";
      for (int jwtest=0;jwtest<oCtx.size();jwtest++)
 	tmpStr=tmpStr+QString("%1 ,").arg(ctx[jwtest]);
-    kdDebug(13000)<< "Old Context stack:" << tmpStr<<endl; */
+    kdDebug(13010)<< "Old Context stack:" << tmpStr<<endl; */
 
     // There does an old context stack exist -> find the context at the line start
     ctxNum=ctx[oCtx.size()-1]; //context ID of the last character in the previous line
 
-    //kdDebug(13000)<<"test1-2-1-text1"<<endl;
+    //kdDebug(13010)<<"test1-2-1-text1"<<endl;
 
-    //kdDebug(13000) << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
+    //kdDebug(13010) << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
 
-    //if (lineContinue)   kdDebug(13000)<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
+    //if (lineContinue)   kdDebug(13010)<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
 
     if (contextNum(ctxNum))
       context=contextNum(ctxNum); //context structure
     else
       context = contextNum(0);
 
-    //kdDebug(13000)<<"test1-2-1-text2"<<endl;
+    //kdDebug(13010)<<"test1-2-1-text2"<<endl;
 
     prevLine=oCtx.size()-1;	//position of the last context ID of th previous line within the stack
 
-    //kdDebug(13000)<<"test1-2-1-text3"<<endl;
+    //kdDebug(13010)<<"test1-2-1-text3"<<endl;
     generateContextStack(&ctxNum, context->ctx, &ctx, &prevLine,lineContinue);	//get stack ID to use
 
-    //kdDebug(13000)<<"test1-2-1-text4"<<endl;
+    //kdDebug(13010)<<"test1-2-1-text4"<<endl;
 
     context=contextNum(ctxNum);	//current context to use
-    //kdDebug(13000)<<"test1-2-2"<<endl;
+    //kdDebug(13010)<<"test1-2-2"<<endl;
 
-    //if (lineContinue)   kdDebug(13000)<<QString("The new context is %1").arg((int)ctxNum)<<endl;
+    //if (lineContinue)   kdDebug(13010)<<QString("The new context is %1").arg((int)ctxNum)<<endl;
   }
 
   QChar lastChar = ' ';
@@ -1007,10 +1007,10 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
         if (s2 > s1)
         {
           textLine->setAttribs(item->attr,s1 - str,s2 - str);
-          //kdDebug(13000)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
+          //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 		if (item->region)
 		{
-//			kdDebug(13000)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+//			kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
       foldingList->resize (foldingList->size()+1);
 
       for (uint z4=foldingList->size()-1; z4 >= 1; z4--)
@@ -1023,8 +1023,8 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 		}
 
 	      generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
-		//kdDebug(13000)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
-	//    kdDebug(13000)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
+		//kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
+	//    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
 	    context=contextNum(ctxNum);
 
             z = z + s2 - s1 - 1;
@@ -1070,16 +1070,16 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
     textLine->setHlLineContinue(false);
   else {
     textLine->setHlLineContinue(item->lineContinue());
-    if (item->lineContinue()) kdDebug(13000)<<"Setting line continue flag"<<endl;
+    if (item->lineContinue()) kdDebug(13010)<<"Setting line continue flag"<<endl;
   }
 
 //  if (oCtxLen>0)
-//  kdDebug(13000)<<QString("Last line end context entry: %1").arg((int)ctx[oCtxLen-1])<<endl;
-//  else kdDebug(13000)<<QString("Context stack len:0")<<endl;
+//  kdDebug(13010)<<QString("Last line end context entry: %1").arg((int)ctx[oCtxLen-1])<<endl;
+//  else kdDebug(13010)<<QString("Context stack len:0")<<endl;
 
   textLine->setContext(ctx.data(), ctx.size());
 
-  //kdDebug(13000)<<QString("Context stack size on exit :%1").arg(ctx.size())<<endl;
+  //kdDebug(13010)<<QString("Context stack size on exit :%1").arg(ctx.size())<<endl;
 }
 
 KConfig *Highlight::getKConfig() {
@@ -1566,7 +1566,7 @@ void Highlight::readCommentConfig()
 void Highlight::readGlobalKeywordConfig()
 {
   // Tell the syntax document class which file we want to parse
-  kdDebug(13000)<<"readGlobalKeywordConfig:BEGIN"<<endl;
+  kdDebug(13010)<<"readGlobalKeywordConfig:BEGIN"<<endl;
   HlManager::self()->syntax->setIdentifier(identifier);
 
   // Get the keywords config entry
@@ -1580,7 +1580,7 @@ void Highlight::readGlobalKeywordConfig()
      //get the weak deliminators
      weakDeliminator=(HlManager::self()->syntax->groupItemData(data,QString("weakDeliminator")));
 
-     kdDebug(13000)<<"weak delimiters are: "<<weakDeliminator<<endl;
+     kdDebug(13010)<<"weak delimiters are: "<<weakDeliminator<<endl;
      // remove any weakDelimitars (if any) from the default list and store this list.
      int f;
      for (uint s=0; s < weakDeliminator.length(); s++)
@@ -1608,9 +1608,9 @@ void Highlight::readGlobalKeywordConfig()
     }
   
   
-  kdDebug(13000)<<"readGlobalKeywordConfig:END"<<endl;
+  kdDebug(13010)<<"readGlobalKeywordConfig:END"<<endl;
 
-  kdDebug(13000)<<"delimiterCharacters are: "<<deliminator<<endl;
+  kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
 }
 
 
@@ -1622,7 +1622,7 @@ void  Highlight::createContextNameList(QStringList *ContextNameList)
 {
   syntaxContextData *data;
 
-  kdDebug(13000)<<"creatingContextNameList:BEGIN"<<endl;
+  kdDebug(13010)<<"creatingContextNameList:BEGIN"<<endl;
 
   ContextNameList->clear();
 
@@ -1643,7 +1643,7 @@ void  Highlight::createContextNameList(QStringList *ContextNameList)
      }
      HlManager::self()->syntax->freeGroupInfo(data);
   }
-  kdDebug(13000)<<"creatingContextNameList:END"<<endl;
+  kdDebug(13010)<<"creatingContextNameList:END"<<endl;
 
 }
 
@@ -1657,7 +1657,7 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
            for(;tmpLineEndContext.startsWith("#pop");context--)
            {
                tmpLineEndContext.remove(0,4);
-               kdDebug(13000)<<"#pop found"<<endl;
+               kdDebug(13010)<<"#pop found"<<endl;
            }
       }
       else
@@ -1714,7 +1714,7 @@ void Highlight::makeContextList()
 
   createContextNameList(&ContextNameList);
 
-  kdDebug(13000)<<"Parsing Context structure"<<endl;
+  kdDebug(13010)<<"Parsing Context structure"<<endl;
   //start the real work
   data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
   uint i=0;
@@ -1722,7 +1722,7 @@ void Highlight::makeContextList()
     {
       while (HlManager::self()->syntax->nextGroup(data))
         {
-	  kdDebug(13000)<<"Found a context in file, building structure now"<<endl;
+	  kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
           // BEGIN - Translation of the attribute parameter
           QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
           int attr;

@@ -18,10 +18,15 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef katebrowserextension_h_
-#define katebrowserextension_h_
+#ifndef __KATE_DOCUMENT_HELPERS__
+#define __KATE_DOCUMENT_HELPERS__
+
+#include "../interfaces/document.h"
 
 #include <kparts/browserextension.h>
+
+#include <qstringlist.h>
+#include <qguardedptr.h>
 
 class KateDocument;
 
@@ -39,6 +44,27 @@ class KateBrowserExtension : public KParts::BrowserExtension
 
   private:
     KateDocument* m_doc;
+};
+
+class KateExportAction: public Kate::ActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KateExportAction(const QString& text, QObject* parent = 0, const char* name = 0)
+        : Kate::ActionMenu(text, parent, name) { init(); };
+
+    ~KateExportAction(){;}
+
+    void updateMenu (Kate::Document *doc);
+
+  private:
+    QGuardedPtr<Kate::Document>  m_doc;
+    QStringList filter;
+    void init();
+
+  protected slots:
+    void filterChoosen(int);
 };
 
 #endif

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.0" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<language name="Doxygen" version="1.00" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->

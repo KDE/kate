@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP" version="1.09" kateversion="2.1" section="Scripts"
+<language name="PHP" version="1.10" kateversion="2.1" section="Scripts"
           extensions="*.php;*.php3;*.wml;*.phtml;*.phtm;*.inc"
           mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
 	<highlighting>
@@ -2650,6 +2650,7 @@
 			<context name="phpsource" attribute="PHP Text" lineEndContext="#stay">
 				<StringDetect attribute="Keyword" context="#pop" String="?&gt;" />
 				<DetectChar attribute="Comment" context="php_onelinecomment" char="#" />
+				<IncludeRules context="##Doxygen" />
 				<Detect2Chars attribute="Comment" context="php_onelinecomment" char="/" char1="/" />
 				<Detect2Chars attribute="Comment" context="twolinecomment" char="/" char1="&#42;" beginRegion="Comment"/>
 				<keyword attribute="Control Structures" context="#stay" String="control structures" />

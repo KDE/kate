@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Objective-C" version="1.04" kateversion="2.1" section="Sources" extensions="*.m;*.h" mimetype="text/x-objc-src;text/x-c-hdr">
+<language name="Objective-C" version="1.05" kateversion="2.1" section="Sources" extensions="*.m;*.h" mimetype="text/x-objc-src;text/x-c-hdr">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -91,6 +91,7 @@
         <LineContinue attribute="Preprocessor" context="#stay"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
+        <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="SingleLineComment" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="MultiLineCommentPrep" char="/" char1="*"/>
       </context>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="D" version="1.1" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
+<language name="D" version="1.2" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
 	<highlighting>
 		<list name="keywords">
 			<item> abstract </item>
@@ -183,6 +183,7 @@
 				<DetectChar attribute="String" context="String" char="&quot;"/>
 				<DetectChar attribute="Wysiwyg" context="Wysiwyg" char="`"/>
 
+				<IncludeRules context="##Doxygen" />
 				<Detect2Chars attribute="Comment" context="CommentLine" char="/" char1="/"/>
 				<Detect2Chars attribute="Comment" context="CommentBlockA" char="/" char1="*" beginRegion="CommentA"/>
 				<Detect2Chars attribute="Comment" context="CommentBlockB" char="/" char1="+" beginRegion="CommentB"/>

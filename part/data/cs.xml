@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" version="1.08" kateversion="2.1" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.09" kateversion="2.1" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
     <list name="keywords">
       <item> abstract</item>
@@ -111,6 +111,7 @@
         </Int>
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
+        <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="block1"/>

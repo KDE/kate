@@ -1,212 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.04" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
+<!--
+  This file is part of KDE's kate project.
+  
+  copyright   : (C) 2004 by Dominik Haumann
+  email       : dhdev at gmx dot de
+
+  last change : 2004-03-12 (complete rewrite!)
+
+ ***************************************************************************
+ *                                                                         *
+ *   This file is free software; you can redistribute it and/or modify     *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************
+-->
+<language version="1.05" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme" author="Dominik Haumann">
   <highlighting>
-    <list name="blocks">
-      <item> begin </item>
-      <item> declare </item>
-      <item> define </item>
-      <item> define-syntax </item>
-      <item> define-structure </item>
-      <item> do </item>
-      <item> let </item>
-      <item> let* </item>
-      <item> letrec </item>
-      <item> let-syntax </item>
-      <item> letrec-syntax </item>
-      <item> lambda </item>
-    </list>
-    <list name="predicates">
-      <item> boolean </item>
-      <item> char-alphabetic </item>
-      <item> char-numeric </item>
-      <item> char-lower-case </item>
-      <item> char-ready </item>
-      <item> char-upper-case </item>
-      <item> char-whitespace </item>
-      <item> complex </item>
-      <item> eof-object </item>
-      <item> eq </item>
-      <item> eqv </item>
-      <item> equal </item>
-      <item> even </item>
-      <item> input-port </item>
-      <item> integer </item>
-      <item> list </item>
-      <item> negative </item>
-      <item> null </item>
-      <item> number </item>
-      <item> odd </item>
-      <item> output-port </item>
-      <item> pair </item>
-      <item> port </item>
-      <item> positive </item>
-      <item> procedure </item>
-      <item> rational </item>
-      <item> real </item>
-      <item> symbol </item>
-      <item> vector </item>
-      <item> zero </item>
-    </list>
-    <list name="predicates2">
-      <item> char </item>
-      <item> char-ci </item>
-      <item> string </item>
-      <item> string-ci </item>
-    </list>
-    <list name="assignments">
-      <item> append </item>
-      <item> set </item>
-      <item> set-car </item>
-      <item> set-cdr </item>
-      <item> string-fill </item>
-      <item> string-set </item>
-    </list>
-    <list name="mathops">
-      <item> abs </item>
-      <item> and </item>
-      <item> angle </item>
-      <item> acos </item>
-      <item> asin </item>
-      <item> atan </item>
-      <item> cos </item>
-      <item> denominator </item>
-      <item> expt </item>
-      <item> exp </item>
-      <item> floor </item>
-      <item> gcd </item>
-      <item> lcm </item>
-      <item> log </item>
-      <item> magnitude </item>
-      <item> max </item>
-      <item> min </item>
-      <item> modulo </item>
-      <item> not </item>
-      <item> numerator </item>
-      <item> or </item>
-      <item> round </item>
-      <item> sin </item>
-      <item> sqrt </item>
-      <item> tan </item>
-      <item> truncate </item>
-    </list>
     <list name="keywords">
-      <item> apply </item>
+      <item> abs </item>
+      <item> acos </item>
+      <item> angle </item>
+      <item> append </item>
+      <item> applymap </item>
+      <item> asin </item>
+      <item> assoc </item>
       <item> assq </item>
       <item> assv </item>
-      <item> assoc </item>
+      <item> atan </item>
+      <item> boolean? </item>
+      <item> caaaar </item>
+      <item> caaadr </item>
+      <item> caaar </item>
+      <item> caadar </item>
+      <item> caaddr </item>
+      <item> caadr </item>
+      <item> caar </item>
+      <item> cadaar </item>
+      <item> cadadr </item>
+      <item> cadar </item>
+      <item> caddar </item>
+      <item> cadddr </item>
+      <item> caddr </item>
+      <item> cadr </item>
+      <item> call/cc </item>
       <item> call-with-current-continuation </item>
       <item> call-with-input-file </item>
       <item> call-with-output-file </item>
       <item> call-with-values </item>
       <item> car </item>
-      <item> case </item>
+      <item> cdaaar </item>
+      <item> cdaadr </item>
+      <item> cdaar </item>
+      <item> cdadar </item>
+      <item> cdaddr </item>
+      <item> cdadr </item>
+      <item> cdar </item>
+      <item> cddaar </item>
+      <item> cddadr </item>
+      <item> cddar </item>
+      <item> cdddar </item>
+      <item> cddddr </item>
+      <item> cdddr </item>
+      <item> cddr </item>
       <item> cdr </item>
       <item> ceiling </item>
-      <item> char-upcase </item>
+      <item> char-alphabetic? </item>
+      <item> char-ci&lt;=? </item>
+      <item> char-ci=? </item>
+      <item> char-ci&gt;=? </item>
+      <item> char-ci&gt;? </item>
+      <item> char&lt;?c </item>
       <item> char-downcase </item>
-      <item> close-input-file </item>
-      <item> close-output-file </item>
-      <item> cond </item>
+      <item> char-&gt;integer </item>
+      <item> char&lt;=? </item>
+      <item> char=? </item>
+      <item> char&gt;=? </item>
+      <item> char&gt;? </item>
+      <item> char? </item>
+      <item> char-lower-case? </item>
+      <item> char-numeric? </item>
+      <item> char-ready? </item>
+      <item> char-upcase </item>
+      <item> char-upper-case? </item>
+      <item> char-whitespace? </item>
+      <item> close-input-port </item>
+      <item> close-output-port </item>
+      <item> complex? </item>
       <item> cons </item>
-      <item> cons* </item>
+      <item> cos </item>
       <item> current-input-port </item>
       <item> current-output-port </item>
-      <item> delay </item>
+      <item> denominator </item>
       <item> display </item>
       <item> dynamic-wind </item>
-      <item> else </item>
+      <item> eof-object? </item>
+      <item> eq? </item>
+      <item> equal? </item>
+      <item> eqv? </item>
       <item> eval </item>
+      <item> even? </item>
+      <item> exact->inexact </item>
+      <item> exact? </item>
+      <item> exp </item>
+      <item> expt </item>
+      <item> floor </item>
       <item> force </item>
       <item> for-each </item>
-      <item> if </item>
+      <item> gcd </item>
+      <item> har-ci&lt;? </item>
       <item> imag-part </item>
+      <item> inexact-&gt;exact </item>
+      <item> inexact? </item>
+      <item> input-port? </item>
+      <item> integer-&gt;char </item>
+      <item> integer? </item>
       <item> interaction-environment </item>
+      <item> lcm </item>
       <item> length </item>
       <item> list </item>
+      <item> list? </item>
       <item> list-ref </item>
+      <item> list-&gt;string </item>
       <item> list-tail </item>
-      <item> memq </item>
-      <item> memv </item>
-      <item> member </item>
       <item> load </item>
+      <item> log </item>
+      <item> magnitude </item>
       <item> make-polar </item>
       <item> make-rectangular </item>
       <item> make-string </item>
       <item> make-vector </item>
-      <item> map </item>
+      <item> max </item>
+      <item> member </item>
+      <item> memq </item>
+      <item> memv </item>
+      <item> min </item>
+      <item> modulo </item>
+      <item> negative? </item>
       <item> newline </item>
+      <item> not </item>
       <item> null-environment </item>
+      <item> null? </item>
+      <item> number? </item>
+      <item> number->string </item>
+      <item> numerator </item>
+      <item> odd? </item>
       <item> open-input-file </item>
       <item> open-output-file </item>
+      <item> output-port? </item>
+      <item> pair? </item>
       <item> peek-char </item>
-      <item> quasiquote </item>
-      <item> quote </item>
+      <item> port? </item>
+      <item> positive? </item>
+      <item> procedure? </item>
       <item> quotient </item>
+      <item> rational? </item>
       <item> rationalize </item>
-      <item> read </item>
       <item> read-char </item>
+      <item> read </item>
+      <item> real? </item>
       <item> real-part </item>
       <item> remainder </item>
       <item> reverse </item>
+      <item> round </item>
       <item> scheme-report-environment </item>
-      <item> space </item>
+      <item> set-car! </item>
+      <item> set-cdr! </item>
+      <item> sin </item>
+      <item> sqrt </item>
       <item> string-append </item>
+      <item> string-ci&lt;=? </item>
+      <item> string-ci&lt;? </item>
+      <item> string-ci=? </item>
+      <item> string-ci&gt;=? </item>
+      <item> string-ci&gt;? </item>
       <item> string-copy </item>
+      <item> string-fill! </item>
+      <item> string&lt;=? </item>
+      <item> string&lt;? </item>
+      <item> string=? </item>
+      <item> string&gt;=? </item>
+      <item> string&gt;? </item>
+      <item> string </item>
+      <item> string? </item>
       <item> string-length </item>
+      <item> string-&gt;list </item>
+      <item> string-&gt;number </item>
       <item> string-ref </item>
+      <item> string-set! </item>
+      <item> string-&gt;symbol </item>
       <item> substring </item>
-      <item> syntax-rules </item>
-      <item> transcript-on </item>
+      <item> symbol? </item>
+      <item> symbol-&gt;string </item>
+      <item> tan </item>
       <item> transcript-off </item>
-      <item> unquote </item>
-      <item> unquote-splicing </item>
+      <item> transcript-on </item>
+      <item> truncate </item>
       <item> values </item>
+      <item> vector-fill! </item>
+      <item> vector </item>
+      <item> vector? </item>
+      <item> vector-length </item>
+      <item> vector-&gt;listlist->vector </item>
+      <item> vector-ref </item>
+      <item> vector-set! </item>
       <item> with-input-from-file </item>
       <item> with-output-to-file </item>
-      <item> write </item>
       <item> write-char </item>
+      <item> write </item>
+      <item> zero? </item>
+    </list>
+    <list name="corewords">
+      <item> and </item>
+      <item> begin </item>
+      <item> case </item>
+      <item> cond </item>
+      <item> define </item>
+      <item> define-syntax </item>
+      <item> delay </item>
+      <item> do </item>
+      <item> else </item>
+      <item> if </item>
+      <item> lambda </item>
+      <item> let </item>
+      <item> let* </item>
+      <item> letrec </item>
+      <item> letrec-syntax </item>
+      <item> let-syntax </item>
+      <item> or </item>
+      <item> quasiquote </item>
+      <item> quote </item>
+      <item> set! </item>
+      <item> syntax-rules </item>
+      <item> unquote </item>
+      <item> unquote-splicing </item>
     </list>
     <contexts>
-      <context name="Intro" attribute="Error" lineEndContext="#stay">
-        <DetectChar attribute="Comment" context="Comment" char=";"/>
-        <Detect2Chars attribute="Comment" context="MultiLineComment" char="|" char1="#"/>
-        <DetectChar attribute="Operator" context="Normal" char="("/>
-      </context>
       <context name="Normal" attribute="Normal" lineEndContext="#stay">
-        <DetectChar attribute="Comment" context="Comment" char=";"/>
-        <Detect2Chars attribute="Comment" context="MultiLineComment" char="|" char1="#"/>
-        <DetectChar attribute="Operator" context="Normal" char="("/>
-        <DetectChar attribute="Operator" context="#pop" char=")"/>
-        <keyword attribute="String" context="#stay" String="blocks"/>
+        <RegExpr attribute="Region Marker" context="#stay" String=";\s*BEGIN.*$" beginRegion="region"/>
+        <RegExpr attribute="Region Marker" context="#stay" String=";\s*END.*$" endRegion="region"/>
+        <RegExpr attribute="Comment" context="#stay" String=";.*$"/>
+        <Detect2Chars attribute="Comment" context="MultiLineComment" char="|" char1="#" beginRegion="region"/>
+        <DetectChar attribute="Brackets" context="#stay" char="("/>
+        <DetectChar attribute="Brackets" context="#stay" char=")"/>
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
-        <keyword attribute="Keyword" context="#stay" String="predicates"/>
-        <keyword attribute="Keyword" context="#stay" String="predicates2"/>
-        <keyword attribute="Keyword" context="#stay" String="assignments"/>
-        <keyword attribute="MathOps" context="#stay" String="mathops"/>
-        <RegExpr attribute="MathOps" context="#stay" String="[\+\-\*\/]?\s"/>
-        <StringDetect attribute="Special" context="#stay" String="list-&gt;string"/>
-        <StringDetect attribute="Special" context="#stay" String="string-&gt;list"/>
-        <StringDetect attribute="Special" context="#stay" String="char-&gt;integer"/>
-        <StringDetect attribute="Special" context="#stay" String="integer-&gt;char"/>
-        <StringDetect attribute="Special" context="#stay" String="string-&gt;symbol"/>
-        <StringDetect attribute="Special" context="#stay" String="symbol-&gt;string"/>
-        <StringDetect attribute="Special" context="#stay" String="exact-&gt;inexact"/>
-        <StringDetect attribute="Special" context="#stay" String="inexact-&gt;exact"/>
-        <StringDetect attribute="Special" context="#stay" String="number-&gt;string"/>
-        <StringDetect attribute="Special" context="#stay" String="string-&gt;number"/>
-        <RegExpr attribute="Predicate" context="#stay" String="[&lt;&gt;]?=?\s"/>
+        <keyword attribute="Scheme" context="#stay" String="corewords"/>
+        <RegExpr attribute="Char" context="#stay" String="#\\."/>
         <DetectChar attribute="Comment" context="String" char="&quot;"/>
-        <StringDetect attribute="Decimal" context="#stay" String="'()"/>
-        <RegExpr attribute="Special" context="#stay" String="['`]"/>
         <RegExpr attribute="Char" context="SpecialNumber" String="#[bodxei]"/>
         <RegExpr attribute="Decimal" context="#stay" String="#[tf]"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
       </context>
-      <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
       <context name="MultiLineComment" attribute="Comment" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop" char="#" char1="|"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="#" char1="|" endRegion="region"/>
       </context>
       <context name="SpecialNumber" attribute="Normal" lineEndContext="#pop">
         <Float attribute="Float" context="#pop"/>
@@ -215,12 +264,14 @@
         <HlCHex attribute="Float" context="#pop"/>
       </context>
       <context name="String" attribute="String" lineEndContext="#stay">
-        <DetectChar attribute="Comment" context="#pop" char="&quot;"/>
+        <RegExpr attribute="Char" context="#stay" String="#\\."/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal"      defStyleNum="dsNormal"/>
       <itemData name="Keyword"     defStyleNum="dsKeyword"/>
+      <itemData name="Scheme"      defStyleNum="dsKeyword" color="#d22811"/>
       <itemData name="Data"        defStyleNum="dsDataType"/>
       <itemData name="Decimal"     defStyleNum="dsDecVal"/>
       <itemData name="BaseN"       defStyleNum="dsBaseN"/>
@@ -228,16 +279,13 @@
       <itemData name="Char"        defStyleNum="dsChar"/>
       <itemData name="String"      defStyleNum="dsString"/>
       <itemData name="Comment"     defStyleNum="dsComment"/>
-      <itemData name="Operator"    defStyleNum="dsNormal" color="#008100" selColor="#00ff00" bold="1" italic="0"/>
-      <itemData name="Predicate"   defStyleNum="dsNormal" color="#ff00ff" selColor="#ff00ff" bold="1" italic="0"/>
-      <itemData name="Assignments" defStyleNum="dsNormal" color="#ff0000" selColor="#ff0000" bold="1" italic="0"/>
-      <itemData name="MathOps"     defStyleNum="dsNormal" color="#00aaff" selColor="#fffa00" bold="0" italic="0"/>
-      <itemData name="Special"     defStyleNum="dsNormal" color="#543491" selColor="#fffa00" bold="1" italic="0"/>
-      <itemData name="Error"       defStyleNum="dsNormal" color="#845322" selColor="#fffa00" bold="1" italic="1"/>
+<!--      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />-->
+      <itemData name="Region Marker" defStyleNum="dsNormal" color="#0000ff"/>
+      <itemData name="Brackets"    defStyleNum="dsNormal" color="#0000ff" selColor="#00ff00" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="1" weakDeliminator="-"/>
+    <keywords casesensitive="1" weakDeliminator="-*?!&lt;&gt;=/"/>
     <comments>
       <comment name="singleLine" start=";" />
       <comment name="multiLine" start="#|" end="|#" />

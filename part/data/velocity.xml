@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Velocity" version="1.03" kateversion="2.1" section="Scripts" extensions="*.vm;" mimetype="text/x-velocity-src;text/x-vm-src" author="John Christopher (John@animalsinneed.net)" license="">
+<language name="Velocity" version="1.04" kateversion="2.1" section="Scripts" extensions="*.vm;" mimetype="text/x-velocity-src;text/x-vm-src" author="John Christopher (John@animalsinneed.net)" license="">
 	<highlighting>
 		<list name="keywords">
 			<item> #set </item>
@@ -9,10 +9,10 @@
 			<item> #if </item>
 			<item> #else </item>
 			<item> #elseif </item>
-			<item> #parse</item>
-			<item>#macro</item>
-			<item>#stop</item>
-			<item>#include</item>
+			<item> #parse </item>
+			<item> #macro </item>
+			<item> #stop </item>
+			<item> #include </item>
 		</list>
 		<contexts>
 			<context attribute="Normal Text" lineEndContext="#stay" name="Keyword">
@@ -22,7 +22,7 @@
 				<RegExpr attribute="Variable" context="#stay" String="\$!\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff\.\-]*(\[[a-zA-Z0-9_]*\])*\}." />
 				<RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff\.\-]*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*(->[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
 				<RegExpr attribute="Properties" context="#stay" String="[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff\-]*(\[[a-zA-Z0-9_]*\])*\.[a-zA-Z0-9_\x7f-\xff\-]*" />
-				<AnyChar attribute="Other" context="#stay" String=" ( ) , [ ] " />
+				<AnyChar attribute="Other" context="#stay" String="(),[]" />
 				<Detect2Chars attribute="Comment" context="singleline comment" char="#" char1="#" />
 				<Detect2Chars attribute="Comment" context="multilinecomment" char="#" char1="&#42;" />
 			</context>

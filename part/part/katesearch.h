@@ -54,6 +54,8 @@ class KateSearch : public QObject
 {
   Q_OBJECT
 
+  friend class KateDocument;
+
   public:
     enum Dialog_results {
       srYes = QDialog::Accepted,

@@ -114,9 +114,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
     Kate::PluginList m_plugins;
-    
-    uint myBackupConfig;
-    QString myBackupSuffix;
+
+    static uint myBackupConfig;
+    static QString myBackupSuffix;
 
   //
   // KTextEditor::Document stuff
@@ -302,7 +302,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KateUndoGroup* lastUndoGroupWhenSaved;
     bool docWasSavedWhenUndoWasEmpty;
 
-    uint myUndoSteps;
+    static uint myUndoSteps;
 
     // this sets
     void updateModified();
@@ -482,8 +482,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   private:
     // fonts structures for the view + printing font
-    FontStruct viewFont;
-    FontStruct printFont;
+    static FontStruct viewFont;
+    static FontStruct printFont;
 
   public:
     //
@@ -507,7 +507,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
        Tag the lines in the current selection.
      */
     void tagSelection();
-    
+
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
 
@@ -726,24 +726,24 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // text buffer
     KateBuffer *buffer;
 
-    QColor colors[5];
+    static QColor colors[5];
     class HlManager *hlManager;
     class Highlight *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
 
     int eolMode;
-    int tabChars;
+    static int tabChars;
 
     bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether
                           // to check for overwriting files on save)
     bool modified;
 
-    bool myWordWrap;
-    uint myWordWrapAt;
+    static bool myWordWrap;
+    static uint myWordWrapAt;
     
-    int m_autoCenterLines;
+    static int m_autoCenterLines;
 
     bool hlSetByUser;
 
@@ -765,16 +765,17 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //
     // core katedocument config !
     //
-    uint _configFlags;
+    static uint _configFlags;
 
-  private:
     // defaults for all views !!!
-    bool m_dynWordWrap;
-    bool m_lineNumbers;
-    bool m_iconBar;
-    bool m_foldingBar;
-    int m_bookmarkSort;
-    bool m_wordWrapMarker;
+    static bool m_dynWordWrap;
+    static bool m_lineNumbers;
+    static bool m_iconBar;
+    static bool m_foldingBar;
+    static int m_bookmarkSort;
+    static bool m_wordWrapMarker;
+
+    static bool s_configLoaded;
 
   public:
     void updateViewDefaults ();

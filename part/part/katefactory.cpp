@@ -40,9 +40,9 @@ KateFactory *KateFactory::s_self = 0;
 unsigned long int KateFactory::s_refcnt = 0;
 KInstance *KateFactory::s_instance = 0;
 KAboutData *KateFactory::s_about = 0;
-QPtrList<KateDocument> *KateFactory::s_documents = 0;
-QPtrList<KateView> *KateFactory::s_views = 0;
-KTrader::OfferList *KateFactory::s_plugins = 0; 
+QPtrList<class KateDocument> KateFactory::s_documents;
+QPtrList<class KateView> KateFactory::s_views;
+KTrader::OfferList *KateFactory::s_plugins = 0;
 
 extern "C"
 {
@@ -69,29 +69,15 @@ KateFactory::~KateFactory()
 
         if ( s_instance )
             delete s_instance;
-            
+
         if ( s_about )
             delete s_about;
-            
-        if ( s_documents )
-        {
-            assert( s_documents->isEmpty() );
-            delete s_documents;
-        }
-            
-        if ( s_views )
-        {
-            assert( s_views->isEmpty() );
-            delete s_views;
-        }
-	
+
 	if ( s_plugins )
 	  delete s_plugins;
-	          
+
         s_instance = 0;
         s_about = 0;
-        s_documents = 0;
-        s_views = 0;
 	s_plugins = 0;
     }
     else
@@ -131,27 +117,19 @@ KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *
 
 void KateFactory::registerDocument ( KateDocument *doc )
 {
-    if ( !s_documents )
-        s_documents = new QPtrList<KateDocument>;
-
-    if ( !s_documents->containsRef( doc ) )
+    if ( !s_documents.containsRef( doc ) )
     {
-        s_documents->append( doc );
+        s_documents.append( doc );
         ref();
     }
 }
 
 void KateFactory::deregisterDocument ( KateDocument *doc )
 {
-    assert( s_documents );
 
-    if ( s_documents->removeRef( doc ) )
+    if ( s_documents.removeRef( doc ) )
     {
-        if ( s_documents->isEmpty() )
-        {
-            delete s_documents;
-            s_documents = 0;
-        }
+
         
         deref();
     }
@@ -159,28 +137,22 @@ void KateFactory::deregisterDocument ( KateDocument *doc )
 
 void KateFactory::registerView ( KateView *view )
 {
-    if ( !s_views )
-        s_views = new QPtrList<KateView>;
 
-    if ( !s_views->containsRef( view ) )
+    if ( !s_views.containsRef( view ) )
     {
-        s_views->append( view );
+        s_views.append( view );
         ref();
     }
 }
 
 void KateFactory::deregisterView ( KateView *view )
 {
-    assert( s_views );
 
-    if ( s_views->removeRef( view ) )
+
+    if ( s_views.removeRef( view ) )
     {
-        if ( s_views->isEmpty() )
-        {
-            delete s_views;
-            s_views = 0;
-        }
-        
+
+
         deref();
     }
 }
@@ -189,7 +161,7 @@ KTrader::OfferList *KateFactory::plugins ()
 {
   if ( !s_plugins )
    s_plugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/Plugin"));
-   
+
   return s_plugins;
 }
 

@@ -516,6 +516,9 @@ void ColorConfig::setColors(QColor *colors)
   m_current->setColor( colors[2] );
   m_bracket->setColor( colors[3] );
   m_wwmarker->setColor( colors[4] );
+
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+    KateFactory::documents()->at(z)->updateViews();
 }
 
 void ColorConfig::getColors(QColor *colors)

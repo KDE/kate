@@ -94,6 +94,35 @@
 
 using namespace Kate;
 
+bool KateDocument::s_configLoaded = false;
+
+FontStruct KateDocument::viewFont;
+FontStruct KateDocument::printFont;
+int KateDocument::tabChars = 8;
+
+uint KateDocument::_configFlags = KateDocument::cfAutoIndent | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
+    | KateDocument::cfRemoveSpaces
+    | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
+    | KateDocument::cfShowTabs | KateDocument::cfSmartHome;
+
+QColor KateDocument::colors[5];
+
+uint KateDocument::myUndoSteps = 0;
+
+uint KateDocument::myBackupConfig = 1;
+QString KateDocument::myBackupSuffix ("~");
+
+bool KateDocument::myWordWrap = false;
+uint KateDocument::myWordWrapAt = 80;
+
+bool KateDocument::m_dynWordWrap = true;
+bool KateDocument::m_lineNumbers = false;
+bool KateDocument::m_iconBar = false;
+bool KateDocument::m_foldingBar = true;
+int KateDocument::m_bookmarkSort = 0;
+bool KateDocument::m_wordWrapMarker = true;
+int KateDocument::m_autoCenterLines = 0;
+
 //
 // KateDocument Constructor
 //
@@ -110,10 +139,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoIgnoreCancel(false),
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
-  viewFont(),
-  printFont(),
-  hlManager(HlManager::self ()),
-  m_autoCenterLines(0)
+  hlManager(HlManager::self ())
 {
   KateFactory::registerDocument (this);
 
@@ -121,7 +147,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceExtensionDCOPSuffix (documentDCOPSuffix());
   setCursorInterfaceDCOPSuffix (documentDCOPSuffix());
-  //setDocumentInfoInterfaceDCOPSuffix (documentDCOPSuffix());
   setEditInterfaceDCOPSuffix (documentDCOPSuffix());
   setEncodingInterfaceDCOPSuffix (documentDCOPSuffix());
   setHighlightingInterfaceDCOPSuffix (documentDCOPSuffix());
@@ -163,38 +188,12 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   modified = false;
 
-  // some defaults
-  _configFlags = KateDocument::cfAutoIndent | KateDocument::cfTabIndents | KateDocument::cfKeepIndentProfile
-    | KateDocument::cfRemoveSpaces
-    | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
-    | KateDocument::cfShowTabs | KateDocument::cfSmartHome;
-
   myEncoding = QString::fromLatin1(QTextCodec::codecForLocale()->name());
-
-  setFont (ViewFont,KGlobalSettings::fixedFont());
-  setFont (PrintFont,KGlobalSettings::fixedFont());
 
   m_docName = QString ("");
   fileInfo = new QFileInfo ();
 
-  myCmd = new KateCmd (this);
-
-  connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
-
-  buffer = new KateBuffer (this);
-
-  connect(buffer, SIGNAL(loadingFinished()), this, SLOT(slotLoadingFinished()));
-  connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
-  connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
-  connect(buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
-
-  colors[0] = KGlobalSettings::baseColor();
-  colors[1] = KGlobalSettings::highlightColor();
-  colors[2] = KGlobalSettings::alternateBackgroundColor();
-  colors[3] = QColor( "#FFFF99" );
-  colors[4] = colors[2].dark();
   m_highlight = 0L;
-  tabChars = 8;
 
   KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
   for( ; it != KateFactory::plugins()->end(); ++it)
@@ -210,20 +209,56 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     m_plugins.append(info);
   }
 
+  myCmd = new KateCmd (this);
+
+  buffer = new KateBuffer (this);
   clear();
   docWasSavedWhenUndoWasEmpty = true;
+
+  m_extension = new KateBrowserExtension( this );
+  m_arbitraryHL = new KateArbitraryHighlight();
+
+  // read the config THE FIRST TIME ONLY, we store everything in static vars
+  // to ensure each document has the same config the whole time
+  if (!s_configLoaded)
+  {
+    // some sane defaults for the first try
+    viewFont.myFont = KGlobalSettings::fixedFont();
+    printFont.myFont = KGlobalSettings::fixedFont();
+
+    colors[0] = KGlobalSettings::baseColor();
+    colors[1] = KGlobalSettings::highlightColor();
+    colors[2] = KGlobalSettings::alternateBackgroundColor();
+    colors[3] = QColor( "#FFFF99" );
+    colors[4] = colors[2].dark();
+
+    // read the standard config to get some defaults
+    readConfig();
+
+    // now we have our stuff loaded, no more need to parse config on each
+    // katedocument creation and to construct the masses of stuff
+    s_configLoaded = true;
+  }
+
+  // load all enabled plugins
+  loadAllEnabledPlugins ();
+
+  // uh my, we got modified ;)
+  connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
+
+  // some nice signals from the buffer
+  connect(buffer, SIGNAL(loadingFinished()), this, SLOT(slotLoadingFinished()));
+  connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
+  connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
+  connect(buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
 
-  readConfig();
-  loadAllEnabledPlugins ();
-
-  m_extension = new KateBrowserExtension( this );
-
-  m_arbitraryHL = new KateArbitraryHighlight();
+  // signal for the arbitrary HL
   connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KateSuperRange*)), SLOT(tagArbitraryLines(KateView*, KateSuperRange*)));
 
+  // if single view mode, like in the konqui embedding, create a default view ;)
   if ( m_bSingleViewMode )
   {
     KTextEditor::View *view = createView( parentWidget, widgetName );
@@ -1411,7 +1446,8 @@ void KateDocument::setUndoSteps(uint steps)
 {
   myUndoSteps = steps;
 
-  emit undoChanged ();
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+    emit KateFactory::documents()->at(z)->undoChanged ();
 }
 
 void KateDocument::undo()
@@ -1683,16 +1719,25 @@ void KateDocument::setDontChangeHlOnSave()
 
 void KateDocument::readConfig(KConfig *config)
 {
+  // set kate document section
   config->setGroup("Kate Document");
-  _configFlags = config->readNumEntry("ConfigFlags", _configFlags);
 
-  myWordWrap = config->readBoolEntry("Word Wrap On", false);
-  myWordWrapAt = config->readNumEntry("Word Wrap At", 80);
+  // basic and search config flags
+  _configFlags = config->readNumEntry("Basic Config Flags", _configFlags);
+  KateSearch::s_options = config->readNumEntry("Search Config Flags", KateSearch::s_options);
 
-  setTabWidth(config->readNumEntry("TabWidth", 8));
-  setUndoSteps(config->readNumEntry("UndoSteps", 256));
-  setFont (ViewFont,config->readFontEntry("Font", &viewFont.myFont));
-  setFont (PrintFont,config->readFontEntry("PrintFont", &printFont.myFont));
+  // does we use static word wrap and on which column
+  myWordWrap = config->readBoolEntry("Word Wrap", myWordWrap);
+  myWordWrapAt = config->readNumEntry("Word Wrap Column", myWordWrapAt);
+
+  // tabs
+  setTabWidth(config->readNumEntry("Tab Width", tabChars));
+
+  // undo steps
+  setUndoSteps(config->readNumEntry("Undo Steps", myUndoSteps));
+
+  setFont (ViewFont,config->readFontEntry("View Font", &viewFont.myFont));
+  setFont (PrintFont,config->readFontEntry("Printer Font", &printFont.myFont));
 
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
@@ -1700,34 +1745,35 @@ void KateDocument::readConfig(KConfig *config)
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
   colors[4] = config->readColorEntry("Color WWMarker", &colors[4]);
 
-  myBackupConfig = config->readNumEntry( "Backup", 1 );
-  myBackupSuffix = config->readEntry("BackupSuffix", "~");
+  myBackupConfig = config->readNumEntry( "Backup Config Flags", myBackupConfig);
+  myBackupSuffix = config->readEntry("Backup Files Suffix", myBackupSuffix);
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
     if  (config->readBoolEntry(m_plugins.at(i)->service->library(), false))
       m_plugins.at(i)->load = true;
 
-  if (myWordWrap)
+  config->setGroup("Kate View");
+  m_dynWordWrap = config->readBoolEntry( "Dynamic Word Wrap", m_dynWordWrap );
+  m_lineNumbers = config->readBoolEntry( "Line Numbers", m_lineNumbers );
+  m_iconBar = config->readBoolEntry( "Icon Bar", m_iconBar );
+  m_foldingBar = config->readBoolEntry( "Folding Markers", m_foldingBar );
+  m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", m_bookmarkSort );
+  m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
+  m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
+
+  // update view defaults
+  for (uint z=0; z < KateFactory::views()->count(); z++)
   {
-    editStart (false);
-    wrapText (myWordWrapAt);
-    editEnd ();
-    setModified(false);
-    emit textChanged ();
+    KateFactory::views()->at(z)->updateViewDefaults ();;
   }
 
-  config->setGroup("Kate View");
-  m_dynWordWrap = config->readBoolEntry( "DynamicWordWrap", true );
-  m_lineNumbers = config->readBoolEntry( "LineNumbers", false );
-  m_iconBar = config->readBoolEntry( "Iconbar", false );
-  m_foldingBar = config->readBoolEntry( "FoldingMarkers", true );
-  m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", 0 );
-  m_wordWrapMarker = config->readBoolEntry("WordWrapMarker", true );
-  m_autoCenterLines = config->readNumEntry( "AutoCenterLines", 0 ) ;
-
-  updateViewDefaults ();
-  tagAll();
+  // update the remaining document stuff
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+  {
+    KateFactory::documents()->at(z)->tagAll();
+    KateFactory::documents()->at(z)->updateViews();
+  }
 }
 
 void KateDocument::updateViewDefaults ()
@@ -1739,49 +1785,50 @@ void KateDocument::updateViewDefaults ()
 void KateDocument::writeConfig(KConfig *config)
 {
   config->setGroup("Kate Document");
-  config->writeEntry("ConfigFlags",_configFlags);
+  config->writeEntry("Basic Config Flags",_configFlags);
+  config->writeEntry("Search Config Flags",KateSearch::s_options);
 
-  config->writeEntry("Word Wrap On", myWordWrap);
-  config->writeEntry("Word Wrap At", myWordWrapAt);
-  config->writeEntry("UndoSteps", myUndoSteps);
-  config->writeEntry("TabWidth", tabChars);
-  config->writeEntry("Font", viewFont.myFont);
-  config->writeEntry("PrintFont", printFont.myFont);
+  config->writeEntry("Word Wrap", myWordWrap);
+  config->writeEntry("Word Wrap Column", myWordWrapAt);
+  config->writeEntry("Undo Steps", myUndoSteps);
+  config->writeEntry("Tab Width", tabChars);
+  config->writeEntry("View Font", viewFont.myFont);
+  config->writeEntry("Printer Font", printFont.myFont);
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
   config->writeEntry("Color Bracket Highlight", colors[3]);
   config->writeEntry("Color WWMarker", colors[4] );
 
-  config->writeEntry( "Backup", myBackupConfig );
-  config->writeEntry( "BackupSuffix", myBackupSuffix );
+  config->writeEntry( "Backup Config Flags", myBackupConfig );
+  config->writeEntry( "Backup Files Suffix", myBackupSuffix );
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
     config->writeEntry(m_plugins.at(i)->service->library(), m_plugins.at(i)->load);
 
   config->setGroup("Kate View");
-  config->writeEntry( "DynamicWordWrap", m_dynWordWrap );
-  config->writeEntry( "LineNumbers", m_lineNumbers );
-  config->writeEntry( "Iconbar", m_iconBar );
-  config->writeEntry( "FoldingMarkers", m_foldingBar );
+  config->writeEntry( "Dynamic Word Wrap", m_dynWordWrap );
+  config->writeEntry( "Line Numbers", m_lineNumbers );
+  config->writeEntry( "Icon Bar", m_iconBar );
+  config->writeEntry( "Folding Markers", m_foldingBar );
   config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
-  config->writeEntry( "WordWrapMarker", m_wordWrapMarker );
-  config->writeEntry( "AutoCenterLines", m_autoCenterLines ) ;
+  config->writeEntry( "Word Wrap Marker", m_wordWrapMarker );
+  config->writeEntry( "Auto Center Lines", m_autoCenterLines );
+
+  config->sync();
 }
 
 void KateDocument::readConfig()
 {
   KConfig *config = KateFactory::instance()->config();
   readConfig (config);
-  config->sync();
 }
 
 void KateDocument::writeConfig()
 {
   KConfig *config = KateFactory::instance()->config();
   writeConfig (config);
-  config->sync();
 }
 
 void KateDocument::readSessionConfig(KConfig *config)
@@ -1851,10 +1898,6 @@ void KateDocument::configDialog()
     {
       editorPages.at(i)->apply();
     }
-
-    // save the config, reload it to update doc + all views
-    writeConfig();
-    readConfig();
   }
 
   delete kd;
@@ -2775,19 +2818,30 @@ void KateDocument::setFont (WhichFont wf, QFont font)
 
   if (wf == ViewFont)
   {
-    updateFontData();
-    updateViews();
+    for (uint z=0; z < KateFactory::documents()->count(); z++)
+    {
+      KateFactory::documents()->at(z)->updateFontData();
+      KateFactory::documents()->at(z)->updateViews();
+    }
   }
 }
 
-void KateDocument::setTabWidth(int chars) {
+void KateDocument::setTabWidth(int chars)
+{
   if (tabChars == chars) return;
   if (chars < 1) chars = 1;
   if (chars > 16) chars = 16;
+
   tabChars = chars;
+
   printFont.updateFontData(tabChars);
   viewFont.updateFontData(tabChars);
-  updateFontData();
+
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+  {
+    KateFactory::documents()->at(z)->updateFontData();
+    KateFactory::documents()->at(z)->updateViews();
+  }
 }
 
 void KateDocument::setNewDoc( bool m )
@@ -4678,8 +4732,10 @@ void KateDocument::setConfigFlags( uint flags )
   // update the view if visibility of tabs has changed
   bool updateView = (flags ^ _configFlags) & KateDocument::cfShowTabs;
   _configFlags = flags;
+
   if( updateView )
-    updateViews();
+    for (uint z=0; z < KateFactory::documents()->count(); z++)
+      KateFactory::documents()->at(z)->updateViews();
 }
 
 void KateDocument::exportAs(const QString& filter)

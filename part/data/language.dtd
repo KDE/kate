@@ -40,7 +40,7 @@
   priority      CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
 >
 
-<!ELEMENT general (comments?, keywords?, comments?)>
+<!ELEMENT general (comments|keywords)*>
 <!ATTLIST general
 >
 

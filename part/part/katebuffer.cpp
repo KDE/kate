@@ -776,6 +776,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
     bool foldingChanged = false;
     bool retVal_folding = false;
+    bool indentChanged = false;
 
     //
     // indentation sensitive folding
@@ -789,45 +790,39 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
       uint iDepth = textLine->indentDepth(m_tabWidth);
 
-      if ((textLine->length() > 0) || ((current_line+buf->startLine()) >= (m_lines-1)))
+      indentChanged =    ((iDepth > 0) && textLine->indentationDepthArray().isEmpty())
+                      || (!textLine->indentationDepthArray().isEmpty() && (textLine->indentationDepthArray().at(textLine->indentationDepthArray().size()-1) != iDepth));
+
+      if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
       {
-        bool ch = false;
+        indentDepth.resize (indentDepth.size()+1);
+        indentDepth[indentDepth.size()-1] = iDepth;
+        newIn++;
+      }
+      else
+      {
+        for (int z=indentDepth.size()-1; z > -1; z--)
+        {
+          if (indentDepth[z] == iDepth)
+            break;
 
-        if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
-        {
-          indentDepth.resize (indentDepth.size()+1);
-          indentDepth[indentDepth.size()-1] = iDepth;
-          ch = true;
-          newIn++;
-        }
-        else
-        {
-          for (int z=indentDepth.size()-1; z > -1; z--)
+          if (indentDepth[z] < iDepth)
           {
-            if (indentDepth[z] == iDepth)
-              break;
+            indentDepth.resize (indentDepth.size()+1);
+            indentDepth[indentDepth.size()-1] = iDepth;
+            newIn++;
+            break;
+          }
 
-            if (indentDepth[z] < iDepth)
-            {
-              indentDepth.resize (indentDepth.size()+1);
-              indentDepth[indentDepth.size()-1] = iDepth;
-              ch = true;
-              newIn++;
-              break;
-            }
-
-            if (indentDepth[z] > iDepth)
-            {
-              indentDepth.resize (z);
-              ch = true;
-              remIn++;
-            }
+          if (indentDepth[z] > iDepth)
+          {
+            indentDepth.resize (z);
+            remIn++;
           }
         }
-
-        if (ch)
-          kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
       }
+
+      kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
 
       textLine->setIndentationDepth (indentDepth);
 
@@ -876,7 +871,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
     ctxNum.duplicate (textLine->ctxArray());
 
-    if ((endCtx.size() != ctxNum.size()) || (m_highlight->foldingIndentationSensitive() && indentDepth.size() != prevLine->indentationDepthArray().size()))
+    if ( indentChanged || (endCtx.size() != ctxNum.size()) )
     {
       stillcontinue = true;
     }
@@ -884,7 +879,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     {
       stillcontinue = false;
 
-      if ((ctxNum != endCtx) || (m_highlight->foldingIndentationSensitive() && indentDepth != prevLine->indentationDepthArray()))
+      if ((ctxNum != endCtx))
         stillcontinue = true;
     }
 

@@ -27,7 +27,6 @@ class KateLineRange
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
  : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
 {
-  lineRangesLen=0;
   setBackgroundMode(NoBackground);
   m_lineMapping.setAutoDelete(true);
 
@@ -39,9 +38,10 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   displayCursor.line=0;
   displayCursor.col=0;
-  lineRanges = new KateLineRange[64];
-  lineRangesLen=64;
-  for (uint z = 0; z < lineRangesLen; z++)
+  
+  lineRanges.resize (64);
+
+  for (uint z = 0; z < lineRanges.size(); z++)
   {
     lineRanges[z].start = 0xffffff;
     lineRanges[z].end = 0;
@@ -96,8 +96,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
 KateViewInternal::~KateViewInternal()
 {
-  lineRangesLen=0;
-  delete [] lineRanges;
   delete drawBuffer;
 }
 
@@ -667,15 +665,11 @@ void KateViewInternal::clearDirtyCache(int height) {
   updateState = 0;
 
   lines = endLine - startLine +1;
-  if (lines > lineRangesLen) { // resize the dirty cache
-    uint _numLines = lines*2;
-    lineRangesLen=0;
-    delete [] lineRanges;
-    lineRanges = new KateLineRange[_numLines];
-    lineRangesLen=_numLines;
-  }
+  
+  if (lines > lineRanges.size())
+    lineRanges.resize (lines * 2);
 
-  for (uint z = 0; z < lineRangesLen; z++) { // clear all lines
+  for (uint z = 0; z < lineRanges.size(); z++) { // clear all lines
     lineRanges[z].start = 0xffffff;
     lineRanges[z].end = 0;
   }
@@ -698,14 +692,14 @@ void KateViewInternal::tagLines(int start, int end, int x1, int x2) {
   if (x2 > width() + xPos) x2 = width() + xPos;
   if (x1 >= x2) return;
 
-  if (start < lineRangesLen)
+  if (start < lineRanges.size())
   {
     r = &lineRanges[start];
     uint rpos = start;
 
     for (z = start; z <= end; z++)
     {
-      if (rpos >= lineRangesLen) break;
+      if (rpos >= lineRanges.size()) break;
 
       if (x1 < r->start) r->start = x1;
       if (x2 > r->end) r->end = x2;
@@ -1028,13 +1022,13 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
   paint.begin(drawBuffer);
 
   uint h = myDoc->viewFont.fontHeight;
-  KateLineRange *r = lineRanges;
+  KateLineRange *r = lineRanges.data();
 
   uint rpos = 0;
   kdDebug()<<QString("startLine: %1, endLine %2").arg(startLine).arg(endLine)<<endl;
   if (endLine>=startLine)
   {
-    for ( uint line = startLine; (line <= endLine) && (rpos < lineRangesLen); line++)
+    for ( uint line = startLine; (line <= endLine) && (rpos < lineRanges.size()); line++)
     {
       if (r->start < r->end)
       {

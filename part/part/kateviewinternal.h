@@ -134,8 +134,9 @@ private:
     bool possibleTripleClick;
     bool exposeCursor;
     int updateState;
-    class KateLineRange *lineRanges;
-    uint lineRangesLen;
+
+    QMemArray<class KateLineRange> lineRanges;
+    
     int newXPos;
     int newYPos;
 

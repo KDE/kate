@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="VHDL" version="1.03" kateversion="2.1" section="Hardware" extensions="*.vhdl;*.vhd" mimetype="text/x-vhdl">
+<language name="VHDL" version="1.04" kateversion="2.1" section="Hardware" extensions="*.vhdl;*.vhd" mimetype="text/x-vhdl">
     <highlighting>
         <list name="keywords">
             <item> access </item>
@@ -277,6 +277,9 @@
         </itemDatas>
     </highlighting>
   <general>
+    <comments>
+      <comment name="singleLine" start="--" />
+    </comments>
     <keywords casesensitive="1" />
   </general>
 </language>

@@ -4445,23 +4445,42 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
       switch ( KMessageBox::warningYesNoCancel( widget(),
                reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
                i18n("File Was Deleted on Disk"),
-               i18n("&Save File"), i18n("&Ignore Changes")) )
+               i18n("&Save File As..."), i18n("&Ignore Changes")) )
       {
-        case KMessageBox::Yes: // "reload file"
-          m_modOnHd = false; // trick reloadFile() to not ask again
+        case KMessageBox::Yes: // "save file"
+        {
+          m_modOnHd = false; // trick save() to not ask again
+
+          KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+              url().url(),QString::null,widget(),i18n("Save File"));
+
+          if( ! res.URLs.isEmpty() && checkOverwrite( res.URLs.first() ) )
+          {
+            setEncoding( res.encoding );
+
+            if( ! saveAs( res.URLs.first() ) )
+            {
+              KMessageBox::error( widget(), i18n("Save failed") );
+              m_modOnHd = true;
+            }
+            else
+              emit modifiedOnDisc( this, false, 0 );
+          }
+          else // the save as dialog was cancelled, we are still modified on disk
+            m_modOnHd = true;
+
+          m_isasking = 0;
+          }
+          break;
+
+        case KMessageBox::No:  // "ignore changes"
+          m_modOnHd = false;
           emit modifiedOnDisc( this, false, 0 );
-          save();
           m_isasking = 0;
           break;
 
-          case KMessageBox::No:  // "ignore changes"
-            m_modOnHd = false;
-            emit modifiedOnDisc( this, false, 0 );
-            m_isasking = 0;
-            break;
-
-            default:               // cancel: ignore next focus event
-              m_isasking = -1;
+        default:               // cancel: ignore next focus event
+          m_isasking = -1;
       }
     } else {
       switch ( KMessageBox::warningYesNoCancel( widget(),
@@ -5354,15 +5373,16 @@ QString KateDocument::reasonedMOHString() const
   switch( m_modOnHdReason )
   {
     case 1:
-      return i18n("The file '%1' was modified on disk by another program.").arg( url().prettyURL() );
+      return i18n("The file '%1' was modified by another program.").arg( url().prettyURL() );
       break;
     case 2:
-      return i18n("The file '%1' was created on disk by another program.").arg( url().prettyURL() );
+      return i18n("The file '%1' was created by another program.").arg( url().prettyURL() );
       break;
     case 3:
       return i18n("The file '%1' was deleted by another program.").arg( url().prettyURL() );
       break;
     default:
+      return QString();
   }
 }
 

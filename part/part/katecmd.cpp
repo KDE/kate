@@ -25,9 +25,12 @@
 #include "katedocument.h"
 #include "kateview.h"
 
-KateCmd::KateCmd (KateDocument *doc) : QObject (doc),
-  m_doc (doc)
+KateCmd::KateCmd (KateDocument *doc)
+ : QObject (doc),
+   m_doc (doc)
 {
+  m_parser.setAutoDelete(true);
+
   m_parser.append (new KateCommands::InsertTime (m_doc));
   m_parser.append (new KateCommands::SedReplace (m_doc));
   m_parser.append (new KateCommands::Character (m_doc));
@@ -35,17 +38,14 @@ KateCmd::KateCmd (KateDocument *doc) : QObject (doc),
 
 KateCmd::~KateCmd ()
 {
-  m_parser.setAutoDelete(true);
   m_parser.clear();
 }
 
 void KateCmd::execCmd (QString cmd, KateView *view)
 {
   for (uint i=0; i<m_parser.count(); i++)
-  {
     if (m_parser.at(i)->execCmd (cmd, view))
       break;
-  }
 }
 
 KateCmdParser::KateCmdParser (KateDocument *doc)

@@ -34,9 +34,9 @@
 
 #include <assert.h>
 
-// SOME LIMITS, may need testing what limits are clever
-#define AVG_BLOCK_SIZE                         24000
-#define LOAD_N_BLOCKS_AT_ONCE       3
+// SOME LIMITS, may need testing which values are clever
+#define AVG_BLOCK_SIZE              32000
+#define LOAD_N_BLOCKS_AT_ONCE       16
 
 /**
   Some private classes
@@ -755,7 +755,7 @@ void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
    //kdDebug()<<"KateBuffer::updateHighlight("<<from<<","<<to<<","<<invalidate<<")"<<endl;
    if (!m_hlUpdate)
     return;
-    
+
    //kdDebug()<<"passed the no update check"<<endl;
 
    if (from > m_highlightedTo )
@@ -795,7 +795,7 @@ void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
          }
 
          buf->b_needHighlight = false;
-         
+
 	 //kdDebug()<<"Calling need highlight: "<<fromLine<<","<<tillLine<<endl;
          endStateChanged = needHighlight (buf, fromLine, tillLine);
 
@@ -1206,22 +1206,23 @@ bool KateBufBlock::fillBlock (QTextStream *stream)
  */
 void KateBufBlock::swapOut ()
 {
-   //kdDebug(13020)<<"KateBufBlock: swapout this ="<< this<<endl;
-   assert(b_rawDataValid);
-   // TODO: Error checking and reporting (?)
+  //kdDebug(13020)<<"KateBufBlock: swapout this ="<< this<<endl;
+  assert(b_rawDataValid);
+  // TODO: Error checking and reporting (?)
 
-   if (!b_vmDataValid)
-   {
-      m_vmblock = m_vm->allocate(m_rawData.count());
-      m_vmblockSize = m_rawData.count();
+  if (!b_vmDataValid)
+  {
+    m_vmblock = m_vm->allocate(m_rawData.count());
+    m_vmblockSize = m_rawData.count();
 
-      if (!m_rawData.isEmpty())
-      {
-         m_vm->copy(m_vmblock, m_rawData.data(), 0, m_rawData.count());
-      }
-      b_vmDataValid = true;
-   }
-   disposeRawData();
+    if (!m_rawData.isEmpty())
+    {
+        m_vm->copy(m_vmblock, m_rawData.data(), 0, m_rawData.count());
+    }
+
+    b_vmDataValid = true;
+  }
+  disposeRawData();
 }
 
 /**
@@ -1230,13 +1231,13 @@ void KateBufBlock::swapOut ()
  */
 void KateBufBlock::swapIn ()
 {
-   //kdDebug(13020)<<"KateBufBlock: swapin this ="<< this<<endl;
-   assert(b_vmDataValid);
-   assert(!b_rawDataValid);
-   assert(m_vmblock);
-   m_rawData.resize(m_vmblockSize);
-   m_vm->copy(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
-   b_rawDataValid = true;
+  //kdDebug(13020)<<"KateBufBlock: swapin this ="<< this<<endl;
+  assert(b_vmDataValid);
+  assert(!b_rawDataValid);
+  assert(m_vmblock);
+  m_rawData.resize(m_vmblockSize);
+  m_vm->copy(m_rawData.data(), m_vmblock, 0, m_vmblockSize);
+  b_rawDataValid = true;
 }
 
 /**
@@ -1301,14 +1302,14 @@ void KateBufBlock::flushStringList()
  */
 void KateBufBlock::disposeStringList()
 {
-   //kdDebug(13020)<<"KateBufBlock: disposeStringList this = "<< this<<endl;
-   assert(b_rawDataValid || b_vmDataValid);
+  //kdDebug(13020)<<"KateBufBlock: disposeStringList this = "<< this<<endl;
+  assert(b_rawDataValid || b_vmDataValid);
 
-   if (m_lines > 0)
+  if (m_lines > 0)
     m_lastLine = m_stringList[m_lines - 1];
 
-   m_stringList.clear();
-   b_stringListValid = false;
+  m_stringList.clear();
+  b_stringListValid = false;
 }
 
 /**
@@ -1316,10 +1317,10 @@ void KateBufBlock::disposeStringList()
  */
 void KateBufBlock::disposeRawData()
 {
-   //kdDebug(13020)<< "KateBufBlock: disposeRawData this = "<< this<<endl;
-   assert(b_stringListValid || b_vmDataValid);
-   b_rawDataValid = false;
-   m_rawData.resize (0);
+  //kdDebug(13020)<< "KateBufBlock: disposeRawData this = "<< this<<endl;
+  assert(b_stringListValid || b_vmDataValid);
+  b_rawDataValid = false;
+  m_rawData.resize (0);
 }
 
 /**
@@ -1339,26 +1340,26 @@ void KateBufBlock::disposeSwap()
  */
 TextLine::Ptr KateBufBlock::line(uint i)
 {
-   assert(b_stringListValid);
-   assert(i < m_stringList.size());
+  assert(b_stringListValid);
+  assert(i < m_stringList.size());
 
-   return m_stringList[i];
+  return m_stringList[i];
 }
 
 void KateBufBlock::insertLine(uint i, TextLine::Ptr line)
 {
-   assert(b_stringListValid);
-   assert(i <= m_stringList.size());
+  assert(b_stringListValid);
+  assert(i <= m_stringList.size());
 
-   m_stringList.insert (m_stringList.begin()+i, line);
-   m_lines++;
+  m_stringList.insert (m_stringList.begin()+i, line);
+  m_lines++;
 }
 
 void KateBufBlock::removeLine(uint i)
 {
-   assert(b_stringListValid);
-   assert(i < m_stringList.size());
+  assert(b_stringListValid);
+  assert(i < m_stringList.size());
 
-   m_stringList.erase (m_stringList.begin()+i);
-   m_lines--;
+  m_stringList.erase (m_stringList.begin()+i);
+  m_lines--;
 }

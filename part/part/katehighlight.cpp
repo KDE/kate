@@ -2357,12 +2357,6 @@ QString HlManager::defaultStyleName(int n)
 
 void HlManager::getDefaults(KateAttributeList &list)
 {
-  KConfig *config;
-  int z;
-  KateAttribute *i;
-  QString s;
-  QRgb col, selCol;
-
   list.setAutoDelete(true);
 
   KateAttribute* normal = new KateAttribute();
@@ -2417,14 +2411,21 @@ void HlManager::getDefaults(KateAttributeList &list)
   others->setSelectedTextColor(Qt::green);
   list.append(others);
 
-  config = KateFactory::instance()->config();
+  KConfig *config = KateFactory::instance()->config();
   config->setGroup("Default Item Styles");
-  for (z = 0; z < defaultStyles(); z++) {
-    i = list.at(z);
-    s = config->readEntry(defaultStyleName(z));
-    if (!s.isEmpty()) {
+
+  for (int z = 0; z < defaultStyles(); z++)
+  {
+    KateAttribute *i = list.at(z);
+    QString s = config->readEntry(defaultStyleName(z));
+
+    if (!s.isEmpty())
+    {
+      QRgb col, selCol;
       int bold, italic;
+
       sscanf(s.latin1(),"%X,%X,%d,%d",&col,&selCol,&bold,&italic);
+
       QColor color = i->textColor();
       color.setRgb(col);
       i->setTextColor(color);
@@ -2439,50 +2440,50 @@ void HlManager::getDefaults(KateAttributeList &list)
   }
 }
 
-void HlManager::setDefaults(KateAttributeList &list) {
-  KConfig *config;
-  int z;
-  KateAttribute *i;
-  char s[64];
-
-  config =  KateFactory::instance()->config();
+void HlManager::setDefaults(KateAttributeList &list)
+{
+  KConfig *config =  KateFactory::instance()->config();
   config->setGroup("Default Item Styles");
-  for (z = 0; z < defaultStyles(); z++) {
-    i = list.at(z);
+
+  for (int z = 0; z < defaultStyles(); z++)
+  {
+    KateAttribute *i = list.at(z);
+
+    char s[256];
     sprintf(s,"%X,%X,%d,%d",i->textColor().rgb(),i->selectedTextColor().rgb(),i->bold(), i->italic());
+
     config->writeEntry(defaultStyleName(z),s);
   }
 
   emit changed();
 }
 
-
-int HlManager::highlights() {
+int HlManager::highlights()
+{
   return (int) hlList.count();
 }
 
-QString HlManager::hlName(int n) {
+QString HlManager::hlName(int n)
+{
   return hlList.at(n)->name();
 }
 
-QString HlManager::hlSection(int n) {
+QString HlManager::hlSection(int n)
+{
   return hlList.at(n)->section();
 }
 
-void HlManager::getHlDataList(HlDataList &list) {
-  int z;
-
-  for (z = 0; z < (int) hlList.count(); z++) {
+void HlManager::getHlDataList(HlDataList &list)
+{
+  for (uint z = 0; z < hlList.count(); z++)
     list.append(hlList.at(z)->getData());
-  }
 }
 
-void HlManager::setHlDataList(HlDataList &list) {
-  int z;
-
-  for (z = 0; z < (int) hlList.count(); z++) {
+void HlManager::setHlDataList(HlDataList &list)
+{
+  for (uint z = 0; z < hlList.count(); z++)
     hlList.at(z)->setData(list.at(z));
-  }
+
   //notify documents about changes in highlight configuration
   emit changed();
 }

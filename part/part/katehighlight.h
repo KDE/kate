@@ -69,22 +69,7 @@ class HlItem {
     signed char region2;
 };
 
-//Item Style: color, selected color, bold, italic
-/*class ItemStyle {
-  public:
-    ItemStyle();
-//    ItemStyle(const ItemStyle &);
-    ItemStyle(const QColor &, const QColor &, bool bold, bool italic);
-    ItemStyle(ItemStyle *its){col=its->col;selCol=its->selCol; bold=its->bold; italic=its->italic;}
-//    void setData(const ItemStyle &);
-    QColor col;
-    QColor selCol;
-    int bold;   //boolean value
-    int italic; //boolean value
-};*/
-
 typedef QPtrList<KateAttribute> KateAttributeList;
-
 
 class IncludeRule {
 	public:

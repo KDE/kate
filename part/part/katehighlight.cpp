@@ -2392,7 +2392,8 @@ void KateHighlighting::makeContextList()
         buildPrefix=it.key()+':';  // attribute names get prefixed by the names
                                    // of the highlighting definitions they belong to
 
-        if (identifierToUse.isEmpty() ) kdDebug(13010)<<"OHOH, unknown highlighting description referenced"<<endl;
+        if (identifierToUse.isEmpty() )
+          kdDebug(13010)<<"OHOH, unknown highlighting description referenced"<<endl;
 
         kdDebug(13010)<<"setting ("<<it.key()<<") to loaded"<<endl;
 

@@ -1138,6 +1138,7 @@ void KateViewInternal::moveChar( Bias bias, bool sel )
   } else {
     c = BoundedCursor( this, cursor ) += bias;
   }
+
   updateSelection( c, sel );
   updateCursor( c );
 }
@@ -1187,6 +1188,7 @@ void KateViewInternal::moveWord( Bias bias, bool sel )
   } else {
     c += bias;
   }
+
   updateSelection( c, sel );
   updateCursor( c );
 }
@@ -2113,14 +2115,18 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
 
       if ( doSelect )
         m_doc->setSelection( selectAnchor, newCursor);
-      else if ( selStartCached.line() > 0 ) // we have a cached selectino, so we restore that
+      else if ( selStartCached.line() > 0 ) // we have a cached selection, so we restore that
         m_doc->setSelection( selStartCached, selEndCached );
     }
 
     m_selChangedByUser = true;
   }
   else if ( !(m_doc->configFlags() & KateDocument::cfPersistent) )
+  {
     m_doc->clearSelection();
+    selStartCached.setLine( -1 );
+    selectAnchor.setLine( -1 );
+  }
 }
 
 void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force, bool center, bool calledExternally )
@@ -2768,7 +2774,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
   {
     case LeftButton:
       m_selectionMode = Default;
-      selStartCached.setLine( -1 );
+//       selStartCached.setLine( -1 );
 
       if (m_selChangedByUser)
       {

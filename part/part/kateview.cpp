@@ -580,12 +580,12 @@ void KateView::setupEditActions()
       ac, "delete_word_right" );
 
     new KAction(i18n("Delete Next Character"), Key_Delete,
-		this, SLOT(keyDelete()),
-		ac, "delete_next_character");
+                this, SLOT(keyDelete()),
+                ac, "delete_next_character");
 
     new KAction(i18n("Backspace"), Key_Backspace,
-		this, SLOT(backspace()),
-		ac, "backspace");
+                this, SLOT(backspace()),
+                ac, "backspace");
   }
 
   connect( this, SIGNAL(gotFocus(Kate::View*)),

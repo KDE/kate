@@ -2733,7 +2733,7 @@ bool KateDocument::openFile(KIO::Job * job)
   if (m_buffer->binary())
   {
     // this file can't be saved again without killing it
-    setModified (true);
+    setReadWrite( false );
 
     KMessageBox::information (widget()
       , i18n ("The file %1 is a binary, saving it will result in a corrupt file.").arg(m_url.url())

@@ -127,7 +127,7 @@ KateAutoIndent::~KateAutoIndent ()
 
 //END KateAutoIndent
 
-//BEGIN KateHighlightAction
+//BEGIN KateViewIndentAction
 KateViewIndentationAction::KateViewIndentationAction(KateDocument *_doc, const QString& text, QObject* parent, const char* name)
        : KActionMenu (text, parent, name), doc(_doc)
 {

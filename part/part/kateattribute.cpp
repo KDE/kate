@@ -25,7 +25,7 @@ KateAttribute::KateAttribute()
   , m_overline(false)
   , m_strikeout(false)
   , m_itemsSet(0)
-  
+
 {
 }
 
@@ -48,7 +48,7 @@ KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
 
   if (a.itemSet(Underline))
     setUnderline(a.underline());
-  
+
   if (a.itemSet(Overline))
     setOverline(a.overline());
 

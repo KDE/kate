@@ -221,6 +221,29 @@ int KateTextLine::cursorX(uint pos, uint tabChars) const
   return x;
 }
 
+uint KateTextLine::position( uint visualPos, uint tw, int *remainder )
+{
+  if ( tw == 1 )
+    return visualPos;
+
+  int i = -1;
+  int res = -1;
+  while ( i < (int)visualPos )
+  {
+    i++;
+    res++;
+
+    if ( m_text[res] == '\t' )
+      i += tw - 1 - (i%tw);
+  }
+
+  if ( m_text[res] == '\t' )
+    *remainder = i - visualPos + 1; // why is the + 1 needed?
+  else
+    *remainder = 0;
+
+  return (uint)res;
+}
 
 uint KateTextLine::lengthWithTabs (uint tabChars) const
 {
@@ -275,9 +298,9 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
   if (backwards)
   {
     int col = startCol;
-
     // allow finding the string ending at eol
     if ( col == m_text.length() ) startCol++;
+
     do {
       index = regexp.searchRev (m_text, col);
       col--;

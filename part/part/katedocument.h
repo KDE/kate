@@ -24,7 +24,6 @@
 #include "kateautoindent.h"
 #include "katecursor.h"
 #include "katetextline.h"
-#include "katedocumentIface.h"
 
 #include "../interfaces/document.h"
 
@@ -74,10 +73,12 @@ namespace Kate
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document, virtual public KateDocumentDCOPIface,
+class KateDocument : public Kate::Document,
                      public KTextEditor::ConfigInterfaceExtension,
-                     public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
+                     public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface,
+                     public DCOPObject
 {
+  K_DCOP
   Q_OBJECT
 
   friend class KateViewInternal;
@@ -120,7 +121,7 @@ class KateDocument : public Kate::Document, virtual public KateDocumentDCOPIface
     KTextEditor::View *createView( QWidget *parent, const char *name );
     QPtrList<KTextEditor::View> views () const;
 
-     inline KateView *activeView () const { return m_activeView; }
+     KateView *activeView () const { return m_activeView; }
 
   private:
     QPtrList<KateView> m_views;
@@ -704,7 +705,7 @@ class KateDocument : public Kate::Document, virtual public KateDocumentDCOPIface
   public:
     void updateFileType (int newType, bool user = false);
 
-    inline int fileType () const { return m_fileType; };
+    int fileType () const { return m_fileType; };
 
   //
   // REALLY internal data ;)
@@ -768,7 +769,7 @@ class KateDocument : public Kate::Document, virtual public KateDocumentDCOPIface
    * Configuration
    */
   public:
-    inline KateDocumentConfig *config () { return m_config; };
+    KateDocumentConfig *config () { return m_config; };
 
     void updateConfig ();
 
@@ -815,10 +816,10 @@ class KateDocument : public Kate::Document, virtual public KateDocumentDCOPIface
 
     static QRegExp kvLine;
     static QRegExp kvVar;
-    //static QStringList VRegister;
 
-  public:
-    unsigned int documentNumber () const;
+  k_dcop:
+    uint documentNumber () const;
+
 };
 
 #endif

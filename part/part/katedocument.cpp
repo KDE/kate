@@ -5326,9 +5326,9 @@ void KateDocument::updateFileType (int newType, bool user)
   }
 }
 
-unsigned int KateDocument::documentNumber () const
+uint KateDocument::documentNumber () const
 {
-  return KTextEditor::Document::documentNumber();
+  return KTextEditor::Document::documentNumber ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

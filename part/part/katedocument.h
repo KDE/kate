@@ -906,7 +906,8 @@ class KateDocument : public Kate::Document,
 
   signals:
     void codeFoldingUpdated();
-
+    void aboutToRemoveText(const KateTextRange&);
+    void textRemoved();
   public slots:
     void dumpRegionTree();
 

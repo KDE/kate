@@ -767,7 +767,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
   return removeText (startLine, startCol, endLine, endCol, false);
 }
 
-bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise )
+bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise)
 {
   if (!isReadWrite())
     return false;
@@ -781,6 +781,9 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
   if ( startLine > lastLine() )
     return false;
 
+  if (!blockwise) {
+    emit aboutToRemoveText(KateTextRange(startLine,startCol,endLine,endCol));
+  }
   editStart ();
 
   if ( !blockwise )
@@ -847,7 +850,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
   }
 
   editEnd ();
-
+  emit textRemoved();
   return true;
 }
 

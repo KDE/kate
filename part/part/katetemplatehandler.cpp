@@ -90,7 +90,8 @@ KateTemplateHandler::KateTemplateHandler(KateDocument *doc,uint line,uint column
 	connect(doc,SIGNAL(charactersSemiInteractivelyInserted(int ,int ,const QString&)),this,
 	SLOT(slotCharactersInteractivlyInserted(int,int,const QString&)));*/
 	connect(doc,SIGNAL(textInserted(int,int)),this,SLOT(slotTextInserted(int,int)));
-
+	connect(doc,SIGNAL(aboutToRemoveText(const KateTextRange&)),this,SLOT(slotAboutToRemoveText(const KateTextRange&)));
+	connect(doc,SIGNAL(textRemoved()),this,SLOT(slotTextRemoved()));
 	(*this)(Qt::Key_Tab);
 }
 
@@ -146,7 +147,9 @@ void KateTemplateHandler::generateRangeTable(uint insertLine,uint insertCol, con
 }
 
 void KateTemplateHandler::slotTextInserted(int line,int col) {
+#warning FIXME undo/redo detection
 	if (m_recursion) return;
+	//if (m_editSessionNumber!=0) return; // assume that this is due an udno/redo operation right now
 	KateTextCursor cur(line,col);
 	if ((!m_currentRange) || 
 		( (!m_currentRange->includes(cur)) && ( ! ( (m_currentRange->start()==m_currentRange->end()) && m_currentRange->end()==cur ) )
@@ -159,6 +162,7 @@ void KateTemplateHandler::slotTextInserted(int line,int col) {
 	ph->isInitialValue=false;
 	bool undoDontMerge=m_doc->m_undoDontMerge;	
 	Q_ASSERT(m_doc->editSessionNumber==0);
+	
 	m_recursion=true;
 	m_doc->editStart(/*false*/);
 	for (KateSuperRangeList::const_iterator it=ph->ranges.begin();it!=ph->ranges.end();++it) {
@@ -219,4 +223,24 @@ bool KateTemplateHandler::operator()(KKey key) {
 	m_doc->activeView()->setCursorPosition(m_currentRange->end().line(),m_currentRange->end().col());
 	m_doc->activeView()->tagLine(m_currentRange->end());
 	return true;
+}
+
+void KateTemplateHandler::slotAboutToRemoveText(const KateTextRange &range) {
+	if (m_recursion) return;
+	if (m_currentRange && (!m_currentRange->includes(range.start()))) locateRange(range.start());
+	if (m_currentRange!=0) {
+		if (m_currentRange->end()<=range.end()) return;
+	}
+	if (m_doc) {
+		disconnect(m_doc,SIGNAL(textInserted(int,int)),this,SLOT(slotTextInserted(int,int)));
+		disconnect(m_doc,SIGNAL(aboutToRemoveText(const KateTextRange&)),this,SLOT(slotAboutToRemoveText(const KateTextRange&)));
+		disconnect(m_doc,SIGNAL(textRemoved()),this,SLOT(slotTextRemoved()));
+	}
+	deleteLater();
+}
+
+void KateTemplateHandler::slotTextRemoved() {
+	if (m_recursion) return;
+	if (!m_currentRange) return;
+	slotTextInserted(m_currentRange->start().line(),m_currentRange->start().col());
 }

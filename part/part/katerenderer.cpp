@@ -331,20 +331,14 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   uint blockStartCol = startcol;
   uint oldXPos = xPos;
 
-  bool isSel = false;
-
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock) {
     paint.setPen(QPen(config()->wordWrapMarkerColor(), 1, Qt::DashLine));
     paint.drawLine(0, fs->fontHeight - 1, xEnd - xStart, fs->fontHeight - 1);
   }
 
-  bool isIMEdit = false;
-  bool isIMSel = false;
   uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
   m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
-
-  KateAttribute customHL;
 
   // draw word-wrap-honor-indent filling
   if (range->xOffset() && range->xOffset() > xStart)
@@ -362,6 +356,13 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   }
   else
   {
+    bool isIMSel  = false;
+    bool isIMEdit = false;
+
+    bool isSel = false;
+
+    KateAttribute customHL;
+
     // loop each character (tmp goes backwards, but curCol doesn't)
     for (uint tmp = len; tmp > 0; tmp--)
     {
@@ -538,8 +539,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             blockStartCol = nextCol;
             oldXPos = xPosAfter;
             //oldS = s+1;
-          } // renderNow
-        }
+          }
+        } // renderNow
 
         // determine cursor X position
         if ((showCursor > -1) && (showCursor == (int)curCol))

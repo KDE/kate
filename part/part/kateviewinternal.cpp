@@ -900,18 +900,11 @@ QPoint KateViewInternal::cursorCoordinates()
 
 void KateViewInternal::updateMicroFocusHint()
 {
-    int line = 0;
-    if (m_imPreeditStartLine)
-        line = m_imPreeditStartLine;
-    else
-        line = displayViewLine(displayCursor, true);
-
+    int line = displayViewLine( cursor, true );
     if (line == -1)
         return;
 
     KateRenderer *renderer = m_view->renderer();
-
-    uint y = line * renderer->fontHeight();
 
     // Cursor placement code is changed for Asian input method that
     // shows candidate window. This behavior is same as Qt/E 2.3.7
@@ -920,6 +913,7 @@ void KateViewInternal::updateMicroFocusHint()
     // adjacent to the selection text.
     uint preeditStrLen = renderer->textWidth(textLine(line), cursor.col()) - renderer->textWidth(textLine(line), m_imPreeditSelStart);
     uint x = cXPos - m_startX - lineRanges[line].startX + lineRanges[line].xOffset() - preeditStrLen;
+    uint y = line * renderer->fontHeight();
 
     setMicroFocusHint(x, y, 0, renderer->fontHeight());
 }

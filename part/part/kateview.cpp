@@ -841,7 +841,7 @@ bool KateView::checkOverwrite( KURL u )
     i18n( "A file named \"%1\" already exists. "
           "Are you sure you want to overwrite it?" ).arg( info.fileName() ),
     i18n( "Overwrite File?" ),
-    i18n( "Overwrite" ) );
+    i18n( "&Overwrite" ) );
 }
 
 void KateView::slotSaveCanceled( const QString& error )

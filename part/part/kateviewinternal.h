@@ -92,6 +92,17 @@ class KateViewInternal : public QScrollView
 
     void editStart();
     void editEnd(int editTagLineStart, int editTagLineEnd);
+
+    void editRemoveText(int line, int col, int len);
+
+    /**
+       Set the tagLinesFrom member if usefull. 
+    */
+    void setViewTagLinesFrom(int line);
+
+    void editWrapLine(int line, int col, int len);
+    void editUnWrapLine(int line, int col);
+    void editRemoveLine(int line);
              
   signals:
     // emitted when KateViewInternal is not handling its own URI drops

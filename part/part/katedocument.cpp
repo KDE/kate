@@ -659,8 +659,7 @@ void KateDocument::editStart (bool withUndo)
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    KateView *v = m_views.at(z);
-    v->m_viewInternal->editStart();
+    (m_views.at(z))->m_viewInternal->editStart();
   }
 }
 
@@ -696,8 +695,7 @@ void KateDocument::editEnd ()
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
-    v->editEnd(editTagLineStart, editTagLineEnd);
+    (m_views.at(z))->m_viewInternal->editEnd(editTagLineStart, editTagLineEnd);
   }
 
   setModified(true);
@@ -811,7 +809,6 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 {
   TextLine::Ptr l;
-  uint cLine, cCol;
 
   l = buffer->line(line);
 
@@ -830,26 +827,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
-
-    cLine = v->cursorCache.line;
-    cCol = v->cursorCache.col;
-
-    if ( (cLine == line) && (cCol > col) )
-    {
-      if ((cCol - len) >= col)
-      {
-        if ((cCol - len) > 0)
-          cCol = cCol-len;
-        else
-          cCol = 0;
-      }
-      else
-        cCol = col;
-
-      v->cursorCache.setPos(line, cCol);
-      v->cursorCacheChanged = true;
-    }
+    (m_views.at(z))->m_viewInternal->editRemoveText(line, col, len);
   }
 
   editEnd ();
@@ -897,24 +875,9 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   regionTree->lineHasBeenInserted(line); //test line or line +1
 
-  for (uint z2 = 0; z2 < m_views.count(); z2++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal *view = (m_views.at(z2))->m_viewInternal;
-
-    setViewTagLinesFrom(view, line);
-
-    // correct cursor position
-    if (view->cursorCache.line > (int)line)
-    {
-      view->cursorCache.line++;
-      view->cursorCacheChanged = true;
-    }
-    else if ( view->cursorCache.line == (int)line
-              && view->cursorCache.col >= (int)col )
-    {
-      view->cursorCache.setPos(line + 1, tl->length());
-      view->cursorCacheChanged = true;
-    }
+    (m_views.at(z))->m_viewInternal->editWrapLine(line, col, tl->length());
   }
   editEnd ();
   return true;
@@ -958,24 +921,13 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
       emit marksChanged ();
   }
 
-  editRemoveTagLine (line);
+  editRemoveTagLine(line);
   editTagLine(line);
   editTagLine(line+1);
 
-  for (uint z2 = 0; z2 < m_views.count(); z2++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal * view = (m_views.at(z2))->m_viewInternal;
-    
-    setViewTagLinesFrom(view, line);
-
-    uint cLine = view->cursorCache.line;
-    uint cCol = view->cursorCache.col;
-
-    if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
-    {
-      view->cursorCache.setPos(line, col);
-      view->cursorCacheChanged = true;
-    }
+    (m_views.at(z))->m_viewInternal->editUnWrapLine(line, col);
   }
 
   editEnd ();
@@ -1017,10 +969,9 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   regionTree->lineHasBeenInserted(line);
 
-  for (uint z2 = 0; z2 < m_views.count(); z2++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal * view = (m_views.at(z2))->m_viewInternal;    
-    setViewTagLinesFrom(view, line);
+    (m_views.at(z))->m_viewInternal->setViewTagLinesFrom(line);
   }
 
   editEnd ();
@@ -1065,30 +1016,14 @@ bool KateDocument::editRemoveLine ( uint line )
 
   regionTree->lineHasBeenRemoved(line);
 
-  for (uint z2 = 0; z2 < m_views.count(); z2++)
+  for (uint z = 0; z < m_views.count(); z++)
   {
-    KateViewInternal * view = (m_views.at(z2))->m_viewInternal;
-
-    setViewTagLinesFrom(view, line);
-
-    if ( (view->cursorCache.line == (int)line) )
-    {
-      int newLine = (line < lastLine()) ? line : (line - 1);
-
-      view->cursorCache.setPos(newLine, 0);
-      view->cursorCacheChanged = true;
-    }
+    (m_views.at(z))->m_viewInternal->editRemoveLine(line);
   }
 
   editEnd();
 
   return true;
-}
-
-void KateDocument::setViewTagLinesFrom(KateViewInternal * view, int line)
-{
-  if (line >= (int)getRealLine(view->firstLine()))
-    view->setTagLinesFrom(line);
 }
 
 //

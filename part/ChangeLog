@@ -1,3 +1,6 @@
+2002-06-01 Christian Couder <christian@kdevelop.org>
+  * Move view stuff from katedocument to kateviewinternal.
+
 2002-05-20 Christoph Cullmann <cullmann@kde.org>
   * some more references in use ;)
   * fixed some undo probs

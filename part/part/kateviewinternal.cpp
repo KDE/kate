@@ -915,8 +915,8 @@ void KateViewInternal::contentsDropEvent( QDropEvent* event )
 
 void KateViewInternal::clear()
 {
-  cursor.col        = cursor.line        = 0;
-  displayCursor.col = displayCursor.line = 0;
+  cursor.setPos(0, 0);
+  displayCursor.setPos(0, 0);
 }
 
 void KateViewInternal::setTagLinesFrom(int line)
@@ -949,4 +949,76 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 
     tagLinesFrom = -1;
     cursorCacheChanged = false;
+}
+
+void KateViewInternal::editRemoveText(int line, int col, int len)
+{
+  int cLine = cursorCache.line;
+  int cCol = cursorCache.col;
+
+  if ( (cLine == line) && (cCol > col) )
+  {
+    if ((cCol - len) >= col)
+    {
+      if ((cCol - len) > 0)
+	cCol = cCol-len;
+      else
+	cCol = 0;
+    }
+    else
+      cCol = col;
+
+    cursorCache.setPos(line, cCol);
+    cursorCacheChanged = true;
+  }
+}
+
+void KateViewInternal::setViewTagLinesFrom(int line)
+{
+  if (line >= (int)m_doc->getRealLine(firstLine()))
+    setTagLinesFrom(line);
+}
+
+void KateViewInternal::editWrapLine(int line, int col, int len)
+{
+  setViewTagLinesFrom(line);
+
+  // correct cursor position
+  if (cursorCache.line > line)
+  {
+    cursorCache.line++;
+    cursorCacheChanged = true;
+  }
+  else if ( cursorCache.line == line && cursorCache.col >= col )
+  {
+    cursorCache.setPos(line + 1, len);
+    cursorCacheChanged = true;
+  }
+}
+
+void KateViewInternal::editUnWrapLine(int line, int col)
+{
+  setViewTagLinesFrom(line);
+
+  int cLine = cursorCache.line;
+  int cCol = cursorCache.col;
+
+  if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
+  {
+    cursorCache.setPos(line, col);
+    cursorCacheChanged = true;
+  }
+}
+
+void KateViewInternal::editRemoveLine(int line)
+{
+  setViewTagLinesFrom(line);
+
+  if ( (cursorCache.line == line) )
+  {
+    int newLine = (line < (int)m_doc->lastLine()) ? line : (line - 1);
+
+    cursorCache.setPos(newLine, 0);
+    cursorCacheChanged = true;
+  }
 }

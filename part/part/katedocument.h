@@ -403,11 +403,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool isNewDoc() const;
     
     /**
-       Set the tagLinesFrom member in the internal view if usefull. 
-    */
-    void setViewTagLinesFrom(KateViewInternal * view, int line);
-
-    /**
        Tag the lines in the current selection.
      */
     void tagSelection();

@@ -46,6 +46,7 @@
 #include <qfont.h>
 #include <qfileinfo.h>
 #include <qfile.h>
+#include <qstyle.h>
 #include <qevent.h>
 
 #include <kconfig.h>
@@ -68,7 +69,6 @@
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
     , m_doc( doc )
-    , m_viewInternal( new KateViewInternal( this, doc ) )
     , m_search( new KateSearch( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
     , m_rmbMenu( 0 )
@@ -76,6 +76,18 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_hasWrap( false )
 {
   KateFactory::registerView( this );
+  
+  m_grid = new QGridLayout (this, 2, 3);
+  
+  m_grid->setRowStretch ( 0, 10 );
+  m_grid->setRowStretch ( 1, 0 );
+  m_grid->setColStretch ( 0, 0 );
+  m_grid->setColStretch ( 1, 10 );
+  m_grid->setColStretch ( 2, 0 );
+ 
+  m_viewInternal = new KateViewInternal( this, doc );
+  m_grid->addWidget (m_viewInternal, 0, 1);
+  m_viewInternal->show ();
  
   setClipboardInterfaceDCOPSuffix (viewDCOPSuffix()); 
   setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
@@ -88,7 +100,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setInstance( KateFactory::instance() );
   doc->addView( this );
 
-  setFocusProxy( m_viewInternal->viewport() );
+  setFocusProxy( m_viewInternal );
   setFocusPolicy( StrongFocus );
   
   if (!doc->m_bSingleViewMode) {
@@ -236,7 +248,12 @@ void KateView::setupActions()
     
   KConfig *config = KateFactory::instance()->config();
   config->setGroup("Kate ViewDefaults");  
-  
+ 
+   a = new KToggleAction(
+    i18n("Dynamic Word Wrap"), Key_F12,
+    this, SLOT(toggleDynWordWrap()),
+    ac, "view_dynamic_word_wrap" );
+   
   a=m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show Folding &Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
@@ -811,12 +828,6 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
   }
 }
 
-void KateView::resizeEvent(QResizeEvent *)
-{
-  // resize viewinternal
-  m_viewInternal->resize(width(),height());
-}
-
 void KateView::slotEditCommand ()
 {
   bool ok;
@@ -844,6 +855,20 @@ void KateView::setLineNumbersOn( bool enable )
 void KateView::toggleLineNumbersOn()
 {
   m_viewInternal->leftBorder->toggleLineNumbers();
+}
+
+void KateView::toggleDynWordWrap()
+{
+  setDynWordWrap (!dynWordWrap());
+}
+
+void KateView::setDynWordWrap( bool b )
+{
+  m_hasWrap = b;
+  
+  m_viewInternal->scrollColumns (0);
+  m_viewInternal->updateView();
+  m_viewInternal->update();
 }
 
 void KateView::setFoldingMarkersOn( bool enable )

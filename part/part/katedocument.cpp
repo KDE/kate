@@ -2741,13 +2741,17 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine,
   return x;
 }
 
-uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap)
+uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap, int *endX)
 {
   const FontStruct & fs = getFontStruct(wf);
   uint x = 0;
   uint endcol = 0;
   uint endcolwithsym = 0;
-
+  int endX2 = 0;
+  int endXWithSym = 0;
+  int lastWhiteSpace = -1;
+  int lastWhiteSpaceX = -1;
+    
   *needWrap = false;
 
   for (uint z = startcol; z < textLine->length(); z++)
@@ -2756,16 +2760,44 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
     int width = a->width(fs, textLine->getChar(z));
     x += width;
 
+    if (textLine->getChar(z).isSpace ())
+    {
+      lastWhiteSpace = z+1;
+      lastWhiteSpaceX = x;
+    }
+    
     // How should tabs be treated when they word-wrap on a print-out?
     // if startcol != 0, this messes up (then again, word wrapping messes up anyway)
     if (textLine->getChar(z) == QChar('\t'))
       x -= x % width;
 
-    if (x <= maxwidth-wrapsymwidth )
-      endcolwithsym = z+1;
-
     if (x <= maxwidth)
-      endcol = z+1;
+    {
+      if (lastWhiteSpace > -1)
+      {
+        endcol = lastWhiteSpace;
+        endX2 = lastWhiteSpaceX;
+      }
+      else
+      {
+        endcol = z+1;
+        endX2 = x;
+      }
+      
+      if (x <= maxwidth-wrapsymwidth )
+      {
+        if (lastWhiteSpace > -1)
+        {
+          endcolwithsym = lastWhiteSpace;
+          endXWithSym = lastWhiteSpaceX;
+        }
+        else
+        {
+          endcolwithsym = z+1;
+          endXWithSym = x;
+        }
+      }
+    }
 
     if (x >= maxwidth)
     {
@@ -2775,9 +2807,19 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   }
 
   if (*needWrap)
+  {
+    if (endX)
+      *endX = endX2;
+      
     return endcolwithsym;
+  }
   else
+  {
+    if (endX)
+      *endX = endXWithSym;
+  
     return endcol;
+  }
 }
 
 uint KateDocument::textWidth(KateTextCursor &cursor)
@@ -2791,12 +2833,11 @@ uint KateDocument::textWidth(KateTextCursor &cursor)
   return textWidth(buffer->line(cursor.line),cursor.col);
 }
 
-uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
+uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf, uint startCol)
 {
   bool wrapCursor = configFlags() & KateDocument::cfWrapCursor;
   int len;
   int x, oldX;
-  int z;
 
   const FontStruct & fs = getFontStruct(wf);
 
@@ -2805,7 +2846,8 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   TextLine::Ptr textLine = buffer->line(cursor.line);
   len = textLine->length();
 
-  x = oldX = z = 0;
+  x = oldX = 0;
+  int z = startCol;
   while (x < xPos && (!wrapCursor || z < len)) {
     oldX = x;
 
@@ -2834,12 +2876,18 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   return x;
 }
 
-uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf) {
+uint KateDocument::textPos(uint line, int xPos, WhichFont wf, uint startCol)
+{
+  return textPos(buffer->line(line), xPos, wf, startCol);
+}
+
+uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf, uint startCol) {
   const FontStruct & fs = getFontStruct(wf);
 
   int x, oldX;
-  uint z;
-  x = oldX = z = 0;
+  x = oldX = 0;
+  
+  uint z = startCol;
   uint len= textLine->length();
   while ( (x < xPos)  && (z < len)) {
     oldX = x;
@@ -3858,7 +3906,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 				 int cursorXPos2, bool showSelections,
 				 bool showTabs, WhichFont wf,
 				 bool currentLine, bool printerfriendly,
-				 const BracketMark& bm )
+				 const BracketMark& bm, int startXCol )
 {
   // font data
   const FontStruct & fs = getFontStruct(wf);
@@ -3910,9 +3958,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
     paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[0]);
 
   if( !printerfriendly && bm.valid && bm.startLine == line )
-    paint.fillRect( bm.startX, y, bm.startW, fs.fontHeight, colors[3] );
+    paint.fillRect( bm.startX - startXCol, y, bm.startW, fs.fontHeight, colors[3] );
   if( !printerfriendly && bm.valid && bm.endLine == line )
-    paint.fillRect( bm.endX, y, bm.endW, fs.fontHeight, colors[3] );
+    paint.fillRect( bm.endX - startXCol, y, bm.endW, fs.fontHeight, colors[3] );
 
   if (startcol > (int)len)
     startcol = len;

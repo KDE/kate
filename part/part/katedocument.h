@@ -411,13 +411,14 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int xPos, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor, int cursorXPos,
                                 bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
-                                bool printerfriendly = false, const BracketMark& bm = BracketMark() );
+                                bool printerfriendly = false, const BracketMark& bm = BracketMark(), int startColX = 0 );
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
-    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
+    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap, int *endX = 0);
     uint textWidth(KateTextCursor &cursor);
-    uint textWidth(KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
-    uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
+    uint textWidth(KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont, uint startCol = 0);
+    uint textPos(uint line, int xPos, WhichFont wf=ViewFont, uint startCol = 0);
+    uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont, uint startCol = 0);
     uint textHeight(WhichFont wf=ViewFont);
 
     QColor &backCol(int x, int y);

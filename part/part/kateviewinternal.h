@@ -25,9 +25,11 @@
 #define _KATE_VIEW_INTERNAL_
 
 #include "katecursor.h"
+#include "katedocument.h"
 
-#include <qscrollview.h>
 #include <qpoint.h>
+
+class QScrollBar;
 
 class KateDocument;
 class KateView;
@@ -38,8 +40,19 @@ class KateIconBorder;
     none  =  0,
     right =  1
   };
+  
+class LineRange
+{
+  public:
+    int line;
+    int visibleLine;
+    int startCol;
+    int endCol;
+    int startX;
+    int endX;
+};
 
-class KateViewInternal : public QScrollView
+class KateViewInternal : public QWidget
 {
     Q_OBJECT
     friend class KateDocument;
@@ -49,9 +62,26 @@ class KateViewInternal : public QScrollView
     friend class KateIconBorder;
 
   public:
-    KateViewInternal( KateView* view, KateDocument* doc );
-    ~KateViewInternal() {};
+    KateViewInternal ( KateView *view, KateDocument *doc );
+    ~KateViewInternal ();
     
+  public:
+    inline uint startLine () const { return m_startLine; }
+    inline uint startX () const { return m_startX; }
+  
+    uint endLine () const;
+
+    inline LineRange yToLineRange ( uint y ) const { return lineRanges[y / m_doc->viewFont.fontHeight]; };
+      
+  private slots:
+    void scrollLines (int line); // connected to the valueChanged of the m_lineScroll  
+    void scrollColumns (int x); // connected to the valueChanged of the m_columnScroll
+  
+  public slots:
+    void updateView ();
+    void makeVisible (uint line, uint startCol, uint endCol);
+    
+  public:
     void doReturn();
     void doDelete();
     void doBackspace();
@@ -75,8 +105,8 @@ class KateViewInternal : public QScrollView
     void bottomOfView(bool sel=false);
     void pageUp(bool sel=false);
     void pageDown(bool sel=false);
-    void cursorPageUp(bool sel=false);
-    void cursorPageDown(bool sel=false);
+/*    void cursorPageUp(bool sel=false);
+    void cursorPageDown(bool sel=false);*/
     void top(bool sel=false);
     void bottom(bool sel=false);
     void top_home(bool sel=false);
@@ -85,10 +115,8 @@ class KateViewInternal : public QScrollView
     void clear();
     
     inline const KateTextCursor& getCursor() { return cursor; }
-    QPoint cursorCoordinates();        
+    QPoint cursorCoordinates();
     
-    inline int yPosition () const { return yPos; }     
-
     void setTagLinesFrom(int line);
 
     void editStart();
@@ -105,31 +133,38 @@ class KateViewInternal : public QScrollView
     void editWrapLine(int line, int col, int len);
     void editUnWrapLine(int line, int col);
     void editRemoveLine(int line);
-             
+    
+    void paintText (int x, int y, int width, int height);
+ 
+  // EVENT HANDLING STUFF - IMPORTANT
+  protected:
+    void paintEvent(QPaintEvent *e);
+    bool eventFilter( QObject *obj, QEvent *e );
+    void keyPressEvent( QKeyEvent* );
+    void resizeEvent( QResizeEvent* );
+    void mousePressEvent(       QMouseEvent* );
+    void mouseDoubleClickEvent( QMouseEvent* );
+    void mouseReleaseEvent(     QMouseEvent* );
+    void mouseMoveEvent(        QMouseEvent* );
+    void timerEvent( QTimerEvent* );
+    void dragEnterEvent( QDragEnterEvent* );
+    void dragMoveEvent( QDragMoveEvent* );
+    void dropEvent( QDropEvent* );   
+    void showEvent ( QShowEvent *);
+    void wheelEvent(QWheelEvent* e);
+    void focusInEvent (QFocusEvent *);
+    void focusOutEvent (QFocusEvent *);
+    
+  private slots:
+    void tripleClickTimeout();  
+    
   signals:
     // emitted when KateViewInternal is not handling its own URI drops
     void dropEventPass(QDropEvent*);
-  
-  private:
-    void drawContents( QPainter*, int cx, int cy, int cw, int ch );
-
-    bool eventFilter( QObject*, QEvent* );
-    void keyPressEvent( QKeyEvent* );
-    void contentsMousePressEvent(       QMouseEvent* );
-    void contentsMouseDoubleClickEvent( QMouseEvent* );
-    void contentsMouseReleaseEvent(     QMouseEvent* );
-    void contentsMouseMoveEvent(        QMouseEvent* );
-    void viewportResizeEvent( QResizeEvent* );    
-    void timerEvent( QTimerEvent* );
-    void contentsDragEnterEvent( QDragEnterEvent* );
-    void contentsDropEvent( QDropEvent* );   
-
-  private slots:
-    void slotContentsMoving (int x, int y);                
-    void tripleClickTimeout();
-    void updateView();    
-    void updateIconBorder();  
     
+    
+    
+  private slots:
     void slotRegionVisibilityChangedAt(unsigned int);
     void slotRegionBeginEndAddedRemoved(unsigned int);
     void slotCodeFoldingChanged();
@@ -141,11 +176,8 @@ class KateViewInternal : public QScrollView
     void scrollLines( int lines, bool sel );
     
     uint linesDisplayed() const;
-    uint contentsYToLine( int y ) const;
-    int  lineToContentsY( uint line ) const;
-    inline uint firstLine() const { return contentsYToLine( yPosition() ); }
-    inline uint lastLine()  const { return contentsYToLine( yPosition() + visibleHeight() ); }
-    inline uint lastLineCalc()  const { return contentsYToLine( yPosition() + height() ); }
+
+    inline int lineToY ( uint line ) const { return (line-startLine()) * m_doc->viewFont.fontHeight; }
 
     void centerCursor();
 
@@ -158,7 +190,7 @@ class KateViewInternal : public QScrollView
 
     void paintCursor();
 
-    void placeCursor( const QPoint& p, bool keepSelection = false );
+    void placeCursor( const QPoint& p, bool keepSelection = false, bool updateSelection = true );
     bool isTargetSelected( const QPoint& p );
 
     void doDrag();
@@ -180,9 +212,6 @@ class KateViewInternal : public QScrollView
     int cXPos;
 
     bool possibleTripleClick;
-                
-    // that yPos is allready set while scrolling before the contentsY() is right
-    int yPos;
 
     // for use from doc: tag lines from here (if larger than -1)
     int tagLinesFrom;
@@ -195,7 +224,7 @@ class KateViewInternal : public QScrollView
     bool cursorCacheChanged;
 
     BracketMark bm;
-
+    
     enum DragState { diNone, diPending, diDragging };
 
     struct _dragInfo {
@@ -205,6 +234,53 @@ class KateViewInternal : public QScrollView
     } dragInfo;
 
     uint iconBorderHeight;
+    
+    //
+    // line scrollbar + first visible (virtual) line in the current view
+    //
+    QScrollBar *m_lineScroll;
+    QWidget *m_lineScrollWidget;
+    int m_startLine;
+    int m_oldStartLine;
+    
+    //
+    // column scrollbar + x position
+    //
+    QScrollBar *m_columnScroll;
+    int m_startX;
+    int m_oldStartX;
+    
+    //
+    // lines Ranges, mostly useful to speedup + dyn. word wrap
+    //
+    QMemArray<LineRange> lineRanges;
+    
+    // holds the current range
+    void findCurrentRange();
+    // find which line number in the view contains cursor c
+    int viewLine(const KateTextCursor& c) const;
+    uint m_currentRange;
+
+    // These variable holds the most recent maximum real & visible column number
+    bool m_preserveMaxX;
+    int m_currentMaxX;
+
+  private slots:
+#ifndef QT_NO_DRAGANDDROP
+    void doDragScroll();
+    void startDragScroll();
+    void stopDragScroll();
+#endif
+
+  private:
+    // Timer for drag & scroll
+    QTimer m_dragScrollTimer;
+
+    static const int scrollTime = 30;
+    static const int scrollMargin = 16;
+    
+    // needed to stop the column scroll bar from hiding / unhiding during a dragScroll.
+    bool m_suppressColumnScrollBar;
 };
 
 #endif

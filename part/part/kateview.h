@@ -33,6 +33,8 @@
 #include <ktexteditor/viewstatusmsginterface.h>
 #include <ktexteditor/plugin.h>
 
+#include <qlayout.h>
+
 class KToggleAction;
 class KAction;
 class KRecentFilesAction;
@@ -124,7 +126,7 @@ class KateView : public Kate::View,
   //
   public:
     // These don't actually do anything!
-    void setDynWordWrap( bool b ) { m_hasWrap = b; }
+    void setDynWordWrap( bool b );
     bool dynWordWrap() const      { return m_hasWrap; }
 
   //
@@ -225,6 +227,7 @@ class KateView : public Kate::View,
     void toggleFoldingMarkers();
     void toggleIconBorder();
     void toggleLineNumbersOn();
+    void toggleDynWordWrap ();
 
   public:
     bool iconBorder();
@@ -267,7 +270,6 @@ class KateView : public Kate::View,
   protected:
     void customEvent( QCustomEvent* );
     void contextMenuEvent( QContextMenuEvent* );
-    void resizeEvent( QResizeEvent* );
     bool checkOverwrite( KURL );
 
   private slots:
@@ -304,6 +306,8 @@ class KateView : public Kate::View,
     KateBookmarks*         m_bookmarks;
     QPopupMenu*            m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
+    
+    QGridLayout *m_grid;
 
     bool       m_active;
     bool       m_hasWrap;

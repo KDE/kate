@@ -22,6 +22,7 @@
   </Menu>
 
   <Menu name="view"><text>&amp;View</text>
+    <Action name="view_dynamic_word_wrap" group="view_operations" />
     <Action name="set_highlight"/>
     <Action name="set_encoding" />
   </Menu>

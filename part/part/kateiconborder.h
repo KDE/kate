@@ -29,11 +29,14 @@ class KateIconBorder : public QWidget
   Q_OBJECT      
   
   public:
-    KateIconBorder( class KateViewInternal* internalView );
+    KateIconBorder( class KateViewInternal* internalView, QWidget *parent );
     ~KateIconBorder() {};
 
+    // VERY IMPORTANT ;)
     virtual QSize sizeHint() const;
-    virtual QSize minimumSizeHint() const;
+    
+    void updateFont();
+    int lineNumberWidth() const;
     
     void setIconBorderOn(     bool enable );
     void setLineNumbersOn(    bool enable );
@@ -44,19 +47,14 @@ class KateIconBorder : public QWidget
     bool iconBorderOn()       const { return m_iconBorderOn;     }
     bool lineNumbersOn()      const { return m_lineNumbersOn;    }
     bool foldingMarkersOn()   const { return m_foldingMarkersOn; }
-
-    // When border options change, updateGeometry() is called.
-    // Normally the layout would handle it automatically, but
-    // KateViewInternal doesn't use a layout, so emit a signal instead.
-    virtual void updateGeometry() { emit sizeHintChanged(); }
-  
-      
+    
   signals:
-    void sizeHintChanged();
     void toggleRegionVisibility( unsigned int );
 
   private:
     void paintEvent( QPaintEvent* );
+    void paintBorder (int x, int y, int width, int height);
+    
     void mousePressEvent( QMouseEvent* );
     void mouseMoveEvent( QMouseEvent* );
     void mouseReleaseEvent( QMouseEvent* );
@@ -78,5 +76,7 @@ class KateIconBorder : public QWidget
     uint m_lastClickedLine;
     
     int m_cachedLNWidth;
+    
+    int m_maxCharWidth;
 };
 #endif

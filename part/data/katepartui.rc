@@ -27,6 +27,7 @@
   </Menu>
   
   <Menu name="view" noMerge="1"><text>&amp;View</text>
+    <Action name="view_dynamic_word_wrap" group="view_operations" />
     <Action name="view_folding_markers" group="view_operations" />
     <Action name="view_border" group="view_operations" />
     <Action name="view_line_numbers" group="view_operations" />

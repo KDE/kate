@@ -14,3 +14,10 @@ function test($varname) {
 <html>
 	<? print "<title>test</title>"; ?>
 </html>
+
+<?php
+$var = <<<DOOH
+This is the $string inside the variable (which seems to be rendered as a string)
+It works well, I think.
+DOOH
+?>

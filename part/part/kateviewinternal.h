@@ -21,7 +21,7 @@
 #ifndef _KATE_VIEW_INTERNAL_
 #define _KATE_VIEW_INTERNAL_
 
-#include "kateglobal.h"
+#include "katecursor.h"
 
 #include <qscrollview.h>
 #include <qpoint.h>

@@ -19,8 +19,6 @@
 #ifndef _KATE_HIGHLIGHTDOWNLOAD_H_
 #define _KATE_HIGHLIGHTDOWNLOAD_H_
 
-#include "kateglobal.h"
-
 #include <kdialogbase.h>
 #include <kio/jobclasses.h>
 

@@ -1,7 +1,7 @@
 kde_module_LTLIBRARIES = katepart.la
 
 katepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmd.cpp katecmds.cpp \
-			 kateundo.cpp katehledit_attrib_skel.ui \
+			 kateundo.cpp katehledit_attrib_skel.ui katecursor.cpp \
 			 katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
 			 katesyntaxdocument.cpp katetextline.cpp kateview.cpp \
 			 kateviewdialog.cpp kateviewhighlightaction.cpp \

@@ -21,7 +21,7 @@
 #ifndef kate_document_h
 #define kate_document_h
 
-#include "kateglobal.h"
+#include "katecursor.h"
 #include "katesearch.h"
 #include "katetextline.h"
 #include "../interfaces/document.h"
@@ -119,26 +119,6 @@ class FontStruct
   int m_tabWidth;
   int fontHeight;
   int fontAscent;
-};
-
-class KateCursor : public Kate::Cursor
-{
-  public:
-    KateCursor (class KateDocument *doc);
-    ~KateCursor ();
-
-    void position ( uint *line, uint *col ) const;
-
-    bool setPosition ( uint line, uint col );
-
-    bool insertText ( const QString& text );
-
-    bool removeText ( uint numberOfCharacters );
-
-    QChar currentChar () const;
-
-  private:
-    class KateDocument *myDoc;
 };
 
 //

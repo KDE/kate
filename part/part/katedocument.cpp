@@ -35,7 +35,6 @@
 #include "kateviewinternal.h"
 #include "katetextline.h"
 #include "katecmd.h"
-#include "kateglobal.h"
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
 #include "kateundo.h"
@@ -1330,15 +1329,6 @@ void KateDocument::clearRedo()
   redoItems.setAutoDelete (false);
 
   emit undoChanged ();
-}
-
-//
-// KTextEditor::CursorInterface stuff
-//
-
-KTextEditor::Cursor *KateDocument::createCursor ( )
-{
-  return new KateCursor (this);
 }
 
 QPtrList<KTextEditor::Cursor> KateDocument::cursors () const
@@ -4195,15 +4185,6 @@ uint KateDocument::editableMarks()
 
 
 
-
-
-
-
-
-
-
-
-
 QFont KateDocument::getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;}
 
 KateFontMetrics KateDocument::getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;}
@@ -4213,41 +4194,14 @@ TextLine::Ptr KateDocument::kateTextLine(uint i)
   return buffer->line (i);
 }
 
-KateCursor::KateCursor ( KateDocument *doc)
+//
+// KTextEditor::CursorInterface stuff
+//
+KTextEditor::Cursor *KateDocument::createCursor ( )
 {
-  myDoc = doc;
-  myDoc->addCursor (this);
+  return new KateCursor (this);
 }
 
-KateCursor::~KateCursor ( )
-{
-  myDoc->removeCursor (this);
-}
-
-void KateCursor::position ( uint *, uint * ) const
-{
-
-}
-
-bool KateCursor::setPosition ( uint , uint  )
-{
-  return false;
-}
-
-bool KateCursor::insertText ( const QString&  )
-{
-  return false;
-}
-
-bool KateCursor::removeText ( uint  )
-{
-  return false;
-}
-
-QChar KateCursor::currentChar () const
-{
-  return QChar();
-}
 
 
 

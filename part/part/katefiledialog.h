@@ -19,8 +19,6 @@
 #ifndef _KATEFILEDIALOG_H_
 #define _KATEFILEDIALOG_H_
 
-#include "kateglobal.h"
-
 #include <kfiledialog.h>
 #include <qtextcodec.h>
 #include <kurl.h>

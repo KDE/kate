@@ -21,7 +21,6 @@
 #ifndef _KATE_HIGHLIGHT_H_
 #define _KATE_HIGHLIGHT_H_
 
-#include "kateglobal.h"
 #include "katetextline.h"
 
 #include <qptrlist.h>

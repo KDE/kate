@@ -27,7 +27,7 @@
 #include <qptrlist.h>
 #include <qdialog.h>
 
-#include "kateglobal.h"
+#include "katecursor.h"
 
 struct SearchFlags {
 	bool caseSensitive     :1;

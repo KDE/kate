@@ -19,7 +19,6 @@
 #ifndef _KATE_BUFFER_H_
 #define _KATE_BUFFER_H_
 
-#include "kateglobal.h"
 #include "katetextline.h"
 
 #include <kvmallocator.h>

@@ -21,8 +21,6 @@
 #ifndef _KateIconBorder_H_
 #define _KateIconBorder_H_
 
-#include "kateglobal.h"
-
 #include <qwidget.h>
 
 class KateView;
@@ -44,6 +42,8 @@ class KateIconBorder : public QWidget
   private:
     void paintEvent(QPaintEvent* e);
     void mousePressEvent(QMouseEvent* e);
+
+private:
 
     class KateView *myView;      
     class KateDocument *myDoc;

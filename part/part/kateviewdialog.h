@@ -20,7 +20,6 @@
 #ifndef _KATE_VIEWDIALOG_H_
 #define _KATE_VIEWDIALOG_H_
 
-#include "kateglobal.h"
 #include "katesearch.h"
 #include "../interfaces/document.h"
 

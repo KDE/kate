@@ -19,8 +19,6 @@
 #ifndef ATTRIB_EDITOR
 #define ATTRIB_EDITOR
 
-#include "kateglobal.h"
-
 #include "katehledit_attrib_skel.h"
 
 class AttribEditor: public AttribEditor_skel

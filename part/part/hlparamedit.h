@@ -19,8 +19,6 @@
 #ifndef _HL_PARAM_EDIT_H_
 #define _HL_PARAM_EDIT_H_
 
-#include "kateglobal.h"
-
 #include <qhbox.h>
 
 class HLParamEdit:public QHBox

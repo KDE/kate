@@ -24,7 +24,6 @@
 
 #include "../interfaces/view.h"
 
-#include "kateglobal.h"
 #include "katedocument.h"
 #include "katesearch.h"
 #include "kateviewinternal.h"

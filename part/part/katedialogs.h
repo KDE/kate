@@ -21,7 +21,6 @@
 #ifndef KATE_DIALOGS_H
 #define KATE_DIALOGS_H
 
-#include "kateglobal.h"
 #include "katehighlight.h"
 #include "../interfaces/document.h"
 

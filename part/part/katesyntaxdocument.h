@@ -21,8 +21,6 @@
 #define _KATE_SYNTAXDOCUMENT_H_
 
 //BEGING INCLUDES
-#include "kateglobal.h"
-
 #include <qdom.h>
 #include <qptrlist.h>
 #include <qstringlist.h>

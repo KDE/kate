@@ -24,8 +24,6 @@
 #ifndef __CODECOMPLETION_ARGHINT_H__
 #define __CODECOMPLETION_ARGHINT_H__
 
-#include "kateglobal.h"
-
 #include <qframe.h>
 #include <qmap.h>
 #include <qbutton.h>

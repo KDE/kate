@@ -206,15 +206,52 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
   
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  
+  PluginListView* listView = new PluginListView(0, this);
+  listView->addColumn(i18n("Name"));
+  listView->addColumn(i18n("Description"));
+  listView->addColumn(i18n("Author"));
+  listView->addColumn(i18n("License"));
+  connect(listView, SIGNAL(stateChange(PluginListItem *, bool)), this, SLOT(stateChange(PluginListItem *, bool)));
+              
+  grid->addWidget( listView, 0, 0);
+  
+  for (uint i=0; i<m_doc->plugins()->count(); i++)
+  {
+    PluginListItem *item = new PluginListItem(false, m_doc->plugins()->at(i)->load, m_doc->plugins()->at(i), listView);
+    item->setText(0, m_doc->plugins()->at(i)->service->name());
+    item->setText(1, m_doc->plugins()->at(i)->service->comment());
+    item->setText(2, "");
+    item->setText(3, "");
+  }
 }
 
 PluginConfigPage::~PluginConfigPage ()
 {
 }
 
-void PluginConfigPage::apply ()
-{
 
+ void PluginConfigPage::stateChange(PluginListItem *item, bool b)
+{   
+	if(b)
+		loadPlugin(item);
+	else
+		unloadPlugin(item);
+}
+                      
+void PluginConfigPage::loadPlugin (PluginListItem *item)
+{       
+  m_doc->loadPlugin (item->info());
+  m_doc->enablePluginGUI (item->info());
+  
+  item->setOn(true);
+}
+
+void PluginConfigPage::unloadPlugin (PluginListItem *item)
+{                                  
+  m_doc->unloadPlugin (item->info());
+    
+  item->setOn(false);
 }
 
 HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")

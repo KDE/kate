@@ -128,9 +128,16 @@ class PluginConfigPage : public Kate::ConfigPage
 
   private:
     KateDocument *m_doc;
+    
+  private slots:
+    void stateChange(PluginListItem *, bool); 
+    
+  private slots:
+    void loadPlugin (PluginListItem *);
+    void unloadPlugin (PluginListItem *);
 
   public slots:
-    void apply ();
+    void apply () {};
     void reload () {};   
     void reset () {};
     void defaults () {};

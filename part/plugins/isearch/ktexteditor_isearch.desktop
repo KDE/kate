@@ -1,8 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Incremental Search Plugin
+Name[da]=KTextEditor inkrementel søgningsindstik
+Name[he]=תוסף חיפוש חלקי ל-KTextEditor
+Name[hr]=KTextEditor unetak za traženje po redu
+Name[pt_BR]=Plugin de Busca Incremental para o Editor de textos
+Name[sv]=Ktexteditor insticksprogram för inkrementell sökning
 X-KDE-Library=ktexteditor_isearch
-ServiceTypes=KTextEditor/ViewPlugin
+ServiceTypes=KTextEditor/Plugin
 Type=Service
 InitialPreference=8
 MimeType=text/plain

@@ -245,7 +245,7 @@ bool KatePrinter::print (KateDocument *doc)
            QString footerTags = printer.option("app-kate-footerformat");
            int pos = reTags.search( footerTags );
            QString rep;
-           while ( pos > 0 )
+           while ( pos > -1 )
            {
              rep = tags[reTags.cap( 1 )];
              footerTags.replace( (uint)pos, 2, rep );

@@ -1029,7 +1029,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
         //and don't try and add any white space for the break
               z= col;
 
-      editWrapLine (line, z, true);
+      editWrapLine (line, z, false);
       endLine++;
     }
 
@@ -1143,7 +1143,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   return true;
 }
 
-bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
+bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
 {
   TextLine::Ptr l = buffer->line(line);
 
@@ -1152,20 +1152,21 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
   editStart ();
 
-  editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
-
   TextLine::Ptr nl = buffer->line(line+1);
 
-  if (!nl || !autowrap)
+  int pos = l->length() - col;
+
+  if (pos < 0)
+    pos = 0;
+
+  editAddUndo (KateUndoGroup::editWrapLine, line, col, pos, (!nl || newLine) ? "1" : "0");
+
+  if (!nl || newLine)
   {
     TextLine::Ptr tl = new TextLine();
-    int pos = l->length() - col;
 
-    if (pos > 0)
-    {
-      tl->insertText (0, pos, l->text()+col, l->attributes()+col);
-      l->truncate(col);
-    }
+    tl->insertText (0, pos, l->text()+col, l->attributes()+col);
+    l->truncate(col);
 
     buffer->insertLine (line+1, tl);
     buffer->changeLine(line);
@@ -1191,13 +1192,8 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   }
   else
   {
-    int pos = l->length() - col;
-
-    if (pos > 0)
-    {
-      nl->insertText (0, pos, l->text()+col, l->attributes()+col);
-      l->truncate(col);
-    }
+    nl->insertText (0, pos, l->text()+col, l->attributes()+col);
+    l->truncate(col);
 
     buffer->changeLine(line);
     buffer->changeLine(line+1);
@@ -1207,14 +1203,14 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
-    it.current()->editLineWrapped (line, col, !nl || !autowrap);
+    it.current()->editLineWrapped (line, col, !nl || newLine);
 
   editEnd ();
 
   return true;
 }
 
-bool KateDocument::editUnWrapLine ( uint line )
+bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
 {
   TextLine::Ptr l = buffer->line(line);
   TextLine::Ptr tl = buffer->line(line+1);
@@ -1226,12 +1222,23 @@ bool KateDocument::editUnWrapLine ( uint line )
 
   uint col = l->length ();
 
-  editAddUndo (KateUndoGroup::editUnWrapLine, line, col, 0, 0);
+  editAddUndo (KateUndoGroup::editUnWrapLine, line, col, length, removeLine ? "1" : "0");
 
-  l->insertText (col, tl->length(), tl->text(), tl->attributes());
+  if (removeLine)
+  {
+    l->insertText (col, tl->length(), tl->text(), tl->attributes());
 
-  buffer->changeLine(line);
-  buffer->removeLine(line+1);
+    buffer->changeLine(line);
+    buffer->removeLine(line+1);
+  }
+  else
+  {
+    l->insertText (col, (tl->length() < length) ? tl->length() : length, tl->text(), tl->attributes());
+    tl->removeText (0, (tl->length() < length) ? tl->length() : length);
+
+    buffer->changeLine(line);
+    buffer->changeLine(line+1);
+  }
 
   QPtrList<KTextEditor::Mark> list;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
@@ -1260,12 +1267,14 @@ bool KateDocument::editUnWrapLine ( uint line )
   if( !list.isEmpty() )
     emit marksChanged();
 
-  editRemoveTagLine(line);
+  if (removeLine)
+    editRemoveTagLine(line);
+
   editTagLine(line);
   editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
-    it.current()->editLineUnWrapped (line, col);
+    it.current()->editLineUnWrapped (line, col, removeLine, length);
 
   editEnd ();
 

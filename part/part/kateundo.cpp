@@ -127,11 +127,11 @@ void KateUndo::undo (KateDocument *doc)
   }
   else if (m_type == KateUndoGroup::editWrapLine)
   {
-    doc->editUnWrapLine (m_line);
+    doc->editUnWrapLine (m_line, (m_text == "1"), m_len);
   }
   else if (m_type == KateUndoGroup::editUnWrapLine)
   {
-    doc->editWrapLine (m_line, m_col);
+    doc->editWrapLine (m_line, m_col, (m_text == "1"));
   }
   else if (m_type == KateUndoGroup::editInsertLine)
   {
@@ -155,11 +155,11 @@ void KateUndo::redo (KateDocument *doc)
   }
   else if (m_type == KateUndoGroup::editUnWrapLine)
   {
-    doc->editUnWrapLine (m_line);
+    doc->editUnWrapLine (m_line, (m_text == "1"), m_len);
   }
   else if (m_type == KateUndoGroup::editWrapLine)
   {
-    doc->editWrapLine (m_line, m_col);
+    doc->editWrapLine (m_line, m_col, (m_text == "1"));
   }
   else if (m_type == KateUndoGroup::editRemoveLine)
   {

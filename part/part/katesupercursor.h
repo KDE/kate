@@ -146,8 +146,8 @@ public:
     void editTextInserted ( uint line, uint col, uint len);
     void editTextRemoved ( uint line, uint col, uint len);
 
-    void editLineWrapped ( uint line, uint col, bool lineinserted );
-    void editLineUnWrapped ( uint line, uint col );
+    void editLineWrapped ( uint line, uint col, bool newLine = true );
+    void editLineUnWrapped ( uint line, uint col, bool removeLine = true, uint length = 0 );
 
     void editLineInserted ( uint line );
     void editLineRemoved ( uint line );

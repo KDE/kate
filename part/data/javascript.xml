@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
-<!-- Minimal javascript support //-->
+<!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
 <language name="JavaScript" version="1.03" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
   <highlighting>
     <list name="keywords">
@@ -31,80 +31,249 @@
         <item> typeof </item>
         <item> const </item>
         <item> default </item>
-        <item> Date </item>
-        <item> Boolean </item>
-        <item> Object </item>
-        <item> Array </item>
 	 </list>
     <list name="functions">
-        <item> parseInt </item>
-        <item> parseFloat </item>
-        <item> Number </item>
-        <item> String </item>
-        <item> Image </item>
-        <item> escape </item>
-        <item> unescape </item>
-        <item> eval </item>
         <item> close </item>
-        <item> reload </item>
-        <item> alert </item>
-        <item> confirm </item>
-        <item> prompt </item>
+        <item> eval </item>
+        <item> escape </item>
         <item> isFinite </item>
         <item> isNaN </item>
+        <item> Number </item>
+        <item> parseFloat </item>
+        <item> parseInt </item>
+        <item> reload </item>
+        <item> taint </item>
+        <item> unescape </item>
+        <item> untaint </item>
         <item> write </item>
 	 </list>
     <list name="objects">
         <item>document</item>
-        <item>top</item>
         <item>window</item>
-        <item>parent</item>
         <item>this</item>
+        <item>Image</item>
         <item>Math</item>
         <item>Max</item>
         <item>Min</item>
         <item>RegExp</item>
+        <item>navigator</item>
+        <item>Area</item>
+        <item>Array</item>
+        <item>Applet</item>
+        <item>Button</item>
+		  <item>Boolean</item>
+        <item>Checkbox</item>
+        <item>Date</item>
+        <item>FileUpload</item>
+        <item>Form</item>
+        <item>Frame</item>
+        <item>Function</item>
+        <item>Hidden</item>
+        <item>Link</item>
+        <item>MimeType</item>
+        <item>Object</item>
+        <item>Password</item>
+        <item>Plugin</item>
+        <item>Radio</item>
+        <item>Reset</item>
+        <item>Select</item>
+        <item>String</item>
 	 </list>
-    <list name="types">
-        <item>cookie</item>
-        <item>toString</item>
-        <item>focus</item>
-        <item>getElementById</item>
-        <item>getElementByTag</item>
-        <item>getObjectById</item>
-        <item>getObjectByTag</item>
-        <item>backgroundColor</item>
-        <item>style</item>
-        <item>src</item>
-        <item>value</item>
-        <item>history</item>
-        <item>go</item>
+    <list name="math">
+		  <item> abs </item>
+        <item> acos </item>
+        <item> asin </item>
+        <item> atan </item>
+        <item> atan2 </item>
+        <item> ceil </item>
+        <item> cos </item>
+        <item> ctg </item>
+        <item> E </item>
+        <item> exp </item>
+        <item> floor </item>
+        <item> LN2 </item>
+        <item> LN10 </item>
+        <item> log </item>
+        <item> LOG2E </item>
+        <item> LOG10E </item>
+        <item> PI </item>
+        <item> pow </item>
+        <item> round </item>
+        <item> sin </item>
+        <item> sqrt </item>
+        <item> SQRT1_2 </item>
+        <item> SQRT2 </item>
+        <item> tan </item>
+    </list>
+	 <list name="events">
+		  <item>onAbort</item>
+		  <item>onBlur</item>
+		  <item>onChange</item>
+		  <item>onClick</item>
+		  <item>onError</item>
+		  <item>onFocus</item>
+		  <item>onLoad</item>
+		  <item>onMouseOut</item>
+		  <item>onMouseOver</item>
+		  <item>onReset</item>
+		  <item>onSelect</item>
+		  <item>onSubmit</item>
+		  <item>onUnload</item>
+	 </list>
+	 <list name="methods">
+		  <item>action</item>
+        <item>alinkColor</item>
+        <item>alert</item>
+        <item>anchor</item>
+        <item>anchors</item>
+        <item>appCodeName</item>
+        <item>applets</item>
+        <item>appName</item>
+        <item>appVersion</item>
         <item>back</item>
-        <item>location</item>
-        <item>href</item>
+        <item>bgColor</item>
+        <item>big</item>
+        <item>blink</item>
+        <item>blur</item>
+        <item>bold</item>
+        <item>border</item>
+        <item>caller</item>
+        <item>charAt</item>
+        <item>checked</item>
+        <item>clearTimeout</item>
+        <item>click</item>
+        <item>closed</item>
+        <item>complete</item>
+        <item>constructor</item>
+        <item>confirm</item>
+        <item>cookie</item>
+        <item>current</item>
         <item>cursor</item>
+        <item>defaultChecked</item>
+        <item>defaultSelected</item>
+        <item>defaultStatus</item>
+        <item>defaultValue</item>
+        <item>description</item>
+        <item>domain</item>
+        <item>elements</item>
+        <item>embeds</item>
+        <item>enabledPlugin</item>
+        <item>encoding</item>
+        <item>exec</item>
+        <item>fgColor</item>
+        <item>filename</item>
+        <item>fixed</item>
+        <item>focus</item>
+        <item>fontcolor</item>
+        <item>fontsize</item>
+        <item>form</item>
+        <item>forms</item>
+        <item>forward</item>
+        <item>focus</item>
+        <item>frames</item>
+        <item>getDate</item>
+        <item>getDay</item>
         <item>getHours</item>
         <item>getMinutes</item>
+        <item>getMonth</item>
         <item>getSeconds</item>
-
-        <item> sin </item>
-        <item> cos </item>
-        <item> round </item>
-        <item> floor </item>
-        <item> ceil </item>
-        <item> tan </item>
-        <item> ctg </item>
-
-        <item> exec </item>
-        <item> test </item>
-        <item> match </item>
-        <item> search </item>
-        <item> replace </item>
-        <item> split </item>
-        <item> join </item>
-
-        <item> selectedIndex </item>
-        <item> options </item>
+        <item>getTime</item>
+        <item>getTimezoneOffset</item>
+        <item>getYear</item>
+        <item>go</item>
+        <item>hash</item>
+        <item>height</item>
+        <item>host</item>
+        <item>hostname</item>
+        <item>href</item>
+        <item>hspace</item>
+        <item>images</item>
+        <item>index</item>
+        <item>indexOf</item>
+        <item>italics</item>
+        <item>javaEnabled</item>
+        <item>join</item>
+        <item>lastIndexOf</item>
+        <item>lastModified</item>
+        <item>length</item>
+        <item>link</item>
+        <item>linkColor</item>
+        <item>links</item>
+        <item>location</item>
+        <item>lowsrc</item>
+        <item>match</item>
+        <item>MAX_VALUE</item>
+        <item>method</item>
+        <item>mimeTypes</item>
+        <item>MIN_VALUE</item>
+        <item>name</item>
+        <item>NaN</item>
+        <item>NEGATIVE_INFINITY</item>
+        <item>next</item>
+        <item>open</item>
+        <item>opener</item>
+        <item>options</item>
+        <item>parent</item>
+        <item>parse</item>
+        <item>pathname</item>
+        <item>plugins</item>
+        <item>port</item>
+        <item>POSITIVE_INFINITY</item>
+        <item>previous</item>
+        <item>prompt</item>
+        <item>protocol</item>
+        <item>prototype</item>
+        <item>referrer</item>
+        <item>refresh</item>
+        <item>reload</item>
+        <item>replace</item>
+        <item>reset</item>
+        <item>reverse</item>
+        <item>scroll</item>
+        <item>search</item>
+        <item>select</item>
+        <item>selected</item>
+        <item>selectedIndex</item>
+        <item>self</item>
+        <item>setDate</item>
+        <item>setHours</item>
+        <item>setMinutes</item>
+        <item>setMonth</item>
+        <item>setSeconds</item>
+        <item>setTime</item>
+        <item>setTimeout</item>
+        <item>setYear</item>
+        <item>small</item>
+        <item>sort</item>
+        <item>split</item>
+        <item>src</item>
+        <item>status</item>
+        <item>strike</item>
+        <item>sub</item>
+        <item>submit</item>
+        <item>substring</item>
+        <item>suffixes</item>
+        <item>sup</item>
+        <item>taintEnabled</item>
+        <item>target</item>
+        <item>text</item>
+        <item>title</item>
+        <item>toGMTString</item>
+        <item>toLocaleString</item>
+        <item>toString</item>
+        <item>top</item>
+        <item>toUpperCase</item>
+        <item>type</item>
+        <item>URL</item>
+        <item>userAgent</item>
+        <item>UTC</item>
+        <item>value</item>
+        <item>valueOf</item>
+        <item>vlinkColor</item>
+        <item>vspace</item>
+        <item>width</item>
+        <item>write</item>
+        <item>writeln</item>
 	 </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
@@ -113,7 +282,9 @@
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Objects" context="#stay" String="objects" />
-        <keyword attribute="Data Type" context="#stay" String="types" />
+        <keyword attribute="Math" context="#stay" String="math" />
+        <keyword attribute="Events" context="#stay" String="events" />
+        <keyword attribute="Data Type" context="#stay" String="methods" />
         <Float attribute="Float" context="#stay">
           <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
@@ -179,6 +350,8 @@
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
 		<itemData name="Function" defStyleNum="dsKeyword" color="#0000FF" selColor="#00ffff" bold="0" italic="0"/>
 		<itemData name="Objects" defStyleNum="dsKeyword" color="#008000" selColor="#00ffff" bold="0" italic="0"/>
+		<itemData name="Math" defStyleNum="dsKeyword" color="#DBA716" selColor="#00ffff" bold="0" italic="0"/>
+		<itemData name="Events" defStyleNum="dsKeyword" color="#F766D5" selColor="#00ffff" bold="0" italic="0"/>
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>

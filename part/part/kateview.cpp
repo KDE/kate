@@ -75,7 +75,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_extension( 0 )
     , m_rmbMenu( 0 )
     , m_active( false )
-    , m_iconBorderStatus( KateIconBorder::None )
     , m_hasWrap( false )
 {
   KateFactory::registerView (this);
@@ -83,12 +82,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   initCodeCompletionImplementation();
 
-  myViewInternal->leftBorder = new KateIconBorder(this, myViewInternal);
-  myViewInternal->leftBorder->setGeometry(0, 0, myViewInternal->leftBorder->width(), myViewInternal->iconBorderHeight);
-  myViewInternal->leftBorder->hide();
-  myViewInternal->leftBorder->installEventFilter( this );
-  connect( myViewInternal->leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
-           doc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));
   connect( doc->regionTree, SIGNAL(regionVisibilityChangedAt(unsigned int)),
            this, SLOT(slotRegionVisibilityChangedAt(unsigned int)));
 //  connect( doc->regionTree, SIGNAL(regionBeginEndAddedRemoved(unsigned int)),
@@ -103,8 +96,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   setFocusProxy( myViewInternal );
   myViewInternal->setFocus();
-  resize(parent->width() -4, parent->height() -4);
-
   myViewInternal->installEventFilter( this );
 
   if (!doc->m_bSingleViewMode)
@@ -608,9 +599,9 @@ void KateView::readSessionConfig(KConfig *config)
   cursor.col = config->readNumEntry("CursorX");
   cursor.line = config->readNumEntry("CursorY");
   myViewInternal->updateCursor(cursor);
-  m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
-  setIconBorder( m_iconBorderStatus & KateIconBorder::Icons );
-  setLineNumbersOn( m_iconBorderStatus & KateIconBorder::LineNumbers );
+  myViewInternal->m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
+  setIconBorder( myViewInternal->m_iconBorderStatus & KateIconBorder::Icons );
+  setLineNumbersOn( myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );
 }
 
 void KateView::writeSessionConfig(KConfig *config)
@@ -622,7 +613,7 @@ void KateView::writeSessionConfig(KConfig *config)
   config->writeEntry("CursorY",myViewInternal->cursor.line);
 */
 
-  config->writeEntry("IconBorderStatus", m_iconBorderStatus );
+  config->writeEntry("IconBorderStatus", myViewInternal->m_iconBorderStatus );
 }
 
 void KateView::setEol(int eol) {
@@ -645,9 +636,8 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
 
 void KateView::resizeEvent(QResizeEvent *)
 {
-  // resize the widgets
-  myViewInternal->resize(width()-myViewInternal->leftBorder->width(),height());
-  myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),height());
+  // resize viewinternal
+  myViewInternal->resize(width(),height());
 }
 
 void KateView::setFocus ()
@@ -693,65 +683,48 @@ void KateView::slotEditCommand ()
 
 void KateView::setIconBorder (bool enable)
 {
-  if ( enable == m_iconBorderStatus & KateIconBorder::Icons )
+  if ( enable == myViewInternal->m_iconBorderStatus & KateIconBorder::Icons )
     return; // no change
   if ( enable )
-    m_iconBorderStatus |= KateIconBorder::Icons;
+    myViewInternal->m_iconBorderStatus |= KateIconBorder::Icons;
   else
-    m_iconBorderStatus &= ~KateIconBorder::Icons;
+    myViewInternal->m_iconBorderStatus &= ~KateIconBorder::Icons;
 
-  updateIconBorder();
+  myViewInternal->updateIconBorder();
 }
 
 void KateView::toggleIconBorder ()
 {
-  setIconBorder ( ! (m_iconBorderStatus & KateIconBorder::Icons) );
+  setIconBorder ( ! (myViewInternal->m_iconBorderStatus & KateIconBorder::Icons) );
 }
 
 void KateView::setLineNumbersOn(bool enable)
 {
-  if (enable == m_iconBorderStatus & KateIconBorder::LineNumbers)
+  if (enable == myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers)
     return; // no change
 
   if (enable)
-    m_iconBorderStatus |= KateIconBorder::LineNumbers;
+    myViewInternal->m_iconBorderStatus |= KateIconBorder::LineNumbers;
   else
-    m_iconBorderStatus &= ~KateIconBorder::LineNumbers;
+    myViewInternal->m_iconBorderStatus &= ~KateIconBorder::LineNumbers;
 
-  updateIconBorder();
+  myViewInternal->updateIconBorder();
 }
 
 void KateView::setFoldingMarkersOn(bool enable)
 {
-	if (enable == bool(m_iconBorderStatus & KateIconBorder::FoldingMarkers))
+	if (enable == bool(myViewInternal->m_iconBorderStatus & KateIconBorder::FoldingMarkers))
 		return;
 	if (enable)
-		m_iconBorderStatus|= KateIconBorder::FoldingMarkers;
+		myViewInternal->m_iconBorderStatus|= KateIconBorder::FoldingMarkers;
 	else
-		m_iconBorderStatus&= ~KateIconBorder::FoldingMarkers;
-	updateIconBorder();
+		myViewInternal->m_iconBorderStatus&= ~KateIconBorder::FoldingMarkers;
+	myViewInternal->updateIconBorder();
 }
 
 void KateView::toggleLineNumbersOn()
 {
-  setLineNumbersOn( ! (m_iconBorderStatus & KateIconBorder::LineNumbers) );
-}
-
-void KateView::updateIconBorder()
-{
-  if ( m_iconBorderStatus != KateIconBorder::None )
-  {
-    myViewInternal->leftBorder->show();
-  }
-  else
-  {
-    myViewInternal->leftBorder->hide();
-  }
-  myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),myViewInternal->leftBorder->height());
-  myViewInternal->resize(width()-myViewInternal->leftBorder->width(), myViewInternal->height());
-  myViewInternal->move(myViewInternal->leftBorder->width(), 0);
-  myViewInternal->updateView(0);
-  myViewInternal->leftBorder->update();
+  setLineNumbersOn( ! (myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers) );
 }
 
 void KateView::slotIncFontSizes ()
@@ -769,9 +742,9 @@ void KateView::slotDecFontSizes ()
 }
 
 bool KateView::iconBorder() {
-  return m_iconBorderStatus & KateIconBorder::Icons;
+  return myViewInternal->m_iconBorderStatus & KateIconBorder::Icons;
 }
 
 bool KateView::lineNumbersOn() {
-  return m_iconBorderStatus & KateIconBorder::LineNumbers;
+  return myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers;
 }

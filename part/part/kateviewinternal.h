@@ -88,7 +88,17 @@ class KateViewInternal : public QScrollView
     const KateTextCursor& getCursor()  { return cursor; }
     QPoint cursorCoordinates();        
     
-    inline int yPosition () const;
+    inline int yPosition () const;     
+             
+  //
+  // Iconborder stuff
+  //                              
+  public:
+    void updateIconBorder();  
+    int iconBorderStatus() const     { return m_iconBorderStatus; }
+    
+  private:
+    int m_iconBorderStatus;
 
   signals:
     // emitted when KateViewInternal is not handling its own URI drops
@@ -103,11 +113,11 @@ class KateViewInternal : public QScrollView
     void contentsMousePressEvent(       QMouseEvent* );
     void contentsMouseDoubleClickEvent( QMouseEvent* );
     void contentsMouseReleaseEvent(     QMouseEvent* );
-    void mouseMoveEvent(                QMouseEvent* );
-    void resizeEvent( QResizeEvent* );
+    void contentsMouseMoveEvent(                QMouseEvent* );
+    void viewportResizeEvent( QResizeEvent* );
     void timerEvent( QTimerEvent* );
     void contentsDragEnterEvent( QDragEnterEvent* );
-    void contentsDropEvent( QDropEvent* );
+    void contentsDropEvent( QDropEvent* );   
 
   private slots:
     void slotContentsMoving (int x, int y);                

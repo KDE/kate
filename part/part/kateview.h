@@ -234,7 +234,6 @@ class KateView : public Kate::View
   // Extras
   //
   public:
-    int iconBorderStatus() const     { return m_iconBorderStatus; }
     // Is it really necessary to have 3 methods for this?! :)
     KateDocument*  doc() const       { return myDoc; }
     void setupEditKeys();
@@ -270,8 +269,6 @@ class KateView : public Kate::View
     KAccel* createEditKeys();
     void setupActions();
     void initCodeCompletionImplementation();
-
-    void updateIconBorder();
     
     void doCursorCommand( int cmdNum );
     void doEditCommand( int cmdNum );
@@ -279,8 +276,6 @@ class KateView : public Kate::View
 
     KAction*               m_editUndo;
     KAction*               m_editRedo;
-//    KToggleAction* viewBorder;
-//    KToggleAction* viewLineNumbers;
     KRecentFilesAction*    m_fileRecent;
     KSelectAction*         m_setEndOfLine;
     KSelectAction*         m_setEncoding;
@@ -296,7 +291,6 @@ class KateView : public Kate::View
     CodeCompletion_Impl*   myCC_impl;
 
     bool       m_active;
-    int        m_iconBorderStatus;
     bool       m_hasWrap;
 };
 

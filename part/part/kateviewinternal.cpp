@@ -23,7 +23,8 @@
 #include "kateviewinternal.h"
 #include "kateview.h"
 #include "kateviewinternal.moc"
-#include "katedocument.h"
+#include "katedocument.h"   
+#include "katecodefoldinghelpers.h"
 #include "kateiconborder.h"
 #include "katehighlight.h"
 
@@ -39,16 +40,23 @@
 #include <qclipboard.h>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
- : QScrollView(view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
-{         
+ : QScrollView(view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )    
+    , m_iconBorderStatus( KateIconBorder::None )
+    , myView (view)
+    , myDoc (doc)
+{                     
   // this will prevent the yScrollbar from jumping around on appear of the xScrollbar 
   setCornerWidget (new QWidget (this));        
   cornerWidget()->hide ();
   cornerWidget()->setFixedSize (style().scrollBarExtent().width(), style().scrollBarExtent().width());
-
-  myView = view;
-  myDoc = doc;
-
+                                       
+  // iconborder ;)
+  leftBorder = new KateIconBorder(this, this);
+  updateIconBorder ();
+  connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
+           myDoc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));
+  
+  
   displayCursor.line=0;
   displayCursor.col=0;
 
@@ -83,7 +91,24 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
 KateViewInternal::~KateViewInternal()
 {
-}   
+}               
+
+void KateViewInternal::updateIconBorder()
+{
+  if ( m_iconBorderStatus != KateIconBorder::None )
+  {
+    leftBorder->show();
+  }
+  else
+  {
+    leftBorder->hide();
+  }
+
+  setMargins (leftBorder->width(), 0,0,0);
+  leftBorder->resize(leftBorder->width(),visibleHeight());    
+  updateView (0);
+  leftBorder->update();
+}
 
 inline int KateViewInternal::yPosition () const
 {
@@ -299,7 +324,7 @@ void KateViewInternal::moveEdge( Bias bias, bool sel )
 }
 
 void KateViewInternal::home( bool sel )
-{
+{      
   if( !(myDoc->configFlags() & KateDocument::cfSmartHome) ) {
     moveEdge( left, sel );
     return;
@@ -695,7 +720,7 @@ void KateViewInternal::contentsMouseReleaseEvent( QMouseEvent* e )
   }
 }
 
-void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
+void KateViewInternal::contentsMouseMoveEvent( QMouseEvent* e )
 {
   if( e->state() & LeftButton ) {
     
@@ -709,9 +734,9 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
       }
       return;
     }
-
-    mouseX = e->x();
-    mouseY = e->y();
+   
+    contentsToViewport (e->x(), e->y(), mouseX, mouseY);
+    
     scrollX = 0;
     scrollY = 0;
     int d = myDoc->viewFont.fontHeight;
@@ -719,16 +744,16 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
       mouseX = 0;
       scrollX = -d;
     }
-    if (mouseX > width()) {
-      mouseX = width();
+    if (mouseX > visibleWidth()) {
+      mouseX = visibleWidth();
       scrollX = d;
     }
     if (mouseY < 0) {
       mouseY = 0;
       scrollY = -d;
     }
-    if (mouseY > height()) {
-      mouseY = height();
+    if (mouseY > visibleHeight()) {
+      mouseY = visibleHeight();
       scrollY = d;
     }
     placeCursor( viewportToContents( QPoint( mouseX, mouseY ) ), true );
@@ -742,8 +767,9 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
   uint startline = contentsYToLine( cy );
   uint endline   = contentsYToLine( cy + ch - 1 );
   
-  //kdDebug(13030) << "drawContents(): y = " << cy << " h = " << ch << endl;
-  //kdDebug(13030) << "Repainting " << startline << " - " << endline << endl;
+  kdDebug(13030) << "drawContents(): y = " << cy << " h = " << ch << endl; 
+  kdDebug(13030) << "drawContents(): x = " << cx << " w = " << cw << endl;
+  kdDebug(13030) << "Repainting " << startline << " - " << endline << endl;
 
   for( uint line = startline; line <= endline; line++ ) {
     int realLine = myDoc->getRealLine( line );
@@ -763,9 +789,10 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
     paintBracketMark();
 }
 
-void KateViewInternal::resizeEvent( QResizeEvent* )
+void KateViewInternal::viewportResizeEvent( QResizeEvent* )
 {
-  updateView();
+  updateView ();          
+  updateIconBorder ();
 }
 
 void KateViewInternal::timerEvent( QTimerEvent* e )

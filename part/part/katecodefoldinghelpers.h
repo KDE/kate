@@ -55,7 +55,7 @@ public:
 protected:
 	friend class KateCodeFoldingTree;
 
-	KateCodeFoldingNode *parent;
+	KateCodeFoldingNode *parentNode;
 	QPtrList<KateCodeFoldingNode> *childnodes;
 	bool startLineValid;
 	unsigned int startLineRel;

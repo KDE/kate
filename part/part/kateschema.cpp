@@ -498,11 +498,19 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
-  // hl chooser
   QHBox *hbHl = new QHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
+  QLabel *lHl = new QLabel( i18n("&Default Schema:"), hbHl );
+  defaultSchemaCombo = new QComboBox( false, hbHl );
+  lHl->setBuddy( defaultSchemaCombo );
+  connect( defaultSchemaCombo, SIGNAL(activated(int)),
+           this, SLOT(slotChanged()) );
+  
+  hbHl = new QHBox( this );
+  layout->add (hbHl);
+  hbHl->setSpacing( KDialog::spacingHint() );
+  lHl = new QLabel( i18n("&Schema:"), hbHl );
   schemaCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( schemaCombo );
   connect( schemaCombo, SIGNAL(activated(int)),
@@ -553,9 +561,7 @@ void KateSchemaConfigPage::apply()
   KateFactory::self()->schemaManager()->schema (0)->sync();
   KateFactory::self()->schemaManager()->update ();
 
-  KateRendererConfig::global()->setSchema (KateRendererConfig::global()->schema());
-  
-  kdDebug () << "applying hl config" << endl;
+  KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentItem());
   
   // special for the highlighting stuff
   m_fontColorTab->apply ();
@@ -574,6 +580,8 @@ void KateSchemaConfigPage::reload()
   m_fontColorTab->reload ();
   
   update ();
+  
+  defaultSchemaCombo->setCurrentItem (KateRendererConfig::global()->schema());
 }
 
 void KateSchemaConfigPage::reset()
@@ -593,6 +601,9 @@ void KateSchemaConfigPage::update ()
 
   schemaCombo->clear ();
   schemaCombo->insertStringList (KateFactory::self()->schemaManager()->list ());
+
+  defaultSchemaCombo->clear ();
+  defaultSchemaCombo->insertStringList (KateFactory::self()->schemaManager()->list ());
 
   schemaCombo->setCurrentItem (0);
   schemaChanged (0);

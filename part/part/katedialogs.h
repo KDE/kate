@@ -172,30 +172,29 @@ class ViewDefaultsConfig : public Kate::ConfigPage
 {
   Q_OBJECT
 
-public:
-  ViewDefaultsConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
-  ~ViewDefaultsConfig();
-
-private:
-  KateDocument *m_doc;
-
-  QCheckBox *m_line;
-  QCheckBox *m_folding;
-  QCheckBox *m_collapseTopLevel;
-  QCheckBox *m_icons;
-  QCheckBox *m_dynwrap;
-  KIntNumInput *m_dynwrapAlignLevel;
-  QCheckBox *m_wwmarker;
-  QLabel *m_dynwrapIndicatorsLabel;
-  KComboBox *m_dynwrapIndicatorsCombo;
-  QButtonGroup *m_bmSort;
-  KComboBox *m_schemaCombo;
-
-public slots:
- void apply ();
- void reload ();
- void reset ();
- void defaults ();
+  public:
+    ViewDefaultsConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
+    ~ViewDefaultsConfig();
+  
+  private:
+    KateDocument *m_doc;
+  
+    QCheckBox *m_line;
+    QCheckBox *m_folding;
+    QCheckBox *m_collapseTopLevel;
+    QCheckBox *m_icons;
+    QCheckBox *m_dynwrap;
+    KIntNumInput *m_dynwrapAlignLevel;
+    QCheckBox *m_wwmarker;
+    QLabel *m_dynwrapIndicatorsLabel;
+    KComboBox *m_dynwrapIndicatorsCombo;
+    QButtonGroup *m_bmSort;
+  
+  public slots:
+  void apply ();
+  void reload ();
+  void reset ();
+  void defaults ();
 };
 
 class EditKeyConfiguration: public Kate::ConfigPage

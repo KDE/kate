@@ -320,6 +320,7 @@ class KateSchemaConfigPage : public Kate::ConfigPage
     int m_lastSchema;
     class QTabWidget *m_tabWidget;
     class QPushButton *btndel;
+    class QComboBox *defaultSchemaCombo;
     class QComboBox *schemaCombo;
     KateSchemaConfigColorTab *m_colorTab;
     KateSchemaConfigFontTab *m_fontTab;

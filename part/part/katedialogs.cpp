@@ -478,19 +478,12 @@ void EditConfigTab::wordWrapToggled() {
 ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocument *doc)
   :Kate::ConfigPage(parent)
 {
-
   QRadioButton *rb1;
   QRadioButton *rb2;
 
   m_doc = doc;
 
   QVBoxLayout *blay=new QVBoxLayout(this,0,KDialog::spacingHint());
-
-  QHBox *h = new QHBox (this);
-  QLabel *l = new QLabel( i18n("Schema:"), h );
-  m_schemaCombo = new KComboBox( h );
-  l->setBuddy(m_schemaCombo);
-  blay->addWidget(h);
 
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
@@ -574,7 +567,6 @@ ViewDefaultsConfig::~ViewDefaultsConfig()
 
 void ViewDefaultsConfig::apply ()
 {
-  KateRendererConfig::global()->setSchema (m_schemaCombo->currentItem());
   KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
   KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentItem ());
   KateViewConfig::global()->setDynWordWrapAlignIndent(m_dynwrapAlignLevel->value());
@@ -588,10 +580,6 @@ void ViewDefaultsConfig::apply ()
 
 void ViewDefaultsConfig::reload ()
 {
-  m_schemaCombo->clear ();
-  m_schemaCombo->insertStringList (KateFactory::self()->schemaManager()->list());
-  m_schemaCombo->setCurrentItem (KateRendererConfig::global()->schema());
-
   m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
   m_dynwrapIndicatorsCombo->setCurrentItem( KateViewConfig::global()->dynWordWrapIndicators() );
   m_dynwrapAlignLevel->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());

@@ -4095,7 +4095,7 @@ void KateDocument::reloadFile()
     uint mode = hlMode ();
     bool byUser = hlSetByUser;
 
-    KateDocument::openFile();
+    KateDocument::openURL( url() );
     setMTime();
     
     if (byUser)

@@ -46,13 +46,15 @@ public:
 
 signals:
     void argHintHidden();
+    void argHintCompleted();
+    void argHintAborted();
 
 public slots:
     virtual void reset( int, int );
     virtual void cursorPositionChanged( KateView*, int, int );
 
 private slots:
-    void slotDone();
+    void slotDone(bool completed);
 
 private:
     QMap<int, QString> m_functionMap;

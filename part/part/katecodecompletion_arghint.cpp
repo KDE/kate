@@ -82,19 +82,23 @@ void KDevArgHint::reset( int line, int col )
     m_currentCol = col - 1;
 }
 
-void KDevArgHint::slotDone()
+void KDevArgHint::slotDone(bool completed)
 {
     hide();
 
     m_currentLine = m_currentCol = -1;
 
     emit argHintHidden();
+    if (completed)
+        emit argHintCompleted();
+    else
+        emit argHintAborted();
 }
 
 void KDevArgHint::cursorPositionChanged( KateView* view, int line, int col )
 {
     if( m_currentCol == -1 || m_currentLine == -1 ){
-        slotDone();
+        slotDone(false);
         return;
     }
 
@@ -123,7 +127,7 @@ void KDevArgHint::cursorPositionChanged( KateView* view, int line, int col )
     }
 
     if( (m_currentLine > 0 && m_currentLine != line) || (m_currentLine < col) || (count == 0) ){
-        slotDone();
+        slotDone(count == 0);
         return;
     }
 
@@ -186,7 +190,7 @@ bool KDevArgHint::eventFilter( QObject*, QEvent* e )
             ke->accept();
             return TRUE;
         } else if( ke->key() == Key_Escape ){
-            slotDone();
+            slotDone(false);
             return FALSE;
         } else if( (ke->state() & ControlButton) && ke->key() == Key_Right ){
             setCurrentFunction( currentFunction() + 1 );

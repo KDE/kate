@@ -63,6 +63,7 @@ void KateSuperCursor::position(uint *pline, uint *pcol) const
 
 bool KateSuperCursor::setPosition(uint line, uint col)
 {
+  if (line == uint(-2) && col == uint(-2)) { delete this; return true; }
   return KateDocCursor::setPosition(line, col);
 }
 

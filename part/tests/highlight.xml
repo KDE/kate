@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- we need this tags or this is no valid file -->
+
 
 This is a pseudo XML file to test Kate's XML syntax highlighting.
 

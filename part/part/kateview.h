@@ -32,6 +32,8 @@
 #include <ktexteditor/viewstatusmsginterface.h>
 #include <ktexteditor/texthintinterface.h>
 
+#include <qguardedptr.h>
+
 class KateDocument;
 class KateBookmarks;
 class KateSearch;
@@ -391,7 +393,7 @@ class KateView : public Kate::View,
     KateRenderer*          m_renderer;
     KateSearch*            m_search;
     KateBookmarks*         m_bookmarks;
-    QPopupMenu*            m_rmbMenu;
+    QGuardedPtr<QPopupMenu>  m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
 
     KateCmdLine *m_cmdLine;

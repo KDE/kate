@@ -2353,6 +2353,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
       if (leftBorder->positionToArea( e->pos() ) != KateIconBorder::IconBorder)
       {
+        // popup is a qguardedptr now
         if (m_view->popup())
           m_view->popup()->popup( mapToGlobal( e->pos() ) );
       }

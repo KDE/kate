@@ -26,10 +26,18 @@
     <Action name="edit_find_prev" group="find_operations" />
     <Action name="edit_replace" group="find_operations" />
   </Menu>
-
+  
+  <Menu name="view" noMerge="1"><text>&amp;View</text>
+    <Action name="view_border" group="view_operations" />
+    <Action name="view_line_numbers" group="view_operations" />
+  </Menu>
+  
   <Action name="bookmarks" />
 
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
+    <Action name="set_highlight" group="tools_operations" />
+    <Action name="set_eol" group="tools_operations" />
+    <Separator group="tools_operations" />
     <Action name="tools_spelling" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_indent" group="tools_operations" />
@@ -43,16 +51,12 @@
     <Action name="tools_cmd" group="tools_operations" />
   </Menu>
 
-  <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="set_confdlg" group="config_merge"/>
-    <Action name="view_border"/>
-    <Action name="view_line_numbers"/>
-    <Action name="set_highlight"/>
-    <Action name="set_eol"/>
+  <Menu name="settings" noMerge="1"><text>&amp;Settings</text>
+    <Action name="set_confdlg" group="settings_operations" />
   </Menu>
 </MenuBar>
 
-<Menu name="katepart_popup">
+<Menu name="katepart_popup" noMerge="1">
   <Action name="edit_cut" group="popup_operations" />
   <Action name="edit_copy" group="popup_operations" />
   <Action name="edit_paste" group="popup_operations" />
@@ -64,7 +68,7 @@
   <Action name="file_save_as" group="popup_operations" />
 </Menu>
 
-<ToolBar name="mainToolBar"><text>Main Toolbar</text>
+<ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
   <Action name="edit_undo" group="edit_operations" />
   <Action name="edit_redo" group="edit_operations" />

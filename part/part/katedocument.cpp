@@ -3577,8 +3577,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 
     xPosAfter += curAt->width(fs, *s);
 
+    /*
+    In my opinion this makes only sense in a wordprocessor and it fixes the bracket problem (JoWenn)
     if (isTab)
-      xPosAfter -= (xPosAfter % curAt->width(fs, *s));
+      xPosAfter -= (xPosAfter % curAt->width(fs, *s)); */
 
     //  kdDebug(13000)<<"paint 5"<<endl;
 
@@ -3752,7 +3754,7 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
     if (bracket == ']') opposite = '[';
     if (bracket == '}') opposite = '{';
     x--;
-    while (cursor.line - line < 20) {
+    while (cursor.line - line < 40) {
 
       while (x < 0) {
         line--;

@@ -1,6 +1,7 @@
 <!--
         Copyright (c) 2001 Joseph Wenninger <jowenn@kde.org>
-        modified (c) 2002 Anders >Lund anders@alweb.dk>
+        modified (c) 2002 Anders Lund <anders@alweb.dk>
+        modified (c) 2003 Simon Huerlimann <simon.huerlimann@access.unizh.ch>
 
         This file describes the XML format used for syntax highlight descriptions
         for the Kate text editor (http://kate.kde.org), which is part of the KDE
@@ -12,9 +13,12 @@
         Files using this format should include a DOCTYPE declaration like this:
         <!DOCTYPE language SYSTEM "language.dtd">
 -->
+
+<!ENTITY per "." >
+
 <!ENTITY % ruleattrs
  "attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text --
-  context       NMTOKEN #REQUIRED       -- The name of the context to go to when this rule
+  context       CDATA   #REQUIRED       -- The name of the context to go to when this rule
                                            matches --
   beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
   endRegion     CDATA   #IMPLIED        -- End a region of type endRegion --"
@@ -24,20 +28,19 @@
 <!ATTLIST language
   name          CDATA   #REQUIRED       -- The name of this syntax description. Used in the
                                            Highlightning Mode menu --
-  section (Sources|Markup|Other|Scripts) #REQUIRED
-                                        -- The logical group to which this syntax description
+  section       NMTOKEN #REQUIRED       -- The logical group to which this syntax description
                                            belongs. Used for sub menus --
   extensions    CDATA   #REQUIRED       -- A file glob or pattern to decide for which documents
                                            to use this syntax description --
-  mimetype      CDATA   #REQUIRED       -- A list of mimetypes to decide for which documents
+  mimetype      CDATA   #IMPLIED        -- A list of mimetypes to decide for which documents
                                            to use this syntax description --
   version       CDATA   #IMPLIED        -- Version number of this syntax description --
   kateversion   CDATA   #IMPLIED        -- Kate version required for using this file --
   casesensitive (0|1)   #IMPLIED        -- ?? --
-  priority       CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
+  priority      CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
 >
 
-<!ELEMENT general (comments?, keywords?)>
+<!ELEMENT general (comments?, keywords?, comments?)>
 <!ATTLIST general
 >
 
@@ -56,6 +59,7 @@
 <!ATTLIST keywords
   casesensitive CDATA #IMPLIED
   weakDeliminator CDATA #IMPLIED
+  additionalDeliminator CDATA #IMPLIED
 >
 
 <!ELEMENT highlighting (list*, contexts, itemDatas) -- Data, rules and attributes for
@@ -65,7 +69,7 @@
 
 <!ELEMENT list (item)+>
 <!ATTLIST list
-  name (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+  name CDATA #REQUIRED
 >
 
 <!ELEMENT item (#PCDATA)>
@@ -75,17 +79,17 @@
 <!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
 <!ATTLIST context
   attribute CDATA #REQUIRED
-  lineEndContext NMTOKEN #REQUIRED
-  lineBeginContext NMTOKEN #IMPLIED
+  lineEndContext CDATA #REQUIRED
+  lineBeginContext CDATA #IMPLIED
   name CDATA #IMPLIED
   fallthrough (false|true) #IMPLIED
-  fallthroughContext NMTOKEN #IMPLIED
+  fallthroughContext CDATA #IMPLIED
 >
 
 <!ELEMENT keyword EMPTY                 -- Test for occurrence of members of a keyword list -- >
 <!ATTLIST keyword
   %ruleattrs;
-  String (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+  String CDATA #REQUIRED
                                         -- The name of the list to try --
   weakDelimiter CDATA #IMPLIED
 >
@@ -150,7 +154,7 @@
 <!ELEMENT RegExpr EMPTY                 -- Detect text matching a regular expression -- >
 <!ATTLIST RegExpr
   String        CDATA   #REQUIRED       -- The regular expression pattern --
-  insensitive (false|true) #IMPLIED     -- Wheather to match insensitive or not
+  insensitive (FALSE|TRUE) #IMPLIED     -- Wheather to match insensitive or not
                                            Defaults to false --
   minimal (false|true) #IMPLIED         -- Wheather to use minimal matching for wild cards
                                            in the pattern Defaults to false --
@@ -176,7 +180,7 @@
 
 <!ELEMENT IncludeRules EMPTY            -- Include another context at this position -- >
 <!ATTLIST IncludeRules
-  context       NMTOKEN #REQUIRED       -- The name or index of the context to include --
+  context       CDATA   #REQUIRED       -- The name or index of the context to include --
 >
 
 <!ELEMENT itemDatas (itemData)+         -- Attribute list -- >

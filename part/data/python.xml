@@ -127,8 +127,8 @@
 				<RegExpr attribute="Comment" String="^\s*'''" context="1"/>
 				<RegExpr attribute="Comment" String="^\s*&quot;&quot;&quot;" context="2"/>
 
-				<DetectString attribute="String" String="'''" context="3"/>
-				<DetectString attribute="String" String="&quot;&quot;&quot;" context="4"/>
+				<StringDetect attribute="String" String="'''" context="3"/>
+				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="4"/>
 				<DetectChar attribute="String" char="'" context="7"/>
 				<DetectChar attribute="String" char="&quot;" context="8"/>
 

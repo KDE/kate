@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="WINE Config" section="Other" extensions="*.reg" mimetype="">
+  <highlighting>
+    <contexts>
+      <context attribute="0" lineEndContext="0" name="Normal">
+	<RegExpr String="WINE REGISTRY Version.*$" attribute="7" context="0" />
+	<RegExpr String="^#\s*&lt;\s*wineconf\s*&gt;" attribute="7" context="0" />
+	<RegExpr String="^#\s*&lt;\s*\/\s*wineconf\s*&gt;" attribute="7" context="0" />
+        <RegExpr String="^\[.*\]$" attribute="Section" context="0"/>
+	<RegExpr String=";.*$" attribute="4" context ="0"/>
+
+        <RegExpr String="\s*&quot;\s*[a-zA-Z0-9_.:*]*\s*&quot;" attribute="2" context="0" />
+
+        <DetectChar char="=" attribute="0" context="1"/>
+      </context>
+
+      <context attribute="0" lineEndContext="0" name="Value">
+        <RegExpr String="\s*&quot;.*&quot;" attribute="3" context="1" />
+        <RegExpr String=";.*$" attribute="4" context="1"/>
+      </context>
+
+   </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Section"  defStyleNum="dsKeyword"/>
+      <itemData name="Key"  defStyleNum="dsDataType"/>
+      <itemData name="Value"  defStyleNum="dsNormal" color="#0000FF" selColor="#ffffff" italic="0" bold="1"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="ValueFilesystem1"  defStyleNum="dsNormal" color="#00AA00" selColor="#ffffff" italic="0" bold="1"/>
+      <itemData name="ValueFilesystem2"  defStyleNum="dsNormal" color="#FF0000" selColor="#ffffff" italic="0" bold="1"/>
+      <itemData name="RegistryBeginEnd"  defStyleNum="dsNormal" color="#00AAAA" selColor="#ffffff" italic="0" bold="1"/>
+    </itemDatas>
+  </highlighting>
+</language>

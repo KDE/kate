@@ -581,9 +581,13 @@ HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString
 //JW  itemDataList.setAutoDelete(true);
 }
 
-HlContext::HlContext(int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext)
-  : attr(attribute), ctx(lineEndContext),lineBeginContext(_lineBeginContext), fallthrough(_fallthrough), ftctx(_fallthroughContext) {
-  //items.setAutoDelete(true); // with IncludeRules, this could cause a crash. It should not be nessecasy?
+HlContext::HlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext)
+{
+  attr = attribute;
+  ctx = lineEndContext;
+  lineBeginContext = _lineBeginContext;
+  fallthrough = _fallthrough;
+  ftctx = _fallthroughContext;
 }
 
 Hl2CharDetect::Hl2CharDetect(int attribute, int context, const QChar *s)
@@ -671,10 +675,10 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
        if (ctxs->size()==0)
          return;
 
-       if (contextList[(*ctxs)[ctxs->size()-1]] && (contextList[(*ctxs)[ctxs->size()-1]]->ctx != -1))
+       if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
        {
 		//kdDebug()<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
-         generateContextStack(ctxNum, contextList[(*ctxs)[ctxs->size()-1]]->ctx,ctxs, prevLine);
+         generateContextStack(ctxNum, contextNum((*ctxs)[ctxs->size()-1])->ctx,ctxs, prevLine);
          return;
        }
      }
@@ -729,7 +733,7 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
     ctxNum=0;
-    context=contextList[ctxNum];
+    context=contextNum(ctxNum);
     prevLine=-1;
   }
   else
@@ -750,10 +754,10 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 
     //if (lineContinue)   kdDebug()<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
 
-    if (contextList[ctxNum])
-      context=contextList[ctxNum]; //context structure
+    if (contextNum(ctxNum))
+      context=contextNum(ctxNum); //context structure
     else
-      context = contextList[0];
+      context = contextNum(0);
 
     //kdDebug()<<"test1-2-1-text2"<<endl;
 
@@ -764,7 +768,7 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 
     //kdDebug()<<"test1-2-1-text4"<<endl;
 
-    context=contextList[ctxNum];	//current context to use
+    context=contextNum(ctxNum);	//current context to use
     //kdDebug()<<"test1-2-2"<<endl;
 
     //if (lineContinue)   kdDebug()<<QString("The new context is %1").arg((int)ctxNum)<<endl;
@@ -800,7 +804,7 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 	      generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
 		//kdDebug()<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
 	//    kdDebug()<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
-	    context=contextList[ctxNum];
+	    context=contextNum(ctxNum);
 
             z = z + s2 - s1 - 1;
             s1 = s2 - 1;
@@ -818,7 +822,7 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
       if ( context->fallthrough ) {
         // set context to context->ftctx.
         generateContextStack(&ctxNum, context->ftctx, &ctx, &prevLine);  //regenerate context stack
-        context=contextList[ctxNum];
+        context=contextNum(ctxNum);
         //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
         // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
         // immediately after fallthrough fails. Is it bad?
@@ -1012,7 +1016,7 @@ void Highlight::init()
   if (noHl)
     return;
 
-  for (int z = 0; z < nContexts; z++) contextList[z] = 0L;
+  contextList.clear ();
   makeContextList();
 }
 
@@ -1034,9 +1038,13 @@ void Highlight::done()
   if (noHl)
     return;
 
-  for (int z = 0; z < nContexts; z++) delete contextList[z];
+  contextList.clear ();
 }
 
+HlContext *Highlight::contextNum (uint n)
+{
+  return contextList[n];
+}
 
 /*******************************************************************************************
         Highlight - createItemData
@@ -1390,7 +1398,7 @@ void Highlight::makeContextList()
 
   //start the real work
   data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
-  int i=0;
+  uint i=0;
   if (data)
     {
       while (HlManager::self()->syntax->nextGroup(data))
@@ -1444,14 +1452,15 @@ void Highlight::makeContextList()
               kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
             }
           }
+
           // END falltrhough props
-          contextList[i]=new HlContext(
+          contextList.insert (i, new HlContext (
             attr,
             context,
             (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
             (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
             ft, ftc
-                                       );
+                                       ));
 
 
             //Let's create all items for the context
@@ -1615,7 +1624,7 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
   ItemStyle *defaultStyle;
   ItemDataList itemDataList;
   ItemData *itemData;
-  int nAttribs, z;
+  uint nAttribs, z;
 
   defaultStyleList.setAutoDelete(true);
   getDefaults(defaultStyleList);

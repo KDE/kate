@@ -247,7 +247,7 @@ class KConfig;
 //context
 class HlContext {
   public:
-    HlContext(int attribute, int lineEndContext,int _lineBeginContext,
+    HlContext (int attribute, int lineEndContext,int _lineBeginContext,
                bool _fallthrough, int _fallthroughContext);
 
     QPtrList<HlItem> items;
@@ -306,9 +306,8 @@ class Highlight
     int lookupAttrName(const QString& name, ItemDataList &iDl);
     ItemDataList internalIDList;
 
-
-    static const int nContexts = 32;
-    HlContext *contextList[nContexts];
+    QIntDict<HlContext> contextList;
+    HlContext *contextNum (uint n);
 
     bool noHl;
     bool casesensitive;

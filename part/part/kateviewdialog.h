@@ -170,6 +170,7 @@ private:
   QCheckBox *m_line;
   QCheckBox *m_folding;
   QCheckBox *m_icons;
+  QCheckBox *m_dynwrap;
   QButtonGroup *m_bmSort;
 
 public slots:
@@ -235,7 +236,7 @@ public:
   public slots:
     void apply ();
     void reload ();
-        void reset () {};
+    void reset () {};
     void defaults () {};
 };
 

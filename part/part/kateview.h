@@ -280,6 +280,9 @@ class KateView : public Kate::View,
     void updateFoldingMarkersAction();
     void slotStatusMsg();
     void slotSaveCanceled( const QString& error );
+    
+  public:
+    void updateViewDefaults ();
 
   private:
     void setupConnections();
@@ -296,6 +299,9 @@ class KateView : public Kate::View,
     KAction*               m_editRedo;
     KRecentFilesAction*    m_fileRecent; 
     KToggleAction*         m_toggleFoldingMarkers;
+    KToggleAction*         m_toggleIconBar;
+    KToggleAction*         m_toggleLineNumbers;
+    KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setEndOfLine;
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;

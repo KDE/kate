@@ -71,11 +71,12 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
                      public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
 {
   Q_OBJECT
-  friend class KateConfigDialog;
+  
   friend class KateViewInternal;
   friend class KateView;
   friend class KateIconBorder;
   friend class ColorConfig;
+  friend class ViewDefaultsConfig;
 
   public:    
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false, 
@@ -710,6 +711,17 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // core katedocument config !
     //
     uint _configFlags;
+    
+  private:
+    // defaults for all views !!!
+    bool m_dynWordWrap;
+    bool m_lineNumbers;
+    bool m_iconBar;
+    bool m_foldingBar;
+    int m_bookmarkSort;
+    
+  public:
+    void updateViewDefaults ();
 
   public: 
     /**

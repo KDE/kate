@@ -367,6 +367,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_doc = doc;
 
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+  m_dynwrap=new QCheckBox(i18n("&Dynamic Word Wrap"),this);
 	m_line=new QCheckBox(i18n("Show &line numbers"),this);
 	m_icons=new QCheckBox(i18n("Show &icon border"),this);
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
@@ -374,12 +375,14 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
         m_bmSort->setRadioButtonExclusive( true );
         m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
         m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
-	blay->addWidget(m_line,0);
+	blay->addWidget(m_dynwrap,0);
+  blay->addWidget(m_line,0);
 	blay->addWidget(m_icons,0);
 	blay->addWidget(m_folding,0);
         blay->addWidget( m_bmSort, 0 );
 	blay->addStretch(1000);
 
+  QWhatsThis::add(m_dynwrap,i18n("If this option is checked, the textlines will be wrapped at the view border on the screen."));
 	QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
 	QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
 	QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
@@ -390,31 +393,26 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	reload();
 }
 
-
 ViewDefaultsConfig::~ViewDefaultsConfig()
 {
 }
 
-
 void ViewDefaultsConfig::apply ()
 {
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate ViewDefaults");
-  config->writeEntry( "LineNumbers", m_line->isChecked() );
-  config->writeEntry( "Iconbar", m_icons->isChecked() );
-  config->writeEntry( "FoldingMarkers", m_folding->isChecked() );
-  config->writeEntry( "Bookmark Menu Sorting", m_bmSort->id( m_bmSort->selected() ) );
-  config->sync();
+  m_doc->m_dynWordWrap = m_dynwrap->isChecked();
+  m_doc->m_lineNumbers = m_line->isChecked();
+  m_doc->m_iconBar = m_icons->isChecked();
+  m_doc->m_foldingBar = m_folding->isChecked();
+  m_doc->m_bookmarkSort = m_bmSort->id (m_bmSort->selected());
 }
 
 void ViewDefaultsConfig::reload ()
 {
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate ViewDefaults");
-  m_line->setChecked(config->readBoolEntry( "LineNumbers", false ));
-  m_icons->setChecked(config->readBoolEntry( "Iconbar", false ));
-  m_folding->setChecked(config->readBoolEntry( "FoldingMarkers", true ));
-  m_bmSort->setButton( config->readNumEntry( "Bookmark Menu Sorting", 0 ) );
+  m_dynwrap->setChecked(m_doc->m_dynWordWrap);
+  m_line->setChecked(m_doc->m_lineNumbers);
+  m_icons->setChecked(m_doc->m_iconBar);
+  m_folding->setChecked(m_doc->m_foldingBar);
+  m_bmSort->setButton( m_doc->m_bookmarkSort  );
 }
 
 void ViewDefaultsConfig::reset () {;}

@@ -118,6 +118,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setupCodeFolding();
   setupCodeCompletion();
   setupViewPlugins();
+  updateViewDefaults ();
 }
 
 KateView::~KateView()
@@ -249,38 +250,32 @@ void KateView::setupActions()
   KConfig *config = KateFactory::instance()->config();
   config->setGroup("Kate ViewDefaults");  
  
-   a = new KToggleAction(
-    i18n("Dynamic Word Wrap"), Key_F12,
+  KToggleAction *toggleAction;
+   a= m_toggleDynWrap = toggleAction = new KToggleAction(
+    i18n("&Dynamic Word Wrap"), Key_F12,
     this, SLOT(toggleDynWordWrap()),
     ac, "view_dynamic_word_wrap" );
-   
-  a=m_toggleFoldingMarkers = new KToggleAction(
+  a->setWhatsThis(i18n("If this option is checked, the textlines will be wrapped at the view border on the screen.")); 
+  
+  a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show Folding &Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
-  updateFoldingMarkersAction();
   
-  KToggleAction* toggleAction = new KToggleAction(
+   a= m_toggleIconBar = toggleAction = new KToggleAction(
     i18n("Show &Icon Border"), Key_F6,
     this, SLOT(toggleIconBorder()),
     ac, "view_border");
   a=toggleAction;
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
-  setIconBorder( config->readBoolEntry( "Iconbar", false ) );  
-  toggleAction->setChecked( iconBorder() );
   
-  a=toggleAction = new KToggleAction(
+  a= m_toggleLineNumbers = toggleAction = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );   
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
-  setLineNumbersOn( config->readBoolEntry( "LineNumbers", false ) );       
-  toggleAction->setChecked( lineNumbersOn() );
 
-  
-  m_bookmarks->setSorting( (KateBookmarks::Sorting)config->readNumEntry("Bookmark Menu Sorting") );
-  
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
   
@@ -622,10 +617,7 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::updateFoldingMarkersAction()
 {
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate ViewDefaults");
-  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() &&
-                       config->readBoolEntry( "FoldingMarkers", true ));  
+  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() && m_doc->m_foldingBar);  
   m_toggleFoldingMarkers->setChecked( foldingMarkersOn() );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }
@@ -905,4 +897,20 @@ void KateView::slotDecFontSizes ()
   QFont font = m_doc->getFont(KateDocument::ViewFont);
   font.setPointSize (font.pointSize()-1);
   m_doc->setFont (KateDocument::ViewFont,font);
+}
+
+void KateView::updateViewDefaults ()
+{
+  setDynWordWrap( m_doc->m_dynWordWrap );       
+  m_toggleDynWrap->setChecked( dynWordWrap() );
+
+  setLineNumbersOn( m_doc->m_lineNumbers );       
+  m_toggleLineNumbers->setChecked( lineNumbersOn() );
+  
+  setIconBorder( m_doc->m_iconBar );  
+  m_toggleIconBar->setChecked( iconBorder() );
+  
+  updateFoldingMarkersAction();
+  
+  m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
 }

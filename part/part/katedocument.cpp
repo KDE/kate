@@ -1564,6 +1564,7 @@ void KateDocument::setDontChangeHlOnSave()
 
 void KateDocument::readConfig(KConfig *config)
 {
+  config->setGroup("Kate Document");
   _configFlags = config->readNumEntry("ConfigFlags", _configFlags);
 
   myWordWrap = config->readBoolEntry("Word Wrap On", false);
@@ -1579,6 +1580,7 @@ void KateDocument::readConfig(KConfig *config)
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
 
+  config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
     if  (config->readBoolEntry(m_plugins.at(i)->service->library(), false))
       m_plugins.at(i)->load = true;
@@ -1591,12 +1593,27 @@ void KateDocument::readConfig(KConfig *config)
     setModified(false);
     emit textChanged ();
   }
+  
+  config->setGroup("Kate View");
+  m_dynWordWrap = config->readBoolEntry( "DynamicWordWrap", false );
+  m_lineNumbers = config->readBoolEntry( "LineNumbers", false );
+  m_iconBar = config->readBoolEntry( "Iconbar", false );
+  m_foldingBar = config->readBoolEntry( "FoldingMarkers", true );
+  m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", 0 );
 
+  updateViewDefaults ();
   tagAll();
+}
+
+void KateDocument::updateViewDefaults ()
+{
+  for (uint i=0; i<m_views.count(); i++)
+    m_views.at(i)->updateViewDefaults ();
 }
 
 void KateDocument::writeConfig(KConfig *config)
 {
+  config->setGroup("Kate Document");
   config->writeEntry("ConfigFlags",_configFlags);
 
   config->writeEntry("Word Wrap On", myWordWrap);
@@ -1610,14 +1627,21 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Current Line", colors[2]);
   config->writeEntry("Color Bracket Highlight", colors[3]);
 
+  config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
     config->writeEntry(m_plugins.at(i)->service->library(), m_plugins.at(i)->load);
+    
+  config->setGroup("Kate View");
+  config->writeEntry( "DynamicWordWrap", m_dynWordWrap );
+  config->writeEntry( "LineNumbers", m_lineNumbers );
+  config->writeEntry( "Iconbar", m_iconBar );
+  config->writeEntry( "FoldingMarkers", m_foldingBar );
+  config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
 }
 
 void KateDocument::readConfig()
 {
   KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate Document");
   readConfig (config);
   config->sync();
 }
@@ -1625,7 +1649,6 @@ void KateDocument::readConfig()
 void KateDocument::writeConfig()
 {
   KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate Document");
   writeConfig (config);
   config->sync();
 }

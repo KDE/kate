@@ -1456,11 +1456,6 @@ bool KateDocument::removeSelectedText ()
 
   editStart ();
 
-  for (uint z = 0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->m_viewInternal->removeSelectedText(selectStart);
-  }
-
   int sc = selectStart.col();
   int ec = selectEnd.col();
 
@@ -3241,45 +3236,20 @@ void KateDocument::copy()
 
 void KateDocument::paste ( KateView* view )
 {
-  m_undoDontMerge = true;
-
   QString s = QApplication::clipboard()->text();
 
   if (s.isEmpty())
     return;
 
+  m_undoDontMerge = true;
+
   editStart ();
 
   if (config()->configFlags() & KateDocument::cfDelOnInput && hasSelection() )
-  {
     removeSelectedText();
-  }
 
   insertText ( view->cursorLine(), view->cursorColumnReal(), s, blockSelect );
 
-  /*
-  // anders: we want to be able to move the cursor to the
-  // position at the end of the pasted text,
-  // so we calculate that and applies it to c.cursor
-  // This may not work, when wordwrap gets fixed :(
-  TextLine::Ptr ln = buffer->plainLine( line );
-  int l = s.length();
-  while ( l > 0 ) {
-    if ( col < ln->length() ) {
-      col++;
-    } else {
-      line++;
-      ln = buffer->plainLine( line );
-      col = 0;
-    }
-    l--;
-  }
-
-  // editEnd will set the cursor from this cache right ;))
-  // Totally breaking the whole idea of the doc view model here...
-  view->m_viewInternal->cursorCache.setPos(line, col);
-  view->m_viewInternal->cursorCacheChanged = true;
-*/
   editEnd();
 
   m_undoDontMerge = true;
@@ -3287,14 +3257,14 @@ void KateDocument::paste ( KateView* view )
 
 void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& to )
 {
-  if (!hasSelection()) {
+  if (!hasSelection())
     selectAnchor.setPos(from);
-  }
 
   setSelection(selectAnchor, to);
 }
 
-void KateDocument::selectWord( const KateTextCursor& cursor ) {
+void KateDocument::selectWord( const KateTextCursor& cursor )
+{
   int start, end, len;
 
   TextLine::Ptr textLine = buffer->plainLine(cursor.line());
@@ -3306,16 +3276,20 @@ void KateDocument::selectWord( const KateTextCursor& cursor ) {
 
   if (!(config()->configFlags() & KateDocument::cfKeepSelection))
     clearSelection ();
+
   setSelection (cursor.line(), start, cursor.line(), end);
 }
 
-void KateDocument::selectLine( const KateTextCursor& cursor ) {
+void KateDocument::selectLine( const KateTextCursor& cursor )
+{
   if (!(config()->configFlags() & KateDocument::cfKeepSelection))
     clearSelection ();
+
   setSelection (cursor.line(), 0, cursor.line()/*+1, 0*/, buffer->plainLine(cursor.line())->length() );
 }
 
-void KateDocument::selectLength( const KateTextCursor& cursor, int length ) {
+void KateDocument::selectLength( const KateTextCursor& cursor, int length )
+{
   int start, end;
 
   TextLine::Ptr textLine = buffer->plainLine(cursor.line());
@@ -3332,7 +3306,8 @@ void KateDocument::indent ( KateView *, uint line, int change)
 {
   editStart ();
 
-  if (!hasSelection()) {
+  if (!hasSelection())
+  {
     // single line
     optimizeLeadingSpace(line, config()->configFlags(), change);
   }

@@ -2737,15 +2737,6 @@ void KateViewInternal::editRemoveLine(int line)
   }
 }
 
-void KateViewInternal::removeSelectedText(KateTextCursor & start)
-{
-  if (m_doc->lineHasSelected(cursor.line()))
-  {
-    cursor.setPos(start);
-    editCursorChanged = true;
-  }
-}
-
 void KateViewInternal::setViewTagLinesFrom(int line)
 {
   if (line >= (int)m_doc->getRealLine(startLine()))

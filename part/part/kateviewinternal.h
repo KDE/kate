@@ -163,8 +163,6 @@ class KateViewInternal : public QWidget
     void editInsertLine(int line);
     void editRemoveLine(int line);
 
-    void removeSelectedText(KateTextCursor & start);
-
     /**
        Set the tagLinesFrom member if usefull.
     */

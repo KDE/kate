@@ -727,8 +727,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
       else
         cCol = col;
 
-      v->myViewInternal->cursorCache.line = line;
-      v->myViewInternal->cursorCache.col = cCol;
+      v->myViewInternal->cursorCache.setPos(line, cCol);
       v->myViewInternal->cursorCacheChanged = true;
     }
   }
@@ -877,8 +876,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
     {
       cCol = col;
 
-      view->myViewInternal->cursorCache.line = line;
-      view->myViewInternal->cursorCache.col = cCol;
+      view->myViewInternal->cursorCache.setPos(line, cCol);
       view->myViewInternal->cursorCacheChanged = true;
     }
   }
@@ -1123,8 +1121,7 @@ bool KateDocument::removeSelectedText ()
     KateView *v = myViews.at(z);
     if ((selectStart.line <= v->myViewInternal->cursorCache.line) && (v->myViewInternal->cursorCache.line<= selectEnd.line))
     {
-      v->myViewInternal->cursorCache.line = selectStart.line;
-      v->myViewInternal->cursorCache.col = selectStart.col;
+      v->myViewInternal->cursorCache = selectStart;
       v->myViewInternal->cursorCacheChanged = true;
     }
   }
@@ -2422,8 +2419,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   col += pos;
 
   // editEnd will set the cursor from this cache right ;))
-  view->myViewInternal->cursorCache.line = line;
-  view->myViewInternal->cursorCache.col = col;
+  view->myViewInternal->cursorCache.setPos(line, col);
   view->myViewInternal->cursorCacheChanged = true;
 
   editEnd ();
@@ -2630,8 +2626,7 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 
   // editEnd will set the cursor from this cache right ;))
   // Totally breaking the whole idea of the doc view model here...
-  view->myViewInternal->cursorCache.line = line;
-  view->myViewInternal->cursorCache.col = col;
+  view->myViewInternal->cursorCache.setPos(line, col);
   view->myViewInternal->cursorCacheChanged = true;
 
   editEnd();
@@ -2644,8 +2639,7 @@ void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& t
     // anders: if we allready have a selection, we want to include all of that
     if ( hasSelection() &&
             ( to.line > selectEnd.line || to.line >= selectEnd.line && to.col >= selectEnd.col ) ) {
-      selectAnchor.line = selectStart.line;
-      selectAnchor.col = selectStart.col;
+      selectAnchor = selectStart;
     }
     else {
       selectAnchor.line = from.line;

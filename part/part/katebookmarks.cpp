@@ -225,7 +225,12 @@ void KateBookmarks::gotoBookmark( int n )
 void KateBookmarks::goNext()
 {
   // hack to ensure we go to active view
-  KateView *v = dynamic_cast<KateDocument*>(m_view->getDoc())->activeView();
+  KateDocument *kd = dynamic_cast<KateDocument*>(m_view->getDoc());
+  if (!kd) {
+    return;
+  }
+
+  KateView *v = kd->activeView();
 
   m_marks = m_view->getDoc()->marks();
   if ( ! m_marks.count() )
@@ -250,7 +255,12 @@ void KateBookmarks::goNext()
 void KateBookmarks::goPrevious()
 {
   // hack to ensure we go to active view
-  KateView *v = dynamic_cast<KateDocument*>(m_view->getDoc())->activeView();
+  KateDocument *kd = dynamic_cast<KateDocument*>(m_view->getDoc());
+  if (!kd) {
+    return;
+  }
+
+  KateView *v = kd->activeView();
 
   m_marks = m_view->getDoc()->marks();
   if ( ! m_marks.count() )

@@ -47,6 +47,16 @@ bool KateDocCursor::validPosition(uint _line, uint _col)
   return _line < myDoc->numLines() && (int)_col <= myDoc->textLength(_line);
 }
 
+bool KateDocCursor::validPosition()
+{
+  return validPosition(line, col);
+}
+
+int KateDocCursor::nbCharsOnLineAfter()
+{
+  return ((int)myDoc->textLength(line) - (int)col);
+}
+
 void KateDocCursor::position(uint *pline, uint *pcol) const
 {
   pos(pline, pcol);
@@ -62,6 +72,30 @@ bool KateDocCursor::setPosition(uint _line, uint _col)
   return ok;
 }
 
+bool KateDocCursor::gotoNextLine()
+{
+  bool ok = (line + 1 < (int)myDoc->numLines());
+ 
+  if (ok) {
+    line++;
+    col = 0;
+  }
+
+  return ok;
+}
+
+bool KateDocCursor::moveForward(uint nbChar)
+{
+  int nbCharLeft = nbChar - nbCharsOnLineAfter();
+
+  if(nbCharLeft > 0) {
+    return gotoNextLine() && moveForward((uint)nbCharLeft);
+  } else {
+    col += nbChar;
+    return true;
+  }
+}
+
 bool KateDocCursor::insertText(const QString& s)
 {
   return myDoc->insertText(line, col, s);
@@ -69,28 +103,13 @@ bool KateDocCursor::insertText(const QString& s)
 
 bool KateDocCursor::removeText(uint nbChar)
 {
-  uint _line = line;
-  uint _col = col;
-  uint n = nbChar;
+  // Get a cursor at the end of the removed area
+  KateDocCursor endCursor = *this;
+  endCursor.moveForward(nbChar);
 
-  bool found;
-  do
-  {
-    uint len = myDoc->textLength(_line);
-
-    found = (len > _col + n);
-
-    if(found){
-      _col = len - n;
-    } else {
-      n -= len - _col;
-      _line++;
-      _col = 0;
-      found = (_line >= myDoc->numLines()); 
-    }
-  } while (!found);
-
-  return myDoc->removeText((uint)line, (uint)col, _line, _col);
+  // Remove the text
+  return myDoc->removeText((uint)line, (uint)col, 
+			   (uint)endCursor.line, (uint)endCursor.col);
 }
 
 QChar KateDocCursor::currentChar() const
@@ -120,7 +139,7 @@ void KateCursor::position(uint *pline, uint *pcol) const
 
 bool KateCursor::setPosition(uint _line, uint _col)
 {
-  KateDocCursor::setPosition(_line, _col);
+  return KateDocCursor::setPosition(_line, _col);
 }
 
 bool KateCursor::insertText(const QString& s)

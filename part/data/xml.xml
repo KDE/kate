@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.03" kateversion="2.1" name="XML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf;*.xsl;*.xslt;*.xhtml" mimetype="text/xml;text/book;text/daml;text/rdf;text/x-xslt;application/xhtml+xml">
+<language version="1.04" kateversion="2.3" name="XML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf;*.xsl;*.xslt;*.xhtml" mimetype="text/xml;text/book;text/daml;text/rdf;text/x-xslt;application/xhtml+xml">
   <highlighting>
     <contexts>
        <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
@@ -28,6 +28,7 @@
        </context>
 
        <context attribute="Comment" lineEndContext="#stay" name="Comment" >
+         <IncludeRules context="##Alerts" />
          <StringDetect attribute="Comment" context="#pop" endRegion="Comment" String="--&gt;"/>
        </context>
 

@@ -104,8 +104,8 @@ HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId, QCh
   : HlItem(attribute,context,regionId), sChar(c) {
 }
 
-const QChar *HlCharDetect::checkHgl(const QChar *str, int, bool) {
-  if (*str == sChar) return str + 1;
+const QChar *HlCharDetect::checkHgl(const QChar *str, int len, bool) {
+  if ((len > 0) && (*str == sChar)) return str + 1;
   return 0L;
 }
 
@@ -148,13 +148,13 @@ HlRangeDetect::HlRangeDetect(int attribute, int context, signed char regionId, Q
 }
 
 const QChar *HlRangeDetect::checkHgl(const QChar *s, int len, bool) {
-  if (*s == sChar1)
+  if ((len > 0) && (*s == sChar1))
   {
     do
     {
       s++;
       len--;
-      if (len == 0) return 0L;
+      if (len < 1) return 0L;
     }
     while (*s != sChar2);
 
@@ -396,7 +396,7 @@ const QChar *HlCHex::checkHgl(const QChar *str, int len, bool)
     len -= 2;
 
     s = str;
-    
+
     while ((len > 0) && (s->isDigit() || ((*s&0xdf) >= 'A' && (*s&0xdf) <= 'F')))
     {
       s++;
@@ -450,8 +450,8 @@ const QChar *HlCFloat::checkHgl(const QChar *s, int len, bool lineStart) {
 	 tmp++;
      	return tmp;
      }
-     else 
-        return 0;     
+     else
+        return 0;
   }
 }
 
@@ -494,7 +494,7 @@ HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId)
 
 const QChar *HlLineContinue::checkHgl(const QChar *s, int len, bool) {
 
-  if ((s[0].latin1() == '\\') && (len == 1))
+  if ((len == 1) && (s[0] == '\\'))
 	{
            return s + 1;
 	}
@@ -506,35 +506,6 @@ HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-//checks for hex and oct (for example \x1b or \033)
-const QChar *checkCharHexOct(const QChar *str) {
-  const QChar *s;
-        s=str;
-        int n;
-  if (*s == 'x') {
-    n = 0;
-    do {
-      s++;
-      n *= 16;
-      if (s->isDigit()) n += *s - '0';
-      else if ((*s&0xdf) >= 'A' && (*s&0xdf) <= 'F') n += (*s&0xdf) - 'A' + 10;
-//      else if (*s >= 'a' && *s <= 'f') n += *s - 'a' + 10;
-      else break;
-      if (n >= 256) return 0L;
-    } while (true);
-    if (s - str == 1) return 0L;
-  } else {
-    if (!(*s >= '0' && *s <= '7')) return 0L;
-    n = *s - '0';
-    do {
-      s++;
-      n *= 8;
-      if (*s >= '0' && *s <= '7') n += *s - '0'; else break;
-      if (n >= 256) return s;
-    } while (s - str < 3);
-  }
-  return s;
-}
 // checks for C escaped chars \n and escaped hex/octal chars
 const QChar *checkEscapedChar(const QChar *s, int *len) {
   int i;

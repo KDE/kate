@@ -575,7 +575,7 @@ class KateDocument : public Kate::Document
     QColor &cursorCol(int x, int y);
 
     bool  paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, 
-        int xStart, int xEnd, int showCursor, bool showSelections, bool showTabs,WhichFont wf=ViewFont);
+        int xStart, int xEnd, int showCursor, bool replaceCursor, bool showSelections, bool showTabs,WhichFont wf=ViewFont);
 
     bool doSearch(SConfig &s, const QString &searchFor);
 

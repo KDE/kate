@@ -2048,7 +2048,7 @@ bool KateDocument::printDialog ()
          }
 
          endCol = textWidth (getTextLine(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, -1, false, false, PrintFont );
+         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, -1, false, false, false, PrintFont );
          startCol = endCol;
          y += printFont.fontHeight;
        }
@@ -3626,7 +3626,7 @@ bool KateDocument::lineHasSelected (int line)
   return false;
 }
 
-bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, int showCursor, bool showSelections, bool showTabs, WhichFont wf)
+bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, int showCursor, bool replaceCursor, bool showSelections, bool showTabs, WhichFont wf)
 {
   // font data
   FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;
@@ -3642,7 +3642,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   uint len = 0;
   const QChar *s;
   const uchar *a;
-	 
+
 	 // selection startcol/endcol calc
   bool hasSel = false;
   uint startSel = 0;
@@ -3650,6 +3650,12 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
   // was the selection background allready completly painted ?
   bool selectionPainted = false;
+
+	// should the cursor be painted (if it is in the current xstart - xend range)
+	bool cursorVisible = false;
+	int cursorXPos = 0;
+	int cursorMaxWidth = 0;
+	QColor *cursorColor = 0;
 
   textLine = getTextLine(line);
 
@@ -3760,7 +3766,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
 	  if ((showCursor > -1) && (showCursor == curCol))
 	  {
-	    paint.fillRect(xPos, oldY, 2, fs->fontHeight, at[0].col);
+		  cursorVisible = true;
+			cursorXPos = xPos;
+			cursorMaxWidth = xPosAfter - xPos;
+			cursorColor = &at[0].col;
 	  }
 	  //  kdDebug()<<"paint 3"<<endl;
 
@@ -3834,8 +3843,8 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
       if (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel))
 			{
-			  if (!selectionPainted)
-          paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
+			/*  if (!selectionPainted)
+          paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);*/
 
 				curColor = &(curAt->selCol);
 				isSel = true;
@@ -3847,6 +3856,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       // make sure we redraw the right character groups on attrib/selection changes
       if (((tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) || isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))  || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
       {
+			  if (isSel && !selectionPainted)
+          paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(oldXPos-xStart, y, str.string());
 
@@ -3870,7 +3882,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
 	    if ((showCursor > -1) && (showCursor == curCol))
 			{
-			  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
+			  cursorVisible = true;
+			  cursorXPos = xPos;
+				cursorMaxWidth = xPosAfter - xPos;
+			  cursorColor = &curAt->col;
 			}
     }
 
@@ -3893,7 +3908,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   // kdDebug()<<"paint 7"<<endl;
 	if ((showCursor > -1) && (showCursor == curCol))
 	{
-	  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
+	  cursorVisible = true;
+	  cursorXPos = xPos;
+		cursorMaxWidth = xPosAfter - xPos;
+	  cursorColor = &curAt->col;
 	}
 }
 	//kdDebug()<<"paint 8"<<endl;
@@ -3902,6 +3920,14 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;
   }
+
+  if (cursorVisible)
+	{
+	  if (replaceCursor && (cursorMaxWidth > 2))
+	    paint.fillRect(cursorXPos, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
+		else
+	    paint.fillRect(cursorXPos, oldY, 2, fs->fontHeight, *cursorColor);
+	}
 
   return true;
 }

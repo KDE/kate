@@ -161,11 +161,11 @@ class KateDocument : public Kate::Document
         QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
     ~KateDocument ();
 
-
-  // use different fonts for screen and printing
-  public:
-	enum WhichFont {ViewFont,PrintFont};
-
+  private:
+    // only to make part work, don't change it !
+    bool m_bSingleViewMode;
+    bool m_bBrowserView;
+    bool m_bReadOnly;
 
   //
   // KTextEditor::Document stuff
@@ -173,6 +173,11 @@ class KateDocument : public Kate::Document
   public:
     KTextEditor::View *createView( QWidget *parent, const char *name );
     QPtrList<KTextEditor::View> views () const;
+    
+  private:
+    QPtrList<KateView> myViews;
+    QPtrList<KTextEditor::View> _views;
+    KateView *myActiveView;
 
   //
   // KTextEditor::EditInterface stuff
@@ -205,7 +210,7 @@ class KateDocument : public Kate::Document
     //
     void editStart (bool withUndo = true);
     void editEnd ();
-    
+
     bool wrapText (uint startLine, uint endLine, uint col);
 
   private:
@@ -249,13 +254,18 @@ class KateDocument : public Kate::Document
     bool selectAll();
 
   private:
-    //
-    // Some internal functions to get selection state of a line/col
-    //
+    // some internal functions to get selection state of a line/col
     bool lineColSelected (int line, int col);
     bool lineSelected (int line);
     bool lineEndSelected (int line);
     bool lineHasSelected (int line);
+
+    // stores the current selection
+    KateTextCursor selectStart;
+    KateTextCursor selectEnd;
+    
+    // only to make the selection from the view easier
+    KateTextCursor selectAnchor;
 
   signals:
     void selectionChanged ();
@@ -267,6 +277,10 @@ class KateDocument : public Kate::Document
     bool blockSelectionMode ();
     bool setBlockSelectionMode (bool on);
     bool toggleBlockSelectionMode ();
+    
+  private:
+    // do we select normal or blockwise ?
+    bool blockSelect;
 
   //
   // KTextEditor::UndoInterface stuff
@@ -300,16 +314,19 @@ class KateDocument : public Kate::Document
   public slots:
     KTextEditor::Cursor *createCursor ();
     QPtrList<KTextEditor::Cursor> cursors () const;
+    
+  private:
+    QPtrList<KTextEditor::Cursor> myCursors;
 
   //
   // KTextEditor::SearchInterface stuff
   //
   public slots:
-    bool searchText (unsigned int startLine, unsigned int startCol, 
+    bool searchText (unsigned int startLine, unsigned int startCol,
         const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol,
         unsigned int *matchLen, bool casesensitive = true, bool backwards = false);
-    bool searchText (unsigned int startLine, unsigned int startCol, 
-        const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, 
+    bool searchText (unsigned int startLine, unsigned int startCol,
+        const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol,
         unsigned int *matchLen, bool backwards = false);
 
   //
@@ -399,22 +416,48 @@ class KateDocument : public Kate::Document
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
 
-  protected:
-    //
-    // internal edit stuff (mostly for view)
-    //
-    bool insertChars ( int line, int col, const QString &chars, KateView *view );
+  //
+  // displaying related stuff
+  //
+  public:
+     // use different fonts for screen and printing
+    enum WhichFont
+    {
+      ViewFont = 1,
+      PrintFont = 2
+    };
 
-  protected:
+    // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
+    bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int y,
+                                int xStart, int xEnd, int showCursor, bool replaceCursor,
+                                bool showSelections, bool showTabs,WhichFont wf=ViewFont);
+
+    uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
+    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
+    uint textWidth(KateTextCursor &cursor);
+    uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
+    uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
+    uint textHeight(WhichFont wf=ViewFont);
+
+    QColor &backCol(int x, int y);
+    QColor &cursorCol(int x, int y);
+
+    void setFont (WhichFont wf,QFont font);
+
+    QFont getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;};
+
+    KateFontMetrics getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;};
+
+  private:
+    // fonts structures for the view + printing font
     FontStruct viewFont;
     FontStruct printFont;
 
   public:
-    void setFont (WhichFont wf,QFont font);
-    QFont getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;};
-    KateFontMetrics getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;};
-
-    QPtrList<KTextEditor::Cursor> myCursors;
+    //
+    // internal edit stuff (mostly for view)
+    //
+    bool insertChars ( int line, int col, const QString &chars, KateView *view );
 
     /**
      * gets the last line number (numLines() -1)
@@ -519,17 +562,6 @@ class KateDocument : public Kate::Document
     bool ownedView(KateView *);
     bool isLastView(int numViews);
 
-    int charWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf=ViewFont);
-    int charWidth(KateTextCursor &cursor);
-
-    uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
-    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, 
-        uint wrapsymwidth, WhichFont wf, bool *needWrap);
-    uint textWidth(KateTextCursor &cursor);
-    uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
-    uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
-    uint textHeight(WhichFont wf=ViewFont);
-
     uint currentColumn(KateTextCursor &cursor);
     void newLine(VConfig &);
     void killLine(VConfig &);
@@ -537,7 +569,7 @@ class KateDocument : public Kate::Document
     void del(VConfig &);
     void cut(VConfig &);
     void copy(int flags);
-    /** 
+    /**
      * Inserts the text in the clipboard and adds to the cursor
      * of the VConfig object the length of the inserted text.
      */
@@ -570,12 +602,6 @@ class KateDocument : public Kate::Document
     void updateLines();
     void updateViews();
     void updateEditAccels();
-
-    QColor &backCol(int x, int y);
-    QColor &cursorCol(int x, int y);
-
-    bool  paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, 
-        int xStart, int xEnd, int showCursor, bool replaceCursor, bool showSelections, bool showTabs,WhichFont wf=ViewFont);
 
     bool doSearch(SConfig &s, const QString &searchFor);
 
@@ -680,6 +706,17 @@ class KateDocument : public Kate::Document
     uint configFlags ();
     void setConfigFlags (uint flags);
 
+ // code folding
+  public:
+        unsigned int getRealLine(unsigned int virtualLine);
+        unsigned int getVirtualLine(unsigned int realLine);
+        unsigned int visibleLines ();
+
+  signals:
+	void codeFoldingUpdated();
+  public slots:
+	void dumpRegionTree();
+
   //
   // Some flags for internal ONLY use !
   //
@@ -710,16 +747,15 @@ class KateDocument : public Kate::Document
     };
 
   //
-  // Much internal data ;)
+  // REALLY internal data ;)
   //
-
-
-  protected:
-    // stores the current selection
-    KateTextCursor selectStart;
-    KateTextCursor selectEnd;
   private:
+    // text buffer
     KateBuffer *buffer;
+    
+    // folding tree
+    KateCodeFoldingTree *regionTree;
+
     QColor colors[2];
     HlManager *hlManager;
     Highlight *m_highlight;
@@ -730,18 +766,7 @@ class KateDocument : public Kate::Document
     int eolMode;
     int tabChars;
 
-    QPtrList<KateView> myViews;
-    QPtrList<KTextEditor::View> _views;
-    
-    KateView *myActiveView;
-
     bool newDocGeometry;
-
-    // do we select normal or blockwise ?
-    bool blockSelect;
-
-    // only to make the selection from the view easier
-    KateTextCursor selectAnchor;
 
     bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether
@@ -768,16 +793,9 @@ class KateDocument : public Kate::Document
 
     class KateCmd *myCmd;
 
-    // only to make part work, don't change it !
-    bool m_bSingleViewMode;
-    bool m_bBrowserView;
-    bool m_bReadOnly;
-
     static QStringList searchForList;
     static QStringList replaceWithList;
 
-  // highlight stuff
-  private:
     QMemArray<Attribute> myAttribs;
 
     //
@@ -786,20 +804,6 @@ class KateDocument : public Kate::Document
     uint _configFlags;
     uint _searchFlags;
     SConfig s;
-
-  // code folding
-  public:
-        unsigned int getRealLine(unsigned int virtualLine);
-        unsigned int getVirtualLine(unsigned int realLine);
-        unsigned int visibleLines ();
-
-  signals:
-	void codeFoldingUpdated();
-  public slots:
-	void dumpRegionTree();
-  protected:
-	KateCodeFoldingTree *regionTree;
-
 };
 
 #endif

@@ -2518,36 +2518,6 @@ bool KateDocument::isLastView(int numViews) {
   return ((int) myViews.count() == numViews);
 }
 
-int KateDocument::charWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf) {
-  QChar ch = textLine->getChar(cursorX);
-  Attribute *a = attribute(textLine->getAttr(cursorX));
-  int x;
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
-
-  if (ch == '\t')
-    x = fs->m_tabWidth;
-  else if (a->bold && a->italic)
-    x = fs->myFontMetricsBI.width(ch);
-  else if (a->bold)
-    x = fs->myFontMetricsBold.width(ch);
-  else if (a->italic)
-    x = fs->myFontMetricsItalic.width(ch);
-  else
-    x = fs->myFontMetrics.width(ch);
-
-  return x;
-}
-
-int KateDocument::charWidth(KateTextCursor &cursor) {
-  if (cursor.col < 0)
-     cursor.col = 0;
-  if (cursor.line < 0)
-     cursor.line = 0;
-  if (cursor.line >= (int) numLines())
-     cursor.line = lastLine();
-  return charWidth(getTextLine(cursor.line),cursor.col);
-}
-
 uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf)
 {
   int x;

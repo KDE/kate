@@ -1140,34 +1140,9 @@ void KateViewInternal::paintCursor() {
     setMicroFocusHint(cx, cy, 0, ch);
   }
 
-  w2 = myDoc->charWidth(cursor);
-  w = myView->isOverwriteMode() ? w2 : 2;
 
-  xCoord = x;
-  yCoord = y+h;
-
- /* QPainter paint;
-  if (cursorOn)
-  {
-    QColor &fg = myDoc->cursorCol(cursor.col,cursor.line);
-    QColor &bg = myDoc->backCol(cursor.col, cursor.line);
-    QColor xor_fg (qRgb(fg.red()^bg.red(), fg.green()^bg.green(), fg.blue()^bg.blue()),
-                   fg.pixel()^bg.pixel());
-
-    paint.begin(this);
-    paint.setClipping(false);
-    paint.setPen(myDoc->cursorCol(cursor.col,cursor.line));
-    paint.setRasterOp(XorROP);
-
-    //h += y - 1;
-    paint.fillRect(x, y, w, h, xor_fg);
-    paint.end();
-   }
-   else
-   {*/
-     tagRealLines( cursor.line, cursor.line);
-     paintTextLines (xPos, 0);
-  //}
+  tagRealLines( cursor.line, cursor.line);
+  paintTextLines (xPos, 0);
 }
 
 void KateViewInternal::paintBracketMark() {

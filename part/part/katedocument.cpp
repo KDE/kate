@@ -4272,14 +4272,14 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
   bool isSel = false;
 
   //kdDebug(13020)<<"paint 1"<<endl;
-  
+
   if (range->startsInvisibleBlock) {
     paint.save();
     paint.setPen(QPen(colors[4], 1, Qt::DashLine));
     paint.drawLine(xPos2, oldY + fs.fontHeight - 1, xPos2 + xEnd - xStart, oldY + fs.fontHeight - 1);
     paint.restore();
   }
-  
+
   if (len < 1)
   {
     //  kdDebug(13020)<<"paint 2"<<endl;

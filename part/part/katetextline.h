@@ -214,11 +214,11 @@ class TextLine : public KShared
       Truncates the textline to the new length
     */
     void truncate(uint newLen);
-
+    
     /**
       Removes trailing spaces
     */
-    void removeSpaces();
+    QString withoutTrailingSpaces();
 
     /**
       Sets the visibility flag

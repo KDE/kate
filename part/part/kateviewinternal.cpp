@@ -1721,14 +1721,6 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
     return;
   }
 
-  // remove trailing spaces when leaving a line
-  if (m_doc->configFlags() & KateDocument::cfRemoveSpaces && cursor.line != newCursor.line) {
-    TextLine::Ptr textLine = m_doc->kateTextLine(cursor.line);
-    if (textLine) {
-      textLine->removeSpaces();
-    }
-  }
-
   // unfold if required
   TextLine::Ptr l = m_doc->kateTextLine( newCursor.line );
   if ( l && ! l->isVisible() )

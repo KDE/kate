@@ -502,12 +502,16 @@ bool KateBuffer::saveFile(const QString &m_file, QTextCodec *codec, const QStrin
     return false; // Error
   }
 
-  stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
-  stream.setCodec(codec); // this line sets the mapper to the correct codec
+  // disable Unicode headers
+  stream.setEncoding(QTextStream::RawUnicode);
+
+  // this line sets the mapper to the correct codec
+  stream.setCodec(codec);
 
   for (uint i=0; i < m_lines; i++)
   {
-    stream << textLine (i);
+    // if enabled strip the trailing spaces !
+    stream << textLine (i, m_doc->configFlags() & KateDocument::cfRemoveSpaces);
 
     if (i < (m_lines-1))
       stream << eol;
@@ -863,7 +867,7 @@ TextLine::Ptr KateBuffer::plainLine(uint i)
 /**
  * Return text from line @p i without triggering highlighting
  */
-QString KateBuffer::textLine(uint i)
+QString KateBuffer::textLine(uint i, bool withoutTrailingSpaces)
 {
    KateBufBlock *buf = findBlock(i);
    if (!buf)
@@ -874,6 +878,9 @@ QString KateBuffer::textLine(uint i)
       parseBlock(buf);
    }
 
+   if (withoutTrailingSpaces)
+     return buf->line(i - buf->startLine())->withoutTrailingSpaces();
+   
    return buf->line(i - buf->startLine())->string();
 }
 

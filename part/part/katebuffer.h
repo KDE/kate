@@ -135,7 +135,7 @@ class KateBuffer : public QObject
     /**
      * Return text from line @p i without triggering highlighting
      */
-    QString textLine(uint i);
+    QString textLine(uint i, bool withoutTrailingSpaces = false);
 
     /**
      * Insert @p line in front of line @p i

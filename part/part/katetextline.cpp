@@ -216,9 +216,9 @@ QString TextLine::string (uint startCol, uint length) const
   return QString (m_text.data() + startCol, length);
 }
 
-void TextLine::removeSpaces()
+QString TextLine::withoutTrailingSpaces()
 {
-  truncate(lastChar() + 1);
+  return QConstString (m_text.data(), m_text.size()).string().left (lastChar() + 1);
 }
 
 QChar *TextLine::firstNonSpace() const

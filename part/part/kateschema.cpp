@@ -567,15 +567,15 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   // set colors
   QPalette p ( m_defaultStyles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
-  p.setColor( QPalette::Normal, QColorGroup::Base,
+  p.setColor( QColorGroup::Base,
     KateFactory::self()->schemaManager()->schema(schema)->
       readColorEntry( "Color Background", &_c ) );
   _c = KGlobalSettings::highlightColor();
-  p.setColor( QPalette::Normal, QColorGroup::Highlight,
+  p.setColor( QColorGroup::Highlight,
     KateFactory::self()->schemaManager()->schema(schema)->
       readColorEntry( "Color Selection", &_c ) );
   _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
-  p.setColor( QPalette::Normal, QColorGroup::Text, _c );
+  p.setColor( QColorGroup::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
 
   for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
@@ -703,18 +703,18 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   // the color tab is fixed.
   QPalette p ( m_styles->palette() );
   QColor _c ( KGlobalSettings::baseColor() );
-  p.setColor( QPalette::Normal, QColorGroup::Base,
+  p.setColor( QColorGroup::Base,
     KateFactory::self()->schemaManager()->schema(m_schema)->
       readColorEntry( "Color Background", &_c ) );
   _c = KGlobalSettings::highlightColor();
-  p.setColor( QPalette::Normal, QColorGroup::Highlight,
+  p.setColor( QColorGroup::Highlight,
     KateFactory::self()->schemaManager()->schema(m_schema)->
       readColorEntry( "Color Selection", &_c ) );
   // ahem, *assuming* that normal text is the first item :o
   _c = m_hlDict[m_schema]->find(m_hl)->first()->textColor();
   if ( ! _c.isValid() )
     _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
-  p.setColor( QPalette::Normal, QColorGroup::Text, _c );
+  p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
   // wilbert: make captions from the buildprefixes
@@ -1437,6 +1437,7 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       p->setFont( is->font(f) );
       // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
       // Maybe I need painting the string myself :(
+      // (wilbert) it depends on the font used
       QListViewItem::paintCell( p, mcg, col, width, align );
     }
     break;

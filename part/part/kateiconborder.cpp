@@ -294,9 +294,9 @@ void KateIconBorder::paintLine(int i,int pos)
   // folding markers
   if  (myView->iconBorderStatus & FoldingMarkers)
   {
-    p.fillRect(lnX,y,iconPaneWidth-2,fontHeight,colorGroup().light());
+    p.fillRect(lnX,y,iconPaneWidth/*-2*/,fontHeight,colorGroup().light());
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
+    //p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
 
     p.setPen(black);
     KateLineInfo info;
@@ -376,9 +376,9 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   // folding markers
   if  (myView->iconBorderStatus & FoldingMarkers)
   {
-    p.fillRect(0,0,iconPaneWidth-2,height(),colorGroup().light());
+    p.fillRect(0,0,iconPaneWidth/*-2*/,height(),colorGroup().light());
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine( lnX+iconPaneWidth-1, 0, lnX+iconPaneWidth-1, height() );
+//    p.drawLine( lnX+iconPaneWidth-1, 0, lnX+iconPaneWidth-1, height() );
     lnX+=iconPaneWidth;
   }
 

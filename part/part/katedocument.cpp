@@ -2205,7 +2205,7 @@ bool KateDocument::printDialog ()
   printer.addDialogPage( new KatePrintHeaderFooter(&printer, NULL) );
   printer.addDialogPage( new KatePrintLayout(&printer, NULL) );
 
-   if ( printer.setup( kapp->mainWidget() ) )
+   if ( printer.setup( kapp->mainWidget(), QString("Print %1").arg(printer.docName()) ) )
    {
      KateRenderer renderer(this);
      renderer.setPrinterFriendly(true);
@@ -3348,7 +3348,7 @@ void KateDocument::indent ( KateView *, uint line, int change)
     }
 
     if (config()->configFlags() & KateDocument::cfKeepIndentProfile && change < 0) {
-      // unindent so that the existing indent profile doesn't get screwed
+      // unindent so that the existing indent profile doesnt get screwed
       // if any line we may unindent is already full left, don't do anything
       int adjustedChange = -change;
 

@@ -1,10 +1,39 @@
+<!--    
+        Copyright (c) 2001 Joseph Wenninger <jowenn@kde.org>
+        modified (c) 2002 Anders >Lund anders@alweb.dk>
+        
+        This file describes the XML format used for syntax highlight descriptions
+        for the Kate text editor (http://kate.kde.org), which is part of the KDE
+        desktop environment (http://www.kde.org).
+        
+        This format is identified using the SYSTEM identifier
+        SYSTEM "language.dtd"
+        
+        Files using this format should include a DOCTYPE declaration like this:
+        <!DOCTYPE language SYSTEM "language.dtd">
+-->
+<!ENTITY % ruleattrs
+ "attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text -- 
+  context       NMTOKEN #REQUIRED       -- The name of the context to go to when this rule
+                                           matches --
+  beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
+  endRegion     CDATA   #IMPLIED        -- End a region of type endRegion --"
+>
+
 <!ELEMENT language (highlighting, general?)>
 <!ATTLIST language
-  name CDATA #REQUIRED
+  name          CDATA   #REQUIRED       -- The name of this syntax description. Used in the
+                                           Highlightning Mode menu --
   section (Sources|Markup|Other|Scripts) #REQUIRED
-  extensions CDATA #REQUIRED
-  mimetype CDATA #REQUIRED
-  casesensitive (0|1) #IMPLIED
+                                        -- The logical group to which this syntax description
+                                           belongs. Used for sub menus --
+  extensions    CDATA   #REQUIRED       -- A file glob or pattern to decide for which documents
+                                           to use this syntax description --
+  mimetype      CDATA   #REQUIRED       -- A list of mimetypes to decide for which documents
+                                           to use this syntax description --
+  version       CDATA   #IMPLIED        -- Version number of this syntax description --
+  kateverison   CDATA   #IMPLIED        -- Kate version required for using this file --
+  casesensitive (0|1)   #IMPLIED        -- ?? --
 >
 
 <!ELEMENT general (comments?, keywords?)>
@@ -28,7 +57,8 @@
   weakDeliminator CDATA #IMPLIED
 >
 
-<!ELEMENT highlighting (list*, contexts, itemDatas)>
+<!ELEMENT highlighting (list*, contexts, itemDatas) -- Data, rules and attributes for 
+                                           analyzing and rendering the relevant type of text -- >
 <!ATTLIST highlighting
 >
 
@@ -41,119 +71,121 @@
 
 <!ELEMENT contexts (context)+>
 
-<!ELEMENT context (keyword | Float | HlCOct | HlCHex | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar)*>
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
 <!ATTLIST context
   attribute CDATA #REQUIRED
   lineEndContext NMTOKEN #REQUIRED
   lineBeginContext NMTOKEN #IMPLIED
   name CDATA #IMPLIED
+  fallthrough (false|true) #IMPLIED
+  fallthroughContext NMTOKEN #IMPLIED
 >
 
-<!ELEMENT keyword EMPTY>
+<!ELEMENT keyword EMPTY                 -- Test for occurrence of members of a keyword list -- >
 <!ATTLIST keyword
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
   String (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+                                        -- The name of the list to try --
   weakDelimiter CDATA #IMPLIED
 >
 
-<!ELEMENT Float (AnyChar)*>
+<!ELEMENT Float (AnyChar)*              -- Detect a floating point number -- >
 <!ATTLIST Float
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT HlCOct EMPTY>
+<!ELEMENT HlCOct EMPTY                  -- Detect a octal number -- >
 <!ATTLIST HlCOct
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT HlCHex EMPTY>
+<!ELEMENT HlCHex EMPTY                  -- Detect a hexadecimal number -- >
 <!ATTLIST HlCHex
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT HlCChar EMPTY>
+<!ELEMENT HlCChar EMPTY                 --  -- >
 <!ATTLIST HlCChar
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT Int (StringDetect)*>
+<!ELEMENT Int (StringDetect)*           -- Detect an integer number -- >
 <!ATTLIST Int
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT DetectChar EMPTY>
+<!ELEMENT DetectChar EMPTY              -- Detect a single character -- >
 <!ATTLIST DetectChar
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
-  char CDATA #REQUIRED
+  char          CDATA   #REQUIRED       -- The character to look for --
+  %ruleattrs;
 >
 
-<!ELEMENT Detect2Chars EMPTY>
+<!ELEMENT Detect2Chars EMPTY            -- Detect two characters -- >
 <!ATTLIST Detect2Chars
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
-  char CDATA #REQUIRED
-  char1 CDATA #REQUIRED
+  char          CDATA   #REQUIRED       -- The first character --
+  char1         CDATA   #REQUIRED       -- The second character --
+  %ruleattrs;
 >
 
-<!ELEMENT AnyChar EMPTY>
+<!ELEMENT AnyChar EMPTY                 -- Detect any of a group of characters -- >
 <!ATTLIST AnyChar
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
-  String CDATA #REQUIRED
+  String        CDATA   #REQUIRED       -- A string representing the characters to look for --
+  %ruleattrs;
 >
 
-<!ELEMENT StringDetect EMPTY>
+<!ELEMENT StringDetect EMPTY            -- Detect a string -- >
 <!ATTLIST StringDetect
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
-  String CDATA #REQUIRED
-  insensitive (TRUE|FALSE) #REQUIRED
+  String        CDATA   #REQUIRED       -- The string to look for --
+  insensitive (TRUE|FALSE) #REQUIRED    -- Wheather to match case insensitive or not.
+                                           Defaults to false --
+  %ruleattrs;
 >
 
-<!ELEMENT RegExpr EMPTY>
+<!ELEMENT RegExpr EMPTY                 -- Detect text matching a regular expression -- >
 <!ATTLIST RegExpr
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
-  String CDATA #REQUIRED
+  String        CDATA   #REQUIRED       -- The regular expression pattern --
+  insensitive (false|true) #IMPLIED     -- Wheather to match insensitive or not
+                                           Defaults to false --
+  minimal (false|true) #IMPLIED         -- Wheather to use minimal matching for wild cards
+                                           in the pattern Defaults to false --
+  %ruleattrs;
 >
 
-<!ELEMENT LineContinue EMPTY>
+<!ELEMENT LineContinue EMPTY            --  -- >
 <!ATTLIST LineContinue
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT HlCStringChar EMPTY>
+<!ELEMENT HlCStringChar EMPTY           -- Detect a C style escaped character -- >
 <!ATTLIST HlCStringChar
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
+  %ruleattrs;
 >
 
-<!ELEMENT RangeDetect EMPTY>
+<!ELEMENT RangeDetect EMPTY             -- Detect a range of characters -- >
 <!ATTLIST RangeDetect
-  attribute CDATA #REQUIRED
-  context NMTOKEN #REQUIRED
-  char CDATA #REQUIRED
-  char1 CDATA #REQUIRED
+  char          CDATA   #REQUIRED       -- The character starting the range --
+  char1         CDATA   #REQUIRED       -- The character terminating the range --
+  %ruleattrs;
 >
 
-<!ELEMENT itemDatas (itemData)+>
+<!ELEMENT IncludeRules EMPTY            -- Include another context at this position -- >
+<!ATTLIST IncludeRules
+  context       NMTOKEN #REQUIRED       -- The name or index of the context to include -- 
+>
+
+<!ELEMENT itemDatas (itemData)+         -- Attribute list -- >
 <!ATTLIST itemDatas
 >
 
-<!ELEMENT itemData EMPTY>
+<!ELEMENT itemData EMPTY                -- One attribute or typographic style -- >
 <!ATTLIST itemData
-  name CDATA #REQUIRED
-  defStyleNum CDATA #REQUIRED
-  color CDATA #IMPLIED
-  selColor CDATA #IMPLIED
-  italic CDATA #IMPLIED
-  bold CDATA #IMPLIED
+  name          CDATA   #REQUIRED       -- The name of this attribute --
+  defStyleNum   CDATA   #REQUIRED       -- The index of the default style to use --
+  color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name 
+                                           or some other format recognized by Qt --
+  selColor      CDATA   #IMPLIED        -- The color for this style when text is selected --
+  italic        CDATA   #IMPLIED        -- Wheather this attribute should be rendered using
+                                           an italic typeface --         
+  bold          CDATA   #IMPLIED        -- Wheather this attribute should be renederd using
+                                           a bold typeface --
 >

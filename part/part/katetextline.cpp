@@ -403,6 +403,7 @@ char *KateTextLine::restore (char *buf)
 
 void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *renderer, QTextStream *outputStream) const
 {
+  if(length == 0) return;
   // some variables :
   bool previousCharacterWasBold = false;
   bool previousCharacterWasItalic = false;
@@ -411,7 +412,8 @@ void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *render
   // need to reinitialize the <b> and <i> tags.
   bool needToReinitializeTags = false;
   QColor previousCharacterColor(0,0,0); // default color of HTML characters is black
-  (*outputStream) << "<span style='color: #000000'>";
+  QColor blackColor(0,0,0);
+//  (*outputStream) << "<span style='color: #000000'>";
 
   
   // for each character of the line : (curPos is the position in the line)
@@ -433,12 +435,14 @@ void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *render
           (*outputStream) << "</i>";
 
         // close the previous font tag :
-        (*outputStream) << "</span>";
+	if(previousCharacterColor != blackColor)
+          (*outputStream) << "</span>";
         // let's read that color :
         int red, green, blue;
         // getting the red, green, blue values of the color :
         charAttributes->textColor().rgb(&red, &green, &blue);
-        (*outputStream) << "<span style='color: #"
+	if(!(red == 0 && green == 0 && blue == 0)) {
+          (*outputStream) << "<span style='color: #"
               << ( (red < 0x10)?"0":"")  // need to put 0f, NOT f for instance. don't touch 1f.
               << QString::number(red, 16) // html wants the hex value here (hence the 16)
               << ( (green < 0x10)?"0":"")
@@ -446,6 +450,7 @@ void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *render
               << ( (blue < 0x10)?"0":"")
               << QString::number(blue, 16)
               << "'>";
+	}
         // we need to reinitialize the bold/italic status, since we closed all the tags
         needToReinitializeTags = true;
       }
@@ -482,9 +487,8 @@ void KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *render
   if (previousCharacterWasItalic)
     (*outputStream) << "</i>";
 
-  // HTML document end :
-  (*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
-
+  if(previousCharacterColor != blackColor)
+    (*outputStream) << "</span>";
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

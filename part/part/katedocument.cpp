@@ -661,7 +661,6 @@ void KateDocument::textAsHtmlStream ( uint startLine, uint startCol, uint endLin
         (*ts) << "\n";    //we are inside a <pre>, so a \n is a new line
     }
   }
-  (*ts) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
   (*ts) << "</pre>";
 }
 

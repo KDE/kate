@@ -418,17 +418,19 @@ void KateBuffer::clear()
     
   m_blocks.clear ();
 
-  m_highlight = 0;
-
   // create a bufblock with one line, we need that, only in openFile we won't have that
   KateBufBlock *block = new KateBufBlock(this, 0, 0);
   m_blocks.append (block);
 
+  // reset the state
   m_lines = block->lines();
-
   m_highlightedTo = 0;
   m_highlightedRequested = 0;
   m_lastInSyncBlock = 0;
+  m_lastFoundBlock = 0;
+  m_cacheWriteError = false;
+  m_cacheReadError = false;
+  m_loadingBorked = false;
 
   emit linesChanged(m_lines);
 }
@@ -503,59 +505,58 @@ bool KateBuffer::openFile (const QString &m_file)
 
   // flush current content
   clear();
-   
-  // cleanup the blocks  
-  for (uint i=0; i < m_blocks.size(); i++)
-    delete m_blocks[i];
-    
-  m_blocks.clear ();
-  
-  m_lines = 0;
-
-  // start with not borked
-  m_loadingBorked = false;
 
   // do the real work
   bool eof = false;
-  KateBufBlock *prev = 0;
-  while (true)
+  KateBufBlock *block = 0;
+  bool first = true;
+  while (!m_cacheWriteError && !eof && !stream.atEnd())
   {
-    if (stream.atEnd())
-      eof = true;
+    if (first) // reuse first block !
+    {
+      block = m_blocks[0];
+      eof = block->fillBlock (&stream, lastCharEOL);
+      
+      first = false;
+    }
+    else // create new block
+    {  
+      block = new KateBufBlock(this, block, 0);
+      eof = block->fillBlock (&stream, lastCharEOL);
+      
+      if (block->lines() == 0)
+      {
+        delete block;
+        break;
+      }
+      else
+        m_blocks.append (block);
+    }
 
-    if (eof)
-      break;
-
-    if (m_cacheWriteError)
-      break;
-
-    KateBufBlock *block = new KateBufBlock(this, prev, 0);
-    eof = block->fillBlock (&stream, lastCharEOL);
-
-    m_blocks.append (block);
-
-    prev = block;
+    // update lines if we got a new block ready !
     m_lines = block->endLine ();
   }
-
+  
+  // we had a cache write error, this load is really borked !
   if (m_cacheWriteError)
-  {
     m_loadingBorked = true;
-  }
-
-  if (m_cacheWriteError)
-    kdDebug(13020)<<"Loading failed, no room for temp-file.\n";
-  else
-    kdDebug(13020)<<"Loading finished.\n";
-
-  // trigger the creation of a block with one line if there is no data in the buffer now
-  // THIS IS IMPORTANT, OR CRASH WITH EMPTY FILE
-  if (m_blocks.isEmpty() || (count () == 0))
+  
+  if (m_lines == 0)
+  {
+    // file was really empty, clean the buffers + emit the line changed
+    // loadingBorked will be false for such files, not matter what happened
+    // before
     clear ();
+  }
   else
+  {
+    // fix region tree
     m_regionTree.fixRoot (m_lines);
 
-  emit linesChanged(m_lines);
+    // emit the new line count
+    emit linesChanged(m_lines);
+  }
+  
   emit loadingFinished ();
 
   return !m_loadingBorked;
@@ -644,7 +645,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   file.close ();
 
   m_loadingBorked = false;
-
+  
   return (file.status() == IO_Ok);
 }
 
@@ -1411,6 +1412,9 @@ KateBufBlock::~KateBufBlock ()
 
 bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 {
+  if (m_state != KateBufBlock::stateLoaded)
+    return true;
+
   m_lines = 0;
   m_rawData.resize (KATE_AVG_BLOCK_SIZE);
   
@@ -1424,7 +1428,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   {
     QString line = stream->readLine();
 
-    if (!(!lastCharEOL && stream->atEnd() && line.isNull()))
+    if (lastCharEOL || !stream->atEnd() || !line.isNull())
     {
       uint length = line.length ();
       size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
@@ -1461,8 +1465,6 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   {
     m_rawData.resize (size);
   }
-
-  setState (KateBufBlock::stateLoaded);
 
   return eof;
 }

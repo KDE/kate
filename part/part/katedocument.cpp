@@ -457,7 +457,7 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 uint KateDocument::configPages () const
 {
-  return 10;
+  return 11;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
@@ -493,6 +493,9 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
 
     case 9:
       return saveConfigPage( parent );
+
+    case 10:
+      return new SpellConfigPage( parent, m_kspellConfig );
 
     default:
       return 0;
@@ -533,6 +536,9 @@ QString KateDocument::configPageName (uint number) const
     case 9:
       return i18n("Saving");
 
+    case 10:
+      return i18n("Spelling");
+
     default:
       return 0;
   }
@@ -572,6 +578,9 @@ QString KateDocument::configPageFullName (uint number) const
     case 9:
       return i18n("Saving & Backups");
 
+    case 10:
+      return i18n("Spell Checker Behavior");
+
     default:
       return 0;
   }
@@ -610,6 +619,9 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
 
     case 9:
       return BarIcon("filesave", size);
+
+    case 10:
+      return BarIcon("spellcheck", size);
 
     default:
       return 0;

@@ -52,6 +52,7 @@
 #include <kcolorbutton.h>
 #include <qcolor.h>
 #include <ktrader.h>
+#include <kspell.h>
 
 
 class QWidgetStack;
@@ -393,6 +394,17 @@ class HlEditDialog : public KDialogBase
     void ItemContextChanged(int cont);
     void ItemPopCountChanged(int count);
     void ItemAddNew();
+};
+
+class SpellConfigPage : public Kate::ConfigPage
+{
+	Q_OBJECT
+public:
+	SpellConfigPage( QWidget* parent, KSpellConfig* config );
+	~SpellConfigPage() {};
+	void apply() {};
+      void reset () { ; };
+    void defaults () { ; };
 };
 
 #endif

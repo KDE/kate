@@ -1373,3 +1373,9 @@ QStringList KMimeTypeChooserDlg::patterns()
   return chooser->patterns();
 }
 
+SpellConfigPage::SpellConfigPage( QWidget* parent, KSpellConfig* config )
+	: Kate::ConfigPage( parent)
+{
+	QVBoxLayout* l = new QVBoxLayout( this );
+	l->addWidget( new KSpellConfig( this, 0L, config, false ) );
+}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="C++" section="Sources"
-          version="1.48" kateversion="2.4"
+          version="1.49" kateversion="2.4"
           indenter="cstyle"
           mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
           extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc"
@@ -23,6 +23,7 @@
       <item> constexpr </item>
       <item> const_cast </item>
       <item> continue </item>
+      <item> decltype </item>
       <item> default </item>
       <item> delete </item>
       <item> do </item>
@@ -40,6 +41,7 @@
       <item> inline </item>
       <item> namespace </item>
       <item> new </item>
+      <item> nullptr </item>
       <item> operator </item>
       <item> private </item>
       <item> protected </item>

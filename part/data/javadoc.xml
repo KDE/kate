@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Javadoc" version="1.01" kateversion="2.4" section="Markup" license="LGPL" author="Alfredo Luiz Foltran Fialho (alfoltran@ig.com.br)">
+	<highlighting>
+		<contexts>
+			<context name="Start" attribute="Normal Text" lineEndContext="#stay">
+				<IncludeRules context="FindJavadoc" />
+			</context>
+			<context name="FindJavadoc" attribute="Normal Text" lineEndContext="#stay">
+				<StringDetect attribute="JavadocFS" context="JavadocFSar" String="/**" beginRegion="Javadoc"/>
+			</context>
+			<context attribute="JavadocFS" lineEndContext="#stay" name="JavadocFSar">
+				<Detect2Chars attribute="JavadocFS" context="#pop" char="*" char1="/" endRegion="Javadoc"/>
+				<RegExpr attribute="JavadocFS" context="Javadocar" String="(\.|!|\?)(\s|$)" />
+				<RegExpr attribute="JavadocFS" context="Javadocar" String=".(?=@(author|deprecated|exception|param|return|see|serial|serialData|serialField|since|throws|version)(\s|$))" />
+				<StringDetect attribute="InlineTag" context="#stay" String="{@docRoot}" />
+				<StringDetect attribute="InlineTag" context="#stay" String="{@inheritDoc}" />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@link " />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@link&#009;" />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@linkplain " />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@linkplain&#009;" />
+				<StringDetect attribute="InlineTag" context="#stay" String="{@value}" />
+				<IncludeRules context="##HTML"/>
+			</context>
+			<context attribute="Javadoc" lineEndContext="#stay" name="Javadocar">
+				<Detect2Chars attribute="JavadocFS" context="#pop#pop" char="*" char1="/" endRegion="Javadoc"/>
+				<RegExpr attribute="JavadocFS" context="#stay" String="^\s*\*(?!/)" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@author " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@deprecated " />
+				<StringDetect attribute="BlockTag" context="JavadocParam" String="@exception " />
+				<StringDetect attribute="BlockTag" context="JavadocParam" String="@param " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@return " />
+				<StringDetect attribute="BlockTag" context="SeeTag" String="@see "/>
+				<StringDetect attribute="BlockTag" context="#stay" String="@serial " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@serialData " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@serialField " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@since " />
+				<StringDetect attribute="BlockTag" context="JavadocParam" String="@throws " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@version " />
+				<StringDetect attribute="BlockTag" context="#stay" String="@author&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@deprecated&#009;" />
+				<StringDetect attribute="BlockTag" context="JavadocParam" String="@exception&#009;" />
+				<StringDetect attribute="BlockTag" context="JavadocParam" String="@param&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@return&#009;" />
+				<StringDetect attribute="BlockTag" context="SeeTag" String="@see&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@serial&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@serialData&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@serialField&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@since&#009;" />
+				<StringDetect attribute="BlockTag" context="JavadocParam" String="@throws&#009;" />
+				<StringDetect attribute="BlockTag" context="#stay" String="@version&#009;" />
+				<StringDetect attribute="InlineTag" context="#stay" String="{@docRoot}" />
+				<StringDetect attribute="InlineTag" context="#stay" String="{@inheritDoc}" />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@link " />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@link&#009;" />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@linkplain " />
+				<StringDetect attribute="InlineTag" context="InlineTagar" String="{@linkplain&#009;" />
+				<StringDetect attribute="InlineTag" context="#stay" String="{@value}" />
+				<IncludeRules context="##HTML"/>
+			</context>
+			<context attribute="Javadoc" lineEndContext="#pop" name="JavadocParam">
+				<RegExpr attribute="JavadocParam" context="#pop" String="\s*\S*(\s|$)" />
+			</context>
+			<context attribute="InlineTag" lineEndContext="#pop" name="InlineTagar">
+				<DetectChar attribute="InlineTag" context="#pop" char="}" />
+			</context>
+			<context attribute="SeeTag" lineEndContext="#pop" name="SeeTag">
+				<IncludeRules context="##HTML"/>
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name="Normal Text"  defStyleNum="dsNormal"/>
+			<itemData name="BlockTag"     defStyleNum="dsKeyword" color="#808080" selColor="#FFFFFF" bold="1" italic="0"/>
+			<itemData name="InlineTag"    defStyleNum="dsKeyword" color="#808080" selColor="#FFFFFF" bold="0" italic="0"/>
+			<itemData name="JavadocParam" defStyleNum="dsKeyword" color="#008080" selColor="#FFFFFF" bold="0" italic="1"/>
+			<itemData name="SeeTag"       defStyleNum="dsKeyword" color="#008080" selColor="#FFFFFF" bold="0" italic="1"/>
+			<itemData name="JavadocFS"    defStyleNum="dsComment" color="#008000" selColor="#FFFFFF" bold="1" italic="0"/>
+			<itemData name="Javadoc"      defStyleNum="dsComment" color="#008000" selColor="#FFFFFF"/>
+		</itemDatas>
+	</highlighting>
+	<general>
+		<keywords casesensitive="1"/>
+	</general>
+</language>

@@ -199,7 +199,7 @@ KInstance *KateFactory::instance()
 
   if ( !s_instance )
   {
-    s_about = new KAboutData  ("katepart", I18N_NOOP("Kate Part"), "2.0",
+    s_about = new KAboutData  ("katepart", I18N_NOOP("Kate Part"), "2.1",
                                                            I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
                                                            I18N_NOOP( "(c) 2000-2002 The Kate Part Authors" ), 0, "http://kate.kde.org");
 

@@ -38,7 +38,7 @@ class KateFontMetrics : public QFontMetrics
 
     int width(QChar c);
 
-    int width(QString s) { return QFontMetrics::width(s); }
+    int width(QString & s) { return QFontMetrics::width(s); }
 
   private:
     short *createRow (short *wa, uchar row);
@@ -63,7 +63,7 @@ class FontStruct
 
     QFont & getFont(bool bold, bool italic);
 
-    void setFont(QFont font);
+    void setFont(QFont & font);
 
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;

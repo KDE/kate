@@ -126,7 +126,7 @@ QFont & FontStruct::getFont(bool bold, bool italic)
     ( (italic) ? myFontItalic : myFont );
 }
 
-void FontStruct::setFont (QFont font)
+void FontStruct::setFont (QFont & font)
 {
   myFont = font;
 

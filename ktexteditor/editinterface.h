@@ -35,6 +35,11 @@ class EditInterface
     virtual QString text () const = 0;
 
     /**
+    * @return a QString
+    */
+    virtual QString text ( int line, int col, int len ) const = 0;
+
+    /**
     * @return All the text from the requested line.
     */
     virtual QString textLine ( int line ) const = 0;
@@ -48,6 +53,11 @@ class EditInterface
     * @return the number of characters in the document
     */
     virtual int length () const = 0;
+
+    /**
+    * @return the number of characters in the line
+    */
+    virtual int lineLength ( int line ) const = 0;
 
     /**
     * Set the given text into the view.

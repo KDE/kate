@@ -38,6 +38,7 @@
 #include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qcursor.h>
+#include <qstyle.h>
 
 using namespace KTextEditor;
 
@@ -124,7 +125,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_maxCharWidth( 0 )
 {                            
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
-            
+
   setBackgroundMode( NoBackground );
   
   m_doc->setDescription( MarkInterface::markType01, i18n("Bookmark") );
@@ -169,7 +170,7 @@ void KateIconBorder::setFoldingMarkersOn( bool enable )
 QSize KateIconBorder::sizeHint() const
 {
   int w = 0;
-  
+
   if (m_lineNumbersOn) {
     w += lineNumberWidth();
   }
@@ -201,17 +202,45 @@ void KateIconBorder::updateFont()
   // 48 is ascii '0'
   for (int i = 48; i < 58; i++) {
     int charWidth = fm.width( QChar(i) );
-    if (charWidth > m_maxCharWidth) m_maxCharWidth = charWidth;
+    m_maxCharWidth = QMAX(m_maxCharWidth, charWidth);
   }
 }
 
 int KateIconBorder::lineNumberWidth() const
 {
-  return ((int)log10(m_view->doc()->numLines()) + 1) * m_maxCharWidth + 4;
+  int width = ((int)log10(m_view->doc()->numLines()) + 1) * m_maxCharWidth + 4;
+
+  if (m_cachedLNWidth != width) {
+    int w = QMIN(style().scrollBarExtent().width(), width - 4);
+    int h = m_doc->getFontMetrics(KateDocument::ViewFont).height();
+
+    QSize newSize(w, h);
+    if (m_arrow.size() != newSize && !newSize.isEmpty()) {
+      m_arrow.resize(newSize);
+
+      QPainter p(&m_arrow);
+      p.fillRect( 0, 0, w, h, m_doc->colors[0] );
+
+      h = m_doc->getFontMetrics(KateDocument::ViewFont).ascent();
+
+      p.setPen(m_doc->colors[4]);
+      p.drawLine(w/2, h/2, w/2, 0);
+      p.lineTo(w*3/4, h/4);
+      p.lineTo(w-1,0);
+      p.lineTo(w-1, h/2);
+      p.lineTo(w/2, h-1);
+      p.lineTo(w/4,h-1);
+      p.lineTo(0, h*3/4);
+      p.lineTo(w/4, h/2);
+      p.lineTo(w-1, h/2);
+    }
+  }
+
+  return width;
 }
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
-{      
+{
   QRect updateR = e->rect();
   paintBorder (updateR.x(), updateR.y(), updateR.width(), updateR.height());
 }
@@ -228,7 +257,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   if ( m_lineNumbersOn ) // avoid calculating unless needed ;-)
   {
     lnWidth = lineNumberWidth();
-    if ( lnWidth != m_cachedLNWidth ) 
+    if ( lnWidth != m_cachedLNWidth )
     {
       // we went from n0 ->n9 lines or vice verca
       // this causes an extra updateGeometry() first time the line numbers
@@ -242,20 +271,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   }
 
   int w( this->width() );                     // sane value/calc only once
-  int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once 
+  int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once
 
   QPainter p ( this );
   p.setFont ( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
   p.setPen ( m_doc->myAttribs[0].col );
-  
+
   for (uint z=startz; z <= endz; z++)
   {
     int y = h * z;
     int realLine = -1;
-    
+
     if (z < lineRangesSize)
      realLine = m_viewInternal->lineRanges[z].line;
-    
+
     //int y = line * fontHeight; // see below
     int lnX ( 0 );
   
@@ -269,10 +298,12 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     {
       lnX +=2;
       p.drawLine( lnbx, y, lnbx, y+h );
-      
-      if ( (realLine > -1) && (m_viewInternal->lineRanges[z].startCol == 0) )
-        p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter,
-          QString("%1").arg( realLine + 1 ) );
+
+      if (realLine > -1)
+        if (m_viewInternal->lineRanges[z].startCol == 0)
+          p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+        else
+          p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
 
       lnX += lnWidth;
     }

@@ -28,7 +28,6 @@
 #include "katecodecompletion_arghint.h"
 #include "katedocument.h"
 #include "kateview.h"
-#include "kateviewinternal.h"
 
 #include <qwhatsthis.h>
 #include <qtimer.h>

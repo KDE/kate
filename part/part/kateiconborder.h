@@ -3,7 +3,7 @@
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -23,6 +23,7 @@
 #define _KateIconBorder_H_
 
 #include <qwidget.h>
+#include <qpixmap.h>
 
 class KateIconBorder : public QWidget
 {
@@ -34,7 +35,7 @@ class KateIconBorder : public QWidget
 
     // VERY IMPORTANT ;)
     virtual QSize sizeHint() const;
-    
+
     void updateFont();
     int lineNumberWidth() const;
     
@@ -76,7 +77,9 @@ class KateIconBorder : public QWidget
     uint m_lastClickedLine;
     
     int m_cachedLNWidth;
-    
+
     int m_maxCharWidth;
+
+    mutable QPixmap m_arrow;
 };
 #endif

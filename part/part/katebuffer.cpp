@@ -512,7 +512,6 @@ bool KateBuffer::openFile (const QString &m_file)
   }
 
   // detect eol --- FIXME if you have time ;)
-  int eol = KateDocumentConfig::eolUnix;
   int lastCh = 0;
   while (true)
   {
@@ -527,20 +526,21 @@ bool KateBuffer::openFile (const QString &m_file)
 
        if (ch == '\n')
        {
-          eol = KateDocumentConfig::eolDos;
+         m_doc->config()->setEol (KateDocumentConfig::eolDos);
          break;
        }
        else
        {
-         eol = KateDocumentConfig::eolMac;
+         m_doc->config()->setEol (KateDocumentConfig::eolMac);
          break;
        }
      }
      else if (ch == '\n')
+     {
+       m_doc->config()->setEol (KateDocumentConfig::eolUnix);
        break;
+     }
   }
-
-  m_doc->config()->setEol (eol);
 
   f.close ();
 

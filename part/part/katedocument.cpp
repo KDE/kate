@@ -2725,55 +2725,6 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
 
   editEnd ();
 
-/*
-  // FIXME anders: Make this work...
-  if (myWordWrap && myWordWrapAt > 0) {
-    int line;
-    const QChar *s;
-//    int pos;
-    KateTextCursor actionCursor;
-
-    line = c.cursor.line;
-    do {
-      textLine = getTextLine(line);
-      s = textLine->getText();
-      l = textLine->length();
-      for (z = myWordWrapAt; z < l; z++) if (!s[z].isSpace()) break; //search for text to wrap
-      if (z >= l) break; // nothing more to wrap
-      pos = myWordWrapAt;
-      for (; z >= 0; z--) { //find wrap position
-        if (s[z].isSpace()) {
-          pos = z + 1;
-          break;
-        }
-      }
-      //pos = wrap position
-
-      if (line == c.cursor.line && pos <= c.cursor.col) {
-        //wrap cursor
-        c.cursor.line++;
-        c.cursor.col -= pos;
-      }
-
-      if (line == lastLine() || (getTextLine(line+1)->length() == 0) ) {
-        //at end of doc: create new line
-        actionCursor.col = pos;
-        actionCursor.line = line;
-        recordAction(KateUndo::newLine,actionCursor);
-      } else {
-        //wrap
-        actionCursor.line = line + 1;
-        if (!s[l - 1].isSpace()) { //add space in next line if necessary
-          actionCursor.col = 0;
-          recordInsert(actionCursor, " ");
-        }
-        actionCursor.col = textLine->length() - pos;
-        recordAction(KateUndo::wordWrap, actionCursor);
-      }
-      line++;
-    } while (true);
-  } */
-
   emit charactersInteractivelyInserted(savedLine,savedCol,savedChars);
   return true;
 }

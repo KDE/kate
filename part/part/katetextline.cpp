@@ -168,7 +168,10 @@ uint TextLine::indentDepth (uint tabwidth) const
     if(m_text[i].isSpace())
     {
       if (m_text[i] == t)
+      {
         d += tabwidth;
+        d -= d % tabwidth;
+      }
       else
         d++;
     }

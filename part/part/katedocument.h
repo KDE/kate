@@ -335,7 +335,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     Kate::ConfigPage *editConfigPage (QWidget *);
     Kate::ConfigPage *keysConfigPage (QWidget *);
     Kate::ConfigPage *hlConfigPage (QWidget *);
-
+    Kate::ConfigPage *viewDefaultsConfigPage (QWidget *);
+    
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
 

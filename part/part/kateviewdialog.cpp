@@ -515,6 +515,42 @@ void EditConfigTab::wordWrapToggled() {
   e1->setEnabled(opt[0]->isChecked());
 }
 
+
+ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocument *doc)
+	:Kate::ConfigPage(parent)
+{
+	m_doc = doc;
+	
+	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+	m_line=new QCheckBox(i18n("Show line numbers"),this);
+	m_icons=new QCheckBox(i18n("Show iconborder"),this);
+	m_folding=new QCheckBox(i18n("Show folding markers if available"),this);
+	blay->addWidget(m_line,0);
+	blay->addWidget(m_icons,0);
+	blay->addWidget(m_folding,0);	
+	blay->addStretch(1000);
+	reload();
+	}
+
+
+ViewDefaultsConfig::~ViewDefaultsConfig()
+{
+}
+
+
+void ViewDefaultsConfig::apply ()
+{
+}
+
+void ViewDefaultsConfig::reload ()
+{
+	
+}    
+
+void ViewDefaultsConfig::reset () {;}
+
+void ViewDefaultsConfig::defaults (){;}
+
 ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {

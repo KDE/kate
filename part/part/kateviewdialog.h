@@ -184,6 +184,28 @@ class EditConfigTab : public Kate::ConfigPage
     void wordWrapToggled();
 };
 
+class ViewDefaultsConfig : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+public:
+  ViewDefaultsConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
+  ~ViewDefaultsConfig();
+
+private:
+  KateDocument *m_doc;
+  
+  QCheckBox *m_line;
+  QCheckBox *m_folding;
+  QCheckBox *m_icons;
+  
+public slots:
+ void apply ();
+ void reload ();    
+ void reset ();
+ void defaults ();  
+};
+
 class ColorConfig : public Kate::ConfigPage
 {
   Q_OBJECT

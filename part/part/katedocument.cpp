@@ -265,7 +265,7 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 uint KateDocument::configPages () const
 {
-  return 8;
+  return 9;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
@@ -292,8 +292,11 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
 
     case 6:
       return hlConfigPage (parent);
-      
+
     case 7:
+      return viewDefaultsConfigPage(parent);
+      
+    case 8:
       return new PluginConfigPage (parent, this);
 
     default:
@@ -325,8 +328,11 @@ QString KateDocument::configPageName (uint number) const
 
     case 6:
       return i18n ("Highlighting");
-      
+
     case 7:
+      return i18n ("View defaults");     
+     
+    case 8:
       return i18n ("Plugins");
 
     default:
@@ -358,8 +364,11 @@ QString KateDocument::configPageFullName (uint number) const
 
     case 6:
       return i18n ("Highlighting Rules");
-      
+
     case 7:
+      return i18n("View Defaults");
+    
+    case 8:
       return i18n ("Plugin Manager");
 
     default:
@@ -391,8 +400,11 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
 
     case 6:
       return BarIcon("misc", size);
-      
+   
     case 7:
+      return BarIcon("misc",size);
+      
+    case 8:
       return BarIcon("misc", size);
 
     default:
@@ -942,7 +954,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);
-  regionTree->lineHasBeenRemoved(line); //TEST
+  regionTree->lineHasBeenRemoved(line);
   if (!myMarks.isEmpty())
   {
     bool b = false;
@@ -1749,6 +1761,11 @@ void KateDocument::configDialog()
                         BarIcon("edit",KIcon::SizeMedium));
   Kate::ConfigPage *mhlConfigPage = hlConfigPage (page);
 
+  page=kd->addVBoxPage(i18n("View defaults"),i18n("View Defaults"),
+                        BarIcon("misc",KIcon::SizeMedium));
+  Kate::ConfigPage *mvdConfigPage = viewDefaultsConfigPage (page);
+
+
   if (kd->exec())
   {
     mcolorConfigPage->apply();
@@ -1758,7 +1775,7 @@ void KateDocument::configDialog()
     meditConfigPage->apply();
     mkeysConfigPage->apply();
     mhlConfigPage->apply();
-
+    mvdConfigPage->apply();
     // save the config, reload it to update doc + all views
     writeConfig();
     readConfig();
@@ -2662,7 +2679,7 @@ void KateDocument::backspace( const KateTextCursor& c )
     // col == 0: wrap to previous line
     if (line >= 1)
     {
-      regionTree->lineHasBeenRemoved(line);
+      //regionTree->lineHasBeenRemoved(line);
       removeText (line-1, buffer->line(line-1)->length(), line, 0);
     }
   }
@@ -4026,6 +4043,12 @@ Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
 {
   return (Kate::ConfigPage*) new ColorConfig(p, "", this);
 }
+
+Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)
+{
+  return (Kate::ConfigPage*) new ViewDefaultsConfig(p, "", this);
+}
+
 
 Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
 {

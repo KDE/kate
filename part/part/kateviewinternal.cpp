@@ -48,10 +48,13 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_doc (doc)
 {
   // this will prevent the yScrollbar from jumping around on appear of the xScrollbar 
-  setCornerWidget( new QWidget( this ) );
+  /*setCornerWidget( new QWidget( this ) );
   cornerWidget()->hide();
   cornerWidget()->setFixedSize( style().scrollBarExtent().width(),
-                                style().scrollBarExtent().width() );
+                                style().scrollBarExtent().width() ); */
+                                
+  setVScrollBarMode (QScrollView::AlwaysOn);
+  setHScrollBarMode (QScrollView::AlwaysOn);
                                 
   // iconborder ;)
   leftBorder = new KateIconBorder( this );

@@ -871,7 +871,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
     // current line
     KateTextLine::Ptr textLine = buf->line(current_line);
 
-    QMemArray<signed char> foldingList;
+    QMemArray<uint> foldingList;
     bool ctxChanged = false;
 
     m_highlight->doHighlight (prevLine, textLine, &foldingList, &ctxChanged);
@@ -984,14 +984,39 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
           foldingList[z] = -1;
       }
     }
+    bool foldingColChanged=false;
+    bool foldingChanged = false; //!(foldingList == textLine->foldingListArray());
+    if (foldingList.size()!=textLine->foldingListArray().size()) {
+      foldingChanged=true;
+    } else {
+      QMemArray<uint>::ConstIterator it=foldingList.begin();
+      QMemArray<uint>::ConstIterator it1=textLine->foldingListArray();
+      bool markerType=true;
+      for(;it!=foldingList.end();++it,++it1) {
+        if  (markerType) {
+          if ( ((*it)!=(*it1))) {
+            foldingChanged=true;
+            foldingColChanged=false;
+            break;
+          }
+        } else {
+            if ((*it)!=(*it1)) {
+              foldingColChanged=true;
+            }
+        }
+        markerType=!markerType;
+      }
+    }
 
-    bool foldingChanged = !(foldingList == textLine->foldingListArray());
-
-    if (foldingChanged)
+    if (foldingChanged || foldingColChanged) {
       textLine->setFoldingList(foldingList);
-
+      if (foldingChanged==false){
+        textLine->setFoldingColumnsOutdated(textLine->foldingColumnsOutdated() | foldingColChanged);
+      } else textLine->setFoldingColumnsOutdated(false);
+    }
     bool retVal_folding = false;
-    m_regionTree.updateLine (current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
+    //perhaps make en enums out of the change flags
+    m_regionTree.updateLine (current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged,foldingColChanged);
 
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
@@ -1018,6 +1043,17 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
   // if we are at the last line of the block + we still need to continue
   // return the need of that !
   return stillcontinue && ((current_line+1) == buf->lines());
+}
+
+void KateBuffer::codeFoldingColumnUpdate(unsigned int lineNr) {
+  KateTextLine::Ptr line=plainLine(lineNr);
+  if (!line) return;
+  if (line->foldingColumnsOutdated()) {
+    line->setFoldingColumnsOutdated(false);
+    bool tmp;
+    QMemArray<uint> folding=line->foldingListArray();
+    m_regionTree.updateLine(lineNr,&folding,&tmp,true,false);
+  }
 }
 
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)

@@ -21,7 +21,7 @@
 //BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"
-
+#include "katekeyinterceptorfunctor.h"
 #include "katefactory.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
@@ -40,7 +40,7 @@
 #include "kateconfig.h"
 #include "katefiletype.h"
 #include "kateschema.h"
-
+#include "katetemplatehandler.h"
 #include <ktexteditor/plugin.h>
 
 #include <kio/job.h>
@@ -105,6 +105,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHdReason (0),
   m_job (0),
   m_tempFile (0),
+  m_tabInterceptor(0),
   m_imStartLine( 0 ),
   m_imStart( 0 ),
   m_imEnd( 0 ),
@@ -112,6 +113,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_imSelEnd( 0 ),
   m_imComposeEvent( false )
 {
+  m_undoComplexMerge=false;
   // my dcop object
   setObjId ("KateDocument#"+documentDCOPSuffix());
 
@@ -756,7 +758,7 @@ bool KateDocument::insertText( uint line, uint col, const QString &s, bool block
     editInsertText (line, col, buf);
 
   editEnd ();
-
+  emit textInserted(line,insertPos);
   return true;
 }
 
@@ -963,7 +965,7 @@ void KateDocument::undoEnd()
 
   if (m_editCurrentUndo)
   {
-    if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo))
+    if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo,m_undoComplexMerge))
       delete m_editCurrentUndo;
     else
       undoItems.append(m_editCurrentUndo);
@@ -995,6 +997,12 @@ void KateDocument::undoCancel()
   // As you can see by the above assert, neither of these should really be required
   delete m_editCurrentUndo;
   m_editCurrentUndo = 0L;
+}
+
+void KateDocument::undoSafePoint() {
+  Q_ASSERT(m_editCurrentUndo);
+  if (!m_editCurrentUndo) return;
+  m_editCurrentUndo->safePoint();
 }
 
 //
@@ -1225,9 +1233,9 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
     it.current()->editTextInserted (line, col, s.length());
-
+  
   editEnd ();
-
+  
   return true;
 }
 
@@ -3021,8 +3029,6 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   if (!textLine)
     return false;
 
-  int oldLine = view->cursorLine ();
-  int oldCol = view->cursorColumnReal ();
 
   bool bracketInserted = false;
   QString buf;
@@ -3052,6 +3058,10 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   if (!(config()->configFlags() & KateDocument::cfPersistent) && hasSelection() )
     removeSelectedText();
 
+  int oldLine = view->cursorLine ();
+  int oldCol = view->cursorColumnReal ();
+
+    
   if (config()->configFlags()  & KateDocument::cfOvr)
     removeText (view->cursorLine(), view->cursorColumnReal(), view->cursorLine(), QMIN( view->cursorColumnReal()+buf.length(), textLine->length() ) );
 
@@ -3285,7 +3295,7 @@ void KateDocument::paste ( KateView* view )
   {
     uint lines = s.contains (QChar ('\n'));
     view->setCursorPositionInternal (line+lines, column);
-  }
+  };
 
   if (m_indenter->canProcessLine())
   {
@@ -3294,6 +3304,7 @@ void KateDocument::paste ( KateView* view )
     editEnd();
   }
 
+  if (!blockSelect) emit charactersSemiInteractivelyInserted (line, column, s);
   m_undoDontMerge = true;
 }
 
@@ -3632,6 +3643,7 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 
   editStart();
 
+#warning "that's a bad idea, can lead to stray endings, FIXME"
   // Try to remove the long start comment mark first
   bool removedStart = (removeStringFromBegining(line, longStartCommentMark)
                        || removeStringFromBegining(line, shortStartCommentMark));
@@ -3803,6 +3815,24 @@ bool KateDocument::removeStartStopCommentFromSelection( int attrib )
   return remove;
 }
 
+bool KateDocument::removeStartStopCommentFromRegion(const KateTextCursor &start,const KateTextCursor &end,int attrib) {
+  QString startComment = m_highlight->getCommentStart( attrib );
+  QString endComment = m_highlight->getCommentEnd( attrib );
+  int startCommentLen = startComment.length();
+  int endCommentLen = endComment.length();
+    
+    bool remove = m_buffer->plainLine(start.line())->stringAtPos(start.col(), startComment)
+      && ( (end.col() - endCommentLen ) >= 0 )
+      && m_buffer->plainLine(end.line())->stringAtPos(end.col() - endCommentLen , endComment);
+      if (remove)  {
+        editStart();
+          removeText(end.line(),end.col()-endCommentLen,end.line(),end.col());
+          removeText(start.line(),start.col(),start.line(),start.col()+startCommentLen);
+        editEnd();
+      }
+      return remove;
+}
+
 /*
   Remove from the begining of each line of the
   selection a start comment line mark.
@@ -3855,7 +3885,7 @@ bool KateDocument::removeStartLineCommentFromSelection( int attrib )
   Comment or uncomment the selection or the current
   line if there is no selection.
 */
-void KateDocument::comment( KateView *, uint line, int change)
+void KateDocument::comment( KateView *, uint line,uint column, int change)
 {
   // We need to check that we can sanely comment the selectino or region.
   // It is if the attribute of the first and last character of the range to
@@ -3939,6 +3969,24 @@ void KateDocument::comment( KateView *, uint line, int change)
                   && removeStartLineCommentFromSingleLine( line, startAttrib ) )
         || ( hasStartStopCommentMark
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
+      if ((!removed) && foldingTree()) {
+        kdDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)"<<endl;
+        uint commentRegion=(m_highlight->commentRegion(startAttrib));
+        if (commentRegion){
+           KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
+           if (n) {
+            KateTextCursor start,end;
+             if ((n->nodeType()==commentRegion) && n->getBegin(&start) && n->getEnd(&end)) {
+                kdDebug(13020)<<"Enclosing region found:"<<start.col()<<"/"<<start.line()<<"-"<<end.col()<<"/"<<end.line()<<endl;
+                removeStartStopCommentFromRegion(start,end,startAttrib);
+             } else {
+                  kdDebug(13020)<<"Enclosing region found, but not valid"<<endl;
+                  kdDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion<<endl;
+             }
+            //perhaps nested regions should be hadled here too...
+          } else kdDebug(13020)<<"No enclosing region found"<<endl;
+        } else kdDebug(13020)<<"No comment region specified for current hl"<<endl;
+      }
     }
     else
     {
@@ -5382,6 +5430,36 @@ void KateDocument::setDefaultEncoding (const QString &encoding)
 {
   s_defaultEncoding = encoding;
 }
+
+//BEGIN KTextEditor::TemplateInterface
+bool KateDocument::insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow ) {
+      return (new KateTemplateHandler(this,line,column,templateString,initialValues))->initOk();
+}
+
+void KateDocument::testTemplateCode() {
+  int col=activeView()->cursorColumn();
+  int line=activeView()->cursorLine();
+  insertTemplateText(line,col,"for ${index} \\${NOPLACEHOLDER} ${index} ${blah} ${fullname} \\$${Placeholder} \\${${PLACEHOLDER2}}\n next line:${ANOTHERPLACEHOLDER} $${DOLLARBEFOREPLACEHOLDER} {NOTHING} {\n${cursor}\n}",QMap<QString,QString>());
+}
+
+bool KateDocument::invokeTabInterceptor(KKey key) {
+  if (m_tabInterceptor) return (*m_tabInterceptor)(key);
+  return false;
+}
+
+bool KateDocument::setTabInterceptor(KateKeyInterceptorFunctor *interceptor) {
+  if (m_tabInterceptor) return false;
+  m_tabInterceptor=interceptor;
+  return true;
+}
+
+bool KateDocument::removeTabInterceptor(KateKeyInterceptorFunctor *interceptor) {
+  if (m_tabInterceptor!=interceptor) return false;
+  m_tabInterceptor=0;
+  return true;
+}
+//END KTextEditor::TemplateInterface
+
 
 void KateDocument::setIMSelectionValue( uint imStartLine, uint imStart, uint imEnd,
                                         uint imSelStart, uint imSelEnd, bool imComposeEvent )

@@ -86,8 +86,12 @@ class KateUndoGroup
      * @param newGroup group to merge into this one
      * @return success
      */
-    bool merge(KateUndoGroup* newGroup);
+    bool merge(KateUndoGroup* newGroup,bool complex);
 
+    /**
+    * set group as as savepoint. the next group will not merge with this one
+    */
+    void safePoint (bool safePoint=true);
   private:
     /**
      * singleType
@@ -118,6 +122,11 @@ class KateUndoGroup
      * list of items contained
      */
     QPtrList<KateUndo> m_items;
+
+    /**
+     * prohibit merging with the next group
+     */
+    bool m_safePoint;
 };
 
 #endif

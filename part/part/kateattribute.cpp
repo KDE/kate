@@ -22,8 +22,10 @@ KateAttribute::KateAttribute()
   : m_weight(QFont::Normal)
   , m_italic(false)
   , m_underline(false)
+  , m_overline(false)
   , m_strikeout(false)
   , m_itemsSet(0)
+  
 {
 }
 
@@ -46,6 +48,9 @@ KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
 
   if (a.itemSet(Underline))
     setUnderline(a.underline());
+  
+  if (a.itemSet(Overline))
+    setOverline(a.overline());
 
   if (a.itemSet(StrikeOut))
     setStrikeOut(a.strikeOut());
@@ -78,6 +83,8 @@ QFont KateAttribute::font(const QFont& ref)
     ret.setItalic(italic());
   if (itemSet(Underline))
     ret.setUnderline(underline());
+   if (itemSet(Overline))
+    ret.setOverline(overline());
   if (itemSet(StrikeOut))
     ret.setStrikeOut(strikeOut());
 
@@ -120,6 +127,18 @@ void KateAttribute::setUnderline(bool enable)
     m_itemsSet |= Underline;
 
     m_underline = enable;
+
+    changed();
+  }
+}
+
+void KateAttribute::setOverline(bool enable)
+{
+  if (!(m_itemsSet & Overline) || m_overline != enable)
+  {
+    m_itemsSet |= Overline;
+
+    m_overline = enable;
 
     changed();
   }

@@ -42,7 +42,8 @@ public:
     TextColor = 0x40,
     SelectedTextColor = 0x80,
     BGColor = 0x100,
-    SelectedBGColor = 0x200
+    SelectedBGColor = 0x200,
+    Overline = 0x400
   };
 
   KateAttribute();
@@ -83,6 +84,11 @@ public:
   { return m_italic; };
   
   void setItalic(bool enable = true);
+
+  inline bool overline() const
+  { return m_overline; };
+  
+  void setOverline(bool enable = true);
 
   inline bool underline() const
   { return m_underline; };
@@ -131,7 +137,7 @@ public:
 
 private:
   int m_weight;
-  bool m_italic, m_underline, m_strikeout, m_changed;
+  bool m_italic, m_underline, m_overline,m_strikeout, m_changed;
   QColor m_outline, m_textColor, m_selectedTextColor, m_bgColor, m_selectedBGColor;
   int m_itemsSet;
 };

@@ -74,6 +74,7 @@ void KateArbitraryHighlight::addHighlightToDocument(KateSuperRangeList* list)
 {
   m_docHLs.append(list);
   connect(list, SIGNAL(rangeEliminated(KateSuperRange*)), SLOT(slotRangeEliminated(KateSuperRange*)));
+  connect(list, SIGNAL(destroyed(QObject*)),SLOT(slotRangeListDeleted(QObject*)));
 }
 
 void KateArbitraryHighlight::addHighlightToView(KateSuperRangeList* list, KateView* view)
@@ -85,6 +86,19 @@ void KateArbitraryHighlight::addHighlightToView(KateSuperRangeList* list, KateVi
 
   connect(list, SIGNAL(rangeEliminated(KateSuperRange*)), SLOT(slotTagRange(KateSuperRange*)));
   connect(list, SIGNAL(tagRange(KateSuperRange*)), SLOT(slotTagRange(KateSuperRange*)));
+  connect(list, SIGNAL(destroyed(QObject*)),SLOT(slotRangeListDeleted(QObject*)));
+}
+
+void KateArbitraryHighlight::slotRangeListDeleted(QObject* obj) {
+   int id=m_docHLs.findRef(static_cast<KateSuperRangeList*>(obj));
+   if (id>=0) m_docHLs.take(id);
+   
+   for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); it++)
+    for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
+      if (l==obj) {
+        l->take();
+        break; //should we check if one list is stored more than once for a view ?? I don't think adding the same list 2 or more times is sane, but who knows (jowenn)
+      }
 }
 
 KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView* view)

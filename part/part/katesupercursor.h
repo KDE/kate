@@ -197,6 +197,7 @@ public:
   virtual const KateTextCursor& start() const;
   virtual const KateTextCursor& end() const;
 
+  void allowZeroLength(bool yes=true){m_allowZeroLength=yes;}
   /**
    * Returns the super start cursor.
    */
@@ -325,7 +326,8 @@ private:
   bool m_evaluate;
   bool m_startChanged;
   bool m_endChanged;
-	bool m_deleteCursors;
+  bool m_deleteCursors;
+  bool m_allowZeroLength;
 };
 
 class KateSuperCursorList : public QPtrList<KateSuperCursor>
@@ -355,6 +357,7 @@ public:
    */
   KateSuperRangeList(const QPtrList<KateSuperRange>& rangeList, QObject* parent = 0L, const char* name = 0L);
 
+  virtual ~KateSuperRangeList() {}
   /**
    * Append another list.
    * If this object was created by the semi-copy constructor, it may not connect items

@@ -274,7 +274,7 @@ KateTextCursor KateUndo::cursorAfter() const
 }
 
 KateUndoGroup::KateUndoGroup (KateDocument *doc)
-: m_doc (doc)
+: m_doc (doc),m_safePoint(false)
 {
   m_items.setAutoDelete (true);
 }
@@ -344,18 +344,24 @@ void KateUndoGroup::addItem(KateUndo* u)
     m_items.append(u);
 }
 
-bool KateUndoGroup::merge(KateUndoGroup* newGroup)
+bool KateUndoGroup::merge(KateUndoGroup* newGroup,bool complex)
 {
-  if (newGroup->isOnlyType(singleType())) {
+  if (m_safePoint) return false;
+  if (newGroup->isOnlyType(singleType()) || complex) {
     // Take all of its items first -> last
     KateUndo* u = newGroup->m_items.take(0);
     while (u) {
       addItem(u);
       u = newGroup->m_items.take(0);
     }
+    if (newGroup->m_safePoint) safePoint();
     return true;
   }
   return false;
+}
+
+void KateUndoGroup::safePoint (bool safePoint) {
+  m_safePoint=safePoint;
 }
 
 KateUndoGroup::UndoType KateUndoGroup::singleType()

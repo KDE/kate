@@ -47,13 +47,23 @@ class KateLineInfo
     bool invalidBlockEnd;
 };
 
+class KateCodeFoldingTree;
+class KateTextCursor;
 class KateCodeFoldingNode
 {
   public:
     KateCodeFoldingNode();
-    KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
+    KateCodeFoldingNode(KateCodeFoldingTree *tree,KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
     ~KateCodeFoldingNode();
 
+   inline int nodeType() { return type;}
+   inline bool isVisible() {return visible;}
+   inline KateCodeFoldingNode *getParentNode() {return parentNode;}
+   bool getBegin(KateTextCursor* begin);
+   bool getEnd(KateTextCursor *end);
+    
+    protected:
+    friend class KateCodeFoldingTree;
     inline QPtrList<KateCodeFoldingNode> *childnodes ()
     {
       if (!m_childnodes)
@@ -73,11 +83,16 @@ class KateCodeFoldingNode
       return !m_childnodes->isEmpty ();
     }
 
+    int cmpPos(uint line,uint col);
+
     // temporary public to avoid friend an be able to disallow the access of m_childnodes directly ;)
     KateCodeFoldingNode                *parentNode;
     unsigned int startLineRel;
     unsigned int endLineRel;
-
+    
+    unsigned int startCol;
+    unsigned int endCol;
+    
     bool startLineValid;
     bool endLineValid;
 
@@ -86,8 +101,8 @@ class KateCodeFoldingNode
     bool deleteOpening;
     bool deleteEnding;
 
-  protected:
     QPtrList<KateCodeFoldingNode>    *m_childnodes;
+    KateCodeFoldingTree *m_tree;
 };
 
 
@@ -117,7 +132,9 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void fixRoot (int endLRel);
     void clear ();
 
+    KateCodeFoldingNode *findNodeForPosition(unsigned int line, unsigned int column);
   private:
+    friend class KateCodeFoldingNode;
     KateBuffer *m_buffer;
 
     QIntDict<unsigned int> lineMapping;
@@ -135,12 +152,12 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
 
     KateCodeFoldingNode *findNodeForLineDescending (KateCodeFoldingNode *, unsigned int, unsigned int, bool oneStepOnly=false);
 
-    bool correctEndings (signed char data, KateCodeFoldingNode *node, unsigned int line, int insertPos);
+    bool correctEndings (signed char data, KateCodeFoldingNode *node, unsigned int line, unsigned int endCol, int insertPos);
 
     void dumpNode    (KateCodeFoldingNode *node,QString prefix);
-    void addOpening  (KateCodeFoldingNode *node, signed char nType,QMemArray<signed char>* list, unsigned int line);
-    void addOpening_further_iterations (KateCodeFoldingNode *node,signed char nType, QMemArray<signed char>*
-                                        list,unsigned int line,int current,unsigned int startLine);
+    void addOpening  (KateCodeFoldingNode *node, signed char nType,QMemArray<uint>* list, unsigned int line,unsigned int charPos);
+    void addOpening_further_iterations (KateCodeFoldingNode *node,signed char nType, QMemArray<uint>*
+                                        list,unsigned int line,int current,unsigned int startLine,unsigned int charPos);
 
     void incrementBy1 (KateCodeFoldingNode *node, KateCodeFoldingNode *after);
     void decrementBy1 (KateCodeFoldingNode *node, KateCodeFoldingNode *after);
@@ -173,7 +190,7 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void moveSubNodesUp (KateCodeFoldingNode *node);
 
   public slots:
-    void updateLine (unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);
+    void updateLine (unsigned int line,QMemArray<uint>* regionChanges, bool *updated, bool changed,bool colschanged);
     void toggleRegionVisibility (unsigned int);
     void collapseToplevelNodes ();
     void expandToplevelNodes (int numLines);

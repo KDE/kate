@@ -2480,38 +2480,43 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
-  if( (key == Qt::Key_Tab || key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
-      && (m_doc->configFlags() & KateDocumentConfig::cfTabIndents) )
+  if  (key == Qt::Key_Tab || key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
   {
-    if( key == Qt::Key_Tab )
-    {
-      if (m_doc->hasSelection() || (m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
-        m_doc->indent( m_view, cursor.line(), 1 );
-      else if (m_doc->configFlags() & KateDocumentConfig::cfTabInsertsTab)
-        m_doc->typeChars ( m_view, QString ("\t") );
-      else
-        m_doc->insertIndentChars ( m_view );
-
+    if (m_doc->invokeTabInterceptor(key)) {
       e->accept();
-
-      if (codeComp)
-        m_view->m_codeCompletion->updateBox ();
-
       return;
-    }
-
-    if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
+    } else
+    if (m_doc->configFlags() & KateDocumentConfig::cfTabIndents) 
     {
-      m_doc->indent( m_view, cursor.line(), -1 );
-      e->accept();
+      if( key == Qt::Key_Tab )
+      {
+        if (m_doc->hasSelection() || (m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
+          m_doc->indent( m_view, cursor.line(), 1 );
+        else if (m_doc->configFlags() & KateDocumentConfig::cfTabInsertsTab)
+          m_doc->typeChars ( m_view, QString ("\t") );
+        else
+          m_doc->insertIndentChars ( m_view );
 
-      if (codeComp)
-        m_view->m_codeCompletion->updateBox ();
+        e->accept();
 
-      return;
+        if (codeComp)
+          m_view->m_codeCompletion->updateBox ();
+
+        return;
+      }
+
+      if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
+      {
+        m_doc->indent( m_view, cursor.line(), -1 );
+        e->accept();
+
+        if (codeComp)
+          m_view->m_codeCompletion->updateBox ();
+
+        return;
+      }
     }
-  }
-
+}
   if ( !(e->state() & ControlButton) && !(e->state() & AltButton)
        && m_doc->typeChars ( m_view, e->text() ) )
   {
@@ -3328,9 +3333,9 @@ void KateScrollBar::recomputeMarksPositions(bool forceFullUpdate)
 
       while (node)
       {
-        if (!node->visible)
+        if (!node->isVisible())
           line = tree->getStartLine(node);
-        node = node->parentNode;
+        node = node->getParentNode();
       }
     }
 

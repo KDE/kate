@@ -197,8 +197,8 @@ class KateView : public Kate::View,
     void unIndent()           { m_doc->indent( this, cursorLine(), -1 ); }
     void cleanIndent()        { m_doc->indent( this, cursorLine(), 0 );  }
     void align()              { m_doc->align( cursorLine() ); }
-    void comment()            { m_doc->comment( this, cursorLine(), 1 );  }
-    void uncomment()          { m_doc->comment( this, cursorLine(), -1 ); }
+    void comment()            { m_doc->comment( this, cursorLine(), cursorColumnReal(), 1 );  }
+    void uncomment()          { m_doc->comment( this, cursorLine(), cursorColumnReal(),-1 ); }
     void killLine()           { m_doc->removeLine( cursorLine() ); }
 
     /**

@@ -52,7 +52,8 @@ class KateTextLine : public KShared
       flagNoOtherData = 0x1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
       flagHlContinue = 0x2,
       flagVisible = 0x4,
-      flagAutoWrapped = 0x8
+      flagAutoWrapped = 0x8,
+      flagFoldingColumnsOutdated=0x10
     };
 
   public:
@@ -72,6 +73,19 @@ class KateTextLine : public KShared
    * Methods to get data
    */
   public:
+    /**
+    * Set the flag that only positions have changed, not folding region begins/ends themselve
+    */
+    inline void setFoldingColumnsOutdated(bool set) { if (set) m_flags |= KateTextLine::flagFoldingColumnsOutdated; else m_flags&=  
+                                                      (~KateTextLine::flagFoldingColumnsOutdated);}
+    
+    /**
+     * folding columns outdated ?
+     * @return folding columns outdated?
+     */
+     inline bool foldingColumnsOutdated() { return m_flags & KateTextLine::flagFoldingColumnsOutdated; }
+     
+    
     /**
      * Returns the length
      * @return length of text in line
@@ -268,7 +282,7 @@ class KateTextLine : public KShared
      * folding list
      * @return folding array
      */
-    inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
+    inline const QMemArray<uint> &foldingListArray () const { return m_foldingList; };
 
     /**
      * indentation stack
@@ -346,7 +360,7 @@ class KateTextLine : public KShared
      * update folding list
      * @param val new folding list
      */
-    inline void setFoldingList (QMemArray<signed char> &val) { m_foldingList.assign (val); m_foldingList.detach(); }
+    inline void setFoldingList (QMemArray<uint> &val) { m_foldingList.assign (val); m_foldingList.detach(); }
 
     /**
      * update indentation stack
@@ -372,7 +386,7 @@ class KateTextLine : public KShared
                      ( (3 * sizeof(uint))
                        + (m_text.length() * sizeof(uchar))
                        + (m_ctx.size() * sizeof(short))
-                       + (m_foldingList.size() * sizeof(signed char))
+                       + (m_foldingList.size() * sizeof(uint))
                        + (m_indentationDepth.size() * sizeof(unsigned short))
                      ) : 0
                  )
@@ -418,7 +432,7 @@ class KateTextLine : public KShared
     /**
      * list of folding starts/ends
      */
-    QMemArray<signed char> m_foldingList;
+    QMemArray<uint> m_foldingList;
 
     /**
      * indentation stack

@@ -109,7 +109,7 @@ class KateHighlighting
   public:
     void doHighlight ( KateTextLine *prevLine,
                        KateTextLine *textLine,
-                       QMemArray<signed char> *foldingList,
+                       QMemArray<uint> *foldingList,
                        bool *ctxChanged );
 
     void loadWildcards();
@@ -160,9 +160,15 @@ class KateHighlighting
     bool canComment( int startAttr, int endAttr ) const;
 
     /**
+    * @return 0 if highlighting which attr is a member of does not
+    * define a comment region, otherwise the region is returned
+    */
+    signed char commentRegion(int attr) const;
+    
+    /**
      * Define comment marker type.
      */
-    enum commentData { Start, End, SingleLine };
+    enum commentData { Start, End, MultiLineRegion,SingleLine };
 
     /**
      * @return the comment marker @p which for the highlight corresponding to

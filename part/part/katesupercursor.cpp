@@ -280,6 +280,7 @@ KateSuperRange::KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QOb
   , m_startChanged(false)
   , m_endChanged(false)
   , m_deleteCursors(false)
+  , m_allowZeroLength(false)
 {
   init();
 }
@@ -292,6 +293,7 @@ KateSuperRange::KateSuperRange(KateDocument* doc, const KateRange& range, QObjec
   , m_startChanged(false)
   , m_endChanged(false)
   , m_deleteCursors(true)
+  , m_allowZeroLength(false)
 {
   init();
 }
@@ -304,6 +306,7 @@ KateSuperRange::KateSuperRange(KateDocument* doc, const KateTextCursor& start, c
   , m_startChanged(false)
   , m_endChanged(false)
   , m_deleteCursors(true)
+  , m_allowZeroLength(false)
 {
   init();
 }
@@ -335,6 +338,8 @@ KateSuperRange::~KateSuperRange()
 {
   if (m_deleteCursors)
   {
+    //insertChild(m_start);
+    //insertChild(m_end);
     delete m_start;
     delete m_end;
   }
@@ -511,8 +516,9 @@ void KateSuperRange::slotTagRange()
 
 void KateSuperRange::evaluateEliminated()
 {
-  if (superStart() == superEnd())
-    emit eliminated();
+  if (superStart() == superEnd()) {
+      if (!m_allowZeroLength) emit eliminated();
+    }
   else
     emit contentsChanged();
 }
@@ -643,6 +649,7 @@ void KateSuperRangeList::slotEliminated()
 
 void KateSuperRangeList::slotDeleted(QObject* range)
 {
+  //kdDebug()<<"KateSuperRangeList::slotDeleted"<<endl;
   KateSuperRange* r = static_cast<KateSuperRange*>(range);
 
   if (m_trackingBoundaries) {
@@ -653,6 +660,7 @@ void KateSuperRangeList::slotDeleted(QObject* range)
   int index = findRef(r);
   if (index != -1)
     take(index);
+  //else kdDebug()<<"Range not found in list"<<endl;
 
   if (!count())
       emit listEmpty();

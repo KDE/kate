@@ -171,7 +171,11 @@ class KateTextRange : public KateRange
     virtual KateTextCursor& end() { return m_end; };
     virtual const KateTextCursor& start() const { return m_start; };
     virtual const KateTextCursor& end() const { return m_end; };
-
+    /* if range is not valid, the result is undefined
+      if cursor is before start -1 is returned, if cursor is within range 0 is returned if cursor is after end 1 is returned*/
+    inline int cursorInRange(const KateTextCursor &cursor) const {
+      return ((cursor<m_start)?(-1):((cursor>m_end)?1:0));
+    }
   protected:
     KateTextCursor m_start, m_end;
     bool m_valid;

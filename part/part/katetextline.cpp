@@ -319,8 +319,8 @@ char *KateTextLine::dump (char *buf, bool withHighlighting) const
   memcpy(buf, (char *)m_ctx.data(), sizeof(short) * lctx);
   buf += sizeof (short) * lctx;
 
-  memcpy(buf, (char *)m_foldingList.data(), lfold);
-  buf += sizeof (signed char) * lfold;
+  memcpy(buf, (char *)m_foldingList.data(), sizeof(uint)*lfold);
+  buf += sizeof (uint) * lfold;
 
   memcpy(buf, (char *)m_indentationDepth.data(), sizeof(unsigned short) * lind);
   buf += sizeof (unsigned short) * lind;
@@ -379,8 +379,8 @@ char *KateTextLine::restore (char *buf)
   m_ctx.duplicate ((short *) buf, lctx);
   buf += sizeof(short) * lctx;
 
-  m_foldingList.duplicate ((signed char *) buf, lfold);
-  buf += lfold;
+  m_foldingList.duplicate ((uint *) buf, lfold);
+  buf += sizeof(uint)*lfold;
 
   m_indentationDepth.duplicate ((unsigned short *) buf, lind);
   buf += sizeof(unsigned short) * lind;

@@ -74,7 +74,7 @@ signals:
 
 private slots:
   void slotTagRange(KateSuperRange* range);
-
+  void slotRangeListDeleted(QObject* obj);
 private:
   KateView* viewForRange(KateSuperRange* range);
 

@@ -593,6 +593,7 @@ void KateView::setupCodeFolding()
 
   KAccel* debugAccels = new KAccel(this,this);
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
+  debugAccels->insert("KATE_TEMPLATE_TEST",i18n("Basic template code test"),"","Ctrl+Shift+Alt+T",m_doc,SLOT(testTemplateCode()));
   debugAccels->setEnabled(true);
 }
 

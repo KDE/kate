@@ -1289,7 +1289,7 @@ void KateHighlighting::dropDynamicContexts()
  */
 void KateHighlighting::doHighlight ( KateTextLine *prevLine,
                                      KateTextLine *textLine,
-                                     QMemArray<signed char>* foldingList,
+                                     QMemArray<uint>* foldingList,
                                      bool *ctxChanged )
 {
   if (!textLine)
@@ -1399,14 +1399,18 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
           if (item->region2)
           {
 //              kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
-            if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-1] == -item->region2 ) )
+            if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
             {
-              foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
+              foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
             }
             else
             {
-              foldingList->resize (foldingList->size()+1, QGArray::SpeedOptim);
-              (*foldingList)[foldingList->size()-1] = item->region2;
+              foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+              (*foldingList)[foldingList->size()-2] = (uint)item->region2;
+              if (item->region2<0) //check not really needed yet
+                (*foldingList)[foldingList->size()-1] = offset2;
+              else
+               (*foldingList)[foldingList->size()-1] = offset1;
             }
 
           }
@@ -1421,8 +1425,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
             }
             else*/
             {
-              foldingList->resize (foldingList->size()+1, QGArray::SpeedOptim);
-              (*foldingList)[foldingList->size()-1] = item->region;
+              foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+              (*foldingList)[foldingList->size()-2] = item->region;
+              if (item->region<0) //check not really needed yet
+                (*foldingList)[foldingList->size()-1] = offset2;
+              else
+                (*foldingList)[foldingList->size()-1] = offset1;
             }
 
           }
@@ -1800,7 +1808,7 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &i
     if (iDl.at(i)->name == buildPrefix+name)
       return i;
 
-  kdDebug(13010)<<"Couldn't resolve itemDataName"<<endl;
+  kdDebug(13010)<<"Couldn't resolve itemDataName:"<<name<<endl;
   return 0;
 }
 
@@ -1980,6 +1988,12 @@ bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
   return (getCommentString(4, attrib).find(c) != -1) && (sq.find(c) == -1);
 }
 
+signed char KateHighlighting::commentRegion(int attr) const {
+  int k = hlKeyForAttrib( attr );
+  QString commentRegion=m_additionalData[k][MultiLineRegion];
+  return (commentRegion.isEmpty()?0:(commentRegion.toShort()));
+}
+
 bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
 {
   int k = hlKeyForAttrib( startAttrib );
@@ -2022,7 +2036,7 @@ QStringList KateHighlighting::readCommentConfig()
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
   KateSyntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("general","comment");
 
-  QString cmlStart, cmlEnd, cslStart;
+  QString cmlStart, cmlEnd, cmlRegion, cslStart  ;
 
   if (data)
   {
@@ -2035,6 +2049,7 @@ QStringList KateHighlighting::readCommentConfig()
       {
         cmlStart=KateHlManager::self()->syntax->groupData(data,"start");
         cmlEnd=KateHlManager::self()->syntax->groupData(data,"end");
+        cmlRegion=KateHlManager::self()->syntax->groupData(data,"region");
       }
     }
 
@@ -2045,9 +2060,10 @@ QStringList KateHighlighting::readCommentConfig()
     cslStart = "";
     cmlStart = "";
     cmlEnd = "";
+    cmlRegion = "";
   }
   QStringList res;
-  res << cmlStart << cmlEnd << cslStart;
+  res << cmlStart << cmlEnd <<cmlRegion<< cslStart;
   return res;
 }
 
@@ -2490,9 +2506,10 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   additionaldata << readWordWrapConfig();
 
   readFoldingConfig ();
-
-  m_additionalData.insert( internalIDList.count(), additionaldata );
-  m_hlIndex.append( (int)internalIDList.count() );
+  
+  uint additionalDataIndex=internalIDList.count();
+  m_additionalData.insert( additionalDataIndex, additionaldata );
+  m_hlIndex.append( additionalDataIndex );
 
   QString ctxName;
 
@@ -2652,6 +2669,21 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   folding = folding || m_foldingIndentationSensitive;
 
+  //BEGIN Resolve multiline region if possible
+  QStringList& commentData=m_additionalData[additionalDataIndex];
+  if (!commentData[MultiLineRegion].isEmpty()) {
+    long commentregionid=RegionList.findIndex(commentData[MultiLineRegion]);
+    if (-1==commentregionid) {
+      errorsAndWarnings+=i18n("<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>").arg(buildIdentifier).arg(commentData[MultiLineRegion]);
+      commentData[MultiLineRegion]=QString();
+      kdDebug()<<"ERROR comment region attribute could not be resolved"<<endl;
+      
+    } else {
+        commentData[MultiLineRegion]=QString::number(commentregionid+1);
+        kdDebug()<<"comment region resolved to:"<<m_additionalData[additionalDataIndex][MultiLineRegion]<<endl;
+    }
+  }
+  //END Resolve multiline region if possible
   return i;
 }
 

@@ -33,6 +33,7 @@
 #include <ktexteditor/encodinginterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/editinterfaceext.h>
+#include <ktexteditor/templateinterface.h>
 
 #include <dcopobject.h>
 
@@ -69,6 +70,8 @@ class KTempFile;
 
 class QTimer;
 
+class KateKeyInterceptorFunctor;
+
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
@@ -78,6 +81,7 @@ class KateDocument : public Kate::Document,
                      public KTextEditor::EncodingInterface,
                      public KTextEditor::SessionConfigInterface,
                      public KTextEditor::EditInterfaceExt,
+                     public KTextEditor::TemplateInterface,
                      public DCOPObject
 {
   K_DCOP
@@ -182,6 +186,7 @@ class KateDocument : public Kate::Document,
   signals:
     void textChanged ();
     void charactersInteractivelyInserted(int ,int ,const QString&);
+    void charactersSemiInteractivelyInserted(int ,int ,const QString&);
     void backspacePressed();
 
   public:
@@ -199,6 +204,7 @@ class KateDocument : public Kate::Document,
      * @see editStart()
      */
     void editEnd ();
+ 
 // END editStart/editEnd
 
 // BEGIN LINE BASED INSERT/REMOVE STUFF (editStart() and editEnd() included)
@@ -307,6 +313,7 @@ class KateDocument : public Kate::Document,
   private:
     void undoStart();
     void undoEnd();
+    void undoSafePoint();
 
   private slots:
     void undoCancel();
@@ -324,6 +331,7 @@ class KateDocument : public Kate::Document,
     uint editTagLineStart;
     uint editTagLineEnd;
     bool editTagFrom;
+    bool m_undoComplexMerge;
     KateUndoGroup* m_editCurrentUndo;
 
   //
@@ -368,7 +376,7 @@ class KateDocument : public Kate::Document,
 
   signals:
     void selectionChanged ();
-
+    void textInserted(int line,int column);
   //
   // KTextEditor::BlockSelectionInterface stuff
   //
@@ -397,12 +405,13 @@ class KateDocument : public Kate::Document,
     void setUndoSteps ( uint steps );
 
   private:
+    friend class KateTemplateHandler;
     //
     // some internals for undo/redo
     //
     QPtrList<KateUndoGroup> undoItems;
     QPtrList<KateUndoGroup> redoItems;
-    bool m_undoDontMerge;
+    bool m_undoDontMerge; //create a setter later on and remove the friend declaration
     bool m_undoIgnoreCancel;
     QTimer* m_undoMergeTimer;
     // these two variables are for resetting the document to
@@ -690,7 +699,7 @@ class KateDocument : public Kate::Document,
     void insertIndentChars ( KateView *view );
 
     void indent ( KateView *view, uint line, int change );
-    void comment ( KateView *view, uint line, int change );
+    void comment ( KateView *view, uint line, uint column, int change );
     void align ( uint line );
 
     enum TextTransform { Uppercase, Lowercase, Capitalize };
@@ -754,6 +763,10 @@ class KateDocument : public Kate::Document,
     *@see removeStartLineCommentFromSingleLine.
     */
     bool removeStartStopCommentFromSingleLine(int line, int attrib=0);
+    /**
+    *@see removeStartLineCommentFromSingleLine.
+    */
+    bool removeStartStopCommentFromRegion(const KateTextCursor &start, const KateTextCursor &end, int attrib=0);
 
     /**
      * Add a comment marker as defined by the language providing the attribute
@@ -1061,7 +1074,17 @@ class KateDocument : public Kate::Document,
     KIO::TransferJob *m_job;
     KTempFile *m_tempFile;
 
-  //
+  // TemplateInterface
+  public: 
+      bool setTabInterceptor(KateKeyInterceptorFunctor *interceptor); /* perhaps make it moregeneral like an eventfilter*/
+      bool removeTabInterceptor(KateKeyInterceptorFunctor *interceptor);
+      bool invokeTabInterceptor(KKey);
+
+  protected:
+      virtual bool insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow=0 );
+      KateKeyInterceptorFunctor *m_tabInterceptor;
+  protected slots:
+      void testTemplateCode();
   // IM input stuff
   //
   public:

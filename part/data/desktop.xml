@@ -4,7 +4,7 @@
   <highlighting>
     <contexts>
       <context attribute="Key" lineEndContext="#stay" name="Normal">
-        <RegExpr String="^\[.*\]$" attribute="Section" context="#stay"/>
+        <RegExpr String="^\[.*\]$" attribute="Section" context="#stay" beginRegion="Section" endRegion="Section" />
         <RegExpr String="\[.*\]" attribute="Language" context="Value"/>
         <DetectChar char="=" attribute="Normal Text" context="Value"/>
       </context>

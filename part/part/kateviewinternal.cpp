@@ -1026,7 +1026,7 @@ public:
           }
         }
       }
-      
+
     } else if (n < 0 && col() < 0 && line() > 0 ) {
       m_line--;
       m_col = m_vi->m_doc->lineLength( line() );

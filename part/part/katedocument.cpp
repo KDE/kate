@@ -2567,11 +2567,11 @@ bool KateDocument::saveFile()
     if (!hlSetByUser)
     {
       int hl (HlManager::self()->detectHighlighting (this));
-
-      if (hl >= 0)
+      
+      if (hl >= 0 && hl != hlMode())
         internalSetHlMode(hl);
     }
-
+    
     // update our file type
     updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 

@@ -585,7 +585,6 @@ class KateDocument : public Kate::Document
     bool removeStartLineCommentFromSelection();
 
   protected slots:
-    void clipboardChanged();
     void slotBufferChanged();
     void slotBufferUpdateHighlight(uint,uint);
     void slotBufferUpdateHighlight();

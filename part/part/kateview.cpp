@@ -441,7 +441,7 @@ void KateViewInternal::pageUp(VConfig &c) {
 
   if (lines <= 0) lines = 1;
 
-  if (!(c.flags & KateDocument::cfPageUDMovesCursor) && yPos > 0) {
+  if (yPos > 0) {
     newYPos = yPos - lines * myDoc->viewFont.fontHeight;
     if (newYPos < 0) newYPos = 0;
   }
@@ -455,7 +455,7 @@ void KateViewInternal::pageDown(VConfig &c) {
 
   int lines = (endLine - startLine - 1);
 
-  if (!(c.flags & KateDocument::cfPageUDMovesCursor) && endLine < (int)myDoc->lastLine()) {
+  if (endLine < (int)myDoc->lastLine()) {
     if (lines < (int)myDoc->lastLine() - endLine)
       newYPos = yPos + lines * myDoc->viewFont.fontHeight;
     else

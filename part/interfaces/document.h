@@ -161,13 +161,9 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
       cfXorSelect= 0x800,
       cfOvr= 0x1000,
       cfMark= 0x2000,
-      cfGroupUndo= 0x4000,
       cfKeepIndentProfile= 0x8000,
       cfKeepExtraSpaces= 0x10000,
-      cfMouseAutoCopy= 0x20000,
-      cfSingleSelection= 0x40000,
       cfTabIndents= 0x80000,
-      cfPageUDMovesCursor= 0x100000,
       cfShowTabs= 0x200000,
       cfSpaceIndent= 0x400000,
       cfSmartHome = 0x800000

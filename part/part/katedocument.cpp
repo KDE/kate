@@ -1571,7 +1571,7 @@ void KateDocument::readConfig(KConfig *config)
     wrapText (myWordWrapAt);
 
   setTabWidth(config->readNumEntry("TabWidth", 8));
-  setUndoSteps(config->readNumEntry("UndoSteps", 50));
+  setUndoSteps(config->readNumEntry("UndoSteps", 256));
   setFont (ViewFont,config->readFontEntry("Font", &viewFont.myFont));
   setFont (PrintFont,config->readFontEntry("PrintFont", &printFont.myFont));
 
@@ -2804,15 +2804,10 @@ void KateDocument::cut(VConfig &)
 
 void KateDocument::copy(int )
 {
-  if (!hasSelection()) return;
-
-  if (_configFlags & KateDocument::cfSingleSelection)
-    disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, 0);
+  if (!hasSelection())
+    return;
 
   QApplication::clipboard()->setText(selection ());
-
-  if (_configFlags & KateDocument::cfSingleSelection)
-    connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(clipboardChanged()));
 }
 
 void KateDocument::paste (VConfig &c)
@@ -3933,17 +3928,6 @@ found:
       bm.eXPos = bm.sXPos + viewFont.myFontMetricsItalic.width(bracket);
     else
       bm.eXPos = bm.sXPos + viewFont.myFontMetrics.width(bracket);
-}
-
-void KateDocument::clipboardChanged() { //slot
-//#if defined(_WS_X11_)
-  if (_configFlags & KateDocument::cfSingleSelection) {
-    disconnect(QApplication::clipboard(), SIGNAL(dataChanged()),
-      this, SLOT(clipboardChanged()));
-    clearSelection ();
-    updateViews();
-  }
-//#endif
 }
 
 void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )

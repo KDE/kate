@@ -411,8 +411,7 @@ void SelectConfigTab::reload ()
 }
 
 const int EditConfigTab::flags[] = {KateDocument::cfWordWrap, KateDocument::cfReplaceTabs, KateDocument::cfRemoveSpaces,
-  KateDocument::cfAutoBrackets, KateDocument::cfGroupUndo, KateDocument::cfShowTabs, KateDocument::cfSmartHome,
-  KateDocument::cfPageUDMovesCursor, KateDocument::cfWrapCursor};
+  KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
 
 EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   : Kate::ConfigPage(parent) {
@@ -444,25 +443,17 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   cbLayout->addWidget(opt[3], 0, AlignLeft);
   opt[3]->setChecked(configFlags & flags[3]);
 
-  opt[4] = new QCheckBox(i18n("Group &undos"), this);
+  opt[4] = new QCheckBox(i18n("&Show tabs"), this);
   cbLayout->addWidget(opt[4], 0, AlignLeft);
   opt[4]->setChecked(configFlags & flags[4]);
 
-  opt[5] = new QCheckBox(i18n("&Show tabs"), this);
+  opt[5] = new QCheckBox(i18n("Smart &home"), this);
   cbLayout->addWidget(opt[5], 0, AlignLeft);
   opt[5]->setChecked(configFlags & flags[5]);
 
-  opt[6] = new QCheckBox(i18n("Smart &home"), this);
+  opt[6] = new QCheckBox(i18n("Wrap &cursor"), this);
   cbLayout->addWidget(opt[6], 0, AlignLeft);
   opt[6]->setChecked(configFlags & flags[6]);
-
-  opt[7] = new QCheckBox(i18n("&Page up/down moves cursor"), this);
-  cbLayout->addWidget(opt[7], 0, AlignLeft);
-  opt[7]->setChecked(configFlags & flags[7]);
-
-  opt[8] = new QCheckBox(i18n("Wrap &cursor"), this);
-  cbLayout->addWidget(opt[8], 0, AlignLeft);
-  opt[8]->setChecked(configFlags & flags[8]);
 
   cbLayout->addStretch();
 
@@ -479,7 +470,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   e2->setLabel(i18n("Tab/Indent Width:"));
 
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
-  e3->setRange(5, 30000, 1, false);
+  e3->setRange(0, 99999, 1, false);
   e3->setLabel(i18n("Undo steps:"));
 
   leLayout->addWidget(e1, 0, AlignLeft);
@@ -495,12 +486,10 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(e2, i18n("If the Replace Tabs By Spaces option is selected this entry determines the number of spaces with which the editor will automatically replace tabs."));
   QWhatsThis::add(opt[2], i18n("KateView will automatically eliminate extra spaces at the ends of lines of text."));
   QWhatsThis::add(opt[3], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
-  QWhatsThis::add(opt[4], i18n("Checking this will cause sequences of similar actions to be undone at once."));
-  QWhatsThis::add(opt[5], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
-  QWhatsThis::add(opt[6], i18n("Not yet implemented."));
-  QWhatsThis::add(opt[7], i18n("If this is selected, the insertion cursor will be moved to the first/last line when pressing the page up/down buttons.<p>If not selected, it will remain at it's relative position in the visible text."));
+  QWhatsThis::add(opt[4], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
+  QWhatsThis::add(opt[5], i18n("Not yet implemented."));
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
-  QWhatsThis::add(opt[8], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
+  QWhatsThis::add(opt[6], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
 }
 
 void EditConfigTab::getData(KateDocument *view)
@@ -530,7 +519,7 @@ void EditConfigTab::reload ()
 
 }
 
-ColorConfig::ColorConfig( QWidget *parent, const char *name, KateDocument *doc )
+ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
   myDoc = doc;
@@ -587,7 +576,7 @@ void ColorConfig::reload ()
   setColors(myDoc->colors);
 }
 
-FontConfig::FontConfig( QWidget *parent, const char *name, KateDocument *doc )
+FontConfig::FontConfig( QWidget *parent, const char *, KateDocument *doc )
   : Kate::ConfigPage(parent)
 {
   myDoc = doc;
@@ -652,7 +641,7 @@ void FontConfig::reload ()
   setFontPrint (myDoc->getFont(KateDocument::PrintFont));
 }
 
-EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, const char *name): Kate::ConfigPage(parent)
+EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, const char *): Kate::ConfigPage(parent)
 {
 	(new QVBoxLayout(this))->setAutoAdd(true);
 	tmpWin=new KMainWindow(0);

@@ -57,8 +57,9 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * Use insertTemplateText(numLines(), ...) to append text at end of document
      * Template  strings look like
      * "for( int ${index}=0;${index}<10;${index}++) { ${cursor} };"
+     * or "%{date}"
      *
-     * This syntax is similiar to the one found in the Eclipse editor.
+     * This syntax is somewhat similiar to the one found in the Eclipse editor.
      *
      * There are certain common placeholders (variables), which get assigned a
      * default initialValue, If the second parameter does not a given value.
@@ -82,6 +83,9 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * - cursor: at this position the cursor will be after editing of the
      *   template has finished, this has to be taken care of by the actual
      *   implementation. The placeholder gets a value of "|" assigned.
+     *
+     * If a macro is started with a % (persent sign) like "%{date}" it isn't added
+     * to the list editable strings ( for example TAB key navigation).
      *
      * If the editor supports some kind of smart indentation, the inserted code
      * should be layouted by the indenter.

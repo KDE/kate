@@ -29,6 +29,8 @@
 #include <kcalendarsystem.h>
 #include <unistd.h>
 
+#include <kdebug.h>
+
 using namespace KTextEditor;
 
 unsigned int TemplateInterface::globalTemplateInterfaceNumber = 0;
@@ -63,14 +65,13 @@ void TemplateInterface::setTemplateInterfaceDCOPSuffix ( const QCString &suffix 
 
 bool TemplateInterface::insertTemplateText ( uint line, uint column, const QString &templateString, const QMap<QString, QString> &initialValues, QWidget *parentWindow )
 {
-
   QMap<QString, QString> enhancedInitValues( initialValues );
   KABC::StdAddressBook *addrBook = 0;
   KABC::Addressee userAddress;
   QDateTime datetime = QDateTime::currentDateTime();
   QDate date = datetime.date();
   QTime time = datetime.time();
-  QRegExp rx( "\\$\\{([a-zA-Z0-9_]+)\\}" );
+  QRegExp rx( "[$%]\\{([a-zA-Z0-9_]+)\\}" );
   rx.setMinimal( true );
   int pos = 0;
   int opos = 0;
@@ -96,6 +97,7 @@ bool TemplateInterface::insertTemplateText ( uint line, uint column, const QStri
 
       if ( enhancedInitValues[ placeholder ].isEmpty() )
       {
+	      kdDebug()<<"got a new macro: "<<placeholder<<endl;
         if ( placeholder == "index" ) enhancedInitValues[ placeholder ] = "i";
         else if ( placeholder == "loginname" )
         {}

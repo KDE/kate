@@ -265,7 +265,7 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 uint KateDocument::configPages () const
 {
-  return 7;
+  return 8;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
@@ -292,6 +292,9 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
 
     case 6:
       return hlConfigPage (parent);
+      
+    case 7:
+      return new PluginConfigPage (parent, this);
 
     default:
       return 0;
@@ -322,6 +325,9 @@ QString KateDocument::configPageName (uint number) const
 
     case 6:
       return i18n ("Highlighting");
+      
+    case 7:
+      return i18n ("Plugins");
 
     default:
       return 0;
@@ -352,6 +358,9 @@ QString KateDocument::configPageFullName (uint number) const
 
     case 6:
       return i18n ("Highlighting Rules");
+      
+    case 7:
+      return i18n ("Plugin Manager");
 
     default:
       return 0;
@@ -381,6 +390,9 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
       return BarIcon("misc", size);
 
     case 6:
+      return BarIcon("misc", size);
+      
+    case 7:
       return BarIcon("misc", size);
 
     default:

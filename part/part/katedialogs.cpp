@@ -60,6 +60,7 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qwidgetstack.h>
+#include <katefactory.h>
 
 
 #include "hlparamedit.h"
@@ -78,6 +79,72 @@
 #define TAG_INT "Int"
 #define TAG_FLOAT "Float"
 #define TAG_KEYWORD "keyword"
+       
+class PluginListItem : public QCheckListItem
+{          
+  public:
+    PluginListItem (KListView * parent, const QString & text) : QCheckListItem ( parent, text )  {};
+
+  public:
+    QString libname; 
+};
+                                             
+PluginListView::PluginListView (QWidget *parent, bool docPlugins, KateDocument *doc, KTrader::OfferList *plugins)
+  : KListView (parent), m_docPlugins (docPlugins), m_doc (doc), m_plugins (plugins) 
+{
+  if (docPlugins)
+  {
+    KTrader::OfferList::Iterator it(m_plugins->begin());
+    for( ; it != m_plugins->end(); ++it)
+    {
+      KService::Ptr ptr = (*it); 
+      
+      PluginListItem *item = new PluginListItem (this, "test");
+           
+         
+      insertItem (item);
+      
+  /*    if (m_doc->loadedPlugins.find (QFile::encodeName(ptr->library())) > -1)
+      {
+      }*/
+    }
+  }
+
+
+}
+
+PluginListView::~PluginListView ()
+{
+}
+
+
+ PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
+{
+  m_doc = doc;
+  
+  // sizemanagment
+  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+
+  QTabWidget *tab = new QTabWidget (this);
+  tab->setMargin(KDialog::marginHint());
+  grid->addWidget( tab, 0, 0);
+
+  m_docPlugins = new PluginListView (tab, true, m_doc, KateFactory::plugins ());
+  tab->addTab (m_docPlugins, i18n("Document Plugins"));
+
+  m_viewPlugins = new PluginListView (tab, false, m_doc, KateFactory::viewPlugins ());
+  tab->addTab (m_viewPlugins, i18n("View Plugins"));
+          
+  tab->show ();}
+
+PluginConfigPage::~PluginConfigPage ()
+{
+}
+
+void PluginConfigPage::apply ()
+{
+
+}
 
 HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {

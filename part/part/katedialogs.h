@@ -29,8 +29,9 @@
 #include <klistview.h>
 #include <qtabwidget.h>
 #include <kcolorbutton.h>
-#include <qcolor.h>
-#include <qlistview.h>
+#include <qcolor.h>       
+#include <ktrader.h>
+#include <qlistview.h>     
 
 class QWidgetStack;
 class QVBox;
@@ -41,7 +42,43 @@ class QCheckBox;
 
 #define HlEUnknown 0
 #define HlEContext 1
-#define HlEItem 2
+#define HlEItem 2     
+
+class PluginListView : public KListView
+{
+  Q_OBJECT
+
+  public:
+    PluginListView (QWidget *parent = 0, bool docPlugins = true, class KateDocument *doc = 0, KTrader::OfferList *plugins = 0);
+    ~PluginListView ();     
+    
+  private:
+    bool m_docPlugins;
+    KateDocument *m_doc;
+    KTrader::OfferList *m_plugins;
+    QPtrList<class PluginListItem> m_items;  
+};
+
+class PluginConfigPage : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+  public:
+    PluginConfigPage (QWidget *parent, class KateDocument *doc);
+    ~PluginConfigPage ();
+
+  private:
+    KateDocument *m_doc;
+    PluginListView *m_docPlugins;
+    PluginListView *m_viewPlugins;
+
+  public slots:
+    void apply ();
+    void reload () {};   
+    void reset () {};
+    void defaults () {};
+};
+
 
 /*
     QListViewItem subclass to display/edit a style, bold/italic is check boxes,

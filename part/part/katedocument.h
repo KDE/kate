@@ -43,7 +43,7 @@ class KateCmd;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
-class KateViewInternal;
+class KateViewInternal; 
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -656,7 +656,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     class KateCmd *myCmd;
 
     QMemArray<Attribute> myAttribs;
-
+    
     //
     // core katedocument config !
     //
@@ -666,6 +666,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     * Implementation of the mark interface
     **/
   public:
+    QStringList loadedPlugins;
+    QStringList loadedViewPlugins;
+  
     /**
       Allow the HlManager to fill the array
     */

@@ -18,7 +18,7 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
                 gettext.xml commonlisp.xml clipper.xml povray.xml euphoria.xml mup.xml jsp.xml ocaml.xml lex.xml yacc.xml \
                 cg.xml html-php.xml css-php.xml javascript-php.xml ahdl.xml ansic89.xml tibasic.xml \
                 purebasic.xml mips.xml logtalk.xml txt2tags.xml xslt.xml stata.xml glsl.xml \
-		lilypond.xml abc.xml asp.xml asm-avr.xml rib.xml cmake.xml
+		lilypond.xml abc.xml asp.xml asm-avr.xml rib.xml cmake.xml octave.xml
 
 partrcdir   = $(kde_confdir)
 partrc_DATA = katesyntaxhighlightingrc katefiletyperc

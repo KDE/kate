@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+
+<!--
+  Octave syntax highlighting for Kate and Kwrite
+  
+  Based partially in the highlighting for Matlab files written by Stefan Stoll.
+  
+  Luis Silvestre *** Aug 18, 2004. Austin, Texas, USA ***
+-->
+
+<language name="Octave" version="1.00" kateversion="2.3" section="Scientific" extensions="*.octave;*.m;*.M" mimetype="text/octave" casesensitive="1" license="LGPL" author="Luis Silvestre (luislonghorn@hotmail.com)">
+  <highlighting>
+    <list name="openings">
+      <item> do </item>
+      <item> for </item>
+      <item> if </item>
+      <item> switch </item>
+      <item> while </item>
+      <item> try </item>
+      <item> unwind_protect </item>
+      <item> function </item>
+    </list>
+    <list name="closings">
+      <item> end </item>
+      <item> until </item>
+      <item> endfor </item>
+      <item> endif </item>
+      <item> endswitch </item>
+      <item> endwhile </item>
+      <item> endfunction </item>
+      <item> end_try_catch </item>
+      <item> end_unwind_protect </item>
+    </list>
+    <list name="keywords">
+      <item> all_va_args </item>
+      <item> break </item>
+      <item> case </item>
+      <item> continue </item>
+      <item> else </item>
+      <item> elseif </item>
+      <item> goto </item>
+      <item> return </item>
+      <item> struct </item>
+      <item> otherwise </item>
+      <item> catch </item>
+      <item> unwind_protect_cleanup </item>
+      <item> global </item>
+      <item> persistent </item>
+    </list>
+    <list name="bivariables">
+      <item> EDITOR </item>
+      <item> Inf </item>
+      <item> NaN </item>
+      <item> LOADPATH </item>
+      <item> PAGER </item>
+      <item> ans </item>
+      <item> eps </item>
+      <item> pi </item>
+      <item> realmax </item>
+      <item> realmin </item>
+      <item> true </item>
+      <item> false </item>
+      <item> filesep </item>
+      <item> inf </item>
+      <item> nan </item>
+      <item> stdin </item>
+      <item> stdout </item>
+      <item> stderr </item>
+      <item> e </item>
+      <item> argv </item>
+      <item> NA </item>
+      <item> program_invocation_name </item>
+      <item> program_name </item>
+      <item> OCTAVE_HOME </item>
+      <item> OCTAVE_VERSION </item>
+      <item> automatic_replot </item>
+      <item> do_fortran_indexing </item>
+      <item> implicit_str_to_num_ok </item>
+      <item> output_max_field_width </item>
+      <item> page_screen_output </item>
+      <item> prefer_column_vectors </item>
+      <item> resize_on_range_error </item>
+      <item> save_precision </item>
+      <item> silent_functions </item>
+      <item> warn_divide_by_zero </item>
+      <item> commas_in_leteral_matrix </item>
+      <item> ignore_function_time_stamp </item>
+      <item> ok_to_lose_imaginary_part </item>
+      <item> prefer_zero_one_indexing </item>
+      <item> automatic_replot </item>
+      <item> recursion_depth </item>
+      <item> beep_on_error </item>
+    </list>
+    <list name="commands">
+      <item> abs </item>
+      <item> acos </item>
+      <item> acot </item>
+      <item> acsc </item>
+      <item> angle </item>
+      <item> asec </item>
+      <item> asin </item>
+      <item> atan </item>
+      <item> bar </item>
+      <item> ceil </item>
+      <item> close </item>
+      <item> cond </item>
+      <item> condeig </item>
+      <item> complex </item>
+      <item> conj </item>
+      <item> cos </item>
+      <item> cot </item>
+      <item> csc </item>
+      <item> det </item>
+      <item> disp </item>
+      <item> exp </item>
+      <item> figure </item>
+      <item> filter </item>
+      <item> fix </item>
+      <item> fft </item>
+      <item> floor </item>
+      <item> fprintf </item>
+      <item> freqz </item>
+      <item> get </item>
+      <item> gcd </item>
+      <item> grid </item>
+      <item> imag </item>
+      <item> isbool </item>
+      <item> isempty </item>
+      <item> islogical </item>
+      <item> isnumeric </item>
+      <item> isreal </item>
+      <item> isascii </item>
+      <item> iscell </item>
+      <item> iscellstr </item>
+      <item> ischar </item>
+      <item> iscntrl </item>
+      <item> iscomplex </item>
+      <item> isdigit </item>
+      <item> isfield </item>
+      <item> isfinite </item>
+      <item> isglobal </item>
+      <item> isgraph </item>
+      <item> ishold </item>
+      <item> isieee </item>
+      <item> isinf </item>
+      <item> iskeyword </item>
+      <item> islist </item>
+      <item> islower </item>
+      <item> ismatrix </item>
+      <item> isna </item>
+      <item> isnan </item>
+      <item> isprint </item>
+      <item> ispunct </item>
+      <item> isspace </item>
+      <item> isstraem </item>
+      <item> isstreamoff </item>
+      <item> isstruct </item>
+      <item> isupper </item>
+      <item> isvarname </item>
+      <item> isxdigit </item>
+      <item> lcm </item>
+      <item> length </item>
+      <item> linspace </item>
+      <item> load </item>
+      <item> log </item>
+      <item> log2 </item>
+      <item> log10 </item>
+      <item> logspace </item>
+      <item> mesh </item>
+      <item> mod </item>
+      <item> ndims </item>
+      <item> nextpow2 </item>
+      <item> norm </item>
+      <item> null </item>
+      <item> numel </item>
+      <item> fopen </item>
+      <item> orth </item>
+      <item> printf </item>
+      <item> poly </item>
+      <item> pow2 </item>
+      <item> plot </item>
+      <item> rank </item>
+      <item> real </item>
+      <item> rem </item>
+      <item> roots </item>
+      <item> save </item>
+      <item> sec </item>
+      <item> semilogx </item>
+      <item> semilogy </item>
+      <item> set </item>
+      <item> sin </item>
+      <item> sign </item>
+      <item> size </item>
+      <item> sprintf </item>
+      <item> sqrt </item>
+      <item> stairs </item>
+      <item> stem </item>
+      <item> subplot </item>
+      <item> tan </item>
+      <item> title </item>
+      <item> trace </item>
+      <item> cd </item>
+      <item> pwd </item>
+      <item> ls </item>
+      <item> getenv </item>
+      <item> system </item>
+      <item> rows </item>
+      <item> columns </item>
+      <item> all </item>
+      <item> any </item>
+      <item> find </item>
+      <item> sort </item>
+      <item> sum </item>
+      <item> prod </item>
+      <item> min </item>
+      <item> max </item>
+      <item> reshape </item>
+      <item> diag </item>
+      <item> eye </item>
+      <item> ones </item>
+      <item> zeros </item>
+      <item> rand </item>
+      <item> chol </item>
+      <item> det </item>
+      <item> eig </item>
+      <item> expm </item>
+      <item> hess </item>
+      <item> inverse </item>
+      <item> pinv </item>
+      <item> qr </item>
+      <item> schur </item>
+      <item> svd </item>
+      <item> syl </item>
+      <item> fsolve </item>
+      <item> lsolve </item>
+      <item> dassl </item>
+      <item> quad </item>
+      <item> ifft </item>
+      <item> sinc </item>
+      <item> colormap </item>
+      <item> gray2ind </item>
+      <item> image </item>
+      <item> imagesc </item>
+      <item> imshow </item>
+      <item> ind2gray </item>
+      <item> ind2rgb </item>
+      <item> loadimage </item>
+      <item> rgb2ind </item>
+      <item> saveimage </item>
+      <item> create_set </item>
+      <item> complement </item>
+      <item> intersection </item>
+      <item> union </item>
+      <item> strcmp </item>
+      <item> strcat </item>
+      <item> fopen </item>
+      <item> fclose </item>
+      <item> scanf </item>
+      <item> fscanf </item>
+      <item> sscanf </item>
+      <item> fgets </item>
+      <item> fflush </item>
+      <item> ftell </item>
+      <item> frewind </item>
+      <item> freport </item>
+      <item> fread </item>
+      <item> fwrite </item>
+      <item> feof </item>
+      <item> purge_tmp_files </item>
+      <item> eval </item>
+      <item> feval </item>
+      <item> warning </item>
+      <item> error </item>
+      <item> clear </item>
+      <item> exist </item>
+      <item> who </item>
+      <item> gplot </item>
+      <item> gsplot </item>
+      <item> gset </item>
+      <item> gshow </item>
+      <item> replot </item>
+      <item> closeplot </item>
+      <item> set </item>
+      <item> show </item>
+      <item> loglog </item>
+      <item> hist </item>
+      <item> axis </item>
+      <item> xlabel </item>
+      <item> ylabel </item>
+      <item> zlabel </item>
+      <item> hold </item>
+      <item> ishold </item>
+      <item> meshdom </item>
+      <item> input </item>
+      <item> nargin </item>
+      <item> nargout </item>
+      <item> usage </item>
+      <item> mean </item>
+      <item> corrcoef </item>
+      <item> cov </item>
+      <item> median </item>
+      <item> std </item>
+      <item> var </item>
+      <item> compan </item>
+      <item> conv </item>
+      <item> deconv </item>
+      <item> poly </item>
+      <item> polyderiv </item>
+      <item> polyreduce </item>
+      <item> polyval </item>
+      <item> polyvalm </item>
+      <item> roots </item>
+      <item> residue </item>
+    </list>
+
+    <contexts>
+
+      <context name="_normal" attribute="Normal Text" lineEndContext="#pop">
+
+        <RegExpr context="_adjoint" attribute="Normal Text" String="[a-zA-Z]\w*(?=')" />
+        <RegExpr context="_adjoint" attribute="Number" String="(\d+(\.\d+)?|\.\d+)([eE][+-]?\d+)?[ij]?(?=')" />
+        <RegExpr context="_adjoint" attribute="Delimiter" String="[\)\]}](?=')" />
+        <RegExpr context="_adjoint" attribute="Operator" String="\.'(?=')" />
+
+        <RegExpr context="#stay" attribute="String" String="'[^']*(''[^']*)*'(?=[^']|$)" />
+        <RangeDetect context="#stay" attribute="String" char="&quot;" char1="&quot;" />
+        <RegExpr context="#stay" attribute="Incomplete String" String="'[^']*(''[^']*)*" />
+        <RegExpr context="#stay" attribute="Incomplete String" String="&quot;[^&quot;]*(&quot;&quot;[^&quot;]*)*" />
+
+        <keyword context="#stay" attribute="Keyword" String="keywords" />
+        <keyword context="#stay" attribute="Command" String="commands" />
+        <keyword context="#stay" attribute="Variable" String="bivariables" />
+        <keyword context="#stay" attribute="Keyword" String="openings" beginRegion="loop"/>
+        <keyword context="#stay" attribute="Keyword" String="closings" endRegion="loop"/>
+        <RegExpr context="#stay" attribute="Comment" String="(%|#|//).*$" />
+        <Detect2Chars attribute="Comment" context="Comment2" char="/" char1="*" beginRegion="Comment"/>
+        <RegExpr context="#stay" attribute="Number" String="(\d+(\.\d+)?|\.\d+)([eE][+-]?\d+)?[ij]?" />
+        <AnyChar context="#stay" attribute="Delimiter" String="()[]{}"/>
+
+        <StringDetect context="#stay" attribute="Operator" String="..."/>
+        <StringDetect context="#stay" attribute="Operator" String="=="/>
+        <StringDetect context="#stay" attribute="Operator" String="~="/>
+        <StringDetect context="#stay" attribute="Operator" String="&lt;="/>
+        <StringDetect context="#stay" attribute="Operator" String="&gt;="/>
+        <StringDetect context="#stay" attribute="Operator" String="&amp;&amp;"/>
+        <StringDetect context="#stay" attribute="Operator" String="||"/>
+        <StringDetect context="#stay" attribute="Operator" String=".*"/>
+        <StringDetect context="#stay" attribute="Operator" String=".^"/>
+        <StringDetect context="#stay" attribute="Operator" String="./"/>
+        <StringDetect context="#stay" attribute="Operator" String=".'"/>
+        <AnyChar context="#stay" attribute="Operator" String="*+-/\&amp;|&lt;&gt;~^=,;:@"/>
+      </context>
+
+      <context name="_adjoint" attribute="Operator" lineEndContext="#pop">
+        <RegExpr context="#pop" attribute="Operator" String="'+" />
+      </context>
+
+      <context attribute="Comment" lineEndContext="#stay" name="Comment2">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+      </context>
+    
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="String" defStyleNum="dsString" />
+      <itemData name="Number" defStyleNum="dsFloat" />
+      <itemData name="Incomplete String" defStyleNum="dsChar" />
+      <itemData name="Keyword"  defStyleNum="dsKeyword" />
+      <itemData name="Variable" defStyleNum="dsNormal" color="#00AA00" selcolor="ff00ff" />
+      <itemData name="Operator" defStyleNum="dsDecVal" />
+      <itemData name="Comment" defStyleNum="dsComment" />
+      <itemData name="Delimiter" defStyleNum="dsNormal" />
+      <itemData name="Command"     defStyleNum="dsKeyword" color="#000090" selColor="#ffffff" bold="0" italic="0"/>
+    </itemDatas>
+
+  </highlighting>
+
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
+    <keywords casesensitive="1" weakDeliminator=""/>
+  </general>
+
+</language>

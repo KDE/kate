@@ -2369,7 +2369,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     int pos = line->firstChar();
     if (pos != -1) {
       while (line->length() > pos && !line->getChar(pos).isLetterOrNumber()) ++pos;
-      if (line->length() > pos+1 && line->getChar(pos).isSpace()) ++pos; // append " "
     } else {
       pos = line->length(); // stay indented
     }

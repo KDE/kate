@@ -21,6 +21,8 @@
 #ifndef kate_document_h
 #define kate_document_h
 
+#include <ktexteditor/configinterfaceextension.h>
+
 #include "katecursor.h"
 #include "katefont.h"
 #include "katesearch.h"
@@ -45,7 +47,7 @@ class KateViewInternal;
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document
+class KateDocument : public Kate::Document, KTextEditor::ConfigInterfaceExtension
 {
   Q_OBJECT
   friend class KateConfigDialog;
@@ -80,6 +82,16 @@ class KateDocument : public Kate::Document
     QPtrList<KTextEditor::View> m_textEditViews;
     KateView *m_activeView;
 
+  //
+  // KTextEditor::ConfigInterfaceExtension stuff
+  //
+  public slots:
+    uint configPages () const;
+    KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name=0 );
+    QString configPageName (uint number = 0) const;
+    QString configPageFullName (uint number = 0) const;   
+    QPixmap configPagePixmap (uint number = 0) const;
+    
   //
   // KTextEditor::EditInterface stuff
   //

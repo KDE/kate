@@ -244,6 +244,135 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 };
 
 //
+// KTextEditor::ConfigInterfaceExtension stuff
+//
+
+uint KateDocument::configPages () const
+{
+  return 7;
+}
+
+KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char *name )
+{
+  switch( number )
+  {
+    case 0:
+      return colorConfigPage(parent);
+      
+    case 1:
+      return fontConfigPage(parent);
+
+    case 2:
+      return indentConfigPage(parent);
+
+    case 3:
+      return selectConfigPage(parent);
+
+    case 4:
+      return editConfigPage (parent);
+
+    case 5:
+      return keysConfigPage (parent);
+
+    case 6:
+      return hlConfigPage (parent);
+
+    default:
+      return 0;
+  }
+}
+
+QString KateDocument::configPageName (uint number) const
+{
+  switch( number )
+  {
+    case 0:
+      return i18n ("Colors");
+      
+    case 1:
+      return i18n ("Fonts");
+
+    case 2:
+      return i18n ("Indentation");
+
+    case 3:
+      return i18n ("Selection");
+
+    case 4:
+      return i18n ("Editing");
+
+    case 5:
+      return i18n ("Shortcuts");
+
+    case 6:
+      return i18n ("Highlighting");
+
+    default:
+      return 0;
+  }
+}
+
+QString KateDocument::configPageFullName (uint number) const
+{
+  switch( number )
+  {
+    case 0:
+      return i18n ("Colors Settings");
+      
+    case 1:
+      return i18n ("Fonts Settings");
+
+    case 2:
+      return i18n ("Indentation Rules");
+
+    case 3:
+      return i18n ("Selection Behavior");
+
+    case 4:
+      return i18n ("Editing Options");
+
+    case 5:
+      return i18n ("Shortcuts Configuration");
+
+    case 6:
+      return i18n ("Highlighting Rules");
+
+    default:
+      return 0;
+  }
+}  
+
+QPixmap KateDocument::configPagePixmap (uint number) const
+{
+  switch( number )
+  {
+    case 0:
+      return BarIcon("colorize", KIcon::SizeMedium);
+      
+    case 1:
+      return BarIcon("fonts", KIcon::SizeMedium);
+
+    case 2:
+      return BarIcon("rightjust", KIcon::SizeMedium);
+
+    case 3:
+      return BarIcon("misc", KIcon::SizeMedium);
+
+    case 4:
+      return BarIcon("edit", KIcon::SizeMedium);
+
+    case 5:
+      return BarIcon("misc", KIcon::SizeMedium);
+
+    case 6:
+      return BarIcon("misc", KIcon::SizeMedium);
+
+    default:
+      return 0;
+  }
+}
+
+//
 // KTextEditor::EditInterface stuff
 //
 

@@ -190,7 +190,7 @@ void KateSuperCursor::editLineWrapped(uint line, uint col, bool newLine)
     emit positionChanged();
     return;
   }
-  else if ( m_line == int(line) && m_col >= int(col) )
+  else if ( (m_line == int(line)) && (m_col >= int(col)) )
   {
     m_line++;
     m_col -= col;
@@ -204,17 +204,24 @@ void KateSuperCursor::editLineWrapped(uint line, uint col, bool newLine)
 
 void KateSuperCursor::editLineUnWrapped(uint line, uint col, bool removeLine, uint length)
 {
-  if (m_line > int(line+1))
+  if (removeLine && (m_line > int(line+1)))
   {
     m_line--;
 
     emit positionChanged();
     return;
   }
-  else if ( m_line== int(line+1) )
+  else if ( (m_line == int(line+1)) && (removeLine || (m_col < int(length))) )
   {
     m_line = line;
     m_col += col;
+
+    emit positionChanged();
+    return;
+  }
+  else if ( (m_line == int(line+1)) && (m_col >= int(length)) )
+  {
+    m_col -= length;
 
     emit positionChanged();
     return;

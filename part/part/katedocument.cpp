@@ -648,7 +648,12 @@ void KateDocument::editStart (bool withUndo)
   if (editWithUndo)
   {
     if (undoItems.count () > myUndoSteps)
+    {
+      undoItems.setAutoDelete (true);
       undoItems.removeFirst ();
+      undoItems.setAutoDelete (false);
+    }
+
     editCurrentUndo = new KateUndoGroup (this);
   }
   else

@@ -20,6 +20,7 @@
 #define __ktexteditor_popupmenuinterface_h__
 
 class QCString;
+class QPopupMenu;
 
 namespace KTextEditor
 {
@@ -48,7 +49,7 @@ class PopupMenuInterface
       Install a Popup Menu. The Popup Menu will be activated on
       a right mouse button press event.
     */
-    virtual void installPopup (class QPopupMenu *rmb_Menu) = 0;
+    virtual void installPopup (QPopupMenu *rmb_Menu) = 0;
 
   private:
     class PrivatePopupMenuInterface *d;    

@@ -166,8 +166,10 @@ class StyleListItem : public QListViewItem {
     ~StyleListItem() {};
 
     /* mainly for readability */
-    enum Property { ContextName, Bold, Italic, Color, SelColor, UseDefStyle };
+    enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
 
+    /* updates the hldata's style */
+    void updateStyle();
     /* reimp */
     virtual int width ( const QFontMetrics & fm, const QListView * lv, int c ) const;
     /* calls changeProperty() if it makes sense considering pos. */
@@ -188,18 +190,15 @@ class StyleListItem : public QListViewItem {
     void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
   private:
     /* private methods to change properties */
-    void toggleBold();
-    void toggleItalic();
     void toggleDefStyle();
-    void setCol();
-    void setSelCol();
+    void setColor( int );
     /* helper function to copy the default style into the ItemData,
        when a property is changed and we are using default style. */
     void setCustStyle();
 
     class KateAttribute *is, // the style currently in use
-              *ds; // default style for hl mode contexts and default styles
-    class ItemData *st;  // itemdata for hl mode contexts
+              *ds;           // default style for hl mode contexts and default styles
+    class ItemData *st;      // itemdata for hl mode contexts
 };
 
 /*

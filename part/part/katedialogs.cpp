@@ -314,6 +314,7 @@ void HlConfigPage::apply ()
 {
   if (m_ready)
   {
+    kdDebug()<<"HlConfigPage::apply()"<<endl;
     page->saveData();
     hlManager->setDefaults(defaultStyleList);
 // TODO anders: Make sure this works ;)
@@ -350,8 +351,11 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   QColor normalcol( defaultItemStyleList->at(0)->textColor() );
   StyleListView *lvDefStyles = new StyleListView( page1, false, normalcol );
   for ( int i = 0; i < hlManager->defaultStyles(); i++ )
+  {
+//     kdDebug()<<i<<" itemsSet: "<<defaultItemStyleList->at( i )->itemsSet()<<endl;
     lvDefStyles->insertItem( new StyleListItem( lvDefStyles, hlManager->defaultStyleName(i),
                                                 defaultItemStyleList->at( i ) ) );
+  }
   // highlight modes =====================================================
 
   QVBox *page2 = new QVBox( this );
@@ -418,6 +422,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   QPushButton *btnNew = new QPushButton(i18n("&New..."), hbBtns);
   connect( btnNew, SIGNAL(clicked()), this, SLOT(hlNew()) );
 
+  hlCombo->setCurrentItem( hlNumber );
   hlChanged(hlNumber);
 
   // jowenn, feel free to edit the below texts
@@ -442,8 +447,9 @@ void HighlightDialogPage::hlChanged(int z)
 {
   writeback();
 
-  if ( ! hlDataDict->find( z ) )
-    hlDataDict->insert( z, hlManager->getHl( z )->getData() );
+  if ( ! hlDataDict->find( z ) ) {
+    kdDebug()<<"getting hl data ("<<z<<") - count is "<<hlDataDict->count()<<endl;
+    hlDataDict->insert( z, hlManager->getHl( z )->getData() );}
 
   hlData = hlDataDict->find( z );
   wildcards->setText(hlData->wildcards);
@@ -454,6 +460,7 @@ void HighlightDialogPage::hlChanged(int z)
   for (ItemData *itemData = hlData->itemDataList.first();
           itemData != 0L;
              itemData = hlData->itemDataList.next()) {
+//   kdDebug()<<itemData->name.latin1()<<" :defStyleNum "<<itemData->defStyleNum<<endl;
     lvStyles->insertItem( new StyleListItem( lvStyles, i18n(itemData->name.latin1()),
                                  defaultItemStyleList->at(itemData->defStyleNum), itemData ) );
   }
@@ -464,6 +471,14 @@ void HighlightDialogPage::writeback() {
     hlData->wildcards = wildcards->text();
     hlData->mimetypes = mimetypes->text();
     hlData->priority = priority->value();
+
+    QListViewItemIterator it ( lvStyles );
+    while( it.current() )
+    {
+      ((StyleListItem*)it.current())->updateStyle();
+      kdDebug()<<"updated "<<it.current()->text(0)<<endl;
+      ++it;
+    }
   }
 }
 
@@ -953,10 +968,14 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
       normalcol( textcol )
 {
   addColumn( i18n("Context") );
-  addColumn( i18n("Bold") );
-  addColumn( i18n("Italic") );
+  addColumn( SmallIconSet("text_bold"), QString::null/*i18n("Bold")*/ );
+  addColumn( SmallIconSet("text_italic"), QString::null/*i18n("Italic")*/ );
+  addColumn( SmallIconSet("text_under"), QString::null );
+  addColumn( SmallIconSet("text_strike"), QString::null );
   addColumn( i18n("Normal") );
   addColumn( i18n("Selected") );
+  addColumn( i18n("Background") );
+  addColumn( i18n("Background Selected") );
   if ( showUseDefaults )
     addColumn( i18n("Use Default Style") );
   connect( this, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)),
@@ -1054,12 +1073,101 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
           ds( style ),
           st( data )
 {
-  //is = ( st && st->isSomethingSet() ) ? st : ds;
-  is = ds;
-  if (st && st->isSomethingSet() ) {
-    kdDebug()<<"something is set in style ("<<stylename<<")..."<<endl;
-    is = (KateAttribute*)st;
+  if ( st )
+  {
+    KateAttribute shit( *ds );
+    is = new KateAttribute( shit += *dynamic_cast<KateAttribute*>(st) );
   }
+  else
+    is = ds;
+}
+
+void StyleListItem::updateStyle()
+{
+  //kdDebug()<<text(0)<<": set: "<<st->itemsSet()<<endl;
+  /*
+  save a atom if
+      it is set and has changed and
+      the setting is different from the default
+  */
+  if ( is->itemSet(KateAttribute::Weight) )
+  {
+    if ( is->weight() != st->weight() &&
+        ( !ds->itemSet(KateAttribute::Weight) || is->weight() != ds->weight() ) )
+      st->setWeight( is->weight() );
+    else
+      st->clearAttribute(KateAttribute::Weight);
+  }
+  if ( is->itemSet(KateAttribute::Italic) )
+  {
+    if ( is->italic() != st->italic() &&
+        ( !ds->itemSet(KateAttribute::Italic) || is->italic() != ds->italic() ) )
+      st->setItalic( is->italic() );
+    else
+      st->clearAttribute(KateAttribute::Italic);
+  }
+  if ( is->itemSet(KateAttribute::StrikeOut) )
+  {
+    if ( is->strikeOut() != st->strikeOut() &&
+        ( !ds->itemSet(KateAttribute::StrikeOut) || is->strikeOut() != ds->strikeOut() ) )
+      st->setStrikeOut( is->strikeOut() );
+    else
+      st->clearAttribute(KateAttribute::StrikeOut);
+  }
+  if ( is->itemSet(KateAttribute::Underline) )
+  {
+    if ( is->underline() != st->underline() &&
+        ( !ds->itemSet(KateAttribute::Underline) || is->underline() != ds->underline() ) )
+      st->setUnderline( is->underline() );
+    else
+      st->clearAttribute(KateAttribute::Underline);
+  }
+  if ( is->itemSet(KateAttribute::Outline) )
+  {
+    if ( is->outline() != st->outline() &&
+        ( !ds->itemSet(KateAttribute::Outline) || is->outline() != ds->outline() ) )
+      st->setOutline( is->outline() );
+    else
+      st->clearAttribute(KateAttribute::Outline);
+  }
+
+  if ( is->itemSet(KateAttribute::TextColor) )
+  {
+    if ( is->textColor() != st->textColor() &&
+        is->textColor() != ds->textColor() )
+      st->setTextColor( is->textColor() );
+    else
+      st->clearAttribute(KateAttribute::TextColor);
+  }
+  if ( is->itemSet(KateAttribute::SelectedTextColor) )
+  {
+    if ( is->selectedTextColor() != st->selectedTextColor() &&
+        is->selectedTextColor() != ds->selectedTextColor() )
+      st->setSelectedTextColor( is->selectedTextColor() );
+    else
+      st->clearAttribute(KateAttribute::SelectedTextColor);
+  }
+  if ( is->itemSet(KateAttribute::BGColor) )
+  {
+    if ( is->bgColor() != st->bgColor() &&
+        is->bgColor() != ds->bgColor() )
+      st->setBGColor( is->bgColor() );
+    else
+      st->clearAttribute(KateAttribute::BGColor);
+  }
+  if ( is->itemSet(KateAttribute::SelectedBGColor) )
+  {
+    if ( is->selectedBGColor() != st->selectedBGColor() &&
+        is->selectedBGColor() != ds->selectedBGColor() )
+      st->setSelectedBGColor( is->selectedBGColor() );
+    else
+      st->clearAttribute(KateAttribute::SelectedBGColor);
+  }
+  /*
+    unset unset items
+  */
+  //kdDebug()<<"after update: "<<st->itemsSet()<<endl;
+  //kdDebug()<<"bold: "<<st->bold()<<" ("<<is->bold()<<")"<<endl;
 }
 
 /* only true for a hl mode item using it's default style */
@@ -1082,6 +1190,8 @@ int StyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int
       return BoxSize + m;
     case Color:
     case SelColor:
+    case BgColor:
+    case SelBgColor:
       return ColorBtnWidth +m;
     default:
       return 0;
@@ -1098,11 +1208,15 @@ void StyleListItem::activate( int column, const QPoint &localPos )
   switch( column ) {
     case Bold:
     case Italic:
+    case Underline:
+    case Strikeout:
     case UseDefStyle:
       w = BoxSize;
       break;
     case Color:
     case SelColor:
+    case BgColor:
+    case SelBgColor:
       w = ColorBtnWidth;
       break;
     default:
@@ -1115,33 +1229,22 @@ void StyleListItem::activate( int column, const QPoint &localPos )
 void StyleListItem::changeProperty( Property p )
 {
   if ( p == Bold )
-    toggleBold();
+    is->setBold( ! is->bold() );
   else if ( p == Italic )
-    toggleItalic();
-  else if ( p == Color )
-    setCol();
-  else if ( p == SelColor )
-    setSelCol();
+    is->setItalic( ! is->italic() );
+  else if ( p == Underline )
+    is->setUnderline( ! is->underline() );
+  else if ( p == Strikeout )
+    is->setStrikeOut( ! is->strikeOut() );
   else if ( p == UseDefStyle )
     toggleDefStyle();
-}
-void StyleListItem::toggleBold()
-{
-  if (st && st->isSomethingSet()) setCustStyle();
-  is->setBold(!is->bold());
-  repaint();
-}
-
-void StyleListItem::toggleItalic()
-{
-  if (st && st->isSomethingSet()) setCustStyle();
-  is->setItalic(!is->italic());
-  repaint();
+  else
+    setColor( p );
 }
 
 void StyleListItem::toggleDefStyle()
 {
-  if ( st->isSomethingSet() ) {
+  if ( !st->isSomethingSet() ) {
     KMessageBox::information( listView(),
          i18n("\"Use Default Style\" will be automatically unset when you change any style properties."),
          i18n("Kate Styles"),
@@ -1149,33 +1252,36 @@ void StyleListItem::toggleDefStyle()
   }
   else {
 //    st->setdefStyle = 1;
-    is = ds;
+    //is = ds;
+    is->clear();
     repaint();
   }
 }
 
-void StyleListItem::setCol()
+void StyleListItem::setColor( int column )
 {
-  QColor c = is->textColor();
-  if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
-  if (st && st->isSomethingSet()) setCustStyle();
-  is->setTextColor(c);
-  repaint();
-}
+  QColor c;
+  if ( column == Color) c = is->textColor();
+  else if ( column == SelColor ) c = is->selectedTextColor();
+  else if ( column == BgColor ) c = is->bgColor();
+  else if ( column == SelBgColor ) c = is->selectedBGColor();
 
-void StyleListItem::setSelCol()
-{
-  QColor c = is->selectedTextColor();
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
+
   if (st && st->isSomethingSet()) setCustStyle();
-  is->setSelectedTextColor(c);
+
+  if ( column == Color) is->setTextColor( c );
+  else if ( column == SelColor ) is->setSelectedTextColor( c );
+  else if ( column == BgColor ) is->setBGColor( c );
+  else if ( column == SelBgColor ) is->setSelectedBGColor( c );
+
   repaint();
 }
 
 void StyleListItem::setCustStyle()
 {
-  is = st;
-  *is += *ds;
+//   is = st;
+//   *is += *ds;
 //  st->defStyle = 0;
 }
 
@@ -1188,80 +1294,107 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
   QListView *lv = listView();
   if ( !lv )
     return;
+  Q_ASSERT( lv ); //###
 
   p->fillRect( 0, 0, width, height(), QBrush( ((StyleListView*)lv)->bgcol ) );
   int marg = lv->itemMargin();
 
   // use a provate color group and set the text/highlighted text colors
   QColorGroup mcg = cg;
+  QColor c;
 
-  if ( col == 0 ) {
-    mcg.setColor(QColorGroup::Text, is->textColor());
-    mcg.setColor(QColorGroup::HighlightedText, is->selectedTextColor());
-    QFont f ( ((StyleListView*)lv)->docfont );
-    p->setFont( is->font(f) );
-    // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
-    // Maybe I need painting the string myself :(
-    QListViewItem::paintCell( p, mcg, col, width, align );
-    return;
-  }
-  else if ( col == 1 || col == 2 || col == 5 ) {
-    // Bold/Italic/use default checkboxes
-    // code allmost identical to QCheckListItem
-    Q_ASSERT( lv ); //###
-    // I use the text color of defaultStyles[0], normalcol in parent listview
-    mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
-    int x = 0;
-    if ( align == AlignCenter ) {
-      QFontMetrics fm( lv->font() );
-      x = (width - BoxSize - fm.width(text(0)))/2;
+  switch ( col )
+  {
+    case ContextName:
+    {
+      mcg.setColor(QColorGroup::Text, is->textColor());
+      mcg.setColor(QColorGroup::HighlightedText, is->selectedTextColor());
+      QFont f ( ((StyleListView*)lv)->docfont );
+      p->setFont( is->font(f) );
+      // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
+      // Maybe I need painting the string myself :(
+      QListViewItem::paintCell( p, mcg, col, width, align );
     }
-    int y = (height() - BoxSize) / 2;
+    break;
+    case Bold:
+    case Italic:
+    case Underline:
+    case Strikeout:
+    case UseDefStyle:
+    {
+      // Bold/Italic/use default checkboxes
+      // code allmost identical to QCheckListItem
+      // I use the text color of defaultStyles[0], normalcol in parent listview
+      mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
+      int x = 0;
+      if ( align == AlignCenter ) {
+        QFontMetrics fm( lv->font() );
+        x = (width - BoxSize - fm.width(text(0)))/2;
+      }
+      int y = (height() - BoxSize) / 2;
 
-    if ( isEnabled() )
-      p->setPen( QPen( mcg.text(), 2 ) );
-    else
-      p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
-    if ( isSelected() && lv->header()->mapToSection( 0 ) != 0 ) {
-      p->fillRect( 0, 0, x + marg + BoxSize + 4, height(),
-             mcg.brush( QColorGroup::Highlight ) );
       if ( isEnabled() )
-        p->setPen( QPen( mcg.highlightedText(), 2 ) ); // FIXME! - use defaultstyles[0].selecol. luckily not used :)
-    }
-    p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
-    x++;
-    y++;
-    if ( (col == 1 && is->bold()) || (col == 2 && is->italic()) || (col == 5 && st->isSomethingSet()) ) {
-      QPointArray a( 7*2 );
-      int i, xx, yy;
-      xx = x+1+marg;
-      yy = y+5;
-      for ( i=0; i<3; i++ ) {
-        a.setPoint( 2*i,   xx, yy );
-        a.setPoint( 2*i+1, xx, yy+2 );
-        xx++; yy++;
+        p->setPen( QPen( mcg.text(), 2 ) );
+      else
+        p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
+
+      if ( isSelected() && lv->header()->mapToSection( 0 ) != 0 )
+      {
+        p->fillRect( 0, 0, x + marg + BoxSize + 4, height(),
+              mcg.brush( QColorGroup::Highlight ) );
+        if ( isEnabled() )
+          p->setPen( QPen( mcg.highlightedText(), 2 ) ); // FIXME! - use defaultstyles[0].selecol. luckily not used :)
       }
-      yy -= 2;
-      for ( i=3; i<7; i++ ) {
-        a.setPoint( 2*i,   xx, yy );
-        a.setPoint( 2*i+1, xx, yy+2 );
-        xx++; yy--;
+      p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
+      x++;
+      y++;
+      if ( (col == Bold && is->bold()) ||
+          (col == Italic && is->italic()) ||
+          (col == Underline && is->underline()) ||
+          (col == Strikeout && is->strikeOut()) ||
+          (col == UseDefStyle && !st->isSomethingSet()) )
+      {
+        QPointArray a( 7*2 );
+        int i, xx, yy;
+        xx = x+1+marg;
+        yy = y+5;
+        for ( i=0; i<3; i++ ) {
+          a.setPoint( 2*i,   xx, yy );
+          a.setPoint( 2*i+1, xx, yy+2 );
+          xx++; yy++;
+        }
+        yy -= 2;
+        for ( i=3; i<7; i++ ) {
+          a.setPoint( 2*i,   xx, yy );
+          a.setPoint( 2*i+1, xx, yy+2 );
+          xx++; yy--;
+        }
+        p->drawLineSegments( a );
       }
-      p->drawLineSegments( a );
     }
-  }
-  else if ( col == 3 || col == 4 ) {
-    // color "buttons"
-    Q_ASSERT(lv);
-    mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
-    int x = 0;
-    int y = (height() - BoxSize) / 2;
-    if ( isEnabled() )
-      p->setPen( QPen( mcg.text(), 2 ) );
-    else
-      p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
-    p->drawRect( x+marg, y+2, ColorBtnWidth-4, BoxSize-4 );
-    p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush(col == 3 ? is->textColor() : is->selectedTextColor()) );
+    break;
+    case Color:
+    case SelColor:
+    case BgColor:
+    case SelBgColor:
+    {
+      if ( col == Color) c = is->textColor();
+      else if ( col == SelColor ) c = is->selectedTextColor();
+      else if ( col == BgColor ) c = is->itemSet(KateAttribute::BGColor) ? is->bgColor() : ((StyleListView*)lv)->bgcol;
+      else if ( col == SelBgColor ) c = is->itemSet(KateAttribute::SelectedBGColor) ? is->selectedBGColor(): ((StyleListView*)lv)->bgcol;
+      // color "buttons"
+      mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
+      int x = 0;
+      int y = (height() - BoxSize) / 2;
+      if ( isEnabled() )
+        p->setPen( QPen( mcg.text(), 2 ) );
+      else
+        p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
+
+      p->drawRect( x+marg, y+2, ColorBtnWidth-4, BoxSize-4 );
+      p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush( c ) );
+    }
+    //case default: // no warning...
   }
 }
 //END

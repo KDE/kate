@@ -3,7 +3,7 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Full JavaScript 1.0 support by Whitehawk Stormchaser //-->
-<language name="JavaScript" version="1.09" kateversion="2.3" section="Scripts" extensions="*.js" mimetype="text/x-javascript" author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)" license="">
+<language name="JavaScript" version="1.10" kateversion="2.3" section="Scripts" extensions="*.js" mimetype="text/x-javascript" author="Anders Lund (anders@alweb.dk), Joseph Wenninger (jowenn@kde.org), Whitehawk Stormchaser (zerokode@gmx.net)" license="">
   <highlighting>
     <list name="keywords">
         <item> if </item>
@@ -411,7 +411,7 @@
         <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\(\s*" />
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
-        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
+        <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">

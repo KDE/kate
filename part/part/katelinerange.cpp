@@ -19,7 +19,7 @@
 
 #include "katelinerange.h"
 
-LineRange::LineRange()
+KateLineRange::KateLineRange()
   : line(-1)
   , virtualLine(-1)
   , startCol(-1)
@@ -34,11 +34,11 @@ LineRange::LineRange()
 {
 }
 
-LineRange::~LineRange ()
+KateLineRange::~KateLineRange ()
 {
 }
 
-void LineRange::clear()
+void KateLineRange::clear()
 {
   line = -1;
   virtualLine = -1;
@@ -52,22 +52,22 @@ void LineRange::clear()
   startsInvisibleBlock = false;
 }
 
-bool operator> (const LineRange& r, const KateTextCursor& c)
+bool operator> (const KateLineRange& r, const KateTextCursor& c)
 {
   return r.line > c.line() || r.endCol > c.col();
 }
 
-bool operator>= (const LineRange& r, const KateTextCursor& c)
+bool operator>= (const KateLineRange& r, const KateTextCursor& c)
 {
   return r.line > c.line() || r.endCol >= c.col();
 }
 
-bool operator< (const LineRange& r, const KateTextCursor& c)
+bool operator< (const KateLineRange& r, const KateTextCursor& c)
 {
   return r.line < c.line() || r.startCol < c.col();
 }
 
-bool operator<= (const LineRange& r, const KateTextCursor& c)
+bool operator<= (const KateLineRange& r, const KateTextCursor& c)
 {
   return r.line < c.line() || r.startCol <= c.col();
 }

@@ -594,7 +594,7 @@ bool KatePrinter::print (KateDocument *doc)
 
          // HA! this is where we print [part of] a line ;]]
          // FIXME Convert this function + related functionality to a separate KatePrintView
-         LineRange range;
+         KateLineRange range;
          range.line = lineCount;
          range.startCol = startCol;
          range.endCol = endCol;

@@ -31,7 +31,7 @@
 
 class KateDocument;
 class KateView;
-class LineRange;
+class KateLineRange;
 class KateRendererConfig;
 
 /**
@@ -152,7 +152,7 @@ public:
      * The text line is painted from the upper limit of (0,0).  To move that,
      * apply a transform to your painter.
      */
-    void paintTextLine(QPainter& paint, const LineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
+    void paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
 
     KateAttribute* attribute(uint pos);
     

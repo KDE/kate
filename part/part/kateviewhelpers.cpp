@@ -567,7 +567,7 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
 
 void KateIconBorder::mousePressEvent( QMouseEvent* e )
 {
-  m_lastClickedLine = m_viewInternal->yToLineRange(e->y()).line;
+  m_lastClickedLine = m_viewInternal->yToKateLineRange(e->y()).line;
 
   QMouseEvent forward( QEvent::MouseButtonPress,
     QPoint( 0, e->y() ), e->button(), e->state() );
@@ -583,7 +583,7 @@ void KateIconBorder::mouseMoveEvent( QMouseEvent* e )
 
 void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
-  uint cursorOnLine = m_viewInternal->yToLineRange(e->y()).line;
+  uint cursorOnLine = m_viewInternal->yToKateLineRange(e->y()).line;
 
   if (cursorOnLine == m_lastClickedLine &&
       cursorOnLine <= m_doc->lastLine() )

@@ -48,7 +48,6 @@ class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateViewInternal;
-class LineRange;
 class KateArbitraryHighlight;
 class KateSuperRange;
 class KateLineInfo;

@@ -17,16 +17,16 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef KATELINERANGE_H
-#define KATELINERANGE_H
+#ifndef _KATE_LINERANGE_H_
+#define _KATE_LINERANGE_H_
 
 #include "katecursor.h"
 
-class LineRange
+class KateLineRange
 {
   public:
-    LineRange();
-    virtual ~LineRange ();
+    KateLineRange();
+    virtual ~KateLineRange ();
 
     void clear();
 
@@ -40,10 +40,10 @@ class LineRange
       return startX ? shiftX : 0;
     }
 
-    friend bool operator> (const LineRange& r, const KateTextCursor& c);
-    friend bool operator>= (const LineRange& r, const KateTextCursor& c);
-    friend bool operator< (const LineRange& r, const KateTextCursor& c);
-    friend bool operator<= (const LineRange& r, const KateTextCursor& c);
+    friend bool operator> (const KateLineRange& r, const KateTextCursor& c);
+    friend bool operator>= (const KateLineRange& r, const KateTextCursor& c);
+    friend bool operator< (const KateLineRange& r, const KateTextCursor& c);
+    friend bool operator<= (const KateLineRange& r, const KateTextCursor& c);
 
     int line;
     int virtualLine;

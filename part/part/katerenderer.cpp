@@ -147,7 +147,7 @@ void KateRenderer::setPrinterFriendly(bool printerFriendly)
   setDrawCaret(false);
 }
 
-void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
+void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
 {
   int line = range->line;
 

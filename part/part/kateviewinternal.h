@@ -124,7 +124,7 @@ class KateViewInternal : public QWidget
     KateTextCursor endPos () const;
     uint endLine () const;
 
-    LineRange yToLineRange(uint y) const;
+    KateLineRange yToKateLineRange(uint y) const;
 
     void prepareForDynWrapChange();
     void dynWrapChanged();
@@ -303,29 +303,29 @@ class KateViewInternal : public QWidget
     //
     // lines Ranges, mostly useful to speedup + dyn. word wrap
     //
-    QMemArray<LineRange> lineRanges;
+    QMemArray<KateLineRange> lineRanges;
 
     // Used to determine if the scrollbar will appear/disappear in non-wrapped mode
     bool scrollbarVisible(uint startLine);
     int maxLen(uint startLine);
 
     // returns the maximum X value / col value a cursor can take for a specific line range
-    int lineMaxCursorX(const LineRange& range);
-    int lineMaxCol(const LineRange& range);
+    int lineMaxCursorX(const KateLineRange& range);
+    int lineMaxCol(const KateLineRange& range);
 
     // get the values for a specific range.
     // specify lastLine to get the next line of a range.
-    LineRange range(int realLine, const LineRange* previous = 0L);
+    KateLineRange range(int realLine, const KateLineRange* previous = 0L);
 
-    LineRange currentRange();
-    LineRange previousRange();
-    LineRange nextRange();
+    KateLineRange currentRange();
+    KateLineRange previousRange();
+    KateLineRange nextRange();
 
     // Finds the lineRange currently occupied by the cursor.
-    LineRange range(const KateTextCursor& realCursor);
+    KateLineRange range(const KateTextCursor& realCursor);
 
     // Returns the lineRange of the specified realLine + viewLine.
-    LineRange range(uint realLine, int viewLine);
+    KateLineRange range(uint realLine, int viewLine);
 
     // find the view line of cursor c (0 = same line, 1 = down one, etc.)
     uint viewLine(const KateTextCursor& realCursor);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Control" version="0.8" kateversion="2.1" section="Other" extensions="" mimetype="">
+<language name="Debian Control" version="0.81" kateversion="2.1" section="Other" extensions="" mimetype="">
     <highlighting>
         <contexts>
             <context attribute="Normal Text" lineEndContext="#stay">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="E Language" version="0.2" kateversion="2.3" section="Sources" extensions="*.e" mimetype="text/x-e-src">
+<language name="E Language" version="0.21" kateversion="2.3" section="Sources" extensions="*.e" mimetype="text/x-e-src">
     <highlighting>
         <list name="Type">
             <item> FALSE </item>

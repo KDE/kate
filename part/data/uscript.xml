@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="UnrealScript" version="0.9" kateversion="2.3" section="Games" extensions="*.uc" mimetype="text/x-uscript">
+<language name="UnrealScript" version="0.91" kateversion="2.3" section="Games" extensions="*.uc" mimetype="text/x-uscript">
 	<highlighting>
 		<list name="keywords">
 			<item> break </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.6" kateversion="2.1" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.61" kateversion="2.1" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>

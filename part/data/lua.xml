@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Lua" version="0.2" kateversion="2.3" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+<language name="Lua" version="0.21" kateversion="2.3" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
 	<highlighting>
 		<list name="keywords">
 			<item> and </item>

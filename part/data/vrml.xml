@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="VRML" version="1.0" section="Markup" extensions="*.wrl" mimetype="model/vrml">
+<language name="VRML" version="1.01" section="Markup" extensions="*.wrl" mimetype="model/vrml">
 	<highlighting>
 		<list name="keywords">
 			<item>DEF</item>

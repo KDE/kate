@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="AWK" version="0.2" kateversion="2.3" section="Scripts" extensions="*.awk" mimetype="text/x-awk">
+<language name="AWK" version="0.21" kateversion="2.3" section="Scripts" extensions="*.awk" mimetype="text/x-awk">
   <highlighting>
     <list name="keywords">
       <item>BEGIN</item>

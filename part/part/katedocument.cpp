@@ -257,10 +257,14 @@ void KateDocument::loadPlugin (PluginInfo *item)
 
 void KateDocument::unloadPlugin (PluginInfo *item)
 {
-  disablePluginGUI (item);
-  if (item->plugin) delete item->plugin;
-  item->plugin = 0L;
   item->load = false;
+  
+  if (!item->plugin) return;
+  
+  disablePluginGUI (item);
+  
+  delete item->plugin;
+  item->plugin = 0L;
 }
 
 void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
@@ -286,7 +290,7 @@ void KateDocument::disablePluginGUI (PluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
-  
+    
   for (uint i=0; i< m_views.count(); i++)
   {
     KTextEditor::pluginViewInterface(item->plugin)->removeView(m_views.at(i));       

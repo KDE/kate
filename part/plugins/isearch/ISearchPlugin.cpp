@@ -60,7 +60,7 @@ protected:
 };
                                             
 ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
-	: QObject ( view )
+	: QObject ( view ), KXMLGUIClient (view)
  	, m_view( 0L )
 	, m_doc( 0L )
 	, m_searchIF( 0L )
@@ -85,7 +85,9 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	, m_foundCol( 0 )
 	, m_matchLen( 0 )
 	, m_toolBarWasHidden( false )
-{
+{      
+  view->insertChildClient (this);
+
 	setInstance( KGenericFactory<ISearchPlugin>::instance() );
 	
 	m_searchForwardAction = new KAction(
@@ -165,8 +167,11 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 }
 
 ISearchPluginView::~ISearchPluginView()
-{
-	writeConfig();
+{       
+	writeConfig();   
+  delete m_combo;
+  delete m_label; 
+  m_view->removeChildClient (this);
 }
 
 void ISearchPluginView::setView( KTextEditor::View* view )
@@ -470,20 +475,24 @@ ISearchPlugin::~ISearchPlugin()
 }                    
 
 void ISearchPlugin::addView(KTextEditor::View *view)
-{                                          
+{       
+  printf ("test add 1\n");
+                                   
   ISearchPluginView *nview = new ISearchPluginView (view);
-  view->insertChildClient (nview);
   nview->setView (view); 
   m_views.append (nview);
 }   
 
 void ISearchPlugin::removeView(KTextEditor::View *view)
-{
+{      
+   printf ("test remove 1\n");
+
   for (uint z=0; z < m_views.count(); z++)
     if (m_views.at(z)->parentClient() == view)
     {
+       printf ("test remove \n");
+    
        ISearchPluginView *nview = m_views.at(z);
-       //view->removeChildClient (nview);
        m_views.remove (nview);
       delete nview;
     }  

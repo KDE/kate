@@ -36,7 +36,7 @@ if ($root == 1)
   $file =~ s/<language([^>]+)name="[^"]*"/<language$1name="PHP (HTML)"/s;
   $file =~ s/<language([^>]+)section="[^"]*"/<language$1section="Scripts"/s;
   $file =~ s/<language([^>]+)extensions="[^"]*"/<language$1extensions="*.php;*.php3;*.wml;*.phtml;*.phtm;*.inc"/s;
-  $file =~ s/<language([^>]+)mimetype="[^"]*"/<language$1mimetype="text\/x-php4-src;text\/x-php3-src;text\/vnd.wap.wml"/s;
+  $file =~ s/<language([^>]+)mimetype="[^"]*"/<language$1mimetype="text\/x-php4-src;text\/x-php3-src;text\/vnd.wap.wml;application\/x-php"/s;
 }
 else
 {

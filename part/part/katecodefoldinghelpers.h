@@ -71,12 +71,8 @@ class KateCodeFoldingNode
       return !m_childnodes->isEmpty ();
     }
 
-  protected:
-    friend class KateCodeFoldingTree;
-
+    // temporary public to avoid friend an be able to disallow the access of m_childnodes directly ;)
     KateCodeFoldingNode                *parentNode;
-    QPtrList<KateCodeFoldingNode>    *m_childnodes;
-
     unsigned int startLineRel;    
     unsigned int endLineRel;
 
@@ -87,6 +83,9 @@ class KateCodeFoldingNode
     bool visible;
     bool deleteOpening;
     bool deleteEnding;
+    
+  protected:
+    QPtrList<KateCodeFoldingNode>    *m_childnodes;
 };
 
 

@@ -150,7 +150,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
   if (hasChildNodes()) // does we have child list + nodes ?
   {
     // lets look, if given line is within a subnode range, and then return the deepest one.
-    for (KateCodeFoldingNode *node=childnodes()->first(); node; node=childnodes()->next())
+    for (KateCodeFoldingNode *node=m_childnodes->first(); node; node=m_childnodes->next())
     {
       if ((node->startLineRel<=line) && (line<=node->startLineRel+node->endLineRel))
       {
@@ -163,122 +163,130 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
   return this; // the line is only contained by the root node
 }
 
-KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLineDescending(KateCodeFoldingNode *node,
-		 unsigned int line, unsigned int offset, bool oneStepOnly)
+KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLineDescending ( KateCodeFoldingNode *node,
+    unsigned int line, unsigned int offset, bool oneStepOnly )
 {
-	// calculate the offset, between a subnodes real start line and its relative start
-	offset += node->startLineRel;
-	for (KateCodeFoldingNode *subNode = node->childnodes()->first(); subNode; subNode=node->childnodes()->next())
-	{
-		if ((subNode->startLineRel+offset<=line) && (line<=subNode->endLineRel+subNode->startLineRel+offset)) //warning fix me for invalid ends
-		{
-			// a subnode contains the line.
-			// if oneStepOnly is true, we don't want to search for the deepest node, just return the found one
-			if (oneStepOnly)
-				return subNode;
-			else
-				return findNodeForLineDescending (subNode,line,offset); // look into the next deeper hierarchy step
-		}
-	}
-
-	return node; // the current node has no sub nodes, or the line couldn'te be found within a subregion
+  if (hasChildNodes())
+  {
+    // calculate the offset, between a subnodes real start line and its relative start
+    offset += node->startLineRel;
+    for ( KateCodeFoldingNode *subNode = node->childnodes()->first(); subNode; subNode=node->childnodes()->next() )
+    {
+      if ((subNode->startLineRel+offset<=line) && (line<=subNode->endLineRel+subNode->startLineRel+offset)) //warning fix me for invalid ends
+      {
+        // a subnode contains the line.
+        // if oneStepOnly is true, we don't want to search for the deepest node, just return the found one
+        
+        if (oneStepOnly)
+          return subNode;
+        else
+          return findNodeForLineDescending (subNode,line,offset); // look into the next deeper hierarchy step
+      }
+    }
+  }
+  
+  return node; // the current node has no sub nodes, or the line couldn'te be found within a subregion
 }
 
 
 void KateCodeFoldingTree::debugDump()
 {
-	//dump all nodes for debugging
-	kdDebug(13000)<<"The parsed region/block tree for code folding"<<endl;
-	dumpNode(this,"");
+  //dump all nodes for debugging
+  kdDebug(13000)<<"The parsed region/block tree for code folding"<<endl;
+  dumpNode(this, "");
 }
 
 void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node,QString prefix)
 {
-	//output node properties
-	kdDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5").
-			arg(node->type).arg(node->startLineValid).arg(node->startLineRel).arg(node->endLineValid).
-			arg(node->endLineRel)<<endl;
+  //output node properties
+  kdDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5").
+      arg(node->type).arg(node->startLineValid).arg(node->startLineRel).arg(node->endLineValid).
+      arg(node->endLineRel)<<endl;
 
-		//output child node properties recursive
-	prefix=prefix+"   ";
-	for (unsigned int i=0;i<node->childnodes()->count();i++)
-		dumpNode (node->childnodes()->at(i),prefix);
-	
+  //output child node properties recursive
+  if (node->hasChildNodes())
+  {
+    prefix=prefix+"   ";
+    for ( KateCodeFoldingNode *subNode = node->childnodes()->first(); subNode; subNode=node->childnodes()->next() )
+      dumpNode (subNode,prefix);
+  }
 }
 
 /*
  That's one of the most important functions ;)
 */
 void KateCodeFoldingTree::updateLine(unsigned int line,
-	QMemArray<signed char> *regionChanges, bool *updated,bool changed)
+  QMemArray<signed char> *regionChanges, bool *updated,bool changed)
 {
-	if (!changed)
-	{
-		if (dontIgnoreUnchangedLines.isEmpty())
-			return;
+  if (!changed)
+  {
+    if (dontIgnoreUnchangedLines.isEmpty())
+      return;
 
-		if (dontIgnoreUnchangedLines[line])
-			dontIgnoreUnchangedLines.remove(line);
-		else
-			return;
-	}
-	
-	something_changed = false;
+    if (dontIgnoreUnchangedLines[line])
+      dontIgnoreUnchangedLines.remove(line);
+    else
+      return;
+  }
+ 
+  something_changed = false;
 
-	findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
+  findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
 
-	if (regionChanges->isEmpty())
-	{
-//		KateCodeFoldingNode *node=findNodeForLine(line);
-//		if (node->type!=0)
-//		if (getStartLine(node)+node->endLineRel==line) removeEnding(node,line);
-	}
-	else
-	{
-		signed char data= (*regionChanges)[regionChanges->size()-1];
-		regionChanges->resize (regionChanges->size()-1);
+  if (regionChanges->isEmpty())
+  {
+    //  KateCodeFoldingNode *node=findNodeForLine(line);
+    //  if (node->type!=0)
+    //  if (getStartLine(node)+node->endLineRel==line) removeEnding(node,line);
+  }
+  else
+  {
+    signed char data= (*regionChanges)[regionChanges->size()-1];
+    regionChanges->resize (regionChanges->size()-1);
 
-		int insertPos=-1;
-		KateCodeFoldingNode *node = findNodeForLine(line);
-		if (data<0)
-		{
-//			if (insertPos==-1)
-			{
-				unsigned int tmpLine=line-getStartLine(node);
-				for (int i=0; i<(int)node->childnodes()->count(); i++)
-				{
-					if (node->childnodes()->at(i)->startLineRel >= tmpLine)
-					{
-						insertPos=i;
-						break;
-					}
-				}
-			}
-		}
-		else
-		{
-			for (; (node->parentNode) && (getStartLine(node->parentNode)==line) && (node->parentNode->type!=0); node=node->parentNode);
+    int insertPos=-1;
+    KateCodeFoldingNode *node = findNodeForLine(line);
 
-			if ((getStartLine(node)==line) && (node->type!=0))
-			{
-				insertPos=node->parentNode->childnodes()->find(node);
-				node = node->parentNode;
-			}
-			else
-			{
-				for (int i=0;i<(int)node->childnodes()->count();i++)
-				{
-					if (getStartLine(node->childnodes()->at(i))>=line)
-					{
-						insertPos=i;
-						break;
-					}
-				}
-			}
-		}
+    if (data<0)
+    {
+      //  if (insertPos==-1)
+      {
+        unsigned int tmpLine=line-getStartLine(node);
+        
+        for (int i=0; i<(int)node->childnodes()->count(); i++)
+        {
+          if (node->childnodes()->at(i)->startLineRel >= tmpLine)
+          {
+            insertPos=i;
+            break;
+          }
+        }
+      }
+    }
+    else
+    {
+      for (; (node->parentNode) && (getStartLine(node->parentNode)==line) && (node->parentNode->type!=0); node=node->parentNode);
 
-		do
-		{
+      if ((getStartLine(node)==line) && (node->type!=0))
+      {
+        insertPos=node->parentNode->childnodes()->find(node);
+        node = node->parentNode;
+      }
+      else
+      {
+        for (int i=0;i<(int)node->childnodes()->count();i++)
+        {
+          if (getStartLine(node->childnodes()->at(i))>=line)
+          {
+            insertPos=i;
+            break;
+          }
+        }
+      }
+    }
+
+    do
+    {
 			if (data<0)
 			{
 				if (correctEndings(data,node,line,insertPos))

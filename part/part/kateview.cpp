@@ -186,12 +186,12 @@ void KateView::setupActions()
     a=new KAction(i18n("C&omment"), CTRL+Qt::Key_NumberSign, this, SLOT(comment()),
                                ac, "tools_comment");
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<BR><BR>"
-		"The characters for single / multiple line comments are defined within the language's highlighting."));
+		"The characters for single/multiple line comments are defined within the language's highlighting."));
 
     a=new KAction(i18n("Unco&mment"), CTRL+SHIFT+Qt::Key_NumberSign, this, SLOT(uncomment()),
                                  ac, "tools_uncomment");
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
-		"The characters for single / multiple line comments are defined within the language's highlighting."));
+		"The characters for single/multiple line comments are defined within the language's highlighting."));
   }
 
 

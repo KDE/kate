@@ -1985,7 +1985,7 @@ bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
   int k = hlKeyForAttrib( startAttrib );
   return ( k == hlKeyForAttrib( endAttrib ) &&
       ( ( !m_additionalData[k][0].isEmpty() && !m_additionalData[k][1].isEmpty() ) ||
-       m_additionalData[k][2].isEmpty() ) );
+       ! m_additionalData[k][2].isEmpty() ) );
 }
 
 QString KateHighlighting::getCommentString( int which, int attrib ) const

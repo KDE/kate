@@ -208,7 +208,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   // textline
   KateTextLine::Ptr textLine = m_doc->kateTextLine(line);
-
   if (!textLine)
     return;
 
@@ -239,26 +238,18 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     }
   }
 
-  // font data
-  KateFontStruct * fs = config()->fontStruct();
-
-  bool isCurrentLine = false;
-  if (cursor && range->includesCursor(*cursor))
-    isCurrentLine = true;
-
-  int startcol = range->startCol;
-  int endcol = range->wrap ? range->endCol : -1;
-
   // length, chars + raw attribs
   uint len = textLine->length();
   uint oldLen = len;
   //const QChar *s;
-  const uchar *a;
 
   // should the cursor be painted (if it is in the current xstart - xend range)
   bool cursorVisible = false;
   int cursorXPos = 0, cursorXPos2 = 0;
   int cursorMaxWidth = 0;
+
+  // font data
+  KateFontStruct * fs = config()->fontStruct();
 
   // should we paint the word wrap marker?
   bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch();
@@ -271,7 +262,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   // was the selection background already completely painted ?
   bool selectionPainted = false;
-
+  bool isCurrentLine = (cursor && range->includesCursor(*cursor));
   selectionPainted = paintTextLineBackground(paint, line, isCurrentLine, xStart, xEnd);
   if (selectionPainted)
   {
@@ -280,23 +271,25 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     endSel = len + 1;
   }
 
+  int startcol = range->startCol;
   if (startcol > (int)len)
     startcol = len;
 
   if (startcol < 0)
     startcol = 0;
 
+  int endcol = range->wrap ? range->endCol : -1;
   if (endcol < 0)
     len = len - startcol;
   else
     len = endcol - startcol;
 
   // text + attrib data from line
-  a = textLine->attributes ();
-  bool noAttribs = !a;
+  const uchar *textAttributes = textLine->attributes ();
+  bool noAttribs = !textAttributes;
 
   // adjust to startcol ;)
-  a = a + startcol;
+  textAttributes = textAttributes + startcol;
 
   uint curCol = startcol;
   uint nextCol = curCol + 1;
@@ -323,16 +316,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     hasSel = selectBounds(line, startSel, endSel, oldLen);
 
   uint blockStartCol = startcol;
-  uint oldXPos = xPos;
 
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock) {
     paint.setPen(QPen(config()->wordWrapMarkerColor(), 1, Qt::DashLine));
     paint.drawLine(0, fs->fontHeight - 1, xEnd - xStart, fs->fontHeight - 1);
   }
-
-  uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
-  m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
 
   // draw word-wrap-honor-indent filling
   if (range->xOffset() && range->xOffset() > xStart)
@@ -362,6 +351,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
     KateAttribute* oldAt = &attr[0];
 
+    uint oldXPos = xPos;
+
+    uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
+    m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
+
     // loop each character (tmp goes backwards, but curCol doesn't)
     for (uint tmp = len; tmp > 0; tmp--)
     {
@@ -376,7 +370,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
       // Determine current syntax highlighting attribute
       // A bit legacy but doesn't need to change
-      KateAttribute* curAt = (!noAttribs && (*a) >= atLen) ? &attr[0] : &attr[*a];
+      KateAttribute* curAt = (!noAttribs && (*textAttributes) >= atLen) ? &attr[0] : &attr[*textAttributes];
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
@@ -445,7 +439,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || ((int)xPos > xEnd)
 
           // it is a different attribute OR
-          || (!noAttribs && curAt != &attr[*(a+1)])
+          || (!noAttribs && curAt != &attr[*(textAttributes+1)])
 
           // the selection boundary was crossed OR
           || (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel)))
@@ -561,7 +555,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       xPos = xPosAfter;
 
       // increase attribs pos
-      a++;
+      textAttributes++;
 
       // to only switch font/color if needed
       oldAt = curAt;

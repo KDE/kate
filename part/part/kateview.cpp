@@ -854,11 +854,14 @@ bool KateView::checkOverwrite( KURL u )
   if( !info.exists() )
     return true;
 
-  return KMessageBox::Cancel != KMessageBox::warningContinueCancel( this,
-    i18n( "A file named \"%1\" already exists. "
-          "Are you sure you want to overwrite it?" ).arg( info.fileName() ),
-    i18n( "Overwrite File?" ),
-    i18n( "&Overwrite" ) );
+  return KMessageBox::Yes
+         == KMessageBox::warningYesNo
+              ( this,
+                i18n( "A file named \"%1\" already exists. Are you sure you want to overwrite it?" ).arg( info.fileName() ),
+                i18n( "Overwrite File?" ),
+                KGuiItem( i18n( "&Overwrite" ), "filesave", i18n( "Overwrite the file" ) ),
+                KStdGuiItem::cancel()
+              );
 }
 
 void KateView::slotSaveCanceled( const QString& error )

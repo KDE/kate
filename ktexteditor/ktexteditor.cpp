@@ -63,7 +63,7 @@ View::~View()
 {
 }
 
-Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
+Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
 {
 
 }

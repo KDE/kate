@@ -20,7 +20,7 @@
 #ifndef __ktexteditor_document_h__
 #define __ktexteditor_document_h__
 
-#include <kparts/part.h>
+#include "editor.h"
 
 namespace KTextEditor
 {
@@ -28,7 +28,7 @@ namespace KTextEditor
 class View;
 class DocumentPrivate;
 
-class Document : public KParts::ReadWritePart
+class Document : public KTextEditor::Editor
 {
   Q_OBJECT
 

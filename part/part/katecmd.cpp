@@ -25,14 +25,20 @@
 KateCmd::KateCmd ()
 {
   m_parser.setAutoDelete(true);
-
   m_parser.append (new KateCommands::SedReplace ());
   m_parser.append (new KateCommands::Character ());
   m_parser.append (new KateCommands::Goto ());
   m_parser.append (new KateCommands::Date ());
 
   for (uint i=0; i<m_parser.count(); i++)
-    m_cmds += m_parser.at(i)->cmds ();
+  {
+    QStringList l = m_parser.at(i)->cmds ();
+
+    for (uint z=0; z<l.count(); z++)
+      m_dict.insert (l[z], m_parser.at(i));
+
+    m_cmds += l;
+  }
 }
 
 KateCmd::~KateCmd ()
@@ -41,11 +47,11 @@ KateCmd::~KateCmd ()
 
 KateCmdParser *KateCmd::query (const QString &cmd)
 {
-  for (uint i=0; i<m_parser.count(); i++)
-    if (m_parser.at(i)->usable (cmd))
-      return m_parser.at(i);
+  uint f = 0;
+  while (cmd[f].isLetterOrNumber())
+    f++;
 
-  return 0;
+  return m_dict[cmd.left(f)];
 }
 
 QStringList KateCmd::cmds ()

@@ -44,35 +44,38 @@ KateCmdLine::~KateCmdLine ()
 
 void KateCmdLine::slotReturnPressed ( const QString& cmd )
 {
-  KateCmdParser *p = KateFactory::cmd()->query (cmd);
-
-  m_oldText = cmd;
-  m_msgMode = true;
-
-  if (p)
+  if (cmd.length () > 0)
   {
-    QString msg;
+    KateCmdParser *p = KateFactory::cmd()->query (cmd);
 
-    if (p->exec (m_view, cmd, msg))
+    m_oldText = cmd;
+    m_msgMode = true;
+
+    if (p)
     {
-      completionObject()->addItem (cmd);
-      m_oldText = QString ();
+      QString msg;
 
-      if (msg.length() > 0)
-        setText (i18n ("Success: ") + msg);
+      if (p->exec (m_view, cmd, msg))
+      {
+        completionObject()->addItem (cmd);
+        m_oldText = QString ();
+
+        if (msg.length() > 0)
+          setText (i18n ("Success: ") + msg);
+        else
+          setText (i18n ("Success"));
+      }
       else
-        setText (i18n ("Success"));
+      {
+        if (msg.length() > 0)
+          setText (i18n ("Error: ") + msg);
+        else
+          setText (i18n ("Command \"%1\" failed.").arg (cmd));
+      }
     }
     else
-    {
-      if (msg.length() > 0)
-        setText (i18n ("Error: ") + msg);
-      else
-        setText (i18n ("Command \"%1\" failed.").arg (cmd));
-    }
+      setText (i18n ("No such command: \"%1\"").arg (cmd));
   }
-  else
-    setText (i18n ("No such command: \"%1\"").arg (cmd));
 
   m_view->setFocus ();
 }

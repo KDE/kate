@@ -156,14 +156,6 @@ static void setLineText(KateView *view, int line, const QString &text)
 	  view->doc()->removeLine(line+1);
 }
 
-bool SedReplace::usable (const QString &cmd)
-{
-	if (QRegExp("[$%]?s/.+/.*/[ig]*").search(cmd, 0)==-1)
-		return false;
-
-	return true;
-}
-
 bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
 {
 	kdDebug(13010)<<"SedReplace::execCmd()"<<endl;
@@ -212,14 +204,6 @@ bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
 	return true;
 }
 
-bool Character::usable (const QString &cmd)
-{
-	if (cmd.left(5) == "char:")
-		return true;
-
-	return false;
-}
-
 bool Character::exec (KateView *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
@@ -260,35 +244,19 @@ bool Character::exec (KateView *view, const QString &_cmd, QString &)
 	return true;
 }
 
-bool Goto::usable (const QString &cmd)
-{
-	if (cmd.left(5) == "goto:")
-		return true;
-
-	return false;
-}
-
 bool Goto::exec (KateView *view, const QString &cmd, QString &)
 {
-  if (!usable (cmd))
-    return false;
+  if (cmd.left(5) != "goto:")
+		return false;
 
   view->gotoLineNumber (cmd.mid(5, cmd.length()-5).toInt());
 
 	return true;
 }
 
-bool Date::usable (const QString &cmd)
-{
-	if (cmd.left(5) == "date:")
-		return true;
-
-	return false;
-}
-
 bool Date::exec (KateView *view, const QString &cmd, QString &)
 {
-  if (!usable (cmd))
+  if (cmd.left(5) != "date:")
     return false;
 
   if (QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)).length() > 0)

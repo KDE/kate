@@ -44,11 +44,9 @@ namespace KateCommands
 class SedReplace : public KateCmdParser
 {
   public:
-    bool usable (const QString &cmd);
-
     bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
-    QStringList cmds () { return QStringList("s/search/replace/"); };
+    QStringList cmds () { return QStringList("s"); };
 
   private:
     static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
@@ -65,31 +63,25 @@ class SedReplace : public KateCmdParser
 class Character : public KateCmdParser
 {
   public:
-    bool usable (const QString &cmd);
-
     bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
-    QStringList cmds () { return QStringList("char:"); };
+    QStringList cmds () { return QStringList("char"); };
 };
 
 class Goto : public KateCmdParser
 {
   public:
-    bool usable (const QString &cmd);
-
     bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
-    QStringList cmds () { return QStringList("goto:"); };
+    QStringList cmds () { return QStringList("goto"); };
 };
 
 class Date : public KateCmdParser
 {
   public:
-    bool usable (const QString &cmd);
-
     bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
-    QStringList cmds () { return QStringList("date:"); };
+    QStringList cmds () { return QStringList("date"); };
 };
 
 }

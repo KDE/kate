@@ -20,6 +20,7 @@
 #define _KATE_CMD_H
 
 #include <qobject.h>
+#include <qdict.h>
 #include <qptrlist.h>
 #include <qstringlist.h>
 
@@ -29,11 +30,9 @@ class KateCmdParser
     KateCmdParser () {};
     virtual ~KateCmdParser () {};
 
-    virtual bool usable (const QString &cmd) = 0;
+    virtual QStringList cmds () = 0;
 
     virtual bool exec (class KateView *view, const QString &cmd, QString &msg) = 0;
-
-    virtual QStringList cmds () { return QStringList(); };
 };
 
 class KateCmd
@@ -48,6 +47,7 @@ class KateCmd
 
   private:
     QPtrList<KateCmdParser> m_parser;
+    QDict<KateCmdParser> m_dict;
     QStringList m_cmds;
 };
 

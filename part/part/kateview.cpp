@@ -344,6 +344,7 @@ void KateView::setupActions()
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
+  toggleAction->setCheckedState(i18n("Hide Folding &Markers"));
 
    a= m_toggleIconBar = toggleAction = new KToggleAction(
     i18n("Show &Icon Border"), Key_F6,
@@ -351,18 +352,21 @@ void KateView::setupActions()
     ac, "view_border");
   a=toggleAction;
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
+  toggleAction->setCheckedState(i18n("Hide &Icon Border"));
 
   a= toggleAction=m_toggleLineNumbers = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
+  toggleAction->setCheckedState(i18n("Hide &Line Numbers"));
 
   a= m_toggleScrollBarMarks = toggleAction = new KToggleAction(
      i18n("Show Scroll&bar Marks"), 0,
      this, SLOT(toggleScrollBarMarks()),
      ac, "view_scrollbar_marks");
   a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<BR><BR>The marks, for instance, show bookmarks."));
+  toggleAction->setCheckedState(i18n("Hide Scroll&bar Marks"));
 
   a = m_toggleWWMarker = new KToggleAction(
         i18n("Show Static &Word Wrap Marker"), 0,
@@ -371,7 +375,7 @@ void KateView::setupActions()
   a->setWhatsThis( i18n(
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
-
+  toggleAction->setCheckedState(i18n("Hide Static &Word Wrap Marker"));
 
   a= m_switchCmdLine = new KAction(
      i18n("Switch to Command Line"), Key_F7,
@@ -692,7 +696,7 @@ void KateView::reloadFile()
   if (m_doc->numLines() >= cl)
     // Explicitly call internal function because we want this to be registered as a non-external call
     setCursorPositionInternal( cl, cc, tabWidth(), false );
-  
+
   emit newStatus();
 }
 

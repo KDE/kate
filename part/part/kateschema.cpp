@@ -19,11 +19,38 @@
 // $Id$
 
 #include "kateschema.h"
-//#include "kateschema.moc"
+#include "kateschema.moc"
 
 #include "kateconfig.h"
+#include "katefactory.h"
 
 #include <klocale.h>
+#include <kdialog.h>
+#include <kcolorbutton.h>
+#include <kcombobox.h>
+#include <klineeditdlg.h>
+
+#include <qbuttongroup.h>
+#include <qcheckbox.h>
+#include <qptrcollection.h>
+#include <qdialog.h>
+#include <qgrid.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qtextcodec.h>
+#include <qlayout.h>
+#include <qlineedit.h>
+#include <qlistbox.h>
+#include <qhbox.h>
+#include <qobjectlist.h>
+#include <qpushbutton.h>
+#include <qradiobutton.h>
+#include <qspinbox.h>
+#include <qstringlist.h>
+#include <qtabwidget.h>
+#include <qvbox.h>
+#include <qvgroupbox.h>
+#include <qwhatsthis.h>
 
 KateSchemaManager::KateSchemaManager ()
   : m_config ("kateschemarc", false, false)
@@ -38,13 +65,16 @@ KateSchemaManager::~KateSchemaManager ()
 //
 // read the types from config file and update the internal list
 //
-void KateSchemaManager::update ()
+void KateSchemaManager::update (bool readfromfile)
 {
-  m_config.reparseConfiguration ();
+  if (readfromfile)
+    m_config.reparseConfiguration ();
 
   m_schemas = m_config.groupList();
   m_schemas.sort ();
 
+  m_schemas.remove ("Kate Printing Schema");
+  m_schemas.remove ("Kate Normal Schema");
   m_schemas.prepend (i18n("Printing"));
   m_schemas.prepend (i18n("Normal"));
 }
@@ -63,6 +93,266 @@ KConfig *KateSchemaManager::schema (uint number)
     m_config.setGroup ("Kate Normal Schema");
 
   return &m_config;
+}
+
+void KateSchemaManager::addSchema (const QString &t)
+{
+  m_config.setGroup (t);
+  m_config.writeEntry("Color Background", KGlobalSettings::baseColor());
+}
+
+//
+//
+//
+// DIALOGS !!!
+//
+//
+
+//BEGIN KateSchemaConfigColorTab
+KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char * )
+  : QWidget (parent)
+{
+  QHBox *b;
+  QLabel *label;
+
+  QVBoxLayout *blay=new QVBoxLayout(this, 0, KDialog::spacingHint());
+
+  QVGroupBox *gbTextArea = new QVGroupBox(i18n("Text Area Background"), this);
+
+  b = new QHBox (gbTextArea);
+  label = new QLabel( i18n("Normal text:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_back = new KColorButton(b);
+  connect( m_back, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  b = new QHBox (gbTextArea);
+  label = new QLabel( i18n("Selected text:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_selected = new KColorButton(b);
+  connect( m_selected, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  b = new QHBox (gbTextArea);
+  label = new QLabel( i18n("Current line:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_current = new KColorButton(b);
+  connect( m_current, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  blay->addWidget(gbTextArea);
+
+  QVGroupBox *gbBorder = new QVGroupBox(i18n("Additional Elements"), this);
+
+  b = new QHBox (gbBorder);
+  label = new QLabel( i18n("Left border background:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_iconborder = new KColorButton(b);
+  connect( m_iconborder, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  b = new QHBox (gbBorder);
+  label = new QLabel( i18n("Bracket highlight:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_bracket = new KColorButton(b);
+  connect( m_bracket, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  b = new QHBox (gbBorder);
+  label = new QLabel( i18n("Word wrap markers:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_wwmarker = new KColorButton(b);
+  connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  b = new QHBox (gbBorder);
+  label = new QLabel( i18n("Tab markers:"), b);
+  label->setAlignment( AlignLeft|AlignVCenter);
+  m_tmarker = new KColorButton(b);
+  connect( m_tmarker, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  blay->addWidget(gbBorder);
+
+  blay->addStretch();
+
+  // QWhatsThis help
+  QWhatsThis::add(m_back, i18n("<p>Sets the background color of the editing area.</p>"));
+  QWhatsThis::add(m_selected, i18n("<p>Sets the background color of the selection.</p>"
+        "<p>To set the text color for selected text, use the \"<b>Configure "
+        "Highlighting</b>\" dialog.</p>"));
+  QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
+        "active line, which means the line where your cursor is positioned.</p>"));
+  QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
+        "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
+        "be highlighted with this color.</p>"));
+  QWhatsThis::add(m_wwmarker, i18n(
+        "<p>Sets the color of Word Wrap-related markers:</p>"
+        "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column where "
+        "text is going to be wrapped</dd>"
+        "<dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of "
+        "visually-wrapped lines</dd></dl>"));
+  QWhatsThis::add(m_tmarker, i18n(
+        "<p>Sets the color of the tabulator marks:</p>"));
+}
+
+
+KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
+{
+}
+
+void KateSchemaConfigColorTab::readConfig (KConfig *config)
+{
+  QColor tmp0 (KGlobalSettings::baseColor());
+  QColor tmp1 (KGlobalSettings::highlightColor());
+  QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
+  QColor tmp3 ( "#FFFF99" );
+  QColor tmp4 (tmp2.dark());
+  QColor tmp5 ( KGlobalSettings::textColor() );
+  QColor tmp6 ( "#EAE9E8" );
+
+  m_back->setColor(config->readColorEntry("Color Background", &tmp0));
+  m_selected->setColor(config->readColorEntry("Color Selection", &tmp1));
+  m_current->setColor(config->readColorEntry("Color Highlighted Line", &tmp2));
+  m_bracket->setColor(config->readColorEntry("Color Highlighted Bracket", &tmp3));
+  m_wwmarker->setColor(config->readColorEntry("Color Word Wrap Marker", &tmp4));
+  m_tmarker->setColor(config->readColorEntry("Color Tab Marker", &tmp5));
+  m_iconborder->setColor(config->readColorEntry("Color Icon Bar", &tmp6));
+}
+
+void KateSchemaConfigColorTab::writeConfig (KConfig *config)
+{
+  config->writeEntry("Color Background", m_back->color());
+  config->writeEntry("Color Selection", m_selected->color());
+  config->writeEntry("Color Highlighted Line", m_current->color());
+  config->writeEntry("Color Highlighted Bracket", m_bracket->color());
+  config->writeEntry("Color Word Wrap Marker", m_wwmarker->color());
+  config->writeEntry("Color Tab Marker", m_tmarker->color());
+  config->writeEntry("Color Icon Bar", m_iconborder->color());
+}
+
+//END KateSchemaConfigColorTab
+
+
+KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
+  : Kate::ConfigPage( parent ),
+    m_lastSchema (-1)
+{
+  QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+
+  // hl chooser
+  QHBox *hbHl = new QHBox( this );
+  layout->add (hbHl);
+  hbHl->setSpacing( KDialog::spacingHint() );
+  QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
+  schemaCombo = new QComboBox( false, hbHl );
+  lHl->setBuddy( schemaCombo );
+  connect( schemaCombo, SIGNAL(activated(int)),
+           this, SLOT(schemaChanged(int)) );
+
+  btndel = new QPushButton( i18n("&Delete"), hbHl );
+  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
+
+  QPushButton *btnnew = new QPushButton( i18n("&New"), hbHl );
+  connect( btnnew, SIGNAL(clicked()), this, SLOT(newSchema()) );
+
+  m_tabWidget = new QTabWidget ( this );
+  layout->add (m_tabWidget);
+
+  m_colorTab = new KateSchemaConfigColorTab (m_tabWidget);
+  m_tabWidget->addTab (m_colorTab, i18n("Colors"));
+
+  reload();
+}
+
+KateSchemaConfigPage::~KateSchemaConfigPage ()
+{
+  // just reload config from disc
+  KateFactory::schemaManager()->update ();
+}
+
+void KateSchemaConfigPage::apply()
+{
+  if (m_lastSchema > -1)
+    m_colorTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+
+  // just sync the config
+  KateFactory::schemaManager()->schema (0)->sync();
+
+  KateRendererConfig::global()->setSchema (KateRendererConfig::global()->schema());
+}
+
+void KateSchemaConfigPage::reload()
+{
+  // just reload the config from disc
+  KateFactory::schemaManager()->update ();
+
+  update ();
+}
+
+void KateSchemaConfigPage::reset()
+{
+  reload ();
+}
+
+void KateSchemaConfigPage::defaults()
+{
+  reload ();
+}
+
+void KateSchemaConfigPage::update ()
+{
+  // soft update, no load from disk
+  KateFactory::schemaManager()->update (false);
+
+  schemaCombo->clear ();
+  schemaCombo->insertStringList (KateFactory::schemaManager()->list ());
+
+  schemaCombo->setCurrentItem (0);
+  schemaChanged (0);
+
+  schemaCombo->setEnabled (schemaCombo->count() > 0);
+}
+
+void KateSchemaConfigPage::deleteSchema ()
+{/*
+  int type = typeCombo->currentItem ();
+
+  if ((type > -1) && ((uint)type < m_types.count()))
+  {
+    m_types.remove (type);
+    update ();
+  }*/
+}
+
+void KateSchemaConfigPage::newSchema ()
+{
+  QString t = KLineEditDlg::getText (i18n("Name for new Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
+
+  KateFactory::schemaManager()->addSchema (t);
+
+  // soft update, no load from disk
+  KateFactory::schemaManager()->update (false);
+  int i = KateFactory::schemaManager()->list ().findIndex (t);
+
+  update ();
+  if (i > -1)
+  {
+    schemaCombo->setCurrentItem (i);
+    schemaChanged (i);
+  }
+}
+
+void KateSchemaConfigPage::schemaChanged (int schema)
+{
+  if (schema < 2)
+  {
+    btndel->setEnabled (false);
+  }
+  else
+  {
+    btndel->setEnabled (true);
+  }
+
+  if (m_lastSchema > -1)
+    m_colorTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+
+  m_colorTab->readConfig (KateFactory::schemaManager()->schema(schema));
+
+  m_lastSchema = schema;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

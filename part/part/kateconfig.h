@@ -265,9 +265,6 @@ class KateViewConfig : public KateConfig
     int autoCenterLines() const;
     void setAutoCenterLines (int lines);
 
-    const QColor *iconBarColor() const;
-    void setIconBarColor (const QColor &col);
-
     long searchFlags () const;
     void setSearchFlags (long flags);
 
@@ -282,7 +279,6 @@ class KateViewConfig : public KateConfig
     bool m_foldingBar;
     int m_bookmarkSort;
     int m_autoCenterLines;
-    QColor *m_iconBarColor;
     long m_searchFlags;
     bool m_cmdLine;
 
@@ -293,7 +289,6 @@ class KateViewConfig : public KateConfig
     bool m_foldingBarSet : 1;
     bool m_bookmarkSortSet : 1;
     bool m_autoCenterLinesSet : 1;
-    bool m_iconBarColorSet : 1;
     bool m_searchFlagsSet : 1;
     bool m_cmdLineSet : 1;
 
@@ -378,6 +373,9 @@ class KateRendererConfig : public KateConfig
     const QColor *tabMarkerColor() const;
     void setTabMarkerColor (const QColor &col);
 
+    const QColor *iconBarColor() const;
+    void setIconBarColor (const QColor &col);
+
   private:
     uint m_schema;
     FontStruct* m_viewFont;
@@ -389,6 +387,7 @@ class KateRendererConfig : public KateConfig
     QColor *m_highlightedBracketColor;
     QColor *m_wordWrapMarkerColor;
     QColor *m_tabMarkerColor;
+    QColor *m_iconBarColor;
 
     bool m_schemaSet : 1;
     bool m_viewFontSet : 1;
@@ -400,6 +399,7 @@ class KateRendererConfig : public KateConfig
     bool m_highlightedBracketColorSet : 1;
     bool m_wordWrapMarkerColorSet : 1;
     bool m_tabMarkerColorSet : 1;
+    bool m_iconBarColorSet : 1;
 
   private:
     KateRenderer *m_renderer;

@@ -689,7 +689,7 @@ void ColorConfig::apply ()
   KateRendererConfig::global()->setHighlightedBracketColor (m_bracket->color());
   KateRendererConfig::global()->setWordWrapMarkerColor (m_wwmarker->color());
   KateRendererConfig::global()->setTabMarkerColor (m_tmarker->color());
-  KateViewConfig::global()->setIconBarColor (m_iconborder->color());
+  KateRendererConfig::global()->setIconBarColor (m_iconborder->color());
 }
 
 void ColorConfig::reload ()
@@ -700,7 +700,7 @@ void ColorConfig::reload ()
   m_bracket->setColor( *KateRendererConfig::global()->highlightedBracketColor ());
   m_wwmarker->setColor( *KateRendererConfig::global()->wordWrapMarkerColor ());
   m_tmarker->setColor( *KateRendererConfig::global()->tabMarkerColor ());
-  m_iconborder->setColor( *KateViewConfig::global()->iconBarColor ());
+  m_iconborder->setColor( *KateRendererConfig::global()->iconBarColor ());
 }
 
 //END ColorConfig

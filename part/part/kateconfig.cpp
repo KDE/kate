@@ -23,6 +23,7 @@
 #include "katedocument.h"
 #include "katefont.h"
 #include "katefactory.h"
+#include "kateschema.h"
 
 #include <kconfig.h>
 #include <kglobalsettings.h>
@@ -487,7 +488,6 @@ KateViewConfig::KateViewConfig ()
    m_foldingBarSet (true),
    m_bookmarkSortSet (true),
    m_autoCenterLinesSet (true),
-   m_iconBarColorSet (true),
    m_searchFlagsSet (true),
    m_cmdLineSet (true),
    m_view (0)
@@ -509,7 +509,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_foldingBarSet (false),
    m_bookmarkSortSet (false),
    m_autoCenterLinesSet (false),
-   m_iconBarColorSet (false),
    m_searchFlagsSet (false),
    m_cmdLineSet (false),
    m_view (view)
@@ -545,10 +544,6 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setAutoCenterLines (config->readNumEntry( "Auto Center Lines", 0 ));
 
-  QColor tmp5 ( "#EAE9E8" );
-
-  setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp5));
-
   setSearchFlags (config->readNumEntry("Search Config Flags", KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
   setCmdLine (config->readBoolEntry( "Command Line", false));
@@ -570,8 +565,6 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
 
   config->writeEntry( "Auto Center Lines", autoCenterLines() );
-
-  config->writeEntry("Color Background", *iconBarColor());
 
   config->writeEntry("Search Config Flags", searchFlags());
 
@@ -726,24 +719,6 @@ void KateViewConfig::setAutoCenterLines (int lines)
   configEnd ();
 }
 
-const QColor *KateViewConfig::iconBarColor() const
-{
-  if (m_iconBarColorSet || isGlobal())
-    return m_iconBarColor;
-
-  return s_global->iconBarColor();
-}
-
-void KateViewConfig::setIconBarColor (const QColor &col)
-{
-  configStart ();
-
-  m_iconBarColorSet = true;
-  m_iconBarColor = new QColor (col);
-
-  configEnd ();
-}
-
 long KateViewConfig::searchFlags () const
 {
   if (m_searchFlagsSet || isGlobal())
@@ -796,6 +771,7 @@ KateRendererConfig::KateRendererConfig ()
    m_highlightedBracketColorSet (true),
    m_wordWrapMarkerColorSet (true),
    m_tabMarkerColorSet(true),
+   m_iconBarColorSet (true),
    m_renderer (0)
 {
   s_global = this;
@@ -819,6 +795,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_highlightedBracketColorSet (false),
    m_wordWrapMarkerColorSet (false),
    m_tabMarkerColorSet(false),
+   m_iconBarColorSet (false),
    m_renderer (renderer)
 {
 }
@@ -850,20 +827,6 @@ void KateRendererConfig::readConfig (KConfig *config)
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
-  QColor tmp0 (KGlobalSettings::baseColor());
-  QColor tmp1 (KGlobalSettings::highlightColor());
-  QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
-  QColor tmp3 ( "#FFFF99" );
-  QColor tmp4 (tmp2.dark());
-  QColor tmp5 ( KGlobalSettings::textColor() );
-
-  setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
-  setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
-  setHighlightedLineColor (config->readColorEntry("Color Highlighted Line", &tmp2));
-  setHighlightedBracketColor (config->readColorEntry("Color Highlighted Bracket", &tmp3));
-  setWordWrapMarkerColor (config->readColorEntry("Color Word Wrap Marker", &tmp4));
-  setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
-
   configEnd ();
 }
 
@@ -875,13 +838,6 @@ void KateRendererConfig::writeConfig (KConfig *config)
   config->writeEntry("Printer Font", *font(KateRendererConfig::PrintFont));
 
   config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
-
-  config->writeEntry("Color Background", *backgroundColor());
-  config->writeEntry("Color Selection", *selectionColor());
-  config->writeEntry("Color Highlighted Line", *highlightedLineColor());
-  config->writeEntry("Color Highlighted Bracket", *highlightedBracketColor());
-  config->writeEntry("Color Word Wrap Marker", *wordWrapMarkerColor());
-  config->writeEntry("Color Tab Marker", *tabMarkerColor());
 
   config->sync ();
 }
@@ -917,6 +873,24 @@ void KateRendererConfig::setSchema (uint schema)
 
   m_schemaSet = true;
   m_schema = schema;
+
+  KConfig *config (KateFactory::schemaManager()->schema(schema));
+
+  QColor tmp0 (KGlobalSettings::baseColor());
+  QColor tmp1 (KGlobalSettings::highlightColor());
+  QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
+  QColor tmp3 ( "#FFFF99" );
+  QColor tmp4 (tmp2.dark());
+  QColor tmp5 ( KGlobalSettings::textColor() );
+  QColor tmp6 ( "#EAE9E8" );
+
+  setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
+  setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
+  setHighlightedLineColor (config->readColorEntry("Color Highlighted Line", &tmp2));
+  setHighlightedBracketColor (config->readColorEntry("Color Highlighted Bracket", &tmp3));
+  setWordWrapMarkerColor (config->readColorEntry("Color Word Wrap Marker", &tmp4));
+  setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
+  setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp6));
 
   configEnd ();
 }
@@ -1100,5 +1074,24 @@ void KateRendererConfig::setTabMarkerColor (const QColor &col)
 
   configEnd ();
 }
+
+const QColor *KateRendererConfig::iconBarColor() const
+{
+  if (m_iconBarColorSet || isGlobal())
+    return m_iconBarColor;
+
+  return s_global->iconBarColor();
+}
+
+void KateRendererConfig::setIconBarColor (const QColor &col)
+{
+  configStart ();
+
+  m_iconBarColorSet = true;
+  m_iconBarColor = new QColor (col);
+
+  configEnd ();
+}
+
 //END
 // kate: space-indent on; indent-width 2; replace-tabs on;

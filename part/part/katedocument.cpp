@@ -5097,7 +5097,7 @@ void KateDocument::setViewVariable( QString var, QString val )
     else if ( var == "auto-center-lines" && checkIntValue( val, &n ) )
       v->config()->setAutoCenterLines( n ); // FIXME uint, > N ??
     else if ( var == "icon-bar-color" && checkColorValue( val, c ) )
-      v->config()->setIconBarColor( c );
+      v->renderer()->config()->setIconBarColor( c );
     // RENDERER
     else if ( var == "background-color" && checkColorValue( val, c ) )
       v->renderer()->config()->setBackgroundColor( c );

@@ -1691,7 +1691,15 @@ void KateDocument::readSessionConfig(KConfig *config)
 {
   m_url = config->readEntry("URL"); // ### doesn't this break the encoding? (Simon)
   internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
-  
+  QString tmpenc=config->readEntry("Encoding");
+
+  if (m_url.isValid() && (!tmpenc.isEmpty()) && (tmpenc!=myEncoding))
+  {
+	kdDebug()<<"Reloading document because of encoding change to "<<tmpenc<<endl;
+	setEncoding(tmpenc);
+	reloadFile();
+  }
+
   // Restore Bookmarks
   restoreMarks = true; // Hack: make sure we can set marks for lines > lastLine
   QValueList<int> marks = config->readIntListEntry("Bookmarks");
@@ -1704,7 +1712,7 @@ void KateDocument::writeSessionConfig(KConfig *config)
 {
   config->writeEntry("URL", m_url.url() ); // ### encoding?? (Simon)
   config->writeEntry("Highlight", m_highlight->name());
-  
+  config->writeEntry("Encoding",myEncoding);
   // Save Bookmarks
   QValueList<int> marks;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );

@@ -738,6 +738,18 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   private:
     KateDocumentConfig *m_config;
+
+  /**
+   * Variable Reader
+   */
+  private:
+    void readVariables();
+    void readVariableLine( QString t );
+    bool checkBoolValue( QString value, bool *result );
+    bool checkIntValue( QString value, int *result );
+    static QRegExp kvLine;
+    static QRegExp kvVar;
+    //static QStringList VRegister;
 };
 
 #endif

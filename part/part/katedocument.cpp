@@ -1007,7 +1007,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
       //If where we are wrapping is an end of line and is a space we don't
       //want to wrap there
       if (col == eolPosition && text[col].isSpace())
-	searchStart--;
+        searchStart--;
 
       // Scan backwards looking for a place to break the line
       // We are not interested in breaking at the first char
@@ -1018,21 +1018,21 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
       if (z > 0)
       {
-      	//We found a space in which to wrap so break just after it
+              //We found a space in which to wrap so break just after it
         z++; // (anders: avoid the space at the beginning of the line)
 
-	// If the last character of the line is not a space, but we
+        // If the last character of the line is not a space, but we
         // are going to break on a previous space, then we assume that the
         // line is broken into words and we need to add a space so that when the
         // back end of the line is inserted into the next line there is
         // a word boundary.
         if (!text[eolPosition].isSpace())
-	  editInsertText (line, eolPosition+1, aSpace);
+          editInsertText (line, eolPosition+1, aSpace);
       }
       else
-      	//There was no space to break at so break at full line
-	//and don't try and add any white space for the break
-      	z= col;
+              //There was no space to break at so break at full line
+        //and don't try and add any white space for the break
+              z= col;
 
       editWrapLine (line, z, true);
       endLine++;
@@ -2431,7 +2431,7 @@ bool KateDocument::printDialog ()
          // base of height: margins top/bottom, above and below tetle sep line
          guideHeight = ( innerMargin * 4 ) + 1;
 
-	 // get a title and add the height required to draw it
+         // get a title and add the height required to draw it
          QString _title = i18n("Typographical Conventions for %1").arg(m_highlight->name());
          guideHeight += paint.boundingRect( 0, 0, _w, 1000, Qt::AlignTop|Qt::AlignHCenter, _title ).height();
 
@@ -2823,6 +2823,7 @@ kdDebug()<<"calling collapseToplevelNodes()"<<endl;
     foldingTree()->collapseToplevelNodes();
   }
 
+  readVariables();
   emit fileNameChanged();
 
   return success;
@@ -2839,6 +2840,7 @@ bool KateDocument::save()
     if ( ! KIO::NetAccess::upload( url().path(), u ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
   }
+  readVariables();
   return KParts::ReadWritePart::save();
 }
 
@@ -4637,3 +4639,151 @@ void KateDocument::updateConfig ()
     view->updateDocumentConfig ();
   }
 }
+
+//BEGIN Variable reader
+// "local variable" feature by anders, 2003
+/* TODO
+      add config options (how many lines to read, on/off)
+      add interface for plugins/apps to set/get variables
+      add view stuff
+*/
+QRegExp KateDocument::kvLine = QRegExp("kate:(.*)");
+QRegExp KateDocument::kvVar = QRegExp("([\\w\\-]+)\\s+([^;]+)");
+
+void KateDocument::readVariables()
+{
+  m_config->configStart();
+  // read a number of lines in the top/bottom of the document
+  for (uint i=0; i < QMIN( 9, numLines() ); ++i )
+  {
+    readVariableLine( textLine( i ) );
+  }
+  if ( numLines() > 10 )
+  {
+    for ( uint i = QMAX(10, numLines() - 10); i < numLines(); ++i )
+    {
+      readVariableLine( textLine( i ) );
+    }
+  }
+  m_config->configEnd();
+}
+
+void KateDocument::readVariableLine( QString t )
+{
+  if ( kvLine.search( t ) > -1 )
+  {
+    int p( 0 );
+    QString s = kvLine.cap(1);
+    QString  var, val;
+    while ( (p = kvVar.search( s, p )) > -1 )
+    {
+      p += kvVar.matchedLength();
+      var = kvVar.cap( 1 );
+      val = kvVar.cap( 2 ).stripWhiteSpace();
+      bool state; // store booleans here
+      int n; // store ints here
+
+      // BOOL  SETTINGS
+      if ( var == "word-wrap" && checkBoolValue( val, &state ) )
+        setWordWrap( state ); // ??? FIXME CHECK
+      else if ( var == "block-selection"  && checkBoolValue( val, &state ) )
+        setBlockSelectionMode( state );
+      // KateConfig::configFlags
+      // FIXME should this be optimized to only a few calls? how?
+      else if ( var == "auto-indent" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfAutoIndent, state );
+      else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
+      else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
+      else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfWrapCursor, state );
+      else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfAutoBrackets, state );
+      else if ( var == "persistent-selection" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfPersistent, state );
+      else if ( var == "keep-selection" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
+      else if ( var == "del-on-input" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfDelOnInput, state );
+      else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
+      else if ( var == "keep-indent-profile" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfKeepIndentProfile, state );
+      else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfKeepExtraSpaces, state );
+      else if ( var == "tab-indents" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
+      else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
+      else if ( var == "space-indent" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
+      else if ( var == "smart-home" && checkBoolValue( val, &state ) )
+        m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
+
+      // INTEGER SETTINGS
+      else if ( var == "tab-width" && checkIntValue( val, &n ) )
+        m_config->setTabWidth( n );
+      else if ( var == "indent-width"  && checkIntValue( val, &n ) )
+        m_config->setIndentationWidth( n );
+      else if ( var == "word-wrap-column" && n > 0  && checkIntValue( val, &n ) ) // uint, but hard word wrap at 0 will be no fun ;)
+        m_config->setWordWrapAt( n );
+      else if ( var == "undo-steps"  && n >= 0  && checkIntValue( val, &n ) )
+        setUndoSteps( n );
+
+      // STRING SETTINGS
+      else if ( var == "eol" || var == "end-of-line" )
+      {
+        QStringList l;
+        l << "unix" << "dos" << "mac";
+        if ( (n = l.findIndex( val.lower() )) != -1 )
+          m_config->setEol( n );
+      }
+      else if ( var == "document-name" || var == "doc-name" )
+        setDocName( val );
+      else if ( var == "encoding" )
+        m_config->setEncoding( val );
+      else if ( var == "syntax" || var == "hl" )
+      {
+        for ( uint i=0; i < hlModeCount(); i++ )
+        {
+          if ( hlModeName( i ) == val )
+          {
+            setHlMode( i );
+            break;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+bool KateDocument::checkBoolValue( QString val, bool *result )
+{
+  val = val.stripWhiteSpace().lower();
+  QStringList l;
+  l << "1" << "on" << "true";
+  if ( l.contains( val ) )
+  {
+    *result = true;
+    return true;
+  }
+  l.clear();
+  l << "0" << "off" << "false";
+  if ( l.contains( val ) )
+  {
+    *result = false;
+    return true;
+  }
+  return false;
+}
+
+bool KateDocument::checkIntValue( QString val, int *result )
+{
+  bool ret( false );
+  *result = val.toInt( &ret );
+  return ret;
+}
+
+//END

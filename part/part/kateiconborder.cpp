@@ -44,48 +44,38 @@
 using namespace KTextEditor;
 
 static const char* const plus_xpm[] = {
-"12 16 3 1",
+"11 11 3 1",
 "       c None",
 ".      c #000000",
 "+      c #FFFFFF",
-"      .     ",
-"      .     ",
-" .........  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++.+++.  ",
-" .+++.+++.  ",
-" .+.....+.  ",
-" .+++.+++.  ",
-" .+++.+++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .........  ",
-"      .     ",
-"      .     "};
+"...........",
+".+++++++++.",
+".+++++++++.",
+".++++.++++.",
+".++++.++++.",
+".++.....++.",
+".++++.++++.",
+".++++.++++.",
+".+++++++++.",
+".+++++++++.",
+"..........."};
 
 static const char* const minus_xpm[] = {
-"12 16 3 1",
+"11 11 3 1",
 "       c None",
 ".      c #000000",
 "+      c #FFFFFF",
-"      .     ",
-"      .     ",
-" .........  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+.....+.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .+++++++.  ",
-" .........  ",
-"      .     ",
-"      .     "};
+"...........",
+".+++++++++.",
+".+++++++++.",
+".+++++++++.",
+".+++++++++.",
+".++.....++.",
+".+++++++++.",
+".+++++++++.",
+".+++++++++.",
+".+++++++++.",
+"..........."};
 
 
 static const char* const bookmark_xpm[]={
@@ -113,6 +103,9 @@ static const char* const bookmark_xpm[]={
 
 const int iconPaneWidth = 16;
 const int halfIPW = 8;
+
+static QPixmap minus_px ((const char**)minus_xpm);
+static QPixmap plus_px ((const char**)plus_xpm);
 
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent )
   : QWidget(parent, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
@@ -267,6 +260,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->lineRanges.size();
+  int m_px = (h - 11) / 2;
+  if (m_px < 0)
+    m_px = 0;
 
   int lnWidth( 0 );
   if ( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) ) // avoid calculating unless needed ;-)
@@ -353,15 +349,23 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       {
         KateLineInfo info;
         m_doc->lineInfo(&info,realLine);
+
         if (!info.topLevel)
         {
           if (info.startsVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
-            p.drawPixmap(lnX+2,y,QPixmap((const char**)minus_xpm));
+          {
+            p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+            p.drawPixmap(lnX+4,y+m_px,minus_px);
+          }
           else if (info.startsInVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
-            p.drawPixmap(lnX+2,y,QPixmap((const char**)plus_xpm));
+          {
+            p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+            p.drawPixmap(lnX+4,y+m_px,plus_px);
+          }
           else
           {
             p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
+
             if (info.endsBlock && !m_viewInternal->lineRanges[z].wrap)
               p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
           }

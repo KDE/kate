@@ -32,6 +32,7 @@
 #include "kateview.h"
 #include "katefactory.h"
 #include "katerenderer.h"
+#include "kateautoindent.h"
 
 #include <kaccel.h>
 #include <kcharsets.h>
@@ -156,10 +157,20 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
-  opt[0] = new QCheckBox(i18n("A&utomatically indent"), this);
+  QVGroupBox *gbAuto = new QVGroupBox(i18n("Automatic Indentation"), this);
+
+  opt[0] = new QCheckBox(i18n("A&ctivated"), gbAuto);
   opt[0]->setChecked(configFlags & flags[0]);
   layout->addWidget(opt[0]);
   connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+
+  QHBox *e5Layout = new QHBox(gbAuto);
+  QLabel *e5Label = new QLabel(i18n("&Indentation Mode:"), e5Layout);
+  m_indentMode = new KComboBox (e5Layout);
+  m_indentMode->insertStringList (KateAutoIndent::listModes());
+  e5Label->setBuddy(m_indentMode);
+  connect(m_indentMode, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  layout->addWidget(gbAuto);
 
   opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
   opt[4]->setChecked(configFlags & flags[4]);
@@ -239,12 +250,16 @@ void IndentConfigTab::apply ()
   KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 
+  KateDocumentConfig::global()->setIndentationMode(m_indentMode->currentItem());
+
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 1 == m_tabs->id (m_tabs->selected()));
 }
 
 void IndentConfigTab::reload ()
 {
   m_tabs->setButton( (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabIndentsMode) ? 1 : 0  );
+
+  m_indentMode->setCurrentItem (KateDocumentConfig::global()->indentationMode());
 
   spacesToggled ();
 }

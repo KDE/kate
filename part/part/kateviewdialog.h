@@ -105,6 +105,7 @@ class IndentConfigTab : public Kate::ConfigPage
     QCheckBox *opt[numFlags];
     KIntNumInput *indentationWidth;
     QButtonGroup *m_tabs;
+    KComboBox *m_indentMode;
 
   public slots:
     void apply ();

@@ -20,12 +20,40 @@
 #include "kateconfig.h"
 #include "kateview.h"
 
+#include <klocale.h>
+
 KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
 {
   if (mode == KateDocumentConfig::imCStyle)
     return new KateCSmartIndent (doc);
 
   return new KateAutoIndent (doc);
+}
+
+QStringList KateAutoIndent::listModes ()
+{
+  QStringList l;
+
+  l << modeDescription(KateDocumentConfig::imNormal);
+  l << modeDescription(KateDocumentConfig::imCStyle);
+
+  return l;
+}
+
+QString KateAutoIndent::modeName (uint mode)
+{
+  if (mode == KateDocumentConfig::imCStyle)
+    return QString ("cstyle");
+
+  return QString ("normal");
+}
+
+QString KateAutoIndent::modeDescription (uint mode)
+{
+  if (mode == KateDocumentConfig::imCStyle)
+    return i18n ("C Style");
+
+  return i18n ("Normal");
 }
 
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)

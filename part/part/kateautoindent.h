@@ -22,12 +22,22 @@
 #include "katecursor.h"
 #include "kateconfig.h"
 
-#include <klocale.h>
-
 class KateDocument;
 
 class KateAutoIndent
 {
+  //
+  // static methodes to create and list them
+  //
+  public:
+    static KateAutoIndent *createIndenter (KateDocument *doc, uint mode);
+
+    static QStringList listModes ();
+
+    static QString modeName (uint mode);
+
+    static QString modeDescription (uint mode);
+
   public:
     KateAutoIndent (KateDocument *doc);
     virtual ~KateAutoIndent ();
@@ -44,9 +54,6 @@ class KateAutoIndent
     virtual void processChar (QChar /*c*/) { }
 
     virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
-    virtual QString modeName () const { return i18n("Normal"); };
-
-    static KateAutoIndent *createIndenter (KateDocument *doc, uint mode);
 
   protected:
     // Determines if the characters open and close are balanced between begin and end
@@ -77,7 +84,6 @@ class KateCSmartIndent : public KateAutoIndent
     virtual void processChar (QChar c);
 
     virtual uint modeNumber () const { return KateDocumentConfig::imCStyle; };
-    virtual QString modeName () const { return i18n("C Style"); };
 
   private:
     uint calcIndent (KateDocCursor &begin, bool needContinue);

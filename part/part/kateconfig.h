@@ -129,6 +129,9 @@ class KateDocumentConfig : public KateConfig
     void setConfigFlags (KateDocumentConfig::ConfigFlags flag, bool enable);
     void setConfigFlags (uint fullFlags);
 
+    const QString &encoding () const;
+    void setEncoding (const QString &encoding);
+
   private:
     int m_tabWidth;
     int m_indentationWidth;
@@ -136,6 +139,7 @@ class KateDocumentConfig : public KateConfig
     int m_wordWrapAt;
     uint m_undoSteps;
     uint m_configFlags;
+    QString m_encoding;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
@@ -143,6 +147,7 @@ class KateDocumentConfig : public KateConfig
     bool m_wordWrapAtSet : 1;
     bool m_undoStepsSet : 1;
     uint m_configFlagsSet;
+    bool m_encodingSet : 1;
 
   private:
     KateDocument *m_doc;

@@ -76,17 +76,17 @@ class KateBuffer : public QObject
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
-    bool openFile (const QString &m_file, QTextCodec *codec);
+    bool openFile (const QString &m_file);
 
     /**
      * Can the current codec handle all chars
      */
-    bool canEncode (QTextCodec *codec);
+    bool canEncode ();
 
     /**
      * Save the buffer to a file, use the given filename + codec + end of line chars (internal use of qtextstream)
      */
-    bool saveFile (const QString &m_file, QTextCodec *codec, const QString &eol);
+    bool saveFile (const QString &m_file, const QString &eol);
 
     /**
      * Return the total number of lines in the buffer.

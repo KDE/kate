@@ -778,7 +778,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   int configFlags = KateDocumentConfig::global()->configFlags();
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
-  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups"), this);
+  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
   layout->addWidget( gbWhiteSpace );
 
   replaceTabs = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);

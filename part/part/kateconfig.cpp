@@ -29,6 +29,7 @@
 #include <kdebug.h>
 
 #include <qcolor.h>
+#include <qtextcodec.h>
 
 // $Id$
 
@@ -78,6 +79,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_wordWrapAtSet (true),
    m_undoStepsSet (true),
    m_configFlagsSet (0xFFFF),
+   m_encodingSet (true),
    m_doc (0)
 {
   s_global = this;
@@ -96,6 +98,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_wordWrapAtSet (false),
    m_undoStepsSet (false),
    m_configFlagsSet (0),
+   m_encodingSet (false),
    m_doc (doc)
 {
 }
@@ -134,6 +137,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
     | KateDocumentConfig::cfShowTabs
     | KateDocumentConfig::cfSmartHome));
 
+  setEncoding (config->readEntry("Encoding", QString::fromLatin1(QTextCodec::codecForLocale()->name()).lower()));
+
   configEnd ();
 }
 
@@ -149,6 +154,8 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Undo Steps", undoSteps());
 
   config->writeEntry("Basic Config Flags", configFlags());
+
+  config->writeEntry("Encoding", encoding());
 
   config->sync ();
 }
@@ -297,6 +304,24 @@ void KateDocumentConfig::setConfigFlags (uint fullFlags)
 
   m_configFlagsSet = 0xFFFF;
   m_configFlags = fullFlags;
+
+  configEnd ();
+}
+
+const QString &KateDocumentConfig::encoding () const
+{
+  if (m_encodingSet || isGlobal())
+    return m_encoding;
+
+  return s_global->encoding();
+}
+
+void KateDocumentConfig::setEncoding (const QString &encoding)
+{
+  configStart ();
+
+  m_encodingSet = true;
+  m_encoding = encoding;
 
   configEnd ();
 }

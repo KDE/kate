@@ -29,6 +29,8 @@
 
 #include <kvmallocator.h>
 #include <kdebug.h>
+#include <kglobal.h>
+#include <kcharsets.h>
 
 #include <qfile.h>
 #include <qtextstream.h>
@@ -48,13 +50,18 @@ class KateBufFileLoader
 {
   public:
     KateBufFileLoader (const QString &m_file) :
-      file (m_file), stream (&file)
+      file (m_file), stream (&file), codec (0), prev (0)
+    {
+    }
+
+    ~KateBufFileLoader ()
     {
     }
 
   public:
     QFile file;
     QTextStream stream;
+    QTextCodec *codec;
     KateBufBlock *prev;
 };
 
@@ -492,7 +499,7 @@ void KateBuffer::setHighlight(Highlight *highlight)
 /**
  * Insert a file at line @p line in the buffer.
  */
-bool KateBuffer::openFile (const QString &m_file, QTextCodec *codec)
+bool KateBuffer::openFile (const QString &m_file)
 {
   clear();
 
@@ -505,8 +512,10 @@ bool KateBuffer::openFile (const QString &m_file, QTextCodec *codec)
     return false; // Error
   }
 
+  QTextCodec *codec = KGlobal::charsets()->codecForName(m_doc->config()->encoding());
   m_loader->stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
   m_loader->stream.setCodec(codec); // this line sets the mapper to the correct codec
+  m_loader->codec = codec;
   m_loader->prev = 0;
 
   // trash away the one unneeded allready existing block
@@ -520,8 +529,10 @@ bool KateBuffer::openFile (const QString &m_file, QTextCodec *codec)
   return true;
 }
 
-bool KateBuffer::canEncode (QTextCodec *codec)
+bool KateBuffer::canEncode ()
 {
+  QTextCodec *codec = KGlobal::charsets()->codecForName(m_doc->config()->encoding());
+
   // encoding can encode every char
   bool rightEncoding = true;
 
@@ -534,7 +545,7 @@ bool KateBuffer::canEncode (QTextCodec *codec)
   return rightEncoding;
 }
 
-bool KateBuffer::saveFile (const QString &m_file, QTextCodec *codec, const QString &eol)
+bool KateBuffer::saveFile (const QString &m_file, const QString &eol)
 {
   QFile file (m_file);
   QTextStream stream (&file);
@@ -543,6 +554,8 @@ bool KateBuffer::saveFile (const QString &m_file, QTextCodec *codec, const QStri
   {
     return false; // Error
   }
+
+  QTextCodec *codec = KGlobal::charsets()->codecForName(m_doc->config()->encoding());
 
   // disable Unicode headers
   stream.setEncoding(QTextStream::RawUnicode);

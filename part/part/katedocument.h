@@ -79,8 +79,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   friend class KateViewInternal;
   friend class KateView;
-  friend class KateIconBorder;
-  friend class ColorConfig;
   friend class ViewDefaultsConfig;
   friend class PluginConfigPage;
   friend class KateRenderer;
@@ -608,8 +606,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void slotModChanged ();
 
   public slots:
-    void setEncoding (const QString &e) { myEncoding = e; };
-    QString encoding() const { return myEncoding; };
+    void setEncoding (const QString &e);
+    QString encoding() const;
 
   public slots:
     void setWordWrap (bool on);
@@ -700,8 +698,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static int m_getSearchTextFrom;
 
     bool hlSetByUser;
-
-    QString myEncoding;
 
     /**
      * updates mTime to reflect file on fs.

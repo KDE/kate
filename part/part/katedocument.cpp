@@ -206,8 +206,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   modified = false;
 
-  myEncoding = QString::fromLatin1(QTextCodec::codecForLocale()->name());
-
   m_docName = QString ("");
   fileInfo = new QFileInfo ();
 
@@ -494,7 +492,7 @@ QString KateDocument::configPageName (uint number) const
       return i18n ("Plugins");
 
     case 6:
-      return i18n("Saving");
+      return i18n("Open/Save");
 
     case 9:
       return i18n("Spelling");
@@ -536,7 +534,7 @@ QString KateDocument::configPageFullName (uint number) const
       return i18n ("Plugin Manager");
 
     case 6:
-      return i18n("Saving & Backups");
+      return i18n("File Opening and Saving");
 
     case 9:
       return i18n("Spell Checker Behavior");
@@ -1894,7 +1892,7 @@ void KateDocument::readSessionConfig(KConfig *config)
   internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
   QString tmpenc=config->readEntry("Encoding");
 
-  if (m_url.isValid() && (!tmpenc.isEmpty()) && (tmpenc!=myEncoding))
+  if (m_url.isValid() && (!tmpenc.isEmpty()) && (tmpenc!=encoding()))
   {
     kdDebug()<<"Reloading document because of encoding change to "<<tmpenc<<endl;
     setEncoding(tmpenc);
@@ -1913,7 +1911,7 @@ void KateDocument::writeSessionConfig(KConfig *config)
 {
   config->writeEntry("URL", m_url.url() ); // ### encoding?? (Simon)
   config->writeEntry("Highlight", m_highlight->name());
-  config->writeEntry("Encoding",myEncoding);
+  config->writeEntry("Encoding",encoding());
   // Save Bookmarks
   QValueList<int> marks;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
@@ -2736,10 +2734,10 @@ bool KateDocument::openFile()
   kdDebug(13020) << "servicetype: " << serviceType << endl;
   int pos = serviceType.find(';');
   if (pos != -1)
-    myEncoding = serviceType.mid(pos+1);
-  kdDebug(13020) << "myEncoding: " << myEncoding << endl;
+    setEncoding (serviceType.mid(pos+1));
+  kdDebug(13020) << "myEncoding: " << encoding() << endl;
 
-  bool success = buffer->openFile (m_file, KGlobal::charsets()->codecForName(myEncoding));
+  bool success = buffer->openFile (m_file);
 
   setMTime();
 
@@ -2810,11 +2808,11 @@ bool KateDocument::saveFile()
   if (eolMode == KateDocument::eolDos) eol = QString("\r\n");
   else if (eolMode == KateDocument::eolMacintosh) eol = QString ("\r");
 
-  if (!buffer->canEncode (KGlobal::charsets()->codecForName(myEncoding)))
+  if (!buffer->canEncode ())
     KMessageBox::error (0, i18n ("The document has been saved, but the selected encoding cannot encode every unicode character in it. "
     "If you don't save it again with another encoding, some characters will be lost after closing this document."));
 
-  bool success = buffer->saveFile (m_file, KGlobal::charsets()->codecForName(myEncoding), eol);
+  bool success = buffer->saveFile (m_file, eol);
 
   if (!hlSetByUser)
   {
@@ -4585,6 +4583,16 @@ void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
 KateCodeFoldingTree *KateDocument::foldingTree ()
 {
   return buffer->foldingTree();
+}
+
+void KateDocument::setEncoding (const QString &e)
+{
+  m_config->setEncoding(e);
+}
+
+QString KateDocument::encoding() const
+{
+  return m_config->encoding();
 }
 
 void KateDocument::updateConfig ()

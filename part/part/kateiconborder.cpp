@@ -232,7 +232,7 @@ int KateIconBorder::lineNumberWidth() const
 
         h = m_view->renderer()->config()->fontMetrics(KateRendererConfig::ViewFont)->ascent();
 
-        p.setPen(m_doc->myAttribs[0].textColor());
+        p.setPen(m_doc->attribs()->at(0).textColor());
         p.drawLine(w/2, h/2, w/2, 0);
 #if 1
         p.lineTo(w/4, h/4);
@@ -300,7 +300,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
   QPainter p ( this );
   p.setFont ( *m_view->renderer()->config()->font(KateRendererConfig::ViewFont) ); // for line numbers
-  p.setPen ( m_doc->myAttribs[0].textColor() );
+  p.setPen ( m_doc->attribs()->at(0).textColor() );
 
   KateLineInfo oldInfo;
   if ((m_viewInternal->lineRanges[startz].line-1) < 0)

@@ -189,6 +189,7 @@ private:
   QLabel *m_dynwrapIndicatorsLabel;
   KComboBox *m_dynwrapIndicatorsCombo;
   QButtonGroup *m_bmSort;
+  KComboBox *m_schemaCombo;
 
 public slots:
  void apply ();

@@ -119,6 +119,12 @@ void KateSchemaManager::removeSchema (uint number)
 
 uint KateSchemaManager::number (const QString &name)
 {
+  if (name == "Kate Normal Schema")
+    return 0;
+
+  if (name == "Kate Printing Schema")
+    return 1;
+
   int i;
   if ((i = m_schemas.findIndex(name)) > -1)
     return i;

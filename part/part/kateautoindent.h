@@ -177,6 +177,7 @@ class KateAutoIndent
     uchar tagAttrib;
     uchar wordAttrib;
     uchar keywordAttrib;
+    uchar normalAttrib;
 
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
     bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
@@ -274,10 +275,18 @@ class KateCSAndSIndent : public KateAutoIndent
 
   private:
     void updateIndentString();
+    
+    bool inStatement( const KateDocCursor &begin );
+    QString continuationIndent( const KateDocCursor &begin );
+    
     QString calcIndent (const KateDocCursor &begin);
-    QString findOpeningCommentIndentation (const KateDocCursor &start);
+    QString calcIndentAfterKeyword(const KateDocCursor &indentCursor, const KateDocCursor &keywordCursor, int keywordPos, bool blockKeyword);
+    QString calcIndentInBracket(const KateDocCursor &indentCursor, const KateDocCursor &bracketCursor, int bracketPos);
+    QString calcIndentInBrace(const KateDocCursor &indentCursor, const KateDocCursor &braceCursor, int bracePos);
+    
     bool handleDoxygen (KateDocCursor &begin);
-
+    QString findOpeningCommentIndentation (const KateDocCursor &start);
+    
     QString indentString;
 };
 

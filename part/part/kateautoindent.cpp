@@ -121,6 +121,7 @@ void KateAutoIndent::updateConfig ()
   tagAttrib = 255;
   wordAttrib = 255;
   keywordAttrib = 255;
+  normalAttrib = 255;
 
   KateHlItemDataList items;
   doc->highlight()->getKateHlItemDataListCopy (0, items);
@@ -159,6 +160,10 @@ void KateAutoIndent::updateConfig ()
     else if (name.find("Keyword") != -1 && keywordAttrib == 255)
     {
       keywordAttrib = i;
+    }
+    else if (name.find("Normal") != -1 && normalAttrib == 255)
+    {
+      normalAttrib = i;
     }
   }
 }
@@ -1256,10 +1261,16 @@ void KateCSAndSIndent::processLine (KateDocCursor &line)
   QString whitespace = calcIndent(line);
   // strip off existing whitespace
   int firstChar = doc->plainKateTextLine(line.line())->firstChar();
-  if( firstChar )
+  if( firstChar > 0 )
     doc->removeText(line.line(), 0, line.line(), firstChar);
   // add correct amount
   doc->insertText(line.line(), 0, whitespace);
+  
+  // try to preserve the cursor position in the line
+  if ( int(line.col() + whitespace.length()) >= firstChar  )
+    line.setCol( line.col() + whitespace.length() - firstChar );
+  else
+    line.setCol( 0 );
 }
 
 void KateCSAndSIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
@@ -1279,10 +1290,10 @@ void KateCSAndSIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
  * If @p convert is set to false, characters at and after the first non-whitespace
  * character are removed, not converted.
  */
-static QString initialWhitespace(KateTextLine::Ptr line, int chars, bool convert = true)
+static QString initialWhitespace(const KateTextLine::Ptr &line, int chars, bool convert = true)
 {
   QString text = line->string(0, chars);
-  if( text.length() < chars )
+  if( (int)text.length() < chars )
   {
     QString filler; filler.fill(' ',chars - text.length());
     text += filler;
@@ -1297,15 +1308,6 @@ static QString initialWhitespace(KateTextLine::Ptr line, int chars, bool convert
     }
   }
   return text;
-}
-
-/// how long would @p line be if we stripped any //-style comments from it?
-static int stripLineCommentLength(const QString &line)
-{
-  int pos = line.find("//");
-  if( pos != -1 )
-    return pos;
-  return line.length();
 }
 
 QString KateCSAndSIndent::findOpeningCommentIndentation(const KateDocCursor &start)
@@ -1342,14 +1344,14 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
   
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
   
-  // if the line doesn't end in a doxygen comment, we don't care.
-  if (textLine->attribute(textLine->lastChar()) != doxyCommentAttrib)
+  // if the line doesn't end with a doxygen comment (that's not closed)
+  // and doesn't start with a doxygen comment (that's not closed), we don't care.
+  // note that we do need to check the start of the line, or lines ending with, say, @brief aren't
+  // recognised.
+  if ( !(textLine->attribute(textLine->lastChar()) == doxyCommentAttrib && !textLine->endingWith("*/")) &&
+       !(textLine->attribute(textLine->firstChar()) == doxyCommentAttrib && !textLine->string().contains("*/")) )
     return false;
   
-  // if the line ends the doxygen comment, again we don't care.
-  if (textLine->endingWith("*/"))
-    return false;
-
   // our line is inside a doxygen comment. align the *'s and then maybe insert one too ...
   textLine = doc->plainKateTextLine(begin.line());
   first = textLine->firstChar();
@@ -1382,27 +1384,190 @@ bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
  */
 void KateCSAndSIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
 {
-  updateIndentString();
-  
-  // in a comment, add a * doxygen-style. probably broken.
+  // in a comment, add a * doxygen-style.
   if( handleDoxygen(begin) )
     return;
   
-  // TODO: never do this in a comment
-  QString whitespace = calcIndent(begin);
-  doc->insertText(begin.line(), 0, whitespace);
-  begin.setCol(whitespace.length());
+  // TODO: if the user presses enter in the middle of a label, maybe the first half of the
+  //  label should be indented?
+  
+  begin.setCol( doc->plainKateTextLine( begin.line() )->firstChar() );
+  processLine( begin );
+}
+
+/**
+ * @brief Is this a label, ending in the ':' character at colon?
+ * @param colon The location of a ':' character
+ * 
+ * Checks the character after the : for being another : and acts appropriately.
+ * 
+ * Looks before the colon for a sequence of identifiers, keywords, literals and "::"s.
+ * If a ';', '{' or '}' is found, then this is a label if we've already had an identifier
+ * or keyword, and is an initialization list or a bug otherwise.
+ * 
+ * If a '?' is found first, we're in a ?: expression, not a label.
+ * If mismatched '(' and ')' or '[' and ']' are found, we're in an expression, not a label.
+ * If a double-quoted string is found, we're not in a label.
+ * 
+ * If a ':' is found first, recursively determine if it's a label. We are if it is,
+ * and are not otherwise.
+ * 
+ * Pretty much everything else can appear in a constant-expression in a case-label.
+ */
+/*bool KateCSAndSIndent::isLabel( const KateDocCursor &colon )
+{
+  (indentLine->attribute(indentFirst) == keywordAttrib ||
+  indentLine->attribute(indentFirst) == normalAttrib) )
+  {
+    const int last = indentLine->lastChar();
+    for ( int n = indentFirst + 1; n <= last; ++n )
+    {
+      if ( indentLine->attribute(n) == symbolAttrib )
+      {
+          // if we find a symbol other than a :, this is not a label.
+        if ( indentLine->getChar(n) != ':' )
+          break;
+                
+          // : but not ::, a label, don't indent.
+        if ( indentLine->getChar(n+1) != ':' )
+          return whitespaceToOpenBrace;
+                
+          // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
+          // skip both :s and keep going.
+        if ( indentLine->getChar(n+2) != ':' )
+        {
+          ++n;
+          continue;
+        }
+                
+          // xy::: outside a continuation is a label followed by a scope-resolution operator.
+          // indent. more than 3 :s is illegal, so we don't care that's not indented.
+        return whitespaceToOpenBrace;
+      }
+    }
+  }
+}*/
+
+// is the start of the line containing 'begin' in a statement?
+bool KateCSAndSIndent::inStatement( const KateDocCursor &begin )
+{
+  int line;
+  for ( line = begin.line() - 1; line >= 0; --line )
+  {
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
+    const int first = textLine->firstChar();
+    const int last = textLine->lastChar();
+    if ( first == -1 )
+      continue;
+    
+    // look backwards for a non-comment character
+    int curr, attrib = 255;
+    for ( curr = last; curr >= first; curr = textLine->previousNonSpaceChar(curr) )
+    {
+      attrib = textLine->attribute(curr);
+      // HACK: if we see a comment, assume boldly that this isn't a continuation.
+      //       detecting comments (using attributes) is HARD, since they may have
+      //       embedded alerts, or doxygen stuff, or just about anything. this is
+      //       wrong, and needs fixing.
+      if ( attrib == commentAttrib || attrib == doxyCommentAttrib )
+        return false;
+      if ( attrib != commentAttrib && attrib != doxyCommentAttrib )
+        break;
+    }
+    
+    // found something on the line?
+    if ( curr >= first )
+    {
+      char c = textLine->getChar(curr);
+      
+      // brace => not a continuation.
+      if ( attrib == symbolAttrib && c == '{' || c == '}' )
+        return false;
+      
+      // ; => not a continuation, unless in a for (;;)
+      else if ( attrib == symbolAttrib && c == ';' )
+      {
+        // look backwards for two semicolons or a brace (not a continuation),
+        // or an unmatched open bracket (a continuation)
+        for ( ; line >= 0; --line )
+        {
+          KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
+          const int first = textLine->firstChar();
+          const int last = textLine->lastChar();
+          
+          // look backwards for a symbol: (){};
+          // match ()s, {...; and }...; => not continuation
+          // ; ; ; => not continuation
+          // ( ; and ( ; ; => continuation
+          int curr, attrib = 255, parens = 0, semicolons = 1;
+          for ( curr = last; curr >= first; curr = textLine->previousNonSpaceChar(curr) )
+          {
+            attrib = textLine->attribute(curr);
+            if ( attrib == symbolAttrib )
+            {
+              switch( textLine->getChar(curr) )
+              {
+                case ';':
+                  if( ++semicolons > 2 )
+                    return false;
+                  break;
+                case '{': case '}':
+                  return false;
+                case ')':
+                  ++parens;
+                  break;
+                case '(':
+                  if( --parens < 0 )
+                    return true;
+                  break;
+              }
+            }
+          }
+          // no useful symbols before the ;? not in a for then. so ; ended a statement.
+          return false;
+        }
+      }
+      // any other character => in a continuation
+      return true;
+    }
+  }
+  // no non-comment text found before here - not a continuation.
+  return false;
+}
+
+QString KateCSAndSIndent::continuationIndent( const KateDocCursor &begin )
+{
+  if( !inStatement( begin ) )
+    return QString::null;
+  return indentString;
 }
 
 template<class T> T min(T a, T b) { return (a < b) ? a : b; }
-#define ARRLEN( array ) ( sizeof(array)/sizeof(array[0]) )
 
 /**
- * The line containing @p begin does not start in a /*-style comment.
- * Figure out how indented the line should be.
+ * Figure out how indented the line containing @p begin should be.
  */
 QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
 {
+  KateTextLine::Ptr currLine = doc->plainKateTextLine(begin.line());
+  int currLineFirst = currLine->firstChar();
+  
+  // if the line starts inside a comment, no change of indentation.
+  // FIXME: this unnecessarily copies the current indentation over itself.
+  // FIXME: on newline, this should copy from the previous line.
+  if ( currLineFirst >= 0 && 
+       (currLine->attribute(currLineFirst) == commentAttrib ||
+        currLine->attribute(currLineFirst) == doxyCommentAttrib) )
+    return currLine->string( 0, currLineFirst );
+  
+  // if the line starts with # (but isn't a c# region thingy), no indentation at all.
+  if( currLineFirst >= 0 && currLine->getChar(currLineFirst) == '#' )
+  {
+    if( !currLine->stringAtPos( currLineFirst+1, QString::fromLatin1("region") ) &&
+        !currLine->stringAtPos( currLineFirst+1, QString::fromLatin1("endregion") ) )
+      return QString::null;
+  }
+  
   /* Strategy:
    * Look for an open bracket or brace, or a keyword opening a new scope, whichever comes latest.
    * Found a brace: indent one tab in.
@@ -1412,141 +1577,228 @@ QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
    */
   KateDocCursor cur = begin;
   int pos, openBraceCount = 0, openParenCount = 0;
-  bool lookingForScopeKeywords = true, foundKeyword = false, blockKeyword = false;
+  bool lookingForScopeKeywords = true;
   const char * const scopeKeywords[] = { "for", "do", "while", "if", "else" };
   const char * const blockScopeKeywords[] = { "try", "catch", "switch" };
-  
-  // TODO: ignore characters inside comments
   
   while (cur.gotoPreviousLine())
   {
     KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
-    const int lastChar = min(stripLineCommentLength(textLine->string()) - 1, textLine->lastChar());
+    const int lastChar = textLine->lastChar();
     const int firstChar = textLine->firstChar();
     
     // look through line backwards for interesting characters
     for( pos = lastChar; pos >= firstChar; --pos )
     {
       if (textLine->attribute(pos) == symbolAttrib)
-      {  
+      {
         char tc = textLine->getChar (pos);
         switch( tc )
         {
-          case '(': case '[': openParenCount++; break;
+          case '(': case '[':
+            if( ++openParenCount > 0 )
+              return calcIndentInBracket( begin, cur, pos );
+            break;
           case ')': case ']': openParenCount--; break;
-          case '{': openBraceCount++; break;
+          case '{':
+            if( ++openBraceCount > 0 )
+              return calcIndentInBrace( begin, cur, pos );
+            break;
           case '}': openBraceCount--; lookingForScopeKeywords = false; break;
           case ';':
             if( openParenCount == 0 )
               lookingForScopeKeywords = false;
             break;
         }
-      }  
-      
-      // if we're at a word at the same parenthesis level as the cursor, and we've not had a close
-      // brace or semicolon yet, any scope keyword should cause an indent.
-      if (textLine->attribute(pos) == keywordAttrib && openParenCount == 0 && lookingForScopeKeywords )
-      {
-        for( int n = 0; n < ARRLEN(scopeKeywords); ++n )
-          if( textLine->stringAtPos(pos, QString::fromLatin1(scopeKeywords[n]) ) )
-            foundKeyword = true;
-        for( int n = 0; n < ARRLEN(blockScopeKeywords); ++n )
-          if( textLine->stringAtPos(pos, QString::fromLatin1(blockScopeKeywords[n]) ) )
-            foundKeyword = blockKeyword = true;
       }
       
-      if (openBraceCount > 0 || openParenCount > 0 || foundKeyword)
-        break;
+      // if we've not had a close brace or a semicolon yet, and we're at the same parenthesis level
+      // as the cursor, and we're at the start of a scope keyword, indent from it.
+      if ( lookingForScopeKeywords && openParenCount == 0 &&
+           textLine->attribute(pos) == keywordAttrib &&
+           (pos == 0 || textLine->attribute(pos-1) != keywordAttrib ) )
+      {
+        #define ARRLEN( array ) ( sizeof(array)/sizeof(array[0]) )
+        for( uint n = 0; n < ARRLEN(scopeKeywords); ++n )
+          if( textLine->stringAtPos(pos, QString::fromLatin1(scopeKeywords[n]) ) )
+            return calcIndentAfterKeyword( begin, cur, pos, false );
+        for( uint n = 0; n < ARRLEN(blockScopeKeywords); ++n )
+          if( textLine->stringAtPos(pos, QString::fromLatin1(blockScopeKeywords[n]) ) )
+            return calcIndentAfterKeyword( begin, cur, pos, true );
+        #undef ARRLEN
+      }
     }
-    if (openBraceCount > 0 || openParenCount > 0 || foundKeyword)
-      break;
   }
   
-  // Either we found an open brace, an open parenthesis, a scope keyword, or we got to the start of the file.
-  // Return the appropriate amount of whitespace.
+  // no active { in file.
+  return QString::null;
+}
+
+QString KateCSAndSIndent::calcIndentInBracket(const KateDocCursor &indentCursor, const KateDocCursor &bracketCursor, int bracketPos)
+{
+  KateTextLine::Ptr indentLine = doc->plainKateTextLine(indentCursor.line());
+  KateTextLine::Ptr bracketLine = doc->plainKateTextLine(bracketCursor.line());
   
-  KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
-  KateTextLine::Ptr currLine = doc->plainKateTextLine(begin.line());
-  
-  if (foundKeyword)
+  // FIXME: hard-coded max indent to bracket width - use a kate variable
+  // FIXME: expand tabs first...
+  if ( bracketPos > 48 )
   {
-    QString whitespaceToKeyword = initialWhitespace( textLine, pos, false );
-    if( blockKeyword )
-      ; // FIXME
-    
-    // If the line starts with an open brace, don't indent...
-    int first = currLine->firstChar();
-    if( first >= 0 && currLine->getChar(first) == '{' )
-      return whitespaceToKeyword;
-    
-    return indentString + whitespaceToKeyword;
+    // how far to indent? we could look back for a brace or keyword, 2 from that.
+    // as it is, we just indent one more than the line with the ( on it.
+    // the potential problem with this is when
+    //   you have code ( which does          <-- continuation + start of func call
+    //     something like this );            <-- extra indentation for func call
+    // then again (
+    //   it works better than (
+    //     the other method for (
+    //       cases like this )));
+    // consequently, i think this method wins.
+    return indentString + initialWhitespace( bracketLine, bracketLine->firstChar() );
   }
-  else if (openBraceCount > 0)
+  
+  const int indentLineFirst = indentLine->firstChar();
+  
+  int indentTo;
+  if( indentLineFirst >= 0 && indentLine->attribute(indentLineFirst) == symbolAttrib &&
+      ( indentLine->getChar(indentLineFirst) == ')' || indentLine->getChar(indentLineFirst) == ']' ) )
   {
-    QString whitespaceToOpenBrace = initialWhitespace( textLine, pos, false );
-    int first = currLine->firstChar();
+    // If the line starts with a close bracket, line it up
+    indentTo = bracketPos;
+  }
+  else
+  {
+    // Otherwise, line up with the text after the open bracket
+    indentTo = bracketLine->nextNonSpaceChar( bracketPos + 1 );
+    if( indentTo == -1 )
+      indentTo = bracketPos + 2;
+  }
+  return initialWhitespace( bracketLine, indentTo );
+}
+
+QString KateCSAndSIndent::calcIndentAfterKeyword(const KateDocCursor &indentCursor, const KateDocCursor &keywordCursor, int keywordPos, bool blockKeyword)
+{
+  KateTextLine::Ptr keywordLine = doc->plainKateTextLine(keywordCursor.line());
+  KateTextLine::Ptr indentLine = doc->plainKateTextLine(indentCursor.line());
+  
+  QString whitespaceToKeyword = initialWhitespace( keywordLine, keywordPos, false );
+  if( blockKeyword )
+    ; // FIXME
+  
+  // If the line starts with an open brace, don't indent...
+  int first = indentLine->firstChar();
+  if( first >= 0 && indentLine->getChar(first) == '{' )
+    return whitespaceToKeyword;
+  
+  // don't check for a continuation. rules are simple here:
+  // if we're in a non-compound statement after a scope keyword, we indent all lines
+  // once. so:
+  // if ( some stuff
+  //      goes here )
+  //   apples, and         <-- continuation here is ignored. but this is Bad Style (tm) anyway.
+  //   oranges too;
+  return indentString + whitespaceToKeyword;
+}
+
+QString KateCSAndSIndent::calcIndentInBrace(const KateDocCursor &indentCursor, const KateDocCursor &braceCursor, int bracePos)
+{
+  KateTextLine::Ptr braceLine = doc->plainKateTextLine(braceCursor.line());
+  const int braceFirst = braceLine->firstChar();
+  
+  QString whitespaceToOpenBrace = initialWhitespace( braceLine, bracePos, false );
+  
+  // if the open brace is the start of a namespace, don't indent...
+  // FIXME: this is an extremely poor heuristic. it looks on the line with
+  //        the { and the line before to see if they start with a keyword
+  //        beginning 'namespace'. that's 99% of usage, I'd guess.
+  {
+    if( braceFirst >= 0 && braceLine->attribute(braceFirst) == keywordAttrib &&
+        braceLine->stringAtPos( braceFirst, QString::fromLatin1( "namespace" ) ) )
+      return continuationIndent(indentCursor) + whitespaceToOpenBrace;
     
-    // if the open brace is the start of a namespace, don't indent...
-    // FIXME: this is an extremely poor heuristic. it looks on the line with
-    //        the { and the line before to see if they start with a keyword
-    //        beginning 'namespace'. that's 99% of usage, I'd guess.
-    if( cur.line() > 0 )
+    if( braceCursor.line() > 0 )
     {
-      if( first >= 0 && textLine->attribute(first) == keywordAttrib &&
-          textLine->stringAtPos( first, QString::fromLatin1( "namespace" ) ) )
-        return whitespaceToOpenBrace;
-      
-      KateTextLine::Ptr prevLine = doc->plainKateTextLine(cur.line() - 1);
+      KateTextLine::Ptr prevLine = doc->plainKateTextLine(braceCursor.line() - 1);
       int firstPrev = prevLine->firstChar();
       if( firstPrev >= 0 && prevLine->attribute(firstPrev) == keywordAttrib &&
           prevLine->stringAtPos( firstPrev, QString::fromLatin1( "namespace" ) ) )
-        return whitespaceToOpenBrace;
+        return continuationIndent(indentCursor) + whitespaceToOpenBrace;
     }
-    
-    // If the line starts with a close brace, don't indent...
-    if( first >= 0 && currLine->getChar(first) == '}' )
-      return whitespaceToOpenBrace;
-    
-    // If the line starts with a label, don't indent...
-    const char * const noIndent[] = { "case ", "public:", "protected:", "private:",
-      "signals:", "public slots:", "protected slots:", "private slots:", "default:" };
-    for ( int n = 0; n < ARRLEN(noIndent); ++n )
-      if( currLine->stringAtPos( first, QString::fromLatin1( noIndent[n] ) ) )
-        return whitespaceToOpenBrace;
-    
-    return indentString + whitespaceToOpenBrace;
   }
-  else if (openParenCount > 0)
+  
+  KateTextLine::Ptr indentLine = doc->plainKateTextLine(indentCursor.line());
+  const int indentFirst = indentLine->firstChar();
+  
+  // if the line starts with a close brace, don't indent...
+  if( indentFirst >= 0 && indentLine->getChar(indentFirst) == '}' )
+    return whitespaceToOpenBrace;
+  
+  // if : is the first character (and not followed by another :), this is the start
+  // of an initialization list, or a continuation of a ?:. either way, indent twice.
+  if ( indentFirst >= 0 && indentLine->attribute(indentFirst) == symbolAttrib &&
+       indentLine->getChar(indentFirst) == ':' && indentLine->getChar(indentFirst+1) != ':' )
   {
-    // If the line starts with a close bracket, line it up
-    int first = currLine->firstChar(), indentTo;
-    if( first >= 0 && currLine->getChar(first) == ')' )
-      indentTo = pos;
-    // Otherwise, line up with the text after the open bracket
-    else
+    return indentString + indentString + whitespaceToOpenBrace;
+  }
+  
+  const bool continuation = inStatement(indentCursor);
+  // if the line starts with a label, don't indent...
+  if( !continuation &&
+      (indentLine->attribute(indentFirst) == keywordAttrib ||
+       indentLine->attribute(indentFirst) == normalAttrib) )
+  {
+    const int last = indentLine->lastChar();
+    for ( int n = indentFirst + 1; n <= last; ++n )
     {
-      indentTo = textLine->nextNonSpaceChar( pos + 1 );
-      if( indentTo == -1 )
-        indentTo = pos + 2;
+      if ( indentLine->attribute(n) == symbolAttrib )
+      {
+        // if we find a symbol other than a :, this is not a label.
+        if ( indentLine->getChar(n) != ':' )
+          break;
+        
+        // : but not ::, a label, don't indent.
+        if ( indentLine->getChar(n+1) != ':' )
+          return whitespaceToOpenBrace;
+        
+        // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
+        // skip both :s and keep going.
+        if ( indentLine->getChar(n+2) != ':' )
+        {
+          ++n;
+          continue;
+        }
+        
+        // xy::: outside a continuation is a label followed by a scope-resolution operator.
+        // indent. more than 3 :s is illegal, so we don't care that's not indented.
+        return whitespaceToOpenBrace;
+      }
     }
-    return initialWhitespace( textLine, indentTo );
   }
-  else // no active { in file.
-  {
-    return QString::null;
-  }
+  
+  // the normal case: indent once for the brace, again if it's a continuation
+  QString continuationIndent = continuation ? indentString : QString::null;
+  return indentString + continuationIndent + whitespaceToOpenBrace;
 }
 
 void KateCSAndSIndent::processChar(QChar c)
 {
-  static const QString triggers("}{)/:;#");
+  // 'n' trigger is for c# regions.
+  static const QString triggers("}{)]/:;#n");
   if (triggers.find(c) == -1)
     return;
-
-  // look ma, i'm broken!
+  
+  // for history reasons, processChar doesn't get a cursor
+  // to work on. so fabricate one.
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), 0, doc);
-
+  
+  if ( c == 'n' )
+  {
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
+    int first = textLine->firstChar();
+    if( first < 0 || textLine->getChar(first) != '#' )
+      return;
+  }
+  
   processLine(begin);
 }
 

@@ -201,8 +201,10 @@ const char*exec_xpm[]={
 
 
 KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
-    : QWidget(view), myView(view), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
+    : QWidget(view, ""/*, Qt::WRepaintNoErase | Qt::WResizeNoErase*/), myView(view), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
 {
+  //setBackgroundMode(NoBackground);
+
   lmbSetsBreakpoints = true; // anders: does NOTHING ?!
   iconPaneWidth = 16; // FIXME: this should be shared by all instances!
   lmbSetsBreakpoints = true;
@@ -218,8 +220,7 @@ KateIconBorder::~KateIconBorder()
 int KateIconBorder::width()
 {
   int w = 0;
-  if (myView->iconBorderStatus & Icons)
-    w += iconPaneWidth;
+  
   if (myView->iconBorderStatus & LineNumbers) {
     if ( linesAtLastCheck != myView->doc()->numLines() ) {
       cachedLNWidth = 7 + fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
@@ -227,8 +228,13 @@ int KateIconBorder::width()
     }
     w += cachedLNWidth;
   }
+
+  if (myView->iconBorderStatus & Icons)
+    w += iconPaneWidth;
+
   if (myView->iconBorderStatus & FoldingMarkers)
     w+=iconPaneWidth;
+
   return w;
 }
 
@@ -236,7 +242,7 @@ int KateIconBorder::width()
 void KateIconBorder::paintLine(int i,int pos)
 {
   if ( myView->iconBorderStatus == None ) return;
-  if ( (uint)i > myView->myDoc->numLines() ) return;
+  if ( (uint)i >= myView->myDoc->numLines() ) return;
 
   //kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
   QPainter p(this);
@@ -245,26 +251,36 @@ void KateIconBorder::paintLine(int i,int pos)
   int y = (pos-myView->myViewInternal->startLine) * fontHeight;
   int lnX = 0;
 
+  // line number
+  if ( (myView->iconBorderStatus & LineNumbers) && i < myView->doc()->numLines() ) {
+    p.fillRect( lnX, y, cachedLNWidth-2, fontHeight, colorGroup().light() );
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine( cachedLNWidth-1, y, cachedLNWidth-1, y + fontHeight );
+//    kdDebug()<<"IconBorder::paintLine"<<endl;
+      p.drawText( lnX + 1, y, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
+          QString("%1").arg(myInternalView->lineRanges[i-myInternalView->startLine].line + 1 ));
+
+      lnX+=cachedLNWidth;
+  }
+
   // icon pane
   if ( (myView->iconBorderStatus & Icons) ) {
-    p.fillRect(0, y, iconPaneWidth-2, fontHeight, colorGroup().background());
-    p.setPen(white);
-    p.drawLine(iconPaneWidth-2, y, iconPaneWidth-2, y + fontHeight);
+    p.fillRect(lnX, y, iconPaneWidth-2, fontHeight, colorGroup().light());
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine(iconPaneWidth-1, y, iconPaneWidth-1, y + fontHeight);
+    p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
 
     uint mark = myView->myDoc->mark (myInternalView->lineRanges[i-myInternalView->startLine].line);
     switch (mark)
     {
-       case KateDocument::markType01:	p.drawPixmap(2, y, QPixmap(bookmark_xpm));
+       case KateDocument::markType01:	p.drawPixmap(lnX+2, y, QPixmap(bookmark_xpm));
 					break;
-       case KateDocument::markType02: p.drawPixmap(2, y, QPixmap(breakpoint_xpm));
+       case KateDocument::markType02: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_xpm));
 					break;
-       case KateDocument::markType03: p.drawPixmap(2, y, QPixmap(breakpoint_gr_xpm));
+       case KateDocument::markType03: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_gr_xpm));
 		                        break;
-       case KateDocument::markType04: p.drawPixmap(2, y, QPixmap(breakpoint_bl_xpm));
+       case KateDocument::markType04: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_bl_xpm));
 		                        break;
-       case KateDocument::markType05: p.drawPixmap(2, y, QPixmap(exec_xpm));
+       case KateDocument::markType05: p.drawPixmap(lnX+2, y, QPixmap(exec_xpm));
 		                        break;
        default: break;
 
@@ -278,7 +294,10 @@ void KateIconBorder::paintLine(int i,int pos)
   // folding markers
   if  (myView->iconBorderStatus & FoldingMarkers)
   {
-    p.fillRect(lnX,y,iconPaneWidth-1,fontHeight,colorGroup().background());
+    p.fillRect(lnX,y,iconPaneWidth-2,fontHeight,colorGroup().light());
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y + fontHeight);
+
     p.setPen(black);
     KateLineInfo info;
     myView->myDoc->regionTree->getLineInfo(&info,myInternalView->lineRanges[i-myInternalView->startLine].line);
@@ -301,30 +320,6 @@ void KateIconBorder::paintLine(int i,int pos)
     }
     lnX+=iconPaneWidth;
   }
-
-
-  // line number
-  if ( (myView->iconBorderStatus & LineNumbers) && i < myView->doc()->numLines() ) {
-    p.fillRect( lnX, y, width()-2, fontHeight, colorGroup().light() );
-    p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine( width()-1, y, width()-1, y + fontHeight );
-//    kdDebug()<<"IconBorder::paintLine"<<endl;
-      p.drawText( lnX + 1, y, width()-lnX-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
-          QString("%1").arg(myInternalView->lineRanges[i-myInternalView->startLine].line + 1 ));
-  }
-         /*
-    if ((line->breakpointId() != -1)) {
-        if (!line->breakpointEnabled())
-            p.drawPixmap(2, y, QPixmap(breakpoint_gr_xpm));
-        else if (line->breakpointPending())
-            p.drawPixmap(2, y, QPixmap(breakpoint_bl_xpm));
-        else
-            p.drawPixmap(2, y, QPixmap(breakpoint_xpm));
-    }
-    if (line->isExecutionPoint())
-        p.drawPixmap(2, y, QPixmap(ddd_xpm));    */
-
-
 }
 
 
@@ -360,29 +355,31 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   //kdDebug()<<"Painting lines: "<<lineStart<<" - "<<lineEnd<<endl;
 
   QPainter p(this);
-  // paint the background of the icon pane if required
-  if ( myView->iconBorderStatus & Icons ) {
-    p.fillRect( 0, 0, iconPaneWidth-2, height(), colorGroup().background() );
-    p.setPen( white );
-    p.drawLine( iconPaneWidth-2, 0, iconPaneWidth-2, height() );
+
+  // paint the background of the line numbers pane if required
+  if ( myView->iconBorderStatus & LineNumbers ) {
+    p.fillRect( lnX, 0, cachedLNWidth-2, height(), colorGroup().light() );
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine( iconPaneWidth-1, 0, iconPaneWidth-1, height() );
-    lnX += iconPaneWidth;
+    p.drawLine(cachedLNWidth-1, 0, cachedLNWidth-1, height());
+
+    lnX+=cachedLNWidth;
   }
 
+  // paint the background of the icon pane if required
+  if ( myView->iconBorderStatus & Icons ) {
+    p.fillRect( 0, 0, iconPaneWidth-2, height(), colorGroup().light() );
+    p.setPen(QColor(colorGroup().background()).dark());
+    p.drawLine( lnX+iconPaneWidth-1, 0, lnX+iconPaneWidth-1, height() );
+    lnX += iconPaneWidth;
+  }
 
   // folding markers
   if  (myView->iconBorderStatus & FoldingMarkers)
   {
-    p.fillRect(0,0,iconPaneWidth-1,height(),colorGroup().background());
-    lnX+=iconPaneWidth;
-  }
-
-  // paint the background of the line numbers pane if required
-  if ( myView->iconBorderStatus & LineNumbers ) {
-    p.fillRect( lnX, 0, width()-2, height(), colorGroup().light() );
+    p.fillRect(0,0,iconPaneWidth-2,height(),colorGroup().light());
     p.setPen(QColor(colorGroup().background()).dark());
-    p.drawLine(width()-1, 0, width()-1, height());
+    p.drawLine( lnX+iconPaneWidth-1, 0, lnX+iconPaneWidth-1, height() );
+    lnX+=iconPaneWidth;
   }
 
   QString s;             // line number
@@ -395,26 +392,35 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     bool mappedLineValid=true;
     if (((int)(i-topLine)) >= 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
     else mappedLineValid=false;
-    
+
 //    kdDebug()<<QString("mapped Line is invalid !!!! %1").arg(i)<<endl;
 
     if (mappedLineValid)
     {
        // paint icon if required
        lnX=0;
+       
+                // paint line number if required
+    if (myView->iconBorderStatus & LineNumbers) {
+      s.setNum( mappedLine +1);
+      mappedLine++;
+      p.drawText( lnX + 1, (i-lineStart/*JWTEST*/)*h, cachedLNWidth- lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
+
+       lnX+=cachedLNWidth;
+    }
 
        if (myView->iconBorderStatus & Icons) {
        switch (doc->mark(mappedLine))
        {
-	       case KateDocument::markType01: p.drawPixmap(2, (i)*h, QPixmap(bookmark_xpm));
+	       case KateDocument::markType01: p.drawPixmap(lnX+2, (i)*h, QPixmap(bookmark_xpm));
 		        	                break;
-	       case KateDocument::markType02: p.drawPixmap(2, (i)*h, QPixmap(breakpoint_xpm));
+	       case KateDocument::markType02: p.drawPixmap(lnX+2, (i)*h, QPixmap(breakpoint_xpm));
 			                        break;
-	       case KateDocument::markType03: p.drawPixmap(2, (i)*h, QPixmap(breakpoint_gr_xpm));
+	       case KateDocument::markType03: p.drawPixmap(lnX+2, (i)*h, QPixmap(breakpoint_gr_xpm));
 			                        break;
-	       case KateDocument::markType04: p.drawPixmap(2, (i)*h, QPixmap(breakpoint_bl_xpm));
+	       case KateDocument::markType04: p.drawPixmap(lnX+2, (i)*h, QPixmap(breakpoint_bl_xpm));
 		        	                break;
-	       case KateDocument::markType05: p.drawPixmap(2, (i)*h, QPixmap(exec_xpm));
+	       case KateDocument::markType05: p.drawPixmap(lnX+2, (i)*h, QPixmap(exec_xpm));
 	        		                break;
 	       default: break;
        }
@@ -452,12 +458,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 	    p.setPen(QColor(colorGroup().background()).dark());
 	    }
 	}
-    // paint line number if required
-    if (myView->iconBorderStatus & LineNumbers) {
-      s.setNum( mappedLine +1);
-      mappedLine++;
-      p.drawText( lnX + 1, (i-lineStart/*JWTEST*/)*h, width()-lnX-4, h, Qt::AlignRight|Qt::AlignVCenter, s );
-    }
+
   }
 }
 
@@ -470,6 +471,7 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
     int xwidth=0;
     if (myView->iconBorderStatus & Icons) xwidth+=iconPaneWidth;
     if (myView->iconBorderStatus & FoldingMarkers) xwidth+=iconPaneWidth;
+    if (myView->iconBorderStatus & LineNumbers) xwidth+=cachedLNWidth;
     if (e->x()>xwidth) return;
     myInternalView->placeCursor( 0, e->y(), 0 );
 
@@ -482,8 +484,14 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
 
     uint mark = myView->myDoc->mark (cursorOnLine);
 
-    if ((myView->iconBorderStatus & Icons) && (e->x()<iconPaneWidth))
+    if (myView->iconBorderStatus & Icons)
     {
+      int xMin=(myView->iconBorderStatus & LineNumbers)?cachedLNWidth:0;
+
+      int xMax=xMin+iconPaneWidth;
+
+      if ((e->x()>=xMin) && (e->x()<xMax))
+      {
         switch (e->button()) {
         case LeftButton:
 		createMarkMenu();
@@ -553,6 +561,7 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
         default:
             break;
         }
+      }
     }
 
     if (myView->iconBorderStatus & FoldingMarkers)
@@ -560,6 +569,10 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
 	kdDebug()<<"checking if a folding marker has been clicked"<<endl;
 
         int xMin=(myView->iconBorderStatus & Icons)?iconPaneWidth:0;
+
+        if (myView->iconBorderStatus & LineNumbers)
+          xMin += cachedLNWidth;
+
         int xMax=xMin+iconPaneWidth;
 	if ((e->x()>=xMin) && (e->x()<xMax))
         {

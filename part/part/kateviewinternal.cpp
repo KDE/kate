@@ -1020,6 +1020,12 @@ void KateViewInternal::moveWord( Bias bias, bool sel )
       c += bias;
     while( !c.atEdge( bias ) &&  h->isInWord( m_doc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )
       c += bias;
+    if ( bias == right )
+    {
+      while ( !c.atEdge( bias ) && m_doc->textLine( c.line )[ c.col ].isSpace() )
+        c+= bias;
+    }
+      
   } else {
     c += bias;
   }

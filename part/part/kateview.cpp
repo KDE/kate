@@ -474,6 +474,8 @@ void KateView::setupEditActions()
     slotGotFocus();
   else
     slotLostFocus();
+    
+  m_editActions->readShortcutSettings();
 }
 
 void KateView::setupCodeFolding()
@@ -902,6 +904,7 @@ void KateView::slotDecFontSizes ()
 
 void KateView::updateViewDefaults ()
 {
+  m_editActions->readShortcutSettings();
   setDynWordWrap( m_doc->m_dynWordWrap );
   m_toggleDynWrap->setChecked( dynWordWrap() );
 

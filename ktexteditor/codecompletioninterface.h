@@ -77,6 +77,9 @@ class CompletionEntry
  * This is emitted when there is a reason other than completion for the hint being hidden.
  * void argHintAborted()
  *
+ * This is emitted when a code completion box is about to be displayed
+ * void aboutToShowCompletionBox()
+ *
  */
 class CodeCompletionInterface
 {

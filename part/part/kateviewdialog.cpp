@@ -182,9 +182,9 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
 
   layout->addWidget(keys);
 
-  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Identation with Spaces"), this);
+  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Indentation with Spaces"), this);
 
-  opt[1] = new QCheckBox(i18n("Use &spaces instead of tabulators to indent"), gbWordWrap);
+  opt[1] = new QCheckBox(i18n("Use &spaces instead of tabs to indent"), gbWordWrap);
   opt[1]->setChecked(configFlags & flags[1]);
   connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[1], SIGNAL(toggled(bool)), this, SLOT(spacesToggled()));
@@ -328,7 +328,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   mainLayout->addWidget(gbWordWrap);
 
-  QVGroupBox *gbCursor = new QVGroupBox(i18n("Textcursor Movement"), this);
+  QVGroupBox *gbCursor = new QVGroupBox(i18n("Text Cursor Movement"), this);
 
   opt[3] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
   opt[3]->setChecked(configFlags & flags[3]);
@@ -572,7 +572,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
 
   QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
 
-  QVGroupBox *gbTextArea = new QVGroupBox(i18n("Textarea Background"), this);
+  QVGroupBox *gbTextArea = new QVGroupBox(i18n("Text Area Background"), this);
 
   b = new QHBox (gbTextArea);
   label = new QLabel( i18n("Normal Text:"), b);

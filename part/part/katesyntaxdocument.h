@@ -31,7 +31,7 @@
 class QStringList;
 
 /** Information about each syntax hl Mode 
-Pupeno */
+*/
 class syntaxModeListItem{
   public:
     QString name;
@@ -42,7 +42,12 @@ class syntaxModeListItem{
     QString version;
 };
 
+/** List of the SyntaxModeListItems holding all the syntax mode list items
+*/
+typedef QPtrList<syntaxModeListItem> SyntaxModeList;
 
+/** Class holding the data arround the current QDomElement
+*/
 class syntaxContextData{
   public:
     QDomElement parent;
@@ -50,52 +55,53 @@ class syntaxContextData{
     QDomElement item;
 };
 
-typedef QPtrList<syntaxModeListItem> SyntaxModeList;
-
 /** Store and manage the information about Syntax Highlighting.
-Pupeno */
+*/
 class SyntaxDocument : public QDomDocument{
   public:
     /** Constructor
         Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
-    Pupeno */
+    */
     SyntaxDocument();
     
     /** Desctructor
-    Pupeno */
+    */
     ~SyntaxDocument();
-
-    QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
-    
-    /** Get the mode list
-    Pupeno */
-    SyntaxModeList modeList();
-
-    syntaxContextData* getGroupInfo(const QString& langName, const QString &group);
-    void freeGroupInfo(syntaxContextData* data);
-    syntaxContextData* getConfig(const QString& mainGroupName, const QString &Config);       
-    bool nextItem(syntaxContextData* data);
-    bool nextGroup(syntaxContextData* data);
-    syntaxContextData* getSubItems(syntaxContextData* data);
-    QString groupItemData(const syntaxContextData* data,const QString& name);
-    QString groupData(const syntaxContextData* data,const QString& name);
     
     /** If the open hl file is different from the one needed, it opens
         the new one and assign some other things.
          identifier = File name and path of the new xml needed
-    Pupeno */
+    */
     void setIdentifier(const QString& identifier);
-
+    
+    /** Get the mode list
+    */
+    SyntaxModeList modeList();
+    
+    /** Jump to the next group, data will point to the next group
+    */
+    bool nextGroup(syntaxContextData* data);
+     
+    QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
+    syntaxContextData* getGroupInfo(const QString& langName, const QString &group);
+    void freeGroupInfo(syntaxContextData* data);
+    syntaxContextData* getConfig(const QString& mainGroupName, const QString &Config);       
+    bool nextItem(syntaxContextData* data);
+    syntaxContextData* getSubItems(syntaxContextData* data);
+    QString groupItemData(const syntaxContextData* data,const QString& name);
+    QString groupData(const syntaxContextData* data,const QString& name);
+ 
   private:
     /** Generate the list of hl modes, store them in myModeList
         force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
-    Pupeno */
+    */
     void setupModeList(bool force=false);
-    QString currentFile;
     
     /** List of mode items 
-    Pupeno */
+    */
     SyntaxModeList myModeList;
+    
+    QString currentFile;
     QStringList m_data;
 };
 

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="10">
+<kpartgui name="KatePartView" version="11">
 <MenuBar noMerge="1">
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Separator/>

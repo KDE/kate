@@ -1983,23 +1983,31 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
           else // same line, ignore
             doSelect = false;
         break;
-        default: // *allways* keep selection
+        default: // *allways* keep original selection for mouse
         {
-          bool same = ( newCursor.line() == m_doc->selectStart.line() );
+          if ( selStartCached.line() < 0 ) // invalid
+            break;
 
-          if ( newCursor.line() > m_doc->selectStart.line() ||
-               ( same && newCursor.col() > m_doc->selectEnd.col() ) )
-            selectAnchor = m_doc->selectStart;
+          if ( newCursor.line() > selEndCached.line() ||
+               ( newCursor.line() == selEndCached.line() &&
+                 newCursor.col() > selEndCached.col() ) )
+            selectAnchor = selStartCached;
 
-          else if ( newCursor.line() < m_doc->selectStart.line() ||
-               ( same && newCursor.col() < m_doc->selectStart.col() ) )
-            selectAnchor = m_doc->selectEnd;
+          else if ( newCursor.line() < selStartCached.line() ||
+               ( newCursor.line() == selStartCached.line() &&
+                 newCursor.col() < selStartCached.col() ) )
+            selectAnchor = selEndCached;
+
+          else
+            doSelect = false;
         }
 //         break;
       }
 
       if ( doSelect )
         m_doc->setSelection( selectAnchor, newCursor);
+      else if ( selStartCached.line() > 0 ) // we have a cached selectino, so we restore that
+        m_doc->setSelection( selStartCached, selEndCached );
     }
 
     m_selChangedByUser = true;
@@ -2441,8 +2449,6 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
           if ( e->state() & Qt::ShiftButton )
           {
-            selStartCached = m_doc->selectStart;
-            selEndCached = m_doc->selectEnd;
             updateSelection( cursor, true );
           }
           else
@@ -2461,6 +2467,14 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           updateCursor( cursor );
           return;
         }
+
+        if ( e->state() & Qt::ShiftButton )
+        {
+          selStartCached = m_doc->selectStart;
+          selEndCached = m_doc->selectEnd;
+        }
+        else
+          selStartCached.setLine( -1 ); // invalidate
 
         if( isTargetSelected( e->pos() ) )
         {
@@ -2554,6 +2568,8 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
   {
     case LeftButton:
       m_selectionMode = Default;
+      selStartCached.setLine( -1 );
+
       if (m_selChangedByUser)
       {
         QApplication::clipboard()->setSelectionMode( true );

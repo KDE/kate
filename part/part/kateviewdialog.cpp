@@ -116,7 +116,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor,
     m_replace = new KComboBox( true, page );
     m_replace->insertStringList( replaceWith );
     m_replace->setMinimumWidth( m_search->sizeHint().width() );
-    label = new QLabel( m_replace, i18n( "&Replace with:" ), page );
+    label = new QLabel( m_replace, i18n( "Replace with:" ), page );
     topLayout->addWidget( label );
     topLayout->addWidget( m_replace );
   }
@@ -319,7 +319,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = view->configFlags();
 
-  opt[0] = new QCheckBox(i18n("&Automatically indent"), this);
+  opt[0] = new QCheckBox(i18n("A&utomatically indent"), this);
   layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
 
@@ -392,7 +392,7 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
 
-  opt[1] = new QCheckBox(i18n("&Overwrite selected text"), this);
+  opt[1] = new QCheckBox(i18n("O&verwrite selected text"), this);
   layout->addWidget(opt[1], 0, AlignLeft);
   opt[1]->setChecked(configFlags & flags[1]);
 
@@ -466,15 +466,15 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   mainLayout->addWidget(gbWhiteSpace);
 
-  opt[3] = new QCheckBox(i18n("&Auto brackets"), this);
+  opt[3] = new QCheckBox(i18n("Auto &brackets"), this);
   mainLayout->addWidget(opt[3]);
   opt[3]->setChecked(configFlags & flags[3]);
 
-  opt[5] = new QCheckBox(i18n("Smart &home"), this);
+  opt[5] = new QCheckBox(i18n("Smart ho&me"), this);
   mainLayout->addWidget(opt[5]);
   opt[5]->setChecked(configFlags & flags[5]);
 
-  opt[6] = new QCheckBox(i18n("Wrap &cursor"), this);
+  opt[6] = new QCheckBox(i18n("Wrap c&ursor"), this);
   mainLayout->addWidget(opt[6]);
   opt[6]->setChecked(configFlags & flags[6]);
 
@@ -548,7 +548,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
         m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
         m_bmSort->setRadioButtonExclusive( true );
         m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
-        m_bmSort->insert( rb2=new QRadioButton( i18n("By &creation"), m_bmSort ), 1 );
+        m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
 	blay->addWidget(m_line,0);
 	blay->addWidget(m_icons,0);
 	blay->addWidget(m_folding,0);

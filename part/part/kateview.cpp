@@ -165,7 +165,7 @@ void KateView::setupActions()
 		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated" 
 		" when the view is resized."));
     
-    (new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd"))->setWhatsThis(
+    (new KAction(i18n("E&diting Command..."), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd"))->setWhatsThis(
 	i18n("Use this command to execute VI style commands. This affects the whole document."
 	"<ul><li>For example, you can enter <b>time</b> to insert the current time.</li>"
 	" <li>Vi, Sed and Perl style regular replace commands are possible too, e.g. <b>s/hello/goodbye/</b>.</li></ul>" ));
@@ -214,7 +214,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
 
   m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
-  m_doc->exportActionMenu (i18n("&Export"),ac,"file_export");
+  m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 
   a=KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
   a->setWhatsThis(i18n("Select the entire text of the current document."));
@@ -228,7 +228,7 @@ void KateView::setupActions()
   a=new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
   a->setWhatsThis(i18n("This decreases the display font size."));
 
-  a=new KAction(i18n("&Toggle Block Selection"), Key_F4, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
+  a=new KAction(i18n("T&oggle Block Selection"), Key_F4, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));
 
   a=new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
@@ -238,7 +238,7 @@ void KateView::setupActions()
   config->setGroup("Kate ViewDefaults");  
   
   a=m_toggleFoldingMarkers = new KToggleAction(
-    i18n("Show &Folding Markers"), Key_F9,
+    i18n("Show Folding &Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
     ac, "view_folding_markers" );
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
@@ -820,7 +820,7 @@ void KateView::resizeEvent(QResizeEvent *)
 void KateView::slotEditCommand ()
 {
   bool ok;
-  QString cmd = KLineEditDlg::getText(i18n("Editing Command"), "", &ok, this);
+  QString cmd = KLineEditDlg::getText(i18n("Editing command:"), "", &ok, this);
 
   if (ok)
     m_doc->cmd()->execCmd (cmd, this);

@@ -42,7 +42,7 @@ class KSelectAction;
 class KateDocument;
 class KateBookmarks;
 class KateSearch;
-
+class KLineEdit;
 
 //
 // Kate KTextEditor::View class ;)
@@ -236,10 +236,12 @@ class KateView : public Kate::View,
     void setFoldingMarkersOn( bool enable ); // Not in Kate::View, but should be
     void setIconBorder( bool enable );
     void setLineNumbersOn( bool enable );
+    void setCmdLine ( bool enable );
     void toggleFoldingMarkers();
     void toggleIconBorder();
     void toggleLineNumbersOn();
     void toggleDynWordWrap ();
+    void toggleCmdLine ();
     void setDynWrapIndicators( int state );
 
   public:
@@ -277,6 +279,7 @@ class KateView : public Kate::View,
     void reloadFile();
     void toggleWWMarker();
     void toggleWriteLock();
+    void switchToCmdLine ();
 
   signals:
     void dropEventPass(QDropEvent*);
@@ -341,6 +344,9 @@ class KateView : public Kate::View,
     KateBookmarks*         m_bookmarks;
     QPopupMenu*            m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
+
+    KLineEdit *m_cmdLine;
+    bool m_cmdLineOn;
 
     QGridLayout *m_grid;
 

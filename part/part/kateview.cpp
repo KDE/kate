@@ -67,6 +67,7 @@
 #include <kxmlguifactory.h>
 #include <kaccel.h>
 #include <klibloader.h>
+#include <klineedit.h>
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
@@ -76,10 +77,12 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_rmbMenu( 0 )
     , m_active( false )
     , m_hasWrap( false )
+    , m_cmdLine (0)
+    , m_cmdLineOn (false)
 {
   KateFactory::registerView( this );
 
-  m_grid = new QGridLayout (this, 2, 3);
+  m_grid = new QGridLayout (this, 3, 3);
 
   m_grid->setRowStretch ( 0, 10 );
   m_grid->setRowStretch ( 1, 0 );
@@ -125,6 +128,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   slotNewUndo();
 
   m_viewInternal->show ();
+
   /*test texthint
   connect(this,SIGNAL(needTextHint(int, int, QString &)),
 	this,SLOT(slotNeedTextHint(int, int, QString &)));
@@ -318,6 +322,12 @@ void KateView::setupActions()
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
 
+  a= toggleAction = toggleAction = new KToggleAction(
+     i18n("Show C&ommand Line"), 0,
+     this, SLOT(toggleCmdLine()),
+     ac, "view_cmd_line" );
+  a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
+
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
 
@@ -458,6 +468,11 @@ void KateView::setupEditActions()
     i18n("Select to Matching Bracket"),      SHIFT +  CTRL + Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
+
+  new KAction(
+    i18n("Switch to Command Line"),      Qt::Key_Escape,
+    this, SLOT(switchToCmdLine()),
+    ac, "switch_to_cmd_line" );
 
   // anders: shortcuts doing any changes should not be created in browserextension
   if ( !m_doc->m_bReadOnly )
@@ -914,6 +929,32 @@ bool KateView::foldingMarkersOn() {
   return m_viewInternal->leftBorder->foldingMarkersOn();
 }
 
+void KateView::setCmdLine ( bool enabled )
+{
+  if (enabled == m_cmdLineOn)
+    return;
+
+  if (enabled)
+  {
+    if (!m_cmdLine)
+    {
+      m_cmdLine = new KLineEdit (this);
+      m_grid->addMultiCellWidget (m_cmdLine, 2, 2, 0, 2);
+    }
+
+    m_cmdLine->show ();
+  }
+  else
+    m_cmdLine->hide ();
+
+  m_cmdLineOn = enabled;
+}
+
+void KateView::toggleCmdLine ()
+{
+  setCmdLine (!m_cmdLineOn);
+}
+
 void KateView::updateViewDefaults ()
 {
   m_editActions->readShortcutSettings();
@@ -999,4 +1040,12 @@ void KateView::selectionChanged ()
     m_cut->setEnabled (true);
   else
     m_cut->setEnabled (false);
+}
+
+void KateView::switchToCmdLine ()
+{
+  if (!m_cmdLineOn)
+    setCmdLine (true);
+
+  m_cmdLine->setFocus ();
 }

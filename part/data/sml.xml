@@ -14,6 +14,7 @@
       <item> end </item>
       <item> eqtype </item>
       <item> exception </item>
+      <item> false </item>
       <item> fn </item>
       <item> fun </item>
       <item> functor </item>
@@ -38,6 +39,7 @@
       <item> struct </item>
       <item> structure </item>
       <item> then </item>
+      <item> true </item>
       <item> type </item>
       <item> val </item>
       <item> where </item>

@@ -475,9 +475,7 @@ ISearchPlugin::~ISearchPlugin()
 }                    
 
 void ISearchPlugin::addView(KTextEditor::View *view)
-{       
-  printf ("test add 1\n");
-                                   
+{                                          
   ISearchPluginView *nview = new ISearchPluginView (view);
   nview->setView (view); 
   m_views.append (nview);
@@ -485,13 +483,9 @@ void ISearchPlugin::addView(KTextEditor::View *view)
 
 void ISearchPlugin::removeView(KTextEditor::View *view)
 {      
-   printf ("test remove 1\n");
-
   for (uint z=0; z < m_views.count(); z++)
     if (m_views.at(z)->parentClient() == view)
-    {
-       printf ("test remove \n");
-    
+    {    
        ISearchPluginView *nview = m_views.at(z);
        m_views.remove (nview);
       delete nview;

@@ -273,6 +273,12 @@ void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
                                      
   KTextEditor::pluginViewInterface(item->plugin)->addView(view);
+  
+  if (KXMLGUIFactory *factory = view->factory())
+  {
+    factory->removeClient (view);
+    factory->addClient (view);
+  }
 }
 
 void KateDocument::enablePluginGUI (PluginInfo *item)
@@ -282,7 +288,7 @@ void KateDocument::enablePluginGUI (PluginInfo *item)
                      
   for (uint i=0; i< m_views.count(); i++)
   {
-    KTextEditor::pluginViewInterface(item->plugin)->addView(m_views.at(i));
+    enablePluginGUI (item, m_views.at(i));
   }
 }
 
@@ -293,7 +299,13 @@ void KateDocument::disablePluginGUI (PluginInfo *item)
     
   for (uint i=0; i< m_views.count(); i++)
   {
-    KTextEditor::pluginViewInterface(item->plugin)->removeView(m_views.at(i));       
+    KTextEditor::pluginViewInterface(item->plugin)->removeView(m_views.at(i));
+    
+    if (KXMLGUIFactory *factory = m_views.at(i)->factory())
+  {
+    factory->removeClient (m_views.at(i));
+    factory->addClient (m_views.at(i));
+  }       
   }
 }
 

@@ -47,3 +47,5 @@ void KateExportAction::filterChoosen(int id)
 
   doc->exportAs(*filter.at(id));
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1472,3 +1472,5 @@ void KateCodeFoldingTree::ensureVisible( uint line )
   } while( n );
 
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

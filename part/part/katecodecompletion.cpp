@@ -49,17 +49,17 @@
 class CCListBox : public QListBox{
 public:
     CCListBox(QWidget* parent = 0, const char* name = 0, WFlags f = 0):QListBox(parent, name, f){
-    	resize(m_size);
+            resize(m_size);
     };
 
     QSize sizeHint()  const {
-		return m_size;
+                return m_size;
     };
 
 protected:
    void resizeEvent(QResizeEvent* rev){
-	 m_size = rev->size();
-	 QListBox::resizeEvent(rev);
+         m_size = rev->size();
+         QListBox::resizeEvent(rev);
     };
 
 private:
@@ -275,19 +275,19 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
 
   if( newCoordinate ) {
     kdDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
-	m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
+        m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
     QPoint p = m_view->mapToGlobal( m_view->cursorCoordinates() );
-	int x = p.x();
-	int y = p.y() ;
-	if ( y + m_completionPopup->height() + m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height() > QApplication::desktop()->height() )
-		y -= (m_completionPopup->height() );
-	else
-		y += m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height();
+        int x = p.x();
+        int y = p.y() ;
+        if ( y + m_completionPopup->height() + m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height() > QApplication::desktop()->height() )
+                y -= (m_completionPopup->height() );
+        else
+                y += m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height();
 
-	if (x + m_completionPopup->width() > QApplication::desktop()->width())
-		x = QApplication::desktop()->width() - m_completionPopup->width();
+        if (x + m_completionPopup->width() > QApplication::desktop()->width())
+                x = QApplication::desktop()->width() - m_completionPopup->width();
 
-	m_completionPopup->move( QPoint(x,y) );
+        m_completionPopup->move( QPoint(x,y) );
   }
 
   m_completionListBox->setCurrentItem( 0 );
@@ -357,5 +357,4 @@ void KateCodeCompletion::showComment()
   m_commentLabel->show();
 }
 
-#undef kdDebug
-
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -17,7 +17,7 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-               
+
 // $Id$
 
 #include "katebrowserextension.h"
@@ -48,3 +48,5 @@ void KateBrowserExtension::slotSelectionChanged()
 {
   emit enableAction( "copy", m_doc->hasSelection() );
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

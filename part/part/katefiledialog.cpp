@@ -19,12 +19,12 @@
 // $Id$
 
 #include "katefiledialog.h"
+#include "katefiledialog.moc"
 
 #include <kcombobox.h>
 #include <ktoolbar.h>
 #include <kglobal.h>
 #include <kcharsets.h>
-#include <kdebug.h>
 
 #include <qstringlist.h>
 #include <qtextcodec.h>
@@ -103,7 +103,6 @@ KateFileDialogData KateFileDialog::exec()
 
 void KateFileDialog::slotApply()
 {
-
 }
 
-#include "katefiledialog.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

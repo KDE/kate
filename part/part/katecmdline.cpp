@@ -92,3 +92,5 @@ void KateCmdLine::focusInEvent ( QFocusEvent *ev )
 
   KLineEdit::focusInEvent (ev);
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

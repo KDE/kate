@@ -256,3 +256,5 @@ bool KateDocCursor::previousNonSpaceChar()
   setPos(-1, -1);
   return false;
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

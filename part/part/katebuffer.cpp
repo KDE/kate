@@ -1232,8 +1232,8 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 
       if (size > m_rawData.size ())
       {
-	m_rawData.resize (size);
-	buf = m_rawData.data ();
+        m_rawData.resize (size);
+        buf = m_rawData.data ();
       }
 
       memcpy(buf+pos, (char *) &length, sizeof(uint));
@@ -1241,8 +1241,8 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 
       if (!line.isNull())
       {
-	memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
-	pos += sizeof(QChar)*length;
+        memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
+        pos += sizeof(QChar)*length;
       }
 
       memcpy(buf+pos, (char *) &attr, 1);
@@ -1435,3 +1435,5 @@ void KateBufBlock::removeLine(uint i)
   m_stringList.erase (m_stringList.begin()+i);
   m_lines--;
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

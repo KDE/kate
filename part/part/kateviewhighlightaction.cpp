@@ -101,3 +101,5 @@ void KateViewHighlightAction::setHl (int mode)
   if (doc)
     doc->setHlMode((uint)mode);
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

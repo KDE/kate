@@ -270,5 +270,4 @@ bool Date::exec (Kate::View *view, const QString &cmd, QString &)
 
 }
 
-// vim: noet
-
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -451,3 +451,5 @@ void SyntaxDocument::setupModeList (bool force)
   // Syncronize with the file katesyntax...rc
   config.sync();
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

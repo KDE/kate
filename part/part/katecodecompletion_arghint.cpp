@@ -17,16 +17,18 @@
 */
 
 #include "katecodecompletion_arghint.h"
+#include "katecodecompletion_arghint.moc"
+
 #include "kateview.h"
 #include "katedocument.h"
+
+#include <kdebug.h>
 
 #include <qlabel.h>
 #include <qintdict.h>
 #include <qlayout.h>
 #include <qregexp.h>
 #include <qapplication.h>
-
-#include <kdebug.h>
 
 struct KDevArgHintData
 {
@@ -183,9 +185,9 @@ bool KDevArgHint::eventFilter( QObject*, QEvent* e )
             setCurrentFunction( currentFunction() - 1 );
             ke->accept();
             return TRUE;
-	} else if( ke->key() == Key_Escape ){
-	    slotDone();
-	    return FALSE;
+        } else if( ke->key() == Key_Escape ){
+            slotDone();
+            return FALSE;
         } else if( (ke->state() & ControlButton) && ke->key() == Key_Right ){
             setCurrentFunction( currentFunction() + 1 );
             ke->accept();
@@ -202,10 +204,10 @@ void KDevArgHint::adjustSize( )
 
     QFrame::adjustSize();
     if( width() > screen.width() )
-	resize( screen.width(), height() );
+        resize( screen.width(), height() );
 
     if( x() + width() > screen.width() )
-	move( screen.width() - width(), y() );
+        move( screen.width() - width(), y() );
 }
 
-#include "katecodecompletion_arghint.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

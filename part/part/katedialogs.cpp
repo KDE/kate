@@ -1433,3 +1433,5 @@ void SpellConfigPage::apply ()
   cPage->writeGlobalSettings ();
 }
 //END
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

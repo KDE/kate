@@ -2594,3 +2594,5 @@ QString HlManager::identifierForName(const QString& name)
 
   return QString();
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

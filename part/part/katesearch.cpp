@@ -568,4 +568,4 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
   doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
 
-// vim: noet ts=2
+// kate: space-indent on; indent-width 2; replace-tabs on;

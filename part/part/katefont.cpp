@@ -109,3 +109,5 @@ void FontStruct::setFont (const QFont & font)
 
   updateFontData ();
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

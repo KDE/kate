@@ -21,6 +21,7 @@
 // $Id$
 
 #include "kateprintsettings.h"
+#include "kateprintsettings.moc"
 
 #include <kcolorbutton.h>
 #include <kdialog.h> // for spacingHint()
@@ -387,4 +388,4 @@ void KatePrintLayout::setOptions( const QMap<QString,QString>& opts )
 }
 //END KatePrintLayout
 
-#include "kateprintsettings.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -24,8 +24,6 @@
 
 #include "katetextline.h"
 
-#include "katebuffer.h"
-
 #include <qregexp.h>
 
 TextLine::TextLine ()
@@ -414,3 +412,5 @@ char *TextLine::restore (char *buf)
 
   return buf;
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

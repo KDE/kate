@@ -85,3 +85,5 @@ QString HLParamEdit::text()
 
   return textEdit->text();
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

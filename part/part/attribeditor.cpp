@@ -224,3 +224,4 @@ void AttribEditor::updateAttributeSelectedColour(const QColor &color)
   }
 }
 
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -17,6 +17,7 @@
 */
 
 #include "katecorecommands.h"
+
 #include "kateview.h"
 #include "katedocument.h"
 
@@ -171,3 +172,5 @@ bool KateCoreCommands::getBoolArg( QString s, bool *val  )
   }
   return false;
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

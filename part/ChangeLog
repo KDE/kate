@@ -1,3 +1,12 @@
+2003-08-28 Christoph Cullmann <cullmann@kde.org>
+  * color schemes support
+  * filetype support
+  * indenters for different languages by jesse
+  * folding by indentation kind of working, not perfect :/
+
+2002-11-05 Christoph Cullmann <cullmann@kde.org>
+  * fix the printing crash + loop together with Anders ;)
+
 2002-11-05 Christoph Cullmann <cullmann@kde.org>
   * fix the printing crash + loop together with Anders ;)
 

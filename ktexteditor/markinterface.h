@@ -54,15 +54,34 @@ class MarkInterface
   // slots !!!
   //
   public:
+    /** 
+    * @return a uint representing the marks set in @p line OR'ed togeather. 
+    */
     virtual uint mark (uint line) = 0;
-
+    
+    /** 
+    * Adds a mark of type @p markType to @p line.
+    * Has no effect if the line allready contains a mark of that type. 
+    */
     virtual void setMark (uint line, uint markType) = 0;
+    /**
+    * Clears all marks set in @p line.
+    */
     virtual void clearMark (uint line) = 0;
 
     virtual void addMark (uint line, uint markType) = 0;
+    /**
+    *  Removes any mark of type @p markType from @p line.
+    */
     virtual void removeMark (uint line, uint markType) = 0;
 
+    /**
+    * @return a list of all marks in the document
+    */
     virtual QPtrList<KTextEditor::Mark> marks () = 0;
+    /**
+    * Clears all marks in the document.
+    */ 
     virtual void clearMarks () = 0;
     
     /**
@@ -109,7 +128,15 @@ class MarkInterface
       markType29= 0x10000000,
       markType30= 0x20000000,
       markType31= 0x40000000,
-      markType32= 0x80000000
+      markType32= 0x80000000,
+      /* reserved marks */
+      Bookmark = markType01,
+      BreakpointActive = markType02,
+      BreakpointReached = markType03,
+      BreakpointDisabled = markType04,
+      Execution = markType05,
+      Warning = markType06,
+      Error = markType07
     };
 
   //

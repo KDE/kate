@@ -366,6 +366,21 @@ void KateSearch::replaceOne()
 
   replaces++;
 
+  // if we inserted newlines, we better adjust.
+  uint newlines = replaceWith.contains('\n');
+  if ( newlines )
+  {
+    if ( ! s.flags.backward )
+    {
+      s.cursor.setLine( s.cursor.line() + newlines );
+      s.cursor.setCol( replaceWith.length() - replaceWith.findRev('\n') );
+    }
+    // selection?
+    if ( s.flags.selected )
+      s.selEnd.setLine( s.selEnd.line() + newlines );
+  }
+
+
   // adjust selection endcursor if needed
   if( s.flags.selected && s.cursor.line() == s.selEnd.line() )
   {
@@ -530,6 +545,7 @@ bool KateSearch::doSearch( const QString& text )
   uint foundLine, foundCol, matchLen;
   bool found = false;
   //kdDebug() << "Searching at " << line << ", " << col << endl;
+//   kdDebug()<<"KateSearch::doSearch: "<<line<<", "<<col<<", "<<backward<<endl;
 
   do {
       if( regExp ) {
@@ -588,7 +604,7 @@ bool KateSearch::doSearch( const QString& text )
     }
   }
 
-  //kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;
+//   kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;
 
 
   //m_searchResults.append(s);

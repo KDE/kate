@@ -319,13 +319,11 @@ void HlConfigPage::apply ()
   {
     kdDebug()<<"HlConfigPage::apply()"<<endl;
     page->saveData();
-    hlManager->setDefaults(0, defaultStyleList);
-// TODO anders: Make sure this works ;)
+  
     QIntDictIterator<HlData> it( hlDataDict );
     for ( ; it.current(); ++it )
     {
       hlManager->getHl( it.currentKey() )->setData( it.current() );
-      hlManager->emitChanged( (uint)it.currentKey() );
     }
     
     hlManager->getKConfig()->sync ();

@@ -3092,6 +3092,8 @@ void KateDocument::paste ( KateView* view )
 
   insertText ( line, column, s, blockSelect );
 
+  editEnd();
+
   // move cursor right for block select, as the user is moved right internal
   // even in that case, but user expects other behavior in block selection
   // mode !
@@ -3100,9 +3102,7 @@ void KateDocument::paste ( KateView* view )
     uint lines = s.contains (QChar ('\n'));
     view->setCursorPositionInternal (line+lines, column);
   }
-
-  editEnd();
-
+  
   m_undoDontMerge = true;
 }
 

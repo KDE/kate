@@ -21,7 +21,7 @@
 //BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"
-
+                           
 #include "katefactory.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
@@ -2296,7 +2296,7 @@ QPixmap *KateDocument::markPixmap( MarkInterface::MarkTypes type )
 
 QColor KateDocument::markColor( MarkInterface::MarkTypes type )
 {
-  uint reserved = 0x1 << (static_cast<int>(RESERVED) - 1);
+  uint reserved = 0x1 << KTextEditor::MarkInterface::reservedMarkersCount() - 1;
   if ((uint)type >= (uint)markType01 && (uint)type <= reserved) {
     return KateRendererConfig::global()->lineMarkerColor(type);
   } else {

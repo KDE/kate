@@ -382,7 +382,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   m_iconborder->setColor(config->readColorEntry("Color Icon Bar", &tmp6));
 
   // same std colors like in KateDocument::markColor
-  QValueVector <QColor> mark((int)KTextEditor::MarkInterface::RESERVED);
+  QValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
   Q_ASSERT(mark.size() > 6);
   mark[0] = Qt::blue;
   mark[1] = Qt::red;
@@ -392,8 +392,8 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   mark[5] = Qt::green;
   mark[6] = Qt::cyan;
 
-  // map from 0..RESERVED-1 - the same index as in markInterface
-  for (int i = 0; i < (int)KTextEditor::MarkInterface::RESERVED; i++)
+  // map from 0..reservedMarkersCount()-1 - the same index as in markInterface
+  for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
   {
     // arg(i+1) to match the number conventions in markinterface.h
     m_markerColors[i] = config->readColorEntry(QString("Color MarkType%1").arg(i + 1), &mark[i]);
@@ -423,7 +423,7 @@ void KateSchemaConfigColorTab::writeConfig (KConfig *config)
   config->writeEntry("Color Tab Marker", m_tmarker->color());
   config->writeEntry("Color Icon Bar", m_iconborder->color());
 
-  for (int i = 0; i < (int)KTextEditor::MarkInterface::RESERVED; i++)
+  for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
   {
     config->writeEntry(QString("Color MarkType%1").arg(i + 1), m_markerColors[i]);
   }

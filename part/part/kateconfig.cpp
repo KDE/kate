@@ -859,7 +859,7 @@ void KateViewConfig::setTextToSearchMode (int mode)
 KateRendererConfig::KateRendererConfig ()
  :
    m_font (new KateFontStruct ()),
-   m_lineMarkerColor (KTextEditor::MarkInterface::RESERVED),
+   m_lineMarkerColor (KTextEditor::MarkInterface::reservedMarkersCount()),
    m_schemaSet (true),
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
@@ -886,7 +886,7 @@ KateRendererConfig::KateRendererConfig ()
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
  : m_font (0),
-   m_lineMarkerColor (KTextEditor::MarkInterface::RESERVED),
+   m_lineMarkerColor (KTextEditor::MarkInterface::reservedMarkersCount()),
    m_schemaSet (false),
    m_fontSet (false),
    m_wordWrapMarkerSet (false),
@@ -1107,7 +1107,7 @@ void KateRendererConfig::setHighlightedLineColor (const QColor &col)
 const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::MarkTypes type) const
 {
   int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
-  Q_ASSERT( index >= 0 && index < (int)KTextEditor::MarkInterface::RESERVED );
+  Q_ASSERT( index >= 0 && index < KTextEditor::MarkInterface::reservedMarkersCount() );
 
   if (m_lineMarkerColorSet[index] || isGlobal())
     return m_lineMarkerColor[index];
@@ -1118,7 +1118,7 @@ const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::Ma
 void KateRendererConfig::setLineMarkerColor (const QColor &col, KTextEditor::MarkInterface::MarkTypes type)
 {
   int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
-  Q_ASSERT( index >= 0 && index < (int)KTextEditor::MarkInterface::RESERVED );
+  Q_ASSERT( index >= 0 && index < KTextEditor::MarkInterface::reservedMarkersCount() );
   configStart ();
 
   m_lineMarkerColorSet[index] = true;

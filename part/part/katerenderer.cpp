@@ -350,9 +350,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
     // Determine if we have trailing whitespace and store the column
-    uint trailingWhitespaceColumn = len;
-    while ((len > 0) && (trailingWhitespaceColumn > 0) && (textLine->string()[trailingWhitespaceColumn - 1]).isSpace())
-      trailingWhitespaceColumn--;
+    uint trailingWhitespaceColumn = textLine->lastChar();
+    if (trailingWhitespaceColumn++ == -1)
+      trailingWhitespaceColumn = 0;
 
     while (curCol - startcol < len)
     {
@@ -513,7 +513,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
           // make sure we redraw the right character groups on attrib/selection changes
           // Special case... de-special case some of it
-          if (isTab)
+          if (isTab || (curCol >= trailingWhitespaceColumn))
           {
             // Draw spaces too, because it might be eg. underlined
             static QString spaces;

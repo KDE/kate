@@ -25,7 +25,7 @@
  * Boston, MA  02111-1307, USA.                                       *
  **********************************************************************
  -->
-<language name="Doxygen" version="1.12" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann <dhdev@gmx.de>" license="LGPL">
+<language name="Doxygen" version="1.13" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann &lt;dhdev@gmx.de&gt;" license="LGPL">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->

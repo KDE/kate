@@ -28,7 +28,7 @@
  This file is included every file that highlights the "alerts" keywords.
  That's why extensions and mimetype are empty.
 -->
-<language version="1.02" kateversion="2.3" name="Alerts" section="hidden" extensions="" mimetype="" author="Dominik Haumann <dhdev@gmx.de>" license="LGPL">
+<language version="1.03" kateversion="2.3" name="Alerts" section="hidden" extensions="" mimetype="" author="Dominik Haumann &lt;dhdev@gmx.de&gt;" license="LGPL">
   <highlighting>
     <list name="alerts">
       <item> FIXME </item>

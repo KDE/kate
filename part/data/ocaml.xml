@@ -8,7 +8,7 @@
 <!ENTITY ESC    "(\\[ntbr'&quot;\\]|\\[0-9]{3}|\\x[0-9A-Fa-f]{2})"> <!-- OCaml character code escapes. -->
 <!ENTITY DEC    "[0-9][0-9_]*">                                     <!-- Decimal digits with underscores. -->
 ]>
-<language name="Objective Caml" version="1.03" kateversion="2.2" section="Sources" extensions="*.ml;*.mli" mimetype="" priority="10" author="Glyn Webster (glyn@wave.co.nz)" license="LGPL">
+<language name="Objective Caml" version="1.04" kateversion="2.4" section="Sources" extensions="*.ml;*.mli" mimetype="" priority="10" author="Glyn Webster (glyn@wave.co.nz)" license="LGPL">
 
   <highlighting>
     <!-- Revised Syntax keywords are highlighted as identifiers by default. -->
@@ -101,7 +101,7 @@
         <!-- (These are lines where the first symbol is a '#' followed by an identifier. -->
         <!-- Such lines could also be part of a method call split over two lines but     --> 
         <!-- it's unlikey anyone would code like that.)                                  -->
-        <RegExpr attribute="Directive" context="#stay" String="^[ \t]*#&IDENT;.*$" />
+        <RegExpr attribute="Directive" context="#stay" String="#&IDENT;.*$" firstNonSpace="true"/>
 
         <!-- String, character and Camlp4 "quotation" constants.              --> 
         <!-- Note: If you must modify the pattern for characters be precise:  -->
@@ -127,6 +127,7 @@
       </context>
 
       <context attribute="Comment" lineEndContext="#stay" name="Multiline Comment">
+        <!-- Support for nested comments -->
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")" endRegion="comment" />
         <Detect2Chars attribute="Comment" context="Multiline Comment" char="(" char1="*" beginRegion="comment" />
       </context>
@@ -177,3 +178,4 @@
     </comments>
   </general>
 </language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

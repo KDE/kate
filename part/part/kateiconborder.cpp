@@ -365,7 +365,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
             else
               p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
 
-            p.drawPixmap(lnX+4,y+m_px,minus_px);
+            p.drawPixmap(lnX+3,y+m_px,minus_px);
           }
           else if (info.startsInVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
           {
@@ -374,7 +374,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
             else
               p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
 
-            p.drawPixmap(lnX+4,y+m_px,plus_px);
+            p.drawPixmap(lnX+3,y+m_px,plus_px);
           }
           else
           {

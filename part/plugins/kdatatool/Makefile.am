@@ -1,4 +1,3 @@
-#INCLUDES    = -I$(top_srcdir)/interfaces $(all_includes)
 INCLUDES    = -I$(top_srcdir)/interfaces -I$(top_srcdir)/kdefx $(all_includes)
 METASOURCES = AUTO
 

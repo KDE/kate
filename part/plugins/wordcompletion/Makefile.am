@@ -1,4 +1,4 @@
-INCLUDES    = $(all_includes)
+INCLUDES    = -I$(top_srcdir)/interfaces $(all_includes)
 METASOURCES = AUTO
 
 # Install this plugin in the KDE modules directory

@@ -810,7 +810,7 @@ QPoint KateViewInternal::cursorCoordinates()
     return QPoint(-1, -1);
   
   uint y = viewLine * m_doc->viewFont.fontHeight;
-  uint x = cXPos - lineRanges[viewLine].startX + leftBorder->width();
+  uint x = cXPos - m_startX - lineRanges[viewLine].startX + leftBorder->width();
   
   return QPoint(x, y);
 }

@@ -393,10 +393,13 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   p.setPen ( m_view->renderer()->attribute(0)->textColor() );
 
   KateLineInfo oldInfo;
-  if ((m_viewInternal->lineRanges[startz].line-1) < 0)
-    oldInfo.topLevel = true;
-  else
-     m_doc->lineInfo(&oldInfo,m_viewInternal->lineRanges[startz].line-1);
+  if (startz < lineRangesSize)
+  {
+    if ((m_viewInternal->lineRanges[startz].line-1) < 0)
+      oldInfo.topLevel = true;
+    else
+       m_doc->lineInfo(&oldInfo,m_viewInternal->lineRanges[startz].line-1);
+  }
 
   for (uint z=startz; z <= endz; z++)
   {

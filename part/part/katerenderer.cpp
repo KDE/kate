@@ -349,6 +349,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
     uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
+    // Determine if we have trailing whitespace and store the column
+    uint trailingWhitespaceColumn = len;
+    while ((len > 0) && (trailingWhitespaceColumn > 0) && (textLine->string()[trailingWhitespaceColumn - 1]).isSpace())
+      trailingWhitespaceColumn--;
+
     while (curCol - startcol < len)
     {
       QChar curChar = textLine->string()[curCol];
@@ -422,6 +427,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
           // it is the end of the line OR
           || (curCol >= len - 1)
+
+          // the rest of the line is trailing whitespace OR
+          || (curCol + 1 >= trailingWhitespaceColumn)
 
           // the x position is past the end OR
           || ((int)xPos > xEnd)
@@ -505,14 +513,14 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
           // make sure we redraw the right character groups on attrib/selection changes
           // Special case... de-special case some of it
-          if (isTab)
+          if (isTab || (curCol >= trailingWhitespaceColumn))
           {
             // Draw spaces too, because it might be eg. underlined
             static QString spaces;
             if (int(spaces.length()) != m_tabWidth)
               spaces.fill(' ', m_tabWidth);
 
-            paint.drawText(oldXPos-xStart, y, spaces);
+            paint.drawText(oldXPos-xStart, y, isTab ? spaces : QString(" "));
 
             if (showTabs())
               paintWhitespaceMarker(paint, xPos - xStart, y);

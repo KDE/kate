@@ -145,7 +145,7 @@ class CodeCompletionInterface
 	 * function, if you support it, declare it as a signal.
          *
 	 */
-    virtual void completionDone(CompletionEntry*)=0;
+    virtual void completionDone(CompletionEntry)=0;
 
 	/**
 	 * This signal is emitted when the argument hint disappears.

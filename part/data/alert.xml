@@ -24,5 +24,9 @@ That's why extensions and mimetype are empty.
   </highlighting>
   <general>
     <keywords casesensitive="1" />
+    <comments>
+      <comment name="singleLine" start="//" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
   </general>
 </language>

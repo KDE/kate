@@ -414,7 +414,5 @@
   </highlighting>
   <general>
     <keywords casesensitive="0" weakDeliminator="\[]$&amp;&gt;&lt;;/" />
-    <comments>
-    </comments>
   </general>
 </language>

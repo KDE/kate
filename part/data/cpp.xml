@@ -208,7 +208,7 @@
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Keyword"      defStyleNum="dsKeyword"/>
       <itemData name="Extensions"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0"/>
-      <itemData name="Function"     defStyleNum="dsFunction" />
+      <itemData name="Function"     defStyleNum="dsNormal" />
       <itemData name="Data Type"    defStyleNum="dsDataType"/>
       <itemData name="Decimal"      defStyleNum="dsDecVal"/>
       <itemData name="Octal"        defStyleNum="dsBaseN"/>

@@ -99,7 +99,7 @@ class KateBufBlock
     /**
      * first line in block
      */
-    inline uint startLine () { return m_startLine; };
+    inline uint startLine () const { return m_startLine; };
     
     /**
      * update the first line, needed to keep it up to date
@@ -109,12 +109,12 @@ class KateBufBlock
     /**
      * first line behind this block
      */
-    inline uint endLine () { return m_startLine + m_lines; }
+    inline uint endLine () const { return m_startLine + m_lines; }
     
     /**
      * lines in this block
      */
-    inline uint lines () { return m_lines; }
+    inline uint lines () const { return m_lines; }
     
     /**
      * get indenation date
@@ -451,6 +451,9 @@ bool KateBuffer::openFile (const QString &m_file)
   if ( !file.open( IO_ReadOnly ) || !file.isDirectAccess() )
   {
     clear();
+    
+    emit loadingFinished ();
+    
     return false; // Error
   }
 
@@ -504,37 +507,32 @@ bool KateBuffer::openFile (const QString &m_file)
   stream.setCodec(codec); // this line sets the mapper to the correct codec
 
   // flush current content
-  clear();
+  clear ();
+  
+  // cleanup the blocks  
+  for (uint i=0; i < m_blocks.size(); i++)
+    delete m_blocks[i];
+    
+  m_blocks.clear ();
 
   // do the real work
   bool eof = false;
   KateBufBlock *block = 0;
-  bool first = true;
+
   while (!m_cacheWriteError && !eof && !stream.atEnd())
   {
-    if (first) // reuse first block !
-    {
-      block = m_blocks[0];
-      eof = block->fillBlock (&stream, lastCharEOL);
-      
-      first = false;
-    }
-    else // create new block
-    {  
-      block = new KateBufBlock(this, block, 0);
-      eof = block->fillBlock (&stream, lastCharEOL);
-      
-      if (block->lines() == 0)
-      {
-        delete block;
-        break;
-      }
-      else
-        m_blocks.append (block);
-    }
-
-    // update lines if we got a new block ready !
+    block = new KateBufBlock (this, block, 0);
+    eof = block->fillBlock (&stream, lastCharEOL);
+        
     m_lines = block->endLine ();
+    
+    if (block->lines() == 0)
+    {
+      delete block;
+      break;
+    }
+    else
+      m_blocks.append (block);  
   }
   
   // we had a cache write error, this load is really borked !
@@ -552,7 +550,7 @@ bool KateBuffer::openFile (const QString &m_file)
   {
     // fix region tree
     m_regionTree.fixRoot (m_lines);
-
+    
     // emit the new line count
     emit linesChanged(m_lines);
   }
@@ -1461,7 +1459,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
     }
   }
 
-  if (pos < m_rawData.size())
+  if (size < m_rawData.size())
   {
     m_rawData.resize (size);
   }

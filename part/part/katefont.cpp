@@ -23,6 +23,8 @@
 
 #include <kglobalsettings.h>
 
+#include <qfontinfo.h>
+
 //
 // KateFontMetrics implementation
 //
@@ -73,7 +75,8 @@ FontStruct::FontStruct()
   myFontMetrics(myFont),
   myFontMetricsBold(myFontBold),
   myFontMetricsItalic(myFontItalic),
-  myFontMetricsBI(myFontBI)
+  myFontMetricsBI(myFontBI),
+  m_fixedPitch (false)
 {
   updateFontData ();
 }
@@ -89,6 +92,8 @@ void FontStruct::updateFontData ()
 
   fontHeight = maxAscent + maxDescent + 1;
   fontAscent = maxAscent;
+  
+  m_fixedPitch = QFontInfo( myFont ).fixedPitch();
 }
 
 int FontStruct::width(const QString& text, int col, bool bold, bool italic, int tabWidth)

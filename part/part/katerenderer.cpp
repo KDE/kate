@@ -219,7 +219,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   int cursorMaxWidth = 0;
 
   // should we paint the word wrap marker?
-  bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && QFontInfo( fs->myFont ).fixedPitch();
+  bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch();
   
   // Normal background color
   QColor backgroundColor (*config()->backgroundColor());

@@ -68,9 +68,11 @@ class FontStruct
 
     void setFont(const QFont & font);
 
+    inline bool fixedPitch() const { return m_fixedPitch; }
+    
   private:
-     void updateFontData ();
-
+    void updateFontData ();
+    
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;
 
@@ -78,6 +80,9 @@ class FontStruct
 
     int fontHeight;
     int fontAscent;
+
+  private:
+    bool m_fixedPitch;
 };
 
 #endif

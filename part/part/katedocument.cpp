@@ -4136,6 +4136,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
 
 void KateDocument::joinLines( uint first, uint last )
 {
+//   if ( first == last ) last += 1;
   editStart();
   int l( first );
   while ( first < last )

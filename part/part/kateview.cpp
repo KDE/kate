@@ -901,7 +901,12 @@ void KateView::joinLines()
   int first = m_doc->selStartLine();
   int last = m_doc->selEndLine();
   int left = m_doc->textLine( last ).length() - m_doc->selEndCol();
-  m_doc->joinLines( first, m_doc->selEndLine() );
+  if ( first == last )
+  {
+    first = cursorLine();
+    last = first + 1;
+  }
+  m_doc->joinLines( first, last );
   m_doc->selectEnd.setLine( first );
   m_doc->selectEnd.setCol( m_doc->textLine( first ).length() - left );
   tagLines( first, last );

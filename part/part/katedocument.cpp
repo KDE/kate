@@ -4800,7 +4800,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
   (*outputStream) << "<title>" << name.right(name.length() - name.findRev('/') -1) << "</title>" << endl;
   (*outputStream) << "</head>" << endl;
 
-  (*outputStream) << "<body><pre>" << endl;
+  (*outputStream) << "<body>" << endl;
   // for each line :
 
   // some variables :
@@ -4895,7 +4895,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
 
   // HTML document end :
   (*outputStream) << "</span>";  // i'm guaranteed a span is started (i started one at the beginning of the output).
-  (*outputStream) << "</pre></body>";
+  (*outputStream) << "</body>";
   (*outputStream) << "</html>";
   // close the file :
   return true;

@@ -1,28 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!--
-  This is a language description for debian package changelog files.
-  It should work, but is fairly untested.
-
-  Changelog:
-  0.6
-  - not using changelog as an extension
-  - nicer indentation
-  - added information to TODO concerning case sensitivity
-
-  TODO:
-  - The closes bug section is not fully working yet. The correct perlish expression would be:
-	/closes:\s*(?:bug)?\#?\s?\d+(?:,\s*(?:bug)?\#?\s?\d+)*/i  (from debian policy)
-    The main problem is, that only works with lowercases now. This is a serios problem, as lots of developer
-    use upper-/mixed case variants. I just don't know how to implement this properly:-(
-	I tried to use insensitive="true" on RegExpr and casesensitive="0" on language, both didn't succeed.
-	I could do something like [Bb][Uu][Gg]... but fear performance problems, comments?
-  - Not sure if we should highlight email adresses all over the way?!?
-
-
-  Any comments are warmly welcome!
-  Simon Huerlimann <simon.huerlimann@access.unizh.ch>
--->
 <language name="Debian Changelog" version="0.6" kateversion="2.1" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
@@ -51,7 +28,7 @@
                 <RegExpr attribute="Email" context="#stay" String="&lt;.*@.*&gt;"/>
                 <RegExpr attribute="Keyword" context="#stay" String="^ \-\-"/>
                 <RegExpr attribute="Keyword" context="#stay" String="^  \*"/>
-                <RegExpr attribute="Bug" context="#stay" String="closes: *((bug *)?#[0-9]*)( *, *(bug *)?#[0-9]*)*"/>
+                <RegExpr attribute="Bug" context="#stay" String="[Cc][Ll][Oo][Ss][Ee][Ss]:[\s]*(([Bb][Uu][Gg]\s*)?#\s*\d+)(\s*, *([Bb[Uu][Gg]\s*)?#\s*\d+)*"/>
             </context>
 
             <context attribute="Normal Text" lineEndContext="#pop" name="Head">

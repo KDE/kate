@@ -86,6 +86,8 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 	, m_matchLen( 0 )
 	, m_toolBarWasHidden( false )
 {
+	setInstance( KGenericFactory<ISearchPlugin>::instance() );
+	
 	m_searchForwardAction = new KAction(
 		i18n("Search Incrementally"), CTRL+ALT+Key_F,
 		this, SLOT(slotSearchForwardAction()),
@@ -163,7 +165,7 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 // 	action->setChecked( m_autoWrap );
 // 	optionMenu->insert( action );
 	
-	setXMLFile( "ktexteditor_isearch/ktexteditor_isearchui.rc" );
+	setXMLFile( "ktexteditor_isearchui.rc" );
 }
 
 ISearchPlugin::~ISearchPlugin()
@@ -191,14 +193,14 @@ void ISearchPlugin::setView( KTextEditor::View* view )
 
 void ISearchPlugin::readConfig()
 {
-//	KConfig config( "ktexteditor_isearchrc" );
-//	m_toolBarAction->setChecked( config.readBoolEntry( "Show Toolbar" , false ) );
+	KConfig* config = instance()->config();
+	m_toolBarAction->setChecked( config->readBoolEntry( "Show Toolbar" , false ) );
 }
 
 void ISearchPlugin::writeConfig()
 {
-//	KConfig config( "ktexteditor_isearchrc" );
-//	config.writeEntry( "Show Toolbar", m_toolBarAction->isChecked() );
+	KConfig* config = instance()->config();
+	config->writeEntry( "Show Toolbar", m_toolBarAction->isChecked() );
 }
 
 void ISearchPlugin::setCaseSensitive( bool caseSensitive )

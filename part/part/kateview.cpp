@@ -1033,7 +1033,6 @@ void KateViewInternal::keyPressEvent(QKeyEvent *e) {
     if ( !(e->state() & ControlButton) && !(e->state() & AltButton)
          && myDoc->insertChars(c.cursor.line, c.cursor.col, e->text(), this->myView) )
     {
-      myDoc->updateViews();
       e->accept();
       return;
     }

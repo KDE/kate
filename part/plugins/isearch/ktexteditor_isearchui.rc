@@ -1,12 +1,9 @@
 <!DOCTYPE kpartgui>
-<kpartplugin name="ktexteditor_isearch" library="ktexteditor_isearch" version="2">
+<kpartplugin name="ktexteditor_isearch" library="ktexteditor_isearch" version="3">
 <MenuBar>
 	<Menu name="edit"><text>&amp;Edit</text>
 		<Action name="edit_isearch" group="edit_find_merge"/>
 		<Action name="edit_isearch_reverse" group="edit_find_merge"/>
-	</Menu>
-	<Menu name="settings"><text>&amp;Settings</text>
-		<Action name="settings_show_search_toolbar" group="show_toolbar_merge" />
 	</Menu>
 </MenuBar>
 <ToolBar name="isearchToolBar"><text>Search Toolbar</text>

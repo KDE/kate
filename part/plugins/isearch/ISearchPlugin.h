@@ -70,8 +70,7 @@ private:
 	KTextEditor::SearchInterface* m_searchIF;
 	KTextEditor::ViewCursorInterface* m_cursorIF;
 	KTextEditor::SelectionInterface* m_selectIF;
-	KToggleToolBarAction*  m_toolBarAction;
-	KAction*               m_searchForwardAction;
+       	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
 	KToolBarLabel* m_label;
 	KHistoryCombo* m_combo;

@@ -66,7 +66,7 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 	, m_searchIF( 0L )
 	, m_cursorIF( 0L )
 	, m_selectIF( 0L )
-	, m_toolBarAction( 0L )
+//	, m_toolBarAction( 0L )
 	, m_searchForwardAction( 0L )
 	, m_searchBackwardAction( 0L )
 	, m_label( 0L )
@@ -96,10 +96,6 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 		i18n("Search Incrementally Backwards"), CTRL+ALT+SHIFT+Key_F,
 		this, SLOT(slotSearchBackwardAction()),
 		actionCollection(), "edit_isearch_reverse" );
-	
-	m_toolBarAction = new KToggleToolBarAction(
-		"isearchToolBar", i18n("Show Search Toolbar"),
-		actionCollection(), "settings_show_search_toolbar" );
 	
 	m_label = new KToolBarLabel( i18n("I-Search:"), 0L );
 	KWidgetAction* labelAction = new KWidgetAction(
@@ -194,13 +190,11 @@ void ISearchPlugin::setView( KTextEditor::View* view )
 void ISearchPlugin::readConfig()
 {
 	KConfig* config = instance()->config();
-	m_toolBarAction->setChecked( config->readBoolEntry( "Show Toolbar" , false ) );
 }
 
 void ISearchPlugin::writeConfig()
 {
 	KConfig* config = instance()->config();
-	config->writeEntry( "Show Toolbar", m_toolBarAction->isChecked() );
 }
 
 void ISearchPlugin::setCaseSensitive( bool caseSensitive )
@@ -313,12 +307,12 @@ void ISearchPlugin::slotSearchBackwardAction()
 void ISearchPlugin::slotSearchAction( bool reverse )
 {
 	if( !m_combo->hasFocus() ) {
-		if( !m_toolBarAction->isChecked() ) {
-			m_toolBarWasHidden = true;
-			m_toolBarAction->setChecked( true );
-		} else {
-			m_toolBarWasHidden = false;
-		}
+//		if( !m_toolBarAction->isChecked() ) {
+//			m_toolBarWasHidden = true;
+//			m_toolBarAction->setChecked( true );
+//		} else {
+//	m_toolBarWasHidden = false;
+//		}
 		m_combo->setFocus(); // Will call startSearch()
 	} else {
 		nextMatch( reverse );
@@ -391,7 +385,7 @@ void ISearchPlugin::endSearch()
 	updateLabelText();
 	
 	if( m_toolBarWasHidden ) {
-		m_toolBarAction->setChecked( false );
+//		m_toolBarAction->setChecked( false );
 	}
 }
 

@@ -1590,7 +1590,7 @@ void KateHighlighting::getKateHlItemDataList (uint schema, KateHlItemDataList &l
   {
     QStringList s = config->readListEntry(p->name);
 
-//    kdDebug()<<p->name<<s.count()<<endl;
+//    kdDebug(13010)<<p->name<<s.count()<<endl;
     if (s.count()>0)
     {
 
@@ -1726,6 +1726,9 @@ void KateHighlighting::createKateHlItemData(KateHlItemDataList &list)
   list=internalIDList;
 }
 
+/**
+ * Adds the styles of the currently parsed highlight to the itemdata list
+ */
 void KateHighlighting::addToKateHlItemDataList()
 {
   //Tell the syntax document class which file we want to parse and which data group
@@ -1791,7 +1794,7 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &i
 /**
  * KateHighlighting - createKateHlItem
  * This function is  a helper for makeContextList. It parses the xml file for
- * information, how single or multi line comments are marked
+ * information.
  *
  * @param data Data about the item read from the xml file
  * @param iDl List of all available itemData entries.
@@ -2182,7 +2185,8 @@ void KateHighlighting::makeContextList()
         kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
         QString identifierToUse;
         kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
-        if (iName==it.key()) identifierToUse=identifier;  // the own identifier is known
+        if (iName==it.key())
+          identifierToUse=identifier;  // the own identifier is known
         else
           identifierToUse=KateHlManager::self()->identifierForName(it.key()); // all others have to be looked up
 
@@ -2190,9 +2194,9 @@ void KateHighlighting::makeContextList()
 
         buildPrefix=it.key()+':';  // attribute names get prefixed by the names of the highlighting definitions they belong to
 
-        if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
+        if (identifierToUse.isEmpty() ) kdDebug(13010)<<"OHOH, unknown highlighting description referenced"<<endl;
 
-        kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
+        kdDebug(13010)<<"setting ("<<it.key()<<") to loaded"<<endl;
 
         //mark hl as loaded
         it=embeddedHls.insert(it.key(),KateEmbeddedHlInfo(true,startctx));
@@ -2214,6 +2218,7 @@ void KateHighlighting::makeContextList()
   // at this point all needed highlighing (sub)definitions are loaded. It's time
   // to resolve cross file  references (if there are any )
   kdDebug(13010)<<"Unresolved contexts, which need attention: "<<unresolvedContextReferences.count()<<endl;
+
   //optimize this a littlebit
   for (KateHlUnresolvedCtxRefs::iterator unresIt=unresolvedContextReferences.begin();
     unresIt!=unresolvedContextReferences.end();++unresIt)
@@ -2277,7 +2282,7 @@ void KateHighlighting::handleKateHlIncludeRules()
       {
         // resolve name to id
         (*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
-        kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
+        kdDebug(13010)<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
         // It would be good to look here somehow, if the result is valid
       }
     }
@@ -2343,6 +2348,11 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
   }
 }
 
+/**
+ * Add one highlight to the contextlist.
+ *
+ * @return the number of contexts after this is added.
+ */
 int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 {
   buildIdentifier=ident;
@@ -2354,9 +2364,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   // Let the syntax document class know, which file we'd like to parse
   if (!KateHlManager::self()->syntax->setIdentifier(ident))
   {
-  noHl=true;
-  KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
-  return 0;
+    noHl=true;
+    KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
+    return 0;
   }
 
   RegionList<<"!KateInternal_TopLevel!";
@@ -2366,7 +2376,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   QString ctxName;
 
-  // This list is needed for the translation of the attribute parameter, if the itemData name is given instead of the index
+  // This list is needed for the translation of the attribute parameter,
+  // if the itemData name is given instead of the index
   addToKateHlItemDataList();
   KateHlItemDataList iDl = internalIDList;
 
@@ -2453,7 +2464,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           else
           {
             //a cross highlighting reference
-            kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
+            kdDebug(13010)<<"Cross highlight reference <IncludeRules>"<<endl;
             KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count());
 
             //use the same way to determine cross hl file references as other items do
@@ -3008,7 +3019,7 @@ bool KateHlManager::resetDynamicCtxs()
 }
 //END
 
-//BEGIN KateHighlighting
+//BEGIN KateHighlightAction
 void KateViewHighlightAction::init()
 {
   m_doc = 0;

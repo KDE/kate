@@ -766,6 +766,7 @@
 	<RegExpr attribute="String Special" context="#stay" String="[Nn]~(?=\))" />
 	<RegExpr attribute="String Special" context="#stay" String="[Yy]:(?=\))" />
 	<RegExpr attribute="String Special" context="#stay" String="[LlOo]/(?=\))" />
+	<RegExpr attribute="String Special" context="#stay" String="[Cc],(?=\))" />
 	<RegExpr attribute="String Special" context="#stay" String="(&gt;&gt;|&lt;&lt;|``|'')(?=\))" />
 	<RegExpr attribute="String Error" context="#stay" String="[^)&quot;]+" />
       </context>

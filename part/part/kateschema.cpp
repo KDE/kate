@@ -271,6 +271,7 @@ void KateSchemaConfigPage::apply()
 
   // just sync the config
   KateFactory::schemaManager()->schema (0)->sync();
+KateFactory::schemaManager()->update ();
 
   KateRendererConfig::global()->setSchema (KateRendererConfig::global()->schema());
 }

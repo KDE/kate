@@ -46,6 +46,7 @@
 #include "kateconfig.h"
 #include "katesupercursor.h"
 #include "katefiletype.h"
+#include "kateschema.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -419,7 +420,7 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
   switch( number )
   {
     case 0:
-      return colorConfigPage(parent);
+      return colorConfigPage (parent);
 
     case 1:
       return fontConfigPage(parent);
@@ -464,7 +465,7 @@ QString KateDocument::configPageName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Colors");
+      return i18n ("Schemas");
 
     case 1:
       return i18n ("Fonts");
@@ -509,7 +510,7 @@ QString KateDocument::configPageFullName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Color Settings");
+      return i18n ("Color & Fonts Schemas");
 
     case 1:
       return i18n ("Font Settings");
@@ -4660,7 +4661,7 @@ QString KateDocument::HTMLEncode(QChar theChar)
 
 Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new ColorConfig(p, "", this);
+  return (Kate::ConfigPage*) new KateSchemaConfigPage (p);
 }
 
 Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)

@@ -61,6 +61,7 @@ class SearchDialog : public KDialogBase
     void slotOk();
     void selectedStateChanged (int);
     void slotEditRegExp();
+    void slotSearchTextChanged( const QString & );
 
   protected:
     KComboBox *m_search;
@@ -125,10 +126,10 @@ class IndentConfigTab : public Kate::ConfigPage
     enum { numFlags = 6 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
-    
+
   public slots:
     void apply ();
-    void reload ();            
+    void reload ();
         void reset () {};
     void defaults () {};
 };
@@ -175,10 +176,10 @@ class EditConfigTab : public Kate::ConfigPage
     KIntNumInput *e2;
     KIntNumInput *e3;
     KateDocument *m_doc;
-  
+
   public slots:
     void apply ();
-    void reload ();        
+    void reload ();
         void reset () {};
     void defaults () {};
 
@@ -196,17 +197,17 @@ public:
 
 private:
   KateDocument *m_doc;
-  
+
   QCheckBox *m_line;
   QCheckBox *m_folding;
   QCheckBox *m_icons;
   QButtonGroup *m_bmSort;
-  
+
 public slots:
  void apply ();
- void reload ();    
+ void reload ();
  void reset ();
- void defaults ();  
+ void defaults ();
 };
 
 class ColorConfig : public Kate::ConfigPage
@@ -231,7 +232,7 @@ private:
 
   public slots:
     void apply ();
-    void reload ();    
+    void reload ();
         void reset () {};
     void defaults () {};
 };
@@ -247,7 +248,7 @@ public:
 
   void setFont ( const QFont &font );
   QFont getFont ( ) { return myFont; };
-  
+
   void setFontPrint ( const QFont &font );
   QFont getFontPrint ( ) { return myFontPrint; };
 
@@ -264,7 +265,7 @@ public:
 
   public slots:
     void apply ();
-    void reload ();   
+    void reload ();
         void reset () {};
     void defaults () {};
 };

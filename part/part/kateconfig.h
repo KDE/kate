@@ -252,6 +252,9 @@ class KateViewConfig : public KateConfig
     int dynWordWrapIndicators () const;
     void setDynWordWrapIndicators (int mode);
 
+    int dynWordWrapAlignIndent () const;
+    void setDynWordWrapAlignIndent (int indent);
+
     bool lineNumbers () const;
     void setLineNumbers (bool on);
 
@@ -276,6 +279,7 @@ class KateViewConfig : public KateConfig
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
+    int m_dynWordWrapAlignIndent;
     bool m_lineNumbers;
     bool m_iconBar;
     bool m_foldingBar;
@@ -286,6 +290,7 @@ class KateViewConfig : public KateConfig
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
+    bool m_dynWordWrapAlignIndentSet : 1;
     bool m_lineNumbersSet : 1;
     bool m_iconBarSet : 1;
     bool m_foldingBarSet : 1;

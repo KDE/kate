@@ -517,7 +517,13 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   m_dynwrapIndicatorsCombo->insertItem( i18n("Always On") );
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
 
-    m_wwmarker = new QCheckBox( i18n("Show static word wrap marker (if applicable)"), gbWordWrap );
+  m_dynwrapAlignLevel = new KIntNumInput(gbWordWrap);
+  m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth"));
+  m_dynwrapAlignLevel->setRange(0, 80, 10);
+  m_dynwrapAlignLevel->setSuffix(i18n("% of view width"));
+  m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
+
+  m_wwmarker = new QCheckBox( i18n("Show static word wrap marker (if applicable)"), gbWordWrap );
 
   blay->addWidget(gbWordWrap);
 
@@ -542,6 +548,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 
   connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -557,6 +564,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   QString wtstr = i18n("Choose when the Dynamic Word Wrap Indicators should be displayed");
   QWhatsThis::add(m_dynwrapIndicatorsLabel, wtstr);
   QWhatsThis::add(m_dynwrapIndicatorsCombo, wtstr);
+  QWhatsThis::add(m_dynwrapAlignLevel, i18n("<p>Enables the start of dynamically wrapped lines to be aligned vertically to the indentation level of the first line.  This can help to make code and markup more readable.</p><p>Additionally, this allows you to set a maximum width of the screen, as a percentage, after which dynamically wrapped lines will no longer be vertically aligned.  For example, at 50%, lines whose indentation levels are deeper than 50% of the width of the screen will not have vertical alignment applied to subsequent wrapped lines.</p>"));
   QWhatsThis::add( m_wwmarker, i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "
         "wrap column as defined in the <strong>Editing</strong> properties."
@@ -582,6 +590,7 @@ void ViewDefaultsConfig::apply ()
   KateRendererConfig::global()->setSchema (m_schemaCombo->currentItem());
   KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
   KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentItem ());
+  KateViewConfig::global()->setDynWordWrapAlignIndent(m_dynwrapAlignLevel->value());
   KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
   KateViewConfig::global()->setLineNumbers (m_line->isChecked());
   KateViewConfig::global()->setIconBar (m_icons->isChecked());
@@ -598,6 +607,7 @@ void ViewDefaultsConfig::reload ()
 
   m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
   m_dynwrapIndicatorsCombo->setCurrentItem( KateViewConfig::global()->dynWordWrapIndicators() );
+  m_dynwrapAlignLevel->setValue(KateViewConfig::global()->dynWordWrapAlignIndent());
   m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   m_line->setChecked(KateViewConfig::global()->lineNumbers());
   m_icons->setChecked(KateViewConfig::global()->iconBar());

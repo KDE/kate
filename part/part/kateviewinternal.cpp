@@ -566,11 +566,13 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             {
               int pos = text->nextNonSpaceChar(0);
 
-              if (pos > 0)
-                shiftX = m_view->renderer()->textWidth(text, pos);
+              if (m_view->config()->dynWordWrapAlignIndent() > 0) {
+                if (pos > 0)
+                  shiftX = m_view->renderer()->textWidth(text, pos);
 
-              if (shiftX > ((double)width() / 100 * 80 /* FIXME customisable percentage */))
-                shiftX = 0;
+                if (shiftX > ((double)width() / 100 * m_view->config()->dynWordWrapAlignIndent()))
+                  shiftX = 0;
+              }
             }
 
             if ((lineRanges[z].startX != startX) || (lineRanges[z].endX != endX) ||
@@ -1160,11 +1162,13 @@ LineRange KateViewInternal::range(int realLine, const LineRange* previous)
     if (true /** make optional */) {
   int pos = text->nextNonSpaceChar(0);
 
-    if (pos > 0)
-      ret.shiftX = m_view->renderer()->textWidth(text, pos);
+    if (m_view->config()->dynWordWrapAlignIndent() > 0) {
+      if (pos > 0)
+        ret.shiftX = m_view->renderer()->textWidth(text, pos);
 
-    if (ret.shiftX > ((double)width() / 100 * 80 /* FIXME customisable percentage */))
-      ret.shiftX = 0;
+      if (ret.shiftX > ((double)width() / 100 * m_view->config()->dynWordWrapAlignIndent()))
+        ret.shiftX = 0;
+    }
   }
 
     ret.virtualLine = m_doc->getVirtualLine(realLine);

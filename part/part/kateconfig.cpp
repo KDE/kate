@@ -481,6 +481,7 @@ KateViewConfig::KateViewConfig ()
  :
    m_dynWordWrapSet (true),
    m_dynWordWrapIndicatorsSet (true),
+   m_dynWordWrapAlignIndentSet (true),
    m_lineNumbersSet (true),
    m_iconBarSet (true),
    m_foldingBarSet (true),
@@ -502,6 +503,7 @@ KateViewConfig::KateViewConfig (KateView *view)
  :
    m_dynWordWrapSet (false),
    m_dynWordWrapIndicatorsSet (false),
+   m_dynWordWrapAlignIndentSet (false),
    m_lineNumbersSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
@@ -531,6 +533,7 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setDynWordWrap (config->readBoolEntry( "Dynamic Word Wrap", true ));
   setDynWordWrapIndicators (config->readNumEntry( "Dynamic Word Wrap Indicators", 1 ));
+  setDynWordWrapAlignIndent (config->readNumEntry( "Dynamic Word Wrap Align Indent", 80 ));
 
   setLineNumbers (config->readBoolEntry( "Line Numbers",  false));
 
@@ -553,6 +556,7 @@ void KateViewConfig::writeConfig (KConfig *config)
 {
   config->writeEntry( "Dynamic Word Wrap", dynWordWrap() );
   config->writeEntry( "Dynamic Word Wrap Indicators", dynWordWrapIndicators() );
+  config->writeEntry( "Dynamic Word Wrap Align Indent", dynWordWrapAlignIndent() );
 
   config->writeEntry( "Line Numbers", lineNumbers() );
 
@@ -617,7 +621,25 @@ void KateViewConfig::setDynWordWrapIndicators (int mode)
   configStart ();
 
   m_dynWordWrapIndicatorsSet = true;
-  m_dynWordWrapIndicators = mode;
+  m_dynWordWrapIndicators = QMIN(80, QMAX(0, mode));
+
+  configEnd ();
+}
+
+int KateViewConfig::dynWordWrapAlignIndent () const
+{
+  if (m_dynWordWrapAlignIndentSet || isGlobal())
+    return m_dynWordWrapAlignIndent;
+
+  return s_global->dynWordWrapAlignIndent();
+}
+
+void KateViewConfig::setDynWordWrapAlignIndent (int indent)
+{
+  configStart ();
+
+  m_dynWordWrapAlignIndentSet = true;
+  m_dynWordWrapAlignIndent = indent;
 
   configEnd ();
 }

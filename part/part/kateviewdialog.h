@@ -39,6 +39,7 @@ class KKeyChooser;
 class KMainWindow;
 class KPushButton;
 class KRegExpDialog;
+class KIntNumInput;
 
 class QButtonGroup;
 class QCheckBox;
@@ -185,6 +186,7 @@ private:
   QCheckBox *m_collapseTopLevel;
   QCheckBox *m_icons;
   QCheckBox *m_dynwrap;
+  KIntNumInput *m_dynwrapAlignLevel;
   QCheckBox *m_wwmarker;
   QLabel *m_dynwrapIndicatorsLabel;
   KComboBox *m_dynwrapIndicatorsCombo;

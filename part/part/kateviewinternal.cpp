@@ -2564,6 +2564,7 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
   {
     m_cursorTimer.stop();
 
+    m_view->renderer()->setDrawCaret(true);
     paintCursor();
     emit m_view->lostFocus( m_view );
   }

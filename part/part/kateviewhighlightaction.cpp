@@ -53,7 +53,7 @@ void KateViewHighlightAction::slotAboutToShow()
     QString hlName = HlManager::self()->hlName (z);
     QString hlSection = HlManager::self()->hlSection (z);
 
-    if ((hlSection != "") && (names.contains(hlName) < 1))
+    if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
     {
       if (subMenusName.contains(hlSection) < 1)
       {

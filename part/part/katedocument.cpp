@@ -2822,29 +2822,42 @@ void KateDocument::paste (VConfig &c)
 
   if (!s.isEmpty())
   {
+    bool b = editStart ();
+
     if (!blockSelect)
       insertText(c.cursor.line, c.cursor.col, s);
     else
     {
       insertText(c.cursor.line, c.cursor.col, s);
     }
-  }
-  // anders: we want to be able to move the cursor to the
+
+    int line = c.cursor.line;
+    int col = c.cursor.col;
+      // anders: we want to be able to move the cursor to the
   // position at the end of the pasted text,
   // so we calculate that and applies it to c.cursor
   // This may not work, when wordwrap gets fixed :(
-  TextLine *ln = getTextLine( c.cursor.line );
+  TextLine *ln = getTextLine( line );
   int l = s.length();
   while ( l > 0 ) {
-    if ( (uint)c.cursor.col < ln->length() ) {
-      c.cursor.col++;
+    if ( (uint)col < ln->length() ) {
+      col++;
     }
     else {
-      c.cursor.line++;
+      line++;
       ln = getTextLine( c.cursor.line );
-      c.cursor.col = 0;
+      col = 0;
     }
     l--;
+  }
+  
+// editEnd will set the cursor from this cache right ;))
+  c.view->cursorCache.line = line;
+  c.view->cursorCache.col = col;
+  c.view->cursorCacheChanged = true;
+
+    if (b)
+      editEnd ();
   }
 }
 

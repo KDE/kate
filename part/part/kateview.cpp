@@ -256,8 +256,6 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       if (c.flags & KateDocument::cfDelOnInput) myDoc->removeSelectedText();
       getVConfig(c);
       myDoc->paste(c);
-      updateCursor( c.cursor );
-      updateView( 0 );
       return;
     case KateView::cmIndent:
       myDoc->indent(c);

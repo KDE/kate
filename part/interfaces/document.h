@@ -154,7 +154,7 @@ class CommandExtension
      *
      * @param cmdname The command name associated with this request.
      */
-    virtual KCompletion *completionObject( const QString & cmdname, Kate::View */*view*/ ) { Q_UNUSED(cmdname); return 0L; }
+    virtual KCompletion *completionObject( const QString & cmdname, Kate::View * /*view*/ ) { Q_UNUSED(cmdname); return 0L; }
 
     /**
      * @return whether this command wants to process text interactively given the @p cmdname.

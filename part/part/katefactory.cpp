@@ -133,9 +133,13 @@ KateFactory::KateFactory ()
   // vm allocator
   m_vm = new KVMAllocator ();
 
+#ifndef Q_WS_WIN //todo
   // create script man (search scripts) + register commands
   m_jscriptManager = new KateJScriptManager ();
   KateCmd::self()->registerCommand (m_jscriptManager);
+#else
+  m_jscriptManager = 0;
+#endif
 
   //
   // init the cmds
@@ -240,10 +244,14 @@ void KateFactory::deregisterRenderer ( KateRenderer  *renderer )
 
 KateJScript *KateFactory::jscript ()
 {
+#ifndef Q_WS_WIN //todo
   if (m_jscript)
     return m_jscript;
 
   return m_jscript = new KateJScript ();
+#else
+  return 0;
+#endif
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

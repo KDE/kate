@@ -26,6 +26,7 @@
 #include "kateview.moc"
 
 #include "kateviewinternal.h"
+#include "katerenderer.h"
 #include "katedocument.h"
 #include "katefactory.h"
 #include "katehighlight.h"
@@ -43,6 +44,7 @@
 #include "katebrowserextension.h"
 #include "katesearch.h"
 #include "katecmdline.h"
+#include "kateconfig.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -83,6 +85,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_userWantsFoldingMarkersOff( false )
 {
   KateFactory::registerView( this );
+  m_config = new KateViewConfig (this);
+
+  m_renderer = new KateRenderer(doc, this);
 
   m_grid = new QGridLayout (this, 3, 3);
 
@@ -146,6 +151,9 @@ KateView::~KateView()
   delete m_viewInternal;
   delete m_codeCompletion;
 
+  delete m_renderer;
+
+  delete m_config;
   KateFactory::deregisterView (this);
 }
 
@@ -1052,4 +1060,9 @@ void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString
 void KateView::showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset, bool cs )
 {
   m_codeCompletion->showCompletionBox( arg1, offset, cs );
+}
+
+KateRenderer *KateView::renderer ()
+{
+  return m_renderer;
 }

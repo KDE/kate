@@ -19,7 +19,7 @@
 #ifndef __KATE_CONFIG_H__
 #define __KATE_CONFIG_H__
 
-#include <qcolor.h>
+#include "katefont.h"
 
 class KateView;
 class KateDocument;
@@ -29,12 +29,13 @@ class KConfig;
 
 class KateDocumentConfig
 {
-  public:
+  private:
     /**
      * only used in KateFactory for the static global fallback !!!
      */
     KateDocumentConfig ();
 
+  public:
     /**
      * Construct a DocumentConfig
      */
@@ -45,7 +46,7 @@ class KateDocumentConfig
      */
     ~KateDocumentConfig ();
 
-    inline static KateDocumentConfig *global () { return s_global; };
+    static KateDocumentConfig *global ();
 
     inline bool isGlobal () { return (this == s_global); };
 
@@ -82,12 +83,13 @@ class KateDocumentConfig
 
 class KateViewConfig
 {
-  public:
+  private:
     /**
      * only used in KateFactory for the static global fallback !!!
      */
     KateViewConfig ();
 
+  public:
     /**
      * Construct a DocumentConfig
      */
@@ -98,7 +100,7 @@ class KateViewConfig
      */
     ~KateViewConfig ();
 
-    inline static KateViewConfig *global () { return s_global; };
+    static KateViewConfig *global ();
 
     inline bool isGlobal () { return (this == s_global); };
 
@@ -130,12 +132,13 @@ class KateViewConfig
 
 class KateRendererConfig
 {
-  public:
+  private:
     /**
      * only used in KateFactory for the static global fallback !!!
      */
     KateRendererConfig ();
 
+  public:
     /**
      * Construct a DocumentConfig
      */
@@ -146,7 +149,7 @@ class KateRendererConfig
      */
     ~KateRendererConfig ();
 
-    inline static KateRendererConfig *global () { return s_global; };
+    static KateRendererConfig *global ();
 
     inline bool isGlobal () { return (this == s_global); };
 
@@ -167,8 +170,25 @@ class KateRendererConfig
     void updateRenderer ();
 
   public:
+    // use different fonts for screen and printing
+    enum WhichFont
+    {
+      ViewFont = 1,
+      PrintFont = 2
+    };
+
+    void setFont(int whichFont, QFont font);
+
+    const FontStruct *fontStruct (int whichFont);
+    const QFont *font(int whichFont);
+    const QFontMetrics *fontMetrics(int whichFont);
 
   private:
+    FontStruct* m_viewFont;
+    FontStruct* m_printFont;
+
+    bool m_viewFontSet : 1;
+    bool m_printFontSet : 1;
 
   private:
     KateRenderer *m_renderer;

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
-   Copyright (C) 2001 by Victor Röder <Victor_Roeder@GMX.de>
+   Copyright (C) 2001 by Victor RÃ¶der <Victor_Roeder@GMX.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -29,6 +29,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katerenderer.h"
+#include "kateconfig.h"
 
 #include <kdebug.h>
 
@@ -276,10 +277,10 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
     QPoint p = m_view->mapToGlobal( m_view->cursorCoordinates() );
 	int x = p.x();
 	int y = p.y() ;
-	if ( y + m_completionPopup->height() + KateRenderer::getFontMetrics( KateRenderer::ViewFont ).height() > QApplication::desktop()->height() )
+	if ( y + m_completionPopup->height() + m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height() > QApplication::desktop()->height() )
 		y -= (m_completionPopup->height() );
 	else
-		y += KateRenderer::getFontMetrics( KateRenderer::ViewFont ).height();
+		y += m_view->renderer()->config()->fontMetrics( KateRendererConfig::ViewFont )->height();
 
 	if (x + m_completionPopup->width() > QApplication::desktop()->width())
 		x = QApplication::desktop()->width() - m_completionPopup->width();

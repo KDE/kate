@@ -23,12 +23,17 @@
 #define KATERENDERER_H
 
 #include "katecursor.h"
-#include "katefont.h"
 #include "katetextline.h"
+
+#include <kdebug.h>
+
+#include <qfont.h>
+#include <qfontmetrics.h>
 
 class KateDocument;
 class KateView;
 class LineRange;
+class KateRendererConfig;
 
 /**
  * Handles all of the work in directly rendering Kate's view.
@@ -43,32 +48,8 @@ public:
       Replace
     };
 
-    // use different fonts for screen and printing
-    enum WhichFont
-    {
-      ViewFont = 1,
-      PrintFont = 2
-    };
-
-    KateRenderer(KateDocument* doc);
+    KateRenderer(KateDocument* doc, KateView *view = 0);
     ~KateRenderer();
-
-    /**
-     * The renderer supports different configurations depending on the view
-     * defined.
-     *
-     * Additionally this is used by the highlighting interface to provide
-     * per-view  highlighting capabilities.
-     */
-    KateView* currentView() const;
-
-    /**
-     * @copydoc currentView()
-     *
-     * Switching the view saves the current settings, and restores the settings
-     * of the new current view.
-     */
-    void setView(KateView* view);
 
     /**
      * Determine whether the caret (text cursor) will be drawn.
@@ -133,13 +114,8 @@ public:
     void setFont(int whichFont);
     void increaseFontSizes();
     void decreaseFontSizes();
-    const QFont& currentFont() const;
-    const QFontMetrics& currentFontMetrics() const;
-
-    static const FontStruct& getFontStruct(int whichFont);
-    static void setFont(int whichFont, QFont font);
-    static const QFont& getFont(int whichFont);
-    static const QFontMetrics& getFontMetrics(int whichFont);
+    const QFont* currentFont();
+    const QFontMetrics* currentFontMetrics();
 
     /**
      * @return whether the renderer is configured to paint in a
@@ -188,11 +164,21 @@ public:
      */
     void paintTextLine(QPainter& paint, const LineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
 
-private:
+  private:
     KateDocument* m_doc;
-    KateView* m_view;
-    QMap<KateView*, class KateRendererSettings*> m_settings;
-    KateRendererSettings* m_currentSettings;
+    KateView *m_view;
+    class KateRendererSettings* m_currentSettings;
+
+  /**
+   * Configuration
+   */
+  public:
+    inline KateRendererConfig *config () { return m_config; };
+
+    void updateConfig ();
+
+  private:
+    KateRendererConfig *m_config;
 };
 
 #endif

@@ -35,7 +35,6 @@
 class KateView;
 class KateDocument;
 class KateIconBorder;
-class KateRenderer;
 
 class QHBoxLayout;
 class QVBoxLayout;
@@ -80,6 +79,7 @@ class KateViewInternal : public QWidget
     friend class KateUndo;
     friend class KateView;
     friend class KateIconBorder;
+    friend class KateRenderer;
 
   public:
     KateViewInternal ( KateView *view, KateDocument *doc );
@@ -358,8 +358,6 @@ class KateViewInternal : public QWidget
     bool m_updatingView;
     int m_wrapChangeViewLine;
     KateTextCursor m_cachedMaxStartPos;
-
-    KateRenderer* m_renderer;
 
   private slots:
     void doDragScroll();

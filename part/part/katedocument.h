@@ -50,6 +50,7 @@ class KateArbitraryHighlight;
 class KateSuperRange;
 class KateLineInfo;
 class KateBrowserExtension;
+class KateDocumentConfig;
 
 class KSpell;
 
@@ -757,13 +758,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   void spellResult( const QString& );
   void spellCleanDone();
 
-private:
-  void locatePosition( uint pos, uint& line, uint& col );
+  private:
+    void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
     int             m_mispellCount;
     int             m_replaceCount;
-
-
 
   public:
     void updateViewDefaults ();
@@ -773,6 +772,15 @@ private:
       Allow the HlManager to fill the array
     */
     QMemArray<KateAttribute>* attribs() { return &myAttribs; }
+
+  /**
+   * Configuration
+   */
+  public:
+    inline KateDocumentConfig *config () { return m_config; };
+
+  private:
+    KateDocumentConfig *m_config;
 };
 
 #endif

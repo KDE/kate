@@ -23,36 +23,19 @@
 
 #include "katelinerange.h"
 #include "katedocument.h"
-#include "katefactory.h"
 #include "katearbitraryhighlight.h"
+#include "kateconfig.h"
+#include "kateview.h"
 
 #include <kdebug.h>
 
 #include <qpainter.h>
 
 // Static vars
-FontStruct* s_viewFont = 0L;
-FontStruct* s_printFont = 0L;
 int s_tabWidth;
 
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
-
-FontStruct* viewFont()
-{
-  if (!s_viewFont)
-    s_viewFont = new FontStruct();
-
-  return s_viewFont;
-}
-
-FontStruct* printFont()
-{
-  if (!s_printFont)
-    s_printFont = new FontStruct();
-
-  return s_printFont;
-}
 
 class KateRendererSettings
 {
@@ -64,7 +47,7 @@ public:
     , showTabs(true)
     // sensible default but should be overwritten
     , tabWidth(8)
-    , font(KateRenderer::ViewFont)
+    , font(KateRendererConfig::ViewFont)
     , printerFriendly(false)
   {
   }
@@ -78,32 +61,16 @@ public:
   bool printerFriendly;
 };
 
-KateRenderer::KateRenderer(KateDocument* doc)
-  : m_doc(doc)
+KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
+  : m_doc(doc), m_view (view)
 {
-  Q_ASSERT(doc);
-
-  setView(0L);
+  m_config = new KateRendererConfig (this);
+  m_currentSettings = new KateRendererSettings();
 }
 
 KateRenderer::~KateRenderer()
 {
-  for (QMapIterator<KateView*, KateRendererSettings*> it = m_settings.begin(); it != m_settings.end(); ++it)
-    delete it.data();
-}
-
-KateView* KateRenderer::currentView() const
-{
-  return m_view;
-}
-
-void KateRenderer::setView(KateView* view)
-{
-  m_view = view;
-  if (!m_settings.contains(m_view))
-    m_settings.insert(m_view, new KateRendererSettings());
-
-  m_currentSettings = m_settings[m_view];
+  delete m_config;
 }
 
 bool KateRenderer::drawCaret() const
@@ -135,8 +102,8 @@ void KateRenderer::setTabWidth(int tabWidth)
 {
   s_tabWidth = tabWidth;
 
-  printFont()->updateFontData(s_tabWidth);
-  viewFont()->updateFontData(s_tabWidth);
+  //printFont()->updateFontData(s_tabWidth);
+  //viewFont()->updateFontData(s_tabWidth);
 }
 
 bool KateRenderer::showTabs() const
@@ -189,7 +156,7 @@ bool KateRenderer::isPrinterFriendly() const
 void KateRenderer::setPrinterFriendly(bool printerFriendly)
 {
   m_currentSettings->printerFriendly = printerFriendly;
-  setFont(PrintFont);
+  setFont(KateRendererConfig::PrintFont);
   setShowTabs(false);
   setShowSelections(false);
   setDrawCaret(false);
@@ -203,7 +170,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
   int showCursor = (drawCaret() && cursor && range->includesCursor(*cursor)) ? cursor->col() : -1;
 
-  KateSuperRangeList& superRanges = m_doc->arbitraryHL()->rangesIncluding(range->line, m_view);
+  KateSuperRangeList& superRanges = m_doc->arbitraryHL()->rangesIncluding(range->line, 0);
 
   // A bit too verbose for my tastes
   // Re-write a bracketmark class? put into its own function? add more helper constructors to the range stuff?
@@ -240,7 +207,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   }
 
   // font data
-  const FontStruct & fs = getFontStruct(font());
+  const FontStruct * fs = config()->fontStruct(font());
 
   int line = range->line;
   bool currentLine = false;
@@ -340,14 +307,14 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     }
 
     // Draw line background
-    paint.fillRect(0, 0, xEnd - xStart, fs.fontHeight, backgroundColor);
+    paint.fillRect(0, 0, xEnd - xStart, fs->fontHeight, backgroundColor);
   }
 
   // show word wrap marker if desirable
-  if ( !isPrinterFriendly() && m_doc->m_wordWrapMarker && fs.myFont.fixedPitch() ) {
+  if ( !isPrinterFriendly() && m_doc->m_wordWrapMarker && fs->myFont.fixedPitch() ) {
     paint.setPen( m_doc->colors[4] );
-    int _x = m_doc->myWordWrapAt * fs.myFontMetrics.width('x') - xStart;
-    paint.drawLine( _x,0,_x,fs.fontHeight );
+    int _x = m_doc->myWordWrapAt * fs->myFontMetrics.width('x') - xStart;
+    paint.drawLine( _x,0,_x,fs->fontHeight );
   }
 
   if (startcol > (int)len)
@@ -370,7 +337,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   uint curCol = startcol;
 
   // or we will see no text ;)
-  int y = fs.fontAscent;
+  int y = fs->fontAscent;
 
   // painting loop
   uint xPos = range->xOffset();
@@ -399,7 +366,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock) {
     paint.setPen(QPen(m_doc->colors[4], 1, Qt::DashLine));
-    paint.drawLine(0, fs.fontHeight - 1, xEnd - xStart, fs.fontHeight - 1);
+    paint.drawLine(0, fs->fontHeight - 1, xEnd - xStart, fs->fontHeight - 1);
   }
 
   KateAttribute customHL;
@@ -410,7 +377,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     if ((showCursor > -1) && (showCursor >= (int)curCol))
     {
       cursorVisible = true;
-      cursorXPos = xPos + (showCursor - (int) curCol) * fs.myFontMetrics.width(QChar (' '));
+      cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(QChar (' '));
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &at[0].textColor();
     }
@@ -420,7 +387,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   {
     // draw word-wrap-honour-indent filling
     if (range->xOffset() && range->xOffset() > xStart)
-      paint.fillRect(0, 0, range->xOffset() - xStart, fs.fontHeight, QBrush(m_doc->colors[4], QBrush::DiagCrossPattern));
+      paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(m_doc->colors[4], QBrush::DiagCrossPattern));
 
     // loop each character (tmp goes backwards, but curCol doesn't)
     for (uint tmp = len; (tmp > 0); tmp--)
@@ -439,11 +406,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
-      xPosAfter += curAt->width(fs, textLine->string(), curCol);
+      xPosAfter += curAt->width(*fs, textLine->string(), curCol);
 
       // Tab special treatment, move to charWidth().
       if (isTab)
-        xPosAfter -= (xPosAfter % curAt->width(fs, textLine->string(), curCol));
+        xPosAfter -= (xPosAfter % curAt->width(*fs, textLine->string(), curCol));
 
       // Only draw after the starting X value
       // Haha, this was always wrong, due to the use of individual char width calculations...?? :(
@@ -473,7 +440,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
           else
             paint.setPen(hl.selectedTextColor());
 
-          paint.setFont(hl.font(currentFont()));
+          paint.setFont(hl.font(*currentFont()));
 
           if (superRanges.currentBoundary() && *(superRanges.currentBoundary()) == currentPos)
             superRanges.nextBoundary();
@@ -487,9 +454,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
         {
           if (!isPrinterFriendly() && !selectionPainted) {
             if (isSel)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs.fontHeight, m_doc->colors[1]);
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, m_doc->colors[1]);
             else if (currentHL.itemSet(KateAttribute::BGColor))
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs.fontHeight, currentHL.bgColor());
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
           }
 
           if (showTabs())
@@ -530,9 +497,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
           // TODO: genericise background painting
           if (!isPrinterFriendly() && !selectionPainted) {
             if (isSel)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs.fontHeight, m_doc->colors[1]);
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, m_doc->colors[1]);
             else if (currentHL.itemSet(KateAttribute::BGColor))
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs.fontHeight, currentHL.bgColor());
+              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
           }
 
           // paint outline
@@ -540,7 +507,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
             paint.save();
             paint.setPen(currentHL.outline());
             paint.drawLine(oldXPos-xStart, 0, xPosAfter, 0);
-            paint.drawLine(oldXPos-xStart, fs.fontHeight - 1, xPosAfter, fs.fontHeight - 1);
+            paint.drawLine(oldXPos-xStart, fs->fontHeight - 1, xPosAfter, fs->fontHeight - 1);
             paint.restore();
           }*/
 
@@ -592,7 +559,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     if ((showCursor > -1) && (showCursor >= (int)curCol))
     {
       cursorVisible = true;
-      cursorXPos = xPos + (showCursor - (int) curCol) * fs.myFontMetrics.width(QChar (' '));
+      cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(QChar (' '));
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &oldAt->textColor();
     }
@@ -602,7 +569,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   // TODO: genericise background painting
   if (!isPrinterFriendly() && showSelections() && !selectionPainted && m_doc->lineEndSelected (line, endcol))
   {
-    paint.fillRect(xPos-xStart, 0, xEnd - xStart, fs.fontHeight, m_doc->colors[1]);
+    paint.fillRect(xPos-xStart, 0, xEnd - xStart, fs->fontHeight, m_doc->colors[1]);
     selectionPainted = true;
   }
 
@@ -610,9 +577,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   if (cursorVisible)
   {
     if (caretStyle() == Replace && (cursorMaxWidth > 2))
-      paint.fillRect(cursorXPos-xStart, 0, cursorMaxWidth, fs.fontHeight, *cursorColor);
+      paint.fillRect(cursorXPos-xStart, 0, cursorMaxWidth, fs->fontHeight, *cursorColor);
     else
-      paint.fillRect(cursorXPos-xStart, 0, 2, fs.fontHeight, *cursorColor);
+      paint.fillRect(cursorXPos-xStart, 0, 2, fs->fontHeight, *cursorColor);
   }
   // Draw the cursor at the function user's specified position.
   // TODO: Why?????
@@ -620,12 +587,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   {
     if ((cursorXPos2>=xStart) && (cursorXPos2<=xEnd))
     {
-      cursorMaxWidth = fs.myFontMetrics.width(spaceChar);
+      cursorMaxWidth = fs->myFontMetrics.width(spaceChar);
 
       if (caretStyle() == Replace && (cursorMaxWidth > 2))
-        paint.fillRect(cursorXPos2-xStart, 0, cursorMaxWidth, fs.fontHeight, m_doc->myAttribs[0].textColor());
+        paint.fillRect(cursorXPos2-xStart, 0, cursorMaxWidth, fs->fontHeight, m_doc->myAttribs[0].textColor());
       else
-        paint.fillRect(cursorXPos2-xStart, 0, 2, fs.fontHeight, m_doc->myAttribs[0].textColor());
+        paint.fillRect(cursorXPos2-xStart, 0, 2, fs->fontHeight, m_doc->myAttribs[0].textColor());
     }
   }
 
@@ -662,7 +629,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
   if (cursorCol < 0)
     cursorCol = len;
 
-  const FontStruct & fs = getFontStruct(font());
+  const FontStruct *fs = config()->fontStruct(font());
 
   int x = 0;
   int width;
@@ -670,10 +637,10 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
 
     if (z < len) {
-      width = a->width(fs, textLine->string(), z);
+      width = a->width(*fs, textLine->string(), z);
     } else {
       Q_ASSERT(!(m_doc->configFlags() & KateDocument::cfWrapCursor));
-      width = a->width(fs, spaceChar);
+      width = a->width(*fs, spaceChar);
     }
 
     x += width;
@@ -687,7 +654,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
 
 uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX)
 {
-  const FontStruct & fs = getFontStruct(font());
+  const FontStruct *fs = config()->fontStruct(font());
   uint x = 0;
   uint endcol = startcol;
   int endX2 = 0;
@@ -705,7 +672,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   for (; z < textLine->length(); z++)
   {
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
-    int width = a->width(fs, textLine->string(), z);
+    int width = a->width(*fs, textLine->string(), z);
     Q_ASSERT(width);
     x += width;
 
@@ -790,7 +757,7 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
   int len;
   int x, oldX;
 
-  const FontStruct & fs = getFontStruct(font());
+  const FontStruct *fs = config()->fontStruct(font());
 
   if (cursor.line() < 0) cursor.setLine(0);
   if (cursor.line() > (int)m_doc->lastLine()) cursor.setLine(m_doc->lastLine());
@@ -810,9 +777,9 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
     int width = 0;
 
     if (z < len)
-      width = a->width(fs, textLine->string(), z);
+      width = a->width(*fs, textLine->string(), z);
     else
-      width = a->width(fs, spaceChar);
+      width = a->width(*fs, spaceChar);
 
     x += width;
 
@@ -829,56 +796,14 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
   return x;
 }
 
-const FontStruct& KateRenderer::getFontStruct(int whichFont)
+const QFont *KateRenderer::currentFont()
 {
-  return *((whichFont == ViewFont) ? viewFont() : printFont());
+  return config()->font(font());
 }
 
-void KateRenderer::setFont(int whichFont, QFont font)
+const QFontMetrics* KateRenderer::currentFontMetrics()
 {
-  if (whichFont == ViewFont) {
-     viewFont()->setFont(font);
-     viewFont()->updateFontData(s_tabWidth);
-
-  } else {
-    printFont()->setFont(font);
-    printFont()->updateFontData(s_tabWidth);
-  }
-
-  if (whichFont == ViewFont)
-  {
-    for (uint z=0; z < KateFactory::documents()->count(); z++)
-    {
-      KateFactory::documents()->at(z)->updateFontData();
-      KateFactory::documents()->at(z)->updateViews();
-    }
-  }
-}
-
-const QFont& KateRenderer::getFont(int whichFont)
-{
-  if (whichFont == ViewFont)
-    return viewFont()->myFont;
-  else
-    return printFont()->myFont;
-}
-
-const QFont& KateRenderer::currentFont() const
-{
-  return getFont(font());
-}
-
-const QFontMetrics& KateRenderer::currentFontMetrics() const
-{
-  return getFontMetrics(font());
-}
-
-const QFontMetrics& KateRenderer::getFontMetrics(int whichFont)
-{
-  if (whichFont == ViewFont)
-    return viewFont()->myFontMetrics;
-  else
-    return printFont()->myFontMetrics;
+  return config()->fontMetrics(font());
 }
 
 uint KateRenderer::textPos(uint line, int xPos, uint startCol)
@@ -892,7 +817,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
   if (!textLine)
     return 0;
 
-  const FontStruct & fs = getFontStruct(font());
+  const FontStruct *fs = config()->fontStruct(font());
 
   int x, oldX;
   x = oldX = 0;
@@ -903,7 +828,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
     oldX = x;
 
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
-    x += a->width(fs, textLine->string(), z);
+    x += a->width(*fs, textLine->string(), z);
 
     z++;
   }
@@ -916,7 +841,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
 
 uint KateRenderer::fontHeight()
 {
-  return ((font()==ViewFont) ? viewFont()->fontHeight : printFont()->fontHeight);
+  return config()->fontStruct (font())->fontHeight;
 }
 
 uint KateRenderer::documentHeight()
@@ -965,3 +890,13 @@ bool KateRenderer::selectBounds(uint line, uint &start, uint &end, uint lineLeng
 
   return hasSel;
 }
+
+void KateRenderer::updateConfig ()
+{
+  if (m_view)
+  {
+    m_view->m_viewInternal->updateView (true);
+    m_view->update ();
+  }
+}
+

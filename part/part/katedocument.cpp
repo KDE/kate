@@ -44,6 +44,7 @@
 #include "kateviewhighlightaction.h"
 #include "katebrowserextension.h"
 #include "kateattribute.h"
+#include "kateconfig.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -142,8 +143,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   docWasSavedWhenUndoWasEmpty( true ),
   hlManager(HlManager::self ())
 {
-  KateFactory::registerDocument (this);
-
   setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceExtensionDCOPSuffix (documentDCOPSuffix());
@@ -160,6 +159,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setSessionConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
+
+  KateFactory::registerDocument (this);
+  m_config = new KateDocumentConfig (this);
 
   // init global plugin list
   if (!s_configLoaded)
@@ -254,8 +256,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   if (!s_configLoaded)
   {
     // some sane defaults for the first try
-    KateRenderer::setFont(KateRenderer::ViewFont, KGlobalSettings::fixedFont());
-    KateRenderer::setFont(KateRenderer::PrintFont, KGlobalSettings::fixedFont());
     KateRenderer::setTabWidth(8);
 
     colors[0] = KGlobalSettings::baseColor();
@@ -327,8 +327,10 @@ KateDocument::~KateDocument()
 
   m_highlight->release();
 
-  KateFactory::deregisterDocument (this);
   delete fileInfo;
+
+  delete m_config;
+  KateFactory::deregisterDocument (this);
 }
 //END
 
@@ -1849,6 +1851,15 @@ void KateDocument::setDontChangeHlOnSave()
 void KateDocument::readConfig(KConfig *config)
 {
   // set kate document section
+  config->setGroup("Kate Document Defaults");
+  KateDocumentConfig::global()->readConfig (config);
+
+  config->setGroup("Kate View Defaults");
+  KateViewConfig::global()->readConfig (config);
+
+  config->setGroup("Kate Renderer Defaults");
+  KateRendererConfig::global()->readConfig (config);
+
   config->setGroup("Kate Document");
 
   // basic and search config flags
@@ -1865,9 +1876,6 @@ void KateDocument::readConfig(KConfig *config)
 
   // undo steps
   setUndoSteps(config->readNumEntry("Undo Steps", myUndoSteps));
-
-  KateRenderer::setFont(KateRenderer::ViewFont, config->readFontEntry("View Font", &KateRenderer::getFont(KateRenderer::ViewFont)));
-  KateRenderer::setFont(KateRenderer::PrintFont, config->readFontEntry("Printer Font", &KateRenderer::getFont(KateRenderer::PrintFont)));
 
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
@@ -1921,7 +1929,17 @@ void KateDocument::updateViewDefaults ()
 
 void KateDocument::writeConfig(KConfig *config)
 {
+  config->setGroup("Kate Document Defaults");
+  KateDocumentConfig::global()->writeConfig (config);
+
+  config->setGroup("Kate View Defaults");
+  KateViewConfig::global()->writeConfig (config);
+
+  config->setGroup("Kate Renderer Defaults");
+  KateRendererConfig::global()->writeConfig (config);
+
   config->setGroup("Kate Document");
+
   config->writeEntry("Basic Config Flags",_configFlags);
   config->writeEntry("Search Config Flags",KateSearch::s_options);
 
@@ -1930,8 +1948,6 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Undo Steps", myUndoSteps);
   config->writeEntry("Tab Width", tabChars);
   config->writeEntry("Indentation Width", indentationChars);
-  config->writeEntry("View Font", KateRenderer::getFont(KateRenderer::ViewFont));
-  config->writeEntry("Printer Font", KateRenderer::getFont(KateRenderer::PrintFont));
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
@@ -2348,7 +2364,7 @@ bool KateDocument::printDialog ()
          QString s( QString("%1 ").arg( numLines() ) );
          s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
                           // FIXME calculate which is actually the widest...
-         lineNumberWidth = renderer.currentFontMetrics().width( s );
+         lineNumberWidth = renderer.currentFontMetrics()->width( s );
          //lineNumberWidth = printFont.myFontMetrics.maxWidth() * s.length(); // BAD!
          // adjust available width and set horizontal start point for data
          maxWidth -= lineNumberWidth;
@@ -2492,11 +2508,11 @@ bool KateDocument::printDialog ()
            _widest = QMAX( _widest, ((QFontMetrics)(
                                 _d->bold() ?
                                   _d->italic() ?
-                                    KateRenderer::getFontStruct(KateRenderer::PrintFont).myFontMetricsBI :
-                                    KateRenderer::getFontStruct(KateRenderer::PrintFont).myFontMetricsBold :
+                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetricsBI :
+                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetricsBold :
                                   _d->italic() ?
-                                    KateRenderer::getFontStruct(KateRenderer::PrintFont).myFontMetricsItalic :
-                                    KateRenderer::getFontStruct(KateRenderer::PrintFont).myFontMetrics
+                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetricsItalic :
+                                    renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontMetrics
                                     ) ).width( _d->name ) );
            _items++;
            ++it;
@@ -2687,7 +2703,7 @@ bool KateDocument::printDialog ()
                y += 1 + innerMargin;
              }
              // draw a title string
-             paint.setFont( KateRenderer::getFontStruct(KateRenderer::PrintFont).myFontBold );
+             paint.setFont( renderer.config()->fontStruct(KateRendererConfig::PrintFont)->myFontBold );
              QRect _r;
              paint.drawText( _marg, y, pdmWidth-(2*_marg), maxHeight - y,
                 Qt::AlignTop|Qt::AlignHCenter,
@@ -2706,7 +2722,7 @@ bool KateDocument::printDialog ()
              while ( ( _d = _it.current() ) != 0 )
              {
                paint.setPen( attribute(_i)->textColor() );
-               paint.setFont( attribute(_i)->font( renderer.currentFont() ) );
+               paint.setFont( attribute(_i)->font( *renderer.currentFont() ) );
                paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, renderer.fontHeight(),
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
                _i++;
@@ -2722,7 +2738,7 @@ bool KateDocument::printDialog ()
 
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
-           paint.setFont( KateRenderer::getFontStruct(KateRenderer::PrintFont).font( false, false ) );
+           paint.setFont( renderer.config()->fontStruct(KateRendererConfig::PrintFont)->font( false, false ) );
            paint.setPen( colors[1] ); // using "selected" color for now...
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
                         lineNumberWidth, renderer.fontHeight(),

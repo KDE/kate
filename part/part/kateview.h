@@ -31,11 +31,15 @@
 #include <ktexteditor/viewstatusmsginterface.h>
 #include <ktexteditor/texthintinterface.h>
 
+#include <kdebug.h>
+
 class KateDocument;
 class KateBookmarks;
 class KateSearch;
 class KateCmdLine;
 class KateCodeCompletion;
+class KateViewConfig;
+
 
 class KToggleAction;
 class KAction;
@@ -54,6 +58,7 @@ class KateView : public Kate::View,
 {
     Q_OBJECT
     friend class KateViewInternal;
+    friend class KateRenderer;
     friend class KateDocument;
     friend class KateUndoGroup;
     friend class KateUndo;
@@ -243,6 +248,8 @@ class KateView : public Kate::View,
     void setDynWrapIndicators( int state );
 
   public:
+    class KateRenderer *renderer ();
+
     bool iconBorder();
     bool lineNumbersOn();
     int dynWrapIndicators();
@@ -338,6 +345,7 @@ class KateView : public Kate::View,
 
     KateDocument*          m_doc;
     KateViewInternal*      m_viewInternal;
+    KateRenderer*          m_renderer;
     KateSearch*            m_search;
     KateBookmarks*         m_bookmarks;
     QPopupMenu*            m_rmbMenu;
@@ -354,6 +362,15 @@ class KateView : public Kate::View,
 
     private slots:
         void slotNeedTextHint(int line, int col, QString &text);
+
+  /**
+   * Configuration
+   */
+  public:
+    inline KateViewConfig *config () { return m_config; };
+
+  private:
+    KateViewConfig *m_config;
 };
 
 #endif

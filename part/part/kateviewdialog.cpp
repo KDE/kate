@@ -28,6 +28,7 @@
 
 #include "katesearch.h"
 #include "katedocument.h"
+#include "kateconfig.h"
 #include "kateview.h"
 #include "katefactory.h"
 #include "katerenderer.h"
@@ -736,14 +737,14 @@ void FontConfig::slotFontSelectedPrint( const QFont &font )
 
 void FontConfig::apply ()
 {
-  KateRenderer::setFont(KateRenderer::ViewFont,getFont());
-  KateRenderer::setFont(KateRenderer::PrintFont,getFontPrint());
+  KateRendererConfig::global()->setFont(KateRendererConfig::ViewFont,getFont());
+  KateRendererConfig::global()->setFont(KateRendererConfig::PrintFont,getFontPrint());
 }
 
 void FontConfig::reload ()
 {
-  setFont (KateRenderer::getFont(KateRenderer::ViewFont));
-  setFontPrint (KateRenderer::getFont(KateRenderer::PrintFont));
+  setFont (*KateRendererConfig::global()->font(KateRendererConfig::ViewFont));
+  setFontPrint (*KateRendererConfig::global()->font(KateRendererConfig::PrintFont));
 }
 //END FontConfig
 

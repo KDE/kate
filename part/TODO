@@ -7,6 +7,9 @@ For 3.0 and bugfix releases:
  - static word wrap
  - better indent/unindent
  - exhaustive testing of the new highlighting structure
+
+ - save and restore the line continue flag in the buffers
+
  - porting all .xml files to the new scheme.
     Small help:
            A context of #pop returns to the next higher one (pop) (#pop#pop returns two steps and so on)
@@ -16,9 +19,10 @@ For 3.0 and bugfix releases:
 
  - code completion : some keyboard handling fixes
 
- - fix the highlighting crash in doHighlight, which only happens in rare cases
- - fix the infinite in doHighlight, which only happens in rare cases (could be related to the line continue item)
- - save and restore the line continue flag in the buffers
+
+
+ - fix the highlighting crash in doHighlight, which only happens in rare cases (should be fixed now)
+ - fix the infinite in doHighlight, which only happens in rare cases (could be related to the line continue item) (should be fixed now)
 
  - fix the blockwise selection. I think it should really be a block ;)
 

@@ -33,7 +33,7 @@ class KateConfig
     KateConfig ();
     virtual ~KateConfig ();
 
-   public:
+   protected:
      void configStart ();
      void configEnd ();
 
@@ -78,9 +78,7 @@ class KateDocumentConfig : public KateConfig
      */
     void writeConfig (KConfig *config);
 
-    /**
-     * update the related document
-     */
+  protected:
     void updateConfig ();
 
   public:
@@ -152,9 +150,7 @@ class KateViewConfig : public KateConfig
      */
     void writeConfig (KConfig *config);
 
-    /**
-     * update the related document
-     */
+  protected:
     void updateConfig ();
 
   public:
@@ -201,9 +197,7 @@ class KateRendererConfig : public KateConfig
      */
     void writeConfig (KConfig *config);
 
-    /**
-     * update the related document
-     */
+  protected:
     void updateConfig ();
 
   public:

@@ -40,12 +40,27 @@ KateConfig::~KateConfig ()
 
 void KateConfig::configStart ()
 {
+  configSessionNumber++;
 
+  if (configSessionNumber > 1)
+    return;
+
+  configIsRunning = true;
 }
 
 void KateConfig::configEnd ()
 {
+  if (configSessionNumber == 0)
+    return;
 
+  configSessionNumber--;
+
+  if (configSessionNumber > 0)
+    return;
+
+  configIsRunning = false;
+
+  updateConfig ();
 }
 
 KateDocumentConfig *KateDocumentConfig::s_global = 0;
@@ -92,6 +107,8 @@ KateDocumentConfig *KateDocumentConfig::global ()
 
 void KateDocumentConfig::readConfig (KConfig *config)
 {
+  configStart ();
+
   setTabWidth (config->readNumEntry("Tab Width", 8));
 
   setIndentationWidth (config->readNumEntry("Indentation Width", 2));
@@ -100,6 +117,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setWordWrapAt (config->readNumEntry("Word Wrap Column", 80));
 
   setUndoSteps(config->readNumEntry("Undo Steps", 0));
+
+  configEnd ();
 }
 
 void KateDocumentConfig::writeConfig (KConfig *config)
@@ -146,10 +165,12 @@ void KateDocumentConfig::setTabWidth (int tabWidth)
   if (tabWidth < 1)
     return;
 
+  configStart ();
+
   m_tabWidthSet = true;
   m_tabWidth = tabWidth;
 
-  updateConfig ();
+  configEnd ();
 }
 
 int KateDocumentConfig::indentationWidth () const
@@ -165,10 +186,12 @@ void KateDocumentConfig::setIndentationWidth (int indentationWidth)
   if (indentationWidth < 1)
     return;
 
+  configStart ();
+
   m_indentationWidthSet = true;
   m_indentationWidth = indentationWidth;
 
-  updateConfig ();
+  configEnd ();
 }
 
 bool KateDocumentConfig::wordWrap () const
@@ -181,10 +204,12 @@ bool KateDocumentConfig::wordWrap () const
 
 void KateDocumentConfig::setWordWrap (bool on)
 {
+  configStart ();
+
   m_wordWrapSet = true;
   m_wordWrap = on;
 
-  updateConfig ();
+  configEnd ();
 }
 
 unsigned int KateDocumentConfig::wordWrapAt () const
@@ -200,10 +225,12 @@ void KateDocumentConfig::setWordWrapAt (unsigned int col)
   if (col < 1)
     return;
 
+  configStart ();
+
   m_wordWrapAtSet = true;
   m_wordWrapAt = col;
 
-  updateConfig ();
+  configEnd ();
 }
 
 uint KateDocumentConfig::undoSteps () const
@@ -216,10 +243,12 @@ uint KateDocumentConfig::undoSteps () const
 
 void KateDocumentConfig::setUndoSteps (uint undoSteps)
 {
+  configStart ();
+
   m_undoStepsSet = true;
   m_undoSteps = undoSteps;
 
-  updateConfig ();
+  configEnd ();
 }
 
 KateViewConfig::KateViewConfig ()
@@ -254,6 +283,9 @@ KateViewConfig *KateViewConfig::global ()
 
 void KateViewConfig::readConfig (KConfig *config)
 {
+  configStart ();
+
+  configEnd ();
 }
 
 void KateViewConfig::writeConfig (KConfig *config)
@@ -319,10 +351,14 @@ KateRendererConfig *KateRendererConfig::global ()
 
 void KateRendererConfig::readConfig (KConfig *config)
 {
+  configStart ();
+
   QFont f (KGlobalSettings::fixedFont());
 
   setFont(KateRendererConfig::ViewFont, config->readFontEntry("View Font", &f));
   setFont(KateRendererConfig::PrintFont, config->readFontEntry("Printer Font", &f));
+
+  configEnd ();
 }
 
 void KateRendererConfig::writeConfig (KConfig *config)
@@ -352,6 +388,8 @@ void KateRendererConfig::updateConfig ()
 
 void KateRendererConfig::setFont(int whichFont, QFont font)
 {
+  configStart ();
+
   if (whichFont == ViewFont) {
     if (!m_viewFontSet)
     {
@@ -371,7 +409,7 @@ void KateRendererConfig::setFont(int whichFont, QFont font)
     m_printFont->setFont(font);
   }
 
-  updateConfig ();
+  configEnd ();
 }
 
 const FontStruct *KateRendererConfig::fontStruct (int whichFont)

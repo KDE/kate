@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.05" kateversion="2.1" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr">
+<!-- Author: Anders Lund <anders@alweb.dk> //-->
+<!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
+<!-- Minimal javascript support //-->
+<language name="JavaScript" version="1.03" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
   <highlighting>
     <list name="keywords">
         <item> if </item>

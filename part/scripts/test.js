@@ -1,6 +1,6 @@
 var test = 1;
 
-var start = document.numLines ()
+var start = document.lines ()
 
 document.editBegin();
 

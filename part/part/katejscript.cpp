@@ -86,7 +86,7 @@ class KateJSDocument : public KJS::ObjectImp
     enum { FullText,
           Text,
           TextLine,
-          NumLines,
+          Lines,
           Length,
           LineLength,
           SetText,
@@ -126,7 +126,7 @@ class KateJSView : public KJS::ObjectImp
           Selection,
           HasSelection,
           SetSelection,
-          RemoveSelection,
+          RemoveSelectedText,
           SelectAll,
           ClearSelection,
           SelStartLine,
@@ -216,9 +216,9 @@ bool KateJScript::execute (KateView *view, const QString &script, QString &error
 # edit interface stuff + editBegin/End, this is nice start
 #
   textFull       KateJSDocument::FullText      DontDelete|Function 0
-  textPart       KateJSDocument::Text          DontDelete|Function 4
+  textRange      KateJSDocument::Text          DontDelete|Function 4
   textLine       KateJSDocument::TextLine      DontDelete|Function 1
-  numLines       KateJSDocument::NumLines      DontDelete|Function 0
+  lines          KateJSDocument::Lines         DontDelete|Function 0
   length         KateJSDocument::Length        DontDelete|Function 0
   lineLength     KateJSDocument::LineLength    DontDelete|Function 1
   setText        KateJSDocument::SetText       DontDelete|Function 1
@@ -258,7 +258,7 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
     case KateJSDocument::TextLine:
       return KJS::String (doc->textLine (args[0].toUInt32(exec)));
 
-    case KateJSDocument::NumLines:
+    case KateJSDocument::Lines:
       return KJS::Number (doc->numLines());
 
     case KateJSDocument::Length:
@@ -316,7 +316,7 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
   selection           KateJSView::Selection         DontDelete|Function 0
   hasSelection        KateJSView::HasSelection      DontDelete|Function 0
   setSelection        KateJSView::SetSelection      DontDelete|Function 4
-  removeSelection     KateJSView::RemoveSelection     DontDelete|Function 0
+  removeSelectedText  KateJSView::RemoveSelectedText  DontDelete|Function 0
   selectAll           KateJSView::SelectAll           DontDelete|Function 0
   clearSelection      KateJSView::ClearSelection      DontDelete|Function 0
 @end
@@ -324,10 +324,10 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
 
 /* Source for KateJSViewTable.
 @begin KateJSViewTable 5
-  selStartLine        KateJSView::SelStartLine        DontDelete|ReadOnly
-  selStartCol         KateJSView::SelStartCol         DontDelete|ReadOnly
-  selEndLine          KateJSView::SelEndLine          DontDelete|ReadOnly
-  selEndCol           KateJSView::SelEndCol           DontDelete|ReadOnly
+  selectionStartLine    KateJSView::SelStartLine        DontDelete|ReadOnly
+  selectionStartColumn  KateJSView::SelStartCol         DontDelete|ReadOnly
+  selectionEndLine      KateJSView::SelEndLine          DontDelete|ReadOnly
+  selectionEndColumn    KateJSView::SelEndCol           DontDelete|ReadOnly
 @end
 */
 
@@ -370,7 +370,7 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
                                                      args[2].toUInt32(exec),
                                                      args[3].toUInt32(exec)) );
 
-    case KateJSView::RemoveSelection:
+    case KateJSView::RemoveSelectedText:
       return KJS::Boolean( view->getDoc()->removeSelectedText() );
 
     case KateJSView::SelectAll:

@@ -315,6 +315,7 @@ KateDocument::~KateDocument()
   {
     m_kspell->setAutoDelete(true);
     m_kspell->cleanUp(); // need a way to wait for this to complete
+    delete m_kspell;
   }
 
   delete m_kspellConfig;

@@ -76,9 +76,15 @@ class KateDocCursor : public KateTextCursor
 
     bool validPosition(uint _line, uint _col);
     bool validPosition();
+
     bool gotoNextLine();
+    bool gotoPreviousLine();
+    bool gotoEndOfNextLine();
+    bool gotoEndOfPreviousLine();
+
     int nbCharsOnLineAfter();
     bool moveForward(uint nbChar);
+    bool moveBackward(uint nbChar);
 
     // KTextEditor::Cursor interface
     void position(uint *line, uint *col) const;

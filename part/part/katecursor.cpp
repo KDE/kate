@@ -84,6 +84,36 @@ bool KateDocCursor::gotoNextLine()
   return ok;
 }
 
+bool KateDocCursor::gotoPreviousLine()
+{
+  bool ok = (line > 0);
+ 
+  if (ok) {
+    line--;
+    col = 0;
+  }
+
+  return ok;
+}
+
+bool KateDocCursor::gotoEndOfNextLine()
+{
+  bool ok = gotoNextLine();
+  if(ok)
+    col = myDoc->textLength(line);
+
+  return ok;
+}
+
+bool KateDocCursor::gotoEndOfPreviousLine()
+{
+  bool ok = gotoPreviousLine();
+  if(ok)
+    col = myDoc->textLength(line);
+
+  return ok;
+}
+
 bool KateDocCursor::moveForward(uint nbChar)
 {
   int nbCharLeft = nbChar - nbCharsOnLineAfter();
@@ -92,6 +122,17 @@ bool KateDocCursor::moveForward(uint nbChar)
     return gotoNextLine() && moveForward((uint)nbCharLeft);
   } else {
     col += nbChar;
+    return true;
+  }
+}
+
+bool KateDocCursor::moveBackward(uint nbChar)
+{
+  int nbCharLeft = nbChar - col;
+  if(nbCharLeft > 0) {
+    return gotoEndOfPreviousLine() && moveBackward((uint)nbCharLeft);
+  } else {
+    col -= nbChar;
     return true;
   }
 }

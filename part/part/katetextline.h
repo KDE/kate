@@ -23,9 +23,10 @@
 #ifndef _KATE_TEXTLINE_H_
 #define _KATE_TEXTLINE_H_
 
+#include <ksharedptr.h>
+
 #include <qmemarray.h>
 #include <qstring.h>
-#include <ksharedptr.h>
 #include <qvaluevector.h>
 
 class KateBuffer;

@@ -19,13 +19,11 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef kate_font_h
-#define kate_font_h
+#ifndef __kate_font_h__
+#define __kate_font_h__
 
 #include <qfont.h>
 #include <qfontmetrics.h>
-#include <qcolor.h>
-
 
 /**
  * rodda: obsolete this and replace with KateAttribute functions

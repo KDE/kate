@@ -22,6 +22,7 @@
 // $Id$
 
 #include "katecursor.h"
+
 #include "katedocument.h"
 #include "katetextline.h"
 
@@ -213,7 +214,7 @@ bool KateDocCursor::removeText(uint nbChar)
 
   // Remove the text
   return m_doc->removeText((uint)line(), (uint)col(),
-			   (uint)endCursor.line(), (uint)endCursor.col());
+         (uint)endCursor.line(), (uint)endCursor.col());
 }
 
 QChar KateDocCursor::currentChar() const

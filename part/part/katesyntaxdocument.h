@@ -26,8 +26,6 @@
 #include <qstringlist.h>
 //END INCLUDES
 
-class QStringList;
-
 /** Information about each syntax hl Mode
 */
 class syntaxModeListItem{
@@ -56,7 +54,8 @@ class syntaxContextData{
 
 /** Store and manage the information about Syntax Highlighting.
 */
-class SyntaxDocument : public QDomDocument{
+class SyntaxDocument : public QDomDocument
+{
   public:
     /**
      * Constructor:

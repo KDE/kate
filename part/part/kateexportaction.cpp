@@ -20,17 +20,17 @@
 
 #include "kateexportaction.h"
 #include "kateexportaction.moc"
+
 #include <kpopupmenu.h>
 #include <klocale.h>
 
-
 void KateExportAction::init()
 {
-	filter.clear();
-	filter<<QString("kate_html_export");
-	popupMenu()->insertItem (i18n("&HTML..."),0);
-	connect(popupMenu(),SIGNAL(activated(int)),this,SLOT(filterChoosen(int)));
-	m_doc=0L;
+  filter.clear();
+  filter<<QString("kate_html_export");
+  popupMenu()->insertItem (i18n("&HTML..."),0);
+  connect(popupMenu(),SIGNAL(activated(int)),this,SLOT(filterChoosen(int)));
+  m_doc=0L;
 }
 
 void KateExportAction::updateMenu (Kate::Document *doc)
@@ -45,5 +45,5 @@ void KateExportAction::filterChoosen(int id)
   if (!doc)
     return;
 
-	doc->exportAs(*filter.at(id));
+  doc->exportAs(*filter.at(id));
 }

@@ -23,10 +23,12 @@
 #ifndef _KATE_VIEWDIALOG_H_
 #define _KATE_VIEWDIALOG_H_
 
-#include "katesearch.h"
 #include "../interfaces/document.h"
 
 #include <kdialogbase.h>
+
+class KateDocument;
+class KateView;
 
 class KAccel;
 class KColorButton;
@@ -46,9 +48,6 @@ class QLineEdit;
 class QPushButton;
 class QRadioButton;
 class QSpinBox;
-
-class KateDocument;
-class KateView;
 
 class ReplacePrompt : public KDialogBase
 {

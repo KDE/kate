@@ -44,11 +44,16 @@
 // $Id$
 
 #include "katedialogs.h"
+#include "katedialogs.moc"
+
 #include "katesyntaxdocument.h"
-#include "katehighlight.h"
-#include "katedocument.h"
+#include "hlparamedit.h"
+#include "katehighlightdownload.h"
+#include "attribeditor.h"
+#include "katefactory.h"
 
 #include <kapplication.h>
+#include <kspell.h>
 #include <kbuttonbox.h>
 #include <kcharsets.h>
 #include <kcolorcombo.h>
@@ -66,6 +71,7 @@
 #include <kpopupmenu.h>
 #include <krun.h>
 #include <kstandarddirs.h>
+
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qgroupbox.h>
@@ -85,15 +91,6 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qwidgetstack.h>
-
-
-#include "hlparamedit.h"
-
-#include "katedialogs.moc"
-#include "katehighlightdownload.h"
-#include "attribeditor.h"
-#include "katefactory.h"
-
 
 #warning FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and there is a need for an itemUnset(XYZ)
 

@@ -23,17 +23,21 @@
 /* Trolltech doesn't mind, if we license that piece of code as LGPL, because there isn't much
  * left from the designer code */
 
-#include <qregexp.h>
-#include <klocale.h>
-
-#include <kdebug.h>
-#include <qtooltip.h>
-
 #include "katecodecompletion_arghint.h"
 #include "katecodecompletion_arghint.moc"
 
 #include "kateview.h"
 #include "katedocument.h"
+
+#include <klocale.h>
+
+#include <qaccel.h>
+#include <qregexp.h>
+#include <qtooltip.h>
+#include <qlabel.h>
+#include <qpainter.h>
+#include <qlayout.h>
+#include <qfont.h>
 
 static const char* left_xpm[] = {
 "16 16 3 1",
@@ -83,292 +87,290 @@ static const char* right_xpm[] = {
 ArgHintArrow::ArgHintArrow ( QWidget *parent, Dir d )
     : QButton( parent, 0, WStyle_NormalBorder )
 {
-	setFixedSize ( 16, 16 );
+  setFixedSize ( 16, 16 );
 
-	if ( d == Left )
-		pix = QPixmap ( left_xpm );
-	else
-		pix = QPixmap ( right_xpm );
+  if ( d == Left )
+    pix = QPixmap ( left_xpm );
+  else
+    pix = QPixmap ( right_xpm );
 }
 
 void ArgHintArrow::drawButton ( QPainter *p )
 {
-	if ( isEnabled() )
-		p->drawPixmap ( 0, 0, pix );
+  if ( isEnabled() )
+    p->drawPixmap ( 0, 0, pix );
 }
 
 
 KDevArgHint::KDevArgHint ( QWidget *parent ) : QFrame ( parent, 0,  WType_Popup ),ESC_accel(0)
 {
-	setFrameStyle ( QFrame::Box | QFrame::Plain );
-	setLineWidth ( 1 );
-			//	setBackgroundColor ( QColor ( 255, 255, 238 ) );
+  setFrameStyle ( QFrame::Box | QFrame::Plain );
+  setLineWidth ( 1 );
+      //  setBackgroundColor ( QColor ( 255, 255, 238 ) );
 
-	setPalette(QToolTip::palette());
+  setPalette(QToolTip::palette());
 
-	QHBoxLayout* hbox = new QHBoxLayout ( this );
-	hbox->setMargin ( 1 );
+  QHBoxLayout* hbox = new QHBoxLayout ( this );
+  hbox->setMargin ( 1 );
 
-	hbox->addWidget ( ( m_pPrev = new ArgHintArrow ( this , ArgHintArrow::Left ) ) );
-	hbox->addWidget ( ( m_pStateLabel = new QLabel ( this ) ) );
-	hbox->addWidget ( ( m_pNext = new ArgHintArrow ( this, ArgHintArrow::Right ) ) );
-	hbox->addWidget ( ( m_pFuncLabel = new QLabel ( this ) ) );
+  hbox->addWidget ( ( m_pPrev = new ArgHintArrow ( this , ArgHintArrow::Left ) ) );
+  hbox->addWidget ( ( m_pStateLabel = new QLabel ( this ) ) );
+  hbox->addWidget ( ( m_pNext = new ArgHintArrow ( this, ArgHintArrow::Right ) ) );
+  hbox->addWidget ( ( m_pFuncLabel = new QLabel ( this ) ) );
 
 
-	setFocusPolicy ( StrongFocus );
-	setFocusProxy ( parent );
+  setFocusPolicy ( StrongFocus );
+  setFocusProxy ( parent );
 
-				//	m_pStateLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
-	m_pStateLabel->setPalette(QToolTip::palette());
-	m_pStateLabel->setAlignment ( AlignCenter );
-	m_pStateLabel->setFont ( QToolTip::font() );
-				//	m_pFuncLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
-	m_pFuncLabel->setPalette(QToolTip::palette());
-	m_pFuncLabel->setAlignment ( AlignCenter);
-	m_pFuncLabel->setFont ( QToolTip::font() );
+        //  m_pStateLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
+  m_pStateLabel->setPalette(QToolTip::palette());
+  m_pStateLabel->setAlignment ( AlignCenter );
+  m_pStateLabel->setFont ( QToolTip::font() );
+        //  m_pFuncLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
+  m_pFuncLabel->setPalette(QToolTip::palette());
+  m_pFuncLabel->setAlignment ( AlignCenter);
+  m_pFuncLabel->setFont ( QToolTip::font() );
 
-	m_pPrev->setFixedSize ( 16, 16 );
-	m_pStateLabel->setFixedSize ( 36, 16 );
-	m_pNext->setFixedSize ( 16, 16 );
+  m_pPrev->setFixedSize ( 16, 16 );
+  m_pStateLabel->setFixedSize ( 36, 16 );
+  m_pNext->setFixedSize ( 16, 16 );
 
-	connect ( m_pPrev, SIGNAL ( clicked() ), this, SLOT ( gotoPrev() ) );
-	connect ( m_pNext, SIGNAL ( clicked() ), this, SLOT ( gotoNext() ) );
+  connect ( m_pPrev, SIGNAL ( clicked() ), this, SLOT ( gotoPrev() ) );
+  connect ( m_pNext, SIGNAL ( clicked() ), this, SLOT ( gotoNext() ) );
 
-	m_nNumFunc = m_nCurFunc = m_nCurLine = 0;
+  m_nNumFunc = m_nCurFunc = m_nCurLine = 0;
 
-	m_nCurArg = 1;
+  m_nCurArg = 1;
 
-	m_bMarkingEnabled = false;
+  m_bMarkingEnabled = false;
 
-	updateState();
+  updateState();
 }
 
 KDevArgHint::~KDevArgHint()
 {
-	delete m_pPrev;
-	delete m_pNext;
-	delete m_pStateLabel;
-	delete m_pFuncLabel;
+  delete m_pPrev;
+  delete m_pNext;
+  delete m_pStateLabel;
+  delete m_pFuncLabel;
 }
 
 /*
 void KDevArgHint::setFont ( const QFont& font )
 {
-	m_pFuncLabel->setFont ( font );
-	m_pStateLabel->setFont ( font );
+  m_pFuncLabel->setFont ( font );
+  m_pStateLabel->setFont ( font );
 }*/
 
 /** No descriptions */
 void KDevArgHint::gotoPrev()
 {
-	if ( m_nCurFunc > 0 )
-		m_nCurFunc--;
-	else
-		m_nCurFunc = m_nNumFunc - 1;
-  
-	updateState();
+  if ( m_nCurFunc > 0 )
+    m_nCurFunc--;
+  else
+    m_nCurFunc = m_nNumFunc - 1;
+
+  updateState();
 }
 
 /** No descriptions */
 void KDevArgHint::gotoNext()
 {
-	if ( m_nCurFunc < m_nNumFunc - 1 )
-		m_nCurFunc++;
-	else
-		m_nCurFunc = 0;
+  if ( m_nCurFunc < m_nNumFunc - 1 )
+    m_nCurFunc++;
+  else
+    m_nCurFunc = 0;
 
-	updateState();
+  updateState();
 }
 
 /** No descriptions */
 void KDevArgHint::updateState()
 {
-	QString strState;
+  QString strState;
         strState = (i18n (  "%1 of %2" )).arg( m_nCurFunc + 1).arg(m_nNumFunc );
 
-	m_pStateLabel->setText ( strState );
+  m_pStateLabel->setText ( strState );
 
-	m_pFuncLabel->setText ( markCurArg() );
+  m_pFuncLabel->setText ( markCurArg() );
 
-	if ( m_nNumFunc <= 1 )
-	{
-		m_pPrev->hide();
-		m_pNext->hide();
-		m_pStateLabel->hide();
-	}
-	else
-	{
-		m_pPrev->show();
-		m_pNext->show();
-		m_pStateLabel->show();
-	}
+  if ( m_nNumFunc <= 1 )
+  {
+    m_pPrev->hide();
+    m_pNext->hide();
+    m_pStateLabel->hide();
+  }
+  else
+  {
+    m_pPrev->show();
+    m_pNext->show();
+    m_pStateLabel->show();
+  }
 
-	m_pPrev->adjustSize();
-	m_pStateLabel->adjustSize();
-	m_pNext->adjustSize();
-	m_pFuncLabel->adjustSize();
-	adjustSize();
+  m_pPrev->adjustSize();
+  m_pStateLabel->adjustSize();
+  m_pNext->adjustSize();
+  m_pFuncLabel->adjustSize();
+  adjustSize();
 }
 
 void KDevArgHint::reset()
 {
-	m_funcList.clear();
+  m_funcList.clear();
 
-	m_nNumFunc = m_nCurFunc = m_nCurLine = 0;
-	m_nCurArg = 1;
+  m_nNumFunc = m_nCurFunc = m_nCurLine = 0;
+  m_nCurArg = 1;
 
-	updateState();
-	ESC_accel=new QAccel((QWidget*)parent());
-	ESC_accel->insertItem(Key_Escape,1);
-	ESC_accel->setEnabled(true);
-	connect(ESC_accel,SIGNAL(activated(int)),this,SLOT(slotDone(int)));
+  updateState();
+  ESC_accel=new QAccel((QWidget*)parent());
+  ESC_accel->insertItem(Key_Escape,1);
+  ESC_accel->setEnabled(true);
+  connect(ESC_accel,SIGNAL(activated(int)),this,SLOT(slotDone(int)));
 }
 
 void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
 {
-	if ( m_nCurLine == 0 )
-		m_nCurLine = nLine;
+  if ( m_nCurLine == 0 )
+    m_nCurLine = nLine;
 
-	if ( m_nCurLine > 0 && m_nCurLine != nLine)
-	{
-		slotDone(0);
-		return;
-	}
+  if ( m_nCurLine > 0 && m_nCurLine != nLine)
+  {
+    slotDone(0);
+    return;
+  }
 
-	if ( view->getDoc()->hasSelection() )
-	{
-		slotDone(0);
-		return;
-	}
+  if ( view->getDoc()->hasSelection() )
+  {
+    slotDone(0);
+    return;
+  }
 
-	
-	
- 	QString strCurLine="";
-	if (view->doc()->kateTextLine(nLine)) strCurLine = view->doc()->kateTextLine ( nLine )->string();
-	strCurLine.replace(QRegExp("\t"),"        "); // hack which asume that TAB is 8 char big #fixme
-	//strCurLine = strCurLine.left ( nCol );
-	QString strLineToCursor = strCurLine.left ( nCol );
-	QString strLineAfterCursor = strCurLine.mid ( nCol, ( strCurLine.length() - nCol ) );
 
-	// only for testing
-	//strCurLine = strLineToCursor;
 
-	int nBegin = strLineToCursor.findRev ( m_strArgWrapping[0] );
+   QString strCurLine="";
+  if (view->doc()->kateTextLine(nLine)) strCurLine = view->doc()->kateTextLine ( nLine )->string();
+  strCurLine.replace(QRegExp("\t"),"        "); // hack which asume that TAB is 8 char big #fixme
+  //strCurLine = strCurLine.left ( nCol );
+  QString strLineToCursor = strCurLine.left ( nCol );
+  QString strLineAfterCursor = strCurLine.mid ( nCol, ( strCurLine.length() - nCol ) );
 
-	if ( nBegin == -1 || // the first wrap was not found
-	nBegin != -1 && strLineToCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // || // the first and the second wrap were found before the cursor
-	//nBegin != -1 && strLineAfterCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // the first wrap was found before the cursor and the second beyond
-	{
-		slotDone(0);
-		//m_nCurLine = 0; // reset m_nCurLine so that ArgHint is finished
-	}
+  // only for testing
+  //strCurLine = strLineToCursor;
 
-	int nCountDelimiter = 0;
+  int nBegin = strLineToCursor.findRev ( m_strArgWrapping[0] );
 
-	while ( nBegin != -1 )
-	{
-	  nBegin = strLineToCursor.find ( m_strArgDelimiter, nBegin + 1 );
+  if ( nBegin == -1 || // the first wrap was not found
+  nBegin != -1 && strLineToCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // || // the first and the second wrap were found before the cursor
+  //nBegin != -1 && strLineAfterCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // the first wrap was found before the cursor and the second beyond
+  {
+    slotDone(0);
+    //m_nCurLine = 0; // reset m_nCurLine so that ArgHint is finished
+  }
 
-		if ( nBegin != -1 )
-			nCountDelimiter++;
-	}
+  int nCountDelimiter = 0;
 
-	setCurArg ( nCountDelimiter + 1 );
+  while ( nBegin != -1 )
+  {
+    nBegin = strLineToCursor.find ( m_strArgDelimiter, nBegin + 1 );
+
+    if ( nBegin != -1 )
+      nCountDelimiter++;
+  }
+
+  setCurArg ( nCountDelimiter + 1 );
 }
 
 void KDevArgHint::setFunctionText ( int nFunc, const QString& strText )
 {
-	m_funcList.replace ( nFunc, strText );
+  m_funcList.replace ( nFunc, strText );
 
-	m_nNumFunc++;
+  m_nNumFunc++;
 
-	if ( nFunc == m_nCurFunc )
-		m_pFuncLabel->clear();
+  if ( nFunc == m_nCurFunc )
+    m_pFuncLabel->clear();
 
-	updateState();
+  updateState();
 }
 
 void KDevArgHint::setArgMarkInfos ( const QString& strWrapping, const QString& strDelimiter )
 {
-	if ( strWrapping.isEmpty() || strDelimiter.isEmpty() )
-		return;
+  if ( strWrapping.isEmpty() || strDelimiter.isEmpty() )
+    return;
 
-	m_strArgWrapping = strWrapping;
-	m_strArgDelimiter = strDelimiter;
-	m_bMarkingEnabled = true;
+  m_strArgWrapping = strWrapping;
+  m_strArgDelimiter = strDelimiter;
+  m_bMarkingEnabled = true;
 }
 
 void KDevArgHint::nextArg()
 {
-	m_nCurArg++;
+  m_nCurArg++;
 
-	updateState();
+  updateState();
 }
 
 void KDevArgHint::prevArg()
 {
-	m_nCurArg--;
+  m_nCurArg--;
 
-	updateState();
+  updateState();
 }
 
 void KDevArgHint::setCurArg ( int nCurArg )
 {
-	if ( m_nCurArg == nCurArg )
-		return;
+  if ( m_nCurArg == nCurArg )
+    return;
 
-	m_nCurArg = nCurArg;
+  m_nCurArg = nCurArg;
 
-	updateState();
+  updateState();
 }
 
 QString KDevArgHint::markCurArg()
 {
-	QString strFuncText = m_funcList [ m_nCurFunc ];
+  QString strFuncText = m_funcList [ m_nCurFunc ];
 
-	if ( !m_bMarkingEnabled )
-		return strFuncText;
+  if ( !m_bMarkingEnabled )
+    return strFuncText;
 
-	if ( strFuncText.isEmpty() )
-		return "\0";
+  if ( strFuncText.isEmpty() )
+    return "\0";
 
 
-	int nBegin = strFuncText.find ( m_strArgWrapping[0] ) + 1;
-	int nEnd = nBegin;
+  int nBegin = strFuncText.find ( m_strArgWrapping[0] ) + 1;
+  int nEnd = nBegin;
 
-	for ( int i = 0; i <= m_nCurArg; i++ )
-	{
-		if ( i > 1 )
-			nBegin = nEnd + 1;
+  for ( int i = 0; i <= m_nCurArg; i++ )
+  {
+    if ( i > 1 )
+      nBegin = nEnd + 1;
 
-		if ( strFuncText.find ( m_strArgDelimiter , nBegin ) == -1 )
-		{
-			nEnd = strFuncText.find ( m_strArgWrapping[1], nBegin );
+    if ( strFuncText.find ( m_strArgDelimiter , nBegin ) == -1 )
+    {
+      nEnd = strFuncText.find ( m_strArgWrapping[1], nBegin );
 
-			break;
-		}
-		else
-			nEnd = strFuncText.find ( m_strArgDelimiter, nBegin );
-	}
+      break;
+    }
+    else
+      nEnd = strFuncText.find ( m_strArgDelimiter, nBegin );
+  }
 
-	strFuncText = strFuncText.insert ( nBegin, "<b>" );
-	strFuncText = strFuncText.insert ( ( nEnd + 3 ), "</b>" );
+  strFuncText = strFuncText.insert ( nBegin, "<b>" );
+  strFuncText = strFuncText.insert ( ( nEnd + 3 ), "</b>" );
 
-	while ( strFuncText.find ( ' ', 0 ) != -1 ) // replace ' ' with "&ndsp;" so that there's no wrap
-		strFuncText = strFuncText.replace ( ( strFuncText.find ( ' ', 0 ) ), 1, "&nbsp;" );
+  while ( strFuncText.find ( ' ', 0 ) != -1 ) // replace ' ' with "&ndsp;" so that there's no wrap
+    strFuncText = strFuncText.replace ( ( strFuncText.find ( ' ', 0 ) ), 1, "&nbsp;" );
 
-	strFuncText = strFuncText.prepend ( "<qt>&nbsp;" );
-	strFuncText = strFuncText.append ( "</qt>" );
+  strFuncText = strFuncText.prepend ( "<qt>&nbsp;" );
+  strFuncText = strFuncText.append ( "</qt>" );
 
-	kdDebug ( 12001 ) << strFuncText <<endl;
-
-	return strFuncText;
+  return strFuncText;
 }
 
 void KDevArgHint::slotDone(int /* id */)
 {
-	// kdDebug(13000)<<QString("Slot done %1").arg(id)<<endl;
-	hide();
-	if (ESC_accel) {delete ESC_accel; ESC_accel=0;}
-	emit argHintHidden();
+  // kdDebug(13000)<<QString("Slot done %1").arg(id)<<endl;
+  hide();
+  if (ESC_accel) {delete ESC_accel; ESC_accel=0;}
+  emit argHintHidden();
 }

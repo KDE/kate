@@ -32,10 +32,6 @@
 #include "katefactory.h"
 #include "katerenderer.h"
 
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <kaccel.h>
 #include <kcharsets.h>
 #include <kcolorbutton.h>
@@ -72,6 +68,10 @@
 #include <qvbox.h>
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
+
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 //END Includes
 
 //BEGIN ReplacePrompt

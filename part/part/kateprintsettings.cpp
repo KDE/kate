@@ -19,7 +19,7 @@
  **/
 
 // $Id$
- 
+
 #include "kateprintsettings.h"
 
 #include <kcolorbutton.h>
@@ -42,23 +42,23 @@ KatePrintTextSettings::KatePrintTextSettings( KPrinter */*printer*/, QWidget *pa
   : KPrintDialogPage( parent, name )
 {
   setTitle( i18n("Te&xt Settings") );
-  
+
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
-  
+
   cbSelection = new QCheckBox( i18n("Print &Selected Text Only"), this );
   lo->addWidget( cbSelection );
-  
+
   cbLineNumbers = new QCheckBox( i18n("Print &Line Numbers"), this );
   lo->addWidget( cbLineNumbers );
-  
+
   cbGuide = new QCheckBox( i18n("Print Syntax &Guide"), this );
-  lo->addWidget( cbGuide ); 
+  lo->addWidget( cbGuide );
 
   lo->addStretch( 1 );
 
-  // set defaults - nothing to do :-)  
-  
+  // set defaults - nothing to do :-)
+
   // whatsthis
   QWhatsThis::add( cbSelection, i18n(
         "<p>This option is only available if some text is selected in the document.</p>"
@@ -103,18 +103,18 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   : KPrintDialogPage( parent, name )
 {
   setTitle( i18n("Hea&der && Footer") );
-  
+
   QVBoxLayout *lo = new QVBoxLayout ( this );
   uint sp = KDialog::spacingHint();
   lo->setSpacing( sp );
-  
+
   // enable
   QHBoxLayout *lo1 = new QHBoxLayout ( lo );
   cbEnableHeader = new QCheckBox( i18n("Pr&int Header"), this );
   lo1->addWidget( cbEnableHeader );
   cbEnableFooter = new QCheckBox( i18n("Pri&nt Footer"), this );
   lo1->addWidget( cbEnableFooter );
-  
+
   // font
   QHBoxLayout *lo2 = new QHBoxLayout( lo );
   lo2->addWidget( new QLabel( i18n("Header/Footer Font:"), this ) );
@@ -128,7 +128,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   // header
   gbHeader = new QGroupBox( 2, Qt::Horizontal, i18n("Header Properties"), this );
   lo->addWidget( gbHeader );
-  
+
   QLabel *lHeaderFormat = new QLabel( i18n("&Format:"), gbHeader );
   QHBox *hbHeaderFormat = new QHBox( gbHeader );
   hbHeaderFormat->setSpacing( sp );
@@ -141,14 +141,14 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   hbHeaderColors->setSpacing( sp );
   QLabel *lHeaderFgCol = new QLabel( i18n("Foreground:"), hbHeaderColors );
   kcbtnHeaderFg = new KColorButton( hbHeaderColors );
-  lHeaderFgCol->setBuddy( kcbtnHeaderFg ); 
+  lHeaderFgCol->setBuddy( kcbtnHeaderFg );
   cbHeaderEnableBgColor = new QCheckBox( i18n("Bac&kground"), hbHeaderColors );
   kcbtnHeaderBg = new KColorButton( hbHeaderColors );
-  
+
   gbFooter = new QGroupBox( 2, Qt::Horizontal, i18n("Footer Properties"), this );
   lo->addWidget( gbFooter );
 
-  // footer  
+  // footer
   QLabel *lFooterFormat = new QLabel( i18n("For&mat:"), gbFooter );
   QHBox *hbFooterFormat = new QHBox( gbFooter );
   hbFooterFormat->setSpacing( sp );
@@ -156,7 +156,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   leFooterCenter = new QLineEdit( hbFooterFormat );
   leFooterRight = new QLineEdit( hbFooterFormat );
   lFooterFormat->setBuddy( leFooterLeft );
-  
+
   new QLabel( i18n("Colors:"), gbFooter );
   QHBox *hbFooterColors = new QHBox( gbFooter );
   hbFooterColors->setSpacing( sp );
@@ -167,13 +167,13 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   kcbtnFooterBg = new KColorButton( hbFooterColors );
 
   lo->addStretch( 1 );
-    
-  // user friendly 
+
+  // user friendly
   connect( cbEnableHeader, SIGNAL(toggled(bool)), gbHeader, SLOT(setEnabled(bool)) );
   connect( cbEnableFooter, SIGNAL(toggled(bool)), gbFooter, SLOT(setEnabled(bool)) );
   connect( cbHeaderEnableBgColor, SIGNAL(toggled(bool)), kcbtnHeaderBg, SLOT(setEnabled(bool)) );
   connect( cbFooterEnableBgColor, SIGNAL(toggled(bool)), kcbtnFooterBg, SLOT(setEnabled(bool)) );
-  
+
   // set defaults
   cbEnableHeader->setChecked( true );
   leHeaderLeft->setText( "%y" );
@@ -188,7 +188,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   kcbtnFooterFg->setColor( QColor("black") );
   cbFooterEnableBgColor->setChecked( true );
   kcbtnFooterBg->setColor( QColor("lightgrey") );
-    
+
   // whatsthis
   QString  s = i18n("<p>Format of the page header. The following tags are supported:</p>");
   QString s1 = i18n(
@@ -217,7 +217,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
 void KatePrintHeaderFooter::getOptions(QMap<QString,QString>& opts, bool )
 {
   opts["app-kate-hffont"] = strFont;
-  
+
   opts["app-kate-useheader"] = (cbEnableHeader->isChecked() ? "true" : "false");
   opts["app-kate-headerfg"] = kcbtnHeaderFg->color().name();
   opts["app-kate-headerusebg"] = (cbHeaderEnableBgColor->isChecked() ? "true" : "false");
@@ -243,18 +243,18 @@ void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )
     lFontPreview->setFont( f );
   }
   lFontPreview->setText( (f.family() + ", %1pt").arg( f.pointSize() ) );
-  
+
   v = opts["app-kate-useheader"];
-  if ( ! v.isEmpty() ) 
-    cbEnableHeader->setChecked( v == "true" ); 
+  if ( ! v.isEmpty() )
+    cbEnableHeader->setChecked( v == "true" );
   v = opts["app-kate-headerfg"];
-  if ( ! v.isEmpty() ) 
+  if ( ! v.isEmpty() )
     kcbtnHeaderFg->setColor( QColor( v ) );
   v = opts["app-kate-headerusebg"];
-  if ( ! v.isEmpty() ) 
+  if ( ! v.isEmpty() )
     cbHeaderEnableBgColor->setChecked( v == "true" );
   v = opts["app-kate-headerbg"];
-  if ( ! v.isEmpty() ) 
+  if ( ! v.isEmpty() )
     kcbtnHeaderBg->setColor( QColor( v ) );
 
   QStringList tags = QStringList::split('|', opts["app-kate-headerformat"], "true");
@@ -264,20 +264,20 @@ void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )
     leHeaderCenter->setText(tags[1]);
     leHeaderRight->setText(tags[2]);
   }
-  
+
   v = opts["app-kate-usefooter"];
-  if ( ! v.isEmpty() ) 
-    cbEnableFooter->setChecked( v == "true" ); 
+  if ( ! v.isEmpty() )
+    cbEnableFooter->setChecked( v == "true" );
   v = opts["app-kate-footerfg"];
-  if ( ! v.isEmpty() ) 
+  if ( ! v.isEmpty() )
     kcbtnFooterFg->setColor( QColor( v ) );
   v = opts["app-kate-footerusebg"];
-  if ( ! v.isEmpty() ) 
+  if ( ! v.isEmpty() )
     cbFooterEnableBgColor->setChecked( v == "true" );
   v = opts["app-kate-footerbg"];
-  if ( ! v.isEmpty() ) 
+  if ( ! v.isEmpty() )
     kcbtnFooterBg->setColor( QColor( v ) );
-  
+
   tags = QStringList::split('|', opts["app-kate-footerformat"], "true");
   if (tags.count() == 3)
   {
@@ -309,38 +309,38 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
   : KPrintDialogPage( parent, name )
 {
   setTitle( i18n("L&ayout") );
-  
+
   QVBoxLayout *lo = new QVBoxLayout ( this );
   lo->setSpacing( KDialog::spacingHint() );
-  
+
   cbDrawBackground = new QCheckBox( i18n("Draw Bac&kground Color"), this );
   lo->addWidget( cbDrawBackground );
-  
+
   cbEnableBox = new QCheckBox( i18n("Draw &Boxes"), this );
   lo->addWidget( cbEnableBox );
-  
+
   gbBoxProps = new QGroupBox( 2, Qt::Horizontal, i18n("Box Properties"), this );
   lo->addWidget( gbBoxProps );
-  
+
   QLabel *lBoxWidth = new QLabel( i18n("W&idth"), gbBoxProps );
   sbBoxWidth = new QSpinBox( 1, 100, 1, gbBoxProps );
   lBoxWidth->setBuddy( sbBoxWidth );
-  
+
   QLabel *lBoxMargin = new QLabel( i18n("&Margin"), gbBoxProps );
   sbBoxMargin = new QSpinBox( 0, 100, 1, gbBoxProps );
   lBoxMargin->setBuddy( sbBoxMargin );
-  
+
   QLabel *lBoxColor = new QLabel( i18n("Co&lor"), gbBoxProps );
   kcbtnBoxColor = new KColorButton( gbBoxProps );
   lBoxColor->setBuddy( kcbtnBoxColor );
-  
+
   connect( cbEnableBox, SIGNAL(toggled(bool)), gbBoxProps, SLOT(setEnabled(bool)) );
-  
+
   lo->addStretch( 1 );
   // set defaults:
   sbBoxMargin->setValue( 6 );
   gbBoxProps->setEnabled( false );
-  
+
   // whatsthis
   QWhatsThis::add( cbDrawBackground, i18n(
         "<p>If enabled, the background color of the editor will be used.</p>"

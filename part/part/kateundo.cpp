@@ -22,8 +22,6 @@
 
 #include "kateundo.h"
 
-#include <kdebug.h>
-
 #include "katedocument.h"
 #include "kateview.h"
 #include "katecursor.h"

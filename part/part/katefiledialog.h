@@ -20,8 +20,9 @@
 #define _KATEFILEDIALOG_H_
 
 #include <kfiledialog.h>
-#include <qtextcodec.h>
 #include <kurl.h>
+
+#include <qtextcodec.h>
 
 class KateFileDialogData
 {

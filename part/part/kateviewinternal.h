@@ -25,23 +25,26 @@
 #define _KATE_VIEW_INTERNAL_
 
 #include "katecursor.h"
-#include "katedocument.h"
 #include "katelinerange.h"
 
-#include <qpoint.h>
-#include <qlayout.h>
-#include <qpixmap.h>
 #include <qscrollbar.h>
+#include <qpoint.h>
+#include <qpixmap.h>
+#include <qtimer.h>
 
 class KateView;
+class KateDocument;
 class KateIconBorder;
 class KateRenderer;
 
-  enum Bias {
+class QHBoxLayout;
+class QVBoxLayout;
+
+enum Bias {
     left  = -1,
     none  =  0,
     right =  1
-  };
+};
 
 /**
  * This class is required because QScrollBar's sliderMoved() signal is

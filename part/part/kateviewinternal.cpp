@@ -26,24 +26,29 @@
 // $Id$
 
 #include "kateviewinternal.h"
-#include "kateview.h"
 #include "kateviewinternal.moc"
+
+#include "kateview.h"
 #include "katedocument.h"
 #include "katecodefoldinghelpers.h"
 #include "kateiconborder.h"
 #include "katehighlight.h"
 #include "katesupercursor.h"
 #include "katerenderer.h"
+#include "katecodecompletion.h"
 
 #include <kcursor.h>
+#include <kdebug.h>
 #include <kapplication.h>
 #include <kglobalsettings.h>
 
 #include <qstyle.h>
 #include <qdragobject.h>
+#include <qpopupmenu.h>
 #include <qdropsite.h>
 #include <qtimer.h>
 #include <qpainter.h>
+#include <qlayout.h>
 #include <qclipboard.h>
 #include <qscrollbar.h>
 

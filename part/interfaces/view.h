@@ -19,7 +19,6 @@
 #ifndef _KATE_VIEW_INCLUDE_
 #define _KATE_VIEW_INCLUDE_
 
-#include <qpopupmenu.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/clipboardinterface.h>
@@ -89,7 +88,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
       Works exactly like closeURL() of KParts::ReadWritePart
     */
     virtual bool canDiscard() { return false; };
-    
+
   public:
     virtual int tabWidth() = 0;
     virtual void setTabWidth(int) = 0;
@@ -212,7 +211,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
       Set focus to the current window.
     */
     // Should remove this, it's redundant.
-    virtual void setFocus () { QWidget::setFocus(); } 
+    virtual void setFocus () { QWidget::setFocus(); }
     /**
       Searches for the last searched text forward from cursor position.
       @param bool forward determines the search direction.
@@ -276,7 +275,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     virtual void slotDecFontSizes () { ; };
 
     virtual void gotoMark (KTextEditor::Mark *mark) = 0;
-    
+
     /**
      * @deprecated No longer does anything. Use KTextEditor
      * equivalents

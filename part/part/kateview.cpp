@@ -25,8 +25,6 @@
 #include "kateview.h"
 #include "kateview.moc"
 
-#include <ktexteditor/plugin.h>
-
 #include "kateviewinternal.h"
 #include "katedocument.h"
 #include "katefactory.h"
@@ -38,6 +36,7 @@
 #include "katetextline.h"
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
+#include "katecodecompletion.h"
 #include "kateviewhighlightaction.h"
 #include "katesearch.h"
 #include "katebookmarks.h"
@@ -45,11 +44,7 @@
 #include "katesearch.h"
 #include "katecmdline.h"
 
-#include <qfont.h>
-#include <qfileinfo.h>
-#include <qfile.h>
-#include <qstyle.h>
-#include <qevent.h>
+#include <ktexteditor/plugin.h>
 
 #include <kconfig.h>
 #include <kurldrag.h>
@@ -66,6 +61,14 @@
 #include <kxmlguifactory.h>
 #include <kaccel.h>
 #include <klibloader.h>
+
+#include <qfont.h>
+#include <qfileinfo.h>
+#include <qfile.h>
+#include <qstyle.h>
+#include <qevent.h>
+#include <qpopupmenu.h>
+#include <qlayout.h>
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
@@ -1032,4 +1035,14 @@ void KateView::switchToCmdLine ()
     setCmdLine (true);
 
   m_cmdLine->setFocus ();
+}
+
+void KateView::showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
+{
+  m_codeCompletion->showArgHint( arg1, arg2, arg3 );
+}
+
+void KateView::showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset, bool cs )
+{
+  m_codeCompletion->showCompletionBox( arg1, offset, cs );
 }

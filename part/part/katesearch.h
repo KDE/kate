@@ -22,14 +22,14 @@
 #ifndef _katesearch_h_
 #define _katesearch_h_
 
+#include "katecursor.h"
+
+#include <kdialogbase.h>
+
 #include <qstring.h>
 #include <qregexp.h>
-#include <qptrlist.h>
-#include <kdialogbase.h>
-#include <qdialog.h>
+#include <qstringlist.h>
 #include <qvaluelist.h>
-
-#include "katecursor.h"
 
 class SearchFlags
 {

@@ -19,11 +19,6 @@
 #ifndef KATESUPERCURSOR_H
 #define KATESUPERCURSOR_H
 
-//#define DEBUGTESTING
-
-#include <qobject.h>
-#include <qptrlist.h>
-
 #include "katecursor.h"
 #include "katetextline.h"
 

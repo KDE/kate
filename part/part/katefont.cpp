@@ -27,7 +27,6 @@
 // FontStruct implementation
 //
 
-
 FontStruct::FontStruct()
 : myFont(KGlobalSettings::fixedFont()),
   myFontBold(KGlobalSettings::fixedFont()),

@@ -21,9 +21,11 @@
 
 #include "kateviewhighlightaction.h"
 #include "kateviewhighlightaction.moc"
+
 #include "kateview.h"
 #include "katedocument.h"
 #include "katehighlight.h"
+
 #include <kpopupmenu.h>
 
 void KateViewHighlightAction::init()
@@ -41,8 +43,6 @@ void KateViewHighlightAction::updateMenu (Kate::Document *doc)
 
 void KateViewHighlightAction::slotAboutToShow()
 {
-  kdDebug(13000)<<"KateViewHighlightAction::slotAboutToShow()"<<endl;
-
   Kate::Document *doc=m_doc;
 
   int count = HlManager::self()->highlights();

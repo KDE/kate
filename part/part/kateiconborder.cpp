@@ -29,10 +29,8 @@
 #include "katedocument.h"
 #include "katecodefoldinghelpers.h"
 #include "katerenderer.h"
+#include "kateattribute.h"
 
-#include <math.h>
-
-#include <kdebug.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
 
@@ -40,6 +38,8 @@
 #include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qstyle.h>
+
+#include <math.h>
 
 using namespace KTextEditor;
 
@@ -492,12 +492,10 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
       cursorOnLine == m_lastClickedLine &&
       cursorOnLine <= m_doc->lastLine() )
   {
-    kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
     KateLineInfo info;
     m_doc->lineInfo(&info,cursorOnLine);
     if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
     {
-      kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
       emit toggleRegionVisibility(cursorOnLine);
     }
   }

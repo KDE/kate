@@ -19,9 +19,6 @@
 #ifndef _KATE_DOCUMENT_INCLUDE_
 #define _KATE_DOCUMENT_INCLUDE_
 
-#include <qptrlist.h>
-#include <kaction.h>
-
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/editinterface.h>
@@ -38,6 +35,8 @@
 #include <ktexteditor/markinterfaceextension.h>
 #include <ktexteditor/wordwrapinterface.h>
 #include <ktexteditor/printinterface.h>
+
+#include <kaction.h>
 
 namespace Kate
 {

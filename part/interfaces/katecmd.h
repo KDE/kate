@@ -19,11 +19,10 @@
 #ifndef _KATE_CMD_H
 #define _KATE_CMD_H
 
-#include <qobject.h>
+#include "document.h"
+
 #include <qdict.h>
 #include <qstringlist.h>
-
-#include "document.h"
 
 class KateCmd
 {

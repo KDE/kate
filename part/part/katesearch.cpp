@@ -25,6 +25,12 @@
 #include "katesearch.h"
 #include "katesearch.moc"
 
+#include "kateview.h"
+#include "katedocument.h"
+#include "kateviewdialog.h"
+#include "katesupercursor.h"
+#include "katearbitraryhighlight.h"
+
 #include <klocale.h>
 #include <kstdaction.h>
 #include <kmessagebox.h>
@@ -32,12 +38,6 @@
 #include <kdebug.h>
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
-
-#include "kateview.h"
-#include "katedocument.h"
-#include "kateviewdialog.h"
-#include "katesupercursor.h"
-#include "katearbitraryhighlight.h"
 
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();

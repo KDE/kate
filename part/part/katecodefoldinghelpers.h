@@ -26,6 +26,7 @@
 #include <qintdict.h>
 
 class KateCodeFoldingTree;
+
 class QString;
 //END
 
@@ -47,7 +48,7 @@ class KateLineInfo
 
 class KateCodeFoldingNode
 {
-  public:  
+  public:
     KateCodeFoldingNode();
     KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
     ~KateCodeFoldingNode();

@@ -20,9 +20,10 @@
 
 #include "katecodefoldinghelpers.h"
 #include "katecodefoldinghelpers.moc"
-#include <qstring.h>
+
 #include <kdebug.h>
 
+#include <qstring.h>
 
 #define JW_DEBUG 0
 
@@ -72,7 +73,7 @@ void KateCodeFoldingTree::clear()
 //  kdDebug()<<"KateCodeFoldingTree::clear()"<<endl;
   if (m_childnodes)
   {
-	m_childnodes->clear();
+  m_childnodes->clear();
   }
   dontIgnoreUnchangedLines.setAutoDelete(true);
   dontIgnoreUnchangedLines.clear();
@@ -381,7 +382,7 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
 
   if (!node->visible)
   {
-	toggleRegionVisibility(getStartLine(node));
+  toggleRegionVisibility(getStartLine(node));
   }
 
   KateCodeFoldingNode *parent = node->parentNode;
@@ -463,8 +464,8 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 
     // this should fix the bug of wrongly closed nodes
     if (!parent->parentNode) node->endLineValid=false;
-	else
-		node->endLineValid = parent->endLineValid;
+  else
+    node->endLineValid = parent->endLineValid;
     node->endLineRel = parent->endLineRel-node->startLineRel;
 
     if (node->endLineValid)
@@ -476,7 +477,7 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
   node->endLineValid = false;
   node->endLineRel = parent->endLineRel - node->startLineRel;
 //  if (parent && (!parent->parentNode)) {
-//	kdDebug(13000)<<"removing ending of toplevel node"<<endl;
+//  kdDebug(13000)<<"removing ending of toplevel node"<<endl;
 //  }
 }
 
@@ -520,8 +521,8 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
       node->endLineValid = true;
       node->endLineRel = line - startLine;
       //moving
-	kdDebug(13000)<<"Move subnodes up, if needed"<<endl;
-	moveSubNodesUp(node);
+  kdDebug(13000)<<"Move subnodes up, if needed"<<endl;
+  moveSubNodesUp(node);
 
     }
     else
@@ -547,7 +548,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
         kdDebug(13000)<< "reclosed node had childnodes()"<<endl;
         kdDebug(13000)<<"It could be, that childnodes() need to be moved up"<<endl;
 #endif
-	moveSubNodesUp(node);
+  moveSubNodesUp(node);
 
         if (node->parentNode)
         {
@@ -1006,7 +1007,7 @@ void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned
   {
     int myPos=node->parentNode->childnodes()->find(node); // this has to be implemented nicely
     if ((int)node->parentNode->childnodes()->count()>myPos+1)
-		 addNodeToRemoveList(node->parentNode->childnodes()->at(myPos+1),line);
+     addNodeToRemoveList(node->parentNode->childnodes()->at(myPos+1),line);
     add=true;
     node->deleteEnding = true;
   }

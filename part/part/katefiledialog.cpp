@@ -24,6 +24,7 @@
 #include <ktoolbar.h>
 #include <kglobal.h>
 #include <kcharsets.h>
+
 #include <qstringlist.h>
 
 KateFileDialog::KateFileDialog (const QString& startDir,

@@ -22,27 +22,27 @@
 #ifndef kate_view_h
 #define kate_view_h
 
-#include "../interfaces/view.h"
-
 #include "katedocument.h"
 #include "kateviewinternal.h"
-#include "katecodecompletion.h"
+
+#include "../interfaces/view.h"
 
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/viewstatusmsginterface.h>
 #include <ktexteditor/texthintinterface.h>
-#include <ktexteditor/plugin.h>
 
-#include <qlayout.h>
+class KateDocument;
+class KateBookmarks;
+class KateSearch;
+class KateCmdLine;
+class KateCodeCompletion;
 
 class KToggleAction;
 class KAction;
 class KRecentFilesAction;
 class KSelectAction;
-class KateDocument;
-class KateBookmarks;
-class KateSearch;
-class KateCmdLine;
+
+class QGridLayout;
 
 //
 // Kate KTextEditor::View class ;)
@@ -113,10 +113,9 @@ class KateView : public Kate::View,
   // KTextEditor::CodeCompletionInterface
   //
   public slots:
-    void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
-        { m_codeCompletion->showArgHint( arg1, arg2, arg3 ); }
-    void showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset = 0, bool cs = true )
-        { m_codeCompletion->showCompletionBox( arg1, offset, cs ); }
+    void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 );
+    void showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset = 0, bool cs = true );
+
   signals:
     void completionAborted();
     void completionDone();
@@ -128,11 +127,11 @@ class KateView : public Kate::View,
   // KTextEditor::TextHintInterface
   //
   public:
-	virtual void enableTextHints(int timeout);
-        virtual void disableTextHints();
+    void enableTextHints(int timeout);
+    void disableTextHints();
 
   signals:
-        virtual void needTextHint(int line, int col, QString &text);
+    void needTextHint(int line, int col, QString &text);
 
   //
   // KTextEditor::DynWordWrapInterface

@@ -21,33 +21,25 @@
 #ifndef kate_document_h
 #define kate_document_h
 
+#include "katecursor.h"
+#include "katetextline.h"
+
+#include "../interfaces/document.h"
+
 #include <ktexteditor/configinterfaceextension.h>
 #include <ktexteditor/encodinginterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/plugin.h>
 
-#include "katecursor.h"
-#include "katebuffer.h"
-#include "katefont.h"
-#include "katesearch.h"
-#include "katetextline.h"
-#include "katebrowserextension.h"
-#include "../interfaces/document.h"
-#include "kateattribute.h"
-
-#include <ktrader.h>
 #include <kservice.h>
-#include <kspell.h>
 
-#include <qobject.h>
-#include <qptrlist.h>
 #include <qdialog.h>
-
 #include <qintdict.h>
 #include <qdatetime.h>
 
 class KateUndoGroup;
 class KateCmd;
+class KateAttribute;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
@@ -55,6 +47,11 @@ class KateViewInternal;
 class LineRange;
 class KateArbitraryHighlight;
 class KateSuperRange;
+class KateLineInfo;
+class KateBrowserExtension;
+
+class KSpell;
+
 class QTimer;
 
 namespace Kate
@@ -598,15 +595,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     void setDocName (QString docName);
 
-    inline void lineInfo (KateLineInfo *info, unsigned int line)
-   {
-     buffer->lineInfo(info,line);
-   }
+    void lineInfo (KateLineInfo *info, unsigned int line);
 
-   inline KateCodeFoldingTree *foldingTree ()
-   {
-     return buffer->foldingTree();
-   }
+    KateCodeFoldingTree *foldingTree ();
 
   public slots:
     /**
@@ -731,7 +722,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
      */
     void setMTime();
     class QFileInfo* fileInfo;
-    class QDateTime mTime;
+    QDateTime mTime;
     QString m_docName;
 
     QMemArray<KateAttribute> myAttribs;

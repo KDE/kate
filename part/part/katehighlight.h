@@ -26,23 +26,16 @@
 
 #include <qptrlist.h>
 #include <qvaluelist.h>
-#include <qdialog.h>
-#include <kcolorbutton.h>
 #include <qregexp.h>
-#include <kdebug.h>
 #include <qdict.h>
 #include <qintdict.h>
-
+#include <qmap.h>
+#include <qobject.h>
 
 class SyntaxDocument;
+class TextLine;
 struct syntaxModeListItem;
 struct syntaxContextData;
-
-class QCheckBox;
-class QComboBox;
-class QLineEdit;
-
-class TextLine;
 
 class QStringList;
 
@@ -72,13 +65,13 @@ class HlItem {
 typedef QPtrList<KateAttribute> KateAttributeList;
 
 class IncludeRule {
-	public:
-		IncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
-		IncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
-		uint pos;
-		int ctx;
-		int incCtx;
-		QString incCtxN;
+  public:
+    IncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
+    IncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
+    uint pos;
+    int ctx;
+    int incCtx;
+    QString incCtxN;
 };
 
 typedef QValueList<IncludeRule*> IncludeRules;
@@ -131,10 +124,10 @@ class HlContext {
 class EmbeddedHlInfo
 {
 public:
-	EmbeddedHlInfo() {loaded=false;context0=-1;}
-	EmbeddedHlInfo(bool l, int ctx0) {loaded=l;context0=ctx0;}
-	bool loaded;
-	int context0;
+  EmbeddedHlInfo() {loaded=false;context0=-1;}
+  EmbeddedHlInfo(bool l, int ctx0) {loaded=l;context0=ctx0;}
+  bool loaded;
+  int context0;
 };
 
 typedef QMap<QString,EmbeddedHlInfo> EmbeddedHlInfos;
@@ -230,7 +223,7 @@ class Highlight
     IncludeRules includeRules;
     QValueList<int> contextsIncludingSomething;
     public:
-    	bool allowsFolding(){return folding;}
+      bool allowsFolding(){return folding;}
 };
 
 class HlManager : public QObject

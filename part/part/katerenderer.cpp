@@ -21,14 +21,14 @@
 
 #include "katerenderer.h"
 
-#include <qpainter.h>
-
-#include <kdebug.h>
-
 #include "katelinerange.h"
 #include "katedocument.h"
 #include "katefactory.h"
 #include "katearbitraryhighlight.h"
+
+#include <kdebug.h>
+
+#include <qpainter.h>
 
 // Static vars
 FontStruct* s_viewFont = 0L;

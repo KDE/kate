@@ -22,11 +22,11 @@
 
 #include "../interfaces/document.h"
 
-#include <kaction.h>
 #include <qstringlist.h>
 #include <qptrlist.h>
-#include <qpopupmenu.h>
 #include <qguardedptr.h>
+
+class QPopupMenu;
 
 class KateViewHighlightAction: public Kate::ActionMenu
 {

@@ -24,9 +24,9 @@
 
 #include "katetextline.h"
 
-#include <qregexp.h>
-
 #include "katebuffer.h"
+
+#include <qregexp.h>
 
 bool TextLine::m_noSignal = false;
 

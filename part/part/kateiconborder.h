@@ -52,28 +52,28 @@ class KateIconBorder : public QWidget
     bool iconBorderOn()       const { return m_iconBorderOn;     }
     bool lineNumbersOn()      const { return m_lineNumbersOn;    }
     bool foldingMarkersOn()   const { return m_foldingMarkersOn; }
-    
+
   signals:
     void toggleRegionVisibility( unsigned int );
 
   private:
     void paintEvent( QPaintEvent* );
     void paintBorder (int x, int y, int width, int height);
-    
+
     void mousePressEvent( QMouseEvent* );
     void mouseMoveEvent( QMouseEvent* );
     void mouseReleaseEvent( QMouseEvent* );
     void mouseDoubleClickEvent( QMouseEvent* );
-                          
+
     void showMarkMenu( uint line, const QPoint& pos );
-    
+
     enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
     BorderArea positionToArea( const QPoint& ) const;
 
-    class KateView *m_view;   
+    class KateView *m_view;
     class KateDocument *m_doc;
     class KateViewInternal *m_viewInternal;
-                        
+
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
     bool m_foldingMarkersOn:1;
@@ -89,4 +89,5 @@ class KateIconBorder : public QWidget
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
 };
+
 #endif

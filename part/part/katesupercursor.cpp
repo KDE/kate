@@ -18,12 +18,12 @@
 
 #include "katesupercursor.h"
 
-#include <qobjectlist.h>
+#include "katebuffer.h"
+#include "katedocument.h"
 
 #include <kdebug.h>
 
-#include "katebuffer.h"
-#include "katedocument.h"
+#include <qobjectlist.h>
 
 #ifdef DEBUGTESTING
 static KateSuperCursor* debugCursor = 0L;

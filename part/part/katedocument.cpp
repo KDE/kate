@@ -24,22 +24,58 @@
 #include "katedocument.h"
 #include "katedocument.moc"
 
-#include <ktexteditor/plugin.h>
-
 #include "katefactory.h"
 #include "kateviewdialog.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
+#include "katesearch.h"
 #include "katetextline.h"
 #include "kateexportaction.h"
+#include "katebuffer.h"
 #include "kateundo.h"
 #include "kateprintsettings.h"
 #include "katelinerange.h"
 #include "katesupercursor.h"
 #include "katearbitraryhighlight.h"
 #include "katerenderer.h"
+#include "kateviewhighlightaction.h"
+#include "katebrowserextension.h"
+#include "kateattribute.h"
+
+#include <ktexteditor/plugin.h>
+
+#include <kio/netaccess.h>
+
+#include <klocale.h>
+#include <kglobal.h>
+#include <kurldrag.h>
+#include <kprinter.h>
+#include <kapplication.h>
+#include <kpopupmenu.h>
+#include <klineeditdlg.h>
+#include <kconfig.h>
+#include <kcursor.h>
+#include <kcharsets.h>
+#include <kfiledialog.h>
+#include <kmessagebox.h>
+#include <ktrader.h>
+#include <kstringhandler.h>
+#include <kaction.h>
+#include <kspell.h>
+#include <kstdaction.h>
+#include <kparts/event.h>
+#include <kiconloader.h>
+#include <kxmlguifactory.h>
+#include <dcopclient.h>
+#include <kwin.h>
+#include <kdialogbase.h>
+#include <kdebug.h>
+#include <kinstance.h>
+#include <kglobalsettings.h>
+#include <ksavefile.h>
+#include <klibloader.h>
 
 #include <qfileinfo.h>
 #include <qpainter.h>
@@ -57,37 +93,6 @@
 #include <qtextcodec.h>
 #include <qdatetime.h>
 #include <qmap.h>
-
-#include <klocale.h>
-#include <kglobal.h>
-#include <kurldrag.h>
-#include <kprinter.h>
-#include <kapplication.h>
-#include <kpopupmenu.h>
-#include <klineeditdlg.h>
-#include <kconfig.h>
-#include <kcursor.h>
-#include <kcharsets.h>
-#include <kfiledialog.h>
-#include <kmessagebox.h>
-#include <kstringhandler.h>
-#include <kaction.h>
-#include <kstdaction.h>
-#include <kparts/event.h>
-#include <kiconloader.h>
-#include <kxmlguifactory.h>
-#include <dcopclient.h>
-#include <kwin.h>
-#include <kdialogbase.h>
-#include <kdebug.h>
-#include <kinstance.h>
-#include <kglobalsettings.h>
-#include <ksavefile.h>
-#include <klibloader.h>
-#include <kio/netaccess.h>
-
-#include "kateviewhighlightaction.h"
-
 //END  includes
 
 //BEGIN variables
@@ -4703,3 +4708,13 @@ void KateDocument::spellCleanDone()
   m_kspell = 0;
 }
 //END
+
+void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
+{
+  buffer->lineInfo(info,line);
+}
+
+KateCodeFoldingTree *KateDocument::foldingTree ()
+{
+  return buffer->foldingTree();
+}

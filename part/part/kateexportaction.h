@@ -21,28 +21,28 @@
 
 #include "../interfaces/document.h"
 
-#include <kaction.h>
 #include <qstringlist.h>
 #include <qguardedptr.h>
 
 class KateExportAction: public Kate::ActionMenu
 {
-	Q_OBJECT
-public:
-	KateExportAction(const QString& text, QObject* parent = 0, const char* name = 0)
-       : Kate::ActionMenu(text, parent, name) { init(); };
+  Q_OBJECT
 
-	~KateExportAction(){;}
-      
-   void updateMenu (Kate::Document *doc);
+  public:
+    KateExportAction(const QString& text, QObject* parent = 0, const char* name = 0)
+        : Kate::ActionMenu(text, parent, name) { init(); };
 
-private:
-	QGuardedPtr<Kate::Document>  m_doc;
-	QStringList filter;
-	void init();
+    ~KateExportAction(){;}
 
-protected slots:
-	void filterChoosen(int);
+    void updateMenu (Kate::Document *doc);
+
+  private:
+    QGuardedPtr<Kate::Document>  m_doc;
+    QStringList filter;
+    void init();
+
+  protected slots:
+    void filterChoosen(int);
 };
 
 #endif

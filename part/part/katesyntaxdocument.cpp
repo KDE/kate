@@ -20,14 +20,15 @@
 // $Id$
 
 #include "katesyntaxdocument.h"
-#include <qfile.h>
+
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <qstringlist.h>
 #include <kapplication.h>
 #include <kconfig.h>
+
+#include <qfile.h>
 
 /** Constructor
     Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
@@ -60,25 +61,25 @@ bool SyntaxDocument::setIdentifier(const QString& identifier){
       // Let's parse the contets of the xml file
       /* The result of this function should be check for robustness,
          a false returned means a parse error */
-	QString errorMsg;
-	int line, col;
-	bool success=setContent(&f,&errorMsg,&line,&col);
+  QString errorMsg;
+  int line, col;
+  bool success=setContent(&f,&errorMsg,&line,&col);
       // Ok, now the current file is the pretended one (identifier)
       currentFile=identifier;
       // Close the file, is not longer needed
       f.close();
       if (!success)
-	{
-		KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
-			.arg(line).arg(col).arg(errorMsg));
-		return false;
-	}
+  {
+    KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
+      .arg(line).arg(col).arg(errorMsg));
+    return false;
+  }
 
     }
     else {
       // Oh o, we couldn't open the file.
       KMessageBox::error( 0L, i18n("Unable to open %1").arg(identifier) );
-	return false;
+  return false;
     }
   }
   return true;

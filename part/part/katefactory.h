@@ -22,11 +22,13 @@
 #define __kate_factory_h__
 
 #include <kparts/factory.h>
+
 #include <ktrader.h>
+
+class KateCmd;
 
 class KInstance;
 class KAboutData;
-class KateCmd;
 
 class KateFactory : public KParts::Factory
 {

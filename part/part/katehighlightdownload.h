@@ -19,27 +19,27 @@
 #ifndef _KATE_HIGHLIGHTDOWNLOAD_H_
 #define _KATE_HIGHLIGHTDOWNLOAD_H_
 
-#include <kdialogbase.h>
 #include <kio/jobclasses.h>
 
-#define HLDOWNLOADPATH "http://www.kde.org/apps/kate/hl/update.xml"
+#include <kdialogbase.h>
 
 class HlDownloadDialog: public KDialogBase
 {
-	Q_OBJECT
-public:
-	HlDownloadDialog(QWidget *parent, const char *name, bool modal);
-	~HlDownloadDialog();
-private:
-	class QListView	*list;
-	class QString listData;
-private slots:
-	void listDataReceived(KIO::Job *, const QByteArray &data);
+  Q_OBJECT
 
-public slots:
-	void slotUser1();
+  public:
+    HlDownloadDialog(QWidget *parent, const char *name, bool modal);
+    ~HlDownloadDialog();
 
+  private:
+    class QListView  *list;
+    class QString listData;
+
+  private slots:
+    void listDataReceived(KIO::Job *, const QByteArray &data);
+
+  public slots:
+    void slotUser1();
 };
 
 #endif
-

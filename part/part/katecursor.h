@@ -22,11 +22,9 @@
 #ifndef kate_cursor_h
 #define kate_cursor_h
 
-#include <config.h>
 #include "../interfaces/document.h"
 
 class KateDocument;
-
 
 /**
   Simple cursor class with no document pointer.

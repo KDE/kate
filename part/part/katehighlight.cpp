@@ -22,8 +22,13 @@
 // $Id$
 
 //BEGIN INCLUDES
-#include <qstringlist.h>
-#include <qtextstream.h>
+#include "katehighlight.h"
+#include "katehighlight.moc"
+
+#include "katetextline.h"
+#include "katedocument.h"
+#include "katesyntaxdocument.h"
+#include "katefactory.h"
 
 #include <kconfig.h>
 #include <kglobal.h>
@@ -37,14 +42,8 @@
 #include <kmessagebox.h>
 #include <kapplication.h>
 
-#include "katetextline.h"
-#include "katedocument.h"
-#include "katesyntaxdocument.h"
-#include "katefactory.h"
-
-#include "katehighlight.h"
-#include "katehighlight.moc"
-
+#include <qstringlist.h>
+#include <qtextstream.h>
 //END
 
 
@@ -959,17 +958,17 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs
         Highlight - doHighlight
         Increase the usage count and trigger initialization if needed
 
-                        * input: signed char *oCtx	Pointer to the "stack" of the previous line
-				 uint *oCtxLen		Size of the stack
-				 TextLine *textline	Current textline to work on
+                        * input: signed char *oCtx  Pointer to the "stack" of the previous line
+         uint *oCtxLen    Size of the stack
+         TextLine *textline  Current textline to work on
                         *************
                         * output: (TextLine *textline)
                         *************
-                        * return value: signed char*	new context stack at the end of the line
+                        * return value: signed char*  new context stack at the end of the line
 *******************************************************************************************/
 
 void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineContinue,
-				QMemArray<signed char>* foldingList)
+        QMemArray<signed char>* foldingList)
 {
   if (!textLine)
     return;
@@ -1238,14 +1237,14 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
       p->clear();
 
       QString tmp=s[0]; if (!tmp.isEmpty()) p->defStyleNum=tmp.toInt();
-  
+
       QRgb col;
 
       tmp=s[1]; if (!tmp.isEmpty()) {
-         col=tmp.toUInt(0,16); p->setTextColor(col); }  
+         col=tmp.toUInt(0,16); p->setTextColor(col); }
 
-      tmp=s[2]; if (!tmp.isEmpty()) { 
-         col=tmp.toUInt(0,16); p->setSelectedTextColor(col); }  
+      tmp=s[2]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); p->setSelectedTextColor(col); }
 
       tmp=s[3]; if (!tmp.isEmpty()) p->setBold(tmp!="0");
 
@@ -1254,12 +1253,12 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
       tmp=s[5]; if (!tmp.isEmpty()) p->setStrikeOut(tmp!="0");
 
       tmp=s[6]; if (!tmp.isEmpty()) p->setUnderline(tmp!="0");
-  
-      tmp=s[7]; if (!tmp.isEmpty()) { 
-         col=tmp.toUInt(0,16); p->setBGColor(col); }  
 
-      tmp=s[8]; if (!tmp.isEmpty()) { 
-         col=tmp.toUInt(0,16); p->setSelectedBGColor(col); }  
+      tmp=s[7]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); p->setBGColor(col); }
+
+      tmp=s[8]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); p->setSelectedBGColor(col); }
 
     }
   }
@@ -1287,17 +1286,17 @@ void Highlight::setItemDataList(ItemDataList &list, KConfig *config)
 
   for (ItemData *p = list.first(); p != 0L; p = list.next())
   {
-	settings.clear();
-	settings<<QString::number(p->defStyleNum,10);
-	settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
-	settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
-	settings<<(p->itemSet(KateAttribute::Bold)?(p->bold()?"1":0):"");
-	settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":0):"");
-	settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":0):"");
-	settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":0):"");
-	settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
-	settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
-	settings<<"---";
+  settings.clear();
+  settings<<QString::number(p->defStyleNum,10);
+  settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
+  settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
+  settings<<(p->itemSet(KateAttribute::Bold)?(p->bold()?"1":0):"");
+  settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":0):"");
+  settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":0):"");
+  settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":0):"");
+  settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
+  settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
+  settings<<"---";
 //    s.sprintf("%d,%X,%X,%d,%d,%d,%d",
 //      p->isSomethingSet(),p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic(),p->strikeOut(),p->underline());
 
@@ -1451,7 +1450,7 @@ void Highlight::addToItemDataList()
       if (!italic.isEmpty()) newData->setItalic(italic=="true" || italic=="1");
       // new attributes for the new rendering view
       if (!underline.isEmpty()) newData->setUnderline(underline=="true" || underline=="1");
-      if (!strikeOut.isEmpty()) newData->setStrikeOut(strikeOut=="true" || strikeOut=="1"); 
+      if (!strikeOut.isEmpty()) newData->setStrikeOut(strikeOut=="true" || strikeOut=="1");
       if (!bgColor.isEmpty()) newData->setBGColor(QColor(bgColor));
       if (!selBgColor.isEmpty()) newData->setSelectedBGColor(QColor(selBgColor));
 
@@ -1498,8 +1497,8 @@ int  Highlight::lookupAttrName(const QString& name, ItemDataList &iDl)
                         *        ItemDataList &iDl :       List of all available itemData
                         *                                   entries. Needed for attribute
                         *                                   name->index translation
-			*	 QStringList *RegionList	: list of code folding region names
-			*	 QStringList ContextList	: list of context names
+      *   QStringList *RegionList  : list of code folding region names
+      *   QStringList ContextList  : list of context names
                         *************
                         * output: none
                         *************
@@ -1772,13 +1771,13 @@ void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
      while (HlManager::self()->syntax->nextGroup(data))
      {
           QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace();
-	  if (tmpAttr.isEmpty())
-	  {
-		 tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
-		 errorsAndWarnings +=i18n("<B>%1</B>: Deprecated syntax. Context %2 has no symbolic name<BR>").arg(buildIdentifier).arg(id-ctx0);
-	  }
+    if (tmpAttr.isEmpty())
+    {
+     tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
+     errorsAndWarnings +=i18n("<B>%1</B>: Deprecated syntax. Context %2 has no symbolic name<BR>").arg(buildIdentifier).arg(id-ctx0);
+    }
           else tmpAttr=buildPrefix+tmpAttr;
-	  (*ContextNameList)<<tmpAttr;
+    (*ContextNameList)<<tmpAttr;
           id++;
      }
      HlManager::self()->syntax->freeGroupInfo(data);
@@ -1802,24 +1801,24 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
            }
       }
       else
-	if ( tmpLineEndContext.startsWith("##"))
-	{
-		QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
-		if (!embeddedHls.contains(tmp))	embeddedHls.insert(tmp,EmbeddedHlInfo());
-		unres=tmp;
-		context=0;
-	}
-	else
-	{
-		context=ContextNameList->findIndex(buildPrefix+tmpLineEndContext);
-		if (context==-1)
-		{
-			context=tmpLineEndContext.toInt();
-			errorsAndWarnings+=i18n("<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name").arg(buildIdentifier).arg(tmpLineEndContext);
-		}
+  if ( tmpLineEndContext.startsWith("##"))
+  {
+    QString tmp=tmpLineEndContext.right(tmpLineEndContext.length()-2);
+    if (!embeddedHls.contains(tmp))  embeddedHls.insert(tmp,EmbeddedHlInfo());
+    unres=tmp;
+    context=0;
+  }
+  else
+  {
+    context=ContextNameList->findIndex(buildPrefix+tmpLineEndContext);
+    if (context==-1)
+    {
+      context=tmpLineEndContext.toInt();
+      errorsAndWarnings+=i18n("<B>%1</B>:Deprecated syntax. Context %2 not addressed by a symbolic name").arg(buildIdentifier).arg(tmpLineEndContext);
+    }
 //#warning restructure this the name list storage.
-//		context=context+buildContext0Offset;
-	}
+//    context=context+buildContext0Offset;
+  }
   return context;
 }
 
@@ -1838,7 +1837,7 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
 
 void Highlight::makeContextList()
 {
-  if (noHl)	// if this a highlighting for "normal texts" only, tere is no need for a context list creation
+  if (noHl)  // if this a highlighting for "normal texts" only, tere is no need for a context list creation
     return;
 
   embeddedHls.clear();
@@ -1850,40 +1849,40 @@ void Highlight::makeContextList()
   embeddedHls.insert(iName,EmbeddedHlInfo());
 
   bool something_changed;
-  int startctx=0;	// the context "0" id is 0 for this hl, all embedded context "0"s have offsets
-  building=true;	// inform everybody that we are building the highlighting contexts and itemlists
+  int startctx=0;  // the context "0" id is 0 for this hl, all embedded context "0"s have offsets
+  building=true;  // inform everybody that we are building the highlighting contexts and itemlists
   do
   {
-	kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
-	kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
-	something_changed=false; //assume all "embedded" hls have already been loaded
-	for (EmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
-	{
-		if (!it.data().loaded)	// we found one, we still have to load
-		{
-			kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
-			QString identifierToUse;
-			kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
-			if (iName==it.key()) identifierToUse=identifier;	// the own identifier is known
-			else
-				identifierToUse=HlManager::self()->identifierForName(it.key()); // all others have to be looked up
+  kdDebug(13010)<<"**************** Outter loop in make ContextList"<<endl;
+  kdDebug(13010)<<"**************** Hl List count:"<<embeddedHls.count()<<endl;
+  something_changed=false; //assume all "embedded" hls have already been loaded
+  for (EmbeddedHlInfos::const_iterator it=embeddedHls.begin(); it!=embeddedHls.end();++it)
+  {
+    if (!it.data().loaded)  // we found one, we still have to load
+    {
+      kdDebug(13010)<<"**************** Inner loop in make ContextList"<<endl;
+      QString identifierToUse;
+      kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
+      if (iName==it.key()) identifierToUse=identifier;  // the own identifier is known
+      else
+        identifierToUse=HlManager::self()->identifierForName(it.key()); // all others have to be looked up
 
-			kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
+      kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
 
-			buildPrefix=it.key()+':';	// attribute names get prefixed by the names of the highlighting definitions they belong to
+      buildPrefix=it.key()+':';  // attribute names get prefixed by the names of the highlighting definitions they belong to
 
-			if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
+      if (identifierToUse.isEmpty() ) kdDebug()<<"OHOH, unknown highlighting description referenced"<<endl;
 
-			kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
-			it=embeddedHls.insert(it.key(),EmbeddedHlInfo(true,startctx)); //mark hl as loaded
-			buildContext0Offset=startctx;	//set class member for context 0 offset, so we don't need to pass it around
-			startctx=addToContextList(identifierToUse,startctx);	//parse one hl definition file
-			if (noHl) return;	// an error occured
-			something_changed=true; // something has been loaded
+      kdDebug()<<"setting ("<<it.key()<<") to loaded"<<endl;
+      it=embeddedHls.insert(it.key(),EmbeddedHlInfo(true,startctx)); //mark hl as loaded
+      buildContext0Offset=startctx;  //set class member for context 0 offset, so we don't need to pass it around
+      startctx=addToContextList(identifierToUse,startctx);  //parse one hl definition file
+      if (noHl) return;  // an error occured
+      something_changed=true; // something has been loaded
 
-		}
-	}
-  } while (something_changed);	// as long as there has been another file parsed repeat everything, there could be newly added embedded hls.
+    }
+  }
+  } while (something_changed);  // as long as there has been another file parsed repeat everything, there could be newly added embedded hls.
 
 
   /* at this point all needed highlighing (sub)definitions are loaded. It's time to resolve cross file
@@ -1892,28 +1891,28 @@ void Highlight::makeContextList()
   kdDebug(13010)<<"Unresolved contexts, which need attention: "<<unresolvedContextReferences.count()<<endl;
 //optimize this a littlebit
   for (UnresolvedContextReferences::iterator unresIt=unresolvedContextReferences.begin();
-		unresIt!=unresolvedContextReferences.end();++unresIt)
-	{
-		//try to find the context0 id for a given unresolvedReference
-		EmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(unresIt.data());
-		if (hlIt!=embeddedHls.end())
-			*(unresIt.key())=hlIt.data().context0;
-	}
+    unresIt!=unresolvedContextReferences.end();++unresIt)
+  {
+    //try to find the context0 id for a given unresolvedReference
+    EmbeddedHlInfos::const_iterator hlIt=embeddedHls.find(unresIt.data());
+    if (hlIt!=embeddedHls.end())
+      *(unresIt.key())=hlIt.data().context0;
+  }
 
-	/*eventually handle IncludeRules items, if they exist.
-		This has to be done after the cross file references, because it is allowed
-		to include the context0 from a different definition, than the one the rule belongs to */
-	handleIncludeRules();
+  /*eventually handle IncludeRules items, if they exist.
+    This has to be done after the cross file references, because it is allowed
+    to include the context0 from a different definition, than the one the rule belongs to */
+  handleIncludeRules();
 
-	embeddedHls.clear(); //save some memory.
-	unresolvedContextReferences.clear(); //save some memory
-	RegionList.clear();	// I think you get the idea ;)
-	ContextNameList.clear();
+  embeddedHls.clear(); //save some memory.
+  unresolvedContextReferences.clear(); //save some memory
+  RegionList.clear();  // I think you get the idea ;)
+  ContextNameList.clear();
 
 
 // if there have been errors show them
-	if (!errorsAndWarnings.isEmpty())
-	KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlight Parser"));
+  if (!errorsAndWarnings.isEmpty())
+  KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlight Parser"));
 
 // we have finished
   building=false;
@@ -1930,100 +1929,100 @@ void Highlight::handleIncludeRules()
   QString dummy;
 
   /*by now the context0 references are resolved, now more or less only inner file references are resolved.
-	If we decide that arbitrary inclusion is needed, this doesn't need to be changed, only the addToContextList
-	method
+  If we decide that arbitrary inclusion is needed, this doesn't need to be changed, only the addToContextList
+  method
    */
 
   //resolove context names
   for (IncludeRules::iterator it=includeRules.begin();it!=includeRules.end();)
   {
 
-	if ((*it)->incCtx==-1) // context unresolved ?
-	{ //yes
+  if ((*it)->incCtx==-1) // context unresolved ?
+  { //yes
 
-		if ((*it)->incCtxN.isEmpty())
-		{
-			// no context name given, and no valid context id set, so this item is going to be removed
-			IncludeRules::iterator it1=it;
-			++it1;
-			delete (*it);
-			includeRules.remove(it);
-			it=it1;
-		}
-		else
-		{
-			// resolve name to id
-			(*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
-			kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
-			// It would be good to look here somehow, if the result is valid
-		}
-	} else ++it; //nothing to do, already resolved (by the cross defintion reference resolver
+    if ((*it)->incCtxN.isEmpty())
+    {
+      // no context name given, and no valid context id set, so this item is going to be removed
+      IncludeRules::iterator it1=it;
+      ++it1;
+      delete (*it);
+      includeRules.remove(it);
+      it=it1;
+    }
+    else
+    {
+      // resolve name to id
+      (*it)->incCtx=getIdFromString(&ContextNameList,(*it)->incCtxN,dummy);
+      kdDebug()<<"Resolved "<<(*it)->incCtxN<< " to "<<(*it)->incCtx<<" for include rule"<<endl;
+      // It would be good to look here somehow, if the result is valid
+    }
+  } else ++it; //nothing to do, already resolved (by the cross defintion reference resolver
   }
 
   // now that all IncludeRule items should be valid and completely resolved, do the real inclusion of the rules.
   // recursiveness is needed, because context 0 could include context 1, which itself includes context 2 and so on.
-  //	In that case we have to handle context 2 first, then 1, 0
+  //  In that case we have to handle context 2 first, then 1, 0
 //TODO: catch circular references: eg 0->1->2->3->1
   while (!includeRules.isEmpty())
-  	handleIncludeRulesRecursive(includeRules.begin(),&includeRules);
+    handleIncludeRulesRecursive(includeRules.begin(),&includeRules);
 
 
 }
 
 void Highlight::handleIncludeRulesRecursive(IncludeRules::iterator it, IncludeRules *list)
 {
-	if (it==list->end()) return;  //invalid iterator, shouldn't happen, but better have a rule prepared ;)
-	IncludeRules::iterator it1=it;
-	int ctx=(*it1)->ctx;
+  if (it==list->end()) return;  //invalid iterator, shouldn't happen, but better have a rule prepared ;)
+  IncludeRules::iterator it1=it;
+  int ctx=(*it1)->ctx;
 
-	/*find the last entry for the given context in the IncludeRules list
- 	  this is need if one context includes more than one. This saves us from updating all insert positions:
-	  eg: context 0:
-		pos 3 - include context 2
-		pos 5 - include context 3
-	  During the building of the includeRules list the items are inserted in ascending order, now we need it
-	  descending to make our life easier.
-	*/
-	while ((it!=list->end()) && ((*it)->ctx==ctx))
-	{
-		it1=it;
-		++it;
-//		kdDebug()<<"loop1"<<endl;
-	}
-	// iterate over each include rule for the context the function has been called for.
-	while ((it1!=list->end()) && ((*it1)->ctx==ctx))
-	{
-//		kdDebug()<<"loop2"<<endl;
+  /*find the last entry for the given context in the IncludeRules list
+     this is need if one context includes more than one. This saves us from updating all insert positions:
+    eg: context 0:
+    pos 3 - include context 2
+    pos 5 - include context 3
+    During the building of the includeRules list the items are inserted in ascending order, now we need it
+    descending to make our life easier.
+  */
+  while ((it!=list->end()) && ((*it)->ctx==ctx))
+  {
+    it1=it;
+    ++it;
+//    kdDebug()<<"loop1"<<endl;
+  }
+  // iterate over each include rule for the context the function has been called for.
+  while ((it1!=list->end()) && ((*it1)->ctx==ctx))
+  {
+//    kdDebug()<<"loop2"<<endl;
 
 
-		int ctx1=(*it1)->incCtx;
+    int ctx1=(*it1)->incCtx;
 
-		//let's see, if the the included context includes other contexts
-		for (IncludeRules::iterator it2=list->begin();it2!=list->end();++it2)
-		{
-//			kdDebug()<<"loop3"<<endl;
+    //let's see, if the the included context includes other contexts
+    for (IncludeRules::iterator it2=list->begin();it2!=list->end();++it2)
+    {
+//      kdDebug()<<"loop3"<<endl;
 
-			if ((*it2)->ctx==ctx1)
-			{
-				//yes it does, so first handle that include rules, since we want to
-				// include those subincludes too
-				handleIncludeRulesRecursive(it2,list);
-				break;
-			}
-		}
+      if ((*it2)->ctx==ctx1)
+      {
+        //yes it does, so first handle that include rules, since we want to
+        // include those subincludes too
+        handleIncludeRulesRecursive(it2,list);
+        break;
+      }
+    }
 
-		// if the context we want to include had sub includes, they are already inserted there.
-		HlContext *dest=contextList[ctx];
-		HlContext *src=contextList[ctx1];
-		uint p=(*it1)->pos; //insert the included context's rules starting at position p
-		for ( HlItem *c = src->items.first(); c; c=src->items.next(), p++ )
+    // if the context we want to include had sub includes, they are already inserted there.
+    HlContext *dest=contextList[ctx];
+    HlContext *src=contextList[ctx1];
+    uint p=(*it1)->pos; //insert the included context's rules starting at position p
+    for ( HlItem *c = src->items.first(); c; c=src->items.next(), p++ )
                         dest->items.insert(p,c);
 
-		it=it1; //backup the iterator
-		--it1; //move to the next entry, which has to be take care of
-		delete (*it); //free the already handled data structure
-		list->remove(it); // remove it from the list
-	}
+    it=it1; //backup the iterator
+    --it1; //move to the next entry, which has to be take care of
+    delete (*it); //free the already handled data structure
+    list->remove(it); // remove it from the list
+  }
 }
 
 int Highlight::addToContextList(const QString &ident, int ctx0)
@@ -2037,9 +2036,9 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   // Let the syntax document class know, which file we'd like to parse
   if (!HlManager::self()->syntax->setIdentifier(ident))
   {
-	noHl=true;
-	KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
-	return 0;
+  noHl=true;
+  KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
+  return 0;
   }
 
   RegionList<<"!KateInternal_TopLevel!";
@@ -2063,7 +2062,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
     {
       while (HlManager::self()->syntax->nextGroup(data))
         {
-	  kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
+    kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
           // BEGIN - Translation of the attribute parameter
           QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
           int attr;
@@ -2073,12 +2072,12 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
             attr=lookupAttrName(tmpAttr,iDl);
           // END - Translation of the attribute parameter
 
-	  ctxName=buildPrefix+HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+    ctxName=buildPrefix+HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
 
-	  QString tmpLineEndContext=HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
-	  int context;
+    QString tmpLineEndContext=HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+    int context;
 
-	  context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
+    context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
 
           // BEGIN get fallthrough props
           bool ft = false;
@@ -2090,8 +2089,8 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
             if ( ft ) {
               QString tmpFtc = HlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
-  	      ftc=getIdFromString(&ContextNameList, tmpFtc,dummy);
-	      if (ftc == -1) ftc =0;
+          ftc=getIdFromString(&ContextNameList, tmpFtc,dummy);
+        if (ftc == -1) ftc =0;
 
               kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
             }
@@ -2110,38 +2109,38 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
             //Let's create all items for the context
             while (HlManager::self()->syntax->nextItem(data))
               {
-//		kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
+//    kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
 
                 // IncludeRules : add a pointer to each item in that context
 
                 QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) { //if the new item is an Include rule, we have to take special care
-			QString incCtx=HlManager::self()->syntax->groupItemData( data, QString("context"));
-			// only context refernces of type NAME and ##Name are allowed
-			if (incCtx.startsWith("##") || (!incCtx.startsWith("#"))) { //#stay, #pop is not interesting here
-				if (!incCtx.startsWith("#")) { // a local reference -> just initialize the include rule structure
-					incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
-					includeRules.append(new IncludeRule(i,contextList[i]->items.count(),incCtx));
-				}
-				else { //a cross highlighting reference
-					kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
-					IncludeRule *ir=new IncludeRule(i,contextList[i]->items.count());
-					//use the same way to determine cross hl file references as other items do
-					if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
-						embeddedHls.insert(incCtx.right(incCtx.length()-2),EmbeddedHlInfo());
-					unresolvedContextReferences.insert(&(ir->incCtx),
-							incCtx.right(incCtx.length()-2));
-					includeRules.append(ir);
-				}
-			}
-			continue;
-		}
+      QString incCtx=HlManager::self()->syntax->groupItemData( data, QString("context"));
+      // only context refernces of type NAME and ##Name are allowed
+      if (incCtx.startsWith("##") || (!incCtx.startsWith("#"))) { //#stay, #pop is not interesting here
+        if (!incCtx.startsWith("#")) { // a local reference -> just initialize the include rule structure
+          incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
+          includeRules.append(new IncludeRule(i,contextList[i]->items.count(),incCtx));
+        }
+        else { //a cross highlighting reference
+          kdDebug()<<"Cross highlight reference <IncludeRules>"<<endl;
+          IncludeRule *ir=new IncludeRule(i,contextList[i]->items.count());
+          //use the same way to determine cross hl file references as other items do
+          if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))
+            embeddedHls.insert(incCtx.right(incCtx.length()-2),EmbeddedHlInfo());
+          unresolvedContextReferences.insert(&(ir->incCtx),
+              incCtx.right(incCtx.length()-2));
+          includeRules.append(ir);
+        }
+      }
+      continue;
+    }
 #if 0
                 QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
                   int ctxId = getIdFromString(&ContextNameList,
-			HlManager::self()->syntax->groupItemData( data, QString("context")),dummy); // the index is *required*
+      HlManager::self()->syntax->groupItemData( data, QString("context")),dummy); // the index is *required*
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
                     if ( ctxId < (int) i ) { // must be defined
@@ -2154,24 +2153,24 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
                   continue; // while nextItem
                 }
 #endif
-		c=createHlItem(data,iDl,&RegionList,&ContextNameList);
-		if (c)
-			{
+    c=createHlItem(data,iDl,&RegionList,&ContextNameList);
+    if (c)
+      {
                                 contextList[i]->items.append(c);
 
                                 // Not supported completely atm and only one level. Subitems.(all have to be matched to at once)
-				datasub=HlManager::self()->syntax->getSubItems(data);
-				bool tmpbool;
-				if (tmpbool=HlManager::self()->syntax->nextItem(datasub))
-					{
-					  c->subItems=new QPtrList<HlItem>;
-					  for (;tmpbool;tmpbool=HlManager::self()->syntax->nextItem(datasub))
+        datasub=HlManager::self()->syntax->getSubItems(data);
+        bool tmpbool;
+        if (tmpbool=HlManager::self()->syntax->nextItem(datasub))
+          {
+            c->subItems=new QPtrList<HlItem>;
+            for (;tmpbool;tmpbool=HlManager::self()->syntax->nextItem(datasub))
                                             c->subItems->append(createHlItem(datasub,iDl,&RegionList,&ContextNameList));
                                         }
-				HlManager::self()->syntax->freeGroupInfo(datasub);
+        HlManager::self()->syntax->freeGroupInfo(datasub);
                                 // end of sublevel
-			}
-//		kdDebug(13010)<<"Last line in loop"<<endl;
+      }
+//    kdDebug(13010)<<"Last line in loop"<<endl;
               }
           i++;
         }
@@ -2547,7 +2546,7 @@ void HlManager::setDefaults(KateAttributeList &list)
         settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":0):"");
         settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
         settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
-	settings<<"---";
+  settings<<"---";
         config->writeEntry(defaultStyleName(z),settings);
 //    config->writeEntry(defaultStyleName(z),s);
   }

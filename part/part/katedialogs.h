@@ -44,36 +44,35 @@
 #ifndef KATE_DIALOGS_H
 #define KATE_DIALOGS_H
 
-#include "katehighlight.h"
-#include "katedocument.h"
+#include <katedocument.h>
+#include <katehighlight.h>
+#include <kateattribute.h>
+
 #include "../interfaces/document.h"
 
-#include <kdialog.h>
-#include <kdialogbase.h>
-#include <qtabwidget.h>
-#include <kcolorbutton.h>
-#include <qcolor.h>
+#define private protected
+#include <klistview.h>
+#undef private
 
+#include <kdialogbase.h>
+
+#include <qcolor.h>
+#include <qvbox.h>
+#include <qtabwidget.h>
+
+struct syntaxContextData;
+
+class KSpellConfig;
+
+class QListBoxItem;
 class QWidgetStack;
 class QVBox;
-class  KListView;
 class QListViewItem;
-struct syntaxContextData;
 class QCheckBox;
 
 #define HlEUnknown 0
 #define HlEContext 1
 #define HlEItem 2
-
-#include <qvbox.h>
-
-#define private protected
-#include <qlistview.h>
-#undef private
-
-#include <klistview.h>
-
-class QListBoxItem;
 
 class PluginListItem : public QCheckListItem
 {

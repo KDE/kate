@@ -442,11 +442,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
      * gets the last line number (numLines() -1)
      */
     uint lastLine() const { return numLines()-1;}
-
-    /**
-     * get the length in pixels of the given line
-     */
-    int textLength(int line) const;
     
     TextLine::Ptr kateTextLine(uint i);
 

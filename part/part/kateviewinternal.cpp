@@ -388,13 +388,13 @@ void KateViewInternal::cursorDown(bool sel)
   int x;
   
   if( c.line >= (int)m_doc->lastLine() ) {
-    x = m_doc->textLength( c.line );
+    x = m_doc->lineLength( c.line );
     if( c.col >= x )
       return;
     c.col = x;
   } else {
     c.line = m_doc->getRealLine( displayCursor.line + 1 );
-    x = m_doc->textLength( c.line );
+    x = m_doc->lineLength( c.line );
     if( c.col > x )
       c.col = x;
   }
@@ -491,7 +491,7 @@ void KateViewInternal::top_home( bool sel )
 
 void KateViewInternal::bottom_end( bool sel )
 {
-  KateTextCursor c( m_doc->lastLine(), m_doc->textLength( m_doc->lastLine() ) );
+  KateTextCursor c( m_doc->lastLine(), m_doc->lineLength( m_doc->lastLine() ) );
   updateSelection( c, sel );
   updateCursor( c );
 }

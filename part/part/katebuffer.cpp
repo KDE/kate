@@ -702,11 +702,11 @@ KateBuffer::invalidateHighlighting()
  * Return line @p i as plain QString
  */
 QString
-KateBuffer::plainLine(uint i)
+KateBuffer::textLine(uint i)
 {
    KateBufBlock *buf = findBlock(i);     
    if (!buf)
-      return 0;     
+      return QString();     
 
    if (!buf->b_stringListValid)     
    {     
@@ -868,6 +868,34 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
    }
 //   else
 //   kdDebug(13000)<<QString("Invalid line %1").arg(lineNr)<<endl;
+}
+
+uint KateBuffer::length ()
+{
+  uint l;
+  
+  for (uint i = 0; i < count(); i++)
+  {
+    l += line(i)->length();
+  }
+
+  return l;
+}
+
+int KateBuffer::lineLength ( uint i )
+{
+  KateBufBlock *buf = findBlock(i);     
+  if (!buf)
+    return -1;     
+
+  if (!buf->b_stringListValid)     
+  {     
+    parseBlock(buf);     
+  }
+  
+  TextLine::Ptr l = buf->line(i - buf->m_beginState.lineNr);
+   
+  return l->length();
 }
 
 QString KateBuffer::text()

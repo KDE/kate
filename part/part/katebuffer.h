@@ -82,7 +82,7 @@ class KateBuffer : public QObject
    /**
     * Return line @p i without highlighting info.
     */
-   QString plainLine(uint i);
+   QString textLine(uint i);
 
    /**
     * Insert @p line in front of line @p i
@@ -137,6 +137,9 @@ class KateBuffer : public QObject
     * Get the text between the two given positions.
     */
    QString text(uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise = false);
+   
+   uint length ();
+   int lineLength ( uint line );
 
    inline bool allowHlUpdate () const
    {

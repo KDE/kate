@@ -537,7 +537,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
 
 QString KateDocument::textLine( uint line ) const
 {
-  return buffer->plainLine(line);
+  return buffer->textLine(line);
 }
 
 bool KateDocument::setText(const QString &s)
@@ -740,7 +740,7 @@ bool KateDocument::removeLine( uint line )
 
 uint KateDocument::length() const
 {
-  return text().length();
+  return buffer->length();
 }
 
 uint KateDocument::numLines() const
@@ -755,7 +755,7 @@ uint KateDocument::numVisLines() const
 
 int KateDocument::lineLength ( uint line ) const
 {
-  return textLength(line);
+  return buffer->lineLength(line);
 }
 
 //
@@ -1120,7 +1120,7 @@ bool KateDocument::editRemoveLine ( uint line )
     
   editStart ();
   
-  editAddUndo (KateUndoGroup::editRemoveLine, line, 0, textLength(line), textLine(line));
+  editAddUndo (KateUndoGroup::editRemoveLine, line, 0, lineLength(line), textLine(line));
 
   buffer->removeLine(line);
 
@@ -1267,7 +1267,7 @@ bool KateDocument::removeSelectedText ()
 
 bool KateDocument::selectAll()
 {
-  return setSelection (0, 0, lastLine(), textLength(lastLine()));
+  return setSelection (0, 0, lastLine(), lineLength(lastLine()));
 }
 
 //
@@ -1436,7 +1436,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
       }
 
       if (line >= 1)
-        col = textLength(line-1);
+        col = lineLength(line-1);
 
       line--;
     }
@@ -1503,7 +1503,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
       }
 
       if (line >= 1)
-        col = textLength(line-1);
+        col = lineLength(line-1);
 
       line--;
     }
@@ -2484,7 +2484,7 @@ bool KateDocument::openFile()
     int bufpos = 0, len;
     for (uint i=0; i < buffer->count(); i++)
     {
-      QString line = buffer->plainLine(i);
+      QString line = textLine(i);
       len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
 //kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
@@ -2518,8 +2518,8 @@ bool KateDocument::saveFile()
   stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
   stream.setCodec(KGlobal::charsets()->codecForName(myEncoding)); // this line sets the mapper to the correct codec
 
-  int maxLine = numLines();
-  int line = 0;
+  uint maxLine = numLines();
+  uint line = 0;
   while(true)
   {
     stream << textLine(line);
@@ -2548,7 +2548,7 @@ bool KateDocument::saveFile()
     int bufpos = 0, len;
     for (uint i=0; i < buffer->count(); i++)
     {
-      QString line = buffer->plainLine( i );
+      QString line = textLine( i );
       len = line.length() + 1;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
       memcpy(&buf[bufpos], (line + "\n").latin1(), len);
@@ -2667,10 +2667,6 @@ void KateDocument::slotBufferUpdateHighlight()
   {
       m_highlightTimer->start(100, true);
   }
-}
-
-int KateDocument::textLength(int line) const {
-  return buffer->plainLine(line).length();
 }
 
 void KateDocument::setTabWidth(int chars) {

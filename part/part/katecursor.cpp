@@ -44,7 +44,7 @@ KateDocCursor::~KateDocCursor()
 
 bool KateDocCursor::validPosition(uint _line, uint _col)
 {
-  return _line < m_doc->numLines() && (int)_col <= m_doc->textLength(_line);
+  return _line < m_doc->numLines() && (int)_col <= m_doc->lineLength(_line);
 }
 
 bool KateDocCursor::validPosition()
@@ -54,7 +54,7 @@ bool KateDocCursor::validPosition()
 
 int KateDocCursor::nbCharsOnLineAfter()
 {
-  return ((int)m_doc->textLength(line) - (int)col);
+  return ((int)m_doc->lineLength(line) - (int)col);
 }
 
 void KateDocCursor::position(uint *pline, uint *pcol) const
@@ -101,7 +101,7 @@ bool KateDocCursor::gotoEndOfNextLine()
 {
   bool ok = gotoNextLine();
   if(ok)
-    col = m_doc->textLength(line);
+    col = m_doc->lineLength(line);
 
   return ok;
 }
@@ -110,7 +110,7 @@ bool KateDocCursor::gotoEndOfPreviousLine()
 {
   bool ok = gotoPreviousLine();
   if(ok)
-    col = m_doc->textLength(line);
+    col = m_doc->lineLength(line);
 
   return ok;
 }

@@ -38,15 +38,19 @@ class ConfigPage : public QWidget
   //
   public:
     /**
-      Applies + saves the current chosen settings, that will
-      apply the changes to all current loaded documents
+      Applies the changes to the document
     */
     virtual void apply () = 0;
     
     /**
-      Reloads the settings from config
+      Reset the changes
     */
-    virtual void reload () = 0;
+    virtual void reset () = 0;
+    
+    /**
+      Sets default options
+    */
+    virtual void defaults () = 0;
 };
 
 /*

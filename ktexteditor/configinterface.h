@@ -44,8 +44,19 @@ class ConfigInterface
     /**
       Read/Write config of ALL current loaded documents 
     */
+    
+    /**
+      Read/Write the config to the standard place where this editor
+      part saves it config, say: read/save default values for that
+      editor part
+    */
     virtual void readConfig () = 0;
-    virtual void writeConfig () = 0;
+    virtual void writeConfig () = 0;           
+                                                                         
+    /**
+      Read/Write the config of the part to a given kconfig object
+      to store the settings in a different place than the standard
+    */
     virtual void readConfig (KConfig *) = 0;
     virtual void writeConfig (KConfig *) = 0;
     
@@ -56,7 +67,9 @@ class ConfigInterface
     virtual void writeSessionConfig (KConfig *) = 0;
     
     /**
-      Configures ALL current loaded documents 
+      Shows a config dialog for the part, changes will be applied
+      to the part, but not saved anywhere automagically, call
+      writeConfig to save it
     */
     virtual void configDialog () = 0;
 

@@ -712,7 +712,7 @@ void KateView::slotReadWriteChanged ()
   QStringList l;
 
   l << "edit_replace" << "set_insert" << "tools_spelling" << "tools_indent"
-      << "tools_unindent" << "tools_cleanIndent"  << "tools_comment"
+      << "tools_unindent" << "tools_cleanIndent" << "tools_align"  << "tools_comment"
       << "tools_uncomment" << "tools_uppercase" << "tools_lowercase"
       << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
       << "edit_undo" << "edit_redo";

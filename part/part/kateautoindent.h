@@ -201,10 +201,13 @@ class KateCSmartIndent : public KateAutoIndent
     uint calcIndent (KateDocCursor &begin, bool needContinue);
     uint calcContinue (KateDocCursor &begin, KateDocCursor &end);
     uint findOpeningBrace (KateDocCursor &start);
+    uint findOpeningParen (KateDocCursor &start);
     uint findOpeningComment (KateDocCursor &start);
     bool firstOpeningBrace (KateDocCursor &start);
+    bool handleDoxygen (KateDocCursor &begin);
 
     bool allowSemi;
+    bool processingBlock;
 };
 
 class KatePythonIndent : public KateAutoIndent

@@ -3347,13 +3347,14 @@ void KateDocument::align(uint line)
     {
       KateDocCursor curLine(line, 0, this);
       m_indenter->processLine (curLine);
+      editEnd ();
+      activeView()->setCursorPosition (line, curLine.col());
     }
     else
     {
       m_indenter->processSection(selectStart, selectEnd);
+      editEnd ();
     }
-
-    editEnd ();
   }
 }
 
@@ -4971,6 +4972,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
         else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfRemoveSpaces, state );
+        else if ( var == "auto-insert-doxygen" && checkBoolValue( val, &state) )
+          m_config->setConfigFlags( KateDocumentConfig::cfDoxygenAutoTyping, state);
 
         // INTEGER SETTINGS
         else if ( var == "tab-width" && checkIntValue( val, &n ) )

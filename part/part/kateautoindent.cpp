@@ -161,7 +161,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
         {
           atLeastOne = true;
           getNext = true;
-          pos = begin.col() + 1;
+          pos = measureIndent(begin) + 1;
         }
         parenOpen++;
       }
@@ -173,7 +173,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
     else if (getNext && !c.isSpace())
     {
       getNext = false;
-      pos = begin.col();
+      pos = measureIndent(begin);
     }
 
     if (atLeastOne && parenOpen <= 0)
@@ -275,7 +275,8 @@ void KateAutoIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/
 
 KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
  :  KateAutoIndent (doc),
-    allowSemi (false)
+    allowSemi (false),
+    processingBlock (false)
 {
 
 }
@@ -290,8 +291,8 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
 
   int firstChar = textLine->firstChar();
-  // Empty line is worthless ...
-  if (firstChar == -1)
+  // Empty line is worthless ... but only when doing more than 1 line
+  if (firstChar == -1 && processingBlock)
     return;
 
   uint indent = 0;
@@ -303,6 +304,10 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   if (first == '}')
   {
     indent = findOpeningBrace(line);
+  }
+  else if (first == ')')
+  {
+    indent = findOpeningParen(line);
   }
   else if (first == '{')
   {
@@ -349,11 +354,11 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
     }
     else
     {
+      KateDocCursor temp = line;
       if (textLine->attribute(firstChar) == doxyCommentAttrib)
-      {
-        KateDocCursor temp = line;
         indent = calcIndent(temp, false) + 1;
-      }
+      else
+        indent = calcIndent(temp, true);
     }
   }
   else if (first == '#')
@@ -369,6 +374,9 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   else
   {
     // Everything else ...
+    if (first == '/' && last != '/')
+      return;
+
     KateDocCursor temp = line;
     indent = calcIndent(temp, true);
     if (indent == 0)
@@ -382,8 +390,9 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   if (indent != measureIndent(line) || first == '}' || first == '{' || first == '#')
   {
     doc->removeText(line.line(), 0, line.line(), firstChar);
-    if (indent > 0)
-      doc->insertText(line.line(), 0, tabString(indent));
+    QString filler = tabString(indent);
+    if (indent > 0) doc->insertText(line.line(), 0, filler);
+    if (!processingBlock) line.setCol(filler.length());
   }
 }
 
@@ -393,6 +402,8 @@ void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
   QTime t;
   t.start();
 
+  processingBlock = (end.line() - cur.line() > 0) ? true : false;
+
   while (cur.line() <= end.line())
   {
     processLine (cur);
@@ -400,64 +411,82 @@ void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
       break;
   }
 
+  processingBlock = false;
   kdDebug(13000) << "+++ total: " << t.elapsed() << endl;
+}
+
+bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
+{
+  // Factor out the rather involved Doxygen stuff here ...
+  int line = begin.line();
+  int first = -1;
+  while ((line > 0) && (first < 0))
+    first = doc->plainKateTextLine(--line)->firstChar();
+
+  if (first > 0)
+  {
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
+    bool insideDoxygen = false;
+    if (textLine->attribute(first) == doxyCommentAttrib || textLine->attribute(textLine->lastChar()) == doxyCommentAttrib)
+    {
+      if (!textLine->endingWith("*/"))
+        insideDoxygen = true;
+    }
+
+    // Align the *'s and then go ahead and insert one too ...
+    if (insideDoxygen)
+    {
+      textLine = doc->plainKateTextLine(begin.line());
+      first = textLine->firstChar();
+      int indent = findOpeningComment(begin);
+      QString filler = tabString (indent);
+
+      bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping; 
+      if ( doxygenAutoInsert &&
+           (!textLine->stringAtPos(first, "*/") && !textLine->stringAtPos(first, "*")))
+      {
+        filler = filler + " * ";
+      }
+
+      doc->removeText (begin.line(), 0, begin.line(), first);
+      doc->insertText (begin.line(), 0, filler);
+      begin.setCol(filler.length());
+
+      return true;
+    }  
+  }
+
+  return false;
 }
 
 void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 {
-  bool inMiddle = begin.col() < doc->plainKateTextLine(begin.line())->lastChar() || !begin.currentChar().isNull();
-  int indent = calcIndent (begin, needContinue);
-
-  if (indent > 0 || inMiddle)
+  if (!handleDoxygen (begin))
   {
-    QString filler = tabString (indent);
-    doc->insertText (begin.line(), 0, filler);
-    begin.setCol(filler.length());    
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
+    bool inMiddle = textLine->firstChar() > -1;
 
-    // Handles cases where user hits enter at the beginning or middle of text
-    if (inMiddle)
+    int indent = calcIndent (begin, needContinue);
+
+    if (indent > 0 || inMiddle)
     {
-      processLine(begin);
-      begin.setCol(doc->plainKateTextLine(begin.line())->firstChar());
-    }
-  }
-  else
-  {
-    int line = begin.line();
-    int first = -1;
+      QString filler = tabString (indent);
+      doc->insertText (begin.line(), 0, filler);
+      begin.setCol(filler.length());    
 
-    while ((line > 0) && (first < 0)) // search a not empty text line
-      first = doc->plainKateTextLine(--line)->firstChar();
-
-    if (first > 0)
-    {
-      KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
-      bool insideDoxygen = false;
-      if (textLine->attribute(first) == doxyCommentAttrib || textLine->attribute(textLine->lastChar()) == doxyCommentAttrib)
+      // Handles cases where user hits enter at the beginning or middle of text
+      if (inMiddle)
       {
-        if (!textLine->endingWith("*/"))
-          insideDoxygen = true;
-      }
-
-      // Align the *'s and then go ahead and insert one too ...
-      if (insideDoxygen)
-      {
-        textLine = doc->plainKateTextLine(begin.line());
-        first = textLine->firstChar();
-        bool addStar = !textLine->stringAtPos(first, "*/");
-
-        indent = findOpeningComment(begin) + 1;
-        QString filler = tabString (indent) + ((addStar) ? "* " : "");
-        doc->removeText (begin.line(), 0, begin.line(), first);
-        doc->insertText (begin.line(), 0, filler);
-        begin.setCol(filler.length());
-      }
-      else
-      {
-        KateAutoIndent::processNewline (begin, needContinue);
-        begin.setCol(begin.col() - 1);
+        processLine(begin);
+        begin.setCol(textLine->firstChar());
       }
     }
+    else
+    {
+      KateAutoIndent::processNewline (begin, needContinue);
+      begin.setCol(begin.col() - 1);
+    }
+
     if (begin.col() < 0)
       begin.setCol(0);
   }
@@ -465,11 +494,19 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 
 void KateCSmartIndent::processChar(QChar c)
 {
-  if (c != '}' && c != '{' && c != '/' && c != ':' && c != '#' && c != 'n')
+  static const QString triggers("}{)/:;#n");
+  if (triggers.find(c, true) == -1)
     return;
 
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), 0, doc);
+
+  if (c == 'n')
+  {
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
+    if (textLine->getChar(textLine->firstChar()) != '#')
+      return;
+  }
 
   processLine(begin);
 }
@@ -481,10 +518,9 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
 
   uint anchorIndent = 0;
   int anchorPos = 0;
-  int tFor = 0;  // Possibly in a multiline for stmt.  Used to skip ';' ...
+  int parenCount = 0;  // Possibly in a multiline for stmt.  Used to skip ';' ...
   bool found = false;
   bool isSpecial = false;
-  bool firstTry = true;
 
   //kdDebug() << "calcIndent begin line:" << begin.line() << " col:" << begin.col() << endl;
 
@@ -496,10 +532,6 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
 
     // Skip comments and handle cases like if (...) { stmt;
     int pos = textLine->lastChar();
-    if (firstTry && needContinue && textLine->attribute(textLine->firstChar()) == doxyCommentAttrib)
-      return 0;
-
-    firstTry = false;
     int openCount = 0;
     int otherAnchor = -1;
     do
@@ -507,12 +539,12 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       if (textLine->attribute(pos) == symbolAttrib)
       {
         QChar tc = textLine->getChar (pos);
-        if ((tc == ';' || tc == ':' || tc == ',') && otherAnchor == -1 && tFor <= 0)
+        if ((tc == ';' || tc == ':' || tc == ',') && otherAnchor == -1 && parenCount <= 0)
           otherAnchor = pos;
         else if (tc == ')')
-          tFor++;
+          parenCount++;
         else if (tc == '(')
-          tFor--;
+          parenCount--;
         else if (tc == '}')
           openCount--;
         else if (tc == '{')
@@ -607,7 +639,6 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   textLine = doc->plainKateTextLine(cur.line());
   QChar lastChar = textLine->getChar (anchorPos);
   int lastLine = cur.line();
-
   if (lastChar == '#' || lastChar == '[')
   {
     // Never continue if # or [ is encountered at this point here
@@ -667,7 +698,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       indent = anchorIndent;
     else
     {
-      // If we're below 48, go ahead and line them up
+      // TODO: Config option. If we're below 48, go ahead and line them up
       indent = ((pos < 48) ? pos : anchorIndent + (indentWidth * 2));
     }
   }
@@ -691,7 +722,6 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
   allowSemi = false;
 
   KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
-  uint length = textLine->length();
 
   // Handle cases such as  } while (s ... by skipping the leading symbol
   if (textLine->attribute(cur.col()) == symbolAttrib)
@@ -766,7 +796,7 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
 
   // Check if this statement ends a line now
   skipBlanks(cur, end, false);
-  if (cur == end || (cur.col() == (int)length-1))
+  if (cur == end)
     return indentWidth;
 
   if (skipBlanks(cur, end, true))
@@ -826,6 +856,31 @@ bool KateCSmartIndent::firstOpeningBrace(KateDocCursor &start)
   }
 
   return true;
+}
+
+uint KateCSmartIndent::findOpeningParen(KateDocCursor &start)
+{
+  KateDocCursor cur = start;
+  int count = 1;
+
+  // Move backwards 1 by 1 and find the opening (
+  // Return the indent of that line
+  while (cur.moveBackward(1))
+  {
+    if (cur.currentAttrib() == symbolAttrib)
+    {
+      QChar ch = cur.currentChar();
+      if (ch == '(')
+        count--;
+      else if (ch == ')')
+        count++;
+
+      if (count == 0)
+        return measureIndent(cur);
+    }
+  }
+
+  return 0;
 }
 
 uint KateCSmartIndent::findOpeningComment(KateDocCursor &start)

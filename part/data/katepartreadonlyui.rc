@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="35">
+<kpartgui name="KatePartView" version="36">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save_as" group="save_merge" />
@@ -58,6 +58,7 @@
     <Action name="tools_indent" group="tools_operations" />
     <Action name="tools_unindent" group="tools_operations" />
     <Action name="tools_cleanIndent" group="tools_operations" />
+    <Action name="tools_align" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_comment" group="tools_operations" />
     <Action name="tools_uncomment" group="tools_operations" />

@@ -336,7 +336,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
                               KateAttributeList *styleList,
                               HlDataDict* hlDataD,
                               int hlNumber,QWidget *parent, const char *name)
-   :QTabWidget(parent,name),defaultItemStyleList(styleList),hlData(0L),hlDataDict(hlDataD),hlManager(_hlManager)
+   :QTabWidget(parent,name),defaultItemStyleList(styleList),hlDataDict(hlDataD),hlData(0L),hlManager(_hlManager)
 
 {
 

@@ -1051,6 +1051,14 @@ int KateHlCChar::checkHgl(const QString& text, int offset, int len)
 }
 //END
 
+//BEGIN KateHl2CharDetect
+KateHl2CharDetect::KateHl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, const QChar *s)
+  : KateHlItem(attribute,context,regionId,regionId2) {
+  sChar1 = s[0];
+  sChar2 = s[1];
+  }
+//END KateHl2CharDetect
+
 KateHlItemData::KateHlItemData(const QString  name, int defStyleNum)
   : name(name), defStyleNum(defStyleNum) {
 }
@@ -1102,12 +1110,6 @@ KateHlContext::~KateHlContext()
   }
 }
 //END
-
-KateHl2CharDetect::KateHl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, const QChar *s)
-  : KateHlItem(attribute,context,regionId,regionId2) {
-  sChar1 = s[0];
-  sChar2 = s[1];
-}
 
 //BEGIN KateHighlighting
 KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount(0)
@@ -2244,7 +2246,6 @@ void KateHighlighting::makeContextList()
 
 void KateHighlighting::handleKateHlIncludeRules()
 {
-
   // if there are noe include rules to take care of, just return
   kdDebug(13010)<<"KateHlIncludeRules, which need attention: " <<includeRules.count()<<endl;
   if (includeRules.isEmpty()) return;
@@ -2289,8 +2290,6 @@ void KateHighlighting::handleKateHlIncludeRules()
   //TODO: catch circular references: eg 0->1->2->3->1
   while (!includeRules.isEmpty())
     handleKateHlIncludeRulesRecursive(includeRules.begin(),&includeRules);
-
-
 }
 
 void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::iterator it, KateHlIncludeRules *list)
@@ -3009,6 +3008,7 @@ bool KateHlManager::resetDynamicCtxs()
 }
 //END
 
+//BEGIN KateHighlighting
 void KateViewHighlightAction::init()
 {
   m_doc = 0;
@@ -3078,5 +3078,6 @@ void KateViewHighlightAction::setHl (int mode)
   if (doc)
     doc->setHlMode((uint)mode);
 }
+//END KateViewHighlightAction
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

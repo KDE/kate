@@ -3095,6 +3095,12 @@ void KateDocument::addStartStopCommentToSelection()
   int sc = selectStart.col;
   int ec = selectEnd.col;
 
+  if ((ec == 0) && ((el-1) >= 0))
+  {
+    el--;
+    ec = getTextLine (el)->length();
+  }
+
   insertText (el, ec, endComment);
   insertText (sl, sc, startComment);
 }
@@ -3109,6 +3115,11 @@ void KateDocument::addStartLineCommentToSelection()
 
   int sl = selectStart.line;
   int el = selectEnd.line;
+
+  if ((selectEnd.col == 0) && ((el-1) >= 0))
+  {
+    el--;
+  }
 
   // For each line of the selection
   for (int z = el; z >= sl; z--)
@@ -3128,6 +3139,12 @@ bool KateDocument::removeStartStopCommentFromSelection()
   uint el = selectEnd.line;
   int sc = selectStart.col;
   int ec = selectEnd.col;
+
+   if ((ec == 0) && ((el-1) >= 0))
+  {
+    el--;
+    ec = getTextLine (el)->length();
+  }
 
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
@@ -3186,6 +3203,11 @@ bool KateDocument::removeStartLineCommentFromSelection()
 
   int sl = selectStart.line;
   int el = selectEnd.line;
+
+   if ((selectEnd.col == 0) && ((el-1) >= 0))
+  {
+    el--;
+  }
 
   bool removed = false;
 

@@ -4014,9 +4014,6 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
   if (!textLine)
     return false;
 
-  if (!textLine->isVisible())
-    return false;
-
   // length, chars + raw attribs
   uint len = textLine->length();
   uint oldLen = len;

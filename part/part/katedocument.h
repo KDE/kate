@@ -38,6 +38,8 @@
 
 namespace KTextEditor { class Plugin; }
 
+namespace KIO { class TransferJob; }
+
 class KateUndoGroup;
 class KateCmd;
 class KateAttribute;
@@ -55,6 +57,7 @@ class KateDocumentConfig;
 class Highlight;
 
 class KSpell;
+class KTempFile;
 
 class QTimer;
 
@@ -443,17 +446,28 @@ class KateDocument : public Kate::Document,
   // KParts::ReadWrite stuff
   //
   public:
+    bool openURL( const KURL &url );
+    
     /* Anders:
       I reimplemented this, since i need to check if backup succeeded
       if requested */
     bool save();
 
+    bool openFile (KIO::Job * job);
     bool openFile ();
+    
     bool saveFile ();
 
     void setReadWrite ( bool rw = true );
 
     void setModified( bool m );
+    
+  private slots:
+    void slotDataKate ( KIO::Job* kio_job, const QByteArray &data );
+    void slotFinishedKate ( KIO::Job * job );
+    
+  private:
+    void abortLoadKate();
 
   //
   // Kate::Document stuff
@@ -804,7 +818,10 @@ class KateDocument : public Kate::Document,
 
     static QRegExp kvLine;
     static QRegExp kvVar;
-
+    
+    KIO::TransferJob *m_job;
+    KTempFile *m_tempFile;
+    
   k_dcop:
     uint documentNumber () const;
 

@@ -849,7 +849,7 @@ void KateView::flush()
 
 KateView::saveResult KateView::save()
 {
-  if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )
+  if( !m_doc->url().isValid() || !doc()->isReadWrite() )
     return saveAs();
 
   if( m_doc->save() )

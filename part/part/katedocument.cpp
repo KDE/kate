@@ -48,6 +48,7 @@
 
 #include <ktexteditor/plugin.h>
 
+#include <kio/job.h>
 #include <kio/netaccess.h>
 
 #include <kparts/event.h>
@@ -71,6 +72,7 @@
 #include <kdirwatch.h>
 #include <kwin.h>
 #include <kencodingfiledialog.h>
+#include <ktempfile.h>
 
 #include <qtimer.h>
 #include <qfile.h>
@@ -106,7 +108,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
   m_modOnHd (false),
-  m_modOnHdReason (0)
+  m_modOnHdReason (0),
+  m_job (0),
+  m_tempFile (0)
 {
   // my dcop object
   setObjId ("KateDocument#"+documentDCOPSuffix());
@@ -2249,12 +2253,121 @@ bool KateDocument::print ()
 
 //BEGIN KParts::ReadWrite stuff
 
+bool KateDocument::openURL( const KURL &url )
+{
+  // no valid URL
+  if ( !url.isValid() )
+    return false;
+    
+  // could not close old one
+  if ( !closeURL() )
+    return false;
+  
+  // set my url  
+  m_url = url;
+  
+  if ( m_url.isLocalFile() )
+  {
+    // local mode, just like in kpart
+    
+    m_file = m_url.path();
+  
+    emit started( 0 );
+
+    if (openFile())
+    {
+      emit completed();
+      emit setWindowCaption( m_url.prettyURL() );
+        
+      return true;
+    }
+    
+    return false;
+  }
+  else
+  {
+    // remote mode
+  
+    m_bTemp = true;
+
+    m_tempFile = new KTempFile ();
+    m_file = m_tempFile->name();
+
+    m_job = KIO::get ( url, false, isProgressInfoEnabled() );
+    
+    // we want to have the http header
+    //m_job->addMetaData ("PropagateHttpHeader", "true");
+    
+    m_job->setWindow( widget() ? widget()->topLevelWidget() : 0 );
+    
+    emit started( m_job );
+
+    connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
+           SLOT( slotDataKate( KIO::Job*, const QByteArray& ) ) );
+
+    connect( m_job, SIGNAL( result( KIO::Job* ) ),
+           SLOT( slotFinishedKate( KIO::Job* ) ) );
+               
+    return true;
+  }
+}
+
+void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
+{
+  kdDebug(13020) << "KateDocument::slotData" << endl;
+
+  if (!m_tempFile || !m_tempFile->file())
+    return;
+    
+  m_tempFile->file()->writeBlock (data);
+}
+
+void KateDocument::slotFinishedKate ( KIO::Job * job )
+{
+  kdDebug(13020) << "KateDocument::slotJobFinished" << endl;
+  
+  if (!m_tempFile)
+    return;
+    
+  delete m_tempFile;
+  m_tempFile = 0;
+  m_job = 0;
+
+  if (job->error())
+    emit canceled( job->errorString() );
+  else
+  {
+    if ( openFile(job) )
+      emit setWindowCaption( m_url.prettyURL() );
+
+    emit completed();
+  }
+}
+
+void KateDocument::abortLoadKate()
+{
+  if ( m_job )
+  {
+    kdDebug(13020) << "Aborting job " << m_job << endl;
+    m_job->kill();
+    m_job = 0;
+  }
+  
+  delete m_tempFile;
+  m_tempFile = 0;
+}
+
 bool KateDocument::openFile()
+{
+  return openFile (0);
+}
+
+bool KateDocument::openFile(KIO::Job * job)
 {
   //
   // add the file to dirwatch
   //
-  if (!m_file.isEmpty())
+  if (m_url.isLocalFile() && !m_file.isEmpty())
     KateFactory::self()->dirWatch ()->addFile (m_file);
 
   //
@@ -2266,7 +2379,18 @@ bool KateDocument::openFile()
     m_modOnHdReason = 0;
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
-
+  
+  //
+  // use metadata
+  //  
+  if (job)
+  {
+    QString metaDataCharset = job->queryMetaData("charset");
+    
+    if (!metaDataCharset.isEmpty ())
+      setEncoding (metaDataCharset);
+  }
+   
   //
   // service type magic to get encoding right
   //
@@ -2401,7 +2525,7 @@ bool KateDocument::saveFile()
   //
   // remove the m_file before saving from dirwatch
   //
-  if (!m_file.isEmpty())
+  if (m_url.isLocalFile() && !m_file.isEmpty())
     KateFactory::self()->dirWatch ()->removeFile (m_file);
 
   //
@@ -2449,7 +2573,7 @@ bool KateDocument::saveFile()
   //
   // add file again
   //
-  if (!m_file.isEmpty())
+  if (m_url.isLocalFile() && !m_file.isEmpty())
     KateFactory::self()->dirWatch ()->addFile (m_file);
 
   //
@@ -2478,6 +2602,8 @@ bool KateDocument::saveFile()
 
 bool KateDocument::closeURL()
 {
+  abortLoadKate();
+
   //
   // file mod on hd
   //
@@ -2509,7 +2635,7 @@ bool KateDocument::closeURL()
   //
   // remove file from dirwatch
   //
-  if (!m_file.isEmpty())
+  if (m_url.isLocalFile() && !m_file.isEmpty())
     KateFactory::self()->dirWatch ()->removeFile (m_file);
 
   //

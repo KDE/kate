@@ -99,7 +99,7 @@ class KateCmdLnWhatsThis : public QWhatsThis
           "<p>This is the Katepart <b>command line</b>.<br>"
           "Syntax: <code><b>command [ arguments ]</b></code><br>"
           "For a list of available commands, enter <code><b>help list</b></code><br>"
-          "For help for individual commmands, enter <code><b>help &lt;command&gt;</b></code></p>")
+          "For help for individual commands, enter <code><b>help &lt;command&gt;</b></code></p>")
           + end;
     }
 

@@ -81,6 +81,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
   setDynWordWrapInterfaceDCOPSuffix (viewDCOPSuffix());
   setPopupMenuInterfaceDCOPSuffix (viewDCOPSuffix());
+  setSessionConfigInterfaceDCOPSuffix (viewDCOPSuffix());
+  setViewCursorInterfaceDCOPSuffix (viewDCOPSuffix());
+  setViewStatusMsgInterfaceDCOPSuffix (viewDCOPSuffix());
   
   setInstance( KateFactory::instance() );
   doc->addView( this );

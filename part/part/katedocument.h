@@ -23,6 +23,7 @@
 
 #include <ktexteditor/configinterfaceextension.h>
 #include <ktexteditor/encodinginterface.h>
+#include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/plugin.h>
 
 #include "katecursor.h"
@@ -66,7 +67,7 @@ namespace Kate
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
 class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceExtension,
-                                                public KTextEditor::EncodingInterface
+                                                public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
 {
   Q_OBJECT
   friend class KateConfigDialog;

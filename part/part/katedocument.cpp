@@ -126,6 +126,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setSearchInterfaceDCOPSuffix (documentDCOPSuffix());
   setSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setSelectionInterfaceExtDCOPSuffix (documentDCOPSuffix());
+  setSessionConfigInterfaceDCOPSuffix (documentDCOPSuffix());
+  setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
+  setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
   
   regionTree=new KateCodeFoldingTree(this);
   m_activeView = 0L;

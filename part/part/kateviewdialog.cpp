@@ -71,6 +71,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
 {
   QWidget *page = new QWidget( this );
   setMainWidget( page );
+  page->setMinimumWidth(350);
 
   QVBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
 
@@ -78,7 +79,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   m_search->insertStringList( searchFor );
   m_search->setMinimumWidth( m_search->sizeHint().width() );
   m_search->lineEdit()->selectAll();
-  QLabel *label = new QLabel( m_search, i18n( "&Text to find:" ), page );
+  QLabel *label = new QLabel( m_search, i18n( "Find:" ), page );
   m_optRegExp = new QCheckBox( i18n( "&Regular expression" ), page );
 
   topLayout->addWidget( label );
@@ -124,11 +125,11 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   m_opt2 = new QCheckBox(i18n("&Whole words only" ), group );
   gbox->addWidget( m_opt2, 2, 0 );
 
-  m_opt3 = new QCheckBox(i18n("&From beginning" ), group );
-  gbox->addWidget( m_opt3, 3, 0 );
-
   m_opt4 = new QCheckBox(i18n("Find &backwards" ), group );
   gbox->addWidget( m_opt4, 1, 1 );
+
+  m_opt3 = new QCheckBox(i18n("&From beginning" ), group );
+  gbox->addWidget( m_opt3, 2, 1 );
 
   if( flags & KateDocument::sfReplace )
   {

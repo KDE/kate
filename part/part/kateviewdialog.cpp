@@ -479,7 +479,8 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   opt[6]->setChecked(configFlags & flags[6]);
 
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
-  e3->setRange(0, 1000, 1, false);
+  e3->setRange(0, 1000000, 1, false);
+  e3->setSpecialValueText( i18n("Unlimited") );
   e3->setLabel(i18n("Maximum undo steps:"), AlignVCenter);
   mainLayout->addWidget(e3);
 
@@ -514,7 +515,11 @@ void EditConfigTab::getData(KateDocument *view)
   view->setWordWrapAt(e1->value());
   view->setWordWrap (opt[0]->isChecked());
   view->setTabWidth(e2->value());
-  view->setUndoSteps(e3->value());
+  
+  if (e3->value() <= 0)
+    view->setUndoSteps(0);
+  else
+    view->setUndoSteps(e3->value());
 }
 
 void EditConfigTab::apply ()

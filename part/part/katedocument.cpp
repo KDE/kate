@@ -776,7 +776,7 @@ void KateDocument::editStart (bool withUndo)
 
   if (editWithUndo)
   {
-    if (undoItems.count () > myUndoSteps)
+    if ((myUndoSteps > 0) && (undoItems.count () > myUndoSteps))
     {
       undoItems.setAutoDelete (true);
       undoItems.removeFirst ();
@@ -916,9 +916,7 @@ void KateDocument::editRemoveTagLine (uint line)
 
 bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 {
-  TextLine::Ptr l;
-
-  l = buffer->line(line);
+  TextLine::Ptr l = buffer->line(line);
 
   if (!l)
     return false;
@@ -939,9 +937,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
 bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 {
-  TextLine::Ptr l;
-
-  l = buffer->line(line);
+  TextLine::Ptr l = buffer->line(line);
 
   if (!l)
     return false;
@@ -969,15 +965,15 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 bool KateDocument::editWrapLine ( uint line, uint col )
 {
   TextLine::Ptr l = buffer->line(line);
-  TextLine::Ptr tl = new TextLine();
-
-  if (!l || !tl)
+  
+  if (!l)
     return false;
 
   editStart ();
 
   editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
+  TextLine::Ptr tl = new TextLine();
   l->wrap (tl, col);
 
   buffer->insertLine (line+1, tl);
@@ -1023,7 +1019,6 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   editAddUndo (KateUndoGroup::editUnWrapLine, line, col, 0, 0);
 
   l->unWrap (col, tl, tl->length());
-  l->setContext (tl->ctx(), tl->ctxSize());
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);
@@ -1066,9 +1061,9 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
-  TextLine::Ptr TL=new TextLine();
-  TL->append(s.unicode(),s.length());
-  buffer->insertLine(line,TL);
+  TextLine::Ptr tl = new TextLine();
+  tl->append(s.unicode(),s.length());
+  buffer->insertLine(line, tl);
   buffer->changeLine(line);
 
   editInsertTagLine (line);
@@ -1193,8 +1188,6 @@ bool KateDocument::hasSelection() const
 
 QString KateDocument::selection() const
 {
-  int sl = selectStart.line;
-  int el = selectEnd.line;
   int sc = selectStart.col;
   int ec = selectEnd.col;
   
@@ -1208,7 +1201,7 @@ QString KateDocument::selection() const
     }
   }
 
-  return text (sl, sc, el, ec, blockSelect);
+  return text (selectStart.line, sc, selectEnd.line, ec, blockSelect);
 }
 
 bool KateDocument::removeSelectedText ()
@@ -1228,8 +1221,6 @@ bool KateDocument::removeSelectedText ()
     }
   }
 
-  int sl = selectStart.line;
-  int el = selectEnd.line;
   int sc = selectStart.col;
   int ec = selectEnd.col;
   
@@ -1243,7 +1234,7 @@ bool KateDocument::removeSelectedText ()
     }
   }
 
-  removeText (sl, sc, el, ec, blockSelect);
+  removeText (selectStart.line, sc, selectEnd.line, ec, blockSelect);
    
   clearSelection();
 
@@ -1272,9 +1263,9 @@ bool KateDocument::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
     setSelection (selectStart, selectEnd);
-    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
+    
+    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() )
       view->slotUpdate();
-    }
   }
 
   return true;
@@ -1282,8 +1273,7 @@ bool KateDocument::setBlockSelectionMode (bool on)
 
 bool KateDocument::toggleBlockSelectionMode ()
 {
-  setBlockSelectionMode (!blockSelect);
-  return true;
+  return setBlockSelectionMode (!blockSelect);
 }
 
 //
@@ -1314,7 +1304,7 @@ void KateDocument::setUndoSteps(uint steps)
 
 void KateDocument::undo()
 {
-  if ((undoItems.count() >0) && undoItems.last())
+  if ((undoItems.count() > 0) && undoItems.last())
   {
     undoItems.last()->undo();
     redoItems.append (undoItems.last());
@@ -1326,7 +1316,7 @@ void KateDocument::undo()
 
 void KateDocument::redo()
 {
-  if ((redoItems.count() >0) && redoItems.last())
+  if ((redoItems.count() > 0) && redoItems.last())
   {
     redoItems.last()->redo();
     undoItems.append (redoItems.last());

@@ -69,6 +69,7 @@
 <ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
   <Action name="file_save_as" group="file_operations" />
+  <Action name="file_print" group="print_merge" />
   <Action name="edit_undo" group="edit_operations" />
   <Action name="edit_redo" group="edit_operations" />
   <Action name="edit_cut" group="edit_operations" />

@@ -546,6 +546,7 @@ bool KateDocument::clear()
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() ) {
     view->m_viewInternal->clear();
     view->m_viewInternal->tagAll();
+    view->m_viewInternal->update();
   }
 
   eolMode = KateDocument::eolUnix;
@@ -3789,7 +3790,10 @@ void KateDocument::tagSelection()
 void KateDocument::tagAll()
 {
   for (uint z = 0; z < m_views.count(); z++)
+  {
     m_views.at(z)->m_viewInternal->tagAll();
+    m_views.at(z)->m_viewInternal->update();
+  }
 }
 
 void KateDocument::updateLines()

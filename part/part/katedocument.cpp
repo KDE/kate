@@ -473,7 +473,12 @@ void KateDocument::editStart (bool withUndo)
   if (editWithUndo)
   {
     if (undoItems.count () > myUndoSteps)
+    {
+      undoItems.setAutoDelete (true);
       undoItems.removeFirst ();
+      undoItems.setAutoDelete (false);
+    }
+    
     editCurrentUndo = new KateUndoGroup (this);
   }
   else
@@ -591,15 +596,10 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
   return true;
 }
 
-void KateDocument::editAddUndo (KateUndo *undo)
+void KateDocument::editAddUndo (uint type, uint line, uint col, uint len, const QString &text)
 {
-  if (!undo)
-    return;
-
   if (editIsRunning && editWithUndo && editCurrentUndo)
-    editCurrentUndo->addItem (undo);
-  else
-    delete undo;
+    editCurrentUndo->addItem (type, line, col, len, text);
 }
 
 void KateDocument::editTagLine (uint line)
@@ -640,7 +640,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editInsertText, line, col, s.length(), s));
+  editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->replace(col, 0, s.unicode(), s.length());
 
@@ -664,7 +664,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editRemoveText, line, col, len, l->string().mid(col, len)));
+  editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
 
   l->replace(col, len, 0L, 0);
 
@@ -711,7 +711,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editWrapLine, line, col, 0, 0));
+  editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
   l->wrap (tl, col);
 
@@ -774,7 +774,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editUnWrapLine, line, col, 0, 0));
+  editAddUndo (KateUndoGroup::editUnWrapLine, line, col, 0, 0);
 
   l->unWrap (col, tl, tl->length());
   l->setContext (tl->ctx(), tl->ctxLength());
@@ -831,7 +831,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 {
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editInsertLine, line, 0, s.length(), s));
+  editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
   TextLine::Ptr TL=new TextLine();
   TL->append(s.unicode(),s.length());
@@ -881,7 +881,7 @@ bool KateDocument::editRemoveLine ( uint line )
 
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editRemoveLine, line, 0, textLength(line), textLine(line) ));
+  editAddUndo (KateUndoGroup::editRemoveLine, line, 0, textLength(line), textLine(line));
 
   buffer->removeLine(line);
 

@@ -2,7 +2,6 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -25,80 +24,104 @@
 
 #include "katedocument.h"
 #include "kateview.h"
-
-KateUndo::KateUndo (KateDocument *doc, uint type, uint line, uint col, uint len, QString text)
+     
+/**
+ Private class, only for KateUndoGroup, no need to use it elsewhere
+ */                         
+ class KateUndo
 {
-  this->myDoc = doc;
-  this->type = type;
-  this->line = line;
-  this->col = col;
-  this->len = len;
-  this->text = text;
+  public:
+    KateUndo (uint type, uint line, uint col, uint len, const QString &text);
+    ~KateUndo ();
+
+  public:
+    void undo (KateDocument *doc);
+    void redo (KateDocument *doc);
+    
+    inline uint line () const { return m_line; }
+    inline uint col () const { return m_col; }
+    
+  private:
+    uint m_type;
+    uint m_line;
+    uint m_col;
+    uint m_len;
+    QString m_text;
+};
+
+KateUndo::KateUndo (uint type, uint line, uint col, uint len, const QString &text)
+{
+  m_type = type;
+  m_line = line;
+  m_col = col;
+  m_len = len;
+  m_text = text;
 }
 
 KateUndo::~KateUndo ()
 {
 }
 
-void KateUndo::undo ()
+void KateUndo::undo (KateDocument *doc)
 {
-  if (type == KateUndo::editInsertText)
+  if (m_type == KateUndoGroup::editInsertText)
   {
-    myDoc->editRemoveText (line, col, len);
+    doc->editRemoveText (m_line, m_col, m_len);
   }
-  else if (type == KateUndo::editRemoveText)
+  else if (m_type == KateUndoGroup::editRemoveText)
   {
-    myDoc->editInsertText (line, col, text);
+    doc->editInsertText (m_line, m_col, m_text);
   }
-  else if (type == KateUndo::editWrapLine)
+  else if (m_type == KateUndoGroup::editWrapLine)
   {
-    myDoc->editUnWrapLine (line, col);
+    doc->editUnWrapLine (m_line, m_col);
   }
-  else if (type == KateUndo::editUnWrapLine)
+  else if (m_type == KateUndoGroup::editUnWrapLine)
   {
-    myDoc->editWrapLine (line, col);
+    doc->editWrapLine (m_line, m_col);
   }
-  else if (type == KateUndo::editInsertLine)
+  else if (m_type == KateUndoGroup::editInsertLine)
   {
-    myDoc->editRemoveLine (line);
+    doc->editRemoveLine (m_line);
   }
-  else if (type == KateUndo::editRemoveLine)
+  else if (m_type == KateUndoGroup::editRemoveLine)
   {
-    myDoc->editInsertLine (line, text);
+    doc->editInsertLine (m_line, m_text);
   }
 }
 
-void KateUndo::redo ()
+void KateUndo::redo (KateDocument *doc)
 {
-  if (type == KateUndo::editRemoveText)
+  if (m_type == KateUndoGroup::editRemoveText)
   {
-    myDoc->editRemoveText (line, col, len);
+    doc->editRemoveText (m_line, m_col, m_len);
   }
-  else if (type == KateUndo::editInsertText)
+  else if (m_type == KateUndoGroup::editInsertText)
   {
-    myDoc->editInsertText (line, col, text);
+    doc->editInsertText (m_line, m_col, m_text);
   }
-  else if (type == KateUndo::editUnWrapLine)
+  else if (m_type == KateUndoGroup::editUnWrapLine)
   {
-    myDoc->editUnWrapLine (line, col);
+    doc->editUnWrapLine (m_line, m_col);
   }
-  else if (type == KateUndo::editWrapLine)
+  else if (m_type == KateUndoGroup::editWrapLine)
   {
-    myDoc->editWrapLine (line, col);
+    doc->editWrapLine (m_line, m_col);
   }
-  else if (type == KateUndo::editRemoveLine)
+  else if (m_type == KateUndoGroup::editRemoveLine)
   {
-    myDoc->editRemoveLine (line);
+    doc->editRemoveLine (m_line);
   }
-  else if (type == KateUndo::editInsertLine)
+  else if (m_type == KateUndoGroup::editInsertLine)
   {
-    myDoc->editInsertLine (line, text);
+    doc->editInsertLine (m_line, m_text);
   }
 }
 
 KateUndoGroup::KateUndoGroup (KateDocument *doc)
 {
-  myDoc = doc;
+  m_doc = doc;  
+  m_items.setAutoDelete (true);
 }
 
 KateUndoGroup::~KateUndoGroup ()
@@ -107,49 +130,49 @@ KateUndoGroup::~KateUndoGroup ()
 
 void KateUndoGroup::undo ()
 {
-  if (items.count() == 0)
+  if (m_items.count() == 0)
     return;
 
-  myDoc->editStart (false);
+  m_doc->editStart (false);
 
-  for (int pos=(int)items.count()-1; pos >= 0; pos--)
+  for (int pos=(int)m_items.count()-1; pos >= 0; pos--)
   {
-    items.at(pos)->undo();
+    m_items.at(pos)->undo(m_doc);
 
-    if (myDoc->myActiveView != 0L)
+    if (m_doc->myActiveView != 0L)
     {
-      myDoc->myActiveView->myViewInternal->cursorCache.line = items.at(pos)->line;
-      myDoc->myActiveView->myViewInternal->cursorCache.col = items.at(pos)->col;
-      myDoc->myActiveView->myViewInternal->cursorCacheChanged = true;
+      m_doc->myActiveView->myViewInternal->cursorCache.line = m_items.at(pos)->line();
+      m_doc->myActiveView->myViewInternal->cursorCache.col = m_items.at(pos)->col();
+      m_doc->myActiveView->myViewInternal->cursorCacheChanged = true;
     }
   }
 
-  myDoc->editEnd ();
+  m_doc->editEnd ();
 }
 
 void KateUndoGroup::redo ()
 {
-  if (items.count() == 0)
+  if (m_items.count() == 0)
     return;
 
-  myDoc->editStart (false);
+  m_doc->editStart (false);
 
-  for (uint pos=0; pos < items.count(); pos++)
+  for (uint pos=0; pos < m_items.count(); pos++)
   {
-    items.at(pos)->redo();
+    m_items.at(pos)->redo(m_doc);
 
-    if (myDoc->myActiveView != 0L)
+    if (m_doc->myActiveView != 0L)
     {
-      myDoc->myActiveView->myViewInternal->cursorCache.line = items.at(pos)->line;
-      myDoc->myActiveView->myViewInternal->cursorCache.col = items.at(pos)->col;
-      myDoc->myActiveView->myViewInternal->cursorCacheChanged = true;
+      m_doc->myActiveView->myViewInternal->cursorCache.line = m_items.at(pos)->line();
+      m_doc->myActiveView->myViewInternal->cursorCache.col = m_items.at(pos)->col();
+      m_doc->myActiveView->myViewInternal->cursorCacheChanged = true;
     }
   }
 
-  myDoc->editEnd ();
+  m_doc->editEnd ();
 }
 
-void KateUndoGroup::addItem (KateUndo *undo)
+void KateUndoGroup::addItem (uint type, uint line, uint col, uint len, const QString &text)
 {
-  items.append (undo);
+  m_items.append (new KateUndo (type, line, col, len, text));
 }

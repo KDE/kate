@@ -1,3 +1,9 @@
+2002-05-20 Christoph Cullmann <cullmann@kde.org>
+  * some more references in use ;)
+  * fixed some undo probs
+    (mem leak, KateUndo is now only for internal use in KateUndoGroup)
+  * start of convertion my*** to m_*** and add m_ to any other private stuff
+  
 2002-05-17 Christian Couder <christian@kdevelop.org>
   * Move font stuff from katedocument into new katefont.h and
     katefont.cpp files, and clean up katedocument font stuff. 

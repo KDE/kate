@@ -117,7 +117,7 @@ class KateDocument : public Kate::Document
     bool wrapText (uint startLine, uint endLine, uint col);
 
   private:
-    void editAddUndo (KateUndo *undo);
+    void editAddUndo (uint type, uint line, uint col, uint len, const QString &text);
     void editTagLine (uint line);
     void editRemoveTagLine (uint line);
     void editInsertTagLine (uint line);

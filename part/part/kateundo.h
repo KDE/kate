@@ -2,7 +2,6 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -27,18 +26,17 @@
 
 class KateDocument;
 
-class KateUndo {
-  friend class KateUndoGroup;
-
+class KateUndoGroup
+{
   public:
-    KateUndo (KateDocument *doc, uint type, uint line, uint col, uint len, QString text);
-    ~KateUndo ();
+    KateUndoGroup (KateDocument *doc);
+    ~KateUndoGroup ();
 
-  private:
     void undo ();
     void redo ();
 
-  public:
+    void addItem (uint type, uint line, uint col, uint len, const QString &text);      
+    
     enum types
     {
       editInsertText,
@@ -50,28 +48,8 @@ class KateUndo {
     };
 
   private:
-    KateDocument *myDoc;
-    uint type;
-    uint line;
-    uint col;
-    uint len;
-    QString text;
-};
-
-class KateUndoGroup
-{
-  public:
-    KateUndoGroup (KateDocument *doc);
-    ~KateUndoGroup ();
-
-    void undo ();
-    void redo ();
-
-    void addItem (KateUndo *undo);
-
-  private:
-    KateDocument *myDoc;
-    QPtrList<KateUndo> items;
+    KateDocument *m_doc;
+    QPtrList<class KateUndo> m_items;
 };
 
 #endif

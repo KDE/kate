@@ -222,23 +222,31 @@ bool HlInt::startEnable(QChar c)
     return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
 }
 
-const QChar *HlInt::checkHgl(const QChar *str, int len, bool) {
+const QChar *HlInt::checkHgl(const QChar *str, int len, bool)
+{
   const QChar *s,*s1;
 
   s = str;
-  while (s->isDigit()) s++;
-  if (s > str)
-   {
-     if (subItems)
-       {
-	 for (HlItem *it=subItems->first();it;it=subItems->next())
-          {
-            s1=it->checkHgl(s, len, false);
-	    if (s1) return s1;
-          }
-       }
-     return s;
+  while ((len > 0) && s->isDigit())
+  {
+    s++;
+    len--;
   }
+
+  if (s > str)
+  {
+    if (subItems)
+    {
+      for (HlItem *it=subItems->first();it;it=subItems->next())
+      {
+        s1=it->checkHgl(s, len, false);
+        if (s1) return s1;
+      }
+    }
+
+    return s;
+  }
+
   return 0L;
 }
 
@@ -252,57 +260,95 @@ bool HlFloat::startEnable(QChar c)
     return ustrchr(stdDeliminatorChars, stdDeliminatorLen, c);
 }
 
-const QChar *HlFloat::checkHgl(const QChar *s, int len, bool) {
+const QChar *HlFloat::checkHgl(const QChar *s, int len, bool)
+{
   bool b, p;
   const QChar *s1;
 
   b = false;
-  while (s->isDigit()){
+  p = false;
+
+  while ((len > 0) && s->isDigit())
+  {
     s++;
+    len--;
     b = true;
   }
-  if (p = (*s == '.')) {
+
+  if ((len > 0) && (p = (*s == '.')))
+  {
     s++;
-    while (s->isDigit()) {
+    len--;
+
+    while ((len > 0) && s->isDigit())
+    {
       s++;
+      len--;
       b = true;
     }
   }
-  if (!b) return 0L;
-  if ((*s&0xdf) == 'E') s++;
-    else
-      if (!p) return 0L;
-	else
-	{
-          if (subItems)
-            {
-	      for (HlItem *it=subItems->first();it;it=subItems->next())
-                {
-                  s1=it->checkHgl(s, len, false);
-	          if (s1) return s1;
-                }
-            }
-          return s;
-        }
-  if ((*s == '-')||(*s =='+'))  s++;
-  b = false;
-  while (s->isDigit()) {
+
+  if (!b)
+    return 0L;
+
+  if ((len > 0) && ((*s&0xdf) == 'E'))
+  {
     s++;
-    b = true;
+    len--;
   }
-  if (b)
+  else
+  {
+    if (!p)
+      return 0L;
+    else
     {
       if (subItems)
+      {
+        for (HlItem *it=subItems->first();it;it=subItems->next())
         {
-          for (HlItem *it=subItems->first();it;it=subItems->next())
-            {
-              s1=it->checkHgl(s, len, false);
-              if (s1) return s1;
-            }
+          s1=it->checkHgl(s, len, false);
+
+          if (s1)
+            return s1;
         }
+      }
+
       return s;
-   }
-   else return 0L;
+    }
+  }
+
+  if ((len > 0) && ((*s == '-')||(*s =='+')))
+  {
+    s++;
+    len--;
+  }
+
+  b = false;
+
+  while ((len > 0) && s->isDigit())
+  {
+    s++;
+    len--;
+    b = true;
+  }
+
+  if (b)
+  {
+    if (subItems)
+    {
+      for (HlItem *it=subItems->first();it;it=subItems->next())
+      {
+        s1=it->checkHgl(s, len, false);
+
+        if (s1)
+          return s1;
+      }
+    }
+
+    return s;
+  }
+
+  return 0L;
 }
 
 HlCOct::HlCOct(int attribute, int context, signed char regionId)
@@ -392,9 +438,9 @@ HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId, const QCh
   _charListLen=len;
 }
 
-const QChar *HlAnyChar::checkHgl(const QChar *s, int , bool)
+const QChar *HlAnyChar::checkHgl(const QChar *s, int len, bool)
 {
-  if (ustrchr(_charList, _charListLen, *s)) return s +1;
+  if ((len > 0) && ustrchr(_charList, _charListLen, *s)) return s + 1;
   return 0L;
 }
 

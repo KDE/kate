@@ -20,8 +20,13 @@
 
 #include "katecmd.h"
 
+#include <kstaticdeleter.h>
+
+KateCmd *KateCmd::s_self = 0;
+
 KateCmd::KateCmd ()
 {
+ // m_dict.setAutoDelete (true);
 }
 
 KateCmd::~KateCmd ()
@@ -44,7 +49,7 @@ bool KateCmd::registerCommand (Kate::Command *cmd)
   return true;
 }
 
-bool KateCmd::unregisterCommand (Kate::Command *cmd)
+bool KateCmd::unregisterCommand (Kate::Command *)
 {
   return true;
 }
@@ -63,12 +68,12 @@ QStringList KateCmd::cmds ()
   return m_cmds;
 }
 
-KateCmd *KateCmd::s_cmd = 0;
+static KStaticDeleter<KateCmd> sdCmd;
 
-KateCmd *KateCmd::instance ()
+KateCmd *KateCmd::self ()
 {
-  if (!s_cmd)
-    s_cmd = new KateCmd ();
-
-  return s_cmd;
-}
+  if (!s_self)
+    sdCmd.setObject(s_self, new KateCmd ());
+    
+  return s_self;
+} 

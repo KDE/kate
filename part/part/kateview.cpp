@@ -89,7 +89,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
 {
-  KateFactory::registerView( this );
+  KateFactory::self()->registerView( this );
   m_config = new KateViewConfig (this);
 
   m_renderer = new KateRenderer(doc, this);
@@ -113,7 +113,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setViewCursorInterfaceDCOPSuffix (viewDCOPSuffix());
   setViewStatusMsgInterfaceDCOPSuffix (viewDCOPSuffix());
 
-  setInstance( KateFactory::instance() );
+  setInstance( KateFactory::self()->instance() );
   doc->addView( this );
 
   setFocusProxy( m_viewInternal );
@@ -162,7 +162,7 @@ KateView::~KateView()
   delete m_renderer;
 
   delete m_config;
-  KateFactory::deregisterView (this);
+  KateFactory::self()->deregisterView (this);
 }
 
 void KateView::setupConnections()
@@ -865,7 +865,7 @@ KateView::saveResult KateView::saveAs()
 {
 
   KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(doc()->config()->encoding(),
-		m_doc->url().url(),QString::null,this,i18n("Save File"));
+                m_doc->url().url(),QString::null,this,i18n("Save File"));
 
   kdDebug()<<"urllist is emtpy?"<<res.URLs.isEmpty()<<endl;
   kdDebug()<<"url is:"<<res.URLs.first()<<endl;

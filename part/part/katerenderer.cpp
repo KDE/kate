@@ -42,7 +42,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_showTabs(true)
     , m_printerFriendly(false)
 {
-  KateFactory::registerRenderer ( this );
+  KateFactory::self()->registerRenderer ( this );
   m_config = new KateRendererConfig (this);
 
   m_tabWidth = m_doc->config()->tabWidth();
@@ -51,7 +51,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
 KateRenderer::~KateRenderer()
 {
   delete m_config;
-  KateFactory::deregisterRenderer ( this );
+  KateFactory::self()->deregisterRenderer ( this );
 }
 
 bool KateRenderer::drawCaret() const

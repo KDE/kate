@@ -24,70 +24,68 @@
 #include <kparts/factory.h>
 
 #include <ktrader.h>
+#include <kinstance.h>
+#include <kaboutdata.h>
 
 class KateCmd;
 class KateFileTypeManager;
 class KateSchemaManager;
 
-class KInstance;
-class KAboutData;
 class KDirWatch;
 
 class KateFactory : public KParts::Factory
 {
-  Q_OBJECT
-
+  private:
+    KateFactory ();
+    
   public:
-    KateFactory( bool clone = false );
-    virtual ~KateFactory();
+    ~KateFactory ();
 
-    virtual KParts::Part *createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
+    static KateFactory *self ();
+    
+    KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
 
-    static KInstance *instance();
+    inline KInstance *instance () { return &m_instance; };
 
-    static void registerDocument ( class KateDocument *doc );
-    static void deregisterDocument ( class KateDocument *doc );
+    void registerDocument ( class KateDocument *doc );
+    void deregisterDocument ( class KateDocument *doc );
 
-    static void registerView ( class KateView *view );
-    static void deregisterView ( class KateView *view );
+    void registerView ( class KateView *view );
+    void deregisterView ( class KateView *view );
 
-    static void registerRenderer ( class KateRenderer  *renderer );
-    static void deregisterRenderer ( class KateRenderer  *renderer );
+    void registerRenderer ( class KateRenderer  *renderer );
+    void deregisterRenderer ( class KateRenderer  *renderer );
 
-    static KTrader::OfferList *plugins ();
+    inline QPtrList<class KateDocument> *documents () { return &m_documents; };
 
-    static QPtrList<class KateDocument> *documents () { return &s_documents; };
+    inline QPtrList<class KateView> *views () { return &m_views; };
 
-    static QPtrList<class KateView> *views () { return &s_views; };
+    inline QPtrList<class KateRenderer> *renderers () { return &m_renderers; };
+    
+    inline KTrader::OfferList *plugins () { return &m_plugins; };
 
-    static QPtrList<class KateRenderer> *renderers () { return &s_renderers; };
+    inline KDirWatch *dirWatch () { return m_dirWatch; };
 
-    static KDirWatch *dirWatch ();
+    inline KateFileTypeManager *fileTypeManager () { return m_fileTypeManager; };
 
-    static KateFileTypeManager *fileTypeManager ();
-
-    static KateSchemaManager *schemaManager ();
+    inline KateSchemaManager *schemaManager () { return m_schemaManager; };
 
   private:
-    static void ref();
-    static void deref();
-
-    static unsigned long s_refcnt;
     static KateFactory *s_self;
-
-    static QPtrList<class KateDocument> s_documents;
-    static QPtrList<class KateView> s_views;
-    static QPtrList<class KateRenderer> s_renderers;
-
-    static KInstance *s_instance;
-    static KAboutData *s_about;
-
-    static KateFileTypeManager *s_fileTypeManager;
-    static KateSchemaManager *s_schemaManager;
-
-    static KTrader::OfferList *s_plugins;
-
-    static KDirWatch *s_dirWatch;
+    
+    KAboutData m_aboutData;
+    KInstance m_instance;
+    
+    QPtrList<class KateDocument> m_documents;
+    QPtrList<class KateView> m_views;
+    QPtrList<class KateRenderer> m_renderers;
+    
+    KTrader::OfferList m_plugins;
+    
+    KDirWatch *m_dirWatch;  
+  
+    KateFileTypeManager *m_fileTypeManager;
+    KateSchemaManager *m_schemaManager;
 };
 
 #endif

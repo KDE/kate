@@ -33,6 +33,7 @@
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
 #include <kinstance.h>
+#include <kstaticdeleter.h>
 
 #include <qcolor.h>
 #include <qtextcodec.h>
@@ -99,7 +100,7 @@ KateDocumentConfig::KateDocumentConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KateFactory::instance()->config();
+  KConfig *config = KateFactory::self()->instance()->config();
   config->setGroup("Kate Document Defaults");
   readConfig (config);
 }
@@ -126,10 +127,12 @@ KateDocumentConfig::~KateDocumentConfig ()
 {
 }
 
+static KStaticDeleter<KateDocumentConfig> sdDocConf; 
+
 KateDocumentConfig *KateDocumentConfig::global ()
 {
   if (!s_global)
-    s_global = new KateDocumentConfig ();
+    sdDocConf.setObject(s_global, new KateDocumentConfig ());
 
   return s_global;
 }
@@ -203,9 +206,9 @@ void KateDocumentConfig::updateConfig ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::documents()->count(); z++)
+    for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
     {
-      KateFactory::documents()->at(z)->updateConfig ();
+      KateFactory::self()->documents()->at(z)->updateConfig ();
     }
   }
 }
@@ -497,7 +500,7 @@ KateViewConfig::KateViewConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KateFactory::instance()->config();
+  KConfig *config = KateFactory::self()->instance()->config();
   config->setGroup("Kate View Defaults");
   readConfig (config);
 }
@@ -522,10 +525,12 @@ KateViewConfig::~KateViewConfig ()
 {
 }
 
+static KStaticDeleter<KateViewConfig> sdViewConf; 
+
 KateViewConfig *KateViewConfig::global ()
 {
   if (!s_global)
-    s_global = new KateViewConfig ();
+    sdViewConf.setObject(s_global, new KateViewConfig ());
 
   return s_global;
 }
@@ -586,9 +591,9 @@ void KateViewConfig::updateConfig ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::views()->count(); z++)
+    for (uint z=0; z < KateFactory::self()->views()->count(); z++)
     {
-      KateFactory::views()->at(z)->updateConfig ();
+      KateFactory::self()->views()->at(z)->updateConfig ();
     }
   }
 }
@@ -803,7 +808,7 @@ KateRendererConfig::KateRendererConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KateFactory::instance()->config();
+  KConfig *config = KateFactory::self()->instance()->config();
   config->setGroup("Kate Renderer Defaults");
   readConfig (config);
 }
@@ -844,10 +849,12 @@ KateRendererConfig::~KateRendererConfig ()
   delete m_iconBarColor;
 }
 
+static KStaticDeleter<KateRendererConfig> sdRendererConf;
+
 KateRendererConfig *KateRendererConfig::global ()
 {
   if (!s_global)
-    s_global = new KateRendererConfig ();
+    sdRendererConf.setObject(s_global, new KateRendererConfig ());
 
   return s_global;
 }
@@ -856,7 +863,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 {
   configStart ();
 
-  setSchema (KateFactory::schemaManager()->number (config->readEntry("Schema", "Kate Normal Schema")));
+  setSchema (KateFactory::self()->schemaManager()->number (config->readEntry("Schema", "Kate Normal Schema")));
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
@@ -865,7 +872,7 @@ void KateRendererConfig::readConfig (KConfig *config)
 
 void KateRendererConfig::writeConfig (KConfig *config)
 {
-  config->writeEntry ("Schema", KateFactory::schemaManager()->name(schema()));
+  config->writeEntry ("Schema", KateFactory::self()->schemaManager()->name(schema()));
 
   config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
 }
@@ -880,9 +887,9 @@ void KateRendererConfig::updateConfig ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::renderers()->count(); z++)
+    for (uint z=0; z < KateFactory::self()->renderers()->count(); z++)
     {
-      KateFactory::renderers()->at(z)->updateConfig ();
+      KateFactory::self()->renderers()->at(z)->updateConfig ();
     }
   }
 }
@@ -902,7 +909,7 @@ void KateRendererConfig::setSchema (uint schema)
   m_schemaSet = true;
   m_schema = schema;
 
-  KConfig *config (KateFactory::schemaManager()->schema(schema));
+  KConfig *config (KateFactory::self()->schemaManager()->schema(schema));
 
   QColor tmp0 (KGlobalSettings::baseColor());
   QColor tmp1 (KGlobalSettings::highlightColor());

@@ -54,9 +54,6 @@ KateSearch::KateSearch( KateView* view )
   if (arbitraryHLExample) m_doc->arbitraryHL()->addHighlightToView(m_arbitraryHLList, m_view);
 
   connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
-// TODO: Configuration
-//  s_searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
-//   config->writeEntry("SearchFlags",s_searchFlags);
 }
 
 KateSearch::~KateSearch()

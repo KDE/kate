@@ -346,20 +346,20 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
 KateSchemaConfigPage::~KateSchemaConfigPage ()
 {
   // just reload config from disc
-  KateFactory::schemaManager()->update ();
+  KateFactory::self()->schemaManager()->update ();
 }
 
 void KateSchemaConfigPage::apply()
 {
   if (m_lastSchema > -1)
   {
-    m_colorTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
-    m_fontTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+    m_colorTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
+    m_fontTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
   }
 
   // just sync the config
-  KateFactory::schemaManager()->schema (0)->sync();
-KateFactory::schemaManager()->update ();
+  KateFactory::self()->schemaManager()->schema (0)->sync();
+  KateFactory::self()->schemaManager()->update ();
 
   KateRendererConfig::global()->setSchema (KateRendererConfig::global()->schema());
 }
@@ -367,7 +367,7 @@ KateFactory::schemaManager()->update ();
 void KateSchemaConfigPage::reload()
 {
   // just reload the config from disc
-  KateFactory::schemaManager()->update ();
+  KateFactory::self()->schemaManager()->update ();
 
   update ();
 }
@@ -385,10 +385,10 @@ void KateSchemaConfigPage::defaults()
 void KateSchemaConfigPage::update ()
 {
   // soft update, no load from disk
-  KateFactory::schemaManager()->update (false);
+  KateFactory::self()->schemaManager()->update (false);
 
   schemaCombo->clear ();
-  schemaCombo->insertStringList (KateFactory::schemaManager()->list ());
+  schemaCombo->insertStringList (KateFactory::self()->schemaManager()->list ());
 
   schemaCombo->setCurrentItem (0);
   schemaChanged (0);
@@ -400,7 +400,7 @@ void KateSchemaConfigPage::deleteSchema ()
 {
   int t = schemaCombo->currentItem ();
 
-  KateFactory::schemaManager()->removeSchema (t);
+  KateFactory::self()->schemaManager()->removeSchema (t);
 
   update ();
 }
@@ -409,11 +409,11 @@ void KateSchemaConfigPage::newSchema ()
 {
   QString t = KLineEditDlg::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
 
-  KateFactory::schemaManager()->addSchema (t);
+  KateFactory::self()->schemaManager()->addSchema (t);
 
   // soft update, no load from disk
-  KateFactory::schemaManager()->update (false);
-  int i = KateFactory::schemaManager()->list ().findIndex (t);
+  KateFactory::self()->schemaManager()->update (false);
+  int i = KateFactory::self()->schemaManager()->list ().findIndex (t);
 
   update ();
   if (i > -1)
@@ -436,12 +436,12 @@ void KateSchemaConfigPage::schemaChanged (int schema)
 
   if (m_lastSchema > -1)
   {
-    m_colorTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
-    m_fontTab->writeConfig (KateFactory::schemaManager()->schema(m_lastSchema));
+    m_colorTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
+    m_fontTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
   }
 
-  m_colorTab->readConfig (KateFactory::schemaManager()->schema(schema));
-  m_fontTab->readConfig (KateFactory::schemaManager()->schema(schema));
+  m_colorTab->readConfig (KateFactory::self()->schemaManager()->schema(schema));
+  m_fontTab->readConfig (KateFactory::self()->schemaManager()->schema(schema));
 
   m_lastSchema = schema;
 }
@@ -463,11 +463,11 @@ void KateViewSchemaAction::updateMenu (KateView *view)
 void KateViewSchemaAction::slotAboutToShow()
 {
   KateView *view=m_view;
-  int count = KateFactory::schemaManager()->list().count();
+  int count = KateFactory::self()->schemaManager()->list().count();
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateFactory::schemaManager()->list().operator[](z);
+    QString hlName = KateFactory::self()->schemaManager()->list().operator[](z);
 
     if (names.contains(hlName) < 1)
     {

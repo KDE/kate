@@ -602,7 +602,7 @@ void ViewDefaultsConfig::apply ()
 void ViewDefaultsConfig::reload ()
 {
   m_schemaCombo->clear ();
-  m_schemaCombo->insertStringList (KateFactory::schemaManager()->list());
+  m_schemaCombo->insertStringList (KateFactory::self()->schemaManager()->list());
   m_schemaCombo->setCurrentItem (KateRendererConfig::global()->schema());
 
   m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());

@@ -39,7 +39,7 @@ KateCmdLine::KateCmdLine (KateView *view)
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
 
-  completionObject()->insertItems (KateCmd::instance()->cmds());
+  completionObject()->insertItems (KateCmd::self()->cmds());
 }
 
 KateCmdLine::~KateCmdLine ()
@@ -50,7 +50,7 @@ void KateCmdLine::slotReturnPressed ( const QString& cmd )
 {
   if (cmd.length () > 0)
   {
-    Kate::Command *p = KateCmd::instance()->queryCommand (cmd);
+    Kate::Command *p = KateCmd::self()->queryCommand (cmd);
 
     m_oldText = cmd;
     m_msgMode = true;

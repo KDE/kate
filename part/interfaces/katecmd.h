@@ -28,10 +28,11 @@ class KateCmd
 {
   private:
     KateCmd ();
+    
+  public:
     ~KateCmd ();
 
-  public:
-    static KateCmd *instance ();
+    static KateCmd *self ();
 
     bool registerCommand (Kate::Command *cmd);
     bool unregisterCommand (Kate::Command *cmd);
@@ -40,7 +41,7 @@ class KateCmd
     QStringList cmds ();
 
   private:
-    static KateCmd *s_cmd;
+    static KateCmd *s_self;
     QDict<Kate::Command> m_dict;
     QStringList m_cmds;
 };

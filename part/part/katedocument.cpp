@@ -139,7 +139,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
 
   // register doc at factory
-  KateFactory::registerDocument (this);
+  KateFactory::self()->registerDocument (this);
 
   m_reloading = false;
 
@@ -153,8 +153,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   if (!s_configLoaded)
   {
     s_plugins.setAutoDelete (true);
-    KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
-    for( ; it != KateFactory::plugins()->end(); ++it)
+    KTrader::OfferList::Iterator it(KateFactory::self()->plugins()->begin());
+    for( ; it != KateFactory::self()->plugins()->end(); ++it)
     {
       KService::Ptr ptr = (*it);
 
@@ -170,8 +170,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // init local plugin list
   m_plugins.setAutoDelete (true);
-  KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
-  for( ; it != KateFactory::plugins()->end(); ++it)
+  KTrader::OfferList::Iterator it(KateFactory::self()->plugins()->begin());
+  for( ; it != KateFactory::self()->plugins()->end(); ++it)
   {
     KService::Ptr ptr = (*it);
 
@@ -190,7 +190,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   hlSetByUser = false;
   m_fileType = -1;
   m_fileTypeSetByUser = false;
-  setInstance( KateFactory::instance() );
+  setInstance( KateFactory::self()->instance() );
 
   editSessionNumber = 0;
   editIsRunning = false;
@@ -262,13 +262,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KateSuperRange*)), SLOT(tagArbitraryLines(KateView*, KateSuperRange*)));
 
   // signals for mod on hd
-  connect( KateFactory::dirWatch(), SIGNAL(dirty (const QString &)),
+  connect( KateFactory::self()->dirWatch(), SIGNAL(dirty (const QString &)),
            this, SLOT(slotModOnHdDirty (const QString &)) );
 
-  connect( KateFactory::dirWatch(), SIGNAL(created (const QString &)),
+  connect( KateFactory::self()->dirWatch(), SIGNAL(created (const QString &)),
            this, SLOT(slotModOnHdCreated (const QString &)) );
 
-  connect( KateFactory::dirWatch(), SIGNAL(deleted (const QString &)),
+  connect( KateFactory::self()->dirWatch(), SIGNAL(deleted (const QString &)),
            this, SLOT(slotModOnHdDeleted (const QString &)) );
 
   // update doc name
@@ -316,7 +316,7 @@ KateDocument::~KateDocument()
 
   delete m_config;
   delete m_indenter;
-  KateFactory::deregisterDocument (this);
+  KateFactory::self()->deregisterDocument (this);
 }
 //END
 
@@ -1930,8 +1930,8 @@ void KateDocument::readConfig(KConfig *config)
   m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
   m_getSearchTextFrom = config->readNumEntry( "Get Search Text From", m_getSearchTextFrom );
 
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-    KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
+  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
+    KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
 }
 
 void KateDocument::writeConfig(KConfig *config)
@@ -1956,13 +1956,13 @@ void KateDocument::writeConfig(KConfig *config)
 
 void KateDocument::readConfig()
 {
-  KConfig *config = KateFactory::instance()->config();
+  KConfig *config = KateFactory::self()->instance()->config();
   readConfig (config);
 }
 
 void KateDocument::writeConfig()
 {
-  KConfig *config = KateFactory::instance()->config();
+  KConfig *config = KateFactory::self()->instance()->config();
   writeConfig (config);
   config->sync();
 }
@@ -2829,7 +2829,7 @@ bool KateDocument::openFile()
   // add the file to dirwatch
   //
   if (!m_file.isEmpty())
-    KateFactory::dirWatch ()->addFile (m_file);
+    KateFactory::self()->dirWatch ()->addFile (m_file);
 
   //
   // to houston, we are not modified
@@ -2867,7 +2867,7 @@ bool KateDocument::openFile()
     }
 
     // update file type
-    updateFileType (KateFactory::fileTypeManager()->fileType (this));
+    updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 
     // read vars
     readVariables();
@@ -2973,7 +2973,7 @@ bool KateDocument::saveFile()
   // remove the m_file before saving from dirwatch
   //
   if (!m_file.isEmpty())
-    KateFactory::dirWatch ()->removeFile (m_file);
+    KateFactory::self()->dirWatch ()->removeFile (m_file);
 
   //
   // start with worst case, we had no success
@@ -3001,7 +3001,7 @@ bool KateDocument::saveFile()
     }
 
     // update our file type
-    updateFileType (KateFactory::fileTypeManager()->fileType (this));
+    updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
 
     // read our vars
     readVariables();
@@ -3021,7 +3021,7 @@ bool KateDocument::saveFile()
   // add file again
   //
   if (!m_file.isEmpty())
-    KateFactory::dirWatch ()->addFile (m_file);
+    KateFactory::self()->dirWatch ()->addFile (m_file);
 
   //
   // we are not modified
@@ -3081,7 +3081,7 @@ bool KateDocument::closeURL()
   // remove file from dirwatch
   //
   if (!m_file.isEmpty())
-    KateFactory::dirWatch ()->removeFile (m_file);
+    KateFactory::self()->dirWatch ()->removeFile (m_file);
 
   //
   // empty url + filename
@@ -3194,7 +3194,7 @@ void KateDocument::addView(KTextEditor::View *view) {
 
   // apply the view & renderer vars from the file type
   const KateFileType *t = 0;
-  if ((m_fileType > -1) && (t = KateFactory::fileTypeManager()->fileType(m_fileType)))
+  if ((m_fileType > -1) && (t = KateFactory::self()->fileTypeManager()->fileType(m_fileType)))
     readVariableLine (t->varLine, true);
 
   // apply the view & renderer vars from the file
@@ -4491,11 +4491,11 @@ void KateDocument::setDocName (QString )
 {
   int count = -1;
 
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
+  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
   {
-    if ( (KateFactory::documents()->at(z) != this) && (KateFactory::documents()->at(z)->url().filename() == url().filename()) )
-      if ( KateFactory::documents()->at(z)->m_docNameNumber > count )
-        count = KateFactory::documents()->at(z)->m_docNameNumber;
+    if ( (KateFactory::self()->documents()->at(z) != this) && (KateFactory::self()->documents()->at(z)->url().filename() == url().filename()) )
+      if ( KateFactory::self()->documents()->at(z)->m_docNameNumber > count )
+        count = KateFactory::self()->documents()->at(z)->m_docNameNumber;
   }
 
   m_docNameNumber = count + 1;
@@ -5330,7 +5330,7 @@ void KateDocument::updateFileType (int newType, bool user)
   if (user || !m_fileTypeSetByUser)
   {
     const KateFileType *t = 0;
-    if ((newType == -1) || (t = KateFactory::fileTypeManager()->fileType (newType)))
+    if ((newType == -1) || (t = KateFactory::self()->fileTypeManager()->fileType (newType)))
     {
       m_fileType = newType;
 

@@ -334,17 +334,17 @@ void KateFileTypeConfigTab::apply()
 {
   save ();
 
-  KateFactory::fileTypeManager()->save(&m_types);
+  KateFactory::self()->fileTypeManager()->save(&m_types);
 }
 
 void KateFileTypeConfigTab::reload()
 {
   m_types.clear();
-  for (uint z=0; z < KateFactory::fileTypeManager()->list()->count(); z++)
+  for (uint z=0; z < KateFactory::self()->fileTypeManager()->list()->count(); z++)
   {
     KateFileType *type = new KateFileType ();
 
-    *type = *KateFactory::fileTypeManager()->list()->at(z);
+    *type = *KateFactory::self()->fileTypeManager()->list()->at(z);
 
     m_types.append (type);
   }
@@ -501,12 +501,12 @@ void KateViewFileTypeAction::updateMenu (Kate::Document *doc)
 void KateViewFileTypeAction::slotAboutToShow()
 {
   KateDocument *doc=m_doc;
-  int count = KateFactory::fileTypeManager()->list()->count();
+  int count = KateFactory::self()->fileTypeManager()->list()->count();
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateFactory::fileTypeManager()->list()->at(z)->name;
-    QString hlSection = KateFactory::fileTypeManager()->list()->at(z)->section;
+    QString hlName = KateFactory::self()->fileTypeManager()->list()->at(z)->name;
+    QString hlSection = KateFactory::self()->fileTypeManager()->list()->at(z)->section;
 
     if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
     {
@@ -543,7 +543,7 @@ void KateViewFileTypeAction::slotAboutToShow()
   else
   {
     const KateFileType *t = 0;
-    if ((t = KateFactory::fileTypeManager()->fileType (doc->fileType())))
+    if ((t = KateFactory::self()->fileTypeManager()->fileType (doc->fileType())))
     {
       int i = subMenusName.findIndex (t->section);
       if (i >= 0 && subMenus.at(i))

@@ -261,8 +261,8 @@ PluginConfigPage::~PluginConfigPage ()
 void PluginConfigPage::loadPlugin (PluginListItem *item)
 {
   item->info()->load = true;
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-    KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
+  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
+    KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
 
   item->setOn(true);
 }
@@ -270,8 +270,8 @@ void PluginConfigPage::loadPlugin (PluginListItem *item)
 void PluginConfigPage::unloadPlugin (PluginListItem *item)
 {
   item->info()->load = false;
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-    KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
+  for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
+    KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
 
   item->setOn(false);
 }
@@ -449,7 +449,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
 
 }
 
-void HighlightDialogPage::hlChanged(int z)
+void HighlightDialogPage::hlChanged(int /*z*/)
 {
 /*  writeback();
 

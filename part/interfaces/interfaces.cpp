@@ -58,17 +58,17 @@ const QString &Document::defaultEncoding ()
 
 bool Document::registerCommand (Command *cmd)
 {
-  return KateCmd::instance()->registerCommand (cmd);
+  return KateCmd::self()->registerCommand (cmd);
 }
 
 bool Document::unregisterCommand (Command *cmd)
 {
-  return KateCmd::instance()->registerCommand (cmd);
+  return KateCmd::self()->registerCommand (cmd);
 }
 
 Command *Document::queryCommand (const QString &cmd)
 {
-  return KateCmd::instance()->queryCommand (cmd);
+  return KateCmd::self()->queryCommand (cmd);
 }
 
 View::View ( KTextEditor::Document *doc, QWidget *parent, const char *name ) : KTextEditor::View (doc, parent, name)
@@ -83,7 +83,6 @@ void ConfigPage::slotChanged()
 {
   emit changed();
 }
-
 
 Document *document (KTextEditor::Document *doc)
 {

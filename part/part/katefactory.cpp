@@ -34,90 +34,130 @@
 #include "../interfaces/katecmd.h"
 
 #include <klocale.h>
-#include <kinstance.h>
-#include <kaboutdata.h>
 #include <kdirwatch.h>
+#include <kstaticdeleter.h>
 
-template class QPtrList<KateDocument>;
-template class QPtrList<KateView>;
-template class QPtrList<KateRenderer>;
-
-KateFactory *KateFactory::s_self = 0;
-unsigned long int KateFactory::s_refcnt = 0;
-KInstance *KateFactory::s_instance = 0;
-KAboutData *KateFactory::s_about = 0;
-QPtrList<class KateDocument> KateFactory::s_documents;
-QPtrList<class KateView> KateFactory::s_views;
-QPtrList<class KateRenderer> KateFactory::s_renderers;
-KTrader::OfferList *KateFactory::s_plugins = 0;
-KateFileTypeManager *KateFactory::s_fileTypeManager = 0;
-KDirWatch *KateFactory::s_dirWatch = 0;
-KateSchemaManager *KateFactory::s_schemaManager = 0;
+/**
+ * dummy wrapper factory to be sure nobody external deletes our katefactory
+ */
+class KateFactoryPublic : public KParts::Factory
+{
+  public:
+    KateFactoryPublic ()
+    {
+    }
+    
+    ~KateFactoryPublic ()
+    {
+    }
+    
+    KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args )
+    {
+      return KateFactory::self()->createPartObject (parentWidget, widgetName, parent, name, classname, args);
+    }
+};
 
 extern "C"
 {
   void *init_libkatepart()
   {
-    return new KateFactory( true );
+    return new KateFactoryPublic ();
   }
 }
 
-KateFactory::KateFactory( bool clone )
-{
-  if ( clone )
-  {
-    ref();
-    return;
-  }
+KateFactory *KateFactory::s_self = 0;
 
+KateFactory::KateFactory ()
+ : m_aboutData ("katepart", I18N_NOOP("Kate Part"), "2.2",
+             I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
+             I18N_NOOP( "(c) 2000-2003 The Kate Authors" ), 0, "http://kate.kde.org")
+ , m_instance (&m_aboutData)
+{
+  //
+  // fill about data
+  //
+  m_aboutData.addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
+  m_aboutData.addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
+  m_aboutData.addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
+  m_aboutData.addAuthor ("Hamish Rodda",I18N_NOOP("Core Developer"), "rodda@kde.org");
+  m_aboutData.addAuthor ("Waldo Bastian", I18N_NOOP( "The cool buffersystem" ), "bastian@kde.org" );
+  m_aboutData.addAuthor ("Charles Samuels", I18N_NOOP("The Editing Commands"), "charles@kde.org");
+  m_aboutData.addAuthor ("Matt Newell", I18N_NOOP("Testing, ..."), "newellm@proaxis.com");
+  m_aboutData.addAuthor ("Michael Bartl", I18N_NOOP("Former Core Developer"), "michael.bartl1@chello.at");
+  m_aboutData.addAuthor ("Michael McCallum", I18N_NOOP("Core Developer"), "gholam@xtra.co.nz");
+  m_aboutData.addAuthor ("Jochen Wilhemly", I18N_NOOP( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
+  m_aboutData.addAuthor ("Michael Koch",I18N_NOOP("KWrite port to KParts"), "koch@kde.org");
+  m_aboutData.addAuthor ("Christian Gebauer", 0, "gebauer@kde.org" );
+  m_aboutData.addAuthor ("Simon Hausmann", 0, "hausmann@kde.org" );
+  m_aboutData.addAuthor ("Glen Parker",I18N_NOOP("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
+  m_aboutData.addAuthor ("Scott Manson",I18N_NOOP("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
+  m_aboutData.addAuthor ("John Firebaugh",I18N_NOOP("Patches and more"), "jfirebaugh@kde.org");
+      
+  m_aboutData.addCredit ("Matteo Merli",I18N_NOOP("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
+  m_aboutData.addCredit ("Rocky Scaletta",I18N_NOOP("Highlighting for VHDL"), "rocky@purdue.edu");
+  m_aboutData.addCredit ("Yury Lebedev",I18N_NOOP("Highlighting for SQL"),"");
+  m_aboutData.addCredit ("Chris Ross",I18N_NOOP("Highlighting for Ferite"),"");
+  m_aboutData.addCredit ("Nick Roux",I18N_NOOP("Highlighting for ILERPG"),"");
+  m_aboutData.addCredit ("Carsten Niehaus", I18N_NOOP("Highlighting for LaTeX"),"");
+  m_aboutData.addCredit ("Per Wigren", I18N_NOOP("Highlighting for Makefiles, Python"),"");
+  m_aboutData.addCredit ("Jan Fritz", I18N_NOOP("Highlighting for Python"),"");
+  m_aboutData.addCredit ("Daniel Naber","","");
+  m_aboutData.addCredit ("Roland Pabel",I18N_NOOP("Highlighting for Scheme"),"");
+  m_aboutData.addCredit ("Cristi Dumitrescu",I18N_NOOP("PHP Keyword/Datatype list"),"");
+  m_aboutData.addCredit ("Carsten Presser", I18N_NOOP("Betatest"), "mord-slime@gmx.de");
+  m_aboutData.addCredit ("Jens Haupert", I18N_NOOP("Betatest"), "al_all@gmx.de");
+  m_aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
+  m_aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
+      
+  m_aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
+
+  //
+  // plugins
+  //
+  m_plugins = KTrader::self()->query("KTextEditor/Plugin");
+  
+  //
+  // dir watch
+  //
+  m_dirWatch = new KDirWatch (this);
+  
+  //
+  // filetype man
+  //
+  m_fileTypeManager = new KateFileTypeManager ();
+  
+  //
+  // schema man
+  //
+  m_schemaManager = new KateSchemaManager ();
+  
+  //
   // init the cmds
-  KateCmd::instance()->registerCommand (new KateCommands::SedReplace ());
-  KateCmd::instance()->registerCommand (new KateCommands::Character ());
-  KateCmd::instance()->registerCommand (new KateCommands::Goto ());
-  KateCmd::instance()->registerCommand (new KateCommands::Date ());
-  KateCmd::instance()->registerCommand (new KateCoreCommands());
+  //
+  KateCmd::self()->registerCommand (new KateCommands::SedReplace ());
+  KateCmd::self()->registerCommand (new KateCommands::Character ());
+  KateCmd::self()->registerCommand (new KateCommands::Goto ());
+  KateCmd::self()->registerCommand (new KateCommands::Date ());
+  KateCmd::self()->registerCommand (new KateCoreCommands());
 }
 
 KateFactory::~KateFactory()
 {
-  if ( s_self == this )
-  {
-    delete s_instance;
-    delete s_about;
-    delete s_plugins;
-    delete s_fileTypeManager;
-    delete s_dirWatch;
-    delete s_schemaManager;
-
-    s_instance = 0;
-    s_about = 0;
-    s_plugins = 0;
-    s_fileTypeManager = 0;
-    s_dirWatch = 0;
-    s_schemaManager = 0;
-  }
-  else
-    deref();
+  delete m_fileTypeManager;
+  delete m_schemaManager;
 }
 
-void KateFactory::ref()
+static KStaticDeleter<KateFactory> sdFactory;
+
+KateFactory *KateFactory::self ()
 {
-  if ( !s_refcnt && !s_self )
-    s_self = new KateFactory;
+  if (!s_self)
+    sdFactory.setObject(s_self, new KateFactory ());
+    
+  return s_self;
+} 
 
-  s_refcnt++;
-}
-
-void KateFactory::deref()
-{
-  if ( !--s_refcnt && s_self )
-  {
-    delete s_self;
-    s_self = 0;
-  }
-}
-
-KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList & )
+KParts::Part *KateFactory::createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList & )
 {
   bool bWantSingleView = !( classname == QString("KTextEditor::Document") );
   bool bWantBrowserView = ( classname == QString("Browser/View") );
@@ -131,128 +171,32 @@ KParts::Part *KateFactory::createPartObject( QWidget *parentWidget, const char *
 
 void KateFactory::registerDocument ( KateDocument *doc )
 {
-  if ( !s_documents.containsRef( doc ) )
-  {
-    s_documents.append( doc );
-    ref();
-  }
+  m_documents.append( doc );
 }
 
 void KateFactory::deregisterDocument ( KateDocument *doc )
 {
-  if ( s_documents.removeRef( doc ) )
-    deref();
+  m_documents.removeRef( doc );
 }
 
 void KateFactory::registerView ( KateView *view )
 {
-  if ( !s_views.containsRef( view ) )
-  {
-    s_views.append( view );
-    ref();
-  }
+  m_views.append( view );
 }
 
 void KateFactory::deregisterView ( KateView *view )
 {
-  if ( s_views.removeRef( view ) )
-    deref();
+  m_views.removeRef( view );
 }
 
 void KateFactory::registerRenderer ( KateRenderer  *renderer )
 {
-  if ( !s_renderers.containsRef( renderer ) )
-  {
-    s_renderers.append( renderer );
-    ref();
-  }
+  m_renderers.append( renderer );
 }
 
 void KateFactory::deregisterRenderer ( KateRenderer  *renderer )
 {
-  if ( s_renderers.removeRef( renderer ) )
-    deref();
-}
-
-KTrader::OfferList *KateFactory::plugins ()
-{
-  if ( !s_plugins )
-   s_plugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/Plugin"));
-
-  return s_plugins;
-}
-
-KDirWatch *KateFactory::dirWatch ()
-{
-  if (!s_dirWatch)
-    s_dirWatch = new KDirWatch ();
-
-  return s_dirWatch;
-}
-
-KateFileTypeManager *KateFactory::fileTypeManager ()
-{
-  if (!s_fileTypeManager)
-    s_fileTypeManager = new KateFileTypeManager ();
-
-  return s_fileTypeManager;
-}
-
-KateSchemaManager *KateFactory::schemaManager ()
-{
-  if (!s_schemaManager)
-    s_schemaManager = new KateSchemaManager ();
-
-  return s_schemaManager;
-}
-
-KInstance *KateFactory::instance()
-{
-  if ( !s_instance )
-  {
-    s_about = new KAboutData  ("katepart", I18N_NOOP("Kate Part"), "2.2",
-                                                           I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-                                                           I18N_NOOP( "(c) 2000-2003 The Kate Authors" ), 0, "http://kate.kde.org");
-
-    s_about->addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
-    s_about->addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-    s_about->addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-    s_about->addAuthor ("Hamish Rodda",I18N_NOOP("Core Developer"), "rodda@kde.org");
-    s_about->addAuthor ("Waldo Bastian", I18N_NOOP( "The cool buffersystem" ), "bastian@kde.org" );
-    s_about->addAuthor ("Charles Samuels", I18N_NOOP("The Editing Commands"), "charles@kde.org");
-    s_about->addAuthor ("Matt Newell", I18N_NOOP("Testing, ..."), "newellm@proaxis.com");
-    s_about->addAuthor ("Michael Bartl", I18N_NOOP("Former Core Developer"), "michael.bartl1@chello.at");
-    s_about->addAuthor ("Michael McCallum", I18N_NOOP("Core Developer"), "gholam@xtra.co.nz");
-    s_about->addAuthor ("Jochen Wilhemly", I18N_NOOP( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-    s_about->addAuthor ("Michael Koch",I18N_NOOP("KWrite port to KParts"), "koch@kde.org");
-    s_about->addAuthor ("Christian Gebauer", 0, "gebauer@kde.org" );
-    s_about->addAuthor ("Simon Hausmann", 0, "hausmann@kde.org" );
-    s_about->addAuthor ("Glen Parker",I18N_NOOP("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-    s_about->addAuthor ("Scott Manson",I18N_NOOP("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-    s_about->addAuthor ("John Firebaugh",I18N_NOOP("Patches and more"), "jfirebaugh@kde.org");
-
-    s_about->addCredit ("Matteo Merli",I18N_NOOP("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-    s_about->addCredit ("Rocky Scaletta",I18N_NOOP("Highlighting for VHDL"), "rocky@purdue.edu");
-    s_about->addCredit ("Yury Lebedev",I18N_NOOP("Highlighting for SQL"),"");
-    s_about->addCredit ("Chris Ross",I18N_NOOP("Highlighting for Ferite"),"");
-    s_about->addCredit ("Nick Roux",I18N_NOOP("Highlighting for ILERPG"),"");
-    s_about->addCredit ("Carsten Niehaus", I18N_NOOP("Highlighting for LaTeX"),"");
-    s_about->addCredit ("Per Wigren", I18N_NOOP("Highlighting for Makefiles, Python"),"");
-    s_about->addCredit ("Jan Fritz", I18N_NOOP("Highlighting for Python"),"");
-    s_about->addCredit ("Daniel Naber","","");
-    s_about->addCredit ("Roland Pabel",I18N_NOOP("Highlighting for Scheme"),"");
-    s_about->addCredit ("Cristi Dumitrescu",I18N_NOOP("PHP Keyword/Datatype list"),"");
-    s_about->addCredit ("Carsten Presser", I18N_NOOP("Betatest"), "mord-slime@gmx.de");
-    s_about->addCredit ("Jens Haupert", I18N_NOOP("Betatest"), "al_all@gmx.de");
-    s_about->addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
-    s_about->addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
-
-    s_about->setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
-
-    s_instance = new KInstance( s_about );
-  }
-
-  return s_instance;
+  m_renderers.removeRef( renderer );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

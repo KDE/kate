@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Jesse Yurkovich <yurkjes@iit.edu>
    Copyright (C) 2004 >Anders Lund <anders@alweb.dk> (KateVarIndent class)
+   Copyright (C) 2005 Dominik Haumann <dhdev@gmx.de> (basic support for config page)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -130,19 +131,7 @@ uint KateAutoIndent::modeNumber (const QString &name)
 
 bool KateAutoIndent::hasConfigPage (uint mode)
 {
-  if (mode == KateDocumentConfig::imNormal)
-    return false;
-  else if (mode == KateDocumentConfig::imCStyle)
-    return false;
-  else if (mode == KateDocumentConfig::imPythonStyle)
-    return false;
-  else if (mode == KateDocumentConfig::imXmlStyle)
-    return false;
-  else if (mode == KateDocumentConfig::imCSAndS)
-    return false;
-  else if ( mode == KateDocumentConfig::imVarIndent )
-    return false;
-  else if ( mode == KateDocumentConfig::imScriptIndent )
+  if ( mode == KateDocumentConfig::imScriptIndent )
     return true;
 
   return false;

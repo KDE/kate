@@ -1,6 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2003 Jesse Yurkovich <yurkjes@iit.edu>
    Copyright (C) 2004 >Anders Lund <anders@alweb.dk> (KateVarIndent class)
+   Copyright (C) 2005 Dominik Haumann <dhdev@gmx.de> (basic support for config page)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -51,15 +52,10 @@ class IndenterConfigPage : public QWidget
 
   public slots:
     /**
-     * Apply the changes.
+     * Apply the changes. Save options here, use @p kapp->config() and
+     * group [Kate Indenter MyIndenter].
      */
     virtual void apply () = 0;
-
-// dominik:
-// TODO: does it make sense to add this signal here and connect it to the OK-button
-//       from the config dialog?
-//   signals:
-//     void changed();
 };
 
 /**
@@ -184,6 +180,10 @@ class KateAutoIndent
     KateDocument *doc;
 };
 
+/**
+ * This action provides a list of available indenters and gets plugged
+ * into the KateView's KActionCollection.
+ */
 class KateViewIndentationAction : public KActionMenu
 {
   Q_OBJECT

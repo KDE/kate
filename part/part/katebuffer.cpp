@@ -206,22 +206,23 @@ class KateBufBlock
 /**
  * Create an empty buffer. (with one block with one empty line)
  */
-KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
-  m_openAsync (false),
-  m_hlUpdate (true),
-  m_lines (0),
-  m_highlightedTo (0),
-  m_highlightedRequested (0),
-  m_lastInSyncBlock (0),
-  m_highlight (0),
-  m_doc (doc),
-  m_loader (0),
-  m_vm (0),
-  m_regionTree (0),
-  m_highlightedTill (0),
-  m_highlightedEnd (0),
-  m_cacheReadError(false),
-  m_cacheWriteError(false)
+KateBuffer::KateBuffer(KateDocument *doc)
+ : QObject (doc),
+   m_hlUpdate (true),
+   m_lines (0),
+   m_highlightedTo (0),
+   m_highlightedRequested (0),
+   m_lastInSyncBlock (0),
+   m_highlight (0),
+   m_doc (doc),
+   m_loader (0),
+   m_vm (0),
+   m_regionTree (0),
+   m_highlightedTill (0),
+   m_highlightedEnd (0),
+   m_cacheReadError(false),
+   m_cacheWriteError(false),
+   m_loadingBorked (false)
 {
   m_blocks.setAutoDelete(true);
 
@@ -556,9 +557,10 @@ bool KateBuffer::openFile (const QString &m_file)
   m_lines = 0;
 
   // here the real work will be done
+  m_loadingBorked = false;
   loadFilePart();
 
-  return true;
+  return !m_loadingBorked;
 }
 
 bool KateBuffer::canEncode ()
@@ -615,6 +617,8 @@ bool KateBuffer::saveFile (const QString &m_file)
 
   file.close ();
 
+  m_loadingBorked = false;
+
   return (file.status() == IO_Ok);
 }
 
@@ -646,7 +650,10 @@ void KateBuffer::loadFilePart()
   }
 
   if (m_cacheWriteError)
+  {
+    m_loadingBorked = true;
     eof = true;
+  }
 
   if (eof)
   {
@@ -670,13 +677,7 @@ void KateBuffer::loadFilePart()
   }
   else if (m_loader)
   {
-    if (m_openAsync)
-    {
-      emit linesChanged(m_lines);
-      m_loadTimer.start (0, true);
-    }
-    else
-      loadFilePart ();
+    loadFilePart ();
   }
 }
 

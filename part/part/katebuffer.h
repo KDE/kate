@@ -63,16 +63,6 @@ class KateBuffer : public QObject
     KateDocument* document() const { return m_doc; }
 
   public slots:
-    void setOpenAsync (bool async)
-    {
-      m_openAsync = async;
-    }
-
-    bool openAsync () const
-    {
-      return m_openAsync;
-    }
-
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -193,6 +183,15 @@ class KateBuffer : public QObject
      */
     void setLineVisible (unsigned int lineNr, bool visible);
 
+    /**
+     * was the last loading broken because of not enough tmp disk space ?
+     * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
+     */
+    bool loadingBorked () const
+    {
+      return m_loadingBorked;
+    }
+
   signals:
     /**
      * Emitted during loading when the line count changes.
@@ -263,18 +262,16 @@ class KateBuffer : public QObject
      */
     bool needHighlight(KateBufBlock *buf, uint from, uint to);
 
-  private slots:
     /**
      * Load a part of the file that is currently loading.
      */
     void loadFilePart();
 
+  private slots:
     void slotBufferUpdateHighlight (uint,uint);
     void slotBufferUpdateHighlight ();
 
   private:
-    bool m_openAsync;
-
     bool m_hlUpdate;
 
     uint m_lines;
@@ -311,9 +308,10 @@ class KateBuffer : public QObject
 
     uint m_highlightedTill;
     uint m_highlightedEnd;
-    
+
     bool m_cacheReadError;
     bool m_cacheWriteError;
+    bool m_loadingBorked;
 };
 
 #endif

@@ -2845,15 +2845,19 @@ bool KateDocument::openFile()
   updateViews();
 
   // FIXME clean up this feature
-  if ( m_collapseTopLevelOnLoad ) {
-kdDebug()<<"calling collapseToplevelNodes()"<<endl;
-
+  if ( m_collapseTopLevelOnLoad )
+  {
     buffer->line (numLines()-1);
     foldingTree()->collapseToplevelNodes();
   }
 
   readVariables();
   emit fileNameChanged();
+
+  if (!success && buffer->loadingBorked())
+    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completly, as there is not enough temporary disk storage for it!").arg(m_url.url()));
+  else if (!success)
+    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was impossible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
 
   return success;
 }
@@ -2875,13 +2879,16 @@ bool KateDocument::save()
 
 bool KateDocument::saveFile()
 {
-  bool canEncode = buffer->canEncode ();
+  bool reallySaveIt = !buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
+      i18n("This file couldn't be loaded right because of not enough temporary disk space, saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
+
+  bool canEncode = reallySaveIt && buffer->canEncode ();
 
   KateFactory::dirWatch ()->removeFile (m_file);
 
   bool success = false;
 
-  if (canEncode)
+  if (reallySaveIt && canEncode)
     success = buffer->saveFile (m_file);
 
   if (!hlSetByUser)
@@ -2927,9 +2934,9 @@ bool KateDocument::saveFile()
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
 
-  if (!canEncode)
+  if (reallySaveIt && !canEncode)
     KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding can't encode every unicode character in it!"));
-  else if (!success)
+  else if (reallySaveIt && !success)
     KMessageBox::error (widget(), i18n ("The document could not been saved, as it was impossible to write to %1!\n\nCheck if you have write access to this file or if enough disc spaces is available.").arg(m_url.url()));
 
   return success;

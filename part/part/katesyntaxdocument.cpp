@@ -19,6 +19,10 @@
 
 #include "katesyntaxdocument.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <klocale.h>
@@ -360,14 +364,19 @@ void KateSyntaxDocument::setupModeList (bool force)
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
     // Each file has a group called:
-    QString Group="Cache "+*it;
-
+    QString Group="Cache "+ *it;
+    
+    // Let's go to this group
+    config.setGroup(Group);
+    
+    // stat the file
+    struct stat sbuf;
+    memset (&sbuf, 0, sizeof(sbuf));
+    stat(QFile::encodeName(*it), &sbuf);
+    
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
-    if ((config.hasGroup(Group)) && (!force))
+    if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
     {
-      // Let's go to this group
-      config.setGroup(Group);
-
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
       mli->name       = config.readEntry("name"); // ### TODO: translation (bug #72220)
@@ -385,6 +394,8 @@ void KateSyntaxDocument::setupModeList (bool force)
     }
     else
     {
+      kdDebug (13010) << "UPDATE hl cache for: " << *it << endl;
+    
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);
 
@@ -420,29 +431,25 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->author    = root.attribute("author");
               mli->license   = root.attribute("license");
 
-
               mli->identifier = *it;
-
+              
               // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
               config.setGroup(Group);
               config.writeEntry("name",mli->name);
-              if (mli->section.isEmpty()) // ### TODO: can this happen at all?
-                config.writeEntry("section","Other");
-              else
-                config.writeEntry("section",mli->section);
+              config.writeEntry("section",mli->section);
               config.writeEntry("mimetype",mli->mimetype);
               config.writeEntry("extension",mli->extension);
               config.writeEntry("version",mli->version);
               config.writeEntry("priority",mli->priority);
               config.writeEntry("author",mli->author);
               config.writeEntry("license",mli->license);
+              
+              // modified time to keep cache in sync
+              config.writeEntry("lastModified", sbuf.st_mtime);
 
               // Now that the data is in the config file, translate section
-              if (mli->section.isEmpty()) // ### TODO: can this happen at all?
-                mli->section    = i18n("Language Section",mli->section.utf8());
-              else
-                mli->section    = i18n("Language Section","Other"); // We need the i18n context for when reading again the config
-
+              mli->section    = i18n("Language Section",mli->section.utf8());
+              
               // Append the new item to the list.
               myModeList.append(mli);
             }

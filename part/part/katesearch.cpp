@@ -420,16 +420,16 @@ QString KateSearch::getSearchText()
   // WordSelection: use word if available, else use selection
   QString str;
 
-  int getFrom = doc()->getSearchTextFrom();
+  int getFrom = view()->config()->textToSearchMode();
   switch (getFrom)
   {
-  case KateDocument::SelectionOnly: // (Windows)
+  case KateViewConfig::SelectionOnly: // (Windows)
     //kdDebug() << "getSearchText(): SelectionOnly" << endl;
     if( doc()->hasSelection() )
       str = doc()->selection();
     break;
 
-  case KateDocument::SelectionWord: // (classic Kate behavior)
+  case KateViewConfig::SelectionWord: // (classic Kate behavior)
     //kdDebug() << "getSearchText(): SelectionWord" << endl;
     if( doc()->hasSelection() )
       str = doc()->selection();
@@ -437,12 +437,12 @@ QString KateSearch::getSearchText()
       str = view()->currentWord();
     break;
 
-  case KateDocument::WordOnly: // (weird?)
+  case KateViewConfig::WordOnly: // (weird?)
     //kdDebug() << "getSearchText(): WordOnly" << endl;
     str = view()->currentWord();
     break;
 
-  case KateDocument::WordSelection: // (persistent selection lover)
+  case KateViewConfig::WordSelection: // (persistent selection lover)
     //kdDebug() << "getSearchText(): WordSelection" << endl;
     str = view()->currentWord();
     if (str.isEmpty() && doc()->hasSelection() )

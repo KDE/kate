@@ -18,13 +18,14 @@
 
 #include "kateconfig.h"
 
+#include "katefactory.h"
 #include "katerenderer.h"
 #include "kateview.h"
 #include "katedocument.h"
 #include "katefont.h"
-#include "katefactory.h"
 #include "kateschema.h"
 
+#include <kapplication.h>
 #include <kconfig.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
@@ -99,7 +100,7 @@ KateDocumentConfig::KateDocumentConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KateFactory::self()->instance()->config();
+  KConfig *config = kapp->config();
   config->setGroup("Kate Document Defaults");
   readConfig (config);
 }
@@ -494,12 +495,13 @@ KateViewConfig::KateViewConfig ()
    m_searchFlagsSet (true),
    m_cmdLineSet (true),
    m_defaultMarkTypeSet (true),
+   m_textToSearchModeSet (true),
    m_view (0)
 {
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KateFactory::self()->instance()->config();
+  KConfig *config = kapp->config();
   config->setGroup("Kate View Defaults");
   readConfig (config);
 }
@@ -517,6 +519,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_searchFlagsSet (false),
    m_cmdLineSet (false),
    m_defaultMarkTypeSet (false),
+   m_textToSearchModeSet (false),
    m_view (view)
 {
 }
@@ -558,6 +561,8 @@ void KateViewConfig::readConfig (KConfig *config)
   setCmdLine (config->readBoolEntry( "Command Line", false));
 
   setDefaultMarkType (config->readNumEntry( "Default Mark Type", KTextEditor::MarkInterface::markType01 ));
+  
+  setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
 
   configEnd ();
 }
@@ -583,6 +588,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Command Line", cmdLine());
 
   config->writeEntry("Default Mark Type", defaultMarkType());
+  
+  config->writeEntry("Text To Search Mode", textToSearchMode());
 }
 
 void KateViewConfig::updateConfig ()
@@ -802,6 +809,24 @@ void KateViewConfig::setDefaultMarkType (uint type)
 
   configEnd ();
 }
+
+int KateViewConfig::textToSearchMode () const
+{
+  if (m_textToSearchModeSet || isGlobal())
+    return m_textToSearchMode;
+
+  return s_global->textToSearchMode();
+}
+
+void KateViewConfig::setTextToSearchMode (int mode)
+{
+  configStart ();
+
+  m_textToSearchModeSet = true;
+  m_textToSearchMode = mode;
+
+  configEnd ();
+}
 //END
 
 //BEGIN KateRendererConfig
@@ -830,7 +855,7 @@ KateRendererConfig::KateRendererConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfig *config = KateFactory::self()->instance()->config();
+  KConfig *config = kapp->config();
   config->setGroup("Kate Renderer Defaults");
   readConfig (config);
 }

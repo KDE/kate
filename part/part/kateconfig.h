@@ -278,6 +278,18 @@ class KateViewConfig : public KateConfig
     
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
+    
+    enum TextToSearch
+    {
+      Nowhere = 0,
+      SelectionOnly = 1,
+      SelectionWord = 2,
+      WordOnly = 3,
+      WordSelection = 4
+    };
+    
+    int textToSearchMode () const;
+    void setTextToSearchMode (int mode);
 
   private:
     bool m_dynWordWrap;
@@ -291,6 +303,7 @@ class KateViewConfig : public KateConfig
     long m_searchFlags;
     bool m_cmdLine;
     uint m_defaultMarkType;
+    int m_textToSearchMode;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -303,6 +316,7 @@ class KateViewConfig : public KateConfig
     bool m_searchFlagsSet : 1;
     bool m_cmdLineSet : 1;
     bool m_defaultMarkTypeSet : 1;
+    bool m_textToSearchModeSet : 1;
 
   private:
     KateView *m_view;

@@ -334,11 +334,9 @@ void SelectConfigTab::reload ()
 const int EditConfigTab::flags[] = {KateDocument::cfWordWrap,
   KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
 
-EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
+EditConfigTab::EditConfigTab(QWidget *parent)
   : Kate::ConfigPage(parent)
 {
-  m_doc = view;
-
   QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = KateDocumentConfig::global()->configFlags();
 
@@ -411,7 +409,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   e5->insertItem( i18n("Selection, then Current Word") );
   e5->insertItem( i18n("Current Word Only") );
   e5->insertItem( i18n("Current Word, then Selection") );
-  e5->setCurrentItem(view->getSearchTextFrom());
+  e5->setCurrentItem(KateViewConfig::global()->textToSearchMode());
   e5Layout->addWidget(e5);
   e5Label->setBuddy(e5);
   connect(e5, SIGNAL(activated(int)), this, SLOT(slotChanged()));
@@ -457,7 +455,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   wordWrapToggled();
 }
 
-void EditConfigTab::getData(KateDocument *view)
+void EditConfigTab::apply ()
 {
   int configFlags, z;
 
@@ -478,13 +476,8 @@ void EditConfigTab::getData(KateDocument *view)
     KateDocumentConfig::global()->setUndoSteps(e3->value());
 
   KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
-  view->setGetSearchTextFrom(e5->currentItem());
+  KateViewConfig::global()->setTextToSearchMode(e5->currentItem());
   KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
-}
-
-void EditConfigTab::apply ()
-{
-  getData (m_doc);
 }
 
 void EditConfigTab::reload ()

@@ -86,7 +86,6 @@ using namespace Kate;
 bool KateDocument::s_configLoaded = false;
 
 bool KateDocument::m_collapseTopLevelOnLoad = false;
-int KateDocument::m_getSearchTextFrom = KateDocument::SelectionOnly;
 
 Kate::PluginList KateDocument::s_plugins;
 //END variables
@@ -1944,7 +1943,6 @@ void KateDocument::readConfig(KConfig *config)
 
   config->setGroup("Kate View Defaults");
   m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
-  m_getSearchTextFrom = config->readNumEntry( "Get Search Text From", m_getSearchTextFrom );
 
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
     KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
@@ -1967,7 +1965,6 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate View Defaults");
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
-  config->writeEntry( "Get Search Text From", m_getSearchTextFrom );
 }
 
 void KateDocument::readConfig()
@@ -4177,16 +4174,6 @@ bool KateDocument::pageUpDownMovesCursor ()
   return config()->pageUpDownMovesCursor ();
 }
 
-void KateDocument::setGetSearchTextFrom (int where)
-{
-  m_getSearchTextFrom = where;
-}
-
-int KateDocument::getSearchTextFrom() const
-{
-  return m_getSearchTextFrom;
-}
-
 void KateDocument::exportAs(const QString& filter)
 {
   if (filter=="kate_html_export")
@@ -4364,7 +4351,7 @@ Kate::ConfigPage *KateDocument::selectConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::editConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new EditConfigTab(p, this);
+  return (Kate::ConfigPage*) new EditConfigTab(p);
 }
 
 Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)

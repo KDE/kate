@@ -678,13 +678,6 @@ class KateDocument : public Kate::Document,
      void applyWordWrap ();
 
   public:
-    enum GetSearchTextFrom
-    {
-      Nowhere, SelectionOnly, SelectionWord, WordOnly, WordSelection
-    };
-
-    void setGetSearchTextFrom (int where);
-    int getSearchTextFrom() const;
 
  // code folding
   public:
@@ -724,8 +717,6 @@ class KateDocument : public Kate::Document,
     KateArbitraryHighlight* m_arbitraryHL;
 
     KateAutoIndent *m_indenter;
-
-    static int m_getSearchTextFrom;
 
     bool hlSetByUser;
 

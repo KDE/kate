@@ -155,12 +155,9 @@ class EditConfigTab : public Kate::ConfigPage
     Q_OBJECT
 
   public:
-
-    EditConfigTab(QWidget *parent, KateDocument *);
-    void getData(KateDocument *);
+    EditConfigTab(QWidget *parent);
 
   protected:
-
     enum { numFlags = 5 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
@@ -171,7 +168,6 @@ class EditConfigTab : public Kate::ConfigPage
     KIntNumInput *e4;
     KComboBox *e5;
     QCheckBox *e6;
-    KateDocument *m_doc;
 
   public slots:
     void apply ();

@@ -156,7 +156,7 @@ class KateHighlighting
     * @return true if @p beginAttr and @p endAttr are members of the same
     * highlight, and there are comment markers of either type in that.
     */
-    bool canComment( int startAttr, int endAttr );
+    bool canComment( int startAttr, int endAttr ) const;
 
     /**
      * Define comment marker type.

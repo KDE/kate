@@ -1971,7 +1971,7 @@ bool KateHighlighting::isInWord( QChar c, int attrib ) const
   return m_additionalData[k][3].find(c) < 0 && sq.find(c) < 0;
 }
 
-bool KateHighlighting::canComment( int startAttrib, int endAttrib )
+bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
 {
   int k = hlKeyForAttrib( startAttrib );
   return ( k == hlKeyForAttrib( endAttrib ) &&
@@ -1982,7 +1982,8 @@ bool KateHighlighting::canComment( int startAttrib, int endAttrib )
 QString KateHighlighting::getCommentString( int which, int attrib ) const
 {
   int k = hlKeyForAttrib( attrib );
-  return m_additionalData[k][which];
+  const QStringList& lst = m_additionalData[k];
+  return lst.isEmpty() ? QString::null : lst[which];
 }
 
 QString KateHighlighting::getCommentStart( int attrib ) const

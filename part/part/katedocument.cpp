@@ -4041,10 +4041,37 @@ void KateDocument::joinLines( uint first, uint last )
 {
 //   if ( first == last ) last += 1;
   editStart();
-  int l( first );
+  int line( first );
   while ( first < last )
   {
-    editUnWrapLine( l );
+    // Normalize the whitespace in the joined lines by making sure there's
+    // always exactly one space between the joined lines
+    // This cannot be done in editUnwrapLine, because we do NOT want this
+    // behaviour when deleting from the start of a line, just when explicitly
+    // calling the join command
+    KateTextLine::Ptr l = m_buffer->line( line );
+    KateTextLine::Ptr tl = m_buffer->line( line + 1 );
+
+    if ( !l || !tl )
+    {
+      editEnd();
+      return;
+    }
+
+    int pos = tl->firstChar();
+    if ( pos >= 0 )
+    {
+      editRemoveText( line + 1, 0, pos );
+      if ( !( l->length() == 0 || l->getChar( l->length() - 1 ).isSpace() ) )
+        editInsertText( line + 1, 0, " " );
+    }
+    else
+    {
+      // Just remove the whitespace and let Kate handle the rest
+      editRemoveText( line + 1, 0, tl->length() );
+    }
+
+    editUnWrapLine( line );
     first++;
   }
   editEnd();

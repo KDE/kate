@@ -10,8 +10,9 @@ popping tests:
 /*! multiline */ end of doxygen HL mode
 //! singleline, where */ should be ignored! still doxygen HL mode
 /// singleline, where */ should be ignored! still doxygen HL mode
+///< singleline, where */ should be ignored! still doxygen HL mode
 begin and end immediately:
-/***/ end of doxygen HL mode
+/********/ actually no doxygen comment - used for "info boxes" :)
 /**/ <-- it really works --- end of doxygen HL mode
 /*!*/ end of doxygen HL mode
 

@@ -356,7 +356,8 @@ void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
       break;
   }
 
-  qDebug(" +++ total: %dms", t.elapsed());
+//   qDebug(" +++ total: %dms", t.elapsed());
+  kdDebug()<<"+++ totao: "<<t.elapsed()<<endl;
 }
 
 void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)

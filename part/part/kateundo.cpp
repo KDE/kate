@@ -213,7 +213,7 @@ void KateUndoGroup::undo ()
   for (KateUndo* u = m_items.last(); u; u = m_items.prev())
     u->undo(m_doc);
 
-  if (m_doc->activeView() != 0L)
+  if (m_doc->activeView() != 0L && m_items.first())
   {
     m_doc->activeView()->m_viewInternal->cursorCache = m_items.first()->cursorBefore();
     m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
@@ -232,7 +232,7 @@ void KateUndoGroup::redo ()
   for (KateUndo* u = m_items.first(); u; u = m_items.next())
     u->redo(m_doc);
 
-  if (m_doc->activeView() != 0L)
+  if (m_doc->activeView() != 0L && m_items.last())
   {
     m_doc->activeView()->m_viewInternal->cursorCache = m_items.last()->cursorAfter();
     m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;

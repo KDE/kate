@@ -50,6 +50,7 @@ class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateViewInternal;
+class LineRange;
 
 namespace Kate
 {
@@ -63,25 +64,6 @@ namespace Kate
 
   typedef QPtrList<PluginInfo> PluginList;
 }
-
-class LineRange
-{
-  public:
-    LineRange();
-    
-    void clear();  
-  
-    int line;
-    int visibleLine;
-    int startCol;
-    int endCol;
-    int startX;
-    int endX;
-    bool dirty;
-    int viewLine;
-    bool wrap;
-    bool startsInvisibleBlock;
-};
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -464,7 +446,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     };
 
     // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
-    bool paintTextLine ( QPainter &, const LineRange& range, int xPos, int y,
+    bool paintTextLine ( QPainter &, const LineRange* range, int xPos, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor, int cursorXPos,
                                 bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
                                 bool printerfriendly = false, const BracketMark& bm = BracketMark(), int startColX = 0 );

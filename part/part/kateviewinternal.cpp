@@ -288,12 +288,12 @@ KateTextCursor KateViewInternal::endPos() const
 
     if (thisRange.line == -1) continue;
 
-    if (thisRange.visibleLine >= (int)m_doc->numVisLines()) {
+    if (thisRange.virtualLine >= (int)m_doc->numVisLines()) {
       // Cache is too out of date
       return KateTextCursor(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
     }
 
-    ret.line = thisRange.visibleLine;
+    ret.line = thisRange.virtualLine;
     ret.col = thisRange.wrap ? thisRange.endCol - 1 : thisRange.endCol;
     return ret;
   }
@@ -507,7 +507,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     realStart.line = m_doc->getRealLine(realStart.line);
 
     LineRange startRange = range(realStart);
-    uint line = startRange.visibleLine;
+    uint line = startRange.virtualLine;
     int realLine = startRange.line;
     uint oldLine = line;
     int startCol = startRange.startCol;
@@ -552,7 +552,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         if (lineRanges[z].dirty || (changed && alreadyDirty)) {
           alreadyDirty = true;
 
-          lineRanges[z].visibleLine = line;
+          lineRanges[z].virtualLine = line;
           lineRanges[z].line = realLine;
           lineRanges[z].startsInvisibleBlock = false;
 
@@ -621,7 +621,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         if (z)
           lineRanges[z-1].startsInvisibleBlock = (lineRanges[z].line != lineRanges[z-1].line + 1);
 
-        lineRanges[z].visibleLine = z + startLine();
+        lineRanges[z].virtualLine = z + startLine();
         lineRanges[z].startCol = 0;
         lineRanges[z].endCol = m_doc->lineLength(lineRanges[z].line);
         lineRanges[z].startX = 0;
@@ -708,12 +708,12 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
       lineRanges[z].dirty = false;
 
       if (paintDebug)
-        kdDebug() << "*** Actually painting view line " << z << ", visible line " << lineRanges[z].visibleLine << endl;
+        kdDebug() << "*** Actually painting view line " << z << ", visible line " << lineRanges[z].virtualLine << endl;
 
       paint.begin (&drawBuffer);
       m_doc->paintTextLine
            ( paint,
-             lineRanges[z],
+             &lineRanges[z],
              0, // as we use pixmap double buffer
              0, // as we use pixmap double buffer
              xStart,
@@ -1114,7 +1114,7 @@ LineRange KateViewInternal::range(int realLine, const LineRange* previous)
   if (!m_view->dynWordWrap()) {
     Q_ASSERT(!previous);
     ret.line = realLine;
-    ret.visibleLine = m_doc->getVirtualLine(realLine);
+    ret.virtualLine = m_doc->getVirtualLine(realLine);
     ret.startCol = 0;
     ret.endCol = m_doc->lineLength(realLine);
     ret.startX = 0;
@@ -1135,14 +1135,14 @@ LineRange KateViewInternal::range(int realLine, const LineRange* previous)
   ret.line = realLine;
 
   if (previous) {
-    ret.visibleLine = previous->visibleLine;
+    ret.virtualLine = previous->virtualLine;
     ret.startCol = previous->endCol;
     ret.startX = previous->endX;
     ret.endX += previous->endX;
     ret.viewLine = previous->viewLine + 1;
 
   } else {
-    ret.visibleLine = m_doc->getVirtualLine(realLine);
+    ret.virtualLine = m_doc->getVirtualLine(realLine);
     ret.startCol = 0;
     ret.startX = 0;
     ret.viewLine = 0;
@@ -1340,7 +1340,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
     if (offset <= currentOffset) {
       // the answer is on the same line
       LineRange thisRange = range(realCursor.line, cursorViewLine + offset);
-      Q_ASSERT(thisRange.visibleLine == virtualCursor.line);
+      Q_ASSERT(thisRange.virtualLine == virtualCursor.line);
       return KateTextCursor(virtualCursor.line, thisRange.startCol);
     }
 
@@ -1352,7 +1352,7 @@ KateTextCursor KateViewInternal::viewLineOffset(const KateTextCursor& virtualCur
     if (offset <= currentOffset) {
       // the answer is on the same line
       LineRange thisRange = range(realCursor.line, cursorViewLine - offset);
-      Q_ASSERT(thisRange.visibleLine == virtualCursor.line);
+      Q_ASSERT(thisRange.virtualLine == virtualCursor.line);
       return KateTextCursor(virtualCursor.line, thisRange.startCol);
     }
 
@@ -1858,7 +1858,7 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
 
   for (uint z = 0; z < lineRanges.size(); z++)
   {
-    if ((lineRanges[z].visibleLine > start.line || (lineRanges[z].visibleLine == start.line && lineRanges[z].endCol >= start.col && start.col != -1)) && (lineRanges[z].visibleLine < end.line || (lineRanges[z].visibleLine == end.line && (lineRanges[z].startCol <= end.col || end.col == -1)))) {
+    if ((lineRanges[z].virtualLine > start.line || (lineRanges[z].virtualLine == start.line && lineRanges[z].endCol >= start.col && start.col != -1)) && (lineRanges[z].virtualLine < end.line || (lineRanges[z].virtualLine == end.line && (lineRanges[z].startCol <= end.col || end.col == -1)))) {
       ret = lineRanges[z].dirty = true;
       //kdDebug() << "Tagged line " << lineRanges[z].line << endl;
     }
@@ -1881,7 +1881,7 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
     //bool justTagged = false;
     for (uint z = 0; z < lineRanges.size(); z++)
     {
-      if ((lineRanges[z].visibleLine > start.line || (lineRanges[z].visibleLine == start.line && lineRanges[z].endCol >= start.col && start.col != -1)) && (lineRanges[z].visibleLine < end.line || (lineRanges[z].visibleLine == end.line && (lineRanges[z].startCol <= end.col || end.col == -1))))
+      if ((lineRanges[z].virtualLine > start.line || (lineRanges[z].virtualLine == start.line && lineRanges[z].endCol >= start.col && start.col != -1)) && (lineRanges[z].virtualLine < end.line || (lineRanges[z].virtualLine == end.line && (lineRanges[z].startCol <= end.col || end.col == -1))))
       {
         //justTagged = true;
         leftBorder->update (0, z * m_doc->viewFont.fontHeight, leftBorder->width(), leftBorder->height()); /*m_doc->viewFont.fontHeight*/
@@ -1936,7 +1936,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   }
 
   int realLine = thisRange.line;
-  int visibleLine = thisRange.visibleLine;
+  int visibleLine = thisRange.virtualLine;
   uint startCol = thisRange.startCol;
 
   visibleLine = QMAX( 0, QMIN( visibleLine, int(m_doc->numVisLines()) - 1 ) );
@@ -1955,7 +1955,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
 // Point in content coordinates
 bool KateViewInternal::isTargetSelected( const QPoint& p )
 {
-  int line = yToLineRange(p.y()).visibleLine;
+  int line = yToLineRange(p.y()).virtualLine;
   uint startCol = yToLineRange(p.y()).startCol;
 
   TextLine::Ptr textLine = m_doc->kateTextLine( m_doc->getRealLine( line ) );

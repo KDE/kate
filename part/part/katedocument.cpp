@@ -37,6 +37,7 @@
 #include "kateexportaction.h"
 #include "kateundo.h"
 #include "kateprintsettings.h"
+#include "katelinerange.h"
 
 #include <qfileinfo.h>
 #include <qfocusdata.h>
@@ -90,33 +91,6 @@
 //END  includes
 
 using namespace Kate;
-
-LineRange::LineRange()
-  : line(-1)
-  , visibleLine(-1)
-  , startCol(-1)
-  , endCol(-1)
-  , startX(-1)
-  , endX(-1)
-  , dirty(false)
-  , viewLine(-1)
-  , wrap(false)
-  , startsInvisibleBlock(false)
-{
-}
-
-void LineRange::clear()
-{
-  line = -1;
-  visibleLine = -1;
-  startCol = -1;
-  endCol = -1;
-  startX = -1;
-  endX = -1;
-  viewLine = -1;
-  wrap = false;
-  startsInvisibleBlock = false;
-}
 
 //
 // KateDocument Constructor
@@ -2592,7 +2566,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          range.startCol = startCol;
          range.endCol = endCol;
          range.wrap = needWrap;
-         paintTextLine ( paint, range, xstart, y, 0, maxWidth, -1, false, 0, false, false, PrintFont, false, true );
+         paintTextLine ( paint, &range, xstart, y, 0, maxWidth, -1, false, 0, false, false, PrintFont, false, true );
          if ( skip )
          {
            needWrap = false;
@@ -4116,7 +4090,7 @@ bool KateDocument::selectBounds(uint line, uint &start, uint &end, uint lineLeng
   return hasSel;
 }
 
-bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
+bool KateDocument::paintTextLine(QPainter &paint, const LineRange* range,
 				 int xPos2, int y, int xStart, int xEnd,
 				 int showCursor, bool replaceCursor,
 				 int cursorXPos2, bool showSelections,
@@ -4127,9 +4101,9 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
   // font data
   const FontStruct & fs = getFontStruct(wf);
 
-  uint line = range.line;
-  int startcol = range.startCol;
-  int endcol = range.wrap ? range.endCol : -1;
+  uint line = range->line;
+  int startcol = range->startCol;
+  int endcol = range->wrap ? range->endCol : -1;
 
   // text attribs font/style data
   Attribute *at = myAttribs.data();
@@ -4233,7 +4207,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
 
   //kdDebug(13020)<<"paint 1"<<endl;
   
-  if (range.startsInvisibleBlock) {
+  if (range->startsInvisibleBlock) {
     paint.save();
     paint.setPen(QPen(colors[4], 1, Qt::DashLine));
     paint.drawLine(xPos2, oldY + fs.fontHeight - 1, xPos2 + xEnd - xStart, oldY + fs.fontHeight - 1);
@@ -4366,12 +4340,12 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
     selectionPainted = true;
   }
 
-//  kdDebug()<<"startCol is:"<<range.startCol<<endl;
-//  kdDebug()<<"endCol / line endCol: "<<range.endCol<<" "<<textLine->length()<<endl;
+//  kdDebug()<<"startCol is:"<<range->startCol<<endl;
+//  kdDebug()<<"endCol / line endCol: "<<range->endCol<<" "<<textLine->length()<<endl;
 #if 0
   if (
-       (range.endCol==(textLine->length())) ||
-       (range.endCol==(textLine->length()+1))
+       (range->endCol==(textLine->length())) ||
+       (range->endCol==(textLine->length()+1))
      ) paint.drawText(xPos2 + xPos - xStart, y,"    [...]");
 #endif
 

@@ -2,10 +2,10 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
-      
+
    Based on:
      KWriteView : Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -26,6 +26,7 @@
 
 #include "katecursor.h"
 #include "katedocument.h"
+#include "katelinerange.h"
 
 #include <qpoint.h>
 #include <qlayout.h>
@@ -140,7 +141,7 @@ class KateViewInternal : public QWidget
     
     inline const KateTextCursor& getCursor() { return cursor; }
     QPoint cursorCoordinates();
-    
+
     void setTagLinesFrom(int line);
 
     void editStart();
@@ -150,16 +151,16 @@ class KateViewInternal : public QWidget
     void removeSelectedText(KateTextCursor & start);
 
     /**
-       Set the tagLinesFrom member if usefull. 
+       Set the tagLinesFrom member if usefull.
     */
     void setViewTagLinesFrom(int line);
 
     void editWrapLine(int line, int col, int len);
     void editUnWrapLine(int line, int col);
     void editRemoveLine(int line);
-    
+
     void paintText (int x, int y, int width, int height, bool paintOnlyDirty = false);
- 
+
   // EVENT HANDLING STUFF - IMPORTANT
   protected:
     void paintEvent(QPaintEvent *e);

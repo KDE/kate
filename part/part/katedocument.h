@@ -137,6 +137,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool clear ();
 
     bool insertText ( uint line, uint col, const QString &s );
+    bool insertText ( uint line, uint col, const QString &s, bool blockwise );
     
     bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol );
     bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise );

@@ -564,7 +564,12 @@ bool KateDocument::clear()
   return true;
 }
 
-bool KateDocument::insertText( uint line, uint col, const QString &s )
+bool KateDocument::insertText( uint line, uint col, const QString &s)
+{
+  return insertText (line, col, s, false);
+}
+
+bool KateDocument::insertText( uint line, uint col, const QString &s, bool blockwise )
 {
   if (s.isEmpty())
     return true;
@@ -584,8 +589,18 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
 
     if (ch == '\n')
     {
-      editInsertText (line, insertPos, buf);
-      editWrapLine (line, insertPos + buf.length());
+      if ( !blockwise )
+      {
+        editInsertText (line, insertPos, buf);
+        editWrapLine (line, insertPos + buf.length());
+      }
+      else
+      {
+        editInsertText (line, col, buf);
+        
+        if ( line == lastLine() )
+          editWrapLine (line, col + buf.length());
+      }
 
       line++;
       insertPos = 0;
@@ -595,7 +610,10 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
       buf += ch; // append char to buffer
   }
 
-  editInsertText (line, insertPos, buf);
+  if ( !blockwise )
+    editInsertText (line, insertPos, buf);
+  else
+    editInsertText (line, col, buf);
   
   editEnd ();
 
@@ -3132,7 +3150,7 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
     col = view->m_viewInternal->cursorCache.col;
   }
   
-  insertText( line, col, s );
+  insertText( line, col, s, blockSelect );
 
   // anders: we want to be able to move the cursor to the
   // position at the end of the pasted text,

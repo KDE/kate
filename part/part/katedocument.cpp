@@ -2413,6 +2413,13 @@ bool KateDocument::openURL( const KURL &url )
 
     m_job = KIO::get ( url, false, isProgressInfoEnabled() );
     
+    // connect to slots
+    connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
+           SLOT( slotDataKate( KIO::Job*, const QByteArray& ) ) );
+
+    connect( m_job, SIGNAL( result( KIO::Job* ) ),
+           SLOT( slotFinishedKate( KIO::Job* ) ) );
+    
     // set text mode
     m_job->addMetaData ("textmode", "true");
 
@@ -2424,12 +2431,6 @@ bool KateDocument::openURL( const KURL &url )
       m_job->setWindow (w->topLevelWidget());
 
     emit started( m_job );
-
-    connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
-           SLOT( slotDataKate( KIO::Job*, const QByteArray& ) ) );
-
-    connect( m_job, SIGNAL( result( KIO::Job* ) ),
-           SLOT( slotFinishedKate( KIO::Job* ) ) );
 
     return true;
   }

@@ -21,11 +21,11 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
 partrcdir   = $(kde_confdir)
 partrc_DATA = katesyntaxhighlightingrc
 
-html-php.xml: html.xml generate-php.pl
-	$(PERL) generate-php.pl < $< > $@
+html-php.xml: $(srcdir)/html.xml $(srcdir)/generate-php.pl
+	$(PERL) $(srcdir)/generate-php.pl < $< > $(srcdir)/$@
 
-css-php.xml: css.xml generate-php.pl
-	$(PERL) generate-php.pl < $< > $@
+css-php.xml: $(srcdir)/css.xml $(srcdir)/generate-php.pl
+	$(PERL) $(srcdir)/generate-php.pl < $< > $(srcdir)/$@
 
-javascript-php.xml: javascript.xml generate-php.pl
-	$(PERL) generate-php.pl < $< > $@
+javascript-php.xml: $(srcdir)/javascript.xml $(srcdir)/generate-php.pl
+	$(PERL) $(srcdir)/generate-php.pl < $< > $(srcdir)/$@

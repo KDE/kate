@@ -223,22 +223,16 @@ void KateViewInternal::scrollPos(KateTextCursor& c)
 
   if (!m_view->dynWordWrap())
   {
-    int dx = startLine() - c.line;
+    int dx = m_oldStartPos.line- c.line;
     if (QABS(dx * m_doc->viewFont.fontHeight) < (m_view->height()-style().scrollBarExtent().width()))
     {
-      //
       // trick to avoid artefact of xScrollbar ;)
-      //
       
       scroll(0, dx * m_doc->viewFont.fontHeight, QRect (0,0,m_view->width(), m_view->height()-style().scrollBarExtent().width()));
       update (0, m_view->height()-style().scrollBarExtent().width(), m_view->width(), style().scrollBarExtent().width());
       
-      /*leftBorder->scroll(0, dx * m_doc->viewFont.fontHeight, QRect (0,0,leftBorder->width(), m_view->height()-style().scrollBarExtent().width()));
+      leftBorder->scroll(0, dx * m_doc->viewFont.fontHeight, QRect (0,0,leftBorder->width(), m_view->height()-style().scrollBarExtent().width()));
       leftBorder->update (0, m_view->height()-style().scrollBarExtent().width(), leftBorder->width(), style().scrollBarExtent().width());
-    
-      // Hamish: had to add this, was not updating properly
-      // FIXME: fix the above and revert this? I'm not too good at the painting stuff yet*/
-      leftBorder->update ();
     }
     else
     {

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="36">
+<kpartgui name="KatePartView" version="37">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save_as" group="save_merge" />
@@ -22,7 +22,7 @@
   </Menu>
 
   <Menu name="view" noMerge="1"><text>&amp;View</text>
-    <Action name="view_cmd_line" group="view_operations" />
+    <Action name="switch_to_cmd_line" group="view_operations" />
     <Separator group="view_operations" />
     <Action name="view_schemas" group="view_operations" />
     <Separator group="view_operations" />

@@ -104,7 +104,10 @@ void KateCmdLine::slotReturnPressed ( const QString& cmd )
 
 void KateCmdLine::hideMe ()
 {
-  m_view->showCmdLine (false);
+  if (isVisibleTo(parentWidget())) {
+     m_view->toggleCmdLine ();
+  }
+  //m_view->/*show*/setCmdLine (false);
 }
 
 void KateCmdLine::focusInEvent ( QFocusEvent *ev )
@@ -123,7 +126,8 @@ void KateCmdLine::keyPressEvent( QKeyEvent *ev )
   if (ev->key() == Key_Escape)
   {
     m_view->setFocus ();
-    m_view->showCmdLine (false);
+    hideMe();
+    //m_view->showCmdLine (false);
   }
 
   return KLineEdit::keyPressEvent (ev);

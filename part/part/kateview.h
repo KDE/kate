@@ -373,7 +373,7 @@ class KateView : public Kate::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
-    KToggleAction*         m_toggleCmdLine;
+    KAction*         m_switchCmdLine;
 
     KSelectAction*         m_setEndOfLine;
 

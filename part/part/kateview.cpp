@@ -372,10 +372,11 @@ void KateView::setupActions()
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
 
-  a= m_toggleCmdLine = toggleAction = new KToggleAction(
-     i18n("Show C&ommand Line"), 0,
-     this, SLOT(toggleCmdLine()),
-     ac, "view_cmd_line" );
+
+  a= m_switchCmdLine = new KAction(
+     i18n("Switch to Command Line"), Key_F7,
+     this, SLOT(switchToCmdLine()),
+     ac, "switch_to_cmd_line" );
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
 
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
@@ -529,10 +530,11 @@ void KateView::setupEditActions()
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
 
+/*
   new KAction(
     i18n("Switch to Command Line"),          Qt::Key_F7,
     this, SLOT(switchToCmdLine()),
-    ac, "switch_to_cmd_line" );
+    ac, "switch_to_cmd_line" );*/
 
   // anders: shortcuts doing any changes should not be created in browserextension
   if ( !m_doc->readOnly() )
@@ -1011,9 +1013,12 @@ void KateView::showCmdLine ( bool enabled )
     }
 
     m_cmdLine->show ();
+    m_cmdLine->setFocus();
   }
-  else
+  else {
     m_cmdLine->hide ();
+    //m_toggleCmdLine->setChecked(false);
+  }
 
   m_cmdLineOn = enabled;
 }
@@ -1084,7 +1089,12 @@ void KateView::switchToCmdLine ()
 {
   if (!m_cmdLineOn)
     m_config->setCmdLine (true);
-
+  else {
+	if (m_cmdLine->hasFocus()) {
+		this->setFocus();
+		return;
+	}
+  }
   m_cmdLine->setFocus ();
 }
 
@@ -1140,7 +1150,7 @@ void KateView::updateConfig ()
 
   // cmd line
   showCmdLine (config()->cmdLine());
-  m_toggleCmdLine->setChecked( config()->cmdLine() );
+  //m_toggleCmdLine->setChecked( config()->cmdLine() );
 
   // misc edit
   m_toggleBlockSelection->setChecked( m_doc->blockSelectionMode() );

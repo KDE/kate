@@ -115,7 +115,8 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId, Q
   sChar2 = ch2;
 }
 
-const QChar *Hl2CharDetect::checkHgl(const QChar *str, int , bool) {
+const QChar *Hl2CharDetect::checkHgl(const QChar *str, int len , bool) {
+  if (len < 2) return 0L;
   if (str[0] == sChar1 && str[1] == sChar2) return str + 2;
   return 0L;
 }
@@ -127,7 +128,9 @@ HlStringDetect::HlStringDetect(int attribute, int context, signed char regionId,
 HlStringDetect::~HlStringDetect() {
 }
 
-const QChar *HlStringDetect::checkHgl(const QChar *s, int, bool) {
+const QChar *HlStringDetect::checkHgl(const QChar *s, int len, bool) {
+  if (len < str.length()) return 0L;
+
   if (!_inSensitive) {if (memcmp(s, str.unicode(), str.length()*sizeof(QChar)) == 0) return s + str.length();}
      else
        {
@@ -337,7 +340,7 @@ HlCOct::HlCOct(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }
 
-const QChar *HlCOct::checkHgl(const QChar *str, int , bool) {
+const QChar *HlCOct::checkHgl(const QChar *str, int len, bool) {
   const QChar *s;
 
   if (*str == '0') {

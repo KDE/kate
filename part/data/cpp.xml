@@ -192,7 +192,7 @@
         <keyword attribute="Alert" context="#stay" String="attention" />
         <RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>
         <RegExpr attribute="Preprocessor" context="#pop" String="^\s*#\s*(endif|else|elif)" endRegion="Outscoped"/>
-      </context>      
+      </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <RegExpr attribute="Comment" context="Outscoped intern" String="^\s*#\s*if" beginRegion="Outscoped"/>

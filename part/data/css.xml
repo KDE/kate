@@ -317,7 +317,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />
-        <RegExpr attribute="Notice" context= "#stay" string="(FIXME|TODO|NOTE)" />
+        <RegExpr attribute="Notice" context= "#stay" String="(FIXME|TODO|NOTE)" />
       </context>
     </contexts>
     <itemDatas>

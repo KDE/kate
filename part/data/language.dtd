@@ -91,7 +91,15 @@ WARNING: due to helper scripts, the language opening tag must be on a
 >
 
 <!-- General options -->
-<!ELEMENT general (comments|keywords|indentation)*>
+<!ELEMENT general (folding|comments|keywords|indentation)*>
+
+<!-- List of folding
+  indentationsensitive: If true, the code folding is indentation based.
+-->
+<!ELEMENT folding EMPTY>
+<!ATTLIST folding 
+  indentationsensitive (%boolean;) #IMPLIED
+>
 
 <!-- List of comments -->
 <!ELEMENT comments (comment)+>
@@ -122,6 +130,7 @@ TODO
   casesensitive         CDATA   #IMPLIED
   weakDeliminator       CDATA   #IMPLIED
   additionalDeliminator CDATA   #IMPLIED
+  wordWrapDeliminator   CDATA   #IMPLIED
 >
 
 <!-- Indentation options

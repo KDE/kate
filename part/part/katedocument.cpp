@@ -1953,14 +1953,14 @@ void KateDocument::readSessionConfig(KConfig *config)
   if (!tmpenc.isEmpty() && (tmpenc != encoding()))
     setEncoding(tmpenc);
 
+  // restore the hl stuff
+  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlighting")));
+
   // open the file if url valid
   if (!url.isEmpty() && url.isValid())
   {
     openURL (url);
   }
-
-  // restore the hl stuff
-  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
 
   // Restore Bookmarks
   QValueList<int> marks = config->readIntListEntry("Bookmarks");
@@ -1977,7 +1977,7 @@ void KateDocument::writeSessionConfig(KConfig *config)
   config->writeEntry("Encoding",encoding());
 
   // save hl
-  config->writeEntry("Highlight", m_highlight->name());
+  config->writeEntry("Highlighting", m_highlight->name());
 
   // Save Bookmarks
   QValueList<int> marks;
@@ -2845,7 +2845,8 @@ bool KateDocument::openFile()
     hl = hlManager->mimeFind( buf, m_url.url() );
   }
 
-  internalSetHlMode(hl);
+  if (hl >= 0)
+    internalSetHlMode(hl);
 
   updateLines();
   updateViews();
@@ -2924,7 +2925,8 @@ bool KateDocument::saveFile()
       hl = hlManager->mimeFind( buf, m_url.url() );
     }
 
-    internalSetHlMode(hl);
+    if (hl >= 0)
+      internalSetHlMode(hl);
   }
 
   emit fileNameChanged ();

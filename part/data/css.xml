@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.95" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="1.96" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
   
   <highlighting>
     <list name="properties">
@@ -509,7 +509,7 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="RuleSet">
         <DetectChar attribute="Property" context="#pop" char="}" endRegion="ruleset" />
         <keyword attribute="Property" context="Rule" String="properties" />
-	<RegExpr attribute="Unknown Property" context="Rule" String="-?[a-z_-]+(?=\s*:)" />
+	<RegExpr attribute="Unknown Property" context="Rule" String="-?[A-Za-z_-]+(?=\s*:)" />
 	<IncludeRules context="FindComments" />
 	<RegExpr attribute="Error" context="#stay" String="\S" />
       </context>

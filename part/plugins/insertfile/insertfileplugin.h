@@ -28,6 +28,7 @@
 #include <kxmlguiclient.h>
 #include <qobject.h>
 #include <jobclasses.h>
+#include <kurl.h>
 
 class InsertFilePlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
 {             
@@ -61,7 +62,7 @@ class InsertFilePluginView : public QObject, public KXMLGUIClient
     //slotAborted( KIO::Job *job );
   private:
     void insertFile();
-    QString _file;
+    KURL _file;
     QString _tmpfile;
     KIO::FileCopyJob *_job;
 };

@@ -88,18 +88,17 @@ void InsertFilePluginView::slotInsertFile()
                                              i18n("Choose File to Insert") ).url();
   if ( _file.isEmpty() ) return;
 
-  if ( KURL( _file ).isLocalFile() ) {
-    _tmpfile = _file;
+  if ( _file.isLocalFile() ) {
+    _tmpfile = _file.fileName();
     insertFile();
   }
   else {
-    KURL url( _file );
     KTempFile tempFile( QString::null );
     _tmpfile = tempFile.name();
 
     KURL destURL;
     destURL.setPath( _tmpfile );
-    _job = KIO::file_copy( url, destURL, 0600, true, false, true );
+    _job = KIO::file_copy( _file, destURL, 0600, true, false, true );
     connect( _job, SIGNAL( result( KIO::Job * ) ), this, SLOT( slotFinished ( KIO::Job * ) ) );
   }
 }
@@ -118,16 +117,16 @@ void InsertFilePluginView::insertFile()
 {
   QString error;
   if ( _tmpfile.isEmpty() )
-    error = i18n("<p>The file <strong>%1</strong> is empty, aborting.").arg(_file);
+    error = i18n("<p>The file <strong>%1</strong> is empty, aborting.").arg(_file.fileName());
 
   QFileInfo fi;
   fi.setFile( _tmpfile );
   if (!fi.exists() || !fi.isReadable())
-    error = i18n("<p>The file <strong>%1</strong> does not exist or is not readable, aborting.").arg(_file);
+    error = i18n("<p>The file <strong>%1</strong> does not exist or is not readable, aborting.").arg(_file.fileName());
 
   QFile f( _tmpfile );
-  if ( ! f.open(IO_ReadOnly) )
-    error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.").arg(_file);
+  if ( !f.open(IO_ReadOnly) )
+    error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.").arg(_file.fileName());
 
   if ( ! error.isEmpty() ) {
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );
@@ -150,7 +149,7 @@ void InsertFilePluginView::insertFile()
   f.close();
 
   if ( str.isEmpty() )
-    error = i18n("<p>File <strong>%1</strong> had no contents.").arg(_file);
+    error = i18n("<p>File <strong>%1</strong> had no contents.").arg(_file.fileName());
   if ( ! error.isEmpty() ) {
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );
     return;
@@ -170,7 +169,7 @@ void InsertFilePluginView::insertFile()
   ci->setCursorPositionReal( line + numlines - 1, numlines > 1 ? len : col + len  );
 
   // clean up
-  _file.truncate( 0 );
+  _file = KURL ();
   _tmpfile.truncate( 0 );
   v = 0;
   ei = 0;

@@ -242,7 +242,7 @@ void KateIconBorder::paintLine(int i,int pos)
   QPainter p(this);
 
   int fontHeight = myView->myDoc->viewFont.fontHeight;
-  int y = pos*fontHeight - myInternalView->originCoordinates().y();
+  int y = (pos-myViewInternal->startLine) * fontHeight;
   int lnX = 0;
 
   // icon pane

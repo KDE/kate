@@ -132,7 +132,7 @@ public:
     void setCursor (KateTextCursor c){cursor=c;}
     void resizeDrawBuffer(int w, int h){drawBuffer->resize(w,h);}
     QPoint cursorCoordinates(){return QPoint(xCoord,yCoord);}
-    QPoint originCoordinates(){return QPoint(xPos,yPos);}
+    QPoint originCoordinates(){return QPoint(xPos,0);}
 private:
     void calculateDisplayPositions(KateTextCursor &, KateTextCursor, bool, bool);
 
@@ -141,7 +141,6 @@ private:
     int yCoord;
 
     int xPos;
-    int yPos;
 
     int mouseX;
     int mouseY;
@@ -159,15 +158,15 @@ private:
     bool possibleTripleClick;
     bool exposeCursor;
     int updateState;
-    
+
     int startLine;
+    int newStartLine;
     int endLine;
     uint maxLen;
 
     QMemArray<KateLineRange> lineRanges;
 
     int newXPos;
-    int newYPos;
 
     QPixmap *drawBuffer;
 

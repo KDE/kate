@@ -3404,7 +3404,6 @@ bool KateDocument::removeStartStopCommentFromSelection()
       && buffer->line(el)->stringAtPos(ec - endCommentLen + 1, endComment);
  
   if (remove) {
-    kdDebug(13000) << "remove text" << endl;
     removeText (el, ec - endCommentLen + 1, el, ec + 1);
     removeText (sl, sc, sl, sc + startCommentLen);
   }

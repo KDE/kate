@@ -96,13 +96,22 @@ void KateSearch::find()
     
   s_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
   s_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
-  s_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+    s_searchFlags.fromBeginning = !(options & KFindDialog::FromCursor)
+                               && !(options & KFindDialog::SelectedText);
   s_searchFlags.backward = options & KFindDialog::FindBackwards;
   s_searchFlags.selected = options & KFindDialog::SelectedText;
   s_searchFlags.prompt = false;
   s_searchFlags.replace = false;
   s_searchFlags.finished = false;
   s_searchFlags.regExp = options & KFindDialog::RegularExpression;
+    if ( s_searchFlags.selected )
+    {
+      s.selBegin = KateTextCursor( doc()->selStartLine(), doc()->selStartCol() );
+      s.selEnd   = KateTextCursor( doc()->selEndLine(),   doc()->selEndCol()   );
+      s.cursor   = s.flags.backward ? s.selEnd : s.selBegin;
+    } else {
+      s.cursor = getCursor();
+    }
     
     search( s_searchFlags );
   }
@@ -126,17 +135,26 @@ void KateSearch::replace()
 
   s_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
   s_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
-  s_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+    s_searchFlags.fromBeginning = !(options & KFindDialog::FromCursor)
+                               && !(options & KFindDialog::SelectedText);
   s_searchFlags.backward = options & KFindDialog::FindBackwards;
   s_searchFlags.selected = options & KFindDialog::SelectedText;
   s_searchFlags.prompt = options & KReplaceDialog::PromptOnReplace;
   s_searchFlags.replace = true;
   s_searchFlags.finished = false;
   s_searchFlags.regExp = options & KFindDialog::RegularExpression;
+    if ( s_searchFlags.selected )
+    {
+      s.selBegin = KateTextCursor( doc()->selStartLine(), doc()->selStartCol() );
+      s.selEnd   = KateTextCursor( doc()->selEndLine(),   doc()->selEndCol()   );
+      s.cursor   = s.flags.backward ? s.selEnd : s.selBegin;
+    } else {
+      s.cursor = getCursor();
+    }
     
     search( s_searchFlags );
   }
-  delete replaceDialog;;
+  delete replaceDialog;
 }
 
 void KateSearch::findAgain( bool back )
@@ -145,6 +163,7 @@ void KateSearch::findAgain( bool back )
   flags.backward = s_searchFlags.backward != back;
   flags.fromBeginning = false;
   flags.prompt = true;
+  s.cursor = getCursor();
   
   search( flags );
 }
@@ -152,7 +171,6 @@ void KateSearch::findAgain( bool back )
 void KateSearch::search( SearchFlags flags )
 {
   s.flags = flags;
-  s.cursor = getCursor();
   
   if( s.flags.fromBeginning ) {
     if( !s.flags.backward ) {
@@ -203,12 +221,19 @@ void KateSearch::search( SearchFlags flags )
 
 void KateSearch::wrapSearch()
 {
+  if( s.flags.selected )
+  {
+      s.cursor = s.flags.backward ? s.selEnd : s.selBegin;
+  }
+  else
+  {
   if( !s.flags.backward ) {
     s.cursor.col = 0;
     s.cursor.line = 0;
   } else {
     s.cursor.line = doc()->numLines() - 1;
     s.cursor.col = doc()->lineLength( s.cursor.line );
+  }
   }
   replaces = 0;
   s.flags.finished = true;
@@ -310,6 +335,11 @@ void KateSearch::replaceOne()
   doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
   
   replaces++;
+  
+  if( s.flags.selected && s.cursor.line == s.selEnd.line )
+  {
+    s.selEnd.col += ( replaceWith.length() - s.matchedLength );
+  }
   
   if( !s.flags.backward ) {
     s.cursor.col += replaceWith.length();
@@ -416,6 +446,12 @@ bool KateSearch::doSearch( const QString& text )
     found = doc()->searchText( line, col, text,
                                &foundLine, &foundCol,
                                &matchLen, caseSensitive, backward );
+  }
+  if ( found && s.flags.selected )
+  {
+    if ( !s.flags.backward && KateTextCursor( foundLine, foundCol ) >= s.selEnd
+      ||  s.flags.backward && KateTextCursor( foundLine, foundCol ) < s.selBegin )
+      found = false;
   }
   if( !found ) return false;
 //  kdDebug(13000) << "Found at " << foundLine << ", " << foundCol << endl;

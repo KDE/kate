@@ -533,7 +533,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool isLastView(int numViews);
 
     uint currentColumn( const KateTextCursor& );
-    void newLine(             KateTextCursor& ); // Changes input
+    void newLine(             KateTextCursor&, KateViewInternal * ); // Changes input
     void backspace(     const KateTextCursor& );
     void del(           const KateTextCursor& );
     void transpose(     const KateTextCursor& );

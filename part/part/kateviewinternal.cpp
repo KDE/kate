@@ -755,7 +755,7 @@ QPoint KateViewInternal::cursorCoordinates()
 void KateViewInternal::doReturn()
 {
   KateTextCursor c = cursor;
-  m_doc->newLine( c );
+  m_doc->newLine( c, this );
   updateCursor( c );
   updateView();
 }

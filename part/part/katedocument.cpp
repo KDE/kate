@@ -3070,13 +3070,16 @@ QString tabString(int pos, int tabChars)
   return s;
 }
 
-void KateDocument::newLine( KateTextCursor& c )
+void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
 {
   editStart();
 
   if( configFlags() & cfDelOnInput && hasSelection() )
     removeSelectedText();
 
+  // temporary hack to get the cursor pos right !!!!!!!!!
+  c = v->cursorCache;
+  
   if (c.line > (int)lastLine())
    c.line = lastLine();
 

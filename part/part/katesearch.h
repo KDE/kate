@@ -104,10 +104,11 @@ private:
   KateDocument* m_doc;
   
   struct SConfig {
-          long options;
     SearchFlags flags;
     KateTextCursor cursor;
     uint matchedLength;
+    KateTextCursor selBegin;
+    KateTextCursor selEnd;
   } s;
   long options;
   int           replaces;

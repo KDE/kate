@@ -18,7 +18,6 @@ For 3.0 and bugfix releases:
 
 For 3.1 and later:
  - dynamic word wrap
- - code folding  (perhaps related to the already existing hl context structure + user defined blocks)
  - blockwise paste must be done
  - more efficient hl buffer managment, I think of storing only the contexts in the buffer
  - export plugin interfaces

@@ -242,12 +242,12 @@ void KateViewInternal::dynWrapChanged()
 KateTextCursor KateViewInternal::endPos() const
 {
   int viewLines = linesDisplayed() - 1;
-  
+
   if (viewLines < 0) {
     kdDebug(13030) << "WARNING: viewLines wrong!" << endl;
     viewLines = 0;
   }
-  
+
   // Check to make sure that lineRanges isn't invalid
   if (!lineRanges.count() || lineRanges[0].line == -1 || viewLines >= (int)lineRanges.count()) {
     // Switch off use of the cache
@@ -268,7 +268,6 @@ KateTextCursor KateViewInternal::endPos() const
 
     ret.line = thisRange.visibleLine;
     ret.col = thisRange.wrap ? thisRange.endCol - 1 : thisRange.endCol;
-    kdDebug() << k_funcinfo << "viewline " << i << " [" << ret.line <<","<< ret.col << "]" << endl;
     return ret;
   }
 

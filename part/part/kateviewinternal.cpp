@@ -2399,6 +2399,13 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     }
   }
 
+  if ( key == CTRL+Qt::Key_Tab )
+  {
+    m_doc->align( cursor.line() );
+    e->accept();
+    return;
+  }
+
   if ( !(e->state() & ControlButton) && !(e->state() & AltButton)
        && m_doc->typeChars ( m_view, e->text() ) )
   {

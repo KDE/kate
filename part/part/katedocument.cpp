@@ -1201,7 +1201,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->insertText (col, s.length(), s.unicode());
-  removeTrailingSpace(line); // ### nessecary?
+  //removeTrailingSpace(line); // ### nessecary?
 
   m_buffer->changeLine(line);
   editTagLine (line);
@@ -3199,6 +3199,9 @@ void KateDocument::paste ( KateView* view )
 
   insertText ( line, column, s, blockSelect );
 
+  KateDocCursor begin((int)editTagLineStart, 0, this);
+  KateDocCursor end((int)editTagLineEnd, 0, this);
+
   editEnd();
 
   // move cursor right for block select, as the user is moved right internal
@@ -3208,6 +3211,13 @@ void KateDocument::paste ( KateView* view )
   {
     uint lines = s.contains (QChar ('\n'));
     view->setCursorPositionInternal (line+lines, column);
+  }
+
+  if (m_indenter->canProcessLine())
+  {
+    editStart();
+    m_indenter->processSection (begin, end);
+    editEnd();
   }
 
   m_undoDontMerge = true;
@@ -3313,6 +3323,26 @@ void KateDocument::indent ( KateView *, uint line, int change)
   }
 
   editEnd ();
+}
+
+void KateDocument::align(uint line)
+{
+  if (m_indenter->canProcessLine())
+  {
+    editStart ();
+
+    if (!hasSelection())
+    {
+      KateDocCursor curLine(line, 0, this);
+      m_indenter->processLine (curLine);
+    }
+    else
+    {
+      m_indenter->processSection(selectStart, selectEnd);
+    }
+
+    editEnd ();
+  }
 }
 
 /*

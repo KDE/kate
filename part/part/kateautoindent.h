@@ -25,44 +25,44 @@
 class KateDocument;
 
 /**
- * Base class for all autoindenter
+ * Provides Auto-Indent functionality for katepart.
  */
 class KateAutoIndent
 {
   /**
-   * static methodes to create and list them
+   * Static methods to create and list indention modes
    */
   public:
     /**
-     * create a indenter
+     * Create an indenter
      * @param doc document for the indenter
-     * @param mode indentation mode wanted
-     * @return create autoindentation object
+     * @param mode indention mode wanted
+     * @return created autoindention object
      */
     static KateAutoIndent *createIndenter (KateDocument *doc, uint mode);
 
     /**
-     * list all possible modes by name
+     * List all possible modes by name
      * @return list of modes
      */
     static QStringList listModes ();
 
     /**
-     * mode name
+     * Return the mode name given the mode
      * @param mode mode index
-     * @return name for this index
+     * @return name for this mode index
      */
     static QString modeName (uint mode);
 
     /**
-     * mode description
+     * Return the mode description
      * @param mode mode index
-     * @return description of this mode
+     * @return mode index
      */
     static QString modeDescription (uint mode);
 
     /**
-     * mapping name -> index
+     * Maps name -> index
      * @param name mode name
      * @return mode index
      */
@@ -74,58 +74,109 @@ class KateAutoIndent
      * @param doc parent document
      */
     KateAutoIndent (KateDocument *doc);
-    
+
     /**
      * Virtual Destructor for the baseclass
      */
     virtual ~KateAutoIndent ();
 
     /**
-     * Update indenter's configuration (indention width etc.)
+     * Update indenter's configuration (indention width, attributes etc.)
      */
     void updateConfig ();
 
     /**
      * Called every time a newline character is inserted in the document.
-     * cur should contain the new cursor position afterwords
-     * needContinue is used to determine whether to calculate a continue indent or not
-     * @param cur new cursor position
-     * @param needContinue calc continue indent or not
+     *
+     * @param cur The position to start processing. Contains the new cursor position after the indention.
+     * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
     virtual void processNewline (KateDocCursor &cur, bool needContinue);
 
     /**
-     * Called every time a character is inserted into the document
-     * @param insert char
+     * Called every time a character is inserted into the document.
+     * @param c character inserted
      */
-    virtual void processChar (QChar) {}
+    virtual void processChar (QChar /*c*/) { }
 
     /**
-     * mode index of this mode
+     * Aligns/indents the given line to the proper indent position.
+     */
+    virtual void processLine (KateDocCursor &/*line*/) { }
+
+    /**
+     * Processes a section of text, indenting each line in between.
+     */
+    virtual void processSection (KateDocCursor &/*begin*/, KateDocCursor &/*end*/) { }
+
+    /**
+     * Set to true if an actual implementation of 'processLine' is present.
+     * This is used to prevent a needless Undo action from being created.
+     */
+    virtual bool canProcessLine() { return false; }
+
+    /**
+     * Mode index of this mode
      * @return modeNumber
      */
     virtual uint modeNumber () const { return KateDocumentConfig::imNormal; };
 
   protected:
-    // Determines if the characters open and close are balanced between begin and end
-    bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close) const;
 
-    // Skip all whitespace starting at cur and ending at max   spanning lines if newline is set
-    // cur is set to the current position afterwards
+    /**
+     * Determines if the characters open and close are balanced between @p begin and @p end
+     * Fills in @p pos with the column position of first opened character if found.
+     *
+     * @param begin Beginning cursor position.
+     * @param end Ending cursor position where the processing will stop.
+     * @param open The open character.
+     * @param close The closing character which should be matched against @p open.
+     * @param pos Contains the position of the first @p open character in the line.
+     * @return True if @p open and @p close have an equal number of occurances between @p begin and @p end. False otherwise.
+     */
+    bool isBalanced (KateDocCursor &begin, const KateDocCursor &end, QChar open, QChar close, uint &pos) const;
+
+    /**
+     * Skip all whitespace starting at @p cur and ending at @p max. Spans lines if @p newline is set.
+     * @p cur is set to the current position afterwards.
+     *
+     * @param cur The current cursor position to start from.
+     * @param max The furthest cursor position that will be used for processing
+     * @param newline Whether we are allowed to span multiple lines when skipping blanks
+     * @return True if @p cur < @p max after processing.  False otherwise.
+     */
     bool skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool newline) const;
 
-    // Measures the indention of the current textline marked by cur
+    /**
+     * Measures the indention of the current textline marked by cur
+     *    // Produces a string with the proper indentation characters for its length
+     * @param cur The cursor position to measure the indent to.    QString tabString (uint length) const;
+     * @return The length of the indention in characters.
+     */
     uint measureIndent (KateDocCursor &cur) const;
 
-    // Produces a string with the proper indentation characters for its length
-    QString tabString (uint length) const;
+    /**
+     * Produces a string with the proper indentation characters for its length.
+     *
+     * @param length The length of the indention in characters.
+     * @return A QString representing @p length characters (factoring in tabs and spaces)
+     */
+    QString tabString(uint length) const;
 
     KateDocument *doc;
 
-    uint tabWidth;
-    uint indentWidth;
-    uint commentAttrib;
-    bool useSpaces;
+    uint  tabWidth;     //!< The number of characters simulated for a tab
+    uint  indentWidth;  //!< The number of characters used when tabs are replaced by spaces
+
+    // Attributes that we should skip over or otherwise know about
+    uchar commentAttrib;
+    uchar doxyCommentAttrib;
+    uchar regionAttrib;
+    uchar symbolAttrib;
+    uchar alertAttrib;
+
+    bool  useSpaces;    //!< Should we use spaces or tabs to indent
+    bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
 };
 
 class KateCSmartIndent : public KateAutoIndent
@@ -137,11 +188,19 @@ class KateCSmartIndent : public KateAutoIndent
     virtual void processNewline (KateDocCursor &begin, bool needContinue);
     virtual void processChar (QChar c);
 
+    virtual void processLine (KateDocCursor &line);
+    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+
+    virtual bool canProcessLine() { return true; }
+
     virtual uint modeNumber () const { return KateDocumentConfig::imCStyle; };
 
   private:
     uint calcIndent (KateDocCursor &begin, bool needContinue);
     uint calcContinue (KateDocCursor &begin, KateDocCursor &end);
+    uint findOpeningBrace (KateDocCursor &start);
+    uint findOpeningComment (KateDocCursor &start);
+    bool firstOpeningBrace (KateDocCursor &start);
 
     bool allowSemi;
 };

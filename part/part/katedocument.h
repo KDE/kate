@@ -596,6 +596,7 @@ class KateDocument : public Kate::Document,
 
     void indent ( KateView *view, uint line, int change );
     void comment ( KateView *view, uint line, int change );
+    void align ( uint line );
 
     enum TextTransform { Uppercase, Lowercase, Capitalize };
 
@@ -831,12 +832,12 @@ class KateDocument : public Kate::Document,
     // file type !!!
     int m_fileType;
     bool m_fileTypeSetByUser;
-    
+
     /**
      * document is still reloading a file
      */
     bool m_reloading;
-    
+
   public slots:
     void spellcheck();
     void ready(KSpell *);
@@ -849,12 +850,14 @@ class KateDocument : public Kate::Document,
     void slotQueryClose_save(bool *handled, bool* abortClosing);
 
   private:
-    void makeAttribs ();
+    //void makeAttribs ();
 
     void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
 
   public:
+    void makeAttribs ();
+
     static bool checkOverwrite( KURL u );
 
     static void setDefaultEncoding (const QString &encoding);

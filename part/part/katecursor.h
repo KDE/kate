@@ -101,22 +101,24 @@ class KateDocCursor : public KateTextCursor
     bool removeText(uint numberOfCharacters);
     QChar currentChar() const;
 
+    uchar currentAttrib() const;
+
     /**
       Find the position (line and col) of the next char
-      that is not a space. If found KateDocCursor points to the 
+      that is not a space. If found KateDocCursor points to the
       found character. Otherwise to a invalid Position such that
       validPosition() returns false.
-      @returns True if the specified or a following character is not a space
+      @return True if the specified or a following character is not a space
                Otherwise false.
     */
     bool nextNonSpaceChar();
-    
+
     /**
       Find the position (line and col) of the previous char
-      that is not a space. If found KateDocCursor points to the 
+      that is not a space. If found KateDocCursor points to the
       found character. Otherwise to a invalid Position such that
       validPosition() returns false.
-      @returns True if the specified or a preceding character is not a space
+      @return True if the specified or a preceding character is not a space
                Otherwise false.
     */
     bool previousNonSpaceChar();
@@ -130,7 +132,7 @@ class KateRange
   public:
     KateRange () {};
     virtual ~KateRange () {};
-  
+
     virtual bool isValid() const = 0;
     virtual KateTextCursor& start() = 0;
     virtual KateTextCursor& end() = 0;
@@ -145,31 +147,31 @@ class KateTextRange : public KateRange
       : m_valid(false)
     {
     };
-  
+
     KateTextRange(int startline, int startcol, int endline, int endcol)
       : m_start(startline, startcol)
       , m_end(endline, endcol)
       , m_valid(true)
     {
     };
-  
+
     KateTextRange(const KateTextCursor& start, const KateTextCursor& end)
       : m_start(start)
       , m_end(end)
       , m_valid(true)
     {
     };
-    
+
     virtual ~KateTextRange () {};
-  
+
     virtual bool isValid() const { return m_valid; };
     void setValid(bool valid) { m_valid = valid; };
-  
+
     virtual KateTextCursor& start() { return m_start; };
     virtual KateTextCursor& end() { return m_end; };
     virtual const KateTextCursor& start() const { return m_start; };
     virtual const KateTextCursor& end() const { return m_end; };
-  
+
   protected:
     KateTextCursor m_start, m_end;
     bool m_valid;

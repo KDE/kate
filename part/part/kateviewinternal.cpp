@@ -2641,7 +2641,7 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
     makeVisible( cursor, 0 );
     p = cursorCoordinates();
   }
-  else if ( ! isTargetSelected( e->pos() ) )
+  else if ( ! m_doc->hasSelection() || m_doc->config()->configFlags() & KateDocument::cfPersistent )
     placeCursor( e->pos() );
 
   // popup is a qguardedptr now

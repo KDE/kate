@@ -18,7 +18,7 @@
 
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-				<HlCStringChar attribute="Normal Text" lineEndContext="#stay"/>
+				<HlCStringChar attribute="Normal Text" context="#stay"/>
 				<keyword String="keywords" attribute="Keyword" context="#stay"/>
 				<RegExpr String="#.*$" attribute="Comment" context="#stay"/>
 				<RegExpr String="(^|;)\s*\S+\s*=" attribute="Variable" context="Value"/>

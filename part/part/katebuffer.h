@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (c) 2000 Waldo Bastian <bastian@kde.org>
-   Copyright (C) 2002, 2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2002-2004 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -305,12 +305,6 @@ class KateBuffer : public QObject
      */
     ~KateBuffer();
     
-  public slots:
-    /**
-     * change the visibility of a given line
-     */
-    void setLineVisible (unsigned int lineNr, bool visible);
-    
   public:
     void editStart ();
     void editEnd ();
@@ -326,6 +320,12 @@ class KateBuffer : public QObject
     uint editTagLineStart;
     uint editTagLineEnd;
 
+  public slots:
+    /**
+     * change the visibility of a given line
+     */
+    void setLineVisible (unsigned int lineNr, bool visible);
+    
   public:
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
@@ -454,7 +454,7 @@ class KateBuffer : public QObject
      * @returns true when the highlighting in the next block needs to be updated,
      * false otherwise.
      */
-    bool needHighlight(KateBufBlock *buf, uint from, uint to);
+    bool doHighlight (KateBufBlock *buf, uint from, uint to);
     
   signals:
     /**

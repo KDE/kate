@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (c) 2000 Waldo Bastian <bastian@kde.org>
-   Copyright (C) 2002, 2003 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2002-2004 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -52,7 +52,7 @@
 /**
  * hl will look at the next KATE_HL_LOOKAHEAD lines
  * or until the current block ends if a line is requested
- * will avoid to run needHighlight too often
+ * will avoid to run doHighlight too often
  */
 #define KATE_HL_LOOKAHEAD        64
 
@@ -127,7 +127,7 @@ void KateBuffer::editEnd ()
     bool needContinue = false;
     while ((buf2 = findBlock(editTagLineStart)))
     {
-      needContinue = needHighlight (buf2,
+      needContinue = doHighlight (buf2,
         (editTagLineStart > buf2->startLine()) ? editTagLineStart : buf2->startLine(),
         (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd);
         
@@ -539,9 +539,9 @@ TextLine::Ptr KateBuffer::line(uint i)
   {
     uint end = kMin(i + KATE_HL_LOOKAHEAD, buf2->endLine());
   
-    needHighlight ( buf2,
-                    kMax(m_lineHighlighted, buf2->startLine()),
-                    end);
+    doHighlight ( buf2,
+                  kMax(m_lineHighlighted, buf2->startLine()),
+                  end);
       
     m_lineHighlighted = end;
   }
@@ -553,7 +553,7 @@ TextLine::Ptr KateBuffer::line(uint i)
   return buf->line (i - buf->startLine());
 }
 
-bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
+bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 {
   // no hl around, no stuff to do
   if (!m_highlight)

@@ -1,5 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001-2004 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -18,8 +18,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef kate_document_h
-#define kate_document_h
+#ifndef _KATE_DOCUMENT_H_
+#define _KATE_DOCUMENT_H_
 
 #include "katesupercursor.h"
 #include "katetextline.h"

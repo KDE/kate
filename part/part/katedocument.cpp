@@ -4659,6 +4659,9 @@ void KateDocument::misspelling( const QString& origword, const QStringList&, uin
 
   locatePosition( pos, line, col );
 
+  if (activeView())
+    activeView()->m_viewInternal->updateCursor( KateTextCursor( line, col ) );
+
   setSelection( line, col, line, col + origword.length() );
 }
 

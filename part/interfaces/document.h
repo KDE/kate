@@ -103,6 +103,12 @@ class Command
      * about success, msg for status
      */
     virtual bool exec (View *view, const QString &cmd, QString &msg) = 0;
+
+    /**
+     * Shows help for the given view and cmd string, return a bool
+     * about success, msg for status
+     */
+    virtual bool help (View *view, const QString &cmd, QString &msg) = 0;
 };
 
 /** This interface provides access to the Kate Document class.

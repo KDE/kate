@@ -2267,6 +2267,8 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
   {
     QString errorMsg;
 
+    QTime t;
+    t.start();
     if( !KateFactory::self()->jscriptManager()->exec( view, "script-indent-c-newline", errorMsg ) )
     {
       kdDebug(13030) << "Error in script-indent: " << errorMsg << endl;
@@ -2275,6 +2277,7 @@ void KateScriptIndent::processNewline( KateDocCursor &begin, bool needContinue )
     {
       begin.setPosition( view->cursorLine(), view->cursorColumnReal() );
     }
+    kdDebug(13030) << "ScriptIndent::TIME in ms: " << t.elapsed() << endl;
   }
 }
 

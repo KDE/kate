@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.03" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
+<language version="1.04" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
   <highlighting>
     <list name="blocks">
       <item> begin </item>
@@ -180,9 +180,9 @@
         <DetectChar attribute="Operator" context="#pop" char=")"/>
         <keyword attribute="String" context="#stay" String="blocks"/>
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
-        <keyword attribute="Keyword" context="Predicates" String="predicates"/>
-        <keyword attribute="Keyword" context="Predicates2" String="predicates2"/>
-        <keyword attribute="Keyword" context="Assignments" String="assignments"/>
+        <keyword attribute="Keyword" context="#stay" String="predicates"/>
+        <keyword attribute="Keyword" context="#stay" String="predicates2"/>
+        <keyword attribute="Keyword" context="#stay" String="assignments"/>
         <keyword attribute="MathOps" context="#stay" String="mathops"/>
         <RegExpr attribute="MathOps" context="#stay" String="[\+\-\*\/]?\s"/>
         <StringDetect attribute="Special" context="#stay" String="list-&gt;string"/>
@@ -207,18 +207,6 @@
       <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
       <context name="MultiLineComment" attribute="Comment" lineEndContext="#stay">
         <Detect2Chars attribute="Comment" context="#pop" char="#" char1="|"/>
-      </context>
-      <context name="Predicates" attribute="Normal" lineEndContext="#pop">
-        <DetectChar attribute="Predicate" context="#pop" char="?"/>
-        <RegExpr attribute="Normal" context="#pop" String="\s" />
-      </context>
-      <context name="Predicates2" attribute="Normal" lineEndContext="#pop">
-        <RegExpr attribute="Predicate" context="#pop" String="[&lt;&gt;]?=?\?"/>
-        <RegExpr attribute="Normal" context="#pop" String="\s" />
-      </context>
-      <context name="Assignments" attribute="Normal" lineEndContext="#pop">
-        <DetectChar attribute="Assignments" context="#pop" char="!"/>
-        <RegExpr attribute="Normal" context="#pop" String="\s" />
       </context>
       <context name="SpecialNumber" attribute="Normal" lineEndContext="#pop">
         <Float attribute="Float" context="#pop"/>

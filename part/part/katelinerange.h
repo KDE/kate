@@ -26,11 +26,19 @@ class LineRange
 {
   public:
     LineRange();
-		virtual ~LineRange ();
+    virtual ~LineRange ();
 
     void clear();
-    void debugOutput() const;
-    bool includesCursor(const KateTextCursor& realCursor) const;
+
+    inline bool includesCursor (const KateTextCursor& realCursor) const
+    {
+      return realCursor.line() == line && realCursor.col() >= startCol && (!wrap || realCursor.col() < endCol);
+    }
+
+    inline int xOffset () const
+    {
+      return startX ? shiftX : 0;
+    }
 
     friend bool operator> (const LineRange& r, const KateTextCursor& c);
     friend bool operator>= (const LineRange& r, const KateTextCursor& c);
@@ -44,6 +52,11 @@ class LineRange
     int startX;
     int endX;
 
+    bool dirty;
+    int viewLine;
+    bool wrap;
+    bool startsInvisibleBlock;
+
     // This variable is used as follows:
     // non-dynamic-wrapping mode: unused
     // dynamic wrapping mode:
@@ -52,12 +65,6 @@ class LineRange
     //
     // this is used to provide a dynamic-wrapping-retains-indent feature.
     int shiftX;
-    int xOffset() const;
-
-    bool dirty;
-    int viewLine;
-    bool wrap;
-    bool startsInvisibleBlock;
 };
 
 #endif

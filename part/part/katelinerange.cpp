@@ -19,8 +19,6 @@
 
 #include "katelinerange.h"
 
-#include <kdebug.h>
-
 LineRange::LineRange()
   : line(-1)
   , virtualLine(-1)
@@ -28,11 +26,11 @@ LineRange::LineRange()
   , endCol(-1)
   , startX(-1)
   , endX(-1)
-  , shiftX(0)
   , dirty(false)
   , viewLine(-1)
   , wrap(false)
   , startsInvisibleBlock(false)
+  , shiftX(0)
 {
 }
 
@@ -52,21 +50,6 @@ void LineRange::clear()
   viewLine = -1;
   wrap = false;
   startsInvisibleBlock = false;
-}
-
-bool LineRange::includesCursor(const KateTextCursor& realCursor) const
-{
-  return realCursor.line() == line && realCursor.col() >= startCol && (!wrap || realCursor.col() < endCol);
-}
-
-int LineRange::xOffset() const
-{
-  return startX ? shiftX : 0;
-}
-
-void LineRange::debugOutput() const
-{
-  kdDebug() << "LineRange: line " << line << " cols [" << startCol << " -> " << endCol << "] x [" << startX << " -> " << endX << " off " << shiftX << "] wrap " << wrap << endl;
 }
 
 bool operator> (const LineRange& r, const KateTextCursor& c)

@@ -144,13 +144,6 @@ int FontStruct::width(const QChar& c, bool bold, bool italic, int tabWidth)
       myFontMetrics.width(c) );
 }
 
-const QFont& FontStruct::font(bool bold, bool italic) const
-{
-  return (bold) ?
-    ( (italic) ? myFontBI : myFontBold ) :
-    ( (italic) ? myFontItalic : myFont );
-}
-
 void FontStruct::setFont (const QFont & font)
 {
   myFont = font;

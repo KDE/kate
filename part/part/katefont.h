@@ -59,7 +59,12 @@ class FontStruct
     int width(const QString& text, int col, bool bold, bool italic, int tabWidth);
     int width(const QChar& c, bool bold, bool italic, int tabWidth);
 
-    const QFont& font(bool bold, bool italic) const;
+    inline const QFont& font(bool bold, bool italic) const
+    {
+      return (bold) ?
+        ( (italic) ? myFontBI : myFontBold ) :
+        ( (italic) ? myFontItalic : myFont );
+    }
 
     void setFont(const QFont & font);
 
@@ -74,6 +79,5 @@ class FontStruct
     int fontHeight;
     int fontAscent;
 };
-
 
 #endif

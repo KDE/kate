@@ -137,6 +137,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   cXPos = 0;
   cOldXPos = 0;
 
+  possibleTripleClick = false;
   exposeCursor = false;
   updateState = 0;
   newXPos = -1;
@@ -1043,6 +1044,16 @@ void KateViewInternal::keyPressEvent(QKeyEvent *e) {
 void KateViewInternal::mousePressEvent(QMouseEvent *e) {
 
   if (e->button() == LeftButton) {
+    if (possibleTripleClick) {
+      possibleTripleClick = false;
+      VConfig c;
+      getVConfig(c);
+      myDoc->selectLine(c.cursor, c.flags);
+      cursor.col = 0;
+      cursor.line = cursor.line;
+      updateCursor( cursor, true );
+      return;
+    }
 
     if (isTargetSelected(e->x(), e->y())) {
       // we have a mousedown on selected text
@@ -1091,7 +1102,15 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e) {
       updateCursor( cursor, true );
     }
     //myDoc->updateViews(); allready called by document->setSelection()
+    possibleTripleClick=true;
+    QTimer::singleShot( QApplication::doubleClickInterval(),this,
+            SLOT(tripleClickTimeout()) );
   }
+}
+
+void KateViewInternal::tripleClickTimeout()
+{
+    possibleTripleClick=false;
 }
 
 void KateViewInternal::mouseReleaseEvent(QMouseEvent *e) {

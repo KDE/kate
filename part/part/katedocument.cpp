@@ -2988,6 +2988,12 @@ void KateDocument::selectWord(KateTextCursor &cursor, int flags) {
   setSelection (cursor.line, start, cursor.line, end);
 }
 
+void KateDocument::selectLine(KateTextCursor &cursor, int flags) {
+  TextLine::Ptr textLine = getTextLine(cursor.line);
+  if (!(flags & KateDocument::cfKeepSelection)) clearSelection ();
+  setSelection (cursor.line, 0, cursor.line+1, 0);
+}
+
 void KateDocument::selectLength(KateTextCursor &cursor, int length, int flags) {
   int start, end;
 

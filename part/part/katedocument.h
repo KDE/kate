@@ -542,6 +542,7 @@ class KateDocument : public Kate::Document
 
     void selectTo(VConfig &c, KateTextCursor &cursor, int cXPos);
     void selectWord(KateTextCursor &cursor, int flags);
+    void selectLine(KateTextCursor &cursor, int flags);
     void selectLength(KateTextCursor &cursor, int length, int flags);
 
     void indent(VConfig &c) {doIndent(c, 1);}

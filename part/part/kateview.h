@@ -137,6 +137,7 @@ class KateViewInternal : public QWidget
   private slots:
     void changeXPos(int);
     void changeYPos(int);
+    void tripleClickTimeout();
 
   private:
     void getVConfig(VConfig &);
@@ -206,6 +207,7 @@ class KateViewInternal : public QWidget
     int endLine;
     uint maxLen;
 
+    bool possibleTripleClick;
     bool exposeCursor;
     int updateState;
     uint numLines;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.19" kateversion="2.3" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.20" kateversion="2.3" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -161,7 +161,7 @@
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Member">
+      <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
         <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">

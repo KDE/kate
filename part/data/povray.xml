@@ -4,7 +4,7 @@
 <!-- Christoph Hormann <chris_hormann@gmx.de>, March 2004       -->
 <!-- features full POV-Ray 3.6 syntax with special highlighting -->
 <!-- of variable and macro declarations                         -->
-<language name="POV-Ray" version="0.02" kateversion="2.1" section="Other" extensions="*.inc;*.pov" mimetype="text/x-povray-script;text/x-povray-include" priority="2">
+<language name="POV-Ray" version="1.03" kateversion="2.1" section="Other" extensions="*.inc;*.pov" mimetype="text/x-povray-script;text/x-povray-include" priority="2">
   <highlighting>
     <list name="keywords">
       <item> aa_threshold </item>
@@ -832,10 +832,6 @@
         <LineContinue attribute="String" context="#stay"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
-      </context>
-
-      <context attribute="Normal Text" lineEndContext="#pop" name="Member">
-        <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">

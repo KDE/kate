@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" version="1.13" kateversion="2.3" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.14" kateversion="2.3" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
     <list name="keywords">
       <item> abstract</item>
@@ -127,7 +127,7 @@
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Member">
+      <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
         <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1"/>

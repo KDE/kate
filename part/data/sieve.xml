@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Highlighting for Sieve scripts (RFC 3028) written by Petter E. Stokke -->
-<language name="Sieve" version="1.02" kateversion="2.3" section="Scripts"
+<language name="Sieve" version="1.04" kateversion="2.3" section="Scripts"
           extensions="*.siv" mimetype="application/sieve" priority="5"
           author="Petter E. Stokke" license="">
   <highlighting>
@@ -40,7 +40,7 @@
         <RegExpr attribute="String" context="#pop" String="^\.$" />
         <HlCStringChar attribute="String Char" context="#stay" />
       </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Member">
+      <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
         <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Comment">

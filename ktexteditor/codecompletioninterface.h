@@ -135,6 +135,13 @@ class CodeCompletionInterface
 	 *
 	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
 	 * when the implementation doesn't support it
+         *
+         * IMPORTANT: The pointer to the CompleteionEntry, is only valid in the slots connected to this signal
+         * when the connected slots are left, the data element may be destroyed, depending on the implementation
+	 *
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 * function, if you support it, declare it as a signal.
+         *
 	 */
     virtual void completionDone(CompletionEntry*)=0;
 

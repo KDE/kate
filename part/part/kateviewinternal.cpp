@@ -2561,10 +2561,10 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
     placeCursor( e->pos() );
 
   // popup is a qguardedptr now
-  if (m_view->popup())
+  if (m_view->popup()) {
     m_view->popup()->popup( mapToGlobal( e->pos() ) );
-
-  e->accept ();
+    e->accept ();
+  }
 }
 
 void KateViewInternal::mousePressEvent( QMouseEvent* e )

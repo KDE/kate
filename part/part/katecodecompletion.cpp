@@ -109,14 +109,14 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
        o != m_completionListBox->viewport() )
     return false;
 
-/* fixme: comment doesn't disappear when popup closes!  
-   if ( e->type() == QEvent::MouseButtonPress ) {
-    QTimer::singleShot(0, this, SLOT(showComment()));
-    return FALSE;
-   }*/
    if ( e->type() == QEvent::MouseButtonDblClick  ) {
     doComplete();
-    return FALSE;
+    return false;
+   }
+
+   if ( e->type() == QEvent::MouseButtonPress ) {
+    QTimer::singleShot(0, this, SLOT(showComment()));
+    return false;
    }
 
    if ( e->type() == QEvent::KeyPress ) {

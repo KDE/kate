@@ -747,8 +747,7 @@ class KateDocument : public Kate::Document
 
   // highlight stuff
   private:
-    Attribute *myAttribs;
-    uint myAttribsLen;
+    QMemArray<Attribute> myAttribs;
 
     //
     // core katedocument config !

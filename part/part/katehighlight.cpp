@@ -1560,12 +1560,7 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
   highlight->getItemDataList(itemDataList);
   nAttribs = itemDataList.count();
 
-	if (doc->myAttribs == 0L)
-	  doc->myAttribs = (Attribute *) malloc (sizeof(Attribute) * nAttribs);
-	else
-	  doc->myAttribs = (Attribute *) realloc (doc->myAttribs, sizeof(Attribute) * nAttribs);
-
-	doc->myAttribsLen = nAttribs;
+  doc->myAttribs.resize (nAttribs);
 
   for (z = 0; z < nAttribs; z++)
 	{

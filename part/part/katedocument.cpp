@@ -272,9 +272,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
   blockSelect = false;
   restoreMarks = false;
 
-  myAttribs = 0L;
-  myAttribsLen = 0;
-
   m_bSingleViewMode=bSingleViewMode;
   m_bBrowserView = bBrowserView;
 
@@ -371,7 +368,6 @@ KateDocument::~KateDocument()
   m_highlight->release();
   myMarks.clear ();
 
-  delete [] myAttribs;
   delete buffer;
 }
 
@@ -4063,7 +4059,7 @@ void KateDocument::open (const QString &name)
 
 Attribute *KateDocument::attribute (uint pos)
 {
-  if (pos < myAttribsLen)
+  if (pos < myAttribs.size())
     return &myAttribs[pos];
 
   return &myAttribs[0];

@@ -138,24 +138,37 @@ void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
   nextLine->replace(0, len, 0L, 0);
 }
 
-int TextLine::firstChar() const
+int TextLine::nextNonSpaceChar(uint pos) const
 {
-  uint z = 0;
-
-  while (z < text.size() && text[z].isSpace()) z++;
-
-  if (z < text.size())
-    return z;
-  else
+    for(uint i = pos; i < text.size(); i++) {
+        if(!text[i].isSpace())
+            return i;
+    }
     return -1;
 }
 
+int TextLine::previousNonSpaceChar(uint pos) const
+{
+    if(pos >= text.size()) {
+        kdDebug(1714) << "pos >= text.size()" << endl;
+        pos = text.size() - 1;
+    }
+
+    for(uint i = pos; i >= 0; i--) {
+        if(!text[i].isSpace())
+            return i;
+    }
+    return -1;
+}
+ 
+int TextLine::firstChar() const
+{
+  return nextNonSpaceChar(0); 
+} 
+ 
 int TextLine::lastChar() const
 {
-  uint z = text.size();
-
-  while (z > 0 && text[z - 1].isSpace()) z--;
-  return z;
+    return previousNonSpaceChar(text.size() - 1);
 }
 
 void TextLine::removeSpaces()

@@ -76,7 +76,7 @@ class TextLine : public KShared
       Appends a string of length l to the textline
     */
     void append(const QChar *s, uint l);
-		/**
+    /**
       Wraps the text from the given position to the end to the next line
     */
     void wrap(TextLine::Ptr nextLine, uint pos);
@@ -89,7 +89,7 @@ class TextLine : public KShared
       Truncates the textline to the new length
     */
     void truncate(uint newLen);
-		/**
+    /**
       Returns the position of the first character which is not a white space
     */
     int firstChar() const;
@@ -97,6 +97,14 @@ class TextLine : public KShared
       Returns the position of the last character which is not a white space
     */
     int lastChar() const;
+    /**
+      Returns the position of the first non-space char after a given position
+    */
+    int nextNonSpaceChar(uint pos) const;
+    /**
+      Returns the position of the last non-space char before a given position
+    */
+    int previousNonSpaceChar(uint pos) const;
     /**
       Removes trailing spaces
     */

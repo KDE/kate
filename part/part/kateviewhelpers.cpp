@@ -381,7 +381,7 @@ void KateCmdLine::fromHistory( bool up )
   {
     // Select the argument part of the command, so that it is easy to overwrite
     setText( s );
-    static QRegExp reCmd = QRegExp(".*[\\w\\-]+(?:\\W|:\\w+)(.*)");
+    static QRegExp reCmd = QRegExp(".*[\\w\\-]+(?:[^a-zA-Z0-9_-]|:\\w+)(.*)");
     if ( reCmd.search( text() ) == 0 )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }

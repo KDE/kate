@@ -22,6 +22,7 @@
 #include "katehighlightdownload.moc"
 
 #include "katehighlight.h"
+#include "katesyntaxdocument.h"
 
 #include <kio/job.h>
 #include <kio/jobclasses.h>
@@ -113,11 +114,12 @@ void HlDownloadDialog::slotUser1()
       QString filename=src.fileName(false);
       QString dest = destdir+filename;
 
-
       KIO::NetAccess::download(src,dest);
     }
   }
 
+  // update Config !!
+  SyntaxDocument doc (true);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

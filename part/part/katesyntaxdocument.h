@@ -61,7 +61,7 @@ class SyntaxDocument : public QDomDocument
      * Constructor:
      * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
      */
-    SyntaxDocument();
+    SyntaxDocument(bool force = false);
 
     /**
      * Desctructor
@@ -121,7 +121,7 @@ class SyntaxDocument : public QDomDocument
      * Generate the list of hl modes, store them in myModeList
      * force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
     */
-    void setupModeList(bool force=false);
+    void setupModeList(bool force);
 
     /**
      * Used by getConfig and getGroupInfo to traverse the xml nodes and

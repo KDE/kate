@@ -33,12 +33,12 @@
 /** Constructor
     Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
 */
-SyntaxDocument::SyntaxDocument()
+SyntaxDocument::SyntaxDocument(bool force)
   : QDomDocument()
 {
   currentFile = "";
   // Let's build the Mode List (katesyntaxhighlightingrc)
-  setupModeList();
+  setupModeList(force);
   myModeList.setAutoDelete( true );
 }
 
@@ -349,6 +349,14 @@ void SyntaxDocument::setupModeList (bool force)
   // We'll store the ModeList in katesyntaxhighlightingrc
   KConfig config("katesyntaxhighlightingrc", false, false);
 
+  // figure our if the kate install is too new
+  config.setGroup ("General");
+  if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
+  {
+    config.writeEntry ("CachedVersion", config.readNumEntry ("Version"));
+    force = true;
+  }
+
   // Let's get a list of all the xml files for hl
   QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",false,true);
 
@@ -356,7 +364,7 @@ void SyntaxDocument::setupModeList (bool force)
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
     // Each file has a group called:
-    QString Group="Highlighting_Cache"+*it;
+    QString Group="Cache "+*it;
 
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
     if ((config.hasGroup(Group)) && (!force))

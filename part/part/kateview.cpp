@@ -1190,6 +1190,16 @@ void KateView::updateFoldingConfig ()
   m_viewInternal->leftBorder->setFoldingMarkersOn(doit);
   m_toggleFoldingMarkers->setChecked( doit );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
+  
+  QStringList l;
+
+  l << "folding_toplevel" << "folding_expandtoplevel"
+    << "folding_collapselocal" << "folding_expandlocal";
+
+  KAction *a = 0;
+  for (uint z = 0; z < l.size(); z++)
+    if ((a = actionCollection()->action( l[z].ascii() )))
+      a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
 }
 
 // BEGIN EDIT STUFF
@@ -1264,5 +1274,8 @@ void KateView::slotHlChanged()
 
   if (actionCollection()->action("tools_uncomment"))
     actionCollection()->action("tools_uncomment")->setEnabled( ok );
+    
+  // show folding bar if "view defaults" says so, otherwise enable/disable only the menu entry
+  updateFoldingConfig ();
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

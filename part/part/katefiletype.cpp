@@ -329,7 +329,7 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   QWhatsThis::add( wildcards, i18n(
       "The wildcards mask allows you to select files by filename. A typical "
       "mask uses an asterisk and the file extension, such as for example "
-      "<code>*.txt; *.text</code>. The string is a semicolon separated list
+      "<code>*.txt; *.text</code>. The string is a semicolon separated list "
       "of masks.") );
   QWhatsThis::add( mimetypes, i18n(
       "The mime type mask allows you to select files by mimetype. The string is "

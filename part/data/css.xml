@@ -303,19 +303,19 @@
       <item> break </item>
     </list>
     <contexts>
-      <context attribute="0" lineEndContext="#stay" name="Normal">
-        <Detect2Chars attribute="5" context="2" char="/" char1="*" />
-        <DetectChar attribute="0" context="1" char="{" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" />
+        <DetectChar attribute="Normal Text" context="Rules" char="{" />
       </context>
-      <context attribute="0" lineEndContext="#stay" name="Rules">
-        <DetectChar attribute="0" context="#pop" char="}" />
-        <Detect2Chars attribute="5" context="2" char="/" char1="*" />
-        <keyword attribute="1" context="#stay" String="keywords" />
-        <keyword attribute="2" context="#stay" String="types" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Rules">
+        <DetectChar attribute="Normal Text" context="#pop" char="}" />
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" />
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
       </context>
-      <context attribute="5" lineEndContext="#stay" name="Comment">
-        <Detect2Chars attribute="5" context="#pop" char="*" char1="/" />
-        <RegExpr attribute="6" context= "#stay" string="(FIXME|TODO|NOTE)" />
+      <context attribute="Comment" lineEndContext="#stay" name="Comment">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
+        <RegExpr attribute="Notice" context= "#stay" string="(FIXME|TODO|NOTE)" />
       </context>
     </contexts>
     <itemDatas>

@@ -522,27 +522,45 @@ bool KateSearch::doSearch( const QString& text )
   uint foundLine, foundCol, matchLen;
   bool found = false;
   //kdDebug() << "Searching at " << line << ", " << col << endl;
-  if( regExp ) {
-    m_re = QRegExp( text, caseSensitive );
-    found = doc()->searchText( line, col, m_re,
-                              &foundLine, &foundCol,
-                              &matchLen, backward );
-  } else if ( wholeWords ) {
-    QRegExp re( "\\b" + text + "\\b", caseSensitive );
-    found = doc()->searchText( line, col, re,
-                              &foundLine, &foundCol,
-                              &matchLen, backward );
-  } else {
-    found = doc()->searchText( line, col, text,
-                              &foundLine, &foundCol,
-                              &matchLen, caseSensitive, backward );
+
+  do {
+      if( regExp ) {
+        m_re = QRegExp( text, caseSensitive );
+        found = doc()->searchText( line, col, m_re,
+                                  &foundLine, &foundCol,
+                                  &matchLen, backward );
+      } else if ( wholeWords ) {
+        QRegExp re( "\\b" + text + "\\b", caseSensitive );
+        found = doc()->searchText( line, col, re,
+                                  &foundLine, &foundCol,
+                                  &matchLen, backward );
+      } else {
+        found = doc()->searchText( line, col, text,
+                                  &foundLine, &foundCol,
+                                  &matchLen, caseSensitive, backward );
+      }
+
+    if ( found && s.flags.selected )
+    {
+      if ( !s.flags.backward && KateTextCursor( foundLine, foundCol ) >= s.selEnd
+        ||  s.flags.backward && KateTextCursor( foundLine, foundCol ) < s.selBegin )
+        found = false;
+      else if (m_doc->blockSelectionMode())
+      {
+        if ((int)foundCol < s.selEnd.col() && (int)foundCol >= s.selBegin.col())
+          break;
+      }
+    }
+
+    line = foundLine;
+    col = foundCol+1;
   }
-  if ( found && s.flags.selected )
-  {
-    if ( !s.flags.backward && KateTextCursor( foundLine, foundCol ) >= s.selEnd
-      ||  s.flags.backward && KateTextCursor( foundLine, foundCol ) < s.selBegin )
-      found = false;
-  }
+  while (m_doc->blockSelectionMode() && found);
+
+
+
+  kdDebug () << "found: " << found << " found col: " << foundCol << "start: " << s.selEnd.col() << "end: " << s.selBegin.col() << endl;
+
   if( !found ) return false; //break;
 
   //result = true;

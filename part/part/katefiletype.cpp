@@ -68,7 +68,7 @@ KateFileTypeManager::~KateFileTypeManager ()
 //
 void KateFileTypeManager::update ()
 {
-  KConfig config ("katefiletypesrc", false, false);
+  KConfig config ("katefiletyperc", false, false);
 
   QStringList g (config.groupList());
 
@@ -102,7 +102,7 @@ void KateFileTypeManager::update ()
 //
 void KateFileTypeManager::save (QPtrVector<KateFileType> *v)
 {
-  KConfig config ("katefiletypesrc", false, false);
+  KConfig config ("katefiletyperc", false, false);
 
   QStringList newg;
   for (uint z=0; z < v->count(); z++)

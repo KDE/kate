@@ -210,6 +210,15 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_editCurrentUndo = 0L;
   editWithUndo = false;
 
+  // spell check stuff start
+
+  m_kspell = 0L;
+  m_kspellConfig = new KSpellConfig();
+  m_mispellCount = 0;
+  m_replaceCount =  0;
+
+  // end
+
   blockSelect = false;
 
   m_bSingleViewMode = bSingleViewMode;
@@ -301,6 +310,18 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  // spellcheck stuff
+  if( m_kspell )
+  {
+    m_kspell->setAutoDelete(true);
+    m_kspell->cleanUp(); // need a way to wait for this to complete
+  }
+
+  delete m_kspellConfig;
+
+  //
+  // other stuff
+  //
   if ( !m_bSingleViewMode )
   {
     m_views.setAutoDelete( true );
@@ -5043,4 +5064,103 @@ void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
     view->m_viewInternal->tagLines(range->start(), range->end());
   else
     tagLines(range->start(), range->end());
+}
+
+//
+// Spellchecking IN again
+//
+void KateDocument::spellcheck()
+{
+	if( !isReadWrite() )
+		return;
+
+	m_kspell = new KSpell( 0, i18n("Spellcheck"),
+	                       this, SLOT(ready()), m_kspellConfig );
+
+	connect( m_kspell, SIGNAL(death()),
+	         this, SLOT(spellCleanDone()) );
+
+	connect( m_kspell, SIGNAL(misspelling(const QString&, const QStringList&, unsigned int)),
+	         this, SLOT(misspelling(const QString&, const QStringList&, unsigned int)) );
+	connect( m_kspell, SIGNAL(corrected(const QString&, const QString&, unsigned int)),
+	         this, SLOT(corrected(const QString&, const QString&, unsigned int)) );
+	connect( m_kspell, SIGNAL(done(const QString&)),
+	         this, SLOT(spellResult(const QString&)) );
+}
+
+void KateDocument::ready()
+{
+	setReadWrite( false );
+
+	m_mispellCount = 0;
+	m_replaceCount = 0;
+
+	m_kspell->setProgressResolution( 1 );
+
+	m_kspell->check( text() );
+}
+
+void KateDocument::locatePosition( uint pos, uint& line, uint& col )
+{
+	uint cnt = 0;
+
+	line = col = 0;
+
+	// Find pos  -- CHANGEME: store the last found pos's cursor
+	//   and do these searched relative to that to
+	//   (significantly) increase the speed of the spellcheck
+	for( ; line < numLines() && cnt <= pos; line++ )
+		cnt += lineLength(line) + 1;
+
+	line--;
+	col = pos - (cnt - lineLength(line)) + 1;
+}
+
+void KateDocument::misspelling( const QString& origword, const QStringList&, uint pos )
+{
+	m_mispellCount++;
+
+	uint line, col;
+
+	locatePosition( pos, line, col );
+
+	setSelection( line, col, line, col + origword.length() );
+}
+
+void KateDocument::corrected( const QString& originalword, const QString& newword, uint pos )
+{
+	m_replaceCount++;
+
+	uint line, col;
+
+	locatePosition( pos, line, col );
+
+	removeText( line, col, line, col + originalword.length() );
+	insertText( line, col, newword );
+}
+
+void KateDocument::spellResult( const QString& )
+{
+	clearSelection();
+	setReadWrite( true );
+	m_kspell->cleanUp();
+}
+
+void KateDocument::spellCleanDone()
+{
+	KSpell::spellStatus status = m_kspell->status();
+
+	if( status == KSpell::Error ) {
+		KMessageBox::sorry( 0,
+		  i18n("ISpell could not be started. "
+		       "Please make sure you have ISpell "
+		       "properly configured and in your PATH."));
+	} else if( status == KSpell::Crashed ) {
+		setReadWrite( true );
+		KMessageBox::sorry( 0,
+		  i18n("ISpell seems to have crashed."));
+	}
+
+	delete m_kspell;
+	m_kspell = 0;
 }

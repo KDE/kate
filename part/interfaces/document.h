@@ -61,7 +61,7 @@ class ConfigPage : public KTextEditor::ConfigPage
 
   public slots:
     virtual void apply () { ; };
-    virtual void reload () { ; };  
+    virtual void reload () { ; };
     virtual void reset () {};
     virtual void defaults () {};};
 
@@ -86,11 +86,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::HighlightingInterface, public KTextEditor::BlockSelectionInterface,
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
                      public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface,
-                     public KTextEditor::MarkInterfaceExtension, 
+                     public KTextEditor::MarkInterfaceExtension,
                      public KTextEditor::SelectionInterfaceExt
-/*GRRR !!! Never do that again. Declaring interfaces within interfaces, where it is not really necessary.
-	The above inheritage just makes it completely impossible to enhance the ktexteditor interface in a decent way*/
-
 {
   Q_OBJECT
 
@@ -129,17 +126,15 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     virtual void reloadFile() = 0;
 
     /**
-     * @deprecated Spellchecking is implemented as a plugin.
-     * This does nothing.
+     * Spellchecking
      */
-    // FIXME: Remove when BIC allowed.
     virtual void spellcheck() {};
 
     virtual void exportAs(const QString &) = 0;
 
     virtual void applyWordWrap () = 0;
 
-    
+
   public:
     virtual void setWordWrap (bool ) = 0;
     virtual bool wordWrap () = 0;
@@ -150,7 +145,9 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
     virtual void setEncoding (const QString &e) = 0;
     virtual QString encoding() const = 0;
-        
+
+  /** @deprecated */
+  // FIXME: Remove when BIC allowed.
   public:
     virtual ConfigPage *colorConfigPage (QWidget *) = 0;
     virtual ConfigPage *fontConfigPage (QWidget *) = 0;
@@ -158,11 +155,9 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     virtual ConfigPage *selectConfigPage (QWidget *) = 0;
     virtual ConfigPage *editConfigPage (QWidget *) = 0;
     virtual ConfigPage *keysConfigPage (QWidget *) = 0;
-    /** @deprecated */
-    // FIXME: Remove when BIC allowed.
     virtual ConfigPage *kSpellConfigPage (QWidget *) { return 0L; }
     virtual ConfigPage *hlConfigPage (QWidget *) = 0;
-    
+
   public:
     virtual uint configFlags () = 0;
     virtual void setConfigFlags (uint flags) = 0;

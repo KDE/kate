@@ -36,6 +36,7 @@
 
 #include <ktrader.h>
 #include <kservice.h>
+#include <kspell.h>
 
 #include <qobject.h>
 #include <qptrlist.h>
@@ -780,6 +781,23 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static bool m_wordWrapMarker;
 
     static bool s_configLoaded;
+
+  public slots:
+	void spellcheck();
+	void ready();
+	void misspelling( const QString&, const QStringList&, unsigned int );
+	void corrected  ( const QString&, const QString&, unsigned int);
+	void spellResult( const QString& );
+	void spellCleanDone();
+
+private:
+	void locatePosition( uint pos, uint& line, uint& col );
+    KSpell*         m_kspell;
+    KSpellConfig*   m_kspellConfig;
+    int             m_mispellCount;
+    int             m_replaceCount;
+
+
 
   public:
     void updateViewDefaults ();

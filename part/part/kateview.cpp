@@ -171,6 +171,8 @@ void KateView::setupActions()
 
   if (!m_doc->m_bReadOnly)
   {
+    KStdAction::spelling( m_doc, SLOT(spellcheck()), ac );
+
     a=KStdAction::save(this, SLOT(save()), ac);
     a->setWhatsThis(i18n("Save the current document"));
 

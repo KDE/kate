@@ -1,6 +1,6 @@
 <?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.12" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.13" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls;" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
   <highlighting>
     <contexts>
       <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
@@ -16,8 +16,8 @@
 
         <StringDetect String="$$" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
-        <RegExpr String="^\s*%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" />
-        <RegExpr String="^\s*%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" />
+        <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true" />
+        <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true" />
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
       <context name="ContrSeq" attribute="Keyword" lineEndContext="#pop">
@@ -31,7 +31,7 @@
 
       <context name="FindEnvironment" attribute="Normal Text" lineEndContext="#stay">
         <DetectChar char="{" attribute="Normal Text" context="Environment"/>
-        <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
+        <RegExpr String="\S" attribute="Normal Text" context="#pop"/>
       </context>
       <context name="Environment" attribute="Environment" lineEndContext="#stay">
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop"/>
@@ -52,7 +52,7 @@
       <context name="VerbatimEnv" attribute="Environment" lineEndContext="#stay">
         <DetectChar char="*" attribute="Normal Text" context="#stay"/>
         <DetectChar char="}" attribute="Normal Text" context="Verbatim"/>
-        <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
+        <RegExpr String="\S" attribute="Normal Text" context="#pop"/>
       </context>
       <context name="Verbatim" attribute="Verbatim" lineEndContext="#stay">
         <RegExpr String="\\end(?=\{(verbatim|lstlisting|boxedverbatim|Verbatim)\*?\})" attribute="Structure"  context="VerbFindEnd"/>
@@ -71,8 +71,8 @@
         <DetectChar char="\" attribute="Keyword Mathmode" context="MathContrSeq"/>
         <StringDetect String="$$" attribute="Math" context="#pop" endRegion="mathMode" />
         <DetectChar char="$" attribute="Math" context="#pop" endRegion="mathMode" />
-        <RegExpr String="^\s*%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" />
-        <RegExpr String="^\s*%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" />
+        <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true"/>
+        <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true"/>
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
       <context name="MathModeEnv" attribute="Math" lineEndContext="#stay">
@@ -84,18 +84,18 @@
         <DetectChar char="\" attribute="Keyword Mathmode" context="MathContrSeq"/>
         <StringDetect String="$$" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <DetectChar char="$" attribute="Math" context="MathMode" beginRegion="mathMode" />
-        <RegExpr String="^\s*%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" />
-        <RegExpr String="^\s*%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" />
+        <RegExpr String="%\s*BEGIN.*$" attribute="Region Marker" context="#stay" beginRegion="regionMarker" firstNonSpace="true"/>
+        <RegExpr String="%\s*END.*$" attribute="Region Marker" context="#stay" endRegion="regionMarker" firstNonSpace="true"/>
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
       <context name="MathEnv" attribute="Environment" lineEndContext="#stay">
         <DetectChar char="}" attribute="Normal Text" context="MathModeEnv"/>
-        <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
+        <RegExpr String="\S" attribute="Normal Text" context="#pop"/>
       </context>
       <context name="MathFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <DetectChar char="{" attribute="Normal Text" context="#stay"/>
         <RegExpr String="[a-zA-Z]*(equation|displaymath|eqnarray|math|multline)\*?" attribute="Environment" context="#stay"/>
-        <RegExpr String="\s*" attribute="Normal Text" context="#stay"/>
+        <DetectSpaces />
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop"  endRegion="block"/>
       </context>
       <context name="MathContrSeq" attribute="Keyword Mathmode" lineEndContext="#pop">
@@ -115,7 +115,7 @@
       <itemData name="Keyword Mathmode" defStyleNum="dsNormal" color="#606000" selColor="#FFD0FF" bold="0" italic="0"/>
       <itemData name="Environment" defStyleNum="dsNormal" color="#0000D0" selColor="#FFFF90" bold="0" italic="0"/>
       <itemData name="Verbatim" defStyleNum="dsNormal" color="#a08000" selColor="#80D0FF" bold="0" italic="0"/>
-      <itemData name="Region Marker" defStyleNum="dsNormal" color="#0000F0" selColor="#AAAA90" bold="0" italic="1"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>
   </highlighting>
   <general>

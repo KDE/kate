@@ -327,8 +327,11 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
 {
 	signed char type;
 	if ((type=node->type) == 0)
+	{
+		dontDeleteOpening(node);
+		dontDeleteEnding(node);
 		return;
-
+	}
 	KateCodeFoldingNode *parent = node->parentNode;
 	int mypos = parent->childnodes->find(node);
 
@@ -341,9 +344,9 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
 		tmp->startLineRel += node->startLineRel;
 		mypos++;
 	}
-	
+
 	// remove the node
-	mypos = parent->childnodes->find(node);
+	//mypos = parent->childnodes->find(node);
 	bool endLineValid = node->endLineValid;
 	int endLineRel = node->endLineRel;
 	delete parent->childnodes->take(mypos);
@@ -994,13 +997,10 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 			if (node->endLineValid)		// just delete it, it has been opened and closed on this line
 			{
 				delete node->parentNode->childnodes->take(node->parentNode->childnodes->find(node));
-				something_changed = true;
 			}
 			else
 			{
 				removeOpening(node, line);
-				dontDeleteOpening(node);
-				dontDeleteEnding(node);
 				// the node has subnodes which need to be moved up and this one has to be deleted
 			}
 			something_changed = true;

@@ -21,7 +21,7 @@
   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA  02111-1307, USA.
  -->
-<language name="Ruby" version="1.08" kateversion="2.3" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Sebastian Vuorinen &lt;sebastian.vuorinen@helsinki.fi&gt;" license="LGPL">
+<language name="Ruby" version="1.10" kateversion="2.3" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Sebastian Vuorinen (sebastian.vuorinen@helsinki.fi)" license="LGPL">
 	<highlighting>
 	
 		<list name = "keywords">
@@ -94,9 +94,15 @@
 		
 		<contexts>
 			<context name = "Normal" attribute = "Normal Text" lineEndContext="#stay">
+				<RegExpr attribute = "Definition" String = "(\b|^[\s]*)(case)(\s+|$)" context="#stay" beginRegion="Region1"/>
+				<RegExpr attribute = "Definition" String = "^[\s]*(begin|module|for|unless|until|while|catch|if|class|def)(\s+|$)" context="#stay" beginRegion="Region1"/>
+				<RegExpr attribute = "Definition" String = "(\b|^[\s]*)do(\s+|$)" context="#stay" beginRegion="Region1"/>
+				<RegExpr attribute = "Definition" String = "(\b|^[\s]*)(unless|if)(?=.*then)" context="#stay" beginRegion="Region1"/>
+				<RegExpr attribute = "Definition" String = "(\b|^[\s]*)(else|elsif|rescue|ensure)(\s+|$)" context="#stay" endRegion="Region1" beginRegion="Region1"/>
+				<RegExpr attribute = "Definition" String = "(\b|^[\s]*)end(\s+|$)" context="#stay" endRegion="Region1"/>
 				<keyword attribute = "Keyword" String = "keywords" context="#stay"/>
 				<keyword attribute = "Attribute Definition" String = "attribute-definitions"  context="#stay"/>
-                <keyword attribute = "Access Control" String = "access-control" context="#stay"/>
+				<keyword attribute = "Access Control" String = "access-control" context="#stay"/>
 				<keyword attribute = "Definition" String = "definitions"  context="#stay" />
 				<keyword attribute = "Pseudo variable" String = "pseudo-variables"  context="#stay"/>
 				
@@ -124,11 +130,12 @@
 				<RegExpr attribute = "Comment" String = "^#\s*BEGIN.*$"  context="#stay" beginRegion="marker"/>
 				<RegExpr attribute = "Comment" String = "^#\s*END.*$"  context="#stay" endRegion="marker"/>
 				<RegExpr attribute = "Comment" String = "^#.*$"  context="#stay"/>
-				<RegExpr attribute = "Comment" String = "\s#.*$"  context="#stay"/>				
+				<RegExpr attribute = "Comment" String = "#.*$"  context="#stay"/>
+				<RegExpr attribute = "Comment" String = "\s#.*$"  context="#stay"/>
 				<RegExpr attribute = "Blockcomment" String = "^=begin\s*.*$" context="Embedded documentation" beginRegion="block"/>
 				<RegExpr attribute = "Delimiter" String = "[\[\]]+"  context="#stay"/>
-				<DetectChar attribute = "Delimiter" char = "{" context="#stay" beginRegion="bracket"/>
-				<DetectChar attribute = "Delimiter" char = "}" context="#stay" endRegion="bracket"/>
+				<DetectChar attribute = "Delimiter" char = "{" context="#stay" beginRegion="Region1"/>
+				<DetectChar attribute = "Delimiter" char = "}" context="#stay" endRegion="Region1"/>
 				
 				<RegExpr attribute = "Global Constant" String = "\s+[A-Z_0-9]+\s+"  context="#stay"/>
 				<RegExpr attribute = "Global Variable" String = "$[a-zA-Z_0-9]+" context="#stay"/>
@@ -138,8 +145,9 @@
 				<RegExpr attribute = "Regular Expression" String = "\%r\{" context="RegEx 2"/>
 				<RegExpr attribute = "String" String = "\%[xqQw]\{" context="Flexible Literal"/>
 			</context>
-			
+
 			<context name = "Quoted String" attribute = "String" lineEndContext="#pop">
+				<LineContinue attribute = "String" context = "#stay"/>
 				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
 				<HlCChar attribute = "Char" context = "#pop"/>
 				<DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
@@ -186,7 +194,7 @@
 			
 			<itemData name = "Keyword" defStyleNum ="dsKeyword"/>
 			<itemData name = "Attribute Definition" defStyleNum ="dsOthers"/>
-            <itemData name = "Access Control" defStyleNum ="dsKeyword" color="#0000ff"/>
+			<itemData name = "Access Control" defStyleNum ="dsKeyword" color="#0000ff"/>
 			<itemData name = "Definition" defStyleNum ="dsKeyword"/>
 			<itemData name = "Pseudo variable" defStyleNum ="dsDecVal"/>
 			

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>   <!-- KATE Syntax Highlighting for RSI IDL   -->
 <!DOCTYPE language SYSTEM "language.dtd"><!-- Created by Markus Fraenz,fraenz@linmpi.mpg.de Aug 2002 -->
-<language name="RSI_IDL" version="1.00" kateversion="2.0" section="Sources" extensions="*.pro" mimetype="text/x-rsiidl-src">
+<language name="RSI_IDL" version="1.01" kateversion="2.0" section="Sources" extensions="*.pro" mimetype="text/x-rsiidl-src">
     <highlighting>
         <list name="reserved words">
         <item> For </item>
@@ -384,30 +384,30 @@
         <item>writu </item>
         </list>
         <contexts>
-        <context attribute="0" lineEndContext="0">
-        <keyword attribute="1" context="0" String="reserved words"/>
-        <keyword attribute="2" context="0" String="types"/>
-        <keyword attribute="11" context="0" String="system variables"/>
-        <keyword attribute="11" context="0" String="commands"/>
-        <keyword attribute="12" context="0" String="io commands"/>
-        <Float attribute="4" context="0"/>
-        <Int attribute="3" context="0"/>
-        <RangeDetect attribute="8" context="0" char="'" char1="'"/>
-        <RangeDetect attribute="7" context="0" char="!" char1="."/>
-        <RangeDetect attribute="8" context="0" char="&quot;" char1="&quot;"/>
-        <DetectChar attribute="5" context="0" char="(" />
-        <DetectChar attribute="5" context="0" char=")" />
-        <DetectChar attribute="7" context="0" char="[" />
-        <DetectChar attribute="7" context="0" char="]" />
-        <DetectChar attribute="6" context="0" char="{" />
-        <DetectChar attribute="6" context="0" char="}" />
-        <DetectChar attribute="7" context="0" char="$" />
-        <DetectChar attribute="7" context="0" char="@" />
-        <DetectChar attribute="7" context="0" char="!" />
-        <DetectChar attribute="7" context="0" char=":" />
-        <DetectChar attribute="7" context="1" char="&#59;"/>
+        <context attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="#stay" String="reserved words"/>
+        <keyword attribute="Data Type" context="#stay" String="types"/>
+        <keyword attribute="Command" context="#stay" String="system variables"/>
+        <keyword attribute="Command" context="#stay" String="commands"/>
+        <keyword attribute="IOCommands" context="#stay" String="io commands"/>
+        <Float attribute="Octal" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
+        <RangeDetect attribute="String" context="#stay" char="'" char1="'"/>
+        <RangeDetect attribute="Char" context="#stay" char="!" char1="."/>
+        <RangeDetect attribute="String" context="#stay" char="&quot;" char1="&quot;"/>
+        <DetectChar attribute="Hex" context="#stay" char="(" />
+        <DetectChar attribute="Hex" context="#stay" char=")" />
+        <DetectChar attribute="Char" context="#stay" char="[" />
+        <DetectChar attribute="Char" context="#stay" char="]" />
+        <DetectChar attribute="Float" context="#stay" char="{" />
+        <DetectChar attribute="Float" context="#stay" char="}" />
+        <DetectChar attribute="Char" context="#stay" char="$" />
+        <DetectChar attribute="Char" context="#stay" char="@" />
+        <DetectChar attribute="Char" context="#stay" char="!" />
+        <DetectChar attribute="Char" context="#stay" char=":" />
+        <DetectChar attribute="Char" context="Comment" char="&#59;"/>
         </context>
-        <context attribute="10" lineEndContext="#pop">
+        <context attribute="Comment" lineEndContext="#pop" name="Comment">
         </context>
         </contexts>
         <itemDatas>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SQL" version="1.00" kateversion="2.0" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql">
+<language name="SQL" version="1.01" kateversion="2.0" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -256,7 +256,6 @@
       <item> LOGICAL_READS_PER_SESSION </item>
       <item> LOGOFF </item>
       <item> LOGON </item>
-      <item> LOOP </item>
       <item> MANAGE </item>
       <item> MANAGED </item>
       <item> MANAGEMENT </item>
@@ -817,45 +816,45 @@
       <item> XMLTYPE </item>
     </list>
     <contexts>
-      <context name="Normal Text" attribute="0" lineEndContext="0">
-        <keyword attribute="1" context="0" String="keywords"/>
-        <keyword attribute="2" context="0" String="operators"/>
-        <keyword attribute="3" context="0" String="functions"/>
-        <keyword attribute="4" context="0" String="types"/>
-        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Ff][Oo][Uu][Nn][Dd]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b"/>
-        <RegExpr attribute="4" context="0" String="%[Tt][Yy][Pp][Ee]\b"/>
-        <Float attribute="6" context="0"/>
-        <Int attribute="5" context="0"/>
-        <DetectChar attribute="7" context="1" char="'"/>
-        <Detect2Chars attribute="8" context="2" char="-" char1="-"/>
-        <Detect2Chars attribute="8" context="3" char="/" char1="*"/>
-        <RegExpr attribute="8" context="4" String="^[Rr][Ee][Mm]\b"/>
-        <DetectChar attribute="9" context="5" char="&quot;"/>
-        <AnyChar attribute="10" context="0" String=":&#38;"/>
-        <RegExpr attribute="10" context="0" String="^/$"/>
-        <RegExpr attribute="11" context="6" String="^@@?[^@ \t\r\n]"/>
+      <context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Operator" context="#stay" String="operators"/>
+        <keyword attribute="Function" context="#stay" String="functions"/>
+        <keyword attribute="Data Type" context="#stay" String="types"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b"/>
+        <RegExpr attribute="Data Type" context="#stay" String="%[Tt][Yy][Pp][Ee]\b"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="'"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
+        <Detect2Chars attribute="Comment" context="Comment2" char="/" char1="*"/>
+        <RegExpr attribute="Comment" context="Comment3" String="^[Rr][Ee][Mm]\b"/>
+        <DetectChar attribute="Identifier" context="Identifier" char="&quot;"/>
+        <AnyChar attribute="Symbol" context="#stay" String=":&#38;"/>
+        <RegExpr attribute="Symbol" context="#stay" String="^/$"/>
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^@@?[^@ \t\r\n]"/>
       </context>
-      <context name="String" attribute="7" lineEndContext="1">
-        <LineContinue attribute="7" context="0"/>
-        <DetectChar attribute="10" context="1" char="&#38;"/>
-        <DetectChar attribute="7" context="0" char="'"/>
+      <context name="String" attribute="String" lineEndContext="#stay">
+        <LineContinue attribute="String" context="#pop"/>
+        <DetectChar attribute="Symbol" context="#stay" char="&#38;"/>
+        <DetectChar attribute="String" context="#pop" char="'"/>
       </context>
-      <context name="Comment" attribute="8" lineEndContext="0"/>
-      <context name="Comment" attribute="8" lineEndContext="3">
-        <LineContinue attribute="8" context="0"/>
-        <Detect2Chars attribute="8" context="0" char="*" char1="/"/>
+      <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
+      <context name="Comment2" attribute="Comment" lineEndContext="#stay">
+        <LineContinue attribute="Comment" context="#pop"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
-      <context name="Comment" attribute="8" lineEndContext="0"/>
-      <context name="Identifier" attribute="9" lineEndContext="0">
-        <DetectChar attribute="9" context="0" char="&quot;"/>
+      <context name="Comment3" attribute="Comment" lineEndContext="#pop"/>
+      <context name="Identifier" attribute="Identifier" lineEndContext="#pop">
+        <DetectChar attribute="Identifier" context="#pop" char="&quot;"/>
       </context>
-      <context name="Preprocessor" attribute="11" lineEndContext="0"/>
+      <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop"/>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

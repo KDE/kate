@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Sather" version="1.00" kateversion="2.0" section="Sources" extensions="*.sa" mimetype="text/x-sather-src" casesensitive="1">
+<language name="Sather" version="1.01" kateversion="2.0" section="Sources" extensions="*.sa" mimetype="text/x-sather-src" casesensitive="1">
         <highlighting>
                 <list name="keywords">
                         <item> and </item>
@@ -105,20 +105,20 @@
                         <item> times </item>
                 </list>
                 <contexts>
-                        <context attribute="0" lineEndContext="0">
-                                <keyword attribute="1" context="0" String="keywords"/>
-                                <keyword attribute="2" context="0" String="types"/>
-                                <keyword attribute="3" context="0" String="features"/>
-                                <Float attribute="5" context="0"/>
-                                <Int attribute="4" context="0"/>
-                                <RegExpr attribute="6" context="0" String="'.'"/>
-                                <DetectChar attribute="7" context="1" char="&quot;"/>
-                                <Detect2Chars attribute="8" context="2" char="-" char1="-"/>
+                        <context attribute="Normal Text" lineEndContext="#stay">
+                                <keyword attribute="Keyword" context="#stay" String="keywords"/>
+                                <keyword attribute="Data Type" context="#stay" String="types"/>
+                                <keyword attribute="Features" context="#stay" String="features"/>
+                                <Float attribute="Float" context="#stay"/>
+                                <Int attribute="Decimal" context="#stay"/>
+                                <RegExpr attribute="Char" context="#stay" String="'.'"/>
+                                <DetectChar attribute="String" context="String" char="&quot;"/>
+                                <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
                         </context>
-                        <context attribute="7" lineEndContext="0">
-                                <DetectChar attribute="7" context="0" char="&quot;"/>
+                        <context attribute="String" lineEndContext="#stay" name="String">
+                                <DetectChar attribute="String" context="#pop" char="&quot;"/>
                         </context>
-                        <context attribute="8" lineEndContext="0"/>
+                        <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
                 </contexts>
                 <itemDatas>
                         <itemData name="Normal Text" defStyleNum="dsNormal" />

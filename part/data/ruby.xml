@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ruby" version="1.00" kateversion="2.0" section="Scripts" extensions="*.rb" mimetype="text/x-ruby">
+<language name="Ruby" version="1.01" kateversion="2.0" section="Scripts" extensions="*.rb" mimetype="text/x-ruby">
   <highlighting>
 
     <list name = "keywords">
@@ -69,53 +69,53 @@
     </list>
 
     <contexts>
- <context name = "Normal" attribute = "Normal Text" lineEndContext="0">
-	<keyword String = "keywords" attribute = "Keyword" context="0"/>
-	<keyword String = "literals" attribute = "Literal" context="0"/>
-	<StringDetect String= "self" attribute = "Instance Variable" context="0" insensitive="FALSE"/>
-	<keyword String = "attribute-definitions" attribute = "Attribute Definition" context="0"/>
+ <context name = "Normal" attribute = "Normal Text" lineEndContext="#stay">
+	<keyword String = "keywords" attribute = "Keyword" context="#stay"/>
+	<keyword String = "literals" attribute = "Literal" context="#stay"/>
+	<StringDetect String= "self" attribute = "Instance Variable" context="#stay" insensitive="FALSE"/>
+	<keyword String = "attribute-definitions" attribute = "Attribute Definition" context="#stay"/>
 	<!-- group>
 		<keyword String = "definitions" attribute = "Keyword" context="0"/>
 		<whitespace/>
 		<regexp match = "[a-zA-Z_0-9.]+" attribute = "Definition"/>
  	</group -->
-	<Float attribute = "Float" context="0"/>
-	<Int attribute = "Decimal" context="0"/>
-	<HlCChar attribute = "Char" context="0"/>
-	<DetectChar char = "." attribute = "Operator" context="0"/>
-	<StringDetect  String = "&amp;&amp;" attribute = "Operator" context="0" insensitive="FALSE"/>
-	<RegExpr String = ":[^\s]+" attribute = "Symbol" context="0"/>
-	<RegExpr String = "/[^\s]+/" attribute = "Delimiter" context="0"/>
-	<StringDetect String = "||" attribute = "Operator" context="0"  insensitive="FALSE"/>
-	<RegExpr String = "\s\?\s" attribute = "Operator" context="0"/>
-	<RegExpr String = "\s:\s"  attribute = "Operator" context="0"/>
-	<RegExpr String = "[&lt;&gt;!^&#61;&#37;+*~/-]+" attribute = "Operator" context="0"/>
-	<DetectChar char = '"' attribute = "String" context = "2"/>
-	<DetectChar char= "'" attribute = "String" context="3"/>
-	<RegExpr String = "^##$" attribute = "Main Comment" context="1"/>
-	<RegExpr String = "^#$" attribute = "Comment" context="0"/>
-	<RegExpr String = "[\[\]\{\}|]+" attribute = "Delimiter" context="0"/>
-	<RegExpr String = "[A-Z_]+" attribute = "Global Constant" context="0"/>
-	<RegExpr String = "$[a-zA-Z_0-9]+" attribute = "Global Variable" context="0"/>
-	<RegExpr String = "@[a-zA-Z_0-9]+" attribute = "Instance Variable" context="0"/>
-	<RegExpr String = "@@[a-zA-Z_0-9]+" attribute = "Class Variable" context="0"/>
+	<Float attribute = "Float" context="#stay"/>
+	<Int attribute = "Decimal" context="#stay"/>
+	<HlCChar attribute = "Char" context="#stay"/>
+	<DetectChar char = "." attribute = "Operator" context="#stay"/>
+	<StringDetect  String = "&amp;&amp;" attribute = "Operator" context="#stay" insensitive="FALSE"/>
+	<RegExpr String = ":[^\s]+" attribute = "Symbol" context="#stay"/>
+	<RegExpr String = "/[^\s]+/" attribute = "Delimiter" context="#stay"/>
+	<StringDetect String = "||" attribute = "Operator" context="#stay"  insensitive="FALSE"/>
+	<RegExpr String = "\s\?\s" attribute = "Operator" context="#stay"/>
+	<RegExpr String = "\s:\s"  attribute = "Operator" context="#stay"/>
+	<RegExpr String = "[&lt;&gt;!^&#61;&#37;+*~/-]+" attribute = "Operator" context="#stay"/>
+	<DetectChar char = '"' attribute = "String" context = "Quoted String"/>
+	<DetectChar char= "'" attribute = "String" context="Apostrophed String"/>
+	<RegExpr String = "^##$" attribute = "Main Comment" context="Main Comment"/>
+	<RegExpr String = "^#$" attribute = "Comment" context="#stay"/>
+	<RegExpr String = "[\[\]\{\}|]+" attribute = "Delimiter" context="#stay"/>
+	<RegExpr String = "[A-Z_]+" attribute = "Global Constant" context="#stay"/>
+	<RegExpr String = "$[a-zA-Z_0-9]+" attribute = "Global Variable" context="#stay"/>
+	<RegExpr String = "@[a-zA-Z_0-9]+" attribute = "Instance Variable" context="#stay"/>
+	<RegExpr String = "@@[a-zA-Z_0-9]+" attribute = "Class Variable" context="#stay"/>
       </context>
 
-      <context name = "Main Comment" attribute = "Main Comment" lineEndContext="0">
-	<RegExpr String = "^##$" attribute = "Main Comment" context = "0"/>
-	<RegExpr String = "^#$" attribute = "Main Comment" context = "0"/>
+      <context name = "Main Comment" attribute = "Main Comment" lineEndContext="#pop">
+	<RegExpr String = "^##$" attribute = "Main Comment" context = "#pop"/>
+	<RegExpr String = "^#$" attribute = "Main Comment" context = "#pop"/>
       </context>
 
-      <context name = "Quoted String" attribute = "String" lineEndContext="0">
-	<RegExpr String = "#{[^}]+}" attribute = "Expression" context = "0"/>
-	<HlCChar attribute = "Char" context = "0"/>
-	<DetectChar char = '"' attribute = "String" context = "0"/>
+      <context name = "Quoted String" attribute = "String" lineEndContext="#pop">
+	<RegExpr String = "#{[^}]+}" attribute = "Expression" context = "#pop"/>
+	<HlCChar attribute = "Char" context = "#pop"/>
+	<DetectChar char = '"' attribute = "String" context = "#pop"/>
       </context>
 
-      <context name = "Apostrophed String" attribute = "String" lineEndContext="0">
-	<RegExpr String = "#{[^}]+}" attribute = "Expression" context = "0"/>
-	<HlCChar attribute = "Char" context = "0"/>
-	<DetectChar char = "'" attribute = "String" context = "0"/>
+      <context name = "Apostrophed String" attribute = "String" lineEndContext="#pop">
+	<RegExpr String = "#{[^}]+}" attribute = "Expression" context = "#pop"/>
+	<HlCChar attribute = "Char" context = "#pop"/>
+	<DetectChar char = "'" attribute = "String" context = "#pop"/>
       </context>
 
 
@@ -133,13 +133,13 @@
       <itemData name = "String" defStyleNum ="dsString"/>
       <itemData name = "Main Comment" defStyleNum ="dsComment" />
       <itemData name = "Comment" defStyleNum ="dsComment"/>
-      <itemData name = "Delimiter" defStyleNum ="dsChar"/> 
+      <itemData name = "Delimiter" defStyleNum ="dsChar"/>
       <itemData name = "Global Constant" defStyleNum ="dsDecVal"/>
       <itemData name = "Global Variable" defStyleNum ="dsOthers"/>
       <itemData name = "Instance Variable" defStyleNum ="dsOthers"/>
       <itemData name = "Class Variable" defStyleNum ="dsOthers"/>
       <itemData name = "Expression" defStyleNum ="dsOthers"/>
-      <itemData name = "Operator" defStyleNum ="dsChar"/> 
+      <itemData name = "Operator" defStyleNum ="dsChar"/>
       <itemData name = "Attribute Definition" defStyleNum ="dsOthers"/>
     </itemDatas>
   </highlighting>

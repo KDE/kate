@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="WINE Config" section="Other" extensions="*.reg" mimetype="">
+<language name="WINE Config" version="1.01" kateversion="2.0" section="Other" extensions="*.reg" mimetype="">
   <highlighting>
     <contexts>
-      <context attribute="0" lineEndContext="0" name="Normal">
-	<RegExpr String="WINE REGISTRY Version.*$" attribute="7" context="0" />
-	<RegExpr String="^#\s*&lt;\s*wineconf\s*&gt;" attribute="7" context="0" />
-	<RegExpr String="^#\s*&lt;\s*\/\s*wineconf\s*&gt;" attribute="7" context="0" />
-        <RegExpr String="^\[.*\]$" attribute="Section" context="0"/>
-	<RegExpr String=";.*$" attribute="4" context ="0"/>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <RegExpr String="WINE REGISTRY Version.*$" attribute="RegistryBeginEnd" context="#stay" />
+        <RegExpr String="^#\s*&lt;\s*wineconf\s*&gt;" attribute="RegistryBeginEnd" context="#stay" />
+        <RegExpr String="^#\s*&lt;\s*\/\s*wineconf\s*&gt;" attribute="RegistryBeginEnd" context="#stay" />
+        <RegExpr String="^\[.*\]$" attribute="Section" context="#stay"/>
+        <RegExpr String=";.*$" attribute="Comment" context="#stay"/>
 
-        <RegExpr String="\s*&quot;\s*[a-zA-Z0-9_.:*]*\s*&quot;" attribute="2" context="0" />
+        <RegExpr String="\s*&quot;\s*[a-zA-Z0-9_.:*]*\s*&quot;" attribute="Key" context="#stay" />
 
-        <DetectChar char="=" attribute="0" context="1"/>
+        <DetectChar char="=" attribute="Normal Text" context="Value"/>
       </context>
 
-      <context attribute="0" lineEndContext="0" name="Value">
-        <RegExpr String="\s*&quot;.*&quot;" attribute="3" context="1" />
-        <RegExpr String=";.*$" attribute="4" context="1"/>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Value">
+        <RegExpr String="\s*&quot;.*&quot;" attribute="Value" context="#stay" />
+        <RegExpr String=";.*$" attribute="Comment" context="#stay"/>
       </context>
 
    </contexts>

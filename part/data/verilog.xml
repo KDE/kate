@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- author: Yevgen Voronenko (ysv22@drexel.edu) -->
 <!-- $Id$ -->
-<language name="Verilog" version="1.2" kateversion="2.0" section="Sources" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src">
+<language name="Verilog" version="1.03" kateversion="2.0" section="Sources" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src">
   <highlighting>
     <list name="keywords">
       <item> module </item>
@@ -127,71 +127,70 @@
     </list>
 
     <contexts>
-      <context attribute="0" lineEndContext="0" name="Normal">
-	<RegExpr attribute="1" context="9" String="begin\ *:"/>
-	<keyword attribute="1" context="0" String="keywords" />
-        <keyword attribute="2" context="0" String="types" />
-        <keyword attribute="18" context="0" String="strength" />
-        <keyword attribute="19" context="0" String="gates" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <RegExpr attribute="Keyword" context="Block Name" String="begin\ *:"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <keyword attribute="Drive/charge strength" context="#stay" String="strength" />
+        <keyword attribute="Gate instantiation" context="#stay" String="gates" />
 
-	<RegExpr attribute="0" context="0" String="[a-zA-Z]+[a-zA-Z0-9_$]*"/>
-	<RegExpr attribute="0" context="0" String="\\[^ ]+ "/>
+        <RegExpr attribute="Normal Text" context="#stay" String="[a-zA-Z]+[a-zA-Z0-9_$]*"/>
+        <RegExpr attribute="Normal Text" context="#stay" String="\\[^ ]+ "/>
 
-	<RegExpr attribute="3" context="0" String="[0-9_]*'d[0-9_]+"/>
-	<RegExpr attribute="4" context="0" String="[0-9_]*'o[0-7xXzZ_]+"/>
-	<RegExpr attribute="5" context="0" String="[0-9_]*'h[0-9a-fA-FxXzZ_]+"/>
-	<RegExpr attribute="6" context="0" String="[0-9_]*'b[01_zZxX]+"/>
-	<Float attribute="7" context="0"/>
-        <Int attribute="15" context="0" />
+        <RegExpr attribute="Decimal" context="#stay" String="[0-9_]*'d[0-9_]+"/>
+        <RegExpr attribute="Octal" context="#stay" String="[0-9_]*'o[0-7xXzZ_]+"/>
+        <RegExpr attribute="Hex" context="#stay" String="[0-9_]*'h[0-9a-fA-FxXzZ_]+"/>
+        <RegExpr attribute="Binary" context="#stay" String="[0-9_]*'b[01_zZxX]+"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Integer" context="#stay" />
 
-	<RegExpr attribute="20" context="0" String="[^a-zA-Z0-9_$]\.[a-zA-Z]+[a-zA-Z0-9_$]*"/>
+        <RegExpr attribute="Port connection" context="#stay" String="[^a-zA-Z0-9_$]\.[a-zA-Z]+[a-zA-Z0-9_$]*"/>
 
-	<DetectChar attribute="8" context="1" char="&quot;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="3" char="/" char1="*"/>
-        <AnyChar attribute="11" context="0" String="!%&amp;()+,-&lt;=+/:;&gt;?[]^{|}~@"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
+        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=+/:;&gt;?[]^{|}~@"/>
 
-	<StringDetect attribute="10" context="8" String="#if 0" insensitive="FALSE"/>
+        <StringDetect attribute="Comment" context="Some Context2" String="#if 0" insensitive="FALSE"/>
 
-	<RegExpr attribute="12" context="4" String="^`"/>
-	<RegExpr attribute="12" context="0" String="\`[a-zA-Z_]+[a-zA-Z0-9_]*" />
-	<RegExpr attribute="14" context="0" String="\$[a-zA-Z_]+[a-zA-Z0-9_]*" />
-	<RegExpr attribute="16" context="0" String="#[0-9_]+" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^`"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="\`[a-zA-Z_]+[a-zA-Z0-9_]*" />
+        <RegExpr attribute="System Task" context="#stay" String="\$[a-zA-Z_]+[a-zA-Z0-9_]*" />
+        <RegExpr attribute="Delay" context="#stay" String="#[0-9_]+" />
       </context>
-      <context attribute="8" lineEndContext="0" name="String">
-        <LineContinue attribute="8" context="6"/>
-        <HlCStringChar attribute="9" context="1"/>
-        <DetectChar attribute="8" context="0" char="&quot;"/>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue attribute="String" context="Some Context"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="10" lineEndContext="0" name="Commentar 1">
-        <RegExpr attribute="3" context="2" String="(FIXME|TODO)" />
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
+        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
       </context>
-      <context attribute="10" lineEndContext="3" name="Commentar 2">
-        <RegExpr attribute="3" context="3" String="(FIXME|TODO)" />
-        <Detect2Chars attribute="10" context="0" char="*" char1="/"/>
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
+        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
-      <context attribute="12" lineEndContext="0" name="Preprocessor">
-        <LineContinue attribute="12" context="7"/>
-        <RangeDetect attribute="13" context="4" char="&quot;" char1="&quot;"/>
-        <RangeDetect attribute="13" context="4" char="&lt;" char1="&gt;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="5" char="/" char1="*"/>
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
+        <LineContinue attribute="Preprocessor" context="Some Context"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*"/>
       </context>
-      <context attribute="10" lineEndContext="5" name="Commentar/Preprocessor">
-        <Detect2Chars attribute="10" context="4" char="*" char1="/" />
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
       </context>
-      <context attribute="0" lineEndContext="1" name="Some Context"/>
-      <context attribute="0" lineEndContext="4" name="Some Context2"/>
-      <context attribute="10" lineEndContext="8">
-          <RegExpr attribute="3" context="8" String="(FIXME|TODO)" />
-          <RegExpr attribute="10" context="0" String="^#endif" />
+      <context attribute="Normal Text" lineEndContext="#pop" name="Some Context"/>
+      <context attribute="Comment" lineEndContext="#stay" name="Some Context2">
+          <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+          <RegExpr attribute="Comment" context="#pop" String="^#endif" />
       </context>
 
-      <context attribute="17" lineEndContext="0" name="Block name">
-          <RegExpr attribute="2" context="0" String="[^ ]+"/>
+      <context attribute="Block name" lineEndContext="#pop" name="Block name">
+          <RegExpr attribute="Data Type" context="#pop" String="[^ ]+"/>
       </context>
     </contexts>
-    
+
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>

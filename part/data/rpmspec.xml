@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="RPM Spec" version="1.00" kateversion="2.0" section="Other" extensions="*.spec" mimetype="">
+<language name="RPM Spec" version="1.01" kateversion="2.0" section="Other" extensions="*.spec" mimetype="">
   <highlighting>
     <list name="keywords">
         <item> Name </item>
@@ -28,27 +28,27 @@
     </list>
     <contexts>
 
-      <context attribute="0" lineEndContext="0">
-         <keyword attribute="1" context="0" String="keywords"/>
-         <keyword attribute="5" context="0" String="types"/>
-         <RegExpr attribute="2" context="0" String="%[a-zA-Z0-9_]*" />
-         <DetectChar attribute="3" context="1" char="#" />
-         <RegExpr attribute="1" context="2" String="\{[a-zA-Z0-9_]*" />
-         <RegExpr attribute="4" context="3" String="&lt;\s*[a-zA-Z0-9_@\.]*" />
-         <RegExpr attribute="5" context="0" String="\$[a-zA-Z0-9_]*" />
-         <RegExpr attribute="1" context="0" String="(Source|Patch)[0-9]*" />
-         <RegExpr attribute="1" context="0" String="^\*.*" />    <!-- ChangeLog -->
-         <Int attribute="4" context="0" />
+      <context attribute="Normal Text" lineEndContext="#stay">
+         <keyword attribute="Keyword" context="#stay" String="keywords"/>
+         <keyword attribute="Data" context="#stay" String="types"/>
+         <RegExpr attribute="Red" context="#stay" String="%[a-zA-Z0-9_]*" />
+         <DetectChar attribute="Comment" context="Comment" char="#" />
+         <RegExpr attribute="Keyword" context="Some Context" String="\{[a-zA-Z0-9_]*" />
+         <RegExpr attribute="Blue" context="Some Context2" String="&lt;\s*[a-zA-Z0-9_@\.]*" />
+         <RegExpr attribute="Data" context="#stay" String="\$[a-zA-Z0-9_]*" />
+         <RegExpr attribute="Keyword" context="#stay" String="(Source|Patch)[0-9]*" />
+         <RegExpr attribute="Keyword" context="#stay" String="^\*.*" />    <!-- ChangeLog -->
+         <Int attribute="Blue" context="#stay" />
    </context>
 
-       <context attribute="3" lineEndContext="0"/>
+       <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
 
-       <context attribute="1" lineEndContext="0">
-          <DetectChar attribute="1" char="}" context="0"/>
+       <context attribute="Keyword" lineEndContext="#pop" name="Some Context">
+          <DetectChar attribute="Keyword" char="}" context="#pop"/>
        </context>
 
-       <context attribute="4" lineEndContext="0">
-           <DetectChar attribute="4" char="&gt;" context="0"/>
+       <context attribute="Blue" lineEndContext="#pop" name="Some Context2">
+           <DetectChar attribute="Blue" char="&gt;" context="#pop"/>
        </context>
 
     </contexts>

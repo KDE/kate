@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="VHDL" version="1.00" kateversion="2.0" section="Sources" extensions="*.vdhl;*.vhd" mimetype="text/x-vhdl">
+<language name="VHDL" version="1.01" kateversion="2.0" section="Sources" extensions="*.vdhl;*.vhd" mimetype="text/x-vhdl">
     <highlighting>
         <list name="keywords">
             <item> access </item>
@@ -241,28 +241,27 @@
             <item> WOR_VECTOR </item>
         </list>
         <contexts>
-            <context name="normal" attribute="0" lineEndContext="0">
-                <keyword attribute="1" context="0"  String="keywords"/>
-                <keyword attribute="2" context="0"  String="types"/>
-                <Detect2Chars attribute="3" context="1" char="-"
-                    char1="-" />
-                <Int attribute="4" context="0" />
-                <HlCChar attribute="5" context="0" />
-                <DetectChar attribute="6" context="2" char="&quot;" />
-                <AnyChar attribute="7" context="0" String="[&amp;&gt;&lt;=:+\-*\/|]().,;" />
-                <DetectChar attribute="8" context="3" char="'" />
+            <context name="normal" attribute="Normal Text" lineEndContext="#stay">
+                <keyword attribute="Keyword" context="#stay"  String="keywords"/>
+                <keyword attribute="Data Type" context="#stay"  String="types"/>
+                <Detect2Chars attribute="Comment" context="comment" char="-" char1="-" />
+                <Int attribute="Integer" context="#stay" />
+                <HlCChar attribute="Bit" context="#stay" />
+                <DetectChar attribute="Vector" context="string" char="&quot;" />
+                <AnyChar attribute="Operator" context="#stay" String="[&amp;&gt;&lt;=:+\-*\/|]().,;" />
+                <DetectChar attribute="Attribute" context="attribute" char="'" />
              </context>
-            <context name="comment" attribute="3" lineEndContext="0" />
-            <context name="string" attribute="6" lineEndContext="2" >
-                <DetectChar attribute="6" context="0" char="&quot;" />
+            <context name="comment" attribute="Comment" lineEndContext="#pop" />
+            <context name="string" attribute="Vector" lineEndContext="#stay" >
+                <DetectChar attribute="Vector" context="#pop" char="&quot;" />
             </context>
-            <context name="attribute" attribute="8" lineEndContext="0">
-                <DetectChar attribute="8" context="4" char="&quot;" />
-                <DetectChar attribute="0" context="0" char=" " />
-                <AnyChar attribute="8" context="0" String=")=&lt;&gt;" />
+            <context name="attribute" attribute="Attribute" lineEndContext="#pop">
+                <DetectChar attribute="Attribute" context="quot in att" char="&quot;" />
+                <DetectChar attribute="Normal Text" context="#pop" char=" " />
+                <AnyChar attribute="Attribute" context="#pop" String=")=&lt;&gt;" />
             </context>
-            <context name="quot in att" attribute="8" lineEndContext="4">
-                <DetectChar attribute="8" context="3" char="&quot;" />
+            <context name="quot in att" attribute="Attribute" lineEndContext="#stay">
+                <DetectChar attribute="Attribute" context="#pop" char="&quot;" />
             </context>
         </contexts>
         <itemDatas>
@@ -274,7 +273,7 @@
             <itemData name="Bit" defStyleNum="dsChar" />
             <itemData name="Vector" defStyleNum="dsString" />
             <itemData name="Operator" defStyleNum="dsOthers" />
-			<itemData name="Attribute" defStyleNum="dsBaseN" />
+            <itemData name="Attribute" defStyleNum="dsBaseN" />
         </itemDatas>
     </highlighting>
   <general>

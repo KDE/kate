@@ -81,9 +81,9 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view )
 
 void InsertFilePluginView::slotInsertFile()
 {
-  _file = KFileDialog::getOpenFileName( "::insertfile", "",
+  _file = KFileDialog::getOpenURL( "::insertfile", "",
                                              (QWidget*)parent(), 
-                                             i18n("Chose a File to Insert") );
+                                             i18n("Chose a File to Insert") ).url();
   if ( _file.isEmpty() ) return;
 
   if ( KURL( _file ).isLocalFile() ) {

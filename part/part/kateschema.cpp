@@ -481,6 +481,7 @@ void KateSchemaConfigFontTab::readConfig (KConfig *config)
 
   m_fontchooser->disconnect ( this );
   m_fontchooser->setFont (config->readFontEntry("Font", &f));
+  myFont = m_fontchooser->font();
   connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
 }
 

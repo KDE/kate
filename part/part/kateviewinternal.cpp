@@ -720,6 +720,8 @@ void KateViewInternal::contentsMousePressEvent( QMouseEvent* e )
   }
 
   if( m_view->popup() && e->button() == RightButton ) {
+    if( !isTargetSelected( e->pos() ) )
+      placeCursor( e->pos() );
     m_view->popup()->popup( mapToGlobal( contentsToViewport( e->pos() ) ) );
   }
 }

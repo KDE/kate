@@ -29,7 +29,7 @@
 
 <!-- Store this in /usr/share/apps/katepart/syntax -->
 
-<language name="Euphoria" version="2.05" kateversion="2.1" 
+<language name="Euphoria" version="2.06" kateversion="2.1" 
  section="Sources" extensions="*.e;*.ex;*.exw;*.exu" 
  mimetype="text/x-euphoria" 
  author="Irv Mullins (irvm@ellijay.com)"
@@ -367,7 +367,7 @@
       <itemData name="String"          defStyleNum="dsString" />
       <itemData name="Directive"       defStyleNum="dsOthers" />
       <itemData name="Comment"         defStyleNum="dsComment" />
-      <itemData name="Region Marker"   defStyleNum="dsNormal" color="#0000ff"/>
+      <itemData name="Region Marker"   defStyleNum="dsRegionMarker" />
     </itemDatas>
 
   </highlighting>

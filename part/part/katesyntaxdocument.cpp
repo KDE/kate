@@ -142,12 +142,12 @@ QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QStr
   }
   // If there's no name just return the tag name of data->item
   if ( (!data->item.isNull()) && (name.isEmpty())){
-    kdDebug(13000) << "groupItemData no name " << data->item.tagName() << endl;
+    kdDebug(13010) << "groupItemData no name " << data->item.tagName() << endl;
     return data->item.tagName();                   
   }
   // if name is not empty return the value of the attribute name
   if (!data->item.isNull()){
-    kdDebug(13000) << "groupItemData with name " << data->item.tagName() << "  " << data->item.attribute(name) <<endl;
+    kdDebug(13010) << "groupItemData with name " << data->item.tagName() << "  " << data->item.attribute(name) <<endl;
     return data->item.attribute(name);
   }
   else {

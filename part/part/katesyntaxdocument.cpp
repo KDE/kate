@@ -82,26 +82,36 @@ SyntaxModeList SyntaxDocument::modeList(){
 /** Jump to the next group, data will point to the next group
 */
 bool SyntaxDocument::nextGroup( syntaxContextData* data){
+  // If data is empty there's nothing we can do
   if(!data){
     return false;
   }
 
+  // if there's no current group go the first one of this level of the tree.
   if (data->currentGroup.isNull()){
     data->currentGroup=data->parent.firstChild().toElement();
   }
   else {
+  // else just turn the currentGroup into the next group.
     data->currentGroup=data->currentGroup.nextSibling().toElement();
   }
-
+  
+  // Should this be an empty QDomElement ? shoudln't item point to the first item in this group ?
   data->item=QDomElement();
 
+  // If currentGroup is Null, we reached the end, so return false
   if (data->currentGroup.isNull()){
     return false;
   }
   else {
+  // return true if everything went ok.
     return true;
   }
 }
+
+
+
+
 
 bool SyntaxDocument::nextItem( syntaxContextData* data){
   if(!data) return false;
@@ -172,11 +182,12 @@ syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data){
 syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const QString &Config){
   QDomElement docElem = documentElement();
   QDomNode n = docElem.firstChild();
-
+  kdDebug()<< "getConfig: " << mainGroupName << " &Config: " << Config <<endl;
   while(!n.isNull()){
     kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (outer loop) " <<endl;
     QDomElement e=n.toElement();
-
+    
+    // compare the tag of the current QDomElemnt to see if it is mainGroupName
     if (e.tagName().compare(mainGroupName)==0 ){
       QDomNode n1=e.firstChild();
 
@@ -209,7 +220,7 @@ syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const
 syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group){
   QDomElement docElem = documentElement();
   QDomNode n = docElem.firstChild();
-
+  kdDebug()<< "getGroupInfo: " << mainGroupName << " &group: " << group <<endl;
   while (!n.isNull()){
     kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (outer loop) " <<endl;
     QDomElement e=n.toElement();
@@ -247,7 +258,7 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup,const QString& ty
   if (clearList){
     m_data.clear();
   }
-
+  
   for(QDomNode n=e.firstChild(); !n.isNull(); n=n.nextSibling()){
     if (n.toElement().tagName()==mainGroup){
       QDomNodeList nodelist1=n.toElement().elementsByTagName("list");

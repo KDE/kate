@@ -81,12 +81,12 @@ class SyntaxDocument : public QDomDocument{
     /** Jump to the next group, data will point to the next group
     */
     bool nextGroup(syntaxContextData* data);
-     
+    
+    bool nextItem(syntaxContextData* data);
     QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
     syntaxContextData* getGroupInfo(const QString& langName, const QString &group);
     void freeGroupInfo(syntaxContextData* data);
     syntaxContextData* getConfig(const QString& mainGroupName, const QString &Config);       
-    bool nextItem(syntaxContextData* data);
     syntaxContextData* getSubItems(syntaxContextData* data);
     QString groupItemData(const syntaxContextData* data,const QString& name);
     QString groupData(const syntaxContextData* data,const QString& name);

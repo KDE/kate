@@ -61,7 +61,7 @@ bool SearchDCOPInterface::findPreviousRegExp( QString regexp)
 
 }
 
-bool SearchDCOPInterface::findLastRegExp(const QString regexp)
+bool SearchDCOPInterface::findLastRegExp(QString regexp)
 {
 	return m_parent->searchText( 0,0, QRegExp(regexp), &m_currentrow, &m_currentcol,  &m_currentmatchlen, true);
 }

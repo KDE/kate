@@ -11,7 +11,7 @@ libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
 			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
 			 katebookmarks.cpp katebrowserextension.cpp kateprintsettings.cpp \
 			 katefont.cpp katelinerange.cpp katesupercursor.cpp katearbitraryhighlight.cpp \
-			 katerenderer.cpp kateattribute.cpp katecmdline.cpp
+			 katerenderer.cpp kateattribute.cpp katecmdline.cpp katecorecommands.cpp
 
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN)

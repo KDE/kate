@@ -26,6 +26,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katecmds.h"
+#include "katecorecommands.h"
 
 #include "../interfaces/katecmd.h"
 
@@ -65,6 +66,7 @@ KateFactory::KateFactory( bool clone )
   KateCmd::instance()->registerCommand (new KateCommands::Character ());
   KateCmd::instance()->registerCommand (new KateCommands::Goto ());
   KateCmd::instance()->registerCommand (new KateCommands::Date ());
+  KateCmd::instance()->registerCommand (new KateCoreCommands());
 }
 
 KateFactory::~KateFactory()

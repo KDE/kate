@@ -1,18 +1,7 @@
 TODO:
 
-For 3.1 and later:
- - better indent/unindent
-
- - porting all .xml files to the new scheme.
-    Small help:
-           A context of #pop returns to the next higher one (pop) (#pop#pop returns two steps and so on)
-           A context of #stay stays in the current context (no more context="5" within context 5 (this
-           is supported, but should be avoided in new definitions, because you run into problems when using
-           #pop than. If a context >= is given as the argument a new entry is appended to the stack
-
- - code completion : some keyboard handling fixes
-
 For 3.2 and later:
- - dynamic word wrap
- 
- - print/export only selected text
+  - BiDi support !!!
+  - better indent/unindent
+  - code completion : some keyboard handling fixes
+  - export only selected text

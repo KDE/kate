@@ -110,7 +110,6 @@ const KAboutData *KateFactory::aboutData()
   data->addCredit ("Carsten Presser", I18N_NOOP("Betatest"), "mord-slime@gmx.de");
   data->addCredit ("Jens Haupert", I18N_NOOP("Betatest"), "al_all@gmx.de");
   data->addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
-  data->addCredit ("Mr. Doerr", I18N_NOOP("For absolutely nothing"), "");
   data->addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
 
   data->setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));

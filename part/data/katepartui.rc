@@ -67,7 +67,6 @@
 
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
-  <Action name="file_close" group="file_operations" />
   <Separator />
   <Action name="edit_undo" />
   <Action name="edit_redo" />

@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
   This file is part of KDE's kate project.
-  
+
   copyright   : (C) 2004 by Dominik Haumann
   email       : dhdev at gmx dot de
 
@@ -22,7 +22,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,       *
  * Boston, MA  02111-1307, USA.                                       *
  **********************************************************************
- 
+
  This file is included in every file that highlights the "alerts" keywords.
  That's why extensions and mimetype are empty.
 -->
@@ -49,9 +49,5 @@
   </highlighting>
   <general>
     <keywords casesensitive="1" />
-    <comments>
-      <comment name="singleLine" start="//" />
-      <comment name="multiLine" start="/*" end="*/" />
-    </comments>
   </general>
 </language>

@@ -72,6 +72,7 @@
 #include <ksavefile.h>
 #include <klibloader.h>
 #include <kdirwatch.h>
+#include <kwin.h>
 
 #include <qpainter.h>
 #include <qpaintdevicemetrics.h>
@@ -2009,11 +2010,13 @@ void KateDocument::writeSessionConfig(KConfig *config)
 
 void KateDocument::configDialog()
 {
-  KDialogBase *kd = new KDialogBase(KDialogBase::IconList,
-                                    i18n("Configure"),
-                                    KDialogBase::Ok | KDialogBase::Cancel |
-                                    KDialogBase::Help ,
-                                    KDialogBase::Ok, kapp->mainWidget());
+  KDialogBase *kd = new KDialogBase ( KDialogBase::IconList,
+                                      i18n("Configure"),
+                                      KDialogBase::Ok | KDialogBase::Cancel | KDialogBase::Help,
+                                      KDialogBase::Ok,
+                                      kapp->mainWidget() );
+
+  KWin::setIcons( kd->winId(), kapp->icon(), kapp->miniIcon() );
 
   QPtrList<KTextEditor::ConfigPage> editorPages;
 

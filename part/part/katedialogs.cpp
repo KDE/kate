@@ -888,14 +888,14 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   QWhatsThis::add( leBuSuffix, i18n(
         "Enter the suffix to add to the backup file names" ) );
   QWhatsThis::add(dirSearchDepth, i18n(
-        "Editor will search given number of folder levels upwards for .kateconfig file"
+        "The editor will search the given number of folder levels upwards for .kateconfig file"
         " and load the settings line from it." ));
   QWhatsThis::add(blockCount, i18n(
-        "Editor will load given number of blocks (of around 2048 lines) of text into memory;"
+        "The editor will load given number of blocks (of around 2048 lines) of text into memory;"
         " if the filesize is bigger than this the other blocks are swapped "
         " to disk and loaded transparently as-needed.<br>"
         " This can cause little delays while navigating in the document; a larger block count"
-        " increases the editing speed at the cost of memory. <br>For normal usage, just choose highest possible"
+        " increases the editing speed at the cost of memory. <br>For normal usage, just choose the highest possible"
         " block count: limit it only if you have problems with the memory usage."));
 
   reload();

@@ -3655,15 +3655,15 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
   // was the selection background allready completly painted ?
   bool selectionPainted = false;
-  
-  if (lineSelected (line))
+
+  if (!selectionPainted && lineSelected (line))
   {
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;
   }
   else
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
-    
+
 
   if (line > lastLine())
     return false;
@@ -3675,12 +3675,13 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
   if (!textLine->isVisible())
     return false;
-    
+
   len = textLine->length();
-  
+  uint oldLen = len;
+
   if (startcol > len)
     startcol = len;
-    
+
   if (startcol < 0)
     startcol = 0;
 
@@ -3688,7 +3689,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     len = len - startcol;
   else
     len = endcol - startcol;
-  
+
   // text + attrib data from line
   s = textLine->getText ();
   a = textLine->getAttribs ();
@@ -3697,11 +3698,11 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   s = s + startcol;
   a = a + startcol;
 
-  // or we will see no text ;)
-  y += fs->fontAscent;
+  uint curCol = startcol;
 
-  paint.setPen(at[0].col);
-  paint.setFont(fs->myFont);
+  // or we will see no text ;)
+  uint oldY = y;
+  y += fs->fontAscent;
 
   // painting loop
   uint xPos = 0;
@@ -3710,6 +3711,48 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
   Attribute *curAt = 0;
   Attribute *oldAt = 0;
+
+  // selection startcol/endcol calc
+  bool hasSel = false;
+  uint startSel = 0;
+  uint endSel = 0;
+
+  if (!selectionPainted)
+  {
+    if (hasSelection())
+    {
+      if (!blockSelect)
+      {
+        if ((line == selectStart.line) && (line < selectEnd.line))
+        {
+          startSel = selectStart.col;
+          endSel = oldLen;
+          hasSel = true;
+        }
+        else if ((line == selectEnd.line) && (line > selectStart.line))
+        {
+          startSel = 0;
+          endSel = selectEnd.col;
+          hasSel = true;
+        }
+        else if ((line == selectEnd.line) && (line == selectStart.line))
+        {
+          startSel = selectStart.col;
+          endSel = selectEnd.col;
+          hasSel = true;
+        }
+      }
+      else
+      {
+        if ((line >= selectStart.line) && (line <= selectEnd.line))
+        {
+          startSel = selectStart.col;
+          endSel = selectEnd.col;
+          hasSel = true;
+        }
+      }
+    }
+  }
 
   for (uint tmp = len; tmp > 0; tmp--)
   {
@@ -3721,14 +3764,14 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       {
         curAt = &at[0];
         width = fs->myFontMetrics.width(*s);
-        
+
         if (curAt != oldAt)
           paint.setFont(fs->myFont);
       }
       else
       {
         curAt = &at[*a];
-        
+
         if (curAt->bold && curAt->italic)
 	{
           width = fs->myFontMetricsBI.width(*s);
@@ -3749,7 +3792,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
           if (curAt != oldAt)
             paint.setFont(fs->myFontItalic);
-	} 
+	}
         else
 	{
           width = fs->myFontMetrics.width(*s);
@@ -3764,132 +3807,49 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     }
 
     xPosAfter += width;
-    
-    if ((xPosAfter >= xStart) && ((*s) != QChar('\t')))
+
+    if (xPosAfter >= xStart)
     {
-      QConstString str((QChar *) s, 1);
-      paint.drawText(xPos-xStart, y, str.string());
+      if (!selectionPainted && hasSel && (curCol >= startSel) && (curCol < endSel))
+        paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
+
+      if ((*s) != QChar('\t'))
+      {
+        QConstString str((QChar *) s, 1);
+        paint.drawText(xPos-xStart, y, str.string());
+      }
+      else if (showTabs)
+      {
+        paint.drawPoint(xPos - xStart, y);
+        paint.drawPoint(xPos - xStart + 1, y);
+        paint.drawPoint(xPos - xStart, y - 1);
+      }
     }
 
     // increase xPos
     xPos = xPosAfter;
-    
+
     // increase char + attribs pos
     s++;
     a++;
 
     // to only switch font/color if needed
     oldAt = curAt;
+
+    // col move
+    curCol++;
+  }
+
+  if (!selectionPainted && lineEndSelected (line))
+  {
+    paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
+    selectionPainted = true;
   }
 
   return true;
 
   /*
-  // skip to first visible character
-  x = 0;
-  z = 0;
-  do
-  {
-    xc = x;
-    zc = z;
 
-    if (z == len) break;
-
-    ch = s[z];
-
-    if (ch == '\t')
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
-    else
-    {
-      a = attribute(textLine->getAttr(z));
-
-      if (a->bold && a->italic)
-       x += fs->myFontMetricsBI.width(ch);
-      else if (a->bold)
-        x += fs->myFontMetricsBold.width(ch);
-      else if (a->italic)
-        x += fs->myFontMetricsItalic.width(ch);
-      else
-        x += fs->myFontMetrics.width(ch);
-    }
-    z++;
-  }
-  while (x <= xStart);
-
-  // draw background
-  xs = xStart;
-  int col = zc;
-  while (x < xEnd)
-  {
-    if (lineColSelected(line, col))
-      paint.fillRect(xs - xStart, y, x - xs, fs->fontHeight, colors[1]);
-    else
-      paint.fillRect(xs - xStart, y, x - xs, fs->fontHeight, colors[0]);
-
-    xs = x;
-    col = z;
-
-    attr = textLine->getAttr(z);
-
-    if (z == len) break;
-
-    ch = s[z];
-
-    if (ch == QChar('\t'))
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
-    else
-    {
-      a = attribute(textLine->getAttr(z));
-
-      if (a->bold && a->italic)
-        x += fs->myFontMetricsBI.width(ch);
-      else if (a->bold)
-        x += fs->myFontMetricsBold.width(ch);
-      else if (a->italic)
-        x += fs->myFontMetricsItalic.width(ch);
-      else
-        x += fs->myFontMetrics.width(ch);
-    }
-    z++;
-  }
-
-  // is whole line selected ??
-  if (lineEndSelected(line))
-    paint.fillRect(xs - xStart, y, xEnd - xs, fs->fontHeight, colors[1]);
-  else
-    paint.fillRect(xs - xStart, y, xEnd - xs, fs->fontHeight, colors[0]);
-
-  //reduce length to visible length
-  len = z;
-
-  // draw text
-  x = xc;
-  z = zc;
-  y += fs->fontAscent;// -1;
-  attr = -1;
-
-  while (z < len)
-  {
-    ch = s[z];
-
-    if (ch == QChar('\t'))
-    {
-      if (z > zc)
-      {
-        QConstString str((QChar *) &s[zc], z - zc);
-        QString s = str.string();
-        paint.drawText(x - xStart, y, s);
-
-         if (a->bold && a->italic)
-          x += fs->myFontMetricsBI.width(s);
-        else if (a->bold)
-          x += fs->myFontMetricsBold.width(s);
-        else if (a->italic)
-          x += fs->myFontMetricsItalic.width(s);
-        else
-          x += fs->myFontMetrics.width(s);
-      }
-      zc = z +1;
 
       if (showTabs)
       {
@@ -3921,59 +3881,6 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       }
       x += fs->m_tabWidth - (x % fs->m_tabWidth);
     }
-    else
-    {
-      nextAttr = textLine->getAttr(z);
-
-      if ((nextAttr != attr) || (lineColSelected(line, col) != lineColSelected(line, z)))
-      {
-        if (z > zc)
-        {
-          QConstString str((QChar *) &s[zc], z - zc );
-          QString s = str.string();
-          paint.drawText(x - xStart, y, s);
-
-          if (a->bold && a->italic)
-            x += fs->myFontMetricsBI.width(s);
-          else if (a->bold)
-            x += fs->myFontMetricsBold.width(s);
-          else if (a->italic)
-            x += fs->myFontMetricsItalic.width(s);
-          else
-            x += fs->myFontMetrics.width(s);
-          zc = z;
-        }
-
-        attr = nextAttr;
-        a = attribute (attr);
-        col = z;
-
-        if (lineColSelected(line, col))
-          paint.setPen(a->selCol);
-        else
-          paint.setPen(a->col);
-
-        if (a->bold && a->italic)
-         paint.setFont(fs->myFontBI);
-        else if (a->bold)
-          paint.setFont(fs->myFontBold);
-        else if (a->italic)
-          paint.setFont(fs->myFontItalic);
-        else
-          paint.setFont(fs->myFont);
-      }
-    }
-
-    z++;
-  }
-
-  if (z > zc)
-  {
-    QConstString str((QChar *) &s[zc], z - zc);
-    paint.drawText(x - xStart, y, str.string());
-  }
-
-return true;
 
 */
 }

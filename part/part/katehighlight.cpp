@@ -289,7 +289,7 @@ class HlRegExpr : public HlItem
 //END
 
 //BEGIN STATICS
-HlManager *HlManager::s_self = 0;
+KateHlManager *KateHlManager::s_self = 0;
 
 enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar,dsString,dsComment,dsOthers};
 
@@ -1245,7 +1245,7 @@ void Highlight::doHighlight(QMemArray<short> oCtx, TextLine *textLine,bool lineC
 
 void Highlight::loadWildcards()
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
   QString extensionString = config->readEntry("Wildcards", iWildcards);
@@ -1282,7 +1282,7 @@ QStringList& Highlight::getPlainExtensions()
 
 QString Highlight::getMimetypes()
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
   return config->readEntry("Mimetypes", iMimetypes);
@@ -1290,7 +1290,7 @@ QString Highlight::getMimetypes()
 
 int Highlight::priority()
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
   return config->readNumEntry("Priority", m_priority);
@@ -1298,7 +1298,7 @@ int Highlight::priority()
 
 HlData *Highlight::getData()
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
   HlData *hlData = new HlData(
@@ -1312,7 +1312,7 @@ HlData *Highlight::getData()
 
 void Highlight::setData(HlData *hlData)
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
   config->writeEntry("Wildcards",hlData->wildcards);
@@ -1322,7 +1322,7 @@ void Highlight::setData(HlData *hlData)
 
 void Highlight::getItemDataList (uint schema, ItemDataList &list)
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
   list.clear();
@@ -1385,7 +1385,7 @@ void Highlight::getItemDataList (uint schema, ItemDataList &list)
 
 void Highlight::setItemDataList(uint schema, ItemDataList &list)
 {
-  KConfig *config = HlManager::self()->getKConfig();
+  KConfig *config = KateHlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName + " - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
   QStringList settings;
@@ -1524,25 +1524,25 @@ void Highlight::createItemData(ItemDataList &list)
 void Highlight::addToItemDataList()
 {
   //Tell the syntax document class which file we want to parse and which data group
-  HlManager::self()->syntax->setIdentifier(buildIdentifier);
-  syntaxContextData *data = HlManager::self()->syntax->getGroupInfo("highlighting","itemData");
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data = KateHlManager::self()->syntax->getGroupInfo("highlighting","itemData");
 
   //begin with the real parsing
-  while (HlManager::self()->syntax->nextGroup(data))
+  while (KateHlManager::self()->syntax->nextGroup(data))
   {
     // read all attributes
-    QString color = HlManager::self()->syntax->groupData(data,QString("color"));
-    QString selColor = HlManager::self()->syntax->groupData(data,QString("selColor"));
-    QString bold = HlManager::self()->syntax->groupData(data,QString("bold"));
-    QString italic = HlManager::self()->syntax->groupData(data,QString("italic"));
-    QString underline = HlManager::self()->syntax->groupData(data,QString("underline"));
-    QString strikeOut = HlManager::self()->syntax->groupData(data,QString("strikeOut"));
-    QString bgColor = HlManager::self()->syntax->groupData(data,QString("backgroundColor"));
-    QString selBgColor = HlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
+    QString color = KateHlManager::self()->syntax->groupData(data,QString("color"));
+    QString selColor = KateHlManager::self()->syntax->groupData(data,QString("selColor"));
+    QString bold = KateHlManager::self()->syntax->groupData(data,QString("bold"));
+    QString italic = KateHlManager::self()->syntax->groupData(data,QString("italic"));
+    QString underline = KateHlManager::self()->syntax->groupData(data,QString("underline"));
+    QString strikeOut = KateHlManager::self()->syntax->groupData(data,QString("strikeOut"));
+    QString bgColor = KateHlManager::self()->syntax->groupData(data,QString("backgroundColor"));
+    QString selBgColor = KateHlManager::self()->syntax->groupData(data,QString("selBackgroundColor"));
 
       ItemData* newData = new ItemData(
-              buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
-              getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
+              buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+              getDefStyleNum(KateHlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
 
       /* here the custom style overrides are specified, if needed */
@@ -1561,7 +1561,7 @@ void Highlight::addToItemDataList()
 
   //clean up
   if (data)
-    HlManager::self()->syntax->freeGroupInfo(data);
+    KateHlManager::self()->syntax->freeGroupInfo(data);
 }
 
 /*******************************************************************************************
@@ -1615,10 +1615,10 @@ HlItem *Highlight::createHlItem(struct syntaxContextData *data, ItemDataList &iD
     return 0;
 
   // get the (tagname) itemd type
-  QString dataname=HlManager::self()->syntax->groupItemData(data,QString(""));
+  QString dataname=KateHlManager::self()->syntax->groupItemData(data,QString(""));
 
   // BEGIN - Translation of the attribute parameter
-  QString tmpAttr=HlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
+  QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
   int attr;
   if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
   {
@@ -1632,7 +1632,7 @@ HlItem *Highlight::createHlItem(struct syntaxContextData *data, ItemDataList &iD
 
   // Info about context switch
   int context;
-  QString tmpcontext=HlManager::self()->syntax->groupItemData(data,QString("context"));
+  QString tmpcontext=KateHlManager::self()->syntax->groupItemData(data,QString("context"));
 
 
   QString unresolvedContext;
@@ -1640,32 +1640,32 @@ HlItem *Highlight::createHlItem(struct syntaxContextData *data, ItemDataList &iD
 
   // Get the char parameter (eg DetectChar)
   char chr;
-  if (! HlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
-    chr= (HlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
+  if (! KateHlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
+    chr= (KateHlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
   else
     chr=0;
 
   // Get the String parameter (eg. StringDetect)
-  QString stringdata=HlManager::self()->syntax->groupItemData(data,QString("String"));
+  QString stringdata=KateHlManager::self()->syntax->groupItemData(data,QString("String"));
 
   // Get a second char parameter (char1) (eg Detect2Chars)
   char chr1;
-  if (! HlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
-    chr1= (HlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
+  if (! KateHlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
+    chr1= (KateHlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
   else
     chr1=0;
 
   // Will be removed eventuall. Atm used for StringDetect
-  bool insensitive=( HlManager::self()->syntax->groupItemData(data,QString("insensitive")).lower() == QString("true") );
+  bool insensitive=( KateHlManager::self()->syntax->groupItemData(data,QString("insensitive")).lower() == QString("true") );
   // anders: very reasonable for regexp too!
 
   // for regexp only
-  bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == QString("true") );
+  bool minimal = ( KateHlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == QString("true") );
 
 
   // code folding region handling:
-  QString beginRegionStr=HlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
-  QString endRegionStr=HlManager::self()->syntax->groupItemData(data,QString("endRegion"));
+  QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
+  QString endRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("endRegion"));
 
   signed char regionId=0;
   signed char regionId2=0;
@@ -1709,7 +1709,7 @@ HlItem *Highlight::createHlItem(struct syntaxContextData *data, ItemDataList &iD
       deliminator);
 
     //Get the entries for the keyword lookup list
-    keyword->addList(HlManager::self()->syntax->finddata("highlighting",stringdata));
+    keyword->addList(KateHlManager::self()->syntax->finddata("highlighting",stringdata));
     tmpItem=keyword;
   } else
     if (dataname=="Float") tmpItem= (new HlFloat(attr,context,regionId,regionId2)); else
@@ -1770,24 +1770,24 @@ bool Highlight::isInWord(QChar c)
 
 void Highlight::readCommentConfig()
 {
-  HlManager::self()->syntax->setIdentifier(buildIdentifier);
-  syntaxContextData *data=HlManager::self()->syntax->getGroupInfo("general","comment");
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("general","comment");
 
   if (data)
   {
-    while  (HlManager::self()->syntax->nextGroup(data))
+    while  (KateHlManager::self()->syntax->nextGroup(data))
     {
-      if (HlManager::self()->syntax->groupData(data,"name")=="singleLine")
-        cslStart=HlManager::self()->syntax->groupData(data,"start");
+      if (KateHlManager::self()->syntax->groupData(data,"name")=="singleLine")
+        cslStart=KateHlManager::self()->syntax->groupData(data,"start");
 
-      if (HlManager::self()->syntax->groupData(data,"name")=="multiLine")
+      if (KateHlManager::self()->syntax->groupData(data,"name")=="multiLine")
       {
-        cmlStart=HlManager::self()->syntax->groupData(data,"start");
-        cmlEnd=HlManager::self()->syntax->groupData(data,"end");
+        cmlStart=KateHlManager::self()->syntax->groupData(data,"start");
+        cmlEnd=KateHlManager::self()->syntax->groupData(data,"end");
       }
     }
 
-    HlManager::self()->syntax->freeGroupInfo(data);
+    KateHlManager::self()->syntax->freeGroupInfo(data);
   }
   else
   {
@@ -1816,20 +1816,20 @@ void Highlight::readGlobalKeywordConfig()
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readGlobalKeywordConfig:BEGIN"<<endl;
 
-  HlManager::self()->syntax->setIdentifier(buildIdentifier);
-  syntaxContextData *data = HlManager::self()->syntax->getConfig("general","keywords");
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data = KateHlManager::self()->syntax->getConfig("general","keywords");
 
   if (data)
   {
     kdDebug(13010)<<"Found global keyword config"<<endl;
 
-    if (HlManager::self()->syntax->groupItemData(data,QString("casesensitive"))!="0")
+    if (KateHlManager::self()->syntax->groupItemData(data,QString("casesensitive"))!="0")
       casesensitive=true;
     else
       casesensitive=false;
 
     //get the weak deliminators
-    weakDeliminator=(HlManager::self()->syntax->groupItemData(data,QString("weakDeliminator")));
+    weakDeliminator=(KateHlManager::self()->syntax->groupItemData(data,QString("weakDeliminator")));
 
     kdDebug(13010)<<"weak delimiters are: "<<weakDeliminator<<endl;
 
@@ -1842,12 +1842,12 @@ void Highlight::readGlobalKeywordConfig()
         deliminator.remove (f, 1);
     }
 
-    QString addDelim = (HlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));
+    QString addDelim = (KateHlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));
 
     if (!addDelim.isEmpty())
       deliminator=deliminator+addDelim;
 
-    HlManager::self()->syntax->freeGroupInfo(data);
+    KateHlManager::self()->syntax->freeGroupInfo(data);
   }
   else
   {
@@ -1867,19 +1867,19 @@ void Highlight::readFoldingConfig()
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readfoldignConfig:BEGIN"<<endl;
 
-  HlManager::self()->syntax->setIdentifier(buildIdentifier);
-  syntaxContextData *data = HlManager::self()->syntax->getConfig("general","folding");
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data = KateHlManager::self()->syntax->getConfig("general","folding");
 
   if (data)
   {
     kdDebug(13010)<<"Found global keyword config"<<endl;
 
-    if (HlManager::self()->syntax->groupItemData(data,QString("indentationsensitive"))!="1")
+    if (KateHlManager::self()->syntax->groupItemData(data,QString("indentationsensitive"))!="1")
       m_foldingIndentationSensitive=false;
     else
       m_foldingIndentationSensitive=true;
 
-    HlManager::self()->syntax->freeGroupInfo(data);
+    KateHlManager::self()->syntax->freeGroupInfo(data);
   }
   else
   {
@@ -1899,17 +1899,17 @@ void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
   if (ctx0 == 0)
       ContextNameList->clear();
 
-  HlManager::self()->syntax->setIdentifier(buildIdentifier);
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
 
-  syntaxContextData *data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
+  syntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("highlighting","context");
 
   int id=ctx0;
 
   if (data)
   {
-     while (HlManager::self()->syntax->nextGroup(data))
+     while (KateHlManager::self()->syntax->nextGroup(data))
      {
-          QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace();
+          QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace();
     if (tmpAttr.isEmpty())
     {
      tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
@@ -1919,7 +1919,7 @@ void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
     (*ContextNameList)<<tmpAttr;
           id++;
      }
-     HlManager::self()->syntax->freeGroupInfo(data);
+     KateHlManager::self()->syntax->freeGroupInfo(data);
   }
   kdDebug(13010)<<"creatingContextNameList:END"<<endl;
 
@@ -2004,7 +2004,7 @@ void Highlight::makeContextList()
       kdDebug(13010)<<"Trying to open highlighting definition file: "<< it.key()<<endl;
       if (iName==it.key()) identifierToUse=identifier;  // the own identifier is known
       else
-        identifierToUse=HlManager::self()->identifierForName(it.key()); // all others have to be looked up
+        identifierToUse=KateHlManager::self()->identifierForName(it.key()); // all others have to be looked up
 
       kdDebug(13010)<<"Location is:"<< identifierToUse<<endl;
 
@@ -2173,7 +2173,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   QString dummy;
 
   // Let the syntax document class know, which file we'd like to parse
-  if (!HlManager::self()->syntax->setIdentifier(ident))
+  if (!KateHlManager::self()->syntax->setIdentifier(ident))
   {
   noHl=true;
   KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
@@ -2195,15 +2195,15 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 
   kdDebug(13010)<<"Parsing Context structure"<<endl;
   //start the real work
-  data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
+  data=KateHlManager::self()->syntax->getGroupInfo("highlighting","context");
   uint i=buildContext0Offset;
   if (data)
     {
-      while (HlManager::self()->syntax->nextGroup(data))
+      while (KateHlManager::self()->syntax->nextGroup(data))
         {
     kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
           // BEGIN - Translation of the attribute parameter
-          QString tmpAttr=HlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
+          QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
           int attr;
           if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
             attr=tmpAttr.toInt();
@@ -2211,9 +2211,9 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
             attr=lookupAttrName(tmpAttr,iDl);
           // END - Translation of the attribute parameter
 
-    ctxName=buildPrefix+HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+    ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
 
-    QString tmpLineEndContext=HlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
+    QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
     int context;
 
     context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
@@ -2222,11 +2222,11 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
           bool ft = false;
           int ftc = 0; // fallthrough context
           if ( i > 0 ) { // fallthrough is not smart in context 0
-            QString tmpFt = HlManager::self()->syntax->groupData(data, QString("fallthrough") );
+            QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
             if ( tmpFt.lower() == "true" ||  tmpFt.toInt() == 1 )
               ft = true;
             if ( ft ) {
-              QString tmpFtc = HlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
+              QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
           ftc=getIdFromString(&ContextNameList, tmpFtc,dummy);
         if (ftc == -1) ftc =0;
@@ -2239,22 +2239,22 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
           contextList.insert (i, new HlContext (
             attr,
             context,
-            (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
-            (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
+            (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
+            (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
             ft, ftc
                                        ));
 
 
             //Let's create all items for the context
-            while (HlManager::self()->syntax->nextItem(data))
+            while (KateHlManager::self()->syntax->nextItem(data))
               {
 //    kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
 
                 // IncludeRules : add a pointer to each item in that context
 
-                QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
+                QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) { //if the new item is an Include rule, we have to take special care
-      QString incCtx=HlManager::self()->syntax->groupItemData( data, QString("context"));
+      QString incCtx=KateHlManager::self()->syntax->groupItemData( data, QString("context"));
       // only context refernces of type NAME and ##Name are allowed
       if (incCtx.startsWith("##") || (!incCtx.startsWith("#"))) { //#stay, #pop is not interesting here
         if (!incCtx.startsWith("#")) { // a local reference -> just initialize the include rule structure
@@ -2275,11 +2275,11 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
       continue;
     }
 #if 0
-                QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
+                QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
                 if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
                   int ctxId = getIdFromString(&ContextNameList,
-      HlManager::self()->syntax->groupItemData( data, QString("context")),dummy); // the index is *required*
+      KateHlManager::self()->syntax->groupItemData( data, QString("context")),dummy); // the index is *required*
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
                     if ( ctxId < (int) i ) { // must be defined
@@ -2298,15 +2298,15 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
                                 contextList[i]->items.append(c);
 
                                 // Not supported completely atm and only one level. Subitems.(all have to be matched to at once)
-        datasub=HlManager::self()->syntax->getSubItems(data);
+        datasub=KateHlManager::self()->syntax->getSubItems(data);
         bool tmpbool;
-        if (tmpbool=HlManager::self()->syntax->nextItem(datasub))
+        if (tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
           {
             c->subItems=new QPtrList<HlItem>;
-            for (;tmpbool;tmpbool=HlManager::self()->syntax->nextItem(datasub))
+            for (;tmpbool;tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
                                             c->subItems->append(createHlItem(datasub,iDl,&RegionList,&ContextNameList));
                                         }
-        HlManager::self()->syntax->freeGroupInfo(datasub);
+        KateHlManager::self()->syntax->freeGroupInfo(datasub);
                                 // end of sublevel
       }
 //    kdDebug(13010)<<"Last line in loop"<<endl;
@@ -2315,7 +2315,7 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
         }
       }
 
-  HlManager::self()->syntax->freeGroupInfo(data);
+  KateHlManager::self()->syntax->freeGroupInfo(data);
   if (RegionList.count()!=1) folding=true;
   folding = folding || m_foldingIndentationSensitive;
   return i;
@@ -2328,7 +2328,7 @@ void Highlight::clearAttributeArrays ()
     // k, schema correct, let create the data
     KateAttributeList defaultStyleList;
     defaultStyleList.setAutoDelete(true);
-    HlManager::self()->getDefaults(it.currentKey(), defaultStyleList);
+    KateHlManager::self()->getDefaults(it.currentKey(), defaultStyleList);
 
     ItemDataList itemDataList;
     getItemDataList(it.currentKey(), itemDataList);
@@ -2368,7 +2368,7 @@ QMemArray<KateAttribute> *Highlight::attributes (uint schema)
   // k, schema correct, let create the data
   KateAttributeList defaultStyleList;
   defaultStyleList.setAutoDelete(true);
-  HlManager::self()->getDefaults(schema, defaultStyleList);
+  KateHlManager::self()->getDefaults(schema, defaultStyleList);
 
   ItemDataList itemDataList;
   getItemDataList(schema, itemDataList);
@@ -2405,8 +2405,8 @@ void Highlight::getItemDataListCopy (uint schema, ItemDataList &outlist)
 
 //END
 
-//BEGIN HlManager
-HlManager::HlManager()
+//BEGIN KateHlManager
+KateHlManager::KateHlManager()
   : QObject()
   , m_config ("katesyntaxhighlightingrc", false, false)
   , commonSuffixes (QStringList::split(";", ".orig;.new;~;.bak;.BAK"))
@@ -2441,22 +2441,22 @@ HlManager::HlManager()
   hlDict.insert (hl->name(), hl);
 }
 
-HlManager::~HlManager()
+KateHlManager::~KateHlManager()
 {
   delete syntax;
 }
 
-static KStaticDeleter<HlManager> sdHlMan;
+static KStaticDeleter<KateHlManager> sdHlMan;
 
-HlManager *HlManager::self()
+KateHlManager *KateHlManager::self()
 {
   if ( !s_self )
-    sdHlMan.setObject(s_self, new HlManager ());
+    sdHlMan.setObject(s_self, new KateHlManager ());
 
   return s_self;
 }
 
-Highlight *HlManager::getHl(int n)
+Highlight *KateHlManager::getHl(int n)
 {
   if (n < 0 || n >= (int) hlList.count())
     n = 0;
@@ -2464,7 +2464,7 @@ Highlight *HlManager::getHl(int n)
   return hlList.at(n);
 }
 
-int HlManager::nameFind(const QString &name)
+int KateHlManager::nameFind(const QString &name)
 {
   int z (hlList.count() - 1);
   for (; z > 0; z--)
@@ -2474,7 +2474,7 @@ int HlManager::nameFind(const QString &name)
   return z;
 }
 
-int HlManager::detectHighlighting (KateDocument *doc)
+int KateHlManager::detectHighlighting (KateDocument *doc)
 {
   int hl = wildcardFind( doc->url().filename() );
 
@@ -2505,7 +2505,7 @@ int HlManager::detectHighlighting (KateDocument *doc)
   return hl;
 }
 
-int HlManager::wildcardFind(const QString &fileName)
+int KateHlManager::wildcardFind(const QString &fileName)
 {
   int result = -1;
   if ((result = realWildcardFind(fileName)) != -1)
@@ -2528,7 +2528,7 @@ int HlManager::wildcardFind(const QString &fileName)
   return -1;
 }
 
-int HlManager::realWildcardFind(const QString &fileName)
+int KateHlManager::realWildcardFind(const QString &fileName)
 {
   static QRegExp sep("\\s*;\\s*");
 
@@ -2568,7 +2568,7 @@ int HlManager::realWildcardFind(const QString &fileName)
   return -1;
 }
 
-int HlManager::mimeFind(const QByteArray &contents)
+int KateHlManager::mimeFind(const QByteArray &contents)
 {
   static QRegExp sep("\\s*;\\s*");
 
@@ -2608,12 +2608,12 @@ int HlManager::mimeFind(const QByteArray &contents)
   return -1;
 }
 
-uint HlManager::defaultStyles()
+uint KateHlManager::defaultStyles()
 {
   return 10;
 }
 
-QString HlManager::defaultStyleName(int n)
+QString KateHlManager::defaultStyleName(int n)
 {
   static QStringList names;
 
@@ -2634,7 +2634,7 @@ QString HlManager::defaultStyleName(int n)
   return names[n];
 }
 
-void HlManager::getDefaults(uint schema, KateAttributeList &list)
+void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 {
   list.setAutoDelete(true);
 
@@ -2690,7 +2690,7 @@ void HlManager::getDefaults(uint schema, KateAttributeList &list)
   others->setSelectedTextColor(Qt::green);
   list.append(others);
 
-  KConfig *config = HlManager::self()->self()->getKConfig();
+  KConfig *config = KateHlManager::self()->self()->getKConfig();
   config->setGroup("Default Item Styles - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
   for (uint z = 0; z < defaultStyles(); z++)
@@ -2731,9 +2731,9 @@ void HlManager::getDefaults(uint schema, KateAttributeList &list)
   }
 }
 
-void HlManager::setDefaults(uint schema, KateAttributeList &list)
+void KateHlManager::setDefaults(uint schema, KateAttributeList &list)
 {
-  KConfig *config =  HlManager::self()->self()->getKConfig();
+  KConfig *config =  KateHlManager::self()->self()->getKConfig();
   config->setGroup("Default Item Styles - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
   for (uint z = 0; z < defaultStyles(); z++)
@@ -2757,22 +2757,22 @@ void HlManager::setDefaults(uint schema, KateAttributeList &list)
   emit changed();
 }
 
-int HlManager::highlights()
+int KateHlManager::highlights()
 {
   return (int) hlList.count();
 }
 
-QString HlManager::hlName(int n)
+QString KateHlManager::hlName(int n)
 {
   return hlList.at(n)->name();
 }
 
-QString HlManager::hlSection(int n)
+QString KateHlManager::hlSection(int n)
 {
   return hlList.at(n)->section();
 }
 
-QString HlManager::identifierForName(const QString& name)
+QString KateHlManager::identifierForName(const QString& name)
 {
   Highlight *hl = 0;
 
@@ -2799,12 +2799,12 @@ void KateViewHighlightAction::updateMenu (Kate::Document *doc)
 void KateViewHighlightAction::slotAboutToShow()
 {
   Kate::Document *doc=m_doc;
-  int count = HlManager::self()->highlights();
+  int count = KateHlManager::self()->highlights();
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = HlManager::self()->hlName (z);
-    QString hlSection = HlManager::self()->hlSection (z);
+    QString hlName = KateHlManager::self()->hlName (z);
+    QString hlSection = KateHlManager::self()->hlSection (z);
 
     if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
     {
@@ -2836,7 +2836,7 @@ void KateViewHighlightAction::slotAboutToShow()
   }
   popupMenu()->setItemChecked (0, false);
 
-  int i = subMenusName.findIndex (HlManager::self()->hlSection(doc->hlMode()));
+  int i = subMenusName.findIndex (KateHlManager::self()->hlSection(doc->hlMode()));
   if (i >= 0 && subMenus.at(i))
     subMenus.at(i)->setItemChecked (doc->hlMode(), true);
   else

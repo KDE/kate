@@ -412,7 +412,7 @@ KateAttributeList *KateSchemaConfigFontColorTab::attributeList (uint schema)
   if (!m_defaultStyleLists[schema])
   {
     KateAttributeList *list = new KateAttributeList ();
-    HlManager::self()->getDefaults(schema, *list);
+    KateHlManager::self()->getDefaults(schema, *list);
 
     m_defaultStyleLists.insert (schema, list);
   }
@@ -440,9 +440,9 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   p.setColor( QPalette::Normal, QColorGroup::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
   
-  for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
+  for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
   {
-    m_defaultStyles->insertItem( new KateStyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
+    m_defaultStyles->insertItem( new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i),
                               l->at( i ) ) );
   }
 }
@@ -456,7 +456,7 @@ void KateSchemaConfigFontColorTab::reload ()
 void KateSchemaConfigFontColorTab::apply ()
 {
   for ( QIntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
-    HlManager::self()->setDefaults(it.currentKey(), *(it.current()));
+    KateHlManager::self()->setDefaults(it.currentKey(), *(it.current()));
 }
 
 //END FontColorConfig
@@ -485,11 +485,11 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
 
-  for( int i = 0; i < HlManager::self()->highlights(); i++) {
-    if (HlManager::self()->hlSection(i).length() > 0)
-      hlCombo->insertItem(HlManager::self()->hlSection(i) + QString ("/") + HlManager::self()->hlName(i));
+  for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
+    if (KateHlManager::self()->hlSection(i).length() > 0)
+      hlCombo->insertItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlName(i));
     else
-      hlCombo->insertItem(HlManager::self()->hlName(i));
+      hlCombo->insertItem(KateHlManager::self()->hlName(i));
   }
   hlCombo->setCurrentItem(0);
 
@@ -537,7 +537,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
     kdDebug () << "NEW HL, create list" << endl;
 
     ItemDataList *list = new ItemDataList ();
-    HlManager::self()->getHl( m_hl )->getItemDataListCopy (m_schema, *list);
+    KateHlManager::self()->getHl( m_hl )->getItemDataListCopy (m_schema, *list);
     m_hlDict[m_schema]->insert (m_hl, list);
   }
 
@@ -587,7 +587,7 @@ void KateSchemaConfigHighlightTab::apply ()
 {
   for ( QIntDictIterator< QIntDict<ItemDataList> > it( m_hlDict ); it.current(); ++it )
     for ( QIntDictIterator< ItemDataList > it2( *it.current() ); it2.current(); ++it2 )
-       HlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));
+       KateHlManager::self()->getHl( it2.currentKey() )->setItemDataList (it.currentKey(), *(it2.current()));
 }
 
 //END KateSchemaConfigHighlightTab
@@ -669,7 +669,7 @@ void KateSchemaConfigPage::apply()
   m_highlightTab->apply ();
 
   // sync the hl config for real
-  HlManager::self()->getKConfig()->sync ();
+  KateHlManager::self()->getKConfig()->sync ();
 }
 
 void KateSchemaConfigPage::reload()

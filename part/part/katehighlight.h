@@ -18,8 +18,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KATE_HIGHLIGHT_H_
-#define _KATE_HIGHLIGHT_H_
+#ifndef __KATE_HIGHLIGHT_H__
+#define __KATE_HIGHLIGHT_H__
 
 #include "katetextline.h"
 #include "kateattribute.h"
@@ -202,17 +202,17 @@ class Highlight
     inline bool allowsFolding(){return folding;}
 };
 
-class HlManager : public QObject
+class KateHlManager : public QObject
 {
   Q_OBJECT
   
   private:
-    HlManager();
+    KateHlManager();
     
   public:
-    ~HlManager();
+    ~KateHlManager();
 
-    static HlManager *self();
+    static KateHlManager *self();
     
     inline KConfig *getKConfig() { return &m_config; };
     
@@ -249,7 +249,7 @@ class HlManager : public QObject
     QPtrList<Highlight> hlList;
     QDict<Highlight> hlDict;
 
-    static HlManager *s_self;
+    static KateHlManager *s_self;
     
     KConfig m_config;
     QStringList commonSuffixes;

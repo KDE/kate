@@ -17,8 +17,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KATE_BUFFER_H_
-#define _KATE_BUFFER_H_
+#ifndef __KATE_BUFFER_H__
+#define __KATE_BUFFER_H__
 
 #include "katetextline.h"
 #include "katecodefoldinghelpers.h"

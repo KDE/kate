@@ -92,13 +92,13 @@ class KateConfigPage : public Kate::ConfigPage
     bool m_changed;
 };
 
-class SpellConfigPage : public KateConfigPage
+class KateSpellConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    SpellConfigPage( QWidget* parent );
-    ~SpellConfigPage() {};
+    KateSpellConfigPage( QWidget* parent );
+    ~KateSpellConfigPage() {};
 
     void apply();
     void reset () { ; };
@@ -108,13 +108,13 @@ class SpellConfigPage : public KateConfigPage
     KSpellConfig *cPage;
 };
 
-class GotoLineDialog : public KDialogBase
+class KateGotoLineDialog : public KDialogBase
 {
   Q_OBJECT
 
   public:
 
-    GotoLineDialog(QWidget *parent, int line, int max);
+    KateGotoLineDialog(QWidget *parent, int line, int max);
     int getLine();
 
   protected:
@@ -123,12 +123,12 @@ class GotoLineDialog : public KDialogBase
     QPushButton *btnOK;
 };
 
-class IndentConfigTab : public KateConfigPage
+class KateIndentConfigTab : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    IndentConfigTab(QWidget *parent);
+    KateIndentConfigTab(QWidget *parent);
 
   protected slots:
     void spacesToggled();
@@ -148,12 +148,12 @@ class IndentConfigTab : public KateConfigPage
     void defaults () {};
 };
 
-class SelectConfigTab : public KateConfigPage
+class KateSelectConfigTab : public KateConfigPage
 {
   Q_OBJECT
   
   public:
-    SelectConfigTab(QWidget *parent);
+    KateSelectConfigTab(QWidget *parent);
 
   protected:
     QButtonGroup *m_tabs;
@@ -165,12 +165,12 @@ class SelectConfigTab : public KateConfigPage
     void defaults () {};
 };
 
-class EditConfigTab : public KateConfigPage
+class KateEditConfigTab : public KateConfigPage
 {
     Q_OBJECT
 
   public:
-    EditConfigTab(QWidget *parent);
+    KateEditConfigTab(QWidget *parent);
 
   protected:
     enum { numFlags = 5 };
@@ -191,13 +191,13 @@ class EditConfigTab : public KateConfigPage
     void defaults () {};
 };
 
-class ViewDefaultsConfig : public KateConfigPage
+class KateViewDefaultsConfig : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    ViewDefaultsConfig( QWidget *parent );
-    ~ViewDefaultsConfig();
+    KateViewDefaultsConfig( QWidget *parent );
+    ~KateViewDefaultsConfig();
   
   private:
     QCheckBox *m_line;
@@ -218,12 +218,12 @@ class ViewDefaultsConfig : public KateConfigPage
   void defaults ();
 };
 
-class EditKeyConfiguration: public KateConfigPage
+class KateEditKeyConfiguration: public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    EditKeyConfiguration( QWidget* parent, KateDocument* doc );
+    KateEditKeyConfiguration( QWidget* parent, KateDocument* doc );
 
   public slots:
     void apply();
@@ -240,11 +240,11 @@ class EditKeyConfiguration: public KateConfigPage
     KKeyChooser* m_keyChooser;
 };
 
-class SaveConfigTab : public KateConfigPage
+class KateSaveConfigTab : public KateConfigPage
 {
   Q_OBJECT
   public:
-  SaveConfigTab( QWidget *parent );
+  KateSaveConfigTab( QWidget *parent );
 
   public slots:
   void apply();
@@ -277,13 +277,13 @@ class KatePartPluginListView : public KListView
     void stateChanged(KatePartPluginListItem *, bool);
 };
 
-class PluginConfigPage : public KateConfigPage
+class KatePartPluginConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    PluginConfigPage (QWidget *parent);
-    ~PluginConfigPage ();
+    KatePartPluginConfigPage (QWidget *parent);
+    ~KatePartPluginConfigPage ();
 
   public slots:
     void apply ();
@@ -303,14 +303,14 @@ class PluginConfigPage : public KateConfigPage
    Mime types is presented in a list view, with name, comment and patterns columns.
    Added by anders, jan 23, 2002
 */
-class KMimeTypeChooser : public QVBox
+class KateMimeTypeChooser : public QVBox
 {
   Q_OBJECT
   
   public:
-    KMimeTypeChooser( QWidget *parent=0, const QString& text=QString::null, const QStringList &selectedMimeTypes=0,
+    KateMimeTypeChooser( QWidget *parent=0, const QString& text=QString::null, const QStringList &selectedMimeTypes=0,
                       bool editbutton=true, bool showcomment=true, bool showpattern=true );
-    ~KMimeTypeChooser() {};
+    ~KateMimeTypeChooser() {};
     QStringList selectedMimeTypesStringList();
     QStringList patterns();
 
@@ -336,29 +336,29 @@ class KMimeTypeChooser : public QVBox
    @param showpatterns If this is true, a column displaying the mimetype's patterns will be added to the list view.
    Added by anders, dec 19, 2001
 */
-class KMimeTypeChooserDlg : public KDialogBase
+class KateMimeTypeChooserDlg : public KDialogBase
 {
   public:
-    KMimeTypeChooserDlg( QWidget *parent=0,
+    KateMimeTypeChooserDlg( QWidget *parent=0,
                          const QString &caption=QString::null, const QString& text=QString::null,
                          const QStringList &selectedMimeTypes=QStringList(),
                          bool editbutton=true, bool showcomment=true, bool showpatterns=true );
-    ~KMimeTypeChooserDlg();
+    ~KateMimeTypeChooserDlg();
 
     QStringList mimeTypes();
     QStringList patterns();
 
   private:
-    KMimeTypeChooser *chooser;
+    KateMimeTypeChooser *chooser;
 };
 
-class HlConfigPage : public KateConfigPage
+class KateHlConfigPage : public KateConfigPage
 {
   Q_OBJECT
 
   public:
-    HlConfigPage (QWidget *parent);
-    ~HlConfigPage ();
+    KateHlConfigPage (QWidget *parent);
+    ~KateHlConfigPage ();
 
   public slots:
     void apply ();
@@ -383,13 +383,13 @@ class HlConfigPage : public KateConfigPage
     HlData *hlData;
 };
 
-class HlDownloadDialog: public KDialogBase
+class KateHlDownloadDialog: public KDialogBase
 {
   Q_OBJECT
 
   public:
-    HlDownloadDialog(QWidget *parent, const char *name, bool modal);
-    ~HlDownloadDialog();
+    KateHlDownloadDialog(QWidget *parent, const char *name, bool modal);
+    ~KateHlDownloadDialog();
 
   private:
     class QListView  *list;

@@ -19,8 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef KATERENDERER_H
-#define KATERENDERER_H
+#ifndef __KATE_RENDERER_H__
+#define __KATE_RENDERER_H__
 
 #include "katecursor.h"
 #include "kateattribute.h"

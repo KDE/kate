@@ -204,7 +204,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
 
   // if the user changes the highlight with the dialog, notify the doc
-  connect(HlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
+  connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
 
   // signal for the arbitrary HL
   connect(m_arbitraryHL, SIGNAL(tagLines(KateView*, KateSuperRange*)), SLOT(tagArbitraryLines(KateView*, KateSuperRange*)));
@@ -411,10 +411,10 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
       return hlConfigPage (parent);
 
     case 9:
-      return new SpellConfigPage (parent);
+      return new KateSpellConfigPage (parent);
 
     case 10:
-      return new PluginConfigPage (parent);
+      return new KatePartPluginConfigPage (parent);
 
     case 8:
       return new KateFileTypeConfigTab (parent);
@@ -1901,7 +1901,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 uint KateDocument::hlMode ()
 {
-  return HlManager::self()->findHl(m_highlight);
+  return KateHlManager::self()->findHl(m_highlight);
 }
 
 bool KateDocument::setHlMode (uint mode)
@@ -1917,7 +1917,7 @@ bool KateDocument::setHlMode (uint mode)
 
 bool KateDocument::internalSetHlMode (uint mode)
 {
-   Highlight *h = HlManager::self()->getHl(mode);
+   Highlight *h = KateHlManager::self()->getHl(mode);
    
    // aha, hl will change
    if (h != m_highlight)
@@ -1943,17 +1943,17 @@ bool KateDocument::internalSetHlMode (uint mode)
 
 uint KateDocument::hlModeCount ()
 {
-  return HlManager::self()->highlights();
+  return KateHlManager::self()->highlights();
 }
 
 QString KateDocument::hlModeName (uint mode)
 {
-  return HlManager::self()->hlName (mode);
+  return KateHlManager::self()->hlName (mode);
 }
 
 QString KateDocument::hlModeSectionName (uint mode)
 {
-  return HlManager::self()->hlSection (mode);
+  return KateHlManager::self()->hlSection (mode);
 }
 
 void KateDocument::setDontChangeHlOnSave()
@@ -2015,7 +2015,7 @@ void KateDocument::readSessionConfig(KConfig *config)
     openURL (url);
 
   // restore the hl stuff
-  internalSetHlMode(HlManager::self()->nameFind(config->readEntry("Highlighting")));
+  internalSetHlMode(KateHlManager::self()->nameFind(config->readEntry("Highlighting")));
 
   if (hlMode() > 0)
     hlSetByUser = true;
@@ -2454,7 +2454,7 @@ bool KateDocument::openFile(KIO::Job * job)
     // update our hl type if needed
     if (!hlSetByUser)
     {
-      int hl (HlManager::self()->detectHighlighting (this));
+      int hl (KateHlManager::self()->detectHighlighting (this));
 
       if (hl >= 0)
         internalSetHlMode(hl);
@@ -2587,7 +2587,7 @@ bool KateDocument::saveFile()
     // update our hl type if needed
     if (!hlSetByUser)
     {
-      int hl (HlManager::self()->detectHighlighting (this));
+      int hl (KateHlManager::self()->detectHighlighting (this));
       
       if (hl >= 0)
         internalSetHlMode(hl);
@@ -4341,7 +4341,7 @@ Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new ViewDefaultsConfig(p);
+  return (Kate::ConfigPage*) new KateViewDefaultsConfig(p);
 }
 
 Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
@@ -4351,32 +4351,32 @@ Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::indentConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new IndentConfigTab(p);
+  return (Kate::ConfigPage*) new KateIndentConfigTab(p);
 }
 
 Kate::ConfigPage *KateDocument::selectConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new SelectConfigTab(p);
+  return (Kate::ConfigPage*) new KateSelectConfigTab(p);
 }
 
 Kate::ConfigPage *KateDocument::editConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new EditConfigTab(p);
+  return (Kate::ConfigPage*) new KateEditConfigTab(p);
 }
 
 Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new EditKeyConfiguration(p, this);
+  return (Kate::ConfigPage*) new KateEditKeyConfiguration(p, this);
 }
 
 Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new HlConfigPage (p);
+  return (Kate::ConfigPage*) new KateHlConfigPage (p);
 }
 
 Kate::ConfigPage *KateDocument::saveConfigPage(QWidget *p)
 {
-  return (Kate::ConfigPage*) new SaveConfigTab(p);
+  return (Kate::ConfigPage*) new KateSaveConfigTab(p);
 }
 
 Kate::ActionMenu *KateDocument::hlActionMenu (const QString& text, QObject* parent, const char* name)

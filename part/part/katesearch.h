@@ -19,8 +19,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KATE_SEARCH_H_
-#define _KATE_SEARCH_H_
+#ifndef __KATE_SEARCH_H__
+#define __KATE_SEARCH_H__
 
 #include "katecursor.h"
 

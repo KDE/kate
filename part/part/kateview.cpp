@@ -858,9 +858,7 @@ void KateView::slotSaveCanceled( const QString& error )
 
 void KateView::gotoLine()
 {
-  GotoLineDialog *dlg;
-
-  dlg = new GotoLineDialog(this, m_viewInternal->getCursor().line() + 1, m_doc->numLines());
+  KateGotoLineDialog *dlg = new KateGotoLineDialog (this, m_viewInternal->getCursor().line() + 1, m_doc->numLines());
 
   if (dlg->exec() == QDialog::Accepted)
     gotoLineNumber( dlg->getLine() - 1 );

@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef KATEATTRIBUTE_H
-#define KATEATTRIBUTE_H
+#ifndef __KATE_ATTRIBUTE_H__
+#define __KATE_ATTRIBUTE_H__
 
 #include "katefont.h"
 

@@ -134,7 +134,7 @@ void KateConfigPage::somethingHasChanged ()
   kdDebug (13000) << "TEST: something changed on the config page: " << this << endl;
 }
 
-SpellConfigPage::SpellConfigPage( QWidget* parent )
+KateSpellConfigPage::KateSpellConfigPage( QWidget* parent )
   : KateConfigPage( parent)
 {
   QVBoxLayout* l = new QVBoxLayout( this );
@@ -143,7 +143,7 @@ SpellConfigPage::SpellConfigPage( QWidget* parent )
   connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
 }
 
-void SpellConfigPage::apply ()
+void KateSpellConfigPage::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -153,11 +153,11 @@ void SpellConfigPage::apply ()
   cPage->writeGlobalSettings ();
 }
 
-//BEGIN IndentConfigTab
-const int IndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::cfSpaceIndent,
+//BEGIN KateIndentConfigTab
+const int KateIndentConfigTab::flags[] = {KateDocument::cfAutoIndent, KateDocument::cfSpaceIndent,
   KateDocument::cfBackspaceIndents,KateDocument::cfTabIndents, KateDocument::cfKeepIndentProfile, KateDocument::cfKeepExtraSpaces};
 
-IndentConfigTab::IndentConfigTab(QWidget *parent)
+KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
@@ -248,11 +248,11 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
   connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
-void IndentConfigTab::spacesToggled() {
+void KateIndentConfigTab::spacesToggled() {
   indentationWidth->setEnabled(opt[1]->isChecked());
 }
 
-void IndentConfigTab::apply ()
+void KateIndentConfigTab::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -279,7 +279,7 @@ void IndentConfigTab::apply ()
   KateDocumentConfig::global()->configEnd ();
 }
 
-void IndentConfigTab::reload ()
+void KateIndentConfigTab::reload ()
 {
   if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabIndentsMode)
     m_tabs->setButton (2);
@@ -292,10 +292,10 @@ void IndentConfigTab::reload ()
 
   spacesToggled ();
 }
-//END IndentConfigTab
+//END KateIndentConfigTab
 
-//BEGIN SelectConfigTab
-SelectConfigTab::SelectConfigTab(QWidget *parent)
+//BEGIN KateSelectConfigTab
+KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
@@ -325,7 +325,7 @@ SelectConfigTab::SelectConfigTab(QWidget *parent)
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
-void SelectConfigTab::apply ()
+void KateSelectConfigTab::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -345,20 +345,20 @@ void SelectConfigTab::apply ()
   KateDocumentConfig::global()->configEnd ();
 }
 
-void SelectConfigTab::reload ()
+void KateSelectConfigTab::reload ()
 {
   if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfPersistent)
     m_tabs->setButton (1);
   else
     m_tabs->setButton (0);
 }
-//END SelectConfigTab
+//END KateSelectConfigTab
 
-//BEGIN EditConfigTab
-const int EditConfigTab::flags[] = {KateDocument::cfWordWrap,
+//BEGIN KateEditConfigTab
+const int KateEditConfigTab::flags[] = {KateDocument::cfWordWrap,
   KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
 
-EditConfigTab::EditConfigTab(QWidget *parent)
+KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
@@ -476,7 +476,7 @@ EditConfigTab::EditConfigTab(QWidget *parent)
   QWhatsThis::add(e5, gstfwt);
 }
 
-void EditConfigTab::apply ()
+void KateEditConfigTab::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -511,14 +511,14 @@ void EditConfigTab::apply ()
   KateViewConfig::global()->configEnd ();
 }
 
-void EditConfigTab::reload ()
+void KateEditConfigTab::reload ()
 {
 
 }
-//END EditConfigTab
+//END KateEditConfigTab
 
-//BEGIN ViewDefaultsConfig
-ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
+//BEGIN KateViewDefaultsConfig
+KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   :KateConfigPage(parent)
 {
   QRadioButton *rb1;
@@ -609,11 +609,11 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
-ViewDefaultsConfig::~ViewDefaultsConfig()
+KateViewDefaultsConfig::~KateViewDefaultsConfig()
 {
 }
 
-void ViewDefaultsConfig::apply ()
+void KateViewDefaultsConfig::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -635,7 +635,7 @@ void ViewDefaultsConfig::apply ()
   KateViewConfig::global()->configEnd ();
 }
 
-void ViewDefaultsConfig::reload ()
+void KateViewDefaultsConfig::reload ()
 {
   m_dynwrap->setChecked(KateViewConfig::global()->dynWordWrap());
   m_dynwrapIndicatorsCombo->setCurrentItem( KateViewConfig::global()->dynWordWrapIndicators() );
@@ -647,21 +647,21 @@ void ViewDefaultsConfig::reload ()
   m_bmSort->setButton( KateViewConfig::global()->bookmarkSort()  );
 }
 
-void ViewDefaultsConfig::reset () {;}
+void KateViewDefaultsConfig::reset () {;}
 
-void ViewDefaultsConfig::defaults (){;}
-//END ViewDefaultsConfig
+void KateViewDefaultsConfig::defaults (){;}
+//END KateViewDefaultsConfig
 
-//BEGIN EditKeyConfiguration
+//BEGIN KateEditKeyConfiguration
 
-EditKeyConfiguration::EditKeyConfiguration( QWidget* parent, KateDocument* doc )
+KateEditKeyConfiguration::KateEditKeyConfiguration( QWidget* parent, KateDocument* doc )
   : KateConfigPage( parent )
 {
   m_doc = doc;
   m_ready = false;
 }
 
-void EditKeyConfiguration::showEvent ( QShowEvent * )
+void KateEditKeyConfiguration::showEvent ( QShowEvent * )
 {
   if (!m_ready)
   {
@@ -677,17 +677,17 @@ void EditKeyConfiguration::showEvent ( QShowEvent * )
   QWidget::show ();
 }
 
-void EditKeyConfiguration::apply()
+void KateEditKeyConfiguration::apply()
 {
   if (m_ready)
   {
     m_keyChooser->save();
   }
 }
-//END EditKeyConfiguration
+//END KateEditKeyConfiguration
 
-//BEGIN SaveConfigTab
-SaveConfigTab::SaveConfigTab( QWidget *parent )
+//BEGIN KateSaveConfigTab
+KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   : KateConfigPage( parent )
 {
   int configFlags = KateDocumentConfig::global()->configFlags();
@@ -761,7 +761,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent )
   connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 }
 
-void SaveConfigTab::apply()
+void KateSaveConfigTab::apply()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -804,7 +804,7 @@ void SaveConfigTab::apply()
   KateDocumentConfig::global()->configEnd ();
 }
 
-void SaveConfigTab::reload()
+void KateSaveConfigTab::reload()
 {
   // encoding
   m_encoding->clear ();
@@ -838,18 +838,18 @@ void SaveConfigTab::reload()
   leBuSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
 }
 
-void SaveConfigTab::reset()
+void KateSaveConfigTab::reset()
 {
 }
 
-void SaveConfigTab::defaults()
+void KateSaveConfigTab::defaults()
 {
   cbLocalFiles->setChecked( true );
   cbRemoteFiles->setChecked( false );
   leBuSuffix->setText( "~" );
 }
 
-//END SaveConfigTab
+//END KateSaveConfigTab
 
 //BEGIN PluginListItem
 class KatePartPluginListItem : public QCheckListItem
@@ -895,8 +895,8 @@ void KatePartPluginListView::stateChanged(KatePartPluginListItem *item, bool b)
 }
 //END
 
-//BEGIN PluginConfigPage
-PluginConfigPage::PluginConfigPage (QWidget *parent) : KateConfigPage (parent, "")
+//BEGIN KatePartPluginConfigPage
+KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent) : KateConfigPage (parent, "")
 {
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
@@ -919,11 +919,11 @@ PluginConfigPage::PluginConfigPage (QWidget *parent) : KateConfigPage (parent, "
   connect(listView, SIGNAL(stateChange(KatePartPluginListItem *, bool)), this, SLOT(slotChanged()));
 }
 
-PluginConfigPage::~PluginConfigPage ()
+KatePartPluginConfigPage::~KatePartPluginConfigPage ()
 {
 }
 
-void PluginConfigPage::apply ()
+void KatePartPluginConfigPage::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -938,8 +938,8 @@ void PluginConfigPage::apply ()
 }
 //END
 
-//BEGIN HlConfigPage
-HlConfigPage::HlConfigPage (QWidget *parent)
+//BEGIN KateHlConfigPage
+KateHlConfigPage::KateHlConfigPage (QWidget *parent)
  : KateConfigPage (parent, "")
  , hlData (0)
 {
@@ -956,11 +956,11 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   connect( hlCombo, SIGNAL(activated(int)),
            this, SLOT(hlChanged(int)) );
 
-  for( int i = 0; i < HlManager::self()->highlights(); i++) {
-    if (HlManager::self()->hlSection(i).length() > 0)
-      hlCombo->insertItem(HlManager::self()->hlSection(i) + QString ("/") + HlManager::self()->hlName(i));
+  for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
+    if (KateHlManager::self()->hlSection(i).length() > 0)
+      hlCombo->insertItem(KateHlManager::self()->hlSection(i) + QString ("/") + KateHlManager::self()->hlName(i));
     else
-      hlCombo->insertItem(HlManager::self()->hlName(i));
+      hlCombo->insertItem(KateHlManager::self()->hlName(i));
   }
   hlCombo->setCurrentItem(0);
 
@@ -1013,11 +1013,11 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
 }
 
-HlConfigPage::~HlConfigPage ()
+KateHlConfigPage::~KateHlConfigPage ()
 {
 }
 
-void HlConfigPage::apply ()
+void KateHlConfigPage::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!changed())
@@ -1026,21 +1026,21 @@ void HlConfigPage::apply ()
   writeback();
 
   for ( QIntDictIterator<HlData> it( hlDataDict ); it.current(); ++it )
-    HlManager::self()->getHl( it.currentKey() )->setData( it.current() );
+    KateHlManager::self()->getHl( it.currentKey() )->setData( it.current() );
 
-  HlManager::self()->getKConfig()->sync ();
+  KateHlManager::self()->getKConfig()->sync ();
 }
 
-void HlConfigPage::reload ()
+void KateHlConfigPage::reload ()
 {
 }
 
-void HlConfigPage::hlChanged(int z)
+void KateHlConfigPage::hlChanged(int z)
 {
   writeback();
 
   if ( ! hlDataDict.find( z ) )
-    hlDataDict.insert( z, HlManager::self()->getHl( z )->getData() );
+    hlDataDict.insert( z, KateHlManager::self()->getHl( z )->getData() );
 
   hlData = hlDataDict.find( z );
   wildcards->setText(hlData->wildcards);
@@ -1048,7 +1048,7 @@ void HlConfigPage::hlChanged(int z)
   priority->setValue(hlData->priority);
 }
 
-void HlConfigPage::writeback()
+void KateHlConfigPage::writeback()
 {
   if (hlData)
   {
@@ -1058,17 +1058,17 @@ void HlConfigPage::writeback()
   }
 }
 
-void HlConfigPage::hlDownload()
+void KateHlConfigPage::hlDownload()
 {
-  HlDownloadDialog diag(this,"hlDownload",true);
+  KateHlDownloadDialog diag(this,"hlDownload",true);
   diag.exec();
 }
 
-void HlConfigPage::showMTDlg()
+void KateHlConfigPage::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.").arg( hlCombo->currentText() );
   QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
-  KMimeTypeChooserDlg *d = new KMimeTypeChooserDlg( this, i18n("Select Mime Types"), text, list );
+  KateMimeTypeChooserDlg *d = new KateMimeTypeChooserDlg( this, i18n("Select Mime Types"), text, list );
 
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
@@ -1077,13 +1077,13 @@ void HlConfigPage::showMTDlg()
     mimetypes->setText(d->mimeTypes().join(";"));
   }
 }
-//END HlConfigPage
+//END KateHlConfigPage
 
-//BEGIN KMimeTypeChooser
+//BEGIN KateMimeTypeChooser
 /*********************************************************************/
-/*               KMimeTypeChooser Implementation                     */
+/*               KateMimeTypeChooser Implementation                     */
 /*********************************************************************/
-KMimeTypeChooser::KMimeTypeChooser( QWidget *parent, const QString &text, const QStringList &selectedMimeTypes, bool editbutton, bool showcomment, bool showpatterns)
+KateMimeTypeChooser::KateMimeTypeChooser( QWidget *parent, const QString &text, const QStringList &selectedMimeTypes, bool editbutton, bool showcomment, bool showpatterns)
     : QVBox( parent )
 {
   setSpacing( KDialogBase::spacingHint() );
@@ -1161,7 +1161,7 @@ KMimeTypeChooser::KMimeTypeChooser( QWidget *parent, const QString &text, const 
   }
 }
 
-void KMimeTypeChooser::editMimeType()
+void KateMimeTypeChooser::editMimeType()
 {
   if ( !(lvMimeTypes->currentItem() && (lvMimeTypes->currentItem())->parent()) ) return;
   QString mt = (lvMimeTypes->currentItem()->parent())->text( 0 ) + "/" + (lvMimeTypes->currentItem())->text( 0 );
@@ -1171,12 +1171,12 @@ void KMimeTypeChooser::editMimeType()
                     keditfiletype, keditfiletype /*unused*/);
 }
 
-void KMimeTypeChooser::slotCurrentChanged(QListViewItem* i)
+void KateMimeTypeChooser::slotCurrentChanged(QListViewItem* i)
 {
   btnEditMimeType->setEnabled( i->parent() );
 }
 
-QStringList KMimeTypeChooser::selectedMimeTypesStringList()
+QStringList KateMimeTypeChooser::selectedMimeTypesStringList()
 {
   QStringList l;
   QListViewItemIterator it( lvMimeTypes );
@@ -1187,7 +1187,7 @@ QStringList KMimeTypeChooser::selectedMimeTypesStringList()
   return l;
 }
 
-QStringList KMimeTypeChooser::patterns()
+QStringList KateMimeTypeChooser::patterns()
 {
   QStringList l;
   KMimeType::Ptr p;
@@ -1204,11 +1204,11 @@ QStringList KMimeTypeChooser::patterns()
 }
 //END
 
-//BEGIN KMimeTypeChooserDlg
+//BEGIN KateMimeTypeChooserDlg
 /*********************************************************************/
-/*               KMimeTypeChooserDlg Implementation                  */
+/*               KateMimeTypeChooserDlg Implementation                  */
 /*********************************************************************/
-KMimeTypeChooserDlg::KMimeTypeChooserDlg(QWidget *parent,
+KateMimeTypeChooserDlg::KateMimeTypeChooserDlg(QWidget *parent,
                          const QString &caption, const QString& text,
                          const QStringList &selectedMimeTypes,
                          bool editbutton, bool showcomment, bool showpatterns )
@@ -1216,32 +1216,32 @@ KMimeTypeChooserDlg::KMimeTypeChooserDlg(QWidget *parent,
 {
   KConfig *config = kapp->config();
 
-  chooser = new KMimeTypeChooser( this, text, selectedMimeTypes, editbutton, showcomment, showpatterns);
+  chooser = new KateMimeTypeChooser( this, text, selectedMimeTypes, editbutton, showcomment, showpatterns);
   setMainWidget(chooser);
 
-  config->setGroup("KMimeTypeChooserDlg");
+  config->setGroup("KateMimeTypeChooserDlg");
   resize( config->readSizeEntry("size", new QSize(400,300)) );
 }
 
-KMimeTypeChooserDlg::~KMimeTypeChooserDlg()
+KateMimeTypeChooserDlg::~KateMimeTypeChooserDlg()
 {
   KConfig *config = kapp->config();
-  config->setGroup("KMimeTypeChooserDlg");
+  config->setGroup("KateMimeTypeChooserDlg");
   config->writeEntry("size", size());
 }
 
-QStringList KMimeTypeChooserDlg::mimeTypes()
+QStringList KateMimeTypeChooserDlg::mimeTypes()
 {
   return chooser->selectedMimeTypesStringList();
 }
 
-QStringList KMimeTypeChooserDlg::patterns()
+QStringList KateMimeTypeChooserDlg::patterns()
 {
   return chooser->patterns();
 }
 //END
 
-HlDownloadDialog::HlDownloadDialog(QWidget *parent, const char *name, bool modal)
+KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
   :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("&Install"))
 {
   setMainWidget( list=new QListView(this));
@@ -1257,9 +1257,9 @@ HlDownloadDialog::HlDownloadDialog(QWidget *parent, const char *name, bool modal
 
 }
 
-HlDownloadDialog::~HlDownloadDialog(){}
+KateHlDownloadDialog::~KateHlDownloadDialog(){}
 
-void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
+void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 {
   listData+=QString(data);
   kdDebug(13000)<<QString("CurrentListData: ")<<listData<<endl<<endl;
@@ -1270,7 +1270,7 @@ void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
     if (listData.length()>0)
     {
       QString installedVersion;
-      HlManager *hlm=HlManager::self();
+      KateHlManager *hlm=KateHlManager::self();
       QDomDocument doc;
       doc.setContent(listData);
       QDomElement DocElem=doc.documentElement();
@@ -1305,7 +1305,7 @@ void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
   }
 }
 
-void HlDownloadDialog::slotUser1()
+void KateHlDownloadDialog::slotUser1()
 {
   QString destdir=KGlobal::dirs()->saveLocation("data","katepart/syntax/");
   for (QListViewItem *it=list->firstChild();it;it=it->nextSibling())
@@ -1324,8 +1324,8 @@ void HlDownloadDialog::slotUser1()
   SyntaxDocument doc (true);
 }
 
-//BEGIN GotoLineDialog
-GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
+//BEGIN KateGotoLineDialog
+KateGotoLineDialog::KateGotoLineDialog(QWidget *parent, int line, int max)
   : KDialogBase(parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
 
   QWidget *page = new QWidget(this);
@@ -1344,9 +1344,9 @@ GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
   e1->setFocus();
 }
 
-int GotoLineDialog::getLine() {
+int KateGotoLineDialog::getLine() {
   return e1->value();
 }
-//END GotoLineDialog
+//END KateGotoLineDialog
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -4667,9 +4667,14 @@ void KateDocument::setMTime()
 
 void KateDocument::isModOnHD(bool forceReload)
 {
-  if (fileInfo && !fileInfo->fileName().isEmpty()) {
+  if (fileInfo && !fileInfo->fileName().isEmpty())
+  {
     fileInfo->refresh();
-    if (fileInfo->lastModified() != mTime) {
+
+    if (fileInfo->lastModified() != mTime)
+    {
+      setMTime();
+
       if ( forceReload ||
            (KMessageBox::warningYesNo(0,
                (i18n("The file %1 has changed on disk.\nDo you want to reload the modified file?\n\nIf you choose Discard and subsequently save the file, you will lose those modifications.")).arg(url().fileName()),
@@ -4678,8 +4683,6 @@ void KateDocument::isModOnHD(bool forceReload)
                KStdGuiItem::discard() ) == KMessageBox::Yes)
           )
         reloadFile();
-      else
-        setMTime();
     }
   }
 }

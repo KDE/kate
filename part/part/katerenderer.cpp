@@ -282,13 +282,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   uint curCol = startcol;
   uint nextCol = curCol + 1;
 
-  // or we will see no text ;)
-  int y = fs->fontAscent;
-
-  // painting loop
-  uint xPos = range->xOffset();
-  uint xPosAfter = xPos;
-
   // text attribs font/style data
   KateAttribute* attr = m_doc->m_highlight->attributes(m_schema)->data();
   uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
@@ -315,6 +308,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       QBrush(config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
   }
 
+  // painting loop
+  uint xPos = range->xOffset();
   int cursorXPos = 0;
 
   // Optimisation to quickly draw an empty line of text
@@ -341,6 +336,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     KateAttribute* oldAt = &attr[0];
 
     uint oldXPos = xPos;
+    uint xPosAfter = xPos;
 
     KateAttribute currentHL;
 
@@ -489,6 +485,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
               paint.setPen( m_view->colorGroup().color( QColorGroup::BrightText ) );
             }
           }
+
+          // or we will see no text ;)
+          int y = fs->fontAscent;
 
           // make sure we redraw the right character groups on attrib/selection changes
           // Special case... de-special case some of it

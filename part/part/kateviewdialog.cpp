@@ -566,7 +566,7 @@ ColorConfig::ColorConfig( QWidget *parent, char *name, KateDocument *doc )
 
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
-  QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the &quot;<b>Configure Highlighting</b>&quot; dialog."));
+  QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the \"<b>Configure Highlighting</b>\" dialog."));
 
   reload ();
 }

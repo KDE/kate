@@ -1,0 +1,375 @@
+<?xml version="1.02" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Andrea Primiani - primiani at dag dot it
+ 	version1.0 - 14 august 2004 -->
+<language name="LilyPond" section="Other" extensions="*.ly;*.LY" mimetype="" casesensitive="true" author="Andrea Primiani (primiani@dag.it)" license="LGPL" version="1.0" kateversion="2.3">
+    <highlighting>
+<!-- repeat keywords -->
+    <list name="repeats">
+      <item> \repeat </item>
+      <item> volta </item>
+      <item> unfold </item>
+      <item> "tremolo" </item>
+      <item> "percent" </item>
+      <item> \alternative </item>
+    </list>
+<!-- header keywords -->
+        <list name="commands">
+	    <item> \clef </item>
+	    <item> \key </item>
+	    <item> \tempo </item>
+	    <item> \time </item>
+	</list>
+	<contexts>
+           <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+	   	   <keyword attribute="Repeat" context="#stay" String="repeats" />
+		   <keyword attribute="Keyword" context="Keyword" String="commands" lineEndContext="#pop"/>
+<!-- detects all keywords and pre-defined variables -->
+		<StringDetect attribute="Keyword" context="#stay" String="\addquote" />
+		<StringDetect attribute="Keyword" context="#stay" String="\aeolian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\applymusic" />
+		<StringDetect attribute="Keyword" context="#stay" String="\applyoutput" />
+		<StringDetect attribute="Keyword" context="#stay" String="\autochange" />
+		<StringDetect attribute="Keyword" context="#stay" String="\bar" />
+		<StringDetect attribute="Keyword" context="#stay" String="\bold" />
+		<StringDetect attribute="Keyword" context="#stay" String="\bookpaper" />
+		<StringDetect attribute="Keyword" context="#stay" String="\book" />
+		<StringDetect attribute="Keyword" context="#stay" String="\breathe" />
+		<StringDetect attribute="Keyword" context="#stay" String="\breve " />
+		<StringDetect attribute="Keyword" context="#stay" String="\cadenzaOff" />
+		<StringDetect attribute="Keyword" context="#stay" String="\cadenzaOn" />
+		<StringDetect attribute="Keyword" context="#stay" String="\change" />
+		<StringDetect attribute="Keyword" context="#stay" String="\chords" />
+		<StringDetect attribute="Keyword" context="#stay" String="\column" />
+		<StringDetect attribute="Keyword" context="#stay" String="\consists" />
+		<StringDetect attribute="Keyword" context="#stay" String="\context" />
+		<StringDetect attribute="Keyword" context="#stay" String="\default" />
+		<StringDetect attribute="Keyword" context="#stay" String="\dorian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\dotsBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\dotsDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\dotsUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\drums"/>
+		<StringDetect attribute="Keyword" context="#stay" String="\dynamicBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\dynamicDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\dynamicUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\emptyText" />
+		<StringDetect attribute="Keyword" context="#stay" String="\fatText" />
+		<StringDetect attribute="Keyword" context="#stay" String="\figures" />
+		<StringDetect attribute="Keyword" context="#stay" String="\finger" />
+		<StringDetect attribute="Keyword" context="#stay" String="\flat" />
+		<StringDetect attribute="Keyword" context="#stay" String="\germanChords" />
+		<StringDetect attribute="Keyword" context="#stay" String="\include" />
+		<StringDetect attribute="Keyword" context="#stay" String="\input" />
+		<StringDetect attribute="Keyword" context="#stay" String="\italic" />
+		<StringDetect attribute="Keyword" context="#stay" String="\ionian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\locrian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\longa" />
+		<StringDetect attribute="Keyword" context="#stay" String="\lydian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\lyricsto" />
+		<StringDetect attribute="Keyword" context="#stay" String="\major" />
+		<StringDetect attribute="Keyword" context="#stay" String="\mark" />
+		<StringDetect attribute="Keyword" context="#stay" String="\markup" />
+		<StringDetect attribute="Keyword" context="#stay" String="\midi" />
+		<StringDetect attribute="Keyword" context="#stay" String="\minor" />
+		<StringDetect attribute="Keyword" context="#stay" String="\mixolydian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\musicglyph" />
+		<StringDetect attribute="Keyword" context="#stay" String="\newlyrics" />
+		<StringDetect attribute="Keyword" context="#stay" String="\new" />
+		<StringDetect attribute="Keyword" context="#stay" String="\noBeam" />
+		<StringDetect attribute="Keyword" context="#stay" String="\notes"/>
+		<StringDetect attribute="Keyword" context="#stay" String="\octave" />
+		<StringDetect attribute="Keyword" context="#stay" String="\once" />
+		<StringDetect attribute="Keyword" context="#stay" String="\oneVoice" />
+		<StringDetect attribute="Keyword" context="#stay" String="\override" />
+		<StringDetect attribute="Keyword" context="#stay" String="\pageBreak" />
+		<StringDetect attribute="Keyword" context="#stay" String="\paper" />
+		<StringDetect attribute="Keyword" context="#stay" String="\partcombine" />
+		<StringDetect attribute="Keyword" context="#stay" String="\partial" />
+		<StringDetect attribute="Keyword" context="#stay" String="\phrasingSlurBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\phrasingSlurDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\phrasingSlurUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\phrigian" />
+		<StringDetect attribute="Keyword" context="#stay" String="\property" />
+		<StringDetect attribute="Keyword" context="#stay" String="\quote" />
+		<StringDetect attribute="Keyword" context="#stay" String="\raise" />
+		<StringDetect attribute="Keyword" context="#stay" String="\relative" />
+		<StringDetect attribute="Keyword" context="#stay" String="\remove" />
+		<StringDetect attribute="Keyword" context="#stay" String="\renameinput" />
+		<StringDetect attribute="Keyword" context="#stay" String="\rest" />
+		<StringDetect attribute="Keyword" context="#stay" String="\revert" />
+		<StringDetect attribute="Keyword" context="#stay" String="\score" />
+		<StringDetect attribute="Keyword" context="#stay" String="\scriptBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\scriptDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\scriptUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\semiGermanChords" />
+		<StringDetect attribute="Keyword" context="#stay" String="\setEasyHeads" />
+		<StringDetect attribute="Keyword" context="#stay" String="\setHairpinCresc" />
+		<StringDetect attribute="Keyword" context="#stay" String="\setTextCresc" />
+		<StringDetect attribute="Keyword" context="#stay" String="\set" />
+		<StringDetect attribute="Keyword" context="#stay" String="\shiftOff" />
+		<StringDetect attribute="Keyword" context="#stay" String="\shiftOnnn" />
+		<StringDetect attribute="Keyword" context="#stay" String="\shiftOnn" />
+		<StringDetect attribute="Keyword" context="#stay" String="\shiftOn" />
+		<StringDetect attribute="Keyword" context="#stay" String="\simultaneous" />
+		<StringDetect attribute="Keyword" context="#stay" String="\skip " />
+		<StringDetect attribute="Keyword" context="#stay" String="\slurBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\slurDotted" />
+		<StringDetect attribute="Keyword" context="#stay" String="\slurDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\slurSolid" />
+		<StringDetect attribute="Keyword" context="#stay" String="\slurUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\smaller" />
+		<StringDetect attribute="Keyword" context="#stay" String="\startGroup" />
+		<StringDetect attribute="Keyword" context="#stay" String="\startTextSpan" />
+		<StringDetect attribute="Keyword" context="#stay" String="\stemBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\stemDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\stemUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\stopGroup" />
+		<StringDetect attribute="Keyword" context="#stay" String="\stopTextSpan" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tag" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tempo" />
+		<StringDetect attribute="Keyword" context="#stay" String="\thumb" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tieBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tieDotted" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tieDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tieSolid" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tieUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\transpose" />
+		<StringDetect attribute="Keyword" context="#stay" String="\transposition" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tupletBoth" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tupletDown" />
+		<StringDetect attribute="Keyword" context="#stay" String="\tupletUp" />
+		<StringDetect attribute="Keyword" context="#stay" String="\typewriter" />
+		<StringDetect attribute="Keyword" context="#stay" String="\voiceFour" />
+		<StringDetect attribute="Keyword" context="#stay" String="\unset" />
+		<StringDetect attribute="Keyword" context="#stay" String="\voiceOne" />
+		<StringDetect attribute="Keyword" context="#stay" String="\voiceThree" />
+		<StringDetect attribute="Keyword" context="#stay" String="\voiceTwo" />
+		<StringDetect attribute="Keyword" context="#stay" String="\with" />
+<!-- decoration keywords -->
+		<StringDetect attribute="Decoration" context="#stay" String="\accento" />
+		<StringDetect attribute="Decoration" context="#stay" String="\acciaccatura" />
+		<StringDetect attribute="Decoration" context="#stay" String="\appoggiatura" />
+		<StringDetect attribute="Decoration" context="#stay" String="\arpeggioBoth" />
+		<StringDetect attribute="Decoration" context="#stay" String="\arpeggioBracket" />
+		<StringDetect attribute="Decoration" context="#stay" String="\arpeggioDown" />
+		<StringDetect attribute="Decoration" context="#stay" String="\arpeggioUp" />
+		<StringDetect attribute="Decoration" context="#stay" String="\arpeggio" />
+		<StringDetect attribute="Decoration" context="#stay" String="\coda" />
+		<StringDetect attribute="Decoration" context="#stay" String="\downbow" />
+		<StringDetect attribute="Decoration" context="#stay" String="\downmordent" />
+		<StringDetect attribute="Decoration" context="#stay" String="\downprall" />
+		<StringDetect attribute="Decoration" context="#stay" String="\fermataMarkup" />
+		<StringDetect attribute="Decoration" context="#stay" String="\fermata" />
+		<StringDetect attribute="Decoration" context="#stay" String="\flageolet" />
+		<StringDetect attribute="Decoration" context="#stay" String="\glissando" />
+		<StringDetect attribute="Decoration" context="#stay" String="\grace" />
+		<StringDetect attribute="Decoration" context="#stay" String="\harmonic" />
+		<StringDetect attribute="Decoration" context="#stay" String="\lheel" />
+		<StringDetect attribute="Decoration" context="#stay" String="\lineprall" />
+		<StringDetect attribute="Decoration" context="#stay" String="\longfermata" />
+		<StringDetect attribute="Decoration" context="#stay" String="\ltoe" />
+		<StringDetect attribute="Decoration" context="#stay" String="\melismaEnd" />
+		<StringDetect attribute="Decoration" context="#stay" String="\melisma" />
+		<StringDetect attribute="Decoration" context="#stay" String="\mordent" />
+		<StringDetect attribute="Decoration" context="#stay" String="\open" />
+		<StringDetect attribute="Decoration" context="#stay" String="\portato" />
+		<StringDetect attribute="Decoration" context="#stay" String="\prall" />
+		<StringDetect attribute="Decoration" context="#stay" String="\pralldown" />
+		<StringDetect attribute="Decoration" context="#stay" String="\prallmordent" />
+		<StringDetect attribute="Decoration" context="#stay" String="\prallprall" />
+		<StringDetect attribute="Decoration" context="#stay" String="\prallup" />
+		<StringDetect attribute="Decoration" context="#stay" String="\reverseturn" />
+		<StringDetect attribute="Decoration" context="#stay" String="\rheel" />
+		<StringDetect attribute="Decoration" context="#stay" String="\rtoe" />
+		<StringDetect attribute="Decoration" context="#stay" String="\segno" />
+		<StringDetect attribute="Decoration" context="#stay" String="\shortfermata" />
+		<StringDetect attribute="Decoration" context="#stay" String="\signumcongruentiae" />
+		<StringDetect attribute="Decoration" context="#stay" String="\sostenutoDown" />
+		<StringDetect attribute="Decoration" context="#stay" String="\sostenutoUp" />
+		<StringDetect attribute="Decoration" context="#stay" String="\staccatissimo" />
+		<StringDetect attribute="Decoration" context="#stay" String="\staccato" />
+		<StringDetect attribute="Decoration" context="#stay" String="\stopped" />
+		<StringDetect attribute="Decoration" context="#stay" String="\sustainDown" />
+		<StringDetect attribute="Decoration" context="#stay" String="\sustainUp" />
+		<StringDetect attribute="Decoration" context="#stay" String="\tenuto" />
+		<StringDetect attribute="Decoration" context="#stay" String="\thumb" />
+		<StringDetect attribute="Decoration" context="#stay" String="\trill" />
+		<StringDetect attribute="Decoration" context="#stay" String="\turn" />
+		<StringDetect attribute="Decoration" context="#stay" String="\upbow" />
+		<StringDetect attribute="Decoration" context="#stay" String="\upmordent" />
+		<StringDetect attribute="Decoration" context="#stay" String="\upprall" />
+		<StringDetect attribute="Decoration" context="#stay" String="\varcoda" />
+		<StringDetect attribute="Decoration" context="#stay" String="\verylongfermata" />
+<!-- drum note keywords -->
+		<StringDetect attribute="Drums" context="#stay" String=" hihat" />
+		<StringDetect attribute="Drums" context="#stay" String=" snaredrum" />
+		<StringDetect attribute="Drums" context="#stay" String=" crashcymbal" />
+		<StringDetect attribute="Drums" context="#stay" String=" openhihat" />
+		<StringDetect attribute="Drums" context="#stay" String=" halfopenhihat" />
+		<StringDetect attribute="Drums" context="#stay" String=" closedhihat" />
+		<StringDetect attribute="Drums" context="#stay" String=" bassdrum" />
+		<StringDetect attribute="Drums" context="#stay" String=" snare" />
+		<StringDetect attribute="Drums" context="#stay" String=" bd" />
+		<StringDetect attribute="Drums" context="#stay" String=" sn" />
+		<StringDetect attribute="Drums" context="#stay" String=" cymc" />
+		<StringDetect attribute="Drums" context="#stay" String=" cyms" />
+		<StringDetect attribute="Drums" context="#stay" String=" cymr" />
+		<StringDetect attribute="Drums" context="#stay" String=" hhho" />
+		<StringDetect attribute="Drums" context="#stay" String=" hhc" />
+		<StringDetect attribute="Drums" context="#stay" String=" hho" />
+		<StringDetect attribute="Drums" context="#stay" String=" hhp" />
+		<StringDetect attribute="Drums" context="#stay" String=" hh" />
+		<StringDetect attribute="Drums" context="#stay" String=" cb" />
+		<StringDetect attribute="Drums" context="#stay" String=" hc" />
+		<StringDetect attribute="Drums" context="#stay" String=" ssl" />
+		<StringDetect attribute="Drums" context="#stay" String=" ssh" />
+		<StringDetect attribute="Drums" context="#stay" String=" ss" />
+		<StringDetect attribute="Drums" context="#stay" String=" tommmh" />
+		<StringDetect attribute="Drums" context="#stay" String=" tommh" />
+		<StringDetect attribute="Drums" context="#stay" String=" tomh" />
+		<StringDetect attribute="Drums" context="#stay" String=" toml" />
+		<StringDetect attribute="Drums" context="#stay" String=" tomfh" />
+		<StringDetect attribute="Drums" context="#stay" String=" tomfl" />
+		<StringDetect attribute="Drums" context="#stay" String=" timh" />
+		<StringDetect attribute="Drums" context="#stay" String=" timl" />
+		<StringDetect attribute="Drums" context="#stay" String=" cgho" />
+		<StringDetect attribute="Drums" context="#stay" String=" cghm" />
+		<StringDetect attribute="Drums" context="#stay" String=" cgh" />
+		<StringDetect attribute="Drums" context="#stay" String=" cglo" />
+		<StringDetect attribute="Drums" context="#stay" String=" cglm" />
+		<StringDetect attribute="Drums" context="#stay" String=" cgl" />
+		<StringDetect attribute="Drums" context="#stay" String=" boho" />
+		<StringDetect attribute="Drums" context="#stay" String=" bohm" />
+		<StringDetect attribute="Drums" context="#stay" String=" boh" />
+		<StringDetect attribute="Drums" context="#stay" String=" bolo" />
+		<StringDetect attribute="Drums" context="#stay" String=" bolm" />
+		<StringDetect attribute="Drums" context="#stay" String=" bol" />
+		<StringDetect attribute="Drums" context="#stay" String=" trio" />
+		<StringDetect attribute="Drums" context="#stay" String=" trim" />
+		<StringDetect attribute="Drums" context="#stay" String=" tri" />
+		<StringDetect attribute="Drums" context="#stay" String=" guis" />
+		<StringDetect attribute="Drums" context="#stay" String=" guil" />
+		<StringDetect attribute="Drums" context="#stay" String=" gui" />
+		<StringDetect attribute="Drums" context="#stay" String=" cl" />
+		<StringDetect attribute="Drums" context="#stay" String=" tamb" />
+		<StringDetect attribute="Drums" context="#stay" String=" cab" />
+		<StringDetect attribute="Drums" context="#stay" String=" mar" />
+<!-- detects tuplets -->
+	    <RegExpr attribute="Tuplet" context="#pop" String="\\times [1-9]?/[1-9]?" />
+<!-- detects lyrics expression -->	    
+	    <StringDetect attribute="Lyrics" context="Lyrics" String="\lyrics {" beginRegion="lyrics" />
+	    <StringDetect attribute="Lyrics" context="Lyrics" String="\newlyrics {" beginRegion="lyrics" />
+<!-- detects \header {   } zone -->
+	   <StringDetect attribute="Keyword" context="Header" String="\header {" beginRegion="header" />
+<!-- the same w/o space before { (should be a single RegExpr) -->
+	   <StringDetect attribute="Keyword" context="Header" String="\header{" beginRegion="header" />
+<!-- detects quoted strings -->
+	    <RangeDetect attribute="String" context="#stay" char="&quot;" char1="&quot;"/>
+<!-- detects other { } ranges -->
+	    <DetectChar attribute="Chord" context="#stay" char="{" />
+	    <DetectChar attribute="Chord" context="#stay" char="}" />
+<!-- in old Lilypond the same was for [ ] -->
+	    <DetectChar attribute="Chord" context="#stay" char="[" />
+	    <DetectChar attribute="Chord" context="#stay" char="]" />
+<!-- detects <> for chords -->
+	    <DetectChar attribute="Chord" context="#stay" char="&lt;" />
+	    <DetectChar attribute="Chord" context="#stay" char="&gt;" />
+<!-- detects #( ) command lines	-->
+	    <StringDetect attribute="Header" context="Command" String="#(" beginRegion="command" />
+<!-- detects context delimiter << (was <) -->
+	    <Detect2Chars attribute="Context" context="#stay" char="&lt;" char1="&lt;" beginRegion="context"/>
+	    <Detect2Chars attribute="Context" context="#stay" char="&gt;" char1="&gt;" endRegion="context"/>
+<!-- detects ~ for ties -->
+	    <DetectChar attribute="Chord" context="#stay" char="~" />
+<!-- detects bar beginning (or chord) symbols and sends to Bar context -->
+	    <DetectChar attribute="Bar" context="#stay" char="|" />
+<!-- detects n:m note repeat marks -->
+	    <RegExpr attribute="Repeat" context="#stay" String="[1-9]+:[1-9]+\b" />
+<!-- detects ( for slur beginning  -->
+	    <RegExpr attribute="Slur" context="#stay" String="\\?\(" />
+	    <RegExpr attribute="Slur" context="#stay" String="\\?\)" />
+<!-- detects dynamic marks -->
+	    <RegExpr attribute="Dynamics" context="#stay" String="\\fff\b" />
+	    <RegExpr attribute="Dynamics" context="#stay" String="\\ff\b" /> 
+	    <RegExpr attribute="Dynamics" context="#stay" String="\\ppp\b" />
+	    <RegExpr attribute="Dynamics" context="#stay" String="\\pp\b" />
+	    <RegExpr attribute="Dynamics" context="#stay" String="\\m?[f|p]\b" />
+	    <RegExpr attribute="Dynamics" context="#stay" String="\\[s|r]fz?\b" />
+<!-- detects articulation marks -->
+	    <RegExpr attribute="Dynamics" context="#stay" String="_[_.\|+&gt;^-]\b?" />
+	    <RegExpr attribute="Dynamics" context="#stay" String="\^[_.\|+&gt;^-]\b?" />
+	    <RegExpr attribute="Dynamics" context="#stay" String="-[_.\|+&gt;^-]\b?" />
+<!-- detects \< for crescendo and \> for diminuendo - both end with \! -->
+	    <Detect2Chars attribute="Dynamics" context="#stay" char="\" char1="&lt;" />
+	    <Detect2Chars attribute="Dynamics" context="#stay" char="\" char1="&gt;" />
+	    <Detect2Chars attribute="Dynamics" context="#stay" char="\" char1="!" />
+<!-- detects fingering marks -->
+	    <RegExpr attribute="Dynamics" context="#stay" String="-[0-5]\b" />
+<!-- detects % comment lines  -->	
+	    <DetectChar attribute="Comment" context="Comment" char="%" />
+	   </context>
+<!-- returns to Normal context at the end of line -->	   
+	   <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop" />
+	   <context name="Comment" attribute="Comment" lineEndContext="#pop" />
+	   <context name="Slur" attribute="Normal" lineEndContext="#stay" >
+	   	<RegExpr attribute="Slur" context="Slur" String="\\?\(" />
+		<RegExpr attribute="Slur" context="#pop" String="\\?\)" />
+	   </context>
+<!-- detects >> as end of Context region -->
+	   <context name="Context" attribute="Normal Text" lineEndContext="#stay" >
+	   	<Detect2Chars attribute="Context" context="#pop" char="&gt;" char1="&gt;" endRegion="context"/>
+	   </context>
+	   <context name="Command" attribute="Header" lineEndContext="#stay" >
+	   	<DetectChar attribute="Header" context="Command" char="(" />
+	   	<DetectChar attribute="Header" context="#pop" char=")" endRegion="command" />
+	   </context>
+<!-- returns to Normal context at the end of header -->
+	   <context name="Header" attribute="Header" lineEndContext="#stay">
+<!-- the header ends at the } char -->
+		<DetectChar attribute="Keyword" context="#pop" char="}" endRegion="header"/>
+	   </context>
+<!-- returns to Normal context at the end of lyrics -->
+	   <context name="Lyrics" attribute="Lyrics" lineEndContext="#stay">
+<!-- detects % comment lines  -->	
+	    <DetectChar attribute="Comment" context="Comment" char="%" />
+<!-- the region ends at the } char -->
+		<DetectChar attribute="Lyrics" context="#pop" char="}" endRegion="lyrics"/>
+	   </context>
+<!-- repeat region: detects other keywords and } as repeat end -->
+	   <context name="Repeat" attribute="Normal Text" lineEndContext="#stay">
+<!-- the repeat region ends at the } char -->
+	   <DetectChar attribute="Normal Text" context="#pop" char="}" />
+	   <StringDetect attribute="Repeat" context="#pop" String="&quot;tremolo&quot;"  />
+	   <StringDetect attribute="Repeat" context="#pop" String="&quot;percent&quot;"  />
+	   <RegExpr attribute="Repeat" context="#pop" String="volta\b+[1-9]\b+" />
+	   </context>
+<!-- detects keywords after the \ char  -->
+	   <context name="Keyword" attribute="Keyword" lineEndContext="#pop"/>
+       </contexts>
+        <itemDatas>
+          <itemData name="Normal Text" defStyleNum="dsNormal"/>
+	  <itemData name="Keyword" defStyleNum="dsKeyword" bold="true" />
+          <itemData name="Decoration" defStyleNum="dsKeyword" bold="true" color="#3300bb"/>
+	  <itemData name="Comment" defStyleNum="dsComment"/>
+	  <itemData name="Tuplet" defStyleNum="dsFloat" color="#00bbaa" />
+	  <itemData name="String" defStyleNum="dsString" bold="true"/>
+	  <itemData name="Preprocessor" defStyleNum="dsString" italic="true"/>
+	  <itemData name="Dynamics" defStyleNum="dsString" color="#ee5000"/>
+	  <itemData name="Header" defStyleNum="dsFloat"/>
+	  <itemData name="Chord" defStyleNum="dsDataType" bold="true"/>
+	  <itemData name="Context" defStyleNum="dsDataType"/>
+	  <itemData name="Lyrics" defStyleNum="dsDataType" color="#00bb00"/>
+	  <itemData name="Bar" defStyleNum="dsChar" color="#0000ff"/>
+	  <itemData name="Sharp" defStyleNum="dsNormal" bold="true"/>
+	  <itemData name="Slur" defStyleNum="dsChar" bold="true"/>
+	  <itemData name="Repeat" defStyleNum="dsDataType" italic="true"/>
+	  <itemData name="Drums" defStyleNum="dsKeyword" color="#003333"/>
+	</itemDatas>
+ </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="%" />
+    </comments>
+    <keywords casesensitive="true" weakDeliminator="\" />
+  </general>
+</language>

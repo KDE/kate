@@ -121,7 +121,9 @@ void KateSearch::find()
 
     search( searchFlags );
   }
+
   delete findDialog;
+  m_view->update ();
 }
 
 void KateSearch::replace()
@@ -161,7 +163,9 @@ void KateSearch::replace()
 
     search( searchFlags );
   }
+
   delete replaceDialog;
+  m_view->update ();
 }
 
 void KateSearch::findAgain( bool back )

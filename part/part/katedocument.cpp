@@ -3000,7 +3000,6 @@ void KateDocument::doIndent(VConfig &c, int change)
   {
     int sl = selectStart.line;
     int el = selectEnd.line;
-    int sc = selectStart.col;
     int ec = selectEnd.col;
 
     if ((ec == 0) && ((el-1) >= 0))
@@ -3270,12 +3269,12 @@ bool KateDocument::removeStartStopCommentFromSelection()
   QString startComment = m_highlight->getCommentStart();
   QString endComment = m_highlight->getCommentEnd();
 
-  uint sl = selectStart.line;
-  uint el = selectEnd.line;
+  int sl = selectStart.line;
+  int el = selectEnd.line;
   int sc = selectStart.col;
   int ec = selectEnd.col;
 
-   if ((ec == 0) && ((el-1) >= 0))
+   if ((ec == 0) && (el > 0))
   {
     el--;
     ec = getTextLine (el)->length();
@@ -3289,8 +3288,8 @@ bool KateDocument::removeStartStopCommentFromSelection()
   TextLine::Ptr l;
   l = getTextLine(sl);
   // skip spaces/lines starting at selectStart
-  while ( sl <= el && sc < ec && l->getChar(sc).isSpace() ) {
-    if ( sc == l->length() ) {
+  while ( (sl <= el) && (sc < ec) && l->getChar(sc).isSpace() ) {
+    if ( ((uint) sc) == l->length() ) {
       sl++;
       sc = 0;
       l = getTextLine( sl );
@@ -3390,7 +3389,7 @@ void KateDocument::doComment(VConfig &c, int change)
       if ( hasStartStopCommentMark &&
            ( !hasStartLineCommentMark || (
              ( selectStart.col > getTextLine( selectStart.line )->firstChar() ) ||
-               ( selectEnd.col < getTextLine( selectEnd.line )->length() )
+               ( selectEnd.col < ((int)getTextLine( selectEnd.line )->length()) )
          ) ) )
         addStartStopCommentToSelection();
       else if ( hasStartLineCommentMark )
@@ -3587,7 +3586,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEn
 
 bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
 {
-  return paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
+  return paintTextLine (paint, line, startcol, endcol, 0, xStart, xEnd, showTabs);
 }
 
 bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
@@ -3866,11 +3865,11 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
         found = textLine->searchText (col, sc.m_pattern, &fCol, &mlen, sc.flags & KateDocument::sfCaseSensitive, false);
 
       if (found && (sc.flags & KateDocument::sfSelected) && blockSelectionMode())
-        if (fCol+mlen > selectEnd.col)
+        if ((int)(fCol+mlen) > selectEnd.col)
           found = false;
 
       if (found && (sc.flags & KateDocument::sfSelected) && (line == selectEnd.line))
-        if (fCol+mlen > selectEnd.col)
+        if ((int)(fCol+mlen) > selectEnd.col)
           found = false;
 
       if (found && (sc.flags & KateDocument::sfWholeWords))
@@ -3916,7 +3915,7 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
     {
       textLine = getTextLine(line);
 
-      if ((col == -1) || (col > textLine->length()))
+      if ((col == -1) || (col > ((int) textLine->length())))
         col = textLine->length();
 
       uint fCol = 0;
@@ -3929,11 +3928,11 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
         found = textLine->searchText (col, sc.m_pattern, &fCol, &mlen, sc.flags & KateDocument::sfCaseSensitive, true);
 
       if (found && (sc.flags & KateDocument::sfSelected) && blockSelectionMode())
-        if (fCol < selectStart.col)
+        if (((int)fCol) < selectStart.col)
           found = false;
 
       if (found && (sc.flags & KateDocument::sfSelected) && (line == selectStart.line))
-        if (fCol < selectStart.col)
+        if (((int)fCol) < selectStart.col)
           found = false;
 
       if (found && (sc.flags & KateDocument::sfWholeWords))

@@ -227,7 +227,7 @@ void SearchDialog::slotEditRegExp()
 
   assert( m_regExpDialog );
 
-  KRegExpEditorInterface *iface = dynamic_cast<KRegExpEditorInterface *>( m_regExpDialog );
+  KRegExpEditorInterface *iface = static_cast<KRegExpEditorInterface *>( m_regExpDialog->qt_cast( "KRegExpEditorInterface" ) );
   if (!iface)
     return;
 

@@ -616,7 +616,7 @@ void KateDocument::textAsHtmlStream ( uint startLine, uint startCol, uint endLin
 {
   if ( (blockwise || startLine == endLine) && (startCol > endCol) )
     return;
-    
+
 
   if (startLine == endLine)
   {
@@ -625,7 +625,7 @@ void KateDocument::textAsHtmlStream ( uint startLine, uint startCol, uint endLin
       return;
 
     (*ts) << "<pre>" << endl;
-    
+
     kdDebug(13020) << "there are " << m_views.count() << " view for this document.  Using the first one" << endl;
 
     KateView *firstview =  m_views.getFirst();
@@ -635,7 +635,7 @@ void KateDocument::textAsHtmlStream ( uint startLine, uint startCol, uint endLin
   else
   {
     (*ts) << "<pre>" << endl;
-    
+
     KateView *firstview =  m_views.getFirst();
     KateRenderer *renderer = firstview->renderer();
 
@@ -1584,6 +1584,8 @@ bool KateDocument::editRemoveLine ( uint line )
 
   if ( line > lastLine() )
     return false;
+
+  kdDebug(13020)<<"editRemoveLine(): Number of lines: "<<numLines()<<endl;
 
   if ( numLines() == 1 )
     return editRemoveText (0, 0, m_buffer->line(0)->length());
@@ -3196,12 +3198,19 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   // temporary hack to get the cursor pos right !!!!!!!!!
   c = v->getCursor ();
 
+  kdDebug(13020)<<"KateDocument::newLine(): line: "<<c.line()<<endl;
+
   if (c.line() > (int)lastLine())
    c.setLine(lastLine());
+
+  if ( c.line() < 0 ) {
+    c.setLine( 0 );
+  }
 
   uint ln = c.line();
 
   KateTextLine::Ptr textLine = kateTextLine(c.line());
+
   if (c.col() > (int)textLine->length())
     c.setCol(textLine->length());
 
@@ -3371,7 +3380,7 @@ void KateDocument::copy()
     return;
 #ifndef QT_NO_MIMECLIPBOARD
   QClipboard *cb = QApplication::clipboard();
-  
+
   KMultipleDrag *drag = new KMultipleDrag();
   QString htmltext;
   if(!cb->selectionModeEnabled())
@@ -3384,7 +3393,7 @@ void KateDocument::copy()
     drag->addDragObject( htmltextdrag);
   }
   drag->addDragObject( new QTextDrag( selection()));
-  
+
   QApplication::clipboard()->setData(drag);
 #else
   QApplication::clipboard()->setText(selection ());
@@ -4814,9 +4823,9 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
   (*outputStream) << "<title>" << name.right(name.length() - name.findRev('/')-1) << "</title>" << endl;
   (*outputStream) << "</head>" << endl;
   (*outputStream) << "<body>" << endl;
-  
+
   textAsHtmlStream(0,0,lastLine(), lineLength(lastLine()), false, outputStream);
-  
+
   (*outputStream) << "</body>" << endl;
   (*outputStream) << "</html>" << endl;
   return true;

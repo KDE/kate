@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="D" version="0.68" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
+	<highlighting>
+		<list name="keywords">
+			<item> abstract </item>
+			<item> alias </item>
+			<item> align </item>
+			<item> asm </item>
+			<item> auto </item>
+
+			<item> body </item>
+			<item> break </item>
+
+			<item> case </item>
+			<item> cast </item>
+			<item> catch </item>
+			<item> class </item>
+			<item> const </item>
+			<item> continue </item>
+
+			<item> default </item>
+			<item> delegate </item>
+			<item> delete </item>
+			<item> deprecated </item>
+			<item> do </item>
+
+			<item> else </item>
+			<item> enum </item>
+			<item> export </item>
+
+			<item> false </item>
+			<item> final </item>
+			<item> finally </item>
+			<item> for </item>
+			<item> function </item>
+
+			<item> goto </item>
+
+			<item> if </item>
+			<item> in </item>
+			<item> inout </item>
+			<item> interface </item>
+			<item> invariant </item>
+
+			<item> new </item>
+			<item> null </item>
+
+			<item> override </item>
+			<item> out </item>
+
+			<item> private </item>
+			<item> protected </item>
+			<item> public </item>
+
+			<item> return </item>
+
+			<item> static </item>
+			<item> struct </item>
+			<item> super </item>
+			<item> switch </item>
+			<item> synchronized </item>
+
+			<item> this </item>
+			<item> throw </item>
+			<item> true </item>
+			<item> try </item>
+			<item> typedef </item>
+
+			<item> union </item>
+
+			<item> volatile </item>
+
+			<item> while </item>
+			<item> with </item>
+		</list>
+		<list name="modules">
+			<item> module </item>
+			<item> import </item>
+		</list>
+		<list name="types">
+			<item> void </item>
+			<item> bit </item>
+			<item> byte </item>
+			<item> ubyte </item>
+			<item> short </item>
+			<item> ushort </item>
+			<item> int </item>
+			<item> uint </item>
+			<item> long </item>
+			<item> ulong </item>
+			<item> cent </item>
+			<item> ucent </item>
+			<item> float </item>
+			<item> double </item>
+			<item> real </item>
+			<item> ireal </item>
+			<item> ifloat </item>
+			<item> idouble </item>
+			<item> creal </item>
+			<item> cfloat </item>
+			<item> cdouble </item>
+			<item> char </item>
+			<item> wchar </item>
+		</list>
+		<list name="linkage">
+			<item> extern </item>
+		</list>
+		<list name="ltypes">
+			<item> C </item>
+			<item> D </item>
+			<item> Windows </item>
+			<item> Pascal </item>
+		</list>
+		<list name="version">
+			<item> version </item>
+		</list>
+		<list name="vtypes">
+			<item> DigitalMars </item>
+			<item> X86 </item>
+			<item> Win32 </item>
+			<item> linux </item>
+			<item> LittleEndian </item>
+			<item> BigEndian </item>
+			<item> D_InlineAsm </item>
+			<item> none </item>
+		</list>
+		<list name="debug">
+			<item> debug </item>
+		</list>
+		<list name="assert">
+			<item> assert </item>
+		</list>
+		<list name="phobos">
+			<item> printf </item>
+		</list>
+		<list name="pragmas">
+			<item> # </item>
+		</list>
+		<list name="ptypes">
+			<item> line </item>
+		</list>
+		<list name="unittest">
+			<item> unittest </item>
+		</list>
+		<contexts>
+			<context attribute="Normal Text" lineEndContext="#stay" name="normal">
+				<keyword attribute="Keyword"					context="#stay"		String="keywords"/>
+				<keyword attribute="Module"					context="ModuleName"	String="modules"/>
+				<keyword attribute="Type"						context="#stay"		String="types"/>
+				<keyword attribute="Pragmas"					context="Pragmas"		String="pragmas"/>
+				<keyword attribute="Phobos Library"		context="#stay"		String="phobos"/>
+				<keyword attribute="Linkage"					context="Linkage"		String="linkage"/>
+				<keyword attribute="Debug"					context="Debug"		String="debug"/>
+				<keyword attribute="Assert"					context="Assert"		String="assert"/>
+				<keyword attribute="Version"					context="Version"		String="version"/>
+				<keyword attribute="Unit Test"				context="#stay"		String="unittest"/>
+
+				<Float attribute="Float" context="#stay">
+					<RegExpr attribute="Float" context="#stay" String="(FI|IF|LI|IL|I|F|L)" insensitive="TRUE"/>
+				</Float>
+				<HlCOct attribute="Octal" context="#stay"/>
+				<HlCHex attribute="Hex" context="#stay"/>
+				<Int attribute="Decimal" context="#stay">
+					<RegExpr attribute="Float" context="#stay" String="(UL|LU|U|L)" insensitive="TRUE"/>
+				</Int>
+				<HlCChar attribute="Char" context="#stay"/>
+				<DetectChar attribute="String" context="String" char="&quot;"/>
+				<Detect2Chars attribute="Comment" context="CommentLine" char="/" char1="/"/>
+				<Detect2Chars attribute="Comment" context="CommentBlockA" char="/" char1="*" beginRegion="CommentA"/>
+				<Detect2Chars attribute="Comment" context="CommentBlockB" char="/" char1="+" beginRegion="CommentB"/>
+				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="BraceA" />
+				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="BraceA" />
+			</context>
+			<context attribute="Module Name" lineEndContext="#stay" name="ModuleName">
+				<DetectChar attribute="Normal Text" context="#stay" char=","/>
+				<DetectChar attribute="Normal Text" context="#pop" char=";"/>
+				<Detect2Chars attribute="Comment" context="CommentLine" char="/" char1="/"/>
+				<Detect2Chars attribute="Comment" context="CommentBlockA" char="/" char1="*" beginRegion="CommentA"/>
+				<Detect2Chars attribute="Comment" context="CommentBlockB" char="/" char1="+" beginRegion="CommentB"/>
+			</context>
+			<context attribute="Comment" lineEndContext="#pop" name="CommentLine">
+			</context>
+			<context attribute="Comment" lineEndContext="#stay" name="CommentBlockA">
+				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="CommentA"/>
+			</context>
+			<context attribute="Comment" lineEndContext="#stay" name="CommentBlockB">
+				<Detect2Chars attribute="Comment" context="#pop" char="+" char1="/" endRegion="CommentB"/>
+			</context>
+			<context attribute="String" lineEndContext="#stay" name="String">
+				<DetectChar attribute="String" context="#pop" char="&quot;"/>
+			</context>
+			<context attribute="Linkage" lineEndContext="#pop" name="Linkage">
+				<DetectChar attribute="Normal Text" context="#stay" char="("/>
+				<keyword attribute="Linkage Type" context="#stay" String="ltypes"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=")"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=";"/>
+			</context>
+			<context attribute="Version" lineEndContext="#pop" name="Version">
+				<DetectChar attribute="Normal Text" context="#stay" char="("/>
+				<keyword attribute="Version Type" context="#stay" String="vtypes"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=")"/>
+			</context>
+			<context attribute="Pragmas" lineEndContext="#pop" name="Pragmas">
+				<keyword attribute="Pragmas" context="#pop" String="ptypes"/>
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name="Normal Text"		defStyleNum="dsNormal"/>
+			<itemData name="Keyword"			defStyleNum="dsKeyWord"		color="#000000" selColor="#ffffff" bold="1" italic="0"/>
+			<itemData name="Module"			defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Module Name"		defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="1" italic="1"/>
+			<itemData name="Phobos Library"	defStyleNum="dsKeyWord"		color="#000000" selColor="#ffffff" bold="1" italic="1"/>
+			<itemData name="Pragmas"			defStyleNum="dsKeyWord"		color="#00aa00" selColor="#ffffff" bold="1" italic="0"/>
+			<itemData name="Linkage"			defStyleNum="dsKeyWord"		color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Version"			defStyleNum="dsKeyWord"		color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Assert"			defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Debug"				defStyleNum="dsKeyWord"		color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
+			<itemData name="Unit Test"		defStyleNum="dsKeyWord"		color="#ff00ff" selColor="#ffffff" bold="1" italic="0"/>
+
+			<itemData name="Type"				defStyleNum="dsDataType"/>
+			<itemData name="Linkage Type"	defStyleNum="dsDataType"	color="#ff0000" selColor="#ffffff" bold="1" italic="1"/>
+			<itemData name="Version Type"	defStyleNum="dsDataType"	color="#ff0000" selColor="#ffffff" bold="1" italic="1"/>
+
+			<itemData name="Decimal"			defStyleNum="dsDecVal"		color="#00dddd" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Octal"				defStyleNum="dsBaseN"		color="#00aaaa" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Hex"				defStyleNum="dsBaseN"		color="#006666" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Float"				defStyleNum="dsFloat"/>
+			<itemData name="Char"				defStyleNum="dsChar"			color="#ff00ff" selColor="#ff00ff" bold="0" italic="0"/>
+			<itemData name="Comment"			defStyleNum="dsComment"/>
+			<itemData name="String"			defStyleNum="dsString"		color="#00aa00" selColor="#ff0000" bold="0" italic="0"/>
+		</itemDatas>
+	</highlighting>
+	<general>
+		<comments>
+		<comment name="singleLine"	start="//"/>
+		<comment name="multiLine"		start="/+" end="+/"/>
+		</comments>
+		<keywords casesensitive="TRUE"/>
+	</general>
+</language>

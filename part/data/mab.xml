@@ -4,16 +4,14 @@
   <highlighting>
     <contexts>
       <context attribute="Normal Text" name="Section" lineEndContext="#stay" >
-        <RegExpr String="^\*I [a-zA-Z01-9]* " attribute="Mab I Field" />
-	<RegExpr String="^\*\*\*\**E.*" attribute="Header Piece" />
-	<RegExpr String="^\*\*\*\**M.*" attribute="Header Medium" />
-	<RegExpr String="^\*\*\*\* BIBLIOTHECA.*" attribute="Database Header" />
-	<RegExpr String="^\*M [a-zA-Z01-9]* " attribute="Mab M Field" />
-	<RegExpr String="^\*X TYP .*" attribute="Mab Comment Description" />
-	<RegExpr String="^\*X DESC .*" attribute="Mab Comment Type" />
-	<RegExpr String="^\*X .*" attribute="Comment" />
-      </context>
-      <context attribute="Header Piece" name="Mab">
+        <RegExpr String="^\*I [a-zA-Z01-9]* " attribute="Mab I Field"  context="#stay"/>
+	<RegExpr String="^\*\*\*\**E.*" attribute="Header Piece" context="#stay"/>
+	<RegExpr String="^\*\*\*\**M.*" attribute="Header Medium" context="#stay"/>
+	<RegExpr String="^\*\*\*\* BIBLIOTHECA.*" attribute="Database Header" context="#stay" />
+	<RegExpr String="^\*M [a-zA-Z01-9]* " attribute="Mab M Field" context="#stay"/>
+	<RegExpr String="^\*X TYP .*" attribute="Mab Comment Description" context="#stay" />
+	<RegExpr String="^\*X DESC .*" attribute="Mab Comment Type" context="#stay" />
+	<RegExpr String="^\*X .*" attribute="Comment" context="#stay" />
       </context>
     </contexts>
 

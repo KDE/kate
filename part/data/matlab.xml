@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Matlab M-File" version="1.02" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
+<language name="Matlab M-File" version="1.03" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -85,17 +85,16 @@
           <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
         <HlCChar attribute="Char" context="#stay"/>
+        <RegExpr String="[\\w]*([(].*[)])?[']" attribute="Normal" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&apos;"/>
         <DetectChar attribute="String Char" context="String" char="&apos;"/>
-        <Detect2Chars attribute="Comment" context="Comment" char="%" char1="%"/>
-        <Detect2Chars attribute="Comment" context="Comment" char="%" char1=" "/>
+        <RegExpr String= "%.*$" attribute="Comment" context="#stay"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#stay"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&apos;"/>
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

@@ -101,9 +101,9 @@ class KateView : public Kate::View,
     void cursorPositionReal( uint* l, uint* c )
         { if( l ) *l = cursorLine(); if( c ) *c = cursorColumnReal(); }
     bool setCursorPosition( uint line, uint col )
-        { return setCursorPositionInternal( line, col, tabWidth() );  }
+        { return setCursorPositionInternal( line, col, tabWidth(), true );  }
     bool setCursorPositionReal( uint line, uint col)
-        { return setCursorPositionInternal( line, col, 1 );           }
+        { return setCursorPositionInternal( line, col, 1, true );           }
     uint cursorLine()
         { return m_viewInternal->getCursor().line();                    }
     uint cursorColumn()
@@ -332,7 +332,7 @@ class KateView : public Kate::View,
     void viewStatusMsg (const QString &msg);
 
   public:
-    bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1 );
+    bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1, bool calledExternally = false );
 
   protected:
     void contextMenuEvent( QContextMenuEvent* );
@@ -406,7 +406,7 @@ class KateView : public Kate::View,
 
     private slots:
         void slotNeedTextHint(int line, int col, QString &text);
-        
+
         void slotClipboardDataChanged();
 
         void slotHlChanged();

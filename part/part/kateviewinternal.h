@@ -114,7 +114,7 @@ class KateViewInternal : public QWidget
 
   private:
     void updateView (bool changed = false, int viewLinesScrolled = 0);
-    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false, bool center = false);
+    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false, bool center = false, bool calledExternally = false);
 
   public:
     inline const KateTextCursor& startPos() const { return m_startPos; }
@@ -217,7 +217,7 @@ class KateViewInternal : public QWidget
     void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
     KateTextCursor maxStartPos(bool changed = false);
-    void scrollPos(KateTextCursor& c, bool force = false);
+    void scrollPos(KateTextCursor& c, bool force = false, bool calledExternally = false);
     void scrollLines( int lines, bool sel );
 
     uint linesDisplayed() const;
@@ -225,7 +225,7 @@ class KateViewInternal : public QWidget
     int lineToY(uint viewLine) const;
 
     void updateSelection( const KateTextCursor&, bool keepSel );
-    void updateCursor( const KateTextCursor& newCursor, bool force = false, bool center = false );
+    void updateCursor( const KateTextCursor& newCursor, bool force = false, bool center = false, bool calledExternally = false );
     void updateBracketMarks();
 
     void paintCursor();
@@ -243,9 +243,6 @@ class KateViewInternal : public QWidget
     int mouseY;
     int scrollX;
     int scrollY;
-    
-    // Holds the offset for the scroll paint translation hack
-    int m_scrollTranslateHack;
 
     KateSuperCursor cursor;
     KateTextCursor displayCursor;

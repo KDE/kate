@@ -3809,6 +3809,9 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
   TextLine::Ptr textLine = buffer->plainLine(cursor.line());
   len = textLine->length();
   start = end = cursor.col();
+  if (start > len)        // Probably because of non-wrapping cursor mode.
+    return QString("");
+
   while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1))) start--;
   while (end < len && m_highlight->isInWord(textLine->getChar(end))) end++;
   len = end - start;

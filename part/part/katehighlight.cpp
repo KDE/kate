@@ -2406,18 +2406,17 @@ void Highlight::getItemDataListCopy (uint schema, ItemDataList &outlist)
 //END
 
 //BEGIN HlManager
-HlManager::HlManager() : QObject(0), m_config ("katesyntaxhighlightingrc", false, false)
+HlManager::HlManager()
+  : QObject()
+  , m_config ("katesyntaxhighlightingrc", false, false)
+  , commonSuffixes (QStringList::split(";", ".orig;.new;~;.bak;.BAK"))
+  , syntax (new SyntaxDocument())
 {
   hlList.setAutoDelete(true);
   hlDict.setAutoDelete(false);
 
-  commonSuffixes = QStringList::split(";", ".orig;.new;~;.bak;.BAK");
-
-  syntax = new SyntaxDocument();
   SyntaxModeList modeList = syntax->modeList();
-
-  uint i=0;
-  while (i < modeList.count())
+  for (uint i=0; i < modeList.count(); i++)
   {
     Highlight *hl = new Highlight(modeList.at(i));
 
@@ -2434,8 +2433,6 @@ HlManager::HlManager() : QObject(0), m_config ("katesyntaxhighlightingrc", false
 
     hlList.insert (insert, hl);
     hlDict.insert (hl->name(), hl);
-
-    i++;
   }
 
   // Normal HL
@@ -2510,7 +2507,7 @@ int HlManager::detectHighlighting (KateDocument *doc)
 
 int HlManager::wildcardFind(const QString &fileName)
 {
-  int result;
+  int result = -1;
   if ((result = realWildcardFind(fileName)) != -1)
     return result;
 
@@ -2575,7 +2572,7 @@ int HlManager::mimeFind(const QByteArray &contents)
 {
   static QRegExp sep("\\s*;\\s*");
 
-  int accuracy;
+  int accuracy = 0;
   KMimeType::Ptr mt = KMimeType::findByContent( contents, &accuracy );
 
   QPtrList<Highlight> highlights;

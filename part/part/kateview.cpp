@@ -254,8 +254,10 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
     case KateView::cmBackspace:
       if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())
         myDoc->removeSelectedText();
-      else myDoc->backspace(c.cursor.line, c.cursor.col);
-      if ((uint)c.cursor.line >= myDoc->lastLine()) leftBorder->update();
+      else
+        myDoc->backspace(c.cursor.line, c.cursor.col);
+      if ( (uint)c.cursor.line >= myDoc->lastLine() )
+        leftBorder->update();
       return;
     case KateView::cmKillLine:
       myDoc->killLine(c);
@@ -751,7 +753,7 @@ void KateViewInternal::updateView(int flags) {
       maxLen = maxLen + 8;
     }
   }
-//kdDebug()<<"windest line to draw is "<<maxLen<<" px"<<endl;
+//kdDebug()<<"widest line to draw is "<<maxLen<<" px"<<endl;
   if (exposeCursor || flags & KateView::ufDocGeometry) {
     emit myView->cursorPositionChanged();
   } else {
@@ -1456,8 +1458,7 @@ void KateView::setupEditKeys()
 
 void KateView::setupActions()
 {
-    KStdAction::close( this, SLOT(flush()), actionCollection(), "file_close" )
-    	->setShortcut( 0 );
+    KStdAction::close( this, SLOT(flush()), actionCollection(), "file_close" )->setShortcut( 0 );
 
     KStdAction::save(this, SLOT(save()), actionCollection());
 
@@ -1663,7 +1664,7 @@ void KateView::keyPressEvent( QKeyEvent *ev )
         default:
             KTextEditor::View::keyPressEvent( ev );
             return;
-            break;
+            break; // never reached ;)
     }
     ev->accept();
 }

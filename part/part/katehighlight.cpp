@@ -26,7 +26,8 @@
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kinstance.h>
-#include <kmimemagic.h>
+//#include <kmimemagic.h>
+#include <kmimetype.h>
 #include <klocale.h>
 #include <kregexp.h>
 #include <kglobalsettings.h>
@@ -1487,19 +1488,18 @@ int HlManager::nameFind(const QString &name) {
 
 int HlManager::wildcardFind(const QString &fileName) {
   Highlight *highlight;
-  int p1, p2;
-  QString w;
+  QStringList l;
+  QRegExp sep("\\s*;\\s*");
   for (highlight = hlList.first(); highlight != 0L; highlight = hlList.next()) {
-    p1 = 0;
-    w = highlight->getWildcards();
-    while (p1 < (int) w.length()) {
-      p2 = w.find(';',p1);
-      if (p2 == -1) p2 = w.length();
-      if (p1 < p2) {
-        QRegExp regExp(w.mid(p1,p2 - p1),true,true);
-        if (regExp.search(fileName) == 0) return hlList.at();
-      }
-      p1 = p2 + 1;
+    // anders: this is more likely to catch the right one ;)
+    QStringList l = QStringList::split( sep, highlight->getWildcards() );
+    for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
+    {
+      // anders: we need to be sure to match the end of string, as eg a css file
+      // would otherwise end up with the c hl
+      QRegExp re(*it, false, true);
+      if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
+        return hlList.at();
     }
   }
   return -1;
@@ -1507,27 +1507,27 @@ int HlManager::wildcardFind(const QString &fileName) {
 
 int HlManager::mimeFind(const QByteArray &contents, const QString &fname)
 {
+//  kdDebug(13010)<<"hlManager::mimeFind( [contents], "<<fname<<")"<<endl;
+//  kdDebug(13010)<<"file contents: "<<endl<<contents.data()<<endl<<"- - - - - - END CONTENTS - - - - -"<<endl;
+
   // detect the mime type
-  KMimeMagicResult *result;
-  result = KMimeMagic::self()->findBufferFileType(contents, fname);
+  KMimeType::Ptr mt;
+  int accuracy; // just for debugging
+  mt = KMimeType::findByContent( contents, &accuracy );
+  QString mtname = mt->name();
+//  kdDebug(13010)<<"KMimeType::findByContent() returned '"<<mtname<<"', accuracy: "<<accuracy<<endl;
 
   Highlight *highlight;
-  int p1, p2;
-  QString w;
-
   for (highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
   {
-    w = highlight->getMimetypes();
-
-    p1 = 0;
-    while (p1 < (int) w.length()) {
-      p2 = w.find(';',p1);
-      if (p2 == -1) p2 = w.length();
-      if (p1 < p2) {
-        QRegExp regExp(w.mid(p1,p2 - p1),true,true);
-        if (regExp.search(result->mimeType()) == 0) return hlList.at();
-      }
-      p1 = p2 + 1;
+//    kdDebug(13010)<<"KMimeType::findByContent(): considering hl "<<highlight->name()<<endl;
+    QRegExp sep("\\s*;\\s*");
+    QStringList l = QStringList::split( sep, highlight->getMimetypes() );
+    for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
+    {
+//      kdDebug(13010)<<"..trying "<<*it<<endl;
+      if ( *it == mtname ) // faster than a regexp i guess?
+        return hlList.at();
     }
   }
 
@@ -1551,7 +1551,7 @@ void HlManager::makeAttribs(KateDocument *doc, Highlight *highlight)
 	if (doc->myAttribs == 0L)
 	  doc->myAttribs = (Attribute *) malloc (sizeof(Attribute) * nAttribs);
 	else
-	  doc->myAttribs = (Attribute *) realloc (doc->myAttribs, sizeof(Attribute) * nAttribs);	
+	  doc->myAttribs = (Attribute *) realloc (doc->myAttribs, sizeof(Attribute) * nAttribs);
 
 	doc->myAttribsLen = nAttribs;
 

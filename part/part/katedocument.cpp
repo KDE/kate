@@ -1930,19 +1930,22 @@ bool KateDocument::openFile()
   if (hl == -1)
   {
     // fill the detection buffer with the contents of the text
+    // anders: I fixed this to work :^)
     const int HOWMANY = 1024;
     QByteArray buf(HOWMANY);
     int bufpos = 0, len;
     for (uint i=0; i < buffer->count(); i++)
     {
       TextLine::Ptr textLine = buffer->line(i);
-      len = textLine->length();
+      len = textLine->length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
+//kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-      memcpy(&buf[bufpos], textLine->getText(), len);
+//kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
+      memcpy(&buf[bufpos], /*textLine->getText()*/(textLine->getString()+"\n").latin1(), len);
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }
-
+//kdDebug(13020)<<"openFile(): calling hlManager->mimeFind() with data:"<<endl<<buf.data()<<endl<<"--"<<endl;
     hl = hlManager->mimeFind( buf, m_file );
   }
 
@@ -2613,6 +2616,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   view->myViewInternal->updateCursor(c);
 
 /*
+  // FIXME anders: Make this work...
   if (myWordWrap && myWordWrapAt > 0) {
     int line;
     const QChar *s;
@@ -2757,7 +2761,7 @@ void KateDocument::backspace(uint line, uint col)
       }
       // break effectively jumps here
       //c.cursor.col -= l;
-      removeText(line, col-1, line, col);
+      removeText(line, col-l, line, col);
     }
   }
   else
@@ -3111,20 +3115,54 @@ bool KateDocument::removeStartStopCommentFromSelection()
   QString startComment = m_highlight->getCommentStart();
   QString endComment = m_highlight->getCommentEnd();
 
-  int sl = selectStart.line;
-  int el = selectEnd.line;
+  uint sl = selectStart.line;
+  uint el = selectEnd.line;
   int sc = selectStart.col;
   int ec = selectEnd.col;
 
   int startCommentLen = startComment.length();
   int endCommentLen = endComment.length();
 
-  if (ec-endCommentLen < 0)
+  // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$1/
+  // check if both ends matches, allowing whitespace on outer side; return if eithre fails
+  TextLine::Ptr l;
+  l = getTextLine(sl);
+  // skip spaces/lines starting at selectStart
+  while ( sl <= el && sc < ec && l->getChar(sc).isSpace() ) {
+    if ( sc == l->length() ) {
+      sl++;
+      sc = 0;
+      l = getTextLine( sl );
+      if (!l) return false; // hopefully _VERY_ unlikely
+    }
+    sc++;
+  }
+  if ( l->getString().mid( sc, startCommentLen ) != startComment ) {
+    kdDebug(13020)<<"removeBlaBla(): '"<<startComment<<"' not found after skipping space ("<<sl<<", "<<sc<<") - giving up :("<<endl;
     return false;
-
+  }
+  // repat kinda reversed for end.....
+  l = getTextLine( el );
+  ec--;
+  while ( el >= sl /*&& ec > sc*/ && l->getChar(ec).isSpace() ) {
+    if ( ec < 0 ) {
+      kdDebug(13020)<<"removeBlaBla(): up a line = "<<el-1<<endl;
+      el--;
+      l = getTextLine( el );
+      if (!l) return false; // hopefully _VERY_ unlikely
+      ec = l->length();
+    }
+    ec--;
+  }
+  ec++; // we went one char too far to find a nonspace
+  if ( ec - endCommentLen < 0 || l->getString().mid(ec-endCommentLen,endCommentLen) != endComment ) {
+    kdDebug(13020)<<"removeBlaBla(): '"<<endComment<<"' not found after skipping space ("<<el<<", "<<ec-endCommentLen<<") - giving up :("<<endl;
+    return false;
+  }
   removeText (el, ec-endCommentLen, el, ec);
   removeText (sl, sc, sl, sc+startCommentLen);
-
+  // TODO anders: redefine selection
+  kdDebug(13020)<<"removeBlaBla(): I DID IT!! I'm DANCING AROUND"<<endl;
   return true;
 }
 
@@ -3177,7 +3215,17 @@ void KateDocument::doComment(VConfig &c, int change)
     }
     else
     {
-      if ( hasStartStopCommentMark )
+      // anders: prefer single line comment to avoid nesting probs
+      // If the selection starts after first char in the first line
+      // or ends before the last char of the last line, we may use
+      // multiline comment markers.
+      // TODO We should try to detect nesting.
+      //    - if selection ends at col 0, most likely she wanted that line ignored
+      if ( hasStartStopCommentMark &&
+           ( !hasStartLineCommentMark || (
+             ( selectStart.col > getTextLine( selectStart.line )->firstChar() ) ||
+               ( selectEnd.col < getTextLine( selectEnd.line )->length() )
+         ) ) )
         addStartStopCommentToSelection();
       else if ( hasStartLineCommentMark )
         addStartLineCommentToSelection();
@@ -3194,10 +3242,11 @@ void KateDocument::doComment(VConfig &c, int change)
     }
     else
     {
-      removed = ( hasStartStopCommentMark
-                  && removeStartStopCommentFromSelection() )
-        || ( hasStartLineCommentMark
-             && removeStartLineCommentFromSelection() );
+      // anders: this seems like it will work with above changes :)
+      removed = ( hasStartLineCommentMark
+                  && removeStartLineCommentFromSelection() )
+        || ( hasStartStopCommentMark
+             && removeStartStopCommentFromSelection() );
     }
   }
 }
@@ -4060,6 +4109,7 @@ void KateDocument::wrapText (uint col)
   uint line = 0;
   int z = 0;
 
+  bool modified = false;
   while(true)
   {
     TextLine::Ptr l = getTextLine(line);
@@ -4077,7 +4127,10 @@ void KateDocument::wrapText (uint col)
       }
 
       if (!(z < 1))
+      {
         l->wrap (tl, z);
+        modified  = true;
+      }
     }
 
     line++;
@@ -4087,6 +4140,9 @@ void KateDocument::wrapText (uint col)
   newDocGeometry=true;
   updateLines();
   updateViews();
+  // anders: this may have modified the document
+  if ( modified )
+    setModified( true );
 }
 
 void KateDocument::setPseudoModal(QWidget *w) {

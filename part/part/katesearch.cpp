@@ -83,11 +83,12 @@ void KateSearch::addToList( QStringList& list, const QString& s )
 }
 
 void KateSearch::find()
-{	
-	KFindDialog *findDialog = new KFindDialog (  m_view, getSearchText().latin1(), options,
+{
+	KFindDialog *findDialog = new KFindDialog (  m_view, "", options,
 	                                             s_searchList, m_doc->hasSelection() ); 
-                                               
-		
+
+    findDialog->setPattern (getSearchText());
+
 	if( findDialog->exec() == QDialog::Accepted ) {
 		s_searchList =  findDialog->findHistory () ;
 	        options = findDialog->options ();
@@ -111,9 +112,11 @@ void KateSearch::find()
 void KateSearch::replace()
 {
   if (!doc()->isReadWrite()) return;
-  
-  KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, getSearchText().latin1(), options,
+
+  KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", options,
 	                                             s_searchList, s_replaceList, m_doc->hasSelection() ); 
+
+  replaceDialog->setPattern (getSearchText());
 
 	if( replaceDialog->exec() == QDialog::Accepted ) {
 		s_searchList =  replaceDialog->findHistory () ;

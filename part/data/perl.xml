@@ -32,7 +32,7 @@
 
    HERE document delimiters - requires support for saving data in contexts.
 -->
-<language name="Perl" version="1.11" kateversion="2.3" section="Scripts"
+<language name="Perl" version="1.12" kateversion="2.3" section="Scripts"
           extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl"
           author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
@@ -654,7 +654,7 @@
         <DetectChar attribute="Pattern Internal Operator" context="#stay" char="^" />
         <Detect2Chars attribute="Pattern Character Class" context="#stay" char="\" char1="\" />
         <Detect2Chars attribute="Pattern Character Class" context="#stay" char="\" char1="]" />
-        <RangeDetect attribute="Pattern Character Class" context="#stay" char="[" char1="]" />
+        <RegExpr attribute="Pattern Character Class" context="#stay" String="\[:^?[a-z]+:\]" />
         <DetectChar attribute="Pattern Internal Operator" context="#pop" char="]" />
       </context>
       <context name="comment" attribute="Comment" lineEndContext="#pop">

@@ -69,7 +69,7 @@ KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFo
 
 void KateCodeFoldingTree::clear()
 {
-  kdDebug()<<"KateCodeFoldingTree::clear()"<<endl;
+//  kdDebug()<<"KateCodeFoldingTree::clear()"<<endl;
   if (m_childnodes)
   {
 	m_childnodes->clear();

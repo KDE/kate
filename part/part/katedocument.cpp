@@ -3778,7 +3778,7 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
 void KateDocument::tagLines(int start, int end)
 {
   for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->tagRealLines(start, end);
+    m_views.at(z)->m_viewInternal->tagLines(start, end, true);
 }
 
 void KateDocument::tagSelection()

@@ -1120,12 +1120,6 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   emit m_view->cursorPositionChanged();
 }
 
-void KateViewInternal::tagRealLines( int start, int end )
-{
-  //kdDebug(13030) << "tagRealLines( " << start << ", " << end << " )\n";
-  tagLines( start, end, true );
-}
-
 void KateViewInternal::tagLines( int start, int end, bool realLines )
 {
   if (realLines)
@@ -1134,6 +1128,12 @@ void KateViewInternal::tagLines( int start, int end, bool realLines )
     end = m_doc->getVirtualLine( end );
   }
 
+  if (end < startLine())
+    return;
+    
+  if (start > endLine())
+    return;
+  
   //kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
   
   for (uint z = 0; z < lineRanges.size(); z++)
@@ -1549,10 +1549,10 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
     {
       int startTagging = QMIN( tagLinesFrom, editTagLineStart );
       int endTagging = m_doc->getRealLine( endLine() );
-      tagRealLines (startTagging, endTagging);
+      tagLines (startTagging, endTagging, true);
     }
     else
-      tagRealLines (editTagLineStart, editTagLineEnd);
+      tagLines (editTagLineStart, editTagLineEnd, true);
 
     tagLinesFrom = -1;
     

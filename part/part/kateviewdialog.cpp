@@ -36,6 +36,7 @@
 #include <qpushbutton.h>
 #include <qobjectlist.h>
 #include <qradiobutton.h>
+#include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qstringlist.h>
 #include <klocale.h>
@@ -305,39 +306,39 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = view->configFlags();
 
-  opt[0] = new QCheckBox(i18n("&Auto Indent"), this);
+  opt[0] = new QCheckBox(i18n("&Automatically indent"), this);
   layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
 
-  opt[1] = new QCheckBox(i18n("Indent With &Spaces"), this);
+  opt[1] = new QCheckBox(i18n("Use &spaces to indent"), this);
   layout->addWidget(opt[1], 0, AlignLeft);
   opt[1]->setChecked(configFlags & flags[1]);
 
-  opt[2] = new QCheckBox(i18n("&Backspace Key Indents"), this);
-  layout->addWidget(opt[2], 0, AlignLeft);
-  opt[2]->setChecked(configFlags & flags[2]);
-
-  opt[3] = new QCheckBox(i18n("&Tab Key Indents"), this);
+  opt[3] = new QCheckBox(i18n("&Tab key indents"), this);
   layout->addWidget(opt[3], 0, AlignLeft);
   opt[3]->setChecked(configFlags & flags[3]);
 
-  opt[4] = new QCheckBox(i18n("Keep Indent &Profile"), this);
+  opt[2] = new QCheckBox(i18n("&Backspace key indents"), this);
+  layout->addWidget(opt[2], 0, AlignLeft);
+  opt[2]->setChecked(configFlags & flags[2]);
+
+  opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
   layout->addWidget(opt[4], 0, AlignLeft);
 //  opt[4]->setChecked(configFlags & flags[4]);
   opt[4]->setChecked(true);
   opt[4]->hide();
 
-  opt[5] = new QCheckBox(i18n("&Keep Extra Spaces"), this);
+  opt[5] = new QCheckBox(i18n("&Keep extra spaces"), this);
   layout->addWidget(opt[5], 0, AlignLeft);
   opt[5]->setChecked(configFlags & flags[5]);
 
   layout->addStretch();
 
   // What is this? help
-  QWhatsThis::add(opt[0], i18n("When <b>Auto indent</b> is on, KateView will indent new lines to equal the indent on the previous line.<p>If the previous line is blank, the nearest line above with text is used"));
-  QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs.<br>A Tab will be converted to <u>Tab-width</u> as set in the <b>edit</b> options"));
-  QWhatsThis::add(opt[2], i18n("This allows the <b>backspace</b> key to be used to indent."));
-  QWhatsThis::add(opt[3], i18n("This allows the <b>tab</b> key to be used to indent."));
+  QWhatsThis::add(opt[0], i18n("When <b>Automatically indent</b> is on, KateView will indent new lines to equal the indent on the previous line.<p>If the previous line is blank, the nearest line above with text is used"));
+  QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs.<br>A Tab will be converted to <u>Tab-width</u> as set in the <b>Edit</b> options"));
+  QWhatsThis::add(opt[2], i18n("This allows the <b>backspace</b> key to be used decrease the indent level."));
+  QWhatsThis::add(opt[3], i18n("This allows the <b>tab</b> key to be increase the indent level."));
   QWhatsThis::add(opt[4], i18n("This retains current indentation settings for future documents."));
   QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
 }
@@ -374,11 +375,11 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   int configFlags = view->configFlags();
 
-  opt[0] = new QCheckBox(i18n("&Persistent Selections"), this);
+  opt[0] = new QCheckBox(i18n("&Persistent selections"), this);
   layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
 
-  opt[1] = new QCheckBox(i18n("&Overwrite Selections"), this);
+  opt[1] = new QCheckBox(i18n("&Overwrite selected text"), this);
   layout->addWidget(opt[1], 0, AlignLeft);
   opt[1]->setChecked(configFlags & flags[1]);
 
@@ -416,68 +417,60 @@ const int EditConfigTab::flags[] = {KateDocument::cfWordWrap, KateDocument::cfRe
 EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   : Kate::ConfigPage(parent) {
 
-  QHBoxLayout *mainLayout;
-  QVBoxLayout *cbLayout, *leLayout;
+  QVBoxLayout *mainLayout;
   int configFlags;
   myDoc = view;
 
-  mainLayout = new QHBoxLayout(this, 0, KDialog::spacingHint() );
-
-  // checkboxes
-  cbLayout = new QVBoxLayout( mainLayout );
+  mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   configFlags = view->configFlags();
 
-  opt[0] = new QCheckBox(i18n("&Word wrap"), this);
-  cbLayout->addWidget(opt[0], 0, AlignLeft);
+  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word wrap"), this);
+
+  opt[0] = new QCheckBox(i18n("Enable &word wrap"), gbWordWrap);
   opt[0]->setChecked(view->wordWrap());
+  connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(wordWrapToggled()));
 
-  opt[1] = new QCheckBox(i18n("Replace &tabs with spaces"), this);
-  cbLayout->addWidget(opt[1], 0, AlignLeft);
-  opt[1]->setChecked(configFlags & flags[1]);
+  e1 = new KIntNumInput(view->wordWrapAt(), gbWordWrap);
+  e1->setRange(20, 200, 1, false);
+  e1->setLabel(i18n("Wrap words at:"), AlignVCenter);
 
-  opt[2] = new QCheckBox(i18n("&Remove trailing spaces"), this);
-  cbLayout->addWidget(opt[2], 0, AlignLeft);
-  opt[2]->setChecked(configFlags & flags[2]);
+  mainLayout->addWidget(gbWordWrap);
 
-  opt[3] = new QCheckBox(i18n("&Auto brackets"), this);
-  cbLayout->addWidget(opt[3], 0, AlignLeft);
-  opt[3]->setChecked(configFlags & flags[3]);
+  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Whitespace"), this);
 
-  opt[4] = new QCheckBox(i18n("&Show tabs"), this);
-  cbLayout->addWidget(opt[4], 0, AlignLeft);
+  opt[4] = new QCheckBox(i18n("&Show tabs"), gbWhiteSpace);
   opt[4]->setChecked(configFlags & flags[4]);
 
+  opt[1] = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
+  opt[1]->setChecked(configFlags & flags[1]);
+
+  opt[2] = new QCheckBox(i18n("&Remove trailing spaces"), gbWhiteSpace);
+  opt[2]->setChecked(configFlags & flags[2]);
+
+  e2 = new KIntNumInput(e1, view->tabWidth(), gbWhiteSpace);
+  e2->setRange(1, 16, 1, false);
+  e2->setLabel(i18n("Tab and indent width:"), AlignVCenter);
+
+  mainLayout->addWidget(gbWhiteSpace);
+
+  opt[3] = new QCheckBox(i18n("&Auto brackets"), this);
+  mainLayout->addWidget(opt[3]);
+  opt[3]->setChecked(configFlags & flags[3]);
+
   opt[5] = new QCheckBox(i18n("Smart &home"), this);
-  cbLayout->addWidget(opt[5], 0, AlignLeft);
+  mainLayout->addWidget(opt[5]);
   opt[5]->setChecked(configFlags & flags[5]);
 
   opt[6] = new QCheckBox(i18n("Wrap &cursor"), this);
-  cbLayout->addWidget(opt[6], 0, AlignLeft);
+  mainLayout->addWidget(opt[6]);
   opt[6]->setChecked(configFlags & flags[6]);
 
-  cbLayout->addStretch();
-
-  // edit lines
-  leLayout = new QVBoxLayout();
-  mainLayout->addLayout(leLayout,10);
-
-  e1 = new KIntNumInput(view->wordWrapAt(), this);
-  e1->setRange(20, 200, 1, false);
-  e1->setLabel(i18n("Wrap Words At:"));
-
-  e2 = new KIntNumInput(e1, view->tabWidth(), this);
-  e2->setRange(1, 16, 1, false);
-  e2->setLabel(i18n("Tab/Indent Width:"));
-
   e3 = new KIntNumInput(e2, view->undoSteps(), this);
-  e3->setRange(0, 99999, 1, false);
-  e3->setLabel(i18n("Undo steps:"));
+  e3->setRange(0, 1000, 1, false);
+  e3->setLabel(i18n("Maximum undo steps:"), AlignVCenter);
+  mainLayout->addWidget(e3);
 
-  leLayout->addWidget(e1, 0, AlignLeft);
-  leLayout->addWidget(e2, 0, AlignLeft);
-  leLayout->addWidget(e3, 0, AlignLeft);
-
-  leLayout->addStretch();
+  mainLayout->addStretch();
 
   // What is this? help
   QWhatsThis::add(opt[0], i18n("Word wrap is a feature that causes the editor to automatically start a new line of text and move (wrap) the cursor to the beginning of that new line. KateView will automatically start a new line of text when the current line reaches the length specified by the Wrap Words At: option.<p><b>NOTE:</b> Word Wrap will not change existing lines or wrap them for easy reading as in some applications."));
@@ -490,6 +483,8 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(opt[5], i18n("Not yet implemented."));
   QWhatsThis::add(e3, i18n("Sets the number of undo/redo steps to record. More steps uses more memory."));
   QWhatsThis::add(opt[6], i18n("When on, moving the insertion cursor using the <b>Left</b> and <b>Right</b> keys will go on to previous/next line at beginning/end of the line, similar to most editors.<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers."));
+
+  wordWrapToggled();
 }
 
 void EditConfigTab::getData(KateDocument *view)
@@ -517,6 +512,10 @@ void EditConfigTab::apply ()
 void EditConfigTab::reload ()
 {
 
+}
+
+void EditConfigTab::wordWrapToggled() {
+  e1->setEnabled(opt[0]->isChecked());
 }
 
 ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )

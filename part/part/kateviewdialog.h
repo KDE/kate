@@ -171,6 +171,9 @@ class EditConfigTab : public Kate::ConfigPage
   public slots:
     void apply ();
     void reload ();
+
+  protected slots:
+    void wordWrapToggled();
 };
 
 class ColorConfig : public Kate::ConfigPage

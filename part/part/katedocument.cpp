@@ -274,7 +274,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
-  KateFactory::dirWatch ()->removeFile (m_file);
+  if (!m_file.isEmpty())
+    KateFactory::dirWatch ()->removeFile (m_file);
 
   //BEGIN spellcheck stuff
   if( m_kspell )
@@ -391,7 +392,8 @@ bool KateDocument::closeURL()
   if (!KParts::ReadWritePart::closeURL ())
     return false;
 
-  KateFactory::dirWatch ()->removeFile (m_file);
+  if (!m_file.isEmpty())
+    KateFactory::dirWatch ()->removeFile (m_file);
 
   m_url = KURL();
 
@@ -2798,7 +2800,7 @@ bool KateDocument::print ()
 
 bool KateDocument::openFile()
 {
-  if (m_url.isLocalFile())
+  if (!m_file.isEmpty())
     KateFactory::dirWatch ()->addFile (m_file);
 
   if (m_modOnHd)
@@ -2894,7 +2896,8 @@ bool KateDocument::saveFile()
 
   bool canEncode = reallySaveIt && buffer->canEncode ();
 
-  KateFactory::dirWatch ()->removeFile (m_file);
+  if (!m_file.isEmpty())
+    KateFactory::dirWatch ()->removeFile (m_file);
 
   bool success = false;
 
@@ -2933,7 +2936,7 @@ bool KateDocument::saveFile()
 
   setDocName  (url().fileName());
 
-  if (m_url.isLocalFile())
+  if (!m_file.isEmpty())
     KateFactory::dirWatch ()->addFile (m_file);
 
   if (success && m_modOnHd)

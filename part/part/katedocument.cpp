@@ -3310,9 +3310,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   // painting loop
   uint xPos = 0;
   uint xPosAfter = 0;
-  uint width = 0;
 
-  Attribute *curAt = 0;
   Attribute *oldAt = 0;
 
   QColor *curColor = 0;
@@ -3354,7 +3352,6 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   const QChar *oldS = s;
 
   bool isSel = false;
-  bool isTab = false;
 
   //kdDebug(13000)<<"paint 1"<<endl;
 
@@ -3376,37 +3373,23 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     {
   for (uint tmp = len; (tmp > 0); tmp--)
   {
-    // kdDebug(13000)<<"paint 4"<<endl;
+    bool isTab = ((*s) == QChar('\t'));
 
-    isTab = ((*s) == QChar('\t'));
-
-    if ((*a) >= atLen)
-      curAt = &at[0];
-    else
-      curAt = &at[*a];
-
-    width = curAt->width(fs, *s);
+    Attribute * curAt = ((*a) >= atLen) ? &at[0] : &at[*a];
 
     if (curAt != oldAt)
       paint.setFont(curAt->getFont(fs));
 
-    xPosAfter += width;
+    xPosAfter += curAt->width(fs, *s);
 
     //  kdDebug(13000)<<"paint 5"<<endl;
 
     if ((int)xPosAfter >= xStart)
     {
-      curColor = &(curAt->col);
-      isSel = false;
-
-      if (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel))
-      {
-      /*  if (!selectionPainted)
-          paint.fillRect(xPos2 + xPos - xStart, oldY, xPosAfter - xPos, fs.fontHeight, colors[1]);*/
-
-        curColor = &(curAt->selCol);
-        isSel = true;
-      }
+      isSel = (showSelections && hasSel
+	       && (curCol >= startSel) && (curCol < endSel));
+ 
+      curColor = isSel ? &(curAt->selCol) : &(curAt->col);
 
       if (curColor != oldColor)
         paint.setPen(*curColor);
@@ -3486,7 +3469,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     cursorVisible = true;
     cursorXPos = xPos;
     cursorMaxWidth = xPosAfter - xPos;
-    cursorColor = &curAt->col;
+    cursorColor = &oldAt->col;
   }
 }
   //kdDebug(13000)<<"paint 8"<<endl;

@@ -383,21 +383,11 @@ void KateViewInternal::cursorUp(bool sel)
 
 void KateViewInternal::cursorDown(bool sel)
 {
-  KateTextCursor c = cursor;
+  if( displayCursor.line >= (int)m_doc->lastLine() )
+    return;
 
-  int x;
-  
-  if( c.line >= (int)m_doc->lastLine() ) {
-    x = m_doc->lineLength( c.line );
-    if( c.col >= x )
-      return;
-    c.col = x;
-  } else {
-    c.line = m_doc->getRealLine( displayCursor.line + 1 );
-    x = m_doc->lineLength( c.line );
-    if( c.col > x )
-      c.col = x;
-  }
+  KateTextCursor c( m_doc->getRealLine(displayCursor.line+1), cursor.col );
+  m_doc->textWidth( c, cXPos );
   
   updateSelection( c, sel );
   updateCursor( c );

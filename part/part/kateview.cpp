@@ -726,6 +726,49 @@ void KateView::slotReadWriteChanged ()
 
   m_cut->setEnabled (m_doc->isReadWrite());
   m_paste->setEnabled (m_doc->isReadWrite());
+
+  m_editUndo->setEnabled (m_doc->isReadWrite());
+  m_editRedo->setEnabled (m_doc->isReadWrite());
+
+  KAction *a = 0;
+  if ((a = actionCollection()->action( "edit_replace" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "set_insert" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_spelling" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_indent" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_unindent" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_cleanIndent" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_comment" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_uncomment" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_uppercase" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_lowercase" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_capitalize" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_join_lines" )))
+    a->setEnabled (m_doc->isReadWrite());
+
+  if ((a = actionCollection()->action( "tools_apply_wordwrap" )))
+    a->setEnabled (m_doc->isReadWrite());
 }
 
 void KateView::slotNewUndo()

@@ -97,14 +97,18 @@ class KateJScript
 
 class KateJScriptManager : public Kate::Command
 {
-  public:
+  private:
+    /**
+     * Internal used Script Representation
+     */
     class Script
     {
       public:
-        QString desktopFilename ()
-        {
-          return filename.left(filename.length()-2).append ("desktop");
-        }
+        /**
+         * get desktop filename
+         * @return desktop filename
+         */
+        inline QString desktopFilename () { return filename.left(filename.length()-2).append ("desktop"); }
 
       public:
         /**
@@ -128,6 +132,10 @@ class KateJScriptManager : public Kate::Command
     ~KateJScriptManager ();
 
   private:
+    /**
+     * go, search our scripts
+     * @param force force cache updating?
+     */
     void collectScripts (bool force = false);
 
   //
@@ -143,6 +151,13 @@ class KateJScriptManager : public Kate::Command
      */
     bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
 
+    /**
+     * get help for a command
+     * @param view view to use
+     * @param cmd cmd name
+     * @param msg help message
+     * @return help available or not
+     */
     bool help( class Kate::View *view, const QString &cmd, QString &msg );
 
     /**
@@ -152,6 +167,9 @@ class KateJScriptManager : public Kate::Command
     QStringList cmds();
 
   private:
+    /**
+     * we need to know somewhere which scripts are around
+     */
     QDict<KateJScriptManager::Script> m_scripts;
 };
 

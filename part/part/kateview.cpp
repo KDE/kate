@@ -2162,16 +2162,56 @@ void KateView::doReplaceAction(int result, bool found) {
 
   QString searchFor = myDoc->searchForList.first();
   QString replaceWith = myDoc->replaceWithList.first();
+  // anders: variables for regex backref replacements
+  QString tmpRepl(replaceWith);
+  QStringList l;
+  QChar slash = QChar ('\\');
+  uint n;
+  int pos;
+
   rlen = replaceWith.length();
 
+  int tmpRlen = rlen;
+
+      // anders:  allow backreferences in replace strings:)
+      if ( myDoc->s.flags & KateDocument::sfRegularExpression ) {
+        // while replace contains \n, replace with regex.cap(n)
+        // we need be carefull and move to the correct position for each replace.
+        // also, the string \\n can not be replaced
+        l = myDoc->s.m_regExp.capturedTexts();
+        if ( l.count() > 1 && replaceWith.contains(slash) ) { // at least a chance there is something to do
+          pos = 0;
+          while ( pos > -1 ) {
+            pos = tmpRepl.find( slash, pos );
+            if ( pos > -1 ) {
+              // if the next char is a number n (existing in l and > 0)
+              if ( tmpRepl[pos+1].isDigit() ) {
+                n = tmpRepl[pos+1].digitValue();
+                if ( n < l.count() && n > 0 ) { // \0 == the entire match, should that be legal?
+                  // replace with l[n];
+                  tmpRepl.replace( pos, 2, l[n] );
+                  // move behing the inserted string
+                  pos = pos + l[n].length();
+                } // replace \n with ""?
+              }
+              else {
+                if (tmpRepl[pos+1] == slash)
+                  pos++;
+              }
+            }
+          }
+          tmpRlen = tmpRepl.length();
+          //kdDebug()<<"regex replace string, processed: "<<tmpRepl<<endl;
+        }
+      }
   switch (result) {
     case KateView::srYes: //yes
       myDoc->removeText (myDoc->s.cursor.line, myDoc->s.cursor.col, myDoc->s.cursor.line, myDoc->s.cursor.col + myDoc->s.matchedLength);
-      myDoc->insertText (myDoc->s.cursor.line, myDoc->s.cursor.col, replaceWith);
+      myDoc->insertText (myDoc->s.cursor.line, myDoc->s.cursor.col, /*replaceWith*/tmpRepl);
       replaces++;
 
       if (!(myDoc->s.flags & KateDocument::sfBackward))
-            myDoc->s.cursor.col += rlen;
+            myDoc->s.cursor.col += /*rlen*/tmpRlen;
           else
           {
             if (myDoc->s.cursor.col > 0)
@@ -2205,7 +2245,7 @@ void KateView::doReplaceAction(int result, bool found) {
               }
             }
           }
-     
+
       break;
     case KateView::srAll: //replace all
       deleteReplacePrompt();
@@ -2216,12 +2256,44 @@ void KateView::doReplaceAction(int result, bool found) {
             found = false;
             started = true;
           }
+          tmpRepl = replaceWith;
+          tmpRlen = rlen;
+          if ( myDoc->s.flags & KateDocument::sfRegularExpression ) {
+            // while replace contains \n, replace with regex.cap(n)
+            // we need be carefull and move to the correct position for each replace.
+            // also, the string \\n can not be replaced
+            l = myDoc->s.m_regExp.capturedTexts();
+            if ( l.count() > 1 && replaceWith.contains(slash) ) { // at least a chance there is something to do
+              pos = 0;
+              while ( pos > -1 ) {
+                pos = tmpRepl.find( slash, pos );
+                if ( pos > -1 ) {
+                  // if the next char is a number n (existing in l and > 0)
+                  if ( tmpRepl[pos+1].isDigit() ) {
+                    n = tmpRepl[pos+1].digitValue();
+                    if ( n < l.count() && n > 0 ) {
+                      // replace with l[n];
+                      tmpRepl.replace( pos, 2, l[n] );
+                      // move behing the inserted string
+                      pos = pos + l[n].length();
+                    } // replace \n with ""?
+                  }
+                  else {
+                    if (tmpRepl[pos+1] == slash)
+                      pos++;
+                  }
+                }
+              }
+            tmpRlen = tmpRepl.length();
+            //kdDebug()<<"regex replace string, processed: "<<tmpRepl<<endl;
+            }
+          }
           myDoc->removeText (myDoc->s.cursor.line, myDoc->s.cursor.col, myDoc->s.cursor.line, myDoc->s.cursor.col + myDoc->s.matchedLength);
-          myDoc->insertText (myDoc->s.cursor.line, myDoc->s.cursor.col, replaceWith);
+          myDoc->insertText (myDoc->s.cursor.line, myDoc->s.cursor.col, /*replaceWith*/tmpRepl);
           replaces++;
 
           if (!(myDoc->s.flags & KateDocument::sfBackward))
-            myDoc->s.cursor.col += rlen;
+            myDoc->s.cursor.col += /*rlen*/tmpRlen;
           else
           {
             if (myDoc->s.cursor.col > 0)

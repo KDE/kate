@@ -289,7 +289,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   editCurrentUndo = 0L;
   editWithUndo = false;
 
-  pseudoModal = 0L;
   blockSelect = false;
   restoreMarks = false;
 
@@ -469,8 +468,6 @@ bool KateDocument::clear()
 {
   KateTextCursor cursor;
   KateView *view;
-
-  setPseudoModal(0L);
 
   cursor.col = cursor.line = 0;
   for (view = myViews.first(); view != 0L; view = myViews.next() ) {
@@ -2369,12 +2366,6 @@ void KateDocument::spellcheck2(KSpell *)
 {
   setReadWrite (false);
 
-  // this is a hack, setPseudoModal() has been hacked to recognize 0x01
-  // as special (never tries to delete it)
-  // this should either get improved (with a #define or something),
-  // or kspell should provide access to the spell widget.
-  setPseudoModal((QWidget*)0x01);
-
   kspell.spell_tmptext = text();
 
   kspell.kspellon = TRUE;
@@ -2438,7 +2429,6 @@ void KateDocument::spellResult (const QString &)
   {
   }
 
-  setPseudoModal(0L);
   setReadWrite (true);
 
   updateViews();
@@ -2462,7 +2452,6 @@ void KateDocument::spellCleanDone ()
   }
   else if (status == KSpell::Crashed)
   {
-     setPseudoModal(0L);
      setReadWrite (true);
 
      updateViews();
@@ -4296,23 +4285,6 @@ Attribute *KateDocument::attribute (uint pos)
 void KateDocument::wrapText (uint col)
 {
   wrapText (0, lastLine(), col);
-}
-
-void KateDocument::setPseudoModal(QWidget *w) {
-//  QWidget *old = pseudoModal;
-
-  // (glenebob)
-  // this is a temporary hack to make the spell checker work a little
-  // better - as kspell progresses, this sort of thing should become
-  // obsolete or worked around more cleanly
-  // this is relied upon *only* by the spell-check code
-  if (pseudoModal && pseudoModal != (QWidget*)1L)
-    delete pseudoModal;
-
-//  pseudoModal = 0L;
-//  if (old || w) recordReset();
-
-  pseudoModal = w;
 }
 
 void KateDocument::setWordWrap (bool on)

@@ -601,10 +601,7 @@ class KateDocument : public Kate::Document
     void updateEditAccels();
 
     bool doSearch(SConfig &s, const QString &searchFor);
-
-  public:
-    void setPseudoModal(QWidget *);
-
+    
     void newBracketMark(KateTextCursor &, BracketMark &);
 
   private:

@@ -103,8 +103,6 @@ public slots:
 private:
     void replaceAgain();
     void doReplaceAction(int result, bool found = false);
-    void exposeFound(KateTextCursor &cursor, int slen, int flags, bool replace);
-    void deleteReplacePrompt();
     bool askReplaceEnd();
 private slots:
 	void replaceSlot();
@@ -120,6 +118,7 @@ private:
 	void initSearch( int flags );
 	void continueSearch();
 	void findAgain();
+	void exposeFound( KateTextCursor &cursor, int slen );
 	
 	QString getSearchText();
 	KateTextCursor getCursor();

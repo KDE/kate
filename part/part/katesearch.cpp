@@ -220,7 +220,7 @@ void KateSearch::findAgain() {
       if (!(s.flags & SConfig::sfBackward))
         s.cursor.col += s.matchedLength;
 //      myViewInternal->updateCursor(s.cursor); //does deselectAll()
-      exposeFound(cursor,s.matchedLength,0,false);
+      exposeFound( cursor, s.matchedLength );
     } else {
       if (!(s.flags & SConfig::sfFinished)) {
         // ask for continue
@@ -313,7 +313,6 @@ void KateSearch::doReplaceAction(int result, bool found) {
      
       break;
     case srAll: //replace all
-      deleteReplacePrompt();
       do {
         started = false;
 	// FIXME
@@ -347,7 +346,6 @@ void KateSearch::doReplaceAction(int result, bool found) {
       } while (!askReplaceEnd());
       return;
     case srCancel: //cancel
-      deleteReplacePrompt();
       return;
     default:
       replacePrompt = 0L;
@@ -360,11 +358,9 @@ void KateSearch::doReplaceAction(int result, bool found) {
       cursor = s.cursor;
       if (!(s.flags & SConfig::sfBackward)) cursor.col += s.matchedLength;
 //      myViewInternal->updateCursor(cursor); //does deselectAll()
-      exposeFound(s.cursor,s.matchedLength,0,true);
+      exposeFound( s.cursor, s.matchedLength );
       if (replacePrompt == 0L) {
         replacePrompt = new ReplacePrompt( view() );
-	// FIXME
-        ((KateDocument*)doc())->setPseudoModal(replacePrompt);//disable();
         connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
         replacePrompt->show(); //this is not modal
       }
@@ -372,13 +368,6 @@ void KateSearch::doReplaceAction(int result, bool found) {
     }
     //nothing found: repeat until user cancels "repeat from beginning" dialog
   } while (!askReplaceEnd());
-  deleteReplacePrompt();
-}
-
-
-void KateSearch::deleteReplacePrompt() {
-// FIXME
-  ((KateDocument*)doc())->setPseudoModal(0L);
 }
 
 bool KateSearch::askReplaceEnd() {
@@ -418,8 +407,9 @@ void KateSearch::replaceSlot() {
   doReplaceAction(replacePrompt->result(),true);
 }
 
-void KateSearch::exposeFound(KateTextCursor &cursor, int slen, int flags, bool replace) {
-
+void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
+{
+  view()->setCursorPositionReal( cursor.line, cursor.col + slen );
   doc()->setSelection( cursor.line, cursor.col, cursor.line, cursor.col + slen );
 }
 

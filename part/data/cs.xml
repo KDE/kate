@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" version="1.02" kateversion="2.0" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.03" kateversion="2.0" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
     <list name="keywords">
         <item> abstract</item>
@@ -116,7 +116,9 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
-        <AnyChar attribute="Symbol" context="#stay" String="-+*/!~%^|=.?:{[()]}"/>
+        <AnyChar attribute="Symbol" context="#stay" String="-+*/!~%^|=.?:[()]"/>
+	<DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="block1"/>
+	<DetectChar attribute="Symbol" context="#stay" char="}" endRegion="block1"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
         <LineContinue attribute="String" context="#pop"/>

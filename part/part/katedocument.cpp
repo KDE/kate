@@ -433,7 +433,7 @@ QString KateDocument::configPageName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Colors & Fonts");
+      return i18n ("Fonts & Colors");
 
     case 3:
       return i18n ("Indentation");
@@ -475,7 +475,7 @@ QString KateDocument::configPageFullName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Color & Font Schemas");
+      return i18n ("Font & Color Schemas");
 
     case 3:
       return i18n ("Indentation Rules");

@@ -39,6 +39,7 @@
 #include <kcolordialog.h>
 #include <kapplication.h>
 #include <kaboutdata.h>
+#include <ktexteditor/markinterface.h>
 
 #include <qbuttongroup.h>
 #include <qcheckbox.h>
@@ -329,8 +330,10 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   QWhatsThis::add(m_selected, i18n("<p>Sets the background color of the selection.</p>"
         "<p>To set the text color for selected text, use the \"<b>Configure "
         "Highlighting</b>\" dialog.</p>"));
-  QWhatsThis::add(m_markers, i18n("<p>Sets the background color of the selected mark type.</p>"));
-  QWhatsThis::add(m_combobox, i18n("<p>Select the mark type you want to change.</p>"));
+  QWhatsThis::add(m_markers, i18n("<p>Sets the background color of the selected "
+        "marker type.</p><p><b>Note</b>: The marker color displayed lightly because "
+        "of transparency!</p>"));
+  QWhatsThis::add(m_combobox, i18n("<p>Select the marker type you want to change.</p>"));
   QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
         "active line, which means the line where your cursor is positioned.</p>"));
   QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
@@ -379,7 +382,8 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   m_iconborder->setColor(config->readColorEntry("Color Icon Bar", &tmp6));
 
   // same std colors like in KateDocument::markColor
-  QColor mark[7];
+  QValueVector <QColor> mark((int)KTextEditor::MarkInterface::RESERVED);
+  Q_ASSERT(mark.size() > 6);
   mark[0] = Qt::blue;
   mark[1] = Qt::red;
   mark[2] = Qt::yellow;
@@ -388,15 +392,16 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   mark[5] = Qt::green;
   mark[6] = Qt::cyan;
 
-  // map from 1..7 - the same index as in markInterface
-  for (int i = 1; i < 8; i++)
+  // map from 0..RESERVED-1 - the same index as in markInterface
+  for (int i = 0; i < (int)KTextEditor::MarkInterface::RESERVED; i++)
   {
-    m_markerColors[i] = config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]);
+    // arg(i+1) to match the numbers in markinterface.h
+    m_markerColors[i] = config->readColorEntry(QString("Color MarkType%1").arg(i + 1), &mark[i]);
     QPixmap pix(16, 16);
     pix.fill(m_markerColors[i]);
-    m_combobox->changeItem(pix, m_combobox->text(i - 1), i - 1);
+    m_combobox->changeItem(pix, m_combobox->text(i), i);
   }
-  m_markers->setColor( m_markerColors[ m_combobox->currentItem() + 1 ] );
+  m_markers->setColor( m_markerColors[ m_combobox->currentItem() ] );
 
   connect( m_back      , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
   connect( m_selected  , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
@@ -418,9 +423,9 @@ void KateSchemaConfigColorTab::writeConfig (KConfig *config)
   config->writeEntry("Color Tab Marker", m_tmarker->color());
   config->writeEntry("Color Icon Bar", m_iconborder->color());
 
-  for(int i = 1; i < 8; i++) // atm we support predefined types from 1..7
+  for (int i = 0; i < (int)KTextEditor::MarkInterface::RESERVED; i++)
   {
-    config->writeEntry(QString("Color MarkType%1").arg(i), m_markerColors[i]);
+    config->writeEntry(QString("Color MarkType%1").arg(i + 1), m_markerColors[i]);
   }
 }
 
@@ -428,7 +433,7 @@ void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 {
   kdDebug() << "slotMarkerColorChanged" << endl;
   int index = m_combobox->currentItem();
-  m_markerColors[ index + 1 ] = color;
+  m_markerColors[ index ] = color;
   QPixmap pix(16, 16);
   pix.fill(color);
   m_combobox->changeItem(pix, m_combobox->text(index), index);
@@ -442,7 +447,7 @@ void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
   kdDebug() << "slotComboBoxChanged" << endl;
   // temporarily disconnect the changed-signal because setColor emits changed as well
   m_markers->disconnect( SIGNAL( changed( const QColor& ) ) );
-  m_markers->setColor( m_markerColors[index + 1] );
+  m_markers->setColor( m_markerColors[index] );
   connect( m_markers, SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 

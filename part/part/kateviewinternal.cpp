@@ -44,16 +44,16 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
     , m_iconBorderStatus( KateIconBorder::None )
     , myView (view)
     , myDoc (doc)
-{                     
+{
   // this will prevent the yScrollbar from jumping around on appear of the xScrollbar 
-  setCornerWidget (new QWidget (this));        
+  setCornerWidget (new QWidget (this));
   cornerWidget()->hide ();
   cornerWidget()->setFixedSize (style().scrollBarExtent().width(), style().scrollBarExtent().width());
-  cornerWidget()->setFocusPolicy ((QWidget::FocusPolicy)0);       
+  cornerWidget()->setFocusPolicy ( NoFocus );
                                 
   // iconborder ;)
   leftBorder = new KateIconBorder(this, this); 
-  leftBorder->setFocusPolicy ((QWidget::FocusPolicy)0);       
+  leftBorder->setFocusPolicy ( NoFocus );       
   updateIconBorder ();                            
   
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
@@ -87,6 +87,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   setFocusPolicy( StrongFocus );    
   viewport()->setFocusProxy( this );   
   viewport()->setAcceptDrops( true );
+  viewport()->setBackgroundMode( NoBackground );
   setDragAutoScroll( true );
   setFrameStyle( NoFrame );
   viewport()->setCursor( KCursor::ibeamCursor() );
@@ -122,8 +123,10 @@ void KateViewInternal::updateIconBorder()
 
 void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
 {
-  kdDebug(13000)<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
-  updateView(KateViewInternal::ufFoldingChanged);
+  kdDebug(13030) << "slotRegionVisibilityChangedAt()" << endl;
+  updateView();
+  updateContents();
+  leftBorder->update();
 }
 
 void KateViewInternal::slotCodeFoldingChanged()
@@ -131,9 +134,9 @@ void KateViewInternal::slotCodeFoldingChanged()
   leftBorder->update();
 }
 
-void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int line)
+void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
 {
-  kdDebug(13000)<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
+  kdDebug(13030) << "slotRegionBeginEndAddedRemoved()" << endl;
 //  myViewInternal->repaint();   
   // FIXME: performance problem
 //  if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)
@@ -333,7 +336,7 @@ void KateViewInternal::moveWord( Bias bias, bool sel )
     c += bias;
     while( !c.atEdge( bias ) && !h->isInWord( myDoc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )
       c += bias;
-    while( !c.atEdge( bias ) &&  h->isInWord( myDoc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )                                                
+    while( !c.atEdge( bias ) &&  h->isInWord( myDoc->textLine( c.line )[ c.col - (bias == left ? 1 : 0) ] ) )
       c += bias;
   } else {
     c += bias;
@@ -564,7 +567,7 @@ void KateViewInternal::centerCursor()
   center( cXPos, lineToContentsY( displayCursor.line ) );
 }
 
-void KateViewInternal::updateView( int flags )
+void KateViewInternal::updateView()
 {
   uint maxLen = 0;
   uint endLine = lastLine();
@@ -572,13 +575,10 @@ void KateViewInternal::updateView( int flags )
     maxLen = QMAX( maxLen, myDoc->textWidth( myDoc->kateTextLine( myDoc->getRealLine( line ) ), -1 ) );
   }
 
+  // Nice bit of extra space
+  maxLen += 8;
+
   resizeContents( maxLen, myDoc->visibleLines() * myDoc->viewFont.fontHeight );
-       
-  if( flags & KateViewInternal::ufFoldingChanged )
-  {
-    updateContents();
-    leftBorder->update();
-  }        
 }
 
 void KateViewInternal::paintCursor()
@@ -600,7 +600,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection )
 {
   int line = contentsYToLine( p.y() );
 
-  line = QMAX( 0, QMIN( line, myDoc->numVisLines() - 1 ) );
+  line = QMAX( 0, QMIN( line, int(myDoc->numVisLines()) - 1 ) );
 
   KateTextCursor c;
   c.line = myDoc->getRealLine( line );
@@ -802,16 +802,16 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
   kdDebug(13030) << "Repainting " << startline << " - " << endline << endl;
 
   for( uint line = startline; line <= endline; line++ ) {
-    int realLine = myDoc->getRealLine( line );
-    if( realLine < 0 || realLine > myDoc->lastLine() ) {
+    uint realLine = myDoc->getRealLine( line );
+    if( realLine > myDoc->lastLine() ) {
       paint->fillRect( cx, line*h, cw, h, myDoc->colors[0] );
     } else {
       myDoc->paintTextLine( *paint, realLine, 0, -1,
                             cx, line*h, cx, cx+cw,
-                            (cursorOn && hasFocus() && (realLine == cursor.line)) ? cursor.col : -1,
+                            (cursorOn && hasFocus() && (realLine == uint(cursor.line))) ? cursor.col : -1,
                             myView->isOverwriteMode(), cXPos, true,
                             myDoc->configFlags() & KateDocument::cfShowTabs,
-                            KateDocument::ViewFont, realLine == cursor.line );
+                            KateDocument::ViewFont, realLine == uint(cursor.line) );
     }
   }
 
@@ -826,7 +826,7 @@ void KateViewInternal::viewportResizeEvent( QResizeEvent* )
 
 void KateViewInternal::resizeEvent ( QResizeEvent* )        
 {
-   updateView ();        
+   updateView ();
 }
 
 void KateViewInternal::timerEvent( QTimerEvent* e )

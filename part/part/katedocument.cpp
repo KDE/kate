@@ -132,7 +132,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   selectAnchor.line = -1;
   selectAnchor.col = -1;
 
-  newDocGeometry = false;
   readOnly = false;
   newDoc = false;
 
@@ -681,8 +680,6 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
   editAddUndo (new KateUndo (this, KateUndo::editInsertText, line, col, s.length(), s));
 
-  newDocGeometry = true;
-
   l->replace(col, 0, s.unicode(), s.length());
 
   buffer->changeLine(line);
@@ -712,8 +709,6 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   buffer->changeLine(line);
 
   editTagLine(line);
-
-  newDocGeometry = true;
 
   for (uint z = 0; z < myViews.count(); z++)
   {
@@ -788,7 +783,6 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
   regionTree->lineHasBeenInserted(line); //test line or line +1
 
-  newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
@@ -866,7 +860,6 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   editTagLine(line);
   editTagLine(line+1);
 
-  newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
@@ -933,7 +926,6 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   regionTree->lineHasBeenInserted(line);
 
-  newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
@@ -992,7 +984,6 @@ bool KateDocument::editRemoveLine ( uint line )
 
   regionTree->lineHasBeenRemoved(line);
 
-  newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
@@ -1067,8 +1058,6 @@ bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, u
   if( hasSelection() )
     tagLines( selectStart.line, selectEnd.line );
 
-  updateViews ();
-
   emit selectionChanged ();
 
   return true;
@@ -1087,8 +1076,6 @@ bool KateDocument::clearSelection ()
   selectEnd.col = -1;
   selectAnchor.line = -1;
   selectAnchor.col = -1;
-
-  updateViews ();
 
   emit selectionChanged();
 
@@ -1490,8 +1477,6 @@ bool KateDocument::setHlMode (uint mode)
   if (internalSetHlMode (mode))
   {
     setDontChangeHlOnSave();
-
-    updateViews();
     return true;
   }
 
@@ -1575,7 +1560,6 @@ void KateDocument::readConfig(KConfig *config)
 
   tagAll();
   updateEditAccels();
-  updateViews();
 }
 
 void KateDocument::writeConfig(KConfig *config)
@@ -1745,7 +1729,6 @@ void KateDocument::setMark (uint line, uint markType)
   emit marksChanged ();
 
   tagLines (line,line);
-  updateViews ();
 }
 
 void KateDocument::clearMark (uint line)
@@ -1763,7 +1746,6 @@ void KateDocument::clearMark (uint line)
       emit marksChanged ();
 
       tagLines (line,line);
-      updateViews ();
     }
 }
 
@@ -1792,7 +1774,6 @@ void KateDocument::addMark (uint line, uint markType)
   emit marksChanged ();
 
   tagLines (line,line);
-  updateViews ();
 }
 
 void KateDocument::removeMark (uint line, uint markType)
@@ -1814,7 +1795,6 @@ void KateDocument::removeMark (uint line, uint markType)
     }
 
   tagLines (line,line);
-  updateViews ();
 }
 
 QPtrList<KTextEditor::Mark> KateDocument::marks ()
@@ -1834,7 +1814,6 @@ void KateDocument::clearMarks ()
   }
 
   emit marksChanged ();
-  updateViews ();
 }
 
 //
@@ -1948,8 +1927,6 @@ bool KateDocument::openFile()
   }
 
   internalSetHlMode(hl);
-
-  newDocGeometry = true;
 
   updateLines();
   updateViews();
@@ -2081,7 +2058,7 @@ void KateDocument::setFont (WhichFont wf,QFont font)
   if (wf==ViewFont)
   {
     updateFontData();
-    updateViews(); //Quick & Dirty Hack (by JoWenn) //Remove in KDE 3.0
+    updateViews();
   }
 }
 
@@ -2128,7 +2105,6 @@ void KateDocument::slotBufferUpdateHighlight()
   {
       m_highlightTimer->start(100, true);
   }
-  updateViews();
 }
 
 int KateDocument::textLength(int line) const {
@@ -2174,7 +2150,6 @@ void KateDocument::updateFontData() {
 
 void KateDocument::internalHlChanged() { //slot
   makeAttribs();
-  updateViews();
 }
 
 void KateDocument::addView(KTextEditor::View *view) {
@@ -3257,7 +3232,6 @@ void KateDocument::updateLines(int startLine, int endLine)
 
 void KateDocument::slotBufferChanged()
 {
-  newDocGeometry = true;
   updateViews();
 }
 
@@ -3268,15 +3242,10 @@ void KateDocument::updateViews(int flags)
 
   KateView *view;
   
-  if (newDocGeometry)
-    flags = flags | KateViewInternal::ufDocGeometry;
-
   for (view = myViews.first(); view != 0L; view = myViews.next() )
   {
-    view->myViewInternal->updateView(flags);
+    view->myViewInternal->updateView();
   }
-
-  newDocGeometry = false;
 }
 
 void KateDocument::updateEditAccels()

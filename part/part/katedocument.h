@@ -677,8 +677,6 @@ class KateDocument : public Kate::Document
     int eolMode;
     int tabChars;
 
-    bool newDocGeometry;
-
     bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether
                           // to check for overwriting files on save)

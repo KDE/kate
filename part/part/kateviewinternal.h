@@ -50,13 +50,6 @@ class KateViewInternal : public QScrollView
     KateViewInternal( KateView* view, KateDocument* doc );
     ~KateViewInternal();
     
-    // update flags
-    enum updateFlags
-    {
-     ufDocGeometry,
-     ufFoldingChanged
-     };
-
     void doReturn();
     void doDelete();
     void doBackspace();
@@ -123,7 +116,7 @@ class KateViewInternal : public QScrollView
   private slots:
     void slotContentsMoving (int x, int y);                
     void tripleClickTimeout();
-    void updateView( int flags = 0 );    
+    void updateView();    
     
     void slotRegionVisibilityChangedAt(unsigned int);
     void slotRegionBeginEndAddedRemoved(unsigned int);

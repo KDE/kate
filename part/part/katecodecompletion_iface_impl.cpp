@@ -31,7 +31,7 @@
 #include "katecodecompletion_iface_impl.h"
 #include "katecodecompletion_iface_impl.moc"
 #include <kdebug.h>
-#include <iostream.h>
+#include <iostream>
 #include <qwhatsthis.h>
 #include <qtimer.h>
 #include <qtooltip.h>

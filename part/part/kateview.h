@@ -41,7 +41,7 @@ class KPrinter;
 class Highlight;
 class KateDocument;
 class KateViewInternal;
-class KateBrowserExtension;
+class KateView;
 
 //state commands
 enum State_commands {
@@ -49,8 +49,22 @@ enum State_commands {
   cmToggleVertical    = 2
 };
 
-class KateViewInternal;
-class KateView;
+class KateBrowserExtension : public KParts::BrowserExtension
+{
+  Q_OBJECT
+
+  public:
+    KateBrowserExtension( KateDocument *doc, KateView *view );
+
+  public slots:
+    void copy();
+    void slotSelectionChanged();
+    void print();
+
+  private:
+    KateDocument *m_doc;
+    KateView *m_view;
+};
 
 //
 // Kate KTextEditor::View class ;)
@@ -207,7 +221,7 @@ class KateView : public Kate::View
   protected:
     void keyPressEvent( QKeyEvent *ev );
     void customEvent( QCustomEvent *ev );
-    virtual void contextMenuEvent( QContextMenuEvent *ev );
+    void contextMenuEvent( QContextMenuEvent *ev );
 
     /*
      * Check if the given URL already exists. Currently used by both save() and saveAs()
@@ -512,23 +526,6 @@ public slots:
 
   private:
     KateBrowserExtension *extension;
-};
-
-class KateBrowserExtension : public KParts::BrowserExtension
-{
-  Q_OBJECT
-
-  public:
-    KateBrowserExtension( KateDocument *doc, KateView *view );
-
-  public slots:
-    void copy();
-    void slotSelectionChanged();
-    void print();
-
-  private:
-    KateDocument *m_doc;
-    KateView *m_view;
 };
 
 #endif

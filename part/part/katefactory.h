@@ -82,6 +82,8 @@ class KateFactory : public KParts::Factory
     static KateFileTypeManager *s_fileTypeManager;
 
     static KTrader::OfferList *s_plugins;
+
+    static KDirWatch *s_dirWatch;
 };
 
 #endif

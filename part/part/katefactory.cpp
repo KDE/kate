@@ -50,6 +50,7 @@ QPtrList<class KateView> KateFactory::s_views;
 QPtrList<class KateRenderer> KateFactory::s_renderers;
 KTrader::OfferList *KateFactory::s_plugins = 0;
 KateFileTypeManager *KateFactory::s_fileTypeManager = 0;
+KDirWatch *KateFactory::s_dirWatch = 0;
 
 extern "C"
 {
@@ -83,11 +84,13 @@ KateFactory::~KateFactory()
     delete s_about;
     delete s_plugins;
     delete s_fileTypeManager;
+    delete s_dirWatch;
 
     s_instance = 0;
     s_about = 0;
     s_plugins = 0;
     s_fileTypeManager = 0;
+    s_dirWatch = 0;
   }
   else
     deref();
@@ -177,7 +180,10 @@ KTrader::OfferList *KateFactory::plugins ()
 
 KDirWatch *KateFactory::dirWatch ()
 {
-  return KDirWatch::self ();
+  if (!s_dirWatch)
+    s_dirWatch = new KDirWatch ();
+
+  return s_dirWatch;
 }
 
 KateFileTypeManager *KateFactory::fileTypeManager ()

@@ -1834,15 +1834,9 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-  if( !m_doc->isReadWrite() )
-  {
-    e->ignore();
-    return;
-  }
-
   KKey key(e);
   
-  if (key == Qt::Key_Left)
+   if (key == Qt::Key_Left)
   {
     m_view->cursorLeft();
     return;
@@ -1866,9 +1860,27 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
   
+  if( !m_doc->isReadWrite() )
+  {
+    e->ignore();
+    return;
+  }
+
   if (key == Qt::Key_Return)
   {
     m_view->keyReturn();
+    return;
+  }
+  
+  if (key == Qt::Key_Backspace)
+  {
+    m_view->backspace();
+    return;
+  }
+  
+  if (key == Qt::Key_Delete)
+  {
+    m_view->keyDelete();
     return;
   }
     

@@ -437,21 +437,11 @@ void KateView::setupEditActions()
     this, SLOT(killLine()),
     ac, "delete_line" );
 
-  KShortcut bksp(Key_Backspace);
-  bksp.append(QKeySequence(SHIFT + Key_Backspace));
-  new KAction(
-    i18n("Delete Character Left"),                 bksp,
-    this, SLOT(backspace()),
-    ac, "delete_char_left" );
   new KAction(
     i18n("Delete Word Left"),               CTRL + Key_Backspace,
     this, SLOT(deleteWordLeft()),
     ac, "delete_word_left" );
 
-  new KAction(
-    i18n("Delete Character Right"),                Key_Delete,
-    this, SLOT(keyDelete()),
-    ac, "delete_char_right" );
   new KAction(
     i18n("Delete Word Right"),              CTRL + Key_Delete,
     this, SLOT(deleteWordRight()),

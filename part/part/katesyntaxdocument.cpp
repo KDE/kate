@@ -75,7 +75,7 @@ void SyntaxDocument::setupModeList(bool force)
       config.setGroup(Group);
       syntaxModeListItem *mli=new syntaxModeListItem;
       mli->name = config.readEntry("name","");
-      mli->section = config.readEntry("section","");
+      mli->section = i18n(config.readEntry("section","").utf8());
       mli->mimetype = config.readEntry("mimetype","");
       mli->extension = config.readEntry("extension","");
       mli->identifier = *it;
@@ -98,7 +98,7 @@ void SyntaxDocument::setupModeList(bool force)
           {
             syntaxModeListItem *mli=new syntaxModeListItem;
             mli->name = e.attribute("name");
-            mli->section = e.attribute("section");
+            mli->section = i18n(e.attribute("section").utf8());
             mli->mimetype = e.attribute("mimetype");
             mli->extension = e.attribute("extensions");
 

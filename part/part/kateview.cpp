@@ -527,51 +527,27 @@ void KateView::slotLostFocus()
 
 void KateView::slotStatusMsg ()
 {
- bool readOnly =  !m_doc->isReadWrite();
-  uint config =  m_doc->configFlags();
-
-  int ovr = 0;
-  if (readOnly)
-    ovr = 0;
-  else
+  QString ovrstr;
+  if (m_doc->isReadWrite())
   {
-    if (config & Kate::Document::cfOvr)
-    {
-      ovr=1;
-    }
+    if (m_doc->configFlags() & KateDocument::cfOvr)
+      ovrstr = i18n(" OVR ");
     else
-    {
-      ovr=2;
-    }
+      ovrstr = i18n(" INS ");
   }
+  else
+    ovrstr = i18n(" R/O ");
 
-  uint r = cursorLine();
+  uint r = cursorLine() + 1;
   uint c = cursorColumn();
 
-  int mod = (int)m_doc->isModified();
-  bool block=m_doc->blockSelectionMode();
+  QString s1 = i18n(" Line: %1").arg(KGlobal::locale()->formatNumber(r, 0));
+  QString s2 = i18n(" Col: %1").arg(KGlobal::locale()->formatNumber(c, 0));
 
-  QString s1 = i18n("Line: %1").arg(KGlobal::locale()->formatNumber(r+1, 0));
-  QString s2 = i18n("Col: %1").arg(KGlobal::locale()->formatNumber(c, 0));
+  QString modstr = m_doc->isModified() ? QString (" * ") : QString ("   ");
+  QString blockstr = m_doc->blockSelectionMode() ? i18n(" BLK ") : i18n(" NORM ");
 
-  QString ovrstr;
-  if (ovr == 0)
-    ovrstr = i18n(" R/O ");
-  else if (ovr == 1)
-     ovrstr = i18n(" OVR ");
-  else if (ovr == 2)
-    ovrstr = i18n(" INS ");
-
-  QString modstr;
-  if (mod == 1)
-    modstr = QString (" * ");
-  else
-    modstr = QString ("   ");
-  QString blockstr;
-  blockstr=block ? i18n(" BLK ") : i18n("NORM");
-
-
-  emit viewStatusMsg (" " + s1 + " " + s2 + " " + ovrstr + " " + blockstr+ " " + modstr);
+  emit viewStatusMsg (s1 + s2 + " " + ovrstr + blockstr + modstr);
 }
 
 void KateView::slotSelectionTypeChanged()

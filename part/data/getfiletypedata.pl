@@ -4,6 +4,7 @@ open CONFIG, ">./katefiletypesrc" || die "couldn't open for writing: $!\n";
 
 opendir DIR, "." || die "couldn't open directory: $!\n";
 @files = readdir( DIR );
+closedir ( DIR );
 FILES: for ( @files ) {
   next unless /\.xml$/;
   print "getting data from $_\n";

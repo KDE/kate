@@ -393,43 +393,47 @@
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
+	<DetectSpaces onlyConsume="true"/>
+        <StringDetect attribute="Region Marker" context="region_marker" String="//BEGIN" beginRegion="Region1"/>
+        <RegExpr attribute="Region Marker" context="region_marker" String="//END" endRegion="Region1"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Objects" context="#stay" String="objects" />
         <keyword attribute="Math" context="#stay" String="math" />
         <keyword attribute="Events" context="#stay" String="events" />
         <keyword attribute="Data Type" context="#stay" String="methods" />
+	<DetectIdentifier onlyConsume="true"/>
         <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <DetectChar attribute="String" context="String 1" char="'"/>
         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Multi/inline Comment" char="/" char1="*" beginRegion="Comment"/>
-        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\s*[=?:]\s*" />
-        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\(\s*" />
+        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="[=?:]" />
+        <RegExpr attribute="Normal Text" context="(Internal regex catch)" String="\(" />
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
-        <LineContinue attribute="String" context="#stay"/>
+	<DetectIdentifier onlyConsume="true"/>
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="String Char" lineEndContext="#pop" name="String 1">
-        <LineContinue attribute="String" context="#stay"/>
+	<DetectIdentifier onlyConsume="true"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <DetectChar attribute="String Char" context="#pop" char="'"/>
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
-        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
+        <DetectSpaces onlyConsume="true" />
+        <IncludeRules context="##Alerts" />
+        <DetectIdentifier onlyConsume="true" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Multi/inline Comment">
-        <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
+        <IncludeRules context="##Alerts" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
 
@@ -460,6 +464,11 @@
       <context attribute="Pattern Internal Operator" lineEndContext="#pop" name="(charclass caret first check)" fallthrough="true" fallthroughContext="Regular Expression Character Class">
         <DetectChar attribute="Pattern Internal Operator" context="Regular Expression Character Class" char="^" />
       </context>
+
+      <context name="region_marker" attribute="Region Marker" lineEndContext="#pop" >
+	<DetectIdentifier onlyConsume="true" />
+	<DetectSpaces onlyConsume="true" />
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
@@ -479,7 +488,6 @@
       <itemData name="Regular Expression" defStyleNum="dsOthers"   />
       <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
       <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
-      <itemData name="Alert"        defStyleNum="dsAlert" />
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
     </itemDatas>
   </highlighting>

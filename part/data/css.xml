@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.96" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
-  
+<language name="CSS" version="1.97" kateversion="2.4" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+
   <highlighting>
     <list name="properties">
       <!-- CSS2 -->
@@ -128,11 +128,11 @@
       <item> width </item>
       <item> word-spacing </item>
       <item> z-index </item>
-      
+
       <!-- konq specific -->
       <item> konq_bgpos_x </item>
       <item> konq_bgpos_y </item>
-      
+
       <!-- font properties in @font-face -->
       <item> font-family </item>
       <item> font-size </item>
@@ -159,7 +159,7 @@
       <item> mathline </item>
       <item> topline </item>
     </list>
-        
+
     <list name="types">
       <item> inherit </item>
       <item> none </item>
@@ -339,8 +339,8 @@
       <item> fantasy </item>
       <item> monospace </item>
     </list>
-    
-     
+
+
     <list name="colors">
       <item> aqua </item>
       <item> black </item>
@@ -386,8 +386,8 @@
       <item> Window  </item>
       <item> WindowFrame  </item>
       <item> WindowText  </item>
-    </list>    
-    
+    </list>
+
     <list name="paren">
       <item> url </item>
       <item> attr </item>
@@ -395,12 +395,12 @@
       <item> rgb </item>
       <item> counter </item>
       <item> counters </item>
-      
+
       <!-- in @font-face -->
       <item> local </item>
       <item> format </item>
     </list>
-    
+
     <list name="mediatypes">
       <item> all </item>
       <item> aural </item>
@@ -413,7 +413,7 @@
       <item> tty </item>
       <item> tv </item>
     </list>
-    
+
     <list name="pseudoclasses">
       <item> hover </item>
       <item> link </item>
@@ -429,6 +429,8 @@
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Base">
+      <lineContinue context="#stay"/>
+        <DetectSpace onlyConsume="true"/>
 	<IncludeRules context="FindRuleSets" />
       </context>
 
@@ -441,21 +443,21 @@
         <DetectChar attribute="Property" context="RuleSet" char="{" beginRegion="ruleset" />
         <!--parse selectors-->
 	<DetectChar attribute="Selector Attr" context="SelAttr" char="[" />
-	<RegExpr attribute="Selector Id" context="#stay" String="#\w[\w_-]*" />
-	<RegExpr attribute="Selector Class" context="#stay" String="\.\w[\w_-]*" />
+	<RegExpr attribute="Selector Id" context="#stay" String="#[A-Za-z0-9]\w*" />
+	<RegExpr attribute="Selector Class" context="#stay" String="\.[A-Za-z0-9]\w*" />
 	<RegExpr attribute="Selector Pseudo" context="#stay" String=":lang\([\w_-]+\)" />
 	<DetectChar attribute="Selector Pseudo" context="SelPseudo" char=":" />
 	<IncludeRules context="FindStrings" />
 	<IncludeRules context="FindComments" />
       </context>
-      
+
       <!-- finds arguments to properties -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindValues">
 	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+(em|ex|px|in|cm|mm|pt|pc|deg|rad|grad|ms|s|Hz|kHz)\b" />
 	<RegExpr attribute="Value" context="#stay" String="[-+]?[0-9.]+[%]?" />
-	<RegExpr attribute="Normal Text" context="#stay" String="[\w_-]+" />
+	<RegExpr attribute="Normal Text" context="#stay" String="[\w\-]+" />
       </context>
-      
+
       <!-- finds strings -->
       <context attribute="Normal Text" lineEndContext="#stay" name="FindStrings">
 	<DetectChar attribute="String" context="StringDQ" char="&quot;" />
@@ -468,8 +470,8 @@
         <RegExpr attribute="Region Marker" context="#stay" String="/\*END.*\*/" endRegion="UserDefined" />
         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="comment" />
       </context>
-            
-      <!-- other contexts -->     
+
+      <!-- other contexts -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Media">
         <DetectChar attribute="Media" context="Media2" char="{" beginRegion="media" />
 	<keyword attribute="Media" context="#stay" String="mediatypes" insensitive="1" />
@@ -500,12 +502,14 @@
 	<IncludeRules context="FindStrings" />
 	<IncludeRules context="FindComments" />
       </context>
-      
+
       <context attribute="Comment" lineEndContext="#stay" name="Comment">
+	<DetectSpace onlyConsume="true"/>
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment" />
-        <RegExpr attribute="Alert" context= "#stay" String="(FIXME|TODO)" />
+        <IncludeRules context="##Alerts" />
+	<DetectIdentifier onlyConsume="true"/>
       </context>
-      
+
       <context attribute="Normal Text" lineEndContext="#stay" name="RuleSet">
         <DetectChar attribute="Property" context="#pop" char="}" endRegion="ruleset" />
         <keyword attribute="Property" context="Rule" String="properties" />
@@ -513,12 +517,12 @@
 	<IncludeRules context="FindComments" />
 	<RegExpr attribute="Error" context="#stay" String="\S" />
       </context>
-      
+
       <context attribute="Normal Text" lineEndContext="#stay" name="Rule">
       	<DetectChar attribute="Property" context="Rule2" char=":" />
 	<RegExpr attribute="Error" context="#stay" String="\S" />
       </context>
-      
+
       <context attribute="Normal Text" lineEndContext="#stay" name="Rule2">
       	<DetectChar attribute="Property" context="#pop#pop" char=";" />
 	<DetectChar attribute="Property" context="#pop#pop#pop" char="}" endRegion="ruleset" />
@@ -545,22 +549,23 @@
 	<IncludeRules context="FindStrings" />
 	<IncludeRules context="FindComments" />
       </context>
-      
+
       <!-- string contexts -->
       <context attribute="String" lineEndContext="#stay" name="StringDQ">
         <DetectChar attribute="String" context="#pop" char="&quot;" />
         <IncludeRules context="InsideString" />
       </context>
-            
+
       <context attribute="String" lineEndContext="#stay" name="StringSQ">
         <DetectChar attribute="String" context="#pop" char="'" />
         <IncludeRules context="InsideString" />
       </context>
-      
+
       <context attribute="String" lineEndContext="#stay" name="InsideString">
         <RegExpr attribute="String" context="#stay" String="\\[&quot;']" />
+	<DetectIdentifier onlyConsume="true"/>
       </context>
-      
+
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

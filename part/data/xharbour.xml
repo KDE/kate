@@ -488,9 +488,9 @@
          <RegExpr String="^[\t ]*DO[\t ]+CASE[\t ]*$" attribute="Keyword" context="#stay"
                 insensitive="TRUE" beginRegion="IndentRegion" />
          <keyword attribute="Keyword" context="#stay" String="context_beginners"
-                insensitive="TRUE" beginRegion="IndentRegion" />
+                beginRegion="IndentRegion" />
          <keyword attribute="Keyword" context="#stay" String="context_terminators"
-                insensitive="TRUE" endRegion="IndentRegion" />
+                endRegion="IndentRegion" />
          <RegExpr String="^return ?" attribute="Keyword" context="#stay"
                 insensitive="TRUE" endRegion="IndentRegion" />
 
@@ -549,7 +549,7 @@
 <general>
    <comments>
       <comment name="singleLine" start="*" />
-      <comment name="singleLine1" start="//" />
+      <comment name="singleLine" start="//" />
       <comment name="multiLine" start="/*" end="*/" />
    </comments>
    <keywords casesensitive="0" />

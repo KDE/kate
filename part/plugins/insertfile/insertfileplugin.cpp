@@ -85,7 +85,7 @@ void InsertFilePluginView::slotInsertFile()
 {
   _file = KFileDialog::getOpenURL( "::insertfile", "",
                                              (QWidget*)parent(),
-                                             i18n("Choose a File to Insert") ).url();
+                                             i18n("Choose File to Insert") ).url();
   if ( _file.isEmpty() ) return;
 
   if ( KURL( _file ).isLocalFile() ) {

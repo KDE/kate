@@ -797,8 +797,7 @@ void KateViewInternal::updateView(int flags)
 					pageScroll = fontHeight;
 
 				yScroll->blockSignals(true);
-				yScroll->setGeometry(myView->width()-scrollbarWidth,0,scrollbarWidth,
-					myView->height()-(xScrollVis?scrollbarWidth : 0));
+				yScroll->setGeometry(myView->width()-scrollbarWidth,0,scrollbarWidth, myView->height()-scrollbarWidth);
 				yScroll->setRange(0,yMax);
 				yScroll->setValue(startLine * myDoc->viewFont.fontHeight);
 				yScroll->setSteps(fontHeight,pageScroll);
@@ -1466,7 +1465,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
                                           (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
                                           myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
     }
-    
+
     bitBlt(this, updateR.x(), (line-startLine)*h, drawBuffer, 0, 0, updateR.width(), h);
 
     if (r->line == cursor.line)

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd"
+[
+	<!ENTITY qname    "[A-Za-z_:][\w.:_-]*">
+	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&qname;);">
+	<!ENTITY varname  "[A-Za-z_][A-Za-z_0-9]*">
+  <!ENTITY axisname  "ancestor|ancestor-or-self|attribute|child|descendant|descendant-or-self|following|following-sibling|namespace|parent|preceding|preceding-sibling|self">
+]>
+
+<!--
+  Kate syntax highlighting for XSLT
+  2004 by Peter Lammich (views@gmx.de)
+  Published under the LGPL
+  
+  TODO/FIXME
+    - Integrate latest XML highlighting, that supports !DOCTYPE, ![CDATA[, Processing Instructions, ...
+      This version is mainly based on kate 2.1 XML highlighting file
+    
+    - &varname; entity, what exactly is allowed by xslt ?
+    - highlight functions only if they are followed by a '('
+    - use <IncludeRules> to make things a bit more modular and cleaner 
+
+    - I'd like to properly comment this file, but kate 2.1 (I have to work with it) behaves strange whith comments.
+      It seems to immediately stop processing a tag's content when encountering a comment
+      
+    
+    FIXED: axis highlighting does not work, if identifier continues directly behind axis: (self::someWord)
+    
+    DONE: highlight entity references
+      Do not replace the <RegExpr> by <IncludeEntities>, this is a kate 2.1 workaround !
+        
+      
+-->
+
+<language version="1.01" kateversion="2.1" name="XSLT" section="Markup" extensions="*.xsl;*.xslt"
+  license="LGPL" author="Peter Lammich (views@gmx.de)"
+>
+  <highlighting>
+    <list name="keytags">
+      <item> xsl:value-of </item>
+      <item> xsl:output </item>
+      <item> xsl:decimal-format </item>
+      <item> xsl:apply-templates </item>
+      <item> xsl:param </item>
+      <item> xsl:transform </item>
+      <item> xsl:namespace-alias </item>
+      <item> xsl:comment </item>
+      <item> xsl:element </item>
+      <item> xsl:attribute </item>
+      <item> xsl:apply-imports </item>
+      <item> xsl:text </item>
+      <item> xsl:when </item>
+      <item> xsl:template </item>
+      <item> xsl:processing-instruction </item>
+      <item> xsl:include </item>
+      <item> xsl:copy-of </item>
+      <item> xsl:copy </item>
+      <item> xsl:with-param </item>
+      <item> xsl:stylesheet </item>
+      <item> xsl:for-each </item>
+      <item> xsl:choose </item>
+      <item> xsl:sort </item>
+      <item> xsl:otherwise </item>
+      <item> xsl:key </item>
+      <item> xsl:variable </item>
+      <item> xsl:number </item>
+      <item> xsl:message </item>
+      <item> xsl:fallback </item>
+      <item> xsl:strip-space </item>
+      <item> xsl:import </item>
+      <item> xsl:preserve-space </item>
+      <item> xsl:if </item>
+      <item> xsl:call-template </item>
+      <item> xsl:attribute-set </item>
+    </list>
+  
+    <list name="functions">    
+      <item> format-number </item>
+      <item> position </item>
+      <item> lang </item>
+      <item> substring-before </item>
+      <item> substring </item>
+      <item> normalize-space </item>
+      <item> round </item>
+      <item> translate </item>
+      <item> starts-with </item>
+      <item> concat </item>
+      <item> local-name </item>
+      <item> key </item>
+      <item> count </item>
+      <item> document </item>
+      <item> system-property </item>
+      <item> current </item>
+      <item> boolean </item>
+      <item> number </item>
+      <item> contains </item>
+      <item> name </item>
+      <item> last </item>
+      <item> unparsed-entity-uri </item>
+      <item> sum </item>
+      <item> generate-id </item>
+      <item> function-available </item>
+      <item> element-available </item>
+      <item> false </item>
+      <item> substring-after </item>
+      <item> not </item>
+      <item> string-length </item>
+      <item> id </item>
+      <item> floor </item>
+      <item> ceiling </item>
+      <item> namespace-uri </item>
+      <item> true </item>
+      <item> string </item>
+      <item> text </item>
+    </list>
+
+    <contexts>
+
+       <context name="normalText" attribute="Normal Text" lineEndContext="#stay">
+         <StringDetect attribute="Comment" context="comment" String="&lt;!--"/>
+         <DetectChar attribute="Tag" context="tagname" char="&lt;" />
+         <RegExpr attribute="Entity Reference" context="#stay" String="&entref;" />
+       </context>
+
+       <context name="detectEntRef" attribute="Normal Text" lineEndContext="#stay">
+         <RegExpr attribute="Entity Reference" context="#stay" String="&entref;" />
+       </context>
+       
+       <context name="tagname" attribute="Tag" lineEndContext="#stay">
+         <keyword attribute="XSLT Tag" context="xattributes" String="keytags" />
+         <RegExpr attribute="Attribute" context="attributes" String="\s*" />
+         <DetectChar attribute="Tag" context="#pop" char="&gt;" />
+       </context>
+       
+       <context name="attributes" attribute="Attribute" lineEndContext="#stay">
+         <Detect2Chars attribute="Tag" context="#pop#pop" char="/" char1="&gt;" />
+         <DetectChar attribute="Tag" context="#pop#pop" char="&gt;" />
+         <RegExpr attribute="Normal Text" context="attrValue" String="\s*=\s*" />
+       </context>
+
+       <context name="attrValue" attribute="Invalid" lineEndContext="#stay">
+         <Detect2Chars attribute="Invalid" context="#pop#pop#pop" char="/" char1="&gt;" />
+         <DetectChar attribute="Invalid" context="#pop#pop#pop" char="&gt;" />
+         <DetectChar attribute="Attribute Value" context="string" char="&quot;" />
+         <DetectChar attribute="Attribute Value" context="sqstring" char="'" />
+       </context>
+
+       <context name="xattributes" attribute="Attribute" lineEndContext="#stay">
+          <Detect2Chars attribute="Tag" context="#pop#pop" char="/" char1="&gt;" />
+          <DetectChar attribute="Tag" context="#pop#pop" char="&gt;" />
+          <RegExpr attribute="Attribute" context="xattrValue" String="select\s*=\s*" />
+          <RegExpr attribute="Attribute" context="xattrValue" String="test\s*=\s*" />
+          <RegExpr attribute="Attribute" context="xattrValue" String="match\s*=\s*" />
+          <RegExpr attribute="Attribute" context="attrValue" String="\s*=\s*" />
+       </context>
+
+       <context name="xattrValue" attribute="Invalid" lineEndContext="#stay">
+         <Detect2Chars attribute="Invalid" context="#pop#pop#pop" char="/" char1="&gt;" />
+         <DetectChar attribute="Invalid" context="#pop#pop#pop" char="&gt;" />
+         <DetectChar attribute="XPath" context="xpath" char="&quot;" />
+         <DetectChar attribute="XPath" context="sqxpath" char="'" />
+       </context>
+       
+       
+       <context name="string" attribute="Attribute Value" lineEndContext="#stay">
+         <DetectChar attribute="XPath" context="xpath" char="{" />
+         <DetectChar attribute="Attribute Value" context="#pop#pop" char="&quot;" />
+         <IncludeRules context="detectEntRef" />
+       </context>
+
+       <context name="sqstring" attribute="Attribute Value" lineEndContext="#stay">
+         <DetectChar attribute="XPath" context="sqxpath" char="{" />
+         <DetectChar attribute="Attribute Value" context="#pop#pop" char="'" />
+         <IncludeRules context="detectEntRef" />
+       </context>
+       
+       <context name="comment" attribute="Comment" lineEndContext="#stay">
+         <StringDetect attribute="Todo" context="#stay" String="TODO" />
+         <StringDetect attribute="Fixme" context="#stay" String="FIXME" />
+         <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
+       </context>
+
+       <context name="xpath" attribute="XPath" lineEndContext="#stay">
+         <keyword attribute="XPath Function" context="#stay" String="functions" />
+         <RegExpr attribute="XPath Axis" context="#stay" String="(&axisname;)::" />
+         <DetectChar attribute="XPath" context="#pop" char="}" />
+         <DetectChar attribute="XPath String" context="sqxpathstring" char="'" />
+         <DetectChar attribute="XPath" context="#pop#pop" char="&quot;" />
+         <RegExpr attribute="XPath Attribute" context="#stay" String="@&qname;" />
+         <RegExpr attribute="Variable" context="#stay" String="\$[A-Za-z_0-9]+" />
+         <DetectChar attribute="Invalid" context="#stay" char="$" />
+         <IncludeRules context="detectEntRef" />
+       </context>
+       
+       <context name="sqxpath" attribute="XPath" lineEndContext="#stay">
+         <keyword attribute="XPath Function" context="#stay" String="functions" />
+         <RegExpr attribute="XPath Axis" context="#stay" String="(&axisname;)::" />
+         <DetectChar attribute="XPath" context="#pop" char="}" />
+         <DetectChar attribute="XPath String" context="xpathstring" char="&quot;" />
+         <DetectChar attribute="XPath" context="#pop#pop" char="'" />
+         <RegExpr attribute="XPath Attribute" context="#stay" String="@&qname;" />
+         <RegExpr attribute="Variable" context="#stay" String="\$[A-Za-z_0-9]+" />
+         <DetectChar attribute="Invalid" context="#stay" char="$" />
+         <IncludeRules context="detectEntRef" />
+       </context>
+       
+       <context name="sqxpathstring" attribute="XPath String" lineEndContext="#stay">
+         <DetectChar attribute="XPath String" context="#pop" char="'" />
+         <IncludeRules context="detectEntRef" />
+       </context>
+       
+       <context name="xpathstring" attribute="XPath String" lineEndContext="#stay">
+         <DetectChar attribute="XPath String" context="#pop" char="&quot;" />
+         <IncludeRules context="detectEntRef" />
+       </context>
+       
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Tag" defStyleNum="dsKeyword"/>
+      <itemData name="Attribute" defStyleNum="dsOthers"/>
+      <itemData name="Invalid" defStyleNum="dsComment" color="#FF0000" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Attribute Value" defStyleNum="dsString" color="#800000" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="XPath" defStyleNum="dsOthers" color="#008080" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="XPath String" defStyleNum="dsString" color="#800000" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="XPath Axis" defStyleNum="dsKeyword" color="#008080" selColor="#ffffff" bold="0" italic="1"/>
+      <itemData name="XPath Function" defStyleNum="dsKeyword" color="#008080" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="XPath Attribute" defStyleNum="dsNormal" color="#008080" selColor="#ffffff" bold="0" italic="1" />
+      <itemData name="Variable" defStyleNum="dsNormal" color="#008080" selColor="#ffffff" bold="0" italic="1" />
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Todo" defStyleNum="dsOthers"/>
+      <itemData name="Fixme" defStyleNum="dsOthers"/>
+      <itemData name="XSLT Tag" defStyleNum="dsKeyword" color="#000080" selColor="#ffffff" bold="1" italic="0" />
+      <itemData name="Entity Reference" defStyleNum="dsDecVal" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="multiLine" start="&lt;!--" end="--&gt;" />
+    </comments>
+    <keywords casesensitive="0" weakDeliminator="-:" additionalDeliminator="&quot;{}"/>
+  </general>
+</language>

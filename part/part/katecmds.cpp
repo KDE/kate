@@ -333,7 +333,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
 {
   kdDebug(13010)<<"SedReplace::execCmd()"<<endl;
 
-  if (QRegExp("[$%]?s/.+/.*/[ig]*").search(cmd, 0)==-1)
+  if (QRegExp("[$%]?s /.+/.*/[ig]*").search(cmd, 0)==-1)
     return false;
 
   bool fullFile=cmd[0]=='%';
@@ -342,7 +342,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   bool onlySelect=cmd[0]=='$';
 
 
-  QRegExp splitter("^[$%]?s/((?:[^\\\\/]|\\\\.)*)/((?:[^\\\\/]|\\\\.)*)/[ig]*$");
+  QRegExp splitter("^[$%]?s /((?:[^\\\\/]|\\\\.)*)/((?:[^\\\\/]|\\\\.)*)/[ig]*$");
   if (splitter.search(cmd)<0) return false;
 
   QString find=splitter.cap(1);

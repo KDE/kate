@@ -2205,7 +2205,7 @@ bool KateDocument::printDialog ()
   printer.addDialogPage( new KatePrintHeaderFooter(&printer, NULL) );
   printer.addDialogPage( new KatePrintLayout(&printer, NULL) );
 
-   if ( printer.setup( kapp->mainWidget(), QString("Print %1").arg(printer.docName()) ) )
+   if ( printer.setup( kapp->mainWidget(), i18n("Print %1").arg(printer.docName()) ) )
    {
      KateRenderer renderer(this);
      renderer.setPrinterFriendly(true);

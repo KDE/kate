@@ -57,7 +57,7 @@ void HLParamEdit::ListParameter(QString listname)
 	listEdit->show();
 }
 
-void HLParamEdit::TextParameter(int length, QString text,bool regExp)
+void HLParamEdit::TextParameter(int length, QString text, bool /* regExp */)
 {
 	delete listLabel;
 	delete listChoose;

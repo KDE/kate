@@ -93,6 +93,7 @@ static QByteArray readBlock(int fd, int size)
 /**
  * Writes the bytes buf[begin] to buf[end] to @p fd.
  */
+/*
 static void writeBlock(int fd, const QByteArray &buf, int begin, int end)
 {
    while(begin != end)
@@ -104,7 +105,8 @@ static void writeBlock(int fd, const QByteArray &buf, int begin, int end)
          return; // TODO: Do some error handling.
       begin += n;     
    }     
-}     
+}
+*/
      
 void     
 KateBuffer::clear()     

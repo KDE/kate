@@ -363,7 +363,7 @@ QString KDevArgHint::markCurArg()
 	return strFuncText;
 }
 
-void KDevArgHint::slotDone(int id)
+void KDevArgHint::slotDone(int /* id */)
 {
 	// kdDebug(13000)<<QString("Slot done %1").arg(id)<<endl;
 	hide();

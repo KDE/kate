@@ -274,7 +274,7 @@ void KateCodeCompletion::showArgHint ( QStringList functionList, const QString& 
     nNum++;
   }
   
-  m_pArgHint->move(m_view->mapToGlobal(m_view->cursorCoordinates()));
+  m_pArgHint->move(m_view->mapToGlobal(m_view->cursorCoordinates()-QPoint(0,m_pArgHint->height())));
   m_pArgHint->show();
 }
 

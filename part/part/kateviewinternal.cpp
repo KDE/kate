@@ -191,7 +191,8 @@ void KateViewInternal::doPaste()
 void KateViewInternal::doTranspose()
 {
   myDoc->transpose( cursor );
-  cursorRight();
+  if (cursor.col + 2 <  myDoc->lineLength(cursor.line))
+  	  cursorRight();
   cursorRight();
 }
 

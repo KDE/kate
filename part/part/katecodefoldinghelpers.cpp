@@ -1208,7 +1208,7 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
 {
   struct hiddenLineBlock data;
   data.start = line+1;
-  data.length = node->endLineRel;
+  data.length = node->endLineRel-1; // without -1;
   bool inserted = false;
 
   for (QValueList<hiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
@@ -1232,7 +1232,8 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
   if (!inserted)
     hiddenLines.append(data);
 
-  for (unsigned int i=line+1; i<=node->endLineRel+line; i++)
+  unsigned int blkend=node->endLineRel+line;
+  for (unsigned int i=line+1; i<=blkend; i++)
     emit(setLineVisible(i,false));
 }
 
@@ -1424,10 +1425,28 @@ void KateCodeFoldingTree::expandOne(int realLine, int numLines)
 
 void KateCodeFoldingTree::ensureVisible( uint line )
 {
+  // first have a look, if the line is really hidden
+  bool found=false;
+  for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
+  {
+    if ( ((*it).start<=line)  && ((*it).start+(*it).length>line) ) 
+    {
+      found=true;
+      break;
+    }
+  }
+
+
+  if (!found) return;
+
+  kdDebug()<<"line "<<line<<" is really hidden ->show block"<<endl;
+
+  // it looks like we really have to ensure visibility
   KateCodeFoldingNode *n = findNodeForLine( line );
   do {
     if ( ! n->visible )
       toggleRegionVisibility( getStartLine( n ) );
     n = n->parentNode;
   } while( n );
+
 }

@@ -3714,18 +3714,29 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
 {
   TextLine::Ptr textline = buffer->plainLine(line);
 
-  if(textline->startingWith(str))
+  int index = 0;
+  bool there = false;
+
+  if (textline->startingWith(str))
+    there = true;
+  else
+  {
+    index = textline->firstChar ();
+
+    if ((index >= 0) && (textline->length() >= (index + str.length())) && (textline->string(index, str.length()) == str))
+      there = true;
+  }
+
+  if (there)
   {
     // Get string lenght
     int length = str.length();
 
     // Remove some chars
-    removeText (line, 0, line, length);
-
-    return true;
+    removeText (line, index, line, index+length);
   }
 
-  return false;
+  return there;
 }
 
 /*

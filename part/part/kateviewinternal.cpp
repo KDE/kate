@@ -858,6 +858,7 @@ void KateViewInternal::updateView(int flags)
 	  updateLineRanges();
 //	updateLineRanges (height());
     repaint ();
+    leftBorder->repaint();
   }
   else
   {
@@ -1101,14 +1102,14 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
                                           myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
 
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
-      
+
       leftBorder->paintLine(line,line);
     }
     else if (r->empty)
     {
       paint.fillRect(0, 0, this->width(), h, myDoc->colors[0]);
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
-      
+
       leftBorder->paintLine(line,line);
     }
 
@@ -1415,63 +1416,55 @@ void KateViewInternal::wheelEvent( QWheelEvent *e )
 
 
 
-void KateViewInternal::paintEvent(QPaintEvent *e) {
-  int xStart, xEnd;
-  int h;
-  int line, y, yEnd;
-
-  QRect updateR = e->rect();
-
+void KateViewInternal::paintEvent(QPaintEvent *e)
+{
   if (!drawBuffer) return;
   if (drawBuffer->isNull()) return;
+
+  QRect updateR = e->rect();
+  int xStart = xPos + updateR.x();
+  int xEnd = xStart + updateR.width();
+  uint h = myDoc->viewFont.fontHeight;
+  uint startline = startLine + (updateR.y() / h);
+  uint endline = startline + 1 + (updateR.height() / h);
+
+  KateLineRange *r = lineRanges.data();
+  uint rpos = startline-startLine;
 
   QPainter paint;
   paint.begin(drawBuffer);
 
-  xStart = xPos + updateR.x();
-  xEnd = xStart + updateR.width();
+  if (rpos <= lineRanges.size())
+    r += rpos;
+  else
+    return;
 
-  h = myDoc->viewFont.fontHeight;
-  line = startLine + (updateR.y() / h);
-  y = (line-startLine)*h;
-  yEnd = updateR.y() + updateR.height();
-
-  int disppos=line-startLine;
-
-  bool isVisible=false;
+  bool b = myView->isOverwriteMode();
   bool again = true;
-  while (y < yEnd)
+  for ( uint line = startline; (line <= endline) && (rpos < lineRanges.size()); line++)
   {
-    if (disppos >= lineRanges.size())
-      break;
-
-    if (lineRanges[disppos].empty)
+    if (r->empty)
     {
       paint.fillRect(xStart, 0, xEnd-xStart, h, myDoc->colors[0]);
-      bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
     }
     else
     {
-      isVisible=myDoc->paintTextLine ( paint, lineRanges[disppos].line, lineRanges[disppos].startCol, lineRanges[disppos].endCol, 0,
-                                                     xStart, xEnd, -1, false, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs,
-                                                     KateDocument::ViewFont, again && (lineRanges[disppos].line == cursor.line));
-
-      bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
+      myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xStart, xEnd,
+                                          (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
+                                          myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
     }
     
-    leftBorder->paintLine(line,line);
+    bitBlt(this, updateR.x(), (line-startLine)*h, drawBuffer, 0, 0, updateR.width(), h);
 
-    if (lineRanges[disppos].line == cursor.line)
+    if (r->line == cursor.line)
       again = false;
 
-    disppos++;
-    y += h;
-    line++;
+    r++;
+    rpos++;
   }
 
   paint.end();
 
-  if (cursorOn) paintCursor();
   if (bm.eXPos > bm.sXPos) paintBracketMark();
 }
 

@@ -568,9 +568,9 @@ void KateViewInternal::updateView()
   if (first > 0)
     first--;
     
-  if (endLine+1 < m_doc->visibleLines ())
-    endLine++;  
-  
+  if (lastLineCalc() < m_doc->visibleLines ())
+    endLine = lastLineCalc();  
+      
   for( uint line = firstLine(); line <= endLine; line++ ) {
     maxLen = QMAX( maxLen, m_doc->textWidth( m_doc->kateTextLine( m_doc->getRealLine( line ) ), -1 ) );
   }

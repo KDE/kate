@@ -129,6 +129,7 @@ class KateViewInternal : public QScrollView
     int  lineToContentsY( uint line ) const;
     inline uint firstLine() const { return contentsYToLine( yPosition() ); }
     inline uint lastLine()  const { return contentsYToLine( yPosition() + visibleHeight() ); }
+    inline uint lastLineCalc()  const { return contentsYToLine( yPosition() + height() ); }
 
     void centerCursor();
 

@@ -28,6 +28,7 @@
 #include <ktexteditor/undointerface.h>
 #include <ktexteditor/cursorinterface.h>
 #include <ktexteditor/selectioninterface.h>
+#include <ktexteditor/selectioninterfaceext.h>
 #include <ktexteditor/blockselectioninterface.h>
 #include <ktexteditor/searchinterface.h>
 #include <ktexteditor/highlightinginterface.h>
@@ -85,7 +86,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::HighlightingInterface, public KTextEditor::BlockSelectionInterface,
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
                      public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface,
-                     public KTextEditor::MarkInterfaceExtension
+                     public KTextEditor::MarkInterfaceExtension, 
+                     public KTextEditor::SelectionInterfaceExt
 /*GRRR !!! Never do that again. Declaring interfaces within interfaces, where it is not really necessary.
 	The above inheritage just makes it completely impossible to enhance the ktexteditor interface in a decent way*/
 

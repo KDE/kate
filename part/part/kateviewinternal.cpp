@@ -727,7 +727,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
              ( lineRanges[z].line == cursor.line && lineRanges[z].startCol <= cursor.col && (lineRanges[z].endCol > cursor.col || !lineRanges[z].wrap) ),
              false,
              bm,
-             lineRanges[z].startX + m_startX );
+             lineRanges[z].startX + xStart );
       paint.end ();
       bitBlt (this, x, z * h, &drawBuffer);
     }

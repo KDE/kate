@@ -84,7 +84,7 @@ void KateViewHighlightAction::slotAboutToShow()
   popupMenu()->setItemChecked (0, false);
 
   int i = subMenusName.findIndex (HlManager::self()->hlSection(doc->hlMode()));
-  if (subMenus.at(i))
+  if (i >= 0 && subMenus.at(i))
     subMenus.at(i)->setItemChecked (doc->hlMode(), true);
   else
     popupMenu()->setItemChecked (0, true);

@@ -654,9 +654,9 @@ EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, const char *): Kate:
 	tmpWin=new KMainWindow(0);
 	tmpWin->hide();
 	setupEditKeys();
+  	KConfig config("kateeditkeysrc");
+	m_editAccels->readSettings(&config);
 	chooser=new KKeyChooser(m_editAccels,this);
-  KConfig config("kateeditkeysrc");
-  m_editAccels->readSettings(&config);
 }
 
 void EditKeyConfiguration::dummy()

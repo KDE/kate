@@ -365,20 +365,20 @@ KateBuffer::line(uint i)
       parseBlock(buf);
    }
    
-   if (!noHlUpdate)
-   {
-   if (buf->b_needHighlight)
-   {
+  if (!noHlUpdate)
+  {
+    if (buf->b_needHighlight)
+    {
       buf->b_needHighlight = false;
       if (m_highlightedTo > buf->m_beginState.lineNr)
       {
          needHighlight(buf, buf->m_beginState.line, buf->m_beginState.lineNr, buf->m_endState.lineNr);
          *buf->m_endState.line = *(buf->line(buf->m_endState.lineNr - buf->m_beginState.lineNr - 1));
       }
-   }
-   if ((m_highlightedRequested <= i) &&
-       (m_highlightedTo <= i))
-   {
+    }
+    if ((m_highlightedRequested <= i) &&
+        (m_highlightedTo <= i))
+    {
       m_highlightedRequested = buf->m_endState.lineNr;
       emit pleaseHighlight(m_highlightedTo, buf->m_endState.lineNr);
 
@@ -387,18 +387,17 @@ KateBuffer::line(uint i)
       {
          parseBlock(buf);
       }
-   }
-   }
+    }
+  }
 
-   return buf->line(i - buf->m_beginState.lineNr);
+  return buf->line(i - buf->m_beginState.lineNr);
 }
 
 bool
-KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint startLine,uint endLine) {
+KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint startLine,uint endLine)
+{
   if (!m_highlight)
      return false;
-     
-  kdDebug()<<"hl running ;("<<endl;
 
   TextLine::Ptr textLine;
   QMemArray<signed char> ctxNum, endCtx;
@@ -448,8 +447,6 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
   emit tagLines(startLine, current_line - 1);
   return (current_line >= buf->m_endState.lineNr);
 }
-
-
 
 void
 KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)

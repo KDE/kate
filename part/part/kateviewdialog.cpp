@@ -305,9 +305,9 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
 
   mainLayout->addWidget(gbWhiteSpace);
 
-  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
+  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Static Word Wrap"), this);
 
-  opt[0] = new QCheckBox(i18n("Enable &word wrap"), gbWordWrap);
+  opt[0] = new QCheckBox(i18n("Enable static &word wrap"), gbWordWrap);
   opt[0]->setChecked(KateDocumentConfig::global()->wordWrap());
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(wordWrapToggled()));
@@ -369,7 +369,8 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   mainLayout->addStretch();
 
   // What is this? help
-  QWhatsThis::add(opt[0], i18n("Word wrap is a feature that causes the editor to automatically start a new line of text and move (wrap) the cursor to the beginning of that new line. KateView will automatically start a new line of text when the current line reaches the length specified by the Wrap Words At: option.<p><b>NOTE:</b> Word Wrap will not change existing lines or wrap them for easy reading as in some applications."));
+  QWhatsThis::add(opt[0],
+    i18n("Automatically start a new line of text when the current line exceeds the length specified by the <b>Wrap words at:</b> option.<p>This option does not wrap existing lines of text - use the <b>Apply Static Word Wrap</b> option in the <b>Tools</b> menu for that purpose.<p>If you want lines to be <i>visually wrapped</i> instead, according to the width of the view, enable <b>Dynamic Word Wrap</b> in the <b>View Defaults</b> config page."));
   QWhatsThis::add(e1, i18n("If the Word Wrap option is selected this entry determines the length (in characters) at which the editor will automatically start a new line."));
   QWhatsThis::add(opt[1], i18n("When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor."));
   QWhatsThis::add(opt[2], i18n("The editor will display a symbol to indicate the presence of a tab in the text."));
@@ -461,7 +462,6 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
   m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),gbWordWrap);
-  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), gbWordWrap );
 
   QHBox *m_dynwrapIndicatorsLay = new QHBox (gbWordWrap);
   m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"), m_dynwrapIndicatorsLay );
@@ -470,6 +470,8 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   m_dynwrapIndicatorsCombo->insertItem( i18n("Follow Line Numbers") );
   m_dynwrapIndicatorsCombo->insertItem( i18n("Always On") );
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
+
+    m_wwmarker = new QCheckBox( i18n("Show static word wrap marker (if applicable)"), gbWordWrap );
 
   blay->addWidget(gbWordWrap);
 
@@ -606,7 +608,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   connect( m_bracket, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
-  label = new QLabel( i18n("Word wrap marker:"), b);
+  label = new QLabel( i18n("Word wrap markers:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_wwmarker = new KColorButton(b);
   connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );

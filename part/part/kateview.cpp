@@ -213,7 +213,7 @@ void KateView::setupActions()
     a=m_editRedo = KStdAction::redo(m_doc, SLOT(redo()), ac);
     a->setWhatsThis(i18n("Revert the most recent undo operation"));
 
-    (new KAction(i18n("Apply Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
+    (new KAction(i18n("Apply Static Word Wrap"), "", 0, m_doc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap"))->setWhatsThis(
   i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
     " current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated"
     " when the view is resized."));
@@ -297,10 +297,16 @@ void KateView::setupActions()
   a=new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, m_viewInternal, SLOT(slotDecFontSizes()), ac, "decFontSizes");
   a->setWhatsThis(i18n("This decreases the display font size."));
 
-  a=new KAction(i18n("T&oggle Block Selection"), CTRL + SHIFT + Key_B, m_doc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
+  a= m_toggleBlockSelection = new KToggleAction(
+    i18n("Vertical Selection M&ode"), CTRL + SHIFT + Key_B,
+    this, SLOT(toggleBlockSelectionMode()),
+    ac, "set_verticalSelect");
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));
 
-  a=new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
+  a= m_toggleInsert = new KToggleAction(
+    i18n("Overwr&ite Mode"), Key_Insert,
+    this, SLOT(toggleInsert()),
+    ac, "set_insert" );
   a->setWhatsThis(i18n("Choose whether you want the text you type to be inserted or to overwrite existing text."));
 
   KToggleAction *toggleAction;
@@ -340,7 +346,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
 
   a = m_toggleWWMarker = new KToggleAction(
-        i18n("Show &Word Wrap Marker"), 0,
+        i18n("Show Static &Word Wrap Marker"), 0,
         this, SLOT( toggleWWMarker() ),
         ac, "view_word_wrap_marker" );
   a->setWhatsThis( i18n(
@@ -747,17 +753,27 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
   return true;
 }
 
+void KateView::toggleBlockSelectionMode()
+{
+  m_doc->toggleBlockSelectionMode();
+  m_toggleBlockSelection->setChecked (m_doc->blockSelectionMode());
+}
+
 void KateView::setOverwriteMode( bool b )
 {
   if ( isOverwriteMode() && !b )
     m_doc->setConfigFlags( m_doc->config()->configFlags() ^ KateDocument::cfOvr );
   else
     m_doc->setConfigFlags( m_doc->config()->configFlags() | KateDocument::cfOvr );
+
+  m_toggleInsert->setChecked (isOverwriteMode ());
 }
 
 void KateView::toggleInsert()
 {
   m_doc->setConfigFlags(m_doc->config()->configFlags() ^ KateDocument::cfOvr);
+  m_toggleInsert->setChecked (isOverwriteMode ());
+
   emit newStatus();
 }
 
@@ -1084,6 +1100,10 @@ void KateView::updateConfig ()
   // cmd line
   showCmdLine (config()->cmdLine());
   m_toggleCmdLine->setChecked( config()->cmdLine() );
+
+  // misc edit
+  m_toggleBlockSelection->setChecked( m_doc->blockSelectionMode() );
+  m_toggleInsert->setChecked( isOverwriteMode() );
 
   updateFoldingConfig ();
 

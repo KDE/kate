@@ -373,6 +373,9 @@ class KateView : public Kate::View,
     KAction *m_selectAll;
     KAction *m_deSelect;
 
+    KToggleAction *m_toggleBlockSelection;
+    KToggleAction *m_toggleInsert;
+
     KateDocument*          m_doc;
     KateViewInternal*      m_viewInternal;
     KateRenderer*          m_renderer;
@@ -406,6 +409,7 @@ class KateView : public Kate::View,
 
   private slots:
     void updateFoldingConfig ();
+    void toggleBlockSelectionMode ();
 
   private:
     KateViewConfig *m_config;

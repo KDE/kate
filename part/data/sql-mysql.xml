@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Author: Shane Wright <me@shanewright.co.uk> -->
+<!-- mySQL SQL, syntax definition based on sql.xml by Yury Lebedev -->
+<language name="SQL-mySQL" version="1.00" kateversion="2.0" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0">
+  <highlighting>
+    <list name="keywords">
+      <item> ACCESS </item>
+      <item> ADD </item>
+      <item> ALL </item>
+      <item> ALTER </item>
+      <item> ANALYZE </item>
+      <item> AND </item>
+      <item> AS </item>
+      <item> ASC </item>
+      <item> AUTO_INCREMENT </item>
+      <item> BDB </item>
+      <item> BERKELEYDB </item>
+      <item> BETWEEN </item>
+      <item> BOTH </item>
+      <item> BY </item>
+      <item> CASCADE </item>
+      <item> CASE </item>
+      <item> CHANGE </item>
+      <item> COLUMN </item>
+      <item> COLUMNS </item>
+      <item> CONSTRAINT </item>
+      <item> CREATE </item>
+      <item> CROSS </item>
+      <item> CURRENT_DATE </item>
+      <item> CURRENT_TIME </item>
+      <item> CURRENT_TIMESTAMP </item>
+      <item> DATABASE </item>
+      <item> DATABASES </item>
+      <item> DAY_HOUR </item>
+      <item> DAY_MINUTE </item>
+      <item> DAY_SECOND </item>
+      <item> DEC </item>
+      <item> DEFAULT </item>
+      <item> DELAYED </item>
+      <item> DELETE </item>
+      <item> DESC </item>
+      <item> DESCRIBE </item>
+      <item> DISTINCT </item>
+      <item> DISTINCTROW </item>
+      <item> DROP </item>
+      <item> ELSE </item>
+      <item> ENCLOSED </item>
+      <item> ESCAPED </item>
+      <item> EXISTS </item>
+      <item> EXPLAIN </item>
+      <item> FIELDS </item>
+      <item> FOR </item>
+      <item> FOREIGN </item>
+      <item> FROM </item>
+      <item> FULLTEXT </item>
+      <item> FUNCTION </item>
+      <item> GRANT </item>
+      <item> GROUP </item>
+      <item> HAVING </item>
+      <item> HIGH_PRIORITY </item>
+      <item> IF </item>
+      <item> IGNORE </item>
+      <item> IN </item>
+      <item> INDEX </item>
+      <item> INFILE </item>
+      <item> INNER </item>
+      <item> INNODB </item>
+      <item> INSERT </item>
+      <item> INTERVAL </item>
+      <item> INTO </item>
+      <item> IS </item>
+      <item> JOIN </item>
+      <item> KEY </item>
+      <item> KEYS </item>
+      <item> KILL </item>
+      <item> LEADING </item>
+      <item> LEFT </item>
+      <item> LIKE </item>
+      <item> LIMIT </item>
+      <item> LINES </item>
+      <item> LOAD </item>
+      <item> LOCK </item>
+      <item> LOW_PRIORITY </item>
+      <item> MASTER_SERVER_ID </item>
+      <item> MATCH </item>
+      <item> MRG_MYISAM </item>
+      <item> NATURAL </item>
+      <item> NOT </item>
+      <item> NULL </item>
+      <item> NUMERIC </item>
+      <item> ON </item>
+      <item> OPTIMIZE </item>
+      <item> OPTION </item>
+      <item> OPTIONALLY </item>
+      <item> OR </item>
+      <item> ORDER </item>
+      <item> OUTER </item>
+      <item> OUTFILE </item>
+      <item> PARTIAL </item>
+      <item> PRECISION </item>
+      <item> PRIMARY </item>
+      <item> PRIVILEGES </item>
+      <item> PROCEDURE </item>
+      <item> PURGE </item> 
+      <item> READ </item>
+      <item> REFERENCES </item>
+      <item> REGEXP </item>
+      <item> RENAME </item>
+      <item> REPLACE </item>
+      <item> REQUIRE </item>
+      <item> RESTRICT </item>
+      <item> RETURNS </item>
+      <item> REVOKE </item>
+      <item> RIGHT </item>
+      <item> RLIKE </item>
+      <item> SELECT </item>
+      <item> SET </item>
+      <item> SHOW </item>
+      <item> SONAME </item>
+      <item> SQL_BIG_RESULT </item>
+      <item> SQL_CALC_FOUND_ROWS </item>
+      <item> SQL_SMALL_RESULT </item>
+      <item> SSL </item>
+      <item> STARTING </item>
+      <item> STRAIGHT_JOIN </item>
+      <item> STRIPED </item>
+      <item> TABLE </item>
+      <item> TABLES </item>
+      <item> TERMINATED </item>
+      <item> THEN </item>
+      <item> TO </item>
+      <item> TRAILING </item>
+      <item> UNION </item>
+      <item> UNIQUE </item> 
+      <item> UNLOCK </item>
+      <item> UNSIGNED </item>
+      <item> UPDATE </item>
+      <item> USAGE </item>
+      <item> USE </item>
+      <item> USER_RESOURCES </item>
+      <item> USING </item>
+      <item> VALUES </item>
+      <item> VARYING </item>
+      <item> WHEN </item>
+      <item> WHERE </item>
+      <item> WITH </item>
+      <item> WRITE </item>
+      <item> XOR </item>
+      <item> YEAR_MONTH </item>
+      <item> ZEROFILL </item>
+    </list>
+    <list name="operators">
+      <item> + </item>
+      <item> - </item>
+      <item> * </item>
+      <item> / </item>
+      <item> || </item>
+      <item> = </item>
+      <item> != </item>
+      <item> &lt;&gt; </item>
+      <item> &lt; </item>
+      <item> &lt;= </item>
+      <item> &gt; </item>
+      <item> &gt;= </item>
+      <item> ~= </item>
+      <item> ^= </item>
+      <item> := </item>
+      <item> =&gt; </item>
+      <item> ** </item>
+      <item> .. </item>
+     </list>
+     <list name="functions">
+      <!-- string functions -->
+      <item> ASCII </item>
+      <item> ORD </item>
+      <item> CONV </item>
+      <item> BIN </item>
+      <item> OCT </item>
+      <item> HEX </item>
+      <item> CHAR </item>
+      <item> CONCAT </item>
+      <item> CONCAT_WS </item>
+      <item> LENGTH </item>
+      <item> OCTET_LENGTH </item>
+      <item> CHAR_LENGTH </item>
+      <item> CHARACTER_LENGTH </item>
+      <item> BIT_LENGTH </item>
+      <item> LOCATE </item>
+      <item> POSITION </item>
+      <item> INSTR </item>
+      <item> LPAD </item>
+      <item> RPAD </item>
+      <item> LEFT </item>
+      <item> RIGHT </item>
+      <item> SUBSTRING </item>
+      <item> SUBSTRING_INDEX </item>
+      <item> MID </item>
+      <item> LTRIM </item>
+      <item> RTRIM </item>
+      <item> TRIM </item>
+      <item> SOUNDEX </item>
+      <item> SPACE </item>
+      <item> REPLACE </item>
+      <item> REPEAT </item>
+      <item> REVERSE </item>
+      <item> INSERT </item>
+      <item> ELT </item>
+      <item> FIELD </item>
+      <item> FIND_IN_SET </item>
+      <item> MAKE_SET </item>
+      <item> EXPORT_SET </item>
+      <item> LCASE </item>
+      <item> LOWER </item>
+      <item> UCASE </item>
+      <item> UPPER </item>
+      <item> LOAD_FILE </item>
+      <item> QUOTE </item>
+      <!-- math functions -->
+      <item> ABS </item>
+      <item> SIGN </item>
+      <item> MOD </item>
+      <item> FLOOR </item>
+      <item> CEILING </item>
+      <item> ROUND </item>
+      <item> EXP </item>
+      <item> LN </item>
+      <item> LOG </item>
+      <item> LOG2 </item>
+      <item> LOG10 </item>
+      <item> POW </item>
+      <item> POWER </item>
+      <item> SQRT </item>
+      <item> PI </item>
+      <item> COS </item>
+      <item> SIN </item>
+      <item> TAN </item>
+      <item> ACOS </item>
+      <item> ASIN </item>
+      <item> ATAN </item>
+      <item> ATAN2 </item>
+      <item> COT </item>
+      <item> RAND </item>
+      <item> LEAST </item>
+      <item> GREATEST </item>
+      <item> DEGREES </item>
+      <item> RADIANS </item>
+      <item> TRUNCATE </item>
+      <!-- date/time functions -->
+      <item> DAYOFWEEK </item>
+      <item> WEEKDAY </item>
+      <item> DAYOFMONTH </item>
+      <item> DAYOFYEAR </item>
+      <item> MONTH </item>
+      <item> DAYNAME </item>
+      <item> MONTHNAME </item>
+      <item> QUARTER </item>
+      <item> WEEK </item>
+      <item> YEAR </item>
+      <item> YEARWEEK </item>
+      <item> HOUR </item>
+      <item> MINUTE </item>
+      <item> SECOND </item>
+      <item> PERIOD_ADD </item>
+      <item> PERIOD_DIFF </item>
+      <item> DATE_ADD </item>
+      <item> DATE_SUB </item>
+      <item> ADDDATE </item>
+      <item> SUBDATE </item>
+      <item> EXTRACT </item>
+      <item> TO_DAYS </item>
+      <item> FROM_DAYS </item>
+      <item> DATE_FORMAT </item>
+      <item> TIME_FORMAT </item>
+      <item> CURDATE </item>
+      <item> CURRENT_DATE </item>
+      <item> CURTIME </item>
+      <item> CURRENT_TIME </item>
+      <item> NOW </item>
+      <item> SYSDATE </item>
+      <item> CURRENT_TIMESTAMP </item>
+      <item> UNIX_TIMESTAMP </item>
+      <item> FROM_UNIXTIME </item>
+      <item> SEC_TO_TIME </item>
+      <item> TIME_TO_SEC </item>
+      <!-- cast functions -->
+      <item> CAST </item>
+      <item> CONVERT </item>
+      <!-- misc -->
+      <item> BIT_COUNT </item>
+      <item> DATABASE </item>
+      <item> USER </item>
+      <item> SYSTEM_USER </item>
+      <item> SESSION_USER </item>
+      <item> PASSWORD </item>
+      <item> ENCRYPT </item>
+      <item> ENCODE </item>
+      <item> DECODE </item>
+      <item> MD5 </item>
+      <item> SHA1 </item>
+      <item> SHA </item>
+      <item> AES_ENCRYPT </item>
+      <item> AES_DECRYPT </item>
+      <item> DES_ENCRYPT </item>
+      <item> DES_DECRYPT </item>
+      <item> LAST_INSERT_ID </item>
+      <item> FORMAT </item>
+      <item> VERSION </item>
+      <item> CONNECTION_ID </item>
+      <item> GET_LOCK </item>
+      <item> RELEASE_LOCK </item>
+      <item> IS_FREE_LOCK </item>
+      <item> BENCHMARK </item>
+      <item> INET_NTOA </item>
+      <item> INET_ATON </item>
+      <item> MASTER_POS_WAIT </item>
+      <item> FOUND_ROWS </item>
+      <!-- GROUP BY -->
+      <item> COUNT </item>
+      <item> AVG </item>
+      <item> MIN </item>
+      <item> MAX </item>
+      <item> SUM </item>
+      <item> STD </item>
+      <item> STDDEV </item>
+      <item> BIT_OR </item>
+      <item> BIT_AND </item>
+    </list>
+    <list name="types">
+      <item> BIGINT </item>
+      <item> BINARY </item>
+      <item> BLOB </item>
+      <item> CHAR </item>
+      <item> CHARACTER </item>
+      <item> DECIMAL </item>
+      <item> DOUBLE </item> 
+      <item> FLOAT </item>
+      <item> INT </item>
+      <item> INTEGER </item>
+      <item> LONG </item>
+      <item> LONGBLOB </item>
+      <item> LONGTEXT </item>
+      <item> MEDIUMBLOB </item>
+      <item> MEDIUMINT </item>
+      <item> MEDIUMTEXT </item>
+      <item> MIDDLEINT </item>
+      <item> REAL </item>
+      <item> SMALLINT </item>
+      <item> TEXT </item>
+      <item> TINYBLOB </item>
+      <item> TINYINT </item>
+      <item> TINYTEXT </item>
+      <item> VARBINARY </item>
+      <item> VARCHAR </item>
+      <item> HOUR_MINUTE </item>
+      <item> HOUR_SECOND </item>
+      <item> MINUTE_SECOND </item>
+    </list>
+    <contexts>
+      <context name="Normal Text" attribute="0" lineEndContext="0">
+        <keyword attribute="1" context="0" String="keywords"/>
+        <keyword attribute="2" context="0" String="operators"/>
+        <keyword attribute="3" context="0" String="functions"/>
+        <keyword attribute="4" context="0" String="types"/>
+        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Tt][Yy][Pp][Ee]\b"/>
+        <Float attribute="6" context="0"/>
+        <Int attribute="5" context="0"/>
+        <DetectChar attribute="7" context="1" char="'"/>
+        <Detect2Chars attribute="8" context="2" char="-" char1="-"/>
+        <Detect2Chars attribute="8" context="3" char="/" char1="*"/>
+        <RegExpr attribute="8" context="4" String="^[Rr][Ee][Mm]\b"/>
+        <DetectChar attribute="9" context="5" char="&quot;"/>
+        <AnyChar attribute="10" context="0" String=":&#38;"/>
+        <RegExpr attribute="10" context="0" String="^/$"/>
+        <RegExpr attribute="11" context="6" String="^@@?[^@ \t\r\n]"/>
+      </context>
+      <context name="String" attribute="7" lineEndContext="1">
+        <LineContinue attribute="7" context="0"/>
+        <DetectChar attribute="10" context="1" char="&#38;"/>
+        <DetectChar attribute="7" context="0" char="'"/>
+      </context>
+      <context name="Comment" attribute="8" lineEndContext="0"/>
+      <context name="Comment" attribute="8" lineEndContext="3">
+        <LineContinue attribute="8" context="0"/>
+        <Detect2Chars attribute="8" context="0" char="*" char1="/"/>
+      </context>
+      <context name="Comment" attribute="8" lineEndContext="0"/>
+      <context name="Identifier" attribute="9" lineEndContext="0">
+        <DetectChar attribute="9" context="0" char="&quot;"/>
+      </context>
+      <context name="Preprocessor" attribute="11" lineEndContext="0"/>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Operator" defStyleNum="dsNormal"/>
+      <itemData name="Function" defStyleNum="dsKeyword"/>
+      <itemData name="Data Type" defStyleNum="dsDataType"/>
+      <itemData name="Decimal"  defStyleNum="dsDecVal"/>
+      <itemData name="Float"  defStyleNum="dsFloat"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Identifier" defStyleNum="dsOthers"/>
+      <itemData name="Symbol"  defStyleNum="dsChar"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="--"/>
+      <comment name="multiLine" start="/*" end="*/"/>
+    </comments>
+    <keywords casesensitive="0"/>
+  </general>
+</language>

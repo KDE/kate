@@ -4005,9 +4005,16 @@ void KateDocument::isModOnHD(bool forceReload)
 
 void KateDocument::reloadFile()
 {
-  if (fileInfo && !fileInfo->fileName().isEmpty()) {
+  if (fileInfo && !fileInfo->fileName().isEmpty())
+  {
+    uint mode = hlMode ();
+    bool byUser = hlSetByUser;
+
     KateDocument::openFile();
     setMTime();
+    
+    if (byUser)
+      setHlMode (mode);
   }
 }
 

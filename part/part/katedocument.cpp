@@ -3382,7 +3382,7 @@ void KateDocument::del( const KateTextCursor& c )
   {
     removeText(c.line(), c.col(), c.line(), c.col()+1);
   }
-  else
+  else if ( c.line() < lastLine() )
   {
     removeText(c.line(), c.col(), c.line()+1, 0);
   }

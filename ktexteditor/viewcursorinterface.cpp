@@ -60,6 +60,11 @@ unsigned int ViewCursorInterface::viewCursorInterfaceNumber () const
   return myViewCursorInterfaceNumber;
 }
 
+void ViewCursorInterface::setViewCursorInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("ViewCursorInterface#"+suffix);
+}
+
 ViewCursorInterface *KTextEditor::viewCursorInterface (View *view)
 {                   
   if (!view)

@@ -62,6 +62,11 @@ unsigned int ViewStatusMsgInterface::viewStatusMsgInterfaceNumber () const
   return myViewStatusMsgInterfaceNumber;
 }
 
+void ViewStatusMsgInterface::setViewStatusMsgInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("ViewStatusMsgInterface#"+suffix);
+}
+
 ViewStatusMsgInterface *KTextEditor::viewStatusMsgInterface (View *view)
 {           
   if (!view)

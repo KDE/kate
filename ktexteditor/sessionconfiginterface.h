@@ -19,6 +19,7 @@
 #ifndef __ktexteditor_sessionconfiginterface_h__
 #define __ktexteditor_sessionconfiginterface_h__
 
+class QCString;
 class KConfig;
 
 namespace KTextEditor
@@ -36,6 +37,9 @@ class SessionConfigInterface
     virtual ~SessionConfigInterface();
 
     unsigned int configInterfaceNumber () const;
+    
+  protected:  
+    void setSessionConfigInterfaceDCOPSuffix (const QCString &suffix); 
 
   //
   // slots !!!

@@ -60,6 +60,11 @@ unsigned int UndoInterface::undoInterfaceNumber () const
   return myUndoInterfaceNumber;
 }
 
+void UndoInterface::setUndoInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("UndoInterface#"+suffix);
+}
+
 UndoInterface *KTextEditor::undoInterface (Document *doc)
 {  
   if (!doc)

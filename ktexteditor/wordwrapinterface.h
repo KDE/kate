@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_wordwrapinterface_h__
 #define __ktexteditor_wordwrapinterface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -35,6 +37,9 @@ class WordWrapInterface
     virtual ~WordWrapInterface ();
 
     unsigned int wordWrapInterfaceNumber () const;
+    
+  protected:  
+    void setWordWrapInterfaceDCOPSuffix (const QCString &suffix); 
 
   //
   // slots !!!

@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_viewcursorinterface_h__
 #define __ktexteditor_viewcursorinterface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -35,6 +37,9 @@ class ViewCursorInterface
     virtual ~ViewCursorInterface ();
 
     unsigned int viewCursorInterfaceNumber () const;
+    
+  protected:  
+    void setViewCursorInterfaceDCOPSuffix (const QCString &suffix); 
 
   //
   // slots !!!

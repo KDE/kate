@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_undointerface_h__
 #define __ktexteditor_undointerface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -34,6 +36,9 @@ class UndoInterface
     virtual ~UndoInterface ();
 
     unsigned int undoInterfaceNumber () const;
+    
+  protected:  
+    void setUndoInterfaceDCOPSuffix (const QCString &suffix); 
 
   //
   // slots !!!

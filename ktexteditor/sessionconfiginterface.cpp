@@ -58,6 +58,11 @@ unsigned int SessionConfigInterface::configInterfaceNumber () const
   return mySessionConfigInterfaceNumber;
 }
 
+void SessionConfigInterface::setSessionConfigInterfaceDCOPSuffix (const QCString &suffix)
+{
+  //d->interface->setObjId ("SessionConfigInterface#"+suffix);
+}
+
 SessionConfigInterface *KTextEditor::sessionConfigInterface (Document *doc)
 {                       
   if (!doc)

@@ -4291,8 +4291,8 @@ void KateDocument::slotModifiedOnDisk( Kate::View *v )
 
     switch ( KMessageBox::warningYesNoCancel( widget(),
                 reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-                i18n("The file was modified on disk"),
-                i18n("&Reload File"), i18n("&Ignore changes")) )
+                i18n("File Was Modified on Disk"),
+                i18n("&Reload File"), i18n("&Ignore Changes")) )
     {
       case KMessageBox::Yes: // "reload file"
         m_modOnHd = false; // trick reloadFile() to not ask again

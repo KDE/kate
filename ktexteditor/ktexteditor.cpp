@@ -181,8 +181,9 @@ unsigned int Editor::editorNumber () const
 Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name )
 {
   if ( KParts::Factory *factory = static_cast<KParts::Factory *>(KLibLoader::self()->factory( libname )->qt_cast ("KParts::Factory")) )
-  {
-    return static_cast<Editor *>(factory->createPart( parentWidget, widgetName, parent, name, "KTextEditor::Editor" )->qt_cast ("KTextEditor::Editor"));
+  { 
+    if ( QObject *obj = factory->createPart( parentWidget, widgetName, parent, name, "KTextEditor::Editor" ) )    
+      return static_cast<Editor *>(obj->qt_cast ("KTextEditor::Editor"));
   }
                
   return 0;
@@ -192,7 +193,8 @@ Document *KTextEditor::createDocument ( const char* libname, QObject *parent, co
 {
   if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
   {
-    return static_cast<Document *>(factory->create( parent, name, "KTextEditor::Document" )->qt_cast ("KTextEditor::Document"));
+    if ( QObject *obj = factory->create( parent, name, "KTextEditor::Document" ) )  
+      return static_cast<Document *>(obj->qt_cast ("KTextEditor::Document"));
   }
                
   return 0;
@@ -202,7 +204,8 @@ Plugin *KTextEditor::createPlugin ( const char* libname, QObject *parent, const 
 {
   if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
   {
-    return static_cast<Plugin *>(factory->create( parent, name, "KTextEditor::Plugin" )->qt_cast ("KTextEditor::Plugin"));
+    if ( QObject *obj = factory->create( parent, name, "KTextEditor::Plugin" ) )
+      return static_cast<Plugin *>(obj->qt_cast ("KTextEditor::Plugin"));
   }
                
   return 0;
@@ -212,7 +215,8 @@ ViewPlugin *KTextEditor::createViewPlugin ( const char* libname, QObject *parent
 {
   if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
   {
-    return static_cast<ViewPlugin *>(factory->create( parent, name, "KTextEditor::ViewPlugin" )->qt_cast ("KTextEditor::ViewPlugin"));
+    if ( QObject *obj = factory->create( parent, name, "KTextEditor::ViewPlugin" ) )
+      return static_cast<ViewPlugin *>(obj->qt_cast ("KTextEditor::ViewPlugin"));
   }
                
   return 0;

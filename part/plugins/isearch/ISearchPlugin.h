@@ -28,6 +28,7 @@
 
 #include <kxmlguiclient.h>
 #include <qobject.h>
+#include <qguardedptr.h>
 
 class QLabel;
 namespace 
@@ -94,7 +95,7 @@ private:
 	KTextEditor::SelectionInterface* m_selectIF;
        	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
-	KToolBarLabel* m_label;
+	QGuardedPtr<KToolBarLabel> m_label;
 	KHistoryCombo* m_combo;
 	bool           m_searchBackward;
 	bool           m_caseSensitive;

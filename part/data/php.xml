@@ -2796,6 +2796,8 @@
 				<Int attribute="Decimal" context="#stay" />
 				<AnyChar attribute="Operator" context="#stay" String="=+-*/.%&amp;|!^&gt;&lt;" />
 				<keyword attribute="Operator" context="#stay" String="operators" />
+				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
+				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
 				<AnyChar attribute="Other" context="#stay" String=";()}{:,[]" />
 				<keyword attribute="Other" context="#stay" String="Others" />
 			</context>
@@ -2807,10 +2809,10 @@
 			<itemData name="Keyword" defStyleNum="dsKeyword" />
 			<itemData name="Function" defStyleNum="dsKeyword" color="#0000FF" selColor="#00ffff" bold="0" italic="0"/>
 			<itemData name="Operator" defStyleNum="dsKeyword" color="#00F000" selColor="#ffffff" bold="1" italic="0"/>
-			<itemData name="Decimal" defStyleNum="dsDecVal" />
+			<itemData name="Decimal" defStyleNum="dsDecVal" />
 			<itemData name="Octal" defStyleNum="dsBaseN" />
 			<itemData name="Hex" defStyleNum="dsBaseN" />
-			<itemData name="Float" defStyleNum="dsFloat" />
+			<itemData name="Float" defStyleNum="dsFloat" />
 			<itemData name="String" defStyleNum="dsString" />
 			<itemData name="Comment" defStyleNum="dsComment" />
 			<itemData name="Variable" defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" />

@@ -99,7 +99,7 @@ class TextLine : public KShared
     */
     inline QChar *text() const { return m_text.data(); };    
     
-    inline uchar *attributes () const { return m_attributes.data(); }  
+    inline uchar *attributes () const { return m_attributes.data(); }
 
     /**
       Gets a QString
@@ -147,8 +147,8 @@ class TextLine : public KShared
     */
     inline uint ctxLength() const { return m_ctx.size(); };
 
-    bool searchText (unsigned int startCol, const QString &text, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive = true, bool backwards = false);
-    bool searchText (unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards = false); 
+    bool searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive = true, bool backwards = false);
+    bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false); 
     
      /**
       Gets the attribute at the given position
@@ -168,7 +168,7 @@ class TextLine : public KShared
       Raw access on the memarray's, for example the katebuffer class
     */
     inline const QMemArray<QChar> &textArray () const { return m_text; };
-    inline const QMemArray<unsigned char> &attributesArray () const { return m_attributes; };
+    inline const QMemArray<uchar> &attributesArray () const { return m_attributes; };
     inline const QMemArray<signed char> &ctxArray () const { return m_ctx; };
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };      
          
@@ -250,7 +250,7 @@ class TextLine : public KShared
     /**
       Dumpsize in bytes
     */
-    uint dumpSize () const;
+    uint dumpInit () const;
     
     /**
       Dumps the line to *buf and counts buff dumpSize bytes up 
@@ -263,7 +263,7 @@ class TextLine : public KShared
       as return value
     */
     char *restore (char *buf);
-                  
+
   /**
    REALLY PRIVATE ;) please no new friend classes
    */
@@ -272,7 +272,7 @@ class TextLine : public KShared
       The text & attributes
     */
     QMemArray<QChar> m_text;
-    QMemArray<unsigned char> m_attributes;
+    QMemArray<uchar> m_attributes;
     
     /**
      Data for context + folding 

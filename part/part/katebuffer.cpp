@@ -1254,7 +1254,7 @@ KateBufBlock::flushStringList()
   // Calculate size.
   uint size = 0;
   for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-    size += (*it)->dumpSize ();
+    size += (*it)->dumpInit ();
    
   //kdDebug(13020)<<"Size = "<< size<<endl;
   m_rawData2 = QByteArray(size);

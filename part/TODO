@@ -16,6 +16,4 @@ For 3.1 and later:
 
  - dynamic word wrap
  
- - more efficient hl buffer managment, I think of storing only the contexts in the buffer
- 
  - print/export only selected text

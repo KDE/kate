@@ -372,7 +372,7 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
   {
     case 0:
       return colorConfigPage(parent);
-      
+
     case 1:
       return fontConfigPage(parent);
 
@@ -3900,7 +3900,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 
   if( !printerfriendly && bracketMark.cursor.line == int(line) && bracketMark.eXPos != -1 )
     paint.fillRect( bracketMark.sXPos, y, bracketMark.eXPos - bracketMark.sXPos, fs.fontHeight, colors[3] );
-    
+
   if (startcol > (int)len)
     startcol = len;
 

@@ -4035,7 +4035,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
           paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs.fontHeight, colors[1]);
 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
-        paint.drawText(xPos2 + oldXPos-xStart, y, str.string());
+        paint.drawText(xPos2 + oldXPos-xStart, y, str.string(), curCol+1-oldCol);
 
         if ((int)xPos > xEnd)
           break;

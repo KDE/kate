@@ -244,24 +244,50 @@ void KateCSmartIndent::processNewline (KateDocCursor &begin, bool needContinue)
 
 void KateCSmartIndent::processChar(QChar c)
 {
-  if (c != '}' && c != '{' && c != '#')
+  if (c != '}' && c != '{' && c != '#' && c != ':')
     return;
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), view->cursorColumnReal() - 1, doc);
 
-  // Make sure this is the only character on the line
+  // Make sure this is the only character on the line if it isn't a ':'
   TextLine::Ptr textLine = doc->kateTextLine(begin.line());
-  if (textLine->firstChar() != begin.col())
-    return;
+  if (c != ':')
+  {
+    if (textLine->firstChar() != begin.col())
+      return;
+  }
 
-  // We always remove the beginning of the line.
-  // For # directives this has the added bonus of forcing us
-  // all the way to the left and we're done.
+  // For # directives just remove the entire beginning of the line
   if (c == '#')
   {
     doc->removeText(begin.line(), 0, begin.line(), begin.col());
   }
-  else
+  else if (c == ':')  // For a ':' line everything up :)
+  {
+    int lineStart = textLine->firstChar();
+    if (textLine->stringAtPos (lineStart, "public") ||
+        textLine->stringAtPos (lineStart, "private") ||
+        textLine->stringAtPos (lineStart, "protected") ||
+        textLine->stringAtPos (lineStart, "case"))
+    {
+      int line = begin.line();
+      int pos = 0;
+      while (line > 0) // search backwards until we find an ending ':' and go from there
+      {
+        textLine = doc->kateTextLine(--line);
+        pos = textLine->lastChar();
+        if (pos >= 0 && textLine->getChar(pos) == '{')
+          return;
+        if (pos >= 0 && textLine->getChar(pos) == ':')
+          break;
+      }
+
+      KateDocCursor temp(line, textLine->firstChar(), doc);
+      doc->removeText(begin.line(), 0, begin.line(), lineStart);
+      doc->insertText(begin.line(), 0, tabString( measureIndent(temp) ));
+    }
+  }
+  else  // Must be left with a brace. Put it where it belongs
   {
     int indent = calcIndent(begin, false);
     if (c == '}')
@@ -300,7 +326,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       found = true;
 
       int specialIndent = 0;
-      if (c == ':')
+      if (c == ':' && needContinue)
       {
         QChar ch;
         if (textLine->stringAtPos(specialIndent = textLine->firstChar(), "case"))
@@ -374,7 +400,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   }
 
   uint indent = 0;
-  if (lastChar == '{' || (lastChar == ':' && isSpecial))
+  if (lastChar == '{' || (lastChar == ':' && isSpecial && needContinue))
   {
     indent = anchorIndent + indentWidth;
   }
@@ -386,7 +412,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   {
     indent = anchorIndent + ((allowSemi && needContinue) ? continueIndent : 0);
   }
-  else if (!lastChar.isNull())
+  else if (!lastChar.isNull() && anchorIndent != 0)
   {
     indent = anchorIndent + continueIndent;
   }
@@ -419,6 +445,11 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
   else if (textLine->stringAtPos(cur.col(), "else"))
   {
     cur.setCol(cur.col() + 4);
+    if (textLine->stringAtPos(textLine->nextNonSpaceChar(cur.col()), "if"))
+    {
+      cur.setCol(textLine->nextNonSpaceChar(cur.col()) + 2);
+      needsBalanced = true;
+    }
   }
   else if (textLine->stringAtPos(cur.col(), "do"))
   {
@@ -447,7 +478,6 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
     allowSemi = isFor;
     return indentWidth * 2;
   }
-
   // Check if this statement ends a line now
   skipBlanks(cur, end, false);
   if (cur == end || (cur.col() == (int)length-1))
@@ -457,11 +487,11 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
   {
     if (cur == end)
       return indentWidth;
+    else
+      return indentWidth + calcContinue(cur, end);
   }
-  else
-    return 0;
 
-  return indentWidth + calcContinue(cur, end);
+  return 0;
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on; smart-indent on;
+// kate: space-indent on; indent-width 2; replace-tabs on; indent-mode 1;

@@ -49,7 +49,7 @@
       <item> ### </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal" skipSpaces="true">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
         <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />

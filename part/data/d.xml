@@ -35,7 +35,7 @@
    ========================================================================
 -->
 
-<language name="D" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc" version="1.34" kateversion="2.2" casesensitive="true" author="Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
+<language name="D" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc" version="1.36" kateversion="2.2" casesensitive="true" author="Simon J Mackenzie (project.katedxml@smackoz.fastmail.fm)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> abstract </item>
@@ -291,6 +291,8 @@
         <DetectChar   attribute="Char" context="#pop"  char="'"/>
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
 

@@ -32,3 +32,4 @@ unsigned int CodeCompletionInterface::codeCompletionInterfaceNumber () const
 {
   return myCodeCompletionInterfaceNumber;
 }
+

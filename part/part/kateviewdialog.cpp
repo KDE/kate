@@ -427,6 +427,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+	connect( m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 	blay->addWidget(m_dynwrap,0);

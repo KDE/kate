@@ -1,4 +1,3 @@
-ilerpg.xml
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="ILERPG" version="1.00" kateversion="2.0" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
     <highlighting>

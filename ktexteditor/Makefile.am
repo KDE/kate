@@ -22,4 +22,4 @@ ktexteditorincludedir = $(includedir)/ktexteditor
 METASOURCES = AUTO
 
 servicetypedir = $(kde_servicetypesdir)
-servicetype_DATA = ktexteditor.desktop
+servicetype_DATA = ktexteditor.desktop ktexteditoreditor.desktop

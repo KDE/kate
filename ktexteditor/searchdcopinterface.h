@@ -32,22 +32,27 @@ namespace KTextEditor
 		**/
 		virtual ~SearchDCOPInterface();
 	k_dcop:
-		bool findFirstString( QString text);
-		bool findNextString(QString text);
-		bool findPreviousString( QString text);
-		bool findLastString(QString text);
+		bool findFirstString(QString text, bool caseSensitive);
+		bool findNextString(QString text, bool caseSensitive);
+		bool findPreviousString( QString text, bool caseSensitive);
+		bool findLastString(QString text, bool caseSensitive);
+		bool findStringAt( uint row, uint col, QString text, bool caseSensitive);
 
 		bool findFirstRegExp( QString regexp);
 		bool findNextRegExp( QString regexp);
 		bool findPreviousRegExp( QString regexp);
 		bool findLastRegExp( QString regexp);
+		bool findRegExpAt( uint row, uint col, QString regexp);
 
-		int currentMatchLine();
-		int currentMatchCol();
-		int currentMatchLength();
+		uint currentMatchLine();
+		uint currentMatchCol();
+		uint currentMatchLength();
 
 	private:
 		SearchInterface *m_parent;
+		uint m_currentcol;
+		uint m_currentrow;
+		uint m_currentmatchlen;
 	};
 };
 #endif

@@ -1371,12 +1371,14 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   }
   else
   {
-    if (!doc->m_bBrowserView)
-      myDoc->setXMLFile( "katepartui.rc" );
+    if (doc->m_bReadOnly)
+      myDoc->setXMLFile( "katepartreadonlyui.rc" );
     else
+      myDoc->setXMLFile( "katepartui.rc" );
+
+    if (doc->m_bBrowserView)
     {
       extension = new KateBrowserExtension( myDoc, this );
-      myDoc->setXMLFile( "katepartbrowserui.rc" );
     }
   }
 

@@ -1,4 +1,4 @@
-<?xml version="1.01" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="LaTeX" version="1.06" kateversion="2.1" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
   <highlighting>
@@ -351,7 +351,7 @@
       <itemData name="Keyword" defStyleNum="dsNormal" color="#0000A0" selColor="#ff0000"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Begin End" defStyleNum="dsNormal" color="#000000" selColor="#ffffff" bold="1" italic="1"/>
-      <itemData name="Math" defStyleNum="dsNormal" color="#FF8080" solColor="#008080" bold="0" italic="0"/>
+      <itemData name="Math" defStyleNum="dsNormal" color="#FF8080" selColor="#008080" bold="0" italic="0"/>
       <itemData name="Environment" defStyleNum="dsNormal" color="#900000" selColor="#000080" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>

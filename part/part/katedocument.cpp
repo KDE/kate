@@ -2525,7 +2525,7 @@ int KateDocument::charWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont
   FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
 
   if (ch == '\t')
-    x = fs->m_tabWidth - (textWidth(textLine, cursorX) % fs->m_tabWidth);
+    x = fs->m_tabWidth;
   else if (a->bold && a->italic)
     x = fs->myFontMetricsBI.width(ch);
   else if (a->bold)
@@ -2562,7 +2562,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFon
     a = attribute(textLine->getAttr(z));
 
     if (ch == '\t')
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
+      x += fs->m_tabWidth;
     else if (a->bold && a->italic)
       x += fs->myFontMetricsBI.width(ch);
     else if (a->bold)
@@ -2592,7 +2592,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
     a = attribute(textLine->getAttr(z));
 
     if (ch == '\t')
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
+      x += fs->m_tabWidth;
     else if (a->bold && a->italic)
       x += fs->myFontMetricsBI.width(ch);
     else if (a->bold)
@@ -2654,7 +2654,7 @@ uint KateDocument::textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,W
     a = attribute(textLine->getAttr(z));
 
     if (ch == '\t')
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
+      x += fs->m_tabWidth;
     else if (a->bold && a->italic)
       x += fs->myFontMetricsBI.width(ch);
     else if (a->bold)
@@ -2689,7 +2689,7 @@ uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf)
     a = attribute(textLine->getAttr(z));
 
     if (ch == '\t')
-      x += fs->m_tabWidth - (x % fs->m_tabWidth);
+      x += fs->m_tabWidth;
     else if (a->bold && a->italic)
       x += fs->myFontMetricsBI.width(ch);
     else if (a->bold)

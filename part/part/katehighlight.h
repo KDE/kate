@@ -227,7 +227,7 @@ class KateHighlighting
     void readFoldingConfig ();
 
     // manipulates the ctxs array directly ;)
-    void generateContextStack(int *ctxNum, int ctx, QMemArray<short> *ctxs, int *posPrevLine,bool lineContinue=false);
+    void generateContextStack(int *ctxNum, int ctx, QMemArray<short> *ctxs, int *posPrevLine);
 
     KateHlItem *createKateHlItem(KateSyntaxContextData *data, KateHlItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, KateHlItemDataList &iDl);

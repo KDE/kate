@@ -1197,33 +1197,19 @@ KateHighlighting::~KateHighlighting()
   contextList.setAutoDelete( true );
 }
 
-void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<short>* ctxs, int *prevLine, bool lineContinue)
+void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<short>* ctxs, int *prevLine)
 {
   //kdDebug(13010)<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
   while (true)
   {
-    if (lineContinue)
-    {
-      if ( !ctxs->isEmpty() )
-      {
-        (*ctxNum)=(*ctxs)[ctxs->size()-1];
-        (*prevLine)--;
-      }
-      else
-      {
-        //kdDebug(13010)<<QString("generateContextStack: line continue: len ==0");
-        (*ctxNum)=0;
-      }
-
-      return;
-    }
-
     if (ctx >= 0)
     {
       (*ctxNum) = ctx;
 
       ctxs->resize (ctxs->size()+1, QGArray::SpeedOptim);
       (*ctxs)[ctxs->size()-1]=(*ctxNum);
+
+      return;
     }
     else
     {
@@ -1259,15 +1245,14 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
           {
             //kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
             ctx = contextNum((*ctxs)[ctxs->size()-1])->ctx;
-            lineContinue = false;
 
             continue;
           }
         }
       }
-    }
 
-    return;
+      return;
+    }
   }
 }
 
@@ -1334,33 +1319,27 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   if (noHl)
   {
-    textLine->setAttribs(0,0,textLine->length());
+    textLine->setAttribs(0, 0, textLine->length());
     return;
   }
-
-//  kdDebug(13010)<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
-  // if (lineContinue) kdDebug(13010)<<"Entering with lineContinue flag set"<<endl;
 
   // duplicate the ctx stack, only once !
   QMemArray<short> ctx;
   ctx.duplicate (prevLine->ctxArray());
 
-  // line continue flag !
-  bool lineContinue = prevLine->hlLineContinue();
-
   int ctxNum = 0;
   int previousLine = -1;
   KateHlContext *context;
 
-  if ( prevLine->ctxArray().isEmpty() )
+  if (ctx.isEmpty())
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
-    context=contextNum(ctxNum);
+    context = contextNum(ctxNum);
   }
   else
   {
     // There does an old context stack exist -> find the context at the line start
-    ctxNum=ctx[prevLine->ctxArray().size()-1]; //context ID of the last character in the previous line
+    ctxNum = ctx[ctx.size()-1]; //context ID of the last character in the previous line
 
     //kdDebug(13010) << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
 
@@ -1371,15 +1350,22 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
     //kdDebug(13010)<<"test1-2-1-text2"<<endl;
 
-    previousLine=prevLine->ctxArray().size()-1; //position of the last context ID of th previous line within the stack
+    previousLine=ctx.size()-1; //position of the last context ID of th previous line within the stack
 
-    //kdDebug(13010)<<"test1-2-1-text3"<<endl;
-    generateContextStack(&ctxNum, context->ctx, &ctx, &previousLine, lineContinue); //get stack ID to use
+    // hl continue set or not ???
+    if (prevLine->hlLineContinue())
+    {
+      prevLine--;
+    }
+    else
+    {
+      generateContextStack(&ctxNum, context->ctx, &ctx, &previousLine); //get stack ID to use
+
+      if (!(context = contextNum(ctxNum)))
+        context = contextNum(0);
+    }
 
     //kdDebug(13010)<<"test1-2-1-text4"<<endl;
-
-    if (!(context = contextNum(ctxNum)))
-      context = contextNum(0);
 
     //if (lineContinue)   kdDebug(13010)<<QString("The new context is %1").arg((int)ctxNum)<<endl;
   }

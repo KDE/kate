@@ -425,12 +425,13 @@ const QChar *HlAnyChar::checkHgl(const QChar *s, int , bool)
   return 0L;
 }
 
-HlRegExpr::HlRegExpr(int attribute, int context,QString regexp)
+HlRegExpr::HlRegExpr( int attribute, int context, QString regexp, bool insensitive, bool minimal )
   : HlItem(attribute, context) {
 
     handlesLinestart=regexp.startsWith("^");
     if(!handlesLinestart) regexp.prepend("^");
-    Expr=new QRegExp(regexp);
+    Expr=new QRegExp(regexp, !insensitive);
+    Expr->setMinimal(minimal);
 }
 
 const QChar *HlRegExpr::checkHgl(const QChar *s, int len, bool lineStart)
@@ -580,9 +581,9 @@ HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString
 //JW  itemDataList.setAutoDelete(true);
 }
 
-HlContext::HlContext(int attribute, int lineEndContext, int _lineBeginContext)
-  : attr(attribute), ctx(lineEndContext),lineBeginContext(_lineBeginContext) {
-  items.setAutoDelete(true);
+HlContext::HlContext(int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext)
+  : attr(attribute), ctx(lineEndContext),lineBeginContext(_lineBeginContext), fallthrough(_fallthrough), ftctx(_fallthroughContext) {
+  //items.setAutoDelete(true); // with IncludeRules, this could cause a crash. It should not be nessecasy?
 }
 
 Hl2CharDetect::Hl2CharDetect(int attribute, int context, const QChar *s)
@@ -662,7 +663,6 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
       }
 
      ctx=0;
-
 
      if ((*prevLine)>=(int)(ctxs->size()-1))
      {
@@ -794,8 +794,8 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
         s2 = item->checkHgl(s1, len-z, z==0);
         if (s2 > s1)
         {
-            textLine->setAttribs(item->attr,s1 - str,s2 - str);
-//   	    kdDebug()<<QString("item->ctx: %1").arg(item->ctx)<<endl;
+          textLine->setAttribs(item->attr,s1 - str,s2 - str);
+          //kdDebug()<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
 	      generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
 		//kdDebug()<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
@@ -810,27 +810,43 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
       }
     }
 
+    lastChar = *s1;
 
     // nothing found: set attribute of one char
-    if (!found)
-      textLine->setAttribs(context->attr,s1 - str,s1 - str + 1);
-
-    lastChar = *s1;
-    s1++;
-    z++;
+    // anders: unless this context does not want that!
+    if (!found) {
+      if ( context->fallthrough ) {
+        // set context to context->ftctx.
+        generateContextStack(&ctxNum, context->ftctx, &ctx, &prevLine);  //regenerate context stack
+        context=contextList[ctxNum];
+        //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
+        // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
+        // immediately after fallthrough fails. Is it bad?
+        // jowenn, can you come up with a nicer way to do this?
+        if (z) {
+          const QChar *cheat;
+          cheat = s1;
+          cheat--;
+          lastChar = *cheat;
+        }
+        else
+          lastChar = '\\';
+        continue;
+      }
+      else {
+        textLine->setAttribs(context->attr,s1 - str,s1 - str + 1);
+      }
+    }
+        s1++;
+        z++;
   }
 
-
-
-    if (item==0)
-	textLine->setHlLineContinue(false);
-    else
-    {
-	textLine->setHlLineContinue(item->lineContinue());
-	if (item->lineContinue()) kdDebug()<<"Setting line continue flag"<<endl;
-    }
-
-
+  if (item==0)
+    textLine->setHlLineContinue(false);
+  else {
+    textLine->setHlLineContinue(item->lineContinue());
+    if (item->lineContinue()) kdDebug()<<"Setting line continue flag"<<endl;
+  }
 
   //set "end of line"-properties
   textLine->setAttr(context->attr);
@@ -1191,8 +1207,10 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl)
 
                 // Will be removed eventuall. Atm used for StringDetect
                 bool insensitive=(HlManager::self()->syntax->groupItemData(data,QString("insensitive"))==QString("TRUE"));
+                // anders: very resonable for regexp too!
 
-
+                // for regexp only
+                bool minimal = ( HlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == "true" );
                 //Create the item corresponding to it's type and set it's parameters
                 if (dataname=="keyword")
                 {
@@ -1211,7 +1229,7 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl)
                 if (dataname=="LineContinue") return(new HlLineContinue(attr,context)); else
                 if (dataname=="StringDetect") return(new HlStringDetect(attr,context,stringdata,insensitive)); else
                 if (dataname=="AnyChar") return(new HlAnyChar(attr,context,stringdata.unicode(), stringdata.length())); else
-                if (dataname=="RegExpr") return(new HlRegExpr(attr,context,stringdata)); else
+                if (dataname=="RegExpr") return(new HlRegExpr(attr,context,stringdata, insensitive, minimal)); else
                 if(dataname=="HlCChar") return ( new HlCChar(attr,context));else
                 if(dataname=="HlCHex") return (new HlCHex(attr,context));else
                 if(dataname=="HlCOct") return (new HlCOct(attr,context)); else
@@ -1402,17 +1420,62 @@ void Highlight::makeContextList()
                 }
 		else context=tmpLineEndContext.toInt();
 
+          // BEGIN get fallthrough props
+          bool ft = false;
+          int ftc = 0; // fallthrough context
+          if ( i > 0 ) { // fallthrough is not smart in context 0
+            QString tmpFt = HlManager::self()->syntax->groupData(data, QString("fallthrough") );
+            if ( tmpFt.lower() == "true" ||  tmpFt.toInt() == 1 )
+              ft = true;
+            if ( ft ) {
+              QString tmpFtc = HlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
+              if ( ! tmpFtc.isEmpty() ) {
+                //kdDebug(13010)<<"fallthgoughContext = "<<tmpFtc<<endl;
+                if ( tmpFtc.startsWith("#pop") ) {
+                  ftc = -1;
+                  for ( ; tmpFtc.startsWith("#pop") ; ftc-- )
+                    tmpFtc.remove( 0, 4 );
+                }
+                else
+                  ftc = tmpFtc.toInt();
+                if ( ftc == -1 ) // better make damned sure not, staying in a context that does not match any rule == infinite loop:(
+                  ftc = 0;
+              }
+              kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
+            }
+          }
+          // END falltrhough props
           contextList[i]=new HlContext(
             attr,
             context,
             (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
-            (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt());
+            (HlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
+            ft, ftc
+                                       );
 
 
             //Let's create all items for the context
             while (HlManager::self()->syntax->nextItem(data))
               {
 //		kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
+
+                // IncludeRules : add a pointer to each item in that context
+                QString tag = HlManager::self()->syntax->groupItemData(data,QString(""));
+                if ( tag == "IncludeRules" ) {
+                  // attrib context: the index (jowenn, i think using names here would be a cool feat, goes for mentioning the context in any item. a map or dict?)
+                  int ctxId = HlManager::self()->syntax->groupItemData( data, QString("context") ).toInt(); // the index is *required*
+                  if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
+                    kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
+                    if ( ctxId < i ) { // must be defined
+                      for ( c = contextList[ctxId]->items.first(); c; c = contextList[ctxId]->items.next() )
+                        contextList[i]->items.append(c);
+                    }
+                    else
+                      kdDebug(13010)<<"Context "<<ctxId<<"not defined. You can not include the rules of an undefined context"<<endl;
+                  }
+                  continue; // while nextItem
+                }
+
 		c=createHlItem(data,iDl);
 		if (c)
 			{

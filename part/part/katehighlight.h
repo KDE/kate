@@ -187,7 +187,7 @@ class HlAnyChar : public HlItem {
 
 class HlRegExpr : public HlItem {
   public:
-  HlRegExpr(int attribute, int context,QString expr);
+  HlRegExpr(int attribute, int context,QString expr, bool insensitive, bool minimal);
   virtual const QChar *checkHgl(const QChar *, int len, bool);
   ~HlRegExpr(){delete Expr;};
 
@@ -247,12 +247,20 @@ class KConfig;
 //context
 class HlContext {
   public:
-    HlContext(int attribute, int lineEndContext,int _lineBeginContext);
+    HlContext(int attribute, int lineEndContext,int _lineBeginContext,
+               bool _fallthrough, int _fallthroughContext);
 
     QPtrList<HlItem> items;
     int attr;
     int ctx;
     int lineBeginContext;
+    /** @internal anders: possible escape if no rules matches.
+       false unless 'fallthrough="1|true"' (insensitive)
+       if true, go to ftcxt w/o eating of string.
+       ftctx is "fallthroughContext" in xml files, valid values are int or #pop[..]
+       see in Highlight::doHighlight */
+    bool fallthrough;
+    int ftctx; // where to go after no rules matched
 };
 
 class Highlight

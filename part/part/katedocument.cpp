@@ -2421,14 +2421,14 @@ bool KateDocument::openURL( const KURL &url )
     m_file = m_tempFile->name();
 
     m_job = KIO::get ( url, false, isProgressInfoEnabled() );
-    
+
     // connect to slots
     connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
            SLOT( slotDataKate( KIO::Job*, const QByteArray& ) ) );
 
     connect( m_job, SIGNAL( result( KIO::Job* ) ),
            SLOT( slotFinishedKate( KIO::Job* ) ) );
-    
+
     // set text mode
     m_job->addMetaData ("textmode", "true");
 
@@ -4333,19 +4333,34 @@ void KateDocument::exportAs(const QString& filter)
 {
   if (filter=="kate_html_export")
   {
-    QString filename=KFileDialog::getSaveFileName(QString::null,"text/html",0,i18n("Export File As"));
-    if (filename.isEmpty())
-      {
-        return;
-      }
+    KURL url = KFileDialog::getSaveURL(QString::null,"text/html",0,i18n("Export File As"));
+    if ( url.isEmpty() )
+      return;
+
+    QString filename;
+    KTempFile tmp; // ### only used for network export
+
+    if ( url.isLocalFile() )
+      filename = url.path();
+    else
+      filename = tmp.name();
+
     KSaveFile *savefile=new KSaveFile(filename);
     if (!savefile->status())
     {
-      if (exportDocumentToHTML(savefile->textStream(),filename)) savefile->close();
-        else savefile->abort();
+      if (exportDocumentToHTML(savefile->textStream(),filename))
+        savefile->close();
+      else savefile->abort();
       //if (!savefile->status()) --> Error
-    } else {/*ERROR*/}
+    }
+//     else
+//       {/*ERROR*/}
     delete savefile;
+
+    if ( url.isLocalFile() )
+        return;
+
+    KIO::NetAccess::upload( filename, url, 0 );
   }
 }
 

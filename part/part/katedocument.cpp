@@ -3412,15 +3412,12 @@ void KateDocument::tagAll()
 
 void KateDocument::updateLines()
 {
-kdDebug(13020) << "updateLines()" << endl;
   buffer->invalidateHighlighting();
 }
 
 void KateDocument::updateLines(int startLine, int endLine)
 {
-kdDebug(13020) << "updateLines( " << startLine << ", " << endLine << ")" << endl;
   buffer->updateHighlighting(startLine, endLine+1, true);
-kdDebug(13020) << "updateLines() end" << endl;
 }
 
 void KateDocument::slotBufferChanged()

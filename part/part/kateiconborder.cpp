@@ -214,16 +214,16 @@ int KateIconBorder::lineNumberWidth() const
   if (m_view->dynWordWrap()/* && FIXME preference*/) {
     width = QMAX(style().scrollBarExtent().width() + 4, width);
 
-    if (m_cachedLNWidth != width || m_oldBackgroundColor != m_doc->colors[0]) {
+    if (m_cachedLNWidth != width || m_oldBackgroundColor != m_doc->colors[5]) {
       int w = style().scrollBarExtent().width();
       int h = KateRenderer::getFontMetrics(KateRenderer::ViewFont).height();
 
       QSize newSize(w, h);
-      if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_doc->colors[0]) && !newSize.isEmpty()) {
+      if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_doc->colors[5]) && !newSize.isEmpty()) {
         m_arrow.resize(newSize);
 
         QPainter p(&m_arrow);
-        p.fillRect( 0, 0, w, h, m_doc->colors[0] );
+        p.fillRect( 0, 0, w, h, m_doc->colors[5] );
 
         h = KateRenderer::getFontMetrics(KateRenderer::ViewFont).ascent();
 
@@ -263,7 +263,6 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
-  // int xStart = x;
   uint h = KateRenderer::getFontStruct(KateRenderer::ViewFont).fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
@@ -273,14 +272,14 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   if ( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) ) // avoid calculating unless needed ;-)
   {
     lnWidth = lineNumberWidth();
-    if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != m_doc->colors[0] )
+    if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != m_doc->colors[5] )
     {
       // we went from n0 ->n9 lines or vice verca
       // this causes an extra updateGeometry() first time the line numbers
       // are displayed, but sizeHint() is supposed to be const so we can't set
       // the cached value there.
       m_cachedLNWidth = lnWidth;
-      m_oldBackgroundColor = m_doc->colors[0];
+      m_oldBackgroundColor = m_doc->colors[5];
       updateGeometry();
       update ();
       return;
@@ -308,7 +307,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       p.fillRect( 0, y, w, h, m_doc->colors[2] ); // needs fixing !!!!!!!!!!!!!!!!!!!!!!!!!!!!
     else */
     // fillbackground of border + the 4 pixel spacer
-    p.fillRect( 0, y, w-4, h, parentWidget()->paletteBackgroundColor () );
+    p.fillRect( 0, y, w-4, h, m_doc->colors[5] );
     p.fillRect( w-4, y, w, h, m_doc->colors[0] );
 
     // icon pane

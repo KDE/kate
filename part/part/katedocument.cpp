@@ -105,7 +105,7 @@ uint KateDocument::_configFlags = KateDocument::cfAutoIndent | KateDocument::cfT
     | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
     | KateDocument::cfShowTabs | KateDocument::cfSmartHome;
 
-QColor KateDocument::colors[5];
+QColor KateDocument::colors[6];
 
 uint KateDocument::myUndoSteps = 0;
 
@@ -272,6 +272,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     colors[2] = KGlobalSettings::alternateBackgroundColor();
     colors[3] = QColor( "#FFFF99" );
     colors[4] = colors[2].dark();
+    colors[5] = QColor( "#EAE9E8" );
 
     // read the standard config to get some defaults
     readConfig();
@@ -1809,6 +1810,7 @@ void KateDocument::readConfig(KConfig *config)
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
   colors[4] = config->readColorEntry("Color WWMarker", &colors[4]);
+  colors[5] = config->readColorEntry("Color Icon Border", &colors[5]);
 
   myBackupConfig = config->readNumEntry( "Backup Config Flags", myBackupConfig);
   myBackupSuffix = config->readEntry("Backup Files Suffix", myBackupSuffix);
@@ -1868,6 +1870,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Current Line", colors[2]);
   config->writeEntry("Color Bracket Highlight", colors[3]);
   config->writeEntry("Color WWMarker", colors[4] );
+  config->writeEntry("Color Icon Border", colors[5] );
 
   config->writeEntry( "Backup Config Flags", myBackupConfig );
   config->writeEntry( "Backup Files Suffix", myBackupSuffix );

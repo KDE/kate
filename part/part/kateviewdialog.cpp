@@ -492,9 +492,9 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
 {
   m_doc = doc;
 
-  QGridLayout *glay = new QGridLayout( this, 9, 2, 0, KDialog::spacingHint());
+  QGridLayout *glay = new QGridLayout( this, 10, 2, 0, KDialog::spacingHint());
   glay->setColStretch(1,1);
-  glay->setRowStretch(8,1);
+  glay->setRowStretch(9,1);
 
   QLabel *label;
 
@@ -533,6 +533,14 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
   glay->addWidget( label, 7, 0 );
   glay->addWidget( m_wwmarker, 7, 1 );
+
+  label = new QLabel( i18n("Icon Border:"), this );
+  label->setAlignment( AlignRight|AlignVCenter );
+  m_iconborder = new KColorButton( this );
+  label->setBuddy( m_iconborder );
+  connect( m_iconborder, SIGNAL( changed( const QColor & ) ), this, SLOT( slotChanged() ) );
+  glay->addWidget( label, 8, 0 );
+  glay->addWidget( m_iconborder, 8, 1 );
 
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("<p>Sets the background color of the editing area.</p>"));
@@ -573,9 +581,7 @@ void ColorConfig::setColors(QColor *colors)
   m_current->setColor( colors[2] );
   m_bracket->setColor( colors[3] );
   m_wwmarker->setColor( colors[4] );
-
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-    KateFactory::documents()->at(z)->updateViews();
+  m_iconborder->setColor( colors[5] );
 }
 
 void ColorConfig::getColors(QColor *colors)
@@ -585,6 +591,10 @@ void ColorConfig::getColors(QColor *colors)
   colors[2] = m_current->color();
   colors[3] = m_bracket->color();
   colors[4] = m_wwmarker->color();
+  colors[5] = m_iconborder->color();
+
+  for (uint z=0; z < KateFactory::documents()->count(); z++)
+    KateFactory::documents()->at(z)->updateViews();
 }
 
 void ColorConfig::apply ()
@@ -596,6 +606,7 @@ void ColorConfig::reload ()
 {
   setColors(m_doc->colors);
 }
+
 //END ColorConfig
 
 //BEGIN FontConfig

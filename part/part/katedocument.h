@@ -694,7 +694,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // text buffer
     KateBuffer *buffer;
 
-    static QColor colors[5];
+    static QColor colors[6];
     class HlManager *hlManager;
     class Highlight *m_highlight;
 

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.05" kateversion="2.3" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP" mimetype="text/x-fortran-src">
+<language name="Fortran" version="1.06" kateversion="2.3" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP" mimetype="text/x-fortran-src">
   <highlighting>
     <list name="keywords">
+      <item> allocate </item>
       <item> common </item>
+      <item> contains </item>
       <item> continue </item>
       <item> block </item>
       <item> data </item>
       <item> date </item>
       <item> function </item>
       <item> include </item>
-      <item> parameter </item>
+      <item> interface </item>
       <item> implicit </item>
       <item> none </item>
       <item> equivalence </item>
@@ -19,14 +21,17 @@
       <item> else </item>
       <item> elseif </item>
       <item> endif </item>
+      <item> forall </item>
       <item> go </item>
       <item> to </item>
       <item> goto </item>
       <item> program </item>
+      <item> module </item>
       <item> subroutine </item>
       <item> end </item>
       <item> call </item>
       <item> while </item>
+      <item> where </item>
       <item> cycle </item>
       <item> do </item>
       <item> enddo </item>
@@ -35,6 +40,8 @@
       <item> pause </item>
       <item> return </item>
       <item> stop </item>
+      <item> pure </item>
+      <item> save </item>
     </list>
     <list name="io_functions">
       <item> access </item>
@@ -122,8 +129,13 @@
       <item> sqrt </item>
       <item> tan </item>
       <item> tanh </item>
+      <item> trim </item>
+      <item> allocated </item>
+      <item> present </item>
+      
     </list>
     <list name="types">
+      <item> allocatable </item>
       <item> character </item>
       <item> complex </item>
       <item> double </item>
@@ -135,7 +147,9 @@
       <item> dimension </item>
       <item> external </item>
       <item> intrinsic </item>
-      <item> save </item>
+      <item> parameter </item>
+      <item> kind </item>
+      
 
       <item> char </item>
       <item> cmplx </item>

@@ -19,6 +19,7 @@
 #include "katecmd.h"
 
 #include <kstaticdeleter.h>
+#include <kdebug.h>
 
 KateCmd *KateCmd::s_self = 0;
 
@@ -38,16 +39,26 @@ bool KateCmd::registerCommand (Kate::Command *cmd)
     if (m_dict[l[z]])
       return false;
 
-  for (uint z=0; z<l.count(); z++)
+  for (uint z=0; z<l.count(); z++) {
     m_dict.insert (l[z], cmd);
+    kdDebug()<<"Inserted command:"<<l[z]<<endl;
+  }
 
   m_cmds += l;
 
   return true;
 }
 
-bool KateCmd::unregisterCommand (Kate::Command *)
+bool KateCmd::unregisterCommand (Kate::Command *cmd)
 {
+  QStringList l;
+  QDictIterator<Kate::Command> it(m_dict);
+  for( ; it.current(); ++it )
+  	if (it.current()==cmd) l<<it.currentKey();
+  for ( QStringList::Iterator it1 = l.begin(); it1 != l.end(); ++it1 ) {
+  	m_dict.remove(*it1);
+	kdDebug()<<"Removed command:"<<*it1<<endl;
+  }
   return true;
 }
 

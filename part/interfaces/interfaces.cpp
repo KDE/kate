@@ -66,7 +66,7 @@ bool Document::registerCommand (Command *cmd)
 
 bool Document::unregisterCommand (Command *cmd)
 {
-  return KateCmd::self()->registerCommand (cmd);
+  return KateCmd::self()->unregisterCommand (cmd);
 }
 
 Command *Document::queryCommand (const QString &cmd)

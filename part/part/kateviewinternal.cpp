@@ -415,7 +415,8 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force, bool calledExter
 
   // only calculate if this is really used and usefull, could be wrong here, please recheck
   // for larger scrolls this makes 2-4 seconds difference on my xeon with dyn. word wrap on
-  if (!force && (c.line() >= startLine()) && (c.line() <= endLine()))
+  bool viewLinesScrolledUsable = !force && (c.line() >= startLine()-linesDisplayed()-1) && (c.line() <= endLine()+linesDisplayed()+1);
+  if (viewLinesScrolledUsable)
     viewLinesScrolled = displayViewLine(c);
 
   m_oldStartPos = m_startPos;
@@ -424,7 +425,8 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force, bool calledExter
   // set false here but reversed if we return to makeVisible
   m_madeVisible = false;
 
-  if (!force) {
+  if (viewLinesScrolledUsable)
+  {
     int lines = linesDisplayed();
     if ((int)m_doc->numVisLines() < lines) {
       KateTextCursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));

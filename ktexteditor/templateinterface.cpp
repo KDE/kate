@@ -63,9 +63,8 @@ void TemplateInterface::setTemplateInterfaceDCOPSuffix ( const QCString &suffix 
   } \
 } while(false)
 
-bool TemplateInterface::insertTemplateText ( uint line, uint column, const QString &templateString, const QMap<QString, QString> &initialValues, QWidget *parentWindow )
+bool TemplateInterface::expandMacros( QString templateString, QMap<QString, QString> &map, QWidget *parentWindow )
 {
-  QMap<QString, QString> enhancedInitValues( initialValues );
   KABC::StdAddressBook *addrBook = 0;
   KABC::Addressee userAddress;
   QDateTime datetime = QDateTime::currentDateTime();
@@ -95,51 +94,50 @@ bool TemplateInterface::insertTemplateText ( uint line, uint column, const QStri
       pos += rx.matchedLength();
       opos = pos;
 
-      if ( enhancedInitValues[ placeholder ].isEmpty() )
+      if ( map[ placeholder ].isEmpty() )
       {
-	      kdDebug()<<"got a new macro: "<<placeholder<<endl;
-        if ( placeholder == "index" ) enhancedInitValues[ placeholder ] = "i";
+        if ( placeholder == "index" ) map[ placeholder ] = "i";
         else if ( placeholder == "loginname" )
         {}
         else if ( placeholder == "firstname" )
         {
           INITKABC;
-          enhancedInitValues[ placeholder ] = userAddress.givenName();
+          map[ placeholder ] = userAddress.givenName();
         }
         else if ( placeholder == "lastname" )
         {
           INITKABC;
-          enhancedInitValues[ placeholder ] = userAddress.familyName();
+          map[ placeholder ] = userAddress.familyName();
         }
         else if ( placeholder == "fullname" )
         {
           INITKABC;
-          enhancedInitValues[ placeholder ] = userAddress.assembledName();
+          map[ placeholder ] = userAddress.assembledName();
         }
         else if ( placeholder == "email" )
         {
           INITKABC;
-          enhancedInitValues[ placeholder ] = userAddress.preferredEmail();
+          map[ placeholder ] = userAddress.preferredEmail();
         }
         else if ( placeholder == "date" )
         {
-          enhancedInitValues[ placeholder ] = KGlobal::locale() ->formatDate( date, true );
+          map[ placeholder ] = KGlobal::locale() ->formatDate( date, true );
         }
         else if ( placeholder == "time" )
         {
-          enhancedInitValues[ placeholder ] = KGlobal::locale() ->formatTime( time, true, false );
+          map[ placeholder ] = KGlobal::locale() ->formatTime( time, true, false );
         }
         else if ( placeholder == "year" )
         {
-          enhancedInitValues[ placeholder ] = KGlobal::locale() ->calendar() ->yearString( date, false );
+          map[ placeholder ] = KGlobal::locale() ->calendar() ->yearString( date, false );
         }
         else if ( placeholder == "month" )
         {
-          enhancedInitValues[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->month( date ) );
+          map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->month( date ) );
         }
         else if ( placeholder == "day" )
         {
-          enhancedInitValues[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->day( date ) );
+          map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->day( date ) );
         }
         else if ( placeholder == "hostname" )
         {
@@ -147,18 +145,24 @@ bool TemplateInterface::insertTemplateText ( uint line, uint column, const QStri
           hostname[ 0 ] = 0;
           gethostname( hostname, 255 );
           hostname[ 255 ] = 0;
-          enhancedInitValues[ placeholder ] = QString::fromLocal8Bit( hostname );
+          map[ placeholder ] = QString::fromLocal8Bit( hostname );
         }
         else if ( placeholder == "cursor" )
         {
-          enhancedInitValues[ placeholder ] = "|";
+          map[ placeholder ] = "|";
         }
-        else enhancedInitValues[ placeholder ] = placeholder;
+        else map[ placeholder ] = placeholder;
       }
     }
   }
+  return true;
+}
 
-  return insertTemplateTextImplementation( line, column, templateString, enhancedInitValues, parentWindow );
+bool TemplateInterface::insertTemplateText ( uint line, uint column, const QString &templateString, const QMap<QString, QString> &initialValues, QWidget *parentWindow )
+{
+  QMap<QString, QString> enhancedInitValues( initialValues );
+  return expandMacros( templateString, enhancedInitValues, parentWindow )
+         && insertTemplateTextImplementation( line, column, templateString, enhancedInitValues, parentWindow );
 }
 
 

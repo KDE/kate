@@ -42,6 +42,16 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
     TemplateInterface();
     virtual ~TemplateInterface();
 
+    /**
+     * Parses @p templateString for macros in the form [$%]{NAME} and finds
+     * the value corresponding to NAME if any.
+     * @param templateString The string containing the macros to expand
+     * @param map a map in which the values are placed.
+     * @see insertTemplateText for a list of supported macros
+     * @return true if all macros was sucessfully expanded
+     */
+    bool expandMacros( QString templateString, QMap<QString, QString> &initialValues, QWidget *parentWindow );
+
     uint templateInterfaceNumber () const;
 
   protected:
@@ -61,7 +71,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      *
      * This syntax is somewhat similiar to the one found in the Eclipse editor.
      *
-     * There are certain common placeholders (variables), which get assigned a
+     * There are certain common placeholders (macros), which get assigned a
      * default initialValue, If the second parameter does not a given value.
      * For all others the initial value is the name of the placeholder.
      *
@@ -85,7 +95,8 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      *   implementation. The placeholder gets a value of "|" assigned.
      *
      * If a macro is started with a % (persent sign) like "%{date}" it isn't added
-     * to the list editable strings ( for example TAB key navigation).
+     * to the list editable strings ( for example TAB key navigation) if a value
+     * differing from the macro name is found.
      *
      * If the editor supports some kind of smart indentation, the inserted code
      * should be layouted by the indenter.
@@ -95,7 +106,10 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
 protected:
     /**
      * You must implement this, it is called by insertTemplateText, after all
-     * default values are inserted.
+     * default values are inserted. If you are implementing this interface,
+     * this method should work as described in the documentation for
+     * insertTemplateText above.
+     * @return true if any text was inserted.
      */
     virtual bool insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow=0 )=0;
 

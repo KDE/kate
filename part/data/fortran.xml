@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" section="Sources" extensions="*.f;*.F;*.x" mimetype="text/x-fortran-src">
+<language name="Fortran" version="1.02" kateversion="2.0" section="Sources" extensions="*.f;*.F;*.x" mimetype="text/x-fortran-src">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -53,47 +53,47 @@
       <item> parameter </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="0">
-        <keyword attribute="Keyword" context="0" String="keywords"/>
-        <keyword attribute="Data Type" context="0" String="types"/>
-        <Float attribute="Float" context="0">
-          <AnyChar attribute="Float" context="0" String="fFdD"/>
+      <context attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Data Type" context="#stay" String="types"/>
+        <Float attribute="Float" context="#stay">
+          <AnyChar attribute="Float" context="#stay" String="fFdD"/>
         </Float>
-        <HlCOct attribute="Octal" context="0"/>
-        <HlCHex attribute="Hex" context="0"/>
-        <Int attribute="Decimal" context="0" />
-        <HlCChar attribute="Char" context="0"/>
-        <DetectChar attribute="String" context="1" char="&quot;"/>
-        <RegExpr attribute = "Comment" context="0" String="^[cC].*$"/>
-        <RegExpr attribute = "Preprocessor" context="0" String="^[\*#].*$"/>
-        <AnyChar attribute="Symbol" context="0" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <HlCOct attribute="Octal" context="#stay"/>
+        <HlCHex attribute="Hex" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" />
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <RegExpr attribute="Comment" context="#stay" String="^[cC].*$"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="^[\*#].*$"/>
+        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
       </context>
-      <context attribute="String" lineEndContext="0">
-        <HlCStringChar attribute="String Char" context="1"/>
-        <DetectChar attribute="String" context="0" char="&quot;"/>
+      <context attribute="String" lineEndContext="#pop">
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
-      <itemData name="Data Type"  defStyleNum="dsDataType"/>
-      <itemData name="Decimal"  defStyleNum="dsDecVal"/>
-      <itemData name="Octal"  defStyleNum="dsBaseN"/>
-      <itemData name="Hex"  defStyleNum="dsBaseN"/>
-      <itemData name="Float"  defStyleNum="dsFloat"/>
-      <itemData name="Char"  defStyleNum="dsChar"/>
-      <itemData name="String"  defStyleNum="dsString"/>
-      <itemData name="String Char"  defStyleNum="dsChar"/>
-      <itemData name="Comment"  defStyleNum="dsComment"/>
-      <itemData name="Symbol"  defStyleNum="dsNormal"/>
-      <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
-      <itemData name="Prep. Lib"  defStyleNum="dsOthers"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Data Type" defStyleNum="dsDataType"/>
+      <itemData name="Decimal" defStyleNum="dsDecVal"/>
+      <itemData name="Octal" defStyleNum="dsBaseN"/>
+      <itemData name="Hex" defStyleNum="dsBaseN"/>
+      <itemData name="Float" defStyleNum="dsFloat"/>
+      <itemData name="Char" defStyleNum="dsChar"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="String Char" defStyleNum="dsChar"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Symbol" defStyleNum="dsNormal"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
+      <itemData name="Prep. Lib" defStyleNum="dsOthers"/>
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="0" />
+    <keywords casesensitive="0"/>
     <comments>
-      <comment name="singleLine" start="c" />
+      <comment name="singleLine" start="c"/>
     </comments>
   </general>
 </language>

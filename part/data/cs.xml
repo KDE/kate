@@ -1,131 +1,131 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.02" kateversion="2.0" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
-     <list name="keywords">
+    <list name="keywords">
         <item> abstract</item>
-                <item> enum</item>
-                <item> stackalloc</item>
-                <item> as</item>
-                <item> event</item>
-                <item> namespace</item>
-                <item> static</item>
-                <item> base</item>
-                <item> explicit</item>
-                <item> extern</item>
-                <item> null</item>
-                <item> struct</item>
-                <item> break</item>
-                <item> switch</item>
-                <item> finally</item>
-                <item> operator</item>
-                <item> this</item>
-                <item> case</item>
-                <item> fixed</item>
-                <item> out</item>
-                <item> throw</item>
-                <item> catch</item>
-                <item> override</item>
-                <item> for</item>
-                <item> params</item>
-                <item> try</item>
-                <item> foreach</item>
-                <item> private</item>
-                <item> class</item>
-                <item> goto</item>
-                <item> protected</item>
-                <item> if</item>
-                <item> public</item>
-                <item> continue</item>
-                <item> implicit</item>
-                <item> readonly</item>
-                <item> in</item>
-                <item> ref</item>
-                <item> unsafe</item>
-                <item> default</item>
-                <item> return</item>
-                <item> delegate</item>
-                <item> interface</item>
-                <item> using</item>
-                <item> do</item>
-                <item> internal</item>
-                <item> sealed</item>
-                <item> virtual</item>
-                <item> else</item>
-                <item> lock</item>
-                <item> while</item>
-                <item> #if</item>
-                <item> #else</item>
-                <item> #elif</item>
-                <item> #endif</item>
-                <item> #define</item>
-                <item> #undef</item>
-                <item> #warning</item>
-                <item> #error</item>
-                <item> #line</item>
-                <item> #region</item>
-                <item> #endregion</item>
-                <item> true</item>
-                <item> false</item>
-                <item> new</item>
-                <item> sizeof</item>
-                <item> typeof</item>
-                <item> is</item>
-                <item> checked</item>
-                <item> unchecked</item>
-                <item> base</item>
-        </list>
+        <item> enum</item>
+        <item> stackalloc</item>
+        <item> as</item>
+        <item> event</item>
+        <item> namespace</item>
+        <item> static</item>
+        <item> base</item>
+        <item> explicit</item>
+        <item> extern</item>
+        <item> null</item>
+        <item> struct</item>
+        <item> break</item>
+        <item> switch</item>
+        <item> finally</item>
+        <item> operator</item>
+        <item> this</item>
+        <item> case</item>
+        <item> fixed</item>
+        <item> out</item>
+        <item> throw</item>
+        <item> catch</item>
+        <item> override</item>
+        <item> for</item>
+        <item> params</item>
+        <item> try</item>
+        <item> foreach</item>
+        <item> private</item>
+        <item> class</item>
+        <item> goto</item>
+        <item> protected</item>
+        <item> if</item>
+        <item> public</item>
+        <item> continue</item>
+        <item> implicit</item>
+        <item> readonly</item>
+        <item> in</item>
+        <item> ref</item>
+        <item> unsafe</item>
+        <item> default</item>
+        <item> return</item>
+        <item> delegate</item>
+        <item> interface</item>
+        <item> using</item>
+        <item> do</item>
+        <item> internal</item>
+        <item> sealed</item>
+        <item> virtual</item>
+        <item> else</item>
+        <item> lock</item>
+        <item> while</item>
+        <item> #if</item>
+        <item> #else</item>
+        <item> #elif</item>
+        <item> #endif</item>
+        <item> #define</item>
+        <item> #undef</item>
+        <item> #warning</item>
+        <item> #error</item>
+        <item> #line</item>
+        <item> #region</item>
+        <item> #endregion</item>
+        <item> true</item>
+        <item> false</item>
+        <item> new</item>
+        <item> sizeof</item>
+        <item> typeof</item>
+        <item> is</item>
+        <item> checked</item>
+        <item> unchecked</item>
+        <item> base</item>
+    </list>
     <list name="types">
-                <item> long</item>
-                <item> string</item>
-                <item> bool</item>
-                <item> object</item>
-                <item> byte</item>
-                <item> float</item>
-                <item> char</item>
-                <item> uint</item>
-                <item> const</item>
-                <item> ulong</item>
-                <item> decimal</item>
-                <item> int</item>
-                <item> ushort</item>
-                <item> sbyte</item>
-                <item> double</item>
-                <item> short</item>
-                <item> void</item>
+        <item> long</item>
+        <item> string</item>
+        <item> bool</item>
+        <item> object</item>
+        <item> byte</item>
+        <item> float</item>
+        <item> char</item>
+        <item> uint</item>
+        <item> const</item>
+        <item> ulong</item>
+        <item> decimal</item>
+        <item> int</item>
+        <item> ushort</item>
+        <item> sbyte</item>
+        <item> double</item>
+        <item> short</item>
+        <item> void</item>
     </list>
     <contexts>
-      <context attribute="0" lineEndContext="0" name="Normal">
-        <keyword attribute="1" context="0" String="keywords"/>
-        <keyword attribute="2" context="0" String="types" />
-        <Float attribute="6" context="0">
-          <AnyChar String="fF" attribute="6" context="0"/>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <Float attribute="Float" context="#stay">
+          <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
-        <HlCOct attribute="4" context="0"/>
-        <HlCHex attribute="5" context="0"/>
-        <Int attribute="3" context="0" >
-          <StringDetect attribute="3" context="0" String="ULL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LUL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LLU" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="UL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LU" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="U" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="L" insensitive="TRUE"/>
+        <HlCOct attribute="Octal" context="#stay"/>
+        <HlCHex attribute="Hex" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" >
+          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
-        <HlCChar attribute="7" context="0"/>
-        <DetectChar attribute="8" context="1" char="&quot;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="3" char="/" char1="*"/>
-        <AnyChar attribute="11" context="0" String="-+*/!~%^|=.?:{[()]}"/>
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
+        <AnyChar attribute="Symbol" context="#stay" String="-+*/!~%^|=.?:{[()]}"/>
       </context>
-      <context attribute="8" lineEndContext="0" name="String">
-        <LineContinue attribute="8" context="0"/>
-        <HlCStringChar attribute="9" context="1"/>
-        <DetectChar attribute="8" context="0" char="&quot;"/>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue attribute="String" context="#pop"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="10" lineEndContext="0" name="Commentar 1"/>
-      <context attribute="10" lineEndContext="3" name="Commentar 2">
-        <Detect2Chars attribute="10" context="0" char="*" char1="/"/>
+      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1"/>
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
     </contexts>
     <itemDatas>

@@ -896,7 +896,7 @@ void KateViewInternal::doBackspace()
 
 void KateViewInternal::doPaste()
 {
-  m_doc->paste( cursor, m_view );
+  m_doc->paste( m_view );
 }
 
 void KateViewInternal::doTranspose()
@@ -1811,9 +1811,9 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
     m_doc->clearSelection();
 }
 
-void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
+void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force )
 {
-  if ( cursor == newCursor ) {
+  if ( !force && (cursor == newCursor) ) {
     if ( !m_madeVisible ) {
       makeVisible ( displayCursor, displayCursor.col() );
     }
@@ -2179,7 +2179,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   if ( !(e->state() & ControlButton) && !(e->state() & AltButton)
-       && m_doc->insertChars( cursor.line(), cursor.col(), e->text(), m_view ) )
+       && m_doc->typeChars ( m_view, e->text() ) )
   {
     e->accept();
     return;
@@ -2599,8 +2599,7 @@ void KateViewInternal::setTagLinesFrom(int line)
 
 void KateViewInternal::editStart()
 {
-  cursorCacheChanged = false;
-  cursorCache = getCursor();
+  editCursorChanged = false;
 }
 
 void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
@@ -2620,16 +2619,16 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 
   tagLinesFrom = -1;
 
-  if (!cursorCacheChanged || cursor == cursorCache)
+  if (!editCursorChanged)
     updateBracketMarks();
 
   updateView(true);
 
-  if (cursorCacheChanged)
+  if (editCursorChanged)
   {
-    cursorCacheChanged = false;
     m_madeVisible = false;
-    updateCursor( cursorCache );
+    updateCursor ( cursor, editCursorChanged );
+    editCursorChanged = false;
   }
   else
   {
@@ -2639,22 +2638,22 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 
 void KateViewInternal::editInsertText(int line, int col, int len)
 {
-  int cLine = cursorCache.line();
-  int cCol = cursorCache.col();
+  int cLine = cursor.line();
+  int cCol = cursor.col();
 
   if ( (cLine == line) && (cCol >= col) )
   {
     cCol += len;
 
-    cursorCache.setPos(line, cCol);
-    cursorCacheChanged = true;
+    cursor.setPos(line, cCol);
+    editCursorChanged = true;
   }
 }
 
 void KateViewInternal::editRemoveText(int line, int col, int len)
 {
-  int cLine = cursorCache.line();
-  int cCol = cursorCache.col();
+  int cLine = cursor.line();
+  int cCol = cursor.col();
 
   if ( (cLine == line) && (cCol > col) )
   {
@@ -2668,8 +2667,8 @@ void KateViewInternal::editRemoveText(int line, int col, int len)
     else
       cCol = col;
 
-    cursorCache.setPos(line, cCol);
-    cursorCacheChanged = true;
+    cursor.setPos(line, cCol);
+    editCursorChanged = true;
   }
 }
 
@@ -2678,15 +2677,15 @@ void KateViewInternal::editWrapLine(int line, int col, int len)
   setViewTagLinesFrom(line);
 
   // correct cursor position
-  if (cursorCache.line() > line)
+  if (cursor.line() > line)
   {
-    cursorCache.setLine(cursorCache.line() + 1);
-    cursorCacheChanged = true;
+    cursor.setLine(cursor.line() + 1);
+    editCursorChanged = true;
   }
-  else if ( cursorCache.line() == line && cursorCache.col() >= col )
+  else if ( cursor.line() == line && cursor.col() >= col )
   {
-    cursorCache.setPos(line + 1, len);
-    cursorCacheChanged = true;
+    cursor.setPos(line + 1, len);
+    editCursorChanged = true;
   }
 }
 
@@ -2694,18 +2693,18 @@ void KateViewInternal::editUnWrapLine(int line, int col)
 {
   setViewTagLinesFrom(line);
 
-  int cLine = cursorCache.line();
-  int cCol = cursorCache.col();
+  int cLine = cursor.line();
+  int cCol = cursor.col();
 
-  if (cursorCache.line() > line+1)
+  if (cursor.line() > line+1)
   {
-    cursorCache.setPos(line - 1, cCol);
-    cursorCacheChanged = true;
+    cursor.setPos(line - 1, cCol);
+    editCursorChanged = true;
   }
   else if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
   {
-    cursorCache.setPos(line, col);
-    cursorCacheChanged = true;
+    cursor.setPos(line, col);
+    editCursorChanged = true;
   }
 }
 
@@ -2713,10 +2712,10 @@ void KateViewInternal::editInsertLine(int line)
 {
   setViewTagLinesFrom(line);
 
-  if (cursorCache.line() >= line)
+  if (cursor.line() >= line)
   {
-    cursorCache.setPos(line + 1, cursorCache.col());
-    cursorCacheChanged = true;
+    cursor.setPos(line + 1, cursor.col());
+    editCursorChanged = true;
   }
 }
 
@@ -2724,26 +2723,26 @@ void KateViewInternal::editRemoveLine(int line)
 {
   setViewTagLinesFrom(line);
 
-  if (cursorCache.line() > line)
+  if (cursor.line() > line)
   {
-    cursorCache.setPos(line - 1, cursorCache.col());
-    cursorCacheChanged = true;
+    cursor.setPos(line - 1, cursor.col());
+    editCursorChanged = true;
   }
-  else if ( (cursorCache.line() == line) )
+  else if ( (cursor.line() == line) )
   {
     int newLine = (line < (int)m_doc->lastLine()) ? line : (line - 1);
 
-    cursorCache.setPos(newLine, 0);
-    cursorCacheChanged = true;
+    cursor.setPos(newLine, 0);
+    editCursorChanged = true;
   }
 }
 
 void KateViewInternal::removeSelectedText(KateTextCursor & start)
 {
-  if (m_doc->lineHasSelected(cursorCache.line()))
+  if (m_doc->lineHasSelected(cursor.line()))
   {
-    cursorCache.setPos(start);
-    cursorCacheChanged = true;
+    cursor.setPos(start);
+    editCursorChanged = true;
   }
 }
 

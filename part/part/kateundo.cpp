@@ -213,8 +213,8 @@ void KateUndoGroup::undo ()
 
   if (m_doc->activeView() != 0L && m_items.first())
   {
-    m_doc->activeView()->m_viewInternal->cursorCache = m_items.first()->cursorBefore();
-    m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
+    m_doc->activeView()->m_viewInternal->cursor = m_items.first()->cursorBefore();
+    m_doc->activeView()->m_viewInternal->editCursorChanged = true;
   }
 
   m_doc->editEnd ();
@@ -232,8 +232,8 @@ void KateUndoGroup::redo ()
 
   if (m_doc->activeView() != 0L && m_items.last())
   {
-    m_doc->activeView()->m_viewInternal->cursorCache = m_items.last()->cursorAfter();
-    m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
+    m_doc->activeView()->m_viewInternal->cursor = m_items.last()->cursorAfter();
+    m_doc->activeView()->m_viewInternal->editCursorChanged = true;
   }
 
   m_doc->editEnd ();

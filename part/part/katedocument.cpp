@@ -1199,7 +1199,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
       m_views.at(z)->m_viewInternal->editWrapLine(line, col, tl->length());
     else
     {
-      int offset = llen - m_views.at(z)->m_viewInternal->cursorCache.col();
+      int offset = llen - m_views.at(z)->cursorColumnReal();
       offset = (nl ? nllen:tl->length()) - offset;
       if(offset < 0) offset = 0;
       m_views.at(z)->m_viewInternal->editWrapLine(line, col, offset);
@@ -2981,25 +2981,33 @@ uint KateDocument::currentColumn( const KateTextCursor& cursor )
     return 0;
 }
 
-bool KateDocument::insertChars ( int line, int col, const QString &chars, KateView *view )
+bool KateDocument::typeChars ( KateView *view, const QString &chars )
 {
-  QString buf;
-  int savedCol = col;
-  int savedLine = line;
-  QString savedChars(chars);
+  TextLine::Ptr textLine = buffer->plainLine(view->cursorLine ());
 
-  TextLine::Ptr textLine = buffer->plainLine(line);
+  if (!textLine)
+    return false;
+
+  int oldLine = view->cursorLine ();
+  int oldCol = view->cursorColumnReal ();
 
   uint pos = 0;
   bool onlySpaces = true;
+  QString buf;
   for( uint z = 0; z < chars.length(); z++ )
   {
     QChar ch = chars[z];
-    if (ch.isPrint() || ch == '\t') {
+
+    if (ch.isPrint() || ch == '\t')
+    {
       buf.insert(pos, ch);
       pos++;
-      if (ch != ' ') onlySpaces = false;
-      if (config()->configFlags() & KateDocument::cfAutoBrackets) {
+
+      if (ch != ' ')
+        onlySpaces = false;
+
+      if (config()->configFlags() & KateDocument::cfAutoBrackets)
+      {
         if (ch == '(') buf.insert(pos, ')');
         if (ch == '[') buf.insert(pos, ']');
         if (ch == '{') buf.insert(pos, '}');
@@ -3013,27 +3021,16 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   editStart ();
 
   if (config()->configFlags()  & KateDocument::cfDelOnInput && hasSelection() )
-  {
     removeSelectedText();
-    line = view->m_viewInternal->cursorCache.line();
-    col = view->m_viewInternal->cursorCache.col();
-  }
 
   if (config()->configFlags()  & KateDocument::cfOvr)
-  {
-    removeText (line, col, line, QMIN( col+buf.length(), textLine->length() ) );
-  }
+    removeText (view->cursorLine(), view->cursorColumnReal(), view->cursorLine(), QMIN( view->cursorColumnReal()+buf.length(), textLine->length() ) );
 
-  insertText (line, col, buf);
-  col += pos;
-
-  // editEnd will set the cursor from this cache right ;))
-  view->m_viewInternal->cursorCache.setPos(line, col);
-  view->m_viewInternal->cursorCacheChanged = true;
+  insertText (view->cursorLine(), view->cursorColumnReal(), buf);
 
   editEnd ();
 
-  emit charactersInteractivelyInserted(savedLine,savedCol,savedChars);
+  emit charactersInteractivelyInserted (oldLine, oldCol, chars);
 
   return true;
 }
@@ -3060,7 +3057,7 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
     removeSelectedText();
 
   // temporary hack to get the cursor pos right !!!!!!!!!
-  c = v->cursorCache;
+  c = v->getCursor ();
 
   bool _b( c.col() <= 1 );
 
@@ -3242,7 +3239,7 @@ void KateDocument::copy()
   QApplication::clipboard()->setText(selection ());
 }
 
-void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
+void KateDocument::paste ( KateView* view )
 {
   m_undoDontMerge = true;
 
@@ -3253,18 +3250,14 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 
   editStart ();
 
-  uint line = cursor.line();
-  uint col = cursor.col();
-
   if (config()->configFlags() & KateDocument::cfDelOnInput && hasSelection() )
   {
     removeSelectedText();
-    line = view->m_viewInternal->cursorCache.line();
-    col = view->m_viewInternal->cursorCache.col();
   }
 
-  insertText( line, col, s, blockSelect );
+  insertText ( view->cursorLine(), view->cursorColumnReal(), s, blockSelect );
 
+  /*
   // anders: we want to be able to move the cursor to the
   // position at the end of the pasted text,
   // so we calculate that and applies it to c.cursor
@@ -3286,7 +3279,7 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
   // Totally breaking the whole idea of the doc view model here...
   view->m_viewInternal->cursorCache.setPos(line, col);
   view->m_viewInternal->cursorCacheChanged = true;
-
+*/
   editEnd();
 
   m_undoDontMerge = true;

@@ -447,10 +447,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
 
   public:
-    //
-    // internal edit stuff (mostly for view)
-    //
-    bool insertChars ( int line, int col, const QString &chars, KateView *view );
+    /**
+     * Type chars in a view
+     */
+    bool typeChars ( KateView *type, const QString &chars );
 
     /**
      * gets the last line number (numLines() -1)
@@ -516,7 +516,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void transpose(     const KateTextCursor& );
     void cut();
     void copy();
-    void paste( const KateTextCursor& cursor, KateView* view );
+    void paste ( KateView* view );
 
     void selectTo(     const KateTextCursor& from, const KateTextCursor& to );
     void selectWord(   const KateTextCursor& cursor );

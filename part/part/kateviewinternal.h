@@ -219,7 +219,7 @@ class KateViewInternal : public QWidget
     int lineToY(uint viewLine) const;
 
     void updateSelection( const KateTextCursor&, bool keepSel );
-    void updateCursor( const KateTextCursor& newCursor );
+    void updateCursor( const KateTextCursor& newCursor, bool force = false );
     void updateBracketMarks();
 
     bool tagLine(const KateTextCursor& virtualCursor);
@@ -255,11 +255,9 @@ class KateViewInternal : public QWidget
     int tagLinesFrom;
 
     //
-    // cursor cache for document
-    // here stores the document the view's cursor pos while editing before update
+    // has the cursor been moved while editStart/End
     //
-    KateTextCursor cursorCache;
-    bool cursorCacheChanged;
+    bool editCursorChanged;
 
     // Bracket mark
     KateTextRange bm;

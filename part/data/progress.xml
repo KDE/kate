@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- Author: Rares Stanciulescu <rstanciu@operamail.com> -->
+<!-- File location: .kde/share/apps/katepart/syntax/progress.xml -->
+<language name="Progress 4GL" version="1.01" kateversion="2.1"
+section="Other" extensions="*.p;*.w;*.i" mimetype="" casesensitive="0">
+  <highlighting>
+    <list name="keywords">
+	<item> &amp;batch-mode </item>
+	<item> &amp;elseif </item>
+	<item> &amp;endif </item>
+	<item> &amp;file-name </item>
+	<item> &amp;global-define </item>
+	<item> &amp;if </item>
+	<item> &amp;line-number </item>
+	<item> &amp;message </item>
+	<item> &amp;opsys </item>
+	<item> &amp;scoped-define </item>
+	<item> &amp;sequence </item>
+	<item> &amp;then </item>
+	<item> &amp;undefine </item>
+	<item> &amp;window-system </item>
+	<item> accumulate </item>
+	<item> alter table </item>
+	<item> ansi-only </item>
+	<item> anywhere </item>
+	<item> append </item>
+	<item> apply </item>
+	<item> as </item>
+	<item> ask-overwrite </item>
+	<item> assign </item>
+	<item> asynchonous </item>
+	<item> at </item>
+	<item> bell </item>
+	<item> binary </item>
+	<item> browse </item>
+	<item> buffer </item>
+	<item> buffer-compare </item>
+	<item> buffer-copy </item>
+	<item> button </item>
+	<item> cache </item>
+	<item> call </item>
+	<item> case </item>
+	<item> choose </item>
+	<item> classpath </item>
+	<item> clear </item>
+	<item> close </item>
+	<item> close query </item>
+	<item> close stored-procedure </item>
+	<item> color </item>
+	<item> combo-box </item>
+	<item> command </item>
+	<item> compile </item>
+	<item> connect </item>
+	<item> context-help-id </item>
+	<item> control-frame </item>
+	<item> convert </item>
+	<item> create </item>
+	<item> create alias </item>
+	<item> create browse </item>
+	<item> create buffer </item>
+	<item> create database </item>
+	<item> create index </item>
+	<item> create query </item>
+	<item> create schema </item>
+	<item> create server </item>
+	<item> create server-socket </item>
+	<item> create socket </item>
+	<item> create temp-table </item>
+	<item> create-test-file </item>
+	<item> current </item>
+	<item> current-language </item>
+	<item> current-value </item>
+	<item> dde advise </item>
+	<item> dde execute </item>
+	<item> dde get </item>
+	<item> dde initiate </item>
+	<item> dde request </item>
+	<item> dde send </item>
+	<item> dde terminate </item>
+	<item> default-extension </item>
+	<item> default-window </item>
+	<item> define </item>
+	<item> def </item>
+	<item> defined </item>
+	<item> delete </item>
+	<item> desc </item>
+	<item> dialog-box </item>
+	<item> dictionary </item>
+	<item> disable </item>
+	<item> disconnect </item>
+	<item> display </item>
+	<item> dlc </item>
+	<item> do </item>
+	<item> dos </item>
+	<item> down </item>
+	<item> drop-target </item>
+	<item> echo </item>
+	<item> editor </item>
+	<item> else </item>
+	<item> elseif </item>
+	<item> empty temp-table </item>
+	<item> enable </item>
+	<item> end </item>
+	<item> endkey </item>
+	<item> entry </item>
+	<item> event-procedure </item>
+	<item> evtlevel </item>
+	<item> except </item>
+	<item> exclusive-lock </item>
+	<item> export </item>
+	<item> external </item>
+	<item> fill-in </item>
+	<item> find </item>
+	<item> first </item>
+	<item> fixed-only </item>
+	<item> focus </item>
+	<item> font </item>
+	<item> for </item>
+	<item> form </item>
+	<item> frame </item>
+	<item> from </item>
+	<item> function </item>
+	<item> get </item>
+	<item> get-file </item>
+	<item> get-key-value </item>
+	<item> hide </item>
+	<item> if </item>
+	<item> image </item>
+	<item> import </item>
+	<item> imput from </item>
+	<item> in </item>
+	<item> inte </item>
+	<item> initial-dir </item>
+	<item> initial-filter </item>
+	<item> input </item>
+	<item> input clear </item>
+	<item> input close </item>
+	<item> input-output </item>
+	<item> insert </item>
+	<item> in window </item>
+	<item> jdkcp </item>
+	<item> jdkhome </item>
+	<item> jfccp </item>
+	<item> jfchome </item>
+	<item> jfchome </item>
+	<item> jit </item>
+	<item> jrecp </item>
+	<item> jrehome </item>
+	<item> jvmexe </item>
+	<item> label </item>
+	<item> landscape </item>
+	<item> last </item>
+	<item> leave </item>
+	<item> leave </item>
+	<item> length </item>
+	<item> linux </item>
+	<item> load </item>
+	<item> load-picture </item>
+	<item> map </item>
+	<item> max-size </item>
+	<item> menu </item>
+	<item> menu-item </item>
+	<item> message </item>
+	<item> min-size </item>
+	<item> must-exist </item>
+	<item> new </item>
+	<item> next-prompt </item>
+	<item> no-apply </item>
+	<item> no-attr-list </item>
+	<item> no-convert </item>
+	<item> no-echo </item>
+	<item> no-error </item>
+	<item> no-lock </item>
+	<item> no-map </item>
+	<item> no-undo </item>
+	<item> no-wait </item>
+	<item> num-copies </item>
+	<item> object </item>
+	<item> on </item>
+	<item> on server </item>
+	<item> os-append </item>
+	<item> os-command </item>
+	<item> os-copy </item>
+	<item> os-create-dir </item>
+	<item> os-delete </item>
+	<item> os-dir </item>
+	<item> os-rename </item>
+	<item> otherwise </item>
+	<item> output </item>
+	<item> output to </item>
+	<item> overly </item>
+	<item> page </item>
+	<item> parameter </item>
+	<item> path </item>
+	<item> pause </item>
+	<item> persistent </item>
+	<item> portrait </item>
+	<item> preselect </item>
+	<item> preselect </item>
+	<item> printer-setup </item>
+	<item> procedure </item>
+	<item> process events </item>
+	<item> procfg </item>
+	<item> proconv </item>
+	<item> proexe </item>
+	<item> progresscp </item>
+	<item> proload </item>
+	<item> prompt-for </item>
+	<item> prosrv </item>
+	<item> prostartup </item>
+	<item> protermcap </item>
+	<item> put </item>
+	<item> put-bits </item>
+	<item> put-byte </item>
+	<item> put-bytes </item>
+	<item> put cursor </item>
+	<item> put-key-value </item>
+	<item> put-long </item>
+	<item> put screen </item>
+	<item> put-short </item>
+	<item> put-string </item>
+	<item> put-unsigned-short </item>
+	<item> quit </item>
+	<item> radio-set </item>
+	<item> raw-transfer </item>
+	<item> rcode-information </item>
+	<item> readkey </item>
+	<item> rectangle </item>
+	<item> release </item>
+	<item> repeat </item>
+	<item> reposition </item>
+	<item> retry </item>
+	<item> return </item>
+	<item> return-to-start-dir </item>
+	<item> run </item>
+	<item> save-as </item>
+	<item> scroll </item>
+	<item> scrolling </item>
+	<item> selection-list </item>
+	<item> set </item>
+	<item> set-byte-order </item>
+	<item> set-pointer-value </item>
+	<item> set-size </item>
+	<item> shared </item>
+	<item> share-lock </item>
+	<item> show-stats </item>
+	<item> skip </item>
+	<item> slider </item>
+	<item> source </item>
+	<item> status </item>
+	<item> stop </item>
+	<item> stored-procedure </item>
+	<item> stream </item>
+	<item> sub-menu </item>
+	<item> subscribe </item>
+	<item> system-dialog </item>
+	<item> system-help </item>
+	<item> table-handle </item>
+	<item> target </item>
+	<item> term </item>
+	<item> text </item>
+	<item> then </item>
+	<item> through </item>
+	<item> title </item>
+	<item> toggle-box </item>
+	<item> tooltip </item>
+	<item> transaction distinct </item>
+	<item> transaction-mode authomatic </item>
+	<item> trigger </item>
+	<item> triggers </item>
+	<item> unbuffered </item>
+	<item> underline </item>
+	<item> undo </item>
+	<item> unformatted </item>
+	<item> union </item>
+	<item> unix </item>
+	<item> up </item>
+	<item> update </item>
+	<item> update </item>
+	<item> update </item>
+	<item> use </item>
+	<item> use-filename </item>
+	<item> using </item>
+	<item> validate </item>
+	<item> value </item>
+	<item> var </item>
+	<item> variable </item>
+	<item> view </item>
+	<item> view </item>
+	<item> view-as </item>
+	<item> wait-for </item>
+	<item> when </item>
+	<item> where </item>
+	<item> widget </item>
+	<item> widget-pool </item>
+	<item> widget-pool </item>
+	<item> window </item>
+	<item> windows </item>
+	<item> workfile </item>
+	<item> work-table </item>
+	<item> x-document </item>
+	<item> x-noderef </item>
+	<item> yes </item>
+    </list>
+  <list name="operators">
+   <item> [ </item>
+   <item> ! </item>
+   <item> ; </item>
+   <item> | </item>
+   <item> ) </item>
+   <item> ( </item>
+   <item> : </item>
+   <item> . </item>
+   <item> &lt; </item>
+   <item> &gt; </item>
+   <item> + </item>
+   <item> * </item>
+   <item> = </item>
+   <item> - </item>
+   <item> ] </item>
+   <item> and </item>
+   <item> or </item>
+   <item> not </item>
+   <item> begins </item>
+   <item> matches </item>
+   <item> eq </item>
+   <item> ne </item>
+   <item> lt </item>
+   <item> gt </item>
+   <item> ge </item>
+   <item> le </item>
+
+   </list>
+     <list name="functions">
+      <item> absolute </item>
+      <item> accum </item>
+      <item> accumulate </item>
+      <item> alias </item>
+      <item> ambigous </item>
+      <item> apply </item>
+      <item> asc </item>
+      <item> can-do </item>
+      <item> can-find </item>
+      <item> can-query </item>
+      <item> can-set </item>
+      <item> caps </item>
+      <item> chr </item>
+      <item> char </item>
+      <item> codepage-convert </item>
+      <item> current-changed </item>
+      <item> current-language </item>
+      <item> current-result-row </item>
+      <item> current-value </item>
+      <item> dataservers </item>
+      <item> date </item>
+      <item> day </item>
+      <item> dbcodepage </item>
+      <item> dbcollation </item>
+      <item> dbname </item>
+      <item> dbparam </item>
+      <item> dbrestrictions </item>
+      <item> dbtaskid </item>
+      <item> dbtype </item>
+      <item> dbversion </item>
+      <item> decimal </item>
+      <item> dynamic-function </item>
+      <item> encode </item>
+      <item> entered </item>
+      <item> entry </item>
+      <item> etime </item>
+      <item> exp </item>
+      <item> extent </item>
+      <item> false </item>
+      <item> fill </item>
+      <item> first </item>
+      <item> first-of </item>
+      <item> format </item>
+      <item> frame-col </item>
+      <item> frame-db </item>
+      <item> frame-down </item>
+      <item> frame-field </item>
+      <item> frame-file </item>
+      <item> frame-index </item>
+      <item> frame-line </item>
+      <item> frame-name </item>
+      <item> frame-row </item>
+      <item> frame-value </item>
+      <item> gateways </item>
+      <item> get-bits </item>
+      <item> get-byte </item>
+      <item> get-byte-order </item>
+      <item> get-bytes </item>
+      <item> get-codepages </item>
+      <item> get-collations </item>
+      <item> get-double </item>
+      <item> get-float </item>
+      <item> get-long </item>
+      <item> get-pointer-value </item>
+      <item> get-short </item>
+      <item> get-size </item>
+      <item> get-string </item>
+      <item> get-unsigned-short </item>
+      <item> get-pending </item>
+      <item> index </item>
+      <item> input </item>
+      <item> is-attr-space </item>
+      <item> is-lead-byte </item>
+      <item> kblabel </item>
+      <item> keycode </item>
+      <item> keyfunction </item>
+      <item> keylabel </item>
+      <item> keyword </item>
+      <item> keyword-all </item>
+      <item> last </item>
+      <item> lastkey </item>
+      <item> last-of </item>
+      <item> lc </item>
+      <item> ldbname </item>
+      <item> left-trim </item>
+      <item> length </item>
+      <item> library </item>
+      <item> line-counter </item>
+      <item> list-events </item>
+      <item> list-query-attrs </item>
+      <item> list-set-attrs </item>
+      <item> list-widgets </item>
+      <item> locked </item>
+      <item> log </item>
+      <item> lockup </item>
+      <item> maximum </item>
+      <item> member </item>
+      <item> message-lines </item>
+      <item> minimum </item>
+      <item> month </item>
+      <item> new </item>
+      <item> next-value </item>
+      <item> not entered </item>
+      <item> num-aliases </item>
+      <item> num-dbs </item>
+      <item> num-entries </item>
+      <item> num-results </item>
+      <item> os-drives </item>
+      <item> os-error </item>
+      <item> os-getenv </item>
+      <item> os-rename </item>
+      <item> page-number </item>
+      <item> page-size </item>
+      <item> pdbname </item>
+      <item> proc-handle </item>
+      <item> proc-status </item>
+      <item> program-name </item>
+      <item> progress </item>
+      <item> promsgs </item>
+      <item> propath </item>
+      <item> proversion </item>
+      <item> query-off-end </item>
+      <item> r-index </item>
+      <item> random </item>
+      <item> raw </item>
+      <item> recid </item>
+      <item> record-length </item>
+      <item> replace </item>
+      <item> retry </item>
+      <item> return-value </item>
+      <item> rgb-value </item>
+      <item> right-trim </item>
+      <item> round </item>
+      <item> screen-lines </item>
+      <item> sdbname </item>
+      <item> search </item>
+      <item> seek </item>
+      <item> setuserid </item>
+      <item> sqrt </item>
+      <item> string </item>
+      <item> substitute </item>
+      <item> substring </item>
+      <item> super </item>
+      <item> terminal </item>
+      <item> time </item>
+      <item> today </item>
+      <item> to-rowid </item>
+      <item> transaction </item>
+      <item> trim </item>
+      <item> truncate </item>
+      <item> true </item>
+      <item> userid </item>
+      <item> valid-event </item>
+      <item> valid-handle </item>
+      <item> weekday </item>
+      <item> widget-handle </item>
+      <item> year </item>
+    </list>
+    <list name="types">
+      <item> CHAR </item>
+      <item> CHARACTER </item>
+      <item> DECI </item>
+      <item> DECIMAL </item>
+      <item> DATE </item>
+      <item> INTE </item>
+      <item> INTEGER </item>
+      <item> ROWID </item>
+      <item> RECID </item>
+      <item> LOGI </item>
+      <item> LOGICAL </item>
+      <item> HANDLE </item>
+      <item> WIDGET-HANDLE </item>
+      <item> TABLE </item>
+      <item> BUFFER </item>
+      <item> RAW </item>
+    </list>
+    <contexts>
+      <context name="Normal Text" attribute="0" lineEndContext="0">
+        <keyword attribute="1" context="0" String="keywords"/>
+        <keyword attribute="2" context="0" String="operators"/>
+        <keyword attribute="3" context="0" String="functions"/>
+        <keyword attribute="4" context="0" String="types"/>
+        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Tt][Yy][Pp][Ee]\b"/>
+        <Float attribute="6" context="0"/>
+        <Int attribute="5" context="0"/>
+        <DetectChar attribute="7" context="1" char="'"/>
+        <Detect2Chars attribute="8" context="2" char="-" char1="-"/>
+        <Detect2Chars attribute="8" context="3" char="/" char1="*"/>
+        <RegExpr attribute="8" context="4" String="^[Rr][Ee][Mm]\b"/>
+        <DetectChar attribute="9" context="5" char="&quot;"/>
+        <AnyChar attribute="10" context="0" String=":&#38;"/>
+        <RegExpr attribute="10" context="0" String="^/$"/>
+        <RegExpr attribute="11" context="6" String="^@@?[^@ \t\r\n]"/>
+      </context>
+      <context name="String" attribute="7" lineEndContext="1">
+        <LineContinue attribute="7" context="0"/>
+        <DetectChar attribute="10" context="1" char="&#38;"/>
+        <DetectChar attribute="7" context="0" char="'"/>
+      </context>
+      <context name="Comment" attribute="8" lineEndContext="0"/>
+      <context name="Comment" attribute="8" lineEndContext="3">
+        <LineContinue attribute="8" context="0"/>
+        <Detect2Chars attribute="8" context="0" char="*" char1="/"/>
+      </context>
+      <context name="Comment" attribute="8" lineEndContext="0"/>
+      <context name="Identifier" attribute="9" lineEndContext="0">
+        <DetectChar attribute="9" context="0" char="&quot;"/>
+      </context>
+      <context name="Preprocessor" attribute="11" lineEndContext="0"/>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Operator" defStyleNum="dsNormal"/>
+      <itemData name="Function" defStyleNum="dsKeyword"/>
+      <itemData name="Data Type" defStyleNum="dsDataType"/>
+      <itemData name="Decimal"  defStyleNum="dsDecVal"/>
+      <itemData name="Float"  defStyleNum="dsFloat"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Identifier" defStyleNum="dsOthers"/>
+      <itemData name="Symbol"  defStyleNum="dsChar"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="--"/>
+      <comment name="multiLine" start="/*" end="*/"/>
+    </comments>
+    <keywords casesensitive="0"/>
+  </general>
+</language>

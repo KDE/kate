@@ -1,12 +1,22 @@
-<?xml version="1.02" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="" section="" extensions="" mimetype="" casesensitive="0">
+<!--
+        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
+        This is a template for the XML format used for syntax highlight descriptions
+        for the Kate text editor (http://kate.kde.org), which is part of the KDE
+        desktop environment (http://www.kde.org).
+
+        Use it as the base for your own syntax files.
+
+        You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
+-->
+<language name="" section="" extensions="" mimetype="">
     <highlighting>
         <contexts>
-           <context name="Normal" attribute="0" lineEndContext="0"/>
+            <context name="Normal" attribute="0" lineEndContext="0"/>
         </contexts>
         <itemDatas>
-          <itemData name="Normal Text" defStyleNum="dsNormal"/>
+            <itemData name="Normal Text" defStyleNum="dsNormal"/>
         </itemDatas>
- </highlighting>
+    </highlighting>
 </language>

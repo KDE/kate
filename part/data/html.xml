@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="HTML" version="1.92" kateversion="2.2" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="HTML" version="1.93" kateversion="2.3" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -56,6 +56,7 @@
   <context name="Comment" attribute="Comment" lineEndContext="#stay">
     <StringDetect attribute="Comment" context="#pop" String="--&gt;" endRegion="comment" />
     <Detect2Chars attribute="Error" context="#stay" char="-" char1="-" />
+    <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
   </context>
 
   <context name="CDATA" attribute="Normal Text" lineEndContext="#stay">
@@ -139,11 +140,11 @@
   
   <context name="JS content" attribute="Normal Text" lineEndContext="#stay">
     <RegExpr attribute="Element" context="El Close 2" String="&lt;/script\b" insensitive="TRUE" endRegion="script" />
-    <Detect2Chars attribute="Comment" char="/" char1="/" context="JS comment"/>
+    <RegExpr attribute="Comment" context="JS comment close" String="//(?=.*&lt;/script\b)" insensitive="TRUE" />
     <IncludeRules context="##JavaScript" />
   </context>
   
-  <context name="JS comment" attribute="Comment" lineEndContext="#pop">
+  <context name="JS comment close" attribute="Comment" lineEndContext="#pop">
     <RegExpr attribute="Element" context="El Close 3" String="&lt;/script\b" insensitive="TRUE" endRegion="script" />
     <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
   </context>

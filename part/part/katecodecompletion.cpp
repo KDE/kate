@@ -384,7 +384,7 @@ KateArgHint::KateArgHint( KateView* parent, const char* name )
     : QFrame( parent, name, WType_Popup )
 {
     setBackgroundColor( black );
-    setPaletteForegroundColor( QColor("black") );
+    setPaletteForegroundColor( Qt::black );
 
     labelDict.setAutoDelete( true );
     layout = new QVBoxLayout( this, 1, 2 );

@@ -113,25 +113,25 @@ int KateCodeFoldingNode::cmpPos(KateCodeFoldingTree *tree, uint line,uint col) {
     return  ( (cur<start)?(-1):( (cur>end) ? 1:0));
 }
 
-KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer): QObject(buffer), KateCodeFoldingNode(), m_buffer (buffer)
+KateCodeFoldingTree::KateCodeFoldingTree(KateBuffer *buffer): QObject(buffer), m_buffer (buffer)
 {
   clear();
 }
 
 void KateCodeFoldingTree::fixRoot(int endLRel)
 {
-  endLineRel = endLRel;
+  m_root.endLineRel = endLRel;
 }
 
 void KateCodeFoldingTree::clear()
 {
-  if (m_childnodes)
-    m_childnodes->clear();
+  if (m_root.childnodes())
+    m_root.childnodes()->clear();
 
   // initialize the root "special" node
-  startLineValid=true;
-  endLineValid=true; // temporary, should be false;
-  endLineRel=1;      // temporary;
+  m_root.startLineValid=true;
+  m_root.endLineValid=true; // temporary, should be false;
+  m_root.endLineRel=1;      // temporary;
 
   hiddenLinesCountCacheValid=false;
   lineMapping.setAutoDelete(true);
@@ -148,11 +148,11 @@ KateCodeFoldingTree::~KateCodeFoldingTree()
 
 bool KateCodeFoldingTree::isTopLevel(unsigned int line)
 {
-  if (!hasChildNodes())
+  if (!m_root.hasChildNodes())
     return true; // m_childnodes = 0 or no childs
 
   // look if a given lines belongs to a sub node
-  for ( KateCodeFoldingNode *node = m_childnodes->first(); node; node = m_childnodes->next() )
+  for ( KateCodeFoldingNode *node = m_root.childnodes()->first(); node; node = m_root.childnodes()->next() )
   {
     if ((node->startLineRel<=line) && (line<=node->startLineRel+node->endLineRel))
       return false;  // the line is within the range of a subnode -> return toplevel=false
@@ -171,11 +171,11 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
   info->endsBlock = false;
   info->invalidBlockEnd = false;
 
-  if (!hasChildNodes())
+  if (!m_root.hasChildNodes())
     return;
 
   //let's look for some information
-  for ( KateCodeFoldingNode *node = m_childnodes->first(); node; node = m_childnodes->next() )
+  for ( KateCodeFoldingNode *node = m_root.childnodes()->first(); node; node = m_root.childnodes()->next() )
   {
     if ((node->startLineRel<=line) && (line<=node->startLineRel+node->endLineRel)) // we found a node, which contains the given line -> do a complete lookup
     {
@@ -215,10 +215,10 @@ void KateCodeFoldingTree::getLineInfo(KateLineInfo *info, unsigned int line)
 
 KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
 {
-  if (hasChildNodes()) // does we have child list + nodes ?
+  if (m_root.hasChildNodes()) // does we have child list + nodes ?
   {
     // lets look, if given line is within a subnode range, and then return the deepest one.
-    for (KateCodeFoldingNode *node=m_childnodes->first(); node; node=m_childnodes->next())
+    for (KateCodeFoldingNode *node=m_root.childnodes()->first(); node; node=m_root.childnodes()->next())
     {
       if ((node->startLineRel<=line) && (line<=node->startLineRel+node->endLineRel))
       {
@@ -228,14 +228,14 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLine(unsigned int line)
     }
   }
 
-  return this; // the line is only contained by the root node
+  return &m_root; // the line is only contained by the root node
 }
 
 
 KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLineDescending ( KateCodeFoldingNode *node,
     unsigned int line, unsigned int offset, bool oneStepOnly )
 {
-  if (hasChildNodes())
+  if (m_root.hasChildNodes())
   {
     // calculate the offset, between a subnodes real start line and its relative start
     offset += node->startLineRel;
@@ -257,13 +257,15 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLineDescending ( KateCodeFo
   return node; // the current node has no sub nodes, or the line couldn'te be found within a subregion
 }
 
-KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line, unsigned int column) {
+KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line, unsigned int column)
+{
   KateCodeFoldingNode *node=findNodeForLine(line);
-  KateCodeFoldingNode *tmp;
-  if (node==this) return this;
-  bool first=true;
-  bool found=false;
+
+  if (node==&m_root) return &m_root;
+
   kdDebug()<<"initial cmpPos"<<endl;
+
+  KateCodeFoldingNode *tmp;
   int leq=node->cmpPos(this, line,column);
   while (true) {
     switch (leq) {
@@ -286,7 +288,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
       //this could be optimized a littlebit
       case -1:
       case 1:  {
-                  if (!(node->parentNode)) return this;
+                  if (!(node->parentNode)) return &m_root;
                   kdDebug()<<"current node type"<<node->type<<endl;
                   node=node->parentNode;
                   kdDebug()<<"cmdPos(case-1/1):calling:"<<node<<endl;
@@ -298,17 +300,17 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
 
   }
   Q_ASSERT(false);
-  return this;
+  return &m_root;
 }
 
 void KateCodeFoldingTree::debugDump()
 {
   //dump all nodes for debugging
   kdDebug(13000)<<"The parsed region/block tree for code folding"<<endl;
-  dumpNode(this, "");
+  dumpNode(&m_root, "");
 }
 
-void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node,QString prefix)
+void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &prefix)
 {
   //output node properties
   kdDebug(13000)<<prefix<<QString("Type: %1, startLineValid %2, startLineRel %3, endLineValid %4, endLineRel %5, visible %6").
@@ -1459,12 +1461,12 @@ void KateCodeFoldingTree::collapseToplevelNodes()
   // hl whole file
   m_buffer->line (m_buffer->count()-1);
 
-  if( !hasChildNodes ())
+  if( !m_root.hasChildNodes ())
     return;
 
-  for (uint i=0; i<m_childnodes->count(); i++)
+  for (uint i=0; i<m_root.childnodes()->count(); i++)
   {
-    KateCodeFoldingNode *node = m_childnodes->at(i);
+    KateCodeFoldingNode *node = m_root.childnodes()->at(i);
     if (node->visible && node->startLineValid && node->endLineValid)
     {
         node->visible=false;

@@ -347,7 +347,8 @@ class KateHlConsumeSpaces : public KateHlItem
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
-      while (text[offset].isSpace()) offset++;
+      int len2 = text.length();
+      while ((offset < len2) && text[offset].isSpace()) offset++;
       return offset;
     }
 };
@@ -359,8 +360,14 @@ class KateHlConsumeIdentifier : public KateHlItem
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
-      while (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_'))) offset++;
-      return offset;
+      if (text[offset++].isLetter())
+      {
+        int len2 = text.length();
+        while ((offset < len2) && (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_')))) offset++;
+        return offset;
+      }
+
+      return 0;
     }
 };
 

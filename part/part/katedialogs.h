@@ -235,20 +235,6 @@ class ItemInfo
     int length;
 };
 
-class HighlightDialog : public KDialogBase
-{
-  Q_OBJECT
-  public:
-    HighlightDialog( HlManager *hlManager, ItemStyleList *styleList,
-                                  HlDataList *highlightDataList,
-                                  int hlNumber, QWidget *parent,
-                                  const char *name=0, bool modal=true );
-  private:
-    HighlightDialogPage *content;
-  protected:
-    virtual void done(int r);
-};
-
 class HlEditDialog : public KDialogBase
 {
     Q_OBJECT

@@ -111,23 +111,6 @@ void HlConfigPage::reload ()
 
 }
 
-HighlightDialog::HighlightDialog( HlManager *hlManager, ItemStyleList *styleList,
-                                  HlDataList *highlightDataList,
-                                  int hlNumber, QWidget *parent,
-                                  const char *name, bool modal )
-  :KDialogBase(parent,name,modal,i18n("Highlight Settings"), Ok|Cancel, Ok)
-{
-  QVBox *page = makeVBoxMainWidget();
-  content=new HighlightDialogPage(hlManager,styleList,highlightDataList,hlNumber,page);
-}
-
-void HighlightDialog::done(int r)
-{
-  kdDebug(13010)<<"HighlightDialod done"<<endl;
-  content->saveData();
-  KDialogBase::done(r);
-}
-
 HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *styleList,
                               HlDataList* highlightDataList,
                               int hlNumber,QWidget *parent, const char *name)
@@ -726,8 +709,8 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
       normalcol( textcol )
 {
   addColumn( i18n("Context") );
-  addColumn( QIconSet(SmallIcon("text_bold")), QString::null );
-  addColumn( QIconSet(SmallIcon("text_italic")), QString::null );
+  addColumn( /*QIconSet(SmallIcon("text_bold")),*/ i18n("&Bold") );
+  addColumn( /*QIconSet(SmallIcon("text_italic")),*/ i18n("&Italic") );
   addColumn( i18n("Normal") );
   addColumn( i18n("Selected") );
   if ( showUseDefaults )

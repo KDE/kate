@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
-<language name="BibTeX" version="1.01" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
+<language name="BibTeX" version="1.02" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
   <highlighting>
     <list name="kw_entry">
       <item>@article</item> 
@@ -43,7 +43,7 @@
       </context>
 
       <context name="String" attribute="String" lineEndContext="#stay">
-        <RegExpr String="\\." attribute="Char" context="#stay"/>
+        <RegExpr String="\\(\w+|.)" attribute="Escape Sequence" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
       </context>
     </contexts>
@@ -54,7 +54,7 @@
       <itemData name="Field" defStyleNum="dsDataType"/>
       <itemData name="Ref Key" defStyleNum="dsOthers"/>
       <itemData name="String" defStyleNum="dsString"/>
-      <itemData name="Char" defStyleNum="dsChar"/>
+      <itemData name="Escape Sequence" defStyleNum="dsOthers" color="#0000ff"/>
     </itemDatas>
   </highlighting>
   <general>

@@ -31,7 +31,7 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "katecodefoldinghelpers.h"
-#include "kateiconborder.h"
+#include "kateviewhelpers.h"
 #include "katehighlight.h"
 #include "katesupercursor.h"
 #include "katerenderer.h"

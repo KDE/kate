@@ -27,11 +27,11 @@
 #include "kateview.moc"
 
 #include "kateviewinternal.h"
+#include "kateviewhelpers.h"
 #include "katerenderer.h"
 #include "katedocument.h"
 #include "katefactory.h"
 #include "katehighlight.h"
-#include "kateiconborder.h"
 #include "katedialogs.h"
 #include "katetextline.h"
 #include "kateexportaction.h"
@@ -42,7 +42,6 @@
 #include "katebookmarks.h"
 #include "katebrowserextension.h"
 #include "katesearch.h"
-#include "katecmdline.h"
 #include "kateconfig.h"
 #include "katefiletype.h"
 

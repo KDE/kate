@@ -2,7 +2,6 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -21,8 +20,8 @@
 
 // $Id$
 
-#include "kateiconborder.h"
-#include "kateiconborder.moc"
+#include "kateviewhelpers.h"
+#include "kateviewhelpers.moc"
 
 #include "kateview.h"
 #include "kateviewinternal.h"
@@ -42,6 +41,97 @@
 #include <qtimer.h>
 
 #include <math.h>
+
+#include "kateview.h"
+#include "katefactory.h"
+
+#include "../interfaces/katecmd.h"
+#include "../interfaces/document.h"
+
+#include <klocale.h>
+
+#include <qtimer.h>
+
+KateCmdLine::KateCmdLine (KateView *view)
+  : KLineEdit (view)
+  , m_view (view)
+  , m_msgMode (false)
+{
+  connect (this, SIGNAL(returnPressed(const QString &)),
+           this, SLOT(slotReturnPressed(const QString &)));
+
+  completionObject()->insertItems (KateCmd::self()->cmds());
+}
+
+KateCmdLine::~KateCmdLine ()
+{
+}
+
+void KateCmdLine::slotReturnPressed ( const QString& cmd )
+{
+  if (cmd.length () > 0)
+  {
+    Kate::Command *p = KateCmd::self()->queryCommand (cmd);
+
+    m_oldText = cmd;
+    m_msgMode = true;
+
+    if (p)
+    {
+      QString msg;
+
+      if (p->exec (m_view, cmd, msg))
+      {
+        completionObject()->addItem (cmd);
+        m_oldText = QString ();
+
+        if (msg.length() > 0)
+          setText (i18n ("Success: ") + msg);
+        else
+          setText (i18n ("Success"));
+      }
+      else
+      {
+        if (msg.length() > 0)
+          setText (i18n ("Error: ") + msg);
+        else
+          setText (i18n ("Command \"%1\" failed.").arg (cmd));
+      }
+    }
+    else
+      setText (i18n ("No such command: \"%1\"").arg (cmd));
+  }
+
+  m_view->setFocus ();
+  QTimer::singleShot( 4000, this, SLOT(hideMe()) );
+}
+
+void KateCmdLine::hideMe ()
+{
+  m_view->showCmdLine (false);
+}
+
+void KateCmdLine::focusInEvent ( QFocusEvent *ev )
+{
+  if (m_msgMode)
+  {
+    m_msgMode = false;
+    setText (m_oldText);
+  }
+
+  KLineEdit::focusInEvent (ev);
+}
+
+void KateCmdLine::keyPressEvent( QKeyEvent *ev )
+{
+  if (ev->key() == Key_Escape)
+  {
+    m_view->setFocus ();
+    m_view->showCmdLine (false);
+  }
+
+  return KLineEdit::keyPressEvent (ev);
+}
 
 using namespace KTextEditor;
 

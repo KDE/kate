@@ -2,7 +2,6 @@
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -19,12 +18,38 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef _KateIconBorder_H_
-#define _KateIconBorder_H_
+#ifndef __KATE_VIEW_HELPERS_H__
+#define __KATE_VIEW_HELPERS_H__
+
+#include <klineedit.h>
 
 #include <qwidget.h>
 #include <qpixmap.h>
 #include <qcolor.h>
+
+class KateView;
+
+class KateCmdLine : public KLineEdit
+{
+  Q_OBJECT
+
+  public:
+    KateCmdLine (KateView *view);
+    virtual ~KateCmdLine ();
+
+  private slots:
+    void slotReturnPressed ( const QString& cmd );
+    void hideMe ();
+
+  protected:
+    void focusInEvent ( QFocusEvent *ev );
+    void keyPressEvent( QKeyEvent *ev );
+
+  private:
+    KateView *m_view;
+    bool m_msgMode;
+    QString m_oldText;
+};
 
 class KateIconBorder : public QWidget
 {

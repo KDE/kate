@@ -4,12 +4,12 @@ libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
   kateundo.cpp katecursor.cpp katedialogs.cpp katedocument.cpp \
   katefactory.cpp katehighlight.cpp katesyntaxdocument.cpp \
   katetextline.cpp kateview.cpp katehighlightdownload.cpp kateconfig.cpp \
-  kateiconborder.cpp katecodecompletion_arghint.cpp \
+  kateviewhelpers.cpp katecodecompletion_arghint.cpp \
   katecodecompletion.cpp kateexportaction.cpp \
   katecodefoldinghelpers.cpp kateviewinternal.cpp \
   katebookmarks.cpp katebrowserextension.cpp kateprintsettings.cpp \
   katefont.cpp katelinerange.cpp katesupercursor.cpp katearbitraryhighlight.cpp \
-  katerenderer.cpp kateattribute.cpp katecmdline.cpp \
+  katerenderer.cpp kateattribute.cpp \
   kateautoindent.cpp katefiletype.cpp kateschema.cpp katepythonindent.cpp katedocument.skel
 
 libkatepart_la_LIBADD = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la

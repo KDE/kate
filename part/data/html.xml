@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="HTML" version="1.03" kateversion="2.1" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
+<language name="HTML" version="1.04" kateversion="2.1" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
   <highlighting>
     <contexts>
        <context attribute="Normal Text" lineEndContext="#stay" name="normal">

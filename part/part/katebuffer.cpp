@@ -148,10 +148,15 @@ class KateFileLoader
     // eol mode ? autodetected on open(), -1 for no eol found in the first block!
     inline int eol () const { return m_eol; }
 
-    // read a line, return per reference, only valid until the next readLine call
-    // or until this object goes to trash !!!
-    QConstString readLine ()
+    // internal unicode data array
+    inline const QChar *unicode () const { return m_text.unicode(); }
+
+    // read a line, return length + offset in unicode data
+    void readLine (uint &offset, uint &length)
     {
+      length = 0;
+      offset = 0;
+
       while (m_position <= m_text.length())
       {
         if (m_position == m_text.length())
@@ -180,10 +185,13 @@ class KateFileLoader
           {
             lastWasEndOfLine = false;
 
-            QConstString line = QConstString (m_text.unicode()+m_lastLineStart, m_position-m_lastLineStart);
+            // line data
+            offset = m_lastLineStart;
+            length = m_position-m_lastLineStart;
+
             m_lastLineStart = m_position;
 
-            return line;
+            return;
           }
         }
 
@@ -198,11 +206,14 @@ class KateFileLoader
           }
           else
           {
-            QConstString line = QConstString (m_text.unicode()+m_lastLineStart, m_position-m_lastLineStart);
+            // line data
+            offset = m_lastLineStart;
+            length = m_position-m_lastLineStart;
+
             m_lastLineStart = m_position+1;
             m_position++;
 
-            return line;
+            return;
           }
         }
         else if (m_text[m_position] == '\r')
@@ -210,11 +221,14 @@ class KateFileLoader
           lastWasEndOfLine = true;
           lastWasR = true;
 
-          QConstString line = QConstString (m_text.unicode()+m_lastLineStart, m_position-m_lastLineStart);
+          // line data
+          offset = m_lastLineStart;
+          length = m_position-m_lastLineStart;
+
           m_lastLineStart = m_position+1;
           m_position++;
 
-          return line;
+          return;
         }
         else
         {
@@ -224,8 +238,6 @@ class KateFileLoader
 
         m_position++;
       }
-
-      return QConstString (m_text.unicode(), 0);
     }
 
   private:
@@ -1188,8 +1200,10 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
   uint blockSize = 0;
   while (!stream->eof() && (blockSize < KATE_AVG_BLOCK_SIZE) && (m_lines < KATE_MAX_BLOCK_LINES))
   {
-    QConstString line = stream->readLine();
-    uint length = line.string().length ();
+    uint offset = 0, length = 0;
+    stream->readLine(offset, length);
+    QChar *unicodeData = stream->unicode () + offset;
+
     blockSize += length;
 
     if (swap)
@@ -1214,13 +1228,13 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
       memcpy(buf+pos, (char *) &length, sizeof(uint));
       pos += sizeof(uint);
 
-      memcpy(buf+pos, (char *) line.string().unicode(), sizeof(QChar)*length);
+      memcpy(buf+pos, (char *) unicodeData, sizeof(QChar)*length);
       pos += sizeof(QChar)*length;
     }
     else
     {
       KateTextLine::Ptr textLine = new KateTextLine ();
-      textLine->insertText (0, length, line.string().unicode ());
+      textLine->insertText (0, length, unicodeData);
       m_stringList.push_back (textLine);
     }
 

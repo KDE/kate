@@ -76,16 +76,16 @@ class KateTextLine : public KShared
     /**
     * Set the flag that only positions have changed, not folding region begins/ends themselve
     */
-    inline void setFoldingColumnsOutdated(bool set) { if (set) m_flags |= KateTextLine::flagFoldingColumnsOutdated; else m_flags&=  
+    inline void setFoldingColumnsOutdated(bool set) { if (set) m_flags |= KateTextLine::flagFoldingColumnsOutdated; else m_flags&=
                                                       (~KateTextLine::flagFoldingColumnsOutdated);}
-    
+
     /**
      * folding columns outdated ?
      * @return folding columns outdated?
      */
      inline bool foldingColumnsOutdated() { return m_flags & KateTextLine::flagFoldingColumnsOutdated; }
-     
-    
+
+
     /**
      * Returns the length
      * @return length of text in line
@@ -172,15 +172,6 @@ class KateTextLine : public KShared
      */
     inline QString string(uint startCol, uint length) const
     { return m_text.mid(startCol, length); }
-
-    /**
-     * Gets a substring as constant string.
-     * @param startCol start column of substring
-     * @param length lenght of substring
-     * @return wanted substring
-     */
-    inline QConstString constString(uint startCol, uint length) const
-    { return QConstString(m_text.unicode() + startCol, length); }
 
     /**
      * Gets a null terminated pointer to first non space char

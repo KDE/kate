@@ -1,11 +1,22 @@
+2003-12-24 Christoph Cullmann <cullmann@kde.org>
+  * Overview about some fixes done in the last months:
+    - Hamish Rodda:
+        - lots of fixes in the area of the
+          rendering/selection/view department and massive
+          bughunting
+          
+    - Anders Lund:
+        - bookmarks/printing enhancements
+        
+    - Christoph Cullmann:
+        - bughunting, config classes/dialogs, consolidation of
+          part -><- app interaction
+
 2003-08-28 Christoph Cullmann <cullmann@kde.org>
   * color schemes support
   * filetype support
   * indenters for different languages by jesse
   * folding by indentation kind of working, not perfect :/
-
-2002-11-05 Christoph Cullmann <cullmann@kde.org>
-  * fix the printing crash + loop together with Anders ;)
 
 2002-11-05 Christoph Cullmann <cullmann@kde.org>
   * fix the printing crash + loop together with Anders ;)

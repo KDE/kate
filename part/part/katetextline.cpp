@@ -393,6 +393,7 @@ char *TextLine::restore (char *buf)
   // hl size runlength encoding START
 
   m_attributes.resize (l);
+  uchar *attr = m_attributes.data();
 
   uchar attrib = 0;
   uint length = 0;
@@ -400,16 +401,22 @@ char *TextLine::restore (char *buf)
   
   for (uint z=0; z < lattrib; z++)
   {
+    if (pos >= m_attributes.size())
+      break;  
+  
     memcpy((char *) &attrib, buf, sizeof(uchar));
     buf += sizeof(uchar);
 
     memcpy((char *) &length, buf, sizeof(uint));
     buf += sizeof(uint);
 
-    for (uint z2=pos; (z2 < pos+length) && (z2 < m_attributes.size()); z2++)
-      m_attributes[z2] = attrib;
+    if ((pos+length) > m_attributes.size())
+      length = m_attributes.size() - pos;
+    
+    memset (attr, attrib, length);
 
     pos += length;
+    attr += length;
   }
   
   // hl size runlength encoding STOP

@@ -584,7 +584,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   // insert the default styles backwards to get them in the right order
   for ( int i = KateHlManager::self()->defaultStyles() - 1; i >= 0; i-- )
   {
-    new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i), l->at( i ) );
+    new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i, true), l->at( i ) );
   }
 
   QWhatsThis::add( m_defaultStyles,  i18n(

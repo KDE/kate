@@ -321,7 +321,7 @@ class KateHlManager : public QObject
 
     // methodes to get the default style count + names
     static uint defaultStyles();
-    static QString defaultStyleName(int n);
+    static QString defaultStyleName(int n, bool translateNames = false);
 
     void getDefaults(uint schema, KateAttributeList &);
     void setDefaults(uint schema, KateAttributeList &);

@@ -75,7 +75,7 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
       if (!success)
       {
         KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
-            .arg(line).arg(col).arg(errorMsg));
+            .arg(line).arg(col).arg(i18n("QXml",errorMsg.utf8()));
         return false;
       }
     }

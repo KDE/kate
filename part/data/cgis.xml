@@ -3,6 +3,8 @@
 <language name="CGiS" version="1.01" kateversion="2.4" section="Sources" extensions="*.cgis" mimetype="">
   <highlighting>
     <list name="keywords">
+      <item> 1D </item>
+      <item> 2D </item>
       <item> break </item>
       <item> continue </item>
       <item> do </item>
@@ -60,6 +62,8 @@
         <ConsumeSpaces />
         <StringDetect attribute="Keyword" context="Control" String="CONTROL" />
 
+        <StringDetect attribute="Hint" context="Hint" String="#HINT" />
+
         <IncludeRules context="Common" />
       </context>
 
@@ -87,6 +91,12 @@
         <IncludeRules context="##Doxygen" />
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
+      </context>
+
+      <context attribute="Hint" lineEndContext="#stay" name="Hint">
+        <ConsumeSpaces />
+        <DetectChar attribute="Hint" context="#pop" char=")" />
+        <ConsumeIdentifier />
       </context>
 
       <context attribute="Region Marker" lineEndContext="#pop" name="Region Marker">
@@ -123,6 +133,7 @@
       <itemData name="Symbol"       defStyleNum="dsNormal"/>
       <itemData name="Alert"        defStyleNum="dsAlert" />
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
+      <itemData name="Hint        " defStyleNum="dsOthers"/>
     </itemDatas>
   </highlighting>
   <general>

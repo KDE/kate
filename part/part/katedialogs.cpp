@@ -173,7 +173,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
 
   opt[0] = new QCheckBox(i18n("A&ctivated"), gbAuto);
   opt[0]->setChecked(configFlags & flags[0]);
-  layout->addWidget(opt[0]);
+  //layout->addWidget(opt[0]);
   connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
   QHBox *e5Layout = new QHBox(gbAuto);
@@ -196,7 +196,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent)
 
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Indentation with Spaces"), this);
 
-  opt[1] = new QCheckBox(i18n("Use &spaces instead of tabs to indent"), gbWordWrap);
+  opt[1] = new QCheckBox(i18n("Use &spaces instead of tabs to indent"), gbWordWrap );
   opt[1]->setChecked(configFlags & flags[1]);
   connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[1], SIGNAL(toggled(bool)), this, SLOT(spacesToggled()));
@@ -295,19 +295,19 @@ SelectConfigTab::SelectConfigTab(QWidget *parent)
 
   m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Selection Mode"), this );
   layout->add (m_tabs);
-  
+
   m_tabs->setRadioButtonExclusive( true );
   m_tabs->insert( rb1=new QRadioButton( i18n("&Normal"), m_tabs ), 0 );
   m_tabs->insert( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ), 1 );
-  
+
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addStretch();
-  
+
   QWhatsThis::add(rb1, i18n("Selections will be overwritten by typed text and will be lost on cursor movement."));
   QWhatsThis::add(rb2, i18n("Selections will stay even after cursor movement and typing."));
-  
+
   reload ();
 }
 
@@ -316,7 +316,7 @@ void SelectConfigTab::apply ()
   int configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocumentConfig::cfPersistent; // clear persistent
-  
+
   if (m_tabs->id (m_tabs->selected()) == 1)
     configFlags |= KateDocumentConfig::cfPersistent; // set flag if checked
 
@@ -327,7 +327,7 @@ void SelectConfigTab::reload ()
 {
   if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfPersistent)
     m_tabs->setButton (1);
-  else  
+  else
     m_tabs->setButton (0);
 }
 //END SelectConfigTab
@@ -978,7 +978,7 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   // hl chooser
   QHBox *hbHl = new QHBox( this );
   layout->add (hbHl);
-  
+
   hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
   hlCombo = new QComboBox( false, hbHl );
@@ -1023,7 +1023,7 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   // download/new buttons
   QHBox *hbBtns = new QHBox( this );
   layout->add (hbBtns);
-  
+
   ((QBoxLayout*)hbBtns->layout())->addStretch(1); // hmm.
   hbBtns->setSpacing( KDialog::spacingHint() );
   QPushButton *btnDl = new QPushButton(i18n("Do&wnload..."), hbBtns);
@@ -1037,7 +1037,7 @@ HlConfigPage::HlConfigPage (QWidget *parent)
   QWhatsThis::add( mimetypes, i18n("The list of Mime Types used to determine which files to highlight using the current highlight mode.<p>Click the wizard button on the left of the entry field to display the MimeType selection dialog.") );
   QWhatsThis::add( btnMTW,    i18n("Display a dialog with a list of all available mime types to choose from.<p>The <strong>File Extensions</strong> entry will automatically be edited as well.") );
   QWhatsThis::add( btnDl,     i18n("Click this button to download new or updated syntax highlight descriptions from the Kate website.") );
-  
+
   layout->addStretch ();
 }
 
@@ -1048,10 +1048,10 @@ HlConfigPage::~HlConfigPage ()
 void HlConfigPage::apply ()
 {
   writeback();
-  
+
   for ( QIntDictIterator<HlData> it( hlDataDict ); it.current(); ++it )
     HlManager::self()->getHl( it.currentKey() )->setData( it.current() );
-    
+
   HlManager::self()->getKConfig()->sync ();
 }
 
@@ -1093,7 +1093,7 @@ void HlConfigPage::showMTDlg()
   QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.").arg( hlCombo->currentText() );
   QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
   KMimeTypeChooserDlg *d = new KMimeTypeChooserDlg( this, i18n("Select Mime Types"), text, list );
-  
+
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.

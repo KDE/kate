@@ -85,7 +85,7 @@
         </Int>
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
-        <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="Comment"/>
+        <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="blockcomment"/>
         <RegExpr attribute="Preprocessor" context="Outscoped" String="^\s*#\s*if\s+0"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="^\s*#"/>
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
@@ -101,7 +101,7 @@
         <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="comment">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="blockcomment"/>
 <!--        <IncludeRules context="##Alerts" />-->
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">

@@ -33,6 +33,7 @@ KateCodeFoldingNode::KateCodeFoldingNode():
 {
 	// temporary true fix is to check, if a node has that member initialized before accessing it
 	childnodes = new QPtrList<KateCodeFoldingNode>;
+	childnodes->setAutoDelete(true);
 }
 
 KateCodeFoldingNode::KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel):
@@ -42,9 +43,17 @@ KateCodeFoldingNode::KateCodeFoldingNode(KateCodeFoldingNode *par, signed char t
 {
 	// temporary true fix is to check, if a node has that member initialized before accessing it
 	childnodes = new QPtrList<KateCodeFoldingNode>;
+	childnodes->setAutoDelete(true);
 }	//the endline fields should be initialised to not valid
 
-KateCodeFoldingNode::~KateCodeFoldingNode(){;}
+KateCodeFoldingNode::~KateCodeFoldingNode(){
+//	kdDebug()<<"Freeing a KateCodeFoldingNode"<<endl;
+	if (childnodes)
+	{
+		childnodes->clear();
+		delete childnodes;
+	}
+}
 
 
 KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFoldingNode()
@@ -59,25 +68,8 @@ KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFo
 	endLineRel=60000;   // temporary;
 }
 
-KateCodeFoldingTree::~KateCodeFoldingTree()
-{
-	freeRecursive(this);	
-}
+KateCodeFoldingTree::~KateCodeFoldingTree(){;}
 
-void KateCodeFoldingTree::freeRecursive(KateCodeFoldingNode *node)
-{
-//later perhaps let Qt Handle this (autodelete)
-	KateCodeFoldingNode *tmp;
-	if (!node) return;
-	if (!(node->childnodes)) return;
-	while (!(node->childnodes->isEmpty()))
-	{
-		tmp=node->childnodes->take(0);
-		freeRecursive(tmp);
-		delete tmp;
-	}
-	delete node->childnodes;
-}
 
 bool KateCodeFoldingTree::isTopLevel(unsigned int line)
 {

@@ -132,7 +132,6 @@ private:
 	void dontDeleteOpening	(KateCodeFoldingNode*);
 
 	void updateHiddenSubNodes (KateCodeFoldingNode *node);
-	void freeRecursive(KateCodeFoldingNode *node);
 public slots:
 
 	void updateLine (unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);

@@ -45,7 +45,7 @@
 
 #include "katedialogs.moc"
 #include "katehighlightdownload.h"
-#include "katehledit_attrib.h"
+#include "attribeditor.h"
 
 #define TAG_DETECTCHAR "DetectChar"
 #define TAG_DETECT2CHARS "Detect2Chars"
@@ -329,19 +329,7 @@ HlEditDialog::HlEditDialog(HlManager *,QWidget *parent, const char *name, bool m
 
 /* attributes */
   tabWid->addTab(attrEd=new AttribEditor(tabWid),i18n("Attributes"));
-  attrEd->attributes->setSorting(-1);
-  attrEd->AttributeType->insertItem("dsNormal");
-  attrEd->AttributeType->insertItem("dsKeyword");
-  attrEd->AttributeType->insertItem("dsDataType");
-  attrEd->AttributeType->insertItem("dsDecVal");
-  attrEd->AttributeType->insertItem("dsBaseN");
-  attrEd->AttributeType->insertItem("dsFloat");
-  attrEd->AttributeType->insertItem("dsChar");
-  attrEd->AttributeType->insertItem("dsString");
-  attrEd->AttributeType->insertItem("dsComment");
-  attrEd->AttributeType->insertItem("dsOthers");
-  attrEd->AttributeType->insertItem(i18n("Custom"));
-  connect(attrEd->attributes,SIGNAL(currentChanged(QListViewItem*)),this,SLOT(currentAttributeChanged(QListViewItem*)));
+
 /*Contextstructure */
   currentItem=0;
     transTableCnt=0;
@@ -372,8 +360,20 @@ HlEditDialog::HlEditDialog(HlManager *,QWidget *parent, const char *name, bool m
     connect(addItem,SIGNAL(clicked()),this,SLOT(ItemAddNew()));
 
 /* attribute setting - connects */
-    connect(attrEd->addAttribute,SIGNAL(clicked()),this,SLOT(addAttribute()));
+
+    connect(tabWid,SIGNAL(currentChanged(QWidget*)),this,SLOT(pageChanged(QWidget*)));
     }
+
+void HlEditDialog::pageChanged(QWidget *widget)
+{
+	if (widget/*==*/)
+	{
+  		ContextAttribute->clear();
+  		ItemAttribute->clear();
+  		ContextAttribute->insertStringList(attrEd->attributeNames());
+  		ItemAttribute->insertStringList(attrEd->attributeNames());
+	}
+}
 
 void HlEditDialog::newDocument()
 {
@@ -496,75 +496,7 @@ void HlEditDialog::loadFromDocument(HlData *hl)
 	 }
        if (data) HlManager::self()->syntax->freeGroupInfo(data);
    }
-  ContextAttribute->clear();
-  ItemAttribute->clear();
-  data=HlManager::self()->syntax->getGroupInfo("highlighting","itemData");
-  int cnt=0;
-  QListViewItem *prev=0;
-  while (HlManager::self()->syntax->nextGroup(data))
-    {
-        ContextAttribute->insertItem(HlManager::self()->syntax->groupData(data,QString("name")));
-        ItemAttribute->insertItem(HlManager::self()->syntax->groupData(data,QString("name")));
-	attrEd->attributes->insertItem(prev=new QListViewItem(attrEd->attributes,prev,
-		HlManager::self()->syntax->groupData(data,QString("name")),
-		HlManager::self()->syntax->groupData(data,QString("defStyleNum")),
-		HlManager::self()->syntax->groupData(data,QString("color")),
-		HlManager::self()->syntax->groupData(data,QString("selColor")),
-		HlManager::self()->syntax->groupData(data,QString("bold")),
-		HlManager::self()->syntax->groupData(data,QString("italic")),
-		QString("%1").arg(cnt)));
-	cnt++;
-    }
-  currentAttributeChanged(attrEd->attributes->firstChild());
-  if (data) HlManager::self()->syntax->freeGroupInfo(data);
-}
-
-void HlEditDialog::currentAttributeChanged(QListViewItem *item)
-{
-	if (item)
-	{
-		bool isCustom=(item->text(1)=="dsNormal")&&(!(item->text(2).isEmpty()));
-		attrEd->AttributeName->setText(item->text(0));
-		attrEd->AttributeType->setCurrentText(
-			isCustom?i18n("Custom"):item->text(1));
-		attrEd->AttributeName->setEnabled(true);
-		attrEd->AttributeType->setEnabled(true);
-		if (isCustom)
-		{
-			attrEd->Colour->setColor(QColor(item->text(2)));
-			attrEd->SelectedColour->setColor(QColor(item->text(3)));
-			attrEd->Bold->setChecked(item->text(4)=="1");
-			attrEd->Italic->setChecked(item->text(5)=="1");
-
-			attrEd->Colour->setEnabled(true);
-			attrEd->SelectedColour->setEnabled(true);
-			attrEd->Bold->setEnabled(true);
-			attrEd->Italic->setEnabled(true);
-		}
-		else
-		{
-			attrEd->Colour->setEnabled(false);
-			attrEd->SelectedColour->setEnabled(false);
-			attrEd->Bold->setEnabled(false);
-			attrEd->Italic->setEnabled(false);
-		}
-	}
-	else
-	{
-		attrEd->Colour->setEnabled(false);
-		attrEd->SelectedColour->setEnabled(false);
-		attrEd->Bold->setEnabled(false);
-		attrEd->Italic->setEnabled(false);
-		attrEd->AttributeName->setEnabled(false);
-		attrEd->AttributeType->setEnabled(false);
-	}
-}
-
-void HlEditDialog::addAttribute()
-{
-	attrEd->attributes->insertItem(new QListViewItem(attrEd->attributes,attrEd->attributes->lastItem(),
-		i18n("New attribute"),"dsNormal","#000000","#ffffff","0","0",
-		QString("%1").arg(attrEd->attributes->childCount())));
+  attrEd->load(HlManager::self()->syntax);
 }
 
 QListViewItem *HlEditDialog::addContextItem(QListViewItem *_parent,QListViewItem *prev,struct syntaxContextData *data)

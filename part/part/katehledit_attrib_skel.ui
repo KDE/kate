@@ -1,5 +1,5 @@
 <!DOCTYPE UI><UI version="3.0" stdsetdef="1">
-<class>AttribEditor</class>
+<class>AttribEditor_skel</class>
 <include>klistview.h</include>
 <include>kcolorcombo.h</include>
 <include>klineedit.h</include>
@@ -7,7 +7,7 @@
 
 <widget class="QWidget">
     <property name="name">
-        <cstring>AttribEditor</cstring>
+        <cstring>AttribEditor_skel</cstring>
     </property>
     <property name="geometry">
         <rect>

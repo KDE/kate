@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Pike syntax highlightning v1.0 by Paul Pogonyshev -->
 <!-- FIXME: Find a way to prevent ranges (e.g. [1..] or [0..99]) from matching as floats. -pp -->
-<language name="Pike" version="1.0" kateversion="2.1" section="Scripts" extensions="*.pike" mimetype="text/x-pike" casesensitive="1">
+<language name="Pike" version="1.1" kateversion="2.1" section="Scripts" extensions="*.pike" mimetype="application/x-pike;text/x-pike" casesensitive="1">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -89,7 +89,7 @@
 	<StringDetect attribute="Comment" context="Outscoped Internals" String="#if"/>
 	<StringDetect attribute="Comment" context="#pop" String="#endif"/>
       </context>
-    </contexts>  
+    </contexts>
     <itemDatas>
       <itemData name="Normal Text"	defStyleNum="dsNormal"/>
       <itemData name="Keyword"		defStyleNum="dsKeyword"/>

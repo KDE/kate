@@ -2457,6 +2457,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          if ( endCol < startCol )
          {
            kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" !?"<<endl;
+           lineCount++;
            continue; // strange case...
                      // Happens if the line fits exactly.
                      // When it happens, a line of garbage would be printed.

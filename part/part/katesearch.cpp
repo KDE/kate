@@ -111,7 +111,7 @@ void KateSearch::find()
     } else {
       s.cursor = getCursor();
     }
-    
+
     search( searchFlags );
   }
   delete findDialog;
@@ -151,7 +151,7 @@ void KateSearch::replace()
     } else {
       s.cursor = getCursor();
     }
-    
+
     search( searchFlags );
   }
   delete replaceDialog;
@@ -303,11 +303,9 @@ void KateSearch::promptReplace()
   if ( doSearch( searchFor ) ) {
     exposeFound( s.cursor, s.matchedLength );
     replacePrompt->show();
-  } else if( !s.flags.finished ) {
-    if( askContinue() ) {
-      wrapSearch();
-      promptReplace();
-    }
+  } else if( !s.flags.finished && askContinue() ) {
+    wrapSearch();
+    promptReplace();
   } else {
     replacePrompt->hide();
     KMessageBox::information( view(),

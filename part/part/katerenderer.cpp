@@ -533,6 +533,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             // Here's where the money is...
             paint.drawText(oldXPos-xStart, y, textLine->string(), blockStartCol, nextCol-blockStartCol);
 
+            // Draw preedit's underline
+            if (isIMEdit) {
+              QRect r( oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight );
+              paint.drawLine( r.bottomLeft(), r.bottomRight() );
+            }
+
             // Put pen color back
             if (isIMSel) paint.restore();
 

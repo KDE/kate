@@ -25,20 +25,22 @@
 
 #include <kdialogbase.h>
 
+class KAccel;
+class KColorButton;
+class KComboBox;
+class KIntNumInput;
+class KKeyButton;
+class KKeyChooser;
+class KMainWindow;
+class KPushButton;
+class KRegExpDialog;
+
+class QButtonGroup;
 class QCheckBox;
 class QLineEdit;
 class QPushButton;
 class QRadioButton;
 class QSpinBox;
-class KColorButton;
-class KIntNumInput;
-class KComboBox;
-class KRegExpDialog;
-class KKeyButton;
-class KPushButton;
-class KMainWindow;
-class KAccel;
-class KKeyChooser;
 
 class KateDocument;
 class KateView;
@@ -198,6 +200,7 @@ private:
   QCheckBox *m_line;
   QCheckBox *m_folding;
   QCheckBox *m_icons;
+  QButtonGroup *m_bmSort;
   
 public slots:
  void apply ();

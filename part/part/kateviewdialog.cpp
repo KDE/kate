@@ -26,28 +26,52 @@
 #include "katefactory.h"
 
 #include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtabwidget.h>
-#include <qgroupbox.h>
-#include <qcheckbox.h>
-#include <qpushbutton.h>
-#include <qvgroupbox.h>
-#include <qwhatsthis.h>
-#include <qstringlist.h>
-#include <qvbox.h>
-#include <qdialog.h>
-
-#include <klocale.h>
+#include <kaccel.h>
+#include <kcharsets.h>
 #include <kcolorbutton.h>
 #include <kcombobox.h>
-#include <knuminput.h>
-#include <kfontdialog.h>
-#include <kregexpeditorinterface.h>
-#include <kparts/componentfactory.h>
 #include <kconfig.h>
+#include <kfontdialog.h>
+#include <kglobal.h>
+#include <kkeybutton.h>
 #include <kkeydialog.h>
+#include <klistview.h>
+#include <klocale.h>
+#include <kmainwindow.h>
+#include <knuminput.h>
+#include <kparts/componentfactory.h>
+#include <kregexpeditorinterface.h>
+#include <kcolorbutton.h>
+#include <kcombobox.h>
+#include <kconfig.h>
+#include <kfontdialog.h>
+#include <klocale.h>
+#include <knuminput.h>
+#include <kparts/componentfactory.h>
+#include <kregexpeditorinterface.h>
+
+#include <qbuttongroup.h>
+#include <qcheckbox.h>
+#include <qcollection.h>
+#include <qdialog.h>
+#include <qgrid.h>
+#include <qgroupbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qlineedit.h>
+#include <qlistbox.h>
+#include <qobjectlist.h>
+#include <qpushbutton.h>
+#include <qradiobutton.h>
+#include <qspinbox.h>
+#include <qstringlist.h>
+#include <qtabwidget.h>
+#include <qvbox.h>
+#include <qvgroupbox.h>
+#include <qwhatsthis.h>
 
 SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor,
      QStringList &replaceWith, SearchFlags flags )
@@ -507,15 +531,20 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_doc = doc;
 	
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
-	m_line=new QCheckBox(i18n("Show line numbers"),this);
-	m_icons=new QCheckBox(i18n("Show icon border"),this);
-	m_folding=new QCheckBox(i18n("Show folding markers if available"),this);
+	m_line=new QCheckBox(i18n("Show &line numbers"),this);
+	m_icons=new QCheckBox(i18n("Show &iconborder"),this);
+	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
+        m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
+        m_bmSort->setRadioButtonExclusive( true );
+        m_bmSort->insert( new QRadioButton( i18n("By &Position"), m_bmSort ), 0 );
+        m_bmSort->insert( new QRadioButton( i18n("By &Creation"), m_bmSort ), 1 );
 	blay->addWidget(m_line,0);
 	blay->addWidget(m_icons,0);
 	blay->addWidget(m_folding,0);	
+        blay->addWidget( m_bmSort, 0 );
 	blay->addStretch(1000);
 	reload();
-	}
+}
 
 
 ViewDefaultsConfig::~ViewDefaultsConfig()
@@ -529,7 +558,8 @@ void ViewDefaultsConfig::apply ()
   config->setGroup("Kate ViewDefaults");
   config->writeEntry( "LineNumbers", m_line->isChecked() );
   config->writeEntry( "Iconbar", m_icons->isChecked() );  
-  config->writeEntry( "FoldingMarkers", m_folding->isChecked() );  
+  config->writeEntry( "FoldingMarkers", m_folding->isChecked() );
+  config->writeEntry( "Bookmark Menu Sorting", m_bmSort->id( m_bmSort->selected() ) );  
   config->sync();
 }
 
@@ -539,7 +569,8 @@ void ViewDefaultsConfig::reload ()
   config->setGroup("Kate ViewDefaults");
   m_line->setChecked(config->readBoolEntry( "LineNumbers", false ));
   m_icons->setChecked(config->readBoolEntry( "Iconbar", false ));  
-  m_folding->setChecked(config->readBoolEntry( "FoldingMarkers", true ));  
+  m_folding->setChecked(config->readBoolEntry( "FoldingMarkers", true ));
+  m_bmSort->setButton( config->readNumEntry( "Bookmark Menu Sorting", 0 ) );
 }    
 
 void ViewDefaultsConfig::reset () {;}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Music Publisher" version="1.03" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Music Publisher" version="1.04" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
 
@@ -19,6 +19,7 @@
       <item> voice </item>
       <item> grids </item>
       <item> music </item>
+      <item> headshape </item>
     </list>
 
 
@@ -61,6 +62,7 @@
       <item> measnumfont </item>
       <item> measnumfontfamily </item>
       <item> measnumsize </item>
+      <item> noteheads </item>
       <item> numbermrpt </item>
       <item> ontheline </item>
       <item> packexp </item>
@@ -84,6 +86,8 @@
       <item> staffs </item>
       <item> staffscale </item>
       <item> staffsep </item>
+      <item> stemlen </item>
+      <item> swingunit </item>
       <item> sylposition </item>
       <item> tabwhitebox </item>
       <item> time </item>
@@ -505,6 +509,7 @@
       <item> center </item>
       <item> title </item>
       <item> paragraph </item>
+      <item> postscript </item>
     </list>
 
 
@@ -568,13 +573,6 @@
     </list>
 
 
-    <list name="mupcommenthighlights">
-      <item> TODO </item>
-      <item> FIXME </item>
-      <item> ### </item>
-    </list>
-
-
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <keyword attribute="Context" context="#stay" String="mupcontexts" />
@@ -595,12 +593,13 @@
 	<keyword attribute="Print Command" context="#stay" String="muplocations" />
 	<RegExpr attribute="Print Command" context="#stay" String="\bdist(?=\s+[^=])" />
 	<keyword attribute="Parameter" context="Parameter" String="mupparameters" />
-	<RegExpr attribute="Special Char" context="Bracket" String="\[(?=(grace|xnote|cue|diam|with|slash|up|down|len|pad|ho|dist|c\b|=))" />
+	<RegExpr attribute="Special Char" context="Bracket" String="\[(?=(grace|xnote|cue|diam|with|slash|up|down|len|pad|ho|dist|hs|c\b|=))" />
 	<DetectChar attribute="Special Char" context="Tuplet" char="}" />
 	<AnyChar attribute="Special Char" context="#stay" String="[]{" />
+	<RegExpr attribute="Special Char" context="#stay" String="(&lt;&lt;|&gt;&gt;)" />
 	<RegExpr attribute="Note" context="Note"
-	String="(\(\s*)?((1/4|1/2|1|2|4|8|16|32|64|128|256)\.*\s*)?((\(\s*)?([a-grs]|us)(?!bm)([0-9'?\sxn]|[+-]+|[&amp;#]{1,2}|\(\s*[&amp;#]{1,2}\s*\)|\(\s*[xn]\s*\)|\(\s*[0-9]\s*\))*\)?\s*)*\s*(?=[;~=&quot;&lt;A-Z@]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|ifn?def|else|elseif|endif)\b)" />
-	<RegExpr attribute="Normal Text" context="Note" String=";\s*(?=[~=&lt;]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|ifn?def|else|elseif|endif)\b)" />
+	String="(\(\s*)?((1/4|1/2|1|2|4|8|16|32|64|128|256)\.*\s*)?((\(\s*)?([a-grs]|us)(?!bm)([0-9'?\sxn]|[+-]+|[&amp;#]{1,2}|\(\s*[&amp;#]{1,2}\s*\)|\(\s*[xn]\s*\)|\(\s*[0-9]\s*\))*\)?\s*)*\s*(?=[;~=&quot;&lt;A-Z@]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif)\b)" />
+	<RegExpr attribute="Normal Text" context="Note" String=";\s*(?=[~=&lt;]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif)\b)" />
 	<RegExpr attribute="Note" context="#stay" String="mu?[rs]+\s*(?=;)" />
 	<RegExpr attribute="Note" context="#stay" String="m\s*rpt\s*(?=;)" />
 	<RegExpr attribute="Location" context="#stay" String="=([a-z]|_[a-z][a-z_0-9]*)\b" />
@@ -629,7 +628,7 @@
 	<keyword attribute="Value" context="#pop" String="mupfontnames" />
 	<keyword attribute="Value" context="#pop" String="mupfontstyles" />
 	<RegExpr attribute="Value" context="#stay" String="\b[1-9][0-9]*/(1|2|4|8|16|32|64|128)n?\b" />
-	<RegExpr attribute="Value" context="#stay" String="\b[a-g][#&amp;]?'?[0-9]?\b" />
+	<RegExpr attribute="Value" context="#stay" String="\b[a-g][#&amp;]?'?([0-9]\b)?" />
 	<RegExpr attribute="Value" context="#stay" String="[0-7][#&amp;]" />
 	<RegExpr attribute="Value" context="#stay" String="r\b" />
 	<Float attribute="Value" context="#stay" />
@@ -663,6 +662,8 @@
 	<RegExpr attribute="Barline" context="#stay" String="\b(ending|endending|hidechanges)\b" />
 	<RegExpr attribute="Barline" context="Bar Rehearsal" String="\breh(earsal)?\b" />
 	<RegExpr attribute="Barline" context="#stay" String="\bmnum\s*=\s*[0-9]+" />
+	<RegExpr attribute="Barline" context="#stay" String="\bnum\s*=\s*[0-9]+" />
+	<RegExpr attribute="Barline" context="#stay" String="\blet\s*=\s*(&quot;[A-Z]{1,2}&quot;)?" />
 	<RegExpr attribute="Barline" context="#stay" String="\bpad\s+[0-9]+" />
 	<RegExpr attribute="Location" context="#stay" String="=([a-z]|_[a-z][a-z_0-9]*)\b" />
 	<IncludeRules context="Macro" />
@@ -685,6 +686,7 @@
 	<RegExpr attribute="Note Attribute" context="#stay" String="\bbm\b(\s+with\s+staff\s+(below|above)\b)?" />
 	<RegExpr attribute="Note Attribute" context="#stay" String="\bes?bm\b" />
 	<RegExpr attribute="Note Attribute" context="#stay" String="\balt\s+[1-9]\b" />
+	<RegExpr attribute="Note Attribute" context="#stay" String="\bhs\s+" />
 	<DetectChar attribute="String" context="String" char="&quot;"/>
 	<IncludeRules context="Macro" />
       </context>
@@ -697,6 +699,7 @@
 	<RegExpr attribute="Note Attribute" context="#stay" String="\b(grace|xnote|cue|diam|up|down)\b" />
 	<RegExpr attribute="Note Attribute" context="#stay" String="\b(slash|len|pad|ho|dist)\s*[0-9.+-]*" />
 	<RegExpr attribute="Note Attribute" context="Bracket With" String="\bwith\s*(?=[A-Z&quot;^&gt;.-])" />
+	<RegExpr attribute="Note Attribute" context="Bracket Hs" String="\bhs\s*(?=[A-Z&quot;])" />
 	<RegExpr attribute="Location" context="#stay" String="=([a-z]|_[a-z][a-z_0-9]*)\b" />
 	<RegExpr attribute="Normal Text" context="#stay" String="\bc\b" />
 	<IncludeRules context="Macro" />
@@ -711,6 +714,13 @@
 	<IncludeRules context="Macro" />
       </context>
 
+      
+      <context attribute="Note Attribute" lineEndContext="#pop" name="Bracket Hs"
+      		fallthrough="true" fallthroughContext="#pop">
+	<DetectChar attribute="String" context="String" char="&quot;" />
+	<IncludeRules context="Macro" />
+      </context>
+	
 
       <context attribute="Note" lineEndContext="#pop" name="Note Probably"
 		fallthrough="true" fallthroughContext="#pop">
@@ -740,7 +750,7 @@
 
   
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
-	<keyword attribute="TODO" context="#stay" String="mupcommenthighlights" />
+	<IncludeRules context="##Alerts" />
       </context>
 
 
@@ -824,7 +834,6 @@
       <itemData name="Value"	         defStyleNum="dsFloat" />
       <itemData name="Unset Command"     defStyleNum="dsFloat"   bold="1" />
       <itemData name="Comment"           defStyleNum="dsComment" />
-      <itemData name="TODO"              defStyleNum="dsComment" bold="1" />
       <itemData name="Macro"             defStyleNum="dsOthers"  color="#11F" selColor="#1FF" />
       <itemData name="Print Command"     defStyleNum="dsBaseN" />
       <itemData name="Barline"           defStyleNum="dsDecVal"  color="#c62" />
@@ -834,8 +843,8 @@
       <itemData name="Tuplet"            defStyleNum="dsNormal"  color="#035" />
       <itemData name="Location"          defStyleNum="dsKeyword" color="#0C4" bold="1" />
       <itemData name="Location Probably" defStyleNum="dsKeyword" color="#0C4" bold="0" />
-      <itemData name="String"            defStyleNum="dsString"  color="#E00" />
-      <itemData name="String Special"    defStyleNum="dsString"  color="#E00" bold="1" />
+      <itemData name="String"            defStyleNum="dsString" />
+      <itemData name="String Special"    defStyleNum="dsString" bold="1" />
       <itemData name="String Error"      defStyleNum="dsError" />
       <itemData name="String Lyrics"     defStyleNum="dsString"  color="#800" />
       <itemData name="Lyrics"            defStyleNum="dsBaseN"   bold="1" />

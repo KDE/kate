@@ -47,42 +47,29 @@ void TextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *i
     return;
 
   // calc new textLen, store old
-  uint textLen = m_text.size();
-  uint oldTextLen = textLen;
+  uint oldTextLen = m_text.length();
+  m_text.insert (pos, insText, insLen);
+  uint textLen = m_text.length();
 
-  if (pos <= textLen)
-    textLen += insLen;
-  else if (pos > textLen)
-    textLen = pos + insLen;
-
-  // resize the arrays
-  m_text.resize (textLen);
+  // resize the array
   m_attributes.resize (textLen);
 
   // HA, insert behind text end, fill with spaces
   if (pos >= oldTextLen)
   {
     for (uint z = oldTextLen; z < pos; z++)
-    {
-      m_text[z] = QChar(' ');
       m_attributes[z] = 0;
-    }
   }
   // HA, insert in text, move the old text behind pos
   else if (oldTextLen > 0)
   {
     for (int z = oldTextLen -1; z >= (int) pos; z--)
-    {
-      m_text[z+insLen] = m_text[z];
       m_attributes[z+insLen] = m_attributes[z];
-    }
   }
 
   // BUH, actually insert the new text
   for (uint z = 0; z < insLen; z++)
   {
-    m_text[z+pos] = insText[z];
-
     if (insAttribs == 0)
       m_attributes[z+pos] = 0;
     else
@@ -99,7 +86,7 @@ void TextLine::removeText (uint pos, uint delLen)
   if (delLen == 0)
     return;
 
-  uint textLen = m_text.size();
+  uint textLen = m_text.length();
 
   if (textLen == 0)
     return; // uh, again nothing real to do ;)
@@ -112,20 +99,10 @@ void TextLine::removeText (uint pos, uint delLen)
 
   // BU, MOVE THE OLD TEXT AROUND
   for (uint z = pos; z < textLen - delLen; z++)
-  {
-      m_text[z] = m_text[z+delLen];
-      m_attributes[z] = m_attributes[z+delLen];
-  }
+    m_attributes[z] = m_attributes[z+delLen];
 
-  // resize the stuff
-  if (delLen < textLen)
-    textLen -= delLen;
-  else { // seems to happen when hitting Backspace at the beginning of a line...
-    delLen = textLen;
-    textLen = 0;
-  }
-
-  m_text.resize (textLen);
+  m_text.remove (pos, delLen);
+  textLen = m_text.length ();
   m_attributes.resize (textLen);
 
   if (!m_noSignal)
@@ -134,12 +111,12 @@ void TextLine::removeText (uint pos, uint delLen)
 
 void TextLine::append(const QChar *s, uint l)
 {
-  insertText (m_text.size(), l, s, 0);
+  insertText (m_text.length(), l, s, 0);
 }
 
 void TextLine::truncate(uint newLen)
 {
-  if (newLen < m_text.size())
+  if (newLen < m_text.length())
   {
     m_text.truncate (newLen);
     m_attributes.truncate (newLen);
@@ -150,11 +127,11 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 {
   m_noSignal = true;
 
-  int l = m_text.size() - pos;
+  int l = m_text.length() - pos;
 
   if (l > 0)
   {
-    nextLine->insertText (0, l, &m_text[pos], &m_attributes[pos]);
+    nextLine->insertText (0, l, ((QChar*)m_text.unicode())+pos, &m_attributes[pos]);
     truncate(pos);
   }
 
@@ -166,7 +143,7 @@ void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
   m_noSignal = true;
 
-  insertText (pos, len, nextLine->m_text.data(), nextLine->m_attributes.data());
+  insertText (pos, len, nextLine->m_text.unicode(), nextLine->m_attributes.data());
   nextLine->removeText (0, len);
 
   m_noSignal = false;
@@ -175,7 +152,7 @@ void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 
 int TextLine::nextNonSpaceChar(uint pos) const
 {
-    for(int i = pos; i < (int)m_text.size(); i++) {
+    for(int i = pos; i < (int)m_text.length(); i++) {
         if(!m_text[i].isSpace())
             return i;
     }
@@ -184,8 +161,8 @@ int TextLine::nextNonSpaceChar(uint pos) const
 
 int TextLine::previousNonSpaceChar(uint pos) const
 {
-    if(pos >= m_text.size()) {
-        pos = m_text.size() - 1;
+    if(pos >= m_text.length()) {
+        pos = m_text.length() - 1;
     }
 
     for(int i = pos; i >= 0; i--) {
@@ -202,51 +179,40 @@ int TextLine::firstChar() const
 
 int TextLine::lastChar() const
 {
-    return previousNonSpaceChar(m_text.size() - 1);
-}
-
-QString TextLine::string (uint startCol, uint length) const
-{
-  if ( startCol >= m_text.size() )
-    return QString ();
-
-  if ( (startCol + length) > m_text.size())
-    length = m_text.size() - startCol;
-
-  return QString (m_text.data() + startCol, length);
+    return previousNonSpaceChar(m_text.length() - 1);
 }
 
 QString TextLine::withoutTrailingSpaces()
 {
-  return QConstString (m_text.data(), m_text.size()).string().left (lastChar() + 1);
+  return m_text.left (lastChar() + 1);
 }
 
-QChar *TextLine::firstNonSpace() const
+const QChar *TextLine::firstNonSpace() const
 {
   int first = firstChar();
-  return (first > -1) ? &m_text[first] : m_text.data();
+  return (first > -1) ? ((QChar*)m_text.unicode())+first : m_text.unicode();
 }
 
 bool TextLine::stringAtPos(uint pos, const QString& match) const
 {
-  return (QConstString (this->m_text.data(), this->m_text.size()).string().mid(pos, match.length()) == match);
+  return (m_text.mid(pos, match.length()) == match);
 }
 
 bool TextLine::startingWith(const QString& match) const
 {
-  return (QConstString (this->m_text.data(), this->m_text.size()).string().left(match.length()) == match);
+  return (m_text.left(match.length()) == match);
 }
 
 bool TextLine::endingWith(const QString& match) const
 {
-  return (QConstString (this->m_text.data(), this->m_text.size()).string().right(match.length()) == match);
+  return (m_text.right(match.length()) == match);
 }
 
 int TextLine::cursorX(uint pos, uint tabChars) const
 {
   int l, x, z;
 
-  l = (pos < m_text.size()) ? pos : m_text.size();
+  l = (pos < m_text.length()) ? pos : m_text.length();
   x = 0;
   for (z = 0; z < l; z++) {
     if (m_text[z] == QChar('\t')) x += tabChars - (x % tabChars); else x++;
@@ -258,7 +224,7 @@ int TextLine::cursorX(uint pos, uint tabChars) const
 void TextLine::setAttribs(uchar attribute, uint start, uint end) {
   uint z;
 
-  if (end > m_text.size()) end = m_text.size();
+  if (end > m_text.length()) end = m_text.length();
   for (z = start; z < end; z++) m_attributes[z] = attribute;
 }
 
@@ -267,9 +233,9 @@ bool TextLine::searchText (uint startCol, const QString &text, uint *foundAtCol,
   int index;
 
   if (backwards)
-    index = QConstString (this->m_text.data(), this->m_text.size()).string().findRev (text, startCol, casesensitive);
+    index = m_text.findRev (text, startCol, casesensitive);
   else
-    index = QConstString (this->m_text.data(), this->m_text.size()).string().find (text, startCol, casesensitive);
+    index = m_text.find (text, startCol, casesensitive);
 
    if (index > -1)
 	{
@@ -286,9 +252,9 @@ bool TextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCo
   int index;
 
   if (backwards)
-    index = regexp.searchRev (QConstString (this->m_text.data(), this->m_text.size()).string(), startCol);
+    index = regexp.searchRev (m_text, startCol);
   else
-    index = regexp.search (QConstString (this->m_text.data(), this->m_text.size()).string(), startCol);
+    index = regexp.search (m_text, startCol);
 
    if (index > -1)
 	{
@@ -320,19 +286,19 @@ uint TextLine::dumpSize () const
     }
   }
 
-  return (4*sizeof(uint)) + (m_text.size()*sizeof(QChar)) + (attributesLen * sizeof(uchar)) + (attributesLen * sizeof(uint)) + 1 + (m_ctx.size() * sizeof(uint)) + (m_foldingList.size() * sizeof(signed char));
+  return (4*sizeof(uint)) + (m_text.length()*sizeof(QChar)) + (attributesLen * sizeof(uchar)) + (attributesLen * sizeof(uint)) + 1 + (m_ctx.size() * sizeof(uint)) + (m_foldingList.size() * sizeof(signed char));
 }
 
 char *TextLine::dump (char *buf) const
 {
-  uint l = m_text.size();
+  uint l = m_text.length();
   uint lctx = m_ctx.size();
   uint lfold = m_foldingList.size();
 
   memcpy(buf, &l, sizeof(uint));
   buf += sizeof(uint);
 
-  memcpy(buf, (char *) m_text.data(), sizeof(QChar)*l);
+  memcpy(buf, (char *) m_text.unicode(), sizeof(QChar)*l);
   buf += sizeof(QChar)*l;
 
   memcpy(buf, (char *) &m_flags, 1);
@@ -412,7 +378,7 @@ char *TextLine::restore (char *buf)
   buf += sizeof(uint);
 
   // text + attributes
-  m_text.duplicate ((QChar *) buf, l);
+  m_text.setUnicode ((QChar *) buf, l);
   buf += sizeof(QChar)*l;
 
   m_attributes.resize (l);

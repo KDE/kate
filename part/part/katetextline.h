@@ -24,6 +24,7 @@
 #define _KATE_TEXTLINE_H_
 
 #include <qmemarray.h>
+#include <qstring.h>
 #include <ksharedptr.h>
 #include <qvaluevector.h>
 
@@ -47,7 +48,7 @@ class TextLine : public KShared
     /**
       Creates an empty text line with given attribute and syntax highlight
       context
-    */  
+    */
     TextLine(KateBuffer* buf);
     ~TextLine();
 
@@ -63,65 +64,64 @@ class TextLine : public KShared
     /**
       Returns the length
     */
-    inline uint length() const { return m_text.size(); }
+    inline uint length() const { return m_text.length(); }
 
     /**
       Returns the visibility flag
     */
-    inline bool isVisible() const { return m_flags & TextLine::flagVisible; }  
-     
+    inline bool isVisible() const { return m_flags & TextLine::flagVisible; }
+
     inline bool isFoldingListValid() const { return m_flags & TextLine::flagFoldingListValid; }
 
     /**
       Returns the position of the first character which is not a white space
     */
     int firstChar() const;
-    
+
     /**
       Returns the position of the last character which is not a white space
     */
     int lastChar() const;
-    
+
     /**
       Returns the position of the first non-space char after a given position
     */
     int nextNonSpaceChar(uint pos) const;
-    
+
     /**
       Returns the position of the last non-space char before a given position
     */
     int previousNonSpaceChar(uint pos) const;
-                                              
+
     /**
       Gets the char at the given position
     */
     inline QChar getChar (uint pos) const
     {
-      if (pos < m_text.size()) return m_text[pos];
-      return QChar();
+      return m_text[pos];
     }
 
     /**
-      Gets the text. WARNING: it is not null terminated
+      Gets the text.
     */
-    inline QChar *text() const { return m_text.data(); };
+    inline const QChar *text() const { return m_text.unicode(); };
 
     inline uchar *attributes () const { return m_attributes.data(); }
 
     /**
       Gets a QString
     */
-    inline QString string() const { return QString (m_text.data(), m_text.size()); };
+    inline QString string() const { return m_text; };
 
     /**
       Gets a QString
     */
-    QString string (uint startCol, uint length) const;
+    inline QString string (uint startCol, uint length) const { return m_text.mid (startCol, length); };
 
     /*
       Gets a null terminated pointer to first non space char
     */
-    QChar *firstNonSpace() const;
+    const QChar *firstNonSpace() const;
 
     /**
       Returns the x position of the cursor at the given position, which
@@ -153,7 +153,7 @@ class TextLine : public KShared
       Gets size of the ctxArray
     */
     inline bool ctxSize () const { return m_ctx.size (); };
-    
+
     /**
       Empty ctx stack ?
     */
@@ -161,29 +161,29 @@ class TextLine : public KShared
 
     bool searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive = true, bool backwards = false);
     bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false);
-    
+
      /**
       Gets the attribute at the given position
     */
     inline uchar attribute (uint pos) const
     {
-      if (pos < m_text.size()) return m_attributes[pos];
+      if (pos < m_text.length()) return m_attributes[pos];
       return 0;
     }
-        
+
     inline bool hlLineContinue () const
     {
       return m_flags & TextLine::flagHlContinue;
     }
-                                                                                                       
+
     /**
       Raw access on the memarray's, for example the katebuffer class
     */
-    inline const QMemArray<QChar> &textArray () const { return m_text; };
+    inline const QString &textArray () const { return m_text; };
     inline const QMemArray<uchar> &attributesArray () const { return m_attributes; };
     inline const QMemArray<uint> &ctxArray () const { return m_ctx; };
-    inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };      
-         
+    inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
+
   /**
     Methodes to manipulate data
   */
@@ -214,7 +214,7 @@ class TextLine : public KShared
       Truncates the textline to the new length
     */
     void truncate(uint newLen);
-    
+
     /**
       Removes trailing spaces
     */
@@ -258,24 +258,24 @@ class TextLine : public KShared
   /**
     Methodes for dump/restore of the line in the buffer
   */
-  public:                      
+  public:
     /**
       Dumpsize in bytes
     */
     uint dumpSize () const;
 
     /**
-      Dumps the line to *buf and counts buff dumpSize bytes up 
+      Dumps the line to *buf and counts buff dumpSize bytes up
       as return value
     */
     char *dump (char *buf) const;
-                                        
+
     /**
-      Restores the line from *buf and counts buff dumpSize bytes up 
+      Restores the line from *buf and counts buff dumpSize bytes up
       as return value
     */
     char *restore (char *buf);
-    
+
     enum Flags
     {
       flagHlContinue = 0x1,
@@ -291,15 +291,15 @@ class TextLine : public KShared
     /**
       The text & attributes
     */
-    QMemArray<QChar> m_text;
+    QString m_text;
     QMemArray<uchar> m_attributes;
-    
+
     /**
-     Data for context + folding 
+     Data for context + folding
      */
-    QMemArray<uint> m_ctx; 
+    QMemArray<uint> m_ctx;
     QMemArray<signed char> m_foldingList;
-                                     
+
     /**
      Some bools packed
     */

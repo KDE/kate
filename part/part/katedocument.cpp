@@ -5051,7 +5051,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         {
           for ( uint i=0; i < hlModeCount(); i++ )
           {
-            if ( hlModeName( i ) == val )
+            if ( hlModeName( i ).lower() == val.lower() )
             {
               setHlMode( i );
               break;

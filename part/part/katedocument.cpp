@@ -238,6 +238,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
       connect( m_views.at(z), SIGNAL(gotFocus( Kate::View * )), this, SLOT(slotModifiedOnDisk()) );
 
   m_isasking = 0;
+
   // plugins
   for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
   {
@@ -387,6 +388,16 @@ KTextEditor::View *KateDocument::createView( QWidget *parent, const char *name )
 QPtrList<KTextEditor::View> KateDocument::views () const
 {
   return m_textEditViews;
+}
+
+void KateDocument::setActiveView( KateView *view )
+{
+  if ( m_activeView == view ) return;
+
+  m_activeView = view;
+
+//   if ( m_modOnHdReason )
+//     slotModifiedOnDisk();
 }
 //END
 
@@ -2176,13 +2187,13 @@ void KateDocument::writeConfig()
   config->sync();
 }
 
-void KateDocument::readSessionConfig(KConfig *config)
+void KateDocument::readSessionConfig(KConfig *kconfig)
 {
   // restore the url
-  KURL url (config->readEntry("URL"));
+  KURL url (kconfig->readEntry("URL"));
 
   // get the encoding
-  QString tmpenc=config->readEntry("Encoding");
+  QString tmpenc=kconfig->readEntry("Encoding");
   if (!tmpenc.isEmpty() && (tmpenc != encoding()))
     setEncoding(tmpenc);
 
@@ -2191,27 +2202,32 @@ void KateDocument::readSessionConfig(KConfig *config)
     openURL (url);
 
   // restore the hl stuff
-  m_buffer->setHighlight(KateHlManager::self()->nameFind(config->readEntry("Highlighting")));
+  m_buffer->setHighlight(KateHlManager::self()->nameFind(kconfig->readEntry("Highlighting")));
 
   if (hlMode() > 0)
     hlSetByUser = true;
 
+  // indent mode
+  config()->setIndentationMode( (uint)kconfig->readNumEntry("Indentation Mode", config()->indentationMode() ) );
+
   // Restore Bookmarks
-  QValueList<int> marks = config->readIntListEntry("Bookmarks");
+  QValueList<int> marks = kconfig->readIntListEntry("Bookmarks");
   for( uint i = 0; i < marks.count(); i++ )
     addMark( marks[i], KateDocument::markType01 );
 }
 
-void KateDocument::writeSessionConfig(KConfig *config)
+void KateDocument::writeSessionConfig(KConfig *kconfig)
 {
   // save url
-  config->writeEntry("URL", m_url.prettyURL() );
+  kconfig->writeEntry("URL", m_url.prettyURL() );
 
   // save encoding
-  config->writeEntry("Encoding",encoding());
+  kconfig->writeEntry("Encoding",encoding());
 
   // save hl
-  config->writeEntry("Highlighting", highlight()->name());
+  kconfig->writeEntry("Highlighting", highlight()->name());
+
+  kconfig->writeEntry("Indentation Mode", config()->indentationMode() );
 
   // Save Bookmarks
   QValueList<int> marks;
@@ -2220,7 +2236,7 @@ void KateDocument::writeSessionConfig(KConfig *config)
        ++it )
      marks << it.current()->line;
 
-  config->writeEntry( "Bookmarks", marks );
+  kconfig->writeEntry( "Bookmarks", marks );
 }
 
 void KateDocument::configDialog()
@@ -2948,8 +2964,11 @@ bool KateDocument::closeURL()
   {
     if (s_fileChangedDialogsActivated && m_modOnHd)
     {
-      if (!(KMessageBox::warningYesNo(0,
-               reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur.")) == KMessageBox::Yes))
+      if (!(KMessageBox::warningYesNo(
+            widget(),
+            reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
+            "", KStdGuiItem::yes(), KStdGuiItem::no(),
+            QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Yes))
         return false;
     }
   }

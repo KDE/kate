@@ -146,6 +146,17 @@ class KateDocument : public Kate::Document,
     QPtrList<KTextEditor::View> m_textEditViews;
     KateView *m_activeView;
 
+    /**
+     * set the active view.
+     *
+     * If @p view is allready the active view, nothing is done.
+     *
+     * If the document is modified on disk, ask the user what to do.
+     *
+     * @since Kate 2.4
+     */
+    void setActiveView( KateView *view );
+
   //
   // KTextEditor::ConfigInterfaceExtension stuff
   //

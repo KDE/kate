@@ -3,7 +3,7 @@
 [
 	<!ENTITY funcname "[A-Za-z_:][A-Za-z0-9_:#&#37;@-]*">
 ]>
-<language name="Bash" version="1.99" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.00" kateversion="2.2" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -662,7 +662,7 @@
 	<DetectChar attribute="Variable" context="Assign" char="=" />
 	<IncludeRules context="FindMost" />
 	<!-- stay here in spaces and other safe characters -->
-	<RegExpr attribute="Normal Text" context="#stay" String="[^;&amp;&gt;&lt;|]" />
+	<RegExpr attribute="Normal Text" context="#stay" String="[^]})|;`&amp;&gt;&lt;]" />
       </context>
 
       <!-- ProcessSubst handles <(command) and >(command) -->

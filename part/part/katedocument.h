@@ -72,19 +72,28 @@ class KateFontMetrics : public QFontMetrics
       for (int i=0; i<256; i++)
         if (warray[i]) delete[] warray[i];
     }
-
-    int width(QChar c)
+    
+    short *createRow (short *wa, uchar row)
+    {
+      wa=warray[row]=new short[256];
+      
+      for (int i=0; i<256; i++) wa[i]=-1;
+      
+      return wa;
+    }
+                         
+    // now the question here is: is inline better or not ?
+    // this is one of the most often used methodes while drawing
+    // but makes inline it faster ?
+    inline int width(QChar c)
     {
       uchar cell=c.cell();
       uchar row=c.row();
-
       short *wa=warray[row];
 
       if (!wa)
-      {
-        wa=warray[row]=new short[256];
-        for (int i=0; i<256; i++) wa[i]=-1;
-      }
+        wa = createRow (wa, row);
+      
       if (wa[cell]<0) wa[cell]=(short) QFontMetrics::width(c);
 
       return (int)wa[cell];

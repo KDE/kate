@@ -131,11 +131,6 @@ void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
   leftBorder->update();
 }
 
-int KateViewInternal::yPosition () const
-{
-   return yPos;
-}
-
 uint KateViewInternal::contentsYToLine( int y ) const
 {
   return y / myDoc->viewFont.fontHeight;

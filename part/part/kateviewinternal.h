@@ -78,10 +78,11 @@ class KateViewInternal : public QScrollView
     void bottom_end(bool sel=false);
 
     void clear();
-    const KateTextCursor& getCursor()  { return cursor; }
+    
+    inline const KateTextCursor& getCursor() { return cursor; }
     QPoint cursorCoordinates();        
     
-    int yPosition () const;     
+    inline int yPosition () const { return yPos; }     
              
   signals:
     // emitted when KateViewInternal is not handling its own URI drops

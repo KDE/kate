@@ -1733,7 +1733,7 @@ void KateView::setCursorPositionInternal(int line, int col, int tabwidth)
 
   int z;
   int x = 0;
-  for (z = 0; z < (int)line_str.length() && z <= col; z++) {
+  for (z = 0; z < (int)line_str.length() && z < col; z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 

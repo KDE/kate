@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Oracle9i SQL and PL/SQL syntax - ANSI SQL superset -->
-<language name="SQL" version="1.06" kateversion="2.3" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
+<language name="SQL" version="1.07" kateversion="2.3" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -24,6 +24,7 @@
       <item> ARCHIVELOG </item>
       <item> AS </item>
       <item> ASC </item>
+      <item> ASSERTION </item>
       <item> ASSOCIATE </item>
       <item> AT </item>
       <item> ATTRIBUTE </item>
@@ -140,6 +141,7 @@
       <item> DISMOUNT </item>
       <item> DISTINCT </item>
       <item> DISTRIBUTED </item>
+      <item> DOMAIN </item>
       <item> DROP </item>
       <item> DYNAMIC </item>
       <item> EACH </item>

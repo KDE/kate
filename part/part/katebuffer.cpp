@@ -606,10 +606,26 @@ bool KateBuffer::saveFile (const QString &m_file)
   // our loved eol string ;)
   QString eol = m_doc->config()->eolString ();
 
+  // should we strip spaces?
+  bool removeTrailingSpaces = m_doc->configFlags() & KateDocument::cfRemoveSpaces;
+
   // just dump the lines out ;)
   for (uint i=0; i < m_lines; i++)
   {
-    stream << plainLine(i)->string();
+    KateTextLine::Ptr textline = plainLine(i);
+  
+    // strip spaces
+    if (removeTrailingSpaces)
+    {
+      int lastChar = textline->lastChar();
+
+      if (lastChar > -1)
+      {
+        stream << QConstString (textline->text(), lastChar+1).string();
+      }
+    }
+    else // simple, dump the line
+      stream << textline->string();
 
     if ((i+1) < m_lines)
       stream << eol;

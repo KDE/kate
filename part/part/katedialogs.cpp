@@ -264,14 +264,14 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[6], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-  
+
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  
-  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));    
+
+  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 void KateIndentConfigTab::somethingToggled() {
@@ -313,10 +313,10 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
 
   KateDocumentConfig::global()->configEnd ();
-  
-  KateViewConfig::global()->configStart ();  
-  KateViewConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());  
-  KateViewConfig::global()->configEnd ();  
+
+  KateViewConfig::global()->configStart ();
+  KateViewConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());
+  KateViewConfig::global()->configEnd ();
 }
 
 void KateIndentConfigTab::reload ()
@@ -855,7 +855,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   blockCount->setValue (KateBuffer::maxLoadedBlocks());
   blockCountLabel->setBuddy(blockCount);
 
-  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Load"), this);
+  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Load/Save"), this);
   layout->addWidget( gbWhiteSpace );
 
   removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
@@ -888,7 +888,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   QWhatsThis::add(removeSpaces, i18n(
         "KateView will automatically eliminate extra spaces at the ends of "
-        "lines of text while loading the file."));
+        "lines of text while loading/saving the file."));
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;' before saving changes."

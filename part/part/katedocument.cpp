@@ -2590,9 +2590,9 @@ bool KateDocument::openFile(KIO::Job * job)
   if (s_openErrorDialogsActivated)
   {
     if (!success && m_buffer->loadingBorked())
-      KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
+      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
     else if (!success)
-      KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was not possible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
+      KMessageBox::error (widget(), i18n ("The file %1 could not be loaded, as it was not possible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
   }
 
   //

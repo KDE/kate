@@ -123,6 +123,7 @@ class DocWordCompletionConfigPage : public KTextEditor::ConfigPage
     DocWordCompletionPlugin *m_completion;
     class QCheckBox *cbAutoPopup;
     class QSpinBox *sbAutoPopup;
+    class QLabel *lSbRight;
 };
 
 #endif // _DocWordCompletionPlugin_h_

@@ -63,6 +63,8 @@ class KateSearch : public QObject
       public:
         SearchFlags flags;
         KateTextCursor cursor;
+        KateTextCursor wrappedEnd; // after wraping around, search/replace until here
+        bool wrapped; // have we allready wrapped around ?
         uint matchedLength;
         KateTextCursor selBegin;
         KateTextCursor selEnd;

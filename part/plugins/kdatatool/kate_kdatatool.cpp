@@ -158,15 +158,18 @@ void KDataToolPluginView::aboutToShow()
 	}
 
 	if( m_actionList.isEmpty() ) {
-	m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,
+		m_notAvailable = new KAction(i18n("(not available)"), QString::null, 0, this,
 			SLOT(slotNotAvailable()), actionCollection(),"dt_n_av");
-	m_menu->insert(m_notAvailable);
+		m_menu->insert(m_notAvailable);
 	}
 }
 
 void KDataToolPluginView::slotNotAvailable()
 {
-	KMessageBox::sorry(0,i18n("You need to install some data tools, before you can use them. You can find some of them in the koffice package"));
+	KMessageBox::sorry(0, i18n("Data tools are only available when text is selected "
+		"or when the right mouse button is pressed over a word. If no data tools are offered "
+		"even when text is selected, you need to install them. Some data tools are part "
+		"of the KOffice package."));
 }
 
 void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QString &command )

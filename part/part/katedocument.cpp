@@ -2730,7 +2730,11 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine,
   int x = 0;
   for (int z = 0; z < cursorX; z++) {
     Attribute *a = attribute(textLine->attribute(z));
-    x += a->width(fs, textLine->getChar(z));
+    int width = a->width(fs, textLine->getChar(z));
+    x += width;
+
+    if (textLine->getChar(z) == QChar('\t'))
+      x -= x % width;
   }
 
   return x;
@@ -2748,7 +2752,13 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   for (uint z = startcol; z < textLine->length(); z++)
   {
     Attribute *a = attribute(textLine->attribute(z));
-    x += a->width(fs, textLine->getChar(z));
+    int width = a->width(fs, textLine->getChar(z));
+    x += width;
+ 
+    // How should tabs be treated when they word-wrap on a print-out?
+    // if startcol != 0, this messes up (then again, word wrapping messes up anyway)
+    if (textLine->getChar(z) == QChar('\t'))
+      x -= x % width;
 
     if (x <= maxwidth-wrapsymwidth )
       endcolwithsym = z+1;
@@ -2799,7 +2809,11 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
     oldX = x;
 
     Attribute *a = attribute(textLine->attribute(z));
-    x += a->width(fs, textLine->getChar(z));
+    int width = a->width(fs, textLine->getChar(z));
+    x += width;
+ 
+    if (textLine->getChar(z) == QChar('\t'))
+      x -= x % width;
 
     z++;
   }
@@ -3963,10 +3977,8 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 
     xPosAfter += curAt->width(fs, *s);
 
-    /*
-    In my opinion this makes only sense in a wordprocessor and it fixes the bracket problem (JoWenn)
     if (isTab)
-      xPosAfter -= (xPosAfter % curAt->width(fs, *s)); */
+      xPosAfter -= (xPosAfter % curAt->width(fs, *s));
 
     //  kdDebug(13020)<<"paint 5"<<endl;
 

@@ -5,7 +5,7 @@
     <contexts>
       <context attribute="0" name="Section" lineEndContext="0" >
         <RegExpr String="^\*I [a-zA-Z01-9]* " attribute="Mab I Field" />
-	<RegExpr String="^\*\*\*\**E.*" attribute="Header Example" />
+	<RegExpr String="^\*\*\*\**E.*" attribute="Header Piece" />
 	<RegExpr String="^\*\*\*\**M.*" attribute="Header Medium" />
 	<RegExpr String="^\*\*\*\* BIBLIOTHECA.*" attribute="Database Header" />
 	<RegExpr String="^\*M [a-zA-Z01-9]* " attribute="Mab M Field" />
@@ -19,7 +19,7 @@
 
     <itemDatas>
       <itemData name="Normal Text" 	defStyleNum="dsNormal" 	color="#FF0022"	selColor="#ffffff" italic="0" bold="1" />
-      <itemData name="Header Example"  	defStyleNum="dsKeyword" color="#993322" selColor="#ffffff" italic="0" bold="1" />
+      <itemData name="Header Piece"  	defStyleNum="dsKeyword" color="#993322" selColor="#ffffff" italic="0" bold="1" />
       <itemData name="Header Medium"  	defStyleNum="dsKeyword" color="#339922" selColor="#ffffff" italic="0" bold="1" />
       <itemData name="Database Header" 	defStyleNum="dsKeyword" color="#FF3322" selColor="#ffffff" italic="0" bold="1" />
       <itemData name="Mab M Field" 		defStyleNum="dsKeyword" color="#003366" selColor="#ffffff" italic="0" bold="1" />

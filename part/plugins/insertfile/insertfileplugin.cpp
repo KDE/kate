@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Anders Lund <anders@alweb.dk>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -89,7 +89,7 @@ void InsertFilePluginView::slotInsertFile()
   if ( _file.isEmpty() ) return;
 
   if ( _file.isLocalFile() ) {
-    _tmpfile = _file.fileName();
+    _tmpfile = _file.path();
     insertFile();
   }
   else {
@@ -117,7 +117,7 @@ void InsertFilePluginView::insertFile()
 {
   QString error;
   if ( _tmpfile.isEmpty() )
-    error = i18n("<p>The file <strong>%1</strong> is empty, aborting.").arg(_file.fileName());
+    return;
 
   QFileInfo fi;
   fi.setFile( _tmpfile );

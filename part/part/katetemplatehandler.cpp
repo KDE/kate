@@ -147,7 +147,9 @@ void KateTemplateHandler::generateRangeTable(uint insertLine,uint insertCol, con
 }
 
 void KateTemplateHandler::slotTextInserted(int line,int col) {
+#ifdef __GNUC__
 #warning FIXME undo/redo detection
+#endif
 	if (m_recursion) return;
 	//if (m_editSessionNumber!=0) return; // assume that this is due an udno/redo operation right now
 	KateTextCursor cur(line,col);

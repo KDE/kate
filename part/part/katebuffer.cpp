@@ -1295,10 +1295,6 @@ KateBufBlockList::KateBufBlockList ()
 {
 }
 
-KateBufBlockList::~KateBufBlockList ()
-{
-}
-
 void KateBufBlockList::append (KateBufBlock *buf)
 {
   if (buf->list)

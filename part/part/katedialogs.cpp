@@ -1301,7 +1301,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
       doc.setContent(listData);
       QDomElement DocElem=doc.documentElement();
       QDomNode n=DocElem.firstChild();
-      KateHighlighting *hl;
+      KateHighlighting *hl = 0;
 
       if (n.isNull()) kdDebug(13000)<<"There is no usable childnode"<<endl;
       while (!n.isNull())
@@ -1318,7 +1318,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
         for (int i=0;i<hlm->highlights();i++)
         {
           hl=hlm->getHl(i);
-          if (hl->name()==Name)
+          if (hl && hl->name()==Name)
           {
             installedVersion="    "+hl->version();
             break;
@@ -1326,7 +1326,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
         }
 
         QListViewItem* entry = new QListViewItem(list,e.attribute("name"),installedVersion,e.attribute("version"),e.attribute("date"),e.attribute("url"));
-        if (hl->version() < e.attribute("version"))
+        if (hl && hl->version() < e.attribute("version"))
         {
 //          kdDebug(13000) << "Old version: " << hl->version() << " new version: " << e.attribute("version") << endl;
           entry->setSelected(true);

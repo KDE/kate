@@ -41,6 +41,9 @@ class QTextCodec;
 /**
  * The KateBufBlock class contains an amount of data representing
  * a certain number of lines.
+ *
+ * @author Waldo Bastian <bastian@kde.org>
+ * @author Christoph Cullmann <cullmann@kde.org>
  */
 class KateBufBlock
 {
@@ -49,6 +52,10 @@ class KateBufBlock
   public:
     /**
      * Create an empty block. (empty == ONE line)
+     * @param parent buffer the block belongs to
+     * @param prev previous bufblock in the list
+     * @param next next bufblock in the list
+     * @param stream stream to load the content from, if any given
      */
     KateBufBlock ( KateBuffer *parent, KateBufBlock *prev = 0, KateBufBlock *next = 0,
                    KateFileLoader *stream = 0 );
@@ -61,10 +68,7 @@ class KateBufBlock
   private:
     /**
      * fill the block with the lines from the given stream
-     * lastCharEOL indicates if a trailing newline should be
-     * appended at the end
-     * internal there will be a limit for the taken lines per block
-     * returns EOL as bool
+     * @param stream stream to load data from
      */
     void fillBlock (KateFileLoader *stream);
     
@@ -81,6 +85,7 @@ class KateBufBlock
     
     /**
      * returns the current state of this block
+     * @return state
      */
     State state () const { return m_state; }
     
@@ -89,18 +94,23 @@ class KateBufBlock
      * return line @p i
      * The first line of this block is line 0.
      * if you modifiy this line, please mark the block as dirty
+     * @param i line to return
+     * @return line pointer
      */
     KateTextLine::Ptr line(uint i);
     
     /**
      * insert @p line in front of line @p i
      * marks the block dirty
+     * @param i where to insert
+     * @param line line pointer
      */
     void insertLine(uint i, KateTextLine::Ptr line);
     
     /**
      * remove line @p i
      * marks the block dirty
+     * @param i line to remove
      */
     void removeLine(uint i);
     
@@ -112,29 +122,39 @@ class KateBufBlock
   
   public:
     /**
-     * first line in block
+     * startLine
+     * @return first line in block
      */
     inline uint startLine () const { return m_startLine; };
     
     /**
      * update the first line, needed to keep it up to date
+     * @param line new startLine
      */
     inline void setStartLine (uint line) { m_startLine = line; }
     
     /**
      * first line behind this block
+     * @param line behind block
      */
     inline uint endLine () const { return m_startLine + m_lines; }
     
     /**
      * lines in this block
+     * @return lines
      */
     inline uint lines () const { return m_lines; }
 
     /**
-     * prev/next block
+     * prev block
+     * @return previous block
      */
     inline KateBufBlock *prev () { return m_prev; }
+    
+    /**
+     * next block
+     * @return next block
+     */
     inline KateBufBlock *next () { return m_next; }
   
   /**
@@ -159,15 +179,23 @@ class KateBufBlock
     KateBufBlock::State m_state;
     
     /**
-     * IMPORTANT, start line + lines in block
+     * IMPORTANT, start line
      */
     uint m_startLine;
+    
+    /**
+     * IMPORTANT, line count
+     */
     uint m_lines;
 
     /**
      * here we swap our stuff
      */
     KVMAllocator::Block *m_vmblock;
+    
+    /**
+     * swapped size
+     */
     uint m_vmblockSize;
 
     /**
@@ -181,9 +209,13 @@ class KateBufBlock
     KateBuffer* m_parent;
 
     /**
-     * prev/next block
+     * prev block
      */
     KateBufBlock *m_prev;
+    
+    /**
+     * next block
+     */
     KateBufBlock *m_next;
     
   private:
@@ -192,7 +224,15 @@ class KateBufBlock
      * list element pointers for the KateBufBlockList ONLY !!!
      */
     KateBufBlockList *list;
+    
+    /**
+     * prev list item
+     */
     KateBufBlock *listPrev;
+    
+    /**
+     * next list item
+     */
     KateBufBlock *listNext;
 };
 
@@ -201,47 +241,60 @@ class KateBufBlock
  * will not delete the elements on remove
  * will use the next/prevNode pointers in the KateBufBlocks !
  * internal use: loaded/clean/dirty block lists
+ *
+ * @author Christoph Cullmann <cullmann@kde.org>
  */
 class KateBufBlockList
 {
   public:
+    /**
+     * Default Constructor
+     */
     KateBufBlockList ();
-    ~KateBufBlockList ();
     
   public:
     /**
      * count of blocks in this list
+     * @return count of blocks
      */
     inline uint count() const { return m_count; }
   
     /**
      * first block in this list or 0
+     * @return head of list
      */
     inline KateBufBlock *first () { return m_first; };
     
     /**
      * last block in this list or 0
+     * @return end of list
      */
     inline KateBufBlock *last () { return m_last; };
 
     /**
-     * is buf the last block ?
+     * is buf the last block?
+     * @param buf block to test
+     * @return is this block the first one?
      */
     inline bool isFirst (KateBufBlock *buf) { return m_first == buf; };
     
     /**
-     * is buf the last block ?
+     * is buf the last block?
+     * @param buf block to test
+     * @return is this block the last one?
      */
     inline bool isLast (KateBufBlock *buf) { return m_last == buf; };
         
     /**
      * append a block to this list !
      * will remove it from the list it belonged before !
+     * @param buf block to append
      */
     void append (KateBufBlock *buf);
     
     /**
      * remove the block from the list it belongs to !
+     * @param buf block to remove
      */
     inline static void remove (KateBufBlock *buf)
     {
@@ -250,11 +303,26 @@ class KateBufBlockList
     }
     
   private:
+    /**
+     * internal helper for remove
+     * @param buf block to remove
+     */
     void removeInternal (KateBufBlock *buf);
     
   private:
+    /**
+     * count of blocks in list
+     */
     uint m_count;
+    
+    /**
+     * first block
+     */
     KateBufBlock *m_first;
+    
+    /**
+     * last block
+     */
     KateBufBlock *m_last;
 };
 
@@ -276,15 +344,28 @@ class KateBuffer : public QObject
   friend class KateBufBlock;
   
   public:
+    /**
+     * maximal loaded block count
+     * @return max loaded blocks
+     */
     inline static uint maxLoadedBlocks () { return m_maxLoadedBlocks; }
+    
+    /**
+     * modifier for max loaded blocks limit
+     * @param count new limit
+     */
     static void setMaxLoadedBlocks (uint count);
     
   private:
+    /**
+     * global max loaded blocks limit
+     */
     static uint m_maxLoadedBlocks;
 
   public:
     /**
      * Create an empty buffer.
+     * @param doc parent document
      */
     KateBuffer (KateDocument *doc);
 
@@ -294,18 +375,54 @@ class KateBuffer : public QObject
     ~KateBuffer ();
     
   public:
+    /**
+     * start some editing action
+     */
     void editStart ();
+    
+    /**
+     * finish some editing action
+     */
     void editEnd ();
     
   private:
+    /**
+     * mark given line as dirty
+     * @param line line to tag
+     */
     void editTagLine (uint line);
+    
+    /**
+     * mark the given line as removed
+     * @param line line to tag
+     */
     void editRemoveTagLine (uint line);
+    
+    /**
+     * mark the given line as inserted
+     * @param line line to tag
+     */
     void editInsertTagLine (uint line);
   
   private:
+    /**
+     * edit session recursion
+     */
     uint editSessionNumber;
+    
+    /**
+     * is a edit session running
+     */
     bool editIsRunning;
+    
+    /**
+     * dirty lines start at line
+     */
     uint editTagLineStart;
+    
+    /**
+     * dirty lines end at line
+     */
     uint editTagLineEnd;
     
   public:
@@ -315,23 +432,29 @@ class KateBuffer : public QObject
     void clear();
   
     /**
-     * Open a file, use the given filename + codec (internal use of qtextstream)
+     * Open a file, use the given filename
+     * @param m_file filename to open
+     * @return success
      */
     bool openFile (const QString &m_file);
     
     /**
      * was the last loading broken because of not enough tmp disk space ?
      * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
+     * @return was loading borked?
      */
     bool loadingBorked () const { return m_loadingBorked; }
 
     /**
      * Can the current codec handle all chars
+     * @return chars can be encoded
      */
     bool canEncode ();
 
     /**
      * Save the buffer to a file, use the given filename + codec + end of line chars (internal use of qtextstream)
+     * @param m_file filename to save to
+     * @return success
      */
     bool saveFile (const QString &m_file);
     

@@ -62,10 +62,16 @@ class KateBuffer : public QObject
      * Goodbye buffer
      */
     ~KateBuffer();
-
-    KateDocument* document() const { return m_doc; }
-
+    
   public slots:
+    /**
+     * change the visibility of a given line
+     */
+    void setLineVisible (unsigned int lineNr, bool visible);
+
+  public:
+    KateDocument* document() const { return m_doc; }
+    
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -182,11 +188,6 @@ class KateBuffer : public QObject
     int lineLength ( uint line );
 
     /**
-     * change the visibility of a given line
-     */
-    void setLineVisible (unsigned int lineNr, bool visible);
-
-    /**
      * was the last loading broken because of not enough tmp disk space ?
      * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
      */
@@ -200,28 +201,6 @@ class KateBuffer : public QObject
     inline uint tabWidth () const { return m_tabWidth; }
     
     inline KVMAllocator *vm () { return &m_vm; }
-
-  signals:
-    /**
-     * Emitted during loading when the line count changes.
-     */
-    void linesChanged(int lines);
-
-    /**
-     * Emittend if codefolding returned with a changed list
-     */
-    void codeFoldingUpdated();
-
-    /**
-     * Emitted when the highlighting of a certain range has
-     * changed.
-     */
-    void tagLines(int start, int end);
-
-    /**
-     * Loading of the file finished
-     */
-    void loadingFinished ();
 
   private:
     /**
@@ -244,11 +223,32 @@ class KateBuffer : public QObject
      */
     bool needHighlight(KateBufBlock *buf, uint from, uint to);
 
-  private:
     void pleaseHighlight (uint,uint);
 
   private slots:
     void pleaseHighlight ();
+    
+  signals:
+    /**
+     * Emitted during loading when the line count changes.
+     */
+    void linesChanged(int lines);
+
+    /**
+     * Emittend if codefolding returned with a changed list
+     */
+    void codeFoldingUpdated();
+
+    /**
+     * Emitted when the highlighting of a certain range has
+     * changed.
+     */
+    void tagLines(int start, int end);
+
+    /**
+     * Loading of the file finished
+     */
+    void loadingFinished ();
 
   private:
     bool m_hlUpdate;

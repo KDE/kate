@@ -143,7 +143,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_reloading = false;
 
-  buffer = new KateBuffer (this);
+  m_buffer = new KateBuffer (this);
 
   // init the config object, be careful not to use it
   // until the initial readConfig() call is done
@@ -200,8 +200,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_indenter->updateConfig ();
 
   // some nice signals from the buffer
-  connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
-  connect(buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
+  connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
+  connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(HlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -555,7 +555,22 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
 
 QString KateDocument::text() const
 {
-  return buffer->text();
+  QString s;
+
+  for (uint i = 0; i < m_buffer->count(); i++)
+  {
+    TextLine::Ptr textLine = m_buffer->plainLine(i);
+  
+    if (textLine)
+    {
+      s.append (textLine->string());
+      
+      if ((i+1) < m_buffer->count())
+        s.append('\n');
+    }
+  }
+
+  return s;
 }
 
 QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol ) const
@@ -565,12 +580,59 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
 
 QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
 {
-  return buffer->text(startLine, startCol, endLine, endCol, blockwise);
+  if ( blockwise && (startCol > endCol) )
+    return QString ();
+
+  QString s;
+
+  if (startLine == endLine)
+  {
+    if (startCol > endCol)
+      return QString ();
+
+    TextLine::Ptr textLine = m_buffer->plainLine(startLine);
+
+    if ( !textLine )
+      return QString ();
+
+    return textLine->string(startCol, endCol-startCol);
+  }
+  else
+  {
+    for (uint i = startLine; (i <= endLine) && (i < m_buffer->count()); i++)
+    {
+      TextLine::Ptr textLine = m_buffer->plainLine(i);
+
+      if ( !blockwise )
+      {
+        if (i == startLine)
+          s.append (textLine->string(startCol, textLine->length()-startCol));
+        else if (i == endLine)
+          s.append (textLine->string(0, endCol));
+        else
+          s.append (textLine->string());
+      }
+      else
+      {
+        s.append (textLine->string (startCol, endCol - startCol));
+      }
+
+      if ( i < endLine )
+        s.append('\n');
+    }
+  }
+
+  return s;
 }
 
 QString KateDocument::textLine( uint line ) const
 {
-  return buffer->textLine(line);
+  TextLine::Ptr l = m_buffer->plainLine(line);
+  
+  if (!l)
+    return QString();
+  
+  return l->string();
 }
 
 bool KateDocument::setText(const QString &s)
@@ -712,8 +774,8 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
     }
     else if ((startLine+1) == endLine)
     {
-      if ( (buffer->plainLine(startLine)->length()-startCol) > 0 )
-        editRemoveText (startLine, startCol, buffer->plainLine(startLine)->length()-startCol);
+      if ( (m_buffer->plainLine(startLine)->length()-startCol) > 0 )
+        editRemoveText (startLine, startCol, m_buffer->plainLine(startLine)->length()-startCol);
 
       editRemoveText (startLine+1, 0, endCol);
       editUnWrapLine (startLine);
@@ -735,8 +797,8 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
           }
           else
           {
-            if ( (buffer->plainLine(line)->length()-startCol) > 0 )
-              editRemoveText (line, startCol, buffer->plainLine(line)->length()-startCol);
+            if ( (m_buffer->plainLine(line)->length()-startCol) > 0 )
+              editRemoveText (line, startCol, m_buffer->plainLine(line)->length()-startCol);
 
             editUnWrapLine (startLine);
           }
@@ -790,22 +852,37 @@ bool KateDocument::removeLine( uint line )
 
 uint KateDocument::length() const
 {
-  return buffer->length();
+  uint l = 0;
+
+  for (uint i = 0; i < m_buffer->count(); i++)
+  {
+    TextLine::Ptr line = m_buffer->plainLine(i);
+    
+    if (line)
+      l += line->length();
+  }
+
+  return l;
 }
 
 uint KateDocument::numLines() const
 {
-  return buffer->count();
+  return m_buffer->count();
 }
 
 uint KateDocument::numVisLines() const
 {
-  return buffer->countVisible ();
+  return m_buffer->countVisible ();
 }
 
 int KateDocument::lineLength ( uint line ) const
 {
-  return buffer->lineLength(line);
+  TextLine::Ptr l = m_buffer->plainLine(line);
+  
+  if (!l)
+    return -1;
+  
+  return l->length();
 }
 //END
 
@@ -838,7 +915,7 @@ void KateDocument::editStart (bool withUndo)
     m_views.at(z)->editStart ();
   }
   
-  buffer->editStart ();
+  m_buffer->editStart ();
 }
 
 void KateDocument::undoStart()
@@ -918,7 +995,7 @@ void KateDocument::editEnd ()
     return;
 
   // end buffer edit, will trigger hl update
-  buffer->editEnd ();
+  m_buffer->editEnd ();
   
   if (editWithUndo)
     undoEnd();
@@ -946,14 +1023,14 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
   
   for (uint line = startLine; (line <= endLine) && (line < numLines()); line++)
   {  
-    TextLine::Ptr l = buffer->line(line);
+    TextLine::Ptr l = m_buffer->line(line);
     
     if (!l)
       return false;
 
     if (l->length() > col)
     {
-      TextLine::Ptr nextl = buffer->line(line+1);
+      TextLine::Ptr nextl = m_buffer->line(line+1);
 
       const QChar *text = l->text();
       uint eolPosition = l->length()-1;
@@ -1067,7 +1144,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   if (!isReadWrite())
     return false;
 
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = m_buffer->line(line);
 
   if (!l)
     return false;
@@ -1078,7 +1155,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
   l->insertText (col, s.length(), s.unicode());
 
-  buffer->changeLine(line);
+  m_buffer->changeLine(line);
   editTagLine (line);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
@@ -1094,7 +1171,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   if (!isReadWrite())
     return false;
 
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = m_buffer->line(line);
 
   if (!l)
     return false;
@@ -1105,7 +1182,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   l->removeText (col, len);
 
-  buffer->changeLine(line);
+  m_buffer->changeLine(line);
 
   editTagLine(line);
 
@@ -1122,7 +1199,7 @@ bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
   if (!isReadWrite())
     return false;
 
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = m_buffer->line(line);
 
   if (!l)
     return false;
@@ -1133,7 +1210,7 @@ bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
 
   l->setAutoWrapped (autowrapped);
 
-  buffer->changeLine(line);
+  m_buffer->changeLine(line);
 
   editEnd ();
 
@@ -1145,14 +1222,14 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
   if (!isReadWrite())
     return false;
 
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = m_buffer->line(line);
 
   if (!l)
     return false;
 
   editStart ();
 
-  TextLine::Ptr nl = buffer->line(line+1);
+  TextLine::Ptr nl = m_buffer->line(line+1);
 
   int pos = l->length() - col;
 
@@ -1168,8 +1245,8 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
     tl->insertText (0, pos, l->text()+col, l->attributes()+col);
     l->truncate(col);
 
-    buffer->insertLine (line+1, tl);
-    buffer->changeLine(line);
+    m_buffer->insertLine (line+1, tl);
+    m_buffer->changeLine(line);
 
     QPtrList<KTextEditor::Mark> list;
     for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
@@ -1202,8 +1279,8 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
     nl->insertText (0, pos, l->text()+col, l->attributes()+col);
     l->truncate(col);
 
-    buffer->changeLine(line);
-    buffer->changeLine(line+1);
+    m_buffer->changeLine(line);
+    m_buffer->changeLine(line+1);
     
     // no, no new line added !
     if (newLineAdded)
@@ -1226,8 +1303,8 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
   if (!isReadWrite())
     return false;
 
-  TextLine::Ptr l = buffer->line(line);
-  TextLine::Ptr tl = buffer->line(line+1);
+  TextLine::Ptr l = m_buffer->line(line);
+  TextLine::Ptr tl = m_buffer->line(line+1);
 
   if (!l || !tl)
     return false;
@@ -1242,16 +1319,16 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
   {
     l->insertText (col, tl->length(), tl->text(), tl->attributes());
 
-    buffer->changeLine(line);
-    buffer->removeLine(line+1);
+    m_buffer->changeLine(line);
+    m_buffer->removeLine(line+1);
   }
   else
   {
     l->insertText (col, (tl->length() < length) ? tl->length() : length, tl->text(), tl->attributes());
     tl->removeText (0, (tl->length() < length) ? tl->length() : length);
 
-    buffer->changeLine(line);
-    buffer->changeLine(line+1);
+    m_buffer->changeLine(line);
+    m_buffer->changeLine(line+1);
   }
 
   QPtrList<KTextEditor::Mark> list;
@@ -1309,8 +1386,8 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   TextLine::Ptr tl = new TextLine();
   tl->append(s.unicode(),s.length());
-  buffer->insertLine(line, tl);
-  buffer->changeLine(line);
+  m_buffer->insertLine(line, tl);
+  m_buffer->changeLine(line);
 
   editInsertTagLine (line);
   editTagLine(line);
@@ -1349,13 +1426,13 @@ bool KateDocument::editRemoveLine ( uint line )
     return false;
 
   if ( numLines() == 1 )
-    return editRemoveText (0, 0, buffer->line(0)->length());
+    return editRemoveText (0, 0, m_buffer->line(0)->length());
 
   editStart ();
 
   editAddUndo (KateUndoGroup::editRemoveLine, line, 0, lineLength(line), textLine(line));
 
-  buffer->removeLine(line);
+  m_buffer->removeLine(line);
 
   editRemoveTagLine (line);
 
@@ -1656,7 +1733,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line <= searchEnd)
     {
-      TextLine::Ptr textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = m_buffer->plainLine(line);
 
       if (!textLine)
         return false;
@@ -1683,7 +1760,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line >= searchEnd)
     {
-      TextLine::Ptr textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = m_buffer->plainLine(line);
 
       if (!textLine)
         return false;
@@ -1738,7 +1815,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line <= searchEnd)
     {
-      TextLine::Ptr textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = m_buffer->plainLine(line);
 
       if (!textLine)
         return false;
@@ -1778,7 +1855,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line >= searchEnd)
     {
-      TextLine::Ptr textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = m_buffer->plainLine(line);
 
       if (!textLine)
         return false;
@@ -1853,7 +1930,7 @@ bool KateDocument::internalSetHlMode (uint mode)
       m_highlight = h;
      
      // invalidate hl
-      buffer->setHighlight(m_highlight);
+      m_buffer->setHighlight(m_highlight);
      
      // invalidate the hl again (but that is neary a noop) + update all views
       makeAttribs();
@@ -2367,7 +2444,7 @@ bool KateDocument::openFile(KIO::Job * job)
     setEncoding (serviceType.mid(pos+1));
 
   // do we have success ?
-  bool success = buffer->openFile (m_file);
+  bool success = m_buffer->openFile (m_file);
 
   //
   // yeah, success
@@ -2384,7 +2461,7 @@ bool KateDocument::openFile(KIO::Job * job)
     
     } else {
       // The buffer's highlighting gets nuked by KateBuffer::clear()
-      buffer->setHighlight(m_highlight);
+      m_buffer->setHighlight(m_highlight);
     }
     
     // update file type
@@ -2414,7 +2491,7 @@ bool KateDocument::openFile(KIO::Job * job)
   //
   if (s_openErrorDialogsActivated)
   {
-    if (!success && buffer->loadingBorked())
+    if (!success && m_buffer->loadingBorked())
       KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
     else if (!success)
       KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was not possible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
@@ -2446,7 +2523,7 @@ bool KateDocument::saveFile()
   //
   // we really want to save this file ?
   //
-  bool reallySaveIt = !buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
+  bool reallySaveIt = !m_buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
       i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
 
   if ( !url().isEmpty() )
@@ -2483,7 +2560,7 @@ bool KateDocument::saveFile()
   bool canEncode = true;
 
   if (reallySaveIt)
-    canEncode = buffer->canEncode ();
+    canEncode = m_buffer->canEncode ();
 
   //
   // remove the m_file before saving from dirwatch
@@ -2500,7 +2577,7 @@ bool KateDocument::saveFile()
   // try to load it if needed
   //
   if (reallySaveIt && canEncode)
-    success = buffer->saveFile (m_file);
+    success = m_buffer->saveFile (m_file);
 
   //
   // hurray, we had success, do stuff we need
@@ -2616,7 +2693,7 @@ bool KateDocument::closeURL()
   }
 
   // clear the buffer
-  buffer->clear();
+  m_buffer->clear();
 
   // remove all marks
   clearMarks ();
@@ -2693,7 +2770,7 @@ void KateDocument::makeAttribs()
   for (uint z = 0; z < m_views.count(); z++)
     m_views.at(z)->renderer()->updateAttributes ();
 
-  buffer->invalidateHighlighting();
+  m_buffer->invalidateHighlighting();
 
   tagAll ();
 }
@@ -2764,7 +2841,7 @@ bool KateDocument::isLastView(int numViews) {
 
 uint KateDocument::currentColumn( const KateTextCursor& cursor )
 {
-  TextLine::Ptr textLine = buffer->plainLine(cursor.line());
+  TextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
 
   if (textLine)
     return textLine->cursorX(cursor.col(), config()->tabWidth());
@@ -2774,7 +2851,7 @@ uint KateDocument::currentColumn( const KateTextCursor& cursor )
 
 bool KateDocument::typeChars ( KateView *view, const QString &chars )
 {
-  TextLine::Ptr textLine = buffer->plainLine(view->cursorLine ());
+  TextLine::Ptr textLine = m_buffer->plainLine(view->cursorLine ());
 
   if (!textLine)
     return false;
@@ -2866,7 +2943,7 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
 
 void KateDocument::transpose( const KateTextCursor& cursor)
 {
-  TextLine::Ptr textLine = buffer->plainLine(cursor.line());
+  TextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
 
   if (!textLine || (textLine->length() < 2))
     return;
@@ -2920,7 +2997,7 @@ void KateDocument::backspace( const KateTextCursor& c )
     {
       // backspace indents: erase to next indent position
 
-      TextLine::Ptr textLine = buffer->plainLine(line);
+      TextLine::Ptr textLine = m_buffer->plainLine(line);
       int colX = textLine->cursorX(col, config()->tabWidth());
       int pos = textLine->firstChar();
       if (pos > 0)
@@ -2933,7 +3010,7 @@ void KateDocument::backspace( const KateTextCursor& c )
         int y = line;
         while (--y >= 0)
         {
-          textLine = buffer->plainLine(y);
+          textLine = m_buffer->plainLine(y);
           pos = textLine->firstChar();
 
           if (pos >= 0)
@@ -2960,7 +3037,7 @@ void KateDocument::backspace( const KateTextCursor& c )
     // col == 0: wrap to previous line
     if (line >= 1)
     {
-      TextLine::Ptr textLine = buffer->plainLine(line-1);
+      TextLine::Ptr textLine = m_buffer->plainLine(line-1);
       if (config()->wordWrap() && textLine->endingWith(QString::fromLatin1(" ")))
       {
         // gg: in hard wordwrap mode, backspace must also eat the trailing space
@@ -2981,7 +3058,7 @@ void KateDocument::del( const KateTextCursor& c )
     return;
   }
 
-  if( c.col() < (int) buffer->plainLine(c.line())->length())
+  if( c.col() < (int) m_buffer->plainLine(c.line())->length())
   {
     removeText(c.line(), c.col(), c.line(), c.col()+1);
   }
@@ -3045,7 +3122,7 @@ void KateDocument::selectWord( const KateTextCursor& cursor )
 {
   int start, end, len;
 
-  TextLine::Ptr textLine = buffer->plainLine(cursor.line());
+  TextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
   len = textLine->length();
   start = end = cursor.col();
   while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1))) start--;
@@ -3063,14 +3140,14 @@ void KateDocument::selectLine( const KateTextCursor& cursor )
   if (!(config()->configFlags() & KateDocument::cfKeepSelection))
     clearSelection ();
 
-  setSelection (cursor.line(), 0, cursor.line()/*+1, 0*/, buffer->plainLine(cursor.line())->length() );
+  setSelection (cursor.line(), 0, cursor.line()/*+1, 0*/, m_buffer->plainLine(cursor.line())->length() );
 }
 
 void KateDocument::selectLength( const KateTextCursor& cursor, int length )
 {
   int start, end;
 
-  TextLine::Ptr textLine = buffer->plainLine(cursor.line());
+  TextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
   start = cursor.col();
   end = start + length;
   if (end <= start) return;
@@ -3123,7 +3200,7 @@ void KateDocument::indent ( KateView *, uint line, int change)
       int adjustedChange = -change;
 
       for (line = sl; (int) line <= el && adjustedChange > 0; line++) {
-        TextLine::Ptr textLine = buffer->plainLine(line);
+        TextLine::Ptr textLine = m_buffer->plainLine(line);
         int firstChar = textLine->firstChar();
         if (firstChar >= 0 && (lineSelected(line) || lineHasSelected(line))) {
           int maxUnindent = textLine->cursorX(firstChar, config()->tabWidth()) / config()->indentationWidth();
@@ -3156,7 +3233,7 @@ void KateDocument::indent ( KateView *, uint line, int change)
 */
 void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
 {
-  TextLine::Ptr textline = buffer->plainLine(line);
+  TextLine::Ptr textline = m_buffer->plainLine(line);
 
   int first_char = textline->firstChar();
 
@@ -3207,7 +3284,7 @@ void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint s
     new_space += extra_space;
   }
 
-  TextLine::Ptr textline = buffer->plainLine(line);
+  TextLine::Ptr textline = m_buffer->plainLine(line);
   uint change_from;
   for (change_from = 0; change_from < upto_column && change_from < length; change_from++) {
     if (textline->getChar(change_from) != new_space[change_from])
@@ -3231,7 +3308,7 @@ void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint s
 */
 bool KateDocument::removeStringFromBegining(int line, QString &str)
 {
-  TextLine::Ptr textline = buffer->plainLine(line);
+  TextLine::Ptr textline = m_buffer->plainLine(line);
 
   int index = 0;
   bool there = false;
@@ -3261,7 +3338,7 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
 */
 bool KateDocument::removeStringFromEnd(int line, QString &str)
 {
-  TextLine::Ptr textline = buffer->plainLine(line);
+  TextLine::Ptr textline = m_buffer->plainLine(line);
 
   int index = 0;
   bool there = false;
@@ -3333,7 +3410,7 @@ void KateDocument::addStartStopCommentToSingleLine(int line)
   insertText (line, 0, startCommentMark);
 
   // Go to the end of the line
-  int col = buffer->plainLine(line)->length();
+  int col = m_buffer->plainLine(line)->length();
 
   // Add the stop comment mark
   insertText (line, col, stopCommentMark);
@@ -3389,7 +3466,7 @@ void KateDocument::addStartStopCommentToSelection()
   if ((ec == 0) && ((el-1) >= 0))
   {
     el--;
-    ec = buffer->plainLine (el)->length();
+    ec = m_buffer->plainLine (el)->length();
   }
 
   editStart();
@@ -3436,8 +3513,8 @@ void KateDocument::addStartLineCommentToSelection()
 
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
 {
-  for(; line < (int)buffer->count(); line++) {
-    col = buffer->plainLine(line)->nextNonSpaceChar(col);
+  for(; line < (int)m_buffer->count(); line++) {
+    col = m_buffer->plainLine(line)->nextNonSpaceChar(col);
     if(col != -1)
       return true; // Next non-space char found
     col = 0;
@@ -3452,11 +3529,11 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 {
   while(true)
   {
-    col = buffer->plainLine(line)->previousNonSpaceChar(col);
+    col = m_buffer->plainLine(line)->previousNonSpaceChar(col);
     if(col != -1) return true;
     if(line == 0) return false;
     --line;
-    col = buffer->plainLine(line)->length();
+    col = m_buffer->plainLine(line)->length();
 }
   // No non-space char found
   line = -1;
@@ -3484,7 +3561,7 @@ bool KateDocument::removeStartStopCommentFromSelection()
   } else {
     if (el > 0) {
       el--;
-      ec = buffer->plainLine(el)->length() - 1;
+      ec = m_buffer->plainLine(el)->length() - 1;
     }
   }
 
@@ -3494,10 +3571,10 @@ bool KateDocument::removeStartStopCommentFromSelection()
   // had this been perl or sed: s/^\s*$startComment(.+?)$endComment\s*/$1/
 
   bool remove = nextNonSpaceCharPos(sl, sc)
-      && buffer->plainLine(sl)->stringAtPos(sc, startComment)
+      && m_buffer->plainLine(sl)->stringAtPos(sc, startComment)
       && previousNonSpaceCharPos(el, ec)
       && ( (ec - endCommentLen + 1) >= 0 )
-      && buffer->plainLine(el)->stringAtPos(ec - endCommentLen + 1, endComment);
+      && m_buffer->plainLine(el)->stringAtPos(ec - endCommentLen + 1, endComment);
 
   if (remove) {
     editStart();
@@ -3534,9 +3611,9 @@ bool KateDocument::removeStartLineCommentFromSelection()
 
   // Find out how many char will be removed from the last line
   int removeLength = 0;
-  if (buffer->plainLine(el)->startingWith(longCommentMark))
+  if (m_buffer->plainLine(el)->startingWith(longCommentMark))
     removeLength = longCommentMark.length();
-  else if (buffer->plainLine(el)->startingWith(shortCommentMark))
+  else if (m_buffer->plainLine(el)->startingWith(shortCommentMark))
     removeLength = shortCommentMark.length();
 
   bool removed = false;
@@ -3595,8 +3672,8 @@ void KateDocument::comment( KateView *, uint line, int change)
       // line ignored
       if ( hasStartStopCommentMark &&
            ( !hasStartLineCommentMark || (
-             ( selectStart.col() > buffer->plainLine( selectStart.line() )->firstChar() ) ||
-               ( selectEnd.col() < ((int)buffer->plainLine( selectEnd.line() )->length()) )
+             ( selectStart.col() > m_buffer->plainLine( selectStart.line() )->firstChar() ) ||
+               ( selectEnd.col() < ((int)m_buffer->plainLine( selectEnd.line() )->length()) )
          ) ) )
         addStartStopCommentToSelection();
       else if ( hasStartLineCommentMark )
@@ -3645,7 +3722,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
         s = s.lower();
       else // Capitalize
       {
-        TextLine::Ptr l = buffer->plainLine( ln );
+        TextLine::Ptr l = m_buffer->plainLine( ln );
         uint p ( 0 );
         while( p < s.length() )
         {
@@ -3681,7 +3758,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
       break;
       case Capitalize: // FIXME avoid/reset cursor jump!!
       {
-        TextLine::Ptr l = buffer->plainLine( cline );
+        TextLine::Ptr l = m_buffer->plainLine( cline );
         while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ) ) )
           n--;
         s = text( cline, n, cline, n + 1 ).upper();
@@ -3712,7 +3789,7 @@ void KateDocument::joinLines( uint first, uint last )
 QString KateDocument::getWord( const KateTextCursor& cursor ) {
   int start, end, len;
 
-  TextLine::Ptr textLine = buffer->plainLine(cursor.line());
+  TextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
   len = textLine->length();
   start = end = cursor.col();
   if (start > len)        // Probably because of non-wrapping cursor mode.
@@ -3882,7 +3959,7 @@ void KateDocument::newBracketMark( const KateTextCursor& cursor, KateTextRange& 
 
 bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& end )
 {
-  TextLine::Ptr textLine = buffer->plainLine( start.line() );
+  TextLine::Ptr textLine = m_buffer->plainLine( start.line() );
   if( !textLine )
     return false;
 
@@ -3935,7 +4012,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
         if( end.line() >= (int)lastLine() )
           return false;
         end.setPos(end.line() + 1, 0);
-        textLine = buffer->plainLine( end.line() );
+        textLine = m_buffer->plainLine( end.line() );
       }
     } else {
       end.setCol(end.col() - 1);
@@ -3944,7 +4021,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
           return false;
         end.setLine(end.line() - 1);
         end.setCol(lineLength( end.line() ) - 1);
-        textLine = buffer->plainLine( end.line() );
+        textLine = m_buffer->plainLine( end.line() );
       }
     }
 
@@ -4037,7 +4114,7 @@ void KateDocument::reloadFile()
     {
       KateDocumentTmpMark m;
 
-      m.line = buffer->textLine (it.current()->line);
+      m.line = textLine (it.current()->line);
       m.mark = *it.current();
 
       tmp.append (m);
@@ -4054,7 +4131,7 @@ void KateDocument::reloadFile()
     {
       if (z < numLines())
       {
-        if (buffer->textLine(tmp[z].mark.line) == tmp[z].line)
+        if (textLine(tmp[z].mark.line) == tmp[z].line)
           setMark (tmp[z].mark.line, tmp[z].mark.type);
       }
     }
@@ -4157,7 +4234,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
 
   for (uint curLine=0;curLine<numLines();curLine++)
   { // html-export that line :
-    TextLine::Ptr textLine = buffer->plainLine(curLine);
+    TextLine::Ptr textLine = m_buffer->plainLine(curLine);
     //ASSERT(textLine != NULL);
     // for each character of the line : (curPos is the position in the line)
     for (uint curPos=0;curPos<textLine->length();curPos++)
@@ -4322,32 +4399,32 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 
 void KateDocument::dumpRegionTree()
 {
-  buffer->dumpRegionTree();
+  m_buffer->dumpRegionTree();
 }
 
 unsigned int KateDocument::getRealLine(unsigned int virtualLine)
 {
-  return buffer->lineNumber (virtualLine);
+  return m_buffer->lineNumber (virtualLine);
 }
 
 unsigned int KateDocument::getVirtualLine(unsigned int realLine)
 {
-  return buffer->lineVisibleNumber (realLine);
+  return m_buffer->lineVisibleNumber (realLine);
 }
 
 unsigned int KateDocument::visibleLines ()
 {
-  return buffer->countVisible ();
+  return m_buffer->countVisible ();
 }
 
 TextLine::Ptr KateDocument::kateTextLine(uint i)
 {
-  return buffer->line (i);
+  return m_buffer->line (i);
 }
 
 TextLine::Ptr KateDocument::plainKateTextLine(uint i)
 {
-  return buffer->plainLine (i);
+  return m_buffer->plainLine (i);
 }
 //END
 
@@ -4471,12 +4548,12 @@ void KateDocument::spellCleanDone()
 
 void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
 {
-  buffer->lineInfo(info,line);
+  m_buffer->lineInfo(info,line);
 }
 
 KateCodeFoldingTree *KateDocument::foldingTree ()
 {
-  return buffer->foldingTree();
+  return m_buffer->foldingTree();
 }
 
 void KateDocument::setEncoding (const QString &e)
@@ -4508,7 +4585,7 @@ void KateDocument::updateConfig ()
 
   m_indenter->updateConfig();
 
-  buffer->setTabWidth (config()->tabWidth());
+  m_buffer->setTabWidth (config()->tabWidth());
   
   // plugins
   for (uint i=0; i<KateFactory::self()->plugins().count(); i++)

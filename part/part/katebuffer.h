@@ -266,6 +266,7 @@ class KateBufBlockList
  * with respect to CPU and memory usage.
  *
  * @author Waldo Bastian <bastian@kde.org>
+ * @author Christoph Cullmann <cullmann@kde.org>
  */
 class KateBuffer : public QObject
 {
@@ -277,12 +278,12 @@ class KateBuffer : public QObject
     /**
      * Create an empty buffer.
      */
-    KateBuffer(KateDocument *doc);
+    KateBuffer (KateDocument *doc);
 
     /**
      * Goodbye buffer
      */
-    ~KateBuffer();
+    ~KateBuffer ();
     
   public:
     void editStart ();
@@ -309,6 +310,12 @@ class KateBuffer : public QObject
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
     bool openFile (const QString &m_file);
+    
+    /**
+     * was the last loading broken because of not enough tmp disk space ?
+     * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
+     */
+    bool loadingBorked () const { return m_loadingBorked; }
 
     /**
      * Can the current codec handle all chars
@@ -330,6 +337,11 @@ class KateBuffer : public QObject
      * Return line @p i without triggering highlighting
      */
     TextLine::Ptr plainLine(uint i);
+    
+    /**
+     * Return the total number of lines in the buffer.
+     */
+    inline uint count() const { return m_lines; }
     
   private:
     /**
@@ -356,11 +368,6 @@ class KateBuffer : public QObject
     void removeLine(uint i);
     
   public:
-    /**
-     * Return the total number of lines in the buffer.
-     */
-    inline uint count() const { return m_lines; }
-
     uint countVisible ();
 
     uint lineNumber (uint visibleLine);
@@ -370,31 +377,6 @@ class KateBuffer : public QObject
     void lineInfo (KateLineInfo *info, unsigned int line);
 
     void dumpRegionTree ();
-
-    /**
-     * Return textline @p i without triggering highlighting
-     */
-    QString textLine(uint i);
-
-    /**
-     * Get the whole text in the buffer as a string.
-     */
-    QString text();
-
-    /**
-     * Get the text between the two given positions.
-     */
-    QString text(uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise = false);
-
-    uint length ();
-
-    int lineLength ( uint line );
-
-    /**
-     * was the last loading broken because of not enough tmp disk space ?
-     * (will be reseted on successful save of the file, user gets warning if he really wants to do it)
-     */
-    bool loadingBorked () const { return m_loadingBorked; }
 
     void setTabWidth (uint w);
     

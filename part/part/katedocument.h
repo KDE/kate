@@ -719,7 +719,7 @@ class KateDocument : public Kate::Document,
   //
   private:
     // text buffer
-    KateBuffer *buffer;
+    KateBuffer *m_buffer;
 
     Highlight *m_highlight;
 

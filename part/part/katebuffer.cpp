@@ -860,16 +860,6 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
   return stillcontinue && ((current_line+1) == buf->lines());
 }
 
-QString KateBuffer::textLine(uint i)
-{
-  TextLine::Ptr l = plainLine(i);
-  
-  if (!l)
-    return QString();
-  
-  return l->string();
-}
-
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 {
    KateBufBlock *buf = findBlock(lineNr);
@@ -885,98 +875,6 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
      
      buf->markDirty ();
    }
-}
-
-uint KateBuffer::length ()
-{
-  uint l = 0;
-
-  for (uint i = 0; i < count(); i++)
-  {
-    TextLine::Ptr line = plainLine(i);
-    
-    if (line)
-      l += line->length();
-  }
-
-  return l;
-}
-
-int KateBuffer::lineLength ( uint i )
-{
-  TextLine::Ptr l = plainLine(i);
-  
-  if (!l)
-    return -1;
-  
-  return l->length();
-}
-
-QString KateBuffer::text()
-{
-  QString s;
-
-  for (uint i = 0; i < count(); i++)
-  {
-    TextLine::Ptr textLine = plainLine(i);
-  
-    if (textLine)
-    {
-      s.append (textLine->string());
-      
-      if ((i+1) < count())
-        s.append('\n');
-    }
-  }
-
-  return s;
-}
-
-QString KateBuffer::text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise )
-{
-  if ( blockwise && (startCol > endCol) )
-    return QString ();
-
-  QString s;
-
-  if (startLine == endLine)
-  {
-    if (startCol > endCol)
-      return QString ();
-
-    TextLine::Ptr textLine = plainLine(startLine);
-
-    if ( !textLine )
-      return QString ();
-
-    return textLine->string(startCol, endCol-startCol);
-  }
-  else
-  {
-    for (uint i = startLine; (i <= endLine) && (i < count()); i++)
-    {
-      TextLine::Ptr textLine = plainLine(i);
-
-      if ( !blockwise )
-      {
-        if (i == startLine)
-          s.append (textLine->string(startCol, textLine->length()-startCol));
-        else if (i == endLine)
-          s.append (textLine->string(0, endCol));
-        else
-          s.append (textLine->string());
-      }
-      else
-      {
-        s.append (textLine->string (startCol, endCol - startCol));
-      }
-
-      if ( i < endLine )
-        s.append('\n');
-    }
-  }
-
-  return s;
 }
 
 void KateBuffer::dumpRegionTree()
@@ -1225,6 +1123,9 @@ void KateBufBlock::swapIn ()
   // what to do if that fails ?
   if (!m_parent->vm()->copyBlock(rawData.data(), m_vmblock, 0, rawData.size()))
     m_parent->m_cacheReadError = true;
+    
+  // reserve mem, keep realloc away on push_back
+  m_stringList.reserve (m_lines);
     
   char *buf = rawData.data();
   for (uint i=0; i < m_lines; i++)

@@ -239,6 +239,12 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
+  //
+  // remove file from dirwatch
+  //
+  if (m_url.isLocalFile() && !m_file.isEmpty())
+    KateFactory::self()->dirWatch ()->removeFile (m_file);
+
   if (!singleViewMode())
   {
     // clean up remaining views

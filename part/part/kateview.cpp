@@ -746,7 +746,8 @@ void KateView::slotReadWriteChanged ()
       << "tools_unindent" << "tools_cleanIndent" << "tools_align"  << "tools_comment"
       << "tools_uncomment" << "tools_uppercase" << "tools_lowercase"
       << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
-      << "edit_undo" << "edit_redo";
+      << "edit_undo" << "edit_redo" << "tools_spelling_from_cursor"
+      << "tools_spelling_selection";
 
   KAction *a = 0;
   for (uint z = 0; z < l.size(); z++)

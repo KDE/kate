@@ -29,46 +29,37 @@
 
 #include "kateglobal.h"
 
+struct SearchFlags {
+	bool caseSensitive     :1;
+	bool wholeWords        :1;
+	bool fromBeginning     :1;
+	bool backward          :1;
+	bool selected          :1;
+	bool prompt            :1;
+	bool replace           :1;
+	bool again             :1;
+	bool wrapped           :1;
+	bool finished          :1;
+	bool regExp            :1;
+};
+
 class SConfig
 {
 public:
-     // Search flags
-    enum SearchFlags
-    {
-      sfCaseSensitive=1,
-      sfWholeWords=2,
-      sfFromBeginning=4,
-      sfBackward=8,
-      sfSelected=16,
-      sfPrompt=32,
-      sfReplace=64,
-      sfAgain=128,
-      sfWrapped=256,
-      sfFinished=512,
-      sfRegularExpression=1024
-    };
-   KateTextCursor cursor;
-   int flags;
-
-    // Set the pattern to be used for searching.
-    void setPattern(QString &newPattern) {
-  bool regExp = (flags & sfRegularExpression);
-
-  m_pattern = newPattern;
-  if (regExp) {
-    m_regExp.setCaseSensitive(flags & sfCaseSensitive);
-    m_regExp.setPattern(m_pattern);
-  }
-}
-
-    // The length of the last match found using pattern or regExp.
-    int matchedLength;
-
-    QString m_pattern;
-
-    // The regular expression corresponding to pattern. Only guaranteed valid if
-    // flags has sfRegularExpression set.
-    QRegExp m_regExp;
+	SearchFlags flags;
+	KateTextCursor cursor;
+	uint matchedLength;
+	QString m_pattern;
+	QRegExp m_regExp;
+	
+	void setPattern( QString &newPattern )
+	{
+		m_pattern = newPattern;
+		if( flags.regExp ) {
+			m_regExp.setCaseSensitive( flags.caseSensitive );
+			m_regExp.setPattern( m_pattern );
+		}
+	}
 };
 
 class KActionCollection;
@@ -110,7 +101,7 @@ private:
 	static QStringList s_searchList;
 	static QStringList s_replaceList;
 	
-	void initSearch( int flags );
+	void initSearch( SearchFlags flags );
 	void continueSearch();
 	void findAgain();
 	void replaceAgain();
@@ -128,10 +119,10 @@ private:
 	Kate::View*     m_view;
 	Kate::Document* m_doc;
 	
-	SConfig s;
-	uint       _searchFlags;
-	int        replaces;
-	QDialog*   replacePrompt;
+	SConfig       s;
+	SearchFlags   m_searchFlags;
+	int           replaces;
+	QDialog*      replacePrompt;
 };
 
 #endif

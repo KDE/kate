@@ -21,6 +21,7 @@
 #define _KATE_VIEWDIALOG_H_
 
 #include "kateglobal.h"
+#include "katesearch.h"
 #include "../interfaces/document.h"
 
 #include <kdialogbase.h>
@@ -49,10 +50,11 @@ class SearchDialog : public KDialogBase
   Q_OBJECT
 
   public:
-    SearchDialog( QWidget *parent, QStringList &searchFor, QStringList &replaceWith, int flags );
+    SearchDialog( QWidget *parent, QStringList &searchFor,
+                  QStringList &replaceWith, SearchFlags flags );
     QString getSearchFor();
     QString getReplaceWith();
-    int getFlags();
+    SearchFlags getFlags();
     void setSearchText( const QString &searchstr );
 
   protected slots:

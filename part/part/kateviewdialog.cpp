@@ -65,7 +65,8 @@
 #include <kaccel.h>
 #include <kkeydialog.h>
 
-SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList &replaceWith, int flags )
+SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor,
+     QStringList &replaceWith, SearchFlags flags )
   : KDialogBase( parent, 0L, true, i18n( "Find Text" ), Ok | Cancel, Ok )
     , m_replace( 0L ), m_regExpDialog( 0L )
 {
@@ -100,7 +101,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
     regexpButton->setEnabled( false );
   }
 
-  if( flags & SConfig::sfReplace )
+  if( flags.replace )
   {
     // make it a replace dialog
     setCaption( i18n( "Replace Text" ) );
@@ -131,7 +132,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   m_opt3 = new QCheckBox(i18n("&From beginning" ), group );
   gbox->addWidget( m_opt3, 2, 1 );
 
-  if( flags & SConfig::sfReplace )
+  if( flags.replace )
   {
     m_opt5 = new QCheckBox(i18n("&Selected text" ), group );
     gbox->addWidget( m_opt5, 2, 1 );
@@ -139,15 +140,15 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
     gbox->addWidget( m_opt6, 3, 1 );
     connect(m_opt5, SIGNAL(stateChanged(int)), this, SLOT(selectedStateChanged(int)));
     connect(m_opt6, SIGNAL(stateChanged(int)), this, SLOT(selectedStateChanged(int)));
-    m_opt5->setChecked( flags & SConfig::sfSelected );
-    m_opt6->setChecked( flags & SConfig::sfPrompt );
+    m_opt5->setChecked( flags.selected );
+    m_opt6->setChecked( flags.prompt );
   }
 
-  m_opt1->setChecked( flags & SConfig::sfCaseSensitive );
-  m_opt2->setChecked( flags & SConfig::sfWholeWords );
-  m_opt3->setChecked( flags & SConfig::sfFromBeginning );
-  m_optRegExp->setChecked( flags & SConfig::sfRegularExpression );
-  m_opt4->setChecked( flags & SConfig::sfBackward );
+  m_opt1->setChecked( flags.caseSensitive );
+  m_opt2->setChecked( flags.wholeWords );
+  m_opt3->setChecked( flags.fromBeginning );
+  m_optRegExp->setChecked( flags.regExp );
+  m_opt4->setChecked( flags.backward );
 
   m_search->setFocus();
 }
@@ -175,27 +176,18 @@ QString SearchDialog::getReplaceWith()
   return m_replace->currentText();
 }
 
-int SearchDialog::getFlags()
+SearchFlags SearchDialog::getFlags()
 {
-  int flags = 0;
+  SearchFlags flags;
 
-  if( m_opt1->isChecked() ) flags |= SConfig::sfCaseSensitive;
-  if( m_opt2->isChecked() ) flags |= SConfig::sfWholeWords;
-  if( m_opt3->isChecked() ) flags |= SConfig::sfFromBeginning;
-  if( m_opt4->isChecked() ) flags |= SConfig::sfBackward;
-  if( m_optRegExp->isChecked() ) flags |= SConfig::sfRegularExpression;
-  if( m_replace )
-  {
-    if( m_opt6->isChecked() )
-      flags |= SConfig::sfPrompt;
-    else
-    {
-      if( m_opt5->isChecked() )
-        flags |= SConfig::sfSelected;
-    }
-
-    flags |= SConfig::sfReplace;
-  }
+  flags.caseSensitive   = m_opt1->isChecked();
+  flags.wholeWords      = m_opt2->isChecked();
+  flags.fromBeginning   = m_opt3->isChecked();
+  flags.backward        = m_opt4->isChecked();
+  flags.regExp          = m_optRegExp->isChecked();
+  flags.prompt          = m_replace && m_opt6->isChecked();
+  flags.selected        = m_replace && m_opt5->isChecked();
+  flags.replace         = m_replace;
 
   return flags;
 }

@@ -3971,9 +3971,9 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
   if (line < 0)
     return false;
 
-  if (!(sc.flags & SConfig::sfBackward)) // FORWARDS
+  if (!(sc.flags.backward)) // FORWARDS
   {
-    if (sc.flags & SConfig::sfSelected)
+    if (sc.flags.selected)
     {
       if (line < selectStart.line)
       {
@@ -3994,20 +3994,20 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
 
       bool found = false;
 
-      if (sc.flags & SConfig::sfRegularExpression)
+      if (sc.flags.regExp)
         found = textLine->searchText (col, sc.m_regExp, &fCol, &mlen, false);
       else
-        found = textLine->searchText (col, sc.m_pattern, &fCol, &mlen, sc.flags & SConfig::sfCaseSensitive, false);
+        found = textLine->searchText (col, sc.m_pattern, &fCol, &mlen, sc.flags.caseSensitive, false);
 
-      if (found && (sc.flags & SConfig::sfSelected) && blockSelectionMode())
+      if (found && (sc.flags.selected) && blockSelectionMode())
         if ((int)(fCol+mlen) > selectEnd.col)
           found = false;
 
-      if (found && (sc.flags & SConfig::sfSelected) && (line == selectEnd.line))
+      if (found && (sc.flags.selected) && (line == selectEnd.line))
         if ((int)(fCol+mlen) > selectEnd.col)
           found = false;
 
-      if (found && (sc.flags & SConfig::sfWholeWords))
+      if (found && (sc.flags.wholeWords))
       {
         if ((fCol > 0) && m_highlight->isInWord (textLine->getChar(fCol-1)))
           found = false;
@@ -4024,7 +4024,7 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
         return true;
       }
 
-      if ((sc.flags & SConfig::sfSelected) && blockSelectionMode())
+      if ((sc.flags.selected) && blockSelectionMode())
         col = selectStart.col;
       else
         col = 0;
@@ -4034,7 +4034,7 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
   }
   else // BACKWARDS
   {
-    if (sc.flags & SConfig::sfSelected)
+    if (sc.flags.selected)
     {
       if (line > selectEnd.line)
       {
@@ -4057,20 +4057,20 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
       uint mlen = 0;
       bool found = false;
 
-      if (sc.flags & SConfig::sfRegularExpression)
+      if (sc.flags.regExp)
         found = textLine->searchText (col, sc.m_regExp, &fCol, &mlen, true);
       else
-        found = textLine->searchText (col, sc.m_pattern, &fCol, &mlen, sc.flags & SConfig::sfCaseSensitive, true);
+        found = textLine->searchText (col, sc.m_pattern, &fCol, &mlen, sc.flags.caseSensitive, true);
 
-      if (found && (sc.flags & SConfig::sfSelected) && blockSelectionMode())
+      if (found && (sc.flags.selected) && blockSelectionMode())
         if (((int)fCol) < selectStart.col)
           found = false;
 
-      if (found && (sc.flags & SConfig::sfSelected) && (line == selectStart.line))
+      if (found && (sc.flags.selected) && (line == selectStart.line))
         if (((int)fCol) < selectStart.col)
           found = false;
 
-      if (found && (sc.flags & SConfig::sfWholeWords))
+      if (found && (sc.flags.wholeWords))
       {
         if ((fCol > 0) && m_highlight->isInWord (textLine->getChar(fCol-1)))
           found = false;
@@ -4087,7 +4087,7 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
         return true;
       }
 
-      if ((sc.flags & SConfig::sfSelected) && blockSelectionMode())
+      if ((sc.flags.selected) && blockSelectionMode())
         col = selectEnd.col;
       else
         col = -1;
@@ -4096,9 +4096,7 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
     }
   }
 
-  //    if (sc.flags & SConfig::sfWholeWords) {
-
-  sc.flags |= SConfig::sfWrapped;
+  sc.flags.wrapped = true;
 
   return false;
 }

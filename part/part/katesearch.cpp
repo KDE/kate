@@ -39,13 +39,13 @@ KateSearch::KateSearch( Kate::View* view )
 	: QObject( view, "kate search" )
 	, m_view( view )
 	, m_doc( view->getDoc() )
-	, _searchFlags( 0 )
+	, m_searchFlags()
 	, replacePrompt( new ReplacePrompt( view ) )
 {
 	connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
 // TODO: Configuration
-//  _searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
-//   config->writeEntry("SearchFlags",_searchFlags);
+//  m_searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
+//   config->writeEntry("SearchFlags",m_searchFlags);
 }
 
 KateSearch::~KateSearch()
@@ -54,9 +54,9 @@ KateSearch::~KateSearch()
 
 void KateSearch::createActions( KActionCollection* ac )
 {
-	KStdAction::find(this, SLOT(find()), ac);
-	KStdAction::findNext(this, SLOT(slotFindNext()), ac);
-	KStdAction::findPrev(this, SLOT(slotFindPrev()), ac, "edit_find_prev");
+	KStdAction::find( this, SLOT(find()), ac );
+	KStdAction::findNext( this, SLOT(slotFindNext()), ac );
+	KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" );
 }
 
 void KateSearch::addToList( QStringList& list, const QString& s )
@@ -90,19 +90,21 @@ QString KateSearch::getSearchText()
 
 void KateSearch::find()
 {
-	if (!doc()->hasSelection())
-		_searchFlags &= ~SConfig::sfSelected;
+	m_searchFlags.selected &= doc()->hasSelection();
+	m_searchFlags.replace = false;
 	
 	SearchDialog* searchDialog = new SearchDialog(
 	    view(), s_searchList, s_replaceList,
-	    _searchFlags & ~SConfig::sfReplace );
+	    m_searchFlags );
 	
 	searchDialog->setSearchText( getSearchText() );
 	
 	if( searchDialog->exec() == QDialog::Accepted ) {
 		addToSearchList( searchDialog->getSearchFor() );
-		_searchFlags = searchDialog->getFlags() | ( _searchFlags & SConfig::sfPrompt );
-		initSearch( _searchFlags);
+		bool prompt = m_searchFlags.prompt;
+		m_searchFlags = searchDialog->getFlags();
+		m_searchFlags.prompt = prompt;
+		initSearch( m_searchFlags);
 		findAgain();
 	}
 	delete searchDialog;
@@ -112,20 +114,20 @@ void KateSearch::replace()
 {
 	if (!doc()->isReadWrite()) return;
 	
-	if (!doc()->hasSelection())
-		_searchFlags &= ~SConfig::sfSelected;
+	m_searchFlags.selected &= doc()->hasSelection();
+	m_searchFlags.replace = true;
 	
 	SearchDialog* searchDialog = new SearchDialog(
 	    view(), s_searchList, s_replaceList,
-	    _searchFlags | SConfig::sfReplace );
+	    m_searchFlags );
 	
 	searchDialog->setSearchText( getSearchText() );
 	
 	if( searchDialog->exec() == QDialog::Accepted ) {
 		addToSearchList( searchDialog->getSearchFor() );
 		addToReplaceList( searchDialog->getReplaceWith() );
-		_searchFlags = searchDialog->getFlags();
-		initSearch( _searchFlags );
+		m_searchFlags = searchDialog->getFlags();
+		initSearch( m_searchFlags );
 		replaceAgain();
 	}
 	delete searchDialog;
@@ -139,12 +141,12 @@ KateTextCursor KateSearch::getCursor()
 	return c;
 }
 
-void KateSearch::initSearch( int flags )
+void KateSearch::initSearch( SearchFlags flags )
 {
 	s.flags = flags;
 	s.setPattern( s_searchList.first() );
 	
-	if( !(s.flags & SConfig::sfFromBeginning) ) {
+	if( !s.flags.fromBeginning ) {
 		// If we are continuing a backward search, make sure we do not get stuck
 		// at an existing match.
 		s.cursor = getCursor();
@@ -153,8 +155,8 @@ void KateSearch::initSearch( int flags )
 		int pos = s.cursor.col-searchFor.length()-1;
 		if ( pos < 0 )
 			pos = 0;
-		pos = txt.find( searchFor, pos, s.flags & SConfig::sfCaseSensitive );
-		if ( s.flags & SConfig::sfBackward ) {
+		pos = txt.find( searchFor, pos, s.flags.caseSensitive );
+		if ( flags.backward ) {
 			if ( pos <= s.cursor.col )
 				s.cursor.col = pos-1;
 		} else {
@@ -162,30 +164,37 @@ void KateSearch::initSearch( int flags )
 				s.cursor.col++;
 		}
 	} else {
-		if (!(s.flags & SConfig::sfBackward)) {
+		if (!(flags.backward)) {
 			s.cursor.col = 0;
 			s.cursor.line = 0;
 		} else {
 			s.cursor.col = -1;
 			s.cursor.line = doc()->numLines();
 		}
-		s.flags |= SConfig::sfFinished;
+		s.flags.finished = true;
 	}
-	if (!(s.flags & SConfig::sfBackward)) {
-		if (!(s.cursor.col || s.cursor.line))
-			s.flags |= SConfig::sfFinished;
+	if( !flags.backward ) {
+		if( !s.cursor.col && !s.cursor.line )
+			s.flags.finished = true;
 	}
 }
 
 void KateSearch::findAgain( bool back )
 {
-  bool b = (_searchFlags & SConfig::sfBackward) > 0;
-  initSearch((_searchFlags & ((b==back)?~SConfig::sfBackward:~0) & ~SConfig::sfFromBeginning)
-                | SConfig::sfPrompt | SConfig::sfAgain | ((b!=back)?SConfig::sfBackward : 0) );
-  if (s.flags & SConfig::sfReplace)
-    replaceAgain();
-  else
-    findAgain();
+	SearchFlags flags = m_searchFlags;
+	if( m_searchFlags.backward == back )
+		flags.backward = false;
+	flags.fromBeginning = false;
+	flags.prompt = true;
+	flags.again = true;
+	
+	initSearch( flags );
+	
+	if( s.flags.replace ) {
+		replaceAgain();
+	} else {
+		findAgain();
+	}
 }
 
 void KateSearch::findAgain()
@@ -199,11 +208,11 @@ void KateSearch::findAgain()
 	
 	if ( ((KateDocument*)doc())->doSearch(s,searchFor)) { // FIXME
 		exposeFound( s.cursor, s.matchedLength );
-		if( !(s.flags & SConfig::sfBackward) )
+		if( !s.flags.backward )
 			s.cursor.col += s.matchedLength;
-	} else if( !(s.flags & SConfig::sfFinished) ) {
+	} else if( !s.flags.finished ) {
 		continueSearch();
-		if( askContinue( !(s.flags & SConfig::sfBackward), false, 0 ) )
+		if( askContinue( !s.flags.backward, false, 0 ) )
 			findAgain();
 	} else {
 		KMessageBox::sorry( view(),
@@ -219,7 +228,7 @@ void KateSearch::replaceAgain()
 		return;
 	
 	replaces = 0;
-	if (s.flags & SConfig::sfPrompt) {
+	if( s.flags.prompt ) {
 		doReplaceAction(-1);
 	} else {
 		doReplaceAction(srAll);
@@ -237,7 +246,7 @@ void KateSearch::doReplaceAction( int result, bool found )
 		                   s.cursor.line, s.cursor.col + s.matchedLength );
 		doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
 		replaces++;
-		if( !(s.flags & SConfig::sfBackward) ) {
+		if( !s.flags.backward ) {
 			s.cursor.col += replaceWith.length();
 		} else if( s.cursor.col > 0 ) {
 			s.cursor.col--;
@@ -250,13 +259,13 @@ void KateSearch::doReplaceAction( int result, bool found )
 		break;
 	
 	case srNo:
-		if( !(s.flags & SConfig::sfBackward) ) {
+		if( !s.flags.backward ) {
 			s.cursor.col += s.matchedLength;
-		} else if (s.cursor.col > 0) {
+		} else if( s.cursor.col > 0 ) {
 			s.cursor.col--;
 		} else {
 			s.cursor.line--;
-			if (s.cursor.line >= 0) {
+			if( s.cursor.line >= 0 ) {
 				s.cursor.col = doc()->lineLength(s.cursor.line);
 			}
 		}
@@ -274,7 +283,7 @@ void KateSearch::doReplaceAction( int result, bool found )
 				                   s.cursor.line, s.cursor.col + s.matchedLength );
 				doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
 				replaces++;
-				if (!(s.flags & SConfig::sfBackward)) {
+				if( !s.flags.backward ) {
 					s.cursor.col += replaceWith.length();
 				} else if (s.cursor.col > 0) {
 					s.cursor.col--;
@@ -306,14 +315,14 @@ void KateSearch::doReplaceAction( int result, bool found )
 
 bool KateSearch::askReplaceEnd()
 {
-	if( s.flags & SConfig::sfFinished ) {
+	if( s.flags.finished ) {
 		KMessageBox::information( view(),
 		    i18n("%1 replacement(s) made").arg(replaces),
 		    i18n("Replace") );
 		return false;
 	}
 		
-	bool _continue = askContinue( !(s.flags & SConfig::sfBackward), true, replaces );
+	bool _continue = askContinue( !s.flags.backward, true, replaces );
 	replaces = 0;
 	continueSearch();
 	return _continue;
@@ -341,15 +350,15 @@ bool KateSearch::askContinue( bool forward, bool replace, int replacements )
 
 void KateSearch::continueSearch()
 {
-  if (!(s.flags & SConfig::sfBackward)) {
+  if( !s.flags.backward ) {
     s.cursor.col = 0;
     s.cursor.line = 0;
   } else {
     s.cursor.col = -1;
     s.cursor.line = doc()->numLines();
   }
-  s.flags |= SConfig::sfFinished;
-  s.flags &= ~SConfig::sfAgain;
+  s.flags.finished = true;
+  s.flags.again = false;
 }
 
 void KateSearch::replaceSlot() {

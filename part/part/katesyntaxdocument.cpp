@@ -33,9 +33,10 @@
 /** Constructor
     Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
 */
-SyntaxDocument::SyntaxDocument() : QDomDocument(){
-  // There's no current file
-  currentFile="";
+SyntaxDocument::SyntaxDocument()
+  : QDomDocument()
+{
+  currentFile = "";
   // Let's build the Mode List (katesyntaxhighlightingrc)
   setupModeList();
   myModeList.setAutoDelete( true );
@@ -44,42 +45,49 @@ SyntaxDocument::SyntaxDocument() : QDomDocument(){
 /** Destructor
     Do nothing yet
 */
-SyntaxDocument::~SyntaxDocument(){
+SyntaxDocument::~SyntaxDocument()
+{
 }
 
 /** If the open hl file is different from the one needed, it opens
     the new one and assign some other things.
     identifier = File name and path of the new xml needed
 */
-bool SyntaxDocument::setIdentifier(const QString& identifier){
+bool SyntaxDocument::setIdentifier(const QString& identifier)
+{
   // if the current file is the same as the new one don't do anything.
-  if(currentFile!=identifier){
+  if(currentFile != identifier)
+  {
     // let's open the new file
     QFile f( identifier );
 
-    if ( f.open(IO_ReadOnly) ){
+    if ( f.open(IO_ReadOnly) )
+    {
       // Let's parse the contets of the xml file
       /* The result of this function should be check for robustness,
          a false returned means a parse error */
-  QString errorMsg;
-  int line, col;
-  bool success=setContent(&f,&errorMsg,&line,&col);
+      QString errorMsg;
+      int line, col;
+      bool success=setContent(&f,&errorMsg,&line,&col);
+
       // Ok, now the current file is the pretended one (identifier)
-      currentFile=identifier;
+      currentFile = identifier;
+
       // Close the file, is not longer needed
       f.close();
-      if (!success)
-  {
-    KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
-      .arg(line).arg(col).arg(errorMsg));
-    return false;
-  }
 
+      if (!success)
+      {
+        KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
+            .arg(line).arg(col).arg(errorMsg));
+        return false;
+      }
     }
-    else {
+    else
+    {
       // Oh o, we couldn't open the file.
       KMessageBox::error( 0L, i18n("Unable to open %1").arg(identifier) );
-  return false;
+      return false;
     }
   }
   return true;
@@ -87,166 +95,176 @@ bool SyntaxDocument::setIdentifier(const QString& identifier){
 
 /** Get the complete syntax mode list
 */
-SyntaxModeList SyntaxDocument::modeList(){
+SyntaxModeList SyntaxDocument::modeList()
+{
   return myModeList;
 }
 
 /**
  * Jump to the next group, syntaxContextData::currentGroup will point to the next group
  */
-bool SyntaxDocument::nextGroup( syntaxContextData* data){
-  // If data is empty there's nothing we can do
-  if(!data){
+bool SyntaxDocument::nextGroup( syntaxContextData* data)
+{
+  if(!data)
     return false;
+
+  // No group yet so go to first child
+  if (data->currentGroup.isNull())
+  {
+    // Skip over non-elements. So far non-elements are just comments
+    QDomNode node = data->parent.firstChild();
+    while (node.isComment())
+      node = node.nextSibling();
+
+    data->currentGroup = node.toElement();
+  }
+  else
+  {
+    // common case, iterate over siblings, skipping comments as we go
+    QDomNode node = data->currentGroup.nextSibling();
+    while (node.isComment())
+      node = node.nextSibling();
+
+    data->currentGroup = node.toElement();
   }
 
-  // if there's no current group go the first one of this level of the tree.
-  if (data->currentGroup.isNull()){
-    data->currentGroup=data->parent.firstChild().toElement();
-  }
-  else {
-  // else just turn the currentGroup into the next group.
-    data->currentGroup=data->currentGroup.nextSibling().toElement();
-  }
-
-  // Should this be an empty QDomElement ? shoudln't item point to the first item in this group ?
-  data->item=QDomElement();
-
-  // If currentGroup is Null, we reached the end, so return false
-  if (data->currentGroup.isNull()){
-    return false;
-  }
-  else {
-  // return true if everything went ok.
-    return true;
-  }
+  return !data->currentGroup.isNull();
 }
 
 /**
  * Jump to the next item, syntaxContextData::item will point to the next item
  */
-bool SyntaxDocument::nextItem( syntaxContextData* data){
-  if(!data){
+bool SyntaxDocument::nextItem( syntaxContextData* data)
+{
+  if(!data)
     return false;
+
+  if (data->item.isNull())
+  {
+    QDomNode node = data->currentGroup.firstChild();
+    while (node.isComment())
+      node = node.nextSibling();
+
+    data->item = node.toElement();
+  }
+  else
+  {
+    QDomNode node = data->item.nextSibling();
+    while (node.isComment())
+      node = node.nextSibling();
+
+    data->item = node.toElement();
   }
 
-  if (data->item.isNull()){
-    data->item=data->currentGroup.firstChild().toElement();
-  }
-  else {
-    data->item=data->item.nextSibling().toElement();
-  }
-
-  if (data->item.isNull()){
-    return false;
-  }
-  else {
-    return true;
-  }
+  return !data->item.isNull();
 }
 
 /**
  * This function is used to fetch the atributes of the tags of the item in a syntaxContextData.
  */
 QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QString& name){
-  if(!data){
+  if(!data)
     return QString::null;
-  }
+
   // If there's no name just return the tag name of data->item
-  if ( (!data->item.isNull()) && (name.isEmpty())){
-    kdDebug(13010) << "groupItemData no name " << data->item.tagName() << endl;
+  if ( (!data->item.isNull()) && (name.isEmpty()))
+  {
     return data->item.tagName();
   }
+
   // if name is not empty return the value of the attribute name
-  if (!data->item.isNull()){
-    kdDebug(13010) << "groupItemData with name " << data->item.tagName() << "  " << data->item.attribute(name) <<endl;
+  if (!data->item.isNull())
+  {
     return data->item.attribute(name);
   }
-  else {
-    return QString();
-  }
+
+  return QString::null;
+
 }
 
-QString SyntaxDocument::groupData( const syntaxContextData* data,const QString& name){
-  if(!data){
+QString SyntaxDocument::groupData( const syntaxContextData* data,const QString& name)
+{
+  if(!data)
     return QString::null;
-  }
 
-  if (!data->currentGroup.isNull()){
+  if (!data->currentGroup.isNull())
+  {
     return data->currentGroup.attribute(name);
   }
-  else {
+  else
+  {
     return QString::null;
   }
 }
 
-void SyntaxDocument::freeGroupInfo( syntaxContextData* data){
-  if (data){
+void SyntaxDocument::freeGroupInfo( syntaxContextData* data)
+{
+  if (data)
     delete data;
-  }
 }
 
-syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data){
-  syntaxContextData *retval=new syntaxContextData;
+syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data)
+{
+  syntaxContextData *retval = new syntaxContextData;
 
-  if (data != 0){
-    retval->parent=data->currentGroup;
-    retval->currentGroup=data->item;
-    retval->item=QDomElement();
+  if (data != 0)
+  {
+    retval->parent = data->currentGroup;
+    retval->currentGroup = data->item;
   }
 
   return retval;
 }
 
+bool SyntaxDocument::getElement (QDomElement &element, const QString &mainGroupName, const QString &config)
+{
+  kdDebug(13010) << "Looking for \"" << mainGroupName << "\" -> \"" << config << "\"." << endl;
 
+  QDomNodeList nodes = documentElement().childNodes();
+
+  // Loop over all these child nodes looking for mainGroupName
+  for (unsigned int i=0; i<nodes.count(); i++)
+  {
+    QDomElement elem = nodes.item(i).toElement();
+    if (elem.tagName() == mainGroupName)
+    {
+      // Found mainGroupName ...
+      QDomNodeList subNodes = elem.childNodes();
+
+      // ... so now loop looking for config
+      for (unsigned int j=0; j<subNodes.count(); j++)
+      {
+        QDomElement subElem = subNodes.item(j).toElement();
+        if (subElem.tagName() == config)
+        {
+          // Found it!
+          element = subElem;
+          return true;
+        }
+      }
+
+      kdDebug(13010) << "WARNING: \""<< config <<"\" wasn't found!" << endl;
+      return false;
+    }
+  }
+
+  kdDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
+  return false;
+}
 
 /**
  * Get the syntaxContextData of the QDomElement Config inside mainGroupName
  * syntaxContextData::item will contain the QDomElement found
  */
-syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const QString &Config){
-  kdDebug(13010)<<"Looking for \""<<Config<<"\" inside \""<< mainGroupName<<"\"."<<endl;
-  QDomElement docElem = documentElement();
-  QDomNode n = docElem.firstChild();
-   while(!n.isNull()){
-    QDomElement e=n.toElement();
-
-    // compare the tag of the current QDomElemnt to see if it is mainGroupName
-    if (e.tagName().compare(mainGroupName)==0 ){
-      kdDebug(13010)<<"\""<<mainGroupName<<"\" found."<<endl;
-      QDomNode n1=e.firstChild();
-
-      // Loop until we reach the last node in e
-      while (!n1.isNull()){
-        /* Should this be done after the next if, e.firstChild is never tested */
-        QDomElement e1=n1.toElement();
-        // if the name of the tag of the current node is equal to the Config
-        if (e1.tagName()==Config){
-          kdDebug(13010)<<"\""<<Config<<"\" found."<<endl;
-          // create a new syntaxContextData
-          syntaxContextData *data=new ( syntaxContextData);
-
-          // Insert the current item into the syntaxContextData
-          /* should we add also data->parent and data->currentGroup, we have
-             the 'father node', nl */
-          data->item=e1;
-          /* maybe:
-             data->parent=e;
-          */
-          // Return data
-          return data;
-        }
-        // if not, let's go on to the next node.
-        n1=e1.nextSibling();
-      }
-      // we didn't find the node Config inside mainGroupName
-      kdDebug(13010) << "WARNING: \""<< Config <<"\" wasn't found!" << endl;
-      return 0;
-    }
-    // we didn't find mainGroupName yet.
-    n=e.nextSibling();
+syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const QString &config)
+{
+  QDomElement element;
+  if (getElement(element, mainGroupName, config))
+  {
+    syntaxContextData *data = new syntaxContextData;
+    data->item = element;
+    return data;
   }
-  kdDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
   return 0;
 }
 
@@ -254,71 +272,58 @@ syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const
  * Get the syntaxContextData of the QDomElement Config inside mainGroupName
  * syntaxContextData::parent will contain the QDomElement found
  */
-syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group){
-  QDomElement docElem = documentElement();
-  QDomNode n = docElem.firstChild();
-  kdDebug(13010)<<"Looking for \""<<group<<"s\" inside \""<< mainGroupName<<"\"."<<endl;
-  while (!n.isNull()){
-    QDomElement e=n.toElement();
-
-    if (e.tagName().compare(mainGroupName)==0 ){
-      kdDebug(13010)<<"\""<<mainGroupName<<"\" found."<<endl;
-      QDomNode n1=e.firstChild();
-
-      while (!n1.isNull()){
-        QDomElement e1=n1.toElement();
-
-        if (e1.tagName()==group+"s"){
-          kdDebug(13010)<<"\""<<group<<"s\" found."<<endl;
-          syntaxContextData *data=new ( syntaxContextData);
-          data->parent=e1;
-          return data;
-        }
-
-        n1=e1.nextSibling();
-      }
-      kdDebug(13010) << "WARNING: \""<< group <<"s\" wasn't found!" << endl;
-      return 0;
-    }
-    n=e.nextSibling();
+syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group)
+{
+  QDomElement element;
+  if (getElement(element, mainGroupName, group+"s"))
+  {
+    syntaxContextData *data = new syntaxContextData;
+    data->parent = element;
+    return data;
   }
-  kdDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
   return 0;
 }
 
 /**
  * Returns a list with all the keywords inside the list type
  */
-QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList){
+QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList)
+{
   kdDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\"."<<endl;
-  QDomElement e  = documentElement();
-  if (clearList){
+  if (clearList)
     m_data.clear();
-  }
 
-  for(QDomNode n=e.firstChild(); !n.isNull(); n=n.nextSibling()){
-    if (n.toElement().tagName()==mainGroup){
+  for(QDomNode node = documentElement().firstChild(); !node.isNull(); node = node.nextSibling())
+  {
+    QDomElement elem = node.toElement();
+    if (elem.tagName() == mainGroup)
+    {
       kdDebug(13010)<<"\""<<mainGroup<<"\" found."<<endl;
-      QDomNodeList nodelist1=n.toElement().elementsByTagName("list");
+      QDomNodeList nodelist1 = elem.elementsByTagName("list");
 
-      for (uint l=0; l<nodelist1.count();l++){
-        if (nodelist1.item(l).toElement().attribute("name")==type){
+      for (uint l=0; l<nodelist1.count(); l++)
+      {
+        if (nodelist1.item(l).toElement().attribute("name") == type)
+        {
           kdDebug(13010)<<"List with attribute name=\""<<type<<"\" found."<<endl;
-          n=nodelist1.item(l).toElement();
-          QDomNodeList childlist=n.childNodes();
+          QDomNodeList childlist = nodelist1.item(l).toElement().childNodes();
 
-          for (uint i=0; i<childlist.count();i++){
-            QString elem = childlist.item(i).toElement().text().stripWhiteSpace();
-            if (elem.isEmpty())
+          for (uint i=0; i<childlist.count(); i++)
+          {
+            QString element = childlist.item(i).toElement().text().stripWhiteSpace();
+            if (element.isEmpty())
               continue;
 #ifndef NDEBUG
-            if (i<6){
-              kdDebug(13010)<<"\""<<elem<<"\" added to the list \""<<type<<"\""<<endl;
-            } else if(i==6){
+            if (i<6)
+            {
+              kdDebug(13010)<<"\""<<element<<"\" added to the list \""<<type<<"\""<<endl;
+            }
+            else if(i==6)
+            {
               kdDebug(13010)<<"... The list continues ..."<<endl;
             }
 #endif
-            m_data+=elem;
+            m_data += element;
           }
 
           break;
@@ -347,7 +352,7 @@ void SyntaxDocument::setupModeList (bool force)
   // Let's get a list of all the xml files for hl
   QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",false,true);
 
-  // Let's iterate trhu the list and build the Mode List
+  // Let's iterate through the list and build the Mode List
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
   {
     // Each file has a group called:
@@ -361,12 +366,12 @@ void SyntaxDocument::setupModeList (bool force)
 
       // Let's make a new syntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       syntaxModeListItem *mli=new syntaxModeListItem;
-      mli->name = config.readEntry("name");
-      mli->section = i18n(config.readEntry("section").utf8());
-      mli->mimetype = config.readEntry("mimetype");
-      mli->extension = config.readEntry("extension");
-      mli->version = config.readEntry("version");
-      mli->priority = config.readEntry("priority");
+      mli->name       = config.readEntry("name");
+      mli->section    = i18n(config.readEntry("section").utf8());
+      mli->mimetype   = config.readEntry("mimetype");
+      mli->extension  = config.readEntry("extension");
+      mli->version    = config.readEntry("version");
+      mli->priority   = config.readEntry("priority");
       mli->identifier = *it;
 
       // Apend the item to the list
@@ -390,30 +395,27 @@ void SyntaxDocument::setupModeList (bool force)
 
         if (success)
         {
-          QDomElement n = documentElement();
+          QDomElement root = documentElement();
 
-          if (!n.isNull())
+          if (!root.isNull())
           {
-            // What does this do ???? Pupeno
-            QDomElement e=n.toElement();
-
             // If the 'first' tag is language, go on
-            if (e.tagName()=="language")
+            if (root.tagName()=="language")
             {
               // let's make the mode list item.
-              syntaxModeListItem *mli=new syntaxModeListItem;
+              syntaxModeListItem *mli = new syntaxModeListItem;
 
-              mli->name = e.attribute("name");
+              mli->name = root.attribute("name");
               // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
               // This could be done by a switch or ifs with the allowed sections but a new
               // section will can't be added without recompiling and it's not a very versatil
               // way, adding a new section (from the xml files) would break the translations.
               // Why don't we store everything in english internaly and we translate it just when showing it.
-              mli->section = i18n(e.attribute("section").utf8());
-              mli->mimetype = e.attribute("mimetype");
-              mli->extension = e.attribute("extensions");
-              mli->version = e.attribute("version");
-              mli->priority = e.attribute("priority");
+              mli->section   = i18n(root.attribute("section").utf8());
+              mli->mimetype  = root.attribute("mimetype");
+              mli->extension = root.attribute("extensions");
+              mli->version   = root.attribute("version");
+              mli->priority  = root.attribute("priority");
 
               // I think this solves the problem, everything not in the .po is Other.
               if (mli->section.isEmpty())

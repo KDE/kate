@@ -98,11 +98,13 @@ class SyntaxDocument : public QDomDocument
     void freeGroupInfo(syntaxContextData* data);
     syntaxContextData* getSubItems(syntaxContextData* data);
 
+    bool getElement (QDomElement &element, const QString &mainGroupName, const QString &config);
+
     /**
      * Get the syntaxContextData of the DomElement Config inside mainGroupName
      * It just fills syntaxContextData::item
      */
-    syntaxContextData* getConfig(const QString& mainGroupName, const QString &Config);
+    syntaxContextData* getConfig(const QString& mainGroupName, const QString &config);
 
     /**
      * Get the syntaxContextData of the QDomElement Config inside mainGroupName

@@ -2726,7 +2726,11 @@ bool KateDocument::openFile()
   setMTime();
 
   if (!fileInfo->exists() || !fileInfo->isReadable())
+  {
+    // m_file && m_url have changed e.g. with "kwrite filethatdoesntexist"
+    emit fileNameChanged();
     return false;
+  }
 
   QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
   kdDebug(13020) << "servicetype: " << serviceType << endl;

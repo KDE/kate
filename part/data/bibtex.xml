@@ -1,0 +1,51 @@
+<?xml version="1.01" encoding="UTF-8"?>
+<!DOCTYPE language>
+<language name="BibTeX-Kile" version="0.1" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1">
+	<highlighting>
+		<contexts>
+			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+				<DetectChar char="@" attribute="Bib Item" context="Bib Item" />
+				<DetectChar char="%" attribute="Comment" context="Comment"/>
+			</context>
+
+			<context name="Bib Item" attribute="Bib Item" lineEndContext="#stay">
+				<DetectChar char="{" attribute="Normal Text" context="Ref Key" />
+				<DetectChar char="%" attribute="Comment" context="Comment"/>
+			</context>
+
+			<context name="Ref Key" attribute="Ref Key" lineEndContext="#stay">
+				<DetectChar char="," attribute="Normal Text" context="Keyword" />
+				<DetectChar char="%" attribute="Comment" context="Comment"/>
+			</context>
+
+			<context name="Keyword" attribute="Keyword" lineEndContext="#stay">
+				<RegExpr String="\\." attribute="Keyword" context="#stay"/>
+				<DetectChar char="@" attribute="Bib Item" context="Bib Item"/>
+				<DetectChar char="=" attribute="Normal Text" context="#stay"/>
+				<DetectChar char="," attribute="Normal Text" context="#stay"/>
+				<DetectChar char='"' attribute="Value" context="Value"/>
+				<DetectChar char="%" attribute="Comment" context="Comment"/>
+			</context>
+
+			<context name="Value" attribute="Value" lineEndContext="#stay">
+				<Detect2Chars char="\" char1='"' attribute="Value" context="#stay"/>
+				<DetectChar char='"' attribute="Value" context="Keyword"/>
+			</context>
+			
+			<context name="Comment" attribute="5" lineEndContext="#pop">
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name="Normal Text" defStyleNum="dsNormal"/>
+			<itemData name="Bib Item" defStyleNum="dsNormal" color="#0000ff" selColor="#ffff00" bold="1" italic="0"/>
+			<itemData name="Keyword" defStyleNum="dsNormal" color="#000000" selColor="#dddddd" bold="0" italic="0"/>
+			<itemData name="Value" defStyleNum="dsNormal" color="#aa5500" selColor="#22aaff" bold="0" italic="0"/>
+			<itemData name="Ref Key" defStyleNum="dsNormal" color="#007700" selColor="#00aa00" bold="1" italic="0"/>
+			<itemData name="Comment" defStyleNum="dsNormal" color="#aaaaaa" selColor="#222222" bold="0" italic="0"/>
+		</itemDatas>
+	</highlighting><general>
+	<comments>
+		<comment name="singleLine" start="%" />
+		</comments>
+	</general>
+</language>

@@ -405,7 +405,7 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 		{
 			node->endLineValid = true;
 			node->endLineRel = parent->childnodes()->at(i)->startLineRel - node->startLineRel;
-			delete parent->childnodes()->take(i);
+			parent->childnodes()->remove(i);
 			count = i-mypos-1;
 			if (count > 0)
 			{
@@ -615,7 +615,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 								count = (i-current-1);
 								node->endLineValid = true;
 								node->endLineRel = getStartLine(parent->childnodes()->at(i))-line;
-								delete parent->childnodes()->take(i);
+								parent->childnodes()->remove(i);
 								break;
 							}
 						}
@@ -691,7 +691,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 							count = node->childnodes()->count() - i - 1;
 							newNode->endLineValid = true;
 							newNode->endLineRel = line - getStartLine(node->childnodes()->at(i));
-							delete node->childnodes()->take(i);
+							node->childnodes()->remove(i);
 							break;
 						}
 					}
@@ -1024,7 +1024,7 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 #endif
 			if (node->endLineValid)		// just delete it, it has been opened and closed on this line
 			{
-				delete node->parentNode->childnodes()->take(node->parentNode->childnodes()->find(node));
+				node->parentNode->childnodes()->remove(node);
 			}
 			else
 			{

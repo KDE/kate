@@ -46,10 +46,6 @@ class Highlight;
 class KateIconBorder;
 class KateDocument;
 
-enum Select_flags {
-  selectFlag          = 0x100000,
-  multiSelectFlag     = 0x200000
-};
 //state commands
 enum State_commands {
   cmToggleInsert      = 1,
@@ -598,20 +594,6 @@ public slots:
     KateViewInternal *myViewInternal;
     KateDocument *myDoc;
 
-  private:
-    void insLine(int line) { myViewInternal->insLine(line); };
-    void delLine(int line) { myViewInternal->delLine(line); };
-    void updateCursor() { myViewInternal->updateCursor(); };
-    void updateCursor(KateTextCursor &newCursor) { myViewInternal->updateCursor(newCursor); };
-
-    void clearDirtyCache(int height) { myViewInternal->clearDirtyCache(height); };
-    void tagLines(int start, int end, int x1, int x2) { myViewInternal->tagLines(start, end, x1, x2); };
-    void tagAll() { myViewInternal->tagAll(); };
-    void setPos(int x, int y) { myViewInternal->setPos(x, y); };
-    void center() { myViewInternal->center(); };
-
-    void updateView(int flags) { myViewInternal->updateView(flags); };
-
   private slots:
     void dropEventPassEmited (QDropEvent* e);
 
@@ -619,6 +601,10 @@ public slots:
     void dropEventPass(QDropEvent*);
 
   public:
+    enum Select_flags {
+  selectFlag          = 0x100000
+    };
+
     enum Dialog_results {
       srYes=QDialog::Accepted,
       srNo=10,

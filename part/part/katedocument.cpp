@@ -457,8 +457,8 @@ bool KateDocument::clear()
 
   cursor.col = cursor.line = 0;
   for (view = myViews.first(); view != 0L; view = myViews.next() ) {
-    view->updateCursor(cursor);
-    view->tagAll();
+    view->myViewInternal->updateCursor(cursor);
+    view->myViewInternal->tagAll();
   }
 
   eolMode = KateDocument::eolUnix;
@@ -680,7 +680,7 @@ void KateDocument::editEnd ()
     KateView *v = myViews.at(z);
 
      if (v->cursorCacheChanged)
-      v->updateCursor (v->cursorCache);
+      v->myViewInternal->updateCursor (v->cursorCache);
   }
 
   setModified(true);
@@ -851,7 +851,7 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->insLine(line+1);
+    view->myViewInternal->insLine(line+1);
   }
 
   if (b)
@@ -910,7 +910,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->delLine(line+1);
+    view->myViewInternal->delLine(line+1);
 
     cLine = view->cursorCache.line;
     cCol = view->cursorCache.col;
@@ -968,7 +968,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->insLine(line);
+    view->myViewInternal->insLine(line);
   }
 
   if (b)
@@ -1017,7 +1017,7 @@ bool KateDocument::editRemoveLine ( uint line )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->delLine(line);
+    view->myViewInternal->delLine(line);
 
     cLine = view->cursorCache.line;
     cCol = view->cursorCache.col;
@@ -1028,7 +1028,6 @@ bool KateDocument::editRemoveLine ( uint line )
         view->cursorCache.line = line;
       else
         view->cursorCache.line = line-1;
-
 
       cCol = 0;
       view->cursorCache.col = cCol;
@@ -2295,8 +2294,8 @@ void KateDocument::updateFontData() {
 
   for (view = myViews.first(); view != 0L; view = myViews.next() ) {
     view->myViewInternal->drawBuffer->resize(view->width(),viewFont.fontHeight);
-    view->tagAll();
-    view->updateCursor();
+    view->myViewInternal->tagAll();
+    view->myViewInternal->updateCursor();
   }
 }
 
@@ -2606,7 +2605,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   c.line = line;
   c.col = col;
 
-  view->updateCursor(c);
+  view->myViewInternal->updateCursor(c);
 
 /*
   if (myWordWrap && myWordWrapAt > 0) {
@@ -2706,7 +2705,7 @@ void KateDocument::newLine(VConfig &c)
     }
   }
 
-  c.view->updateCursor(c.cursor);
+  c.view->myViewInternal->updateCursor(c.cursor);
 }
 
 void KateDocument::killLine(VConfig &c)
@@ -3213,19 +3212,19 @@ QString KateDocument::getWord(KateTextCursor &cursor) {
 void KateDocument::tagLineRange(int line, int x1, int x2)
 {
   for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->tagLines(line, line, x1, x2);
+    myViews.at(z)->myViewInternal->tagLines(line, line, x1, x2);
 }
 
 void KateDocument::tagLines(int start, int end)
 {
   for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->tagLines(start, end, 0, 0xffffff);
+    myViews.at(z)->myViewInternal->tagLines(start, end, 0, 0xffffff);
 }
 
 void KateDocument::tagAll()
 {
   for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->tagAll();
+    myViews.at(z)->myViewInternal->tagAll();
 }
 
 void KateDocument::updateLines(int startLine, int endLine)
@@ -3350,7 +3349,7 @@ void KateDocument::updateViews()
 
   for (view = myViews.first(); view != 0L; view = myViews.next() )
   {
-    view->updateView(flags);
+    view->myViewInternal->updateView(flags);
   }
 
   newDocGeometry = false;

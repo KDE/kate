@@ -1919,8 +1919,7 @@ void KateView::doCursorCommand(int cmdNum) {
   VConfig c;
   myViewInternal->getVConfig(c);
   if (cmdNum & selectFlag) c.flags |= KateDocument::cfMark;
-  if (cmdNum & multiSelectFlag) c.flags |= KateDocument::cfMark | KateDocument::cfKeepSelection;
-  cmdNum &= ~(selectFlag | multiSelectFlag);
+  cmdNum &= ~selectFlag;
   myViewInternal->doCursorCommand(c, cmdNum);
   myDoc->updateViews();
 }

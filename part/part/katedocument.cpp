@@ -2947,12 +2947,8 @@ bool KateDocument::isNewDoc() const {
 void KateDocument::makeAttribs()
 {
   hlManager->makeAttribs(this, m_highlight);
-  updateFontData();
-  updateLines();
-}
-
-void KateDocument::updateFontData() {
   tagAll();
+  updateLines();
 }
 
 void KateDocument::internalHlChanged() { //slot

@@ -499,7 +499,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   private:
     void makeAttribs();
-    void updateFontData();
 
   private slots:
     void internalHlChanged();

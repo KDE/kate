@@ -4280,11 +4280,11 @@ void KateDocument::reloadFile()
       QString str;
 
       if (m_modOnHdReason == 1)
-        str = i18n("The file %1 was changed (modified) on disc by an other program!\n\n").arg(url().fileName());
+        str = i18n("The file %1 was changed (modified) on disc by another program!\n\n").arg(url().fileName());
       else if (m_modOnHdReason == 2)
-        str = i18n("The file %1 was changed (created) on disc by an other program!\n\n").arg(url().fileName());
+        str = i18n("The file %1 was changed (created) on disc by another program!\n\n").arg(url().fileName());
       else if (m_modOnHdReason == 3)
-        str = i18n("The file %1 was changed (deleted) on disc by an other program!\n\n").arg(url().fileName());
+        str = i18n("The file %1 was changed (deleted) on disc by another program!\n\n").arg(url().fileName());
 
       if (!(KMessageBox::warningYesNo(0,
                str + i18n("Do you really want to reload the modified file, could cause data loss?")) == KMessageBox::Yes))

@@ -4,7 +4,7 @@
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
 	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
-<language name="HTML" version="1.94" kateversion="2.3" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="HTML" version="1.95" kateversion="2.3" section="Markup" extensions="*.htm;*.html;*.shtml;*.shtm" mimetype="text/html"  author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <highlighting>
 <contexts>
@@ -55,7 +55,7 @@
   
   <context name="Comment" attribute="Comment" lineEndContext="#stay">
     <StringDetect attribute="Comment" context="#pop" String="--&gt;" endRegion="comment" />
-    <Detect2Chars attribute="Error" context="#stay" char="-" char1="-" />
+    <RegExpr attribute="Error" context="#stay" String="-(-(?!-&gt;))+" />
     <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
   </context>
 

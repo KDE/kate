@@ -35,7 +35,7 @@
   
   <context name="Comment" attribute="Comment" lineEndContext="#stay">
     <StringDetect attribute="Comment" context="#pop" String="--&gt;" endRegion="comment" />
-    <Detect2Chars attribute="Error" context="#stay" char="-" char1="-" />
+    <RegExpr attribute="Error" context="#stay" String="-(-(?!-&gt;))+" />
     <RegExpr attribute="Alert" context="#stay" String="(FIXME|TODO)" />
   </context>
 

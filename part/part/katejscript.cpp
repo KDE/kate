@@ -55,6 +55,8 @@ QConstString UString::qconststring() const
 
 }
 
+//BEGIN JS API STUFF
+
 class KateJSGlobal : public KJS::ObjectImp {
 public:
   virtual KJS::UString className() const { return "global"; }
@@ -88,6 +90,27 @@ public:
   KateDocument *doc;
 };
 
+class KateJSView : public KJS::ObjectImp {
+public:
+  KateJSView (KJS::ExecState *exec, KateView *_view);
+
+  virtual const KJS::ClassInfo* classInfo() const { return &info; }
+
+  static const KJS::ClassInfo info;
+
+  enum { CursorLine,
+         CursorColumn,
+         CursorColumnReal
+  };
+
+public:
+  KateView *view;
+};
+
+#include "katejscript.lut.h"
+
+//END
+
 KateJScript::KateJScript ()
  : m_global (new KJS::Object (new KateJSGlobal ()))
  , m_interpreter (new KJS::Interpreter (*m_global))
@@ -104,6 +127,7 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 {
   // put some stuff into env.
   m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", KJS::Object(new KateJSDocument(m_interpreter->globalExec(), doc)));
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", KJS::Object(new KateJSView(m_interpreter->globalExec(), view)));
 
   // run
   KJS::Completion comp (m_interpreter->evaluate(script));
@@ -137,11 +161,9 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 
 //BEGIN KateJSDocument
 
-#include "katejscript.lut.h"
-
 // -------------------------------------------------------------------------
 /* Source for KateJSDocumentProtoTable.
-@begin KateJSDocumentProtoTable 3
+@begin KateJSDocumentProtoTable 15
   fullText       KateJSDocument::FullText      DontDelete|Function 0
   text           KateJSDocument::Text          DontDelete|Function 4
   textLine       KateJSDocument::TextLine      DontDelete|Function 1
@@ -227,6 +249,55 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
 KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
     : KJS::ObjectImp (KateJSDocumentProto::self(exec))
     , doc (_doc)
+{
+}
+
+//END
+
+//BEGIN KateJSView
+
+// -------------------------------------------------------------------------
+/* Source for KateJSViewProtoTable.
+@begin KateJSViewProtoTable 4
+  cursorLine          KateJSView::CursorLine            DontDelete|Function 0
+  cursorColumn        KateJSView::CursorColumn          DontDelete|Function 0
+  cursorColumnReal    KateJSView::CursorColumnReal      DontDelete|Function 0
+@end
+*/
+
+DEFINE_PROTOTYPE("KateJSView",KateJSViewProto)
+IMPLEMENT_PROTOFUNC(KateJSViewProtoFunc)
+IMPLEMENT_PROTOTYPE(KateJSViewProto,KateJSViewProtoFunc)
+
+const KJS::ClassInfo KateJSView::info = { "KateJSView", 0, 0, 0 };
+
+Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, const KJS::List &args)
+{
+  KJS_CHECK_THIS( KateJSView, thisObj );
+
+  KateView *view = static_cast<KateJSView *>( thisObj.imp() )->view;
+
+  if (!view)
+    return KJS::Undefined();
+
+  switch (id)
+  {
+    case KateJSView::CursorLine:
+      return KJS::Number (view->cursorLine());
+
+    case KateJSView::CursorColumn:
+      return KJS::Number (view->cursorColumn());
+
+    case KateJSView::CursorColumnReal:
+      return KJS::Number (view->cursorColumnReal());
+  }
+
+  return KJS::Undefined();
+}
+
+KateJSView::KateJSView (KJS::ExecState *exec, KateView *_view)
+    : KJS::ObjectImp (KateJSViewProto::self(exec))
+    , view (_view)
 {
 }
 

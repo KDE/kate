@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.08" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<!--
+(C) 2004 Dominik Haumann <dhdev at gmx dot de>
+ -->
+<language name="Doxygen" version="1.09" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -261,6 +264,7 @@
         <StringDetect attribute="Comment" context="BlockComment" String="/*!" beginRegion="BlockComment"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
+        <IncludeRules context="##Alerts" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
         <keyword attribute="Tags" context="SL_TagWord" String="TagWord" />
         <keyword attribute="Tags" context="SL_TagWordWord" String="TagWordWord" />
@@ -271,6 +275,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="BlockComment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <IncludeRules context="##Alerts" />
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
         <keyword attribute="Tags" context="ML_TagWord" String="TagWord" />
         <keyword attribute="Tags" context="ML_TagWordWord" String="TagWordWord" />
@@ -325,6 +330,7 @@
       </context>
       <context name="ML_htmlcomment" attribute="HTML Comment" lineEndContext="#stay">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <IncludeRules context="##Alerts" />
         <StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
       </context>
       <context name="ML_identifiers" attribute="Identifier" lineEndContext="#stay">
@@ -378,6 +384,7 @@
         <RegExpr attribute="Identifier" context="SL_identifiers" String="\s*=\s*"/>
       </context>
       <context name="SL_htmlcomment" attribute="HTML Comment" lineEndContext="#pop">
+        <IncludeRules context="##Alerts" />
         <StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
       </context>
       <context name="SL_identifiers" attribute="Identifier" lineEndContext="#pop">

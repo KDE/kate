@@ -25,6 +25,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "kateconfig.h"
+#include "kateautoindent.h"
 
 #include <kdebug.h>
 #include <klocale.h>

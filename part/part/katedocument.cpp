@@ -30,6 +30,7 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katesearch.h"
+#include "kateautoindent.h"
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
 #include "katebuffer.h"

@@ -16,8 +16,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef kate_autoindent_h
-#define kate_autoindent_h
+#ifndef __KATE_AUTO_INDENT_H__
+#define __KATE_AUTO_INDENT_H__
 
 #include "katecursor.h"
 #include "kateconfig.h"
@@ -96,6 +96,24 @@ class KateCSmartIndent : public KateAutoIndent
     uint calcContinue (KateDocCursor &begin, KateDocCursor &end);
 
     bool allowSemi;
+};
+
+class KatePythonIndent : public KateAutoIndent
+{
+  public:
+    KatePythonIndent (KateDocument *doc);
+    ~KatePythonIndent ();
+
+    virtual void processNewline (KateDocCursor &begin, bool needContinue);
+
+    virtual uint modeNumber () const { return KateDocumentConfig::imPythonStyle; };
+
+  private:
+    int calcExtra (int &prevBlock, int &pos, KateDocCursor &end);
+
+    static QRegExp endWithColon;
+    static QRegExp stopStmt;
+    static QRegExp blockBegin;
 };
 
 #endif

@@ -32,6 +32,7 @@
 #include "katefactory.h"
 #include "kateconfig.h"
 #include "kateschema.h"
+#include "kateautoindent.h"
 #include "kateview.h"
 
 #include <kio/job.h>

@@ -21,7 +21,6 @@
 #ifndef kate_document_h
 #define kate_document_h
 
-#include "kateautoindent.h"
 #include "katesupercursor.h"
 #include "katetextline.h"
 
@@ -42,6 +41,7 @@ namespace KTextEditor { class Plugin; }
 class KateUndoGroup;
 class KateCmd;
 class KateAttribute;
+class KateAutoIndent;
 class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;

@@ -44,6 +44,9 @@ class KateBookmarks : public QObject
     KateBookmarks::Sorting sorting() { return m_sorting; };
     void setSorting( Sorting s ) { m_sorting = s; };
 
+  protected:
+    bool eventFilter( QObject *, class QEvent* );
+
   private slots:
     void toggleBookmark();
     void clearBookmarks();

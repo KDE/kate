@@ -64,7 +64,8 @@ KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   , m_sorting( sort )
 {
   connect (view->getDoc(), SIGNAL(marksChanged()), this, SLOT(marksChanged()));
-  connect( view, SIGNAL(gotFocus(Kate::View*)), this, SLOT(connectMenuAndDisConnectAgain()) );
+//  connect( view, SIGNAL(gotFocus(Kate::View*)), this, SLOT(connectMenuAndDisConnectAgain()) );
+  m_view->installEventFilter( this );
 }
 
 KateBookmarks::~KateBookmarks()
@@ -100,6 +101,14 @@ void KateBookmarks::createActions( KActionCollection* ac )
   marksChanged ();
 }
 
+bool KateBookmarks::eventFilter( QObject *o, QEvent *e )
+{
+  if ( o == m_view && e->type() == QEvent::Show )
+    connectMenuAndDisConnectAgain();
+  return false;
+}
+
+
 void KateBookmarks::connectMenuAndDisConnectAgain()
 {
     if ( m_view->factory() )
@@ -116,11 +125,13 @@ void KateBookmarks::connectMenuAndDisConnectAgain()
       connect( m, SIGNAL(aboutToHide()),
               this, SLOT(bookmarkMenuAboutToHide()) );
 
-      disconnect( m_view, 0, this, SLOT(connectMenuAndDisConnectAgain()) );
+//       disconnect( m_view, 0, this, SLOT(connectMenuAndDisConnectAgain()) );
+      m_view->removeEventFilter( this );
       return;
     }
 
     // FUCKY-SUCKY -- try later
+    if ( m_view->isVisible() )
     QTimer::singleShot( 0, this, SLOT(connectMenuAndDisConnectAgain()));
 }
 

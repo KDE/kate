@@ -4515,9 +4515,14 @@ void KateDocument::setDescription(MarkInterface::MarkTypes, const QString &)
 
 void KateDocument::setMarksUserChangable(uint markMask)
 {
-	;
+	m_editableMarks=markMask;
 }
 
+// -----------------------
+uint KateDocument::editableMarks()
+{
+	return m_editableMarks;
+}
 
 /**
  * End of the implementaion of the MarkInterfaceExtension

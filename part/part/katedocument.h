@@ -809,7 +809,11 @@ class KateDocument : public Kate::Document, public KTextEditor::MarkInterfaceExt
 
   signals:
     virtual void markChanged (KTextEditor::Mark mark, MarkInterfaceExtension::MarkChangeAction action);
-
+//--------
+  private:
+	uint m_editableMarks;
+  public:
+	uint editableMarks();
 };
 
 #endif

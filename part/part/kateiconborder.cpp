@@ -29,8 +29,8 @@
 
 #include <kdebug.h>
 #include <qpainter.h>
-
-
+#include <qpopupmenu.h>
+#include <qcursor.h>
 
 const char * plus_xpm[] = {
 "12 16 3 1",
@@ -201,7 +201,7 @@ const char*exec_xpm[]={
 
 
 KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
-    : QWidget(view), myView(view), myInternalView(internalView)
+    : QWidget(view), myView(view), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
 {
   lmbSetsBreakpoints = true; // anders: does NOTHING ?!
   iconPaneWidth = 16; // FIXME: this should be shared by all instances!
@@ -393,7 +393,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
     //kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
 
     bool mappedLineValid=true;
-    if ((i-topLine) >= 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
+    if (((int)(i-topLine)) >= 0) mappedLine=myInternalView->lineRanges[i-topLine].line;
     else mappedLineValid=false;
     
 //    kdDebug()<<QString("mapped Line is invalid !!!! %1").arg(i)<<endl;
@@ -486,10 +486,24 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
     {
         switch (e->button()) {
         case LeftButton:
-                if (mark&KateDocument::markType01)
-                  myView->myDoc->removeMark (cursorOnLine, KateDocument::markType01);
-                else
-                  myView->myDoc->addMark (cursorOnLine, KateDocument::markType01);
+		createMarkMenu();
+		if (oldEditableMarks) {
+			if (markMenu) {
+				markMenu->exec(QCursor::pos());	
+			}
+			else {
+		                if (mark&oldEditableMarks)
+                			myView->myDoc->removeMark (cursorOnLine, oldEditableMarks);
+		                else
+                			  myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
+			}
+
+	
+		}
+//                if (mark&KateDocument::markType01)
+//                  myView->myDoc->removeMark (cursorOnLine, KateDocument::markType01);
+//                else
+//                  myView->myDoc->addMark (cursorOnLine, KateDocument::markType01);
             break;
  /*       case RightButton:
             {
@@ -560,4 +574,44 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
             }
         }
     }
+}
+
+void KateIconBorder::createMarkMenu()
+{
+	unsigned int tmpMarks;
+	if (myView->myDoc->editableMarks()==oldEditableMarks) return;	
+	oldEditableMarks=myView->myDoc->editableMarks();
+	if ((markMenu) && (!oldEditableMarks)) {
+		delete markMenu;
+		markMenu=0;
+		return;
+	}
+	else if ((markMenu) && oldEditableMarks) markMenu->clear();
+	tmpMarks=oldEditableMarks;
+	
+	bool first_found=false;
+	for(unsigned int tmpMark=1;tmpMark;tmpMark=tmpMark<<1) {
+
+		if (tmpMark && tmpMarks) {
+			tmpMarks -=tmpMark;
+
+			if (!first_found) {
+				if (!tmpMarks) {
+					if (markMenu) {
+						delete markMenu;
+						markMenu=0;
+					} 
+					return;
+				}
+				if (!markMenu) markMenu=new QPopupMenu(this);
+				markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
+				first_found=true;
+			}
+			else markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
+			
+		}
+		if (!tmpMarks) return;
+		
+	}
+
 }

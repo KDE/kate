@@ -27,6 +27,7 @@
 
 class KateView;
 class KateViewInternal;
+class QPopupMenu;
 
 class KateIconBorder : public QWidget
 {
@@ -51,6 +52,11 @@ private:
     int iconPaneWidth;
     int cachedLNWidth;
     uint linesAtLastCheck; // only calculate width if number of lines has changed
+
+    unsigned int oldEditableMarks;
+    QPopupMenu *markMenu;
+
+    void createMarkMenu();
 
 signals:
     void toggleRegionVisibility(unsigned int);

@@ -283,7 +283,7 @@ void KateIndentConfigTab::somethingToggled() {
 
 void KateIndentConfigTab::indenterSelected (int index)
 {
-  if (index == KateDocumentConfig::imCStyle)
+  if (index == KateDocumentConfig::imCStyle || index == KateDocumentConfig::imCSAndS)
     opt[6]->setEnabled(true);
   else
     opt[6]->setEnabled(false);

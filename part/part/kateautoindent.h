@@ -176,6 +176,7 @@ class KateAutoIndent
     uchar alertAttrib;
     uchar tagAttrib;
     uchar wordAttrib;
+    uchar keywordAttrib;
 
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
     bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file
@@ -253,6 +254,31 @@ class KateXmlIndent : public KateAutoIndent
     // useful regular expressions
     static const QRegExp startsWithCloseTag;
     static const QRegExp unclosedDoctype;
+};
+
+class KateCSAndSIndent : public KateAutoIndent
+{
+  public:
+    KateCSAndSIndent (KateDocument *doc);
+    ~KateCSAndSIndent ();
+
+    virtual void processNewline (KateDocCursor &begin, bool needContinue);
+    virtual void processChar (QChar c);
+
+    virtual void processLine (KateDocCursor &line);
+    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+
+    virtual bool canProcessLine() { return true; }
+
+    virtual uint modeNumber () const { return KateDocumentConfig::imCSAndS; };
+
+  private:
+    void updateIndentString();
+    QString calcIndent (const KateDocCursor &begin);
+    QString findOpeningCommentIndentation (const KateDocCursor &start);
+    bool handleDoxygen (KateDocCursor &begin);
+
+    QString indentString;
 };
 
 #endif

@@ -35,7 +35,9 @@ KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
     return new KatePythonIndent (doc);
   else if (mode == KateDocumentConfig::imXmlStyle)
     return new KateXmlIndent (doc);
-
+  else if (mode == KateDocumentConfig::imCSAndS)
+    return new KateCSAndSIndent (doc);
+  
   return new KateAutoIndent (doc);
 }
 
@@ -47,6 +49,7 @@ QStringList KateAutoIndent::listModes ()
   l << modeDescription(KateDocumentConfig::imCStyle);
   l << modeDescription(KateDocumentConfig::imPythonStyle);
   l << modeDescription(KateDocumentConfig::imXmlStyle);
+  l << modeDescription(KateDocumentConfig::imCSAndS);
 
   return l;
 }
@@ -59,6 +62,8 @@ QString KateAutoIndent::modeName (uint mode)
     return QString ("python");
   else if (mode == KateDocumentConfig::imXmlStyle)
     return QString ("xml");
+  else if (mode == KateDocumentConfig::imCSAndS)
+    return QString ("csands");
 
   return QString ("normal");
 }
@@ -71,6 +76,8 @@ QString KateAutoIndent::modeDescription (uint mode)
     return i18n ("Python Style");
   else if (mode == KateDocumentConfig::imXmlStyle)
     return i18n ("XML Style");
+  else if (mode == KateDocumentConfig::imCSAndS)
+    return i18n ("S&S C Style");
 
   return i18n ("Normal");
 }
@@ -83,6 +90,8 @@ uint KateAutoIndent::modeNumber (const QString &name)
     return KateDocumentConfig::imPythonStyle;
   else if (modeName(KateDocumentConfig::imXmlStyle) == name)
     return KateDocumentConfig::imXmlStyle;
+  else if (modeName(KateDocumentConfig::imCSAndS) == name)
+    return KateDocumentConfig::imCSAndS;
 
   return KateDocumentConfig::imNormal;
 }
@@ -111,6 +120,7 @@ void KateAutoIndent::updateConfig ()
   alertAttrib = 255;
   tagAttrib = 255;
   wordAttrib = 255;
+  keywordAttrib = 255;
 
   KateHlItemDataList items;
   doc->highlight()->getKateHlItemDataListCopy (0, items);
@@ -145,6 +155,10 @@ void KateAutoIndent::updateConfig ()
     else if (name.find("Word") != -1 && wordAttrib == 255)
     {
       wordAttrib = i;
+    }
+    else if (name.find("Keyword") != -1 && keywordAttrib == 255)
+    {
+      keywordAttrib = i;
     }
   }
 }
@@ -269,9 +283,8 @@ void KateAutoIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/
 
   if (pos > 0)
   {
-    uint indent = doc->plainKateTextLine(line)->cursorX(pos, tabWidth);
-    QString filler = tabString (indent);
-    doc->insertText (begin.line(), 0, filler);
+    QString filler = doc->text(line, 0, line, pos);
+    doc->insertText(begin.line(), 0, filler);
     begin.setCol(filler.length());
   }
   else
@@ -1208,6 +1221,333 @@ uint KateXmlIndent::processLine (uint line)
   doc->insertText(line, 0, filler);
 
   return filler.length();
+}
+
+// END
+
+// BEGIN KateCSAndSIndent
+
+KateCSAndSIndent::KateCSAndSIndent (KateDocument *doc)
+ :  KateAutoIndent (doc)
+{
+}
+
+void KateCSAndSIndent::updateIndentString()
+{
+  if( useSpaces )
+    indentString.fill( ' ', indentWidth );
+  else
+    indentString = '\t';
+}
+
+KateCSAndSIndent::~KateCSAndSIndent ()
+{
+
+}
+
+void KateCSAndSIndent::processLine (KateDocCursor &line)
+{
+  // TODO: don't mess with indentation of text within comments.
+  //if ( inComment( line ) )
+  //  return;
+  
+  updateIndentString();
+  
+  QString whitespace = calcIndent(line);
+  // strip off existing whitespace
+  int firstChar = doc->plainKateTextLine(line.line())->firstChar();
+  if( firstChar )
+    doc->removeText(line.line(), 0, line.line(), firstChar);
+  // add correct amount
+  doc->insertText(line.line(), 0, whitespace);
+}
+
+void KateCSAndSIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
+{
+  QTime t; t.start();
+  for( KateDocCursor cur = begin; cur.line() <= end.line(); )
+  {
+    processLine (cur);
+    if (!cur.gotoNextLine())
+      break;
+  }
+  kdDebug(13000) << "+++ total: " << t.elapsed() << endl;
+}
+
+/**
+ * Returns the first @p chars characters of @p line, converted to whitespace.
+ * If @p convert is set to false, characters at and after the first non-whitespace
+ * character are removed, not converted.
+ */
+static QString initialWhitespace(KateTextLine::Ptr line, int chars, bool convert = true)
+{
+  QString text = line->string(0, chars);
+  if( text.length() < chars )
+  {
+    QString filler; filler.fill(' ',chars - text.length());
+    text += filler;
+  }
+  for( uint n = 0; n < text.length(); ++n )
+  {
+    if( text[n] != '\t' && text[n] != ' ' )
+    {
+      if( !convert )
+        return text.left( n );
+      text[n] = ' ';
+    }
+  }
+  return text;
+}
+
+/// how long would @p line be if we stripped any //-style comments from it?
+static int stripLineCommentLength(const QString &line)
+{
+  int pos = line.find("//");
+  if( pos != -1 )
+    return pos;
+  return line.length();
+}
+
+QString KateCSAndSIndent::findOpeningCommentIndentation(const KateDocCursor &start)
+{
+  KateDocCursor cur = start;
+
+  // Find the line with the opening /* and return the indentation of it
+  do
+  {
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
+
+    int pos = textLine->string().findRev("/*");
+    // FIXME: /* inside /* is possible. This screws up in that case...
+    if (pos >= 0)
+      return initialWhitespace(textLine, pos);
+  } while (cur.gotoPreviousLine());
+
+  // should never happen.
+  kdWarning( 13000 ) << " in a comment, but can't find the start of it" << endl;
+  return QString::null;
+}
+
+bool KateCSAndSIndent::handleDoxygen (KateDocCursor &begin)
+{
+  // Look backwards for a nonempty line
+  int line = begin.line();
+  int first = -1;
+  while ((line > 0) && (first < 0))
+    first = doc->plainKateTextLine(--line)->firstChar();
+
+  // no earlier nonempty line
+  if (first < 0)
+    return false;
+  
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
+  
+  // if the line doesn't end in a doxygen comment, we don't care.
+  if (textLine->attribute(textLine->lastChar()) != doxyCommentAttrib)
+    return false;
+  
+  // if the line ends the doxygen comment, again we don't care.
+  if (textLine->endingWith("*/"))
+    return false;
+
+  // our line is inside a doxygen comment. align the *'s and then maybe insert one too ...
+  textLine = doc->plainKateTextLine(begin.line());
+  first = textLine->firstChar();
+  QString indent = findOpeningCommentIndentation(begin);
+
+  bool doxygenAutoInsert = doc->config()->configFlags() & KateDocumentConfig::cfDoxygenAutoTyping;
+  
+  // starts with *: indent one space more to line up *s
+  if ( textLine->stringAtPos(first, "*") )
+    indent = indent + " ";
+  // does not start with *: insert one if user wants that
+  else if ( doxygenAutoInsert )
+    indent = indent + " * ";
+  // user doesn't want * inserted automatically: put in spaces?
+  //else
+  //  indent = indent + "   ";
+
+  doc->removeText (begin.line(), 0, begin.line(), first);
+  doc->insertText (begin.line(), 0, indent);
+  begin.setCol(indent.length());
+
+  return true;
+}
+
+/**
+ * @brief User pressed enter. Line has been split; begin is on the new line.
+ * @param begin Three unrelated variables: the new line number, where the first
+ *              non-whitespace char was on the previous line, and the document.
+ * @param needContinue Something to do with indenting the current line; always true.
+ */
+void KateCSAndSIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/)
+{
+  updateIndentString();
+  
+  // in a comment, add a * doxygen-style. probably broken.
+  if( handleDoxygen(begin) )
+    return;
+  
+  // TODO: never do this in a comment
+  QString whitespace = calcIndent(begin);
+  doc->insertText(begin.line(), 0, whitespace);
+  begin.setCol(whitespace.length());
+}
+
+template<class T> T min(T a, T b) { return (a < b) ? a : b; }
+#define ARRLEN( array ) ( sizeof(array)/sizeof(array[0]) )
+
+/**
+ * The line containing @p begin does not start in a /*-style comment.
+ * Figure out how indented the line should be.
+ */
+QString KateCSAndSIndent::calcIndent (const KateDocCursor &begin)
+{
+  /* Strategy:
+   * Look for an open bracket or brace, or a keyword opening a new scope, whichever comes latest.
+   * Found a brace: indent one tab in.
+   * Found a bracket: indent to the first non-white after it.
+   * Found a keyword: indent one tab in. for try, catch and switch, if newline is set, also add
+   *                  an open brace, a newline, and indent two tabs in.
+   */
+  KateDocCursor cur = begin;
+  int pos, openBraceCount = 0, openParenCount = 0;
+  bool lookingForScopeKeywords = true, foundKeyword = false, blockKeyword = false;
+  const char * const scopeKeywords[] = { "for", "do", "while", "if", "else" };
+  const char * const blockScopeKeywords[] = { "try", "catch", "switch" };
+  
+  // TODO: ignore characters inside comments
+  
+  while (cur.gotoPreviousLine())
+  {
+    KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
+    const int lastChar = min(stripLineCommentLength(textLine->string()) - 1, textLine->lastChar());
+    const int firstChar = textLine->firstChar();
+    
+    // look through line backwards for interesting characters
+    for( pos = lastChar; pos >= firstChar; --pos )
+    {
+      if (textLine->attribute(pos) == symbolAttrib)
+      {  
+        char tc = textLine->getChar (pos);
+        switch( tc )
+        {
+          case '(': case '[': openParenCount++; break;
+          case ')': case ']': openParenCount--; break;
+          case '{': openBraceCount++; break;
+          case '}': openBraceCount--; lookingForScopeKeywords = false; break;
+          case ';':
+            if( openParenCount == 0 )
+              lookingForScopeKeywords = false;
+            break;
+        }
+      }  
+      
+      // if we're at a word at the same parenthesis level as the cursor, and we've not had a close
+      // brace or semicolon yet, any scope keyword should cause an indent.
+      if (textLine->attribute(pos) == keywordAttrib && openParenCount == 0 && lookingForScopeKeywords )
+      {
+        for( int n = 0; n < ARRLEN(scopeKeywords); ++n )
+          if( textLine->stringAtPos(pos, QString::fromLatin1(scopeKeywords[n]) ) )
+            foundKeyword = true;
+        for( int n = 0; n < ARRLEN(blockScopeKeywords); ++n )
+          if( textLine->stringAtPos(pos, QString::fromLatin1(blockScopeKeywords[n]) ) )
+            foundKeyword = blockKeyword = true;
+      }
+      
+      if (openBraceCount > 0 || openParenCount > 0 || foundKeyword)
+        break;
+    }
+    if (openBraceCount > 0 || openParenCount > 0 || foundKeyword)
+      break;
+  }
+  
+  // Either we found an open brace, an open parenthesis, a scope keyword, or we got to the start of the file.
+  // Return the appropriate amount of whitespace.
+  
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(cur.line());
+  KateTextLine::Ptr currLine = doc->plainKateTextLine(begin.line());
+  
+  if (foundKeyword)
+  {
+    QString whitespaceToKeyword = initialWhitespace( textLine, pos, false );
+    if( blockKeyword )
+      ; // FIXME
+    
+    // If the line starts with an open brace, don't indent...
+    int first = currLine->firstChar();
+    if( first >= 0 && currLine->getChar(first) == '{' )
+      return whitespaceToKeyword;
+    
+    return indentString + whitespaceToKeyword;
+  }
+  else if (openBraceCount > 0)
+  {
+    QString whitespaceToOpenBrace = initialWhitespace( textLine, pos, false );
+    int first = currLine->firstChar();
+    
+    // if the open brace is the start of a namespace, don't indent...
+    // FIXME: this is an extremely poor heuristic. it looks on the line with
+    //        the { and the line before to see if they start with a keyword
+    //        beginning 'namespace'. that's 99% of usage, I'd guess.
+    if( cur.line() > 0 )
+    {
+      if( first >= 0 && textLine->attribute(first) == keywordAttrib &&
+          textLine->stringAtPos( first, QString::fromLatin1( "namespace" ) ) )
+        return whitespaceToOpenBrace;
+      
+      KateTextLine::Ptr prevLine = doc->plainKateTextLine(cur.line() - 1);
+      int firstPrev = prevLine->firstChar();
+      if( firstPrev >= 0 && prevLine->attribute(firstPrev) == keywordAttrib &&
+          prevLine->stringAtPos( firstPrev, QString::fromLatin1( "namespace" ) ) )
+        return whitespaceToOpenBrace;
+    }
+    
+    // If the line starts with a close brace, don't indent...
+    if( first >= 0 && currLine->getChar(first) == '}' )
+      return whitespaceToOpenBrace;
+    
+    // If the line starts with a label, don't indent...
+    const char * const noIndent[] = { "case ", "public:", "protected:", "private:",
+      "signals:", "public slots:", "protected slots:", "private slots:", "default:" };
+    for ( int n = 0; n < ARRLEN(noIndent); ++n )
+      if( currLine->stringAtPos( first, QString::fromLatin1( noIndent[n] ) ) )
+        return whitespaceToOpenBrace;
+    
+    return indentString + whitespaceToOpenBrace;
+  }
+  else if (openParenCount > 0)
+  {
+    // If the line starts with a close bracket, line it up
+    int first = currLine->firstChar(), indentTo;
+    if( first >= 0 && currLine->getChar(first) == ')' )
+      indentTo = pos;
+    // Otherwise, line up with the text after the open bracket
+    else
+    {
+      indentTo = textLine->nextNonSpaceChar( pos + 1 );
+      if( indentTo == -1 )
+        indentTo = pos + 2;
+    }
+    return initialWhitespace( textLine, indentTo );
+  }
+  else // no active { in file.
+  {
+    return QString::null;
+  }
+}
+
+void KateCSAndSIndent::processChar(QChar c)
+{
+  static const QString triggers("}{)/:;#");
+  if (triggers.find(c) == -1)
+    return;
+
+  // look ma, i'm broken!
+  KateView *view = doc->activeView();
+  KateDocCursor begin(view->cursorLine(), 0, doc);
+
+  processLine(begin);
 }
 
 // END

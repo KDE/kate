@@ -31,7 +31,6 @@
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/editinterfaceext.h>
 
-#include <kservice.h>
 #include <dcopobject.h>
 
 #include <qintdict.h>
@@ -56,21 +55,13 @@ class KateLineInfo;
 class KateBrowserExtension;
 class KateDocumentConfig;
 class Highlight;
+class KatePartPluginItem;
+class KatePartPluginInfo;
 
 class KSpell;
 class KTempFile;
 
 class QTimer;
-
-class KatePartPluginInfo
-{
-  public:
-    bool load;
-    KService::Ptr service;
-    KTextEditor::Plugin *plugin;
-};
-
-typedef QPtrList<KatePartPluginInfo> KatePartPluginList;
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -87,8 +78,6 @@ class KateDocument : public Kate::Document,
 
   friend class KateViewInternal;
   friend class KateView;
-  friend class ViewDefaultsConfig;
-  friend class PluginConfigPage;
   friend class KateRenderer;
 
   public:
@@ -98,31 +87,35 @@ class KateDocument : public Kate::Document,
 
     bool closeURL();
 
-    KatePartPluginList *plugins () { return &m_plugins; };
-
+  //
+  // Plugins section
+  //
+  public:
     void loadAllEnabledPlugins ();
     void unloadAllPlugins ();
     
     void enableAllPluginsGUI (KateView *view);
     void disableAllPluginsGUI (KateView *view);
 
-    void loadPlugin (KatePartPluginInfo *item);
-    void unloadPlugin (KatePartPluginInfo *item);
+    void loadPlugin (KatePartPluginInfo *info, KatePartPluginItem *item);
+    void unloadPlugin (KatePartPluginItem *item);
     
-    void enablePluginGUI (KatePartPluginInfo *item, KateView *view);
-    void enablePluginGUI (KatePartPluginInfo *item);
+    void enablePluginGUI (KatePartPluginItem *item, KateView *view);
+    void enablePluginGUI (KatePartPluginItem *item);
     
-    void disablePluginGUI (KatePartPluginInfo *item, KateView *view);
-    void disablePluginGUI (KatePartPluginInfo *item);
+    void disablePluginGUI (KatePartPluginItem *item, KateView *view);
+    void disablePluginGUI (KatePartPluginItem *item);
 
+  private:
+     QPtrList<KatePartPluginItem> m_plugins; 
+   
   private:
     // only to make part work, don't change it !
     bool m_bSingleViewMode;
     bool m_bBrowserView;
     bool m_bReadOnly;
     KateBrowserExtension *m_extension;
-    static KatePartPluginList s_plugins;
-    KatePartPluginList m_plugins;
+   
 
   //
   // KTextEditor::Document stuff

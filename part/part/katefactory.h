@@ -31,6 +31,15 @@ class KateSchemaManager;
 
 class KDirWatch;
 
+class KatePartPluginInfo
+{
+  public:
+    bool load;
+    KService::Ptr service;
+};
+
+typedef QPtrList<KatePartPluginInfo> KatePartPluginList;
+
 class KateFactory
 {
   private:
@@ -60,7 +69,7 @@ class KateFactory
 
     inline QPtrList<class KateRenderer> *renderers () { return &m_renderers; };
     
-    inline KTrader::OfferList *plugins () { return &m_plugins; };
+    inline KatePartPluginList *plugins () { return &m_plugins; };
 
     inline KDirWatch *dirWatch () { return m_dirWatch; };
 
@@ -78,7 +87,7 @@ class KateFactory
     QPtrList<class KateView> m_views;
     QPtrList<class KateRenderer> m_renderers;
     
-    KTrader::OfferList m_plugins;
+    KatePartPluginList m_plugins;
     
     KDirWatch *m_dirWatch;  
   

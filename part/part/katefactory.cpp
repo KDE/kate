@@ -108,7 +108,20 @@ KateFactory::KateFactory ()
   //
   // plugins
   //
-  m_plugins = KTrader::self()->query("KTextEditor/Plugin");
+  KTrader::OfferList l = KTrader::self()->query("KTextEditor/Plugin");
+  m_plugins.setAutoDelete (true);
+  for(KTrader::OfferList::Iterator it(l.begin());
+      it != l.end(); ++it)
+  {
+    KService::Ptr ptr = (*it);
+
+    KatePartPluginInfo *info=new KatePartPluginInfo;
+
+    info->load = false;
+    info->service = ptr;
+
+    m_plugins.append(info);
+  }
 
   //
   // dir watch

@@ -283,11 +283,8 @@ class PluginConfigPage : public KateConfigPage
   Q_OBJECT
 
   public:
-    PluginConfigPage (QWidget *parent, class KateDocument *doc);
+    PluginConfigPage (QWidget *parent);
     ~PluginConfigPage ();
-
-  private:
-    KateDocument *m_doc;
 
   private slots:
     void stateChange(KatePartPluginListItem *, bool);

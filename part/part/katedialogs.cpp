@@ -895,10 +895,8 @@ void KatePartPluginListView::stateChanged(KatePartPluginListItem *item, bool b)
 //END
 
 //BEGIN PluginConfigPage
-PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : KateConfigPage (parent, "")
+PluginConfigPage::PluginConfigPage (QWidget *parent) : KateConfigPage (parent, "")
 {
-  m_doc = doc;
-
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 
@@ -909,11 +907,11 @@ PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : KateCo
 
   grid->addWidget( listView, 0, 0);
 
-  for (uint i=0; i<m_doc->s_plugins.count(); i++)
+  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
   {
-    KatePartPluginListItem *item = new KatePartPluginListItem(m_doc->s_plugins.at(i)->load, m_doc->s_plugins.at(i), listView);
-    item->setText(0, m_doc->s_plugins.at(i)->service->name());
-    item->setText(1, m_doc->s_plugins.at(i)->service->comment());
+    KatePartPluginListItem *item = new KatePartPluginListItem(KateFactory::self()->plugins()->at(i)->load, KateFactory::self()->plugins()->at(i), listView);
+    item->setText(0, KateFactory::self()->plugins()->at(i)->service->name());
+    item->setText(1, KateFactory::self()->plugins()->at(i)->service->comment());
   }
 }
 

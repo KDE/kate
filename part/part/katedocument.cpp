@@ -82,8 +82,15 @@
 
 //BEGIN variables
 bool KateDocument::s_configLoaded = false;
-KatePartPluginList KateDocument::s_plugins;
 //END variables
+
+//BEGIN PRIVATE CLASSES
+class KatePartPluginItem
+{
+  public:
+    KTextEditor::Plugin *plugin;
+};
+//END PRIVATE CLASSES
 
 // BEGIN d'tor, c'tor
 //
@@ -142,39 +149,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // until the initial readConfig() call is done
   m_config = new KateDocumentConfig (this);
 
-  // init global plugin list
-  if (!s_configLoaded)
+  // init local plugin item list
+  for(uint z=0; z < KateFactory::self()->plugins()->count(); z++)
   {
-    s_plugins.setAutoDelete (true);
-    KTrader::OfferList::Iterator it(KateFactory::self()->plugins()->begin());
-    for( ; it != KateFactory::self()->plugins()->end(); ++it)
-    {
-      KService::Ptr ptr = (*it);
+    KatePartPluginItem *i=new KatePartPluginItem;
+    i->plugin = 0L;
 
-      KatePartPluginInfo *info=new KatePartPluginInfo;
-
-      info->load = false;
-      info->service = ptr;
-      info->plugin = 0L;
-
-      s_plugins.append(info);
-    }
-  }
-
-  // init local plugin list
-  m_plugins.setAutoDelete (true);
-  KTrader::OfferList::Iterator it(KateFactory::self()->plugins()->begin());
-  for( ; it != KateFactory::self()->plugins()->end(); ++it)
-  {
-    KService::Ptr ptr = (*it);
-
-    KatePartPluginInfo *info=new KatePartPluginInfo;
-
-    info->load = false;
-    info->service = ptr;
-    info->plugin = 0L;
-
-    m_plugins.append(info);
+    m_plugins.append(i);
   }
 
   // init some more vars !
@@ -315,8 +296,8 @@ KateDocument::~KateDocument()
   
   // clean up plugins
   unloadAllPlugins ();
-  m_plugins.setAutoDelete(true);
-  m_plugins.clear();
+  m_plugins.setAutoDelete (true);
+  m_plugins.clear ();
   
   delete m_config;
   delete m_indenter;
@@ -327,10 +308,10 @@ KateDocument::~KateDocument()
 //BEGIN Plugins
 void KateDocument::loadAllEnabledPlugins ()
 {
-  for (uint i=0; i<s_plugins.count(); i++)
+  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
   {
-    if (s_plugins.at(i)->load)
-      loadPlugin (m_plugins.at(i));
+    if (KateFactory::self()->plugins()->at(i)->load)
+      loadPlugin (KateFactory::self()->plugins()->at(i), m_plugins.at(i));
     else
       unloadPlugin (m_plugins.at(i));
   }
@@ -363,16 +344,16 @@ void KateDocument::disableAllPluginsGUI (KateView *view)
   }
 }
 
-void KateDocument::loadPlugin (KatePartPluginInfo *item)
+void KateDocument::loadPlugin (KatePartPluginInfo *info, KatePartPluginItem *item)
 {
   if (item->plugin) return;
 
-  item->plugin = KTextEditor::createPlugin (QFile::encodeName(item->service->library()), this);
+  item->plugin = KTextEditor::createPlugin (QFile::encodeName(info->service->library()), this);
 
   enablePluginGUI (item);
 }
 
-void KateDocument::unloadPlugin (KatePartPluginInfo *item)
+void KateDocument::unloadPlugin (KatePartPluginItem *item)
 {
   if (!item->plugin) return;
 
@@ -382,7 +363,7 @@ void KateDocument::unloadPlugin (KatePartPluginInfo *item)
   item->plugin = 0L;
 }
 
-void KateDocument::enablePluginGUI (KatePartPluginInfo *item, KateView *view)
+void KateDocument::enablePluginGUI (KatePartPluginItem *item, KateView *view)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
@@ -397,7 +378,7 @@ void KateDocument::enablePluginGUI (KatePartPluginInfo *item, KateView *view)
     factory->addClient( view );
 }
 
-void KateDocument::enablePluginGUI (KatePartPluginInfo *item)
+void KateDocument::enablePluginGUI (KatePartPluginItem *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
@@ -406,7 +387,7 @@ void KateDocument::enablePluginGUI (KatePartPluginInfo *item)
     enablePluginGUI (item, m_views.at(i));
 }
 
-void KateDocument::disablePluginGUI (KatePartPluginInfo *item, KateView *view)
+void KateDocument::disablePluginGUI (KatePartPluginItem *item, KateView *view)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
@@ -421,7 +402,7 @@ void KateDocument::disablePluginGUI (KatePartPluginInfo *item, KateView *view)
     factory->addClient( view );
 }
 
-void KateDocument::disablePluginGUI (KatePartPluginInfo *item)
+void KateDocument::disablePluginGUI (KatePartPluginItem *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
@@ -485,7 +466,7 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
       return new SpellConfigPage (parent);
 
     case 10:
-      return new PluginConfigPage (parent, this);
+      return new PluginConfigPage (parent);
 
     case 8:
       return new KateFileTypeConfigTab (parent);
@@ -1968,8 +1949,8 @@ void KateDocument::readConfig(KConfig *config)
   KateRendererConfig::global()->readConfig (config);
 
   config->setGroup("Kate KTextEditor Plugins");
-  for (uint i=0; i<s_plugins.count(); i++)
-    s_plugins.at(i)->load = config->readBoolEntry(s_plugins.at(i)->service->library(), false);
+  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
+    KateFactory::self()->plugins()->at(i)->load = config->readBoolEntry(KateFactory::self()->plugins()->at(i)->service->library(), false);
 
   for (uint z=0; z < KateFactory::self()->documents()->count(); z++)
     KateFactory::self()->documents()->at(z)->loadAllEnabledPlugins ();
@@ -1987,8 +1968,8 @@ void KateDocument::writeConfig(KConfig *config)
   KateRendererConfig::global()->writeConfig (config);
 
   config->setGroup("Kate KTextEditor Plugins");
-  for (uint i=0; i<s_plugins.count(); i++)
-    config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
+  for (uint i=0; i<KateFactory::self()->plugins()->count(); i++)
+    config->writeEntry(KateFactory::self()->plugins()->at(i)->service->library(), KateFactory::self()->plugins()->at(i)->load);
 }
 
 void KateDocument::readConfig()

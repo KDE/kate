@@ -23,8 +23,10 @@
 
 #include "kateglobal.h"
 
-#include <qscrollview.h>
+#include <qwidget.h>
+#include <qscrollbar.h>
 #include <qpoint.h>
+#include <qpixmap.h>
 
 class KateDocument;
 class KateView;
@@ -61,7 +63,7 @@ class KateLineRange
     right =  1
   };
 
-class KateViewInternal : public QScrollView
+class KateViewInternal : public QWidget
 {
     Q_OBJECT
     friend class KateDocument;
@@ -112,6 +114,7 @@ class KateViewInternal : public QScrollView
 
     void clear();
     const KateTextCursor& getCursor()  { return cursor; }
+    void resizeDrawBuffer( int w, int h ) { drawBuffer->resize(w,h); }
     QPoint cursorCoordinates();
 
   signals:
@@ -119,13 +122,11 @@ class KateViewInternal : public QScrollView
     void dropEventPass(QDropEvent*);
     
   private slots:
-    void slotContentsMoving (int x, int y);                
+    void changeXPos(int);
+    void changeYPos(int);
     void tripleClickTimeout();
 
   private:
-    void drawContents( QPainter *paint, int cx, int cy, int cw, int ch );
-    void drawContents( QPainter *paint, int cx, int cy, int cw, int ch, bool repaint );
-  
     void moveChar( Bias bias, bool sel );
     void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
@@ -163,6 +164,7 @@ class KateViewInternal : public QScrollView
     void mouseReleaseEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void wheelEvent( QWheelEvent *e );
+    void paintEvent(QPaintEvent *);
     void resizeEvent(QResizeEvent *);
     void timerEvent(QTimerEvent *);
 
@@ -171,6 +173,8 @@ class KateViewInternal : public QScrollView
 
     KateView *myView;
     KateDocument *myDoc;
+    class QScrollBar *xScroll;
+    class QScrollBar *yScroll;
     class KateIconBorder *leftBorder;
     
     int xPos;
@@ -214,6 +218,8 @@ class KateViewInternal : public QScrollView
     //
     KateTextCursor cursorCache;
     bool cursorCacheChanged;
+
+    QPixmap *drawBuffer;
 
     BracketMark bm;
 

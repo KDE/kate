@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ruby" version="1.04" kateversion="2.1" section="Scripts" extensions="*.rb" mimetype="text/x-ruby">
+<language name="Ruby" version="1.04" kateversion="2.1" section="Scripts" extensions="*.rb" mimetype="application/x-ruby">
 	<highlighting>
 	
 		<list name = "keywords">

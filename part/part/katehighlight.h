@@ -167,9 +167,19 @@ class KateHighlighting
     signed char commentRegion(int attr) const;
 
     /**
-     * Define comment marker type.
+     * Defines positions in the additional data list.
+     * FIXME this (m_additionaldata) is now well designed, since anyone can mainpulate
+     * the stringlist from anywhere. It allready broke once, and it will break
+     * again. So we need a class instead of the stringlist.
      */
-    enum commentData { Start, End, MultiLineRegion, SingleLine };
+    enum additionalDataType {
+      Start=0,
+      End,
+      MultiLineRegion,
+      SingleLine,
+      Deliminator,
+      WordWrapDeliminator
+    };
 
     /**
      * @return the comment marker @p which for the highlight corresponding to
@@ -240,9 +250,17 @@ class KateHighlighting
     int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
 
     /**
-    * @return the key to use for @p attrib in m_additionalData.
-    */
-    int hlKeyForAttrib( int attrib ) const;
+     * @return the key to use for @p attrib in m_additionalData.
+     */
+    int hlKeyForAttrib( int attrib ) const { return hlKeyForList( &m_hlIndex, attrib ); }
+    /**
+     * @return the key to use for @p context in m_additionalData.
+     */
+    int hlKeyForContext( int context ) const { return hlKeyForList( &m_ctxIndex, context ); }
+    /**
+     * Does the work for hlKeyForAttrib and hlKeyForContext
+     */
+    int hlKeyForList( const IntList *, int ) const;
 
     KateHlItemDataList internalIDList;
 
@@ -299,9 +317,14 @@ class KateHighlighting
     QMap<int, QStringList> m_additionalData;
 
     /**
-     * fast lookup of hl properties.
+     * fast lookup of hl properties, based on attribute index
      */
     IntList m_hlIndex;
+
+    /**
+     * fast lookup of hl properties, based on context index
+     */
+    IntList m_ctxIndex;
 
     QString extensionSource;
     QValueList<QRegExp> regexpExtensions;

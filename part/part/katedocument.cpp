@@ -1010,9 +1010,13 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
     if (l->length() > col)
     {
+      TextLine::Ptr nextl = buffer->line(line+1);
+
       const QChar *text = l->text();
       uint eolPosition = l->length()-1;
       uint searchStart = col;
+
+
       //If where we are wrapping is an end of line and is a space we don't
       //want to wrap there
       if (col == eolPosition && text[col].isSpace())
@@ -1027,8 +1031,8 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
       if (z > 0)
       {
-        //We found a space in which to wrap so break just after it
-        z++; // (anders: avoid the space at the beginning of the line)
+        // cu space
+        editRemoveText (line, z, 1);
       }
       else
       {
@@ -1037,15 +1041,18 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
         z = col;
       }
 
-      TextLine::Ptr nextl = buffer->line(line+1);
-
       if (nextl && (nextl->length() == 0))
       {
         editWrapLine (line, z, true);
         endLine++;
       }
       else
+      {
+        if (nextl && (nextl->length() > 0) && !nextl->getChar(0).isSpace() && ((l->length() < 1) || !l->getChar(l->length()-1).isSpace()))
+          editInsertText (line+1, 0, QString (" "));
+
         editWrapLine (line, z, false);
+      }
     }
 
     line++;

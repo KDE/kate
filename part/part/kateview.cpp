@@ -1374,6 +1374,7 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   }
 
   slotUpdate();
+  myViewInternal->updateView (KateView::ufDocGeometry);
 }
 
 

@@ -3339,7 +3339,6 @@ kdDebug(13020) << "updateLines() end" << endl;
 void KateDocument::slotBufferChanged()
 {
   newDocGeometry = true;
-  //updateLines();//JW
   updateViews();
 }
 

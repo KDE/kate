@@ -2021,25 +2021,11 @@ bool KateDocument::isModified() const {
 
 void KateDocument::setFont (WhichFont wf,QFont font)
 {
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
+  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
 
-  fs->myFont = font;
-  fs->myFontBold = QFont (font);
-  fs->myFontBold.setBold (true);
-
-  fs->myFontItalic = QFont (font);
-  fs->myFontItalic.setItalic (true);
-
-  fs->myFontBI = QFont (font);
-  fs->myFontBI.setBold (true);
-  fs->myFontBI.setItalic (true);
-
-  fs->myFontMetrics = KateFontMetrics (fs->myFont);
-  fs->myFontMetricsBold = KateFontMetrics (fs->myFontBold);
-  fs->myFontMetricsItalic = KateFontMetrics (fs->myFontItalic);
-  fs->myFontMetricsBI = KateFontMetrics (fs->myFontBI);
-
+  fs->setFont(font);
   fs->updateFontData(tabChars);
+
   if (wf==ViewFont)
   {
     updateFontData();

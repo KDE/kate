@@ -71,6 +71,8 @@ class FontStruct
 
     QFont & getFont(bool bold, bool italic);
 
+    void setFont(QFont font);
+
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;
 

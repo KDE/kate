@@ -130,3 +130,23 @@ QFont & FontStruct::getFont(bool bold, bool italic)
     ( (italic) ? myFontBI : myFontBold ) :
     ( (italic) ? myFontItalic : myFont );
 }
+
+void FontStruct::setFont (QFont font)
+{
+  myFont = font;
+
+  myFontBold = QFont (font);
+  myFontBold.setBold (true);
+
+  myFontItalic = QFont (font);
+  myFontItalic.setItalic (true);
+
+  myFontBI = QFont (font);
+  myFontBI.setBold (true);
+  myFontBI.setItalic (true);
+
+  myFontMetrics = KateFontMetrics (myFont);
+  myFontMetricsBold = KateFontMetrics (myFontBold);
+  myFontMetricsItalic = KateFontMetrics (myFontItalic);
+  myFontMetricsBI = KateFontMetrics (myFontBI);
+}

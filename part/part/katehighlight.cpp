@@ -2303,32 +2303,6 @@ void Highlight::getItemDataListCopy (uint schema, ItemDataList &outlist)
   for (uint z=0; z < itemDataList.count(); z++)
     outlist.append (new ItemData (*itemDataList.at(z)));
 }
-/*
-void Highlight::getAttributeListCopy (uint schema, KateAttributeList &outlist)
-{  
-  // k, schema correct, let create the data
-  KateAttributeList defaultStyleList;
-  defaultStyleList.setAutoDelete(true);
-  HlManager::self()->getDefaults(schema, defaultStyleList);
-
-  ItemDataList itemDataList;
-  getItemDataList(schema, itemDataList);
-
-  uint nAttribs = itemDataList.count();
-
-  outlist.clear ();
-  outlist.setAutoDelete (true);
-  for (uint z = 0; z < nAttribs; z++)
-  {
-    ItemData *itemData = itemDataList.at(z);
-    KateAttribute *n = new KateAttribute (*defaultStyleList.at(itemData->defStyleNum));
-
-    if (itemData && itemData->isSomethingSet())
-      *n += *itemData;
-
-    outlist.append (n);
-  }
-}*/
 
 //END
 

@@ -183,7 +183,7 @@ void PluginListView::stateChanged(PluginListItem *item, bool b)
 //END
 
 //BEGIN PluginConfigPage
- PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
+PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   m_doc = doc;
 
@@ -213,7 +213,7 @@ PluginConfigPage::~PluginConfigPage ()
 {
 }
 
- void PluginConfigPage::stateChange(PluginListItem *item, bool b)
+void PluginConfigPage::stateChange(PluginListItem *item, bool b)
 {
   if(b)
     loadPlugin(item);
@@ -644,6 +644,8 @@ void StyleListItem::changeProperty( Property p )
     toggleDefStyle();
   else
     setColor( p );
+    
+  updateStyle ();
     
   ((StyleListView*)listView())->emitChanged();
 }

@@ -196,7 +196,7 @@ void KateView::setupActions()
   m_cut = a=KStdAction::cut(this, SLOT(cut()), ac);
   a->setWhatsThis(i18n("Cut the selected text and move it to the clipboard"));
 
-  m_paste = a=KStdAction::paste(this, SLOT(paste()), ac);
+  m_paste = a=KStdAction::pasteText(this, SLOT(paste()), ac);
   a->setWhatsThis(i18n("Paste previously copied or cut clipboard contents"));
 
   m_copy = a=KStdAction::copy(this, SLOT(copy()), ac);

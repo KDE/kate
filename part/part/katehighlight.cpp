@@ -1226,30 +1226,41 @@ void Highlight::getItemDataList(ItemDataList &list, KConfig *config)
   list.clear();
   createItemData(list);
 
-return ;
   for (ItemData *p = list.first(); p != 0L; p = list.next())
   {
-    QString s = config->readEntry(p->name);
+    QStringList s = config->readListEntry(p->name);
 
-    if (!s.isEmpty())
+//    kdDebug()<<p->name<<s.count()<<endl;
+    if (s.count()>0)
     {
-      QRgb col, selCol;
-      int bold, italic,strikeOut, underline;
-#warning FIXME
-//      sscanf(s.latin1(),"%d,%X,%X,%d,%d,%d,%d", &p->isSomethingSet(),&col,&selCol,&bold,&italic,&strikeOut,&underline);
 
-      QColor color = p->textColor();
-      color.setRgb(col);
-      p->setTextColor(color);
+      while(s.count()<9) s<<"";
+      p->clear();
 
-      QColor selColor = p->selectedTextColor();
-      selColor.setRgb(selCol);
-      p->setSelectedTextColor(selColor);
+      QString tmp=s[0]; if (!tmp.isEmpty()) p->defStyleNum=tmp.toInt();
+  
+      QRgb col;
 
-      p->setBold(bold);
-      p->setItalic(italic);
-      p->setStrikeOut(strikeOut);
-      p->setStrikeOut(underline);
+      tmp=s[1]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); p->setTextColor(col); }  
+
+      tmp=s[2]; if (!tmp.isEmpty()) { 
+         col=tmp.toUInt(0,16); p->setSelectedTextColor(col); }  
+
+      tmp=s[3]; if (!tmp.isEmpty()) p->setBold(tmp!="0");
+
+      tmp=s[4]; if (!tmp.isEmpty()) p->setItalic(tmp!="0");
+
+      tmp=s[5]; if (!tmp.isEmpty()) p->setStrikeOut(tmp!="0");
+
+      tmp=s[6]; if (!tmp.isEmpty()) p->setUnderline(tmp!="0");
+  
+      tmp=s[7]; if (!tmp.isEmpty()) { 
+         col=tmp.toUInt(0,16); p->setBGColor(col); }  
+
+      tmp=s[8]; if (!tmp.isEmpty()) { 
+         col=tmp.toUInt(0,16); p->setSelectedBGColor(col); }  
+
     }
   }
 }
@@ -1272,17 +1283,27 @@ return ;
 
 void Highlight::setItemDataList(ItemDataList &list, KConfig *config)
 {
-#if 0
+  QStringList settings;
+
   for (ItemData *p = list.first(); p != 0L; p = list.next())
   {
-    QString s;
+	settings.clear();
+	settings<<QString::number(p->defStyleNum,10);
+	settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
+	settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
+	settings<<(p->itemSet(KateAttribute::Bold)?(p->bold()?"1":0):"");
+	settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":0):"");
+	settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":0):"");
+	settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":0):"");
+	settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
+	settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
+	settings<<"---";
+//    s.sprintf("%d,%X,%X,%d,%d,%d,%d",
+//      p->isSomethingSet(),p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic(),p->strikeOut(),p->underline());
 
-    s.sprintf("%d,%X,%X,%d,%d,%d,%d",
-      p->isSomethingSet(),p->textColor().rgb(),p->selectedTextColor().rgb(),p->bold(),p->italic(),p->strikeOut(),p->underline());
-
-    config->writeEntry(p->name,s);
+//    config->writeEntry(p->name,s);
+      config->writeEntry(p->name,settings);
   }
-#endif
 }
 
 /*******************************************************************************************
@@ -2470,47 +2491,68 @@ void HlManager::getDefaults(KateAttributeList &list)
   for (int z = 0; z < defaultStyles(); z++)
   {
     KateAttribute *i = list.at(z);
-    QString s = config->readEntry(defaultStyleName(z));
+    QStringList s = config->readListEntry(defaultStyleName(z));
 
-    if (!s.isEmpty())
+//    kdDebug()<<defaultStyleName(z)<<s.count()<<endl;
+    if (s.count()>0)
     {
-      QRgb col, selCol;
-      int bold, italic;
 
-      sscanf(s.latin1(),"%X,%X,%d,%d",&col,&selCol,&bold,&italic);
+      while(s.count()<8) s<<"";
 
-      QColor color = i->textColor();
-      color.setRgb(col);
-      i->setTextColor(color);
+      QString tmp;
+      QRgb col;
 
-      QColor selColor = i->selectedTextColor();
-      selColor.setRgb(selCol);
-      i->setSelectedTextColor(selColor);
+      tmp=s[0]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); i->setTextColor(col); }
 
-      i->setItalic(italic);
-      i->setBold(bold);
+      tmp=s[1]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); i->setSelectedTextColor(col); }
+
+      tmp=s[2]; if (!tmp.isEmpty()) i->setBold(tmp!="0");
+
+      tmp=s[3]; if (!tmp.isEmpty()) i->setItalic(tmp!="0");
+
+      tmp=s[4]; if (!tmp.isEmpty()) i->setStrikeOut(tmp!="0");
+
+      tmp=s[5]; if (!tmp.isEmpty()) i->setUnderline(tmp!="0");
+
+      tmp=s[6]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); i->setBGColor(col); }
+
+      tmp=s[7]; if (!tmp.isEmpty()) {
+         col=tmp.toUInt(0,16); i->setSelectedBGColor(col); }
+
     }
+
   }
 }
 
 void HlManager::setDefaults(KateAttributeList &list)
 {
-#if 0
   KConfig *config =  KateFactory::instance()->config();
   config->setGroup("Default Item Styles");
+
+   QStringList settings;
 
   for (int z = 0; z < defaultStyles(); z++)
   {
     KateAttribute *i = list.at(z);
 
-    char s[256];
-    sprintf(s,"%X,%X,%d,%d",i->textColor().rgb(),i->selectedTextColor().rgb(),i->bold(), i->italic());
-
-    config->writeEntry(defaultStyleName(z),s);
+        settings.clear();
+        settings<<(i->itemSet(KateAttribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
+        settings<<(i->itemSet(KateAttribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
+        settings<<(i->itemSet(KateAttribute::Bold)?(i->bold()?"1":0):"");
+        settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":0):"");
+        settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":0):"");
+        settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":0):"");
+        settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
+        settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
+	settings<<"---";
+        config->writeEntry(defaultStyleName(z),settings);
+//    config->writeEntry(defaultStyleName(z),s);
   }
 
   emit changed();
-#endif
 }
 
 int HlManager::highlights()

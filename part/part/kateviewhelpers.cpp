@@ -120,6 +120,7 @@ class KateCmdLineFlagCompletion : public KCompletion
 
     QString makeCompletion( const QString & s )
     {
+      return "";
     }
 
 };
@@ -384,7 +385,7 @@ void KateCmdLine::fromHistory( bool up )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
 }
-#undef kdDebug()
+#undef kdDebug
 //END KateCmdLine
 
 //BEGIN KateIconBorder

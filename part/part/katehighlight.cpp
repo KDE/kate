@@ -356,14 +356,22 @@ class KateHlDetectIdentifier : public KateHlItem
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
-      if ( text[offset] == QChar ('_') || text[offset++].isLetter() )
+      // first char should be a letter or underscore
+      if ( text[offset].isLetter() || text[offset] == QChar ('_') )
       {
-        int len2 = offset-1+len;
+        // memorize length
+        int len2 = offset+len;
+
+        // one char seen
+        offset++;
+
+        // now loop for all other thingies
         while (
-               (offset < len2) && (text[offset].isLetterOrNumber() ||
-               (text[offset] == QChar ('_')))
+               (offset < len2)
+               && (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_')))
               )
           offset++;
+
         return offset;
       }
 

@@ -90,6 +90,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // cursor
   cursor.setMoveOnInsert (true);
 
+  // invalidate selStartCached, or keyb selection is screwed initially
+  selStartCached.setLine( -1 );
   //
   // scrollbar for lines
   //

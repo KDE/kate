@@ -1425,7 +1425,9 @@ void KateBufBlock::disposeRawData()
  */
 void KateBufBlock::disposeSwap()
 {
-  m_vm->free(m_vmblock);
+  if (m_vmblock)
+    m_vm->free(m_vmblock);
+
   m_vmblock = 0;
   m_vmblockSize = 0;
   b_vmDataValid = false;

@@ -767,9 +767,9 @@ void KateViewInternal::updateView(int flags)
 
 void KateViewInternal::paintTextLines( int xPos )
 {
-  if (drawBuffer->isNull()) return;
+//  if (drawBuffer->isNull()) return;
 
-  QPainter paint( drawBuffer );
+  QPainter paint( this );
 
   uint fontHeight = myDoc->viewFont.fontHeight;
   KateLineRange* r = lineRanges.data();
@@ -785,7 +785,7 @@ void KateViewInternal::paintTextLines( int xPos )
     if (r->dirty && !r->empty) {
     
       myDoc->paintTextLine( paint, r->line, r->startCol, r->endCol,
-                            0, xPos, xPos + width(),
+                            (line-startLine)*fontHeight, xPos, xPos + width(),
                             (cursorOn && myView->hasFocus() && (r->line == cursor.line)) ? cursor.col : -1,
                             isOverwrite, true,
                             myDoc->configFlags() & KateDocument::cfShowTabs,
@@ -795,24 +795,24 @@ void KateViewInternal::paintTextLines( int xPos )
         if( cursorOn && hasFocus() && (r->line == cursor.line) ) {     
           if( isOverwrite ) {
             int cursorMaxWidth = myDoc->viewFont.myFontMetrics.width(QChar (' '));
-            paint.fillRect( cXPos-xPos, 0, cursorMaxWidth,
+            paint.fillRect( cXPos-xPos, (line-startLine)*fontHeight, cursorMaxWidth,
                             fontHeight, myDoc->myAttribs[0].col );
           } else {
-            paint.fillRect( cXPos-xPos, 0, 2,
+            paint.fillRect( cXPos-xPos, (line-startLine)*fontHeight, 2,
                             fontHeight, myDoc->myAttribs[0].col );
           }
         }
       }
       
-      bitBlt( this, 0, (line-startLine)*fontHeight, drawBuffer,
-              0, 0, width(), fontHeight );
+    /*  bitBlt( this, 0, (line-startLine)*fontHeight, drawBuffer,
+              0, 0, width(), fontHeight );      */
       leftBorder->paintLine(line, r);
       
     } else if (r->empty) {
     
-      paint.fillRect( 0, 0, width(), fontHeight, myDoc->colors[0] );
-      bitBlt( this, 0, (line-startLine)*fontHeight, drawBuffer,
-              0, 0, width(), fontHeight );
+      paint.fillRect( 0, (line-startLine)*fontHeight, width(), fontHeight, myDoc->colors[0] );
+    /*  bitBlt( this, 0, (line-startLine)*fontHeight, drawBuffer,
+              0, 0, width(), fontHeight );    */
       leftBorder->paintLine(line, r);
       
     }
@@ -1067,7 +1067,7 @@ void KateViewInternal::wheelEvent( QWheelEvent *e )
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  if (drawBuffer->isNull()) return;
+//  if (drawBuffer->isNull()) return;
 
   QRect updateR = e->rect();
   int xStart = xPos + updateR.x();
@@ -1079,7 +1079,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   KateLineRange *r = lineRanges.data();
   uint rpos = startline-startLine;
 
-  QPainter paint( drawBuffer );
+  QPainter paint( this );
 
   if (rpos <= lineRanges.size())
     r += rpos;
@@ -1091,9 +1091,9 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
   for ( uint line = startline; (line <= endline) && (rpos < lineRanges.size()); line++)
   {
     if (r->empty) {
-      paint.fillRect(0, 0, updateR.width(), h, myDoc->colors[0]);
+      paint.fillRect(0, (line-startLine)*h, updateR.width(), h, myDoc->colors[0]);
     } else {
-      myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xStart, xEnd,
+      myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, (line-startLine)*h, xStart, xEnd,
                             (cursorOn && hasFocus() && (r->line == cursor.line)) ? cursor.col : -1, b,
                             true, myDoc->configFlags() & KateDocument::cfShowTabs,
                             KateDocument::ViewFont, again && (r->line == cursor.line));
@@ -1103,15 +1103,15 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
           if (b)
           {
             int cursorMaxWidth = myDoc->viewFont.myFontMetrics.width(QChar (' '));
-            paint.fillRect(cXPos-xPos, 0, cursorMaxWidth, h, myDoc->myAttribs[0].col);
+            paint.fillRect(cXPos-xPos, (line-startLine)*h, cursorMaxWidth, h, myDoc->myAttribs[0].col);
           } else {
-            paint.fillRect(cXPos-xPos, 0, 2, h, myDoc->myAttribs[0].col);
+            paint.fillRect(cXPos-xPos, (line-startLine)*h, 2, h, myDoc->myAttribs[0].col);
           }
         }
       }
    }
    
-   bitBlt(this, updateR.x(), (line-startLine)*h, drawBuffer, 0, 0, updateR.width(), h);
+  // bitBlt(this, updateR.x(), (line-startLine)*h, drawBuffer, 0, 0, updateR.width(), h);
 
    if (r->line == cursor.line)
      again = false;
@@ -1126,7 +1126,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
 void KateViewInternal::resizeEvent( QResizeEvent* )
 {
-  drawBuffer->resize( width(), myDoc->viewFont.fontHeight );
+  //drawBuffer->resize( width(), myDoc->viewFont.fontHeight );
   leftBorder->resize( leftBorder->width(), height() );
   updateLineRanges();
 }

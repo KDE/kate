@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ChangeLog" version="1.01" kateversion="2.1" section="Other" extensions="ChangeLog" mimetype="">
-        <highlighting>
-          <contexts>
-                <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-                <RegExpr attribute="Keyword" context="#stay" String="^\d\d\d\d\s*-\s*\d\d\s*-\s*\d\d.*$"/>
-                </context>
-          </contexts>
-          <itemDatas>
-                <itemData name="Normal Text" defStyleNum="dsNormal"/>
-                <itemData name="Keyword" defStyleNum="dsKeyword"/>
-                <itemData name="Identifier" defStyleNum="dsOthers"/>
-                <itemData name="Types" defStyleNum="dsDataType"/>
-                <itemData name="String" defStyleNum="dsString"/>
-                <itemData name="Comment" defStyleNum="dsComment"/>
-          </itemDatas>
-        </highlighting>
+<language name="ChangeLog" version="1.02" kateversion="2.1" section="Other" extensions="ChangeLog" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+  <highlighting>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <RegExpr attribute="Date" context="line" String="^\d\d\d\d\s*-\s*\d\d\s*-\s*\d\d\s*"/>
+        <RegExpr attribute="Entry" context="entry" String="^\s*\*\s+"/>
+      </context>
+      <context attribute="Normal Text" lineEndContext="#pop" name="line">
+        <RegExpr attribute="Name" context="#stay" String="(\w\s*)+"/> 
+        <RegExpr attribute="E-Mail" context="#pop" String="&lt;.*&gt;\s*$"/>
+      </context>
+      <context attribute="Normal Text" lineEndContext="#pop" name="entry">
+        <RegExpr attribute="Entry" context="#pop" String=".*:" minimal="true"/>
+      </context> 
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Name" defStyleNum="dsKeyword"/>
+      <itemData name="E-Mail" defStyleNum="dsOthers"/>
+      <itemData name="Date" defStyleNum="dsDataType"/>
+      <itemData name="Entry" defStyleNum="dsDecVal"/>
+    </itemDatas>
+  </highlighting>
   <general>
     <keywords casesensitive="1" />
   </general>

@@ -3362,14 +3362,21 @@ void KateDocument::copy()
   if (!hasSelection())
     return;
 #ifndef QT_NO_MIMECLIPBOARD
+  QClipboard *cb = QApplication::clipboard();
+  
   KMultipleDrag *drag = new KMultipleDrag();
-  QTextDrag *htmltextdrag = new QTextDrag(selectionAsHtml()) ;
+  QString htmltext;
+  if(!cb->selectionModeEnabled())
+    htmltext = selectionAsHtml();
 
-  htmltextdrag->setSubtype("html");
+  if(!htmltext.isEmpty()) {
+    QTextDrag *htmltextdrag = new QTextDrag(htmltext) ;
+    htmltextdrag->setSubtype("html");
 
+    drag->addDragObject( htmltextdrag);
+  }
   drag->addDragObject( new QTextDrag( selection()));
-  drag->addDragObject( htmltextdrag);
-
+  
   QApplication::clipboard()->setData(drag);
 #else
   QApplication::clipboard()->setText(selection ());

@@ -675,6 +675,7 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
   {
     (new QVBoxLayout(this))->setAutoAdd(true);
     KateView* view = (KateView*)m_doc->views().at(0);
+    m_ac = view->editActionCollection();
     m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
     connect( m_keyChooser, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
     m_keyChooser->show ();
@@ -689,7 +690,8 @@ void KateEditKeyConfiguration::apply()
 {
   if (m_ready)
   {
-    m_keyChooser->save();
+    m_keyChooser->commitChanges();
+    m_ac->writeShortcutSettings( "Katepart Shortcuts" );
   }
 }
 //END KateEditKeyConfiguration

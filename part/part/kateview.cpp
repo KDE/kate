@@ -144,7 +144,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   this,SLOT(slotNeedTextHint(int, int, QString &)));
   enableTextHints(1000);
   test texthint*/
-
 }
 
 KateView::~KateView()
@@ -406,7 +405,7 @@ void KateView::setupActions()
 
 void KateView::setupEditActions()
 {
-  m_editActions = new KActionCollection( m_viewInternal );
+  m_editActions = new KActionCollection( m_viewInternal, this, "edit_actions" );
   KActionCollection* ac = m_editActions;
 
   new KAction(
@@ -525,12 +524,12 @@ void KateView::setupEditActions()
     this, SLOT(toMatchingBracket()),
     ac, "to_matching_bracket" );
   new KAction(
-    i18n("Select to Matching Bracket"),      SHIFT +  CTRL + Key_6,
+    i18n("Select to Matching Bracket"),      SHIFT + CTRL + Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
 
   new KAction(
-    i18n("Switch to Command Line"),      Qt::Key_F7,
+    i18n("Switch to Command Line"),          Qt::Key_F7,
     this, SLOT(switchToCmdLine()),
     ac, "switch_to_cmd_line" );
 
@@ -538,7 +537,7 @@ void KateView::setupEditActions()
   if ( !m_doc->readOnly() )
   {
     new KAction(
-      i18n("Transpose Characters"),           CTRL          + Key_T,
+      i18n("Transpose Characters"),           CTRL + Key_T,
       this, SLOT(transpose()),
       ac, "transpose_char" );
 
@@ -563,12 +562,14 @@ void KateView::setupEditActions()
   connect( this, SIGNAL(lostFocus(Kate::View*)),
            this, SLOT(slotLostFocus()) );
 
+  m_editActions->readShortcutSettings( "Katepart Shortcuts" );
+
   if( hasFocus() )
     slotGotFocus();
   else
     slotLostFocus();
 
-  m_editActions->readShortcutSettings();
+
 }
 
 void KateView::setupCodeFolding()
@@ -870,6 +871,7 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
+  kdDebug()<<"=== gotoLineNumber( "<<line<<" )"<<endl;
   setCursorPositionInternal ( line, 0, 1 );
 }
 
@@ -888,6 +890,9 @@ void KateView::joinLines()
 
 void KateView::readSessionConfig(KConfig *config)
 {
+  kdDebug()<<"KateView::readSessionConfig("<<config<<")"<<endl;
+  kdDebug()<<"group: "<<config->group()<<endl;
+  kdDebug()<<"cursor position: "<<config->readNumEntry("CursorLine")<<", "<<config->readNumEntry("CursorColumn")<<endl;
   setCursorPositionInternal (config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn"), 1);
 }
 
@@ -1092,7 +1097,7 @@ void KateView::updateConfig ()
   if (m_startingUp)
     return;
 
-  m_editActions->readShortcutSettings();
+  m_editActions->readShortcutSettings( "Katepart Shortcuts" );
 
   // dyn. word wrap & markers
   if (m_hasWrap != config()->dynWordWrap()) {

@@ -238,6 +238,7 @@ class KateEditKeyConfiguration: public KateConfigPage
     bool m_ready;
     class KateDocument *m_doc;
     KKeyChooser* m_keyChooser;
+    class KActionCollection *m_ac;
 };
 
 class KateSaveConfigTab : public KateConfigPage

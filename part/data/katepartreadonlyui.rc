@@ -1,9 +1,8 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="7">
+<kpartgui name="KatePartView" version="8">
 <MenuBar noMerge="1">
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Separator/>
-    <Action name="file_save"/>
     <Action name="file_save_as"/>
     <Action name="file_export"/>
   </Menu>

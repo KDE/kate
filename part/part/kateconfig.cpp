@@ -37,6 +37,7 @@
 
 // $Id$
 
+//BEGIN KateConfig
 KateConfig::KateConfig ()
  : configSessionNumber (0), configIsRunning (false)
 {
@@ -70,7 +71,9 @@ void KateConfig::configEnd ()
 
   updateConfig ();
 }
+//END
 
+//BEGIN KateDocumentConfig
 KateDocumentConfig *KateDocumentConfig::s_global = 0;
 KateViewConfig *KateViewConfig::s_global = 0;
 KateRendererConfig *KateRendererConfig::s_global = 0;
@@ -449,7 +452,9 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
 
   configEnd ();
 }
+//END
 
+//BEGIN KateViewConfig
 KateViewConfig::KateViewConfig ()
  :
    m_dynWordWrapSet (true),
@@ -751,7 +756,9 @@ void KateViewConfig::setCmdLine (bool on)
 
   configEnd ();
 }
+//END
 
+//BEGIN KateRendererConfig
 KateRendererConfig::KateRendererConfig ()
  :
    m_viewFont (new FontStruct ()),
@@ -764,6 +771,7 @@ KateRendererConfig::KateRendererConfig ()
    m_highlightedLineColorSet (true),
    m_highlightedBracketColorSet (true),
    m_wordWrapMarkerColorSet (true),
+   m_tabMarkerColorSet(true),
    m_renderer (0)
 {
   s_global = this;
@@ -785,6 +793,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_highlightedLineColorSet (false),
    m_highlightedBracketColorSet (false),
    m_wordWrapMarkerColorSet (false),
+   m_tabMarkerColorSet(false),
    m_renderer (renderer)
 {
 }
@@ -819,7 +828,7 @@ void KateRendererConfig::readConfig (KConfig *config)
   QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
   QColor tmp3 ( "#FFFF99" );
   QColor tmp4 (tmp2.dark());
-  QColor tmp5 ( "#000000" );
+  QColor tmp5 ( KGlobalSettings::textColor() );
 
   setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
   setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
@@ -1044,5 +1053,5 @@ void KateRendererConfig::setTabMarkerColor (const QColor &col)
 
   configEnd ();
 }
-
+//END
 // kate: space-indent on; indent-width 2; replace-tabs on;

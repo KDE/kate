@@ -408,7 +408,7 @@ bool KateSearch::askContinue()
      reached + "\n" + question;
 
   return KMessageBox::Yes == KMessageBox::questionYesNo(
-     view(), text, s.flags.replace ? i18n("&Replace") : i18n("&Find"),
+     view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
      i18n("&Continue"), i18n("&Stop") );
 }
 

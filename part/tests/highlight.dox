@@ -1,0 +1,209 @@
+This is a pseudo doxygen file to test Kate's doxyge syntax highlighting.
+
+Normal text, no HL.
+===================
+a multiline comment may begin with a /*! */, too. That should work,
+because it is the same "entrance rule".
+
+popping tests:
+/** multiline */
+/*! multiline */
+//! singleline, where */ should be ignored!
+/// singleline, where */ should be ignored!
+begin and end immediately:
+/***/
+/**/ <-- it really works?
+/*!*/
+
+<tag> <normal comment HL>
+/** \code rest of line is normal comment HL */
+/** \code rest of line is normal comment HL
+ * comment HL mode
+ */
+
+<tag> <word> <normal comment HL>
+/** \file aword rest of line is normal comment HL */
+/** \file */aword <-- pop!
+/** \file aword rest of line is normal comment HL
+ * comment HL mode
+ */
+
+<tag> <rest of line is string>
+/** \brief A short description */
+/** \brief */A <-- pop!
+/** \brief A short description 
+ * comment HL mode
+ */
+
+<tag> <word> <rest of line is string>
+/** \page aword rest of line is string */
+/** \page */aword <-- pop!
+/** \page aword rest of line is string 
+ * comment HL mode
+ */
+
+<tag> <word> <word> <rest of line is string>
+/** \image aword aword rest of line is normal HL */
+/** \image aword */aword <-- pop!
+/** \image */aword aword <-- pop!
+/** \image aword aword rest of line is normal HL
+ * comment HL mode
+ */
+
+Tests for HTML tags in doxygen HL mode:
+=======================================
+/** <a href="blubb" href='blubb'> */
+/** <a href="blubb" href='blubb'*/>
+/** <a href="blubb" href='blubb*/'>
+/** <a href="blubb" href='blub*/b'>
+/** <a href="blubb" href='b*/lubb'>
+/** <a href="blubb" href='*/blubb'>
+/** <a href="blubb" href=*/'blubb'>
+/** <a href="blubb" href*/='blubb'>
+/** <a href="blubb" hre*/f='blubb'>
+/** <a href="blubb" */href='blubb'>
+/** <a href="blubb"> */
+/** <a href="blubb"*/> 
+/** <a href="blubb*/"> 
+/** <a href="blub*/b"> 
+/** <a href="*/blubb"> 
+/** <a href=*/"blubb"> 
+/** <a href*/="blubb"> 
+/** <a h*/ref="blubb"> 
+/** <a */href="blubb"> 
+/** <a*/ href="blubb"> 
+/** <*/a href="blubb"> 
+
+//! <a href="blubb" href='blubb'> */
+//! <a href="blubb" href='blubb'*/>
+//! <a href="blubb" href='blubb*/'>
+//! <a href="blubb" href='blu*/bb'>
+//! <a href="blubb" href='*/blubb'>
+//! <a href="blubb" href=*/'blubb'>
+//! <a href="blubb"> */
+//! <a href="blubb"*/>
+//! <a href="blubb*/">
+//! <a href="blub*/b">
+//! <a href="*/blubb">
+//! <a href=*/"blubb">
+//! <a href*/="blubb">
+//! <a h*/ref="blubb">
+//! <a */href="blubb">
+//! <a*/ href="blubb">
+//! <*/a href="blubb"> 
+
+Tests for HTML tags in doxygen HL mode with tags:
+=================================================
+<tag> <normal comment HL>
+/** \code rest <a href="blubb"> of </a href='blubb'> line is normal comment HL */
+/** \code rest <a href="blubb"> of </a href='blubb'*/> line is normal comment HL
+/** \code rest <a href="blubb"> of </a href='blubb*/'> line is normal comment HL
+/** \code rest <a href="blubb"> of </a href='*/blubb'> line is normal comment HL
+/** \code rest <a href="blubb"> of </a href=*/'blubb'> line is normal comment HL
+/** \code rest <a href="blubb*/"> of </a href=*/'blubb'> line is normal comment HL
+/** \code rest <a href=*/"blubb"> of </a href='blubb'> line is normal comment HL
+/** \code rest <a h*/ref="blubb"> of </a href='blubb'> line is normal comment HL
+/** \code rest <*/a href="blubb"> of </a href='blubb'> line is normal comment HL
+/** \code rest of line is normal comment HL
+ * comment HL mode <html> text </html>
+ */
+
+<tag> <word> <normal comment HL>
+/** \file awo<html_should_be_ignored_here>rd rest of line is normal comment HL */
+/** \file awo<html_should_be_ignored_here>*/rd rest of line is normal comment HL
+/** \file awo<html_should_be_i*/gnored_here>rd rest of line is normal comment HL
+/** \file awo<*/html_should_be_ignored_here>rd rest of line is normal comment HL
+/** \file a*/wo<html_should_be_ignored_here>rd rest of line is normal comment HL
+/** \file aword rest of line is normal co<code>mment HL
+ * comment HL mode
+ */
+
+<tag> <rest of line is string>
+/** \brief A short <a href="blubb"> of </a href='blubb'> description */
+/** \brief A short <a href="blubb"> of </a href='blubb'*/> description
+/** \brief A short <a href="blubb"> of </a href='*/blubb'> description
+/** \brief A short <a href="blubb"> of </a href=*/'blubb'> description
+/** \brief A short <a href="blubb"> of </a href*/='blubb'> description
+/** \brief A short <a href="blubb"> of </a */href='blubb'> description
+/** \brief A short <a href="blubb"> of <*//a href='blubb'> description
+/** \brief A short <a href="blubb"*/> of </a href='blubb'> description
+/** \brief A short <a href="blubb*/"> of </a href='blubb'> description
+/** \brief A short <a href="*/blubb"> of </a href='blubb'> description
+/** \brief A short <a href=*/"blubb"> of </a href='blubb'> description
+/** \brief A short <a href*/="blubb"> of </a href='blubb'> description
+/** \brief A short <a h*/ref="blubb"> of </a href='blubb'> description 
+/** \brief A short <a href="blubb"> of </a href='blubb'> description 
+ * comment HL mode
+ */
+
+<tag> <word> <rest of line is string>
+/** \page aword A short <a href="blubb"> of </a href='blubb'> description */
+/** \page aword A short <a href="blubb"> of </a href='blubb'*/> description
+/** \page aword A short <a href="blubb"> of </a href='*/blubb'> description
+/** \page aword A short <a href="blubb"> of </a href=*/'blubb'> description
+/** \page aword A short <a href="blubb"> of </a href*/='blubb'> description
+/** \page aword A short <a href="blubb"> of </a */href='blubb'> description
+/** \page aword A short <a href="blubb"> of <*//a href='blubb'> description
+/** \page aword A short <a href="blubb"*/> of </a href='blubb'> description
+/** \page aword A short <a href="blubb*/"> of </a href='blubb'> description
+/** \page aword A short <a href="*/blubb"> of </a href='blubb'> description
+/** \page aword A short <a href=*/"blubb"> of </a href='blubb'> description
+/** \page aword A short <a href*/="blubb"> of </a href='blubb'> description
+/** \page aword A short <a h*/ref="blubb"> of </a href='blubb'> description 
+/** \page aword A short <*/a href="blubb"> of </a href='blubb'> description 
+/** \page aword A shor*/t <a href="blubb"> of </a href='blubb'> description 
+/** \page awor*/d A short <a href="blubb"> of </a href='blubb'> description 
+/** \page */aword A short <a href="blubb"> of </a href='blubb'> description 
+/** \page aword A short <a href="blubb"> of </a href='blubb'> description 
+ * comment HL mode
+ */                                                       
+
+<tag> <word> <word> <rest of line is string>
+/** \image aword aword rest of line is normal HL */
+/** \image aword aword rest of line is*/ normal HL
+/** \image aword aword*/ rest of line is normal HL
+/** \image aword aw*/ord rest of line is normal HL
+/** \image aword */aword rest of line is normal HL
+/** \image aword*/ aword rest of line is normal HL
+/** \image awo*/rd aword rest of line is normal HL
+/** \image */aword aword rest of line is normal HL
+/** \ima*/ge aword aword rest of line is normal HL
+/** \image aword aword rest of line is normal HL
+ * comment HL mode
+ */
+ 
+Some further tests for singlelinecomments (* / should not pop!)
+===============================================================
+/// a singlelinecommment blubb blubb  */
+/// \code a singlelinecommment blubb b*/lubb
+/// \code*/ a singlelinecommment blubb blubb
+/// \code a singlelinecommment blubb blubb
+/// \brief a descriptive text (string) 
+/// \brief a descriptive text (string)*/
+/// \brief a descriptive text */(string) 
+/// \brief */a descriptive text (string) 
+/// \ref aword a descriptive text (string) */
+/// \ref aword a descriptive text (str*/ing) 
+/// \ref aword a des*/criptive text (string) 
+/// \ref aword*/ a descriptive text (string) 
+/// \ref aw*/ord a descriptive text (string) 
+/// \ref */aword a descriptive text (string)
+
+
+And a final tests for word a single char:
+=========================================
+<tag> <word> <rest of line as string>
+//! \ref word descriptive text (string)
+//! \ref w descriptive text (string)
+
+<tag> <word> <word> <rest is normal HL>
+//! \image word1 word2 b descriptive text (string)
+//! \image a word b descriptive text (string)
+
+<tag> <rest of line is string>
+//! \brief A b c d e
+
+<tag> <word> <rest of line is string>
+//! \file word rest of line is normal comment HL
+//! \file a word rest of line is normal comment HL
+

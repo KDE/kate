@@ -32,7 +32,6 @@
 
 #include <kservice.h>
 
-#include <qdialog.h>
 #include <qintdict.h>
 #include <qdatetime.h>
 
@@ -656,19 +655,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   public slots:
     void dumpRegionTree();
-
-  //
-  // Some flags for internal ONLY use !
-  //
-  public:
-    // result flags for katepart's internal dialogs
-    enum DialogResults
-    {
-      srYes=QDialog::Accepted,
-      srNo=10,
-      srAll,
-      srCancel=QDialog::Rejected
-    };
 
   //
   // REALLY internal data ;)

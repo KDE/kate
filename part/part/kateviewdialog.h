@@ -222,7 +222,7 @@ public:
   void setFontPrint ( const QFont &font );
   QFont getFontPrint ( ) { return myFontPrint; };
 
-  private:
+ private:
     class KFontChooser *m_fontchooser;
     class KFontChooser *m_fontchooserPrint;
     QFont myFont;
@@ -247,14 +247,19 @@ class EditKeyConfiguration: public Kate::ConfigPage
 
   public:
     EditKeyConfiguration( QWidget* parent, KateDocument* doc );
-
+    
   public slots:
     void apply();
     void reload()   {};
     void reset()    {};
     void defaults() {};
 
+  protected:
+    void showEvent ( QShowEvent * );  
+    
   private:
+    bool m_ready;
+    class KateDocument *m_doc;
     KKeyChooser* m_keyChooser;
 };
 

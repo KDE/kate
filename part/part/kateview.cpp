@@ -855,11 +855,15 @@ void KateView::toggleDynWordWrap()
 
 void KateView::setDynWordWrap( bool b )
 {
-  m_hasWrap = b;
+  if (m_hasWrap == !b)
+  {
+    m_viewInternal->scrollColumns (0);
+  
+    m_hasWrap = b;
 
-  m_viewInternal->scrollColumns (0);
-  m_viewInternal->updateView();
-  m_viewInternal->update();
+    m_viewInternal->updateView();
+    m_viewInternal->update();
+  }
 }
 
 void KateView::setFoldingMarkersOn( bool enable )

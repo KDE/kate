@@ -259,36 +259,50 @@ void PluginConfigPage::unloadPlugin (PluginListItem *item)
 HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
 {
   m_doc = doc;
-
-  QGridLayout *grid = new QGridLayout( this, 1, 1 );
-
-  hlManager = HlManager::self();
-
-  defaultStyleList.setAutoDelete(true);
-  hlManager->getDefaults(defaultStyleList);
-
-  hlDataList.setAutoDelete(true);
-  //this gets the data from the KConfig object
-  hlManager->getHlDataList(hlDataList);
-
-  page = new HighlightDialogPage(hlManager, &defaultStyleList, &hlDataList, 0, this);
-  grid->addWidget( page, 0, 0);
+  m_ready = false;
 }
 
 HlConfigPage::~HlConfigPage ()
 {
 }
 
+void HlConfigPage::showEvent ( QShowEvent * )
+{
+  if (!m_ready)
+  {
+    QGridLayout *grid = new QGridLayout( this, 1, 1 );
+
+    hlManager = HlManager::self();
+
+    defaultStyleList.setAutoDelete(true);
+    hlManager->getDefaults(defaultStyleList);
+
+    hlDataList.setAutoDelete(true);
+    //this gets the data from the KConfig object
+    hlManager->getHlDataList(hlDataList);
+
+    page = new HighlightDialogPage(hlManager, &defaultStyleList, &hlDataList, 0, this);
+    grid->addWidget( page, 0, 0);
+    page->show ();
+  
+    m_ready = true;
+  }
+  
+  QWidget:show ();
+}
+
 void HlConfigPage::apply ()
 {
-  hlManager->setHlDataList(hlDataList);
-  hlManager->setDefaults(defaultStyleList);
-  page->saveData();
+  if (m_ready)
+  {
+    hlManager->setHlDataList(hlDataList);
+    hlManager->setDefaults(defaultStyleList);
+    page->saveData();
+  }
 }
 
 void HlConfigPage::reload ()
 {
-
 }
 
 HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *styleList,

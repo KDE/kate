@@ -2502,15 +2502,6 @@ bool KateDocument::openFile()
 
   setMTime();
 
-  if (myWordWrap)
-  {
-    editStart (false);
-    wrapText (myWordWrapAt);
-    editEnd ();
-    setModified(false);
-    emit textChanged ();
-  }
-
   int hl = hlManager->wildcardFind( m_file );
 
   if (hl == -1)
@@ -4437,17 +4428,11 @@ void KateDocument::wrapText (uint col)
 
 void KateDocument::setWordWrap (bool on)
 {
-  if (on != myWordWrap && on)
-    wrapText (myWordWrapAt);
-
   myWordWrap = on;
 }
 
 void KateDocument::setWordWrapAt (uint col)
 {
-  if (myWordWrapAt != col && myWordWrap)
-    wrapText (myWordWrapAt);
-
   myWordWrapAt = col;
 }
 

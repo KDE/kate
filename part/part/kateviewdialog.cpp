@@ -20,6 +20,8 @@
 // $Id$
 
 #include "kateviewdialog.h"
+#include "kateviewdialog.moc"
+
 #include "katesearch.h"
 #include "katedocument.h"
 #include "kateview.h"
@@ -562,17 +564,29 @@ void FontConfig::reload ()
 EditKeyConfiguration::EditKeyConfiguration( QWidget* parent, KateDocument* doc )
   : Kate::ConfigPage( parent )
 {
-  (new QVBoxLayout(this))->setAutoAdd(true);
-  KateView* view = (KateView*)doc->views().at(0);
-  m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
+  m_doc = doc;
+  m_ready = false;
+}
+
+void EditKeyConfiguration::showEvent ( QShowEvent * )
+{
+  if (!m_ready)
+  {
+    (new QVBoxLayout(this))->setAutoAdd(true);
+    KateView* view = (KateView*)m_doc->views().at(0);
+    m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
+    m_keyChooser->show ();
+    
+    m_ready = true;
+  }
+  
+  QWidget::show (); 
 }
 
 void EditKeyConfiguration::apply()
 {
-  m_keyChooser->save();
+  if (m_ready)
+  {
+    m_keyChooser->save();
+  }
 }
-
-#include "kateviewdialog.moc"
-
-
-

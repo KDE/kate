@@ -29,7 +29,9 @@
 
 #include "katecursor.h"
 
-struct SearchFlags {
+class SearchFlags
+{
+  public:
   bool caseSensitive     :1;
   bool wholeWords        :1;
   bool fromBeginning     :1;
@@ -78,6 +80,7 @@ private:
   static void addToReplaceList( const QString& s ) { addToList( s_replaceList, s ); }
   static QStringList s_searchList;
   static QStringList s_replaceList;
+  static SearchFlags s_searchFlags;
   
   void search( SearchFlags flags );
   void wrapSearch();
@@ -107,7 +110,6 @@ private:
     uint matchedLength;
   } s;
   long options;
-  SearchFlags   m_searchFlags;
   int           replaces;
   QDialog*      replacePrompt;
   QString m_replacement;

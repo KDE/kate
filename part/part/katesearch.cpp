@@ -38,20 +38,20 @@
 
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
+SearchFlags KateSearch::s_searchFlags = SearchFlags ();
 
 KateSearch::KateSearch( KateView* view )
   : QObject( view, "kate search" )
   , m_view( view )
   , m_doc( view->doc() )
   , options (0)
-  , m_searchFlags()
   , replacePrompt( new ReplacePrompt( view ) )
 {
   connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
-  m_searchFlags.prompt = true;
+  s_searchFlags.prompt = true;
 // TODO: Configuration
-//  m_searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
-//   config->writeEntry("SearchFlags",m_searchFlags);
+//  s_searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
+//   config->writeEntry("SearchFlags",s_searchFlags);
 }
 
 KateSearch::~KateSearch()
@@ -94,17 +94,17 @@ void KateSearch::find()
           options = findDialog->options ();
 
     
-  m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
-  m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
-  m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
-  m_searchFlags.backward = options & KFindDialog::FindBackwards;
-  m_searchFlags.selected = options & KFindDialog::SelectedText;
-  m_searchFlags.prompt = false;
-  m_searchFlags.replace = false;
-  m_searchFlags.finished = false;
-  m_searchFlags.regExp = options & KFindDialog::RegularExpression;
+  s_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
+  s_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
+  s_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+  s_searchFlags.backward = options & KFindDialog::FindBackwards;
+  s_searchFlags.selected = options & KFindDialog::SelectedText;
+  s_searchFlags.prompt = false;
+  s_searchFlags.replace = false;
+  s_searchFlags.finished = false;
+  s_searchFlags.regExp = options & KFindDialog::RegularExpression;
     
-    search( m_searchFlags );
+    search( s_searchFlags );
   }
   delete findDialog;
 }
@@ -124,25 +124,25 @@ void KateSearch::replace()
     s_replaceList =  replaceDialog->replacementHistory () ;
           options = replaceDialog->options ();
 
-  m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
-  m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
-  m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
-  m_searchFlags.backward = options & KFindDialog::FindBackwards;
-  m_searchFlags.selected = options & KFindDialog::SelectedText;
-  m_searchFlags.prompt = options & KReplaceDialog::PromptOnReplace;
-  m_searchFlags.replace = true;
-  m_searchFlags.finished = false;
-  m_searchFlags.regExp = options & KFindDialog::RegularExpression;
+  s_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
+  s_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
+  s_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+  s_searchFlags.backward = options & KFindDialog::FindBackwards;
+  s_searchFlags.selected = options & KFindDialog::SelectedText;
+  s_searchFlags.prompt = options & KReplaceDialog::PromptOnReplace;
+  s_searchFlags.replace = true;
+  s_searchFlags.finished = false;
+  s_searchFlags.regExp = options & KFindDialog::RegularExpression;
     
-    search( m_searchFlags );
+    search( s_searchFlags );
   }
   delete replaceDialog;;
 }
 
 void KateSearch::findAgain( bool back )
 {
-  SearchFlags flags = m_searchFlags;
-  flags.backward = m_searchFlags.backward != back;
+  SearchFlags flags = s_searchFlags;
+  flags.backward = s_searchFlags.backward != back;
   flags.fromBeginning = false;
   flags.prompt = true;
   

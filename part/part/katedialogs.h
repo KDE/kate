@@ -284,7 +284,11 @@ class HlConfigPage : public Kate::ConfigPage
     HlConfigPage (QWidget *parent, class KateDocument *doc);
     ~HlConfigPage ();
 
+  protected:
+    void showEvent ( QShowEvent * );  
+    
   private:
+    bool m_ready;
     KateDocument *m_doc;
     class HighlightDialogPage *page;
     class HlManager *hlManager;

@@ -18,14 +18,14 @@
 */
 
 #ifndef _KATE_TEXTLINE_H_
-#define _KATE_TEXTLINE_H_ 
+#define _KATE_TEXTLINE_H_
 
 #include "kateglobal.h"
- 
-#include <stdlib.h> 
-#include <qstring.h> 
-#include <qvaluevector.h> 
-#include <ksharedptr.h> 
+
+#include <qmemarray.h>
+#include <qstring.h>
+#include <qvaluevector.h>
+#include <ksharedptr.h>
 #include <qregexp.h>
  
 /** 
@@ -41,11 +41,11 @@ class TextLine : public KShared
   friend class KateBuffer;  
   friend class KateBufBlock;
   
-public:
-    typedef KSharedPtr<TextLine> Ptr; 
-    typedef QValueVector<Ptr> List; 
- 
-public:  
+  public:
+    typedef KSharedPtr<TextLine> Ptr;
+    typedef QValueVector<Ptr> List;
+
+  public:  
     /**  
       Creates an empty text line with given attribute and syntax highlight  
       context  
@@ -53,67 +53,67 @@ public:
     TextLine(); 
     ~TextLine();  
   
-    /**  
-      Returns the length  
-    */  
-    uint length() const { return textLen; }  
-    /**  
-      Universal text manipulation method. It can be used to insert, delete  
-      or replace text.  
-    */  
-    void replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs = 0L);  
-    /**  
-      Appends a string of length l to the textline  
-    */ 
-    void append(const QChar *s, uint l); 
-		/** 
-      Wraps the text from the given position to the end to the next line  
-    */
-    void wrap(TextLine::Ptr nextLine, uint pos);  
-    /**  
-      Wraps the text of given length from the beginning of the next line to  
-      this line at the given position  
-    */  
-    void unWrap(uint pos, TextLine::Ptr nextLine, uint len);  
-    /**  
-      Truncates the textline to the new length  
-    */ 
-    void truncate(uint newLen); 
-		/** 
-      Returns the position of the first character which is not a white space  
-    */  
-    int firstChar() const;  
-    /**  
-      Returns the position of the last character which is not a white space  
-    */  
-    int lastChar() const;  
-    /**  
-      Removes trailing spaces  
-    */  
-    void removeSpaces();  
-    /**  
-      Gets the char at the given position  
-    */  
-    QChar getChar(uint pos) const;  
     /**
-      Gets the text. WARNING: it is not null terminated  
-    */  
-    const QChar *getText() const { return text; }; 
-    /**  
-      Gets a C-like null terminated string  
-    */  
-    const QString getString() { return QString (text, textLen); };
-  
-    /*  
-      Gets a null terminated pointer to first non space char  
-    */ 
-    const QChar *firstNonSpace();  
-    /**  
-      Returns the x position of the cursor at the given position, which  
-      depends on the number of tab characters  
-    */  
-    int cursorX(uint pos, uint tabChars) const;  
-    /**  
+      Returns the length  
+    */
+    uint length() const { return text.size(); }
+    /**
+      Universal text manipulation method. It can be used to insert, delete
+      or replace text.
+    */
+    void replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs = 0L);
+    /**
+      Appends a string of length l to the textline
+    */
+    void append(const QChar *s, uint l);
+		/**
+      Wraps the text from the given position to the end to the next line
+    */
+    void wrap(TextLine::Ptr nextLine, uint pos);
+    /**
+      Wraps the text of given length from the beginning of the next line to
+      this line at the given position
+    */
+    void unWrap(uint pos, TextLine::Ptr nextLine, uint len);
+    /**
+      Truncates the textline to the new length
+    */
+    void truncate(uint newLen);
+		/**
+      Returns the position of the first character which is not a white space
+    */
+    int firstChar() const;
+    /**
+      Returns the position of the last character which is not a white space
+    */
+    int lastChar() const;
+    /**
+      Removes trailing spaces
+    */
+    void removeSpaces();
+    /**
+      Gets the char at the given position
+    */
+    QChar getChar(uint pos) const;
+    /**
+      Gets the text. WARNING: it is not null terminated
+    */
+    QChar *getText() const { return text.data(); };
+    /**
+      Gets a C-like null terminated string
+    */
+    QString getString() { return QString (text.data(), text.size()); };
+
+    /*
+      Gets a null terminated pointer to first non space char
+    */
+    QChar *firstNonSpace() const;
+    /**
+      Returns the x position of the cursor at the given position, which
+      depends on the number of tab characters
+    */
+    int cursorX(uint pos, uint tabChars) const;
+    /**
       Is the line starting with the given string
     */
     bool startingWith(const QString& match) const;
@@ -144,26 +144,31 @@ public:
     /**
       Gets the syntax highlight context number
     */
-    signed char *getContext() const { return ctx; };
+    signed char *getContext() const { return ctx.data(); };
 		/**
       Gets the syntax highlight context number
     */
-    uint getContextLength() const { return ctxLen; };
+    uint getContextLength() const { return ctx.size(); };
 
     bool searchText (unsigned int startCol, const QString &text, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive = true, bool backwards = false);
     bool searchText (unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards = false);
 
-    uchar *getAttribs() { return attributes; }
+    uchar *getAttribs() { return attributes.data(); }
 
-    void setHlLineContinue(bool cont){hlContinue=cont;}
-    bool getHlLineContinue() {return hlContinue;}
-  protected: 
-    /** 
-      The text & attributes 
-    */ 
-    QChar *text; 
-    uchar *attributes;
-    uint textLen;
+    void setHlLineContinue (bool cont) { hlContinue = cont; }
+    bool getHlLineContinue () { return hlContinue; }
+
+    QMemArray<QChar> textArray () { return text; };
+    QMemArray<unsigned char> attributesArray () { return attributes; };
+    QMemArray<signed char> ctxArray () { return ctx; };
+
+  private:
+    /**
+      The text & attributes
+    */
+    QMemArray<QChar> text;
+    QMemArray<unsigned char> attributes;
+    QMemArray<signed char> ctx;
 
     /**
       The attribute of the free space behind the end
@@ -171,10 +176,8 @@ public:
     uchar attr;
 
     /**
-      The syntax highlight context
+      The line continue flag
     */
-    signed char *ctx;
-    uint ctxLen;
     bool hlContinue;
 };
 

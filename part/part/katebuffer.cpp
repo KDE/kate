@@ -769,8 +769,8 @@ KateBufBlock::flushStringList()
    for(TextLine::List::const_iterator it = m_stringList.begin();
        it != m_stringList.end(); ++it)
    {
-      uint l = (*it)->textLen;
-      uint lctx = (*it)->ctxLen;
+      uint l = (*it)->text.size();
+      uint lctx = (*it)->ctx.size();
       size += (2*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + (lctx * sizeof(signed char));
    }
    //kdDebug(13020)<<"Size = "<< size<<endl;
@@ -783,8 +783,8 @@ KateBufBlock::flushStringList()
        it != m_stringList.end(); ++it)
    {
       TextLine *tl = (*it).data();
-      uint l = tl->textLen;
-      uint lctx = tl->ctxLen;
+      uint l = tl->text.size();
+      uint lctx = tl->ctx.size();
 
       memcpy(buf, &l, sizeof(uint));
       buf += sizeof(uint);
@@ -792,16 +792,16 @@ KateBufBlock::flushStringList()
       memcpy(buf, &lctx, sizeof(uint));
       buf += sizeof(uint);
 
-      memcpy(buf, (char *) tl->text, sizeof(QChar)*l);
+      memcpy(buf, (char *) tl->text.data(), sizeof(QChar)*l);
       buf += sizeof(QChar)*l;
 
-      memcpy(buf, (char *) tl->attributes, l);
+      memcpy(buf, (char *) tl->attributes.data(), l);
       buf += l;
 
       memcpy(buf, (char *)&tl->attr, 1);
       buf += 1;
 
-      memcpy(buf, (signed char *)tl->ctx, lctx);
+      memcpy(buf, (signed char *)tl->ctx.data(), lctx);
       buf += sizeof (signed char) * lctx;
    }
    assert(buf-m_rawData2.data() == (int)size);
@@ -816,78 +816,75 @@ KateBufBlock::flushStringList()
 void
 KateBufBlock::buildStringListFast()
 {
-   // kdDebug(13020)<<"KateBufBlock: buildStringListFast this = "<< this<<endl;
-   char *buf = m_rawData2.data();
-   char *end = buf + m_rawSize;
-   while(buf < end)
-   {
-      uint l = 0;
-      uint lctx = 0;
+  // kdDebug(13020)<<"KateBufBlock: buildStringListFast this = "<< this<<endl;
+  char *buf = m_rawData2.data();
+  char *end = buf + m_rawSize;
+  
+  while(buf < end)
+  {
+    uint l = 0;
+    uint lctx = 0;
 
-      memcpy((char *) &l, buf, sizeof(uint));
-      buf += sizeof(uint);
-      memcpy((char *) &lctx, buf, sizeof(uint));
-      buf += sizeof(uint);
+    // text + context length read
+    memcpy((char *) &l, buf, sizeof(uint));
+    buf += sizeof(uint);
+    memcpy((char *) &lctx, buf, sizeof(uint));
+    buf += sizeof(uint);
 
-      TextLine::Ptr textLine = new TextLine();
+    TextLine::Ptr textLine = new TextLine();
 
-      if (l > 0)
-      {
-        textLine->replace(0, 0, (QChar *) buf, l, (uchar *) buf+(sizeof(QChar)*l));
-        buf += (sizeof(QChar)*l);
-        buf += l;
-      }
+    // text + attributes
+    textLine->text.duplicate ((QChar *) buf, l);
+    textLine->attributes.duplicate ((uchar *) buf + (sizeof(QChar)*l), l);
+    buf += (sizeof(QChar)*l);
+    buf += l;
 
-      uchar a = 0;
-      memcpy((char *)&a, buf, sizeof(uchar));
-      buf += sizeof(uchar);
-      textLine->attr = a;
+    uchar a = 0;
+    memcpy((char *)&a, buf, sizeof(uchar));
+    buf += sizeof(uchar);
+    textLine->attr = a;
 
-      if (lctx > 0)
-      {
-			  textLine->ctx = (signed char *)malloc (lctx);
-				memcpy((signed char *)textLine->ctx, buf, lctx);
-        buf += lctx;
-      }
-			textLine->ctxLen = lctx;
+    textLine->ctx.duplicate ((signed char *) buf, lctx);
+    buf += lctx;
 
-      m_stringList.push_back (textLine);
-   }
-   //kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
-   assert(m_stringList.size() == (m_endState.lineNr - m_beginState.lineNr));
-   m_stringListIt = m_stringList.begin();
-   m_stringListCurrent = 0;
-   b_stringListValid = true; 
-} 
- 
-/** 
- * Dispose of a stringList. 
- */ 
-void 
-KateBufBlock::disposeStringList() 
-{ 
-//   kdDebug(13020)<<"KateBufBlock: disposeStringList this = "<< this<<endl; 
-   assert(b_rawDataValid || b_vmDataValid); 
-   m_stringList.clear(); 
-   b_stringListValid = false;     
-}     
-     
-/**     
- * Dispose of raw data.     
- */     
-void     
-KateBufBlock::disposeRawData()     
-{     
-//   kdDebug(13020)<< "KateBufBlock: disposeRawData this = "<< this<<endl;     
-   assert(b_stringListValid || b_vmDataValid);     
-   b_rawDataValid = false;     
-   m_rawData1 = QByteArray();     
-   m_rawData1Start = 0;     
-   m_rawData2 = QByteArray();     
-   m_rawData2End = 0;     
-}     
-     
-/**     
+    m_stringList.push_back (textLine);
+  }
+
+  //kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
+  assert(m_stringList.size() == (m_endState.lineNr - m_beginState.lineNr));
+  m_stringListIt = m_stringList.begin();
+  m_stringListCurrent = 0;
+  b_stringListValid = true;
+}
+
+/**
+ * Dispose of a stringList.
+ */
+void
+KateBufBlock::disposeStringList()
+{
+//   kdDebug(13020)<<"KateBufBlock: disposeStringList this = "<< this<<endl;
+   assert(b_rawDataValid || b_vmDataValid);
+   m_stringList.clear();
+   b_stringListValid = false;
+}
+
+/**
+ * Dispose of raw data.
+ */
+void
+KateBufBlock::disposeRawData()
+{
+//   kdDebug(13020)<< "KateBufBlock: disposeRawData this = "<< this<<endl;
+   assert(b_stringListValid || b_vmDataValid);
+   b_rawDataValid = false;
+   m_rawData1 = QByteArray();
+   m_rawData1Start = 0;
+   m_rawData2 = QByteArray();
+   m_rawData2End = 0;
+}
+
+/**
  * Dispose of data in vm
  */     
 void     

@@ -3289,14 +3289,8 @@ void KateDocument::tagAll()
 void KateDocument::updateLines(int startLine, int endLine)
 {
   TextLine::Ptr textLine;
-  uint line, last_line, ctxNumLen, endCtxLen;
-  signed char *ctxNum, *endCtx;
-
-  ctxNum = 0L;
-  endCtx = 0L;
-
-  ctxNumLen = 0;
-  endCtxLen = 0;
+  uint line, last_line;
+  QMemArray<signed char> ctxNum, endCtx;
 
   if (!buffer->line(startLine))
     return;
@@ -3309,18 +3303,13 @@ void KateDocument::updateLines(int startLine, int endLine)
 
   if (line > 0)
   {
-    ctxNumLen = getTextLine(line-1)->getContextLength();
-    line_continue=getTextLine(line-1)->getHlLineContinue();
-    if (ctxNumLen>0)
-    {
-      if (ctxNum)
-        ctxNum=(signed char*)realloc(ctxNum,ctxNumLen);
-      else
-        ctxNum=(signed char*)malloc(ctxNumLen);
-      memcpy(ctxNum,getTextLine(line-1)->getContext(),ctxNumLen);
-    }
-    else { if (ctxNum) {free(ctxNum); ctxNum=0;}}
+    textLine = getTextLine(line-1);
 
+    if (textLine)
+    {
+      line_continue=textLine->getHlLineContinue();
+      ctxNum.duplicate (textLine->ctxArray ());
+    }
   }
 
   bool stillcontinue=false;
@@ -3332,80 +3321,45 @@ void KateDocument::updateLines(int startLine, int endLine)
     if (!textLine)
       break;
 
-    endCtxLen = textLine->getContextLength();
+    endCtx.duplicate (textLine->ctxArray ());
 
-    if (endCtxLen>0)
-    {
-      if (endCtx)
-        endCtx=(signed char*)realloc(endCtx,endCtxLen);
-      else
-        endCtx=(signed char*)malloc(endCtxLen);
-      memcpy(endCtx,textLine->getContext(),endCtxLen);
-    }
-    else { if (endCtx) {free(endCtx); endCtx=0;}}
 #ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"teststarti"<<endl;
     kdDebug()<<QString("line %1").arg(line)<<endl;
 #endif
 
-
-    m_highlight->doHighlight(ctxNum, ctxNumLen, textLine,line_continue);
+    m_highlight->doHighlight(ctxNum, textLine, line_continue);
 
 #ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"testendi"<<endl;
 #endif
 
-    ctxNumLen = textLine->getContextLength();
     line_continue=textLine->getHlLineContinue();
-    if (ctxNumLen>0)
-    {
-#ifdef _EXTREMELY_VERBOSE_DEBUG_
-    kdDebug()<<"alloc/realloc in updateLines"<<QString(" %1|%2").arg(ctxNumLen).arg(textLine->getContext()[ctxNumLen-1])<<endl;
-#endif
-
-      if (ctxNum)
-        ctxNum=(signed char*)realloc(ctxNum,ctxNumLen);
-      else
-        ctxNum=(signed char*)malloc(ctxNumLen);
-      memcpy(ctxNum,textLine->getContext(),ctxNumLen);
-    }
-    else { if (ctxNum) {free(ctxNum); ctxNum=0;}}
+    ctxNum.duplicate (textLine->ctxArray());
 
 #ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"befor still continue check"<<endl;
 #endif
 
-
-    if (endCtxLen != ctxNumLen)
+    if (endCtx.size() != ctxNum.size())
       stillcontinue = true;
     else
     {
       stillcontinue = false;
-      for (uint z=0; z < ctxNumLen; z++)
-      {
-        if (ctxNum[z] != endCtx[z])
-        {
-          stillcontinue = true;
-          break;
-        }
-      }
+      
+      if (ctxNum != endCtx)
+        stillcontinue = true;
     }
 
     line++;
-    //kdDebug()<<QString("Next line: %1, last_line %2, endLine %3").arg(line).arg(last_line).arg(endLine)<<endl;
   }
   while ((line <= last_line) && (((int)line <= endLine) || stillcontinue));
-
-  if (ctxNum != 0L)
-    free (ctxNum);
-
-  if (endCtx != 0L)
-    free (endCtx);
 
   tagLines(startLine, line - 1);
 }
 
-void KateDocument::slotBufferChanged() {
+void KateDocument::slotBufferChanged()
+{
   newDocGeometry = true;
   //updateLines();//JW
   updateViews();
@@ -4441,3 +4395,4 @@ QChar KateCursor::currentChar () const
 {
   return QChar();
 }
+

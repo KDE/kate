@@ -23,122 +23,104 @@
 #include <kdebug.h>
 
 TextLine::TextLine()
-  : text(0), attributes(0), textLen(0), ctx(0), ctxLen(0), hlContinue(false)
+  : attr (0), hlContinue(false)
 {
-  attr = 0;
 }
 
 TextLine::~TextLine()
 {
-  if (text != 0L)
-    free (text);
+}
 
-  if (attributes != 0L)
-    free (attributes);
+void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs)
+{
+  uint textLen, newLen, z;
+  int i, z2;
+  uchar newAttr;
 
-  if (ctx != 0L)
-    free (ctx);
-} 
- 
-void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs) 
-{ 
-  uint newLen, z;
-  int i, z2; 
-  uchar newAttr; 
- 
-  //find new length 
-  if (delLen <= textLen) 
-    newLen = textLen - delLen; 
-  else 
+  textLen = text.size ();
+
+  //find new length
+  if (delLen <= textLen)
+    newLen = textLen - delLen;
+  else
     newLen = 0;
- 
-  if (newLen < pos) newLen = pos; 
-  newLen += insLen; 
-  newAttr = (pos < textLen) ? attributes[pos] : attr; 
- 
-  if (newLen > textLen) 
-  { 
-    if (text == 0L) 
-      text = (QChar *) malloc (sizeof (QChar)*newLen); 
-    else 
-      text = (QChar *) realloc(text, sizeof (QChar)*newLen); 
- 
-    if (attributes == 0L) 
-      attributes = (uchar *) malloc (sizeof (uchar)*newLen); 
-    else 
-      attributes = (uchar *) realloc(attributes, sizeof (uchar)*newLen); 
-  } 
- 
-  //fill up with spaces and attribute 
-  for (z = textLen; z < pos; z++) { 
-    text[z] = QChar(' '); 
-    attributes[z] = attr; 
-  } 
- 
-  i = (insLen - delLen); 
- 
-  // realloc has gone - no idea why it was here 
-  if (i != 0) 
-  { 
-    if (i <= 0) 
-    { 
-      //text to replace longer than new text 
-      for (z = pos + delLen; z < textLen; z++) { 
-        if ((z+i) >= newLen) break; 
-        text[z + i] = text[z]; 
-        attributes[z + i] = attributes[z]; 
-      } 
- 
- 
-    } else { 
-      //text to replace shorter than new text 
-      for (z2 = textLen-1; z2 >= (int) (pos + delLen); z2--) { 
-        if (z2 < 0) break; 
-        text[z2 + i] = text[z2]; 
-        attributes[z2 + i] = attributes[z2]; 
-      } 
-    } 
-  } 
- 
-  if (insAttribs == 0L) { 
-    for (z = 0; z < insLen; z++) { 
-      text[pos + z] = insText[z]; 
-      attributes[pos + z] = newAttr; 
-    } 
-  } else { 
-    for (z = 0; z < insLen; z++) { 
-      text[pos + z] = insText[z]; 
-      attributes[pos + z] = insAttribs[z]; 
-    } 
-  } 
- 
-  if (newLen < textLen) 
-  { 
-    text = (QChar *) realloc(text, sizeof (QChar)*newLen); 
-    attributes = (uchar *) realloc(attributes, sizeof (uchar)*newLen); 
-  } 
- 
-  textLen = newLen; 
-} 
- 
-void TextLine::append(const QChar *s, uint l) 
-{ 
-  replace(textLen, 0, s, l); 
-} 
- 
-void TextLine::truncate(uint newLen) 
-{ 
-  if (newLen < textLen) 
+
+  if (newLen < pos) newLen = pos;
+  newLen += insLen;
+  newAttr = (pos < textLen) ? attributes[pos] : attr;
+
+  if (newLen > textLen)
   {
-    textLen = newLen;
-    text = (QChar *) realloc(text, sizeof (QChar)*newLen);
-    attributes = (uchar *) realloc(attributes, sizeof (uchar)*newLen);
+    text.resize (newLen);
+    attributes.resize (newLen);
+  }
+
+  //fill up with spaces and attribute
+  for (z = textLen; z < pos; z++) {
+    text[z] = QChar(' ');
+    attributes[z] = attr;
+  }
+
+  i = (insLen - delLen);
+
+  if (i != 0)
+  {
+    if (i <= 0)
+    {
+      //text to replace longer than new text
+      for (z = pos + delLen; z < textLen; z++) {
+        if ((z+i) >= newLen) break;
+        text[z + i] = text[z];
+        attributes[z + i] = attributes[z];
+      }
+
+
+    } else {
+      //text to replace shorter than new text
+      for (z2 = textLen-1; z2 >= (int) (pos + delLen); z2--) {
+        if (z2 < 0) break;
+        text[z2 + i] = text[z2];
+        attributes[z2 + i] = attributes[z2];
+      }
+    }
+  }
+
+  if (insAttribs == 0L) {
+    for (z = 0; z < insLen; z++) {
+      text[pos + z] = insText[z];
+      attributes[pos + z] = newAttr;
+    }
+  } else {
+    for (z = 0; z < insLen; z++) {
+      text[pos + z] = insText[z];
+      attributes[pos + z] = insAttribs[z];
+    }
+  }
+
+  if (newLen < textLen)
+  {
+    text.truncate (newLen);
+    attributes.truncate (newLen);
+  }
+}
+
+void TextLine::append(const QChar *s, uint l)
+{
+  replace(text.size(), 0, s, l);
+}
+
+void TextLine::truncate(uint newLen)
+{
+  if (newLen < text.size())
+  {
+    text.truncate (newLen);
+    attributes.truncate (newLen);
   }
 }
 
 void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 {
-  int l = textLen - pos;
+  int l = text.size() - pos;
 
   if (l > 0)
   {
@@ -150,26 +132,26 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 
 void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
-  replace(pos, 0, nextLine->text, len, nextLine->attributes); 
-  attr = nextLine->getAttr(len); 
-  nextLine->replace(0, len, 0L, 0); 
-} 
- 
+  replace(pos, 0, nextLine->text.data(), len, nextLine->attributes.data());
+  attr = nextLine->getAttr(len);
+  nextLine->replace(0, len, 0L, 0);
+}
+
 int TextLine::firstChar() const
 {
-  uint z = 0; 
- 
-  while (z < textLen && text[z].isSpace()) z++; 
- 
-  if (z < textLen) 
-    return z; 
-  else 
-    return -1; 
-} 
- 
+  uint z = 0;
+
+  while (z < text.size() && text[z].isSpace()) z++;
+
+  if (z < text.size())
+    return z;
+  else
+    return -1;
+}
+
 int TextLine::lastChar() const
 {
-  uint z = textLen;
+  uint z = text.size();
 
   while (z > 0 && text[z - 1].isSpace()) z--;
   return z;
@@ -177,26 +159,26 @@ int TextLine::lastChar() const
 
 void TextLine::removeSpaces()
 {
-  while (textLen > 0 && text[textLen - 1].isSpace()) truncate (textLen-1);
+  while (text.size() > 0 && text[text.size() - 1].isSpace()) truncate (text.size()-1);
 }
 
 QChar TextLine::getChar(uint pos) const
 {
-  if (pos < textLen)
+  if (pos < text.size())
 	  return text[pos];
 
   return QChar(' ');
 }
 
-const QChar *TextLine::firstNonSpace()
+QChar *TextLine::firstNonSpace() const
 {
   int first=firstChar();
-  return (first > -1) ? &text[first] : text;
+  return (first > -1) ? &text[first] : text.data();
 }
 
 bool TextLine::startingWith(const QString& match) const
 {
-  if (match.length() > textLen)
+  if (match.length() > text.size())
 	  return false;
 
 	for (uint z=0; z<match.length(); z++)
@@ -208,10 +190,10 @@ bool TextLine::startingWith(const QString& match) const
 
 bool TextLine::endingWith(const QString& match) const
 {
-  if (match.length() > textLen)
+  if (match.length() > text.size())
     return false;
 
-  for (int z=textLen; z>(int)(textLen-match.length()); z--)
+  for (int z=text.size(); z>(int)(text.size()-match.length()); z--)
     if (match[z] != text[z])
       return false;
 
@@ -222,7 +204,7 @@ int TextLine::cursorX(uint pos, uint tabChars) const
 {
   int l, x, z;
 
-  l = (pos < textLen) ? pos : textLen;
+  l = (pos < text.size()) ? pos : text.size();
   x = 0;
   for (z = 0; z < l; z++) {
     if (text[z] == QChar('\t')) x += tabChars - (x % tabChars); else x++;
@@ -234,7 +216,7 @@ int TextLine::cursorX(uint pos, uint tabChars) const
 void TextLine::setAttribs(uchar attribute, uint start, uint end) {
   uint z;
 
-  if (end > textLen) end = textLen;
+  if (end > text.size()) end = text.size();
   for (z = start; z < end; z++) attributes[z] = attribute;
 }
 
@@ -243,7 +225,7 @@ void TextLine::setAttr(uchar attribute) {
 }
 
 uchar TextLine::getAttr(uint pos) const {
-  if (pos < textLen) return attributes[pos];
+  if (pos < text.size()) return attributes[pos];
   return attr;
 }
 
@@ -253,14 +235,7 @@ uchar TextLine::getAttr() const {
 
 void TextLine::setContext(signed char *newctx, uint len)
 {
-  ctxLen = len;
-
-	if (ctx == 0L)
-    ctx = (signed char*)malloc (len);
-  else
-    ctx = (signed char*)realloc (ctx, len);
-
-  for (uint z=0; z < len; z++) ctx[z] = newctx[z];
+  ctx.duplicate (newctx, len);
 }
 
 bool TextLine::searchText (unsigned int startCol, const QString &text, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive, bool backwards)
@@ -268,28 +243,28 @@ bool TextLine::searchText (unsigned int startCol, const QString &text, unsigned 
   int index;
 
   if (backwards)
-    index = QString (this->text, textLen).findRev (text, startCol, casesensitive);
+    index = QString (this->text.data(), this->text.size()).findRev (text, startCol, casesensitive);
   else
-    index = QString (this->text, textLen).find (text, startCol, casesensitive);
- 
-   if (index > -1) 
-	{ 
-	  (*foundAtCol) = index; 
-		(*matchLen)=text.length(); 
-		return true; 
-  } 
- 
-  return false; 
+    index = QString (this->text.data(), this->text.size()).find (text, startCol, casesensitive);
+
+   if (index > -1)
+	{
+	  (*foundAtCol) = index;
+		(*matchLen)=text.length();
+		return true;
+  }
+
+  return false;
 } 
  
 bool TextLine::searchText (unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards) 
 { 
   int index; 
  
-  if (backwards) 
-    index = regexp.searchRev (QString (this->text, textLen), startCol); 
-  else 
-    index = regexp.search (QString (this->text, textLen), startCol); 
+  if (backwards)
+    index = regexp.searchRev (QString (this->text.data(), this->text.size()), startCol);
+  else
+    index = regexp.search (QString (this->text.data(), this->text.size()), startCol);
  
    if (index > -1) 
 	{ 

@@ -618,38 +618,31 @@ Highlight::~Highlight()
 {
 }
 
-signed char *Highlight::generateContextStack(int *ctxNum, int ctx,signed char *ctxs, uint *ctxsLen, int *prevLine, bool lineContinue)
+void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char>* ctxs, int *prevLine, bool lineContinue)
 {
-  if (lineContinue) 
+  //kdDebug()<<QString("Entering generateContextStack with %1").arg(ctx)<<endl;
+
+  if (lineContinue)
 	{
-//	{ ctx=-1;
-	  if (ctxsLen>0)
+	  if (ctxs->size()>0)
 	  {
-		(*ctxNum)=ctxs[(*ctxsLen-1)];
+		(*ctxNum)=(*ctxs)[ctxs->size()-1];
 		(*prevLine)--;
           } else
 	  {
-		 kdDebug()<<QString("generateContextStack: line continue: len ==0");
+		 //kdDebug()<<QString("generateContextStack: line continue: len ==0");
 		 (*ctxNum)=0;
 	  }
-//	 return  (generateContextStack(ctxNum,-1,ctxs,ctxsLen,prevLine,false));
-	  return ctxs;
+
+	  return;
 	}
 
   if (ctx>=0)
   {
     (*ctxNum) = ctx;
 
-    if (ctxs == 0L)
-      ctxs = (signed char *) malloc ((*ctxsLen)+1);
-    else
-	{
-	      ctxs = (signed char *) realloc (ctxs, (*ctxsLen)+1);
-		if (ctxs==0) kdDebug()<<"WARNING WARNING WARNING REALLOC FAILED"<<endl;
-	}
-
-    (*ctxsLen)++;
-    ctxs[(*ctxsLen)-1]=(*ctxNum);
+    ctxs->resize (ctxs->size()+1);
+    (*ctxs)[ctxs->size()-1]=(*ctxNum);
   }
   else
   {
@@ -657,39 +650,41 @@ signed char *Highlight::generateContextStack(int *ctxNum, int ctx,signed char *c
     {
       while (ctx<-1)
       {
-        if ((*ctxsLen)==0)
+        if (ctxs->size()==0)
         (*ctxNum)=0;
         else
         {
-          ctxs = (signed char *) realloc (ctxs, (*ctxsLen)-1);
-          (*ctxsLen)--;
-	  if (((*ctxsLen)>0) && (ctxs==0)) kdDebug()<<"WARNING WARNING REALLOC FAILED"<<endl;
-          (*ctxNum) = (((*ctxsLen)==0)?0:ctxs[(*ctxsLen)-1]);
+          ctxs->truncate (ctxs->size()-1);
+	  //kdDebug()<<QString("generate context stack: truncated stack to :%1").arg(ctxs->size())<<endl;
+          (*ctxNum) = ((ctxs->size()==0)?0:(*ctxs)[ctxs->size()-1]);
         }
       ctx++;
-    }
+      }
 
-    ctx=0;
-    }
+     ctx=0;
 
-    if ((*prevLine)>=(int)(*ctxsLen)-1)
-    {
-      *prevLine=(*ctxsLen)-1;
 
-      if ((*ctxsLen)==0)
-        return ctxs;
+     if ((*prevLine)>=(int)(ctxs->size()-1))
+     {
+       *prevLine=ctxs->size()-1;
 
-      if (contextList[ctxs[(*ctxsLen)-1]] && (contextList[ctxs[(*ctxsLen)-1]]->ctx!=-1))
-        return generateContextStack(ctxNum, contextList[ctxs[(*ctxsLen)-1]]->ctx,ctxs,ctxsLen, prevLine);
+       if (ctxs->size()==0)
+         return;
+
+       if (contextList[(*ctxs)[ctxs->size()-1]] && (contextList[(*ctxs)[ctxs->size()-1]]->ctx != -1))
+       {
+		//kdDebug()<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
+         generateContextStack(ctxNum, contextList[(*ctxs)[ctxs->size()-1]]->ctx,ctxs, prevLine);
+         return;
+       }
+     }
     }
     else
     {
       if (ctx==-1)
-        (*ctxNum)=(((*ctxsLen)==0)?0:ctxs[(*ctxsLen)-1]);
+        (*ctxNum)=((ctxs->size()==0)?0:(*ctxs)[ctxs->size()-1]);
     }
-  }
-
-  return ctxs;
+ }
 }
 
 
@@ -706,7 +701,7 @@ signed char *Highlight::generateContextStack(int *ctxNum, int ctx,signed char *c
                         * return value: signed char*	new context stack at the end of the line
 *******************************************************************************************/
 
-void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,bool lineContinue)
+void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool lineContinue)
 {
   if (!textLine)
     return;
@@ -722,15 +717,15 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
   const QChar *s2;
   HlItem *item=0;
 
-  if (lineContinue) kdDebug()<<"Entering with lineContinue flag set"<<endl;
+  // if (lineContinue) kdDebug()<<"Entering with lineContinue flag set"<<endl;
 
   int ctxNum;
   int prevLine;
 
-  signed char *ctx = (signed char*) malloc (oCtxLen);
-  for (uint z1=0; z1 < oCtxLen; z1++) ctx[z1] = oCtx[z1];
+  QMemArray<signed char> ctx;
+  ctx.duplicate (oCtx);
 
-  if (oCtxLen==0)
+  if (oCtx.size() == 0)
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
     ctxNum=0;
@@ -741,14 +736,19 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
   {
     //  kdDebug()<<"test1-2-1"<<endl;
 
+     /*QString tmpStr="";
+     for (int jwtest=0;jwtest<oCtx.size();jwtest++)
+	tmpStr=tmpStr+QString("%1 ,").arg(ctx[jwtest]);
+    kdDebug()<< "Old Context stack:" << tmpStr<<endl; */
+
     // There does an old context stack exist -> find the context at the line start
-    ctxNum=ctx[oCtxLen-1]; //context ID of the last character in the previous line
+    ctxNum=ctx[oCtx.size()-1]; //context ID of the last character in the previous line
 
     //kdDebug()<<"test1-2-1-text1"<<endl;
 
     //kdDebug() << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
 
-    if (lineContinue)   kdDebug()<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
+    //if (lineContinue)   kdDebug()<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
 
     if (contextList[ctxNum])
       context=contextList[ctxNum]; //context structure
@@ -757,18 +757,17 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
 
     //kdDebug()<<"test1-2-1-text2"<<endl;
 
-    prevLine=oCtxLen-1;	//position of the last context ID of th previous line within the stack
+    prevLine=oCtx.size()-1;	//position of the last context ID of th previous line within the stack
 
     //kdDebug()<<"test1-2-1-text3"<<endl;
-	    ctx=generateContextStack(&ctxNum, context->ctx, ctx, &oCtxLen, &prevLine,lineContinue);	//get stack ID to use
-  	
+    generateContextStack(&ctxNum, context->ctx, &ctx, &prevLine,lineContinue);	//get stack ID to use
+
     //kdDebug()<<"test1-2-1-text4"<<endl;
 
     context=contextList[ctxNum];	//current context to use
     //kdDebug()<<"test1-2-2"<<endl;
 
-    if (lineContinue)   kdDebug()<<QString("The new context is %1").arg((int)ctxNum)<<endl;
-
+    //if (lineContinue)   kdDebug()<<QString("The new context is %1").arg((int)ctxNum)<<endl;
   }
 
   QChar lastChar = ' ';
@@ -798,7 +797,8 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
             textLine->setAttribs(item->attr,s1 - str,s2 - str);
 //   	    kdDebug()<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
-	    ctx=generateContextStack(&ctxNum, item->ctx,ctx, &oCtxLen, &prevLine);  //regenerate context stack
+	      generateContextStack(&ctxNum, item->ctx, &ctx, &prevLine);  //regenerate context stack
+		//kdDebug()<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
 	//    kdDebug()<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
 	    context=contextList[ctxNum];
 
@@ -839,10 +839,9 @@ void Highlight::doHighlight(signed char *oCtx, uint oCtxLen, TextLine *textLine,
 //  kdDebug()<<QString("Last line end context entry: %1").arg((int)ctx[oCtxLen-1])<<endl;
 //  else kdDebug()<<QString("Context stack len:0")<<endl;
 
-  textLine->setContext(ctx, oCtxLen);
-  
-  if (ctx != 0L)
-    free (ctx);
+  textLine->setContext(ctx.data(), ctx.size());
+
+  //kdDebug()<<QString("Context stack size on exit :%1").arg(ctx.size())<<endl;
 }
 
 KConfig *Highlight::getKConfig() {

@@ -1978,14 +1978,15 @@ void KateDocument::readSessionConfig(KConfig *config)
   if (!tmpenc.isEmpty() && (tmpenc != encoding()))
     setEncoding(tmpenc);
 
+  // open the file if url valid
+  if (!url.isEmpty() && url.isValid())
+    openURL (url);
+    
   // restore the hl stuff
   internalSetHlMode(HlManager::self()->nameFind(config->readEntry("Highlighting")));
 
-  // open the file if url valid
-  if (!url.isEmpty() && url.isValid())
-  {
-    openURL (url);
-  }
+  if (hlMode() > 0)
+    hlSetByUser = true;
 
   // Restore Bookmarks
   QValueList<int> marks = config->readIntListEntry("Bookmarks");

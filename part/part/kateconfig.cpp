@@ -495,7 +495,7 @@ KateViewConfig::KateViewConfig ()
    m_autoCenterLinesSet (true),
    m_searchFlagsSet (true),
    m_cmdLineSet (true),
-   m_defaultMarkType (true),
+   m_defaultMarkTypeSet (true),
    m_view (0)
 {
   s_global = this;
@@ -518,7 +518,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_autoCenterLinesSet (false),
    m_searchFlagsSet (false),
    m_cmdLineSet (false),
-   m_defaultMarkType (false),
+   m_defaultMarkTypeSet (false),
    m_view (view)
 {
 }

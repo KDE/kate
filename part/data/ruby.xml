@@ -74,11 +74,6 @@
 	<keyword String = "literals" attribute = "Literal" context="#stay"/>
 	<StringDetect String= "self" attribute = "Instance Variable" context="#stay" insensitive="FALSE"/>
 	<keyword String = "attribute-definitions" attribute = "Attribute Definition" context="#stay"/>
-	<!-- group>
-		<keyword String = "definitions" attribute = "Keyword" context="0"/>
-		<whitespace/>
-		<regexp match = "[a-zA-Z_0-9.]+" attribute = "Definition"/>
- 	</group -->
 	<Float attribute = "Float" context="#stay"/>
 	<Int attribute = "Decimal" context="#stay"/>
 	<HlCChar attribute = "Char" context="#stay"/>
@@ -92,8 +87,8 @@
 	<RegExpr String = "[&lt;&gt;!^&#61;&#37;+*~/-]+" attribute = "Operator" context="#stay"/>
 	<DetectChar char = '"' attribute = "String" context = "Quoted String"/>
 	<DetectChar char= "'" attribute = "String" context="Apostrophed String"/>
-	<RegExpr String = "^##$" attribute = "Main Comment" context="Main Comment"/>
-	<RegExpr String = "^#$" attribute = "Comment" context="#stay"/>
+        <StringDetect String="?#" attribute="Normal Text" context="#stay"/>
+	<RegExpr String = "#.*$" attribute = "Comment" context="#stay"/>
 	<RegExpr String = "[\[\]\{\}|]+" attribute = "Delimiter" context="#stay"/>
 	<RegExpr String = "[A-Z_]+" attribute = "Global Constant" context="#stay"/>
 	<RegExpr String = "$[a-zA-Z_0-9]+" attribute = "Global Variable" context="#stay"/>

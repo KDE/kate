@@ -3664,10 +3664,6 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   else
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
 
-
-  if (line > lastLine())
-    return false;
-
   textLine = getTextLine(line);
 
   if (!textLine)
@@ -3754,6 +3750,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     }
   }
 
+	uint oldCol = startcol;
+	uint oldXPos = xPos;
+	const QChar *oldS = s;
+
   for (uint tmp = len; tmp > 0; tmp--)
   {
     if ((*s) == QChar('\t'))
@@ -3813,16 +3813,24 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       if (!selectionPainted && hasSel && (curCol >= startSel) && (curCol < endSel))
         paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
 
-      if ((*s) != QChar('\t'))
+      if ((tmp < 2) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t')) || ((*s) != QChar('\t')))
       {
-        QConstString str((QChar *) s, 1);
-        paint.drawText(xPos-xStart, y, str.string());
+        QConstString str((QChar *) oldS, curCol+1-oldCol);
+        paint.drawText(oldXPos-xStart, y, str.string());
+			
+	oldCol = curCol+1;
+	oldXPos = xPosAfter;
+	oldS = s+1;
       }
-      else if (showTabs)
+      else if (((*s) == QChar('\t')) && showTabs)
       {
         paint.drawPoint(xPos - xStart, y);
         paint.drawPoint(xPos - xStart + 1, y);
         paint.drawPoint(xPos - xStart, y - 1);
+
+        oldCol = curCol+1;
+	oldXPos = xPosAfter;
+	oldS = s+1;
       }
     }
 

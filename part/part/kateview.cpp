@@ -654,7 +654,7 @@ void KateView::slotStatusMsg ()
     ovrstr = i18n(" R/O ");
 
   uint r = cursorLine() + 1;
-  uint c = cursorColumn();
+  uint c = cursorColumn() + 1;
 
   QString s1 = i18n(" Line: %1").arg(KGlobal::locale()->formatNumber(r, 0));
   QString s2 = i18n(" Col: %1").arg(KGlobal::locale()->formatNumber(c, 0));

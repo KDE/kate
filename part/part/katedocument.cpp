@@ -200,7 +200,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // if the user changes the highlight with the dialog, notify the doc
   connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
 
-  readConfig();
+  readConfig();  
+  loadAllEnabledPlugins ();
 
   m_extension = new KateBrowserExtension( this );
   
@@ -266,7 +267,7 @@ void KateDocument::enablePluginGUI (PluginInfo *item, KateView *view)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
-
+                                     
   KTextEditor::pluginViewInterface(item->plugin)->addView(view);
 }
 
@@ -274,7 +275,7 @@ void KateDocument::enablePluginGUI (PluginInfo *item)
 {
   if (!item->plugin) return;
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
-
+                     
   for (uint i=0; i< m_views.count(); i++)
   {
     KTextEditor::pluginViewInterface(item->plugin)->addView(m_views.at(i));
@@ -1187,7 +1188,12 @@ bool KateDocument::removeSelectedText ()
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    (m_views.at(z))->m_viewInternal->removeSelectedText(selectStart);
+    KateViewInternal *v = (m_views.at(z))->m_viewInternal;
+    if (lineHasSelected(v->cursorCache.line))
+    {
+      v->cursorCache = selectStart;
+      v->cursorCacheChanged = true;
+    }
   }
 
   int sl = selectStart.line;

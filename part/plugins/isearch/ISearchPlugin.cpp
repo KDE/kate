@@ -470,8 +470,9 @@ ISearchPlugin::~ISearchPlugin()
 }                    
 
 void ISearchPlugin::addView(KTextEditor::View *view)
-{
-  ISearchPluginView *nview = new ISearchPluginView (view);
+{                                          
+  ISearchPluginView *nview = new ISearchPluginView ();
+  view->insertChildClient (nview);
   nview->setView (view); 
   m_views.append (nview);
 }   
@@ -482,6 +483,7 @@ void ISearchPlugin::removeView(KTextEditor::View *view)
     if (m_views.at(z)->view() == view)
     {
        ISearchPluginView *nview = m_views.at(z);
+       view->removeChildClient (nview);
        m_views.remove (nview);
       delete nview;
     }  

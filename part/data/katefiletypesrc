@@ -1,20 +1,23 @@
 [C]
-Section=Sources
 Active=true
+Section=Sources
 Wildcards=*.c
 Mimetypes=
 Priority=1
+Highlighting=C
 
 [C++]
-Section=Sources
 Active=true
+Section=Sources
 Wildcards=*.cpp;*.h
 Mimetypes=text/x-c++src;text/x-c++hdr;text/x-chdr
 Priority=9
+Highlighting=C++
 
 [XML]
-Section=Markup
 Active=true
+Section=Markup
 Wildcards=
 Mimetypes=text/xml
 Priority=
+Highlighting=XML

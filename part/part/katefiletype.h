@@ -38,6 +38,7 @@ class KateFileType
     QStringList wildcards;
     QStringList mimetypes;
     int priority;
+    QString highlighting;
 };
 
 class KateFileTypeManager

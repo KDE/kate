@@ -57,6 +57,7 @@ void KateFileTypeManager::update ()
 
   KateFileType *def = new KateFileType ();
   def->number = 0;
+  def->highlighting = "Normal";
   m_types.insert (QString ("K"), def);
   m_typesNum.insert (0, def);
 
@@ -75,6 +76,7 @@ void KateFileTypeManager::update ()
       type->wildcards = m_config->readListEntry ("Wildcards", ';');
       type->mimetypes = m_config->readListEntry ("Mimetypes", ';');
       type->priority = m_config->readNumEntry ("Priority");
+      type->highlighting = m_config->readEntry ("Highlighting");
 
       m_types.insert (QString ("K") + type->name, type);
       m_typesNum.insert (i, type);

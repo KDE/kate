@@ -44,10 +44,10 @@ class MarkInterface
     virtual uint mark (uint line) = 0;
 
     virtual void setMark (uint line, uint markType) = 0;
-   virtual void clearMark (uint line) = 0;
+    virtual void clearMark (uint line) = 0;
 
     virtual void addMark (uint line, uint markType) = 0;
-   virtual void removeMark (uint line, uint markType) = 0;
+    virtual void removeMark (uint line, uint markType) = 0;
 
     virtual QPtrList<KTextEditor::Mark> marks () = 0;
     virtual void clearMarks () = 0;
@@ -87,6 +87,12 @@ class MarkInterface
       markType31= 0x40000000,
       markType32= 0x80000000
     };
+
+  //
+  // signals !!!
+  //
+  public:
+    virtual void marksChanged () = 0;
 };
 
 };

@@ -278,10 +278,6 @@ class KateBuffer : public QObject
     Highlight *m_highlight;
     KateDocument *m_doc;
 
-    // stuff we need to load a file
-    KateBufFileLoader *m_loader;
-    QTimer m_loadTimer;
-
     // ALL blocks
     QValueVector<KateBufBlock*> m_blocks;
     uint m_lastFoundBlock;

@@ -41,29 +41,6 @@
 #define AVG_BLOCK_SIZE              32000
 
 /**
-  Some private classes
-*/
-class KateBufFileLoader
-{
-  public:
-    KateBufFileLoader (const QString &m_file) :
-      file (m_file), stream (&file), codec (0), prev (0), lastCharEOL (false)
-    {
-    }
-
-    ~KateBufFileLoader ()
-    {
-    }
-
-  public:
-    QFile file;
-    QTextStream stream;
-    QTextCodec *codec;
-    KateBufBlock *prev;
-    bool lastCharEOL;
-};
-
-/**
  * The KateBufBlock class contains an amount of data representing
  * a certain number of lines.
  */
@@ -221,7 +198,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_lastInSyncBlock (0),
    m_highlight (0),
    m_doc (doc),
-   m_loader (0),
    m_lastFoundBlock (0),
    m_vm (0),
    m_regionTree (0),
@@ -249,7 +225,6 @@ KateBuffer::~KateBuffer()
   m_blocks.clear ();
 
   delete m_vm;
-  delete m_loader;
 }
 
 void KateBuffer::setTabWidth (uint w)
@@ -524,12 +499,9 @@ void KateBuffer::setHighlight(Highlight *highlight)
  */
 bool KateBuffer::openFile (const QString &m_file)
 {
-  clear();
+  QFile file (m_file);
 
-  // here we feed the loader with info
-  KateBufFileLoader loader (m_file);
-
-  if ( !loader.file.open( IO_ReadOnly ) || !loader.file.isDirectAccess() )
+  if ( !file.open( IO_ReadOnly ) || !file.isDirectAccess() )
   {
     clear();
     return false; // Error
@@ -538,14 +510,14 @@ bool KateBuffer::openFile (const QString &m_file)
   // detect eol
   while (true)
   {
-     int ch = loader.file.getch();
+     int ch = file.getch();
 
      if (ch == -1)
        break;
 
      if ((ch == '\r'))
      {
-       ch = loader.file.getch ();
+       ch = file.getch ();
 
        if (ch == '\n')
        {
@@ -565,24 +537,28 @@ bool KateBuffer::openFile (const QString &m_file)
      }
   }
 
-  if (loader.file.size () > 0)
+  // eol detection
+  bool lastCharEOL = false;
+  if (file.size () > 0)
   {
-    loader.file.at (loader.file.size () - 1);
+    file.at (file.size () - 1);
 
-    int ch = loader.file.getch();
+    int ch = file.getch();
 
     if ((ch == '\n') || (ch == '\r'))
-      loader.lastCharEOL = true;
+      lastCharEOL = true;
   }
 
-  loader.file.reset ();
+  file.reset ();
 
+  QTextStream stream (&file);
   QTextCodec *codec = m_doc->config()->codec();
-  loader.stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
-  loader.stream.setCodec(codec); // this line sets the mapper to the correct codec
-  loader.codec = codec;
-  loader.prev = 0;
+  stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
+  stream.setCodec(codec); // this line sets the mapper to the correct codec
 
+  // flush current content
+  clear();
+   
   // cleanup the blocks
   m_cleanBlocks.clear();
   m_dirtyBlocks.clear();
@@ -599,11 +575,11 @@ bool KateBuffer::openFile (const QString &m_file)
   m_loadingBorked = false;
 
   // do the real work
-
   bool eof = false;
+  KateBufBlock *prev = 0;
   while (true)
   {
-    if (loader.stream.atEnd())
+    if (stream.atEnd())
       eof = true;
 
     if (eof)
@@ -613,13 +589,13 @@ bool KateBuffer::openFile (const QString &m_file)
     if (m_cacheWriteError)
       break;
 
-    KateBufBlock *block = new KateBufBlock(this, loader.prev, m_vm);
-    eof = block->fillBlock (&loader.stream, loader.lastCharEOL);
+    KateBufBlock *block = new KateBufBlock(this, prev, m_vm);
+    eof = block->fillBlock (&stream, lastCharEOL);
 
     m_blocks.append (block);
     m_loadedBlocks.append (block);
 
-    loader.prev = block;
+    prev = block;
     m_lines = block->endLine ();
   }
 

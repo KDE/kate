@@ -257,6 +257,8 @@ class HlManager : public QObject
 
   private:
     QPtrList<Highlight> hlList;
+    QDict<Highlight> hlDict;
+    
     static HlManager *s_pSelf;
     static KConfig *s_pConfig;
 };

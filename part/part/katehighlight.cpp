@@ -1944,16 +1944,23 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
 
 HlManager::HlManager() : QObject(0)
 {
+  hlList.setAutoDelete(true);
+  hlDict.setAutoDelete(false);
+
   syntax = new SyntaxDocument();
   SyntaxModeList modeList = syntax->modeList();
 
-  hlList.setAutoDelete(true);
-  hlList.append(new Highlight(0));
-
+  Highlight *hl = new Highlight(0);
+  hlList.append (hl);
+  hlDict.insert (hl->name(), hl);
+  
   uint i=0;
   while (i < modeList.count())
   {
-    hlList.append(new Highlight(modeList.at(i)));
+    hl = new Highlight(modeList.at(i));
+    hlList.append (hl);
+    hlDict.insert (hl->name(), hl);
+    
     i++;
   }
 }
@@ -2198,10 +2205,10 @@ void HlManager::setHlDataList(HlDataList &list) {
 
 QString HlManager::identifierForName(const QString& name)
 {
-//FIXME optimize this 
-	for(int z=0;z<(int)hlList.count();z++) {
-		if (hlList.at(z)->name()==name) return hlList.at(z)->getIdentifier(); 
-	}
-	return QString();
-}
+  Highlight *hl = 0;
+  
+  if (hl =hlDict[name])
+    return hl->getIdentifier ();
 
+  return QString();
+}

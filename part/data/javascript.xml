@@ -3,7 +3,7 @@
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minor changes: Joseph Wenninger <jowenn@kde.org> //-->
 <!-- Minimal javascript support //-->
-<language name="JavaScript1" version="1.02" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
+<language name="JavaScript" version="1.02" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
   <highlighting>
     <list name="keywords">
         <item> if </item>

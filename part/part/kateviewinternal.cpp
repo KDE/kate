@@ -1891,7 +1891,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
-  if (key == Qt::Key_Return)
+  if ((key == Qt::Key_Return) || (key == Qt::Key_Enter))
   {
     m_view->keyReturn();
     return;

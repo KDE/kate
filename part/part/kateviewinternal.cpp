@@ -2476,8 +2476,7 @@ void KateViewInternal::timerEvent( QTimerEvent* e )
   }
   else if (e->timerId() == scrollTimer && (scrollX | scrollY))
   {
-    scrollLines (startPos().line() + (scrollY / m_renderer->fontHeight()));
-    //scrollLines (startPos().line + (scrollY / m_doc->viewFont.fontHeight));
+    scrollLines (startPos().line() + (scrollY / (int)m_renderer->fontHeight()));
 
     placeCursor( QPoint( mouseX, mouseY ), true );
     //kdDebug()<<"scroll timer: X: "<<mouseX<<" Y: "<<mouseY<<endl;

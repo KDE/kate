@@ -21,6 +21,7 @@
 
 #include "document.h"
 #include "view.h"
+#include "plugin.h"
 #include "editor.h"
 
 #include <kaction.h>
@@ -56,6 +57,18 @@ namespace KTextEditor
     {
     }
   };
+  
+  class PrivatePlugin
+  {
+  public:
+    PrivatePlugin ()
+    {
+    }
+
+    ~PrivatePlugin ()
+    {
+    }
+  };
 
   class PrivateEditor
   {
@@ -72,6 +85,7 @@ namespace KTextEditor
 
 unsigned int Document::globalDocumentNumber = 0;
 unsigned int View::globalViewNumber = 0;
+unsigned int Plugin::globalPluginNumber = 0;
 unsigned int Editor::globalEditorNumber = 0;
 
 Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
@@ -102,6 +116,21 @@ View::~View()
 unsigned int View::viewNumber () const
 {
   return myViewNumber;
+}
+
+Plugin::Plugin() : QObject()
+{
+  globalPluginNumber++;
+  myPluginNumber = globalPluginNumber;
+}
+
+Plugin::~Plugin()
+{
+}
+
+unsigned int Plugin::pluginNumber () const
+{
+  return myPluginNumber;
 }
 
 Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )

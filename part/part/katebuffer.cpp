@@ -665,14 +665,34 @@ bool KateBuffer::saveFile (const QString &m_file)
 
   for (uint i=0; i < m_lines; i++)
   {
-    // if enabled strip the trailing spaces !
-    if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
-      stream << textLine (i, m_doc->configFlags() & KateDocument::cfRemoveSpaces).replace (QChar('\t'), tabs);
-    else
-      stream << textLine (i, m_doc->configFlags() & KateDocument::cfRemoveSpaces);
-
-    if (i < (m_lines-1))
-      stream << eol;
+    TextLine::Ptr textLine = plainLine(i);
+  
+    if (textLine)
+    {    
+      // if enabled strip the trailing spaces !
+      if (m_doc->configFlags() & KateDocument::cfRemoveSpaces)
+      {
+        // replace tabs or not ;)
+        if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
+          stream << textLine->withoutTrailingSpaces().replace (QChar('\t'), tabs);
+        else
+          stream << textLine->withoutTrailingSpaces();
+      }
+      else
+      {
+        // replace tabs or not ;)
+        if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
+        {
+          QString l = textLine->string();
+          stream << l.replace (QChar('\t'), tabs);
+        }
+        else
+          stream << textLine->string();
+      }
+      
+      if ((i+1) < m_lines)
+        stream << eol;
+    }
   }
 
   file.close ();
@@ -1118,23 +1138,16 @@ TextLine::Ptr KateBuffer::plainLine(uint i)
 }
 
 /**
- * Return text from line @p i without triggering highlighting
+ * Return line @p i without triggering highlighting
  */
-QString KateBuffer::textLine(uint i, bool withoutTrailingSpaces)
+QString KateBuffer::textLine(uint i)
 {
-   KateBufBlock *buf = findBlock(i);
-   if (!buf)
-      return QString();
-
-   if (!buf->b_stringListValid)
-   {
-      parseBlock(buf);
-   }
-
-   if (withoutTrailingSpaces)
-     return buf->line(i - buf->startLine())->withoutTrailingSpaces();
-
-   return buf->line(i - buf->startLine())->string();
+  TextLine::Ptr l = plainLine(i);
+  
+  if (!l)
+    return QString();
+  
+  return l->string();
 }
 
 void KateBuffer::insertLine(uint i, TextLine::Ptr line)
@@ -1251,8 +1264,10 @@ uint KateBuffer::length ()
 int KateBuffer::lineLength ( uint i )
 {
   TextLine::Ptr l = plainLine(i);
-  Q_ASSERT(l);
-  if (!l) return 0;
+  
+  if (!l)
+    return 0;
+  
   return l->length();
 }
 
@@ -1262,9 +1277,15 @@ QString KateBuffer::text()
 
   for (uint i = 0; i < count(); i++)
   {
-    s.append (textLine(i));
-    if ( (i < (count()-1)) )
-      s.append('\n');
+    TextLine::Ptr textLine = plainLine(i);
+  
+    if (textLine)
+    {
+      s.append (textLine->string());
+      
+      if ((i+1) < count())
+        s.append('\n');
+    }
   }
 
   return s;

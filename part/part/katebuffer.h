@@ -114,11 +114,11 @@ class KateBuffer : public QObject
      * Return line @p i without triggering highlighting
      */
     TextLine::Ptr plainLine(uint i);
-
+    
     /**
-     * Return text from line @p i without triggering highlighting
+     * Return textline @p i without triggering highlighting
      */
-    QString textLine(uint i, bool withoutTrailingSpaces = false);
+    QString textLine(uint i);
 
     /**
      * Insert @p line in front of line @p i

@@ -430,7 +430,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
   configFlags = view->configFlags();
 
-  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word wrap"), this);
+  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
   opt[0] = new QCheckBox(i18n("Enable &word wrap"), gbWordWrap);
   opt[0]->setChecked(view->wordWrap());

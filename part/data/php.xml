@@ -2715,7 +2715,6 @@
 				<HlCHex attribute="Hex" context="#stay" />
 				<Float attribute="Float" context="#stay" />
 				<Int attribute="Decimal" context="#stay" />
-				<AnyChar attribute="Operator" context="#stay" String="=+-*/.%&amp;|!^&gt;&lt;" />
 				<keyword attribute="Operator" context="#stay" String="operators" />
 				<DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
 				<DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />

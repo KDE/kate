@@ -1301,7 +1301,7 @@ void KateViewInternal::mousePressEvent(QMouseEvent *e) {
       scrollX = 0;
       scrollY = 0;
       if (!scrollTimer) scrollTimer = startTimer(50);
-      myDoc->updateViews();
+      updateView();
     }
   }
 
@@ -1357,7 +1357,7 @@ void KateViewInternal::mouseReleaseEvent(QMouseEvent *e) {
     }
     dragInfo.state = diNone;
   }
-  
+
   if (e->button() == MidButton) {
     placeCursor(e->x(), e->y());
     if (myView->doc()->isReadWrite())
@@ -1418,7 +1418,7 @@ void KateViewInternal::mouseMoveEvent(QMouseEvent *e) {
     flags = KateDocument::cfMark;
     if (e->state() & ControlButton) flags |= KateDocument::cfKeepSelection;
     placeCursor(mouseX, mouseY, flags);
-    myDoc->updateViews();
+    updateView();
   }
 }
 
@@ -1493,7 +1493,7 @@ void KateViewInternal::timerEvent(QTimerEvent *e) {
     yScroll->setValue(startLine * myDoc->viewFont.fontHeight + scrollY);
 
     placeCursor(mouseX, mouseY, KateDocument::cfMark);
-    myDoc->updateViews();
+    updateView();
   }
 }
 
@@ -1568,7 +1568,7 @@ void KateViewInternal::dropEvent( QDropEvent *event )
       cursor = c.cursor;
       updateCursor(cursor);
 
-      myDoc->updateViews();
+      updateView();
     }
   }
 }

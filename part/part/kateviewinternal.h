@@ -94,7 +94,7 @@ class KateViewInternal : public QWidget
     void setPos(int x, int y);
     void center();
 
-    void updateView(int flags);
+    void updateView(int flags = 0);
 
     void paintTextLines(int xPos, int yPos);
     void paintCursor();

@@ -514,7 +514,7 @@ void KateView::setCursorPositionInternal(int line, int col, int tabwidth)
   cursor.line = line;
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
-  myDoc->updateViews();
+  myViewInternal->updateView();
 }
 
 int KateView::tabWidth() {
@@ -721,7 +721,7 @@ void KateView::doCursorCommand(int cmdNum) {
   if (cmdNum & selectFlag) c.flags |= KateDocument::cfMark;
   cmdNum &= ~selectFlag;
   myViewInternal->doCursorCommand(c, cmdNum);
-  myDoc->updateViews();
+  myViewInternal->updateView();
 }
 
 void KateView::doEditCommand(int cmdNum) {
@@ -837,7 +837,6 @@ void KateView::gotoLineNumber( int linenumber )
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
   myViewInternal->updateView(KateView::ufUpdateOnScroll);
-  myDoc->updateViews();
  }
 
 void KateView::initSearch(SConfig &, int flags) {
@@ -1091,7 +1090,6 @@ void KateView::exposeFound(KateTextCursor &cursor, int slen, int flags, bool rep
   }
   myViewInternal->setPos(xPos, yPos);
   myViewInternal->updateView(flags);// | ufPos,xPos,yPos);
-  myDoc->updateViews();
 */
 }
 
@@ -1103,7 +1101,7 @@ bool KateView::askReplaceEnd() {
   QString str;
   int query;
 
-  myDoc->updateViews();
+  myViewInternal->updateView();
   if (myDoc->s.flags & KateDocument::sfFinished) {
     // replace finished
     str = i18n("%1 replacement(s) made").arg(replaces);
@@ -1348,7 +1346,6 @@ void KateView::gotoMark (KTextEditor::Mark *mark)
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
   myViewInternal->updateView(KateView::ufUpdateOnScroll);
-  myDoc->updateViews();
 }
 
 void KateView::toggleBookmark ()

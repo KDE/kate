@@ -64,7 +64,6 @@ KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   , m_sorting( sort )
 {
   connect (view->getDoc(), SIGNAL(marksChanged()), this, SLOT(marksChanged()));
-  m_view->installEventFilter( this );
   _tries=0;
   m_bookmarksMenu = 0L;
 }
@@ -75,6 +74,7 @@ KateBookmarks::~KateBookmarks()
 
 void KateBookmarks::createActions( KActionCollection* ac )
 {
+  kdDebug()<<"=== has action collection "<<ac<<endl;
   m_bookmarkToggle = new KToggleAction(
     i18n("Set &Bookmark"), "bookmark", CTRL+Key_B,
     this, SLOT(toggleBookmark()),
@@ -100,70 +100,25 @@ void KateBookmarks::createActions( KActionCollection* ac )
     ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
 
+  m_bookmarksMenu = (new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks"))->popupMenu();
+
+  //connect the aboutToShow() and aboutToHide() signals with
+  //the bookmarkMenuAboutToShow() and bookmarkMenuAboutToHide() slots
+  disconnect( m_bookmarksMenu, SIGNAL(aboutToShow()), 0, 0);
+  connect( m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
+  disconnect( m_bookmarksMenu, SIGNAL(aboutToHide()), 0, 0);
+  connect( m_bookmarksMenu, SIGNAL(aboutToHide()), this, SLOT(bookmarkMenuAboutToHide()) );
+
   marksChanged ();
-}
+  bookmarkMenuAboutToHide();
 
-bool KateBookmarks::eventFilter( QObject *o, QEvent *e )
-{
-  if ( o == m_view && e->type() == QEvent::Show )
-    connectMenuAndDisConnectAgain();
-  return false;
-}
-
-
-void KateBookmarks::connectMenuAndDisConnectAgain()
-{
-  kdDebug()<<"KateBookmarks::connectMenuAndDisConnectAgain()"<<endl;
-
-  if (m_view->factory())
-    {
-        QPtrList<KXMLGUIClient> clients = m_view->factory()->clients();
-        QPtrListIterator<KXMLGUIClient> it(clients);
-        KXMLGUIClient *client;
-        while ((client = it.current()) != 0)
-        {
-            m_bookmarksMenu = static_cast<QPopupMenu*>(client->factory()->container("bookmarks", client));
-
-            if (m_bookmarksMenu)
-            {
-                // connect bookmarks menu aboutToshow
-                disconnect( m_bookmarksMenu, SIGNAL(aboutToShow()),
-                        0, 0);
-                connect( m_bookmarksMenu, SIGNAL(aboutToShow()),
-                        this, SLOT(bookmarkMenuAboutToShow()));
-
-                // anders: I ensure the next/prev actions are available
-                // and reset their texts (for edit shortcuts dialog, call me picky!).
-                // TODO - come up with a better solution, please anyone?
-                disconnect( m_bookmarksMenu, SIGNAL(aboutToHide()),
-                        0, 0);
-                connect( m_bookmarksMenu, SIGNAL(aboutToHide()),
-                        this, SLOT(bookmarkMenuAboutToHide()) );
-
-                // ### don't remove the event filter, since in kate we will otherwise loose
-                // the document menu :(
-          //      m_view->removeEventFilter( this );
-                return;
-            }
-            ++it;
-         }
-    }
-
-    // FUCKY-SUCKY -- try later
-    if ( _tries > 4 ) // give up
-    {
-      m_view->removeEventFilter( this );
-      return;
-    }
-
-    if ( m_view->isVisible() )
-      QTimer::singleShot( 0, this, SLOT(connectMenuAndDisConnectAgain()));
-
-    _tries++;
+  connect( m_view, SIGNAL( gotFocus( Kate::View * ) ), this, SLOT( slotViewGotFocus( Kate::View * ) ) );
+  connect( m_view, SIGNAL( lostFocus( Kate::View * ) ), this, SLOT( slotViewLostFocus( Kate::View * ) ) );
 }
 
 void KateBookmarks::toggleBookmark ()
 {
+  kdDebug()<<"Toggle bookmark in "<<m_view->getDoc()->url().prettyURL()<<endl;
   uint mark = m_view->getDoc()->mark( m_view->cursorLine() );
   if( mark & KTextEditor::MarkInterface::markType01 )
     m_view->getDoc()->removeMark( m_view->cursorLine(),
@@ -183,27 +138,33 @@ void KateBookmarks::clearBookmarks ()
   marksChanged ();
 }
 
-void KateBookmarks::bookmarkMenuAboutToShow()
+void KateBookmarks::slotViewGotFocus( Kate::View *v )
 {
-  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+  if ( v == (Kate::View*)m_view )
+    bookmarkMenuAboutToHide();
+}
 
-  m_bookmarksMenu->clear();
-  m_bookmarkToggle->setChecked( m_view->getDoc()->mark( m_view->cursorLine() )
-                                & KTextEditor::MarkInterface::markType01 );
-  m_bookmarkToggle->plug( m_bookmarksMenu );
-  m_bookmarkClear->plug( m_bookmarksMenu );
+void KateBookmarks::slotViewLostFocus( Kate::View *v )
+{
+  if ( v == (Kate::View*)m_view )
+    m_bookmarksMenu->clear();
+}
+
+void KateBookmarks::insertBookmarks( QPopupMenu& menu )
+{
+  uint line = m_view->cursorLine();
+  const QRegExp re("&(?!&)");
+  int idx( -1 );
+  int old_menu_count = menu.count();
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
-  uint line = m_view->cursorLine();
 
-  const QRegExp re("&(?!&)");
-
-  int idx( -1 );
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
   QMemArray<uint> sortArray( m.count() );
   QPtrListIterator<KTextEditor::Mark> it( m );
 
   if ( it.count() > 0 )
-    m_bookmarksMenu->insertSeparator();
+    menu.insertSeparator();
 
   for( int i = 0; *it; ++it, ++i )
   {
@@ -211,7 +172,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
     {
       QString bText = KStringHandler::rEmSqueeze
                       ( m_view->getDoc()->textLine( (*it)->line ),
-                        m_bookmarksMenu->fontMetrics(), 32 );
+                        menu.fontMetrics(), 32 );
       bText.replace(re, "&&"); // kill undesired accellerators!
 
       if ( m_sorting == Position )
@@ -221,7 +182,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
         idx = sortArray.find( (*it)->line ) + 3;
       }
 
-      m_bookmarksMenu->insertItem(
+      menu.insertItem(
           QString("%1 - \"%2\"").arg( (*it)->line+1 ).arg( bText ),
           m_view, SLOT(gotoLineNumber(int)), 0, (*it)->line, idx );
 
@@ -239,23 +200,39 @@ void KateBookmarks::bookmarkMenuAboutToShow()
     }
   }
 
-  idx = 3;
+  idx = ++old_menu_count;
   if ( next )
   {
     m_goNext->setText( i18n("&Next: %1 - \"%2\"").arg( next->line + 1 )
         .arg( KStringHandler::rsqueeze( m_view->getDoc()->textLine( next->line ), 24 ) ) );
-    m_goNext->plug( m_bookmarksMenu, idx );
+    m_goNext->plug( &menu, idx );
     idx++;
   }
   if ( prev )
   {
     m_goPrevious->setText( i18n("&Previous: %1 - \"%2\"").arg(prev->line + 1 )
         .arg( KStringHandler::rsqueeze( m_view->getDoc()->textLine( prev->line ), 24 ) ) );
-    m_goPrevious->plug( m_bookmarksMenu, idx );
+    m_goPrevious->plug( &menu, idx );
     idx++;
   }
   if ( next || prev )
-    m_bookmarksMenu->insertSeparator( idx );
+    menu.insertSeparator( idx );
+
+}
+
+void KateBookmarks::bookmarkMenuAboutToShow()
+{
+
+  QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
+
+  m_bookmarksMenu->clear();
+  m_bookmarkToggle->setChecked( m_view->getDoc()->mark( m_view->cursorLine() )
+                                & KTextEditor::MarkInterface::markType01 );
+  m_bookmarkToggle->plug( m_bookmarksMenu );
+  m_bookmarkClear->plug( m_bookmarksMenu );
+
+
+  insertBookmarks(*m_bookmarksMenu);
 }
 
 /*
@@ -263,7 +240,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
 */
 void KateBookmarks::bookmarkMenuAboutToHide()
 {
-  //menu->clear();
+  m_bookmarksMenu->clear();
 
   m_bookmarkToggle->plug( m_bookmarksMenu );
   m_bookmarkClear->plug( m_bookmarksMenu );

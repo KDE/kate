@@ -27,10 +27,13 @@ class KateView;
 
 namespace KTextEditor { class Mark; }
 
+namespace Kate { class View; }
+
 class KAction;
 class KToggleAction;
 class KActionCollection;
 class QPopupMenu;
+class QMenuData;
 
 class KateBookmarks : public QObject
 {
@@ -47,11 +50,14 @@ class KateBookmarks : public QObject
     void setSorting( Sorting s ) { m_sorting = s; };
 
   protected:
-    bool eventFilter( QObject *, class QEvent* );
+    void insertBookmarks( QPopupMenu& menu);
 
   private slots:
     void toggleBookmark();
     void clearBookmarks();
+
+    void slotViewGotFocus( Kate::View * );
+    void slotViewLostFocus( Kate::View * );
 
     void bookmarkMenuAboutToShow();
     void bookmarkMenuAboutToHide();
@@ -60,7 +66,6 @@ class KateBookmarks : public QObject
     void goPrevious();
 
     void marksChanged ();
-    void connectMenuAndDisConnectAgain();
 
   private:
     KateView*                    m_view;
@@ -68,6 +73,7 @@ class KateBookmarks : public QObject
     KAction*                     m_bookmarkClear;
     KAction*                     m_goNext;
     KAction*                     m_goPrevious;
+
     Sorting                      m_sorting;
     QPopupMenu*          m_bookmarksMenu;
 

@@ -776,30 +776,46 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       uint remIn = 0;
 
       uint iDepth = textLine->indentDepth();
-      bool ch = false;
 
-      if (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth))
+      if ((textLine->length() > 0) || ((current_line+buf->startLine()) >= (m_lines-1)))
       {
-        indentDepth.resize (indentDepth.size()+1);
-        indentDepth[indentDepth.size()-1] = iDepth;
-        ch = true;
-        newIn = 1;
-      }
-      else
-      {
-        for (int z=indentDepth.size()-1; z > -1; z--)
+        bool ch = false;
+
+        if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
         {
-          if (indentDepth[z] > iDepth)
+          indentDepth.resize (indentDepth.size()+1);
+          indentDepth[indentDepth.size()-1] = iDepth;
+          ch = true;
+          newIn++;
+        }
+        else
+        {
+          for (int z=indentDepth.size()-1; z > -1; z--)
           {
-            indentDepth.resize (z);
-            ch = true;
-            remIn++;
+            if (indentDepth[z] == iDepth)
+              break;
+
+            if (indentDepth[z] < iDepth)
+            {
+              indentDepth.resize (indentDepth.size()+1);
+              indentDepth[indentDepth.size()-1] = iDepth;
+              ch = true;
+              newIn++;
+              break;
+            }
+
+            if (indentDepth[z] > iDepth)
+            {
+              indentDepth.resize (z);
+              ch = true;
+              remIn++;
+            }
           }
         }
-      }
 
-      if (ch)
-        kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
+        if (ch)
+          kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
+      }
 
       textLine->setIndentationDepth (indentDepth);
 
@@ -823,10 +839,12 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
         CodeFoldingUpdated = CodeFoldingUpdated | retVal_folding;
       }
 
-      if (newIn == 1)
+      if (newIn > 0)
       {
         foldingList.resize (foldingList.size() + newIn);
-        foldingList[foldingList.size()-1] = 1;
+
+        for (uint z= foldingList.size()-newIn; z < foldingList.size(); z++)
+          foldingList[z] = 1;
 
         foldingChanged = true;
       }

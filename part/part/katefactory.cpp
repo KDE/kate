@@ -199,9 +199,9 @@ KInstance *KateFactory::instance()
 
   if ( !s_instance )
   {
-    s_about = new KAboutData  ("katepart", I18N_NOOP("Kate Part"), "2.1",
+    s_about = new KAboutData  ("katepart", I18N_NOOP("Kate Part"), "2.2",
                                                            I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-                                                           I18N_NOOP( "(c) 2000-2002 The Kate Part Authors" ), 0, "http://kate.kde.org");
+                                                           I18N_NOOP( "(c) 2000-2003 The Kate Authors" ), 0, "http://kate.kde.org");
 
     s_about->addAuthor ("Christoph Cullmann", I18N_NOOP("Project Manager and Core Developer"), "cullmann@kde.org", "http://www.babylon2k.de");
     s_about->addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");

@@ -108,11 +108,6 @@ class HlKeyword : public HlItem
     uint deliminatorLen;
 };
 
-class HlPHex : public HlItem {
-  public:
-    HlPHex(int attribute,int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
-};
 class HlInt : public HlItem {
   public:
     HlInt(int attribute, int context, signed char regionId);
@@ -2207,7 +2202,7 @@ QString HlManager::identifierForName(const QString& name)
 {
   Highlight *hl = 0;
   
-  if (hl =hlDict[name])
+  if ((hl = hlDict[name]))
     return hl->getIdentifier ();
 
   return QString();

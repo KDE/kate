@@ -201,7 +201,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     */
     virtual void writeSessionConfig(KConfig *) { ; };
 
-  public slots:  
+  public slots:
     /**
       Get the end of line mode (Unix, Macintosh or Dos).
     */
@@ -243,12 +243,24 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
       Toggles icon border.
     */
     virtual void toggleIconBorder () { ; };
+    /**
+      Sets display of line numbers on/off depending on @param enable
+    */
+    virtual void setLineNumbersOn( bool enable ) {};
+    /**
+      Toggles display of lineNumbers
+    */
+    virtual void toggleLineNumbersOn() {};
 
   public:
     /**
       Returns whether iconborder is visible.
     */
     virtual bool iconBorder() { return false; };
+    /**
+      @return Wheather line numbers display is on
+    */
+    virtual bool lineNumbersOn() { return false; };
     /**
      Returns a pointer to the document of the view.
     */
@@ -263,12 +275,12 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
       Decrease font size.
     */
     virtual void slotDecFontSizes () { ; };
-    
+
     virtual void gotoMark (KTextEditor::Mark *mark) = 0;
     virtual void toggleBookmark () = 0;
-    
+
     virtual void gotoLineNumber( int ) = 0;
-    
+
   signals:
     void gotFocus (View *);
 

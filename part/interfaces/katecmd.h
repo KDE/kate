@@ -58,7 +58,7 @@ class KATEPARTINTERFACES_EXPORT KateCmd
  * simply mimics shell tab completion by completing the last word in the
  * provided text.
  */
-class KateCmdShellCompletion : public KCompletion
+class KATEPARTINTERFACES_EXPORT KateCmdShellCompletion : public KCompletion
 {
   public:
     KateCmdShellCompletion();

@@ -24,7 +24,7 @@
 #include <kdialogbase.h>
 #include <kio/jobclasses.h>
 
-#define HLDOWNLOADPATH "http://kate.sourceforge.net/highlight/update4.xml"
+#define HLDOWNLOADPATH "http://devel-home.kde.org/~kate/highlight/update.xml"
 
 class HlDownloadDialog: public KDialogBase
 {

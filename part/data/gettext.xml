@@ -23,7 +23,7 @@
   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
   Boston, MA  02111-1307, USA.
  -->
-<language name="GNU Gettext" version="1.00" kateversion="2.1" section="Markup" extensions="*.po;*.pot" mimetype="application/x-gettext" author="Dominik Haumann &lt;dhdev@gmx.de&gt;" license="LGPL">
+<language name="GNU Gettext" version="1.00" kateversion="2.1" section="Markup" extensions="*.po;*.pot" mimetype="application/x-gettext" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
 
     <contexts>

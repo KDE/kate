@@ -36,7 +36,7 @@
    guile procedures (cause then almost everything would be highlighted) I
    removed some to have a rather small but "senseful" list of highlighted words.
 -->
-<language version="1.09" kateversion="2.3" name="Scheme" section="Scripts" extensions="*.scm;*.ss;*.scheme;*.guile" mimetype="text/x-scheme" author="Dominik Haumann &lt;dhdev@gmx.de&gt;" license="LGPL">
+<language version="1.09" kateversion="2.3" name="Scheme" section="Scripts" extensions="*.scm;*.ss;*.scheme;*.guile" mimetype="text/x-scheme" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="operators">
       <item> &lt;= </item>

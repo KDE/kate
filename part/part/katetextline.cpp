@@ -184,8 +184,8 @@ bool KateTextLine::endingWith(const QString& match) const
 int KateTextLine::cursorX(uint pos, uint tabChars) const
 {
   uint x = 0;
-
-  for (uint z = 0; z < kMin (pos, m_text.length()); z++)
+  uint z;
+  for ( z = 0; z < kMin (pos, m_text.length()); z++)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);
@@ -247,13 +247,13 @@ char *KateTextLine::dump (char *buf, bool withHighlighting) const
 {
   uint l = m_text.length();
   char f = m_flags;
-  
+
   if (!withHighlighting)
     f = f | KateTextLine::flagNoOtherData;
-  
+
   memcpy(buf, (char *) &f, 1);
   buf += 1;
-  
+
   memcpy(buf, &l, sizeof(uint));
   buf += sizeof(uint);
 
@@ -265,11 +265,11 @@ char *KateTextLine::dump (char *buf, bool withHighlighting) const
 
   memcpy(buf, (char *)m_attributes.data(), sizeof(uchar) * l);
   buf += sizeof (uchar) * l;
-    
+
   uint lctx = m_ctx.size();
   uint lfold = m_foldingList.size();
   uint lind = m_indentationDepth.size();
-  
+
   memcpy(buf, &lctx, sizeof(uint));
   buf += sizeof(uint);
 
@@ -298,7 +298,7 @@ char *KateTextLine::restore (char *buf)
 
   memcpy((char *) &f, buf, 1);
   buf += 1;
-  
+
   // text + context length read
   memcpy((char *) &l, buf, sizeof(uint));
   buf += sizeof(uint);
@@ -309,12 +309,12 @@ char *KateTextLine::restore (char *buf)
 
   // we just restore a KateTextLine from a buffer first time
   if (f & KateTextLine::flagNoOtherData)
-  { 
+  {
     m_flags = KateTextLine::flagVisible;
-  
+
     if (f & KateTextLine::flagAutoWrapped)
       m_flags = m_flags | KateTextLine::flagAutoWrapped;
-    
+
     // fill with clean empty attribs !
     m_attributes.fill (0, l);
 
@@ -325,11 +325,11 @@ char *KateTextLine::restore (char *buf)
 
   m_attributes.duplicate ((uchar *) buf, l);
   buf += sizeof(uchar) * l;
-  
+
   uint lctx = 0;
   uint lfold = 0;
   uint lind = 0;
-  
+
   memcpy((char *) &lctx, buf, sizeof(uint));
   buf += sizeof(uint);
 

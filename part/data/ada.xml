@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ada" version="1.03" kateversion="2.1" section="Sources" extensions="*.a" mimetype="text/x-adasrc">
+<language name="Ada" version="1.04" kateversion="2.1" section="Sources" extensions="*.adb;*.ads;*.ada;*.a" mimetype="text/x-adasrc">
         <highlighting>
                 <list name="keywords">
                         <item> abort </item>
@@ -15,7 +15,6 @@
                         <item> at </item>
                         <item> begin </item>
                         <item> body </item>
-                        <item> case </item>
                         <item> constant </item>
                         <item> declare </item>
                         <item> delay </item>
@@ -32,11 +31,9 @@
                         <item> function </item>
                         <item> generic </item>
                         <item> goto </item>
-                        <item> if </item>
                         <item> in </item>
                         <item> is </item>
                         <item> limited </item>
-                        <item> loop </item>
                         <item> mod </item>
                         <item> new </item>
                         <item> not </item>
@@ -58,7 +55,6 @@
                         <item> requeue </item>
                         <item> return </item>
                         <item> reverse </item>
-                        <item> select </item>
                         <item> separate </item>
                         <item> subtype </item>
                         <item> tagged </item>
@@ -75,6 +71,16 @@
                 </list>
                 <contexts>
                         <context attribute="Normal Text" lineEndContext="#stay" name="Default">
+                                <RegExpr attribute="Keyword" context="#stay" String="^\s*if " insensitive="TRUE" beginRegion="Region1"/>
+                                <StringDetect attribute="Keyword" context="#stay" String="end if" insensitive="TRUE" endRegion="Region1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="^\s*case " insensitive="TRUE" beginRegion="Region2"/>
+                                <StringDetect attribute="Keyword" context="#stay" String="end case" insensitive="TRUE" endRegion="Region2"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\sloop\s+" insensitive="TRUE" beginRegion="Region3"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\sloop$" insensitive="TRUE" beginRegion="Region3"/>
+                                <StringDetect attribute="Keyword" context="#stay" String="end loop;" insensitive="TRUE" endRegion="Region3"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\sselect\s+" insensitive="TRUE" beginRegion="Region4"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\sselect$" insensitive="TRUE" beginRegion="Region4"/>
+                                <StringDetect attribute="Keyword" context="#stay" String="end select;" insensitive="TRUE" endRegion="Region4"/>
                                 <keyword attribute="Keyword" context="#stay" String="keywords"/>
                                 <Float attribute="Float" context="#stay"/>
                                 <Int attribute="Decimal" context="#stay"/>

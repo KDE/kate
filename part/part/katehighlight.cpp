@@ -2469,7 +2469,7 @@ int HlManager::detectHighlighting (KateDocument *doc)
 
     hl = mimeFind( buf, doc->url().prettyURL() );
   }
-
+  
   return hl;
 }
 
@@ -2511,12 +2511,18 @@ int HlManager::realWildcardFind(const QString &fileName)
     {
       // anders: we need to be sure to match the end of string, as eg a css file
       // would otherwise end up with the c hl
-      QRegExp re(*it, true, true);
-      if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
-        highlights.append (highlight);
+      // rodda: speed optimisation, assume the *. from "*.extension" means there will not be any fancier regexp work...
+      if ((*it).startsWith("*.")) {
+        if (fileName.endsWith((*it).mid(1)))
+          highlights.append(highlight);
+      } else {
+        QRegExp re(*it, true, true);
+        if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
+          highlights.append (highlight);
+      }
     }
   }
-
+  
   if ( !highlights.isEmpty() )
   {
     int pri = -1;

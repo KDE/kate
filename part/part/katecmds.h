@@ -26,7 +26,7 @@
  * this namespace will be maintained by Charles Samuels <charles@kde.org>
  * so we're going to be using this indentation style here.
  *
- * Respect my style, and I'll respect your's!
+ * Respect my style, and I'll respect yours!
  **/
 namespace KateCommands
 {
@@ -39,7 +39,7 @@ class InsertTime : public KateCmdParser
 public:
 	InsertTime(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, class KateView *view=0);
+	bool execCmd(QString cmd=QString::null, class KateView *view=0);
 };
 
 /**
@@ -57,7 +57,7 @@ class SedReplace : public KateCmdParser
 public:
 	SedReplace(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, class KateView *view=0);
+	bool execCmd(QString cmd=QString::null, class KateView *view=0);
 private:
 	static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
 };
@@ -75,7 +75,7 @@ class Character : public KateCmdParser
 public:
 	Character(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, class KateView *view=0);
+	bool execCmd(QString cmd=QString::null, class KateView *view=0);
 };
 
 class Fifo : public KateCmdParser
@@ -83,7 +83,7 @@ class Fifo : public KateCmdParser
 public:
 	Fifo(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, class KateView *view=0);
+	bool execCmd(QString cmd=QString::null, class KateView *view=0);
 };
 
 }

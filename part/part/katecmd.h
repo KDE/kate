@@ -28,7 +28,7 @@ class KateCmdParser
     KateCmdParser (class KateDocument *doc=0L);
     virtual ~KateCmdParser ();
 
-    virtual bool execCmd (QString cmd=0L, class KateView *view=0L)=0;
+    virtual bool execCmd (QString cmd=QString::null, class KateView *view=0L)=0;
 
   private:
     class KateDocument *m_doc;
@@ -42,7 +42,7 @@ class KateCmd : public QObject
     KateCmd (class KateDocument *doc=0L);
     ~KateCmd ();
 
-    void execCmd (QString cmd=0L, class KateView *view=0L);
+    void execCmd (QString cmd=QString::null, class KateView *view=0L);
 
   private:
     class KateDocument *m_doc;

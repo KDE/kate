@@ -152,24 +152,27 @@ void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 
 int TextLine::nextNonSpaceChar(uint pos) const
 {
-    for(int i = pos; i < (int)m_text.length(); i++) {
-        if(!m_text[i].isSpace())
-            return i;
-    }
-    return -1;
+  for(int i = pos; i < (int)m_text.length(); i++)
+  {
+    if(!m_text[i].isSpace())
+      return i;
+  }
+
+  return -1;
 }
 
 int TextLine::previousNonSpaceChar(uint pos) const
 {
-    if(pos >= m_text.length()) {
-        pos = m_text.length() - 1;
-    }
+  if (pos >= m_text.length())
+    pos = m_text.length() - 1;
 
-    for(int i = pos; i >= 0; i--) {
-        if(!m_text[i].isSpace())
-            return i;
-    }
-    return -1;
+  for(int i = pos; i >= 0; i--)
+  {
+    if(!m_text[i].isSpace())
+      return i;
+  }
+
+  return -1;
 }
 
 int TextLine::firstChar() const
@@ -210,22 +213,27 @@ bool TextLine::endingWith(const QString& match) const
 
 int TextLine::cursorX(uint pos, uint tabChars) const
 {
-  int l, x, z;
+  int l = (pos < m_text.length()) ? pos : m_text.length();
+  int x = 0;
 
-  l = (pos < m_text.length()) ? pos : m_text.length();
-  x = 0;
-  for (z = 0; z < l; z++) {
-    if (m_text[z] == QChar('\t')) x += tabChars - (x % tabChars); else x++;
+  for (int z = 0; z < l; z++)
+  {
+    if (m_text[z] == QChar('\t'))
+      x += tabChars - (x % tabChars);
+    else
+      x++;
   }
-  x += pos - l;
-  return x;
+
+  return x + pos - l;
 }
 
-void TextLine::setAttribs(uchar attribute, uint start, uint end) {
-  uint z;
+void TextLine::setAttribs(uchar attribute, uint start, uint end)
+{
+  if (end > m_text.length())
+    end = m_text.length();
 
-  if (end > m_text.length()) end = m_text.length();
-  for (z = start; z < end; z++) m_attributes[z] = attribute;
+  for (uint z = start; z < end; z++)
+    m_attributes[z] = attribute;
 }
 
 bool TextLine::searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive, bool backwards)
@@ -237,11 +245,11 @@ bool TextLine::searchText (uint startCol, const QString &text, uint *foundAtCol,
   else
     index = m_text.find (text, startCol, casesensitive);
 
-   if (index > -1)
-	{
-	  (*foundAtCol) = index;
-		(*matchLen)=text.length();
-		return true;
+  if (index > -1)
+  {
+    (*foundAtCol) = index;
+    (*matchLen)=text.length();
+    return true;
   }
 
   return false;
@@ -256,11 +264,11 @@ bool TextLine::searchText (uint startCol, const QRegExp &regexp, uint *foundAtCo
   else
     index = regexp.search (m_text, startCol);
 
-   if (index > -1)
-	{
-	  (*foundAtCol) = index;
-		(*matchLen)=regexp.matchedLength();
-		return true;
+  if (index > -1)
+  {
+    (*foundAtCol) = index;
+    (*matchLen)=regexp.matchedLength();
+    return true;
   }
 
   return false;
@@ -442,10 +450,3 @@ char *TextLine::restore (char *buf)
 
   return buf;
 }
-
-
-
-
-
-
-

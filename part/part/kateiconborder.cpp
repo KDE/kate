@@ -181,8 +181,8 @@ QSize KateIconBorder::sizeHint() const
 
   if (m_foldingMarkersOn)
     w += iconPaneWidth;
-  else
-    w += 4;
+
+  w += 4;
   // A little extra makes selecting at the beginning easier and looks nicer
   // Anders: And this belongs in the border? Apart from that job obviously belonging
   // to the view, the icon border may not have the same color as the
@@ -288,7 +288,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   }
 
   int w( this->width() );                     // sane value/calc only once
-  int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once
 
   QPainter p ( this );
   p.setFont ( KateRenderer::getFont(KateRenderer::ViewFont) ); // for line numbers
@@ -308,24 +307,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   /*  if ( (realLine > -1) && (realLine == currentLine) )
       p.fillRect( 0, y, w, h, m_doc->colors[2] ); // needs fixing !!!!!!!!!!!!!!!!!!!!!!!!!!!!
     else */
-      p.fillRect( 0, y, w, h, m_doc->colors[0] );
-
-    // line number
-    if( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) )
-    {
-      lnX +=2;
-      p.drawLine( lnbx, y, lnbx, y+h );
-
-      if (realLine > -1)
-        if (m_viewInternal->lineRanges[z].startCol == 0) {
-          if (m_lineNumbersOn)
-            p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
-        } else if (m_view->dynWordWrap() /* && FIXME preference */) {
-          p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
-        }
-
-      lnX += lnWidth;
-    }
+    // fillbackground of border + the 4 pixel spacer
+    p.fillRect( 0, y, w-4, h, parentWidget()->paletteBackgroundColor () );
+    p.fillRect( w-4, y, w, h, m_doc->colors[0] );
 
     // icon pane
     if( m_iconBorderOn )
@@ -345,6 +329,22 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       }
 
       lnX += iconPaneWidth + 1;
+    }
+
+    // line number
+    if( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) )
+    {
+      lnX +=2;
+
+      if (realLine > -1)
+        if (m_viewInternal->lineRanges[z].startCol == 0) {
+          if (m_lineNumbersOn)
+            p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+        } else if (m_view->dynWordWrap() /* && FIXME preference */) {
+          p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
+        }
+
+      lnX += lnWidth;
     }
 
     // folding markers
@@ -368,7 +368,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
           }
         }
       }
-      lnX+=iconPaneWidth;
+
+      lnX += iconPaneWidth;
     }
   }
 }
@@ -376,15 +377,16 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) const
 {
   int x = 0;
-  if( m_lineNumbersOn || true /* FIXME preference */ ) {
-    x += lineNumberWidth();
-    if( p.x() <= x )
-      return LineNumbers;
-  }
+
   if( m_iconBorderOn ) {
     x += iconPaneWidth;
     if( p.x() <= x )
       return IconBorder;
+  }
+  if( m_lineNumbersOn || true /* FIXME preference */ ) {
+    x += lineNumberWidth();
+    if( p.x() <= x )
+      return LineNumbers;
   }
   if( m_foldingMarkersOn ) {
     x += iconPaneWidth;

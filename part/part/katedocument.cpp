@@ -1684,6 +1684,7 @@ void KateDocument::readConfig(KConfig *config)
   m_iconBar = config->readBoolEntry( "Iconbar", false );
   m_foldingBar = config->readBoolEntry( "FoldingMarkers", true );
   m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", 0 );
+  m_wordWrapMarker = config->readBoolEntry("WordWrapMarker", true );
 
   updateViewDefaults ();
   tagAll();
@@ -1721,6 +1722,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry( "Iconbar", m_iconBar );
   config->writeEntry( "FoldingMarkers", m_foldingBar );
   config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
+  config->writeEntry( "WordWrapMarker", m_wordWrapMarker );
 }
 
 void KateDocument::readConfig()
@@ -4082,6 +4084,13 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
     paint.fillRect( bm.startX - startXCol, y, bm.startW, fs.fontHeight, colors[3] );
   if( !printerfriendly && bm.valid && (bm.endLine == line) && ((int)bm.endCol >= startcol) && ((endcol == -1) || ((int)bm.endCol < endcol)) )
     paint.fillRect( bm.endX - startXCol, y, bm.endW, fs.fontHeight, colors[3] );
+    
+  // show word wrap marker if desirable
+  if ( !printerfriendly && m_wordWrapMarker && fs.myFont.fixedPitch() ) {
+    paint.setPen( colors[2] );
+    int _x = myWordWrapAt*fs.myFontMetrics.width('x');
+    paint.drawLine( _x,y,_x,y+fs.fontHeight );
+  }
 
   if (startcol > (int)len)
     startcol = len;

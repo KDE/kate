@@ -747,6 +747,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool m_iconBar;
     bool m_foldingBar;
     int m_bookmarkSort;
+    bool m_wordWrapMarker;
 
   public:
     void updateViewDefaults ();

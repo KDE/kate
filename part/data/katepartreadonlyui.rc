@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="8">
+<kpartgui name="KatePartView" version="9">
 <MenuBar noMerge="1">
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Separator/>
@@ -31,6 +31,7 @@
     <Action name="set_confdlg" group="config_merge"/>
     <Action name="view_border"/>
     <Action name="view_line_numbers"/>
+    <Action name="view_word_wrap_marker"/>
     <Action name="set_eol"/>
   </Menu>
 </MenuBar>

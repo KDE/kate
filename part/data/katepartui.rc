@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="13">
+<kpartgui name="KatePartView" version="14">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -28,6 +28,7 @@
   
   <Menu name="view" noMerge="1"><text>&amp;View</text>
     <Action name="view_dynamic_word_wrap" group="view_operations" />
+    <Action name="view_word_wrap_marker" group="view_operations" />
     <Action name="view_folding_markers" group="view_operations" />
     <Action name="view_border" group="view_operations" />
     <Action name="view_line_numbers" group="view_operations" />

@@ -276,6 +276,14 @@ void KateView::setupActions()
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
+  
+  a = m_toggleWWMarker = new KToggleAction(
+        i18n("Show &Word Wrap Marker"), 0,
+        this, SLOT( toggleWWMarker() ),
+        ac, "view_word_wrap_marker" );
+  a->setWhatsThis( i18n(
+        "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
+        "wrap column as defined  in the editing properties" ));
 
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
@@ -414,39 +422,42 @@ void KateView::setupEditActions()
     i18n("Select to Matching Bracket"),      SHIFT +  CTRL + Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
+  // anders: shortcuts doing any changes should not be created in browserextension
+  if ( !m_doc->m_bReadOnly )
+  {
+    new KAction(
+      i18n("Transpose Characters"),           CTRL          + Key_T,
+      this, SLOT(transpose()),
+      ac, "transpose_char" );
+//   new KAction(
+//      i18n("Transpose Words"),                CTRL + SHIFT + Key_T,
+//      this, SLOT(transposeWord()),
+//      ac, "transpose_word" );
+//   new KAction(
+//      i18n("Transpose Line"),                 CTRL + SHIFT + Key_T, ??? What key combo?
+//      this, SLOT(transposeLine()),
+//      ac, "transpose_line" );
 
-  new KAction(
-    i18n("Transpose Characters"),           CTRL          + Key_T,
-    this, SLOT(transpose()),
-    ac, "transpose_char" );
-// new KAction(
-//    i18n("Transpose Words"),                CTRL + SHIFT + Key_T,
-//    this, SLOT(transposeWord()),
-//    ac, "transpose_word" );
-// new KAction(
-//    i18n("Transpose Line"),                 CTRL + SHIFT + Key_T, ??? What key combo?
-//    this, SLOT(transposeLine()),
-//    ac, "transpose_line" );
+//   new KAction(
+//     i18n("Delete Word"),                    CTRL + Key_K, ??? What key combo?
+//     this, SLOT(killWord()),
+//     ac, "delete_word" );
+    new KAction(
+      i18n("Delete Line"),                    CTRL + Key_K,
+      this, SLOT(killLine()),
+      ac, "delete_line" );
 
-//  new KAction(
-//    i18n("Delete Word"),                    CTRL + Key_K, ??? What key combo?
-//    this, SLOT(killWord()),
-//    ac, "delete_word" );
-  new KAction(
-    i18n("Delete Line"),                    CTRL + Key_K,
-    this, SLOT(killLine()),
-    ac, "delete_line" );
+    new KAction(
+      i18n("Delete Word Left"),               CTRL + Key_Backspace,
+      this, SLOT(deleteWordLeft()),
+      ac, "delete_word_left" );
 
-  new KAction(
-    i18n("Delete Word Left"),               CTRL + Key_Backspace,
-    this, SLOT(deleteWordLeft()),
-    ac, "delete_word_left" );
-
-  new KAction(
-    i18n("Delete Word Right"),              CTRL + Key_Delete,
-    this, SLOT(deleteWordRight()),
-    ac, "delete_word_right" );
-
+    new KAction(
+      i18n("Delete Word Right"),              CTRL + Key_Delete,
+      this, SLOT(deleteWordRight()),
+      ac, "delete_word_right" );
+  }
+  
   connect( this, SIGNAL(gotFocus(Kate::View*)),
            this, SLOT(slotGotFocus()) );
   connect( this, SIGNAL(lostFocus(Kate::View*)),
@@ -527,9 +538,9 @@ void KateView::slotStatusMsg ()
   QString ovrstr;
   if (ovr == 0)
     ovrstr = i18n(" R/O ");
-  if (ovr == 1)
+  else if (ovr == 1)
      ovrstr = i18n(" OVR ");
-  if (ovr == 2)
+  else if (ovr == 2)
     ovrstr = i18n(" INS ");
 
   QString modstr;
@@ -832,6 +843,12 @@ void KateView::setDynWordWrap( bool b )
   }
 }
 
+void KateView::toggleWWMarker()
+{
+  m_doc->m_wordWrapMarker = !m_doc->m_wordWrapMarker;
+  m_viewInternal->update();
+}
+
 void KateView::setFoldingMarkersOn( bool enable )
 {
   m_viewInternal->leftBorder->setFoldingMarkersOn( enable );
@@ -882,4 +899,6 @@ void KateView::updateViewDefaults ()
   updateFoldingMarkersAction();
 
   m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
+  
+  m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
 }

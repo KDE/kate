@@ -171,6 +171,7 @@ private:
   QCheckBox *m_folding;
   QCheckBox *m_icons;
   QCheckBox *m_dynwrap;
+  QCheckBox *m_wwmarker;
   QButtonGroup *m_bmSort;
 
 public slots:

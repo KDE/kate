@@ -195,17 +195,6 @@ class TextLine : public KShared
     void append(const QChar *s, uint l);
 
     /**
-      Wraps the text from the given position to the end to the next line
-    */
-    void wrap(TextLine::Ptr nextLine, uint pos);
-
-    /**
-      Wraps the text of given length from the beginning of the next line to
-      this line at the given position
-    */
-    void unWrap(uint pos, TextLine::Ptr nextLine, uint len);
-
-    /**
       Truncates the textline to the new length
     */
     void truncate(uint newLen);

@@ -1152,17 +1152,17 @@ void KateView::setViewTagLinesFrom(int line)
 // BEGIN TAG & CLEAR
 bool KateView::tagLine (const KateTextCursor& virtualCursor)
 {
-  m_viewInternal->tagLine (virtualCursor);
+  return m_viewInternal->tagLine (virtualCursor);
 }
 
 bool KateView::tagLines (int start, int end, bool realLines)
 {
-  m_viewInternal->tagLines (start, end, realLines);
+  return m_viewInternal->tagLines (start, end, realLines);
 }
 
 bool KateView::tagLines (KateTextCursor start, KateTextCursor end, bool realCursors)
 {
-  m_viewInternal->tagLines (start, end, realCursors);
+  return m_viewInternal->tagLines (start, end, realCursors);
 }
 
 void KateView::tagAll ()

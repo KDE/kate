@@ -114,23 +114,6 @@ void TextLine::truncate(uint newLen)
   }
 }
 
-void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
-{
-  int l = m_text.length() - pos;
-
-  if (l > 0)
-  {
-    nextLine->insertText (0, l, ((QChar*)m_text.unicode())+pos, &m_attributes[pos]);
-    truncate(pos);
-  }
-}
-
-void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
-{
-  insertText (pos, len, nextLine->m_text.unicode(), nextLine->m_attributes.data());
-  nextLine->removeText (0, len);
-}
-
 int TextLine::nextNonSpaceChar(uint pos) const
 {
   for(int i = pos; i < (int)m_text.length(); i++)

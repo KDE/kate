@@ -754,7 +754,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
         editRemoveText (startLine, startCol, buffer->plainLine(startLine)->length()-startCol);
 
       editRemoveText (startLine+1, 0, endCol);
-      editUnWrapLine (startLine, startCol);
+      editUnWrapLine (startLine);
     }
     else
     {
@@ -776,7 +776,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
             if ( (buffer->plainLine(line)->length()-startCol) > 0 )
               editRemoveText (line, startCol, buffer->plainLine(line)->length()-startCol);
 
-            editUnWrapLine (startLine, startCol);
+            editUnWrapLine (startLine);
           }
         }
 
@@ -1151,7 +1151,13 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
   if (!nl || !autowrap)
   {
-    l->wrap (tl, col);
+    int pos = l->length() - col;
+
+    if (pos > 0)
+    {
+      tl->insertText (0, pos, l->text()+col, l->attributes()+col);
+      l->truncate(col);
+    }
 
     buffer->insertLine (line+1, tl);
     buffer->changeLine(line);
@@ -1178,7 +1184,14 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   else
   {
     int nlsave = nl->length();
-    l->wrap (nl, col);
+    int pos = l->length() - col;
+
+    if (pos > 0)
+    {
+      nl->insertText (0, pos, l->text()+col, l->attributes()+col);
+      l->truncate(col);
+    }
+
     nllen = nl->length() - nlsave;
 
     buffer->changeLine(line);
@@ -1206,7 +1219,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   return true;
 }
 
-bool KateDocument::editUnWrapLine ( uint line, uint col )
+bool KateDocument::editUnWrapLine ( uint line )
 {
   TextLine::Ptr l = buffer->line(line);
   TextLine::Ptr tl = buffer->line(line+1);
@@ -1216,9 +1229,11 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   editStart ();
 
+  uint col = l->length ();
+
   editAddUndo (KateUndoGroup::editUnWrapLine, line, col, 0, 0);
 
-  l->unWrap (col, tl, tl->length());
+  l->insertText (col, tl->length(), tl->text(), tl->attributes());
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);

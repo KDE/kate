@@ -190,7 +190,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool editRemoveText ( uint line, uint col, uint len );
 
     bool editWrapLine ( uint line, uint col , bool autowrap = false);
-    bool editUnWrapLine ( uint line, uint col);
+    bool editUnWrapLine ( uint line );
 
     bool editInsertLine ( uint line, const QString &s );
     bool editRemoveLine ( uint line );

@@ -145,13 +145,16 @@ void KateSuperCursor::editTextInserted(uint line, uint col, uint len)
 
 void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
 {
-  if (m_line == line)
+  if (m_line == int(line))
   {
-    if (m_col > int(col)) {
-      if (m_col > int(col + len)) {
+    if (m_col > int(col))
+    {
+      if (m_col > int(col + len))
+      {
         m_col -= len;
-
-      } else {
+      }
+      else
+      {
         bool prevCharDeleted = m_col == int(col + len);
 
         m_col = col;
@@ -165,7 +168,9 @@ void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
       emit positionChanged();
       return;
 
-    } else if (m_col == int(col)) {
+    }
+    else if (m_col == int(col))
+    {
       emit charDeletedAfter();
     }
   }
@@ -175,14 +180,14 @@ void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
 
 void KateSuperCursor::editLineWrapped(uint line, uint col, uint len)
 {
-  if (m_line > line)
+  if (m_line > int(line))
   {
     m_line++;
 
     emit positionChanged();
     return;
   }
-  else if ( m_line == line && m_col >= col )
+  else if ( m_line == int(line) && m_col >= int(col) )
   {
     m_line++;
     m_col = len;
@@ -190,23 +195,8 @@ void KateSuperCursor::editLineWrapped(uint line, uint col, uint len)
     emit positionChanged();
     return;
   }
-/*
-  if (m_line == line) {
-    if (m_col >= int(col)) {
-      bool atStart = m_col == 0;
-      m_col = len;
-      m_line++;
 
-      if (atStart)
-        emit charDeletedBefore();
-
-      emit positionChanged();
-      return;
-    }
-  }
-*/
-  // This is the job of the lineRemoved / lineInsertedBefore methods.
-  //emit positionUnChanged();
+  emit positionUnChanged();
 }
 
 void KateSuperCursor::editLineUnWrapped(uint line, uint col)
@@ -218,7 +208,7 @@ void KateSuperCursor::editLineUnWrapped(uint line, uint col)
     emit positionChanged();
     return;
   }
-  else if ( (m_line== int(line+1)) || ((m_line == int(line)) && (m_col > int(col))) )
+  else if ( m_line== int(line+1) )
   {
     m_line = line;
     m_col = col;
@@ -227,27 +217,12 @@ void KateSuperCursor::editLineUnWrapped(uint line, uint col)
     return;
   }
 
-/*
-  if (m_linePtr == nextLine) {
-    if (col() < int(len)) {
-      m_col += pos;
-      m_line--;
-      m_linePtr = linePtr;
-      emit positionChanged();
-      m_lineRemoved = true;
-      return;
-    }
-  }*/
-
-  // This is the job of the lineRemoved / lineInsertedBefore methods.
-  //emit positionUnChanged();
+  emit positionUnChanged();
 }
 
 void KateSuperCursor::editLineInserted (uint line)
 {
-  // NOTE not >= because the = case is taken care of slotTextWrapped.
-  // Comparing to linePtr is because we can get a textWrapped signal then a lineInsertedBefore signal.
-  if (m_line >= line)
+  if (m_line >= int(line))
   {
     m_line++;
 
@@ -258,60 +233,26 @@ void KateSuperCursor::editLineInserted (uint line)
   emit positionUnChanged();
 }
 
-
-// TODO does this work with multiple line deletions?
-// TODO does this need the same protection with the actual TextLine::Ptr as lineInsertedBefore?
 void KateSuperCursor::editLineRemoved(uint line)
 {
-  if (m_line > line)
+  if (m_line > int(line))
   {
     m_line--;
 
     emit positionChanged();
     return;
   }
-  else if (m_line == line)
+  else if (m_line == int(line))
   {
-    m_line = (line < (int)m_doc->lastLine()) ? line : (line - 1);
+    m_line = (line < m_doc->lastLine()) ? line : (line - 1);
     m_col = 0;
 
+    emit positionDeleted();
+
     emit positionChanged();
     return;
   }
 
-  /*if (line() == int(lineNum)) {
-    // They took my line! :(
-    bool atStart = col() == 0;
-
-    if (m_doc->numLines() <= lineNum) {
-      m_line = m_doc->numLines() - 1;
-      m_linePtr = m_doc->kateTextLine(line());
-      m_col = m_linePtr->length();
-
-    } else {
-      m_linePtr = m_doc->kateTextLine(line());
-      m_col = 0;
-    }
-
-    if (atStart)
-      emit charDeletedBefore();
-    else
-      emit positionDeleted();
-
-    emit positionChanged();
-    return;
-
-  } else if (line() > int(lineNum)) {
-    m_line--;
-    emit positionChanged();
-    return;
-  }
-
-  if (m_lineRemoved) {
-    m_lineRemoved = false;
-    return;
-  }
-*/
   emit positionUnChanged();
 }
 

@@ -127,7 +127,7 @@ void KateUndo::undo (KateDocument *doc)
   }
   else if (m_type == KateUndoGroup::editWrapLine)
   {
-    doc->editUnWrapLine (m_line, m_col);
+    doc->editUnWrapLine (m_line);
   }
   else if (m_type == KateUndoGroup::editUnWrapLine)
   {
@@ -155,7 +155,7 @@ void KateUndo::redo (KateDocument *doc)
   }
   else if (m_type == KateUndoGroup::editUnWrapLine)
   {
-    doc->editUnWrapLine (m_line, m_col);
+    doc->editUnWrapLine (m_line);
   }
   else if (m_type == KateUndoGroup::editWrapLine)
   {

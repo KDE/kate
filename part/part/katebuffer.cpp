@@ -721,6 +721,43 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 //   kdDebug(13000)<<QString("Invalid line %1").arg(lineNr)<<endl;
 }
 
+QString KateBuffer::text()
+{
+  QString s;
+
+  for (uint i = 0; i < count(); i++)
+  {
+    s.append (line(i)->string());
+    if ( (i < (count()-1)) )
+      s.append('\n');
+  }
+
+  return s;
+}
+
+QString KateBuffer::text ( uint startLine, uint startCol,
+			   uint endLine, uint endCol )
+{
+  QString s;
+
+  for (uint i = startLine; (i <= endLine) && (i < count()); i++)
+  {
+    TextLine::Ptr textLine = line(i);
+
+    if (i == startLine)
+      s.append(textLine->string().mid (startCol, textLine->length()-startCol));
+    else if (i == endLine)
+      s.append(textLine->string().mid (0, endCol));
+    else
+      s.append(textLine->string());
+
+    if ( i < endLine )
+      s.append('\n');
+  }
+
+  return s;
+}
+
 
 //-----------------------------------------------------------------
 

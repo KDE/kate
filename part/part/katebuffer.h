@@ -128,7 +128,17 @@ class KateBuffer : public QObject
     * Invalidate highlighting of whole buffer.
     */
    void invalidateHighlighting();
-             
+
+   /**
+    * Get the whole text in the buffer as a string.
+    */
+   QString text();
+
+   /**
+    * Get the text between the two given positions.
+    */
+   QString text(uint startLine, uint startCol, uint endLine, uint endCol);
+
    inline bool allowHlUpdate () const
    {
       return !noHlUpdate;

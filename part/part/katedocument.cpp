@@ -243,39 +243,13 @@ QPtrList<KTextEditor::View> KateDocument::views () const
 
 QString KateDocument::text() const
 {
-  QString s;
-
-  for (uint i=0; i < buffer->count(); i++)
-  {
-    TextLine::Ptr textLine = buffer->line(i);
-    s.append (textLine->string());
-    if ( (i < (buffer->count()-1)) )
-      s.append('\n');
-  }
-
-  return s;
+  return buffer->text();
 }
 
-QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol ) const
+QString KateDocument::text ( uint startLine, uint startCol,
+			     uint endLine, uint endCol ) const
 {
-  QString s;
-
-  for (uint i=startLine; (i <= endLine) && (i < buffer->count()); i++)
-  {
-    TextLine::Ptr textLine = buffer->line(i);
-
-    if (i == startLine)
-      s.append(textLine->string().mid (startCol, textLine->length()-startCol));
-    else if (i == endLine)
-      s.append(textLine->string().mid (0, endCol));
-    else
-      s.append(textLine->string());
-
-    if ( i < endLine )
-      s.append('\n');
-  }
-
-  return s;
+  return buffer->text(startLine, startCol, endLine, endCol);
 }
 
 QString KateDocument::textLine( uint line ) const
@@ -291,11 +265,7 @@ bool KateDocument::setText(const QString &s)
 
 bool KateDocument::clear()
 {
-  KateTextCursor cursor;
-  KateView *view;
-
-  cursor.col = cursor.line = 0;
-  for (view = myViews.first(); view != 0L; view = myViews.next() ) {
+  for (KateView * view = myViews.first(); view != 0L; view = myViews.next() ) {
     view->myViewInternal->clear();
     view->myViewInternal->tagAll();
   }

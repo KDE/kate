@@ -28,6 +28,7 @@
 #include "katehighlight.h"
 #include "kateconfig.h"
 #include "katefactory.h"
+#include "kateautoindent.h"
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -862,6 +863,10 @@ void KateBuffer::setHighlight(uint hlMode)
     }
 
     h->use();
+
+    // try to set indentation
+    if (!h->indentation().isEmpty())
+      m_doc->config()->setIndentationMode (KateAutoIndent::modeNumber(h->indentation()));
 
     m_highlight = h;
 

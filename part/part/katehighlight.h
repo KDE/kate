@@ -209,6 +209,8 @@ class KateHighlighting
     // be carefull: all documents hl should be invalidated after calling this method!
     void dropDynamicContexts();
 
+    QString indentation () { return m_indentation; }
+
   private:
     // make this private, nobody should play with the internal data pointers
     void getKateHlItemDataList(uint schema, KateHlItemDataList &);
@@ -225,6 +227,7 @@ class KateHighlighting
     QString readGlobalKeywordConfig();
     QString readWordWrapConfig();
     QStringList readCommentConfig();
+    void readIndentationConfig ();
     void readFoldingConfig ();
 
     // manipulates the ctxs array directly ;)
@@ -270,6 +273,7 @@ class KateHighlighting
     QString iVersion;
     QString iAuthor;
     QString iLicense;
+    QString m_indentation;
     int m_priority;
     int refCount;
     int startctx, base_startctx;

@@ -2216,6 +2216,19 @@ QString KateHighlighting::readWordWrapConfig()
   return wordWrapDeliminator; // FIXME un-globalize
 }
 
+void KateHighlighting::readIndentationConfig()
+{
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  KateSyntaxContextData *data = KateHlManager::self()->syntax->getConfig("general","indentation");
+
+  if (data)
+  {
+    m_indentation = (KateHlManager::self()->syntax->groupItemData(data,QString("mode")));
+
+    KateHlManager::self()->syntax->freeGroupInfo(data);
+  }
+}
+
 void KateHighlighting::readFoldingConfig()
 {
   // Tell the syntax document class which file we want to parse
@@ -2563,6 +2576,11 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     return 0;
   }
 
+  // only read for the own stuff
+  if (identifier == ident)
+  {
+    readIndentationConfig ();
+  }
 
   RegionList<<"!KateInternal_TopLevel!";
 

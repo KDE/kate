@@ -138,6 +138,7 @@ void KateViewIndentationAction::slotAboutToShow()
 {
   QStringList modes = KateAutoIndent::listModes ();
 
+  popupMenu()->clear ();
   for (uint z=0; z<modes.size(); ++z)
     popupMenu()->insertItem ( '&' + KateAutoIndent::modeDescription(z), this, SLOT(setMode(int)), 0,  z);
 

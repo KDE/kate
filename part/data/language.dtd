@@ -91,7 +91,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
 >
 
 <!-- General options -->
-<!ELEMENT general (comments|keywords)*>
+<!ELEMENT general (comments|keywords|indentation)*>
 
 <!-- List of comments -->
 <!ELEMENT comments (comment)+>
@@ -123,6 +123,18 @@ TODO
   weakDeliminator       CDATA   #IMPLIED
   additionalDeliminator CDATA   #IMPLIED
 >
+
+<!-- Indentation options
+  mode:        indentation mode to use
+
+TODO
+  - Explain (weak) deliminators
+-->
+<!ELEMENT indentation EMPTY>
+<!ATTLIST indentation
+  mode         CDATA   #IMPLIED
+>
+
 
 <!-- Highlighting specification -->
 <!ELEMENT highlighting (list*, contexts, itemDatas)>

@@ -1498,8 +1498,8 @@ QPtrList<KTextEditor::Cursor> KateDocument::cursors () const
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive, bool backwards)
 {
-  uint line, col;
-  uint searchEnd;
+  int line, col;
+  int searchEnd;
   TextLine::Ptr textLine;
   uint foundAt, myMatchLen;
   bool found;
@@ -1565,8 +1565,8 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards)
 {
-  uint line, col;
-  uint searchEnd;
+  int line, col;
+  int searchEnd;
   TextLine::Ptr textLine;
   uint foundAt, myMatchLen;
   bool found;

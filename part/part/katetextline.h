@@ -100,7 +100,7 @@ class TextLine : public KShared
     inline QChar *text() const { return m_text.data(); };    
     
     inline uchar *attributes () const { return m_attributes.data(); }  
-    
+
     /**
       Gets a QString
     */
@@ -282,9 +282,9 @@ class TextLine : public KShared
                                      
     enum Flags
     {
-      flagHlContinue,
-      flagVisible,
-      flagFoldingListValid
+      flagHlContinue = 0x1,
+      flagVisible = 0x2,
+      flagFoldingListValid = 0x4
     };
     
     /**

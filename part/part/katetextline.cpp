@@ -325,7 +325,7 @@ char *TextLine::restore (char *buf)
   buf += sizeof(QChar)*l;
   buf += l;
 
-  memcpy((char *)&m_flags, buf, sizeof(uchar));
+  memcpy((char *) &m_flags, buf, 1);
   buf += 1;
 
   m_ctx.duplicate ((signed char *) buf, lctx);

@@ -242,17 +242,17 @@ class KateXmlIndent : public KateAutoIndent
     virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
     
   private:
-    static QRegExp openTag;
-    static QRegExp closeTag;
-    static QRegExp startsWithCloseTag;
-    static QRegExp openOrCloseTag;
+    // sets the indentation of a single line based on previous line
+    //  (returns indentation width)
+    uint processLine (uint line);
     
-    // sets the indentation of a single line based on previous lines
-    void processLine (uint line);
+    // gets information about a line
+    void getLineInfo (uint line, uint &prevIndent, int &numTags,
+      uint &attrCol, bool &unclosedTag);
     
-    // returns the indentation of the last line with an opening element,
-    // plus the number of elements that were opened
-    void findOpeningElemIndent (uint line, uint &indent, uint &numOpened);
+    // useful regular expressions
+    static const QRegExp startsWithCloseTag;
+    static const QRegExp unclosedDoctype;
 };
 
 #endif

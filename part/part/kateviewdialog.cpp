@@ -159,9 +159,9 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
 
   opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
   layout->addWidget(opt[4], 0, AlignLeft);
-//  opt[4]->setChecked(configFlags & flags[4]);
-  opt[4]->setChecked(true);
-  opt[4]->hide();
+  opt[4]->setChecked(configFlags & flags[4]);
+//   opt[4]->setChecked(true);
+//   opt[4]->hide();
 
   opt[5] = new QCheckBox(i18n("&Keep extra spaces"), this);
   layout->addWidget(opt[5], 0, AlignLeft);

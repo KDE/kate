@@ -1,3 +1,6 @@
+2002-04-05 Christian Couder <christian@kdevelop.org>
+  * fix undo for comment and uncomment
+	
 2002-01-05 Christian Couder <christian@kdevelop.org>
   * cleanups related to the uncomment feature in katetextline and katedocument
 

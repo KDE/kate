@@ -1,7 +1,9 @@
-%%=====================================================
-% MATLAB test code for Kate/Kwrite syntax highlighting
-% kate: hl Matlab
-%%=====================================================
+##=====================================================
+% Octave test code for Kate/Kwrite syntax highlighting
+% (shamelessly copied from Matlab's, since the two
+%  are very similar)
+% kate: hl Octave;
+##=====================================================
 
 % Numbers _____________________________________________
 5, 5.5, .1, 0.1, 0.4e5, 1.2e-5, 5i, 5.3i, 6j, .345+3i
@@ -27,12 +29,13 @@ a = 1+ ...
 'string
 'str''
 'str''ing
+'str''\'
 % complete strings
 'string' % simple string
-'''' % string containing '
+'''' '\'' % strings containing '
 'str''ing' % one string containing '
 'string' 'string'  % two strings
-'asdf'  'asdf''' variable  % two strings and a variable
+'asdf'  "asdf""" variable  % two strings and a variable
 'asdf''asdf''   fsgdfg' + (asdf)' - 'asdf'.' + []''''.';''
 'sadf'.' % string transpose
 % adjoint
@@ -53,9 +56,19 @@ A.''          % transpose, then adjoint
 
 % Reserved keywords ___________________________________
 function, persistent, global
+endfunction
+
 switch, case, otherwise
+endswitch
+
 if, else, elseif
-try, catch
+endif
+
+try, end_try_catch
 for, while, break, continue
-end, return
+endfor
+
+endwhile
+return
 function, FUNCTION, Function  % case sensitive!
+endfunction

@@ -1,30 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
-
-*************************************************************************
-*                                                                       *
-*               Syntax highlighting for the NASM Assembler              *
-*                   Copyright (C) 2004, James Buchanan                  *
-*                                                                       *
-*************************************************************************
-
-Created:  	James Buchanan <buchanan@iinet.net.au>
-Date:    	30th December, 2004
-Version:  	1.0
-
-Modified:	Joseph Wenninger <jowenn@kde.org>
-Date:		31st December, 2004
-Version:	1.0
-
-Thanks to Joseph for fixing this up for me.  (James)
-
-This file contains the XML syntax highlighting description for the NASM
-Assembler, for KATE, the KDE Advanced Editor.
-
-Known problems: ?
-
-GNU GENERAL PUBLIC LICENCE
+  NASM Intel x86 assembly syntax
+  
+  Created: Nicola Gigante <nicola.gigante@gmail.com>
+  Version: 1.0
+  
+  GNU GENERAL PUBLIC LICENCE
 
 This program, including associated files, is free software.  You may
 distribute it and/or modify it under the terms of the GNU General Public
@@ -39,58 +21,54 @@ for more details.
 You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
 -->
 
-<!--
-	The file extension clashes with another assembler.  You may like to change
-	the file extension for this other assembler or delete its syntax highlight
-	file.
--->
-<language name="NASM Assembler" version="1.00" kateversion="2.1" section="Assembler" extensions="*.asm;*.ASM" mimetype="text/x-asm">
+<language name="Intel x86 (NASM)" section="Assembler" version="1.01" kateversion="2.3" extensions="*.asm" mimetype="" author="Nicola Gigante (nicola.gigante@gmail.com)" license="GPL">
   <highlighting>
-
-    <list name="Registers">
+    <list name="registers">
+      <!-- General purpose registers -->
       <item>eax</item>
-      <item>ebx</item>
-      <item>ecx</item>
-      <item>edx</item>
-      <item>esp</item>
-      <item>ebp</item>
-      <item>esi</item>
-      <item>edi</item>
       <item>ax</item>
+      <item>ah</item>
+      <item>al</item>
+      <item>ebx</item>
       <item>bx</item>
+      <item>bh</item>
+      <item>bl</item>
+      <item>ecx</item>
       <item>cx</item>
+      <item>ch</item>
+      <item>cl</item>
+      <item>edx</item>
       <item>dx</item>
+      <item>dh</item>
+      <item>dl</item>
+      <item>ebp</item>
+      <item>bp</item>
+      <item>esi</item>
+      <item>si</item>
+      <item>edi</item>
+      <item>di</item>
+      <item>eip</item>
+      <item>ip</item>
+      <item>esp</item>
+      <item>sp</item>
+      <!-- Segmentation registers -->
       <item>cs</item>
       <item>ds</item>
       <item>ss</item>
       <item>es</item>
-      <item>fs</item>
       <item>gs</item>
-      <item>ah</item>
-      <item>al</item>
-      <item>bh</item>
-      <item>bl</item>
-      <item>ch</item>
-      <item>cl</item>
-      <item>dh</item>
-      <item>dl</item>
-      <item>sp</item>
-      <item>si</item>
-      <item>di</item>
-      <item>bp</item>
+      <item>fs</item>
+      <!-- Control registers -->
       <item>cr0</item>
       <item>cr1</item>
       <item>cr2</item>
       <item>cr3</item>
       <item>cr4</item>
-      <item>eflags</item>
-      <item>idtr</item>
-      <item>gdtr</item>
-      <item>ldtr</item>
-      <item>tr</item>
+      <!-- x87 FPU Registers -->
+      <item>st</item>
+      <!-- MMX registers -->
       <item>mm0</item>
       <item>mm1</item>
       <item>mm2</item>
@@ -99,6 +77,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>mm5</item>
       <item>mm6</item>
       <item>mm7</item>
+      <!-- XMM registers -->
       <item>xmm0</item>
       <item>xmm1</item>
       <item>xmm2</item>
@@ -107,25 +86,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>xmm5</item>
       <item>xmm6</item>
       <item>xmm7</item>
-      <item>st0</item>
-      <item>st1</item>
-      <item>st2</item>
-      <item>st3</item>
-      <item>st4</item>
-      <item>st5</item>
-      <item>st6</item>
-      <item>st7</item>
-      <item>dr0</item>
-      <item>dr1</item>
-      <item>dr2</item>
-      <item>dr3</item>
-      <item>dr4</item>
-      <item>dr5</item>
-      <item>dr6</item>
-      <item>dr7</item>
     </list>
-
-    <list name="Instructions">
+    <list name="instructions">
       <item>aaa</item>
       <item>aad</item>
       <item>aam</item>
@@ -151,82 +113,26 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>btr</item>
       <item>bts</item>
       <item>call</item>
-      <item>cbw</item>
       <item>cwde</item>
       <item>cdq</item>
       <item>clc</item>
       <item>cld</item>
-      <item>cflush</item>
+      <item>clflush</item>
       <item>cli</item>
       <item>clts</item>
       <item>cmc</item>
-      <item>cmova</item>
-      <item>cmovae</item>
-      <item>cmovb</item>
-      <item>cmovbe</item>
-      <item>cmovc</item>
-      <item>cmove</item>
-      <item>cmovg</item>
-      <item>cmovge</item>
-      <item>cmovl</item>
-      <item>cmovle</item>
-      <item>cmovna</item>
-      <item>cmovnae</item>
-      <item>cmovnb</item>
-      <item>cmovnbe</item>
-      <item>cmovnc</item>
-      <item>cmovne</item>
-      <item>cmovng</item>
-      <item>cmovnge</item>
-      <item>cmovnl</item>
-      <item>cmovnle</item>
-      <item>cmovno</item>
-      <item>cmovnp</item>
-      <item>cmovns</item>
-      <item>cmovnz</item>
-      <item>cmovo</item>
-      <item>cmovp</item>
-      <item>cmovpe</item>
-      <item>cmovpo</item>
-      <item>cmovs</item>
-      <item>cmovz</item>
       <item>cmp</item>
       <item>cmppd</item>
       <item>cmpps</item>
-      <item>cmps</item>
-      <item>cmpsb</item>
-      <item>cmpsw</item>
+      <item>cmpsd</item>
       <item>cmpsd</item>
       <item>cmpss</item>
       <item>cmpxchg</item>
-      <item>cmpxchg8b</item>
       <item>comisd</item>
       <item>comiss</item>
       <item>cpuid</item>
-      <item>cvtdq2pd</item>
-      <item>cvtdq2ps</item>
-      <item>cvtpd2dq</item>
-      <item>cvtpd2pi</item>
-      <item>cvtpd2ps</item>
-      <item>cvtpi2pd</item>
-      <item>cvtpi2ps</item>
-      <item>cvtps2dq</item>
-      <item>cvtps2pd</item>
-      <item>cvtps2pi</item>
-      <item>cvtsi2sd</item>
-      <item>cvtsi2ss</item>
-      <item>cvtss2sd</item>
-      <item>cvtss2si</item>
-      <item>cvtsd2si</item>
-      <item>cvtsd2ss</item>
-      <item>cvttpd2pi</item>
-      <item>cvttpd2dq</item>
-      <item>cvttps2dq</item>
-      <item>cvttps2pi</item>
-      <item>cvttsd2si</item>
-      <item>cvttss2si</item>
-      <item>cwd</item>
       <item>cdq</item>
+      <item>cwd</item>
       <item>cwde</item>
       <item>daa</item>
       <item>das</item>
@@ -238,91 +144,47 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>divss</item>
       <item>emms</item>
       <item>enter</item>
-      <item>f2xm1</item>
       <item>fabs</item>
-      <item>fadd</item>
-      <item>faddp</item>
       <item>fiadd</item>
       <item>fbld</item>
       <item>fbstp</item>
       <item>fchs</item>
-      <item>fclex</item>
       <item>fnclex</item>
-      <item>fcmovb</item>
-      <item>fcmove</item>
-      <item>fcmovbe</item>
-      <item>fcmovu</item>
-      <item>fcmovnb</item>
-      <item>fcmovne</item>
-      <item>fcmovnbe</item>
-      <item>fcmovnu</item>
-      <item>fcom</item>
-      <item>fcomp</item>
       <item>fcompp</item>
-      <item>fcomi</item>
-      <item>fcomip</item>
-      <item>fucomi</item>
       <item>fucomip</item>
       <item>fcos</item>
       <item>fdecstp</item>
-      <item>fdiv</item>
-      <item>fdivp</item>
       <item>fidiv</item>
-      <item>fdivr</item>
-      <item>fdivrp</item>
       <item>fidivr</item>
       <item>ffree</item>
-      <item>ficom</item>
       <item>ficomp</item>
       <item>fild</item>
       <item>fincstp</item>
-      <item>finit</item>
       <item>fninit</item>
-      <item>fist</item>
       <item>fistp</item>
       <item>fld</item>
-      <item>fld1</item>
-      <item>fldl2t</item>
-      <item>fldl2e</item>
-      <item>fldpi</item>
-      <item>fldlg2</item>
-      <item>fldln2</item>
       <item>fldz</item>
       <item>fldcw</item>
       <item>fldenv</item>
-      <item>fmul</item>
-      <item>fmulp</item>
       <item>fimul</item>
       <item>fnop</item>
       <item>fpatan</item>
       <item>fprem</item>
-      <item>fprem1</item>
       <item>fptan</item>
       <item>frndint</item>
       <item>frstor</item>
-      <item>fsave</item>
       <item>fnsave</item>
       <item>fscale</item>
       <item>fsin</item>
       <item>fsincos</item>
       <item>fsqrt</item>
-      <item>fst</item>
       <item>fstp</item>
-      <item>fstcw</item>
       <item>fnstcw</item>
-      <item>fstenv</item>
       <item>fnstenv</item>
-      <item>fstsw</item>
       <item>fnstsw</item>
-      <item>fsub</item>
-      <item>fsubp</item>
       <item>fisub</item>
-      <item>fsubr</item>
-      <item>fsubrp</item>
       <item>fisubr</item>
       <item>ftst</item>
-      <item>fucom</item>
-      <item>fucomp</item>
       <item>fucompp</item>
       <item>fwait</item>
       <item>fxam</item>
@@ -330,16 +192,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>fxrstor</item>
       <item>fxsave</item>
       <item>fxtract</item>
-      <item>fyl2x</item>
-      <item>fyl2xp1</item>
+      <item>x</item>
       <item>hlt</item>
       <item>idiv</item>
       <item>imul</item>
       <item>in</item>
       <item>inc</item>
-      <item>ins</item>
-      <item>insb</item>
-      <item>insw</item>
       <item>insd</item>
       <item>int</item>
       <item>into</item>
@@ -347,64 +205,25 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>invlpg</item>
       <item>iret</item>
       <item>iretd</item>
-      <item>ja</item>
-      <item>jae</item>
-      <item>jb</item>
-      <item>jbe</item>
-      <item>jc</item>
-      <item>jcxz</item>
-      <item>jecxz</item>
-      <item>je</item>
-      <item>jg</item>
-      <item>jge</item>
-      <item>jl</item>
-      <item>jle</item>
-      <item>jna</item>
-      <item>jnae</item>
-      <item>jnb</item>
-      <item>jnbe</item>
-      <item>jnc</item>
-      <item>jne</item>
-      <item>jng</item>
-      <item>jnge</item>
-      <item>jnl</item>
-      <item>jnle</item>
-      <item>jno</item>
-      <item>jnp</item>
-      <item>jns</item>
-      <item>jnz</item>
-      <item>jo</item>
-      <item>jp</item>
-      <item>jpe</item>
-      <item>jpo</item>
-      <item>js</item>
-      <item>jz</item>
       <item>jmp</item>
       <item>lahf</item>
       <item>lar</item>
       <item>ldmxcsr</item>
-      <item>lds</item>
-      <item>les</item>
-      <item>lfs</item>
-      <item>lgs</item>
       <item>lss</item>
       <item>lea</item>
       <item>leave</item>
+      <item>les</item>
       <item>lfence</item>
+      <item>lfs</item>
+      <item>lidt</item>
       <item>lldt</item>
       <item>lidt</item>
       <item>lmsw</item>
       <item>lock</item>
-      <item>lods</item>
-      <item>lodsb</item>
-      <item>lodsw</item>
       <item>lodsd</item>
-      <item>loop</item>
-      <item>loope</item>
-      <item>loopnz</item>
-      <item>loopne</item>
-      <item>loopnz</item>
+      <item>lodsb</item>
       <item>lsl</item>
+      <item>lss</item>
       <item>ltr</item>
       <item>maskmovdqu</item>
       <item>maskmovq</item>
@@ -418,15 +237,17 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>minsd</item>
       <item>minss</item>
       <item>mov</item>
+      <item>mov</item>
+      <item>mov</item>
       <item>movapd</item>
       <item>movaps</item>
       <item>movd</item>
       <item>movdqa</item>
       <item>movdqu</item>
-      <item>movd2q2</item>
       <item>movhlps</item>
       <item>movhpd</item>
       <item>movhps</item>
+      <item>movlhps</item>
       <item>movlpd</item>
       <item>movlps</item>
       <item>movmskpd</item>
@@ -437,10 +258,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>movntps</item>
       <item>movntq</item>
       <item>movq</item>
-      <item>movq2dq</item>
-      <item>movs</item>
-      <item>movsb</item>
-      <item>movsw</item>
+      <item>movsd</item>
       <item>movsd</item>
       <item>movss</item>
       <item>movsx</item>
@@ -459,31 +277,18 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>orpd</item>
       <item>orps</item>
       <item>out</item>
-      <item>outs</item>
-      <item>outsb</item>
-      <item>outsw</item>
       <item>outsd</item>
-      <item>packsswb</item>
       <item>packssdw</item>
       <item>packuswb</item>
-      <item>paddb</item>
-      <item>paddw</item>
       <item>paddd</item>
       <item>paddq</item>
-      <item>paddsb</item>
       <item>paddsw</item>
-      <item>paddusb</item>
       <item>paddusw</item>
       <item>pand</item>
       <item>pandn</item>
       <item>pause</item>
-      <item>pavgb</item>
       <item>pavgw</item>
-      <item>pcmpeqb</item>
-      <item>pcmpeqw</item>
       <item>pcmpeqd</item>
-      <item>pcmpgtb</item>
-      <item>pcmpgtw</item>
       <item>pcmpgtd</item>
       <item>pextrw</item>
       <item>pinsrw</item>
@@ -500,114 +305,54 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>pop</item>
       <item>popa</item>
       <item>popad</item>
-      <item>popf</item>
       <item>popfd</item>
       <item>por</item>
-      <item>prefetch0</item>
-      <item>prefetch1</item>
-      <item>prefetch2</item>
-      <item>prefetchnta</item>
+      <item>prefetchh</item>
       <item>psadbw</item>
       <item>pshufd</item>
       <item>pshufhw</item>
       <item>pshuflw</item>
       <item>pshufw</item>
       <item>pslldq</item>
-      <item>psllw</item>
-      <item>pslld</item>
       <item>psllq</item>
-      <item>psraw</item>
       <item>psrad</item>
       <item>psrldq</item>
-      <item>psrlw</item>
-      <item>psrld</item>
       <item>psrlq</item>
-      <item>psubb</item>
-      <item>psubw</item>
       <item>psubd</item>
       <item>psubq</item>
-      <item>psubsb</item>
       <item>psubsw</item>
-      <item>psubusb</item>
       <item>psubusw</item>
-      <item>punpckhbw</item>
-      <item>punpckhwd</item>
-      <item>punpckhdq</item>
       <item>punpckhqdq</item>
-      <item>punpcklbw</item>
-      <item>punpcklwd</item>
-      <item>punpckldq</item>
       <item>punpcklqdq</item>
       <item>push</item>
       <item>pusha</item>
       <item>pushad</item>
-      <item>pushf</item>
       <item>pushfd</item>
       <item>pxor</item>
-      <item>rcl</item>
-      <item>rcr</item>
-      <item>rol</item>
       <item>ror</item>
       <item>rcpps</item>
       <item>rcpss</item>
       <item>rdmsr</item>
+      <item>rdpmc</item>
       <item>rdtsc</item>
-      <item>rep</item>
-      <item>repe</item>
-      <item>repz</item>
-      <item>repne</item>
       <item>repnz</item>
       <item>ret</item>
+      <item>ror</item>
       <item>rsm</item>
       <item>rsqrtps</item>
       <item>rsqrtss</item>
       <item>sahf</item>
-      <item>sal</item>
-      <item>sar</item>
-      <item>shl</item>
       <item>shr</item>
       <item>sbb</item>
-      <item>scas</item>
-      <item>scasb</item>
-      <item>scasw</item>
       <item>scasd</item>
-      <item>seta</item>
-      <item>setae</item>
-      <item>setb</item>
-      <item>setbe</item>
-      <item>setc</item>
-      <item>sete</item>
-      <item>setg</item>
-      <item>setge</item>
-      <item>setl</item>
-      <item>setle</item>
-      <item>setna</item>
-      <item>setnae</item>
-      <item>setnb</item>
-      <item>setnbe</item>
-      <item>setnc</item>
-      <item>setne</item>
-      <item>setng</item>
-      <item>setnge</item>
-      <item>setnl</item>
-      <item>setnle</item>
-      <item>setno</item>
-      <item>setnp</item>
-      <item>setns</item>
-      <item>setnz</item>
-      <item>seto</item>
-      <item>setp</item>
-      <item>setpe</item>
-      <item>setpo</item>
-      <item>sets</item>
-      <item>setz</item>
       <item>sfence</item>
       <item>sgdt</item>
-      <item>sidt</item>
+      <item>shr</item>
       <item>shld</item>
       <item>shrd</item>
       <item>shufpd</item>
       <item>shufps</item>
+      <item>sidt</item>
       <item>sldt</item>
       <item>smsw</item>
       <item>sqrtpd</item>
@@ -618,9 +363,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>std</item>
       <item>sti</item>
       <item>stmxcsr</item>
-      <item>stos</item>
-      <item>stosb</item>
-      <item>stosw</item>
       <item>stosd</item>
       <item>str</item>
       <item>sub</item>
@@ -633,167 +375,137 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>test</item>
       <item>ucomisd</item>
       <item>ucomiss</item>
-      <item>ud2</item>
       <item>unpckhpd</item>
+      <item>unpckhps</item>
       <item>unpcklpd</item>
       <item>unpcklps</item>
-      <item>verr</item>
       <item>verw</item>
-      <item>wait</item>
+      <item>fwait</item>
       <item>wbinvd</item>
       <item>wrmsr</item>
       <item>xadd</item>
       <item>xchg</item>
-      <item>xlat</item>
       <item>xlatb</item>
       <item>xor</item>
       <item>xorpd</item>
       <item>xorps</item>
     </list>
-
-    <list name="keywords">
+    <list name="Data">
+      <!-- repeat some data declaration -->
+      <item>times</item>
+      <!-- constants -->
+      <item>equ</item>
+      <!-- Initialized data -->
       <item>db</item>
       <item>dw</item>
       <item>dd</item>
       <item>dq</item>
       <item>dt</item>
+      <!-- Uninitialized data -->
       <item>resb</item>
       <item>resw</item>
       <item>resd</item>
       <item>resq</item>
       <item>rest</item>
-      <item>INCBIN</item>
-      <item>EQU</item>
-      <item>TIMES</item>
-      <item>SEG</item>
-      <item>WRT</item>
-      <item>STRICT</item>
-      <item>SECTION</item>
-      <item>BITS</item>
-      <item>ORG</item>
-      <item>ifmacro</item>
-      <item>__FILE__</item>
-      <item>__LINE__</item>
-      <item>STRUC</item>
-      <item>ENDSTRUC</item>
-      <item>ISTRUC</item>
-      <item>IAT</item>
-      <item>IEND</item>
-      <item>ALIGN</item>
-      <item>ALIGNB</item>
-      <item>USE16</item>
-      <item>USE32</item>
-      <item>SEGMENT</item>
-      <item>GROUP</item>
-      <item>UPPERCASE</item>
-      <item>IMPORT</item>
-      <item>EXPORT</item>
-      <item>GLOBAL</item>
-      <item>LIBRARY</item>
-      <item>MODULE</item>
-      <item>ABSOLUTE</item>
-      <item>EXTERN</item>
-      <item>CPU</item>
-      <item>COMMON</item>
-      <item>__SECT__</item>
+      <!-- binary file include -->
+      <item>incbin</item>
+      <!-- operand size -->
+      <item>byte</item>
+      <item>word</item>
+      <item>dword</item>
+      <item>qword</item>
+      <item>short</item>
+      <item>ptr</item>
+    </list>
+    <list name="NASM Keywords">
+      <!-- NASM directives -->
+      <item>org</item>
+      <item>bits</item>
+      <item>use16</item>
+      <item>use32</item>
+      <item>section</item>
+      <item>segment</item>
+      <item>__sect__</item>
+      <item>absolute</item>
+      <item>extern</item>
+      <item>global</item>
+      <item>common</item>
+      <item>seg</item>
+      <item>wrt</item>
+      <item>strict</item>
+      <!-- NASM standard macros -->
+      <item>struc</item>
+      <item>endstruc</item>
+      <item>istruc</item>
+      <item>at</item>
+      <item>iend</item>
+      <item>align</item>
+      <item>alignb</item>
+      
       <item>__NASM_MAJOR__</item>
       <item>__NASM_MINOR__</item>
       <item>__NASM_SUBMINOR__</item>
-      <item>__NASM_PATCHLEVEL__</item>
-      <item>__NASM_VERSIONID__</item>
+      <item>___NASM_PATCHLEVEL__</item>
+      <item>__NASM_VERSION_ID__</item>
       <item>__NASM_VER__</item>
+      <item>__FILE__</item>
+      <item>__LINE__</item>
     </list>
-
-    <list name="Preprocessor">
-      <item>%define</item>
-      <item>%macro</item>
-      <item>%xdefine</item>
-      <item>%undef</item>
-      <item>%assign</item>
-      <item>%+</item>
-      <item>%strlen</item>
-      <item>%substr</item>
-      <item>%0</item>
-      <item>%rotate</item>
-      <item>%ifdef</item>
-      <item>%ifctx</item>
-      <item>%if</item>
-      <item>%ifidn</item>
-      <item>%ifidni</item>
-      <item>%ifid</item>
-      <item>%ifnum</item>
-      <item>%ifstr</item>
-      <item>%error</item>
-      <item>%push</item>
-      <item>%pop</item>
-      <item>%rep</item>
-      <item>%repl</item>
-      <item>%arg</item>
-      <item>%stacksize</item>
-      <item>%local</item>
-      <item>%line</item>
-      <item>%!</item>
-    </list>
-
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr      attribute="Label" context="#stay" String="^\s*[A-Za-z0-9_.$]+:" />
-        <keyword      attribute="Keyword" context="#stay" String="keywords"/>
-        <keyword      attribute="Registers" context="#stay" String="Registers"/>
-        <keyword      attribute="Instructions" context="#stay" String="Instructions"/>
-        <keyword      attribute="Preprocessor" context="Preprocessor" String="Preprocessor" />
-        <HlCOct       attribute="Octal" context="#stay" />
-        <HlCHex       attribute="Hex" context="#stay" />
-        <RegExpr      attribute="Binary" context="#stay" String="0[bB][01]+" />
-        <Int          attribute="Decimal" context="#stay" />
-        <RegExpr      attribute="Float" context="#stay" String="0[fFeEdD][-+]?[0-9]*\.?[0-9]*[eE]?[-+]?[0-9]+" />
-        <RegExpr      attribute="Normal Text" context="#stay" String="[A-Za-z_.$][A-Za-z0-9_.$]*" />
-        <RegExpr      attribute="Char" context="#stay" String="'(\\x[0-9a-fA-F][0-9a-fA-F]?|\\[0-7]?[0-7]?[0-7]?|\\.|.)" />
-        <DetectChar   attribute="String" context="String" char="&quot;" />
-        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="*" />
-        <DetectChar   attribute="Comment" context="Commentar 2" char="@" />
-        <DetectChar   attribute="Comment" context="Commentar 2" char=";" />
-        <AnyChar      attribute="Symbol" context="#stay" String="!#%&amp;*()+,-&lt;=&gt;?/:[]^{|}~" />
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Registers" context="#stay" String="registers" />
+        <keyword attribute="Data" context="#stay" String="Data"/>
+        <keyword attribute="Instructions" context="#stay" String="instructions"/>
+        <keyword attribute="NASM Keywords" context="#stay" String="NASM Keywords"/>
+        <DetectChar attribute="Comment" context="Comment" char=";" />
+        <DetectChar attribute="Preprocessor" context="Preprocessor" char="%" />
+        <AnyChar attribute="String" context="String" String="&quot;'"/>
+        <RegExpr attribute="Label" context="#stay" String="^\s*[A-Za-z0-9_.$]+:" />
+        <!-- Conditional instructions -->
+        <RegExpr attribute="Instructions" context="#stay"
+        String="(cmov|fcmov|j|loop|set)(a|ae|b|be|c|e|g|ge|l|le|na|nae|nb|nbe|nc|ne|ng|nge|nl|nle|no|np|ns|nz|o|p|pe|po|s|z)" />
+        <!-- The NASM's CPU directive -->
+        <RegExpr attribute="NASM Keywords" context="#stay" String="cpu (pentium|ppro|p2|p3|katmai|p4|willamette|prescott|ia64)*"/>
+        <!-- hexadecimal numbers -->
+        <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="(\$[0-9]+[a-f0-9]*|[a-f0-9]+h)"/>
+        <!-- octal and binary numbers -->
+        <RegExpr attribute="BaseN" context="#stay" insensitive="TRUE" String="([0-7]+(q|o)|[01]+b)"/>
+        <DetectChar attribute="Number" context="#stay" char="$" />
+        <HlCOct attribute="BaseN" context="#stay"/>
+        <HlCHex attribute="BaseN" context="#stay"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Number" context="#stay"/>
+        <HlCChar attribute="Char" context="#stay"/>
       </context>
-      <context attribute="Comment" lineEndContext="#stay" name="Commentar 1">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
+      <context name="Comment" attribute="Comment" lineEndContext="#pop"/>
+      <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop"/>
+      <context name="String" attribute="String" lineEndContext="#pop">
+        <AnyChar attribute="String" context="#pop" String="&quot;'"/>
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Commentar 2" />
-      <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor" />
-      <context attribute="String" lineEndContext="#pop" name="String">
-        <LineContinue  attribute="String" context="Some Context" />
-        <HlCStringChar attribute="String Char" context="#stay" />
-        <DetectChar    attribute="String" context="#pop" char="&quot;" />
-      </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Some Context" />
     </contexts>
-
+    
     <itemDatas>
-      <itemData name="Normal Text"  defStyleNum="dsNormal"   />
-      <itemData name="Label"        defStyleNum="dsNormal"   />
-      <itemData name="Keyword"      defStyleNum="dsKeyword"  />
-      <itemData name="Instructions" defStyleNum="dsKeyword"  />
-      <itemData name="Registers"    defStyleNum="dsKeyword"  />
-      <itemData name="Decimal"      defStyleNum="dsDecVal"   />
-      <itemData name="Octal"        defStyleNum="dsBaseN"    />
-      <itemData name="Hex"          defStyleNum="dsBaseN"    />
-      <itemData name="Binary"       defStyleNum="dsBaseN"    />
-      <itemData name="Float"        defStyleNum="dsFloat"    />
-      <itemData name="Char"         defStyleNum="dsChar"     />
-      <itemData name="String"       defStyleNum="dsString"   />
-      <itemData name="String Char"  defStyleNum="dsChar"     />
-      <itemData name="Symbol"       defStyleNum="dsNormal"   />
-      <itemData name="Comment"      defStyleNum="dsComment"  />
-      <itemData name="Preprocessor" defStyleNum="dsOthers"   />
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Registers" defStyleNum="dsKeyword"/>
+      <itemData name="Instructions" defStyleNum="dsKeyword"/>
+      <itemData name="NASM Keywords" defStyleNum="dsKeyword"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Label" defStyleNum="dsFunction"/>
+      <itemData name="Data" defStyleNum="dsDataType"/>
+      <itemData name="BaseN" defStyleNum="dsBaseN"/>
+      <itemData name="Float" defStyleNum="dsFloat"/>
+      <itemData name="Number" defStyleNum="dsDecVal"/>
+      <itemData name="Char" defStyleNum="dsChar"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
     </itemDatas>
   </highlighting>
-
   <general>
+    <keywords casesensitive="0" />
     <comments>
       <comment name="singleLine" start=";" />
-      <comment name="singleLine" start="@" />
-      <comment name="multiLine"  start="/*" end="*/" />
     </comments>
-    <keywords casesensitive="0" weakDeliminator="_.$%" />
   </general>
 </language>
+
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

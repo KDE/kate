@@ -65,7 +65,7 @@ class CursorInterface
     virtual Cursor *createCursor ( ) = 0;
 
     /*
-    * Accessor to the list of views.
+    * Accessor to the list of cursors.
     */
     virtual QPtrList<Cursor> cursors () const = 0;
 

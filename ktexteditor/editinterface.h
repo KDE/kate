@@ -90,7 +90,7 @@ class EditInterface
     /**
     *  Inserts text at line "line", column "col"
     *  returns true if success
-		*  Use insertText(numLines(), ...) to append text at end of document
+    *  Use insertText(numLines(), ...) to append text at end of document
     */
     virtual bool insertText ( uint line, uint col, const QString &text ) = 0;
 
@@ -102,7 +102,7 @@ class EditInterface
 
     /**
     * Insert line(s) at the given line number. 
-		* Use insertLine(numLines(), text) to append line at end of document
+    * Use insertLine(numLines(), text) to append line at end of document
     */
     virtual bool insertLine ( uint line, const QString &text ) = 0;
 

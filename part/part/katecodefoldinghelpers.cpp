@@ -64,8 +64,22 @@ KateCodeFoldingNode::~KateCodeFoldingNode()
 
 KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFoldingNode()
 {
+  clear(); 
+}
+
+void KateCodeFoldingTree::clear()
+{
+  kdDebug()<<"KateCodeFoldingTree::clear()"<<endl;
+  if (m_childnodes)
+  {
+	m_childnodes->setAutoDelete(true);
+	m_childnodes->clear();
+	m_childnodes->setAutoDelete(false);
+  }
   dontIgnoreUnchangedLines.setAutoDelete(true);
+  dontIgnoreUnchangedLines.clear();
   lineMapping.setAutoDelete(true);
+  lineMapping.clear();
   hiddenLinesCountCacheValid=false;
 
   // initialize the root "special" node
@@ -73,6 +87,11 @@ KateCodeFoldingTree::KateCodeFoldingTree(QObject *par): QObject(par), KateCodeFo
   startLineValid=true;
   endLineValid=true; // temporary, should be false;
   endLineRel=60000;   // temporary;
+
+  markedForDeleting.clear();
+  nodesForLine.clear();
+  hiddenLines.clear();
+
 }
 
 KateCodeFoldingTree::~KateCodeFoldingTree()
@@ -1103,7 +1122,7 @@ void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 {
   lineMapping.clear();
   hiddenLinesCountCacheValid = false;
-//  kdDebug(13000)<<QString("KateCodeFoldingTree::toggleRegionVisibility() %1").arg(line)<<endl;
+  kdDebug(13000)<<QString("KateCodeFoldingTree::toggleRegionVisibility() %1").arg(line)<<endl;
 
   findAllNodesOpenedOrClosedAt(line);
   for (int i=0; i<(int)nodesForLine.count(); i++)

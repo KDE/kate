@@ -384,11 +384,15 @@ KateBufBlock *KateBuffer::findBlock(uint i)
 void KateBuffer::clear()     
 {     
   // reset the folding tree hard !
-  delete m_regionTree;
-  m_regionTree=new KateCodeFoldingTree(this);
-  connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
-  connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
-  
+  //  delete m_regionTree;
+  // trying to reset the region tree softly
+  if (m_regionTree) m_regionTree->clear();
+  else
+  {
+  	m_regionTree=new KateCodeFoldingTree(this);
+	  connect(this,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),m_regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
+	  connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
+  }
   // delete the last loader
   if (m_loader)
     delete m_loader;

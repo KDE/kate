@@ -109,6 +109,8 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void lineHasBeenRemoved    (unsigned int line);
     void debugDump();
     void getLineInfo(KateLineInfo *info,unsigned int line);
+  
+    void clear();
     
   private:
     QIntDict<unsigned int>    lineMapping;

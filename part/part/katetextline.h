@@ -112,7 +112,7 @@ class TextLine : public KShared
     /**
       Gets a C-like null terminated string
     */
-    QString getString() { return QString (text.data(), text.size()); };
+    QString getString() const { return QString (text.data(), text.size()); };
 
     /*
       Gets a null terminated pointer to first non space char

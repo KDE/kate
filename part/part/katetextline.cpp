@@ -179,26 +179,12 @@ QChar *TextLine::firstNonSpace() const
 
 bool TextLine::startingWith(const QString& match) const
 {
-  if (match.length() > text.size())
-	  return false;
-
-	for (uint z=0; z<match.length(); z++)
-	  if (match[z] != text[z])
-		  return false;
-
-  return true;
+  return (getString().left(match.length()) == match);
 }
 
 bool TextLine::endingWith(const QString& match) const
 {
-  if (match.length() > text.size())
-    return false;
-
-  for (int z=text.size(); z>(int)(text.size()-match.length()); z--)
-    if (match[z] != text[z])
-      return false;
-
-  return true;
+  return (getString().right(match.length()) == match);
 }
 
 int TextLine::cursorX(uint pos, uint tabChars) const

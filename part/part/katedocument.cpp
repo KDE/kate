@@ -663,7 +663,7 @@ bool KateDocument::removeText ( uint startLine, uint startCol,
 
 bool KateDocument::insertLine( uint l, const QString &str )
 {
-  if (l > buffer->count())
+  if (l > numLines())
     return false;
 
   editStart ();
@@ -677,6 +677,9 @@ bool KateDocument::insertLine( uint l, const QString &str )
 
 bool KateDocument::removeLine( uint line )
 {
+  if (line > lastLine())
+    return false;
+
   editStart ();
   
   bool end = editRemoveLine (line);
@@ -1016,6 +1019,9 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
 bool KateDocument::editInsertLine ( uint line, const QString &s )
 {
+  if ( line > numLines() )
+    return false;
+
   editStart ();
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
@@ -1057,9 +1063,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
 bool KateDocument::editRemoveLine ( uint line )
 {
-//  regionTree->lineHasBeenRemoved(line);// is this the right place ?
-
-  if (numLines() == 1)
+  if ((numLines() == 1) || (line > lastLine()))
     return false;
 
   editStart ();

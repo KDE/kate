@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!-- author: Dominik Haumann <dhdev at gmx dot de>
+This file is included every file that highlights the "alerts" keywords.
+That's why extensions and mimetype are empty.
+ -->
+<language version="1.00" kateversion="2.3" name="Alerts" section="Other" extensions="" mimetype="">
+  <highlighting>
+    <list name="alerts">
+      <item> FIXME </item>
+      <item> NOTE </item>
+      <item> NOTICE </item>
+      <item> TODO </item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+        <keyword attribute="Alert" context="#stay" String="alerts" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Alert" defStyleNum="dsAlert"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="1" />
+  </general>
+</language>

@@ -262,7 +262,7 @@ void KateIconBorder::paintLine(int linepos, KateLineRange *r)
     p.setPen(QColor(colorGroup().background()).dark());
     p.drawLine( cachedLNWidth-1, y, cachedLNWidth-1, y + fontHeight );
 //    kdDebug()<<"IconBorder::paintLine"<<endl;
- 
+
       if (!r->empty)
         p.drawText( lnX + 1, y, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
           QString("%1").arg(r->line + 1 ));
@@ -415,58 +415,10 @@ void KateIconBorder::mousePressEvent(QMouseEvent* e)
                 			  myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
 			}
 
-	
+
 		}
-//                if (mark&KateDocument::markType01)
-//                  myView->myDoc->removeMark (cursorOnLine, KateDocument::markType01);
-//                else
-//                  myView->myDoc->addMark (cursorOnLine, KateDocument::markType01);
             break;
- /*       case RightButton:
-            {
-                if (!line)
-                    break;
-                KPopupMenu popup;
-                popup.setCheckable(true);
-                popup.insertTitle(i18n("Breakpoints/Bookmarks"));
-                int idToggleBookmark =     popup.insertItem(i18n("Toggle bookmark"));
-                popup.insertSeparator();
-                int idToggleBreakpoint =   popup.insertItem(i18n("Toggle breakpoint"));
-                int idEditBreakpoint   =   popup.insertItem(i18n("Edit breakpoint"));
-                int idEnableBreakpoint =   popup.insertItem(i18n("Disable breakpoint"));
-                popup.insertSeparator();
-                popup.insertSeparator();
-                int idLmbSetsBreakpoints = popup.insertItem(i18n("LMB sets breakpoints"));
-                int idLmbSetsBookmarks   = popup.insertItem(i18n("LMB sets bookmarks"));
 
-                popup.setItemChecked(idLmbSetsBreakpoints, lmbSetsBreakpoints);
-                popup.setItemChecked(idLmbSetsBookmarks, !lmbSetsBreakpoints);
-
-                if (line->breakpointId() == -1) {
-                    popup.setItemEnabled(idEditBreakpoint, false);
-                    popup.setItemEnabled(idEnableBreakpoint, false);
-                    popup.changeItem(idEnableBreakpoint, i18n("Enable breakpoint"));
-                }
-                int res = popup.exec(mapToGlobal(e->pos()));
-                if (res == idToggleBookmark) {
-                    line->toggleBookmark();
-                    doc->tagLines(cursorOnLine, cursorOnLine);
-                    doc->updateViews();
-                } else if (res == idToggleBreakpoint)
-                    emit myView->toggledBreakpoint(cursorOnLine);
-                else if (res == idEditBreakpoint)
-                    emit myView->editedBreakpoint(cursorOnLine);
-                else if (res == idEnableBreakpoint)
-                    emit myView->toggledBreakpointEnabled(cursorOnLine+1);
-                else if (res == idLmbSetsBreakpoints || res == idLmbSetsBookmarks)
-                    lmbSetsBreakpoints = !lmbSetsBreakpoints;
-                break;
-            }
-        case MidButton:
-            line->toggleBookmark();
-            doc->tagLines(cursorOnLine, cursorOnLine);
-            doc->updateViews();
-            break;      */
         default:
             break;
         }

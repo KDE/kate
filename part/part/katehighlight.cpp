@@ -2218,6 +2218,8 @@ QString KateHighlighting::readWordWrapConfig()
 
 void KateHighlighting::readIndentationConfig()
 {
+  m_indentation = "";
+
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
   KateSyntaxContextData *data = KateHlManager::self()->syntax->getConfig("general","indentation");
 

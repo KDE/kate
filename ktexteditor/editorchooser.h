@@ -1,11 +1,14 @@
 #ifndef _EDITOR_CHOOSER_H_
 #define  _EDITOR_CHOOSER_H_
 
-#include <editorchooser_ui.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editorchooser_ui.h>
+
 class KConfig;
 class QString;
+
+
 
 namespace KTextEditor
 {

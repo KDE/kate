@@ -1,5 +1,5 @@
 SUBDIRS = . kcm
-INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) $(all_includes)
+INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) $(all_includes) -I../
 
 lib_LTLIBRARIES = libktexteditor.la
 
@@ -25,7 +25,7 @@ ktexteditorinclude_HEADERS = document.h view.h editor.h plugin.h editinterface.h
                              blockselectioninterface.h codecompletioninterface.h \
                              configinterface.h markinterface.h printinterface.h wordwrapinterface.h \
                              dynwordwrapinterface.h markinterfaceextension.h configinterfaceextension.h \
-                             encodinginterface.h viewstatusmsginterface.h  sessionconfiginterface.h editorchooser.h
+                             encodinginterface.h viewstatusmsginterface.h  sessionconfiginterface.h editorchooser.h editorchooser_ui.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

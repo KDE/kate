@@ -58,9 +58,9 @@ protected:
 	void enterEvent( QEvent* ) {};
 	void leaveEvent( QEvent* ) {};
 };
-
-ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringList& )
-	: KTextEditor::ViewPlugin ( parent, name )
+                                            
+ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
+	: QObject ( view ), KXMLGUIClient ()
 	, m_view( 0L )
 	, m_doc( 0L )
 	, m_searchIF( 0L )
@@ -164,12 +164,12 @@ ISearchPlugin::ISearchPlugin( QObject* parent, const char* name, const QStringLi
 	setXMLFile( "ktexteditor_isearchui.rc" );
 }
 
-ISearchPlugin::~ISearchPlugin()
+ISearchPluginView::~ISearchPluginView()
 {
 	writeConfig();
 }
 
-void ISearchPlugin::setView( KTextEditor::View* view )
+void ISearchPluginView::setView( KTextEditor::View* view )
 {
 	m_view = view;
 	m_doc  = m_view->document();
@@ -187,22 +187,22 @@ void ISearchPlugin::setView( KTextEditor::View* view )
 	readConfig();
 }
 
-void ISearchPlugin::readConfig()
+void ISearchPluginView::readConfig()
 {
 	KConfig* config = instance()->config();
 }
 
-void ISearchPlugin::writeConfig()
+void ISearchPluginView::writeConfig()
 {
 	KConfig* config = instance()->config();
 }
 
-void ISearchPlugin::setCaseSensitive( bool caseSensitive )
+void ISearchPluginView::setCaseSensitive( bool caseSensitive )
 {
 	m_caseSensitive = caseSensitive;
 }
 
-void ISearchPlugin::setFromBeginning( bool fromBeginning )
+void ISearchPluginView::setFromBeginning( bool fromBeginning )
 {
 	m_fromBeginning = fromBeginning;
 	
@@ -211,17 +211,17 @@ void ISearchPlugin::setFromBeginning( bool fromBeginning )
 	} 
 }
 
-void ISearchPlugin::setRegExp( bool regExp )
+void ISearchPluginView::setRegExp( bool regExp )
 {
 	m_regExp = regExp;
 }
 
-void ISearchPlugin::setAutoWrap( bool autoWrap )
+void ISearchPluginView::setAutoWrap( bool autoWrap )
 {
 	m_autoWrap = autoWrap;
 }
 
-bool ISearchPlugin::eventFilter( QObject* o, QEvent* e )
+bool ISearchPluginView::eventFilter( QObject* o, QEvent* e )
 {
 	if( o != m_combo->lineEdit() )
 		return false;
@@ -246,7 +246,7 @@ bool ISearchPlugin::eventFilter( QObject* o, QEvent* e )
 }
 
 // Sigh... i18n hell.
-void ISearchPlugin::updateLabelText(
+void ISearchPluginView::updateLabelText(
 	bool failing /* = false */, bool reverse /* = false */,
 	bool wrapped /* = false */, bool overwrapped /* = false */ )
 {
@@ -294,17 +294,17 @@ void ISearchPlugin::updateLabelText(
 	m_label->setText( text );
 }
 
-void ISearchPlugin::slotSearchForwardAction()
+void ISearchPluginView::slotSearchForwardAction()
 {
 	slotSearchAction( false );
 }
 
-void ISearchPlugin::slotSearchBackwardAction()
+void ISearchPluginView::slotSearchBackwardAction()
 {
 	slotSearchAction( true );
 }
 
-void ISearchPlugin::slotSearchAction( bool reverse )
+void ISearchPluginView::slotSearchAction( bool reverse )
 {
 	if( !m_combo->hasFocus() ) {
 //		if( !m_toolBarAction->isChecked() ) {
@@ -319,7 +319,7 @@ void ISearchPlugin::slotSearchAction( bool reverse )
 	}
 }
 
-void ISearchPlugin::nextMatch( bool reverse )
+void ISearchPluginView::nextMatch( bool reverse )
 {
 	QString text = m_combo->currentText();
 	if( text.isEmpty() )
@@ -350,7 +350,7 @@ void ISearchPlugin::nextMatch( bool reverse )
 	}
 }
 
-void ISearchPlugin::startSearch()
+void ISearchPluginView::startSearch()
 {
 	if( !m_view ) return;
 	
@@ -377,7 +377,7 @@ void ISearchPlugin::startSearch()
 //	kdDebug() << "Starting search at " << m_startLine << ", " << m_startCol << endl;
 }
 
-void ISearchPlugin::endSearch()
+void ISearchPluginView::endSearch()
 {
 	m_searchForwardAction->setText( i18n("Search Incrementally") );
 	m_searchBackwardAction->setText( i18n("Search Incrementally Backwards") );
@@ -389,7 +389,7 @@ void ISearchPlugin::endSearch()
 	}
 }
 
-void ISearchPlugin::slotTextChanged( const QString& text )
+void ISearchPluginView::slotTextChanged( const QString& text )
 {
 	state = TextSearch;
 	
@@ -399,7 +399,7 @@ void ISearchPlugin::slotTextChanged( const QString& text )
 	iSearch( m_searchLine, m_searchCol, text, m_searchBackward, m_autoWrap );
 }
 
-void ISearchPlugin::slotReturnPressed( const QString& text )
+void ISearchPluginView::slotReturnPressed( const QString& text )
 {
 	if( !text.isEmpty() ) {
 		m_combo->addToHistory( text );
@@ -415,7 +415,7 @@ void ISearchPlugin::slotReturnPressed( const QString& text )
 	}
 }
 
-bool ISearchPlugin::iSearch(
+bool ISearchPluginView::iSearch(
 	uint startLine, uint startCol,
 	const QString& text, bool reverse,
 	bool autoWrap )
@@ -458,4 +458,31 @@ bool ISearchPlugin::iSearch(
 //	kdDebug() << "Overwrap = " << overwrapped << ". Start was " << m_startLine << ", " << m_startCol << endl;
 	updateLabelText( !found, reverse, m_wrapped, overwrapped );
 	return found;
+}                
+
+ISearchPlugin::ISearchPlugin( QObject *parent, const char* name, const QStringList& )
+	: KTextEditor::Plugin ( (KTextEditor::Document*) parent, name )
+{
+}
+
+ISearchPlugin::~ISearchPlugin()
+{
+}                    
+
+void ISearchPlugin::addView(KTextEditor::View *view)
+{
+  ISearchPluginView *nview = new ISearchPluginView (view);
+  nview->setView (view); 
+  m_views.append (nview);
+}   
+
+void ISearchPlugin::removeView(KTextEditor::View *view)
+{
+  for (uint z=0; z < m_views.count(); z++)
+    if (m_views.at(z)->view() == view)
+    {
+       ISearchPluginView *nview = m_views.at(z);
+       m_views.remove (nview);
+      delete nview;
+    }  
 }

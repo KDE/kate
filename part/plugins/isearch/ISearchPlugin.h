@@ -23,22 +23,40 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/searchinterface.h>
 #include <ktexteditor/viewcursorinterface.h>
-#include <ktexteditor/selectioninterface.h>
+#include <ktexteditor/selectioninterface.h>        
+
+#include <kxmlguiclient.h>
+#include <qobject.h>
 
 class QLabel;
 class KToolBarLabel;
 
-class ISearchPlugin : public KTextEditor::ViewPlugin
+class ISearchPlugin : public KTextEditor::Plugin, KTextEditor::PluginViewInterface
+{
+  public:
+	  ISearchPlugin( QObject *parent = 0, const char* name = 0, const QStringList &args = QStringList() );
+	  virtual ~ISearchPlugin();       
+    
+    void addView (KTextEditor::View *view);
+    void removeView (KTextEditor::View *view);  
+    
+  private:
+    QPtrList<class ISearchPluginView> m_views;
+};
+
+class ISearchPluginView : public QObject, KXMLGUIClient
 {
 	Q_OBJECT
 	
 public:
-	ISearchPlugin( QObject* parent = 0, const char* name = 0, const QStringList &args = QStringList() );
-	virtual ~ISearchPlugin();
-	
-	void setView( KTextEditor::View* view );
-	
+	ISearchPluginView( KTextEditor::View *view );
+	virtual ~ISearchPluginView();
+		
 	virtual bool eventFilter( QObject*, QEvent* );
+  
+  void setView( KTextEditor::View* view );   
+  
+  KTextEditor::View *view() { return m_view; };
 
 public slots:
 	void setCaseSensitive( bool );

@@ -112,7 +112,7 @@ class KateFileLoader
         if (c > 0)
           m_text = m_decoder->toUnicode (m_buffer, c);
 
-        m_eof = m_file.atEnd();
+        m_eof = (c == -1) || (c == 0) || (m_text.length() == 0) || m_file.atEnd();
 
         for (uint i=0; i < m_text.length(); i++)
         {
@@ -166,14 +166,20 @@ class KateFileLoader
           {
             int c = m_file.readBlock (m_buffer.data(), m_buffer.size());
 
+            uint readString = 0;
             if (c > 0)
+            {
+              QString str (m_decoder->toUnicode (m_buffer, c));
+              readString = str.length();
+
               m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart)
-                       + m_decoder->toUnicode (m_buffer, c);
+                       + str;
+            }
             else
               m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
 
             // is file completly read ?
-            m_eof = m_file.atEnd();
+            m_eof = (c == -1) || (c == 0) || (readString == 0) || m_file.atEnd();
 
             // recalc current pos and last pos
             m_position -= m_lastLineStart;
@@ -489,6 +495,8 @@ bool KateBuffer::openFile (const QString &m_file)
     m_lineHighlighted = m_lines;
     m_lineHighlightedMax = m_lines;
   }
+
+  kdDebug (13020) << "LOADING DONE" << endl;
 
   return !m_loadingBorked;
 }

@@ -72,9 +72,7 @@ void KateCodeFoldingTree::clear()
   kdDebug()<<"KateCodeFoldingTree::clear()"<<endl;
   if (m_childnodes)
   {
-	m_childnodes->setAutoDelete(true);
 	m_childnodes->clear();
-	m_childnodes->setAutoDelete(false);
   }
   dontIgnoreUnchangedLines.setAutoDelete(true);
   dontIgnoreUnchangedLines.clear();
@@ -877,6 +875,14 @@ void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 
   if (node->parentNode)
     decrementBy1(node->parentNode, node);
+
+  for (QValueList<hiddenLineBlock>::Iterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
+  {
+    if ((*it).start > line)
+      (*it).start--;
+    else if ((*it).start+(*it).length > line)
+      (*it).length--;
+  }
 }
 
 

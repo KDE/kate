@@ -36,6 +36,7 @@
 #include <klistview.h>
 #include <klocale.h>
 #include <kmimetype.h>
+#include <kmimetypechooser.h>
 #include <kprocess.h>
 #include <krun.h>
 #include <kstaticdeleter.h>
@@ -272,161 +273,6 @@ class AutoBookmarkEntItem : public QListViewItem
 };
 //END
 
-//BEGIN KMimeTypeChooserDlg
-// copy from katedialogs.h/cpp, written by me -- this is not public currently
-
-KMimeTypeChooser::KMimeTypeChooser( QWidget *parent, const QString &text, const QStringList &selectedMimeTypes, bool editbutton, bool showcomment, bool showpatterns)
-    : QVBox( parent )
-{
-  setSpacing( KDialogBase::spacingHint() );
-
-/* HATE!!!! geometry management seems BADLY broken :(((((((((((
-   Problem: if richtext is used (or Qt::WordBreak is on in the label),
-   the list view is NOT resized when the parent box is.
-   No richtext :(((( */
-  if ( !text.isEmpty() ) {
-    new QLabel( text, this );
-  }
-
-  lvMimeTypes = new QListView( this );
-  lvMimeTypes->addColumn( i18n("Mime Type") );
-  if ( showcomment )
-    lvMimeTypes->addColumn( i18n("Comment") );
-  if ( showpatterns )
-    lvMimeTypes->addColumn( i18n("Patterns") );
-  lvMimeTypes->setRootIsDecorated( true );
-
-  //lvMimeTypes->clear(); WHY?!
-  QMap<QString,QListViewItem*> groups;
-  // thanks to kdebase/kcontrol/filetypes/filetypesview
-  KMimeType::List mimetypes = KMimeType::allMimeTypes();
-  QValueListIterator<KMimeType::Ptr> it(mimetypes.begin());
-
-  QListViewItem *groupItem;
-  bool agroupisopen = false;
-  QListViewItem *idefault = 0; //open this, if all other fails
-  for (; it != mimetypes.end(); ++it) {
-    QString mimetype = (*it)->name();
-    int index = mimetype.find("/");
-    QString maj = mimetype.left(index);
-    QString min = mimetype.right(mimetype.length() - (index+1));
-
-    QMapIterator<QString,QListViewItem*> mit = groups.find( maj );
-    if ( mit == groups.end() ) {
-        groupItem = new QListViewItem( lvMimeTypes, maj );
-        groups.insert( maj, groupItem );
-        if (maj == "text")
-          idefault = groupItem;
-    }
-    else
-        groupItem = mit.data();
-
-    QCheckListItem *item = new QCheckListItem( groupItem, min, QCheckListItem::CheckBox );
-    item->setPixmap( 0, SmallIcon( (*it)->icon(QString::null,false) ) );
-    int cl = 1;
-    if ( showcomment ) {
-      item->setText( cl, (*it)->comment(QString::null, false) );
-      cl++;
-    }
-    if ( showpatterns )
-      item->setText( cl, (*it)->patterns().join("; ") );
-    if ( selectedMimeTypes.contains(mimetype) ) {
-      item->setOn( true );
-      groupItem->setOpen( true );
-      agroupisopen = true;
-      lvMimeTypes->ensureItemVisible( item );// actually, i should do this for the first item only.
-    }
-  }
-
-  if (! agroupisopen)
-    idefault->setOpen( true );
-
-  if (editbutton) {
-    QHBox *btns = new QHBox( this );
-    ((QBoxLayout*)btns->layout())->addStretch(1); // hmm.
-    btnEditMimeType = new QPushButton( i18n("&Edit..."), btns );
-    connect( btnEditMimeType, SIGNAL(clicked()), this, SLOT(editMimeType()) );
-    btnEditMimeType->setEnabled( false );
-    connect( lvMimeTypes, SIGNAL( doubleClicked ( QListViewItem * )), this, SLOT( editMimeType()));
-    connect( lvMimeTypes, SIGNAL(currentChanged(QListViewItem*)), this, SLOT(slotCurrentChanged(QListViewItem*)) );
-    QWhatsThis::add( btnEditMimeType, i18n("Click this button to display the familiar KDE File Type Editor.<p><strong>Warning:</strong> if you change the file extensions, you need to restart this dialog, as it will not be aware that they have changed.") );
-  }
-}
-
-void KMimeTypeChooser::editMimeType()
-{
-  if ( !(lvMimeTypes->currentItem() && (lvMimeTypes->currentItem())->parent()) ) return;
-  QString mt = (lvMimeTypes->currentItem()->parent())->text( 0 ) + "/" + (lvMimeTypes->currentItem())->text( 0 );
-  // thanks to libkonq/konq_operations.cc
-  QString keditfiletype = QString::fromLatin1("keditfiletype");
-  KRun::runCommand( keditfiletype + " " + KProcess::quote(mt),
-                    keditfiletype, keditfiletype /*unused*/);
-}
-
-void KMimeTypeChooser::slotCurrentChanged(QListViewItem* i)
-{
-  btnEditMimeType->setEnabled( i->parent() );
-}
-
-QStringList KMimeTypeChooser::selectedMimeTypesStringList()
-{
-  QStringList l;
-  QListViewItemIterator it( lvMimeTypes );
-  for (; it.current(); ++it) {
-    if ( it.current()->parent() && ((QCheckListItem*)it.current())->isOn() )
-      l << it.current()->parent()->text(0) + "/" + it.current()->text(0); // FIXME: uncecked, should be Ok unless someone changes mimetypes during this!
-  }
-  return l;
-}
-
-QStringList KMimeTypeChooser::patterns()
-{
-  QStringList l;
-  KMimeType::Ptr p;
-  QString defMT = KMimeType::defaultMimeType();
-  QListViewItemIterator it( lvMimeTypes );
-  for (; it.current(); ++it) {
-    if ( it.current()->parent() && ((QCheckListItem*)it.current())->isOn() ) {
-      p = KMimeType::mimeType( it.current()->parent()->text(0) + "/" + it.current()->text(0) );
-      if ( p->name() != defMT )
-        l += p->patterns();
-    }
-  }
-  return l;
-}
-KMimeTypeChooserDlg::KMimeTypeChooserDlg(QWidget *parent,
-                         const QString &caption, const QString& text,
-                         const QStringList &selectedMimeTypes,
-                         bool editbutton, bool showcomment, bool showpatterns )
-    : KDialogBase(parent, 0, true, caption, Cancel|Ok, Ok)
-{
-  KConfig *config = kapp->config();
-
-  chooser = new KMimeTypeChooser( this, text, selectedMimeTypes, editbutton, showcomment, showpatterns);
-  setMainWidget(chooser);
-
-  config->setGroup("KMimeTypeChooserDlg");
-  resize( config->readSizeEntry("size", new QSize(400,300)) );
-}
-
-KMimeTypeChooserDlg::~KMimeTypeChooserDlg()
-{
-  KConfig *config = kapp->config();
-  config->setGroup("KMimeTypeChooserDlg");
-  config->writeEntry("size", size());
-}
-
-QStringList KMimeTypeChooserDlg::mimeTypes()
-{
-  return chooser->selectedMimeTypesStringList();
-}
-
-QStringList KMimeTypeChooserDlg::patterns()
-{
-  return chooser->patterns();
-}
-//END KMimeTypeChooserDlg
-
 //BEGIN AutoBookmarkerEntEditor
 // Dialog for editing a single autobookmark entity
 // * edit the pattern
@@ -512,17 +358,18 @@ void AutoBookmarkerEntEditor::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes for this pattern.\nPlease note that this will automatically edit the associated file extensions as well.");
   QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), leMimeTypes->text() );
-  KMimeTypeChooserDlg *d = new KMimeTypeChooserDlg( this, i18n("Select Mime Types"), text, list );
+  KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
-    leFileMask->setText(d->patterns().join("; "));
-    leMimeTypes->setText(d->mimeTypes().join("; "));
+    leFileMask->setText(d->chooser()->patterns().join("; "));
+    leMimeTypes->setText(d->chooser()->mimeTypes().join("; "));
   }
 }
 //END
 
 //BEGIN AutoBookmarkerConfigPage
+// TODO allow custom mark types with icons
 AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char *name )
   : KTextEditor::ConfigPage( parent, name )
 {

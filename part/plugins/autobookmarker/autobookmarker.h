@@ -134,40 +134,4 @@ class AutoBookmarkerEntEditor : public KDialogBase
     AutoBookmarkEnt *e;
 };
 
-// copy from katedialogs.h/cpp, written by me -- this is not public currently
-class KMimeTypeChooser : public QVBox
-{
-  Q_OBJECT
-
-  public:
-    KMimeTypeChooser( QWidget *parent=0, const QString& text=QString::null, const QStringList &selectedMimeTypes=0,
-                      bool editbutton=true, bool showcomment=true, bool showpattern=true );
-    ~KMimeTypeChooser() {};
-    QStringList selectedMimeTypesStringList();
-    QStringList patterns();
-
-  public slots:
-    void editMimeType();
-    void slotCurrentChanged(QListViewItem* i);
-
-  private:
-    class QListView *lvMimeTypes;
-    class QPushButton *btnEditMimeType;
-};
-class KMimeTypeChooserDlg : public KDialogBase
-{
-  public:
-    KMimeTypeChooserDlg( QWidget *parent=0,
-                         const QString &caption=QString::null, const QString& text=QString::null,
-                         const QStringList &selectedMimeTypes=QStringList(),
-                         bool editbutton=true, bool showcomment=true, bool showpatterns=true );
-    ~KMimeTypeChooserDlg();
-
-    QStringList mimeTypes();
-    QStringList patterns();
-
-  private:
-    KMimeTypeChooser *chooser;
-};
-
 #endif //_AUTOBOOKMARKER_H_

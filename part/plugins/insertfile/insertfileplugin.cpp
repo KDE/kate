@@ -84,7 +84,7 @@ void InsertFilePluginView::slotInsertFile()
 {
   _file = KFileDialog::getOpenURL( "::insertfile", "",
                                              (QWidget*)parent(),
-                                             i18n("Chose a File to Insert") ).url();
+                                             i18n("Choose a File to Insert") ).url();
   if ( _file.isEmpty() ) return;
 
   if ( KURL( _file ).isLocalFile() ) {
@@ -108,7 +108,7 @@ void InsertFilePluginView::slotFinished( KIO::Job *job )
   assert( job == _job );
   _job = 0;
   if ( job->error() )
-    KMessageBox::error( (QWidget*)parent(), i18n("Failed loading file:\n\n") + job->errorString(), i18n("Insert File error") );
+    KMessageBox::error( (QWidget*)parent(), i18n("Failed to load file:\n\n") + job->errorString(), i18n("Insert File error") );
   else
     insertFile();
 }
@@ -122,11 +122,11 @@ void InsertFilePluginView::insertFile()
   QFileInfo fi;
   fi.setFile( _tmpfile );
   if (!fi.exists() || !fi.isReadable())
-    error = i18n("<p>The file <strong>%1</strong> does not exist is not readable, aborting.").arg(_file);
+    error = i18n("<p>The file <strong>%1</strong> does not exist or is not readable, aborting.").arg(_file);
 
   QFile f( _tmpfile );
   if ( ! f.open(IO_ReadOnly) )
-    error = i18n("<p>Couldn't open file <strong>%1</strong>, aborting.").arg(_file);
+    error = i18n("<p>Unable to open file <strong>%1</strong>, aborting.").arg(_file);
 
   if ( ! error.isEmpty() ) {
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );

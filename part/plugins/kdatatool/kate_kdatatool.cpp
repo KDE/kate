@@ -166,8 +166,8 @@ void KDataToolPluginView::aboutToShow()
 
 void KDataToolPluginView::slotNotAvailable()
 {
-	KMessageBox::sorry(0, i18n("Data tools are only available when text is selected "
-		"or when the right mouse button is pressed over a word. If no data tools are offered "
+	KMessageBox::sorry(0, i18n("Data tools are only available when text is selected, "
+		"or when the right mouse button is clicked over a word. If no data tools are offered "
 		"even when text is selected, you need to install them. Some data tools are part "
 		"of the KOffice package."));
 }

@@ -1699,7 +1699,7 @@ void Highlight::makeContextList()
   if (!HlManager::self()->syntax->setIdentifier(identifier))
   {
 	noHl=true;
-	KMessageBox::information(0L,i18n("Since there had been an parsing error of the highlighting description, this highlighing will be disabled"));
+	KMessageBox::information(0L,i18n("Since there has been an error parsing the highlighting description, this highlighting will be disabled"));
 	return;
   }
 

@@ -430,10 +430,10 @@ QString KateDocument::configPageFullName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Colors Settings");
+      return i18n ("Color Settings");
       
     case 1:
-      return i18n ("Fonts Settings");
+      return i18n ("Font Settings");
 
     case 2:
       return i18n ("Indentation Rules");

@@ -12,7 +12,9 @@
 #include "katecodecompletion_iface_impl.moc"
 #include <kdebug.h>
 #include <iostream.h>
-
+#include <qwhatsthis.h>
+#include <qtimer.h>
+#include <qtooltip.h>
 
 class CompletionItem : public QListBoxText
 {
@@ -30,7 +32,8 @@ public:
   KTextEditor::CompletionEntry m_entry;
 };
 
-CodeCompletion_Impl::CodeCompletion_Impl(KateView *view):QObject(view),m_view(view)
+
+CodeCompletion_Impl::CodeCompletion_Impl(KateView *view):QObject(view),m_view(view),m_commentLabel(0)
 {
   m_completionPopup = new QVBox( 0, 0, WType_Popup );
   m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
@@ -87,6 +90,7 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 	   ke->key() == Key_Up || ke->key() == Key_Down ||
 	   ke->key() == Key_Home || ke->key() == Key_End ||
 	   ke->key() == Key_Prior || ke->key() == Key_Next ) {
+	QTimer::singleShot(0,this,SLOT(showComment()));
 	return FALSE;
       }
       
@@ -108,6 +112,7 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 	    m_view->insertText(add);
 	  }
 	  m_completionPopup->hide();
+	  deleteCommentLabel();
 	  m_view->setFocus();
 	  emit completionDone();
 	}
@@ -116,14 +121,18 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 
       if(ke->key() == Key_Escape){ // abort
 	m_completionPopup->hide();
+	deleteCommentLabel();
 	m_view->setFocus();
 	emit completionAborted();
 	return FALSE;
       }
 
-      QApplication::sendEvent(m_view, e ); // redirect the event to the editor
+      QApplication::sendEvent(m_view->myViewInternal, e ); // redirect the event to the editor
       if(m_colCursor+m_offset > m_view->cursorColumnReal()){ // the cursor is to far left
+	kdDebug()<< "Aborting Codecompletion after sendEvent"<<endl;
+	kdDebug()<<QString("%1").arg(m_view->cursorColumnReal())<<endl;
 	m_completionPopup->hide();
+	deleteCommentLabel();
 	m_view->setFocus();
 	emit completionAborted();
 	return FALSE;
@@ -134,6 +143,7 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 
     if(e->type() == QEvent::FocusOut){
       m_completionPopup->hide();
+      deleteCommentLabel();
       emit completionAborted();
     }
   }
@@ -160,6 +170,7 @@ void CodeCompletion_Impl::updateBox(bool newCoordinate){
   }
   if(m_completionListBox->count()==0){
     m_completionPopup->hide();
+    deleteCommentLabel();
     m_view->setFocus();
     emit completionAborted();
     return;
@@ -175,6 +186,8 @@ void CodeCompletion_Impl::updateBox(bool newCoordinate){
     m_completionPopup->move(m_view->mapToGlobal(m_view->cursorCoordinates()));
   }
   m_completionPopup->show();
+  QTimer::singleShot(0,this,SLOT(showComment()));
+  
 }
 
 void CodeCompletion_Impl::showArgHint ( QStringList functionList, const QString& strWrapping, const QString& strDelimiter )
@@ -204,4 +217,47 @@ void CodeCompletion_Impl::showArgHint ( QStringList functionList, const QString&
 void CodeCompletion_Impl::slotCursorPosChanged()
 {
 	m_pArgHint->cursorPositionChanged ( m_view, m_view->cursorLine(), m_view->cursorColumnReal() );
+}
+
+
+void CodeCompletion_Impl::deleteCommentLabel()
+{
+	if (m_commentLabel)
+	{	
+		delete m_commentLabel;
+		m_commentLabel=0;
+	}
+}
+
+void CodeCompletion_Impl::showComment()
+{
+	CompletionItem* item = static_cast<CompletionItem*> (m_completionListBox->item(m_completionListBox->currentItem()));
+	if (item)
+	{
+                if (m_commentLabel) delete m_commentLabel;
+                if (!item->m_entry.comment.isEmpty())
+                {
+                        m_commentLabel=new KateCodeCompletionCommentLabel(0,item->m_entry.comment);
+			QPoint rightPoint=m_completionPopup->mapToGlobal(QPoint(m_completionPopup->width(),0));
+			QPoint leftPoint=m_completionPopup->mapToGlobal(QPoint(0,0));
+			QPoint finalPoint;
+
+			QRect screen = QApplication::desktop()->screenGeometry( m_commentLabel->x11Screen() );
+
+			if (rightPoint.x()+m_commentLabel->width() > screen.x() + screen.width())
+				finalPoint.setX(leftPoint.x()-m_commentLabel->width());
+			else
+				finalPoint.setX(rightPoint.x());
+
+			m_completionListBox->ensureCurrentVisible();
+
+			finalPoint.setY(
+				m_completionListBox->viewport()->mapToGlobal(m_completionListBox->itemRect(
+					m_completionListBox->item(m_completionListBox->currentItem())).topLeft()).y());
+
+			m_commentLabel->move(finalPoint);
+                        m_commentLabel->show();
+                }
+
+	}
 }

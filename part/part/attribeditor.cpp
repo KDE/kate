@@ -57,7 +57,7 @@ AttribEditor::~AttribEditor()
 {
 }
 
-void AttribEditor::load(SyntaxDocument*doc )
+void AttribEditor::load(SyntaxDocument *doc )
 {
   struct syntaxContextData *data;
   data=doc->getGroupInfo("highlighting","itemData");
@@ -80,6 +80,30 @@ void AttribEditor::load(SyntaxDocument*doc )
   if (data) doc->freeGroupInfo(data);
   currentAttributeChanged(attributes->firstChild());
 }
+
+/*
+void AttribEditor::save(QDomDocument *doc)
+{
+	struct syntaxContextData *data;
+	data=doc->createGroupInfo("highlighting","itemData");
+	for (QListViewItem *it=attributes->firstChild();it,it=it->nextSibling())
+	{
+		doc->appendGroup(data);
+		doc->setGropuData("name",it->text(0);
+		doc->setGropuData("defStyleNum",it->text(1);
+		if (it->text(2)!=null)
+		{
+			doc->setGroupData("color",it->text(2);
+			doc->setGroupData("selColor",it->text(3);
+			doc->setGroupData("bold",it->text(4);
+			doc->setGroupData("italic",it->text(5);			
+		}
+
+	}
+	
+	if (data) doc->freeGroupInfo(data);
+}
+*/
 
 QStringList AttribEditor::attributeNames()
 {
@@ -197,3 +221,4 @@ void AttribEditor::updateAttributeSelectedColour(const QColor &color)
 		attributes->currentItem()->setText(3,color.name());
 	}
 }
+

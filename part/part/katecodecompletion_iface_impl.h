@@ -32,11 +32,34 @@
 #include <qstringlist.h>
 #include <qvbox.h>
 #include <qlistbox.h>
+#include <qlabel.h>
 
 //class KWrite;
 class KDevArgHint;
 
 class KateView;
+
+
+class KateCodeCompletionCommentLabel : public QLabel
+{
+    Q_OBJECT
+public:
+    KateCodeCompletionCommentLabel( QWidget* parent, const QString& text) : QLabel( parent, "toolTipTip",
+             WStyle_StaysOnTop | WStyle_Customize | WStyle_NoBorder | WStyle_Tool | WX11BypassWM )
+    {
+        setMargin(1);
+        setIndent(0);
+        setAutoMask( FALSE );
+        setFrameStyle( QFrame::Plain | QFrame::Box );
+        setLineWidth( 1 );
+        setAlignment( AlignAuto | AlignTop );
+        polish();
+        setText(text);
+        adjustSize();
+    }
+};
+
+
 
 class CodeCompletion_Impl : public QObject {
   Q_OBJECT
@@ -58,9 +81,11 @@ private:
   uint m_lineCursor;
   uint m_colCursor;
   int m_offset;
-
+  KateCodeCompletionCommentLabel *m_commentLabel;
+  void deleteCommentLabel();
 public slots:
 	void slotCursorPosChanged();
+	void showComment();
 
 signals:
     void completionAborted();

@@ -1300,9 +1300,10 @@ void KateViewInternal::dropEvent( QDropEvent *event )
         }
       }
       myDoc->insertText(c.cursor.line, c.cursor.col, text);
-      cursor = c.cursor;
 
+      cursor = c.cursor;
       updateCursor(cursor);
+
       myDoc->updateViews();
     }
   }
@@ -1780,6 +1781,14 @@ void KateView::insertText(const QString &s)
   myViewInternal->getVConfig(c);
   myDoc->insertText(c.cursor.line, c.cursor.col, s);
   myDoc->updateViews();
+//JW BEGIN
+      for (int i=0;i<s.length();i++)
+	{
+		cursorRight();
+	}
+//JW END
+     // updateCursor(c.cursor);
+
 }
 
 bool KateView::canDiscard() {

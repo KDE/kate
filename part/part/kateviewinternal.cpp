@@ -41,38 +41,21 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   myView = view;
   myDoc = doc;
 
-//  iconBorderWidth  = 16;
-//  iconBorderHeight = 800;
-
   displayCursor.line=0;
   displayCursor.col=0;
-  
-  lineRanges.resize (64);
-
-  for (uint z = 0; z < lineRanges.size(); z++)
-  {
-    lineRanges[z].start = 0xffffff;
-    lineRanges[z].end = 0;
-  }
 
   maxLen = 0;
   startLine = 0;
-  endLine = -1;
-
-  QWidget::setCursor(ibeamCursor);
-  KCursor::setAutoHideCursor( this, true, true );
-
-  setFocusPolicy(StrongFocus);
-
-  xScroll = new QScrollBar(QScrollBar::Horizontal,myView);
-  yScroll = new QScrollBar(QScrollBar::Vertical,myView);
-  xScroll->hide(); //TEMPORARY
+  endLine = 0;
 
   xPos = 0;
   yPos = 0;
 
   xCoord = 0;
   yCoord = 0;
+
+  // create a one line lineRanges array
+  updateLineRanges (0, false);
 
   scrollTimer = 0;
 
@@ -95,11 +78,20 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.sXPos = 0;
   bm.eXPos = -1;
 
-  setAcceptDrops(true);
-  dragInfo.state = diNone;
+  QWidget::setCursor(ibeamCursor);
+  KCursor::setAutoHideCursor( this, true, true );
+
+  setFocusPolicy(StrongFocus);
+
+  xScroll = new QScrollBar(QScrollBar::Horizontal,myView);
+  yScroll = new QScrollBar(QScrollBar::Vertical,myView);
+  xScroll->hide(); //TEMPORARY
 
   connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
   connect(yScroll,SIGNAL(valueChanged(int)),SLOT(changeYPos(int)));
+  
+  setAcceptDrops(true);
+  dragInfo.state = diNone;
 }
 
 KateViewInternal::~KateViewInternal()
@@ -643,7 +635,9 @@ void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
 
   // calc start and end line of visible part
   startLine = yPos/myDoc->viewFont.fontHeight;
-  endLine = (yPos + height -1)/myDoc->viewFont.fontHeight;
+  endLine = (yPos + height)/myDoc->viewFont.fontHeight;
+  
+  kdDebug()<<"endLine: "<<endLine<<endl;
 
   updateState = 0;
 
@@ -651,7 +645,7 @@ void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
 
   if (lines > oldLines)
     lineRanges.resize (lines);
-    
+
   // blank repaint attribs
   for (uint z = 0; z < lines; z++)
   {

@@ -367,7 +367,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
         "active line, which means the line where your cursor is positioned.</p>"));
   QWhatsThis::add( m_linenumber, i18n(
         "<p>This color will be used to draw the line numbers (if enabled) and the "
-        "lines in the code folding folding pane.</p>" ) );
+        "lines in the code-folding pane.</p>" ) );
   QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
         "be highlighted with this color.</p>"));
@@ -594,7 +594,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
     "<strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu."
     "<p>To edit the colors, click the colored squares, or select the color "
     "to edit from the popup menu.<p>You can unset the Background and Selected "
-    "Background colors from the context menu when appropriate.") );
+    "Background colors from the popup menu when appropriate.") );
 
 }
 

@@ -266,22 +266,22 @@ class KateBufBlock
  */
 KateBuffer::KateBuffer(KateDocument *doc)
  : QObject (doc),
-   m_hlUpdate (true),
-   m_lines (0),
-   m_highlightedTo (0),
-   m_highlightedRequested (0),
-   m_lastInSyncBlock (0),
-   m_highlight (0),
    m_doc (doc),
+   m_lines (0),
+   m_lastInSyncBlock (0),
    m_lastFoundBlock (0),
-   m_regionTree (this),
-   m_highlightedTill (0),
-   m_highlightedEnd (0),
-   m_highlightedSteps (0),
    m_cacheReadError(false),
    m_cacheWriteError(false),
    m_loadingBorked (false),
-   m_tabWidth (0)
+   m_highlight (0),
+   m_regionTree (this),
+   m_highlightedTo (0),
+   m_highlightedRequested (0),
+   m_hlUpdate (true),
+   m_tabWidth (8),
+   m_highlightedTill (0),
+   m_highlightedEnd (0),
+   m_highlightedSteps (0)
 {
   connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(pleaseHighlight()));
 

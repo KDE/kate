@@ -294,47 +294,110 @@ class KateBuffer : public QObject
     void loadingFinished ();
 
   private:
-    bool m_hlUpdate;
-
-    uint m_lines;
-    uint m_highlightedTo; // The highest line with correct highlight info
-    uint m_highlightedRequested; // The highest line that we requested highlight for
-
-    uint m_lastInSyncBlock;  // last block where the start/end line is in sync with real life
-
-    Highlight *m_highlight;
+    /**
+     * document we belong too
+     */
     KateDocument *m_doc;
-
-    // ALL blocks
+  
+    /**
+     * current line count
+     */
+    uint m_lines;
+    
+    /**
+     * ALL blocks
+     * in order of linenumbers
+     */
     QValueVector<KateBufBlock*> m_blocks;
+    
+    /**
+     * last block where the start/end line is in sync with real life
+     */
+    uint m_lastInSyncBlock;
+    
+    /**
+     * last block found by findBlock, there to make searching faster
+     */
     uint m_lastFoundBlock;
 
-    // List of blocks that can be swapped out.
-    KateBufBlockList m_loadedBlocks;
-
-    // List of blocks that can be disposed.
-    KateBufBlockList m_cleanBlocks;
-
-    // List of blocks that are dirty.
-    KateBufBlockList m_dirtyBlocks;
-
+    /**
+     * vm allocator
+     */
     KVMAllocator m_vm;
 
-    // folding tree
-    KateCodeFoldingTree m_regionTree;
+    /**
+     * status of the cache read/write errors
+     * write errors get handled, read errors not really atm
+     */
+    bool m_cacheReadError;
+    bool m_cacheWriteError;
+    
+    /**
+     * had we cache error while loading ?
+     */
+    bool m_loadingBorked;
 
+  /**
+   * highlighting & folding relevant stuff
+   */
+  private:
+    /**
+     * current highlighting mode or 0
+     */
+    Highlight *m_highlight;
+    
+    /**
+     * highlighting timer
+     */
     QTimer m_highlightTimer;
+    
+    /**
+     * folding tree
+     */
+    KateCodeFoldingTree m_regionTree;
+    
+    /**
+     * The highest line with correct highlight info
+     */
+    uint m_highlightedTo;
+    
+    /**
+     * The highest line that we requested highlight for
+     */ 
+    uint m_highlightedRequested;
 
+    /**
+     * enable/disable hl updates
+     */
+    bool m_hlUpdate;
+    
+    // for the scrapty indent sensitive langs
+    uint m_tabWidth;
+    
     uint m_highlightedTill;
     uint m_highlightedEnd;
     uint m_highlightedSteps;
+  
+  /**
+   * only used from the KateBufBlocks !
+   * lists to keep track of how much blocks are floating around
+   * in the different states
+   */
+  private:
+    /**
+     * list of blocks that can be swapped out.
+     */
+    KateBufBlockList m_loadedBlocks;
 
-    bool m_cacheReadError;
-    bool m_cacheWriteError;
-    bool m_loadingBorked;
+    /**
+     * list of blocks that can be disposed.
+     */
+    KateBufBlockList m_cleanBlocks;
 
-    // for the scrapty indent sensitive langs
-    uint m_tabWidth;
+    /**
+     * list of blocks that are dirty.
+     */
+    KateBufBlockList m_dirtyBlocks;
 };
 
 #endif

@@ -78,8 +78,8 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   m_search->insertStringList( searchFor );
   m_search->setMinimumWidth( m_search->sizeHint().width() );
   m_search->lineEdit()->selectAll();
-  QLabel *label = new QLabel( m_search, i18n( "&Text To Find:" ), page );
-  m_optRegExp = new QCheckBox( i18n( "&Regular Expression" ), page );
+  QLabel *label = new QLabel( m_search, i18n( "&Text to find:" ), page );
+  m_optRegExp = new QCheckBox( i18n( "&Regular expression" ), page );
 
   topLayout->addWidget( label );
   topLayout->addWidget( m_search );
@@ -89,7 +89,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
 
   // Add the Edit button if KRegExp exists.
   if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() ) {
-    QPushButton* regexpButton = new QPushButton( i18n("Edit"), page );
+    QPushButton* regexpButton = new QPushButton( i18n("&Edit..."), page );
 
     regexpLayout->addWidget( regexpButton );
     regexpLayout->addStretch(1);
@@ -106,7 +106,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
     m_replace = new KComboBox( true, page );
     m_replace->insertStringList( replaceWith );
     m_replace->setMinimumWidth( m_search->sizeHint().width() );
-    label = new QLabel( m_replace, i18n( "&Replace With:" ), page );
+    label = new QLabel( m_replace, i18n( "&Replace with:" ), page );
     topLayout->addWidget( label );
     topLayout->addWidget( m_replace );
   }
@@ -118,23 +118,23 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   gbox->addRowSpacing( 0, fontMetrics().lineSpacing() );
   gbox->setRowStretch( 4, 10 );
 
-  m_opt1 = new QCheckBox( i18n( "C&ase Sensitive" ), group );
+  m_opt1 = new QCheckBox( i18n( "C&ase sensitive" ), group );
   gbox->addWidget( m_opt1, 1, 0 );
 
-  m_opt2 = new QCheckBox(i18n("&Whole Words Only" ), group );
+  m_opt2 = new QCheckBox(i18n("&Whole words only" ), group );
   gbox->addWidget( m_opt2, 2, 0 );
 
-  m_opt3 = new QCheckBox(i18n("&From Beginning" ), group );
+  m_opt3 = new QCheckBox(i18n("&From beginning" ), group );
   gbox->addWidget( m_opt3, 3, 0 );
 
-  m_opt4 = new QCheckBox(i18n("Find &Backwards" ), group );
+  m_opt4 = new QCheckBox(i18n("Find &backwards" ), group );
   gbox->addWidget( m_opt4, 1, 1 );
 
   if( flags & KateDocument::sfReplace )
   {
-    m_opt5 = new QCheckBox(i18n("&Selected Text" ), group );
+    m_opt5 = new QCheckBox(i18n("&Selected text" ), group );
     gbox->addWidget( m_opt5, 2, 1 );
-    m_opt6 = new QCheckBox( i18n( "&Prompt On Replace" ), group );
+    m_opt6 = new QCheckBox( i18n( "&Prompt on replace" ), group );
     gbox->addWidget( m_opt6, 3, 1 );
     connect(m_opt5, SIGNAL(stateChanged(int)), this, SLOT(selectedStateChanged(int)));
     connect(m_opt6, SIGNAL(stateChanged(int)), this, SLOT(selectedStateChanged(int)));

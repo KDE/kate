@@ -155,8 +155,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     if (factory)
     {
       KTextEditor::ViewPlugin *plugin = static_cast<KTextEditor::ViewPlugin *>(factory->create(this, ptr->name().latin1(), "KTextEditor::ViewPlugin"));
-      plugin->setView (this);
       insertChildClient (plugin);
+      plugin->setView (this);
     }
   }     
   

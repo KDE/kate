@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C" version="1.01" kateversion="2.1" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-c++src;text/x-chdr;text/x-csrc">
+<language name="C" version="1.02" kateversion="2.1" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -14,6 +14,7 @@
       <item> for </item>
       <item> goto </item>
       <item> if </item>
+      <item> inline </item>
       <item> return </item>
       <item> sizeof </item>
       <item> struct </item>
@@ -31,12 +32,16 @@
       <item> int </item>
       <item> long </item>
       <item> register </item>
+      <item> restrict </item>
       <item> short </item>
       <item> signed </item>
       <item> static </item>
       <item> unsigned </item>
       <item> void </item>
       <item> volatile </item>
+      <item> _Imaginary </item>
+      <item> _Complex </item>
+      <item> _Bool </item>
     </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
@@ -90,31 +95,31 @@
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context"/>
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context2"/>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
-          <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
-	  <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
-          <RegExpr attribute="Preprocessor" context="#pop" String="#endif" />
-	  <RegExpr attribute="Preprocessor" context="#pop" String="#else" />
+        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="#endif" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="#else" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
-	  <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
-          <RegExpr attribute="Comment" context="#pop" String="#endif" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
+        <RegExpr attribute="Comment" context="#pop" String="#endif" />
       </context>	
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
-      <itemData name="Data Type"  defStyleNum="dsDataType"/>
-      <itemData name="Decimal"  defStyleNum="dsDecVal"/>
-      <itemData name="Octal"  defStyleNum="dsBaseN"/>
-      <itemData name="Hex"  defStyleNum="dsBaseN"/>
-      <itemData name="Float"  defStyleNum="dsFloat"/>
-      <itemData name="Char"  defStyleNum="dsChar"/>
-      <itemData name="String"  defStyleNum="dsString"/>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
+      <itemData name="Keyword"      defStyleNum="dsKeyword"/>
+      <itemData name="Data Type"    defStyleNum="dsDataType"/>
+      <itemData name="Decimal"      defStyleNum="dsDecVal"/>
+      <itemData name="Octal"        defStyleNum="dsBaseN"/>
+      <itemData name="Hex"          defStyleNum="dsBaseN"/>
+      <itemData name="Float"        defStyleNum="dsFloat"/>
+      <itemData name="Char"         defStyleNum="dsChar"/>
+      <itemData name="String"       defStyleNum="dsString"/>
       <itemData name="String Char"  defStyleNum="dsChar"/>
-      <itemData name="Comment"  defStyleNum="dsComment"/>
-      <itemData name="Symbol"  defStyleNum="dsNormal"/>
-      <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
-      <itemData name="Prep. Lib"  defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
+      <itemData name="Comment"      defStyleNum="dsComment"/>
+      <itemData name="Symbol"       defStyleNum="dsNormal"/>
+      <itemData name="Preprocessor" defStyleNum="dsOthers"/>
+      <itemData name="Prep. Lib"    defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
     </itemDatas>
   </highlighting>
   <general>

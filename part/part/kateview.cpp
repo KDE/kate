@@ -181,11 +181,19 @@ void KateView::setupActions()
     i18n("Show &Icon Border"), Key_F6,
     this, SLOT(toggleIconBorder()),
     ac, "view_border");
+  
+  KConfig *config = KateFactory::instance()->config();
+  config->setGroup("Kate ViewDefaults");  
+  /*configure the border action */
+  setIconBorder(config->readBoolEntry( "Iconbar", false ));  
   toggleAction->setChecked( iconBorder() );
+    
   toggleAction = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
+  /*configure the line number action */
+  setLineNumbersOn(config->readBoolEntry( "LineNumbers", false ));       
   toggleAction->setChecked( lineNumbersOn() );
 
   m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
@@ -393,9 +401,13 @@ void KateView::setupCodeFolding()
   KAccel* debugAccels = new KAccel(this,this);
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);
-
-  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
+  
+  KConfig *config = KateFactory::instance()->config();
+  config->setGroup("Kate ViewDefaults");
+  setFoldingMarkersOn( m_doc->highlight() && m_doc->highlight()->allowsFolding() &&
+  config->readBoolEntry( "FoldingMarkers", true ));  
 }
+
 
 void KateView::setupCodeCompletion()
 {

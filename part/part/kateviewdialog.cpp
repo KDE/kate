@@ -22,6 +22,7 @@
 #include "kateviewdialog.h"
 #include "katesearch.h"
 #include "katedocument.h"
+#include "katefactory.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -540,11 +541,21 @@ ViewDefaultsConfig::~ViewDefaultsConfig()
 
 void ViewDefaultsConfig::apply ()
 {
+  KConfig *config = KateFactory::instance()->config();
+  config->setGroup("Kate ViewDefaults");
+  config->writeEntry( "LineNumbers", m_line->isChecked() );
+  config->writeEntry( "Iconbar", m_icons->isChecked() );  
+  config->writeEntry( "FoldingMarkers", m_folding->isChecked() );  
+  config->sync();
 }
 
 void ViewDefaultsConfig::reload ()
 {
-	
+  KConfig *config = KateFactory::instance()->config();
+  config->setGroup("Kate ViewDefaults");
+  m_line->setChecked(config->readBoolEntry( "LineNumbers", false ));
+  m_icons->setChecked(config->readBoolEntry( "Iconbar", false ));  
+  m_folding->setChecked(config->readBoolEntry( "FoldingMarkers", true ));  
 }    
 
 void ViewDefaultsConfig::reset () {;}

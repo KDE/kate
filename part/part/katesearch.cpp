@@ -40,15 +40,15 @@ QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
 
 KateSearch::KateSearch( KateView* view )
-	: QObject( view, "kate search" )
-	, m_view( view )
-	, m_doc( view->doc() )
-	, options (0)
-	, m_searchFlags()
-	, replacePrompt( new ReplacePrompt( view ) )
+  : QObject( view, "kate search" )
+  , m_view( view )
+  , m_doc( view->doc() )
+  , options (0)
+  , m_searchFlags()
+  , replacePrompt( new ReplacePrompt( view ) )
 {
-	connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
-	m_searchFlags.prompt = true;
+  connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
+  m_searchFlags.prompt = true;
 // TODO: Configuration
 //  m_searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
 //   config->writeEntry("SearchFlags",m_searchFlags);
@@ -60,53 +60,53 @@ KateSearch::~KateSearch()
 
 void KateSearch::createActions( KActionCollection* ac )
 {
-	KStdAction::find( this, SLOT(find()), ac )->setWhatsThis(
-		i18n("Look up the first occurrence of a piece of text or regular expression."));
-	KStdAction::findNext( this, SLOT(slotFindNext()), ac )->setWhatsThis(
-		i18n("Look up the next occurrence of the search phrase."));
-	KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" )->setWhatsThis(
-		i18n("Look up the previous occurrence of the search phrase."));
-	KStdAction::replace( this, SLOT(replace()), ac )->setWhatsThis(
-		i18n("Look up a piece of text or regular expression and replace the result with some given text."));
+  KStdAction::find( this, SLOT(find()), ac )->setWhatsThis(
+    i18n("Look up the first occurrence of a piece of text or regular expression."));
+  KStdAction::findNext( this, SLOT(slotFindNext()), ac )->setWhatsThis(
+    i18n("Look up the next occurrence of the search phrase."));
+  KStdAction::findPrev( this, SLOT(slotFindPrev()), ac, "edit_find_prev" )->setWhatsThis(
+    i18n("Look up the previous occurrence of the search phrase."));
+  KStdAction::replace( this, SLOT(replace()), ac )->setWhatsThis(
+    i18n("Look up a piece of text or regular expression and replace the result with some given text."));
 }
 
 void KateSearch::addToList( QStringList& list, const QString& s )
 {
-	if( list.count() > 0 ) {
-		QStringList::Iterator it = list.find( s );
-		if( *it != 0L )
-			list.remove( it );
-		if( list.count() >= 16 )
-			list.remove( list.fromLast() );
-	}
-	list.prepend( s );
+  if( list.count() > 0 ) {
+    QStringList::Iterator it = list.find( s );
+    if( *it != 0L )
+      list.remove( it );
+    if( list.count() >= 16 )
+      list.remove( list.fromLast() );
+  }
+  list.prepend( s );
 }
 
 void KateSearch::find()
 {
-	KFindDialog *findDialog = new KFindDialog (  m_view, "", options,
-	                                             s_searchList, m_doc->hasSelection() ); 
+  KFindDialog *findDialog = new KFindDialog (  m_view, "", options,
+                                               s_searchList, m_doc->hasSelection() ); 
 
     findDialog->setPattern (getSearchText());
 
-	if( findDialog->exec() == QDialog::Accepted ) {
-		s_searchList =  findDialog->findHistory () ;
-	        options = findDialog->options ();
+  if( findDialog->exec() == QDialog::Accepted ) {
+    s_searchList =  findDialog->findHistory () ;
+          options = findDialog->options ();
 
-		
-	m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
-	m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
-	m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
-	m_searchFlags.backward = options & KFindDialog::FindBackwards;
-	m_searchFlags.selected = options & KFindDialog::SelectedText;
-	m_searchFlags.prompt = false;
-	m_searchFlags.replace = false;
-	m_searchFlags.finished = false;
-	m_searchFlags.regExp = options & KFindDialog::RegularExpression;
-		
-		search( m_searchFlags );
-	}
-	delete findDialog;
+    
+  m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
+  m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
+  m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+  m_searchFlags.backward = options & KFindDialog::FindBackwards;
+  m_searchFlags.selected = options & KFindDialog::SelectedText;
+  m_searchFlags.prompt = false;
+  m_searchFlags.replace = false;
+  m_searchFlags.finished = false;
+  m_searchFlags.regExp = options & KFindDialog::RegularExpression;
+    
+    search( m_searchFlags );
+  }
+  delete findDialog;
 }
 
 void KateSearch::replace()
@@ -114,128 +114,128 @@ void KateSearch::replace()
   if (!doc()->isReadWrite()) return;
 
   KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", options,
-	                                             s_searchList, s_replaceList, m_doc->hasSelection() ); 
+                                               s_searchList, s_replaceList, m_doc->hasSelection() ); 
 
   replaceDialog->setPattern (getSearchText());
 
-	if( replaceDialog->exec() == QDialog::Accepted ) {
+  if( replaceDialog->exec() == QDialog::Accepted ) {
     m_replacement = replaceDialog->replacement();
-		s_searchList =  replaceDialog->findHistory () ;
+    s_searchList =  replaceDialog->findHistory () ;
     s_replaceList =  replaceDialog->replacementHistory () ;
-	        options = replaceDialog->options ();
+          options = replaceDialog->options ();
 
-	m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
-	m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
-	m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
-	m_searchFlags.backward = options & KFindDialog::FindBackwards;
-	m_searchFlags.selected = options & KFindDialog::SelectedText;
-	m_searchFlags.prompt = options & KReplaceDialog::PromptOnReplace;
-	m_searchFlags.replace = true;
-	m_searchFlags.finished = false;
-	m_searchFlags.regExp = options & KFindDialog::RegularExpression;
-		
-		search( m_searchFlags );
-	}
-	delete replaceDialog;;
+  m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
+  m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
+  m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+  m_searchFlags.backward = options & KFindDialog::FindBackwards;
+  m_searchFlags.selected = options & KFindDialog::SelectedText;
+  m_searchFlags.prompt = options & KReplaceDialog::PromptOnReplace;
+  m_searchFlags.replace = true;
+  m_searchFlags.finished = false;
+  m_searchFlags.regExp = options & KFindDialog::RegularExpression;
+    
+    search( m_searchFlags );
+  }
+  delete replaceDialog;;
 }
 
 void KateSearch::findAgain( bool back )
 {
-	SearchFlags flags = m_searchFlags;
-	flags.backward = m_searchFlags.backward != back;
-	flags.fromBeginning = false;
-	flags.prompt = true;
-	
-	search( flags );
+  SearchFlags flags = m_searchFlags;
+  flags.backward = m_searchFlags.backward != back;
+  flags.fromBeginning = false;
+  flags.prompt = true;
+  
+  search( flags );
 }
 
 void KateSearch::search( SearchFlags flags )
 {
-	s.flags = flags;
-	s.cursor = getCursor();
-	
-	if( s.flags.fromBeginning ) {
-		if( !s.flags.backward ) {
-			s.cursor.col = 0;
-			s.cursor.line = 0;
-		} else {
-			s.cursor.line = doc()->numLines() - 1;
-			s.cursor.col = doc()->lineLength( s.cursor.line );
-		}
-	} else if( s.flags.backward ) {
-		// If we are continuing a backward search, make sure
-		// we do not get stuck at an existing match.
-		QString txt = view()->currentTextLine();
-		QString searchFor = s_searchList.first();
-		uint length = searchFor.length();
-		int pos = s.cursor.col - length;
-		kdDebug(13000) << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
-		if( searchFor.find( txt.mid( pos, length ), 0, s.flags.caseSensitive ) == 0 ) {
-			if( pos > 0 ) {
-				s.cursor.col = pos - 1;
-			} else if ( pos == 0 && s.cursor.line > 0 ) {
-				s.cursor.line--;
-				s.cursor.col = doc()->lineLength( s.cursor.line );
-			} else if ( pos == 0 && s.cursor.line == 0 ) {
-				// TODO: FIXME
-			}
-		}
-	}
-	if((!s.flags.backward && 
-	     s.cursor.col == 0 && 
-	     s.cursor.line == 0 ) ||
-	   ( s.flags.backward && 
-	     s.cursor.col == doc()->lineLength( s.cursor.line ) && 
-	     s.cursor.line == (((int)doc()->numLines()) - 1) ) ) {
-		s.flags.finished = true;
-	}
-	
-	if( s.flags.replace ) {
-		replaces = 0;
-		if( s.flags.prompt )
-			promptReplace();
-		else
-			replaceAll();
-	} else {
-		findAgain();
-	}
+  s.flags = flags;
+  s.cursor = getCursor();
+  
+  if( s.flags.fromBeginning ) {
+    if( !s.flags.backward ) {
+      s.cursor.col = 0;
+      s.cursor.line = 0;
+    } else {
+      s.cursor.line = doc()->numLines() - 1;
+      s.cursor.col = doc()->lineLength( s.cursor.line );
+    }
+  } else if( s.flags.backward ) {
+    // If we are continuing a backward search, make sure
+    // we do not get stuck at an existing match.
+    QString txt = view()->currentTextLine();
+    QString searchFor = s_searchList.first();
+    uint length = searchFor.length();
+    int pos = s.cursor.col - length;
+    kdDebug(13000) << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
+    if( searchFor.find( txt.mid( pos, length ), 0, s.flags.caseSensitive ) == 0 ) {
+      if( pos > 0 ) {
+        s.cursor.col = pos - 1;
+      } else if ( pos == 0 && s.cursor.line > 0 ) {
+        s.cursor.line--;
+        s.cursor.col = doc()->lineLength( s.cursor.line );
+      } else if ( pos == 0 && s.cursor.line == 0 ) {
+        // TODO: FIXME
+      }
+    }
+  }
+  if((!s.flags.backward && 
+       s.cursor.col == 0 && 
+       s.cursor.line == 0 ) ||
+     ( s.flags.backward && 
+       s.cursor.col == doc()->lineLength( s.cursor.line ) && 
+       s.cursor.line == (((int)doc()->numLines()) - 1) ) ) {
+    s.flags.finished = true;
+  }
+  
+  if( s.flags.replace ) {
+    replaces = 0;
+    if( s.flags.prompt )
+      promptReplace();
+    else
+      replaceAll();
+  } else {
+    findAgain();
+  }
 }
 
 void KateSearch::wrapSearch()
 {
-	if( !s.flags.backward ) {
-		s.cursor.col = 0;
-		s.cursor.line = 0;
-	} else {
-		s.cursor.line = doc()->numLines() - 1;
-		s.cursor.col = doc()->lineLength( s.cursor.line );
-	}
-	replaces = 0;
-	s.flags.finished = true;
+  if( !s.flags.backward ) {
+    s.cursor.col = 0;
+    s.cursor.line = 0;
+  } else {
+    s.cursor.line = doc()->numLines() - 1;
+    s.cursor.col = doc()->lineLength( s.cursor.line );
+  }
+  replaces = 0;
+  s.flags.finished = true;
 }
 
 void KateSearch::findAgain()
 {
-	QString searchFor = s_searchList.first();
-	
-	if( searchFor.isEmpty() ) {
-		find();
-		return;
-	}
-	
-	if ( doSearch( searchFor ) ) {
-		exposeFound( s.cursor, s.matchedLength );
-	} else if( !s.flags.finished ) {
-		if( askContinue() ) {
-			wrapSearch();
-			findAgain();
-		}
-	} else {
-		KMessageBox::sorry( view(),
-		    i18n("Search string '%1' not found!")
-		         .arg( KStringHandler::csqueeze( searchFor ) ),
-		    i18n("Find"));
-	}
+  QString searchFor = s_searchList.first();
+  
+  if( searchFor.isEmpty() ) {
+    find();
+    return;
+  }
+  
+  if ( doSearch( searchFor ) ) {
+    exposeFound( s.cursor, s.matchedLength );
+  } else if( !s.flags.finished ) {
+    if( askContinue() ) {
+      wrapSearch();
+      findAgain();
+    }
+  } else {
+    KMessageBox::sorry( view(),
+        i18n("Search string '%1' not found!")
+             .arg( KStringHandler::csqueeze( searchFor ) ),
+        i18n("Find"));
+  }
 }
 
 void KateSearch::replaceAll()
@@ -249,162 +249,162 @@ void KateSearch::replaceAll()
 
   doc()->editEnd ();
     
-	if( !s.flags.finished ) {
-		if( askContinue() ) {
-			wrapSearch();
-			replaceAll();
-		}
-	} else {
-		KMessageBox::information( view(),
-		    i18n("%n replacement made","%n replacements made",replaces),
-		    i18n("Replace") );
-	}
+  if( !s.flags.finished ) {
+    if( askContinue() ) {
+      wrapSearch();
+      replaceAll();
+    }
+  } else {
+    KMessageBox::information( view(),
+        i18n("%n replacement made","%n replacements made",replaces),
+        i18n("Replace") );
+  }
 }
 
 void KateSearch::promptReplace()
 {
-	QString searchFor = s_searchList.first();
-	if ( doSearch( searchFor ) ) {
-		exposeFound( s.cursor, s.matchedLength );
-		replacePrompt->show();
-	} else if( !s.flags.finished ) {
-		if( askContinue() ) {
-			wrapSearch();
-			promptReplace();
-		}
-	} else {
-		replacePrompt->hide();
-		KMessageBox::information( view(),
-		    i18n("%n replacement made","%n replacements made",replaces),
-		    i18n("Replace") );
-	}
+  QString searchFor = s_searchList.first();
+  if ( doSearch( searchFor ) ) {
+    exposeFound( s.cursor, s.matchedLength );
+    replacePrompt->show();
+  } else if( !s.flags.finished ) {
+    if( askContinue() ) {
+      wrapSearch();
+      promptReplace();
+    }
+  } else {
+    replacePrompt->hide();
+    KMessageBox::information( view(),
+        i18n("%n replacement made","%n replacements made",replaces),
+        i18n("Replace") );
+  }
 }
 
 void KateSearch::replaceOne()
 {
-	QString replaceWith = m_replacement;
-	doc()->removeText( s.cursor.line, s.cursor.col,
-			s.cursor.line, s.cursor.col + s.matchedLength );
-	doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
-	replaces++;
-	if( !s.flags.backward ) {
-		s.cursor.col += replaceWith.length();
-	} else if( s.cursor.col > 0 ) {
-		s.cursor.col--;
-	} else {
-		s.cursor.line--;
-		if( s.cursor.line >= 0 ) {
-			s.cursor.col = doc()->lineLength( s.cursor.line );
-		}
-	}
+  QString replaceWith = m_replacement;
+  doc()->removeText( s.cursor.line, s.cursor.col,
+      s.cursor.line, s.cursor.col + s.matchedLength );
+  doc()->insertText( s.cursor.line, s.cursor.col, replaceWith );
+  replaces++;
+  if( !s.flags.backward ) {
+    s.cursor.col += replaceWith.length();
+  } else if( s.cursor.col > 0 ) {
+    s.cursor.col--;
+  } else {
+    s.cursor.line--;
+    if( s.cursor.line >= 0 ) {
+      s.cursor.col = doc()->lineLength( s.cursor.line );
+    }
+  }
 }
 
 void KateSearch::skipOne()
 {
-	if( !s.flags.backward ) {
-		s.cursor.col += s.matchedLength;
-	} else if( s.cursor.col > 0 ) {
-		s.cursor.col--;
-	} else {
-		s.cursor.line--;
-		if( s.cursor.line >= 0 ) {
-			s.cursor.col = doc()->lineLength(s.cursor.line);
-		}
-	}
+  if( !s.flags.backward ) {
+    s.cursor.col += s.matchedLength;
+  } else if( s.cursor.col > 0 ) {
+    s.cursor.col--;
+  } else {
+    s.cursor.line--;
+    if( s.cursor.line >= 0 ) {
+      s.cursor.col = doc()->lineLength(s.cursor.line);
+    }
+  }
 }
 
 void KateSearch::replaceSlot() {
-	switch( (Dialog_results)replacePrompt->result() ) {
-	case srCancel: replacePrompt->hide();                break;
-	case srAll:    replacePrompt->hide(); replaceAll();  break;
-	case srYes:    replaceOne(); promptReplace();        break;
-	case srNo:     skipOne();    promptReplace();        break;
-	}
+  switch( (Dialog_results)replacePrompt->result() ) {
+  case srCancel: replacePrompt->hide();                break;
+  case srAll:    replacePrompt->hide(); replaceAll();  break;
+  case srYes:    replaceOne(); promptReplace();        break;
+  case srNo:     skipOne();    promptReplace();        break;
+  }
 }
 
 bool KateSearch::askContinue()
 {
-	QString made =
-	   i18n( "%n replacement made",
-	         "%n replacements made",
-	         replaces );
-	QString reached = !s.flags.backward ?
-	   i18n( "End of document reached." ) :
-	   i18n( "Beginning of document reached." );
-	QString question = !s.flags.backward ?
-	   i18n( "Continue from the beginning?" ) :
-	   i18n( "Continue from the end?" );
-	QString text = s.flags.replace ?
-	   made + "\n" + reached + "\n" + question :
-	   reached + "\n" + question;
-	return KMessageBox::Yes == KMessageBox::questionYesNo(
-	   view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
-	   i18n("Continue"), i18n("Stop") );
+  QString made =
+     i18n( "%n replacement made",
+           "%n replacements made",
+           replaces );
+  QString reached = !s.flags.backward ?
+     i18n( "End of document reached." ) :
+     i18n( "Beginning of document reached." );
+  QString question = !s.flags.backward ?
+     i18n( "Continue from the beginning?" ) :
+     i18n( "Continue from the end?" );
+  QString text = s.flags.replace ?
+     made + "\n" + reached + "\n" + question :
+     reached + "\n" + question;
+  return KMessageBox::Yes == KMessageBox::questionYesNo(
+     view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
+     i18n("Continue"), i18n("Stop") );
 }
 
 QString KateSearch::getSearchText()
 {
-	// If the user has marked some text we use that otherwise
-	// use the word under the cursor.
-	QString str;
-	
-	if( doc()->hasSelection() )
-		str = doc()->selection();
-	else
-		str = view()->currentWord();
-	
-	str.replace( QRegExp("^\\n"), "" );
-	str.replace( QRegExp("\\n.*"), "" );
-	
-	return str;
+  // If the user has marked some text we use that otherwise
+  // use the word under the cursor.
+  QString str;
+  
+  if( doc()->hasSelection() )
+    str = doc()->selection();
+  else
+    str = view()->currentWord();
+  
+  str.replace( QRegExp("^\\n"), "" );
+  str.replace( QRegExp("\\n.*"), "" );
+  
+  return str;
 }
 
 KateTextCursor KateSearch::getCursor()
 {
-	KateTextCursor c;
-	c.line = view()->cursorLine();
-	c.col = view()->cursorColumnReal();
-	return c;
+  KateTextCursor c;
+  c.line = view()->cursorLine();
+  c.col = view()->cursorColumnReal();
+  return c;
 }
 
 bool KateSearch::doSearch( const QString& text )
 {
-	uint line = s.cursor.line;
-	uint col = s.cursor.col;
-	bool backward = s.flags.backward;
-	bool caseSensitive = s.flags.caseSensitive;
-	bool regExp = s.flags.regExp;
-	bool wholeWords = s.flags.wholeWords;
-	uint foundLine, foundCol, matchLen;
-	bool found = false;
-//	kdDebug(13000) << "Searching at " << line << ", " << col << endl;
-	if( regExp ) {
-		QRegExp re( text, caseSensitive );
-		found = doc()->searchText( line, col, re,
-		                           &foundLine, &foundCol,
-		                           &matchLen, backward );
-	} else if ( wholeWords ) {
-		QRegExp re( "\\b" + text + "\\b", caseSensitive );
-		found = doc()->searchText( line, col, re,
-		                           &foundLine, &foundCol,
-		                           &matchLen, backward );
-	} else {
-		found = doc()->searchText( line, col, text,
-		                           &foundLine, &foundCol,
-		                           &matchLen, caseSensitive, backward );
-	}
-	if( !found ) return false;
-//	kdDebug(13000) << "Found at " << foundLine << ", " << foundCol << endl;
-	s.cursor.line = foundLine;
-	s.cursor.col = foundCol;
-	s.matchedLength = matchLen;
-	return true;
+  uint line = s.cursor.line;
+  uint col = s.cursor.col;
+  bool backward = s.flags.backward;
+  bool caseSensitive = s.flags.caseSensitive;
+  bool regExp = s.flags.regExp;
+  bool wholeWords = s.flags.wholeWords;
+  uint foundLine, foundCol, matchLen;
+  bool found = false;
+//  kdDebug(13000) << "Searching at " << line << ", " << col << endl;
+  if( regExp ) {
+    QRegExp re( text, caseSensitive );
+    found = doc()->searchText( line, col, re,
+                               &foundLine, &foundCol,
+                               &matchLen, backward );
+  } else if ( wholeWords ) {
+    QRegExp re( "\\b" + text + "\\b", caseSensitive );
+    found = doc()->searchText( line, col, re,
+                               &foundLine, &foundCol,
+                               &matchLen, backward );
+  } else {
+    found = doc()->searchText( line, col, text,
+                               &foundLine, &foundCol,
+                               &matchLen, caseSensitive, backward );
+  }
+  if( !found ) return false;
+//  kdDebug(13000) << "Found at " << foundLine << ", " << foundCol << endl;
+  s.cursor.line = foundLine;
+  s.cursor.col = foundCol;
+  s.matchedLength = matchLen;
+  return true;
 }
 
 void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 {
-	view()->setCursorPositionReal( cursor.line, cursor.col + slen );
-	doc()->setSelection( cursor.line, cursor.col, cursor.line, cursor.col + slen );
+  view()->setCursorPositionReal( cursor.line, cursor.col + slen );
+  doc()->setSelection( cursor.line, cursor.col, cursor.line, cursor.col + slen );
 }
 
 // vim: noet ts=2

@@ -52,6 +52,9 @@
 // same as in kmimemagic, no need to feed more data
 #define KATE_HL_HOWMANY 1024
 
+// x is a QString. if x is "true" or "1" this expression returns "true"
+#define IS_TRUE(x) x.lower() == QString("true") || x.toInt() == 1
+
 //BEGIN  Prviate HL classes
 
 class KateHlItem
@@ -1574,11 +1577,11 @@ void KateHighlighting::addToKateHlItemDataList()
       /* here the custom style overrides are specified, if needed */
       if (!color.isEmpty()) newData->setTextColor(QColor(color));
       if (!selColor.isEmpty()) newData->setSelectedTextColor(QColor(selColor));
-      if (!bold.isEmpty()) newData->setBold(bold=="true" || bold=="1");
-      if (!italic.isEmpty()) newData->setItalic(italic=="true" || italic=="1");
+      if (!bold.isEmpty()) newData->setBold( IS_TRUE(bold) );
+      if (!italic.isEmpty()) newData->setItalic( IS_TRUE(italic) );
       // new attributes for the new rendering view
-      if (!underline.isEmpty()) newData->setUnderline(underline=="true" || underline=="1");
-      if (!strikeOut.isEmpty()) newData->setStrikeOut(strikeOut=="true" || strikeOut=="1");
+      if (!underline.isEmpty()) newData->setUnderline( IS_TRUE(underline) );
+      if (!strikeOut.isEmpty()) newData->setStrikeOut( IS_TRUE(strikeOut) );
       if (!bgColor.isEmpty()) newData->setBGColor(QColor(bgColor));
       if (!selBgColor.isEmpty()) newData->setSelectedBGColor(QColor(selBgColor));
 
@@ -1682,14 +1685,14 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
     chr1=0;
 
   // Will be removed eventuall. Atm used for StringDetect
-  bool insensitive=( KateHlManager::self()->syntax->groupItemData(data,QString("insensitive")).lower() == QString("true") );
+  bool insensitive = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("insensitive")) );
   // anders: very reasonable for regexp too!
 
   // for regexp only
-  bool minimal = ( KateHlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == QString("true") );
+  bool minimal = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("minimal")) );
 
   // dominik: look ahead and do not change offset. so we can change contexts w/o changing offset1.
-  bool lookAhead=( KateHlManager::self()->syntax->groupItemData(data,QString("lookAhead")).lower() == QString("true") );
+  bool lookAhead = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("lookAhead")) );
 
 
   // code folding region handling:
@@ -2255,7 +2258,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           int ftc = 0; // fallthrough context
           if ( i > 0 ) { // fallthrough is not smart in context 0
             QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
-            if ( tmpFt.lower() == "true" ||  tmpFt.toInt() == 1 )
+            if ( IS_TRUE(tmpFt) )
               ft = true;
             if ( ft ) {
               QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );

@@ -498,14 +498,14 @@
       <item> FALSE </item>
       <item> TRUE </item>
     </list>
-    <list name="operators">
-      <item> + </item>
-      <item> - </item>
-      <item> * </item>
-      <item> / </item>
-      <item> || </item>
-      <item> |/ </item>
-      <item> ||/ </item>
+  <list name="operators">
+      <item> + </item>
+      <item> - </item>
+      <item> * </item>
+      <item> / </item>
+      <item> || </item>
+      <item> |/ </item>
+      <item> ||/ </item>
       <item> ! </item>
       <item> !! </item>
       <item> @ </item>
@@ -515,26 +515,26 @@
       <item> &lt;&lt; </item>
       <item> &gt;&gt; </item>
       <item> % </item>
-      <item> ^ </item>
-      <item> = </item>
-      <item> != </item>
-      <item> &lt;&gt; </item>
-      <item> &lt; </item>
-      <item> &lt;= </item>
-      <item> &gt; </item>
-      <item> &gt;= </item>
-      <item> ~ </item>
-      <item> ~* </item>
-      <item> !~ </item>
-      <item> !~* </item>
-      <item> ^= </item>
-      <item> := </item>
-      <item> =&gt; </item>
-      <item> ** </item>
-      <item> .. </item>
-      <item> AND </item>
-      <item> OR </item>
-      <item> NOT </item>
+      <item> ^ </item>
+      <item> = </item>
+      <item> != </item>
+      <item> &lt;&gt; </item>
+      <item> &lt; </item>
+      <item> &lt;= </item>
+      <item> &gt; </item>
+      <item> &gt;= </item>
+      <item> ~ </item>
+      <item> ~* </item>
+      <item> !~ </item>
+      <item> !~* </item>
+      <item> ^= </item>
+      <item> := </item>
+      <item> =&gt; </item>
+      <item> ** </item>
+      <item> .. </item>
+      <item> AND </item>
+      <item> OR </item>
+      <item> NOT </item>
       <!-- geometric -->
       <item> ## </item>
       <item> &amp;&amp; </item>
@@ -550,11 +550,11 @@
       <item> ?| </item>
       <item> ?|| </item>
       <item> @@ </item>
-      <item> ~= </item>
+      <item> ~= </item>
       <!-- network address type -->
       <item> &lt;&lt;= </item>
       <item> &gt;&gt;= </item>
-     </list>
+   </list>
      <list name="functions">
       <!-- math -->
       <item> ABS </item>
@@ -727,7 +727,7 @@
       <item> TIMESTAMPTZ </item>
     </list>
     <contexts>
-      <context name="Normal" attribute="Normal Text" lineEndcontext="#stay">
+      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Operator" context="#stay" String="operators"/>
         <keyword attribute="Function" context="#stay" String="functions"/>

@@ -1430,12 +1430,13 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
             installedVersion="    "+hl->version();
             break;
           }
+          else hl = 0;
         }
 
+        // autoselect entry if new or updated.
         QListViewItem* entry = new QListViewItem(list,e.attribute("name"),installedVersion,e.attribute("version"),e.attribute("date"),e.attribute("url"));
-        if (hl && hl->version() < e.attribute("version"))
+        if (!hl || hl->version() < e.attribute("version"))
         {
-//          kdDebug(13000) << "Old version: " << hl->version() << " new version: " << e.attribute("version") << endl;
           entry->setSelected(true);
         }
       }

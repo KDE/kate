@@ -32,6 +32,7 @@ extern "C"
 {
   void *init_libkatepart()
   {
+    KGlobal::locale()->insertCatalogue("katepart");
     return new KateFactory();
   }
 }

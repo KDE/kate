@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+//BEGIN Includes
 #include "katefiletype.h"
 #include "katefiletype.moc"
 
@@ -52,7 +53,9 @@
 #include <qwidgetstack.h>
 
 #define KATE_FT_HOWMANY 1024
+//END Includes
 
+//BEGIN KateFileTypeManager
 KateFileTypeManager::KateFileTypeManager ()
 {
   m_types.setAutoDelete (true);
@@ -238,7 +241,9 @@ const KateFileType *KateFileTypeManager::fileType (uint number)
 
   return 0;
 }
+//END KateFileTypeManager
 
+//BEGIN KateFileTypeConfigTab
 KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   : KateConfigPage( parent )
 {
@@ -309,6 +314,32 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   connect( wildcards, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( mimetypes, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( priority, SIGNAL( valueChanged ( int ) ), this, SLOT( slotChanged() ) );
+
+  QWhatsThis::add( btnnew, i18n("Create a new file type") );
+  QWhatsThis::add( btndel, i18n("Delete the current file type") );
+  QWhatsThis::add( name, i18n(
+      "The name of the filetype will be the text of the corresponding menu item") );
+  QWhatsThis::add( section, i18n(
+      "The section name is used to organize the file types in menus") );
+  QWhatsThis::add( varLine, i18n(
+      "<p>This string allows you to configure Kate's settings for the files "
+      "<selected by this mimetype using Kate variables. You can set allmost any "
+      "configuration option, such as highlight, indent-mode, encoding etc.</p>"
+      "<p>For a full list of known variables, see the manual.</p>") );
+  QWhatsThis::add( wildcards, i18n(
+      "The wildcards mask allows you to select files by filename. A typical "
+      "mask uses an asterisk and the file extension, such as for example "
+      "<code>*.txt; *.text</code>. The string is a semicolon separated list
+      "of masks.") );
+  QWhatsThis::add( mimetypes, i18n(
+      "The mime type mask allows you to select files by mimetype. The string is "
+      "a semicolon separated list of mimetypes, for example "
+      "<code>text/plain; text/english</code>.") );
+  QWhatsThis::add( btnMTW, i18n(
+      "Displays a wizard that helps you easily select mimetypes") );
+  QWhatsThis::add( priority, i18n(
+      "Sets a priority for this file type. If more filetypes selects the same "
+      "file, the one with the highest priority will be used." ) );
 }
 
 void KateFileTypeConfigTab::apply()
@@ -466,7 +497,9 @@ void KateFileTypeConfigTab::showMTDlg()
     mimetypes->setText( d->chooser()->mimeTypes().join(";") );
   }
 }
+//END KateFileTypeConfigTab
 
+//BEGIN KateViewFileTypeAction
 void KateViewFileTypeAction::init()
 {
   m_doc = 0;
@@ -545,5 +578,5 @@ void KateViewFileTypeAction::setType (int mode)
   if (doc)
     doc->updateFileType(mode-1, true);
 }
-
+//END KateViewFileTypeAction
 // kate: space-indent on; indent-width 2; replace-tabs on;

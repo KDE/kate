@@ -285,28 +285,6 @@ void KateBuffer::checkDirtyMax ()
   }
 }
 
-// Handle the emitting of detailed text changed signals.
-void KateBuffer::emitTextChanged(uint type, TextLine::Ptr thisLine, uint pos, uint len, TextLine::Ptr* nextLine)
-{
-  switch (type) {
-    case TextInserted:
-      emit textInserted(thisLine, pos, len);
-      break;
-
-    case TextRemoved:
-      emit textRemoved(thisLine, pos, len);
-      break;
-
-    case TextWrapped:
-      emit textWrapped(thisLine, *nextLine, pos);
-      break;
-
-    case TextUnWrapped:
-      emit textUnWrapped(thisLine, *nextLine, pos, len);
-      break;
-  }
-}
-
 uint KateBuffer::countVisible ()
 {
   return m_lines - m_regionTree->getHiddenLinesCount(m_lines);
@@ -514,7 +492,6 @@ bool KateBuffer::openFile (const QString &m_file)
   }
 
   // detect eol --- FIXME if you have time ;)
-  int lastCh = 0;
   while (true)
   {
      int ch = m_loader->file.getch();
@@ -1038,8 +1015,6 @@ void KateBuffer::insertLine(uint i, TextLine::Ptr line)
      m_lastInSyncBlock = m_blocks.findRef (buf);
 
    m_regionTree->lineHasBeenInserted (i);
-   // updateHighlighting(i, i+2, true); this doesn't succseed, since updating is not allowed before an editEnd call
-   emit lineInsertedBefore(KateBuffer::line(i), i-1);
 }
 
 void
@@ -1081,8 +1056,6 @@ KateBuffer::removeLine(uint i)
   }
 
   m_regionTree->lineHasBeenRemoved (i);
-
-  emit lineRemoved(i);
 }
 
 void KateBuffer::changeLine(uint i)
@@ -1350,7 +1323,7 @@ void KateBufBlock::buildStringList()
 
   while(buf < end)
   {
-    TextLine::Ptr textLine = new TextLine(m_parent);
+    TextLine::Ptr textLine = new TextLine ();
     buf = textLine->restore (buf);
     m_stringList.push_back (textLine);
   }

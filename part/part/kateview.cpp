@@ -1138,36 +1138,6 @@ void KateView::editEnd (int editTagLineStart, int editTagLineEnd)
   m_viewInternal->editEnd (editTagLineStart, editTagLineEnd);
 }
 
-void KateView::editInsertText (int line, int col, int len)
-{
-  m_viewInternal->editInsertText (line, col, len);
-}
-
-void KateView::editRemoveText (int line, int col, int len)
-{
-  m_viewInternal->editRemoveText (line, col, len);
-}
-
-void KateView::editWrapLine (int line, int col, int len)
-{
-  m_viewInternal->editWrapLine (line, col, len);
-}
-
-void KateView::editUnWrapLine (int line, int col)
-{
-  m_viewInternal->editUnWrapLine (line, col);
-}
-
-void KateView::editInsertLine (int line)
-{
-  m_viewInternal->editInsertLine (line);
-}
-
-void KateView::editRemoveLine (int line)
-{
-  m_viewInternal->editRemoveLine (line);
-}
-
 void KateView::editSetCursor (const KateTextCursor &cursor)
 {
   m_viewInternal->editSetCursor (cursor);

@@ -183,27 +183,4 @@ class KateDocCursor : public KateTextCursor
     KateDocument *m_doc;
 };
 
-/**
-  Complex cursor class implementing the KTextEditor::Cursor interface
-  through Kate::Cursor using KateDocCursor features.
-
-  (KTextEditor::Cursor objects should hold their position, which
-  means: You set some cursor to line 10/col 10, the user deletes lines
-  2-4 -> the cursor should move automagically to line 7 to stay at
-  it's old position in the text. At least it was thought so.)
-*/
-class KateCursor : public KateDocCursor, public Kate::Cursor
-{
-  public:
-    KateCursor(KateDocument *doc);
-    ~KateCursor();
-
-    // KTextEditor::Cursor interface
-    void position(uint *line, uint *col) const;
-    bool setPosition(uint line, uint col);
-    bool insertText(const QString& text);
-    bool removeText(uint numberOfCharacters);
-    QChar currentChar() const;
-};
-
 #endif

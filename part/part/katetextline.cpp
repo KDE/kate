@@ -28,11 +28,8 @@
 
 #include <qregexp.h>
 
-bool TextLine::m_noSignal = false;
-
-TextLine::TextLine(KateBuffer* buf)
+TextLine::TextLine ()
   : m_flags(TextLine::flagVisible)
-  , m_buf(buf)
 {
 }
 
@@ -75,9 +72,6 @@ void TextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *i
     else
       m_attributes[z+pos] = insAttribs[z];
   }
-
-  if (!m_noSignal)
-    m_buf->emitTextChanged(KateBuffer::TextInserted, Ptr(this), pos, insLen);
 }
 
 void TextLine::removeText (uint pos, uint delLen)
@@ -104,9 +98,6 @@ void TextLine::removeText (uint pos, uint delLen)
   m_text.remove (pos, delLen);
   textLen = m_text.length ();
   m_attributes.resize (textLen);
-
-  if (!m_noSignal)
-    m_buf->emitTextChanged(KateBuffer::TextRemoved, Ptr(this), pos, delLen);
 }
 
 void TextLine::append(const QChar *s, uint l)
@@ -125,8 +116,6 @@ void TextLine::truncate(uint newLen)
 
 void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 {
-  m_noSignal = true;
-
   int l = m_text.length() - pos;
 
   if (l > 0)
@@ -134,20 +123,12 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
     nextLine->insertText (0, l, ((QChar*)m_text.unicode())+pos, &m_attributes[pos]);
     truncate(pos);
   }
-
-  m_noSignal = false;
-  m_buf->emitTextChanged(KateBuffer::TextWrapped, Ptr(this), pos, 0, &nextLine);
 }
 
 void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
-  m_noSignal = true;
-
   insertText (pos, len, nextLine->m_text.unicode(), nextLine->m_attributes.data());
   nextLine->removeText (0, len);
-
-  m_noSignal = false;
-  m_buf->emitTextChanged(KateBuffer::TextUnWrapped, Ptr(this), pos, len, &nextLine);
 }
 
 int TextLine::nextNonSpaceChar(uint pos) const

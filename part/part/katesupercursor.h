@@ -20,7 +20,6 @@
 #define KATESUPERCURSOR_H
 
 #include "katecursor.h"
-#include "katetextline.h"
 
 class KateDocument;
 class KateView;
@@ -43,118 +42,116 @@ class KateView;
  *
  * @author Hamish Rodda
  **/
-class KateSuperCursor : public QObject, public KateDocCursor
+class KateSuperCursor : public QObject, public KateDocCursor, public Kate::Cursor
 {
   Q_OBJECT
 
 public:
-  KateSuperCursor(KateDocument* doc, const KateTextCursor& cursor, QObject* parent = 0L, const char* name = 0L);
-  KateSuperCursor(KateDocument* doc, int lineNum, int col = 0, QObject* parent = 0L, const char* name = 0L);
+    KateSuperCursor(KateDocument* doc, const KateTextCursor& cursor, QObject* parent = 0L, const char* name = 0L);
+    KateSuperCursor(KateDocument* doc, int lineNum, int col = 0, QObject* parent = 0L, const char* name = 0L);
 
-#ifdef DEBUGTESTING
-  virtual ~KateSuperCursor();
-#endif
+    ~KateSuperCursor ();
 
-  /**
-   * @returns true if the cursor is situated at the start of the line, false if it isn't.
-   */
-  bool atStartOfLine() const;
+  public:
+    // KTextEditor::Cursor interface
+    void position(uint *line, uint *col) const;
+    bool setPosition(uint line, uint col);
+    bool insertText(const QString& text);
+    bool removeText(uint numberOfCharacters);
+    QChar currentChar() const;
 
-  /**
-   * @returns true if the cursor is situated at the end of the line, false if it isn't.
-   */
-  bool atEndOfLine() const;
+    /**
+    * @returns true if the cursor is situated at the start of the line, false if it isn't.
+    */
+    bool atStartOfLine() const;
 
-  /**
-   * Returns how this cursor behaves when text is inserted at the cursor.
-   * Defaults to not moving on insert.
-   */
-  bool moveOnInsert() const;
+    /**
+    * @returns true if the cursor is situated at the end of the line, false if it isn't.
+    */
+    bool atEndOfLine() const;
 
-  /**
-   * Change the behaviour of the cursor when text is inserted at the cursor.
-   *
-   * If @p moveOnInsert is true, the cursor will end up at the end of the insert.
-   */
-  void setMoveOnInsert(bool moveOnInsert);
+    /**
+    * Returns how this cursor behaves when text is inserted at the cursor.
+    * Defaults to not moving on insert.
+    */
+    bool moveOnInsert() const;
 
-  /**
-   * Debug: output the position.
-   */
-  operator QString();
+    /**
+    * Change the behaviour of the cursor when text is inserted at the cursor.
+    *
+    * If @p moveOnInsert is true, the cursor will end up at the end of the insert.
+    */
+    void setMoveOnInsert(bool moveOnInsert);
 
-  // Reimplementations;
-  virtual void setLine(int lineNum);
-  virtual void setCol(int colNum);
-  virtual void setPos(const KateTextCursor& pos);
-  virtual void setPos(int lineNum, int colNum);
+    /**
+    * Debug: output the position.
+    */
+    operator QString();
 
-signals:
-  /**
-   * The cursor's position was directly changed by the program.
-   */
-  void positionDirectlyChanged();
+    // Reimplementations;
+    virtual void setLine(int lineNum);
+    virtual void setCol(int colNum);
+    virtual void setPos(const KateTextCursor& pos);
+    virtual void setPos(int lineNum, int colNum);
 
-  /**
-   * The cursor's position was changed.
-   */
-  void positionChanged();
+  signals:
+    /**
+    * The cursor's position was directly changed by the program.
+    */
+    void positionDirectlyChanged();
 
-  /**
-   * Athough an edit took place, the cursor's position was unchanged.
-   */
-  void positionUnChanged();
+    /**
+    * The cursor's position was changed.
+    */
+    void positionChanged();
 
-  /**
-   * The cursor's surrounding characters were both deleted simultaneously.
-   * The cursor is automatically placed at the start of the deleted region.
-   */
-  void positionDeleted();
+    /**
+    * Athough an edit took place, the cursor's position was unchanged.
+    */
+    void positionUnChanged();
 
-  /**
-   * A character was inserted immediately before the cursor.
-   *
-   * Whether the char was inserted before or after this cursor depends on
-   * moveOnInsert():
-   * @li true -> the char was inserted before
-   * @li false -> the char was inserted after
-   */
-  void charInsertedAt();
+    /**
+    * The cursor's surrounding characters were both deleted simultaneously.
+    * The cursor is automatically placed at the start of the deleted region.
+    */
+    void positionDeleted();
 
-  /**
-   * The character immediately before the cursor was deleted.
-   */
-  void charDeletedBefore();
+    /**
+    * A character was inserted immediately before the cursor.
+    *
+    * Whether the char was inserted before or after this cursor depends on
+    * moveOnInsert():
+    * @li true -> the char was inserted before
+    * @li false -> the char was inserted after
+    */
+    void charInsertedAt();
 
-  /**
-   * The character immediately after the cursor was deleted.
-   */
-  void charDeletedAfter();
+    /**
+    * The character immediately before the cursor was deleted.
+    */
+    void charDeletedBefore();
 
-private slots:
-  void slotTextInserted(TextLine::Ptr linePtr, uint pos, uint len);
-  void slotLineInsertedBefore(TextLine::Ptr linePtr, uint lineNum);
-  void slotTextRemoved(TextLine::Ptr linePtr, uint pos, uint len);
-  void slotLineRemoved(uint lineNum);
-  void slotTextWrapped(TextLine::Ptr linePtr, TextLine::Ptr nextLine, uint pos);
-  void slotTextUnWrapped(TextLine::Ptr linePtr, TextLine::Ptr nextLine, uint pos, uint len);
+    /**
+    * The character immediately after the cursor was deleted.
+    */
+    void charDeletedAfter();
 
-/*
-  void slotPositionDirectlyChanged();
-  void slotPositionChanged();
-  void slotPositionUnChanged();
-  void slotPositionDeleted();
-  void slotCharInsertedAt();
-  void slotCharDeletedBefore();
-  void slotCharDeletedAfter();
-*/
+  // BEGIN METHODES TO CALL FROM KATE DOCUMENT TO KEEP CURSOR UP TO DATE
+  public:
+    void editTextInserted ( uint line, uint col, uint len);
+    void editTextRemoved ( uint line, uint col, uint len);
 
-private:
-  void connectSS();
+    void editLineWrapped ( uint line, uint col, uint len );
+    void editLineUnWrapped ( uint line, uint col );
 
-  TextLine::Ptr m_linePtr;
-  bool m_moveOnInsert : 1;
-  bool m_lineRemoved : 1;
+    void editLineInserted ( uint line );
+    void editLineRemoved ( uint line );
+  // END
+
+  private:
+    KateDocument *m_doc;
+    bool m_moveOnInsert : 1;
+    bool m_lineRemoved : 1;
 };
 
 /**

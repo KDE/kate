@@ -56,10 +56,10 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
   , editSessionNumber (0)
   , editIsRunning (false)
-  , editCursorChanged (false)
   , tagLinesFrom (-1)
   , m_view (view)
   , m_doc (doc)
+  , cursor (doc, 0, 0, this)
   , m_startPos(0,0)
   , m_oldStartPos(0,0)
   , m_madeVisible(false)
@@ -77,6 +77,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_textHintMouseY(-1)
 {
   setMinimumSize (0,0);
+
+  // cursor
+  cursor.setMoveOnInsert (true);
 
   //
   // scrollbar for lines
@@ -1793,12 +1796,8 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
 
   KateTextCursor oldDisplayCursor = displayCursor;
 
-  cursor = newCursor;
-  displayCursor.setPos(m_doc->getVirtualLine(cursor.line()), cursor.col());
-
-  //kdDebug(13030) << "updateCursor():" << endl;
-  //kdDebug(13030) << "Virtual: " << displayCursor.line << endl;
-  //kdDebug(13030) << "Real: " << cursor.line << endl;
+  cursor.setPos (newCursor);
+  displayCursor.setPos (m_doc->getVirtualLine(cursor.line()), cursor.col());
 
   cXPos = m_view->renderer()->textWidth( cursor );
   makeVisible ( displayCursor, displayCursor.col() );
@@ -2645,7 +2644,7 @@ void KateViewInternal::editStart()
     return;
 
   editIsRunning = true;
-  editCursorChanged = false;
+  editOldCursor = cursor;
 }
 
 void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
@@ -2673,16 +2672,15 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 
   tagLinesFrom = -1;
 
-  if (!editCursorChanged)
+  if (editOldCursor == cursor)
     updateBracketMarks();
 
   updateView(true);
 
-  if (editCursorChanged)
+  if (editOldCursor != cursor)
   {
     m_madeVisible = false;
-    updateCursor ( cursor, editCursorChanged );
-    editCursorChanged = false;
+    updateCursor ( cursor, true );
   }
   else
   {
@@ -2692,113 +2690,11 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   editIsRunning = false;
 }
 
-void KateViewInternal::editInsertText(int line, int col, int len)
-{
-  int cLine = cursor.line();
-  int cCol = cursor.col();
-
-  if ( (cLine == line) && (cCol >= col) )
-  {
-    cCol += len;
-
-    cursor.setPos(line, cCol);
-    editCursorChanged = true;
-  }
-}
-
-void KateViewInternal::editRemoveText(int line, int col, int len)
-{
-  int cLine = cursor.line();
-  int cCol = cursor.col();
-
-  if ( (cLine == line) && (cCol > col) )
-  {
-    if ((cCol - len) >= col)
-    {
-      if ((cCol - len) > 0)
-        cCol = cCol-len;
-      else
-        cCol = 0;
-    }
-    else
-      cCol = col;
-
-    cursor.setPos(line, cCol);
-    editCursorChanged = true;
-  }
-}
-
-void KateViewInternal::editWrapLine(int line, int col, int len)
-{
-  setViewTagLinesFrom(line);
-
-  // correct cursor position
-  if (cursor.line() > line)
-  {
-    cursor.setLine(cursor.line() + 1);
-    editCursorChanged = true;
-  }
-  else if ( cursor.line() == line && cursor.col() >= col )
-  {
-    cursor.setPos(line + 1, len);
-    editCursorChanged = true;
-  }
-}
-
-void KateViewInternal::editUnWrapLine(int line, int col)
-{
-  setViewTagLinesFrom(line);
-
-  int cLine = cursor.line();
-  int cCol = cursor.col();
-
-  if (cursor.line() > line+1)
-  {
-    cursor.setPos(line - 1, cCol);
-    editCursorChanged = true;
-  }
-  else if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
-  {
-    cursor.setPos(line, col);
-    editCursorChanged = true;
-  }
-}
-
-void KateViewInternal::editInsertLine(int line)
-{
-  setViewTagLinesFrom(line);
-
-  if (cursor.line() >= line)
-  {
-    cursor.setPos(line + 1, cursor.col());
-    editCursorChanged = true;
-  }
-}
-
-void KateViewInternal::editRemoveLine(int line)
-{
-  setViewTagLinesFrom(line);
-
-  if (cursor.line() > line)
-  {
-    cursor.setPos(line - 1, cursor.col());
-    editCursorChanged = true;
-  }
-  else if ( (cursor.line() == line) )
-  {
-    int newLine = (line < (int)m_doc->lastLine()) ? line : (line - 1);
-
-    cursor.setPos(newLine, 0);
-    editCursorChanged = true;
-  }
-}
-
 void KateViewInternal::editSetCursor (const KateTextCursor &cursor)
 {
   if (this->cursor != cursor)
   {
-    this->cursor = cursor;
-    editCursorChanged = true;
+    this->cursor.setPos (cursor);
   }
 }
 

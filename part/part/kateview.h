@@ -145,15 +145,6 @@ class KateView : public Kate::View,
     void editStart ();
     void editEnd (int editTagLineStart, int editTagLineEnd);
 
-    void editInsertText (int line, int col, int len);
-    void editRemoveText (int line, int col, int len);
-
-    void editWrapLine (int line, int col, int len);
-    void editUnWrapLine (int line, int col);
-
-    void editInsertLine (int line);
-    void editRemoveLine (int line);
-
     void editSetCursor (const KateTextCursor &cursor);
 
     void setViewTagLinesFrom(int line);

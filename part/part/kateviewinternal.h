@@ -25,6 +25,7 @@
 #define _KATE_VIEW_INTERNAL_
 
 #include "katecursor.h"
+#include "katesupercursor.h"
 #include "katelinerange.h"
 
 #include <qscrollbar.h>
@@ -88,15 +89,6 @@ class KateViewInternal : public QWidget
     void editStart ();
     void editEnd (int editTagLineStart, int editTagLineEnd);
 
-    void editInsertText (int line, int col, int len);
-    void editRemoveText (int line, int col, int len);
-
-    void editWrapLine (int line, int col, int len);
-    void editUnWrapLine (int line, int col);
-
-    void editInsertLine (int line);
-    void editRemoveLine (int line);
-
     void editSetCursor (const KateTextCursor &cursor);
 
     void setViewTagLinesFrom(int line);
@@ -106,7 +98,7 @@ class KateViewInternal : public QWidget
 
     uint editSessionNumber;
     bool editIsRunning;
-    bool editCursorChanged;
+    KateTextCursor editOldCursor;
     int tagLinesFrom;
   // END
 
@@ -251,7 +243,7 @@ class KateViewInternal : public QWidget
     int scrollY;
     int scrollTimer;
 
-    KateTextCursor cursor;
+    KateSuperCursor cursor;
     KateTextCursor displayCursor;
     int cursorTimer;
     int cXPos;

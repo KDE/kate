@@ -18,44 +18,65 @@
 
 #include "katesupercursor.h"
 
-#include "katebuffer.h"
 #include "katedocument.h"
 
 #include <kdebug.h>
 
 #include <qobjectlist.h>
 
-#ifdef DEBUGTESTING
-static KateSuperCursor* debugCursor = 0L;
-static KateSuperRange* debugRange = 0L;
-#endif
-
 KateSuperCursor::KateSuperCursor(KateDocument* doc, const KateTextCursor& cursor, QObject* parent, const char* name)
   : QObject(parent, name)
   , KateDocCursor(cursor.line(), cursor.col(), doc)
-  , m_linePtr(doc->kateTextLine(cursor.line()))
+  , Kate::Cursor ()
+  , m_doc (doc)
 {
-  Q_ASSERT(m_linePtr);
+  m_moveOnInsert = false;
+  m_lineRemoved = false;
 
-  connectSS();
+  m_doc->addSuperCursor (this);
 }
 
 KateSuperCursor::KateSuperCursor(KateDocument* doc, int lineNum, int col, QObject* parent, const char* name)
   : QObject(parent, name)
   , KateDocCursor(lineNum, col, doc)
-  , m_linePtr(doc->kateTextLine(lineNum))
+  , Kate::Cursor ()
+  , m_doc (doc)
 {
-  Q_ASSERT(m_linePtr);
+  m_moveOnInsert = false;
+  m_lineRemoved = false;
 
-  connectSS();
+  m_doc->addSuperCursor (this);
 }
 
-#ifdef DEBUGTESTING
-KateSuperCursor::~KateSuperCursor()
+KateSuperCursor::~KateSuperCursor ()
 {
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl;
+  m_doc->removeSuperCursor (this);
 }
-#endif
+
+void KateSuperCursor::position(uint *pline, uint *pcol) const
+{
+  KateDocCursor::position(pline, pcol);
+}
+
+bool KateSuperCursor::setPosition(uint line, uint col)
+{
+  return KateDocCursor::setPosition(line, col);
+}
+
+bool KateSuperCursor::insertText(const QString& s)
+{
+  return KateDocCursor::insertText(s);
+}
+
+bool KateSuperCursor::removeText(uint nbChar)
+{
+  return KateDocCursor::removeText(nbChar);
+}
+
+QChar KateSuperCursor::currentChar() const
+{
+  return KateDocCursor::currentChar();
+}
 
 bool KateSuperCursor::atStartOfLine() const
 {
@@ -64,7 +85,7 @@ bool KateSuperCursor::atStartOfLine() const
 
 bool KateSuperCursor::atEndOfLine() const
 {
-  return col() >= (int)m_linePtr->length();
+  return col() >= (int)m_doc->kateTextLine(line())->length();
 }
 
 bool KateSuperCursor::moveOnInsert() const
@@ -81,6 +102,7 @@ void KateSuperCursor::setLine(int lineNum)
 {
   int tempLine = line(), tempcol = col();
   KateDocCursor::setLine(lineNum);
+
   if (tempLine != line() || tempcol != col())
     emit positionDirectlyChanged();
 }
@@ -100,38 +122,14 @@ void KateSuperCursor::setPos(int lineNum, int colNum)
   KateDocCursor::setPos(lineNum, colNum);
 }
 
-void KateSuperCursor::connectSS()
+void KateSuperCursor::editTextInserted(uint line, uint col, uint len)
 {
-  m_moveOnInsert = false;
-  m_lineRemoved = false;
+  if (m_line == int(line))
+  {
+    if ((m_col > int(col)) || (m_moveOnInsert && (m_col == int(col))))
+    {
+      bool insertedAt = m_col == int(col);
 
-#ifdef DEBUGTESTING
-  if (!debugCursor) {
-    debugCursor = this;
-    connect(this, SIGNAL(positionDirectlyChanged()), SLOT(slotPositionDirectlyChanged()));
-    connect(this, SIGNAL(positionChanged()), SLOT(slotPositionChanged()));
-    connect(this, SIGNAL(positionUnChanged()), SLOT(slotPositionUnChanged()));
-    connect(this, SIGNAL(positionDeleted()), SLOT(slotPositionDeleted()));
-    connect(this, SIGNAL(charInsertedAt()), SLOT(slotCharInsertedAt()));
-    connect(this, SIGNAL(charDeletedBefore()), SLOT(slotCharDeletedBefore()));
-    connect(this, SIGNAL(charDeletedAfter()), SLOT(slotCharDeletedAfter()));
-  }
-#endif
-
-  connect(m_linePtr->buffer(), SIGNAL(textInserted(TextLine::Ptr, uint, uint)), SLOT(slotTextInserted(TextLine::Ptr, uint, uint)));
-  connect(m_linePtr->buffer(), SIGNAL(lineInsertedBefore(TextLine::Ptr, uint)), SLOT(slotLineInsertedBefore(TextLine::Ptr, uint)));
-  connect(m_linePtr->buffer(), SIGNAL(textRemoved(TextLine::Ptr, uint, uint)), SLOT(slotTextRemoved(TextLine::Ptr, uint, uint)));
-  connect(m_linePtr->buffer(), SIGNAL(lineRemoved(uint)), SLOT(slotLineRemoved(uint)));
-  connect(m_linePtr->buffer(), SIGNAL(textWrapped(TextLine::Ptr, TextLine::Ptr, uint)), SLOT(slotTextWrapped(TextLine::Ptr, TextLine::Ptr, uint)));
-  connect(m_linePtr->buffer(), SIGNAL(textUnWrapped(TextLine::Ptr, TextLine::Ptr, uint, uint)), SLOT(slotTextUnWrapped(TextLine::Ptr, TextLine::Ptr, uint, uint)));
-}
-
-void KateSuperCursor::slotTextInserted(TextLine::Ptr linePtr, uint pos, uint len)
-{
-  if (m_linePtr == linePtr) {
-    bool insertedAt = col() == int(pos);
-
-    if (m_moveOnInsert ? (col() > int(pos)) : (col() >= int(pos))) {
       m_col += len;
 
       if (insertedAt)
@@ -145,31 +143,18 @@ void KateSuperCursor::slotTextInserted(TextLine::Ptr linePtr, uint pos, uint len
   emit positionUnChanged();
 }
 
-void KateSuperCursor::slotLineInsertedBefore(TextLine::Ptr linePtr, uint lineNum)
+void KateSuperCursor::editTextRemoved(uint line, uint col, uint len)
 {
-  // NOTE not >= because the = case is taken care of slotTextWrapped.
-  // Comparing to linePtr is because we can get a textWrapped signal then a lineInsertedBefore signal.
-  if (m_linePtr != linePtr && line() > int(lineNum)) {
-    m_line++;
-    emit positionChanged();
-    return;
-
-  } else if (m_linePtr != linePtr) {
-    emit positionUnChanged();
-  }
-}
-
-void KateSuperCursor::slotTextRemoved(TextLine::Ptr linePtr, uint pos, uint len)
-{
-  if (m_linePtr == linePtr) {
-    if (col() > int(pos)) {
-      if (col() > int(pos + len)) {
+  if (m_line == line)
+  {
+    if (m_col > int(col)) {
+      if (m_col > int(col + len)) {
         m_col -= len;
 
       } else {
-        bool prevCharDeleted = col() == int(pos + len);
+        bool prevCharDeleted = m_col == int(col + len);
 
-        m_col = pos;
+        m_col = col;
 
         if (prevCharDeleted)
           emit charDeletedBefore();
@@ -180,7 +165,7 @@ void KateSuperCursor::slotTextRemoved(TextLine::Ptr linePtr, uint pos, uint len)
       emit positionChanged();
       return;
 
-    } else if (col() == int(pos)) {
+    } else if (m_col == int(col)) {
       emit charDeletedAfter();
     }
   }
@@ -188,11 +173,113 @@ void KateSuperCursor::slotTextRemoved(TextLine::Ptr linePtr, uint pos, uint len)
   emit positionUnChanged();
 }
 
+void KateSuperCursor::editLineWrapped(uint line, uint col, uint len)
+{
+  if (m_line > line)
+  {
+    m_line++;
+
+    emit positionChanged();
+    return;
+  }
+  else if ( m_line == line && m_col >= col )
+  {
+    m_line++;
+    m_col = len;
+
+    emit positionChanged();
+    return;
+  }
+/*
+  if (m_line == line) {
+    if (m_col >= int(col)) {
+      bool atStart = m_col == 0;
+      m_col = len;
+      m_line++;
+
+      if (atStart)
+        emit charDeletedBefore();
+
+      emit positionChanged();
+      return;
+    }
+  }
+*/
+  // This is the job of the lineRemoved / lineInsertedBefore methods.
+  //emit positionUnChanged();
+}
+
+void KateSuperCursor::editLineUnWrapped(uint line, uint col)
+{
+  if (m_line > int(line+1))
+  {
+    m_line--;
+
+    emit positionChanged();
+    return;
+  }
+  else if ( (m_line== int(line+1)) || ((m_line == int(line)) && (m_col > int(col))) )
+  {
+    m_line = line;
+    m_col = col;
+
+    emit positionChanged();
+    return;
+  }
+
+/*
+  if (m_linePtr == nextLine) {
+    if (col() < int(len)) {
+      m_col += pos;
+      m_line--;
+      m_linePtr = linePtr;
+      emit positionChanged();
+      m_lineRemoved = true;
+      return;
+    }
+  }*/
+
+  // This is the job of the lineRemoved / lineInsertedBefore methods.
+  //emit positionUnChanged();
+}
+
+void KateSuperCursor::editLineInserted (uint line)
+{
+  // NOTE not >= because the = case is taken care of slotTextWrapped.
+  // Comparing to linePtr is because we can get a textWrapped signal then a lineInsertedBefore signal.
+  if (m_line >= line)
+  {
+    m_line++;
+
+    emit positionChanged();
+    return;
+  }
+
+  emit positionUnChanged();
+}
+
+
 // TODO does this work with multiple line deletions?
 // TODO does this need the same protection with the actual TextLine::Ptr as lineInsertedBefore?
-void KateSuperCursor::slotLineRemoved(uint lineNum)
+void KateSuperCursor::editLineRemoved(uint line)
 {
-  if (line() == int(lineNum)) {
+  if (m_line > line)
+  {
+    m_line--;
+
+    emit positionChanged();
+    return;
+  }
+  else if (m_line == line)
+  {
+    m_line = (line < (int)m_doc->lastLine()) ? line : (line - 1);
+    m_col = 0;
+
+    emit positionChanged();
+    return;
+  }
+
+  /*if (line() == int(lineNum)) {
     // They took my line! :(
     bool atStart = col() == 0;
 
@@ -224,90 +311,14 @@ void KateSuperCursor::slotLineRemoved(uint lineNum)
     m_lineRemoved = false;
     return;
   }
-
+*/
   emit positionUnChanged();
 }
-
-void KateSuperCursor::slotTextWrapped(TextLine::Ptr linePtr, TextLine::Ptr nextLine, uint pos)
-{
-  if (m_linePtr == linePtr) {
-    if (col() >= int(pos)) {
-      bool atStart = col() == 0;
-      m_col -= pos;
-      m_line++;
-      m_linePtr = nextLine;
-
-      if (atStart)
-        emit charDeletedBefore();
-
-      emit positionChanged();
-      return;
-    }
-  }
-
-  // This is the job of the lineRemoved / lineInsertedBefore methods.
-  //emit positionUnChanged();
-}
-
-void KateSuperCursor::slotTextUnWrapped(TextLine::Ptr linePtr, TextLine::Ptr nextLine, uint pos, uint len)
-{
-  if (m_linePtr == nextLine) {
-    if (col() < int(len)) {
-      m_col += pos;
-      m_line--;
-      m_linePtr = linePtr;
-      emit positionChanged();
-      m_lineRemoved = true;
-      return;
-    }
-  }
-
-  // This is the job of the lineRemoved / lineInsertedBefore methods.
-  //emit positionUnChanged();
-}
-
-#ifdef DEBUGTESTING
-void KateSuperCursor::slotPositionDirectlyChanged()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl/* << kdBacktrace(7)*/;
-}
-
-void KateSuperCursor::slotPositionChanged()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl/* << kdBacktrace(7)*/;
-}
-
-void KateSuperCursor::slotPositionUnChanged()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl/* << kdBacktrace(7)*/;
-}
-
-void KateSuperCursor::slotPositionDeleted()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperCursor::slotCharInsertedAt()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperCursor::slotCharDeletedBefore()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperCursor::slotCharDeletedAfter()
-{
-  if (debugCursor == this) kdDebug() << k_funcinfo << endl;
-}
-#endif
 
 KateSuperCursor::operator QString()
 {
   return QString("[%1,%1]").arg(line()).arg(col());
 }
-
 
 KateSuperRange::KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent, const char* name)
   : QObject(parent, name)

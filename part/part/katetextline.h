@@ -29,8 +29,6 @@
 #include <qstring.h>
 #include <qvaluevector.h>
 
-class KateBuffer;
-
 /**
   The TextLine represents a line of text. A text line that contains the
   text, an attribute for each character, an attribute for the free space
@@ -50,18 +48,13 @@ class TextLine : public KShared
       Creates an empty text line with given attribute and syntax highlight
       context
     */
-    TextLine(KateBuffer* buf);
-    ~TextLine();
+    TextLine ();
+    ~TextLine ();
 
   /**
     Methods to get data
   */
   public:
-    /**
-     * Returns the parent buffer.
-     */
-    KateBuffer* buffer() const { return m_buf; }
-
     /**
       Returns the length
     */
@@ -306,12 +299,6 @@ class TextLine : public KShared
      Some bools packed
     */
     uchar m_flags;
-
-    /**
-     * The parent buffer.
-     */
-    KateBuffer* m_buf;
-    static bool m_noSignal;
 };
 
 #endif

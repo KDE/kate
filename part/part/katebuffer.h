@@ -225,52 +225,7 @@ class KateBuffer : public QObject
      */
     void loadingFinished ();
 
-    /**
-     * Emitted each time text is inserted into a pre-existing line, including appends.
-     * Does not include newly inserted lines at the moment. ?need
-     */
-    void textInserted(TextLine::Ptr line, uint pos, uint len);
-
-    /**
-     * Emitted whenever a line is inserted before @p line, becoming itself line @ line.
-     */
-    void lineInsertedBefore(TextLine::Ptr linePtr, uint lineNum);
-
-    /**
-     * Emitted each time text is removed from a line, including truncates and space removal.
-     */
-    void textRemoved(TextLine::Ptr line, uint pos, uint len);
-
-    /**
-     * Emitted when a line is deleted.
-     */
-    void lineRemoved(uint line);
-
-    /**
-     * Emmitted when text from @p line was wrapped at position pos onto line @p nextLine.
-     */
-    void textWrapped(TextLine::Ptr line, TextLine::Ptr nextLine, uint pos);
-
-    /**
-     * Emitted each time text from @p nextLine was upwrapped onto @p line.
-     */
-    void textUnWrapped(TextLine::Ptr line, TextLine::Ptr nextLine, uint pos, uint len);
-
   private:
-    friend class TextLine;
-
-    enum changeTypes {
-      TextInserted,
-      TextRemoved,
-      TextWrapped,
-      TextUnWrapped
-    };
-
-    /**
-     * Internal method only used by TextLine, to notify of changes to the line.
-     */
-    void emitTextChanged(uint type, TextLine::Ptr thisLine, uint pos, uint len, TextLine::Ptr* nextLine = 0L);
-
     /**
      * Make sure @p buf gets loaded.
      */

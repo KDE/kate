@@ -197,6 +197,38 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     bool wrapText (uint startLine, uint endLine, uint col);
 
+  signals:
+    /**
+     * Emitted each time text is inserted into a pre-existing line, including appends.
+     * Does not include newly inserted lines at the moment. ?need
+     */
+    void editTextInserted ( uint line, uint col, uint len);
+
+    /**
+     * Emitted each time text is removed from a line, including truncates and space removal.
+     */
+    void editTextRemoved ( uint line, uint col, uint len);
+
+    /**
+     * Emmitted when text from @p line was wrapped at position pos onto line @p nextLine.
+     */
+    void editLineWrapped ( uint line, uint col, uint len );
+
+    /**
+     * Emitted each time text from @p nextLine was upwrapped onto @p line.
+     */
+    void editLineUnWrapped ( uint line, uint col );
+
+    /**
+     * Emitted whenever a line is inserted before @p line, becoming itself line @ line.
+     */
+    void editLineInserted ( uint line );
+
+    /**
+     * Emitted when a line is deleted.
+     */
+    void editLineRemoved ( uint line );
+
   private:
     void undoStart();
     void undoEnd();
@@ -502,8 +534,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void addView(KTextEditor::View *);
     void removeView(KTextEditor::View *);
 
-    void addCursor(KTextEditor::Cursor *);
-    void removeCursor(KTextEditor::Cursor *);
+    void addSuperCursor(class KateSuperCursor *);
+    void removeSuperCursor(class KateSuperCursor *);
 
     bool ownedView(KateView *);
     bool isLastView(int numViews);
@@ -687,6 +719,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static bool m_collapseTopLevelOnLoad;
 
     static bool s_configLoaded;
+
+    QPtrList<class KateSuperCursor> m_superCursors;
 
   public slots:
   void spellcheck();

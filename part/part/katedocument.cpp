@@ -45,6 +45,7 @@
 #include "katebrowserextension.h"
 #include "kateattribute.h"
 #include "kateconfig.h"
+#include "katesupercursor.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -1100,11 +1101,8 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   buffer->changeLine(line);
   editTagLine (line);
 
-  // move the cursor if it is >= the col of the insert
-  for (uint z = 0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->editInsertText (line, col, s.length());
-  }
+  for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
+    it.current()->editTextInserted (line, col, s.length());
 
   editEnd ();
 
@@ -1128,11 +1126,8 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   editTagLine(line);
 
-  // move the cursor if it is > col of delete
-  for (uint z = 0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->editRemoveText (line, col, len);
-  }
+  for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
+    it.current()->editTextRemoved (line, col, len);
 
   editEnd ();
 
@@ -1151,7 +1146,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
   TextLine::Ptr nl = buffer->line(line+1);
-  TextLine::Ptr tl = new TextLine(buffer);
+  TextLine::Ptr tl = new TextLine();
   int llen = l->length(), nllen = 0;
 
   if (!nl || !autowrap)
@@ -1193,19 +1188,21 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   editTagLine(line);
   editTagLine(line+1);
 
-  for (uint z = 0; z < m_views.count(); z++)
+  for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
   {
     if(!autowrap)
-      m_views.at(z)->editWrapLine (line, col, tl->length());
+      it.current()->editLineWrapped (line, col, tl->length());
     else
     {
-      int offset = llen - m_views.at(z)->cursorColumnReal();
+      int offset = llen - it.current()->col();
       offset = (nl ? nllen:tl->length()) - offset;
       if(offset < 0) offset = 0;
-      m_views.at(z)->editWrapLine (line, col, offset);
+      it.current()->editLineWrapped (line, col, offset);
     }
   }
+
   editEnd ();
+
   return true;
 }
 
@@ -1257,10 +1254,8 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   editTagLine(line);
   editTagLine(line+1);
 
-  for (uint z = 0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->editUnWrapLine (line, col);
-  }
+  for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
+    it.current()->editLineUnWrapped (line, col);
 
   editEnd ();
 
@@ -1276,7 +1271,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
-  TextLine::Ptr tl = new TextLine(buffer);
+  TextLine::Ptr tl = new TextLine();
   tl->append(s.unicode(),s.length());
   buffer->insertLine(line, tl);
   buffer->changeLine(line);
@@ -1301,10 +1296,8 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   if( !list.isEmpty() )
     emit marksChanged();
 
-  for (uint z = 0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->setViewTagLinesFrom (line);
-  }
+  for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
+    it.current()->editLineInserted (line);
 
   editEnd ();
 
@@ -1350,10 +1343,8 @@ bool KateDocument::editRemoveLine ( uint line )
   if( !list.isEmpty() )
     emit marksChanged();
 
-  for (uint z = 0; z < m_views.count(); z++)
-  {
-    m_views.at(z)->editRemoveLine (line);
-  }
+  for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
+    it.current()->editLineRemoved (line);
 
   editEnd();
 
@@ -2935,6 +2926,9 @@ void KateDocument::internalHlChanged() { //slot
 }
 
 void KateDocument::addView(KTextEditor::View *view) {
+  if (!view)
+    return;
+
   m_views.append( (KateView *) view  );
   m_textEditViews.append( view );
   readVariables();
@@ -2942,6 +2936,9 @@ void KateDocument::addView(KTextEditor::View *view) {
 }
 
 void KateDocument::removeView(KTextEditor::View *view) {
+  if (!view)
+    return;
+
   if (m_activeView == view)
     m_activeView = 0L;
 
@@ -2949,12 +2946,20 @@ void KateDocument::removeView(KTextEditor::View *view) {
   m_textEditViews.removeRef( view  );
 }
 
-void KateDocument::addCursor(KTextEditor::Cursor *cursor) {
+void KateDocument::addSuperCursor(KateSuperCursor *cursor) {
+  if (!cursor)
+    return;
+
+  m_superCursors.append( cursor );
   myCursors.append( cursor );
 }
 
-void KateDocument::removeCursor(KTextEditor::Cursor *cursor) {
+void KateDocument::removeSuperCursor(KateSuperCursor *cursor) {
+  if (!cursor)
+    return;
+
   myCursors.removeRef( cursor  );
+  m_superCursors.removeRef( cursor  );
 }
 
 bool KateDocument::ownedView(KateView *view) {
@@ -4518,7 +4523,7 @@ TextLine::Ptr KateDocument::kateTextLine(uint i)
 
 KTextEditor::Cursor *KateDocument::createCursor ( )
 {
-  return new KateCursor (this);
+  return new KateSuperCursor (this, 0, 0);
 }
 
 void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)

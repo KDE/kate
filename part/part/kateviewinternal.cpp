@@ -3117,22 +3117,30 @@ void KateViewInternal::imComposeEvent( QIMEvent *e )
     return;
   }
 
+  // remove old preedit
   if ( m_imPreeditLength > 0 ) {
-    m_doc->removeText( cursor.line(), m_imPreeditStart,
-                       cursor.line(), m_imPreeditStart + m_imPreeditLength );
+    cursor.setPos( m_imPreeditStartLine, m_imPreeditStart );
+    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
+                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
   }
-
-  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, m_imPreeditStart + e->text().length(),
-                              m_imPreeditStart + e->cursorPos(), m_imPreeditStart + e->cursorPos() + e->selectionLength(),
-                              true );
-
-  m_doc->insertText( cursor.line(), cursor.col(), e->text() );
-
-  updateView( true );
-  updateCursor( cursor, true );
 
   m_imPreeditLength = e->text().length();
   m_imPreeditSelStart = m_imPreeditStart + e->cursorPos();
+
+  // update selection
+  m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, m_imPreeditStart + m_imPreeditLength,
+                              m_imPreeditSelStart, m_imPreeditSelStart + e->selectionLength(),
+                              true );
+
+  // insert new preedit
+  m_doc->insertText( m_imPreeditStartLine, m_imPreeditStart, e->text() );
+
+
+  // update cursor
+  cursor.setPos( m_imPreeditStartLine, m_imPreeditSelStart );
+  updateCursor( cursor, true );
+
+  updateView( true );
 }
 
 void KateViewInternal::imEndEvent( QIMEvent *e )
@@ -3143,8 +3151,9 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
   }
 
   if ( m_imPreeditLength > 0 ) {
-    m_doc->removeText( cursor.line(), m_imPreeditStart,
-                       cursor.line(), m_imPreeditStart + m_imPreeditLength );
+    cursor.setPos( m_imPreeditStartLine, m_imPreeditStart );
+    m_doc->removeText( m_imPreeditStartLine, m_imPreeditStart,
+                       m_imPreeditStartLine, m_imPreeditStart + m_imPreeditLength );
   }
 
   m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, false );
@@ -3157,7 +3166,6 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
 
     updateView( true );
     updateCursor( cursor, true );
-
   }
 
   m_imPreeditStart = 0;

@@ -238,7 +238,7 @@ void KateIconBorder::paintLine(int i,int pos)
   if ( myView->iconBorderStatus == None ) return;
   if ( (uint)i > myView->myDoc->numLines() ) return;
 
-//  kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
+  //kdDebug()<<"KateIconBorder::paintLine( "<<i<<") - line is "<<i+1<<endl;
   QPainter p(this);
 
   int fontHeight = myView->myDoc->viewFont.fontHeight;
@@ -318,7 +318,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   if (myView->iconBorderStatus == None)
     return;
 
-  kdDebug()<<"KateIconBorder::paintEvent()"<<endl;
+  //kdDebug()<<"KateIconBorder::paintEvent()"<<endl;
 
   KateDocument *doc = myView->doc();
   if ( myView->iconBorderStatus & LineNumbers && linesAtLastCheck != doc->numLines() ) {
@@ -376,7 +376,7 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   int mappedLine=1;
   for( uint i = lineStart; i <= lineEnd; ++i ) {
     
-    kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
+    //kdDebug()<<QString("KateIconBorder::paintEvent: line: %1").arg(i)<<endl;
     
     bool mappedLineValid=true;
     if (myInternalView->m_lineMapping[i-topLine]) mappedLine=*(myInternalView->m_lineMapping[i-topLine]);

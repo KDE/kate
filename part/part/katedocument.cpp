@@ -20,6 +20,8 @@
 
 // $Id$
 
+
+//BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"
 
@@ -84,6 +86,8 @@
 #include <ksavefile.h>
 
 #include "kateviewhighlightaction.h"
+
+//END  includes
 
 class KateUndo
 {
@@ -340,7 +344,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
 
-  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QValueList<signed char>*,bool*)),regionTree,SLOT(updateLine(unsigned int, QValueList<signed char>*,bool *)));
+  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QValueList<signed char>*,bool*,bool)),regionTree,SLOT(updateLine(unsigned int, QValueList<signed char>*,bool *,bool)));
   connect(regionTree,SIGNAL(setLineVisible(unsigned int, bool)), buffer,SLOT(setLineVisible(unsigned int,bool)));
   connect(buffer,SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
   m_highlightTimer = new QTimer(this);

@@ -23,6 +23,7 @@
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include <qobject.h>
+#include <qintdict.h>
 
 class KateCodeFoldingTree;
 class QString;
@@ -93,10 +94,12 @@ private:
 	QPtrList<KateCodeFoldingNode> nodesForLine;
 	QValueList<hiddenLineBlock> hiddenLines;
 	bool  something_changed;
+	
 
 	bool hiddenLinesCountCacheValid;
 	unsigned int hiddenLinesCountCache;
-	
+
+	QIntDict<bool> dontIgnoreUnchangedLines;	
 
 	void addOpening(KateCodeFoldingNode *node,signed char nType,QValueList<signed char> *list,unsigned int line);
 	void addOpening_further_iterations(KateCodeFoldingNode *node,signed char nType, QValueList<signed char>
@@ -118,7 +121,7 @@ private:
 	void addHiddenLineBlock(KateCodeFoldingNode *node,unsigned int line);
 	void updateHiddenSubNodes(KateCodeFoldingNode *node);
 public slots:
-	void updateLine(unsigned int line,QValueList<signed char> *regionChanges, bool *updated);
+	void updateLine(unsigned int line,QValueList<signed char> *regionChanges, bool *updated, bool changed);
 	void toggleRegionVisibility(unsigned int);
 
 signals:

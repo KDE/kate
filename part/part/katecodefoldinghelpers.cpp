@@ -38,6 +38,7 @@ KateCodeFoldingNode::~KateCodeFoldingNode(){;}
 
 KateCodeFoldingTree::KateCodeFoldingTree(QObject *par):QObject(par),KateCodeFoldingNode()
 {
+	dontIgnoreUnchangedLines.setAutoDelete(true);
 	hiddenLinesCountCacheValid=false;
 	// initialize the root "special" node
 	startLineRel=0;
@@ -175,10 +176,19 @@ void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node,QString prefix)
 */
 
 void KateCodeFoldingTree::updateLine(unsigned int line,
-	QValueList<signed char> *regionChanges, bool *updated)
+	QValueList<signed char> *regionChanges, bool *updated,bool changed)
 {
 
-//	kdDebug()<<QString("KateCodeFoldingTree:UpdateLine(): line %1").arg(line)<<endl;
+	if (!changed)
+	{
+		if (dontIgnoreUnchangedLines.isEmpty()) return;
+		if (dontIgnoreUnchangedLines[line])
+		{
+			dontIgnoreUnchangedLines.remove(line);
+		} else return;
+	}
+
+	kdDebug()<<QString("KateCodeFoldingTree:UpdateLine(): line %1").arg(line)<<endl;
 
 	unsigned char tmp;
 
@@ -374,6 +384,7 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
 
 void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int line)
 {
+	if (node->type==0) return;
 	if (node->type<0)
 	{
 		delete node->parent->childnodes->take(node->parent->childnodes->find(node));
@@ -412,8 +423,12 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int li
 			tmp=node->parent->childnodes->take(mypos+1);
 			tmp->startLineRel=tmp->startLineRel-node->startLineRel;
 			node->childnodes->append(tmp);
+			
 		}
-		removeEnding(node->parent,getStartLine(node->parent)+node->parent->endLineRel);
+		// this should fix the bug of wrongly closed nodes
+		node->endLineValid=node->parent->endLineValid;
+		node->endLineRel=node->parent->endLineRel-node->startLineRel;
+		if (node->endLineValid) removeEnding(node->parent,getStartLine(node->parent)+node->parent->endLineRel);
 		return;
 	}
 
@@ -827,15 +842,18 @@ unsigned int KateCodeFoldingTree::getStartLine(KateCodeFoldingNode *node)
 
 void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 {
+	dontIgnoreUnchangedLines.insert(line,new bool(true));
+	dontIgnoreUnchangedLines.insert(line-1,new bool(true));
+	dontIgnoreUnchangedLines.insert(line+1,new bool(true));
 
 	hiddenLinesCountCacheValid=false;
 //#if JW_DEBUG
 //	kdDebug()<<QString("KateCodeFoldingTree::lineHasBeenRemoved: %1").arg(line)<<endl;
 //#endif
 
-line ++;
-//	findAndMarkAllNodesforRemovalOpenedOrClosedAt(line); //It's an ugly solution
-//	cleanupUnneededNodes(line);	//It's an ugly solution
+//line ++;
+	findAndMarkAllNodesforRemovalOpenedOrClosedAt(line); //It's an ugly solution
+	cleanupUnneededNodes(line);	//It's an ugly solution
 
 	KateCodeFoldingNode *node=findNodeForLine(line);
 //?????	if (node->endLineValid)
@@ -886,9 +904,12 @@ void KateCodeFoldingTree::decrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
 void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
 {
 
+        dontIgnoreUnchangedLines.insert(line,new bool(true));
+        dontIgnoreUnchangedLines.insert(line-1,new bool(true));
+        dontIgnoreUnchangedLines.insert(line+1,new bool(true));
 	hiddenLinesCountCacheValid=false;
 //return;
-//	kdDebug()<<QString("KateCodeFoldingTree::lineHasBeenInserted: %1").arg(line)<<endl;
+	kdDebug()<<QString("KateCodeFoldingTree::lineHasBeenInserted: %1").arg(line)<<endl;
 
 //	findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
 //	cleanupUnneededNodes(line);
@@ -1055,8 +1076,8 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 	for (int i=0;i<markedForDeleting.count();i++)
 	{
 		KateCodeFoldingNode *n=markedForDeleting.at(i);
-//		if ((n->deleteOpening)) kdDebug()<<"DELETE OPENING SET"<<endl;
-//		if ((n->deleteEnding)) kdDebug()<<"DELETE ENDING SET"<<endl;
+		if ((n->deleteOpening)) kdDebug()<<"DELETE OPENING SET"<<endl;
+		if ((n->deleteEnding)) kdDebug()<<"DELETE ENDING SET"<<endl;
 
 		if ((n->deleteOpening) && (n->deleteEnding))
 		{
@@ -1094,9 +1115,9 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 			dontDeleteOpening(n);
 			if ((n->deleteEnding) && (n->endLineValid))
 			{
-#if JW_DEBUG
+//#if JW_DEBUG
 				kdDebug()<<"calling removeEnding"<<endl;
-#endif
+//#endif
 				removeEnding(n,line);
 				something_changed=true;
 				dontDeleteEnding(n);

@@ -431,13 +431,19 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
     foldingList.clear();
     m_highlight->doHighlight(ctxNum, textLine, line_continue,&foldingList);
     retVal_folding=false;
-    emit foldingUpdate(current_line + buf->m_beginState.lineNr,&foldingList,&retVal_folding);
+//    kdDebug()<<QString("updateing folding for line %1").arg(current_line+buf->m_beginState.lineNr)<<endl;
+
+    bool foldingChanged= (foldingList!=textLine->foldingList);
+    if (foldingChanged) textLine->setFoldingList(foldingList);
+    emit foldingUpdate(current_line + buf->m_beginState.lineNr,&foldingList,&retVal_folding,foldingChanged);
     CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;
     line_continue=textLine->getHlLineContinue();
     ctxNum.duplicate (textLine->ctxArray());
 
     if (endCtx.size() != ctxNum.size())
+    {
       stillcontinue = true;
+    }
     else
     {
       stillcontinue = false;
@@ -449,6 +455,12 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
     current_line++;
   }
   while ((current_line < last_line) && (((int)current_line < endLine) || stillcontinue));
+
+  if ((int)current_line>=endLine)
+  {
+    foldingList.clear();
+    emit foldingUpdate(endLine,&foldingList,&retVal_folding,true);
+  }
 
   current_line += buf->m_beginState.lineNr;
   emit tagLines(startLine, current_line - 1);

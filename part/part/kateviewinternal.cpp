@@ -407,20 +407,20 @@ void KateViewInternal::pageUp(VConfig &c) {
 }
 
 void KateViewInternal::pageDown(VConfig &c) {
-#if 0
   int lines = (endLine - startLine - 1);
 
-  if (!(c.flags & KateDocument::cfPageUDMovesCursor) && endLine < (int)myDoc->lastLine()) {
+  if (endLine < (int)myDoc->lastLine()) {
     if (lines < (int)myDoc->lastLine() - endLine)
       newYPos = yPos + lines * myDoc->viewFont.fontHeight;
     else
       newYPos = yPos + (myDoc->lastLine() - endLine) * myDoc->viewFont.fontHeight;
   }
-  cursor.line += lines;
+  displayCursor.line += lines;
+  if (displayCursor.line>myDoc->numVisLines()) displayCursor.line=myDoc->numVisLines();
+  cursor.line=myDoc->getRealLine(displayCursor.line);
   cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
   changeState(c);
 //  cursorPageDown(c);
-#endif
 }
 
 // go to the top, same X position

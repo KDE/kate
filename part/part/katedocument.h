@@ -394,6 +394,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void setDescription( MarkInterface::MarkTypes, const QString& );
     QString markDescription( MarkInterface::MarkTypes );
     QPixmap *markPixmap( MarkInterface::MarkTypes );
+    QColor markColor( MarkInterface::MarkTypes );
 
     void setMarksUserChangable( uint markMask );
     uint editableMarks();

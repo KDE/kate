@@ -2047,6 +2047,7 @@ void KateDocument::clearMark( uint line )
   emit marksChanged();
   delete mark;
   tagLines( line, line );
+  repaintViews(true);
 }
 
 void KateDocument::addMark( uint line, uint markType )
@@ -2082,6 +2083,7 @@ void KateDocument::addMark( uint line, uint markType )
 
   emit marksChanged();
   tagLines( line, line );
+  repaintViews(true);
 }
 
 void KateDocument::removeMark( uint line, uint markType )
@@ -2113,6 +2115,7 @@ void KateDocument::removeMark( uint line, uint markType )
 
   emit marksChanged();
   tagLines( line, line );
+  repaintViews(true);
 }
 
 QPtrList<KTextEditor::Mark> KateDocument::marks()
@@ -2139,6 +2142,7 @@ void KateDocument::clearMarks()
   m_marks.clear();
 
   emit marksChanged();
+  repaintViews(true);
 }
 
 void KateDocument::setPixmap( MarkInterface::MarkTypes type, const QPixmap& pixmap )
@@ -2154,6 +2158,38 @@ void KateDocument::setDescription( MarkInterface::MarkTypes type, const QString&
 QPixmap *KateDocument::markPixmap( MarkInterface::MarkTypes type )
 {
   return m_markPixmaps[type];
+}
+
+QColor KateDocument::markColor( MarkInterface::MarkTypes type )
+{
+  switch (type) {
+    // Bookmark
+    case markType01:
+      return Qt::blue;
+
+    // Breakpoint
+    case markType02:
+      return Qt::red;
+
+    // ActiveBreakpoint
+    case markType03:
+      return Qt::yellow;
+
+    // ReachedBreakpoint
+    case markType04:
+      return Qt::magenta;
+
+    // DisabledBreakpoint
+    case markType05:
+      return Qt::gray;
+
+    // ExecutionPoint
+    case markType06:
+      return Qt::green;
+
+    default:
+      return QColor();
+  }
 }
 
 QString KateDocument::markDescription( MarkInterface::MarkTypes type )

@@ -282,24 +282,65 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   int cursorMaxWidth = 0;
   const QColor *cursorColor = 0;
 
+  // Normal background color
+  QColor backgroundColor = m_doc->colors[0];
+
   // Paint selection background as the whole line is selected
-  if (!isPrinterFriendly() && showSelections() && m_doc->lineSelected(line))
+  if (!isPrinterFriendly())
   {
-    paint.fillRect(0, 0, xEnd - xStart, fs.fontHeight, m_doc->colors[1]);
-    selectionPainted = true;
-    hasSel = true;
-    startSel = 0;
-    endSel = len + 1;
-  }
-  // paint the current line background
-  else if (!isPrinterFriendly() && currentLine)
-  {
-    paint.fillRect(0, 0, xEnd - xStart, fs.fontHeight, m_doc->colors[2]);
-  }
-  // paint the normal background
-  else if (!isPrinterFriendly())
-  {
-    paint.fillRect(0, 0, xEnd - xStart, fs.fontHeight, m_doc->colors[0]);
+    if (showSelections() && m_doc->lineSelected(line))
+    {
+      backgroundColor = m_doc->colors[1];
+      selectionPainted = true;
+      hasSel = true;
+      startSel = 0;
+      endSel = len + 1;
+    }
+    else
+    {
+      // paint the current line background if we're on the current line
+      if (currentLine)
+        backgroundColor = m_doc->colors[2];
+
+      // Check for mark background
+      int markRed = 0, markGreen = 0, markBlue = 0, markCount = 0;
+
+      // Retrieve marks for this line
+      uint mrk = m_doc->mark( line );
+
+      if (mrk)
+      {
+        for (uint bit = 0; bit < 32; bit++)
+        {
+          KTextEditor::MarkInterface::MarkTypes markType = (KTextEditor::MarkInterface::MarkTypes)(1<<bit);
+          if (mrk & markType)
+          {
+            QColor markColor = m_doc->markColor( markType );
+
+            if (markColor.isValid()) {
+              markCount++;
+              markRed += markColor.red();
+              markGreen += markColor.green();
+              markBlue += markColor.blue();
+            }
+          }
+        }
+      }
+
+      if (markCount) {
+        markRed /= markCount;
+        markGreen /= markCount;
+        markBlue /= markCount;
+        backgroundColor.setRgb(
+          int((backgroundColor.red() * 0.9) + (markRed * 0.1)),
+          int((backgroundColor.green() * 0.9) + (markGreen * 0.1)),
+          int((backgroundColor.blue() * 0.9) + (markBlue * 0.1))
+        );
+      }
+    }
+
+    // Draw line background
+    paint.fillRect(0, 0, xEnd - xStart, fs.fontHeight, backgroundColor);
   }
 
   // show word wrap marker if desirable

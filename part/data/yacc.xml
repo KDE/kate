@@ -20,37 +20,38 @@
   
   ========================================================================
 -->
-<language name="Yacc/Bison" version="1.00" kateversion="2.2" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
+<language name="Yacc/Bison" version="1.01" kateversion="2.4" section="Sources" extensions="*.y" author="Jan Villat (jan.villat@net2000.ch)" license="LGPL">
 
 <highlighting>
 <contexts>
   <context name="Pre Start" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <RegExpr attribute="Normal Text" context="#stay" String="\s" />
-    <RegExpr attribute="Content-Type Delimiter" context="C Declarations" String="^%\{" beginRegion="cdeclarations" />
+    <ConsumeSpaces />
+    <Detect2Chars attribute="Content-Type Delimiter" context="C Declarations" char="%" char1="{" beginRegion="cdeclarations" column="0" />
     <RegExpr attribute="Normal Text" context="Declarations" String="." beginRegion="declarations" lookAhead="true" />
   </context>
   
   <context name="C Declarations" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <RegExpr attribute="Content-Type Delimiter" context="#pop" String="^%\}" endRegion="cdeclarations" />
+    <Detect2Chars attribute="Content-Type Delimiter" context="#pop" char="%" char1="}" endRegion="cdeclarations" column="0" />
     <IncludeRules context="##C++" />
   </context>
   
   <context name="Declarations" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
     <RegExpr attribute="Directive" context="Union Start" String="%union" />
+<!--    <StringDetect attribute="Directive" context="Union Start" String="%union" /> -->
     <Detect2Chars attribute="Content-Type Delimiter" context="Rules" char="%" char1="%" beginRegion="rules" endRegion="declarations" />
     
     <!-- not sure that strict yacc allows that ... but it is commonly used -->
-    <RegExpr attribute="Content-Type Delimiter" context="C Declarations" String="^%\{" beginRegion="cdeclarations" />
+    <Detect2Chars attribute="Content-Type Delimiter" context="C Declarations" char="%" char1="{" beginRegion="cdeclarations" column="0" />
     
     <DetectChar attribute="Directive" context="Percent Command" char="%" />
   </context>
   
   <context name="Union Start" attribute="Normal Text" lineEndContext="#stay">
     <IncludeRules context="Comment" />
-    <RegExpr attribute="Normal Text" context="#stay" String="\s" />
+    <ConsumeSpaces />
     <DetectChar attribute="Normal Text" context="Union In" char="{" beginRegion="union" />
     <RegExpr attribute="Alert" context="#pop" String="." />
   </context>

@@ -1,7 +1,6 @@
 TODO:
 
-For 3.0 and bugfix releases:
- - we need a new slot/signal to restore the cursorpos after the buffer is ready
+For 3.1 and later:
  - better indent/unindent
 
  - porting all .xml files to the new scheme.
@@ -15,7 +14,8 @@ For 3.0 and bugfix releases:
 
  - fix the blockwise selection. I think it should really be a block ;)
 
-For 3.1 and later:
  - dynamic word wrap
+ 
  - more efficient hl buffer managment, I think of storing only the contexts in the buffer
+ 
  - print/export only selected text

@@ -70,10 +70,20 @@ class KateDocumentConfig
     int tabWidth ();
     void setTabWidth (int tabWidth);
 
+     bool wordWrap ();
+    void setWordWrap (bool on);
+
+    unsigned int wordWrapAt ();
+    void setWordWrapAt (unsigned int col);
+
   private:
     int m_tabWidth;
+    bool m_wordWrap;
+    int m_wordWrapAt;
 
     bool m_tabWidthSet : 1;
+    bool m_wordWrapSet : 1;
+    bool m_wordWrapAtSet : 1;
 
   private:
     KateDocument *m_doc;

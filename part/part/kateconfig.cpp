@@ -35,6 +35,8 @@ KateRendererConfig *KateRendererConfig::s_global = 0;
 
 KateDocumentConfig::KateDocumentConfig ()
  : m_tabWidthSet (true),
+   m_wordWrapSet (true),
+   m_wordWrapAtSet (true),
    m_doc (0)
 {
   s_global = this;
@@ -47,6 +49,8 @@ KateDocumentConfig::KateDocumentConfig ()
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_tabWidthSet (false),
+   m_wordWrapSet (false),
+   m_wordWrapAtSet (false),
    m_doc (doc)
 {
 }
@@ -65,12 +69,19 @@ KateDocumentConfig *KateDocumentConfig::global ()
 
 void KateDocumentConfig::readConfig (KConfig *config)
 {
+  /**
+   * load the config + give default values
+   */
   setTabWidth (config->readNumEntry("Tab Width", 8));
+  setWordWrap (config->readBoolEntry("Word Wrap", false));
+  setWordWrapAt (config->readNumEntry("Word Wrap Column", 80));
 }
 
 void KateDocumentConfig::writeConfig (KConfig *config)
 {
   config->writeEntry("Tab Width", tabWidth());
+  config->writeEntry("Word Wrap", wordWrap());
+  config->writeEntry("Word Wrap Column", wordWrapAt());
 
   config->sync ();
 }
@@ -98,7 +109,7 @@ int KateDocumentConfig::tabWidth ()
     return m_tabWidth;
 
   return s_global->tabWidth();
-};
+}
 
 void KateDocumentConfig::setTabWidth (int tabWidth)
 {
@@ -107,6 +118,41 @@ void KateDocumentConfig::setTabWidth (int tabWidth)
 
   m_tabWidthSet = true;
   m_tabWidth = tabWidth;
+
+  updateDocument ();
+}
+
+bool KateDocumentConfig::wordWrap ()
+{
+  if (m_wordWrapSet || isGlobal())
+    return m_wordWrap;
+
+  return s_global->wordWrap();
+}
+
+void KateDocumentConfig::setWordWrap (bool on)
+{
+  m_wordWrapSet = true;
+  m_wordWrap = on;
+
+  updateDocument ();
+}
+
+unsigned int KateDocumentConfig::wordWrapAt ()
+{
+  if (m_wordWrapAtSet || isGlobal())
+    return m_tabWidth;
+
+  return s_global->wordWrapAt();
+}
+
+void KateDocumentConfig::setWordWrapAt (unsigned int col)
+{
+  if (col < 1)
+    return;
+
+  m_wordWrapAtSet = true;
+  m_wordWrapAt = col;
 
   updateDocument ();
 }

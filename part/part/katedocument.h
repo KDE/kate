@@ -614,10 +614,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   public slots:
     void setWordWrap (bool on);
-    bool wordWrap () { return myWordWrap; };
+    bool wordWrap ();
 
     void setWordWrapAt (uint col);
-    uint wordWrapAt () { return myWordWrapAt; };
+    uint wordWrapAt ();
 
   signals:
     void modStateChanged (Kate::Document *doc);
@@ -707,9 +707,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool newDoc;          // True if the file is a new document (used to determine whether
                           // to check for overwriting files on save)
     bool modified;
-
-    static bool myWordWrap;
-    static uint myWordWrapAt;
 
     static int m_autoCenterLines;
 

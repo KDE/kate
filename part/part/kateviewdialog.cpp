@@ -317,11 +317,11 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
   opt[0] = new QCheckBox(i18n("Enable &word wrap"), gbWordWrap);
-  opt[0]->setChecked(view->wordWrap());
+  opt[0]->setChecked(KateDocumentConfig::global()->wordWrap());
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(wordWrapToggled()));
 
-  e1 = new KIntNumInput(view->wordWrapAt(), gbWordWrap);
+  e1 = new KIntNumInput(KateDocumentConfig::global()->wordWrapAt(), gbWordWrap);
   e1->setRange(20, 200, 1, false);
   e1->setLabel(i18n("Wrap words at:"), AlignVCenter);
   connect(e1, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -421,8 +421,8 @@ void EditConfigTab::getData(KateDocument *view)
   }
   view->setConfigFlags(configFlags);
 
-  view->setWordWrapAt(e1->value());
-  view->setWordWrap (opt[0]->isChecked());
+  KateDocumentConfig::global()->setWordWrapAt(e1->value());
+  KateDocumentConfig::global()->setWordWrap (opt[0]->isChecked());
   KateDocumentConfig::global()->setTabWidth(e2->value());
 
   if (e3->value() <= 0)

@@ -106,9 +106,6 @@ uint KateDocument::myUndoSteps = 0;
 uint KateDocument::myBackupConfig = 1;
 QString KateDocument::myBackupSuffix ("~");
 
-bool KateDocument::myWordWrap = false;
-uint KateDocument::myWordWrapAt = 80;
-
 bool KateDocument::m_dynWordWrap = true;
 int KateDocument::m_dynWrapIndicators = 1;  // follow line numbers
 bool KateDocument::m_lineNumbers = false;
@@ -963,8 +960,8 @@ void KateDocument::editEnd ()
 
   // wrap the new/changed text
   if (editSessionNumber == 1)
-    if (myWordWrap)
-      wrapText (editTagLineStart, editTagLineEnd, myWordWrapAt);
+    if (config()->wordWrap())
+      wrapText (editTagLineStart, editTagLineEnd, config()->wordWrapAt());
 
   editSessionNumber--;
 
@@ -1862,10 +1859,6 @@ void KateDocument::readConfig(KConfig *config)
   _configFlags = config->readNumEntry("Basic Config Flags", _configFlags);
   KateSearch::s_options = config->readNumEntry("Search Config Flags", KateSearch::s_options);
 
-  // does we use static word wrap and on which column
-  myWordWrap = config->readBoolEntry("Word Wrap", myWordWrap);
-  myWordWrapAt = config->readNumEntry("Word Wrap Column", myWordWrapAt);
-
   // tabs & indentations
   setIndentationWidth(config->readNumEntry("Indentation Width", indentationChars));
 
@@ -1938,8 +1931,6 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Basic Config Flags",_configFlags);
   config->writeEntry("Search Config Flags",KateSearch::s_options);
 
-  config->writeEntry("Word Wrap", myWordWrap);
-  config->writeEntry("Word Wrap Column", myWordWrapAt);
   config->writeEntry("Undo Steps", myUndoSteps);
   config->writeEntry("Indentation Width", indentationChars);
   config->writeEntry("Color Background", colors[0]);
@@ -3277,7 +3268,7 @@ void KateDocument::backspace( const KateTextCursor& c )
     if (line >= 1)
     {
       TextLine::Ptr textLine = buffer->plainLine(line-1);
-      if (myWordWrap && textLine->endingWith(QString::fromLatin1(" ")))
+      if (config()->wordWrap() && textLine->endingWith(QString::fromLatin1(" ")))
       {
         // gg: in hard wordwrap mode, backspace must also eat the trailing space
         removeText (line-1, textLine->length()-1, line, 0);
@@ -4272,20 +4263,30 @@ void KateDocument::wrapText (uint col)
 
 void KateDocument::setWordWrap (bool on)
 {
-  myWordWrap = on;
+  config()->setWordWrap (on);
+}
+
+bool KateDocument::wordWrap ()
+{
+  return config()->wordWrap ();
 }
 
 void KateDocument::setWordWrapAt (uint col)
 {
-  myWordWrapAt = col;
+  config()->setWordWrapAt (col);
+}
+
+unsigned int KateDocument::wordWrapAt ()
+{
+  return config()->wordWrapAt ();
 }
 
 void KateDocument::applyWordWrap ()
 {
   if (hasSelection())
-    wrapText (selectStart.line(), selectEnd.line(), myWordWrapAt);
+    wrapText (selectStart.line(), selectEnd.line(), config()->wordWrapAt());
   else
-    wrapText (myWordWrapAt);
+    wrapText (config()->wordWrapAt());
 }
 
 void KateDocument::setAutoCenterLines(int viewLines)

@@ -67,6 +67,6 @@ class ClipboardInterface
 
 ClipboardInterface *clipboardInterface (class View *view);
 
-};
+}
 
 #endif

@@ -72,6 +72,6 @@ public:
 
 TextHintInterface *textHintInterface (class View *view);
 
-};
+}
 
 #endif

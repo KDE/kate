@@ -33,7 +33,7 @@ class PrivateBlockSelectionInterface
     BlockSelectionDCOPInterface *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

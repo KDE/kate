@@ -56,6 +56,6 @@ class EncodingInterface
 
 EncodingInterface *encodingInterface (class Document *doc);
 
-};
+}
 
 #endif

@@ -59,6 +59,6 @@ class PopupMenuInterface
 
 PopupMenuInterface *popupMenuInterface (class View *view);
 
-};
+}
 
 #endif

@@ -32,7 +32,7 @@ class PrivateDocumentInfoInterface
     DocumentInfoDCOPInterface *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

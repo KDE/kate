@@ -81,6 +81,6 @@ class PluginViewInterface
 
 PluginViewInterface *pluginViewInterface (Plugin *plugin);
 
-};
+}
 
 #endif

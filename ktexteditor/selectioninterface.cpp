@@ -19,7 +19,7 @@ namespace KTextEditor
 	SelectionDCOPInterface *interface;
 	};
 
-};
+}
 
 unsigned int SelectionInterface::globalSelectionInterfaceNumber = 0;
 

@@ -33,7 +33,7 @@ class PrivateUndoInterface
     UndoDCOPInterface *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

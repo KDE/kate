@@ -31,7 +31,7 @@ class PrivateMarkInterface
     ~PrivateMarkInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

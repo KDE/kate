@@ -59,6 +59,6 @@ class WordWrapInterface
                           
 WordWrapInterface *wordWrapInterface (class Document *doc);
 
-};
+}
 
 #endif

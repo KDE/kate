@@ -77,6 +77,6 @@ class CursorInterface
 
 CursorInterface *cursorInterface (class Document *doc);
 
-};
+}
 
 #endif

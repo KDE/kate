@@ -33,7 +33,7 @@ class PrivatePrintInterface
     PrintDCOPInterface *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

@@ -53,6 +53,6 @@ class DocumentInfoInterface
 };
 
 
-};
+}
 
 #endif

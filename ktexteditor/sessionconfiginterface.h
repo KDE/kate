@@ -62,6 +62,6 @@ SessionConfigInterface *sessionConfigInterface (class Document *doc);
 SessionConfigInterface *sessionConfigInterface (class View *view);
 SessionConfigInterface *sessionConfigInterface (class Plugin *plugin);
 
-};
+}
 
 #endif

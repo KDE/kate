@@ -56,6 +56,6 @@ class PrintInterface
 
 PrintInterface *printInterface (class Document *doc);
 
-};
+}
 
 #endif

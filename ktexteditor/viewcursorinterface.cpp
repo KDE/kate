@@ -33,7 +33,7 @@ class PrivateViewCursorInterface
     ViewCursorDCOPInterface *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

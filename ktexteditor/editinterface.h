@@ -130,6 +130,6 @@ class EditInterface
 
 EditInterface *editInterface (class Document *doc);
 
-};
+}
 
 #endif

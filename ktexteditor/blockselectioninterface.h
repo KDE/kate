@@ -75,6 +75,6 @@ class BlockSelectionInterface
  */
 BlockSelectionInterface *blockSelectionInterface (class Document *doc);
 
-};
+}
 
 #endif

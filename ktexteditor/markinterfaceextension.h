@@ -78,6 +78,6 @@ class MarkInterfaceExtension
 
 MarkInterfaceExtension *markInterfaceExtension (class Document *doc);
 
-};
+}
 
 #endif

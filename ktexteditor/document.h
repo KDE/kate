@@ -68,6 +68,6 @@ class Document : public KTextEditor::Editor
 
 Document *createDocument ( const char* libname, QObject *parent = 0, const char *name = 0 );
 
-};
+}
 
 #endif

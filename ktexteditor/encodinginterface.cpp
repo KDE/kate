@@ -35,7 +35,7 @@ class PrivateEncodingInterface
     EncodingDCOPInterface *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

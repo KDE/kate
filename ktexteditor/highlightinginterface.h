@@ -85,6 +85,6 @@ class HighlightingInterface
 
 HighlightingInterface *highlightingInterface (class Document *doc);
 
-};
+}
 
 #endif

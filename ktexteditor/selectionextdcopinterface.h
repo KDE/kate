@@ -16,7 +16,7 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
    
-   $Id:$
+   $Id$
 */
 
 #ifndef _SELECTION_EXT_DCOP_INTERFACE_H_
@@ -52,6 +52,6 @@ class SelectionExtDCOPInterface : virtual public DCOPObject
     SelectionInterfaceExt *m_parent;
 };
 
-};  // namespace KTextEditor
+}  // namespace KTextEditor
 
 #endif // _SELECTION_EXT_DCOP_INTERFACE_H_

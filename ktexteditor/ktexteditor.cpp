@@ -98,7 +98,7 @@ namespace KTextEditor
     {
     }
   };
-};
+}
 
 unsigned int Document::globalDocumentNumber = 0;
 unsigned int View::globalViewNumber = 0;

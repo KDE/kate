@@ -188,6 +188,6 @@ class CodeCompletionInterface
 
 CodeCompletionInterface *codeCompletionInterface (class View *view);
 
-};
+}
 
 #endif

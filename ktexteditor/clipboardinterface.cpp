@@ -19,7 +19,7 @@ namespace KTextEditor
 	ClipboardDCOPInterface *interface;
 	};
 
-};
+}
 
 unsigned int ClipboardInterface::globalClipboardInterfaceNumber = 0;
 

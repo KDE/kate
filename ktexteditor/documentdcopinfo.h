@@ -41,7 +41,7 @@ namespace KTextEditor
 	private:
 		DocumentInfoInterface *m_parent;
 	};
-};
+}
 #endif
 
 

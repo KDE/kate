@@ -93,6 +93,6 @@ class View;
 SelectionInterface *selectionInterface (Document *doc);
 SelectionInterface *selectionInterface (View *view);
 
-};
+}
 
 #endif

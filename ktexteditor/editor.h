@@ -59,6 +59,6 @@ class Editor : public KParts::ReadWritePart
 
 Editor *createEditor ( const char* libname, QWidget *parentWidget = 0, const char *widgetName = 0, QObject *parent = 0, const char *name = 0 );
 
-};
+}
 
 #endif

@@ -18,7 +18,7 @@ namespace KTextEditor
   EditDCOPInterface *interface;
   };
 
-};
+}
 
 uint EditInterface::globalEditInterfaceNumber = 0;
 

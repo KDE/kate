@@ -63,6 +63,6 @@ class View : public QWidget, public KXMLGUIClient
     unsigned int myViewNumber;
 };
 
-};
+}
 
 #endif

@@ -18,7 +18,7 @@ namespace KTextEditor
 	SearchDCOPInterface *interface;
 	};
 
-};
+}
 
 unsigned int SearchInterface::globalSearchInterfaceNumber = 0;
 

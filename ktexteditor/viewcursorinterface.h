@@ -88,6 +88,6 @@ class ViewCursorInterface
 
 ViewCursorInterface *viewCursorInterface (class View *view);
 
-};
+}
 
 #endif

@@ -84,7 +84,7 @@ namespace KTextEditor
   private:
     EditInterface *m_parent;
   };
-};
+}
 #endif
 
 

@@ -68,5 +68,5 @@ class View;
 SelectionInterfaceExt *selectionInterfaceExt (Document *doc);
 SelectionInterfaceExt *selectionInterfaceExt (View *view);
 
-};  // namespace KTextEditor
+}  // namespace KTextEditor
 #endif

@@ -35,7 +35,7 @@ class PrivateViewStatusMsgInterface
     ViewStatusMsgDCOPInterface  *interface;
 };
 
-};
+}
 
 using namespace KTextEditor;
 

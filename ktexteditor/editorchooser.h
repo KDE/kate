@@ -54,5 +54,5 @@ public slots:
 };
 */
 
-};
+}
 #endif

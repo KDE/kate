@@ -31,7 +31,7 @@ class PrivateDynWordWrapInterface
     ~PrivateDynWordWrapInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

@@ -62,5 +62,5 @@ TextHintInterface *textHintInterface (View *view)
 }
 
 
-};
+}
 

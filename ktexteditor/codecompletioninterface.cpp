@@ -13,7 +13,7 @@ namespace KTextEditor
       ~PrivateCodeCompletionInterface(){}
 
   };
-};
+}
 
 unsigned int CodeCompletionInterface::globalCodeCompletionInterfaceNumber = 0;
 

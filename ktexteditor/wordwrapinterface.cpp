@@ -32,7 +32,7 @@ class PrivateWordWrapInterface
     ~PrivateWordWrapInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

@@ -66,7 +66,7 @@ namespace KTextEditor
 	private:
 		SelectionInterface *m_parent;
 	};
-};
+}
 #endif
 
 

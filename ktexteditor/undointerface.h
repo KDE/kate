@@ -77,6 +77,6 @@ class UndoInterface
 
 UndoInterface *undoInterface (class Document *doc);
 
-};
+}
 
 #endif

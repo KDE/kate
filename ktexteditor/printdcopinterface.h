@@ -40,7 +40,7 @@ namespace KTextEditor
 	private:
 		PrintInterface *m_parent;
 	};
-};
+}
 #endif
 
 

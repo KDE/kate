@@ -68,7 +68,7 @@ namespace KTextEditor
 	private:
 		ViewCursorInterface *m_parent;
 	};
-};
+}
 #endif
 
 

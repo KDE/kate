@@ -33,7 +33,7 @@ class PrivateConfigInterface
     ~PrivateConfigInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

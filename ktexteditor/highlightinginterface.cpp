@@ -31,7 +31,7 @@ class PrivateHighlightingInterface
     ~PrivateHighlightingInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

@@ -30,7 +30,7 @@ namespace KTextEditor
   QStringList elements;
   };
 
-};
+}
 
 EditorChooser::EditorChooser(QWidget *parent,const char *name) :
 	QWidget (parent,name)

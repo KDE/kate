@@ -34,13 +34,13 @@ class PrivateConfigInterfaceExtension
      ~PrivateConfigInterfaceExtension() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 
-ConfigPage::ConfigPage ( QWidget *parent, const char *name ) : QWidget (parent, name) { ; };
+ConfigPage::ConfigPage ( QWidget *parent, const char *name ) : QWidget (parent, name) { ; }
  
-ConfigPage::~ConfigPage () { ; };
+ConfigPage::~ConfigPage () { ; }
 
 unsigned int ConfigInterfaceExtension::globalConfigInterfaceExtensionNumber = 0;
 

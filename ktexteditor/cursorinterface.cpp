@@ -31,7 +31,7 @@ class PrivateCursorInterface
     ~PrivateCursorInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

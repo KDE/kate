@@ -58,6 +58,6 @@ class SearchInterface
 
 SearchInterface *searchInterface (class Document *doc);
 
-};
+}
 
 #endif

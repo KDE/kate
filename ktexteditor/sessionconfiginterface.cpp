@@ -34,7 +34,7 @@ class PrivateSessionConfigInterface
     ~PrivateSessionConfigInterface() {}
 };
 
-};
+}
 
 using namespace KTextEditor;
 

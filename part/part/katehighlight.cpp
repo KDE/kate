@@ -96,7 +96,7 @@ class KateHlItem
 
     static void dynamicSubstitute(QString& str, const QStringList *args);
 
-    QPtrList<KateHlItem> *subItems;
+    QMemArray<KateHlItem*> subItems;
     int attr;
     int ctx;
     signed char region;
@@ -368,8 +368,7 @@ static KateHlItemData::ItemStyles getDefStyleNum(QString name)
 
 //BEGIN KateHlItem
 KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed char regionId2)
-  : subItems(0),
-    attr(attribute),
+  : attr(attribute),
     ctx(context),
     region(regionId),
     region2(regionId2),
@@ -382,12 +381,8 @@ KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed ch
 KateHlItem::~KateHlItem()
 {
   //kdDebug(13010)<<"In hlItem::~KateHlItem()"<<endl;
-  if (subItems!=0)
-  {
-    subItems->setAutoDelete(true);
-    subItems->clear();
-    delete subItems;
-  }
+  for (uint i=0; i < subItems.size(); i++)
+    delete subItems[i];
 }
 
 bool KateHlItem::startEnable(const QChar& c)
@@ -628,13 +623,10 @@ int KateHlInt::checkHgl(const QString& text, int offset, int len)
 
   if (offset2 > offset)
   {
-    if (subItems)
+    for (uint i=0; i < subItems.size(); i++)
     {
-      for (KateHlItem *it = subItems->first(); it; it = subItems->next())
-      {
-        if ( (offset = it->checkHgl(text, offset2, len)) )
-          return offset;
-      }
+      if ( (offset = subItems[i]->checkHgl(text, offset2, len)) )
+        return offset;
     }
 
     return offset2;
@@ -694,15 +686,12 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
       return 0;
     else
     {
-      if (subItems)
+      for (uint i=0; i < subItems.size(); i++)
       {
-        for (KateHlItem *it = subItems->first(); it; it = subItems->next())
-        {
-          int offset2 = it->checkHgl(text, offset, len);
+        int offset2 = subItems[i]->checkHgl(text, offset, len);
 
-          if (offset2)
-            return offset2;
-        }
+        if (offset2)
+          return offset2;
       }
 
       return offset;
@@ -726,15 +715,12 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
 
   if (b)
   {
-    if (subItems)
+    for (uint i=0; i < subItems.size(); i++)
     {
-      for (KateHlItem *it = subItems->first(); it; it = subItems->next())
-      {
-        int offset2 = it->checkHgl(text, offset, len);
+      int offset2 = subItems[i]->checkHgl(text, offset, len);
 
-        if (offset2)
-          return offset2;
-      }
+      if (offset2)
+        return offset2;
     }
 
     return offset;
@@ -2646,10 +2632,10 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         bool tmpbool;
         if (tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
         {
-          c->subItems=new QPtrList<KateHlItem>;
           for (;tmpbool;tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
           {
-            c->subItems->append(createKateHlItem(datasub,iDl,&RegionList,&ContextNameList));
+            c->subItems.resize (c->subItems.size()+1);
+            c->subItems[c->subItems.size()-1] = createKateHlItem(datasub,iDl,&RegionList,&ContextNameList);
           }                             }
           KateHlManager::self()->syntax->freeGroupInfo(datasub);
                               // end of sublevel

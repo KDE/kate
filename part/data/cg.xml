@@ -25,6 +25,8 @@
 			<item>COLOR</item>
 			<item>COLOR0</item>
 			<item>COLOR1</item>
+			<item>COLOR2</item>
+			<item>COLOR3</item>
 			<item>TEXCOORD0</item>
 			<item>TEXCOORD1</item>
 			<item>TEXCOORD2</item>
@@ -70,6 +72,7 @@
 			<item>FOG</item>
 			<item>BCOL0</item>
 			<item>BCOL1</item>
+			<item>FACE</item>
 		</list>
 		<list name="keywords">
 			<item>do</item>

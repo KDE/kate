@@ -1010,17 +1010,20 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
         {
           textLine->setAttribs(item->attr,s1 - str,s2 - str);
           //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
-		if (item->region)
+		
+    if (item->region)
 		{
-//			kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
-      foldingList->resize (foldingList->size()+1);
-
-      for (uint z4=foldingList->size()-1; z4 >= 1; z4--)
+      //  kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+      
+      if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
       {
-        (*foldingList)[z4] = (*foldingList)[z4-1];
+        foldingList->resize (foldingList->size()-1);
       }
-
-			(*foldingList)[0] = item->region;
+      else
+      {
+        foldingList->resize (foldingList->size()+1);
+			  (*foldingList)[foldingList->size()-1] = item->region;
+      }
 
 		}
 

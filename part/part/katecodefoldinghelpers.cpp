@@ -208,22 +208,6 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 	
 	something_changed = false;
 
-	// Remove all regions which are opened and closed on the same line something like "{{}{}{}}" will become ""
-	for (int i=regionChanges->size()-1;i>0;i--)
-	{
-		// if item i is an opening element and i-1 is the corresponding closing element, remove it
-		if ((((*regionChanges)[i])>0) && (((*regionChanges)[i])==-((*regionChanges)[i-1])))
-		{
-			for (uint z4=i-1; (z4+2) < regionChanges->size(); z4++)
-				(*regionChanges)[z4] = (*regionChanges)[z4+2];
-
-			if (i == (int)regionChanges->size()-1)
-				i--;
-
-			regionChanges->resize (regionChanges->size()-2);
-		}
-	}
-
 	findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
 
 	if (regionChanges->isEmpty())

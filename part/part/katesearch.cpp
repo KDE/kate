@@ -505,7 +505,7 @@ bool KateSearch::doSearch( const QString& text )
 
   //result = true;
 
-  if ((oldLine == foundLine) && (oldCol == foundCol))
+  if ((oldLine == int(foundLine)) && (oldCol == int(foundCol)))
     return false;
 
 

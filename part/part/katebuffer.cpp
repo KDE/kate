@@ -367,7 +367,7 @@ KateBufBlock *KateBuffer::findBlock(uint i)
 
   KateBufBlock *buf = 0;
 
-  if (m_blocks.current() && (m_lastInSyncBlock >= m_blocks.at()))
+  if (m_blocks.current() && (int(m_lastInSyncBlock) >= m_blocks.at()))
   {
     buf = m_blocks.current();
   }
@@ -397,7 +397,7 @@ KateBufBlock *KateBuffer::findBlock(uint i)
       return buf;
     }
 
-    if (buf && (m_blocks.at () > m_lastInSyncBlock) && (buf->startLine() != lastLine))
+    if (buf && (m_blocks.at () > int(m_lastInSyncBlock)) && (int(buf->startLine()) != lastLine))
     {
       buf->setStartLine (lastLine);
       m_lastInSyncBlock = m_blocks.at ();
@@ -940,7 +940,7 @@ void KateBuffer::insertLine(uint i, TextLine::Ptr line)
       m_highlightedTo++;
    m_lines++;
 
-   if (m_lastInSyncBlock > m_blocks.findRef (buf))
+   if (int(m_lastInSyncBlock) > m_blocks.findRef (buf))
      m_lastInSyncBlock = m_blocks.findRef (buf);
 
    m_regionTree->lineHasBeenInserted (i);
@@ -972,7 +972,7 @@ KateBuffer::removeLine(uint i)
   // trash away a empty block
   if (buf->lines() == 0)
   {
-    if ((m_lastInSyncBlock > 0) && (m_lastInSyncBlock >= m_blocks.findRef (buf)))
+    if ((m_lastInSyncBlock > 0) && (int(m_lastInSyncBlock) >= m_blocks.findRef (buf)))
       m_lastInSyncBlock = m_blocks.findRef (buf) -1;
 
     m_cleanBlocks.removeRef(buf);
@@ -982,7 +982,7 @@ KateBuffer::removeLine(uint i)
   }
   else
   {
-    if (m_lastInSyncBlock > m_blocks.findRef (buf))
+    if (int(m_lastInSyncBlock) > m_blocks.findRef (buf))
       m_lastInSyncBlock = m_blocks.findRef (buf);
   }
 

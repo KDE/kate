@@ -21,7 +21,6 @@
 #define __KATE_SYNTAXDOCUMENT_H__
 
 #include <qdom.h>
-#include <qptrlist.h>
 #include <qstringlist.h>
 
 /**
@@ -46,7 +45,7 @@ class KateSyntaxModeListItem
 /**
  * List of the KateSyntaxModeListItems holding all the syntax mode list items
  */
-typedef QPtrList<KateSyntaxModeListItem> KateSyntaxModeList;
+typedef QValueList<KateSyntaxModeListItem*> KateSyntaxModeList;
 
 /**
  * Class holding the data around the current QDomElement
@@ -89,7 +88,7 @@ class KateSyntaxDocument : public QDomDocument
      * Get the mode list
      * @return mode list
      */
-    KateSyntaxModeList modeList() { return myModeList; }
+    const KateSyntaxModeList &modeList() { return myModeList; }
 
     /**
      * Jump to the next group, KateSyntaxContextData::currentGroup will point to the next group

@@ -2754,7 +2754,7 @@ KateHlManager::KateHlManager()
   KateSyntaxModeList modeList = syntax->modeList();
   for (uint i=0; i < modeList.count(); i++)
   {
-    KateHighlighting *hl = new KateHighlighting(modeList.at(i));
+    KateHighlighting *hl = new KateHighlighting(modeList[i]);
 
     uint insert = 0;
     for (; insert <= hlList.count(); insert++)

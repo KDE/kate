@@ -36,11 +36,12 @@ KateSyntaxDocument::KateSyntaxDocument(bool force)
 {
   // Let's build the Mode List (katesyntaxhighlightingrc)
   setupModeList(force);
-  myModeList.setAutoDelete( true );
 }
 
 KateSyntaxDocument::~KateSyntaxDocument()
 {
+  for (uint i=0; i < myModeList.size(); i++)
+    delete myModeList[i];
 }
 
 /** If the open hl file is different from the one needed, it opens

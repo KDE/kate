@@ -24,7 +24,7 @@
  Boston, MA  02111-1307, USA.
 
  -->
-<language name="ANSI C89" version="1.01" kateversion="2.3" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="ANSI C89" version="1.02" kateversion="2.3" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="2" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -102,7 +102,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="comment">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
-        <IncludeRules context="##Alerts" />
+<!--        <IncludeRules context="##Alerts" />-->
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
@@ -117,7 +117,7 @@
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped" >
         <Detect2Chars attribute="Comment" context="comment" char="/" char1="*" beginRegion="blockcomment"/>
-        <IncludeRules context="##Alerts" />
+<!--        <IncludeRules context="##Alerts" />-->
         <StringDetect attribute="Comment" context="Outscoped intern" String="#if" />
         <StringDetect attribute="Preprocessor" context="#pop" String="#endif" />
         <StringDetect attribute="Preprocessor" context="#pop" String="#else" />

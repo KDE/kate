@@ -137,6 +137,7 @@ void KateFileTypeManager::save (QPtrList<KateFileType> *v)
 
 int KateFileTypeManager::fileType (KateDocument *doc)
 {
+  kdDebug(13020)<<k_funcinfo<<endl;
   if (!doc)
     return -1;
 
@@ -146,28 +147,31 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   QString fileName = doc->url().prettyURL();
   int length = doc->url().prettyURL().length();
 
-  //
-  // first use the wildcards
-  //
-  static QStringList commonSuffixes = QStringList::split (";", ".orig;.new;~;.bak;.BAK");
-
   int result;
-  if ((result = wildcardsFind(fileName)) != -1)
-    return result;
 
-  QString backupSuffix = KateDocumentConfig::global()->backupSuffix();
-  if (fileName.endsWith(backupSuffix)) {
-    if ((result = wildcardsFind(fileName.left(length - backupSuffix.length()))) != -1)
+  // Try wildcards
+  if ( ! fileName.isEmpty() )
+  {
+    static QStringList commonSuffixes = QStringList::split (";", ".orig;.new;~;.bak;.BAK");
+
+    if ((result = wildcardsFind(fileName)) != -1)
       return result;
-  }
 
-  for (QStringList::Iterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
-    if (*it != backupSuffix && fileName.endsWith(*it)) {
-      if ((result = wildcardsFind(fileName.left(length - (*it).length()))) != -1)
+    QString backupSuffix = KateDocumentConfig::global()->backupSuffix();
+    if (fileName.endsWith(backupSuffix)) {
+      if ((result = wildcardsFind(fileName.left(length - backupSuffix.length()))) != -1)
         return result;
+    }
+
+    for (QStringList::Iterator it = commonSuffixes.begin(); it != commonSuffixes.end(); ++it) {
+      if (*it != backupSuffix && fileName.endsWith(*it)) {
+        if ((result = wildcardsFind(fileName.left(length - (*it).length()))) != -1)
+          return result;
+      }
     }
   }
 
+  // Try content-based mimetype
   KMimeType::Ptr mt = doc->mimeTypeForContent();
 
   QPtrList<KateFileType> types;
@@ -192,7 +196,17 @@ int KateFileTypeManager::fileType (KateDocument *doc)
       }
     }
 
-    return hl;
+    if ( hl > -1 )
+      return hl;
+  }
+
+  // Even try the document name
+  // This is usefull if the document name is set for example by a plugin which
+  // created the document
+  if ( fileName.isEmpty() && (result = wildcardsFind(doc->docName())) != -1)
+  {
+    kdDebug(13020)<<"KateFiletype::filetype(): got type "<<result<<" using docName '"<<doc->docName()<<"'"<<endl;
+    return result;
   }
 
   return -1;

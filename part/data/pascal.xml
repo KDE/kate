@@ -116,8 +116,8 @@
                 </list>
                 <contexts>
                         <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-                                <StringDetect attribute="Keyword" context="#stay" String="begin" insensitive="TRUE" beginRegion="Region1"/>
-                                <StringDetect attribute="Keyword" context="#stay" String="end" insensitive="TRUE" endRegion="Region1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bbegin([\s]|$)" beginRegion="Region1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bend([.;\s]|$)" endRegion="Region1"/>
                                 <keyword attribute="Keyword" context="#stay" String="keywords"/>
                                 <keyword attribute="Type" context="#stay" String="types"/>
                                 <Float attribute="Number" context="#stay"/>

@@ -1746,7 +1746,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
   LineRange thisRange = yToLineRange(p.y()); 
   
   if (thisRange.line == -1) {
-    for (int i = (p.y() / m_doc->viewFont.fontHeight); i > 0; i--) {
+    for (int i = (p.y() / m_doc->viewFont.fontHeight); i >= 0; i--) {
       thisRange = lineRanges[i];
       if (thisRange.line != -1)
         break;

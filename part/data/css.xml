@@ -582,7 +582,7 @@
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="1" weakDeliminator="-%"/>
+    <keywords casesensitive="0" weakDeliminator="-%"/>
     <comments>
       <comment name="multiLine" start="/*" end="*/" />
     </comments>

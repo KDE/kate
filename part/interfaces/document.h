@@ -227,7 +227,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     };
 
   signals:
-    void modifiedOnDisc (Document *doc, bool isModified);
+    void modifiedOnDisc (Kate::Document *doc, bool isModified);
 };
 
 Document *document (KTextEditor::Document *doc);

@@ -1260,7 +1260,7 @@ void KateHlConfigPage::showMTDlg()
 
 //BEGIN KateHlDownloadDialog
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
-  :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("&Install"))
+  :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal, true, i18n("&Install"))
 {
   QVBox* vbox = new QVBox(this);
   setMainWidget(vbox);
@@ -1272,11 +1272,14 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   list->addColumn(i18n("Latest"));
   list->addColumn(i18n("Release Date"));
   list->setSelectionMode(QListView::Multi);
+
+  new QLabel(i18n("Note: New versions are selected automatically."), vbox);
+  actionButton (User1)->setIconSet(SmallIconSet("ok"));
+
   KIO::TransferJob *getIt=KIO::get(KURL(HLDOWNLOADPATH), true, true );
   connect(getIt,SIGNAL(data(KIO::Job *, const QByteArray &)),
     this, SLOT(listDataReceived(KIO::Job *, const QByteArray &)));
 //        void data( KIO::Job *, const QByteArray &data);
-  QWhatsThis::add(list, i18n("New versions are selected automatically."));
   resize(450, 400);
 }
 

@@ -2,7 +2,7 @@
 <language name="ILERPG" version="1.01" kateversion="2.1" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
     <highlighting>
     <list name="biffs">
-	    <item> ABS </item>
+      <item> ABS </item>
             <item> ADDR </item>
             <item> CHAR </item>
             <item> DECH </item>
@@ -191,66 +191,73 @@
             <item> WRITE </item>
             <item> XFOOT </item>
             <item> XLATE </item>
-	    <item> *BLANKS </item>
+      <item> *BLANKS </item>
          </list>
 
-		<contexts>
-		      <context attribute="Normal Text" lineEndContext="#stay">
-                                <RegExpr attribute="Comment" context="2" String="[POIHFDC ]?\*"/>
-                                <RegExpr attribute="Keyword" context="1" String="[POIHFDC]"/>
-                      </context>
-                      <context attribute="Normal Text" lineEndContext="#pop">
-                                <keyword attribute="Keyword" context="#stay" String="opcodes"/>
-                                <DetectChar attribute="Biff" context="7" char="%"/>
-                                <DetectChar attribute="Constant" context="3" char="'"/>
-				<Float attribute="Float" context="#stay"/>
-				<RegExpr attribute="Hex" context="#stay" String="[Xx]'[0-9|a-f|A-f]{2,}'"/>
+    <contexts>
+    
+      <context attribute="Normal Text" lineEndContext="#stay" name="Default">
+        <RegExpr attribute="Comment" context="context2" String="[POIHFDC ]?\*"/>
+        <RegExpr attribute="Keyword" context="context1" String="[POIHFDC]"/>
+      </context>
+    
+      <context attribute="Normal Text" lineEndContext="#pop" name="context1">
+        <keyword attribute="Keyword" context="#stay" String="opcodes"/>
+        <DetectChar attribute="Biff" context="context7" char="%"/>
+        <DetectChar attribute="Constant" context="context3" char="'"/>
+        <Float attribute="Float" context="#stay"/>
+        <RegExpr attribute="Hex" context="#stay" String="[Xx]'[0-9|a-f|A-f]{2,}'"/>
 
-				<Int attribute="Decimal" context="#stay" >
-					<StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
-					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
-				</Int>
-                      </context>
-                      <context attribute="Comment" lineEndContext="#pop">
-                                <RegExpr attribute="BoldComment" context="#stay" String="\(*(FIXME|TODO)\)*" />
-                                <RegExpr attribute="BoldComment" context="#stay" String="\(*(NOTE:)\)*" />
-                                <DetectChar attribute="BoldComment" context="6" char="!"/>
-                                <RegExpr attribute="DivideComment" context="#stay" String="-|="/>
-                      </context>
-                      <context attribute="Constant" lineEndContext="4">
+        <Int attribute="Decimal" context="#stay" name="context2">
+          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
+        </Int>
+      </context>
+
+      <context attribute="Comment" lineEndContext="#pop" name="context3">
+        <RegExpr attribute="BoldComment" context="#stay" String="\(*(FIXME|TODO)\)*" />
+        <RegExpr attribute="BoldComment" context="#stay" String="\(*(NOTE:)\)*" />
+        <DetectChar attribute="BoldComment" context="context6" char="!"/>
+        <RegExpr attribute="DivideComment" context="#stay" String="-|="/>
+      </context>
+                      
+                      <context attribute="Constant" lineEndContext="#stay" name="context4">
                                 <DetectChar attribute="Constant" context="#pop" char="'"/>
                       </context>
-                      <context attribute="Constant" lineEndContext="#stay">
+                      
+                      <context attribute="Constant" lineEndContext="#stay" name="context5">
                                 <RegExpr attribute="Normal Text" context="#stay" String="[FHDICO]"/>
                                 <DetectChar attribute="Constant" context="#pop" char=" "/>
                       </context>
-                      <context attribute="Keyword" lineEndContext="#pop#pop">
+                      <context attribute="Keyword" lineEndContext="#pop#pop" name="context6">
                       </context>
-                      <context attribute="BoldComment" lineEndContext="0">
-                                <DetectChar attribute="BoldComment" context="2" char="!"/>
+                      <context attribute="BoldComment" lineEndContext="Default" name="context7">
+                                <DetectChar attribute="BoldComment" context="context2" char="!"/>
                       </context>
-                      <context attribute="Biff" lineEndContext="#pop#pop#pop">
+                      <context attribute="Biff" lineEndContext="#pop#pop#pop" name="context8">
                                 <keyword attribute="Biff" context="#pop#pop" String="biffs"/>
                                 <DetectChar attribute="Biff" context="#pop#pop" char=" "/>
                       </context>
-                </contexts>
+    </contexts>
+                
+                
                 <itemDatas>
                         <itemData name="Normal Text"       defStyleNum="dsNormal" />
                         <itemData name="Keyword"           defStyleNum="dsKeyword" />
                         <itemData name="Biff"              defStyleNum="dsKeyword" />
-			<itemData name="RegExpr"           defStyleNum="dsBaseN" />
+      <itemData name="RegExpr"           defStyleNum="dsBaseN" />
                         <itemData name="Symbol"            defStyleNum="dsNormal"/>
                         <itemData name="Decimal"           defStyleNum="dsDecVal" />
-			<itemData name="Float"  	   defStyleNum="dsFloat"/>
-			<itemData name="Octal"  	   defStyleNum="dsBaseN"/>
-			<itemData name="Hex"  		   defStyleNum="dsBaseN"/>
-			<itemData name="Float"  	   defStyleNum="dsFloat"/>
+      <itemData name="Float"       defStyleNum="dsFloat"/>
+      <itemData name="Octal"       defStyleNum="dsBaseN"/>
+      <itemData name="Hex"         defStyleNum="dsBaseN"/>
+      <itemData name="Float"       defStyleNum="dsFloat"/>
                         <itemData name="Base-N"            defStyleNum="dsBaseN" />
                         <itemData name="Float"             defStyleNum="dsFloat" />
                         <itemData name="Char"              defStyleNum="dsChar" />

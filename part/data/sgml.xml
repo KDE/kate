@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SGML" version="1.01" kateversion="2.1" section="Markup" extensions="*.sgml" mimetype="text/sgml">
+<language name="SGML" version="1.02" kateversion="2.1" section="Markup" extensions="*.sgml" mimetype="text/sgml">
   <highlighting>
     <contexts>
-       <context attribute="0" lineEndContext="#stay">
-         <StringDetect attribute="Comment" context="4" String="&lt;!--"/>
-         <RegExpr attribute="1" context="1" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
+         <StringDetect attribute="Comment" context="Comment" String="&lt;!--"/>
+         <RegExpr attribute="Tag" context="Attribute" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
        </context>
 
-       <context attribute="2" lineEndContext="#stay">
-          <Detect2Chars attribute="1" context="#pop" char="/" char1="&gt;" />
-          <DetectChar attribute="1" context="#pop" char="&gt;" />
-          <RegExpr attribute="0" context="2" String="\s*=\s*" />
+       <context attribute="Attribute Name" lineEndContext="#stay" name="Attribute" >
+          <Detect2Chars attribute="Tag" context="#pop" char="/" char1="&gt;" />
+          <DetectChar attribute="Tag" context="#pop" char="&gt;" />
+          <RegExpr attribute="Normal Text" context="Value" String="\s*=\s*" />
        </context>
 
-       <context attribute="3" lineEndContext="#stay">
-         <Detect2Chars attribute="1" context="#pop#pop" char="/" char1="&gt;" />
-          <DetectChar attribute="1" context="#pop#pop" char="&gt;" />
-         <DetectChar attribute="3" context="3" char="&quot;" />
+       <context attribute="Attribute Value" lineEndContext="#stay" name="Value" >
+         <Detect2Chars attribute="Tag" context="#pop#pop" char="/" char1="&gt;" />
+          <DetectChar attribute="Tag" context="#pop#pop" char="&gt;" />
+         <DetectChar attribute="Attribute Value" context="Value 2" char="&quot;" />
        </context>
 
-       <context attribute="3" lineEndContext="#stay">
-         <DetectChar attribute="3" context="#pop#pop" char="&quot;" />
+       <context attribute="Attribute Value" lineEndContext="#stay" name="Value 2" >
+         <DetectChar attribute="Attribute Value" context="#pop#pop" char="&quot;" />
        </context>
 
-       <context attribute="Comment" lineEndContext="#stay">
+       <context attribute="Comment" lineEndContext="#stay" name="Comment" >
          <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
        </context>
 
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword" defStyleNum="dsKeyword"/>
-      <itemData name="Identifier" defStyleNum="dsOthers"/>
-      <itemData name="Types" defStyleNum="dsDataType"/>
-      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Tag" defStyleNum="dsKeyword"/>
+      <itemData name="Attribute Name" defStyleNum="dsOthers"/>
+      <itemData name="Attribute Value" defStyleNum="dsDataType"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
     </itemDatas>
   </highlighting>

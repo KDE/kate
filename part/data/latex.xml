@@ -328,7 +328,7 @@
     <StringDetect String="\author{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
     <StringDetect String="\usepackage{" attribute="Begin End" context="Paren" insensitive="FALSE"/>
     <StringDetect String="\usepackage[" attribute="Begin End" context="Paren" insensitive="FALSE"/>
-    <StringDetect String="\(" attribute="Formula" context="Keyword 2"/>
+    <StringDetect String="\(" attribute="Math" context="Keyword 2"/>
     <DetectChar char="\" attribute="Keyword" context="Keyword 1" />
     <RegExpr String="%.*$" attribute="Comment" context="Normal"/>
   </context>
@@ -339,9 +339,9 @@
   <context attribute="Normal Text" lineEndContext="Normal" name="Keyword 1">
     <keyword String="keywords" attribute="Keyword" context="Normal" />
   </context>
-  <context attribute="Formula" lineEndContext="Formula" name="Keyword 2">
+  <context attribute="Math" lineEndContext="Keyword 2" name="Keyword 2">
     <keyword String="keywords" attribute="Keyword" context="Keyword 2"/>
-    <StringDetect String="\)" attribute="Formula" context="Normal"/>
+    <StringDetect String="\)" attribute="Math" context="Normal"/>
   </context>
     </contexts>
     <itemDatas>
@@ -349,7 +349,7 @@
       <itemData name="Keyword" defStyleNum="dsNormal" color="#0000A0" selColor="#ff0000"/>
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Begin End" defStyleNum="dsNormal" color="#000000" selColor="#ffffff" bold="1" italic="1"/>
-      <itemData name="Formula" defStyleNum="dsNormal" color="#FF8080" solColor="#008080" bold="0" italic="0"/>
+      <itemData name="Math" defStyleNum="dsNormal" color="#FF8080" solColor="#008080" bold="0" italic="0"/>
       <itemData name="Environment" defStyleNum="dsNormal" color="#900000" selColor="#000080" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>

@@ -486,7 +486,7 @@ bool KateBuffer::openFile (const QString &m_file)
         
     m_lines = block->endLine ();
     
-    if (block->lines() == 0)
+    if (m_cacheWriteError || (block->lines() == 0))
     {
       delete block;
       break;
@@ -1352,7 +1352,7 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
     TextLine::Ptr textLine = new TextLine ();
     m_stringList.push_back (textLine);
     m_lines++;
-    
+   
     // is allready too much stuff around in mem ?
     bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
   
@@ -1474,13 +1474,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
     m_state = KateBufBlock::stateSwapped;
   }
   else
-  {
-    if (m_lines > 0)
-      m_lastLine = m_stringList[m_lines - 1];
-  
-    m_firstLineIndentation = 0;
-    m_firstLineOnlySpaces = true;
-  
+  {    
     // we are a new dirty block without any swap data
     m_state = KateBufBlock::stateDirty;
     m_parent->m_dirtyBlocks.append (this);
@@ -1561,19 +1555,10 @@ void KateBufBlock::swapIn ()
     m_stringList.push_back (textLine);
   }
 
-  //kdDebug(13020)<<"stringList.count = "<< m_stringList.size()<<" should be "<< (m_endState.lineNr - m_beginState.lineNr) <<endl;
-
-  if (m_lines > 0)
-  {
-    m_lastLine = m_stringList[m_lines - 1];
-  }
-  else
-  {
-    m_lastLine = 0;
-  }
-  
+  // clear this stuff, only usefull for swapped state
   m_firstLineIndentation = 0;
   m_firstLineOnlySpaces = true;
+  m_lastLine = 0;
   
   // is allready too much stuff around in mem ?
   bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
@@ -1628,6 +1613,7 @@ void KateBufBlock::swapOut ()
       }
     }
     
+    // important infos for hl, let us access them
     if (m_lines > 0)
     {
       m_firstLineIndentation = m_stringList[0]->indentDepth (m_parent->tabWidth());

@@ -2840,16 +2840,25 @@ void KateDocument::killLine(VConfig &c)
 void KateDocument::transpose(uint line, uint col)
 {
   TextLine::Ptr textLine = buffer->line(line);
-  QChar c1[2];
+  
+  if (!textLine)
+    return;
+
+  QString s;
   if (col != 0)  //there is a special case for this one
     --col;
 
   //clever swap code if first character on the line swap right&left
   //otherwise left & right
-  c1[0] = textLine->getChar(col+1);
-  c1[1] = textLine->getChar(col);  
+  s.append (textLine->getChar(col+1));
+  s.append (textLine->getChar(col));
   //do the swap
-  textLine->replace(col, 2, c1, 2, NULL);
+  
+  // do it right, never ever manipulate a textline
+  editStart ();
+  editRemoveText (line, col, 2);
+  editInsertText (line, col, s);
+  editEnd ();
 }
 
 void KateDocument::backspace(uint line, uint col)

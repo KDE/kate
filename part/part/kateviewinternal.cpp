@@ -313,7 +313,7 @@ KateLineRange KateViewInternal::yToKateLineRange(uint y) const
 
   // lineRanges is always bigger than 0, after the initial updateView call
   if (range >= lineRanges.size())
-    lineRanges[lineRanges.size()-1];
+    return lineRanges[lineRanges.size()-1];
 
   return lineRanges[range];
 }

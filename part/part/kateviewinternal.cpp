@@ -61,6 +61,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_doc (doc)
   , m_scrollTranslateHack(0)
   , cursor (doc, true, 0, 0, this)
+  , possibleTripleClick (false)
+  , m_dummy (0)
   , m_startPos(0,0)
   , m_oldStartPos(0,0)
   , m_madeVisible(false)
@@ -104,9 +106,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_colLayout->addWidget(m_lineScroll);
   m_lineLayout->addLayout(m_colLayout);
 
-  if (m_view->dynWordWrap()) {
-    m_dummy = 0L;
-  } else {
+  if (!m_view->dynWordWrap())
+  {
     // bottom corner box
     m_dummy = new QWidget(m_view);
     m_dummy->setFixedHeight(style().scrollBarExtent().width());
@@ -156,8 +157,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   displayCursor.setPos(0, 0);
   cursor.setPos(0, 0);
   cXPos = 0;
-
-  possibleTripleClick = false;
 
   setAcceptDrops( true );
   setBackgroundMode( NoBackground );
@@ -218,12 +217,16 @@ void KateViewInternal::prepareForDynWrapChange()
 
 void KateViewInternal::dynWrapChanged()
 {
-  if (m_view->dynWordWrap()) {
+  if (m_view->dynWordWrap())
+  {
     delete m_dummy;
+    m_dummy = 0;
     m_columnScroll->hide();
     m_columnScrollDisplayed = false;
 
-  } else {
+  }
+  else
+  {
     // bottom corner box
     m_dummy = new QWidget(m_view);
     m_dummy->setFixedSize( style().scrollBarExtent().width(),

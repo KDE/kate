@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Oracle9i SQL and PL/SQL syntax - ANSI SQL superset -->
-<language name="SQL" version="1.09" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
+<!-- Oracle10g SQL and PL/SQL syntax - ANSI SQL92 superset -->
+<language name="SQL" version="1.10" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -117,7 +117,6 @@
       <item> DATABASE </item>
       <item> DATAFILE </item>
       <item> DATAFILES </item>
-      <item> DAY </item>
       <item> DBA </item>
       <item> DDL </item>
       <item> DEALLOCATE </item>
@@ -138,6 +137,7 @@
       <item> DISABLE </item>
       <item> DISASSOCIATE </item>
       <item> DISCONNECT </item>
+      <item> DISKGROUP </item>
       <item> DISMOUNT </item>
       <item> DISTINCT </item>
       <item> DISTRIBUTED </item>
@@ -146,6 +146,7 @@
       <item> DYNAMIC </item>
       <item> EACH </item>
       <item> ELSE </item>
+      <item> EMPTY </item>
       <item> ENABLE </item>
       <item> END </item>
       <item> ENFORCE </item>
@@ -176,6 +177,7 @@
       <item> FILTER </item>
       <item> FIRST_ROWS </item>
       <item> FLAGGER </item>
+      <item> FLASHBACK </item>
       <item> FLUSH </item>
       <item> FOLLOWING </item>
       <item> FOR </item>
@@ -230,7 +232,6 @@
       <item> INSTEAD </item>
       <item> INTERMEDIATE </item>
       <item> INTERSECT </item>
-      <item> INTERVAL </item>
       <item> INTO </item>
       <item> INVALIDATE </item>
       <item> IS </item>
@@ -289,7 +290,6 @@
       <item> MODE </item>
       <item> MODIFY </item>
       <item> MONITORING </item>
-      <item> MONTH </item>
       <item> MOUNT </item>
       <item> MOVE </item>
       <item> MOVEMENT </item>
@@ -401,7 +401,9 @@
       <item> PREBUILT </item>
       <item> PRECEDING </item>
       <item> PREPARE </item>
+      <item> PRESENT </item>
       <item> PRESERVE </item>
+      <item> PREVIOUS </item>
       <item> PRIMARY </item>
       <item> PRIOR </item>
       <item> PRIVATE </item>
@@ -432,6 +434,7 @@
       <item> REFRESH </item>
       <item> RELY </item>
       <item> RENAME </item>
+      <item> REPLACE </item>
       <item> RESET </item>
       <item> RESETLOGS </item>
       <item> RESIZE </item>
@@ -466,7 +469,6 @@
       <item> SD_ALL </item>
       <item> SD_INHIBIT </item>
       <item> SD_SHOW </item>
-      <item> SECOND </item>
       <item> SEGMENT </item>
       <item> SEG_BLOCK </item>
       <item> SEG_FILE </item>
@@ -505,6 +507,7 @@
       <item> STORAGE </item>
       <item> STORE </item>
       <item> STRUCTURE </item>
+      <item> SUBMULTISET </item>
       <item> SUBPARTITION </item>
       <item> SUBPARTITIONS </item>
       <item> SUCCESSFUL </item>
@@ -581,8 +584,6 @@
       <item> WITHOUT </item>
       <item> WORK </item>
       <item> WRITE </item>
-      <item> YEAR </item>
-      <item> ZONE </item>
     </list>
     <list name="operators">
       <item> + </item>
@@ -617,15 +618,18 @@
       <item> BFILENAME </item>
       <item> BIN_TO_NUM </item>
       <item> BITAND </item>
+      <item> CARDINALITY </item>
       <item> CAST </item>
       <item> CEIL </item>
       <item> CHARTOROWID </item>
       <item> CHR </item>
       <item> COALESCE </item>
+      <item> COLLECT </item>
       <item> COMPOSE </item>
       <item> CONCAT </item>
       <item> CONVERT </item>
-      <item> CORR </item>
+      <item> CORR_K </item>
+      <item> CORR_S </item>
       <item> COS </item>
       <item> COSH </item>
       <item> COUNT </item>
@@ -634,6 +638,7 @@
       <item> CUME_DIST </item>
       <item> CURRENT_DATE </item>
       <item> CURRENT_TIMESTAMP </item>
+      <item> CV </item>
       <item> DBTIMEZONE </item>
       <item> DECODE </item>
       <item> DECOMPOSE </item>
@@ -671,11 +676,13 @@
       <item> LOWER </item>
       <item> LPAD </item>
       <item> LTRIM </item>
+      <item> MEDIAN </item>
       <item> MAKE_REF </item>
       <item> MAX </item>
       <item> MIN </item>
       <item> MOD </item>
       <item> MONTHS_BETWEEN </item>
+      <item> NANVL </item>
       <item> NCHR </item>
       <item> NEW_TIME </item>
       <item> NEXT_DAY </item>
@@ -692,15 +699,25 @@
       <item> NUMTOYMINTERVAL </item>
       <item> NVL </item>
       <item> NVL2 </item>
+      <item> ORA_HASH </item>
+      <item> ORA_ROWSCN </item>
       <item> PERCENT_RANK </item>
       <item> PERCENTILE_CONT </item>
       <item> PERCENTILE_DISC </item>
+      <item> POWERMULTISET </item>
+      <item> POWERMULTISET_BY_CARDINALITY </item>
       <item> POWER </item>
+      <item> PRESENTNNV </item>
+      <item> PRESENTV </item>
       <item> RANK </item>
       <item> RATIO_TO_REPORT </item>
       <item> RAWTOHEX </item>
       <item> REF </item>
       <item> REFTOHEX </item>
+      <item> REGEXP_INSTR </item>
+      <item> REGEXP_LIKE </item>
+      <item> REGEXP_REPLACE </item>
+      <item> REGEXP_SUBSTR </item>
       <item> REGR_SLOPE </item>
       <item> REGR_INTERCEPT </item>
       <item> REGR_COUNT </item>
@@ -710,7 +727,7 @@
       <item> REGR_SXX </item>
       <item> REGR_SYY </item>
       <item> REGR_SXY </item>
-      <item> REPLACE </item>
+      <item> REMAINDER </item>
       <item> ROUND </item>
       <item> ROW_NUMBER </item>
       <item> ROWIDTOCHAR </item>
@@ -722,6 +739,18 @@
       <item> SIN </item>
       <item> SINH </item>
       <item> SOUNDEX </item>
+      <item> STATS_BINOMIAL_TEST </item>
+      <item> STATS_CROSSTAB </item>
+      <item> STATS_F_TEST </item>
+      <item> STATS_KS_TEST </item>
+      <item> STATS_MODE </item>
+      <item> STATS_MW_TEST </item>
+      <item> STATS_ONE_WAY_ANOVA </item>
+      <item> STATS_T_TEST_ONE </item>
+      <item> STATS_T_TEST_PAIRED </item>
+      <item> STATS_T_TEST_INDEP </item>
+      <item> STATS_T_TEST_INDEPU </item>
+      <item> STATS_WSR_TEST </item>
       <item> SUBSTR </item>
       <item> SQRT </item>
       <item> STDDEV </item>
@@ -742,6 +771,8 @@
       <item> SYSTIMESTAMP </item>
       <item> TAN </item>
       <item> TANH </item>
+      <item> TO_BINARY_DOUBLE </item>
+      <item> TO_BINARY_FLOAT </item>
       <item> TO_CHAR </item>
       <item> TO_CLOB </item>
       <item> TO_DATE </item>
@@ -778,6 +809,8 @@
       <item> ANYTYPE </item>
       <item> ARRAY </item>
       <item> BFILE </item>
+      <item> BINARY_DOUBLE </item>
+      <item> BINARY_FLOAT </item>
       <item> BINARY_INTEGER </item>
       <item> BLOB </item>
       <item> BOOLEAN </item>
@@ -786,6 +819,7 @@
       <item> CHARACTER </item>
       <item> CLOB </item>
       <item> DATE </item>
+      <item> DAY </item>
       <item> DBURITYPE </item>
       <item> DEC </item>
       <item> DECIMAL </item>
@@ -795,16 +829,17 @@
       <item> HTTPURITYPE </item>
       <item> INT </item>
       <item> INTEGER </item>
+      <item> INTERVAL </item>
       <item> LOB </item>
       <item> LONG </item>
       <item> MLSLABEL </item>
+      <item> MONTH </item>
       <item> NATIONAL </item>
       <item> NCHAR </item>
       <item> NCLOB </item>
       <item> NUMBER </item>
       <item> NUMERIC </item>
       <item> NVARCHAR </item>
-      <item> NVARCHAR2 </item>
       <item> OBJECT </item>
       <item> PLS_INTEGER </item>
       <item> PRECISION </item>
@@ -812,10 +847,11 @@
       <item> RECORD </item>
       <item> REAL </item>
       <item> ROWID </item>
+      <item> SECOND </item>
       <item> SINGLE </item>
       <item> SMALLINT </item>
-      <item> TIMESTAMP </item>
       <item> TIME </item>
+      <item> TIMESTAMP </item>
       <item> URIFACTORYTYPE </item>
       <item> URITYPE </item>
       <item> UROWID </item>
@@ -824,6 +860,8 @@
       <item> VARYING </item>
       <item> VARRAY </item>
       <item> XMLTYPE </item>
+      <item> YEAR </item>
+      <item> ZONE </item>
     </list>
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
@@ -832,23 +870,23 @@
         <keyword attribute="Function" String="functions" context="#stay"/>
         <keyword attribute="Data Type" String="types" context="#stay"/>
         <RegExpr attribute="Data Type" String="%bulk_exceptions\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%bulk_rowcount\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%found\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%isopen\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%notfound\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%rowcount\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%rowtype\b" insensitive="true" context="#stay"/>
-	<RegExpr attribute="Data Type" String="%type\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%bulk_rowcount\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%found\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%isopen\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%notfound\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%rowcount\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%rowtype\b" insensitive="true" context="#stay"/>
+        <RegExpr attribute="Data Type" String="%type\b" insensitive="true" context="#stay"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
         <DetectChar attribute="String" context="String literal" char="'"/>
         <Detect2Chars attribute="Comment" context="Singleline PL/SQL-style comment" char="-" char1="-"/>
         <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*"/>
-        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="rem\b" insensitive="true" column="0"/>
+        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="^rem\b" insensitive="true" column="0"/>
         <DetectChar attribute="Identifier" context="User-defined identifier" char="&quot;"/>
         <RegExpr attribute="External Variable" context="#stay" String="(:|&amp;&amp;?)\w+"/>
-        <RegExpr attribute="Symbol" context="#stay" String="/$" column="0"/>
-        <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="@@?[^@ \t\r\n]" column="0"/>
+        <RegExpr attribute="Symbol" context="#stay" String="^/$" column="0"/>
+        <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="^@@?[^@ \t\r\n]" column="0"/>
       </context>
       <context name="String literal" attribute="String" lineEndContext="#stay">
         <HlCStringChar attribute="String Char" context="#stay"/>

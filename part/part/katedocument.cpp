@@ -3044,7 +3044,7 @@ bool KateDocument::saveFile()
   // display errors
   //
   if (reallySaveIt && !canEncode)
-    KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding cannot encode every unicode character in it!"));
+    KMessageBox::error (widget(), i18n ("The document could not been saved, as the selected encoding cannot encode every unicode character in it! If you know no encoding you could choose, try UTF-8 or UTF-16."));
   else if (reallySaveIt && !success)
     KMessageBox::error (widget(), i18n ("The document could not been saved, as it was not possible to write to %1!\n\nCheck that you have write access to this file or if enough disc space is available.").arg(m_url.url()));
 

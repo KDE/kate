@@ -1156,6 +1156,9 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
   if( hasSelection() )
     tagSelection();
 
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);  
+    
   emit selectionChanged ();
 
   return true;
@@ -1177,6 +1180,9 @@ bool KateDocument::clearSelection()
   selectEnd.setPos(-1, -1);
   selectAnchor.setPos(-1, -1);
 
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
+  
   emit selectionChanged();
 
   return true;

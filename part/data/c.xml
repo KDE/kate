@@ -51,7 +51,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <ConsumeSpaces />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#" firstNonSpace="true" />
+        <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
         <ConsumeIdentifier />
@@ -78,7 +78,6 @@
         <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment"/>
         <RegExpr attribute="Preprocessor" context="Outscoped" String="#\s*if\s+0" beginRegion="Outscoped" firstNonSpace="true" />
-        <RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">

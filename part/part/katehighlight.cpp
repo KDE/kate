@@ -107,11 +107,8 @@ class KateHlItem
     bool dynamic;
     bool dynamicChild;
     bool firstNonSpace;
-
-    inline bool justConsume () const { return m_justConsume; }
-
-  protected:
-    bool m_justConsume;
+    bool justConsume;
+    int column;
 };
 
 class KateHlContext
@@ -346,7 +343,7 @@ class KateHlRegExpr : public KateHlItem
 class KateHlConsumeSpaces : public KateHlItem
 {
   public:
-    KateHlConsumeSpaces () : KateHlItem (0,0,0,0) { m_justConsume = true; }
+    KateHlConsumeSpaces () : KateHlItem (0,0,0,0) { justConsume = true; }
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
@@ -358,7 +355,7 @@ class KateHlConsumeSpaces : public KateHlItem
 class KateHlConsumeIdentifier : public KateHlItem
 {
   public:
-    KateHlConsumeIdentifier () : KateHlItem (0,0,0,0) { m_justConsume = true; }
+    KateHlConsumeIdentifier () : KateHlItem (0,0,0,0) { justConsume = true; }
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
@@ -408,7 +405,8 @@ KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed ch
     dynamic(false),
     dynamicChild(false),
     firstNonSpace(false),
-    m_justConsume(false)
+    justConsume(false),
+    column (-1)
 {
 }
 
@@ -1400,14 +1398,14 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // text, for programming convenience :)
   QChar lastChar = ' ';
   const QString& text = textLine->string();
-  uint len = textLine->length();
+  int len = textLine->length();
 
   // calc at which char the first char occurs, set it to lenght of line if never
   int firstChar = textLine->firstChar();
-  uint startNonSpace = (firstChar == -1) ? len : firstChar;
+  int startNonSpace = (firstChar == -1) ? len : firstChar;
 
   int offset1 = 0;
-  uint z = 0;
+  int z = 0;
   KateHlItem *item = 0;
 
   while (z < len)
@@ -1423,8 +1421,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if (item->firstNonSpace && (z > startNonSpace))
         continue;
 
+      // have we a column specified? if yes, only match at this column
+      if ((item->column != -1) && (item->column != z))
+        continue;
+
       // do we only consume stuff?
-      if (item->justConsume())
+      if (item->justConsume)
       {
         int offset2 = item->checkHgl(text, offset1, len-z);
 
@@ -1965,6 +1967,11 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
 
   bool firstNonSpace = IS_TRUE(KateHlManager::self()->syntax->groupItemData(data,QString("firstNonSpace")) );
 
+  int column = -1;
+  QString colStr = KateHlManager::self()->syntax->groupItemData(data,QString("column"));
+  if (!colStr.isEmpty())
+    column = colStr.toInt();
+
   // code folding region handling:
   QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
   QString endRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("endRegion"));
@@ -2040,6 +2047,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   tmpItem->lookAhead = lookAhead;
   tmpItem->dynamic = dynamic;
   tmpItem->firstNonSpace = firstNonSpace;
+  tmpItem->column = column;
 
   if (!unresolvedContext.isEmpty())
   {

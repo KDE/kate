@@ -17,7 +17,8 @@
   context       CDATA   #REQUIRED
   beginRegion   CDATA   #IMPLIED
   endRegion     CDATA   #IMPLIED
-  firstNonSpace (%boolean;) #IMPLIED        "
+  firstNonSpace (%boolean;) #IMPLIED
+  column        CDATA       #IMPLIED        "
 >
 
 <!ENTITY per "." >

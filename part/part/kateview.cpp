@@ -904,7 +904,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
       bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0, r->end - r->start, h);
       leftBorder->paintLine(line);
     }
-    
+
     r++;
   }
 
@@ -1118,7 +1118,7 @@ void KateViewInternal::mouseReleaseEvent(QMouseEvent *e) {
     }
     dragInfo.state = diNone;
   }
-  
+
   if (e->button() == MidButton) {
     placeCursor(e->x(), e->y());
     if (myView->doc()->isReadWrite())
@@ -1654,7 +1654,7 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
     if ( !extension || !myDoc )
         return;
-    
+
     emit extension->popupMenu( ev->globalPos(), myDoc->url(),
                                QString::fromLatin1( "text/plain" ) );
     ev->accept();
@@ -2620,13 +2620,18 @@ void KateView::bookmarkMenuAboutToShow()
   bookmarkMenu->popupMenu()->clear ();
   bookmarkToggle->plug (bookmarkMenu->popupMenu());
   bookmarkClear->plug (bookmarkMenu->popupMenu());
-  bookmarkMenu->popupMenu()->insertSeparator ();
 
   list = myDoc->marks();
   for (int i=0; (uint) i < list.count(); i++)
   {
+      bool separatorInsered=false;
     if (list.at(i)->type&KateDocument::markType01)
     {
+        if (!separatorInsered)
+        {
+            bookmarkMenu->popupMenu()->insertSeparator ();
+            separatorInsered=true;
+        }
       QString bText = myDoc->textLine(list.at(i)->line);
       bText.truncate(32);
       bText.append ("...");

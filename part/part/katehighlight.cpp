@@ -22,7 +22,7 @@
 // $Id$
 
 //BEGIN INCLUDES
-#include <string.h>
+//#include <string.h>
 #include <qstringlist.h>
 
 #include <qtextstream.h>
@@ -270,7 +270,7 @@ int HlStringDetect::checkHgl(const QString& text, int offset, int len)
   if (len < (int)str.length())
     return 0;
 
-  if (text.mid(offset, str.length()).find(str, 0, !_inSensitive) == 0)
+  if (QConstString(text.unicode() + offset, str.length()).string().find(str, 0, !_inSensitive) == 0)
     return offset + str.length();
 
   return 0;
@@ -334,7 +334,7 @@ void HlKeyword::addList(const QStringList& list)
 
 int HlKeyword::checkHgl(const QString& text, int offset, int len)
 {
-  if (len == 0) return 0;
+  if (len == 0 || dict.count() == 0) return 0;
 
   int offset2 = offset;
 
@@ -1017,8 +1017,8 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
   QChar lastChar = ' ';
 
-  // text
-  const QString text = textLine->string();
+  // text, for programming convenience :)
+  const QString& text = textLine->string();
 
   // non space char - index of that char
 //  const QChar *s1 = textLine->firstNonSpace();

@@ -33,11 +33,9 @@ class KateView;
 /**
  * Possible additional features:
  * - Notification when a cursor enters or exits a view
- * - A signal to emit which indicates the range has to be redrawn (eg. tagRange())
  * - suggest something :)
  *
  * Unresolved issues:
- * - direct changing of cursor positions.  Really need to redesign KateTextCursor with virtuals and private int line, int col
  * - testing, testing, testing
  *   - ie. everything which hasn't already been tested, you can see that which has inside the #ifdefs
  * - api niceness

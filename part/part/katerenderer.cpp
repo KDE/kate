@@ -35,34 +35,16 @@
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 
-class KateRendererSettings
-{
-public:
-  KateRendererSettings()
-    : drawCaret(true)
-    , caretStyle(KateRenderer::Insert)
-    , showSelections(true)
-    , showTabs(true)
-    , font(KateRendererConfig::ViewFont)
-    , printerFriendly(false)
-  {
-  }
-
-  bool drawCaret;
-  int caretStyle;
-  bool showSelections;
-  bool showTabs;
-  int font;
-  bool printerFriendly;
-};
-
 KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
-  : m_doc(doc), m_view (view)
+  : m_doc(doc), m_view (view), m_drawCaret(true)
+    , m_caretStyle(KateRenderer::Insert)
+    , m_showSelections(true)
+    , m_showTabs(true)
+    , m_font(KateRendererConfig::ViewFont)
+    , m_printerFriendly(false)
 {
   KateFactory::registerRenderer ( this );
   m_config = new KateRendererConfig (this);
-
-  m_currentSettings = new KateRendererSettings();
 }
 
 KateRenderer::~KateRenderer()
@@ -73,52 +55,52 @@ KateRenderer::~KateRenderer()
 
 bool KateRenderer::drawCaret() const
 {
-  return m_currentSettings->drawCaret;
+  return m_drawCaret;
 }
 
 void KateRenderer::setDrawCaret(bool drawCaret)
 {
-  m_currentSettings->drawCaret = drawCaret;
+  m_drawCaret = drawCaret;
 }
 
 bool KateRenderer::caretStyle() const
 {
-  return m_currentSettings->caretStyle;
+  return m_caretStyle;
 }
 
 void KateRenderer::setCaretStyle(int style)
 {
-  m_currentSettings->caretStyle = style;
+  m_caretStyle = style;
 }
 
 bool KateRenderer::showTabs() const
 {
-  return m_currentSettings->showTabs;
+  return m_showTabs;
 }
 
 void KateRenderer::setShowTabs(bool showTabs)
 {
-  m_currentSettings->showTabs = showTabs;
+  m_showTabs = showTabs;
 }
 
 bool KateRenderer::showSelections() const
 {
-  return m_currentSettings->showSelections;
+  return m_showSelections;
 }
 
 void KateRenderer::setShowSelections(bool showSelections)
 {
-  m_currentSettings->showSelections = showSelections;
+  m_showSelections = showSelections;
 }
 
 int KateRenderer::font() const
 {
-  return m_currentSettings->font;
+  return m_font;
 }
 
 void KateRenderer::setFont(int whichFont)
 {
-  m_currentSettings->font = whichFont;
+  m_font = whichFont;
 }
 
 void KateRenderer::increaseFontSizes()
@@ -141,12 +123,12 @@ void KateRenderer::decreaseFontSizes()
 
 bool KateRenderer::isPrinterFriendly() const
 {
-  return m_currentSettings->printerFriendly;
+  return m_printerFriendly;
 }
 
 void KateRenderer::setPrinterFriendly(bool printerFriendly)
 {
-  m_currentSettings->printerFriendly = printerFriendly;
+  m_printerFriendly = printerFriendly;
   setFont(KateRendererConfig::PrintFont);
   setShowTabs(false);
   setShowSelections(false);

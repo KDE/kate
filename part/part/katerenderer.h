@@ -154,7 +154,14 @@ public:
   private:
     KateDocument* m_doc;
     KateView *m_view;
-    class KateRendererSettings* m_currentSettings;
+
+    // some internal flags
+    bool m_drawCaret;
+    int m_caretStyle;
+    bool m_showSelections;
+    bool m_showTabs;
+    int m_font;
+    bool m_printerFriendly;
 
   /**
    * Configuration

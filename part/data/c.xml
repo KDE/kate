@@ -73,7 +73,7 @@
         <DetectChar attribute="String" context="String" char="&quot;"/>
         <Detect2Chars attribute="Comment" context="Commentar" char="/" char1="*" beginRegion="Comment"/>
         <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#"/>
+        <DetectChar attribute="Preprocessor" context="Preprocessor" char="#"/>
         <RegExpr attribute="Function" context="#stay" String="\b[_\w][_\w\d]*(?=[\s]*[(])" />
         <RegExpr attribute="Symbol" context="Member" String="[.]{1,1}" />
         <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
@@ -92,9 +92,14 @@
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
+        <RegExpr attribute="Preprocessor" context="Define" String="define.*((?=\\))"/>
+        <RegExpr attribute="Preprocessor" context="#stay" String="define.*"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
         <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*" beginRegion="Comment2"/>
+      </context>
+      <context attribute="Preprocessor" lineEndContext="#pop" name="Define">
+        <LineContinue attribute="Preprocessor" context="#stay"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment2" />

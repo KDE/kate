@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LPC" version="0.10" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.inc;*.o">
+<language name="LPC" version="0.11" kateversion="2.1" section="Sources" extensions="*.c;*.h;*.inc;*.o">
     <highlighting>
         <list name="l_mod">
             <item> private </item>
@@ -418,17 +418,15 @@
                 <DetectChar attribute="iPreString" char="&quot;" context="22" />
                 <DetectChar attribute="iPreString" char="&lt;" context="23" />
                 <Detect2Chars attribute="iSingle Comment" context="12" char="/" char1="/" />
-                <RegExpr attribute="iPreprocessor directives" context="17"
-    String="(defined|include|define|ifdef|ifndef|if|else|elif|endif|undef|line|echo|pragma)" />
-                <RegExpr attribute="iPragmas" context="17"
-    String="(combine_strings|no_combine_string|no_clone|no_inherit|no_shadow|weak_types|strict_types|save_types|no_local_scopes|pedantic|sloppy|warn_deprecated|no_warn_deprecated|set_code_window|show_code_window)" />
+                <RegExpr attribute="iPreprocessor directives" context="17" String="(defined|include|define|ifdef|ifndef|if|else|elif|endif|undef|line|echo|pragma)" />
+                <RegExpr attribute="iPragmas" context="17" String="(combine_strings|no_combine_string|no_clone|no_inherit|no_shadow|weak_types|strict_types|save_types|no_local_scopes|pedantic|sloppy|warn_deprecated|no_warn_deprecated|set_code_window|show_code_window)" />
                 <LineContinue attribute="iPreprocessor" context="17" />
             </context>
             <context name="18" attribute="iString" lineEndContext="18">
-             <LineContinue attribute="18" context="#stay"/>
-             <HlCStringChar attribute="iPreString" context="18"/>
-             <DetectChar attribute="iString" char="&quot;" context="0" />
-            </context>
+                <LineContinue attribute="iString" context="#stay"/>
+                <HlCStringChar attribute="iPreString" context="18"/>
+                <DetectChar attribute="iString" char="&quot;" context="0" />
+            </context>
             <context name="19" attribute="iComment Highlight" lineEndContext="0" />
             <context name="20" attribute="iPreprocessor directives" lineEndContext="0" />
             <context name="21" attribute="iPragmas" lineEndContext="0" />

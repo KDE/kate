@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SQL" section="Sources" extensions="*.sql;*.SQL" mimetype="text/x-sql">
+<language name="SQL" section="Scripts" extensions="*.sql;*.SQL" mimetype="text/x-sql">
   <highlighting>
     <list name="keywords">
-      <item> ABS </item>
       <item> ACCESS </item>
       <item> ACCOUNT </item>
-      <item> ACTIVATE </item>
-      <item> ACOS </item>
       <item> ADD </item>
-      <item> ADD_MONTHS </item>
       <item> ADMIN </item>
       <item> ADMINISTER </item>
       <item> ADVISE </item>
       <item> AFTER </item>
+      <item> AGENT </item>
       <item> ALL </item>
       <item> ALL_ROWS </item>
       <item> ALLOCATE </item>
@@ -26,12 +23,8 @@
       <item> ARCHIVELOG </item>
       <item> AS </item>
       <item> ASC </item>
-      <item> ASCII </item>
-      <item> ASIN </item>
       <item> ASSOCIATE </item>
       <item> AT </item>
-      <item> ATAN </item>
-      <item> ATAN2 </item>
       <item> ATTRIBUTE </item>
       <item> ATTRIBUTES </item>
       <item> AUDIT </item>
@@ -41,25 +34,25 @@
       <item> AUTOALLOCATE </item>
       <item> AUTOEXTEND </item>
       <item> AUTOMATIC </item>
-      <item> AVG </item>
       <item> BACKUP </item>
       <item> BECOME </item>
       <item> BEFORE </item>
       <item> BEGIN </item>
       <item> BEHALF </item>
       <item> BETWEEN </item>
-      <item> BFILENAME </item>
       <item> BINDING </item>
-      <item> BITAND </item>
       <item> BITMAP </item>
       <item> BLOCK </item>
       <item> BLOCK_RANGE </item>
       <item> BODY </item>
       <item> BOUND </item>
       <item> BOTH </item>
+      <item> BREAK </item>
       <item> BROADCAST </item>
+      <item> BTITLE </item>
       <item> BUFFER_POOL </item>
       <item> BUILD </item>
+      <item> BULK </item>
       <item> BY </item>
       <item> CACHE </item>
       <item> CACHE_INSTANCES </item>
@@ -67,16 +60,12 @@
       <item> CANCEL </item>
       <item> CASCADE </item>
       <item> CASE </item>
-      <item> CAST </item>
       <item> CATEGORY </item>
-      <item> CEIL </item>
-      <item> CHARTOROWID </item>
       <item> CHAINED </item>
       <item> CHANGE </item>
       <item> CHECK </item>
       <item> CHECKPOINT </item>
       <item> CHILD </item>
-      <item> CHR </item>
       <item> CHOOSE </item>
       <item> CHUNK </item>
       <item> CLASS </item>
@@ -98,11 +87,11 @@
       <item> COMPOSITE_LIMIT </item>
       <item> COMPRESS </item>
       <item> COMPUTE </item>
-      <item> CONCAT </item>
       <item> CONNECT </item>
       <item> CONNECT_TIME </item>
       <item> CONSIDER </item>
       <item> CONSISTENT </item>
+      <item> CONSTANT </item>
       <item> CONSTRAINT </item>
       <item> CONSTRAINTS </item>
       <item> CONTAINER </item>
@@ -110,26 +99,14 @@
       <item> CONTEXT </item>
       <item> CONTINUE </item>
       <item> CONTROLFILE </item>
-      <item> CONVERT </item>
-      <item> CORR </item>
-      <item> COS </item>
-      <item> COSH </item>
+      <item> COPY </item>
       <item> COST </item>
-      <item> COUNT </item>
-      <item> COVAR_POP </item>
-      <item> COVAR_SAMP </item>
       <item> CPU_PER_CALL </item>
       <item> CPU_PER_SESSION </item>
       <item> CREATE </item>
       <item> CREATE_STORED_OUTLINES </item>
-      <item> CUME_DIST </item>
       <item> CUBE </item>
       <item> CURRENT </item>
-      <item> CURRENT_DATE </item>
-      <item> CURRENT_SCHEMA </item>
-      <item> CURRENT_TIME </item>
-      <item> CURRENT_TIMESTAMP </item>
-      <item> CURRENT_USER </item>
       <item> CURSOR </item>
       <item> CYCLE </item>
       <item> DANGLING </item>
@@ -137,11 +114,8 @@
       <item> DATABASE </item>
       <item> DATAFILE </item>
       <item> DATAFILES </item>
-      <item> DATAOBJNO </item>
-      <item> DATE_MODE </item>
       <item> DAY </item>
       <item> DBA </item>
-      <item> DBTIMEZONE </item>
       <item> DDL </item>
       <item> DEALLOCATE </item>
       <item> DEBUG </item>
@@ -153,8 +127,6 @@
       <item> DEGREE </item>
       <item> DELETE </item>
       <item> DEMAND </item>
-      <item> DENSE_RANK </item>
-      <item> DEREF </item>
       <item> DESC </item>
       <item> DETERMINES </item>
       <item> DICTIONARY </item>
@@ -167,12 +139,9 @@
       <item> DISTINCT </item>
       <item> DISTRIBUTED </item>
       <item> DROP </item>
-      <item> DUMP </item>
       <item> DYNAMIC </item>
       <item> EACH </item>
       <item> ELSE </item>
-      <item> EMPTY_BLOB </item>
-      <item> EMPTY_CLOB </item>
       <item> ENABLE </item>
       <item> END </item>
       <item> ENFORCE </item>
@@ -189,7 +158,6 @@
       <item> EXEC </item>
       <item> EXECUTE </item>
       <item> EXISTS </item>
-      <item> EXP </item>
       <item> EXPIRE </item>
       <item> EXPLAIN </item>
       <item> EXPLOSION </item>
@@ -197,17 +165,13 @@
       <item> EXTENT </item>
       <item> EXTENTS </item>
       <item> EXTERNALLY </item>
-      <item> EXTRACT </item>
       <item> FAILED_LOGIN_ATTEMPTS </item>
       <item> FALSE </item>
       <item> FAST </item>
       <item> FILE </item>
       <item> FILTER </item>
-      <item> FIRST </item>
       <item> FIRST_ROWS </item>
-      <item> FIRST_VALUE </item>
       <item> FLAGGER </item>
-      <item> FLOOR </item>
       <item> FLUSH </item>
       <item> FOLLOWING </item>
       <item> FOR </item>
@@ -225,16 +189,13 @@
       <item> GLOBALLY </item>
       <item> GLOBAL_NAME </item>
       <item> GRANT </item>
-      <item> GREATEST </item>
       <item> GROUP </item>
-      <item> GROUPING </item>
       <item> GROUPS </item>
       <item> HASH </item>
       <item> HASHKEYS </item>
       <item> HAVING </item>
       <item> HEADER </item>
       <item> HEAP </item>
-      <item> HEXTORAW </item>
       <item> HIERARCHY </item>
       <item> HOUR </item>
       <item> ID </item>
@@ -254,7 +215,6 @@
       <item> INDEXTYPE </item>
       <item> INDEXTYPES </item>
       <item> INDICATOR </item>
-      <item> INITCAP </item>
       <item> INITIAL </item>
       <item> INITIALIZED </item>
       <item> INITIALLY </item>
@@ -263,8 +223,6 @@
       <item> INSTANCE </item>
       <item> INSTANCES </item>
       <item> INSTEAD </item>
-      <item> INSTR </item>
-      <item> INSTRB </item>
       <item> INTERMEDIATE </item>
       <item> INTERSECT </item>
       <item> INTERVAL </item>
@@ -279,46 +237,30 @@
       <item> KEY </item>
       <item> KILL </item>
       <item> LABEL </item>
-      <item> LAG </item>
-      <item> LAST </item>
-      <item> LAST_DAY </item>
-      <item> LAST_VALUE </item>
       <item> LAYER </item>
-      <item> LEAD </item>
       <item> LEADING </item>
-      <item> LEAST </item>
-      <item> LENGTH </item>
-      <item> LENGTHB </item>
       <item> LESS </item>
       <item> LEVEL </item>
       <item> LIBRARY </item>
       <item> LIKE </item>
       <item> LIMIT </item>
       <item> LINK </item>
-      <item> LN </item>
+      <item> LIST </item>
       <item> LOCAL </item>
-      <item> LOCALTIME </item>
-      <item> LOCALTIMESTAMP </item>
       <item> LOCATOR </item>
       <item> LOCK </item>
       <item> LOCKED </item>
-      <item> LOG </item>
       <item> LOGFILE </item>
       <item> LOGGING </item>
       <item> LOGICAL_READS_PER_CALL </item>
       <item> LOGICAL_READS_PER_SESSION </item>
       <item> LOGOFF </item>
       <item> LOGON </item>
-      <item> LOWER </item>
-      <item> LPAD </item>
-      <item> LTRIM </item>
-      <item> MAKE_REF </item>
       <item> MANAGE </item>
       <item> MANAGED </item>
       <item> MANAGEMENT </item>
       <item> MASTER </item>
       <item> MATERIALIZED </item>
-      <item> MAX </item>
       <item> MAXARCHLOGS </item>
       <item> MAXDATAFILES </item>
       <item> MAXEXTENTS </item>
@@ -330,7 +272,6 @@
       <item> MAXTRANS </item>
       <item> MAXVALUE </item>
       <item> METHOD </item>
-      <item> MIN </item>
       <item> MEMBER </item>
       <item> MERGE </item>
       <item> MINIMIZE </item>
@@ -339,12 +280,10 @@
       <item> MINUS </item>
       <item> MINUTE </item>
       <item> MINVALUE </item>
-      <item> MOD </item>
       <item> MODE </item>
       <item> MODIFY </item>
       <item> MONITORING </item>
       <item> MONTH </item>
-      <item> MONTHS_BETWEEN </item>
       <item> MOUNT </item>
       <item> MOVE </item>
       <item> MOVEMENT </item>
@@ -357,31 +296,20 @@
       <item> NETWORK </item>
       <item> NEVER </item>
       <item> NEW </item>
-      <item> NEW_TIME </item>
       <item> NEXT </item>
-      <item> NEXT_DAY </item>
       <item> NLS_CALENDAR </item>
       <item> NLS_CHARACTERSET </item>
-      <item> NLS_CHARSET_DECL_LEN </item>
-      <item> NLS_CHARSET_ID </item>
-      <item> NLS_CHARSET_NAME </item>
-      <item> NLS_CHARSET_DECL_LEN </item>
       <item> NLS_COMP </item>
       <item> NLS_CURRENCY </item>
       <item> NLS_DATE_FORMAT </item>
       <item> NLS_DATE_LANGUAGE </item>
-      <item> NLS_INITCAP </item>
       <item> NLS_ISO_CURRENCY </item>
       <item> NLS_LANG </item>
       <item> NLS_LANGUAGE </item>
-      <item> NLS_LOWER </item>
       <item> NLS_NUMERIC_CHARACTERS </item>
       <item> NLS_SORT </item>
       <item> NLS_SPECIAL_CHARS </item>
       <item> NLS_TERRITORY </item>
-      <item> NLS_UPPER </item>
-      <item> NLSSORT </item>
-      <item> NTILE </item>
       <item> NO </item>
       <item> NOARCHIVELOG </item>
       <item> NOAUDIT </item>
@@ -410,10 +338,6 @@
       <item> NOWAIT </item>
       <item> NULL </item>
       <item> NULLS </item>
-      <item> NUMTODSINTERVAL </item>
-      <item> NUMTOYMINTERVAL </item>
-      <item> NVL </item>
-      <item> NVL2 </item>
       <item> OBJNO </item>
       <item> OBJNO_REUSE </item>
       <item> OF </item>
@@ -462,12 +386,10 @@
       <item> PCTUSED </item>
       <item> PCTVERSION </item>
       <item> PERCENT </item>
-      <item> PERCENT_RANK </item>
       <item> PERMANENT </item>
       <item> PLAN </item>
       <item> PLSQL_DEBUG </item>
       <item> POST_TRANSACTION </item>
-      <item> POWER </item>
       <item> PREBUILT </item>
       <item> PRECEDING </item>
       <item> PREPARE </item>
@@ -487,9 +409,6 @@
       <item> QUOTA </item>
       <item> RANDOM </item>
       <item> RANGE </item>
-      <item> RANK </item>
-      <item> RATIO_TO_REPORT </item>
-      <item> RAWTOHEX </item>
       <item> RBA </item>
       <item> READ </item>
       <item> READS </item>
@@ -500,14 +419,11 @@
       <item> RECOVERY </item>
       <item> RECYCLE </item>
       <item> REDUCED </item>
-      <item> REF </item>
-      <item> REFTOHEX </item>
       <item> REFERENCES </item>
       <item> REFERENCING </item>
       <item> REFRESH </item>
       <item> RELY </item>
       <item> RENAME </item>
-      <item> REPLACE </item>
       <item> RESET </item>
       <item> RESETLOGS </item>
       <item> RESIZE </item>
@@ -527,14 +443,9 @@
       <item> ROLES </item>
       <item> ROLLBACK </item>
       <item> ROLLUP </item>
-      <item> ROUND </item>
       <item> ROW </item>
-      <item> ROW_NUMBER </item>
-      <item> ROWIDTOCHAR </item>
       <item> ROWNUM </item>
       <item> ROWS </item>
-      <item> RPAD </item>
-      <item> RTRIM </item>
       <item> RULE </item>
       <item> SAMPLE </item>
       <item> SAVEPOINT </item>
@@ -558,10 +469,7 @@
       <item> SESSION </item>
       <item> SESSION_CACHED_CURSORS </item>
       <item> SESSIONS_PER_USER </item>
-      <item> SESSIONTIMEZONE </item>
       <item> SET </item>
-      <item> SIGN </item>
-      <item> SINH </item>
       <item> SHARE </item>
       <item> SHARED </item>
       <item> SHARED_POOL </item>
@@ -574,54 +482,39 @@
       <item> SNAPSHOT </item>
       <item> SOME </item>
       <item> SORT </item>
-      <item> SOUNDEX </item>
       <item> SOURCE </item>
       <item> SPECIFICATION </item>
       <item> SPLIT </item>
-      <item> SUBSTR </item>
       <item> SQL_TRACE </item>
-      <item> SQRT </item>
       <item> STANDBY </item>
       <item> START </item>
       <item> STARTUP </item>
       <item> STATEMENT_ID </item>
       <item> STATISTICS </item>
       <item> STATIC </item>
-      <item> STDDEV </item>
-      <item> STDDEV_POP </item>
-      <item> STDDEV_SAMP </item>
       <item> STOP </item>
       <item> STORAGE </item>
       <item> STORE </item>
       <item> STRUCTURE </item>
-      <item> SUBSTR </item>
-      <item> SUBSTRB </item>
       <item> SUBPARTITION </item>
       <item> SUBPARTITIONS </item>
       <item> SUCCESSFUL </item>
-      <item> SUM </item>
       <item> SUMMARY </item>
       <item> SUSPEND </item>
       <item> SWITCH </item>
-      <item> SYS_CONTEXT </item>
-      <item> SYS_GUID </item>
       <item> SYS_OP_BITVEC </item>
       <item> SYS_OP_ENFORCE_NOT_NULL$ </item>
       <item> SYS_OP_NOEXPAND </item>
       <item> SYS_OP_NTCIMG$ </item>
       <item> SYNONYM </item>
-      <item> SYSDATE </item>
       <item> SYSDBA </item>
       <item> SYSOPER </item>
       <item> SYSTEM </item>
-      <item> SYSTIMESTAMP </item>
       <item> TABLE </item>
       <item> TABLES </item>
       <item> TABLESPACE </item>
       <item> TABLESPACE_NO </item>
       <item> TABNO </item>
-      <item> TAN </item>
-      <item> TANH </item>
       <item> TEMPFILE </item>
       <item> TEMPORARY </item>
       <item> THAN </item>
@@ -634,28 +527,18 @@
       <item> TIMEZONE_MINUTE </item>
       <item> TIME_ZONE </item>
       <item> TO </item>
-      <item> TO_CHAR </item>
-      <item> TO_DATE </item>
-      <item> TO_MULTI_BYTE </item>
-      <item> TO_DATE </item>
-      <item> TO_NUMBER </item>
-      <item> TO_SINGLE_BYTE </item>
       <item> TOPLEVEL </item>
       <item> TRACE </item>
       <item> TRACING </item>
       <item> TRAILING </item>
       <item> TRANSACTION </item>
-      <item> TRANSLATE </item>
       <item> TRANSITIONAL </item>
       <item> TRIGGER </item>
       <item> TRIGGERS </item>
-      <item> TRIM </item>
       <item> TRUE </item>
-      <item> TRUNC </item>
       <item> TRUNCATE </item>
       <item> TYPE </item>
       <item> TYPES </item>
-      <item> UID </item>
       <item> UNARCHIVED </item>
       <item> UNBOUND </item>
       <item> UNBOUNDED </item>
@@ -676,19 +559,12 @@
       <item> USAGE </item>
       <item> USE </item>
       <item> USE_STORED_OUTLINES </item>
-      <item> USER </item>
       <item> USER_DEFINED </item>
-      <item> USERENV </item>
       <item> USING </item>
       <item> VALIDATE </item>
       <item> VALIDATION </item>
-      <item> VALUE </item>
       <item> VALUES </item>
-      <item> VAR_POP </item>
-      <item> VAR_SAMP </item>
-      <item> VARIANCE </item>
       <item> VIEW </item>
-      <item> VSIZE </item>
       <item> WHEN </item>
       <item> WHENEVER </item>
       <item> WHERE </item>
@@ -699,23 +575,217 @@
       <item> YEAR </item>
       <item> ZONE </item>
     </list>
+    <list name="operators">
+      <item> + </item>
+      <item> - </item>
+      <item> * </item>
+      <item> / </item>
+      <item> || </item>
+      <item> = </item>
+      <item> != </item>
+      <item> &lt;&gt; </item>
+      <item> &lt; </item>
+      <item> &lt;= </item>
+      <item> &gt; </item>
+      <item> &gt;= </item>
+      <item> ~= </item>
+      <item> ^= </item>
+      <item> := </item>
+      <item> =&gt; </item>
+      <item> ** </item>
+      <item> .. </item>
+     </list>
+     <list name="functions">
+      <item> ABS </item>
+      <item> ACOS </item>
+      <item> ADD_MONTHS </item>
+      <item> ASCII </item>
+      <item> ASCIISTR </item>
+      <item> ASIN </item>
+      <item> ATAN </item>
+      <item> ATAN2 </item>
+      <item> AVG </item>
+      <item> BFILENAME </item>
+      <item> BIN_TO_NUM </item>
+      <item> BITAND </item>
+      <item> CAST </item>
+      <item> CEIL </item>
+      <item> CHARTOROWID </item>
+      <item> CHR </item>
+      <item> COALESCE </item>
+      <item> COMPOSE </item>
+      <item> CONCAT </item>
+      <item> CONVERT </item>
+      <item> CORR </item>
+      <item> COS </item>
+      <item> COSH </item>
+      <item> COUNT </item>
+      <item> COVAR_POP </item>
+      <item> COVAR_SAMP </item>
+      <item> CUME_DIST </item>
+      <item> CURRENT_DATE </item>
+      <item> CURRENT_TIMESTAMP </item>
+      <item> DBTIMEZONE </item>
+      <item> DECODE </item>
+      <item> DECOMPOSE </item>
+      <item> DENSE_RANK </item>
+      <item> DEREF </item>
+      <item> DUMP </item>
+      <item> EMPTY_BLOB </item>
+      <item> EMPTY_CLOB </item>
+      <item> EXISTSNODE </item>
+      <item> EXP </item>
+      <item> EXTRACT </item>
+      <item> FIRST </item>
+      <item> FIRST_VALUE </item>
+      <item> FLOOR </item>
+      <item> FROM_TZ </item>
+      <item> GREATEST </item>
+      <item> GROUP_ID </item>
+      <item> GROUPING </item>
+      <item> GROUPING_ID </item>
+      <item> HEXTORAW </item>
+      <item> INITCAP </item>
+      <item> INSTR </item>
+      <item> INSTRB </item>
+      <item> LAG </item>
+      <item> LAST </item>
+      <item> LAST_DAY </item>
+      <item> LAST_VALUE </item>
+      <item> LEAD </item>
+      <item> LEAST </item>
+      <item> LENGTH </item>
+      <item> LENGTHB </item>
+      <item> LN </item>
+      <item> LOCALTIMESTAMP </item>
+      <item> LOG </item>
+      <item> LOWER </item>
+      <item> LPAD </item>
+      <item> LTRIM </item>
+      <item> MAKE_REF </item>
+      <item> MAX </item>
+      <item> MIN </item>
+      <item> MOD </item>
+      <item> MONTHS_BETWEEN </item>
+      <item> NCHR </item>
+      <item> NEW_TIME </item>
+      <item> NEXT_DAY </item>
+      <item> NLS_CHARSET_DECL_LEN </item>
+      <item> NLS_CHARSET_ID </item>
+      <item> NLS_CHARSET_NAME </item>
+      <item> NLS_INITCAP </item>
+      <item> NLS_LOWER </item>
+      <item> NLS_UPPER </item>
+      <item> NLSSORT </item>
+      <item> NTILE </item>
+      <item> NULLIF </item>
+      <item> NUMTODSINTERVAL </item>
+      <item> NUMTOYMINTERVAL </item>
+      <item> NVL </item>
+      <item> NVL2 </item>
+      <item> PERCENT_RANK </item>
+      <item> PERCENTILE_CONT </item>
+      <item> PERCENTILE_DISC </item>
+      <item> POWER </item>
+      <item> RANK </item>
+      <item> RATIO_TO_REPORT </item>
+      <item> RAWTOHEX </item>
+      <item> REF </item>
+      <item> REFTOHEX </item>
+      <item> REGR_SLOPE </item>
+      <item> REGR_INTERCEPT </item>
+      <item> REGR_COUNT </item>
+      <item> REGR_R2 </item>
+      <item> REGR_AVGX </item>
+      <item> REGR_AVGY </item>
+      <item> REGR_SXX </item>
+      <item> REGR_SYY </item>
+      <item> REGR_SXY </item>
+      <item> REPLACE </item>
+      <item> ROUND </item>
+      <item> ROW_NUMBER </item>
+      <item> ROWIDTOCHAR </item>
+      <item> ROWIDTONCHAR </item>
+      <item> RPAD </item>
+      <item> RTRIM </item>
+      <item> SESSIONTIMEZONE </item>
+      <item> SIGN </item>
+      <item> SIN </item>
+      <item> SINH </item>
+      <item> SOUNDEX </item>
+      <item> SUBSTR </item>
+      <item> SQRT </item>
+      <item> STDDEV </item>
+      <item> STDDEV_POP </item>
+      <item> STDDEV_SAMP </item>
+      <item> SUBSTR </item>
+      <item> SUBSTRB </item>
+      <item> SUM </item>
+      <item> SYS_CONNECT_BY_PATH </item>
+      <item> SYS_CONTEXT </item>
+      <item> SYS_DBURIGEN </item>
+      <item> SYS_EXTRACT_UTC </item>
+      <item> SYS_GUID </item>
+      <item> SYS_TYPEID </item>
+      <item> SYS_XMLAGG </item>
+      <item> SYS_XMLGEN </item>
+      <item> SYSDATE </item>
+      <item> SYSTIMESTAMP </item>
+      <item> TAN </item>
+      <item> TANH </item>
+      <item> TO_CHAR </item>
+      <item> TO_CLOB </item>
+      <item> TO_DATE </item>
+      <item> TO_DSINTERVAL </item>
+      <item> TO_LOB </item>
+      <item> TO_MULTI_BYTE </item>
+      <item> TO_NCHAR </item>
+      <item> TO_NCLOB </item>
+      <item> TO_NUMBER </item>
+      <item> TO_SINGLE_BYTE </item>
+      <item> TO_TIMESTAMP </item>
+      <item> TO_TIMESTAMP_TZ </item>
+      <item> TO_YMINTERVAL </item>
+      <item> TRANSLATE </item>
+      <item> TREAT </item>
+      <item> TRIM </item>
+      <item> TRUNC </item>
+      <item> TZ_OFFSET </item>
+      <item> UID </item>
+      <item> UNISTR </item>
+      <item> UPPER </item>
+      <item> USER </item>
+      <item> USERENV </item>
+      <item> VALUE </item>
+      <item> VAR_POP </item>
+      <item> VAR_SAMP </item>
+      <item> VARIANCE </item>
+      <item> VSIZE </item>
+      <item> WIDTH_BUCKET </item>
+    </list>
     <list name="types">
+      <item> ANYDATA </item>
+      <item> ANYDATASET </item>
+      <item> ANYTYPE </item>
       <item> ARRAY </item>
       <item> BFILE </item>
+      <item> BINARY_INTEGER </item>
       <item> BLOB </item>
+      <item> BOOLEAN </item>
       <item> CFILE </item>
       <item> CHAR </item>
       <item> CHARACTER </item>
       <item> CLOB </item>
       <item> DATE </item>
+      <item> DBURITYPE </item>
       <item> DEC </item>
       <item> DECIMAL </item>
       <item> DOUBLE </item>
       <item> FLOAT </item>
       <item> FLOB </item>
+      <item> HTTPURITYPE </item>
       <item> INT </item>
       <item> INTEGER </item>
-      <item> LIST </item>
       <item> LOB </item>
       <item> LONG </item>
       <item> MLSLABEL </item>
@@ -736,46 +806,62 @@
       <item> SMALLINT </item>
       <item> TIMESTAMP </item>
       <item> TIME </item>
+      <item> URIFACTORYTYPE </item>
+      <item> URITYPE </item>
       <item> UROWID </item>
       <item> VARCHAR </item>
       <item> VARCHAR2 </item>
       <item> VARYING </item>
       <item> VARRAY </item>
+      <item> XMLTYPE </item>
     </list>
     <contexts>
       <context name="Normal Text" attribute="0" lineEndContext="0">
         <keyword attribute="1" context="0" String="keywords"/>
-        <keyword attribute="2" context="0" String="types"/>
-        <Float attribute="4" context="0"/>
-        <Int attribute="3" context="0"/>
-        <DetectChar attribute="5" context="1" char="'"/>
-        <Detect2Chars attribute="6" context="2" char="-" char1="-"/>
-        <Detect2Chars attribute="6" context="3" char="/" char1="*"/>
-        <RegExpr attribute="6" context="4" String="^[Rr][Ee][Mm]"/>
-        <DetectChar attribute="7" context="5" char="&quot;"/>
-        <AnyChar attribute="8" context="0" String=":&#38;"/>
-        <RegExpr attribute="9" context="6" String="^@"/>
+        <keyword attribute="2" context="0" String="operators"/>
+        <keyword attribute="3" context="0" String="functions"/>
+        <keyword attribute="4" context="0" String="types"/>
+        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Ee][Xx][Cc][Ee][Pp][Tt][Ii][Oo][Nn][Ss]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Bb][Uu][Ll][Kk]_[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Ii][Ss][Oo][Pp][Ee][Nn]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Nn][Oo][Tt][Ff][Oo][Uu][Nn][Dd]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Cc][Oo][Uu][Nn][Tt]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Rr][Oo][Ww][Tt][Yy][Pp][Ee]\b"/>
+        <RegExpr attribute="4" context="0" String="%[Tt][Yy][Pp][Ee]\b"/>
+        <Float attribute="6" context="0"/>
+        <Int attribute="5" context="0"/>
+        <DetectChar attribute="7" context="1" char="'"/>
+        <Detect2Chars attribute="8" context="2" char="-" char1="-"/>
+        <Detect2Chars attribute="8" context="3" char="/" char1="*"/>
+        <RegExpr attribute="8" context="4" String="^[Rr][Ee][Mm]\b"/>
+        <DetectChar attribute="9" context="5" char="&quot;"/>
+        <AnyChar attribute="10" context="0" String=":&#38;"/>
+        <RegExpr attribute="10" context="0" String="^/$"/>
+        <RegExpr attribute="11" context="6" String="^@@?[^@ \t\r\n]"/>
       </context>
-      <context name="String" attribute="5" lineEndContext="1">
-        <LineContinue attribute="5" context="0"/>
-        <DetectChar attribute="8" context="1" char="&#38;"/>
-        <DetectChar attribute="5" context="0" char="'"/>
+      <context name="String" attribute="7" lineEndContext="1">
+        <LineContinue attribute="7" context="0"/>
+        <DetectChar attribute="10" context="1" char="&#38;"/>
+        <DetectChar attribute="7" context="0" char="'"/>
       </context>
-      <context name="Comment" attribute="6" lineEndContext="0"/>
-      <context name="Comment" attribute="6" lineEndContext="3">
-        <LineContinue attribute="6" context="0"/>
-        <Detect2Chars attribute="6" context="0" char="*" char1="/"/>
+      <context name="Comment" attribute="8" lineEndContext="0"/>
+      <context name="Comment" attribute="8" lineEndContext="3">
+        <LineContinue attribute="8" context="0"/>
+        <Detect2Chars attribute="8" context="0" char="*" char1="/"/>
       </context>
-      <context name="Comment" attribute="6" lineEndContext="0"/>
-      <context name="Identifier" attribute="7" lineEndContext="5">
-        <DetectChar attribute="7" context="0" char="&quot;"/>
+      <context name="Comment" attribute="8" lineEndContext="0"/>
+      <context name="Identifier" attribute="9" lineEndContext="0">
+        <DetectChar attribute="9" context="0" char="&quot;"/>
       </context>
-      <context name="Preprocessor" attribute="9" lineEndContext="0"/>
+      <context name="Preprocessor" attribute="11" lineEndContext="0"/>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
-      <itemData name="Types" defStyleNum="dsDataType"/>
+      <itemData name="Operator" defStyleNum="dsNormal"/>
+      <itemData name="Function" defStyleNum="dsKeyword"/>
+      <itemData name="Data Type" defStyleNum="dsDataType"/>
       <itemData name="Decimal"  defStyleNum="dsDecVal"/>
       <itemData name="Float"  defStyleNum="dsFloat"/>
       <itemData name="String" defStyleNum="dsString"/>
@@ -787,9 +873,9 @@
   </highlighting>
   <general>
     <comments>
-      <comment name="singleLine" start="--" />
-      <comment name="multiLine" start="/*" end="*/" />
+      <comment name="singleLine" start="--"/>
+      <comment name="multiLine" start="/*" end="*/"/>
     </comments>
-    <keywords casesensitive="0" />
+    <keywords casesensitive="0"/>
   </general>
 </language>

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
-   Copyright (C) 2002 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2002,2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002,2003 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2003 Anakim Border <aborder@sources.sourceforge.net>
 
@@ -52,43 +52,14 @@
 #include <qlayout.h>
 #include <qclipboard.h>
 
-static const bool paintDebug = false;
-// const int KateViewInternal::scrollTime = 30;
-// const int KateViewInternal::scrollMargin = 16;
-
-KateScrollBar::KateScrollBar(Orientation orientation, QWidget* parent, const char* name)
-  : QScrollBar(orientation, parent, name)
-  , m_middleMouseDown(false)
-{
-  connect(this, SIGNAL(valueChanged(int)), SLOT(sliderMaybeMoved(int)));
-}
-
-void KateScrollBar::mousePressEvent(QMouseEvent* e)
-{
-  if (e->button() == MidButton)
-    m_middleMouseDown = true;
-
-  QScrollBar::mousePressEvent(e);
-}
-
-void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
-{
-  QScrollBar::mouseReleaseEvent(e);
-
-  m_middleMouseDown = false;
-}
-
-void KateScrollBar::sliderMaybeMoved(int value)
-{
-  if (m_middleMouseDown)
-    emit sliderMMBMoved(value);
-}
-
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
+  , editSessionNumber (0)
+  , editIsRunning (false)
+  , editCursorChanged (false)
+  , tagLinesFrom (-1)
   , m_view (view)
   , m_doc (doc)
-  , tagLinesFrom (-1)
   , m_startPos(0,0)
   , m_oldStartPos(0,0)
   , m_madeVisible(false)
@@ -737,9 +708,6 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
     {
       lineRanges[z].dirty = false;
 
-      if (paintDebug)
-        kdDebug() << "*** Actually painting view line " << z << ", visible line " << lineRanges[z].virtualLine << endl;
-
       if (doublebuffer) {
         paint.begin(&drawBuffer);
 
@@ -842,9 +810,7 @@ void KateViewInternal::slotCodeFoldingChanged()
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
 {
   kdDebug(13030) << "slotRegionBeginEndAddedRemoved()" << endl;
-//  m_viewInternal->repaint();
   // FIXME: performance problem
-//  if (m_doc->getVirtualLine(line)<=m_viewInternal->endLine)
   leftBorder->update();
 }
 
@@ -2591,19 +2557,107 @@ void KateViewInternal::clear()
   displayCursor.setPos(0, 0);
 }
 
-void KateViewInternal::setTagLinesFrom(int line)
+void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
-  if ( tagLinesFrom > line || tagLinesFrom == -1)
-    tagLinesFrom = line;
+  if (m_lineScroll->minValue() != m_lineScroll->maxValue() && e->orientation() != Qt::Horizontal) {
+    // React to this as a vertical event
+    if ( ( e->state() & ControlButton ) || ( e->state() & ShiftButton ) ) {
+      if (e->delta() > 0)
+        scrollPrevPage();
+      else
+        scrollNextPage();
+    } else {
+      scrollViewLines(-((e->delta() / 120) * QApplication::wheelScrollLines()));
+    }
+
+  } else if (!m_columnScroll->isHidden()) {
+    QWheelEvent copy = *e;
+    QApplication::sendEvent(m_columnScroll, &copy);
+
+  } else {
+    e->ignore();
+  }
 }
 
+void KateViewInternal::startDragScroll()
+{
+  if ( !m_dragScrollTimer.isActive() ) {
+    m_suppressColumnScrollBar = true;
+    m_dragScrollTimer.start( scrollTime );
+  }
+}
+
+void KateViewInternal::stopDragScroll()
+{
+  m_suppressColumnScrollBar = false;
+  m_dragScrollTimer.stop();
+  updateView();
+}
+
+void KateViewInternal::doDragScroll()
+{
+  QPoint p = this->mapFromGlobal( QCursor::pos() );
+
+  int dx = 0, dy = 0;
+  if ( p.y() < scrollMargin ) {
+    dy = p.y() - scrollMargin;
+  } else if ( p.y() > height() - scrollMargin ) {
+    dy = scrollMargin - (height() - p.y());
+  }
+  if ( p.x() < scrollMargin ) {
+    dx = p.x() - scrollMargin;
+  } else if ( p.x() > width() - scrollMargin ) {
+    dx = scrollMargin - (width() - p.x());
+  }
+  dy /= 4;
+
+  if (dy)
+    scrollLines(startPos().line() + dy);
+  if (dx)
+    scrollColumns(m_startX + dx);
+  if (!dy && !dx)
+    stopDragScroll();
+}
+
+void KateViewInternal::enableTextHints(int timeout)
+{
+  m_textHintTimeout=timeout;
+  m_textHintEnabled=true;
+  if (!m_textHintTimer) m_textHintTimer=startTimer(timeout);
+}
+
+void KateViewInternal::disableTextHints()
+{
+  m_textHintEnabled=false;
+  if (m_textHintTimer)
+  {
+    killTimer(m_textHintTimer);
+    m_textHintTimer=0;
+  }
+}
+
+// BEGIN EDIT STUFF
 void KateViewInternal::editStart()
 {
+  editSessionNumber++;
+
+  if (editSessionNumber > 1)
+    return;
+
+  editIsRunning = true;
   editCursorChanged = false;
 }
 
 void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 {
+   if (editSessionNumber == 0)
+    return;
+
+  editSessionNumber--;
+
+  if (editSessionNumber > 0)
+    return;
+
   if (editTagLineStart < (int)m_doc->getRealLine(startLine()))
   {
     tagAll();
@@ -2634,6 +2688,8 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   {
     makeVisible(displayCursor, displayCursor.col());
   }
+
+  editIsRunning = false;
 }
 
 void KateViewInternal::editInsertText(int line, int col, int len)
@@ -2737,87 +2793,56 @@ void KateViewInternal::editRemoveLine(int line)
   }
 }
 
+void KateViewInternal::editSetCursor (const KateTextCursor &cursor)
+{
+  if (this->cursor != cursor)
+  {
+    this->cursor = cursor;
+    editCursorChanged = true;
+  }
+}
+
 void KateViewInternal::setViewTagLinesFrom(int line)
 {
   if (line >= (int)m_doc->getRealLine(startLine()))
     setTagLinesFrom(line);
 }
 
-void KateViewInternal::wheelEvent(QWheelEvent* e)
+void KateViewInternal::setTagLinesFrom(int line)
 {
-  if (m_lineScroll->minValue() != m_lineScroll->maxValue() && e->orientation() != Qt::Horizontal) {
-    // React to this as a vertical event
-    if ( ( e->state() & ControlButton ) || ( e->state() & ShiftButton ) ) {
-      if (e->delta() > 0)
-        scrollPrevPage();
-      else
-        scrollNextPage();
-    } else {
-      scrollViewLines(-((e->delta() / 120) * QApplication::wheelScrollLines()));
-    }
+  if ( tagLinesFrom > line || tagLinesFrom == -1)
+    tagLinesFrom = line;
+}
+// END
 
-  } else if (!m_columnScroll->isHidden()) {
-    QWheelEvent copy = *e;
-    QApplication::sendEvent(m_columnScroll, &copy);
-
-  } else {
-    e->ignore();
-  }
+// BEGIN KateScrollBar
+KateScrollBar::KateScrollBar (Orientation orientation, QWidget* parent, const char* name)
+  : QScrollBar (orientation, parent, name)
+  , m_middleMouseDown (false)
+{
+  connect(this, SIGNAL(valueChanged(int)), SLOT(sliderMaybeMoved(int)));
 }
 
-void KateViewInternal::startDragScroll()
+void KateScrollBar::mousePressEvent(QMouseEvent* e)
 {
-  if ( !m_dragScrollTimer.isActive() ) {
-    m_suppressColumnScrollBar = true;
-    m_dragScrollTimer.start( scrollTime );
-  }
+  if (e->button() == MidButton)
+    m_middleMouseDown = true;
+
+  QScrollBar::mousePressEvent(e);
 }
 
-void KateViewInternal::stopDragScroll()
+void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
 {
-  m_suppressColumnScrollBar = false;
-  m_dragScrollTimer.stop();
-  updateView();
+  QScrollBar::mouseReleaseEvent(e);
+
+  m_middleMouseDown = false;
 }
 
-void KateViewInternal::doDragScroll()
+void KateScrollBar::sliderMaybeMoved(int value)
 {
-  QPoint p = this->mapFromGlobal( QCursor::pos() );
-
-  int dx = 0, dy = 0;
-  if ( p.y() < scrollMargin ) {
-    dy = p.y() - scrollMargin;
-  } else if ( p.y() > height() - scrollMargin ) {
-    dy = scrollMargin - (height() - p.y());
-  }
-  if ( p.x() < scrollMargin ) {
-    dx = p.x() - scrollMargin;
-  } else if ( p.x() > width() - scrollMargin ) {
-    dx = scrollMargin - (width() - p.x());
-  }
-  dy /= 4;
-
-  if (dy)
-    scrollLines(startPos().line() + dy);
-  if (dx)
-    scrollColumns(m_startX + dx);
-  if (!dy && !dx)
-    stopDragScroll();
+  if (m_middleMouseDown)
+    emit sliderMMBMoved(value);
 }
+// END
 
-void KateViewInternal::enableTextHints(int timeout)
-{
-  m_textHintTimeout=timeout;
-  m_textHintEnabled=true;
-  if (!m_textHintTimer) m_textHintTimer=startTimer(timeout);
-}
-
-void KateViewInternal::disableTextHints()
-{
-  m_textHintEnabled=false;
-  if (m_textHintTimer)
-  {
-    killTimer(m_textHintTimer);
-    m_textHintTimer=0;
-  }
-}
+// kate: space-indent on; indent-width 2; replace-tabs on;

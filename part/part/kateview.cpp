@@ -1126,3 +1126,95 @@ void KateView::updateFoldingConfig ()
   m_toggleFoldingMarkers->setChecked( doit );
   m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }
+
+// BEGIN EDIT STUFF
+void KateView::editStart ()
+{
+  m_viewInternal->editStart ();
+}
+
+void KateView::editEnd (int editTagLineStart, int editTagLineEnd)
+{
+  m_viewInternal->editEnd (editTagLineStart, editTagLineEnd);
+}
+
+void KateView::editInsertText (int line, int col, int len)
+{
+  m_viewInternal->editInsertText (line, col, len);
+}
+
+void KateView::editRemoveText (int line, int col, int len)
+{
+  m_viewInternal->editRemoveText (line, col, len);
+}
+
+void KateView::editWrapLine (int line, int col, int len)
+{
+  m_viewInternal->editWrapLine (line, col, len);
+}
+
+void KateView::editUnWrapLine (int line, int col)
+{
+  m_viewInternal->editUnWrapLine (line, col);
+}
+
+void KateView::editInsertLine (int line)
+{
+  m_viewInternal->editInsertLine (line);
+}
+
+void KateView::editRemoveLine (int line)
+{
+  m_viewInternal->editRemoveLine (line);
+}
+
+void KateView::editSetCursor (const KateTextCursor &cursor)
+{
+  m_viewInternal->editSetCursor (cursor);
+}
+
+void KateView::setViewTagLinesFrom(int line)
+{
+  m_viewInternal->setViewTagLinesFrom (line);
+}
+// END
+
+// BEGIN TAG & CLEAR
+bool KateView::tagLine (const KateTextCursor& virtualCursor)
+{
+  m_viewInternal->tagLine (virtualCursor);
+}
+
+bool KateView::tagLines (int start, int end, bool realLines)
+{
+  m_viewInternal->tagLines (start, end, realLines);
+}
+
+bool KateView::tagLines (KateTextCursor start, KateTextCursor end, bool realCursors)
+{
+  m_viewInternal->tagLines (start, end, realCursors);
+}
+
+void KateView::tagAll ()
+{
+  m_viewInternal->tagAll ();
+}
+
+void KateView::clear ()
+{
+  m_viewInternal->clear ();
+}
+
+void KateView::repaintText (bool paintOnlyDirty)
+{
+  m_viewInternal->paintText(0,0,m_viewInternal->width(),m_viewInternal->height(), paintOnlyDirty);
+}
+
+void KateView::updateView (bool changed = false)
+{
+  m_viewInternal->updateView (changed);
+}
+
+// END
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -649,9 +649,9 @@ bool KateDocument::setText(const QString &s)
 bool KateDocument::clear()
 {
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() ) {
-    view->m_viewInternal->clear();
-    view->m_viewInternal->tagAll();
-    view->m_viewInternal->update();
+    view->clear();
+    view->tagAll();
+    view->update();
   }
 
   clearMarks ();
@@ -879,7 +879,7 @@ void KateDocument::editStart (bool withUndo)
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->editStart();
+    m_views.at(z)->editStart ();
   }
 }
 
@@ -966,7 +966,7 @@ void KateDocument::editEnd ()
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->editEnd(editTagLineStart, editTagLineEnd);
+    m_views.at(z)->editEnd (editTagLineStart, editTagLineEnd);
   }
 
   setModified(true);
@@ -1103,7 +1103,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   // move the cursor if it is >= the col of the insert
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->editInsertText(line, col, s.length());
+    m_views.at(z)->editInsertText (line, col, s.length());
   }
 
   editEnd ();
@@ -1131,7 +1131,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   // move the cursor if it is > col of delete
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->editRemoveText(line, col, len);
+    m_views.at(z)->editRemoveText (line, col, len);
   }
 
   editEnd ();
@@ -1196,13 +1196,13 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
   for (uint z = 0; z < m_views.count(); z++)
   {
     if(!autowrap)
-      m_views.at(z)->m_viewInternal->editWrapLine(line, col, tl->length());
+      m_views.at(z)->editWrapLine (line, col, tl->length());
     else
     {
       int offset = llen - m_views.at(z)->cursorColumnReal();
       offset = (nl ? nllen:tl->length()) - offset;
       if(offset < 0) offset = 0;
-      m_views.at(z)->m_viewInternal->editWrapLine(line, col, offset);
+      m_views.at(z)->editWrapLine (line, col, offset);
     }
   }
   editEnd ();
@@ -1259,7 +1259,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->editUnWrapLine(line, col);
+    m_views.at(z)->editUnWrapLine (line, col);
   }
 
   editEnd ();
@@ -1303,7 +1303,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->setViewTagLinesFrom(line);
+    m_views.at(z)->setViewTagLinesFrom (line);
   }
 
   editEnd ();
@@ -1352,7 +1352,7 @@ bool KateDocument::editRemoveLine ( uint line )
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->editRemoveLine(line);
+    m_views.at(z)->editRemoveLine (line);
   }
 
   editEnd();
@@ -3902,13 +3902,13 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
 void KateDocument::tagLines(int start, int end)
 {
   for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->tagLines(start, end, true);
+    m_views.at(z)->tagLines (start, end, true);
 }
 
 void KateDocument::tagLines(KateTextCursor start, KateTextCursor end)
 {
   for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->tagLines(start, end, true);
+    m_views.at(z)->tagLines(start, end, true);
 }
 
 void KateDocument::tagSelection()
@@ -3946,15 +3946,15 @@ void KateDocument::tagSelection()
 void KateDocument::repaintViews(bool paintOnlyDirty)
 {
   for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), paintOnlyDirty);
+    m_views.at(z)->repaintText(paintOnlyDirty);
 }
 
 void KateDocument::tagAll()
 {
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->m_viewInternal->tagAll();
-    m_views.at(z)->m_viewInternal->updateView (true);
+    m_views.at(z)->tagAll();
+    m_views.at(z)->updateView (true);
   }
 }
 
@@ -3980,7 +3980,7 @@ void KateDocument::updateViews()
 
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
   {
-    view->m_viewInternal->updateView();
+    view->updateView();
   }
 }
 
@@ -4524,7 +4524,7 @@ KTextEditor::Cursor *KateDocument::createCursor ( )
 void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
 {
   if (view)
-    view->m_viewInternal->tagLines(range->start(), range->end());
+    view->tagLines(range->start(), range->end());
   else
     tagLines(range->start(), range->end());
 }
@@ -4588,7 +4588,7 @@ void KateDocument::misspelling( const QString& origword, const QStringList&, uns
   locatePosition( pos, line, col );
 
   if (activeView())
-    activeView()->m_viewInternal->updateCursor( KateTextCursor( line, col ) );
+    activeView()->setCursorPositionReal(line, col);
 
   setSelection( line, col, line, col + origword.length() );
 }

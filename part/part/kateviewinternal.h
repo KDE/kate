@@ -39,7 +39,8 @@ class KateIconBorder;
 class QHBoxLayout;
 class QVBoxLayout;
 
-enum Bias {
+enum Bias
+{
     left  = -1,
     none  =  0,
     right =  1
@@ -54,36 +55,76 @@ class KateScrollBar : public QScrollBar
 {
   Q_OBJECT
 
-public:
-  KateScrollBar(Orientation orientation, QWidget* parent, const char* name = 0L);
+  public:
+    KateScrollBar(Orientation orientation, QWidget* parent, const char* name = 0L);
 
-signals:
-  void sliderMMBMoved(int value);
+  signals:
+    void sliderMMBMoved(int value);
 
-protected:
-  virtual void mousePressEvent(QMouseEvent* e);
-  virtual void mouseReleaseEvent(QMouseEvent* e);
+  protected:
+    virtual void mousePressEvent(QMouseEvent* e);
+    virtual void mouseReleaseEvent(QMouseEvent* e);
 
-protected slots:
-  void sliderMaybeMoved(int value);
+  protected slots:
+    void sliderMaybeMoved(int value);
 
-private:
+  private:
   bool m_middleMouseDown;
 };
 
 class KateViewInternal : public QWidget
 {
     Q_OBJECT
-    friend class KateDocument;
-    friend class KateUndoGroup;
-    friend class KateUndo;
+
     friend class KateView;
     friend class KateIconBorder;
-    friend class KateRenderer;
 
   public:
     KateViewInternal ( KateView *view, KateDocument *doc );
     ~KateViewInternal ();
+
+  // BEGIN EDIT STUFF
+  public:
+    void editStart ();
+    void editEnd (int editTagLineStart, int editTagLineEnd);
+
+    void editInsertText (int line, int col, int len);
+    void editRemoveText (int line, int col, int len);
+
+    void editWrapLine (int line, int col, int len);
+    void editUnWrapLine (int line, int col);
+
+    void editInsertLine (int line);
+    void editRemoveLine (int line);
+
+    void editSetCursor (const KateTextCursor &cursor);
+
+    void setViewTagLinesFrom(int line);
+
+  private:
+    void setTagLinesFrom(int line);
+
+    uint editSessionNumber;
+    bool editIsRunning;
+    bool editCursorChanged;
+    int tagLinesFrom;
+  // END
+
+  // BEGIN TAG & CLEAR & UPDATE STUFF
+  public:
+    bool tagLine (const KateTextCursor& virtualCursor);
+
+    bool tagLines (int start, int end, bool realLines = false);
+    bool tagLines (KateTextCursor start, KateTextCursor end, bool realCursors = false);
+
+    void tagAll ();
+
+    void clear ();
+  // END
+
+  private:
+    void updateView (bool changed = false, int viewLinesScrolled = 0);
+    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false);
 
   public:
     inline const KateTextCursor& startPos() const { return m_startPos; }
@@ -110,10 +151,6 @@ class KateViewInternal : public QWidget
     void scrollPrevLine();
     void scrollNextLine();
     void scrollColumns (int x); // connected to the valueChanged of the m_columnScroll
-
-  //public slots:
-    void updateView (bool changed = false, int viewLinesScrolled = 0);
-    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false);
 
   public:
     void doReturn();
@@ -144,29 +181,8 @@ class KateViewInternal : public QWidget
     void top_home(bool sel=false);
     void bottom_end(bool sel=false);
 
-    void clear();
-
     inline const KateTextCursor& getCursor() { return cursor; }
     QPoint cursorCoordinates();
-
-    void setTagLinesFrom(int line);
-
-    void editStart();
-    void editEnd(int editTagLineStart, int editTagLineEnd);
-
-    void editInsertText(int line, int col, int len);
-    void editRemoveText(int line, int col, int len);
-
-    void editWrapLine(int line, int col, int len);
-    void editUnWrapLine(int line, int col);
-
-    void editInsertLine(int line);
-    void editRemoveLine(int line);
-
-    /**
-       Set the tagLinesFrom member if usefull.
-    */
-    void setViewTagLinesFrom(int line);
 
     void paintText (int x, int y, int width, int height, bool paintOnlyDirty = false);
 
@@ -197,8 +213,6 @@ class KateViewInternal : public QWidget
     // emitted when KateViewInternal is not handling its own URI drops
     void dropEventPass(QDropEvent*);
 
-
-
   private slots:
     void slotRegionVisibilityChangedAt(unsigned int);
     void slotRegionBeginEndAddedRemoved(unsigned int);
@@ -219,11 +233,6 @@ class KateViewInternal : public QWidget
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& newCursor, bool force = false );
     void updateBracketMarks();
-
-    bool tagLine(const KateTextCursor& virtualCursor);
-    bool tagLines(int start, int end, bool realLines = false );
-    bool tagLines(KateTextCursor start, KateTextCursor end, bool realCursors = false);
-    void tagAll();
 
     void paintCursor();
 
@@ -248,14 +257,6 @@ class KateViewInternal : public QWidget
     int cXPos;
 
     bool possibleTripleClick;
-
-    // for use from doc: tag lines from here (if larger than -1)
-    int tagLinesFrom;
-
-    //
-    // has the cursor been moved while editStart/End
-    //
-    bool editCursorChanged;
 
     // Bracket mark
     KateTextRange bm;

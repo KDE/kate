@@ -55,11 +55,8 @@ class KateView : public Kate::View,
                  public KTextEditor::TextHintInterface
 {
     Q_OBJECT
+
     friend class KateViewInternal;
-    friend class KateRenderer;
-    friend class KateDocument;
-    friend class KateUndoGroup;
-    friend class KateUndo;
     friend class KateIconBorder;
     friend class KateCodeCompletion;
 
@@ -142,6 +139,41 @@ class KateView : public Kate::View,
   public:
     void setDynWordWrap( bool b );
     bool dynWordWrap() const      { return m_hasWrap; }
+
+  // BEGIN EDIT STUFF
+  public:
+    void editStart ();
+    void editEnd (int editTagLineStart, int editTagLineEnd);
+
+    void editInsertText (int line, int col, int len);
+    void editRemoveText (int line, int col, int len);
+
+    void editWrapLine (int line, int col, int len);
+    void editUnWrapLine (int line, int col);
+
+    void editInsertLine (int line);
+    void editRemoveLine (int line);
+
+    void editSetCursor (const KateTextCursor &cursor);
+
+    void setViewTagLinesFrom(int line);
+  // END
+
+  // BEGIN TAG & CLEAR
+  public:
+    bool tagLine (const KateTextCursor& virtualCursor);
+
+    bool tagLines (int start, int end, bool realLines = false );
+    bool tagLines (KateTextCursor start, KateTextCursor end, bool realCursors = false);
+
+    void tagAll ();
+
+    void clear ();
+
+    void repaintText (bool paintOnlyDirty = false);
+
+    void updateView (bool changed = false);
+  // END
 
   //
   // Kate::View
@@ -309,13 +341,15 @@ class KateView : public Kate::View,
     void contextMenuEvent( QContextMenuEvent* );
     bool checkOverwrite( KURL );
 
+  public slots:
+    void slotSelectionTypeChanged();
+
   private slots:
     void slotGotFocus();
     void slotLostFocus();
     void slotDropEventPass( QDropEvent* ev );
     void slotSetEncoding( const QString& descriptiveName );
     void slotStatusMsg();
-    void slotSelectionTypeChanged();
     void slotSaveCanceled( const QString& error );
     void slotExpandToplevel();
     void slotCollapseLocal();

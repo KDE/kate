@@ -849,7 +849,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   dirSearchDepth = new KIntNumInput(KateDocumentConfig::global()->searchDirConfigDepth(), dirConfigBox);
   dirSearchDepth->setRange(-1, 64, 1, false);
-  dirSearchDepth->setSpecialValueText( i18n("Don't use config file") );
+  dirSearchDepth->setSpecialValueText( i18n("Do not use config file") );
   dirSearchDepth->setLabel(i18n("Se&arch depth for config file:"), AlignVCenter);
 
   QGroupBox *gb = new QGroupBox( 1, Qt::Horizontal, i18n("Backup on Save"), this );
@@ -891,12 +891,12 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
         "Editor will search given number of folder levels upwards for .kateconfig file"
         " and load the settings line from it." ));
   QWhatsThis::add(blockCount, i18n(
-        "Editor will load given count of blocks (of around 2048 lines of text into memory."
-        " If filesize is bigger than this the other blocks are swapped"
-        " to disk and loaded transparently to the user on demand into memory.<br>"
-        " This can cause little delays while navigating in the document therefor a larger block count"
-        " increases the editing speed on cost of memory. <br>For normal usage, just choose highest possible"
-        " block count, limit it only if you get problems with the memory usage."));
+        "Editor will load given number of blocks (of around 2048 lines) of text into memory;"
+        " if the filesize is bigger than this the other blocks are swapped "
+        " to disk and loaded transparently as-needed.<br>"
+        " This can cause little delays while navigating in the document; a larger block count"
+        " increases the editing speed at the cost of memory. <br>For normal usage, just choose highest possible"
+        " block count: limit it only if you have problems with the memory usage."));
 
   reload();
 

@@ -2,32 +2,29 @@
 <kpartgui name="KatePartView" version="7">
 <MenuBar noMerge="1">
   <Menu name="file" noMerge="1"><text>&amp;File</text>
-    <Separator/>
-    <Action name="file_save"/>
-    <Action name="file_save_as"/>
-    <Action name="file_export"/>
+    <Action name="file_save" group="file_operations" />
+    <Action name="file_save_as" group="file_operations" />
+    <Action name="file_export" group="file_operations" />
+    <Action name="file_print" group="print_operations" />
   </Menu>
 
-  <Menu name="edit"><text>&amp;Edit</text>
-    <Action name="edit_undo" />
-    <Action name="edit_redo" />
-    <Separator />
-    <Action name="edit_cut" />
-    <Action name="edit_copy" />
-    <Action name="edit_paste" />
-    <Action name="edit_select_all" />
-    <Action name="edit_deselect"/>
-    <Action name="set_verticalSelect"/>
-    <Separator />
-    <Action name="go_goto_line" />
-    <Separator />
-    <Action name="edit_find" />
-    <Action name="edit_find_next" />
-    <Action name="edit_find_prev" />
-    <Action name="edit_replace" />
-    <Separator />
-    <Action name="edit_apply_wordwrap"/>
-    <Action name="edit_cmd"/>
+  <Menu name="edit" noMerge="1"><text>&amp;Edit</text>
+    <Action name="edit_undo" group="edit_operations" />
+    <Action name="edit_redo" group="edit_operations" />
+    <Separator group="edit_operations" />
+    <Action name="edit_cut" group="edit_operations" />
+    <Action name="edit_copy" group="edit_operations" />
+    <Action name="edit_paste" group="edit_operations" />
+    <Separator group="edit_operations" />
+    <Action name="edit_select_all" group="edit_operations" />
+    <Action name="edit_deselect" group="edit_operations" />
+    <Action name="set_verticalSelect" group="edit_operations" />
+    <Separator group="edit_operations" />
+    <Action name="go_goto_line" group="edit_operations" />
+    <Action name="edit_find" group="find_operations" />
+    <Action name="edit_find_next" group="find_operations" />
+    <Action name="edit_find_prev" group="find_operations" />
+    <Action name="edit_replace" group="find_operations" />
   </Menu>
 
   <Action name="bookmarks" />
@@ -41,6 +38,8 @@
     <Separator/>
     <Action name="tools_comment"/>
     <Action name="tools_uncomment"/>
+    <Action name="tools_apply_wordwrap" />
+    <Action name="tools_cmd" />
   </Menu>
 
   <Menu name="settings"><text>&amp;Settings</text>
@@ -67,17 +66,14 @@
 
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
-  <Separator />
-  <Action name="edit_undo" />
-  <Action name="edit_redo" />
-  <Action name="edit_cut" />
-  <Action name="edit_copy" />
-  <Action name="edit_paste" />
-  <Separator />
-  <Action name="edit_find" />
-  <Separator />
-  <Action name="incFontSizes" />
-  <Action name="decFontSizes" />
+  <Action name="edit_undo" group="edit_operations" />
+  <Action name="edit_redo" group="edit_operations" />
+  <Action name="edit_cut" group="edit_operations" />
+  <Action name="edit_copy" group="edit_operations" />
+  <Action name="edit_paste" group="edit_operations" />
+  <Action name="edit_find" group="find_operations" />
+  <Action name="incFontSizes" group="zoom_operations" />
+  <Action name="decFontSizes" group="zoom_operations" />
 </ToolBar>
 
 </kpartgui>

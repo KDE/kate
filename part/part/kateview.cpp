@@ -277,9 +277,9 @@ void KateView::setupActions()
     m_editRedo = KStdAction::redo(myDoc, SLOT(redo()), ac);
     KStdAction::cut(this, SLOT(cut()), ac);
     KStdAction::paste(this, SLOT(paste()), ac);
-    new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), ac, "edit_apply_wordwrap");
+    new KAction(i18n("Apply Word Wrap"), "", 0, myDoc, SLOT(applyWordWrap()), ac, "tools_apply_wordwrap");
     KStdAction::replace(this, SLOT(replace()), ac);
-    new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "edit_cmd");
+    new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd");
 
     // setup Tools menu
     KStdAction::spelling(myDoc, SLOT(spellcheck()), ac);
@@ -297,6 +297,8 @@ void KateView::setupActions()
 
   KStdAction::copy(this, SLOT(copy()), ac);
 
+  KStdAction::print(this, SLOT(print()), ac);
+  
   KStdAction::saveAs(this, SLOT(saveAs()), ac);
   KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
   new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");

@@ -2904,7 +2904,7 @@ bool KateDocument::saveFile()
   else if (eolMode == KateDocument::eolMacintosh) eol = QString ("\r");
 
   if (!buffer->canEncode (KGlobal::charsets()->codecForName(myEncoding)))
-    KMessageBox::error (0, i18n ("The document has been saved, but the selected encoding cannot encode every unicode character in it."
+    KMessageBox::error (0, i18n ("The document has been saved, but the selected encoding cannot encode every unicode character in it. "
     "If you don't save it again with another encoding, some characters will be lost after closing this document."));
 
   bool success = buffer->saveFile (m_file, KGlobal::charsets()->codecForName(myEncoding), eol);

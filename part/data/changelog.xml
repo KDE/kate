@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ChangeLog" section="Other" extensions="ChangeLog" mimetype="">
+<language name="ChangeLog" version="1.01" kateversion="2.1" section="Other" extensions="ChangeLog" mimetype="">
         <highlighting>
           <contexts>
                 <context attribute="0" lineEndContext="#stay">

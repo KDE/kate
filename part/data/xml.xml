@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="XML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf">
+<language version="1.01" kateversion="2.1" name="XML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf">
   <highlighting>
     <contexts>
        <context attribute="0" lineEndContext="#stay">

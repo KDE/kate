@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Perl" version="1.02" kateversion="2.0" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
+<language name="Perl" version="1.03" kateversion="2.1" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
  <highlighting>
      <list name="keywords">
          <item> if </item>

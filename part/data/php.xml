@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP" version="1.04" kateversion="2.0" section="Scripts" extensions="*.php;*.php3;*.wml;*.phtml" mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
+<language name="PHP" version="1.06" kateversion="2.1" section="Scripts" extensions="*.php;*.php3;*.wml;*.phtml" mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
 	<highlighting>
 		<list name="others">
 			<item> ; </item>
@@ -2746,8 +2746,8 @@
 				<DetectChar attribute="String" context="#pop" char="'" />
 			</context>
 			<context name="htmltag" attribute="Identifier" lineEndContext="#stay">
-				<Detect2Chars attribute="HTML Tag" context="#push" char="/" char1="&gt;" />
-				<DetectChar attribute="HTML Tag" context="#push" char="&gt;"/>
+				<Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
+				<DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?php" />
 				<StringDetect attribute="Keyword" context="phpsource" String="&lt;?" />
 				<RegExpr attribute="Identifier" context="identifiers" String="\s*=\s*"/>

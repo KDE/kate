@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MAB-DB" version="1.00" kateversion="2.0" extensions="*.mab;*.MAB;*.Mab" section="Markup" mimetype="text/x-mab" casesensitive="0">
+<language name="MAB-DB" version="1.01" kateversion="2.1" extensions="*.mab;*.MAB;*.Mab" section="Markup" mimetype="text/x-mab" casesensitive="0">
   <highlighting>
     <contexts>
       <context attribute="0" name="Section" lineEndContext="0" >

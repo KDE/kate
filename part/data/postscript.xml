@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PostScript" version="1.00" kateversion="2.0" section="Markup" extensions="*.ps;*.ai;*.eps" mimetype="application/postscript">
+<language name="PostScript" version="1.01" kateversion="2.1" section="Markup" extensions="*.ps;*.ai;*.eps" mimetype="application/postscript">
 <highlighting>
 	<list name="keywords">
 		<item> abs </item>

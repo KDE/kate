@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.02" kateversion="2.0" section="Sources" extensions="*.f;*.F;*.x" mimetype="text/x-fortran-src">
+<language name="Fortran" version="1.03" kateversion="2.1" section="Sources" extensions="*.f;*.F;*.x" mimetype="text/x-fortran-src">
   <highlighting>
     <list name="keywords">
       <item> break </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C" version="1.00" kateversion="2.0" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-c++src;text/x-chdr;text/x-csrc">
+<language name="C" version="1.01" kateversion="2.1" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-c++src;text/x-chdr;text/x-csrc">
   <highlighting>
     <list name="keywords">
       <item> break </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="KBasic" version="1.01" kateversion="2.0" section="Sources" extensions="*.kbasic" mimetype="text/x-kbasic-src">
+<language name="KBasic" version="1.02" kateversion="2.1" section="Sources" extensions="*.kbasic" mimetype="text/x-kbasic-src">
     <highlighting>
         <list name="keywords">
         <item> For </item>

@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Shane Wright <me@shanewright.co.uk> -->
 <!-- PostgreSQL SQL, syntax definition based on sql.xml by Yury Lebedev -->
-<language name="SQL-PostgreSQL" version="1.00" kateversion="2.0" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0">
+<language name="SQL-PostgreSQL" version="1.01" kateversion="2.1" section="Other" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0">
   <highlighting>
     <list name="keywords">
       <item> ABORT </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Quake, Wolfenstein, Half-Life" version="0.1" kateversion="2.0" section="Games" extensions="*.cfg" mimetype="">
+<language name="Quake, Wolfenstein, Half-Life" version="1.01" kateversion="2.1" section="Games" extensions="*.cfg" mimetype="">
 
 <highlighting>
 <list name="Commands">

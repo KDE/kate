@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Makefile syntaxfile v0.9 by Per Wigren <wigren@home.se> -->
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
-<language name="Makefile" version="1.00" kateversion="2.0" section="Other" extensions="" mimetype="text/x-makefile">
+<language name="Makefile" version="1.01" kateversion="2.1" section="Other" extensions="" mimetype="text/x-makefile">
 	<highlighting>
 		<list name = "keywords">
 			<item> include </item>

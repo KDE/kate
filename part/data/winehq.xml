@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="WINE Config" version="1.01" kateversion="2.0" section="Other" extensions="*.reg" mimetype="">
+<language name="WINE Config" version="1.02" kateversion="2.1" section="Other" extensions="*.reg" mimetype="">
   <highlighting>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">

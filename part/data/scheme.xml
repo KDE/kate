@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
+<language version="1.01" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
   <highlighting>
     <list name="blocks">
       <item> begin </item>

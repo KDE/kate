@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.02" kateversion="2.0" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-c++src">
+<language name="C++" version="1.03" kateversion="2.1" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-c++src">
   <highlighting>
     <list name="keywords">
       <item> class </item>

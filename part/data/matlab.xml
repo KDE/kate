@@ -1,6 +1,6 @@
 <?xml version="1.02" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Matlab M-File" version="1.01" kateversion="2.0" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
+<language name="Matlab M-File" version="1.02" kateversion="2.1" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
   <highlighting>
     <list name="keywords">
       <item> break </item>

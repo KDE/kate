@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- author: Yevgen Voronenko (ysv22@drexel.edu) -->
 <!-- $Id$ -->
-<language name="Verilog" version="1.03" kateversion="2.0" section="Sources" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src">
+<language name="Verilog" version="1.04" kateversion="2.1" section="Sources" extensions="*.v;*.V;*.vl" mimetype="text/x-verilog-src">
   <highlighting>
     <list name="keywords">
       <item> module </item>

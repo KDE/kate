@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ILERPG" version="1.00" kateversion="2.0" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
+<language name="ILERPG" version="1.01" kateversion="2.1" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
     <highlighting>
     <list name="biffs">
 	    <item> ABS </item>

@@ -1,7 +1,7 @@
 <?xml version="1.02" encoding="UTF-8"?>
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
-<language name="Python" version="1.02" kateversion="2.0" section="Scripts" extensions="*.py;*.pyw" mimetype="text/x-python" casesensitive="1">
+<language name="Python" version="1.03" kateversion="2.1" section="Scripts" extensions="*.py;*.pyw" mimetype="text/x-python" casesensitive="1">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>

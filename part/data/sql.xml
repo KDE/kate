@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Yury Lebedev <yurylebedev@mail.ru> -->
 <!-- Oracle9i SQL and PL/SQL syntax - ANSI SQL superset -->
-<language name="SQL" version="1.02" kateversion="2.0" section="Scripts" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0">
+<language name="SQL" version="1.03" kateversion="2.1" section="Scripts" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Java" version="1.02" kateversion="2.0" section="Sources" extensions="*.java" mimetype="text/x-java">
+<language name="Java" version="1.03" kateversion="2.1" section="Sources" extensions="*.java" mimetype="text/x-java">
 	<highlighting>
 
 		<list name="java13">

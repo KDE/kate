@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SML" version="1.00" kateversion="2.0" section="Scripts" extensions="*.sml" mimetype="">
+<language name="SML" version="1.01" kateversion="2.1" section="Scripts" extensions="*.sml" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> abstype </item>

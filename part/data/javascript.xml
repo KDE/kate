@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Anders Lund <anders@alweb.dk> //-->
 <!-- Minimal javascript support //-->
-<language name="JavaScript" version="0.1" kateversion="2.0" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
+<language name="JavaScript" version="1.01" kateversion="2.1" section="Scripts" extensions="*.js" mimetype="text/x-javascript">
   <highlighting>
     <list name="keywords">
         <item> if </item>

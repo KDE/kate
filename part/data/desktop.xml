@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name=".desktop" section="Other" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
+<language name=".desktop" version="1.01" kateversion="2.1" section="Other" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
   <highlighting>
     <contexts>
       <context attribute="2" lineEndContext="#stay" name="Normal">

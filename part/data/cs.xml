@@ -1,5 +1,5 @@
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C#" version="1.03" kateversion="2.0" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
+<language name="C#" version="1.04" kateversion="2.1" section="Sources" extensions="*.cs" mimetype="text/x-csharp-src;text/x-csharp-hde">
   <highlighting>
     <list name="keywords">
         <item> abstract</item>

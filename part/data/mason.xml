@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.01" kateversion="2.0" name="Mason" section="Scripts" extensions="*.html;" mimetype="">
+<language version="1.02" kateversion="2.1" name="Mason" section="Scripts" extensions="*.html;" mimetype="">
 <highlighting>
 	<list name="keywords">
 		<item> sub </item>

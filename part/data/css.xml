@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.00" kateversion="2.0" section="Markup" extensions="*.css" mimetype="text/css">
+<language name="CSS" version="1.01" kateversion="2.1" section="Markup" extensions="*.css" mimetype="text/css">
   <highlighting>
     <list name="keywords">
       <item> azimuth </item>

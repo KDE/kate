@@ -5,7 +5,7 @@
 <!-- Copyright: BSD copyright -->
 <!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
 
-<language name="Tcl/Tk" version="1.01" kateversion="2.0" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.02" kateversion="2.1" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>

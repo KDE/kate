@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Sather" version="1.01" kateversion="2.0" section="Sources" extensions="*.sa" mimetype="text/x-sather-src" casesensitive="1">
+<language name="Sather" version="1.02" kateversion="2.1" section="Sources" extensions="*.sa" mimetype="text/x-sather-src" casesensitive="1">
         <highlighting>
                 <list name="keywords">
                         <item> and </item>

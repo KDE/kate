@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="IDL" version="1.02" kateversion="2.0" section="Sources" extensions="*.idl" mimetype="text/x-idl-src">
+<language name="IDL" version="1.03" kateversion="2.1" section="Sources" extensions="*.idl" mimetype="text/x-idl-src">
   <highlighting>
     <list name="keywords">
       <item> any </item>

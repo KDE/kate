@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="XML (Debug)" section="Markup" extensions="" mimetype="">
+<language version="1.01" kateversion="2.1" name="XML (Debug)" section="Markup" extensions="" mimetype="">
   <highlighting>
     <list name="AttType">
         <item>CDATA</item>

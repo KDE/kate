@@ -696,9 +696,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // should cursor be wrapped ? take config + blockselection state in account
     bool wrapCursor ();
 
-
   public:
-    void updateFileType (bool force = false);
+    void updateFileType (int newType, bool user = false);
 
     inline int fileType () const { return m_fileType; };
 
@@ -779,12 +778,13 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
       Reads all the variables in the document.
       Called when opening/saving a document
     */
-    void readVariables();
+    void readVariables(bool onlyViewAndRenderer = false);
+
     /**
       Reads and applies the variables in a single line
       TODO registered variables gets saved in a [map]
     */
-    void readVariableLine( QString t );
+    void readVariableLine( QString t, bool onlyViewAndRenderer = false );
     /**
       Sets a view variable in all the views.
     */

@@ -26,6 +26,7 @@
 #include "katedocument.h"
 #include "kateconfig.h"
 #include "katedialogs.h"
+#include "katefactory.h"
 
 #include <kconfig.h>
 #include <kmimemagic.h>
@@ -52,7 +53,6 @@
 #include <qwidgetstack.h>
 
 KateFileTypeManager::KateFileTypeManager ()
- : m_config (new KConfig ("katepart/filetypesrc"))
 {
   m_types.setAutoDelete (true);
 
@@ -61,35 +61,74 @@ KateFileTypeManager::KateFileTypeManager ()
 
 KateFileTypeManager::~KateFileTypeManager ()
 {
-  delete m_config;
 }
 
+//
+// read the types from config file and update the internal list
+//
 void KateFileTypeManager::update ()
 {
-  m_config->reparseConfiguration();
+  KConfig config ("katepart/filetypesrc", false, false);
 
-  QStringList g (m_config->groupList());
+  QStringList g (config.groupList());
+
+  g.sort ();
 
   m_types.clear ();
   m_types.resize (g.count());
 
   for (uint z=0; z < g.count(); z++)
   {
-    m_config->setGroup (g[z]);
+    config.setGroup (g[z]);
 
     KateFileType *type = new KateFileType ();
 
     type->number = z;
     type->name = g[z];
-    type->section = m_config->readEntry ("Section");
-    type->wildcards = m_config->readListEntry ("Wildcards", ';');
-    type->mimetypes = m_config->readListEntry ("Mimetypes", ';');
-    type->priority = m_config->readNumEntry ("Priority");
+    type->section = config.readEntry ("Section");
+    type->wildcards = config.readListEntry ("Wildcards", ';');
+    type->mimetypes = config.readListEntry ("Mimetypes", ';');
+    type->priority = config.readNumEntry ("Priority");
+    type->varLine = config.readEntry ("Variables");
 
     m_types.insert (z, type);
 
     kdDebug(13020) << "INIT LIST: " << type->name << endl;
   }
+}
+
+//
+// save the given list to config file + update
+//
+void KateFileTypeManager::save (QPtrVector<KateFileType> *v)
+{
+  KConfig config ("katepart/filetypesrc", false, false);
+
+  QStringList newg;
+  for (uint z=0; z < v->count(); z++)
+  {
+    config.setGroup (v->operator[](z)->name);
+
+    config.writeEntry ("Section", v->operator[](z)->section);
+    config.writeEntry ("Wildcards", v->operator[](z)->wildcards, ';');
+    config.writeEntry ("Mimetypes", v->operator[](z)->mimetypes, ';');
+    config.writeEntry ("Priority", v->operator[](z)->priority);
+    config.writeEntry ("Variables", v->operator[](z)->varLine);
+
+    newg << v->operator[](z)->name;
+  }
+
+  QStringList g (config.groupList());
+
+  for (uint z=0; z < g.count(); z++)
+  {
+    if (newg.findIndex (g[z]) == -1)
+      config.deleteGroup (g[z]);
+  }
+
+  config.sync ();
+
+  update ();
 }
 
 int KateFileTypeManager::fileType (KateDocument *doc)
@@ -221,26 +260,25 @@ KateFileType *KateFileTypeManager::fileType (uint number)
 KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
   : Kate::ConfigPage( parent )
 {
+  m_types.setAutoDelete (true);
+
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   // hl chooser
   QHBox *hbHl = new QHBox( this );
   layout->add (hbHl);
   hbHl->setSpacing( KDialog::spacingHint() );
-  QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
+  QLabel *lHl = new QLabel( i18n("&Filetype:"), hbHl );
   typeCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( typeCombo );
   connect( typeCombo, SIGNAL(activated(int)),
            this, SLOT(typeChanged(int)) );
-/*  for( int i = 0; i < hlManager->highlights(); i++) {
-    if (hlManager->hlSection(i).length() > 0)
-      hlCombo->insertItem(hlManager->hlSection(i) + QString ("/") + hlManager->hlName(i));
-    else
-      hlCombo->insertItem(hlManager->hlName(i));
-  }
-  hlCombo->setCurrentItem(0);*/
-  QPushButton *btnEdit = new QPushButton( i18n("&Edit..."), hbHl );
-  connect( btnEdit, SIGNAL(clicked()), this, SLOT(hlEdit()) );
+
+  QPushButton *btndel = new QPushButton( i18n("&Delete"), hbHl );
+  connect( btndel, SIGNAL(clicked()), this, SLOT(deleteType()) );
+
+  QPushButton *btnnew = new QPushButton( i18n("&New..."), hbHl );
+  connect( btnnew, SIGNAL(clicked()), this, SLOT(newType()) );
 
   QGroupBox *gbProps = new QGroupBox( 1, Qt::Horizontal, i18n("Properties"), this );
   layout->add (gbProps);
@@ -271,10 +309,23 @@ KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
 
 void KateFileTypeConfigTab::apply()
 {
+  KateFactory::fileTypeManager()->save(&m_types);
 }
 
 void KateFileTypeConfigTab::reload()
 {
+  m_types.resize (KateFactory::fileTypeManager()->list()->size());
+
+  for (uint z=0; z < m_types.size(); z++)
+  {
+    KateFileType *type = new KateFileType ();
+
+    *type = *KateFactory::fileTypeManager()->list()->operator[](z);
+
+    m_types.insert (z, type);
+  }
+
+  update ();
 }
 
 void KateFileTypeConfigTab::reset()
@@ -282,6 +333,32 @@ void KateFileTypeConfigTab::reset()
 }
 
 void KateFileTypeConfigTab::defaults()
+{
+}
+
+void KateFileTypeConfigTab::update ()
+{
+  for( uint i = 0; i < m_types.size(); i++) {
+    if (m_types[i]->section.length() > 0)
+      typeCombo->insertItem(m_types[i]->section + QString ("/") + m_types[i]->name);
+    else
+      typeCombo->insertItem(m_types[i]->name);
+  }
+
+  typeCombo->setCurrentItem(-1);
+}
+
+void KateFileTypeConfigTab::deleteType ()
+{
+
+}
+
+void KateFileTypeConfigTab::newType ()
+{
+
+}
+
+void KateFileTypeConfigTab::typeChanged (int type)
 {
 }
 

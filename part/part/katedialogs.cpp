@@ -97,7 +97,7 @@
 #include <qwidgetstack.h>
 //END
 
-#warning FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and there is a need for an itemUnset(XYZ)
+// FIXME THE isSomethingSet() calls should partly be replaced by itemSet(XYZ) and there is a need for an itemUnset(XYZ)
 
 using namespace Kate;
 

@@ -28,8 +28,6 @@
 
 class KateDocument;
 
-class KConfig;
-
 class KateFileType
 {
   public:
@@ -39,6 +37,7 @@ class KateFileType
     QStringList wildcards;
     QStringList mimetypes;
     int priority;
+    QString varLine;
 };
 
 class KateFileTypeManager
@@ -51,6 +50,8 @@ class KateFileTypeManager
      * File Type Config changed, update all docs (which will take care of views/renderers)
      */
     void update ();
+
+    void save (QPtrVector<KateFileType> *v);
 
     /**
      * get the right fileType for the given document
@@ -72,7 +73,6 @@ class KateFileTypeManager
     int wildcardsFind (const QString &fileName);
 
   private:
-    KConfig *m_config;
     QPtrVector<KateFileType> m_types;
 };
 
@@ -84,16 +84,23 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
     KateFileTypeConfigTab( QWidget *parent );
 
   public slots:
-  void apply();
-  void reload();
-  void reset();
-  void defaults();
+    void apply();
+    void reload();
+    void reset();
+    void defaults();
 
-  private:
+  private slots:
+    void update ();
+    void deleteType ();
+    void newType ();
+    void typeChanged (int type);
+
     class QComboBox *typeCombo;
     class QLineEdit *wildcards;
     class QLineEdit *mimetypes;
     class KIntNumInput *priority;
+
+    QPtrVector<KateFileType> m_types;
 };
 
 #endif

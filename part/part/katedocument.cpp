@@ -2812,14 +2812,17 @@ bool KateDocument::openFile()
   //
   if (success)
   {
-    // update hl
-    int hl (hlManager->detectHighlighting (this));
+    // update our hl type if needed
+    if (!hlSetByUser)
+    {
+      int hl (hlManager->detectHighlighting (this));
 
-    if (hl >= 0)
-      internalSetHlMode(hl);
+      if (hl >= 0)
+        internalSetHlMode(hl);
+    }
 
     // update file type
-    updateFileType ();
+    updateFileType (KateFactory::fileTypeManager()->fileType (this));
 
     // read vars
     readVariables();
@@ -2922,7 +2925,7 @@ bool KateDocument::saveFile()
     }
 
     // update our file type
-    updateFileType ();
+    updateFileType (KateFactory::fileTypeManager()->fileType (this));
 
     // read our vars
     readVariables();
@@ -3083,7 +3086,15 @@ void KateDocument::addView(KTextEditor::View *view) {
 
   m_views.append( (KateView *) view  );
   m_textEditViews.append( view );
-  readVariables();
+
+  // apply the view & renderer vars from the file type
+  KateFileType *t = 0;
+  if ((m_fileType > -1) && (t = KateFactory::fileTypeManager()->fileType(m_fileType)))
+    readVariableLine (t->varLine, true);
+
+  // apply the view & renderer vars from the file
+  readVariables (true);
+
   m_activeView = (KateView *) view;
 }
 
@@ -4892,9 +4903,11 @@ void KateDocument::updateConfig ()
 QRegExp KateDocument::kvLine = QRegExp("kate:(.*)");
 QRegExp KateDocument::kvVar = QRegExp("([\\w\\-]+)\\s+([^;]+)");
 
-void KateDocument::readVariables()
+void KateDocument::readVariables(bool onlyViewAndRenderer)
 {
-  m_config->configStart();
+  if (!onlyViewAndRenderer)
+    m_config->configStart();
+
   // views!
   KateView *v;
   for (v = m_views.first(); v != 0L; v= m_views.next() )
@@ -4905,16 +4918,19 @@ void KateDocument::readVariables()
   // read a number of lines in the top/bottom of the document
   for (uint i=0; i < QMIN( 9, numLines() ); ++i )
   {
-    readVariableLine( textLine( i ) );
+    readVariableLine( textLine( i ), onlyViewAndRenderer );
   }
   if ( numLines() > 10 )
   {
     for ( uint i = QMAX(10, numLines() - 10); i < numLines(); ++i )
     {
-      readVariableLine( textLine( i ) );
+      readVariableLine( textLine( i ), onlyViewAndRenderer );
     }
   }
-  m_config->configEnd();
+
+  if (!onlyViewAndRenderer)
+    m_config->configEnd();
+
   for (v = m_views.first(); v != 0L; v= m_views.next() )
   {
     v->config()->configEnd();
@@ -4922,7 +4938,7 @@ void KateDocument::readVariables()
   }
 }
 
-void KateDocument::readVariableLine( QString t )
+void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 {
   if ( kvLine.search( t ) > -1 )
   {
@@ -4947,83 +4963,92 @@ void KateDocument::readVariableLine( QString t )
       bool state; // store booleans here
       int n; // store ints here
 
-      // BOOL  SETTINGS
-      if ( var == "word-wrap" && checkBoolValue( val, &state ) )
-        setWordWrap( state ); // ??? FIXME CHECK
-      else if ( var == "block-selection"  && checkBoolValue( val, &state ) )
-        setBlockSelectionMode( state );
-      // KateConfig::configFlags
-      // FIXME should this be optimized to only a few calls? how?
-      else if ( var == "auto-indent" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfAutoIndent, state );
-      else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
-      else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
-      else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfWrapCursor, state );
-      else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfAutoBrackets, state );
-      else if ( var == "persistent-selection" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfPersistent, state );
-      else if ( var == "keep-selection" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
-      else if ( var == "del-on-input" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfDelOnInput, state );
-      else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
-      else if ( var == "keep-indent-profile" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfKeepIndentProfile, state );
-      else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfKeepExtraSpaces, state );
-      else if ( var == "tab-indents" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
-      else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
-      else if ( var == "space-indent" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
-      else if ( var == "smart-home" && checkBoolValue( val, &state ) )
-        m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
-
-      // INTEGER SETTINGS
-      else if ( var == "tab-width" && checkIntValue( val, &n ) )
-        m_config->setTabWidth( n );
-      else if ( var == "indent-width"  && checkIntValue( val, &n ) )
-        m_config->setIndentationWidth( n );
-      else if ( var == "indent-mode"   && checkIntValue( val, &n ) )
-        m_config->setIndentationMode( n );
-      else if ( var == "word-wrap-column" && n > 0  && checkIntValue( val, &n ) ) // uint, but hard word wrap at 0 will be no fun ;)
-        m_config->setWordWrapAt( n );
-      else if ( var == "undo-steps"  && n >= 0  && checkIntValue( val, &n ) )
-        setUndoSteps( n );
-
-      // STRING SETTINGS
-      else if ( var == "eol" || var == "end-of-line" )
+      // only apply view & renderer config stuff
+      if (onlyViewAndRenderer)
       {
-        QStringList l;
-        l << "unix" << "dos" << "mac";
-        if ( (n = l.findIndex( val.lower() )) != -1 )
-          m_config->setEol( n );
+        if ( vvl.contains( var ) ) // FIXME define above
+          setViewVariable( var, val );
       }
-      else if ( var == "document-name" || var == "doc-name" )
-        setDocName( val );
-      else if ( var == "encoding" )
-        m_config->setEncoding( val );
-      else if ( var == "syntax" || var == "hl" )
+      else
       {
-        for ( uint i=0; i < hlModeCount(); i++ )
+        // BOOL  SETTINGS
+        if ( var == "word-wrap" && checkBoolValue( val, &state ) )
+          setWordWrap( state ); // ??? FIXME CHECK
+        else if ( var == "block-selection"  && checkBoolValue( val, &state ) )
+          setBlockSelectionMode( state );
+        // KateConfig::configFlags
+        // FIXME should this be optimized to only a few calls? how?
+        else if ( var == "auto-indent" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfAutoIndent, state );
+        else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
+        else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
+        else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfWrapCursor, state );
+        else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfAutoBrackets, state );
+        else if ( var == "persistent-selection" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfPersistent, state );
+        else if ( var == "keep-selection" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
+        else if ( var == "del-on-input" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfDelOnInput, state );
+        else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
+        else if ( var == "keep-indent-profile" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfKeepIndentProfile, state );
+        else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfKeepExtraSpaces, state );
+        else if ( var == "tab-indents" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfTabIndents, state );
+        else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfShowTabs, state );
+        else if ( var == "space-indent" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
+        else if ( var == "smart-home" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
+
+        // INTEGER SETTINGS
+        else if ( var == "tab-width" && checkIntValue( val, &n ) )
+          m_config->setTabWidth( n );
+        else if ( var == "indent-width"  && checkIntValue( val, &n ) )
+          m_config->setIndentationWidth( n );
+        else if ( var == "indent-mode"   && checkIntValue( val, &n ) )
+          m_config->setIndentationMode( n );
+        else if ( var == "word-wrap-column" && n > 0  && checkIntValue( val, &n ) ) // uint, but hard word wrap at 0 will be no fun ;)
+          m_config->setWordWrapAt( n );
+        else if ( var == "undo-steps"  && n >= 0  && checkIntValue( val, &n ) )
+          setUndoSteps( n );
+
+        // STRING SETTINGS
+        else if ( var == "eol" || var == "end-of-line" )
         {
-          if ( hlModeName( i ) == val )
+          QStringList l;
+          l << "unix" << "dos" << "mac";
+          if ( (n = l.findIndex( val.lower() )) != -1 )
+            m_config->setEol( n );
+        }
+        else if ( var == "document-name" || var == "doc-name" )
+          setDocName( val );
+        else if ( var == "encoding" )
+          m_config->setEncoding( val );
+        else if ( var == "syntax" || var == "hl" )
+        {
+          for ( uint i=0; i < hlModeCount(); i++ )
           {
-            setHlMode( i );
-            break;
+            if ( hlModeName( i ) == val )
+            {
+              setHlMode( i );
+              break;
+            }
           }
         }
-      }
 
-      // VIEW SETTINGS
-      else if ( vvl.contains( var ) ) // FIXME define above
-        setViewVariable( var, val );
+        // VIEW SETTINGS
+        else if ( vvl.contains( var ) ) // FIXME define above
+          setViewVariable( var, val );
+      }
     }
   }
 }
@@ -5149,22 +5174,36 @@ bool KateDocument::wrapCursor ()
   return !blockSelect && (configFlags() & KateDocument::cfWrapCursor);
 }
 
-void KateDocument::updateFileType (bool force)
+void KateDocument::updateFileType (int newType, bool user)
 {
-  if (!m_fileTypeSetByUser)
+  if (user || !m_fileTypeSetByUser)
   {
-    kdDebug(13020) << "KATE FILE TYPE DETECTION STARTS ......................." << endl;
+    KateFileType *t = 0;
+    if ((newType == -1) || (t = KateFactory::fileTypeManager()->fileType (newType)))
+    {
+      m_fileType = newType;
 
-    m_fileType = KateFactory::fileTypeManager()->fileType (this);
+      if (t)
+      {
+        m_config->configStart();
+        // views!
+        KateView *v;
+        for (v = m_views.first(); v != 0L; v= m_views.next() )
+        {
+          v->config()->configStart();
+          v->renderer()->config()->configStart();
+        }
 
-    kdDebug(13020) << "KATE FILE TYPE DETECTED: " << m_fileType << endl;
+        readVariableLine( t->varLine );
 
-    kdDebug(13020) << "KATE FILE TYPE DETECTION ENDS" << endl;
-  }
-
-  if (force && (m_fileType > -1))
-  {
-
+        m_config->configEnd();
+        for (v = m_views.first(); v != 0L; v= m_views.next() )
+        {
+          v->config()->configEnd();
+          v->renderer()->config()->configEnd();
+        }
+      }
+    }
   }
 }
 

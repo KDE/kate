@@ -1240,12 +1240,41 @@ void Highlight::doHighlight(QMemArray<short> oCtx, TextLine *textLine,bool lineC
   textLine->setContext(ctx.data(), ctx.size());
 }
 
-QString Highlight::getWildcards()
+void Highlight::loadWildcards()
 {
   KConfig *config = HlManager::self()->getKConfig();
   config->setGroup("Highlighting " + iName);
 
-  return config->readEntry("Wildcards", iWildcards);
+  QString extensionString = config->readEntry("Wildcards", iWildcards);
+  
+  if (extensionSource != extensionString) {
+    regexpExtensions.clear();
+    plainExtensions.clear();
+    
+    extensionSource = extensionString;
+    
+    static QRegExp sep("\\s*;\\s*");
+    
+    QStringList l = QStringList::split( sep, extensionSource );
+    
+    static QRegExp boringExpression("\\*\\.[\\d\\w]+");
+    
+    for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
+      if (boringExpression.exactMatch(*it))
+        plainExtensions.append((*it).mid(1));
+      else    
+        regexpExtensions.append(QRegExp((*it), true, true));
+  }
+}
+
+QValueList<QRegExp>& Highlight::getRegexpExtensions()
+{
+  return regexpExtensions;
+}
+
+QStringList& Highlight::getPlainExtensions()
+{
+  return plainExtensions;
 }
 
 QString Highlight::getMimetypes()
@@ -2501,25 +2530,18 @@ int HlManager::realWildcardFind(const QString &fileName)
   static QRegExp sep("\\s*;\\s*");
 
   QPtrList<Highlight> highlights;
-
-  for (Highlight *highlight = hlList.first(); highlight != 0L; highlight = hlList.next())
-  {
-    // anders: this is more likely to catch the right one ;)
-    QStringList l = QStringList::split( sep, highlight->getWildcards() );
-
-    for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
-    {
-      // anders: we need to be sure to match the end of string, as eg a css file
-      // would otherwise end up with the c hl
-      // rodda: speed optimisation, assume the *. from "*.extension" means there will not be any fancier regexp work...
-      if ((*it).startsWith("*.")) {
-        if (fileName.endsWith((*it).mid(1)))
-          highlights.append(highlight);
-      } else {
-        QRegExp re(*it, true, true);
-        if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
-          highlights.append (highlight);
-      }
+  
+  for (Highlight *highlight = hlList.first(); highlight != 0L; highlight = hlList.next()) {
+    highlight->loadWildcards();
+    
+    for (QStringList::Iterator it = highlight->getPlainExtensions().begin(); it != highlight->getPlainExtensions().end(); ++it)
+      if (fileName.endsWith((*it)))
+        highlights.append(highlight);
+    
+    for (int i = 0; i < (int)highlight->getRegexpExtensions().count(); i++) {
+      QRegExp re = highlight->getRegexpExtensions()[i];
+      if (re.exactMatch(fileName))
+        highlights.append(highlight);
     }
   }
   

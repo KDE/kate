@@ -91,7 +91,10 @@ class Highlight
   public:
     void doHighlight(QMemArray<short> oCtx, TextLine *,bool lineContinue,QMemArray<signed char> *foldingList);
 
-    QString getWildcards();
+    void loadWildcards();
+    QValueList<QRegExp>& getRegexpExtensions();
+    QStringList& getPlainExtensions();
+    
     QString getMimetypes();
     
     // this pointer needs to be deleted !!!!!!!!!!
@@ -187,6 +190,10 @@ class Highlight
     bool m_foldingIndentationSensitive;
     
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
+    
+    QString extensionSource;
+    QValueList<QRegExp> regexpExtensions;
+    QStringList plainExtensions;
 
   public:
     inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }

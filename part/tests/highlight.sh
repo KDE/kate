@@ -196,6 +196,3 @@ elif [ -d $file ]; then
 		Indented text without a $dollar
 	EOF
 fi
-
-# the highlighting uses EOF and _{0,2}E[ON][A-Z_]+, quoted or not, indented or not.
-# text is correctly substituted and escaped if the delimiter is not quoted.

@@ -292,3 +292,5 @@ bool operator !=(const KateAttribute& h1, const KateAttribute& h2)
 {
   return !(h1 == h2);
 }
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

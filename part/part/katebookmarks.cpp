@@ -282,4 +282,4 @@ void KateBookmarks::goPrevious()
   }
 }
 
-// vim: noet ts=2
+// kate: space-indent on; indent-width 2; replace-tabs on;

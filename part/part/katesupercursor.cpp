@@ -17,6 +17,7 @@
 */
 
 #include "katesupercursor.h"
+#include "katesupercursor.moc"
 
 #include "katedocument.h"
 
@@ -756,4 +757,4 @@ QPtrCollection::Item KateSuperRangeList::newItem(QPtrCollection::Item d)
   return QPtrList<KateSuperRange>::newItem(d);
 }
 
-#include "katesupercursor.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

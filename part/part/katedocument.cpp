@@ -4152,7 +4152,7 @@ void KateDocument::setDocName (QString name )
   }
 
   // if the name is set, and starts with FILENAME, it should not be changed!
-  if ( m_docName.startsWith( url().filename() ) ) return;
+  if ( ! url().isEmpty() && m_docName.startsWith( url().filename() ) ) return;
 
   int count = -1;
 

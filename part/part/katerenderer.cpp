@@ -350,9 +350,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
     // Determine if we have trailing whitespace and store the column
-    uint trailingWhitespaceColumn = textLine->lastChar();
-    if (trailingWhitespaceColumn++ == -1)
-      trailingWhitespaceColumn = 0;
+    // if lastChar == -1, set to 0, if lastChar exists, increase by one
+    uint trailingWhitespaceColumn = textLine->lastChar() + 1;
 
     while (curCol - startcol < len)
     {

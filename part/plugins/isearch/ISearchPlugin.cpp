@@ -264,19 +264,19 @@ void ISearchPluginView::updateLabelText(
 	// Reverse binary:
 	// 0000
 	if( !failing && !reverse && !wrapped && !overwrapped ) {
-		text = i18n("I-Search:");
+		text = i18n("Incremental Search", "I-Search:");
 	// 1000
 	} else if ( failing && !reverse && !wrapped && !overwrapped ) {
-		text = i18n("Failing I-Search:");
+		text = i18n("Incremental Search found no match", "Failing I-Search:");
 	// 0100
 	} else if ( !failing && reverse && !wrapped && !overwrapped ) {
-		text = i18n("I-Search Backward:");
+		text = i18n("Incremental Search in the reverse direction", "I-Search Backward:");
 	// 1100
 	} else if ( failing && reverse && !wrapped && !overwrapped ) {
 		text = i18n("Failing I-Search Backward:");
 	// 0010
 	} else if ( !failing && !reverse && wrapped  && !overwrapped ) {
-		text = i18n("Wrapped I-Search:");
+		text = i18n("Incremental Search has passed the end of the document", "Wrapped I-Search:");
 	// 1010
 	} else if ( failing && !reverse && wrapped && !overwrapped ) {
 		text = i18n("Failing Wrapped I-Search:");
@@ -288,7 +288,8 @@ void ISearchPluginView::updateLabelText(
 		text = i18n("Failing Wrapped I-Search Backward:");
 	// 0011
 	} else if ( !failing && !reverse && overwrapped ) {
-		text = i18n("Overwrapped I-Search:");
+		text = i18n("Incremental Search has passed both the end of the document "
+		            "and the original starting position", "Overwrapped I-Search:");
 	// 1011
 	} else if ( failing && !reverse && overwrapped ) {
 		text = i18n("Failing Overwrapped I-Search:");

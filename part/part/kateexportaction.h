@@ -20,7 +20,6 @@
 #define _KATE_EXPORTACTION_H_
 
 #include "kateglobal.h"
-
 #include "../interfaces/document.h"
 
 #include <kaction.h>

@@ -42,12 +42,14 @@ public:
 
 protected:
     void paintEvent(QPaintEvent* e);
+    void resizeEvent(QResizeEvent *);
     void mousePressEvent(QMouseEvent* e);
 
 private:
 
     KateView *myView;
     class KateViewInternal *myInternalView;
+    class QPixmap *drawBuffer;
     bool lmbSetsBreakpoints;
     int iconPaneWidth;
     int cachedLNWidth;

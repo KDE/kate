@@ -1,8 +1,28 @@
-// basic idea from qtdesigner by TrollTech
-// Taken from kdevelop
-//#include "kwrite/kwview.h"
-//#include "kwrite/kwdoc.h"
+/***************************************************************************
+                          katecodecompletion_arghint.cpp  -  description
+                             -------------------
+	begin		: Sun Nov 18 20:00 CET 2001
+	copyright	: (C) 2001 by Joseph Wenninger
+	email		: jowenn@kde.org
+	taken from KDEVELOP:
+	begin		: Sam Jul 14 18:20:00 CEST 2001
+	copyright	: (C) 2001 by Victor Röder
+	email		: Victor_Roeder@GMX.de
+ ***************************************************************************/
+
+/******** Partly based on the ArgHintWidget of Qt3 by Trolltech AS *********/
+
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
 #include "kateview.h"
+#include "kateviewinternal.h"
 #include <qsizegrip.h>
 #include <qapp.h>
 

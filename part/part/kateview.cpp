@@ -28,9 +28,15 @@
 #include "katefactory.h"
 #include "katehighlight.h"
 #include "kateviewdialog.h"
+#include "kateiconborder.h"
 #include "katedialogs.h"
 #include "katefiledialog.h"
+#include "katetextline.h"
+#include "kateiconborder.h"
+#include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
+#include "kateviewhighlightaction.h"
+#include "katecodecompletion_iface_impl.h"
 
 #include <kurldrag.h>
 #include <qfocusdata.h>
@@ -58,8 +64,8 @@
 #include <qdir.h>
 #include <qvbox.h>
 #include <qpaintdevicemetrics.h>
-
 #include <qstyle.h>
+
 #include <kcursor.h>
 #include <klocale.h>
 #include <kglobal.h>
@@ -72,13 +78,7 @@
 #include <kparts/event.h>
 #include <kxmlguifactory.h>
 #include <dcopclient.h>
-#include <qregexp.h>
-
 #include <kaccel.h>
-
-#include "katetextline.h"
-#include "kateiconborder.h"
-#include "kateexportaction.h"
 
 KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate::View (doc, parent, name)
     , extension( 0 )
@@ -1407,6 +1407,15 @@ KateDocument *KateView::document()
 {
   return myDoc;
 }
+
+bool KateView::iconBorder() { return /*myIconBorder;*/iconBorderStatus & KateIconBorder::Icons; }
+
+bool KateView::lineNumbersOn() { return iconBorderStatus & KateIconBorder::LineNumbers; }
+
+void KateView::showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
+    	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
+void KateView::showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0, bool arg3=true)
+    	{ myCC_impl->showCompletionBox(arg1,arg2,arg3);}
 
 KateBrowserExtension::KateBrowserExtension( KateDocument *doc, KateView *view )
 : KParts::BrowserExtension( doc, "katepartbrowserextension" )

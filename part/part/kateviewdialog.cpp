@@ -19,6 +19,10 @@
 
 // $Id$
 
+#include "kateviewdialog.h"
+#include "kateview.h"
+#include "katedocument.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -60,10 +64,6 @@
 #include <kmainwindow.h>
 #include <kaccel.h>
 #include <kkeydialog.h>
-
-#include "katedocument.h"
-#include "kateviewdialog.h"
-
 
 SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList &replaceWith, int flags )
   : KDialogBase( parent, 0L, true, i18n( "Find Text" ), Ok | Cancel, Ok )

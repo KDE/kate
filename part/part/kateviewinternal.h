@@ -20,7 +20,16 @@
 #ifndef _KATE_VIEW_INTERNAL_
 #define _KATE_VIEW_INTERNAL_
 
-#include "kateview.h"
+#include "kateglobal.h"
+
+#include <qwidget.h>
+#include <qscrollbar.h>
+#include <qpoint.h>
+#include <qpixmap.h>
+
+class KateDocument;
+class KateView;
+class KateIconBorder;
 
 class KateLineRange
 {
@@ -122,9 +131,9 @@ class KateViewInternal : public QWidget
 
     KateView *myView;
     KateDocument *myDoc;
-    QScrollBar *xScroll;
-    QScrollBar *yScroll;
-    KateIconBorder *leftBorder;
+    class QScrollBar *xScroll;
+    class QScrollBar *yScroll;
+    class KateIconBorder *leftBorder;
 
   public:
     void clear();

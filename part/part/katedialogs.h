@@ -22,9 +22,8 @@
 #define KATE_DIALOGS_H
 
 #include "kateglobal.h"
-#include "katesyntaxdocument.h"
 #include "katehighlight.h"
-#include "katedocument.h"
+#include "../interfaces/document.h"
 
 #include <kdialog.h>
 #include <kdialogbase.h>
@@ -59,7 +58,7 @@ class QCheckBox;
 class StyleListItem : public QListViewItem {
   public:
     StyleListItem( QListView *parent=0, const QString & stylename=0,
-                   ItemStyle *defaultstyle=0, ItemData *data=0 );
+                   class ItemStyle *defaultstyle=0, class ItemData *data=0 );
     ~StyleListItem() {};
 
     /* mainly for readability */
@@ -74,12 +73,12 @@ class StyleListItem : public QListViewItem {
     /* style context name */
     QString contextName() { return text(0); };
     /* only true for a hl mode item using it's default style */
-    bool defStyle() { return st && st->defStyle; };
+    bool defStyle();
     /* true for default styles */
-    bool isDefault() { return st ? false : true; };
+    bool isDefault();
     /* whichever style is active (st for hl mode styles not using
        the default style, ds otherwise) */
-    ItemStyle* style() { return is; };
+    class ItemStyle* style() { return is; };
   protected:
     /* reimp */
     void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
@@ -94,9 +93,9 @@ class StyleListItem : public QListViewItem {
        when a property is changed and we are using default style. */
     void setCustStyle();
 
-    ItemStyle *is, // the style currently in use
+    class ItemStyle *is, // the style currently in use
               *ds; // default style for hl mode contexts and default styles
-    ItemData *st;  // itemdata for hl mode contexts
+    class ItemData *st;  // itemdata for hl mode contexts
 };
 
 /*
@@ -182,7 +181,7 @@ class HlConfigPage : public Kate::ConfigPage
   Q_OBJECT
 
   public:
-    HlConfigPage (QWidget *parent, KateDocument *doc);
+    HlConfigPage (QWidget *parent, class KateDocument *doc);
     ~HlConfigPage ();
 
   private:

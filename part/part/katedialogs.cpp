@@ -20,6 +20,9 @@
 // $Id$
 
 #include "katedialogs.h"
+#include "katesyntaxdocument.h"
+#include "katehighlight.h"
+#include "katedocument.h"
 
 #include <kapp.h>
 #include <kbuttonbox.h>
@@ -810,6 +813,12 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
 {
   is = st ? st->defStyle ? ds : st : ds;
 }
+
+/* only true for a hl mode item using it's default style */
+bool StyleListItem::defStyle() { return st && st->defStyle; }
+
+/* true for default styles */
+bool StyleListItem::isDefault() { return st ? false : true; }
 
 int StyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int col ) const
 {

@@ -22,9 +22,7 @@
 #define kate_document_h
 
 #include "kateglobal.h"
-#include "kateview.h"
 #include "katetextline.h"
-#include "kateviewinternal.h"
 #include "../interfaces/document.h"
 
 #include <qobject.h>
@@ -32,6 +30,7 @@
 #include <qcolor.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
+#include <qdialog.h>
 
 #include <qintdict.h>
 #include <qdatetime.h>
@@ -43,6 +42,8 @@ class KateUndoGroup;
 class KateCmd;
 class KateCodeFoldingTree;
 class KateBuffer;
+class KateView;
+class KateViewInternal;
 
 class Attribute {
   public:
@@ -123,7 +124,7 @@ class FontStruct
 class KateCursor : public Kate::Cursor
 {
   public:
-    KateCursor (KateDocument *doc);
+    KateCursor (class KateDocument *doc);
     ~KateCursor ();
 
     void position ( uint *line, uint *col ) const;

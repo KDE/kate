@@ -38,9 +38,9 @@ namespace KateCommands
 class InsertTime : public KateCmdParser
 {
 public:
-	InsertTime(KateDocument *doc=0) : KateCmdParser(doc) { }
+	InsertTime(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, KateView *view=0);
+	bool execCmd(QString cmd=0, class KateView *view=0);
 };
 
 /**
@@ -56,9 +56,9 @@ public:
 class SedReplace : public KateCmdParser
 {
 public:
-	SedReplace(KateDocument *doc=0) : KateCmdParser(doc) { }
+	SedReplace(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, KateView *view=0);
+	bool execCmd(QString cmd=0, class KateView *view=0);
 private:
 	static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
 };
@@ -74,17 +74,17 @@ private:
 class Character : public KateCmdParser
 {
 public:
-	Character(KateDocument *doc=0) : KateCmdParser(doc) { }
+	Character(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, KateView *view=0);
+	bool execCmd(QString cmd=0, class KateView *view=0);
 };
 
 class Fifo : public KateCmdParser
 {
 public:
-	Fifo(KateDocument *doc=0) : KateCmdParser(doc) { }
+	Fifo(class KateDocument *doc=0) : KateCmdParser(doc) { }
 
-	bool execCmd(QString cmd=0, KateView *view=0);
+	bool execCmd(QString cmd=0, class KateView *view=0);
 };
 
 }

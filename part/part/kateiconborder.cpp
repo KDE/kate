@@ -205,6 +205,9 @@ KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
 {
   //setBackgroundMode(NoBackground);
 
+  drawBuffer = new QPixmap ();
+  drawBuffer->setOptimization (QPixmap::BestOptim);
+
   lmbSetsBreakpoints = true; // anders: does NOTHING ?!
   iconPaneWidth = 16; // FIXME: this should be shared by all instances!
   lmbSetsBreakpoints = true;
@@ -215,6 +218,11 @@ KateIconBorder::KateIconBorder(KateView *view, KateViewInternal *internalView)
 
 KateIconBorder::~KateIconBorder()
 {
+}
+
+void KateIconBorder::resizeEvent(QResizeEvent *)
+{
+  drawBuffer->resize (width(), myView->myDoc->viewFont.fontHeight);
 }
 
 int KateIconBorder::width()

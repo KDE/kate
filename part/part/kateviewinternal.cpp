@@ -19,10 +19,11 @@
 
 // $Id$
 
-#include "kateview.h"
 #include "kateviewinternal.h"
+#include "kateview.h"
 #include "kateviewinternal.moc"
 #include "katedocument.h"
+#include "kateiconborder.h"
 #include "katehighlight.h"
 
 #include <kcursor.h>
@@ -1081,7 +1082,6 @@ void KateViewInternal::updateView(int flags)
 
 void KateViewInternal::paintTextLines(int xPos, int yPos)
 {
-  if (!drawBuffer) return;
   if (drawBuffer->isNull()) return;
 
   QPainter paint;
@@ -1421,7 +1421,6 @@ void KateViewInternal::wheelEvent( QWheelEvent *e )
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  if (!drawBuffer) return;
   if (drawBuffer->isNull()) return;
 
   QRect updateR = e->rect();

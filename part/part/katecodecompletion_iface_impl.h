@@ -25,7 +25,6 @@
 #define __CODECOMPLETION_IMPL_H__
 
 #include "kateglobal.h"
-
 #include "../interfaces/view.h"
 
 #include <qvaluelist.h>

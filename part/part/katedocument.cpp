@@ -30,6 +30,8 @@
 #include "katedialogs.h"
 #include "katebuffer.h"
 #include "katehighlight.h"
+#include "kateview.h"
+#include "kateviewinternal.h"
 #include "katetextline.h"
 #include "katecmd.h"
 #include "kateglobal.h"

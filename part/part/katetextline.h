@@ -23,9 +23,7 @@
 #include "kateglobal.h"
 
 #include <qmemarray.h>
-#include <qstring.h>
 #include <ksharedptr.h>
-#include <qregexp.h>
 #include <qvaluevector.h>
  
 /** 

@@ -22,7 +22,6 @@
 #include "kateglobal.h"
 
 #include <qobject.h>
-#include <qstring.h>
 #include <qptrlist.h>
 
 class KateCmdParser

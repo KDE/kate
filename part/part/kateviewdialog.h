@@ -21,6 +21,9 @@
 #define _KATE_VIEWDIALOG_H_
 
 #include "kateglobal.h"
+#include "../interfaces/document.h"
+
+#include <kdialogbase.h>
 
 class QCheckBox;
 class QLineEdit;
@@ -38,9 +41,8 @@ class KAccel;
 class KKeyChooser;
 class KSpellConfig;
 
-#include <kdialogbase.h>
-#include "kateview.h"
-#include "katedocument.h"
+class KateDocument;
+class KateView;
 
 class SearchDialog : public KDialogBase
 {

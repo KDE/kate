@@ -23,6 +23,7 @@
 #include "katecmd.moc"
 
 #include "katedocument.h"
+#include "kateview.h"
 
 KateCmd::KateCmd (KateDocument *doc) : QObject (doc)
 {

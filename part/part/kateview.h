@@ -22,17 +22,13 @@
 #define kate_view_h
 
 #include "kateglobal.h"
-#include "kateviewhighlightaction.h"
-#include "katecodecompletion_iface_impl.h"
-#include "kateiconborder.h"
 
 #include "../interfaces/view.h"
 #include "../interfaces/document.h"
 
 #include <kparts/browserextension.h>
+
 #include <qptrlist.h>
-#include <qregexp.h>
-#include <qstring.h>
 #include <qdialog.h>
 
 class KToggleAction;
@@ -43,8 +39,8 @@ class KSelectAction;
 class QTextDrag;
 class KPrinter;
 class Highlight;
-//class KateIconBorder;
 class KateDocument;
+class KateViewInternal;
 class KateBrowserExtension;
 
 //state commands
@@ -55,42 +51,6 @@ enum State_commands {
 
 class KateViewInternal;
 class KateView;
-
-struct VConfig {
-  KateView *view;
-  KateTextCursor cursor;
-  KateTextCursor displayCursor;
-  int cXPos;
-  int flags;
-};
-
-struct BracketMark {
-  KateTextCursor cursor;
-  int sXPos;
-  int eXPos;
-};
-
-//
-// config + options for the user search
-//
-class SConfig
-{
-  public:
-    KateTextCursor cursor;
-    int flags;
-
-    // Set the pattern to be used for searching.
-    void setPattern(QString &newPattern);
-
-    // The length of the last match found using pattern or regExp.
-    int matchedLength;
-
-    QString m_pattern;
-
-    // The regular expression corresponding to pattern. Only guaranteed valid if
-    // flags has sfRegularExpression set.
-    QRegExp m_regExp;
-};
 
 //
 // Kate KTextEditor::View class ;)
@@ -417,10 +377,8 @@ public slots:
     void initCodeCompletionImplementation();
 
   public:
-    virtual void showArgHint(QStringList arg1, const QString &arg2, const QString &arg3)
-    	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
-    virtual void showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0, bool arg3=true)
-    	{ myCC_impl->showCompletionBox(arg1,arg2,arg3);}
+    void showArgHint(QStringList arg1, const QString &arg2, const QString &arg3);
+    void showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2= 0, bool arg3=true);
 
   signals:
     void completionAborted();
@@ -541,8 +499,8 @@ public slots:
     void updateIconBorder();
 
   public:
-    bool iconBorder() { return /*myIconBorder;*/iconBorderStatus & KateIconBorder::Icons; } ;
-    bool lineNumbersOn() { return iconBorderStatus & KateIconBorder::LineNumbers; }
+    bool iconBorder();
+    bool lineNumbersOn();
 
   private slots:
     void bookmarkMenuAboutToShow();

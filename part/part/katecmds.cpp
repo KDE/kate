@@ -20,11 +20,13 @@
 // $Id$
 
 #include "katecmds.h"
+#include "katedocument.h"
+#include "kateview.h"
 
 #include <qregexp.h>
 #include <qstring.h>
 #include <qdatetime.h>
-#include "katedocument.h"
+
 #include <kdebug.h>
 
 namespace KateCommands

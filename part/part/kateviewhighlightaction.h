@@ -21,7 +21,6 @@
 #define _KATEVIEW_HIGHLIGHTACTION_H_
 
 #include "kateglobal.h"
-
 #include "../interfaces/document.h"
 
 #include <kaction.h>

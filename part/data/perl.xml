@@ -23,16 +23,24 @@
    Please do not commit changes without checking with me.
 
    *** TODO ***
-   s/// - Either make a special case, or better, enable saving data in contexts,
-      so any delimiter can be handled correctly!
 
-   The variable detection is not entirely left if there is a variable in a key.
-      Samples:
-      $hask{ $key }{ value }; ## comments are not detected
+   qw// with pairs, optimize other quotings using pairs (requires changes to the engine).
 
-   HERE document delimiters - requires support for saving data in contexts.
+   Highlight the /x modifiers in regular expressions/substitutions
+
+   Make s''' and q[rxw]'' behave correctly (no interpolation)
+
+   Work on the comment support in the REPLACEMENT part of s/// - we may support
+   the comment, if the line remainder does not contain the delimiter char.
+
+   allow whitespace with quoting operators!
+     q[qrwx] // etc, except for "#"
+
+   Try to support ?PATTERN? (at least in one line, like if "\?(?=.*\?)" matches).
+
+   Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.12" kateversion="2.3" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.15" kateversion="2.3" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -324,13 +332,13 @@
         <RegExpr attribute="Keyword" context="#stay" String="^#!\/.*" />
         <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
         <RegExpr attribute="Keyword" context="#stay" String="^__END__" />
+        <RegExpr attribute="Keyword" context="sub_name_def" String="\bsub\s+" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Operator" context="#stay" String="operators" />
         <keyword attribute="Function" context="#stay" String="functions" />
         <keyword attribute="Pragma" context="#stay" String="pragmas" />
         <RegExpr attribute="Comment" context="comment" String="#" />
         <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD"/>
-        <RegExpr attribute="Keyword" context="sub_name_def" String="\s*sub\s+" />
 
         <HlCOct attribute="Octal" context="slash_safe_escape" />
         <HlCHex attribute="Hex" context="slash_safe_escape" />
@@ -349,13 +357,14 @@
         <RegExpr attribute="Special Variable" context="var_detect" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
         <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
         <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
+        <RegExpr attribute="Data Type" context="var_detect" String="\$+::" />
         <RegExpr attribute="Special Variable" context="slash_safe_escape" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
         <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]\{[\w_]+\}" />
         <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
         <RegExpr attribute="Data Type" context="var_detect" String="\*[a-zA-Z_]+" />
 
         <RegExpr attribute="Keyword" context="#stay" String="&lt;[A-Z0-9_]+&gt;" />
-        <RegExpr attribute="Keyword" context="#stay" String="\s*&lt;&lt;\s*[&quot;']?[A-Z0-9_\-]+[&quot;']?" />
+        <RegExpr attribute="Keyword" context="here_document" String="\s*&lt;&lt;\s*[&quot;']?([A-Z0-9_\-]+)[&quot;']?" />
         <RegExpr attribute="Normal Text" context="#stay" String="\s*[)}]\s*/" />
         <RegExpr attribute="Normal Text" context="sub_name_def" String="\w+::" />
         <RegExpr attribute="Normal Text" context="#stay" String="\w+[=]" />
@@ -364,34 +373,35 @@
         <RegExpr attribute="String (interpolated)" context="ip_string_3" String="q[qx]\{" />
         <RegExpr attribute="String (interpolated)" context="ip_string_4" String="q[qx]\[" />
         <RegExpr attribute="String (interpolated)" context="ip_string_5" String="q[qx]&lt;" />
-        <RegExpr attribute="String (interpolated)" context="#stay" String="q[qx]([^a-zA-Z0-9_\s[\]{}()]).*\1" minimal="true" />
+        <RegExpr attribute="String (interpolated)" context="ip_string_6" String="q[qx]([^a-zA-Z0-9_\s[\]{}()])" />
 
         <Detect2Chars attribute="String" context="string_2" char="q" char1="(" />
         <Detect2Chars attribute="String" context="string_3" char="q" char1="{" />
         <Detect2Chars attribute="String" context="string_4" char="q" char1="[" />
         <Detect2Chars attribute="String" context="string_5" char="q" char1="&lt;" />
-        <RegExpr attribute="String" context="#stay" String="q([^a-zA-Z0-9_\s[\]{}()]).+\1" />
+        <RegExpr attribute="String" context="string_6" String="q([^a-zA-Z0-9_\s[\]{}()])" />
 
-        <StringDetect attribute="Normal Text" context="quote_word" String="qw/" />
+        <RegExpr attribute="Normal Text" context="quote_word" String="qw([^a-zA-Z0-9_\s[\]{}()/])" />
 
         <Detect2Chars attribute="Pattern" context="subst_curlybrace_pattern" char="s" char1="{" />
         <Detect2Chars attribute="Pattern" context="subst_paren_pattern" char="s" char1="(" />
         <Detect2Chars attribute="Pattern" context="subst_bracket_pattern" char="s" char1="[" />
-        <Detect2Chars attribute="Pattern" context="subst_slash_pattern" char="s" char1="/" />
+        <RegExpr attribute="Pattern" context="subst_slash_pattern" String="s([^\w\s[\]{}()])" />
 
-        <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\([^)]*\)\s*\([^)]*\)" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\{[^}]*\}\s*\{[^}]*\}" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)\[[^}]*\]\s*\[[^\]]*\]" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:s|tr|y)([^a-zA-Z0-9_\s[\]{}()]).*\1.*\1" minimal="true"/>
+        <RegExpr attribute="Pattern" context="#stay" String="(?:tr|y)\([^)]*\)\s*\(?:[^)]*\)" />
+        <RegExpr attribute="Pattern" context="#stay" String="(?:tr|y)\{[^}]*\}\s*\{[^}]*\}" />
+        <RegExpr attribute="Pattern" context="#stay" String="(?:tr|y)\[[^}]*\]\s*\[[^\]]*\]" />
+        <RegExpr attribute="Pattern" context="#stay" String="(?:tr|y)([^a-zA-Z0-9_\s[\]{}()]).*\1.*\1" minimal="true"/>
 
         <RegExpr attribute="Normal Text" context="#stay" String="[\w_]{3,}[[{:\-.;,]" />
         <RegExpr attribute="Normal Text" context="#stay" String="[\w_]([mqsy]|q[rx])\(" />
 
         <RegExpr attribute="Pattern" context="pattern_slash" String="(?:m|qr)\/" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\([^)]*\)" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\{[^}]*\}" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])\[[^\]]*\]" />
-        <RegExpr attribute="Pattern" context="#stay" String="(?:m|q[rx])([^a-zA-Z0-9_-\s[\]{}()/]).+\1" minimal="true"/>
+        <RegExpr attribute="Pattern" context="pattern_brace" String="(?:m|qr)\{" />
+        <RegExpr attribute="Pattern" context="pattern_paren" String="(?:m|qr)\(" />
+        <RegExpr attribute="Pattern" context="pattern_bracket" String="(?:m|qr)\[" />
+        <RegExpr attribute="Pattern" context="pattern" String="(?:m|qr)([^a-zA-Z0-9_\s[\]{}()/])" />
+
         <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+\s*/" />
         <RegExpr attribute="Normal Text" context="#stay" String="[&lt;&gt;&quot;':]/" />
         <DetectChar attribute="Pattern" context="pattern_slash" char="/" />
@@ -399,12 +409,6 @@
 
         <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
         <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
-      </context>
-
-      <context name="pod" attribute="Pod" lineEndContext="#stay">
-        <LineContinue attribute="Pod" context="#stay" />
-        <RegExpr attribute="Pod" context="#stay" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD" endRegion="POD"/>
-        <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" endRegion="POD"/>
       </context>
 
       <context name="regex_pattern_internal" attribute="Pattern" lineEndContext="#stay">
@@ -436,12 +440,6 @@
         <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&quot;" />
         <DetectChar attribute="String (interpolated)" context="#pop" char="&quot;"/>
         <IncludeRules context="ipstring_internal" />
-      </context>
-      <context name="string" attribute="String" lineEndContext="#stay">
-        <LineContinue attribute="String" context="#stay"/>
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
-        <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
-        <DetectChar attribute="String" context="#pop" char="'" />
       </context>
       <context name="ip_string_2" attribute="String (interpolated)" lineEndContext="#stay">
         <LineContinue attribute="String (interpolated)" context="#stay" />
@@ -475,6 +473,17 @@
         <DetectChar attribute="String (interpolated)" context="#pop" char="&gt;" />
         <IncludeRules context="ipstring_internal" />
       </context>
+      <context name="ip_string_6" attribute="String (interpolated)" lineEndContext="#stay" dynamic="true">
+        <DetectChar attribute="String (interpolated)" context="#pop" char="1" dynamic="true"/>
+        <IncludeRules context="ipstring_internal" />
+      </context>
+
+      <context name="string" attribute="String" lineEndContext="#stay">
+        <LineContinue attribute="String" context="#stay"/>
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
+        <DetectChar attribute="String" context="#pop" char="'" />
+      </context>
       <context name="string_2" attribute="String" lineEndContext="#stay">
         <LineContinue attribute="String" context="#stay" />
         <Detect2Chars attribute="String" context="#stay" char="\" char1="(" />
@@ -503,12 +512,16 @@
         <RangeDetect attribute="String" context="#stay" char="&lt;" char1="&gt;" />
         <DetectChar attribute="String" context="#pop" char="&gt;" />
       </context>
+      <context name="string_6" attribute="String" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="String" context="#stay" String="\\%1" dynamic="true"/>
+        <DetectChar attribute="String" context="#pop" char="1" dynamic="true"/>
+      </context>
 
 <!-- ====== contexts for  s/// etc ====== -->
       <context name="subst_replace" attribute="normal text">
         <LineContinue attribute="Normal Text" context="#stay" />
         <RegExpr attribute="Normal Text" context="#stay" String="[&quot;'\]" />
-        <RegExpr attribute="Comment" context="#stay" String="\s*#.*$" />
+<!--         <RegExpr attribute="Comment" context="#stay" String="\s*#.*$" /> -->
         <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
         <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
         <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
@@ -516,6 +529,7 @@
         <keyword attribute="Operator" context="#stay" String="operators" />
         <keyword attribute="Function" context="#stay" String="functions" />
       </context>
+
       <context name="subst_curlybrace_pattern" attribute="Pattern" lineEndContext="#stay">
         <LineContinue attribute="Pattern" context="#stay" />
         <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
@@ -531,13 +545,14 @@
         <DetectChar attribute="Pattern" context="#stay" char="{" />
         <DetectChar attribute="Pattern" context="#pop#pop" char="}" />
       </context>
+
       <context name="subst_paren_pattern" attribute="Pattern" lineEndContext="#stay">
         <LineContinue attribute="Pattern" context="#stay" />
         <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
         <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="(" />
         <Detect2Chars attribute="Pattern" context="#stay" char="\" char1=")" />
         <IncludeRules context="regex_pattern_internal" />
-        <DetectChar attribute="Pattern" context="subst_curlybrace_replace" char="}" />
+        <DetectChar attribute="Pattern" context="subst_paren_replace" char="}" />
       </context>
       <context name="subst_paren_replace" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="subst_replace" />
@@ -546,13 +561,14 @@
         <DetectChar attribute="Pattern" context="#stay" char="(" />
         <DetectChar attribute="Pattern" context="#pop#pop" char=")" />
       </context>
+
       <context name="subst_bracket_pattern" attribute="Pattern" lineEndContext="#stay">
         <LineContinue attribute="Pattern" context="#stay" />
         <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
         <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="[" />
         <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="]" />
         <IncludeRules context="regex_pattern_internal" />
-        <DetectChar attribute="Pattern" context="subst_curlybrace_replace" char="]" />
+        <DetectChar attribute="Pattern" context="subst_bracket_replace" char="]" />
       </context>
       <context name="subst_bracket_replace" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="subst_replace" />
@@ -561,86 +577,49 @@
         <DetectChar attribute="Pattern" context="#stay" char="[" />
         <DetectChar attribute="Pattern" context="#pop#pop" char="]" />
       </context>
-      <context name="subst_slash_pattern" attribute="Pattern" lineEndContext="#stay">
+
+      <context name="subst_slash_pattern" attribute="Pattern" lineEndContext="#stay" dynamic="true">
         <LineContinue attribute="Pattern" context="#stay" />
         <RegExpr attribute="Comment" context="#stay" String="\s+#.*$" />
         <IncludeRules context="regex_pattern_internal" />
-        <DetectChar attribute="Pattern" context="subst_slash_replace" char="/" />
+        <RegExpr attribute="Pattern" context="subst_slash_replace" String="(%1)" dynamic="true" />
       </context>
-      <context name="subst_slash_replace" attribute="Normal Text" lineEndContext="#stay">
+      <context name="subst_slash_replace" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Pattern" context="#stay" String="\\%1" dynamic="true" />
         <IncludeRules context="subst_replace" />
-        <Detect2Chars attribute="Pattern" context="#stay" char="\" char1="/" />
-        <DetectChar attribute="Pattern" context="#pop#pop" char="/" />
+        <DetectChar attribute="Pattern" context="#pop#pop" char="1" dynamic="true" />
       </context>
 
-      <context name="quote_word" attribute="Normal Text" lineEndContext="#stay">
-        <LineContinue attribute="Normal Text" context="#stay" />
-        <Detect2Chars attribute="Normal Text" context="#stay" char="\" char1="/" />
-        <DetectChar attribute="Normal Text" context="#pop" char="/" />
-        <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
-        <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
-      </context>
+<!-- ====== PATTERNs ====== -->
       <context name="pattern_slash" attribute="Pattern" lineEndContext="#stay">
         <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
         <LineContinue attribute="Pattern" context="#stay" />
         <IncludeRules context="regex_pattern_internal" />
-        <DetectChar attribute="Pattern" context="#pop" char="/" />
+        <RegExpr attribute="Pattern" context="#pop" String="/[cgimosx]*" />
       </context>
-
-<!-- ====== ====== -->
-      <context name="data_handle" attribute="Data" lineEndContext="#stay">
-        <LineContinue attribute="Data" context="#stay"/>
-        <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
-        <RegExpr attribute="Keyword" context="normal" String="^__END__" />
+      <context name="pattern" attribute="Pattern" lineEndContext="#stay" dynamic="true">
+        <LineContinue attribute="Pattern" context="#stay" />
+        <RegExpr attribute="Pattern" context="#stay" String="\%1" dynamic="true"/>
+        <RegExpr attribute="Pattern" context="#pop" String="%1[cgimosx]*" dynamic="true" />
+        <IncludeRules context="regex_pattern_internal" />
       </context>
-      <context name="end_handle" attribute="Nothing" lineEndContext="#stay">
-        <LineContinue attribute="Nothing" context="#stay" />
-        <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
-        <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
+      <context name="pattern_brace" attribute="Pattern" lineEndContext="#stay">
+        <LineContinue attribute="Pattern" context="#stay" />
+        <RegExpr attribute="Pattern" context="#stay" String="\\\}" />
+        <RegExpr attribute="Pattern" context="#pop" String="\}[cgimosx]*" />
+        <IncludeRules context="regex_pattern_internal" />
       </context>
-      <context name="var_detect" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Data Type" context="#stay" String="[\w_]+" />
-        <AnyChar attribute="Normal Text" context="#pop" String="[;,*=!&amp;/" />
-        <RegExpr attribute="Normal Text" context="#stay" String="\s*[})]?\s*/" />
-        <DetectChar attribute="Operator" context="#stay" char="'" />
-        <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\{" />
-        <RegExpr attribute="Operator" context="#stay" String="(\+\+|--)" />
-        <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
-        <RegExpr attribute="Normal Text" context="#stay" String="\s*\}?\s*-&gt;\s*" />
-        <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\}\s*\{\s*" />
-        <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
+      <context name="pattern_bracket" attribute="Pattern" lineEndContext="#stay">
+        <LineContinue attribute="Pattern" context="#stay" />
+        <RegExpr attribute="Pattern" context="#stay" String="\\\]" />
+        <RegExpr attribute="Pattern" context="#pop" String="\][cgimosx]*" />
+        <IncludeRules context="regex_pattern_internal" />
       </context>
-      <context name="slash_safe_escape" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Normal Text" context="#pop" String="\s*[)}\]]?\s*/" />
-        <keyword attribute="Keyword" context="#pop" String="keywords" />
-      </context>
-      <context name="sub_name_def" attribute="Normal Text" lineEndContext="#pop">
-        <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+" />
-        <DetectChar attribute="Data Type" context="var_detect" char="$" />
-        <RegExpr attribute="Normal Text" context="sub_arg_definition" String="\s*\(" />
-        <DetectChar attribute="Normal Text" context="#pop" char="{" beginRegion="Brace1" />
-        <DetectChar attribute="Normal Text" context="#pop" char=";" />
-      </context>
-      <context name="package_qualified_blank" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Normal Text" context="#pop" String="[\w_]+" />
-      </context>
-      <context name="in_hash_elem" attribute="Normal Text" lineEndContext="#pop">
-        <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;" />
-        <DetectChar attribute="String" context="string" char="'" />
-        <RegExpr attribute="String" context="#stay" String="\s*[\w_]+\s*(?![\w_\(])" />
-        <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
-        <RegExpr attribute="Special Variable" context="#stay" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
-        <RegExpr attribute="Special Variable" context="#stay" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
-        <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
-        <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
-        <RegExpr attribute="Special Variable" context="#stay" String="\$[^a-zA-Z0-9\s{][A-Z]" />
-        <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
-        <RegExpr attribute="Normal Text" context="#pop" String="\s*[\w_]+\s*\(" />
-        <DetectChar attribute="Normal Text" context="#pop" char="}" />
-      </context>
-      <context name="sub_arg_definition" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop#pop">
-        <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
-        <DetectChar attribute="Normal Text" context="slash_safe_escape" char=")" />
+      <context name="pattern_paren" attribute="Pattern" lineEndContext="#stay">
+        <LineContinue attribute="Pattern" context="#stay" />
+        <RegExpr attribute="Pattern" context="#stay" String="\\\)" />
+        <RegExpr attribute="Pattern" context="#pop" String="\)[cgimosx]*" />
+        <IncludeRules context="regex_pattern_internal" />
       </context>
       <context name="pat_ext" attribute="Pattern Internal Operator" lineEndContext="#stay">
         <RegExpr attribute="Comment" context="#pop" String="\#[^)]*" />
@@ -655,13 +634,103 @@
         <RegExpr attribute="Pattern Character Class" context="#stay" String="\[:^?[a-z]+:\]" />
         <DetectChar attribute="Pattern Internal Operator" context="#pop" char="]" />
       </context>
-      <context name="comment" attribute="Comment" lineEndContext="#pop">
-        <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
+
+<!-- ====== Variables ====== -->
+      <context name="var_detect" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="Data Type" context="#stay" String="[\w_]+" />
+        <RegExpr attribute="Normal Text" context="#pop" String="\s*[[;,*=!&amp;/]" />
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*)?\s*/" />
+        <DetectChar attribute="Operator" context="#stay" char="'" />
+        <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\{" />
+        <RegExpr attribute="Operator" context="#stay" String="(\+\+|--)" />
+        <Detect2Chars attribute="Normal Text" context="#stay" char=":" char1=":" />
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*-&gt;\s*" />
+        <RegExpr attribute="Normal Text" context="#stay" String="\s*\}\s*-&gt;\s*" />
+        <RegExpr attribute="Normal Text" context="in_hash_elem" String="\s*\}\s*\{\s*" />
+        <RegExpr attribute="Data Type" context="#stay" String="[\$@%]" />
+        <RegExpr attribute="Normal Text" context="#pop" String="\s*\}" lookAhead="true" />
       </context>
+      <context name="in_hash_elem" attribute="Normal Text" lineEndContext="#pop">
+        <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;" />
+        <DetectChar attribute="String" context="string" char="'" />
+        <RegExpr attribute="String" context="#stay" String="\s*[\w_]+\s*(?![\w_\(])" />
+        <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
+        <RegExpr attribute="Special Variable" context="#stay" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
+        <RegExpr attribute="Special Variable" context="#stay" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
+        <RegExpr attribute="Data Type" context="var_detect" String="\$\$[\$\w_]" />
+        <RegExpr attribute="Data Type" context="var_detect" String="\$[#_][\w_]" />
+        <RegExpr attribute="Special Variable" context="#stay" String="\$[^a-zA-Z0-9\s{][A-Z]" />
+        <RegExpr attribute="Data Type" context="var_detect" String="[\$@%]" />
+        <RegExpr attribute="Normal Text" context="var_detect" String="\s*[\w_]+\s*\(" />
+        <RegExpr attribute="Normal Text" context="#pop" String="\s*\}" endRegion="true" />
+      </context>
+
+<!-- ====== Misc ====== -->
+      <context name="quote_word" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <LineContinue attribute="Normal Text" context="#stay" />
+        <RegExpr attribute="Normal Text" context="#stay" String="\%1" dynamic="true" />
+        <DetectChar attribute="Normal Text" context="#pop" char="1" dynamic="true" />
+        <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+        <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+      </context>
+
+      <context name="here_document" attribute="Normal Text" lineEndContext="#stay" dynamic="true">
+        <RegExpr attribute="Keyword" context="#pop" String="^%1" dynamic="true"/>
+        <RegExpr attribute="Keyword" context="here_document" String="\s*&lt;&lt;\s*[&quot;']?([A-Z0-9_\-]+)[&quot;']?" />
+        <RegExpr attribute="Normal Text" context="#stay" String="\\[\$@%]" />
+        <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
+        <RegExpr attribute="Data Type" context="var_detect" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+        <RegExpr attribute="Data Type" context="var_detect" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+      </context>
+
+      <context name="data_handle" attribute="Data" lineEndContext="#stay">
+        <LineContinue attribute="Data" context="#stay"/>
+        <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
+        <RegExpr attribute="Keyword" context="normal" String="^__END__" />
+      </context>
+      <context name="end_handle" attribute="Nothing" lineEndContext="#stay">
+        <LineContinue attribute="Nothing" context="#stay" />
+        <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
+        <RegExpr attribute="Keyword" context="data_handle" String="^__DATA__" />
+      </context>
+
       <context name="Backticked" attribute="String (interpolated)" lineEndContext="#stay">
         <IncludeRules context="ipstring_internal"/>
         <DetectChar attribute="Operator" context="#pop" char="`"/>
       </context>
+
+      <context name="slash_safe_escape" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="Normal Text" context="#pop" String="\s*[)}\]]?\s*/" />
+        <keyword attribute="Keyword" context="#pop" String="keywords" />
+      </context>
+
+      <context name="package_qualified_blank" attribute="Normal Text" lineEndContext="#stay">
+        <RegExpr attribute="Normal Text" context="#pop" String="[\w_]+" />
+      </context>
+
+      <context name="sub_name_def" attribute="Normal Text" lineEndContext="#pop">
+        <RegExpr attribute="Function" context="#stay" String="\w+" />
+        <DetectChar attribute="Data Type" context="var_detect" char="$" />
+        <RegExpr attribute="Normal Text" context="sub_arg_definition" String="\s*\(" />
+        <DetectChar attribute="Normal Text" context="#pop" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="#pop" char=";" />
+      </context>
+      <context name="sub_arg_definition" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop#pop">
+        <AnyChar attribute="Data Type" context="#stay" String="*$@%" />
+        <AnyChar attribute="Normal Text" context="#stay" String="&amp;\[];" />
+        <DetectChar attribute="Normal Text" context="slash_safe_escape" char=")" />
+      </context>
+
+      <context name="pod" attribute="Pod" lineEndContext="#stay">
+        <LineContinue attribute="Pod" context="#stay" />
+        <RegExpr attribute="Pod" context="#stay" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD" endRegion="POD"/>
+        <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" endRegion="POD"/>
+      </context>
+
+      <context name="comment" attribute="Comment" lineEndContext="#pop">
+        <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
+      </context>
+
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"               defStyleNum="dsNormal" />
@@ -685,7 +754,7 @@
       <itemData name="Comment"                   defStyleNum="dsComment" />
       <itemData name="Pod"                       defStyleNum="dsComment" />
       <itemData name="Nothing"                   defStyleNum="dsComment" />
-      <itemData name="Note"                      defStyleNum="dsAlert" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="Note"                      defStyleNum="dsAlert" />
     </itemDatas>
   </highlighting>
   <general>

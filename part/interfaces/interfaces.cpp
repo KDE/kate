@@ -27,7 +27,7 @@
 namespace Kate
 {
 
-Document::Document () : KTextEditor::Document (0L, 0L)
+Document::Document () : KTextEditor::Document (0L, "Kate::Document")
 {
 }
 

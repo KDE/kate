@@ -776,7 +776,7 @@ while ( (p = pattern.find( '\\' + delim, p )) > -1 )\
       return false;
     }
     kdDebug()<<"replace '"<<pattern<<"' with '"<<replacement<<"'"<<endl;
-#undef unbackslash(s)
+#undef unbackslash
   }
 
   long f = 0;

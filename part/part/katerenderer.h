@@ -25,8 +25,6 @@
 #include "katecursor.h"
 #include "katetextline.h"
 
-#include <kdebug.h>
-
 #include <qfont.h>
 #include <qfontmetrics.h>
 

@@ -32,15 +32,12 @@
 #include <ktexteditor/viewstatusmsginterface.h>
 #include <ktexteditor/texthintinterface.h>
 
-#include <kdebug.h>
-
 class KateDocument;
 class KateBookmarks;
 class KateSearch;
 class KateCmdLine;
 class KateCodeCompletion;
 class KateViewConfig;
-
 
 class KToggleAction;
 class KAction;

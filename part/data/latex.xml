@@ -344,7 +344,7 @@ mimetype="text/x-tex" casesensitive="1">
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Begin End" defStyleNum="dsNormal" color="#000000" selColor="#ffffff" bold="1" italic="1"/>
       <itemData name="Formula" defStyleNum="dsNormal" color="#FF8080" solColor="#008080" bold="0" italic="0"/>
-      <itemData name="Umgebung" defStyleNum="dsNormal" color="#900000" selColor="#000080" bold="1" italic="0"/>
+      <itemData name="Environment" defStyleNum="dsNormal" color="#900000" selColor="#000080" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>
   <general>

@@ -90,7 +90,7 @@ class MarkInterface
      * @return number of reserved marker types
      * @since 3.3
      */
-    static const int reservedMarkersCount();
+    static int reservedMarkersCount();
 
     /**
      * Pre-defined mark types.

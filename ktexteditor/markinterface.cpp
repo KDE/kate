@@ -68,7 +68,7 @@ MarkInterface *KTextEditor::markInterface (Document *doc)
   return static_cast<MarkInterface*>(doc->qt_cast("KTextEditor::MarkInterface"));
 }
 
-const int MarkInterface::reservedMarkersCount()
+int MarkInterface::reservedMarkersCount()
 {
     return 7;
 }

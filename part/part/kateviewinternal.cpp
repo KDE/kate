@@ -2697,7 +2697,7 @@ void KateViewInternal::editUnWrapLine(int line, int col)
   int cLine = cursorCache.line();
   int cCol = cursorCache.col();
 
-  if (cursorCache.line() > line)
+  if (cursorCache.line() > line+1)
   {
     cursorCache.setPos(line - 1, cCol);
     cursorCacheChanged = true;

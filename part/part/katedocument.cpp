@@ -2995,10 +2995,9 @@ uint KateDocument::currentColumn( const KateTextCursor& cursor )
     return 0;
 }
 
-bool KateDocument::insertChars ( int line, int col, const QString &chars, KateView *view )
+bool KateDocument::insertChars ( int line, int col, const QString &chars, KateView * )
 {
   QString buf;
-
   QString savedChars(chars);
 
   TextLine::Ptr textLine = buffer->plainLine(line);
@@ -3019,7 +3018,6 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
       }
     }
   }
-  //pos = cursor increment
 
   //return false if nothing has to be inserted
   if (buf.isEmpty()) return false;
@@ -3211,6 +3209,7 @@ void KateDocument::backspace( const KateTextCursor& c )
         removeText (line-1, textLine->length(), line, 0);
     }
   }
+
   emit backspacePressed();
 }
 
@@ -3341,7 +3340,7 @@ void KateDocument::selectLength( const KateTextCursor& cursor, int length ) {
   setSelection (cursor.line(), start, cursor.line(), end);
 }
 
-void KateDocument::indent ( KateView *view, uint line, int change)
+void KateDocument::indent ( KateView *, uint line, int change)
 {
   editStart ();
 
@@ -3795,7 +3794,7 @@ bool KateDocument::removeStartLineCommentFromSelection()
   Comment or uncomment the selection or the current
   line if there is no selection.
 */
-void KateDocument::comment( KateView *view, uint line, int change)
+void KateDocument::comment( KateView *, uint line, int change)
 {
   bool hasStartLineCommentMark = !(m_highlight->getCommentSingleLineStart().isEmpty());
   bool hasStartStopCommentMark = ( !(m_highlight->getCommentStart().isEmpty())
@@ -3851,7 +3850,7 @@ void KateDocument::comment( KateView *view, uint line, int change)
   }
 }
 
-void KateDocument::doTransform( const KateTextCursor &c,
+void KateDocument::transform( KateView *, const KateTextCursor &c,
                             KateDocument::TextTransform t )
 {
   editStart();

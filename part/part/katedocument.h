@@ -539,7 +539,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
       lowercase the character right of the cursor is transformed, for capitalize
       the word under the cursor is transformed.
     */
-    void doTransform( const KateTextCursor &, TextTransform );
+    void transform ( KateView *view, const KateTextCursor &, TextTransform );
 
   private:
     void optimizeLeadingSpace( uint line, int flags, int change );

@@ -29,7 +29,7 @@
 #include "kateviewinternal.h"
 #include "katecodecompletion_iface_impl.h"
 
-#include <ktexteditor/viewconfiginterface.h>
+#include <ktexteditor/configinterface.h>
 #include <ktexteditor/viewstatusmsginterface.h>
 
 class KToggleAction;
@@ -42,7 +42,7 @@ class KateBookmarks;
 //
 // Kate KTextEditor::View class ;)
 //
-class KateView : public Kate::View, public KTextEditor::ViewConfigInterface,
+class KateView : public Kate::View, public KTextEditor::ConfigInterface,
                             public KTextEditor::ViewStatusMsgInterface
 {
     Q_OBJECT
@@ -203,7 +203,12 @@ class KateView : public Kate::View, public KTextEditor::ViewConfigInterface,
   // config file / session management functions
   public:
     void readSessionConfig(KConfig *);
-    void writeSessionConfig(KConfig *);
+    void writeSessionConfig(KConfig *);  
+    void writeConfig () {};
+    void readConfig () {};
+    void configDialog () {};
+    void readConfig (KConfig *) {} ;
+    void writeConfig (KConfig *) {} ;
 
   public slots:
     int getEol()                  { return m_doc->eolMode; }

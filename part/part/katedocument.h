@@ -34,6 +34,7 @@
 #include <dcopobject.h>
 
 #include <kmimetype.h>
+#include <klocale.h>
 
 #include <qintdict.h>
 #include <qdatetime.h>
@@ -662,12 +663,6 @@ class KateDocument : public Kate::Document,
     void guiActivateEvent( KParts::GUIActivateEvent *ev );
 
   public:
-    /**
-     * Checks if the file on disk is newer than document contents.
-     * If forceReload is true, the document is reloaded without asking the user,
-     * otherwise [default] the user is asked what to do.
-     */
-    void isModOnHD(bool forceReload=false);
 
     QString docName () {return m_docName;};
 
@@ -677,11 +672,36 @@ class KateDocument : public Kate::Document,
 
     KateCodeFoldingTree *foldingTree ();
 
+  public:
+    /**
+     * @return wheather the document is modified on disc since last saved.
+     *
+     * @since 3.3
+     */
+    bool isModifiedOnDisc() { return m_modOnHd; };
+
+    /** @deprecated */
+    void isModOnHD( bool =false ) {};
+
+    void setModifiedOnDisk( int reason );
+
   public slots:
     /**
-     * Reloads the current document from disk if possible
+     * Ask the user what to do, if the file has been modified on disc.
+     * Reimplemented from Kate::Document.
+     *
+     * @since 3.3
+     */
+    void slotModifiedOnDisk( Kate::View *v=0 );
+
+    /**
+     * Reloads the current document from disc if possible
      */
     void reloadFile();
+
+  private:
+    int m_isasking; // don't reenter slotModifiedOnDisk when this is true
+                    // -1: ignore once, 0: false, 1: true
 
   public slots:
     void setEncoding (const QString &e);
@@ -746,6 +766,24 @@ class KateDocument : public Kate::Document,
      * @since 3.3
      */
     bool createDigest ( QCString &result );
+
+    /**
+     * create a string for the modonhd warnings, giving the reason.
+     *
+     * @since 3.3
+     */
+    inline QString reasonedMOHString() const
+    {
+      QString reason;
+      if ( m_modOnHdReason == 1 )
+        reason = i18n("modified");
+      else if ( m_modOnHdReason == 2 )
+        reason = i18n("created");
+      else if ( m_modOnHdReason == 3 )
+        reason = i18n("deleted");
+
+      return i18n("The file '%1' was changed (%2) on disc by another program!").arg( url().prettyURL() ).arg( reason );
+    }
 
     /**
      * Removes all trailing whitespace form @p line, if

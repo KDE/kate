@@ -233,6 +233,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   }
 
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
+
+  // ask what to do with modified files on focus!
+  if ( s_fileChangedDialogsActivated )
+    for (uint z = 0; z < m_views.count(); z++)
+      connect( m_views.at(z), SIGNAL(gotFocus( Kate::View * )), this, SLOT(slotModifiedOnDisk()) );
+
+  m_isasking = false;
 }
 
 //
@@ -370,6 +377,8 @@ KTextEditor::View *KateDocument::createView( QWidget *parent, const char *name )
 {
   KateView* newView = new KateView( this, parent, name);
   connect(newView, SIGNAL(cursorPositionChanged()), SLOT(undoCancel()));
+  if ( s_fileChangedDialogsActivated )
+    connect( newView, SIGNAL(gotFocus( Kate::View * )), this, SLOT(slotModifiedOnDisk()) );
   return newView;
 }
 
@@ -2013,10 +2022,10 @@ void KateDocument::setDontChangeHlOnSave()
 void KateDocument::readConfig(KConfig *config)
 {
   config->setGroup("Kate Document Defaults");
-  
+
   // read max loadable blocks, more blocks will be swapped out
   KateBuffer::setMaxLoadedBlocks (config->readNumEntry("Maximal Loaded Blocks", KateBuffer::maxLoadedBlocks()));
-  
+
   KateDocumentConfig::global()->readConfig (config);
 
   config->setGroup("Kate View Defaults");
@@ -2029,10 +2038,10 @@ void KateDocument::readConfig(KConfig *config)
 void KateDocument::writeConfig(KConfig *config)
 {
   config->setGroup("Kate Document Defaults");
-  
+
   // write max loadable blocks, more blocks will be swapped out
   config->writeEntry("Maximal Loaded Blocks", KateBuffer::maxLoadedBlocks());
-  
+
   KateDocumentConfig::global()->writeConfig (config);
 
   config->setGroup("Kate View Defaults");
@@ -2610,14 +2619,7 @@ bool KateDocument::saveFile()
   {
     if (s_fileChangedDialogsActivated && m_modOnHd)
     {
-      QString str;
-
-      if (m_modOnHdReason == 1)
-        str = i18n("The file %1 was changed (modified) on disc by another program!\n\n").arg(url().fileName());
-      else if (m_modOnHdReason == 2)
-        str = i18n("The file %1 was changed (created) on disc by another program!\n\n").arg(url().fileName());
-      else if (m_modOnHdReason == 3)
-        str = i18n("The file %1 was changed (deleted) on disc by another program!\n\n").arg(url().fileName());
+      QString str = reasonedMOHString() + "\n\n";
 
       if (!isModified())
       {
@@ -2709,7 +2711,7 @@ bool KateDocument::saveFile()
   if (reallySaveIt && !canEncode)
     KMessageBox::error (widget(), i18n ("The document could not be saved, as the selected encoding cannot encode every unicode character in it. If you are unsure of which encoding to use, try UTF-8 or UTF-16."));
   else if (reallySaveIt && !success)
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disc space is available.").arg(m_url.url()));
+    KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.").arg(m_url.url()));
 
   //
   // return success
@@ -2753,17 +2755,8 @@ bool KateDocument::closeURL()
   {
     if (s_fileChangedDialogsActivated && m_modOnHd)
     {
-      QString str;
-
-      if (m_modOnHdReason == 1)
-        str = i18n("The file %1 was changed (modified) on disc by another program!\n\n").arg(url().fileName());
-      else if (m_modOnHdReason == 2)
-        str = i18n("The file %1 was changed (created) on disc by another program!\n\n").arg(url().fileName());
-      else if (m_modOnHdReason == 3)
-        str = i18n("The file %1 was changed (deleted) on disc by another program!\n\n").arg(url().fileName());
-
       if (!(KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to continue to close this file? Data loss may occur.")) == KMessageBox::Yes))
+               reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur.")) == KMessageBox::Yes))
         return false;
     }
   }
@@ -4187,12 +4180,48 @@ void KateDocument::setDocName (QString name )
   emit nameChanged ((Kate::Document *) this);
 }
 
-void KateDocument::isModOnHD(bool )
+void KateDocument::slotModifiedOnDisk( Kate::View *v )
 {
+  if ( ! s_fileChangedDialogsActivated || m_isasking )
+    return;
+
+  // we got focus after the dialog was canceled for the active view
+  if ( m_isasking < 0 )
+  {
+    m_isasking = 0;
+    return;
+  }
+
   if (m_modOnHd && !url().isEmpty())
   {
-    reloadFile();
+    m_isasking = 1;
+    int exitval = ( v && v->hasFocus() ? 0 : -1 );
+
+    switch ( KMessageBox::warningYesNoCancel( widget(),
+                reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
+                i18n("The file was modified on disk"),
+                i18n("&Reload File"), i18n("&Ignore changes")) )
+    {
+      case KMessageBox::Yes: // "reload file"
+        m_modOnHd = false; // trick reloadFile() to not ask again
+        emit modifiedOnDisc( this, false, 0 );
+        reloadFile();
+        break;
+      case KMessageBox::No:  // "ignore changes"
+        m_modOnHd = false;
+        emit modifiedOnDisc( this, false, 0 );
+        break;
+//       default:               // cancel: ignore next focus event
+    }
+
+    m_isasking = exitval;
   }
+}
+
+void KateDocument::setModifiedOnDisk( int reason )
+{
+  m_modOnHdReason = reason;
+  emit modifiedOnDisc( this, (reason > 0), reason );
 }
 
 class KateDocumentTmpMark
@@ -4208,17 +4237,8 @@ void KateDocument::reloadFile()
   {
     if (m_modOnHd)
     {
-      QString str;
-
-      if (m_modOnHdReason == 1)
-        str = i18n("The file %1 was changed (modified) on disc by another program!\n\n").arg(url().fileName());
-      else if (m_modOnHdReason == 2)
-        str = i18n("The file %1 was changed (created) on disc by another program!\n\n").arg(url().fileName());
-      else if (m_modOnHdReason == 3)
-        str = i18n("The file %1 was changed (deleted) on disc by another program!\n\n").arg(url().fileName());
-
       int i = KMessageBox::warningYesNoCancel
-                (0, str + i18n("Do you really want to reload the modified file? Data loss may occur."));
+                (0, reasonedMOHString() + "\n\n" + i18n("Do you really want to reload the modified file? Data loss may occur."));
 
       if ( i != KMessageBox::Yes)
       {
@@ -4471,7 +4491,7 @@ Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new KateSchemaConfigPage (p);
+  return (Kate::ConfigPage*) new KateSchemaConfigPage ( p );
 }
 
 Kate::ConfigPage *KateDocument::indentConfigPage (QWidget *p)

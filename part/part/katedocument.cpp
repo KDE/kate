@@ -2456,7 +2456,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          }
 
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         kdDebug(13020)<<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " need Wrap" << needWrap <<" !?"<<endl;
+         kdDebug(13020)<<"REAL WIDTH: " << pdm.width() << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " need Wrap" << needWrap <<" !?"<<endl;
          
          if ( endCol < startCol )
          {

@@ -1267,7 +1267,7 @@ void KateView::updateView (bool changed)
 
 void KateView::slotClipboardDataChanged()
 {
-  QMimeSource *data = QApplication::clipboard()->data();
+  QMimeSource *data = QApplication::clipboard()->data(QClipboard::Clipboard);
   m_paste->setEnabled(m_doc->isReadWrite() &&  data->provides( "text/plain" ) );
 }
 

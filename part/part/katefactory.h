@@ -31,17 +31,31 @@ class KateFactory : public KParts::Factory
 {
   Q_OBJECT
 public:
-  KateFactory();
+  KateFactory( bool clone = false );
   virtual ~KateFactory();
 
   virtual KParts::Part *createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
 
-  static const KAboutData *aboutData();
   static KInstance *instance();
-
+  
+  static void registerDocument ( class KateDocument *doc );
+  static void deregisterDocument ( class KateDocument *doc );
+  
+  static void registerView ( class KateView *view );
+  static void deregisterView ( class KateView *view );
+  
 private:
+  static void ref();
+  static void deref();
+
+  static unsigned long s_refcnt;
+  static KateFactory *s_self;
+  
+  static QPtrList<class KateDocument> *s_documents;
+  static QPtrList<class KateView> *s_views;
+  
   static KInstance *s_instance;
-  static KAboutData *s_aboutData;
+  static KAboutData *s_about;
 };
 
 #endif

@@ -273,8 +273,10 @@ void KateUndoGroup::addItem (KateUndo *undo)
 KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOnly,
                                            QWidget *parentWidget, const char *widgetName,
                                            QObject *, const char *)
-  : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
+  : Kate::Document (), viewFont(), printFont(), hlManager(HlManager::self ())
 {
+  KateFactory::registerDocument (this);
+
   setMarksUserChangable(markType01);
 
   regionTree=new KateCodeFoldingTree(this);
@@ -396,6 +398,8 @@ KateDocument::~KateDocument()
 
   m_highlight->release();
   myMarks.clear ();
+  
+  KateFactory::deregisterDocument (this);
 }
 
 //

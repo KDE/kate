@@ -97,6 +97,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_iconBorderStatus( KateIconBorder::None )
     , m_hasWrap( false )
 {
+  KateFactory::registerView (this);
   setInstance( KateFactory::instance() );
 
   initCodeCompletionImplementation();
@@ -171,6 +172,8 @@ KateView::~KateView()
 
   delete myViewInternal;
   delete myCC_impl;
+  
+  KateFactory::deregisterView (this);
 }
 
 void KateView::slotRegionVisibilityChangedAt(unsigned int)

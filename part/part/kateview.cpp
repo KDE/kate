@@ -949,6 +949,9 @@ void KateView::findAgain( bool back )
 
 void KateView::selectionChanged ()
 {
+  if (m_doc->m_bReadOnly)
+    return;
+
   if (m_doc->hasSelection())
   {
     m_cut->setEnabled (true);

@@ -174,6 +174,9 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 // -------------------------------------------------------------------------
 /* Source for KateJSDocumentProtoTable.
 @begin KateJSDocumentProtoTable 15
+#
+# edit interface stuff + editBegin/End, this is nice start
+#
   fullText       KateJSDocument::FullText      DontDelete|Function 0
   text           KateJSDocument::Text          DontDelete|Function 4
   textLine       KateJSDocument::TextLine      DontDelete|Function 1

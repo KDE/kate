@@ -13,13 +13,16 @@
 
         You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
 -->
-<language name="" section="" extensions="" mimetype="">
-    <highlighting>
-        <contexts>
-            <context name="Normal" attribute="0" lineEndContext="0"/>
-        </contexts>
-        <itemDatas>
-            <itemData name="Normal Text" defStyleNum="dsNormal"/>
-        </itemDatas>
-    </highlighting>
+<language name="" section="" version="1.00" kateversion="2.3" extensions="" mimetype="" author="" license="">
+  <highlighting>
+    <contexts>
+      <context name="Normal" attribute="0" lineEndContext="0"/>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+    </itemDatas>
+  </highlighting>
 </language>
+<!--
+// kate: space-indent on; indent-width 2; replace-tabs on;
+-->

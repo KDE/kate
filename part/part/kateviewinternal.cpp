@@ -1458,7 +1458,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
       paint.fillRect(0, 0, updateR.width(), h, myDoc->colors[0]);
 //      bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
 
-      paint.fillRect(xStart, 0, xEnd-xStart, h, myDoc->colors[0]);
+//      paint.fillRect(xStart, 0, xEnd-xStart, h, myDoc->colors[0]);
     }
     else
     {

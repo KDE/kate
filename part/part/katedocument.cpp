@@ -3474,7 +3474,7 @@ void KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEn
 
 void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
 {
-  paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
+  paintTextLine (paint, line, startcol, endcol, 0, xStart, xEnd, showTabs);
 }
 
 void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)

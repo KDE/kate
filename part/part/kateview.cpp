@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
    This library is free software; you can redistribute it and/or
@@ -644,10 +644,9 @@ void KateViewInternal::clearDirtyCache(int height)
   // calc start and end line of visible part
   startLine = yPos/myDoc->viewFont.fontHeight;
   endLine = (yPos + height -1)/myDoc->viewFont.fontHeight;
+  numLines = endLine - startLine +1;
 
   updateState = 0;
-
-  numLines = endLine - startLine +1;
 
   if (numLines >= lineRanges.size())
   {
@@ -662,6 +661,45 @@ void KateViewInternal::clearDirtyCache(int height)
     lineRanges[z].wrapped = false;
     lineRanges[z].start = 0xffffff;
     lineRanges[z].end = -2;
+  }
+
+  if (myView->_hasWrap)
+  {
+    uint lineCount = startLine;
+    uint visibleLine = 0;
+    uint maxWidth = width();
+    int startCol = 0;
+    int endCol = 0;
+    bool needWrap = true;
+
+    while (  (visibleLine < numLines) && (lineCount <= myDoc->lastLine())  )
+    {
+      startCol = 0;
+      endCol = 0;
+      needWrap = true;
+
+      while (needWrap)
+      {
+        endCol = myDoc->textWidth (myDoc->getTextLine(lineCount), startCol, maxWidth, 0, KateDocument::ViewFont, &needWrap);
+
+        lineRanges[visibleLine].line = lineCount;
+        lineRanges[visibleLine].startCol = startCol;
+        lineRanges[visibleLine].endCol = endCol;
+        lineRanges[visibleLine].wrapped = needWrap;
+
+        // test debug stuff kdDebug()<<"line"<<lineCount<<"  start -end"<<startCol<<" - "<<endCol<<endl;
+
+        startCol = endCol;
+        visibleLine++;
+
+        if (visibleLine >= numLines)
+          needWrap = false;
+      }
+
+      lineCount++;
+    }
+
+    endLine = lineRanges[numLines-1].line;
   }
 
   newXPos = newYPos = -1;
@@ -891,9 +929,9 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
   {
     if (lineRanges[line].start < lineRanges[line].end)
     {
-      myDoc->paintTextLine(paint, line, lineRanges[line].start, lineRanges[line].end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+      myDoc->paintTextLine(paint, lineRanges[line].line, lineRanges[line].startCol, lineRanges[line].endCol, lineRanges[line].start, lineRanges[line].end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
       bitBlt(this, lineRanges[line].start - (xPos-2), line*h - yPos, drawBuffer, 0, 0, lineRanges[line].end - lineRanges[line].start, h);
-      leftBorder->paintLine(line+startLine);
+      leftBorder->paintLine(lineRanges[line].line+startLine);
     }
   }
 
@@ -1191,17 +1229,20 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
 
   h = myDoc->viewFont.fontHeight;
   line = (yPos + updateR.y()) / h;
+
+  uint lstart = updateR.y() / h;
+
   y = line*h - yPos;
   yEnd = updateR.y() + updateR.height();
-  waitForPreHighlight=myDoc->needPreHighlight(waitForPreHighlight=line+((uint)(yEnd-y)/h)+5);
 
+  waitForPreHighlight=myDoc->needPreHighlight(waitForPreHighlight=line+((uint)(yEnd-y)/h)+5);
 
   while (y < yEnd)
   {
-    myDoc->paintTextLine(paint, line, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+    myDoc->paintTextLine(paint, lineRanges[lstart].line, lineRanges[lstart].startCol, lineRanges[lstart].endCol, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
-    leftBorder->paintLine(line);
-    line++;
+    leftBorder->paintLine(lineRanges[lstart].line);
+    lstart++;
     y += h;
   }
   paint.end();

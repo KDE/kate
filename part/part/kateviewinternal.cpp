@@ -2337,9 +2337,10 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
         placeCursor( e->pos() );
 
       if (leftBorder->positionToArea( e->pos() ) != KateIconBorder::IconBorder)
+      {
         if (m_view->popup())
             m_view->popup()->popup( mapToGlobal( e->pos() ) );
-
+      }
       e->accept ();
       break;
 
@@ -2575,7 +2576,7 @@ void KateViewInternal::textHintTimeout ()
 
   emit m_view->needTextHint(c.line(), c.col(), tmp);
 
-  if (!tmp.isEmpty()) kdDebug()<<"Hint text: "<<tmp<<endl;
+  if (!tmp.isEmpty()) kdDebug(13030)<<"Hint text: "<<tmp<<endl;
 }
 
 void KateViewInternal::focusInEvent (QFocusEvent *)

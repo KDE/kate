@@ -36,14 +36,16 @@ static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 
 KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
-  : m_doc(doc), m_view (view), m_drawCaret(true)
-    , m_caretStyle(KateRenderer::Insert)
+  : m_doc(doc), m_view (view), m_caretStyle(KateRenderer::Insert)
+    , m_drawCaret(true)
     , m_showSelections(true)
     , m_showTabs(true)
     , m_printerFriendly(false)
 {
   KateFactory::registerRenderer ( this );
   m_config = new KateRendererConfig (this);
+
+  m_tabWidth = m_doc->config()->tabWidth();
 }
 
 KateRenderer::~KateRenderer()
@@ -80,6 +82,11 @@ bool KateRenderer::showTabs() const
 void KateRenderer::setShowTabs(bool showTabs)
 {
   m_showTabs = showTabs;
+}
+
+void KateRenderer::setTabWidth(int tabWidth)
+{
+  m_tabWidth = tabWidth;
 }
 
 bool KateRenderer::showSelections() const
@@ -323,7 +330,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     if ((showCursor > -1) && (showCursor >= (int)curCol))
     {
       cursorVisible = true;
-      cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(QChar (' '));
+      cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &at[0].textColor();
     }
@@ -352,11 +359,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
-      xPosAfter += curAt->width(*fs, textLine->string(), curCol, m_doc->config()->tabWidth());
+      xPosAfter += curAt->width(*fs, textLine->string(), curCol, m_tabWidth);
 
       // Tab special treatment, move to charWidth().
       if (isTab)
-        xPosAfter -= (xPosAfter % curAt->width(*fs, textLine->string(), curCol, m_doc->config()->tabWidth()));
+        xPosAfter -= (xPosAfter % curAt->width(*fs, textLine->string(), curCol, m_tabWidth));
 
       // Only draw after the starting X value
       // Haha, this was always wrong, due to the use of individual char width calculations...?? :(
@@ -508,7 +515,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
     if ((showCursor > -1) && (showCursor >= (int)curCol))
     {
       cursorVisible = true;
-      cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(QChar (' '));
+      cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &oldAt->textColor();
     }
@@ -568,10 +575,10 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
 
     if (z < len) {
-      width = a->width(*fs, textLine->string(), z, m_doc->config()->tabWidth());
+      width = a->width(*fs, textLine->string(), z, m_tabWidth);
     } else {
       Q_ASSERT(!(m_doc->configFlags() & KateDocument::cfWrapCursor));
-      width = a->width(*fs, spaceChar, m_doc->config()->tabWidth());
+      width = a->width(*fs, spaceChar, m_tabWidth);
     }
 
     x += width;
@@ -603,7 +610,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   for (; z < textLine->length(); z++)
   {
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
-    int width = a->width(*fs, textLine->string(), z, m_doc->config()->tabWidth());
+    int width = a->width(*fs, textLine->string(), z, m_tabWidth);
     Q_ASSERT(width);
     x += width;
 
@@ -627,7 +634,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
 
     // How should tabs be treated when they word-wrap on a print-out?
     // if startcol != 0, this messes up (then again, word wrapping messes up anyway)
-    if (textLine->getChar(z) == '\t')
+    if (textLine->getChar(z) == tabChar)
       x -= x % width;
 
     if (x <= maxwidth)
@@ -708,13 +715,13 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
     int width = 0;
 
     if (z < len)
-      width = a->width(*fs, textLine->string(), z, m_doc->config()->tabWidth());
+      width = a->width(*fs, textLine->string(), z, m_tabWidth);
     else
-      width = a->width(*fs, spaceChar, m_doc->config()->tabWidth());
+      width = a->width(*fs, spaceChar, m_tabWidth);
 
     x += width;
 
-    if (textLine->getChar(z) == '\t')
+    if (textLine->getChar(z) == tabChar)
       x -= x % width;
 
     z++;
@@ -759,7 +766,7 @@ uint KateRenderer::textPos(const TextLine::Ptr &textLine, int xPos, uint startCo
     oldX = x;
 
     KateAttribute* a = m_doc->attribute(textLine->attribute(z));
-    x += a->width(*fs, textLine->string(), z, m_doc->config()->tabWidth());
+    x += a->width(*fs, textLine->string(), z, m_tabWidth);
 
     z++;
   }

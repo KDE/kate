@@ -80,6 +80,11 @@ public:
     void setShowTabs(bool showTabs);
 
     /**
+     * Sets the width of the tab. Helps performance.
+     */
+    void setTabWidth(int tabWidth);
+
+    /**
      * Show the view's selection?
      */
     bool showSelections() const;
@@ -149,9 +154,11 @@ public:
     KateDocument* m_doc;
     KateView *m_view;
 
+    int m_tabWidth;
+
     // some internal flags
+    int  m_caretStyle;
     bool m_drawCaret;
-    int m_caretStyle;
     bool m_showSelections;
     bool m_showTabs;
     bool m_printerFriendly;

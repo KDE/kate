@@ -1200,6 +1200,8 @@ void KateView::updateDocumentConfig()
   m_updatingDocumentConfig = false;
 
   m_viewInternal->updateView (true);
+
+  m_renderer->setTabWidth (m_doc->config()->tabWidth());
 }
 
 void KateView::updateRendererConfig()

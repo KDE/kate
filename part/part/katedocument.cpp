@@ -2828,9 +2828,11 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
 uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf) {
   const FontStruct & fs = getFontStruct(wf);
 
-  int x, oldX, z;
+  int x, oldX;
+  uint z;
   x = oldX = z = 0;
-  while (x < xPos) { // && z < len) {
+  uint len= textLine->length();
+  while ( (x < xPos)  && (z < len)) {
     oldX = x;
 
     Attribute *a = attribute(textLine->attribute(z));

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="11">
+<kpartgui name="KatePartView" version="12">
 <MenuBar>
   <Menu name="file"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -18,6 +18,7 @@
     <Action name="edit_select_all" group="edit_select_merge" />
     <Action name="edit_deselect" group="edit_select_merge" />
     <Action name="set_verticalSelect" group="edit_select_merge" />
+    <Action name="set_insert" group="edit_select_merge" />
     <Action name="edit_find" group="edit_find_merge" />
     <Action name="edit_find_next" group="edit_find_merge" />
     <Action name="edit_find_prev" group="edit_find_merge" />

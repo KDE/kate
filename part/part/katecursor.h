@@ -82,6 +82,7 @@ class KateTextCursor
 class BracketMark
 {
   public:
+    BracketMark() : cursor( -1, -1 ), sXPos( 0 ), eXPos( 0 ) {};
     KateTextCursor cursor;
     int sXPos;
     int eXPos;

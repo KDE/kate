@@ -175,7 +175,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   colors[0] = KGlobalSettings::baseColor();
   colors[1] = KGlobalSettings::highlightColor();
-  colors[2] = KGlobalSettings::baseColor();  // out of order alternateBackgroundColor();
+  colors[2] = KGlobalSettings::alternateBackgroundColor();
+  colors[3] = QColor( "#FFFF99" );
 
   m_highlight = 0L;
   tabChars = 8;
@@ -269,7 +270,7 @@ uint KateDocument::configPages () const
   return 7;
 }
 
-KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char *name )
+KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
 {
   switch( number )
   {
@@ -1283,9 +1284,8 @@ bool KateDocument::setBlockSelectionMode (bool on)
   {
     blockSelect = on;
     setSelection (selectStart, selectEnd);
-    KTextEditor::View *view;
-    for (view = m_views.first(); view != 0L; view = m_views.next() ) {
-      emit static_cast<KateView *>( view )->newStatus();
+    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
+      view->slotUpdate();
     }
   }
 
@@ -1596,6 +1596,7 @@ void KateDocument::readConfig(KConfig *config)
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
+  colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
 
   if (myWordWrap)
   {
@@ -1607,7 +1608,6 @@ void KateDocument::readConfig(KConfig *config)
   }
 
   tagAll();
-  updateEditAccels();
 }
 
 void KateDocument::writeConfig(KConfig *config)
@@ -1623,6 +1623,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
+  config->writeEntry("Color Bracket Highlight", colors[3]);
 }
 
 void KateDocument::readConfig()
@@ -2130,14 +2131,12 @@ bool KateDocument::saveFile()
 
 void KateDocument::setReadWrite( bool rw )
 {
-  KTextEditor::View *view;
-
   if (rw == readOnly)
   {
     readOnly = !rw;
     KParts::ReadWritePart::setReadWrite (rw);
-    for (view = m_views.first(); view != 0L; view = m_views.next() ) {
-      emit static_cast<KateView *>( view )->newStatus();
+    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
+      view->slotUpdate();
     }
   }
 }
@@ -2148,13 +2147,12 @@ bool KateDocument::isReadWrite() const
 }
 
 void KateDocument::setModified(bool m) {
-  KTextEditor::View *view;
 
   if (m != modified) {
     modified = m;
     KParts::ReadWritePart::setModified (m);
-    for (view = m_views.first(); view != 0L; view = m_views.next() ) {
-      emit static_cast<KateView *>( view )->newStatus();
+    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
+      view->slotUpdate();
     }
     emit modifiedChanged ();
   }
@@ -3314,14 +3312,6 @@ void KateDocument::updateViews()
   }
 }
 
-void KateDocument::updateEditAccels()
-{
-  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
-  {
-    view->setupEditKeys();
-  }
-}
-
 QColor &KateDocument::backCol(int x, int y)
 {
   return (lineColSelected(x,y)) ? colors[1] : colors[0];
@@ -3415,7 +3405,8 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 				 int showCursor, bool replaceCursor,
 				 int cursorXPos2, bool showSelections,
 				 bool showTabs, WhichFont wf,
-				 bool currentLine, bool printerfriendly)
+				 bool currentLine, bool printerfriendly,
+				 BracketMark bracketMark )
 {
   // font data
   FontStruct & fs = getFontStruct(wf);
@@ -3466,6 +3457,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   else if (!printerfriendly)
     paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[0]);
 
+  if( !printerfriendly && bracketMark.cursor.line == int(line) && bracketMark.eXPos != -1 )
+    paint.fillRect( bracketMark.sXPos, y, bracketMark.eXPos - bracketMark.sXPos, fs.fontHeight, colors[3] );
+    
   if (startcol > (int)len)
     startcol = len;
 
@@ -3852,21 +3846,17 @@ uint KateDocument::configFlags ()
   return _configFlags;
 }
 
-void KateDocument::setConfigFlags (uint flags)
+void KateDocument::setConfigFlags( uint flags )
 {
-  bool updateView;
-
-  if (flags != _configFlags)
-  {
-    // update the view if visibility of tabs has changed
-    updateView = (flags ^ _configFlags) & KateDocument::cfShowTabs;
-    _configFlags = flags;
-    //emit newStatus();
-    if (updateView) updateViews ();
-  }
+  if( flags == _configFlags )
+    return;
+    
+  // update the view if visibility of tabs has changed
+  bool updateView = (flags ^ _configFlags) & KateDocument::cfShowTabs;
+  _configFlags = flags;
+  if( updateView )
+    updateViews();
 }
-
-
 
 void KateDocument::exportAs(const QString& filter)
 {

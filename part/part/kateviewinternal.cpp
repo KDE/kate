@@ -48,14 +48,13 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_doc (doc)
 {
   // this will prevent the yScrollbar from jumping around on appear of the xScrollbar 
-  setCornerWidget (new QWidget (this));
-  cornerWidget()->hide ();
-  cornerWidget()->setFixedSize (style().scrollBarExtent().width(), style().scrollBarExtent().width());
-  cornerWidget()->setFocusPolicy ( NoFocus );
+  setCornerWidget( new QWidget( this ) );
+  cornerWidget()->hide();
+  cornerWidget()->setFixedSize( style().scrollBarExtent().width(),
+                                style().scrollBarExtent().width() );
                                 
   // iconborder ;)
   leftBorder = new KateIconBorder( this );
-  leftBorder->setFocusPolicy( NoFocus );
   connect( leftBorder, SIGNAL(sizeHintChanged()),
            this, SLOT(updateIconBorder()) );
   updateIconBorder();                            
@@ -87,14 +86,17 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.sXPos = 0;
   bm.eXPos = -1;
 
-  setFocusPolicy( StrongFocus );    
   viewport()->setFocusProxy( this );   
   viewport()->setAcceptDrops( true );
   viewport()->setBackgroundMode( NoBackground );
   setDragAutoScroll( true );
   setFrameStyle( NoFrame );
+  
   viewport()->setCursor( KCursor::ibeamCursor() );
-  KCursor::setAutoHideCursor( viewport(), true );
+  // QScrollView installs a custom event filter on the
+  // viewport, so we must override it and pass events to
+  // KCursor::autoHideEventFilter().
+  KCursor::setAutoHideCursor( viewport(), true, true );
 
   dragInfo.state = diNone;
     
@@ -195,8 +197,22 @@ void KateViewInternal::doTranspose()
 {
   m_doc->transpose( cursor );
   if (cursor.col + 2 <  m_doc->lineLength(cursor.line))
-  	  cursorRight();
+    cursorRight();
   cursorRight();
+}
+
+void KateViewInternal::doDeleteWordLeft()
+{
+  wordLeft( true );
+  m_doc->removeSelectedText();
+  update();
+}
+    
+void KateViewInternal::doDeleteWordRight()
+{
+  wordRight( true );
+  m_doc->removeSelectedText();
+  update();
 }
 
 class CalculatingCursor : public KateTextCursor {
@@ -520,6 +536,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 
   tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
   tagLines( displayCursor.line, displayCursor.line );
+  tagLines( bm.cursor.line, bm.cursor.line );
 
   QPoint cursorP = cursorCoordinates();
   setMicroFocusHint( cursorP.x(), cursorP.y(), 0, m_doc->viewFont.fontHeight );
@@ -586,15 +603,6 @@ void KateViewInternal::paintCursor()
   tagLines( displayCursor.line, displayCursor.line );
 }
 
-void KateViewInternal::paintBracketMark()
-{
-//   int y = m_doc->viewFont.fontHeight*( bm.cursor.line );
-// 
-//   QPainter paint( this );
-//   paint.setPen(m_doc->cursorCol(bm.cursor.col, bm.cursor.line));
-//   paint.drawLine( bm.sXPos - contentsX(), y, bm.eXPos - contentsX() -1, y );
-}
-
 // Point in content coordinates
 void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection )
 {
@@ -624,19 +632,51 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
   return m_doc->lineColSelected( line, col );
 }
 
-void KateViewInternal::focusInEvent( QFocusEvent* )
+// Overridden to handle tab key.
+bool KateViewInternal::event( QEvent* e )
 {
-  cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
-  paintCursor();
+  if( e->type() != QEvent::KeyPress )
+    return QScrollView::event( e );
+  
+  QKeyEvent *k = (QKeyEvent *)e;
+  if ( !(k->state() & ControlButton || k->state() & AltButton) ) {
+    keyPressEvent( k );
+    return k->isAccepted();
+  }
+  
+  return QScrollView::event( e );
 }
 
-void KateViewInternal::focusOutEvent( QFocusEvent* )
+// Overridden to pass events through KCursor auto-hide filter.
+bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
+  if( obj == viewport() )
+    KCursor::autoHideEventFilter( obj, e );
+    
+  return QScrollView::eventFilter( obj, e );
+}
+
+void KateViewInternal::focusInEvent( QFocusEvent* e )
+{
+  QScrollView::focusInEvent( e );
+  
+  cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+  paintCursor();
+  
+  emit m_view->gotFocus( m_view );
+}
+
+void KateViewInternal::focusOutEvent( QFocusEvent* e )
+{
+  QScrollView::focusOutEvent( e );
+  
   if( cursorTimer ) {
     killTimer( cursorTimer );
     cursorTimer = 0;
   }
   paintCursor();
+  
+  emit m_view->lostFocus( m_view );
 }
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
@@ -809,12 +849,10 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
                             (cursorOn && hasFocus() && (realLine == uint(cursor.line))) ? cursor.col : -1,
                             m_view->isOverwriteMode(), cXPos, true,
                             m_doc->configFlags() & KateDocument::cfShowTabs,
-                            KateDocument::ViewFont, realLine == uint(cursor.line) );
+                            KateDocument::ViewFont, realLine == uint(cursor.line),
+                            false, bm );
     }
   }
-
-  if (bm.eXPos > bm.sXPos)
-    paintBracketMark();
 }
 
 void KateViewInternal::viewportResizeEvent( QResizeEvent* )

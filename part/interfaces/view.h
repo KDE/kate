@@ -211,7 +211,8 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     /**
       Set focus to the current window.
     */
-    virtual void setFocus () { ; };
+    // Should remove this, it's redundant.
+    virtual void setFocus () { QWidget::setFocus(); } 
     /**
       Searches for the last searched text forward from cursor position.
       @param bool forward determines the search direction.
@@ -287,6 +288,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
 
   signals:
     void gotFocus (View *);
+//  void newStatus(); // Kate app connects to this signal, should be in the interface
 
   public:
     virtual void setActive (bool b) = 0;

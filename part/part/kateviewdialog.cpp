@@ -520,9 +520,9 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
 {
   m_doc = doc;
 
-  QGridLayout *glay = new QGridLayout( this, 6, 2, 0, KDialog::spacingHint());
+  QGridLayout *glay = new QGridLayout( this, 8, 2, 0, KDialog::spacingHint());
   glay->setColStretch(1,1);
-  glay->setRowStretch(5,1);
+  glay->setRowStretch(7,1);
 
   QLabel *label;
 
@@ -544,6 +544,12 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   glay->addWidget( label, 4, 0 );
   glay->addWidget( m_current, 4, 1 );
 
+  label = new QLabel( i18n("Bracket Highlight:"), this );
+  label->setAlignment( AlignRight|AlignVCenter );
+  m_bracket = new KColorButton( this );
+  glay->addWidget( label, 6, 0 );
+  glay->addWidget( m_bracket, 6, 1 );
+
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
   QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the \"<b>Configure Highlighting</b>\" dialog."));
@@ -562,6 +568,7 @@ void ColorConfig::setColors(QColor *colors)
   m_back->setColor( colors[0] );
   m_selected->setColor( colors[1] );
   m_current->setColor( colors[2] );
+  m_bracket->setColor( colors[3] );
 }
 
 void ColorConfig::getColors(QColor *colors)
@@ -569,6 +576,7 @@ void ColorConfig::getColors(QColor *colors)
   colors[0] = m_back->color();
   colors[1] = m_selected->color();
   colors[2] = m_current->color();
+  colors[3] = m_bracket->color();
 }
 
 void ColorConfig::apply ()

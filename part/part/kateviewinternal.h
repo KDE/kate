@@ -58,6 +58,8 @@ class KateViewInternal : public QScrollView
     void doBackspace();
     void doPaste();
     void doTranspose();
+    void doDeleteWordLeft();
+    void doDeleteWordRight();
     
     void cursorLeft(bool sel=false);
     void cursorRight(bool sel=false);
@@ -96,6 +98,8 @@ class KateViewInternal : public QScrollView
   private:
     void drawContents( QPainter*, int cx, int cy, int cw, int ch );
 
+    bool event( QEvent* );
+    bool eventFilter( QObject*, QEvent* );
     void focusInEvent(  QFocusEvent* );
     void focusOutEvent( QFocusEvent* );
     void keyPressEvent( QKeyEvent* );
@@ -141,7 +145,6 @@ class KateViewInternal : public QScrollView
     void tagAll();
 
     void paintCursor();
-    void paintBracketMark();
 
     void placeCursor( const QPoint& p, bool keepSelection = false );
     bool isTargetSelected( const QPoint& p );

@@ -353,7 +353,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
     bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int xPos, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor, int cursorXPos,
-                                bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false, bool printerfriendly = false);
+                                bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
+                                bool printerfriendly = false, BracketMark bm = BracketMark() );
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
@@ -484,7 +485,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void updateLines(int startLine, int endLine);
     void updateLines();
     void updateViews();
-    void updateEditAccels();
 
     void newBracketMark( const KateTextCursor&, BracketMark& );
 
@@ -622,7 +622,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // folding tree
     KateCodeFoldingTree *regionTree;
 
-    QColor colors[3];
+    QColor colors[4];
     class HlManager *hlManager;
     class Highlight *m_highlight;
     uint m_highlightedTill;

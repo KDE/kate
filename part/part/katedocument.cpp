@@ -2280,37 +2280,11 @@ QPixmap *KateDocument::markPixmap( MarkInterface::MarkTypes type )
 
 QColor KateDocument::markColor( MarkInterface::MarkTypes type )
 {
-  switch (type) {
-    // Bookmark
-    case markType01:
-      return KateRendererConfig::global()->lineMarkerColor(markType01);
-
-    // BreakpointActive
-    case markType02:
-      return KateRendererConfig::global()->lineMarkerColor(markType02);
-
-    // BreakpointReached
-    case markType03:
-      return KateRendererConfig::global()->lineMarkerColor(markType03);
-
-    // BreakpointDisabled
-    case markType04:
-      return KateRendererConfig::global()->lineMarkerColor(markType04);
-
-    // Execution
-    case markType05:
-      return KateRendererConfig::global()->lineMarkerColor(markType05);
-
-    // Warning
-    case markType06:
-      return KateRendererConfig::global()->lineMarkerColor(markType06);
-
-    // Error
-    case markType07:
-      return KateRendererConfig::global()->lineMarkerColor(markType07);
-
-    default:
-      return QColor();
+  uint reserved = 0x1 << (static_cast<int>(RESERVED) - 1);
+  if ((uint)type >= (uint)markType01 && (uint)type <= reserved) {
+    return KateRendererConfig::global()->lineMarkerColor(type);
+  } else {
+    return QColor();
   }
 }
 

@@ -503,7 +503,7 @@ void KateDocument::editStart (bool withUndo)
   editIsRunning = true;
   noViewUpdates = true;
   editWithUndo = withUndo;
-  buffer->allowHlUpdate(false);
+  buffer->setAllowHlUpdate(false);
 
   editTagLineStart = 0xffffff;
   editTagLineEnd = 0;
@@ -544,7 +544,7 @@ void KateDocument::editEnd ()
   if (editSessionNumber > 0)
     return;
 
-  buffer->allowHlUpdate(true);
+  buffer->setAllowHlUpdate(true);
 
   if (editTagLineStart <= editTagLineEnd)
     updateLines(editTagLineStart, editTagLineEnd);

@@ -298,20 +298,6 @@ KateBuffer::slotLoadFile()
   emit linesChanged(m_totalLines);
 }
 
-/**
- * Return the total number of lines in the buffer.
- */
-uint
-KateBuffer::count()
-{
-   return m_totalLines;
-}
-
-void KateBuffer::allowHlUpdate (bool b)
-{
-  noHlUpdate = !b;
-}
-
 KateBufBlock *
 KateBuffer::findBlock(uint i)
 {

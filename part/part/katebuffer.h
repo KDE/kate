@@ -46,14 +46,13 @@ class QTextCodec;
  */
 class KateBuffer : public QObject
 {
-  friend class KateDocument;
-
-   Q_OBJECT
-public:
+  Q_OBJECT
+  
+  public:
    /**
     * Create an empty buffer.
     */
-   KateBuffer(KateDocument *doc);
+   KateBuffer(class KateDocument *doc);
    ~KateBuffer();
 
    /**
@@ -71,7 +70,10 @@ public:
    /**
     * Return the total number of lines in the buffer.
     */
-   uint count();
+   inline uint count() const
+   {
+     return m_totalLines;
+   }
 
    /**
     * Return line @p i
@@ -126,8 +128,16 @@ public:
     * Invalidate highlighting of whole buffer.
     */
    void invalidateHighlighting();
-
-   void allowHlUpdate (bool b);
+             
+   inline bool allowHlUpdate () const
+   {
+      return !noHlUpdate;
+   }
+   
+   inline void setAllowHlUpdate (bool b)
+   {
+     noHlUpdate = !b;
+   }
     
 signals:
    /**

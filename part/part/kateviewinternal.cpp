@@ -524,6 +524,10 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   cursor = newCursor;
   displayCursor.line = m_doc->getVirtualLine(cursor.line);
   displayCursor.col = cursor.col;
+  
+  bool b = oldDisplayCursor.line != displayCursor.line;
+  if ( b )
+    tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
 
   //kdDebug(13030) << "updateCursor():" << endl;
   //kdDebug(13030) << "Virtual: " << displayCursor.line << endl;
@@ -545,9 +549,6 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
     tagLines( bm.endLine, bm.endLine );
   }
 
-  bool b = oldDisplayCursor.line != displayCursor.line;
-  if ( b )
-    tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
   tagLines( displayCursor.line, displayCursor.line, b );
 
   QPoint cursorP = cursorCoordinates();

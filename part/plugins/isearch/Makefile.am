@@ -5,7 +5,7 @@ METASOURCES = AUTO
 kde_module_LTLIBRARIES = ktexteditor_isearch.la
 
 ktexteditor_isearch_la_SOURCES = ISearchPlugin.cpp
-ktexteditor_isearch_la_LIBADD = -lktexteditor -lkparts $(LIB_KDEUI)
+ktexteditor_isearch_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
 ktexteditor_isearch_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
           
 datadir = $(kde_datadir)/ktexteditor_isearch

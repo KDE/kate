@@ -110,8 +110,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 {
   KateFactory::registerDocument (this);
 
-  setMarksUserChangable(markType01);
-
   regionTree=new KateCodeFoldingTree(this);
   m_activeView = 0L;
 
@@ -125,13 +123,16 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editWithUndo = false;
 
   blockSelect = false;
-  restoreMarks = false;
-
+  
   m_bSingleViewMode = bSingleViewMode;
   m_bBrowserView = bBrowserView;
   m_bReadOnly = bReadOnly;
 
-  myMarks.setAutoDelete (true);
+  m_marks.setAutoDelete( true );
+  m_markPixmaps.setAutoDelete( true );
+  m_markDescriptions.setAutoDelete( true );
+  restoreMarks = false;
+  setMarksUserChangable( markType01 );
 
   readOnly = false;
   newDoc = false;
@@ -227,8 +228,7 @@ KateDocument::~KateDocument()
   }
 
   m_highlight->release();
-  myMarks.clear ();
-  
+    
   KateFactory::deregisterDocument (this);
 }      
 
@@ -933,23 +933,21 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   buffer->insertLine (line+1, tl);
   buffer->changeLine(line);
 
-  if (!myMarks.isEmpty())
-  {
-    bool b = false;
-
-    for (uint z=0; z<myMarks.count(); z++)
-    {
-      if (myMarks.at(z)->line > line+1)
-      {
-        myMarks.at(z)->line = myMarks.at(z)->line+1;
-        b = true;
-      }
-    }
-
-    if (b)
-      emit marksChanged ();
+  QPtrList<KTextEditor::Mark> list;
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current(); ++it ) {
+    if( it.current()->line > line + 1 )
+      list.append( it.current() );
   }
-
+  for( QPtrListIterator<KTextEditor::Mark> it( list );
+       it.current(); ++it ) {
+    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+    mark->line++;
+    m_marks.insert( mark->line, mark );
+  }
+  if( !list.isEmpty() )
+    emit marksChanged();
+  
   editInsertTagLine (line);
   editTagLine(line);
   editTagLine(line+1);
@@ -982,25 +980,21 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   buffer->changeLine(line);
   buffer->removeLine(line+1);
   regionTree->lineHasBeenRemoved(line);
-  if (!myMarks.isEmpty())
-  {
-    bool b = false;
-
-    for (uint z=0; z<myMarks.count(); z++)
-    {
-      if (myMarks.at(z)->line > line)
-      {
-        if (myMarks.at(z)->line == line+1)
-          myMarks.remove(z);
-        else
-          myMarks.at(z)->line = myMarks.at(z)->line-1;
-        b = true;
-      }
-    }
-
-    if (b)
-      emit marksChanged ();
+  
+  QPtrList<KTextEditor::Mark> list;
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current(); ++it ) {
+    if( it.current()->line > line )
+      list.append( it.current() );
   }
+  for( QPtrListIterator<KTextEditor::Mark> it( list );
+       it.current(); ++it ) {
+    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+    mark->line--;
+    m_marks.insert( mark->line, mark );
+  }
+  if( !list.isEmpty() )
+    emit marksChanged();
 
   editRemoveTagLine(line);
   editTagLine(line);
@@ -1030,23 +1024,20 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   editInsertTagLine (line);
   editTagLine(line);
 
-
-  if (!myMarks.isEmpty())
-  {
-    bool b = false;
-
-    for (uint z=0; z<myMarks.count(); z++)
-    {
-       if (myMarks.at(z)->line >= line)
-      {
-        myMarks.at(z)->line = myMarks.at(z)->line+1;
-        b = true;
-      }
-    }
-
-    if (b)
-      emit marksChanged ();
+  QPtrList<KTextEditor::Mark> list;
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current(); ++it ) {
+    if( it.current()->line >= line )
+      list.append( it.current() );
   }
+  for( QPtrListIterator<KTextEditor::Mark> it( list );
+       it.current(); ++it ) {
+    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+    mark->line++;
+    m_marks.insert( mark->line, mark );
+  }
+  if( !list.isEmpty() )
+    emit marksChanged();
 
   regionTree->lineHasBeenInserted(line);
 
@@ -1074,26 +1065,21 @@ bool KateDocument::editRemoveLine ( uint line )
   buffer->removeLine(line);
 
   editRemoveTagLine (line);
-
-  if (!myMarks.isEmpty())
-  {
-    bool b = false;
-
-    for (uint z=0; z<myMarks.count(); z++)
-    {
-      if (myMarks.at(z)->line >= line)
-      {
-        if (myMarks.at(z)->line == line)
-          myMarks.remove(z);
-        else
-          myMarks.at(z)->line = myMarks.at(z)->line-1;
-        b = true;
-      }
-    }
-
-    if (b)
-      emit marksChanged ();
+  
+  QPtrList<KTextEditor::Mark> list;
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current(); ++it ) {
+    if( it.current()->line >= line )
+      list.append( it.current() );
   }
+  for( QPtrListIterator<KTextEditor::Mark> it( list );
+       it.current(); ++it ) {
+    KTextEditor::Mark* mark = m_marks.take( it.current()->line );
+    mark->line++;
+    m_marks.insert( mark->line, mark );
+  }
+  if( !list.isEmpty() )
+    emit marksChanged();
 
   regionTree->lineHasBeenRemoved(line);
 
@@ -1111,8 +1097,7 @@ bool KateDocument::editRemoveLine ( uint line )
 // KTextEditor::SelectionInterface stuff
 //
 
-bool KateDocument::setSelection ( const KateTextCursor & start,
-				  const KateTextCursor & end )
+bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCursor& end )
 {
   if( hasSelection() )
     tagSelection();
@@ -1133,14 +1118,12 @@ bool KateDocument::setSelection ( const KateTextCursor & start,
   return true;
 }
 
-bool KateDocument::setSelection ( uint startLine, uint startCol,
-				  uint endLine, uint endCol )
+bool KateDocument::setSelection( uint startLine, uint startCol, uint endLine, uint endCol )
 {
-  return setSelection ( KateTextCursor(startLine, startCol), 
-			KateTextCursor(endLine, endCol) );
+  return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
 }
 
-bool KateDocument::clearSelection ()
+bool KateDocument::clearSelection()
 {
   if( !hasSelection() )
     return false;
@@ -1691,20 +1674,14 @@ void KateDocument::writeConfig()
 
 void KateDocument::readSessionConfig(KConfig *config)
 {
-  // enable the setMark function to set marks for lines > lastLine !!!
-  restoreMarks = true;
-
   m_url = config->readEntry("URL"); // ### doesn't this break the encoding? (Simon)
   internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
-
-  // restore bookmarks
-  QValueList<int> l = config->readIntListEntry("Bookmarks");
-  if ( l.count() )
-  {
-    for (uint i=0; i < l.count(); i++)
-      setMark( l[i], KateDocument::markType01 );
-  }
-
+  
+  // Restore Bookmarks
+  restoreMarks = true; // Hack: make sure we can set marks for lines > lastLine
+  QValueList<int> marks = config->readIntListEntry("Bookmarks");
+  for( uint i = 0; i < marks.count(); i++ )
+    addMark( marks[i], KateDocument::markType01 );
   restoreMarks = false;
 }
 
@@ -1712,14 +1689,15 @@ void KateDocument::writeSessionConfig(KConfig *config)
 {
   config->writeEntry("URL", m_url.url() ); // ### encoding?? (Simon)
   config->writeEntry("Highlight", m_highlight->name());
-  // anders: save bookmarks
-  QValueList<int> ml;
-  for (uint i=0; i < myMarks.count(); i++) {
-    if ( myMarks.at(i)->type == 1) // only save bookmarks
-     ml << myMarks.at(i)->line;
+  
+  // Save Bookmarks
+  QValueList<int> marks;
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current() && it.current()->type & KTextEditor::MarkInterface::markType01; ++it ) {
+     marks << it.current()->line;
   }
-  if (ml.count() )
-    config->writeEntry("Bookmarks", ml);
+  if( !marks.isEmpty() )
+    config->writeEntry( "Bookmarks", marks );
 }
 
 void KateDocument::configDialog()
@@ -1762,131 +1740,134 @@ void KateDocument::configDialog()
   delete kd;
 }
 
-uint KateDocument::mark (uint line)
+uint KateDocument::mark( uint line )
 {
-  if (myMarks.isEmpty())
-    return 0;
-
-  if (line > lastLine())
-    return 0;
-
-  for (uint z=0; z<myMarks.count(); z++)
-    if (myMarks.at(z)->line == line)
-      return myMarks.at(z)->type;
+  if( m_marks[line] )
+    return m_marks[line]->type;
 
   return 0;
 }
 
-void KateDocument::setMark (uint line, uint markType)
+void KateDocument::setMark( uint line, uint markType )
 {
   if ((!restoreMarks) && (line > lastLine()))
     return;
 
-  bool b = false;
-
-  for (uint z=0; z<myMarks.count(); z++)
-    if (myMarks.at(z)->line == line)
-    {
-      myMarks.at(z)->type=markType;
-      b = true;
-    }
-
-  if (!b)
-  {
+  if( m_marks[line] ) {
+    m_marks[line]->type = markType;
+  } else {
     KTextEditor::Mark *mark = new KTextEditor::Mark;
     mark->line = line;
     mark->type = markType;
-    myMarks.append (mark);
+    m_marks.insert( line, mark );
   }
 
-  emit marksChanged ();
-
-  tagLines (line,line);
+  emit marksChanged();
+  tagLines( line, line );
 }
 
-void KateDocument::clearMark (uint line)
-{
-  if (myMarks.isEmpty())
-    return;
-
-  if (line > lastLine())
-    return;
-
-  for (uint z=0; z<myMarks.count(); z++)
-    if (myMarks.at(z)->line == line)
-    {
-      myMarks.remove(z);
-      emit marksChanged ();
-
-      tagLines (line,line);
-    }
-}
-
-void KateDocument::addMark (uint line, uint markType)
+void KateDocument::clearMark( uint line )
 {
   if (line > lastLine())
     return;
 
-  bool b = false;
+  if( m_marks.remove( line ) ) {
+    emit marksChanged();
+    tagLines( line, line );
+  }
+}
 
-  for (uint z=0; z<myMarks.count(); z++)
-    if (myMarks.at(z)->line == line)
-    {
-      myMarks.at(z)->type=myMarks.at(z)->type | markType;
-      b = true;
-    }
+void KateDocument::addMark( uint line, uint markType )
+{
+  if (line > lastLine())
+    return;
 
-  if (!b)
-  {
+  if( m_marks[line] ) {
+    m_marks[line]->type |= markType;
+  } else {
     KTextEditor::Mark *mark = new KTextEditor::Mark;
     mark->line = line;
     mark->type = markType;
-    myMarks.append (mark);
+    m_marks.insert( line, mark );
   }
 
-  emit marksChanged ();
-
-  tagLines (line,line);
+  emit marksChanged();
+  tagLines( line, line );
 }
 
-void KateDocument::removeMark (uint line, uint markType)
+void KateDocument::removeMark( uint line, uint markType )
 {
-  if (myMarks.isEmpty())
-    return;
-
   if (line > lastLine())
     return;
 
-  for (uint z=0; z<myMarks.count(); z++)
-    if (myMarks.at(z)->line == line)
-    {
-      myMarks.at(z)->type=myMarks.at(z)->type & ~markType;
-      if (myMarks.at(z)->type == 0)
-        myMarks.remove(z);
+  if( m_marks[line] ) {
+    m_marks[line]->type &= ~markType;
+    
+    if( m_marks[line]->type == 0 )
+      m_marks.remove( line );
 
-      emit marksChanged ();
-    }
-
-  tagLines (line,line);
-}
-
-QPtrList<KTextEditor::Mark> KateDocument::marks ()
-{
-  return myMarks;
-}
-
-void KateDocument::clearMarks ()
-{
-  if (myMarks.isEmpty())
-    return;
-
-  while (myMarks.count() > 0)
-  {
-    tagLines (myMarks.at (0)->line, myMarks.at (0)->line);
-    myMarks.remove((uint)0);
+    emit marksChanged();
+    tagLines( line, line );
   }
+}
 
-  emit marksChanged ();
+QPtrList<KTextEditor::Mark> KateDocument::marks()
+{
+  QPtrList<KTextEditor::Mark> list;
+  
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current(); ++it ) {
+    list.append( it.current() );
+  }
+  
+  return list;
+}
+
+void KateDocument::clearMarks()
+{
+  for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
+       it.current(); ++it ) {
+    KTextEditor::Mark* mark = it.current();
+    tagLines( mark->line, mark->line );
+  }
+  
+  m_marks.clear();
+
+  emit marksChanged();
+}
+
+void KateDocument::setPixmap( MarkInterface::MarkTypes type, const QPixmap& pixmap )
+{
+  m_markPixmaps.replace( type, new QPixmap( pixmap ) );
+}
+
+void KateDocument::setDescription( MarkInterface::MarkTypes type, const QString& description )
+{
+  m_markDescriptions.replace( type, new QString( description ) );
+}
+
+QPixmap KateDocument::markPixmap( MarkInterface::MarkTypes type )
+{
+  if( m_markPixmaps[type] )
+    return *m_markPixmaps[type];
+  return QPixmap();
+}
+
+QString KateDocument::markDescription( MarkInterface::MarkTypes type )
+{
+  if( m_markDescriptions[type] )
+    return *m_markDescriptions[type];
+  return QString::null;
+}
+
+void KateDocument::setMarksUserChangable( uint markMask )
+{
+  m_editableMarks = markMask;
+}
+
+uint KateDocument::editableMarks()
+{
+  return m_editableMarks;
 }
 
 //
@@ -4104,34 +4085,6 @@ void KateDocument::slotLoadingFinished()
 {
   tagAll();
 }
-
-/**
- * Begin of the implementaion of the MarkInterfaceExtension
- **/
-
-void KateDocument::setPixmap(MarkInterface::MarkTypes, const QPixmap &)
-{
-  ;
-}
-void KateDocument::setDescription(MarkInterface::MarkTypes, const QString &)
-{
-  ;
-}
-
-void KateDocument::setMarksUserChangable(uint markMask)
-{
-  m_editableMarks=markMask;
-}
-
-// -----------------------
-uint KateDocument::editableMarks()
-{
-  return m_editableMarks;
-}
-
-/**
- * End of the implementaion of the MarkInterfaceExtension
- **/
 
 const QFont& KateDocument::getFont( WhichFont wf )
 {

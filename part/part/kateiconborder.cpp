@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -21,16 +22,20 @@
 // $Id$
 
 #include "kateiconborder.h"
+#include "kateiconborder.moc"
+
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katedocument.h"
-#include "kateiconborder.moc"
 #include "katecodefoldinghelpers.h"
 
 #include <kdebug.h>
+#include <klocale.h>
 #include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qcursor.h>
+
+using namespace KTextEditor;
 
 const char * plus_xpm[] = {
 "12 16 3 1",
@@ -206,15 +211,18 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView )
   , m_view( internalView->m_view )
   , m_doc( internalView->m_doc )
   , m_viewInternal( internalView )
-  , m_markMenu(0)
   , m_iconBorderOn( false )
   , m_lineNumbersOn( false )
   , m_foldingMarkersOn( false )
-  , m_lmbSetsBreakpoints( true )
-  , m_oldEditableMarks(0)
 {                                        
   setBackgroundMode( NoBackground );
   setFont( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
+  
+  m_doc->setPixmap( MarkInterface::markType01, QPixmap(bookmark_xpm) );
+  m_doc->setPixmap( MarkInterface::markType02, QPixmap(breakpoint_xpm) );
+  m_doc->setPixmap( MarkInterface::markType03, QPixmap(breakpoint_bl_xpm) );
+  m_doc->setPixmap( MarkInterface::markType04, QPixmap(breakpoint_gr_xpm) );
+  m_doc->setPixmap( MarkInterface::markType05, QPixmap(exec_xpm) );
 }
 
 void KateIconBorder::setIconBorderOn( bool enable )
@@ -313,28 +321,12 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
       p.setPen(QColor(colorGroup().background()).dark());
       p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y+fontHeight);
 
-      if( realLine <= m_doc->lastLine() )
-      {
-        uint mark = m_doc->mark (realLine);
-        switch (mark)
-        {
-        case KateDocument::markType01:
-          p.drawPixmap(lnX+2, y, QPixmap(bookmark_xpm));
-          break;
-        case KateDocument::markType02:
-          p.drawPixmap(lnX+2, y, QPixmap(breakpoint_xpm));
-          break;
-        case KateDocument::markType03:
-          p.drawPixmap(lnX+2, y, QPixmap(breakpoint_gr_xpm));
-          break;
-        case KateDocument::markType04:
-          p.drawPixmap(lnX+2, y, QPixmap(breakpoint_bl_xpm));
-          break;
-        case KateDocument::markType05:
-          p.drawPixmap(lnX+2, y, QPixmap(exec_xpm));
-          break;
-        default:
-          break;
+      if( realLine <= m_doc->lastLine() ) {
+        for( uint bit = 0; bit < 32; bit++ ) {
+          MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
+          if( m_doc->mark( realLine ) & markType ) {
+            p.drawPixmap( lnX+2, y, m_doc->markPixmap( markType ) );
+          }
         }
       }
 
@@ -430,17 +422,13 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
         cursorOnLine == m_lastClickedLine &&
         cursorOnLine <= m_doc->lastLine() )
     {
-      uint mark = m_doc->mark (cursorOnLine);
-      createMarkMenu();
-      if (m_oldEditableMarks) {
-        if (m_markMenu) {
-          m_markMenu->exec(QCursor::pos());	
-        } else {
-          if (mark&m_oldEditableMarks)
-            m_doc->removeMark (cursorOnLine, m_oldEditableMarks);
-          else
-            m_doc->addMark (cursorOnLine, m_oldEditableMarks);
-        }
+      if( m_doc->editableMarks() == MarkInterface::markType01 ) {
+        if( m_doc->mark( cursorOnLine ) & MarkInterface::markType01 )
+          m_doc->removeMark( cursorOnLine, MarkInterface::markType01 );
+        else
+          m_doc->addMark( cursorOnLine, MarkInterface::markType01 );
+      } else {
+        showMarkMenu( cursorOnLine, QCursor::pos() );
       }
     }
     break;
@@ -478,41 +466,30 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
   }
 }
 
-void KateIconBorder::createMarkMenu()
+void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
-  unsigned int tmpMarks;
-  if (m_doc->editableMarks()==m_oldEditableMarks) return;	
-  m_oldEditableMarks=m_doc->editableMarks();
-  if ((m_markMenu) && (!m_oldEditableMarks)) {
-    delete m_markMenu;
-    m_markMenu=0;
-    return;
-  }
-  else if ((m_markMenu) && m_oldEditableMarks) m_markMenu->clear();
-  tmpMarks=m_oldEditableMarks;
-
-  bool first_found=false;
-  for(unsigned int tmpMark=1;tmpMark;tmpMark=tmpMark<<1) {
-
-    if (tmpMark && tmpMarks) {
-      tmpMarks -=tmpMark;
-
-      if (!first_found) {
-        if (!tmpMarks) {
-          if (m_markMenu) {
-            delete m_markMenu;
-            m_markMenu=0;
-          } 
-          return;
-        }
-        if (!m_markMenu) m_markMenu=new QPopupMenu(this);
-        m_markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
-        first_found=true;
-      }
-      else m_markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
-
+  QPopupMenu markMenu;
+  for( uint bit = 0; bit < 32; bit++ ) {
+    MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
+    if( !(m_doc->editableMarks() & markType) )
+      continue;
+    if( !m_doc->markDescription( markType ).isEmpty() ) {
+      markMenu.insertItem( m_doc->markDescription( markType ), markType );
+    } else {
+      markMenu.insertItem( i18n("Mark Type %1").arg( bit + 1 ), markType );
     }
-    if (!tmpMarks) return;
-
+    if( m_doc->mark( line ) & markType )
+      markMenu.setItemChecked( markType, true );
+  }
+  if( markMenu.count() == 0 )
+    return;
+  int result = markMenu.exec( pos );
+  if( result <= 0 )
+    return;
+  MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)result;
+  if( m_doc->mark( line ) & markType ) {
+    m_doc->removeMark( line, markType );
+  } else {
+    m_doc->addMark( line, markType );
   }
 }

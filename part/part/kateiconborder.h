@@ -1,4 +1,5 @@
 /* This file is part of the KDE libraries
+   Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
@@ -60,23 +61,19 @@ class KateIconBorder : public QWidget
     void mouseReleaseEvent( QMouseEvent* );
     void mouseDoubleClickEvent( QMouseEvent* );
                           
+    void showMarkMenu( uint line, const QPoint& pos );
+    
     enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
     BorderArea positionToArea( const QPoint& ) const;
 
-    void createMarkMenu();
-            
-  private:          
     class KateView *m_view;   
     class KateDocument *m_doc;
     class KateViewInternal *m_viewInternal;
-    class QPopupMenu *m_markMenu;
-                    
+                        
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
     bool m_foldingMarkersOn:1;
     
-    bool m_lmbSetsBreakpoints;
-    uint m_oldEditableMarks;
     uint m_lastClickedLine;
 };
 #endif

@@ -309,27 +309,39 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void configDialog ();
 
   //
-  // KTextEditor::MarkInterface stuff
+  // KTextEditor::MarkInterface and MarkInterfaceExtension
   //
   public slots:
-    uint mark (uint line);
+    uint mark( uint line );
 
-    void setMark (uint line, uint markType);
-    void clearMark (uint line);
+    void setMark( uint line, uint markType );
+    void clearMark( uint line );
 
-    void addMark (uint line, uint markType);
-    void removeMark (uint line, uint markType);
+    void addMark( uint line, uint markType );
+    void removeMark( uint line, uint markType );
 
-    QPtrList<KTextEditor::Mark> marks ();
-    void clearMarks ();
-
+    QPtrList<KTextEditor::Mark> marks();
+    void clearMarks();
+    
+    void setPixmap( MarkInterface::MarkTypes, const QPixmap& );
+    void setDescription( MarkInterface::MarkTypes, const QString& );
+    QString markDescription( MarkInterface::MarkTypes );
+    QPixmap markPixmap( MarkInterface::MarkTypes );
+    
+    void setMarksUserChangable( uint markMask );
+    uint editableMarks();
+  
   signals:
-    void marksChanged ();
-
+    void marksChanged();
+    void markChanged( KTextEditor::Mark, MarkInterfaceExtension::MarkChangeAction );
+  
   private:
-    QPtrList<KTextEditor::Mark> myMarks;
-    bool restoreMarks;
-
+    QIntDict<KTextEditor::Mark> m_marks;
+    QIntDict<QPixmap>           m_markPixmaps;
+    QIntDict<QString>           m_markDescriptions;
+    bool                        restoreMarks;
+    uint                        m_editableMarks;
+  
   //
   // KTextEditor::PrintInterface
   //
@@ -683,26 +695,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //
     uint _configFlags;
 
-   /**
-    * Implementation of the mark interface
-    **/
   public: 
     /**
       Allow the HlManager to fill the array
     */
     QMemArray<Attribute> *attribs() { return &myAttribs; }
-  
-    virtual void setPixmap(MarkInterface::MarkTypes, const QPixmap &);
-    virtual void setDescription(MarkInterface::MarkTypes, const QString &);
-    virtual void setMarksUserChangable(uint markMask);
-
-  signals:
-    virtual void markChanged (KTextEditor::Mark mark, MarkInterfaceExtension::MarkChangeAction action);
-//--------
-  private:
-	uint m_editableMarks;
-  public:
-	uint editableMarks();
 };
 
 #endif

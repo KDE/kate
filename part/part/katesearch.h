@@ -95,8 +95,8 @@ private:
 	bool doSearch( const QString& text );
 	void exposeFound( KateTextCursor &cursor, int slen );
 	
-	Kate::View* view()    { return m_view; }
-	Kate::Document* doc() { return m_doc;  }
+	inline Kate::View* view()    { return m_view; }
+	inline Kate::Document* doc() { return m_doc;  }
 	
 	Kate::View*     m_view;
 	Kate::Document* m_doc;

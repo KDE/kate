@@ -239,7 +239,7 @@ KTextEditor::View *KateDocument::createView( QWidget *parent, const char *name )
 
 QPtrList<KTextEditor::View> KateDocument::views () const
 {
-  return _views;
+  return m_textEditViews;
 };
 
 //
@@ -2129,7 +2129,7 @@ void KateDocument::internalHlChanged() { //slot
 
 void KateDocument::addView(KTextEditor::View *view) {
   m_views.append( (KateView *) view  );
-  _views.append( view );
+  m_textEditViews.append( view );
   m_activeView = (KateView *) view;
 }
 
@@ -2138,7 +2138,7 @@ void KateDocument::removeView(KTextEditor::View *view) {
     m_activeView = 0L;
 
   m_views.removeRef( (KateView *) view );
-  _views.removeRef( view  );
+  m_textEditViews.removeRef( view  );
 }
 
 void KateDocument::addCursor(KTextEditor::Cursor *cursor) {

@@ -77,7 +77,7 @@ class KateDocument : public Kate::Document
     
   private:
     QPtrList<KateView> m_views;
-    QPtrList<KTextEditor::View> _views;
+    QPtrList<KTextEditor::View> m_textEditViews;
     KateView *m_activeView;
 
   //

@@ -32,9 +32,8 @@ class SearchInterface
 	// slots !!!
 	//
   public:
-	  virtual bool searchString (uint startLine, uint startCol, const QString &text, uint &foundAtLine, uint &foundAtCol, uint matchLen) = 0;
-
-		virtual bool searchRegExp (uint startLine, uint startCol, const QString &regexp, uint &foundAtLine, uint &foundAtCol, uint matchLen) = 0;
+	  virtual bool searchText (uint startLine, uint startCol, const QString &text, bool backwards, uint &foundAtLine, uint &foundAtCol, uint matchLen) = 0;
+		virtual bool searchText (uint startLine, uint startCol, const QRegExp &regexp, bool backwards, uint &foundAtLine, uint &foundAtCol, uint matchLen) = 0;
 };
 
 

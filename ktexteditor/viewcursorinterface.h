@@ -36,6 +36,9 @@ class ViewCursorInterface
 
     virtual bool setCursorPosition (uint line, uint col) = 0;
 
+		virtual uint cursorLine () = 0;
+		virtual uint cursorColumn () = 0;
+
 	//
 	// signals !!!
 	//

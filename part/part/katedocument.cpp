@@ -875,13 +875,14 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
 bool KateDocument::editWrapLine ( uint line, uint col )
 {
-  TextLine::Ptr l, tl;
-  KateView *view;
+  TextLine::Ptr l = getTextLine(line);
 
-  l = getTextLine(line);
-  tl = new TextLine();
+  if (!l)
+    return false;
 
-  if (!l || !tl)
+  TextLine::Ptr tl = new TextLine();
+
+  if (!tl)
     return false;
 
   editStart ();
@@ -915,13 +916,14 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   editTagLine(line+1);
 
   newDocGeometry = true;
+  KateView *view;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
     view->myViewInternal->insLine(line+1);
 
     // correct cursor position
-    if (view->cursorCache.line > (int)line) 
+    if (view->cursorCache.line > (int)line)
     {
       view->cursorCache.line++;
       view->cursorCacheChanged = true;

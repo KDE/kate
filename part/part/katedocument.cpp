@@ -211,7 +211,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   colors[1] = KGlobalSettings::highlightColor();
   colors[2] = KGlobalSettings::alternateBackgroundColor();
   colors[3] = QColor( "#FFFF99" );
-
+  colors[4] = colors[2].dark();
   m_highlight = 0L;
   tabChars = 8;
 
@@ -1676,6 +1676,7 @@ void KateDocument::readConfig(KConfig *config)
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
+  colors[4] = config->readColorEntry("Color WWMarker", &colors[4]);
   
   myBackupConfig = config->readNumEntry( "Backup", 1 );
   myBackupSuffix = config->readEntry("BackupSuffix", "~");
@@ -1727,6 +1728,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
   config->writeEntry("Color Bracket Highlight", colors[3]);
+  config->writeEntry("Color WWMarker", colors[4] );
   
   config->writeEntry( "Backup", myBackupConfig );
   config->writeEntry( "BackupSuffix", myBackupSuffix );
@@ -4120,7 +4122,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
     
   // show word wrap marker if desirable
   if ( !printerfriendly && m_wordWrapMarker && fs.myFont.fixedPitch() ) {
-    paint.setPen( colors[2] );
+    paint.setPen( colors[4] );
     int _x = myWordWrapAt*fs.myFontMetrics.width('x');
     paint.drawLine( _x,y,_x,y+fs.fontHeight );
   }

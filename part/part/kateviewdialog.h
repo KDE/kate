@@ -200,6 +200,7 @@ private:
   KColorButton *m_selected;
   KColorButton *m_current;
   KColorButton *m_bracket;
+  KColorButton *m_wwmarker;
 
   public slots:
     void apply ();

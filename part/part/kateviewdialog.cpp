@@ -441,9 +441,9 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
 {
   m_doc = doc;
 
-  QGridLayout *glay = new QGridLayout( this, 8, 2, 0, KDialog::spacingHint());
+  QGridLayout *glay = new QGridLayout( this, 9, 2, 0, KDialog::spacingHint());
   glay->setColStretch(1,1);
-  glay->setRowStretch(7,1);
+  glay->setRowStretch(8,1);
 
   QLabel *label;
 
@@ -470,12 +470,28 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   m_bracket = new KColorButton( this );
   glay->addWidget( label, 6, 0 );
   glay->addWidget( m_bracket, 6, 1 );
+  
+  label = new QLabel( i18n("Word Wrap &Marker:"), this );
+  label->setAlignment( AlignRight|AlignVCenter );
+  m_wwmarker = new KColorButton( this );
+  label->setBuddy( m_wwmarker );
+  glay->addWidget( label, 7, 0 );
+  glay->addWidget( m_wwmarker, 7, 1 );
 
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
-  QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the \"<b>Configure Highlighting</b>\" dialog."));
-  QWhatsThis::add(m_current, i18n("Sets the background color of the currently active line, which means the line where your cursor is positioned."));
-  QWhatsThis::add(m_bracket, i18n("Sets the bracket matching color. This means, if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will be highlighted with this color."));
+  QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. "
+        "To set the text color for selected text, use the \"<b>Configure "
+        "Highlighting</b>\" dialog."));
+  QWhatsThis::add(m_current, i18n("Sets the background color of the currently "
+        "active line, which means the line where your cursor is positioned."));
+  QWhatsThis::add(m_bracket, i18n("Sets the bracket matching color. This means, "
+        "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
+        "be highlighted with this color."));
+  QWhatsThis::add(m_wwmarker, i18n(
+        "Sets the color of the word wrap marker line. This is a vertical line "
+        "that shows the desired word wrap column, as set in the Edit "
+        "configuration.") );
   reload ();
 }
 
@@ -490,6 +506,7 @@ void ColorConfig::setColors(QColor *colors)
   m_selected->setColor( colors[1] );
   m_current->setColor( colors[2] );
   m_bracket->setColor( colors[3] );
+  m_wwmarker->setColor( colors[4] );
 }
 
 void ColorConfig::getColors(QColor *colors)
@@ -498,6 +515,7 @@ void ColorConfig::getColors(QColor *colors)
   colors[1] = m_selected->color();
   colors[2] = m_current->color();
   colors[3] = m_bracket->color();
+  colors[4] = m_wwmarker->color();
 }
 
 void ColorConfig::apply ()

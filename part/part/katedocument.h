@@ -719,7 +719,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // text buffer
     KateBuffer *buffer;
 
-    QColor colors[4];
+    QColor colors[5];
     class HlManager *hlManager;
     class Highlight *m_highlight;
 

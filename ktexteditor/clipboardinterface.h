@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_clipboardinterface_h__
 #define __ktexteditor_clipboardinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -27,7 +29,7 @@ namespace KTextEditor
 /**
 * This is an interface for accessing the clipboard through the View class.
 */
-class ClipboardInterface
+class KTEXTEDITOR_EXPORT ClipboardInterface
 {
   friend class PrivateClipboardInterface;
 
@@ -65,7 +67,7 @@ class ClipboardInterface
     unsigned int myClipboardInterfaceNumber;
 };
 
-ClipboardInterface *clipboardInterface (class View *view);
+KTEXTEDITOR_EXPORT ClipboardInterface *clipboardInterface (class View *view);
 
 }
 

@@ -36,7 +36,7 @@ namespace KTextEditor
  * and are not interested in using advanced interfaces.
  */
 
-class Editor : public KParts::ReadWritePart
+class KTEXTEDITOR_EXPORT Editor : public KParts::ReadWritePart
 {
   friend class PrivateEditor;
 
@@ -57,7 +57,7 @@ class Editor : public KParts::ReadWritePart
     unsigned int myEditorNumber;
 };     
 
-Editor *createEditor ( const char* libname, QWidget *parentWidget = 0, const char *widgetName = 0, QObject *parent = 0, const char *name = 0 );
+KTEXTEDITOR_EXPORT Editor *createEditor ( const char* libname, QWidget *parentWidget = 0, const char *widgetName = 0, QObject *parent = 0, const char *name = 0 );
 
 }
 

@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to EncodingInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class EncodingDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT EncodingDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

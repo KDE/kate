@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_blockselectioninterface_h__
 #define __ktexteditor_blockselectioninterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -29,7 +31,7 @@ namespace KTextEditor
  * method to be changed between selecting rectangular blocks of text and normal mode
  * (all text between the start cursor and the current cursor).
  */
-class BlockSelectionInterface
+class KTEXTEDITOR_EXPORT BlockSelectionInterface
 {
   friend class PrivateBlockSelectionInterface;
 
@@ -73,7 +75,7 @@ class BlockSelectionInterface
 /**
  * Access the block selection interface of document @param doc
  */
-BlockSelectionInterface *blockSelectionInterface (class Document *doc);
+KTEXTEDITOR_EXPORT BlockSelectionInterface *blockSelectionInterface (class Document *doc);
 
 }
 

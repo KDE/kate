@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to ViewStatusMsgInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class ViewStatusMsgDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT ViewStatusMsgDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

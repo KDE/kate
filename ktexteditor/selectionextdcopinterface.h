@@ -33,7 +33,7 @@ namespace KTextEditor {
     DCOP interface for the SelectionInterfaceExt.
     @author Anders Lund <anders@alweb.dk>
 */
-class SelectionExtDCOPInterface : virtual public DCOPObject
+class KTEXTEDITOR_EXPORT SelectionExtDCOPInterface : virtual public DCOPObject
 {
   K_DCOP
   public:

@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_wordwrapinterface_h__
 #define __ktexteditor_wordwrapinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -28,7 +30,7 @@ namespace KTextEditor
 /**
 *  This is an interface to control fixed-column word-wrapping of a Document.
 */
-class WordWrapInterface
+class KTEXTEDITOR_EXPORT WordWrapInterface
 {
   friend class PrivateWordWrapInterface;
   
@@ -57,7 +59,7 @@ class WordWrapInterface
     unsigned int myWordWrapInterfaceNumber;
 };
                           
-WordWrapInterface *wordWrapInterface (class Document *doc);
+KTEXTEDITOR_EXPORT WordWrapInterface *wordWrapInterface (class Document *doc);
 
 }
 

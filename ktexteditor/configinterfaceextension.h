@@ -26,7 +26,7 @@
 namespace KTextEditor
 {
 
-class ConfigPage : public QWidget
+class KTEXTEDITOR_EXPORT ConfigPage : public QWidget
 {
   Q_OBJECT
 
@@ -64,7 +64,7 @@ class ConfigPage : public QWidget
 * This is an interface to extend the configuration of the
 * Document, Plugin and PluginViewInterface classes.
 */
-class ConfigInterfaceExtension
+class KTEXTEDITOR_EXPORT ConfigInterfaceExtension
 {
   friend class PrivateConfigInterfaceExtension;
 
@@ -108,8 +108,8 @@ class Document;
 class Plugin;
 class ViewPlugin;
 
-ConfigInterfaceExtension *configInterfaceExtension (Document *doc);
-ConfigInterfaceExtension *configInterfaceExtension (Plugin *plugin);
+KTEXTEDITOR_EXPORT ConfigInterfaceExtension *configInterfaceExtension (Document *doc);
+KTEXTEDITOR_EXPORT ConfigInterfaceExtension *configInterfaceExtension (Plugin *plugin);
 
 }
 

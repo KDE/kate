@@ -12,7 +12,7 @@ class QString;
 namespace KTextEditor
 {
 
-class EditorChooser: public QWidget
+class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
 {                    
   friend class PrivateEditorChooser;
 

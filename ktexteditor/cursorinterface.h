@@ -22,13 +22,15 @@
 #include <qptrlist.h>
 #include <qstring.h>
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
 {
 
 /**
  * This class represents a text cursor.
  */
-class Cursor
+class KTEXTEDITOR_EXPORT Cursor
 {
   public:
     virtual void position ( unsigned int *line, unsigned int *col ) const = 0;
@@ -45,7 +47,7 @@ class Cursor
 /**
 *  This is an interface for accessing the cursor of the Document class.
 */
-class CursorInterface
+class KTEXTEDITOR_EXPORT CursorInterface
 {
   friend class PrivateCursorInterface;
 
@@ -75,7 +77,7 @@ class CursorInterface
       unsigned int myCursorInterfaceNumber;
 };
 
-CursorInterface *cursorInterface (class Document *doc);
+KTEXTEDITOR_EXPORT CursorInterface *cursorInterface (class Document *doc);
 
 }
 

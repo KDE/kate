@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_searchinterface_h__
 #define __ktexteditor_searchinterface_h__
 
+#include <kdelibs_export.h>
+
 class QRegExp;
 class QString;
 class QCString;
@@ -30,7 +32,7 @@ namespace KTextEditor
 /**
 *  This is an interface to allow searching of a Document.
 */
-class SearchInterface
+class KTEXTEDITOR_EXPORT SearchInterface
 {
   friend class PrivateSearchInterface;
 
@@ -56,7 +58,7 @@ class SearchInterface
     unsigned int mySearchInterfaceNumber;
 };
 
-SearchInterface *searchInterface (class Document *doc);
+KTEXTEDITOR_EXPORT SearchInterface *searchInterface (class Document *doc);
 
 }
 

@@ -36,7 +36,7 @@ namespace KTextEditor
 *  It allows the developer to set pixmaps for custom marks and to indicate which
 *  marks are settable by the user, for example (in kate), as actions in the iconborder's popup menu.
 */
-class MarkInterfaceExtension
+class KTEXTEDITOR_EXPORT MarkInterfaceExtension
 {
   friend class PrivateMarkInterfaceExtension;
   
@@ -76,7 +76,7 @@ class MarkInterfaceExtension
     unsigned int myMarkInterfaceExtensionNumber;
 };
 
-MarkInterfaceExtension *markInterfaceExtension (class Document *doc);
+KTEXTEDITOR_EXPORT MarkInterfaceExtension *markInterfaceExtension (class Document *doc);
 
 }
 

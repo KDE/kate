@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_viewcursorinterface_h__
 #define __ktexteditor_viewcursorinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -28,7 +30,7 @@ namespace KTextEditor
 /**
 *  This is an interface to access the text cursor of a View class.
 */
-class ViewCursorInterface
+class KTEXTEDITOR_EXPORT ViewCursorInterface
 {
   friend class PrivateViewCursorInterface;
 
@@ -86,7 +88,7 @@ class ViewCursorInterface
     unsigned int myViewCursorInterfaceNumber;
 };
 
-ViewCursorInterface *viewCursorInterface (class View *view);
+KTEXTEDITOR_EXPORT ViewCursorInterface *viewCursorInterface (class View *view);
 
 }
 

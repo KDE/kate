@@ -28,7 +28,7 @@ namespace KTextEditor
  * The main class representing a text document.
  * This class provides access to the document's views.
  */
-class Document : public KTextEditor::Editor
+class KTEXTEDITOR_EXPORT Document : public KTextEditor::Editor
 {
   friend class PrivateDocument;
 
@@ -66,7 +66,7 @@ class Document : public KTextEditor::Editor
     unsigned int myDocumentNumber;
 };
 
-Document *createDocument ( const char* libname, QObject *parent = 0, const char *name = 0 );
+KTEXTEDITOR_EXPORT Document *createDocument ( const char* libname, QObject *parent = 0, const char *name = 0 );
 
 }
 

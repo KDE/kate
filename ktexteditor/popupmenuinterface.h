@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_popupmenuinterface_h__
 #define __ktexteditor_popupmenuinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 class QPopupMenu;
 
@@ -28,7 +30,7 @@ namespace KTextEditor
 /**
 *  This is an interface to provide custom popup menus for a View.
 */
-class PopupMenuInterface
+class KTEXTEDITOR_EXPORT PopupMenuInterface
 {
   friend class PrivatePopupMenuInterface;
 
@@ -57,7 +59,7 @@ class PopupMenuInterface
     unsigned int myPopupMenuInterfaceNumber;
 };
 
-PopupMenuInterface *popupMenuInterface (class View *view);
+KTEXTEDITOR_EXPORT PopupMenuInterface *popupMenuInterface (class View *view);
 
 }
 

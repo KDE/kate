@@ -19,6 +19,8 @@
 #ifndef _KTEXTEDITOR_VARIABLE_INTERFACE_H_
 #define _KTEXTEDITOR_VARIABLE_INTERFACE_H_
 
+#include <kdelibs_export.h>
+
 class QString;
 
 namespace KTextEditor {
@@ -36,7 +38,7 @@ namespace KTextEditor {
  *
  * @short KTextEditor interface to Document Variables
  */
-class VariableInterface
+class KTEXTEDITOR_EXPORT VariableInterface
 {
   public:
     VariableInterface();
@@ -65,6 +67,6 @@ class VariableInterface
 };
 
 
-VariableInterface *variableInterface( class Document * );
+KTEXTEDITOR_EXPORT VariableInterface *variableInterface( class Document * );
 } // namespace KTextEditor
 #endif //_KTEXTEDITOR_VARIABLE_INTERFACE_H_

@@ -21,8 +21,10 @@
 
 #include <qobject.h>
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
-{                       
+{
 
 class Document;
 class View;
@@ -31,7 +33,7 @@ class View;
  * Basic KTextEditor plugin class.
  * This plugin will be bound to a Document.
  */                     
-class Plugin : public QObject
+class KTEXTEDITOR_EXPORT Plugin : public QObject
 {
   friend class PrivatePlugin;
 
@@ -51,13 +53,13 @@ class Plugin : public QObject
     unsigned int myPluginNumber;
 };
    
-Plugin *createPlugin ( const char* libname, Document *document = 0, const char *name = 0 );
+KTEXTEDITOR_EXPORT Plugin *createPlugin ( const char* libname, Document *document = 0, const char *name = 0 );
 
 /**
  * View plugin class.
  * This plugin will be bound to a View
  */
-class PluginViewInterface
+class KTEXTEDITOR_EXPORT PluginViewInterface
 {
   friend class PrivatePluginViewInterface;
 
@@ -77,9 +79,9 @@ class PluginViewInterface
     class PrivatePluginViewInterface *d;
     static unsigned int globalPluginViewInterfaceNumber;
     unsigned int myPluginViewInterfaceNumber;
-};         
+};
 
-PluginViewInterface *pluginViewInterface (Plugin *plugin);
+KTEXTEDITOR_EXPORT PluginViewInterface *pluginViewInterface (Plugin *plugin);
 
 }
 

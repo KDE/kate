@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_printinterface_h__
 #define __ktexteditor_printinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -28,7 +30,7 @@ namespace KTextEditor
 /**
 *  This is an interface to printing functions of a Document.
 */
-class PrintInterface
+class KTEXTEDITOR_EXPORT PrintInterface
 {
   friend class PrivatePrintInterface;
   
@@ -54,7 +56,7 @@ class PrintInterface
     unsigned int myPrintInterfaceNumber;
 };
 
-PrintInterface *printInterface (class Document *doc);
+KTEXTEDITOR_EXPORT PrintInterface *printInterface (class Document *doc);
 
 }
 

@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_sessionconfiginterface_h__
 #define __ktexteditor_sessionconfiginterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 class KConfig;
 
@@ -29,7 +31,7 @@ namespace KTextEditor
 * This is an interface to session-specific configuration of the
 * Document, Plugin and PluginViewInterface classes.
 */
-class SessionConfigInterface
+class KTEXTEDITOR_EXPORT SessionConfigInterface
 {
   friend class PrivateSessionConfigInterface;
 
@@ -60,9 +62,9 @@ class SessionConfigInterface
     unsigned int mySessionConfigInterfaceNumber;
 };
 
-SessionConfigInterface *sessionConfigInterface (class Document *doc);
-SessionConfigInterface *sessionConfigInterface (class View *view);
-SessionConfigInterface *sessionConfigInterface (class Plugin *plugin);
+KTEXTEDITOR_EXPORT SessionConfigInterface *sessionConfigInterface (class Document *doc);
+KTEXTEDITOR_EXPORT SessionConfigInterface *sessionConfigInterface (class View *view);
+KTEXTEDITOR_EXPORT SessionConfigInterface *sessionConfigInterface (class Plugin *plugin);
 
 }
 

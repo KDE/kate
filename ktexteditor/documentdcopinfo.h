@@ -16,7 +16,7 @@ namespace KTextEditor
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
 
-	class DocumentInfoDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT DocumentInfoDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

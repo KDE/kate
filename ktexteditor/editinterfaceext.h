@@ -22,6 +22,8 @@
 
 #include <qstring.h>
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
 {
 
@@ -29,7 +31,7 @@ namespace KTextEditor
 * This is the main interface for accessing and modifying
 * text of the Document class.
 */
-class EditInterfaceExt
+class KTEXTEDITOR_EXPORT EditInterfaceExt
 {
   friend class PrivateEditInterfaceExt;
 
@@ -65,7 +67,7 @@ class EditInterfaceExt
     uint myEditInterfaceExtNumber;
 };
 
-EditInterfaceExt *editInterfaceExt (class Document *doc);
+KTEXTEDITOR_EXPORT EditInterfaceExt *editInterfaceExt (class Document *doc);
 
 }
 

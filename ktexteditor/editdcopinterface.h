@@ -15,7 +15,7 @@ namespace KTextEditor
   @short DCOP interface to EditInterface.
   @author Ian Reinhart Geiser <geiseri@kde.org>
   */
-  class EditDCOPInterface : virtual public DCOPObject
+  class KTEXTEDITOR_EXPORT EditDCOPInterface : virtual public DCOPObject
   {
   K_DCOP
 

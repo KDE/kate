@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_dynwordwrapinterface_h__
 #define __ktexteditor_dynwordwrapinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -29,7 +31,7 @@ namespace KTextEditor
  * This is an interface for accessing dynamic word wrapping functionality
  * of the View class.
  */
-class DynWordWrapInterface
+class KTEXTEDITOR_EXPORT DynWordWrapInterface
 {
   friend class PrivateDynWordWrapInterface;
   
@@ -55,7 +57,7 @@ class DynWordWrapInterface
     unsigned int myDynWordWrapInterfaceNumber;
 };
 
-DynWordWrapInterface *dynWordWrapInterface (class View *view);
+KTEXTEDITOR_EXPORT DynWordWrapInterface *dynWordWrapInterface (class View *view);
 
 }
 

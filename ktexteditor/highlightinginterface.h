@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_highlightinginterface_h__
 #define __ktexteditor_highlightinginterface_h__
 
+#include <kdelibs_export.h>
+
 class QString;
 class QCString;
 
@@ -29,7 +31,7 @@ namespace KTextEditor
 /**
 *  This is an interface for syntax highlighting of a Document.
 */
-class HighlightingInterface
+class KTEXTEDITOR_EXPORT HighlightingInterface
 {
   friend class PrivateHighlightingInterface;
 
@@ -83,7 +85,7 @@ class HighlightingInterface
     unsigned int myHighlightingInterfaceNumber;
 };
 
-HighlightingInterface *highlightingInterface (class Document *doc);
+KTEXTEDITOR_EXPORT HighlightingInterface *highlightingInterface (class Document *doc);
 
 }
 

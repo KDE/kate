@@ -22,6 +22,8 @@
 class QString;
 class QCString;
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
 {
 
@@ -29,7 +31,7 @@ namespace KTextEditor
  * This is an interface for accessing information about files open
  * in the Document, Plugin and PluginViewInterface classes.
  */
-class DocumentInfoInterface
+class KTEXTEDITOR_EXPORT DocumentInfoInterface
 {
   friend class PrivateDocumentInterface;
 

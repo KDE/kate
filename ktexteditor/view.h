@@ -29,7 +29,7 @@ namespace KTextEditor
  * The View class represents a single view of a Document .
  */
 
-class View : public QWidget, public KXMLGUIClient
+class KTEXTEDITOR_EXPORT View : public QWidget, public KXMLGUIClient
 {
   friend class PrivateView;
 

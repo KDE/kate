@@ -22,6 +22,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
 {
 
@@ -29,7 +31,7 @@ namespace KTextEditor
  * This is an interface for the KTextEditor::View class.
 
  */
-class TextHintInterface
+class KTEXTEDITOR_EXPORT TextHintInterface
 {
 	friend class PrivateTextHintInterface;
 public:
@@ -70,7 +72,7 @@ public:
     unsigned int myTextHintInterfaceNumber;
 };
 
-TextHintInterface *textHintInterface (class View *view);
+KTEXTEDITOR_EXPORT TextHintInterface *textHintInterface (class View *view);
 
 }
 

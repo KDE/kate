@@ -22,6 +22,8 @@
 
 #include <qptrlist.h>
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -37,7 +39,7 @@ class Mark
 /**
 *  This is an interface to enable marks to be made in the iconborder of the Document class.
 */
-class MarkInterface
+class KTEXTEDITOR_EXPORT MarkInterface
 {
   friend class PrivateMarkInterface;
   
@@ -162,7 +164,7 @@ class MarkInterface
     unsigned int myMarkInterfaceNumber;
 };
 
-MarkInterface *markInterface (class Document *doc);
+KTEXTEDITOR_EXPORT MarkInterface *markInterface (class Document *doc);
 
 }
 

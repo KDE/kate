@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_undointerface_h__
 #define __ktexteditor_undointerface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -27,7 +29,7 @@ namespace KTextEditor
 /**
 *  This is an interface to undo functionality of a Document.
 */
-class UndoInterface
+class KTEXTEDITOR_EXPORT UndoInterface
 {
   friend class PrivateUndoInterface;
 
@@ -75,7 +77,7 @@ class UndoInterface
     unsigned int myUndoInterfaceNumber;
 };
 
-UndoInterface *undoInterface (class Document *doc);
+KTEXTEDITOR_EXPORT UndoInterface *undoInterface (class Document *doc);
 
 }
 

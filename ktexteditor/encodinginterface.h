@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_encodinginterface_h__
 #define __ktexteditor_encodinginterface_h__
 
+#include <kdelibs_export.h>
+
 class QString;
 class QCString;
 
@@ -28,7 +30,7 @@ namespace KTextEditor
 /**
 *  This is an interface to the text encoding of a Document class.
 */
-class EncodingInterface
+class KTEXTEDITOR_EXPORT EncodingInterface
 {
   friend class PrivateEncodingInterface;
 
@@ -54,7 +56,7 @@ class EncodingInterface
     unsigned int myEncodingInterfaceNumber;
 };
 
-EncodingInterface *encodingInterface (class Document *doc);
+KTEXTEDITOR_EXPORT EncodingInterface *encodingInterface (class Document *doc);
 
 }
 

@@ -22,6 +22,8 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
 {
 
@@ -37,7 +39,7 @@ namespace KTextEditor
  *
  *
  */
-class CompletionEntry
+class KTEXTEDITOR_EXPORT CompletionEntry
 {
   public:
     QString type;
@@ -81,7 +83,7 @@ class CompletionEntry
  * void aboutToShowCompletionBox()
  *
  */
-class CodeCompletionInterface
+class KTEXTEDITOR_EXPORT CodeCompletionInterface
 {
   friend class PrivateCodeCompletionInterface;
 
@@ -193,7 +195,7 @@ class CodeCompletionInterface
     unsigned int myCodeCompletionInterfaceNumber;
 };
 
-CodeCompletionInterface *codeCompletionInterface (class View *view);
+KTEXTEDITOR_EXPORT CodeCompletionInterface *codeCompletionInterface (class View *view);
 
 }
 

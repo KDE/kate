@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_configinterface_h__
 #define __ktexteditor_configinterface_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 class KConfig;
 
@@ -29,7 +31,7 @@ namespace KTextEditor
 * This is an interface for accessing the configuration of the
 * Document and Plugin classes.
 */
-class ConfigInterface
+class KTEXTEDITOR_EXPORT ConfigInterface
 {
   friend class PrivateConfigInterface;
 
@@ -83,8 +85,8 @@ class ConfigInterface
 class Plugin;
 class Document;
 
-ConfigInterface *configInterface (Document *doc);
-ConfigInterface *configInterface (Plugin *plugin);
+KTEXTEDITOR_EXPORT ConfigInterface *configInterface (Document *doc);
+KTEXTEDITOR_EXPORT ConfigInterface *configInterface (Plugin *plugin);
 
 }
 

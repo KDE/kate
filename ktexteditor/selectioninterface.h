@@ -22,13 +22,15 @@
 
 #include <qstring.h>
 
+#include <kdelibs_export.h>
+
 namespace KTextEditor
 {
 
 /**
 *  This is an interface to text selection for the Document class.
 */
-class SelectionInterface
+class KTEXTEDITOR_EXPORT SelectionInterface
 {
   friend class PrivateSelectionInterface;
 
@@ -90,8 +92,8 @@ class SelectionInterface
 class Document;
 class View;
 
-SelectionInterface *selectionInterface (Document *doc);
-SelectionInterface *selectionInterface (View *view);
+KTEXTEDITOR_EXPORT SelectionInterface *selectionInterface (Document *doc);
+KTEXTEDITOR_EXPORT SelectionInterface *selectionInterface (View *view);
 
 }
 

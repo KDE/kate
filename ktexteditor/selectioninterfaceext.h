@@ -22,6 +22,8 @@
 #ifndef __ktexteditor_selectioninterface_ext_h__
 #define __ktexteditor_selectioninterface_ext_h__
 
+#include <kdelibs_export.h>
+
 class QCString;
 
 namespace KTextEditor
@@ -33,7 +35,7 @@ namespace KTextEditor
     Mainly here for dcop and the sake of scripting.
     @author Anders Lund <anders@alweb.dk>
 */
-class SelectionInterfaceExt
+class KTEXTEDITOR_EXPORT SelectionInterfaceExt
 {
   friend class PrivateSelectionInterfaceExt;
 
@@ -65,8 +67,8 @@ class SelectionInterfaceExt
 class Document;
 class View;
 
-SelectionInterfaceExt *selectionInterfaceExt (Document *doc);
-SelectionInterfaceExt *selectionInterfaceExt (View *view);
+KTEXTEDITOR_EXPORT SelectionInterfaceExt *selectionInterfaceExt (Document *doc);
+KTEXTEDITOR_EXPORT SelectionInterfaceExt *selectionInterfaceExt (View *view);
 
 }  // namespace KTextEditor
 #endif

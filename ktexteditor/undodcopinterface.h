@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to UndoInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class UndoDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT UndoDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_viewstatusmsginterface_h__
 #define __ktexteditor_viewstatusmsginterface_h__
 
+#include <kdelibs_export.h>
+
 class QString;
 class QCString;
 
@@ -28,7 +30,7 @@ namespace KTextEditor
 /**
 *  This is an interface for retrieving status bar messages from the Document class.
 */
-class ViewStatusMsgInterface
+class KTEXTEDITOR_EXPORT ViewStatusMsgInterface
 {
   friend class PrivateViewStatusMsgInterface;
 
@@ -54,7 +56,7 @@ class ViewStatusMsgInterface
     unsigned int myViewStatusMsgInterfaceNumber;
 };
                   
-ViewStatusMsgInterface *viewStatusMsgInterface (class View *view);
+KTEXTEDITOR_EXPORT ViewStatusMsgInterface *viewStatusMsgInterface (class View *view);
 
 }
 

@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to PrintInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class PrintDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT PrintDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

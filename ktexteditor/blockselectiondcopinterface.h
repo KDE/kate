@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to BlockSelectionInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class BlockSelectionDCOPInterface :  virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT BlockSelectionDCOPInterface :  virtual public DCOPObject
 	{
 	K_DCOP
 

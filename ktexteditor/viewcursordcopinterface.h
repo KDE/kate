@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to ViewCursorInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class ViewCursorDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT ViewCursorDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

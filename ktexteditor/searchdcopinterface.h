@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to SearchInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class SearchDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT SearchDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

@@ -5,7 +5,7 @@
 #include <dcopref.h>
 #include <qstringlist.h>
 #include <qcstring.h>
-//#include "editdcopinterface.moc"
+
 namespace KTextEditor
 {
 	class ClipboardInterface;
@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to ClipboardInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	class ClipboardDCOPInterface : virtual public DCOPObject
+	class KTEXTEDITOR_EXPORT ClipboardDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
 

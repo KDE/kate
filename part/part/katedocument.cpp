@@ -231,9 +231,19 @@ KateDocument::~KateDocument()
 
 bool KateDocument::closeURL()
 {
-  flush ();
+  if (!KParts::ReadWritePart::closeURL ())
+    return false;
+  
+  m_url = KURL();
+  fileInfo->setFile (QString());
+  setMTime();
 
-  return KParts::ReadWritePart::closeURL ();
+  clear();
+  updateViews();
+
+  emit fileNameChanged ();
+  
+  return true;
 }
 
 //
@@ -2006,7 +2016,6 @@ bool KateDocument::openFile()
   if (!fileInfo->exists() || !fileInfo->isReadable())
     return false;
 
-  clear();
   QString serviceType = m_extension->urlArgs().serviceType.simplifyWhiteSpace();
   kdDebug(13000) << "servicetype: " << serviceType << endl;
   int pos = serviceType.find(';');
@@ -2040,7 +2049,7 @@ bool KateDocument::openFile()
     {
       QString line = buffer->plainLine(i);
       len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
-//kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
+kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
 //kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
       memcpy(&buf[bufpos], (line+"\n").latin1(), len);
@@ -3796,17 +3805,7 @@ void KateDocument::slotModChanged()
 
 void KateDocument::flush ()
 {
-  if (!isReadWrite())
-    return;
-
-  m_url = KURL();
-  fileInfo->setFile (QString());
-  setMTime();
-
-  clear();
-  updateViews();
-
-  emit fileNameChanged ();
+  closeURL ();
 }
 
 void KateDocument::open (const QString &name)

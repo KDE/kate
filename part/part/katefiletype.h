@@ -23,10 +23,13 @@
 
 #include <qstringlist.h>
 #include <qptrlist.h>
+#include <qguardedptr.h>
 
 #include "../interfaces/document.h"
 
 class KateDocument;
+
+class QPopupMenu;
 
 class KateFileType
 {
@@ -110,6 +113,33 @@ class KateFileTypeConfigTab : public Kate::ConfigPage
 
     QPtrList<KateFileType> m_types;
     KateFileType *m_lastType;
+};
+
+class KateViewFileTypeAction: public Kate::ActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KateViewFileTypeAction(const QString& text, QObject* parent = 0, const char* name = 0)
+       : Kate::ActionMenu(text, parent, name) { init(); };
+
+    ~KateViewFileTypeAction(){;};
+
+    void updateMenu (Kate::Document *doc);
+
+  private:
+    void init();
+
+    QGuardedPtr<KateDocument> m_doc;
+    QStringList subMenusName;
+    QStringList names;
+    QPtrList<QPopupMenu> subMenus;
+
+  public  slots:
+    void slotAboutToShow();
+
+  private slots:
+    void setType (int mode);
 };
 
 #endif

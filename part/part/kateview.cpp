@@ -46,6 +46,7 @@
 #include "katesearch.h"
 #include "katecmdline.h"
 #include "kateconfig.h"
+#include "katefiletype.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -287,6 +288,10 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
 
   m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
+
+  m_setFileType = new KateViewFileTypeAction (i18n("&Filetype Mode"),ac,"set_filetype");
+  m_setFileType->updateMenu (m_doc);
+
   m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 
   m_selectAll = a=KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);

@@ -53,6 +53,7 @@
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
     <Action name="tools_toggle_write_lock" group="tools_operations" />
     <Separator group="tools_operations" />
+    <Action name="set_filetype" group="tools_operations" />
     <Action name="set_highlight" group="tools_operations" />
     <Action name="set_eol" group="tools_operations" />
     <Separator group="tools_operations" />

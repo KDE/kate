@@ -26,6 +26,7 @@
 #include "katedocument.h"
 #include "kateconfig.h"
 #include "katedialogs.h"
+#include "kateview.h"
 #include "katefactory.h"
 
 #include <kconfig.h>
@@ -35,6 +36,7 @@
 #include <kiconloader.h>
 #include <knuminput.h>
 #include <klocale.h>
+#include <kpopupmenu.h>
 
 #include <qregexp.h>
 #include <qcheckbox.h>
@@ -134,6 +136,9 @@ int KateFileTypeManager::fileType (KateDocument *doc)
   if (!doc)
     return -1;
 
+  if (m_types.isEmpty())
+    return -1;
+
   QString fileName = doc->url().prettyURL();
   int length = doc->url().prettyURL().length();
 
@@ -183,8 +188,6 @@ int KateFileTypeManager::fileType (KateDocument *doc)
 
   int accuracy;
   KMimeType::Ptr mt = KMimeType::findByContent( buf, &accuracy );
-
-  kdDebug (13020) << "Mime type :::)) " << mt->name() << endl;
 
   QPtrList<KateFileType> types;
 
@@ -394,6 +397,13 @@ void KateFileTypeConfigTab::deleteType ()
 
 void KateFileTypeConfigTab::newType ()
 {
+  KateFileType *newT = new KateFileType ();
+  newT->priority = 0;
+  newT->name = QString ("New");
+
+  m_types.prepend (newT);
+
+  update ();
 }
 
 void KateFileTypeConfigTab::save ()
@@ -462,6 +472,78 @@ void KateFileTypeConfigTab::showMTDlg()
     wildcards->setText(d->patterns().join(";"));
     mimetypes->setText(d->mimeTypes().join(";"));
   }
+}
+
+void KateViewFileTypeAction::init()
+{
+  m_doc = 0;
+  subMenus.setAutoDelete( true );
+
+  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KateViewFileTypeAction::updateMenu (Kate::Document *doc)
+{
+  m_doc = (KateDocument *)doc;
+}
+
+void KateViewFileTypeAction::slotAboutToShow()
+{
+  KateDocument *doc=m_doc;
+  int count = KateFactory::fileTypeManager()->list()->count();
+
+  for (int z=0; z<count; z++)
+  {
+    QString hlName = KateFactory::fileTypeManager()->list()->at(z)->name;
+    QString hlSection = KateFactory::fileTypeManager()->list()->at(z)->section;
+
+    if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
+    {
+      if (subMenusName.contains(hlSection) < 1)
+      {
+        subMenusName << hlSection;
+        QPopupMenu *menu = new QPopupMenu ();
+        subMenus.append(menu);
+        popupMenu()->insertItem (hlSection, menu);
+      }
+
+      int m = subMenusName.findIndex (hlSection);
+      names << hlName;
+      subMenus.at(m)->insertItem ( hlName, this, SLOT(setType(int)), 0,  z);
+    }
+    else if (names.contains(hlName) < 1)
+    {
+      names << hlName;
+      popupMenu()->insertItem ( hlName, this, SLOT(setType(int)), 0,  z);
+    }
+  }
+
+  if (!doc) return;
+
+  for (uint i=0;i<subMenus.count();i++)
+  {
+    for (uint i2=0;i2<subMenus.at(i)->count();i2++)
+      subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
+  }
+  popupMenu()->setItemChecked (0, false);
+
+  KateFileType *t = 0;
+  if ((t = KateFactory::fileTypeManager()->fileType (doc->fileType())))
+  {
+    int i = subMenusName.findIndex (t->section);
+    if (i >= 0 && subMenus.at(i))
+      subMenus.at(i)->setItemChecked (doc->fileType(), true);
+    else
+      popupMenu()->setItemChecked (0, true);
+  }
+}
+
+void KateViewFileTypeAction::setType (int mode)
+{
+  KateDocument *doc=m_doc;
+
+  if (doc)
+    doc->updateFileType(mode, true);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

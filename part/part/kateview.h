@@ -369,6 +369,7 @@ class KateView : public Kate::View,
 
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;
+    Kate::ActionMenu*      m_setFileType;
     KToggleAction*         m_toggleWriteLock;
 
     KAction *m_cut;

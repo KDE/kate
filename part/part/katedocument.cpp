@@ -1146,6 +1146,26 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   return true;
 }
 
+bool KateDocument::editMarkLineAutoWrapped ( uint line, bool autowrapped )
+{
+  TextLine::Ptr l = buffer->line(line);
+
+  if (!l)
+    return false;
+
+  editStart ();
+
+  editAddUndo (KateUndoGroup::editMarkLineAutoWrapped, line, autowrapped ? 1 : 0, 0, QString::null);
+
+  l->setAutoWrapped (autowrapped);
+
+  buffer->changeLine(line);
+
+  editEnd ();
+
+  return true;
+}
+
 bool KateDocument::editWrapLine ( uint line, uint col, bool newLine)
 {
   TextLine::Ptr l = buffer->line(line);

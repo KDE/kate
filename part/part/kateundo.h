@@ -47,6 +47,7 @@ class KateUndoGroup
       editUnWrapLine,
       editInsertLine,
       editRemoveLine,
+      editMarkLineAutoWrapped,
       editInvalid
     };
 

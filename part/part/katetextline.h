@@ -61,9 +61,13 @@ class TextLine : public KShared
     inline uint length() const { return m_text.length(); }
 
     /**
-      Returns the visibility flag
+      Return some flags
     */
-    inline bool isVisible() const { return m_flags & TextLine::flagVisible; }
+    inline bool hlLineContinue () const { return m_flags & TextLine::flagHlContinue; }
+
+    inline bool isVisible () const { return m_flags & TextLine::flagVisible; }
+
+    inline bool isAutoWrapped () const { return m_flags & TextLine::flagAutoWrapped; }
 
     /**
       Returns the position of the first character which is not a white space
@@ -166,11 +170,6 @@ class TextLine : public KShared
       return 0;
     }
 
-    inline bool hlLineContinue () const
-    {
-      return m_flags & TextLine::flagHlContinue;
-    }
-
     /**
       Raw access on the memarray's, for example the katebuffer class
     */
@@ -206,12 +205,24 @@ class TextLine : public KShared
     QString withoutTrailingSpaces();
 
     /**
-      Sets the visibility flag
+      Sets some flags
     */
+    inline void setHlLineContinue (bool cont)
+    {
+      if (cont) m_flags = m_flags | TextLine::flagHlContinue;
+      else m_flags = m_flags & ~ TextLine::flagHlContinue;
+    }
+
     inline void setVisible(bool val)
     {
       if (val) m_flags = m_flags | TextLine::flagVisible;
       else m_flags = m_flags & ~ TextLine::flagVisible;
+    }
+
+    inline void setAutoWrapped (bool wrapped)
+    {
+      if (wrapped) m_flags = m_flags | TextLine::flagAutoWrapped;
+      else m_flags = m_flags & ~ TextLine::flagAutoWrapped;
     }
 
     /**
@@ -225,12 +236,6 @@ class TextLine : public KShared
     inline void setContext(short *newctx, uint len)
     {
       m_ctx.duplicate (newctx, len);
-    }
-
-    inline void setHlLineContinue (bool cont)
-    {
-      if (cont) m_flags = m_flags | TextLine::flagHlContinue;
-      else m_flags = m_flags & ~ TextLine::flagHlContinue;
     }
 
     inline void setFoldingList (QMemArray<signed char> &val)
@@ -268,9 +273,10 @@ class TextLine : public KShared
 
     enum Flags
     {
-      flagHlContinue = 0x1,
-      flagVisible = 0x2,
-      flagNoOtherData = 0x4 // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
+      flagNoOtherData = 0x1, // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
+      flagHlContinue = 0x2,
+      flagVisible = 0x4,
+      flagAutoWrapped = 0x8
     };
 
   /**

@@ -141,6 +141,10 @@ void KateUndo::undo (KateDocument *doc)
   {
     doc->editInsertLine (m_line, m_text);
   }
+  else if (m_type == KateUndoGroup::editMarkLineAutoWrapped)
+  {
+    doc->editMarkLineAutoWrapped (m_line, m_col == 0);
+  }
 }
 
 void KateUndo::redo (KateDocument *doc)
@@ -168,6 +172,10 @@ void KateUndo::redo (KateDocument *doc)
   else if (m_type == KateUndoGroup::editInsertLine)
   {
     doc->editInsertLine (m_line, m_text);
+  }
+  else if (m_type == KateUndoGroup::editMarkLineAutoWrapped)
+  {
+    doc->editMarkLineAutoWrapped (m_line, m_col == 1);
   }
 }
 

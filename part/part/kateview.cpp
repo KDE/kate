@@ -663,7 +663,8 @@ bool KateView::checkOverwrite( KURL u )
 
 void KateView::slotSaveCanceled( const QString& error )
 {
-  KMessageBox::error( this, error );
+  if ( !error.isEmpty() ) // happens when cancelling a job
+    KMessageBox::error( this, error );
 }
 
 void KateView::gotoLine()

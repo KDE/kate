@@ -178,7 +178,7 @@ void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node,QString prefix)
 */
 
 void KateCodeFoldingTree::updateLine(unsigned int line,
-	QValueList<signed char> *regionChanges, bool *updated,bool changed)
+	QMemArray<signed char> regionChanges, bool *updated,bool changed)
 {
 
 	if (!changed)
@@ -199,21 +199,25 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 	kdDebug()<<QString("KateCodeFoldingTree::updateLine: Line %1").arg(line)<<endl;
 
 	QString debugstr="KateCodeFoldingTree::updateLine:  Got list:";
-	for (int i=regionChanges->count()-1;i>=0;i--)
+	for (int i=regionChanges.size()-1;i>=0;i--)
 	{
-		debugstr=debugstr+QString("%1, ").arg(*regionChanges->at(i));
+		debugstr=debugstr+QString("%1, ").arg(regionChanges[i]);
 	}
 	kdDebug()<<debugstr<<endl;
 #endif
-	for (int i=regionChanges->count()-1;i>0;i--)
+	for (int i=regionChanges.size()-1;i>0;i--)
 	{
 #if JW_DEBUG
-		kdDebug()<<QString("i: %1, i-1: %2").arg(*regionChanges->at(i)).arg(*regionChanges->at(i-1))<<endl;
+		kdDebug()<<QString("i: %1, i-1: %2").arg(regionChanges[i]).arg(regionChanges[i-1])<<endl;
 #endif
-		if (((*regionChanges->at(i))>0) && ((*regionChanges->at(i))==-(*regionChanges->at(i-1))))
+		if (((regionChanges[i])>0) && ((regionChanges[i])==-(regionChanges[i-1])))
 		{
-			regionChanges->remove (regionChanges->at(i));
-			regionChanges->remove (regionChanges->at(i-1));			
+    for (uint z4=i-1; z4 < regionChanges.size(); z4++)
+      {
+        if ((z4 +2) < regionChanges.size())  regionChanges[z4+2] = regionChanges[z4];
+      }
+
+      regionChanges.resize (regionChanges.size()-2);
 		}
 	}
 
@@ -221,25 +225,25 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 	kdDebug()<<QString("KateCodeFoldingTree::updateLine: Line %1").arg(line)<<endl;
 
 	debugstr="KateCodeFoldingTree::updateLine:  Simplified list:";
-	for (int i=regionChanges->count()-1;i>=0;i--)
+	for (int i=regionChanges.size()-1;i>=0;i--)
 	{
-		debugstr=debugstr+QString("%1, ").arg(*regionChanges->at(i));
+		debugstr=debugstr+QString("%1, ").arg(regionChanges[i]);
 	}
 	kdDebug()<<debugstr<<endl;
 #endif
 
         findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
 
-	if (regionChanges->count()==0)
+	if (regionChanges.isEmpty())
 	{
 //		KateCodeFoldingNode *node=findNodeForLine(line);
-//		if (node->type!=0)		
+//		if (node->type!=0)
 //		if (getStartLine(node)+node->endLineRel==line) removeEnding(node,line);
 	}
 	else
 	{
-		signed char data=(regionChanges->last());
-		regionChanges->pop_back();
+		signed char data= regionChanges[regionChanges.size()-1];
+		regionChanges.resize (regionChanges.size()-1);
 
 {
 			int insertPos=-1;
@@ -334,14 +338,14 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 
 
 
-				if (regionChanges->isEmpty())
+				if (regionChanges.isEmpty())
 				{
 					data=0;
 				}
 				else
 				{
-					data=(regionChanges->last());
-					regionChanges->pop_back();
+					data=regionChanges[regionChanges.size()-1];
+		      regionChanges.resize (regionChanges.size()-1);
 				}
 			} while (data!=0);
 
@@ -594,7 +598,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 
 
 
-void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType, QValueList<signed char> *list,unsigned int line)
+void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType, QMemArray<signed char> list,unsigned int line)
 {
 	unsigned int startLine=getStartLine(node);
 	if ((startLine==line) && (node->type!=0))
@@ -604,7 +608,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 #endif
 		if (nType==node->type)
 		{
-#if JW_DEBUG	
+#if JW_DEBUG
 			kdDebug()<<"Node exists"<<endl;
 #endif
 			node->deleteOpening=false;
@@ -615,7 +619,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 				int count=node->parent->childnodes->count()-(current+1);
 				node->endLineRel=node->parent->endLineRel-node->startLineRel;
 
-// EXPERIMENTAL TEST BEGIN 
+// EXPERIMENTAL TEST BEGIN
 // move this afte the test for unopened, but closed regions within the parent node, or if there are no siblings, bubble up
 			if (node->parent)
 			if (node->parent->type==node->type)
@@ -626,7 +630,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 					node->endLineValid=true;
 				}
 			}
-			
+
 // EXPERIMENTAL TEST BEGIN
 
 				if (current!=node->parent->childnodes->count()-1)
@@ -667,7 +671,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 			}
 
 			addOpening_further_iterations(node,nType,list,line,0,startLine);
-						
+
 		} //else ohoh, much work to do same line, but other region type
 	}
 	else
@@ -676,7 +680,7 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 		something_changed=true;
 		if (!node->childnodes) node->childnodes=new QPtrList<KateCodeFoldingNode>();
 
-	
+
 		int insert_position=-1;
 		if (node->childnodes->count()>0)
 		{
@@ -753,17 +757,18 @@ void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType
 
 
 
-void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *node,signed char nType, QValueList<signed char> 
-		*list,unsigned int line,int current, unsigned int startLine)
+void KateCodeFoldingTree::addOpening_further_iterations(KateCodeFoldingNode *node,signed char nType, QMemArray<signed char>
+		list,unsigned int line,int current, unsigned int startLine)
 {
-	while (!(list->isEmpty()))
+	while (!(list.isEmpty()))
 	{
-		if (list->isEmpty()) return;
+		if (list.isEmpty()) return;
 		else
 		{
-               		signed char data=(list->last());
-              			list->pop_back();
-			if (data<0) 
+       signed char data=list[list.size()-1];
+		   list.resize (list.size()-1);
+
+      if (data<0)
 			{
 #if JW_DEBUG
 				kdDebug()<<"An ending was found"<<endl;

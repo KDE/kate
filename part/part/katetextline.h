@@ -24,9 +24,9 @@
 
 #include <qmemarray.h>
 #include <qstring.h>
-#include <qvaluevector.h>
 #include <ksharedptr.h>
 #include <qregexp.h>
+#include <qvaluevector.h>
  
 /** 
   The TextLine represents a line of text. A text line that contains the  
@@ -51,10 +51,10 @@ class TextLine : public KShared
       context  
     */  
     TextLine(); 
-    ~TextLine();  
-  
+    ~TextLine();
+
     /**
-      Returns the length  
+      Returns the length
     */
     uint length() const { return text.size(); }
 
@@ -173,9 +173,9 @@ class TextLine : public KShared
     QMemArray<QChar> textArray () { return text; };
     QMemArray<unsigned char> attributesArray () { return attributes; };
     QMemArray<signed char> ctxArray () { return ctx; };
-    QValueList<signed char> foldingList;
+    QMemArray<signed char> foldingList;
     bool foldingListValid;
-    void setFoldingList(QValueList<signed char> val){foldingList=val; foldingListValid=true;}
+    void setFoldingList(QMemArray<signed char> val){foldingList=val; foldingListValid=true;}
   private:
     /**
       The text & attributes

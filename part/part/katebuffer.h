@@ -137,7 +137,7 @@ signals:
    /**
     * Emitted when some code folding related attributes changed
     */
-   void foldingUpdate(unsigned int , QValueList<signed char>*,bool *changed,bool foldingChanged);
+   void foldingUpdate(unsigned int , QMemArray<signed char> ,bool *changed,bool foldingChanged);
 
    /**
     * Emittend if codefolding returned with a changed list

@@ -170,6 +170,7 @@ void KateBookmarks::insertBookmarks( QPopupMenu& menu )
                       ( m_view->getDoc()->textLine( (*it)->line ),
                         menu.fontMetrics(), 32 );
       bText.replace(re, "&&"); // kill undesired accellerators!
+      bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
 
       if ( m_sorting == Position )
       {

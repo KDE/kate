@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CGiS" version="1.00" kateversion="2.4" section="Sources" extensions="*.cgis" mimetype="">
+<language name="CGiS" version="1.01" kateversion="2.4" section="Sources" extensions="*.cgis" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> break </item>
-      <item> case </item>
       <item> continue </item>
-      <item> default </item>
       <item> do </item>
       <item> else </item>
-      <item> enum </item>
       <item> extern </item>
       <item> for </item>
-      <item> goto </item>
+      <item> forall </item>
+      <item> foreach </item>
+      <item> function </item>
       <item> if </item>
-      <item> inline </item>
+      <item> in </item>
+      <item> inout </item>
+      <item> internal </item>
+      <item> out </item>
+      <item> reduction </item>
       <item> return </item>
-      <item> sizeof </item>
       <item> struct </item>
-      <item> switch </item>
       <item> typedef </item>
-      <item> union </item>
       <item> while </item>
     </list>
     <list name="types">

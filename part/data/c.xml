@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C" version="1.21" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
+<language name="C" version="1.22" kateversion="2.4" section="Sources" extensions="*.c;*.C;*.h" mimetype="text/x-csrc;text/x-c++src;text/x-chdr" priority="5">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -83,9 +83,6 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="Region Marker" lineEndContext="#pop" name="Region Marker">
-      </context>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Member" fallthrough="true" fallthroughContext="#pop">
-        <RegExpr attribute="Function" context="#pop" String="\b[_\w][_\w\d]*(?=[\s]*)" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
         <IncludeRules context="##Alerts" />

@@ -871,7 +871,6 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
-  kdDebug()<<"=== gotoLineNumber( "<<line<<" )"<<endl;
   setCursorPositionInternal ( line, 0, 1 );
 }
 
@@ -890,9 +889,6 @@ void KateView::joinLines()
 
 void KateView::readSessionConfig(KConfig *config)
 {
-  kdDebug()<<"KateView::readSessionConfig("<<config<<")"<<endl;
-  kdDebug()<<"group: "<<config->group()<<endl;
-  kdDebug()<<"cursor position: "<<config->readNumEntry("CursorLine")<<", "<<config->readNumEntry("CursorColumn")<<endl;
   setCursorPositionInternal (config->readNumEntry("CursorLine"), config->readNumEntry("CursorColumn"), 1);
 }
 

@@ -87,6 +87,14 @@ ReplacePrompt::ReplacePrompt( QWidget *parent )
   topLayout->addWidget(label );
 }
 
+void ReplacePrompt::slotOk( void ) { // Yes
+  done(KateSearch::srYes);
+}
+
+void ReplacePrompt::slotClose( void ) { // Close
+  done(KateSearch::srCancel);
+}
+
 void ReplacePrompt::slotUser1( void ) { // All
   done(KateSearch::srAll);
 }
@@ -402,12 +410,14 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_doc = doc;
 
 	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+
   m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),this);
   m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this );
 	m_line=new QCheckBox(i18n("Show &line numbers"),this);
 	m_icons=new QCheckBox(i18n("Show &icon border"),this);
+
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
-        m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
+	m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
         m_bmSort->setRadioButtonExclusive( true );
         m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
         m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );

@@ -59,6 +59,8 @@ class ReplacePrompt : public KDialogBase
 
   protected slots:
 
+    void slotOk( void );
+    void slotClose( void );
     void slotUser1( void ); // All
     void slotUser2( void ); // Last
     void slotUser3( void ); // Yes
@@ -250,7 +252,7 @@ class EditKeyConfiguration: public Kate::ConfigPage
 
   public:
     EditKeyConfiguration( QWidget* parent, KateDocument* doc );
-    
+
   public slots:
     void apply();
     void reload()   {};
@@ -258,8 +260,8 @@ class EditKeyConfiguration: public Kate::ConfigPage
     void defaults() {};
 
   protected:
-    void showEvent ( QShowEvent * );  
-    
+    void showEvent ( QShowEvent * );
+
   private:
     bool m_ready;
     class KateDocument *m_doc;
@@ -271,13 +273,13 @@ class SaveConfigTab : public Kate::ConfigPage
   Q_OBJECT
   public:
   SaveConfigTab( QWidget *parent, KateDocument * );
-  
+
   public slots:
   void apply();
   void reload();
   void reset();
   void defaults();
-  
+
   protected:
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QLineEdit *leBuSuffix;

@@ -334,7 +334,7 @@ void HlKeyword::addList(const QStringList& list)
 
 int HlKeyword::checkHgl(const QString& text, int offset, int len)
 {
-  if (len == 0 || dict.count() == 0) return 0;
+  if (len == 0 || dict.isEmpty()) return 0;
 
   int offset2 = offset;
 
@@ -1333,10 +1333,9 @@ void Highlight::createItemData(ItemDataList &list)
   }
 
   // If the internal list isn't already available read the config file
-  if ((internalIDList.count()==0))
-  {
-	makeContextList();
-  }
+  if (internalIDList.isEmpty())
+    makeContextList();
+
   list=internalIDList;
 }
 
@@ -1854,7 +1853,7 @@ void Highlight::handleIncludeRules()
 
   // if there are noe include rules to take care of, just return
   kdDebug(13010)<<"IncludeRules, which need attention: " <<includeRules.count()<<endl;
-  if (includeRules.count()==0) return;
+  if (includeRules.isEmpty()) return;
 
   buildPrefix="";
   QString dummy;
@@ -1894,7 +1893,7 @@ void Highlight::handleIncludeRules()
   // recursiveness is needed, because context 0 could include context 1, which itself includes context 2 and so on.
   //	In that case we have to handle context 2 first, then 1, 0
 //TODO: catch circular references: eg 0->1->2->3->1
-  while (includeRules.count()>0)
+  while (!includeRules.isEmpty())
   	handleIncludeRulesRecursive(includeRules.begin(),&includeRules);
 
 

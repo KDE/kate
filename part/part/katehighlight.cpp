@@ -237,7 +237,7 @@ HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId, QCh
 }
 
 int HlCharDetect::checkHgl(const QString& text, int offset, int len) {
-  if (len && text.at(offset) == sChar) return offset + 1;
+  if (len && text[offset] == sChar) return offset + 1;
   return 0;
 }
 //END
@@ -269,12 +269,10 @@ int HlStringDetect::checkHgl(const QString& text, int offset, int len)
 {
   if (len < (int)str.length()) return 0;
 
-  int offset2 = text.find(str, offset, !_inSensitive);
+  if (text.mid(offset, str.length()).find(str, 0, !_inSensitive) == 0)
+    return offset + str.length() - 1;
 
-  if (offset2 == -1)
-    return 0;
-
-  return offset + str.length() - 1;
+  return 0;
 }
 //END
 
@@ -637,7 +635,9 @@ HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId, const QSt
 
 int HlAnyChar::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 0) && _charList.find(text[offset]) != -1) return ++offset;
+  if ((len > 0) && _charList.find(text[offset]) != -1)
+    return ++offset;
+
   return 0;
 }
 
@@ -655,9 +655,9 @@ int HlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   if (offset && handlesLinestart)
     return 0;
 
-  int offset2 = Expr->search( text, offset );
+  int offset2 = Expr->search( text, offset, QRegExp::CaretAtOffset );
 
-  if (offset2 == -1) return 0L;
+  if (offset2 == -1) return 0;
 
   return (offset + Expr->matchedLength());
 };

@@ -43,7 +43,6 @@
 #include "katebrowserextension.h"
 #include "kateattribute.h"
 #include "kateconfig.h"
-#include "katesupercursor.h"
 #include "katefiletype.h"
 #include "kateschema.h"
 
@@ -100,8 +99,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
                              const char *widgetName, QObject *, const char *)
 : Kate::Document (),
-  selectStart(-1, -1),
-  selectEnd(-1, -1),
+  selectStart(this, true),
+  selectEnd(this, true),
   oldSelectStart(-1, -1),
   oldSelectEnd(-1, -1),
   selectAnchor(-1, -1),
@@ -2722,7 +2721,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
 
   editStart ();
 
-  if (config()->configFlags()  & KateDocument::cfDelOnInput && hasSelection() )
+  if (!(config()->configFlags() & KateDocument::cfPersistent) && hasSelection() )
     removeSelectedText();
 
   if (config()->configFlags()  & KateDocument::cfOvr)
@@ -2745,7 +2744,7 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
 {
   editStart();
 
-  if( config()->configFlags()  & cfDelOnInput && hasSelection() )
+  if( !(config()->configFlags()  & cfPersistent) && hasSelection() )
     removeSelectedText();
 
   // temporary hack to get the cursor pos right !!!!!!!!!
@@ -2812,7 +2811,7 @@ void KateDocument::transpose( const KateTextCursor& cursor)
 
 void KateDocument::backspace( const KateTextCursor& c )
 {
-  if( config()->configFlags() & cfDelOnInput && hasSelection() ) {
+  if( !(config()->configFlags() & cfPersistent) && hasSelection() ) {
     removeSelectedText();
     return;
   }
@@ -2891,7 +2890,7 @@ void KateDocument::backspace( const KateTextCursor& c )
 
 void KateDocument::del( const KateTextCursor& c )
 {
-  if ( config()->configFlags() & cfDelOnInput && hasSelection() ) {
+  if ( !(config()->configFlags() & cfPersistent) && hasSelection() ) {
     removeSelectedText();
     return;
   }
@@ -2934,7 +2933,7 @@ void KateDocument::paste ( KateView* view )
 
   editStart ();
 
-  if (config()->configFlags() & KateDocument::cfDelOnInput && hasSelection() )
+  if (!(config()->configFlags() & KateDocument::cfPersistent) && hasSelection() )
     removeSelectedText();
 
   uint line = view->cursorLine ();
@@ -4574,8 +4573,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfPersistent, state );
         else if ( var == "keep-selection" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
-        else if ( var == "del-on-input" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfDelOnInput, state );
         else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfOvr, state );
         else if ( var == "keep-indent-profile" && checkBoolValue( val, &state ) )

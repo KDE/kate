@@ -285,46 +285,49 @@ void IndentConfigTab::reload ()
 //END IndentConfigTab
 
 //BEGIN SelectConfigTab
-const int SelectConfigTab::flags[] = {KateDocument::cfPersistent, KateDocument::cfDelOnInput};
-
 SelectConfigTab::SelectConfigTab(QWidget *parent)
   : Kate::ConfigPage(parent)
 {
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
-  int configFlags = KateDocumentConfig::global()->configFlags();
 
-  opt[0] = new QCheckBox(i18n("&Persistent selections"), this);
-  layout->addWidget(opt[0], 0, AlignLeft);
-  opt[0]->setChecked(configFlags & flags[0]);
-  connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  QRadioButton *rb1, *rb2;
 
-  opt[1] = new QCheckBox(i18n("O&verwrite selected text"), this);
-  layout->addWidget(opt[1], 0, AlignLeft);
-  opt[1]->setChecked(configFlags & flags[1]);
-  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Selection Mode"), this );
+  layout->add (m_tabs);
+  
+  m_tabs->setRadioButtonExclusive( true );
+  m_tabs->insert( rb1=new QRadioButton( i18n("&Normal"), m_tabs ), 0 );
+  m_tabs->insert( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ), 1 );
+  
+  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addStretch();
-
-  // What is this? help
-  QWhatsThis::add(opt[0], i18n("Enabling this prevents key input or cursor movement by way of the arrow keys from causing the elimination of text selection.<p><b>Note:</b> If the Overwrite Selections option is activated then any typed character input or paste operation will replace the selected text."));
-  QWhatsThis::add(opt[1], i18n("When this is on, any keyed character input or paste operation will replace the selected text."));
+  
+  QWhatsThis::add(rb1, i18n("Selections will be overwritten by types text and will be lost on cursor movement."));
+  QWhatsThis::add(rb2, i18n("Selections will stay even after cursor movement and typing."));
+  
+  reload ();
 }
 
 void SelectConfigTab::apply ()
 {
-   int configFlags, z;
+  int configFlags = KateDocumentConfig::global()->configFlags();
 
-  configFlags = KateDocumentConfig::global()->configFlags();
-  for (z = 0; z < numFlags; z++) {
-    configFlags &= ~flags[z]; // clear flag
-    if (opt[z]->isChecked()) configFlags |= flags[z]; // set flag if checked
-  }
+  configFlags &= ~KateDocumentConfig::cfPersistent; // clear persistent
+  
+  if (m_tabs->id (m_tabs->selected()) == 1)
+    configFlags |= KateDocumentConfig::cfPersistent; // set flag if checked
+
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 }
 
 void SelectConfigTab::reload ()
 {
-
+  if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfPersistent)
+    m_tabs->setButton (1);
+  else  
+    m_tabs->setButton (0);
 }
 //END SelectConfigTab
 

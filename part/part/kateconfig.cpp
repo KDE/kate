@@ -155,7 +155,6 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setConfigFlags (config->readNumEntry("Basic Config Flags", KateDocumentConfig::cfAutoIndent
     | KateDocumentConfig::cfTabIndents
     | KateDocumentConfig::cfKeepIndentProfile
-    | KateDocumentConfig::cfDelOnInput
     | KateDocumentConfig::cfWrapCursor
     | KateDocumentConfig::cfShowTabs
     | KateDocumentConfig::cfSmartHome));

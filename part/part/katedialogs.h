@@ -141,10 +141,7 @@ class SelectConfigTab : public Kate::ConfigPage
     SelectConfigTab(QWidget *parent);
 
   protected:
-
-    enum { numFlags = 2 };
-    static const int flags[numFlags];
-    QCheckBox *opt[numFlags];
+    QButtonGroup *m_tabs;
 
   public slots:
     void apply ();

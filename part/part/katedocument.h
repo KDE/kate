@@ -22,7 +22,7 @@
 #define kate_document_h
 
 #include "kateautoindent.h"
-#include "katecursor.h"
+#include "katesupercursor.h"
 #include "katetextline.h"
 
 #include "../interfaces/document.h"
@@ -283,9 +283,11 @@ class KateDocument : public Kate::Document,
     bool lineHasSelected (int line);
     bool lineIsSelection (int line);
 
+    QPtrList<KateSuperCursor> m_superCursors;
+    
     // stores the current selection
-    KateTextCursor selectStart;
-    KateTextCursor selectEnd;
+    KateSuperCursor selectStart;
+    KateSuperCursor selectEnd;
     KateTextCursor oldSelectStart;
     KateTextCursor oldSelectEnd;
 
@@ -727,8 +729,6 @@ class KateDocument : public Kate::Document,
     static bool m_collapseTopLevelOnLoad;
 
     static bool s_configLoaded;
-
-    QPtrList<class KateSuperCursor> m_superCursors;
 
     // file type !!!
     int m_fileType;

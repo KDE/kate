@@ -1,7 +1,7 @@
 <?xml version="1.02" encoding="UTF-8"?>
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
-<language name="Python" version="1.03" kateversion="2.1" section="Scripts" extensions="*.py;*.pyw" mimetype="text/x-python" casesensitive="1">
+<language name="Python" version="1.04" kateversion="2.1" section="Scripts" extensions="*.py;*.pyw" mimetype="text/x-python" casesensitive="1">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -114,12 +114,13 @@
 				<keyword attribute="Builtin Function" String="builtinfuncs" context="#stay"/>
 				<keyword attribute="Special Variable" String="specialvars" context="#stay"/>
 				<RegExpr attribute="Normal" String="[a-zA-Z][a-zA-Z0-9]+" context="#stay"/>
+
+				<RegExpr attribute="Complex" String=" ((([0-9]*\.[0-9]+|[0-9]+\.)|([0-9]+|([0-9]*\.[0-9]+|[0-9]+\.))[eE](\+|-)?[0-9]+)|[0-9]+)[jJ]" context="#stay"/>
+				<RegExpr attribute="Float" String="([0-9]+|([0-9]*\.[0-9]+|[0-9]+\.))[eE](\+|-)?[0-9]+" context="#stay"/>
+				<RegExpr attribute="Int" String="([1-9][0-9]*([eE][0-9]+)?|0)" context="#stay"/>
 				<RegExpr attribute="Long" String="[1-9][0-9]*([eE][0-9.]+)?[Ll]" context="#stay"/>
 				<RegExpr attribute="Hex" String="0[Xx][0-9a-fA-F]+" context="#stay"/>
 				<RegExpr attribute="Octal" String="0[1-9][0-9]*" context="#stay"/>
-				<RegExpr attribute="Complex" String="[0-9+.-]+[Jj]" context="#stay"/>
-				<RegExpr attribute="Float" String="([1-9][0-9]*)?\.[0-9]*([eE][1-9][0-9]*(\.[0-9]*)?)?" context="#stay"/>
-				<RegExpr attribute="Int" String="([1-9][0-9]*([eE][0-9]+)?|0)" context="#stay"/>
 
 				<RegExpr attribute="Raw String" String="[rR]'" context="Raw A-string"/>
 				<RegExpr attribute="Raw String" String="[rR]&quot;" context="Raw Q-string"/>

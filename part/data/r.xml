@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="R Script" section="Scripts" extensions="*.R" mimetype="">
   <!-- Kate 2.0 (KDE 3.0) highlighting module for R
        version 0.2: (c) 2002 E.L. Willighagen, GPL v2 license
 
@@ -8,6 +7,7 @@
        Kate: http://www.kde.org/kate
        R   : http://www.r-project.org/
     -->
+<language name="R Script" section="Scripts" extensions="*.R" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> for </item>

@@ -77,7 +77,7 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char 
   view->insertChildClient( this );
   setInstance( KGenericFactory<InsertFilePlugin>::instance() );
   _job = 0;
-  (void) new KAction( i18n("Insert File"), 0, this, SLOT(slotInsertFile()), actionCollection(), "tools_insert_file" );
+  (void) new KAction( i18n("Insert File..."), 0, this, SLOT(slotInsertFile()), actionCollection(), "tools_insert_file" );
   setXMLFile( "ktexteditor_insertfileui.rc" );
 }
 

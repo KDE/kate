@@ -39,6 +39,9 @@
  * SOME LIMITS, may need testing which values are clever
  * AVG_BLOCK_SIZE is in characters !
  * (internaly we calc with approx 80 chars per line !)
+ * KATE_MAX_BLOCKS_LOADED should be at least 4, as some
+ * methodes will cause heavy trashing, if not at least the
+ * latest 2-3 used blocks are alive
  */
 #define KATE_AVG_BLOCK_SIZE      (500 * 80)
 #define KATE_MAX_BLOCKS_LOADED   32

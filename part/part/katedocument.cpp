@@ -2166,7 +2166,8 @@ bool KateDocument::isLastView(int numViews) {
   return ((int) myViews.count() == numViews);
 }
 
-uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf)
+uint KateDocument::textWidth(const TextLine::Ptr &textLine, 
+			     int cursorX, WhichFont wf)
 {
   if (!textLine)
     return 0;
@@ -2174,36 +2175,20 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFon
   if (cursorX < 0)
     cursorX = textLine->length();
 
-  int x;
-  int z;
-  QChar ch;
-  Attribute *a;
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
+  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
 
-  x = 0;
-  for (z = 0; z < cursorX; z++) {
-    ch = textLine->getChar(z);
-    a = attribute(textLine->attribute(z));
-
-    if (ch == '\t')
-      x += fs->m_tabWidth;
-    else if (a->bold && a->italic)
-      x += fs->myFontMetricsBI.width(ch);
-    else if (a->bold)
-      x += fs->myFontMetricsBold.width(ch);
-    else if (a->italic)
-      x += fs->myFontMetricsItalic.width(ch);
-    else
-      x += fs->myFontMetrics.width(ch);
+  int x = 0;
+  for (int z = 0; z < cursorX; z++) {
+    Attribute *a = attribute(textLine->attribute(z));
+    x += a->width(fs, textLine->getChar(z));
   }
+
   return x;
 }
 
 uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap)
 {
-  QChar ch;
-  Attribute *a;
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
+  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
   uint x = 0;
   uint endcol = 0;
   uint endcolwithsym = 0;
@@ -2212,19 +2197,8 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
 
   for (uint z = startcol; z < textLine->length(); z++)
   {
-    ch = textLine->getChar(z);
-    a = attribute(textLine->attribute(z));
-
-    if (ch == '\t')
-      x += fs->m_tabWidth;
-    else if (a->bold && a->italic)
-      x += fs->myFontMetricsBI.width(ch);
-    else if (a->bold)
-      x += fs->myFontMetricsBold.width(ch);
-    else if (a->italic)
-      x += fs->myFontMetricsItalic.width(ch);
-    else
-      x += fs->myFontMetrics.width(ch);
+    Attribute *a = attribute(textLine->attribute(z));
+    x += a->width(fs, textLine->getChar(z));
 
     if (x <= maxwidth-wrapsymwidth )
       endcolwithsym = z+1;
@@ -2262,10 +2236,8 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   int len;
   int x, oldX;
   int z;
-  QChar ch;
-  Attribute *a;
 
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
+  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
 
   if (cursor.line < 0) cursor.line = 0;
   if (cursor.line > (int)lastLine()) cursor.line = lastLine();
@@ -2275,19 +2247,9 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   x = oldX = z = 0;
   while (x < xPos && (!wrapCursor || z < len)) {
     oldX = x;
-    ch = textLine->getChar(z);
-    a = attribute(textLine->attribute(z));
 
-    if (ch == '\t')
-      x += fs->m_tabWidth;
-    else if (a->bold && a->italic)
-      x += fs->myFontMetricsBI.width(ch);
-    else if (a->bold)
-      x += fs->myFontMetricsBold.width(ch);
-    else if (a->italic)
-      x += fs->myFontMetricsItalic.width(ch);
-    else
-      x += fs->myFontMetrics.width(ch);
+    Attribute *a = attribute(textLine->attribute(z));
+    x += a->width(fs, textLine->getChar(z));
 
     z++;
   }
@@ -2300,29 +2262,15 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
 }
 
 uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf) {
-  int x, oldX;
-  int z;
-  QChar ch;
-  Attribute *a;
+  FontStruct *fs = (wf==ViewFont) ? &viewFont : &printFont;
 
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
-
+  int x, oldX, z;
   x = oldX = z = 0;
   while (x < xPos) { // && z < len) {
     oldX = x;
-    ch = textLine->getChar(z);
-    a = attribute(textLine->attribute(z));
 
-    if (ch == '\t')
-      x += fs->m_tabWidth;
-    else if (a->bold && a->italic)
-      x += fs->myFontMetricsBI.width(ch);
-    else if (a->bold)
-      x += fs->myFontMetricsBold.width(ch);
-    else if (a->italic)
-      x += fs->myFontMetricsItalic.width(ch);
-    else
-      x += fs->myFontMetrics.width(ch);
+    Attribute *a = attribute(textLine->attribute(z));
+    x += a->width(fs, textLine->getChar(z));
 
     z++;
   }

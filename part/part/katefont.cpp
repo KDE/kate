@@ -24,6 +24,24 @@
 #include <kglobalsettings.h>
 
 //
+// Attribute implementation
+//
+
+
+Attribute::Attribute ()
+{
+}
+
+Attribute::~Attribute()
+{
+}
+
+int Attribute::width(FontStruct * fs, QChar ch)
+{
+  return fs->width(ch, bold, italic);
+}
+
+//
 // KateFontMetrics implementation
 //
 
@@ -90,4 +108,18 @@ void FontStruct::updateFontData(int tabChars)
   fontHeight = maxAscent + maxDescent + 1;
   fontAscent = maxAscent;
   m_tabWidth = tabChars*tabWidth;
-};
+}
+
+int FontStruct::width(QChar ch, bool bold, bool italic)
+{
+  if (ch == '\t')
+    return m_tabWidth;
+
+  return (bold) ?
+    ( (italic) ?
+      myFontMetricsBI.width(ch) :
+      myFontMetricsBold.width(ch) ) :
+    ( (italic) ?
+      myFontMetricsItalic.width(ch) :
+      myFontMetrics.width(ch) );
+}

@@ -26,9 +26,15 @@
 #include <qfontmetrics.h>
 #include <qcolor.h>
 
-class Attribute {
+class FontStruct;
+
+class Attribute
+{
   public:
-    Attribute () { ; };
+    Attribute();
+    ~Attribute();
+
+    int width(FontStruct * fs, QChar ch);
 
     QColor col;
     QColor selCol;
@@ -58,6 +64,8 @@ class FontStruct
   public:
     FontStruct();
     ~FontStruct();
+
+    int width(QChar ch, bool bold, bool italic);
 
     void updateFontData(int tabChars);
 

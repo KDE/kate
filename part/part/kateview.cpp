@@ -271,6 +271,8 @@ void KateView::setupActions()
   {
     m_cut->setEnabled (false);
     m_paste->setEnabled (false);
+    m_editUndo = 0;
+    m_editRedo = 0;
   }
 
   a=KStdAction::print( m_doc, SLOT(print()), ac );
@@ -727,15 +729,13 @@ void KateView::slotReadWriteChanged ()
   m_cut->setEnabled (m_doc->isReadWrite());
   m_paste->setEnabled (m_doc->isReadWrite());
 
-  m_editUndo->setEnabled (m_doc->isReadWrite());
-  m_editRedo->setEnabled (m_doc->isReadWrite());
-
   QStringList l;
 
   l << "edit_replace" << "set_insert" << "tools_spelling" << "tools_indent"
       << "tools_unindent" << "tools_cleanIndent"  << "tools_comment"
       << "tools_uncomment" << "tools_uppercase" << "tools_lowercase"
-      << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap";
+      << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
+      << "edit_undo" << "edit_redo";
 
   KAction *a = 0;
   for (uint z = 0; z < l.size(); z++)
@@ -1284,7 +1284,11 @@ void KateView::slotHlChanged()
 {
   Highlight *hl = m_doc->m_highlight;
   bool ok ( ! ( hl->getCommentStart().isEmpty() && hl->getCommentSingleLineStart().isEmpty() ) );
-  actionCollection()->action("tools_comment")->setEnabled( ok );
-  actionCollection()->action("tools_uncomment")->setEnabled( ok );
+
+  if (actionCollection()->action("tools_comment"))
+    actionCollection()->action("tools_comment")->setEnabled( ok );
+
+  if (actionCollection()->action("tools_uncomment"))
+    actionCollection()->action("tools_uncomment")->setEnabled( ok );
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

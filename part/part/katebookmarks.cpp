@@ -17,7 +17,7 @@
 */
 
  // $Id$
- 
+
 #include "katebookmarks.h"
 #include "katebookmarks.moc"
 
@@ -36,7 +36,7 @@
 /**
    Utility: selection sort
    sort a QMemArray<uint> in ascending order.
-   max it the largest (zerobased) index to sort. 
+   max it the largest (zerobased) index to sort.
    To sort the entire array: ssort( *array, array.size() -1 );
    This is only efficient if ran only once.
 */
@@ -50,7 +50,7 @@ static void ssort( QMemArray<uint> &a, int max )
       maxpos = a[j] > a[maxpos] ? j : maxpos;
     tmp = a[maxpos];
     a[maxpos] = a[h];
-    a[h] = tmp; 
+    a[h] = tmp;
   }
 }
 
@@ -73,7 +73,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
     i18n("&Bookmarks"), ac, "bookmarks" );
   m_bookmarkMenu->setWhatsThis(i18n("Bookmark manipulation"));
   KPopupMenu *m = m_bookmarkMenu->popupMenu();
-  
+
   // setup bookmark menu
   m_bookmarkToggle = new KAction(
     i18n("Toggle &Bookmark"), CTRL+Key_B,
@@ -102,7 +102,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
     ac, "bookmarks_previous");
   m_goPrevious->setWhatsThis(i18n("Go to the nearest previous bookmark."));
   m_goPrevious->plug( m );
-  
+
   // connect bookmarks menu aboutToshow
   connect( m, SIGNAL(aboutToShow()),
            this, SLOT(bookmarkMenuAboutToShow()));
@@ -138,17 +138,18 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   m_bookmarkMenu->popupMenu()->clear();
   m_bookmarkToggle->plug( m_bookmarkMenu->popupMenu() );
   m_bookmarkClear->plug( m_bookmarkMenu->popupMenu() );
-  m_bookmarkMenu->popupMenu()->insertSeparator();
-  
+
   KTextEditor::Mark *next = 0;
   KTextEditor::Mark *prev = 0;
   uint line = m_view->cursorLine();
-  
+
   const QRegExp re("&(?!&)");
   m_marks = m_view->getDoc()->marks();
   int idx( -1 );
   QMemArray<uint> sortArray( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
+  if ( it.count() > 0 )
+        m_bookmarkMenu->popupMenu()->insertSeparator();
   for( int i = 0; *it; ++it, ++i ) {
     if( (*it)->type & KTextEditor::MarkInterface::markType01 ) {
       QString bText = KStringHandler::rsqueeze( m_view->getDoc()->textLine( (*it)->line ), 32 );
@@ -174,7 +175,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
       }
     }
   }
-  
+
   idx = 3;
   if ( next )
   {
@@ -190,7 +191,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
     m_goPrevious->plug( m_bookmarkMenu->popupMenu(), idx );
     idx++;
   }
-  if ( next || prev ) 
+  if ( next || prev )
     m_bookmarkMenu->popupMenu()->insertSeparator( idx );
 }
 
@@ -213,9 +214,9 @@ void KateBookmarks::gotoBookmark( int n )
 void KateBookmarks::goNext()
 {
   m_marks = m_view->getDoc()->marks();
-  if ( ! m_marks.count() ) 
+  if ( ! m_marks.count() )
     return;
-    
+
   uint line = m_view->cursorLine();
   QMemArray<uint> a( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
@@ -224,20 +225,20 @@ void KateBookmarks::goNext()
   ssort( a, m_marks.count()-1 );
   for ( uint j=0; j < m_marks.count() ; j++ )
   {
-    if ( a[j] > line ) 
+    if ( a[j] > line )
     {
       m_view->setCursorPosition( a[j], 0 );
       return;
     }
-  }       
+  }
 }
 
 void KateBookmarks::goPrevious()
 {
   m_marks = m_view->getDoc()->marks();
-  if ( ! m_marks.count() ) 
+  if ( ! m_marks.count() )
     return;
-  
+
   uint line = m_view->cursorLine();
   QMemArray<uint> a( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
@@ -251,7 +252,7 @@ void KateBookmarks::goPrevious()
       m_view->setCursorPosition( a[j], 0 );
       return;
     }
-  }       
+  }
 }
 
 // vim: noet ts=2

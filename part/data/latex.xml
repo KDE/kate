@@ -1,6 +1,6 @@
 <?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.08" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
+<language name="LaTeX" version="1.09" section="Markup" kateversion="2.3" extensions="*.tex; *.ltx; *.dtx; *.sty; *.cls" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL" >
   <highlighting>
     <list name="kw_structure">
       <item>chapter</item>
@@ -81,8 +81,8 @@
         <RegExpr String="[^\s]" attribute="Normal Text" context="#pop"/>
       </context>
       <context name="Verbatim" attribute="Verbatim" lineEndContext="#stay">
-        <RegExpr String="\\end(?=\{verbatim\*\})" attribute="Structure"  context="VerbFindEnd"/>
-        <RegExpr String="\\end(?=\{verbatim\})" attribute="Structure"  context="VerbFindEnd"/>
+        <RegExpr String="\\end(?=\{verbatim\*\})" attribute="Structure"  context="VerbFindEnd" endRegion="block"/>
+        <RegExpr String="\\end(?=\{verbatim\})" attribute="Structure"  context="VerbFindEnd" endRegion="block"/>
       </context>
       <context name="VerbFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <DetectChar char="{" attribute="Normal Text" context="#stay"/>
@@ -93,7 +93,7 @@
 
       <context name="SpecialEnv" attribute="Verbatim" lineEndContext="#stay">
         <DetectChar char="}" attribute="Normal Text" context="#stay"/>
-        <RegExpr String="\\end" attribute="Structure" context="SpecialFindEnd"/>
+        <RegExpr String="\\end" attribute="Structure" context="SpecialFindEnd" endRegion="block"/>
       </context>
       <context name="SpecialFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <DetectChar char="{" attribute="Normal Text" context="#stay"/>
@@ -115,11 +115,11 @@
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
       <context name="MathModeEnv" attribute="Math" lineEndContext="#stay">
-        <RegExpr String="\\end(?=\s*\{\s*equation\s*\})" attribute="Structure" context="MathFindEnd"/>
-        <RegExpr String="\\end(?=\s*\{\s*displaymath\s*\})" attribute="Structure" context="MathFindEnd"/>
-        <RegExpr String="\\end(?=\s*\{\s*eqnarray\s*\})" attribute="Structure" context="MathFindEnd"/>
-        <RegExpr String="\\end(?=\s*\{\s*math\s*\})" attribute="Structure" context="MathFindEnd"/>
-        <RegExpr String="\\end(?=\s*\{\s*multline\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{\s*equation\s*\})" attribute="Structure" context="MathFindEnd" endRegion="block"/>
+        <RegExpr String="\\end(?=\s*\{\s*displaymath\s*\})" attribute="Structure" context="MathFindEnd" endRegion="block"/>
+        <RegExpr String="\\end(?=\s*\{\s*eqnarray\s*\})" attribute="Structure" context="MathFindEnd" endRegion="block"/>
+        <RegExpr String="\\end(?=\s*\{\s*math\s*\})" attribute="Structure" context="MathFindEnd" endRegion="block"/>
+        <RegExpr String="\\end(?=\s*\{\s*multline\s*\})" attribute="Structure" context="MathFindEnd" endRegion="block"/>
         <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <StringDetect String="\[" attribute="Math" context="MathMode" beginRegion="mathMode" />
         <DetectChar char="\" attribute="Keyword Mathmode" context="MathContrSeq"/>

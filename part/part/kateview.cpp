@@ -764,7 +764,9 @@ void KateView::contextMenuEvent( QContextMenuEvent *ev )
 
 bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
 {
-  if( line > m_doc->lastLine() )
+  TextLine::Ptr l = m_doc->kateTextLine( line );
+
+  if (!l)
     return false;
 
   QString line_str = m_doc->textLine( line );
@@ -774,6 +776,12 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
   for (z = 0; z < line_str.length() && z < col; z++) {
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
+
+  if (!l->isVisible() )
+    m_doc->foldingTree()->ensureVisible( line );
+
+  KateTextCursor c ( line, x );
+  m_viewInternal->scrollPos (c);
 
   m_viewInternal->updateCursor( KateTextCursor( line, x ) );
 
@@ -884,16 +892,6 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
-  TextLine::Ptr l = m_doc->kateTextLine( line );
-
-  if (!l)
-    return;
-
-  if (!l->isVisible() )
-    m_doc->foldingTree()->ensureVisible( line );
-
-  KateTextCursor c ( line, 0 );
-  m_viewInternal->scrollPos (c);
   setCursorPositionReal ( line, 0 );
 }
 

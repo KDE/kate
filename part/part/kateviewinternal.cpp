@@ -1836,12 +1836,14 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
 
   if ( !force && (cursor == newCursor) )
   {
-    // unfold if required
-    if ( l && ! l->isVisible() )
-      m_doc->foldingTree()->ensureVisible( newCursor.line() );
-
     if ( !m_madeVisible )
+    {
+      // unfold if required
+      if ( l && ! l->isVisible() )
+        m_doc->foldingTree()->ensureVisible( newCursor.line() );
+
       makeVisible ( displayCursor, displayCursor.col() );
+    }
 
     return;
   }

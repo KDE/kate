@@ -361,6 +361,9 @@
              <RegExpr attribute="Normal Text" context="#stay" String="[&lt;&gt;&quot;':]/" />
              <DetectChar attribute="Pattern" context="pattern_slash" char="/" />
              <RegExpr attribute="Operator" context="#stay" String="-[rwxoRWXOeszfdlpSbctugkTBMAC]" />
+
+             <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
+             <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
          </context>
          <context attribute="Pod" lineEndContext="#stay" name="pod">
              <LineContinue attribute="Pod" context="#stay" />

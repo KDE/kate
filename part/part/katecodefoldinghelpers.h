@@ -140,8 +140,16 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void decrementBy1 (KateCodeFoldingNode *node, KateCodeFoldingNode *after);
 
     void cleanupUnneededNodes (unsigned int line);
-    void removeEnding    (KateCodeFoldingNode *node,unsigned int line);
-    void removeOpening    (KateCodeFoldingNode *node,unsigned int line);
+
+    /**
+		 * if returns true, this node has been deleted !!
+		 */
+		bool removeEnding    (KateCodeFoldingNode *node,unsigned int line);
+
+    /**
+		 * if returns true, this node has been deleted !!
+		 */
+		bool removeOpening    (KateCodeFoldingNode *node,unsigned int line);
 
     void findAndMarkAllNodesforRemovalOpenedOrClosedAt (unsigned int line);
     void findAllNodesOpenedOrClosedAt (unsigned int line);

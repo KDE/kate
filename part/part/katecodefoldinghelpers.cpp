@@ -370,14 +370,14 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 }
 
 
-void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int line)
+bool KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int line)
 {
   signed char type;
   if ((type=node->type) == 0)
   {
     dontDeleteOpening(node);
     dontDeleteEnding(node);
-    return;
+    return false;
   }
 
   if (!node->visible)
@@ -410,21 +410,23 @@ void KateCodeFoldingTree::removeOpening(KateCodeFoldingNode *node,unsigned int l
 
   if ((type>0) && (endLineValid))
     correctEndings(-type, parent, line+endLineRel/*+1*/, mypos); // why the hell did I add a +1 here ?
-       }
+  }
+
+  return true;
 }
 
-void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /* line */)
+bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /* line */)
 {
   KateCodeFoldingNode *parent = node->parentNode;
 
   if (node->type == 0)
-    return;
+    return false;
 
   if (node->type < 0)
   {
           // removes + deletes, as autodelete is on
     parent->childnodes()->remove (node);
-    return;
+    return true;
   }
 
   int mypos = parent->childnodes()->find(node);
@@ -448,7 +450,7 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
           node->childnodes()->append(tmp);
         }
       }
-      return;
+      return false;
     }
   }
 
@@ -463,22 +465,23 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
     }
 
     // this should fix the bug of wrongly closed nodes
-    if (!parent->parentNode) node->endLineValid=false;
-  else
-    node->endLineValid = parent->endLineValid;
+    if (!parent->parentNode)
+      node->endLineValid=false;
+    else
+      node->endLineValid = parent->endLineValid;
+
     node->endLineRel = parent->endLineRel-node->startLineRel;
 
     if (node->endLineValid)
-      removeEnding(parent, getStartLine(parent)+parent->endLineRel);
+      return removeEnding(parent, getStartLine(parent)+parent->endLineRel);
 
-    return;
+    return false;
   }
 
   node->endLineValid = false;
   node->endLineRel = parent->endLineRel - node->startLineRel;
-//  if (parent && (!parent->parentNode)) {
-//  kdDebug(13000)<<"removing ending of toplevel node"<<endl;
-//  }
+
+  return false;
 }
 
 
@@ -1107,24 +1110,17 @@ void KateCodeFoldingTree::cleanupUnneededNodes(unsigned int line)
 #if JW_DEBUG
         kdDebug(13000)<<"calling removeOpening"<<endl;
 #endif
-        if (node->type > 0)
-          removeOpening(node, line);
-        else
-          dontDeleteOpening(node);
-
+        removeOpening(node, line);
         something_changed = true;
       }
       else
       {
         dontDeleteOpening(node);
+
         if ((node->deleteEnding) && (node->endLineValid))
         {
-//#if JW_DEBUG
-          kdDebug(13000)<<"calling removeEnding"<<endl;
-//#endif
           removeEnding(node, line);
           something_changed = true;
-          dontDeleteEnding(node);
         }
         else
           dontDeleteEnding(node);

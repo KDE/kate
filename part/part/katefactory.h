@@ -26,6 +26,7 @@
 #include <ktrader.h>
 
 class KateCmd;
+class KateFileTypeManager;
 
 class KInstance;
 class KAboutData;
@@ -62,6 +63,8 @@ class KateFactory : public KParts::Factory
 
     static KDirWatch *dirWatch ();
 
+    static KateFileTypeManager *fileTypeManager ();
+
   private:
     static void ref();
     static void deref();
@@ -75,7 +78,8 @@ class KateFactory : public KParts::Factory
 
     static KInstance *s_instance;
     static KAboutData *s_about;
-    static KDirWatch *s_dirWatch;
+
+    static KateFileTypeManager *s_fileTypeManager;
 
     static KTrader::OfferList *s_plugins;
 };

@@ -12,7 +12,7 @@ libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
 			 katebookmarks.cpp katebrowserextension.cpp kateprintsettings.cpp \
 			 katefont.cpp katelinerange.cpp katesupercursor.cpp katearbitraryhighlight.cpp \
 			 katerenderer.cpp kateattribute.cpp katecmdline.cpp katecorecommands.cpp \
-			 kateautoindent.cpp
+			 kateautoindent.cpp katefiletype.cpp
 
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_PLUGIN)

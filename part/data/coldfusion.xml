@@ -708,7 +708,7 @@
 			<itemData name="Script Strings" defStyleNum="dsNormal"		color="#008080" selColor="#ffffff" bold="0" italic="0" />
 			<itemData name="Script Operators" defStyleNum="dsNormal"	color="#0000ff" selColor="#ffffff" bold="0" italic="0" />
 			<itemData name="Script Keywords" defStyleNum="dsNormal"		color="#0000cc" selColor="#ffffff" bold="1" italic="0" />
-			<itemData name="Script Functions" defStyleNum="dsFunciton"	 bold="1" />
+			<itemData name="Script Functions" defStyleNum="dsFunction"	bold="1" />
 			<itemData name="Script Objects" defStyleNum="dsNormal"		color="#0000cc" selColor="#ffffff" bold="1" italic="0" />
 
 		</itemDatas>

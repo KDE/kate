@@ -221,7 +221,7 @@
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Special Args" defStyleNum="dsOther" color="#000000" bold="0" italic="1"/>
+      <itemData name="Special Args" defStyleNum="dsOthers" color="#000000" bold="0" italic="1"/>
       <itemData name="Commands" defStyleNum="dsKeyword"/>
       <itemData name="Macros"  defStyleNum="dsKeyword"/>
       <itemData name="Variable" defStyleNum="dsDecVal"/>

@@ -310,19 +310,19 @@
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"    defStyleNum="dsNormal"/>
-      <itemData name="Keyword"        defStyleNum="dsKeyWord"  color="#000000" selColor="#ffffff" bold="1" italic="0"/>
-      <itemData name="Module"         defStyleNum="dsKeyWord"  color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
-      <itemData name="Module Name"    defStyleNum="dsKeyWord"  color="#0000ff" selColor="#ffffff" bold="1" italic="1"/>
+      <itemData name="Keyword"        defStyleNum="dsKeyword"  color="#000000" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="Module"         defStyleNum="dsKeyword"  color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Module Name"    defStyleNum="dsKeyword"  color="#0000ff" selColor="#ffffff" bold="1" italic="1"/>
       <itemData name="Type"           defStyleNum="dsDataType"/>
-      <itemData name="Phobos Library" defStyleNum="dsKeyWord"  color="#000000" selColor="#ffffff" bold="1" italic="1"/>
-      <itemData name="Linkage"        defStyleNum="dsKeyWord"  color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Phobos Library" defStyleNum="dsKeyword"  color="#000000" selColor="#ffffff" bold="1" italic="1"/>
+      <itemData name="Linkage"        defStyleNum="dsKeyword"  color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
       <itemData name="Linkage Type"   defStyleNum="dsDataType" color="#ff0000" selColor="#ffffff" bold="1" italic="1"/>
-      <itemData name="Debug"          defStyleNum="dsKeyWord"  color="#ff00ff" selColor="#ffffff" bold="0" italic="0"/>
-      <itemData name="Assert"         defStyleNum="dsKeyWord"  color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
-      <itemData name="Version"        defStyleNum="dsKeyWord"  color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Debug"          defStyleNum="dsKeyword"  color="#ff00ff" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Assert"         defStyleNum="dsKeyword"  color="#0000ff" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Version"        defStyleNum="dsKeyword"  color="#ff0000" selColor="#ffffff" bold="0" italic="0"/>
       <itemData name="Version Type"   defStyleNum="dsDataType" color="#ff0000" selColor="#ffffff" bold="1" italic="1"/>
-      <itemData name="Unit Test"      defStyleNum="dsKeyWord"  color="#ff00ff" selColor="#ffffff" bold="1" italic="0"/>
-      <itemData name="Pragma"         defStyleNum="dsKeyWord"  color="#00aa00" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="Unit Test"      defStyleNum="dsKeyword"  color="#ff00ff" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="Pragma"         defStyleNum="dsKeyword"  color="#00aa00" selColor="#ffffff" bold="1" italic="0"/>
 
       <itemData name="Integer"        defStyleNum="dsDecVal"/>
       <itemData name="Binary"         defStyleNum="dsBaseN"    color="#00dddd" selColor="#00ffff" bold="0" italic="0"/>

@@ -38,4 +38,4 @@ Mimetypes=application/mathml+xml;application/smil;application/vnd.mozilla.xul+xm
 Priority=1
 Section=Markup
 Variables=kate: indent-mode xml;
-Wildcards=*.mml;*.MML;*.smil;*.smi;*.xul;*.XUL;*.ui;*.kud;*.xmi;*.XMI;*.xmi.tgz;*.xmi.tar.bz2;*.mrml;*.MRML;*.rdf;*.RDF;*.sgml;*.SGML;*.wml;*.WML;*.xml;*.XML;*ui.rc;*.svg
+Wildcards=*.mml;*.MML;*.smil;*.smi;*.xul;*.XUL;*.ui;*.kud;*.xmi;*.XMI;*.xmi.tgz;*.xmi.tar.bz2;*.mrml;*.MRML;*.rdf;*.RDF;*.sgml;*.SGML;*.wml;*.WML;*.xml;*.XML;*.xsd;*ui.rc;*.svg

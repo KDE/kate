@@ -36,7 +36,7 @@
 			<itemData name="Normal Text" defStyleNum="dsNormal" />
 			<itemData name="Keyword" defStyleNum="dsKeyword" />
 			<itemData name="Variable" defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" />
-			<itemData name="Other" defStyleNum="dsOther" />
+			<itemData name="Other" defStyleNum="dsOthers" />
 			<itemData name="Properties" defStyleNum="dsNormal" color="#8AC6FF" selColor="#ffffff" bold="0" italic="1"/>
 			<itemData name="Comment" defStyleNum="dsComment" />
 		</itemDatas>

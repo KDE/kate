@@ -199,10 +199,10 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
 
   QRadioButton *rb1, *rb2;
 
-  m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode"), this );
+  m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode if nothing selected"), this );
   m_tabs->setRadioButtonExclusive( true );
   m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &chars"), m_tabs ), 0 );
-  m_tabs->insert( rb2=new QRadioButton( i18n("Indent &whole line"), m_tabs ), 1 );
+  m_tabs->insert( rb2=new QRadioButton( i18n("Indent current &line"), m_tabs ), 1 );
 
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -212,7 +212,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   layout->addStretch();
 
   // What is this? help
-  QWhatsThis::add(opt[0], i18n("When <b>Automatically indent</b> is on, KateView will indent new lines to equal the indent on the previous line.<p>If the previous line is blank, the nearest line above with text is used"));
+  QWhatsThis::add(opt[0], i18n("When <b>Automatically indent</b> is on, KateView will indent new lines to equal the indent on the previous line.<p>If the previous line is blank, the nearest line above with text is used."));
   QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs."));
   QWhatsThis::add(opt[2], i18n("This allows the <b>Backspace</b> key to be used to decrease the indent level."));
   QWhatsThis::add(opt[3], i18n("This allows the <b>Tab</b> key to be used to increase the indent level."));

@@ -2188,7 +2188,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     if( key == Qt::Key_Tab )
     {
-      if ((m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
+      if (m_doc->hasSelection() || (m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
         m_doc->indent( m_view, cursor.line(), 1 );
       else
         m_doc->insertIndentChars ( m_view );

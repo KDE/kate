@@ -460,8 +460,8 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   lo->addMultiCellWidget( cbMM, 2, 2, 0 ,2 );
   cbMM->setChecked( e->flags & AutoBookmarkEnt::MinimalMatching );
   QWhatsThis::add( cbMM, i18n(
-      "<p>If enabled, the pattern matching will use minimal matching. If you "
-      "don't know what that is, please read the appendix on regular expressions "
+      "<p>If enabled, the pattern matching will use minimal matching; if you "
+      "do not know what that is, please read the appendix on regular expressions "
       "in the kate manual.</p>") );
 
   l = new QLabel( i18n("&File Mask:"), w );

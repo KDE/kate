@@ -333,7 +333,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   
   signals:
     void marksChanged();
-    void markChanged( KTextEditor::Mark, MarkInterfaceExtension::MarkChangeAction );
+    void markChanged( KTextEditor::Mark, KTextEditor::MarkInterfaceExtension::MarkChangeAction );
   
   private:
     QIntDict<KTextEditor::Mark> m_marks;

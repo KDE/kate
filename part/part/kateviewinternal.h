@@ -89,6 +89,9 @@ class KateViewInternal : public QScrollView
     inline int yPosition () const { return yPos; }     
 
     void setTagLinesFrom(int line);
+
+    void editStart();
+    void editEnd(int editTagLineStart, int editTagLineEnd);
              
   signals:
     // emitted when KateViewInternal is not handling its own URI drops

@@ -924,3 +924,29 @@ void KateViewInternal::setTagLinesFrom(int line)
   if ( tagLinesFrom > line || tagLinesFrom == -1)
     tagLinesFrom = line;
 }
+
+void KateViewInternal::editStart()
+{
+  cursorCacheChanged = false;
+  tagLinesFrom = -1;
+  cursorCache = getCursor();
+}
+
+void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
+{
+    if (tagLinesFrom > -1)
+    {
+      int startTagging = QMIN( tagLinesFrom, editTagLineStart );
+      int endTagging = m_doc->getRealLine( lastLine() );
+      tagRealLines (startTagging, endTagging);
+    }
+    else
+      tagRealLines (editTagLineStart, editTagLineEnd);
+
+    if (cursorCacheChanged)
+      updateCursor( cursorCache );
+    updateView();
+
+    tagLinesFrom = -1;
+    cursorCacheChanged = false;
+}

@@ -660,9 +660,7 @@ void KateDocument::editStart (bool withUndo)
   for (uint z = 0; z < m_views.count(); z++)
   {
     KateView *v = m_views.at(z);
-    v->m_viewInternal->cursorCacheChanged = false;
-    v->m_viewInternal->tagLinesFrom = -1;
-    v->m_viewInternal->cursorCache = v->m_viewInternal->getCursor();
+    v->m_viewInternal->editStart();
   }
 }
 
@@ -699,22 +697,7 @@ void KateDocument::editEnd ()
   for (uint z = 0; z < m_views.count(); z++)
   {
     KateViewInternal *v = (m_views.at(z))->m_viewInternal;
-
-    if (v->tagLinesFrom > -1)
-    {
-      int startTagging = QMIN( v->tagLinesFrom, (int)editTagLineStart );
-      int endTagging = getRealLine( v->lastLine() );
-      v->tagRealLines (startTagging, endTagging);
-    }
-    else
-      v->tagRealLines (editTagLineStart, editTagLineEnd);
-
-    if (v->cursorCacheChanged)
-      v->updateCursor( v->cursorCache );
-    v->updateView();
-
-    v->tagLinesFrom = -1;
-    v->cursorCacheChanged = false;
+    v->editEnd(editTagLineStart, editTagLineEnd);
   }
 
   setModified(true);

@@ -174,7 +174,7 @@ class KateTextLine : public KShared
     */
     inline uchar attribute (uint pos) const
     {
-      if (pos < m_text.length()) return m_attributes[pos];
+      if (pos < m_attributes.size()) return m_attributes[pos];
       return 0;
     }
 

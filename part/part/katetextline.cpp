@@ -93,8 +93,7 @@ void KateTextLine::removeText (uint pos, uint delLen)
     m_attributes[z] = m_attributes[z+delLen];
 
   m_text.remove (pos, delLen);
-  textLen = m_text.length ();
-  m_attributes.resize (textLen);
+  m_attributes.resize (m_text.length ());
 }
 
 void KateTextLine::append(const QChar *s, uint l)
@@ -209,8 +208,8 @@ int KateTextLine::cursorX(uint pos, uint tabChars) const
 
 void KateTextLine::setAttribs(uchar attribute, uint start, uint end)
 {
-  if (end > m_text.length())
-    end = m_text.length();
+  if (end > m_attributes.size())
+    end = m_attributes.size();
 
   for (uint z = start; z < end; z++)
     m_attributes[z] = attribute;

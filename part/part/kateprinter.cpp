@@ -481,7 +481,7 @@ bool KatePrinter::print (KateDocument *doc)
                  _h += innerMargin;
                }
              }
-             paint.fillRect( 0, _y, pdmWidth, _h, *renderer.config()->backgroundColor());
+             paint.fillRect( 0, _y, pdmWidth, _h, renderer.config()->backgroundColor());
            }
 
            if ( useBox )
@@ -500,7 +500,7 @@ bool KatePrinter::print (KateDocument *doc)
            if ( useGuide && currentPage == 1 )
            {  // FIXME - this may span more pages...
              // draw a box unless we have boxes, in which case we end with a box line
-             paint.setPen( *renderer.config()->selectionColor() );
+             paint.setPen( renderer.config()->selectionColor() );
              int _marg = 0; // this could be available globally!??
              if ( useBox )
              {
@@ -553,7 +553,7 @@ bool KatePrinter::print (KateDocument *doc)
          if ( printLineNumbers && ! startCol ) // don't repeat!
          {
            paint.setFont( renderer.config()->fontStruct()->font( false, false ) );
-           paint.setPen( *renderer.config()->selectionColor() ); // using "selected" color for now...
+           paint.setPen( renderer.config()->selectionColor() ); // using "selected" color for now...
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
                         lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );

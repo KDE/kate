@@ -759,7 +759,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
       if (!(z >= lineRangesSize))
         lineRanges[z].dirty = false;
 
-      paint.fillRect( x, z * h, width, h, *m_view->renderer()->config()->backgroundColor() );
+      paint.fillRect( x, z * h, width, h, m_view->renderer()->config()->backgroundColor() );
     }
     else if (!paintOnlyDirty || lineRanges[z].dirty)
     {

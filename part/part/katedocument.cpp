@@ -2283,27 +2283,31 @@ QColor KateDocument::markColor( MarkInterface::MarkTypes type )
   switch (type) {
     // Bookmark
     case markType01:
-      return Qt::blue;
+      return KateRendererConfig::global()->lineMarkerColor(markType01);
 
-    // Breakpoint
+    // BreakpointActive
     case markType02:
-      return Qt::red;
+      return KateRendererConfig::global()->lineMarkerColor(markType02);
 
-    // ActiveBreakpoint
+    // BreakpointReached
     case markType03:
-      return Qt::yellow;
+      return KateRendererConfig::global()->lineMarkerColor(markType03);
 
-    // ReachedBreakpoint
+    // BreakpointDisabled
     case markType04:
-      return Qt::magenta;
+      return KateRendererConfig::global()->lineMarkerColor(markType04);
 
-    // DisabledBreakpoint
+    // Execution
     case markType05:
-      return Qt::gray;
+      return KateRendererConfig::global()->lineMarkerColor(markType05);
 
-    // ExecutionPoint
+    // Warning
     case markType06:
-      return Qt::green;
+      return KateRendererConfig::global()->lineMarkerColor(markType06);
+
+    // Error
+    case markType07:
+      return KateRendererConfig::global()->lineMarkerColor(markType07);
 
     default:
       return QColor();

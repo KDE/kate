@@ -36,6 +36,7 @@ class KateStyleListItem;
 class KColorButton;
 
 class QPopupMenu;
+class KComboBox;
 
 class KateSchemaManager
 {
@@ -173,9 +174,20 @@ class KateSchemaConfigColorTab : public QWidget
     KColorButton *m_iconborder;
     KColorButton *m_tmarker;
 
+    KColorButton *m_markers;           // bg color for current selected marker
+    QMap<int, QColor> m_markerColors;  // stores all markerColors
+    KComboBox* m_combobox;             // switch marker type
+
   public:
     void readConfig (KConfig *config);
     void writeConfig (KConfig *config);
+
+  signals:
+    void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
+
+  protected slots:
+    void slotMarkerColorChanged(const QColor&);
+    void slotComboBoxChanged(int index);
 };
 
 class KateSchemaConfigFontTab : public QWidget

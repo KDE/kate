@@ -55,6 +55,7 @@
 #include <qhbox.h>
 #include <qpainter.h>
 #include <qobjectlist.h>
+#include <qpixmap.h>
 #include <qpushbutton.h>
 #include <qradiobutton.h>
 #include <qspinbox.h>
@@ -255,60 +256,81 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   QVGroupBox *gbTextArea = new QVGroupBox(i18n("Text Area Background"), this);
 
   b = new QHBox (gbTextArea);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Normal text:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_back = new KColorButton(b);
-  connect( m_back, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   b = new QHBox (gbTextArea);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Selected text:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_selected = new KColorButton(b);
-  connect( m_selected, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   b = new QHBox (gbTextArea);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Current line:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_current = new KColorButton(b);
-  connect( m_current, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
+
+  // Markers from kdelibs/interfaces/ktextinterface/markinterface.h  
+  b = new QHBox (gbTextArea);
+  b->setSpacing(KDialog::spacingHint());
+  m_combobox = new KComboBox(b, "color_combo_box");
+  // add the predefined mark types as defined in markinterface.h
+  m_combobox->insertItem(i18n("Bookmark"));            // markType01
+  m_combobox->insertItem(i18n("Active Breakpoint"));   // markType02
+  m_combobox->insertItem(i18n("Reached Breakpoint"));  // markType03
+  m_combobox->insertItem(i18n("Disabled Breakpoint")); // markType04
+  m_combobox->insertItem(i18n("Execution"));           // markType05
+  m_combobox->insertItem(i18n("Warning"));             // markType06
+  m_combobox->insertItem(i18n("Error"));               // markType07
+  m_combobox->setCurrentItem(0);
+  m_markers = new KColorButton(b, "marker_color_button");
+  connect( m_combobox, SIGNAL( activated( int ) ), SLOT( slotComboBoxChanged( int ) ) );
 
   blay->addWidget(gbTextArea);
 
   QVGroupBox *gbBorder = new QVGroupBox(i18n("Additional Elements"), this);
 
   b = new QHBox (gbBorder);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Left border background:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_iconborder = new KColorButton(b);
-  connect( m_iconborder, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Bracket highlight:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_bracket = new KColorButton(b);
-  connect( m_bracket, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Word wrap markers:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_wwmarker = new KColorButton(b);
-  connect( m_wwmarker, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   b = new QHBox (gbBorder);
+  b->setSpacing(KDialog::spacingHint());
   label = new QLabel( i18n("Tab markers:"), b);
   label->setAlignment( AlignLeft|AlignVCenter);
   m_tmarker = new KColorButton(b);
-  connect( m_tmarker, SIGNAL( changed( const QColor & ) ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   blay->addWidget(gbBorder);
 
   blay->addStretch();
+
+  // connect signal changed(); changed is emitted by a ColorButton change!
+  connect( this, SIGNAL( changed() ), parent->parentWidget(), SLOT( slotChanged() ) );
 
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("<p>Sets the background color of the editing area.</p>"));
   QWhatsThis::add(m_selected, i18n("<p>Sets the background color of the selection.</p>"
         "<p>To set the text color for selected text, use the \"<b>Configure "
         "Highlighting</b>\" dialog.</p>"));
+  QWhatsThis::add(m_markers, i18n("<p>Sets the background color of the selected marker type.</p>"));
+  QWhatsThis::add(m_combobox, i18n("<p>Select the marker type you want to change.</p>"));
   QWhatsThis::add(m_current, i18n("<p>Sets the background color of the currently "
         "active line, which means the line where your cursor is positioned.</p>"));
   QWhatsThis::add(m_bracket, i18n("<p>Sets the bracket matching color. This means, "
@@ -330,6 +352,16 @@ KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
 
 void KateSchemaConfigColorTab::readConfig (KConfig *config)
 {
+  // first disconnect all signals otherwise setColor emits changed
+  m_back      ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_selected  ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_current   ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_bracket   ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_wwmarker  ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_iconborder->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_tmarker   ->disconnect( SIGNAL( changed( const QColor & ) ) );
+  m_markers   ->disconnect( SIGNAL( changed( const QColor & ) ) );
+
   QColor tmp0 (KGlobalSettings::baseColor());
   QColor tmp1 (KGlobalSettings::highlightColor());
   QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
@@ -345,10 +377,39 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   m_wwmarker->setColor(config->readColorEntry("Color Word Wrap Marker", &tmp4));
   m_tmarker->setColor(config->readColorEntry("Color Tab Marker", &tmp5));
   m_iconborder->setColor(config->readColorEntry("Color Icon Bar", &tmp6));
-}
 
+  // same std colors like in KateDocument::markColor
+  QColor mark[7];
+  mark[0] = Qt::blue;
+  mark[1] = Qt::red;
+  mark[2] = Qt::yellow;
+  mark[3] = Qt::magenta;
+  mark[4] = Qt::gray;
+  mark[5] = Qt::green;
+  mark[6] = Qt::cyan;
+
+  // map from 1..7 - the same index as in markInterface
+  for (int i = 1; i < 8; i++)
+  {
+    m_markerColors[i] = config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]);
+    QPixmap pix(16, 16);
+    pix.fill(m_markerColors[i]);
+    m_combobox->changeItem(pix, m_combobox->text(i - 1), i - 1);
+  }
+  m_markers->setColor( m_markerColors[ m_combobox->currentItem() + 1 ] );
+
+  connect( m_back      , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_selected  , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_current   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_bracket   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_wwmarker  , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+}          
+           
 void KateSchemaConfigColorTab::writeConfig (KConfig *config)
-{
+{          
   config->writeEntry("Color Background", m_back->color());
   config->writeEntry("Color Selection", m_selected->color());
   config->writeEntry("Color Highlighted Line", m_current->color());
@@ -356,6 +417,33 @@ void KateSchemaConfigColorTab::writeConfig (KConfig *config)
   config->writeEntry("Color Word Wrap Marker", m_wwmarker->color());
   config->writeEntry("Color Tab Marker", m_tmarker->color());
   config->writeEntry("Color Icon Bar", m_iconborder->color());
+
+  for(int i = 1; i < 8; i++) // atm we support predefined types from 1..7
+  {
+    config->writeEntry(QString("Color MarkType%1").arg(i), m_markerColors[i]);
+  }
+}
+
+void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
+{
+  kdDebug() << "slotMarkerColorChanged" << endl;
+  int index = m_combobox->currentItem();
+  m_markerColors[ index + 1 ] = color;
+  QPixmap pix(16, 16);
+  pix.fill(color);
+  m_combobox->changeItem(pix, m_combobox->text(index), index);
+
+  // emit signal
+  emit changed();
+}
+
+void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
+{
+  kdDebug() << "slotComboBoxChanged" << endl;
+  // temporarily disconnect the changed-signal because setColor emits changed as well
+  m_markers->disconnect( SIGNAL( changed( const QColor& ) ) );
+  m_markers->setColor( m_markerColors[index + 1] );
+  connect( m_markers, SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 
 //END KateSchemaConfigColorTab
@@ -867,8 +955,8 @@ KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
            this, SLOT(showPopupMenu(QListViewItem*)) );
   // grap the bg color, selected color and default font
   normalcol = KGlobalSettings::textColor();
-  bgcol = *KateRendererConfig::global()->backgroundColor();
-  selcol = *KateRendererConfig::global()->selectionColor();
+  bgcol = KateRendererConfig::global()->backgroundColor();
+  selcol = KateRendererConfig::global()->selectionColor();
   docfont = *KateRendererConfig::global()->font();
 
   viewport()->setPaletteBackgroundColor( bgcol );

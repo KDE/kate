@@ -25,6 +25,8 @@
 #include "katefont.h"
 #include "kateschema.h"
 
+#include <math.h>
+
 #include <kapplication.h>
 #include <kconfig.h>
 #include <kglobalsettings.h>
@@ -34,9 +36,7 @@
 #include <kreplacedialog.h>
 #include <kinstance.h>
 #include <kstaticdeleter.h>
-#include <ktexteditor/markinterface.h>
 
-#include <qcolor.h>
 #include <qtextcodec.h>
 
 //BEGIN KateConfig
@@ -857,13 +857,6 @@ void KateViewConfig::setTextToSearchMode (int mode)
 KateRendererConfig::KateRendererConfig ()
  :
    m_font (new KateFontStruct ()),
-   m_backgroundColor (0),
-   m_selectionColor (0),
-   m_highlightedLineColor (0),
-   m_highlightedBracketColor (0),
-   m_wordWrapMarkerColor (0),
-   m_tabMarkerColor (0),
-   m_iconBarColor (0),
    m_schemaSet (true),
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
@@ -876,6 +869,11 @@ KateRendererConfig::KateRendererConfig ()
    m_iconBarColorSet (true),
    m_renderer (0)
 {
+  for (int i = 0; i < 7; i++) {
+    m_lineMarkerColorSet[i] = false;
+  }
+  m_lineMarkerColor.resize(7);
+
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
@@ -886,13 +884,6 @@ KateRendererConfig::KateRendererConfig ()
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
  : m_font (0),
-   m_backgroundColor (0),
-   m_selectionColor (0),
-   m_highlightedLineColor (0),
-   m_highlightedBracketColor (0),
-   m_wordWrapMarkerColor (0),
-   m_tabMarkerColor (0),
-   m_iconBarColor (0),
    m_schemaSet (false),
    m_fontSet (false),
    m_wordWrapMarkerSet (false),
@@ -905,19 +896,15 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_iconBarColorSet (false),
    m_renderer (renderer)
 {
+  for (int i = 0; i < 7; i++) {
+    m_lineMarkerColorSet[i] = false;
+  }
+  m_lineMarkerColor.resize(7);
 }
 
 KateRendererConfig::~KateRendererConfig ()
 {
   delete m_font;
-
-  delete m_backgroundColor;
-  delete m_selectionColor;
-  delete m_highlightedLineColor;
-  delete m_highlightedBracketColor;
-  delete m_wordWrapMarkerColor;
-  delete m_tabMarkerColor;
-  delete m_iconBarColor;
 }
 
 void KateRendererConfig::readConfig (KConfig *config)
@@ -988,6 +975,21 @@ void KateRendererConfig::setSchema (uint schema)
   setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
   setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp6));
 
+    // same std colors like in KateDocument::markColor
+  QColor mark[7];
+  mark[0] = Qt::blue;
+  mark[1] = Qt::red;
+  mark[2] = Qt::yellow;
+  mark[3] = Qt::magenta;
+  mark[4] = Qt::gray;
+  mark[5] = Qt::green;
+  mark[6] = Qt::cyan;
+
+  for (int i = 1; i < 8; i++) {
+    setLineMarkerColor(config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]),
+      static_cast<KTextEditor::MarkInterface::MarkTypes>( static_cast<int>( pow(2, i - 1) ) ));
+  }
+
   QFont f (KGlobalSettings::fixedFont());
 
   setFont(config->readFontEntry("Font", &f));
@@ -1046,7 +1048,7 @@ void KateRendererConfig::setWordWrapMarker (bool on)
   configEnd ();
 }
 
-const QColor *KateRendererConfig::backgroundColor() const
+const QColor& KateRendererConfig::backgroundColor() const
 {
   if (m_backgroundColorSet || isGlobal())
     return m_backgroundColor;
@@ -1059,13 +1061,12 @@ void KateRendererConfig::setBackgroundColor (const QColor &col)
   configStart ();
 
   m_backgroundColorSet = true;
-  delete m_backgroundColor;
-  m_backgroundColor = new QColor (col);
+  m_backgroundColor = col;
 
   configEnd ();
 }
 
-const QColor *KateRendererConfig::selectionColor() const
+const QColor& KateRendererConfig::selectionColor() const
 {
   if (m_selectionColorSet || isGlobal())
     return m_selectionColor;
@@ -1078,13 +1079,12 @@ void KateRendererConfig::setSelectionColor (const QColor &col)
   configStart ();
 
   m_selectionColorSet = true;
-  delete m_selectionColor;
-  m_selectionColor = new QColor (col);
+  m_selectionColor = col;
 
   configEnd ();
 }
 
-const QColor *KateRendererConfig::highlightedLineColor() const
+const QColor& KateRendererConfig::highlightedLineColor() const
 {
   if (m_highlightedLineColorSet || isGlobal())
     return m_highlightedLineColor;
@@ -1097,13 +1097,35 @@ void KateRendererConfig::setHighlightedLineColor (const QColor &col)
   configStart ();
 
   m_highlightedLineColorSet = true;
-  delete m_highlightedLineColor;
-  m_highlightedLineColor = new QColor (col);
+  m_highlightedLineColor = col;
 
   configEnd ();
 }
 
-const QColor *KateRendererConfig::highlightedBracketColor() const
+const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::MarkTypes type) const
+{
+  int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
+  if (index > 6 || index < 0) // out of range?
+    return m_lineMarkerColor[0];
+
+  if (m_lineMarkerColorSet[index] || isGlobal())
+    return m_lineMarkerColor[index];
+
+  return s_global->lineMarkerColor();
+}
+
+void KateRendererConfig::setLineMarkerColor (const QColor &col, KTextEditor::MarkInterface::MarkTypes type)
+{
+  int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
+  configStart ();
+
+  m_lineMarkerColorSet[index] = true;
+  m_lineMarkerColor[index] = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::highlightedBracketColor() const
 {
   if (m_highlightedBracketColorSet || isGlobal())
     return m_highlightedBracketColor;
@@ -1116,13 +1138,12 @@ void KateRendererConfig::setHighlightedBracketColor (const QColor &col)
   configStart ();
 
   m_highlightedBracketColorSet = true;
-  delete m_highlightedBracketColor;
-  m_highlightedBracketColor = new QColor (col);
+  m_highlightedBracketColor = col;
 
   configEnd ();
 }
 
-const QColor *KateRendererConfig::wordWrapMarkerColor() const
+const QColor& KateRendererConfig::wordWrapMarkerColor() const
 {
   if (m_wordWrapMarkerColorSet || isGlobal())
     return m_wordWrapMarkerColor;
@@ -1135,13 +1156,12 @@ void KateRendererConfig::setWordWrapMarkerColor (const QColor &col)
   configStart ();
 
   m_wordWrapMarkerColorSet = true;
-  delete m_wordWrapMarkerColor;
-  m_wordWrapMarkerColor = new QColor (col);
+  m_wordWrapMarkerColor = col;
 
   configEnd ();
 }
 
-const QColor *KateRendererConfig::tabMarkerColor() const
+const QColor& KateRendererConfig::tabMarkerColor() const
 {
   if (m_tabMarkerColorSet || isGlobal())
     return m_tabMarkerColor;
@@ -1154,13 +1174,12 @@ void KateRendererConfig::setTabMarkerColor (const QColor &col)
   configStart ();
 
   m_tabMarkerColorSet = true;
-  delete m_tabMarkerColor;
-  m_tabMarkerColor = new QColor (col);
+  m_tabMarkerColor = col;
 
   configEnd ();
 }
 
-const QColor *KateRendererConfig::iconBarColor() const
+const QColor& KateRendererConfig::iconBarColor() const
 {
   if (m_iconBarColorSet || isGlobal())
     return m_iconBarColor;
@@ -1173,8 +1192,7 @@ void KateRendererConfig::setIconBarColor (const QColor &col)
   configStart ();
 
   m_iconBarColorSet = true;
-  delete m_iconBarColor;
-  m_iconBarColor = new QColor (col);
+  m_iconBarColor = col;
 
   configEnd ();
 }

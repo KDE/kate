@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="BibTeX" version="1.12" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
+<language name="BibTeX" version="1.13" kateversion="2.4" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
   <highlighting>
     <list name="kw_entry">
-      <item>@article</item> 
-      <item>@book</item> 
-      <item>@booklet</item> 
-      <item>@conference</item> 
-      <item>@inbook</item> 
-      <item>@incollection</item> 
-      <item>@inproceedings</item> 
-      <item>@manual</item> 
-      <item>@mastersthesis</item> 
-      <item>@misc</item> 
-      <item>@phdthesis</item> 
-      <item>@proceedings</item> 
-      <item>@techreport</item> 
+      <item>@article</item>
+      <item>@book</item>
+      <item>@booklet</item>
+      <item>@conference</item>
+      <item>@inbook</item>
+      <item>@incollection</item>
+      <item>@inproceedings</item>
+      <item>@manual</item>
+      <item>@mastersthesis</item>
+      <item>@misc</item>
+      <item>@phdthesis</item>
+      <item>@proceedings</item>
+      <item>@techreport</item>
       <item>@unpublished</item>
       <item>@collection</item>
       <item>@patent</item>
@@ -27,7 +27,7 @@
     </list>
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr String="^\s*([a-zA-Z]+)\s*=" attribute="Field" context="#stay"/>
+        <RegExpr String="([a-zA-Z]+)\s*=" attribute="Field" context="#stay" firstNonSpace="true" />
         <keyword String="kw_entry" attribute="Entry" context="Entry"/>
         <keyword String="kw_command" attribute="Command" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="#stay" beginRegion="block" />

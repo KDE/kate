@@ -276,6 +276,9 @@ class KateCSAndSIndent : public KateAutoIndent
   private:
     void updateIndentString();
     
+    bool inForStatement( int line );
+    int lastNonCommentChar( const KateDocCursor &line );
+    bool startsWithLabel( int line );
     bool inStatement( const KateDocCursor &begin );
     QString continuationIndent( const KateDocCursor &begin );
     

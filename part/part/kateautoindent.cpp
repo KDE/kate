@@ -1252,23 +1252,22 @@ KateCSAndSIndent::~KateCSAndSIndent ()
 
 void KateCSAndSIndent::processLine (KateDocCursor &line)
 {
-  // TODO: don't mess with indentation of text within comments.
-  //if ( inComment( line ) )
-  //  return;
-  
   updateIndentString();
   
+  const int oldCol = line.col();
   QString whitespace = calcIndent(line);
   // strip off existing whitespace
-  int firstChar = doc->plainKateTextLine(line.line())->firstChar();
-  if( firstChar > 0 )
-    doc->removeText(line.line(), 0, line.line(), firstChar);
+  int oldIndent = doc->plainKateTextLine(line.line())->firstChar();
+  if ( oldIndent < 0 )
+    oldIndent = doc->lineLength( line.line() );
+  if( oldIndent > 0 )
+    doc->removeText(line.line(), 0, line.line(), oldIndent);
   // add correct amount
   doc->insertText(line.line(), 0, whitespace);
   
   // try to preserve the cursor position in the line
-  if ( int(line.col() + whitespace.length()) >= firstChar  )
-    line.setCol( line.col() + whitespace.length() - firstChar );
+  if ( int(oldCol + whitespace.length()) >= oldIndent )
+    line.setCol( oldCol + whitespace.length() - oldIndent );
   else
     line.setCol( 0 );
 }
@@ -1391,145 +1390,199 @@ void KateCSAndSIndent::processNewline (KateDocCursor &begin, bool /*needContinue
   // TODO: if the user presses enter in the middle of a label, maybe the first half of the
   //  label should be indented?
   
-  begin.setCol( doc->plainKateTextLine( begin.line() )->firstChar() );
+  // where the cursor actually is...
+  int cursorPos = doc->plainKateTextLine( begin.line() )->firstChar();
+  if ( cursorPos < 0 )
+    cursorPos = doc->lineLength( begin.line() );
+  begin.setCol( cursorPos );
+  
   processLine( begin );
 }
 
 /**
- * @brief Is this a label, ending in the ':' character at colon?
- * @param colon The location of a ':' character
- * 
- * Checks the character after the : for being another : and acts appropriately.
- * 
- * Looks before the colon for a sequence of identifiers, keywords, literals and "::"s.
- * If a ';', '{' or '}' is found, then this is a label if we've already had an identifier
- * or keyword, and is an initialization list or a bug otherwise.
- * 
- * If a '?' is found first, we're in a ?: expression, not a label.
- * If mismatched '(' and ')' or '[' and ']' are found, we're in an expression, not a label.
- * If a double-quoted string is found, we're not in a label.
- * 
- * If a ':' is found first, recursively determine if it's a label. We are if it is,
- * and are not otherwise.
- * 
- * Pretty much everything else can appear in a constant-expression in a case-label.
+ * Does the line @p line start with a label?
+ * @note May also return @c true if the line starts in a continuation.
  */
-/*bool KateCSAndSIndent::isLabel( const KateDocCursor &colon )
+bool KateCSAndSIndent::startsWithLabel( int line )
 {
-  (indentLine->attribute(indentFirst) == keywordAttrib ||
-  indentLine->attribute(indentFirst) == normalAttrib) )
+  KateTextLine::Ptr indentLine = doc->plainKateTextLine( line );
+  const int indentFirst = indentLine->firstChar();
+  
+  int attrib = indentLine->attribute(indentFirst);
+  if (attrib != 0 && attrib != keywordAttrib && attrib != normalAttrib)
+    return false;
+  
+  const int last = indentLine->lastChar();
+  for ( int n = indentFirst + 1; n <= last; ++n )
   {
-    const int last = indentLine->lastChar();
-    for ( int n = indentFirst + 1; n <= last; ++n )
+    int attrib = indentLine->attribute(n);
+    if ( attrib == symbolAttrib || attrib == 0 )
     {
-      if ( indentLine->attribute(n) == symbolAttrib )
+      QChar c = indentLine->getChar(n);
+      
+      // attrib == 0 matches whitespace
+      if ( c.isSpace() )
+        continue;
+      
+      // if we find a symbol other than a :, this is not a label.
+      if ( indentLine->getChar(n) != ':' )
+        return false;
+      
+      // : but not ::, this is a label.
+      if ( indentLine->getChar(n+1) != ':' )
+        return true;
+      
+      // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
+      // skip both :s and keep going.
+      if ( indentLine->getChar(n+2) != ':' )
       {
-          // if we find a symbol other than a :, this is not a label.
-        if ( indentLine->getChar(n) != ':' )
-          break;
-                
-          // : but not ::, a label, don't indent.
-        if ( indentLine->getChar(n+1) != ':' )
-          return whitespaceToOpenBrace;
-                
-          // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
-          // skip both :s and keep going.
-        if ( indentLine->getChar(n+2) != ':' )
-        {
-          ++n;
-          continue;
-        }
-                
-          // xy::: outside a continuation is a label followed by a scope-resolution operator.
-          // indent. more than 3 :s is illegal, so we don't care that's not indented.
-        return whitespaceToOpenBrace;
+        ++n;
+        continue;
       }
+      
+      // xy::: outside a continuation is a label followed by a scope-resolution operator.
+      // more than 3 :s is illegal, so we don't care that's not indented.
+      return true;
     }
   }
-}*/
+  return false;
+}
 
-// is the start of the line containing 'begin' in a statement?
-bool KateCSAndSIndent::inStatement( const KateDocCursor &begin )
+template<class T> T min(T a, T b) { return (a < b) ? a : b; }
+
+int KateCSAndSIndent::lastNonCommentChar( const KateDocCursor &line )
 {
-  int line;
-  for ( line = begin.line() - 1; line >= 0; --line )
+  KateTextLine::Ptr textLine = doc->plainKateTextLine( line.line() );
+  QString str = textLine->string();
+  
+  // find a possible start-of-comment
+  int p = -2; // so the first find starts at position 0
+  do p = str.find( "//", p + 2 );
+  while ( p >= 0 && textLine->attribute(p) != commentAttrib && textLine->attribute(p) != doxyCommentAttrib );
+  
+  // no // found? use whole string
+  if ( p < 0 )
+    p = str.length();
+  
+  // ignore trailing blanks. p starts one-past-the-end.
+  while( p > 0 && str[p-1].isSpace() ) --p;
+  return p - 1;
+}
+
+bool KateCSAndSIndent::inForStatement( int line )
+{
+  // does this line end in a for ( ...
+  // with no closing ) ?
+  int parens = 0, semicolons = 0;
+  for ( ; line >= 0; --line )
   {
     KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
     const int first = textLine->firstChar();
     const int last = textLine->lastChar();
+    
+    // look backwards for a symbol: (){};
+    // match ()s, {...; and }...; => not in a for
+    // ; ; ; => not in a for
+    // ( ; and ( ; ; => a for
+    for ( int curr = last; curr >= first; --curr )
+    {
+      if ( textLine->attribute(curr) != symbolAttrib )
+        continue;
+      
+      switch( textLine->getChar(curr) )
+      {
+      case ';':
+        if( ++semicolons > 2 )
+          return false;
+        break;
+      case '{': case '}':
+        return false;
+      case ')':
+        ++parens;
+        break;
+      case '(':
+        if( --parens < 0 )
+          return true;
+        break;
+      }
+    }
+  }
+  // no useful symbols before the ;?
+  // not in a for then
+  return false;
+}
+
+
+// is the start of the line containing 'begin' in a statement?
+bool KateCSAndSIndent::inStatement( const KateDocCursor &begin )
+{
+  // if the current line starts with an open brace, it's not a continuation.
+  // this happens after a function definition (which is treated as a continuation).
+  KateTextLine::Ptr textLine = doc->plainKateTextLine(begin.line());
+  const int first = textLine->firstChar();
+  // note that if we're being called from processChar the attribute has not yet been calculated
+  // should be reasonably safe to assume that unattributed {s are symbols; if the { is in a comment
+  // we don't want to touch it anyway.
+  const int attrib = textLine->attribute(first);
+  if( first >= 0 && (attrib == 0 || attrib == symbolAttrib) && textLine->getChar(first) == '{' )
+    return false;
+  
+  int line;
+  for ( line = begin.line() - 1; line >= 0; --line )
+  {
+    textLine = doc->plainKateTextLine(line);
+    const int first = textLine->firstChar();
     if ( first == -1 )
       continue;
     
-    // look backwards for a non-comment character
-    int curr, attrib = 255;
-    for ( curr = last; curr >= first; curr = textLine->previousNonSpaceChar(curr) )
+    // starts with #: in a comment, don't care
+    // outside a comment: preprocessor, don't care
+    if ( textLine->getChar( first ) == '#' )
+      continue;
+    KateDocCursor currLine = begin;
+    currLine.setLine( line );
+    const int last = lastNonCommentChar( currLine );
+    if ( last < first )
+      continue;
+    
+    // HACK: if we see a comment, assume boldly that this isn't a continuation.
+    //       detecting comments (using attributes) is HARD, since they may have
+    //       embedded alerts, or doxygen stuff, or just about anything. this is
+    //       wrong, and needs fixing. note that only multi-line comments and
+    //       single-line comments continued with \ are affected.
+    const int attrib = textLine->attribute(last);
+    if ( attrib == commentAttrib || attrib == doxyCommentAttrib )
+      return false;
+    
+    char c = textLine->getChar(last);
+    
+    // brace => not a continuation.
+    if ( attrib == symbolAttrib && c == '{' || c == '}' )
+      return false;
+    
+    // ; => not a continuation, unless in a for (;;)
+    if ( attrib == symbolAttrib && c == ';' )
+      return inForStatement( line );
+    
+    // found something interesting. maybe it's a label?
+    if ( attrib == symbolAttrib && c == ':' )
     {
-      attrib = textLine->attribute(curr);
-      // HACK: if we see a comment, assume boldly that this isn't a continuation.
-      //       detecting comments (using attributes) is HARD, since they may have
-      //       embedded alerts, or doxygen stuff, or just about anything. this is
-      //       wrong, and needs fixing.
-      if ( attrib == commentAttrib || attrib == doxyCommentAttrib )
-        return false;
-      if ( attrib != commentAttrib && attrib != doxyCommentAttrib )
-        break;
+      // the : above isn't necessarily the : in the label, eg in
+      // case 'x': a = b ? c :
+      // this will say no continuation incorrectly. but continued statements
+      // starting on a line with a label at the start is Bad Style (tm).
+      if( startsWithLabel( line ) )
+      {
+        // either starts with a label or a continuation. if the current line
+        // starts in a continuation, we're still in one. if not, this was
+        // a label, so we're not in one now. so continue to the next line
+        // upwards.
+        continue;
+      }
     }
     
-    // found something on the line?
-    if ( curr >= first )
-    {
-      char c = textLine->getChar(curr);
-      
-      // brace => not a continuation.
-      if ( attrib == symbolAttrib && c == '{' || c == '}' )
-        return false;
-      
-      // ; => not a continuation, unless in a for (;;)
-      else if ( attrib == symbolAttrib && c == ';' )
-      {
-        // look backwards for two semicolons or a brace (not a continuation),
-        // or an unmatched open bracket (a continuation)
-        for ( ; line >= 0; --line )
-        {
-          KateTextLine::Ptr textLine = doc->plainKateTextLine(line);
-          const int first = textLine->firstChar();
-          const int last = textLine->lastChar();
-          
-          // look backwards for a symbol: (){};
-          // match ()s, {...; and }...; => not continuation
-          // ; ; ; => not continuation
-          // ( ; and ( ; ; => continuation
-          int curr, attrib = 255, parens = 0, semicolons = 1;
-          for ( curr = last; curr >= first; curr = textLine->previousNonSpaceChar(curr) )
-          {
-            attrib = textLine->attribute(curr);
-            if ( attrib == symbolAttrib )
-            {
-              switch( textLine->getChar(curr) )
-              {
-                case ';':
-                  if( ++semicolons > 2 )
-                    return false;
-                  break;
-                case '{': case '}':
-                  return false;
-                case ')':
-                  ++parens;
-                  break;
-                case '(':
-                  if( --parens < 0 )
-                    return true;
-                  break;
-              }
-            }
-          }
-          // no useful symbols before the ;? not in a for then. so ; ended a statement.
-          return false;
-        }
-      }
-      // any other character => in a continuation
-      return true;
-    }
+    // any other character => in a continuation
+    return true;
   }
   // no non-comment text found before here - not a continuation.
   return false;
@@ -1541,8 +1594,6 @@ QString KateCSAndSIndent::continuationIndent( const KateDocCursor &begin )
     return QString::null;
   return indentString;
 }
-
-template<class T> T min(T a, T b) { return (a < b) ? a : b; }
 
 /**
  * Figure out how indented the line containing @p begin should be.
@@ -1659,7 +1710,8 @@ QString KateCSAndSIndent::calcIndentInBracket(const KateDocCursor &indentCursor,
   const int indentLineFirst = indentLine->firstChar();
   
   int indentTo;
-  if( indentLineFirst >= 0 && indentLine->attribute(indentLineFirst) == symbolAttrib &&
+  const int attrib = indentLine->attribute(indentLineFirst);
+  if( indentLineFirst >= 0 && (attrib == 0 || attrib == symbolAttrib) &&
       ( indentLine->getChar(indentLineFirst) == ')' || indentLine->getChar(indentLineFirst) == ']' ) )
   {
     // If the line starts with a close bracket, line it up
@@ -1682,11 +1734,13 @@ QString KateCSAndSIndent::calcIndentAfterKeyword(const KateDocCursor &indentCurs
   
   QString whitespaceToKeyword = initialWhitespace( keywordLine, keywordPos, false );
   if( blockKeyword )
-    ; // FIXME
+    ; // FIXME: we could add the open brace and subsequent newline here since they're definitely needed.
   
   // If the line starts with an open brace, don't indent...
   int first = indentLine->firstChar();
-  if( first >= 0 && indentLine->getChar(first) == '{' )
+  // if we're being called from processChar attribute won't be set
+  const int attrib = indentLine->attribute(first);
+  if( first >= 0 && (attrib == 0 || attrib == symbolAttrib) && indentLine->getChar(first) == '{' )
     return whitespaceToKeyword;
   
   // don't check for a continuation. rules are simple here:
@@ -1741,38 +1795,9 @@ QString KateCSAndSIndent::calcIndentInBrace(const KateDocCursor &indentCursor, c
   }
   
   const bool continuation = inStatement(indentCursor);
-  // if the line starts with a label, don't indent...
-  if( !continuation &&
-      (indentLine->attribute(indentFirst) == keywordAttrib ||
-       indentLine->attribute(indentFirst) == normalAttrib) )
-  {
-    const int last = indentLine->lastChar();
-    for ( int n = indentFirst + 1; n <= last; ++n )
-    {
-      if ( indentLine->attribute(n) == symbolAttrib )
-      {
-        // if we find a symbol other than a :, this is not a label.
-        if ( indentLine->getChar(n) != ':' )
-          break;
-        
-        // : but not ::, a label, don't indent.
-        if ( indentLine->getChar(n+1) != ':' )
-          return whitespaceToOpenBrace;
-        
-        // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
-        // skip both :s and keep going.
-        if ( indentLine->getChar(n+2) != ':' )
-        {
-          ++n;
-          continue;
-        }
-        
-        // xy::: outside a continuation is a label followed by a scope-resolution operator.
-        // indent. more than 3 :s is illegal, so we don't care that's not indented.
-        return whitespaceToOpenBrace;
-      }
-    }
-  }
+  // if the current line starts with a label, don't indent...
+  if( !continuation && startsWithLabel( indentCursor.line() ) )
+    return whitespaceToOpenBrace;
   
   // the normal case: indent once for the brace, again if it's a continuation
   QString continuationIndent = continuation ? indentString : QString::null;
@@ -1786,7 +1811,7 @@ void KateCSAndSIndent::processChar(QChar c)
   if (triggers.find(c) == -1)
     return;
   
-  // for history reasons, processChar doesn't get a cursor
+  // for historic reasons, processChar doesn't get a cursor
   // to work on. so fabricate one.
   KateView *view = doc->activeView();
   KateDocCursor begin(view->cursorLine(), 0, doc);

@@ -712,7 +712,7 @@ void KateDocument::editEnd ()
     KateView *v = myViews.at(z);
 
     v->myViewInternal->updateLineRanges ();
-    
+
     if (v->myViewInternal->tagLinesFrom > -1)
     {
       int startTagging = editTagLineStart;
@@ -3638,44 +3638,153 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
 bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
 {
-  TextLine::Ptr textLine;
-  int len;
-  const QChar *s;
-  int z, x;
-  QChar ch;
-  Attribute *a = 0;
-  int attr, nextAttr;
-  int xs;
-  int xc, zc;
+  // font data
+  FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;
 
-  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
+  // text attribs font/style data
+  Attribute *at = myAttribs.data();
+  uint atLen = myAttribs.size();
+
+  // textline
+  TextLine::Ptr textLine;
+
+  // length, chars + raw attribs
+  uint len = 0;
+  const QChar *s;
+  const uchar *a;
+
+  // was the selection background allready completly painted ?
+  bool selectionPainted = false;
+  
+  if (lineSelected (line))
+  {
+    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[1]);
+    selectionPainted = true;
+  }
+  else
+    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
+    
 
   if (line > lastLine())
-  {
-    paint.fillRect(0, y, xEnd - xStart,fs->fontHeight, colors[0]);
-    return true;
-  }
+    return false;
 
   textLine = getTextLine(line);
 
   if (!textLine)
-    return true ;
+    return false;
 
   if (!textLine->isVisible())
-  {
-    paint.fillRect(0, y, xEnd - xStart,fs->fontHeight, colors[0]);
     return false;
-  }
-	
+    
+  len = textLine->length();
+  
+  if (startcol > len)
+    startcol = len;
+    
+  if (startcol < 0)
+    startcol = 0;
 
   if (endcol < 0)
-    len = textLine->length() - startcol;
+    len = len - startcol;
   else
     len = endcol - startcol;
+  
+  // text + attrib data from line
+  s = textLine->getText ();
+  a = textLine->getAttribs ();
 
-  s = textLine->getText();
+  // adjust to startcol ;)
   s = s + startcol;
+  a = a + startcol;
 
+  // or we will see no text ;)
+  y += fs->fontAscent;
+
+  paint.setPen(at[0].col);
+  paint.setFont(fs->myFont);
+
+  // painting loop
+  uint xPos = 0;
+  uint xPosAfter = 0;
+  uint width;
+
+  Attribute *curAt = 0;
+  Attribute *oldAt = 0;
+
+  for (uint tmp = len; tmp > 0; tmp--)
+  {
+    if ((*s) == QChar('\t'))
+      width = fs->m_tabWidth;
+    else
+    {
+      if ((*a) >= atLen)
+      {
+        curAt = &at[0];
+        width = fs->myFontMetrics.width(*s);
+        
+        if (curAt != oldAt)
+          paint.setFont(fs->myFont);
+      }
+      else
+      {
+        curAt = &at[*a];
+        
+        if (curAt->bold && curAt->italic)
+	{
+          width = fs->myFontMetricsBI.width(*s);
+
+          if (curAt != oldAt)
+	    paint.setFont(fs->myFontBI);
+        }
+        else if (curAt->bold)
+	{
+          width = fs->myFontMetricsBold.width(*s);
+
+          if (curAt != oldAt)
+            paint.setFont(fs->myFontBold);
+        }
+        else if (curAt->italic)
+	{
+          width = fs->myFontMetricsItalic.width(*s);
+
+          if (curAt != oldAt)
+            paint.setFont(fs->myFontItalic);
+	} 
+        else
+	{
+          width = fs->myFontMetrics.width(*s);
+
+          if (curAt != oldAt)
+            paint.setFont(fs->myFont);
+	}
+      }
+
+      if (curAt != oldAt)
+        paint.setPen(curAt->col);
+    }
+
+    xPosAfter += width;
+    
+    if ((xPosAfter >= xStart) && ((*s) != QChar('\t')))
+    {
+      QConstString str((QChar *) s, 1);
+      paint.drawText(xPos-xStart, y, str.string());
+    }
+
+    // increase xPos
+    xPos = xPosAfter;
+    
+    // increase char + attribs pos
+    s++;
+    a++;
+
+    // to only switch font/color if needed
+    oldAt = curAt;
+  }
+
+  return true;
+
+  /*
   // skip to first visible character
   x = 0;
   z = 0;
@@ -3767,7 +3876,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     {
       if (z > zc)
       {
-        QConstString str((QChar *) &s[zc], z - zc /*+1*/);
+        QConstString str((QChar *) &s[zc], z - zc);
         QString s = str.string();
         paint.drawText(x - xStart, y, s);
 
@@ -3820,7 +3929,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       {
         if (z > zc)
         {
-          QConstString str((QChar *) &s[zc], z - zc /*+1*/);
+          QConstString str((QChar *) &s[zc], z - zc );
           QString s = str.string();
           paint.drawText(x - xStart, y, s);
 
@@ -3828,9 +3937,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
             x += fs->myFontMetricsBI.width(s);
           else if (a->bold)
             x += fs->myFontMetricsBold.width(s);
-        else if (a->italic)
+          else if (a->italic)
             x += fs->myFontMetricsItalic.width(s);
-         else
+          else
             x += fs->myFontMetrics.width(s);
           zc = z;
         }
@@ -3865,6 +3974,8 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   }
 
 return true;
+
+*/
 }
 
 // Applies the search context, and returns whether a match was found. If one is,
@@ -3879,7 +3990,7 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
 
   line = sc.cursor.line;
   col = sc.cursor.col;
-  
+
   if (line < 0)
     return false;
 

@@ -1874,7 +1874,6 @@ bool KateViewInternal::tagLine(const KateTextCursor& virtualCursor)
 {
   int viewLine = displayViewLine(virtualCursor, true);
   if (viewLine >= 0 && viewLine < (int)lineRanges.count()) {
-    kdDebug() << k_funcinfo << virtualCursor.line() << "," << virtualCursor.col() << " " << lineRanges[viewLine].line << "," << lineRanges[viewLine].startCol << "," << lineRanges[viewLine].endCol << endl;
     lineRanges[viewLine].dirty = true;
     leftBorder->update (0, lineToY(viewLine), leftBorder->width(), m_renderer->fontHeight());
     return true;

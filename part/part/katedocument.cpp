@@ -3486,7 +3486,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   int first_char = textline->firstChar();
 
   if (first_char < 0)
-    first_char = textline->length() - 1;
+    first_char = ((int) textline->length()) - 1;
 
   if (first_char < 0)
     first_char = 0;
@@ -3494,7 +3494,9 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   int space = textline->cursorX(first_char, tabChars) + change * indentationChars;
   if (space < 0)
     space = 0;
-  if (!(flags & KateDocument::cfKeepExtraSpaces)) {
+
+  if (!(flags & KateDocument::cfKeepExtraSpaces))
+  {
     uint extra = space % indentationChars;
     space -= extra;
     if (extra && change < 0) {

@@ -640,7 +640,7 @@ void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
 
   kdDebug()<<"endLine: "<<endLine<<endl;
 
-  lines = endLine - startLine + 1;
+  lines = endLine - startLine + 2;
 
   if (lines > oldLines)
     lineRanges.resize (lines);

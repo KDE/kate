@@ -624,10 +624,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //end of line settings
     enum Eol_settings {eolUnix=0,eolDos=1,eolMacintosh=2};
 
-  // for the DCOP interface
-  public:
-    void open (const QString &name=0);
-
   public:
     // wrap the text of the document at the column col
     void wrapText (uint col);

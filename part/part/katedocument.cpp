@@ -4311,11 +4311,6 @@ void KateDocument::flush ()
   closeURL ();
 }
 
-void KateDocument::open (const QString &name)
-{
-  openURL (KURL (name));
-}
-
 Attribute *KateDocument::attribute (uint pos)
 {
   if (pos < myAttribs.size())

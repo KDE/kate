@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Doxygen" version="1.0" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+  <highlighting>
+    <!-- note: all tags may begin with a \ or @ char
+         so if you add/change tags you have to do it twice -->
+    <list name="TagOnly">
+      <item> \callgraph </item>
+      <item> \hideinitializer </item>
+      <item> \interface </item>
+      <item> \internal </item>
+      <item> \nosubgrouping </item>
+      <item> \showinitializer </item>
+      <item> \attention </item>
+      <item> \author </item>
+      <item> \else </item>
+      <item> \endif </item>
+      <item> \invariant </item>
+      <item> \note </item>
+      <item> \par </item>
+      <item> \post </item>
+      <item> \pre </item>
+      <item> \remarks </item>
+      <item> \return </item>
+      <item> \sa </item>
+      <item> \since </item>
+      <item> \test </item>
+      <item> \todo </item>
+      <item> \warning </item>
+      <item> \endlink </item>
+      <item> \arg </item>
+      <item> \code </item>
+      <item> \dot </item>
+      <item> \endcode </item>
+      <item> \enddot </item>
+      <item> \endhtmlonly </item>
+      <item> \endlatexonly </item>
+      <item> \endmanonly </item>
+      <item> \endverbatim </item>
+      <item> \endxmlonly </item>
+      <item> \f$ </item>
+      <item> \f[ </item>
+      <item> \f] </item>
+      <item> \htmlonly </item>
+      <item> \latexonly </item>
+      <item> \manonly </item>
+      <item> \only </item>
+      <item> \li </item>
+      <item> \n </item>
+      <item> \p </item>
+      <item> \verbatim </item>
+      <item> \xmlonly </item>
+      
+      <item> @callgraph </item>
+      <item> @hideinitializer </item>
+      <item> @interface </item>
+      <item> @internal </item>
+      <item> @nosubgrouping </item>
+      <item> @showinitializer </item>
+      <item> @attention </item>
+      <item> @author </item>
+      <item> @else </item>
+      <item> @endif </item>
+      <item> @invariant </item>
+      <item> @note </item>
+      <item> @par </item>
+      <item> @post </item>
+      <item> @pre </item>
+      <item> @remarks </item>
+      <item> @return </item>
+      <item> @sa </item>
+      <item> @since </item>
+      <item> @test </item>
+      <item> @todo </item>
+      <item> @warning </item>
+      <item> @endlink </item>
+      <item> @arg </item>
+      <item> @code </item>
+      <item> @dot </item>
+      <item> @endcode </item>
+      <item> @enddot </item>
+      <item> @endhtmlonly </item>
+      <item> @endlatexonly </item>
+      <item> @endmanonly </item>
+      <item> @endverbatim </item>
+      <item> @endxmlonly </item>
+      <item> @f$ </item>
+      <item> @f[ </item>
+      <item> @f] </item>
+      <item> @htmlonly </item>
+      <item> @latexonly </item>
+      <item> @manonly </item>
+      <item> @only </item>
+      <item> @li </item>
+      <item> @n </item>
+      <item> @p </item>
+      <item> @verbatim </item>
+      <item> @xmlonly </item>
+    </list>
+    <list name="TagWord">
+      <item> \addtogroup </item>
+      <item> \class </item>
+      <item> \def </item>
+      <item> \enum </item>
+      <item> \example </item>
+      <item> \file </item>
+      <item> \namespace </item>
+      <item> \package </item>
+      <item> \relates </item>
+      <item> \relatesalso </item>
+      <item> \elseif </item>
+      <item> \exception </item>
+      <item> \if </item>
+      <item> \ifnot </item>
+      <item> \param </item>
+      <item> \retval </item>
+      <item> \throw </item>
+      <item> \version </item>
+      <item> \xrefitem </item>
+      <item> \anchor </item>
+      <item> \link </item>
+      <item> \dontinclude </item>
+      <item> \include </item>
+      <item> \verbinclude </item>
+      <item> \htmlinclude </item>
+      <item> \a </item>
+      <item> \b </item>
+      <item> \c </item>
+      <item> \copydoc </item>
+      <item> \dotfile </item>
+      <item> \e </item>
+      <item> \em </item>
+      
+      <item> @addtogroup </item>
+      <item> @class </item>
+      <item> @def </item>
+      <item> @enum </item>
+      <item> @example </item>
+      <item> @file </item>
+      <item> @namespace </item>
+      <item> @package </item>
+      <item> @relates </item>
+      <item> @relatesalso </item>
+      <item> @elseif </item>
+      <item> @exception </item>
+      <item> @if </item>
+      <item> @ifnot </item>
+      <item> @param </item>
+      <item> @retval </item>
+      <item> @throw </item>
+      <item> @version </item>
+      <item> @xrefitem </item>
+      <item> @anchor </item>
+      <item> @link </item>
+      <item> @dontinclude </item>
+      <item> @include </item>
+      <item> @verbinclude </item>
+      <item> @htmlinclude </item>
+      <item> @a </item>
+      <item> @b </item>
+      <item> @c </item>
+      <item> @copydoc </item>
+      <item> @dotfile </item>
+      <item> @e </item>
+      <item> @em </item>
+    </list>
+    <list name="TagWordWord">
+      <item> \image </item>
+
+      <item> @image </item>
+    </list>
+    <list name="TagWordString">
+      <item> \defgroup </item>
+      <item> \page </item>
+      <item> \struct </item>
+      <item> \union </item>
+      <item> \weakgroup </item>
+      <item> \ref </item>
+      <item> \section </item>
+      <item> \subsection </item>
+      <item> \subsubsection </item>
+      <item> \paragraph </item>
+      
+      <item> @defgroup </item>
+      <item> @page </item>
+      <item> @struct </item>
+      <item> @union </item>
+      <item> @weakgroup </item>
+      <item> @ref </item>
+      <item> @section </item>
+      <item> @subsection </item>
+      <item> @subsubsection </item>
+      <item> @paragraph </item>          
+    </list>
+    <list name="TagString">
+      <item> \fn </item>
+      <item> \ingroup </item>
+      <item> \mainpage </item>
+      <item> \name </item>
+      <item> \overload </item>
+      <item> \typedef </item>
+      <item> \var </item>
+      <item> \brief </item>
+      <item> \bug </item>
+      <item> \date </item>
+      <item> \deprecated </item>
+      <item> \addindex </item>
+      <item> \line </item>
+      <item> \skip </item>
+      <item> \skipline </item>
+      <item> \until </item>
+      
+      <item> @fn </item>
+      <item> @ingroup </item>
+      <item> @mainpage </item>
+      <item> @name </item>
+      <item> @overload </item>
+      <item> @typedef </item>
+      <item> @var </item>
+      <item> @brief </item>
+      <item> @bug </item>
+      <item> @date </item>
+      <item> @deprecated </item>
+      <item> @addindex </item>
+      <item> @line </item>
+      <item> @skip </item>
+      <item> @skipline </item>
+      <item> @until </item>
+    </list>
+    <contexts>
+    <!-- different formats:
+      @tag                     : TagOnly
+      @tag rest_of_line        : TagString
+      @tag <word> <word>       : TagWordWord
+      @tag <word> rest_of_line : TagWordString
+    -->
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <StringDetect attribute="Comment" context="LineComment" String="///"/>
+        <StringDetect attribute="Comment" context="LineComment" String="//!"/>
+        <StringDetect attribute="Comment" context="BlockComment" String="/**" beginRegion="Comment"/>
+        <StringDetect attribute="Comment" context="BlockComment" String="/*!" beginRegion="Comment"/>
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="LineComment">
+        <keyword attribute="Tags" context="#pop" String="TagOnly" />
+        <keyword attribute="Tags" context="TagWord" String="TagWord" />
+        <keyword attribute="Tags" context="TagWordWord" String="TagWordWord" />
+        <keyword attribute="Tags" context="TagString" String="TagString" />
+        <keyword attribute="Tags" context="TagWordString" String="TagWordString" />
+      </context>
+      <context attribute="Comment" lineEndContext="#stay" name="BlockComment">
+        <keyword attribute="Tags" context="#stay" String="TagOnly" />
+        <keyword attribute="Tags" context="TagWord" String="TagWord" />
+        <keyword attribute="Tags" context="TagWordWord" String="TagWordWord" />
+        <keyword attribute="Tags" context="TagString" String="TagString" />
+        <keyword attribute="Tags" context="TagWordString" String="TagWordString" />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="TagWord">
+        <RegExpr attribute="TagWord" context="#pop" String="\s*\S*\s" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="TagWordWord">
+        <RegExpr attribute="TagWord" context="#stay" String="\s*\S*\s" />
+        <RegExpr attribute="TagWordWord" context="#stay" String="\s*\S*\s" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="TagString">
+        <RegExpr attribute="TagString" context="#stay" String="\s*.*$" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="TagWordString">
+        <RegExpr attribute="TagWord" context="TagString" String="\s*\S*\s*" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text"  defStyleNum="dsNormal"/>
+      <itemData name="Tags"   defStyleNum="dsKeyword" color="#ca60ca" selColor="#ffffff" bold="1" italic="0" backgroundColor="#f0f0f0"/>
+      <itemData name="TagWord"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0" backgroundColor="#f0f0f0"/>
+      <itemData name="TagWordWord"   defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0" backgroundColor="#f0f0f0"/>
+      <itemData name="TagString"       defStyleNum="dsString" color="#ff0000" backgroundColor="#f0f0f0"/>
+      <itemData name="Comment"      defStyleNum="dsComment" color="#222222" backgroundColor="#f0f0f0" italic="0" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0" weakDeliminator="\[]$"/>
+    <comments>
+    </comments>
+  </general>
+</language>

@@ -40,8 +40,9 @@ KateSearch::KateSearch( Kate::View* view )
 	, m_view( view )
 	, m_doc( view->getDoc() )
 	, _searchFlags( 0 )
-	, replacePrompt( 0 )
+	, replacePrompt( new ReplacePrompt( view ) )
 {
+	connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
 // TODO: Configuration
 //  _searchFlags = config->readNumEntry("SearchFlags", SConfig::sfPrompt);
 //   config->writeEntry("SearchFlags",_searchFlags);
@@ -176,19 +177,6 @@ void KateSearch::initSearch( int flags )
 	}
 }
 
-void KateSearch::continueSearch()
-{
-  if (!(s.flags & SConfig::sfBackward)) {
-    s.cursor.col = 0;
-    s.cursor.line = 0;
-  } else {
-    s.cursor.col = -1;
-    s.cursor.line = doc()->numLines();
-  }
-  s.flags |= SConfig::sfFinished;
-  s.flags &= ~SConfig::sfAgain;
-}
-
 void KateSearch::findAgain (bool back)
 {
   bool b= (_searchFlags & SConfig::sfBackward) > 0;
@@ -200,69 +188,53 @@ void KateSearch::findAgain (bool back)
     findAgain();
 }
 
-void KateSearch::findAgain() {
-  int query;
-  KateTextCursor cursor;
-  QString str;
-
-  QString searchFor = s_searchList.first();
-
-  if( searchFor.isEmpty() ) {
-    find();
-    return;
-  }
-
-  do {
-    query = KMessageBox::Cancel;
-		// FIXME
-    if ( ((KateDocument*)doc())->doSearch(s,searchFor)) {
-      cursor = s.cursor;
-      if (!(s.flags & SConfig::sfBackward))
-        s.cursor.col += s.matchedLength;
-//      myViewInternal->updateCursor(s.cursor); //does deselectAll()
-      exposeFound( cursor, s.matchedLength );
-    } else {
-      if (!(s.flags & SConfig::sfFinished)) {
-        // ask for continue
-        if (!(s.flags & SConfig::sfBackward)) {
-          // forward search
-          str = i18n("End of document reached.\n"
-                "Continue from the beginning?");
-          query = KMessageBox::warningContinueCancel( view(),
-                           str, i18n("Find"), i18n("Continue"));
-        } else {
-          // backward search
-          str = i18n("Beginning of document reached.\n"
-                "Continue from the end?");
-          query = KMessageBox::warningContinueCancel( view(),
-                           str, i18n("Find"), i18n("Continue"));
-        }
-        continueSearch();
-      } else {
-        // wrapped
-        KMessageBox::sorry( view(),
-          i18n("Search string '%1' not found!").arg(KStringHandler::csqueeze(searchFor)),
-          i18n("Find"));
-      }
-    }
-  } while (query == KMessageBox::Continue);
+void KateSearch::findAgain()
+{
+	QString searchFor = s_searchList.first();
+	
+	if( searchFor.isEmpty() ) {
+		find();
+		return;
+	}
+	
+	bool _continue = false;
+	do {
+		if ( ((KateDocument*)doc())->doSearch(s,searchFor)) { // FIXME
+			KateTextCursor cursor = s.cursor;
+			if (!(s.flags & SConfig::sfBackward))
+				s.cursor.col += s.matchedLength;
+			exposeFound( cursor, s.matchedLength );
+			return;
+		} else {
+			if( !(s.flags & SConfig::sfFinished) ) {
+				_continue = askContinue( !(s.flags & SConfig::sfBackward), false, 0 );
+				continueSearch();
+			} else {
+				// wrapped
+				KMessageBox::sorry( view(),
+				    i18n("Search string '%1' not found!")
+				         .arg( KStringHandler::csqueeze( searchFor ) ),
+				    i18n("Find"));
+			}
+		}
+	} while( _continue );
 }
 
-void KateSearch::replaceAgain() {
-  if (!doc()->isReadWrite())
-    return;
-
-  replaces = 0;
-  if (s.flags & SConfig::sfPrompt) {
-    doReplaceAction(-1);
-  } else {
-    doReplaceAction(srAll);
-  }
+void KateSearch::replaceAgain()
+{
+	if (!doc()->isReadWrite())
+		return;
+	
+	replaces = 0;
+	if (s.flags & SConfig::sfPrompt) {
+		doReplaceAction(-1);
+	} else {
+		doReplaceAction(srAll);
+	}
 }
 
 void KateSearch::doReplaceAction(int result, bool found) {
   int rlen;
-  KateTextCursor cursor;
   bool started;
 
   QString searchFor = s_searchList.first();
@@ -343,64 +315,71 @@ void KateSearch::doReplaceAction(int result, bool found) {
           }
 
         }
-      } while (!askReplaceEnd());
+      } while (askReplaceEnd());
       return;
     case srCancel: //cancel
       return;
     default:
-      replacePrompt = 0L;
+      break;
   }
 
-  do {
-  // FIXME
-    if ( ((KateDocument*)doc())->doSearch(s,searchFor)) {
-      //text found: highlight it, show replace prompt if needed and exit
-      cursor = s.cursor;
-      if (!(s.flags & SConfig::sfBackward)) cursor.col += s.matchedLength;
-//      myViewInternal->updateCursor(cursor); //does deselectAll()
-      exposeFound( s.cursor, s.matchedLength );
-      if (replacePrompt == 0L) {
-        replacePrompt = new ReplacePrompt( view() );
-        connect(replacePrompt,SIGNAL(clicked()),this,SLOT(replaceSlot()));
-        replacePrompt->show(); //this is not modal
-      }
-      return; //exit if text found
-    }
-    //nothing found: repeat until user cancels "repeat from beginning" dialog
-  } while (!askReplaceEnd());
+	do {
+		if ( ((KateDocument*)doc())->doSearch(s,searchFor)) { // FIXME
+			exposeFound( s.cursor, s.matchedLength );
+			replacePrompt->show();
+			return;
+		}
+		//nothing found: repeat until user cancels "repeat from beginning" dialog
+	} while( askReplaceEnd() );
+	replacePrompt->hide();
 }
 
-bool KateSearch::askReplaceEnd() {
-  QString str;
-  int query;
+bool KateSearch::askReplaceEnd()
+{
+	if( s.flags & SConfig::sfFinished ) {
+		KMessageBox::information( view(),
+		    i18n("%1 replacement(s) made").arg(replaces),
+		    i18n("Replace") );
+		return false;
+	}
+		
+	bool _continue = askContinue( !(s.flags & SConfig::sfBackward), true, replaces );
+	replaces = 0;
+	continueSearch();
+	return _continue;
+}
 
-//  myViewInternal->updateView();
-  if (s.flags & SConfig::sfFinished) {
-    // replace finished
-    str = i18n("%1 replacement(s) made").arg(replaces);
-    KMessageBox::information(view(), str, i18n("Replace"));
-    return true;
-  }
+bool KateSearch::askContinue( bool forward, bool replace, int replacements )
+{
+	QString made =
+	   i18n( "%n replacement made",
+	         "%n replacements made",
+	         replacements );
+	QString reached = forward ?
+	   i18n( "End of document reached." ) :
+	   i18n( "Beginning of document reached." );
+	QString question = forward ?
+	   i18n( "Continue from the beginning?" ) :
+	   i18n( "Continue from the end?" );
+	QString text = replace ?
+	   made + "\n" + reached + "\n" + question :
+	   reached + "\n" + question;
+	return KMessageBox::Yes == KMessageBox::questionYesNo(
+	   view(), text, replace ? i18n("Replace") : i18n("Find"),
+	   i18n("Continue"), i18n("Stop") );
+}
 
-  // ask for continue
+void KateSearch::continueSearch()
+{
   if (!(s.flags & SConfig::sfBackward)) {
-    // forward search
-    str = i18n("%1 replacement(s) made.\n"
-               "End of document reached.\n"
-               "Continue from the beginning?").arg(replaces);
-    query = KMessageBox::questionYesNo(view(), str, i18n("Replace"),
-        i18n("Continue"), i18n("Stop"));
+    s.cursor.col = 0;
+    s.cursor.line = 0;
   } else {
-    // backward search
-    str = i18n("%1 replacement(s) made.\n"
-                "Beginning of document reached.\n"
-                "Continue from the end?").arg(replaces);
-    query = KMessageBox::questionYesNo(view(), str, i18n("Replace"),
-                i18n("Continue"), i18n("Stop"));
+    s.cursor.col = -1;
+    s.cursor.line = doc()->numLines();
   }
-  replaces = 0;
-  continueSearch();
-  return (query == KMessageBox::No);
+  s.flags |= SConfig::sfFinished;
+  s.flags &= ~SConfig::sfAgain;
 }
 
 void KateSearch::replaceSlot() {

@@ -76,7 +76,6 @@ namespace Kate {
 	class View;
 	class Document;
 }
-class KateView;
 
 class KateSearch : public QObject
 {
@@ -88,9 +87,6 @@ public:
       srAll,
       srCancel = QDialog::Rejected
     };
-    enum Find_commands {
-        cmFind = 1, cmReplace, cmFindAgain, cmGotoLine
-    };
 public:
 	KateSearch( Kate::View* );
 	virtual ~KateSearch();
@@ -101,7 +97,6 @@ public slots:
 	void replace();
 	void findAgain( bool back );
 private:
-    void replaceAgain();
     void doReplaceAction(int result, bool found = false);
     bool askReplaceEnd();
 private slots:
@@ -118,7 +113,9 @@ private:
 	void initSearch( int flags );
 	void continueSearch();
 	void findAgain();
+	void replaceAgain();
 	void exposeFound( KateTextCursor &cursor, int slen );
+	bool askContinue( bool forward, bool replace, int replacements );
 	
 	QString getSearchText();
 	KateTextCursor getCursor();
@@ -129,11 +126,10 @@ private:
 	Kate::View*     m_view;
 	Kate::Document* m_doc;
 	
-    SConfig s;
-    uint       _searchFlags;
-    uint       searchFlags;
-    int        replaces;
-    QDialog*   replacePrompt;
+	SConfig s;
+	uint       _searchFlags;
+	int        replaces;
+	QDialog*   replacePrompt;
 };
 
 #endif

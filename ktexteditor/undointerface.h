@@ -40,14 +40,14 @@ class UndoInterface
 
 		virtual void clearRedo () = 0;
 
-		virtual int undoCount () const = 0;
+		virtual uint undoCount () const = 0;
 
-		virtual int redoCount () const = 0;
-		
-		virtual int undoSteps () const = 0;
+		virtual uint redoCount () const = 0;
 
-		virtual void setUndoSteps ( int steps ) = 0;
-		
+		virtual uint undoSteps () const = 0;
+
+		virtual void setUndoSteps ( uint steps ) = 0;
+
 	//
 	// signals !!!
 	//

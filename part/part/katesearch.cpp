@@ -30,6 +30,7 @@
 #include <kstringhandler.h>
 #include <kdebug.h>
 #include <kfinddialog.h>
+#include <kreplacedialog.h>
 
 #include "../interfaces/view.h"
 #include "../interfaces/document.h"
@@ -109,24 +110,30 @@ void KateSearch::find()
 
 void KateSearch::replace()
 {
-	if (!doc()->isReadWrite()) return;
+  if (!doc()->isReadWrite()) return;
+  
+  KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", options,
+	                                             s_searchList, s_replaceList, m_doc->hasSelection() ); 
 	
-	m_searchFlags.selected &= doc()->hasSelection();
+		
+	if( replaceDialog->exec() == QDialog::Accepted ) {
+		addToSearchList( replaceDialog->pattern () );
+    addToReplaceList( replaceDialog->replacement() );
+	        options = replaceDialog->options ();
+
+	m_searchFlags.caseSensitive = options & KFindDialog::CaseSensitive;
+	m_searchFlags.wholeWords = options & KFindDialog::WholeWordsOnly;
+	m_searchFlags.fromBeginning = ! (options & KFindDialog::FromCursor);
+	m_searchFlags.backward = options & KFindDialog::FindBackwards;
+	m_searchFlags.selected = options & KFindDialog::SelectedText;
+	m_searchFlags.prompt = options & KReplaceDialog::PromptOnReplace;
 	m_searchFlags.replace = true;
-	
-	SearchDialog* searchDialog = new SearchDialog(
-	    view(), s_searchList, s_replaceList,
-	    m_searchFlags );
-	
-	searchDialog->setSearchText( getSearchText() );
-	
-	if( searchDialog->exec() == QDialog::Accepted ) {
-		addToSearchList( searchDialog->getSearchFor() );
-		addToReplaceList( searchDialog->getReplaceWith() );
-		m_searchFlags = searchDialog->getFlags();
+	m_searchFlags.finished = false;
+	m_searchFlags.regExp = options & KFindDialog::RegularExpression;
+		
 		search( m_searchFlags );
 	}
-	delete searchDialog;
+	delete replaceDialog;;
 }
 
 void KateSearch::findAgain( bool back )

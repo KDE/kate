@@ -45,38 +45,6 @@ class QSpinBox;
 class KateDocument;
 class KateView;
 
-class SearchDialog : public KDialogBase
-{
-  Q_OBJECT
-
-  public:
-    SearchDialog( QWidget *parent, QStringList &searchFor,
-                  QStringList &replaceWith, SearchFlags flags );
-    QString getSearchFor();
-    QString getReplaceWith();
-    SearchFlags getFlags();
-    void setSearchText( const QString &searchstr );
-
-  protected slots:
-    void slotOk();
-    void selectedStateChanged (int);
-    void slotEditRegExp();
-    void slotSearchTextChanged( const QString & );
-
-  protected:
-    KComboBox *m_search;
-    KComboBox *m_replace;
-    QPushButton* regexpButton;
-    QCheckBox *m_opt1;
-    QCheckBox *m_opt2;
-    QCheckBox *m_opt3;
-    QCheckBox *m_optRegExp;
-    QCheckBox *m_opt4;
-    QCheckBox *m_opt5;
-    QCheckBox *m_opt6;
-    QDialog *m_regExpDialog;
-};
-
 class ReplacePrompt : public KDialogBase
 {
     Q_OBJECT

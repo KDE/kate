@@ -410,7 +410,7 @@ void ISearchPluginView::endSearch()
 
 	updateLabelText();
 
-	if( m_toolBarWasHidden && m_comboAction->container(0) ) {
+	if( m_toolBarWasHidden && m_comboAction->containerCount() > 0 ) {
 		m_comboAction->container(0)->setHidden( true );
 	}
 }

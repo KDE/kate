@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd"
 [
 	<!ENTITY name    "[A-Za-z_:][\w.:_-]*">
-	<!ENTITY entref  "&amp;(#[0-9]+|#x[0-9A-Fa-f]+|&name;);">
+	<!ENTITY entref  "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&name;);">
 ]>
 <language name="XML" version="1.91" kateversion="2.2" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 

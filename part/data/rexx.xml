@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="REXX" version="0.9" kateversion="2.1" section="Sources" extensions="*.rex" mimetype="">
+<language name="REXX" version="1.0" kateversion="2.1" section="Sources" extensions="*.rex" mimetype="">
   <highlighting>
     <list name="instructions">
       <item> arg </item>

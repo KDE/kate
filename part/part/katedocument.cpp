@@ -1075,7 +1075,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
       for (z=searchStart; z > 0; z--)
       {
         if (text[z].isSpace()) break;
-        if ( ! nw && !m_highlight->isInWord( text[z] ) )
+        if ( ! nw && !m_highlight->isInWord( text[z], l->attribute(z) ) )
           nw = z;
       }
 
@@ -3242,8 +3242,8 @@ void KateDocument::selectWord( const KateTextCursor& cursor )
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
   len = textLine->length();
   start = end = cursor.col();
-  while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1))) start--;
-  while (end < len && m_highlight->isInWord(textLine->getChar(end))) end++;
+  while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && m_highlight->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
   if (end <= start) return;
 
   if (!(config()->configFlags() & KateDocument::cfKeepSelection))
@@ -3913,7 +3913,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
           // 3. if p-1 is not in a word, upper.
           if ( ( ! start && ! p ) ||
                ( ( ln == selStartLine() || blockSelectionMode() ) &&
-                 ! p && ! m_highlight->isInWord( l->getChar( start - 1 ) ) ) ||
+                 ! p && ! m_highlight->isInWord( l->getChar( start - 1 )) ) ||
                ( p && ! m_highlight->isInWord( s.at( p-1 ) ) )
              )
             s[p] = s.at(p).upper();
@@ -3943,7 +3943,7 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
       case Capitalize:
       {
         KateTextLine::Ptr l = m_buffer->plainLine( cl );
-        while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ) ) )
+        while ( n > 0 && m_highlight->isInWord( l->getChar( n-1 ), l->attribute( n-1 ) ) )
           n--;
         s = text( cl, n, cl, n + 1 ).upper();
       }
@@ -3983,8 +3983,8 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
   if (start > len)        // Probably because of non-wrapping cursor mode.
     return QString("");
 
-  while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1))) start--;
-  while (end < len && m_highlight->isInWord(textLine->getChar(end))) end++;
+  while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && m_highlight->isInWord(textLine->getChar(end), textLine->attribute(end))) end++;
   len = end - start;
   return QString(&textLine->text()[start], len);
 }

@@ -21,7 +21,7 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
 		lilypond.xml abc.xml asp.xml asm-avr.xml rib.xml
 
 partrcdir   = $(kde_confdir)
-partrc_DATA = katesyntaxhighlightingrc
+partrc_DATA = katesyntaxhighlightingrc katefiletyperc
 
 html-php.xml: $(srcdir)/html.xml $(srcdir)/generate-php.pl
 	$(PERL) $(srcdir)/generate-php.pl < $(srcdir)/html.xml > $@

@@ -703,8 +703,14 @@ void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
          {
             if (to < tillLine)
                tillLine = to;
-            if ((from > fromLine) && (m_highlightedTo > from))
-               fromLine = from;
+ 
+            if (from > fromLine)
+            {
+               if (m_highlightedTo > from)
+                 fromLine = from;
+               else if (m_highlightedTo > fromLine)
+                 fromLine = m_highlightedTo;
+            }
          }
             
          buf->b_needHighlight = false;

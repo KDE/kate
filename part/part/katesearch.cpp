@@ -582,7 +582,7 @@ bool KateSearch::doSearch( const QString& text )
     else
     {
       if ( (s.cursor.line() > s.wrappedEnd.line())
-           || ( (s.cursor.line() == s.wrappedEnd.line()) && (s.cursor.col() > uint(s.wrappedEnd.col())) ) )
+           || ( (s.cursor.line() == s.wrappedEnd.line()) && (s.cursor.col() > s.wrappedEnd.col()) ) )
         return false;
     }
   }

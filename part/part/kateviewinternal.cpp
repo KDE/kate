@@ -1958,6 +1958,9 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
+  if ( obj == this )
+    KCursor::autoHideEventFilter( obj, e );
+
   if (obj == m_lineScroll)
   {
     // the second condition is to make sure a scroll on the vertical bar doesn't cause a horizontal scroll ;)
@@ -1970,9 +1973,6 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     // continue processing
     return QWidget::eventFilter( obj, e );
   }
-
-  if ( obj == this )
-      KCursor::autoHideEventFilter( obj, e );
 
   switch( e->type() )
   {

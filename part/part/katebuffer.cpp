@@ -44,196 +44,6 @@
 #define KATE_MAX_BLOCKS_LOADED   32
 
 /**
- * The KateBufBlock class contains an amount of data representing
- * a certain number of lines.
- */
-class KateBufBlock
-{
-  friend class KateBufBlockList;
-
-  public:
-    /**
-     * Create an empty block. (empty == ONE line)
-     */
-    KateBufBlock ( KateBuffer *parent, KateBufBlock *prev = 0, KateBufBlock *next = 0,
-                   QTextStream *stream = 0, bool lastCharEOL = false, bool *eof = 0 );
-    
-    /**
-     * destroy this block and take care of freeing all mem
-     */
-    ~KateBufBlock ();
-    
-  private:
-    /**
-     * fill the block with the lines from the given stream
-     * lastCharEOL indicates if a trailing newline should be
-     * appended at the end
-     * internal there will be a limit for the taken lines per block
-     * returns EOL as bool
-     */
-    bool fillBlock (QTextStream *stream, bool lastCharEOL);
-    
-  public:
-    /**
-     * state flags
-     */
-    enum State
-    {
-      stateSwapped = 0,
-      stateClean = 1,
-      stateDirty = 2
-    };
-    
-    /**
-     * returns the current state of this block
-     */
-    inline KateBufBlock::State state () const { return m_state; }
-    
-  public:
-    /**
-     * return line @p i
-     * The first line of this block is line 0.
-     * if you modifiy this line, please mark the block as dirty
-     */
-    TextLine::Ptr line(uint i);
-    
-    /**
-     * insert @p line in front of line @p i
-     * marks the block dirty
-     */
-    void insertLine(uint i, TextLine::Ptr line);
-    
-    /**
-     * remove line @p i
-     * marks the block dirty
-     */
-    void removeLine(uint i);
-    
-    /**
-     * mark this block as dirty, will invalidate the swap data
-     * insert/removeLine will mark the block dirty itself
-     */
-    void markDirty ();
-  
-  public:
-    /**
-     * first line in block
-     */
-    inline uint startLine () const { return m_startLine; };
-    
-    /**
-     * update the first line, needed to keep it up to date
-     */
-    inline void setStartLine (uint line) { m_startLine = line; }
-    
-    /**
-     * first line behind this block
-     */
-    inline uint endLine () const { return m_startLine + m_lines; }
-    
-    /**
-     * lines in this block
-     */
-    inline uint lines () const { return m_lines; }
-    
-    /**
-     * get indenation date
-     * only valid if block is swapped
-     */
-    inline uint firstLineIndentation () const { return m_firstLineIndentation; }
-    inline bool firstLineOnlySpaces () const { return m_firstLineOnlySpaces; }
-    
-    /**
-     * get last line for highlighting
-     * only valid if block is swapped, expect to get 0
-     */
-    inline TextLine::Ptr lastLine () { return m_lastLine; }
-
-    /**
-     * need Highlight flag
-     */
-    inline bool needHighlight () const { return b_needHighlight; }
-    inline void setNeedHighlight (bool hl) { b_needHighlight = hl; };
-
-    /**
-     * prev/next block
-     */
-    inline KateBufBlock *prev () { return m_prev; }
-    inline KateBufBlock *next () { return m_next; }
-  
-  /**
-   * methodes to swap in/out
-   */
-  private:
-    /**
-     * swap in the kvmallocater data, create string list
-     */
-    void swapIn ();
-
-    /**
-     * swap our string list out, delete it !
-     */
-    void swapOut ();
-            
-  private:
-    /**
-     * VERY IMPORTANT, state of this block
-     * this uchar indicates if the block is swapped, loaded, clean or dirty
-     */
-    KateBufBlock::State m_state;
-    
-    /**
-     * IMPORTANT, start line + lines in block
-     */
-    uint m_startLine;
-    uint m_lines;
-
-    /**
-     * context & hlContinue flag + indentation infos
-     * only used in the case that string list is not around
-     */
-    uint m_firstLineIndentation;
-    bool m_firstLineOnlySpaces;
-    TextLine::Ptr m_lastLine;
-
-    /**
-     * here we swap our stuff
-     */
-    KVMAllocator::Block *m_vmblock;
-    uint m_vmblockSize;
-
-    /**
-     * list of textlines
-     */
-    TextLine::List m_stringList;
-
-    /**
-     * buffer requires highlighting.
-     */
-    bool b_needHighlight;
-
-    /**
-     * parent buffer.
-     */
-    KateBuffer* m_parent;
-
-    /**
-     * prev/next block
-     */
-    KateBufBlock *m_prev;
-    KateBufBlock *m_next;
-    
-  private:
-    /**
-     * list pointer, to which list I belong
-     * list element pointers for the KateBufBlockList ONLY !!!
-     */
-    KateBufBlockList *list;
-    KateBufBlock *listPrev;
-    KateBufBlock *listNext;
-};
-
-/**
  * Create an empty buffer. (with one block with one empty line)
  */
 KateBuffer::KateBuffer(KateDocument *doc)
@@ -1225,94 +1035,6 @@ void KateBuffer::dumpRegionTree()
   m_regionTree.debugDump();
 }
 
-// BEGIN KateBufBlockList
-KateBufBlockList::KateBufBlockList ()
- : m_count (0),
-   m_first (0),
-   m_last (0)
-{
-}
-
-KateBufBlockList::~KateBufBlockList ()
-{
-}
-
-void KateBufBlockList::append (KateBufBlock *buf)
-{
-  if (buf->list)
-    buf->list->removeInternal (buf);
-
-  m_count++;
-
-  // append a element
-  if (m_last)
-  {
-    m_last->listNext = buf;
-    
-    buf->listPrev = m_last;
-    buf->listNext = 0;
-  
-    m_last = buf;
-    
-    buf->list = this;
-    
-    return;
-  }
-  
-  // insert the first element
-  m_last = buf;
-  m_first = buf;
-  
-  buf->listPrev = 0;
-  buf->listNext = 0;
-  
-  buf->list = this;
-}
-    
-void KateBufBlockList::remove (KateBufBlock *buf)
-{
-  if (buf->list)
-    buf->list->removeInternal (buf);
-}
-
-void KateBufBlockList::removeInternal (KateBufBlock *buf)
-{
-  if (buf->list != this)
-    return;
-
-  m_count--;
-
-  if ((buf == m_first) && (buf == m_last))
-  {
-    // last element removed !
-    m_first = 0;
-    m_last = 0;
-  }
-  else if (buf == m_first)
-  {
-    // first element removed
-    m_first = buf->listNext;
-    m_first->listPrev = 0;
-  }
-  else if (buf == m_last)
-  {
-    // last element removed
-    m_last = buf->listPrev;
-    m_last->listNext = 0;
-  }
-  else
-  {
-    buf->listPrev->listNext = buf->listNext;
-    buf->listNext->listPrev = buf->listPrev;
-  }
-  
-  buf->listPrev = 0;
-  buf->listNext = 0;
-  
-  buf->list = 0;
-}
-// END KateBufBlockList
-
 // BEGIN KateBufBlock
 
 KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next,
@@ -1642,5 +1364,89 @@ void KateBufBlock::swapOut ()
 }
 
 // END KateBufBlock
+
+// BEGIN KateBufBlockList
+
+KateBufBlockList::KateBufBlockList ()
+ : m_count (0),
+   m_first (0),
+   m_last (0)
+{
+}
+
+KateBufBlockList::~KateBufBlockList ()
+{
+}
+
+void KateBufBlockList::append (KateBufBlock *buf)
+{
+  if (buf->list)
+    buf->list->removeInternal (buf);
+
+  m_count++;
+
+  // append a element
+  if (m_last)
+  {
+    m_last->listNext = buf;
+    
+    buf->listPrev = m_last;
+    buf->listNext = 0;
+  
+    m_last = buf;
+    
+    buf->list = this;
+    
+    return;
+  }
+  
+  // insert the first element
+  m_last = buf;
+  m_first = buf;
+  
+  buf->listPrev = 0;
+  buf->listNext = 0;
+  
+  buf->list = this;
+}
+
+void KateBufBlockList::removeInternal (KateBufBlock *buf)
+{
+  if (buf->list != this)
+    return;
+
+  m_count--;
+
+  if ((buf == m_first) && (buf == m_last))
+  {
+    // last element removed !
+    m_first = 0;
+    m_last = 0;
+  }
+  else if (buf == m_first)
+  {
+    // first element removed
+    m_first = buf->listNext;
+    m_first->listPrev = 0;
+  }
+  else if (buf == m_last)
+  {
+    // last element removed
+    m_last = buf->listPrev;
+    m_last->listNext = 0;
+  }
+  else
+  {
+    buf->listPrev->listNext = buf->listNext;
+    buf->listNext->listPrev = buf->listPrev;
+  }
+  
+  buf->listPrev = 0;
+  buf->listNext = 0;
+  
+  buf->list = 0;
+}
+
+// END KateBufBlockList
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

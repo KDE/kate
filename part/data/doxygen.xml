@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.06" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<language name="Doxygen" version="1.07" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -245,114 +245,6 @@
       <item> @skipline </item>
       <item> @until </item>
     </list>
-          
-    <list name="specialHTMLChars">
-      <item> &lt;b&gt; </item>
-      <item> &lt;/b&gt; </item>
-      <item> &lt;body&gt; </item>
-      <item> &lt;/body&gt; </item>
-      <item> &lt;br&gt; </item>
-      <item> &lt;center&gt; </item>
-      <item> &lt;/center&gt; </item>
-      <item> &lt;caption&gt; </item>
-      <item> &lt;/caption&gt; </item>
-      <item> &lt;code&gt; </item>
-      <item> &lt;/code&gt; </item>
-      <item> &lt;dd&gt; </item>
-      <item> &lt;dfn&gt; </item>
-      <item> &lt;/dfn&gt; </item>
-      <item> &lt;dl&gt; </item>
-      <item> &lt;/dl&gt; </item>
-      <item> &lt;dt&gt; </item>
-      <item> &lt;/dt&gt; </item>
-      <item> &lt;em&gt; </item>
-      <item> &lt;/em&gt; </item>
-      <item> &lt;form&gt; </item>
-      <item> &lt;/form&gt; </item>
-      <item> &lt;hr&gt; </item>
-      <item> &lt;h1&gt; </item>
-      <item> &lt;/h1&gt; </item>
-      <item> &lt;h2&gt; </item>
-      <item> &lt;/h2&gt; </item>
-      <item> &lt;h3&gt; </item>
-      <item> &lt;/h3&gt; </item>
-      <item> &lt;i&gt; </item>
-      <item> &lt;input&gt; </item>
-      <item> &lt;/i&gt; </item>
-      <item> &lt;img&gt; </item>
-      <item> &lt;li&gt; </item>
-      <item> &lt;/li&gt; </item>
-      <item> &lt;meta&gt; </item>
-      <item> &lt;multicol&gt; </item>
-      <item> &lt;/mutlicol&gt; </item>
-      <item> &lt;ol&gt; </item>
-      <item> &lt;/ol&gt; </item>
-      <item> &lt;p&gt; </item>
-      <item> &lt;/p&gt; </item>
-      <item> &lt;pre&gt; </item>
-      <item> &lt;/pre&gt; </item>
-      <item> &lt;small&gt; </item>
-      <item> &lt;/small&gt; </item>
-      <item> &lt;strong&gt; </item>
-      <item> &lt;/strong&gt; </item>
-      <item> &lt;sub&gt; </item>
-      <item> &lt;/sub&gt; </item>
-      <item> &lt;sup&gt; </item>
-      <item> &lt;/sup&gt; </item>
-      <item> &lt;table&gt; </item>
-      <item> &lt;/table&gt; </item>
-      <item> &lt;td&gt; </item>
-      <item> &lt;/td&gt; </item>
-      <item> &lt;tr&gt; </item>
-      <item> &lt;/tr&gt; </item>
-      <item> &lt;tt&gt; </item>
-      <item> &lt;/tt&gt; </item>
-      <item> &lt;kbd&gt; </item>
-      <item> &lt;/kbd&gt; </item>
-      <item> &lt;ul&gt; </item>
-      <item> &lt;/ul&gt; </item>
-      <item> &lt;var&gt; </item>
-      <item> &lt;/var&gt; </item>
- 
-      <item> &amp;copy; </item>
-      <item> &quot; </item>
-        
-      <item> &auml; </item>
-      <item> &euml; </item>
-      <item> &iuml; </item>
-      <item> &ouml; </item>
-      <item> &uuml; </item>
-      <item> &yuml; </item>
-      
-      <item> &aacute; </item>
-      <item> &eacute; </item>
-      <item> &iacute; </item>
-      <item> &oacute; </item>
-      <item> &uacute; </item>
-      <item> &yacute; </item>
-      
-      <item> &agrave; </item>
-      <item> &egrave; </item>
-      <item> &igrave; </item>
-      <item> &ograve; </item>
-      <item> &ugrave; </item>
-      <item> &ygrave; </item>
-      
-      <item> &acirc; </item>
-      <item> &ecirc; </item>
-      <item> &icirc; </item>
-      <item> &ocirc; </item>
-      <item> &ucirc; </item>
-      <item> &ycirc; </item>
-      
-      <item> &atilde; </item>
-      <item> &ntilde; </item>
-      <item> &otilde; </item>
-      <item> &szlig; </item>
-      <item> &ccedil; </item>
-      <item> &aring; </item>
-      <item> &nbsp; </item>        
-    </list>
     <contexts>
     <!-- different formats:
       @tag                     : TagOnly
@@ -364,16 +256,15 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <StringDetect attribute="Comment" context="LineComment" String="///"/>
         <StringDetect attribute="Comment" context="LineComment" String="//!"/>
-        <StringDetect attribute="Comment" context="BlockComment" String="/**" beginRegion="Comment"/>
-        <StringDetect attribute="Comment" context="BlockComment" String="/*!" beginRegion="Comment"/>
+        <StringDetect attribute="Comment" context="BlockComment" String="/**" beginRegion="BlockComment"/>
+        <StringDetect attribute="Comment" context="BlockComment" String="/*!" beginRegion="BlockComment"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
-        <keyword attribute="Tags" context="#pop" String="TagOnly" />
+        <keyword attribute="Tags" context="#stay" String="TagOnly" />
         <keyword attribute="Tags" context="TagWord" String="TagWord" />
         <keyword attribute="Tags" context="TagWordWord" String="TagWordWord" />
         <keyword attribute="Tags" context="TagString" String="TagString" />
         <keyword attribute="Tags" context="TagWordString" String="TagWordString" />
-        <keyword attribute="HTML Tags" context="#pop" String="specialHTMLChars" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="BlockComment">
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
@@ -381,8 +272,11 @@
         <keyword attribute="Tags" context="TagWordWord" String="TagWordWord" />
         <keyword attribute="Tags" context="TagString" String="TagString" />
         <keyword attribute="Tags" context="TagWordString" String="TagWordString" />
+        <RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <StringDetect attribute="HTML Comment" context="htmlcomment" String="&lt;!--" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
       </context>
+
       <context attribute="Comment" lineEndContext="#pop" name="TagWord">
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
         <RegExpr attribute="Word" context="#pop" String="\S\s" />
@@ -401,25 +295,86 @@
       <context attribute="Comment" lineEndContext="#pop" name="TagString">
         <RegExpr attribute="Comment" context="#stay" String="\s*"/>
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment" />
+        <StringDetect attribute="HTML Comment" context="htmlcomment2" String="&lt;!--" />
+        <RegExpr attribute="HTML Tag" context="htmltag2" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
         <RegExpr attribute="Description" context="#stay" String="." />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWordString">
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
         <RegExpr attribute="Word" context="#pop" String="\S\s" />
         <RegExpr attribute="Word" context="#stay" String="\s*\S" />
       </context>
+
+
+      <context name="htmltag" attribute="Identifier" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
+        <DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
+        <RegExpr attribute="Identifier" context="identifiers" String="\s*=\s*"/>
+      </context>
+      <context name="htmlcomment" attribute="HTML Comment" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
+        <RegExpr attribute="Normal Text" context="identifiers" String="\s*=\s*"/>
+      </context>
+      <context name="identifiers" attribute="Identifier" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <RegExpr attribute="String" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
+        <DetectChar attribute="Types" context="types1" char="'" />
+        <DetectChar attribute="Types" context="types2" char="&quot;" />
+      </context>
+      <context name="types1" attribute="Types" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <DetectChar attribute="Types" context="#pop#pop" char="'" />
+      </context>
+      <context name="types2" attribute="Types" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
+      </context>
+      
+      <!-- exactly the same htmltag code again. just for popping correctly? -->
+      <context name="htmltag2" attribute="Identifier" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
+        <DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
+        <RegExpr attribute="Identifier" context="identifiers2" String="\s*=\s*"/>
+      </context>
+      <context name="htmlcomment2" attribute="HTML Comment" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
+        <RegExpr attribute="Normal Text" context="identifiers2" String="\s*=\s*"/>
+      </context>
+      <context name="identifiers2" attribute="Identifier" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <RegExpr attribute="String" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
+        <DetectChar attribute="Types" context="types12" char="'" />
+        <DetectChar attribute="Types" context="types22" char="&quot;" />
+      </context>
+      <context name="types12" attribute="Types" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <DetectChar attribute="Types" context="#pop#pop" char="'" />
+      </context>
+      <context name="types22" attribute="Types" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
+      </context>
+
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal" />
       <itemData name="Tags"        defStyleNum="dsKeyword" color="#ca60ca" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="Word"        defStyleNum="dsKeyword" color="#0095ff" selColor="#ffffff" bold="1" italic="0" />
-      <itemData name="HTML Tags"   defStyleNum="dsKeyword" color="#ca60ca" selColor="#ffffff" bold="0" italic="0" />
+      <itemData name="HTML Tag"    defStyleNum="dsKeyword" color="#000000" selColor="#ffffff" bold="1" italic="0" />
       <itemData name="Description" defStyleNum="dsString"  color="#ff0000" />
       <itemData name="Comment"     defStyleNum="dsComment" color="#0000ff" selColor="#ffffff" italic="1" />
+      <itemData name="Identifier"  defStyleNum="dsOthers" />
+      <itemData name="HTML Comment" defStyleNum="dsComment" />
+      <itemData name="Types"       defStyleNum="dsDataType" />
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="0" weakDeliminator="\[]$"/>
+    <keywords casesensitive="0" weakDeliminator="\[]$&amp;&gt;&lt;;/" />
     <comments>
     </comments>
   </general>

@@ -129,7 +129,8 @@ public:
     void setFont(int whichFont);
     void increaseFontSizes();
     void decreaseFontSizes();
-    const QFont& currentFont();
+    const QFont& currentFont() const;
+    const QFontMetrics& currentFontMetrics() const;
 
     static const FontStruct& getFontStruct(int whichFont);
     static void setFont(int whichFont, QFont font);
@@ -166,8 +167,9 @@ public:
 
     // Font height
     uint fontHeight();
+
     // Document height
-    uint textHeight();
+    uint documentHeight();
 
     // Selection boundaries
     bool selectBounds(uint line, uint &start, uint &end, uint lineLength);
@@ -182,11 +184,6 @@ public:
     void paintTextLine(QPainter& paint, const LineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
 
 private:
-    // fonts structures for the view + printing font
-    static FontStruct s_viewFont;
-    static FontStruct s_printFont;
-    static int s_tabWidth;
-
     KateDocument* m_doc;
     KateView* m_view;
     QMap<KateView*, class KateRendererSettings*> m_settings;

@@ -39,16 +39,17 @@ public:
     Italic = 0x4,
     Underline = 0x8,
     StrikeOut = 0x10,
-    TextColor = 0x20,
-    SelectedTextColor = 0x40,
-    BGColor = 0x80,
-    SelectedBGColor = 0x80
+    Outline = 0x20,
+    TextColor = 0x40,
+    SelectedTextColor = 0x80,
+    BGColor = 0x100,
+    SelectedBGColor = 0x200
   };
 
   KateAttribute();
   virtual ~KateAttribute();
 
-  QFont font(QFont ref);
+  QFont font(const QFont& ref);
 
   inline int width(const FontStruct& fs, const QString& text, int col) const
   { return fs.width(text, col, bold(), italic()); };
@@ -77,6 +78,9 @@ public:
   bool strikeOut() const;
   void setStrikeOut(bool enable = true);
 
+  const QColor& outline() const;
+  void setOutline(const QColor& color);
+
   const QColor& textColor() const;
   void setTextColor(const QColor& color);
 
@@ -100,7 +104,7 @@ public:
 private:
   int m_weight;
   bool m_italic, m_underline, m_strikeout, m_changed;
-  QColor m_textColor, m_selectedTextColor, m_bgColor, m_selectedBGColor;
+  QColor m_outline, m_textColor, m_selectedTextColor, m_bgColor, m_selectedBGColor;
   int m_itemsSet;
 };
 

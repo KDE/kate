@@ -200,6 +200,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
 KateViewInternal::~KateViewInternal ()
 {
+  delete m_renderer;
 }
 
 void KateViewInternal::prepareForDynWrapChange()
@@ -698,10 +699,13 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
 
-  if (drawBuffer.width() != KateViewInternal::width() || drawBuffer.height() != (int)h)
+  // TODO config option?
+  static bool doublebuffer = true;
+
+  if (doublebuffer && drawBuffer.width() != KateViewInternal::width() || drawBuffer.height() != (int)h)
     drawBuffer.resize(KateViewInternal::width(), (int)h);
 
-  if (drawBuffer.isNull())
+  if (doublebuffer && drawBuffer.isNull())
     return;
 
   QPainter paint;
@@ -717,9 +721,9 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
       if (!(z >= lineRangesSize))
         lineRanges[z].dirty = false;
 
-      paint.begin (this);
+      paint.begin(this);
       paint.fillRect( x, z * h, width, h, m_doc->colors[0] );
-      paint.end ();
+      paint.end();
     }
     else if (!paintOnlyDirty || lineRanges[z].dirty)
     {
@@ -728,20 +732,20 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
       if (paintDebug)
         kdDebug() << "*** Actually painting view line " << z << ", visible line " << lineRanges[z].virtualLine << endl;
 
-      paint.begin (&drawBuffer);
+      if (doublebuffer) {
+        paint.begin(&drawBuffer);
+
+      } else {
+        paint.begin(this);
+        paint.translate(x, z*h);
+      }
+
       m_renderer->paintTextLine(paint, &lineRanges[z], xStart, xEnd, &cursor, &bm);
-             /*IMPLEMENTED ( ( cursorOn && ( hasFocus() || (m_view->m_codeCompletion->codeCompletionVisible()) ) && ( lineRanges[z].line == cursor.line() ) && ( cursor.col() >= lineRanges[z].startCol ) && ( !lineRanges[z].wrap || ( cursor.col() < lineRanges[z].endCol ) ) ) ? cursor.col() : -1 ),
-             IMPLEMENTED m_view->isOverwriteMode(),
-             IMPLEMENTED cXPos,
-             true,
-             IMPLEMENTED ( m_doc->configFlags() & KateDocument::cfShowTabs ),
-             IMPLEMENTED ( lineRanges[z].line == cursor.line() && lineRanges[z].startCol <= cursor.col() && (lineRanges[z].endCol > cursor.col() || !lineRanges[z].wrap) ),
-             false,
-             IMPLEMENTED bm,
-             lineRanges[z].startX + xStart,
-             m_view );*/
-      paint.end ();
-      bitBlt (this, x, z * h, &drawBuffer, 0, 0, width);
+
+      if (doublebuffer)
+        bitBlt (this, x, z * h, &drawBuffer, 0, 0, width);
+
+      paint.end();
     }
   }
 }
@@ -858,7 +862,7 @@ QPoint KateViewInternal::cursorCoordinates()
     return QPoint(-1, -1);
 
   uint y = viewLine * m_renderer->fontHeight();
-  uint x = cXPos - m_startX - lineRanges[viewLine].startX + leftBorder->width() + lineRanges[viewLine].getXOffset();
+  uint x = cXPos - m_startX - lineRanges[viewLine].startX + leftBorder->width() + lineRanges[viewLine].xOffset();
 
   return QPoint(x, y);
 }
@@ -1168,13 +1172,15 @@ LineRange KateViewInternal::range(int realLine, const LineRange* previous)
 
   } else {
     // TODO worthwhile optimising this to get the data out of the initial textWidth call?
-    int pos = text->nextNonSpaceChar(0);
+    if (true /** make optional */) {
+	int pos = text->nextNonSpaceChar(0);
 
     if (pos > 0)
       ret.shiftX = m_renderer->textWidth(text, pos);
 
     if (ret.shiftX > ((double)width() / 100 * 80 /* FIXME customisable percentage */))
       ret.shiftX = 0;
+	}
 
     ret.virtualLine = m_doc->getVirtualLine(realLine);
     ret.startCol = 0;
@@ -1515,8 +1521,8 @@ void KateViewInternal::cursorUp(bool sel)
 
     //kdDebug() << k_funcinfo << m_currentMaxX << " " << visibleX << endl;
 
-    if (m_currentMaxX - thisRange.getXOffset() > visibleX)
-      visibleX = m_currentMaxX - thisRange.getXOffset();
+    if (m_currentMaxX - thisRange.xOffset() > visibleX)
+      visibleX = m_currentMaxX - thisRange.xOffset();
 
     //kdDebug() << m_currentMaxX << " " << visibleX << endl;
 
@@ -1577,8 +1583,8 @@ void KateViewInternal::cursorDown(bool sel)
 
 /*    kdDebug() << k_funcinfo << m_currentMaxX << " " << visibleX << " " << cXPos << endl;*/
 
-    if (m_currentMaxX - nRange.getXOffset() > visibleX)
-      visibleX = m_currentMaxX - nRange.getXOffset();
+    if (m_currentMaxX - nRange.xOffset() > visibleX)
+      visibleX = m_currentMaxX - nRange.xOffset();
 
     cXPos = xOffset + visibleX;
 
@@ -1842,14 +1848,14 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
     m_preserveMaxX = false;
   else
     if (m_view->dynWordWrap())
-      m_currentMaxX = m_renderer->textWidth(displayCursor) - currentRange().startX + currentRange().getXOffset();
+      m_currentMaxX = m_renderer->textWidth(displayCursor) - currentRange().startX + currentRange().xOffset();
     else
       m_currentMaxX = cXPos;
 
   //kdDebug() << "m_currentMaxX: " << m_currentMaxX << ", cXPos: " << cXPos << endl;
   //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << displayCursor.line << ", " << displayCursor.col << "; Top is " << startLine() << ", " << startPos().col << "; Old top is " << m_oldStartPos.line << ", " << m_oldStartPos.col << endl;
 
-  paintText (0,0,width(), height(), true);
+  paintText(0, 0, width(), height(), true);
 
   emit m_view->cursorPositionChanged();
 }
@@ -1995,7 +2001,7 @@ void KateViewInternal::placeCursor( const QPoint& p, bool keepSelection, bool up
 
   KateTextCursor c(realLine, 0);
 
-  int x = QMIN(QMAX(0, p.x() - thisRange.getXOffset()), lineMaxCursorX(thisRange) - thisRange.startX);
+  int x = QMIN(QMAX(0, p.x() - thisRange.xOffset()), lineMaxCursorX(thisRange) - thisRange.startX);
 
   m_renderer->textWidth( c, startX() + x, startCol);
 
@@ -2013,7 +2019,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
   if( !textLine )
     return false;
 
-  int col = m_renderer->textPos( textLine, p.x() - thisRange.getXOffset(), thisRange.startCol );
+  int col = m_renderer->textPos( textLine, p.x() - thisRange.xOffset(), thisRange.startCol );
 
   return m_doc->lineColSelected( thisRange.virtualLine, col );
 }

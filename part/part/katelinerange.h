@@ -20,6 +20,8 @@
 #ifndef KATELINERANGE_H
 #define KATELINERANGE_H
 
+#include "katecursor.h"
+
 class LineRange
 {
   public:
@@ -27,6 +29,12 @@ class LineRange
 
     void clear();
     void debugOutput() const;
+    bool includesCursor(const KateTextCursor& realCursor) const;
+
+    friend bool operator> (const LineRange& r, const KateTextCursor& c);
+    friend bool operator>= (const LineRange& r, const KateTextCursor& c);
+    friend bool operator< (const LineRange& r, const KateTextCursor& c);
+    friend bool operator<= (const LineRange& r, const KateTextCursor& c);
 
     int line;
     int virtualLine;
@@ -43,7 +51,7 @@ class LineRange
     //
     // this is used to provide a dynamic-wrapping-retains-indent feature.
     int shiftX;
-    int getXOffset() const;
+    int xOffset() const;
 
     bool dirty;
     int viewLine;

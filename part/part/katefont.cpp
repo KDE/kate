@@ -24,59 +24,6 @@
 #include <kglobalsettings.h>
 
 //
-// Attribute implementation
-//
-
-
-/*Attribute::Attribute ()
-{
-}
-
-Attribute::~Attribute()
-{
-}*/
-
-//
-// KateFontMetrics implementation
-//
-
-/*KateFontMetrics::KateFontMetrics(const QFont& f) : QFontMetrics(f)
-{
-  for (int i=0; i<256; i++) warray[i]=0;
-}
-
-KateFontMetrics::~KateFontMetrics()
-{
-  for (int i=0; i<256; i++)
-    if (warray[i]) delete[] warray[i];
-}
-
-short * KateFontMetrics::createRow (short *wa, uchar row)
-{
-  wa=warray[row]=new short[256];
-
-  for (int i=0; i<256; i++) wa[i]=-1;
-
-  return wa;
-}
-
-int KateFontMetrics::width(QChar c) const
-{
-  uchar cell=c.cell();
-  uchar row=c.row();
-  short *wa=warray[row];
-
-  if (!wa) {
-    KateFontMetrics* that = const_cast<KateFontMetrics*>(this);
-    wa = that->createRow (wa, row);
-  }
-
-  if (wa[cell]<0) wa[cell]=(short) QFontMetrics::width(c);
-
-  return (int)wa[cell];
-}*/
-
-//
 // FontStruct implementation
 //
 

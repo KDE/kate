@@ -34,7 +34,7 @@
 */
 SyntaxDocument::SyntaxDocument() : QDomDocument(){
   // There's no current file
-  currentFile="";           
+  currentFile="";
   // Let's build the Mode List (katesyntaxhighlightingrc)
   setupModeList();
   myModeList.setAutoDelete( true );
@@ -54,17 +54,17 @@ bool SyntaxDocument::setIdentifier(const QString& identifier){
   // if the current file is the same as the new one don't do anything.
   if(currentFile!=identifier){
     // let's open the new file
-    QFile f( identifier );                                            
-    
+    QFile f( identifier );
+
     if ( f.open(IO_ReadOnly) ){
       // Let's parse the contets of the xml file
-      /* The result of this function should be check for robustness, 
+      /* The result of this function should be check for robustness,
          a false returned means a parse error */
 	QString errorMsg;
 	int line, col;
-	bool success=setContent(&f,&errorMsg,&line,&col);                           
+	bool success=setContent(&f,&errorMsg,&line,&col);
       // Ok, now the current file is the pretended one (identifier)
-      currentFile=identifier;                                      
+      currentFile=identifier;
       // Close the file, is not longer needed
       f.close();
       if (!success)
@@ -75,7 +75,7 @@ bool SyntaxDocument::setIdentifier(const QString& identifier){
 	}
 
     }
-    else {                                   
+    else {
       // Oh o, we couldn't open the file.
       KMessageBox::error( 0L, i18n("Unable to open %1").arg(identifier) );
 	return false;
@@ -107,7 +107,7 @@ bool SyntaxDocument::nextGroup( syntaxContextData* data){
   // else just turn the currentGroup into the next group.
     data->currentGroup=data->currentGroup.nextSibling().toElement();
   }
-  
+
   // Should this be an empty QDomElement ? shoudln't item point to the first item in this group ?
   data->item=QDomElement();
 
@@ -154,7 +154,7 @@ QString SyntaxDocument::groupItemData( const syntaxContextData* data, const QStr
   // If there's no name just return the tag name of data->item
   if ( (!data->item.isNull()) && (name.isEmpty())){
     kdDebug(13010) << "groupItemData no name " << data->item.tagName() << endl;
-    return data->item.tagName();                   
+    return data->item.tagName();
   }
   // if name is not empty return the value of the attribute name
   if (!data->item.isNull()){
@@ -209,12 +209,12 @@ syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const
   QDomNode n = docElem.firstChild();
    while(!n.isNull()){
     QDomElement e=n.toElement();
-    
+
     // compare the tag of the current QDomElemnt to see if it is mainGroupName
     if (e.tagName().compare(mainGroupName)==0 ){
       kdDebug(13010)<<"\""<<mainGroupName<<"\" found."<<endl;
       QDomNode n1=e.firstChild();
-      
+
       // Loop until we reach the last node in e
       while (!n1.isNull()){
         /* Should this be done after the next if, e.firstChild is never tested */
@@ -224,7 +224,7 @@ syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const
           kdDebug(13010)<<"\""<<Config<<"\" found."<<endl;
           // create a new syntaxContextData
           syntaxContextData *data=new ( syntaxContextData);
-          
+
           // Insert the current item into the syntaxContextData
           /* should we add also data->parent and data->currentGroup, we have
              the 'father node', nl */
@@ -294,7 +294,7 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& t
   if (clearList){
     m_data.clear();
   }
-  
+
   for(QDomNode n=e.firstChild(); !n.isNull(); n=n.nextSibling()){
     if (n.toElement().tagName()==mainGroup){
       kdDebug(13010)<<"\""<<mainGroup<<"\" found."<<endl;
@@ -313,7 +313,7 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& t
             } else if(i==6){
               kdDebug(13010)<<"... The list continues ..."<<endl;
             }
-#endif            
+#endif
             m_data+=childlist.item(i).toElement().text().stripWhiteSpace();
           }
 
@@ -334,23 +334,23 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& t
 void SyntaxDocument::setupModeList(bool force){
   // If there's something in myModeList the Mode List was already built so, don't do it again
   if (myModeList.count() > 0) return;
-  
+
   // We'll store the ModeList in katesyntaxhighlightingrc
   KConfig config("katesyntaxhighlightingrc");
-                                   
+
   // Let's get a list of all the xml files for hl
   KStandardDirs *dirs = KGlobal::dirs();
   QStringList list=dirs->findAllResources("data","katepart/syntax/*.xml",false,true);
-  
+
   // Let's iterate trhu the list and build the Mode List
   for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )  {
     // Each file has a group called:
     QString Group="Highlighting_Cache"+*it;
-    
-    // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc                                       
+
+    // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
     if ((config.hasGroup(Group)) && (!force)){
       // Let's go to this group
-      config.setGroup(Group);  
+      config.setGroup(Group);
       // Let's make a new syntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       syntaxModeListItem *mli=new syntaxModeListItem;
       mli->name = config.readEntry("name","");
@@ -361,7 +361,7 @@ void SyntaxDocument::setupModeList(bool force){
       mli->identifier = *it;
       // Apend the item to the list
       myModeList.append(mli);
-    } 
+    }
     else {
       // We're forced to read the xml files or the mode doesn't exist in the katesyntax...rc
       QFile f(*it);
@@ -379,12 +379,12 @@ void SyntaxDocument::setupModeList(bool force){
         	if (!n.isNull()){
 	          // What does this do ???? Pupeno
 	          QDomElement e=n.toElement();
-          
-          	// If the 'first' tag is language, go on 
+
+          	// If the 'first' tag is language, go on
 	          if (e.tagName()=="language"){
 	            // let's make the mode list item.
 	            syntaxModeListItem *mli=new syntaxModeListItem;
-	            mli->name = e.attribute("name"); 
+	            mli->name = e.attribute("name");
 	            // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
 	            // This could be done by a switch or ifs with the allowed sections but a new
 	            // section will can't be added without recompiling and it's not a very versatil
@@ -393,15 +393,15 @@ void SyntaxDocument::setupModeList(bool force){
 	            mli->section = i18n(e.attribute("section").utf8());
 	            mli->mimetype = e.attribute("mimetype");
 	            mli->extension = e.attribute("extensions");
-	            mli->version = e.attribute("version");	
-            
+	            mli->version = e.attribute("version");
+
 	            // I think this solves the proble, everything not in the .po is Other.
 	            if (mli->section.isEmpty()){
 	              mli->section=i18n("Other");
 	             }
 
 	            mli->identifier = *it;
-            
+
 	            // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
 	            config.setGroup(Group);
 	            config.writeEntry("name",mli->name);

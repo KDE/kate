@@ -45,6 +45,9 @@ KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
   if (a.itemSet(StrikeOut))
     setStrikeOut(a.strikeOut());
 
+  if (a.itemSet(Outline))
+    setOutline(a.outline());
+
   if (a.itemSet(TextColor))
     setTextColor(a.textColor());
 
@@ -60,18 +63,20 @@ KateAttribute& KateAttribute::operator+=(const KateAttribute& a)
   return *this;
 }
 
-QFont KateAttribute::font(QFont ref)
+QFont KateAttribute::font(const QFont& ref)
 {
-  if (itemSet(Weight))
-    ref.setWeight(weight());
-  if (itemSet(Italic))
-    ref.setItalic(italic());
-  if (itemSet(Underline))
-    ref.setUnderline(underline());
-  if (itemSet(StrikeOut))
-    ref.setStrikeOut(strikeOut());
+  QFont ret = ref;
 
-  return ref;
+  if (itemSet(Weight))
+    ret.setWeight(weight());
+  if (itemSet(Italic))
+    ret.setItalic(italic());
+  if (itemSet(Underline))
+    ret.setUnderline(underline());
+  if (itemSet(StrikeOut))
+    ret.setStrikeOut(strikeOut());
+
+  return ret;
 }
 
 int KateAttribute::itemsSet() const
@@ -156,6 +161,24 @@ void KateAttribute::setStrikeOut(bool enable)
     m_itemsSet |= StrikeOut;
 
     m_strikeout = enable;
+
+    changed();
+  }
+}
+
+const QColor& KateAttribute::outline() const
+{
+  return m_outline;
+}
+
+void KateAttribute::setOutline(const QColor& color)
+{
+  bool isChanged = !(m_itemsSet & Outline) || m_outline != color;
+
+  if (isChanged) {
+    m_itemsSet |= Outline;
+
+    m_outline = color;
 
     changed();
   }
@@ -252,6 +275,10 @@ bool operator ==(const KateAttribute& h1, const KateAttribute& h2)
 
   if (h1.itemSet(KateAttribute::StrikeOut))
     if (h1.m_strikeout != h2.m_strikeout)
+      return false;
+
+  if (h1.itemSet(KateAttribute::Outline))
+    if (h1.m_outline != h2.m_outline)
       return false;
 
   if (h1.itemSet(KateAttribute::TextColor))

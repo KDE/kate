@@ -31,26 +31,6 @@
  * rodda: obsolete this and replace with KateAttribute functions
  */
 
-
-//
-// KateFontMetrics definition
-//
-
-/*class KateFontMetrics : public QFontMetrics
-{
-  public:
-    KateFontMetrics(const QFont& f);
-    ~KateFontMetrics();
-
-    int width(QChar c) const;
-
-  private:
-    short *createRow (short *wa, uchar row);
-
-  private:
-    short *warray[256];
-};*/
-
 //
 // FontStruct definition
 //
@@ -80,30 +60,6 @@ class FontStruct
     int fontHeight;
     int fontAscent;
 };
-
-//
-// Attribute definition
-//
-
-/*class Attribute
-{
-  public:
-    Attribute();
-    ~Attribute();
-
-    inline int width( const FontStruct& fs, QChar ch ) const {
-      return fs.width(ch, bold, italic);
-    }
-
-    inline const QFont& font( const FontStruct& fs ) const {
-      return fs.font(bold, italic);
-    }
-
-    QColor col;
-    QColor selCol;
-    bool bold;
-    bool italic;
-};*/
 
 
 #endif

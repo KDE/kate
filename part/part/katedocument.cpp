@@ -2245,7 +2245,7 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          QString s( QString("%1 ").arg( numLines() ) );
          s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
                           // FIXME calculate which is actually the widest...
-         lineNumberWidth = ((QFontMetrics)KateRenderer::getFontMetrics(KateRenderer::PrintFont)).width( s );
+         lineNumberWidth = renderer.currentFontMetrics().width( s );
          //lineNumberWidth = printFont.myFontMetrics.maxWidth() * s.length(); // BAD!
          // adjust available width and set horizontal start point for data
          maxWidth -= lineNumberWidth;
@@ -2400,9 +2400,9 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          }
          guideCols = _w/( _widest + innerMargin );
          // add height for required number of lines needed given columns
-         guideHeight += KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight * ( _items/guideCols );
+         guideHeight += renderer.fontHeight() * ( _items/guideCols );
          if ( _items%guideCols )
-           guideHeight += KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;
+           guideHeight += renderer.fontHeight();
        }
 
        // now that we know the vertical amount of space needed,
@@ -2417,7 +2417,7 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
            _ph -= ( headerHeight + innerMargin );
          if ( useFooter )
            _ph -= innerMargin;
-         int _lpp = _ph/KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;
+         int _lpp = _ph / renderer.fontHeight();
 //          kdDebug(13020)<<"... Printer Pixel Hunt: "<<
 //                 "\n- printer heignt:    "<<pdm.height()<<
 //                 "\n- max height:        "<<maxHeight<<
@@ -2430,7 +2430,7 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
          uint _lt = 0, _c=0;
          // add space for guide if required
          if ( useGuide )
-           _lt += (guideHeight + (KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight/2))/KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;
+           _lt += (guideHeight + (renderer.fontHeight() /2)) / renderer.fontHeight();
          long _lw;
          for ( uint i = firstline; i < lastline; i++ )
          {
@@ -2464,20 +2464,20 @@ kdDebug()<<"### Printing using font: "<<KateRenderer::getFontStruct(KateRenderer
      /*
         On to draw something :-)
      */
-uint _count = 0;
+     uint _count = 0;
      while (  lineCount <= lastline  )
      {
        startCol = 0;
        endCol = 0;
        needWrap = true;
 
-//       kdDebug(13020)<<"Starting real new line "<<lineCount<<endl;
+       kdDebug(13020)<<"Starting real new line "<<lineCount<<endl;
 
        while (needWrap)
        {
-         if ( y+KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight >= (uint)(maxHeight) )
+         if ( y + renderer.fontHeight() >= (uint)(maxHeight) )
          {
-kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
+           kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            printer.newPage();
            currentPage++;
            pageStarted = true;
@@ -2616,16 +2616,16 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              {
 //      kdDebug()<<"style: "<<_d->name<<", color:"<<attribute(_i)->col.name()<<endl;
                paint.setPen( attribute(_i)->textColor() );
-               paint.setFont( attribute(_i)->font( KateRenderer::getFont(KateRenderer::PrintFont) ) );
+               paint.setFont( attribute(_i)->font( renderer.currentFont() ) );
 //      kdDebug()<<"x: "<<( _x + ((_i%guideCols)*_cw))<<", y: "<<y<<", w: "<<_cw<<endl;
-               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight,
+               paint.drawText(( _x + ((_i%guideCols)*_cw)), y, _cw, renderer.fontHeight(),
                         Qt::AlignVCenter|Qt::AlignLeft, _d->name, -1, &_r );
 //      kdDebug()<<"painted in rect: "<<_r.x()<<", "<<_r.y()<<", "<<_r.width()<<", "<<_r.height()<<endl;
                _i++;
-               if ( _i && ! ( _i%guideCols ) ) y += KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;
+               if ( _i && ! ( _i%guideCols ) ) y += renderer.fontHeight();
                ++_it;
              }
-             if ( _i%guideCols ) y += KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;// last row not full
+             if ( _i%guideCols ) y += renderer.fontHeight();// last row not full
              y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
 //        kdDebug(13020)<<"DONE HL GUIDE! Starting to print from line "<<lineCount<<endl;
 //        kdDebug(13020)<<"max width for lines: "<<maxWidth<<endl;
@@ -2639,11 +2639,11 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            paint.setFont( KateRenderer::getFontStruct(KateRenderer::PrintFont).font( false, false ) );
            paint.setPen( colors[1] ); // using "selected" color for now...
            paint.drawText( (( useBox || useBackground ) ? innerMargin : 0), y,
-                        lineNumberWidth, KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight,
+                        lineNumberWidth, renderer.fontHeight(),
                         Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
          }
 //        kdDebug(13020)<<"Calling textWidth( startCol="<<startCol<<", maxWidth="<<maxWidth<<", needWrap="<<needWrap<<")"<<endl;
-         endCol = renderer.textWidth (buffer->line(lineCount), startCol, maxWidth, &needWrap);
+         endCol = renderer.textWidth(buffer->line(lineCount), startCol, maxWidth, &needWrap);
 //         kdDebug(13020)<<"REAL WIDTH: " << pdmWidth << " WIDTH: " << maxWidth <<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" line length: "<< buffer->line(lineCount)->length()<< "; need Wrap: " << needWrap <<" !?"<<endl;
 
          if ( endCol < startCol )
@@ -2656,6 +2656,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
                      // FIXME Most likely this is an error in textWidth(),
                      // failing to correctly set needWrap to false in this case?
          }
+
          // if we print only selection:
          // print only selected range of chars.
          bool skip = false;
@@ -2676,8 +2677,9 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
              }
            }
          }
+
          // HA! this is where we print [part of] a line ;]]
-         // FIXME HACK
+         // FIXME Convert this function + related functionality to a separate KatePrintView
          LineRange range;
          range.line = lineCount;
          range.startCol = startCol;
@@ -2697,8 +2699,8 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
            startCol = endCol;
          }
 
-         y += KateRenderer::getFontStruct(KateRenderer::PrintFont).fontHeight;
-_count++;
+         y += renderer.fontHeight();
+         _count++;
        } // done while ( needWrap )
 
        lineCount++;

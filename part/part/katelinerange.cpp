@@ -50,7 +50,12 @@ void LineRange::clear()
   startsInvisibleBlock = false;
 }
 
-int LineRange::getXOffset() const
+bool LineRange::includesCursor(const KateTextCursor& realCursor) const
+{
+  return realCursor.line() == line && (!wrap || realCursor.col() >= startCol && realCursor.col() <= endCol);
+}
+
+int LineRange::xOffset() const
 {
   return startX ? shiftX : 0;
 }
@@ -58,4 +63,24 @@ int LineRange::getXOffset() const
 void LineRange::debugOutput() const
 {
   kdDebug() << "LineRange: line " << line << " cols [" << startCol << " -> " << endCol << "] x [" << startX << " -> " << endX << " off " << shiftX << "] wrap " << wrap << endl;
+}
+
+bool operator> (const LineRange& r, const KateTextCursor& c)
+{
+  return r.line > c.line() || r.endCol > c.col();
+}
+
+bool operator>= (const LineRange& r, const KateTextCursor& c)
+{
+  return r.line > c.line() || r.endCol >= c.col();
+}
+
+bool operator< (const LineRange& r, const KateTextCursor& c)
+{
+  return r.line < c.line() || r.startCol < c.col();
+}
+
+bool operator<= (const LineRange& r, const KateTextCursor& c)
+{
+  return r.line < c.line() || r.startCol <= c.col();
 }

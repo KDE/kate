@@ -2805,7 +2805,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   len = textLine->length();
 
   x = oldX = z = 0;
-  while (x < xPos && (!wrapCursor || z < len)) {
+  while (x < xPos && !wrapCursor && (z < len)) {
     oldX = x;
 
     Attribute *a = attribute(textLine->attribute(z));

@@ -2702,20 +2702,24 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
     return;
   }
 
-  if ( m_imPreeditLength > 0 ) {
+  if ( e->text().length() > 0 ) {
     m_doc->removeText( cursor.line(), m_imPreeditStart,
                        cursor.line(), m_imPreeditStart + m_imPreeditLength );
   }
 
   m_doc->setIMSelectionValue( m_imPreeditStartLine, m_imPreeditStart, 0, 0, 0, false );
 
-  if ( m_imPreeditStart >= 0 ) {
+  if ( e->text().length() > 0 ) {
     m_doc->insertText( cursor.line(), cursor.col(), e->text() );
+
+    if ( !m_cursorTimer.isActive() )
+      m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
+
     updateView( true );
     updateCursor( cursor, true );
   }
 
-  m_imPreeditStart = -1;
+  m_imPreeditStart = 0;
   m_imPreeditLength = 0;
 }
 

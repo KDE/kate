@@ -2921,10 +2921,11 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
 
   if ((editOldCursor != cursor) && (m_imPreeditLength <= 0))
   {
+//     kdDebug()<<"=== calling updateCursor(true)"<<endl;
     m_madeVisible = false;
     updateCursor ( cursor, true );
   }
-  else
+  else if ( m_view->isActive() )
   {
     makeVisible(displayCursor, displayCursor.col());
   }

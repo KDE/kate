@@ -209,6 +209,11 @@ void KateView::setupActions()
                                  ac, "tools_uncomment");
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<BR><BR>"
 		"The characters for single/multiple line comments are defined within the language's highlighting."));
+    a = m_toggleWriteLock = new KToggleAction( 
+                i18n("Write &Lock"), 0, 0, 
+                this, SLOT( toggleWriteLock() ), 
+                ac, "tools_toggle_write_lock" );
+    a->setWhatsThis( i18n("Lock/unlock the document for writing") );
   }
 
 
@@ -572,6 +577,10 @@ void KateView::slotUpdate()
 {
   emit newStatus();
   slotNewUndo();
+  if ( m_toggleWriteLock->isChecked() == m_doc->isReadWrite() )
+  {
+    m_toggleWriteLock->setChecked( ! m_doc->isReadWrite() );
+  }
 }
 
 void KateView::slotNewUndo()
@@ -901,4 +910,9 @@ void KateView::updateViewDefaults ()
   m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
   
   m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
+}
+
+void KateView::toggleWriteLock()
+{
+  m_doc->setReadWrite( ! m_doc->isReadWrite() );
 }

@@ -262,6 +262,7 @@ class KateView : public Kate::View,
     void toggleInsert();
     void reloadFile();
     void toggleWWMarker();
+    void toggleWriteLock();
 
   signals:
     void dropEventPass(QDropEvent*);
@@ -306,6 +307,7 @@ class KateView : public Kate::View,
     KSelectAction*         m_setEndOfLine;
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;
+    KToggleAction*         m_toggleWriteLock;
 
     KateDocument*          m_doc;
     KateViewInternal*      m_viewInternal;

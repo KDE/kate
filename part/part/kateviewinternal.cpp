@@ -89,7 +89,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   xScroll = new QScrollBar(QScrollBar::Horizontal,myView);
   yScroll = new QScrollBar(QScrollBar::Vertical,myView);
-  xScroll->hide(); //TEMPORARY
 
   connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
   connect(yScroll,SIGNAL(valueChanged(int)),SLOT(changeYPos(int)));
@@ -762,6 +761,7 @@ void KateViewInternal::updateView(int flags)
 	bool needLineRangesUpdate=false;
 	uint lineRangesUpdateHeight=0;
 	bool reUpdate;
+  int scrollbarWidth = style().scrollBarExtent().width();
 
 	if (!exposeCursor)
 	{
@@ -770,18 +770,15 @@ void KateViewInternal::updateView(int flags)
 			reUpdate=false;
 			int w = myView->width();
 			int h = myView->height();
-			int scrollbarWidth = style().scrollBarExtent().width();
 
 			if (!flags) { //exposeCursor|| (flags & KateViewInternal::ufDocGeometry)) {
 				int bw = leftBorder->width();
 				w -= bw;
 				if (yScrollVis) w -= scrollbarWidth;
-				if (xScrollVis) h -= scrollbarWidth;
 
 		  		if (w != width() || h != height()) {
 					needLineRangesUpdate=true;
 					lineRangesUpdateHeight=h;
-//			    		updateLineRanges(h);
 			   	 	resize(w,h);
 				}
 
@@ -819,19 +816,15 @@ void KateViewInternal::updateView(int flags)
 				yScrollVis=false;
 			}
 
-			
-//BEGIN TEST
-			xScroll->blockSignals(true);
-			xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width(),scrollbarWidth);
-			xScroll->setRange(0,60000);
-			xScroll->blockSignals(false);
-			xScroll->show();
+
 			xScrollVis=true;
-//END TEST
-
-
 		} while (reUpdate);
 	}
+  
+  int w = myView->width();
+	int h = myView->height();
+	
+  if (yScrollVis) w -= scrollbarWidth;
 
   int oldU = updateState;
 
@@ -884,12 +877,44 @@ void KateViewInternal::updateView(int flags)
 	  if (needLineRangesUpdate && !(flags && KateViewInternal::ufDocGeometry)) updateLineRanges();
   }
 
+  //
+  // update xScrollbar
+  //
+  maxLen = 0;
+  uint len = 0;
+  for (uint z = 0; z < lineRanges.size(); z++)
+  {
+      len = myDoc->textWidth (myDoc->kateTextLine (lineRanges[z].line), -1);
+
+      if (len > maxLen)
+        maxLen = len;
+  }
+
+  maxLen = maxLen + 8;
+
+  if (maxLen > w)
+  {
+    xScroll->blockSignals(true);
+    xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width(),scrollbarWidth);
+    xScroll->setRange(0,maxLen);
+    xScroll->blockSignals(false);
+    xScroll->show();
+  }
+  else
+    xScroll->hide();
+
   if (oldU > 0)
    {
      paintTextLines(xPos, oldYPos);
    //  kdDebug()<<"repaint lines"<<endl;
    }
 
+  if ((flags & KateViewInternal::ufRepaint) || (flags & KateViewInternal::ufFoldingChanged))
+  {
+    repaint();
+    leftBorder->repaint();
+  }
+  
   //
   // updateView done, reset the update flag + repaint flags
   //
@@ -900,30 +925,6 @@ void KateViewInternal::updateView(int flags)
   {
     lineRanges[z].dirty = false;
   }
-
-  if ((flags & KateViewInternal::ufRepaint) || (flags & KateViewInternal::ufFoldingChanged))
-  {
-    repaint();
-    leftBorder->repaint();
-  }
-
-//   updateLineRanges(height());
-//   repaint();
-
-//	update();
-#if 0
-	int fontHeight = myDoc->viewFont.fontHeight;
-	int viewLinesMappingSize=height()/fontHeight+1;
-        int line = (yPos ) / fontHeight;
-
-	for (int i=line;i<viewLinesMappingSize+line;i++)
-	{
-		int *tmp=new int;
-		*tmp=myDoc->getRealLine(i);
-		m_lineMapping.replace(i-startLine,tmp);
-	}
-	leftBorder->repaint();
-#endif
 
 #if 0
   int fontHeight;
@@ -939,23 +940,6 @@ void KateViewInternal::updateView(int flags)
   int scrollbarWidth = style().scrollBarExtent().width();
   int bw = 0; // width of borders
 
-  if (flags & KateViewInternal::ufDocGeometry || ! maxLen )
-  {
-    maxLen = 0;
-
-    if (!myView->_hasWrap)
-    {
-      for (int tline = startLine; (tline <= endLine) && (tline <= myDoc->lastLine ()); tline++)
-      {
-        uint len = myDoc->textWidth (myDoc->kateTextLine (tline), myDoc->kateTextLine (tline)->length());
-
-        if (len > maxLen)
-          maxLen = len;
-      }
-
-      maxLen = maxLen + 8;
-    }
-  }
 //kdDebug()<<"widest line to draw is "<<maxLen<<" px"<<endl;
   if (exposeCursor || flags & KateViewInternal::ufDocGeometry) {
     emit myView->cursorPositionChanged();

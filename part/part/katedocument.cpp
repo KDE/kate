@@ -2531,6 +2531,12 @@ bool KateDocument::isLastView(int numViews) {
 
 uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf)
 {
+  if (!textLine)
+    return 0;
+
+  if (cursorX < 0)
+    cursorX = textLine->length();
+
   int x;
   int z;
   QChar ch;

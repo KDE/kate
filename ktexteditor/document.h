@@ -53,6 +53,8 @@ class Document : public KTextEditor::Editor
     static unsigned int globalDocumentNumber;
     unsigned int myDocumentNumber;
 };
+                    
+Document *createDocument ( const char* libname, QObject *parent = 0, const char *name = 0 );
 
 };
 

@@ -53,7 +53,9 @@ class Editor : public KParts::ReadWritePart
     class PrivateEditor *d;
     static unsigned int globalEditorNumber;
     unsigned int myEditorNumber;
-};
+};     
+
+Editor *createEditor ( const char* libname, QWidget *parentWidget = 0, const char *widgetName = 0, QObject *parent = 0, const char *name = 0 );
 
 };
 

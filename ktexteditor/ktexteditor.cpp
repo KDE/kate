@@ -25,6 +25,7 @@
 #include "editor.h"
 
 #include <kaction.h>
+#include <kparts/factory.h>
 
 #include "document.moc"
 #include "view.moc"
@@ -175,4 +176,44 @@ Editor::~Editor()
 unsigned int Editor::editorNumber () const
 {
   return myEditorNumber;
+}                         
+
+Editor *KTextEditor::createEditor ( const char* libname, QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name )
+{
+  if ( KParts::Factory *factory = static_cast<KParts::Factory *>(KLibLoader::self()->factory( libname )->qt_cast ("KParts::Factory")) )
+  {
+    return static_cast<Editor *>(factory->createPart( parentWidget, widgetName, parent, name, "KTextEditor::Editor" )->qt_cast ("KTextEditor::Editor"));
+  }
+               
+  return 0;
+}
+
+Document *KTextEditor::createDocument ( const char* libname, QObject *parent, const char *name )
+{
+  if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
+  {
+    return static_cast<Document *>(factory->create( parent, name, "KTextEditor::Document" )->qt_cast ("KTextEditor::Document"));
+  }
+               
+  return 0;
+}     
+
+Plugin *KTextEditor::createPlugin ( const char* libname, QObject *parent, const char *name )
+{
+  if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
+  {
+    return static_cast<Plugin *>(factory->create( parent, name, "KTextEditor::Plugin" )->qt_cast ("KTextEditor::Plugin"));
+  }
+               
+  return 0;
+}
+
+ViewPlugin *KTextEditor::createViewPlugin ( const char* libname, QObject *parent, const char *name )
+{
+  if ( KLibFactory *factory = KLibLoader::self()->factory( libname ) )
+  {
+    return static_cast<ViewPlugin *>(factory->create( parent, name, "KTextEditor::ViewPlugin" )->qt_cast ("KTextEditor::ViewPlugin"));
+  }
+               
+  return 0;
 }

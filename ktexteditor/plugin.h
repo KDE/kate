@@ -87,7 +87,10 @@ class ViewPlugin : public QObject, virtual public KXMLGUIClient
     class PrivateViewPlugin *d;
     static unsigned int globalViewPluginNumber;
     unsigned int myViewPluginNumber;
-};
+};         
+
+Plugin *createPlugin ( const char* libname, QObject *parent = 0, const char *name = 0 );
+ViewPlugin *createViewPlugin ( const char* libname, QObject *parent = 0, const char *name = 0 );
 
 };
 

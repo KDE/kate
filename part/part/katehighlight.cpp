@@ -1026,12 +1026,12 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
     found = false;
 
-    bool standardStartEnableDetermined = false;
-    bool standardStartEnable = false;
-    bool thisStartEnabled = false;
-
     for (item = context->items.first(); item != 0L; item = context->items.next())
     {
+      bool standardStartEnableDetermined = false;
+      bool standardStartEnable = false;
+      bool thisStartEnabled = false;
+
       if (item->alwaysStartEnable())
       {
         thisStartEnabled = true;

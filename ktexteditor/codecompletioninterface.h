@@ -35,21 +35,16 @@ static int CodeCompletionInterfaceNumber;
     QString postfix;
     QString comment;
 
-#ifdef __GNUC__
-#warning "remove ifdef on friday"
-#endif
-#if 0
-    QString viewPrefix;  // if == QString::null, prefix should be shown
-    QString viewPostfix; // if == QString::null, postfix should be shown
     QString userdata;    // data, which the user of this interface can use in filterInsertString. free formed
-#endif
+
 
     bool operator==( const CompletionEntry &c ) const {
       return ( c.type == type &&
 	       c.text == text &&
 	       c.postfix == postfix &&
 	       c.prefix == prefix &&
-	       c.comment == comment);
+	       c.comment == comment &&
+               c.userdata == userdata);
     }
   };
 
@@ -76,7 +71,7 @@ class CodeCompletionInterface
     /**
      * This shows a completion list box
      */
-    virtual void showCompletionBox (QValueList<CompletionEntry> complList,int offset=0)=0;
+    virtual void showCompletionBox (QValueList<CompletionEntry> complList,int offset=0, bool casesensitive=true)=0;
 
 	//
 	// signals !!!
@@ -84,19 +79,10 @@ class CodeCompletionInterface
 	public:
     virtual void completionAborted()=0;
     virtual void completionDone()=0;
-#ifdef __GNUC__
-#warning "rename on next friday Hided -> Hidden"
-#endif
-    virtual void argHintHided()=0;
+    virtual void argHintHidden()=0;
 
-#ifdef __GNUC__
-#warning "Remove ifdef on next friday"
-#endif
-
-#if 0
     virtual void completionDone(CompletionEntry*)=0;
     virtual void filterInsertString(CompletionEntry*,QString *)=0;
-#endif
 
 private:
 		PrivateCodeCompletionInterface *d;

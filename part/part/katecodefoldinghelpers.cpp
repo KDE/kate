@@ -320,9 +320,9 @@ void KateCodeFoldingTree::dumpNode(KateCodeFoldingNode *node, const QString &pre
   //output child node properties recursive
   if (node->hasChildNodes())
   {
-    prefix=prefix+"   ";
+    QString newprefix(prefix + "   ");
     for ( KateCodeFoldingNode *subNode = node->childnodes()->first(); subNode; subNode=node->childnodes()->next() )
-      dumpNode (subNode,prefix);
+      dumpNode (subNode,newprefix);
   }
 }
 

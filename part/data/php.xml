@@ -31,6 +31,7 @@
       <item> static </item>
       <item> function </item>
       <item> default </item>
+      <item> extends </item>
       <item> E_ALL </item>
       <item> E_ERROR </item>
       <item> E_NOTICE </item>

@@ -107,9 +107,14 @@ class KateBuffer : public QObject
     * Return line @p i
     */
    TextLine::Ptr line(uint i);
+   
+   /**
+    * Return line @p i without triggering highlighting
+    */
+   TextLine::Ptr plainLine(uint i);
 
    /**
-    * Return line @p i without highlighting info.
+    * Return text from line @p i without triggering highlighting
     */
    QString textLine(uint i);
 

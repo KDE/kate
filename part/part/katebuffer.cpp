@@ -715,7 +715,25 @@ KateBuffer::invalidateHighlighting()
 }
 
 /**
- * Return line @p i as plain QString
+ * Return line @p i without triggering highlighting
+ */
+TextLine::Ptr
+KateBuffer::plainLine(uint i)
+{
+   KateBufBlock *buf = findBlock(i);     
+   if (!buf)
+      return 0;   
+
+   if (!buf->b_stringListValid)     
+   {     
+      parseBlock(buf);     
+   }
+    
+   return buf->line(i - buf->m_beginState.lineNr);
+}
+
+/**
+ * Return text from line @p i without triggering highlighting
  */
 QString
 KateBuffer::textLine(uint i)

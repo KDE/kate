@@ -1376,7 +1376,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line <= searchEnd)
     {
-      textLine = buffer->line(line);
+      textLine = buffer->plainLine(line);
 
       found = false;
       found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, false);
@@ -1400,7 +1400,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line >= searchEnd)
     {
-      textLine = buffer->line(line);
+      textLine = buffer->plainLine(line);
 
       found = false;
       found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
@@ -1443,7 +1443,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line <= searchEnd)
     {
-      textLine = buffer->line(line);
+      textLine = buffer->plainLine(line);
 
       found = false;
       found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, false);
@@ -1467,7 +1467,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
     while (line >= searchEnd)
     {
-      textLine = buffer->line(line);
+      textLine = buffer->plainLine(line);
 
       found = false;
       found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);

@@ -202,6 +202,8 @@ class KateDocument : public Kate::Document
     //
     void editStart (bool withUndo = true);
     void editEnd ();
+    
+    bool wrapText (uint startLine, uint endLine, uint col);
 
   private:
     void editAddUndo (KateUndo *undo);

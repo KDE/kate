@@ -685,6 +685,48 @@ void KateDocument::editEnd ()
   editIsRunning = false;
 }
 
+bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
+{
+  editStart ();
+
+  newDocGeometry = true;
+
+  uint line = startLine;
+  int z = 0;
+
+  bool modified = false;
+  while(line <= endLine)
+  {
+    TextLine::Ptr l = getTextLine(line);
+
+    if (l->length() > col)
+    {
+      const QChar *text = l->getText();
+
+      for (z=col; z>0; z--)
+      {
+        if (z < 1) break;
+        if (text[z].isSpace()) break;
+      }
+
+      if (!(z < 1))
+      {
+        editWrapLine (line, z);
+        endLine++;
+        modified  = true;
+      }
+    }
+
+    line++;
+
+    if (line >= numLines()) break;
+  };
+
+  editEnd ();
+
+  return true;
+}
+
 void KateDocument::editAddUndo (KateUndo *undo)
 {
   if (!undo)
@@ -735,6 +777,8 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
   editStart ();
 
   editAddUndo (new KateUndo (this, KateUndo::editInsertText, line, col, s.length(), s));
+
+  newDocGeometry = true;
 
   l->replace(col, 0, s.unicode(), s.length());
 
@@ -4057,43 +4101,7 @@ Attribute *KateDocument::attribute (uint pos)
 
 void KateDocument::wrapText (uint col)
 {
-  uint line = 0;
-  int z = 0;
-
-  bool modified = false;
-  while(true)
-  {
-    TextLine::Ptr l = getTextLine(line);
-
-    if (l->length() > col)
-    {
-      TextLine::Ptr tl = new TextLine();
-      buffer->insertLine(line+1,tl);
-      const QChar *text = l->getText();
-
-      for (z=col; z>0; z--)
-      {
-        if (z < 1) break;
-        if (text[z].isSpace()) break;
-      }
-
-      if (!(z < 1))
-      {
-        l->wrap (tl, z);
-        modified  = true;
-      }
-    }
-
-    line++;
-    if (line >= numLines()) break;
-  };
-
-  newDocGeometry=true;
-  updateLines();
-  updateViews();
-  // anders: this may have modified the document
-  if ( modified )
-    setModified( true );
+  wrapText (0, lastLine(), col);
 }
 
 void KateDocument::setPseudoModal(QWidget *w) {

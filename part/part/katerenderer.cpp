@@ -468,16 +468,16 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             ( isIMSel != ( imSelStart < imSelEnd && ( (curCol+1) >= imSelStart && (curCol+1) < imSelEnd ) ) )
           )
         {
-          // TODO: genericise background painting
-          if (!isPrinterFriendly() && !selectionPainted) {
-            if (isSel)
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, config()->selectionColor());
-            else if (currentHL.itemSet(KateAttribute::BGColor))
-              paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
-          }
-
-          // XIM support
           if (!isPrinterFriendly()) {
+            // TODO: genericise background painting
+            if (!selectionPainted) {
+              if (isSel)
+                paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, config()->selectionColor());
+              else if (currentHL.itemSet(KateAttribute::BGColor))
+                paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
+            }
+
+            // XIM support
             // input method edit area
             if ( isIMEdit ) {
               const QColorGroup& cg = m_view->colorGroup();

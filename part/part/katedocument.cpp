@@ -2622,14 +2622,13 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   insertText (line, col, buf);
   col += pos;
 
+  // editEnd will set the cursor from this cache right ;))
+  view->cursorCache.line = line;
+  view->cursorCache.col = col;
+  view->cursorCacheChanged = true;
+
   if (b)
     editEnd ();
-
-  KateTextCursor c;
-  c.line = line;
-  c.col = col;
-
-  view->myViewInternal->updateCursor(c);
 
 /*
   // FIXME anders: Make this work...
@@ -3374,7 +3373,7 @@ void KateDocument::updateViews()
 {
   if (noViewUpdates)
     return;
-    
+
   KateView *view;
   int flags;
 

@@ -55,6 +55,11 @@ unsigned int PopupMenuInterface::popupMenuInterfaceNumber () const
   return myPopupMenuInterfaceNumber;
 }
 
+void PopupMenuInterface::setPopupMenuInterfaceDCOPSuffix (const QCString &suffix)
+{
+  //d->interface->setObjId ("PopupMenuInterface#"+suffix);
+}
+
 PopupMenuInterface *KTextEditor::popupMenuInterface (View *view)
 {        
   if (!view)

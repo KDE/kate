@@ -19,6 +19,8 @@
 #ifndef __ktexteditor_popupmenuinterface_h__
 #define __ktexteditor_popupmenuinterface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -34,6 +36,9 @@ class PopupMenuInterface
     virtual ~PopupMenuInterface ();
 
     unsigned int popupMenuInterfaceNumber () const;
+    
+  protected:  
+    void setPopupMenuInterfaceDCOPSuffix (const QCString &suffix);  
 
   //
   // normal methodes

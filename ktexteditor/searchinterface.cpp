@@ -41,6 +41,11 @@ unsigned int SearchInterface::searchInterfaceNumber () const
   return mySearchInterfaceNumber;
 }
 
+void SearchInterface::setSearchInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("SearchInterface#"+suffix);
+}
+
 SearchInterface *KTextEditor::searchInterface (Document *doc)
 {  
   if (!doc)

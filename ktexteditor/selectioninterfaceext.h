@@ -22,7 +22,7 @@
 #ifndef __ktexteditor_selectioninterface_ext_h__
 #define __ktexteditor_selectioninterface_ext_h__
 
-#include <qstring.h>
+class QCString;
 
 namespace KTextEditor
 {
@@ -43,6 +43,10 @@ class SelectionInterfaceExt
         
     unsigned int selectionInterfaceExtNumber () const;
     
+  protected:  
+    void setSelectionInterfaceExtDCOPSuffix (const QCString &suffix);  
+    
+  public:
     /** The selection start line number */
     virtual int selStartLine()=0;
     /** The selection start col */
@@ -58,7 +62,11 @@ class SelectionInterfaceExt
     unsigned int mySelectionInterfaceExtNumber;
 };
 
-SelectionInterfaceExt *selectionInterfaceExt (class Document *doc);
+class Document;
+class View;
+
+SelectionInterfaceExt *selectionInterfaceExt (Document *doc);
+SelectionInterfaceExt *selectionInterfaceExt (View *view);
 
 };  // namespace KTextEditor
 #endif

@@ -25,6 +25,8 @@
 #include <qstring.h>
 #include "markinterface.h"
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -43,7 +45,11 @@ class MarkInterfaceExtension
     virtual ~MarkInterfaceExtension ();
 
     unsigned int markInterfaceExtensionNumber () const;
-
+  
+  protected:  
+    void setMarkInterfaceExtensionDCOPSuffix (const QCString &suffix);    
+    
+  public:
     virtual void setPixmap(MarkInterface::MarkTypes, const QPixmap &)=0;
     virtual void setDescription(MarkInterface::MarkTypes, const QString &)=0;
     virtual void setMarksUserChangable(uint markMask)=0;

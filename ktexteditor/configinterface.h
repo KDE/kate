@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /*
-*  This is an interface for the KTextEditor::Document/Plugin/ViewPlugin classes !!!
+*  This is an interface for the KTextEditor::Document/Plugin classes !!!
 */
 class ConfigInterface
 {
@@ -81,7 +81,6 @@ class ConfigInterface
 
 class Plugin;
 class Document;
-class ViewPlugin;
 
 ConfigInterface *configInterface (Document *doc);
 ConfigInterface *configInterface (Plugin *plugin);

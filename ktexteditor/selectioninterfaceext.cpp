@@ -22,6 +22,7 @@
 #include "selectioninterfaceext.h"
 #include "selectionextdcopinterface.h"
 #include "document.h"
+#include "view.h"
 #include <dcopclient.h>
 
 using namespace KTextEditor;
@@ -57,6 +58,11 @@ unsigned int SelectionInterfaceExt::selectionInterfaceExtNumber () const
   return mySelectionInterfaceExtNumber;
 }
 
+void SelectionInterfaceExt::setSelectionInterfaceExtDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("SelectionInterfaceExt#"+suffix);
+}
+
 SelectionInterfaceExt *KTextEditor::selectionInterfaceExt (Document *doc)
 {
   if (!doc)
@@ -64,6 +70,15 @@ SelectionInterfaceExt *KTextEditor::selectionInterfaceExt (Document *doc)
 
   return static_cast<SelectionInterfaceExt*>(doc->qt_cast("KTextEditor::SelectionInterfaceExt"));
 }
+
+SelectionInterfaceExt *KTextEditor::selectionInterfaceExt (View *view)
+{
+  if (!view)
+    return 0;
+
+  return static_cast<SelectionInterfaceExt*>(view->qt_cast("KTextEditor::SelectionInterfaceExt"));
+}
+
 //END KTextEditor::SelectionInterfaceExt
 
 //BEGIN KTextEditor::SelectionExtDCOPInterface

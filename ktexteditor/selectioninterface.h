@@ -38,6 +38,9 @@ class SelectionInterface
         
     unsigned int selectionInterfaceNumber () const;
     
+  protected:  
+    void setSelectionInterfaceDCOPSuffix (const QCString &suffix);  
+    
   /*
   *  slots !!!
   */
@@ -84,7 +87,11 @@ class SelectionInterface
     unsigned int mySelectionInterfaceNumber;
 };
 
-SelectionInterface *selectionInterface (class Document *doc);
+class Document;
+class View;
+
+SelectionInterface *selectionInterface (Document *doc);
+SelectionInterface *selectionInterface (View *view);
 
 };
 

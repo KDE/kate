@@ -20,6 +20,8 @@
 #ifndef __ktexteditor_printinterface_h__
 #define __ktexteditor_printinterface_h__
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -35,6 +37,9 @@ class PrintInterface
     virtual ~PrintInterface ();
 
     unsigned int printInterfaceNumber () const;
+    
+  protected:  
+    void setPrintInterfaceDCOPSuffix (const QCString &suffix);  
     
   //
   // slots !!!

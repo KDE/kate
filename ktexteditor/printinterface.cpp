@@ -60,6 +60,11 @@ unsigned int PrintInterface::printInterfaceNumber () const
   return myPrintInterfaceNumber;
 }
 
+void PrintInterface::setPrintInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("PrintInterface#"+suffix);
+}
+
 PrintInterface *KTextEditor::printInterface (Document *doc)
 {           
   if (!doc)

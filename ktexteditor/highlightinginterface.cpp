@@ -55,6 +55,11 @@ unsigned int HighlightingInterface::highlightingInterfaceNumber () const
   return myHighlightingInterfaceNumber;
 }
 
+void HighlightingInterface::setHighlightingInterfaceDCOPSuffix (const QCString &suffix)
+{
+  //d->interface->setObjId ("HighlightingInterface#"+suffix);
+}
+
 HighlightingInterface *KTextEditor::highlightingInterface (Document *doc)
 {       
   if (!doc)

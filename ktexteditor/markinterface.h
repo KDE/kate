@@ -22,6 +22,8 @@
 
 #include <qptrlist.h>
 
+class QCString;
+
 namespace KTextEditor
 {
 
@@ -44,6 +46,9 @@ class MarkInterface
     virtual ~MarkInterface ();
 
     unsigned int markInterfaceNumber () const;
+    
+  protected:  
+    void setMarkInterfaceDCOPSuffix (const QCString &suffix);  
 
   //
   // slots !!!

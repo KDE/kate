@@ -55,6 +55,11 @@ unsigned int MarkInterfaceExtension::markInterfaceExtensionNumber () const
   return myMarkInterfaceExtensionNumber;
 }
 
+void MarkInterfaceExtension::setMarkInterfaceExtensionDCOPSuffix (const QCString &suffix)
+{
+  //d->interface->setObjId ("MarkInterfaceExtension#"+suffix);
+}
+
 MarkInterfaceExtension *KTextEditor::markInterfaceExtension (Document *doc)
 {                   
   if (!doc)

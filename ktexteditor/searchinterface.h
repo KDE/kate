@@ -22,6 +22,7 @@
 
 class QRegExp;
 class QString;
+class QCString;
 
 namespace KTextEditor
 {
@@ -39,6 +40,9 @@ class SearchInterface
 
     unsigned int searchInterfaceNumber () const;
 
+  protected:  
+    void setSearchInterfaceDCOPSuffix (const QCString &suffix);  
+    
   //
   // slots !!!
   //

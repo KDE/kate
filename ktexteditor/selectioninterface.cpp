@@ -1,6 +1,7 @@
 #include "selectioninterface.h"
 #include "selectiondcopinterface.h"
 #include "document.h"
+#include "view.h"
 
 using namespace KTextEditor;
 
@@ -41,10 +42,23 @@ unsigned int SelectionInterface::selectionInterfaceNumber () const
   return mySelectionInterfaceNumber;
 }
 
+void SelectionInterface::setSelectionInterfaceDCOPSuffix (const QCString &suffix)
+{
+  d->interface->setObjId ("SelectionInterface#"+suffix);
+}
+
 SelectionInterface *KTextEditor::selectionInterface (Document *doc)
 {
   if (!doc)
     return 0;
 
   return static_cast<SelectionInterface*>(doc->qt_cast("KTextEditor::SelectionInterface"));
+}
+
+SelectionInterface *KTextEditor::selectionInterface (View *view)
+{
+  if (!view)
+    return 0;
+
+  return static_cast<SelectionInterface*>(view->qt_cast("KTextEditor::SelectionInterface"));
 }

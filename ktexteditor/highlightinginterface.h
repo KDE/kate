@@ -21,6 +21,7 @@
 #define __ktexteditor_highlightinginterface_h__
 
 class QString;
+class QCString;
 
 namespace KTextEditor
 {
@@ -37,6 +38,9 @@ class HighlightingInterface
     virtual ~HighlightingInterface ();
 
     unsigned int highlightingInterfaceNumber () const;
+    
+  protected:  
+    void setHighlightingInterfaceDCOPSuffix (const QCString &suffix);  
 
   //
 	// slots !!!

@@ -106,9 +106,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     // Which files to backup on save
     enum BackupOnSave { LocalFiles=1, RemoteFiles=2 };
-    static uint backupConfig()				 { return myBackupConfig; }
-    static void setBackupConfig( uint c )		 { myBackupConfig = c; }
-    static QString backupSuffix()			 { return myBackupSuffix; }
+    static uint backupConfig()         { return myBackupConfig; }
+    static void setBackupConfig( uint c )     { myBackupConfig = c; }
+    static QString backupSuffix()       { return myBackupSuffix; }
     static void setBackupSuffix( const QString &suffix ) { myBackupSuffix = suffix; }
 
   private:
@@ -227,9 +227,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   //
   public slots:
     bool setSelection ( const KateTextCursor & start,
-			const KateTextCursor & end );
+      const KateTextCursor & end );
     bool setSelection ( uint startLine, uint startCol,
-			uint endLine, uint endCol );
+      uint endLine, uint endCol );
     bool clearSelection ();
     bool clearSelection (bool redraw);
 
@@ -487,7 +487,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
    //export feature
    public slots:
-   	void exportAs(const QString&);
+     void exportAs(const QString&);
 
    private: //the following things should become plugins
    bool exportDocumentToHTML(QTextStream *outputStream,const QString &name);
@@ -598,15 +598,15 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     void setDocName (QString docName);
 
-		inline void lineInfo (KateLineInfo *info, unsigned int line)
-	 {
-	   buffer->lineInfo(info,line);
-	 }
+    inline void lineInfo (KateLineInfo *info, unsigned int line)
+   {
+     buffer->lineInfo(info,line);
+   }
 
-	 inline KateCodeFoldingTree *foldingTree ()
-	 {
-	   return buffer->foldingTree();
-	 }
+   inline KateCodeFoldingTree *foldingTree ()
+   {
+     return buffer->foldingTree();
+   }
 
   public slots:
     /**
@@ -674,9 +674,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
         unsigned int visibleLines ();
 
   signals:
-	void codeFoldingUpdated();
+  void codeFoldingUpdated();
   public slots:
-	void dumpRegionTree();
+  void dumpRegionTree();
 
   //
   // Some flags for internal ONLY use !
@@ -754,17 +754,16 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static bool s_configLoaded;
 
   public slots:
-	void spellcheck();
-	void ready();
-	void misspelling( const QString&, const QStringList&, unsigned int );
-	void corrected  ( const QString&, const QString&, unsigned int);
-	void spellResult( const QString& );
-	void spellCleanDone();
+  void spellcheck();
+  void ready();
+  void misspelling( const QString&, const QStringList&, unsigned int );
+  void corrected  ( const QString&, const QString&, unsigned int);
+  void spellResult( const QString& );
+  void spellCleanDone();
 
 private:
-	void locatePosition( uint pos, uint& line, uint& col );
+  void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
-    KSpellConfig*   m_kspellConfig;
     int             m_mispellCount;
     int             m_replaceCount;
 

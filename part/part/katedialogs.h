@@ -53,9 +53,6 @@
 #include <qtabwidget.h>
 #include <kcolorbutton.h>
 #include <qcolor.h>
-#include <ktrader.h>
-#include <kspell.h>
-
 
 class QWidgetStack;
 class QVBox;
@@ -81,20 +78,20 @@ class QListBoxItem;
 class PluginListItem : public QCheckListItem
 {
 public:
-	PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent);
-	Kate::PluginInfo *info() const { return mInfo; }
+  PluginListItem(const bool _exclusive, bool _checked, Kate::PluginInfo *_info, QListView *_parent);
+  Kate::PluginInfo *info() const { return mInfo; }
 
-	// This will toggle the state without "emitting" the stateChange
-	void setChecked(bool);
+  // This will toggle the state without "emitting" the stateChange
+  void setChecked(bool);
 
 protected:
-	virtual void stateChange(bool);
-	virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
+  virtual void stateChange(bool);
+  virtual void paintCell(QPainter *, const QColorGroup &, int, int, int);
 
 private:
-	Kate::PluginInfo *mInfo;
-	bool silentStateChange;
-	bool exclusive;
+  Kate::PluginInfo *mInfo;
+  bool silentStateChange;
+  bool exclusive;
 };
 
 class PluginListView : public KListView
@@ -104,21 +101,21 @@ Q_OBJECT
 friend class PluginListItem;
 
 public:
-	PluginListView(QWidget *_parent = 0, const char *_name = 0);
-	PluginListView(unsigned _min, QWidget *_parent = 0, const char *_name = 0);
-	PluginListView(unsigned _min, unsigned _max, QWidget *_parent = 0, const char *_name = 0);
+  PluginListView(QWidget *_parent = 0, const char *_name = 0);
+  PluginListView(unsigned _min, QWidget *_parent = 0, const char *_name = 0);
+  PluginListView(unsigned _min, unsigned _max, QWidget *_parent = 0, const char *_name = 0);
 
-	virtual void clear();
+  virtual void clear();
 
 signals:
-	void stateChange(PluginListItem *, bool);
+  void stateChange(PluginListItem *, bool);
 
 private:
-	void stateChanged(PluginListItem *, bool);
+  void stateChanged(PluginListItem *, bool);
 
-	bool hasMaximum;
-	unsigned max, min;
-	unsigned count;
+  bool hasMaximum;
+  unsigned max, min;
+  unsigned count;
 };
 
 class PluginConfigPage : public Kate::ConfigPage
@@ -411,13 +408,18 @@ class HlEditDialog : public KDialogBase
 
 class SpellConfigPage : public Kate::ConfigPage
 {
-	Q_OBJECT
-public:
-	SpellConfigPage( QWidget* parent, KSpellConfig* config );
-	~SpellConfigPage() {};
-	void apply() {};
-      void reset () { ; };
+  Q_OBJECT
+
+  public:
+    SpellConfigPage( QWidget* parent );
+    ~SpellConfigPage() {};
+
+    void apply();
+    void reset () { ; };
     void defaults () { ; };
+
+  private:
+    KSpellConfig *cPage;
 };
 
 #endif

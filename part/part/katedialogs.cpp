@@ -110,102 +110,102 @@ using namespace Kate;
 #define TAG_KEYWORD "keyword"
 
 PluginListItem::PluginListItem(const bool _exclusive, bool _checked, PluginInfo *_info, QListView *_parent)
-	: QCheckListItem(_parent, _info->service->name(), CheckBox)
-	, mInfo(_info)
-	, silentStateChange(false)
-	, exclusive(_exclusive)
+  : QCheckListItem(_parent, _info->service->name(), CheckBox)
+  , mInfo(_info)
+  , silentStateChange(false)
+  , exclusive(_exclusive)
 {
-	setChecked(_checked);
-	if(_checked) static_cast<PluginListView *>(listView())->count++;
+  setChecked(_checked);
+  if(_checked) static_cast<PluginListView *>(listView())->count++;
 }
 
 
 void PluginListItem::setChecked(bool b)
 {
-	silentStateChange = true;
-	setOn(b);
-	silentStateChange = false;
+  silentStateChange = true;
+  setOn(b);
+  silentStateChange = false;
 }
 
 void PluginListItem::stateChange(bool b)
 {
-	if(!silentStateChange)
-		static_cast<PluginListView *>(listView())->stateChanged(this, b);
+  if(!silentStateChange)
+    static_cast<PluginListView *>(listView())->stateChanged(this, b);
 }
 
 void PluginListItem::paintCell(QPainter *p, const QColorGroup &cg, int a, int b, int c)
 {
-	if(exclusive) myType = RadioButton;
-	QCheckListItem::paintCell(p, cg, a, b, c);
-	if(exclusive) myType = CheckBox;
+  if(exclusive) myType = RadioButton;
+  QCheckListItem::paintCell(p, cg, a, b, c);
+  if(exclusive) myType = CheckBox;
 }
 
 PluginListView::PluginListView(unsigned _min, unsigned _max, QWidget *_parent, const char *_name)
-	: KListView(_parent, _name)
-	, hasMaximum(true)
-	, max(_max)
-	, min(_min <= _max ? _min : _max)
-	, count(0)
+  : KListView(_parent, _name)
+  , hasMaximum(true)
+  , max(_max)
+  , min(_min <= _max ? _min : _max)
+  , count(0)
 {
 }
 
 PluginListView::PluginListView(unsigned _min, QWidget *_parent, const char *_name)
-	: KListView(_parent, _name)
-	, hasMaximum(false)
-	, min(_min)
-	, count(0)
+  : KListView(_parent, _name)
+  , hasMaximum(false)
+  , min(_min)
+  , count(0)
 {
 }
 
 PluginListView::PluginListView(QWidget *_parent, const char *_name)
-	: KListView(_parent, _name)
-	, hasMaximum(false)
-	, min(0)
-	, count(0)
+  : KListView(_parent, _name)
+  , hasMaximum(false)
+  , min(0)
+  , count(0)
 {
 }
 
 void PluginListView::clear()
 {
-	count = 0;
-	KListView::clear();
+  count = 0;
+  KListView::clear();
 }
 
 void PluginListView::stateChanged(PluginListItem *item, bool b)
 {
-	if(b)
-	{
-		count++;
-		emit stateChange(item, b);
+  if(b)
+  {
+    count++;
+    emit stateChange(item, b);
 
-		if(hasMaximum && count > max)
-		{
-			// Find a different one and turn it off
+    if(hasMaximum && count > max)
+    {
+      // Find a different one and turn it off
 
-			QListViewItem *cur = firstChild();
-			PluginListItem *curItem = dynamic_cast<PluginListItem *>(cur);
+      QListViewItem *cur = firstChild();
+      PluginListItem *curItem = dynamic_cast<PluginListItem *>(cur);
 
-			while(cur == item || !curItem || !curItem->isOn())
-			{
-				cur = cur->nextSibling();
-				curItem = dynamic_cast<PluginListItem *>(cur);
-			}
+      while(cur == item || !curItem || !curItem->isOn())
+      {
+        cur = cur->nextSibling();
+        curItem = dynamic_cast<PluginListItem *>(cur);
+      }
 
-			curItem->setOn(false);
-		}
-	}
-	else
-	{
-		if(count == min)
-		{
-			item->setChecked(true);
-		}
-		else
-		{
-			count--;
-			emit stateChange(item, b);
-		}
-	}
+      curItem->setOn(false);
+    }
+  }
+  else
+  {
+    if(count == min)
+    {
+      item->setChecked(true);
+    }
+    else
+    {
+      count--;
+      emit stateChange(item, b);
+    }
+  }
 }
 
  PluginConfigPage::PluginConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
@@ -241,11 +241,11 @@ PluginConfigPage::~PluginConfigPage ()
 
  void PluginConfigPage::stateChange(PluginListItem *item, bool b)
 {
-	if(b)
-		loadPlugin(item);
-	else
-		unloadPlugin(item);
-	emit changed();
+  if(b)
+    loadPlugin(item);
+  else
+    unloadPlugin(item);
+  emit changed();
 }
 
 void PluginConfigPage::loadPlugin (PluginListItem *item)
@@ -470,8 +470,8 @@ void HighlightDialogPage::hlNew() {
 
 void HighlightDialogPage::hlDownload()
 {
-	HlDownloadDialog diag(this,"hlDownload",true);
-	diag.exec();
+  HlDownloadDialog diag(this,"hlDownload",true);
+  diag.exec();
 }
 
 void HighlightDialogPage::showMTDlg()
@@ -540,13 +540,13 @@ HlEditDialog::HlEditDialog(HlManager *,QWidget *parent, const char *name, bool m
 
 void HlEditDialog::pageChanged(QWidget *widget)
 {
-	if (widget/*==*/)
-	{
-  		ContextAttribute->clear();
-  		ItemAttribute->clear();
-  		ContextAttribute->insertStringList(attrEd->attributeNames());
-  		ItemAttribute->insertStringList(attrEd->attributeNames());
-	}
+  if (widget/*==*/)
+  {
+      ContextAttribute->clear();
+      ItemAttribute->clear();
+      ContextAttribute->insertStringList(attrEd->attributeNames());
+      ItemAttribute->insertStringList(attrEd->attributeNames());
+  }
 }
 
 void HlEditDialog::newDocument()
@@ -576,11 +576,11 @@ void HlEditDialog::initContextOptions(QVBox *co)
         tmp= new QHBox(co);
         (void) new QLabel(i18n("LineEnd:"),tmp);
         ContextLineEnd = new QComboBox(tmp);
-	(ContextPopCount=new KIntNumInput(tmp))->setRange(1,20,1,false);
-	connect(ContextDescr,SIGNAL(textChanged(const QString&)),this,SLOT(contextDescrChanged(const QString&)));
+  (ContextPopCount=new KIntNumInput(tmp))->setRange(1,20,1,false);
+  connect(ContextDescr,SIGNAL(textChanged(const QString&)),this,SLOT(contextDescrChanged(const QString&)));
         connect(ContextLineEnd,SIGNAL(activated(int)),this,SLOT(contextLineEndChanged(int)));
         connect(ContextAttribute,SIGNAL(activated(int)),this,SLOT(contextAttributeChanged(int)));
-	connect(ContextPopCount,SIGNAL(valueChanged(int)),this,SLOT(ContextPopCountChanged(int)));
+  connect(ContextPopCount,SIGNAL(valueChanged(int)),this,SLOT(ContextPopCountChanged(int)));
     }
    else
      kdDebug(13010)<<"initContextOptions: Widget is 0"<<endl;
@@ -612,29 +612,29 @@ void HlEditDialog::initItemOptions(QVBox *co)
         ItemAttribute= new QComboBox(tmp);
         (void) new QLabel(i18n("Context switch:"),tmp);
         ItemContext = new QComboBox(tmp);
-	(ItemPopCount=new KIntNumInput(tmp))->setRange(1,20,1,false);
-	//ItemPopCount->hide();
+  (ItemPopCount=new KIntNumInput(tmp))->setRange(1,20,1,false);
+  //ItemPopCount->hide();
 
         co->setSpacing(15);
         new QPushButton(i18n("Delete This Item"),co);
 
-	/* init translation lists */
-	insertTranslationList("DetectChar","DetectChar",1);
+  /* init translation lists */
+  insertTranslationList("DetectChar","DetectChar",1);
         insertTranslationList("Detect2Chars","Detect2Chars",2);
-	insertTranslationList("RangeDetect","RangeDetect",2);
-	insertTranslationList("StringDetect","StringDetect",-1);
-	insertTranslationList("AnyChar","AnyChar",-1);
-	insertTranslationList("RegExpr","RegExpr",-1);
-	insertTranslationList("Int","Int",0);
-	insertTranslationList("Float","Float",0);
-	insertTranslationList("keyword","keyword",0);
+  insertTranslationList("RangeDetect","RangeDetect",2);
+  insertTranslationList("StringDetect","StringDetect",-1);
+  insertTranslationList("AnyChar","AnyChar",-1);
+  insertTranslationList("RegExpr","RegExpr",-1);
+  insertTranslationList("Int","Int",0);
+  insertTranslationList("Float","Float",0);
+  insertTranslationList("keyword","keyword",0);
         ItemType->clear();
         for (int i=0; i<transTableCnt; i++) ItemType->insertItem(id2info[i].trans_i18n);
         connect(ItemType,SIGNAL(activated(int)),this,SLOT(ItemTypeChanged(int)));
         connect(ItemParameter,SIGNAL(textChanged(const QString&)),this,SLOT(ItemParameterChanged(const QString&)));
         connect(ItemAttribute,SIGNAL(activated(int)),this,SLOT(ItemAttributeChanged(int)));
         connect(ItemContext,SIGNAL(activated(int)),this,SLOT(ItemContextChanged(int)));
-	connect(ItemPopCount,SIGNAL(valueChanged(int)),this,SLOT(ItemPopCountChanged(int)));
+  connect(ItemPopCount,SIGNAL(valueChanged(int)),this,SLOT(ItemPopCountChanged(int)));
     }
   else
     kdDebug(13010)<<"initItemOptions: Widget is 0"<<endl;
@@ -667,7 +667,7 @@ void HlEditDialog::loadFromDocument(HlData *hl)
               }
 
 
-	 }
+   }
        if (data) HlManager::self()->syntax->freeGroupInfo(data);
    }
   attrEd->load(HlManager::self()->syntax);
@@ -681,19 +681,19 @@ QListViewItem *HlEditDialog::addContextItem(QListViewItem *_parent,QListViewItem
                 QString dataname=HlManager::self()->syntax->groupItemData(data,QString(""));
                 QString attr=(HlManager::self()->syntax->groupItemData(data,QString("attribute")));
                 QString context=(HlManager::self()->syntax->groupItemData(data,QString("context")));
-		char chr;
+    char chr;
                 if (! HlManager::self()->syntax->groupItemData(data,QString("char")).isEmpty())
-		  chr= (HlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
-		else
+      chr= (HlManager::self()->syntax->groupItemData(data,QString("char")).latin1())[0];
+    else
                   chr=0;
-		QString stringdata=HlManager::self()->syntax->groupItemData(data,QString("String"));
+    QString stringdata=HlManager::self()->syntax->groupItemData(data,QString("String"));
                 char chr1;
                 if (! HlManager::self()->syntax->groupItemData(data,QString("char1")).isEmpty())
-		  chr1= (HlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
-		else
+      chr1= (HlManager::self()->syntax->groupItemData(data,QString("char1")).latin1())[0];
+    else
                   chr1=0;
     // not used at the mom, fix warning
-		//bool insensitive=(HlManager::self()->syntax->groupItemData(data,QString("insensitive"))==QString("TRUE"));
+    //bool insensitive=(HlManager::self()->syntax->groupItemData(data,QString("insensitive"))==QString("TRUE"));
                 QString param("");
                 if ((dataname=="keyword") /*|| (dataname=="dataType")*/) param=stringdata;
                   else if (dataname=="DetectChar") param=chr;
@@ -731,14 +731,14 @@ void HlEditDialog::showContext()
         ContextLineEnd->insertItem(it->text(0));
     ContextLineEnd->setCurrentItem(currentItem->text(3).startsWith("#pop")?0:(currentItem->text(3).contains("#stay")?1:currentItem->text(3).toInt()+2));
     if (currentItem->text(3).startsWith("#pop"))
-    	{
-		QString tmp=currentItem->text(3);
-		int tmpPop;
-		for (tmpPop=0;tmp.startsWith("#pop");tmpPop++,tmp.remove(0,4));
-		ContextPopCount->setValue(tmpPop);
-		ContextPopCount->show();
-		//Do something
-	} else ContextPopCount->hide();
+      {
+    QString tmp=currentItem->text(3);
+    int tmpPop;
+    for (tmpPop=0;tmp.startsWith("#pop");tmpPop++,tmp.remove(0,4));
+    ContextPopCount->setValue(tmpPop);
+    ContextPopCount->show();
+    //Do something
+  } else ContextPopCount->hide();
   }
 
 void HlEditDialog::contextDescrChanged(const QString& name)
@@ -765,26 +765,26 @@ void HlEditDialog::contextLineEndChanged(int id)
      {
      if (id==0)
      {
-     	currentItem->setText(3,"#pop"); // do something
+       currentItem->setText(3,"#pop"); // do something
      }
      else
-     	if (id==1) currentItem->setText(3,"#stay");
-	else
-     		currentItem->setText(3,QString("%1").arg(id-2));
+       if (id==1) currentItem->setText(3,"#stay");
+  else
+         currentItem->setText(3,QString("%1").arg(id-2));
      }
 }
 
 void HlEditDialog::ContextPopCountChanged(int count)
 {
-	if (currentItem)
-	{
-		if (currentItem->text(3).startsWith("#pop"))
-		{
-			QString tmp="";
-			for (int i=0;i<count;i++) tmp=tmp+"#pop";
-			currentItem->setText(3,tmp);
-		}
-	}
+  if (currentItem)
+  {
+    if (currentItem->text(3).startsWith("#pop"))
+    {
+      QString tmp="";
+      for (int i=0;i<count;i++) tmp=tmp+"#pop";
+      currentItem->setText(3,tmp);
+    }
+  }
 }
 
 
@@ -814,34 +814,34 @@ void HlEditDialog::showItem()
     kdDebug(13000)<<QString("showItem(): tmpCtx=%1").arg(tmpCtx)<<endl;
     if (tmpCtx==0)
     {
-    	kdDebug(13000)<<"Showing ItempPopCount"<<endl;
-    	ItemPopCount->show();
-	QString tmp=currentItem->text(3);
-	for (tmpCtx=0;tmp.startsWith("#pop");tmpCtx++,tmp.remove(0,4));
-	ItemPopCount->setValue(tmpCtx);
+      kdDebug(13000)<<"Showing ItempPopCount"<<endl;
+      ItemPopCount->show();
+  QString tmp=currentItem->text(3);
+  for (tmpCtx=0;tmp.startsWith("#pop");tmpCtx++,tmp.remove(0,4));
+  ItemPopCount->setValue(tmpCtx);
     }
     else ItemPopCount->hide();
     ItemAttribute->setCurrentItem(currentItem->text(2).toInt());
     if (currentItem->text(1)==TAG_KEYWORD)
     {
-	ItemParameter->ListParameter(currentItem->text(4));
-	ItemParameter->show();
+  ItemParameter->ListParameter(currentItem->text(4));
+  ItemParameter->show();
     }
     else
     {
-    	QMap<QString,int>::Iterator iter=tag2id.find(currentItem->text(1));
-    	if (iter==tag2id.end())
-      		kdDebug(13010)<<"Oops, unknown itemtype in showItem: "<<currentItem->text(1)<<endl;
-    	else
-      	{
-	        ItemType->setCurrentItem(*iter);
-        	if (id2info[*iter].length==0) ItemParameter->hide();
-          	else
-           	{
-             		ItemParameter->TextParameter(id2info[*iter].length,currentItem->text(4));
-             		ItemParameter->show();
-           	}
-      	}
+      QMap<QString,int>::Iterator iter=tag2id.find(currentItem->text(1));
+      if (iter==tag2id.end())
+          kdDebug(13010)<<"Oops, unknown itemtype in showItem: "<<currentItem->text(1)<<endl;
+      else
+        {
+          ItemType->setCurrentItem(*iter);
+          if (id2info[*iter].length==0) ItemParameter->hide();
+            else
+             {
+                 ItemParameter->TextParameter(id2info[*iter].length,currentItem->text(4));
+                 ItemParameter->show();
+             }
+        }
      }
 
   }
@@ -877,39 +877,39 @@ void HlEditDialog::ItemContextChanged(int cont)
 {
    if (currentItem)
      {
-     	if (cont>1)
-	{
-		currentItem->setText(3,QString("%1").arg(cont-2));
-		ItemPopCount->hide();
-	}
-     	else
-	{
-		if (cont==0)
-		{
-			ItemPopCount->setValue(1);
-			currentItem->setText(3,"#pop");
-			ItemPopCount->show();
-		}
-		else
-		{
-			ItemPopCount->hide();
-			currentItem->setText(3,"#push");
-		}
-	}
+       if (cont>1)
+  {
+    currentItem->setText(3,QString("%1").arg(cont-2));
+    ItemPopCount->hide();
+  }
+       else
+  {
+    if (cont==0)
+    {
+      ItemPopCount->setValue(1);
+      currentItem->setText(3,"#pop");
+      ItemPopCount->show();
+    }
+    else
+    {
+      ItemPopCount->hide();
+      currentItem->setText(3,"#push");
+    }
+  }
      }
 }
 
 void HlEditDialog::ItemPopCountChanged(int count)
 {
-	if (currentItem)
-	{
-		if (currentItem->text(3).startsWith("#pop"))
-		{
-			QString tmp="";
-			for (int i=0;i<count;i++) tmp=tmp+"#pop";
-			currentItem->setText(3,tmp);
-		}
-	}
+  if (currentItem)
+  {
+    if (currentItem->text(3).startsWith("#pop"))
+    {
+      QString tmp="";
+      for (int i=0;i<count;i++) tmp=tmp+"#pop";
+      currentItem->setText(3,tmp);
+    }
+  }
 }
 
 void HlEditDialog::ItemAddNew()
@@ -1395,11 +1395,17 @@ QStringList KMimeTypeChooserDlg::patterns()
   return chooser->patterns();
 }
 
-SpellConfigPage::SpellConfigPage( QWidget* parent, KSpellConfig* config )
-	: Kate::ConfigPage( parent)
+SpellConfigPage::SpellConfigPage( QWidget* parent )
+  : Kate::ConfigPage( parent)
 {
-	QVBoxLayout* l = new QVBoxLayout( this );
-	KSpellConfig *cPage = new KSpellConfig( this, 0L, config, false );
-	l->addWidget( cPage );
-	connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+  QVBoxLayout* l = new QVBoxLayout( this );
+  cPage = new KSpellConfig( this, 0L, 0L, false );
+  l->addWidget( cPage );
+  connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
+}
+
+void SpellConfigPage::apply ()
+{
+  // kspell
+  cPage->writeGlobalSettings ();
 }

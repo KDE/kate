@@ -218,14 +218,11 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_editCurrentUndo = 0L;
   editWithUndo = false;
 
-  // start spelling stuff
-
-  m_kspell = 0L;
-  m_kspellConfig = new KSpellConfig();
+  //BEGIN spelling stuff
+  m_kspell = 0;
   m_mispellCount = 0;
   m_replaceCount =  0;
-
-  // end
+  //END
 
   blockSelect = false;
 
@@ -318,15 +315,14 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 //
 KateDocument::~KateDocument()
 {
-  // spellcheck stuff
+  //BEGIN spellcheck stuff
   if( m_kspell )
   {
     m_kspell->setAutoDelete(true);
     m_kspell->cleanUp(); // need a way to wait for this to complete
     delete m_kspell;
   }
-
-  delete m_kspellConfig;
+  //END
 
   //
   // other stuff
@@ -480,31 +476,31 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
       return fontConfigPage(parent);
 
     case 2:
-      return indentConfigPage(parent);
-
-    case 3:
-      return selectConfigPage(parent);
-
-    case 4:
       return editConfigPage (parent);
 
-    case 5:
+    case 3:
       return keysConfigPage (parent);
 
+    case 4:
+      return indentConfigPage(parent);
+
+    case 5:
+      return selectConfigPage(parent);
+
     case 6:
-      return hlConfigPage (parent);
+      return saveConfigPage( parent );
 
     case 7:
       return viewDefaultsConfigPage(parent);
 
     case 8:
-      return new PluginConfigPage (parent, this);
+      return hlConfigPage (parent);
 
     case 9:
-      return saveConfigPage( parent );
+      return new SpellConfigPage (parent);
 
     case 10:
-      return new SpellConfigPage( parent, m_kspellConfig );
+      return new PluginConfigPage (parent, this);
 
     default:
       return 0;
@@ -521,31 +517,31 @@ QString KateDocument::configPageName (uint number) const
     case 1:
       return i18n ("Fonts");
 
-    case 2:
+    case 4:
       return i18n ("Indentation");
 
-    case 3:
+    case 5:
       return i18n ("Selection");
 
-    case 4:
+    case 2:
       return i18n ("Editing");
 
-    case 5:
+    case 3:
       return i18n ("Shortcuts");
 
-    case 6:
+    case 8:
       return i18n ("Highlighting");
 
     case 7:
       return i18n ("View Defaults");
 
-    case 8:
+    case 10:
       return i18n ("Plugins");
 
-    case 9:
+    case 6:
       return i18n("Saving");
 
-    case 10:
+    case 9:
       return i18n("Spelling");
 
     default:
@@ -563,31 +559,31 @@ QString KateDocument::configPageFullName (uint number) const
     case 1:
       return i18n ("Font Settings");
 
-    case 2:
+    case 4:
       return i18n ("Indentation Rules");
 
-    case 3:
+    case 5:
       return i18n ("Selection Behavior");
 
-    case 4:
+    case 2:
       return i18n ("Editing Options");
 
-    case 5:
+    case 3:
       return i18n ("Shortcuts Configuration");
 
-    case 6:
+    case 8:
       return i18n ("Highlighting Rules");
 
     case 7:
       return i18n("View Defaults");
 
-    case 8:
+    case 10:
       return i18n ("Plugin Manager");
 
-    case 9:
+    case 6:
       return i18n("Saving & Backups");
 
-    case 10:
+    case 9:
       return i18n("Spell Checker Behavior");
 
     default:
@@ -605,31 +601,31 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
     case 1:
       return BarIcon("fonts", size);
 
-    case 2:
+    case 4:
       return BarIcon("rightjust", size);
 
-    case 3:
-      return BarIcon("misc", size);
+    case 5:
+      return BarIcon("frame_edit", size);
 
-    case 4:
+    case 2:
       return BarIcon("edit", size);
 
-    case 5:
+    case 3:
+      return BarIcon("key_enter", size);
+
+    case 8:
+      return BarIcon("source", size);
+
+    case 7:
+      return BarIcon("view_text",size);
+
+    case 10:
       return BarIcon("misc", size);
 
     case 6:
-      return BarIcon("misc", size);
-
-    case 7:
-      return BarIcon("misc",size);
-
-    case 8:
-      return BarIcon("misc", size);
-
-    case 9:
       return BarIcon("filesave", size);
 
-    case 10:
+    case 9:
       return BarIcon("spellcheck", size);
 
     default:
@@ -4613,7 +4609,7 @@ void KateDocument::spellcheck()
     return;
 
   m_kspell = new KSpell( 0, i18n("Spellcheck"),
-                         this, SLOT(ready()), m_kspellConfig );
+                         this, SLOT(ready()) );
 
   connect( m_kspell, SIGNAL(death()),
            this, SLOT(spellCleanDone()) );

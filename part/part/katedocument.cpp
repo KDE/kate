@@ -4899,8 +4899,8 @@ void KateDocument::updateConfig ()
     delete m_indenter;
     m_indenter = KateAutoIndent::createIndenter ( this, m_config->indentationMode() );
   }
-  else
-    m_indenter->updateConfig();
+
+  m_indenter->updateConfig();
 
   buffer->setTabWidth (config()->tabWidth());
 }

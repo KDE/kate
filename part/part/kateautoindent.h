@@ -96,4 +96,4 @@ class KateCSmartIndent : public KateAutoIndent
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on; smart-indent on;
+// kate: space-indent on; indent-width 2; replace-tabs on; indent-mode cstyle;

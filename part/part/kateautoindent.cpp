@@ -17,6 +17,7 @@
 */
 
 #include "kateautoindent.h"
+#include "katepythonindent.h"
 #include "kateconfig.h"
 #include "kateview.h"
 
@@ -26,6 +27,8 @@ KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
 {
   if (mode == KateDocumentConfig::imCStyle)
     return new KateCSmartIndent (doc);
+  else if (mode == KateDocumentConfig::imPythonStyle)
+    return new KatePythonIndent (doc);
 
   return new KateAutoIndent (doc);
 }
@@ -36,6 +39,7 @@ QStringList KateAutoIndent::listModes ()
 
   l << modeDescription(KateDocumentConfig::imNormal);
   l << modeDescription(KateDocumentConfig::imCStyle);
+  l << modeDescription(KateDocumentConfig::imPythonStyle);
 
   return l;
 }
@@ -44,6 +48,8 @@ QString KateAutoIndent::modeName (uint mode)
 {
   if (mode == KateDocumentConfig::imCStyle)
     return QString ("cstyle");
+  else if (mode == KateDocumentConfig::imPythonStyle)
+    return QString ("python");
 
   return QString ("normal");
 }
@@ -52,6 +58,8 @@ QString KateAutoIndent::modeDescription (uint mode)
 {
   if (mode == KateDocumentConfig::imCStyle)
     return i18n ("C Style");
+  else if (mode == KateDocumentConfig::imPythonStyle)
+    return i18n ("Python Style");
 
   return i18n ("Normal");
 }
@@ -60,6 +68,8 @@ uint KateAutoIndent::modeNumber (const QString &name)
 {
   if (modeName(KateDocumentConfig::imCStyle) == name)
     return KateDocumentConfig::imCStyle;
+  else if (modeName(KateDocumentConfig::imPythonStyle) == name)
+    return KateDocumentConfig::imPythonStyle;
 
   return KateDocumentConfig::imNormal;
 }
@@ -104,9 +114,10 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
     if (c == open)
     {
       if (!parenFound) // assume first open encountered is the good one
+      {
         attrib = textLine->attribute(begin.col());
-
-      if (textLine->attribute(begin.col()) != attrib)
+      }
+      else if (textLine->attribute(begin.col()) != attrib)
       {
         begin.moveForward(1);
         continue;
@@ -125,9 +136,7 @@ bool KateAutoIndent::isBalanced (KateDocCursor &begin, const KateDocCursor &end,
     }
 
     if (parenFound && parenOpen <= 0)
-    {
       return true;
-    }
 
     begin.moveForward(1);
   }
@@ -383,7 +392,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
 
   uint continueIndent = (needContinue) ? calcContinue (cur, begin) : 0;
 
-  // Move forward from anchor and determine
+  // Move forward from anchor and determine last known reference character
   QChar lastChar = textLine->getChar (anchorPos);
   if (cur < begin)
   {
@@ -494,4 +503,4 @@ uint KateCSmartIndent::calcContinue(KateDocCursor &start, KateDocCursor &end)
   return 0;
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on; indent-mode 1;
+// kate: space-indent on; indent-width 2; replace-tabs on; indent-mode cstyle;

@@ -98,7 +98,8 @@ class KateDocumentConfig : public KateConfig
     enum IndentationMode
     {
       imNormal = 0,
-      imCStyle = 1
+      imCStyle = 1,
+      imPythonStyle = 2
     };
 
     uint indentationMode () const;

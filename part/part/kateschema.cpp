@@ -578,7 +578,8 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
   p.setColor( QColorGroup::Text, _c );
   m_defaultStyles->viewport()->setPalette( p );
 
-  for ( uint i = 0; i < KateHlManager::self()->defaultStyles(); i++ )
+  // insert the default styles backwards to get them in the right order
+  for ( int i = KateHlManager::self()->defaultStyles() - 1; i >= 0; i-- )
   {
     new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i), l->at( i ) );
   }
@@ -710,24 +711,21 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   p.setColor( QColorGroup::Highlight,
     KateFactory::self()->schemaManager()->schema(m_schema)->
       readColorEntry( "Color Selection", &_c ) );
-  // ahem, *assuming* that normal text is the first item :o
-  _c = m_hlDict[m_schema]->find(m_hl)->first()->textColor();
-  if ( ! _c.isValid() )
-    _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
+  _c = l->at(0)->textColor(); // not quite as much of an assumption ;)
   p.setColor( QColorGroup::Text, _c );
   m_styles->viewport()->setPalette( p );
 
-  // wilbert: make captions from the buildprefixes
   QDict<KateStyleListCaption> prefixes;
-  
-  for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
+  for ( KateHlItemData *itemData = m_hlDict[m_schema]->find(m_hl)->last();
         itemData != 0L;
-        itemData = m_hlDict[m_schema]->find(m_hl)->next())
+        itemData = m_hlDict[m_schema]->find(m_hl)->prev())
   {
     kdDebug () << "insert items " << itemData->name << endl;
+    
+    // if the styles belong to another language mode than the current,
+    // put them into nice substructures, else put them in the toplevel
     int c = itemData->name.find(':');
-    if ( c > 0 )
-    {
+    if ( c > 0 ) {
       QString prefix = itemData->name.left(c);
       QString name   = itemData->name.mid(c+1);
       
@@ -740,7 +738,6 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
       }
       new KateStyleListItem( parent, name, l->at(itemData->defStyleNum), itemData );
     } else {
-      // will sometimes reach this (if there is no style but "Normal Text")
       new KateStyleListItem( m_styles, itemData->name, l->at(itemData->defStyleNum), itemData );
     }
   }
@@ -1002,6 +999,7 @@ void KateViewSchemaAction::setSchema (int mode)
 KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
     : QListView( parent )
 {
+  setSorting( -1 ); // disable sorting, let the styles appear in their defined order
   addColumn( i18n("Context") );
   addColumn( SmallIconSet("text_bold"), QString::null );
   addColumn( SmallIconSet("text_italic"), QString::null );

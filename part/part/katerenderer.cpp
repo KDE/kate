@@ -166,11 +166,7 @@ bool KateRenderer::paintTextLineBackground(QPainter& paint, int line, bool isCur
         KTextEditor::MarkInterface::MarkTypes markType = (KTextEditor::MarkInterface::MarkTypes)(1<<bit);
         if (mrk & markType)
         {
-          QColor markColor;
-          if ( (uint)markType <= reserved)
-            markColor = config()->lineMarkerColor(markType);
-          else
-            markColor =  m_doc->markColor( markType );
+          QColor markColor =  m_doc->markColor( markType );
 
           if (markColor.isValid()) {
             markCount++;

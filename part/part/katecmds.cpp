@@ -30,7 +30,7 @@
 #include <klocale.h>
 
 #include <qregexp.h>
-
+//BEGIN CoreCommands
 // syncs a config flag in the document with a boolean value
 static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
                   KateDocument *doc )
@@ -64,13 +64,14 @@ QStringList KateCommands::CoreCommands::cmds()
 {
   QStringList l;
   l << "indent" << "unindent" << "cleanindent"
-    << "comment" << "uncomment" << "goto"
+    << "comment" << "uncomment" << "goto" << "kill-line"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
     << "set-remove-trailing-space"
     << "set-indent-spaces" << "set-indent-width" << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column"
-    << "set-replace-tabs-save" << "set-remove-trailing-space-save";
+    << "set-replace-tabs-save" << "set-remove-trailing-space-save"
+    << "set-highlight";
   return l;
 }
 
@@ -116,6 +117,11 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
     v->uncomment();
     return true;
   }
+  else if ( cmd == "kill-line" )
+  {
+    v->killLine();
+    return true;
+  }
   else if ( cmd == "set-indent-mode" )
   {
     bool ok(false);
@@ -129,6 +135,19 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
     else
       v->doc()->config()->setIndentationMode( KateAutoIndent::modeNumber( args.first() ) );
     return true;
+  }
+  else if ( cmd == "set-highlight" )
+  {
+    QString val = args.first().lower();
+    for ( uint i=0; i < v->doc()->hlModeCount(); i++ )
+    {
+      if ( v->doc()->hlModeName( i ).lower() == val )
+      {
+        v->doc()->setHlMode( i );
+        return true;
+      }
+    }
+    KCC_ERR( i18n("No such highlight '%1'").arg( args.first() ) );
   }
 
   // ALL commands that takes exactly one integer argument.
@@ -226,7 +245,9 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
   // unlikely..
   KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
 }
+//END CoreCommands
 
+//BEGIN SedReplace
 static void replace(QString &s, const QString &needle, const QString &with)
 {
   int pos=0;
@@ -292,25 +313,37 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
                                         bool noCase, bool repeat,
                                         uint startcol, int endcol )
 {
-
-  QRegExp matcher(find, noCase);
-
-  uint len;
-  int matches = 0;
-
   KateTextLine *ln = doc->kateTextLine( line );
-  if ( ! ln ) return 0;
+  if ( ! ln || ! ln->length() ) return 0;
 
   // HANDLING "\n"s in PATTERN
-  // * Do s,\n,$\n^,g on PATTERN (only unescaped "\n"'s) so that we match
-  //   the ends and beginnings of lines correctly.
   // * Create a list of patterns, splitting PATTERN on (unescaped) "\n"
+  // * insert $s and ^s to match line ends/beginnings
   // * When matching patterhs after the first one, replace \N with the captured
   //   text.
   // * If all patterns in the list match sequentiel lines, there is a match, so
   // * remove line/start to line + patterns.count()-1/patterns.last.length
   // * handle capatures by putting them in one list.
   // * the existing insertion is fine, including the line calculation.
+
+  QStringList patterns = QStringList::split( QRegExp("(^\\\\n|(?![^\\\\])\\\\n)"), find, true );
+  if ( patterns.count() > 1 )
+  {
+    for ( uint i = 0; i < patterns.count(); i++ )
+    {
+      if ( i < patterns.count() - 1 )
+        patterns[i].append("$");
+      if ( i )
+        patterns[i].prepend("^");
+
+      kdDebug(13030)<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
+    }
+  }
+
+  QRegExp matcher(patterns[0], noCase);
+
+  uint len;
+  int matches = 0;
 
   while ( ln->searchText( startcol, matcher, &startcol, &len ) )
   {
@@ -319,6 +352,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
       break;
 
     matches++;
+
 
     QString rep=repOld;
 
@@ -373,6 +407,11 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
     if (!repeat) break;
     startcol+=rep.length();
+
+    // sanity check -- avoid infinite loops eg with %s,.*,,g ;)
+    uint ll = ln->length();
+    if ( ! ll || startcol > ll )
+      break;
   }
 
   return matches;
@@ -382,7 +421,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
 {
   kdDebug(13030)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
-  QRegExp delim("^[$%]?s ([^\\w\\s])");
+  QRegExp delim("^[$%]?s\\s*([^\\w\\s])");
   if ( delim.search( cmd ) < 0 ) return false;
 
   bool fullFile=cmd[0]=='%';
@@ -393,7 +432,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   QString d = delim.cap(1);
   kdDebug(13030)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
 
-  QRegExp splitter( QString("^[$%]?s ")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
+  QRegExp splitter( QString("^[$%]?s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
   if (splitter.search(cmd)<0) return false;
 
   QString find=splitter.cap(1);
@@ -447,7 +486,9 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
 
   return true;
 }
+//END SedReplace
 
+//BEGIN Character
 bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
@@ -487,7 +528,9 @@ bool KateCommands::Character::exec (Kate::View *view, const QString &_cmd, QStri
 
   return true;
 }
+//END Character
 
+//BEGIN Date
 bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
 {
   if (cmd.left(4) != "date")
@@ -500,5 +543,5 @@ bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
 
   return true;
 }
-
+//END Date
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -151,7 +151,6 @@ int TextLine::nextNonSpaceChar(uint pos) const
 int TextLine::previousNonSpaceChar(uint pos) const
 {
     if(pos >= m_text.size()) {
-        kdDebug(1714) << "pos >= m_text.size()" << endl;
         pos = m_text.size() - 1;
     }
 

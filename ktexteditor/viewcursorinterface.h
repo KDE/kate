@@ -35,9 +35,17 @@ class ViewCursorInterface
     /** Get the current cursor coordinates in pixels. */
     virtual QPoint cursorCoordinates () = 0;
 
+    /** Get the cursor position */
     virtual void cursorPosition (uint *line, uint *col) = 0;
 
+    /** Get the cursor position, calculated with 1 character per tab */
+    virtual void cursorPositionReal (uint *line, uint *col) = 0;
+
+    /** Set the cursor position */
     virtual bool setCursorPosition (uint line, uint col) = 0;
+
+    /** Set the cursor position, use 1 character per tab */
+    virtual bool setCursorPositionReal (uint line, uint col) = 0;
 
 		virtual uint cursorLine () = 0;
 		virtual uint cursorColumn () = 0;

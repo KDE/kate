@@ -102,18 +102,47 @@ class KateDocumentConfig : public KateConfig
     uint undoSteps () const;
     void setUndoSteps ( uint undoSteps );
 
+    enum ConfigFlags
+    {
+      cfAutoIndent= 0x1,
+      cfBackspaceIndents= 0x2,
+      cfWordWrap= 0x4,
+      cfReplaceTabs= 0x8,
+      cfRemoveSpaces = 0x10,
+      cfWrapCursor= 0x20,
+      cfAutoBrackets= 0x40,
+      cfPersistent= 0x80,
+      cfKeepSelection= 0x100,
+      cfDelOnInput= 0x400,
+      cfXorSelect= 0x800,
+      cfOvr= 0x1000,
+      cfMark= 0x2000,
+      cfKeepIndentProfile= 0x8000,
+      cfKeepExtraSpaces= 0x10000,
+      cfTabIndents= 0x80000,
+      cfShowTabs= 0x200000,
+      cfSpaceIndent= 0x400000,
+      cfSmartHome = 0x800000
+    };
+
+    uint configFlags () const;
+    void setConfigFlags (KateDocumentConfig::ConfigFlags flag, bool enable);
+    void setConfigFlags (uint fullFlags);
+
   private:
     int m_tabWidth;
     int m_indentationWidth;
     bool m_wordWrap;
     int m_wordWrapAt;
     uint m_undoSteps;
+    uint m_configFlags;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
     bool m_wordWrapSet : 1;
     bool m_wordWrapAtSet : 1;
     bool m_undoStepsSet : 1;
+    uint m_configFlagsSet;
 
   private:
     KateDocument *m_doc;

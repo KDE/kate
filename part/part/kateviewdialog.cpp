@@ -153,7 +153,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   m_doc = view;
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
-  int configFlags = view->configFlags();
+  int configFlags = KateDocumentConfig::global()->configFlags();
 
   opt[0] = new QCheckBox(i18n("A&utomatically indent"), this);
   opt[0]->setChecked(configFlags & flags[0]);
@@ -218,12 +218,12 @@ void IndentConfigTab::getData(KateDocument *view)
 {
   int configFlags, z;
 
-  configFlags = view->configFlags();
+  configFlags = KateDocumentConfig::global()->configFlags();
   for (z = 0; z < numFlags; z++) {
     configFlags &= ~flags[z];
     if (opt[z]->isChecked()) configFlags |= flags[z];
   }
-  view->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 }
 
@@ -248,7 +248,7 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
   m_doc = view;
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
-  int configFlags = view->configFlags();
+  int configFlags = KateDocumentConfig::global()->configFlags();
 
   opt[0] = new QCheckBox(i18n("&Persistent selections"), this);
   layout->addWidget(opt[0], 0, AlignLeft);
@@ -270,12 +270,12 @@ SelectConfigTab::SelectConfigTab(QWidget *parent, KateDocument *view)
 void SelectConfigTab::getData(KateDocument *view) {
   int configFlags, z;
 
-  configFlags = view->configFlags();
+  configFlags = KateDocumentConfig::global()->configFlags();
   for (z = 0; z < numFlags; z++) {
     configFlags &= ~flags[z]; // clear flag
     if (opt[z]->isChecked()) configFlags |= flags[z]; // set flag if checked
   }
-  view->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setConfigFlags(configFlags);
 }
 
 void SelectConfigTab::apply ()
@@ -299,7 +299,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   m_doc = view;
 
   QVBoxLayout *mainLayout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
-  int configFlags = view->configFlags();
+  int configFlags = KateDocumentConfig::global()->configFlags();
 
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Tabulators"), this);
 
@@ -414,12 +414,12 @@ void EditConfigTab::getData(KateDocument *view)
 {
   int configFlags, z;
 
-  configFlags = view->configFlags();
+  configFlags = KateDocumentConfig::global()->configFlags();
   for (z = 1; z < numFlags; z++) {
     configFlags &= ~flags[z];
     if (opt[z]->isChecked()) configFlags |= flags[z];
   }
-  view->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setConfigFlags(configFlags);
 
   KateDocumentConfig::global()->setWordWrapAt(e1->value());
   KateDocumentConfig::global()->setWordWrap (opt[0]->isChecked());
@@ -775,7 +775,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   : Kate::ConfigPage( parent ),
     m_doc( doc )
 {
-  int configFlags = doc->configFlags();
+  int configFlags = KateDocumentConfig::global()->configFlags();
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups"), this);
@@ -840,7 +840,7 @@ void SaveConfigTab::apply()
   KateDocument::setBackupConfig( f );
   KateDocument::setBackupSuffix( leBuSuffix->text() );
 
-  int configFlags = m_doc->configFlags();
+  int configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocument::cfReplaceTabs; // clear flag
   if (replaceTabs->isChecked()) configFlags |= KateDocument::cfReplaceTabs; // set flag if checked
@@ -849,7 +849,7 @@ void SaveConfigTab::apply()
   if (removeSpaces->isChecked()) configFlags |= KateDocument::cfRemoveSpaces; // set flag if checked
 
 
-  m_doc->setConfigFlags(configFlags);
+  KateDocumentConfig::global()->setConfigFlags(configFlags);
 }
 
 void SaveConfigTab::reload()

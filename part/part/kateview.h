@@ -150,8 +150,7 @@ class KateView : public Kate::View,
   // Kate::View
   //
   public:
-    bool isOverwriteMode() const
-        { return m_doc->_configFlags & KateDocument::cfOvr; }
+    bool isOverwriteMode() const;
     void setOverwriteMode( bool b );
     // TODO: As this method can be implemented in terms of KTextEditor
     // methods, it should be dropped.

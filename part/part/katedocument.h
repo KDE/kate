@@ -466,6 +466,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void setNewDoc( bool );
     bool isNewDoc() const;
 
+    uint configFlags ();
+    void setConfigFlags (uint flags);
+
     /**
        Tag the lines in the current selection.
      */
@@ -650,10 +653,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void setGetSearchTextFrom (int where);
     int getSearchTextFrom() const;
 
-  public:
-    uint configFlags ();
-    void setConfigFlags (uint flags);
-
  // code folding
   public:
     unsigned int getRealLine(unsigned int virtualLine);
@@ -714,11 +713,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QString m_docName;
 
     QMemArray<KateAttribute> myAttribs;
-
-    //
-    // core katedocument config !
-    //
-    static uint _configFlags;
 
     // defaults for all views !!!
     static bool m_collapseTopLevelOnLoad;

@@ -24,6 +24,13 @@
 
 #include <qregexp.h>
 
+// syncs a config flag in the document with a boolean value
+static void setDocFlag( KateDocumentConfig::ConfigFlags flag, bool enable,
+                  KateDocument *doc )
+{
+  doc->config()->setConfigFlags( flag, enable );
+}
+
 QStringList KateCoreCommands::cmds()
 {
   QStringList l;
@@ -125,13 +132,13 @@ bool KateCoreCommands::exec(Kate::View *view,
       else if ( cmd == "set-line-numbers" )
         v->setLineNumbersOn( enable );
       else if ( cmd == "set-replace-tabs" )
-        setDocFlag( Kate::Document::cfReplaceTabs, enable, v->doc() );
+        setDocFlag( KateDocumentConfig::cfReplaceTabs, enable, v->doc() );
       else if ( cmd == "set-show-tabs" )
-        setDocFlag( Kate::Document::cfShowTabs, enable, v->doc() );
+        setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
       else if ( cmd == "set-indent-spaces" )
-        setDocFlag( Kate::Document::cfSpaceIndent, enable, v->doc() );
+        setDocFlag( KateDocumentConfig::cfSpaceIndent, enable, v->doc() );
       else if ( cmd == "set-auto-indent" )
-        setDocFlag( Kate::Document::cfAutoIndent, enable, v->doc() );
+        setDocFlag( KateDocumentConfig::cfAutoIndent, enable, v->doc() );
       return true;
     }
     else
@@ -163,20 +170,4 @@ bool KateCoreCommands::getBoolArg( QString s, bool *val  )
     return true;
   }
   return false;
-}
-
-// syncs a config flag in the document with a boolean value
-void KateCoreCommands::setDocFlag( Kate::Document::ConfigFlags flag, bool enable,
-                  KateDocument *doc )
-{
-  uint f ( doc->configFlags() );
-  if ( (f & flag)  != enable )
-  {
-    if ( enable )
-      f |= flag;
-    else
-      f &= ~flag;
-
-    doc->setConfigFlags( f );
-  }
 }

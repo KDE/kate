@@ -76,6 +76,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_wordWrapSet (true),
    m_wordWrapAtSet (true),
    m_undoStepsSet (true),
+   m_configFlagsSet (0),
    m_doc (0)
 {
   s_global = this;
@@ -92,6 +93,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_wordWrapSet (false),
    m_wordWrapAtSet (false),
    m_undoStepsSet (false),
+   m_configFlagsSet (0),
    m_doc (doc)
 {
 }
@@ -121,6 +123,15 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setUndoSteps(config->readNumEntry("Undo Steps", 0));
 
+  setConfigFlags (config->readNumEntry("Basic Config Flags", KateDocumentConfig::cfAutoIndent
+    | KateDocumentConfig::cfTabIndents
+    | KateDocumentConfig::cfKeepIndentProfile
+    | KateDocumentConfig::cfRemoveSpaces
+    | KateDocumentConfig::cfDelOnInput
+    | KateDocumentConfig::cfWrapCursor
+    | KateDocumentConfig::cfShowTabs
+    | KateDocumentConfig::cfSmartHome));
+
   configEnd ();
 }
 
@@ -134,6 +145,8 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Word Wrap Column", wordWrapAt());
 
   config->writeEntry("Undo Steps", undoSteps());
+
+  config->writeEntry("Basic Config Flags", configFlags());
 
   config->sync ();
 }
@@ -250,6 +263,38 @@ void KateDocumentConfig::setUndoSteps (uint undoSteps)
 
   m_undoStepsSet = true;
   m_undoSteps = undoSteps;
+
+  configEnd ();
+}
+
+uint KateDocumentConfig::configFlags () const
+{
+  if (isGlobal())
+    return m_configFlags;
+
+  return ((s_global->configFlags() & ~ m_configFlagsSet) | m_configFlags);
+}
+
+void KateDocumentConfig::setConfigFlags (KateDocumentConfig::ConfigFlags flag, bool enable)
+{
+  configStart ();
+
+  m_configFlagsSet |= flag;
+
+  if (enable)
+    m_configFlags = m_configFlags | flag;
+  else
+    m_configFlags = m_configFlags & ~ flag;
+
+  configEnd ();
+}
+
+void KateDocumentConfig::setConfigFlags (uint fullFlags)
+{
+  configStart ();
+
+  m_configFlagsSet = 0xFFFF;
+  m_configFlags = fullFlags;
 
   configEnd ();
 }

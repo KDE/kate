@@ -34,8 +34,6 @@ class KateCoreCommands : public Kate::Command
   bool help( class Kate::View *view, const QString &cmd, QString &msg ) {return false;};
 
   static bool getBoolArg( QString s, bool *val  );
-  void setDocFlag( Kate::Document::ConfigFlags flag,
-                   bool enable, class KateDocument *doc );
 };
 
 #endif //_KATE_CORE_COMMANDS_H_

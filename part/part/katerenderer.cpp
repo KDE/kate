@@ -241,7 +241,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // length, chars + raw attribs
   uint len = textLine->length();
   uint oldLen = len;
-  //const QChar *s;
 
   // should the cursor be painted (if it is in the current xstart - xend range)
   bool cursorVisible = false;
@@ -250,9 +249,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   // font data
   KateFontStruct * fs = config()->fontStruct();
-
-  // should we paint the word wrap marker?
-  bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch();
 
   // Paint selection background as the whole line is selected
   // selection startcol/endcol calc
@@ -310,10 +306,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // Start arbitrary highlighting
   KateTextCursor currentPos(line, curCol);
   superRanges.firstBoundary(&currentPos);
-  KateAttribute currentHL;
 
   if (showSelections() && !selectionPainted)
-    hasSel = selectBounds(line, startSel, endSel, oldLen);
+    hasSel = getSelectionBounds(line, oldLen, startSel, endSel);
 
   uint blockStartCol = startcol;
 
@@ -352,6 +347,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     KateAttribute* oldAt = &attr[0];
 
     uint oldXPos = xPos;
+
+    KateAttribute currentHL;
 
     uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
     m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
@@ -609,7 +606,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   }
 
   // show word wrap marker if desirable
-  if ( paintWWMarker ) {
+  if (!isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch())
+  {
     paint.setPen( config()->wordWrapMarkerColor() );
     int _x = m_doc->config()->wordWrapAt() * fs->myFontMetrics.width('x') - xStart;
     paint.drawLine( _x,0,_x,fs->fontHeight );
@@ -850,8 +848,7 @@ uint KateRenderer::documentHeight()
   return m_doc->numLines() * fontHeight();
 }
 
-
-bool KateRenderer::selectBounds(uint line, uint &start, uint &end, uint lineLength)
+bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, uint &end)
 {
   bool hasSel = false;
 

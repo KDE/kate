@@ -180,7 +180,7 @@ public:
     uint documentHeight();
 
     // Selection boundaries
-    bool selectBounds(uint line, uint &start, uint &end, uint lineLength);
+    bool getSelectionBounds(uint line, uint lineLength, uint &start, uint &end);
 
     /**
      * This is the ultimate function to perform painting of a text line.

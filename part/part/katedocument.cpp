@@ -4283,7 +4283,7 @@ void KateDocument::setDocName (QString )
     m_docName = i18n ("Untitled");
 
   if (m_docNameNumber > 0)
-    m_docName = QString(m_docName + " <%1>").arg(m_docNameNumber);
+    m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
 
   emit nameChanged ((Kate::Document *) this);
 }

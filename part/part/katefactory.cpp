@@ -104,7 +104,7 @@ KateFactory::KateFactory ()
   m_aboutData.addCredit ("Roland Pabel",I18N_NOOP("Highlighting for Scheme"),"");
   m_aboutData.addCredit ("Cristi Dumitrescu",I18N_NOOP("PHP Keyword/Datatype list"),"");
   m_aboutData.addCredit ("Carsten Presser", I18N_NOOP("Betatest"), "mord-slime@gmx.de");
-  m_aboutData.addCredit ("Jens Haupert", I18N_NOOP("Betatest"), "al_all@gmx.de");
+  m_aboutData.addCredit ("Jens Haupert", I18N_NOOP("Betatest"), "haupert@babylon2k.de");
   m_aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
   m_aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
 

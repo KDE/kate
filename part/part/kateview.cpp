@@ -39,6 +39,7 @@
 #include "kateviewhighlightaction.h"
 #include "katecodecompletion_iface_impl.h"
 #include "katebookmarks.h"
+#include "katebrowserextension.h"
 
 #include <kurldrag.h>
 #include <qfocusdata.h>
@@ -135,7 +136,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
     if (doc->m_bBrowserView)
     {
-      m_extension = new KateBrowserExtension( myDoc, this );
+      m_extension = new KateBrowserExtension( this );
     }
   }
 
@@ -1473,27 +1474,3 @@ void KateView::showArgHint(QStringList arg1, const QString &arg2, const QString 
     	{ myCC_impl->showArgHint(arg1,arg2,arg3);}
 void KateView::showCompletionBox(QValueList<KTextEditor::CompletionEntry> arg1, int arg2, bool arg3)
     	{ myCC_impl->showCompletionBox(arg1,arg2,arg3);}
-
-KateBrowserExtension::KateBrowserExtension( KateDocument *doc, KateView *view )
-: KParts::BrowserExtension( doc, "katepartbrowserextension" )
-{
-  m_doc = doc;
-  m_view = view;
-  connect( m_doc, SIGNAL( selectionChanged() ), this, SLOT( slotSelectionChanged() ) );
-  emit enableAction( "print", true );
-}
-
-void KateBrowserExtension::copy()
-{
-  m_doc->copy( 0 );
-}
-
-void KateBrowserExtension::print()
-{
-  m_doc->printDialog ();
-}
-
-void KateBrowserExtension::slotSelectionChanged()
-{
-  emit enableAction( "copy", m_doc->hasSelection() );
-}

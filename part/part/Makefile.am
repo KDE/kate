@@ -8,7 +8,7 @@ libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attr
 			 kateiconborder.cpp katecodecompletion_arghint.cpp \
 			 katecodecompletion_iface_impl.cpp hlparamedit.cpp kateexportaction.cpp \
 			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
-			 katebookmarks.cpp
+			 katebookmarks.cpp katebrowserextension.cpp
 
 
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kspell/libkspell.la $(top_builddir)/kdeprint/libkdeprint.la

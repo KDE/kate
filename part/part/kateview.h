@@ -22,7 +22,6 @@
 #define kate_view_h
 
 #include "../interfaces/view.h"
-#include <kparts/browserextension.h>
 
 #include "kateglobal.h"
 #include "katedocument.h"
@@ -31,39 +30,18 @@
 #include <qdialog.h>
 
 class KToggleAction;
-class KActionMenu;
 class KAction;
 class KRecentFilesAction;
 class KSelectAction;
-class QTextDrag;
-class KPrinter;
-class Highlight;
 class KateDocument;
 class KateViewInternal;
-class KateView;
 class KateBookmarks;
+class KateBrowserExtension;
 
 //state commands
 enum State_commands {
   cmToggleInsert      = 1,
   cmToggleVertical    = 2
-};
-
-class KateBrowserExtension : public KParts::BrowserExtension
-{
-  Q_OBJECT
-
-  public:
-    KateBrowserExtension( KateDocument *doc, KateView *view );
-
-  public slots:
-    void copy();
-    void slotSelectionChanged();
-    void print();
-
-  private:
-    KateDocument *m_doc;
-    KateView *m_view;
 };
 
 //

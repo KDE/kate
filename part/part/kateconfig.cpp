@@ -82,6 +82,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_undoStepsSet (true),
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
+   m_eolSet (true),
    m_doc (0)
 {
   s_global = this;
@@ -101,6 +102,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_undoStepsSet (false),
    m_configFlagsSet (0),
    m_encodingSet (false),
+   m_eolSet (false),
    m_doc (doc)
 {
 }
@@ -141,6 +143,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setEncoding (config->readEntry("Encoding", QString::fromLatin1(KGlobal::locale()->encoding())));
 
+  setEol (config->readNumEntry("End of Line", 0));
+
   configEnd ();
 }
 
@@ -158,6 +162,8 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Basic Config Flags", configFlags());
 
   config->writeEntry("Encoding", encoding());
+
+  config->writeEntry("End of Line", eol());
 
   config->sync ();
 }
@@ -338,6 +344,36 @@ void KateDocumentConfig::setEncoding (const QString &encoding)
 
   m_encodingSet = true;
   m_encoding = codec->name();
+
+  configEnd ();
+}
+
+int KateDocumentConfig::eol () const
+{
+  if (m_eolSet || isGlobal())
+    return m_eol;
+
+  return s_global->eol();
+}
+
+QString KateDocumentConfig::eolString ()
+{
+  if (eol() == KateDocumentConfig::eolUnix)
+    return QString ("\n");
+  else if (eol() == KateDocumentConfig::eolDos)
+    return QString ("\r\n");
+  else if (eol() == KateDocumentConfig::eolMac)
+    return QString ("\r");
+
+  return QString ("\n");
+}
+
+void KateDocumentConfig::setEol (int mode)
+{
+  configStart ();
+
+  m_eolSet = true;
+  m_eol = mode;
 
   configEnd ();
 }

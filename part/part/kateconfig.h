@@ -135,6 +135,18 @@ class KateDocumentConfig : public KateConfig
 
     void setEncoding (const QString &encoding);
 
+    enum Eol
+    {
+      eolUnix = 0,
+      eolDos = 1,
+      eolMac = 2
+    };
+
+    int eol () const;
+    QString eolString ();
+
+    void setEol (int mode);
+
   private:
     int m_tabWidth;
     int m_indentationWidth;
@@ -143,6 +155,7 @@ class KateDocumentConfig : public KateConfig
     uint m_undoSteps;
     uint m_configFlags;
     QString m_encoding;
+    int m_eol;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
@@ -151,6 +164,7 @@ class KateDocumentConfig : public KateConfig
     bool m_undoStepsSet : 1;
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
+    bool m_eolSet : 1;
 
   private:
     KateDocument *m_doc;

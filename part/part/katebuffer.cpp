@@ -545,7 +545,7 @@ bool KateBuffer::canEncode ()
   return rightEncoding;
 }
 
-bool KateBuffer::saveFile (const QString &m_file, const QString &eol)
+bool KateBuffer::saveFile (const QString &m_file)
 {
   QFile file (m_file);
   QTextStream stream (&file);
@@ -562,6 +562,8 @@ bool KateBuffer::saveFile (const QString &m_file, const QString &eol)
 
   // this line sets the mapper to the correct codec
   stream.setCodec(codec);
+
+  QString eol = m_doc->config()->eolString ();
 
   QString tabs;
   if (m_doc->configFlags() & KateDocument::cfReplaceTabs)

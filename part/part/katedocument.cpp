@@ -622,8 +622,6 @@ bool KateDocument::clear()
     view->m_viewInternal->update();
   }
 
-  eolMode = KateDocument::eolUnix;
-
   buffer->clear();
   clearMarks ();
 
@@ -2802,16 +2800,11 @@ bool KateDocument::save()
 
 bool KateDocument::saveFile()
 {
-  QString eol ("\n");
-
-  if (eolMode == KateDocument::eolDos) eol = QString("\r\n");
-  else if (eolMode == KateDocument::eolMacintosh) eol = QString ("\r");
-
   if (!buffer->canEncode ())
     KMessageBox::error (0, i18n ("The document has been saved, but the selected encoding cannot encode every unicode character in it. "
     "If you don't save it again with another encoding, some characters will be lost after closing this document."));
 
-  bool success = buffer->saveFile (m_file, eol);
+  bool success = buffer->saveFile (m_file);
 
   if (!hlSetByUser)
   {

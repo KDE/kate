@@ -632,10 +632,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void fileNameChanged ();
 
   public:
-    //end of line settings
-    enum Eol_settings {eolUnix=0,eolDos=1,eolMacintosh=2};
-
-  public:
     // wrap the text of the document at the column col
     void wrapText (uint col);
 
@@ -687,8 +683,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     class Highlight *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
-
-    int eolMode;
 
     bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether

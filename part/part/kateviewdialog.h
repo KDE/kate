@@ -291,7 +291,7 @@ class SaveConfigTab : public Kate::ConfigPage
   void defaults();
 
   protected:
-  KComboBox *m_encoding;
+  KComboBox *m_encoding, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces;
   QLineEdit *leBuSuffix;

@@ -86,7 +86,7 @@ class KateBuffer : public QObject
     /**
      * Save the buffer to a file, use the given filename + codec + end of line chars (internal use of qtextstream)
      */
-    bool saveFile (const QString &m_file, const QString &eol);
+    bool saveFile (const QString &m_file);
 
     /**
      * Return the total number of lines in the buffer.

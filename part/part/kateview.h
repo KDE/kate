@@ -228,7 +228,7 @@ class KateView : public Kate::View,
     void writeSessionConfig(KConfig *);
 
   public slots:
-    int getEol()                  { return m_doc->eolMode; }
+    int getEol();
     void setEol( int eol );
     void find();
     void replace();

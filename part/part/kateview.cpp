@@ -847,13 +847,17 @@ void KateView::writeSessionConfig(KConfig *config)
   config->writeEntry("CursorColumn",m_viewInternal->cursor.col());
 }
 
+int KateView::getEol()
+{
+  return m_doc->config()->eol();
+}
+
 void KateView::setEol(int eol)
 {
   if (!doc()->isReadWrite())
     return;
 
-  m_doc->eolMode = eol;
-  m_doc->setModified(true);
+  m_doc->config()->setEol (eol);
 }
 
 void KateView::slotSetEncoding( const QString& descriptiveName )

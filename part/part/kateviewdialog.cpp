@@ -788,6 +788,15 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   e5Label->setBuddy(m_encoding);
   connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 
+  e5Layout = new QHBox(gbEnc);
+  e5Label = new QLabel(i18n("End &of Line:"), e5Layout);
+  m_eol = new KComboBox (e5Layout);
+  e5Label->setBuddy(m_eol);
+  connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  m_eol->insertItem (i18n("Unix"));
+  m_eol->insertItem (i18n("Dos/Windows"));
+  m_eol->insertItem (i18n("Macintosh"));
+
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
   layout->addWidget( gbWhiteSpace );
 
@@ -861,6 +870,8 @@ void SaveConfigTab::apply()
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
   KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(m_encoding->currentText()));
+
+  KateDocumentConfig::global()->setEol(m_eol->currentItem());
 }
 
 void SaveConfigTab::reload()
@@ -886,6 +897,9 @@ void SaveConfigTab::reload()
       insert++;
     }
   }
+
+  // eol
+  m_eol->setCurrentItem(KateDocumentConfig::global()->eol());
 
   // other stuff
   uint f ( KateDocument::backupConfig() );

@@ -97,13 +97,13 @@
 	</context>
 
 	<context name="12:Comment after XMLDecl" attribute="Comment" lineEndContext="#stay">
-	  <RegExpr attribute="Error" context="11" String="--->"/>
-	  <RegExpr attribute="Comment" context="11" String="-->"/>
+	  <RegExpr attribute="Error" context="#pop" String="--->"/>
+	  <RegExpr attribute="Comment" context="#pop" String="-->"/>
 	  <Detect2Chars attribute="Error" context="#stay" char="-" char1="-"/>
 	</context>
 
 	<context name="13:PI after XMLDecl" attribute="Processing Instruction Body" lineEndContext="#stay">
-	  <Detect2Chars attribute="Processing Instruction" context="11" char="?" char1="&gt;"/>
+	  <Detect2Chars attribute="Processing Instruction" context="#pop" char="?" char1="&gt;"/>
 	</context>
 
 	<context name="14:Doctype Decl Name" attribute="Error" lineEndContext="#stay">
@@ -199,8 +199,8 @@
 	</context>
 
 	<context name="29:MixedLong endOrContinue" attribute="Error" lineEndContext="#stay">
-	  <DetectChar attribute="Doctype Declaration" context="28" char="|"/>
-	  <RegExpr attribute="Doctype Declaration" context="27" String="\s+"/>
+	  <DetectChar attribute="Doctype Declaration" context="#pop" char="|"/>
+	  <RegExpr attribute="Doctype Declaration" context="#pop#pop" String="\s+"/>
 	  <Detect2Chars attribute="Doctype Declaration" context="37" char=")" char1="*"/>
 	</context>
 

@@ -4440,26 +4440,51 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
   {
     m_isasking = 1;
 
-    switch ( KMessageBox::warningYesNoCancel( widget(),
-                reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-                i18n("File Was Modified on Disk"),
-                i18n("&Reload File"), i18n("&Ignore Changes")) )
+    if ( m_modOnHdReason == 3 ) // deleted
     {
-      case KMessageBox::Yes: // "reload file"
-        m_modOnHd = false; // trick reloadFile() to not ask again
-        emit modifiedOnDisc( this, false, 0 );
-        reloadFile();
-        m_isasking = 0;
-        break;
+      switch ( KMessageBox::warningYesNoCancel( widget(),
+               reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
+               i18n("File Was Deleted on Disk"),
+               i18n("&Save File"), i18n("&Ignore Changes")) )
+      {
+        case KMessageBox::Yes: // "reload file"
+          m_modOnHd = false; // trick reloadFile() to not ask again
+          emit modifiedOnDisc( this, false, 0 );
+          save();
+          m_isasking = 0;
+          break;
 
-      case KMessageBox::No:  // "ignore changes"
-        m_modOnHd = false;
-        emit modifiedOnDisc( this, false, 0 );
-        m_isasking = 0;
-        break;
+          case KMessageBox::No:  // "ignore changes"
+            m_modOnHd = false;
+            emit modifiedOnDisc( this, false, 0 );
+            m_isasking = 0;
+            break;
 
-      default:               // cancel: ignore next focus event
-        m_isasking = -1;
+            default:               // cancel: ignore next focus event
+              m_isasking = -1;
+      }
+    } else {
+      switch ( KMessageBox::warningYesNoCancel( widget(),
+                  reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
+                  i18n("File Was Modified on Disk"),
+                  i18n("&Reload File"), i18n("&Ignore Changes")) )
+      {
+        case KMessageBox::Yes: // "reload file"
+          m_modOnHd = false; // trick reloadFile() to not ask again
+          emit modifiedOnDisc( this, false, 0 );
+          reloadFile();
+          m_isasking = 0;
+          break;
+
+        case KMessageBox::No:  // "ignore changes"
+          m_modOnHd = false;
+          emit modifiedOnDisc( this, false, 0 );
+          m_isasking = 0;
+          break;
+
+        default:               // cancel: ignore next focus event
+          m_isasking = -1;
+      }
     }
   }
 }
@@ -5326,15 +5351,19 @@ bool KateDocument::createDigest( QCString &result )
 
 QString KateDocument::reasonedMOHString() const
 {
-  QString reason;
-  if ( m_modOnHdReason == 1 )
-    reason = i18n("modified");
-  else if ( m_modOnHdReason == 2 )
-    reason = i18n("created");
-  else if ( m_modOnHdReason == 3 )
-    reason = i18n("deleted");
-
-  return i18n("The file '%1' was %2 on disk by another program.").arg( url().prettyURL() ).arg( reason );
+  switch( m_modOnHdReason )
+  {
+    case 1:
+      return i18n("The file '%1' was modified on disk by another program.").arg( url().prettyURL() );
+      break;
+    case 2:
+      return i18n("The file '%1' was created on disk by another program.").arg( url().prettyURL() );
+      break;
+    case 3:
+      return i18n("The file '%1' was deleted by another program.").arg( url().prettyURL() );
+      break;
+    default:
+  }
 }
 
 void KateDocument::removeTrailingSpace( uint line )

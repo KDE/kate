@@ -844,21 +844,21 @@ void KateViewInternal::paintBracketMark()
 
 void KateViewInternal::placeCursor( int x, int y, bool keepSelection )
 {
-  KateTextCursor tmpCur;
-
   int newDisplayLine = startLine + y / myDoc->viewFont.fontHeight;
 
   if( newDisplayLine >= myDoc->numVisLines() )
-    return;
-  if( ( newDisplayLine - startLine < 0 ) ||
-      ( newDisplayLine - startLine >= lineRanges.size()))
-    return;// not sure yet, if this is ther correct way;
+    newDisplayLine = myDoc->numVisLines() - 1;
 
-  tmpCur.line = lineRanges[newDisplayLine-startLine].line;
-  myDoc->textWidth( tmpCur, xPos + x);
+  int index = newDisplayLine - startLine;
+  if( ( index < 0 ) || ( index >= lineRanges.size() ) )
+    return; // not sure yet, if this is ther correct way;
 
-  updateSelection( tmpCur, keepSelection );
-  updateCursor( tmpCur );
+  KateTextCursor c;
+  c.line = lineRanges[index].line;
+  myDoc->textWidth( c, xPos + x );
+
+  updateSelection( c, keepSelection );
+  updateCursor( c );
 }
 
 // given physical coordinates, report whether the text there is selected

@@ -294,277 +294,277 @@
 	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="45:Enumeration or End" attribute="Error" lineEndContext="45">
+	<context name="45:Enumeration or End" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Doctype Declaration" context="44" char="|"/>
 	  <RegExpr attribute="Doctype Declaration" context="46" String="\)(\s+|$)"/>
-	  <RegExpr attribute="Doctype Declaration" context="45" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="46:DefaultDecl" attribute="Error" lineEndContext="46">
+	<context name="46:DefaultDecl" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Attribute" context="39" String="(#REQUIRED|#IMPLIED)(\s+|$)"/>
 	  <RegExpr attribute="Attribute" context="47" String="#FIXED(\s+|$)"/>
-	  <RegExpr attribute="Doctype Declaration" context="46" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	  <RegExpr attribute="Value" context="48" String="&quot;"/>
 	  <RegExpr attribute="Value" context="49" String="'"/>
 	</context>
 
-	<context name="47:DefaultDecl AttValue" attribute="Error" lineEndContext="47">
+	<context name="47:DefaultDecl AttValue" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Value" context="48" String="&quot;"/>
 	  <RegExpr attribute="Value" context="49" String="'"/>
 	</context>
 
- 	<context name="48:DefaultDecl AttValue qq" attribute="Value" lineEndContext="48">
-	  <RegExpr attribute="Entity" context="48" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	  <RegExpr attribute="Entity" context="48" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
-	  <DetectChar attribute="Error" context="48" char="&amp;"/>
-	  <DetectChar attribute="Error" context="48" char="&lt;"/>
+ 	<context name="48:DefaultDecl AttValue qq" attribute="Value" lineEndContext="#stay">
+	  <RegExpr attribute="Entity" context="#stay" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	  <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	  <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	  <DetectChar attribute="Error" context="#stay" char="&lt;"/>
           <DetectChar attribute="Value" context="39" char="&quot;"/>
   	</context>
 
-	<context name="49:DefaultDecl AttValue q" attribute="Value" lineEndContext="49">
-	  <RegExpr attribute="Entity" context="49" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	  <RegExpr attribute="Entity" context="49" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
-	  <DetectChar attribute="Error" context="49" char="&amp;"/>
-	  <DetectChar attribute="Error" context="49" char="&lt;"/>
+	<context name="49:DefaultDecl AttValue q" attribute="Value" lineEndContext="#stay">
+	  <RegExpr attribute="Entity" context="#stay" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	  <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	  <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	  <DetectChar attribute="Error" context="#stay" char="&lt;"/>
           <DetectChar attribute="Value" context="39" char="&quot;"/>
 	</context>
 
-	<context name="50:EntityDecl" attribute="Error" lineEndContext="50">
+	<context name="50:EntityDecl" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Entity" context="52" String="(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*(\s+|$)"/>
 	  <DetectChar attribute="Entity" context="61" char="%"/>
-	  <RegExpr attribute="Doctype Declaration" context="50" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="51:unused" attribute="Error" lineEndContext="51">
+	<context name="51:unused" attribute="Error" lineEndContext="#stay">
 	</context>
 
-	<context name="52:GEDecl EntityValueOrExternalID" attribute="Error" lineEndContext="52">
+	<context name="52:GEDecl EntityValueOrExternalID" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Value" context="53" String="&quot;"/>
 	  <RegExpr attribute="Value" context="54" String="'"/>
 	  <RegExpr attribute="Doctype Declaration" context="55" String="PUBLIC(\s+|$)"/>
 	  <RegExpr attribute="Doctype Declaration" context="58" String="SYSTEM(\s+|$)"/>
 	</context>
 
- 	<context name="53:GEDecl EntityValue qq" attribute="Value" lineEndContext="53">
-	  <RegExpr attribute="Entity" context="53" String="[&amp;%](?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	  <RegExpr attribute="Entity" context="53" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
-	  <DetectChar attribute="Error" context="53" char="&amp;"/>
-	  <DetectChar attribute="Error" context="53" char="%"/>
-	  <DetectChar attribute="Error" context="53" char="&lt;"/>
+ 	<context name="53:GEDecl EntityValue qq" attribute="Value" lineEndContext="#stay">
+	  <RegExpr attribute="Entity" context="#stay" String="[&amp;%](?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	  <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	  <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	  <DetectChar attribute="Error" context="#stay" char="%"/>
+	  <DetectChar attribute="Error" context="#stay" char="&lt;"/>
           <DetectChar attribute="Value" context="69" char="&quot;"/>
   	</context>
 
- 	<context name="54:GEDecl EntityValue q" attribute="Value" lineEndContext="54">
-	  <RegExpr attribute="Entity" context="54" String="[&amp;%](?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	  <RegExpr attribute="Entity" context="54" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
-	  <DetectChar attribute="Error" context="54" char="&amp;"/>
-	  <DetectChar attribute="Error" context="54" char="%"/>
-	  <DetectChar attribute="Error" context="54" char="&lt;"/>
+ 	<context name="54:GEDecl EntityValue q" attribute="Value" lineEndContext="#stay">
+	  <RegExpr attribute="Entity" context="#stay" String="[&amp;%](?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	  <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	  <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	  <DetectChar attribute="Error" context="#stay" char="%"/>
+	  <DetectChar attribute="Error" context="#stay" char="&lt;"/>
           <DetectChar attribute="Value" context="69" char="'"/>
   	</context>
 
-	<context name="55:GEDecl PublicID" attribute="Error" lineEndContext="55">
+	<context name="55:GEDecl PublicID" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="56" char="&quot;"/>
 	  <DetectChar attribute="Value" context="57" char="'"/>
-	  <RegExpr attribute="Doctype Declaration" context="55" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="56:GEDecl PublicID qq" attribute="Error" lineEndContext="56">
+	<context name="56:GEDecl PublicID qq" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="58" char="&quot;(\s+|$)"/>
-	  <RegExpr attribute="Value" context="56" String="[&#x20;&#xD;&#xA;a-zA-Z0-9'()+,./:=?;!*#@$_%-]"/>
+	  <RegExpr attribute="Value" context="#stay" String="[&#x20;&#xD;&#xA;a-zA-Z0-9'()+,./:=?;!*#@$_%-]"/>
 	</context>
 
-	<context name="57:GEDecl PublicID q" attribute="Value" lineEndContext="57">
+	<context name="57:GEDecl PublicID q" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="58" char="'(\s+|$)"/>
-	  <RegExpr attribute="Value" context="57" String="[&#x20;&#xD;&#xA;a-zA-Z0-9()+,./:=?;!*#@$_%-]"/>
+	  <RegExpr attribute="Value" context="#stay" String="[&#x20;&#xD;&#xA;a-zA-Z0-9()+,./:=?;!*#@$_%-]"/>
 	</context>
 
-	<context name="58:GEDecl SystemID" attribute="Error" lineEndContext="58">
+	<context name="58:GEDecl SystemID" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="59" char="&quot;"/>
 	  <DetectChar attribute="Value" context="60" char="'"/>
-	  <RegExpr attribute="Doctype Declaration" context="58" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="59:GEDecl SystemID qq" attribute="Value" lineEndContext="59">
+	<context name="59:GEDecl SystemID qq" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="69" char="&quot;"/>
 	</context>
 
-	<context name="60:GEDecl SystemID q" attribute="Value" lineEndContext="60">
+	<context name="60:GEDecl SystemID q" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="69" char="'"/>
 	</context>
 
-	<context name="61:PEDecl" attribute="Error" lineEndContext="61">
+	<context name="61:PEDecl" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Entity" context="62" String="(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*(\s+|$)"/>
-	  <RegExpr attribute="Doctype Declaration" context="61" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="62:PEDecl EntityValueOrExternalID" attribute="Error" lineEndContext="62">
+	<context name="62:PEDecl EntityValueOrExternalID" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Value" context="53" String="&quot;"/>
 	  <RegExpr attribute="Value" context="54" String="'"/>
 	  <RegExpr attribute="Doctype Declaration" context="63" String="PUBLIC(\s+|$)"/>
 	  <RegExpr attribute="Doctype Declaration" context="66" String="SYSTEM(\s+|$)"/>
 	</context>
 
-	<context name="63:PEDecl PublicID" attribute="Error" lineEndContext="63">
+	<context name="63:PEDecl PublicID" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="64" char="&quot;"/>
 	  <DetectChar attribute="Value" context="65" char="'"/>
-	  <RegExpr attribute="Doctype Declaration" context="63" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="64:PEDecl PublicID qq" attribute="Error" lineEndContext="64">
+	<context name="64:PEDecl PublicID qq" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="66" char="&quot;(\s+|$)"/>
-	  <RegExpr attribute="Value" context="64" String="[&#x20;&#xD;&#xA;a-zA-Z0-9'()+,./:=?;!*#@$_%-]"/>
+	  <RegExpr attribute="Value" context="#stay" String="[&#x20;&#xD;&#xA;a-zA-Z0-9'()+,./:=?;!*#@$_%-]"/>
 	</context>
 
-	<context name="65:PEDecl PublicID q" attribute="Value" lineEndContext="65">
+	<context name="65:PEDecl PublicID q" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="66" char="'(\s+|$)"/>
-	  <RegExpr attribute="Value" context="65" String="[&#x20;&#xD;&#xA;a-zA-Z0-9()+,./:=?;!*#@$_%-]"/>
+	  <RegExpr attribute="Value" context="#stay" String="[&#x20;&#xD;&#xA;a-zA-Z0-9()+,./:=?;!*#@$_%-]"/>
 	</context>
 
-	<context name="66:PEDecl SystemID" attribute="Error" lineEndContext="66">
+	<context name="66:PEDecl SystemID" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="67" char="&quot;"/>
 	  <DetectChar attribute="Value" context="68" char="'"/>
-	  <RegExpr attribute="Doctype Declaration" context="66" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="67:PEDecl SystemID qq" attribute="Value" lineEndContext="67">
+	<context name="67:PEDecl SystemID qq" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="37" char="&quot;"/>
 	</context>
 
-	<context name="68:PEDecl SystemID q" attribute="Value" lineEndContext="68">
+	<context name="68:PEDecl SystemID q" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="37" char="'"/>
 	</context>
 
-	<context name="69:GEDecl endOrNDATA" attribute="Error" lineEndContext="69">
+	<context name="69:GEDecl endOrNDATA" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Doctype Declaration" context="23" char=">"/>
 	  <RegExpr attribute="Doctype Declaration" context="70" String="NDATA(\s+|$)"/>
-	  <RegExpr attribute="Doctype Declaration" context="69" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="70:GEDecl NDATA" attribute="Error" lineEndContext="61">
+	<context name="70:GEDecl NDATA" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Entity" context="37" String="(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*"/>
-	  <RegExpr attribute="Doctype Declaration" context="70" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="71:NotationDecl Name" attribute="Error" lineEndContext="71">
+	<context name="71:NotationDecl Name" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Entity" context="72" String="(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*(\s+|$)"/>
-	  <RegExpr attribute="Doctype Declaration" context="71" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="72:NotationDecl ExternalID" attribute="Error" lineEndContext="72">
+	<context name="72:NotationDecl ExternalID" attribute="Error" lineEndContext="#stay">
 	  <RegExpr attribute="Doctype Declaration" context="73" String="PUBLIC(\s+|$)"/>
 	  <RegExpr attribute="Doctype Declaration" context="66" String="SYSTEM(\s+|$)"/>
-	  <RegExpr attribute="Doctype Declaration" context="72" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="73:NotationDecl PublicID" attribute="Error" lineEndContext="73">
+	<context name="73:NotationDecl PublicID" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="74" char="&quot;"/>
 	  <DetectChar attribute="Value" context="75" char="'"/>
-	  <RegExpr attribute="Doctype Declaration" context="73" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="74:NotationDecl PublicID qq" attribute="Error" lineEndContext="74">
+	<context name="74:NotationDecl PublicID qq" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="76" char="&quot;(\s+|$)"/>
-	  <RegExpr attribute="Value" context="74" String="[&#x20;&#xD;&#xA;a-zA-Z0-9'()+,./:=?;!*#@$_%-]"/>
+	  <RegExpr attribute="Value" context="#stay" String="[&#x20;&#xD;&#xA;a-zA-Z0-9'()+,./:=?;!*#@$_%-]"/>
 	</context>
 
-	<context name="75:NotationDecl PublicID q" attribute="Value" lineEndContext="75">
+	<context name="75:NotationDecl PublicID q" attribute="Value" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="76" char="'(\s+|$)"/>
-	  <RegExpr attribute="Value" context="75" String="[&#x20;&#xD;&#xA;a-zA-Z0-9()+,./:=?;!*#@$_%-]"/>
+	  <RegExpr attribute="Value" context="#stay" String="[&#x20;&#xD;&#xA;a-zA-Z0-9()+,./:=?;!*#@$_%-]"/>
 	</context>
 
-	<context name="76:NotationDecl SystemIDOrEnd" attribute="Error" lineEndContext="76">
+	<context name="76:NotationDecl SystemIDOrEnd" attribute="Error" lineEndContext="#stay">
 	  <DetectChar attribute="Value" context="67" char="&quot;"/>
 	  <DetectChar attribute="Value" context="68" char="'"/>
 	  <DetectChar attribute="Doctype Declaration" context="23" char=">"/>
-	  <RegExpr attribute="Doctype Declaration" context="76" String="\s+"/>
+	  <RegExpr attribute="Doctype Declaration" context="#stay" String="\s+"/>
 	</context>
 
-	<context name="77:Comment inside IS" attribute="Comment" lineEndContext="77">
+	<context name="77:Comment inside IS" attribute="Comment" lineEndContext="#stay">
 	  <RegExpr attribute="Error" context="23" String="--->"/>
 	  <RegExpr attribute="Comment" context="23" String="-->"/>
-	  <Detect2Chars attribute="Error" context="77" char="-" char1="-"/>
+	  <Detect2Chars attribute="Error" context="#stay" char="-" char1="-"/>
 	</context>
 
-	<context name="78:PI inside IS" attribute="Processing Instruction Body" lineEndContext="78">
+	<context name="78:PI inside IS" attribute="Processing Instruction Body" lineEndContext="#stay">
 	  <Detect2Chars attribute="Processing Instruction" context="23" char="?" char1="&gt;"/>
 	</context>
 
-       <context name="79:Outside" attribute="Normal Text" lineEndContext="79">
+       <context name="79:Outside" attribute="Normal Text" lineEndContext="#stay">
 	 <RegExpr attribute="Error" context="80" String="&lt;[xX][mM][lL](\w|[_.-])*(:(\w|[_.-])+)?"/>
          <RegExpr attribute="Normal Tag" context="80" String="&lt;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|_)(\w|[_.-])*(:(\w|[_.-])+)?"/>
 	 <RegExpr attribute="Error" context="80" String="&lt;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[:_])(\w|[:_.-])*"/>
 	 <RegExpr attribute="Error" context="85" String="&lt;/[xX][mM][lL](\w|[_.-])*(:(\w|[_.-])+)?"/>
          <RegExpr attribute="Normal Tag" context="85" String="&lt;/(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|_)(\w|[_.-])*(:(\w|[_.-])+)?"/>
 	 <RegExpr attribute="Error" context="85" String="&lt;/(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[:_])(\w|[:_.-])*"/>
-	 <RegExpr attribute="Entity" context="79" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	 <RegExpr attribute="Entity" context="79" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	 <RegExpr attribute="Entity" context="#stay" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	 <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
 	 <RegExpr attribute="Entity" context="86" String="&lt;!\[CDATA\["/>
 	 <RegExpr attribute="Comment" context="87" String="&lt;!--"/>
 	 <RegExpr attribute="Normal Tag" context="88" String="&lt;\?xml-stylesheet(\s|$)"/>
 	 <RegExpr attribute="Error" context="88" String="&lt;\?[xX][mM][lL](\w|[_.-])*(:(\w|[_.-])+)?"/>
          <RegExpr attribute="Normal Tag" context="88" String="&lt;\?(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|_)(\w|[_.-])*(:(\w|[_.-])+)?"/>
 	 <RegExpr attribute="Error" context="88" String="&lt;\?(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[:_])(\w|[:_.-])*"/>
-	 <DetectChar attribute="Error" context="79" char="&lt;"/>
-	 <DetectChar attribute="Error" context="79" char="&amp;"/>
-	 <RegExpr attribute="Error" context="79" String="\]\]>"/>
+	 <DetectChar attribute="Error" context="#stay" char="&lt;"/>
+	 <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	 <RegExpr attribute="Error" context="#stay" String="\]\]>"/>
        </context>
 
-       <context name="80:STag" attribute="Error" lineEndContext="80">
+       <context name="80:STag" attribute="Error" lineEndContext="#stay">
 	 <Detect2Chars attribute="Normal Tag" context="79" char="/" char1="&gt;"/>
 	 <DetectChar attribute="Normal Tag" context="79" char="&gt;"/>
 	 <RegExpr attribute="Attribute" context="81" String="(xmlns:(\w|[_.-])*|xmlns|xml:(lang|base|space))"/>
 	 <RegExpr attribute="Error" context="81" String="[xX][mM][lL](\w|[_.-])*(:(\w|[_.-])+)?"/>
          <RegExpr attribute="Attribute" context="81" String="(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|_)(\w|[_.-])*(:(\w|[_.-])+)?"/>
 	 <RegExpr attribute="Error" context="81" String="(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[:_])(\w|[:_.-])*"/>
-         <RegExpr attribute="Normal Tag" context="80" String="\s+"/>
+         <RegExpr attribute="Normal Tag" context="#stay" String="\s+"/>
        </context>
 
-       <context name="81:STag Attribute" attribute="Error" lineEndContext="81">
+       <context name="81:STag Attribute" attribute="Error" lineEndContext="#stay">
 	 <DetectChar attribute="Attribute" context="82" char="="/>
-         <RegExpr attribute="Normal Tag" context="81" String="\s+"/>
+         <RegExpr attribute="Normal Tag" context="#stay" String="\s+"/>
        </context>
 
-       <context name="82:STag Attribute Value" attribute="Error" lineEndContext="82">
+       <context name="82:STag Attribute Value" attribute="Error" lineEndContext="#stay">
          <DetectChar attribute="Value" context="83" char="&quot;"/>
          <DetectChar attribute="Value" context="84" char="'"/>
-         <RegExpr attribute="Normal Tag" context="82" String="\s+"/>
+         <RegExpr attribute="Normal Tag" context="#stay" String="\s+"/>
        </context>
 
-       <context name="83:STag Value qq" attribute="Value" lineEndContext="83">
-	 <RegExpr attribute="Entity" context="83" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	 <RegExpr attribute="Entity" context="83" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
-	 <DetectChar attribute="Error" context="83" char="&amp;"/>
-	 <DetectChar attribute="Error" context="83" char="&lt;"/>
+       <context name="83:STag Value qq" attribute="Value" lineEndContext="#stay">
+	 <RegExpr attribute="Entity" context="#stay" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	 <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	 <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	 <DetectChar attribute="Error" context="#stay" char="&lt;"/>
          <RegExpr attribute="Error" context="80" String="&quot;(?=(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:]))"/>
          <RegExpr attribute="Value" context="80" String="&quot;(?=>|/>|\s|$)"/>
        </context>
 
-       <context name="84:STag Value q" attribute="Value" lineEndContext="84">
-	 <RegExpr attribute="Entity" context="84" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
-	 <RegExpr attribute="Entity" context="84" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
-	 <DetectChar attribute="Error" context="84" char="&amp;"/>
-	 <DetectChar attribute="Error" context="84" char="&lt;"/>
+       <context name="84:STag Value q" attribute="Value" lineEndContext="#stay">
+	 <RegExpr attribute="Entity" context="#stay" String="&amp;(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:])(\w|[_:.-])*;"/>
+	 <RegExpr attribute="Entity" context="#stay" String="&amp;#(x[0-9a-fA-F]+|[0-9]+);"/>
+	 <DetectChar attribute="Error" context="#stay" char="&amp;"/>
+	 <DetectChar attribute="Error" context="#stay" char="&lt;"/>
          <RegExpr attribute="Error" context="80" String="'(?=(?![&#x0660;-&#x0669;&#x06F0;-&#x06F9;&#x0966;-&#x096F;&#x09E6;-&#x09EF;&#x0A66;-&#x0A6F;&#x0AE6;-&#x0AEF;&#x0B66;-&#x0B6F;&#x0BE7;-&#x0BEF;&#x0C66;-&#x0C6F;&#x0CE6;-&#x0CEF;&#x0D66;-&#x0D6F;&#x0E50;-&#x0E59;&#x0ED0;-&#x0ED9;&#x0F20;-&#x0F29;]|\d)(\w|[_:]))"/>
          <RegExpr attribute="Value" context="80" String="'(?=>|/>|\s|$)"/>
        </context>
 
-       <context name="85:ETag" attribute="Error" lineEndContext="85">
+       <context name="85:ETag" attribute="Error" lineEndContext="#stay">
 	 <DetectChar attribute="Normal Tag" context="79" char="&gt;"/>
-         <RegExpr attribute="Normal Tag" context="85" String="\s+"/>
+         <RegExpr attribute="Normal Tag" context="#stay" String="\s+"/>
        </context>
 
-       <context name="86:CDSect" attribute="Normal Text" lineEndContext="86">
+       <context name="86:CDSect" attribute="Normal Text" lineEndContext="#stay">
          <RegExpr attribute="Entity" context="79" String="\]\]>"/>
        </context>
 
-	<context name="87:Comment inside IS" attribute="Comment" lineEndContext="87">
+	<context name="87:Comment inside IS" attribute="Comment" lineEndContext="#stay">
 	  <RegExpr attribute="Error" context="79" String="--->"/>
 	  <RegExpr attribute="Comment" context="79" String="-->"/>
-	  <Detect2Chars attribute="Error" context="87" char="-" char1="-"/>
+	  <Detect2Chars attribute="Error" context="#stay" char="-" char1="-"/>
 	</context>
 
-	<context name="88:PI inside IS" attribute="Processing Instruction Body" lineEndContext="88">
+	<context name="88:PI inside IS" attribute="Processing Instruction Body" lineEndContext="#stay">
 	  <Detect2Chars attribute="Processing Instruction" context="79" char="?" char1="&gt;"/>
 	</context>
 

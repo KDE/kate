@@ -290,12 +290,15 @@ void KateViewInternal::cursorDown(bool sel)
   KateTextCursor tmpCur = cursor;
   int x;
   
-  if (tmpCur.line == (int)myDoc->lastLine()) {
+  if (tmpCur.line >= (int)myDoc->lastLine()) {
     x = myDoc->textLength(tmpCur.line);
     if (tmpCur.col >= x) return;
     tmpCur.col = x;
   } else {
     tmpCur.line=myDoc->getRealLine(displayCursor.line+1);
+     x = myDoc->textLength(tmpCur.line);
+    if (tmpCur.col > x)
+      tmpCur.col = x;
   }
   
   updateCursor (tmpCur, sel);

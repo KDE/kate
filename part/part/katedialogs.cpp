@@ -295,9 +295,9 @@ void HlConfigPage::apply ()
 {
   if (m_ready)
   {
+    page->saveData();
     hlManager->setHlDataList(hlDataList);
     hlManager->setDefaults(defaultStyleList);
-    page->saveData();
   }
 }
 

@@ -545,7 +545,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     return;
 
   if( markMenu.count() > 1 )
-    markMenu.insertItem( i18n("Set default mark type" ), &selectDefaultMark);
+    markMenu.insertItem( i18n("Set Default Mark Type" ), &selectDefaultMark);
 
   int result = markMenu.exec( pos );
   if( result <= 0 )

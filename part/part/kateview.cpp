@@ -1020,12 +1020,10 @@ void KateViewInternal::keyPressEvent(QKeyEvent *e) {
     if (c.flags & KateDocument::cfTabIndents && myDoc->hasSelection()) {
       if (key == Qt::Key_Tab) {
         myDoc->indent(c);
-        myDoc->updateViews();
         return;
       }
       if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab) {
         myDoc->unIndent(c);
-        myDoc->updateViews();
         return;
       }
     }

@@ -451,7 +451,7 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 void
 KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
 {
-kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl;
+//kdDebug(13020)<< "updateHighlighting: from = " << from << " to = " << to << endl;
    assert(to > 0);
    if (from > m_highlightedTo )
      from = m_highlightedTo;

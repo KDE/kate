@@ -460,7 +460,7 @@ void KateJScriptManager::collectScripts (bool force)
   // We'll store the scripts list in this config
   KConfig config("katepartjscriptrc", false, false);
 
-  // figure our if the kate install is too new
+  // figure out if the kate install is too new
   config.setGroup ("General");
   if (config.readNumEntry ("Version") > config.readNumEntry ("CachedVersion"))
   {
@@ -468,7 +468,7 @@ void KateJScriptManager::collectScripts (bool force)
     force = true;
   }
 
-  // Let's get a list of all the xml files for hl
+  // Let's get a list of all the .js files
   QStringList list = KGlobal::dirs()->findAllResources("data","katepart/scripts/*.js",false,true);
 
   // Let's iterate through the list and build the Mode List
@@ -485,7 +485,7 @@ void KateJScriptManager::collectScripts (bool force)
     memset (&sbuf, 0, sizeof(sbuf));
     stat(QFile::encodeName(*it), &sbuf);
 
-    // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
+    // If the group exist and we're not forced to read the .js file, let's build myModeList for katepartjscriptrc
     if (!force && config.hasGroup(Group) && (sbuf.st_mtime == config.readNumEntry("lastModified")))
     {
     }
@@ -543,7 +543,7 @@ void KateJScriptManager::collectScripts (bool force)
     }
   }
 
-  // Syncronize with the file katesyntax...rc
+  // Syncronize with the file katepartjscriptrc
   config.sync();
 }
 

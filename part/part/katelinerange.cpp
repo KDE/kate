@@ -19,6 +19,8 @@
 
 #include "katelinerange.h"
 
+// $Id$
+
 LineRange::LineRange()
   : line(-1)
   , virtualLine(-1)

@@ -756,6 +756,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
   bool stillcontinue=false;
   QMemArray<signed char> foldingList;
+  QMemArray<signed char> test;
   bool CodeFoldingUpdated = false;
   do
   {
@@ -833,8 +834,6 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
       if (remIn > 0)
       {
-        QMemArray<signed char> test;
-
         test.duplicate (prevLine->foldingListArray());
 
         test.resize (test.size() + remIn);

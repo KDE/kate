@@ -134,7 +134,6 @@ private:
     bool possibleTripleClick;
     bool exposeCursor;
     int updateState;
-    uint numLines;
     class KateLineRange *lineRanges;
     uint lineRangesLen;
     int newXPos;

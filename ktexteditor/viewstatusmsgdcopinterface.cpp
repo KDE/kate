@@ -21,7 +21,8 @@ uint ViewStatusMsgDCOPInterface::viewStatusMsgInterfaceNumber ()
 {
 	return m_parent->viewStatusMsgInterfaceNumber ();
 }
-void ViewStatusMsgDCOPInterface::viewStatusMsg (::QString msg) 
+
+void ViewStatusMsgDCOPInterface::viewStatusMsg (QString msg)
 {
 	m_parent->viewStatusMsg(msg);
 }

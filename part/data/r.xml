@@ -7,7 +7,7 @@
        Kate: http://www.kde.org/kate
        R   : http://www.r-project.org/
     -->
-<language version="1.02" kateversion="2.1" name="R Script" section="Scripts"
+<language version="1.03" kateversion="2.1" name="R Script" section="Scripts"
           extensions="*.R" mimetype=""
           author="E.L. Willighagen" license="GPL">
   <highlighting>
@@ -24,6 +24,7 @@
        </context>
 
        <context attribute="Normal Text" lineEndContext="#stay" name="ctx1">
+         <DetectChar attribute="Keyword" context="ctx4" char="("/>
          <LineContinue attribute="Normal Text" context="#stay"/>
          <DetectChar attribute="Keyword" context="#pop" char=")"/>
          <DetectChar attribute="String" context="ctx2" char="&quot;"/>
@@ -36,6 +37,10 @@
        </context>
 
        <context attribute="Comment" lineEndContext="ctx0" name="ctx3"/>
+       
+       <context attribute="Bracket" lineEndContext="#stay" name="ctx4">
+         <DetectChar attribute="Keyword" context="#pop" char=")"/>
+       </context>
 
     </contexts>
     <itemDatas>

@@ -24,6 +24,8 @@
 #include "../interfaces/document.h"
 #include "../interfaces/view.h"
 
+class KateDocument;
+
 namespace KateCommands
 {
 
@@ -82,10 +84,32 @@ class SedReplace : public Kate::Command
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds () { QStringList l; l << "s"<<"%s" /*<<"$s"*/; return l; };
+    QStringList cmds () { QStringList l("s"); l << "%s" << "$s"; return l; };
 
   private:
-    static int sedMagic(QString &textLine, const QString &find, const QString &replace, const QString &delim, bool noCase, bool repeat);
+    /**
+     * Searches one line and does the replacement in the document.
+     * If @p replace contains any newline characters, the reamaining part of the
+     * line is searched, and the @p line set to the last line number searched.
+     * @return the number of replacements performed.
+     * @param doc a pointer to the document to work on
+     * @param line the number of the line to search. This may be changed by the
+     * function, if newlines are inserted.
+     * @param find A regular expression pattern to use for searching
+     * @param replace a template for replacement. Backspaced integers are
+     * replaced with captured texts from the regular expression.
+     * @param delim the delimiter character from the command. In the replacement
+     * text backsplashes preceeding this character are removed.
+     * @param nocase parameter for matching the reqular expression.
+     * @param repeat If false, the search is stopped after the first match.
+     * @param startcol The position in the line to start the search.
+     * @param endcol The last collumn in the line allowed in a match.
+     * If it is -1, the whole line is used.
+     */
+    static int sedMagic(KateDocument *doc, int &line,
+                        const QString &find, const QString &replace, const QString &delim,
+                        bool noCase, bool repeat,
+                        uint startcol=0, int endcol=-1);
 };
 
 /**

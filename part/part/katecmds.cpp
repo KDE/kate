@@ -24,6 +24,7 @@
 #include "kateview.h"
 #include "kateconfig.h"
 #include "kateautoindent.h"
+#include "katetextline.h"
 
 #include <kdebug.h>
 #include <klocale.h>
@@ -270,7 +271,7 @@ static int backslashString(const QString &haystack, const QString &needle, int i
 static void exchangeAbbrevs(QString &str)
 {
   // the format is (findreplace)*[nullzero]
-  const char *magic="a\x07t\t";
+  const char *magic="a\x07t\tn\n";
 
   while (*magic)
   {
@@ -286,24 +287,27 @@ static void exchangeAbbrevs(QString &str)
   }
 }
 
-int KateCommands::SedReplace::sedMagic(QString &textLine, const QString &find, const QString &repOld, const QString &delim, bool noCase, bool repeat)
+int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
+                                        const QString &find, const QString &repOld, const QString &delim,
+                                        bool noCase, bool repeat,
+                                        uint startcol, int endcol )
 {
 
   QRegExp matcher(find, noCase);
 
-  int start=0;
+  uint len;
   int matches = 0;
 
-  while (start!=-1)
-  {
-    start=matcher.search(textLine, start);
+  KateTextLine *ln = doc->kateTextLine( line );
+  if ( ! ln ) return 0;
 
-    if (start==-1) break;
+  while ( ln->searchText( startcol, matcher, &startcol, &len ) )
+  {
+
+    if ( endcol >= 0  && startcol + len > (uint)endcol )
+      break;
 
     matches++;
-
-    int length=matcher.matchedLength();
-
 
     QString rep=repOld;
 
@@ -336,24 +340,35 @@ int KateCommands::SedReplace::sedMagic(QString &textLine, const QString &find, c
     replace(rep, "\\\\", "\\");
     replace(rep, "\\" + delim, delim);
 
-    textLine.replace(start, length, rep);
+    doc->removeText( line, startcol, line, startcol + len );
+    doc->insertText( line, startcol, rep );
+
+    // TODO if replace contains \n,
+    // change the line number and
+    // check for text that needs be searched behind the last inserted newline.
+    int lns = rep.contains('\n');
+    if ( lns )
+    {
+      line += lns;
+
+      if ( doc->lineLength( line ) > 0 && ( endcol < 0 || (uint)endcol  >= startcol + len ) )
+      {
+      //  if ( endcol  >= startcol + len )
+          endcol -= (startcol + len);
+        matches += sedMagic( doc, line, find, repOld, delim, noCase, repeat, 0, endcol );
+      }
+    }
+
     if (!repeat) break;
-    start+=rep.length();
+    startcol+=rep.length();
   }
 
   return matches;
 }
 
-static void setLineText(Kate::View *view, int line, const QString &text)
-{
-  int l = view->getDoc()->lineLength( (uint)line );
-  view->getDoc()->removeText( line, 0, line, l );
-  view->getDoc()->insertText( line, 0, text );
-}
-
 bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &msg)
 {
-  kdDebug(13030)<<"SedReplace::execCmd()"<<endl;
+  kdDebug(13030)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
   QRegExp delim("^[$%]?s ([^\\w\\s])");
   if ( delim.search( cmd ) < 0 ) return false;
@@ -364,7 +379,7 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   bool onlySelect=cmd[0]=='$';
 
   QString d = delim.cap(1);
-  kdDebug(13030)<<"got delim '"<<d<<"'"<<endl;
+  kdDebug(13030)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
 
   QRegExp splitter( QString("^[$%]?s ")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
   if (splitter.search(cmd)<0) return false;
@@ -385,30 +400,33 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
 
   if (fullFile)
   {
-    int numLines=doc->numLines();
+    uint numLines=doc->numLines();
     for (int line=0; line < numLines; line++)
     {
-      int n;
-      QString text=doc->textLine(line);
-      if ( ( n = sedMagic(text, find, replace, d, !noCase, repeat) ) )
-      {
-        setLineText(view, line, text);
-        res += n;
-      }
+      res += sedMagic( doc, line, find, replace, d, !noCase, repeat );
+      if ( ! repeat && res ) break;
     }
   }
   else if (onlySelect)
   {
-    // Not implemented
+    int startline = doc->selStartLine();
+    uint startcol = doc->selStartCol();
+    int endcol = -1;
+    do {
+      if ( (int)startline == doc->selEndLine() )
+        endcol = doc->selEndCol();
+
+      res += sedMagic( doc, startline, find, replace, d, !noCase, repeat, startcol, endcol );
+
+      /*if ( startcol )*/ startcol = 0;
+
+      startline++;
+    } while ( (int)startline <= doc->selEndLine() );
   }
-  else
-  { // just this line
-    QString textLine=view->currentTextLine();
+  else // just this line
+  {
     int line=view->cursorLine();
-    if ( ( res += sedMagic(textLine, find, replace, d, !noCase, repeat) ) )
-    {
-      setLineText(view, line, textLine);
-    }
+    res += sedMagic(doc, line, find, replace, d, !noCase, repeat);
   }
 
   msg = i18n("1 replacement done", "%n replacements done",res );

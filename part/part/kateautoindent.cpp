@@ -82,7 +82,7 @@ uint KateAutoIndent::modeNumber (const QString &name)
   else if (modeName(KateDocumentConfig::imPythonStyle) == name)
     return KateDocumentConfig::imPythonStyle;
   else if (modeName(KateDocumentConfig::imXmlStyle) == name)
-    return KateDocumentConfig::imPythonStyle;
+    return KateDocumentConfig::imXmlStyle;
 
   return KateDocumentConfig::imNormal;
 }
@@ -1036,39 +1036,39 @@ void KateXmlIndent::processNewline (KateDocCursor &begin, bool /*newline*/)
   // get indent from the previous non-empty line
   int line = begin.line();
   int prevIndent = 0;
-  
+
   while(line--) {
     if( (prevIndent = doc->plainKateTextLine(line)->firstChar()) != -1) break;
   }
-  
+
   if(prevIndent < 0) prevIndent = 0;
   else prevIndent = doc->plainKateTextLine(line)->cursorX(prevIndent, tabWidth);
-  
-  // now count the number of open and close tags on the previous (i.e. 
+
+  // now count the number of open and close tags on the previous (i.e.
   // just-entered) line
   QString l = doc->plainKateTextLine(begin.line() - 1)->string();
   int length = l.length(), offset = 0, numOpen = 0, numClose = 0;
-  
+
   for(offset = 0; offset < length; ++numOpen) {
     int match = openTag.search(l, offset);
     if(match == -1) break;
     offset = match + 1;
   }
-  
+
   for(offset = 0; offset < length; ++numClose) {
     int match = closeTag.search(l, offset);
     if(match == -1) break;
     offset = match + 1;
   }
-  
+
   // special exception: if the previous line starts with a close tag,
   // we want to align with it
   if(startsWithCloseTag.search(l) != -1) --numClose;
-  
+
   // calculate the new indent
   int indent = prevIndent + (numOpen - numClose) * indentWidth;
   if(indent < 0) indent = 0;
-    
+
   // apply
   QString filler = tabString (indent);
   doc->insertText (begin.line(), 0, filler);
@@ -1108,7 +1108,7 @@ void KateXmlIndent::processLine (uint line)
   uint prevIndent = 0, numOpen = 0;
   if(line) findOpeningElemIndent(line - 1, prevIndent, numOpen);
   uint indent = prevIndent + numOpen * indentWidth;
-  
+
   // unindent lines that start with a close tag
   if(indent) {
     int firstChar = kateLine->firstChar();
@@ -1117,7 +1117,7 @@ void KateXmlIndent::processLine (uint line)
       else indent = 0;
     }
   }
-  
+
   // apply new indent
   doc->removeText(line, 0, line, kateLine->firstChar());
   QString filler = tabString(indent);
@@ -1129,28 +1129,28 @@ void KateXmlIndent::findOpeningElemIndent (uint line, uint &indent, uint &numOpe
   int depth = 1, pos;
   KateTextLine::Ptr kateLine;
   QString ln;
-  
+
   indent = 0;
   numOpened = 0;
-  
+
   do {
     kateLine = doc->plainKateTextLine(line);
     ln = kateLine->string();
-    
+
     pos = 0;
     do {
-      
+
       pos = openOrCloseTag.searchRev(ln, pos - 1);
       if(pos == -1) break;
       if(ln.at(pos + 1).unicode() == '/') {
         // we found a closing tag
         ++depth;
-      
+
       } else {
         // we found an opening tag
         if(!--depth) {
           // tag is unmatched
-          
+
           // retrieve the indent of this line
           indent = kateLine->cursorX(kateLine->firstChar(), tabWidth);
 
@@ -1166,13 +1166,13 @@ void KateXmlIndent::findOpeningElemIndent (uint line, uint &indent, uint &numOpe
 
           return;
         }
-      
+
       }
-    
+
     }while(pos);
-    
+
   }while(line--);
-  
+
   // reached start of document
 }
 

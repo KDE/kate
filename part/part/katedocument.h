@@ -430,7 +430,7 @@ class KateDocument : public Kate::Document
     };
 
     // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
-    bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int y,
+    bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int xPos, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor,
                                 bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false, bool printerfriendly = false);
 

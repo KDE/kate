@@ -650,7 +650,9 @@ void KateView::slotSetEncoding(const QString& descriptiveName) {
 
 void KateView::resizeEvent(QResizeEvent *)
 {
-  myViewInternal->updateView( KateViewInternal::ufRepaint | KateViewInternal::ufDocGeometry );
+  // resize the widgets
+  myViewInternal->resize(width()-myViewInternal->leftBorder->width(),height());
+  myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),height());
 }
 
 void KateView::setFocus ()

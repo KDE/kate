@@ -4133,7 +4133,7 @@ bool KateDocument::findMatchingBracket( const KateTextCursor &cursor, KateTextCu
   textLine = buffer->line(line);
   if (!textLine) return false;
 
-  kdDebug()<<"Cursor position for bracket lookup:"<<x<<endl;
+//  kdDebug()<<"Cursor position for bracket lookup:"<<x<<endl;
 
   bracket = textLine->getChar(x);
   attr = textLine->attribute(x);

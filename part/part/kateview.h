@@ -132,7 +132,7 @@ class KateView : public Kate::View
     uint cursorLine ();
     uint cursorColumn ();
     uint cursorColumnReal ();
-    
+
   private:
     /**
       Sets the current cursor position (only for internal use)
@@ -154,16 +154,50 @@ class KateView : public Kate::View
 
   private:
     QPopupMenu *rmbMenu;
-    
+
   //
   // KTextEditor::DynWordWrapInterface stuff
   //
   public:
     void setDynWordWrap (bool b);
     bool dynWordWrap () const;
-    
+
   private:
     bool _hasWrap;
+
+  //
+  // Kate::View stuff
+  //
+  public slots:
+    // cursor movement slots
+    void cursorLeft();
+    void shiftCursorLeft();
+    void cursorRight();
+    void shiftCursorRight();
+    void wordLeft();
+    void shiftWordLeft();
+    void wordRight();
+    void shiftWordRight();
+    void home();
+    void shiftHome();
+    void end();
+    void shiftEnd();
+    void up();
+    void shiftUp();
+    void down();
+    void shiftDown();
+    void scrollUp();
+    void scrollDown();
+    void topOfView();
+    void bottomOfView();
+    void pageUp();
+    void shiftPageUp();
+    void pageDown();
+    void shiftPageDown();
+    void top();
+    void shiftTop();
+    void bottom();
+    void shiftBottom();
 
   //
   // internal KateView stuff
@@ -311,36 +345,8 @@ class KateView : public Kate::View
 private:
     KAccel *m_editAccels;
     void setupEditKeys();
-public slots:
-    void cursorLeft() {doCursorCommand(KateView::cmLeft);};
-    void shiftCursorLeft() {doCursorCommand(KateView::cmLeft | selectFlag);};
-    void cursorRight() {doCursorCommand(KateView::cmRight);}
-    void shiftCursorRight() {doCursorCommand(KateView::cmRight | selectFlag);}
-    void wordLeft() {doCursorCommand(KateView::cmWordLeft);};
-    void shiftWordLeft() {doCursorCommand(KateView::cmWordLeft | selectFlag);};
-    void wordRight() {doCursorCommand(KateView::cmWordRight);};
-    void shiftWordRight() {doCursorCommand(KateView::cmWordRight | selectFlag);};
-    void home() {doCursorCommand(KateView::cmHome);};
-    void shiftHome() {doCursorCommand(KateView::cmHome | selectFlag);};
-    void end() {doCursorCommand(KateView::cmEnd);};
-    void shiftEnd() {doCursorCommand(KateView::cmEnd | selectFlag);};
-    void up() {doCursorCommand(KateView::cmUp);};
-    void shiftUp() {doCursorCommand(KateView::cmUp | selectFlag);};
-    void down() {doCursorCommand(KateView::cmDown);};
-    void shiftDown() {doCursorCommand(KateView::cmDown | selectFlag);};
-    void scrollUp() {doCursorCommand(KateView::cmScrollUp);};
-    void scrollDown() {doCursorCommand(KateView::cmScrollDown);};
-    void topOfView() {doCursorCommand(KateView::cmTopOfView);};
-    void bottomOfView() {doCursorCommand(KateView::cmBottomOfView);};
-    void pageUp() {doCursorCommand(KateView::cmPageUp);};
-    void shiftPageUp() {doCursorCommand(KateView::cmPageUp | selectFlag);};
-    void pageDown() {doCursorCommand(KateView::cmPageDown);};
-    void shiftPageDown() {doCursorCommand(KateView::cmPageDown | selectFlag);};
-    void top() {doCursorCommand(KateView::cmTop);};
-    void shiftTop() {doCursorCommand(KateView::cmTop | selectFlag);};
-    void bottom() {doCursorCommand(KateView::cmBottom);};
-    void shiftBottom() {doCursorCommand(KateView::cmBottom | selectFlag);};
 
+  public slots:
 		void slotNewUndo ();
 
 //search/replace functions
@@ -440,25 +446,13 @@ public slots:
 
   signals:
     void dropEventPass(QDropEvent*);
-
+  
   public:
-    enum Select_flags {
-  selectFlag          = 0x100000
-    };
-
     enum Dialog_results {
       srYes=QDialog::Accepted,
       srNo=10,
       srAll,
       srCancel=QDialog::Rejected};
-
-//cursor movement commands
-    enum Cursor_commands
-	   { cmLeft,cmRight,cmWordLeft,cmWordRight,
-       cmHome,cmEnd,cmUp,cmDown,
-       cmScrollUp,cmScrollDown,cmTopOfView,cmBottomOfView,
-       cmPageUp,cmPageDown,cmCursorPageUp,cmCursorPageDown,
-       cmTop,cmBottom};
 
 //edit commands
     enum Edit_commands {

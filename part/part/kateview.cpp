@@ -713,13 +713,144 @@ KateView::saveResult KateView::saveAs() {
   return SAVE_OK;
 }
 
-void KateView::doCursorCommand(int cmdNum) {
-  VConfig c;
-  myViewInternal->getVConfig(c);
-  if (cmdNum & selectFlag) c.flags |= KateDocument::cfMark;
-  cmdNum &= ~selectFlag;
-  myViewInternal->doCursorCommand(c, cmdNum);
-  myViewInternal->updateView();
+void KateView::cursorLeft()
+{
+  myViewInternal->cursorLeft();
+}
+
+void KateView::shiftCursorLeft()
+{
+  myViewInternal->cursorLeft(true);
+}
+
+void KateView::cursorRight()
+{
+  myViewInternal->cursorRight();
+}
+
+void KateView::shiftCursorRight()
+{
+  myViewInternal->cursorRight(true);
+}
+
+void KateView::wordLeft()
+{
+  myViewInternal->wordLeft();
+}
+
+void KateView::shiftWordLeft() 
+{
+  myViewInternal->wordLeft(true);
+}
+
+void KateView::wordRight()
+{
+  myViewInternal->wordRight();
+}
+
+void KateView::shiftWordRight()
+{
+  myViewInternal->wordRight(true);
+}
+
+void KateView::home()
+{
+  myViewInternal->home();
+}
+
+void KateView::shiftHome()
+{
+  myViewInternal->home(true);
+}
+
+void KateView::end()
+{
+  myViewInternal->end();
+}
+
+void KateView::shiftEnd()
+{
+  myViewInternal->end(true);
+}
+
+void KateView::up()
+{
+  myViewInternal->cursorUp();
+}
+
+void KateView::shiftUp()
+{
+  myViewInternal->cursorUp(true);
+}
+
+void KateView::down()
+{
+  myViewInternal->cursorDown();
+}
+
+void KateView::shiftDown()
+{
+  myViewInternal->cursorDown(true);
+}
+
+void KateView::scrollUp()
+{
+  myViewInternal->scrollUp();
+}
+
+void KateView::scrollDown()
+{
+  myViewInternal->scrollDown();
+}
+
+void KateView::topOfView()
+{
+  myViewInternal->topOfView();
+}
+
+void KateView::bottomOfView()
+{
+  myViewInternal->bottomOfView();
+}
+
+void KateView::pageUp()
+{
+  myViewInternal->pageUp();
+}
+
+void KateView::shiftPageUp()
+{
+  myViewInternal->pageUp(true);
+}
+
+void KateView::pageDown()
+{
+  myViewInternal->pageDown();
+}
+
+void KateView::shiftPageDown()
+{
+  myViewInternal->pageDown(true);
+}
+
+void KateView::top()
+{
+  myViewInternal->top_home();
+}
+
+void KateView::shiftTop()
+{
+  myViewInternal->top_home(true);
+}
+
+void KateView::bottom()
+{
+  myViewInternal->bottom_end();
+}
+
+void KateView::shiftBottom()
+{
+  myViewInternal->bottom_end(true);
 }
 
 void KateView::doEditCommand(int cmdNum) {

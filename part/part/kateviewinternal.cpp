@@ -102,60 +102,6 @@ KateViewInternal::~KateViewInternal()
   delete drawBuffer;
 }
 
-void KateViewInternal::doCursorCommand(VConfig &c, int cmdNum)
-{
-  switch (cmdNum) {
-    case KateView::cmLeft:
-      cursorLeft(c);
-      break;
-    case KateView::cmRight:
-      cursorRight(c);
-      break;
-    case KateView::cmWordLeft:
-      wordLeft(c);
-      break;
-    case KateView::cmWordRight:
-      wordRight(c);
-      break;
-    case KateView::cmHome:
-      home(c);
-      break;
-    case KateView::cmEnd:
-      end(c);
-      break;
-    case KateView::cmUp:
-      cursorUp(c);
-      break;
-    case KateView::cmDown:
-      cursorDown(c);
-      break;
-    case KateView::cmScrollUp:
-      scrollUp(c);
-      break;
-    case KateView::cmScrollDown:
-      scrollDown(c);
-      break;
-    case KateView::cmTopOfView:
-      topOfView(c);
-      break;
-    case KateView::cmBottomOfView:
-      bottomOfView(c);
-      break;
-    case KateView::cmPageUp:
-      pageUp(c);
-      break;
-    case KateView::cmPageDown:
-      pageDown(c);
-      break;
-    case KateView::cmTop:
-      top_home(c);
-      break;
-    case KateView::cmBottom:
-      bottom_end(c);
-      break;
-  }
-}
-
 void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
 {
   switch (cmdNum) {
@@ -174,7 +120,6 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       updateCursor(c.cursor);
       updateView (0);
       return;
-#warning "FIXME FIXME FIXME, cursor updates are missing"
     case KateView::cmDelete:
       if ((c.flags & KateDocument::cfDelOnInput) && myDoc->hasSelection())
         myDoc->removeSelectedText();
@@ -217,139 +162,146 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
     case KateView::cmTranspose:
       myDoc->transpose(c.cursor.line, c.cursor.col);
       ++c.cursor.col;
-      cursorRight(c);  //move the cursor left
+      cursorRight();  //move the cursor left
       return;
   }
 }
 
-void KateViewInternal::cursorLeft(VConfig &c) {
-  bool lineChanged=false;
-  cursor.col--;
-  if (c.flags & KateDocument::cfWrapCursor && cursor.col < 0 && cursor.line > 0) {
-    cursor.line=myDoc->getRealLine(displayCursor.line-1);
-    cursor.col = myDoc->textLength(cursor.line);
-    lineChanged=true;
+void KateViewInternal::cursorLeft (bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+
+  tmpCur.col--;
+  
+  if (myDoc->_configFlags & KateDocument::cfWrapCursor && tmpCur.col < 0 && tmpCur.line > 0)
+  {
+    tmpCur.line=myDoc->getRealLine(displayCursor.line-1);
+    tmpCur.col = myDoc->textLength(tmpCur.line);
   }
-  calculateDisplayPositions(displayCursor,cursor,true,lineChanged);
-  cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);
+
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::cursorRight(VConfig &c) {
-  bool updateLine=false;
-  if (c.flags & KateDocument::cfWrapCursor) {
-    if (cursor.col >= (int) myDoc->textLength(cursor.line)) {
-      if (cursor.line == (int)myDoc->lastLine()) return;
-      cursor.line=myDoc->getRealLine(displayCursor.line+1);
-      cursor.col = -1;
-      updateLine=true;
+void KateViewInternal::cursorRight(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  
+  if (myDoc->_configFlags & KateDocument::cfWrapCursor)
+  {
+    if (tmpCur.col >= (int) myDoc->textLength(tmpCur.line)) {
+      if (tmpCur.line == (int)myDoc->lastLine()) return;
+      tmpCur.line=myDoc->getRealLine(displayCursor.line+1);
+      tmpCur.col = -1;
     }
   }
-  cursor.col++;
-  calculateDisplayPositions(displayCursor,cursor,true,updateLine);
-  cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);
+  
+  tmpCur.col++;
+  
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::wordLeft(VConfig &c) {
-  Highlight *highlight;
-
-  highlight = myDoc->highlight();
+void KateViewInternal::wordLeft(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  Highlight *highlight = myDoc->highlight();
   TextLine::Ptr textLine = myDoc->kateTextLine(cursor.line);
-  if (cursor.col > 0) {
+  
+  if (tmpCur.col > 0) {
     do {
-      cursor.col--;
-    } while (cursor.col > 0 && !highlight->isInWord(textLine->getChar(cursor.col)));
-    while (cursor.col > 0 && highlight->isInWord(textLine->getChar(cursor.col -1)))
-      cursor.col--;
+      tmpCur.col--;
+    } while (tmpCur.col > 0 && !highlight->isInWord(textLine->getChar(tmpCur.col)));
+    while (tmpCur.col > 0 && highlight->isInWord(textLine->getChar(tmpCur.col -1)))
+      tmpCur.col--;
   } else {
-    if (cursor.line > 0) {
-      cursor.line--;
-      textLine = myDoc->kateTextLine(cursor.line);
-      cursor.col = textLine->length();
+    if (tmpCur.line > 0) {
+      tmpCur.line--;
+      textLine = myDoc->kateTextLine(tmpCur.line);
+      tmpCur.col = textLine->length();
     }
   }
-
-  cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);
+  
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::wordRight(VConfig &c) {
-  Highlight *highlight;
+void KateViewInternal::wordRight(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  Highlight *highlight = myDoc->highlight();
   int len;
 
-  highlight = myDoc->highlight();
   TextLine::Ptr textLine = myDoc->kateTextLine(cursor.line);
   len = textLine->length();
 
-  if (cursor.col < len) {
+  if (tmpCur.col < len) {
     do {
-      cursor.col++;
-    } while (cursor.col < len && highlight->isInWord(textLine->getChar(cursor.col)));
-    while (cursor.col < len && !highlight->isInWord(textLine->getChar(cursor.col)))
-      cursor.col++;
+      tmpCur.col++;
+    } while (tmpCur.col < len && highlight->isInWord(textLine->getChar(tmpCur.col)));
+    while (tmpCur.col < len && !highlight->isInWord(textLine->getChar(tmpCur.col)))
+      tmpCur.col++;
   } else {
-    if (cursor.line < (int) myDoc->lastLine()) {
-      cursor.line++;
-      textLine = myDoc->kateTextLine(cursor.line);
-      cursor.col = 0;
+    if (tmpCur.line < (int) myDoc->lastLine()) {
+      tmpCur.line++;
+      textLine = myDoc->kateTextLine(tmpCur.line);
+      tmpCur.col = 0;
     }
   }
 
-  cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::home(VConfig &c) {
-  int lc;
-
-  lc = (c.flags & KateDocument::cfSmartHome) ? myDoc->kateTextLine(cursor.line)->firstChar() : 0;
-  if (lc <= 0 || cursor.col == lc) {
-    cursor.col = 0;
-    cOldXPos = cXPos = 0;
+void KateViewInternal::home(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  int lc = (myDoc->_configFlags & KateDocument::cfSmartHome) ? myDoc->kateTextLine(tmpCur.line)->firstChar() : 0;
+  
+  if (lc <= 0 || tmpCur.col == lc) {
+    tmpCur.col = 0;
   } else {
-    cursor.col = lc;
-    cOldXPos = cXPos = myDoc->textWidth(cursor);
+    tmpCur.col = lc;
   }
 
-  changeState(c);
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::end(VConfig &c) {
-  cursor.col = myDoc->textLength(cursor.line);
-  cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);
+void KateViewInternal::end(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  
+  tmpCur.col = myDoc->textLength(cursor.line);
+  
+  updateCursor (tmpCur, sel);
 }
 
 
-void KateViewInternal::cursorUp(VConfig &c) {
+void KateViewInternal::cursorUp(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  
   if (displayCursor.line>0)
   {
-    displayCursor.line--;
-    cursor.line=myDoc->getRealLine(displayCursor.line);
-    cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
-    changeState(c);
+    tmpCur.line=myDoc->getRealLine(displayCursor.line-1);
+    myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
+    updateCursor(tmpCur, sel);
   }
 }
 
-
-void KateViewInternal::cursorDown(VConfig &c) {
+void KateViewInternal::cursorDown(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
   int x;
-  if (cursor.line == (int)myDoc->lastLine()) {
-    x = myDoc->textLength(cursor.line);
-    if (cursor.col >= x) return;
-    cursor.col = x;
-    calculateDisplayPositions(displayCursor,cursor,true,false);
-    cXPos = myDoc->textWidth(cursor);
+  
+  if (tmpCur.line == (int)myDoc->lastLine()) {
+    x = myDoc->textLength(tmpCur.line);
+    if (tmpCur.col >= x) return;
+    tmpCur.col = x;
   } else {
-    displayCursor.line++;
-    cursor.line=myDoc->getRealLine(displayCursor.line);
+    tmpCur.line=myDoc->getRealLine(displayCursor.line+1);
   }
-  cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor, cOldXPos);
-  changeState(c);
+  
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::scrollUp(VConfig &c) {
+void KateViewInternal::scrollUp(bool sel) {/*
 #if 0
   if (! yPos) return;
 
@@ -360,40 +312,45 @@ void KateViewInternal::scrollUp(VConfig &c) {
 
     changeState(c);
   }
-#endif
+#endif*/
 }
 
-void KateViewInternal::scrollDown(VConfig &c) {
+void KateViewInternal::scrollDown(bool sel) {
 
   if (endLine >= (int)myDoc->lastLine()) return;
 
   newStartLine = startLine + myDoc->viewFont.fontHeight;
   if (cursor.line == startLine) {
-    cursor.line++;
-    cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
-    changeState(c);
+    KateTextCursor tmpCur = cursor;
+    tmpCur.line++;
+    myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
+    updateCursor (tmpCur, sel);
   }
 }
 
-void KateViewInternal::topOfView(VConfig &c) {
-
-  cursor.line = startLine;
-  cursor.col = 0;
-  cOldXPos = cXPos = 0;
-  changeState(c);
+void KateViewInternal::topOfView(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  tmpCur.line = startLineReal;
+  tmpCur.col = 0;
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::bottomOfView(VConfig &c) {
+void KateViewInternal::bottomOfView(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
+  
+  tmpCur.line = startLineReal + (height()/myDoc->viewFont.fontHeight) - 1;
+  if (tmpCur.line < 0) tmpCur.line = 0;
+  if (tmpCur.line > (int)myDoc->lastLine()) tmpCur.line = myDoc->lastLine();
+  tmpCur.col = 0;
 
-  cursor.line = startLine + (height()/myDoc->viewFont.fontHeight) - 1;
-  if (cursor.line < 0) cursor.line = 0;
-  if (cursor.line > (int)myDoc->lastLine()) cursor.line = myDoc->lastLine();
-  cursor.col = 0;
-  cOldXPos = cXPos = 0;
-  changeState(c);
+  updateCursor (tmpCur, sel);
 }
 
-void KateViewInternal::pageUp(VConfig &c) {
+void KateViewInternal::pageUp(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
   int lines = (endLine - startLine - 1);
 
   if (lines <= 0) lines = 1;
@@ -403,15 +360,20 @@ void KateViewInternal::pageUp(VConfig &c) {
     if (newStartLine < 0) newStartLine = 0;
   }
 
-  displayCursor.line -= lines;
-  if (displayCursor.line<0) displayCursor.line=0;
-  cursor.line=myDoc->getRealLine(displayCursor.line);
-  cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor, cOldXPos);
-  changeState(c);
-//  cursorPageUp(c);
+  int displayCursorline = displayCursor.line;
+  
+  displayCursorline -= lines;
+  if (displayCursorline<0) displayCursorline=0;
+  tmpCur.line=myDoc->getRealLine(displayCursorline);
+  myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor, tmpCur, cOldXPos);
+  
+  updateCursor (tmpCur, sel);
+  updateView ();
 }
 
-void KateViewInternal::pageDown(VConfig &c) {
+void KateViewInternal::pageDown(bool sel)
+{
+  KateTextCursor tmpCur = cursor;
   int lines = (endLine - startLine - 1);
 
   if (endLine < (int)myDoc->lastLine()) {
@@ -420,50 +382,54 @@ void KateViewInternal::pageDown(VConfig &c) {
     else
       newStartLine = startLine + (myDoc->lastLine() - endLine);
   }
-  displayCursor.line += lines;
-  if (displayCursor.line>myDoc->numVisLines()) displayCursor.line=myDoc->numVisLines();
-  cursor.line=myDoc->getRealLine(displayCursor.line);
-  cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
-  changeState(c);
-//  cursorPageDown(c);
+  
+  int displayCursorline = displayCursor.line;
+  displayCursorline += lines;
+  
+  if (displayCursorline>myDoc->numVisLines()) displayCursorline=myDoc->numVisLines();
+  tmpCur.line=myDoc->getRealLine(displayCursorline);
+  myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
+
+  updateCursor (tmpCur, sel);
+  updateView ();
 }
 
 // go to the top, same X position
-void KateViewInternal::top(VConfig &c) {
+void KateViewInternal::top(bool sel) {/*
 
 //  cursor.col = 0;
   cursor.line = 0;
   cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
 //  cOldXPos = cXPos = 0;
-  changeState(c);
+  changeState(c);*/
 }
 
 // go to the bottom, same X position
-void KateViewInternal::bottom(VConfig &c) {
+void KateViewInternal::bottom(bool sel) {/*
 
 //  cursor.col = 0;
   cursor.line = myDoc->lastLine();
   cXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor,cursor,cOldXPos);
 //  cOldXPos = cXPos = 0;
-  changeState(c);
+  changeState(c);*/
 }
 
 // go to the top left corner
-void KateViewInternal::top_home(VConfig &c)
-{
+void KateViewInternal::top_home(bool sel)
+{/*
   cursor.line = 0;
   cursor.col = 0;
   cOldXPos = cXPos = 0;
-  changeState(c);
+  changeState(c);*/
 }
 
 // go to the bottom right corner
-void KateViewInternal::bottom_end(VConfig &c) {
+void KateViewInternal::bottom_end(bool sel) {/*
 
   cursor.line = myDoc->lastLine();
   cursor.col = myDoc->textLength(cursor.line);
   cOldXPos = cXPos = myDoc->textWidth(cursor);
-  changeState(c);
+  changeState(c);*/
 }
 
 
@@ -495,7 +461,7 @@ void KateViewInternal::changeYPos(int p)
     repaint();
     leftBorder->repaint();
   }
-  
+
   updateView();
 }
 
@@ -507,60 +473,6 @@ void KateViewInternal::getVConfig(VConfig &c) {
   c.displayCursor=displayCursor;
   c.cXPos = cXPos;
   c.flags = myView->myDoc->_configFlags;
-}
-
-void KateViewInternal::changeState(VConfig &c) {
-  /*
-   * we need to be sure to kill the selection on an attempted cursor
-   * movement even if the cursor doesn't physically move,
-   * but we need to be careful not to do some other things in this case,
-   * like we don't want to expose the cursor
-   */
-
-//  if (cursor.col == c.cursor.col && cursor.line == c.cursor.line) return;
-  bool nullMove = (cursor.col == c.cursor.col && cursor.line == c.cursor.line);
-
-//  if (cursor.line != c.cursor.line || c.flags & KateDocument::cfMark) myDoc->recordReset();
-
-  if (! nullMove) {
-
-    exposeCursor = true;
-
-    // mark old position of cursor as dirty
-    if (cursorOn) {
-      tagLines(c.displayCursor.line, c.displayCursor.line);
-      cursorOn = false;
-    }
-
-    // mark old bracket mark position as dirty
-    if (bm.sXPos < bm.eXPos) {
-      tagLines(bm.cursor.line, bm.cursor.line);
-    }
-    // make new bracket mark
-    myDoc->newBracketMark(cursor, bm);
-
-    // remove trailing spaces when leaving a line
-    if (c.flags & KateDocument::cfRemoveSpaces && cursor.line != c.cursor.line) {
-      TextLine::Ptr textLine = myDoc->kateTextLine(c.cursor.line);
-      unsigned int newLen = textLine->lastChar();
-      if (newLen != textLine->length()) {
-        textLine->truncate(newLen);
-        // if some spaces are removed, tag the line as dirty
-        myDoc->tagLines(c.cursor.line, c.cursor.line);
-      }
-    }
-  }
-
-  if (c.flags & KateDocument::cfMark) {
-    if (! nullMove)
-      myDoc->selectTo(c, cursor, cXPos);
-  } else {
-    if (!(c.flags & KateDocument::cfPersistent))
-      myDoc->clearSelection();
-  }
-
-  if (!nullMove)
-    emit myView->cursorPositionChanged();
 }
 
 void KateViewInternal::updateCursor()
@@ -584,10 +496,12 @@ void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel)
 
 void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &newCursor)
 {
+  VConfig oldC;
+  oldC.cursor = cursor;
 
 #warning "FIXME, FIXME, display/document cursor"
 
-  if (!(myDoc->_configFlags & KateDocument::cfPersistent) && !keepSel) myDoc->clearSelection();
+  bool nullMove = (cursor.col == c.cursor.col && cursor.line == c.cursor.line);
 
   exposeCursor = true;
   if (cursorOn) {
@@ -606,6 +520,17 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &ne
   cursor = c.cursor;//newCursor;
   displayCursor=c.displayCursor;
   cOldXPos = cXPos = myDoc->textWidth(cursor);
+
+ if (keepSel) {
+    if (! nullMove)
+      myDoc->selectTo(oldC, cursor, cXPos);
+  } else {
+    if (!(myDoc->_configFlags & KateDocument::cfPersistent))
+      myDoc->clearSelection();
+  }
+
+  if (!nullMove)
+    emit myView->cursorPositionChanged();
 }
 
 // init the line dirty cache
@@ -1185,24 +1110,18 @@ void KateViewInternal::paintBracketMark() {
   paint.end();
 }
 
-void KateViewInternal::placeCursor(int x, int y, int flags) {
-//#if 0
- VConfig c;
+void KateViewInternal::placeCursor(int x, int y, int flags)
+{
+  KateTextCursor tmpCur;
+  int newDisplayLine=startLine + y/myDoc->viewFont.fontHeight;
 
-  getVConfig(c);
-
-  int newDisplayLine;
-  newDisplayLine=startLine + y/myDoc->viewFont.fontHeight;
   if (newDisplayLine>=myDoc->numVisLines()) return;
   if (((int)(newDisplayLine-startLine) < 0) || ((newDisplayLine-startLine) >= lineRanges.size())) return;// not sure yet, if this is ther correct way;
 
-  c.flags |= flags;
-  displayCursor.line=newDisplayLine;
-  cursor.line = lineRanges[displayCursor.line-startLine].line;
-  cXPos = cOldXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor, xPos + x);
-  displayCursor.col=cursor.col;
-  changeState(c);
-//#endif
+  tmpCur.line = lineRanges[newDisplayLine-startLine].line;
+  myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor, tmpCur, xPos + x);
+
+  updateCursor(tmpCur, flags & KateDocument::cfMark);
 }
 
 // given physical coordinates, report whether the text there is selected
@@ -1592,17 +1511,6 @@ void KateViewInternal::dropEvent( QDropEvent *event )
       updateView();
     }
   }
-}
-
-
-
-
-void KateViewInternal::calculateDisplayPositions(KateTextCursor &disp,KateTextCursor cur,bool colChanged, bool lineChanged)
-{
-	if (lineChanged)
-		disp.line=myDoc->getVirtualLine(cur.line);
-	if (colChanged)
-		disp.col=cur.col;
 }
 
 void KateViewInternal::clear()

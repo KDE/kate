@@ -81,29 +81,28 @@ class KateViewInternal : public QWidget
      ufFoldingChanged
      };
 
-    void doCursorCommand(VConfig &, int cmdNum);
     void doEditCommand(VConfig &, int cmdNum);
 
-    void cursorLeft(VConfig &);
-    void cursorRight(VConfig &);
-    void wordLeft(VConfig &);
-    void wordRight(VConfig &);
-    void home(VConfig &);
-    void end(VConfig &);
-    void cursorUp(VConfig &);
-    void cursorDown(VConfig &);
-    void scrollUp(VConfig &);
-    void scrollDown(VConfig &);
-    void topOfView(VConfig &);
-    void bottomOfView(VConfig &);
-    void pageUp(VConfig &);
-    void pageDown(VConfig &);
-    void cursorPageUp(VConfig &);
-    void cursorPageDown(VConfig &);
-    void top(VConfig &);
-    void bottom(VConfig &);
-    void top_home(VConfig &c);
-    void bottom_end(VConfig &c);
+    void cursorLeft(bool sel=false);
+    void cursorRight(bool sel=false);
+    void wordLeft(bool sel=false);
+    void wordRight(bool sel=false);
+    void home(bool sel=false);
+    void end(bool sel=false);
+    void cursorUp(bool sel=false);
+    void cursorDown(bool sel=false);
+    void scrollUp(bool sel=false);
+    void scrollDown(bool sel=false);
+    void topOfView(bool sel=false);
+    void bottomOfView(bool sel=false);
+    void pageUp(bool sel=false);
+    void pageDown(bool sel=false);
+    void cursorPageUp(bool sel=false);
+    void cursorPageDown(bool sel=false);
+    void top(bool sel=false);
+    void bottom(bool sel=false);
+    void top_home(bool sel=false);
+    void bottom_end(bool sel=false);
 
   private slots:
     void changeXPos(int);
@@ -112,7 +111,6 @@ class KateViewInternal : public QWidget
 
   private:
     void getVConfig(VConfig &);
-    void changeState(VConfig &);
 
     void updateCursor();
     void updateCursor(VConfig &c,bool keepSel=false);//KateTextCursor &newCursor);
@@ -164,8 +162,6 @@ class KateViewInternal : public QWidget
     QPoint cursorCoordinates(){return QPoint(xCoord,yCoord);}
     
   private:
-    void calculateDisplayPositions(KateTextCursor &, KateTextCursor, bool, bool);
-
     // cursor position in pixels:
     int xCoord;
     int yCoord;

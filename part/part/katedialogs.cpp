@@ -1026,7 +1026,7 @@ KMimeTypeChooser::KMimeTypeChooser( QWidget *parent, const QString &text, const 
    the list view is NOT resized when the parent box is.
    No richtext :(((( */
   if ( !text.isEmpty() ) {
-    QLabel *lTxt = new QLabel( text, this );
+    new QLabel( text, this );
   }
 
   lvMimeTypes = new QListView( this );

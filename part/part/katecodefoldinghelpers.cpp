@@ -143,7 +143,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForLineDescending(KateCodeFold
 				if (oneStepOnly) return subNode;
 				else return findNodeForLineDescending(subNode,line,offset); // look into the next deeper hierarchy step
 			}
-		} 
+		}
 	}
 
 	return node; // the current node has no sub nodes, or the line couldn'te be found within a subregion
@@ -451,7 +451,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 		kdDebug()<<"data!=-node->type (correctEndings)"<<endl;
 #endif
 		//invalid close -> add to unopend list
-		dontDeleteEnding(node);	
+		dontDeleteEnding(node);
 		if (data==node->type) return false;
 		KateCodeFoldingNode *newNode=new KateCodeFoldingNode (node,data,line-startLine);
 		something_changed=true;
@@ -493,7 +493,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 		else
 		{
 #if JW_DEBUG
-			kdDebug()<<"Closing a node which had already a valid end"<<endl;			
+			kdDebug()<<"Closing a node which had already a valid end"<<endl;
 #endif
 			// block has already an ending
 			if (startLine+node->endLineRel==line)
@@ -915,7 +915,9 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
         dontIgnoreUnchangedLines.insert(line+1,new bool(true));
 	hiddenLinesCountCacheValid=false;
 //return;
+#if JW_DEBUG
 	kdDebug()<<QString("KateCodeFoldingTree::lineHasBeenInserted: %1").arg(line)<<endl;
+#endif 
 
 //	findAndMarkAllNodesforRemovalOpenedOrClosedAt(line);
 //	cleanupUnneededNodes(line);
@@ -927,7 +929,7 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
 		if (node->type<0) node->startLineRel++; else node->endLineRel++;
 		if (node->childnodes)
 		{
-			
+
 			int cnt=node->childnodes->count();
 			for (KateCodeFoldingNode *tmpNode=node->childnodes->first();tmpNode;tmpNode=node->childnodes->next())
 			{

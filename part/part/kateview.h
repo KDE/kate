@@ -100,6 +100,8 @@ class KateView : public Kate::View
     Q_OBJECT
     friend class KateViewInternal;
     friend class KateDocument;
+    friend class KateUndoGroup;
+    friend class KateUndo;
     friend class KateIconBorder;
     friend class CodeCompletion_Impl;
 
@@ -554,13 +556,7 @@ public slots:
   public:
     KTextEditor::Document *document () const { return (KTextEditor::Document *)myDoc; };
 
-  //
-  // cursor cache for document
-  // here stores the document the view's cursor pos while editing before update
-  //
-  public:
-    KateTextCursor cursorCache;
-    bool cursorCacheChanged;
+  private:
     KateBrowserExtension *extension;
 };
 

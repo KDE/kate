@@ -37,6 +37,8 @@ class KateViewInternal : public QWidget
 {
     Q_OBJECT
     friend class KateDocument;
+    friend class KateUndoGroup;
+    friend class KateUndo;
     friend class KateView;
     friend class KateIconBorder;
     friend class CodeCompletion_Impl;
@@ -81,8 +83,7 @@ class KateViewInternal : public QWidget
   private:
     void getVConfig(VConfig &);
     void changeState(VConfig &);
-    void insLine(int line);
-    void delLine(int line);
+
     void updateCursor();
     void updateCursor(VConfig &c,bool keepSel=false);//KateTextCursor &newCursor);
     void updateCursor(KateTextCursor &newCursor, bool keepSel=false);
@@ -125,15 +126,14 @@ class KateViewInternal : public QWidget
     QScrollBar *yScroll;
     KateIconBorder *leftBorder;
 
-
-public:
+  public:
     void clear();
     KateTextCursor& getCursor(){return cursor;}
     void setCursor (KateTextCursor c){cursor=c;}
     void resizeDrawBuffer(int w, int h){drawBuffer->resize(w,h);}
     QPoint cursorCoordinates(){return QPoint(xCoord,yCoord);}
     
-private:
+  private:
     void calculateDisplayPositions(KateTextCursor &, KateTextCursor, bool, bool);
 
     // cursor position in pixels:
@@ -169,11 +169,21 @@ private:
 
     // new start line, will be used by updateLineRanges
     int newStartLine;
+    
+    // for use from doc: tag lines from here (if larger than -1)
+    int tagLinesFrom;
 
     uint maxLen;
 
     // array with the line data
     QMemArray<KateLineRange> lineRanges;
+    
+    //
+    // cursor cache for document
+    // here stores the document the view's cursor pos while editing before update
+    //
+    KateTextCursor cursorCache;
+    bool cursorCacheChanged;
 
     int newXPos;
 

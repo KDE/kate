@@ -232,9 +232,9 @@ void KateUndoGroup::undo ()
 
     if (myDoc->myActiveView != 0L)
     {
-      myDoc->myActiveView->cursorCache.line = items.at(pos)->line;
-      myDoc->myActiveView->cursorCache.col = items.at(pos)->col;
-      myDoc->myActiveView->cursorCacheChanged = true;
+      myDoc->myActiveView->myViewInternal->cursorCache.line = items.at(pos)->line;
+      myDoc->myActiveView->myViewInternal->cursorCache.col = items.at(pos)->col;
+      myDoc->myActiveView->myViewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -254,9 +254,9 @@ void KateUndoGroup::redo ()
     
     if (myDoc->myActiveView != 0L)
     {
-      myDoc->myActiveView->cursorCache.line = items.at(pos)->line;
-      myDoc->myActiveView->cursorCache.col = items.at(pos)->col;
-      myDoc->myActiveView->cursorCacheChanged = true;
+      myDoc->myActiveView->myViewInternal->cursorCache.line = items.at(pos)->line;
+      myDoc->myActiveView->myViewInternal->cursorCache.col = items.at(pos)->col;
+      myDoc->myActiveView->myViewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -671,8 +671,9 @@ void KateDocument::editStart (bool withUndo)
   for (uint z = 0; z < myViews.count(); z++)
   {
     KateView *v = myViews.at(z);
-    v->cursorCacheChanged = false;
-    v->cursorCache = v->myViewInternal->getCursor();
+    v->myViewInternal->cursorCacheChanged = false;
+    v->myViewInternal->tagLinesFrom = -1;
+    v->myViewInternal->cursorCache = v->myViewInternal->getCursor();
   }
 }
 
@@ -711,10 +712,25 @@ void KateDocument::editEnd ()
     KateView *v = myViews.at(z);
 
     v->myViewInternal->updateLineRanges ();
-    v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd, 0, 0xffff);
+    
+    if (v->myViewInternal->tagLinesFrom > -1)
+    {
+      int startTagging = editTagLineStart;
+      int endTagging = v->myViewInternal->endLineReal;
+      
+      if (v->myViewInternal->tagLinesFrom < editTagLineStart)
+        startTagging = v->myViewInternal->tagLinesFrom;
 
-    if (v->cursorCacheChanged)
-      v->myViewInternal->updateCursor (v->cursorCache);
+      v->myViewInternal->tagRealLines (startTagging, endTagging, 0, 0xffff);
+    }
+    else
+      v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd, 0, 0xffff);
+
+    if (v->myViewInternal->cursorCacheChanged)
+      v->myViewInternal->updateCursor (v->myViewInternal->cursorCache);
+
+    v->myViewInternal->tagLinesFrom = -1;
+    v->myViewInternal->cursorCacheChanged = false;
   }
 
   setModified(true);
@@ -859,8 +875,8 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   {
     KateView *v = myViews.at(z);
 
-    cLine = v->cursorCache.line;
-    cCol = v->cursorCache.col;
+    cLine = v->myViewInternal->cursorCache.line;
+    cCol = v->myViewInternal->cursorCache.col;
 
     if ( (cLine == line) && (cCol > col) )
     {
@@ -874,9 +890,9 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
       else
         cCol = col;
 
-      v->cursorCache.line = line;
-      v->cursorCache.col = cCol;
-      v->cursorCacheChanged = true;
+      v->myViewInternal->cursorCache.line = line;
+      v->myViewInternal->cursorCache.col = cCol;
+      v->myViewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -932,19 +948,24 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->myViewInternal->insLine(line+1);
+
+    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
+      view->myViewInternal->tagLinesFrom = line;
+
+    if (line)
+
     // correct cursor position
-    if (view->cursorCache.line > (int)line) 
+    if (view->myViewInternal->cursorCache.line > (int)line)
     {
-      view->cursorCache.line++;
-      view->cursorCacheChanged = true;
+      view->myViewInternal->cursorCache.line++;
+      view->myViewInternal->cursorCacheChanged = true;
     }
-    else if ( view->cursorCache.line == (int)line 
-              && view->cursorCache.col >= (int)col ) 
+    else if ( view->myViewInternal->cursorCache.line == (int)line
+              && view->myViewInternal->cursorCache.col >= (int)col )
     {
-      view->cursorCache.col = tl->length();
-      view->cursorCache.line++;
-      view->cursorCacheChanged = true;
+      view->myViewInternal->cursorCache.col = tl->length();
+      view->myViewInternal->cursorCache.line++;
+      view->myViewInternal->cursorCacheChanged = true;
     }
 
   }
@@ -1002,18 +1023,20 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->myViewInternal->delLine(line+1);
 
-    cLine = view->cursorCache.line;
-    cCol = view->cursorCache.col;
+    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
+      view->myViewInternal->tagLinesFrom = line;
+
+    cLine = view->myViewInternal->cursorCache.line;
+    cCol = view->myViewInternal->cursorCache.col;
 
     if ( (cLine == (line+1)) || ((cLine == line) && (cCol >= col)) )
     {
       cCol = col;
 
-      view->cursorCache.line = line;
-      view->cursorCache.col = cCol;
-      view->cursorCacheChanged = true;
+      view->myViewInternal->cursorCache.line = line;
+      view->myViewInternal->cursorCache.col = cCol;
+      view->myViewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -1062,7 +1085,9 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->myViewInternal->insLine(line);
+
+    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
+      view->myViewInternal->tagLinesFrom = line;
   }
 
   editEnd ();
@@ -1115,21 +1140,23 @@ bool KateDocument::editRemoveLine ( uint line )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    view->myViewInternal->delLine(line);
+    
+    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
+      view->myViewInternal->tagLinesFrom = line;
 
-    cLine = view->cursorCache.line;
-    cCol = view->cursorCache.col;
+    cLine = view->myViewInternal->cursorCache.line;
+    cCol = view->myViewInternal->cursorCache.col;
 
     if ( (cLine == line) )
     {
       if (line < lastLine())
-        view->cursorCache.line = line;
+        view->myViewInternal->cursorCache.line = line;
       else
-        view->cursorCache.line = line-1;
+        view->myViewInternal->cursorCache.line = line-1;
 
       cCol = 0;
-      view->cursorCache.col = cCol;
-      view->cursorCacheChanged = true;
+      view->myViewInternal->cursorCache.col = cCol;
+      view->myViewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -1267,11 +1294,11 @@ bool KateDocument::removeSelectedText ()
   for (uint z = 0; z < myViews.count(); z++)
   {
     KateView *v = myViews.at(z);
-    if ((selectStart.line <= v->cursorCache.line) && (v->cursorCache.line<= selectEnd.line))
+    if ((selectStart.line <= v->myViewInternal->cursorCache.line) && (v->myViewInternal->cursorCache.line<= selectEnd.line))
     {
-      v->cursorCache.line = selectStart.line;
-      v->cursorCache.col = selectStart.col;
-      v->cursorCacheChanged = true;
+      v->myViewInternal->cursorCache.line = selectStart.line;
+      v->myViewInternal->cursorCache.col = selectStart.col;
+      v->myViewInternal->cursorCacheChanged = true;
     }
   }
 
@@ -2725,8 +2752,8 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
     if (hasSelection())
     {
       removeSelectedText();
-      line = view->cursorCache.line;
-      col = view->cursorCache.col;
+      line = view->myViewInternal->cursorCache.line;
+      col = view->myViewInternal->cursorCache.col;
     }
   }
 
@@ -2742,9 +2769,9 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   col += pos;
 
   // editEnd will set the cursor from this cache right ;))
-  view->cursorCache.line = line;
-  view->cursorCache.col = col;
-  view->cursorCacheChanged = true;
+  view->myViewInternal->cursorCache.line = line;
+  view->myViewInternal->cursorCache.col = col;
+  view->myViewInternal->cursorCacheChanged = true;
 
   editEnd ();
 
@@ -2930,9 +2957,9 @@ void KateDocument::paste (VConfig &c)
   }
 
 // editEnd will set the cursor from this cache right ;))
-  c.view->cursorCache.line = line;
-  c.view->cursorCache.col = col;
-  c.view->cursorCacheChanged = true;
+  c.view->myViewInternal->cursorCache.line = line;
+  c.view->myViewInternal->cursorCache.col = col;
+  c.view->myViewInternal->cursorCacheChanged = true;
 
     editEnd ();
   }

@@ -77,7 +77,7 @@ class KateBuffer : public QObject
 
    inline uint countVisible ()
    {
-     return m_totalLines - m_regionTree->getHiddenLinesCount();
+     return m_totalLines - m_regionTree->getHiddenLinesCount(m_totalLines);
    }
 
    inline uint lineNumber (uint visibleLine)

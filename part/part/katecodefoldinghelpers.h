@@ -83,7 +83,7 @@ public:
 
 	unsigned int getRealLine	(unsigned int virtualLine);
 	unsigned int getVirtualLine	(unsigned int realLine);
-	unsigned int getHiddenLinesCount ();
+	unsigned int getHiddenLinesCount (unsigned int docLine);
 
 	bool isTopLevel (unsigned int line);
 

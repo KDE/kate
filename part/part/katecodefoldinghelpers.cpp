@@ -1127,12 +1127,6 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
 			//	block has to encapsulate already hidden ones
 			it=hiddenLines.remove(it);
 			--it;
-/*			if (it==hiddenLines.end())
-			{
-				hiddenLines.insert(it,data);
-				inserted=true;
-			}
-			break;*/
 		}
 		else
 			if ((*it).start > line)
@@ -1173,21 +1167,21 @@ unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
 
 unsigned int KateCodeFoldingTree::getVirtualLine(unsigned int realLine)
 {
-//	kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
+	kdDebug(13000)<<QString("RealLine--> %1").arg(realLine)<<endl;
 	for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.fromLast(); it!=hiddenLines.end(); --it)
 	{
 		if ((*it).start <= realLine)
 			realLine -= (*it).length;
-		else
-			break;
+//		else
+//			break;
 	}
 
-//	kdDebug(13000)<<QString("-->virtual Line %1").arg(realLine)<<endl;
+	kdDebug(13000)<<QString("-->virtual Line %1").arg(realLine)<<endl;
 	return realLine;
 }
 
 
-unsigned int KateCodeFoldingTree::getHiddenLinesCount()
+unsigned int KateCodeFoldingTree::getHiddenLinesCount(unsigned int doclen)
 {
 	if (hiddenLinesCountCacheValid)
 		return hiddenLinesCountCache;
@@ -1195,7 +1189,12 @@ unsigned int KateCodeFoldingTree::getHiddenLinesCount()
 	hiddenLinesCountCacheValid = true;
 	hiddenLinesCountCache = 0;
 	for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin(); it!=hiddenLines.end(); ++it)
-		hiddenLinesCountCache += (*it).length;
-
+		if ((*it).start+(*it).length<=doclen) 
+			hiddenLinesCountCache += (*it).length;
+		else
+			{
+				hiddenLinesCountCache += ((*it).length- ((*it).length + (*it).start - doclen));
+				break;
+			}
 	return hiddenLinesCountCache;
 }

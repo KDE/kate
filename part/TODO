@@ -5,7 +5,6 @@ For 3.2 and later:
   - code completion : some keyboard handling fixes including undo
   - export only selected text
   - repaint after pending events finished
-  - fix replace so that when it wraps it only continues to the point that it originally started from
 
 BiDi implementation overview:
 - QTextLayout performs all of the geometry calculations and saves the information in QTextItems

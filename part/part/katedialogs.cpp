@@ -541,6 +541,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
   m_dynwrapAlignLevel = new KIntNumInput(gbWordWrap);
   m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth:"));
   m_dynwrapAlignLevel->setRange(0, 80, 10);
+  // xgettext:no-c-format
   m_dynwrapAlignLevel->setSuffix(i18n("% of view width"));
   m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));
 
@@ -575,6 +576,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent)
   QString wtstr = i18n("Choose when the Dynamic Word Wrap Indicators should be displayed");
   QWhatsThis::add(m_dynwrapIndicatorsLabel, wtstr);
   QWhatsThis::add(m_dynwrapIndicatorsCombo, wtstr);
+  // xgettext:no-c-format
   QWhatsThis::add(m_dynwrapAlignLevel, i18n("<p>Enables the start of dynamically wrapped lines to be aligned vertically to the indentation level of the first line.  This can help to make code and markup more readable.</p><p>Additionally, this allows you to set a maximum width of the screen, as a percentage, after which dynamically wrapped lines will no longer be vertically aligned.  For example, at 50%, lines whose indentation levels are deeper than 50% of the width of the screen will not have vertical alignment applied to subsequent wrapped lines.</p>"));
   QWhatsThis::add( m_wwmarker, i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "

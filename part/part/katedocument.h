@@ -755,7 +755,7 @@ class KateDocument : public Kate::Document,
     bool            m_reloading;
 
   public:
-    bool checkOverwrite( KURL u );
+    static bool checkOverwrite( KURL u );
     
     static void setDefaultEncoding (const QString &encoding);
 
@@ -795,18 +795,18 @@ class KateDocument : public Kate::Document,
       to a bool value as supported.
       The value is put in *result.
     */
-    bool checkBoolValue( QString value, bool *result );
+    static bool checkBoolValue( QString value, bool *result );
     /**
       @return weather a string value could be converted
       to a integer value.
       The value is put in *result.
     */
-    bool checkIntValue( QString value, int *result );
+    static bool checkIntValue( QString value, int *result );
     /*
       Feeds value into @p col using QColor::setNamedColor() and returns
       wheather the color is valid
     */
-    bool checkColorValue( QString value, QColor &col );
+    static bool checkColorValue( QString value, QColor &col );
 
     static QRegExp kvLine;
     static QRegExp kvVar;

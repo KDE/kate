@@ -44,9 +44,9 @@ class CoreCommands : public Kate::Command
      * @return success
      */
     bool exec( class Kate::View *view, const QString &cmd, QString &errorMsg );
-  
+
     bool help( class Kate::View *, const QString &, QString & ) {return false;};
-  
+
     /**
      * supported commands as prefixes
      * @return prefix list
@@ -82,7 +82,7 @@ class SedReplace : public Kate::Command
      * supported commands as prefixes
      * @return prefix list
      */
-    QStringList cmds () { return QStringList("s"); };
+    QStringList cmds () { QStringList l; l << "s"<<"%s" /*<<"$s"*/; return l; };
 
   private:
     static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Oracle9i SQL and PL/SQL syntax - ANSI SQL superset -->
-<language name="SQL" version="1.08" kateversion="2.3" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
+<language name="SQL" version="1.09" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -844,11 +844,11 @@
         <DetectChar attribute="String" context="String literal" char="'"/>
         <Detect2Chars attribute="Comment" context="Singleline PL/SQL-style comment" char="-" char1="-"/>
         <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*"/>
-        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="^rem\b" insensitive="true"/>
+        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="rem\b" insensitive="true" column="0"/>
         <DetectChar attribute="Identifier" context="User-defined identifier" char="&quot;"/>
         <RegExpr attribute="External Variable" context="#stay" String="(:|&amp;&amp;?)\w+"/>
-        <RegExpr attribute="Symbol" context="#stay" String="^/$"/>
-        <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="^@@?[^@ \t\r\n]"/>
+        <RegExpr attribute="Symbol" context="#stay" String="/$" column="0"/>
+        <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="@@?[^@ \t\r\n]" column="0"/>
       </context>
       <context name="String literal" attribute="String" lineEndContext="#stay">
         <HlCStringChar attribute="String Char" context="#stay"/>
@@ -887,6 +887,6 @@
       <comment name="singleLine" start="--"/>
       <comment name="multiLine" start="/*" end="*/"/>
     </comments>
-    <keywords casesensitive="0"/>
+    <keywords casesensitive="0" weakDeliminator="+-*/|=!&lt;&gt;~^:."/>
   </general>
 </language>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.07" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<language name="Doxygen" version="1.08" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -256,107 +256,139 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <StringDetect attribute="Comment" context="LineComment" String="///"/>
         <StringDetect attribute="Comment" context="LineComment" String="//!"/>
+        <StringDetect attribute="Comment" context="#stay" String="/**/"/>
         <StringDetect attribute="Comment" context="BlockComment" String="/**" beginRegion="BlockComment"/>
         <StringDetect attribute="Comment" context="BlockComment" String="/*!" beginRegion="BlockComment"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="LineComment">
         <keyword attribute="Tags" context="#stay" String="TagOnly" />
-        <keyword attribute="Tags" context="TagWord" String="TagWord" />
-        <keyword attribute="Tags" context="TagWordWord" String="TagWordWord" />
-        <keyword attribute="Tags" context="TagString" String="TagString" />
-        <keyword attribute="Tags" context="TagWordString" String="TagWordString" />
+        <keyword attribute="Tags" context="SL_TagWord" String="TagWord" />
+        <keyword attribute="Tags" context="SL_TagWordWord" String="TagWordWord" />
+        <keyword attribute="Tags" context="SL_TagString" String="TagString" />
+        <keyword attribute="Tags" context="SL_TagWordString" String="TagWordString" />
+        <StringDetect attribute="HTML Comment" context="SL_htmlcomment" String="&lt;!--" />
+        <RegExpr attribute="HTML Tag" context="SL_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="BlockComment">
-        <keyword attribute="Tags" context="#stay" String="TagOnly" />
-        <keyword attribute="Tags" context="TagWord" String="TagWord" />
-        <keyword attribute="Tags" context="TagWordWord" String="TagWordWord" />
-        <keyword attribute="Tags" context="TagString" String="TagString" />
-        <keyword attribute="Tags" context="TagWordString" String="TagWordString" />
-        <RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
-        <StringDetect attribute="HTML Comment" context="htmlcomment" String="&lt;!--" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <keyword attribute="Tags" context="#stay" String="TagOnly" />
+        <keyword attribute="Tags" context="ML_TagWord" String="TagWord" />
+        <keyword attribute="Tags" context="ML_TagWordWord" String="TagWordWord" />
+        <keyword attribute="Tags" context="ML_TagString" String="TagString" />
+        <keyword attribute="Tags" context="ML_TagWordString" String="TagWordString" />
+        <RegExpr attribute="HTML Tag" context="ML_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <StringDetect attribute="HTML Comment" context="ML_htmlcomment" String="&lt;!--" />
       </context>
 
-      <context attribute="Comment" lineEndContext="#pop" name="TagWord">
-        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+<!-- NOTE: all contexts beginning with ML_ are for multiline comments
+     The following contexts contain a Detect2Chars that looks for a */ sequence to end multiline comments. Singleline comments do not have this limitation - that's why all contexts are copy&pasted and the line <Detect2Chars ... */> is removed. <IncludeRules context="acontext"> could be used instead but it would make context switching much more complex and very hard to understand!
+-->
+      <!-- tag contexts -->
+      <context attribute="Comment" lineEndContext="#pop" name="ML_TagWord">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
         <RegExpr attribute="Word" context="#pop" String="\S\s" />
-        <RegExpr attribute="Word" context="#stay" String="\s*\S" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="TagWordWord">
-        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
-        <RegExpr attribute="Word" context="Tag2ndWord" String="\S\s" />
-        <RegExpr attribute="Word" context="#stay" String="\s*\S" />
+      <context attribute="Comment" lineEndContext="#pop" name="ML_TagWordWord">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
+        <RegExpr attribute="Word" context="ML_Tag2ndWord" String="\S\s" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Tag2ndWord">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context attribute="Comment" lineEndContext="#pop" name="ML_Tag2ndWord">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
         <RegExpr attribute="Word" context="#pop#pop" String="\S\s" />
-        <RegExpr attribute="Word" context="#stay" String="\s*\S" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="TagString">
+      <context attribute="Comment" lineEndContext="#pop" name="ML_TagString">
         <RegExpr attribute="Comment" context="#stay" String="\s*"/>
-        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment" />
-        <StringDetect attribute="HTML Comment" context="htmlcomment2" String="&lt;!--" />
-        <RegExpr attribute="HTML Tag" context="htmltag2" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <StringDetect attribute="HTML Comment" context="ML_htmlcomment" String="&lt;!--" />
+        <RegExpr attribute="HTML Tag" context="ML_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
         <RegExpr attribute="Description" context="#stay" String="." />
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="TagWordString">
-        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
-        <RegExpr attribute="HTML Tag" context="htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
-        <RegExpr attribute="Word" context="#pop" String="\S\s" />
-        <RegExpr attribute="Word" context="#stay" String="\s*\S" />
+      <context attribute="Comment" lineEndContext="#pop" name="ML_TagWordString">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
+        <RegExpr attribute="Word" context="ML_TagString" String="\S\s" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
       </context>
 
-
-      <context name="htmltag" attribute="Identifier" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <!-- html contexts -->
+      <context name="ML_htmltag" attribute="Identifier" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
         <DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
-        <RegExpr attribute="Identifier" context="identifiers" String="\s*=\s*"/>
+        <RegExpr attribute="Identifier" context="ML_identifiers" String="\s*=\s*"/>
       </context>
-      <context name="htmlcomment" attribute="HTML Comment" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="ML_htmlcomment" attribute="HTML Comment" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
-        <RegExpr attribute="Normal Text" context="identifiers" String="\s*=\s*"/>
       </context>
-      <context name="identifiers" attribute="Identifier" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="ML_identifiers" attribute="Identifier" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <RegExpr attribute="String" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
-        <DetectChar attribute="Types" context="types1" char="'" />
-        <DetectChar attribute="Types" context="types2" char="&quot;" />
+        <DetectChar attribute="Types" context="ML_types1" char="'" />
+        <DetectChar attribute="Types" context="ML_types2" char="&quot;" />
       </context>
-      <context name="types1" attribute="Types" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="ML_types1" attribute="Types" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <DetectChar attribute="Types" context="#pop#pop" char="'" />
       </context>
-      <context name="types2" attribute="Types" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="ML_types2" attribute="Types" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" lookAhead="true"/>
         <DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
       </context>
-      
-      <!-- exactly the same htmltag code again. just for popping correctly? -->
-      <context name="htmltag2" attribute="Identifier" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+
+<!-- NOTE: all contexts beginning with SL_ are for singleline comments -->
+      <!-- tag contexts -->
+      <context attribute="Comment" lineEndContext="#pop" name="SL_TagWord">
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
+        <RegExpr attribute="Word" context="#pop" String="\S\s" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="SL_TagWordWord">
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
+        <RegExpr attribute="Word" context="SL_Tag2ndWord" String="\S\s" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="SL_Tag2ndWord">
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
+        <RegExpr attribute="Word" context="#pop#pop" String="\S\s" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="SL_TagString">
+        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
+        <StringDetect attribute="HTML Comment" context="SL_htmlcomment" String="&lt;!--" />
+        <RegExpr attribute="HTML Tag" context="SL_htmltag" String="&lt;\s*\/?\s*[a-zA-Z_:][a-zA-Z0-9._:-]*" />
+        <RegExpr attribute="Description" context="#stay" String="." />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="SL_TagWordString">
+        <RegExpr attribute="Word" context="#stay" String="\s*" />
+        <RegExpr attribute="Word" context="SL_TagString" String="\S\s" />
+        <RegExpr attribute="Word" context="#stay" String="\S" />
+      </context>
+
+      <!-- html contexts -->
+      <context name="SL_htmltag" attribute="Identifier" lineEndContext="#pop">
         <Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />
         <DetectChar attribute="HTML Tag" context="#pop" char="&gt;"/>
-        <RegExpr attribute="Identifier" context="identifiers2" String="\s*=\s*"/>
+        <RegExpr attribute="Identifier" context="SL_identifiers" String="\s*=\s*"/>
       </context>
-      <context name="htmlcomment2" attribute="HTML Comment" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="SL_htmlcomment" attribute="HTML Comment" lineEndContext="#pop">
         <StringDetect attribute="HTML Comment" context="#pop" String="--&gt;" />
-        <RegExpr attribute="Normal Text" context="identifiers2" String="\s*=\s*"/>
       </context>
-      <context name="identifiers2" attribute="Identifier" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="SL_identifiers" attribute="Identifier" lineEndContext="#pop">
         <RegExpr attribute="String" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
-        <DetectChar attribute="Types" context="types12" char="'" />
-        <DetectChar attribute="Types" context="types22" char="&quot;" />
+        <DetectChar attribute="Types" context="SL_types1" char="'" />
+        <DetectChar attribute="Types" context="SL_types2" char="&quot;" />
       </context>
-      <context name="types12" attribute="Types" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="SL_types1" attribute="Types" lineEndContext="#pop">
         <DetectChar attribute="Types" context="#pop#pop" char="'" />
       </context>
-      <context name="types22" attribute="Types" lineEndContext="#stay">
-        <Detect2Chars attribute="Comment" context="#pop#pop#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+      <context name="SL_types2" attribute="Types" lineEndContext="#pop">
         <DetectChar attribute="Types" context="#pop#pop" char="&quot;" />
       </context>
 

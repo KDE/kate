@@ -3412,7 +3412,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
     }
   }
 
-  kdDebug() << "replace With Op: " << line << " " << first_char << " " << space << endl;
+  //kdDebug() << "replace With Op: " << line << " " << first_char << " " << space << endl;
   replaceWithOptimizedSpace(line, first_char, space, flags);
 }
 

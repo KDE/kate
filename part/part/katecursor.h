@@ -70,7 +70,7 @@ class KateTextCursor
       col = c.col;
     }
 
-    bool subjectToChangeAt(const KateTextCursor & c) const {
+    inline bool subjectToChangeAt(const KateTextCursor & c) const {
       return line == c.line && col > c.col;
     }
 
@@ -117,6 +117,9 @@ class KateDocCursor : public KateTextCursor
     bool insertText(const QString& text);
     bool removeText(uint numberOfCharacters);
     QChar currentChar() const;
+
+    bool nextNonSpaceChar();
+    bool previousNonSpaceChar();
 
   protected:
     KateDocument *m_doc;

@@ -1,4 +1,5 @@
-<?xml version="1.02" encoding="UTF-8"?><!DOCTYPE language>
+<?xml version="1.02" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
 <language name="" section="" extensions="" mimetype="" casesensitive="0">
     <highlighting>
         <contexts>

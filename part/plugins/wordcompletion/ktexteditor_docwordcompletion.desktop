@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Word Completion Plugin
-Description=Reuse words allready typed
+Description=Reuse words already typed
 X-KDE-Library=ktexteditor_docwordcompletion
 ServiceTypes=KTextEditor/Plugin
 Type=Service

@@ -22,10 +22,10 @@ partrcdir   = $(kde_confdir)
 partrc_DATA = katesyntaxhighlightingrc
 
 html-php.xml: $(srcdir)/html.xml $(srcdir)/generate-php.pl
-	$(PERL) $(srcdir)/generate-php.pl < $< > $(srcdir)/$@
+	$(PERL) $(srcdir)/generate-php.pl < $< > $@
 
 css-php.xml: $(srcdir)/css.xml $(srcdir)/generate-php.pl
-	$(PERL) $(srcdir)/generate-php.pl < $< > $(srcdir)/$@
+	$(PERL) $(srcdir)/generate-php.pl < $< > $@
 
 javascript-php.xml: $(srcdir)/javascript.xml $(srcdir)/generate-php.pl
-	$(PERL) $(srcdir)/generate-php.pl < $< > $(srcdir)/$@
+	$(PERL) $(srcdir)/generate-php.pl < $< > $@

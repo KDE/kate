@@ -182,6 +182,7 @@ class KateViewInternal : public QWidget
 
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& newCursor );
+    void updateBracketMarks();
     
     bool tagLine(const KateTextCursor& virtualCursor);
     bool tagLines(int start, int end, bool realLines = false );
@@ -271,8 +272,8 @@ class KateViewInternal : public QWidget
     int maxLen(uint startLine);
     
     // returns the maximum X value / col value a cursor can take for a specific line range
-    int lineMaxCursorX(LineRange& range);
-    int lineMaxCol(LineRange& range);
+    int lineMaxCursorX(const LineRange& range);
+    int lineMaxCol(const LineRange& range);
     
     // get the values for a specific range.
     // specify lastLine to get the next line of a range.

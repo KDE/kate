@@ -1295,23 +1295,23 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
 
   editStart ();
 
-  KateTextLine::Ptr nl = m_buffer->line(line+1);
+  KateTextLine::Ptr nextLine = m_buffer->line(line+1);
 
   int pos = l->length() - col;
 
   if (pos < 0)
     pos = 0;
 
-  editAddUndo (KateUndoGroup::editWrapLine, line, col, pos, (!nl || newLine) ? "1" : "0");
+  editAddUndo (KateUndoGroup::editWrapLine, line, col, pos, (!nextLine || newLine) ? "1" : "0");
 
-  if (!nl || newLine)
+  if (!nextLine || newLine)
   {
-    KateTextLine::Ptr tl = new KateTextLine();
+    KateTextLine::Ptr textLine = new KateTextLine();
 
-    tl->insertText (0, pos, l->text()+col, l->attributes()+col);
+    textLine->insertText (0, pos, l->text()+col, l->attributes()+col);
     l->truncate(col);
 
-    m_buffer->insertLine (line+1, tl);
+    m_buffer->insertLine (line+1, textLine);
     m_buffer->changeLine(line);
 
     QPtrList<KTextEditor::Mark> list;
@@ -1342,7 +1342,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
   }
   else
   {
-    nl->insertText (0, pos, l->text()+col, l->attributes()+col);
+    nextLine->insertText (0, pos, l->text()+col, l->attributes()+col);
     l->truncate(col);
 
     m_buffer->changeLine(line);
@@ -1357,7 +1357,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool newLine, bool *newLi
   editTagLine(line+1);
 
   for( QPtrListIterator<KateSuperCursor> it (m_superCursors); it.current(); ++it )
-    it.current()->editLineWrapped (line, col, !nl || newLine);
+    it.current()->editLineWrapped (line, col, !nextLine || newLine);
 
   editEnd ();
 
@@ -1370,9 +1370,9 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
     return false;
 
   KateTextLine::Ptr l = m_buffer->line(line);
-  KateTextLine::Ptr tl = m_buffer->line(line+1);
+  KateTextLine::Ptr nextLine = m_buffer->line(line+1);
 
-  if (!l || !tl)
+  if (!l || !nextLine)
     return false;
 
   editStart ();
@@ -1383,15 +1383,16 @@ bool KateDocument::editUnWrapLine ( uint line, bool removeLine, uint length )
 
   if (removeLine)
   {
-    l->insertText (col, tl->length(), tl->text(), tl->attributes());
+    l->insertText (col, nextLine->length(), nextLine->text(), nextLine->attributes());
 
     m_buffer->changeLine(line);
     m_buffer->removeLine(line+1);
   }
   else
   {
-    l->insertText (col, (tl->length() < length) ? tl->length() : length, tl->text(), tl->attributes());
-    tl->removeText (0, (tl->length() < length) ? tl->length() : length);
+    l->insertText (col, (nextLine->length() < length) ? nextLine->length() : length,
+      nextLine->text(), nextLine->attributes());
+    nextLine->removeText (0, (nextLine->length() < length) ? nextLine->length() : length);
 
     m_buffer->changeLine(line);
     m_buffer->changeLine(line+1);

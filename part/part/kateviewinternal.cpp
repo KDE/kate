@@ -2422,7 +2422,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     m_doc->insertText( cursor.line(), line->length(), "\n" +  line->string(0, pos)
       + line->string().right( line->length() - cursor.col() ) );
     cursor.setPos(ln + 1, pos);
-    if (col < line->length())
+    if (col < int(line->length()))
       m_doc->editRemoveText(ln, col, line->length() - col);
     m_doc->editEnd();
     updateCursor(cursor, true);

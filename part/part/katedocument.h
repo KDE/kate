@@ -185,33 +185,97 @@ class KateDocument : public Kate::Document,
     void backspacePressed();
 
   public:
-    //
-    // start edit / end edit (start/end undo, cursor update, view update)
-    //
-    void editBegin () { editStart(); }
+// BEGIN editStart/editEnd (start, end, undo, cursor update, view update)
+    /**
+     * Enclose editor actions with @p editStart() and @p editEnd() to group
+     * them.
+     * @param withUndo if true, add undo history
+     */
     void editStart (bool withUndo = true);
+    /** @see Same as editStart() with undo */
+    void editBegin () { editStart(); }
+    /**
+     * End a editor operation.
+     * @see editStart()
+     */
     void editEnd ();
+// END editStart/editEnd
 
-    //
-    // functions for insert/remove stuff (atomic)
-    //
+// BEGIN LINE BASED INSERT/REMOVE STUFF (editStart() and editEnd() included)
+    /**
+     * Add a string in the given line/column
+     * @param line line number
+     * @param col column
+     * @param s string to be inserted
+     * @return true on success
+     */
     bool editInsertText ( uint line, uint col, const QString &s );
+    /**
+     * Remove a string in the given line/column
+     * @param line line number
+     * @param col column
+     * @param len length of text to be removed
+     * @return true on success
+     */
     bool editRemoveText ( uint line, uint col, uint len );
 
+    /**
+     * Mark @p line as @p autowrapped. This is necessary if static word warp is
+     * enabled, because we have to know whether to insert a new line or add the
+     * wrapped words to the followin line.
+     * @param line line number
+     * @param autowrapped autowrapped?
+     * @return true on success
+     */
     bool editMarkLineAutoWrapped ( uint line, bool autowrapped );
 
+    /**
+     * Wrap @p line. If @p newLine is true, ignore the textline's flag
+     * KateTextLine::flagAutoWrapped and force a new line. Whether a new line
+     * was needed/added you can grab with @p newLineAdded.
+     * @param line line number
+     * @param col column
+     * @param newLine if true, force a new line
+     * @param newLineAdded return value is true, if new line was added (may be 0)
+     * @return true on success
+     */
     bool editWrapLine ( uint line, uint col, bool newLine = true, bool *newLineAdded = 0 );
+    /**
+     * Unwrap @p line. If @p removeLine is true, we force to join the lines. If
+     * @p removeLine is true, @p length is ignored (eg not needed).
+     * @param line line number
+     * @param removeLine if true, force to remove the next line
+     * @return true on success
+     */
     bool editUnWrapLine ( uint line, bool removeLine = true, uint length = 0 );
 
+    /**
+     * Insert a string at the given line.
+     * @param line line number
+     * @param s string to insert
+     * @return true on success
+     */
     bool editInsertLine ( uint line, const QString &s );
+    /**
+     * Remove a line
+     * @param line line number
+     * @return true on success
+     */
     bool editRemoveLine ( uint line );
 
+    /**
+     * Remove a line
+     * @param startLine line to begin wrapping
+     * @param endLine line to stop wrapping
+     * @return true on success
+     */
     bool wrapText (uint startLine, uint endLine);
+// END LINE BASED INSERT/REMOVE STUFF
 
   signals:
     /**
      * Emitted each time text is inserted into a pre-existing line, including appends.
-     * Does not include newly inserted lines at the moment. ?need
+     * Does not include newly inserted lines at the moment. ### needed?
      */
     void editTextInserted ( uint line, uint col, uint len);
 

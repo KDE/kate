@@ -1637,8 +1637,23 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
       found = false;
       found = textLine->searchText (col, text, &foundAt, &myMatchLen, casesensitive, true);
 
-        if (found)
+      if (found)
       {
+	if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
+	    && line == selectStart.line() && foundAt == (uint) selectStart.col()
+	    && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.col())
+	{
+	  // To avoid getting stuck at one match we skip a match if it is already
+	  // selected (most likely because it has just been found).
+	  if (foundAt > 0)
+	    col = foundAt - 1;
+	  else {
+	    if (--line >= 0)
+	      col = lineLength(line);
+	  }
+	  continue;
+	}
+
         (*foundAtLine) = line;
         (*foundAtCol) = foundAt;
         (*matchLen) = myMatchLen;
@@ -1682,6 +1697,19 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
       if (found)
       {
+	// A special case which can only occur when searching with a regular expression consisting
+	// only of a lookahead (e.g. ^(?=\{) for a function beginning without selecting '{').
+	if (myMatchLen == 0 && (uint) line == startLine && foundAt == (uint) col)
+	{
+	  if (col < lineLength(line))
+	    col++;
+	  else {
+	    line++;
+	    col = 0;
+	  }
+	  continue;
+	}
+
         (*foundAtLine) = line;
         (*foundAtCol) = foundAt;
         (*matchLen) = myMatchLen;
@@ -1704,8 +1732,23 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
       found = false;
       found = textLine->searchText (col, regexp, &foundAt, &myMatchLen, true);
 
-        if (found)
+      if (found)
       {
+	if ((uint) line == startLine && foundAt + myMatchLen >= (uint) col
+	    && line == selectStart.line() && foundAt == (uint) selectStart.col()
+	    && line == selectEnd.line() && foundAt + myMatchLen == (uint) selectEnd.col())
+	{
+	  // To avoid getting stuck at one match we skip a match if it is already
+	  // selected (most likely because it has just been found).
+	  if (foundAt > 0)
+	    col = foundAt - 1;
+	  else {
+	    if (--line >= 0)
+	      col = lineLength(line);
+	  }
+	  continue;
+	}
+
         (*foundAtLine) = line;
         (*foundAtCol) = foundAt;
         (*matchLen) = myMatchLen;

@@ -19,6 +19,7 @@
 #include <qtoolbutton.h>
 #include <qregexp.h>
 #include <qstyle.h>
+#include <qpopupmenu.h>
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kaction.h>
@@ -77,6 +78,7 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	, m_searchBackwardAction( 0L )
 	, m_label( 0L )
 	, m_combo( 0L )
+	, m_lastString( "" )
 	, m_searchBackward( false )
 	, m_caseSensitive( false )
 	, m_fromBeginning( false )
@@ -120,6 +122,8 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	         this, SLOT(slotTextChanged(const QString&)) );
 	connect( m_combo, SIGNAL(returnPressed(const QString&)),
 	         this, SLOT(slotReturnPressed(const QString&)) );
+	connect( m_combo, SIGNAL(aboutToShowContextMenu(QPopupMenu*)),
+		 this, SLOT(slotAddContextMenuItems(QPopupMenu*)) );
 	m_comboAction = new KWidgetAction(
 		m_combo,
 		i18n("Search"), 0, 0, 0,
@@ -252,6 +256,12 @@ bool ISearchPluginView::eventFilter( QObject* o, QEvent* e )
 		endSearch();
 	}
 
+	if( e->type() == QEvent::KeyPress ) {
+		QKeyEvent *keyEvent = (QKeyEvent*)e;
+		if( keyEvent->key() == Qt::Key_Escape )
+			quitToView( QString::null );
+	}
+
 	return false;
 }
 
@@ -381,7 +391,12 @@ void ISearchPluginView::startSearch()
 	updateLabelText( false, m_searchBackward );
 
 	m_combo->blockSignals( true );
-	m_combo->setCurrentText( m_selectIF->selection() );
+
+	QString text = m_selectIF->selection();
+	if( text.isEmpty() )
+		text = m_lastString;
+	m_combo->setCurrentText( text );
+
 	m_combo->blockSignals( false );
 	m_combo->lineEdit()->selectAll();
 
@@ -400,6 +415,23 @@ void ISearchPluginView::endSearch()
 	}
 }
 
+void ISearchPluginView::quitToView( const QString &text )
+{
+	if( text != QString::null && !text.isEmpty() ) {
+		m_combo->addToHistory( text );
+		m_combo->insertItem( text );
+		m_lastString = text;
+	}
+
+	m_combo->blockSignals( true );
+	m_combo->clear();
+	m_combo->blockSignals( false );
+
+	if( m_view ) {
+		m_view->setFocus(); // Will call endSearch()
+	}
+}
+
 void ISearchPluginView::slotTextChanged( const QString& text )
 {
 	state = TextSearch;
@@ -412,17 +444,21 @@ void ISearchPluginView::slotTextChanged( const QString& text )
 
 void ISearchPluginView::slotReturnPressed( const QString& text )
 {
-	if( !text.isEmpty() ) {
-		m_combo->addToHistory( text );
-		m_combo->insertItem( text );
-	}
+	quitToView( text );
+}
 
-	m_combo->blockSignals( true );
-	m_combo->clear();
-	m_combo->blockSignals( false );
-
-	if( m_view ) {
-		m_view->setFocus(); // Will call endSearch()
+void ISearchPluginView::slotAddContextMenuItems( QPopupMenu *menu )
+{
+	if( menu ) {
+		menu->insertSeparator();
+		menu->insertItem( i18n("Case Sensitive"), this,
+				  SLOT(setCaseSensitive(bool)));
+		menu->insertItem( i18n("From Beginning"), this,
+				  SLOT(setFromBeginning(bool)));
+		menu->insertItem( i18n("Regular Expression"), this,
+				  SLOT(setRegExp(bool)));
+		//menu->insertItem( i18n("Auto-Wrap Search"), this,
+		//		  SLOT(setAutoWrap(bool)));
 	}
 }
 

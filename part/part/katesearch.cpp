@@ -197,25 +197,8 @@ void KateSearch::search( SearchFlags flags )
       s.cursor.setLine(doc()->numLines() - 1);
       s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
     }
-  } else if( s.flags.backward ) {
-    // If we are continuing a backward search, make sure
-    // we do not get stuck at an existing match.
-    QString txt = view()->currentTextLine();
-    QString searchFor = s_searchList.first();
-    uint length = searchFor.length();
-    int pos = s.cursor.col() - length;
-    kdDebug(13000) << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
-    if( searchFor.find( txt.mid( pos, length ), 0, s.flags.caseSensitive ) == 0 ) {
-      if( pos > 0 ) {
-        s.cursor.setCol(pos - 1);
-      } else if ( pos == 0 && s.cursor.line() > 0 ) {
-        s.cursor.setLine(s.cursor.line() - 1);
-        s.cursor.setCol(doc()->lineLength( s.cursor.line() ));
-      } else if ( pos == 0 && s.cursor.line() == 0 ) {
-        // TODO: FIXME
-      }
-    }
   }
+
   if((!s.flags.backward &&
        s.cursor.col() == 0 &&
        s.cursor.line() == 0 ) ||
@@ -468,8 +451,10 @@ bool KateSearch::doSearch( const QString& text )
     int temp = 0;
     do {*/
 
+#if 0
   static int oldLine = -1;
   static int oldCol = -1;
+#endif
 
   uint line = s.cursor.line();
   uint col = s.cursor.col();// + (result ? s.matchedLength : 0);
@@ -505,14 +490,16 @@ bool KateSearch::doSearch( const QString& text )
 
   //result = true;
 
+#if 0
+  // FIXME: uncomment if you find a reasoning for this
   if ((oldLine == int(foundLine)) && (oldCol == int(foundCol)))
     return false;
 
-
-  s.cursor.setPos(foundLine, foundCol);
   oldLine = line;
   oldCol = col;
+#endif
 
+  s.cursor.setPos(foundLine, foundCol);
 
   //kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;
   s.matchedLength = matchLen;

@@ -160,7 +160,7 @@ class KateHighlighting
     KateHlItemDataList internalIDList;
 
     QIntDict<KateHlContext> contextList;
-    KateHlContext *contextNum (uint n);
+    inline KateHlContext *contextNum (uint n) { return contextList[n]; }
 
     // make them pointers perhaps
     KateEmbeddedHlInfos embeddedHls;

@@ -699,9 +699,6 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
           iDepth = (prevLine->indentationDepthArray())[prevLine->indentationDepthArray().size()-1];
         else
           iDepth = prevLine->indentDepth(m_tabWidth);
-        
-        // run over empty lines ;)
-        indentChanged = true;
       }
        
       // query the next line indentation, if we are at the end of the block
@@ -733,7 +730,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
       bool newIn = false;
       if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
       {
-        indentDepth.resize (indentDepth.size()+1);
+        indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
         indentDepth[indentDepth.size()-1] = iDepth;
         newIn = true;
       }
@@ -742,12 +739,12 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
         for (int z=indentDepth.size()-1; z > -1; z--)
         {
           if (indentDepth[z] > iDepth)
-            indentDepth.resize (z);
+            indentDepth.resize (z, QGArray::SpeedOptim);
           else if (indentDepth[z] == iDepth)
             break;
           else if (indentDepth[z] < iDepth)
           {
-            indentDepth.resize (indentDepth.size()+1);
+            indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
             indentDepth[indentDepth.size()-1] = iDepth;
             newIn = true;
             break;
@@ -756,11 +753,11 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
       }
       
       // just for debugging always true to start with !
-      indentChanged = indentChanged || (indentDepth.size() != textLine->indentationDepthArray().size())
-                                    || (indentDepth != textLine->indentationDepthArray());
+      indentChanged = !(indentDepth == textLine->indentationDepthArray());
  
       // assign the new array to the textline !
-      textLine->setIndentationDepth (indentDepth);
+      if (indentChanged)
+        textLine->setIndentationDepth (indentDepth);
       
       // add folding start to the list !
       if (newIn)

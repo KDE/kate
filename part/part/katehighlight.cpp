@@ -1499,11 +1499,6 @@ void KateHighlighting::done()
   contextList.clear ();
 }
 
-KateHlContext *KateHighlighting::contextNum (uint n)
-{
-  return contextList[n];
-}
-
 /*******************************************************************************************
         KateHighlighting - createKateHlItemData
         This function reads the itemData entries from the config file, which specifies the

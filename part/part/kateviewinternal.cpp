@@ -60,8 +60,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , cursor (doc, true, 0, 0, this)
   , possibleTripleClick (false)
   , m_dummy (0)
-  , m_startPos(0,0)
-  , m_oldStartPos(0,0)
+  , m_startPos(doc, true, 0,0)
   , m_madeVisible(false)
   , m_shiftKeyPressed (false)
   , m_autoCenterLines (false)
@@ -423,8 +422,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force, bool calledExter
   if (viewLinesScrolledUsable)
     viewLinesScrolled = displayViewLine(c);
 
-  m_oldStartPos = m_startPos;
-  m_startPos = c;
+  m_startPos.setPos(c);
 
   // set false here but reversed if we return to makeVisible
   m_madeVisible = false;
@@ -2112,7 +2110,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
       m_currentMaxX = cXPos;
 
   //kdDebug() << "m_currentMaxX: " << m_currentMaxX << " (was "<< oldmaxx << "), cXPos: " << cXPos << endl;
-  //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << displayCursor.line << ", " << displayCursor.col << "; Top is " << startLine() << ", " << startPos().col << "; Old top is " << m_oldStartPos.line << ", " << m_oldStartPos.col << endl;
+  //kdDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << displayCursor.line << ", " << displayCursor.col << "; Top is " << startLine() << ", " << startPos().col <<  endl;
 
   paintText(0, 0, width(), height(), true);
 

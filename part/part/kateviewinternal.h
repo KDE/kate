@@ -308,8 +308,7 @@ class KateViewInternal : public QWidget
     QHBoxLayout* m_colLayout;
 
     // These are now cursors to account for word-wrap.
-    KateTextCursor m_startPos;
-    KateTextCursor m_oldStartPos;
+    KateSuperCursor m_startPos;
 
     // This is set to false on resize or scroll (other than that called by makeVisible),
     // so that makeVisible is again called when a key is pressed and the cursor is in the same spot

@@ -528,7 +528,7 @@ class KateDocument : public Kate::Document
     void tagAll();
     void updateLines(int startLine, int endLine);
     void updateLines();
-    void updateViews(int flags = 0);
+    void updateViews();
     void updateEditAccels();
 
     void newBracketMark( const KateTextCursor&, BracketMark& );

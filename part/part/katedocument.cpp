@@ -3235,7 +3235,7 @@ void KateDocument::slotBufferChanged()
   updateViews();
 }
 
-void KateDocument::updateViews(int flags)
+void KateDocument::updateViews()
 {
   if (noViewUpdates)
     return;

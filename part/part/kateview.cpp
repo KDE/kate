@@ -572,9 +572,9 @@ void KateView::readSessionConfig(KConfig *config)
   cursor.col = config->readNumEntry("CursorX");
   cursor.line = config->readNumEntry("CursorY");
   myViewInternal->updateCursor(cursor);
-  myViewInternal->m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
+/*  myViewInternal->m_iconBorderStatus = config->readNumEntry("IconBorderStatus");
   setIconBorder( myViewInternal->m_iconBorderStatus & KateIconBorder::Icons );
-  setLineNumbersOn( myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );
+  setLineNumbersOn( myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers );*/
 }
 
 void KateView::writeSessionConfig(KConfig *config)
@@ -586,7 +586,7 @@ void KateView::writeSessionConfig(KConfig *config)
   config->writeEntry("CursorY",myViewInternal->cursor.line);
 */
 
-  config->writeEntry("IconBorderStatus", myViewInternal->m_iconBorderStatus );
+//  config->writeEntry("IconBorderStatus", myViewInternal->m_iconBorderStatus );
 }
 
 void KateView::setEol(int eol) {
@@ -654,50 +654,37 @@ void KateView::slotEditCommand ()
     myDoc->cmd()->execCmd (cmd, this);
 }
 
-void KateView::setIconBorder (bool enable)
+void KateView::setIconBorder( bool enable )
 {
-  if ( enable == myViewInternal->m_iconBorderStatus & KateIconBorder::Icons )
-    return; // no change
-  if ( enable )
-    myViewInternal->m_iconBorderStatus |= KateIconBorder::Icons;
-  else
-    myViewInternal->m_iconBorderStatus &= ~KateIconBorder::Icons;
-
-  myViewInternal->updateIconBorder();
+  myViewInternal->leftBorder->setIconBorder( enable );
 }
 
 void KateView::toggleIconBorder ()
 {
-  setIconBorder ( ! (myViewInternal->m_iconBorderStatus & KateIconBorder::Icons) );
+  myViewInternal->leftBorder->toggleIconBorder();
 }
 
-void KateView::setLineNumbersOn(bool enable)
+void KateView::setLineNumbersOn( bool enable )
 {
-  if (enable == myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers)
-    return; // no change
-
-  if (enable)
-    myViewInternal->m_iconBorderStatus |= KateIconBorder::LineNumbers;
-  else
-    myViewInternal->m_iconBorderStatus &= ~KateIconBorder::LineNumbers;
-
-  myViewInternal->updateIconBorder();
-}
-
-void KateView::setFoldingMarkersOn(bool enable)
-{
-	if (enable == bool(myViewInternal->m_iconBorderStatus & KateIconBorder::FoldingMarkers))
-		return;
-	if (enable)
-		myViewInternal->m_iconBorderStatus|= KateIconBorder::FoldingMarkers;
-	else
-		myViewInternal->m_iconBorderStatus&= ~KateIconBorder::FoldingMarkers;
-	myViewInternal->updateIconBorder();
+  myViewInternal->leftBorder->setLineNumbersOn( enable );
 }
 
 void KateView::toggleLineNumbersOn()
 {
-  setLineNumbersOn( ! (myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers) );
+  myViewInternal->leftBorder->toggleLineNumbersOn();
+}
+
+void KateView::setFoldingMarkersOn( bool enable )
+{
+  myViewInternal->leftBorder->setFoldingMarkersOn( enable );
+}
+
+bool KateView::iconBorder() {
+  return myViewInternal->leftBorder->iconBorder();
+}
+
+bool KateView::lineNumbersOn() {
+  return myViewInternal->leftBorder->lineNumbersOn();
 }
 
 void KateView::slotIncFontSizes ()
@@ -712,12 +699,4 @@ void KateView::slotDecFontSizes ()
   QFont font = myDoc->getFont(KateDocument::ViewFont);
   font.setPointSize (font.pointSize()-1);
   myDoc->setFont (KateDocument::ViewFont,font);
-}
-
-bool KateView::iconBorder() {
-  return myViewInternal->m_iconBorderStatus & KateIconBorder::Icons;
-}
-
-bool KateView::lineNumbersOn() {
-  return myViewInternal->m_iconBorderStatus & KateIconBorder::LineNumbers;
 }

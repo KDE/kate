@@ -28,31 +28,47 @@ class KateIconBorder : public QWidget
   Q_OBJECT      
   
   public:
-    KateIconBorder(QWidget *parent, class KateViewInternal *internalView);
-    ~KateIconBorder();
-    
-    int width(); 
-  
-    enum status { None=0, Icons=1, LineNumbers=2, FoldingMarkers=4 };
-             
-  signals:
-    void toggleRegionVisibility(unsigned int);
+    KateIconBorder( class KateViewInternal* internalView );
+    ~KateIconBorder() {};
 
-  private:        
-    void createMarkMenu();               
+    virtual QSize sizeHint() const;
+    virtual QSize minimumSizeHint() const;
     
-    void paintEvent(QPaintEvent* e);
-    void mousePressEvent(QMouseEvent* e);
+    // TODO: Standardize naming
+    void setIconBorder(       bool enable );
+    void setLineNumbersOn(    bool enable );
+    void setFoldingMarkersOn( bool enable );
+    void toggleIconBorder()    { setIconBorder(    !iconBorder() );    }
+    void toggleLineNumbersOn() { setLineNumbersOn( !lineNumbersOn() ); }
+    bool iconBorder()    const { return m_iconBorderOn;  }
+    bool lineNumbersOn() const { return m_lineNumbersOn; }
+
+    // When border options change, updateGeometry() is called.
+    // Normally the layout would handle it automatically, but
+    // KateViewInternal doesn't use a layout, so emit a signal instead.
+    virtual void updateGeometry() { emit sizeHintChanged(); }
+    
+  signals:
+    void sizeHintChanged();
+    void toggleRegionVisibility( uint );
+
+  protected:
+    void paintEvent( QPaintEvent* );
+    void mousePressEvent( QMouseEvent* );
                   
-    bool lmbSetsBreakpoints;
-    int iconPaneWidth;
-    int cachedLNWidth;
-    uint linesAtLastCheck; // only calculate width if number of lines has changed
-    uint oldEditableMarks;  
+  private:        
+    void createMarkMenu();
                       
-    class KateView *myView;      
+    class KateView *myView;   
     class KateDocument *myDoc;
     class KateViewInternal *myInternalView;
-    class QPopupMenu *markMenu;                     
+    class QPopupMenu *markMenu;
+                    
+    bool m_iconBorderOn:1;
+    bool m_lineNumbersOn:1;
+    bool m_foldingMarkersOn:1;
+    
+    bool lmbSetsBreakpoints;
+    uint oldEditableMarks;
 };
 #endif

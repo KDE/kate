@@ -40,10 +40,9 @@
 #include <qclipboard.h>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
- : QScrollView(view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )    
-    , m_iconBorderStatus( KateIconBorder::None )
-    , myView (view)
-    , myDoc (doc)
+  : QScrollView(view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )    
+  , myView (view)
+  , myDoc (doc)
 {
   // this will prevent the yScrollbar from jumping around on appear of the xScrollbar 
   setCornerWidget (new QWidget (this));
@@ -52,9 +51,11 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   cornerWidget()->setFocusPolicy ( NoFocus );
                                 
   // iconborder ;)
-  leftBorder = new KateIconBorder(this, this); 
-  leftBorder->setFocusPolicy ( NoFocus );       
-  updateIconBorder ();                            
+  leftBorder = new KateIconBorder( this );
+  leftBorder->setFocusPolicy( NoFocus );
+  connect( leftBorder, SIGNAL(sizeHintChanged()),
+           this, SLOT(updateIconBorder()) );
+  updateIconBorder();                            
   
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
            myDoc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));  
@@ -65,7 +66,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 //           this, SLOT(slotRegionBeginEndAddedRemoved(unsigned int)) );
   connect( doc, SIGNAL(codeFoldingUpdated()),
            this, SLOT(slotCodeFoldingChanged()) );
-  
   
   displayCursor.line=0;
   displayCursor.col=0;
@@ -101,23 +101,11 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
            this, SLOT( slotContentsMoving(int, int) ) );
 }
 
-KateViewInternal::~KateViewInternal()
-{
-}               
-
 void KateViewInternal::updateIconBorder()
 {
-  if ( m_iconBorderStatus != KateIconBorder::None )
-  {
-    leftBorder->show();
-  }
-  else
-  {
-    leftBorder->hide();
-  }
-
-  setMargins (leftBorder->width(), 0,0,0);
-  leftBorder->resize(leftBorder->width(),visibleHeight());    
+  int width = leftBorder->sizeHint().width();
+  setMargins( width, 0, 0, 0 );
+  leftBorder->resize( width, visibleHeight() );
   leftBorder->update();
 }       
 
@@ -821,12 +809,8 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
 
 void KateViewInternal::viewportResizeEvent( QResizeEvent* )
 { 
-  updateIconBorder ();
-}
-
-void KateViewInternal::resizeEvent ( QResizeEvent* )        
-{
-   updateView ();
+  updateIconBorder();
+  updateView();
 }
 
 void KateViewInternal::timerEvent( QTimerEvent* e )

@@ -199,44 +199,73 @@ const char*exec_xpm[]={
 "...........",
 "..........."};
 
+const int iconPaneWidth = 16;
 
-KateIconBorder::KateIconBorder(QWidget *parent, KateViewInternal *internalView)
-  : QWidget(parent, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase),
-    myView(internalView->myView), myInternalView(internalView),oldEditableMarks(0),markMenu(0)
-{                                                  
-  myDoc = myInternalView->myDoc;
-
-  lmbSetsBreakpoints = true; // anders: does NOTHING ?!
-  iconPaneWidth = 16; // FIXME: this should be shared by all instances!
-  lmbSetsBreakpoints = true;
-  setFont( myView->doc()->getFont(KateDocument::ViewFont) ); // for line numbers
-  cachedLNWidth = 7 + fontMetrics().width(QString().setNum(myView->doc()->numLines()));
-  linesAtLastCheck = myView->myDoc->numLines();
-}
-
-KateIconBorder::~KateIconBorder()
+KateIconBorder::KateIconBorder( KateViewInternal* internalView )
+  : QWidget(internalView, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
+  , myView( internalView->myView )
+  , myDoc( internalView->myDoc )
+  , myInternalView( internalView )
+  , markMenu(0)
+  , m_iconBorderOn( false )
+  , m_lineNumbersOn( false )
+  , m_foldingMarkersOn( false )
+  , lmbSetsBreakpoints( true )
+  , oldEditableMarks(0)
 {
+  setFont( myDoc->getFont(KateDocument::ViewFont) ); // for line numbers
 }
 
-int KateIconBorder::width()
+void KateIconBorder::setIconBorder( bool enable )
+{
+  if( enable == m_iconBorderOn )
+    return;
+
+  m_iconBorderOn = enable;
+  
+  updateGeometry();
+}
+
+void KateIconBorder::setLineNumbersOn( bool enable )
+{
+  if( enable == m_lineNumbersOn )
+    return;
+
+  m_lineNumbersOn = enable;
+  
+  updateGeometry();
+}
+
+void KateIconBorder::setFoldingMarkersOn( bool enable )
+{
+  if( enable == m_foldingMarkersOn )
+    return;
+  
+  m_foldingMarkersOn = enable;
+  
+  updateGeometry();
+}
+
+QSize KateIconBorder::sizeHint() const
 {
   int w = 0;
   
-  if (myInternalView->iconBorderStatus() & LineNumbers) {
-    if ( linesAtLastCheck != myView->doc()->numLines() ) {
-      cachedLNWidth = 7 + fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
-      linesAtLastCheck = myView->myDoc->numLines();
-    }
-    w += cachedLNWidth;
+  if (m_lineNumbersOn) {
+    w += fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
   }
 
-  if (myInternalView->iconBorderStatus() & Icons)
+  if (m_iconBorderOn)
     w += iconPaneWidth;
 
-  if (myInternalView->iconBorderStatus() & FoldingMarkers)
-    w+=iconPaneWidth;
+  if (m_foldingMarkersOn)
+    w += iconPaneWidth;
 
-  return w;
+  return QSize( w, 0 );
+}
+
+QSize KateIconBorder::minimumSizeHint() const
+{
+  return sizeHint();
 }
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
@@ -249,205 +278,207 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   QPainter p (this);   
   p.translate (0, -myInternalView->yPosition());
    
-   int fontHeight = myDoc->viewFont.fontHeight;          
-   int w = width ();                            
+  int fontHeight = myDoc->viewFont.fontHeight;          
+  int lnWidth = fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
    
    //kdDebug(13030)<<"iconborder repaint !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
                  
   for( uint line = startline; line <= endline; line++ )
   {
-    int realLine = myDoc->getRealLine( line );    
+    uint realLine = myDoc->getRealLine( line );    
     
     int y = line * fontHeight;
     int lnX = 0;
   
-    p.fillRect( 0, y, cachedLNWidth+2*iconPaneWidth, fontHeight, colorGroup().light() );
+    p.fillRect( 0, y, lnWidth+2*iconPaneWidth, fontHeight, colorGroup().light() );
 
     // line number
-    if ( (myInternalView->iconBorderStatus() & LineNumbers) )
+    if( m_lineNumbersOn )
     {
       p.setPen(QColor(colorGroup().background()).dark());
-      p.drawLine( cachedLNWidth-1, y, cachedLNWidth-1, y+fontHeight );
-        if ((realLine >= 0) && (realLine <= myDoc->lastLine()))
-          p.drawText( lnX + 1, y, cachedLNWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
-            QString("%1").arg(realLine + 1 ));
+      p.drawLine( lnWidth-1, y, lnWidth-1, y+fontHeight );
+      if( realLine <= myDoc->lastLine() )
+        p.drawText( lnX + 1, y, lnWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
+          QString("%1").arg( realLine + 1 ) );
 
-        lnX+=cachedLNWidth;
+      lnX += lnWidth;
     }
 
     // icon pane
-    if ( (myInternalView->iconBorderStatus() & Icons) ) {
+    if( m_iconBorderOn ) {
       p.setPen(QColor(colorGroup().background()).dark());
       p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y+fontHeight);
 
-      if ((realLine >= 0) && (realLine <= myDoc->lastLine()))
+      if( realLine <= myDoc->lastLine() )
       {
-      uint mark = myView->myDoc->mark (realLine);
-      switch (mark)
-      {
-        case KateDocument::markType01:	p.drawPixmap(lnX+2, y, QPixmap(bookmark_xpm));
-            break;
-        case KateDocument::markType02: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_xpm));
-            break;
-        case KateDocument::markType03: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_gr_xpm));
-                              break;
-        case KateDocument::markType04: p.drawPixmap(lnX+2, y, QPixmap(breakpoint_bl_xpm));
-                              break;
-        case KateDocument::markType05: p.drawPixmap(lnX+2, y, QPixmap(exec_xpm));
-                              break;
-        default: break;
-
-      }
+        uint mark = myView->myDoc->mark (realLine);
+        switch (mark)
+        {
+        case KateDocument::markType01:
+          p.drawPixmap(lnX+2, y, QPixmap(bookmark_xpm));
+          break;
+        case KateDocument::markType02:
+          p.drawPixmap(lnX+2, y, QPixmap(breakpoint_xpm));
+          break;
+        case KateDocument::markType03:
+          p.drawPixmap(lnX+2, y, QPixmap(breakpoint_gr_xpm));
+          break;
+        case KateDocument::markType04:
+          p.drawPixmap(lnX+2, y, QPixmap(breakpoint_bl_xpm));
+          break;
+        case KateDocument::markType05:
+          p.drawPixmap(lnX+2, y, QPixmap(exec_xpm));
+          break;
+        default:
+          break;
+        }
       }
 
       lnX += iconPaneWidth;
     }
 
     // folding markers
-    if  (myInternalView->iconBorderStatus() & FoldingMarkers)
+    if( m_foldingMarkersOn )
     {
-      if ((realLine >= 0) && (realLine <= myDoc->lastLine()))
+      if( realLine <= myDoc->lastLine() )
       {
-      p.setPen(black);
-      KateLineInfo info;
-      myView->myDoc->regionTree->getLineInfo(&info,realLine);
-      if (!info.topLevel)
-      {
+        p.setPen(black);
+        KateLineInfo info;
+        myView->myDoc->regionTree->getLineInfo(&info,realLine);
+        if (!info.topLevel)
+        {
           if (info.startsVisibleBlock)
-              p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
-              else
-        if (info.startsInVisibleBlock)
-                p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
-          else
-                if (info.endsBlock)
+            p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
+          else if (info.startsInVisibleBlock)
+            p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
+          else if (info.endsBlock)
           {
-          p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
-          p.drawLine(lnX+iconPaneWidth/2,y+fontHeight-1,lnX+iconPaneWidth-2,y+fontHeight-1);
-                }
-                else
-          p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
-
+            p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
+            p.drawLine(lnX+iconPaneWidth/2,y+fontHeight-1,lnX+iconPaneWidth-2,y+fontHeight-1);
+          }
+          else
+            p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
+        }
       }
-      }
-
       lnX+=iconPaneWidth;
     }   
   }
 }
 
-
 void KateIconBorder::mousePressEvent(QMouseEvent* e)
 {
-    // return if the event is in linenumbers pane
-    if ( (!myInternalView->iconBorderStatus() & Icons) && (!myInternalView->iconBorderStatus() & FoldingMarkers) )
-      return;
-    int xwidth=0;
-    if (myInternalView->iconBorderStatus() & Icons) xwidth+=iconPaneWidth;
-    if (myInternalView->iconBorderStatus() & FoldingMarkers) xwidth+=iconPaneWidth;
-    if (myInternalView->iconBorderStatus() & LineNumbers) xwidth+=cachedLNWidth;
-    if (e->x()>xwidth) return;
-    //myInternalView->placeCursor( 0, e->y(), 0 );
+  // return if the event is in linenumbers pane
+  if ( !m_iconBorderOn && !m_foldingMarkersOn )
+    return;
+  
+  int lnWidth = fontMetrics().width( QString().setNum(myView->doc()->numLines()) );
+  
+  int xwidth = 0;
+  if( m_iconBorderOn )
+    xwidth += iconPaneWidth;
+  if( m_foldingMarkersOn )
+    xwidth += iconPaneWidth;
+  if( m_lineNumbersOn )
+    xwidth += lnWidth;
+  if( e->x() > xwidth )
+    return;
+  
+  //myInternalView->placeCursor( 0, e->y(), 0 );
 
-    uint cursorOnLine = myDoc->getRealLine(  ((e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight)  );
+  uint cursorOnLine = myDoc->getRealLine(  ((e->y() + myInternalView->contentsY()) / myView->myDoc->viewFont.fontHeight)  );
 
-    if (cursorOnLine > myView->myDoc->lastLine())
-      return;
+  if (cursorOnLine > myView->myDoc->lastLine())
+    return;
 
-    uint mark = myView->myDoc->mark (cursorOnLine);
+  uint mark = myView->myDoc->mark (cursorOnLine);
 
-    if (myInternalView->iconBorderStatus() & Icons)
+  if( m_iconBorderOn )
+  {
+    int xMin = m_lineNumbersOn ? lnWidth : 0;
+    int xMax = xMin + iconPaneWidth;
+
+    if ((e->x()>=xMin) && (e->x()<xMax))
     {
-      int xMin=(myInternalView->iconBorderStatus() & LineNumbers)?cachedLNWidth:0;
-
-      int xMax=xMin+iconPaneWidth;
-
-      if ((e->x()>=xMin) && (e->x()<xMax))
-      {
-        switch (e->button()) {
-        case LeftButton:
-		createMarkMenu();
-		if (oldEditableMarks) {
-			if (markMenu) {
-				markMenu->exec(QCursor::pos());	
-			}
-			else {
-		                if (mark&oldEditableMarks)
-                			myView->myDoc->removeMark (cursorOnLine, oldEditableMarks);
-		                else
-                			  myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
-			}
-
-
-		}
-            break;
-
-        default:
-            break;
+      switch (e->button()) {
+      case LeftButton:
+        createMarkMenu();
+        if (oldEditableMarks) {
+          if (markMenu) {
+            markMenu->exec(QCursor::pos());	
+          } else {
+            if (mark&oldEditableMarks)
+              myView->myDoc->removeMark (cursorOnLine, oldEditableMarks);
+            else
+              myView->myDoc->addMark (cursorOnLine, oldEditableMarks);
+          }
         }
+        break;
+      default:
+        break;
       }
     }
+  }
 
-    if (myInternalView->iconBorderStatus() & FoldingMarkers)
+  if( m_foldingMarkersOn )
+  {
+    kdDebug(13000)<<"checking if a folding marker has been clicked"<<endl;
+
+    int xMin = m_iconBorderOn ? iconPaneWidth : 0;
+
+    if( m_lineNumbersOn )
+      xMin += lnWidth;
+
+    int xMax = xMin + iconPaneWidth;
+    
+    if ((e->x()>=xMin) && (e->x()<xMax))
     {
-	kdDebug(13000)<<"checking if a folding marker has been clicked"<<endl;
-
-        int xMin=(myInternalView->iconBorderStatus() & Icons)?iconPaneWidth:0;
-
-        if (myInternalView->iconBorderStatus() & LineNumbers)
-          xMin += cachedLNWidth;
-
-        int xMax=xMin+iconPaneWidth;
-	if ((e->x()>=xMin) && (e->x()<xMax))
-        {
-	    kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
-            KateLineInfo info;
-            myView->myDoc->regionTree->getLineInfo(&info,cursorOnLine);
-	    if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
-            {
-               kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
-	        emit toggleRegionVisibility(cursorOnLine);
-
-            }
-        }
+      kdDebug(13000)<<"The click was within a marker range, is it valid though ?"<<endl;
+      KateLineInfo info;
+      myView->myDoc->regionTree->getLineInfo(&info,cursorOnLine);
+      if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
+      {
+         kdDebug(13000)<<"Tell whomever it concerns, that we want a region visibility changed"<<endl;
+         emit toggleRegionVisibility(cursorOnLine);
+      }
     }
+  }
 }
 
 void KateIconBorder::createMarkMenu()
 {
-	unsigned int tmpMarks;
-	if (myView->myDoc->editableMarks()==oldEditableMarks) return;	
-	oldEditableMarks=myView->myDoc->editableMarks();
-	if ((markMenu) && (!oldEditableMarks)) {
-		delete markMenu;
-		markMenu=0;
-		return;
-	}
-	else if ((markMenu) && oldEditableMarks) markMenu->clear();
-	tmpMarks=oldEditableMarks;
-	
-	bool first_found=false;
-	for(unsigned int tmpMark=1;tmpMark;tmpMark=tmpMark<<1) {
+  unsigned int tmpMarks;
+  if (myView->myDoc->editableMarks()==oldEditableMarks) return;	
+  oldEditableMarks=myView->myDoc->editableMarks();
+  if ((markMenu) && (!oldEditableMarks)) {
+    delete markMenu;
+    markMenu=0;
+    return;
+  }
+  else if ((markMenu) && oldEditableMarks) markMenu->clear();
+  tmpMarks=oldEditableMarks;
 
-		if (tmpMark && tmpMarks) {
-			tmpMarks -=tmpMark;
+  bool first_found=false;
+  for(unsigned int tmpMark=1;tmpMark;tmpMark=tmpMark<<1) {
 
-			if (!first_found) {
-				if (!tmpMarks) {
-					if (markMenu) {
-						delete markMenu;
-						markMenu=0;
-					} 
-					return;
-				}
-				if (!markMenu) markMenu=new QPopupMenu(this);
-				markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
-				first_found=true;
-			}
-			else markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
-			
-		}
-		if (!tmpMarks) return;
-		
-	}
+    if (tmpMark && tmpMarks) {
+      tmpMarks -=tmpMark;
 
+      if (!first_found) {
+        if (!tmpMarks) {
+          if (markMenu) {
+            delete markMenu;
+            markMenu=0;
+          } 
+          return;
+        }
+        if (!markMenu) markMenu=new QPopupMenu(this);
+        markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
+        first_found=true;
+      }
+      else markMenu->insertItem(QString("Mark type %1").arg(tmpMark),tmpMark);
+
+    }
+    if (!tmpMarks) return;
+
+  }
 }

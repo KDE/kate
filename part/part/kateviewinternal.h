@@ -48,7 +48,7 @@ class KateViewInternal : public QScrollView
 
   public:
     KateViewInternal( KateView* view, KateDocument* doc );
-    ~KateViewInternal();
+    ~KateViewInternal() {};
     
     void doReturn();
     void doDelete();
@@ -83,16 +83,6 @@ class KateViewInternal : public QScrollView
     
     inline int yPosition () const;     
              
-  //
-  // Iconborder stuff
-  //                              
-  public:
-    void updateIconBorder();  
-    int iconBorderStatus() const     { return m_iconBorderStatus; }
-    
-  private:
-    int m_iconBorderStatus;
-
   signals:
     // emitted when KateViewInternal is not handling its own URI drops
     void dropEventPass(QDropEvent*);
@@ -106,9 +96,8 @@ class KateViewInternal : public QScrollView
     void contentsMousePressEvent(       QMouseEvent* );
     void contentsMouseDoubleClickEvent( QMouseEvent* );
     void contentsMouseReleaseEvent(     QMouseEvent* );
-    void contentsMouseMoveEvent(                QMouseEvent* );
+    void contentsMouseMoveEvent(        QMouseEvent* );
     void viewportResizeEvent( QResizeEvent* );    
-    void resizeEvent( QResizeEvent* );
     void timerEvent( QTimerEvent* );
     void contentsDragEnterEvent( QDragEnterEvent* );
     void contentsDropEvent( QDropEvent* );   
@@ -117,6 +106,7 @@ class KateViewInternal : public QScrollView
     void slotContentsMoving (int x, int y);                
     void tripleClickTimeout();
     void updateView();    
+    void updateIconBorder();  
     
     void slotRegionVisibilityChangedAt(unsigned int);
     void slotRegionBeginEndAddedRemoved(unsigned int);

@@ -2655,7 +2655,7 @@ void KateViewInternal::editRemoveLine(int line)
 
 void KateViewInternal::wheelEvent(QWheelEvent* e)
 {
-  if (m_lineScroll->minValue() != m_lineScroll->maxValue()) {
+  if (m_lineScroll->minValue() != m_lineScroll->maxValue() && !(e->state() & Qt::AltButton)) {
     // React to this as a vertical event
     if ( ( e->state() & ControlButton ) || ( e->state() & ShiftButton ) ) {
       if (e->delta() > 0)

@@ -3333,6 +3333,8 @@ void KateDocument::copy()
 
 void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 {
+  m_undoDontMerge = true;
+
   QString s = QApplication::clipboard()->text();
 
   if (s.isEmpty())
@@ -3375,6 +3377,8 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
   view->m_viewInternal->cursorCacheChanged = true;
 
   editEnd();
+
+  m_undoDontMerge = true;
 }
 
 void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& to )

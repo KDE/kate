@@ -28,15 +28,25 @@
 #include <ktexteditor/viewcursorinterface.h>
 #include <ktexteditor/editinterface.h>
 
+#include <kapplication.h>
+#include <kconfig.h>
+#include <kdialog.h>
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kaction.h>
 #include <knotifyclient.h>
 #include <kparts/part.h>
+#include <kiconloader.h>
 
 #include <qregexp.h>
 #include <qstring.h>
 #include <qdict.h>
+#include <qspinbox.h>
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qhbox.h>
+#include <qwhatsthis.h>
+#include <qcheckbox.h>
 
 #include <kdebug.h>
 //END
@@ -48,11 +58,28 @@ DocWordCompletionPlugin::DocWordCompletionPlugin( QObject *parent,
                             const QStringList& /*args*/ )
 	: KTextEditor::Plugin ( (KTextEditor::Document*) parent, name )
 {
+  readConfig();
+}
+
+void DocWordCompletionPlugin::readConfig()
+{
+  KConfig *config = kapp->config();
+  config->setGroup( "DocWordCompletion Plugin" );
+  m_treshold = config->readNumEntry( "treshold", 3 );
+  m_autopopup = config->readBoolEntry( "autopopup", true );
+}
+
+void DocWordCompletionPlugin::writeConfig()
+{
+  KConfig *config = kapp->config();
+  config->setGroup("DocWordCompletion Plugin");
+  config->writeEntry("autopopup", m_autopopup );
+  config->writeEntry("treshold", m_treshold );
 }
 
 void DocWordCompletionPlugin::addView(KTextEditor::View *view)
 {
-  DocWordCompletionPluginView *nview = new DocWordCompletionPluginView (view, "Document word completion");
+  DocWordCompletionPluginView *nview = new DocWordCompletionPluginView (m_treshold, m_autopopup, view, "Document word completion");
   m_views.append (nview);
 }
 
@@ -66,7 +93,6 @@ void DocWordCompletionPlugin::removeView(KTextEditor::View *view)
        delete nview;
     }
 }
-
 //END
 
 //BEGIN DocWordCompletionPluginView
@@ -79,14 +105,16 @@ struct DocWordCompletionPluginViewPrivate
   QString lastIns;      // latest applied completion
   QRegExp re;           // hrm
   KToggleAction *autopopup; // for accessing state
+  uint treshold;         // the required length of a word before popping up the completion list automatically
 };
 
-DocWordCompletionPluginView::DocWordCompletionPluginView( KTextEditor::View *view, const char *name )
+DocWordCompletionPluginView::DocWordCompletionPluginView( uint treshold, bool autopopup, KTextEditor::View *view, const char *name )
   : QObject( view, name ),
     KXMLGUIClient( view ),
     m_view( view ),
     d( new DocWordCompletionPluginViewPrivate )
 {
+  d->treshold = treshold;
   view->insertChildClient( this );
   setInstance( KGenericFactory<DocWordCompletionPlugin>::instance() );
 
@@ -99,9 +127,15 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( KTextEditor::View *vie
   d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), 0, this,
     SLOT(toggleAutoPopup()), actionCollection(), "enable_autopopup" );
 
-  //d->autopopup->activate(); // default to ON for now
+  d->autopopup->setChecked( autopopup );
+  toggleAutoPopup();
 
   setXMLFile("docwordcompletionui.rc");
+}
+
+void DocWordCompletionPluginView::settreshold( uint t )
+{
+  d->treshold = t;
 }
 
 void DocWordCompletionPluginView::completeBackwards()
@@ -138,7 +172,7 @@ void DocWordCompletionPluginView::toggleAutoPopup()
 void DocWordCompletionPluginView::autoPopupCompletionList()
 {
   QString w = word();
-  if ( w.length() == 3 )
+  if ( w.length() == d->treshold )
   {
       popupCompletionList( w );
   }
@@ -318,6 +352,79 @@ QValueList<KTextEditor::CompletionEntry> DocWordCompletionPluginView::allMatches
   return l;
 }
 
+KTextEditor::ConfigPage* DocWordCompletionPlugin::configPage( uint, QWidget *parent, const char *name )
+{
+  return new DocWordCompletionConfigPage( this, parent, name );
+}
+
+QString DocWordCompletionPlugin::configPageName( uint ) const
+{
+  return i18n("Word Completion Plugin");
+}
+
+QString DocWordCompletionPlugin::configPageFullName( uint ) const
+{
+  return i18n("Configure the Word Completion Plugin");
+}
+
+// FIXME provide sucn a icon
+QPixmap DocWordCompletionPlugin::configPagePixmap( uint, int size ) const
+{
+  return UserIcon( "kte_wordcompletion", size );
+}
+
 //END
+
+//BEGIN DocWordCompletionConfigPage
+DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent, const char *name )
+  : KTextEditor::ConfigPage( parent, name )
+  , m_completion( completion )
+{
+  QVBoxLayout *lo = new QVBoxLayout( this );
+  lo->setSpacing( KDialog::spacingHint() );
+
+  cbAutoPopup = new QCheckBox( i18n("Automatically show completion list"), this );
+  lo->addWidget( cbAutoPopup );
+
+  QHBox *hb = new QHBox( this );
+  hb->setSpacing( KDialog::spacingHint() );
+  lo->addWidget( hb );
+  new QLabel( i18n("when the word is"), hb );
+  sbAutoPopup = new QSpinBox( 1, 30, 1, hb );
+  new QLabel( i18n("characters long."), hb );
+
+  QWhatsThis::add( cbAutoPopup, i18n(
+      "Enable the automatic completion list popup as default. The popup can "
+      "be disabled on a view basis from the 'Tools' menu.") );
+  QWhatsThis::add( sbAutoPopup, i18n(
+      "Define the length a word should have before the comletion list "
+      "is displayed.") );
+
+  cbAutoPopup->setChecked( m_completion->autoPopupEnabled() );
+  sbAutoPopup->setValue( m_completion->treshold() );
+
+  lo->addStretch();
+}
+
+void DocWordCompletionConfigPage::apply()
+{
+  m_completion->setAutoPopupEnabled( cbAutoPopup->isChecked() );
+  m_completion->setTreshold( sbAutoPopup->value() );
+  m_completion->writeConfig();
+}
+
+void DocWordCompletionConfigPage::reset()
+{
+  cbAutoPopup->setChecked( m_completion->autoPopupEnabled() );
+  sbAutoPopup->setValue( m_completion->treshold() );
+}
+
+void DocWordCompletionConfigPage::defaults()
+{
+  cbAutoPopup->setChecked( true );
+  sbAutoPopup->setValue( 3 );
+}
+
+//END DocWordCompletionConfigPage
 
 #include "docwordcompletion.moc"

@@ -29,6 +29,7 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/configinterfaceextension.h>
 #include <kxmlguiclient.h>
 
 #include <qevent.h>
@@ -36,7 +37,9 @@
 #include <qvaluelist.h>
 
 class DocWordCompletionPlugin
-  : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
+  : public KTextEditor::Plugin
+  , public KTextEditor::PluginViewInterface
+  , public KTextEditor::ConfigInterfaceExtension
 {
   Q_OBJECT
 
@@ -49,8 +52,26 @@ class DocWordCompletionPlugin
     void addView (KTextEditor::View *view);
     void removeView (KTextEditor::View *view);
 
+    void readConfig();
+    void writeConfig();
+
+    // ConfigInterfaceExtention
+    uint configPages() const { return 1; };
+    KTextEditor::ConfigPage * configPage( uint number, QWidget *parent, const char *name );
+    QString configPageName( uint ) const;
+    QString configPageFullName( uint ) const;
+    QPixmap configPagePixmap( uint, int ) const;
+
+    uint treshold() const { return m_treshold; };
+    void setTreshold( uint t ) { m_treshold = t; };
+    bool autoPopupEnabled() const { return m_autopopup; };
+    void setAutoPopupEnabled( bool enable ) { m_autopopup = enable; };
+
+
   private:
     QPtrList<class DocWordCompletionPluginView> m_views;
+    uint m_treshold;
+    bool m_autopopup;
 
 };
 
@@ -60,9 +81,11 @@ class DocWordCompletionPluginView
   Q_OBJECT
 
   public:
-    DocWordCompletionPluginView( KTextEditor::View *view,
+    DocWordCompletionPluginView( uint treshold=3, bool autopopup=true, KTextEditor::View *view=0,
                                const char *name=0 );
     ~DocWordCompletionPluginView() {};
+
+    void settreshold( uint treshold );
 
   private slots:
     void completeBackwards();
@@ -78,6 +101,23 @@ class DocWordCompletionPluginView
     QValueList<KTextEditor::CompletionEntry> allMatches( const QString &word );
     KTextEditor::View *m_view;
     struct DocWordCompletionPluginViewPrivate *d;
+};
+
+class DocWordCompletionConfigPage : public KTextEditor::ConfigPage
+{
+  Q_OBJECT
+  public:
+    DocWordCompletionConfigPage( DocWordCompletionPlugin *completion, QWidget *parent, const char *name );
+    virtual ~DocWordCompletionConfigPage() {};
+
+    virtual void apply();
+    virtual void reset();
+    virtual void defaults();
+
+  private:
+    DocWordCompletionPlugin *m_completion;
+    class QCheckBox *cbAutoPopup;
+    class QSpinBox *sbAutoPopup;
 };
 
 #endif // _DocWordCompletionPlugin_h_

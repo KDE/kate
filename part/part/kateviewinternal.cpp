@@ -2427,6 +2427,12 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       stopDragScroll();
       break;
 
+    case QEvent::WindowBlocked:
+      // next focus originates from an internal dialog:
+      // don't show the modonhd prompt
+      m_doc->m_isasking = -1;
+      break;
+
     default:
       break;
   }

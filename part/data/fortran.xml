@@ -1,47 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.06" kateversion="2.3" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP" mimetype="text/x-fortran-src">
+<language name="Fortran" version="1.07" kateversion="2.3" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
+<!-- by Franchin Matteo, fnch@libero.it -->
   <highlighting>
     <list name="keywords">
       <item> allocate </item>
+      <item> break </item>
+      <item> call </item>
+      <item> case </item>
       <item> common </item>
       <item> contains </item>
       <item> continue </item>
-      <item> block </item>
-      <item> data </item>
-      <item> date </item>
+      <item> cycle </item>
+      <item> deallocate </item>
+      <item> default </item>
+      <item> do </item>
+      <item> forall </item>
+      <item> where </item>
+      <item> elsewhere </item>
+      <item> elseif </item>
+      <item> else </item>
+      <item> enddo </item>
+      <item> endif </item>
+      <item> end </item>
+      <item> endselect </item>
+      <item> equivalence </item>
+      <item> exit </item>
+      <item> external </item>
+      <item> for </item>
       <item> function </item>
+      <item> go </item>
+      <item> goto </item>
+      <item> if </item>
+      <item> implicit </item>
       <item> include </item>
       <item> interface </item>
-      <item> implicit </item>
-      <item> none </item>
-      <item> equivalence </item>
-      <item> if </item>
-      <item> then </item>
-      <item> else </item>
-      <item> elseif </item>
-      <item> endif </item>
-      <item> forall </item>
-      <item> go </item>
-      <item> to </item>
-      <item> goto </item>
-      <item> program </item>
+      <item> intrinsic </item>
       <item> module </item>
-      <item> subroutine </item>
-      <item> end </item>
-      <item> call </item>
-      <item> while </item>
-      <item> where </item>
-      <item> cycle </item>
-      <item> do </item>
-      <item> enddo </item>
-      <item> for </item>
-      <item> break </item>
+      <item> none </item>
+      <item> nullify </item>
+      <item> operator </item>
+      <item> assignment </item>
       <item> pause </item>
-      <item> return </item>
-      <item> stop </item>
+      <item> procedure </item>
+      <item> program </item>
       <item> pure </item>
-      <item> save </item>
+      <item> elemental </item>
+      <item> record </item>
+      <item> recursive </item>
+      <item> result </item>
+      <item> return </item>
+      <item> select </item>
+      <item> stop </item>
+      <item> subroutine </item>
+      <item> then </item>
+      <item> to </item>
+      <item> use </item>
+      <item> only </item>
+      <item> entry </item>
+      <item> while </item>
     </list>
     <list name="io_functions">
       <item> access </item>
@@ -55,141 +72,307 @@
       <item> write </item>
       <item> format </item>
     </list>
-    <list name="maths">
-      <item> abs </item>
-      <item> acos </item>
-      <item> aimag </item>
-      <item> aint </item>
-      <item> alog </item>
-      <item> alog10 </item>
-      <item> amax0 </item>
-      <item> amax1 </item>
-      <item> amin0 </item>
-      <item> amin1 </item>
-      <item> amod </item>
-      <item> anint </item>
-      <item> aprime </item>
-      <item> asin </item>
-      <item> atan </item>
-      <item> atan2 </item>
-      <item> acos </item>
-      <item> cabs </item>
-      <item> cexp </item>
-      <item> clog </item>
-      <item> conjg </item>
-      <item> cos </item>
-      <item> cosh </item>
-      <item> ccos </item>
-      <item> csin </item>
-      <item> csqrt </item>
-      <item> dabs </item>
-      <item> dacos </item>
-      <item> dasin </item>
-      <item> datan </item>
-      <item> datan2 </item>
-      <item> dconjg </item>
-      <item> dcos </item>
-      <item> dcosh </item>
-      <item> dfloat </item>
-      <item> ddmim </item>
-      <item> dexp </item>
-      <item> dim </item>
-      <item> dint </item>
-      <item> dlog </item>
-      <item> dlog10 </item>
-      <item> dmax1 </item>
-      <item> dmin1 </item>
-      <item> dmod </item>
-      <item> dnint </item>
-      <item> dsign </item>
-      <item> dsin </item>
-      <item> dsinh </item>
-      <item> dsqrt </item>
-      <item> dtan </item>
-      <item> dtanh </item>
-      <item> exp </item>
-      <item> iabs </item>
-      <item> idim </item>
-      <item> index </item>
-      <item> isign </item>
-      <item> len </item>
-      <item> log </item>
-      <item> log10 </item>
-      <item> max </item>
-      <item> max0 </item>
-      <item> max1 </item>
-      <item> min </item>
-      <item> min0 </item>
-      <item> min1 </item>
-      <item> mod </item>
-      <item> rand </item>
-      <item> sign </item>
-      <item> sin </item>
-      <item> sinh </item>
-      <item> sqrt </item>
-      <item> tan </item>
-      <item> tanh </item>
-      <item> trim </item>
-      <item> allocated </item>
-      <item> present </item>
-      
-    </list>
     <list name="types">
-      <item> allocatable </item>
-      <item> character </item>
-      <item> complex </item>
       <item> double </item>
       <item> precision </item>
-      <item> real </item>
       <item> real*8 </item>
-      <item> integer </item>
-      <item> logical </item>
-      <item> dimension </item>
-      <item> external </item>
-      <item> intrinsic </item>
       <item> parameter </item>
-      <item> kind </item>
-      
-
+      <item> save </item>
+      <item> pointer </item>
+      <item> public </item>
+      <item> private </item>
+      <item> target </item>
+      <item> allocatable </item>
+      <item> optional </item>
       <item> char </item>
       <item> cmplx </item>
       <item> dble </item>
       <item> dcmplx </item>
-      <item> float </item>
       <item> ichar </item>
-      <item> idint </item>
-      <item> ifix </item>
-      <item> int </item>
-      <item> sngl </item>
     </list>
+
+<!-- There are 4 types of intrinsic procedures in Fortran 90:
+   1) Elemental procedures (elemental_procs);
+   2) Inquiry functions (inquiry_fn);
+   3) Transformational functions (transform_fn);
+   4) Non elemental subroutines (non_elem_subr);
+  Often mathematical functions have one generic form and many specific names!
+  If you use the generic form, the compiler will select the right function
+  to use depending on the type of the arguments.
+  But you can use also the specific names!
+  -->
+
+<!-- E L E M E N T A L    P R O C E D U R E S -->
+    <list name="elemental_procs">
+    <!-- Elemental functions that may convert -->
+      <item> abs </item>   <!-- Generic form: abs --> 
+      <item> cabs </item>  <!-- Specific names for abs -->
+      <item> dabs </item>
+      <item> iabs </item>
+      <item> aimag </item>
+      <item> aint </item>  <!-- Generic form: aint -->
+      <item> dint </item>  <!-- Specific name for aint -->
+      <item> anint </item> <!-- Generic form: anint -->
+      <item> dnint </item> <!-- Specific name for anint -->
+      <item> ceiling </item>
+      <item> cmplx </item>
+      <item> floor </item>
+      <item> nint </item>  <!-- Generic form: nint -->
+      <item> idnint </item><!-- Specific name for nint -->
+      <item> int </item>   <!-- Generic form: int -->
+      <item> idint </item> <!-- Specific names for int -->
+      <item> ifix </item>
+      <item> real </item>  <!-- Generic form: real -->
+      <item> float </item> <!-- Specific names for real -->
+      <item> sngl </item>
+      <item> aprime </item> <!-- 5 functions from fortran.xml -->      
+      <item> dconjg </item> <!-- I don't know if they really belong to --> 
+      <item> dfloat </item> <!-- the fortran 90/95 standard! -->
+      <item> ddmim </item>
+      <item> rand </item>
+    <!-- Elemental functions that do not convert -->
+      <item> modulo </item>
+      <item> conjg </item>
+      <item> dprod </item>  <!-- dprod(x, y) is the specific name for x*y -->
+      <item> dim </item>    <!-- Generic form: dim -->
+      <item> ddim </item>   <!-- Specific names for dim -->
+      <item> idim </item>
+      <item> max </item>    <!-- Generic form: max -->
+      <item> amax0 </item>  <!-- Specific names for max -->
+      <item> amax1 </item>
+      <item> max0 </item>
+      <item> max1 </item>
+      <item> dmax1 </item>
+      <item> min </item>    <!-- Generic form: min -->
+      <item> amin0 </item>  <!-- Specific names for min -->
+      <item> amin1 </item>
+      <item> min0 </item>
+      <item> min1 </item>
+      <item> dmin1 </item>
+      <item> mod </item>    <!-- Generic form: mod -->
+      <item> amod </item>   <!-- Specific names for mod -->
+      <item> dmod </item>
+      <item> sign </item>   <!-- Generic form: sign -->
+      <item> dsign </item>  <!-- Specific names for sign -->
+      <item> isign </item>
+    <!-- Elemental mathematical functions -->
+      <item> acos </item>    <!-- Generic form: acos -->
+      <item> dacos </item>   <!-- Specific names for acos -->
+      <item> asin </item>    <!-- Generic form: asin -->
+      <item> dasin </item>   <!-- Specific names for asin -->
+      <item> atan </item>    <!-- Generic form: atan -->
+      <item> datan </item>   <!-- Specific names for atan -->
+      <item> atan2 </item>   <!-- Generic form: atan2 -->
+      <item> datan2 </item>  <!-- Specific names for atan2 -->
+      <item> cos </item>     <!-- Generic form: cos -->
+      <item> ccos </item>    <!-- Specific names for cos -->
+      <item> dcos </item>
+      <item> cosh </item>    <!-- Generic form: cosh -->
+      <item> dcosh </item>   <!-- Specific names for cosh -->
+      <item> exp </item>     <!-- Generic form: exp -->
+      <item> cexp </item>    <!-- Specific names for exp -->
+      <item> dexp </item>
+      <item> log </item>     <!-- Generic form: log -->
+      <item> alog </item>    <!-- Specific names for log -->
+      <item> dlog </item>
+      <item> clog </item>
+      <item> log10 </item>   <!-- Generic form: log10 -->
+      <item> alog10 </item>  <!-- Specific names for log10 -->
+      <item> dlog10 </item>
+      <item> sin </item>     <!-- Generic form: sin -->
+      <item> csin </item>    <!-- Specific names for sin -->
+      <item> dsin </item>
+      <item> sinh </item>    <!-- Generic form: sinh -->
+      <item> dsinh </item>   <!-- Specific name for sinh -->
+      <item> sqrt </item>    <!-- Generic form: sqrt -->
+      <item> csqrt </item>   <!-- Specific names for sqrt -->
+      <item> dsqrt </item>
+      <item> tan </item>     <!-- Generic form: tan -->
+      <item> dtan </item>    <!-- Generic form: dtan -->
+      <item> tanh </item>    <!-- Generic form: tanh -->
+      <item> dtanh </item>   <!-- Specific names for tanh -->
+    <!-- Elemental character and logical functions -->
+    <!-- Character-integer conversions -->
+      <item> achar </item>
+      <item> char </item>
+      <item> iachar </item>
+      <item> ichar </item>
+    <!-- Lexical comparison functions -->
+      <item> lge </item>
+      <item> lgt </item>
+      <item> lle </item>
+      <item> llt </item>
+    <!-- String-handling elemental functions -->
+      <item> adjustl </item>
+      <item> adjustr </item>
+      <item> index </item>
+      <item> len_trim </item>
+      <item> scan </item>
+      <item> verify </item>
+    <!-- Logical conversion -->
+      <item> logical </item>
+    <!-- Elemental functions to manipulate reals -->
+      <item> exponent </item>
+      <item> fraction </item>
+      <item> nearest </item>
+      <item> rrspacing </item>
+      <item> scale </item>
+      <item> set_exponent </item>
+      <item> spacing </item>
+    <!-- Bit manipulation elemental functions -->
+      <item> btest </item>
+      <item> iand </item>
+      <item> ibclr </item>
+      <item> ibits </item>
+      <item> ibset </item>
+      <item> ieor </item>
+      <item> ior </item>
+      <item> ishft </item>
+      <item> ishftc </item>
+      <item> not </item>
+    <!-- Bit manipulation elemental subroutine -->
+      <item> mvbits </item>
+    <!-- Merge elemental function -->
+      <item> merge </item>
+    </list>
+
+<!-- I N Q U I R Y    F U N C T I O N S -->
+    <list name="inquiry_fn">
+    <!-- Inquiry functions for any type -->
+      <item> associated </item>
+      <item> present </item>
+      <item> kind </item>
+    <!-- String-handling inquiry function -->
+      <item> len </item>
+    <!-- Numeric inquiry functions -->
+      <item> digits </item>
+      <item> epsilon </item>
+      <item> huge </item>
+      <item> maxexponent </item>
+      <item> minexponent </item>
+      <item> precision </item>
+      <item> radix </item>
+      <item> range </item>
+      <item> tiny </item>
+    <!-- Bit inquiry function -->
+      <item> bit_size </item>
+    <!-- Array inquiry functions -->
+      <item> allocated </item>
+      <item> lbound </item>
+      <item> ubound </item>
+      <item> shape </item>
+      <item> size </item>
+    </list>
+
+<!-- T R A N S F O R M A T I O N A L    F U N C T I O N S -->
+    <list name="transform_fn">
+    <!-- String-handling transformational functions -->
+      <item> repeat </item>
+      <item> trim </item>
+    <!-- Transformational functions for kind values -->
+      <item> selected_int_kind </item>
+      <item> selected_real_kind </item>
+    <!-- Transfer function -->
+      <item> transfer </item>
+    <!-- Vector and matrix multiplication functions -->
+      <item> dot_product </item>
+      <item> matmul </item>
+    <!-- Transformational functions that reduce arrays -->
+      <item> all </item>
+      <item> any </item>
+      <item> count </item>
+      <item> maxval </item>
+      <item> minval </item>
+      <item> product </item>
+      <item> sum </item>
+    <!-- Packing and unpacking arrays -->
+      <item> pack </item>
+      <item> unpack </item>
+    <!-- Transformational function for reshaping an array -->
+      <item> reshape </item>
+    <!-- Transformational function for replication -->
+      <item> spread </item>
+    <!-- Array shifting functions -->
+      <item> cshift </item>
+      <item> eoshift </item>
+    <!-- Matrix transpose -->
+      <item> transpose </item>
+    <!-- Transformational functions for geometric location -->
+      <item> maxloc </item>
+      <item> minloc </item>
+    </list>
+
+<!-- N O N    E L E M E N T A L    S U B R O U T I N E S -->
+    <list name="non_elem_subr">
+    <!-- Real time clock -->
+      <item> date_and_time </item>
+      <item> system_clock </item>
+    <!-- Random numbers -->
+      <item> random_number </item>
+      <item> random_seed </item>
+    </list>
+
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="default" >
-        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <IncludeRules context="find_strings" />
+
+        <RegExpr attribute="Data Type" context="#stay" String="end[ \t]*type" insensitive="TRUE"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\b(type|integer|real|complex|character|logical|intent|dimension)\b([ \t]*[(][^)]*[)])?" insensitive="TRUE"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="IO Function" context="#stay" String="io_functions"/>
-        <keyword attribute="Math Intrinsic" context="#stay" String="maths"/>
-        <RegExpr attribute="Conditional" context="#stay" String="\.(and|AND|or|OR|eqv|EQV|neqv|NEQV|lt|LT|le|LE|eq|EQ|ne|NE|eqv|EQV|neqv|NEQV|ge|GE|gt|GT|not|NOT|true|TRUE|false|FALSE)\."/>
-        <RegExpr attribute="Float" context="#stay" String="[0-9]*\.[0-9]*[dD][+|-]{0,1}[0-9]*"/>
+
+      <!-- INTRINSIC PROCEDURES -->
+        <keyword attribute="Elemental Procedure"       context="#stay" String="elemental_procs"/>
+        <keyword attribute="Inquiry Function"          context="#stay" String="inquiry_fn"/>
+        <keyword attribute="Transformational Function" context="#stay" String="transform_fn"/>
+        <keyword attribute="Non elemental subroutine"  context="#stay" String="non_elem_subr"/>
+
+        <RegExpr attribute="Logical" context="#stay" String="\.(true|false)\." insensitive="TRUE"/>
+        <RegExpr attribute="Operator" context="#stay" String="[.][A-Za-z]+[.]"/>
+        <!-- Floating-point numbers with optional kind -->
+        <RegExpr attribute="Float" context="#stay" String="\b[0-9]*\.[0-9]+([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
+        <RegExpr attribute="Float" context="#stay" String="\b[0-9]+\.[0-9]*([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
         <Float attribute="Float" context="#stay">
           <AnyChar attribute="Float" context="#stay" String="fFdD"/>
         </Float>
-        <Int attribute="Decimal" context="#stay" />
+        <!-- Integers with optional kind specifier -->
+        <RegExpr attribute="Decimal" context="#stay" String="\b[0-9]+([_]([0-9]+|[a-zA-Z][\w_]*))?"/>
+        <!-- Integers in binary octal and hexadecimal notations -->
+        <RegExpr attribute="Decimal" context="#stay" String="\b[boz]([&apos;][0-9a-f]+[&apos;]|[&quot;][0-9a-f]+[&quot;])" insensitive="TRUE"/>
         <HlCChar attribute="Char" context="#stay"/>
-        <DetectChar attribute="String" context="strings 1" char="&quot;"/>
-        <DetectChar attribute="String" context="strings 2" char="&apos;"/>
         <RegExpr attribute="Preprocessor" context="#stay" String="^(#|cDEC\$|CDEC\$).*$"/>
         <RegExpr attribute="Comment" context="#stay" String="^[cC\*].*$"/>
         <RegExpr attribute="Comment" context="#stay" String="!.*$"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
       </context>
-      <context attribute="String" lineEndContext="#pop" name="strings 1">
-        <HlCStringChar attribute="String Char" context="#stay"/>
-        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+
+<!-- The following four contexts implement the complex string multi-line declarations -->
+      <!-- Matches STRINGS (there are 2 types of strings: '...' and "...") -->
+      <context attribute="String" lineEndContext="#stay" name="find_strings">
+        <DetectChar attribute="String" context="string_1" char="&apos;"/>
+        <DetectChar attribute="String" context="string_2" char="&quot;"/>
       </context>
-      <context attribute="String" lineEndContext="#pop" name="strings 2">
-        <HlCStringChar attribute="String Char" context="#stay"/>
-        <DetectChar attribute="String" context="#pop" char="&apos;"/>
+
+      <context attribute="String" lineEndContext="#stay" name="string_1" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="String" context="#pop" String="[^&apos;]*&apos;"/>
+        <RegExpr attribute="Keyword" context="end_of_string" String="&amp;\s*$"/>
+        <RegExpr attribute="String" context="end_of_string" String=".*(?=&amp;\s*$)"/>
       </context>
+
+      <context attribute="String" lineEndContext="#stay" name="string_2" fallthrough="true" fallthroughContext="#pop">
+        <RegExpr attribute="String" context="#pop" String="[^&quot;]*&quot;"/>
+        <RegExpr attribute="Keyword" context="end_of_string" String="&amp;\s*$"/>
+        <RegExpr attribute="String" context="end_of_string" String=".*(?=&amp;\s*$)"/>
+      </context>
+
+      <context attribute="String" lineEndContext="#stay" name="end_of_string" fallthrough="true" fallthroughContext="#pop#pop">
+        <RegExpr attribute="Keyword" context="#stay" String="&amp;\s*$"/>
+        <RegExpr attribute="Keyword" context="#pop" String="^\s*&amp;"/>
+        <RegExpr attribute="Comment" context="#stay" String="^\s*(!.*)?$"/>
+      </context>
+
+
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
@@ -205,16 +388,20 @@
       <itemData name="Comment" defStyleNum="dsComment"/>
       <itemData name="Symbol" defStyleNum="dsNormal"/>
       <itemData name="Preprocessor" defStyleNum="dsOthers"/>
-      <itemData name="Conditional" defStyleNum="dsOthers" color="#008000" selColor="#ffa0a0" bold="1" italic="0"/>
-      <itemData name="IO Function" defStyleNum="dsFunction" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
-      <itemData name="Math Intrinsic" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
+      <itemData name="Operator" defStyleNum="dsKeyword" color="#008000" selColor="#ff00ff" bold="1" italic="0"/>
+      <itemData name="Logical" defStyleNum="dsOthers" color="#800080" selColor="#ffa0a0" bold="1" italic="0"/>
+      <itemData name="IO Function" defStyleNum="dsKeyword" color="#006060" selColor="#ffffff" bold="0" italic="0"/>
+      <itemData name="Elemental Procedure" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
+      <itemData name="Inquiry Function" defStyleNum="dsKeyword" color="#000060" selColor="#a0a0ff" bold="1" italic="1"/>
+      <itemData name="Transformational Function" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
+      <itemData name="Non elemental subroutine" defStyleNum="dsKeyword" color="#600060" selColor="#ffa0ff" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>
   <general>
     <keywords casesensitive="0"/>
     <comments>
-      <comment name="singleLine" start="c"/>
       <comment name="singleLine" start="!"/>
+      <comment name="singleLine" start="c"/>
     </comments>
   </general>
 </language>

@@ -675,12 +675,14 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     emit foldingUpdate(endLine,&foldingList,&retVal_folding,true);
   }
 #endif
+
   current_line += buf->startLine();
   
-  kdDebug() << "EMIT TAG LINES FROM BUFFER: " << startLine << " to " << current_line-1 << endl; 
   emit tagLines(startLine, current_line - 1);
   
-  if (CodeFoldingUpdated) emit codeFoldingUpdated();
+  if (CodeFoldingUpdated)
+    emit codeFoldingUpdated();
+  
   return (current_line >= buf->endLine());
 }
 

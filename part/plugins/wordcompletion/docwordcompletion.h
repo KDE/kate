@@ -127,3 +127,4 @@ class DocWordCompletionConfigPage : public KTextEditor::ConfigPage
 };
 
 #endif // _DocWordCompletionPlugin_h_
+// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

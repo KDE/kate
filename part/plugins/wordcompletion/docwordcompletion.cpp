@@ -345,7 +345,57 @@ void DocWordCompletionPluginView::complete( bool fw )
     }
   } // while true
 }
+void DocWordCompletionPluginView::complete()
+{
+    // setup
+	KTextEditor::EditInterface * ei = KTextEditor::editInterface(m_view->document());
+    // find the word we are typing
+	uint cline, ccol;
+	viewCursorInterface(m_view)->cursorPositionReal(&cline, &ccol);
+	QString wrd = word();
+	if (wrd.isEmpty())
+		return;
 
+	QValueList < KTextEditor::CompletionEntry > matches = allMatches(wrd);
+	if (matches.size() == 0)
+		return;
+	QString partial = findLongestUnique(matches);
+	if (partial.length() == wrd.length())
+	{
+		KTextEditor::CodeCompletionInterface * cci = codeCompletionInterface(m_view);
+		cci->showCompletionBox(matches, wrd.length());
+	}
+	else
+	{
+		partial.remove(0, wrd.length());
+		ei->insertText(cline, ccol, partial);
+	}
+}
+
+
+QString DocWordCompletionPluginView::findLongestUnique(const QValueList < KTextEditor::CompletionEntry > &matches)
+{
+	QString partial = matches.front().text;
+	QValueList < KTextEditor::CompletionEntry >::const_iterator i = matches.begin();
+	for (++i; i != matches.end(); ++i)
+	{
+		if (!(*i).text.startsWith(partial))
+		{
+			while(partial.length() > 0)
+			{
+				partial.remove(partial.length() - 1, 1);
+				if ((*i).text.startsWith(partial))
+				{
+					break;
+				}
+			}
+			if (partial.length() == 0)
+				return QString();
+		}
+	}
+
+	return partial;
+}
 // Return the string to complete (the letters behind the cursor)
 QString DocWordCompletionPluginView::word()
 {
@@ -471,3 +521,4 @@ void DocWordCompletionConfigPage::defaults()
 //END DocWordCompletionConfigPage
 
 #include "docwordcompletion.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

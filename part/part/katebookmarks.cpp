@@ -24,6 +24,8 @@
 
 #include "../interfaces/document.h"
 #include "../interfaces/view.h"
+#include "katedocument.h"
+#include "kateview.h"
 
 #include <klocale.h>
 #include <kaction.h>
@@ -222,11 +224,14 @@ void KateBookmarks::gotoBookmark( int n )
 
 void KateBookmarks::goNext()
 {
+  // hack to ensure we go to active view
+  KateView *v = dynamic_cast<KateDocument*>(m_view->getDoc())->activeView();
+
   m_marks = m_view->getDoc()->marks();
   if ( ! m_marks.count() )
     return;
 
-  uint line = m_view->cursorLine();
+  uint line = /*m_view*/v->cursorLine(); // <--
   QMemArray<uint> a( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
   for ( int i=0; *it; ++i, ++it )
@@ -236,7 +241,7 @@ void KateBookmarks::goNext()
   {
     if ( a[j] > line )
     {
-      m_view->setCursorPosition( a[j], 0 );
+      /*m_view*/v->setCursorPosition( a[j], 0 ); // <--
       return;
     }
   }
@@ -244,11 +249,14 @@ void KateBookmarks::goNext()
 
 void KateBookmarks::goPrevious()
 {
+  // hack to ensure we go to active view
+  KateView *v = dynamic_cast<KateDocument*>(m_view->getDoc())->activeView();
+
   m_marks = m_view->getDoc()->marks();
   if ( ! m_marks.count() )
     return;
 
-  uint line = m_view->cursorLine();
+  uint line = /*m_view*/v->cursorLine();
   QMemArray<uint> a( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
   for ( int i=0; *it; ++i, ++it )
@@ -258,7 +266,7 @@ void KateBookmarks::goPrevious()
   {
     if ( a[j] < line )
     {
-      m_view->setCursorPosition( a[j], 0 );
+      /*m_view*/v->setCursorPosition( a[j], 0 );
       return;
     }
   }

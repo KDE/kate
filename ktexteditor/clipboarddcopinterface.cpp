@@ -15,13 +15,16 @@ ClipboardDCOPInterface::~ClipboardDCOPInterface()
 
 }
 
+    /**
+    * Copies selected text.
+    */
     void ClipboardDCOPInterface::copy ( )
     {
 	m_parent->copy();
     }
 
     /**
-    * copies selected text
+    * Cuts selected text.
     */
     void ClipboardDCOPInterface::cut ( )
     {
@@ -29,7 +32,7 @@ ClipboardDCOPInterface::~ClipboardDCOPInterface()
     }
 
     /**
-    * copies selected text
+    * Pastes text from clipboard.
     */
     void ClipboardDCOPInterface::paste ( )
     {

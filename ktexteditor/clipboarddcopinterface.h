@@ -29,7 +29,7 @@ namespace KTextEditor
 		/**
 		Destructor
 		Cleans up the object.
-		**/
+		*/
 		virtual ~ClipboardDCOPInterface();
 	k_dcop:
 	/**
@@ -37,11 +37,11 @@ namespace KTextEditor
 	*/
 	void copy ( );
 	/**
-	* copies selected text
+	* cuts selected text
 	*/
 	void cut ( );
 	/**
-	* copies selected text
+	* pastes selected text
 	*/
 	void paste ( );
 	private:

@@ -96,7 +96,7 @@ DocWordCompletionPluginView::DocWordCompletionPluginView( KTextEditor::View *vie
     SLOT(completeForwards()), actionCollection(), "doccomplete_fw" );
   (void) new KAction( i18n("Pop up completion list"), CTRL+Key_Y, this,
     SLOT(popupCompletionList()), actionCollection(), "doccomplete_pu" );
-  d->autopopup = new KToggleAction( i18n("Automatic completion popup"), 0, this,
+  d->autopopup = new KToggleAction( i18n("Automatic Completion Popup"), 0, this,
     SLOT(toggleAutoPopup()), actionCollection(), "enable_autopopup" );
 
   //d->autopopup->activate(); // default to ON for now

@@ -82,6 +82,29 @@ class ActionMenu : public KActionMenu
     virtual void updateMenu (class Document *) = 0;
 };
 
+/**
+ * Kate Commands
+ */
+class Command
+{
+  public:
+    Command () {};
+    virtual ~Command () {};
+
+  public:
+    /**
+     * Pure text start part of the commands which can be handled by this object
+     * which means i.e. for s/sdl/sdf/g => s or for char:1212 => char
+     */
+    virtual QStringList cmds () = 0;
+
+    /**
+     * Execute this command for the given view and cmd string, return a bool
+     * about success, msg for status
+     */
+    virtual bool exec (View *view, const QString &cmd, QString &msg) = 0;
+};
+
 /** This interface provides access to the Kate Document class.
 */
 class Document : public KTextEditor::Document, public KTextEditor::EditInterface,
@@ -98,6 +121,14 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
   public:
     Document ();
     virtual ~Document ();
+
+  /**
+   * Commands handling
+   */
+  public:
+    static bool registerCommand (Command *cmd);
+    static bool unregisterCommand (Command *cmd);
+    static Command *queryCommand (const QString &cmd);
 
   public:
     /**

@@ -52,8 +52,6 @@ class KateFactory : public KParts::Factory
 
     static QPtrList<class KateView> *views () { return &s_views; };
 
-    static KateCmd *cmd ();
-
   private:
     static void ref();
     static void deref();
@@ -68,8 +66,6 @@ class KateFactory : public KParts::Factory
     static KAboutData *s_about;
 
     static KTrader::OfferList *s_plugins;
-
-    static KateCmd *s_cmd;
 };
 
 #endif

@@ -20,7 +20,8 @@
 #include "katecmdline.moc"
 
 #include "kateview.h"
-#include "katecmd.h"
+#include "../interfaces/katecmd.h"
+#include "../interfaces/document.h"
 #include "katefactory.h"
 
 #include <klocale.h>
@@ -35,7 +36,7 @@ KateCmdLine::KateCmdLine (KateView *view)
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
 
-  completionObject()->insertItems (KateFactory::cmd()->cmds());
+  completionObject()->insertItems (KateCmd::instance()->cmds());
 }
 
 KateCmdLine::~KateCmdLine ()
@@ -46,7 +47,7 @@ void KateCmdLine::slotReturnPressed ( const QString& cmd )
 {
   if (cmd.length () > 0)
   {
-    KateCmdParser *p = KateFactory::cmd()->query (cmd);
+    Kate::Command *p = KateCmd::instance()->queryCommand (cmd);
 
     m_oldText = cmd;
     m_msgMode = true;

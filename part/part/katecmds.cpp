@@ -150,13 +150,13 @@ QString SedReplace::sedMagic(QString textLine, const QString &find, const QStrin
 }
 
 
-static void setLineText(KateView *view, int line, const QString &text)
+static void setLineText(Kate::View *view, int line, const QString &text)
 {
-	if (view->doc()->insertLine(line, text))
-	  view->doc()->removeLine(line+1);
+	if (view->getDoc()->insertLine(line, text))
+	  view->getDoc()->removeLine(line+1);
 }
 
-bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
+bool SedReplace::exec (Kate::View *view, const QString &cmd, QString &)
 {
 	kdDebug(13010)<<"SedReplace::execCmd()"<<endl;
 
@@ -182,10 +182,10 @@ bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
 
 	if (fullFile)
 	{
-		int numLines=view->doc()->numLines();
+		int numLines=view->getDoc()->numLines();
 		for (int line=0; line < numLines; line++)
 		{
-			QString text=view->doc()->textLine(line);
+			QString text=view->getDoc()->textLine(line);
 			text=sedMagic(text, find, replace, noCase, repeat);
 			setLineText(view, line, text);
 		}
@@ -204,7 +204,7 @@ bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
 	return true;
 }
 
-bool Character::exec (KateView *view, const QString &_cmd, QString &)
+bool Character::exec (Kate::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
 
@@ -244,7 +244,7 @@ bool Character::exec (KateView *view, const QString &_cmd, QString &)
 	return true;
 }
 
-bool Goto::exec (KateView *view, const QString &cmd, QString &)
+bool Goto::exec (Kate::View *view, const QString &cmd, QString &)
 {
   if (cmd.left(5) != "goto:")
 		return false;
@@ -254,7 +254,7 @@ bool Goto::exec (KateView *view, const QString &cmd, QString &)
 	return true;
 }
 
-bool Date::exec (KateView *view, const QString &cmd, QString &)
+bool Date::exec (Kate::View *view, const QString &cmd, QString &)
 {
   if (cmd.left(5) != "date:")
     return false;

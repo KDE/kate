@@ -20,32 +20,35 @@
 
 #include "katecmd.h"
 
-#include "katecmds.h"
-
 KateCmd::KateCmd ()
 {
   m_parser.setAutoDelete(true);
-  m_parser.append (new KateCommands::SedReplace ());
-  m_parser.append (new KateCommands::Character ());
-  m_parser.append (new KateCommands::Goto ());
-  m_parser.append (new KateCommands::Date ());
-
-  for (uint i=0; i<m_parser.count(); i++)
-  {
-    QStringList l = m_parser.at(i)->cmds ();
-
-    for (uint z=0; z<l.count(); z++)
-      m_dict.insert (l[z], m_parser.at(i));
-
-    m_cmds += l;
-  }
 }
 
 KateCmd::~KateCmd ()
 {
 }
 
-KateCmdParser *KateCmd::query (const QString &cmd)
+bool KateCmd::registerCommand (Kate::Command *cmd)
+{
+  m_parser.append (cmd);
+
+  QStringList l = cmd->cmds ();
+
+  for (uint z=0; z<l.count(); z++)
+    m_dict.insert (l[z], cmd);
+
+  m_cmds += l;
+
+  return true;
+}
+
+bool KateCmd::unregisterCommand (Kate::Command *cmd)
+{
+  return true;
+}
+
+Kate::Command *KateCmd::queryCommand (const QString &cmd)
 {
   uint f = 0;
   while (cmd[f].isLetterOrNumber())
@@ -57,4 +60,14 @@ KateCmdParser *KateCmd::query (const QString &cmd)
 QStringList KateCmd::cmds ()
 {
   return m_cmds;
+}
+
+KateCmd *KateCmd::s_cmd = 0;
+
+KateCmd *KateCmd::instance ()
+{
+  if (!s_cmd)
+    s_cmd = new KateCmd ();
+
+  return s_cmd;
 }

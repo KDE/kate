@@ -20,7 +20,8 @@
 #ifndef _KATE_CMDS_H
 #define _KATE_CMDS_H
 
-#include "katecmd.h"
+#include "../interfaces/document.h"
+#include "../interfaces/view.h"
 
 /**
  * this namespace will be maintained by Charles Samuels <charles@kde.org>
@@ -41,10 +42,10 @@ namespace KateCommands
  *
  * $s/// is currently unsupported
  **/
-class SedReplace : public KateCmdParser
+class SedReplace : public Kate::Command
 {
   public:
-    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     QStringList cmds () { return QStringList("s"); };
 
@@ -60,26 +61,26 @@ class SedReplace : public KateCmdParser
  *
  * prefixed with "char:"
  **/
-class Character : public KateCmdParser
+class Character : public Kate::Command
 {
   public:
-    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     QStringList cmds () { return QStringList("char"); };
 };
 
-class Goto : public KateCmdParser
+class Goto : public Kate::Command
 {
   public:
-    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     QStringList cmds () { return QStringList("goto"); };
 };
 
-class Date : public KateCmdParser
+class Date : public Kate::Command
 {
   public:
-    bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+    bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
     QStringList cmds () { return QStringList("date"); };
 };

@@ -24,30 +24,27 @@
 #include <qptrlist.h>
 #include <qstringlist.h>
 
-class KateCmdParser
-{
-  public:
-    KateCmdParser () {};
-    virtual ~KateCmdParser () {};
-
-    virtual QStringList cmds () = 0;
-
-    virtual bool exec (class KateView *view, const QString &cmd, QString &msg) = 0;
-};
+#include "document.h"
 
 class KateCmd
 {
-  public:
+  private:
     KateCmd ();
     ~KateCmd ();
 
-    KateCmdParser *query (const QString &cmd);
+  public:
+    static KateCmd *instance ();
+
+    bool registerCommand (Kate::Command *cmd);
+    bool unregisterCommand (Kate::Command *cmd);
+    Kate::Command *queryCommand (const QString &cmd);
 
     QStringList cmds ();
 
   private:
-    QPtrList<KateCmdParser> m_parser;
-    QDict<KateCmdParser> m_dict;
+    static KateCmd *s_cmd;
+    QPtrList<Kate::Command> m_parser;
+    QDict<Kate::Command> m_dict;
     QStringList m_cmds;
 };
 

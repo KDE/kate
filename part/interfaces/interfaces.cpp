@@ -24,6 +24,8 @@
 #include "view.h"
 #include "view.moc"
 
+#include "katecmd.h"
+
 namespace Kate
 {
 
@@ -33,6 +35,21 @@ Document::Document () : KTextEditor::Document (0L, "Kate::Document")
 
 Document::~Document ()
 {
+}
+
+bool Document::registerCommand (Command *cmd)
+{
+  return KateCmd::instance()->registerCommand (cmd);
+}
+
+bool Document::unregisterCommand (Command *cmd)
+{
+  return KateCmd::instance()->registerCommand (cmd);
+}
+
+Command *Document::queryCommand (const QString &cmd)
+{
+  return KateCmd::instance()->queryCommand (cmd);
 }
 
 View::View ( KTextEditor::Document *doc, QWidget *parent, const char *name ) : KTextEditor::View (doc, parent, name)

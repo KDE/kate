@@ -3182,15 +3182,20 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
 void KateDocument::transpose( const KateTextCursor& cursor)
 {
   TextLine::Ptr textLine = buffer->plainLine(cursor.line());
-  uint line = cursor.line();
-  uint col = cursor.col();
 
-  if (!textLine)
+  if (!textLine || (textLine->length() < 2))
     return;
 
+  uint col = cursor.col();
+
+  if (col > 0)
+    col--;
+
+  if ((textLine->length() - col) < 2)
+    return;
+
+  uint line = cursor.line();
   QString s;
-  if (col != 0)  //there is a special case for this one
-    --col;
 
   //clever swap code if first character on the line swap right&left
   //otherwise left & right
@@ -3202,7 +3207,6 @@ void KateDocument::transpose( const KateTextCursor& cursor)
   editStart ();
   editRemoveText (line, col, 2);
   editInsertText (line, col, s);
-
   editEnd ();
 }
 

@@ -870,9 +870,6 @@ void KateViewInternal::doPaste()
 void KateViewInternal::doTranspose()
 {
   m_doc->transpose( cursor );
-  if (cursor.col() + 2 <  m_doc->lineLength(cursor.line()))
-    cursorRight();
-  cursorRight();
 }
 
 void KateViewInternal::doDeleteWordLeft()

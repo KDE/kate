@@ -527,7 +527,7 @@ int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
       if (text[offset++].upper() != str[i])
         return 0;
 
-    return offset + strLen;
+    return offset;
   }
   else
   {
@@ -535,7 +535,7 @@ int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
       if (text[offset++] != str[i])
         return 0;
 
-    return offset + strLen;
+    return offset;
   }
 
   return 0;

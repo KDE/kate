@@ -1416,35 +1416,35 @@ void KateView::setupEditKeys()
 
   if (m_editAccels) delete m_editAccels;
   m_editAccels=new KAccel(this);
-  m_editAccels->insertAction("KATE_CURSOR_LEFT",i18n("Cursor left"),"","Left",this,SLOT(cursorLeft()));
-  m_editAccels->insertAction("KATE_WORD_LEFT",i18n("One word left"),"","Ctrl+Left",this,SLOT(wordLeft()));
-  m_editAccels->insertAction("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"","Shift+Left",this,SLOT(shiftCursorLeft()));
-  m_editAccels->insertAction("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"","Shift+Ctrl+Left",this,SLOT(shiftWordLeft()));
+  m_editAccels->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"","Left",this,SLOT(cursorLeft()));
+  m_editAccels->insert("KATE_WORD_LEFT",i18n("One word left"),"","Ctrl+Left",this,SLOT(wordLeft()));
+  m_editAccels->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"","Shift+Left",this,SLOT(shiftCursorLeft()));
+  m_editAccels->insert("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"","Shift+Ctrl+Left",this,SLOT(shiftWordLeft()));
 
 
-  m_editAccels->insertAction("KATE_CURSOR_RIGHT",i18n("Cursor right"),"","Right",this,SLOT(cursorRight()));
-  m_editAccels->insertAction("KATE_WORD_RIGHT",i18n("One word right"),"","Ctrl+Right",this,SLOT(wordRight()));
-  m_editAccels->insertAction("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"","Shift+Right",this,SLOT(shiftCursorRight()));
-  m_editAccels->insertAction("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"","Shift+Ctrl+Right",this,SLOT(shiftWordRight()));
+  m_editAccels->insert("KATE_CURSOR_RIGHT",i18n("Cursor right"),"","Right",this,SLOT(cursorRight()));
+  m_editAccels->insert("KATE_WORD_RIGHT",i18n("One word right"),"","Ctrl+Right",this,SLOT(wordRight()));
+  m_editAccels->insert("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"","Shift+Right",this,SLOT(shiftCursorRight()));
+  m_editAccels->insert("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"","Shift+Ctrl+Right",this,SLOT(shiftWordRight()));
 
-  m_editAccels->insertAction("KATE_CURSOR_HOME",i18n("Home"),"","Home",this,SLOT(home()));
-  m_editAccels->insertAction("KATE_CURSOR_TOP",i18n("Top"),"","Ctrl+Home",this,SLOT(top()));
-  m_editAccels->insertAction("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"","Shift+Home",this,SLOT(shiftHome()));
-  m_editAccels->insertAction("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"","Shift+Ctrl+Home",this,SLOT(shiftTop()));
+  m_editAccels->insert("KATE_CURSOR_HOME",i18n("Home"),"","Home",this,SLOT(home()));
+  m_editAccels->insert("KATE_CURSOR_TOP",i18n("Top"),"","Ctrl+Home",this,SLOT(top()));
+  m_editAccels->insert("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"","Shift+Home",this,SLOT(shiftHome()));
+  m_editAccels->insert("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"","Shift+Ctrl+Home",this,SLOT(shiftTop()));
 
-  m_editAccels->insertAction("KATE_CURSOR_END",i18n("End"),"","End",this,SLOT(end()));
-  m_editAccels->insertAction("KATE_CURSOR_BOTTOM",i18n("Bottom"),"","Ctrl+End",this,SLOT(bottom()));
-  m_editAccels->insertAction("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"","Shift+End",this,SLOT(shiftEnd()));
-  m_editAccels->insertAction("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"","Shift+Ctrl+End",this,SLOT(shiftBottom()));
+  m_editAccels->insert("KATE_CURSOR_END",i18n("End"),"","End",this,SLOT(end()));
+  m_editAccels->insert("KATE_CURSOR_BOTTOM",i18n("Bottom"),"","Ctrl+End",this,SLOT(bottom()));
+  m_editAccels->insert("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"","Shift+End",this,SLOT(shiftEnd()));
+  m_editAccels->insert("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"","Shift+Ctrl+End",this,SLOT(shiftBottom()));
 
-  m_editAccels->insertAction("KATE_CURSOR_UP",i18n("Cursor up"),"","Up",this,SLOT(up()));
-  m_editAccels->insertAction("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"","Shift+Up",this,SLOT(shiftUp()));
-  m_editAccels->insertAction("KATE_SCROLL_UP",i18n("Scroll one line up"),"","Ctrl+Up",this,SLOT(scrollUp()));
+  m_editAccels->insert("KATE_CURSOR_UP",i18n("Cursor up"),"","Up",this,SLOT(up()));
+  m_editAccels->insert("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"","Shift+Up",this,SLOT(shiftUp()));
+  m_editAccels->insert("KATE_SCROLL_UP",i18n("Scroll one line up"),"","Ctrl+Up",this,SLOT(scrollUp()));
 
-  m_editAccels->insertAction("KATE_CURSOR_DOWN",i18n("Cursor down"),"","Down",this,SLOT(down()));
-  m_editAccels->insertAction("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"","Shift+Down",this,SLOT(shiftDown()));
-  m_editAccels->insertAction("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"","Ctrl+Down",this,SLOT(scrollDown()));
-  
+  m_editAccels->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"","Down",this,SLOT(down()));
+  m_editAccels->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"","Shift+Down",this,SLOT(shiftDown()));
+  m_editAccels->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"","Ctrl+Down",this,SLOT(scrollDown()));
+
   KConfig config("kateeditkeysrc");
   m_editAccels->readSettings(&config);
 
@@ -1476,8 +1476,7 @@ void KateView::setupActions()
       setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),myDoc->actionCollection(),"set_highlight");
       myDoc->exportActionMenu (i18n("&Export"),myDoc->actionCollection(),"file_export");
       KStdAction::selectAll(myDoc, SLOT(selectAll()), myDoc->actionCollection(), "select_all");
-      new KAction(i18n("Dese&lect All"), 0, myDoc, SLOT(clearSelection ()),
-                myDoc->actionCollection(), "unselect_all");
+      KStdAction::deselect(myDoc, SLOT(clearSelection()), myDoc->actionCollection(), "unselect_all");
       new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()),
                 myDoc->actionCollection(), "incFontSizes");
       new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()),
@@ -1496,8 +1495,7 @@ void KateView::setupActions()
       setHighlight = myDoc->hlActionMenu (i18n("&Highlight Mode"),actionCollection(),"set_highlight");
       myDoc->exportActionMenu (i18n("&Export"),actionCollection(),"file_export");
       KStdAction::selectAll(myDoc, SLOT(selectAll()), actionCollection());
-      new KAction(i18n("Dese&lect All"), 0, myDoc, SLOT(clearSelection()),
-                actionCollection(), "edit_deselectAll");
+      KStdAction::deselect(myDoc, SLOT(clearSelection()), actionCollection());
       new KAction(i18n("Increase Font Sizes"), "viewmag+", 0, this, SLOT(slotIncFontSizes()),
                 actionCollection(), "incFontSizes");
       new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()),

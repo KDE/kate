@@ -17,8 +17,8 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_cursorinterface_h__
-#define __ktexteditor_cursorinterface_h__
+#ifndef __ktexteditor_viewcursorinterface_h__
+#define __ktexteditor_viewcursorinterface_h__
 
 namespace KTextEditor
 {

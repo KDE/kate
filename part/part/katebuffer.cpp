@@ -456,7 +456,15 @@ bool KateBuffer::openFile (const QString &m_file)
     // fix region tree
     m_regionTree.fixRoot (m_lines);
   }
-
+  
+  // if we have no hl or the "None" hl activated, whole file is correct highlighted
+  // after loading, which wonder ;)
+  if (!m_highlight || m_highlight->noHighlighting())
+  {
+    m_lineHighlighted = m_lines;
+    m_lineHighlightedMax = m_lines;
+  }
+  
   return !m_loadingBorked;
 }
 

@@ -2498,10 +2498,8 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
         e->accept ();
         break;
 
+    // try to show popup menu
     case RightButton:
-      if ( !isTargetSelected( e->pos() ) )
-        placeCursor( e->pos() );
-
       // popup is a qguardedptr now
       if (m_view->popup())
         m_view->popup()->popup( mapToGlobal( e->pos() ) );

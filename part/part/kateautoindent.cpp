@@ -549,7 +549,7 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
     bool insideDoxygen = false;
     if (textLine->attribute(first) == doxyCommentAttrib || textLine->attribute(textLine->lastChar()) == doxyCommentAttrib)
     {
-      if (!textLine->endingWith("*/"))
+      if (!textLine->stringAtPos(textLine->lastChar()-1, "*/"))
         insideDoxygen = true;
     }
 
@@ -638,9 +638,9 @@ void KateCSmartIndent::processChar(QChar c)
       if ( first != -1
            && textLine->getChar( first ) == '*'
            && textLine->nextNonSpaceChar( first+1 ) == view->cursorColumn()-1 )
-        doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);      
+        doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);
     }
- 
+
     // anders: don't change the indent of doxygen lines here.
     return;
   }
@@ -1953,9 +1953,9 @@ void KateCSAndSIndent::processChar(QChar c)
       if ( first != -1
            && textLine->getChar( first ) == '*'
            && textLine->nextNonSpaceChar( first+1 ) == view->cursorColumn()-1 )
-        doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);      
+        doc->removeText( view->cursorLine(), first+1, view->cursorLine(), view->cursorColumn()-1);
     }
- 
+
     // anders: don't change the indent of doxygen lines here.
     return;
   }

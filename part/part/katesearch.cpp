@@ -379,7 +379,7 @@ void KateSearch::replaceOne()
 
   if( !s.flags.backward ) {
     s.cursor.setCol(s.cursor.col() + replaceWith.length());
-  } else if( s.cursor.col()- > 0 ) {
+  } else if( s.cursor.col() > 0 ) {
     s.cursor.setCol(s.cursor.col() - 1);
   } else {
     s.cursor.setLine(s.cursor.line() - 1);

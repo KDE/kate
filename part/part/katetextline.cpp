@@ -23,7 +23,7 @@
 // $Id$
 
 #include "katetextline.h"
-#include <kdebug.h>
+
 #include <qregexp.h>
 
 TextLine::TextLine()

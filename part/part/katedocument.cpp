@@ -2871,6 +2871,8 @@ void KateDocument::doIndent(VConfig &c, int change)
 {
   c.cursor.col = 0;
 
+  bool b = editStart ();
+
   if (!hasSelection()) {
     // single line
     optimizeLeadingSpace(c.cursor.line, _configFlags, change);
@@ -2917,6 +2919,9 @@ void KateDocument::doIndent(VConfig &c, int change)
       }
     }
   }
+  
+  if (b)
+    editEnd ();
 }
 
 /*

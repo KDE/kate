@@ -370,8 +370,8 @@ void KateSyntaxDocument::setupModeList (bool force)
 
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
-      mli->name       = config.readEntry("name");
-      mli->section    = i18n(config.readEntry("section").utf8());
+      mli->name       = config.readEntry("name"); // ### TODO: translation (bug #72220)
+      mli->section    = i18n("Language Section",config.readEntry("section").utf8());
       mli->mimetype   = config.readEntry("mimetype");
       mli->extension  = config.readEntry("extension");
       mli->version    = config.readEntry("version");
@@ -411,13 +411,8 @@ void KateSyntaxDocument::setupModeList (bool force)
               // let's make the mode list item.
               KateSyntaxModeListItem *mli = new KateSyntaxModeListItem;
 
-              mli->name = root.attribute("name");
-              // Is this safe for translators ? I mean, they must add by hand the transalation for each section.
-              // This could be done by a switch or ifs with the allowed sections but a new
-              // section will can't be added without recompiling and it's not a very versatil
-              // way, adding a new section (from the xml files) would break the translations.
-              // Why don't we store everything in english internaly and we translate it just when showing it.
-              mli->section   = i18n(root.attribute("section").utf8());
+              mli->name      = root.attribute("name");
+              mli->section   = root.attribute("section");
               mli->mimetype  = root.attribute("mimetype");
               mli->extension = root.attribute("extensions");
               mli->version   = root.attribute("version");
@@ -425,22 +420,28 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->author    = root.attribute("author");
               mli->license   = root.attribute("license");
 
-              // I think this solves the problem, everything not in the .po is Other.
-              if (mli->section.isEmpty())
-                mli->section=i18n("Other");
 
               mli->identifier = *it;
 
               // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
               config.setGroup(Group);
               config.writeEntry("name",mli->name);
-              config.writeEntry("section",mli->section);
+              if (mli->section.isEmpty()) // ### TODO: can this happen at all?
+                config.writeEntry("section","Other");
+              else
+                config.writeEntry("section",mli->section);
               config.writeEntry("mimetype",mli->mimetype);
               config.writeEntry("extension",mli->extension);
               config.writeEntry("version",mli->version);
               config.writeEntry("priority",mli->priority);
               config.writeEntry("author",mli->author);
               config.writeEntry("license",mli->license);
+
+              // Now that the data is in the config file, translate section
+              if (mli->section.isEmpty()) // ### TODO: can this happen at all?
+                mli->section    = i18n("Language Section",mli->section.utf8());
+              else
+                mli->section    = i18n("Language Section","Other"); // We need the i18n context for when reading again the config
 
               // Append the new item to the list.
               myModeList.append(mli);

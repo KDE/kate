@@ -4,7 +4,7 @@ lib_LTLIBRARIES = libkatepartinterfaces.la
 
 libkatepartinterfaces_la_SOURCES = interfaces.cpp
 libkatepartinterfaces_la_LIBADD   = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
-libkatepartinterfaces_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN)  -module -avoid-version
+libkatepartinterfaces_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 
 kateinclude_HEADERS = document.h view.h
 kateincludedir = $(includedir)/kate

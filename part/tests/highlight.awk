@@ -1,3 +1,4 @@
+#!/usr
 # AWK hl test
 
 # BEGIN and END are also matched as patterns
@@ -17,7 +18,10 @@ $1 =~ /[^abc/]def/ || b == 3 / 5 {
 
 }
 
+# TODO and FIXME also work in comments in Awk.
 
+# Also backslash in patterns works.
+/\/usr\/bin\/awk/ { print "This is me"; }
 
 END {
 	print p;

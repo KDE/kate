@@ -35,6 +35,24 @@ by cullmann
 namespace KTextEditor
 {
 
+class PluginView : public QObject, virtual public KXMLGUIClient
+{
+  friend class PrivatePluginView;
+
+  Q_OBJECT
+
+  public:
+    PluginView ();
+    virtual ~PluginView ();
+    
+  unsigned int pluginViewNumber () const;
+
+  private:
+    class PrivatePluginView *d;
+    static unsigned int globalPluginViewNumber;
+    unsigned int myPluginViewNumber;
+};
+
 class Plugin : public QObject
 {
   friend class PrivatePlugin;
@@ -49,6 +67,13 @@ class Plugin : public QObject
     virtual ~Plugin ();
     
     unsigned int pluginNumber () const;
+    
+    /*
+     * Will be called for each new created KTextEditor::View/Editor and view and doc will
+     * contain the classes with the view and doc interfaces (use casts to look which kind
+       of interfaces are available)
+     */
+    virtual PluginView *createView (QObject *view, QObject *doc) = 0;
   
   private:
     class PrivatePlugin *d;

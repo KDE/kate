@@ -28,6 +28,7 @@
 
 #include "document.moc"
 #include "view.moc"
+#include "plugin.moc"
 #include "editor.moc"
 
 using namespace KTextEditor;
@@ -69,6 +70,18 @@ namespace KTextEditor
     {
     }
   };
+  
+  class PrivatePluginView
+  {
+  public:
+    PrivatePluginView ()
+    {
+    }
+
+    ~PrivatePluginView ()
+    {
+    }
+  };
 
   class PrivateEditor
   {
@@ -86,6 +99,7 @@ namespace KTextEditor
 unsigned int Document::globalDocumentNumber = 0;
 unsigned int View::globalViewNumber = 0;
 unsigned int Plugin::globalPluginNumber = 0;
+unsigned int PluginView::globalPluginViewNumber = 0;
 unsigned int Editor::globalEditorNumber = 0;
 
 Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
@@ -131,6 +145,21 @@ Plugin::~Plugin()
 unsigned int Plugin::pluginNumber () const
 {
   return myPluginNumber;
+}
+
+PluginView::PluginView() : QObject()
+{
+  globalPluginViewNumber++;
+  myPluginViewNumber = globalPluginViewNumber;
+}
+
+PluginView::~PluginView()
+{
+}
+
+unsigned int PluginView::pluginViewNumber () const
+{
+  return myPluginViewNumber;
 }
 
 Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )

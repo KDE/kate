@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.04" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<language name="Doxygen" version="1.05" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -249,6 +249,7 @@
     <!-- different formats:
       @tag                     : TagOnly
       @tag rest_of_line        : TagString
+      @tag <word>              : TagWord
       @tag <word> <word>       : TagWordWord
       @tag <word> rest_of_line : TagWordString
     -->
@@ -274,25 +275,29 @@
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="BlockComment"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWord">
-        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
-        <RegExpr attribute="TagWord" context="#pop" String="\s*\S*\s" />
+        <RegExpr attribute="TagWord" context="#pop" String="\S\s" />
+        <RegExpr attribute="TagWord" context="#stay" String="\s*\S" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWordWord">
-        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
-        <RegExpr attribute="TagWord" context="#stay" String="\s*\S*\s" />
-        <RegExpr attribute="TagWordWord" context="#stay" String="\s*\S*\s" />
+        <RegExpr attribute="TagWord" context="Tag2ndWord" String="\S\s" />
+        <RegExpr attribute="TagWord" context="#stay" String="\s*\S" />
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="Tag2ndWord">
+        <Detect2Chars attribute="Comment" context="#pop#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
+        <RegExpr attribute="TagWordWord" context="#pop#pop" String="\S\s" />
+        <RegExpr attribute="TagWordWord" context="#stay" String="\s*\S" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagString">
         <RegExpr attribute="Comment" context="#stay" String="\s*"/>
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment" />
-        <RegExpr attribute="TagString" context="#stay" String="\s*.*$" />
+        <RegExpr attribute="TagString" context="#stay" String="." />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="TagWordString">
-        <RegExpr attribute="Comment" context="#stay" String="\s*"/>
         <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/" endRegion="BlockComment"/>
-        <RegExpr attribute="TagWord" context="TagString" String="\s*\S*\s*" />
+        <RegExpr attribute="TagWord" context="#pop" String="\S\s" />
+        <RegExpr attribute="TagWord" context="#stay" String="\s*\S" />
       </context>
     </contexts>
     <itemDatas>

@@ -227,7 +227,7 @@ void KateSearch::replaceAll()
 		}
 	} else {
 		KMessageBox::information( view(),
-		    i18n("%1 replacement(s) made").arg(replaces),
+		    i18n("%n replacement made","%n replacements made",replaces),
 		    i18n("Replace") );
 	}
 }
@@ -246,7 +246,7 @@ void KateSearch::promptReplace()
 	} else {
 		replacePrompt->hide();
 		KMessageBox::information( view(),
-		    i18n("%1 replacement(s) made").arg(replaces),
+		    i18n("%n replacement made","%n replacements made",replaces),
 		    i18n("Replace") );
 	}
 }

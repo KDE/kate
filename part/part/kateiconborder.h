@@ -42,6 +42,9 @@ class KateIconBorder : public QWidget
 
     void setIconBorderOn(     bool enable );
     void setLineNumbersOn(    bool enable );
+    void setDynWrapIndicators(int state );
+    int dynWrapIndicators()  const { return m_dynWrapIndicators; }
+    bool dynWrapIndicatorsOn() const { return m_dynWrapIndicatorsOn; }
     void setFoldingMarkersOn( bool enable );
     void toggleIconBorder()     { setIconBorderOn(     !iconBorderOn() );     }
     void toggleLineNumbers()    { setLineNumbersOn(    !lineNumbersOn() );    }
@@ -74,6 +77,8 @@ class KateIconBorder : public QWidget
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
     bool m_foldingMarkersOn:1;
+    bool m_dynWrapIndicatorsOn:1;
+    int m_dynWrapIndicators;
 
     uint m_lastClickedLine;
 

@@ -401,58 +401,74 @@ void EditConfigTab::wordWrapToggled() {
 
 //BEGIN ViewDefaultsConfig
 ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocument *doc)
-	:Kate::ConfigPage(parent)
+  :Kate::ConfigPage(parent)
 {
 
-	QRadioButton *rb1;
-	QRadioButton *rb2;
+  QRadioButton *rb1;
+  QRadioButton *rb2;
 
-	m_doc = doc;
+  m_doc = doc;
 
-	QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+  QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
 
   m_dynwrap=new QCheckBox(i18n("&Dynamic word wrap"),this);
-  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this );
-	m_line=new QCheckBox(i18n("Show &line numbers"),this);
-	m_icons=new QCheckBox(i18n("Show &icon border"),this);
+  blay->addWidget(m_dynwrap,0);
 
-	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
-	m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), this );
-	m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
-        m_bmSort->setRadioButtonExclusive( true );
-        m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
-        m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
+  m_dynwrapIndicatorsLay = new QHBoxLayout(blay);
+  m_dynwrapIndicatorsLabel = new QLabel( i18n("Dynamic word wrap indicators (if applicable):"), this );
+  m_dynwrapIndicatorsLay->addWidget( m_dynwrapIndicatorsLabel );
+  m_dynwrapIndicatorsCombo = new KComboBox( this );
+  m_dynwrapIndicatorsCombo->insertItem( i18n("Off") );
+  m_dynwrapIndicatorsCombo->insertItem( i18n("Follow line numbers") );
+  m_dynwrapIndicatorsCombo->insertItem( i18n("Always on") );
+  m_dynwrapIndicatorsLay->addWidget( m_dynwrapIndicatorsCombo );
+  m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
+
+  m_wwmarker = new QCheckBox( i18n("Show word wrap marker (if applicable)"), this );
+  m_icons=new QCheckBox(i18n("Show &icon border"),this);
+  m_line=new QCheckBox(i18n("Show &line numbers"),this);
+  m_folding=new QCheckBox(i18n("Show &folding markers (if available)"),this);
+  m_collapseTopLevel = new QCheckBox( i18n("Collapse toplevel folding nodes"), this );
+  m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
+  m_bmSort->setRadioButtonExclusive( true );
+  m_bmSort->insert( rb1=new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
+  m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
+
   connect(m_dynwrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_dynwrapIndicatorsCombo, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	connect( m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-	blay->addWidget(m_dynwrap,0);
-        blay->addWidget( m_wwmarker, 0 );
+  blay->addWidget(m_wwmarker, 0 );
+  blay->addWidget(m_icons,0);
   blay->addWidget(m_line,0);
-	blay->addWidget(m_icons,0);
-	blay->addWidget(m_folding,0);
-	blay->addWidget(m_collapseTopLevel,0);
-        blay->addWidget( m_bmSort, 0 );
-	blay->addStretch(1000);
+  blay->addWidget(m_folding,0);
+  blay->addWidget(m_collapseTopLevel,0);
+  blay->addWidget(m_bmSort, 0 );
+  blay->addStretch(1000);
 
   QWhatsThis::add(m_dynwrap,i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
+  QString wtstr = i18n("Choose when the Dynamic Word Wrap Indicators should be displayed");
+  QWhatsThis::add(m_dynwrapIndicatorsLabel, wtstr);
+  QWhatsThis::add(m_dynwrapIndicatorsCombo, wtstr);
   QWhatsThis::add( m_wwmarker, i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "
         "wrap column as defined  in the <strong>Editing</strong> properties."
         "<p>Note that the word wrap marker is only drawn if you use a fixed "
         "pitch font." ));
-	QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
-	QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
-	QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
+  QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
+  QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
+  QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
 
-	QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
-	QWhatsThis::add(rb1,i18n("The bookmarks will be ordered by the line numbers they are placed at."));
-	QWhatsThis::add(rb2,i18n("Each new bookmark will be added to the bottom, independently from where it is placed in the document."));
-	reload();
+  QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
+  QWhatsThis::add(rb1,i18n("The bookmarks will be ordered by the line numbers they are placed at."));
+  QWhatsThis::add(rb2,i18n("Each new bookmark will be added to the bottom, independently from where it is placed in the document."));
+
+  reload();
 }
 
 ViewDefaultsConfig::~ViewDefaultsConfig()
@@ -462,22 +478,24 @@ ViewDefaultsConfig::~ViewDefaultsConfig()
 void ViewDefaultsConfig::apply ()
 {
   m_doc->m_dynWordWrap = m_dynwrap->isChecked();
+  m_doc->m_dynWrapIndicators = m_dynwrapIndicatorsCombo->currentItem ();
   m_doc->m_wordWrapMarker = m_wwmarker->isChecked();
   m_doc->m_lineNumbers = m_line->isChecked();
   m_doc->m_iconBar = m_icons->isChecked();
   m_doc->m_foldingBar = m_folding->isChecked();
-	m_doc->m_collapseTopLevelOnLoad = m_collapseTopLevel->isChecked();
+  m_doc->m_collapseTopLevelOnLoad = m_collapseTopLevel->isChecked();
   m_doc->m_bookmarkSort = m_bmSort->id (m_bmSort->selected());
 }
 
 void ViewDefaultsConfig::reload ()
 {
   m_dynwrap->setChecked(m_doc->m_dynWordWrap);
+  m_dynwrapIndicatorsCombo->setCurrentItem( m_doc->m_dynWrapIndicators );
   m_wwmarker->setChecked( m_doc->m_wordWrapMarker );
   m_line->setChecked(m_doc->m_lineNumbers);
   m_icons->setChecked(m_doc->m_iconBar);
   m_folding->setChecked(m_doc->m_foldingBar);
-	m_collapseTopLevel->setChecked( m_doc->m_collapseTopLevelOnLoad );
+  m_collapseTopLevel->setChecked( m_doc->m_collapseTopLevelOnLoad );
   m_bmSort->setButton( m_doc->m_bookmarkSort  );
 }
 
@@ -554,11 +572,11 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
         "be highlighted with this color.</p>"));
   QWhatsThis::add(m_wwmarker, i18n(
 //<<<<<<< kateviewdialog.cpp
-        "<p>Sets the color of word wrapping related markers.</p>"
-        "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column, where "
-        "text is going to be  wrapped</dd>"
-        "<dt>Dynamic Word Wrap</dt><dd>A symbol is shown at the right end of "
-        "wrapped lines.</dd></dl>"));
+        "<p>Sets the color of Word Wrap-related markers:</p>"
+        "<dl><dt>Static Word Wrap</dt><dd>A vertical line which shows the column where "
+        "text is going to be wrapped</dd>"
+        "<dt>Dynamic Word Wrap</dt><dd>An arrow shown to the left of "
+        "visually-wrapped lines</dd></dl>"));
 
 //=======
 /*        "<qt>Sets the color of the static / dynamic word wrap markings. <br><hr>"

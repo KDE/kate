@@ -240,10 +240,12 @@ class KateView : public Kate::View,
     void toggleIconBorder();
     void toggleLineNumbersOn();
     void toggleDynWordWrap ();
+    void setDynWrapIndicators( int state );
 
   public:
     bool iconBorder();
     bool lineNumbersOn();
+    int dynWrapIndicators();
     bool foldingMarkersOn();
     Kate::Document* getDoc()    { return m_doc; }
 
@@ -320,6 +322,7 @@ class KateView : public Kate::View,
     KToggleAction*         m_toggleIconBar;
     KToggleAction*         m_toggleLineNumbers;
     KToggleAction*         m_toggleDynWrap;
+    KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
     KSelectAction*         m_setEndOfLine;
     KSelectAction*         m_setEncoding;

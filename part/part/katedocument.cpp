@@ -116,6 +116,7 @@ bool KateDocument::myWordWrap = false;
 uint KateDocument::myWordWrapAt = 80;
 
 bool KateDocument::m_dynWordWrap = true;
+int KateDocument::m_dynWrapIndicators = 1;	// follow line numbers
 bool KateDocument::m_lineNumbers = false;
 bool KateDocument::m_collapseTopLevelOnLoad = false;
 bool KateDocument::m_iconBar = false;
@@ -1822,10 +1823,11 @@ void KateDocument::readConfig(KConfig *config)
 
   config->setGroup("Kate View");
   m_dynWordWrap = config->readBoolEntry( "Dynamic Word Wrap", m_dynWordWrap );
+  m_dynWrapIndicators = config->readNumEntry( "Dynamic Word Wrap Indicators", m_dynWrapIndicators );
   m_lineNumbers = config->readBoolEntry( "Line Numbers", m_lineNumbers );
   m_iconBar = config->readBoolEntry( "Icon Bar", m_iconBar );
   m_foldingBar = config->readBoolEntry( "Folding Markers", m_foldingBar );
-	m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
+  m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);
   m_bookmarkSort = config->readNumEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   m_wordWrapMarker = config->readBoolEntry("Word Wrap Marker", m_wordWrapMarker );
   m_autoCenterLines = config->readNumEntry( "Auto Center Lines", m_autoCenterLines );
@@ -1881,10 +1883,11 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate View");
   config->writeEntry( "Dynamic Word Wrap", m_dynWordWrap );
+  config->writeEntry( "Dynamic Word Wrap Indicators", m_dynWrapIndicators );
   config->writeEntry( "Line Numbers", m_lineNumbers );
   config->writeEntry( "Icon Bar", m_iconBar );
   config->writeEntry( "Folding Markers", m_foldingBar );
-	config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
+  config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
   config->writeEntry( "Bookmark Menu Sorting", m_bookmarkSort );
   config->writeEntry( "Word Wrap Marker", m_wordWrapMarker );
   config->writeEntry( "Auto Center Lines", m_autoCenterLines );

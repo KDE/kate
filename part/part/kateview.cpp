@@ -281,6 +281,16 @@ void KateView::setupActions()
     ac, "view_dynamic_word_wrap" );
   a->setWhatsThis(i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
 
+  a= m_setDynWrapIndicators = new KSelectAction(i18n("Dynamic Word Wrap Indicators"), 0, ac, "dynamic_word_wrap_indicators");
+  a->setWhatsThis(i18n("Choose when the Dynamic Word Wrap Indicators should be displayed"));
+
+  connect(m_setDynWrapIndicators, SIGNAL(activated(int)), this, SLOT(setDynWrapIndicators(int)));
+  QStringList list2;
+  list2.append("&Off");
+  list2.append("Follow &Line Numbers");
+  list2.append("&Always On");
+  m_setDynWrapIndicators->setItems(list2);
+
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(
     i18n("Show Folding &Markers"), Key_F9,
     this, SLOT(toggleFoldingMarkers()),
@@ -862,7 +872,14 @@ void KateView::setDynWordWrap( bool b )
     m_hasWrap = b;
 
     m_viewInternal->dynWrapChanged();
+
+    m_setDynWrapIndicators->setEnabled(b);
   }
+}
+
+void KateView::setDynWrapIndicators( int state )
+{
+  m_viewInternal->leftBorder->setDynWrapIndicators( m_doc->m_dynWrapIndicators = state );
 }
 
 void KateView::toggleWWMarker()
@@ -889,6 +906,10 @@ bool KateView::lineNumbersOn() {
   return m_viewInternal->leftBorder->lineNumbersOn();
 }
 
+int KateView::dynWrapIndicators() {
+  return m_viewInternal->leftBorder->dynWrapIndicators();
+}
+
 bool KateView::foldingMarkersOn() {
   return m_viewInternal->leftBorder->foldingMarkersOn();
 }
@@ -898,6 +919,10 @@ void KateView::updateViewDefaults ()
   m_editActions->readShortcutSettings();
   setDynWordWrap( m_doc->m_dynWordWrap );
   m_toggleDynWrap->setChecked( dynWordWrap() );
+
+  setDynWrapIndicators( m_doc->m_dynWrapIndicators );
+  m_setDynWrapIndicators->setCurrentItem( dynWrapIndicators() );
+  m_setDynWrapIndicators->setEnabled( dynWordWrap() );
 
   setLineNumbersOn( m_doc->m_lineNumbers );
   m_toggleLineNumbers->setChecked( lineNumbersOn() );

@@ -37,6 +37,8 @@ class KRegExpDialog;
 
 class QButtonGroup;
 class QCheckBox;
+class QHBoxLayout;
+class QLabel;
 class QLineEdit;
 class QPushButton;
 class QRadioButton;
@@ -176,6 +178,9 @@ private:
   QCheckBox *m_icons;
   QCheckBox *m_dynwrap;
   QCheckBox *m_wwmarker;
+  QLabel *m_dynwrapIndicatorsLabel;
+  KComboBox *m_dynwrapIndicatorsCombo;
+  QHBoxLayout *m_dynwrapIndicatorsLay;
   QButtonGroup *m_bmSort;
 
 public slots:

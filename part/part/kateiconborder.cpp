@@ -111,6 +111,8 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_iconBorderOn( false )
   , m_lineNumbersOn( false )
   , m_foldingMarkersOn( false )
+  , m_dynWrapIndicatorsOn( false )
+  , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
 {
@@ -141,8 +143,21 @@ void KateIconBorder::setLineNumbersOn( bool enable )
     return;
 
   m_lineNumbersOn = enable;
+  m_dynWrapIndicatorsOn = (m_dynWrapIndicators == 1) ? enable : m_dynWrapIndicators;
 
   updateGeometry();
+  update ();
+}
+
+void KateIconBorder::setDynWrapIndicators( int state )
+{
+  if (state == m_dynWrapIndicators )
+    return;
+
+  m_dynWrapIndicators = state;
+  m_dynWrapIndicatorsOn = (state == 1) ? m_lineNumbersOn : state;
+
+  updateGeometry ();
   update ();
 }
 
@@ -161,7 +176,7 @@ QSize KateIconBorder::sizeHint() const
 {
   int w = 0;
 
-  if (m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */)) {
+  if (m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn)) {
     w += lineNumberWidth();
   }
 
@@ -200,7 +215,7 @@ int KateIconBorder::lineNumberWidth() const
 {
   int width = m_lineNumbersOn ? ((int)log10(m_view->doc()->numLines()) + 1) * m_maxCharWidth + 4 : 0;
 
-  if (m_view->dynWordWrap()/* && FIXME preference*/) {
+  if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
     width = QMAX(style().scrollBarExtent().width() + 4, width);
 
     if (m_cachedLNWidth != width || m_oldBackgroundColor != m_doc->colors[5]) {
@@ -263,7 +278,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     m_px = 0;
 
   int lnWidth( 0 );
-  if ( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) ) // avoid calculating unless needed ;-)
+  if ( m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) ) // avoid calculating unless needed ;-)
   {
     lnWidth = lineNumberWidth();
     if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != m_doc->colors[5] )
@@ -346,7 +361,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     }
 
     // line number
-    if( m_lineNumbersOn || (m_view->dynWordWrap() /* && FIXME preference */) )
+    if( m_lineNumbersOn || (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) )
     {
       lnX +=2;
 
@@ -354,7 +369,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         if (m_viewInternal->lineRanges[z].startCol == 0) {
           if (m_lineNumbersOn)
             p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
-        } else if (m_view->dynWordWrap() /* && FIXME preference */) {
+        } else if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
           p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
         }
 
@@ -415,7 +430,7 @@ KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) con
     if( p.x() <= x )
       return IconBorder;
   }
-  if( m_lineNumbersOn || true /* FIXME preference */ ) {
+  if( m_lineNumbersOn || m_dynWrapIndicators ) {
     x += lineNumberWidth();
     if( p.x() <= x )
       return LineNumbers;

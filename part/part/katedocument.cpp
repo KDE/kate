@@ -261,6 +261,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     // some sane defaults for the first try
     KateRenderer::setFont(KateRenderer::ViewFont, KGlobalSettings::fixedFont());
     KateRenderer::setFont(KateRenderer::PrintFont, KGlobalSettings::fixedFont());
+    KateRenderer::setTabWidth(8);
 
     colors[0] = KGlobalSettings::baseColor();
     colors[1] = KGlobalSettings::highlightColor();

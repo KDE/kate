@@ -97,20 +97,19 @@ class KateTextLine : public KShared
     inline bool isAutoWrapped () const { return m_flags & KateTextLine::flagAutoWrapped; }
 
     /**
-     * Returns the position of the first character which is not a white space
-     * @return position of first non-whitespace char
+     * Returns the position of the first non-whitespace character
+     * @return position of first non-whitespace char or -1 if there is none
      */
     int firstChar() const;
 
     /**
-     * Returns the position of the last character which is not a white space
-     * @return position of last non-whitespace char
+     * Returns the position of the last non-whitespace character
+     * @return position of last non-whitespace char or -1 if there is none
      */
     int lastChar() const;
 
     /**
-     * Find the position of the next char
-     * that is not a space.
+     * Find the position of the next char that is not a space.
      * @param pos Column of the character which is examined first.
      * @return True if the specified or a following character is not a space
      *          Otherwise false.
@@ -118,8 +117,7 @@ class KateTextLine : public KShared
     int nextNonSpaceChar(uint pos) const;
 
     /**
-     * Find the position of the previous char
-     * that is not a space.
+     * Find the position of the previous char that is not a space.
      * @param pos Column of the character which is examined first.
      * @return The position of the first none-whitespace character preceeding pos,
      *   or -1 if none is found.
@@ -128,7 +126,9 @@ class KateTextLine : public KShared
 
     /**
      * Gets the char at the given position
-     * @return character at given position
+     * @param pos position
+     * @return character at the given position or QChar::null if position is
+     *   beyond the length of the string
      */
     inline QChar getChar (uint pos) const { return m_text[pos]; }
 

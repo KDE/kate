@@ -50,6 +50,7 @@
 #include <qlayout.h>
 #include <qclipboard.h>
 #include <qpixmap.h>
+#include <qvbox.h>
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
@@ -2277,6 +2278,14 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     {
       QKeyEvent *k = (QKeyEvent *)e;
 
+      if (m_view->m_codeCompletion->codeCompletionVisible ())
+      {
+        kdDebug (13030) << "hint around" << endl;
+
+        if( k->key() == Key_Escape )
+          m_view->m_codeCompletion->abortCompletion();
+      }
+
       if ((k->key() == Qt::Key_Escape) && !(m_doc->configFlags() & KateDocument::cfPersistent) )
       {
         m_doc->clearSelection();
@@ -2323,10 +2332,36 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   KKey key(e);
 
-   if (key == Qt::Key_Left)
+  bool codeComp = m_view->m_codeCompletion->codeCompletionVisible ();
+
+  if (codeComp)
+  {
+    kdDebug (13030) << "hint around" << endl;
+
+    if( e->key() == Key_Enter || e->key() == Key_Return  ||
+    (key == SHIFT + Qt::Key_Return) || (key == SHIFT + Qt::Key_Enter)) {
+      m_view->m_codeCompletion->doComplete();
+      e->accept();
+      return;
+    }
+
+    if( (e->key() == Key_Up)    || (e->key() == Key_Down ) ||
+        (e->key() == Key_Home ) || (e->key() == Key_End)   ||
+        (e->key() == Key_Prior) || (e->key() == Key_Next )) {
+       m_view->m_codeCompletion->handleKey (e);
+       e->accept();
+       return;
+    }
+  }
+
+  if (key == Qt::Key_Left)
   {
     m_view->cursorLeft();
     e->accept();
+
+    if (codeComp)
+      m_view->m_codeCompletion->updateBox ();
+
     return;
   }
 
@@ -2334,6 +2369,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     m_view->cursorRight();
     e->accept();
+
+    if (codeComp)
+      m_view->m_codeCompletion->updateBox ();
+
     return;
   }
 
@@ -2379,6 +2418,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     updateCursor(cursor, true);
     updateView();
     e->accept();
+
+    if (codeComp)
+      m_view->m_codeCompletion->updateBox ();
+
     return;
   }
 
@@ -2386,6 +2429,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     m_view->backspace();
     e->accept();
+
+    if (codeComp)
+      m_view->m_codeCompletion->updateBox ();
+
     return;
   }
 
@@ -2393,6 +2440,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   {
     m_view->keyDelete();
     e->accept();
+
+    if (codeComp)
+      m_view->m_codeCompletion->updateBox ();
+
     return;
   }
 
@@ -2409,6 +2460,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
         m_doc->insertIndentChars ( m_view );
 
       e->accept();
+
+      if (codeComp)
+        m_view->m_codeCompletion->updateBox ();
+
       return;
     }
 
@@ -2416,6 +2471,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     {
       m_doc->indent( m_view, cursor.line(), -1 );
       e->accept();
+
+      if (codeComp)
+        m_view->m_codeCompletion->updateBox ();
+
       return;
     }
   }
@@ -2424,6 +2483,10 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
        && m_doc->typeChars ( m_view, e->text() ) )
   {
     e->accept();
+
+    if (codeComp)
+      m_view->m_codeCompletion->updateBox ();
+
     return;
   }
 

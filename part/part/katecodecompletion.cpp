@@ -121,12 +121,13 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   m_completionListBox = new KateCCListBox( m_completionPopup );
   m_completionListBox->setFrameStyle( QFrame::NoFrame );
   m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
+  m_completionListBox->setFocusProxy( m_view->m_viewInternal );
 
   m_completionListBox->installEventFilter( this );
 
   m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
   m_completionPopup->installEventFilter( this );
-  m_completionPopup->setFocusProxy( m_completionListBox );
+  m_completionPopup->setFocusProxy( m_view->m_viewInternal );
 
   m_pArgHint = new KateArgHint( m_view );
   connect( m_pArgHint, SIGNAL(argHintHidden()),
@@ -178,51 +179,31 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     return false;
    }
 
-   if ( e->type() == QEvent::KeyPress ) {
-    QKeyEvent *ke = (QKeyEvent*)e;
-    if( /*(ke->key() == Key_Left)  || (ke->key() == Key_Right) ||*///what are <- and -> used for??
-        (ke->key() == Key_Up)    || (ke->key() == Key_Down ) ||
-        (ke->key() == Key_Home ) || (ke->key() == Key_End)   ||
-        (ke->key() == Key_Prior) || (ke->key() == Key_Next )) {
-      QTimer::singleShot(0,this,SLOT(showComment()));
-      return false;
-    }
-    if( ke->key() == Key_Enter || ke->key() == Key_Return ) {
-      doComplete();
-      return false;
-    }
+  return false;
+}
 
-    if( ke->key() == Key_Escape ) {
-      abortCompletion();
-      m_view->setFocus();
-      return false;
-    }
-
-    int qtKeyCode = ke->key() | ((ke->state() & Qt::ShiftButton) ? Qt::SHIFT : 0) | ((ke->state() & Qt::ControlButton) ? Qt::CTRL : 0) | ((ke->state() & Qt::AltButton) ? Qt::ALT : 0) | ((ke->state() & Qt::MetaButton) ? Qt::META : 0);
-
-    // redirect the event to the editor
-    if( ke->key() == Key_Backspace) {
-      m_view->backspace();
-    } else if (qtKeyCode == m_view->m_editUndo->shortcut().keyCodeQt()) {
-      m_view->m_editUndo->activate();
-    } else {
-      QApplication::sendEvent( m_view->m_viewInternal, e );
-    }
-
-    if( m_colCursor > m_view->cursorColumnReal() ) {
-      // the cursor is too far left
-      kdDebug(13035) << "Aborting Codecompletion after sendEvent" << endl;
-      kdDebug(13035) << m_view->cursorColumnReal() << endl;
-      abortCompletion();
-      m_view->setFocus();
-      return true;
-    }
-
-    updateBox();
-    return true;
+void KateCodeCompletion::handleKey (QKeyEvent *e)
+{
+  // close completion if you move out of range
+  if ((e->key() == Key_Up) && (m_completionListBox->currentItem() == 0))
+  {
+    abortCompletion();
+    m_view->setFocus();
+    return;
   }
 
-  return false;
+  // keyboard movement
+  if( (e->key() == Key_Up)    || (e->key() == Key_Down ) ||
+        (e->key() == Key_Home ) || (e->key() == Key_End)   ||
+        (e->key() == Key_Prior) || (e->key() == Key_Next ))
+  {
+    QTimer::singleShot(0,this,SLOT(showComment()));
+    QApplication::sendEvent( m_completionListBox, (QEvent*)e );
+    return;
+  }
+
+  // update the box
+  updateBox();
 }
 
 void KateCodeCompletion::doComplete()
@@ -267,6 +248,15 @@ void KateCodeCompletion::complete( KTextEditor::CompletionEntry entry )
 
 void KateCodeCompletion::updateBox( bool )
 {
+  if( m_colCursor > m_view->cursorColumnReal() ) {
+    // the cursor is too far left
+    kdDebug(13035) << "Aborting Codecompletion after sendEvent" << endl;
+    kdDebug(13035) << m_view->cursorColumnReal() << endl;
+    abortCompletion();
+    m_view->setFocus();
+    return;
+  }
+
   m_completionListBox->clear();
 
   QString currentLine = m_view->currentTextLine();

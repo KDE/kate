@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Bash" version="1.06" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="application/x-shellscript">
+<language name="Bash" version="1.07" kateversion="2.2" section="Scripts" extensions="*.sh" mimetype="application/x-shellscript">
         <highlighting>
                 <list name = "keywords">
                         <item> break </item>
@@ -64,7 +64,8 @@
                                 <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
                         </context>
 			<context name = "Single Quote" attribute = "String" lineEndContext="#stay">
-				<StringDetect String = "\\'" attribute = "String" context = "#stay"/>
+				<StringDetect String = "\\" attribute = "String" context = "#stay"/>
+				<StringDetect String = "\'" attribute = "String" context = "#stay"/>
 				<DetectChar char = "'" attribute = "String" context = "#pop"/>
                         </context>
                         <context name = "Substitution" attribute = "Substitution" lineEndContext="#stay">

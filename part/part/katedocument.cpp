@@ -4562,9 +4562,16 @@ void KateDocument::spellcheck()
   if( !isReadWrite() || text().isEmpty())
     return;
 
+  QString mt = mimeType()->name();
+
+  KSpell::SpellerType type = KSpell::Text;
+  if ( mt == "text/x-tex" || mt == "text/x-latex" )
+    type = KSpell::TeX;
+  else if ( mt == "text/html" || mt == "text/xml" )
+    type = KSpell::HTML;
 
   m_kspell = new KSpell( 0, i18n("Spellcheck"),
-                         this, SLOT(ready(KSpell *)) );
+                         this, SLOT(ready(KSpell *)), 0, true, false, type );
 
   connect( m_kspell, SIGNAL(death()),
            this, SLOT(spellCleanDone()) );

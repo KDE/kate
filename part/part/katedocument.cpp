@@ -2828,14 +2828,39 @@ void KateDocument::paste (VConfig &c)
       insertText(c.cursor.line, c.cursor.col, s);
     }
   }
+  // anders: we want to be able to move the cursor to the
+  // position at the end of the pasted text,
+  // so we calculate that and applies it to c.cursor
+  // This may not work, when wordwrap gets fixed :(
+  TextLine *ln = getTextLine( c.cursor.line );
+  int l = s.length();
+  while ( l > 0 ) {
+    if ( (uint)c.cursor.col < ln->length() ) {
+      c.cursor.col++;
+    }
+    else {
+      c.cursor.line++;
+      ln = getTextLine( c.cursor.line );
+      c.cursor.col = 0;
+    }
+    l--;
+  }
 }
 
 void KateDocument::selectTo(VConfig &c, KateTextCursor &cursor, int )
 {
-  if (selectAnchor.line == -1)
+  if ( selectAnchor.line == -1 )
   {
-    selectAnchor.line = c.cursor.line;
-    selectAnchor.col = c.cursor.col;
+    // anders: if we allready have a selection, we want to include all of that
+    if ( hasSelection() &&
+            ( cursor.line > selectEnd.line || cursor.line >= selectEnd.line && cursor.col >= selectEnd.col ) ) {
+      selectAnchor.line = selectStart.line;
+      selectAnchor.col = selectStart.col;
+    }
+    else {
+      selectAnchor.line = c.cursor.line;
+      selectAnchor.col = c.cursor.col;
+    }
   }
 
   setSelection (selectAnchor.line, selectAnchor.col, cursor.line, cursor.col);

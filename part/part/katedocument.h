@@ -520,6 +520,10 @@ class KateDocument : public Kate::Document
     void del(VConfig &);
     void cut(VConfig &);
     void copy(int flags);
+    /** 
+        Inserts the text in the clipboard and adds to the cursor
+        of the VConfig object the length of the inserted text.
+    */
     void paste(VConfig &);
 
     void selectTo(VConfig &c, KateTextCursor &cursor, int cXPos);

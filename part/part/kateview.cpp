@@ -254,6 +254,8 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       if (c.flags & KateDocument::cfDelOnInput) myDoc->removeSelectedText();
       getVConfig(c);
       myDoc->paste(c);
+      updateCursor( c.cursor );
+      updateView( 0 );
       return;
     case KateView::cmIndent:
       myDoc->indent(c);
@@ -585,17 +587,6 @@ void KateViewInternal::changeState(VConfig &c) {
 
   if (c.flags & KateDocument::cfMark) {
     if (! nullMove) {
-      // anders: if we allready have a selection, we want to include all of that
-      if (myDoc->hasSelection()) {
-        // KateTextCursor::operator>(KateTextCursor) :)
-        if ( cursor.line >= myDoc->selectEnd.line && cursor.col > myDoc->selectEnd.col )
-          myDoc->setSelection( myDoc->selectStart.line, myDoc->selectStart.col, 
-                               cursor.line, cursor.col );
-        else
-          myDoc->setSelection( cursor.line, cursor.col, 
-                               myDoc->selectEnd.line, myDoc->selectEnd.col );
-      }
-      else
         myDoc->selectTo(c, cursor, cXPos);
     }
   } else {
@@ -1109,7 +1100,7 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e) {
     cursor.col = myDoc->selectEnd.col;
     cursor.line = myDoc->selectEnd.line;
     updateCursor( cursor, true );
-    myDoc->updateViews();
+    //myDoc->updateViews(); allready called by document->setSelection()
   }
 }
 

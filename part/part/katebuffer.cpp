@@ -731,10 +731,11 @@ KateBuffer::removeLine(uint i)
          assert(false);
          buf->disposeSwap(m_vm);
       }
-      m_blocks.removeRef(buf);
+      
       m_parsedBlocksClean.removeRef(buf);
       m_parsedBlocksDirty.removeRef(buf);
       m_loadedBlocks.removeRef(buf);
+      m_blocks.removeRef(buf);
    }
    
   m_regionTree->lineHasBeenRemoved (i);

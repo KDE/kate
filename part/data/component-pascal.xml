@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Werner Braun <wb@o3-software.de> -->
+<!-- 29.05.2003 wb mailed to the kate-team (cullmann) -->
+<!-- 23.05.2003 wb added *.bro File-Type for GPCP Browser output-->
+<!-- 09.05.2003 wb nested comments allowed (maximum two level nesting) -->
+<!-- 07.04.2003 wb IN Problem solved -->
+<!-- 06.05.2003 wb NEW without ( -->
+<!-- 22.04.2003 wb Minor bugfixes -->
 <!-- 19.04.2003 wb Some more Enhancements -->
 <!-- 18.04.2003 wb Enhancenment for Maior / Minor Comments and Full / ReadOnly Exports, Folds for Procedures, Records, Comments -->
 <!-- 17.04.2003 wb Enhancements for Relation and Operators -->
-<language name="Component-Pascal" version="1.03" kateversion="2.1" section="Sources" extensions="*.cp" mimetype="text/x-component-pascal">
+<language name="Component-Pascal" version="1.04" kateversion="2.1" section="Sources" extensions="*.cp;*.bro" mimetype="text/x-component-pascal">
 	<highlighting>
 		<list name="keywords">
 			<item> BEGIN </item>
@@ -99,7 +105,7 @@
 				<RegExpr attribute="Normal Text" context="#stay" String="ABSTRACT;|EMPTY;|END\s*[A-Za-z][A-Za-z0-9_]*\;" endRegion="Proc"/>
 				<RegExpr attribute="Type" context="#stay" String="RECORD" beginRegion="Rec"/>
 				<RegExpr attribute="Keyword" context="#stay" String="END" endRegion="Rec"/>
-				<StringDetect attribute="MemAlloc" context="#stay" String="NEW("/>
+				<StringDetect attribute="MemAlloc" context="#stay" String="NEW"/>
 				<keyword attribute="Keyword" context="#stay" String="keywords"/>
 				<keyword attribute="Exit" context="#stay" String="exits"/>
 				<keyword attribute="Type" context="#stay" String="types"/>
@@ -109,16 +115,25 @@
 				<RegExpr attribute="Integer" context="#stay" String="\s[\+|\-]{0,1}[0-9]([0-9]*|[0-9A-F]*(H|L))"/>
 				<Float attribute="Float" context="#stay"/>
 				<RegExpr attribute="Char" context="#stay" String="\s[0-9][0-9A-F]*X"/>
-				<RegExpr attribute="ExportFull" context="#stay" String="\s[A-Za-z][A-Za-z0-9_]*\*"/>
-				<RegExpr attribute="ExportReadOnly" context="#stay" String="\s[A-Za-z][A-Za-z0-9_]*\-"/>
-				<RegExpr attribute="Relation" context="#stay" String="\s(=|#|&lt;|&lt;=|&gt;|&gt;=|IN|IS)"/>
+				<RegExpr attribute="ExportFull" context="#stay" String="[A-Za-z][A-Za-z0-9_]*\*"/>
+				<RegExpr attribute="ExportReadOnly" context="#stay" String="[A-Za-z][A-Za-z0-9_]*\-"/>
+				<RegExpr attribute="Relation" context="#stay" String="\s(=|#|&lt;|&lt;=|&gt;|&gt;=|IN\s|IS)"/>
 				<RegExpr attribute="Operator" context="#stay" String="\s(\+|\-|OR|\*|/|DIV|MOD|\&amp;)"/>
 			</context>
 			<context attribute="CommentMaior" lineEndContext="#stay" name="Comment1">
 				<Detect2Chars attribute="CommentMaior" context="#pop" char="*" char1=")" endRegion="Comment"/>
+				<Detect2Chars attribute="CommentMinor" context="CommentN" char="(" char1="*"/>
 			</context>
 			<context attribute="CommentMinor" lineEndContext="#stay" name="Comment2">
 				<Detect2Chars attribute="CommentMinor" context="#pop" char="*" char1=")" endRegion="Comment"/>
+				<Detect2Chars attribute="CommentMinor" context="CommentN" char="(" char1="*"/>
+			</context>
+			<context attribute="CommentMinor" lineEndContext="#stay" name="CommentN">
+				<Detect2Chars attribute="CommentMinor" context="#pop" char="*" char1=")"/>
+				<Detect2Chars attribute="CommentMinor" context="CommentN2" char="(" char1="*"/>
+			</context>
+			<context attribute="CommentMinor" lineEndContext="#stay" name="CommentN2">
+				<Detect2Chars attribute="CommentMinor" context="#pop" char="*" char1=")"/>
 			</context>
 			<context attribute="String" lineEndContext="#stay" name="String1">
 				<DetectChar attribute="String" context="#pop" char="&quot;"/>

@@ -12,6 +12,6 @@ libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attr
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kspell/libkspell.la $(top_builddir)/kdeprint/libkdeprint.la
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN) -module -avoid-version
 
-INCLUDES= $(all_includes) -I../interfaces -I$(top_srcdir) -I$(top_srcdir)/kspell -I$(top_srcdir)/kdeprint -I$(top_srcdir)/interfaces  -I$(top_srcdir)/interfaces/kregexpeditor -I$(top_srcdir)/kdefx
+INCLUDES= -I../interfaces -I$(top_srcdir) -I$(top_srcdir)/kspell -I$(top_srcdir)/kdeprint -I$(top_srcdir)/interfaces  -I$(top_srcdir)/interfaces/kregexpeditor -I$(top_srcdir)/kdefx $(all_includes)
 
 METASOURCES = AUTO

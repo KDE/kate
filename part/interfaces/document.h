@@ -125,6 +125,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
   public:
     Document ();
+    Document ( QObject* parent, const char* name );
     virtual ~Document ();
 
   /**

@@ -33,6 +33,11 @@ bool Document::s_openErrorDialogsActivated = true;
 bool Document::s_fileChangedDialogsActivated = false;
 QString Document::s_defaultEncoding;
 
+Document::Document (QObject* parent, const char* name)
+    : KTextEditor::Document (parent, name)
+{
+}
+
 Document::Document () : KTextEditor::Document (0L, "Kate::Document")
 {
 }

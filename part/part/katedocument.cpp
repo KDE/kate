@@ -97,8 +97,8 @@ Kate::PluginList KateDocument::s_plugins;
 //
 KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
                              bool bReadOnly, QWidget *parentWidget,
-                             const char *widgetName, QObject *, const char *)
-: Kate::Document (),
+                             const char *widgetName, QObject *parent, const char *name)
+: Kate::Document(parent, name),
   selectStart(this, true),
   selectEnd(this, true),
   m_undoDontMerge(false),

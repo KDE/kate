@@ -162,7 +162,7 @@ void KateSearch::search( SearchFlags flags )
 	     s.cursor.line == 0 ) ||
 	   ( s.flags.backward && 
 	     s.cursor.col == doc()->lineLength( s.cursor.line ) && 
-	     s.cursor.line == doc()->numLines()-1 ) ) {
+	     s.cursor.line == (((int)doc()->numLines()) - 1) ) ) {
 		s.flags.finished = true;
 	}
 	

@@ -95,6 +95,7 @@ private:
 	KTextEditor::SelectionInterface* m_selectIF;
 	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
+	KWidgetAction*         m_comboAction;
 	QGuardedPtr<KToolBarLabel> m_label;
 	QGuardedPtr<KHistoryCombo> m_combo;
 	bool           m_searchBackward;

@@ -120,12 +120,12 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	         this, SLOT(slotTextChanged(const QString&)) );
 	connect( m_combo, SIGNAL(returnPressed(const QString&)),
 	         this, SLOT(slotReturnPressed(const QString&)) );
-	KWidgetAction* comboAction = new KWidgetAction(
+	m_comboAction = new KWidgetAction(
 		m_combo,
 		i18n("Search"), 0, 0, 0,
 		actionCollection(), "isearch_combo" );
-	comboAction->setAutoSized( true );
-	comboAction->setShortcutConfigurable( false );
+	m_comboAction->setAutoSized( true );
+	m_comboAction->setShortcutConfigurable( false );
 
 	KActionMenu* optionMenu = new KActionMenu(
 		i18n("Search Options"), "configure",
@@ -318,12 +318,12 @@ void ISearchPluginView::slotSearchBackwardAction()
 void ISearchPluginView::slotSearchAction( bool reverse )
 {
 	if( !m_combo->hasFocus() ) {
-//		if( !m_toolBarAction->isChecked() ) {
-//			m_toolBarWasHidden = true;
-//			m_toolBarAction->setChecked( true );
-//		} else {
-//	m_toolBarWasHidden = false;
-//		}
+		if( m_comboAction->container(0) && m_comboAction->container(0)->isHidden() ) {
+			m_toolBarWasHidden = true;
+			m_comboAction->container(0)->setHidden( false );
+		} else {
+			m_toolBarWasHidden = false;
+		}
 		m_combo->setFocus(); // Will call startSearch()
 	} else {
 		nextMatch( reverse );
@@ -395,8 +395,8 @@ void ISearchPluginView::endSearch()
 
 	updateLabelText();
 
-	if( m_toolBarWasHidden ) {
-//		m_toolBarAction->setChecked( false );
+	if( m_toolBarWasHidden && m_comboAction->container(0) ) {
+		m_comboAction->container(0)->setHidden( true );
 	}
 }
 
@@ -482,18 +482,20 @@ ISearchPlugin::~ISearchPlugin()
 
 void ISearchPlugin::addView(KTextEditor::View *view)
 {
-  ISearchPluginView *nview = new ISearchPluginView (view);
-  nview->setView (view);
-  m_views.append (nview);
+	ISearchPluginView *nview = new ISearchPluginView (view);
+	nview->setView (view);
+	m_views.append (nview);
 }
 
 void ISearchPlugin::removeView(KTextEditor::View *view)
 {
-  for (uint z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->parentClient() == view)
-    {
-       ISearchPluginView *nview = m_views.at(z);
-       m_views.remove (nview);
-      delete nview;
-    }
+	for (uint z=0; z < m_views.count(); z++)
+        {
+		if (m_views.at(z)->parentClient() == view)
+		{
+			ISearchPluginView *nview = m_views.at(z);
+			m_views.remove (nview);
+			delete nview;
+		}
+	}
 }

@@ -338,9 +338,9 @@ void KateDocument::loadAllEnabledPlugins ()
 
 void KateDocument::unloadAllPlugins ()
 {
-  for (uint i=0; i<s_plugins.count(); i++)
+  for (uint i=0; i<m_plugins.count(); i++)
   {
-    if (s_plugins.at(i)->plugin)
+    if (m_plugins.at(i)->plugin)
       unloadPlugin (m_plugins.at(i));
   }
 }
@@ -403,9 +403,7 @@ void KateDocument::enablePluginGUI (KatePartPluginInfo *item)
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
 
   for (uint i=0; i< m_views.count(); i++)
-  {
     enablePluginGUI (item, m_views.at(i));
-  }
 }
 
 void KateDocument::disablePluginGUI (KatePartPluginInfo *item, KateView *view)
@@ -429,9 +427,7 @@ void KateDocument::disablePluginGUI (KatePartPluginInfo *item)
   if (!KTextEditor::pluginViewInterface(item->plugin)) return;
 
   for (uint i=0; i< m_views.count(); i++)
-  {
     disablePluginGUI (item, m_views.at(i));
-  }
 }
 //END
 

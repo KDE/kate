@@ -514,7 +514,7 @@ bool KateBuffer::openFile (const QString &m_file)
   // do the real work
   bool eof = false;
   KateBufBlock *block = 0;
-
+  m_lines = 0;
   while (!m_cacheWriteError && !eof && !stream.atEnd())
   {
     block = new KateBufBlock (this, block, 0);
@@ -535,7 +535,7 @@ bool KateBuffer::openFile (const QString &m_file)
   if (m_cacheWriteError)
     m_loadingBorked = true;
   
-  if (m_lines == 0)
+  if (m_blocks.isEmpty() || (m_lines == 0))
   {
     // file was really empty, clean the buffers + emit the line changed
     // loadingBorked will be false for such files, not matter what happened

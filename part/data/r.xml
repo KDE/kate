@@ -7,33 +7,33 @@
        Kate: http://www.kde.org/kate
        R   : http://www.r-project.org/
     -->
-<language version="1.01" kateversion="2.1" name="R Script" section="Scripts" extensions="*.R" mimetype="">
+<language version="1.02" kateversion="2.1" name="R Script" section="Scripts" extensions="*.R" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> for </item>
       <item> in </item>
     </list>
     <contexts>
-       <context attribute="0" lineEndContext="#stay">
-         <keyword attribute="1" context="#stay" String="keywords"/>
-         <DetectChar attribute="4" context="2" char="&quot;"/>
-         <RegExpr attribute="1" context="1" String="[a-zA-Z_]+\("/>
-         <DetectChar attribute="5" context="3" char="#"/>
+       <context attribute="Normal Text" lineEndContext="#stay" name="ctx0">
+         <keyword attribute="Keyword" context="#stay" String="keywords"/>
+         <DetectChar attribute="String" context="ctx2" char="&quot;"/>
+         <RegExpr attribute="Keyword" context="ctx1" String="[a-zA-Z_]+\("/>
+         <DetectChar attribute="Comment" context="ctx3" char="#"/>
        </context>
 
-       <context attribute="0" lineEndContext="#stay">
-         <LineContinue attribute="8" context="#stay"/>
-         <DetectChar attribute="1" context="#pop" char=")"/>
-         <DetectChar attribute="4" context="2" char="&quot;"/>
-         <RegExpr attribute="2" context="#stay" String="[a-zA-Z_]+="/>
-         <RegExpr attribute="1" context="1" String="[a-zA-Z_]+\("/>
+       <context attribute="Normal Text" lineEndContext="#stay" name="ctx1">
+         <LineContinue attribute="Normal Text" context="#stay"/>
+         <DetectChar attribute="Keyword" context="#pop" char=")"/>
+         <DetectChar attribute="String" context="ctx2" char="&quot;"/>
+         <RegExpr attribute="Identifier" context="#stay" String="[a-zA-Z_]+="/>
+         <RegExpr attribute="Keyword" context="#stay" String="[a-zA-Z_]+\("/>
        </context>
 
-       <context attribute="4" lineEndContext="#stay">
-         <DetectChar attribute="4" context="#pop" char="&quot;"/>
+       <context attribute="String" lineEndContext="#stay" name="ctx2">
+         <DetectChar attribute="String" context="#pop" char="&quot;"/>
        </context>
 
-       <context attribute="5" lineEndContext="0" name="Comment"/>
+       <context attribute="Comment" lineEndContext="ctx0" name="ctx3"/>
 
     </contexts>
     <itemDatas>

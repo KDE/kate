@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SML" version="1.02" kateversion="2.1" section="Scripts" extensions="*.sml;*.ml" mimetype="">
+<language name="SML" version="1.03" kateversion="2.1" section="Scripts" extensions="*.sml;*.ml" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> abstype </item>
@@ -62,22 +62,22 @@
       <item> order </item>
     </list>
     <contexts>
-      <context attribute="0" lineEndContext="#stay" name="Normal">
-        <Detect2Chars attribute="6" context="1" char="(" char1="*" />
-        <DetectChar attribute="5" context="2" char="&quot;" />
-        <keyword attribute="1" context="#stay" String="keywords" />
-        <keyword attribute="2" context="#stay" String="types" />
-        <Float attribute="4" context="#stay">
-          <AnyChar String="fF" attribute="4" context="#stay"/>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+        <Detect2Chars attribute="Comment" context="Multiline/Inline Comment" char="(" char1="*" />
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <keyword attribute="Keyword" context="#stay" String="keywords" />
+        <keyword attribute="Data Type" context="#stay" String="types" />
+        <Float attribute="Float" context="#stay">
+          <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
-        <HlCHex attribute="3" context="#stay"/>
-        <Int attribute="3" context="#stay" />
+        <HlCHex attribute="Decimal" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" />
       </context>
-      <context attribute="6" lineEndContext="#stay" name="Multiline/Inline Comment">
-        <Detect2Chars attribute="6" context="#pop" char="*" char1=")" />
+      <context attribute="Comment" lineEndContext="#stay" name="Multiline/Inline Comment">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")" />
       </context>
-      <context attribute="5" lineEndContext="#stay" name="String">
-        <DetectChar attribute="5" context="#pop" char="&quot;" />
+      <context attribute="String" lineEndContext="#stay" name="String">
+        <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
     </contexts>
     <itemDatas>

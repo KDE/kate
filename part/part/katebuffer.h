@@ -37,6 +37,49 @@ class Highlight;
 class QTextCodec;
 
 /**
+ * list which allows O(1) inserts/removes
+ * will not delete the elements on remove
+ * will use the next/prevNode pointers in the KateBufBlocks !
+ * internal use: loaded/clean/dirty block lists
+ */
+class KateBufBlockList
+{
+  public:
+    KateBufBlockList ();
+    ~KateBufBlockList ();
+    
+  public:
+    /**
+     * count of blocks in this list
+     */
+    inline uint count() const { return m_count; }
+  
+    /**
+     * first block in this list or 0
+     */
+    inline KateBufBlock *first () { return m_first; };
+    
+    /**
+     * append a block to this list !
+     * will remove it from the list it belonged before !
+     */
+    void append (KateBufBlock *buf);
+    
+    /**
+     * remove the block from the list it belongs to !
+     */
+    static void remove (KateBufBlock *buf);
+    
+  private:
+    void removeInternal (KateBufBlock *buf);
+    
+  private:
+    uint m_count;
+    KateBufBlock *m_first;
+    KateBufBlock *m_last;
+};
+
+/**
  * The KateBuffer class maintains a collections of lines.
  * It allows to maintain state information in a lazy way.
  * It handles swapping out of data using secondary storage.
@@ -267,13 +310,13 @@ class KateBuffer : public QObject
     uint m_lastFoundBlock;
 
     // List of blocks that can be swapped out.
-    QPtrList<KateBufBlock> m_loadedBlocks;
+    KateBufBlockList m_loadedBlocks;
 
     // List of blocks that can be disposed.
-    QPtrList<KateBufBlock> m_cleanBlocks;
+    KateBufBlockList m_cleanBlocks;
 
     // List of blocks that are dirty.
-    QPtrList<KateBufBlock> m_dirtyBlocks;
+    KateBufBlockList m_dirtyBlocks;
 
     KVMAllocator m_vm;
 

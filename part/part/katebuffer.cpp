@@ -40,9 +40,9 @@
  * AVG_BLOCK_SIZE is in bytes, the others are counts
  */
 #define KATE_AVG_BLOCK_SIZE      32000
-#define KATE_MAX_BLOCKS_LOADED   32
-#define KATE_MAX_BLOCKS_CLEAN    16
-#define KATE_MAX_BLOCKS_DIRTY    8
+#define KATE_MAX_BLOCKS_LOADED   8
+#define KATE_MAX_BLOCKS_CLEAN    4
+#define KATE_MAX_BLOCKS_DIRTY    2
 
 /**
  * The KateBufBlock class contains an amount of data representing
@@ -50,6 +50,8 @@
  */
 class KateBufBlock
 {
+  friend class KateBufBlockList;
+
   public:
     /**
      * Create an empty block. (empty == ONE line)
@@ -248,6 +250,15 @@ class KateBufBlock
      */
     KateBufBlock *m_prev;
     KateBufBlock *m_next;
+    
+  private:
+    /**
+     * list pointer, to which list I belong
+     * list element pointers for the KateBufBlockList ONLY !!!
+     */
+    KateBufBlockList *list;
+    KateBufBlock *listPrev;
+    KateBufBlock *listNext;
 };
 
 /**
@@ -1250,6 +1261,94 @@ void KateBuffer::dumpRegionTree()
   m_regionTree.debugDump();
 }
 
+// BEGIN KateBufBlockList
+KateBufBlockList::KateBufBlockList ()
+ : m_count (0),
+   m_first (0),
+   m_last (0)
+{
+}
+
+KateBufBlockList::~KateBufBlockList ()
+{
+}
+
+void KateBufBlockList::append (KateBufBlock *buf)
+{
+  if (buf->list)
+    buf->list->removeInternal (buf);
+
+  m_count++;
+
+  // append a element
+  if (m_last)
+  {
+    m_last->listNext = buf;
+    
+    buf->listPrev = m_last;
+    buf->listNext = 0;
+  
+    m_last = buf;
+    
+    buf->list = this;
+    
+    return;
+  }
+  
+  // insert the first element
+  m_last = buf;
+  m_first = buf;
+  
+  buf->listPrev = 0;
+  buf->listNext = 0;
+  
+  buf->list = this;
+}
+    
+void KateBufBlockList::remove (KateBufBlock *buf)
+{
+  if (buf->list)
+    buf->list->removeInternal (buf);
+}
+
+void KateBufBlockList::removeInternal (KateBufBlock *buf)
+{
+  if (buf->list != this)
+    return;
+
+  m_count--;
+
+  if ((buf == m_first) && (buf == m_last))
+  {
+    // last element removed !
+    m_first = 0;
+    m_last = 0;
+  }
+  else if (buf == m_first)
+  {
+    // first element removed
+    m_first = buf->listNext;
+    m_first->listPrev = 0;
+  }
+  else if (buf == m_last)
+  {
+    // last element removed
+    m_last = buf->listPrev;
+    m_last->listNext = 0;
+  }
+  else
+  {
+    buf->listPrev->listNext = buf->listNext;
+    buf->listNext->listPrev = buf->listPrev;
+  }
+  
+  buf->listPrev = 0;
+  buf->listNext = 0;
+  
+  buf->list = 0;
+}
+// END KateBufBlockList
+
 // BEGIN KateBufBlock
 
 KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next)
@@ -1262,7 +1361,10 @@ KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KateBufBlock 
   b_needHighlight (true),
   m_parent (parent),
   m_prev (prev),
-  m_next (next)
+  m_next (next),
+  list (0),
+  listPrev (0),
+  listNext (0)
 {
   // init startline + the next pointers of the neighbour blocks
   if (m_prev)
@@ -1303,24 +1405,8 @@ KateBufBlock::~KateBufBlock ()
   if (m_vmblock)
     m_parent->vm()->free(m_vmblock);
   
-  // remove out of the lists of the buffer !
-  switch (m_state)
-  {
-    case KateBufBlock::stateLoaded:
-      m_parent->m_loadedBlocks.removeRef (this);
-      break;
-    
-    case KateBufBlock::stateClean:
-      m_parent->m_cleanBlocks.removeRef (this);
-      break;
-    
-    case KateBufBlock::stateDirty:
-      m_parent->m_dirtyBlocks.removeRef (this);
-      break;
-      
-    default:
-      break;
-  }
+  // remove me from the list I belong
+  KateBufBlockList::remove (this);
 }
 
 bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
@@ -1450,23 +1536,8 @@ void KateBufBlock::setState (KateBufBlock::State state)
   if (state == m_state)
     return;
    
-  switch (m_state)
-  {    
-    case KateBufBlock::stateLoaded:
-      m_parent->m_loadedBlocks.removeRef (this);
-      break;
-    
-    case KateBufBlock::stateClean:
-      m_parent->m_cleanBlocks.removeRef (this);
-      break;
-    
-    case KateBufBlock::stateDirty:
-      m_parent->m_dirtyBlocks.removeRef (this);
-      break;
-      
-    default:
-      break;
-  }
+  // remove me from my old list if any !
+  KateBufBlockList::remove (this);
      
   switch (state)
   {    

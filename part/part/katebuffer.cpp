@@ -789,13 +789,10 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     QMemArray<signed char> foldingList;
     m_highlight->doHighlight(ctxNum, textLine, line_continue, &foldingList);
 
-    bool foldingChanged = false;
-    bool retVal_folding = false;
-    bool indentChanged = false;
-   
     //
     // indentation sensitive folding
     //
+    bool indentChanged = false;
     if (m_highlight->foldingIndentationSensitive())
     {
       // get the indentation array of the previous line to start with !
@@ -906,12 +903,13 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       }
     }
 
-    if (!foldingChanged)
-      foldingChanged = (foldingList != textLine->foldingListArray());
+    bool foldingChanged = (foldingList.size() != textLine->foldingListArray().size())
+                          || (foldingList != textLine->foldingListArray());
 
     if (foldingChanged)
       textLine->setFoldingList(foldingList);
 
+    bool retVal_folding = false;
     m_regionTree->updateLine(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
 
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;

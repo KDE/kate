@@ -283,7 +283,7 @@ void KateIndentConfigTab::somethingToggled() {
 
 void KateIndentConfigTab::indenterSelected (int index)
 {
-  if (KateAutoIndent::modeDescription(index) == "C Style")
+  if (index == KateDocumentConfig::imCStyle)
     opt[6]->setEnabled(true);
   else
     opt[6]->setEnabled(false);

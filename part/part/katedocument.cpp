@@ -4356,8 +4356,6 @@ void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
   {
     m_isasking = 1;
 
-    //int exitval = ( v && v->hasFocus() ? 0 : -1 );
-
     switch ( KMessageBox::warningYesNoCancel( widget(),
                 reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
                 i18n("File Was Modified on Disk"),

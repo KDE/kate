@@ -1438,7 +1438,7 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   removeTrailingSpace( line ); // old line
 
   KateTextLine::Ptr tl = new KateTextLine();
-  tl->append(s.unicode(),s.length());
+  tl->insertText (0, s.length(), s.unicode(), 0);
   m_buffer->insertLine(line, tl);
   m_buffer->changeLine(line);
 

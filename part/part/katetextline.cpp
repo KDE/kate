@@ -96,11 +96,6 @@ void KateTextLine::removeText (uint pos, uint delLen)
   m_attributes.resize (m_text.length ());
 }
 
-void KateTextLine::append(const QChar *s, uint l)
-{
-  insertText (m_text.length(), l, s, 0);
-}
-
 void KateTextLine::truncate(uint newLen)
 {
   if (newLen < m_text.length())

@@ -191,26 +191,60 @@ class KateTextLine : public KShared
     int cursorX(uint pos, uint tabChars) const;
 
     /**
-      Can we find the given string at the given position
-    */
+     * Can we find the given string at the given position
+     * @param pos startpostion of given string
+     * @param match string to match at given pos
+     * @return did the string match?
+     */
     bool stringAtPos(uint pos, const QString& match) const;
 
     /**
-      Is the line starting with the given string
-    */
+     * Is the line starting with the given string
+     * @param match string to test
+     * @return does line start with given string?
+     */
     bool startingWith(const QString& match) const;
 
     /**
-      Is the line ending with the given string
-    */
+     * Is the line ending with the given string
+     * @param match string to test
+     * @return does the line end with given string?
+     */
     bool endingWith(const QString& match) const;
 
-    bool searchText (uint startCol, const QString &text, uint *foundAtCol, uint *matchLen, bool casesensitive = true, bool backwards = false);
-    bool searchText (uint startCol, const QRegExp &regexp, uint *foundAtCol, uint *matchLen, bool backwards = false);
+    /**
+     * search given string
+     * @param startCol column to start search
+     * @param text string to search for
+     * @param foundAtCol column where text was found
+     * @param matchLen length of matching
+     * @param casesensitive should search be case-sensitive
+     * @param backwards search backwards?
+     * @return string found?
+     */
+    bool searchText (uint startCol, const QString &text,
+                     uint *foundAtCol, uint *matchLen,
+                     bool casesensitive = true,
+                     bool backwards = false);
+    
+    /**
+     * search given regexp
+     * @param startCol column to start search
+     * @param regexp regex to search for
+     * @param foundAtCol column where text was found
+     * @param matchLen length of matching
+     * @param backwards search backwards?
+     * @return regexp found?
+     */
+    bool searchText (uint startCol, const QRegExp &regexp,
+                     uint *foundAtCol, uint *matchLen,
+                     bool backwards = false);
 
-     /**
-      Gets the attribute at the given position
-    */
+    /**
+     * Gets the attribute at the given position
+     * @param pos position of attribute requested
+     * @return value of attribute
+     */
     inline uchar attribute (uint pos) const
     {
       if (pos < m_attributes.size()) return m_attributes[pos];
@@ -218,45 +252,69 @@ class KateTextLine : public KShared
     }
 
     /**
-      Raw access on the memarray's, for example the katebuffer class
-    */
-    inline const QString &textArray () const { return m_text; };
-    inline const QMemArray<uchar> &attributesArray () const { return m_attributes; };
+     * context stack
+     * @return context stack
+     */
     inline const QMemArray<short> &ctxArray () const { return m_ctx; };
+    
+    /**
+     * folding list
+     * @return folding array
+     */
     inline const QMemArray<signed char> &foldingListArray () const { return m_foldingList; };
+    
+    /**
+     * indentation stack
+     * @return indentation array
+     */
     inline const QMemArray<unsigned short> &indentationDepthArray () const { return m_indentationDepth; };
 
-     /**
-      Universal text manipulation methoda. They can be used to insert or delete text
-    */
+    /**
+     * insert text into line
+     * @param pos insert position
+     * @param insLen insert length
+     * @param insText text to insert
+     * @param insAttribs attributes for the insert text
+     */
     void insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs = 0);
+    
+    /**
+     * remove text at given position
+     * @param pos start position of remove
+     * @param delLen length to remove
+     */
     void removeText (uint pos, uint delLen);
 
     /**
-      Appends a string of length l to the textline
-    */
-    void append(const QChar *s, uint l);
-
-    /**
-      Truncates the textline to the new length
-    */
+     * Truncates the textline to the new length
+     * @param newLen new length of line
+     */
     void truncate(uint newLen);
 
     /**
-      Sets some flags
-    */
+     * set hl continue flag
+     * @param cont continue flag?
+     */
     inline void setHlLineContinue (bool cont)
     {
       if (cont) m_flags = m_flags | KateTextLine::flagHlContinue;
       else m_flags = m_flags & ~ KateTextLine::flagHlContinue;
     }
 
+    /** 
+     * set visibility
+     * @param val visible?
+     */
     inline void setVisible(bool val)
     {
       if (val) m_flags = m_flags | KateTextLine::flagVisible;
       else m_flags = m_flags & ~ KateTextLine::flagVisible;
     }
 
+    /**
+     * auto-wrapped
+     * @param wrapped line was wrapped?
+     */
     inline void setAutoWrapped (bool wrapped)
     {
       if (wrapped) m_flags = m_flags | KateTextLine::flagAutoWrapped;
@@ -264,17 +322,29 @@ class KateTextLine : public KShared
     }
 
     /**
-      Sets the attributes from start to end -1
-    */
+     * Sets the attributes from start to end -1
+     * @param attribute attribue to fill in
+     * @param start start of filling
+     * @param end end of filling
+     */
     void setAttribs(uchar attribute, uint start, uint end);
 
     /**
-      Sets the syntax highlight context number
-    */
+     * Sets the syntax highlight context number
+     * @param val new context array
+     */
     inline void setContext (QMemArray<short> &val) { m_ctx.assign (val); }
 
+    /**
+     * update folding list
+     * @param val new folding list
+     */
     inline void setFoldingList (QMemArray<signed char> &val) { m_foldingList.assign (val); m_foldingList.detach(); }
 
+    /**
+     * update indentation stack
+     * @param val new indentation stack
+     */
     inline void setIndentationDepth (QMemArray<unsigned short> &val) { m_indentationDepth.assign (val); }
 
   /**

@@ -32,6 +32,9 @@ class ViewCursorInterface
 	// slots !!!
 	//
   public:
+    /** Get the current cursor coordinates in pixels. */
+    virtual QPoint cursorCoordinates () = 0;
+
     virtual void cursorPosition (uint *line, uint *col) = 0;
 
     virtual bool setCursorPosition (uint line, uint col) = 0;

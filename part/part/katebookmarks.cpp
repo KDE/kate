@@ -92,7 +92,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
     ac, "bookmarks_clear");
   m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
   m_bookmarkClear->plug( m );
-
+  m_bookmarkClear->setEnabled( m_marks.count() > 0 );
   m_goNext = new KAction(
     "Next Bookmark", ALT + Key_PageDown,
     this, SLOT(goNext()),
@@ -127,6 +127,7 @@ void KateBookmarks::toggleBookmark ()
   else
     m_view->getDoc()->addMark( m_view->cursorLine(),
         KTextEditor::MarkInterface::markType01 );
+  m_bookmarkClear->setEnabled( true );
 }
 
 void KateBookmarks::clearBookmarks ()
@@ -136,6 +137,7 @@ void KateBookmarks::clearBookmarks ()
   for( ; *it; ++it ) {
     m_view->getDoc()->removeMark( (*it)->line, KTextEditor::MarkInterface::markType01 );
   }
+  m_bookmarkClear->setEnabled( false );
 }
 
 void KateBookmarks::bookmarkMenuAboutToShow()

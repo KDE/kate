@@ -4,14 +4,6 @@
     <property name="name">
         <cstring>EditorChooser</cstring>
     </property>
-    <property name="geometry">
-        <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>472</width>
-            <height>187</height>
-        </rect>
-    </property>
     <property name="caption">
         <string>Editor Chooser</string>
     </property>

@@ -47,7 +47,7 @@ class KateConfig
      * Default Constructor
      */
     KateConfig ();
-    
+
     /**
      * Virtual Destructor
      */
@@ -61,7 +61,7 @@ class KateConfig
       * configEnd() call
       */
      void configStart ();
-     
+
      /**
       * end a config change transaction, update the concerned
       * documents/views/renderers
@@ -79,7 +79,7 @@ class KateConfig
      * recursion depth
      */
     uint configSessionNumber;
-    
+
     /**
      * is a config session running
      */
@@ -217,9 +217,18 @@ class KateDocumentConfig : public KateConfig
 
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
-    
+
     bool plugin (uint index) const;
     void setPlugin (uint index, bool load);
+
+    /**
+     * Should Kate Part search for dir wide config file
+     * and if, how depth?
+     * @return search depth (< 0 no search)
+     */
+    int searchDirConfigDepth () const;
+
+    void setSearchDirConfigDepth (int depth);
 
   private:
     int m_tabWidth;
@@ -233,6 +242,7 @@ class KateDocumentConfig : public KateConfig
     QString m_encoding;
     int m_eol;
     uint m_backupFlags;
+    int m_searchDirConfigDepth;
     QString m_backupPrefix;
     QString m_backupSuffix;
     QBitArray m_plugins;
@@ -248,6 +258,7 @@ class KateDocumentConfig : public KateConfig
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
     bool m_backupFlagsSet : 1;
+    bool m_searchDirConfigDepthSet : 1;
     bool m_backupPrefixSet : 1;
     bool m_backupSuffixSet : 1;
     QBitArray m_pluginsSet;

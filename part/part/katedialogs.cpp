@@ -842,6 +842,14 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
   removeSpaces->setChecked(configFlags & KateDocument::cfRemoveSpaces);
 
+  QVGroupBox *dirConfigBox = new QVGroupBox(i18n("Folder Config File"), this);
+  layout->addWidget( dirConfigBox );
+
+  dirSearchDepth = new KIntNumInput(KateDocumentConfig::global()->searchDirConfigDepth(), dirConfigBox);
+  dirSearchDepth->setRange(-1, 64, 1, false);
+  dirSearchDepth->setSpecialValueText( i18n("Don't use config file") );
+  dirSearchDepth->setLabel(i18n("Se&arch depth for config file:"), AlignVCenter);
+
   QGroupBox *gb = new QGroupBox( 1, Qt::Horizontal, i18n("Backup on Save"), this );
   layout->addWidget( gb );
   cbLocalFiles = new QCheckBox( i18n("&Local files"), gb );
@@ -891,6 +899,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect(dirSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( leBuPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 }
@@ -928,6 +937,8 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setBackupFlags(f);
   KateDocumentConfig::global()->setBackupPrefix(leBuPrefix->text());
   KateDocumentConfig::global()->setBackupSuffix(leBuSuffix->text());
+
+  KateDocumentConfig::global()->setSearchDirConfigDepth(dirSearchDepth->value());
 
   int configFlags = KateDocumentConfig::global()->configFlags();
 
@@ -972,6 +983,8 @@ void KateSaveConfigTab::reload()
 
   // eol
   m_eol->setCurrentItem(KateDocumentConfig::global()->eol());
+
+  dirSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
   // other stuff
   uint f ( KateDocumentConfig::global()->backupFlags() );

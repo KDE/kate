@@ -97,13 +97,14 @@ KateDocumentConfig::KateDocumentConfig ()
    m_encodingSet (true),
    m_eolSet (true),
    m_backupFlagsSet (true),
+   m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
    m_backupSuffixSet (true),
    m_pluginsSet (m_plugins.size()),
    m_doc (0)
 {
   s_global = this;
-  
+
   // init plugin array
   m_plugins.fill (false);
   m_pluginsSet.fill (true);
@@ -128,11 +129,12 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_encodingSet (false),
    m_eolSet (false),
    m_backupFlagsSet (false),
+   m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
    m_pluginsSet (m_plugins.size()),
    m_doc (doc)
-{  
+{
   // init plugin array
   m_plugins.fill (false);
   m_pluginsSet.fill (false);
@@ -170,8 +172,10 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setBackupFlags (config->readNumEntry("Backup Config Flags", 1));
 
+  setSearchDirConfigDepth (config->readNumEntry("Search Dir Config Depth", -1));
+
   setBackupPrefix (config->readEntry("Backup Prefix", QString ("")));
-  
+
   setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
 
   // plugins
@@ -203,10 +207,12 @@ void KateDocumentConfig::writeConfig (KConfig *config)
 
   config->writeEntry("Backup Config Flags", backupFlags());
 
+  config->writeEntry("Search Dir Config Depth", searchDirConfigDepth());
+
   config->writeEntry("Backup Prefix", backupPrefix());
-  
+
   config->writeEntry("Backup Suffix", backupSuffix());
-  
+
   // plugins
   for (uint i=0; i<KateFactory::self()->plugins().count(); i++)
     config->writeEntry("KTextEditor Plugin " + (KateFactory::self()->plugins())[i]->library(), plugin(i));
@@ -530,11 +536,29 @@ void KateDocumentConfig::setPlugin (uint index, bool load)
 {
   if (index >= m_plugins.size())
     return;
-  
+
   configStart ();
 
   m_pluginsSet[index] = true;
   m_plugins[index] = load;
+
+  configEnd ();
+}
+
+int KateDocumentConfig::searchDirConfigDepth () const
+{
+  if (m_searchDirConfigDepthSet || isGlobal())
+    return m_searchDirConfigDepth;
+
+  return s_global->searchDirConfigDepth ();
+}
+
+void KateDocumentConfig::setSearchDirConfigDepth (int depth)
+{
+  configStart ();
+
+  m_searchDirConfigDepthSet = true;
+  m_searchDirConfigDepth = depth;
 
   configEnd ();
 }
@@ -615,7 +639,7 @@ void KateViewConfig::readConfig (KConfig *config)
   setCmdLine (config->readBoolEntry( "Command Line", false));
 
   setDefaultMarkType (config->readNumEntry( "Default Mark Type", KTextEditor::MarkInterface::markType01 ));
-  
+
   setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
 
   configEnd ();
@@ -644,7 +668,7 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Command Line", cmdLine());
 
   config->writeEntry("Default Mark Type", defaultMarkType());
-  
+
   config->writeEntry("Text To Search Mode", textToSearchMode());
 }
 

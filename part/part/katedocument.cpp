@@ -2549,8 +2549,52 @@ bool KateDocument::openFile(KIO::Job * job)
       if (hl >= 0)
         internalSetHlMode(hl);
     }
+
     // update file type
     updateFileType (KateFactory::self()->fileTypeManager()->fileType (this));
+
+    // read dir config (if possible and wanted)
+    int depth = config()->searchDirConfigDepth ();
+    if (m_url.isLocalFile() && (depth > -1))
+    {
+      QString currentDir = QFileInfo (m_file).dirPath();
+
+      // only search as deep as specified or not at all ;)
+      while (depth > -1)
+      {
+        kdDebug (13020) << "search for config file in path: " << currentDir << endl;
+
+        // try to open config file in this dir
+        QFile f (currentDir + "/.kateconfig");
+
+        if (f.open (IO_ReadOnly))
+        {
+          QTextStream stream (&f);
+
+          uint linesRead = 0;
+          QString line = stream.readLine();
+          while ((linesRead < 32) && !line.isNull())
+          {
+            readVariableLine( line );
+
+            line = stream.readLine();
+
+            linesRead++;
+          }
+
+          break;
+        }
+
+        QString newDir = QFileInfo (currentDir).dirPath();
+
+        // bail out on looping (for example reached /)
+        if (currentDir == newDir)
+          break;
+
+        currentDir = newDir;
+        --depth;
+      }
+    }
 
     // read vars
     readVariables();

@@ -254,7 +254,7 @@ class KateSaveConfigTab : public KateConfigPage
   void reload();
   void reset();
   void defaults();
-  
+
   private slots:
     void blockCountChanged (int value);
 
@@ -264,6 +264,7 @@ class KateSaveConfigTab : public KateConfigPage
   QCheckBox *replaceTabs, *removeSpaces;
   QLineEdit *leBuPrefix;
   QLineEdit *leBuSuffix;
+  KIntNumInput *dirSearchDepth;
   class QSlider *blockCount;
   class QLabel *blockCountLabel;
 };

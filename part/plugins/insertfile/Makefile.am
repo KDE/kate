@@ -13,5 +13,5 @@ data_DATA = ktexteditor_insertfileui.rc
 
 kde_services_DATA = ktexteditor_insertfile.desktop
 
-messages:
+messages: rc.cpp
 	$(XGETTEXT) *.cpp *.h -o $(podir)/ktexteditor_insertfile.pot

@@ -203,7 +203,7 @@ KInstance *KateFactory::instance()
                                                            I18N_NOOP( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
                                                            I18N_NOOP( "(c) 2000-2003 The Kate Authors" ), 0, "http://kate.kde.org");
 
-    s_about->addAuthor ("Christoph Cullmann", I18N_NOOP("Project Manager and Core Developer"), "cullmann@kde.org", "http://www.babylon2k.de");
+    s_about->addAuthor ("Christoph Cullmann", I18N_NOOP("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
     s_about->addAuthor ("Anders Lund", I18N_NOOP("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
     s_about->addAuthor ("Joseph Wenninger", I18N_NOOP("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
     s_about->addAuthor ("Michael Bartl", I18N_NOOP("Core Developer"), "michael.bartl1@chello.at");

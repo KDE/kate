@@ -10,7 +10,7 @@ syntaxkate_DATA = language.dtd syntax.template cpp.xml c.xml html.xml kbasic.xml
                 desktop.xml eiffel.xml pascal.xml sather.xml python.xml makefile.xml \
                 ferite.xml scheme.xml matlab.xml tcl.xml ilerpg.xml verilog.xml javascript.xml \
                 sml.xml winehq.xml cs.xml sgml.xml idconsole.xml xmldebug.xml fortran.xml haskell.xml \
-                literate-haskell.xml r.xml gnuassembler.xml ilerpg.xml mab.xml mason.xml idl.xml prolog.xml \
+                literate-haskell.xml r.xml gnuassembler.xml mab.xml mason.xml idl.xml prolog.xml \
                 rsiidl.xml coldfusion.xml picsrc.xml uscript.xml lpc.xml velocity.xml sci.xml ldif.xml \
                 inform.xml xharbour.xml yacas.xml component-pascal.xml asm6502.xml gdl.xml bibtex.xml d.xml \
                 vrml.xml rexx.xml cue.xml progress.xml e.xml sieve.xml

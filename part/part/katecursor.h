@@ -40,12 +40,12 @@ class KateTextCursor
     friend bool operator==(const KateTextCursor& c1, const KateTextCursor& c2)
       { return c1.line == c2.line && c1.col == c2.col; }
 
-    inline void pos(uint *pline, uint *pcol) const {
+    inline void pos(int *pline, int *pcol) const {
       if(pline) *pline = line;
       if(pcol) *pcol = col;
     }
 
-    inline void setPos(uint _line, uint _col) {
+    inline void setPos(int _line, int _col) {
       line = _line;
       col = _col;
     }    

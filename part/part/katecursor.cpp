@@ -59,7 +59,8 @@ int KateDocCursor::nbCharsOnLineAfter()
 
 void KateDocCursor::position(uint *pline, uint *pcol) const
 {
-  pos(pline, pcol);
+  *pline = (uint) line;
+  *pcol = (uint) col;
 }
 
 bool KateDocCursor::setPosition(uint _line, uint _col)

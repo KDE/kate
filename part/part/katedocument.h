@@ -22,6 +22,7 @@
 #define kate_document_h
 
 #include "katecursor.h"
+#include "katefont.h"
 #include "katesearch.h"
 #include "katetextline.h"
 #include "katebrowserextension.h"
@@ -29,14 +30,10 @@
 
 #include <qobject.h>
 #include <qptrlist.h>
-#include <qcolor.h>
-#include <qfont.h>
-#include <qfontmetrics.h>
 #include <qdialog.h>
 
 #include <qintdict.h>
 #include <qdatetime.h>
-#include <kglobalsettings.h>
 
 class KateUndo;
 class KateUndoGroup;
@@ -45,91 +42,6 @@ class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
 class KateViewInternal;
-
-class Attribute {
-  public:
-    Attribute () { ; };
-
-    QColor col;
-    QColor selCol;
-    bool bold;
-    bool italic;
-};
-
-class KateFontMetrics : public QFontMetrics
-{
-  private:
-    short *warray[256];
-
-  public:
-    KateFontMetrics(const QFont& f) : QFontMetrics(f)
-    {
-      for (int i=0; i<256; i++) warray[i]=0;
-    }
-
-    ~KateFontMetrics()
-    {
-      for (int i=0; i<256; i++)
-        if (warray[i]) delete[] warray[i];
-    }
-    
-    short *createRow (short *wa, uchar row)
-    {
-      wa=warray[row]=new short[256];
-      
-      for (int i=0; i<256; i++) wa[i]=-1;
-      
-      return wa;
-    }
-                         
-    // now the question here is: is inline better or not ?
-    // this is one of the most often used methodes while drawing
-    // but makes inline it faster ?
-    inline int width(QChar c)
-    {
-      uchar cell=c.cell();
-      uchar row=c.row();
-      short *wa=warray[row];
-
-      if (!wa)
-        wa = createRow (wa, row);
-      
-      if (wa[cell]<0) wa[cell]=(short) QFontMetrics::width(c);
-
-      return (int)wa[cell];
-    }
-
-    int width(QString s) { return QFontMetrics::width(s); }
-};
-
-class FontStruct
-{
-  public:
-    FontStruct():myFont(KGlobalSettings::fixedFont()), myFontBold(KGlobalSettings::fixedFont()),
-        myFontItalic(KGlobalSettings::fixedFont()), myFontBI(KGlobalSettings::fixedFont()),
-        myFontMetrics (myFont), myFontMetricsBold (myFontBold), myFontMetricsItalic (myFontItalic),
-        myFontMetricsBI (myFontBI){;}
-  ~FontStruct(){;}
-
-  void updateFontData(int tabChars)
-  {
-    int maxAscent, maxDescent;
-    int tabWidth;
-    maxAscent = myFontMetrics.ascent();
-    maxDescent = myFontMetrics.descent();
-    tabWidth = myFontMetrics.width(' ');
-
-    fontHeight = maxAscent + maxDescent + 1;
-    fontAscent = maxAscent;
-    m_tabWidth = tabChars*tabWidth;
-  };
-
-  QFont myFont, myFontBold, myFontItalic, myFontBI;
-  KateFontMetrics myFontMetrics, myFontMetricsBold, myFontMetricsItalic, myFontMetricsBI;
-  int m_tabWidth;
-  int fontHeight;
-  int fontAscent;
-};
 
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
@@ -440,8 +352,8 @@ class KateDocument : public Kate::Document
     QColor &cursorCol(int x, int y);
 
     void setFont (WhichFont wf, QFont font);
-
     QFont getFont (WhichFont wf);
+
     KateFontMetrics getFontMetrics (WhichFont wf);
 
   private:

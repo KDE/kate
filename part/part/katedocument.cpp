@@ -2689,8 +2689,9 @@ bool KateDocument::saveFile()
   //
   // we really want to save this file ?
   //
-  bool reallySaveIt = !m_buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
-      i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
+  if (m_buffer->loadingBorked() && (KMessageBox::warningYesNo(widget(),
+      i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) != KMessageBox::Yes))
+    return false;
 
   if ( !url().isEmpty() )
   {
@@ -2700,15 +2701,15 @@ bool KateDocument::saveFile()
 
       if (!isModified())
       {
-        if (!(KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk.")) == KMessageBox::Yes))
-          reallySaveIt = false;
+        if (KMessageBox::warningYesNo(0,
+               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk.")) != KMessageBox::Yes)
+          return false;
       }
       else
       {
-        if (!(KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost.")) == KMessageBox::Yes))
-          reallySaveIt = false;
+        if (KMessageBox::warningYesNo(0,
+               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost.")) != KMessageBox::Yes)
+          return false;
       }
     }
   }
@@ -2716,15 +2717,12 @@ bool KateDocument::saveFile()
   //
   // can we encode it if we want to save it ?
   //
-  bool canEncode = true;
-
-  if (reallySaveIt)
-    canEncode = m_buffer->canEncode ();
-
-  //
-  // start with worst case, we had no success
-  //
-  bool success = false;
+  if (!m_buffer->canEncode ()
+       && (KMessageBox::warningYesNo(0,
+           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost.")) != KMessageBox::Yes))
+  {
+    return false;
+  }
 
   // remove file from dirwatch
   deactivateDirWatch ();
@@ -2732,8 +2730,7 @@ bool KateDocument::saveFile()
   //
   // try to save
   //
-  if (reallySaveIt && canEncode)
-    success = m_buffer->saveFile (m_file);
+  bool success = m_buffer->saveFile (m_file);
 
   // update the md5 digest
   createDigest( m_digest );
@@ -2785,9 +2782,7 @@ bool KateDocument::saveFile()
   //
   // display errors
   //
-  if (reallySaveIt && !canEncode)
-    KMessageBox::error (widget(), i18n ("The document could not be saved, as the selected encoding cannot encode every unicode character in it. If you are unsure of which encoding to use, try UTF-8 or UTF-16."));
-  else if (reallySaveIt && !success)
+  if (!success)
     KMessageBox::error (widget(), i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.").arg(m_url.url()));
 
   //

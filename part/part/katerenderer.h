@@ -54,16 +54,19 @@ public:
     ~KateRenderer();
 
     /**
-     * The renderer supports different configurations depending on the view defined.
+     * The renderer supports different configurations depending on the view
+     * defined.
      *
-     * Additionally this is used by the highlighting interface to provide per-view highlighting capabilities.
+     * Additionally this is used by the highlighting interface to provide
+     * per-view  highlighting capabilities.
      */
     KateView* currentView() const;
 
     /**
      * @copydoc currentView()
      *
-     * Switching the view saves the current settings, and restores the settings of the new current view.
+     * Switching the view saves the current settings, and restores the settings
+     * of the new current view.
      */
     void setView(KateView* view);
 
@@ -98,7 +101,8 @@ public:
     static void setTabWidth(int m_tabWidth);
 
     /**
-     * @returns whether tabs should be shown (ie. a small mark drawn to identify a tab)
+     * @returns whether tabs should be shown (ie. a small mark
+     * drawn to identify a tab)
      */
     bool showTabs() const;
 
@@ -138,7 +142,8 @@ public:
     static const QFontMetrics& getFontMetrics(int whichFont);
 
     /**
-     * @returns whether the renderer is configured to paint in a printer-friendly fashion.
+     * @return whether the renderer is configured to paint in a
+     * printer-friendly fashion.
      */
     bool isPrinterFriendly() const;
 

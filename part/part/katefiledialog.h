@@ -39,8 +39,7 @@ class KateFileDialog : public KFileDialog
   public:
     KateFileDialog (const QString& startDir = QString::null,
                     const QString& encoding = QString::fromLatin1(KGlobal::locale()->encoding()),
-                    QWidget *parent= 0, const QString& caption = QString::null,
-                    OperationMode = Opening );
+                    QWidget *parent= 0, const QString& caption = QString::null );
 
     virtual ~KateFileDialog ();
 

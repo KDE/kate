@@ -806,14 +806,15 @@ KateView::saveResult KateView::save()
 
 KateView::saveResult KateView::saveAs()
 {
-  KateFileDialog dialog(
+  KateFileDialog *dialog = new KateFileDialog (
     m_doc->url().url(),
     doc()->config()->encoding(),
     this,
-    i18n("Save File"),
-    KFileDialog::Saving );
-  dialog.setSelection( m_doc->url().fileName() );
-  KateFileDialogData data = dialog.exec();
+    i18n("Save File") );
+
+  KateFileDialogData data = dialog->exec();
+
+  delete dialog;
 
   if( data.url.isEmpty() || !checkOverwrite( data.url ) )
     return SAVE_CANCEL;

@@ -503,14 +503,50 @@ bool KateBuffer::openFile (const QString &m_file)
 {
   clear();
 
-  // here we feed the loader with info
-  m_loader = new KateBufFileLoader (m_file);
+  QFile f (m_file);
 
-  if ( !m_loader->file.open( IO_ReadOnly ) || !m_loader->file.isDirectAccess() )
+  if ( !f.open( IO_ReadOnly ) || !f.isDirectAccess() )
   {
     clear();
     return false; // Error
   }
+
+  // detect eol --- FIXME if you have time ;)
+  int eol = KateDocumentConfig::eolUnix;
+  int lastCh = 0;
+  while (true)
+  {
+     int ch = f.getch();
+
+     if (ch == -1)
+       return;
+
+     if ((ch == '\r'))
+     {
+       ch = f.getch ();
+
+       if (ch == '\n')
+       {
+          eol = KateDocumentConfig::eolDos;
+         break;
+       }
+       else
+       {
+         eol = KateDocumentConfig::eolMac;
+         break;
+       }
+     }
+     else if (ch == '\n')
+       break;
+  }
+
+  m_doc->config()->setEol (eol);
+
+  f.close ();
+
+  // here we feed the loader with info
+  m_loader = new KateBufFileLoader (m_file);
+  m_loader->file.open( IO_ReadOnly );
 
   QTextCodec *codec = m_doc->config()->codec();
   m_loader->stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers

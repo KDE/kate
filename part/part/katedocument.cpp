@@ -485,6 +485,9 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
     case 10:
       return new PluginConfigPage (parent, this);
 
+    case 11:
+      return new KateFileTypeConfigTab (parent);
+
     default:
       return 0;
   }
@@ -526,6 +529,9 @@ QString KateDocument::configPageName (uint number) const
 
     case 9:
       return i18n("Spelling");
+
+    case 11:
+      return i18n("Filetypes");
 
     default:
       return 0;
@@ -569,6 +575,9 @@ QString KateDocument::configPageFullName (uint number) const
     case 9:
       return i18n("Spell Checker Behavior");
 
+    case 11:
+      return i18n("Filetype Specific Settings");
+
     default:
       return 0;
   }
@@ -610,6 +619,9 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
 
     case 9:
       return BarIcon("spellcheck", size);
+
+    case 11:
+      return BarIcon("edit", size);
 
     default:
       return 0;

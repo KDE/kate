@@ -21,6 +21,7 @@
 // $Id$
 
 #include "katefiletype.h"
+#include "katefiletype.moc"
 
 #include "katedocument.h"
 #include "kateconfig.h"
@@ -33,7 +34,7 @@
 #include <qregexp.h>
 
 KateFileTypeManager::KateFileTypeManager ()
- : m_config (new KConfig ("katepart/katefiletypesrc"))
+ : m_config (new KConfig ("katepart/filetypesrc"))
 {
   m_types.setAutoDelete (true);
   m_typesNum.setAutoDelete (false);
@@ -230,6 +231,28 @@ QString KateFileTypeManager::fileType (uint number)
 KateFileType *KateFileTypeManager::fileType (const QString &name)
 {
   return m_types[QString ("K") + name];
+}
+
+KateFileTypeConfigTab::KateFileTypeConfigTab( QWidget *parent )
+  : Kate::ConfigPage( parent )
+{
+  reload();
+}
+
+void KateFileTypeConfigTab::apply()
+{
+}
+
+void KateFileTypeConfigTab::reload()
+{
+}
+
+void KateFileTypeConfigTab::reset()
+{
+}
+
+void KateFileTypeConfigTab::defaults()
+{
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

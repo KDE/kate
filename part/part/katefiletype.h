@@ -25,6 +25,8 @@
 #include <qdict.h>
 #include <qptrvector.h>
 
+#include "../interfaces/document.h"
+
 class KateDocument;
 
 class KConfig;
@@ -90,6 +92,22 @@ class KateFileTypeManager
     KConfig *m_config;
     QDict<KateFileType> m_types;
     QPtrVector<KateFileType> m_typesNum;
+};
+
+class KateFileTypeConfigTab : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+  public:
+    KateFileTypeConfigTab( QWidget *parent );
+
+  public slots:
+  void apply();
+  void reload();
+  void reset();
+  void defaults();
+
+  protected:
 };
 
 #endif

@@ -70,7 +70,7 @@
 			<RegExpr attribute="Mason Tag" context="EmbeddedPerl" String="&lt;\%method[^&gt;]*&gt;" />
 			<StringDetect attribute="Mason Tag" context="EmbeddedPerl" String="&lt;%method&gt;" insensitive="FALSE" />
 			<StringDetect attribute="Comment" context="Documentation" String="&lt;%doc&gt;" insensitive="FALSE" />
-			<StringDetect attribute="Comment" context="Documentation" String="&lt;%doc&gt;" insensitive="FALSE" />
+
 			<StringDetect attribute="Mason Tag" context="EmbeddedPerl" String="&lt;%perl&gt;" insensitive="FALSE" />
 			<Detect2Chars attribute="Mason Tag" context="EmbeddedPerl" char="&lt;" char1="%" />
 			<Detect2Chars attribute="Mason Method" context="MethodCall" char="&lt;" char1="&amp;" />
@@ -196,7 +196,7 @@
   <general>
     <comments>
       <comment name="singleLine" start="#" />
-	  <comment name="Documentation" start="&gt;%doc&lt;" end="&lt;%doc&gt;"/>
+	  <comment name="multiLine" start="&lt;%doc&gt;" end="&lt;%doc&gt;"/>
      </comments>
     <keywords casesensitive="1" />
   </general>

@@ -1,4 +1,4 @@
-SUBDIRS = interfaces part data
+SUBDIRS = interfaces part data plugins
 EXTRA_DIST = AUTHORS COPYING.LIB ChangeLog NEWS README TODO
 
 messages:

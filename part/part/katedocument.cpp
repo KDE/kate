@@ -1566,8 +1566,8 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
   int searchEnd;
   TextLine::Ptr textLine;
   uint foundAt, myMatchLen;
-  bool found;
-
+  bool found;                
+  
   Q_ASSERT( startLine < numLines() );
   
   if (text.isEmpty())

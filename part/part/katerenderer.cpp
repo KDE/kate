@@ -356,8 +356,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     // adjust to startcol ;)
     textAttributes = textAttributes + startcol;
 
-    uint len = textLine->length();
-    while (curCol < len)
+    while (curCol - startcol < len)
     {
       QChar curChar = textLine->string()[curCol];
       // Decide if this character is a tab - we treat the spacing differently
@@ -429,7 +428,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol))
 
           // it is the end of the line OR
-          || (curCol >= len - 1 )
+          || (curCol >= len - 1)
 
           // the x position is past the end OR
           || ((int)xPos > xEnd)

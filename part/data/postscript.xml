@@ -405,19 +405,19 @@
 	</list>
 
 	<contexts>
-		<context name="Normal" attribute="0" lineEndContext="0">
-			<keyword attribute="1" context="0" String="keywords"/>
+		<context name="Normal" attribute="0" lineEndContext="#stay">
+			<keyword attribute="1" context="#stay" String="keywords"/>
 			<Detect2Chars attribute="3" context="2" char="%" char1="!"/>
 			<DetectChar attribute="2" context="1" char="%"/>
-			<Float attribute="4" context="0"/>
-			<Int attribute="5" context="0"/>
+			<Float attribute="4" context="#stay"/>
+			<Int attribute="5" context="#stay"/>
 		        <DetectChar attribute="6" context="3" char="("/>
-			<RegExpr attribute="7" context="0" String="\/{1,2}[^\s\(\)\{\}\[\]%/]*"/>
+			<RegExpr attribute="7" context="#stay" String="\/{1,2}[^\s\(\)\{\}\[\]%/]*"/>
 		</context>
-		<context attribute="2" lineEndContext="0" name="Comment"/>
-		<context attribute="3" lineEndContext="0" name="Header"/>
-		<context attribute="6" lineEndContext="3" name="String">
-			<DetectChar attribute="6" context="0" char=")" />
+		<context attribute="2" lineEndContext="#pop" name="Comment"/>
+		<context attribute="3" lineEndContext="#pop" name="Header"/>
+		<context attribute="6" lineEndContext="#stay" name="String">
+			<DetectChar attribute="6" context="#pop" char=")" />
 		</context>
 	</contexts>
 	<itemDatas>

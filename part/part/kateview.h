@@ -348,7 +348,6 @@ class KateView : public Kate::View,
     void slotGotFocus();
     void slotLostFocus();
     void slotDropEventPass( QDropEvent* ev );
-    void slotSetEncoding( const QString& descriptiveName );
     void slotStatusMsg();
     void slotSaveCanceled( const QString& error );
     void slotExpandToplevel();
@@ -377,7 +376,6 @@ class KateView : public Kate::View,
 
     KSelectAction*         m_setEndOfLine;
 
-    KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;
     Kate::ActionMenu*      m_setFileType;
     KToggleAction*         m_toggleWriteLock;

@@ -289,16 +289,16 @@ void KateView::setupActions()
   a=new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
 
-  m_setHighlight = m_doc->hlActionMenu (i18n("&Highlight Mode"),ac,"set_highlight");
+  m_setHighlight = m_doc->hlActionMenu (i18n("&Highlighting"),ac,"set_highlight");
 
-  m_setFileType = new KateViewFileTypeAction (i18n("&Filetype Mode"),ac,"set_filetype");
+  m_setFileType = new KateViewFileTypeAction (i18n("&Filetype"),ac,"set_filetype");
   m_setFileType->updateMenu (m_doc);
 
   m_schemaMenu = new KateViewSchemaAction (i18n("&Schema"),ac,"view_schemas");
   m_schemaMenu->updateMenu (this);
 
   // indentation menu
-  new KateViewIndentationAction (m_doc, i18n("&Indentation Mode"),ac,"tools_indentation");
+  new KateViewIndentationAction (m_doc, i18n("&Indentation"),ac,"tools_indentation");
 
   m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 
@@ -397,13 +397,8 @@ void KateView::setupActions()
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
 
-  // encoding menu, start with auto checked !
-  m_setEncoding = new KSelectAction(i18n("Set &Encoding"), 0, ac, "set_encoding");
-  list = KGlobal::charsets()->descriptiveEncodingNames();
-  list.prepend( i18n( "Auto" ) );
-  m_setEncoding->setItems(list);
-  m_setEncoding->setCurrentItem (0);
-  connect(m_setEncoding, SIGNAL(activated(const QString&)), this, SLOT(slotSetEncoding(const QString&)));
+  // encoding menu
+  new KateViewEncodingAction (m_doc, this, i18n("E&ncoding"), ac, "set_encoding");
 
   m_search->createActions( ac );
   m_bookmarks->createActions( ac );
@@ -930,12 +925,6 @@ void KateView::setEol(int eol)
     return;
 
   m_doc->config()->setEol (eol);
-}
-
-void KateView::slotSetEncoding( const QString& descriptiveName )
-{
-  setEncoding( KGlobal::charsets()->encodingForName( descriptiveName ) );
-  reloadFile();
 }
 
 void KateView::setIconBorder( bool enable )

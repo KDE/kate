@@ -166,7 +166,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
     | KateDocumentConfig::cfShowTabs
     | KateDocumentConfig::cfSmartHome));
 
-  setEncoding (config->readEntry("Encoding", QString::fromLatin1(KGlobal::locale()->encoding())));
+  setEncoding (config->readEntry("Encoding", ""));
 
   setEol (config->readNumEntry("End of Line", 0));
 
@@ -413,28 +413,47 @@ const QString &KateDocumentConfig::encoding () const
 QTextCodec *KateDocumentConfig::codec ()
 {
   if (m_encodingSet || isGlobal())
-    return KGlobal::charsets()->codecForName (m_encoding);
+  {
+    if (m_encoding.isEmpty() && isGlobal())
+      return KGlobal::charsets()->codecForName (QString::fromLatin1(KGlobal::locale()->encoding()));
+    else if (m_encoding.isEmpty())
+      return s_global->codec ();
+    else
+      return KGlobal::charsets()->codecForName (m_encoding);
+  }
 
   return s_global->codec ();
 }
 
 void KateDocumentConfig::setEncoding (const QString &encoding)
 {
-  bool found = false;
-  QTextCodec *codec = KGlobal::charsets()->codecForName (encoding, found);
+  QString enc = encoding;
 
-  if (!found)
-    return;
+  if (!enc.isEmpty())
+  {
+    bool found = false;
+    QTextCodec *codec = KGlobal::charsets()->codecForName (encoding, found);
+
+    if (!found || !codec)
+      return;
+
+    enc = codec->name();
+  }
 
   configStart ();
 
   if (isGlobal())
-    KateDocument::setDefaultEncoding (codec->name());
+    KateDocument::setDefaultEncoding (enc);
 
   m_encodingSet = true;
-  m_encoding = codec->name();
+  m_encoding = enc;
 
   configEnd ();
+}
+
+bool KateDocumentConfig::isSetEncoding () const
+{
+  return m_encodingSet;
 }
 
 int KateDocumentConfig::eol () const

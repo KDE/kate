@@ -21,6 +21,7 @@
 #ifndef __KATE_VIEW_HELPERS_H__
 #define __KATE_VIEW_HELPERS_H__
 
+#include <kaction.h>
 #include <klineedit.h>
 
 #include <qwidget.h>
@@ -115,6 +116,26 @@ class KateIconBorder : public QWidget
 
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;
+};
+
+class KateViewEncodingAction : public KActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject* parent = 0, const char* name = 0);
+
+    ~KateViewEncodingAction(){;};
+
+  private:
+    KateDocument* doc;
+    KateView *view;
+
+  public  slots:
+    void slotAboutToShow();
+
+  private slots:
+    void setMode (int mode);
 };
 
 #endif

@@ -2529,7 +2529,8 @@ bool KateDocument::openFile(KIO::Job * job)
   {
     QString metaDataCharset = job->queryMetaData("charset");
 
-    if (!metaDataCharset.isEmpty ())
+    // only overwrite config if nothing set
+    if (!metaDataCharset.isEmpty () && (!m_config->isSetEncoding() || m_config->encoding().isEmpty()))
       setEncoding (metaDataCharset);
   }
 

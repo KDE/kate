@@ -194,6 +194,8 @@ class KateDocumentConfig : public KateConfig
 
     void setEncoding (const QString &encoding);
 
+    bool isSetEncoding () const;
+
     enum Eol
     {
       eolUnix = 0,

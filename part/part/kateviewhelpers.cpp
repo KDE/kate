@@ -32,13 +32,16 @@
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <knotifyclient.h>
+#include <kglobal.h>
+#include <kcharsets.h>
+#include <kpopupmenu.h>
 
 #include <qpainter.h>
-#include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qstyle.h>
 #include <qtimer.h>
 #include <qregexp.h>
+#include <qtextcodec.h>
 
 #include <math.h>
 
@@ -725,4 +728,38 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
   }
 }
 //END KateIconBorder
+
+KateViewEncodingAction::KateViewEncodingAction(KateDocument *_doc, KateView *_view, const QString& text, QObject* parent, const char* name)
+       : KActionMenu (text, parent, name), doc(_doc), view (_view)
+{
+  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KateViewEncodingAction::slotAboutToShow()
+{
+  QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
+
+  popupMenu()->clear ();
+  for (uint z=0; z<modes.size(); ++z)
+  {
+    popupMenu()->insertItem ( modes[z], this, SLOT(setMode(int)), 0,  z);
+
+    bool found = false;
+    QTextCodec *codecForEnc = KGlobal::charsets()->codecForName(KGlobal::charsets()->encodingForName(modes[z]), found);
+
+    if (found && codecForEnc)
+    {
+      if (codecForEnc->name() == doc->config()->codec()->name())
+        popupMenu()->setItemChecked (z, true);
+    }
+  }
+}
+
+void KateViewEncodingAction::setMode (int mode)
+{
+  QStringList modes (KGlobal::charsets()->descriptiveEncodingNames());
+  doc->setEncoding( KGlobal::charsets()->encodingForName( modes[mode] ) );
+  view->reloadFile();
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

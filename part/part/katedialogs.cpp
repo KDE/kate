@@ -952,7 +952,7 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
 
-  KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(m_encoding->currentText()));
+  KateDocumentConfig::global()->setEncoding((m_encoding->currentItem() == 0) ? "" : KGlobal::charsets()->encodingForName(m_encoding->currentText()));
 
   KateDocumentConfig::global()->setEol(m_eol->currentItem());
 
@@ -963,8 +963,10 @@ void KateSaveConfigTab::reload()
 {
   // encoding
   m_encoding->clear ();
+  m_encoding->insertItem (i18n("KDE Default"));
+  m_encoding->setCurrentItem(0);
   QStringList encodings (KGlobal::charsets()->descriptiveEncodingNames());
-  int insert = 0;
+  int insert = 1;
   for (uint i=0; i < encodings.count(); i++)
   {
     bool found = false;

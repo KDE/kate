@@ -1241,10 +1241,11 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
           if ( ctxs->isEmpty() )
             return;
 
-          if (contextNum((*ctxs)[ctxs->size()-1]) && (contextNum((*ctxs)[ctxs->size()-1])->ctx != -1))
+          KateHlContext *c = contextNum((*ctxs)[ctxs->size()-1]);
+          if (c && (c->ctx != -1))
           {
             //kdDebug(13010)<<"PrevLine > size()-1 and ctx!=-1)"<<endl;
-            ctx = contextNum((*ctxs)[ctxs->size()-1])->ctx;
+            ctx = c->ctx;
 
             continue;
           }
@@ -1389,8 +1390,6 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     bool anItemMatched = false;
     bool standardStartEnableDetermined = false;
     bool customStartEnableDetermined = false;
-    bool standardStartEnable = false;
-    bool customStartEnable = false;
 
     uint index = 0;
     for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
@@ -1403,7 +1402,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       if ((item->column != -1) && (item->column != offset))
         continue;
 
-     if (!item->alwaysStartEnable)
+      if (!item->alwaysStartEnable)
       {
         if (item->customStartEnable)
         {

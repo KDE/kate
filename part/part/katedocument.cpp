@@ -3401,7 +3401,19 @@ void KateDocument::paste ( KateView* view )
   if (config()->configFlags() & KateDocument::cfDelOnInput && hasSelection() )
     removeSelectedText();
 
-  insertText ( view->cursorLine(), view->cursorColumnReal(), s, blockSelect );
+  uint line = view->cursorLine ();
+  uint column = view->cursorColumnReal ();
+
+  insertText ( line, column, s, blockSelect );
+
+  // move cursor right for block select, as the user is moved right internal
+  // even in that case, but user expects other behaviour in block selection
+  // mode !
+  if (blockSelect)
+  {
+    uint lines = s.contains (QChar ('\n'));
+    view->setCursorPositionReal (line+lines, column);
+  }
 
   editEnd();
 

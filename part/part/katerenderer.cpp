@@ -47,7 +47,7 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
   m_config = new KateRendererConfig (this);
 
   m_tabWidth = m_doc->config()->tabWidth();
-  
+
   updateAttributes ();
 }
 
@@ -429,6 +429,13 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
             else if (currentHL.itemSet(KateAttribute::BGColor))
               paint.fillRect(oldXPos - xStart, 0, xPosAfter - oldXPos, fs->fontHeight, currentHL.bgColor());
           }
+
+          // Draw spaces too, because it might be eg. underlined
+          static QString spaces;
+          if (int(spaces.length()) != m_tabWidth)
+            spaces.fill(' ', m_tabWidth);
+
+          paint.drawText(oldXPos-xStart, y, spaces);
 
           if (showTabs())
           {

@@ -24,6 +24,7 @@
 #include <qvaluelist.h>
 #include <qobject.h>
 #include <qintdict.h>
+#include <qmemarray.h>
 
 class KateCodeFoldingTree;
 class KateTextCursor;
@@ -68,25 +69,25 @@ class KateCodeFoldingNode
   bool getBegin (KateCodeFoldingTree *tree, KateTextCursor* begin);
   bool getEnd (KateCodeFoldingTree *tree, KateTextCursor *end);
 
-  protected:
-    inline QPtrList<KateCodeFoldingNode> *childnodes ()
-    {
-      if (!m_childnodes)
-      {
-        m_childnodes = new QPtrList<KateCodeFoldingNode>;
-        m_childnodes->setAutoDelete (true);
-      }
+  /**
+   * accessors for the child nodes
+   */
+protected:
+  inline bool noChildren () const { return m_children.isEmpty(); }
 
-      return m_childnodes;
-    }
+  inline uint childCount () const { return m_children.size(); }
 
-    inline bool hasChildNodes ()
-    {
-      if (!m_childnodes)
-        return false;
+  inline KateCodeFoldingNode *child (uint index) const { return m_children[index]; }
 
-      return !m_childnodes->isEmpty ();
-    }
+  inline int findChild (KateCodeFoldingNode *node, uint start = 0) const { return m_children.find (node, start); }
+
+  inline void appendChild (KateCodeFoldingNode *node) { m_children.resize(m_children.size()+1); m_children[m_children.size()-1] = node; }
+
+  void insertChild (uint index, KateCodeFoldingNode *node);
+
+  KateCodeFoldingNode *takeChild (uint index);
+
+  void clearChildren ();
 
     int cmpPos(KateCodeFoldingTree *tree, uint line, uint col);
 
@@ -106,7 +107,7 @@ class KateCodeFoldingNode
     bool deleteOpening;
     bool deleteEnding;
 
-    QPtrList<KateCodeFoldingNode>    *m_childnodes;
+  QMemArray<KateCodeFoldingNode*> m_children;
 };
 
 class KateCodeFoldingTree : public QObject

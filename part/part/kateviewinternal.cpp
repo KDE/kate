@@ -2284,9 +2284,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
   return m_doc->lineColSelected( thisRange.line, col );
 }
 
-//
-// BEGIN EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//
+//BEGIN EVENT HANDLING STUFF
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
@@ -3099,9 +3097,7 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
   m_imPreeditSelStart = 0;
 }
 
-//
-// END EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//
+//END EVENT HANDLING STUFF
 
 void KateViewInternal::clear()
 {
@@ -3191,7 +3187,7 @@ void KateViewInternal::disableTextHints()
   m_textHintTimer.stop ();
 }
 
-// BEGIN EDIT STUFF
+//BEGIN EDIT STUFF
 void KateViewInternal::editStart()
 {
   editSessionNumber++;
@@ -3244,7 +3240,7 @@ void KateViewInternal::editSetCursor (const KateTextCursor &cursor)
     this->cursor.setPos (cursor);
   }
 }
-// END
+//END
 
 void KateViewInternal::docSelectionChanged ()
 {
@@ -3252,7 +3248,7 @@ void KateViewInternal::docSelectionChanged ()
     selectAnchor.setPos (-1, -1);
 }
 
-// BEGIN KateScrollBar
+//BEGIN KateScrollBar
 KateScrollBar::KateScrollBar (Orientation orientation, KateViewInternal* parent, const char* name)
   : QScrollBar (orientation, parent->m_view, name)
   , m_middleMouseDown (false)
@@ -3408,6 +3404,6 @@ void KateScrollBar::sliderMaybeMoved(int value)
   if (m_middleMouseDown)
     emit sliderMMBMoved(value);
 }
-// END
+//END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

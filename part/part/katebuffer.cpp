@@ -1178,7 +1178,7 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
    }
 }
 
-// BEGIN KateBufBlock
+//BEGIN KateBufBlock
 
 KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next,
                              KateFileLoader *stream )
@@ -1473,9 +1473,9 @@ void KateBufBlock::swapOut ()
   KateBufBlockList::remove (this);
 }
 
-// END KateBufBlock
+//END KateBufBlock
 
-// BEGIN KateBufBlockList
+//BEGIN KateBufBlockList
 
 KateBufBlockList::KateBufBlockList ()
  : m_count (0),
@@ -1553,6 +1553,6 @@ void KateBufBlockList::removeInternal (KateBufBlock *buf)
   buf->list = 0;
 }
 
-// END KateBufBlockList
+//END KateBufBlockList
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -27,7 +27,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 
-// BEGIN KateAutoIndent
+//BEGIN KateAutoIndent
 
 KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
 {
@@ -309,7 +309,7 @@ void KateAutoIndent::processNewline (KateDocCursor &begin, bool /*needContinue*/
 
 //END
 
-// BEGIN KateCSmartIndent
+//BEGIN KateCSmartIndent
 
 KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
  :  KateAutoIndent (doc),
@@ -942,9 +942,9 @@ uint KateCSmartIndent::findOpeningComment(KateDocCursor &start)
   return 0;
 }
 
-// END
+//END
 
-// BEGIN KatePythonIndent
+//BEGIN KatePythonIndent
 
 QRegExp KatePythonIndent::endWithColon = QRegExp( "^[^#]*:\\s*(#.*)?$" );
 QRegExp KatePythonIndent::stopStmt = QRegExp( "^\\s*(break|continue|raise|return|pass)\\b.*" );
@@ -1042,9 +1042,9 @@ int KatePythonIndent::calcExtra (int &prevBlock, int &pos, KateDocCursor &end)
   return extraIndent;
 }
 
-// END
+//END
 
-// BEGIN KateXmlIndent
+//BEGIN KateXmlIndent
 
 /* Explanation
 
@@ -1243,9 +1243,9 @@ uint KateXmlIndent::processLine (uint line)
   return filler.length();
 }
 
-// END
+//END
 
-// BEGIN KateCSAndSIndent
+//BEGIN KateCSAndSIndent
 
 KateCSAndSIndent::KateCSAndSIndent (KateDocument *doc)
  :  KateAutoIndent (doc)
@@ -1846,7 +1846,7 @@ void KateCSAndSIndent::processChar(QChar c)
   processLine(begin);
 }
 
-// END
+//END
 
 //BEGIN KateVarIndent
 class KateVarIndentPrivate {

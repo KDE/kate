@@ -951,7 +951,7 @@ void KateSchemaConfigPage::newCurrentPage (QWidget *w)
 }
 //END KateSchemaConfigPage
 
-// BEGIN SCHEMA ACTION
+//BEGIN SCHEMA ACTION
 void KateViewSchemaAction::init()
 {
   m_view = 0;
@@ -996,7 +996,7 @@ void KateViewSchemaAction::setSchema (int mode)
   if (view)
     view->renderer()->config()->setSchema (mode-1);
 }
-// END SCHEMA ACTION
+//END SCHEMA ACTION
 
 //BEGIN KateStyleListView
 KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )

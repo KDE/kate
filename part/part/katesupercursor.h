@@ -141,7 +141,7 @@ public:
     */
     void charDeletedAfter();
 
-  // BEGIN METHODES TO CALL FROM KATE DOCUMENT TO KEEP CURSOR UP TO DATE
+  //BEGIN METHODES TO CALL FROM KATE DOCUMENT TO KEEP CURSOR UP TO DATE
   public:
     void editTextInserted ( uint line, uint col, uint len);
     void editTextRemoved ( uint line, uint col, uint len);
@@ -151,7 +151,7 @@ public:
 
     void editLineInserted ( uint line );
     void editLineRemoved ( uint line );
-  // END
+  //END
 
   private:
     KateDocument *m_doc;

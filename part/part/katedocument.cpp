@@ -86,7 +86,7 @@ class KatePartPluginItem
 };
 //END PRIVATE CLASSES
 
-// BEGIN d'tor, c'tor
+//BEGIN d'tor, c'tor
 //
 // KateDocument Constructor
 //

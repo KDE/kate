@@ -50,7 +50,7 @@
 #include <qtextstream.h>
 //END
 
-// BEGIN defines
+//BEGIN defines
 // same as in kmimemagic, no need to feed more data
 #define KATE_HL_HOWMANY 1024
 
@@ -59,7 +59,7 @@ static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
 
 // x is a QString. if x is "true" or "1" this expression returns "true"
 #define IS_TRUE(x) x.lower() == QString("true") || x.toInt() == 1
-// END defines
+//END defines
 
 //BEGIN  Prviate HL classes
 
@@ -1912,7 +1912,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   // get the (tagname) itemd type
   QString dataname=KateHlManager::self()->syntax->groupItemData(data,QString(""));
 
-  // BEGIN - Translation of the attribute parameter
+  //BEGIN - Translation of the attribute parameter
   QString tmpAttr=KateHlManager::self()->syntax->groupItemData(data,QString("attribute")).simplifyWhiteSpace();
   int attr;
   if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
@@ -1923,7 +1923,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   }
   else
     attr=lookupAttrName(tmpAttr,iDl);
-  // END - Translation of the attribute parameter
+  //END - Translation of the attribute parameter
 
   // Info about context switch
   int context;
@@ -2636,14 +2636,14 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     while (KateHlManager::self()->syntax->nextGroup(data))
     {
       kdDebug(13010)<<"Found a context in file, building structure now"<<endl;
-      // BEGIN - Translation of the attribute parameter
+      //BEGIN - Translation of the attribute parameter
       QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("attribute")).simplifyWhiteSpace();
       int attr;
       if (QString("%1").arg(tmpAttr.toInt())==tmpAttr)
         attr=tmpAttr.toInt();
       else
         attr=lookupAttrName(tmpAttr,iDl);
-      // END - Translation of the attribute parameter
+      //END - Translation of the attribute parameter
 
       ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplifyWhiteSpace();
 
@@ -2652,7 +2652,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
       context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
 
-      // BEGIN get fallthrough props
+      //BEGIN get fallthrough props
       bool ft = false;
       int ftc = 0; // fallthrough context
       if ( i > 0 )  // fallthrough is not smart in context 0
@@ -2670,7 +2670,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           kdDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc<<endl;
         }
       }
-      // END falltrhough props
+      //END falltrhough props
 
       bool dynamic = false;
       QString tmpDynamic = KateHlManager::self()->syntax->groupData(data, QString("dynamic") );

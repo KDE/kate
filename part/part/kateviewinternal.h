@@ -117,7 +117,7 @@ class KateViewInternal : public QWidget
     KateViewInternal ( KateView *view, KateDocument *doc );
     ~KateViewInternal ();
 
-  // BEGIN EDIT STUFF
+  //BEGIN EDIT STUFF
   public:
     void editStart ();
     void editEnd (int editTagLineStart, int editTagLineEnd, bool tagFrom);
@@ -128,9 +128,9 @@ class KateViewInternal : public QWidget
     uint editSessionNumber;
     bool editIsRunning;
     KateTextCursor editOldCursor;
-  // END
+  //END
 
-  // BEGIN TAG & CLEAR & UPDATE STUFF
+  //BEGIN TAG & CLEAR & UPDATE STUFF
   public:
     bool tagLine (const KateTextCursor& virtualCursor);
 
@@ -140,7 +140,7 @@ class KateViewInternal : public QWidget
     void tagAll ();
 
     void clear ();
-  // END
+  //END
 
   private:
     void updateView (bool changed = false, int viewLinesScrolled = 0);

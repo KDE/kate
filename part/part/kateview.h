@@ -145,15 +145,15 @@ class KateView : public Kate::View,
     void setDynWordWrap( bool b );
     bool dynWordWrap() const      { return m_hasWrap; }
 
-  // BEGIN EDIT STUFF
+  //BEGIN EDIT STUFF
   public:
     void editStart ();
     void editEnd (int editTagLineStart, int editTagLineEnd, bool tagFrom);
 
     void editSetCursor (const KateTextCursor &cursor);
-  // END
+  //END
 
-  // BEGIN TAG & CLEAR
+  //BEGIN TAG & CLEAR
   public:
     bool tagLine (const KateTextCursor& virtualCursor);
 
@@ -167,7 +167,7 @@ class KateView : public Kate::View,
     void repaintText (bool paintOnlyDirty = false);
 
     void updateView (bool changed = false);
-  // END
+  //END
 
   //
   // Kate::View
@@ -411,7 +411,7 @@ class KateView : public Kate::View,
   private slots:
     void slotNeedTextHint(int line, int col, QString &text);
     void slotHlChanged();
-  
+
   /**
    * Configuration
    */

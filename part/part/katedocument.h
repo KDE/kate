@@ -190,7 +190,7 @@ class KateDocument : public Kate::Document,
     void backspacePressed();
 
   public:
-// BEGIN editStart/editEnd (start, end, undo, cursor update, view update)
+//BEGIN editStart/editEnd (start, end, undo, cursor update, view update)
     /**
      * Enclose editor actions with @p editStart() and @p editEnd() to group
      * them.
@@ -205,9 +205,9 @@ class KateDocument : public Kate::Document,
      */
     void editEnd ();
 
-// END editStart/editEnd
+//END editStart/editEnd
 
-// BEGIN LINE BASED INSERT/REMOVE STUFF (editStart() and editEnd() included)
+//BEGIN LINE BASED INSERT/REMOVE STUFF (editStart() and editEnd() included)
     /**
      * Add a string in the given line/column
      * @param line line number
@@ -276,7 +276,7 @@ class KateDocument : public Kate::Document,
      * @return true on success
      */
     bool wrapText (uint startLine, uint endLine);
-// END LINE BASED INSERT/REMOVE STUFF
+//END LINE BASED INSERT/REMOVE STUFF
 
   signals:
     /**

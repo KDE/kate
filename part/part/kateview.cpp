@@ -1222,7 +1222,7 @@ void KateView::updateFoldingConfig ()
       a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
 }
 
-// BEGIN EDIT STUFF
+//BEGIN EDIT STUFF
 void KateView::editStart ()
 {
   m_viewInternal->editStart ();
@@ -1237,9 +1237,9 @@ void KateView::editSetCursor (const KateTextCursor &cursor)
 {
   m_viewInternal->editSetCursor (cursor);
 }
-// END
+//END
 
-// BEGIN TAG & CLEAR
+//BEGIN TAG & CLEAR
 bool KateView::tagLine (const KateTextCursor& virtualCursor)
 {
   return m_viewInternal->tagLine (virtualCursor);
@@ -1276,7 +1276,7 @@ void KateView::updateView (bool changed)
   m_viewInternal->leftBorder->update();
 }
 
-// END
+//END
 
 void KateView::slotHlChanged()
 {

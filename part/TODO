@@ -7,3 +7,10 @@ For 3.2 and later:
   - export only selected text
   - repaint after pending events finished
   - fix replace so that when it wraps it only continues to the point that it originally started from
+
+BiDi implementation overview:
+- QTextLayout performs all of the geometry calculations and saves the information in QTextItems
+- A layout item is assigned to each lineRange (memory management may need work here)
+- The layout object is told of all points where style changes and splits qtextitems as required
+- The paint text line function iterates over qtextitems, sets the right style, draws the text, and any additional decorations we wish for
+- Cursor movement and translation needs to be ported over to QText* methods

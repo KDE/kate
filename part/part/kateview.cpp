@@ -298,7 +298,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("This decreases the display font size."));
 
   a= m_toggleBlockSelection = new KToggleAction(
-    i18n("Vertical Selection M&ode"), CTRL + SHIFT + Key_B,
+    i18n("Bl&ock Selection Mode"), CTRL + SHIFT + Key_B,
     this, SLOT(toggleBlockSelectionMode()),
     ac, "set_verticalSelect");
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));

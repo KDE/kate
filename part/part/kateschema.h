@@ -32,6 +32,7 @@
 #include <kaction.h>
 
 class KateView;
+class KateStyleListItem;
 
 class KColorButton;
 
@@ -117,78 +118,22 @@ class KateViewSchemaAction : public KActionMenu
 //
 
 /*
-    QListViewItem subclass to display/edit a style, bold/italic is check boxes,
-    normal and selected colors are boxes, which will display a color chooser when
-    activated.
-    The context name for the style will be drawn using the editor default font and
-    the chosen colors.
-    This widget id designed to handle the default as well as the individual hl style
-    lists.
-    This widget is designed to work with the StyleListView class exclusively.
-    Added by anders, jan 23 2002.
-*/
-class StyleListItem : public QListViewItem
-{
-  public:
-    StyleListItem( QListView *parent=0, const QString & stylename=0,
-                   class KateAttribute* defaultstyle=0, class ItemData *data=0 );
-    ~StyleListItem() { if (st) delete is; };
-
-    /* mainly for readability */
-    enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
-
-    /* updates the hldata's style */
-    void updateStyle();
-    /* reimp */
-    virtual int width ( const QFontMetrics & fm, const QListView * lv, int c ) const;
-    /* calls changeProperty() if it makes sense considering pos. */
-    void activate( int column, const QPoint &localPos );
-    /* For bool fields, toggles them, for color fields, display a color chooser */
-    void changeProperty( Property p );
-    /* style context name */
-    QString contextName() { return text(0); };
-    /* only true for a hl mode item using it's default style */
-    bool defStyle();
-    /* true for default styles */
-    bool isDefault();
-    /* whichever style is active (st for hl mode styles not using
-       the default style, ds otherwise) */
-    class KateAttribute* style() { return is; };
-  
-  protected:
-    /* reimp */
-    void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
-  
-  private:
-    /* private methods to change properties */
-    void toggleDefStyle();
-    void setColor( int );
-    /* helper function to copy the default style into the ItemData,
-       when a property is changed and we are using default style. */
-    void setCustStyle();
-
-    class KateAttribute *is, // the style currently in use
-              *ds;           // default style for hl mode contexts and default styles
-    class ItemData *st;      // itemdata for hl mode contexts
-};
-
-/*
-    QListView that automatically adds columns for StyleListItems and provides a
+    QListView that automatically adds columns for KateStyleListItems and provides a
     popup menu and a slot to edit a style using the keyboard.
     Added by anders, jan 23 2002.
 */
-class StyleListView : public QListView
+class KateStyleListView : public QListView
 {
   Q_OBJECT
   
-  friend class StyleListItem;
+  friend class KateStyleListItem;
   
   public:
-    StyleListView( QWidget *parent=0, bool showUseDefaults=false);
-    ~StyleListView() {};
+    KateStyleListView( QWidget *parent=0, bool showUseDefaults=false);
+    ~KateStyleListView() {};
     /* Display a popupmenu for item i at the specified global position, eventually with a title,
        promoting the context name of that item */
-    void showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle=false );
+    void showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle=false );
     void emitChanged() { emit changed(); };
     
   private slots:
@@ -265,7 +210,7 @@ class KateSchemaConfigFontColorTab : public QWidget
     KateAttributeList *attributeList (uint schema);
 
   private:
-    StyleListView *m_defaultStyles;
+    KateStyleListView *m_defaultStyles;
     QIntDict<KateAttributeList> m_defaultStyleLists;
 };
 
@@ -289,7 +234,7 @@ class KateSchemaConfigHighlightTab : public QWidget
     KateSchemaConfigFontColorTab *m_defaults;
   
     QComboBox *hlCombo;
-    StyleListView *m_styles;
+    KateStyleListView *m_styles;
     
     uint m_schema;
     int m_hl;

@@ -63,6 +63,62 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 
+/*
+    QListViewItem subclass to display/edit a style, bold/italic is check boxes,
+    normal and selected colors are boxes, which will display a color chooser when
+    activated.
+    The context name for the style will be drawn using the editor default font and
+    the chosen colors.
+    This widget id designed to handle the default as well as the individual hl style
+    lists.
+    This widget is designed to work with the KateStyleListView class exclusively.
+    Added by anders, jan 23 2002.
+*/
+class KateStyleListItem : public QListViewItem
+{
+  public:
+    KateStyleListItem( QListView *parent=0, const QString & stylename=0,
+                   class KateAttribute* defaultstyle=0, class ItemData *data=0 );
+    ~KateStyleListItem() { if (st) delete is; };
+
+    /* mainly for readability */
+    enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
+
+    /* updates the hldata's style */
+    void updateStyle();
+    /* reimp */
+    virtual int width ( const QFontMetrics & fm, const QListView * lv, int c ) const;
+    /* calls changeProperty() if it makes sense considering pos. */
+    void activate( int column, const QPoint &localPos );
+    /* For bool fields, toggles them, for color fields, display a color chooser */
+    void changeProperty( Property p );
+    /* style context name */
+    QString contextName() { return text(0); };
+    /* only true for a hl mode item using it's default style */
+    bool defStyle();
+    /* true for default styles */
+    bool isDefault();
+    /* whichever style is active (st for hl mode styles not using
+       the default style, ds otherwise) */
+    class KateAttribute* style() { return is; };
+  
+  protected:
+    /* reimp */
+    void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
+  
+  private:
+    /* private methods to change properties */
+    void toggleDefStyle();
+    void setColor( int );
+    /* helper function to copy the default style into the ItemData,
+       when a property is changed and we are using default style. */
+    void setCustStyle();
+
+    class KateAttribute *is, // the style currently in use
+              *ds;           // default style for hl mode contexts and default styles
+    class ItemData *st;      // itemdata for hl mode contexts
+};
+
 QString KateSchemaManager::normalSchema ()
 {
   return KApplication::kApplication()->aboutData()->appName () + QString (" - Normal");
@@ -341,7 +397,7 @@ KateSchemaConfigFontColorTab::KateSchemaConfigFontColorTab( QWidget *parent, con
   // sizemanagment
   QGridLayout *grid = new QGridLayout( this, 1, 1 );
 
-  m_defaultStyles = new StyleListView( this, false );
+  m_defaultStyles = new KateStyleListView( this, false );
   grid->addWidget( m_defaultStyles, 0, 0);
 
   connect (m_defaultStyles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
@@ -372,7 +428,7 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 
   for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
   {
-    m_defaultStyles->insertItem( new StyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
+    m_defaultStyles->insertItem( new KateStyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
                               l->at( i ) ) );
   }
 }
@@ -424,7 +480,7 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   hlCombo->setCurrentItem(0);
 
   // styles listview
-  m_styles = new StyleListView( this, true );
+  m_styles = new KateStyleListView( this, true );
   layout->addWidget (m_styles, 999);
 
   hlCombo->setCurrentItem ( 0 );
@@ -479,7 +535,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
   {
     kdDebug () << "insert items " << itemData->name << endl;
 
-    m_styles->insertItem( new StyleListItem( m_styles, itemData->name,
+    m_styles->insertItem( new KateStyleListItem( m_styles, itemData->name,
                           l->at(itemData->defStyleNum), itemData ) );
 
   }
@@ -726,11 +782,8 @@ void KateViewSchemaAction::setSchema (int mode)
 }
 // END SCHEMA ACTION
 
-//BEGIN StyleListView
-/*********************************************************************/
-/*                  StyleListView Implementation                     */
-/*********************************************************************/
-StyleListView::StyleListView( QWidget *parent, bool showUseDefaults )
+//BEGIN KateStyleListView
+KateStyleListView::KateStyleListView( QWidget *parent, bool showUseDefaults )
     : QListView( parent )
 {
   addColumn( i18n("Context") );
@@ -757,7 +810,7 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults )
   viewport()->setPaletteBackgroundColor( bgcol );
 }
 
-void StyleListView::showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle )
+void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle )
 {
   KPopupMenu m( this );
   KateAttribute *is = i->style();
@@ -769,55 +822,52 @@ void StyleListView::showPopupMenu( StyleListItem *i, const QPoint &globalPos, bo
   QPixmap scl(16,16);
   scl.fill( i->style()->selectedTextColor() );
   if ( showtitle )
-    m.insertTitle( i->contextName(), StyleListItem::ContextName );
-  id = m.insertItem( i18n("&Bold"), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::Bold );
+    m.insertTitle( i->contextName(), KateStyleListItem::ContextName );
+  id = m.insertItem( i18n("&Bold"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Bold );
   m.setItemChecked( id, is->bold() );
-  id = m.insertItem( i18n("&Italic"), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::Italic );
+  id = m.insertItem( i18n("&Italic"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Italic );
   m.setItemChecked( id, is->italic() );
-  m.insertItem( QIconSet(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::Color );
-  m.insertItem( QIconSet(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::SelColor );
+  m.insertItem( QIconSet(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Color );
+  m.insertItem( QIconSet(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelColor );
   if ( ! i->isDefault() ) {
-    id = m.insertItem( i18n("Use &Default Style"), this, SLOT(mSlotPopupHandler(int)), 0, StyleListItem::UseDefStyle );
+    id = m.insertItem( i18n("Use &Default Style"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::UseDefStyle );
     m.setItemChecked( id, i->defStyle() );
   }
   m.exec( globalPos );
 }
 
-void StyleListView::showPopupMenu( QListViewItem *i )
+void KateStyleListView::showPopupMenu( QListViewItem *i )
 {
-  showPopupMenu( (StyleListItem*)i, viewport()->mapToGlobal(itemRect(i).topLeft()), true );
+  showPopupMenu( (KateStyleListItem*)i, viewport()->mapToGlobal(itemRect(i).topLeft()), true );
 }
 
-void StyleListView::mSlotPopupHandler( int z )
+void KateStyleListView::mSlotPopupHandler( int z )
 {
-  ((StyleListItem*)currentItem())->changeProperty( (StyleListItem::Property)z );
+  ((KateStyleListItem*)currentItem())->changeProperty( (KateStyleListItem::Property)z );
 }
 
 // Because QListViewItem::activatePos() is going to become deprecated,
 // and also because this attempt offers more control, I connect mousePressed to this.
-void StyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& pos, int c)
+void KateStyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& pos, int c)
 {
   if ( i ) {
     if ( btn == Qt::RightButton ) {
-      showPopupMenu( (StyleListItem*)i, /*mapToGlobal(*/pos/*)*/ );
+      showPopupMenu( (KateStyleListItem*)i, /*mapToGlobal(*/pos/*)*/ );
     }
     else if ( btn == Qt::LeftButton && c > 0 ) {
-      // map pos to item/column and call StyleListItem::activate(col, pos)
-      ((StyleListItem*)i)->activate( c, viewport()->mapFromGlobal( pos ) - QPoint( 0, itemRect(i).top() ) );
+      // map pos to item/column and call KateStyleListItem::activate(col, pos)
+      ((KateStyleListItem*)i)->activate( c, viewport()->mapFromGlobal( pos ) - QPoint( 0, itemRect(i).top() ) );
     }
   }
 }
 
 //END
 
-//BEGIN StyleListItem
-/*********************************************************************/
-/*                  StyleListItem Implementation                     */
-/*********************************************************************/
+//BEGIN KateStyleListItem
 static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
-StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
+KateStyleListItem::KateStyleListItem( QListView *parent, const QString & stylename,
                               KateAttribute *style, ItemData *data )
         : QListViewItem( parent, stylename ),
           ds( style ),
@@ -834,7 +884,7 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
   }
 }
 
-void StyleListItem::updateStyle()
+void KateStyleListItem::updateStyle()
 {
   // nothing there, not update it, will crash
   if (!st)
@@ -899,19 +949,19 @@ void StyleListItem::updateStyle()
 }
 
 /* only true for a hl mode item using it's default style */
-bool StyleListItem::defStyle() { return st && st->isSomethingSet(); }
+bool KateStyleListItem::defStyle() { return st && st->isSomethingSet(); }
 
 /* true for default styles */
-bool StyleListItem::isDefault() { return st ? false : true; }
+bool KateStyleListItem::isDefault() { return st ? false : true; }
 
-int StyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int col ) const
+int KateStyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int col ) const
 {
   int m = lv->itemMargin() * 2;
   switch ( col ) {
     case ContextName:
       // FIXME: width for name column should reflect bold/italic
       // (relevant for non-fixed fonts only - nessecary?)
-      return QFontMetrics( ((StyleListView*)lv)->docfont).width( text(0) ) + m;
+      return QFontMetrics( ((KateStyleListView*)lv)->docfont).width( text(0) ) + m;
     case Bold:
     case Italic:
     case UseDefStyle:
@@ -926,7 +976,7 @@ int StyleListItem::width( const QFontMetrics & /*fm*/, const QListView * lv, int
   }
 }
 
-void StyleListItem::activate( int column, const QPoint &localPos )
+void KateStyleListItem::activate( int column, const QPoint &localPos )
 {
   QListView *lv = listView();
   int x = 0;
@@ -954,7 +1004,7 @@ void StyleListItem::activate( int column, const QPoint &localPos )
   changeProperty( (Property)column );
 }
 
-void StyleListItem::changeProperty( Property p )
+void KateStyleListItem::changeProperty( Property p )
 {
   if ( p == Bold )
     is->setBold( ! is->bold() );
@@ -971,10 +1021,10 @@ void StyleListItem::changeProperty( Property p )
 
   updateStyle ();
 
-  ((StyleListView*)listView())->emitChanged();
+  ((KateStyleListView*)listView())->emitChanged();
 }
 
-void StyleListItem::toggleDefStyle()
+void KateStyleListItem::toggleDefStyle()
 {
   if ( *is == *ds ) {
     KMessageBox::information( listView(),
@@ -989,7 +1039,7 @@ void StyleListItem::toggleDefStyle()
   }
 }
 
-void StyleListItem::setColor( int column )
+void KateStyleListItem::setColor( int column )
 {
   QColor c;
   if ( column == Color) c = is->textColor();
@@ -1009,14 +1059,14 @@ void StyleListItem::setColor( int column )
   repaint();
 }
 
-void StyleListItem::setCustStyle()
+void KateStyleListItem::setCustStyle()
 {
 //   is = st;
 //   *is += *ds;
 //  st->defStyle = 0;
 }
 
-void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int width, int align )
+void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int width, int align )
 {
 
   if ( !p )
@@ -1027,7 +1077,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     return;
   Q_ASSERT( lv ); //###
 
-  p->fillRect( 0, 0, width, height(), QBrush( ((StyleListView*)lv)->bgcol ) );
+  p->fillRect( 0, 0, width, height(), QBrush( ((KateStyleListView*)lv)->bgcol ) );
   int marg = lv->itemMargin();
 
   // use a provate color group and set the text/highlighted text colors
@@ -1040,7 +1090,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     {
       mcg.setColor(QColorGroup::Text, is->textColor());
       mcg.setColor(QColorGroup::HighlightedText, is->selectedTextColor());
-      QFont f ( ((StyleListView*)lv)->docfont );
+      QFont f ( ((KateStyleListView*)lv)->docfont );
       p->setFont( is->font(f) );
       // FIXME - repainting when text is cropped, and the column is enlarged is buggy.
       // Maybe I need painting the string myself :(
@@ -1056,7 +1106,7 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
       // Bold/Italic/use default checkboxes
       // code allmost identical to QCheckListItem
       // I use the text color of defaultStyles[0], normalcol in parent listview
-      mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
+      mcg.setColor( QColorGroup::Text, ((KateStyleListView*)lv)->normalcol );
       int x = 0;
       if ( align == AlignCenter ) {
         QFontMetrics fm( lv->font() );
@@ -1111,10 +1161,10 @@ void StyleListItem::paintCell( QPainter *p, const QColorGroup& cg, int col, int 
     {
       if ( col == Color) c = is->textColor();
       else if ( col == SelColor ) c = is->selectedTextColor();
-      else if ( col == BgColor ) c = is->itemSet(KateAttribute::BGColor) ? is->bgColor() : ((StyleListView*)lv)->bgcol;
-      else if ( col == SelBgColor ) c = is->itemSet(KateAttribute::SelectedBGColor) ? is->selectedBGColor(): ((StyleListView*)lv)->bgcol;
+      else if ( col == BgColor ) c = is->itemSet(KateAttribute::BGColor) ? is->bgColor() : ((KateStyleListView*)lv)->bgcol;
+      else if ( col == SelBgColor ) c = is->itemSet(KateAttribute::SelectedBGColor) ? is->selectedBGColor(): ((KateStyleListView*)lv)->bgcol;
       // color "buttons"
-      mcg.setColor( QColorGroup::Text, ((StyleListView*)lv)->normalcol );
+      mcg.setColor( QColorGroup::Text, ((KateStyleListView*)lv)->normalcol );
       int x = 0;
       int y = (height() - BoxSize) / 2;
       if ( isEnabled() )

@@ -2568,7 +2568,7 @@ bool KateDocument::saveFile()
     {
       int hl (HlManager::self()->detectHighlighting (this));
       
-      if (hl >= 0 && hl != hlMode())
+      if ((hl >= 0) && (uint(hl) != hlMode()))
         internalSetHlMode(hl);
     }
     

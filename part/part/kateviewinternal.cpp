@@ -1145,6 +1145,9 @@ void KateViewInternal::moveChar( Bias bias, bool sel )
 
 void KateViewInternal::cursorLeft(  bool sel )
 {
+  if ( ! m_doc->wrapCursor() && cursor.col() == 0 )
+    return;
+
   moveChar( left,  sel );
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     m_view->m_codeCompletion->updateBox();

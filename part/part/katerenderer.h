@@ -35,66 +35,92 @@ class KateLineRange;
 class KateRendererConfig;
 
 /**
- * Handles all of the work in directly rendering Kate's view.
+ * Handles all of the work of rendering the text
+ * (used for the views and printing)
  *
  **/
 class KateRenderer
 {
 public:
+    /**
+     * Style of Caret (Insert or Replace mode)
+     */
     enum caretStyles {
       Insert,
       Replace
     };
 
+    /**
+     * Constructor
+     * @param doc document to render
+     * @param view view which is output (0 for example for rendering to print)
+     */
     KateRenderer(KateDocument* doc, KateView *view = 0);
+    
+    /**
+     * Destructor
+     */
     ~KateRenderer();
     
+    /**
+     * update the highlighting attributes
+     * (for example after an hl change or after hl config changed)
+     */
     void updateAttributes ();
 
     /**
      * Determine whether the caret (text cursor) will be drawn.
+     * @param should it be drawn?
      */
-    bool drawCaret() const;
+    inline bool drawCaret() const { return m_drawCaret; }
 
     /**
      * Set whether the caret (text cursor) will be drawn.
+     * @param drawCaret should caret be drawn?
      */
     void setDrawCaret(bool drawCaret);
 
     /**
      * The style of the caret (text cursor) to be painted.
+     * @return caretStyle
      */
-    bool caretStyle() const;
+    inline KateRenderer::caretStyles caretStyle() const { return m_caretStyle; }
 
     /**
      * Set the style of caret to be painted.
+     * @param style style to set
      */
-    void setCaretStyle(int style);
+    void setCaretStyle(KateRenderer::caretStyles style);
 
     /**
      * @returns whether tabs should be shown (ie. a small mark
      * drawn to identify a tab)
+     * @return tabs should be shown
      */
-    bool showTabs() const;
+    inline bool showTabs() const { return m_showTabs; }
 
     /**
      * Set whether a mark should be painted to help identifying tabs.
+     * @param showTabs show the tabs?
      */
     void setShowTabs(bool showTabs);
 
     /**
      * Sets the width of the tab. Helps performance.
+     * @param tabWidth new tab width
      */
     void setTabWidth(int tabWidth);
 
     /**
      * Show the view's selection?
+     * @return show sels?
      */
-    bool showSelections() const;
+    inline bool showSelections() const { return m_showSelections; }
 
     /**
      * Set whether the view's selections should be shown.
      * The default is true.
+     * @param showSelections show the selections?
      */
     void setShowSelections(bool showSelections);
 
@@ -165,7 +191,7 @@ public:
     uint m_schema;
 
     // some internal flags
-    int  m_caretStyle;
+    KateRenderer::caretStyles m_caretStyle;
     bool m_drawCaret;
     bool m_showSelections;
     bool m_showTabs;

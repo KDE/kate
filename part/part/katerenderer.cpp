@@ -71,29 +71,14 @@ KateAttribute* KateRenderer::attribute(uint pos)
   return &m_attributes->at(0);
 }
 
-bool KateRenderer::drawCaret() const
-{
-  return m_drawCaret;
-}
-
 void KateRenderer::setDrawCaret(bool drawCaret)
 {
   m_drawCaret = drawCaret;
 }
 
-bool KateRenderer::caretStyle() const
-{
-  return m_caretStyle;
-}
-
-void KateRenderer::setCaretStyle(int style)
+void KateRenderer::setCaretStyle(KateRenderer::caretStyles style)
 {
   m_caretStyle = style;
-}
-
-bool KateRenderer::showTabs() const
-{
-  return m_showTabs;
 }
 
 void KateRenderer::setShowTabs(bool showTabs)
@@ -104,11 +89,6 @@ void KateRenderer::setShowTabs(bool showTabs)
 void KateRenderer::setTabWidth(int tabWidth)
 {
   m_tabWidth = tabWidth;
-}
-
-bool KateRenderer::showSelections() const
-{
-  return m_showSelections;
 }
 
 void KateRenderer::setShowSelections(bool showSelections)

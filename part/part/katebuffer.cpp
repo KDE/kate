@@ -771,7 +771,7 @@ KateBufBlock::flushStringList()
    {
       uint l = (*it)->text.size();
       uint lctx = (*it)->ctx.size();
-      size += (2*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + (lctx * sizeof(signed char));
+      size += (2*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + 1+ (lctx * sizeof(signed char));
    }
    //kdDebug(13020)<<"Size = "<< size<<endl;
    m_rawData2 = QByteArray(size);
@@ -801,6 +801,13 @@ KateBufBlock::flushStringList()
       memcpy(buf, (char *)&tl->attr, 1);
       buf += 1;
 
+      uchar tmp = 0;
+      if (tl->hlContinue)
+        tmp = 1;
+
+      memcpy(buf, (char *)&tmp, 1);
+      buf += 1;
+
       memcpy(buf, (signed char *)tl->ctx.data(), lctx);
       buf += sizeof (signed char) * lctx;
    }
@@ -819,7 +826,7 @@ KateBufBlock::buildStringListFast()
   // kdDebug(13020)<<"KateBufBlock: buildStringListFast this = "<< this<<endl;
   char *buf = m_rawData2.data();
   char *end = buf + m_rawSize;
-  
+
   while(buf < end)
   {
     uint l = 0;
@@ -843,6 +850,13 @@ KateBufBlock::buildStringListFast()
     memcpy((char *)&a, buf, sizeof(uchar));
     buf += sizeof(uchar);
     textLine->attr = a;
+    
+    uchar tmp = 0;
+    memcpy((char *)&tmp, buf, sizeof(uchar));
+    buf += sizeof(uchar);
+    
+    if (tmp == 1)
+      textLine->hlContinue = true;
 
     textLine->ctx.duplicate ((signed char *) buf, lctx);
     buf += lctx;

@@ -3,34 +3,35 @@
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
-#include <ktexteditor/editorchooser_ui.h>
+
+#include <qwidget.h>
 
 class KConfig;
 class QString;
 
-
-
 namespace KTextEditor
 {
 
-class EditorChooser: public EditorChooser_UI {
+class EditorChooser: public QWidget
+{                    
+  friend class PrivateEditorChooser;
 
-Q_OBJECT
+  Q_OBJECT
 
-public:
-	EditorChooser(QWidget *parent=0,const char *name=0);
-	virtual ~EditorChooser();
-	void writeSysDefault();
+  public:
+    EditorChooser(QWidget *parent=0,const char *name=0);
+    virtual ~EditorChooser();
+    
+    void writeSysDefault();
 
-	void readAppSetting(const QString& postfix=QString::null);
-	void writeAppSetting(const QString& postfix=QString::null);
+    void readAppSetting(const QString& postfix=QString::null);
+    void writeAppSetting(const QString& postfix=QString::null);
 
-	static KTextEditor::Document *createDocument(QObject* parent=0,const char *name=0,const QString& postfix=QString::null, bool fallBackToKatePart=true);
-	static KTextEditor::Editor *createEditor(const QString& postfix=QString::null, bool fallBackToKatePart=true);
+    static KTextEditor::Document *createDocument(QObject* parent=0,const char *name=0,const QString& postfix=QString::null, bool fallBackToKatePart=true);
+    static KTextEditor::Editor *createEditor(const QString& postfix=QString::null, bool fallBackToKatePart=true);
  
-private:
-	QStringList ElementNames;
-	QStringList elements;
+  private:
+    class PrivateEditorChooser *d;
 };
 
 /*

@@ -6,38 +6,70 @@
 #include <kservice.h>
 #include <klocale.h>
 #include <qlabel.h>
-#include <kapplication.h>
+#include <kapplication.h>   
+#include <qlayout.h>
+
+#include "editorchooser_ui.h"      
+
 using namespace KTextEditor;
 
-namespace KTextEditor {
-EditorChooser::EditorChooser(QWidget *parent,const char *name) :
-	EditorChooser_UI(parent,name){
+namespace KTextEditor
+{
+  class PrivateEditorChooser
+  {
+  public:
+    PrivateEditorChooser()
+    {
+    }
+    ~PrivateEditorChooser(){}
+  // Data Members
+  EditorChooser_UI *chooser;
+  QStringList ElementNames;
+  QStringList elements;
+  };
 
+};
+
+EditorChooser::EditorChooser(QWidget *parent,const char *name) :
+	QWidget (parent,name)
+  {     
+  d = new PrivateEditorChooser ();
+             
+  // sizemanagment
+  QGridLayout *grid = new QGridLayout( this, 1, 1 );
+  
+              
+  d->chooser = new EditorChooser_UI (this, name);
+    
+  grid->addWidget( d->chooser, 0, 0);
+  
+  
 	KTrader::OfferList offers = KTrader::self()->query("text/plain", "'KTextEditor/Document' in ServiceTypes");
 	KConfig *config=new KConfig("default_components");
   	config->setGroup("KTextEditor");
   	QString editor = config->readEntry("embeddedEditor", "");
-	if (editor.isEmpty()) editor="katepart";
+	
+  if (editor.isEmpty()) editor="katepart";
 
 	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
 	{
     		if ((*it)->desktopEntryName().contains(editor))
 		{
-			editorCombo->insertItem(i18n("System default (%1)").arg((*it)->name()));
+			d->chooser->editorCombo->insertItem(i18n("System default (%1)").arg((*it)->name()));
 			break;
 		}
   	}
 	
   	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
   	{
-    		editorCombo->insertItem((*it)->name());
-		elements.append((*it)->desktopEntryName());
+    		d->chooser->editorCombo->insertItem((*it)->name());
+		d->elements.append((*it)->desktopEntryName());
   	}
-    	editorCombo->setCurrentItem(0);
+    	d->chooser->editorCombo->setCurrentItem(0);
 }
 
 EditorChooser:: ~EditorChooser(){
-;
+  delete d;
 }
 
 void EditorChooser::readAppSetting(const QString& postfix){
@@ -45,12 +77,12 @@ void EditorChooser::readAppSetting(const QString& postfix){
 	QString previousGroup=cfg->group();
 	cfg->setGroup("KTEXTEDITOR:"+postfix);
 	QString editor=cfg->readEntry("editor","");
-	if (editor.isEmpty()) editorCombo->setCurrentItem(0);
+	if (editor.isEmpty()) d->chooser->editorCombo->setCurrentItem(0);
 	else
 	{
-		int idx=elements.findIndex(editor);
+		int idx=d->elements.findIndex(editor);
 		idx=idx+1;
-		editorCombo->setCurrentItem(idx);
+		d->chooser->editorCombo->setCurrentItem(idx);
 	}
 	cfg->setGroup(previousGroup);
 }
@@ -60,7 +92,7 @@ void EditorChooser::writeAppSetting(const QString& postfix){
 	QString previousGroup=cfg->group();
 	cfg->setGroup("KTEXTEDITOR:"+postfix);
 	cfg->writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
-	cfg->writeEntry("editor",editorCombo->currentItem()==0?"":(*elements.at(editorCombo->currentItem()-1)));
+	cfg->writeEntry("editor",d->chooser->editorCombo->currentItem()==0?"":(*d->elements.at(d->chooser->editorCombo->currentItem()-1)));
 	cfg->sync();
 	cfg->setGroup(previousGroup);
 
@@ -99,4 +131,3 @@ KTextEditor::Editor *EditorChooser::createEditor(const QString& postfix,bool fal
 ;
 }
 
-}

@@ -32,6 +32,7 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 
+#include <kapplication.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <knotifyclient.h>
@@ -911,7 +912,13 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
     return;
 
   if ( result > 100)
+  {
      KateViewConfig::global()->setDefaultMarkType (vec[result-100]);
+     // flush config, otherwise it isn't nessecarily done
+     KConfig *config = kapp->config();
+     config->setGroup("Kate View Defaults");
+     KateViewConfig::global()->writeConfig( config );
+  }
   else
   {
     MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes) vec[result];

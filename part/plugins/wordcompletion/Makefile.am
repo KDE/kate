@@ -5,7 +5,7 @@ METASOURCES = AUTO
 kde_module_LTLIBRARIES = ktexteditor_docwordcompletion.la
 
 ktexteditor_docwordcompletion_la_SOURCES = docwordcompletion.cpp
-ktexteditor_docwordcompletion_la_LIBADD = -lktexteditor
+ktexteditor_docwordcompletion_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
 ktexteditor_docwordcompletion_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
 
 docwordcompletiondatadir = $(kde_datadir)/ktexteditor_docwordcompletion

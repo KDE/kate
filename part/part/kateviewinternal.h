@@ -86,7 +86,7 @@ class KateViewInternal : public QWidget
     void updateCursor();
     void updateCursor(VConfig &c,bool keepSel=false);//KateTextCursor &newCursor);
     void updateCursor(KateTextCursor &newCursor, bool keepSel=false);
-    void updateLineRanges(uint height, bool keepLineData = true);
+    void updateLineRanges(bool keepLineData = true);
     void tagLines(int start, int end, int x1, int x2);
     void tagRealLines(int start, int end, int x1, int x2);
     void tagAll();
@@ -159,11 +159,20 @@ private:
     bool exposeCursor;
     int updateState;
 
+    // start line virtual / real
     int startLine;
-    int newStartLine;
+    int startLineReal;
+    
+    // end line virtual / real
     int endLine;
+    int endLineReal;
+
+    // new start line, will be used by updateLineRanges
+    int newStartLine;
+
     uint maxLen;
 
+    // array with the line data
     QMemArray<KateLineRange> lineRanges;
 
     int newXPos;

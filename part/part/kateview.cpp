@@ -339,23 +339,11 @@ void KateView::slotNewUndo()
   if (myDoc->m_bReadOnly)
     return;
 
-  if (doc()->undoCount() == 0)
-  {
-    editUndo->setEnabled(false);
-  }
-  else
-  {
-    editUndo->setEnabled(true);
-  }
+   if ((myDoc->undoCount() > 0) != editUndo->isEnabled())
+    editUndo->setEnabled(myDoc->undoCount() > 0);
 
-  if (doc()->redoCount() == 0)
-  {
-    editRedo->setEnabled(false);
-  }
-  else
-  {
-    editRedo->setEnabled(true);
-  }
+   if ((myDoc->redoCount() > 0) != editRedo->isEnabled())
+    editRedo->setEnabled(myDoc->redoCount() > 0);
 }
 
 void KateView::slotDropEventPass( QDropEvent * ev )

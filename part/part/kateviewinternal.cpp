@@ -46,6 +46,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   maxLen = 0;
   startLine = 0;
+  startLineReal = 0;
   endLine = 0;
 
   xPos = 0;
@@ -75,7 +76,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.eXPos = -1;
 
   // create a one line lineRanges array
-  updateLineRanges (0, false);
+  updateLineRanges (false);
 
   QWidget::setCursor(ibeamCursor);
   KCursor::setAutoHideCursor( this, true, true );
@@ -476,7 +477,7 @@ void KateViewInternal::changeYPos(int p)
 
   dy = (startLine - newStartLine)  * myDoc->viewFont.fontHeight;
 
-  updateLineRanges(height());
+  updateLineRanges();
 
   if (QABS(dy) < height())
   {
@@ -586,13 +587,13 @@ void KateViewInternal::updateCursor()
 
 void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel)
 {
-  kdDebug()<<"WARNING: look, if this call is really used only with real cursor positions"<<endl;
+  //kdDebug()<<"WARNING: look, if this call is really used only with real cursor positions"<<endl;
   VConfig tmp;
   tmp.cursor=newCursor;
   tmp.displayCursor.col=newCursor.col;
   tmp.displayCursor.line=myDoc->getVirtualLine(newCursor.line);
 
-  kdDebug()<<QString("cursor %1/%2, displayCursor %3/%4").arg(tmp.cursor.col).arg(tmp.cursor.line).arg(tmp.displayCursor.col).arg(tmp.displayCursor.line)<<endl;
+ // kdDebug()<<QString("cursor %1/%2, displayCursor %3/%4").arg(tmp.cursor.col).arg(tmp.cursor.line).arg(tmp.displayCursor.col).arg(tmp.displayCursor.line)<<endl;
 
   updateCursor(tmp,keepSel);
 }
@@ -624,21 +625,24 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &ne
 }
 
 // init the line dirty cache
-void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
+void KateViewInternal::updateLineRanges(bool keepLineData)
 {
   int lines = 0;
   int oldStartLine = startLine;
   int oldLines = lineRanges.size();
+  uint height = this->height();
 
   // calc start and end line of visible part
   if (newStartLine > -1)
     startLine = newStartLine;
 
+  startLineReal = myDoc->getRealLine(startLine);
+
   endLine = startLine + height/myDoc->viewFont.fontHeight - 1;
+  
+  endLineReal = myDoc->getRealLine(endLine);
 
   if (endLine < 0) endLine = 0;
-
-  kdDebug()<<"endLine: "<<endLine<<endl;
 
   lines = endLine - startLine + 2;
 
@@ -787,11 +791,11 @@ void KateViewInternal::updateView(int flags)
 				reUpdate=reUpdate || (!yScrollVis);
 				yScrollVis=true;
 				yScroll->show();
-				kdDebug()<<"Showing yScroll"<<endl;
+			//	kdDebug()<<"Showing yScroll"<<endl;
 			}
 			else
 			{
-				kdDebug()<<"Hiding yScroll"<<endl;
+			//	kdDebug()<<"Hiding yScroll"<<endl;
 				reUpdate=reUpdate || (yScrollVis);
 				yScroll->hide();
 				yScrollVis=false;
@@ -810,7 +814,7 @@ void KateViewInternal::updateView(int flags)
 	needLineRangesUpdate=true;
 	//updateLineRanges(height());update();}
     }
-	
+
   int tmpYPos;
 
 	if (exposeCursor)
@@ -845,19 +849,19 @@ void KateViewInternal::updateView(int flags)
 	if ((!needLineRangesUpdate) ||
 	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 	needLineRangesUpdate=true;
-	  updateLineRanges(lineRangesUpdateHeight);
+	  updateLineRanges();
 //	updateLineRanges (height());
     repaint ();
   }
   else
   {
-	  if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
+	  if (needLineRangesUpdate && !(flags && KateView::ufDocGeometry)) updateLineRanges();
   }
 
   if (oldU > 0)
    {
-     paintTextLines(oldXPos, oldYPos);
-     kdDebug()<<"repaint lines"<<endl;
+     paintTextLines(xPos, oldYPos);
+   //  kdDebug()<<"repaint lines"<<endl;
    }
 
   //
@@ -1079,7 +1083,6 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
   KateLineRange *r = lineRanges.data();
 
   uint rpos = 0;
-  kdDebug()<<QString("startLine: %1, endLine %2").arg(startLine).arg(endLine)<<endl;
 
   if (endLine>=startLine)
   {

@@ -710,6 +710,9 @@ void KateDocument::editEnd ()
   {
     KateView *v = myViews.at(z);
 
+    v->myViewInternal->updateLineRanges ();
+    v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd, 0, 0xffff);
+
     if (v->cursorCacheChanged)
       v->myViewInternal->updateCursor (v->cursorCache);
   }

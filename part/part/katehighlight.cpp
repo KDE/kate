@@ -143,7 +143,7 @@ HlStringDetect::~HlStringDetect() {
 }
 
 const QChar *HlStringDetect::checkHgl(const QChar *s, int len , bool) {
-  if (len<str.length()) return 0L;
+  if (len<(int)str.length()) return 0L;
   if (!_inSensitive) {if (memcmp(s, str.unicode(), str.length()*sizeof(QChar)) == 0) return s + str.length();}
      else
        {
@@ -1638,7 +1638,7 @@ void Highlight::makeContextList()
                   int ctxId = HlManager::self()->syntax->groupItemData( data, QString("context") ).toInt(); // the index is *required*
                   if ( ctxId > -1) { // we can even reuse rules of 0 if we want to:)
                     kdDebug(13010)<<"makeContextList["<<i<<"]: including all items of context "<<ctxId<<endl;
-                    if ( ctxId < i ) { // must be defined
+                    if ( ctxId < (int) i ) { // must be defined
                       for ( c = contextList[ctxId]->items.first(); c; c = contextList[ctxId]->items.next() )
                         contextList[i]->items.append(c);
                     }
@@ -1752,7 +1752,7 @@ int HlManager::wildcardFind(const QString &fileName) {
   return -1;
 }
 
-int HlManager::mimeFind(const QByteArray &contents, const QString &fname)
+int HlManager::mimeFind(const QByteArray &contents, const QString &)
 {
 //  kdDebug(13010)<<"hlManager::mimeFind( [contents], "<<fname<<")"<<endl;
 //  kdDebug(13010)<<"file contents: "<<endl<<contents.data()<<endl<<"- - - - - - END CONTENTS - - - - -"<<endl;

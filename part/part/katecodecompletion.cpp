@@ -120,7 +120,7 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
 
   m_completionListBox = new KateCCListBox( m_completionPopup );
   m_completionListBox->setFrameStyle( QFrame::NoFrame );
-  m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
+  //m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
   m_completionListBox->setFocusProxy( m_view->m_viewInternal );
 
   m_completionListBox->installEventFilter( this );

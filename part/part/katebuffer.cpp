@@ -969,7 +969,10 @@ uint KateBuffer::length ()
 
 int KateBuffer::lineLength ( uint i )
 {
-  return plainLine(i)->length();
+  TextLine::Ptr l = plainLine(i);
+  Q_ASSERT(l);
+  if (!l) return 0;
+  return l->length();
 }
 
 QString KateBuffer::text()

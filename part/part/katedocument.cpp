@@ -3041,7 +3041,12 @@ uint KateDocument::textPos(uint line, int xPos, WhichFont wf, uint startCol)
   return textPos(buffer->plainLine(line), xPos, wf, startCol);
 }
 
-uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf, uint startCol) {
+uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf, uint startCol)
+{
+  Q_ASSERT(textLine);
+  if (!textLine)
+    return 0;
+
   const FontStruct & fs = getFontStruct(wf);
 
   int x, oldX;

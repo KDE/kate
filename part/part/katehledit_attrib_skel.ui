@@ -1,10 +1,5 @@
 <!DOCTYPE UI><UI version="3.0" stdsetdef="1">
 <class>AttribEditor_skel</class>
-<include>klistview.h</include>
-<include>kcolorcombo.h</include>
-<include>klineedit.h</include>
-<include>kcombobox.h</include>
-
 <widget class="QWidget">
     <property name="name">
         <cstring>AttribEditor_skel</cstring>
@@ -106,7 +101,7 @@
                                 <cstring>TextLabel2</cstring>
                             </property>
                             <property name="text">
-                                <string>Name</string>
+                                <string>Name:</string>
                             </property>
                         </widget>
                         <widget class="KLineEdit">
@@ -135,7 +130,7 @@
                                 <cstring>TextLabel3</cstring>
                             </property>
                             <property name="text">
-                                <string>Type</string>
+                                <string>Type:</string>
                             </property>
                         </widget>
                         <widget class="KComboBox">
@@ -149,7 +144,7 @@
                     <property name="name">
                         <cstring>Line1</cstring>
                     </property>
-                    <property name="frameShape" stdset="0">
+                    <property name="frameShape">
                         <enum>HLine</enum>
                     </property>
                     <property name="frameShadow">
@@ -164,7 +159,7 @@
                         <cstring>Bold</cstring>
                     </property>
                     <property name="text">
-                        <string>bold</string>
+                        <string>Bold</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox">
@@ -172,7 +167,7 @@
                         <cstring>Italic</cstring>
                     </property>
                     <property name="text">
-                        <string>italic</string>
+                        <string>Italic</string>
                     </property>
                 </widget>
                 <widget class="QLayoutWidget">
@@ -194,7 +189,7 @@
                                 <cstring>TextLabel1</cstring>
                             </property>
                             <property name="text">
-                                <string>Colour:</string>
+                                <string>Color:</string>
                             </property>
                         </widget>
                         <widget class="KColorCombo">
@@ -223,7 +218,7 @@
                                 <cstring>TextLabel1_2</cstring>
                             </property>
                             <property name="text">
-                                <string>Selected Colour</string>
+                                <string>Selected color:</string>
                             </property>
                         </widget>
                         <widget class="KColorCombo">
@@ -234,7 +229,7 @@
                     </hbox>
                 </widget>
                 <spacer>
-                    <property name="name" stdset="0">
+                    <property name="name">
                         <cstring>Spacer1</cstring>
                     </property>
                     <property name="orientation">
@@ -243,16 +238,16 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>20</width>
-                            <height>20</height>
-                        </size>
-                    </property>
                 </spacer>
             </vbox>
         </widget>
     </hbox>
 </widget>
+<includes>
+    <include location="global" impldecl="in declaration">klistview.h</include>
+    <include location="global" impldecl="in declaration">kcolorcombo.h</include>
+    <include location="global" impldecl="in declaration">klineedit.h</include>
+    <include location="global" impldecl="in declaration">kcombobox.h</include>
+</includes>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

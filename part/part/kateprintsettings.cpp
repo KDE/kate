@@ -192,7 +192,7 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *pa
   // whatsthis
   QString  s = i18n("<p>Format of the page header. The following tags are supported:</p>");
   QString s1 = i18n(
-      "<ul><li><tt>%u</tt> : current user name</li>"
+      "<ul><li><tt>%u</tt>: current user name</li>"
       "<li><tt>%d</tt>: complete date/time in short format</li>"
       "<li><tt>%D</tt>: complete date/time in long format</li>"
       "<li><tt>%h</tt>: current time</li>"

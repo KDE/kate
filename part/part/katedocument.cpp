@@ -3064,7 +3064,11 @@ bool KateDocument::closeURL()
   internalSetHlMode(0);
 
   // update all our views
-  updateViews();
+  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
+  {
+    view->setCursorPositionReal (0,0);
+    view->updateView();
+  }
 
   // uh, filename changed
   emit fileNameChanged ();

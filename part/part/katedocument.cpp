@@ -46,6 +46,7 @@
 #include "kateattribute.h"
 #include "kateconfig.h"
 #include "katesupercursor.h"
+#include "katefiletype.h"
 
 #include <ktexteditor/plugin.h>
 
@@ -174,6 +175,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_activeView = 0L;
 
   hlSetByUser = false;
+  m_fileTypeSetByUser = false;
   setInstance( KateFactory::instance() );
 
   editSessionNumber = 0;
@@ -2821,6 +2823,9 @@ bool KateDocument::openFile()
 
   bool success = buffer->openFile (m_file);
 
+  if (success)
+    updateFileType ();
+
   int hl = hlManager->wildcardFind( m_url.url() );
 
   if (hl == -1)
@@ -2905,6 +2910,9 @@ bool KateDocument::saveFile()
 
   if (reallySaveIt && canEncode)
     success = buffer->saveFile (m_file);
+
+  if (success)
+    updateFileType ();
 
   if (!hlSetByUser)
   {
@@ -5074,6 +5082,27 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
 bool KateDocument::wrapCursor ()
 {
   return !blockSelect && (configFlags() & KateDocument::cfWrapCursor);
+}
+
+void KateDocument::updateFileType (bool force)
+{
+  QString oldType (m_fileType);
+
+  if (!m_fileTypeSetByUser || !KateFactory::fileTypeManager()->exists (m_fileType))
+  {
+    kdDebug(13020) << "KATE FILE TYPE DETECTION STARTS ......................." << endl;
+
+    m_fileType = KateFactory::fileTypeManager()->fileType (this);
+
+    kdDebug(13020) << "KATE FILE TYPE DETECTED: " << m_fileType << endl;
+
+    kdDebug(13020) << "KATE FILE TYPE DETECTION ENDS" << endl;
+  }
+
+  if (force || (oldType != m_fileType))
+  {
+
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

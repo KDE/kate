@@ -334,9 +334,9 @@ void KateView::setupActions()
 
   connect(m_setDynWrapIndicators, SIGNAL(activated(int)), this, SLOT(setDynWrapIndicators(int)));
   QStringList list2;
-  list2.append("&Off");
-  list2.append("Follow &Line Numbers");
-  list2.append("&Always On");
+  list2.append(i18n("&Off"));
+  list2.append(i18n("Follow &Line Numbers"));
+  list2.append(i18n("&Always On"));
   m_setDynWrapIndicators->setItems(list2);
 
   a= toggleAction=m_toggleFoldingMarkers = new KToggleAction(

@@ -107,7 +107,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   for (uint z = 0; z < numLines; z++)
   {
     lineRanges[z].start = 0xffffff;
-    lineRanges[z].end = -2;
+    lineRanges[z].end = 0;
   }
 
   maxLen = 0;
@@ -664,7 +664,7 @@ void KateViewInternal::clearDirtyCache(int height) {
 
   for (z = 0; z < lines; z++) { // clear all lines
     lineRanges[z].start = 0xffffff;
-    lineRanges[z].end = -2;
+    lineRanges[z].end = 0;
   }
   newXPos = newYPos = -1;
 }
@@ -678,9 +678,9 @@ void KateViewInternal::tagLines(int start, int end, int x1, int x2) {
   end -= startLine;
   if (end > endLine - startLine) end = endLine - startLine;
 
-  if (x1 <= 0) x1 = -2;
-  if (x1 < xPos-2) x1 = xPos-2;
-  if (x2 > width() + xPos-2) x2 = width() + xPos-2;
+  if (x1 <= 0) x1 = 0;
+  if (x1 < xPos-2) x1 = xPos;
+  if (x2 > width() + xPos) x2 = width() + xPos;
   if (x1 >= x2) return;
 
   r = &lineRanges[start];
@@ -790,7 +790,7 @@ void KateViewInternal::updateView(int flags) {
       cYPosMin = yPos + h/3;
       cYPosMax = yPos + ((h - fontHeight)*2)/3;
     } else {*/
-      cXPosMin = xPos + 4;
+      cXPosMin = xPos+ 4;
       cXPosMax = xPos + w - 8 - bw;
       cYPosMin = yPos;
       cYPosMax = yPos + (h - fontHeight);
@@ -900,7 +900,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos) {
     if (r->start < r->end) {
 //debug("painttextline %d %d %d", line, r->start, r->end);
       myDoc->paintTextLine(paint, line, r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
-      bitBlt(this, r->start - (xPos-2), line*h - yPos, drawBuffer, 0, 0,
+      bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0,
         r->end - r->start, h);
       leftBorder->paintLine(line);
     }
@@ -916,14 +916,14 @@ void KateViewInternal::paintCursor() {
 
   h = myDoc->viewFont.fontHeight;
   y = h*cursor.line - yPos;
-  x = cXPos - (xPos-2);
+  x = cXPos - xPos;
 
   if(myDoc->viewFont.myFont != font()) setFont(myDoc->viewFont.myFont);
   if(cx != x || cy != y || ch != h){
     cx = x;
     cy = y;
     ch = h;
-    setMicroFocusHint(cx, cy, 0, ch - 2);
+    setMicroFocusHint(cx, cy, 0, ch);
   }
 
   w2 = myDoc->charWidth(cursor);
@@ -948,12 +948,10 @@ void KateViewInternal::paintCursor() {
     paint.fillRect(x, y, w, h, xor_fg);
     paint.end();
    } else {
-    if (drawBuffer && !drawBuffer->isNull()) {
-      paint.begin(drawBuffer);
-      myDoc->paintTextLine(paint, cursor.line, cXPos, cXPos + w2,myView->myDoc->_configFlags & KateDocument::cfShowTabs);
-      bitBlt(this,x,y, drawBuffer,0,0, w2, h);
-      paint.end();
-    }
+
+     tagLines( cursor.line, cursor.line, 0, 0xffff);
+paintTextLines (xPos, yPos);
+
   }
 
 }
@@ -967,7 +965,7 @@ void KateViewInternal::paintBracketMark() {
   paint.begin(this);
   paint.setPen(myDoc->cursorCol(bm.cursor.col, bm.cursor.line));
 
-  paint.drawLine(bm.sXPos - (xPos-2), y, bm.eXPos - (xPos-2) -1, y);
+  paint.drawLine(bm.sXPos - xPos, y, bm.eXPos - xPos -1, y);
   paint.end();
 }
 
@@ -977,7 +975,7 @@ void KateViewInternal::placeCursor(int x, int y, int flags) {
   getVConfig(c);
   c.flags |= flags;
   cursor.line = (yPos + y)/myDoc->viewFont.fontHeight;
-  cXPos = cOldXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor,xPos-2 + x);
+  cXPos = cOldXPos = myDoc->textWidth(c.flags & KateDocument::cfWrapCursor, cursor, xPos + x);
   changeState(c);
 }
 
@@ -1200,7 +1198,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
   QPainter paint;
   paint.begin(drawBuffer);
 
-  xStart = xPos-2 + updateR.x();
+  xStart = xPos + updateR.x();
   xEnd = xStart + updateR.width();
 
   h = myDoc->viewFont.fontHeight;
@@ -1787,7 +1785,7 @@ QString KateView::word(int x, int y) {
   KateTextCursor cursor;
   cursor.line = (myViewInternal->yPos + y)/myDoc->viewFont.fontHeight;
   if (cursor.line < 0 || cursor.line > (int)myDoc->lastLine()) return QString();
-  cursor.col = myDoc->textPos(myDoc->getTextLine(cursor.line), myViewInternal->xPos-2 + x);
+  cursor.col = myDoc->textPos(myDoc->getTextLine(cursor.line), myViewInternal->xPos + x);
   return myDoc->getWord(cursor);
 }
 

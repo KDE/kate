@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ada" version="1.04" kateversion="2.1" section="Sources" extensions="*.adb;*.ads;*.ada;*.a" mimetype="text/x-adasrc">
-        <highlighting>
-                <list name="keywords">
-                        <item> abort </item>
-                        <item> abs </item>
-                        <item> abstract </item>
-                        <item> accept </item>
-                        <item> access </item>
-                        <item> aliased </item>
-                        <item> all </item>
-                        <item> and </item>
-                        <item> array </item>
-                        <item> at </item>
-                        <item> begin </item>
-                        <item> body </item>
-                        <item> constant </item>
-                        <item> declare </item>
-                        <item> delay </item>
-                        <item> delta </item>
-                        <item> digits </item>
-                        <item> do </item>
-                        <item> else </item>
-                        <item> elsif </item>
-                        <item> end </item>
-                        <item> entry </item>
-                        <item> exception </item>
-                        <item> exit </item>
-                        <item> for </item>
-                        <item> function </item>
-                        <item> generic </item>
-                        <item> goto </item>
-                        <item> in </item>
-                        <item> is </item>
-                        <item> limited </item>
-                        <item> mod </item>
-                        <item> new </item>
-                        <item> not </item>
-                        <item> null </item>
-                        <item> of </item>
-                        <item> or </item>
-                        <item> others </item>
-                        <item> out </item>
-                        <item> package </item>
-                        <item> pragma </item>
-                        <item> private </item>
-                        <item> procedure </item>
-                        <item> protected </item>
-                        <item> raise </item>
-                        <item> range </item>
-                        <item> rem </item>
-                        <item> record </item>
-                        <item> renames </item>
-                        <item> requeue </item>
-                        <item> return </item>
-                        <item> reverse </item>
-                        <item> separate </item>
-                        <item> subtype </item>
-                        <item> tagged </item>
-                        <item> task </item>
-                        <item> terminate </item>
-                        <item> then </item>
-                        <item> type </item>
-                        <item> until </item>
-                        <item> use </item>
-                        <item> when </item>
-                        <item> while </item>
-                        <item> with </item>
-                        <item> xor </item>
-                </list>
-                <contexts>
-                        <context attribute="Normal Text" lineEndContext="#stay" name="Default">
-                                <RegExpr attribute="Keyword" context="#stay" String="^\s*if " insensitive="TRUE" beginRegion="Region1"/>
-                                <StringDetect attribute="Keyword" context="#stay" String="end if" insensitive="TRUE" endRegion="Region1"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="^\s*case " insensitive="TRUE" beginRegion="Region2"/>
-                                <StringDetect attribute="Keyword" context="#stay" String="end case" insensitive="TRUE" endRegion="Region2"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="\sloop\s+" insensitive="TRUE" beginRegion="Region3"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="\sloop$" insensitive="TRUE" beginRegion="Region3"/>
-                                <StringDetect attribute="Keyword" context="#stay" String="end loop;" insensitive="TRUE" endRegion="Region3"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="\sselect\s+" insensitive="TRUE" beginRegion="Region4"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="\sselect$" insensitive="TRUE" beginRegion="Region4"/>
-                                <StringDetect attribute="Keyword" context="#stay" String="end select;" insensitive="TRUE" endRegion="Region4"/>
-                                <keyword attribute="Keyword" context="#stay" String="keywords"/>
-                                <Float attribute="Float" context="#stay"/>
-                                <Int attribute="Decimal" context="#stay"/>
-                                <RegExpr attribute="Char" context="#stay" String="'.'"/>
-                                <DetectChar attribute="String" context="String" char="&quot;"/>
-                                <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
-                        </context>
-                        <context attribute="String" lineEndContext="#pop" name="String">
-                                <DetectChar attribute="String" context="#pop" char="&quot;"/>
-                        </context>
-                        <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
-                </contexts>
-                <itemDatas>
-                        <itemData name="Normal Text" defStyleNum="dsNormal" />
-                        <itemData name="Keyword"     defStyleNum="dsKeyword" />
-                        <itemData name="Decimal"     defStyleNum="dsDecVal" />
-                        <itemData name="Base-N"      defStyleNum="dsBaseN" />
-                        <itemData name="Float"       defStyleNum="dsFloat" />
-                        <itemData name="Char"        defStyleNum="dsChar" />
-                        <itemData name="String"      defStyleNum="dsString" />
-                        <itemData name="Comment"     defStyleNum="dsComment" />
-                </itemDatas>
+<language name="Ada" version="1.05" kateversion="2.4" section="Sources" extensions="*.adb;*.ads;*.ada;*.a" mimetype="text/x-adasrc">
+  <highlighting>
+    <list name="keywords">
+      <item> abort </item>
+      <item> abs </item>
+      <item> abstract </item>
+      <item> accept </item>
+      <item> access </item>
+      <item> aliased </item>
+      <item> all </item>
+      <item> and </item>
+      <item> array </item>
+      <item> at </item>
+      <item> begin </item>
+      <item> body </item>
+      <item> constant </item>
+      <item> declare </item>
+      <item> delay </item>
+      <item> delta </item>
+      <item> digits </item>
+      <item> do </item>
+      <item> else </item>
+      <item> elsif </item>
+      <item> end </item>
+      <item> entry </item>
+      <item> exception </item>
+      <item> exit </item>
+      <item> for </item>
+      <item> function </item>
+      <item> generic </item>
+      <item> goto </item>
+      <item> in </item>
+      <item> is </item>
+      <item> limited </item>
+      <item> mod </item>
+      <item> new </item>
+      <item> not </item>
+      <item> null </item>
+      <item> of </item>
+      <item> or </item>
+      <item> others </item>
+      <item> out </item>
+      <item> package </item>
+      <item> pragma </item>
+      <item> private </item>
+      <item> procedure </item>
+      <item> protected </item>
+      <item> raise </item>
+      <item> range </item>
+      <item> rem </item>
+      <item> record </item>
+      <item> renames </item>
+      <item> requeue </item>
+      <item> return </item>
+      <item> reverse </item>
+      <item> separate </item>
+      <item> subtype </item>
+      <item> tagged </item>
+      <item> task </item>
+      <item> terminate </item>
+      <item> then </item>
+      <item> type </item>
+      <item> until </item>
+      <item> use </item>
+      <item> when </item>
+      <item> while </item>
+      <item> with </item>
+      <item> xor </item>
+    </list>
+    <contexts>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Default">
+        <RegExpr attribute="Keyword" context="#stay" String="if " insensitive="TRUE" beginRegion="Region1" firstNonSpace="true"/>
+        <StringDetect attribute="Keyword" context="#stay" String="end if" insensitive="TRUE" endRegion="Region1"/>
+        <RegExpr attribute="Keyword" context="#stay" String="case " insensitive="TRUE" beginRegion="Region2" firstNonSpace="true"/>
+        <StringDetect attribute="Keyword" context="#stay" String="end case" insensitive="TRUE" endRegion="Region2"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\sloop\s+" insensitive="TRUE" beginRegion="Region3"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\sloop$" insensitive="TRUE" beginRegion="Region3"/>
+        <StringDetect attribute="Keyword" context="#stay" String="end loop;" insensitive="TRUE" endRegion="Region3"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\sselect\s+" insensitive="TRUE" beginRegion="Region4"/>
+        <RegExpr attribute="Keyword" context="#stay" String="\sselect$" insensitive="TRUE" beginRegion="Region4"/>
+        <StringDetect attribute="Keyword" context="#stay" String="end select;" insensitive="TRUE" endRegion="Region4"/>
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <Float attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay"/>
+        <RegExpr attribute="Char" context="#stay" String="'.'"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
+      </context>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
+      </context>
+      <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal" />
+      <itemData name="Keyword"     defStyleNum="dsKeyword" />
+      <itemData name="Decimal"     defStyleNum="dsDecVal" />
+      <itemData name="Base-N"      defStyleNum="dsBaseN" />
+      <itemData name="Float"       defStyleNum="dsFloat" />
+      <itemData name="Char"        defStyleNum="dsChar" />
+      <itemData name="String"      defStyleNum="dsString" />
+      <itemData name="Comment"     defStyleNum="dsComment" />
+    </itemDatas>
   </highlighting>
   <general>
     <comments>
@@ -111,3 +111,4 @@
     <keywords casesensitive="0" />
   </general>
 </language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

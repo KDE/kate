@@ -250,7 +250,7 @@ QString KateDocument::text() const
   for (uint i=0; i < buffer->count(); i++)
   {
     TextLine::Ptr textLine = buffer->line(i);
-    s.append (textLine->getString());
+    s.append (textLine->string());
     if ( (i < (buffer->count()-1)) )
       s.append('\n');
   }
@@ -267,11 +267,11 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
     TextLine::Ptr textLine = buffer->line(i);
 
     if (i == startLine)
-      s.append(textLine->getString().mid (startCol, textLine->length()-startCol));
+      s.append(textLine->string().mid (startCol, textLine->length()-startCol));
     else if (i == endLine)
-      s.append(textLine->getString().mid (0, endCol));
+      s.append(textLine->string().mid (0, endCol));
     else
-      s.append(textLine->getString());
+      s.append(textLine->string());
 
     if ( i < endLine )
       s.append('\n');
@@ -603,7 +603,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
     if (l->length() > col)
     {
-      const QChar *text = l->getText();
+      const QChar *text = l->text();
 
       for (z=col; z>0; z--)
       {
@@ -702,7 +702,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editRemoveText, line, col, len, l->getString().mid(col, len)));
+  editAddUndo (new KateUndo (this, KateUndo::editRemoveText, line, col, len, l->string().mid(col, len)));
 
   l->replace(col, len, 0L, 0);
 
@@ -831,7 +831,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   editAddUndo (new KateUndo (this, KateUndo::editUnWrapLine, line, col, 0, 0));
 
   l->unWrap (col, tl, tl->length());
-  l->setContext (tl->getContext(), tl->getContextLength());
+  l->setContext (tl->ctx(), tl->ctxLength());
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);
@@ -1979,7 +1979,7 @@ bool KateDocument::saveFile()
       TextLine::Ptr textLine = buffer->line(i);
       len = textLine->length();
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-      memcpy(&buf[bufpos], textLine->getText(), len);
+      memcpy(&buf[bufpos], textLine->text(), len);
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }
@@ -2200,7 +2200,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFon
   x = 0;
   for (z = 0; z < cursorX; z++) {
     ch = textLine->getChar(z);
-    a = attribute(textLine->getAttr(z));
+    a = attribute(textLine->attribute(z));
 
     if (ch == '\t')
       x += fs->m_tabWidth;
@@ -2230,7 +2230,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   for (uint z = startcol; z < textLine->length(); z++)
   {
     ch = textLine->getChar(z);
-    a = attribute(textLine->getAttr(z));
+    a = attribute(textLine->attribute(z));
 
     if (ch == '\t')
       x += fs->m_tabWidth;
@@ -2293,7 +2293,7 @@ uint KateDocument::textWidth( KateTextCursor &cursor, int xPos,WhichFont wf)
   while (x < xPos && (!wrapCursor || z < len)) {
     oldX = x;
     ch = textLine->getChar(z);
-    a = attribute(textLine->getAttr(z));
+    a = attribute(textLine->attribute(z));
 
     if (ch == '\t')
       x += fs->m_tabWidth;
@@ -2328,7 +2328,7 @@ uint KateDocument::textPos(const TextLine::Ptr &textLine, int xPos,WhichFont wf)
   while (x < xPos) { // && z < len) {
     oldX = x;
     ch = textLine->getChar(z);
-    a = attribute(textLine->getAttr(z));
+    a = attribute(textLine->attribute(z));
 
     if (ch == '\t')
       x += fs->m_tabWidth;
@@ -3205,7 +3205,7 @@ QString KateDocument::getWord( const KateTextCursor& cursor ) {
   while (start > 0 && m_highlight->isInWord(textLine->getChar(start - 1))) start--;
   while (end < len && m_highlight->isInWord(textLine->getChar(end))) end++;
   len = end - start;
-  return QString(&textLine->getText()[start], len);
+  return QString(&textLine->text()[start], len);
 }
 
 void KateDocument::tagLines(int start, int end)
@@ -3266,7 +3266,7 @@ QColor &KateDocument::backCol(int x, int y) {
 QColor &KateDocument::cursorCol(int x, int y)
 {
   TextLine::Ptr textLine = buffer->line(y);
-  Attribute *a = attribute(textLine->getAttr(x));
+  Attribute *a = attribute(textLine->attribute(x));
 
   if (lineColSelected (y, x))
     return a->selCol;
@@ -3421,8 +3421,8 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
     len = endcol - startcol;
 
   // text + attrib data from line
-  s = textLine->getText ();
-  a = textLine->getAttribs ();
+  s = textLine->text ();
+  a = textLine->attributes ();
 
   // adjust to startcol ;)
   s = s + startcol;
@@ -3703,7 +3703,7 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
   if (!textLine) return;
 
   bracket = textLine->getChar(x);
-  attr = textLine->getAttr(x);
+  attr = textLine->attribute(x);
 
   if (bracket == '(' || bracket == '[' || bracket == '{')
   {
@@ -3721,7 +3721,7 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
         textLine = buffer->line(line);
         x = 0;
       }
-      if (textLine->getAttr(x) == attr) {
+      if (textLine->attribute(x) == attr) {
         //try to find opposite bracked
         ch = textLine->getChar(x);
         if (ch == bracket) count++; //same bracket : increase counter
@@ -3747,7 +3747,7 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
         textLine = buffer->line(line);
         x = textLine->length() -1;
       }
-      if (textLine->getAttr(x) == attr) {
+      if (textLine->attribute(x) == attr) {
         ch = textLine->getChar(x);
         if (ch == bracket) count++;
         if (ch == opposite) {
@@ -3967,7 +3967,7 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
     // for each character of the line : (curPos is the position in the line)
     for (uint curPos=0;curPos<textLine->length();curPos++)
     {
-      Attribute *charAttributes = attribute(textLine->getAttr(curPos));
+      Attribute *charAttributes = attribute(textLine->attribute(curPos));
       //ASSERT(charAttributes != NULL);
       // let's give the color for that character :
       if ( (charAttributes->col != previousCharacterColor))

@@ -242,7 +242,7 @@ void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
 	
 	
  	QString strCurLine="";
-	if (view->doc()->kateTextLine(nLine)) strCurLine = view->doc()->kateTextLine ( nLine )->getString();
+	if (view->doc()->kateTextLine(nLine)) strCurLine = view->doc()->kateTextLine ( nLine )->string();
 	strCurLine.replace(QRegExp("\t"),"        "); // hack which asume that TAB is 8 char big #fixme
 	//strCurLine = strCurLine.left ( nCol );
 	QString strLineToCursor = strCurLine.left ( nCol );

@@ -21,7 +21,6 @@
 
 #include "katecursor.h"
 #include "katedocument.h"
-#include "katebuffer.h"
 #include "katetextline.h"
 
 //

@@ -844,11 +844,11 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
   QChar lastChar = ' ';
 
   // first char
-  const QChar *str = textLine->getText();
+  const QChar *str = textLine->text();
 
   // non space char - index of that char
 //  const QChar *s1 = textLine->firstNonSpace();
-  const QChar *s1 = textLine->getText();
+  const QChar *s1 = textLine->text();
   uint z=0;
 //  uint z = textLine->firstChar();
 

@@ -427,7 +427,7 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
 
   if (startState)
   {
-    line_continue=startState->getHlLineContinue();
+    line_continue=startState->hlLineContinue();
     ctxNum.duplicate (startState->ctxArray ());
   }
 
@@ -452,12 +452,12 @@ KateBuffer::needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint star
     retVal_folding=false;
 //    kdDebug(13000)<<QString("updateing folding for line %1").arg(current_line+buf->m_beginState.lineNr)<<endl;
 
-    bool foldingChanged= !textLine->foldingListValid;
-    if (!foldingChanged) foldingChanged=(foldingList!=textLine->foldingList);
+    bool foldingChanged= !textLine->isFoldingListValid();
+    if (!foldingChanged) foldingChanged=(foldingList!=textLine->foldingListArray());
     if (foldingChanged) textLine->setFoldingList(foldingList);
     emit foldingUpdate(current_line + buf->m_beginState.lineNr,&foldingList,&retVal_folding,foldingChanged);
     CodeFoldingUpdated=CodeFoldingUpdated | retVal_folding;
-    line_continue=textLine->getHlLineContinue();
+    line_continue=textLine->hlLineContinue();
     ctxNum.duplicate (textLine->ctxArray());
 
     if (endCtx.size() != ctxNum.size())
@@ -578,7 +578,7 @@ KateBuffer::plainLine(uint i)
       parseBlock(buf);     
    }
    TextLine::Ptr l = buf->line(i - buf->m_beginState.lineNr);
-   return l->getString();
+   return l->string();
 }
      
 void     
@@ -1006,79 +1006,27 @@ void
 KateBufBlock::flushStringList()
 {
   // kdDebug(13020)<<"KateBufBlock: flushStringList this ="<< this<<endl;
-   assert(b_stringListValid);
-   assert(!b_rawDataValid);
+  assert(b_stringListValid);
+  assert(!b_rawDataValid);
 
-   // Stores the data as lines of <lenght><length characters>
-   // both <length> as well as <character> have size of sizeof(QChar)
-
-   // Calculate size.
-   uint size = 0;
-   for(TextLine::List::const_iterator it = m_stringList.begin();
-       it != m_stringList.end(); ++it)
-   {
-      uint l = (*it)->text.size();
-      uint lctx = (*it)->ctx.size();
-      uint lfold = (*it)->foldingList.size();
-      size += (3*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + 1+ 1 + (lctx * sizeof(signed char)) + (lfold * sizeof(signed char));
-      //size += sizeof(uint) + l*sizeof(QChar);
-   }
-   //kdDebug(13020)<<"Size = "<< size<<endl;
-   m_rawData2 = QByteArray(size);
-   m_rawData2End = size;
-   m_rawSize = size;
-   char *buf = m_rawData2.data();
-   // Copy data
-   for(TextLine::List::iterator it = m_stringList.begin();
-       it != m_stringList.end(); ++it)
-   {
-      TextLine *tl = (*it).data();
-      uint l = tl->text.size();
-      uint lctx = tl->ctx.size();
-      uint lfold = tl->foldingList.size();
-
-       memcpy(buf, &l, sizeof(uint));
-       buf += sizeof(uint);
-
-      memcpy(buf, &lctx, sizeof(uint));
-      buf += sizeof(uint);
-      
-      memcpy(buf, &lfold, sizeof(uint));
-      buf += sizeof(uint);
-
-      memcpy(buf, (char *) tl->text.data(), sizeof(QChar)*l);
-      buf += sizeof(QChar)*l;
-
-      memcpy(buf, (char *) tl->attributes.data(), l);
-      buf += l;
-
-      memcpy(buf, (char *)&tl->attr, 1);
-      buf += 1;
-
-      uchar tmp1 = 0;
-      if (tl->hlContinue)
-        tmp1 = 1;
-
-      memcpy(buf, (char *)&tmp1, 1);
-      buf += 1;
-
-      uchar tmp2 = 0;
-      if (tl->m_visible)
-        tmp2 = 1;
-
-      memcpy(buf, (char *)&tmp2, 1);
-      buf += 1;
-
-      memcpy(buf, (signed char *)tl->ctx.data(), lctx);
-      buf += sizeof (signed char) * lctx;
-      
-      memcpy(buf, (signed char *)tl->foldingList.data(), lfold);
-      buf += sizeof (signed char) * lfold;
-   }
-   assert(buf-m_rawData2.data() == (int)size);
-   m_codec = 0; // No codec
-   b_rawDataValid = true;
-  // kdDebug(13000)<<"KateBuffer::FlushStringList"<<endl;
+  // Calculate size.
+  uint size = 0;
+  for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
+    size += (*it)->dumpSize ();
+   
+  //kdDebug(13020)<<"Size = "<< size<<endl;
+  m_rawData2 = QByteArray(size);
+  m_rawData2End = size;
+  m_rawSize = size;
+  char *buf = m_rawData2.data();
+   
+  // Dump textlines
+  for(TextLine::List::iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
+    buf = (*it)->dump (buf);
+   
+  assert(buf-m_rawData2.data() == (int)size);
+  m_codec = 0; // No codec
+  b_rawDataValid = true;
 }
 
 /**
@@ -1093,51 +1041,8 @@ KateBufBlock::buildStringListFast()
 
   while(buf < end)
   {
-    uint l = 0;
-    uint lctx = 0;
-    uint lfold = 0;
-
-    // text + context length read
-    memcpy((char *) &l, buf, sizeof(uint));
-    buf += sizeof(uint);
-    memcpy((char *) &lctx, buf, sizeof(uint));
-    buf += sizeof(uint);
-    memcpy((char *) &lfold, buf, sizeof(uint));
-    buf += sizeof(uint);
-
     TextLine::Ptr textLine = new TextLine();
-
-    // text + attributes
-    textLine->text.duplicate ((QChar *) buf, l);
-    textLine->attributes.duplicate ((uchar *) buf + (sizeof(QChar)*l), l);
-    buf += (sizeof(QChar)*l);
-    buf += l;
-
-    uchar a = 0;
-    memcpy((char *)&a, buf, sizeof(uchar));
-    buf += sizeof(uchar);
-    textLine->attr = a;
-
-    uchar tmp1 = 0;
-    memcpy((char *)&tmp1, buf, sizeof(uchar));
-    buf += sizeof(uchar);
-
-    if (tmp1 == 1)
-      textLine->hlContinue = true;
-      
-    uchar tmp2 = 0;
-    memcpy((char *)&tmp2, buf, sizeof(uchar));
-    buf += sizeof(uchar);
-
-    if (tmp2 == 1)
-      textLine->m_visible = true;
-
-    textLine->ctx.duplicate ((signed char *) buf, lctx);
-    buf += lctx;
-    
-    textLine->foldingList.duplicate ((signed char *) buf, lfold);
-    buf += lfold;
-
+    buf = textLine->restore (buf);
     m_stringList.push_back (textLine);
   }
 

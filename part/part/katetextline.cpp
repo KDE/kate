@@ -24,7 +24,7 @@
 #include <qregexp.h>
 
 TextLine::TextLine()
-  : foldingListValid(false),attr (0), hlContinue(false),m_visible(true)
+  : m_attr (0), m_hlContinue(false),m_visible(true), m_foldingListValid(false)
 {
 }
 
@@ -38,7 +38,7 @@ void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen,
   int i, z2;
   uchar newAttr;
 
-  textLen = text.size ();
+  textLen = m_text.size ();
 
   //find new length
   if (delLen <= textLen)
@@ -48,18 +48,18 @@ void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen,
 
   if (newLen < pos) newLen = pos;
   newLen += insLen;
-  newAttr = (pos < textLen) ? attributes[pos] : attr;
+  newAttr = (pos < textLen) ? m_attributes[pos] : m_attr;
 
   if (newLen > textLen)
   {
-    text.resize (newLen);
-    attributes.resize (newLen);
+    m_text.resize (newLen);
+    m_attributes.resize (newLen);
   }
 
   //fill up with spaces and attribute
   for (z = textLen; z < pos; z++) {
-    text[z] = QChar(' ');
-    attributes[z] = attr;
+    m_text[z] = QChar(' ');
+    m_attributes[z] = m_attr;
   }
 
   i = (insLen - delLen);
@@ -71,8 +71,8 @@ void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen,
       //text to replace longer than new text
       for (z = pos + delLen; z < textLen; z++) {
         if ((z+i) >= newLen) break;
-        text[z + i] = text[z];
-        attributes[z + i] = attributes[z];
+        m_text[z + i] = m_text[z];
+        m_attributes[z + i] = m_attributes[z];
       }
 
 
@@ -80,68 +80,68 @@ void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen,
       //text to replace shorter than new text
       for (z2 = textLen-1; z2 >= (int) (pos + delLen); z2--) {
         if (z2 < 0) break;
-        text[z2 + i] = text[z2];
-        attributes[z2 + i] = attributes[z2];
+        m_text[z2 + i] = m_text[z2];
+        m_attributes[z2 + i] = m_attributes[z2];
       }
     }
   }
 
   if (insAttribs == 0L) {
     for (z = 0; z < insLen; z++) {
-      text[pos + z] = insText[z];
-      attributes[pos + z] = newAttr;
+      m_text[pos + z] = insText[z];
+      m_attributes[pos + z] = newAttr;
     }
   } else {
     for (z = 0; z < insLen; z++) {
-      text[pos + z] = insText[z];
-      attributes[pos + z] = insAttribs[z];
+      m_text[pos + z] = insText[z];
+      m_attributes[pos + z] = insAttribs[z];
     }
   }
 
   if (newLen < textLen)
   {
-    text.truncate (newLen);
-    attributes.truncate (newLen);
+    m_text.truncate (newLen);
+    m_attributes.truncate (newLen);
   }
 }
 
 void TextLine::append(const QChar *s, uint l)
 {
-  replace(text.size(), 0, s, l);
+  replace(m_text.size(), 0, s, l);
 }
 
 void TextLine::truncate(uint newLen)
 {
-  if (newLen < text.size())
+  if (newLen < m_text.size())
   {
-    text.truncate (newLen);
-    attributes.truncate (newLen);
+    m_text.truncate (newLen);
+    m_attributes.truncate (newLen);
   }
 }
 
 void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 {
-  int l = text.size() - pos;
+  int l = m_text.size() - pos;
 
   if (l > 0)
   {
-    nextLine->replace(0, 0, &text[pos], l, &attributes[pos]);
-    attr = attributes[pos];
+    nextLine->replace(0, 0, &m_text[pos], l, &m_attributes[pos]);
+    m_attr = m_attributes[pos];
     truncate(pos);
   }
 }
 
 void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
-  replace(pos, 0, nextLine->text.data(), len, nextLine->attributes.data());
-  attr = nextLine->getAttr(len);
+  replace(pos, 0, nextLine->m_text.data(), len, nextLine->m_attributes.data());
+  m_attr = nextLine->attribute(len);
   nextLine->replace(0, len, 0L, 0);
 }
 
 int TextLine::nextNonSpaceChar(uint pos) const
 {
-    for(int i = pos; i < (int)text.size(); i++) {
-        if(!text[i].isSpace())
+    for(int i = pos; i < (int)m_text.size(); i++) {
+        if(!m_text[i].isSpace())
             return i;
     }
     return -1;
@@ -149,13 +149,13 @@ int TextLine::nextNonSpaceChar(uint pos) const
 
 int TextLine::previousNonSpaceChar(uint pos) const
 {
-    if(pos >= text.size()) {
-        kdDebug(1714) << "pos >= text.size()" << endl;
-        pos = text.size() - 1;
+    if(pos >= m_text.size()) {
+        kdDebug(1714) << "pos >= m_text.size()" << endl;
+        pos = m_text.size() - 1;
     }
 
     for(int i = pos; i >= 0; i--) {
-        if(!text[i].isSpace())
+        if(!m_text[i].isSpace())
             return i;
     }
     return -1;
@@ -168,7 +168,7 @@ int TextLine::firstChar() const
  
 int TextLine::lastChar() const
 {
-    return previousNonSpaceChar(text.size() - 1);
+    return previousNonSpaceChar(m_text.size() - 1);
 }
 
 void TextLine::removeSpaces()
@@ -176,43 +176,35 @@ void TextLine::removeSpaces()
   truncate(lastChar() + 1);
 }
 
-QChar TextLine::getChar(uint pos) const
-{
-  if (pos < text.size())
-	  return text[pos];
-
-  return QChar(' ');
-}
-
 QChar *TextLine::firstNonSpace() const
 {
   int first = firstChar();
-  return (first > -1) ? &text[first] : text.data();
+  return (first > -1) ? &m_text[first] : m_text.data();
 }
 
 bool TextLine::stringAtPos(uint pos, const QString& match) const
 {
-    return (getString().mid(pos, match.length()) == match);
+  return (string().mid(pos, match.length()) == match);
 }
 
 bool TextLine::startingWith(const QString& match) const
 {
-  return (getString().left(match.length()) == match);
+  return (string().left(match.length()) == match);
 }
 
 bool TextLine::endingWith(const QString& match) const
 {
-  return (getString().right(match.length()) == match);
+  return (string().right(match.length()) == match);
 }
 
 int TextLine::cursorX(uint pos, uint tabChars) const
 {
   int l, x, z;
 
-  l = (pos < text.size()) ? pos : text.size();
+  l = (pos < m_text.size()) ? pos : m_text.size();
   x = 0;
   for (z = 0; z < l; z++) {
-    if (text[z] == QChar('\t')) x += tabChars - (x % tabChars); else x++;
+    if (m_text[z] == QChar('\t')) x += tabChars - (x % tabChars); else x++;
   }
   x += pos - l;
   return x;
@@ -221,26 +213,8 @@ int TextLine::cursorX(uint pos, uint tabChars) const
 void TextLine::setAttribs(uchar attribute, uint start, uint end) {
   uint z;
 
-  if (end > text.size()) end = text.size();
-  for (z = start; z < end; z++) attributes[z] = attribute;
-}
-
-void TextLine::setAttr(uchar attribute) {
-  attr = attribute;
-}
-
-uchar TextLine::getAttr(uint pos) const {
-  if (pos < text.size()) return attributes[pos];
-  return attr;
-}
-
-uchar TextLine::getAttr() const {
-  return attr;
-}
-
-void TextLine::setContext(signed char *newctx, uint len)
-{
-  ctx.duplicate (newctx, len);
+  if (end > m_text.size()) end = m_text.size();
+  for (z = start; z < end; z++) m_attributes[z] = attribute;
 }
 
 bool TextLine::searchText (unsigned int startCol, const QString &text, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive, bool backwards)
@@ -248,9 +222,9 @@ bool TextLine::searchText (unsigned int startCol, const QString &text, unsigned 
   int index;
 
   if (backwards)
-    index = QConstString (this->text.data(), this->text.size()).string().findRev (text, startCol, casesensitive);
+    index = QConstString (this->m_text.data(), this->m_text.size()).string().findRev (text, startCol, casesensitive);
   else
-    index = QConstString (this->text.data(), this->text.size()).string().find (text, startCol, casesensitive);
+    index = QConstString (this->m_text.data(), this->m_text.size()).string().find (text, startCol, casesensitive);
 
    if (index > -1)
 	{
@@ -267,9 +241,9 @@ bool TextLine::searchText (unsigned int startCol, const QRegExp &regexp, unsigne
   int index; 
  
   if (backwards)
-    index = regexp.searchRev (QConstString (this->text.data(), this->text.size()).string(), startCol);
+    index = regexp.searchRev (QConstString (this->m_text.data(), this->m_text.size()).string(), startCol);
   else
-    index = regexp.search (QConstString (this->text.data(), this->text.size()).string(), startCol);
+    index = regexp.search (QConstString (this->m_text.data(), this->m_text.size()).string(), startCol);
  
    if (index > -1) 
 	{ 
@@ -279,5 +253,111 @@ bool TextLine::searchText (unsigned int startCol, const QRegExp &regexp, unsigne
   } 
  
   return false; 
-} 
+}                                 
+
+uint TextLine::dumpSize () const
+{  
+  return (3*sizeof(uint)) + (m_text.size()*(sizeof(QChar) + 1)) + 1 + 1+ 1 + (m_ctx.size() * sizeof(signed char)) + (m_foldingList.size() * sizeof(signed char));
+}
  
+char *TextLine::dump (char *buf) const
+{
+  uint l = m_text.size();
+  uint lctx = m_ctx.size();
+  uint lfold = m_foldingList.size();
+
+  memcpy(buf, &l, sizeof(uint));
+  buf += sizeof(uint);
+
+  memcpy(buf, &lctx, sizeof(uint));
+  buf += sizeof(uint);
+
+  memcpy(buf, &lfold, sizeof(uint));
+  buf += sizeof(uint);
+
+  memcpy(buf, (char *) m_text.data(), sizeof(QChar)*l);
+  buf += sizeof(QChar)*l;
+
+  memcpy(buf, (char *) m_attributes.data(), l);
+  buf += l;
+
+  memcpy(buf, (char *)&m_attr, 1);
+  buf += 1;
+
+  uchar tmp1 = 0;
+  if (m_hlContinue)
+    tmp1 = 1;
+
+  memcpy(buf, (char *)&tmp1, 1);
+  buf += 1;
+
+  uchar tmp2 = 0;
+  if (m_visible)
+    tmp2 = 1;
+
+  memcpy(buf, (char *)&tmp2, 1);
+  buf += 1;
+
+  memcpy(buf, (signed char *)m_ctx.data(), lctx);
+  buf += sizeof (signed char) * lctx;
+
+  memcpy(buf, (signed char *)m_foldingList.data(), lfold);
+  buf += sizeof (signed char) * lfold;       
+      
+  return buf;
+}      
+
+char *TextLine::restore (char *buf)
+{
+  uint l = 0;
+  uint lctx = 0;
+  uint lfold = 0;
+
+  // text + context length read
+  memcpy((char *) &l, buf, sizeof(uint));
+  buf += sizeof(uint);
+  memcpy((char *) &lctx, buf, sizeof(uint));
+  buf += sizeof(uint);
+  memcpy((char *) &lfold, buf, sizeof(uint));
+  buf += sizeof(uint);
+
+  // text + attributes
+  m_text.duplicate ((QChar *) buf, l);
+  m_attributes.duplicate ((uchar *) buf + (sizeof(QChar)*l), l);
+  buf += (sizeof(QChar)*l);
+  buf += l;
+
+  uchar a = 0;
+  memcpy((char *)&a, buf, sizeof(uchar));
+  buf += sizeof(uchar);
+  m_attr = a;
+
+  uchar tmp1 = 0;
+  memcpy((char *)&tmp1, buf, sizeof(uchar));
+  buf += sizeof(uchar);
+
+  if (tmp1 == 1)
+    m_hlContinue = true;
+
+  uchar tmp2 = 0;
+  memcpy((char *)&tmp2, buf, sizeof(uchar));
+  buf += sizeof(uchar);
+
+  if (tmp2 == 1)
+    m_visible = true;
+
+  m_ctx.duplicate ((signed char *) buf, lctx);
+  buf += lctx;
+
+  m_foldingList.duplicate ((signed char *) buf, lfold);
+  buf += lfold;           
+  
+  return buf;
+}
+
+
+
+
+
+
+

@@ -148,11 +148,15 @@ class KateJSView : public KJS::ObjectImp
 KateJScript::KateJScript ()
  : m_global (new KJS::Object (new KateJSGlobal ()))
  , m_interpreter (new KJS::Interpreter (*m_global))
+ , m_document (new KJS::Object(wrapDocument(m_interpreter->globalExec(), 0)))
+ , m_view (new KJS::Object (wrapView(m_interpreter->globalExec(), 0)))
 {
 }
 
 KateJScript::~KateJScript ()
 {
+  delete m_view;
+  delete m_document;
   delete m_interpreter;
   delete m_global;
 }
@@ -175,9 +179,13 @@ bool KateJScript::execute (KateView *view, const QString &script, QString &error
     return false;
   }
 
+  // init doc & view
+  static_cast<KateJSDocument *>( m_document->imp() )->doc = view->doc();
+  static_cast<KateJSView *>( m_view->imp() )->view = view;
+
   // put some stuff into env.
-  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", KJS::Object(wrapDocument(m_interpreter->globalExec(), view->doc())));
-  m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", KJS::Object(wrapView(m_interpreter->globalExec(), view)));
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "document", *m_document);
+  m_interpreter->globalObject().put(m_interpreter->globalExec(), "view", *m_view);
 
   // run
   KJS::Completion comp (m_interpreter->evaluate(script));

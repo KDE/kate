@@ -93,6 +93,16 @@ class KateJScript
      * js interpreter
      */
     KJS::Interpreter *m_interpreter;
+
+    /**
+     * object for document
+     */
+    KJS::Object *m_document;
+
+    /**
+     * object for view
+     */
+    KJS::Object *m_view;
 };
 
 class KateJScriptManager : public Kate::Command

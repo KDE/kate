@@ -479,7 +479,7 @@ void KateView::setupEditActions()
 void KateView::setupCodeFolding()
 {
   KActionCollection *ac=this->actionCollection(); 
-  new KAction( i18n("Collapse toplevel"), CTRL+ALT+Key_C,
+  new KAction( i18n("Collapse Toplevel"), CTRL+ALT+Key_C,
        m_doc->foldingTree(),SLOT(collapseToplevelNodes()),ac,"folding_toplevel");
 
   KAccel* debugAccels = new KAccel(this,this);

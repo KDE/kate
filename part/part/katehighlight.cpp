@@ -1823,7 +1823,7 @@ void Highlight::makeContextList()
 
 // if there have been errors show them
 	if (!errorsAndWarnings.isEmpty())
-	KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate syntax highlight parser"));
+	KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlight Parser"));
 
 // we have finished
   building=false;

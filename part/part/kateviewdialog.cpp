@@ -105,7 +105,7 @@ void ReplacePrompt::done(int r) {
 
 //BEGIN GotoLineDialog
 GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
-  : KDialogBase(parent, 0L, true, i18n("Goto Line"), Ok | Cancel, Ok) {
+  : KDialogBase(parent, 0L, true, i18n("Go to Line"), Ok | Cancel, Ok) {
 
   QWidget *page = new QWidget(this);
   setMainWidget(page);
@@ -471,7 +471,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   glay->addWidget( label, 6, 0 );
   glay->addWidget( m_bracket, 6, 1 );
   
-  label = new QLabel( i18n("Word Wrap:"), this );
+  label = new QLabel( i18n("Word wrap:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_wwmarker = new KColorButton( this );
   label->setBuddy( m_wwmarker );

@@ -687,7 +687,7 @@ void KateViewInternal::updateView(int flags)
   //
   //  update yScrollbar (first that, as we need if it should be shown for the width() of the view)
   //
-  if (!(flags & KateViewInternal::ufExposeCursor)/* || (flags & KateViewInternal::ufFoldingChanged) || (flags && KateViewInternal::ufDocGeometry)*/)
+  if (!(flags & KateViewInternal::ufExposeCursor) || (flags & KateViewInternal::ufFoldingChanged) || (flags && KateViewInternal::ufDocGeometry))
   {
     uint contentLines=myDoc->visibleLines();
     int viewLines=height()/fontHeight;
@@ -733,7 +733,7 @@ void KateViewInternal::updateView(int flags)
 	{
     int he  = height();
 	
-		if (displayCursor.line>= he/fontHeight)
+		if (displayCursor.line>= (startLine+(he/fontHeight)))
 		{
 			tmpYPos=(displayCursor.line*fontHeight)-he+fontHeight;
 			if ((tmpYPos % fontHeight)!=0) tmpYPos=tmpYPos+fontHeight;

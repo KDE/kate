@@ -829,7 +829,8 @@ void KateViewInternal::updateView(int flags) {
     xScroll->setSteps(fontHeight,pageScroll);
     xScroll->blockSignals(false);
     xScroll->show();
-  } else xScroll->hide();
+  }
+  else xScroll->hide();
 
   if (yMax > 0) {
     pageScroll = h - (h % fontHeight) - fontHeight;
@@ -837,7 +838,7 @@ void KateViewInternal::updateView(int flags) {
       pageScroll = fontHeight;
 
     yScroll->blockSignals(true);
-    yScroll->setGeometry(w + 2,2,scrollbarWidth,h);
+    yScroll->setGeometry(w + 2,2,scrollbarWidth,myView->height() - 4-scrollbarWidth);
     yScroll->setRange(0,yMax);
     yScroll->setValue(yPos);
     yScroll->setSteps(fontHeight,pageScroll);

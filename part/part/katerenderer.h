@@ -206,7 +206,7 @@ public:
      * This takes an in index, and returns all the attributes for it.
      * For example, if you have a ktextline, and want the KateAttribute
      * for a given position, do:
-     * 
+     *
      *   attribute(myktextline->attribute(position));
      */
     KateAttribute* attribute(uint pos);

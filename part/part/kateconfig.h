@@ -405,6 +405,7 @@ class KateRendererConfig : public KateConfig
      */
     KateRendererConfig ();
 
+
   public:
     /**
      * Construct a DocumentConfig
@@ -437,6 +438,12 @@ class KateRendererConfig : public KateConfig
   public:
     uint schema () const;
     void setSchema (uint schema);
+    /**
+     * Reload the schema from the schema manager.
+     * For the global instance, have all other instances reload.
+     * Used by the schema config page to apply changes.
+     */
+    void reloadSchema();
 
     KateFontStruct *fontStruct ();
     QFont *font();
@@ -477,6 +484,11 @@ class KateRendererConfig : public KateConfig
     void setLineNumberColor (const QColor &col);
 
   private:
+    /**
+     * Read the schema properties from the config file.
+     */
+    void setSchemaInternal(int schema);
+
     uint m_schema;
     KateFontStruct *m_font;
     bool m_wordWrapMarker;

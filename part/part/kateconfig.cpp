@@ -40,6 +40,8 @@
 #include <qpopupmenu.h>
 #include <qtextcodec.h>
 
+#include <kdebug.h>
+
 //BEGIN KateConfig
 KateConfig::KateConfig ()
  : configSessionNumber (0), configIsRunning (false)
@@ -1048,7 +1050,24 @@ uint KateRendererConfig::schema () const
 void KateRendererConfig::setSchema (uint schema)
 {
   configStart ();
+  m_schemaSet = true;
+  m_schema = schema;
+  setSchemaInternal( schema );
+  configEnd ();
+}
 
+void KateRendererConfig::reloadSchema()
+{
+  if ( isGlobal() )
+    for ( uint z=0; z < KateFactory::self()->renderers()->count(); z++ )
+      KateFactory::self()->renderers()->at(z)->config()->reloadSchema();
+
+  else if ( m_renderer && m_schemaSet )
+    setSchemaInternal( m_schema );
+}
+
+void KateRendererConfig::setSchemaInternal( int schema )
+{
   m_schemaSet = true;
   m_schema = schema;
 
@@ -1063,14 +1082,22 @@ void KateRendererConfig::setSchema (uint schema)
   QColor tmp6 ( "#EAE9E8" );
   QColor tmp7 ( "#000000" );
 
-  setBackgroundColor (config->readColorEntry("Color Background", &tmp0));
-  setSelectionColor (config->readColorEntry("Color Selection", &tmp1));
-  setHighlightedLineColor (config->readColorEntry("Color Highlighted Line", &tmp2));
-  setHighlightedBracketColor (config->readColorEntry("Color Highlighted Bracket", &tmp3));
-  setWordWrapMarkerColor (config->readColorEntry("Color Word Wrap Marker", &tmp4));
-  setTabMarkerColor (config->readColorEntry("Color Tab Marker", &tmp5));
-  setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp6));
-  setLineNumberColor (config->readColorEntry("Color Line Number", &tmp7));
+  m_backgroundColor = config->readColorEntry("Color Background", &tmp0);
+  m_backgroundColorSet = true;
+  m_selectionColor = config->readColorEntry("Color Selection", &tmp1);
+  m_selectionColorSet = true;
+  m_highlightedLineColor  = config->readColorEntry("Color Highlighted Line", &tmp2);
+  m_highlightedLineColorSet = true;
+  m_highlightedBracketColor = config->readColorEntry("Color Highlighted Bracket", &tmp3);
+  m_highlightedBracketColorSet = true;
+  m_wordWrapMarkerColor = config->readColorEntry("Color Word Wrap Marker", &tmp4);
+  m_wordWrapMarkerColorSet = true;
+  m_tabMarkerColor = config->readColorEntry("Color Tab Marker", &tmp5);
+  m_tabMarkerColorSet = true;
+  m_iconBarColor  = config->readColorEntry("Color Icon Bar", &tmp6);
+  m_iconBarColorSet = true;
+  m_lineNumberColor = config->readColorEntry("Color Line Number", &tmp7);
+  m_lineNumberColorSet = true;
 
     // same std colors like in KateDocument::markColor
   QColor mark[7];
@@ -1082,16 +1109,22 @@ void KateRendererConfig::setSchema (uint schema)
   mark[5] = Qt::green;
   mark[6] = Qt::red;
 
-  for (int i = 1; i < 8; i++) {
-    setLineMarkerColor(config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]),
-      static_cast<KTextEditor::MarkInterface::MarkTypes>( static_cast<int>( pow(2, i - 1) ) ));
+  for (int i = 1; i <= KTextEditor::MarkInterface::reservedMarkersCount(); i++) {
+    QColor col = config->readColorEntry(QString("Color MarkType%1").arg(i), &mark[i - 1]);
+    int index = i-1;
+    m_lineMarkerColorSet[index] = true;
+    m_lineMarkerColor[index] = col;
   }
 
   QFont f (KGlobalSettings::fixedFont());
 
-  setFont(config->readFontEntry("Font", &f));
+  if (!m_fontSet)
+  {
+    m_fontSet = true;
+    m_font = new KateFontStruct ();
+  }
 
-  configEnd ();
+  m_font->setFont(f);
 }
 
 KateFontStruct *KateRendererConfig::fontStruct ()

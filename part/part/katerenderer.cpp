@@ -137,7 +137,7 @@ bool KateRenderer::paintTextLineBackground(QPainter& paint, int line, bool isCur
   KateFontStruct *fs = config()->fontStruct();
 
   // Normal background color
-  QColor backgroundColor (config()->backgroundColor());
+  QColor backgroundColor( config()->backgroundColor() );
 
   bool selectionPainted = false;
   if (showSelections() && m_doc->lineSelected(line))
@@ -158,12 +158,19 @@ bool KateRenderer::paintTextLineBackground(QPainter& paint, int line, bool isCur
     uint mrk = m_doc->mark( line );
     if (mrk)
     {
+      // don't try to get colors for non-reserved mark types from the config
+      uint reserved = (0x1 << KTextEditor::MarkInterface::reservedMarkersCount()) - 1;
+
       for (uint bit = 0; bit < 32; bit++)
       {
         KTextEditor::MarkInterface::MarkTypes markType = (KTextEditor::MarkInterface::MarkTypes)(1<<bit);
         if (mrk & markType)
         {
-          QColor markColor = m_doc->markColor( markType );
+          QColor markColor;
+          if ( (uint)markType <= reserved)
+            markColor = config()->lineMarkerColor(markType);
+          else
+            markColor =  m_doc->markColor( markType );
 
           if (markColor.isValid()) {
             markCount++;
@@ -890,7 +897,7 @@ bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, u
 
 void KateRenderer::updateConfig ()
 {
-  // update the attribute list pointer
+  // update the attibute list pointer
   updateAttributes ();
 
   if (m_view)

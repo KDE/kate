@@ -25,7 +25,9 @@
 
 #include <qstringlist.h>
 #include <qintdict.h>
+#include <qmap.h>
 #include <qlistview.h>
+#include <qfont.h>
 
 #include <kconfig.h>
 #include <kaction.h>
@@ -177,12 +179,23 @@ class KateSchemaConfigColorTab : public QWidget
     KColorButton *m_linenumber;
 
     KColorButton *m_markers;           // bg color for current selected marker
-    QMap<int, QColor> m_markerColors;  // stores all markerColors
     KComboBox* m_combobox;             // switch marker type
 
-  public:
-    void readConfig (KConfig *config);
-    void writeConfig (KConfig *config);
+    // Class for storing the properties on 1 schema.
+    class SchemaColors {
+      public:
+        QColor back, selected, current, bracket, wwmarker, iconborder, tmarker, linenumber;
+        QMap<int, QColor> markerColors;  // stores all markerColors
+    };
+
+    // schemaid=data, created when a schema is entered
+    QMap<int,SchemaColors> m_schemas;
+    // current schema
+    int m_schema;
+
+  public slots:
+    void apply();
+    void schemaChanged( int newSchema );
 
   signals:
     void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
@@ -191,6 +204,8 @@ class KateSchemaConfigColorTab : public QWidget
     void slotMarkerColorChanged(const QColor&);
     void slotComboBoxChanged(int index);
 };
+
+typedef QMap<int,QFont> FontMap; // ### remove it
 
 class KateSchemaConfigFontTab : public QWidget
 {
@@ -202,14 +217,18 @@ class KateSchemaConfigFontTab : public QWidget
 
   public:
     void readConfig (KConfig *config);
-    void writeConfig (KConfig *config);
+
+  public slots:
+    void apply();
+    void schemaChanged( int newSchema );
 
   signals:
     void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
 
   private:
     class KFontChooser *m_fontchooser;
-    QFont myFont;
+    FontMap m_fonts;
+    int m_schema;
 
   private slots:
     void slotFontSelected( const QFont &font );
@@ -288,6 +307,7 @@ class KateSchemaConfigPage : public KateConfigPage
   private:
     int m_lastSchema;
     int m_defaultSchema;
+
     class QTabWidget *m_tabWidget;
     class QPushButton *btndel;
     class QComboBox *defaultSchemaCombo;

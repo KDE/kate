@@ -269,6 +269,8 @@ QString KateSchemaManager::name (uint number)
 KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char * )
   : QWidget (parent)
 {
+  m_schema = -1;
+
   QHBox *b;
   QLabel *label;
 
@@ -382,8 +384,26 @@ KateSchemaConfigColorTab::~KateSchemaConfigColorTab()
 {
 }
 
-void KateSchemaConfigColorTab::readConfig (KConfig *config)
+void KateSchemaConfigColorTab::schemaChanged ( int newSchema )
 {
+  // save curent schema
+  if ( m_schema > -1 )
+  {
+    m_schemas[ m_schema ].back = m_back->color();
+    m_schemas[ m_schema ].selected = m_selected->color();
+    m_schemas[ m_schema ].current = m_current->color();
+    m_schemas[ m_schema ].bracket = m_bracket->color();
+    m_schemas[ m_schema ].wwmarker = m_wwmarker->color();
+    m_schemas[ m_schema ].iconborder = m_iconborder->color();
+    m_schemas[ m_schema ].tmarker = m_tmarker->color();
+    m_schemas[ m_schema ].linenumber = m_linenumber->color();
+  }
+
+  if ( newSchema == m_schema ) return;
+
+  // switch
+  m_schema = newSchema;
+
   // first disconnect all signals otherwise setColor emits changed
   m_back      ->disconnect( SIGNAL( changed( const QColor & ) ) );
   m_selected  ->disconnect( SIGNAL( changed( const QColor & ) ) );
@@ -395,45 +415,65 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   m_markers   ->disconnect( SIGNAL( changed( const QColor & ) ) );
   m_linenumber->disconnect( SIGNAL( changed( const QColor & ) ) );
 
-  QColor tmp0 (KGlobalSettings::baseColor());
-  QColor tmp1 (KGlobalSettings::highlightColor());
-  QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
-  QColor tmp3 ( "#FFFF99" );
-  QColor tmp4 (tmp2.dark());
-  QColor tmp5 ( KGlobalSettings::textColor() );
-  QColor tmp6 ( "#EAE9E8" );
-  QColor tmp7 ( "#000000" );
+  // If we havent this schema, read in from config file
+  if ( ! m_schemas.contains( newSchema ) )
+  {
+    // fallback defaults
+    QColor tmp0 (KGlobalSettings::baseColor());
+    QColor tmp1 (KGlobalSettings::highlightColor());
+    QColor tmp2 (KGlobalSettings::alternateBackgroundColor());
+    QColor tmp3 ( "#FFFF99" );
+    QColor tmp4 (tmp2.dark());
+    QColor tmp5 ( KGlobalSettings::textColor() );
+    QColor tmp6 ( "#EAE9E8" );
+    QColor tmp7 ( "#000000" );
 
-  m_back->setColor(config->readColorEntry("Color Background", &tmp0));
-  m_selected->setColor(config->readColorEntry("Color Selection", &tmp1));
-  m_current->setColor(config->readColorEntry("Color Highlighted Line", &tmp2));
-  m_bracket->setColor(config->readColorEntry("Color Highlighted Bracket", &tmp3));
-  m_wwmarker->setColor(config->readColorEntry("Color Word Wrap Marker", &tmp4));
-  m_tmarker->setColor(config->readColorEntry("Color Tab Marker", &tmp5));
-  m_iconborder->setColor(config->readColorEntry("Color Icon Bar", &tmp6));
-  m_linenumber->setColor(config->readColorEntry("Color Line Number", &tmp7));
+    // same std colors like in KateDocument::markColor
+    QValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
+    Q_ASSERT(mark.size() > 6);
+    mark[0] = Qt::blue;
+    mark[1] = Qt::red;
+    mark[2] = Qt::yellow;
+    mark[3] = Qt::magenta;
+    mark[4] = Qt::gray;
+    mark[5] = Qt::green;
+    mark[6] = Qt::red;
 
-  // same std colors like in KateDocument::markColor
-  QValueVector <QColor> mark(KTextEditor::MarkInterface::reservedMarkersCount());
-  Q_ASSERT(mark.size() > 6);
-  mark[0] = Qt::blue;
-  mark[1] = Qt::red;
-  mark[2] = Qt::yellow;
-  mark[3] = Qt::magenta;
-  mark[4] = Qt::gray;
-  mark[5] = Qt::green;
-  mark[6] = Qt::red;
+    SchemaColors c;
+    KConfig *config = KateFactory::self()->schemaManager()->schema(newSchema);
+
+    c.back= config->readColorEntry("Color Background", &tmp0);
+    c.selected = config->readColorEntry("Color Selection", &tmp1);
+    c.current = config->readColorEntry("Color Highlighted Line", &tmp2);
+    c.bracket = config->readColorEntry("Color Highlighted Bracket", &tmp3);
+    c.wwmarker = config->readColorEntry("Color Word Wrap Marker", &tmp4);
+    c.tmarker = config->readColorEntry("Color Tab Marker", &tmp5);
+    c.iconborder = config->readColorEntry("Color Icon Bar", &tmp6);
+    c.linenumber = config->readColorEntry("Color Line Number", &tmp7);
+
+    for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
+      c.markerColors[i] =  config->readColorEntry( QString("Color MarkType%1").arg(i+1), &mark[i] );
+
+     m_schemas[ newSchema ] = c;
+  }
+
+  m_back->setColor(  m_schemas[ newSchema ].back);
+  m_selected->setColor(  m_schemas [ newSchema ].selected );
+  m_current->setColor(  m_schemas [ newSchema ].current );
+  m_bracket->setColor(  m_schemas [ newSchema ].bracket );
+  m_wwmarker->setColor(  m_schemas [ newSchema ].wwmarker );
+  m_tmarker->setColor(  m_schemas [ newSchema ].tmarker );
+  m_iconborder->setColor(  m_schemas [ newSchema ].iconborder );
+  m_linenumber->setColor(  m_schemas [ newSchema ].linenumber );
 
   // map from 0..reservedMarkersCount()-1 - the same index as in markInterface
   for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
   {
-    // arg(i+1) to match the number conventions in markinterface.h
-    m_markerColors[i] = config->readColorEntry(QString("Color MarkType%1").arg(i + 1), &mark[i]);
     QPixmap pix(16, 16);
-    pix.fill(m_markerColors[i]);
+    pix.fill( m_schemas [ newSchema ].markerColors[i]);
     m_combobox->changeItem(pix, m_combobox->text(i), i);
   }
-  m_markers->setColor( m_markerColors[ m_combobox->currentItem() ] );
+  m_markers->setColor(  m_schemas [ newSchema ].markerColors[ m_combobox->currentItem() ] );
 
   connect( m_back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
@@ -446,27 +486,37 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 
-void KateSchemaConfigColorTab::writeConfig (KConfig *config)
+void KateSchemaConfigColorTab::apply ()
 {
-  config->writeEntry("Color Background", m_back->color());
-  config->writeEntry("Color Selection", m_selected->color());
-  config->writeEntry("Color Highlighted Line", m_current->color());
-  config->writeEntry("Color Highlighted Bracket", m_bracket->color());
-  config->writeEntry("Color Word Wrap Marker", m_wwmarker->color());
-  config->writeEntry("Color Tab Marker", m_tmarker->color());
-  config->writeEntry("Color Icon Bar", m_iconborder->color());
-  config->writeEntry("Color Line Number", m_linenumber->color());
-
-  for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
+  schemaChanged( m_schema );
+  QMap<int,SchemaColors>::Iterator it;
+  for ( it =  m_schemas.begin(); it !=  m_schemas.end(); ++it )
   {
-    config->writeEntry(QString("Color MarkType%1").arg(i + 1), m_markerColors[i]);
+    kdDebug()<<"APPLY scheme = "<<it.key()<<endl;
+    KConfig *config = KateFactory::self()->schemaManager()->schema( it.key() );
+    kdDebug()<<"Using config group "<<config->group()<<endl;
+    SchemaColors c = it.data();
+
+    config->writeEntry("Color Background", c.back);
+    config->writeEntry("Color Selection", c.selected);
+    config->writeEntry("Color Highlighted Line", c.current);
+    config->writeEntry("Color Highlighted Bracket", c.bracket);
+    config->writeEntry("Color Word Wrap Marker", c.wwmarker);
+    config->writeEntry("Color Tab Marker", c.tmarker);
+    config->writeEntry("Color Icon Bar", c.iconborder);
+    config->writeEntry("Color Line Number", c.linenumber);
+
+    for (int i = 0; i < KTextEditor::MarkInterface::reservedMarkersCount(); i++)
+    {
+      config->writeEntry(QString("Color MarkType%1").arg(i + 1), c.markerColors[i]);
+    }
   }
 }
 
 void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 {
   int index = m_combobox->currentItem();
-  m_markerColors[ index ] = color;
+   m_schemas[ m_schema ].markerColors[ index ] = color;
   QPixmap pix(16, 16);
   pix.fill(color);
   m_combobox->changeItem(pix, m_combobox->text(index), index);
@@ -478,7 +528,7 @@ void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
   // temporarily disconnect the changed-signal because setColor emits changed as well
   m_markers->disconnect( SIGNAL( changed( const QColor& ) ) );
-  m_markers->setColor( m_markerColors[index] );
+  m_markers->setColor( m_schemas[m_schema].markerColors[index] );
   connect( m_markers, SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }
 
@@ -496,6 +546,7 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * 
   grid->addWidget( m_fontchooser, 0, 0);
 
   connect (this, SIGNAL( changed()), parent->parentWidget(), SLOT (slotChanged()));
+  m_schema = -1;
 }
 
 KateSchemaConfigFontTab::~KateSchemaConfigFontTab()
@@ -504,26 +555,33 @@ KateSchemaConfigFontTab::~KateSchemaConfigFontTab()
 
 void KateSchemaConfigFontTab::slotFontSelected( const QFont &font )
 {
-  myFont = font;
-
-  emit changed();
+  if ( m_schema > -1 )
+  {
+    m_fonts[m_schema] = font;
+    emit changed();
+  }
 }
 
-void KateSchemaConfigFontTab::readConfig (KConfig *config)
+void KateSchemaConfigFontTab::apply()
 {
+  FontMap::Iterator it;
+  for ( it = m_fonts.begin(); it != m_fonts.end(); ++it )
+  {
+    KateFactory::self()->schemaManager()->schema( it.key() )->writeEntry( "Font", it.data() );
+  }
+}
+
+void KateSchemaConfigFontTab::schemaChanged( int newSchema )
+{
+  m_schema = newSchema;
+
   QFont f (KGlobalSettings::fixedFont());
 
   m_fontchooser->disconnect ( this );
-  m_fontchooser->setFont (config->readFontEntry("Font", &f));
-  myFont = m_fontchooser->font();
+  m_fontchooser->setFont ( KateFactory::self()->schemaManager()->schema( newSchema )->readFontEntry("Font", &f) );
+  m_fonts[ newSchema ] = m_fontchooser->font();
   connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
 }
-
-void KateSchemaConfigFontTab::writeConfig (KConfig *config)
-{
-  config->writeEntry("Font", myFont);
-}
-
 //END FontConfig
 
 //BEGIN FontColorConfig -- 'Normal Text Styles' tab
@@ -823,21 +881,17 @@ KateSchemaConfigPage::~KateSchemaConfigPage ()
 
 void KateSchemaConfigPage::apply()
 {
-  if (m_lastSchema > -1)
-  {
-    m_colorTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
-    m_fontTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
-  }
+  m_colorTab->apply();
+  m_fontTab->apply();
+  m_fontColorTab->apply ();
+  m_highlightTab->apply ();
 
   // just sync the config
   KateFactory::self()->schemaManager()->schema (0)->sync();
+
   KateFactory::self()->schemaManager()->update ();
-
   KateRendererConfig::global()->setSchema (defaultSchemaCombo->currentItem());
-
-  // special for the highlighting stuff
-  m_fontColorTab->apply ();
-  m_highlightTab->apply ();
+  KateRendererConfig::global()->reloadSchema();
 
   // sync the hl config for real
   KateHlManager::self()->getKConfig()->sync ();
@@ -916,23 +970,10 @@ void KateSchemaConfigPage::newSchema ()
 
 void KateSchemaConfigPage::schemaChanged (int schema)
 {
-  if (schema < 2)
-  {
-    btndel->setEnabled (false);
-  }
-  else
-  {
-    btndel->setEnabled (true);
-  }
+  btndel->setEnabled( schema > 1 );
 
-  if (m_lastSchema > -1) // so, pressing "Cancel" is no good here?
-  {
-    m_colorTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
-    m_fontTab->writeConfig (KateFactory::self()->schemaManager()->schema(m_lastSchema));
-  }
-
-  m_colorTab->readConfig (KateFactory::self()->schemaManager()->schema(schema));
-  m_fontTab->readConfig (KateFactory::self()->schemaManager()->schema(schema));
+  m_colorTab->schemaChanged( schema );
+  m_fontTab->schemaChanged( schema );
   m_fontColorTab->schemaChanged (schema);
   m_highlightTab->schemaChanged (schema);
 

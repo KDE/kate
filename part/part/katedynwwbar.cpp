@@ -32,7 +32,6 @@
 #include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qstyle.h>
-#include <qpainter.h>
 
 using namespace KTextEditor;
 

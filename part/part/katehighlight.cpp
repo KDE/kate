@@ -200,7 +200,7 @@ static int stdDeliminatorLen=stdDeliminator.length();
 //END
 
 //BEGIN NON MEMBER FUNCTIONS
-int getDefStyleNum(QString name)
+static int getDefStyleNum(QString name)
 {
   if (name=="dsNormal") return dsNormal;
   if (name=="dsKeyword") return dsKeyword;
@@ -216,7 +216,7 @@ int getDefStyleNum(QString name)
   return dsNormal;
 }
 
-bool ustrchr(const QChar *s, uint len, QChar c)
+static bool ustrchr(const QChar *s, uint len, QChar c)
 {
   for (uint z=0; z < len; z++)
   {
@@ -690,7 +690,7 @@ HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId)
 }
 
 // checks for C escaped chars \n and escaped hex/octal chars
-const QChar *checkEscapedChar(const QChar *s, int *len) {
+static const QChar *checkEscapedChar(const QChar *s, int *len) {
   int i;
   if (s[0] == '\\' && ((*len) > 1) )
   {

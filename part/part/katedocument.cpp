@@ -3092,7 +3092,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   return true;
 }
 
-QString tabString(int pos, int tabChars)
+static QString tabString(int pos, int tabChars)
 {
   QString s;
   while (pos >= tabChars) {

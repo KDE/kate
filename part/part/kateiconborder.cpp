@@ -41,7 +41,7 @@
 
 using namespace KTextEditor;
 
-const char * plus_xpm[] = {
+static const char plus_xpm[] = {
 "12 16 3 1",
 "       c None",
 ".      c #000000",
@@ -63,7 +63,7 @@ const char * plus_xpm[] = {
 "      .     ",
 "      .     "};
 
-const  char * minus_xpm[] = {
+static const char minus_xpm[] = {
 "12 16 3 1",
 "       c None",
 ".      c #000000",
@@ -86,7 +86,7 @@ const  char * minus_xpm[] = {
 "      .     "};
 
 
-const char*bookmark_xpm[]={
+static const char bookmark_xpm[]={
 "12 16 4 1",
 "b c #808080",
 "a c #000080",
@@ -219,7 +219,6 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 void KateIconBorder::paintBorder (int x, int y, int width, int height)
 {
   int xStart = x;
-  int xEnd = xStart + width;
   uint h = m_doc->viewFont.fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
@@ -245,8 +244,6 @@ void KateIconBorder::paintBorder (int x, int y, int width, int height)
   int w( this->width() );                     // sane value/calc only once
   int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once 
 
-  int currentLine( (int)m_viewInternal->cursor.line );
-  
   QPainter p ( this );
   p.setFont ( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
   p.setPen ( m_doc->myAttribs[0].col );

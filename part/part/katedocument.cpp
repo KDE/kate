@@ -119,7 +119,7 @@ bool KateDocument::myWordWrap = false;
 uint KateDocument::myWordWrapAt = 80;
 
 bool KateDocument::m_dynWordWrap = true;
-int KateDocument::m_dynWrapIndicators = 1;	// follow line numbers
+int KateDocument::m_dynWrapIndicators = 1;  // follow line numbers
 bool KateDocument::m_lineNumbers = false;
 bool KateDocument::m_collapseTopLevelOnLoad = false;
 bool KateDocument::m_iconBar = false;
@@ -2879,7 +2879,7 @@ bool KateDocument::openFile()
   if ( m_collapseTopLevelOnLoad ) {
 kdDebug()<<"calling collapseToplevelNodes()"<<endl;
     foldingTree()->collapseToplevelNodes();
-	}
+  }
 
   emit fileNameChanged();
 
@@ -3103,9 +3103,9 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   TextLine::Ptr textLine = buffer->plainLine(line);
 
   uint pos = 0;
-  int l;
   bool onlySpaces = true;
-  for( uint z = 0; z < chars.length(); z++ ) {
+  for( uint z = 0; z < chars.length(); z++ )
+  {
     QChar ch = chars[z];
     if (ch.isPrint() || ch == '\t') {
       buf.insert(pos, ch);
@@ -4554,7 +4554,7 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
   KateExportAction *menu = new KateExportAction (text, parent, name);
   menu->updateMenu (this);
   menu->setWhatsThis(i18n("This command allows you to export the current document"
-		" with all highlighting information into a markup document, e.g. HTML."));
+    " with all highlighting information into a markup document, e.g. HTML."));
   return (Kate::ActionMenu *)menu;
 }
 
@@ -4609,97 +4609,97 @@ void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
 //
 void KateDocument::spellcheck()
 {
-	if( !isReadWrite() )
-		return;
+  if( !isReadWrite() )
+    return;
 
-	m_kspell = new KSpell( 0, i18n("Spellcheck"),
-	                       this, SLOT(ready()), m_kspellConfig );
+  m_kspell = new KSpell( 0, i18n("Spellcheck"),
+                         this, SLOT(ready()), m_kspellConfig );
 
-	connect( m_kspell, SIGNAL(death()),
-	         this, SLOT(spellCleanDone()) );
+  connect( m_kspell, SIGNAL(death()),
+           this, SLOT(spellCleanDone()) );
 
-	connect( m_kspell, SIGNAL(misspelling(const QString&, const QStringList&, unsigned int)),
-	         this, SLOT(misspelling(const QString&, const QStringList&, unsigned int)) );
-	connect( m_kspell, SIGNAL(corrected(const QString&, const QString&, unsigned int)),
-	         this, SLOT(corrected(const QString&, const QString&, unsigned int)) );
-	connect( m_kspell, SIGNAL(done(const QString&)),
-	         this, SLOT(spellResult(const QString&)) );
+  connect( m_kspell, SIGNAL(misspelling(const QString&, const QStringList&, unsigned int)),
+           this, SLOT(misspelling(const QString&, const QStringList&, unsigned int)) );
+  connect( m_kspell, SIGNAL(corrected(const QString&, const QString&, unsigned int)),
+           this, SLOT(corrected(const QString&, const QString&, unsigned int)) );
+  connect( m_kspell, SIGNAL(done(const QString&)),
+           this, SLOT(spellResult(const QString&)) );
 }
 
 void KateDocument::ready()
 {
-	setReadWrite( false );
+  setReadWrite( false );
 
-	m_mispellCount = 0;
-	m_replaceCount = 0;
+  m_mispellCount = 0;
+  m_replaceCount = 0;
 
-	m_kspell->setProgressResolution( 1 );
+  m_kspell->setProgressResolution( 1 );
 
-	m_kspell->check( text() );
+  m_kspell->check( text() );
 }
 
 void KateDocument::locatePosition( uint pos, uint& line, uint& col )
 {
-	uint cnt = 0;
+  uint cnt = 0;
 
-	line = col = 0;
+  line = col = 0;
 
-	// Find pos  -- CHANGEME: store the last found pos's cursor
-	//   and do these searched relative to that to
-	//   (significantly) increase the speed of the spellcheck
-	for( ; line < numLines() && cnt <= pos; line++ )
-		cnt += lineLength(line) + 1;
+  // Find pos  -- CHANGEME: store the last found pos's cursor
+  //   and do these searched relative to that to
+  //   (significantly) increase the speed of the spellcheck
+  for( ; line < numLines() && cnt <= pos; line++ )
+    cnt += lineLength(line) + 1;
 
-	line--;
-	col = pos - (cnt - lineLength(line)) + 1;
+  line--;
+  col = pos - (cnt - lineLength(line)) + 1;
 }
 
 void KateDocument::misspelling( const QString& origword, const QStringList&, uint pos )
 {
-	m_mispellCount++;
+  m_mispellCount++;
 
-	uint line, col;
+  uint line, col;
 
-	locatePosition( pos, line, col );
+  locatePosition( pos, line, col );
 
-	setSelection( line, col, line, col + origword.length() );
+  setSelection( line, col, line, col + origword.length() );
 }
 
 void KateDocument::corrected( const QString& originalword, const QString& newword, uint pos )
 {
-	m_replaceCount++;
+  m_replaceCount++;
 
-	uint line, col;
+  uint line, col;
 
-	locatePosition( pos, line, col );
+  locatePosition( pos, line, col );
 
-	removeText( line, col, line, col + originalword.length() );
-	insertText( line, col, newword );
+  removeText( line, col, line, col + originalword.length() );
+  insertText( line, col, newword );
 }
 
 void KateDocument::spellResult( const QString& )
 {
-	clearSelection();
-	setReadWrite( true );
-	m_kspell->cleanUp();
+  clearSelection();
+  setReadWrite( true );
+  m_kspell->cleanUp();
 }
 
 void KateDocument::spellCleanDone()
 {
-	KSpell::spellStatus status = m_kspell->status();
+  KSpell::spellStatus status = m_kspell->status();
 
-	if( status == KSpell::Error ) {
-		KMessageBox::sorry( 0,
-		  i18n("ISpell could not be started. "
-		       "Please make sure you have ISpell "
-		       "properly configured and in your PATH."));
-	} else if( status == KSpell::Crashed ) {
-		setReadWrite( true );
-		KMessageBox::sorry( 0,
-		  i18n("ISpell seems to have crashed."));
-	}
+  if( status == KSpell::Error ) {
+    KMessageBox::sorry( 0,
+      i18n("ISpell could not be started. "
+           "Please make sure you have ISpell "
+           "properly configured and in your PATH."));
+  } else if( status == KSpell::Crashed ) {
+    setReadWrite( true );
+    KMessageBox::sorry( 0,
+      i18n("ISpell seems to have crashed."));
+  }
 
-	delete m_kspell;
-	m_kspell = 0;
+  delete m_kspell;
+  m_kspell = 0;
 }
 //END

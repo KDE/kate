@@ -932,7 +932,7 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
 
   buffer->changeLine(line);
   buffer->removeLine(line+1);
-
+  regionTree->lineHasBeenRemoved(line); //TEST
   if (!myMarks.isEmpty())
   {
     bool b = false;
@@ -1238,8 +1238,13 @@ bool KateDocument::removeSelectedText ()
         }
         else if ((z == el))
         {
-          delStart = 0;
-          delLen = ec;
+	  if (ec==textLine->length())
+	  	delLine=1;
+	  else
+	  {
+          	delStart = 0;
+          	delLen = ec;
+	  }
         }
       }
     }

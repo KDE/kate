@@ -770,12 +770,14 @@ void KateViewInternal::resizeEvent( QResizeEvent* )
 
 void KateViewInternal::timerEvent( QTimerEvent* e )
 {
-  if (e->timerId() == cursorTimer) {
+  if (e->timerId() == cursorTimer)
+  {
     cursorOn = !cursorOn;
     paintCursor();
   }
-  if (e->timerId() == scrollTimer && (scrollX | scrollY)) {
-    scrollBy( scrollX, scrollY );
+  else if (e->timerId() == scrollTimer && (scrollX | scrollY))
+  {   
+     scrollBy( scrollX, scrollY );
     placeCursor( viewportToContents( QPoint( mouseX, mouseY ) ), true );
   }
 }

@@ -74,18 +74,18 @@
                         <item> xor </item>
                 </list>
                 <contexts>
-                        <context attribute="0" lineEndContext="#stay">
-                                <keyword attribute="1" context="#stay" String="keywords"/>
-                                <Float attribute="4" context="#stay"/>
-                                <Int attribute="2" context="#stay"/>
-                                <RegExpr attribute="5" context="#stay" String="'.'"/>
-                                <DetectChar attribute="6" context="1" char="&quot;"/>
-                                <Detect2Chars attribute="7" context="2" char="-" char1="-"/>
+                        <context attribute="Normal Text" lineEndContext="#stay" name="Default">
+                                <keyword attribute="Keyword" context="#stay" String="keywords"/>
+                                <Float attribute="Float" context="#stay"/>
+                                <Int attribute="Decimal" context="#stay"/>
+                                <RegExpr attribute="Char" context="#stay" String="'.'"/>
+                                <DetectChar attribute="String" context="String" char="&quot;"/>
+                                <Detect2Chars attribute="Comment" context="Comment" char="-" char1="-"/>
                         </context>
-                        <context attribute="6" lineEndContext="#pop">
-                                <DetectChar attribute="6" context="#pop" char="&quot;"/>
+                        <context attribute="String" lineEndContext="#pop" name="String">
+                                <DetectChar attribute="String" context="#pop" char="&quot;"/>
                         </context>
-                        <context attribute="7" lineEndContext="#pop"/>
+                        <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
                 </contexts>
                 <itemDatas>
                         <itemData name="Normal Text" defStyleNum="dsNormal" />

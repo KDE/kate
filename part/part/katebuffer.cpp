@@ -394,8 +394,7 @@ void KateBuffer::clear()
     connect(m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
   }
   // delete the last loader
-  if (m_loader)
-    delete m_loader;
+  delete m_loader;
   m_loader = 0;
 
   // cleanup the blocks
@@ -446,7 +445,7 @@ bool KateBuffer::openFile(const QString &m_file, QTextCodec *codec)
   // here we feed the loader with info
   m_loader = new KateBufFileLoader (m_file);
 
-  if ( !m_loader->file.open( IO_ReadOnly ) )
+  if ( !m_loader->file.open( IO_ReadOnly ) || !m_loader->file.isDirectAccess() )
   {
     clear();
     return false; // Error

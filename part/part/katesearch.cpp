@@ -245,8 +245,9 @@ void KateSearch::wrapSearch()
   }
   
   // oh, we wrapped around one time allready now !
-  s.wrapped = true;
-  
+  // only check that on replace
+  s.wrapped = s.flags.replace;
+
   replaces = 0;
   s.flags.finished = true;
 }

@@ -932,6 +932,9 @@ void KateViewInternal::paintCursor() {
 
   xCoord = x;
   yCoord = y+h;
+  
+  tagLines( cursor.line, cursor.line, 0, 0xffff);
+  paintTextLines (xPos, yPos);
 
   QPainter paint;
   if (cursorOn)
@@ -950,11 +953,6 @@ void KateViewInternal::paintCursor() {
     paint.fillRect(x, y, w, h, xor_fg);
     paint.end();
    }
-   else
-   {
-     tagLines( cursor.line, cursor.line, 0, 0xffff);
-     paintTextLines (xPos, yPos);
-  }
 }
 
 void KateViewInternal::paintBracketMark() {

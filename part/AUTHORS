@@ -1,19 +1,19 @@
   *** Kate Team ***
 - Christoph Cullmann <cullmann@kde.org>
   (Maintainer)
-  
+
 - Joseph Wenninger <jowenn@kde.org>
   (highlight guy + big bug hunter)
 
 - Anders Lund <anders@alweb.dk>
   (bookmarks, iconborder, ...)
-  
+
 - Hamish Rodda <meddie@yoyo.its.monash.edu.au>
   (dynamic wrap fixes and view improvement)
-  
+
 - Waldo Bastian <bastian@kde.org>
   (buffer handling)
-  
+
 - Charles Samuels <charles@kde.org>
   (regular expressions)
 
@@ -37,3 +37,6 @@
 
 - Michael Koch <koch@kde.org>
   (port to KParts)
+
+- Dominik Haumann <dhdev@gmx.de>
+  (developer, highlight wizard)

@@ -226,7 +226,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
       // Retrieve marks for this line
       uint mrk = m_doc->mark( line );
-
       if (mrk)
       {
         for (uint bit = 0; bit < 32; bit++)
@@ -243,8 +242,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
               markBlue += markColor.blue();
             }
           }
-        }
-      }
+        } // for
+      } // Marks
 
       if (markCount) {
         markRed /= markCount;
@@ -256,7 +255,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           int((backgroundColor.blue() * 0.9) + (markBlue * 0.1))
         );
       }
-    }
+    } // background preprocessing
 
     // Draw line background
     paint.fillRect(0, 0, xEnd - xStart, fs->fontHeight, backgroundColor);
@@ -438,7 +437,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           // variable advancement
           blockStartCol = nextCol;
           oldXPos = xPosAfter;
-        }
+        } // isTab
         // Reasons for NOT delaying the drawing until the next character
         // You have to detect the change one character in advance.
         // TODO: KateAttribute::canBatchRender()
@@ -510,7 +509,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           blockStartCol = nextCol;
           oldXPos = xPosAfter;
           //oldS = s+1;
-        }
+        } // not delaying drawing
 
         // determine cursor X position
         if ((showCursor > -1) && (showCursor == (int)curCol))
@@ -520,7 +519,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           cursorMaxWidth = xPosAfter - xPos;
           cursorColor = &curAt->textColor();
         }
-      }
+      } // xPosAfter >= xStart
       else
       {
         // variable advancement
@@ -552,7 +551,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       cursorMaxWidth = xPosAfter - xPos;
       cursorColor = &oldAt->textColor();
     }
-  }
+  } // Drawing non-empty lines
 
   // Draw dregs of the selection
   // TODO: genericise background painting

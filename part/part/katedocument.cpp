@@ -3337,7 +3337,7 @@ void KateDocument::selectLine( const KateTextCursor& cursor )
   if (!(config()->configFlags() & KateDocument::cfKeepSelection))
     clearSelection ();
 
-  setSelection (cursor.line(), 0, cursor.line()/*+1, 0*/, m_buffer->plainLine(cursor.line())->length() );
+  setSelection (cursor.line(), 0, cursor.line()+1, 0);
 }
 
 void KateDocument::selectLength( const KateTextCursor& cursor, int length )

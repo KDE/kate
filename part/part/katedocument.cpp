@@ -343,7 +343,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
 
-  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>,bool*,bool)),regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>,bool *,bool)));
+  connect(buffer,SIGNAL(foldingUpdate(unsigned int , QMemArray<signed char>*,bool*,bool)),regionTree,SLOT(updateLine(unsigned int, QMemArray<signed char>*,bool *,bool)));
   connect(regionTree,SIGNAL(setLineVisible(unsigned int, bool)), buffer,SLOT(setLineVisible(unsigned int,bool)));
   connect(buffer,SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
   m_highlightTimer = new QTimer(this);

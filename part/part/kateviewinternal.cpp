@@ -169,6 +169,8 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       getVConfig(c);
       myDoc->newLine(c);
       updateCursor(c.cursor);
+#warning "OPTIMIZE THE FOLLOWING LINE"
+      tagLines( displayCursor.line, endLine, 0, 0xffff);
       updateView(0); //really ?
       return;
 #warning "FIXME FIXME FIXME, cursor updates are missing"
@@ -787,6 +789,8 @@ void KateViewInternal::updateView(int flags)
 		} while (reUpdate);
 	}
 
+   if (updateState > 0)  paintTextLines(oldXPos, oldYPos);
+
    if (updateState==3)
    {
 	if ((!needLineRangesUpdate) || 
@@ -834,8 +838,6 @@ void KateViewInternal::updateView(int flags)
   {
 	if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
   }
-
-   if (updateState > 0) paintTextLines(oldXPos, oldYPos);
 
 //   updateLineRanges(height());
 //   repaint();

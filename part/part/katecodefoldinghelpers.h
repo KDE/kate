@@ -103,8 +103,8 @@ private:
 
 	QIntDict<unsigned int> lineMapping;
 
-	void addOpening(KateCodeFoldingNode *node,signed char nType,QMemArray<signed char> list,unsigned int line);
-	void addOpening_further_iterations(KateCodeFoldingNode *node,signed char nType, QMemArray<signed char>
+	void addOpening(KateCodeFoldingNode *node,signed char nType,QMemArray<signed char>* list,unsigned int line);
+	void addOpening_further_iterations(KateCodeFoldingNode *node,signed char nType, QMemArray<signed char>*
                 list,unsigned int line,int current,unsigned int startLine);
 	void incrementBy1(KateCodeFoldingNode *node, KateCodeFoldingNode *after);
 	void decrementBy1(KateCodeFoldingNode *node, KateCodeFoldingNode *after);
@@ -123,7 +123,7 @@ private:
 	void addHiddenLineBlock(KateCodeFoldingNode *node,unsigned int line);
 	void updateHiddenSubNodes(KateCodeFoldingNode *node);
 public slots:
-	void updateLine(unsigned int line,QMemArray<signed char> regionChanges, bool *updated, bool changed);
+	void updateLine(unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);
 	void toggleRegionVisibility(unsigned int);
 
 signals:

@@ -769,7 +769,7 @@ void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<signed char
 *******************************************************************************************/
 
 void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool lineContinue,
-				QMemArray<signed char> foldingList)
+				QMemArray<signed char>* foldingList)
 {
   if (!textLine)
     return;
@@ -867,14 +867,14 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 		if (item->region)
 		{
 //			kdDebug()<<QString("Region mark detected: %1").arg(item->region)<<endl;
-      foldingList.resize (foldingList.size()+1);
+      foldingList->resize (foldingList->size()+1);
 
-      for (uint z4=foldingList.size()-1; z4 >= 1; z4--)
+      for (uint z4=foldingList->size()-1; z4 >= 1; z4--)
       {
-        foldingList[z4] = foldingList[z4-1];
+        (*foldingList)[z4] = (*foldingList)[z4-1];
       }
 
-			foldingList[0] = item->region;
+			(*foldingList)[0] = item->region;
 
 		}
 

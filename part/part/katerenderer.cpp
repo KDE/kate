@@ -708,6 +708,9 @@ uint KateRenderer::textWidth( KateTextCursor &cursor, int xPos, uint startCol)
   if (cursor.line() < 0) cursor.setLine(0);
   if (cursor.line() > (int)m_doc->lastLine()) cursor.setLine(m_doc->lastLine());
   TextLine::Ptr textLine = m_doc->kateTextLine(cursor.line());
+
+  if (!textLine) return 0;
+  
   len = textLine->length();
 
   x = oldX = 0;

@@ -222,6 +222,7 @@ class KateView : public Kate::View
 
   private slots:
     void slotDropEventPass( QDropEvent * ev );
+    void slotDummy();   
 
   public slots:
     void slotUpdate();

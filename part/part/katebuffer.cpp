@@ -819,7 +819,9 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
         }
       }
 
+#if 0
       kdDebug () << "LINE: " << current_line+buf->startLine() << " INDENT DEPTH: " << iDepth << " ARRAY: " << indentDepth <<endl;
+#endif
 
       indentChanged = indentChanged || (indentDepth.size() != textLine->indentationDepthArray().size())
                       || (indentDepth != textLine->indentationDepthArray());
@@ -855,6 +857,17 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
         foldingChanged = true;
       }
+
+      // last line, close all
+      if ((current_line+buf->startLine()) == (m_lines-1))
+      {
+        foldingList.resize (foldingList.size() + indentDepth.size());
+
+        for (uint z= foldingList.size()-indentDepth.size(); z < foldingList.size(); z++)
+          foldingList[z] = -1;
+
+        foldingChanged = true;
+      }
     }
 
     if (!foldingChanged)
@@ -882,6 +895,22 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
       if ((ctxNum != endCtx))
         stillcontinue = true;
     }
+
+#if 0
+    QString test;
+    for (uint z=0; textLine->foldingListArray().size() > z; z++)
+      test.append ((textLine->foldingListArray()[z] == -1) ? "}" : "{");
+
+    kdDebug () << "LINE : " << current_line << " " << test << endl;
+
+    QString test2;
+    for (uint z=0; prevLine->foldingListArray().size() > z; z++)
+      test2.append ((prevLine->foldingListArray()[z] == -1) ? "}" : "{");
+
+    kdDebug () << "PREV LINE : " << current_line-1 << " " << test2 << endl;
+
+    kdDebug () << "LINE : " << current_line << " LINE CONTINUE: " << stillcontinue << endl;
+#endif
 
     current_line++;
 

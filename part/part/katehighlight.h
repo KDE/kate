@@ -64,9 +64,22 @@ class KateHlItemData : public KateAttribute
 {
   public:
     KateHlItemData(const QString  name, int defStyleNum);
-    
-    enum ItemStyles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar,dsString,dsComment,dsOthers };
-    
+
+    enum ItemStyles {
+      dsNormal,
+      dsKeyword,
+      dsDataType,
+      dsDecVal,
+      dsBaseN,
+      dsFloat,
+      dsChar,
+      dsString,
+      dsComment,
+      dsOthers,
+      dsAlert,
+      dsFunction,
+      dsRegionMarker };
+
   public:
     const QString name;
     int defStyleNum;
@@ -76,7 +89,7 @@ class KateHlData
 {
   public:
     KateHlData(const QString &wildcards, const QString &mimetypes,const QString &identifier, int priority);
-    
+
   public:
     QString wildcards;
     QString mimetypes;
@@ -99,20 +112,20 @@ class KateHighlighting
     void loadWildcards();
     QValueList<QRegExp>& getRegexpExtensions();
     QStringList& getPlainExtensions();
-    
+
     QString getMimetypes();
-    
+
     // this pointer needs to be deleted !!!!!!!!!!
     KateHlData *getData();
     void setData(KateHlData *);
 
     void setKateHlItemDataList(uint schema, KateHlItemDataList &);
-    
+
     // both methodes return hard copies of the internal lists
     // the lists are cleared first + autodelete is set !
     // keep track that you delete them, or mem will be lost
     void getKateHlItemDataListCopy (uint schema, KateHlItemDataList &);
-    
+
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
     inline QString version() const {return iVersion;}
@@ -127,17 +140,17 @@ class KateHighlighting
     inline QString getCommentStart() const {return cmlStart;};
     inline QString getCommentEnd()  const {return cmlEnd;};
     inline QString getCommentSingleLineStart() const { return cslStart;};
-    
+
     void clearAttributeArrays ();
-    
+
     QMemArray<KateAttribute> *attributes (uint schema);
-    
+
     inline bool noHighlighting () const { return noHl; };
 
   private:
     // make this private, nobody should play with the internal data pointers
     void getKateHlItemDataList(uint schema, KateHlItemDataList &);
-  
+
     void init();
     void done();
     void makeContextList ();
@@ -175,7 +188,7 @@ class KateHighlighting
     bool casesensitive;
     QString weakDeliminator;
     QString deliminator;
-    
+
     QString cmlStart;
     QString cmlEnd;
     QString cslStart;
@@ -199,9 +212,9 @@ class KateHighlighting
     KateHlIncludeRules includeRules;
     QValueList<int> contextsIncludingSomething;
     bool m_foldingIndentationSensitive;
-    
+
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
-    
+
     QString extensionSource;
     QValueList<QRegExp> regexpExtensions;
     QStringList plainExtensions;
@@ -214,17 +227,17 @@ class KateHighlighting
 class KateHlManager : public QObject
 {
   Q_OBJECT
-  
+
   private:
     KateHlManager();
-    
+
   public:
     ~KateHlManager();
 
     static KateHlManager *self();
-    
+
     inline KConfig *getKConfig() { return &m_config; };
-    
+
     KateHighlighting *getHl(int n);
     int nameFind(const QString &name);
 
@@ -236,7 +249,7 @@ class KateHlManager : public QObject
     // methodes to get the default style count + names
     static uint defaultStyles();
     static QString defaultStyleName(int n);
-    
+
     void getDefaults(uint schema, KateAttributeList &);
     void setDefaults(uint schema, KateAttributeList &);
 
@@ -254,15 +267,15 @@ class KateHlManager : public QObject
 
   private:
     friend class KateHighlighting;
-    
+
     QPtrList<KateHighlighting> hlList;
     QDict<KateHighlighting> hlDict;
 
     static KateHlManager *s_self;
-    
+
     KConfig m_config;
     QStringList commonSuffixes;
-    
+
     KateSyntaxDocument *syntax;
 };
 

@@ -78,7 +78,7 @@ class KateHlItem
     int ctx;
     signed char region;
     signed char region2;
-    
+
     bool lookAhead;
 };
 
@@ -309,6 +309,9 @@ static KateHlItemData::ItemStyles getDefStyleNum(QString name)
   else if (name=="dsString") return KateHlItemData::dsString;
   else if (name=="dsComment") return KateHlItemData::dsComment;
   else if (name=="dsOthers")  return KateHlItemData::dsOthers;
+  else if (name=="dsAlert") return KateHlItemData::dsAlert;
+  else if (name=="dsFunction") return KateHlItemData::dsFunction;
+  else if (name=="dsRegionMarker") return KateHlItemData::dsRegionMarker;
 
   return KateHlItemData::dsNormal;
 }
@@ -766,7 +769,7 @@ KateHlRegExpr::KateHlRegExpr( int attribute, int context, signed char regionId,s
 {
   if (!handlesLinestart)
     regexp.prepend("^");
-  
+
   Expr = new QRegExp(regexp, !insensitive);
   Expr->setMinimal(minimal);
 }
@@ -1078,10 +1081,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // duplicate the ctx stack, only once !
   QMemArray<short> ctx;
   ctx.duplicate (prevLine->ctxArray());
-  
+
   // line continue flag !
   bool lineContinue = prevLine->hlLineContinue();
-  
+
   int ctxNum = 0;
   int previousLine = -1;
   KateHlContext *context;
@@ -1256,15 +1259,15 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     if (ctxChanged)
       (*ctxChanged) = false;
   }
-  else 
+  else
   {
     if (ctxChanged)
-      (*ctxChanged) = true; 
-      
+      (*ctxChanged) = true;
+
     // assign ctx stack !
     textLine->setContext(ctx);
   }
-  
+
   // write hl continue flag
   textLine->setHlLineContinue (item && item->lineContinue());
 }
@@ -1275,23 +1278,23 @@ void KateHighlighting::loadWildcards()
   config->setGroup("Highlighting " + iName);
 
   QString extensionString = config->readEntry("Wildcards", iWildcards);
-  
+
   if (extensionSource != extensionString) {
     regexpExtensions.clear();
     plainExtensions.clear();
-    
+
     extensionSource = extensionString;
-    
+
     static QRegExp sep("\\s*;\\s*");
-    
+
     QStringList l = QStringList::split( sep, extensionSource );
-    
+
     static QRegExp boringExpression("\\*\\.[\\d\\w]+");
-    
+
     for( QStringList::Iterator it = l.begin(); it != l.end(); ++it )
       if (boringExpression.exactMatch(*it))
         plainExtensions.append((*it).mid(1));
-      else    
+      else
         regexpExtensions.append(QRegExp((*it), true, true));
   }
 }
@@ -1755,7 +1758,7 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
     // oops, unknown type. Perhaps a spelling error in the xml file
     return 0;
   }
-  
+
   // set lookAhead property
   tmpItem->lookAhead = lookAhead;
 
@@ -2513,14 +2516,14 @@ int KateHlManager::detectHighlighting (KateDocument *doc)
     {
       QString line = doc->textLine( i );
       uint len = line.length() + 1;
-      
+
       if (bufpos + len > KATE_HL_HOWMANY)
         len = KATE_HL_HOWMANY - bufpos;
 
       memcpy(&buf[bufpos], (line + "\n").latin1(), len);
-      
+
       bufpos += len;
-      
+
       if (bufpos >= KATE_HL_HOWMANY)
         break;
     }
@@ -2528,7 +2531,7 @@ int KateHlManager::detectHighlighting (KateDocument *doc)
 
     hl = mimeFind (buf);
   }
-  
+
   return hl;
 }
 
@@ -2560,21 +2563,21 @@ int KateHlManager::realWildcardFind(const QString &fileName)
   static QRegExp sep("\\s*;\\s*");
 
   QPtrList<KateHighlighting> highlights;
-  
+
   for (KateHighlighting *highlight = hlList.first(); highlight != 0L; highlight = hlList.next()) {
     highlight->loadWildcards();
-    
+
     for (QStringList::Iterator it = highlight->getPlainExtensions().begin(); it != highlight->getPlainExtensions().end(); ++it)
       if (fileName.endsWith((*it)))
         highlights.append(highlight);
-    
+
     for (int i = 0; i < (int)highlight->getRegexpExtensions().count(); i++) {
       QRegExp re = highlight->getRegexpExtensions()[i];
       if (re.exactMatch(fileName))
         highlights.append(highlight);
     }
   }
-  
+
   if ( !highlights.isEmpty() )
   {
     int pri = -1;
@@ -2637,7 +2640,7 @@ int KateHlManager::mimeFind(const QByteArray &contents)
 
 uint KateHlManager::defaultStyles()
 {
-  return 10;
+  return 13;
 }
 
 QString KateHlManager::defaultStyleName(int n)
@@ -2656,6 +2659,10 @@ QString KateHlManager::defaultStyleName(int n)
     names << i18n("String");
     names << i18n("Comment");
     names << i18n("Others");
+    names << i18n("Alert");
+    names << i18n("Function");
+    // this next one is for denoting the beginning/end of a user defined folding region
+    names << i18n("Region Marker");
   }
 
   return names[n];
@@ -2717,6 +2724,23 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   others->setSelectedTextColor(Qt::green);
   list.append(others);
 
+  KateAttribute* alert = new KateAttribute();
+  alert->setTextColor(Qt::white);
+  alert->setBold(true);
+  alert->setBGColor(Qt::red);
+  list.append(alert);
+
+  KateAttribute* functionAttribute = new KateAttribute();
+  functionAttribute->setTextColor(Qt::darkBlue);
+  functionAttribute->setSelectedTextColor(Qt::white);
+  list.append(functionAttribute);
+
+  KateAttribute* regionmarker = new KateAttribute();
+  regionmarker->setTextColor(Qt::white);
+  regionmarker->setBGColor(Qt::gray);
+  regionmarker->setSelectedTextColor(Qt::gray);
+  list.append(regionmarker);
+
   KConfig *config = KateHlManager::self()->self()->getKConfig();
   config->setGroup("Default Item Styles - Schema " + KateFactory::self()->schemaManager()->name(schema));
 
@@ -2724,7 +2748,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   {
     KateAttribute *i = list.at(z);
     QStringList s = config->readListEntry(defaultStyleName(z));
-
+kdDebug()<<defaultStyleName(z)<<" "<<z<<endl;
     if (!s.isEmpty())
     {
       while( s.count()<8)

@@ -403,13 +403,13 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   }
   m_markers->setColor( m_markerColors[ m_combobox->currentItem() ] );
 
-  connect( m_back      , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( m_selected  , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( m_current   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( m_bracket   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( m_wwmarker  , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-  connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
+  connect( m_back      , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_selected  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_current   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_bracket   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_wwmarker  , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
+  connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
 }          
            
@@ -461,8 +461,7 @@ KateSchemaConfigFontTab::KateSchemaConfigFontTab( QWidget *parent, const char * 
   m_fontchooser->enableColumn(KFontChooser::StyleList, false);
   grid->addWidget( m_fontchooser, 0, 0);
 
-  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
-  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), parent->parentWidget(), SLOT (slotChanged()));
+  connect (this, SIGNAL( changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
 
 KateSchemaConfigFontTab::~KateSchemaConfigFontTab()
@@ -472,13 +471,17 @@ KateSchemaConfigFontTab::~KateSchemaConfigFontTab()
 void KateSchemaConfigFontTab::slotFontSelected( const QFont &font )
 {
   myFont = font;
+
+  emit changed();
 }
 
 void KateSchemaConfigFontTab::readConfig (KConfig *config)
 {
   QFont f (KGlobalSettings::fixedFont());
 
+  m_fontchooser->disconnect ( this );
   m_fontchooser->setFont (config->readFontEntry("Font", &f));
+  connect (m_fontchooser, SIGNAL (fontSelected( const QFont & )), this, SLOT (slotFontSelected( const QFont & )));
 }
 
 void KateSchemaConfigFontTab::writeConfig (KConfig *config)

@@ -202,6 +202,9 @@ class KateSchemaConfigFontTab : public QWidget
     void readConfig (KConfig *config);
     void writeConfig (KConfig *config);
 
+  signals:
+    void changed(); // connected to parentWidget()->parentWidget() SLOT(slotChanged)
+
   private:
     class KFontChooser *m_fontchooser;
     QFont myFont;

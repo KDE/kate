@@ -199,10 +199,14 @@ void DocWordCompletionPluginView::popupCompletionList( QString w )
 
 void DocWordCompletionPluginView::toggleAutoPopup()
 {
-  if ( d->autopopup->isChecked() )
+  if ( d->autopopup->isChecked() ) {
+    if (!  connect( m_view->document(), SIGNAL(charactersInteractivelyInserted(int ,int ,const QString&)), this, SLOT(autoPopupCompletionList()) ))
     connect( m_view->document(), SIGNAL(textChanged()), this, SLOT(autoPopupCompletionList()) );
-  else
+  } else {
     disconnect( m_view->document(), SIGNAL(textChanged()), this, SLOT(autoPopupCompletionList()) );
+    disconnect( m_view->document(), SIGNAL(charactersInteractivelyInserted(int ,int ,const QString&)), this, SLOT(autoPopupCompletionList()) );
+
+  }
 }
 
 // for autopopup FIXME - don't pop up if reuse word is inserting

@@ -288,8 +288,6 @@ class KateDocument : public Kate::Document,
     // stores the current selection
     KateSuperCursor selectStart;
     KateSuperCursor selectEnd;
-    KateTextCursor oldSelectStart;
-    KateTextCursor oldSelectEnd;
 
     // only to make the selection from the view easier
     KateTextCursor selectAnchor;
@@ -496,7 +494,7 @@ class KateDocument : public Kate::Document,
     /**
        Tag the lines in the current selection.
      */
-    void tagSelection();
+    void tagSelection(const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd);
 
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);

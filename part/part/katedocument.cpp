@@ -101,8 +101,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 : Kate::Document (),
   selectStart(this, true),
   selectEnd(this, true),
-  oldSelectStart(-1, -1),
-  oldSelectEnd(-1, -1),
   selectAnchor(-1, -1),
   m_undoDontMerge(false),
   m_undoIgnoreCancel(false),
@@ -1416,8 +1414,8 @@ bool KateDocument::editRemoveLine ( uint line )
 
 bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCursor& end )
 {
-  oldSelectStart = selectStart;
-  oldSelectEnd = selectEnd;
+  KateTextCursor oldSelectStart = selectStart;
+  KateTextCursor oldSelectEnd = selectEnd;
 
   if (start <= end) {
     selectStart.setPos(start);
@@ -1428,7 +1426,7 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
   }
 
   if (hasSelection() || selectAnchor.line() != -1)
-    tagSelection();
+    tagSelection(oldSelectStart, oldSelectEnd);
 
   repaintViews();
 
@@ -1457,14 +1455,14 @@ bool KateDocument::clearSelection(bool redraw)
   if( !hasSelection() )
     return false;
 
-  oldSelectStart = selectStart;
-  oldSelectEnd = selectEnd;
+  KateTextCursor oldSelectStart = selectStart;
+  KateTextCursor oldSelectEnd = selectEnd;
 
   selectStart.setPos(-1, -1);
   selectEnd.setPos(-1, -1);
   selectAnchor.setPos(-1, -1);
 
-  tagSelection();
+  tagSelection(oldSelectStart, oldSelectEnd);
 
   oldSelectStart = selectStart;
   oldSelectEnd = selectEnd;
@@ -1550,9 +1548,12 @@ bool KateDocument::setBlockSelectionMode (bool on)
   if (on != blockSelect)
   {
     blockSelect = on;
-    oldSelectStart = selectStart;
-    oldSelectEnd = selectEnd;
+    
+    KateTextCursor oldSelectStart = selectStart;
+    KateTextCursor oldSelectEnd = selectEnd;
+    
     clearSelection();
+    
     setSelection(oldSelectStart, oldSelectEnd);
 
     for (KateView * view = m_views.first(); view; view = m_views.next())
@@ -3664,7 +3665,7 @@ void KateDocument::tagLines(KateTextCursor start, KateTextCursor end)
     m_views.at(z)->tagLines(start, end, true);
 }
 
-void KateDocument::tagSelection()
+void KateDocument::tagSelection(const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd)
 {
   if (hasSelection()) {
     if ((oldSelectStart.line() == -1 || (blockSelectionMode() && (oldSelectStart.col() != selectStart.col() || oldSelectEnd.col() != selectEnd.col())))) {

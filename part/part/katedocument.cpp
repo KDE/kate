@@ -2248,17 +2248,8 @@ void KateDocument::spellResult (const QString &)
   // we can safely use the undo mechanism to backout changes
   // in case of a cancel, because we force the entire spell check
   // into one group (record)
-  if (kspell.kspell->dlgResult() == 0) {
-    if (kspell.kspellReplaceCount)
-    {
-      undo();
-      // clear the redo list, so the cancelled spell check can't be redo'ed <- say that word ;-)
-      clearRedo();
-      // make sure the modified flag is turned back off
-      // if we started with a clean buffer
-      if (kspell.kspellPristine)
-        setModified(false);
-    }
+  if (kspell.kspell->dlgResult() == 0)
+  {
   }
 
   setPseudoModal(0L);

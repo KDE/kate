@@ -195,8 +195,10 @@
   color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name
                                            or some other format recognized by Qt --
   selColor      CDATA   #IMPLIED        -- The color for this style when text is selected --
-  italic        CDATA   #IMPLIED        -- Wheather this attribute should be rendered using
+  italic        CDATA   #IMPLIED        -- Whether this attribute should be rendered using
                                            an italic typeface --
-  bold          CDATA   #IMPLIED        -- Wheather this attribute should be renederd using
+  bold          CDATA   #IMPLIED        -- Whether this attribute should be renederd using
                                            a bold typeface --
+  underline     CDATA   #IMPLIED        -- Whether this style should be underlined --
+  strikeout     CDATA   #IMPLIED        -- Whether this style should be striked out --
 >

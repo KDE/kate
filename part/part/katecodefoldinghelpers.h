@@ -25,8 +25,6 @@
 #include <qobject.h>
 #include <qintdict.h>
 
-class KateCodeFoldingTree;
-
 class QString;
 //END
 
@@ -100,39 +98,42 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
 
     KateCodeFoldingNode *findNodeForLine (unsigned int line);
 
-    unsigned int getRealLine    (unsigned int virtualLine);
-    unsigned int getVirtualLine    (unsigned int realLine);
+    unsigned int getRealLine         (unsigned int virtualLine);
+    unsigned int getVirtualLine      (unsigned int realLine);
     unsigned int getHiddenLinesCount (unsigned int docLine);
 
     bool isTopLevel (unsigned int line);
 
-    void lineHasBeenInserted(unsigned int line);
-    void lineHasBeenRemoved    (unsigned int line);
-    void debugDump();
-    void getLineInfo(KateLineInfo *info,unsigned int line);
+    void lineHasBeenInserted (unsigned int line);
+    void lineHasBeenRemoved  (unsigned int line);
+    void debugDump ();
+    void getLineInfo (KateLineInfo *info,unsigned int line);
 
-    void clear();
+    void fixRoot (int endLRel);
+    void clear ();
 
   private:
-    QIntDict<unsigned int>    lineMapping;
-    QIntDict<bool>            dontIgnoreUnchangedLines;
+    QIntDict<unsigned int> lineMapping;
+    QIntDict<bool>         dontIgnoreUnchangedLines;
 
-    QPtrList<KateCodeFoldingNode>    markedForDeleting;
-    QPtrList<KateCodeFoldingNode>    nodesForLine;
-    QValueList<hiddenLineBlock>        hiddenLines;
+    QPtrList<KateCodeFoldingNode> markedForDeleting;
+    QPtrList<KateCodeFoldingNode> nodesForLine;
+    QValueList<hiddenLineBlock>   hiddenLines;
 
-    unsigned int    hiddenLinesCountCache;
-    bool            something_changed;
-    bool            hiddenLinesCountCacheValid;
+    unsigned int hiddenLinesCountCache;
+    bool         something_changed;
+    bool         hiddenLinesCountCacheValid;
 
-    KateCodeFoldingNode *findNodeForLineDescending(KateCodeFoldingNode *, unsigned int, unsigned int,bool oneStepOnly=false);
+    static bool trueVal;
 
-    unsigned int getStartLine(KateCodeFoldingNode *node);
+    KateCodeFoldingNode *findNodeForLineDescending (KateCodeFoldingNode *, unsigned int, unsigned int, bool oneStepOnly=false);
 
-    bool correctEndings    (signed char data, KateCodeFoldingNode *node, unsigned int line, int insertPos);
+    unsigned int getStartLine (KateCodeFoldingNode *node);
+
+    bool correctEndings (signed char data, KateCodeFoldingNode *node, unsigned int line, int insertPos);
 
     void dumpNode    (KateCodeFoldingNode *node,QString prefix);
-    void addOpening    (KateCodeFoldingNode *node, signed char nType,QMemArray<signed char>* list, unsigned int line);
+    void addOpening  (KateCodeFoldingNode *node, signed char nType,QMemArray<signed char>* list, unsigned int line);
     void addOpening_further_iterations (KateCodeFoldingNode *node,signed char nType, QMemArray<signed char>*
                                         list,unsigned int line,int current,unsigned int startLine);
 
@@ -142,39 +143,37 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void cleanupUnneededNodes (unsigned int line);
 
     /**
-		 * if returns true, this node has been deleted !!
-		 */
-		bool removeEnding    (KateCodeFoldingNode *node,unsigned int line);
+     * if returns true, this node has been deleted !!
+     */
+    bool removeEnding (KateCodeFoldingNode *node,unsigned int line);
 
     /**
-		 * if returns true, this node has been deleted !!
-		 */
-		bool removeOpening    (KateCodeFoldingNode *node,unsigned int line);
+     * if returns true, this node has been deleted !!
+     */
+    bool removeOpening (KateCodeFoldingNode *node,unsigned int line);
 
     void findAndMarkAllNodesforRemovalOpenedOrClosedAt (unsigned int line);
     void findAllNodesOpenedOrClosedAt (unsigned int line);
 
-    void addNodeToFoundList    (KateCodeFoldingNode *node,unsigned int line,int childpos);
-    void addNodeToRemoveList(KateCodeFoldingNode *node,unsigned int line);
-    void addHiddenLineBlock    (KateCodeFoldingNode *node,unsigned int line);
+    void addNodeToFoundList  (KateCodeFoldingNode *node,unsigned int line,int childpos);
+    void addNodeToRemoveList (KateCodeFoldingNode *node,unsigned int line);
+    void addHiddenLineBlock  (KateCodeFoldingNode *node,unsigned int line);
 
     bool existsOpeningAtLineAfter(unsigned int line, KateCodeFoldingNode *node);
 
-
-    void dontDeleteEnding    (KateCodeFoldingNode*);
-    void dontDeleteOpening    (KateCodeFoldingNode*);
+    void dontDeleteEnding  (KateCodeFoldingNode*);
+    void dontDeleteOpening (KateCodeFoldingNode*);
 
     void updateHiddenSubNodes (KateCodeFoldingNode *node);
+    void moveSubNodesUp (KateCodeFoldingNode *node);
 
-
-    void moveSubNodesUp(KateCodeFoldingNode *node);
   public slots:
     void updateLine (unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);
     void toggleRegionVisibility (unsigned int);
-    void collapseToplevelNodes();
-    void expandToplevelNodes(int numLines);
-    int collapseOne(int realLine);
-    void expandOne(int realLine, int numLines);
+    void collapseToplevelNodes ();
+    void expandToplevelNodes (int numLines);
+    int collapseOne (int realLine);
+    void expandOne  (int realLine, int numLines);
     /**
       Ensures that all nodes surrounding @p line are open
     */
@@ -182,8 +181,8 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
 
   signals:
     void setLineVisible (unsigned int, bool);
-    void regionVisibilityChangedAt    (unsigned int);
-    void regionBeginEndAddedRemoved    (unsigned int);
+    void regionVisibilityChangedAt  (unsigned int);
+    void regionBeginEndAddedRemoved (unsigned int);
 };
 
 #endif

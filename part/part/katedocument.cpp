@@ -4420,6 +4420,7 @@ unsigned int KateDocument::visibleLines ()
 void KateDocument::slotLoadingFinished()
 {
   tagAll();
+  foldingTree()->fixRoot (numLines());
 }
 
 TextLine::Ptr KateDocument::kateTextLine(uint i)

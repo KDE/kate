@@ -563,11 +563,13 @@ bool KateDocument::clear()
   return true;
 }
 
-bool KateDocument::doInsertText( uint line, uint col, const QString &s )
+bool KateDocument::insertText( uint line, uint col, const QString &s )
 {
   if (s.isEmpty())
     return true;
 
+  editStart ();
+    
   uint insertPos = col;
   uint len = s.length();
   QString buf;
@@ -590,36 +592,26 @@ bool KateDocument::doInsertText( uint line, uint col, const QString &s )
   }
 
   editInsertText (line, insertPos, buf);
+  
+  editEnd ();
 
   return true;
 }
 
-bool KateDocument::insertText( uint line, uint col, const QString &s )
-{
-  if (s.isEmpty())
-    return true;
-
-  editStart ();
-
-  bool result = doInsertText(line, col, s);
-
-  editEnd ();
-
-  return result;
-}
-
-bool KateDocument::doRemoveText ( uint startLine, uint startCol,
+bool KateDocument::removeText ( uint startLine, uint startCol,
 				  uint endLine, uint endCol )
 {
-  TextLine::Ptr l, tl;
-  uint deletePos = 0;
-  uint endPos = 0;
-  uint line = 0;
-
-  l = buffer->line(startLine);
+  TextLine::Ptr l = buffer->line(startLine);
 
   if (!l)
     return false;
+    
+  editStart ();
+    
+  TextLine::Ptr tl;
+  uint deletePos = 0;
+  uint endPos = 0;
+  uint line = 0;
 
   if (startLine == endLine)
   {
@@ -661,21 +653,8 @@ bool KateDocument::doRemoveText ( uint startLine, uint startCol,
     }
   }
   
-  return true;
-}
-
-bool KateDocument::removeText ( uint startLine, uint startCol,
-				uint endLine, uint endCol )
-{
-  if (!buffer->line(startLine))
-    return false;
-
-  editStart ();
-
-  doRemoveText(startLine, startCol, endLine, endCol);
-
   editEnd ();
-
+  
   return true;
 }
 
@@ -2961,7 +2940,7 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
     int length = str.length();
 
     // Remove some chars
-    doRemoveText (line, 0, line, length);
+    removeText (line, 0, line, length);
 
     return true;
   }
@@ -2983,7 +2962,7 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
     int length = str.length();
 
     // Remove some chars
-    doRemoveText (line, 0, line, length);
+    removeText (line, 0, line, length);
 
     return true;
   }
@@ -3033,14 +3012,14 @@ void KateDocument::addStartStopCommentToSingleLine(int line)
   editStart();
 
   // Add the start comment mark
-  doInsertText (line, 0, startCommentMark);
+  insertText (line, 0, startCommentMark);
 
   // Go to the end of the line
   TextLine* textline = buffer->line(line);
   int col = textline->length();
 
   // Add the stop comment mark
-  doInsertText (line, col, stopCommentMark);
+  insertText (line, col, stopCommentMark);
 
   editEnd();
 }
@@ -3094,8 +3073,8 @@ void KateDocument::addStartStopCommentToSelection()
 
   editStart();
 
-  doInsertText (el, ec, endComment);
-  doInsertText (sl, sc, startComment);
+  insertText (el, ec, endComment);
+  insertText (sl, sc, startComment);
 
   editEnd ();
 
@@ -3124,7 +3103,7 @@ void KateDocument::addStartLineCommentToSelection()
 
   // For each line of the selection
   for (int z = el; z >= sl; z--) {
-    doInsertText (z, 0, commentLineMark);
+    insertText (z, 0, commentLineMark);
   }
 
   editEnd ();
@@ -3211,8 +3190,8 @@ bool KateDocument::removeStartStopCommentFromSelection()
   if (remove) {
     editStart();
 
-    doRemoveText (el, ec - endCommentLen + 1, el, ec + 1);
-    doRemoveText (sl, sc, sl, sc + startCommentLen);
+    removeText (el, ec - endCommentLen + 1, el, ec + 1);
+    removeText (sl, sc, sl, sc + startCommentLen);
 
     editEnd ();
 

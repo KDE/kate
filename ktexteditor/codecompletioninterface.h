@@ -36,12 +36,6 @@ namespace KTextEditor
  * @ref CodeCompletionInterface::filterInsertString().
  *
  *
- * There is another signal, which should be implmemented, but isn't documented here, because
- * It would have been a BIC change.
- * 
- * void completionExtendedHint(CompletionEntry*)
- *
- *
  */
 class CompletionEntry
 {
@@ -71,6 +65,14 @@ class CompletionEntry
  * completion list will disappear if an item is chosen, if no completion
  * is available or if the user presses Esc etc. The contents of the list
  * is automatically adapted to the string the user types.
+ *
+ * There is another signal, which should be implmemented, but isn't documented here, because
+ * It would have been a BIC change.
+ * 
+ * void completionExtendedComment(CompletionEntry)
+ *
+ *
+
  */
 class CodeCompletionInterface
 {

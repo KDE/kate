@@ -18,8 +18,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 #include "katecmds.h"
 
 #include "katedocument.h"
@@ -80,7 +78,7 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
 #define KCC_ERR(s) { errorMsg=s; return false; }
   // cast it hardcore, we know that it is really a kateview :)
   KateView *v = (KateView*) view;
-  
+
   if ( ! v )
     KCC_ERR( i18n("Could not access view") );
 

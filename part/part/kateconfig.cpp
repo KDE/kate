@@ -39,8 +39,6 @@
 #include <qcolor.h>
 #include <qtextcodec.h>
 
-// $Id$
-
 //BEGIN KateConfig
 KateConfig::KateConfig ()
  : configSessionNumber (0), configIsRunning (false)
@@ -128,7 +126,7 @@ KateDocumentConfig::~KateDocumentConfig ()
 {
 }
 
-static KStaticDeleter<KateDocumentConfig> sdDocConf; 
+static KStaticDeleter<KateDocumentConfig> sdDocConf;
 
 KateDocumentConfig *KateDocumentConfig::global ()
 {
@@ -405,7 +403,7 @@ void KateDocumentConfig::setEncoding (const QString &encoding)
     return;
 
   configStart ();
-  
+
   if (isGlobal())
     KateDocument::setDefaultEncoding (codec->name());
 
@@ -527,7 +525,7 @@ KateViewConfig::~KateViewConfig ()
 {
 }
 
-static KStaticDeleter<KateViewConfig> sdViewConf; 
+static KStaticDeleter<KateViewConfig> sdViewConf;
 
 KateViewConfig *KateViewConfig::global ()
 {
@@ -558,7 +556,7 @@ void KateViewConfig::readConfig (KConfig *config)
   setSearchFlags (config->readNumEntry("Search Config Flags", KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
   setCmdLine (config->readBoolEntry( "Command Line", false));
-  
+
   setDefaultMarkType (config->readNumEntry( "Default Mark Type", KTextEditor::MarkInterface::markType01 ));
 
   configEnd ();
@@ -583,7 +581,7 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Search Config Flags", searchFlags());
 
   config->writeEntry("Command Line", cmdLine());
-  
+
   config->writeEntry("Default Mark Type", defaultMarkType());
 }
 

@@ -16,8 +16,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 #include "katecodefoldinghelpers.h"
 #include "katecodefoldinghelpers.moc"
 
@@ -472,7 +470,7 @@ bool KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
       node->endLineValid = parent->endLineValid;
 
     node->endLineRel = parent->endLineRel-node->startLineRel;
-    
+
     if (node->endLineValid)
       return removeEnding(parent, getStartLine(parent)+parent->endLineRel);
 

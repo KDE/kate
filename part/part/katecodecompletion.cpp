@@ -23,8 +23,6 @@
 /* Trolltech doesn't mind, if we license that piece of code as LGPL, because there isn't much
  * left from the desigener code */
 
-// $Id$
-
 #include "katecodecompletion.h"
 #include "katecodecompletion.moc"
 
@@ -106,7 +104,7 @@ class KateCompletionItem : public QListBoxText
         setText( entry.prefix + " " + entry.text + " " + entry.postfix);
       }
     }
-  
+
     KTextEditor::CompletionEntry m_entry;
 };
 
@@ -359,7 +357,7 @@ void KateCodeCompletion::showComment()
 {
   if (!m_completionPopup->isVisible())
     return;
-  
+
   KateCompletionItem* item = static_cast<KateCompletionItem*>(m_completionListBox->item(m_completionListBox->currentItem()));
 
   if( !item )

@@ -17,8 +17,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 #include "katebuffer.h"
 #include "katebuffer.moc"
 
@@ -613,20 +611,20 @@ bool KateBuffer::openFile (const QString &m_file)
 bool KateBuffer::canEncode ()
 {
   QTextCodec *codec = m_doc->config()->codec();
-  
+
   kdDebug(13020) << "ENC NAME: " << codec->name() << endl;
 
   // hardcode some unicode encodings which can encode all chars
   if ((QString(codec->name()) == "UTF-8") || (QString(codec->name()) == "ISO-10646-UCS-2"))
     return true;
-  
+
   for (uint i=0; i < m_lines; i++)
   {
     if (!codec->canEncode (plainLine(i)->string()))
     {
       kdDebug(13020) << "STRING LINE: " << plainLine(i)->string() << endl;
       kdDebug(13020) << "ENC WORKING: FALSE" << endl;
-    
+
       return false;
     }
   }

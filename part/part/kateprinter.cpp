@@ -18,8 +18,6 @@
  *  Boston, MA 02111-1307, USA.
  **/
 
-// $Id$
-
 #include "kateprinter.h"
 #include "kateprinter.moc"
 
@@ -56,10 +54,10 @@
 bool KatePrinter::print (KateDocument *doc)
 {
   KPrinter printer;
-  
+
   // docname is now always there, including the right Untitled name
   printer.setDocName(doc->docName());
-  
+
   KatePrintTextSettings *kpts = new KatePrintTextSettings(&printer, NULL);
   kpts->enableSelection( doc->hasSelection() );
   printer.addDialogPage( kpts );
@@ -134,9 +132,9 @@ bool KatePrinter::print (KateDocument *doc)
      uint currentPage( 1 );
      uint lastline = doc->lastLine(); // nessecary to print selection only
      uint firstline( 0 );
-     
+
      ItemDataList ilist;
-     
+
      if (useGuide)
        doc->highlight()->getItemDataListCopy (renderer.config()->schema(), ilist);
 
@@ -153,7 +151,7 @@ bool KatePrinter::print (KateDocument *doc)
          selStartCol = doc->selStartCol();
          lastline = doc->selEndLine();
          selEndCol = doc->selEndCol();
- 
+
          lineCount = firstline;
        }
 
@@ -178,10 +176,10 @@ bool KatePrinter::print (KateDocument *doc)
          // and searcing each tag in the format strings is avoided.
          QDateTime dt = QDateTime::currentDateTime();
          QMap<QString,QString> tags;
-         
+
          KUser u (KUser::UseRealUserID);
          tags["u"] = u.loginName();
-         
+
          tags["d"] = KGlobal::locale()->formatDateTime(dt, true, false);
          tags["D"] =  KGlobal::locale()->formatDateTime(dt, false, false);
          tags["h"] =  KGlobal::locale()->formatTime(dt.time(), false);

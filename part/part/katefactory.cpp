@@ -16,8 +16,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 #include "katefactory.h"
 
 #include "katedocument.h"
@@ -42,11 +40,11 @@ class KateFactoryPublic : public KParts::Factory
     KateFactoryPublic ()
     {
     }
-    
+
     ~KateFactoryPublic ()
     {
     }
-    
+
     KParts::Part *createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args )
     {
       return KateFactory::self()->createPartObject (parentWidget, widgetName, parent, name, classname, args);
@@ -88,7 +86,7 @@ KateFactory::KateFactory ()
   m_aboutData.addAuthor ("Glen Parker",I18N_NOOP("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
   m_aboutData.addAuthor ("Scott Manson",I18N_NOOP("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
   m_aboutData.addAuthor ("John Firebaugh",I18N_NOOP("Patches and more"), "jfirebaugh@kde.org");
-      
+
   m_aboutData.addCredit ("Matteo Merli",I18N_NOOP("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
   m_aboutData.addCredit ("Rocky Scaletta",I18N_NOOP("Highlighting for VHDL"), "rocky@purdue.edu");
   m_aboutData.addCredit ("Yury Lebedev",I18N_NOOP("Highlighting for SQL"),"");
@@ -104,29 +102,29 @@ KateFactory::KateFactory ()
   m_aboutData.addCredit ("Jens Haupert", I18N_NOOP("Betatest"), "al_all@gmx.de");
   m_aboutData.addCredit ("Carsten Pfeiffer", I18N_NOOP("Very nice help"), "");
   m_aboutData.addCredit (I18N_NOOP("All people who have contributed and I have forgotten to mention"),"","");
-      
+
   m_aboutData.setTranslator(I18N_NOOP("_: NAME OF TRANSLATORS\nYour names"), I18N_NOOP("_: EMAIL OF TRANSLATORS\nYour emails"));
 
   //
   // plugins
   //
   m_plugins = KTrader::self()->query("KTextEditor/Plugin");
-  
+
   //
   // dir watch
   //
   m_dirWatch = new KDirWatch ();
-  
+
   //
   // filetype man
   //
   m_fileTypeManager = new KateFileTypeManager ();
-  
+
   //
   // schema man
   //
   m_schemaManager = new KateSchemaManager ();
-  
+
   //
   // init the cmds
   //
@@ -150,9 +148,9 @@ KateFactory *KateFactory::self ()
 {
   if (!s_self)
     sdFactory.setObject(s_self, new KateFactory ());
-    
+
   return s_self;
-} 
+}
 
 KParts::Part *KateFactory::createPartObject ( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList & )
 {

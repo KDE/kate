@@ -20,8 +20,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 //BEGIN includes
 #include "kateview.h"
 #include "kateview.moc"
@@ -1180,7 +1178,7 @@ void KateView::updateRendererConfig()
   // update the text area
   m_viewInternal->updateView (true);
   m_viewInternal->repaint ();
-  
+
   // update the left border right, for example linenumbers
   m_viewInternal->leftBorder->updateFont();
   m_viewInternal->leftBorder->repaint ();

@@ -17,8 +17,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 #include "kateschema.h"
 #include "kateschema.moc"
 

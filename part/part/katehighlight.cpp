@@ -19,8 +19,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 //BEGIN INCLUDES
 #include "katehighlight.h"
 #include "katehighlight.moc"
@@ -58,7 +56,7 @@ class HlItem
   public:
     HlItem(int attribute, int context,signed char regionId, signed char regionId2);
     virtual ~HlItem();
-    
+
   public:
     virtual bool alwaysStartEnable() const { return true; };
     virtual bool hasCustomStartEnable() const { return false; };
@@ -114,7 +112,7 @@ class IncludeRule
   public:
     IncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
     IncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
-    
+
   public:
     uint pos;
     int ctx;
@@ -1276,7 +1274,7 @@ HlData *Highlight::getData()
   config->readEntry("Mimetypes", iMimetypes),
   config->readEntry("Identifier", identifier),
   config->readNumEntry("Priority", m_priority));
- 
+
  return hlData;
 }
 
@@ -2299,14 +2297,14 @@ void Highlight::clearAttributeArrays ()
     KateAttributeList defaultStyleList;
     defaultStyleList.setAutoDelete(true);
     HlManager::self()->getDefaults(it.currentKey(), defaultStyleList);
-  
+
     ItemDataList itemDataList;
     getItemDataList(it.currentKey(), itemDataList);
-  
+
     uint nAttribs = itemDataList.count();
     QMemArray<KateAttribute> *array = it.current();
     array->resize (nAttribs);
-  
+
     for (uint z = 0; z < nAttribs; z++)
     {
       ItemData *itemData = itemDataList.at(z);
@@ -2334,7 +2332,7 @@ QMemArray<KateAttribute> *Highlight::attributes (uint schema)
     // uhh, not valid :/, stick with normal default schema, it's always there !
     return attributes (0);
   }
-  
+
   // k, schema correct, let create the data
   KateAttributeList defaultStyleList;
   defaultStyleList.setAutoDelete(true);
@@ -2356,9 +2354,9 @@ QMemArray<KateAttribute> *Highlight::attributes (uint schema)
 
     array->at(z) = n;
   }
-  
+
   m_attributeArrays.insert(schema, array);
-  
+
   return array;
 }
 
@@ -2366,7 +2364,7 @@ void Highlight::getItemDataListCopy (uint schema, ItemDataList &outlist)
 {
   ItemDataList itemDataList;
   getItemDataList(schema, itemDataList);
-  
+
   outlist.clear ();
   outlist.setAutoDelete (true);
   for (uint z=0; z < itemDataList.count(); z++)
@@ -2380,7 +2378,7 @@ HlManager::HlManager() : QObject(0), m_config ("katesyntaxhighlightingrc", false
 {
   hlList.setAutoDelete(true);
   hlDict.setAutoDelete(false);
-  
+
   commonSuffixes = QStringList::split(";", ".orig;.new;~;.bak;.BAK");
 
   syntax = new SyntaxDocument();
@@ -2419,7 +2417,7 @@ HlManager::~HlManager()
   delete syntax;
 }
 
-static KStaticDeleter<HlManager> sdHlMan; 
+static KStaticDeleter<HlManager> sdHlMan;
 
 HlManager *HlManager::self()
 {
@@ -2721,7 +2719,7 @@ void HlManager::setDefaults(uint schema, KateAttributeList &list)
     settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
     settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
     settings<<"---";
-    
+
     config->writeEntry(defaultStyleName(z),settings);
   }
 

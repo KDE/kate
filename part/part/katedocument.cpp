@@ -18,8 +18,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 //BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"
@@ -2063,7 +2061,7 @@ void KateDocument::configDialog()
     KateDocumentConfig::global()->configEnd ();
     KateViewConfig::global()->configEnd ();
     KateRendererConfig::global()->configEnd ();
-    
+
     writeConfig ();
   }
 

@@ -21,8 +21,6 @@
    Boston, MA 02111-1307, USA.
 */
 
-// $Id$
-
 //BEGIN Includes
 #include "katedialogs.h"
 #include "katedialogs.moc"

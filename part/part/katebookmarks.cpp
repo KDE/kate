@@ -17,8 +17,6 @@
    Boston, MA 02111-1307, USA.
 */
 
- // $Id$
-
 #include "katebookmarks.h"
 #include "katebookmarks.moc"
 
@@ -101,7 +99,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
   m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
 
   QPopupMenu *m = (QPopupMenu*)m_bookmarkMenu->popupMenu ();
-  
+
   // connect bookmarks menu aboutToshow
   connect( m, SIGNAL(aboutToShow()),
            this, SLOT(bookmarkMenuAboutToShow()));
@@ -132,7 +130,7 @@ void KateBookmarks::clearBookmarks ()
   QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
   for (uint i=0; i < m.count(); i++)
     m_view->getDoc()->removeMark( m.at(i)->line, KTextEditor::MarkInterface::markType01 );
-  
+
   // just to be sure ;)
   marksChanged ();
 }
@@ -226,32 +224,32 @@ void KateBookmarks::goNext()
 
   uint line = m_view->cursorLine();
   int found = -1;
-  
+
   for (uint z=0; z < m.count(); z++)
   {
     if ((m.at(z)->line > line) && ((found == -1) || (uint(found) > m.at(z)->line)))
       found = m.at(z)->line;
   }
-  
+
   if (found != -1)
     m_view->gotoLineNumber ( found );
 }
 
 void KateBookmarks::goPrevious()
-{    
+{
   QPtrList<KTextEditor::Mark> m = m_view->getDoc()->marks();
   if (m.isEmpty())
     return;
 
   uint line = m_view->cursorLine();
   int found = -1;
-  
+
   for (uint z=0; z < m.count(); z++)
   {
     if ((m.at(z)->line < line) && ((found == -1) || (uint(found) < m.at(z)->line)))
       found = m.at(z)->line;
   }
-  
+
   if (found != -1)
     m_view->gotoLineNumber ( found );
 }

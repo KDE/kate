@@ -25,7 +25,7 @@
 
 #include <qstring.h>
 
-#define JW_DEBUG 1
+#define JW_DEBUG 0
 
 bool KateCodeFoldingTree::trueVal = true;
 

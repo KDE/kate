@@ -815,8 +815,8 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   m_eol = new KComboBox (e5Layout);
   e5Label->setBuddy(m_eol);
 
-  m_eol->insertItem (i18n("Unix"));
-  m_eol->insertItem (i18n("Dos/Windows"));
+  m_eol->insertItem (i18n("UNIX"));
+  m_eol->insertItem (i18n("DOS/Windows"));
   m_eol->insertItem (i18n("Macintosh"));
 
   QVGroupBox *gbMem = new QVGroupBox(i18n("Memory Usage"), this);
@@ -914,7 +914,7 @@ void KateSaveConfigTab::apply()
     KMessageBox::information(
                 this,
                 i18n("You did not provide a backup suffix or prefix. Using default suffix: '~'"),
-                i18n("No Backup Suffix Or Prefix")
+                i18n("No Backup Suffix or Prefix")
                         );
     leBuSuffix->setText( "~" );
   }

@@ -880,7 +880,9 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
-  m_viewInternal->updateCursor( KateTextCursor( line, 0 ) );
+  KateTextCursor c ( line, 0 );
+  m_viewInternal->scrollPos (c);
+  m_viewInternal->updateCursor (c);
 }
 
 void KateView::joinLines()

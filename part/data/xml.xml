@@ -28,7 +28,7 @@
        </context>
 
        <context attribute="Comment" lineEndContext="#stay" name="Comment" >
-         <IncludeRules context="##Alerts" />
+         <!-- <IncludeRules context="##Alerts" /> -->
          <StringDetect attribute="Comment" context="#pop" endRegion="Comment" String="--&gt;"/>
        </context>
 

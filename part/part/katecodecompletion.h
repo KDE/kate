@@ -45,7 +45,7 @@ public:
     {
         setMargin(1);
         setIndent(0);
-        setAutoMask( FALSE );
+        setAutoMask( false );
         setFrameStyle( QFrame::Plain | QFrame::Box );
         setLineWidth( 1 );
         setAlignment( AlignAuto | AlignTop );

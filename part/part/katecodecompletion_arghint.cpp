@@ -46,9 +46,9 @@ KDevArgHint::KDevArgHint( KateView* parent, const char* name )
     setBackgroundColor( black );
 
     d = new KDevArgHintData();
-    d->labelDict.setAutoDelete( TRUE );
+    d->labelDict.setAutoDelete( true );
     d->layout = new QVBoxLayout( this, 1, 2 );
-    d->layout->setAutoAdd( TRUE );
+    d->layout->setAutoAdd( true );
     d->editorView = parent;
 
     m_markCurrentFunction = true;
@@ -167,7 +167,7 @@ void KDevArgHint::setCurrentFunction( int currentFunction )
         if( m_markCurrentFunction ){
             QLabel* label = d->labelDict[ currentFunction ];
             QFont fnt( font() );
-            fnt.setBold( TRUE );
+            fnt.setBold( true );
             label->setFont( fnt );
         }
 
@@ -188,18 +188,18 @@ bool KDevArgHint::eventFilter( QObject*, QEvent* e )
         if( (ke->state() & ControlButton) && ke->key() == Key_Left ){
             setCurrentFunction( currentFunction() - 1 );
             ke->accept();
-            return TRUE;
+            return true;
         } else if( ke->key() == Key_Escape ){
             slotDone(false);
-            return FALSE;
+            return false;
         } else if( (ke->state() & ControlButton) && ke->key() == Key_Right ){
             setCurrentFunction( currentFunction() + 1 );
             ke->accept();
-            return TRUE;
+            return true;
         }
     }
 
-    return FALSE;
+    return false;
 }
 
 void KDevArgHint::adjustSize( )

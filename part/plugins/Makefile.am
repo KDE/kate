@@ -1,2 +1,2 @@
-SUBDIRS = isearch insertfile kdatatool wordcompletion autobookmarker
+SUBDIRS = isearch insertfile kdatatool wordcompletion
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="progress" version="1.07" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i" author="Rares Stanciulescu (rstanciu@operamail.com)" license="GPL">
+<language name="progress" version="1.08" kateversion="2.4" section="Database" extensions="*.p;*.w;*.i" author="Rares Stanciulescu (rstanciu@operamail.com)" license="GPL">
   
-  <highlighting>
+<highlighting>
     
 <list name="mytypes">
   <item> CHAR </item>
@@ -61,7 +61,6 @@
     <item> TRUE </item>
     <item> YES </item>
     <item> NO </item>
-    <item> ? </item>
 </list>
           
 <list name="preprocvar">
@@ -78,6 +77,7 @@
   <item> WINDOW-SYSTEM </item>
   <item> ANALYZE-RESUME </item>
   <item> ANALYZE-SUSPEND </item>
+  <item> WEBSTREAM </item>
 </list>
           
 <list name="phrases">
@@ -130,6 +130,24 @@
   <item> NO-BOX </item>
   <item> NO-UNDERLINE </item>
   <item> KEEP-TAB-ORDER </item>
+  <item> UNBUFFERED </item>
+  <item> BINARY </item>
+  <item> NO-CONVERT </item>
+  <item> CONVERT </item>
+  <item> TARGET </item>
+  <item> NO-FILL </item>
+  <item> BY </item>
+  <item> NO-LABEL </item>
+  <item> GROUP </item>
+  <item> BREAK </item>
+  <item> COLON-ALIGNED </item>
+  <item> WITH </item>
+  <item> NO-LABELS </item>
+  <item> NO-PAUSE </item>
+  <item> NO-MESSAGE </item>
+  <item> NO-ECHO </item>
+  <item> NO-MAP </item>
+  <item> PRIVATE </item>
 </list>
           
 <list name="functions">
@@ -219,7 +237,6 @@
   <item> GET-UNSIGNED-SHORT </item>
   <item> GO-PENDING </item>
   <item> INDEX </item>
-  <item> INPUT </item>
   <item> INTEGER </item>
   <item> INTERVAL </item>
   <item> IS-ATTR-SPACE </item>
@@ -325,6 +342,11 @@
 </list>
           
 <list name="statements">
+  <item> IF </item>
+  <item> THEN </item>
+  <item> ELSE </item>
+  <item> WHEN </item>
+  <item> OTHERWISE </item>
   <item> ACCUMULATE </item>
   <item> APPLY </item>
   <item> ASSIGN </item>
@@ -382,6 +404,7 @@
   <item> FRAME </item>
   <item> IMAGE </item>
   <item> MENU </item>
+  <item> PARAM </item>
   <item> PARAMETER </item>
   <item> QUERY </item>
   <item> RECTANGLE </item>
@@ -420,6 +443,7 @@
   <item> CLEAR </item>
   <item> CLOSE </item>
   <item> FROM </item>
+  <item> TO </item>
   <item> THROUGH </item>
   <item> INPUT-OUTPUT</item>
   <item> THROUGH </item>
@@ -431,7 +455,6 @@
   <item> MESSAGE </item>
   <item> NEXT </item>
   <item> NEXT-PROMPT </item>
-  <item> ON </item>
   <item> QUERY </item>
   <item> OPEN </item>
   <item> OS-APPEND </item>
@@ -472,6 +495,7 @@
   <item> OBJECT </item>
   <item> REPOSITION </item>
   <item> RETURN </item>
+  <item> RETURNS </item>
   <item> RUN </item>
   <item> STORED-PROCEDURE </item>
   <item> SUPER </item>
@@ -510,7 +534,6 @@
   <item> VALIDATE </item>
   <item> VIEW </item>
   <item> WAIT-FOR </item>
-  <item> THEN </item>
 </list>
 
 <list name="widgets">
@@ -582,11 +605,11 @@
 </list>
 
 <list name="properties">
-  <item> Control-Name </item>
+  <item> CONTROL-NAME </item>
   <item> CONTROLS </item>
-  <item> Height </item>
-  <item> HonorProKeys </item>
-  <item> HonorReturnKey </item>
+  <item> HEIGHT </item>
+  <item> HONORPROKEYS </item>
+  <item> HONORRETURNKEY </item>
   <item> LEFT </item>
   <item> NAME </item>
   <item> TOP </item>
@@ -616,7 +639,7 @@
   <item> ATTR-SPACE </item>
   <item> AUTO-COMPLETION </item>
   <item> AUTO-DELETE </item>
-  <item> AUTO-END-KEY </item>
+  <item> AUTO-ENDKEY </item>
   <item> AUTO-GO </item>
   <item> AUTO-INDENT </item>
   <item> AUTO-RESIZE </item>
@@ -1021,6 +1044,7 @@
   <item> RETURN-VALUE </item>
   <item> RETURN-VALUE-DATA-TYPE </item>
   <item> ROW </item>
+  <item> COL </item>
   <item> ROW-HEIGHT-CHARS </item>
   <item> ROW-HEIGHT-PIXELS </item>
   <item> ROW-STATE </item>
@@ -1384,9 +1408,69 @@
   
 </list>
           
-          
+<list name="envvariables">
+  <item> CLASSPATH </item>
+  <item> DLC </item>
+  <item> EVTLEVEL </item>
+  <item> JDKCP </item>
+  <item> JDKHOME </item>
+  <item> JFCCP </item>
+  <item> JFHOME </item>
+  <item> JIT </item>
+  <item> JRECP </item>
+  <item> JREHOME </item>
+  <item> JVMEXE </item>
+  <item> PATH </item>
+  <item> PROCFG </item>
+  <item> PROCONV </item>
+  <item> PROEXE </item>
+  <item> PROGRESSCP </item>
+  <item> PROLOAD </item>
+  <item> PROMSGS </item>
+  <item> PROPATH </item>
+  <item> PROSRV </item>
+  <item> PROSTARTUP </item>
+  <item> PROTERMCAP </item>
+  <item> TERM </item>
+  <item> TERMINAL </item>
+  <item> GATEWAY_INTERFACE </item>
+  <item> SERVER_SOFTWARE </item>
+  <item> SERVER_PROTOCOL </item>
+  <item> SERVER_NAME </item>
+  <item> SERVER_PORT </item>
+  <item> REQUEST_METHOD </item>
+  <item> SCRIPT_NAME </item>
+  <item> PATH_INFO </item>
+  <item> PATH_TRANSLATED </item>
+  <item> QUERY_STRING </item>
+  <item> REMOTE_ADDR </item>
+  <item> REMOTE_IDENT </item>
+  <item> REMOTE_USER </item>
+  <item> AUTH_TYPE </item>
+  <item> REMOTE_HOST </item>
+  <item> CONTENT_TYPE </item>
+  <item> CONTENT_LENGTH </item>
+  <item> HTTP_ACCEPT </item>
+  <item> HTTP_COOKIE </item>
+  <item> HTTP_REFERER </item>
+  <item> HTTP_USER_AGENT </item>
+  <item> HTTP_REFERER </item>
+  <item> HTTPS </item>
+  <item> HTTP_REFERER </item>
+  <item> HOSTURL </item>
+  <item> SELFURL </item>
+  <item> APPPROGRAM </item>
+  <item> APPURL </item>
+  <item> APPPROGRAM </item>
+  <item> OUTPUT-CONTENT-TYPE </item>
+  <item> WEB_SRC_PATH </item>
+  
+</list>
+
+
 <contexts>
   <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+    <keyword attribute="Preprocvar" context="#stay" String="envvariables"/>
     <keyword attribute="Data_Type" context="#stay" String="mytypes"/>
     <keyword attribute="Operators" context="#stay" String="operators"/>
     <keyword attribute="Preprocvar" context="#stay" String="preprocvar"/>
@@ -1414,22 +1498,16 @@
                   String="END PROCEDURE" insensitive="TRUE"
                   endRegion="P1" firstNonSpace="TRUE"/>
     
-    <StringDetect attribute="Function" context="#stay"
+    <StringDetect attribute="Region Marker" context="#stay"
                   String="FUNCTION" insensitive="TRUE"
                   beginRegion="F1" firstNonSpace="TRUE"/>
-    <StringDetect attribute="Function" context="#stay"
+    <StringDetect attribute="Region Marker" context="#stay"
                   String="END FUNCTION" insensitive="TRUE"
                   endRegion="F1" firstNonSpace="TRUE"/>
     
     <StringDetect attribute="Function" context="#stay"
-                  String="IF" insensitive="TRUE"
-                  beginRegion="L1" firstNonSpace="TRUE"/>
-    <StringDetect attribute="Function" context="#stay"
-                  String="ELSE" insensitive="TRUE"
-                  beginRegion="L1" firstNonSpace="TRUE"/>
-    <StringDetect attribute="Function" context="#stay"
-                  String="DO" insensitive="TRUE"
-                  beginRegion="L1" firstNonSpace="TRUE"/>
+                  String="DO:" insensitive="TRUE"
+                  beginRegion="L1" firstNonSpace="FALSE"/>
     <StringDetect attribute="Function" context="#stay"
                   String="REPEAT" insensitive="TRUE"
                   beginRegion="L1" firstNonSpace="TRUE"/>
@@ -1437,18 +1515,11 @@
                   String="FOR" insensitive="TRUE"
                   beginRegion="L1" firstNonSpace="TRUE"/>
     <StringDetect attribute="Function" context="#stay"
-                  String="WHEN" insensitive="TRUE"
+                  String="CASE" insensitive="TRUE"
                   beginRegion="L1" firstNonSpace="TRUE"/>
     <StringDetect attribute="Function" context="#stay"
                   String="END" insensitive="TRUE"
                   endRegion="L1" firstNonSpace="TRUE"/>
-    
-    <StringDetect attribute="Function" context="#stay"
-                  String="CASE" insensitive="TRUE"
-                  beginRegion="S1" firstNonSpace="TRUE"/>
-    <StringDetect attribute="Function" context="#stay"
-                  String="END CASE" insensitive="TRUE"
-                  endRegion="S1" firstNonSpace="TRUE"/>
     
   </context>
   <context name="String" attribute="String" lineEndContext="#stay">
@@ -1486,7 +1557,7 @@
     <itemData name="Symbol"  defStyleNum="dsChar"/>
     <itemData name="Data_Type" defStyleNum="dsDataType"/>
     <itemData name="Preprocvar" defStyleNum="dsChar"/>
-    <itemData name="Operators" defStyleNum="dsString"/>
+    <itemData name="Operators" defStyleNum="dsDecVal"/>
     <itemData name="Alert" defStyleNum="dsAlert"/>
     <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
   </itemDatas>

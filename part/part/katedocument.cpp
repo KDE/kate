@@ -72,7 +72,6 @@
 #include <klibloader.h>
 #include <kdirwatch.h>
 
-#include <qfileinfo.h>
 #include <qpainter.h>
 #include <qpaintdevicemetrics.h>
 #include <qtimer.h>
@@ -2781,15 +2780,6 @@ bool KateDocument::print ()
 
 bool KateDocument::openFile()
 {
-  QFileInfo fileInfo (m_file);
-
-  if (!fileInfo.exists() || !fileInfo.isReadable())
-  {
-    // m_file && m_url have changed e.g. with "kwrite filethatdoesntexist"
-    emit fileNameChanged();
-    return false;
-  }
-
   if (m_url.isLocalFile())
     KateFactory::dirWatch ()->addFile (m_file);
 

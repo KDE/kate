@@ -49,49 +49,35 @@
 
 #include <kio/netaccess.h>
 
+#include <kparts/event.h>
+
 #include <klocale.h>
 #include <kglobal.h>
-#include <kurldrag.h>
 #include <kprinter.h>
 #include <kapplication.h>
 #include <kpopupmenu.h>
-#include <klineeditdlg.h>
 #include <kconfig.h>
-#include <kcursor.h>
 #include <kcharsets.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
-#include <kstringhandler.h>
-#include <kaction.h>
 #include <kspell.h>
 #include <kstdaction.h>
-#include <kparts/event.h>
 #include <kiconloader.h>
 #include <kxmlguifactory.h>
-#include <dcopclient.h>
-#include <kwin.h>
 #include <kdialogbase.h>
 #include <kdebug.h>
-#include <kinstance.h>
 #include <kglobalsettings.h>
 #include <ksavefile.h>
 #include <klibloader.h>
 
 #include <qfileinfo.h>
 #include <qpainter.h>
-#include <qpixmap.h>
-#include <qevent.h>
 #include <qpaintdevicemetrics.h>
-#include <qiodevice.h>
-#include <qregexp.h>
 #include <qtimer.h>
-#include <qobject.h>
-#include <qapplication.h>
-#include <qclipboard.h>
 #include <qfile.h>
+#include <qclipboard.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
-#include <qdatetime.h>
 #include <qmap.h>
 //END  includes
 
@@ -2025,15 +2011,11 @@ void KateDocument::writeSessionConfig(KConfig *config)
 
 void KateDocument::configDialog()
 {
-  KWin kwin;
-
   KDialogBase *kd = new KDialogBase(KDialogBase::IconList,
                                     i18n("Configure"),
                                     KDialogBase::Ok | KDialogBase::Cancel |
                                     KDialogBase::Help ,
                                     KDialogBase::Ok, kapp->mainWidget());
-
-  kwin.setIcons(kd->winId(), kapp->icon(), kapp->miniIcon());
 
   QPtrList<KTextEditor::ConfigPage> editorPages;
 

@@ -651,7 +651,11 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     int autoCenterLines() const;
 
   public:
-    enum GetSearchTextFrom {Nowhere, SelectionOnly, SelectionWord, WordOnly, WordSelection};
+    enum GetSearchTextFrom
+    {
+      Nowhere, SelectionOnly, SelectionWord, WordOnly, WordSelection
+    };
+
     void setGetSearchTextFrom (int where);
     int getSearchTextFrom() const;
 
@@ -661,20 +665,20 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
  // code folding
   public:
-        unsigned int getRealLine(unsigned int virtualLine);
-        unsigned int getVirtualLine(unsigned int realLine);
-        unsigned int visibleLines ();
+    unsigned int getRealLine(unsigned int virtualLine);
+    unsigned int getVirtualLine(unsigned int realLine);
+    unsigned int visibleLines ();
 
   signals:
-  void codeFoldingUpdated();
+    void codeFoldingUpdated();
+
   public slots:
-  void dumpRegionTree();
+    void dumpRegionTree();
 
   //
   // Some flags for internal ONLY use !
   //
   public:
-
     // result flags for katepart's internal dialogs
     enum DialogResults
     {

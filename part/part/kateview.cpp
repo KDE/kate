@@ -46,6 +46,8 @@
 
 #include <ktexteditor/plugin.h>
 
+#include <kparts/event.h>
+
 #include <kconfig.h>
 #include <kurldrag.h>
 #include <kdebug.h>
@@ -57,14 +59,12 @@
 #include <kmessagebox.h>
 #include <kaction.h>
 #include <kstdaction.h>
-#include <kparts/event.h>
 #include <kxmlguifactory.h>
 #include <kaccel.h>
 #include <klibloader.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>
-#include <qfile.h>
 #include <qstyle.h>
 #include <qevent.h>
 #include <qpopupmenu.h>

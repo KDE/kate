@@ -46,11 +46,9 @@
 #include <qdragobject.h>
 #include <qpopupmenu.h>
 #include <qdropsite.h>
-#include <qtimer.h>
 #include <qpainter.h>
 #include <qlayout.h>
 #include <qclipboard.h>
-#include <qscrollbar.h>
 
 static const bool paintDebug = false;
 // const int KateViewInternal::scrollTime = 30;

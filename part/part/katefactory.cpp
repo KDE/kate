@@ -196,7 +196,6 @@ KTrader::OfferList *KateFactory::plugins ()
    s_plugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/Plugin"));
    
   return s_plugins;
-  s_viewPlugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/ViewPlugin"));
 }
 
 KTrader::OfferList *KateFactory::viewPlugins ()

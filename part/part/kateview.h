@@ -198,6 +198,8 @@ class KateView : public Kate::View,
     void shiftTop()           { m_viewInternal->top_home(true);      }
     void bottom()             { m_viewInternal->bottom_end();        }
     void shiftBottom()        { m_viewInternal->bottom_end(true);    }
+    void toMatchingBracket()  { m_viewInternal->cursorToMatchingBracket();}
+    void shiftToMatchingBracket()  { m_viewInternal->cursorToMatchingBracket(true);}
 
     void gotoLine();
     void gotoLineNumber( int linenumber );

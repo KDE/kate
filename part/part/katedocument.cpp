@@ -129,7 +129,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setSessionConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
-  
+
   regionTree=new KateCodeFoldingTree(this);
   m_activeView = 0L;
 
@@ -3721,22 +3721,22 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   return true;
 }
 
-void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm )
+
+bool KateDocument::findMatchingBracket( const KateTextCursor &cursor, KateTextCursor& newCursor,
+										bool unlimitedRange )
 {
+  bool stopCondition=true;
   TextLine::Ptr textLine;
   int x, line, count, attr;
   QChar bracket, opposite, ch;
 
-  bm.eXPos = -1; //mark bracked mark as invalid
-  x = cursor.col; // look at the right side of the cursor (which would be the 
-		//character below the cursor, if over writing mode is selected
-		// -1 to look at left side of cursor
-  if (x < 0) return;
+  x = cursor.col -1; // -1 to look at left side of cursor
+  if (x < 0) return false;
   line = cursor.line; //current line
   count = 0; //bracket counter for nested brackets
 
   textLine = buffer->line(line);
-  if (!textLine) return;
+  if (!textLine) return false;
 
   bracket = textLine->getChar(x);
   attr = textLine->attribute(x);
@@ -3749,11 +3749,11 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
     if (bracket == '{') opposite = '}';
     //get attribute of bracket (opposite bracket must have the same attribute)
     x++;
-    while (line - cursor.line < 40) {
+    while (stopCondition) {
       //go to next line on end of line
       while (x >= (int) textLine->length()) {
         line++;
-        if (line > (int) lastLine()) return;
+        if (line > (int) lastLine()) return false;
         textLine = buffer->line(line);
         x = 0;
       }
@@ -3767,7 +3767,11 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
         }
       }
       x++;
-    }
+    if(!unlimitedRange)
+		{
+		stopCondition = line - cursor.line < 40;
+		}
+	}
   }
   else if (bracket == ')' || bracket == ']' || bracket == '}')
   {
@@ -3775,11 +3779,11 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
     if (bracket == ']') opposite = '[';
     if (bracket == '}') opposite = '{';
     x--;
-    while (cursor.line - line < 40) {
+    while (stopCondition) {
 
       while (x < 0) {
         line--;
-        if (line < 0) return;
+        if (line < 0) return false;
         textLine = buffer->line(line);
         x = textLine->length() -1;
       }
@@ -3792,16 +3796,57 @@ void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm
         }
       }
       x--;
+      if(!unlimitedRange)
+		{
+		stopCondition = cursor.line -line < 20;
+		}
     }
   }
-  return;
+  return false;
 
 found:
-  //cursor position of opposite bracket
-  bm.cursor.setPos(line, x);
 
+	newCursor.setPos(line, x);
+
+	return true;
+}
+
+
+void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm )
+{
+
+  KateTextCursor newCursor;
+  
+  
+  TextLine::Ptr textLine;
+  int x, line, count, attr;
+  QChar bracket;
+
+  bm.eXPos = -1; //mark bracked mark as invalid
+  x = cursor.col -1; // -1 to look at left side of cursor
+  if (x < 0) return;
+  line = cursor.line; //current line
+  count = 0; //bracket counter for nested brackets
+
+  textLine = buffer->line(line);
+  if (!textLine) return;
+
+  bracket = textLine->getChar(x);
+  attr = textLine->attribute(x);
+
+  if(!findMatchingBracket(cursor, newCursor))
+  	{
+	return;
+	}
+
+  //cursor position of opposite bracket
+  bm.cursor.setPos(newCursor.line, newCursor.col);
+
+
+	textLine = buffer->line(newCursor.line);
+	
   //x position (start and end) of related bracket
-  bm.sXPos = textWidth(textLine, x);
+  bm.sXPos = textWidth(textLine, newCursor.col);
 
   Attribute *a = attribute(attr);
   bm.eXPos = bm.sXPos + a->width(viewFont, bracket);

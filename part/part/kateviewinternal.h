@@ -68,6 +68,7 @@ class KateViewInternal : public QScrollView
     void end(bool sel=false);
     void cursorUp(bool sel=false);
     void cursorDown(bool sel=false);
+    void cursorToMatchingBracket(bool sel=false);
     void scrollUp();
     void scrollDown();
     void topOfView(bool sel=false);

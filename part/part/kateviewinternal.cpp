@@ -403,6 +403,26 @@ void KateViewInternal::cursorDown(bool sel)
   updateCursor( c );
 }
 
+void KateViewInternal::cursorToMatchingBracket(bool sel)
+{
+  KateTextCursor c = cursor;
+
+  if(!m_doc->findMatchingBracket(cursor, c, true))
+  	{
+	return;
+	}
+  
+  // The cursor is now placed just to the left of the matching bracket.
+  // Put it to the right (so we can easily get back to the original bracket).
+  if(!sel)
+  	{
+	c.col+=1;
+  	}
+  updateSelection( c, sel );
+  updateCursor( c );
+}
+
+
 void KateViewInternal::topOfView( bool sel )
 {
   WrappingCursor c( *m_doc, m_doc->getRealLine( firstLine() ), 0 );

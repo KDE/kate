@@ -532,6 +532,14 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void updateLines();
     void updateViews();
 
+/**
+  * Find the matching bracket to the bracket (if any) to the left of the
+  * present cursor. Return true if matching bracket found, else false. Position
+  * of matching bracket is put into the supplied argument (a KateTextCursor).
+  *
+  */
+	bool findMatchingBracket(const KateTextCursor&, KateTextCursor &, 
+							bool unlimitedRange=false);
     void newBracketMark( const KateTextCursor&, BracketMark& );
 
   private:

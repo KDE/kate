@@ -405,6 +405,14 @@ void KateView::setupEditActions()
     i18n("Move to Bottom of View"),          CTRL +         Key_PageDown,
     this, SLOT(bottomOfView()),
     ac, "move_bottom_of_view" );
+  new KAction(
+    i18n("Move to matching bracket"),               CTRL + Key_6,
+    this, SLOT(toMatchingBracket()),
+    ac, "to_matching_bracket" );
+  new KAction(
+    i18n("Select to matching bracket"),      SHIFT +  CTRL + Key_6,
+    this, SLOT(shiftToMatchingBracket()),
+    ac, "select_matching_bracket" );
     
   new KAction(
     i18n("Transpose Characters"),           CTRL          + Key_T,

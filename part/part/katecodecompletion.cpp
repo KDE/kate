@@ -254,7 +254,7 @@ void KateCodeCompletion::complete( KTextEditor::CompletionEntry entry )
   emit completionDone();
 }
 
-void KateCodeCompletion::updateBox( bool newCoordinate )
+void KateCodeCompletion::updateBox( bool )
 {
   m_completionListBox->clear();
 

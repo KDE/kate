@@ -115,6 +115,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHd (false),
   m_modOnHdReason (0)
 {
+  // my dcop object
+  setObjId ("KateDocument#"+documentDCOPSuffix());
+
   // ktexteditor interfaces
   setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
@@ -2909,7 +2912,7 @@ bool KateDocument::save()
          ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
        && isModified() ) {
     KURL u( url().path() + config()->backupSuffix() );
-    if ( ! KIO::NetAccess::upload( url().path(), u ) )
+    if ( ! KIO::NetAccess::upload( url().path(), u, kapp->mainWidget() ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
   }
 
@@ -5321,6 +5324,11 @@ void KateDocument::updateFileType (int newType, bool user)
       }
     }
   }
+}
+
+unsigned int KateDocument::documentNumber () const
+{
+  return KTextEditor::Document::documentNumber();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -24,6 +24,7 @@
 #include "kateautoindent.h"
 #include "katecursor.h"
 #include "katetextline.h"
+#include "katedocumentIface.h"
 
 #include "../interfaces/document.h"
 
@@ -32,6 +33,7 @@
 #include <ktexteditor/sessionconfiginterface.h>
 
 #include <kservice.h>
+#include <dcopobject.h>
 
 #include <qintdict.h>
 #include <qdatetime.h>
@@ -72,7 +74,8 @@ namespace Kate
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceExtension,
+class KateDocument : public Kate::Document, public KateDocumentDCOPIface,
+                     public KTextEditor::ConfigInterfaceExtension,
                      public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
 {
   Q_OBJECT
@@ -813,6 +816,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     static QRegExp kvLine;
     static QRegExp kvVar;
     //static QStringList VRegister;
+
+  public:
+    unsigned int documentNumber () const;
 };
 
 #endif

@@ -613,17 +613,26 @@ bool KateBuffer::openFile (const QString &m_file)
 bool KateBuffer::canEncode ()
 {
   QTextCodec *codec = m_doc->config()->codec();
+  
+  kdDebug() << "ENC NAME: " << codec->name() << endl;
 
-  // encoding can encode every char
-  bool rightEncoding = true;
-
+  // hardcode some unicode encodings which can encode all chars
+  if ((QString(codec->name()) == "UTF-8") || (QString(codec->name()) == "ISO-10646-UCS-2"))
+    return true;
+  
   for (uint i=0; i < m_lines; i++)
   {
-    if (rightEncoding)
-      rightEncoding = codec->canEncode (textLine (i));
+    if (!codec->canEncode (plainLine(i)->string()))
+    {
+      kdDebug() << "STRING LINE: " << plainLine(i)->string() << endl;
+      kdDebug() << "ENC WORKING: FALSE" << endl;
+    
+      return false;
+    }
   }
-
-  return rightEncoding;
+  
+  
+  return true;
 }
 
 bool KateBuffer::saveFile (const QString &m_file)

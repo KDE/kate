@@ -2971,7 +2971,10 @@ bool KateDocument::saveFile()
   //
   // can we encode it if we want to save it ?
   //
-  bool canEncode = reallySaveIt && buffer->canEncode ();
+  bool canEncode = true;
+  
+  if (reallySaveIt)
+    canEncode = buffer->canEncode ();
 
   //
   // remove the m_file before saving from dirwatch

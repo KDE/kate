@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ruby" version="1.04" kateversion="2.1" section="Scripts" extensions="*.rb" mimetype="application/x-ruby">
+<!--
+  This file is part of KDE's kate project.
+  
+  copyright   : (C) 2004 by Sebastian Vuorinen
+  email       : sebastian dot vuorinen at helsinki dot fi
+
+  last change : 2004-03-18
+
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Library General Public
+  License as published by the Free Software Foundation; either
+  version 2 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Library General Public License for more details.
+
+  You should have received a copy of the GNU Library General Public
+  License along with this library; if not, write to the
+  Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA  02111-1307, USA.
+ -->
+<language name="Ruby" version="1.07" kateversion="2.3" section="Scripts" extensions="*.rb" mimetype="application/x-ruby" author="Sebastian Vuorinen &lt;sebastian.vuorinen@helsinki.fi&gt;" license="LGPL">
 	<highlighting>
 	
 		<list name = "keywords">
@@ -32,7 +56,6 @@
 			<item> rescue </item>
 			<item> retry </item>
 			<item> return </item>
-			<item> super </item>
 			<item> then </item>
 			<item> throw </item>
 			<item> unless </item>
@@ -41,14 +64,14 @@
 			<item> while </item>
 			<item> yield </item>
 		</list>
-
+		
 		<list name = "attribute-definitions">
 			<item> attr </item>
 			<item> attr_reader </item>
 			<item> attr_writer </item>
 			<item> attr_accessor </item>
 		</list>
-
+		
 		<list name = "definitions">
 			<item> alias </item>
 			<item> module </item>
@@ -56,22 +79,23 @@
 			<item> def </item>
 			<item> undef </item>
 		</list>
-
-		<list name = "pseudo-varibles">
+		
+		<list name = "pseudo-variables">
 			<item> self </item>
+			<item> super </item>
 			<item> nil </item>
 			<item> false </item>
 			<item> true </item>
 			<item> __FILE__ </item>
 			<item> __LINE__ </item>
 		</list>
-
+		
 		<contexts>
 			<context name = "Normal" attribute = "Normal Text" lineEndContext="#stay">
 				<keyword attribute = "Keyword" String = "keywords" context="#stay"/>
 				<keyword attribute = "Attribute Definition" String = "attribute-definitions"  context="#stay"/>
 				<keyword attribute = "Definition" String = "definitions"  context="#stay" />
-				<keyword attribute = "Pseudo variable" String = "pseudo-varibles"  context="#stay"/>
+				<keyword attribute = "Pseudo variable" String = "pseudo-variables"  context="#stay"/>
 				
 				<RegExpr attribute = "Hex" String = "\s0[xX][0-9a-fA-F]+" context="#stay"/>
 				<RegExpr attribute = "Bin" String = "\s0[bB][01]+" context="#stay"/>
@@ -85,55 +109,84 @@
 				<StringDetect attribute = "Operator" String = "||"  context="#stay"  insensitive="FALSE"/>
 				<RegExpr attribute = "Operator" String = "\s\?\s"  context="#stay"/>
 				<RegExpr attribute = "Operator" String = "\s:\s"   context="#stay"/>
-				<RegExpr attribute = "Operator" String = "&#61;*[&lt;&gt;!^&#37;+*~/-]+&#61;*"  context="#stay"/>
+				<RegExpr attribute = "Operator" String = "\s[&lt;&gt;!^\%+*~/-]+\s"  context="#stay"/>
 				
-				<RegExpr attribute = "Symbol" String = ":[^\s]+"  context="#stay"/>
-				<RegExpr attribute = "Delimiter" String = "/[^\s]+/"  context="#stay"/>
+				<RegExpr attribute = "Symbol" String = "\s:[a-zA-Z_][a-zA-Z0-9_]*"  context="#stay"/>
 				
 				<DetectChar attribute = "String" char = "&quot;"  context = "Quoted String"/>
 				<DetectChar attribute = "String" char= "'"  context="Apostrophed String"/>
+				<DetectChar attribute = "String" char= "`"  context="Command String"/>
 				<StringDetect attribute="Normal Text" String="?#"  context="#stay"/>
 				
-				<RegExpr attribute = "Comment" String = "#.*$"  context="#stay"/>
-				<RegExpr attribute = "EmbDoc" String = "=begin.*$" context="Embedded documentation"/>
-				<RegExpr attribute = "Delimiter" String = "[\[\]\{\}|]+"  context="#stay"/>
+				<RegExpr attribute = "Comment" String = "^#\s*BEGIN.*$"  context="#stay" beginRegion="marker"/>
+				<RegExpr attribute = "Comment" String = "^#\s*END.*$"  context="#stay" endRegion="marker"/>
+				<RegExpr attribute = "Comment" String = "^#.*$"  context="#stay"/>
+				<RegExpr attribute = "Comment" String = "\s#.*$"  context="#stay"/>				
+				<RegExpr attribute = "Blockcomment" String = "^=begin\s*.*$" context="Embedded documentation" beginRegion="block"/>
+				<RegExpr attribute = "Delimiter" String = "[\[\]]+"  context="#stay"/>
+				<DetectChar attribute = "Delimiter" char = "{" context="#stay" beginRegion="bracket"/>
+				<DetectChar attribute = "Delimiter" char = "}" context="#stay" endRegion="bracket"/>
 				
 				<RegExpr attribute = "Global Constant" String = "\s+[A-Z_0-9]+\s+"  context="#stay"/>
 				<RegExpr attribute = "Global Variable" String = "$[a-zA-Z_0-9]+" context="#stay"/>
 				<RegExpr attribute = "Instance Variable" String = "@[a-zA-Z_0-9]+" context="#stay"/>
 				<RegExpr attribute = "Class Variable" String = "@@[a-zA-Z_0-9]+" context="#stay"/>
+				
+				<DetectChar attribute = "Regular Expression" char = "/" context="RegEx 1"/>
+				<RegExpr attribute = "Regular Expression" String = "\%r\{" context="RegEx 2"/>
+				<RegExpr attribute = "String" String = "\%[xqQw]\{" context="Flexible Literal"/>
 			</context>
-
-			<context name = "Main Comment" attribute = "Main Comment" lineEndContext="#pop">
-				<RegExpr attribute = "Main Comment" String = "^##$"  context = "#pop"/>
-				<RegExpr attribute = "Main Comment" String = "^#$" context = "#pop"/>
-			</context>
-
+			
 			<context name = "Quoted String" attribute = "String" lineEndContext="#pop">
-				<RegExpr attribute = "Expression" String = "#{[^}]+}" context = "#pop"/>
+				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
 				<HlCChar attribute = "Char" context = "#pop"/>
-				<DetectChar char = '"' attribute = "String" context = "#pop"/>
+				<DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
 			</context>
-
+			
 			<context name = "Apostrophed String" attribute = "String" lineEndContext="#pop">
-				<RegExpr attribute = "Expression" String = "#{[^}]+}" context = "#pop"/>
+				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
 				<HlCChar attribute = "Char" context = "#pop"/>
 				<DetectChar char = "'" attribute = "String" context = "#pop"/>
 			</context>
 			
+			<context name = "Command String" attribute = "String" lineEndContext="#pop">
+				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
+				<HlCChar attribute = "Char" context = "#pop"/>
+				<DetectChar char = "`" attribute = "String" context = "#pop"/>
+			</context>
+			
 			<context name = "Embedded documentation" attribute = "Comment" lineEndContext="#stay">
-				<RegExpr attribute = "Comment" String = "^\s*=end" context="#pop"/>
+				<RegExpr attribute = "Comment" String = "^=end\s*" context="#pop" endRegion="block"/>
+			</context>
+			
+			<context name = "RegEx 1" attribute = "Regular Expression" lineEndContext="#pop">
+				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
+				<RegExpr attribute = "Regular Expression" String = "/[iomx]?" context = "#pop"/>
+			</context>
+			
+			<context name = "RegEx 2" attribute = "Regular Expression" lineEndContext="#pop">
+				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
+				<RegExpr attribute = "Regular Expression" String = "\}[iomx]?" context = "#pop"/>
+			</context>
+			
+			<context name = "Flexible Literal" attribute = "String" lineEndContext="#pop">
+				<Detect2Chars attribute = "Substitution" char = "#" char1 = "{" context = "Subst"/>
+				<RegExpr attribute = "String" String = "\}" context = "#pop"/>
+			</context>
+			
+			<context name = "Subst" attribute = "Substitution" lineEndContext="#pop">
+				<DetectChar attribute = "Substitution" char = "}" context="#pop"/>
 			</context>
 		</contexts>
-
+		
 		<itemDatas>
 			<itemData name = "Normal Text" defStyleNum ="dsNormal"/>
-
+			
 			<itemData name = "Keyword" defStyleNum ="dsKeyword"/>
 			<itemData name = "Attribute Definition" defStyleNum ="dsOthers"/>
 			<itemData name = "Definition" defStyleNum ="dsKeyword"/>
 			<itemData name = "Pseudo variable" defStyleNum ="dsDecVal"/>
-				
+			
 			<itemData name = "Dec" defStyleNum ="dsDecVal"/>
 			<itemData name = "Float" defStyleNum ="dsFloat"/>
 			<itemData name = "Char" defStyleNum ="dsChar"/>
@@ -144,10 +197,10 @@
 			<itemData name = "Symbol" defStyleNum ="dsString"/>
 			<itemData name = "String" defStyleNum ="dsString"/>
 			
-			<itemData name = "Main Comment" defStyleNum ="dsComment" />
 			<itemData name = "Comment" defStyleNum ="dsComment"/>
-			<itemData name = "EmbDoc" defStyleNum ="dsComment"/>
-			
+			<itemData name = "Blockcomment" defStyleNum ="dsComment"/>
+			<itemData name = "Region Marker" defStyleNum="dsRegionMarker"/>
+
 			<itemData name = "Delimiter" defStyleNum ="dsChar"/>
 			<itemData name = "Global Constant" defStyleNum ="dsDecVal"/>
 			<itemData name = "Global Variable" defStyleNum ="dsOthers"/>
@@ -156,6 +209,8 @@
 			<itemData name = "Expression" defStyleNum ="dsOthers"/>
 			<itemData name = "Operator" defStyleNum ="dsChar"/>
 			
+			<itemData name = "Regular Expression" defStyleNum ="dsOthers"/>
+			<itemData name = "Substitution"	defStyleNum ="dsOthers"/>
 		</itemDatas>
 	</highlighting>
 	<general>

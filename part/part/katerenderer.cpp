@@ -43,11 +43,17 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_showSelections(true)
     , m_showTabs(true)
     , m_printerFriendly(false)
+    , m_showIndentLines(true)    
 {
   KateFactory::self()->registerRenderer ( this );
   m_config = new KateRendererConfig (this);
 
   m_tabWidth = m_doc->config()->tabWidth();
+  m_indentWidth = m_tabWidth;
+  if (m_doc->config()->configFlags() & KateDocumentConfig::cfSpaceIndent)
+  {
+    m_indentWidth = m_doc->config()->indentationWidth();  
+  }
 
   updateAttributes ();
 }
@@ -90,6 +96,20 @@ void KateRenderer::setShowTabs(bool showTabs)
 void KateRenderer::setTabWidth(int tabWidth)
 {
   m_tabWidth = tabWidth;
+}
+
+void KateRenderer::setShowIndentLines(bool showIndentLines)
+{
+  m_showIndentLines = showIndentLines;
+}
+
+void KateRenderer::setIndentWidth(int indentWidth)
+{
+  m_indentWidth = m_tabWidth;
+  if (m_doc->config()->configFlags() & KateDocumentConfig::cfSpaceIndent)
+  {
+    m_indentWidth = indentWidth;
+  }
 }
 
 void KateRenderer::setShowSelections(bool showSelections)
@@ -202,6 +222,32 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
   paint.drawPoint(x,     y - 1);
   paint.setPen( penBackup );
 }
+
+
+void KateRenderer::paintTabMarker(QPainter &paint, uint x, uint row)
+{
+  QPen penBackup( paint.pen() );
+  paint.setPen( config()->tabMarkerColor() );
+
+  const int top = paint.window().top();
+  const int bottom = paint.window().bottom();
+  const int h = bottom - top + 1;
+
+  // Dot padding.
+  int pad = 0;
+  if(row & 1 && h & 1) pad = 1;
+
+  for(int i = top; i <= bottom; i++)
+  {
+    if((i + pad) & 1)
+    {
+      paint.drawPoint(x + 2, i);
+    }
+  }
+
+  paint.setPen( penBackup );
+}
+
 
 void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor, const KateTextRange* bracketmark)
 {
@@ -355,9 +401,19 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     // Determine if we have trailing whitespace and store the column
     // if lastChar == -1, set to 0, if lastChar exists, increase by one
     uint trailingWhitespaceColumn = textLine->lastChar() + 1;
+    const uint lastIndentColumn = textLine->firstChar();
+
+    // Could be precomputed.
+    const uint spaceWidth = fs->width (spaceChar, false, false, m_tabWidth);
+
+    // Get current x position.
+    int curPos = textLine->cursorX(curCol, m_tabWidth);
 
     while (curCol - startcol < len)
     {
+      // make sure curPos is updated correctly.
+      Q_ASSERT(curPos == textLine->cursorX(curCol, m_tabWidth));
+
       QChar curChar = textLine->string()[curCol];
       // Decide if this character is a tab - we treat the spacing differently
       // TODO: move tab width calculation elsewhere?
@@ -432,6 +488,9 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
           // the rest of the line is trailing whitespace OR
           || (curCol + 1 >= trailingWhitespaceColumn)
+          
+          // indentation lines OR
+          || (m_showIndentLines && curCol < lastIndentColumn)
 
           // the x position is past the end OR
           || ((int)xPos > xEnd)
@@ -510,6 +569,41 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             }
           }
 
+          // Draw indentation markers.
+          if (m_showIndentLines && curCol < lastIndentColumn)
+          {
+            // Draw multiple guides when tab width greater than indent width.
+            const int charWidth = isTab ? m_tabWidth : 1;
+            
+            // Do not draw indent guides on the first line.
+            int i = (curPos < m_indentWidth) ? m_indentWidth : curPos % m_indentWidth;
+            
+            for (; i < charWidth; i += m_indentWidth)
+            {
+              // In most cases this is done one or zero times.
+              paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
+            }
+            
+            // Old version, more verbose, but does the same.
+            /*if (isTab && m_tabWidth > m_indentWidth)
+            {
+              for (int i = curPos % m_indentWidth; i < m_tabWidth; i += m_indentWidth)
+              {
+                if ((curPos + i) > 0)
+                {
+                  paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
+                }
+              }
+            }
+            else
+            {
+              if (curPos > 0 && curPos % m_indentWidth == 0)
+              {
+                paintTabMarker(paint, xPos - xStart, line);
+              }
+            }*/
+          }
+
           // or we will see no text ;)
           int y = fs->fontAscent;
 
@@ -525,7 +619,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             paint.drawText(oldXPos-xStart, y, isTab ? spaces : QString(" "));
 
             if (showTabs())
+            {
+            // trailing spaces and tabs may also have to be different options.
+            //  if( curCol >= lastIndentColumn )
               paintWhitespaceMarker(paint, xPos - xStart, y);
+            }
 
             // variable advancement
             blockStartCol = nextCol;
@@ -586,6 +684,16 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       curCol++;
       nextCol++;
       currentPos.setCol(currentPos.col() + 1);
+
+      // Update the current indentation pos.
+      if (isTab)
+      {
+        curPos += m_tabWidth - (curPos % m_tabWidth);
+      }
+      else
+      {
+        curPos++;
+      }
     }
 
     // Determine cursor position (if it is not within the range being drawn)

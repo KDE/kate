@@ -112,6 +112,24 @@ public:
     void setTabWidth(int tabWidth);
 
     /**
+     * @returns whether indent lines should be shown 
+     * @return indent lines should be shown
+     */
+    inline bool showIndentLines() const { return m_showIndentLines; }
+
+    /**
+     * Set whether a guide should be painted to help identifying indent lines.
+     * @param showLines show the indent lines?
+     */
+    void setShowIndentLines(bool showLines);
+    
+    /**
+     * Sets the width of the tab. Helps performance.
+     * @param indentWidth new indent width
+     */
+    void setIndentWidth(int indentWidth);
+    
+    /**
      * Show the view's selection?
      * @return show sels?
      */
@@ -219,19 +237,24 @@ public:
      */
     void paintWhitespaceMarker(QPainter &paint, uint x, uint y);
 
+    /** Paint a SciTE-like tab marker. */
+    void paintTabMarker(QPainter &paint, uint x, uint y);
+
     KateDocument* m_doc;
     KateView *m_view;
 
     // cache of config values
     int m_tabWidth;
+    int m_indentWidth;
     uint m_schema;
 
     // some internal flags
     KateRenderer::caretStyles m_caretStyle;
-    bool m_drawCaret;
-    bool m_showSelections;
-    bool m_showTabs;
-    bool m_printerFriendly;
+    bool m_drawCaret : 1;
+    bool m_showSelections : 1;
+    bool m_showTabs : 1;
+    bool m_printerFriendly : 1;
+    bool m_showIndentLines : 1;    
 
     QMemArray<KateAttribute> *m_attributes;
 

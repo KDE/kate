@@ -1215,6 +1215,7 @@ void KateView::updateDocumentConfig()
   m_viewInternal->updateView (true);
 
   m_renderer->setTabWidth (m_doc->config()->tabWidth());
+  m_renderer->setIndentWidth (m_doc->config()->indentationWidth());
 }
 
 void KateView::updateRendererConfig()

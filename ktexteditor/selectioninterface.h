@@ -35,7 +35,7 @@ class SelectionInterface
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */
-    virtual bool setSelection ( int line_start, int col_start, int line_end, int col_end ) = 0;
+    virtual bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol ) = 0;
 
     /**
     *  removes the current Selection (not Text)
@@ -56,7 +56,7 @@ class SelectionInterface
     *  removes the selected Text
     */
     virtual bool removeSelectedText () = 0;
-		
+
     /**
     *  select the whole text
     */

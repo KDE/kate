@@ -17,41 +17,35 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_cursorinterface_h__
-#define __ktexteditor_cursorinterface_h__
+#ifndef __ktexteditor_clipboardinterface_h__
+#define __ktexteditor_clipboardinterface_h__
 
 namespace KTextEditor
 {
 
-class Cursor
-{
-  public:
-    virtual void position ( int *line, int *col ) const = 0;
-
-    virtual bool setPosition ( int line, int col ) = 0;
-
-    virtual bool insertText ( const QString& text ) = 0;
-
-    virtual bool removeText ( int numberOfCharacters ) = 0;
-
-    virtual QChar currentChar () const = 0;
-};
-
 /*
-*  This is an interface for the KTextEditor::Document class !!!
+*  This is an interface for the KTextEditor::View class !!!
 */
-class CursorInterface
+class ClipboardInterface
 {
+  //
+	// slots !!!
+	//
   public:
     /**
-    * Create a new cursor object
+    * copies selected text
     */
-    virtual Cursor *createCursor ( ) = 0;
+    virtual void copy ( ) const = 0;
 
-    /*
-    * Accessor to the list of views.
+    /**
+    * copies selected text
     */
-    virtual QPtrList<Cursor> cursors () const = 0;
+    virtual void cut ( ) = 0;
+
+    /**
+    * copies selected text
+    */
+    virtual void paste ( ) = 0;
 };
 
 };

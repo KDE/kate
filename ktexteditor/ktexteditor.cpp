@@ -27,6 +27,7 @@
 #include "selectioninterface.h"
 #include "cursorinterface.h"
 #include "undointerface.h"
+#include "clipboardinterface.h"
 
 using namespace KTextEditor;
 

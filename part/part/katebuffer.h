@@ -245,6 +245,10 @@ private:
     * Find the block containing line @p i
     */
    KateBufBlock *findBlock(uint i);
+   
+   void checkLoadedMax ();
+   void checkCleanMax ();
+   void checkDirtyMax ();
 
    /**
     * Highlight information needs to be updated.
@@ -276,19 +280,23 @@ private:
 
    class Highlight *m_highlight;
    class KateDocument *m_doc;
-
-   QPtrList<KateBufBlock> m_blocks;
-   
+      
    // stuff we need to load a file
    KateBufFileLoader *m_loader;
    QTimer m_loadTimer;
 
-   // List of parsed blocks that can be disposed.
-   QPtrList<KateBufBlock> m_parsedBlocksClean;
-   // List of parsed blocks that are dirty.
-   QPtrList<KateBufBlock> m_parsedBlocksDirty;
+   // ALL blocks
+   QPtrList<KateBufBlock> m_blocks;
+   
    // List of blocks that can be swapped out.
    QPtrList<KateBufBlock> m_loadedBlocks;
+   
+   // List of blocks that can be disposed.
+   QPtrList<KateBufBlock> m_cleanBlocks;
+   
+   // List of blocks that are dirty.
+   QPtrList<KateBufBlock> m_dirtyBlocks;
+   
 
    KVMAllocator *m_vm;
 

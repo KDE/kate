@@ -252,6 +252,8 @@ void IndentConfigTab::spacesToggled() {
 
 void IndentConfigTab::apply ()
 {
+  KateDocumentConfig::global()->configStart ();
+
   int configFlags, z;
 
   configFlags = KateDocumentConfig::global()->configFlags();
@@ -266,6 +268,8 @@ void IndentConfigTab::apply ()
 
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 2 == m_tabs->id (m_tabs->selected()));
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
+  
+  KateDocumentConfig::global()->configEnd ();
 }
 
 void IndentConfigTab::reload ()
@@ -311,6 +315,8 @@ SelectConfigTab::SelectConfigTab(QWidget *parent)
 
 void SelectConfigTab::apply ()
 {
+  KateDocumentConfig::global()->configStart ();
+
   int configFlags = KateDocumentConfig::global()->configFlags();
 
   configFlags &= ~KateDocumentConfig::cfPersistent; // clear persistent
@@ -319,6 +325,8 @@ void SelectConfigTab::apply ()
     configFlags |= KateDocumentConfig::cfPersistent; // set flag if checked
 
   KateDocumentConfig::global()->setConfigFlags(configFlags);
+
+  KateDocumentConfig::global()->configEnd ();
 }
 
 void SelectConfigTab::reload ()
@@ -457,6 +465,9 @@ EditConfigTab::EditConfigTab(QWidget *parent)
 
 void EditConfigTab::apply ()
 {
+  KateViewConfig::global()->configStart ();
+  KateDocumentConfig::global()->configStart ();
+
   int configFlags, z;
 
   configFlags = KateDocumentConfig::global()->configFlags();
@@ -478,6 +489,9 @@ void EditConfigTab::apply ()
   KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
   KateViewConfig::global()->setTextToSearchMode(e5->currentItem());
   KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
+  
+  KateDocumentConfig::global()->configEnd ();
+  KateViewConfig::global()->configEnd ();
 }
 
 void EditConfigTab::reload ()
@@ -582,6 +596,9 @@ ViewDefaultsConfig::~ViewDefaultsConfig()
 
 void ViewDefaultsConfig::apply ()
 {
+  KateViewConfig::global()->configStart ();
+  KateRendererConfig::global()->configStart ();
+
   KateViewConfig::global()->setDynWordWrap (m_dynwrap->isChecked());
   KateViewConfig::global()->setDynWordWrapIndicators (m_dynwrapIndicatorsCombo->currentItem ());
   KateViewConfig::global()->setDynWordWrapAlignIndent(m_dynwrapAlignLevel->value());
@@ -590,6 +607,9 @@ void ViewDefaultsConfig::apply ()
   KateViewConfig::global()->setIconBar (m_icons->isChecked());
   KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
   KateViewConfig::global()->setBookmarkSort (m_bmSort->id (m_bmSort->selected()));
+
+  KateRendererConfig::global()->configEnd ();
+  KateViewConfig::global()->configEnd ();
 }
 
 void ViewDefaultsConfig::reload ()
@@ -713,6 +733,8 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
 
 void SaveConfigTab::apply()
 {
+  KateDocumentConfig::global()->configStart ();
+
   if ( leBuSuffix->text().isEmpty() ) {
     KMessageBox::information(
                 this,
@@ -744,6 +766,8 @@ void SaveConfigTab::apply()
   KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(m_encoding->currentText()));
 
   KateDocumentConfig::global()->setEol(m_eol->currentItem());
+  
+  KateDocumentConfig::global()->configEnd ();
 }
 
 void SaveConfigTab::reload()

@@ -2570,6 +2570,12 @@ void KateDocument::newLine( KateTextCursor& c )
   
   if( configFlags() & cfDelOnInput && hasSelection() )
     removeSelectedText();
+    
+  if (c.line > lastLine())
+   c.line = lastLine();
+  
+  if (c.col > kateTextLine(c.line)->length())
+    c.col = kateTextLine(c.line)->length();
 
   if (!(_configFlags & KateDocument::cfAutoIndent)) {
     insertText( c.line, c.col, "\n" );

@@ -52,6 +52,7 @@ class KateSuperRange;
 class KateLineInfo;
 class KateBrowserExtension;
 class KateDocumentConfig;
+class Highlight;
 
 class KSpell;
 
@@ -497,6 +498,8 @@ class KateDocument : public Kate::Document,
 
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
+    
+    Highlight *highlight () { return m_highlight; } 
 
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
@@ -513,9 +516,6 @@ class KateDocument : public Kate::Document,
   signals:
     void modifiedChanged ();
     void preHighlightChanged(uint);
-
-  public:
-    class Highlight *highlight() { return m_highlight; }
 
   private slots:
     void internalHlChanged();
@@ -707,7 +707,7 @@ class KateDocument : public Kate::Document,
     // text buffer
     KateBuffer *buffer;
 
-    class Highlight *m_highlight;
+    Highlight *m_highlight;
 
     KateArbitraryHighlight* m_arbitraryHL;
 

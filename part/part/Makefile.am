@@ -7,7 +7,7 @@ libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmds.cpp \
   kateviewhelpers.cpp katecodecompletion_arghint.cpp \
   katecodecompletion.cpp kateexportaction.cpp \
   katecodefoldinghelpers.cpp kateviewinternal.cpp \
-  katebookmarks.cpp katebrowserextension.cpp kateprintsettings.cpp \
+  katebookmarks.cpp katebrowserextension.cpp kateprinter.cpp \
   katefont.cpp katelinerange.cpp katesupercursor.cpp katearbitraryhighlight.cpp \
   katerenderer.cpp kateattribute.cpp \
   kateautoindent.cpp katefiletype.cpp kateschema.cpp katepythonindent.cpp katedocument.skel

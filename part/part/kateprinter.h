@@ -18,10 +18,12 @@
  *  Boston, MA 02111-1307, USA.
  **/
  
-#ifndef KATEPRINTSETTINGS_H
-#define KATEPRINTSETTINGS_H
+#ifndef __KATE_PRINTER_H__
+#define __KATE_PRINTER_H__
 
 #include <kprintdialogpage.h>
+
+class KateDocument;
 
 class KPrinter;
 class QCheckBox;
@@ -30,6 +32,12 @@ class QSpinBox;
 class QLineEdit;
 class QGroupBox;
 class QLabel;
+
+class KatePrinter
+{
+  public:
+    static bool print (KateDocument *doc);
+};
 
 //BEGIN Text settings
 /*

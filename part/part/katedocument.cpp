@@ -3474,6 +3474,10 @@ void KateDocument::selectWord( const KateTextCursor& cursor )
   int start, end, len;
 
   KateTextLine::Ptr textLine = m_buffer->plainLine(cursor.line());
+
+  if (!textLine)
+    return;
+
   len = textLine->length();
   start = end = cursor.col();
   while (start > 0 && highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;

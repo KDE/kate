@@ -47,7 +47,7 @@ KateFileDialog::KateFileDialog (const QString& startDir,
 	  setOperationMode( Saving );
     }
 
-	this->encoding = toolBar()->getCombo(33333);
+	m_encoding = toolBar()->getCombo(33333);
   
         if (encoding == QString::null)
           sEncoding = QString::fromLatin1(QTextCodec::codecForLocale()->name());
@@ -56,7 +56,7 @@ KateFileDialog::KateFileDialog (const QString& startDir,
         if (iIndex < 0) /* Try again with upper */
           iIndex = KGlobal::charsets()->availableEncodingNames().findIndex(encoding.lower());
 
-        this->encoding->setCurrentItem (iIndex);
+  m_encoding->setCurrentItem (iIndex);
 }
 
 KateFileDialog::~KateFileDialog ()
@@ -72,7 +72,7 @@ KateFileDialogData KateFileDialog::exec()
   
 	if (n)
 	{
-	  data.encoding = this->encoding->currentText();
+	  data.encoding = m_encoding->currentText();
 	  data.url = selectedURL ();
 	  data.urls = selectedURLs ();
   }

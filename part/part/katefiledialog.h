@@ -48,8 +48,8 @@ class KateFileDialog : public KFileDialog
 
 	  virtual KateFileDialogData exec ();
 
-  protected slots:
-    virtual void slotApply();
+  private slots:
+    void slotApply();
 
 	public:
 	  enum KateFileDialogType
@@ -59,7 +59,7 @@ class KateFileDialog : public KFileDialog
 		};
 		
 	private:
-	  class KComboBox *encoding;
+	  class KComboBox *m_encoding;
 };
 
 #endif

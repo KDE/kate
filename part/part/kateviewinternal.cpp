@@ -172,9 +172,6 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       getVConfig(c);
       myDoc->newLine(c);
       updateCursor(c.cursor);
-#warning "OPTIMIZE THE FOLLOWING LINE"
-      tagLines( displayCursor.line, endLine);
-      updateView(0); //really ?
       return;
 #warning "FIXME FIXME FIXME, cursor updates are missing"
     case KateView::cmDelete:
@@ -608,6 +605,7 @@ void KateViewInternal::updateLineRanges()
   int oldLines = lineRanges.size();
   uint height = this->height();
   bool slchanged = false;
+  int lastLine = myDoc->visibleLines ()-1;
 
   if (newStartLineReal != startLineReal)
   {
@@ -622,22 +620,30 @@ void KateViewInternal::updateLineRanges()
     slchanged = true;
   }
 
-  endLine = startLine + height/myDoc->viewFont.fontHeight - 1;
+  uint tmpEnd = startLine + height/myDoc->viewFont.fontHeight - 1;
+  if (tmpEnd > lastLine)
+    endLine = lastLine;
+  else
+    endLine = tmpEnd;
+
   endLineReal = myDoc->getRealLine(endLine);
 
   if (endLine < 0) endLine = 0;
 
-  lines = endLine - startLine + 2;
+  lines = height/myDoc->viewFont.fontHeight;
+
+  if ((lines * myDoc->viewFont.fontHeight) < height)
+    lines++;
 
   if (lines > oldLines)
     lineRanges.resize (lines);
 
   for (uint z = 0; z < lines; z++)
   {
+    uint newLine = myDoc->getRealLine (startLine+z);
+
 	  if (z < oldLines)
 		{
-    uint newLine = myDoc->getRealLine (startLine+z);
-		
 		if (newLine != lineRanges[z].line)
 		{
 		  lineRanges[z].line = newLine;
@@ -650,12 +656,17 @@ void KateViewInternal::updateLineRanges()
 		}
 		else
 		{
-	  	lineRanges[z].line = myDoc->getRealLine (startLine+z);
+	  	lineRanges[z].line = newLine;
       lineRanges[z].startCol = 0;
       lineRanges[z].endCol = -1;
       lineRanges[z].wrapped = false;
 			lineRanges[z].dirty = true;
 		}
+
+    if ((startLine+z) > lastLine)
+      lineRanges[z].empty = true;
+    else
+      lineRanges[z].empty = false;
   }
 
   if (lines < oldLines)
@@ -1080,27 +1091,33 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
 
   bool again = true;
 
-  if (endLine>=startLine)
+  for ( uint line = startLine; rpos < lineRanges.size(); line++)
   {
-    for ( uint line = startLine; (line <= endLine) && (rpos < lineRanges.size()); line++)
+    kdDebug()<<"rpos: "<<rpos<<endl;
+
+    if (r->dirty && !r->empty)
     {
-      if (r->dirty)
-      {
-        myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(),
+      myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(),
                                           (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
                                           myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
 
-        bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
-
-        leftBorder->paintLine(line,line);
-        
-        if (r->line == cursor.line)
-          again = false;
-      }
-
-      r++;
-      rpos++;
+      bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
     }
+    else if (r->empty)
+    {
+      kdDebug()<<"nix line painted"<<endl;
+
+      paint.fillRect(0, 0, this->width(), h, myDoc->colors[0]);
+      bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
+    }
+
+    leftBorder->paintLine(line,line);
+
+    if (r->line == cursor.line)
+      again = false;
+
+    r++;
+    rpos++;
   }
 
   paint.end();
@@ -1429,15 +1446,22 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
     if (disppos >= lineRanges.size())
       break;
 
-    int realLine;
-    isVisible=myDoc->paintTextLine ( paint, lineRanges[disppos].line, lineRanges[disppos].startCol, lineRanges[disppos].endCol, 0,
+    if (lineRanges[disppos].empty)
+    {
+      paint.fillRect(xStart, 0, xEnd-xStart, h, myDoc->colors[0]);
+      bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
+    }
+    else
+    {
+      isVisible=myDoc->paintTextLine ( paint, lineRanges[disppos].line, lineRanges[disppos].startCol, lineRanges[disppos].endCol, 0,
                                                      xStart, xEnd, -1, false, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs,
                                                      KateDocument::ViewFont, again && (lineRanges[disppos].line == cursor.line));
 
-    bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
+      bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
+    }
 
     leftBorder->paintLine(line,line);
-    
+
     if (lineRanges[disppos].line == cursor.line)
       again = false;
 
@@ -1445,7 +1469,9 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
     y += h;
     line++;
   }
+
   paint.end();
+
   if (cursorOn) paintCursor();
   if (bm.eXPos > bm.sXPos) paintBracketMark();
 }

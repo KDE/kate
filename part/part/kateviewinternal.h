@@ -25,7 +25,8 @@
 class KateLineRange
 {
   public:
-    int line;
+    bool empty;
+    uint line;
     int startCol;
     int endCol;
     bool wrapped;

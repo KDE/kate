@@ -400,6 +400,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
     Q_ASSERT(lines >= 0);
 
     if (QABS(viewLinesScrolled) < lines) {
+      KApplication::kApplication()->processEvents();
       updateView(false, viewLinesScrolled);
       int scrollHeight = -(viewLinesScrolled * m_doc->viewFont.fontHeight);
       scroll(0, scrollHeight);

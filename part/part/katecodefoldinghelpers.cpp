@@ -1324,19 +1324,20 @@ int KateCodeFoldingTree::collapseOne(int realLine)
   for (int i = realLine; i >= 0; i--) {
     getLineInfo(&line, i);
 
-    if (line.topLevel) {
+    if (line.topLevel && !line.endsBlock)
       // optimisation
       break;
 
-    } else if (line.startsVisibleBlock) {
-      if (!unrelatedBlocks) {
+    if (line.endsBlock  && i != realLine) {
+      unrelatedBlocks++;
+    }
+
+    if (line.startsVisibleBlock) {
+      unrelatedBlocks--;
+      if (unrelatedBlocks == -1) {
         toggleRegionVisibility(i);
         return i;
       }
-      unrelatedBlocks--;
-
-    } else if (line.endsBlock) {
-      unrelatedBlocks++;
     }
   }
   return -1;
@@ -1353,11 +1354,9 @@ void KateCodeFoldingTree::expandOne(int realLine, int numLines)
       // done
       break;
 
-    if (i != realLine && line.startsInVisibleBlock) {
-      if (blockTrack == 0) {
+    if (line.startsInVisibleBlock && i != realLine) {
+      if (blockTrack == 0)
         toggleRegionVisibility(i);
-        kdDebug() << "1 Toggling at " << i << endl;
-      }
 
       blockTrack--;
     }
@@ -1379,10 +1378,8 @@ void KateCodeFoldingTree::expandOne(int realLine, int numLines)
       break;
 
     if (line.startsInVisibleBlock) {
-      if (blockTrack == 0) {
+      if (blockTrack == 0)
         toggleRegionVisibility(i);
-        kdDebug() << "2 Toggling at " << i << endl;
-      }
 
       blockTrack++;
     }

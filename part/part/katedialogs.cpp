@@ -885,6 +885,9 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
         "Enter the prefix to prepend to the backup file names" ) );
   QWhatsThis::add( leBuSuffix, i18n(
         "Enter the suffix to add to the backup file names" ) );
+  QWhatsThis::add(dirSearchDepth, i18n(
+        "Editor will search given number of folder levels upwards for .kateconfig file"
+        " and load the settings line from it." ));
 
   reload();
 

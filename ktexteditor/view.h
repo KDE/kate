@@ -21,6 +21,7 @@
 #define __ktexteditor_view_h__
 
 #include <qwidget.h>
+#include <kxmlguiclient.h>
 
 namespace KTextEditor
 {

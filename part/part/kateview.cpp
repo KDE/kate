@@ -445,8 +445,10 @@ void KateView::setupEditActions()
     this, SLOT(keyReturn()),
     ac, "new_line" );
     
+  KShortcut bksp(Key_Backspace);
+  bksp.append(QKeySequence(SHIFT + Key_Backspace));
   new KAction(
-    i18n("Delete Character Left"),                 Key_Backspace,  // SHIFT + Key_Backspace
+    i18n("Delete Character Left"),                 bksp,
     this, SLOT(backspace()),
     ac, "delete_char_left" );
   new KAction(

@@ -422,17 +422,17 @@ void KateViewInternal::scrollColumns ( int x )
 void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
 {
   m_updatingView = true;
-  
+
   uint contentLines = m_doc->visibleLines();
-  
+
   m_lineScroll->blockSignals(true);
-    
+
   KateTextCursor maxStart = maxStartPos(changed);
   int maxLineScrollRange = maxStart.line;
   if (m_view->dynWordWrap() && maxStart.col != 0)
     maxLineScrollRange++;
   m_lineScroll->setRange(0, maxLineScrollRange);
-  
+
   if (m_view->dynWordWrap() && m_suppressColumnScrollBar) {
     m_suppressColumnScrollBar = false;
     m_lineScroll->setValue(maxStart.line);
@@ -441,7 +441,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
   }
   m_lineScroll->setSteps(1, height() / m_doc->viewFont.fontHeight);
   m_lineScroll->blockSignals(false);
-  
+
   uint oldSize = lineRanges.size ();
   uint newSize = (height() / m_doc->viewFont.fontHeight) + 1;
   if (oldSize != newSize) {
@@ -453,7 +453,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
       }
     }
   }
-  
+
   if (oldSize < lineRanges.size ())
   {
     for (uint i=oldSize; i < lineRanges.size(); i++)
@@ -491,15 +491,15 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     TextLine::Ptr text = m_doc->kateTextLine(realLine);
 
     bool alreadyDirty = false;
-    
+
     for (uint z = 0; z < lineRanges.size(); z++)
     {
       if (oldLine != line) {
         realLine = (int)m_doc->getRealLine(line);
-        
+
         if (z)
           lineRanges[z-1].startsInvisibleBlock = (realLine != lineRanges[z-1].line + 1);
-          
+
         text = m_doc->kateTextLine(realLine);
         startCol = 0;
         startX = 0;
@@ -581,14 +581,14 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
     }
   }
   else
-  {  
+  {
     uint z = 0;
 
     for(; (z + startLine() < contentLines) && (z < lineRanges.size()); z++)
     {
       if (lineRanges[z].dirty || lineRanges[z].line != (int)m_doc->getRealLine(z + startLine())) {
         lineRanges[z].dirty = true;
-        
+
         lineRanges[z].line = m_doc->getRealLine( z + startLine() );
         if (z)
           lineRanges[z-1].startsInvisibleBlock = (lineRanges[z].line != lineRanges[z-1].line + 1);
@@ -618,31 +618,31 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
       int max = maxLen(startLine()) - width();
       if (max < 0)
         max = 0;
-      
+
       m_columnScroll->setRange(0, max);
-      
+
       m_columnScroll->setValue(m_startX);
-      
+
       // Approximate linescroll
       m_columnScroll->setSteps(m_doc->viewFont.width('a', false, false), width());
-      
+
       m_columnScroll->blockSignals(false);
-      
+
       if (!m_columnScroll->isVisible ()  && !m_suppressColumnScrollBar)
       {
         m_columnScroll->show();
         m_columnScrollDisplayed = true;
       }
     }
-    else if (m_columnScroll->isVisible () && !m_suppressColumnScrollBar)
+    else if (m_columnScroll->isVisible () && !m_suppressColumnScrollBar && (startX() == 0))
     {
       m_columnScroll->hide();
       m_columnScrollDisplayed = false;
     }
   }
-  
+
   m_updatingView = false;
-  
+
   if (changed)
     paintText (0,0,width(), height(), true);
 }

@@ -945,11 +945,11 @@ bool KateDocument::setSelection ( const KateTextCursor & start,
     tagSelection();
 
   if (start <= end) {
-    selectStart = start;
-    selectEnd = end;
+    selectStart.setPos(start);
+    selectEnd.setPos(end);
   } else {
-    selectStart = end;
-    selectEnd = start;    
+    selectStart.setPos(end);
+    selectEnd.setPos(start);    
   }
 
   if( hasSelection() )
@@ -2617,9 +2617,9 @@ void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& t
   {
     // anders: if we allready have a selection, we want to include all of that
     if ( hasSelection() && to >= selectEnd ) {
-      selectAnchor = selectStart;
+      selectAnchor.setPos(selectStart);
     } else {
-      selectAnchor = from;
+      selectAnchor.setPos(from);
     }
   }
 

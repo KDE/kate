@@ -65,6 +65,11 @@ class KateTextCursor
       col = _col;
     }
 
+    inline void setPos(const KateTextCursor & c) {
+      line = c.line;
+      col = c.col;
+    }
+
     bool subjectToChangeAt(const KateTextCursor & c) const {
       return line == c.line && col > c.col;
     }

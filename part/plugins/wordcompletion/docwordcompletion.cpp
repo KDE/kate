@@ -415,15 +415,27 @@ DocWordCompletionConfigPage::DocWordCompletionConfigPage( DocWordCompletionPlugi
   QVBoxLayout *lo = new QVBoxLayout( this );
   lo->setSpacing( KDialog::spacingHint() );
 
-  cbAutoPopup = new QCheckBox( i18n("Automatically show completion list"), this );
+  cbAutoPopup = new QCheckBox( i18n("Automatically &show completion list"), this );
   lo->addWidget( cbAutoPopup );
 
   QHBox *hb = new QHBox( this );
   hb->setSpacing( KDialog::spacingHint() );
   lo->addWidget( hb );
-  new QLabel( i18n("when the word is"), hb );
+  new QLabel( i18n(
+      "Translators: This is the first part of two strings wich will comprise the "
+      "sentence 'Show completions when the word is N characters long'. The first "
+      "part is on the right side of the N, which is represented by a spinbox "
+      "widget, followed by the second part: 'characters long'. Characters is a "
+      "ingeger number between and including 1 and 30. Feel free to leave the "
+      "second part of the sentence blank if it suits your language better. "
+      "Sorry, but there is no way to safely define that this is allways a plural, "
+      "but the odds are probably high.",
+      "Show completions &when the word is"), hb );
   sbAutoPopup = new QSpinBox( 1, 30, 1, hb );
-  new QLabel( i18n("characters long."), hb );
+  new QLabel( i18n(
+      "This is the second part of two strings that will comprise teh sentence "
+      "'Show completions when the word is N characters long'",
+      "characters long."), hb );
 
   QWhatsThis::add( cbAutoPopup, i18n(
       "Enable the automatic completion list popup as default. The popup can "

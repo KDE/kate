@@ -35,7 +35,7 @@ namespace KateCommands
 
 bool InsertTime::usable (const QString &cmd)
 {
-	if (cmd.left(5) == "time")
+	if (cmd == "time")
 		return true;
 
 	return false;
@@ -43,13 +43,11 @@ bool InsertTime::usable (const QString &cmd)
 
 bool InsertTime::exec (KateView *view, const QString &cmd, QString &)
 {
-	if (cmd.left(5) == "time")
-	{
-		view->insertText(QTime::currentTime().toString());
-		return true;
-	}
+  if (!usable (cmd))
+    return false;
 
-	return false;
+  view->insertText(QTime::currentTime().toString());
+  return true;
 }
 
 static void replace(QString &s, const QString &needle, const QString &with)
@@ -233,7 +231,7 @@ bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
 
 bool Character::usable (const QString &cmd)
 {
-	if (cmd.left(4) == "char")
+	if (cmd.left(5) == "char:")
 		return true;
 
 	return false;

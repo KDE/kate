@@ -11,6 +11,8 @@ KateCmdLine::KateCmdLine (KateView *view)
 {
   connect (this, SIGNAL(returnPressed(const QString &)),
            this, SLOT(slotReturnPressed(const QString &)));
+
+  completionObject()->insertItems (KateFactory::cmd()->cmds());
 }
 
 KateCmdLine::~KateCmdLine ()

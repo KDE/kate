@@ -30,6 +30,9 @@ KateCmd::KateCmd ()
   m_parser.append (new KateCommands::InsertTime ());
   m_parser.append (new KateCommands::SedReplace ());
   m_parser.append (new KateCommands::Character ());
+
+  for (uint i=0; i<m_parser.count(); i++)
+    m_cmds += m_parser.at(i)->cmds ();
 }
 
 KateCmd::~KateCmd ()
@@ -43,4 +46,9 @@ KateCmdParser *KateCmd::query (const QString &cmd)
       return m_parser.at(i);
 
   return 0;
+}
+
+QStringList KateCmd::cmds ()
+{
+  return m_cmds;
 }

@@ -21,6 +21,7 @@
 
 #include <qobject.h>
 #include <qptrlist.h>
+#include <qstringlist.h>
 
 class KateCmdParser
 {
@@ -30,7 +31,9 @@ class KateCmdParser
 
     virtual bool usable (const QString &cmd) = 0;
 
-    virtual bool exec (class KateView *view, const QString &cmd, QString &errorMsg) = 0;
+    virtual bool exec (class KateView *view, const QString &cmd, QString &msg) = 0;
+
+    virtual QStringList cmds () { return QStringList(); };
 };
 
 class KateCmd
@@ -41,8 +44,11 @@ class KateCmd
 
     KateCmdParser *query (const QString &cmd);
 
+    QStringList cmds ();
+
   private:
     QPtrList<KateCmdParser> m_parser;
+    QStringList m_cmds;
 };
 
 #endif

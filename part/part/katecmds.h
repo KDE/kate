@@ -40,6 +40,8 @@ public:
 	bool usable (const QString &cmd);
 
   bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+
+  QStringList cmds () { return QStringList("time"); };
 };
 
 /**
@@ -59,6 +61,8 @@ public:
 
   bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 
+  QStringList cmds () { return QStringList("s/search/replace/"); };
+
 private:
 	static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
 };
@@ -77,6 +81,8 @@ public:
 	bool usable (const QString &cmd);
 
   bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+
+  QStringList cmds () { return QStringList("char:"); };
 };
 
 }

@@ -70,7 +70,6 @@
 #include <kpopupmenu.h>
 #include <klineeditdlg.h>
 #include <kconfig.h>
-#include <ksconfig.h>
 #include <kcursor.h>
 #include <kcharsets.h>
 #include <kfiledialog.h>

@@ -889,7 +889,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
   while(line <= endLine)
   {
-    TextLine::Ptr l = buffer->plainLine(line);
+    TextLine::Ptr l = buffer->line(line);
 
     if (l->length() > col)
     {
@@ -959,7 +959,7 @@ void KateDocument::editRemoveTagLine (uint line)
 
 bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 {
-  TextLine::Ptr l = buffer->plainLine(line);
+  TextLine::Ptr l = buffer->line(line);
 
   if (!l)
     return false;
@@ -980,7 +980,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
 bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 {
-  TextLine::Ptr l = buffer->plainLine(line);
+  TextLine::Ptr l = buffer->line(line);
 
   if (!l)
     return false;
@@ -1007,7 +1007,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
 bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 {
-  TextLine::Ptr l = buffer->plainLine(line);
+  TextLine::Ptr l = buffer->line(line);
 
   if (!l)
     return false;
@@ -1016,7 +1016,7 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
   editAddUndo (KateUndoGroup::editWrapLine, line, col, 0, 0);
 
-  TextLine::Ptr nl = buffer->plainLine(line+1);
+  TextLine::Ptr nl = buffer->line(line+1);
   TextLine::Ptr tl = new TextLine();
   int llen = l->length(), nllen = 0;
 
@@ -1072,8 +1072,8 @@ bool KateDocument::editWrapLine ( uint line, uint col, bool autowrap)
 
 bool KateDocument::editUnWrapLine ( uint line, uint col )
 {
-  TextLine::Ptr l = buffer->plainLine(line);
-  TextLine::Ptr tl = buffer->plainLine(line+1);
+  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr tl = buffer->line(line+1);
 
   if (!l || !tl)
     return false;
@@ -1161,7 +1161,7 @@ bool KateDocument::editRemoveLine ( uint line )
     return false;
 
   if ( numLines() == 1 )
-    return editRemoveText (0, 0, buffer->plainLine(0)->length());
+    return editRemoveText (0, 0, buffer->line(0)->length());
 
   editStart ();
 

@@ -79,8 +79,7 @@ public:
          InsertText,
          RemoveText,
          InsertLine,
-         RemoveLine,
-         Name
+         RemoveLine
   };
 
 public:
@@ -156,17 +155,11 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 @end
 */
 
-/* Source for KateJSDocumentTable.
-@begin KateJSDocumentTable 2
-  name  KateJSDocument::Name DontDelete|ReadOnly
-@end
-*/
-
 DEFINE_PROTOTYPE("KateJSDocument",KateJSDocumentProto)
 IMPLEMENT_PROTOFUNC(KateJSDocumentProtoFunc)
 IMPLEMENT_PROTOTYPE(KateJSDocumentProto,KateJSDocumentProtoFunc)
 
-const KJS::ClassInfo KateJSDocument::info = { "KateJSDocument", 0, &KateJSDocumentTable, 0 };
+const KJS::ClassInfo KateJSDocument::info = { "KateJSDocument", 0, 0, 0 };
 
 Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, const KJS::List &args)
 {

@@ -965,7 +965,7 @@ void KateView::setDynWordWrap( bool b )
 
 void KateView::toggleWWMarker()
 {
-  //m_renderer->setWordWrapMarker (!m_renderer->wordWrapMarker());
+  m_renderer->config()->setWordWrapMarker (!m_renderer->config()->wordWrapMarker());
 }
 
 void KateView::setFoldingMarkersOn( bool enable )

@@ -2433,6 +2433,10 @@ bool KateDocument::openFile(KIO::Job * job)
 
       if (hl >= 0)
         internalSetHlMode(hl);
+    
+    } else {
+      // The buffer's highlighting gets nuked by KateBuffer::clear()
+      buffer->setHighlight(m_highlight);
     }
 
     // update file type

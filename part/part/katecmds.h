@@ -85,7 +85,7 @@ class SedReplace : public Kate::Command
     QStringList cmds () { QStringList l; l << "s"<<"%s" /*<<"$s"*/; return l; };
 
   private:
-    static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
+    static int sedMagic(QString &textLine, const QString &find, const QString &replace, const QString &delim, bool noCase, bool repeat);
 };
 
 /**

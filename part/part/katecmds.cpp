@@ -286,17 +286,21 @@ static void exchangeAbbrevs(QString &str)
   }
 }
 
-QString KateCommands::SedReplace::sedMagic(QString textLine, const QString &find, const QString &repOld, bool noCase, bool repeat)
+int KateCommands::SedReplace::sedMagic(QString &textLine, const QString &find, const QString &repOld, const QString &delim, bool noCase, bool repeat)
 {
 
   QRegExp matcher(find, noCase);
 
   int start=0;
+  int matches = 0;
+
   while (start!=-1)
   {
     start=matcher.search(textLine, start);
 
     if (start==-1) break;
+
+    matches++;
 
     int length=matcher.matchedLength();
 
@@ -330,55 +334,67 @@ QString KateCommands::SedReplace::sedMagic(QString textLine, const QString &find
     }
 
     replace(rep, "\\\\", "\\");
-    replace(rep, "\\/", "/");
+    replace(rep, "\\" + delim, delim);
 
     textLine.replace(start, length, rep);
     if (!repeat) break;
     start+=rep.length();
   }
 
-
-  return textLine;
+  return matches;
 }
 
 static void setLineText(Kate::View *view, int line, const QString &text)
 {
-  if (view->getDoc()->insertLine(line, text))
-    view->getDoc()->removeLine(line+1);
+  int l = view->getDoc()->lineLength( (uint)line );
+  view->getDoc()->removeText( line, 0, line, l );
+  view->getDoc()->insertText( line, 0, text );
 }
 
-bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &)
+bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &msg)
 {
-  kdDebug(13010)<<"SedReplace::execCmd()"<<endl;
+  kdDebug(13030)<<"SedReplace::execCmd()"<<endl;
 
-  if (QRegExp("[$%]?s /.+/.*/[ig]*").search(cmd, 0)==-1)
-    return false;
+  QRegExp delim("^[$%]?s ([^\\w\\s])");
+  if ( delim.search( cmd ) < 0 ) return false;
 
   bool fullFile=cmd[0]=='%';
   bool noCase=cmd[cmd.length()-1]=='i' || cmd[cmd.length()-2]=='i';
   bool repeat=cmd[cmd.length()-1]=='g' || cmd[cmd.length()-2]=='g';
   bool onlySelect=cmd[0]=='$';
 
+  QString d = delim.cap(1);
+  kdDebug(13030)<<"got delim '"<<d<<"'"<<endl;
 
-  QRegExp splitter("^[$%]?s /((?:[^\\\\/]|\\\\.)*)/((?:[^\\\\/]|\\\\.)*)/[ig]*$");
+  QRegExp splitter( QString("^[$%]?s ")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
   if (splitter.search(cmd)<0) return false;
 
   QString find=splitter.cap(1);
-  kdDebug(13010)<< "SedReplace: find=" << find.latin1() <<endl;
+  kdDebug(13030)<< "SedReplace: find=" << find.latin1() <<endl;
 
   QString replace=splitter.cap(2);
   exchangeAbbrevs(replace);
-  kdDebug(13010)<< "SedReplace: replace=" << replace.latin1() <<endl;
+  kdDebug(13030)<< "SedReplace: replace=" << replace.latin1() <<endl;
 
+  KateDocument *doc = ((KateView*)view)->doc();
+  if ( ! doc ) return false;
+
+  doc->editStart();
+
+  int res = 0;
 
   if (fullFile)
   {
-    int numLines=view->getDoc()->numLines();
+    int numLines=doc->numLines();
     for (int line=0; line < numLines; line++)
     {
-      QString text=view->getDoc()->textLine(line);
-      text=sedMagic(text, find, replace, noCase, repeat);
-      setLineText(view, line, text);
+      int n;
+      QString text=doc->textLine(line);
+      if ( ( n = sedMagic(text, find, replace, d, !noCase, repeat) ) )
+      {
+        setLineText(view, line, text);
+        res += n;
+      }
     }
   }
   else if (onlySelect)
@@ -389,9 +405,16 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   { // just this line
     QString textLine=view->currentTextLine();
     int line=view->cursorLine();
-    textLine=sedMagic(textLine, find, replace, noCase, repeat);
-    setLineText(view, line, textLine);
+    if ( ( res += sedMagic(textLine, find, replace, d, !noCase, repeat) ) )
+    {
+      setLineText(view, line, textLine);
+    }
   }
+
+  msg = i18n("%1 replacements done").arg( res );
+
+  doc->editEnd();
+
   return true;
 }
 

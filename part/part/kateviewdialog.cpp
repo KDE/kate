@@ -44,7 +44,7 @@
 #include <qwhatsthis.h>
 #include <qstringlist.h>
 #include <klocale.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <knuminput.h>
 #include <kglobal.h>

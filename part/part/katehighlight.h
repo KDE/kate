@@ -26,7 +26,7 @@
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include <qdialog.h>
-#include <kcolorbtn.h>
+#include <kcolorbutton.h>
 #include <qregexp.h>
 #include <kdebug.h>
 #include <qdict.h>

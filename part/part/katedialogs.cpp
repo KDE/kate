@@ -40,7 +40,7 @@
 #include <knuminput.h>
 #include <kpopupmenu.h>
 #include <krun.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
 #include <qgroupbox.h>

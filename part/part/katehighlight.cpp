@@ -34,7 +34,7 @@
 #include <kregexp.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
-#include <kstddirs.h>
+#include <kstandarddirs.h>
 
 #include <kapplication.h>
 

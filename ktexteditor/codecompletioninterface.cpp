@@ -11,7 +11,7 @@ namespace KTextEditor
 		{
 //		interface = 0;
 		}
-		~PrivateCodeCompletiontInterface(){}
+		~PrivateCodeCompletionInterface(){}
 	// Data Members
 	//CodeCompletionDCOPInterface *interface;
 	};

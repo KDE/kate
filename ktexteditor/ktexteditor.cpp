@@ -32,6 +32,7 @@
 #include "viewcursorinterface.h"
 #include "searchinterface.h"
 #include "highlightinginterface.h"
+#include "codecompletioninterface.h"
 
 using namespace KTextEditor;
 

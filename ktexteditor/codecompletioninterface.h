@@ -20,6 +20,7 @@
 #ifndef __ktexteditor_codecompletioninterface_h__
 #define __ktexteditor_codecompletioninterface_h__
 #include <qstring.h>
+#include <qstringlist.h>
 
 namespace KTextEditor
 {
@@ -47,7 +48,7 @@ static int CodeCompletionInterfaceNumber;
 class PrivateCodeCompletionInterface;
 
 /*
-*  This is an interface for the KTextEditor::Document class !!!
+*  This is an interface for the KTextEditor::View class !!!
 */
 class CodeCompletionInterface
 {
@@ -68,7 +69,6 @@ class CodeCompletionInterface
      */
     virtual void showCompletionBox (QValueList<CompletionEntry> complList,int offset=0)=0;
 
-
 	//
 	// signals !!!
 	//
@@ -76,6 +76,7 @@ class CodeCompletionInterface
     virtual void completionAborted()=0;
     virtual void completionDone()=0;
     virtual void argHintHided()=0;
+
 private:
 		PrivateCodeCompletionInterface *d;
 };

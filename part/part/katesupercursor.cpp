@@ -211,7 +211,7 @@ void KateSuperCursor::editLineUnWrapped(uint line, uint col)
   else if ( m_line== int(line+1) )
   {
     m_line = line;
-    m_col = col;
+    m_col = col + m_col;
 
     emit positionChanged();
     return;

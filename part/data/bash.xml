@@ -36,7 +36,7 @@
                         <keyword String = "keywords" attribute = "Keyword" context="0"/>
 			<keyword String = "commands" attribute = "Command" context="0"/>
                         <Int attribute = "Decimal" context="0"/>
-			<RegExpr String = "\$[A-Za-z0-9_?{!]+" attribute = "Parameter" context="0"/>                        
+			<RegExpr String = "\$[A-Za-z0-9_?{}!]+" attribute = "Parameter" context="0"/>                        
 			<RangeDetect char = "&quot;" char1 = "&quot;" attribute = "String" context="0"/>
                         <AnyChar String = "|&lt;&gt;=;" attribute = "Operator" context="0"/>
                         <DetectChar char="`" attribute = "Substitution" context = "2"/>

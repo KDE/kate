@@ -423,13 +423,13 @@ QString KateSearch::getSearchText()
   switch (getFrom)
   {
   case KateDocument::SelectionOnly: // (Windows)
-    kdDebug() << "getSearchText(): SelectionOnly" << endl;
+    //kdDebug() << "getSearchText(): SelectionOnly" << endl;
     if( doc()->hasSelection() )
       str = doc()->selection();
     break;
 
   case KateDocument::SelectionWord: // (classic Kate behaviour)
-    kdDebug() << "getSearchText(): SelectionWord" << endl;
+    //kdDebug() << "getSearchText(): SelectionWord" << endl;
     if( doc()->hasSelection() )
       str = doc()->selection();
     else
@@ -437,19 +437,19 @@ QString KateSearch::getSearchText()
     break;
 
   case KateDocument::WordOnly: // (weird?)
-    kdDebug() << "getSearchText(): WordOnly" << endl;
+    //kdDebug() << "getSearchText(): WordOnly" << endl;
     str = view()->currentWord();
     break;
 
   case KateDocument::WordSelection: // (persistent selection lover)
-    kdDebug() << "getSearchText(): WordSelection" << endl;
+    //kdDebug() << "getSearchText(): WordSelection" << endl;
     str = view()->currentWord();
     if (str.isEmpty() && doc()->hasSelection() )
       str = doc()->selection();
     break;
 
   default: // (nowhere)
-    kdDebug() << "getSearchText(): Nowhere" << endl;
+    //kdDebug() << "getSearchText(): Nowhere" << endl;
     break;
   }
 

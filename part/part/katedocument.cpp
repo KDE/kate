@@ -95,10 +95,13 @@
 //
 // KateDocument Constructor
 //
-KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOnly,
-                                           QWidget *parentWidget, const char *widgetName,
-                                           QObject *, const char *)
-  : Kate::Document (), viewFont(), printFont(), hlManager(HlManager::self ())
+KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, 
+			   bool bReadOnly, QWidget *parentWidget, 
+			   const char *widgetName, QObject *, const char *)
+  : Kate::Document (), selectStart(-1, -1), selectEnd(-1, -1),
+    selectAnchor(-1, -1), viewFont(), printFont(),
+    hlManager(HlManager::self ())
+    
 {
   KateFactory::registerDocument (this);
 
@@ -124,13 +127,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   m_bReadOnly = bReadOnly;
 
   myMarks.setAutoDelete (true);
-
-  selectStart.line = -1;
-  selectStart.col = -1;
-  selectEnd.line = -1;
-  selectEnd.col = -1;
-  selectAnchor.line = -1;
-  selectAnchor.col = -1;
 
   readOnly = false;
   newDoc = false;
@@ -1030,31 +1026,23 @@ bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, u
 
   if (startLine < endLine)
   {
-    selectStart.line = startLine;
-    selectStart.col = startCol;
-    selectEnd.line = endLine;
-    selectEnd.col = endCol;
+    selectStart.setPos(startLine, startCol);
+    selectEnd.setPos(endLine, endCol);
   }
   else if (startLine > endLine)
   {
-    selectStart.line = endLine;
-    selectStart.col = endCol;
-    selectEnd.line = startLine;
-    selectEnd.col = startCol;
+    selectStart.setPos(endLine, endCol);
+    selectEnd.setPos(startLine, startCol);
   }
   else if (startCol < endCol)
   {
-    selectStart.line = startLine;
-    selectStart.col = startCol;
-    selectEnd.line = endLine;
-    selectEnd.col = endCol;
+    selectStart.setPos(startLine, startCol);
+    selectEnd.setPos(endLine, endCol);
   }
   else if (startCol >= endCol)
   {
-    selectStart.line = endLine;
-    selectStart.col = endCol;
-    selectEnd.line = startLine;
-    selectEnd.col = startCol;
+    selectStart.setPos(endLine, endCol);
+    selectEnd.setPos(startLine, startCol);
   }
 
   if( hasSelection() )
@@ -1072,12 +1060,9 @@ bool KateDocument::clearSelection ()
 
   tagLines(selectStart.line,selectEnd.line);
 
-  selectStart.line = -1;
-  selectStart.col = -1;
-  selectEnd.line = -1;
-  selectEnd.col = -1;
-  selectAnchor.line = -1;
-  selectAnchor.col = -1;
+  selectStart.setPos(-1, -1);
+  selectEnd.setPos(-1, -1);
+  selectAnchor.setPos(-1, -1);
 
   emit selectionChanged();
 
@@ -1086,7 +1071,7 @@ bool KateDocument::clearSelection ()
 
 bool KateDocument::hasSelection() const
 {
-  return ((selectStart.col != selectEnd.col) || (selectEnd.line != selectStart.line));
+  return (selectStart != selectEnd);
 }
 
 QString KateDocument::selection() const

@@ -2886,6 +2886,34 @@ bool KateDocument::saveFile()
   bool reallySaveIt = !buffer->loadingBorked() || (KMessageBox::warningYesNo(widget(),
       i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) == KMessageBox::Yes);
 
+  if ( !url().isEmpty() )
+  {
+    if (m_modOnHd)
+    {
+      QString str;
+
+      if (m_modOnHdReason == 1)
+        str = i18n("The file %1 was changed (modified) on disc by another program!\n\n").arg(url().fileName());
+      else if (m_modOnHdReason == 2)
+        str = i18n("The file %1 was changed (created) on disc by another program!\n\n").arg(url().fileName());
+      else if (m_modOnHdReason == 3)
+        str = i18n("The file %1 was changed (deleted) on disc by another program!\n\n").arg(url().fileName());
+
+      if (!isModified())
+      {
+        if (!(KMessageBox::warningYesNo(0,
+               str + i18n("Do you really want to save this not modified file? You could overwrite changed data in the file on disk.")) == KMessageBox::Yes))
+          reallySaveIt = false;
+      }
+      else
+      {
+        if (!(KMessageBox::warningYesNo(0,
+               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed, there could be some data lost.")) == KMessageBox::Yes))
+          reallySaveIt = false;
+      }
+    }
+  }
+
   //
   // can we encode it if we want to save it ?
   //

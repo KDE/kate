@@ -23,6 +23,8 @@
 #include "view.h"
 #include "editor.h"
 
+#include <kaction.h>
+
 #include "document.moc"
 #include "view.moc"
 #include "editor.moc"
@@ -89,6 +91,7 @@ unsigned int Document::documentNumber () const
 
 View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
 {
+  actionCollection()->setWidget( this );
   globalViewNumber++;
   myViewNumber = globalViewNumber;
 }

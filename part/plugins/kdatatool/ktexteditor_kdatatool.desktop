@@ -1,6 +1,14 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor KDataTool Plugin
+Name[bs]=KTextEditor KDataTool dodatak
+Name[da]=KTextEditor KDataTool-indstik
+Name[es]=Plugin KDataTool de KTextEditor
+Name[fi]=KTextEditor KDataTool sovelma
+Name[ja]=KTextEditor KDataTool プラグイン
+Name[pt_BR]=Plugin de Ferramenta de Dados para o Editor de textos
+Name[sv]=Ktexteditor-insticksprogram med dataverktyg
+Comment=Enable data tools like thesaurus and spell check (if installed)
 X-KDE-Library=ktexteditor_kdatatool
 ServiceTypes=KTextEditor/Plugin
 Type=Service

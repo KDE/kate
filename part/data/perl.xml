@@ -25,7 +25,6 @@
    *** TODO ***
    s/// - Either make a special case, or better, enable saving data in contexts,
       so any delimiter can be handled correctly!
-      NOTE added contexts for s()(), s[][], s/// 2003 26 08
 
    The variable detection is not entirely left if there is a variable in a key.
       Samples:

@@ -37,6 +37,7 @@
 #include <qobject.h>
 #include <qstringlist.h>
 #include <qguardedptr.h>
+#include <qdatetime.h>
 
 class KateHlContext;
 class KateHlItem;
@@ -148,6 +149,9 @@ class KateHighlighting
 
     inline bool noHighlighting () const { return noHl; };
 
+    // be carefull: all documents hl should be invalidated after calling this method!
+    void dropDynamicContexts();
+
   private:
     // make this private, nobody should play with the internal data pointers
     void getKateHlItemDataList(uint schema, KateHlItemDataList &);
@@ -155,6 +159,7 @@ class KateHighlighting
     void init();
     void done();
     void makeContextList ();
+    int makeDynamicContext(KateHlContext *model, const QStringList *args);
     void handleKateHlIncludeRules ();
     void handleKateHlIncludeRulesRecursive(KateHlIncludeRules::iterator it, KateHlIncludeRules *list);
     int addToContextList(const QString &ident, int ctx0);
@@ -177,6 +182,8 @@ class KateHighlighting
 
     QIntDict<KateHlContext> contextList;
     inline KateHlContext *contextNum (uint n) { return contextList[n]; }
+
+    QMap< QPair<KateHlContext *, QString>, short> dynamicCtxs;
 
     // make them pointers perhaps
     KateEmbeddedHlInfos embeddedHls;
@@ -203,6 +210,7 @@ class KateHighlighting
     QString iLicense;
     int m_priority;
     int refCount;
+    int startctx, base_startctx;
 
     QString errorsAndWarnings;
     QString buildIdentifier;
@@ -258,6 +266,13 @@ class KateHlManager : public QObject
     QString hlName(int n);
     QString hlSection(int n);
 
+    void incDynamicCtxs() { ++dynamicCtxsCount; };
+    uint countDynamicCtxs() { return dynamicCtxsCount; };
+    void setForceNoDCReset(bool b) { forceNoDCReset = b; };
+
+    // be carefull: all documents hl should be invalidated after having successfully called this method!
+    bool resetDynamicCtxs();
+
   signals:
     void changed();
 
@@ -278,6 +293,10 @@ class KateHlManager : public QObject
     QStringList commonSuffixes;
 
     KateSyntaxDocument *syntax;
+
+    uint dynamicCtxsCount;
+    QTime lastCtxsReset;
+    bool forceNoDCReset;
 };
 
 class KateViewHighlightAction: public Kate::ActionMenu

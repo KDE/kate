@@ -671,6 +671,11 @@ class KateBuffer : public QObject
     uint m_lineHighlighted;
   
   /**
+     * number of dynamic contexts causing a full invalidation
+     */
+    uint m_maxDynamicContexts;
+
+  /**
    * only used from the KateBufBlocks !
    */
   private:

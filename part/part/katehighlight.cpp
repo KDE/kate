@@ -52,6 +52,9 @@
 // same as in kmimemagic, no need to feed more data
 #define KATE_HL_HOWMANY 1024
 
+// min. x seconds between two dynamic contexts reset
+static const int KATE_DYNAMIC_CONTEXTS_RESET_DELAY = 30 * 1000;
+
 // x is a QString. if x is "true" or "1" this expression returns "true"
 #define IS_TRUE(x) x.lower() == QString("true") || x.toInt() == 1
 
@@ -76,6 +79,11 @@ class KateHlItem
 
     virtual bool lineContinue(){return false;}
 
+    virtual QStringList *capturedTexts() {return 0;}
+    virtual KateHlItem *clone(const QStringList *) {return this;}
+
+    static void dynamicSubstitute(QString& str, const QStringList *args);
+
     QPtrList<KateHlItem> *subItems;
     int attr;
     int ctx;
@@ -83,13 +91,18 @@ class KateHlItem
     signed char region2;
 
     bool lookAhead;
+
+    bool dynamic;
+    bool dynamicChild;
 };
 
 class KateHlContext
 {
   public:
-    KateHlContext (int attribute, int lineEndContext,int _lineBeginContext,
-               bool _fallthrough, int _fallthroughContext);
+    KateHlContext(int attribute, int lineEndContext,int _lineBeginContext,
+               bool _fallthrough, int _fallthroughContext, bool _dynamic);
+    virtual ~KateHlContext();
+    KateHlContext *clone(const QStringList *args);
 
     QPtrList<KateHlItem> items;
     int attr;
@@ -102,6 +115,9 @@ class KateHlContext
        see in KateHighlighting::doHighlight */
     bool fallthrough;
     int ftctx; // where to go after no rules matched
+
+    bool dynamic;
+    bool dynamicChild;
 };
 
 class KateEmbeddedHlInfo
@@ -132,7 +148,9 @@ class KateHlCharDetect : public KateHlItem
 {
   public:
     KateHlCharDetect(int attribute, int context,signed char regionId,signed char regionId2, QChar);
+
     virtual int checkHgl(const QString& text, int offset, int len);
+    virtual KateHlItem *clone(const QStringList *args);
 
   private:
     QChar sChar;
@@ -145,6 +163,7 @@ class KateHl2CharDetect : public KateHlItem
     KateHl2CharDetect(int attribute, int context,signed char regionId,signed char regionId2,  const QChar *ch);
 
     virtual int checkHgl(const QString& text, int offset, int len);
+    virtual KateHlItem *clone(const QStringList *args);
 
   private:
     QChar sChar1;
@@ -157,6 +176,7 @@ class KateHlStringDetect : public KateHlItem
     KateHlStringDetect(int attribute, int context, signed char regionId,signed char regionId2, const QString &, bool inSensitive=false);
 
     virtual int checkHgl(const QString& text, int offset, int len);
+    virtual KateHlItem *clone(const QStringList *args);
 
   private:
     const QString str;
@@ -284,10 +304,15 @@ class KateHlRegExpr : public KateHlItem
     ~KateHlRegExpr() { delete Expr; };
 
     virtual int checkHgl(const QString& text, int offset, int len);
+    virtual QStringList *capturedTexts();
+    virtual KateHlItem *clone(const QStringList *args);
 
   private:
     QRegExp *Expr;
     bool handlesLinestart;
+    QString _regexp;
+    bool _insensitive;
+    bool _minimal;
 };
 
 //END
@@ -323,7 +348,15 @@ static KateHlItemData::ItemStyles getDefStyleNum(QString name)
 
 //BEGIN KateHlItem
 KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed char regionId2)
-  : attr(attribute), ctx(context),region(regionId),region2(regionId2), lookAhead(false)  {subItems=0;
+  : subItems(0),
+    attr(attribute),
+    ctx(context),
+    region(regionId),
+    region2(regionId2),
+    lookAhead(false),
+    dynamic(false),
+    dynamicChild(false)
+{
 }
 
 KateHlItem::~KateHlItem()
@@ -344,9 +377,35 @@ bool KateHlItem::startEnable(const QChar& c)
   Q_ASSERT(false);
   return stdDeliminator.find(c) != -1;
 }
+
+void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
+{
+  for (uint i = 0; i < str.length() - 1; ++i)
+  {
+    if (str[i] == '%')
+    {
+      char c = str[i + 1].latin1();
+      if (c == '%')
+        str.replace(i, 1, "");
+      else if (c >= '0' && c <= '9')
+      {
+        if ((uint)(c - '0') < args->size())
+        {
+          str.replace(i, 2, (*args)[c - '0']);
+          i += ((*args)[c - '0']).length() - 1;
+        }
+        else
+        {
+          str.replace(i, 2, "");
+          --i;
+        }
+      }
+    }
+  }
+}
 //END
 
-//BEGIN HLCharDetect
+//BEGIN KateHlCharDetect
 KateHlCharDetect::KateHlCharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar c)
   : KateHlItem(attribute,context,regionId,regionId2)
   , sChar(c)
@@ -359,6 +418,18 @@ int KateHlCharDetect::checkHgl(const QString& text, int offset, int len)
     return offset + 1;
 
   return 0;
+}
+
+KateHlItem *KateHlCharDetect::clone(const QStringList *args)
+{
+  char c = sChar.latin1();
+
+  if (c < '0' || c > '9' || (unsigned)(c - '0') >= args->size())
+    return this;
+
+  KateHlCharDetect *ret = new KateHlCharDetect(attr, ctx, region, region2, (*args)[c - '0'][0]);
+  ret->dynamicChild = true;
+  return ret;
 }
 //END
 
@@ -379,6 +450,22 @@ int KateHl2CharDetect::checkHgl(const QString& text, int offset, int len)
     return offset;
 
   return 0;
+}
+
+KateHlItem *KateHl2CharDetect::clone(const QStringList *args)
+{
+  char c1 = sChar1.latin1();
+  char c2 = sChar2.latin1();
+
+  if (c1 < '0' || c1 > '9' || (unsigned)(c1 - '0') >= args->size())
+    return this;
+
+  if (c2 < '0' || c2 > '9' || (unsigned)(c2 - '0') >= args->size())
+    return this;
+
+  KateHl2CharDetect *ret = new KateHl2CharDetect(attr, ctx, region, region2, (*args)[c1 - '0'][0], (*args)[c2 - '0'][0]);
+  ret->dynamicChild = true;
+  return ret;
 }
 //END
 
@@ -401,9 +488,22 @@ int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
   return 0;
 }
 
+KateHlItem *KateHlStringDetect::clone(const QStringList *args)
+{
+  QString newstr = str;
+
+  dynamicSubstitute(newstr, args);
+
+  if (newstr == str)
+    return this;
+
+  KateHlStringDetect *ret = new KateHlStringDetect(attr, ctx, region, region2, newstr, _inSensitive);
+  ret->dynamicChild = true;
+  return ret;
+}
 //END
 
-//BEGIN HLRangeDetect
+//BEGIN KateHlRangeDetect
 KateHlRangeDetect::KateHlRangeDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
   : KateHlItem(attribute,context,regionId,regionId2)
   , sChar1 (ch1)
@@ -767,15 +867,18 @@ int KateHlAnyChar::checkHgl(const QString& text, int offset, int len)
 //END
 
 //BEGIN KateHlRegExpr
-KateHlRegExpr::KateHlRegExpr( int attribute, int context, signed char regionId,signed char regionId2, QString regexp, bool insensitive, bool minimal )
+KateHlRegExpr::KateHlRegExpr( int attribute, int context, signed char regionId,signed char regionId2, QString regexp, bool insensitive, bool minimal)
   : KateHlItem(attribute, context, regionId,regionId2)
   , handlesLinestart (regexp.startsWith("^"))
+  , _regexp(regexp)
+  , _insensitive(insensitive)
+  , _minimal(minimal)
 {
   if (!handlesLinestart)
     regexp.prepend("^");
 
-  Expr = new QRegExp(regexp, !insensitive);
-  Expr->setMinimal(minimal);
+  Expr = new QRegExp(regexp, !_insensitive);
+  Expr->setMinimal(_minimal);
 }
 
 int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
@@ -788,6 +891,33 @@ int KateHlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
   if (offset2 == -1) return 0;
 
   return (offset + Expr->matchedLength());
+}
+
+QStringList *KateHlRegExpr::capturedTexts()
+{
+  return new QStringList(Expr->capturedTexts());
+}
+
+KateHlItem *KateHlRegExpr::clone(const QStringList *args)
+{
+  QString regexp = _regexp;
+  QStringList escArgs = *args;
+
+  for (QStringList::Iterator it = escArgs.begin(); it != escArgs.end(); ++it)
+  {
+    (*it).replace(QRegExp("(\\W)"), "\\\\1");
+  }
+
+  dynamicSubstitute(regexp, &escArgs);
+
+  if (regexp == _regexp)
+    return this;
+
+  // kdDebug (13010) << "clone regexp: " << regexp << endl;
+
+  KateHlRegExpr *ret = new KateHlRegExpr(attr, ctx, region, region2, regexp, _insensitive, _minimal);
+  ret->dynamicChild = true;
+  return ret;
 }
 //END
 
@@ -927,14 +1057,48 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 {
 }
 
-KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext)
+//BEGIN KateHlContext
+KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic)
 {
   attr = attribute;
   ctx = lineEndContext;
   lineBeginContext = _lineBeginContext;
   fallthrough = _fallthrough;
   ftctx = _fallthroughContext;
+  dynamic = _dynamic;
+  dynamicChild = false;
 }
+
+KateHlContext *KateHlContext::clone(const QStringList *args)
+{
+  KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false);
+  KateHlItem *item;
+
+  for (item = items.first(); item; item = items.next())
+  {
+    KateHlItem *i = (item->dynamic ? item->clone(args) : item);
+    ret->items.append(i);
+  }
+
+  ret->dynamicChild = true;
+  ret->items.setAutoDelete(false);
+
+  return ret;
+}
+
+KateHlContext::~KateHlContext()
+{
+  if (dynamicChild)
+  {
+    KateHlItem *item;
+    for (item = items.first(); item; item = items.next())
+    {
+      if (item->dynamicChild)
+        delete item;
+    }
+  }
+}
+//END
 
 KateHl2CharDetect::KateHl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, const QChar *s)
   : KateHlItem(attribute,context,regionId,regionId2) {
@@ -1050,6 +1214,51 @@ void KateHighlighting::generateContextStack(int *ctxNum, int ctx, QMemArray<shor
         (*ctxNum)=( (ctxs->isEmpty() ) ? 0 : (*ctxs)[ctxs->size()-1]);
     }
   }
+}
+
+/**
+ * Creates a new dynamic context or reuse an old one if it has already been created.
+ */
+int KateHighlighting::makeDynamicContext(KateHlContext *model, const QStringList *args)
+{
+  QPair<KateHlContext *, QString> key(model, args->front());
+  short value;
+
+  if (dynamicCtxs.contains(key))
+    value = dynamicCtxs[key];
+  else
+  {
+    ++startctx;
+    KateHlContext *newctx = model->clone(args);
+    contextList.insert(startctx, newctx);
+    value = startctx;
+    dynamicCtxs[key] = value;
+    KateHlManager::self()->incDynamicCtxs();
+  }
+
+  // kdDebug(13010) << "Dynamic context: using context #" << value << " (for model " << model << " with args " << *args << ")" << endl;
+
+  return value;
+}
+
+/**
+ * Drop all dynamic contexts. Shall be called with extreme care, and shall be immediatly
+ * followed by a full HL invalidation.
+ */
+void KateHighlighting::dropDynamicContexts()
+{
+  QMap< QPair<KateHlContext *, QString>, short>::Iterator it;
+  for (it = dynamicCtxs.begin(); it != dynamicCtxs.end(); ++it)
+  {
+    if (contextList[it.data()] != 0 && contextList[it.data()]->dynamicChild)
+    {
+      KateHlContext *todelete = contextList.take(it.data());
+      delete todelete;
+    }
+  }
+
+  dynamicCtxs.clear();
+  startctx = base_startctx;
 }
 
 /*******************************************************************************************
@@ -1212,6 +1421,22 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
 
           context=contextNum(ctxNum);
+
+          // dynamic context: substitute the model with an 'instance'
+          if (context->dynamic)
+          {
+            QStringList *lst = item->capturedTexts();
+            if (lst != 0)
+            {
+              // Replace the top of the stack and the current context
+              int newctx = makeDynamicContext(context, lst);
+              if (ctx.size() > 0)
+                ctx[ctx.size() - 1] = newctx;
+              ctxNum = newctx;
+              context = contextNum(ctxNum);
+            }
+            delete lst;
+          }
 
           // dominik: look ahead w/o changing offset?
           if (!item->lookAhead)
@@ -1694,6 +1919,7 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
   // dominik: look ahead and do not change offset. so we can change contexts w/o changing offset1.
   bool lookAhead = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("lookAhead")) );
 
+  bool dynamic=( KateHlManager::self()->syntax->groupItemData(data,QString("dynamic")).lower() == QString("true") );
 
   // code folding region handling:
   QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
@@ -1764,8 +1990,9 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
     return 0;
   }
 
-  // set lookAhead property
+  // set lookAhead & dynamic properties
   tmpItem->lookAhead = lookAhead;
+  tmpItem->dynamic = dynamic;
 
   if (!unresolvedContext.isEmpty())
   {
@@ -2023,7 +2250,7 @@ void KateHighlighting::makeContextList()
   embeddedHls.insert(iName,KateEmbeddedHlInfo());
 
   bool something_changed;
-  int startctx=0;  // the context "0" id is 0 for this hl, all embedded context "0"s have offsets
+  startctx=base_startctx=0;  // the context "0" id is 0 for this hl, all embedded context "0"s have offsets
   building=true;  // inform everybody that we are building the highlighting contexts and itemlists
   do
   {
@@ -2051,6 +2278,7 @@ void KateHighlighting::makeContextList()
       it=embeddedHls.insert(it.key(),KateEmbeddedHlInfo(true,startctx)); //mark hl as loaded
       buildContext0Offset=startctx;  //set class member for context 0 offset, so we don't need to pass it around
       startctx=addToContextList(identifierToUse,startctx);  //parse one hl definition file
+      base_startctx = startctx;
       if (noHl) return;  // an error occurred
       something_changed=true; // something has been loaded
 
@@ -2271,12 +2499,18 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           }
 
           // END falltrhough props
+
+          bool dynamic = false;
+          QString tmpDynamic = KateHlManager::self()->syntax->groupData(data, QString("dynamic") );
+          if ( tmpDynamic.lower() == "true" ||  tmpDynamic.toInt() == 1 )
+            dynamic = true;
+
           contextList.insert (i, new KateHlContext (
             attr,
             context,
             (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
             (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-            ft, ftc
+            ft, ftc, dynamic
                                        ));
 
 
@@ -2446,6 +2680,8 @@ KateHlManager::KateHlManager()
   , m_config ("katesyntaxhighlightingrc", false, false)
   , commonSuffixes (QStringList::split(";", ".orig;.new;~;.bak;.BAK"))
   , syntax (new KateSyntaxDocument())
+  , dynamicCtxsCount(0)
+  , forceNoDCReset(false)
 {
   hlList.setAutoDelete(true);
   hlDict.setAutoDelete(false);
@@ -2474,6 +2710,8 @@ KateHlManager::KateHlManager()
   KateHighlighting *hl = new KateHighlighting(0);
   hlList.prepend (hl);
   hlDict.insert (hl->name(), hl);
+
+  lastCtxsReset.start();
 }
 
 KateHlManager::~KateHlManager()
@@ -2822,6 +3060,24 @@ QString KateHlManager::identifierForName(const QString& name)
     return hl->getIdentifier ();
 
   return QString();
+}
+
+bool KateHlManager::resetDynamicCtxs()
+{
+  if (forceNoDCReset)
+    return false;
+
+  if (lastCtxsReset.elapsed() < KATE_DYNAMIC_CONTEXTS_RESET_DELAY)
+    return false;
+
+  KateHighlighting *hl;
+  for (hl = hlList.first(); hl; hl = hlList.next())
+    hl->dropDynamicContexts();
+
+  dynamicCtxsCount = 0;
+  lastCtxsReset.start();
+
+  return true;
 }
 //END
 

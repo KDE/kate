@@ -145,6 +145,7 @@ TODO
   lineBeginContext: Next context if begin of line is encountered [optional]
   fallthrough:      Use a fallthrough context [optional]
   fallthroughContext: Fall through to this context [optional]
+  dynamic:          Dynamic context [boolean, optional]
 
 TODO:
   - Explain fallthrough.
@@ -159,6 +160,7 @@ TODO:
   lineBeginContext  CDATA       #IMPLIED
   fallthrough       (%boolean;) #IMPLIED
   fallthroughContext CDATA      #IMPLIED
+  dynamic           (%boolean;) #IMPLIED
 >
 
 <!-- Common attributes
@@ -246,23 +248,27 @@ TODO
 <!-- Detect a single character
   commonAttributes: Common attributes
   char:             The character to look for
+  dynamic:          Uses 0 ... 9 as placeholders for dynamic arguments (in fact, first char of arg...) [boolean, optional, default=false]
 -->
 <!ELEMENT DetectChar EMPTY>
 <!ATTLIST DetectChar
   %commonAttributes;
   char          CDATA   #REQUIRED
+  dynamic       (%boolean;) #IMPLIED
 >
 
 <!-- Detect two characters
   commonAttributes: Common attributes
   char:             The first character
   char1:            The second character
+  dynamic:          Uses 0 ... 9 as placeholders for dynamic arguments (in fact, first char of arg...) [boolean, optional, default=false]
 -->
 <!ELEMENT Detect2Chars EMPTY>
 <!ATTLIST Detect2Chars
   %commonAttributes;
   char          CDATA   #REQUIRED
   char1         CDATA   #REQUIRED
+  dynamic       (%boolean;) #IMPLIED
 >
 
 <!-- Detect any group of characters
@@ -282,6 +288,7 @@ TODO
   commonAttributes: Common attributes
   String:           The string to look for
   insensitive:      Whether the string is matched case INsensitive. [boolean, optional, default=false]
+  dynamic:          Uses %0 ... %9 as placeholders for dynamic arguments [boolean, optional, default=false]
 
 TODO
   - What's default of insensitive? I'm not sure...
@@ -291,6 +298,7 @@ TODO
   %commonAttributes;
   String        CDATA       #REQUIRED
   insensitive   (%boolean;)  #IMPLIED
+  dynamic       (%boolean;) #IMPLIED
 >
 
 <!-- Detect a match of a regular expression
@@ -298,6 +306,7 @@ TODO
   String:           The regular expression pattern
   insensitive:      Whether the text is matched case INsensitive. [boolean, optional, default=false]
   minimal:          Wheather to use minimal matching for wild cards in the pattern [boolean, optional, default='false']
+  dynamic:          Uses %0 ... %9 as placeholders for dynamic arguments [boolean, optional, default=false]
 -->
 <!ELEMENT RegExpr EMPTY>
 <!ATTLIST RegExpr
@@ -305,6 +314,7 @@ TODO
   String        CDATA       #REQUIRED
   insensitive   (%boolean;) #IMPLIED
   minimal       (%boolean;) #IMPLIED
+  dynamic       (%boolean;) #IMPLIED
 >
 
 <!-- Detect a line continuation

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP" version="1.13" kateversion="2.3" section="Scripts"
+<language name="PHP" version="1.14" kateversion="2.3" section="Scripts"
           extensions="*.php;*.php3;*.wml;*.phtml;*.phtm;*.inc" priority="5"
           mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
 	<highlighting>
@@ -2658,6 +2658,7 @@
 				<keyword attribute="Function" context="#stay" String="functions" />
 				<DetectChar attribute="String" context="doblequotestring" char="&quot;" />
 				<DetectChar attribute="String" context="singlequotestring" char="&#39;" />
+				<RegExpr attribute="Backslash Code" context="heredoc" String="&lt;&lt;&lt;([A-Za-z_][A-Za-z0-9_]*)" />
 				<RegExpr attribute="String" context="" String="" />
 				<RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
 				<RegExpr attribute="String" context="#stay" String="[0123456789]*\.\.\.[0123456789]*" />
@@ -2694,6 +2695,12 @@
 				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="'"/>
 				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\"/>
 				<DetectChar attribute="String" context="#pop" char="'" />
+			</context>
+			<context name="heredoc" attribute="String" lineEndContext="#stay" dynamic="true">
+				<RegExpr attribute="Backslash Code" context="#pop" String="^%1;?$" dynamic="true" />
+				<RegExpr attribute="Variable" context="#stay" String="\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*" />
+				<RegExpr attribute="Variable" context="#stay" String="\$\{[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*\}" />
+				<RegExpr attribute="Variable" context="#stay" String="\{\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*(->[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*(\[[a-zA-Z0-9_]*\])*(\[([0-9]*|&quot;[a-zA-Z_]*&quot;)|'[a-zA-Z_]*'|\])*)*\}" />
 			</context>
 			<context name="htmltag" attribute="Identifier" lineEndContext="#stay">
 				<Detect2Chars attribute="HTML Tag" context="#pop" char="/" char1="&gt;" />

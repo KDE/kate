@@ -27,6 +27,7 @@
 #include "katedocument.h"
 #include "katehighlight.h"
 #include "kateconfig.h"
+#include "katefactory.h"
 
 #include <kdebug.h>
 #include <kglobal.h>
@@ -67,6 +68,11 @@ static const uint KATE_HL_LOOKAHEAD = 64;
  * latest 2-3 used blocks are alive
  */
 uint KateBuffer::m_maxLoadedBlocks = 16;
+
+/**
+ * Initial value for m_maxDynamicContexts
+ */
+static const uint KATE_MAX_DYNAMIC_CONTEXTS = 512;
 
 void KateBuffer::setMaxLoadedBlocks (uint count)
 {
@@ -255,7 +261,8 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_regionTree (this),
    m_tabWidth (8),
    m_lineHighlightedMax (0),
-   m_lineHighlighted (0)
+   m_lineHighlighted (0),
+   m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
   connect( &m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
 
@@ -511,10 +518,6 @@ bool KateBuffer::saveFile (const QString &m_file)
   stream.setCodec(codec);
 
   QString eol = m_doc->config()->eolString ();
-
-  QString tabs;
-  if (m_doc->configFlags() & KateDocument::cfReplaceTabs)
-    tabs.fill (QChar(' '), m_doc->config()->tabWidth());
 
   // for tab replacement, initialize only once
   uint pos, found, ml, l;
@@ -797,6 +800,48 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
 
   kdDebug (13020) << "NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
   kdDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
+  kdDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
+
+  // see if there are too many dynamic contexts; if yes, invalidate HL of all documents
+  if (KateHlManager::self()->countDynamicCtxs() >= m_maxDynamicContexts)
+  {
+    {
+      if (KateHlManager::self()->resetDynamicCtxs())
+      {
+        kdDebug (13020) << "HL invalidated - too many dynamic contexts ( >= " << m_maxDynamicContexts << ")" << endl;
+
+        // avoid recursive invalidation
+        KateHlManager::self()->setForceNoDCReset(true);
+
+        for (KateDocument *doc = KateFactory::self()->documents()->first(); doc; doc = KateFactory::self()->documents()->next())
+          doc->makeAttribs();
+
+        // doHighlight *shall* do his work. After invalidation, some highlight has
+        // been recalculated, but *maybe not* until endLine ! So we shall force it manually...
+        KateBufBlock *buf = 0;
+        while ((endLine > m_lineHighlighted) && (buf = findBlock(m_lineHighlighted)))
+        {
+          uint end = kMin(endLine, buf->endLine());
+
+          doHighlight ( buf,
+                        kMax(m_lineHighlighted, buf->startLine()),
+                        end,
+                        false );
+
+          m_lineHighlighted = end;
+        }
+
+        KateHlManager::self()->setForceNoDCReset(false);
+
+        return false;
+      }
+      else
+      {
+        m_maxDynamicContexts *= 2;
+        kdDebug (13020) << "New dynamic contexts limit: " << m_maxDynamicContexts << endl;
+      }
+    }
+  }
 
   // get the previous line, if we start at the beginning of this block
   // take the last line of the previous block
@@ -828,6 +873,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
 
     QMemArray<signed char> foldingList;
     bool ctxChanged = false;
+
     m_highlight->doHighlight (prevLine, textLine, &foldingList, &ctxChanged);
 
     //

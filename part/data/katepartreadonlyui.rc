@@ -35,7 +35,7 @@
   </Menu>
 </MenuBar>
 
-<Menu name="katepart_popup">
+<Menu name="ktexteditor_popup">
   <Action name="file_save_as"/>
   <Separator />
   <Action name="edit_copy"/>

@@ -54,7 +54,7 @@
   </Menu>
 </MenuBar>
 
-<Menu name="katepart_popup" noMerge="1">
+<Menu name="ktexteditor_popup" noMerge="1">
   <Action name="edit_cut" group="popup_operations" />
   <Action name="edit_copy" group="popup_operations" />
   <Action name="edit_paste" group="popup_operations" />

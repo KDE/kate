@@ -1,7 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Word Completion Plugin
-Description=Reuse words already typed
+Name[da]=KTextEditor 'ord-kompletterings'-plugin
+Name[et]=KTextEditori sõna lõpetamise plugin
+Name[sv]=Ktexteditor-insticksprogram för att komplettera ord
+Comment=Directional or popupbased completion from words in the document
 X-KDE-Library=ktexteditor_docwordcompletion
 ServiceTypes=KTextEditor/Plugin
 Type=Service

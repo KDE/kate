@@ -1902,7 +1902,7 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
-    config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
+    config->writePathEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
 
   config->setGroup("Kate View");
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );
@@ -1925,7 +1925,7 @@ void KateDocument::writeConfig()
 
 void KateDocument::readSessionConfig(KConfig *config)
 {
-  m_url = config->readEntry("URL"); // ### doesn't this break the encoding? (Simon)
+  m_url = config->readPathEntry("URL"); // ### doesn't this break the encoding? (Simon)
   internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
   QString tmpenc=config->readEntry("Encoding");
 
@@ -1946,7 +1946,7 @@ void KateDocument::readSessionConfig(KConfig *config)
 
 void KateDocument::writeSessionConfig(KConfig *config)
 {
-  config->writeEntry("URL", m_url.url() ); // ### encoding?? (Simon)
+  config->writePathEntry("URL", m_url.url() ); // ### encoding?? (Simon)
   config->writeEntry("Highlight", m_highlight->name());
   config->writeEntry("Encoding",encoding());
   // Save Bookmarks

@@ -358,12 +358,12 @@ void SyntaxDocument::setupModeList (bool force)
 
       // Let's make a new syntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       syntaxModeListItem *mli=new syntaxModeListItem;
-      mli->name = config.readEntry("name","");
-      mli->section = i18n(config.readEntry("section","").utf8());
-      mli->mimetype = config.readEntry("mimetype","");
-      mli->extension = config.readEntry("extension","");
-      mli->version = config.readEntry("version","");
-      mli->priority = config.readEntry("priority","");
+      mli->name = config.readEntry("name");
+      mli->section = i18n(config.readEntry("section").utf8());
+      mli->mimetype = config.readEntry("mimetype");
+      mli->extension = config.readEntry("extension");
+      mli->version = config.readEntry("version");
+      mli->priority = config.readEntry("priority");
       mli->identifier = *it;
 
       // Apend the item to the list

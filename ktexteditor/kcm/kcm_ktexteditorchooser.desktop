@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=kcmshell ktexteditorchooser
+Icon=misc
+Type=Application
+
+X-KDE-ModuleType=Library
+X-KDE-Library=ktexteditorchooser
+X-KDE-HasReadOnlyMode=false
+
+Name=Editor Component
+Comment=You can configure which text editing component an application should use per default, if possible
+
+Keywords=ktexteditor,resources

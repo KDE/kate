@@ -21,6 +21,7 @@
 #include "wordwrapinterface.h"  
 #include "document.h"
 
+
 namespace KTextEditor
 {
 

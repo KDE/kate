@@ -38,6 +38,7 @@
 #include "codecompletioninterface.h"
 #include "configinterface.h"
 #include "markinterface.h"
+#include "printinterface.h"
 
 using namespace KTextEditor;
 

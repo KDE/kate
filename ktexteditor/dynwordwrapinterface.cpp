@@ -55,7 +55,7 @@ unsigned int DynWordWrapInterface::dynWordWrapInterfaceNumber () const
   return myDynWordWrapInterfaceNumber;
 }
 
-void DynWordWrapInterface::setDynWordWrapInterfaceDCOPSuffix (const QCString &suffix)
+void DynWordWrapInterface::setDynWordWrapInterfaceDCOPSuffix (const QCString &/*suffix*/)
 {
   //d->interface->setObjId ("DynWordWrapInterface#"+suffix);
 }

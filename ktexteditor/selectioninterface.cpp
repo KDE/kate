@@ -62,3 +62,4 @@ SelectionInterface *KTextEditor::selectionInterface (View *view)
 
   return static_cast<SelectionInterface*>(view->qt_cast("KTextEditor::SelectionInterface"));
 }
+

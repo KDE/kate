@@ -55,7 +55,7 @@ unsigned int HighlightingInterface::highlightingInterfaceNumber () const
   return myHighlightingInterfaceNumber;
 }
 
-void HighlightingInterface::setHighlightingInterfaceDCOPSuffix (const QCString &suffix)
+void HighlightingInterface::setHighlightingInterfaceDCOPSuffix (const QCString &/*suffix*/)
 {
   //d->interface->setObjId ("HighlightingInterface#"+suffix);
 }

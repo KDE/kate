@@ -27,3 +27,4 @@ bool PrintDCOPInterface::print ()
 {
 	return m_parent->print();
 }
+

@@ -25,3 +25,4 @@ void ViewStatusMsgDCOPInterface::viewStatusMsg (::QString msg)
 {
 	m_parent->viewStatusMsg(msg);
 }
+

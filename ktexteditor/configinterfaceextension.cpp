@@ -62,7 +62,7 @@ unsigned int ConfigInterfaceExtension::configInterfaceExtensionNumber () const
   return myConfigInterfaceExtensionNumber;
 }
 
-void ConfigInterfaceExtension::setConfigInterfaceExtensionDCOPSuffix (const QCString &suffix)
+void ConfigInterfaceExtension::setConfigInterfaceExtensionDCOPSuffix (const QCString &/*suffix*/)
 {
   //d->interface->setObjId ("ConfigInterfaceExtension#"+suffix);
 }

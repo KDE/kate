@@ -56,7 +56,7 @@ unsigned int WordWrapInterface::wordWrapInterfaceNumber () const
   return myWordWrapInterfaceNumber;
 }
 
-void WordWrapInterface::setWordWrapInterfaceDCOPSuffix (const QCString &suffix)
+void WordWrapInterface::setWordWrapInterfaceDCOPSuffix (const QCString &/*suffix*/)
 {
   //d->interface->setObjId ("WordWrapInterface#"+suffix);
 }

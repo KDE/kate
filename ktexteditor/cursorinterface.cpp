@@ -55,7 +55,7 @@ unsigned int CursorInterface::cursorInterfaceNumber () const
   return myCursorInterfaceNumber;
 }
 
-void CursorInterface::setCursorInterfaceDCOPSuffix (const QCString &suffix)
+void CursorInterface::setCursorInterfaceDCOPSuffix (const QCString &/*suffix*/)
 {
   //d->interface->setObjId ("CursorInterface#"+suffix);
 }

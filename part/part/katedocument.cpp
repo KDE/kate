@@ -2766,7 +2766,9 @@ bool KateDocument::openFile()
     hl = hlManager->mimeFind( buf, m_file );
   }
 
-  internalSetHlMode(hl);
+  uint mode = hl;
+  if (mode != hlMode ())
+    internalSetHlMode(hl);
 
   updateLines();
   updateViews();

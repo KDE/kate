@@ -167,7 +167,7 @@ void KateView::setupConnections()
   connect( m_doc, SIGNAL(undoChanged()),
            this, SLOT(slotNewUndo()) );
   connect( m_doc, SIGNAL(hlChanged()),
-           this, SLOT(updateFoldingMarkersAction()) );
+           this, SLOT(updateFoldingConfig()) );
   connect( m_doc, SIGNAL(canceled(const QString&)),
            this, SLOT(slotSaveCanceled(const QString&)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
@@ -1105,11 +1105,7 @@ void KateView::updateConfig ()
   m_viewInternal->leftBorder->setIconBorderOn( config()->iconBar() );
   m_toggleIconBar->setChecked( config()->iconBar() );
 
-  // folding bar
-  bool doit = config()->foldingBar() && m_doc->highlight() && m_doc->highlight()->allowsFolding();
-  m_viewInternal->leftBorder->setFoldingMarkersOn(doit);
-  m_toggleFoldingMarkers->setChecked( doit );
-  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
+  updateFoldingConfig ();
 
   // bookmark
   m_bookmarks->setSorting( (KateBookmarks::Sorting) config()->bookmarkSort() );
@@ -1140,4 +1136,13 @@ void KateView::updateRendererConfig()
 
   m_viewInternal->updateView (true);
   m_viewInternal->repaint ();
+}
+
+void KateView::updateFoldingConfig ()
+{
+  // folding bar
+  bool doit = config()->foldingBar() && m_doc->highlight() && m_doc->highlight()->allowsFolding();
+  m_viewInternal->leftBorder->setFoldingMarkersOn(doit);
+  m_toggleFoldingMarkers->setChecked( doit );
+  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
 }

@@ -371,6 +371,9 @@ class KateView : public Kate::View,
 
     void updateRendererConfig();
 
+  private slots:
+    void updateFoldingConfig ();
+
   private:
     KateViewConfig *m_config;
     bool m_startingUp;

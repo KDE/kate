@@ -59,46 +59,68 @@ class syntaxContextData{
 */
 class SyntaxDocument : public QDomDocument{
   public:
-    /** Constructor
-        Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
-    */
+    /**
+     * Constructor:
+     * Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
+     */
     SyntaxDocument();
     
-    /** Desctructor
-    */
+    /** 
+     * Desctructor
+     */
     ~SyntaxDocument();
     
     /** If the open hl file is different from the one needed, it opens
-        the new one and assign some other things.
-         identifier = File name and path of the new xml needed
-    */
+     * the new one and assign some other things.
+     * identifier = File name and path of the new xml needed
+     */
     void setIdentifier(const QString& identifier);
     
-    /** Get the mode list
-    */
+    /**
+     * Get the mode list
+     */
     SyntaxModeList modeList();
     
-    /** Jump to the next group, data will point to the next group
-    */
+    /**
+     * Jump to the next group, data will point to the next group
+     */
     bool nextGroup(syntaxContextData* data);
     
     bool nextItem(syntaxContextData* data);
-    QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
-    syntaxContextData* getGroupInfo(const QString& langName, const QString &group);
-    void freeGroupInfo(syntaxContextData* data);
-    syntaxContextData* getConfig(const QString& mainGroupName, const QString &Config);       
-    syntaxContextData* getSubItems(syntaxContextData* data);
     QString groupItemData(const syntaxContextData* data,const QString& name);
     QString groupData(const syntaxContextData* data,const QString& name);
+    
+    void freeGroupInfo(syntaxContextData* data);
+    syntaxContextData* getSubItems(syntaxContextData* data);
+    
+    /**
+     * Get the syntaxContextData of the DomElement Config inside mainGroupName
+     * It just fills syntaxContextData::item
+     */
+    syntaxContextData* getConfig(const QString& mainGroupName, const QString &Config);
+    
+    /**
+     * Get the syntaxContextData of the QDomElement Config inside mainGroupName
+     * syntaxContextData::parent will contain the QDomElement found
+     */
+    syntaxContextData* getGroupInfo(const QString& mainGroupName, const QString &group);       
+    
+    /**
+     * Returns a list with all the keywords inside the list type
+     */
+    QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
+    
  
   private:
-    /** Generate the list of hl modes, store them in myModeList
-        force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
+    /**
+     * Generate the list of hl modes, store them in myModeList
+     * force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
     */
     void setupModeList(bool force=false);
     
-    /** List of mode items 
-    */
+    /**
+     * List of mode items 
+     */
     SyntaxModeList myModeList;
     
     QString currentFile;

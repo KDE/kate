@@ -181,70 +181,76 @@ syntaxContextData* SyntaxDocument::getSubItems(syntaxContextData* data){
 
 
 
-
+/**
+ * Get the syntaxContextData of the QDomElement Config inside mainGroupName
+ * syntaxContextData::item will contain the QDomElement found
+ */
 syntaxContextData* SyntaxDocument::getConfig(const QString& mainGroupName, const QString &Config){
+  kdDebug(13010)<<"Looking for \""<<Config<<"\" inside \""<< mainGroupName<<"\"."<<endl;
   QDomElement docElem = documentElement();
   QDomNode n = docElem.firstChild();
-  kdDebug()<< "getConfig: " << mainGroupName << " &Config: " << Config <<endl;
-  while(!n.isNull()){
-    kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (outer loop) " <<endl;
+   while(!n.isNull()){
     QDomElement e=n.toElement();
     
     // compare the tag of the current QDomElemnt to see if it is mainGroupName
     if (e.tagName().compare(mainGroupName)==0 ){
+      kdDebug(13010)<<"\""<<mainGroupName<<"\" found."<<endl;
       QDomNode n1=e.firstChild();
       
       // Loop until we reach the last node in e
       while (!n1.isNull()){
-        kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (inner loop) " <<endl;
         /* Should this be done after the next if, e.firstChild is never tested */
         QDomElement e1=n1.toElement();
         // if the name of the tag of the current node is equal to the Config
         if (e1.tagName()==Config){
+          kdDebug(13010)<<"\""<<Config<<"\" found."<<endl;
           // create a new syntaxContextData
           syntaxContextData *data=new ( syntaxContextData);
+          
           // Insert the current item into the syntaxContextData
           /* should we add also data->parent and data->currentGroup, we have
              the 'father node', nl */
           data->item=e1;
-          kdDebug(13010)<<"data->item="<<data->item.tagName()<<endl;
-          //kdDebug(13010)<<"data->item="<<el.tagName()<<endl;
+          /* maybe:
+             data->parent=e;
+          */
           // Return data
           return data;
         }
-
+        // if not, let's go on to the next node.
         n1=e1.nextSibling();
       }
-
-      kdDebug(13010) << "WARNING :returning null " << k_lineinfo << endl;
+      // we didn't find the node Config inside mainGroupName
+      kdDebug(13010) << "WARNING: \""<< Config <<"\" wasn't found!" << endl;
       return 0;
     }
-
+    // we didn't find mainGroupName yet.
     n=e.nextSibling();
   }
-
-  kdDebug(13010) << "WARNING :returning null " << k_lineinfo << endl;
+  kdDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
   return 0;
 }
 
-
-
+/**
+ * Get the syntaxContextData of the QDomElement Config inside mainGroupName
+ * syntaxContextData::parent will contain the QDomElement found
+ */
 syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group){
   QDomElement docElem = documentElement();
   QDomNode n = docElem.firstChild();
-  kdDebug()<< "getGroupInfo: " << mainGroupName << " &group: " << group <<endl;
+  kdDebug(13010)<<"Looking for \""<<group<<"s\" inside \""<< mainGroupName<<"\"."<<endl;
   while (!n.isNull()){
-    kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (outer loop) " <<endl;
     QDomElement e=n.toElement();
 
     if (e.tagName().compare(mainGroupName)==0 ){
+      kdDebug(13010)<<"\""<<mainGroupName<<"\" found."<<endl;
       QDomNode n1=e.firstChild();
 
       while (!n1.isNull()){
-        kdDebug(13010)<<"in SyntaxDocument::getGroupInfo (inner loop) " <<endl;
         QDomElement e1=n1.toElement();
 
         if (e1.tagName()==group+"s"){
+          kdDebug(13010)<<"\""<<group<<"s\" found."<<endl;
           syntaxContextData *data=new ( syntaxContextData);
           data->parent=e1;
           return data;
@@ -252,20 +258,20 @@ syntaxContextData* SyntaxDocument::getGroupInfo(const QString& mainGroupName, co
 
         n1=e1.nextSibling();
       }
-
-      kdDebug(13010) << "WARNING :returning null " << k_lineinfo << endl;
+      kdDebug(13010) << "WARNING: \""<< group <<"s\" wasn't found!" << endl;
       return 0;
     }
-
     n=e.nextSibling();
   }
-
-  kdDebug(13010) << "WARNING :returning null " << k_lineinfo << endl;
+  kdDebug(13010) << "WARNING: \""<< mainGroupName <<"\" wasn't found!" << endl;
   return 0;
 }
 
-
-QStringList& SyntaxDocument::finddata(const QString& mainGroup,const QString& type,bool clearList){
+/**
+ * Returns a list with all the keywords inside the list type
+ */
+QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& type, bool clearList){
+  kdDebug(13010)<<"Create a list of keywords \""<<type<<"\" from \""<<mainGroup<<"\"."<<endl;
   QDomElement e  = documentElement();
   if (clearList){
     m_data.clear();
@@ -273,14 +279,23 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup,const QString& ty
   
   for(QDomNode n=e.firstChild(); !n.isNull(); n=n.nextSibling()){
     if (n.toElement().tagName()==mainGroup){
+      kdDebug(13010)<<"\""<<mainGroup<<"\" found."<<endl;
       QDomNodeList nodelist1=n.toElement().elementsByTagName("list");
 
       for (uint l=0; l<nodelist1.count();l++){
         if (nodelist1.item(l).toElement().attribute("name")==type){
+          kdDebug(13010)<<"List with attribute name=\""<<type<<"\" found."<<endl;
           n=nodelist1.item(l).toElement();
           QDomNodeList childlist=n.childNodes();
 
           for (uint i=0; i<childlist.count();i++){
+#ifndef NDEBUG
+            if (i<6){
+              kdDebug(13010)<<"\""<<childlist.item(i).toElement().text().stripWhiteSpace()<<"\" added to the list \""<<type<<"\""<<endl;
+            } else if(i==6){
+              kdDebug(13010)<<"... The list continues ..."<<endl;
+            }
+#endif            
             m_data+=childlist.item(i).toElement().text().stripWhiteSpace();
           }
 

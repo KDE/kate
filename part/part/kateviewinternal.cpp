@@ -671,6 +671,7 @@ void KateViewInternal::updateView(int flags)
 {
 	unsigned int oldXPos=xPos;
 	unsigned int oldYPos=startLine * myDoc->viewFont.fontHeight;
+  int oldU = updateState;
   
 	int fontHeight = myDoc->viewFont.fontHeight;
 	bool needLineRangesUpdate=false;
@@ -686,7 +687,7 @@ void KateViewInternal::updateView(int flags)
   //
   //  update yScrollbar (first that, as we need if it should be shown for the width() of the view)
   //
-  if (!(flags & KateViewInternal::ufExposeCursor) || (flags & KateViewInternal::ufFoldingChanged) || (flags && KateViewInternal::ufDocGeometry))
+  if (!(flags & KateViewInternal::ufExposeCursor)/* || (flags & KateViewInternal::ufFoldingChanged) || (flags && KateViewInternal::ufDocGeometry)*/)
   {
     uint contentLines=myDoc->visibleLines();
     int viewLines=height()/fontHeight;
@@ -727,12 +728,12 @@ void KateViewInternal::updateView(int flags)
 
   int tmpYPos;
 
+ 
 	if (flags & KateViewInternal::ufExposeCursor)
 	{
-    int he  =myView->height();
-   
+    int he  = height();
 	
-		if (displayCursor.line>=endLine)
+		if (displayCursor.line>= he/fontHeight)
 		{
 			tmpYPos=(displayCursor.line*fontHeight)-he+fontHeight;
 			if ((tmpYPos % fontHeight)!=0) tmpYPos=tmpYPos+fontHeight;
@@ -857,7 +858,7 @@ void KateViewInternal::updateView(int flags)
     repaint();
     leftBorder->repaint();
   }
-  else if (updateState > 0)
+  else if (oldU > 0)
    {
      paintTextLines(xPos, oldYPos);
    //  kdDebug()<<"repaint lines"<<endl;

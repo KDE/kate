@@ -252,13 +252,17 @@ class KateSaveConfigTab : public KateConfigPage
   void reload();
   void reset();
   void defaults();
+  
+  private slots:
+    void blockCountChanged (int value);
 
   protected:
   KComboBox *m_encoding, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces;
   QLineEdit *leBuSuffix;
-  KIntNumInput *blockCount;
+  class QSlider *blockCount;
+  class QLabel *blockCountLabel;
 };
 
 class KatePartPluginListItem;

@@ -119,6 +119,7 @@
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qdom.h>
+#include <qslider.h>
 
 #define HLDOWNLOADPATH "http://www.kde.org/apps/kate/hl/update.xml"
 //END
@@ -741,9 +742,16 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   QVGroupBox *gbMem = new QVGroupBox(i18n("Memory Usage"), this);
   layout->addWidget( gbMem );
   
-  blockCount = new KIntNumInput(KateBuffer::maxLoadedBlocks(), gbMem);
-  blockCount->setRange(4, 4096, 1, false);
-  blockCount->setLabel(i18n("Maximal loaded blocks per file:"), AlignVCenter);
+  e5Layout = new QHBox(gbMem);
+  e5Layout->setSpacing (32);
+  blockCountLabel = new QLabel(e5Layout);
+  blockCount = new QSlider (Qt::Horizontal, e5Layout);
+  connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(blockCountChanged(int)));
+  
+  blockCount->setRange(4, 512);
+  blockCount->setValue (KateBuffer::maxLoadedBlocks());
+  blockCount->setSteps ( 4, 4 );
+  blockCountLabel->setBuddy(blockCount);
 
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
   layout->addWidget( gbWhiteSpace );
@@ -793,6 +801,11 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
+}
+
+void KateSaveConfigTab::blockCountChanged (int value)
+{
+  blockCountLabel->setText (i18n("Maximal loaded blocks per file: <b>%1</b>").arg (value)); 
 }
 
 void KateSaveConfigTab::apply()

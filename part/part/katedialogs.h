@@ -261,6 +261,7 @@ class KateSaveConfigTab : public KateConfigPage
   KComboBox *m_encoding, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces;
+  QLineEdit *leBuPrefix;
   QLineEdit *leBuSuffix;
   class QSlider *blockCount;
   class QLabel *blockCountLabel;

@@ -211,9 +211,12 @@ class KateDocumentConfig : public KateConfig
     uint backupFlags () const;
     void setBackupFlags (uint flags);
 
+    const QString &backupPrefix () const;
+    void setBackupPrefix (const QString &prefix);
+
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
-
+    
     bool plugin (uint index) const;
     void setPlugin (uint index, bool load);
 
@@ -229,6 +232,7 @@ class KateDocumentConfig : public KateConfig
     QString m_encoding;
     int m_eol;
     uint m_backupFlags;
+    QString m_backupPrefix;
     QString m_backupSuffix;
     QBitArray m_plugins;
 
@@ -243,6 +247,7 @@ class KateDocumentConfig : public KateConfig
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
     bool m_backupFlagsSet : 1;
+    bool m_backupPrefixSet : 1;
     bool m_backupSuffixSet : 1;
     QBitArray m_pluginsSet;
 

@@ -97,6 +97,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_encodingSet (true),
    m_eolSet (true),
    m_backupFlagsSet (true),
+   m_backupPrefixSet (true),
    m_backupSuffixSet (true),
    m_pluginsSet (m_plugins.size()),
    m_doc (0)
@@ -127,6 +128,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_encodingSet (false),
    m_eolSet (false),
    m_backupFlagsSet (false),
+   m_backupPrefixSet (false),
    m_backupSuffixSet (false),
    m_pluginsSet (m_plugins.size()),
    m_doc (doc)
@@ -168,6 +170,8 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setBackupFlags (config->readNumEntry("Backup Config Flags", 1));
 
+  setBackupPrefix (config->readEntry("Backup Prefix", QString ("")));
+  
   setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
 
   // plugins
@@ -199,6 +203,8 @@ void KateDocumentConfig::writeConfig (KConfig *config)
 
   config->writeEntry("Backup Config Flags", backupFlags());
 
+  config->writeEntry("Backup Prefix", backupPrefix());
+  
   config->writeEntry("Backup Suffix", backupSuffix());
   
   // plugins
@@ -473,12 +479,30 @@ void KateDocumentConfig::setBackupFlags (uint flags)
   configEnd ();
 }
 
+const QString &KateDocumentConfig::backupPrefix () const
+{
+  if (m_backupPrefixSet || isGlobal())
+    return m_backupPrefix;
+
+  return s_global->backupPrefix();
+}
+
 const QString &KateDocumentConfig::backupSuffix () const
 {
   if (m_backupSuffixSet || isGlobal())
     return m_backupSuffix;
 
   return s_global->backupSuffix();
+}
+
+void KateDocumentConfig::setBackupPrefix (const QString &prefix)
+{
+  configStart ();
+
+  m_backupPrefixSet = true;
+  m_backupPrefix = prefix;
+
+  configEnd ();
 }
 
 void KateDocumentConfig::setBackupSuffix (const QString &suffix)

@@ -2608,7 +2608,7 @@ bool KateDocument::save()
   if ( ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles ) ||
          ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
        && isModified() ) {
-    KURL u( url().path() + config()->backupSuffix() );
+    KURL u( url().directory(false) + config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
     if ( ! KIO::NetAccess::upload( url().path(), u, kapp->mainWidget() ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
   }

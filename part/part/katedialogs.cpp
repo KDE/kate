@@ -830,6 +830,12 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   layout->addWidget( gb );
   cbLocalFiles = new QCheckBox( i18n("&Local files"), gb );
   cbRemoteFiles = new QCheckBox( i18n("&Remote files"), gb );
+  
+  QHBox *hbBuPrefix = new QHBox( gb );
+  QLabel *lBuPrefix = new QLabel( i18n("&Prefix:"), hbBuPrefix );
+  leBuPrefix = new QLineEdit( hbBuPrefix );
+  lBuPrefix->setBuddy( leBuPrefix );
+  
   QHBox *hbBuSuffix = new QHBox( gb );
   QLabel *lBuSuffix = new QLabel( i18n("&Suffix:"), hbBuSuffix );
   leBuSuffix = new QLineEdit( hbBuSuffix );
@@ -845,12 +851,14 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
         "lines of text."));
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
-        "'&lt;filename&gt;&lt;suffix&gt;' before saving changes."
-        "<p>The suffix defaults to <strong>~</strong>" ) );
+        "'&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;' before saving changes."
+        "<p>The suffix defaults to <strong>~</strong> and prefix is empty by default" ) );
   QWhatsThis::add( cbLocalFiles, i18n(
         "Check this if you want backups of local files when saving") );
   QWhatsThis::add( cbRemoteFiles, i18n(
         "Check this if you want backups of remote files when saving") );
+  QWhatsThis::add( leBuPrefix, i18n(
+        "Enter the prefix to prepend to the backup file names" ) );
   QWhatsThis::add( leBuSuffix, i18n(
         "Enter the suffix to add to the backup file names" ) );
 
@@ -867,6 +875,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( leBuPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
 }
 
@@ -901,6 +910,7 @@ void KateSaveConfigTab::apply()
     f |= KateDocumentConfig::RemoteFiles;
 
   KateDocumentConfig::global()->setBackupFlags(f);
+  KateDocumentConfig::global()->setBackupPrefix(leBuPrefix->text());
   KateDocumentConfig::global()->setBackupSuffix(leBuSuffix->text());
 
   int configFlags = KateDocumentConfig::global()->configFlags();
@@ -951,6 +961,7 @@ void KateSaveConfigTab::reload()
   uint f ( KateDocumentConfig::global()->backupFlags() );
   cbLocalFiles->setChecked( f & KateDocumentConfig::LocalFiles );
   cbRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
+  leBuPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
   leBuSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
 }
 
@@ -962,6 +973,7 @@ void KateSaveConfigTab::defaults()
 {
   cbLocalFiles->setChecked( true );
   cbRemoteFiles->setChecked( false );
+  leBuPrefix->setText( "" );
   leBuSuffix->setText( "~" );
 }
 

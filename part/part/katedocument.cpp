@@ -2507,7 +2507,7 @@ bool KateDocument::printDialog ()
          if ( _lt ) _pages++; // last page
 
          // substitute both tag lists
-         QRegExp re("%P");
+         QString re("%P");
          QStringList::Iterator it;
          for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
            (*it).replace( re, QString( "%1" ).arg( _pages ) );
@@ -2557,7 +2557,7 @@ bool KateDocument::printDialog ()
                for (int i=0; i<3; i++)
                {
                  s = headerTagList[i];
-                 if (s.find("%p") != -1) s.replace(QRegExp("%p"), QString::number(currentPage));
+                 if (s.find("%p") != -1) s.replace("%p", QString::number(currentPage));
                  paint.drawText(marg, 0, headerWidth-(marg*2), headerHeight, align, s);
                  align = valign|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
                }
@@ -2585,7 +2585,7 @@ bool KateDocument::printDialog ()
                for (int i=0; i<3; i++)
                {
                  s = footerTagList[i];
-                 if (s.find("%p") != -1) s.replace(QRegExp("%p"), QString::number(currentPage));
+                 if (s.find("%p") != -1) s.replace("%p", QString::number(currentPage));
                  paint.drawText(marg, maxHeight+innerMargin, headerWidth-(marg*2), footerHeight, align, s);
                  align = Qt::AlignVCenter|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
                }

@@ -99,7 +99,7 @@ namespace KTextEditor
 unsigned int Document::globalDocumentNumber = 0;
 unsigned int View::globalViewNumber = 0;
 unsigned int Plugin::globalPluginNumber = 0;
-unsigned int PluginView::globalPluginViewNumber = 0;
+unsigned int ViewPlugin::globalViewPluginNumber = 0;
 unsigned int Editor::globalEditorNumber = 0;
 
 Document::Document( QObject *parent, const char *name ) : KTextEditor::Editor (parent, name )
@@ -132,7 +132,7 @@ unsigned int View::viewNumber () const
   return myViewNumber;
 }
 
-Plugin::Plugin() : QObject()
+Plugin::Plugin( QObject *parent, const char *name ) : QObject (parent, name )
 {
   globalPluginNumber++;
   myPluginNumber = globalPluginNumber;
@@ -147,19 +147,19 @@ unsigned int Plugin::pluginNumber () const
   return myPluginNumber;
 }
 
-PluginView::PluginView() : QObject()
+ViewPlugin::ViewPlugin( QObject *parent, const char *name ) : KTextEditor::Plugin (parent, name )
 {
-  globalPluginViewNumber++;
-  myPluginViewNumber = globalPluginViewNumber;
+  globalViewPluginNumber++;
+  myViewPluginNumber = globalViewPluginNumber;
 }
 
-PluginView::~PluginView()
+ViewPlugin::~ViewPlugin()
 {
 }
 
-unsigned int PluginView::pluginViewNumber () const
+unsigned int ViewPlugin::viewPluginNumber () const
 {
-  return myPluginViewNumber;
+  return myViewPluginNumber;
 }
 
 Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )

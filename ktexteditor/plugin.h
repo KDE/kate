@@ -35,24 +35,11 @@ by cullmann
 namespace KTextEditor
 {
 
-class PluginView : public QObject, virtual public KXMLGUIClient
-{
-  friend class PrivatePluginView;
-
-  Q_OBJECT
-
-  public:
-    PluginView ();
-    virtual ~PluginView ();
-    
-  unsigned int pluginViewNumber () const;
-
-  private:
-    class PrivatePluginView *d;
-    static unsigned int globalPluginViewNumber;
-    unsigned int myPluginViewNumber;
-};
-
+/*
+ * basic plugin class
+ * this plugin will be bound to the qobject which holds the ktexteditor document interfaces
+ * but which must not be necessarily a ktexteditor::document (could be a ktexteditor::editor, too)
+ */
 class Plugin : public QObject
 {
   friend class PrivatePlugin;
@@ -60,25 +47,49 @@ class Plugin : public QObject
   Q_OBJECT
 
   public:
-    /**
-    * Create a new view to the given document. The document must be non-null.
-    */
-    Plugin ();
+    Plugin ( QObject *parent = 0, const char *name = 0 );
     virtual ~Plugin ();
     
     unsigned int pluginNumber () const;
     
     /*
-     * Will be called for each new created KTextEditor::View/Editor and view and doc will
-     * contain the classes with the view and doc interfaces (use casts to look which kind
-       of interfaces are available)
+     * This function will be called by the ktexteditor implementation after the plugin is loaded
+     * to bound it to a ktexteditor::document
      */
-    virtual PluginView *createView (QObject *view, QObject *doc) = 0;
+    virtual void setDocument (class Document *) = 0;
   
   private:
     class PrivatePlugin *d;
     static unsigned int globalPluginNumber;
     unsigned int myPluginNumber;
+};
+
+/*
+ * view plugin class
+ * this plugin will be bound to a ktexteditor::view in addition to the ktexteditor::document
+ */
+class ViewPlugin : public Plugin, virtual public KXMLGUIClient
+{
+  friend class PrivateViewPlugin;
+
+  Q_OBJECT
+
+  public:
+    ViewPlugin ( QObject *parent = 0, const char *name = 0 );
+    virtual ~ViewPlugin ();
+    
+    unsigned int viewPluginNumber () const;
+  
+    /*
+     * This function will be called by the ktexteditor implementation after the plugin is loaded
+     * to bound it to a object holding the interfaces defined for ktexteditor view
+     */
+    virtual void setView (class View *) = 0;
+
+  private:
+    class PrivateViewPlugin *d;
+    static unsigned int globalViewPluginNumber;
+    unsigned int myViewPluginNumber;
 };
 
 };

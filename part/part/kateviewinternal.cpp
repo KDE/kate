@@ -1848,7 +1848,9 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
 {
   if( keepSel )
   {
-    if (!m_doc->hasSelection() || (selectAnchor.line() == -1))
+    if ( !m_doc->hasSelection() || (selectAnchor.line() == -1)
+         || ((m_doc->configFlags() & KateDocument::cfPersistent)
+             && ((cursor < m_doc->selectStart) || (cursor > m_doc->selectEnd))) )
     {
       selectAnchor = cursor;
       m_doc->setSelection( cursor, newCursor );    

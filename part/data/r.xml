@@ -7,9 +7,7 @@
        Kate: http://www.kde.org/kate
        R   : http://www.r-project.org/
     -->
-<language version="1.03" kateversion="2.1" name="R Script" section="Scripts"
-          extensions="*.R" mimetype=""
-          author="E.L. Willighagen" license="GPL">
+<language version="1.03" kateversion="2.1" name="R Script" section="Scripts" extensions="*.R" mimetype="" author="E.L. Willighagen" license="GPL">
   <highlighting>
     <list name="keywords">
       <item> for </item>

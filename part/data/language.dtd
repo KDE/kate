@@ -70,6 +70,10 @@ TODO
 
 TODO
   - Which matches are affected by casesensitive? keyword, RegExpr, StringDetect...?
+
+WARNING: due to helper scripts, the language opening tag must be on a 
+*single line* and *cannot* be split in multiple lines.
+
 -->
 <!ELEMENT language (highlighting, general?)>
 <!ATTLIST language

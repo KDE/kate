@@ -10,9 +10,7 @@
 <!-- 19.04.2003 wb Some more Enhancements -->
 <!-- 18.04.2003 wb Enhancenment for Maior / Minor Comments and Full / ReadOnly Exports, Folds for Procedures, Records, Comments -->
 <!-- 17.04.2003 wb Enhancements for Relation and Operators -->
-<language name="Component-Pascal" version="1.05" kateversion="2.1" section="Sources"
-          extensions="*.cp;*.bro" mimetype="text/x-component-pascal"
-          author="Werner Braun (wb@o3-software.de)" license="">
+<language name="Component-Pascal" version="1.05" kateversion="2.1" section="Sources" extensions="*.cp;*.bro" mimetype="text/x-component-pascal" author="Werner Braun (wb@o3-software.de)" license="">
 	<highlighting>
 		<list name="keywords">
 			<item> BEGIN </item>

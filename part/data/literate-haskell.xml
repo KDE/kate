@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Literate Haskell" version="1.03" kateversion="2.3" section="Sources"
-          extensions="*.lhs"
-          author="Marcel Martin (mmar@freenet.de)" license="">
+<language name="Literate Haskell" version="1.03" kateversion="2.3" section="Sources" extensions="*.lhs" author="Marcel Martin (mmar@freenet.de)" license="">
 	<highlighting>
 	<list name="keywords">
 		<item> case </item>

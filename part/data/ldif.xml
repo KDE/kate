@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LDIF" version="1.01" kateversion="2.1" section="Other"
-          extensions="*.ldif" mimetype="application/directory"
-          author="Andreas Hochsteger (e9625392@student.tuwien.ac.at)" license="">
+<language name="LDIF" version="1.01" kateversion="2.1" section="Other" extensions="*.ldif" mimetype="application/directory" author="Andreas Hochsteger (e9625392@student.tuwien.ac.at)" license="">
 	<highlighting>
 		<list name="attributetypes">
 			<item>IPPhone</item>

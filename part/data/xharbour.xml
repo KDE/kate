@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="xHarbour" version="1.03" kateversion="2.3" section="Sources"
-          extensions="*.prg;*.PRG;*.ch" mimetype="text/x-xharbour-src" priority="5"
-          author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
+<language name="xHarbour" version="1.03" kateversion="2.3" section="Sources" extensions="*.prg;*.PRG;*.ch" mimetype="text/x-xharbour-src" priority="5" author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
 <highlighting>
 
    <list name="keywords">

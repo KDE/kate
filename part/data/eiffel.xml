@@ -10,9 +10,7 @@ Change log:
 
 Author of version 1.02: Sebastian Vuorinen
 -->
-<language name="Eiffel" version="1.02" kateversion="2.1" section="Sources"
-          extensions="*.e" mimetype="text/x-eiffel-src"
-          author="Sebastian Vuorinen" license="">
+<language name="Eiffel" version="1.02" kateversion="2.1" section="Sources" extensions="*.e" mimetype="text/x-eiffel-src" author="Sebastian Vuorinen" license="">
 	<highlighting>
 		<list name="keywords">
 			<item> agent </item>

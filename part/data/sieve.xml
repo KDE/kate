@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Highlighting for Sieve scripts (RFC 3028) written by Petter E. Stokke -->
-<language name="Sieve" version="1.04" kateversion="2.3" section="Scripts"
-          extensions="*.siv" mimetype="application/sieve" priority="5"
-          author="Petter E. Stokke" license="">
+<language name="Sieve" version="1.04" kateversion="2.3" section="Scripts" extensions="*.siv" mimetype="application/sieve" priority="5" author="Petter E. Stokke" license="">
   <highlighting>
     <list name="keywords">
       <item> require </item>

@@ -75,9 +75,13 @@ class ConfigInterface
     unsigned int myConfigInterfaceNumber;
 };
 
-ConfigInterface *configInterface (class Document *doc);
-ConfigInterface *configInterface (class Plugin *plugin);
-ConfigInterface *configInterface (class ViewPlugin *plugin);
+class Plugin;
+class Document;
+class ViewPlugin;
+
+ConfigInterface *configInterface (Document *doc);
+ConfigInterface *configInterface (Plugin *plugin);
+ConfigInterface *configInterface (ViewPlugin *plugin);
 
 };
 

@@ -510,7 +510,7 @@
 
 		<contexts>
 
-			<context attribute="Normal Text" lineEndContext="#stay">
+			<context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
 				<StringDetect attribute="CF Comment" context="ctxCF Comment" String="&lt;!---" />
 				<StringDetect attribute="HTML Comment" context="ctxHTML Comment" String="&lt;!--" />
 				<RegExpr attribute="Script Tags" context="ctxCFSCRIPT Tag" String="&lt;[cC][fF][sS][cC][rR][iI][pP][tT]" />

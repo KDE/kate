@@ -105,7 +105,7 @@
                         <item> times </item>
                 </list>
                 <contexts>
-                        <context attribute="Normal Text" lineEndContext="#stay">
+                        <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
                                 <keyword attribute="Keyword" context="#stay" String="keywords"/>
                                 <keyword attribute="Data Type" context="#stay" String="types"/>
                                 <keyword attribute="Features" context="#stay" String="features"/>

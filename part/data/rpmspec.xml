@@ -28,7 +28,7 @@
     </list>
     <contexts>
 
-      <context attribute="Normal Text" lineEndContext="#stay">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
          <keyword attribute="Keyword" context="#stay" String="keywords"/>
          <keyword attribute="Data" context="#stay" String="types"/>
          <RegExpr attribute="Red" context="#stay" String="%[a-zA-Z0-9_]*" />

@@ -1701,7 +1701,7 @@ int Highlight::getIdFromString(QStringList *ContextNameList, QString tmpLineEndC
 {
   unres="";
   int context;
-  if (tmpLineEndContext=="#stay") context=-1;
+  if ((tmpLineEndContext=="#stay") || (tmpLineEndContext.simplifyWhiteSpace().isEmpty())) context=-1;
       else if (tmpLineEndContext.startsWith("#pop"))
       {
            context=-1;

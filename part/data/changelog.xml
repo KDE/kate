@@ -3,8 +3,8 @@
 <language name="ChangeLog" version="1.01" kateversion="2.1" section="Other" extensions="ChangeLog" mimetype="">
         <highlighting>
           <contexts>
-                <context attribute="0" lineEndContext="#stay">
-                <RegExpr attribute="1" context="#stay" String="^\d\d\d\d\s*-\s*\d\d\s*-\s*\d\d.*$"/>
+                <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+                <RegExpr attribute="Keyword" context="#stay" String="^\d\d\d\d\s*-\s*\d\d\s*-\s*\d\d.*$"/>
                 </context>
           </contexts>
           <itemDatas>

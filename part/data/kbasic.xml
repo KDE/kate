@@ -65,7 +65,7 @@
         <item>Control </item>
         </list>
         <contexts>
-        <context attribute="Normal Text" lineEndContext="#stay">
+        <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Identifier" context="#stay" String="types"/>
         <Float attribute="String" context="#stay"/>

@@ -4,17 +4,17 @@
   <highlighting>
 
     <contexts>
-      <context attribute="0" lineEndContext="#stay">
-      	<RegExpr attribute="1" context="1" String="^(\+\+\+|\-\-\-|\*\*\*|diff|\d)" />
-	<RegExpr attribute="4" context="2" String="^(\+|&gt;|!)" />
-	<RegExpr attribute="3" context="3" String="^(\-|&lt;)" />
-	<RegExpr attribute="2" context="4" String="^\@\@" />
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+      	<RegExpr attribute="Keyword" context="Keyword" String="^(\+\+\+|\-\-\-|\*\*\*|diff|\d)" />
+	<RegExpr attribute="Added line" context="Added" String="^(\+|&gt;|!)" />
+	<RegExpr attribute="Removed line" context="Removed" String="^(\-|&lt;)" />
+	<RegExpr attribute="Data Type" context="Data" String="^\@\@" />
       </context>
 
-      <context attribute="1" lineEndContext="#pop" />
-      <context attribute="4" lineEndContext="#pop" />
-      <context attribute="3" lineEndContext="#pop" />
-      <context attribute="2" lineEndContext="#pop" />
+      <context attribute="Keyword" lineEndContext="#pop" name="Keyword"/>
+      <context attribute="Removed line" lineEndContext="#pop" name="Removed"/>
+      <context attribute="Added line" lineEndContext="#pop" name="Added"/>
+      <context attribute="Data Type" lineEndContext="#pop" name="Data"/>
 
     </contexts>
 

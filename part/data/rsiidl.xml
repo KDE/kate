@@ -384,7 +384,7 @@
         <item>writu </item>
         </list>
         <contexts>
-        <context attribute="Normal Text" lineEndContext="#stay">
+        <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <keyword attribute="Keyword" context="#stay" String="reserved words"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
        <keyword attribute="Command" context="#stay" String="commands"/>

@@ -10,7 +10,8 @@ libktexteditor_la_SOURCES = ktexteditor.cpp \
     popupmenuinterface.cpp undointerface.cpp viewcursorinterface.cpp \
     editdcopinterface.cpp editdcopinterface.skel clipboarddcopinterface.cpp \
     clipboarddcopinterface.skel selectiondcopinterface.cpp selectiondcopinterface.skel  \
-    searchdcopinterface.cpp searchdcopinterface.skel markinterfaceextension.cpp
+    searchdcopinterface.cpp searchdcopinterface.skel markinterfaceextension.cpp \
+    configinterfaceextension.cpp
 
 libktexteditor_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 libktexteditor_la_LIBADD = $(top_builddir)/kparts/libkparts.la $(top_builddir)/dcop/libDCOP.la
@@ -21,7 +22,7 @@ ktexteditorinclude_HEADERS = document.h view.h editor.h plugin.h editinterface.h
                              viewcursorinterface.h searchinterface.h highlightinginterface.h \
                              blockselectioninterface.h codecompletioninterface.h \
                              configinterface.h markinterface.h printinterface.h wordwrapinterface.h \
-                             dynwordwrapinterface.h markinterfaceextension.h
+                             dynwordwrapinterface.h markinterfaceextension.h configinterfaceextension.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

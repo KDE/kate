@@ -41,12 +41,23 @@ class ConfigInterface
   // slots !!!
   //
   public:
+    /**
+      Read/Write config of ALL current loaded documents 
+    */
     virtual void readConfig () = 0;
     virtual void writeConfig () = 0;
     virtual void readConfig (KConfig *) = 0;
     virtual void writeConfig (KConfig *) = 0;
+    
+    /**
+      Read/Write session config of only this document 
+    */
     virtual void readSessionConfig (KConfig *) = 0;
     virtual void writeSessionConfig (KConfig *) = 0;
+    
+    /**
+      Configures ALL current loaded documents 
+    */
     virtual void configDialog () = 0;
 
   private:

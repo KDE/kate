@@ -26,29 +26,11 @@
 #include <kstdaction.h>
 #include <kmessagebox.h>
 #include <kstringhandler.h>
+#include <kdebug.h>
 
 #include "../interfaces/view.h"
 #include "../interfaces/document.h"
 #include "kateviewdialog.h"
-
-class SConfig
-{
-public:
-	SearchFlags flags;
-	KateTextCursor cursor;
-	uint matchedLength;
-	QString m_pattern;
-	QRegExp m_regExp;
-	
-	void setPattern( QString &newPattern )
-	{
-		m_pattern = newPattern;
-		if( flags.regExp ) {
-			m_regExp.setCaseSensitive( flags.caseSensitive );
-			m_regExp.setPattern( m_pattern );
-		}
-	}
-};
 
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
@@ -138,7 +120,6 @@ void KateSearch::findAgain( bool back )
 	flags.backward = m_searchFlags.backward != back;
 	flags.fromBeginning = false;
 	flags.prompt = true;
-	flags.again = true;
 	
 	search( flags );
 }
@@ -146,22 +127,9 @@ void KateSearch::findAgain( bool back )
 void KateSearch::search( SearchFlags flags )
 {
 	s.flags = flags;
+	s.cursor = getCursor();
 	
-	if( !s.flags.fromBeginning ) {
-		// If we are continuing a backward search, make sure we do not get stuck
-		// at an existing match.
-		s.cursor = getCursor();
-		QString txt = view()->currentTextLine();
-		QString searchFor = s_searchList.first();
-		int pos = s.cursor.col - searchFor.length() - 1;
-		pos = QMAX( pos, 0 );
-		pos = txt.find( searchFor, pos, s.flags.caseSensitive );
-		if ( s.flags.backward && pos <= s.cursor.col ) {
-			s.cursor.col = pos - 1;
-		} else if ( pos == s.cursor.col ) {
-			s.cursor.col++;
-		}
-	} else {
+	if( s.flags.fromBeginning ) {
 		if( !s.flags.backward ) {
 			s.cursor.col = 0;
 			s.cursor.line = 0;
@@ -169,9 +137,31 @@ void KateSearch::search( SearchFlags flags )
 			s.cursor.line = doc()->numLines() - 1;
 			s.cursor.col = doc()->lineLength( s.cursor.line );
 		}
-		s.flags.finished = true;
+	} else if( s.flags.backward ) {
+		// If we are continuing a backward search, make sure
+		// we do not get stuck at an existing match.
+		QString txt = view()->currentTextLine();
+		QString searchFor = s_searchList.first();
+		uint length = searchFor.length();
+		int pos = s.cursor.col - length;
+		kdDebug() << pos << ", " << length << ": " << txt.mid( pos, length ) << endl;
+		if( searchFor.find( txt.mid( pos, length ), 0, s.flags.caseSensitive ) == 0 ) {
+			if( pos > 0 ) {
+				s.cursor.col = pos - 1;
+			} else if ( pos == 0 && s.cursor.line > 0 ) {
+				s.cursor.line--;
+				s.cursor.col = doc()->lineLength( s.cursor.line );
+			} else if ( pos == 0 && s.cursor.line == 0 ) {
+				// TODO: FIXME
+			}
+		}
 	}
-	if( !s.flags.backward && s.cursor.col == 0 && s.cursor.line == 0 ) {
+	if((!s.flags.backward && 
+	     s.cursor.col == 0 && 
+	     s.cursor.line == 0 ) ||
+	   ( s.flags.backward && 
+	     s.cursor.col == doc()->lineLength( s.cursor.line ) && 
+	     s.cursor.line == doc()->numLines()-1 ) ) {
 		s.flags.finished = true;
 	}
 	
@@ -192,6 +182,7 @@ bool KateSearch::doSearch( const QString& text )
 	bool wholeWords = s.flags.wholeWords;
 	uint foundLine, foundCol, matchLen;
 	bool found = false;
+	kdDebug() << "Searching at " << line << ", " << col << endl;
 	if( regExp ) {
 		QRegExp re( text, caseSensitive );
 		found = doc()->searchText( line, col, re,
@@ -208,6 +199,7 @@ bool KateSearch::doSearch( const QString& text )
 		                           &matchLen, caseSensitive, backward );
 	}
 	if( !found ) return false;
+	kdDebug() << "Found at " << foundLine << ", " << foundCol << endl;
 	s.cursor.line = foundLine;
 	s.cursor.col = foundCol;
 	s.matchedLength = matchLen;
@@ -224,7 +216,6 @@ void KateSearch::wrapSearch()
 		s.cursor.col = doc()->lineLength( s.cursor.line );
 	}
 	s.flags.finished = true;
-	s.flags.again = false;
 }
 
 void KateSearch::findAgain()

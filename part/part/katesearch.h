@@ -37,7 +37,6 @@ struct SearchFlags {
 	bool selected          :1;
 	bool prompt            :1;
 	bool replace           :1;
-	bool again             :1;
 	bool finished          :1;
 	bool regExp            :1;
 };

@@ -187,9 +187,7 @@ public:
   KateSuperRange(KateDocument* doc, const KateRange& range, QObject* parent = 0L, const char* name = 0L);
   KateSuperRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent = 0L, const char* name = 0L);
 
-#ifdef DEBUGTESTING
   virtual ~KateSuperRange();
-#endif
 
   // fulfill KateRange requirements
   virtual KateTextCursor& start();
@@ -315,14 +313,6 @@ private slots:
   void slotEvaluateChanged();
   void slotEvaluateUnChanged();
 
-/*
-  void slotPositionChanged();
-  void slotPositionUnChanged();
-  void slotContentsChanged();
-  void slotBoundaryDeleted();
-  void slotEliminated();
-*/
-
 private:
   void init();
   void evaluateEliminated();
@@ -330,9 +320,10 @@ private:
 
   KateSuperCursor* m_start;
   KateSuperCursor* m_end;
-  bool m_evaluate : 1;
-  bool m_startChanged : 1;
-  bool m_endChanged : 1;
+  bool m_evaluate;
+  bool m_startChanged;
+  bool m_endChanged;
+	bool m_deleteCursors;
 };
 
 class KateSuperCursorList : public QPtrList<KateSuperCursor>

@@ -36,6 +36,10 @@ LineRange::LineRange()
 {
 }
 
+LineRange::~LineRange ()
+{
+}
+
 void LineRange::clear()
 {
   line = -1;

@@ -279,6 +279,7 @@ KateSuperRange::KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QOb
   , m_evaluate(false)
   , m_startChanged(false)
   , m_endChanged(false)
+  , m_deleteCursors(false)
 {
   init();
 }
@@ -290,6 +291,7 @@ KateSuperRange::KateSuperRange(KateDocument* doc, const KateRange& range, QObjec
   , m_evaluate(false)
   , m_startChanged(false)
   , m_endChanged(false)
+  , m_deleteCursors(true)
 {
   init();
 }
@@ -301,6 +303,7 @@ KateSuperRange::KateSuperRange(KateDocument* doc, const KateTextCursor& start, c
   , m_evaluate(false)
   , m_startChanged(false)
   , m_endChanged(false)
+  , m_deleteCursors(true)
 {
   init();
 }
@@ -316,17 +319,6 @@ void KateSuperRange::init()
 
   setBehaviour(DoNotExpand);
 
-#ifdef DEBUGTESTING
-  if (!debugRange) {
-    debugRange = this;
-    connect(this, SIGNAL(positionChanged()), SLOT(slotPositionChanged()));
-    connect(this, SIGNAL(positionUnChanged()), SLOT(slotPositionUnChanged()));
-    connect(this, SIGNAL(contentsChanged()), SLOT(slotContentsChanged()));
-    connect(this, SIGNAL(boundaryDeleted()), SLOT(slotBoundaryDeleted()));
-    connect(this, SIGNAL(eliminated()), SLOT(slotEliminated()));
-  }
-#endif
-
   // Not necessarily the best implementation
   connect(m_start, SIGNAL(positionDirectlyChanged()),  SIGNAL(contentsChanged()));
   connect(m_end, SIGNAL(positionDirectlyChanged()),  SIGNAL(contentsChanged()));
@@ -339,12 +331,14 @@ void KateSuperRange::init()
   connect(m_end, SIGNAL(positionDeleted()), SIGNAL(boundaryDeleted()));
 }
 
-#ifdef DEBUGTESTING
 KateSuperRange::~KateSuperRange()
 {
-  if (debugRange == this) kdDebug() << k_funcinfo << endl;
+  if (m_deleteCursors)
+  {
+    delete m_start;
+    delete m_end;
+  }
 }
-#endif
 
 KateTextCursor& KateSuperRange::start()
 {
@@ -530,33 +524,6 @@ void KateSuperRange::evaluatePositionChanged()
   else
     emit positionChanged();
 }
-
-#ifdef DEBUGTESTING
-void KateSuperRange::slotPositionChanged()
-{
-  if (debugRange == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperRange::slotPositionUnChanged()
-{
-  if (debugRange == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperRange::slotContentsChanged()
-{
-  if (debugRange == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperRange::slotBoundaryDeleted()
-{
-  if (debugRange == this) kdDebug() << k_funcinfo << endl;
-}
-
-void KateSuperRange::slotEliminated()
-{
-  if (debugRange == this) kdDebug() << k_funcinfo << endl;
-}
-#endif
 
 int KateSuperCursorList::compareItems(QPtrCollection::Item item1, QPtrCollection::Item item2)
 {

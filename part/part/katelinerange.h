@@ -26,6 +26,7 @@ class LineRange
 {
   public:
     LineRange();
+		virtual ~LineRange ();
 
     void clear();
     void debugOutput() const;

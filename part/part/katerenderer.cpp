@@ -25,6 +25,7 @@
 #include "katedocument.h"
 #include "katearbitraryhighlight.h"
 #include "kateconfig.h"
+#include "katefactory.h"
 #include "kateview.h"
 
 #include <kdebug.h>
@@ -58,13 +59,16 @@ public:
 KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
   : m_doc(doc), m_view (view)
 {
+  KateFactory::registerRenderer ( this );
   m_config = new KateRendererConfig (this);
+
   m_currentSettings = new KateRendererSettings();
 }
 
 KateRenderer::~KateRenderer()
 {
   delete m_config;
+  KateFactory::deregisterRenderer ( this );
 }
 
 bool KateRenderer::drawCaret() const

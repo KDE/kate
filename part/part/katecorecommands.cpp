@@ -99,7 +99,7 @@ bool KateCoreCommands::exec(Kate::View *view,
     {
       if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
-      v->doc()->setIndentationWidth( val );
+      v->doc()->config()->setIndentationWidth( val );
     }
     return true;
   }

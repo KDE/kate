@@ -370,6 +370,8 @@ class KateView : public Kate::View,
   public:
     inline KateViewConfig *config () { return m_config; };
 
+    void updateConfig ();
+
   private:
     KateViewConfig *m_config;
 };

@@ -48,7 +48,7 @@ class KateDocumentConfig
 
     static KateDocumentConfig *global ();
 
-    inline bool isGlobal () { return (this == s_global); };
+    inline bool isGlobal () const { return (this == s_global); };
 
   public:
     /**
@@ -67,23 +67,33 @@ class KateDocumentConfig
     void updateDocument ();
 
   public:
-    int tabWidth ();
+    int tabWidth () const;
     void setTabWidth (int tabWidth);
 
-     bool wordWrap ();
+    int indentationWidth () const;
+    void setIndentationWidth (int indentationWidth);
+
+    bool wordWrap () const;
     void setWordWrap (bool on);
 
-    unsigned int wordWrapAt ();
+    unsigned int wordWrapAt () const;
     void setWordWrapAt (unsigned int col);
+
+    uint undoSteps () const;
+    void setUndoSteps ( uint undoSteps );
 
   private:
     int m_tabWidth;
+    int m_indentationWidth;
     bool m_wordWrap;
     int m_wordWrapAt;
+    uint m_undoSteps;
 
     bool m_tabWidthSet : 1;
+    bool m_indentationWidthSet : 1;
     bool m_wordWrapSet : 1;
     bool m_wordWrapAtSet : 1;
+    bool m_undoStepsSet : 1;
 
   private:
     KateDocument *m_doc;
@@ -112,7 +122,7 @@ class KateViewConfig
 
     static KateViewConfig *global ();
 
-    inline bool isGlobal () { return (this == s_global); };
+    inline bool isGlobal () const { return (this == s_global); };
 
   public:
     /**
@@ -161,7 +171,7 @@ class KateRendererConfig
 
     static KateRendererConfig *global ();
 
-    inline bool isGlobal () { return (this == s_global); };
+    inline bool isGlobal () const { return (this == s_global); };
 
   public:
     /**

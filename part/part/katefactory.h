@@ -48,11 +48,16 @@ class KateFactory : public KParts::Factory
     static void registerView ( class KateView *view );
     static void deregisterView ( class KateView *view );
 
+    static void registerRenderer ( class KateRenderer  *renderer );
+    static void deregisterRenderer ( class KateRenderer  *renderer );
+
     static KTrader::OfferList *plugins ();
 
     static QPtrList<class KateDocument> *documents () { return &s_documents; };
 
     static QPtrList<class KateView> *views () { return &s_views; };
+
+    static QPtrList<class KateRenderer> *renderers () { return &s_renderers; };
 
   private:
     static void ref();
@@ -63,6 +68,7 @@ class KateFactory : public KParts::Factory
 
     static QPtrList<class KateDocument> s_documents;
     static QPtrList<class KateView> s_views;
+    static QPtrList<class KateRenderer> s_renderers;
 
     static KInstance *s_instance;
     static KAboutData *s_about;

@@ -308,8 +308,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KateUndoGroup* lastUndoGroupWhenSaved;
     bool docWasSavedWhenUndoWasEmpty;
 
-    static uint myUndoSteps;
-
     // this sets
     void updateModified();
 
@@ -465,8 +463,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
     TextLine::Ptr kateTextLine(uint i);
 
-    static void setIndentationWidth(int);
-    static int indentationWidth() {return indentationChars;}
     void setNewDoc( bool );
     bool isNewDoc() const;
 
@@ -701,7 +697,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KateArbitraryHighlight* m_arbitraryHL;
 
     int eolMode;
-    static int indentationChars;
 
     bool readOnly;
     bool newDoc;          // True if the file is a new document (used to determine whether

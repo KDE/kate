@@ -87,8 +87,6 @@ using namespace Kate;
 
 bool KateDocument::s_configLoaded = false;
 
-int KateDocument::indentationChars = 2;
-
 uint KateDocument::_configFlags
     = KateDocument::cfAutoIndent
     | KateDocument::cfTabIndents
@@ -100,8 +98,6 @@ uint KateDocument::_configFlags
     | KateDocument::cfSmartHome;
 
 QColor KateDocument::colors[6];
-
-uint KateDocument::myUndoSteps = 0;
 
 uint KateDocument::myBackupConfig = 1;
 QString KateDocument::myBackupSuffix ("~");
@@ -900,7 +896,7 @@ void KateDocument::undoStart()
   if (m_editCurrentUndo) return;
 
   // Make sure the buffer doesn't get bigger than requested
-  if ((myUndoSteps > 0) && (undoItems.count() > myUndoSteps))
+  if ((config()->undoSteps() > 0) && (undoItems.count() > config()->undoSteps()))
   {
     undoItems.setAutoDelete(true);
     undoItems.removeFirst();
@@ -1524,15 +1520,12 @@ uint KateDocument::redoCount () const
 
 uint KateDocument::undoSteps () const
 {
-  return myUndoSteps;
+  return m_config->undoSteps();
 }
 
 void KateDocument::setUndoSteps(uint steps)
 {
-  myUndoSteps = steps;
-
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-    emit KateFactory::documents()->at(z)->undoChanged ();
+  m_config->setUndoSteps (steps);
 }
 
 void KateDocument::undo()
@@ -1566,7 +1559,7 @@ void KateDocument::updateModified()
   if ( ( lastUndoGroupWhenSaved &&
          !undoItems.isEmpty() &&
          undoItems.last() == lastUndoGroupWhenSaved )
-       || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty && myUndoSteps != 0 ) )
+       || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty && config()->undoSteps() != 0 ) )
   {
     setModified( false );
     kdDebug() << k_funcinfo << "setting modified to false !" << endl;
@@ -1859,12 +1852,6 @@ void KateDocument::readConfig(KConfig *config)
   _configFlags = config->readNumEntry("Basic Config Flags", _configFlags);
   KateSearch::s_options = config->readNumEntry("Search Config Flags", KateSearch::s_options);
 
-  // tabs & indentations
-  setIndentationWidth(config->readNumEntry("Indentation Width", indentationChars));
-
-  // undo steps
-  setUndoSteps(config->readNumEntry("Undo Steps", myUndoSteps));
-
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
   colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
@@ -1931,8 +1918,6 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Basic Config Flags",_configFlags);
   config->writeEntry("Search Config Flags",KateSearch::s_options);
 
-  config->writeEntry("Undo Steps", myUndoSteps);
-  config->writeEntry("Indentation Width", indentationChars);
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
   config->writeEntry("Color Current Line", colors[2]);
@@ -2979,18 +2964,6 @@ bool KateDocument::isModified() const {
 
 //BEGIN Kate specific stuff ;)
 
-void KateDocument::setIndentationWidth(int chars)
-{
-  if (indentationChars == chars)
-    return;
-  if (chars < 1)
-    chars = 1;
-  if (chars > 16)
-    chars = 16;
-
-  indentationChars = chars;
-}
-
 void KateDocument::setNewDoc( bool m )
 {
   if ( m != newDoc )
@@ -3435,7 +3408,7 @@ void KateDocument::doIndent( uint line, int change)
         TextLine::Ptr textLine = buffer->plainLine(line);
         int firstChar = textLine->firstChar();
         if (firstChar >= 0 && (lineSelected(line) || lineHasSelected(line))) {
-          int maxUnindent = textLine->cursorX(firstChar, config()->tabWidth()) / indentationChars;
+          int maxUnindent = textLine->cursorX(firstChar, config()->tabWidth()) / config()->indentationWidth();
           if (maxUnindent < adjustedChange)
             adjustedChange = maxUnindent;
         }
@@ -3475,17 +3448,17 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
   if (first_char < 0)
     first_char = 0;
 
-  int space = textline->cursorX(first_char, config()->tabWidth()) + change * indentationChars;
+  int space = textline->cursorX(first_char, config()->tabWidth()) + change * config()->indentationWidth();
   if (space < 0)
     space = 0;
 
   if (!(flags & KateDocument::cfKeepExtraSpaces))
   {
-    uint extra = space % indentationChars;
+    uint extra = space % config()->indentationWidth();
     space -= extra;
     if (extra && change < 0) {
       // otherwise it unindents too much (e.g. 12 chars when indentation is 8 chars wide)
-      space += indentationChars;
+      space += config()->indentationWidth();
     }
   }
 
@@ -4699,6 +4672,7 @@ KateCodeFoldingTree *KateDocument::foldingTree ()
 
 void KateDocument::updateConfig ()
 {
-    tagAll();
-    updateViews();
+  emit undoChanged ();
+  tagAll();
+  updateViews();
 }

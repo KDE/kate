@@ -25,6 +25,7 @@
 
 #include "katedocument.h"
 #include "kateview.h"
+#include "katerenderer.h"
 #include "katecmds.h"
 #include "katecorecommands.h"
 
@@ -36,6 +37,7 @@
 
 template class QPtrList<KateDocument>;
 template class QPtrList<KateView>;
+template class QPtrList<KateRenderer>;
 
 KateFactory *KateFactory::s_self = 0;
 unsigned long int KateFactory::s_refcnt = 0;
@@ -43,6 +45,7 @@ KInstance *KateFactory::s_instance = 0;
 KAboutData *KateFactory::s_about = 0;
 QPtrList<class KateDocument> KateFactory::s_documents;
 QPtrList<class KateView> KateFactory::s_views;
+QPtrList<class KateRenderer> KateFactory::s_renderers;
 KTrader::OfferList *KateFactory::s_plugins = 0;
 
 extern "C"
@@ -141,6 +144,21 @@ void KateFactory::registerView ( KateView *view )
 void KateFactory::deregisterView ( KateView *view )
 {
   if ( s_views.removeRef( view ) )
+    deref();
+}
+
+void KateFactory::registerRenderer ( KateRenderer  *renderer )
+{
+  if ( !s_renderers.containsRef( renderer ) )
+  {
+    s_renderers.append( renderer );
+    ref();
+  }
+}
+
+void KateFactory::deregisterRenderer ( KateRenderer  *renderer )
+{
+  if ( s_renderers.removeRef( renderer ) )
     deref();
 }
 

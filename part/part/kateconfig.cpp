@@ -35,8 +35,10 @@ KateRendererConfig *KateRendererConfig::s_global = 0;
 
 KateDocumentConfig::KateDocumentConfig ()
  : m_tabWidthSet (true),
+   m_indentationWidthSet (true),
    m_wordWrapSet (true),
    m_wordWrapAtSet (true),
+   m_undoStepsSet (true),
    m_doc (0)
 {
   s_global = this;
@@ -49,8 +51,10 @@ KateDocumentConfig::KateDocumentConfig ()
 
 KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
  : m_tabWidthSet (false),
+   m_indentationWidthSet (false),
    m_wordWrapSet (false),
    m_wordWrapAtSet (false),
+   m_undoStepsSet (false),
    m_doc (doc)
 {
 }
@@ -69,19 +73,26 @@ KateDocumentConfig *KateDocumentConfig::global ()
 
 void KateDocumentConfig::readConfig (KConfig *config)
 {
-  /**
-   * load the config + give default values
-   */
   setTabWidth (config->readNumEntry("Tab Width", 8));
+
+  setIndentationWidth (config->readNumEntry("Indentation Width", 2));
+
   setWordWrap (config->readBoolEntry("Word Wrap", false));
   setWordWrapAt (config->readNumEntry("Word Wrap Column", 80));
+
+  setUndoSteps(config->readNumEntry("Undo Steps", 0));
 }
 
 void KateDocumentConfig::writeConfig (KConfig *config)
 {
   config->writeEntry("Tab Width", tabWidth());
+
+  config->writeEntry("Indentation Width", indentationWidth());
+
   config->writeEntry("Word Wrap", wordWrap());
   config->writeEntry("Word Wrap Column", wordWrapAt());
+
+  config->writeEntry("Undo Steps", undoSteps());
 
   config->sync ();
 }
@@ -103,7 +114,7 @@ void KateDocumentConfig::updateDocument ()
   }
 }
 
-int KateDocumentConfig::tabWidth ()
+int KateDocumentConfig::tabWidth () const
 {
   if (m_tabWidthSet || isGlobal())
     return m_tabWidth;
@@ -122,7 +133,26 @@ void KateDocumentConfig::setTabWidth (int tabWidth)
   updateDocument ();
 }
 
-bool KateDocumentConfig::wordWrap ()
+int KateDocumentConfig::indentationWidth () const
+{
+  if (m_indentationWidthSet || isGlobal())
+    return m_indentationWidth;
+
+  return s_global->indentationWidth();
+}
+
+void KateDocumentConfig::setIndentationWidth (int indentationWidth)
+{
+  if (indentationWidth < 1)
+    return;
+
+  m_indentationWidthSet = true;
+  m_indentationWidth = indentationWidth;
+
+  updateDocument ();
+}
+
+bool KateDocumentConfig::wordWrap () const
 {
   if (m_wordWrapSet || isGlobal())
     return m_wordWrap;
@@ -138,7 +168,7 @@ void KateDocumentConfig::setWordWrap (bool on)
   updateDocument ();
 }
 
-unsigned int KateDocumentConfig::wordWrapAt ()
+unsigned int KateDocumentConfig::wordWrapAt () const
 {
   if (m_wordWrapAtSet || isGlobal())
     return m_wordWrapAt;
@@ -153,6 +183,22 @@ void KateDocumentConfig::setWordWrapAt (unsigned int col)
 
   m_wordWrapAtSet = true;
   m_wordWrapAt = col;
+
+  updateDocument ();
+}
+
+uint KateDocumentConfig::undoSteps () const
+{
+  if (m_undoStepsSet || isGlobal())
+    return m_undoSteps;
+
+  return s_global->undoSteps();
+}
+
+void KateDocumentConfig::setUndoSteps (uint undoSteps)
+{
+  m_undoStepsSet = true;
+  m_undoSteps = undoSteps;
 
   updateDocument ();
 }
@@ -200,7 +246,7 @@ void KateViewConfig::updateView ()
 {
   if (m_view)
   {
-    //m_doc->updateConfig ();
+    m_view->updateConfig ();
     return;
   }
 
@@ -208,7 +254,7 @@ void KateViewConfig::updateView ()
   {
     for (uint z=0; z < KateFactory::views()->count(); z++)
     {
-      //KateFactory::documents()->at(z)->updateConfig ();
+      KateFactory::views()->at(z)->updateConfig ();
     }
   }
 }
@@ -258,7 +304,6 @@ void KateRendererConfig::readConfig (KConfig *config)
 
   setFont(KateRendererConfig::ViewFont, config->readFontEntry("View Font", &f));
   setFont(KateRendererConfig::PrintFont, config->readFontEntry("Printer Font", &f));
-
 }
 
 void KateRendererConfig::writeConfig (KConfig *config)
@@ -279,9 +324,9 @@ void KateRendererConfig::updateRenderer ()
 
   if (isGlobal())
   {
-    for (uint z=0; z < KateFactory::views()->count(); z++)
+    for (uint z=0; z < KateFactory::renderers()->count(); z++)
     {
-      KateFactory::views()->at(z)->renderer()->updateConfig ();
+      KateFactory::renderers()->at(z)->updateConfig ();
     }
   }
 }

@@ -1066,3 +1066,8 @@ KateRenderer *KateView::renderer ()
 {
   return m_renderer;
 }
+
+void KateView::updateConfig ()
+{
+
+}

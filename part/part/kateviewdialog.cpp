@@ -189,7 +189,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( opt[1], SIGNAL(toggled(bool)), this, SLOT(spacesToggled()));
 
-  indentationWidth = new KIntNumInput(KateDocument::indentationWidth(), gbWordWrap);
+  indentationWidth = new KIntNumInput(KateDocumentConfig::global()->indentationWidth(), gbWordWrap);
   indentationWidth->setRange(1, 16, 1, false);
   indentationWidth->setLabel(i18n("Number of spaces:"), AlignVCenter);
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
@@ -224,7 +224,7 @@ void IndentConfigTab::getData(KateDocument *view)
     if (opt[z]->isChecked()) configFlags |= flags[z];
   }
   view->setConfigFlags(configFlags);
-  KateDocument::setIndentationWidth(indentationWidth->value());
+  KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
 }
 
 void IndentConfigTab::apply ()
@@ -350,7 +350,7 @@ EditConfigTab::EditConfigTab(QWidget *parent, KateDocument *view)
   opt[1]->setChecked(configFlags & flags[1]);
   connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  e3 = new KIntNumInput(e2, view->undoSteps(), this);
+  e3 = new KIntNumInput(e2, KateDocumentConfig::global()->undoSteps(), this);
   e3->setRange(0, 1000000, 1, false);
   e3->setSpecialValueText( i18n("Unlimited") );
   e3->setLabel(i18n("Maximum undo steps:"), AlignVCenter);
@@ -426,9 +426,9 @@ void EditConfigTab::getData(KateDocument *view)
   KateDocumentConfig::global()->setTabWidth(e2->value());
 
   if (e3->value() <= 0)
-    view->setUndoSteps(0);
+    KateDocumentConfig::global()->setUndoSteps(0);
   else
-    view->setUndoSteps(e3->value());
+    KateDocumentConfig::global()->setUndoSteps(e3->value());
 
   view->setAutoCenterLines(QMAX(0, e4->value()));
   view->setGetSearchTextFrom(e5->currentItem());

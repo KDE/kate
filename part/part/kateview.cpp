@@ -98,7 +98,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   doc->addView( this );
 
-  connect(myViewInternal,SIGNAL(dropEventPass(QDropEvent *)),this,SLOT(dropEventPassEmited(QDropEvent *)));
+  connect( myViewInternal, SIGNAL(dropEventPass(QDropEvent*)),
+           this,           SIGNAL(dropEventPass(QDropEvent*)) );
 
   setFocusProxy( myViewInternal );
   myViewInternal->setFocus();
@@ -130,7 +131,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   if ( doc->m_bBrowserView )
   {
-    connect( this, SIGNAL( dropEventPass(QDropEvent*) ), this, SLOT( slotDropEventPass(QDropEvent*) ) );
+    connect( this, SIGNAL(dropEventPass(QDropEvent*)),
+             this, SLOT(slotDropEventPass(QDropEvent*)) );
   }
 
   slotUpdate();
@@ -283,7 +285,7 @@ void KateView::setupActions()
 
   KStdAction::copy(this, SLOT(copy()), ac);
 
-  KStdAction::print(this, SLOT(print()), ac);
+  KStdAction::print( myDoc, SLOT(print()), ac );
   
   new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
   
@@ -462,14 +464,6 @@ void KateView::setOverwriteMode( bool b )
     myDoc->setConfigFlags( myDoc->_configFlags ^ KateDocument::cfOvr );
   else
     myDoc->setConfigFlags( myDoc->_configFlags | KateDocument::cfOvr );
-}
-
-void KateView::setDynWordWrap( bool b )
-{
-  if( m_hasWrap == b ) return;
-  
-  m_hasWrap = b;
-  myViewInternal->updateView(KateViewInternal::ufDocGeometry);
 }
 
 void KateView::toggleInsert() {
@@ -652,16 +646,6 @@ void KateView::slotSetEncoding(const QString& descriptiveName) {
       myViewInternal->tagAll();
       myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
   }
-}
-
-void KateView::resizeEvent(QResizeEvent *)
-{
-  myViewInternal->updateView( KateViewInternal::ufRepaint | KateViewInternal::ufDocGeometry );
-}
-
-void KateView::dropEventPassEmited (QDropEvent* e)
-{
-  emit dropEventPass(e);
 }
 
 void KateView::setFocus ()

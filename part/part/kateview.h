@@ -119,8 +119,9 @@ class KateView : public Kate::View
   // KTextEditor::DynWordWrapInterface
   //
   public:
-    void setDynWordWrap( bool b );
-    bool dynWordWrap() const { return m_hasWrap; }
+    // These don't actually do anything!
+    void setDynWordWrap( bool b ) { m_hasWrap = b; }
+    bool dynWordWrap() const      { return m_hasWrap; }
 
   //
   // Kate::View
@@ -258,13 +259,11 @@ class KateView : public Kate::View
     void keyPressEvent( QKeyEvent *ev );
     void customEvent( QCustomEvent *ev );
     void contextMenuEvent( QContextMenuEvent *ev );
-    void resizeEvent( QResizeEvent* );
     bool eventFilter( QObject* o, QEvent* e );
     int checkOverwrite( KURL u );
 
   private slots:
     void slotDropEventPass( QDropEvent* ev );
-    void dropEventPassEmited( QDropEvent* e );
     void slotSetEncoding( const QString& descriptiveName );
 
   private:

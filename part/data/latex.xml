@@ -37,7 +37,7 @@
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop"/>
         <DetectChar char="]" attribute="Normal Text" context="#pop#pop"/>
         <RegExpr String="(verbatim|lstlisting|boxedverbatim|Verbatim)\*?" attribute="Environment" context="VerbatimEnv"/>
-        <RegExpr String="(equation|displaymath|eqnarray|math|multline)\*?" attribute="Environment" context="MathEnv"/>
+        <RegExpr String="(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|alignat|flalign)\*?" attribute="Environment" context="MathEnv"/>
       </context>
 
       <context name="Label" attribute="Normal Text" lineEndContext="#pop#pop" fallthrough="true" fallthroughContext="#pop#pop">
@@ -76,7 +76,7 @@
         <DetectChar char="%" attribute="Comment" context="Comment"/>
       </context>
       <context name="MathModeEnv" attribute="Math" lineEndContext="#stay">
-        <RegExpr String="\\end(?=\s*\{\s*[a-zA-Z]*(equation|displaymath|eqnarray|math|multline)\*?\s*\})" attribute="Structure" context="MathFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{\s*[a-zA-Z]*(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|alignat|flalign)\*?\s*\})" attribute="Structure" context="MathFindEnd"/>
         <RegExpr String="\\begin(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" beginRegion="block" />
         <RegExpr String="\\end(?=[^a-zA-Z])" attribute="Keyword Mathmode" context="#stay" endRegion="block" />
         <StringDetect String="\(" attribute="Math" context="MathMode" beginRegion="mathMode" />
@@ -94,7 +94,7 @@
       </context>
       <context name="MathFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <DetectChar char="{" attribute="Normal Text" context="#stay"/>
-        <RegExpr String="[a-zA-Z]*(equation|displaymath|eqnarray|math|multline)\*?" attribute="Environment" context="#stay"/>
+        <RegExpr String="[a-zA-Z]*(equation|displaymath|eqnarray|subeqnarray|math|multline|gather|align|alignat|flalign)\*?" attribute="Environment" context="#stay"/>
         <DetectSpaces />
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop"  endRegion="block"/>
       </context>

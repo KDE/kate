@@ -225,7 +225,6 @@ KInstance *KateFactory::instance()
     s_about->addCredit ("Yury Lebedev",I18N_NOOP("Highlighting for SQL"),"");
     s_about->addCredit ("Chris Ross",I18N_NOOP("Highlighting for Ferite"),"");
     s_about->addCredit ("Nick Roux",I18N_NOOP("Highlighting for ILERPG"),"");
-    s_about->addCredit ("John Firebaugh",I18N_NOOP("Highlighting for Java, and much more"),"");
     s_about->addCredit ("Carsten Niehaus", I18N_NOOP("Highlighting for LaTeX"),"");
     s_about->addCredit ("Per Wigren", I18N_NOOP("Highlighting for Makefiles, Python"),"");
     s_about->addCredit ("Jan Fritz", I18N_NOOP("Highlighting for Python"),"");

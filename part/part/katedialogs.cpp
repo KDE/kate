@@ -52,6 +52,7 @@
 #include <kcolordialog.h>
 #include <kcombobox.h>
 #include <kdebug.h>
+#include <kprocess.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>

@@ -1149,7 +1149,7 @@ bool KateDocument::editRemoveLine ( uint line )
   for( QPtrListIterator<KTextEditor::Mark> it( list );
        it.current(); ++it ) {
     KTextEditor::Mark* mark = m_marks.take( it.current()->line );
-    mark->line++;
+    mark->line--;
     m_marks.insert( mark->line, mark );
   }
   if( !list.isEmpty() )

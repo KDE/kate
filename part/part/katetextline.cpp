@@ -25,6 +25,7 @@
 #include "katetextline.h"
 
 #include <qregexp.h>
+#include <kdebug.h>
 
 TextLine::TextLine()
   : m_flags(TextLine::flagVisible)
@@ -35,82 +36,99 @@ TextLine::~TextLine()
 {
 }
 
-void TextLine::replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs)
+void TextLine::insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs)
 {
-  uint textLen, newLen, z;
-  int i, z2;
-  uchar newAttr;
+  // nothing to do
+  if (insLen == 0)
+    return;
 
-  textLen = m_text.size ();
-
-  //find new length
-  if (delLen <= textLen)
-    newLen = textLen - delLen;
-  else
-    newLen = 0;
-
-  if (newLen < pos) newLen = pos;
-  newLen += insLen;
-  newAttr = (pos < textLen) ? m_attributes[pos] : 0;
-
-  if (newLen > textLen)
+  // calc new textLen, store old
+  uint textLen = m_text.size();
+  uint oldTextLen = textLen;
+  
+  if (pos <= textLen)
+    textLen += insLen;
+  else if (pos > textLen)
+    textLen = pos + insLen;
+  
+  // resize the arrays
+  m_text.resize (textLen);
+  m_attributes.resize (textLen);
+  
+  // HA, insert behind text end, fill with spaces
+  if (pos >= oldTextLen)
   {
-    m_text.resize (newLen);
-    m_attributes.resize (newLen);
-  }
-
-  //fill up with spaces and attribute
-  for (z = textLen; z < pos; z++) {
-    m_text[z] = QChar(' ');
-    m_attributes[z] = 0;
-  }
-
-  i = (insLen - delLen);
-
-  if (i != 0)
-  {
-    if (i <= 0)
+    for (uint z = oldTextLen; z < pos; z++)
     {
-      //text to replace longer than new text
-      for (z = pos + delLen; z < textLen; z++) {
-        if ((z+i) >= newLen) break;
-        m_text[z + i] = m_text[z];
-        m_attributes[z + i] = m_attributes[z];
-      }
-
-
-    } else {
-      //text to replace shorter than new text
-      for (z2 = textLen-1; z2 >= (int) (pos + delLen); z2--) {
-        if (z2 < 0) break;
-        m_text[z2 + i] = m_text[z2];
-        m_attributes[z2 + i] = m_attributes[z2];
-      }
+      m_text[z] = QChar(' ');
+      m_attributes[z] = 0;
     }
   }
-
-  if (insAttribs == 0L) {
-    for (z = 0; z < insLen; z++) {
-      m_text[pos + z] = insText[z];
-      m_attributes[pos + z] = newAttr;
-    }
-  } else {
-    for (z = 0; z < insLen; z++) {
-      m_text[pos + z] = insText[z];
-      m_attributes[pos + z] = insAttribs[z];
+  // HA, insert in text, move the old text behind pos
+  else if (oldTextLen > 0)
+  {      
+    for (int z = oldTextLen -1; z >= (int) pos; z--)
+    {
+      m_text[z+insLen] = m_text[z];
+      m_attributes[z+insLen] = m_attributes[z];
     }
   }
-
-  if (newLen < textLen)
+  
+  // BUH, actually insert the new text
+  for (uint z = 0; z < insLen; z++)
   {
-    m_text.truncate (newLen);
-    m_attributes.truncate (newLen);
+    m_text[z+pos] = insText[z];
+    
+    if (insAttribs == 0)
+      m_attributes[z+pos] = 0;
+    else
+      m_attributes[z+pos] = insAttribs[z];
   }
+}
+
+void TextLine::removeText (uint pos, uint delLen)
+{
+  // nothing to do
+  if (delLen == 0)
+    return;
+  
+  // calc textLen, store old one, calc delLen
+  uint textLen = m_text.size();
+  
+  if (textLen == 0)
+    return; // uh, again nothing real to do ;)
+  
+  uint oldTextLen = textLen;
+  
+  if (pos >= textLen)
+    return;
+    
+  if ((pos + delLen) > textLen)
+    delLen = textLen - pos;
+    
+  if (delLen < textLen)
+    textLen -= delLen;
+  else
+    textLen = 0;
+  
+  // BU, MOVE THE OLD TEXT AROUND
+  if (textLen > 0)
+  {
+    for (int z = pos; z < (int) oldTextLen; z++)
+    {
+      m_text[z] = m_text[z+delLen];
+      m_attributes[z] = m_attributes[z+delLen];
+    }
+  }
+  
+  // resize the stuff
+  m_text.resize (textLen);
+  m_attributes.resize (textLen);
 }
 
 void TextLine::append(const QChar *s, uint l)
 {
-  replace(m_text.size(), 0, s, l);
+  insertText (m_text.size(), l, s, 0);
 }
 
 void TextLine::truncate(uint newLen)
@@ -128,15 +146,15 @@ void TextLine::wrap(TextLine::Ptr nextLine, uint pos)
 
   if (l > 0)
   {
-    nextLine->replace(0, 0, &m_text[pos], l, &m_attributes[pos]);
+    nextLine->insertText (0, l, &m_text[pos], &m_attributes[pos]);
     truncate(pos);
   }
 }
 
 void TextLine::unWrap(uint pos, TextLine::Ptr nextLine, uint len)
 {
-  replace(pos, 0, nextLine->m_text.data(), len, nextLine->m_attributes.data());
-  nextLine->replace(0, len, 0L, 0);
+  insertText (pos, len, nextLine->m_text.data(), nextLine->m_attributes.data());
+  nextLine->removeText (0, len);
 }
 
 int TextLine::nextNonSpaceChar(uint pos) const

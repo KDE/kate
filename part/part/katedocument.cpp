@@ -955,7 +955,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
-  l->replace(col, 0, s.unicode(), s.length());
+  l->insertText (col, s.length(), s.unicode());
 
   buffer->changeLine(line);
   editTagLine (line);
@@ -976,7 +976,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
   editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
 
-  l->replace(col, len, 0L, 0);
+  l->removeText (col, len);
 
   buffer->changeLine(line);
 

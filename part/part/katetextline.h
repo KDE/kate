@@ -182,10 +182,10 @@ class TextLine : public KShared
   */
   public:
      /**
-      Universal text manipulation method. It can be used to insert, delete
-      or replace text.
+      Universal text manipulation methoda. They can be used to insert or delete text
     */
-    void replace(uint pos, uint delLen, const QChar *insText, uint insLen, uchar *insAttribs = 0L);
+    void insertText (uint pos, uint insLen, const QChar *insText, uchar *insAttribs = 0);
+    void removeText (uint pos, uint delLen);
     
     /**
       Appends a string of length l to the textline

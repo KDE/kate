@@ -30,26 +30,15 @@
                 <cstring>TextLabel1</cstring>
             </property>
             <property name="text">
-                <string>Please choose the default text editing component, which should be used in applications if possible. If a specific application can't use a certain component, it will try to choose one itself</string>
+                <string>Please choose the default text editing component, you like to use in this application. If you choose &lt;B&gt;System Default&lt;/B&gt;, the application will honour your changes in the Control Center. All other choices override that setting</string>
             </property>
             <property name="alignment">
-                <set>WordBreak|AlignVCenter</set>
+                <set>WordBreak|AlignVCenter|AlignLeft</set>
             </property>
         </widget>
         <widget class="QComboBox">
             <property name="name">
                 <cstring>editorCombo</cstring>
-            </property>
-        </widget>
-        <widget class="QLabel">
-            <property name="name">
-                <cstring>TextLabel2</cstring>
-            </property>
-            <property name="text">
-                <string>This setting is used for instance in KWrite or KDevelop 3 (aka Gideon) and probably in many other applications. You can override this setting in the the specific applications though</string>
-            </property>
-            <property name="alignment">
-                <set>WordBreak|AlignVCenter</set>
             </property>
         </widget>
         <spacer>

@@ -380,7 +380,7 @@ void ISearchPluginView::endSearch()
 
 void ISearchPluginView::quitToView( const QString &text )
 {
-	if( text != QString::null && !text.isEmpty() ) {
+	if( !text.isNull() && !text.isEmpty() ) {
 		m_combo->addToHistory( text );
 		m_combo->insertItem( text );
 		m_lastString = text;

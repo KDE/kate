@@ -4,6 +4,7 @@
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="file_operations" />
     <Action name="file_save_as" group="file_operations" />
+    <Action name="file_reload" group="file_operations" />
     <Action name="file_export" group="file_operations" />
     <Action name="file_print" group="print_operations" />
   </Menu>
@@ -70,6 +71,7 @@
 
 <ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
   <Action name="file_save" group="file_operations" />
+  <Action name="file_save_as" group="file_operations" />
   <Action name="edit_undo" group="edit_operations" />
   <Action name="edit_redo" group="edit_operations" />
   <Action name="edit_cut" group="edit_operations" />

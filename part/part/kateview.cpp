@@ -299,6 +299,8 @@ void KateView::setupActions()
 
   KStdAction::print(this, SLOT(print()), ac);
   
+  new KAction(i18n("Reloa&d"), "reload", Key_F5, this, SLOT(reloadFile()), ac, "file_reload");
+  
   KStdAction::saveAs(this, SLOT(saveAs()), ac);
   KStdAction::gotoLine(this, SLOT(gotoLine()), ac);
   new KAction(i18n("&Configure Editor..."), 0, myDoc, SLOT(configDialog()),ac, "set_confdlg");
@@ -334,6 +336,22 @@ void KateView::setupActions()
   
   m_search->createActions( ac );
   m_bookmarks->createActions( ac );
+}
+
+void KateView::reloadFile()
+{
+  if (!canDiscard())
+    return;
+    
+  // save cursor position
+  uint cl = cursorLine();
+  uint cc = cursorColumn();
+  
+  // save bookmarks
+  myDoc->reloadFile();
+  
+  if (myDoc->numLines() >= cl)
+    setCursorPosition( cl, cc );
 }
 
 void KateView::slotUpdate()

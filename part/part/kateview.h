@@ -319,6 +319,7 @@ public slots:
     void slotRegionVisibilityChangedAt(unsigned int);
     void slotRegionBeginEndAddedRemoved(unsigned int);
     void slotCodeFoldingChanged();
+    void reloadFile();
 
 signals:
     void gotFocus (Kate::View *);

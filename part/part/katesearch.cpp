@@ -348,9 +348,11 @@ void KateSearch::replaceOne()
     }
   }
 
+  doc()->editStart();
   doc()->removeText( s.cursor.line(), s.cursor.col(),
       s.cursor.line(), s.cursor.col() + s.matchedLength );
   doc()->insertText( s.cursor.line(), s.cursor.col(), replaceWith );
+  doc()->editEnd(),
 
   replaces++;
 

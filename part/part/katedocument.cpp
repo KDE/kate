@@ -2309,10 +2309,12 @@ bool KateDocument::openURL( const KURL &url )
 
     m_job = KIO::get ( url, false, isProgressInfoEnabled() );
 
-    // we want to have the http header
-    //m_job->addMetaData ("PropagateHttpHeader", "true");
-
-    m_job->setWindow( widget() ? widget()->topLevelWidget() : 0 );
+    QWidget *w = widget ();
+    if (!w && !m_views.isEmpty ())
+      w = m_views.first();
+    
+    if (w)
+      m_job->setWindow (w->topLevelWidget());
 
     emit started( m_job );
 

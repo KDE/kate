@@ -114,12 +114,13 @@ class KateHlItem
 class KateHlContext
 {
   public:
-    KateHlContext(int attribute, int lineEndContext,int _lineBeginContext,
+    KateHlContext(const QString &_hlId, int attribute, int lineEndContext,int _lineBeginContext,
                   bool _fallthrough, int _fallthroughContext, bool _dynamic);
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
 
     QValueVector<KateHlItem*> items;
+    QString hlId; ///< A unique highlight identifier. Used to look up correct properties.
     int attr;
     int ctx;
     int lineBeginContext;
@@ -455,7 +456,7 @@ KateHlCharDetect::KateHlCharDetect(int attribute, int context, signed char regio
 {
 }
 
-int KateHlCharDetect::checkHgl(const QString& text, int offset, int len)
+int KateHlCharDetect::checkHgl(const QString& text, int offset, int /*len*/)
 {
   if (text[offset] == sChar)
     return offset + 1;
@@ -1113,8 +1114,9 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 }
 
 //BEGIN KateHlContext
-KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic)
+KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic)
 {
+  hlId = _hlId;
   attr = attribute;
   ctx = lineEndContext;
   lineBeginContext = _lineBeginContext;
@@ -1126,7 +1128,7 @@ KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginC
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false);
+  KateHlContext *ret = new KateHlContext(hlId, attr, ctx, lineBeginContext, fallthrough, ftctx, false);
 
   for (uint n=0; n < items.size(); ++n)
   {
@@ -1173,6 +1175,10 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iSection = "";
     m_priority = 0;
     iHidden = false;
+    m_additionalData.insert( "none", new HighlightPropertyBag );
+    m_additionalData["none"]->deliminator = stdDeliminator;
+    m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
+    m_hlIndex[0] = "none";
   }
   else
   {
@@ -1407,7 +1413,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       {
         if (item->customStartEnable)
         {
-          if (customStartEnableDetermined || kateInsideString (m_additionalData[hlKeyForContext( ctxNum )][Deliminator], lastChar))
+            if (customStartEnableDetermined || kateInsideString (m_additionalData[context->hlId]->deliminator, lastChar))
             customStartEnableDetermined = true;
           else
             continue;
@@ -2013,79 +2019,65 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   return tmpItem;
 }
 
-int KateHighlighting::hlKeyForList( const IntList *list, int attrib ) const
+QString KateHighlighting::hlKeyForAttrib( int i ) const
 {
   int k = 0;
-  IntList::const_iterator it = list->constEnd();
-  while ( it != list->constBegin() )
+  QMap<int,QString>::const_iterator it = m_hlIndex.constEnd();
+  while ( it != m_hlIndex.constBegin() )
   {
     --it;
-    k = (*it);
-    if ( attrib >= k )
+    k = it.key();
+    if ( i >= k )
       break;
   }
-  return k;
+  return it.data();
 }
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
   static const QString& sq = KGlobal::staticQString(" \"'");
-  return getCommentString(4, attrib).find(c) < 0 && sq.find(c) < 0;
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->deliminator.find(c) < 0 && sq.find(c) < 0;
 }
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
 {
   static const QString& sq = KGlobal::staticQString("\"'");
-  return (getCommentString(5, attrib).find(c) != -1) && (sq.find(c) == -1);
+  return (m_additionalData[ hlKeyForAttrib( attrib ) ]->wordWrapDeliminator.find(c) != -1) && (sq.find(c) == -1);
 }
 
 signed char KateHighlighting::commentRegion(int attr) const {
-  int k = hlKeyForAttrib( attr );
-  QString commentRegion=m_additionalData[k][MultiLineRegion];
+  QString commentRegion=m_additionalData[ hlKeyForAttrib( attr ) ]->multiLineRegion;
   return (commentRegion.isEmpty()?0:(commentRegion.toShort()));
 }
 
 bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
 {
-  int k = hlKeyForAttrib( startAttrib );
+  QString k = hlKeyForAttrib( startAttrib );
   return ( k == hlKeyForAttrib( endAttrib ) &&
-      ( ( !m_additionalData[k][Start].isEmpty() && !m_additionalData[k][End].isEmpty() ) ||
-       ! m_additionalData[k][SingleLine].isEmpty() ) );
-}
-
-QString KateHighlighting::getCommentString( int which, int attrib ) const
-{
-  if ( noHl )
-    return which == 4 ? stdDeliminator : "";
-
-  int k = hlKeyForAttrib( attrib );
-  const QStringList& lst = m_additionalData[k];
-  return lst.isEmpty() ? QString::null : lst[which];
+      ( ( !m_additionalData[k]->multiLineCommentStart.isEmpty() && !m_additionalData[k]->multiLineCommentEnd.isEmpty() ) ||
+       ! m_additionalData[k]->singleLineCommentMarker.isEmpty() ) );
 }
 
 QString KateHighlighting::getCommentStart( int attrib ) const
 {
-  return getCommentString( Start, attrib );
+  return m_additionalData[ hlKeyForAttrib( attrib) ]->multiLineCommentStart;
 }
 
 QString KateHighlighting::getCommentEnd( int attrib ) const
 {
-  return getCommentString( End, attrib );
+  return m_additionalData[ hlKeyForAttrib( attrib ) ]->multiLineCommentEnd;
 }
 
 QString KateHighlighting::getCommentSingleLineStart( int attrib ) const
 {
-  return getCommentString( SingleLine, attrib );
+  return m_additionalData[ hlKeyForAttrib( attrib) ]->singleLineCommentMarker;
 }
 
 /**
  * Helper for makeContextList. It parses the xml file for
  * information, how single or multi line comments are marked
- *
- * @return a stringlist containing the comment marker strings in the order
- * multilineCommentStart, multilineCommentEnd, singlelineCommentMarker
  */
-QStringList KateHighlighting::readCommentConfig()
+void KateHighlighting::readCommentConfig()
 {
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
   KateSyntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("general","comment");
@@ -2116,19 +2108,18 @@ QStringList KateHighlighting::readCommentConfig()
     cmlEnd = "";
     cmlRegion = "";
   }
-  QStringList res;
-  res << cmlStart << cmlEnd <<cmlRegion<< cslStart;
-  return res;
+  m_additionalData[buildIdentifier]->singleLineCommentMarker = cslStart;
+  m_additionalData[buildIdentifier]->multiLineCommentStart = cmlStart;
+  m_additionalData[buildIdentifier]->multiLineCommentEnd = cmlEnd;
+  m_additionalData[buildIdentifier]->multiLineRegion = cmlRegion;
 }
 
 /**
  * Helper for makeContextList. It parses the xml file for information,
  * if keywords should be treated case(in)sensitive and creates the keyword
  * delimiter list. Which is the default list, without any given weak deliminiators
- *
- * @return the computed delimiter string.
  */
-QString KateHighlighting::readGlobalKeywordConfig()
+void KateHighlighting::readGlobalKeywordConfig()
 {
   deliminator = stdDeliminator;
   // Tell the syntax document class which file we want to parse
@@ -2178,7 +2169,7 @@ QString KateHighlighting::readGlobalKeywordConfig()
 
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
 
-  return deliminator;
+  m_additionalData[buildIdentifier]->deliminator = deliminator;
 }
 
 /**
@@ -2190,7 +2181,7 @@ QString KateHighlighting::readGlobalKeywordConfig()
  *
  * @return the computed delimiter string.
  */
-QString KateHighlighting::readWordWrapConfig()
+void KateHighlighting::readWordWrapConfig()
 {
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readWordWrapConfig:BEGIN"<<endl;
@@ -2214,7 +2205,7 @@ QString KateHighlighting::readWordWrapConfig()
 
   kdDebug(13010)<<"readWordWrapConfig:END"<<endl;
 
-  return wordWrapDeliminator; // FIXME un-globalize
+  m_additionalData[buildIdentifier]->wordWrapDeliminator = wordWrapDeliminator;
 }
 
 void KateHighlighting::readIndentationConfig()
@@ -2434,7 +2425,6 @@ void KateHighlighting::makeContextList()
   KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlighting Parser"));
 
   // we have finished
-//   deliminator = getCommentString(4,0);
   building=false;
 }
 
@@ -2566,6 +2556,8 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
  */
 int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 {
+  kdDebug()<<"=== Adding hl with ident '"<<ident<<"'"<<endl;
+
   buildIdentifier=ident;
   KateSyntaxContextData *data, *datasub;
   KateHlItem *c;
@@ -2588,20 +2580,15 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   RegionList<<"!KateInternal_TopLevel!";
 
-  // Now save the comment and delimitor data. We associate it with the
-  // length of internalDataList, so when we look it up for an attrib,
-  // all the attribs added in a moment will be in the correct range
-  uint additionalDataIndex=internalIDList.count();
-  m_hlIndex.append( additionalDataIndex );
-  m_ctxIndex.append(ctx0);
+  m_hlIndex[internalIDList.count()] = ident;
+  m_additionalData.insert( ident, new HighlightPropertyBag );
 
-  QStringList additionaldata = readCommentConfig();
-  additionaldata << readGlobalKeywordConfig();
-  additionaldata << readWordWrapConfig();
+  // fill out the propertybag
+  readCommentConfig();
+  readGlobalKeywordConfig();
+  readWordWrapConfig();
 
   readFoldingConfig ();
-
-  m_additionalData.insert( additionalDataIndex, additionaldata );
 
   QString ctxName;
 
@@ -2664,6 +2651,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         dynamic = true;
 
       KateHlContext *ctxNew = new KateHlContext (
+        ident,
         attr,
         context,
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
@@ -2766,17 +2754,16 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   folding = folding || m_foldingIndentationSensitive;
 
   //BEGIN Resolve multiline region if possible
-  QStringList& commentData=m_additionalData[additionalDataIndex];
-  if (!commentData[MultiLineRegion].isEmpty()) {
-    long commentregionid=RegionList.findIndex(commentData[MultiLineRegion]);
+  if (!m_additionalData[ ident ]->multiLineRegion.isEmpty()) {
+    long commentregionid=RegionList.findIndex( m_additionalData[ ident ]->multiLineRegion );
     if (-1==commentregionid) {
-      errorsAndWarnings+=i18n("<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>").arg(buildIdentifier).arg(commentData[MultiLineRegion]);
-      commentData[MultiLineRegion]=QString();
+      errorsAndWarnings+=i18n("<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>").arg(buildIdentifier).arg( m_additionalData[ ident ]->multiLineRegion );
+      m_additionalData[ ident ]->multiLineRegion = QString();
       kdDebug()<<"ERROR comment region attribute could not be resolved"<<endl;
 
     } else {
-        commentData[MultiLineRegion]=QString::number(commentregionid+1);
-        kdDebug()<<"comment region resolved to:"<<m_additionalData[additionalDataIndex][MultiLineRegion]<<endl;
+      m_additionalData[ ident ]->multiLineRegion=QString::number(commentregionid+1);
+      kdDebug()<<"comment region resolved to:"<<m_additionalData[ ident ]->multiLineRegion<<endl;
     }
   }
   //END Resolve multiline region if possible

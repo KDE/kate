@@ -167,27 +167,6 @@ class KateHighlighting
     signed char commentRegion(int attr) const;
 
     /**
-     * Defines positions in the additional data list.
-     * FIXME this (m_additionaldata) is now well designed, since anyone can mainpulate
-     * the stringlist from anywhere. It allready broke once, and it will break
-     * again. So we need a class instead of the stringlist.
-     */
-    enum additionalDataType {
-      Start=0,
-      End,
-      MultiLineRegion,
-      SingleLine,
-      Deliminator,
-      WordWrapDeliminator
-    };
-
-    /**
-     * @return the comment marker @p which for the highlight corresponding to
-     *         @p attrib.
-     */
-    QString getCommentString( int which, int attrib ) const;
-
-    /**
      * @return the mulitiline comment start marker for the highlight
      * corresponding to @p attrib.
      */
@@ -234,9 +213,9 @@ class KateHighlighting
     int addToContextList(const QString &ident, int ctx0);
     void addToKateHlItemDataList();
     void createKateHlItemData (KateHlItemDataList &list);
-    QString readGlobalKeywordConfig();
-    QString readWordWrapConfig();
-    QStringList readCommentConfig();
+    void readGlobalKeywordConfig();
+    void readWordWrapConfig();
+    void readCommentConfig();
     void readIndentationConfig ();
     void readFoldingConfig ();
 
@@ -252,15 +231,7 @@ class KateHighlighting
     /**
      * @return the key to use for @p attrib in m_additionalData.
      */
-    int hlKeyForAttrib( int attrib ) const { return hlKeyForList( &m_hlIndex, attrib ); }
-    /**
-     * @return the key to use for @p context in m_additionalData.
-     */
-    int hlKeyForContext( int context ) const { return hlKeyForList( &m_ctxIndex, context ); }
-    /**
-     * Does the work for hlKeyForAttrib and hlKeyForContext
-     */
-    int hlKeyForList( const IntList *, int ) const;
+    QString hlKeyForAttrib( int attrib ) const;
 
     KateHlItemDataList internalIDList;
 
@@ -308,23 +279,40 @@ class KateHighlighting
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
 
     /**
-     * This contains a list of comment data, the deliminator string and
-     * wordwrap deliminator pr highlight.
-     * The key is the highlights entry position in internalIDList.
-     * This is used to look up the correct comment and delimitor strings
-     * based on the attrtibute.
+     * This class holds the additional properties for one highlight
+     * definition, such as comment strings, deliminators etc.
+     *
+     * When a highlight is added, a instance of this class is appended to
+     * m_additionalData, and the current position in the attrib and context
+     * arrays are stored in the indexes for look up. You can then use
+     * hlKeyForAttrib or hlKeyForContext to find the relevant instance of this
+     * class from m_additionalData.
+     *
+     * If you need to add a property to a highlight, add it here.
      */
-    QMap<int, QStringList> m_additionalData;
+    class HighlightPropertyBag {
+      public:
+        QString singleLineCommentMarker;
+        QString multiLineCommentStart;
+        QString multiLineCommentEnd;
+        QString multiLineRegion;
+        QString deliminator;
+        QString wordWrapDeliminator;
+    };
 
     /**
-     * fast lookup of hl properties, based on attribute index
+     * Highlight properties for each included highlight definition.
+     * The key is the identifier
      */
-    IntList m_hlIndex;
+    QDict<HighlightPropertyBag> m_additionalData;
 
     /**
-     * fast lookup of hl properties, based on context index
+     * Fast lookup of hl properties, based on attribute index
+     * The key is the starting index in the attribute array for each file.
+     * @see hlKeyForAttrib
      */
-    IntList m_ctxIndex;
+    QMap<int, QString> m_hlIndex;
+
 
     QString extensionSource;
     QValueList<QRegExp> regexpExtensions;

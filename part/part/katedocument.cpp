@@ -3105,10 +3105,14 @@ bool KateDocument::removeStartStopCommentFromSelection()
   int sc = selectStart.col;
   int ec = selectEnd.col;
 
-  if ((ec == 0) && (el > 0))
-  {
-    el--;
-    ec = buffer->line(el)->length() - 1;
+  // The selection ends on the char before selectEnd 
+  if (ec != 0) {
+    ec--;
+  } else {
+    if (el > 0) {
+      el--;
+      ec = buffer->line(el)->length() - 1;
+    }
   }
 
   int startCommentLen = startComment.length();
@@ -3129,8 +3133,8 @@ bool KateDocument::removeStartStopCommentFromSelection()
     editEnd ();
 
     // Set the new selection
-    ec -= endComment.length() + ( (el == sl) ? startComment.length() : 0 );
-    setSelection(sl, sc, el, ec);
+    ec -= endCommentLen + ( (el == sl) ? startCommentLen : 0 );
+    setSelection(sl, sc, el, ec + 1);
   }
 
   return remove;

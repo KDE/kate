@@ -1,3 +1,7 @@
+2002-08-27 Christoph Cullmann <cullmann@kde.org>
+  * extended the context signed char to a uint ;)
+  * some folding fixes (hopefully)
+
 2002-08-26 Christoph Cullmann <cullmann@kde.org>
   * Fixes for folding, cleanup, move folding tree into the buffer,
     add some inliner's

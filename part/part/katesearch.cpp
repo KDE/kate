@@ -423,7 +423,7 @@ bool KateSearch::askContinue()
 
   return KMessageBox::Yes == KMessageBox::questionYesNo(
      view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
-     i18n("&Continue"), i18n("&Stop") );
+     KStdGuiItem::cont(), i18n("&Stop") );
 }
 
 QString KateSearch::getSearchText()

@@ -13,11 +13,16 @@ class KateCmdLine : public KLineEdit
     KateCmdLine (KateView *view);
     virtual ~KateCmdLine ();
 
-  public slots:
+  private slots:
     void slotReturnPressed ( const QString& cmd );
+
+  protected:
+    void focusInEvent ( QFocusEvent *ev );
 
   private:
     KateView *m_view;
+    bool m_msgMode;
+    QString m_oldText;
 };
 
 #endif

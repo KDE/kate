@@ -260,6 +260,9 @@ void KateView::setupActions()
       SLOT(capitalize()), ac, "tools_capitalize" );
     a->setWhatsThis( i18n("Capitalize the selection, or the word under the "
       "cursor if no text is selected.") );
+
+    a = new KAction( i18n("Join Lines"), CTRL + Qt::Key_J, this,
+      SLOT( joinLines() ), ac, "tools_join_lines" );
   }
   else
   {
@@ -862,6 +865,18 @@ void KateView::gotoLine()
 void KateView::gotoLineNumber( int line )
 {
   m_viewInternal->updateCursor( KateTextCursor( line, 0 ) );
+}
+
+void KateView::joinLines()
+{
+  int first = m_doc->selStartLine();
+  int last = m_doc->selEndLine();
+  int left = m_doc->textLine( last ).length() - m_doc->selEndCol();
+  m_doc->joinLines( first, m_doc->selEndLine() );
+  m_doc->selectEnd.setLine( first );
+  m_doc->selectEnd.setCol( m_doc->textLine( first ).length() - left );
+  tagLines( first, last );
+  repaintText( true );
 }
 
 void KateView::readSessionConfig(KConfig *config)

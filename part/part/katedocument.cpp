@@ -3909,6 +3909,18 @@ void KateDocument::transform( KateView *, const KateTextCursor &c,
   editEnd();
 }
 
+void KateDocument::joinLines( uint first, uint last )
+{
+  editStart();
+  int l( first );
+  while ( first < last )
+  {
+    editUnWrapLine( l );
+    first++;
+  }
+  editEnd();
+}
+
 QString KateDocument::getWord( const KateTextCursor& cursor ) {
   int start, end, len;
 

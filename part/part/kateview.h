@@ -208,6 +208,10 @@ class KateView : public Kate::View,
       the word under the cursor.
     */
     void capitalize() { m_doc->transform( this, m_viewInternal->cursor, KateDocument::Capitalize ); }
+    /**
+      Joins lines touched by the selection
+    */
+    void joinLines();
 
 
     void keyReturn()          { m_viewInternal->doReturn();          }

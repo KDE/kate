@@ -559,6 +559,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
       the word under the cursor is transformed.
     */
     void transform ( KateView *view, const KateTextCursor &, TextTransform );
+    /**
+      Unwrap a range of lines.
+    */
+    void joinLines( uint first, uint last );
 
   private:
     void optimizeLeadingSpace( uint line, int flags, int change );

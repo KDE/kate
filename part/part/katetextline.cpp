@@ -243,9 +243,9 @@ bool TextLine::searchText (unsigned int startCol, const QString &text, unsigned 
   int index;
 
   if (backwards)
-    index = QString (this->text.data(), this->text.size()).findRev (text, startCol, casesensitive);
+    index = QConstString (this->text.data(), this->text.size()).string().findRev (text, startCol, casesensitive);
   else
-    index = QString (this->text.data(), this->text.size()).find (text, startCol, casesensitive);
+    index = QConstString (this->text.data(), this->text.size()).string().find (text, startCol, casesensitive);
 
    if (index > -1)
 	{
@@ -262,9 +262,9 @@ bool TextLine::searchText (unsigned int startCol, const QRegExp &regexp, unsigne
   int index; 
  
   if (backwards)
-    index = regexp.searchRev (QString (this->text.data(), this->text.size()), startCol);
+    index = regexp.searchRev (QConstString (this->text.data(), this->text.size()).string(), startCol);
   else
-    index = regexp.search (QString (this->text.data(), this->text.size()), startCol);
+    index = regexp.search (QConstString (this->text.data(), this->text.size()).string(), startCol);
  
    if (index > -1) 
 	{ 

@@ -523,7 +523,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   m_dynwrapIndicatorsLabel->setBuddy(m_dynwrapIndicatorsCombo);
 
   m_dynwrapAlignLevel = new KIntNumInput(gbWordWrap);
-  m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth"));
+  m_dynwrapAlignLevel->setLabel(i18n("Vertically align dynamically wrapped lines to indentation depth:"));
   m_dynwrapAlignLevel->setRange(0, 80, 10);
   m_dynwrapAlignLevel->setSuffix(i18n("% of view width"));
   m_dynwrapAlignLevel->setSpecialValueText(i18n("Disabled"));

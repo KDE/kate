@@ -903,15 +903,15 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
   gbBoxProps = new QGroupBox( 2, Qt::Horizontal, i18n("Box Properties"), this );
   lo->addWidget( gbBoxProps );
 
-  QLabel *lBoxWidth = new QLabel( i18n("W&idth"), gbBoxProps );
+  QLabel *lBoxWidth = new QLabel( i18n("W&idth:"), gbBoxProps );
   sbBoxWidth = new QSpinBox( 1, 100, 1, gbBoxProps );
   lBoxWidth->setBuddy( sbBoxWidth );
 
-  QLabel *lBoxMargin = new QLabel( i18n("&Margin"), gbBoxProps );
+  QLabel *lBoxMargin = new QLabel( i18n("&Margin:"), gbBoxProps );
   sbBoxMargin = new QSpinBox( 0, 100, 1, gbBoxProps );
   lBoxMargin->setBuddy( sbBoxMargin );
 
-  QLabel *lBoxColor = new QLabel( i18n("Co&lor"), gbBoxProps );
+  QLabel *lBoxColor = new QLabel( i18n("Co&lor:"), gbBoxProps );
   kcbtnBoxColor = new KColorButton( gbBoxProps );
   lBoxColor->setBuddy( kcbtnBoxColor );
 

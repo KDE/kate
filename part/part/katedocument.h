@@ -710,9 +710,7 @@ class KateDocument : public Kate::Document
     bool hlSetByUser;
 
     QString myEncoding;
-
-    QWidget *pseudoModal;   //the replace prompt is pseudo modal
-
+       
     /**
      * updates mTime to reflect file on fs.
      * called from constructor and from saveFile.

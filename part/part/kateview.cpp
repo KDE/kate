@@ -113,9 +113,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   else
   {
     if (doc->m_bReadOnly)
-      myDoc->setXMLFile( "katepartreadonlyui.rc" );
+      setXMLFile( "katepartreadonlyui.rc" );
     else
-      myDoc->setXMLFile( "katepartui.rc" );
+      setXMLFile( "katepartui.rc" );
 
     if (doc->m_bBrowserView)
     {
@@ -158,7 +158,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
       plugin->setView (this);
       insertChildClient (plugin);
     }
-  }
+  }     
+  
+  if (doc->m_bSingleViewMode)
+    doc->insertChildClient (this);
 }
 
 KateView::~KateView()
@@ -254,11 +257,6 @@ KAccel* KateView::createEditKeys()
 void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
-
-  if (myDoc->m_bSingleViewMode)
-  {
-    ac = myDoc->actionCollection ();
-  }
 
   if (!myDoc->m_bReadOnly)
   {

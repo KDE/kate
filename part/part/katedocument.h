@@ -367,11 +367,10 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
 
-    FontStruct & getFontStruct(WhichFont wf);
-    void setFont (WhichFont wf, QFont font);
-    QFont getFont (WhichFont wf);
-
-    KateFontMetrics getFontMetrics (WhichFont wf);
+    const FontStruct& getFontStruct( WhichFont wf );
+    void setFont( WhichFont wf, QFont font );
+    const QFont& getFont( WhichFont wf );
+    const KateFontMetrics& getFontMetrics( WhichFont wf );
 
     bool selectBounds(uint line, uint &start, uint &end, uint lineLength);
 

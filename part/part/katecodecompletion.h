@@ -1,13 +1,13 @@
 /***************************************************************************
-                          katecodecompletion_iface_impl.h  -  description
+                          katecodecompletion.h  -  description
                              -------------------
-	begin		: Sun Nov 18 20:00 CET 2001
-	copyright	: (C) 2001 by Joseph Wenninger
-	email		: jowenn@kde.org
-	taken from KDEVELOP:
-	begin		: Sam Jul 14 18:20:00 CEST 2001
-	copyright	: (C) 2001 by Victor Röder
-	email		: Victor_Roeder@GMX.de
+  begin      : Sun Nov 18 20:00 CET 2001
+  copyright  : (C) 2001 Joseph Wenninger <jowenn@kde.org>
+               (C) 2002 John Firebaugh <jfirebaugh@kde.org>
+               
+  taken from KDEVELOP:
+  begin   : Sam Jul 14 18:20:00 CEST 2001
+  copyright : (C) 2001 by Victor Röder <Victor_Roeder@GMX.de>
  ***************************************************************************/
 
 /******** Partly based on the ArgHintWidget of Qt3 by Trolltech AS *********/
@@ -21,23 +21,19 @@
  *                                                                         *
  ***************************************************************************/
 
-#ifndef __CODECOMPLETION_IMPL_H__
-#define __CODECOMPLETION_IMPL_H__
-
-#include "../interfaces/view.h"
+#ifndef __KateCodeCompletion_H__
+#define __KateCodeCompletion_H__
 
 #include <qvaluelist.h>
 #include <qstringlist.h>
 #include <qvbox.h>
 #include <qlistbox.h>
 #include <qlabel.h>
+
 #include <ktexteditor/codecompletioninterface.h>
 
-//class KWrite;
 class KDevArgHint;
-
 class KateView;
-
 
 class KateCodeCompletionCommentLabel : public QLabel
 {
@@ -59,44 +55,45 @@ public:
 };
 
 
-class CodeCompletion_Impl : public QObject {
+class KateCodeCompletion : public QObject
+{
   Q_OBJECT
-    public:
 
-  CodeCompletion_Impl(KateView *view);
+public:
+  KateCodeCompletion(KateView *view);
 
-  void showArgHint ( QStringList functionList, const QString& strWrapping, const QString& strDelimiter );
-  void showCompletionBox(QValueList<KTextEditor::CompletionEntry> complList,int offset=0, bool casesensitive=true);
-  bool eventFilter( QObject *o, QEvent *e );
-
-private:
-  void updateBox(bool newCoordinate=false);
-  KDevArgHint* m_pArgHint;
-  KateView *m_view;
-  QVBox *m_completionPopup;
-  QListBox *m_completionListBox;
-  QValueList<KTextEditor::CompletionEntry> m_complList;
-  uint m_lineCursor;
-  uint m_colCursor;
-  int m_offset;
-  bool m_caseSensitive;
-
-  KateCodeCompletionCommentLabel *m_commentLabel;
-  void deleteCommentLabel();
+  void showArgHint(
+      QStringList functionList, const QString& strWrapping, const QString& strDelimiter );
+  void showCompletionBox( 
+      QValueList<KTextEditor::CompletionEntry> entries, int offset = 0, bool casesensitive = true );
+  bool eventFilter( QObject* o, QEvent* e );
 
 public slots:
-	void slotCursorPosChanged();
-	void showComment();
+  void slotCursorPosChanged();
+  void showComment();
 
 signals:
-    void completionAborted();
-    void completionDone();
-    void argHintHidden();
-    virtual void completionDone(KTextEditor::CompletionEntry);
-    virtual void filterInsertString(KTextEditor::CompletionEntry*,QString *);
+  void completionAborted();
+  void completionDone();
+  void argHintHidden();
+  void completionDone(KTextEditor::CompletionEntry);
+  void filterInsertString(KTextEditor::CompletionEntry*,QString *);
+
+private:
+  void abortCompletion();
+  void complete( KTextEditor::CompletionEntry );
+  void updateBox( bool newCoordinate = false );
+
+  KDevArgHint*    m_pArgHint;
+  KateView*       m_view;
+  QVBox*          m_completionPopup;
+  QListBox*       m_completionListBox;
+  QValueList<KTextEditor::CompletionEntry> m_complList;
+  uint            m_lineCursor;
+  uint            m_colCursor;
+  int             m_offset;
+  bool            m_caseSensitive;
+  KateCodeCompletionCommentLabel* m_commentLabel;
 };
-
-
-
 
 #endif

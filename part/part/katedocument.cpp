@@ -2212,7 +2212,7 @@ bool KateDocument::isModified() const {
 // Kate specific stuff ;)
 //
 
-FontStruct & KateDocument::getFontStruct(WhichFont wf)
+const FontStruct& KateDocument::getFontStruct( WhichFont wf )
 {
   return (wf == ViewFont) ? viewFont : printFont;
 }
@@ -4150,11 +4150,21 @@ uint KateDocument::editableMarks()
  * End of the implementaion of the MarkInterfaceExtension
  **/
 
+const QFont& KateDocument::getFont( WhichFont wf )
+{
+  if( wf == ViewFont)
+    return viewFont.myFont;
+  else
+    return printFont.myFont;
+}
 
-
-QFont KateDocument::getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;}
-
-KateFontMetrics KateDocument::getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;}
+const KateFontMetrics& KateDocument::getFontMetrics( WhichFont wf )
+{
+  if( wf == ViewFont )
+    return viewFont.myFontMetrics;
+  else
+    return printFont.myFontMetrics;
+}
 
 TextLine::Ptr KateDocument::kateTextLine(uint i)
 {

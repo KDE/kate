@@ -27,7 +27,7 @@
 #include "katedocument.h"
 #include "katesearch.h"
 #include "kateviewinternal.h"
-#include "katecodecompletion_iface_impl.h"
+#include "katecodecompletion.h"
 
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/viewstatusmsginterface.h>
@@ -51,7 +51,7 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
     friend class KateUndoGroup;
     friend class KateUndo;
     friend class KateIconBorder;
-    friend class CodeCompletion_Impl;
+    friend class KateCodeCompletion;
 
   public:
     KateView( KateDocument* doc, QWidget* parent = 0L, const char* name = 0 );
@@ -77,7 +77,7 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
   //
   public:
     void installPopup( QPopupMenu* menu ) { m_rmbMenu = menu; }
-    QPopupMenu* popup() const              { return m_rmbMenu;     }
+    QPopupMenu* popup() const             { return m_rmbMenu; }
     
   //
   // KTextEditor::ViewCursorInterface
@@ -107,9 +107,9 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
   //
   public:
     void showArgHint( QStringList arg1, const QString& arg2, const QString& arg3 )
-        { m_CCImpl->showArgHint( arg1, arg2, arg3 ); }
+        { m_codeCompletion->showArgHint( arg1, arg2, arg3 ); }
     void showCompletionBox( QValueList<KTextEditor::CompletionEntry> arg1, int offset = 0, bool cs = true )
-        { m_CCImpl->showCompletionBox( arg1, offset, cs ); }
+        { m_codeCompletion->showCompletionBox( arg1, offset, cs ); }
   signals:
     void completionAborted();
     void completionDone();
@@ -296,7 +296,7 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
     KateSearch*            m_search;
     KateBookmarks*         m_bookmarks;
     QPopupMenu*            m_rmbMenu;
-    CodeCompletion_Impl*   m_CCImpl;
+    KateCodeCompletion*    m_codeCompletion;
 
     bool       m_active;
     bool       m_hasWrap;

@@ -47,7 +47,6 @@ class KateViewInternal : public QScrollView
     friend class KateUndo;
     friend class KateView;
     friend class KateIconBorder;
-    friend class CodeCompletion_Impl;
 
   public:
     KateViewInternal( KateView* view, KateDocument* doc );

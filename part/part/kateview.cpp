@@ -105,7 +105,7 @@ KateView::~KateView()
     m_doc->removeView( this );
 
   delete m_viewInternal;
-  delete m_CCImpl;
+  delete m_codeCompletion;
   
   KateFactory::deregisterView (this);
 }
@@ -399,12 +399,17 @@ void KateView::setupCodeFolding()
 
 void KateView::setupCodeCompletion()
 {
-  m_CCImpl = new CodeCompletion_Impl(this);
-  connect(m_CCImpl,SIGNAL(completionAborted()),this,SIGNAL(completionAborted()));
-  connect(m_CCImpl,SIGNAL(completionDone()),this,SIGNAL(completionDone()));
-  connect(m_CCImpl,SIGNAL(argHintHidden()),this,SIGNAL(argHintHidden()));
-  connect(m_CCImpl,SIGNAL(completionDone(KTextEditor::CompletionEntry)),this,SIGNAL(completionDone(KTextEditor::CompletionEntry)));
-  connect(m_CCImpl,SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString *)),this,SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString *)));
+  m_codeCompletion = new KateCodeCompletion(this);
+  connect( m_codeCompletion, SIGNAL(completionAborted()),
+           this,             SIGNAL(completionAborted()));
+  connect( m_codeCompletion, SIGNAL(completionDone()),
+           this,             SIGNAL(completionDone()));
+  connect( m_codeCompletion, SIGNAL(argHintHidden()),
+           this,             SIGNAL(argHintHidden()));
+  connect( m_codeCompletion, SIGNAL(completionDone(KTextEditor::CompletionEntry)),
+           this,             SIGNAL(completionDone(KTextEditor::CompletionEntry)));
+  connect( m_codeCompletion, SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)),
+           this,             SIGNAL(filterInsertString(KTextEditor::CompletionEntry*,QString*)));
 }
 
 void KateView::setupViewPlugins()

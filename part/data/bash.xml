@@ -3,10 +3,10 @@
 [
 	<!ENTITY funcname "[A-Za-z_:][A-Za-z0-9_:#&#37;@-]*">
 	<!ENTITY varname  "[A-Za-z_][A-Za-z0-9_]*">
-	<!ENTITY eos      "(?=($|\s))">
-	<!ENTITY noword   "(?![\w$+-])">
+	<!ENTITY eos      "(?=($|\s))">			<!-- eol or space following -->
+	<!ENTITY noword   "(?![\w$+-])">		<!-- no word, $, + or - following -->
 ]>
-<language name="Bash" version="2.00" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Bash" version="2.01" kateversion="2.3" section="Scripts" extensions="*.sh;*.bash;*.ebuild;*.eclass" mimetype="application/x-shellscript" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
 <!-- (c) 2004 by Wilbert Berendsen, wilbert@kde.nl
     Released under the LGPL, part of kdelibs/kate -->
@@ -419,6 +419,8 @@
       <item> kdialog </item>
       <item> kfile </item>
       <item> xhost </item>
+      <item> xmodmap </item>
+      <item> xset </item>
     </list>
 
             
@@ -517,7 +519,7 @@
         <!-- handle here-string -->
 	<StringDetect attribute="Redirection" context="#stay" String="&lt;&lt;&lt;" />
 	<!-- handle here document -->
-	<StringDetect attribute="Redirection" context="HereDoc" String="&lt;&lt;" />
+	<StringDetect attribute="Redirection" context="HereDoc" String="&lt;&lt;" lookAhead="true" />
         <!-- handle process subst -->
         <RegExpr attribute="Redirection" context="ProcessSubst" String="[&lt;&gt;]\(" />
         <!-- handle redirection -->
@@ -754,69 +756,48 @@
 	<IncludeRules context="FindAll" />
       </context>
 
-      <!-- HereDoc consumes Here-documents.
-      
-      This is difficult to do because one can't make Kate remember the string used as delimiter.
-      So we support EOF, and the combination _{0,2}E[ON][A-Z_]+ .
-      We support also indented or not, and quoted or not.  More can be added if so desired.
-      
-      If the delimiters are not matched, the text will be interpreted as shell code, which may
-      look odd if there are unbalanced quotes in it.
-       
-       -->
-      <context attribute="Normal Text" lineEndContext="#stay" name="HereDoc" fallthrough="true" fallthroughContext="#pop">
-	<RegExpr attribute="Redirection" context="HDocEOF"    String="\s*EOF\b" />
-        <RegExpr attribute="Redirection" context="HDocEOF Q"  String="\s*([&quot;'])EOF\1" />
-        <RegExpr attribute="Redirection" context="HDocEOF I"  String="-\s*EOF\b" />
-        <RegExpr attribute="Redirection" context="HDocEOF IQ" String="-\s*([&quot;'])EOF\1" />
-
-	<RegExpr attribute="Redirection" context="HDocOTH"    String="\s*_{0,2}E[ON][A-Z_]+\b" />
-        <RegExpr attribute="Redirection" context="HDocOTH Q"  String="\s*([&quot;'])_{0,2}E[ON][A-Z_]+\1" />
-        <RegExpr attribute="Redirection" context="HDocOTH I"  String="-\s*_{0,2}E[ON][A-Z_]+\b" />
-        <RegExpr attribute="Redirection" context="HDocOTH IQ" String="-\s*([&quot;'])_{0,2}E[ON][A-Z_]+\1" />
-
-	<DetectChar attribute="Redirection" context="#pop" char="-" />
+      <!-- HereDoc consumes Here-documents. It is called at the beginning of the "<<" construct. -->
+      <context attribute="Normal Text" lineEndContext="#stay" name="HereDoc">
+	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*&quot;(&varname;)&quot;)" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*'(&varname;)')" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocQ"   String="(&lt;&lt;\s*\\(&varname;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocNQ"  String="(&lt;&lt;\s*(&varname;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*&quot;(&varname;)&quot;)" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*'(&varname;)')" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocIQ"  String="(&lt;&lt;-\s*\\(&varname;))" lookAhead="true" />
+	<RegExpr attribute="Redirection" context="HereDocINQ" String="(&lt;&lt;-\s*(&varname;))" lookAhead="true" />
+	<StringDetect attribute="Redirection" context="#pop"  String="&lt;&lt;" /><!-- always met -->
       </context>
 
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocSub">
-      	<RegExpr attribute="Normal Text" context="#stay" String="\\[$`\\]" />
-      	<IncludeRules context="FindSubstitutions" />
+      <context attribute="Normal Text" lineEndContext="#pop" name="HereDocRemainder">
+	<IncludeRules context="FindAll" />
       </context>
-      
-      <context attribute="Normal Text" lineEndContext="HDocEOF 2 "  name="HDocEOF"><IncludeRules context="FindAll" /></context>
-      <context attribute="Normal Text" lineEndContext="HDocEOF Q2"  name="HDocEOF Q"><IncludeRules context="FindAll" /></context>
-      <context attribute="Normal Text" lineEndContext="HDocEOF I2"  name="HDocEOF I"><IncludeRules context="FindAll" /></context>
-      <context attribute="Normal Text" lineEndContext="HDocEOF IQ2" name="HDocEOF IQ"><IncludeRules context="FindAll" /></context>
-      
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocEOF 2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^EOF(?=\s*($|\)))" />
-	<IncludeRules context="HDocSub" /></context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocEOF Q2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^EOF(?=\s*($|\)))" /></context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocEOF I2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^\s*EOF(?=\s*($|\)))" />
-	<IncludeRules context="HDocSub" /></context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocEOF IQ2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^\s*EOF(?=\s*($|\)))" /></context>
-    
-      <context attribute="Normal Text" lineEndContext="HDocOTH 2 "  name="HDocOTH"><IncludeRules context="FindAll" /></context>
-      <context attribute="Normal Text" lineEndContext="HDocOTH Q2"  name="HDocOTH Q"><IncludeRules context="FindAll" /></context>
-      <context attribute="Normal Text" lineEndContext="HDocOTH I2"  name="HDocOTH I"><IncludeRules context="FindAll" /></context>
-      <context attribute="Normal Text" lineEndContext="HDocOTH IQ2" name="HDocOTH IQ"><IncludeRules context="FindAll" /></context>
-      
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocOTH 2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^_{0,2}E[ON][A-Z_]+(?=\s*($|\)))" />
-	<IncludeRules context="HDocSub" /></context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocOTH Q2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^_{0,2}E[ON][A-Z_]+(?=\s*($|\)))" /></context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocOTH I2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^\s*_{0,2}E[ON][A-Z_]+(?=\s*($|\)))" />
-	<IncludeRules context="HDocSub" /></context>
-      <context attribute="Normal Text" lineEndContext="#stay" name="HDocOTH IQ2">
-        <RegExpr attribute="Redirection" context="#pop#pop#pop" String="^\s*_{0,2}E[ON][A-Z_]+(?=\s*($|\)))" /></context>
-    
+
+      <context attribute="Normal Text" lineEndContext="#stay" name="HereDocQ" dynamic="true">
+	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="^%2[\s;]*$" dynamic="true" />
+      </context>
+
+      <context attribute="Normal Text" lineEndContext="#stay" name="HereDocNQ" dynamic="true">
+	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="^%2[\s;]*$" dynamic="true" />
+	<RegExpr attribute="Escape" context="#stay" String="\\[`$\\]" />
+	<IncludeRules context="FindSubstitutions" />
+      </context>
+
+      <context attribute="Normal Text" lineEndContext="#stay" name="HereDocIQ" dynamic="true">
+	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="^\s*%2[\s;]*$" dynamic="true" />
+      </context>
+
+      <context attribute="Normal Text" lineEndContext="#stay" name="HereDocINQ" dynamic="true">
+	<RegExpr attribute="Redirection" context="HereDocRemainder" String="%1" dynamic="true" />
+	<RegExpr attribute="Redirection" context="#pop#pop" String="^\s*%2[\s;]*$" dynamic="true" />
+	<RegExpr attribute="Escape" context="#stay" String="\\[`$\\]" />
+	<IncludeRules context="FindSubstitutions" />
+      </context>
+
     </contexts>
-    
     
     <itemDatas>
       <itemData name="Normal Text"	defStyleNum="dsNormal" />

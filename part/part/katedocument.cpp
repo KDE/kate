@@ -112,6 +112,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 {
   KateFactory::registerDocument (this);
   
+  setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
+  setClipboardInterfaceDCOPSuffix (documentDCOPSuffix());
+  setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setEditInterfaceDCOPSuffix (documentDCOPSuffix());
   
   regionTree=new KateCodeFoldingTree(this);

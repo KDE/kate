@@ -76,6 +76,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_hasWrap( false )
 {
   KateFactory::registerView( this );
+  
+  setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
+  
+  
   setInstance( KateFactory::instance() );
   doc->addView( this );
 

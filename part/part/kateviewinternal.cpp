@@ -955,6 +955,14 @@ void KateViewInternal::editStart()
 
 void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
 {
+  if (cursorCacheChanged)
+  {
+    cursorCacheChanged = false;
+    updateCursor( cursorCache );
+  }
+  
+  updateView();
+
     if (tagLinesFrom > -1)
     {
       int startTagging = QMIN( tagLinesFrom, editTagLineStart );
@@ -964,12 +972,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
     else
       tagRealLines (editTagLineStart, editTagLineEnd);
 
-    if (cursorCacheChanged)
-      updateCursor( cursorCache );
-    updateView();
-
     tagLinesFrom = -1;
-    cursorCacheChanged = false;
 }
 
 void KateViewInternal::editRemoveText(int line, int col, int len)

@@ -1941,28 +1941,70 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
   return tmpItem;
 }
 
-
-/**
- * See if a character is "a word" character, that is not a quote or
- * listed in the famous "diliminator" string.
- *
- * @param c Character to investigate
- * @return true, if c is no deliminator
- */
-bool KateHighlighting::isInWord(QChar c)
+int KateHighlighting::hlKeyForAttrib( int attrib ) const
 {
+  int k = 0;
+  IntList::const_iterator it = m_hlIndex.constEnd();
+  while ( it != m_hlIndex.constBegin() )
+  {
+    --it;
+    k = (*it);
+    if ( attrib >= k )
+      break;
+  }
+  kdDebug()<<"=== hlKeyForAttrib( "<<attrib<<" ): returning "<<k<<endl;
+  return k;
+}
+
+bool KateHighlighting::isInWord( QChar c, int attrib ) const
+{
+  int k = hlKeyForAttrib( attrib );
   static const QString sq("\"'");
-  return deliminator.find(c) == -1 && sq.find(c) == -1;
+  return m_additionalData[k][3].find(c) < 0 && sq.find(c) < 0;
+}
+
+bool KateHighlighting::canComment( int startAttrib, int endAttrib )
+{
+  int k = hlKeyForAttrib( startAttrib );
+  return ( k == hlKeyForAttrib( endAttrib ) &&
+      ( ( !m_additionalData[k][0].isEmpty() && !m_additionalData[k][1].isEmpty() ) ||
+       m_additionalData[k][2].isEmpty() ) );
+}
+
+QString KateHighlighting::getCommentString( int which, int attrib ) const
+{
+  int k = hlKeyForAttrib( attrib );
+  return m_additionalData[k][which];
+}
+
+QString KateHighlighting::getCommentStart( int attrib ) const
+{
+  return getCommentString( Start, attrib );
+}
+
+QString KateHighlighting::getCommentEnd( int attrib ) const
+{
+  return getCommentString( End, attrib );
+}
+
+QString KateHighlighting::getCommentSingleLineStart( int attrib ) const
+{
+  return getCommentString( SingleLine, attrib );
 }
 
 /**
  * Helper for makeContextList. It parses the xml file for
  * information, how single or multi line comments are marked
+ *
+ * @return a stringlist containing the comment marker strings in the order
+ * multilineCommentStart, multilineCommentEnd, singlelineCommentMarker
  */
-void KateHighlighting::readCommentConfig()
+QStringList KateHighlighting::readCommentConfig()
 {
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
   KateSyntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("general","comment");
+
+  QString cmlStart, cmlEnd, cslStart;
 
   if (data)
   {
@@ -1986,14 +2028,19 @@ void KateHighlighting::readCommentConfig()
     cmlStart = "";
     cmlEnd = "";
   }
+  QStringList res;
+  res << cmlStart << cmlEnd << cslStart;
+  return res;
 }
 
 /**
  * Helper for makeContextList. It parses the xml file for information,
  * if keywords should be treated case(in)sensitive and creates the keyword
  * delimiter list. Which is the default list, without any given weak deliminiators
+ *
+ * @return the computed delimiter string.
  */
-void KateHighlighting::readGlobalKeywordConfig()
+QString KateHighlighting::readGlobalKeywordConfig()
 {
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readGlobalKeywordConfig:BEGIN"<<endl;
@@ -2041,8 +2088,9 @@ void KateHighlighting::readGlobalKeywordConfig()
   kdDebug(13010)<<"readGlobalKeywordConfig:END"<<endl;
 
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
-}
 
+  return deliminator; // FIXME un-globalize
+}
 
 void KateHighlighting::readFoldingConfig()
 {
@@ -2337,6 +2385,21 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
     // if the context we want to include had sub includes, they are already inserted there.
     KateHlContext *dest=contextList[ctx];
     KateHlContext *src=contextList[ctx1];
+//     kdDebug(3010)<<"linking included rules from "<<ctx<<" to "<<ctx1<<endl;
+
+    // We need to know if SRC is a embedded context's ctx0 entry.
+    // In that case, we set the attrib of dest to src.
+    // TODO make this configurable from within the xml files
+    for ( KateEmbeddedHlInfos::iterator it3 = embeddedHls.begin(); it3 != embeddedHls.end(); ++it3 )
+    {
+      if ( it3.data().context0 == ctx1 )
+      {
+//         kdDebug(13010)<<"=== this looks lik a import! "<<ctx1<<endl;
+        dest->attr = src->attr;
+        break;
+      }
+    }
+
     uint p=(*it1)->pos; //insert the included context's rules starting at position p
     for ( KateHlItem *c = src->items.first(); c; c=src->items.next(), p++ )
                         dest->items.insert(p,c);
@@ -2369,10 +2432,18 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     return 0;
   }
 
+
   RegionList<<"!KateInternal_TopLevel!";
-  readCommentConfig();
-  readGlobalKeywordConfig();
+
+  // Now save the comment and delimitor data. We associate it with the
+  // length of internalDataList, so when we look it up for an attrib,
+  // all the attribs added in a moment will be in the correct range
+  QStringList additionaldata = readCommentConfig();
+  additionaldata << readGlobalKeywordConfig();
   readFoldingConfig ();
+
+  m_additionalData.insert( internalIDList.count(), additionaldata );
+  m_hlIndex.append( (int)internalIDList.count() );
 
   QString ctxName;
 
@@ -2382,6 +2453,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   KateHlItemDataList iDl = internalIDList;
 
   createContextNameList(&ContextNameList,ctx0);
+
 
   kdDebug(13010)<<"Parsing Context structure"<<endl;
   //start the real work

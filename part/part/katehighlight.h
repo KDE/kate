@@ -59,6 +59,7 @@ typedef QPtrList<KateHlItemData> KateHlItemDataList;
 typedef QPtrList<KateHlData> KateHlDataList;
 typedef QMap<QString,KateEmbeddedHlInfo> KateEmbeddedHlInfos;
 typedef QMap<int*,QString> KateHlUnresolvedCtxRefs;
+typedef QValueList<int> IntList;
 
 //Item Properties: name, Item Style, Item Font
 class KateHlItemData : public KateAttribute
@@ -137,11 +138,53 @@ class KateHighlighting
     inline QString getIdentifier() const {return identifier;}
     void use();
     void release();
-    bool isInWord(QChar c);
+    // bool isInWord(QChar c); // ### obsolete
 
-    inline QString getCommentStart() const {return cmlStart;};
-    inline QString getCommentEnd()  const {return cmlEnd;};
-    inline QString getCommentSingleLineStart() const { return cslStart;};
+    // ### obsolete
+    // inline QString getCommentStart() const {return cmlStart;};
+    // inline QString getCommentEnd()  const {return cmlEnd;};
+    // inline QString getCommentSingleLineStart() const { return cslStart;};
+
+    /**
+     * @return true if the character @p c is not a deliminator character
+     *     for the corresponding highlight.
+     */
+    bool isInWord( QChar c, int attrib=0 ) const;
+
+    /**
+    * @return true if @p beginAttr and @p endAttr are members of the same
+    * highlight, and there are comment markers of either type in that.
+    */
+    bool canComment( int startAttr, int endAttr );
+
+    /**
+     * Define comment marker type.
+     */
+    enum commentData { Start, End, SingleLine };
+
+    /**
+     * @return the comment marker @p which for the highlight corresponding to
+     *         @p attrib.
+     */
+    QString getCommentString( int which, int attrib ) const;
+
+    /**
+     * @return the mulitiline comment start marker for the highlight
+     * corresponding to @p attrib.
+     */
+    QString getCommentStart( int attrib=0 ) const;
+
+    /**
+     * @return the muiltiline comment end marker for the highlight corresponding
+     * to @p attrib.
+     */
+    QString getCommentEnd( int attrib=0 ) const;
+
+    /**
+     * @return the single comment marker for the highlight corresponding
+     * to @p attrib.
+     */
+    QString getCommentSingleLineStart( int attrib=0 ) const;
 
     void clearAttributeArrays ();
 
@@ -165,8 +208,8 @@ class KateHighlighting
     int addToContextList(const QString &ident, int ctx0);
     void addToKateHlItemDataList();
     void createKateHlItemData (KateHlItemDataList &list);
-    void readGlobalKeywordConfig();
-    void readCommentConfig();
+    QString readGlobalKeywordConfig();
+    QStringList readCommentConfig();
     void readFoldingConfig ();
 
     // manipulates the ctxs array directly ;)
@@ -177,6 +220,11 @@ class KateHighlighting
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);
     int getIdFromString(QStringList *ContextNameList, QString tmpLineEndContext,/*NO CONST*/ QString &unres);
+
+    /**
+    * @return the key to use for @p attrib in m_additionalData.
+    */
+    int hlKeyForAttrib( int attrib ) const;
 
     KateHlItemDataList internalIDList;
 
@@ -197,9 +245,6 @@ class KateHighlighting
     QString weakDeliminator;
     QString deliminator;
 
-    QString cmlStart;
-    QString cmlEnd;
-    QString cslStart;
     QString iName;
     QString iSection;
     QString iWildcards;
@@ -219,10 +264,23 @@ class KateHighlighting
     uint itemData0;
     uint buildContext0Offset;
     KateHlIncludeRules includeRules;
-    QValueList<int> contextsIncludingSomething;
+    QValueList<int> contextsIncludingSomething; //### unused, can i remove it?
     bool m_foldingIndentationSensitive;
 
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
+
+    /**
+     * This contains a list of comment data + the deliminator string pr highlight.
+     * The key is the highlights entry position in internalIDList.
+     * This is used to look up the correct comment and delimitor strings
+     * based on the attrtibute.
+     */
+    QMap<int, QStringList> m_additionalData;
+
+    /**
+     * fast lookup of hl properties.
+     */
+    IntList m_hlIndex;
 
     QString extensionSource;
     QValueList<QRegExp> regexpExtensions;

@@ -21,7 +21,7 @@
 //BEGIN includes
 #include "katedocument.h"
 #include "katedocument.moc"
-                           
+
 #include "katefactory.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
@@ -1201,7 +1201,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->insertText (col, s.length(), s.unicode());
-  //removeTrailingSpace(line); // ### nessecary?
+  removeTrailingSpace(line); // ### nessecary?
 
   m_buffer->changeLine(line);
   editTagLine (line);
@@ -1739,7 +1739,7 @@ void KateDocument::updateModified()
        || ( undoItems.isEmpty() && docWasSavedWhenUndoWasEmpty ) )
   {
     setModified( false );
-    kdDebug() << k_funcinfo << "setting modified to false!" << endl;
+    kdDebug(13020) << k_funcinfo << "setting modified to false!" << endl;
   };
 }
 
@@ -3384,7 +3384,7 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
     }
   }
 
-  //kdDebug() << "replace With Op: " << line << " " << first_char << " " << space << endl;
+  //kdDebug(13020)  << "replace With Op: " << line << " " << first_char << " " << space << endl;
   replaceWithOptimizedSpace(line, first_char, space, flags);
 }
 
@@ -3492,9 +3492,9 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
   Add to the current line a comment line mark at
   the begining.
 */
-void KateDocument::addStartLineCommentToSingleLine(int line)
+void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 {
-  QString commentLineMark = m_highlight->getCommentSingleLineStart() + " ";
+  QString commentLineMark = m_highlight->getCommentSingleLineStart( attrib ) + " ";
   insertText (line, 0, commentLineMark);
 }
 
@@ -3502,9 +3502,9 @@ void KateDocument::addStartLineCommentToSingleLine(int line)
   Remove from the current line a comment line mark at
   the begining if there is one.
 */
-bool KateDocument::removeStartLineCommentFromSingleLine(int line)
+bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 {
-  QString shortCommentMark = m_highlight->getCommentSingleLineStart();
+  QString shortCommentMark = m_highlight->getCommentSingleLineStart( attrib );
   QString longCommentMark = shortCommentMark + " ";
 
   editStart();
@@ -3522,10 +3522,10 @@ bool KateDocument::removeStartLineCommentFromSingleLine(int line)
   Add to the current line a start comment mark at the
  begining and a stop comment mark at the end.
 */
-void KateDocument::addStartStopCommentToSingleLine(int line)
+void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 {
-  QString startCommentMark = m_highlight->getCommentStart() + " ";
-  QString stopCommentMark = " " + m_highlight->getCommentEnd();
+  QString startCommentMark = m_highlight->getCommentStart( attrib ) + " ";
+  QString stopCommentMark = " " + m_highlight->getCommentEnd( attrib );
 
   editStart();
 
@@ -3545,11 +3545,11 @@ void KateDocument::addStartStopCommentToSingleLine(int line)
   Remove from the current line a start comment mark at
   the begining and a stop comment mark at the end.
 */
-bool KateDocument::removeStartStopCommentFromSingleLine(int line)
+bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 {
-  QString shortStartCommentMark = m_highlight->getCommentStart();
+  QString shortStartCommentMark = m_highlight->getCommentStart( attrib );
   QString longStartCommentMark = shortStartCommentMark + " ";
-  QString shortStopCommentMark = m_highlight->getCommentEnd();
+  QString shortStopCommentMark = m_highlight->getCommentEnd( attrib );
   QString longStopCommentMark = " " + shortStopCommentMark;
 
   editStart();
@@ -3576,10 +3576,10 @@ bool KateDocument::removeStartStopCommentFromSingleLine(int line)
  mark at the begining and a stop comment mark
  at the end.
 */
-void KateDocument::addStartStopCommentToSelection()
+void KateDocument::addStartStopCommentToSelection( int attrib )
 {
-  QString startComment = m_highlight->getCommentStart();
-  QString endComment = m_highlight->getCommentEnd();
+  QString startComment = m_highlight->getCommentStart( attrib );
+  QString endComment = m_highlight->getCommentEnd( attrib );
 
   int sl = selectStart.line();
   int el = selectEnd.line();
@@ -3608,9 +3608,9 @@ void KateDocument::addStartStopCommentToSelection()
   Add to the current selection a comment line
  mark at the begining of each line.
 */
-void KateDocument::addStartLineCommentToSelection()
+void KateDocument::addStartLineCommentToSelection( int attrib )
 {
-  QString commentLineMark = m_highlight->getCommentSingleLineStart() + " ";
+  QString commentLineMark = m_highlight->getCommentSingleLineStart( attrib ) + " ";
 
   int sl = selectStart.line();
   int el = selectEnd.line();
@@ -3668,10 +3668,10 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
   Remove from the selection a start comment mark at
   the begining and a stop comment mark at the end.
 */
-bool KateDocument::removeStartStopCommentFromSelection()
+bool KateDocument::removeStartStopCommentFromSelection( int attrib )
 {
-  QString startComment = m_highlight->getCommentStart();
-  QString endComment = m_highlight->getCommentEnd();
+  QString startComment = m_highlight->getCommentStart( attrib );
+  QString endComment = m_highlight->getCommentEnd( attrib );
 
   int sl = selectStart.line();
   int el = selectEnd.line();
@@ -3719,9 +3719,9 @@ bool KateDocument::removeStartStopCommentFromSelection()
   Remove from the begining of each line of the
   selection a start comment line mark.
 */
-bool KateDocument::removeStartLineCommentFromSelection()
+bool KateDocument::removeStartLineCommentFromSelection( int attrib )
 {
-  QString shortCommentMark = m_highlight->getCommentSingleLineStart();
+  QString shortCommentMark = m_highlight->getCommentSingleLineStart( attrib );
   QString longCommentMark = shortCommentMark + " ";
 
   int sl = selectStart.line();
@@ -3769,9 +3769,22 @@ bool KateDocument::removeStartLineCommentFromSelection()
 */
 void KateDocument::comment( KateView *, uint line, int change)
 {
-  bool hasStartLineCommentMark = !(m_highlight->getCommentSingleLineStart().isEmpty());
-  bool hasStartStopCommentMark = ( !(m_highlight->getCommentStart().isEmpty())
-                                   && !(m_highlight->getCommentEnd().isEmpty()) );
+  // We need to check that we can sanely comment the selectino or region.
+  // It is if the attribute of the first and last character of the range to
+  // comment belongs to the same language definition.
+  KateTextLine::Ptr ln = kateTextLine( line );
+  int startAttrib = hasSelection() ? kateTextLine( selectStart.line() )->attribute( selectStart.col() ) : ln->attribute( ln->firstChar() );
+  int endAttrib = hasSelection() ? kateTextLine( selectEnd.line() )->attribute( selectEnd.col() ) : ln->attribute( ln->lastChar() );
+
+  if ( ! m_highlight->canComment( startAttrib, endAttrib ) )
+  {
+    kdDebug(13020)<<"canComment( "<<startAttrib<<", "<<endAttrib<<" ) returned false!"<<endl;
+    return;
+  }
+
+  bool hasStartLineCommentMark = !(m_highlight->getCommentSingleLineStart( startAttrib ).isEmpty());
+  bool hasStartStopCommentMark = ( !(m_highlight->getCommentStart( startAttrib ).isEmpty())
+      && !(m_highlight->getCommentEnd( endAttrib ).isEmpty()) );
 
   bool removed = false;
 
@@ -3780,9 +3793,9 @@ void KateDocument::comment( KateView *, uint line, int change)
     if ( !hasSelection() )
     {
       if ( hasStartLineCommentMark )
-        addStartLineCommentToSingleLine(line);
+        addStartLineCommentToSingleLine( line, startAttrib );
       else if ( hasStartStopCommentMark )
-        addStartStopCommentToSingleLine(line);
+        addStartStopCommentToSingleLine( line, startAttrib );
     }
     else
     {
@@ -3798,9 +3811,9 @@ void KateDocument::comment( KateView *, uint line, int change)
              ( selectStart.col() > m_buffer->plainLine( selectStart.line() )->firstChar() ) ||
                ( selectEnd.col() < ((int)m_buffer->plainLine( selectEnd.line() )->length()) )
          ) ) )
-        addStartStopCommentToSelection();
+        addStartStopCommentToSelection( startAttrib );
       else if ( hasStartLineCommentMark )
-        addStartLineCommentToSelection();
+        addStartLineCommentToSelection( startAttrib );
     }
   }
   else
@@ -3808,17 +3821,17 @@ void KateDocument::comment( KateView *, uint line, int change)
     if ( !hasSelection() )
     {
       removed = ( hasStartLineCommentMark
-                  && removeStartLineCommentFromSingleLine(line) )
+                  && removeStartLineCommentFromSingleLine( line, startAttrib ) )
         || ( hasStartStopCommentMark
-             && removeStartStopCommentFromSingleLine(line) );
+             && removeStartStopCommentFromSingleLine( line, startAttrib ) );
     }
     else
     {
       // anders: this seems like it will work with above changes :)
       removed = ( hasStartLineCommentMark
-                  && removeStartLineCommentFromSelection() )
+                  && removeStartLineCommentFromSelection( startAttrib ) )
         || ( hasStartStopCommentMark
-             && removeStartStopCommentFromSelection() );
+             && removeStartStopCommentFromSelection( startAttrib ) );
     }
   }
 }

@@ -626,7 +626,7 @@ class KateDocument : public Kate::Document,
       Otherwise they have both the value -1.
       @param line Line of the character which is examined first.
       @param col Column of the character which is examined first.
-      @returns True if the specified or a following character is not a space
+      @return True if the specified or a following character is not a space
                Otherwise false.
     */
     bool nextNonSpaceCharPos(int &line, int &col);
@@ -640,17 +640,47 @@ class KateDocument : public Kate::Document,
     */
     bool previousNonSpaceCharPos(int &line, int &col);
 
-    void addStartLineCommentToSingleLine(int line);
-    bool removeStartLineCommentFromSingleLine(int line);
+    /**
+    * Sets a comment marker as defined by the language providing the attribute
+    * @p attrib on the line @p line
+    */
+    void addStartLineCommentToSingleLine(int line, int attrib=0);
+    /**
+    * Removes a comment marker as defined by the language providing the attribute
+    * @p attrib on the line @p line
+    */
+    bool removeStartLineCommentFromSingleLine(int line, int attrib=0);
 
-    void addStartStopCommentToSingleLine(int line);
-    bool removeStartStopCommentFromSingleLine(int line);
+    /**
+    * @see addStartLineCommentToSingleLine.
+    */
+    void addStartStopCommentToSingleLine(int line, int attrib=0);
+    /**
+    *@see removeStartLineCommentFromSingleLine.
+    */
+    bool removeStartStopCommentFromSingleLine(int line, int attrib=0);
 
-    void addStartStopCommentToSelection();
-    void addStartLineCommentToSelection();
+    /**
+     * Add a comment marker as defined by the language providing the attribute
+     * @p attrib to each line in the selection.
+     */
+           void addStartStopCommentToSelection( int attrib=0 );
+    /**
+    * @see addStartStopCommentToSelection.
+    */
+          void addStartLineCommentToSelection( int attrib=0 );
 
-    bool removeStartStopCommentFromSelection();
-    bool removeStartLineCommentFromSelection();
+    /**
+    * Removes comment markers relevant to the language providing
+    * the attribuge @p attrib from each line in the selection.
+    *
+    * @return whether the operation succeded.
+    */
+    bool removeStartStopCommentFromSelection( int attrib=0 );
+    /**
+    * @see removeStartStopCommentFromSelection.
+    */
+    bool removeStartLineCommentFromSelection( int attrib=0 );
 
   public:
     QString getWord( const KateTextCursor& cursor );

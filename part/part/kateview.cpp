@@ -1261,7 +1261,7 @@ void KateView::updateView (bool changed)
 void KateView::slotHlChanged()
 {
   KateHighlighting *hl = m_doc->highlight();
-  bool ok ( ! ( hl->getCommentStart().isEmpty() && hl->getCommentSingleLineStart().isEmpty() ) );
+  bool ok ( !hl->getCommentStart(0).isEmpty() || !hl->getCommentSingleLineStart(0).isEmpty() );
 
   if (actionCollection()->action("tools_comment"))
     actionCollection()->action("tools_comment")->setEnabled( ok );

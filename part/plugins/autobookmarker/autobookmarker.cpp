@@ -279,7 +279,7 @@ class AutoBookmarkEntItem : public QListViewItem
 // * set the file/mime type masks
 AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkEnt *e )
         : KDialogBase( parent, "autobookmark_ent_editor",
-                       true, i18n("Edit entry"),
+                       true, i18n("Edit Entry"),
                        KDialogBase::Ok|KDialogBase::Cancel ),
           e( e )
 {
@@ -295,14 +295,14 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   QWhatsThis::add( lePattern, i18n(
       "<p>A regular expression. Matching lines will be bookmarked.</p>" ) );
 
-  cbCS = new QCheckBox( i18n("Case &Sensitive"), w );
+  cbCS = new QCheckBox( i18n("Case &sensitive"), w );
   lo->addMultiCellWidget( cbCS, 1, 1, 0, 2 );
   cbCS->setChecked( e->flags & AutoBookmarkEnt::CaseSensitive );
   QWhatsThis::add( cbCS, i18n(
       "<p>If enabled, the pattern matching will be case sensitive, otherwise "
       "not.</p>") );
 
-  cbMM = new QCheckBox( i18n("&Minimal Matching"), w );
+  cbMM = new QCheckBox( i18n("&Minimal matching"), w );
   lo->addMultiCellWidget( cbMM, 2, 2, 0 ,2 );
   cbMM->setChecked( e->flags & AutoBookmarkEnt::MinimalMatching );
   QWhatsThis::add( cbMM, i18n(
@@ -310,7 +310,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
       "do not know what that is, please read the appendix on regular expressions "
       "in the kate manual.</p>") );
 
-  l = new QLabel( i18n("&File Mask:"), w );
+  l = new QLabel( i18n("&File mask:"), w );
   leFileMask = new QLineEdit( e->filemask.join( "; " ), w );
   l->setBuddy( leFileMask );
   lo->addWidget( l, 3, 0 );
@@ -321,7 +321,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
       "<p>Use the wizard button to the right of the mimetype entry below to "
       "easily fill out both lists.<p>" ) );
 
-  l = new QLabel( i18n("MIME &Types:"), w );
+  l = new QLabel( i18n("MIME &types:"), w );
   leMimeTypes = new QLineEdit( e->mimemask.join( "; " ), w );
   l->setBuddy( leMimeTypes );
   lo->addWidget( l, 4, 0 );

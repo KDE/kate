@@ -829,7 +829,7 @@ void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )
   {
     if (!strFont.isEmpty())
       f.fromString( strFont );
-    
+
     lFontPreview->setFont( f );
   }
   lFontPreview->setText( (f.family() + ", %1pt").arg( f.pointSize() ) );
@@ -905,10 +905,10 @@ KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const 
 
   QHBox *hb = new QHBox( this );
   lo->addWidget( hb );
-  QLabel *lSchema = new QLabel( i18n("&Schema"), hb );
+  QLabel *lSchema = new QLabel( i18n("&Schema:"), hb );
   cmbSchema = new QComboBox( false, hb );
   lSchema->setBuddy( cmbSchema );
-  
+
   cbDrawBackground = new QCheckBox( i18n("Draw bac&kground color"), this );
   lo->addWidget( cbDrawBackground );
 

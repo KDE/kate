@@ -439,7 +439,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
 
   mainLayout->addWidget(gbCursor);
 
-  opt[6] = new QCheckBox( i18n("Remove Trailing Spaces"), this );
+  opt[6] = new QCheckBox( i18n("Remove trailing spaces"), this );
   mainLayout->addWidget( opt[6] );
   opt[6]->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
   connect( opt[6], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );

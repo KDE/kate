@@ -4925,8 +4925,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
         else if ( var == "smart-home" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
-        else if ( var == "replace-tabs-save" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
         else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfRemoveSpaces, state );
         else if ( var == "auto-insert-doxygen" && checkBoolValue( val, &state) )

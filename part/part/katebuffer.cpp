@@ -84,7 +84,7 @@ void KateBuffer::setMaxLoadedBlocks (uint count)
 class KateFileLoader
 {
   public:
-    KateFileLoader (const QString &filename, QTextCodec *codec)
+    KateFileLoader (const QString &filename, QTextCodec *codec, bool removeTrailingSpaces)
       : m_file (filename)
       , m_buffer (KMIN (m_file.size(), KATE_FILE_LOADER_BS))
       , m_codec (codec)
@@ -97,6 +97,7 @@ class KateFileLoader
       , m_eol (-1) // no eol type detected atm
       , m_twoByteEncoding (QString(codec->name()) == "ISO-10646-UCS-2")
       , m_binary (false)
+      , m_removeTrailingSpaces (removeTrailingSpaces)
     {
     }
 
@@ -166,6 +167,9 @@ class KateFileLoader
 
     // binary ?
     inline bool binary () const { return m_binary; }
+
+    // should spaces be ignored at end of line?
+    inline bool removeTrailingSpaces () const { return m_removeTrailingSpaces; }
 
     // internal unicode data array
     inline const QChar *unicode () const { return m_text.unicode(); }
@@ -309,6 +313,7 @@ class KateFileLoader
     int m_eol;
     bool m_twoByteEncoding;
     bool m_binary;
+    bool m_removeTrailingSpaces;
 };
 
 /**
@@ -476,7 +481,7 @@ void KateBuffer::clear()
 
 bool KateBuffer::openFile (const QString &m_file)
 {
-  KateFileLoader file (m_file, m_doc->config()->codec());
+  KateFileLoader file (m_file, m_doc->config()->codec(), m_doc->configFlags() & KateDocument::cfRemoveSpaces);
 
   bool ok = false;
   struct stat sbuf;
@@ -598,61 +603,17 @@ bool KateBuffer::saveFile (const QString &m_file)
   // this line sets the mapper to the correct codec
   stream.setCodec(codec);
 
+  // our loved eol string ;)
   QString eol = m_doc->config()->eolString ();
 
-  // for tab replacement, initialize only once
-  uint pos, found, ml, l;
-  QChar onespace(' ');
-  QString onetab("\t");
-  uint tw = m_doc->config()->tabWidth();
-
-  // Use the document methods
-  if ( m_doc->configFlags() & KateDocument::cfReplaceTabs ||
-       m_doc->configFlags() & KateDocument::cfRemoveSpaces )
-    m_doc->editStart();
-
+  // just dump the lines out ;)
   for (uint i=0; i < m_lines; i++)
   {
-    KateTextLine::Ptr textLine = plainLine(i);
+    stream << plainLine(i)->string();
 
-    if (textLine)
-    {
-      // replace tabs if required
-      if ( m_doc->configFlags() & KateDocument::cfReplaceTabs )
-      {
-        pos = 0;
-        while ( textLine->searchText( pos, onetab, &found, &ml ) )
-        {
-          l = tw - ( found%tw );
-          if ( l )
-          {
-            QString t;
-            m_doc->editRemoveText( i, found, 1 );
-            m_doc->editInsertText( i, found, t.fill(onespace, l) ); // ### anything more efficient?
-            pos += l-1;
-          }
-        }
-      }
-
-      // remove trailing spaces if required
-      if ( (m_doc->configFlags() & KateDocument::cfRemoveSpaces) && textLine->length() )
-      {
-        pos = textLine->length() - 1;
-        uint lns = textLine->lastChar();
-        if ( lns != pos )
-          m_doc->editRemoveText( i, lns + 1, pos - lns );
-      }
-
-      stream << textLine->string();
-
-      if ((i+1) < m_lines)
-        stream << eol;
-    }
+    if ((i+1) < m_lines)
+      stream << eol;
   }
-
-  if ( m_doc->configFlags() & KateDocument::cfReplaceTabs ||
-       m_doc->configFlags() & KateDocument::cfRemoveSpaces )
-    m_doc->editEnd();
 
   file.close ();
 
@@ -1033,7 +994,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
         else nextLineIndentationValid=false;
       }
 
-      
+
       if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth[indentDepth.size()-1] < iDepth)))
       {
         indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
@@ -1326,6 +1287,18 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
     uint offset = 0, length = 0;
     stream->readLine(offset, length);
     const QChar *unicodeData = stream->unicode () + offset;
+
+    // strip spaces at end of line
+    if ( stream->removeTrailingSpaces() )
+    {
+      while (length > 0)
+      {
+        if (unicodeData[length-1].isSpace())
+          --length;
+        else
+          break;
+      }
+    }
 
     blockSize += length;
 

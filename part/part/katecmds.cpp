@@ -253,8 +253,6 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
       }
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
-      else if ( cmd == "set-replace-tabs-save" )
-        setDocFlag( KateDocumentConfig::cfReplaceTabs, enable, v->doc() );
       else if ( cmd == "set-remove-trailing-space-save" )
         setDocFlag( KateDocumentConfig::cfRemoveSpaces, enable, v->doc() );
 

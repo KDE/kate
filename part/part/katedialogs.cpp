@@ -843,11 +843,8 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   blockCount->setValue (KateBuffer::maxLoadedBlocks());
   blockCountLabel->setBuddy(blockCount);
 
-  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
+  QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Load"), this);
   layout->addWidget( gbWhiteSpace );
-
-  replaceTabs = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
-  replaceTabs->setChecked(configFlags & KateDocument::cfReplaceTabs);
 
   removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
   removeSpaces->setChecked(configFlags & KateDocument::cfRemoveSpaces);
@@ -877,12 +874,9 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   layout->addStretch();
 
-  QWhatsThis::add(replaceTabs, i18n(
-        "KateView will replace any tabs with the number of spaces indicated in "
-        "the Tab Width: entry."));
   QWhatsThis::add(removeSpaces, i18n(
         "KateView will automatically eliminate extra spaces at the ends of "
-        "lines of text."));
+        "lines of text while loading the file."));
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;' before saving changes."
@@ -915,7 +909,6 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect( cbRemoteFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -957,9 +950,6 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setSearchDirConfigDepth(dirSearchDepth->value());
 
   int configFlags = KateDocumentConfig::global()->configFlags();
-
-  configFlags &= ~KateDocument::cfReplaceTabs; // clear flag
-  if (replaceTabs->isChecked()) configFlags |= KateDocument::cfReplaceTabs; // set flag if checked
 
   configFlags &= ~KateDocument::cfRemoveSpaces; // clear flag
   if (removeSpaces->isChecked()) configFlags |= KateDocument::cfRemoveSpaces; // set flag if checked

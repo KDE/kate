@@ -20,6 +20,8 @@
 
 * Fix EOL whitespace cleaning finally by removing whitespace at load-time and
   keeping the document consistent all the time
+  
+  -> DONE ;) whitespaces are no cleaned at load time, the magic clean on save stuff is gone
 
 * BiDi finally, using Scribe
 

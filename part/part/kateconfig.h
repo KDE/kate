@@ -162,7 +162,6 @@ class KateDocumentConfig : public KateConfig
     {
       cfBackspaceIndents= 0x2,
       cfWordWrap= 0x4,
-      cfReplaceTabs= 0x8,
       cfRemoveSpaces = 0x10,
       cfWrapCursor= 0x20,
       cfAutoBrackets= 0x40,

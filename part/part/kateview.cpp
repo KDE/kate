@@ -489,10 +489,27 @@ void KateView::setupCodeFolding()
   KActionCollection *ac=this->actionCollection(); 
   new KAction( i18n("Collapse Toplevel"), CTRL+ALT+Key_C,
        m_doc->foldingTree(),SLOT(collapseToplevelNodes()),ac,"folding_toplevel");
+  new KAction( i18n("Collapse One Local Level"), CTRL+Key_Minus,
+       this,SLOT(slotCollapseLocal()),ac,"folding_collapselocal");
+  new KAction( i18n("Expand One Local Level"), CTRL+Key_Plus,
+       this,SLOT(slotExpandLocal()),ac,"folding_expandlocal");
 
   KAccel* debugAccels = new KAccel(this,this);
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);
+}
+
+void KateView::slotCollapseLocal()
+{
+  int realLine = m_doc->foldingTree()->collapseOne(cursorLine());
+  if (realLine != -1)
+    // TODO rodda: fix this to only set line and allow internal view to chose column
+    setCursorPosition(realLine, cursorColumn());
+}
+
+void KateView::slotExpandLocal()
+{
+  m_doc->foldingTree()->expandOne(cursorLine(), m_doc->numLines());
 }
 
 void KateView::setupCodeCompletion()

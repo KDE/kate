@@ -1317,6 +1317,85 @@ void KateCodeFoldingTree::collapseToplevelNodes()
     }
 }
 
+int KateCodeFoldingTree::collapseOne(int realLine)
+{
+  KateLineInfo line;
+  int unrelatedBlocks = 0;
+  for (int i = realLine; i >= 0; i--) {
+    getLineInfo(&line, i);
+
+    if (line.topLevel) {
+      // optimisation
+      break;
+
+    } else if (line.startsVisibleBlock) {
+      if (!unrelatedBlocks) {
+        toggleRegionVisibility(i);
+        return i;
+      }
+      unrelatedBlocks--;
+
+    } else if (line.endsBlock) {
+      unrelatedBlocks++;
+    }
+  }
+  return -1;
+}
+
+void KateCodeFoldingTree::expandOne(int realLine, int numLines)
+{
+  KateLineInfo line;
+  int blockTrack = 0;
+  for (int i = realLine; i >= 0; i--) {
+    getLineInfo(&line, i);
+
+    if (line.topLevel)
+      // done
+      break;
+
+    if (i != realLine && line.startsInVisibleBlock) {
+      if (blockTrack == 0) {
+        toggleRegionVisibility(i);
+        kdDebug() << "1 Toggling at " << i << endl;
+      }
+
+      blockTrack--;
+    }
+
+    if (line.endsBlock)
+      blockTrack++;
+
+    if (blockTrack < 0)
+      // too shallow
+      break;
+  }
+
+  blockTrack = 0;
+  for (int i = realLine; i < numLines; i++) {
+    getLineInfo(&line, i);
+
+    if (line.topLevel)
+      // done
+      break;
+
+    if (line.startsInVisibleBlock) {
+      if (blockTrack == 0) {
+        toggleRegionVisibility(i);
+        kdDebug() << "2 Toggling at " << i << endl;
+      }
+
+      blockTrack++;
+    }
+
+    if (line.endsBlock)
+      blockTrack--;
+
+    if (blockTrack < 0)
+      // too shallow
+      break;
+  }
+}
+
 void KateCodeFoldingTree::ensureVisible( uint line )
 {
   KateCodeFoldingNode *n = findNodeForLine( line );

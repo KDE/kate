@@ -51,7 +51,7 @@ class KateCodeFoldingNode
     KateCodeFoldingNode();
     KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel);
     ~KateCodeFoldingNode();
-    
+
     inline QPtrList<KateCodeFoldingNode> *childnodes ()
     {
       if (!m_childnodes)
@@ -59,21 +59,21 @@ class KateCodeFoldingNode
         m_childnodes = new QPtrList<KateCodeFoldingNode>;
         m_childnodes->setAutoDelete (true);
       }
-      
+
       return m_childnodes;
     }
-    
+
     inline bool hasChildNodes ()
     {
       if (!m_childnodes)
         return false;
-    
+
       return !m_childnodes->isEmpty ();
     }
 
     // temporary public to avoid friend an be able to disallow the access of m_childnodes directly ;)
     KateCodeFoldingNode                *parentNode;
-    unsigned int startLineRel;    
+    unsigned int startLineRel;
     unsigned int endLineRel;
 
     bool startLineValid;
@@ -83,7 +83,7 @@ class KateCodeFoldingNode
     bool visible;
     bool deleteOpening;
     bool deleteEnding;
-    
+
   protected:
     QPtrList<KateCodeFoldingNode>    *m_childnodes;
 };
@@ -92,7 +92,7 @@ class KateCodeFoldingNode
 class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
 {
   Q_OBJECT
-  
+
   public:
     KateCodeFoldingTree (QObject *);
     ~KateCodeFoldingTree ();
@@ -109,9 +109,9 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void lineHasBeenRemoved    (unsigned int line);
     void debugDump();
     void getLineInfo(KateLineInfo *info,unsigned int line);
-  
+
     void clear();
-    
+
   private:
     QIntDict<unsigned int>    lineMapping;
     QIntDict<bool>            dontIgnoreUnchangedLines;
@@ -160,10 +160,12 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void updateLine (unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);
     void toggleRegionVisibility (unsigned int);
     void collapseToplevelNodes();
-    /** 
+    int collapseOne(int realLine);
+    void expandOne(int realLine, int numLines);
+    /**
       Ensures that all nodes surrounding @p line are open
     */
-    void ensureVisible( uint line ); 
+    void ensureVisible( uint line );
 
   signals:
     void setLineVisible (unsigned int, bool);

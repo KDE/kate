@@ -117,9 +117,7 @@ void AutoBookmarker::slotCompleted()
           qt_cast("KTextEditor::DocumentInfoInterface"));
   QString mt;
   if ( di ) // we can still try match the URL otherwise
-  {
     mt = di->mimeType();
-  }
 
   QString fileName;
   if ( document()->url().isValid() )

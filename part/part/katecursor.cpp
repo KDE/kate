@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Christian Couder <christian@kdevelop.org>
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001, 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -39,10 +39,6 @@ KateDocCursor::KateDocCursor(int line, int col, KateDocument *doc)
 {
 }
 
-KateDocCursor::~KateDocCursor()
-{
-}
-
 bool KateDocCursor::validPosition(uint line, uint col)
 {
   return line < m_doc->numLines() && (int)col <= m_doc->lineLength(line);
@@ -51,11 +47,6 @@ bool KateDocCursor::validPosition(uint line, uint col)
 bool KateDocCursor::validPosition()
 {
   return validPosition(line(), col());
-}
-
-int KateDocCursor::nbCharsOnLineAfter()
-{
-  return ((int)m_doc->lineLength(line()) - col());
 }
 
 void KateDocCursor::position(uint *pline, uint *pcol) const
@@ -117,6 +108,11 @@ bool KateDocCursor::gotoEndOfPreviousLine()
     m_col = m_doc->lineLength(line());
 
   return ok;
+}
+
+int KateDocCursor::nbCharsOnLineAfter()
+{
+  return ((int)m_doc->lineLength(line()) - col());
 }
 
 bool KateDocCursor::moveForward(uint nbChar)

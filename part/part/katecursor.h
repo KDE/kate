@@ -1,6 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 Christian Couder <christian@kdevelop.org>
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2001, 2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
 
@@ -34,6 +34,7 @@ class KateTextCursor
   public:
     KateTextCursor() : m_line(0), m_col(0) {};
     KateTextCursor(int line, int col) : m_line(line), m_col(col) {};
+    virtual ~KateTextCursor () {};
 
     friend bool operator==(const KateTextCursor& c1, const KateTextCursor& c2)
       { return c1.m_line == c2.m_line && c1.m_col == c2.m_col; }
@@ -77,10 +78,9 @@ class KateTextCursor
 class KateDocCursor : public KateTextCursor
 {
   public:
-
     KateDocCursor(KateDocument *doc);
     KateDocCursor(int line, int col, KateDocument *doc);
-    virtual ~KateDocCursor();
+    virtual ~KateDocCursor() {};
 
     bool validPosition(uint line, uint col);
     bool validPosition();
@@ -111,6 +111,9 @@ class KateDocCursor : public KateTextCursor
 class KateRange
 {
   public:
+    KateRange () {};
+    virtual ~KateRange () {};
+  
     virtual bool isValid() const = 0;
     virtual KateTextCursor& start() = 0;
     virtual KateTextCursor& end() = 0;
@@ -139,6 +142,8 @@ class KateTextRange : public KateRange
       , m_valid(true)
     {
     };
+    
+    virtual ~KateTextRange () {};
   
     virtual bool isValid() const { return m_valid; };
     void setValid(bool valid) { m_valid = valid; };

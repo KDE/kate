@@ -679,6 +679,8 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
   
   if ( force )
   {
+    // if the line is in a folded region, unfold all the way up
+    
     KateTextCursor scroll = c;
     scrollPos(scroll, force);
   }
@@ -1655,8 +1657,8 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 void KateViewInternal::updateBracketMarks()
 {
   if ( bm.valid ) {
-    KateTextCursor bmStart(bm.startLine, bm.startCol);
-    KateTextCursor bmEnd(bm.endLine, bm.endCol);
+    KateTextCursor bmStart(m_doc->getVirtualLine(bm.startLine), bm.startCol);
+    KateTextCursor bmEnd(m_doc->getVirtualLine(bm.endLine), bm.endCol);
     tagLine(bmStart);
     tagLine(bmEnd);
   }
@@ -1664,8 +1666,8 @@ void KateViewInternal::updateBracketMarks()
   m_doc->newBracketMark( cursor, bm );
   
   if ( bm.valid ) {
-    KateTextCursor bmStart(bm.startLine, bm.startCol);
-    KateTextCursor bmEnd(bm.endLine, bm.endCol);
+    KateTextCursor bmStart(m_doc->getVirtualLine(bm.startLine), bm.startCol);
+    KateTextCursor bmEnd(m_doc->getVirtualLine(bm.endLine), bm.endCol);
     tagLine(bmStart);
     tagLine(bmEnd);
   }

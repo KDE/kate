@@ -700,6 +700,7 @@
 			<item> gettext </item>
 			<item> gettimeofday </item>
 			<item> gettype </item>
+			<item> global </item>
 			<item> gmdate </item>
 			<item> gmmktime </item>
 			<item> gmp_abs </item>

@@ -94,7 +94,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name=0 );
     QString configPageName (uint number = 0) const;
     QString configPageFullName (uint number = 0) const;   
-    QPixmap configPagePixmap (uint number = 0) const;
+    QPixmap configPagePixmap (uint number = 0, int size = KIcon::SizeSmall) const;
     
   //
   // KTextEditor::EditInterface stuff

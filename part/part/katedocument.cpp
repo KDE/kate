@@ -358,30 +358,30 @@ QString KateDocument::configPageFullName (uint number) const
   }
 }  
 
-QPixmap KateDocument::configPagePixmap (uint number) const
+QPixmap KateDocument::configPagePixmap (uint number, int size) const
 {
   switch( number )
   {
     case 0:
-      return BarIcon("colorize", KIcon::SizeMedium);
+      return BarIcon("colorize", size);
       
     case 1:
-      return BarIcon("fonts", KIcon::SizeMedium);
+      return BarIcon("fonts", size);
 
     case 2:
-      return BarIcon("rightjust", KIcon::SizeMedium);
+      return BarIcon("rightjust", size);
 
     case 3:
-      return BarIcon("misc", KIcon::SizeMedium);
+      return BarIcon("misc", size);
 
     case 4:
-      return BarIcon("edit", KIcon::SizeMedium);
+      return BarIcon("edit", size);
 
     case 5:
-      return BarIcon("misc", KIcon::SizeMedium);
+      return BarIcon("misc", size);
 
     case 6:
-      return BarIcon("misc", KIcon::SizeMedium);
+      return BarIcon("misc", size);
 
     default:
       return 0;

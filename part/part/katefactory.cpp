@@ -26,6 +26,7 @@
 
 #include "katedocument.h"
 #include "kateview.h"
+#include "katecmd.h"
 
 #include <klocale.h>
 #include <kinstance.h>
@@ -41,6 +42,7 @@ KAboutData *KateFactory::s_about = 0;
 QPtrList<class KateDocument> KateFactory::s_documents;
 QPtrList<class KateView> KateFactory::s_views;
 KTrader::OfferList *KateFactory::s_plugins = 0;
+KateCmd *KateFactory::s_cmd = 0;
 
 extern "C"
 {
@@ -63,18 +65,15 @@ KateFactory::~KateFactory()
 {
   if ( s_self == this )
   {
-    if ( s_instance )
-      delete s_instance;
-
-    if ( s_about )
-      delete s_about;
-
-    if ( s_plugins )
-      delete s_plugins;
+    delete s_instance;
+    delete s_about;
+    delete s_plugins;
+    delete s_cmd;
 
     s_instance = 0;
     s_about = 0;
     s_plugins = 0;
+    s_cmd = 0;
   }
   else
     deref();
@@ -194,4 +193,12 @@ KInstance *KateFactory::instance()
   }
 
   return s_instance;
+}
+
+KateCmd *KateFactory::cmd ()
+{
+  if (!s_cmd)
+    s_cmd = new KateCmd ();
+
+  return s_cmd;
 }

@@ -20,6 +20,7 @@
 // $Id$
 
 #include "katecmds.h"
+
 #include "katedocument.h"
 #include "kateview.h"
 
@@ -32,8 +33,15 @@
 namespace KateCommands
 {
 
+bool InsertTime::usable (const QString &cmd)
+{
+	if (cmd.left(5) == "time")
+		return true;
 
-bool InsertTime::execCmd(QString cmd, KateView *view)
+	return false;
+}
+
+bool InsertTime::exec (KateView *view, const QString &cmd, QString &)
 {
 	if (cmd.left(5) == "time")
 	{
@@ -167,7 +175,15 @@ static void setLineText(KateView *view, int line, const QString &text)
 	  view->doc()->removeLine(line+1);
 }
 
-bool SedReplace::execCmd(QString cmd, KateView *view)
+bool SedReplace::usable (const QString &cmd)
+{
+	if (QRegExp("[$%]?s/.+/.*/[ig]*").search(cmd, 0)==-1)
+		return false;
+
+	return true;
+}
+
+bool SedReplace::exec (KateView *view, const QString &cmd, QString &)
 {
 	kdDebug(13010)<<"SedReplace::execCmd()"<<endl;
 
@@ -215,8 +231,18 @@ bool SedReplace::execCmd(QString cmd, KateView *view)
 	return true;
 }
 
-bool Character::execCmd(QString cmd, KateView *view)
+bool Character::usable (const QString &cmd)
 {
+	if (cmd.left(4) == "char")
+		return true;
+
+	return false;
+}
+
+bool Character::exec (KateView *view, const QString &_cmd, QString &)
+{
+  QString cmd = _cmd;
+
 	// hex, octal, base 9+1
 	QRegExp num("^char: *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,3})$");
 	if (num.search(cmd)==-1) return false;
@@ -251,11 +277,6 @@ bool Character::execCmd(QString cmd, KateView *view)
 	}
 
 	return true;
-}
-
-bool Fifo::execCmd(QString , KateView *)
-{
-  return true;
 }
 
 }

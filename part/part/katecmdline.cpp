@@ -2,12 +2,34 @@
 #include "katecmdline.moc"
 
 #include "kateview.h"
+#include "katecmd.h"
+#include "katefactory.h"
 
 KateCmdLine::KateCmdLine (KateView *view)
-  : m_view (view)
+  : KLineEdit (view)
+  , m_view (view)
 {
+  connect (this, SIGNAL(returnPressed(const QString &)),
+           this, SLOT(slotReturnPressed(const QString &)));
 }
 
 KateCmdLine::~KateCmdLine ()
 {
+}
+
+void KateCmdLine::slotReturnPressed ( const QString& cmd )
+{
+  KateCmdParser *p = KateFactory::cmd()->query (cmd);
+  QString error;
+
+  if (p)
+  {
+    if (p->exec (m_view, cmd, error))
+    {
+      completionObject()->addItem (cmd);
+      clear ();
+    }
+  }
+
+  m_view->setFocus ();
 }

@@ -19,40 +19,28 @@
 // $Id$
 
 #include "katecmd.h"
-#include "katecmds.h"
 #include "katecmd.moc"
 
-#include "katedocument.h"
-#include "kateview.h"
+#include "katecmds.h"
 
-KateCmd::KateCmd (KateDocument *doc)
- : QObject (doc),
-   m_doc (doc)
+KateCmd::KateCmd ()
 {
   m_parser.setAutoDelete(true);
 
-  m_parser.append (new KateCommands::InsertTime (m_doc));
-  m_parser.append (new KateCommands::SedReplace (m_doc));
-  m_parser.append (new KateCommands::Character (m_doc));
+  m_parser.append (new KateCommands::InsertTime ());
+  m_parser.append (new KateCommands::SedReplace ());
+  m_parser.append (new KateCommands::Character ());
 }
 
 KateCmd::~KateCmd ()
 {
-  m_parser.clear();
 }
 
-void KateCmd::execCmd (QString cmd, KateView *view)
+KateCmdParser *KateCmd::query (const QString &cmd)
 {
   for (uint i=0; i<m_parser.count(); i++)
-    if (m_parser.at(i)->execCmd (cmd, view))
-      break;
-}
+    if (m_parser.at(i)->usable (cmd))
+      return m_parser.at(i);
 
-KateCmdParser::KateCmdParser (KateDocument *doc)
-: m_doc (doc)
-{
-}
-
-KateCmdParser::~KateCmdParser()
-{
+  return 0;
 }

@@ -25,27 +25,23 @@
 class KateCmdParser
 {
   public:
-    KateCmdParser (class KateDocument *doc=0L);
-    virtual ~KateCmdParser ();
+    KateCmdParser () {};
+    virtual ~KateCmdParser () {};
 
-    virtual bool execCmd (QString cmd=QString::null, class KateView *view=0L)=0;
+    virtual bool usable (const QString &cmd) = 0;
 
-  private:
-    class KateDocument *m_doc;
+    virtual bool exec (class KateView *view, const QString &cmd, QString &errorMsg) = 0;
 };
 
-class KateCmd : public QObject
+class KateCmd
 {
-  Q_OBJECT
-
   public:
-    KateCmd (class KateDocument *doc=0L);
+    KateCmd ();
     ~KateCmd ();
 
-    void execCmd (QString cmd=QString::null, class KateView *view=0L);
+    KateCmdParser *query (const QString &cmd);
 
   private:
-    class KateDocument *m_doc;
     QPtrList<KateCmdParser> m_parser;
 };
 

@@ -33,7 +33,6 @@
 #include "kateview.h"
 #include "kateviewinternal.h"
 #include "katetextline.h"
-#include "katecmd.h"
 #include "kateexportaction.h"
 #include "kateundo.h"
 #include "kateprintsettings.h"
@@ -251,8 +250,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_undoMergeTimer = new QTimer(this);
   connect(m_undoMergeTimer, SIGNAL(timeout()), SLOT(undoCancel()));
-
-  myCmd = new KateCmd (this);
 
   buffer = new KateBuffer (this);
   clear();
@@ -4558,7 +4555,6 @@ Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* 
 		" with all highlighting information into a markup document, e.g. HTML."));
   return (Kate::ActionMenu *)menu;
 }
-
 
 void KateDocument::dumpRegionTree()
 {

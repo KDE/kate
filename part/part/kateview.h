@@ -231,7 +231,6 @@ class KateView : public Kate::View,
     void findAgain( bool back );
     void findAgain()              { findAgain( false );          }
     void findPrev()               { findAgain( true );           }
-    void slotEditCommand();
 
     void setFoldingMarkersOn( bool enable ); // Not in Kate::View, but should be
     void setIconBorder( bool enable );

@@ -37,13 +37,13 @@ namespace KateCommands
 class InsertTime : public KateCmdParser
 {
 public:
-	InsertTime(class KateDocument *doc=0) : KateCmdParser(doc) { }
+	bool usable (const QString &cmd);
 
-	bool execCmd(QString cmd=QString::null, class KateView *view=0);
+  bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 };
 
 /**
- * -- Charles Samuels <charles@kde.org> 
+ * -- Charles Samuels <charles@kde.org>
  * Support vim/sed find and replace
  * s/search/replace/ find search, replace with replace on this line
  * %s/search/replace/ do the same to the whole file
@@ -55,9 +55,10 @@ public:
 class SedReplace : public KateCmdParser
 {
 public:
-	SedReplace(class KateDocument *doc=0) : KateCmdParser(doc) { }
+	bool usable (const QString &cmd);
 
-	bool execCmd(QString cmd=QString::null, class KateView *view=0);
+  bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
+
 private:
 	static QString sedMagic(QString textLine, const QString &find, const QString &replace, bool noCase, bool repeat);
 };
@@ -73,17 +74,9 @@ private:
 class Character : public KateCmdParser
 {
 public:
-	Character(class KateDocument *doc=0) : KateCmdParser(doc) { }
+	bool usable (const QString &cmd);
 
-	bool execCmd(QString cmd=QString::null, class KateView *view=0);
-};
-
-class Fifo : public KateCmdParser
-{
-public:
-	Fifo(class KateDocument *doc=0) : KateCmdParser(doc) { }
-
-	bool execCmd(QString cmd=QString::null, class KateView *view=0);
+  bool exec (class KateView *view, const QString &cmd, QString &errorMsg);
 };
 
 }

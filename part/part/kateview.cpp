@@ -29,7 +29,6 @@
 
 #include "kateviewinternal.h"
 #include "katedocument.h"
-#include "katecmd.h"
 #include "katefactory.h"
 #include "katehighlight.h"
 #include "kateviewdialog.h"
@@ -53,7 +52,6 @@
 #include <qevent.h>
 
 #include <kconfig.h>
-#include <klineeditdlg.h>
 #include <kurldrag.h>
 #include <kdebug.h>
 #include <kapplication.h>
@@ -202,11 +200,6 @@ void KateView::setupActions()
 	i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
 		" current view, to fit into this view.<br><br> This is a static word wrap, meaning it is not updated"
 		" when the view is resized."));
-
-    (new KAction(i18n("E&diting Command..."), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd"))->setWhatsThis(
-	i18n("Use this command to execute VI style commands. This affects the whole document."
-	"<ul><li>For example, you can enter <b>time</b> to insert the current time.</li>"
-	" <li>Vi, Sed and Perl style regular replace commands are possible too, e.g. <b>s/hello/goodbye/</b>.</li></ul>" ));
 
     // setup Tools menu
     a=new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
@@ -843,15 +836,6 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
   m_doc->reloadFile();
   m_viewInternal->tagAll();
   m_viewInternal->updateView (true);
-}
-
-void KateView::slotEditCommand ()
-{
-  bool ok;
-  QString cmd = KLineEditDlg::getText(i18n("Editing command:"), "", &ok, this);
-
-  if (ok)
-    m_doc->cmd()->execCmd (cmd, this);
 }
 
 void KateView::setIconBorder( bool enable )

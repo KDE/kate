@@ -204,6 +204,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   private:
     void undoStart();
     void undoEnd();
+
   private slots:
     void undoCancel();
 
@@ -616,9 +617,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   private slots:
     void slotModChanged ();
 
-  public:
-    KateCmd *cmd () { return myCmd; };
-
   public slots:
     void setEncoding (const QString &e) { myEncoding = e; };
     QString encoding() const { return myEncoding; };
@@ -735,8 +733,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     class QFileInfo* fileInfo;
     class QDateTime mTime;
     QString m_docName;
-
-    class KateCmd *myCmd;
 
     QMemArray<KateAttribute> myAttribs;
 

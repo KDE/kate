@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
-   
+
    Based on KHTML Factory from Simon Hausmann <hausmann@kde.org>
 
    This library is free software; you can redistribute it and/or
@@ -27,44 +27,50 @@
 
 class KInstance;
 class KAboutData;
+class KateCmd;
 
 class KateFactory : public KParts::Factory
 {
   Q_OBJECT
-public:
-  KateFactory( bool clone = false );
-  virtual ~KateFactory();
 
-  virtual KParts::Part *createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
+  public:
+    KateFactory( bool clone = false );
+    virtual ~KateFactory();
 
-  static KInstance *instance();
-  
-  static void registerDocument ( class KateDocument *doc );
-  static void deregisterDocument ( class KateDocument *doc );
-  
-  static void registerView ( class KateView *view );
-  static void deregisterView ( class KateView *view );
+    virtual KParts::Part *createPartObject( QWidget *parentWidget, const char *widgetName, QObject *parent, const char *name, const char *classname, const QStringList &args );
 
-  static KTrader::OfferList *plugins ();
+    static KInstance *instance();
 
-  static QPtrList<class KateDocument> *documents () { return &s_documents; };
+    static void registerDocument ( class KateDocument *doc );
+    static void deregisterDocument ( class KateDocument *doc );
 
-  static QPtrList<class KateView> *views () { return &s_views; };
+    static void registerView ( class KateView *view );
+    static void deregisterView ( class KateView *view );
 
-private:
-  static void ref();
-  static void deref();
+    static KTrader::OfferList *plugins ();
 
-  static unsigned long s_refcnt;
-  static KateFactory *s_self;
+    static QPtrList<class KateDocument> *documents () { return &s_documents; };
 
-  static QPtrList<class KateDocument> s_documents;
-  static QPtrList<class KateView> s_views;
-  
-  static KInstance *s_instance;
-  static KAboutData *s_about;
-  
-  static KTrader::OfferList *s_plugins;
+    static QPtrList<class KateView> *views () { return &s_views; };
+
+    static KateCmd *cmd ();
+
+  private:
+    static void ref();
+    static void deref();
+
+    static unsigned long s_refcnt;
+    static KateFactory *s_self;
+
+    static QPtrList<class KateDocument> s_documents;
+    static QPtrList<class KateView> s_views;
+
+    static KInstance *s_instance;
+    static KAboutData *s_about;
+
+    static KTrader::OfferList *s_plugins;
+
+    static KateCmd *s_cmd;
 };
 
 #endif

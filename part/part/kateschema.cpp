@@ -352,7 +352,6 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
 
   for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
   {
-    kdDebug()<<i<<" itemsSet: "<<m_defaultStyleLists[schema]->at( i )->itemsSet()<<endl;
     m_defaultStyles->insertItem( new StyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
                               m_defaultStyleLists[schema]->at( i ) ) );
   }
@@ -378,6 +377,8 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
 {
   m_schema = 0;
   m_hl = 0;
+  
+  m_hlDict.setAutoDelete (true);
 
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
@@ -429,34 +430,61 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 {
   m_schema = schema;
 
- /* m_defaultStyles->clear ();
-
-  if (!m_defaultStyleLists[schema])
+  QListViewItemIterator it ( m_styles );
+  while( it.current() )
   {
-    KateAttributeList *list = new KateAttributeList ();
-    HlManager::self()->getDefaults(schema, *list);
-    
-    m_defaultStyleLists.insert (schema, list);
+    ((StyleListItem*)it.current())->updateStyle();
+
+    ++it;
   }
   
-  m_defaultStyles->setDefaultColor (m_defaultStyleLists[schema]->at(0)->textColor());
+  m_styles->clear ();
 
-  for ( uint i = 0; i < HlManager::self()->defaultStyles(); i++ )
+  if (!m_hlDict[m_schema])
   {
-    kdDebug()<<i<<" itemsSet: "<<m_defaultStyleLists[schema]->at( i )->itemsSet()<<endl;
-    m_defaultStyles->insertItem( new StyleListItem( m_defaultStyles, HlManager::self()->defaultStyleName(i),
-                              m_defaultStyleLists[schema]->at( i ) ) );
-  }*/
+    m_hlDict.insert (schema, new QIntDict<ItemDataList>);
+    m_hlDict[m_schema]->setAutoDelete (true);
+  }
+  if (!m_hlDict[m_schema]->find(m_hl))
+  {
+    ItemDataList *list = new ItemDataList ();
+    HlManager::self()->getHl( m_hl )->getItemDataList (m_schema, *list);
+    
+    m_hlDict[m_schema]->insert (m_hl, list);
+  }
+  
+  m_styles->setDefaultColor (m_hlDict[m_schema]->find(m_hl)->at(0)->textColor());
+
+  KateAttributeList list;
+  HlManager::self()->getDefaults(m_schema, list);
+  
+  for ( ItemData *itemData = m_hlDict[m_schema]->find(m_hl)->first();
+        itemData != 0L;
+        itemData = m_hlDict[m_schema]->find(m_hl)->next())
+  {
+    m_styles->insertItem( new StyleListItem( m_styles, i18n(itemData->name.latin1()),
+                                 list.at(itemData->defStyleNum), itemData ) );
+  }
 }
 
 void KateSchemaConfigHighlightTab::reload ()
 {
-  /*m_defaultStyles->clear ();
-  m_defaultStyleLists.clear ();*/
+  m_styles->clear ();
+  m_hlDict.clear ();
+  
+  hlChanged (0);
 }
 
 void KateSchemaConfigHighlightTab::apply ()
 {
+  QListViewItemIterator it ( m_styles );
+  while( it.current() )
+  {
+    ((StyleListItem*)it.current())->updateStyle();
+
+    ++it;
+  }
+
  // for ( QIntDictIterator<KateAttributeList> it( m_defaultStyleLists ); it.current(); ++it )
    // HlManager::self()->setDefaults(it.currentKey(), *(it.current()));
 }

@@ -198,7 +198,7 @@ public:
     uint m_schema;
     int m_hl;
     
-    QIntDict< QIntDict<KateAttributeList> > m_hlDict;
+    QIntDict< QIntDict<ItemDataList> > m_hlDict;
 };
 
 class KateSchemaConfigPage : public Kate::ConfigPage

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
+
+<!-- Authors: Alexander Dederer & JM. Philippe -->
+<!-- Copyright: BSD copyright & Irsid - Arcelor Innovation R&D -->
 <!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
-<language name="Tcl/Tk" version="1.04" kateversion="2.1" section="Scripts"
-          extensions="*.tcl;*.tk" mimetype="text/x-tcl"
-          author="Alexander Dederer, Simon Robins" license="BSD">
+
+<language name="Tcl/Tk" version="1.05" kateversion="2.1" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -176,44 +178,309 @@
       <item> winfo  </item>
       <item> wm  </item>
     </list>
-        <contexts>
-                <context name = "Base" attribute = "Normal Text" lineEndContext="#stay">
-                        <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
-                        <Float attribute = "Float" context="#stay"/>
-                        <Int attribute ="Decimal" context="#stay"/>
-                        <RegExpr String = " -\D\w+" attribute = "Parameter" context="#stay"/>
-                        <DetectChar char = "&quot;" attribute = "String" context="String"/>
-                        <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
-                        <DetectChar char = '{' attribute = "Keyword" context="#stay" beginRegion="brace1"/>
-                        <DetectChar char = '}' attribute = "Keyword" context="#stay" endRegion="brace1"/>
-                        <DetectChar char = '[' attribute = "Keyword" context="#stay"/>
-                        <DetectChar char = ']' attribute = "Keyword" context="#stay"/>
-                        <RegExpr String  = '\\$' attribute = "Keyword" context="#stay"/>
-                </context>
 
-                <context name = "String" attribute = "String" lineEndContext="#stay">
-                        <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
-                        <DetectChar char = '{' attribute = "Keyword" context="#stay"/>
-                        <DetectChar char = '}' attribute = "Keyword" context="#stay" endRegion="brace"/>
-                        <DetectChar char = '[' attribute = "Keyword" context="#stay"/>
-                        <DetectChar char = ']' attribute = "Keyword" context="#stay"/>
-                        <RegExpr String  = '\\$' attribute = "Keyword" context="#stay"/>
-                </context>
-        </contexts>
-        <itemDatas>
-                <itemData name = "Normal Text" defStyleNum = "dsNormal"/>
-                <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
-                <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
-                <itemData name = "Float" defStyleNum = "dsFloat"/>
-                <itemData name = "String" defStyleNum = "dsString"/>
-                <itemData name = "Comment" defStyleNum = "dsComment"/>
-                <itemData name = "Parameter" defStyleNum = "dsOthers"/>
-        </itemDatas>
-</highlighting>
-  <general>
-    <comments>
-      <comment name="singleLine" start="#" />
-    </comments>
-    <keywords casesensitive="1" />
-  </general>
+    <list name="keywords-opt">
+      <item> add </item>
+      <item> args </item>
+      <item> atime </item>
+      <item> attributes </item>
+      <item> body </item>
+      <item> bytelength </item>
+      <item> cancel </item>
+      <item> channels </item>
+      <item> clicks </item>
+      <item> cmdcount </item>
+      <item> commands </item>
+      <item> compare </item>
+      <item> complete </item>
+      <item> convertfrom </item>
+      <item> convertto </item>
+      <item> copy </item>
+      <item> default </item>
+      <item> delete </item>
+      <item> dirname </item>
+      <item> equal </item>
+      <item> executable </item>
+      <item> exists </item>
+      <item> extension </item>
+      <item> first </item>
+      <item> forget </item>
+      <item> format </item>
+      <item> functions </item>
+      <item> globals </item>
+      <item> hostname </item>
+      <item> idle </item>
+      <item> ifneeded </item>
+      <item> index </item>
+      <item> info </item>
+      <item> is </item>
+      <item> isdirectory </item>
+      <item> isfile </item>
+      <item> join </item>
+      <item> last </item>
+      <item> length </item>
+      <item> level </item>
+      <item> library </item>
+      <item> link </item>
+      <item> loaded </item>
+      <item> locals </item>
+      <item> lstat </item>
+      <item> map </item>
+      <item> match </item>
+      <item> mkdir </item>
+      <item> mtime </item>
+      <item> nameofexecutable </item>
+      <item> names </item>
+      <item> nativename </item>
+      <item> normalize </item>
+      <item> number </item>
+      <item> owned </item>
+      <item> patchlevel </item>
+      <item> pathtype </item>
+      <item> present </item>
+      <item> procs </item>
+      <item> provide </item>
+      <item> range </item>
+      <item> readable </item>
+      <item> readlink </item>
+      <item> remove </item>
+      <item> rename </item>
+      <item> repeat </item>
+      <item> replace </item>
+      <item> require </item>
+      <item> rootname </item>
+      <item> scan </item>
+      <item> script </item>
+      <item> seconds </item>
+      <item> separator </item>
+      <item> sharedlibextension </item>
+      <item> size </item>
+      <item> split </item>
+      <item> stat </item>
+      <item> system </item>
+      <item> tail </item>
+      <item> tclversion </item>
+      <item> tolower </item>
+      <item> totitle </item>
+      <item> toupper </item>
+      <item> trim </item>
+      <item> trimleft </item>
+      <item> trimright </item>
+      <item> type </item>
+      <item> unknown </item>
+      <item> variable </item>
+      <item> vars </item>
+      <item> vcompare </item>
+      <item> vdelete </item>
+      <item> versions </item>
+      <item> vinfo </item>
+      <item> volumes </item>
+      <item> vsatisfies </item>
+      <item> wordend </item>
+      <item> wordstart </item>
+      <item> writable </item>
+
+      <item> activate </item>
+      <item> actual </item>
+      <item> addtag </item>
+      <item> append </item>
+      <item> appname </item>
+      <item> aspect </item>
+      <item> atom </item>
+      <item> atomname </item>
+      <item> bbox </item>
+      <item> bind </item>
+      <item> broadcast </item>
+      <item> canvasx </item>
+      <item> canvasy </item>
+      <item> caret </item>
+      <item> cells </item>
+      <item> cget </item>
+      <item> children </item>
+      <item> class </item>
+      <item> clear </item>
+      <item> client </item>
+      <item> clone </item>
+      <item> colormapfull </item>
+      <item> colormapwindows </item>
+      <item> command </item>
+      <item> configure </item>
+      <item> containing </item>
+      <item> coords </item>
+      <item> create </item>
+      <item> current </item>
+      <item> curselection </item>
+      <item> dchars </item>
+      <item> debug </item>
+      <item> deiconify </item>
+      <item> delta </item>
+      <item> depth </item>
+      <item> deselect </item>
+      <item> dlineinfo </item>
+      <item> dtag </item>
+      <item> dump </item>
+      <item> edit </item>
+      <item> entrycget </item>
+      <item> entryconfigure </item>
+      <item> families </item>
+      <item> find </item>
+      <item> flash </item>
+      <item> focus </item>
+      <item> focusmodel </item>
+      <item> fpixels </item>
+      <item> fraction </item>
+      <item> frame </item>
+      <item> generate </item>
+      <item> geometry </item>
+      <item> get </item>
+      <item> gettags </item>
+      <item> grid </item>
+      <item> group </item>
+      <item> handle </item>
+      <item> height </item>
+      <item> hide </item>
+      <item> iconbitmap </item>
+      <item> iconify </item>
+      <item> iconmask </item>
+      <item> iconname </item>
+      <item> iconposition </item>
+      <item> iconwindow </item>
+      <item> icursor </item>
+      <item> id </item>
+      <item> identify </item>
+      <item> image </item>
+      <item> insert </item>
+      <item> interps </item>
+      <item> inuse </item>
+      <item> invoke </item>
+      <item> ismapped </item>
+      <item> itemcget </item>
+      <item> itemconfigure </item>
+      <item> keys </item>
+      <item> lower </item>
+      <item> manager </item>
+      <item> mark </item>
+      <item> maxsize </item>
+      <item> measure </item>
+      <item> metrics </item>
+      <item> minsize </item>
+      <item> move </item>
+      <item> name </item>
+      <item> nearest </item>
+      <item> overrideredirect </item>
+      <item> own </item>
+      <item> panecget </item>
+      <item> paneconfigure </item>
+      <item> panes </item>
+      <item> parent </item>
+      <item> pathname </item>
+      <item> pixels </item>
+      <item> pointerx </item>
+      <item> pointerxy </item>
+      <item> pointery </item>
+      <item> positionfrom </item>
+      <item> post </item>
+      <item> postcascade </item>
+      <item> postscript </item>
+      <item> protocol </item>
+      <item> proxy </item>
+      <item> raise </item>
+      <item> release </item>
+      <item> reqheight </item>
+      <item> reqwidth </item>
+      <item> resizable </item>
+      <item> rgb </item>
+      <item> rootx </item>
+      <item> rooty </item>
+      <item> scale </item>
+      <item> scaling </item>
+      <item> screen </item>
+      <item> screencells </item>
+      <item> screendepth </item>
+      <item> screenheight </item>
+      <item> screenmmheight </item>
+      <item> screenmmwidth </item>
+      <item> screenvisual </item>
+      <item> screenwidth </item>
+      <item> search </item>
+      <item> see </item>
+      <item> select </item>
+      <item> selection </item>
+      <item> server </item>
+      <item> set </item>
+      <item> show </item>
+      <item> sizefrom </item>
+      <item> stackorder </item>
+      <item> state </item>
+      <item> status </item>
+      <item> tag </item>
+      <item> title </item>
+      <item> toplevel </item>
+      <item> transient </item>
+      <item> types </item>
+      <item> unpost </item>
+      <item> useinputmethods </item>
+      <item> validate </item>
+      <item> values </item>
+      <item> viewable </item>
+      <item> visual </item>
+      <item> visualid </item>
+      <item> visualsavailable </item>
+      <item> vrootheight </item>
+      <item> vrootwidth </item>
+      <item> vrootx </item>
+      <item> vrooty </item>
+      <item> width </item>
+      <item> window </item>
+      <item> windowingsystem </item>
+      <item> withdraw </item>
+      <item> x </item>
+      <item> xview </item>
+      <item> y </item>
+    </list>
+
+    <contexts>
+      <context name = "Base" attribute = "Normal Text" lineEndContext="#stay">
+        <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
+        <keyword String = "keywords-opt" attribute = "Parameter" context="#stay"/>
+        <Float attribute = "Float" context="#stay"/>
+        <Int attribute ="Decimal" context="#stay"/>
+        <RegExpr String = "\W-\w+" attribute = "Parameter" content="#stay"/>
+        <RegExpr String = "\$(::)?[\S\D]\w+" attribute = "Variable" content="#stay"/>
+        <RegExpr String = "[^\\]&quot;&quot;" attribute = "String" context="#stay"/>
+        <RegExpr String = "[^\\]&quot;" attribute = "String" context="String"/>
+        <RegExpr String= "(^|[^\\])#.*$" attribute = "Comment" context="#stay"/>
+        <DetectChar char = "{" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "}" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "[" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "]" attribute = "Keyword" context="#stay"/>
+        <RegExpr String  = "\\$" attribute = "Keyword" context="#stay"/>
+      </context>
+
+      <context name = "String" attribute = "String" lineEndContext="#stay">
+        <RegExpr String = "[^\\]&quot;" attribute = "String" context = "#pop"/>
+        <DetectChar char = "{" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "}" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "[" attribute = "Keyword" context="#stay"/>
+        <DetectChar char = "]" attribute = "Keyword" context="#stay"/>
+        <RegExpr String  = "\$" attribute = "Variable" context="#stay"/>
+      </context>
+    </contexts>
+
+    <itemDatas>
+      <itemData name = "Normal Text" defStyleNum = "dsNormal"/>
+      <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
+      <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
+      <itemData name = "Float" defStyleNum = "dsFloat"/>
+      <itemData name = "String" defStyleNum = "dsString"/>
+      <itemData name = "Comment" defStyleNum = "dsComment"/>
+      <itemData name = "Parameter" defStyleNum = "dsOthers"/>
+      <itemData name = "Variable" defStyleNum = "dsDataType"/>
+    </itemDatas>
+
+    <general>
+      <keywords casesensitive="1"/>
+    </general>
+
+  </highlighting>
 </language>

@@ -1440,6 +1440,9 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
   bool isVisible=false;
   while (y < yEnd)
   {
+    if (disppos >= lineRanges.size())
+      break;
+
     int realLine;
     isVisible=myDoc->paintTextLine(paint, lineRanges[disppos].line, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);

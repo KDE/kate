@@ -54,6 +54,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_startPos(0,0)
   , m_oldStartPos(0,0)
   , m_madeVisible(false)
+  , m_shiftKeyPressed (false)
   , m_columnScrollDisplayed(false)
   , m_selChangedByUser (false)
   , m_preserveMaxX(false)
@@ -1866,12 +1867,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   KKey key(e);
-  
-  if (key == SHIFT)
-  {
-    m_selChangedByUser = false;
-  }
-  
+
    if (key == Qt::Key_Left)
   {
     m_view->cursorLeft();
@@ -1957,10 +1953,16 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
   KKey key(e);
-  
-/*  if (!(e->state() & SHIFT))
+    
+  if (key == SHIFT)
+    m_shiftKeyPressed = true;
+  else
   {
-    if (m_selChangedByUser)
+    if (m_shiftKeyPressed)
+    {    
+      m_shiftKeyPressed = false;
+  
+      if (m_selChangedByUser)
       {
         QApplication::clipboard()->setSelectionMode( true );
         m_doc->copy();
@@ -1968,12 +1970,11 @@ void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 
         m_selChangedByUser = false;
       }
-  
-    e->accept();
-    return;
+    }
   }
-*/  
-  e->ignore();
+  
+  e->accept();
+  return;
 }
 
 void KateViewInternal::mousePressEvent( QMouseEvent* e )

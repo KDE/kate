@@ -249,6 +249,7 @@ class KateViewInternal : public QWidget
     // This is set to false on resize or scroll (other than that called by makeVisible),
     // so that makeVisible is again called when a key is pressed and the cursor is in the same spot
     bool m_madeVisible;
+    bool m_shiftKeyPressed;
     
     //
     // column scrollbar + x position

@@ -24,6 +24,10 @@
 namespace KTextEditor
 {
 
+/**
+ * The main class representing a text document.
+ * This class provides access to the document's views.
+ */
 class Document : public KTextEditor::Editor
 {
   friend class PrivateDocument;
@@ -34,8 +38,14 @@ class Document : public KTextEditor::Editor
     Document ( QObject *parent = 0, const char *name = 0 );
     virtual ~Document ();
 
+    /**
+     * Returns the global number of this document in your app.
+     */
     unsigned int documentNumber () const;
-    
+
+    /**
+     * Returns this document's DCOP suffix for identifiying its DCOP interface.
+     */
     QCString documentDCOPSuffix () const;
 
     /**
@@ -46,7 +56,7 @@ class Document : public KTextEditor::Editor
     virtual class View *createView ( QWidget *parent, const char *name = 0 ) = 0;
 
     /*
-    * Accessor to the list of views.
+    * Returns a list of all views of this document.
     */
     virtual QPtrList<class View> views () const = 0;
 
@@ -55,7 +65,7 @@ class Document : public KTextEditor::Editor
     static unsigned int globalDocumentNumber;
     unsigned int myDocumentNumber;
 };
-                    
+
 Document *createDocument ( const char* libname, QObject *parent = 0, const char *name = 0 );
 
 };

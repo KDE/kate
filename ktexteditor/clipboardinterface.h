@@ -24,8 +24,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::View class !!!
+/**
+* This is an interface for accessing the clipboard through the \ref View class.
 */
 class ClipboardInterface
 {

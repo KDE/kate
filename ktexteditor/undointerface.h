@@ -24,8 +24,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to undo functionality of a \ref Document.
 */
 class UndoInterface
 {

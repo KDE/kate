@@ -25,8 +25,9 @@ class KConfig;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document/Plugin classes !!!
+/**
+* This is an interface for accessing the configuration of the
+* \ref Document and \ref Plugin classes.
 */
 class ConfigInterface
 {

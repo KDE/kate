@@ -25,8 +25,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to control fixed-column word-wrapping of a \ref Document.
 */
 class WordWrapInterface
 {

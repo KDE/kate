@@ -22,8 +22,9 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param ParentEncodingInterface - The parent @ref EncodingInterface object
+		@param Parent the parent @ref EncodingInterface object
 		that will provide us with the functions for the interface.
+		@param name the QObject's name
 		*/
 		EncodingDCOPInterface( EncodingInterface *Parent, const char *name );
 		/**

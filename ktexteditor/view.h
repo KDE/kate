@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
- * The View class encapsulates a single view into the document.
+ * The View class represents a single view of a \ref Document .
  */
 
 class View : public QWidget, public KXMLGUIClient
@@ -42,12 +42,18 @@ class View : public QWidget, public KXMLGUIClient
     View ( class Document *, QWidget *parent, const char *name = 0 );
     virtual ~View ();
 
+    /**
+     * Returns the number of this view
+     */
     unsigned int viewNumber () const;
-    
+
+    /**
+     * Returns the DCOP suffix to allow identification of this view's DCOP interface.
+     */
     QCString viewDCOPSuffix () const;
 
     /**
-    * Acessor to the parent Document.
+    * Acess the parent \ref Document.
     */
     virtual class Document *document () const = 0;
     

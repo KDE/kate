@@ -27,9 +27,9 @@ namespace KTextEditor
 class Document;
 class View;
 
-/*
- * basic plugin class
- * this plugin will be bound to a ktexteditor::document
+/**
+ * Basic \ref KTextEditor plugin class.
+ * This plugin will be bound to a \ref Document.
  */                     
 class Plugin : public QObject
 {
@@ -53,9 +53,9 @@ class Plugin : public QObject
    
 Plugin *createPlugin ( const char* libname, Document *document = 0, const char *name = 0 );
 
-/*
- * view plugin class
- * this plugin will be bound to a ktexteditor::view
+/**
+ * View plugin class.
+ * This plugin will be bound to a \ref View
  */
 class PluginViewInterface
 {

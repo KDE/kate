@@ -25,9 +25,10 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document/Plugin/ViewPlugin classes !!!
-*/
+/**
+ * This is an interface for accessing information about files open
+ * in the \ref Document, \ref Plugin and \ref PluginViewInterface classes.
+ */
 class DocumentInfoInterface
 {
   friend class PrivateDocumentInterface;

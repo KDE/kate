@@ -25,8 +25,8 @@
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to text selection for the \ref Document class.
 */
 class SelectionInterface
 {

@@ -24,9 +24,11 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
-*/
+/**
+ * An interface for the \ref Document class which allows the selection
+ * method to be changed between selecting rectangular blocks of text and normal mode
+ * (all text between the start cursor and the current cursor).
+ */
 class BlockSelectionInterface
 {
   friend class PrivateBlockSelectionInterface;
@@ -40,27 +42,25 @@ class BlockSelectionInterface
   protected:  
     void setBlockSelectionInterfaceDCOPSuffix (const QCString &suffix);  
 
-  /*
+  /**
   *  slots !!!
   */
   public:
     /**
-    * is blockselection mode on ?
-    * if the blockselection mode is on, the selections
-    * applied via the SelectionInterface are handled as
-    * blockselections and the paste functions of the
-    * ClipboardInterface works blockwise (copy too, but
-    * thats clear I hope ;)
+    * Returns the status of the selection mode - true indicates block selection mode is on.
+    * If this is true, selections applied via the SelectionInterface are handled as
+    * blockselections and the paste functions of the ClipboardInterface works on
+    * rectangular blocks of text rather than normal. (copy too, but thats clear I hope ;)
     */
     virtual bool blockSelectionMode () = 0;
 
     /**
-    * set blockselection mode to state "on"
+    * Set block selection mode to state "on"
     */
     virtual bool setBlockSelectionMode (bool on) = 0;
 
     /**
-    * toggle blockseletion mode
+    * toggle block seletion mode
     */
     virtual bool toggleBlockSelectionMode () = 0;
 
@@ -70,6 +70,9 @@ class BlockSelectionInterface
       unsigned int myBlockSelectionInterfaceNumber;
 };
 
+/**
+ * Access the block selection interface of document @param doc
+ */
 BlockSelectionInterface *blockSelectionInterface (class Document *doc);
 
 };

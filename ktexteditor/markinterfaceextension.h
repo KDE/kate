@@ -31,10 +31,10 @@ namespace KTextEditor
 {
 
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
-*  It allows to set pixmaps for marks and allows the developer to set, which
-*  marks be settable by the user. In kate eg in the sidebar's popup menu
+/**
+*  This is an interface for custom extensions of the \ref MarkInterface.
+*  It allows the developer to set pixmaps for custom marks and to indicate which
+*  marks are settable by the user, for example (in kate), as actions in the iconborder's popup menu.
 */
 class MarkInterfaceExtension
 {

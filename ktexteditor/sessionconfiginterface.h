@@ -25,8 +25,9 @@ class KConfig;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document/View/Plugin/ViewPlugin classes !!!
+/**
+* This is an interface to session-specific configuration of the
+* \ref Document, \ref Plugin and \ref PluginViewInterface classes.
 */
 class SessionConfigInterface
 {

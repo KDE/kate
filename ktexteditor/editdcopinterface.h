@@ -22,8 +22,9 @@ namespace KTextEditor
   public:
     /**
     Construct a new interface object for the text editor.
-    @param ParentEditInterface - The parent @ref EditInterface object
+    @param Parent the parent @ref EditInterface object
     that will provide us with the functions for the interface.
+    @param name the QObject's name
     */
     EditDCOPInterface( EditInterface *Parent, const char *name );
     /**

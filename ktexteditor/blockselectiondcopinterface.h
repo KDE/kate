@@ -10,7 +10,7 @@ namespace KTextEditor
 {
 	class BlockSelectionInterface;
 	/**
-	This is the main interface to the @ref BlockSelectionInterface of KTextEdit.
+	This is the main interface to the @ref BlockSelectionInterface of KTextEditor.
 	This will provide a consistant dcop interface to all KDE applications that use it.
 	@short DCOP interface to @ref BlockSelectionInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
@@ -22,8 +22,9 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param ParentBlockSelectionInterface - The parent @ref BlockSelectionInterface object
+		@param Parent the parent @ref BlockSelectionInterface object
 		that will provide us with the functions for the interface.
+		@param name the QObject's name
 		*/
 		BlockSelectionDCOPInterface( BlockSelectionInterface *Parent, const char *name );
 		/**
@@ -34,14 +35,12 @@ namespace KTextEditor
 	k_dcop:
 	  	uint blockSelectionInterfaceNumber ();
 		
-		/**
-		* is blockselection mode on ?
-		* if the blockselection mode is on, the selections
-		* applied via the SelectionInterface are handled as
-		* blockselections and the paste functions of the
-		* ClipboardInterface works blockwise (copy too, but
-		* thats clear I hope ;)
-		*/
+    /**
+    * Returns the status of the selection mode - true indicates block selection mode is on.
+    * If this is true, selections applied via the SelectionInterface are handled as
+    * blockselections and the paste functions of the ClipboardInterface works on
+    * rectangular blocks of text rather than normal. (copy too, but thats clear I hope ;)
+    */
 		bool blockSelectionMode ();
 
 		/**

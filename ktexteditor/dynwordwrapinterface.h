@@ -25,9 +25,10 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::View class !!!
-*/
+/**
+ * This is an interface for accessing dynamic word wrapping functionality
+ * of the \ref View class.
+ */
 class DynWordWrapInterface
 {
   friend class PrivateDynWordWrapInterface;

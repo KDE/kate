@@ -27,8 +27,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to allow searching of a \ref Document.
 */
 class SearchInterface
 {

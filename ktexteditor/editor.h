@@ -21,17 +21,19 @@
 
 #include <kparts/part.h>
 
+/**
+ * KTextEditor is KDE's standard text editing KPart interface.
+ */
 namespace KTextEditor
 {
 
 /**
- * KTextEditor::Editor
- * This is just the dumb version of a KTextEditor::Document + View
+ * This is a simplfied version of the \ref Document & \ref View classes
  * Usage: Load it, merge it's gui + be happy
- * Extensibility: Use the KTextEditor::Document/View classes if you want
- * advanced features, interfaces, ..., this class ist just a good edit widget
- * replacement for apps which just need any kind of embedded edtor and
- * don't care about using doc/view + interfaces
+ * Extensibility: Use the \ref Document / \ref View classes if you want
+ * advanced features, interfaces, etc. This class is just a good text editor
+ * widget replacement for applications which just need an embedded text edtor
+ * and are not interested in using advanced interfaces.
  */
 
 class Editor : public KParts::ReadWritePart

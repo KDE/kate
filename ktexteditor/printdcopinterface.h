@@ -22,8 +22,9 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param ParentPrintInterface - The parent @ref PrintInterface object
+		@param Parent the parent @ref PrintInterface object
 		that will provide us with the functions for the interface.
+		@param name the QObject's name
 		*/
 		PrintDCOPInterface( PrintInterface *Parent, const char *name );
 		/**

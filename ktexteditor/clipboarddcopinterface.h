@@ -22,8 +22,9 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param ParentClipboardInterface - The parent @ref ClipboardInterface object
+		@param Parent the parent @ref ClipboardInterface object
 		that will provide us with the functions for the interface.
+		@param name the QObject's name
 		*/
 		ClipboardDCOPInterface( ClipboardInterface *Parent, const char *name );
 		/**

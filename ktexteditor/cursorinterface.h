@@ -25,6 +25,9 @@
 namespace KTextEditor
 {
 
+/**
+ * This class represents a text cursor.
+ */
 class Cursor
 {
   public:
@@ -39,8 +42,8 @@ class Cursor
     virtual QChar currentChar () const = 0;
 };
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface for accessing the cursor of the \ref Document class.
 */
 class CursorInterface
 {

@@ -24,8 +24,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::View class !!!
+/**
+*  This is an interface to provide custom popup menus for a \ref View.
 */
 class PopupMenuInterface
 {

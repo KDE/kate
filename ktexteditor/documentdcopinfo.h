@@ -15,7 +15,7 @@ namespace KTextEditor
 	@short DCOP interface to @ref DocumentInfoInterface.
 	@author Ian Reinhart Geiser <geiseri@kde.org>
 	*/
-	
+
 	class DocumentInfoDCOPInterface : virtual public DCOPObject
 	{
 	K_DCOP
@@ -23,8 +23,9 @@ namespace KTextEditor
 	public:
 		/**
 		Construct a new interface object for the text editor.
-		@param ParentDocumentInfoInterface - The parent @ref DocumentInfoInterface object
+		@param Parent the parent @ref DocumentInfoInterface object
 		that will provide us with the functions for the interface.
+		@param name the QObject's name
 		*/
 		DocumentInfoDCOPInterface( DocumentInfoInterface *Parent, const char *name );
 		/**

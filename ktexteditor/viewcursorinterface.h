@@ -26,7 +26,7 @@ namespace KTextEditor
 {
 
 /**
-*  This is an interface for the KTextEditor::View class !!!
+*  This is an interface to access the text cursor of a \ref View class.
 */
 class ViewCursorInterface
 {

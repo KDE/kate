@@ -26,8 +26,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface for syntax highlighting of a \ref Document.
 */
 class HighlightingInterface
 {

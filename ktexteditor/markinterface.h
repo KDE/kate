@@ -34,8 +34,8 @@ class Mark
     uint type;
 };
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to enable marks to be made in the iconborder of the \ref Document class.
 */
 class MarkInterface
 {
@@ -65,13 +65,24 @@ class MarkInterface
     virtual QPtrList<KTextEditor::Mark> marks () = 0;
     virtual void clearMarks () = 0;
     
+    /**
+     * Pre-defined mark types.
+     *
+     * To create a non-standard mark type, use \ref MarkInterfaceExtension.
+     * To add a new standard mark type, edit this interface to document the type.
+     */
     enum MarkTypes
     {
-      markType01= 0x1, // Bookmark !!!
-      markType02= 0x2, // Breakpoint active !!!
-      markType03= 0x4, // Breakpoint reached !!!
-      markType04= 0x8, // Breakpoint disabled !!!
-      markType05= 0x10,// Execution mark !!!
+      /** Bookmark */
+      markType01= 0x1,
+      /** Breakpoint active */
+      markType02= 0x2,
+      /** Breakpoint reached */
+      markType03= 0x4,
+      /** Breakpoint reached */
+      markType04= 0x8,
+      /** Execution mark */
+      markType05= 0x10,
       markType06= 0x20,
       markType07= 0x40,
       markType08= 0x80,

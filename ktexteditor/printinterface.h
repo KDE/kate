@@ -25,8 +25,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to printing functions of a \ref Document.
 */
 class PrintInterface
 {

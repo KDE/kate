@@ -25,8 +25,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface for retrieving status bar messages from the \ref Document class.
 */
 class ViewStatusMsgInterface
 {

@@ -54,8 +54,9 @@ class ConfigPage : public QWidget
     virtual void defaults () = 0;
 };
 
-/*
-*  This is an interface for the KTextEditor::Document/Plugin/ViewPlugin classes !!!
+/**
+* This is an interface to extend the configuration of the
+* \ref Document, \ref Plugin and \ref PluginViewInterface classes.
 */
 class ConfigInterfaceExtension
 {

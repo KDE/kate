@@ -25,8 +25,8 @@ class QCString;
 namespace KTextEditor
 {
 
-/*
-*  This is an interface for the KTextEditor::Document class !!!
+/**
+*  This is an interface to the text encoding of a \ref Document class.
 */
 class EncodingInterface
 {

@@ -18,10 +18,13 @@
   Updates for D.XML can be obtained from http://kate.kde.org/hl/
 
   UPDATE HISTORY:-
-  2004.05.23 - D.XML 1.34 - D 0.90 - Current release of D.
+  2004.08.15 - D.XML 1.36 - D 0.98 - Current release of D.
+                                   - package, writef(strictly speaking writyef isn't a keyword) - keywords are now supported.
+  2004.??.?? - D.XML 1.35 - D 0.?? - Not sure how this release got posted!
+  2004.05.23 - D.XML 1.34 - D 0.90 - updated.
   2004.05.19 - D.XML 1.33 - D 0.89 - mixin - keyword is now supported.
   2004.05.19 - D.XML 1.32 - D 0.77 - pragma, typeof - keywords are now supported.
-  2004.05.19 - D.XML 1.31 - D 0.76 - is - keywords are now supported.
+  2004.05.19 - D.XML 1.31 - D 0.76 - is - keyword is now supported.
   2003.09.06 - D.XML 1.30 - D 0.71 - foreach - keyword is now supported.
   2003.08.18 - D.XML 1.20 - D 0.69 - floats are now supported.
                                    - embedded underscores in integer and float literals are now supported.
@@ -88,6 +91,7 @@
       <item> out </item>
       <item> override </item>
 
+      <item> package </item>
       <item> private </item>
       <item> protected </item>
       <item> public </item>
@@ -147,6 +151,7 @@
     </list>
     <list name="phobos">
       <item> printf </item>
+      <item> writef </item>
     </list>
 
     <list name="linkage">
@@ -291,8 +296,6 @@
         <DetectChar   attribute="Char" context="#pop"  char="'"/>
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
-        <LineContinue attribute="String" context="#stay"/>
-        <HlCStringChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
 

@@ -660,34 +660,34 @@ void EditKeyConfiguration::dummy()
 void EditKeyConfiguration::setupEditKeys()
 {
   m_editAccels=new KAccel(tmpWin);
-  m_editAccels->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"","Left",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_LEFT",i18n("One word left"),"","Ctrl+Left",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"","Shift+Left",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"","Shift+Ctrl+Left",this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"",Key_Left,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_WORD_LEFT",i18n("One word left"),"",CTRL+Key_Left,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"",SHIFT+Key_Left,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"",SHIFT+CTRL+Key_Left,this,SLOT(dummy()));
 
 
-  m_editAccels->insert("KATE_CURSOR_RIGHT",i18n("Cursor right"),"","Right",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_RIGHT",i18n("One word right"),"","Ctrl+Right",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"","Shift+Right",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"","Shift+Ctrl+Right",this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_RIGHT",i18n("Cursor right"),"",Key_Right,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_WORD_RIGHT",i18n("One word right"),"",CTRL+Key_Right,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"",SHIFT+Key_Right,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"",SHIFT+CTRL+Key_Right,this,SLOT(dummy()));
 
-  m_editAccels->insert("KATE_CURSOR_HOME",i18n("Home"),"","Home",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_TOP",i18n("Top"),"","Ctrl+Home",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"","Shift+Home",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"","Shift+Ctrl+Home",this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_HOME",i18n("Home"),"",Key_Home,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_TOP",i18n("Top"),"",CTRL+Key_Home,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"",SHIFT+Key_Home,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"",SHIFT+CTRL+Key_Home,this,SLOT(dummy()));
 
-  m_editAccels->insert("KATE_CURSOR_END",i18n("End"),"","End",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_BOTTOM",i18n("Bottom"),"","Ctrl+End",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"","Shift+End",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"","Shift+Ctrl+End",this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_END",i18n("End"),"",Key_End,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_BOTTOM",i18n("Bottom"),"",CTRL+Key_End,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"",SHIFT+Key_End,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"",SHIFT+CTRL+Key_End,this,SLOT(dummy()));
 
-  m_editAccels->insert("KATE_CURSOR_UP",i18n("Cursor up"),"","Up",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"","Shift+Up",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_SCROLL_UP",i18n("Scroll one line up"),"","Ctrl+Up",this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_UP",i18n("Cursor up"),"",Key_Up,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"",SHIFT+Key_Up,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_SCROLL_UP",i18n("Scroll one line up"),"",CTRL+Key_Up,this,SLOT(dummy()));
 
-  m_editAccels->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"","Down",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"","Shift+Down",this,SLOT(dummy()));
-  m_editAccels->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"","Ctrl+Down",this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"",Key_Down,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"",SHIFT+Key_Down,this,SLOT(dummy()));
+  m_editAccels->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"",CTRL+Key_Down,this,SLOT(dummy()));
 }
 
 void EditKeyConfiguration::save()

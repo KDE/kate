@@ -726,7 +726,8 @@ void KateViewInternal::updateView(int flags)
 	bool yScrollVis=yScroll->isVisible();
 	bool xScrollVis=xScroll->isVisible();
 	int fontHeight = myDoc->viewFont.fontHeight;
-
+	bool needLineRangesUpdate=false;
+	uint lineRangesUpdateHeight=0;
 	bool reUpdate;
 
 	if (!exposeCursor)
@@ -743,7 +744,9 @@ void KateViewInternal::updateView(int flags)
 				w -= bw;
 				if (yScrollVis) w -= scrollbarWidth;
 		  		if (w != width() || h != height()) {
-			    		updateLineRanges(h);
+					needLineRangesUpdate=true;
+					lineRangesUpdateHeight=h;
+//			    		updateLineRanges(h);
 			   	 	resize(w,h);
 				}
 			}
@@ -785,31 +788,52 @@ void KateViewInternal::updateView(int flags)
 	}
 
    if (updateState > 0) paintTextLines(oldXPos, oldYPos);
-   if (updateState==3) {updateLineRanges(height());update();}
-
+   if (updateState==3)
+   {
+	if ((!needLineRangesUpdate) || 
+	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
+	needLineRangesUpdate=true;
+	//updateLineRanges(height());update();}
+    }
 	int tmpYPos;
 	if (exposeCursor)
 	{
 		exposeCursor=false;
-	if (displayCursor.line>=endLine)
-	{
-		tmpYPos=(displayCursor.line*fontHeight)-height()+fontHeight;
-		yScroll->setValue(tmpYPos);
-		updateLineRanges(height());
-	}
-	else
-	if (displayCursor.line<startLine)
-	{
-		tmpYPos=(displayCursor.line*fontHeight);
-		yScroll->setValue(tmpYPos);
-		updateLineRanges(height());
-	}
+		if (displayCursor.line>=endLine)
+		{
+			tmpYPos=(displayCursor.line*fontHeight)-height()+fontHeight;
+			yScroll->setValue(tmpYPos);
+
+		        if ((!needLineRangesUpdate) ||
+		        (lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
+		        needLineRangesUpdate=true;
+//			updateLineRanges(height());
+		}
+		else
+		if (displayCursor.line<startLine)
+		{
+			tmpYPos=(displayCursor.line*fontHeight);
+			yScroll->setValue(tmpYPos);
+
+	                if ((!needLineRangesUpdate) ||
+        	        (lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
+                	needLineRangesUpdate=true;
+//			updateLineRanges(height());
+		}
 	}
 
   if (flags & KateView::ufFoldingChanged)
   {
-    updateLineRanges (height());
+	if ((!needLineRangesUpdate) ||
+	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
+	needLineRangesUpdate=true;
+	updateLineRanges(lineRangesUpdateHeight);
+//	updateLineRanges (height());
     repaint ();
+  }
+  else
+  {
+	if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
   }
 
 //	update();

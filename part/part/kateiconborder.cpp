@@ -209,7 +209,7 @@ void KateIconBorder::updateFont()
 
 int KateIconBorder::lineNumberWidth() const
 {
-  int width = m_lineNumbersOn ? ((int)log10(m_view->doc()->numLines()) + 1) * m_maxCharWidth + 4 : 0;
+  int width = m_lineNumbersOn ? ((int)log10((double)(m_view->doc()->numLines())) + 1) * m_maxCharWidth + 4 : 0;
 
   if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
     width = QMAX(style().scrollBarExtent().width() + 4, width);

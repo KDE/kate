@@ -167,7 +167,7 @@ void KateSearch::findAgain( bool back )
   searchFlags.backward = s_options & KFindDialog::FindBackwards;
   searchFlags.selected = s_options & KFindDialog::SelectedText;
   searchFlags.prompt = s_options & KReplaceDialog::PromptOnReplace;
-  searchFlags.replace = true;
+  searchFlags.replace = false;
   searchFlags.finished = false;
   searchFlags.regExp = s_options & KFindDialog::RegularExpression;
 

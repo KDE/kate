@@ -2727,7 +2727,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       }
 
       if (dragInfo.state == diPending)
-        placeCursor( e->pos() );
+        placeCursor( e->pos(), e->state() & ShiftButton );
       else if (dragInfo.state == diNone)
         m_scrollTimer.stop ();
 

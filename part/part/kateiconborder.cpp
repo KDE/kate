@@ -116,6 +116,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
   , m_maxCharWidth( 0 )
+  , m_defaultMarkType(MarkInterface::markType01)
 {
   setSizePolicy( QSizePolicy(  QSizePolicy::Fixed, QSizePolicy::Minimum ) );
 
@@ -467,30 +468,33 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
 {
   uint cursorOnLine = m_viewInternal->yToLineRange(e->y()).line;
 
-  BorderArea area = positionToArea( e->pos() );
-  if( area == IconBorder &&
-      e->button() == LeftButton &&
-      cursorOnLine == m_lastClickedLine &&
+  if (cursorOnLine == m_lastClickedLine &&
       cursorOnLine <= m_doc->lastLine() )
   {
-    if( m_doc->editableMarks() == MarkInterface::markType01 ) {
-      if( m_doc->mark( cursorOnLine ) & MarkInterface::markType01 )
-        m_doc->removeMark( cursorOnLine, MarkInterface::markType01 );
-      else
-        m_doc->addMark( cursorOnLine, MarkInterface::markType01 );
-    } else {
-      showMarkMenu( cursorOnLine, QCursor::pos() );
+    BorderArea area = positionToArea( e->pos() );
+    if( area == IconBorder) {
+      if (e->button() == LeftButton) {
+        if( m_doc->editableMarks() & m_defaultMarkType ) {
+          if( m_doc->mark( cursorOnLine ) & m_defaultMarkType )
+            m_doc->removeMark( cursorOnLine, m_defaultMarkType );
+          else
+            m_doc->addMark( cursorOnLine, m_defaultMarkType );
+          } else {
+            showMarkMenu( cursorOnLine, QCursor::pos() );
+          }
+        }
+        else
+        if (e->button() == RightButton) {
+          showMarkMenu( cursorOnLine, QCursor::pos() );
+        }
     }
-  }
-  if( area == FoldingMarkers &&
-      cursorOnLine == m_lastClickedLine &&
-      cursorOnLine <= m_doc->lastLine() )
-  {
-    KateLineInfo info;
-    m_doc->lineInfo(&info,cursorOnLine);
-    if ((info.startsVisibleBlock) || (info.startsInVisibleBlock))
-    {
-      emit toggleRegionVisibility(cursorOnLine);
+
+    if ( area == FoldingMarkers) {
+      KateLineInfo info;
+      m_doc->lineInfo(&info,cursorOnLine);
+      if ((info.startsVisibleBlock) || (info.startsInVisibleBlock)) {
+        emit toggleRegionVisibility(cursorOnLine);
+      }
     }
   }
 
@@ -509,27 +513,53 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
 void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
 {
   QPopupMenu markMenu;
+  QPopupMenu selectDefaultMark;
+
+  typedef QValueVector<int> MarkTypeVector;
+  MarkTypeVector vec( 33 );
+  int i=1;
+
   for( uint bit = 0; bit < 32; bit++ ) {
     MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
     if( !(m_doc->editableMarks() & markType) )
       continue;
+
     if( !m_doc->markDescription( markType ).isEmpty() ) {
-      markMenu.insertItem( m_doc->markDescription( markType ), markType );
+      markMenu.insertItem( m_doc->markDescription( markType ), i );
+      selectDefaultMark.insertItem( m_doc->markDescription( markType ), i+100);
     } else {
-      markMenu.insertItem( i18n("Mark Type %1").arg( bit + 1 ), markType );
+      markMenu.insertItem( i18n("Mark Type %1").arg( bit + 1 ), i );
+      selectDefaultMark.insertItem( i18n("Mark Type %1").arg( bit + 1 ), i+100);
     }
+
     if( m_doc->mark( line ) & markType )
-      markMenu.setItemChecked( markType, true );
+      markMenu.setItemChecked( i, true );
+
+    if( markType & m_defaultMarkType )
+      selectDefaultMark.setItemChecked( i+100, true );
+
+    vec[i++] = markType;
   }
+
   if( markMenu.count() == 0 )
     return;
+
+  if( markMenu.count() > 1 )
+    markMenu.insertItem( i18n("Set default mark type" ), &selectDefaultMark);
+
   int result = markMenu.exec( pos );
   if( result <= 0 )
     return;
-  MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)result;
-  if( m_doc->mark( line ) & markType ) {
-    m_doc->removeMark( line, markType );
-  } else {
-    m_doc->addMark( line, markType );
+
+  if ( result > 100)
+     m_defaultMarkType  = vec[result-100];
+  else
+  {
+    MarkInterface::MarkTypes markType = vec[result];
+    if( m_doc->mark( line ) & markType ) {
+      m_doc->removeMark( line, markType );
+    } else {
+        m_doc->addMark( line, markType );
+    }
   }
 }

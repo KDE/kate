@@ -2268,8 +2268,9 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
       if ( !isTargetSelected( e->pos() ) )
         placeCursor( e->pos() );
 
-      if (m_view->popup())
-        m_view->popup()->popup( mapToGlobal( e->pos() ) );
+      if (leftBorder->positionToArea( e->pos() ) != KateIconBorder::IconBorder)
+        if (m_view->popup())
+            m_view->popup()->popup( mapToGlobal( e->pos() ) );
 
       e->accept ();
       break;

@@ -53,6 +53,9 @@ class KateIconBorder : public QWidget
     bool lineNumbersOn()      const { return m_lineNumbersOn;    }
     bool foldingMarkersOn()   const { return m_foldingMarkersOn; }
 
+    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
+    BorderArea positionToArea( const QPoint& ) const;
+
   signals:
     void toggleRegionVisibility( unsigned int );
 
@@ -66,9 +69,6 @@ class KateIconBorder : public QWidget
     void mouseDoubleClickEvent( QMouseEvent* );
 
     void showMarkMenu( uint line, const QPoint& pos );
-
-    enum BorderArea { None, LineNumbers, IconBorder, FoldingMarkers };
-    BorderArea positionToArea( const QPoint& ) const;
 
     class KateView *m_view;
     class KateDocument *m_doc;
@@ -85,6 +85,11 @@ class KateIconBorder : public QWidget
     int m_cachedLNWidth;
 
     int m_maxCharWidth;
+
+// Should the default m_defaultMarkType really be ...
+//    #include <markinterface.h>
+//    KTextEditor::MarkInterface::MarkTypes m_defaultMarkType;
+    uint m_defaultMarkType;
 
     mutable QPixmap m_arrow;
     mutable QColor m_oldBackgroundColor;

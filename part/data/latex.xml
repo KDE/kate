@@ -230,8 +230,7 @@ mimetype="text/x-tex" casesensitive="1">
       <item>Roman</item>
       <item>roman</item>
       <item>rule</item>
-      <item>samepage(Befehl)</item>
-      <item>samepage(Umgebung)</item>
+      <item>samepage</item>
       <item>savebox</item>
       <item>sbox</item>
       <item>sc</item>

@@ -167,8 +167,12 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // im
   setInputMethodEnabled(true);
 
-  // set cursor
+  // set initial cursor
   setCursor( KCursor::ibeamCursor() );
+  m_mouseCursor = IbeamCursor;
+
+  // call mouseMoveEvent also if no mouse button is pressed
+  setMouseTracking(true);
 
   dragInfo.state = diNone;
 
@@ -2798,6 +2802,21 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
   }
   else
   {
+    if (isTargetSelected( e->pos() ) ) {
+      // mouse is over selected text. indicate that the text is draggable by setting
+      // the arrow cursor as other Qt text editing widgets do
+      if (m_mouseCursor != ArrowCursor) {
+        setCursor( KCursor::arrowCursor() );
+        m_mouseCursor = ArrowCursor;
+      }
+    } else {
+      // normal text cursor
+      if (m_mouseCursor != IbeamCursor) {
+        setCursor( KCursor::ibeamCursor() );
+        m_mouseCursor = IbeamCursor;
+      }
+    }
+
     if (m_textHintEnabled)
     {
        m_textHintTimer.start(m_textHintTimeout);

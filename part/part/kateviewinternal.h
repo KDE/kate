@@ -278,6 +278,8 @@ class KateViewInternal : public QWidget
     int scrollX;
     int scrollY;
 
+    Qt::CursorShape m_mouseCursor;
+
     KateSuperCursor cursor;
     KateTextCursor displayCursor;
     int cXPos;

@@ -840,14 +840,14 @@
         <RegExpr attribute="Data Type" String="%[Tt][Yy][Pp][Ee]\b" context="#stay"/>
         <Float attribute="Float" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
-        <DetectChar attribute="String" context="1" char="'"/>
-        <Detect2Chars attribute="Comment" context="2" char="-" char1="-"/>
-        <Detect2Chars attribute="Comment" context="3" char="/" char1="*"/>
-        <RegExpr attribute="Comment" context="4" String="^[Rr][Ee][Mm]\b"/>
-        <DetectChar attribute="Identifier" context="5" char="&quot;"/>
+        <DetectChar attribute="String" context="String literal" char="'"/>
+        <Detect2Chars attribute="Comment" context="Singleline PL/SQL-style comment" char="-" char1="-"/>
+        <Detect2Chars attribute="Comment" context="Multiline C-style comment" char="/" char1="*"/>
+        <RegExpr attribute="Comment" context="SQL*Plus remark directive" String="^[Rr][Ee][Mm]\b"/>
+        <DetectChar attribute="Identifier" context="User-defined identifier" char="&quot;"/>
         <RegExpr attribute="External Variable" context="#stay" String="(:|&amp;&amp;?)\w+"/>
         <RegExpr attribute="Symbol" context="#stay" String="^/$"/>
-        <RegExpr attribute="Preprocessor" context="6" String="^@@?[^@ \t\r\n]"/>
+        <RegExpr attribute="Preprocessor" context="SQL*Plus directive to include file" String="^@@?[^@ \t\r\n]"/>
       </context>
       <context name="String literal" attribute="String" lineEndContext="#stay">
         <RegExpr attribute="External Variable" context="#stay" String="&amp;&amp;?\w+"/>

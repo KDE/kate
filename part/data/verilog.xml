@@ -128,7 +128,7 @@
 
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-        <RegExpr attribute="Keyword" context="Block Name" String="begin\ *:"/>
+        <RegExpr attribute="Keyword" context="Block name" String="begin\ *:"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Data Type" context="#stay" String="types" />
         <keyword attribute="Drive/charge strength" context="#stay" String="strength" />

@@ -3,12 +3,12 @@
 <language name=".desktop" version="1.01" kateversion="2.1" section="Other" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
   <highlighting>
     <contexts>
-      <context attribute="2" lineEndContext="#stay" name="Normal">
+      <context attribute="Key" lineEndContext="#stay" name="Normal">
         <RegExpr String="^\[.*\]$" attribute="Section" context="#stay"/>
-        <RegExpr String="\[.*\]" attribute="Language" context="1"/>
-        <DetectChar char="=" attribute="0" context="1"/>
+        <RegExpr String="\[.*\]" attribute="Language" context="Value"/>
+        <DetectChar char="=" attribute="Normal Text" context="Value"/>
       </context>
-      <context attribute="0" lineEndContext="#pop" name="Value"/>
+      <context attribute="Normal Text" lineEndContext="#pop" name="Value"/>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- PIC (14 bits) assembler syntaxfile for gpasm/mpasm assembler by
-	Alain GIBAUD  (alain.gibaud@univ-valenciennes.fr) -->
+	Alain GIBAUD  (alain.gibaud@univ-valenciennes.fr)
+Small modifications for the new DTD by Joseph Wenninger <jowenn@kde.org>
+ -->
 <language name="PicAsm" version="1.00" kateversion="2.0" section="Sources" 
 		extensions="*.src;*.SRC;*.asm;*.ASM;*.pic;*.PIC;*.inc;*.INC" mimetype="text/x-PicSrc;text/x-PicHdr">
 
@@ -243,22 +245,22 @@
           
        <context name="decimalDigits" attribute="Based Numbers" lineEndContext="#pop">
         <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
-        <RegExpr attribute="0" context="#pop" String="[^0-9]" />
+        <RegExpr attribute="Normal Text" context="#pop" String="[^0-9]" />
       </context>
 
        <context name="binaryDigits" attribute="Based Numbers" lineEndContext="#pop">
         <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
-        <RegExpr attribute="0" context="#pop" String="[^0-1]" />
+        <RegExpr attribute="Normal Text" context="#pop" String="[^0-1]" />
       </context>
 
        <context name="hexDigits" attribute="Based Numbers" lineEndContext="#pop">
         <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
-        <RegExpr attribute="0" context="#pop" String="[^0-9A-Fa-f]" />
+        <RegExpr attribute="Normal Text" context="#pop" String="[^0-9A-Fa-f]" />
       </context>
 
        <context name="octDigits" attribute="Based Numbers" lineEndContext="#pop">
         <DetectChar attribute="Based Numbers" context="#pop" char="'"/>
-        <RegExpr attribute="0" context="#pop" String="[^0-7]" />
+        <RegExpr attribute="Normal Text" context="#pop" String="[^0-7]" />
       </context>
       
       <context name="ASCIIChar" attribute="Char" lineEndContext="#pop">

@@ -150,7 +150,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 
    if ( e->type() == QEvent::KeyPress ) {
     QKeyEvent *ke = (QKeyEvent*)e;
-    if( (ke->key() == Key_Left)  || (ke->key() == Key_Right) ||
+    if( /*(ke->key() == Key_Left)  || (ke->key() == Key_Right) ||*///what are <- and -> used for??
         (ke->key() == Key_Up)    || (ke->key() == Key_Down ) ||
         (ke->key() == Key_Home ) || (ke->key() == Key_End)   ||
         (ke->key() == Key_Prior) || (ke->key() == Key_Next )) {

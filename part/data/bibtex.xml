@@ -32,7 +32,7 @@
         <keyword String="kw_command" attribute="Command" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="#stay" beginRegion="block" />
         <DetectChar char="}" attribute="Normal Text" context="#stay" endRegion="block" />
-        <RegExpr String="\\(w+|.)" attribute="Char" context="#stay"/>
+        <RegExpr String="\\([a-zA-Z]+|.)" attribute="Char" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="String"/>
       </context>
 
@@ -40,12 +40,12 @@
         <DetectChar char="," attribute="Normal Text" context="#pop"/>
         <DetectChar char="{" attribute="Normal Text" context="#stay" beginRegion="block" />
         <DetectChar char="}" attribute="Normal Text" context="#stay" endRegion="block" />
-        <RegExpr String="\\(w+|.)" attribute="Char" context="#stay"/>
+        <RegExpr String="\\([a-zA-Z]+|.)" attribute="Char" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
       </context>
 
       <context name="String" attribute="String" lineEndContext="#stay">
-        <RegExpr String="\\(w+|.)" attribute="Char" context="#stay"/>
+        <RegExpr String="\\([a-zA-Z]+|.)" attribute="Char" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
       </context>
     </contexts>

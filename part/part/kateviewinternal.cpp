@@ -369,7 +369,6 @@ void KateViewInternal::pageUp(bool sel)
   myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor, tmpCur, cOldXPos);
   
   updateCursor (tmpCur, sel);
-  updateView ();
 }
 
 void KateViewInternal::pageDown(bool sel)
@@ -392,7 +391,6 @@ void KateViewInternal::pageDown(bool sel)
   myDoc->textWidth(myDoc->_configFlags & KateDocument::cfWrapCursor,tmpCur,cOldXPos);
 
   updateCursor (tmpCur, sel);
-  updateView ();
 }
 
 // go to the top, same X position
@@ -486,7 +484,7 @@ void KateViewInternal::updateCursor()
 }
 
 
-void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel)
+void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel, int updateViewFlags)
 {
   //kdDebug()<<"WARNING: look, if this call is really used only with real cursor positions"<<endl;
   VConfig tmp;
@@ -496,10 +494,10 @@ void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel)
 
  // kdDebug()<<QString("cursor %1/%2, displayCursor %3/%4").arg(tmp.cursor.col).arg(tmp.cursor.line).arg(tmp.displayCursor.col).arg(tmp.displayCursor.line)<<endl;
 
-  updateCursor(tmp,keepSel);
+  updateCursor(tmp,keepSel, updateViewFlags);
 }
 
-void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &newCursor)
+void KateViewInternal::updateCursor(VConfig &c,bool keepSel, int updateViewFlags)
 {
   VConfig oldC;
   oldC.cursor = cursor;
@@ -534,6 +532,8 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &ne
       myDoc->clearSelection();
   }
 
+  updateView (updateViewFlags);
+  
   if (!nullMove)
     emit myView->cursorPositionChanged();
 }
@@ -711,7 +711,7 @@ void KateViewInternal::updateView(int flags)
 
 		  		if (w != width() || h != height()) {
 					needLineRangesUpdate=true;
-			   	 	resize(w,h);
+             resize(w,h);
 				}
 
 			}

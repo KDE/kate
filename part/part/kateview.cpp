@@ -1336,8 +1336,7 @@ void KateView::slotSetEncoding(const QString& descriptiveName) {
 
 void KateView::resizeEvent(QResizeEvent *)
 {
-  myViewInternal->tagAll();
-  myViewInternal->updateView(0/*ufNoScroll*/);
+  myViewInternal->updateView(KateViewInternal::ufRepaint);
 }
 
 void KateView::dropEventPassEmited (QDropEvent* e)

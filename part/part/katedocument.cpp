@@ -692,6 +692,10 @@ void KateDocument::editEnd ()
 {
   if (editSessionNumber == 0)
     return;
+   
+  int flags = 0;
+  if (newDocGeometry)
+    flags = flags | KateViewInternal::ufDocGeometry;
 
   // wrap the new/changed text
   if (editSessionNumber == 1)
@@ -735,7 +739,9 @@ void KateDocument::editEnd ()
       v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd);
 
     if (v->myViewInternal->cursorCacheChanged)
-      v->myViewInternal->updateCursor (v->myViewInternal->cursorCache);
+      v->myViewInternal->updateCursor (v->myViewInternal->cursorCache, false, flags);
+    else
+      v->myViewInternal->updateView (flags);
 
     v->myViewInternal->tagLinesFrom = -1;
     v->myViewInternal->cursorCacheChanged = false;
@@ -745,7 +751,6 @@ void KateDocument::editEnd ()
   emit textChanged ();
 
   noViewUpdates = false;
-  updateViews();
   editIsRunning = false;
 }
 

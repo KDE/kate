@@ -170,8 +170,8 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   // What is this? help
   QWhatsThis::add(opt[0], i18n("When <b>Automatically indent</b> is on, KateView will indent new lines to equal the indent on the previous line.<p>If the previous line is blank, the nearest line above with text is used"));
   QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs.<br>A Tab will be converted to <u>Tab-width</u> as set in the <b>Edit</b> options"));
-  QWhatsThis::add(opt[2], i18n("This allows the <b>backspace</b> key to be used to decrease the indent level."));
-  QWhatsThis::add(opt[3], i18n("This allows the <b>tab</b> key to be used to increase the indent level."));
+  QWhatsThis::add(opt[2], i18n("This allows the <b>Backspace</b> key to be used to decrease the indent level."));
+  QWhatsThis::add(opt[3], i18n("This allows the <b>Tab</b> key to be used to increase the indent level."));
   QWhatsThis::add(opt[4], i18n("This retains current indentation settings for future documents."));
   QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
 }

@@ -1978,7 +1978,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
 
   // skip blank lines, except for the cursor line
   KateView *v = doc->activeView();
-  if ( ktl->firstChar() < 0 && (!v || v->cursorLine() != ln ) )
+  if ( (ktl->firstChar() < 0) && (!v || (int)v->cursorLine() != ln ) )
     return;
 
   int fc;

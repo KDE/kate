@@ -348,8 +348,10 @@ class KateDocument : public Kate::Document,
     bool m_undoComplexMerge;
     KateUndoGroup* m_editCurrentUndo;
 
+//BEGIN DEPRECATED
   //
   // KTextEditor::SelectionInterface stuff
+  // DEPRECATED, this will be removed for KDE 4.x !!!!!!!!!!!!!!!!!!!!
   //
   public slots:
     bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol ) { return false; }
@@ -370,20 +372,24 @@ class KateDocument : public Kate::Document,
     int selEndLine()   { return 0; }
     int selEndCol()    { return 0; }
 
-  private:
-    QPtrList<KateSuperCursor> m_superCursors;
-
+  // hack, only there to still support the deprecated stuff, will be removed for KDE 4.x
+  #undef signals
+  #define signals public
   signals:
+  #undef signals
+  #define signals protected
     void selectionChanged ();
     void textInserted(int line,int column);
 
   //
   // KTextEditor::BlockSelectionInterface stuff
+  // DEPRECATED, this will be removed for KDE 4.x !!!!!!!!!!!!!!!!!!!!
   //
   public slots:
     bool blockSelectionMode () { return false; }
     bool setBlockSelectionMode (bool on) { return false; }
     bool toggleBlockSelectionMode () { return false; }
+//END DEPRECATED
 
   //
   // KTextEditor::UndoInterface stuff
@@ -402,6 +408,10 @@ class KateDocument : public Kate::Document,
 
   private:
     friend class KateTemplateHandler;
+
+  private:
+    QPtrList<KateSuperCursor> m_superCursors;
+
     //
     // some internals for undo/redo
     //
@@ -765,11 +775,11 @@ class KateDocument : public Kate::Document,
      * Add a comment marker as defined by the language providing the attribute
      * @p attrib to each line in the selection.
      */
-           void addStartStopCommentToSelection( int attrib=0 );
+           void addStartStopCommentToSelection( KateView *view, int attrib=0 );
     /**
     * @see addStartStopCommentToSelection.
     */
-          void addStartLineCommentToSelection( int attrib=0 );
+          void addStartLineCommentToSelection( KateView *view, int attrib=0 );
 
     /**
     * Removes comment markers relevant to the language providing
@@ -777,11 +787,11 @@ class KateDocument : public Kate::Document,
     *
     * @return whether the operation succeded.
     */
-    bool removeStartStopCommentFromSelection( int attrib=0 );
+    bool removeStartStopCommentFromSelection( KateView *view, int attrib=0 );
     /**
     * @see removeStartStopCommentFromSelection.
     */
-    bool removeStartLineCommentFromSelection( int attrib=0 );
+    bool removeStartLineCommentFromSelection( KateView *view, int attrib=0 );
 
   public:
     QString getWord( const KateTextCursor& cursor );

@@ -3212,7 +3212,7 @@ void KateDocument::del( KateView *view, const KateTextCursor& c )
   {
     removeText(c.line(), c.col(), c.line(), c.col()+1);
   }
-  else if ( c.line() < lastLine() )
+  else if ( (uint)c.line() < lastLine() )
   {
     removeText(c.line(), c.col(), c.line()+1, 0);
   }
@@ -3584,15 +3584,15 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
  mark at the begining and a stop comment mark
  at the end.
 */
-void KateDocument::addStartStopCommentToSelection( int attrib )
-{/* TODO
+void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
+{
   QString startComment = highlight()->getCommentStart( attrib );
   QString endComment = highlight()->getCommentEnd( attrib );
 
-  int sl = selectStartLine();
-  int el = selectEndLine();
-  int sc = selectStartCol();
-  int ec = selectEndCol();
+  int sl = view->selStartLine();
+  int el = view->selEndLine();
+  int sc = view->selStartCol();
+  int ec = view->selEndCol();
 
   if ((ec == 0) && ((el-1) >= 0))
   {
@@ -3609,21 +3609,21 @@ void KateDocument::addStartStopCommentToSelection( int attrib )
 
   // Set the new selection
   ec += endComment.length() + ( (el == sl) ? startComment.length() : 0 );
-  setSelection(sl, sc, el, ec);*/
+  view->setSelection(sl, sc, el, ec);
 }
 
 /*
   Add to the current selection a comment line
  mark at the begining of each line.
 */
-void KateDocument::addStartLineCommentToSelection( int attrib )
-{/*TODO
+void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
+{
   QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
 
-  int sl = selectStart.line();
-  int el = selectEnd.line();
+  int sl = view->selStartLine();
+  int el = view->selEndLine();
 
-  if ((selectEnd.col() == 0) && ((el-1) >= 0))
+  if ((view->selEndCol() == 0) && ((el-1) >= 0))
   {
     el--;
   }
@@ -3638,8 +3638,8 @@ void KateDocument::addStartLineCommentToSelection( int attrib )
   editEnd ();
 
   // Set the new selection
-  selectEnd.setCol(selectEnd.col() + ((el == selectEnd.line()) ? commentLineMark.length() : 0) );
-  setSelection(selectStart.line(), 0, selectEnd.line(), selectEnd.col());*/
+  view->selEnd().setCol(view->selEndCol() + ((el == view->selEndLine()) ? commentLineMark.length() : 0) );
+  view->setSelection(view->selStartLine(), 0, view->selEndLine(), view->selEndCol());
 }
 
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
@@ -3686,17 +3686,15 @@ bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
   Remove from the selection a start comment mark at
   the begining and a stop comment mark at the end.
 */
-bool KateDocument::removeStartStopCommentFromSelection( int attrib )
+bool KateDocument::removeStartStopCommentFromSelection( KateView *view, int attrib )
 {
-
-#if 0
   QString startComment = highlight()->getCommentStart( attrib );
   QString endComment = highlight()->getCommentEnd( attrib );
 
-  int sl = kMax<int> (0, selectStart.line());
-  int el = kMin<int>  (selectEnd.line(), lastLine());
-  int sc = selectStart.col();
-  int ec = selectEnd.col();
+  int sl = kMax<int> (0, view->selStartLine());
+  int el = kMin<int>  (view->selEndLine(), lastLine());
+  int sc = view->selStartCol();
+  int ec = view->selEndCol();
 
   // The selection ends on the char before selectEnd
   if (ec != 0) {
@@ -3729,12 +3727,10 @@ bool KateDocument::removeStartStopCommentFromSelection( int attrib )
 
     // Set the new selection
     ec -= endCommentLen + ( (el == sl) ? startCommentLen : 0 );
-    setSelection(sl, sc, el, ec + 1);
+    view->setSelection(sl, sc, el, ec + 1);
   }
 
   return remove;
-#endif
-  return false;
 }
 
 bool KateDocument::removeStartStopCommentFromRegion(const KateTextCursor &start,const KateTextCursor &end,int attrib)
@@ -3760,17 +3756,15 @@ bool KateDocument::removeStartStopCommentFromRegion(const KateTextCursor &start,
   Remove from the begining of each line of the
   selection a start comment line mark.
 */
-bool KateDocument::removeStartLineCommentFromSelection( int attrib )
+bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attrib )
 {
-
-  /*
   QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
   QString longCommentMark = shortCommentMark + " ";
 
-  int sl = selectStart.line();
-  int el = selectEnd.line();
+  int sl = view->selStartLine();
+  int el = view->selEndLine();
 
-  if ((selectEnd.col() == 0) && ((el-1) >= 0))
+  if ((view->selEndCol() == 0) && ((el-1) >= 0))
   {
     el--;
   }
@@ -3799,12 +3793,11 @@ bool KateDocument::removeStartLineCommentFromSelection( int attrib )
 
   if(removed) {
     // Set the new selection
-    selectEnd.setCol(selectEnd.col() - ((el == selectEnd.line()) ? removeLength : 0) );
-    setSelection(selectStart.line(), selectStart.col(), selectEnd.line(), selectEnd.col());
+    view->selEnd().setCol(view->selEndCol() - ((el == view->selEndLine()) ? removeLength : 0) );
+    setSelection(view->selStartLine(), view->selStartCol(), view->selEndLine(), view->selEndCol());
   }
 
-  return removed; */
-  return false;
+  return removed;
 }
 
 /*
@@ -3882,9 +3875,9 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
            ( v->selStartCol() > m_buffer->plainLine( v->selStartLine() )->firstChar() ) ||
            ( v->selEndCol() < ((int)m_buffer->plainLine( v->selEndLine() )->length()) )
          ) ) )
-        addStartStopCommentToSelection( startAttrib );
+        addStartStopCommentToSelection( v, startAttrib );
       else if ( hasStartLineCommentMark )
-        addStartLineCommentToSelection( startAttrib );
+        addStartLineCommentToSelection( v, startAttrib );
     }
   }
   else // uncomment
@@ -3897,7 +3890,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
       if ((!removed) && foldingTree()) {
         kdDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)"<<endl;
-        uint commentRegion=(highlight()->commentRegion(startAttrib));
+        int commentRegion=(highlight()->commentRegion(startAttrib));
         if (commentRegion){
            KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
            if (n) {
@@ -3918,9 +3911,9 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
     {
       // anders: this seems like it will work with above changes :)
       removed = ( hasStartLineCommentMark
-                  && removeStartLineCommentFromSelection( startAttrib ) )
+          && removeStartLineCommentFromSelection( v, startAttrib ) )
         || ( hasStartStopCommentMark
-             && removeStartStopCommentFromSelection( startAttrib ) );
+          && removeStartStopCommentFromSelection( v, startAttrib ) );
     }
   }
 }

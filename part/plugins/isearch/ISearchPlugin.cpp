@@ -30,7 +30,7 @@
 #include "ISearchPlugin.h"
 #include "ISearchPlugin.moc"
 
-K_EXPORT_COMPONENT_FACTORY( ktexteditor_isearch, KGenericFactory<ISearchPlugin>( "ktexteditor_isearch" ) );
+K_EXPORT_COMPONENT_FACTORY( ktexteditor_isearch, KGenericFactory<ISearchPlugin>( "ktexteditor_isearch" ) )
 
 namespace
 {

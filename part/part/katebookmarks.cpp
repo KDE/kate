@@ -169,7 +169,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
       }
         m_bookmarkMenu->popupMenu()->insertItem(
         QString("%1 - \"%2\"").arg( (*it)->line+1 ).arg( bText ),
-        this, SLOT (gotoBookmark(int)), 0, i, idx );
+        m_view, SLOT (gotoLineNumber(int)), 0, (*it)->line, idx );
       if ( (*it)->line < line )
       {
         if ( ! prev || prev->line < (*it)->line )

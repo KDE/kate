@@ -4070,7 +4070,7 @@ Kate::ConfigPage *KateDocument::editConfigPage (QWidget *p)
 
 Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new EditKeyConfiguration(p);
+  return (Kate::ConfigPage*) new EditKeyConfiguration(p, this);
 }
 
 Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)

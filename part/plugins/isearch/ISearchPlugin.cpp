@@ -67,7 +67,7 @@ protected:
                                             
 ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	: QObject ( view ), KXMLGUIClient (view)
- 	, m_view( 0L )
+	, m_view( 0L )
 	, m_doc( 0L )
 	, m_searchIF( 0L )
 	, m_cursorIF( 0L )
@@ -91,9 +91,9 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 	, m_foundCol( 0 )
 	, m_matchLen( 0 )
 	, m_toolBarWasHidden( false )
-{      
-  view->insertChildClient (this);
-
+{
+	view->insertChildClient (this);
+	
 	setInstance( KGenericFactory<ISearchPlugin>::instance() );
 	
 	m_searchForwardAction = new KAction(
@@ -175,8 +175,8 @@ ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
 ISearchPluginView::~ISearchPluginView()
 {       
 	writeConfig();   
-  delete m_combo;
-  delete m_label; 
+	delete m_combo;
+	delete m_label; 
 }
 
 void ISearchPluginView::setView( KTextEditor::View* view )

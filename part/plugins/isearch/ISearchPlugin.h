@@ -31,24 +31,24 @@
 #include <qguardedptr.h>
 
 class QLabel;
-namespace 
+namespace
 {
 class KToolBarLabel;
 }
 
 class ISearchPlugin : public KTextEditor::Plugin, public KTextEditor::PluginViewInterface
-{             
-  Q_OBJECT
-
-  public:
-	  ISearchPlugin( QObject *parent = 0, const char* name = 0, const QStringList &args = QStringList() );
-	  virtual ~ISearchPlugin();       
-    
-    void addView (KTextEditor::View *view);
-    void removeView (KTextEditor::View *view);  
-    
-  private:
-    QPtrList<class ISearchPluginView> m_views;
+{
+	Q_OBJECT
+	
+public:
+	ISearchPlugin( QObject *parent = 0, const char* name = 0, const QStringList &args = QStringList() );
+	virtual ~ISearchPlugin();
+	
+	void addView (KTextEditor::View *view);
+	void removeView (KTextEditor::View *view);
+	
+private:
+	QPtrList<class ISearchPluginView> m_views;
 };
 
 class ISearchPluginView : public QObject, public KXMLGUIClient
@@ -58,24 +58,24 @@ class ISearchPluginView : public QObject, public KXMLGUIClient
 public:
 	ISearchPluginView( KTextEditor::View *view );
 	virtual ~ISearchPluginView();
-		
+	
 	virtual bool eventFilter( QObject*, QEvent* );
-  
-  void setView( KTextEditor::View* view );   
-  
+	
+	void setView( KTextEditor::View* view );   
+	
 public slots:
 	void setCaseSensitive( bool );
 	void setFromBeginning( bool );
 	void setRegExp( bool );
 	void setAutoWrap( bool );
-
+	
 private slots:
 	void slotSearchForwardAction();
 	void slotSearchBackwardAction();
 	void slotSearchAction( bool reverse );
 	void slotTextChanged( const QString& text );
 	void slotReturnPressed( const QString& text );
-
+	
 private:
 	void readConfig();
 	void writeConfig();
@@ -87,13 +87,13 @@ private:
 	void nextMatch( bool reverse );
 	bool iSearch( uint startLine, uint startCol,
 	              const QString& text, bool reverse, bool autoWrap );
-
+	
 	KTextEditor::View*     m_view;
 	KTextEditor::Document* m_doc;
 	KTextEditor::SearchInterface* m_searchIF;
 	KTextEditor::ViewCursorInterface* m_cursorIF;
 	KTextEditor::SelectionInterface* m_selectIF;
-       	KAction*               m_searchForwardAction;
+	KAction*               m_searchForwardAction;
 	KAction*               m_searchBackwardAction;
 	QGuardedPtr<KToolBarLabel> m_label;
 	QGuardedPtr<KHistoryCombo> m_combo;

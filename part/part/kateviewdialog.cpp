@@ -22,47 +22,31 @@
 #include "kateviewdialog.h"
 #include "katesearch.h"
 #include "katedocument.h"
+#include "kateview.h"
 #include "katefactory.h"
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <assert.h>
 
-#include <qgrid.h>
 #include <qlabel.h>
 #include <qlayout.h>
-#include <qlistbox.h>
 #include <qtabwidget.h>
-#include <qspinbox.h>
-#include <kcombobox.h>
 #include <qgroupbox.h>
-#include <qlineedit.h>
 #include <qcheckbox.h>
-#include <qcollection.h>
 #include <qpushbutton.h>
-#include <qobjectlist.h>
-#include <qradiobutton.h>
 #include <qvgroupbox.h>
 #include <qwhatsthis.h>
 #include <qstringlist.h>
+#include <qvbox.h>
+#include <qdialog.h>
+
 #include <klocale.h>
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <knuminput.h>
-#include <kglobal.h>
-#include <kcharsets.h>
-#include <qvbox.h>
 #include <kfontdialog.h>
 #include <kregexpeditorinterface.h>
-#include <qdialog.h>
 #include <kparts/componentfactory.h>
-#include <kkeybutton.h>
-#include <klistview.h>
-#include <qlayout.h>
 #include <kconfig.h>
-#include <assert.h>
-
-#include <kmainwindow.h>
-#include <kaccel.h>
 #include <kkeydialog.h>
 
 SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor,
@@ -702,76 +686,17 @@ void FontConfig::reload ()
   setFontPrint (m_doc->getFont(KateDocument::PrintFont));
 }
 
-EditKeyConfiguration::EditKeyConfiguration(QWidget *parent, const char *): Kate::ConfigPage(parent)
+EditKeyConfiguration::EditKeyConfiguration( QWidget* parent, KateDocument* doc )
+  : Kate::ConfigPage( parent )
 {
-	(new QVBoxLayout(this))->setAutoAdd(true);
-	tmpWin=new KMainWindow(0);
-	tmpWin->hide();
-	setupEditKeys();
-  	KConfig config("kateeditkeysrc");
-	m_editAccels->readSettings(&config);
-	chooser=new KKeyChooser(m_editAccels,this);
-}
-
-void EditKeyConfiguration::dummy()
-{}
-
-
-void EditKeyConfiguration::setupEditKeys()
-{
-  m_editAccels=new KAccel(tmpWin);
-  m_editAccels->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"",Key_Left,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_LEFT",i18n("One word left"),"",CTRL+Key_Left,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"",SHIFT+Key_Left,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_LEFT_SELECT",i18n("One word left + SELECT"),"",SHIFT+CTRL+Key_Left,this,SLOT(dummy()));
-
-
-  m_editAccels->insert("KATE_CURSOR_RIGHT",i18n("Cursor right"),"",Key_Right,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_RIGHT",i18n("One word right"),"",CTRL+Key_Right,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_RIGHT_SELECT",i18n("Cursor right + SELECT"),"",SHIFT+Key_Right,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_WORD_RIGHT_SELECT",i18n("One word right + SELECT"),"",SHIFT+CTRL+Key_Right,this,SLOT(dummy()));
-
-  m_editAccels->insert("KATE_CURSOR_HOME",i18n("Home"),"",Key_Home,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_TOP",i18n("Top"),"",CTRL+Key_Home,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_HOME_SELECT",i18n("Home + SELECT"),"",SHIFT+Key_Home,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_TOP_SELECT",i18n("Top + SELECT"),"",SHIFT+CTRL+Key_Home,this,SLOT(dummy()));
-
-  m_editAccels->insert("KATE_CURSOR_END",i18n("End"),"",Key_End,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_BOTTOM",i18n("Bottom"),"",CTRL+Key_End,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_END_SELECT",i18n("End + SELECT"),"",SHIFT+Key_End,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_BOTTOM_SELECT",i18n("Bottom + SELECT"),"",SHIFT+CTRL+Key_End,this,SLOT(dummy()));
-
-  m_editAccels->insert("KATE_CURSOR_UP",i18n("Cursor up"),"",Key_Up,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_UP_SELECT",i18n("Cursor up + SELECT"),"",SHIFT+Key_Up,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_SCROLL_UP",i18n("Scroll one line up"),"",CTRL+Key_Up,this,SLOT(dummy()));
-
-  m_editAccels->insert("KATE_CURSOR_DOWN",i18n("Cursor down"),"",Key_Down,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_CURSOR_DOWN_SELECT",i18n("Cursor down + SELECT"),"",SHIFT+Key_Down,this,SLOT(dummy()));
-  m_editAccels->insert("KATE_SCROLL_DOWN",i18n("Scroll one line down"),"",CTRL+Key_Down,this,SLOT(dummy()));
-  m_editAccels->insert("KATE TRANSPOSE", i18n("Transpose two adjacent characters"),"",CTRL+Key_T,this,SLOT(transpose()));
-}
-
-void EditKeyConfiguration::save()
-{
-  chooser->commitChanges();
-  KConfig config("kateeditkeysrc");
-  m_editAccels->updateConnections();
-  m_editAccels->writeSettings(&config);
-  config.sync();
+  (new QVBoxLayout(this))->setAutoAdd(true);
+  KateView* view = (KateView*)doc->views().at(0);
+  m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
 }
 
 void EditKeyConfiguration::apply()
 {
-  save ();
-}
-
-void EditKeyConfiguration::reload ()
-{
-}
-
-EditKeyConfiguration::~EditKeyConfiguration()
-{
-	delete tmpWin;
+  m_keyChooser->save();
 }
 
 #include "kateviewdialog.moc"

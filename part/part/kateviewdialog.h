@@ -269,24 +269,19 @@ public:
 
 class EditKeyConfiguration: public Kate::ConfigPage
 {
-	Q_OBJECT
-public:
-	EditKeyConfiguration(QWidget *parent=0, const char *name=0);
-	~EditKeyConfiguration();
-	void save();
-private:
-	KMainWindow *tmpWin;
-	KAccel *m_editAccels;
-	KKeyChooser *chooser;
-	void setupEditKeys();
-protected slots:
-	void dummy();
-  
+  Q_OBJECT
+
+  public:
+    EditKeyConfiguration( QWidget* parent, KateDocument* doc );
+
   public slots:
-    void apply ();
-    void reload ();    
-        void reset () {};
-    void defaults () {};
+    void apply();
+    void reload()   {};
+    void reset()    {};
+    void defaults() {};
+
+  private:
+    KKeyChooser* m_keyChooser;
 };
 
 #endif

@@ -43,8 +43,9 @@ class KateBookmarks;
 //
 // Kate KTextEditor::View class ;)
 //
-class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
-                            public KTextEditor::ViewStatusMsgInterface
+class KateView : public Kate::View,
+                 public KTextEditor::SessionConfigInterface,
+                 public KTextEditor::ViewStatusMsgInterface
 {
     Q_OBJECT
     friend class KateViewInternal;
@@ -249,6 +250,8 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
     // Is it really necessary to have 3 methods for this?! :)
     KateDocument*  doc() const       { return m_doc; }
 
+    KActionCollection* editActionCollection() const { return m_editActions; }
+    
   public slots:
     void slotNewUndo();
     void slotUpdate();

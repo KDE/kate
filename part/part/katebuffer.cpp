@@ -35,13 +35,16 @@
 
 /**
  * SOME LIMITS, may need testing which values are clever
- * AVG_BLOCK_SIZE is in characters !
+ * KATE_AVG_BLOCK_SIZE is in characters !
  * (internaly we calc with approx 80 chars per line !)
+ * block will max contain around BLOCK_SIZE chars or
+ * BLOCK_LINES lines (after load, later that won't be tracked)
  * KATE_MAX_BLOCKS_LOADED should be at least 4, as some
  * methodes will cause heavy trashing, if not at least the
  * latest 2-3 used blocks are alive
  */
-#define KATE_AVG_BLOCK_SIZE      (500 * 80)
+#define KATE_AVG_BLOCK_SIZE      (512 * 80)
+#define KATE_MAX_BLOCK_LINES     1024
 #define KATE_MAX_BLOCKS_LOADED   32
 
 /**
@@ -1086,7 +1089,7 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   char *buf = rawData.data ();
   uint size = 0;
   uint blockSize = 0;
-  while (blockSize < KATE_AVG_BLOCK_SIZE)
+  while ((blockSize < KATE_AVG_BLOCK_SIZE) && (m_lines < KATE_MAX_BLOCK_LINES))
   {
     QString line = stream->readLine();
     uint length = line.length ();
@@ -1166,6 +1169,8 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
     m_state = KateBufBlock::stateDirty;
     m_parent->m_loadedBlocks.append (this);
   }
+  
+  kdDebug (13020) << "A BLOCK LOADED WITH LINES: " << m_lines << endl;
   
   return eof;
 }

@@ -93,7 +93,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
       bText.truncate(32);
       bText.append ("...");
       m_bookmarkMenu->popupMenu()->insertItem(
-        QString("%1 - \"%2\"").arg( (*it)->line).arg( bText ),
+        QString("%1 - \"%2\"").arg( (*it)->line+1 ).arg( bText ),
         this, SLOT (gotoBookmark(int)), 0, i );
     }
   }

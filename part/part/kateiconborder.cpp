@@ -30,7 +30,9 @@
 #include "katecodefoldinghelpers.h"
 
 #include <kdebug.h>
+#include <kglobalsettings.h>
 #include <klocale.h>
+
 #include <qpainter.h>
 #include <qpopupmenu.h>
 #include <qcursor.h>
@@ -106,6 +108,7 @@ const char*bookmark_xpm[]={
 "............"};
 
 const int iconPaneWidth = 16;
+const int halfIPW = 8;
 
 KateIconBorder::KateIconBorder ( KateViewInternal* internalView )
   : QWidget(internalView, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
@@ -115,6 +118,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView )
   , m_iconBorderOn( false )
   , m_lineNumbersOn( false )
   , m_foldingMarkersOn( false )
+  , m_cachedLNWidth( 0 )
 {                                        
   setBackgroundMode( NoBackground );
   setFont( m_doc->getFont(KateDocument::ViewFont) ); // for line numbers
@@ -158,18 +162,24 @@ QSize KateIconBorder::sizeHint() const
   int w = 0;
   
   if (m_lineNumbersOn) {
-    w += fontMetrics().width( QString().setNum(m_view->doc()->numLines()) );
+    // FIXME this is not good enough if the font is not fixed-pitch
+    w += fontMetrics().width( QString().setNum(m_view->doc()->numLines()) ) + 4;
+    w += 2; //  2px leading
   }
 
   if (m_iconBorderOn)
-    w += iconPaneWidth;
+    w += iconPaneWidth + 1;
 
   if (m_foldingMarkersOn)
     w += iconPaneWidth;
-
-  // A little extra makes selecting at the beginning easier and looks nicer
-  if( !m_foldingMarkersOn )
+  else
     w += 4;
+  // A little extra makes selecting at the beginning easier and looks nicer
+  // Anders: And this belongs in the border? Apart from that job obviously belonging
+  // to the view, the icon border may not have the same color as the
+  // editor content area...
+//  if( !m_foldingMarkersOn )
+//    w += 4;
 
   return QSize( w, 0 );
 }
@@ -182,32 +192,56 @@ QSize KateIconBorder::minimumSizeHint() const
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {      
   QRect rect = e->rect();
+
+  int lnWidth( 0 );
+  if ( m_lineNumbersOn ) // avoid calculating unless needed ;-)
+  {
+    lnWidth = fontMetrics().width( QString().setNum(m_view->doc()->numLines()) ) + 4;
+    if ( lnWidth != m_cachedLNWidth ) 
+    {
+      // we went from n0 ->n9 lines or vice verca
+      // this causes an extra updateGeometry() first time the line numbers
+      // are displayed, but sizeHint() is supposed to be const so we can't set
+      // the cached value there.
+      m_cachedLNWidth = lnWidth;
+      updateGeometry();
+      return;
+    }
+  }
   
   uint startline = m_viewInternal->contentsYToLine( m_viewInternal->yPosition() + rect.y() );
   uint endline   = m_viewInternal->contentsYToLine( m_viewInternal->yPosition() + rect.y() + rect.height() - 1 );
                                     
+  
+  int fontHeight = m_doc->viewFont.fontHeight; 
+  int w( width() );                     // sane value/calc only once
+  int y( startline * fontHeight );      // assuming adding is faster than mult'ing(?)
+  int lnbx( 2+lnWidth-1 );              // line nbr pane border position: calc only once 
+  QColor bgCol ( colorGroup().light() );
+  QColor col ( colorGroup().background().dark() );
+  uint currentLine( m_view->cursorLine() );
+  
   QPainter p (this);   
+  p.setPen( col );
+  p.fillRect( rect, bgCol );                 
+  
   p.translate (0, -m_viewInternal->yPosition());
-   
-  int fontHeight = m_doc->viewFont.fontHeight;          
-  int lnWidth = fontMetrics().width( QString().setNum(m_view->doc()->numLines()) );
-   
-   //kdDebug(13030)<<"iconborder repaint !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"<<endl;
-                 
+  
   for( uint line = startline; line <= endline; line++ )
   {
     uint realLine = m_doc->getRealLine( line );    
     
-    int y = line * fontHeight;
-    int lnX = 0;
+    //int y = line * fontHeight; // see below
+    int lnX( 0 );
   
-    p.fillRect( 0, y, lnWidth+2*iconPaneWidth, fontHeight, colorGroup().light() );
+    if ( realLine == currentLine )
+      p.fillRect( 0, y, w, fontHeight, colorGroup().midlight() );    
 
     // line number
     if( m_lineNumbersOn )
     {
-      p.setPen(QColor(colorGroup().background()).dark());
-      p.drawLine( lnWidth-1, y, lnWidth-1, y+fontHeight );
+      lnX +=2;
+      p.drawLine( lnbx, y, lnbx, y+fontHeight );
       if( realLine <= m_doc->lastLine() )
         p.drawText( lnX + 1, y, lnWidth-4, fontHeight, Qt::AlignRight|Qt::AlignVCenter,
           QString("%1").arg( realLine + 1 ) );
@@ -217,19 +251,20 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
 
     // icon pane
     if( m_iconBorderOn ) {
-      p.setPen(QColor(colorGroup().background()).dark());
-      p.drawLine(lnX+iconPaneWidth-1, y, lnX+iconPaneWidth-1, y+fontHeight);
+      p.drawLine(lnX+iconPaneWidth, y, lnX+iconPaneWidth, y+fontHeight);
 
       if( realLine <= m_doc->lastLine() ) {
-        for( uint bit = 0; bit < 32; bit++ ) {
-          MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
-          if( m_doc->mark( realLine ) & markType ) {
-            p.drawPixmap( lnX+2, y, m_doc->markPixmap( markType ) );
+        uint mrk( m_doc->mark( realLine ) ); // call only once
+        if ( mrk ) // ;-]]
+          for( uint bit = 0; bit < 32; bit++ ) {
+            MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes)(1<<bit);
+            if( mrk & markType ) {
+              p.drawPixmap( lnX+2, y, m_doc->markPixmap( markType ) );
+            }
           }
-        }
       }
 
-      lnX += iconPaneWidth;
+      lnX += iconPaneWidth + 1;
     }
 
     // folding markers
@@ -246,17 +281,18 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
             p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
           else if (info.startsInVisibleBlock)
             p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
-          else if (info.endsBlock)
-          {
-            p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
-            p.drawLine(lnX+iconPaneWidth/2,y+fontHeight-1,lnX+iconPaneWidth-2,y+fontHeight-1);
-          }
           else
-            p.drawLine(lnX+iconPaneWidth/2,y,lnX+iconPaneWidth/2,y+fontHeight-1);
+          {
+            p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+fontHeight-1);
+            if (info.endsBlock)
+              p.drawLine(lnX+halfIPW,y+fontHeight-1,lnX+iconPaneWidth-2,y+fontHeight-1);
+          }
         }
+        p.setPen( col );
       }
       lnX+=iconPaneWidth;
-    }   
+    }
+    y += fontHeight; // faster?   
   }
 }
 

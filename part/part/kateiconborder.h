@@ -49,7 +49,8 @@ class KateIconBorder : public QWidget
     // Normally the layout would handle it automatically, but
     // KateViewInternal doesn't use a layout, so emit a signal instead.
     virtual void updateGeometry() { emit sizeHintChanged(); }
-    
+  
+      
   signals:
     void sizeHintChanged();
     void toggleRegionVisibility( unsigned int );
@@ -75,5 +76,7 @@ class KateIconBorder : public QWidget
     bool m_foldingMarkersOn:1;
     
     uint m_lastClickedLine;
+    
+    int m_cachedLNWidth;
 };
 #endif

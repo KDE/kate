@@ -3595,7 +3595,9 @@ void KateDocument::indent ( KateView *, uint line, int change)
 
     if ((ec == 0) && ((el-1) >= 0))
     {
-      el--;
+
+      /* */
+      el--; /**/
     }
 
     if (config()->configFlags() & KateDocument::cfKeepIndentProfile && change < 0) {
@@ -3729,11 +3731,8 @@ bool KateDocument::removeStringFromBegining(int line, QString &str)
 
   if (there)
   {
-    // Get string lenght
-    int length = str.length();
-
     // Remove some chars
-    removeText (line, index, line, index+length);
+    removeText (line, index, line, index+str.length());
   }
 
   return there;
@@ -3747,18 +3746,29 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
 {
   TextLine::Ptr textline = buffer->plainLine(line);
 
+  int index = 0;
+  bool there = false;
+
   if(textline->endingWith(str))
   {
-    // Get string lenght
-    int length = str.length();
+    index = textline->length() - str.length();
+    there = true;
+  }
+  else
+  {
+    index = textline->lastChar ()-str.length()+1;
 
-    // Remove some chars
-    removeText (line, 0, line, length);
-
-    return true;
+    if ((index >= 0) && (textline->length() >= (index + str.length())) && (textline->string(index, str.length()) == str))
+      there = true;
   }
 
-  return false;
+  if (there)
+  {
+    // Remove some chars
+    removeText (line, index, line, index+str.length());
+  }
+
+  return there;
 }
 
 /*
@@ -3831,9 +3841,13 @@ bool KateDocument::removeStartStopCommentFromSingleLine(int line)
   bool removedStart = (removeStringFromBegining(line, longStartCommentMark)
                        || removeStringFromBegining(line, shortStartCommentMark));
 
-  // Try to remove the long stop comment mark first
-  bool removedStop = (removeStringFromEnd(line, longStopCommentMark)
+  bool removedStop = false;
+  if (removedStart)
+  {
+    // Try to remove the long stop comment mark first
+    removedStop = (removeStringFromEnd(line, longStopCommentMark)
                       || removeStringFromEnd(line, shortStopCommentMark));
+  }
 
   editEnd();
 

@@ -61,33 +61,33 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     /**
      Set editor mode
     */
-    virtual bool isOverwriteMode() const  { return false; };
+    virtual bool isOverwriteMode() const  { return false; }
     /**
      Get editor mode
     */
-    virtual void setOverwriteMode( bool ) { ; };
+    virtual void setOverwriteMode( bool ) { }
     /**
       Gets the text line where the cursor is on
     */
-    virtual QString currentTextLine() { return 0L; };
+    virtual QString currentTextLine() { return 0L; }
     /**
       Gets the word where the cursor is on
     */
-    virtual QString currentWord() { return 0L; };
+    virtual QString currentWord() { return 0L; }
     /**
       Gets the word at position x, y. Can be used to find
       the word under the mouse cursor
     */
-    virtual QString word(int , int ) { return 0L; };
+    virtual QString word(int , int ) { return 0L; }
     /**
       Insert text at the current cursor position.
-      The parameter @param mark is unused.
+      @param mark is unused.
     */
-    virtual void insertText(const QString & ) { ; };
+    virtual void insertText(const QString &mark ) { Q_UNUSED(mark); }
     /**
       Works exactly like closeURL() of KParts::ReadWritePart
     */
-    virtual bool canDiscard() { return false; };
+    virtual bool canDiscard() { return false; }
 
   public:
     virtual int tabWidth() = 0;
@@ -202,11 +202,11 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     /**
       Get the end of line mode (Unix, Macintosh or Dos).
     */
-    virtual int getEol() { return 0L; };
+    virtual int getEol() { return 0L; }
     /**
       Set the end of line mode (Unix, Macintosh or Dos).
     */
-    virtual void setEol(int) { ; };
+    virtual void setEol(int) { }
     /**
       Set focus to the current window.
     */
@@ -214,65 +214,67 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     virtual void setFocus () { QWidget::setFocus(); }
     /**
       Searches for the last searched text forward from cursor position.
-      @param bool forward determines the search direction.
+      @param forward determines the search direction.
     */
-    virtual void findAgain(bool ) { ; };
+    virtual void findAgain(bool forward ) { Q_UNUSED(forward); }
     /**
       Searches for the last searched text forward from cursor position.
       Searches forward from current cursor position.
     */
-    virtual void findAgain () { ; };
+    virtual void findAgain () { };
     /**
       Searches for the last searched text forward from cursor position.
       Searches backward from current cursor position.
     */
-    virtual void findPrev () { ; };
+    virtual void findPrev () { }
     /**
       Presents an edit command popup window, where the user can
       apply a shell command to the contents of the current window.
     */
-    virtual void slotEditCommand () { ; };
+    virtual void slotEditCommand () { }
+
     /**
       Sets icon border on or off depending on
-      @param bool enable.
+      @param enable the flag
     */
-    virtual void setIconBorder (bool) { ; };
+    virtual void setIconBorder (bool enable ) { Q_UNUSED(enable); }
     /**
       Toggles icon border.
     */
-    virtual void toggleIconBorder () { ; };
+    virtual void toggleIconBorder () { }
     /**
-      Sets display of line numbers on/off depending on @param enable
+      Sets display of line numbers on/off depending on @p enable
+      @param enable the flag
     */
-    virtual void setLineNumbersOn (bool) {};
+    virtual void setLineNumbersOn (bool enable) { Q_UNUSED(enable); }
     /**
       Toggles display of lineNumbers
     */
-    virtual void toggleLineNumbersOn () {};
+    virtual void toggleLineNumbersOn () {}
 
   public:
     /**
       Returns whether iconborder is visible.
     */
-    virtual bool iconBorder() { return false; };
+    virtual bool iconBorder() { return false; }
     /**
       @return Wheather line numbers display is on
     */
-    virtual bool lineNumbersOn() { return false; };
+    virtual bool lineNumbersOn() { return false; }
     /**
      Returns a pointer to the document of the view.
     */
-    virtual Document *getDoc () { return 0L; };
+    virtual Document *getDoc () { return 0L; }
 
   public slots:
     /**
       Increase font size.
     */
-    virtual void slotIncFontSizes () { ; };
+    virtual void slotIncFontSizes () { }
     /**
       Decrease font size.
     */
-    virtual void slotDecFontSizes () { ; };
+    virtual void slotDecFontSizes () { }
 
     virtual void gotoMark (KTextEditor::Mark *mark) = 0;
 
@@ -281,7 +283,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
      * equivalents
      */
     // TODO: Remove when BIC is allowed
-    virtual void toggleBookmark () {};
+    virtual void toggleBookmark () {}
 
     virtual void gotoLineNumber( int ) = 0;
 

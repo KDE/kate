@@ -87,7 +87,8 @@ class KateFileLoader
     KateFileLoader (const QString &filename, QTextCodec *codec)
       : m_file (filename)
       , m_buffer (KMIN (m_file.size(), KATE_FILE_LOADER_BS))
-      , m_decoder (codec->makeDecoder())
+      , m_codec (codec)
+      , m_decoder (m_codec->makeDecoder())
       , m_position (0)
       , m_lastLineStart (0)
       , m_eof (false) // default to not eof
@@ -115,6 +116,14 @@ class KateFileLoader
 
         if (c > 0)
         {
+          // fix utf16 LE, stolen from khtml ;)
+          if ((c >= 2) && (m_codec->mibEnum() == 1000) && (m_buffer[1] == 0x00))
+          {
+            // utf16LE, we need to put the decoder in LE mode
+            char reverseUtf16[3] = {0xFF, 0xFE, 0x00};
+            m_decoder->toUnicode(reverseUtf16, 2);
+          }
+
           processNull (c);
           m_text = m_decoder->toUnicode (m_buffer, c);
         }
@@ -289,6 +298,7 @@ class KateFileLoader
   private:
     QFile m_file;
     QByteArray m_buffer;
+    QTextCodec *m_codec;
     QTextDecoder *m_decoder;
     QString m_text;
     uint m_position;

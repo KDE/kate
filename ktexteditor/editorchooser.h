@@ -28,8 +28,7 @@ class EditorChooser: public QWidget
     void writeAppSetting(const QString& postfix=QString::null);
 
     static KTextEditor::Document *createDocument(QObject* parent=0,const char *name=0,const QString& postfix=QString::null, bool fallBackToKatePart=true);
-    static KTextEditor::Editor *createEditor(const QString& postfix=QString::null, bool fallBackToKatePart=true);
- 
+    static KTextEditor::Editor *createEditor(QWidget *parentWidget,QObject *parent,const char* widgetName=0,const char* name=0,const QString& postfix=QString::null,bool fallBackToKatePart=true);
   private:
     class PrivateEditorChooser *d;
 };

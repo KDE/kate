@@ -129,6 +129,11 @@
       <item> word-spacing </item>
       <item> z-index </item>
 
+      <!-- CSS3 -->
+      <item> box-sizing </item>
+      <item> opacity </item>
+      <item> text-shadow </item>
+
       <!-- konq specific -->
       <item> konq_bgpos_x </item>
       <item> konq_bgpos_y </item>
@@ -219,6 +224,7 @@
       <item> disc </item>
       <item> circle </item>
       <item> square </item>
+      <item> box </item>
       <item> decimal </item>
       <item> decimal-leading-zero </item>
       <item> lower-roman </item>
@@ -313,6 +319,8 @@
       <item> overline </item>
       <item> portrait </item>
       <item> pre </item>
+      <item> pre-line </item>
+      <item> pre-wrap </item>
       <item> relative </item>
       <item> rtl </item>
       <item> scroll </item>
@@ -338,6 +346,8 @@
       <item> cursive </item>
       <item> fantasy </item>
       <item> monospace </item>
+      <item> border-box </item>
+      <item> content-box </item>
     </list>
 
 
@@ -421,10 +431,23 @@
       <item> active </item>
       <item> focus </item>
       <item> first-child </item>
+      <item> last-child </item>
+      <item> only-child </item>
+      <item> first-of-type </item>
+      <item> last-of-type </item>
+      <item> only-of-type </item>
       <item> first-letter </item>
       <item> first-line </item>
       <item> before </item>
       <item> after </item>
+      <item> selection </item>
+      <item> root </item>
+      <item> empty </item>
+      <item> target </item>
+      <item> enabled </item>
+      <item> disabled </item>
+      <item> checked </item>
+      <item> indeterminate </item>
     </list>
 
     <contexts>

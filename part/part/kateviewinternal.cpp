@@ -2191,6 +2191,9 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
         break;
 
     case RightButton:
+      if ( !isTargetSelected( e->pos() ) )
+        placeCursor( e->pos() );
+
       if (m_view->popup())
         m_view->popup()->popup( mapToGlobal( e->pos() ) );
 

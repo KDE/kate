@@ -229,12 +229,8 @@
 		<item> setglobal </item>
 		<item> setpagedevice </item>
 		<item> setpattern </item>
-		<item> = </item>
-		<item> == </item>
 		<item> ISOLatin1Encoding </item>
 		<item> StandardEncoding </item>
-		<item> [ </item>
-		<item> ] </item>
 		<item> atan </item>
 		<item> banddevice </item>
 		<item> bytesavailable </item>
@@ -350,8 +346,6 @@
 		<item> UserObjects </item>
 		<item> cleardictstack </item>
 		<item> setvmthreshold </item>
-		<item> &lt;&lt; </item>
-		<item> &gt;&gt; </item>
 		<item> currentcolorrendering </item>
 		<item> currentdevparams </item>
 		<item> currentoverprint </item>
@@ -405,19 +399,19 @@
 	</list>
 
 	<contexts>
-		<context name="Normal" attribute="0" lineEndContext="#stay">
-			<keyword attribute="1" context="#stay" String="keywords"/>
-			<Detect2Chars attribute="3" context="2" char="%" char1="!"/>
-			<DetectChar attribute="2" context="1" char="%"/>
-			<Float attribute="4" context="#stay"/>
-			<Int attribute="5" context="#stay"/>
-		        <DetectChar attribute="6" context="3" char="("/>
-			<RegExpr attribute="7" context="#stay" String="\/{1,2}[^\s\(\)\{\}\[\]%/]*"/>
+		<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+			<keyword attribute="Keyword" context="#stay" String="keywords"/>
+			<Detect2Chars attribute="Header" context="Header" char="%" char1="!"/>
+			<DetectChar attribute="Comment" context="Comment" char="%"/>
+			<Float attribute="Float" context="#stay"/>
+			<Int attribute="Decimal" context="#stay"/>
+		        <DetectChar attribute="String" context="String" char="("/>
+			<RegExpr attribute="Data Type" context="#stay" String="\/{1,2}[^\s\(\)\{\}\[\]%/]*"/>
 		</context>
-		<context attribute="2" lineEndContext="#pop" name="Comment"/>
-		<context attribute="3" lineEndContext="#pop" name="Header"/>
-		<context attribute="6" lineEndContext="#stay" name="String">
-			<DetectChar attribute="6" context="#pop" char=")" />
+		<context attribute="Comment" lineEndContext="#pop" name="Comment"/>
+		<context attribute="Header" lineEndContext="#pop" name="Header"/>
+		<context attribute="String" lineEndContext="#stay" name="String">
+			<DetectChar attribute="String" context="#pop" char=")" />
 		</context>
 	</contexts>
 	<itemDatas>

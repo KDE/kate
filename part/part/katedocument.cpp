@@ -2285,6 +2285,8 @@ uint _count = 0;
        endCol = 0;
        needWrap = true;
 
+       kdDebug(13020)<<"Starting real new line "<<lineCount<<endl;
+       
        while (needWrap)
        {
          if ( y+printFont.fontHeight >= (uint)(maxHeight) )
@@ -2454,9 +2456,11 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          }
 
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
+         kdDebug(13020)<<" line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " need Wrap" << needWrap <<" !?"<<endl;
+         
          if ( endCol < startCol )
          {
-           kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" !?"<<endl;
+           kdDebug(13020)<<"--- Skipping garbage, line: "<<lineCount<<" start: "<<startCol<<" end: "<<endCol<<" real EndCol; "<< buffer->line(lineCount)->length()<< " !?"<<endl;
            lineCount++;
            continue; // strange case...
                      // Happens if the line fits exactly.

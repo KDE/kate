@@ -126,8 +126,8 @@ class AutoBookmarkerEntEditor : public KDialogBase
     void apply();
 
   private slots:
-    void showMTDlg();
-
+  void showMTDlg();
+    void slotPatternChanged( const QString& );
   private:
     class QLineEdit *lePattern, *leMimeTypes, *leFileMask;
     class QCheckBox *cbCS, *cbMM;

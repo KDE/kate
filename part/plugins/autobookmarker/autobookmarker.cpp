@@ -295,6 +295,8 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   QWhatsThis::add( lePattern, i18n(
       "<p>A regular expression. Matching lines will be bookmarked.</p>" ) );
 
+  connect( lePattern, SIGNAL(textChanged ( const QString & ) ),this, SLOT( slotPatternChanged( const QString& ) ) );
+
   cbCS = new QCheckBox( i18n("Case &sensitive"), w );
   lo->addMultiCellWidget( cbCS, 1, 1, 0, 2 );
   cbCS->setChecked( e->flags & AutoBookmarkEnt::CaseSensitive );
@@ -340,6 +342,12 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
       "<p>Click this button to display a checkable list of mimetypes available "
       "on your system. When used, the file masks entry above will be filled in "
       "with the corresponding masks.</p>") );
+  slotPatternChanged( lePattern->text() );
+}
+
+void AutoBookmarkerEntEditor::slotPatternChanged( const QString&_pattern )
+{
+    enableButtonOK( !_pattern.isEmpty() );
 }
 
 void AutoBookmarkerEntEditor::apply()

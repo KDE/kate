@@ -1902,7 +1902,7 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
-    config->writePathEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
+    config->writeEntry(s_plugins.at(i)->service->library(), s_plugins.at(i)->load);
 
   config->setGroup("Kate View");
   config->writeEntry( "Collapse Top Level On Load", m_collapseTopLevelOnLoad );

@@ -1201,7 +1201,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->insertText (col, s.length(), s.unicode());
-  removeTrailingSpace(line); // ### nessecary?
+//   removeTrailingSpace(line); // ### nessecary?
 
   m_buffer->changeLine(line);
   editTagLine (line);
@@ -3772,9 +3772,36 @@ void KateDocument::comment( KateView *, uint line, int change)
   // We need to check that we can sanely comment the selectino or region.
   // It is if the attribute of the first and last character of the range to
   // comment belongs to the same language definition.
-  KateTextLine::Ptr ln = kateTextLine( line );
-  int startAttrib = hasSelection() ? kateTextLine( selectStart.line() )->attribute( selectStart.col() ) : ln->attribute( ln->firstChar() );
-  int endAttrib = hasSelection() ? kateTextLine( selectEnd.line() )->attribute( selectEnd.col() ) : ln->attribute( ln->lastChar() );
+  // for lines with no text, we need the attribute for the lines context.
+  bool hassel = hasSelection();
+  int startAttrib, endAttrib;
+  if ( hassel )
+  {
+    KateTextLine::Ptr ln = kateTextLine( selectStart.line() );
+    int l = selectStart.line(), c = selectStart.col();
+    startAttrib = nextNonSpaceCharPos( l, c ) ? kateTextLine( l )->attribute( c ) : 0;
+
+    ln = kateTextLine( selectEnd.line() );
+    l = selectEnd.line(), c = selectEnd.col();
+    endAttrib = previousNonSpaceCharPos( l, c ) ? kateTextLine( l )->attribute( c ) : 0;
+  }
+  else
+  {
+    KateTextLine::Ptr ln = kateTextLine( line );
+    if ( ln->length() )
+    {
+      startAttrib = ln->attribute( ln->firstChar() );
+      endAttrib = ln->attribute( ln->lastChar() );
+    }
+    else
+    {
+      int l = line, c = 0;
+      if ( nextNonSpaceCharPos( l, c )  || previousNonSpaceCharPos( l, c ) )
+        startAttrib = endAttrib = kateTextLine( l )->attribute( c );
+      else
+        startAttrib = endAttrib = 0;
+    }
+  }
 
   if ( ! m_highlight->canComment( startAttrib, endAttrib ) )
   {
@@ -3790,7 +3817,7 @@ void KateDocument::comment( KateView *, uint line, int change)
 
   if (change > 0)
   {
-    if ( !hasSelection() )
+    if ( !hassel )
     {
       if ( hasStartLineCommentMark )
         addStartLineCommentToSingleLine( line, startAttrib );
@@ -3818,7 +3845,7 @@ void KateDocument::comment( KateView *, uint line, int change)
   }
   else
   {
-    if ( !hasSelection() )
+    if ( !hassel )
     {
       removed = ( hasStartLineCommentMark
                   && removeStartLineCommentFromSingleLine( line, startAttrib ) )

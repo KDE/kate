@@ -709,8 +709,8 @@ StyleListView::StyleListView( QWidget *parent, bool showUseDefaults, QColor text
       normalcol( textcol )
 {
   addColumn( i18n("Context") );
-  addColumn( /*QIconSet(SmallIcon("text_bold")),*/ i18n("&Bold") );
-  addColumn( /*QIconSet(SmallIcon("text_italic")),*/ i18n("&Italic") );
+  addColumn( i18n("Bold") );
+  addColumn( i18n("Italic") );
   addColumn( i18n("Normal") );
   addColumn( i18n("Selected") );
   if ( showUseDefaults )

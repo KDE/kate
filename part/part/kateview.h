@@ -143,7 +143,7 @@ class KateView : public Kate::View,
   // BEGIN EDIT STUFF
   public:
     void editStart ();
-    void editEnd (int editTagLineStart, int editTagLineEnd);
+    void editEnd (int editTagLineStart, int editTagLineEnd, bool tagFrom);
 
     void editSetCursor (const KateTextCursor &cursor);
   // END
@@ -170,16 +170,11 @@ class KateView : public Kate::View,
   public:
     bool isOverwriteMode() const;
     void setOverwriteMode( bool b );
-    // TODO: As this method can be implemented in terms of KTextEditor
-    // methods, it should be dropped.
+
     QString currentTextLine()
         { return getDoc()->textLine( cursorLine() ); }
     QString currentWord()
         { return m_doc->getWord( m_viewInternal->getCursor() ); }
-//    QString word(int x, int y)
-//        { return m_doc->getWord( x, y ); }
-    // TODO: As this method can be implemented in terms of KTextEditor
-    // methods, it should be dropped.
     void insertText( const QString& text )
         { getDoc()->insertText( cursorLine(), cursorColumnReal(), text ); }
     bool canDiscard();

@@ -87,7 +87,7 @@ class KateViewInternal : public QWidget
   // BEGIN EDIT STUFF
   public:
     void editStart ();
-    void editEnd (int editTagLineStart, int editTagLineEnd);
+    void editEnd (int editTagLineStart, int editTagLineEnd, bool tagFrom);
 
     void editSetCursor (const KateTextCursor &cursor);
 

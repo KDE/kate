@@ -179,6 +179,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   noViewUpdates = false;
   m_editCurrentUndo = 0L;
   editWithUndo = false;
+  editTagFrom = false;
 
   //BEGIN spelling stuff
   m_kspell = 0;
@@ -869,6 +870,7 @@ void KateDocument::editStart (bool withUndo)
 
   editTagLineStart = 0xffffff;
   editTagLineEnd = 0;
+  editTagFrom = false;
 
   if (editWithUndo)
     undoStart();
@@ -964,7 +966,7 @@ void KateDocument::editEnd ()
 
   for (uint z = 0; z < m_views.count(); z++)
   {
-    m_views.at(z)->editEnd (editTagLineStart, editTagLineEnd);
+    m_views.at(z)->editEnd (editTagLineStart, editTagLineEnd, editTagFrom);
   }
 
   setModified(true);
@@ -1071,15 +1073,25 @@ void KateDocument::editInsertTagLine (uint line)
 
   if (line <= editTagLineEnd)
     editTagLineEnd++;
+
+  if (line > editTagLineEnd)
+    editTagLineEnd = line;
+
+  editTagFrom = true;
 }
 
 void KateDocument::editRemoveTagLine (uint line)
 {
-  if ((line < editTagLineStart) && (editTagLineStart > 0))
+  if (line < editTagLineStart)
     editTagLineStart = line;
 
-  if ((line < editTagLineEnd) && (editTagLineEnd > 0))
+  if (line < editTagLineEnd)
     editTagLineEnd--;
+
+  if (line > editTagLineEnd)
+    editTagLineEnd = line;
+
+  editTagFrom = true;
 }
 
 bool KateDocument::editInsertText ( uint line, uint col, const QString &s )

@@ -238,6 +238,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool editWithUndo;
     uint editTagLineStart;
     uint editTagLineEnd;
+    bool editTagFrom;
     KateUndoGroup* m_editCurrentUndo;
 
   //

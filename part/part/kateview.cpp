@@ -1133,9 +1133,9 @@ void KateView::editStart ()
   m_viewInternal->editStart ();
 }
 
-void KateView::editEnd (int editTagLineStart, int editTagLineEnd)
+void KateView::editEnd (int editTagLineStart, int editTagLineEnd, bool tagFrom)
 {
-  m_viewInternal->editEnd (editTagLineStart, editTagLineEnd);
+  m_viewInternal->editEnd (editTagLineStart, editTagLineEnd, tagFrom);
 }
 
 void KateView::editSetCursor (const KateTextCursor &cursor)

@@ -2646,7 +2646,7 @@ void KateViewInternal::editStart()
   editOldCursor = cursor;
 }
 
-void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
+void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool tagFrom)
 {
    if (editSessionNumber == 0)
     return;
@@ -2656,10 +2656,10 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   if (editSessionNumber > 0)
     return;
 
-  if (editTagLineStart <= int(m_doc->getRealLine(startLine())))
+  if (tagFrom && (editTagLineStart <= int(m_doc->getRealLine(startLine()))))
     tagAll();
-  else if (editTagLineStart <= int(m_doc->getRealLine(endLine())))
-    tagLines (editTagLineStart, m_doc->lastLine(), true);
+  else
+    tagLines (editTagLineStart, tagFrom ? m_doc->lastLine() : editTagLineEnd, true);
 
   if (editOldCursor == cursor)
     updateBracketMarks();

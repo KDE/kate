@@ -668,6 +668,10 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         lineRanges[z].viewLine = 0;
         lineRanges[z].wrap = false;
       }
+      else if (z && lineRanges[z-1].dirty)
+      {
+        lineRanges[z-1].startsInvisibleBlock = (lineRanges[z].line != lineRanges[z-1].line + 1);
+      }
     }
 
     for (; z < lineRanges.size(); z++)

@@ -159,6 +159,8 @@ void KateView::setupActions()
 {
   KActionCollection *ac = this->actionCollection ();
   KAction *a;
+  
+  m_toggleWriteLock = 0;
 
   if (!m_doc->m_bReadOnly)
   {
@@ -577,7 +579,7 @@ void KateView::slotUpdate()
 {
   emit newStatus();
   slotNewUndo();
-  if ( m_toggleWriteLock->isChecked() == m_doc->isReadWrite() )
+  if ( m_toggleWriteLock && m_toggleWriteLock->isChecked() == m_doc->isReadWrite() )
   {
     m_toggleWriteLock->setChecked( ! m_doc->isReadWrite() );
   }

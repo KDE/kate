@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language>
 <!-- Python syntax highlightning v0.9 by Per Wigren -->
-<language name="Python" version="1.21" kateversion="2.1" section="Scripts"
+<language name="Python" version="1.22" kateversion="2.1" section="Scripts"
           extensions="*.py;*.pyw" mimetype="application/x-python;text/x-python" casesensitive="1"
           author="Per Wigren" license="">
 	<highlighting>
@@ -107,6 +107,10 @@
 		<list name="specialvars">
 			<item> None </item>
 			<item> self </item>
+			<item> True </item>
+			<item> False </item>
+			<item> NotImplemented </item>
+			<item> Ellipsis </item>
 		</list>
 
 		<contexts>

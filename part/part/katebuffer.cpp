@@ -39,7 +39,7 @@
  * block will max contain around BLOCK_SIZE chars or
  * BLOCK_LINES lines (after load, later that won't be tracked)
  */
-#define KATE_AVG_BLOCK_SIZE      (512 * 80)
+#define KATE_AVG_BLOCK_SIZE      (2048 * 80)
 #define KATE_MAX_BLOCK_LINES     2048
 
 /*

@@ -1,15 +1,8 @@
-[C Style]
-Mimetypes=text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java
-Priority=1
-Section=Sources
-Variables=kate: indent-mode cstyle;
-Wildcards=*.hh;*.cpp;*.cxx;*.cc;*.C;*.CPP;*.h;*.c;*.java;*.js
-
 [Docbook]
 Mimetypes=text/docbook
 Priority=10
 Section=Markup
-Variables=kate: indent-mode none;
+Variables=kate: indent-mode none; encoding utf-8;
 Wildcards=*.docbook
 
 [GNU Gettext]

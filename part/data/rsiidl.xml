@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>   <!-- KATE Syntax Highlighting for RSI IDL   -->
 <!DOCTYPE language SYSTEM "language.dtd"><!-- Created by Markus Fraenz,fraenz@linmpi.mpg.de Aug 2002 -->
-<language name="RSI_IDL" version="1.01" kateversion="2.0" section="Sources" extensions="*.pro" mimetype="text/x-rsiidl-src">
+<language name="RSI_IDL" version="1.02" kateversion="2.0" section="Sources" extensions="*.pro" mimetype="text/x-rsiidl-src">
     <highlighting>
         <list name="reserved words">
         <item> For </item>
@@ -40,41 +40,41 @@
         <item> Of </item>
         <item> On_ioerror </item>
         </list>
-        <list name="system variables"><!-- Currently not reckognized -->
-        <item>!dpi</item>
-        <item>!dtor</item>
-        <item>!map</item>
-        <item>!pi</item>
-        <item>!radeg</item>
-        <item>!values</item>
-        <item>!err</item>
-        <item>!error_state</item>
-        <item>!error</item>
-        <item>!err_string</item>
-        <item>!except</item>
-        <item>!mouse</item>
-        <item>!msg_prefix</item>
-        <item>!syserror</item>
-        <item>!syserr_string</item>
-        <item>!warn</item>
-        <item>!dir</item>
-        <item>!dlm_path</item>
-        <item>!edit_input</item>
-        <item>!help_path</item>
-        <item>!journal</item>
-        <item>!more</item>
-        <item>!path</item>
-        <item>!prompt</item>
-        <item>!quiet</item>
-        <item>!version</item>
-        <item>!c</item>
-        <item>!d</item>
-        <item>!order</item>
-        <item>!p</item>
-        <item>!x</item>
-        <item>!y</item>
-        <item>!z</item>
-        <item>!stime</item>
+        <list name="system variables">
+        <item>dpi</item>
+        <item>dtor</item>
+        <item>map</item>
+        <item>pi</item>
+        <item>radeg</item>
+        <item>values</item>
+        <item>err</item>
+        <item>error_state</item>
+        <item>error</item>
+        <item>err_string</item>
+        <item>except</item>
+        <item>mouse</item>
+        <item>msg_prefix</item>
+        <item>syserror</item>
+        <item>syserr_string</item>
+        <item>warn</item>
+        <item>dir</item>
+        <item>dlm_path</item>
+        <item>edit_input</item>
+        <item>help_path</item>
+        <item>journal</item>
+        <item>more</item>
+        <item>path</item>
+        <item>prompt</item>
+        <item>quiet</item>
+        <item>version</item>
+        <item>c</item>
+        <item>d</item>
+        <item>order</item>
+        <item>p</item>
+        <item>x</item>
+        <item>y</item>
+        <item>z</item>
+        <item>stime</item>
         </list>
         <list name="types"><!-- IDL5 Data types and variable creation -->
         <item>Fix </item>
@@ -387,13 +387,11 @@
         <context attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Keyword" context="#stay" String="reserved words"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
-        <keyword attribute="Command" context="#stay" String="system variables"/>
-        <keyword attribute="Command" context="#stay" String="commands"/>
-        <keyword attribute="IOCommands" context="#stay" String="io commands"/>
+       <keyword attribute="Command" context="#stay" String="commands"/>
+        <keyword attribute="IOCommand" context="#stay" String="io commands"/>
         <Float attribute="Octal" context="#stay"/>
         <Int attribute="Decimal" context="#stay"/>
         <RangeDetect attribute="String" context="#stay" char="'" char1="'"/>
-        <RangeDetect attribute="Char" context="#stay" char="!" char1="."/>
         <RangeDetect attribute="String" context="#stay" char="&quot;" char1="&quot;"/>
         <DetectChar attribute="Hex" context="#stay" char="(" />
         <DetectChar attribute="Hex" context="#stay" char=")" />
@@ -403,11 +401,17 @@
         <DetectChar attribute="Float" context="#stay" char="}" />
         <DetectChar attribute="Char" context="#stay" char="$" />
         <DetectChar attribute="Char" context="#stay" char="@" />
-        <DetectChar attribute="Char" context="#stay" char="!" />
         <DetectChar attribute="Char" context="#stay" char=":" />
         <DetectChar attribute="Char" context="Comment" char="&#59;"/>
+        <DetectChar attribute="Char" context="systemvarcontext" char="!" />
         </context>
         <context attribute="Comment" lineEndContext="#pop" name="Comment">
+        </context>
+        <context attribute="Char" lineEndContext="#pop" name="systemvarcontext">
+        <DetectChar attribute="Hex" context="#pop" char="(" />
+        <DetectChar attribute="Char" context="#pop" char="." />
+        <DetectChar attribute="Hex" context="#pop" char=" " />
+        <keyword attribute="Float" context="#pop" String="system variables"/>
         </context>
         </contexts>
         <itemDatas>

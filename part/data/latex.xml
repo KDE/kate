@@ -1,6 +1,6 @@
-<?xml version="1.01" encoding="UTF-8"?>
-<!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.01" kateversion="2.0" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
+<?xml version="1.02" encoding="UTF-8"?>      <!-- KATE Syntax Highlighting for LaTeX   -->
+<!DOCTYPE language SYSTEM "language.dtd">    <!-- Modified by Markus Fraenz,fraenz@linmpi.mpg.de Aug 2002 -->
+<language name="LaTeX" version="1.00" kateversion="2.0" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
   <highlighting>
     <list name="keywords">
       <item> begin</item>
@@ -303,26 +303,572 @@
       <item>widehat</item>
       <item>widetilde</item>
       </list>
-    <contexts>
-	<context attribute="Normal Text" lineEndContext="#stay">
-        	<StringDetect String="\begin{" attribute="Begin End" context="Block" insensitive="FALSE"/>
-        	<StringDetect String="\end{" attribute="Begin End" context="Block" insensitive="FALSE"/>
-		<DetectChar char="\" attribute="Keyword" context="Keyword" />
-		<RegExpr String="%.*$" attribute="Comment" context="#stay"/>
+    <list name="math keywords">
+     <item>alpha</item>
+    <item>beta</item>
+    <item>gamma</item>
+    <item>delta</item>
+    <item>epsilon</item>
+    <item>varepsilon</item>
+    <item>zeta</item>
+    <item>eta</item>
+    <item>theta</item>
+    <item>vartheta </item>
+    <item>iota</item>
+    <item>kappa</item>
+    <item>lambda</item>
+    <item>mu</item>
+    <item>nu</item>
+    <item>xi</item>
+    <item>pi</item>
+    <item>varpi</item>
+    <item>rho</item>
+    <item>varrho</item>
+    <item>sigma</item>
+    <item>varsigma </item>
+    <item>tau</item>
+    <item>upsilon</item>
+    <item>phi</item>
+    <item>varphi</item>
+    <item>chi</item>
+    <item>psi</item>
+    <item>omega</item>
+    <item>Gamma</item>
+    <item>Delta</item>
+    <item>Theta</item>
+    <item>Lambda</item>
+    <item>Xi</item>
+    <item>Pi</item>
+    <item>Sigma</item>
+    <item>Upsilon</item>
+    <item>Phi</item>
+    <item>Psi</item>
+    <item>Omega</item>
+    <item>ae</item>
+    <item>AE</item>
+    <item>oe</item>
+    <item>OE</item>
+    <item>aa</item>
+    <item>AA</item>
+    <item>o</item>
+    <item>O</item>
+    <item>ss</item>
+    <item>aleph Hebrew</item>
+    <item>alpha_</item>
+    <item>beta_</item>
+    <item>gamma_</item>
+    <item>delta_</item>
+    <item>epsilon_</item>
+    <item>varepsilon_</item>
+    <item>zeta_</item>
+    <item>eta_</item>
+    <item>theta_</item>
+    <item>vartheta _</item>
+    <item>iota_</item>
+    <item>kappa_</item>
+    <item>lambda_</item>
+    <item>mu_</item>
+    <item>nu_</item>
+    <item>xi_</item>
+    <item>pi_</item>
+    <item>varpi_</item>
+    <item>rho_</item>
+    <item>varrho_</item>
+    <item>sigma_</item>
+    <item>varsigma _</item>
+    <item>tau_</item>
+    <item>upsilon_</item>
+    <item>phi_</item>
+    <item>varphi_</item>
+    <item>chi_</item>
+    <item>psi_</item>
+    <item>omega_</item>
+    <item>Gamma_</item>
+    <item>Delta_</item>
+    <item>Theta_</item>
+    <item>Lambda_</item>
+    <item>Xi_</item>
+    <item>Pi_</item>
+    <item>Sigma_</item>
+    <item>Upsilon_</item>
+    <item>Phi_</item>
+    <item>Psi_</item>
+    <item>Omega_</item>
+    <item>ae_</item>
+    <item>AE_</item>
+    <item>oe_</item>
+    <item>OE_</item>
+    <item>aa_</item>
+    <item>AA_</item>
+    <item>o_</item>
+    <item>O_</item>
+    <item>ss_</item>
+    <item>aleph Hebrew_</item>
+     <item>hbar</item>
+    <item>imath</item>
+    <item>jmath</item>
+    <item>ell</item>
+    <item>wp</item>
+    <item>Re</item>
+    <item>Im</item>
+    <item>prime</item>
+    <item>nabla</item>
+    <item>surd</item>
+    <item>angle</item> 
+    <item>forall</item>
+    <item>exists</item>
+    <item>backslash</item>
+    <item>partial</item>
+    <item>infty</item>
+    <item>triangle</item> 
+    <item>Box open</item>
+    <item>Diamond</item> 
+    <item>flat</item>
+    <item>natural</item> 
+    <item>sharp</item>
+    <item>clubsuit</item> 
+    <item>diamondsuit</item>
+    <item>heartsuit</item> 
+    <item>spadesuit</item>
+    <item>leftarrow</item>
+    <item>Leftarrow</item>
+    <item>longleftarrow</item>
+    <item>Longleftarrow</item>
+    <item>rightarrow</item>
+    <item>Rightarrow</item>
+    <item>longrightarrow</item>
+    <item>Longrightarrow</item>
+    <item>leftrightarrow</item>
+    <item>Leftrightarrow</item>
+    <item>longleftrightarrow</item>
+    <item>uparrow</item>
+    <item>downarrow</item>
+    <item>Uparrow</item>
+    <item>nearrow</item>
+    <item>searrow</item>
+    <item>swarrow</item>
+    <item>nwarrow</item>
+    <item>sum</item>
+    <item>prod</item>
+    <item>coprod</item>
+    <item>int</item>
+    <item>odot</item>
+    <item>oint</item>
+    <item>bigcup</item>
+    <item>bigcap</item>
+    <item>bigvee</item>
+    <item>bigwedge</item>
+    <item>bigodot</item>
+    <item>bigotimes</item>
+    <item>bigoplus</item>
+    <item>biguplus</item>
+    <item>pm</item>
+    <item>mp</item>
+    <item>times</item>
+    <item>div</item>
+    <item>ast</item>
+    <item>star</item>
+    <item>bullet</item>
+    <item>circ</item>
+    <item>cdot</item>
+    <item>leq</item>
+    <item>ll</item>
+    <item>subset</item>
+    <item>geq</item>
+    <item>gg</item>
+    <item>equiv</item>
+    <item>sim</item>
+    <item>simeq</item>
+    <item>approx</item>
+    <item>neq</item>
+    <item>per</item>
+    <item>propto</item>
+    <item>dag</item>
+    <item>ddag</item>
+    <item>S</item>
+    <item>P</item>
+    <item>copyright</item>
+    <item>pounds</item>
+    <item>vert</item>
+    <item>Vert</item>
+    <item>backslash</item>
+    <item>langle</item>
+    <item>rangle</item>
+    <item>uparrow</item>
+    <item>downarrow</item>
+    <item>updownarrow</item>
+    <item>mathit</item>
+    <item>mathrm</item>
+    <item>mathbf</item>
+    <item>mathsf</item>
+    <item>mathtt</item>
+    <item>mathcal</item>
+    <item>mit</item>
+    <item>cal</item>
+    <item>boldmath</item>
+    <item>cdots</item>
+    <item>ddots</item>
+    <item>frac</item>
+    <item>ldots</item>
+    <item>overbrace</item>
+    <item>overline</item>
+    <item>sqrt</item>
+    <item>stackrel</item>
+    <item>underbrace</item>
+    <item>underline</item>
+    <item>vdots</item>
+    <item>arccos</item>
+    <item>arcsin</item>
+    <item>arctan</item>
+    <item>cos</item>
+    <item>cosh</item>
+    <item>cot</item>
+    <item>coth</item>
+    <item>csc</item>
+    <item>deg</item>
+    <item>det</item>
+    <item>dim</item>
+    <item>exp</item>
+    <item>gcd</item>
+    <item>hom</item>
+    <item>inf</item>
+    <item>ker</item>
+    <item>lg</item>
+    <item>lim</item>
+    <item>liminf</item>
+    <item>limsup</item>
+    <item>ln</item>
+    <item>log</item>
+    <item>max</item>
+    <item>min</item>
+    <item>sec</item>
+    <item>sin</item>
+    <item>sinh</item>
+    <item>sup</item>
+    <item>tan</item>
+    <item>tanh</item>
+    <item>bmod</item>
+    <item>pmod</item>
+      </list>
+    <list name="math pop keywords">
+     <item>alpha$</item>
+    <item>beta$</item>
+    <item>gamma$</item>
+    <item>delta$</item>
+    <item>epsilon$</item>
+    <item>varepsilon$</item>
+    <item>zeta$</item>
+    <item>eta$</item>
+    <item>theta$</item>
+    <item>vartheta $</item>
+    <item>iota$</item>
+    <item>kappa$</item>
+    <item>lambda$</item>
+    <item>mu$</item>
+    <item>nu$</item>
+    <item>xi$</item>
+    <item>pi$</item>
+    <item>varpi$</item>
+    <item>rho$</item>
+    <item>varrho$</item>
+    <item>sigma$</item>
+    <item>varsigma $</item>
+    <item>tau$</item>
+    <item>upsilon$</item>
+    <item>phi$</item>
+    <item>varphi$</item>
+    <item>chi$</item>
+    <item>psi$</item>
+    <item>omega$</item>
+    <item>Gamma$</item>
+    <item>Delta$</item>
+    <item>Theta$</item>
+    <item>Lambda$</item>
+    <item>Xi$</item>
+    <item>Pi$</item>
+    <item>Sigma$</item>
+    <item>Upsilon$</item>
+    <item>Phi$</item>
+    <item>Psi$</item>
+    <item>Omega$</item>
+    <item>ae$</item>
+    <item>AE$</item>
+    <item>oe$</item>
+    <item>OE$</item>
+    <item>aa$</item>
+    <item>AA$</item>
+    <item>o$</item>
+    <item>O$</item>
+    <item>ss$</item>
+    <item>aleph Hebrew$</item>
+    <item>hbar$</item>
+    <item>imath$</item>
+    <item>jmath$</item>
+    <item>ell$</item>
+    <item>wp$</item>
+    <item>Re$</item>
+    <item>Im$</item>
+    <item>prime$</item>
+    <item>nabla$</item>
+    <item>surd$</item>
+    <item>angle$</item>
+    <item>forall$</item>
+    <item>exists$</item>
+    <item>backslash$</item>
+    <item>partial$</item>
+    <item>infty$</item>
+    <item>triangle$</item>
+    <item>Box open$</item>
+    <item>Diamond$</item>
+    <item>flat$</item>
+    <item>natural$</item>
+    <item>sharp$</item>
+    <item>clubsuit$</item>
+    <item>diamondsuit$</item>
+    <item>heartsuit$</item>
+    <item>spadesuit$</item>
+    <item>leftarrow$</item>
+    <item>Leftarrow$</item>
+    <item>longleftarrow$</item>
+    <item>Longleftarrow$</item>
+    <item>rightarrow$</item>
+    <item>Rightarrow$</item>
+    <item>longrightarrow$</item>
+    <item>Longrightarrow$</item>
+    <item>leftrightarrow$</item>
+    <item>Leftrightarrow$</item>
+    <item>longleftrightarrow$</item>
+    <item>uparrow$</item>
+    <item>downarrow$</item>
+    <item>Uparrow$</item>
+    <item>nearrow$</item>
+    <item>searrow$</item>
+    <item>swarrow$</item>
+    <item>nwarrow$</item>
+    <item>sum $</item>
+    <item>prod$</item>
+    <item>coprod$</item>
+    <item>int$</item>
+    <item>odot$</item>
+    <item>oint$</item>
+    <item>bigcup$</item>
+    <item>bigcap$</item>
+    <item>bigvee$</item>
+    <item>bigwedge$</item>
+    <item>bigodot$</item>
+    <item>bigotimes $</item>
+    <item>bigoplus$</item>
+    <item>biguplus $</item>
+    <item>pm$</item>
+    <item>mp$</item>
+    <item>times$</item>
+    <item>div$</item>
+    <item>ast$</item>
+    <item>star$</item>
+    <item>bullet$</item>
+    <item>circ$</item>
+    <item>cdot$</item>
+    <item>leq$</item>
+    <item>ll$</item>
+    <item>subset$</item>
+    <item>geq$</item>
+    <item>gg$</item>
+    <item>equiv$</item>
+    <item>sim$</item>
+    <item>simeq$</item>
+    <item>approx$</item>
+    <item>neq$</item>
+    <item>per$</item>
+    <item>propto$</item>
+    <item>dag$</item>
+    <item>ddag$</item>
+    <item>S$</item>
+    <item>P$</item>
+    <item>copyright$</item>
+    <item>pounds$</item>
+    <item>vert$</item>
+    <item>Vert$</item>
+    <item>backslash$</item>
+    <item>langle$</item>
+    <item>rangle$</item>
+    <item>uparrow$</item>
+    <item>downarrow$</item>
+    <item>updownarrow$</item>
+    <item>mathit$</item>
+    <item>mathrm$</item>
+    <item>mathbf$</item>
+    <item>mathsf$</item>
+    <item>mathtt$</item>
+    <item>mathcal$</item>
+    <item>mit$</item>
+    <item>cal$</item>
+    <item>boldmath$</item>
+    <item>cdots$</item>
+    <item>ddots$</item>
+    <item>frac$</item>
+    <item>ldots$</item>
+    <item>overbrace$</item>
+    <item>overline$</item>
+    <item>sqrt$</item>
+    <item>stackrel$</item>
+    <item>underbrace$</item>
+    <item>underline$</item>
+    <item>vdots$</item>
+    <item>arccos$</item>
+    <item>arcsin$</item>
+    <item>arctan$</item>
+    <item>cos$</item>
+    <item>cosh$</item>
+    <item>cot$</item>
+    <item>coth$</item>
+    <item>csc$</item>
+    <item>deg$</item>
+    <item>det$</item>
+    <item>dim$</item>
+    <item>exp$</item>
+    <item>gcd$</item>
+    <item>hom$</item>
+    <item>inf$</item>
+    <item>ker$</item>
+    <item>lg$</item>
+    <item>lim$</item>
+    <item>liminf$</item>
+    <item>limsup$</item>
+    <item>ln$</item>
+    <item>log$</item>
+    <item>max$</item>
+    <item>min$</item>
+    <item>sec$</item>
+    <item>sin$</item>
+    <item>sinh$</item>
+    <item>sup$</item>
+    <item>tan$</item>
+    <item>tanh$</item>
+    <item>bmod$</item>
+    <item>pmod$</item>
+      </list>
+     <contexts>
+	<context attribute="Normal Text" lineEndContext="#stay" name="text">
+        	<StringDetect String="\begin{math}" attribute="begin end" context="math" insensitive="FALSE"/>
+       	        <StringDetect String="\begin{displaymath}" attribute="begin end" context="math" insensitive="FALSE"/>
+                <StringDetect String="\begin{equation}" attribute="begin end" context="math" insensitive="FALSE"/>
+          	<StringDetect String="\begin{eqnarray}" attribute="begin end" context="math" insensitive="FALSE"/>
+		<DetectChar char="$" attribute="math text" context="math" />
+		<Detect2Chars char="\" char1="[" attribute="math" context="math" />
+		<Detect2Chars char="\" char1="(" attribute="math" context="math" />
+        	<StringDetect String="\begin{" attribute="begin end" context="begin end" insensitive="FALSE"/>
+        	<StringDetect String="\end{" attribute="begin end" context="begin end" insensitive="FALSE"/>
+		<DetectChar char="{" attribute="curly bracket" context="#stay" />
+ 		<DetectChar char="[" attribute="square bracket" context="#stay" />
+ 		<DetectChar char="(" attribute="round bracket" context="#stay" />
+ 		<DetectChar char="}" attribute="curly bracket" context="#stay" />
+ 		<DetectChar char="]" attribute="square bracket" context="#stay" />
+ 		<DetectChar char=")" attribute="round bracket" context="#stay" />
+		<DetectChar char="\" attribute="keyword" context="keyword" />
+		<DetectChar char="&amp;" attribute="keyword" context="#stay" />
+		<RegExpr String="%.*$" attribute="comment" context="#stay"/>
 	</context>
-	<context name="Block" attribute="Normal Text" lineEndContext="#stay">
-		<keyword String="keywords" attribute="Keyword" context="#stay"/>
-		<DetectChar char="}" attribute="Begin End" context="#pop"/>
+	<context attribute="Normal Text" lineEndContext="#stay" name="begin end">
+		<keyword String="keywords" attribute="keyword" context="#stay"/>
+		<DetectChar char="}" attribute="begin end" context="#pop"/>
 	</context>
-	<context name="Keyword" attribute="Normal Text" lineEndContext="#pop">
-		<keyword String="keywords" attribute="Keyword" context="#pop" />
+	<context attribute="Normal Text" lineEndContext="0" name="keyword">
+		<DetectChar char="\" char1="\" attribute="keyword" context="#stay" />
+		<DetectChar char="$" attribute="keyword" context="#pop" />
+		<DetectChar char="_" attribute="keyword" context="#pop" />
+		<DetectChar char="&quot;" attribute="keyword" context="#pop" />
+		<DetectChar char="#" attribute="keyword" context="#pop" />
+		<DetectChar char="%" attribute="keyword" context="#pop" />
+		<DetectChar char="&amp;" attribute="keyword" context="#pop" />
+		<DetectChar char="{" attribute="keyword" context="#pop" />
+		<DetectChar char="}" attribute="keyword" context="#pop" />
+		<DetectChar char="'" attribute="keyword" context="#pop" />
+		<DetectChar char="+" attribute="keyword" context="#pop" />
+		<DetectChar char="," attribute="keyword" context="#pop" />
+		<DetectChar char="-" attribute="keyword" context="#pop" />
+		<DetectChar char="." attribute="keyword" context="#pop" />
+		<DetectChar char="/" attribute="keyword" context="#pop" />
+		<DetectChar char="&lt;" attribute="keyword" context="#pop" />
+		<DetectChar char="=" attribute="keyword" context="#pop" />
+		<DetectChar char="&gt;" attribute="keyword" context="#pop" />
+		<DetectChar char="@" attribute="keyword" context="#pop" />
+		<DetectChar char="^" attribute="keyword" context="#pop" />
+		<DetectChar char="`" attribute="keyword" context="#pop" />
+ 		<DetectChar char="|" attribute="keyword" context="#pop" />
+ 		<DetectChar char="~" attribute="keyword" context="#pop" />
+		<DetectChar char="[" attribute="math" context="math" />
+		<DetectChar char="(" attribute="math" context="math" />
+		<DetectChar char="{" attribute="curly bracket" context="#pop" />
+		<DetectChar char="[" attribute="square bracket" context="#pop" />
+		<DetectChar char="(" attribute="round bracket" context="#pop" />
+		<DetectChar char=" " attribute="keyword" context="#pop" />
+		<DetectChar char="$" attribute="math" context="math" />
+		<keyword String="keywords" attribute="keyword" context="#pop" />
+		<DetectChar char="\" attribute="keyword" context="#stay" />
+	</context>
+	<context attribute="math text" lineEndContext="#stay" name="math">
+        	<StringDetect String="\end{math}" attribute="begin end" context="#pop" insensitive="FALSE"/>
+        	<StringDetect String="\end{displaymath}" attribute="begin end" context="#pop" insensitive="FALSE"/>
+        	<StringDetect String="\end{equation}" attribute="begin end" context="#pop" insensitive="FALSE"/>
+        	<StringDetect String="\end{eqnarray}" attribute="begin end" context="#pop" insensitive="FALSE"/>
+		<Detect2Chars char="\" char1="]" attribute="math" context="#pop" />
+		<Detect2Chars char="\" char1=")" attribute="math" context="#pop" />
+		<DetectChar char="{" attribute="curly bracket" context="#stay" />
+ 		<DetectChar char="[" attribute="square bracket" context="#stay" />
+ 		<DetectChar char="(" attribute="round bracket" context="#stay" />
+ 		<DetectChar char="}" attribute="curly bracket" context="#stay" />
+ 		<DetectChar char="]" attribute="square bracket" context="#stay" />
+ 		<DetectChar char=")" attribute="round bracket" context="#stay" />
+ 		<DetectChar char="\" attribute="math" context="math keyword" />
+		<DetectChar char="$" attribute="math text" context="#pop" />
+	</context>
+	<context attribute="math text" lineEndContext="#pop" name="math keyword">
+		<keyword String="math keywords" attribute="math" context="#pop" />
+		<keyword String="math pop keywords" attribute="math" context="text" />
+		<keyword String="keywords" attribute="keyword" context="#pop" />
+ 		<DetectChar char="]" attribute="math" context="#pop" />
+ 		<DetectChar char=")" attribute="math" context="#pop" />
+		<DetectChar char="\" attribute="math" context="#pop" />
+		<DetectChar char="$" attribute="math text" context="text" />
+		<DetectChar char="_" attribute="math" context="#pop" />
+		<DetectChar char="&quot;" attribute="math" context="#pop" />
+		<DetectChar char="!" attribute="math" context="#pop" />
+		<DetectChar char="#" attribute="math" context="#pop" />
+		<DetectChar char="%" attribute="math" context="#pop" />
+		<DetectChar char="&amp;" attribute="math" context="#pop" />
+		<DetectChar char="'" attribute="math" context="#pop" />
+		<DetectChar char="{" attribute="math" context="#pop" />
+		<DetectChar char="}" attribute="math" context="#pop" />
+		<DetectChar char="+" attribute="math" context="#pop" />
+		<DetectChar char="," attribute="math" context="#pop" />
+		<DetectChar char="-" attribute="math" context="#pop" />
+		<DetectChar char="." attribute="math" context="#pop" />
+		<DetectChar char="/" attribute="math" context="#pop" />
+		<DetectChar char=":" attribute="math" context="#pop" />
+		<DetectChar char=";" attribute="math" context="#pop" />
+		<DetectChar char="&lt;" attribute="math" context="#pop" />
+		<DetectChar char="=" attribute="math" context="#pop" />
+		<DetectChar char="&gt;" attribute="math" context="#pop" />
+		<DetectChar char="@" attribute="math" context="#pop" />
+		<DetectChar char="^" attribute="math" context="#pop" />
+		<DetectChar char="`" attribute="math" context="#pop" />
+ 		<DetectChar char="|" attribute="math" context="#pop" />
+ 		<DetectChar char="~" attribute="math" context="#pop" />
+		<DetectChar char="[" attribute="square bracket" context="#pop" />
+		<DetectChar char="(" attribute="round bracket" context="#pop" />
+		<DetectChar char=" " attribute="keyword" context="#pop" />
 	</context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword" defStyleNum="dsNormal" color="#0000ff" selColor="#ff0000" bold="1" italic="1"/>
-      <itemData name="Comment" defStyleNum="dsComment"/>
-      <itemData name="Begin End" defStyleNum="dsNormal" color="#000000" selColor="#ffffff" bold="1" italic="1"/>
+      <itemData name="keyword" defStyleNum="dsNormal" color="#0000ff" selColor="#ff0000" bold="1" italic="1"/>
+      <itemData name="comment" defStyleNum="dsComment"/>
+      <itemData name="begin end" defStyleNum="dsNormal" color="#000000" selColor="#ffffff" bold="1" italic="1"/>
+      <itemData name="math" defStyleNum="dsNormal" color="#aa00aa" selColor="#ff0000" bold="1" italic="1"/>
+      <itemData name="curly bracket" defStyleNum="dsNormal" color="#ff0000" selColor="#ff0000" bold="1" italic="0"/>
+      <itemData name="square bracket" defStyleNum="dsNormal" color="#00ff00" selColor="#00ff00" bold="1" italic="0"/>
+      <itemData name="round bracket" defStyleNum="dsNormal" color="#00ffff" selColor="#ffffff" bold="1" italic="0"/>
+      <itemData name="math text" defStyleNum="dsNormal"  color="#000000" selColor="#ffffff" bold="1" italic="0"/>
 
     </itemDatas>
   </highlighting>

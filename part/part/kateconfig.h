@@ -214,7 +214,7 @@ class KateDocumentConfig : public KateConfig
     bool m_eolSet : 1;
     bool m_backupFlagsSet : 1;
     bool m_backupSuffixSet : 1;
-    bool m_pluginsSet : 1;
+    QBitArray m_pluginsSet;
 
   private:
     static KateDocumentConfig *s_global;
@@ -437,7 +437,7 @@ class KateRendererConfig : public KateConfig
     bool m_wordWrapMarkerColorSet : 1;
     bool m_tabMarkerColorSet : 1;
     bool m_iconBarColorSet : 1;
-    QValueVector<bool> m_lineMarkerColorSet;
+    QBitArray m_lineMarkerColorSet;
 
   private:
     static KateRendererConfig *s_global;

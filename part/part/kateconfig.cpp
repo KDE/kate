@@ -98,13 +98,14 @@ KateDocumentConfig::KateDocumentConfig ()
    m_eolSet (true),
    m_backupFlagsSet (true),
    m_backupSuffixSet (true),
-   m_pluginsSet (true),
+   m_pluginsSet (m_plugins.size()),
    m_doc (0)
 {
   s_global = this;
   
   // init plugin array
   m_plugins.fill (false);
+  m_pluginsSet.fill (true);
 
   // init with defaults from config or really hardcoded ones
   KConfig *config = kapp->config();
@@ -127,11 +128,12 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_eolSet (false),
    m_backupFlagsSet (false),
    m_backupSuffixSet (false),
-   m_pluginsSet (false),
+   m_pluginsSet (m_plugins.size()),
    m_doc (doc)
 {  
   // init plugin array
   m_plugins.fill (false);
+  m_pluginsSet.fill (false);
 }
 
 KateDocumentConfig::~KateDocumentConfig ()
@@ -494,7 +496,7 @@ bool KateDocumentConfig::plugin (uint index) const
   if (index >= m_plugins.size())
     return false;
 
-  if (m_pluginsSet || isGlobal())
+  if (m_pluginsSet[index] || isGlobal())
     return m_plugins[index];
 
   return s_global->plugin (index);
@@ -507,7 +509,7 @@ void KateDocumentConfig::setPlugin (uint index, bool load)
   
   configStart ();
 
-  m_pluginsSet = true;
+  m_pluginsSet[index] = true;
   m_plugins[index] = load;
 
   configEnd ();
@@ -857,6 +859,7 @@ void KateViewConfig::setTextToSearchMode (int mode)
 KateRendererConfig::KateRendererConfig ()
  :
    m_font (new KateFontStruct ()),
+   m_lineMarkerColor (KTextEditor::MarkInterface::RESERVED),
    m_schemaSet (true),
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
@@ -867,11 +870,11 @@ KateRendererConfig::KateRendererConfig ()
    m_wordWrapMarkerColorSet (true),
    m_tabMarkerColorSet(true),
    m_iconBarColorSet (true),
+   m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (0)
 {
-  int cnt = (int)KTextEditor::MarkInterface::RESERVED;
-  m_lineMarkerColor.resize(cnt);
-  m_lineMarkerColorSet.resize(cnt, false);
+  // init bitarray
+  m_lineMarkerColorSet.fill (true);
 
   s_global = this;
 
@@ -883,6 +886,7 @@ KateRendererConfig::KateRendererConfig ()
 
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
  : m_font (0),
+   m_lineMarkerColor (KTextEditor::MarkInterface::RESERVED),
    m_schemaSet (false),
    m_fontSet (false),
    m_wordWrapMarkerSet (false),
@@ -893,11 +897,11 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_wordWrapMarkerColorSet (false),
    m_tabMarkerColorSet(false),
    m_iconBarColorSet (false),
+   m_lineMarkerColorSet (m_lineMarkerColor.size()),
    m_renderer (renderer)
 {
-  int cnt = (int)KTextEditor::MarkInterface::RESERVED;
-  m_lineMarkerColor.resize(cnt);
-  m_lineMarkerColorSet.resize(cnt, false);
+  // init bitarray
+  m_lineMarkerColorSet.fill (false);
 }
 
 KateRendererConfig::~KateRendererConfig ()

@@ -824,7 +824,7 @@ void KateDocument::editStart (bool withUndo)
   noViewUpdates = true;
   editWithUndo = withUndo;
 
-  editTagLineStart = 0xffffff;
+  editTagLineStart = 0xffffffff;
   editTagLineEnd = 0;
   editTagFrom = false;
 

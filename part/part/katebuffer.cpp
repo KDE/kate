@@ -33,8 +33,6 @@
 #include <qtimer.h>
 #include <qtextcodec.h>
 
-#include <assert.h>
-
 /**
  * SOME LIMITS, may need testing which values are clever
  * AVG_BLOCK_SIZE is in characters !
@@ -53,7 +51,7 @@ KateBuffer::KateBuffer(KateDocument *doc)
  : QObject (doc),
    editSessionNumber (0),
    editIsRunning (false),
-   editTagLineStart (0xffffff),
+   editTagLineStart (0xffffffff),
    editTagLineEnd (0),
    m_doc (doc),
    m_lines (0),
@@ -92,7 +90,7 @@ void KateBuffer::editStart ()
 
   editIsRunning = true;
   
-  editTagLineStart = 0xffffff;
+  editTagLineStart = 0xffffffff;
   editTagLineEnd = 0;
 }
 

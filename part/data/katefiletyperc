@@ -5,6 +5,13 @@ Section=Sources
 Variables=kate: indent-mode cstyle;
 Wildcards=*.hh;*.cpp;*.cxx;*.cc;*.C;*.CPP;*.h;*.c;*.java;*.js
 
+[Docbook]
+Mimetypes=text/docbook
+Priority=10
+Section=Markup
+Variables=kate: indent-mode none;
+Wildcards=*.docbook
+
 [GNU Gettext]
 Mimetypes=application/x-gettext
 Priority=1
@@ -27,8 +34,8 @@ Variables=kate: indent-mode python;
 Wildcards=*.py
 
 [XML]
-Mimetypes=application/mathml+xml;application/smil;application/vnd.mozilla.xul+xml;application/x-designer;application/x-kugar;application/x-uml;application/xhtml+xml;text/docbook;text/html;text/mrml;text/rdf;text/sgml;text/vnd.wap.wml;text/xml;image/svg+xml
+Mimetypes=application/mathml+xml;application/smil;application/vnd.mozilla.xul+xml;application/x-designer;application/x-kugar;application/x-uml;application/xhtml+xml;text/html;text/mrml;text/rdf;text/sgml;text/vnd.wap.wml;text/xml;image/svg+xml
 Priority=1
 Section=Markup
 Variables=kate: indent-mode xml;
-Wildcards=*.mml;*.MML;*.smil;*.smi;*.xul;*.XUL;*.ui;*.kud;*.xmi;*.XMI;*.xmi.tgz;*.xmi.tar.bz2;*.docbook;*.html;*.HTML;*.htm;*.HTM;*.xhtml;*.asp;*.mrml;*.MRML;*.rdf;*.RDF;*.sgml;*.SGML;*.wml;*.WML;*.xml;*.XML;*ui.rc;*.svg
+Wildcards=*.mml;*.MML;*.smil;*.smi;*.xul;*.XUL;*.ui;*.kud;*.xmi;*.XMI;*.xmi.tgz;*.xmi.tar.bz2;*.html;*.HTML;*.htm;*.HTM;*.xhtml;*.asp;*.mrml;*.MRML;*.rdf;*.RDF;*.sgml;*.SGML;*.wml;*.WML;*.xml;*.XML;*ui.rc;*.svg

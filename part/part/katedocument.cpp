@@ -4894,7 +4894,7 @@ bool KateDocument::checkColorValue( QString val, QColor &c )
 
 void KateDocument::slotModOnHdDirty (const QString &path)
 {
-  if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 1))
+  if ((path == m_dirWatchFile) && (!m_modOnHd || m_modOnHdReason != 1))
   {
     // compare md5 with the one we have (if we have one)
     if ( ! m_digest.isEmpty() )
@@ -4903,6 +4903,7 @@ void KateDocument::slotModOnHdDirty (const QString &path)
       if ( createDigest( tmp ) && tmp == m_digest )
         return;
     }
+    
     m_modOnHd = true;
     m_modOnHdReason = 1;
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
@@ -4911,7 +4912,7 @@ void KateDocument::slotModOnHdDirty (const QString &path)
 
 void KateDocument::slotModOnHdCreated (const QString &path)
 {
-  if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 2))
+  if ((path == m_dirWatchFile) && (!m_modOnHd || m_modOnHdReason != 2))
   {
     m_modOnHd = true;
     m_modOnHdReason = 2;
@@ -4921,7 +4922,7 @@ void KateDocument::slotModOnHdCreated (const QString &path)
 
 void KateDocument::slotModOnHdDeleted (const QString &path)
 {
-  if ((path == m_file) && (!m_modOnHd || m_modOnHdReason != 3))
+  if ((path == m_dirWatchFile) && (!m_modOnHd || m_modOnHdReason != 3))
   {
     m_modOnHd = true;
     m_modOnHdReason = 3;
@@ -4938,7 +4939,7 @@ bool KateDocument::createDigest( QCString &result )
     QFile f ( url().path() );
     if ( f.open( IO_ReadOnly) )
     {
-      KMD5 md5("");
+      KMD5 md5;
       ret = md5.update( f );
       md5.hexDigest( result );
       f.close();

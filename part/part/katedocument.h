@@ -717,7 +717,7 @@ class KateDocument : public Kate::Document,
      *
      * @return wheather the operation was attempted and succeded.
      */
-    bool createDigest( QCString &result );
+    bool createDigest ( QCString &result );
 
   public:
     // should cursor be wrapped ? take config + blockselection state in account

@@ -327,7 +327,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   btndel = new QPushButton( i18n("&Delete"), hbHl );
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
 
-  QPushButton *btnnew = new QPushButton( i18n("&New"), hbHl );
+  QPushButton *btnnew = new QPushButton( i18n("&New..."), hbHl );
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newSchema()) );
 
   m_tabWidget = new QTabWidget ( this );
@@ -407,7 +407,7 @@ void KateSchemaConfigPage::deleteSchema ()
 
 void KateSchemaConfigPage::newSchema ()
 {
-  QString t = KLineEditDlg::getText (i18n("Name for new Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
+  QString t = KLineEditDlg::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), 0, this);
 
   KateFactory::schemaManager()->addSchema (t);
 

@@ -69,7 +69,7 @@ bool SyntaxDocument::setIdentifier(const QString& identifier){
       f.close();
       if (!success)
 	{
-		KMessageBox::error(0L,i18n("<qt>The error </B> %4<B><BR> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
+		KMessageBox::error(0L,i18n("<qt>The error <b>%4</b><br> has been detected in the file %1 at %2/%3</qt>").arg(identifier)
 			.arg(line).arg(col).arg(errorMsg));
 		return false;
 	}
@@ -77,7 +77,7 @@ bool SyntaxDocument::setIdentifier(const QString& identifier){
     }
     else {                                   
       // Oh o, we couldn't open the file.
-      KMessageBox::error( 0L, i18n("Can't open %1").arg(identifier) );
+      KMessageBox::error( 0L, i18n("Unable to open %1").arg(identifier) );
 	return false;
     }
   }
@@ -417,7 +417,7 @@ void SyntaxDocument::setupModeList(bool force){
 	else
 	{
 		syntaxModeListItem *emli=new syntaxModeListItem;
-		emli->section=i18n("!Errors!");
+		emli->section=i18n("Errors!");
 		emli->mimetype="invalid_file/invalid_file";
 		emli->extension="invalid_file.invalid_file";
 		emli->version="1.";

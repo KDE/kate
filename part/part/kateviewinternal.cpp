@@ -212,7 +212,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c)
       }
       
     } else {
-      c.line = m_doc->visibleLines() - (height() / m_doc->viewFont.fontHeight) - 1;
+      c.line = m_doc->visibleLines() - (height() / m_doc->viewFont.fontHeight);
     }
   }
         
@@ -487,8 +487,6 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint lineRangesSize = lineRanges.size();
   
   QPainter paint ( this );
-  
-  paintOnlyDirty = false;
   
   for (uint z=startz; z <= endz; z++)
   {
@@ -1418,7 +1416,7 @@ void KateViewInternal::tagAll()
   //kdDebug(13030) << "tagAll()" << endl;
   for (uint z = 0; z < lineRanges.size(); z++)
   {
-      lineRanges[z].dirty = true;;
+      lineRanges[z].dirty = true;
   }
   
   leftBorder->updateFont();

@@ -36,23 +36,23 @@ namespace KTextEditor
 		bool findNextString(QString text, bool caseSensitive);
 		bool findPreviousString( QString text, bool caseSensitive);
 		bool findLastString(QString text, bool caseSensitive);
-		bool findStringAt( unsigned int row, unsigned int col, QString text, bool caseSensitive);
+		bool findStringAt( uint  row, uint  col, QString text, bool caseSensitive);
 
 		bool findFirstRegExp( QString regexp);
 		bool findNextRegExp( QString regexp);
 		bool findPreviousRegExp( QString regexp);
 		bool findLastRegExp( QString regexp);
-		bool findRegExpAt( unsigned int row, unsigned int col, QString regexp);
+		bool findRegExpAt( uint  row, uint  col, QString regexp);
 
-		unsigned int currentMatchLine();
-		unsigned int currentMatchCol();
-		unsigned int currentMatchLength();
+		uint currentMatchLine();
+		uint currentMatchCol();
+		uint currentMatchLength();
 
 	private:
 		SearchInterface *m_parent;
-		unsigned int m_currentcol;
-		unsigned int m_currentrow;
-		unsigned int m_currentmatchlen;
+		uint  m_currentcol;
+		uint  m_currentrow;
+		uint  m_currentmatchlen;
 	};
 };
 #endif

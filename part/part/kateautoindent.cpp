@@ -181,7 +181,8 @@ bool KateAutoIndent::skipBlanks (KateDocCursor &cur, KateDocCursor &max, bool ne
     }
 
     // Make sure col is 0 if we spill into next line  i.e. count the '\n' as a character
-    cur.moveForward(1);
+    if (!cur.moveForward(1))
+      break;
     if (curLine != cur.line())
     {
       if (!newline)

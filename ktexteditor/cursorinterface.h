@@ -1,10 +1,9 @@
-/* This file is part of the KDE project
-   Copyright (C) 2001 Christoph Cullmann (cullmann@kde.org)
+/* This file is part of the KDE libraries
+   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   License version 2 as published by the Free Software Foundation.
 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -20,24 +19,24 @@
 #ifndef __ktexteditor_cursorinterface_h__
 #define __ktexteditor_cursorinterface_h__
 
+#include <qptrlist.h>
+#include <qstring.h>
+
 namespace KTextEditor
 {
 
 class Cursor
 {
   public:
-    virtual void position ( uint *line, uint *col ) const = 0;
+    virtual void position ( unsigned int *line, unsigned int *col ) const = 0;
 
-    virtual bool setPosition ( uint line, uint col ) = 0;
+    virtual bool setPosition ( unsigned int line, unsigned int col ) = 0;
 
     virtual bool insertText ( const QString& text ) = 0;
 
-    virtual bool removeText ( uint numberOfCharacters ) = 0;
+    virtual bool removeText ( unsigned int numberOfCharacters ) = 0;
 
     virtual QChar currentChar () const = 0;
-    
-  private:
-      class PrivateCursor *d;
 };
 
 /*
@@ -46,6 +45,13 @@ class Cursor
 class CursorInterface
 {
   friend class PrivateCursorInterface;
+
+  public:
+    CursorInterface ();
+    virtual ~CursorInterface ();
+
+    unsigned int cursorInterfaceNumber () const;
+
   public:
     /**
     * Create a new cursor object
@@ -59,6 +65,8 @@ class CursorInterface
 
     private:
       class PrivateCursorInterface *d;
+      static unsigned int globalCursorInterfaceNumber;
+      unsigned int myCursorInterfaceNumber;
 };
 
 };

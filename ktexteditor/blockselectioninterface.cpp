@@ -16,45 +16,40 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_view_h__
-#define __ktexteditor_view_h__
+// $Id$
 
-#include <qwidget.h>
-#include <kxmlguiclient.h>
+#include "blockselectioninterface.h"
 
 namespace KTextEditor
 {
 
-/**
- * The View class encapsulates a single view into the document.
- */
-
-class View : public QWidget, public KXMLGUIClient
+class PrivateBlockSelectionInterface
 {
-  friend class PrivateView;
-
-  Q_OBJECT
-
   public:
-    /**
-    * Create a new view to the given document. The document must be non-null.
-    */
-    View ( class Document *, QWidget *parent, const char *name = 0 );
-    virtual ~View ();
-
-    unsigned int viewNumber () const;
-
-    /**
-    * Acessor to the parent Document.
-    */
-    virtual class Document *document () const = 0;
-    
-  private:
-    class PrivateView *d;
-    static unsigned int globalViewNumber;
-    unsigned int myViewNumber;
+    PrivateBlockSelectionInterface() {}
+    ~PrivateBlockSelectionInterface() {}
 };
 
 };
 
-#endif
+using namespace KTextEditor;
+
+unsigned int BlockSelectionInterface::globalBlockSelectionInterfaceNumber = 0;
+
+BlockSelectionInterface::BlockSelectionInterface()
+{
+  globalBlockSelectionInterfaceNumber++;
+  myBlockSelectionInterfaceNumber = globalBlockSelectionInterfaceNumber++;
+
+  d = new PrivateBlockSelectionInterface();
+}
+
+BlockSelectionInterface::~BlockSelectionInterface()
+{
+  delete d;
+}
+
+unsigned int BlockSelectionInterface::blockSelectionInterfaceNumber () const
+{
+  return myBlockSelectionInterfaceNumber;
+}

@@ -27,3 +27,8 @@ CodeCompletionInterface::~CodeCompletionInterface()
 {
   delete d;
 }
+
+unsigned int CodeCompletionInterface::codeCompletionInterfaceNumber () const
+{
+  return myCodeCompletionInterfaceNumber;
+}

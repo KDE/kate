@@ -28,7 +28,14 @@ namespace KTextEditor
 */
 class DynWordWrapInterface
 {
-	friend class PrivateDynWordWrapInterface;
+  friend class PrivateDynWordWrapInterface;
+  
+  public:
+    DynWordWrapInterface ();
+    virtual ~DynWordWrapInterface ();
+
+    unsigned int dynWordWrapInterfaceNumber () const;
+
   //
   // slots !!!
   //

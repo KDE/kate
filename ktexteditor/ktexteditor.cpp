@@ -17,6 +17,8 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include <config.h>
+
 #include "document.h"
 #include "view.h"
 #include "editor.h"
@@ -24,23 +26,6 @@
 #include "document.moc"
 #include "view.moc"
 #include "editor.moc"
-
-#include "editinterface.h"
-#include "selectioninterface.h"
-#include "blockselectioninterface.h"
-#include "cursorinterface.h"
-#include "undointerface.h"
-#include "clipboardinterface.h"
-#include "popupmenuinterface.h"
-#include "viewcursorinterface.h"
-#include "searchinterface.h"
-#include "highlightinginterface.h"
-#include "codecompletioninterface.h"
-#include "configinterface.h"
-#include "markinterface.h"
-#include "printinterface.h"
-#include "wordwrapinterface.h"
-#include "dynwordwrapinterface.h"
 
 using namespace KTextEditor;
 

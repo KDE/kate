@@ -1,10 +1,9 @@
-/* This file is part of the KDE project
-   Copyright (C) 2001 Christoph Cullmann (cullmann@kde.org)
+/* This file is part of the KDE libraries
+   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   License version 2 as published by the Free Software Foundation.
 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -29,10 +28,16 @@ namespace KTextEditor
 class BlockSelectionInterface
 {
   friend class PrivateBlockSelectionInterface;
-  
-  //
-  // slots !!!
-  //
+
+  public:
+    BlockSelectionInterface ();
+    virtual ~BlockSelectionInterface ();
+
+    unsigned int blockSelectionInterfaceNumber () const;
+
+  /*
+  *  slots !!!
+  */
   public:
     /**
     * is blockselection mode on ?
@@ -56,6 +61,8 @@ class BlockSelectionInterface
 
     private:
       class PrivateBlockSelectionInterface *d;
+      static unsigned int globalBlockSelectionInterfaceNumber;
+      unsigned int myBlockSelectionInterfaceNumber;
 };
 
 };

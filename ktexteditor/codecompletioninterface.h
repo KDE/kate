@@ -1,10 +1,9 @@
-/* This file is part of the KDE project
-   Copyright (C) 2001 Joseph Wenninger (jowenn@kde.org)
+/* This file is part of the KDE libraries
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   License version 2 as published by the Free Software Foundation.
 
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -19,6 +18,7 @@
 
 #ifndef __ktexteditor_codecompletioninterface_h__
 #define __ktexteditor_codecompletioninterface_h__
+
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -57,6 +57,8 @@ class CodeCompletionInterface
   public:
 	CodeCompletionInterface();
 	virtual ~CodeCompletionInterface();
+  
+  unsigned int codeCompletionInterfaceNumber () const;
 
 	//
 	// slots !!!
@@ -83,7 +85,7 @@ class CodeCompletionInterface
     virtual void filterInsertString(CompletionEntry*,QString *)=0;
 
   private:
-    PrivateCodeCompletionInterface *d;
+    class PrivateCodeCompletionInterface *d;
     static unsigned int globalCodeCompletionInterfaceNumber;
     unsigned int myCodeCompletionInterfaceNumber;
 };

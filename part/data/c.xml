@@ -84,10 +84,10 @@
         <LineContinue attribute="Preprocessor" context="#stay"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
-        <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*"/>
+        <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*" beginRegion="Comment2"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment2" />
       </context>
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context"/>
       <context attribute="Normal Text" lineEndContext="#pop" name="Some Context2"/>

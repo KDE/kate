@@ -165,6 +165,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // init global plugin list
   if (!s_configLoaded)
   {
+    s_plugins.setAutoDelete (true);
+
     KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
     for( ; it != KateFactory::plugins()->end(); ++it)
     {
@@ -181,6 +183,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   }
 
   // init local plugin list
+  m_plugins.setAutoDelete (true);
+
   KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
   for( ; it != KateFactory::plugins()->end(); ++it)
   {

@@ -381,11 +381,13 @@ void KateView::setupActions()
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
 
+  // encoding menu, start with auto checked !
   m_setEncoding = new KSelectAction(i18n("Set &Encoding"), 0, ac, "set_encoding");
-  connect(m_setEncoding, SIGNAL(activated(const QString&)), this, SLOT(slotSetEncoding(const QString&)));
   list = KGlobal::charsets()->descriptiveEncodingNames();
   list.prepend( i18n( "Auto" ) );
   m_setEncoding->setItems(list);
+  m_setEncoding->setCurrentItem (0);
+  connect(m_setEncoding, SIGNAL(activated(const QString&)), this, SLOT(slotSetEncoding(const QString&)));
 
   m_search->createActions( ac );
   m_bookmarks->createActions( ac );
@@ -925,10 +927,7 @@ void KateView::setEol(int eol)
 void KateView::slotSetEncoding( const QString& descriptiveName )
 {
   setEncoding( KGlobal::charsets()->encodingForName( descriptiveName ) );
-
-  m_doc->reloadFile();
-  m_viewInternal->tagAll();
-  m_viewInternal->updateView (true);
+  reloadFile();
 }
 
 void KateView::setIconBorder( bool enable )

@@ -1606,7 +1606,7 @@ void KateModOnHdPrompt::slotPDone( KProcess *p )
   if ( ! p->normalExit() /*|| p->exitStatus()*/ )
   {
     KMessageBox::sorry( this,
-                        i18n("The diff command failed. Please make sure that"
+                        i18n("The diff command failed. Please make sure that "
                              "diff(1) is installed and in your PATH."),
                         i18n("Error Creating Diff") );
     return;

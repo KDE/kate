@@ -759,7 +759,6 @@ void KateViewInternal::updateView(int flags)
 	bool xScrollVis=xScroll->isVisible();
 	int fontHeight = myDoc->viewFont.fontHeight;
 	bool needLineRangesUpdate=false;
-	uint lineRangesUpdateHeight=0;
 	bool reUpdate;
   int scrollbarWidth = style().scrollBarExtent().width();
 
@@ -778,7 +777,6 @@ void KateViewInternal::updateView(int flags)
 
 		  		if (w != width() || h != height()) {
 					needLineRangesUpdate=true;
-					lineRangesUpdateHeight=h;
 			   	 	resize(w,h);
 				}
 
@@ -828,12 +826,7 @@ void KateViewInternal::updateView(int flags)
   int oldU = updateState;
 
    if (updateState==3)
-   {
-	if ((!needLineRangesUpdate) ||
-	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
-	needLineRangesUpdate=true;
-	//updateLineRanges(height());update();}
-    }
+     needLineRangesUpdate=true;
 
   int tmpYPos;
 
@@ -846,8 +839,6 @@ void KateViewInternal::updateView(int flags)
 			if ((tmpYPos % fontHeight)!=0) tmpYPos=tmpYPos+fontHeight;
 			yScroll->setValue(tmpYPos);
 
-		        if ((!needLineRangesUpdate) ||
-		        (lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 		        needLineRangesUpdate=true;
 //			updateLineRanges(height());
 		}
@@ -857,8 +848,6 @@ void KateViewInternal::updateView(int flags)
 			tmpYPos=(displayCursor.line*fontHeight);
 			yScroll->setValue(tmpYPos);
 
-	                if ((!needLineRangesUpdate) ||
-        	        (lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
                 	needLineRangesUpdate=true;
 //			updateLineRanges(height());
 		}
@@ -866,8 +855,6 @@ void KateViewInternal::updateView(int flags)
 
   if (flags & KateViewInternal::ufFoldingChanged)
   {
-	if ((!needLineRangesUpdate) ||
-	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 	needLineRangesUpdate=true;
 	  updateLineRanges();
   }
@@ -899,8 +886,12 @@ void KateViewInternal::updateView(int flags)
 
   if (maxLen > w)
   {
+    uint stmp = 0;
+    if (yScrollVis)
+      stmp = scrollbarWidth;
+
     xScroll->blockSignals(true);
-    xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width(),scrollbarWidth);
+    xScroll->setGeometry(0,myView->height()-scrollbarWidth,myView->width()-stmp,scrollbarWidth);
     xScroll->setRange(0,maxLen);
     xScroll->blockSignals(false);
     xScroll->show();

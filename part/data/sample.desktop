@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Test Shell Script
+Comment=This is a demo script to show off the scripting interface to Kate.
+Type=ShellScript/bash
+X-ScriptName=sample.sh

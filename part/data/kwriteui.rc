@@ -1,0 +1,33 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="kwriteshell" version="8">
+<MenuBar>
+  <Menu name="file" noMerge="1"><text>&amp;File</text>
+    <Action name="file_new" />
+    <Action name="file_open" />
+    <Action name="file_open_recent" />
+    <Merge />
+    <Separator />
+    <Action name="file_print"/>
+    <Separator/>
+    <Action name="file_newWindow"/>
+    <Action name="file_newView"/>
+    <Separator/>
+    <Action name="file_quit"/>
+  </Menu>
+  <Merge />
+  <Menu name="settings"><text>&amp;Settings</text>
+    <Merge />
+    <Action name="set_showPath" append="show_merge"/>
+  </Menu>
+</MenuBar>
+<ToolBar name="mainToolBar" noMerge="1"><text>Main Toolbar</text>
+  <Action name="file_new" />
+  <Action name="file_open" />
+ <DefineGroup name="file_operations" />
+ <Action name="file_print" />
+ <Separator />
+ <Merge />
+ <Separator />
+ <Action name="help" />
+</ToolBar>
+</kpartgui>

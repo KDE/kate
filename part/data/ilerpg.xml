@@ -1,0 +1,270 @@
+ilerpg.xml
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="ILERPG" section="Sources" extensions="QRPGLESRC.*" mimetype="text/x-ilerpg-src" casesensitive="0">
+    <highlighting>
+    <list name="biffs">
+	    <item> ABS </item>
+            <item> ADDR </item>
+            <item> CHAR </item>
+            <item> DECH </item>
+            <item> DECPOS </item>
+            <item> DEC </item>
+            <item> EDITC </item>
+            <item> EDITFLT </item>
+            <item> EDITW </item>
+            <item> ELEM </item>
+            <item> EOF </item>
+            <item> EQUAL </item>
+            <item> ERROR </item>
+            <item> FLOAT </item>
+            <item> FOUND </item>
+            <item> INTH </item>
+            <item> INT </item>
+            <item> LEN </item>
+            <item> NULLIND </item>
+            <item> OPEN </item>
+            <item> PADDR </item>
+            <item> PARMS </item>
+            <item> REPLACE </item>
+            <item> SCAN </item>
+            <item> SIZE </item>
+            <item> STATUS </item>
+            <item> STR </item>
+            <item> SUBST </item>
+            <item> TRIMR </item>
+            <item> TRIML </item>
+            <item> TRIM </item>
+            <item> UNSH </item>
+            <item> UNS </item>
+         </list>
+    <list name="opcodes">
+            <item> Z-ADD </item>
+            <item> Z-SUB </item>
+            <item> ACQ </item>
+            <item> ADDDUR </item>
+            <item> ADD </item>
+            <item> ALLOC </item>
+            <item> ANDGT </item>
+            <item> ANDLT </item>
+            <item> ANDEQ </item>
+            <item> ANDNE </item>
+            <item> ANDGE </item>
+            <item> ANDLE </item>
+            <item> AND </item>
+            <item> BEGSR </item>
+            <item> BITOFF </item>
+            <item> BITON </item>
+            <item> CABGT </item>
+            <item> CABLT </item>
+            <item> CABEQ </item>
+            <item> CABNE </item>
+            <item> CABGE </item>
+            <item> CABLE </item>
+            <item> CAB </item>
+            <item> CALLB </item>
+            <item> CALLP </item>
+            <item> CALL </item>
+            <item> CASGT </item>
+            <item> CASLT </item>
+            <item> CASEQ </item>
+            <item> CASNE </item>
+            <item> CASGE </item>
+            <item> CASLE </item>
+            <item> CAS </item>
+            <item> CAT </item>
+            <item> CHAIN </item>
+            <item> CHECKR </item>
+            <item> CHECK </item>
+            <item> CLEAR </item>
+            <item> CLOSE </item>
+            <item> COMMIT </item>
+            <item> COMP </item>
+            <item> DEALLOC </item>
+            <item> DEFINE </item>
+            <item> DELETE </item>
+            <item> DIV </item>
+            <item> DOWGT </item>
+            <item> DOWLT </item>
+            <item> DOWEQ </item>
+            <item> DOWNE </item>
+            <item> DOWGE </item>
+            <item> DOWLE </item>
+            <item> DOUGT </item>
+            <item> DOULT </item>
+            <item> DOUEQ </item>
+            <item> DOUNE </item>
+            <item> DOUGE </item>
+            <item> DOULE </item>
+            <item> DOU </item>
+            <item> DOW </item>
+            <item> DO </item>
+            <item> DSPLY </item>
+            <item> DUMP </item>
+            <item> ELSE </item>
+            <item> ENDCS </item>
+            <item> ENDDO </item>
+            <item> ENDIF </item>
+            <item> ENDSL </item>
+            <item> ENDSR </item>
+            <item> END </item>
+            <item> EVAL </item>
+            <item> EXCEPT </item>
+            <item> EXFMT </item>
+            <item> EXSR </item>
+            <item> EXTRCT </item>
+            <item> FEOD </item>
+            <item> FORCE </item>
+            <item> GOTO </item>
+            <item> IFGT </item>
+            <item> IFLT </item>
+            <item> IFEQ </item>
+            <item> IFNE </item>
+            <item> IFGE </item>
+            <item> IFLE </item>
+            <item> IF </item>
+            <item> IN </item>
+            <item> ITER </item>
+            <item> KFLD </item>
+            <item> KLIST </item>
+            <item> LEAVE </item>
+            <item> LOOKUP </item>
+            <item> MHHZO </item>
+            <item> MHLZO </item>
+            <item> MLHZO </item>
+            <item> MLLZO </item>
+            <item> MOVE </item>
+            <item> MOVEA </item>
+            <item> MOVEL </item>
+            <item> MULT </item>
+            <item> MVR </item>
+            <item> NEXT </item>
+            <item> OCCUR </item>
+            <item> OPEN </item>
+            <item> ORGT </item>
+            <item> ORLT </item>
+            <item> OREQ </item>
+            <item> ORNE </item>
+            <item> ORGE </item>
+            <item> ORLE </item>
+            <item> OR </item>
+            <item> OTHER </item>
+            <item> OUT </item>
+            <item> PARM </item>
+            <item> PLIST </item>
+            <item> POST </item>
+            <item> READC </item>
+            <item> READE </item>
+            <item> READPE </item>
+            <item> READP </item>
+            <item> READ </item>
+            <item> REALLOC </item>
+            <item> REL </item>
+            <item> RESET </item>
+            <item> RETURN </item>
+            <item> ROLBK </item>
+            <item> SCAN </item>
+            <item> SELECT </item>
+            <item> SETGT </item>
+            <item> SETLL </item>
+            <item> SETOFF </item>
+            <item> SETON </item>
+            <item> SHTDN </item>
+            <item> SORTA </item>
+            <item> SQRT </item>
+            <item> SUBDUR </item>
+            <item> SUBST </item>
+            <item> SUB </item>
+            <item> TAG </item>
+            <item> TESTB </item>
+            <item> TESTN </item>
+            <item> TESTZ </item>
+            <item> TEST </item>
+            <item> TIME </item>
+            <item> UNLOCK </item>
+            <item> UPDATE </item>
+            <item> WHENGT </item>
+            <item> WHENLT </item>
+            <item> WHENEQ </item>
+            <item> WHENNR </item>
+            <item> WHENGE </item>
+            <item> WHENLE </item>
+            <item> WHEN </item>
+            <item> WRITE </item>
+            <item> XFOOT </item>
+            <item> XLATE </item>
+	    <item> *BLANKS </item>
+         </list>
+
+		<contexts>
+		      <context attribute="Normal Text" lineEndContext="#stay">
+                                <RegExpr attribute="Comment" context="2" String="[POIHFDC ]?\*"/>
+                                <RegExpr attribute="Keyword" context="1" String="[POIHFDC]"/>
+                      </context>
+                      <context attribute="Normal Text" lineEndContext="#pop">
+                                <keyword attribute="Keyword" context="#stay" String="opcodes"/>
+                                <DetectChar attribute="Biff" context="7" char="%"/>
+                                <DetectChar attribute="Constant" context="3" char="'"/>
+				<Float attribute="Float" context="#stay"/>
+				<RegExpr attribute="Hex" context="#stay" String="[Xx]'[0-9|a-f|A-f]{2,}'"/>
+
+				<Int attribute="Decimal" context="#stay" >
+					<StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
+					<StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
+				</Int>
+                      </context>
+                      <context attribute="Comment" lineEndContext="#pop">
+                                <RegExpr attribute="BoldComment" context="#stay" String="\(*(FIXME|TODO)\)*" />
+                                <RegExpr attribute="BoldComment" context="#stay" String="\(*(NOTE:)\)*" />
+                                <DetectChar attribute="BoldComment" context="6" char="!"/>
+                                <RegExpr attribute="DivideComment" context="#stay" String="-|="/>
+                      </context>
+                      <context attribute="Constant" lineEndContext="4">
+                                <DetectChar attribute="Constant" context="#pop" char="'"/>
+                      </context>
+                      <context attribute="Constant" lineEndContext="#stay">
+                                <RegExpr attribute="Normal Text" context="#stay" String="[FHDICO]"/>
+                                <DetectChar attribute="Constant" context="#pop" char=" "/>
+                      </context>
+                      <context attribute="Keyword" lineEndContext="#pop#pop">
+                      </context>
+                      <context attribute="BoldComment" lineEndContext="0">
+                                <DetectChar attribute="BoldComment" context="2" char="!"/>
+                      </context>
+                      <context attribute="Biff" lineEndContext="#pop#pop#pop">
+                                <keyword attribute="Biff" context="#pop#pop" String="biffs"/>
+                                <DetectChar attribute="Biff" context="#pop#pop" char=" "/>
+                      </context>
+                </contexts>
+                <itemDatas>
+                        <itemData name="Normal Text"       defStyleNum="dsNormal" />
+                        <itemData name="Keyword"           defStyleNum="dsKeyword" />
+                        <itemData name="Biff"              defStyleNum="dsKeyword" />
+			<itemData name="RegExpr"           defStyleNum="dsBaseN" />
+                        <itemData name="Symbol"            defStyleNum="dsNormal"/>
+                        <itemData name="Decimal"           defStyleNum="dsDecVal" />
+			<itemData name="Float"  	   defStyleNum="dsFloat"/>
+			<itemData name="Octal"  	   defStyleNum="dsBaseN"/>
+			<itemData name="Hex"  		   defStyleNum="dsBaseN"/>
+			<itemData name="Float"  	   defStyleNum="dsFloat"/>
+                        <itemData name="Base-N"            defStyleNum="dsBaseN" />
+                        <itemData name="Float"             defStyleNum="dsFloat" />
+                        <itemData name="Char"              defStyleNum="dsChar" />
+                        <itemData name="Constant"          defStyleNum="dsNormal" color="#FF0000" selColor="#000000" bold="0" italic="0"/>
+                        <itemData name="Fill"              defStyleNum="dsNormal" color="#FF6347" selColor="#000000" bold="0" italic="0"/>
+                        <itemData name="Comment"           defStyleNum="dsComment"/>
+                        <itemData name="BoldComment"       defStyleNum="dsNormal" color="#CD853F" selColor="#808080" bold="1" italic="1"/>
+                        <itemData name="DivideComment"     defStyleNum="dsComment" bold="1"/>
+                        <itemData name="Directive"         defStyleNum="dsOthers"/>
+                </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0" />
+  </general>
+</language>
+

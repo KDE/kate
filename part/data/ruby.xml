@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Ruby" section="Sources" extensions="*.rb" mimetype="text/x-ruby">
+  <highlighting>
+
+    <list name = "keywords">
+	<item> __FILE__ </item>
+	<item> __LINE__ </item>
+	<item> BEGIN </item>
+	<item> END </item>
+	<item> and </item>
+	<item> begin </item>
+	<item> break </item>
+	<item> and </item>
+	<item> begin </item>
+	<item> break </item>
+	<item> case </item>
+	<item> catch </item>
+	<item> defined? </item>
+	<item> do </item>
+	<item> else </item>
+	<item> elsif </item>
+	<item> end </item>
+	<item> ensure </item>
+	<item> for </item>
+	<item> if </item>
+	<item> in </item>
+	<item> include </item>
+	<item> next </item>
+	<item> not </item>
+	<item> or </item>
+	<item> private </item>
+	<item> protected </item>
+	<item> public </item>
+	<item> redo </item>
+	<item> require </item>
+	<item> rescue </item>
+	<item> retry </item>
+	<item> return </item>
+	<item> super </item>
+	<item> then </item>
+	<item> throw </item>
+	<item> unless </item>
+	<item> until </item>
+	<item> when </item>
+	<item> while </item>
+	<item> yield </item>
+    </list>
+
+    <list name = "attribute-definitions">
+	<item> attr </item>
+	<item> attr_reader </item>
+	<item> attr_writer </item>
+	<item> attr_accessor </item>
+    </list>
+
+    <list name = "definitions">
+	<item> alias </item>
+	<item> module </item>
+	<item> class </item>
+	<item> def </item>
+	<item> undef </item>
+    </list>
+
+    <list name = "literals">
+	<item> nil </item>
+	<item> false </item>
+	<item> true </item>
+    </list>
+
+    <contexts>
+ <context name = "Normal" attribute = "Normal Text" lineEndContext="0">
+	<keyword String = "keywords" attribute = "Keyword" context="0"/>
+	<keyword String = "literals" attribute = "Literal" context="0"/>
+	<StringDetect String= "self" attribute = "Instance Variable" context="0" insensitive="FALSE"/>
+	<keyword String = "attribute-definitions" attribute = "Attribute Definition" context="0"/>
+	<!-- group>
+		<keyword String = "definitions" attribute = "Keyword" context="0"/>
+		<whitespace/>
+		<regexp match = "[a-zA-Z_0-9.]+" attribute = "Definition"/>
+ 	</group -->
+	<Float attribute = "Float" context="0"/>
+	<Int attribute = "Decimal" context="0"/>
+	<HlCChar attribute = "Char" context="0"/>
+	<DetectChar char = "." attribute = "Operator" context="0"/>
+	<StringDetect  String = "&amp;&amp;" attribute = "Operator" context="0" insensitive="FALSE"/>
+	<RegExpr String = ":[^\s]+" attribute = "Symbol" context="0"/>
+	<RegExpr String = "/[^\s]+/" attribute = "Delimiter" context="0"/>
+	<StringDetect String = "||" attribute = "Operator" context="0"  insensitive="FALSE"/>
+	<RegExpr String = "\s\?\s" attribute = "Operator" context="0"/>
+	<RegExpr String = "\s:\s"  attribute = "Operator" context="0"/>
+	<RegExpr String = "[&lt;&gt;!^&#61;&#37;+*~/-]+" attribute = "Operator" context="0"/>
+	<DetectChar char = '"' attribute = "String" context = "2"/>
+	<DetectChar char= "'" attribute = "String" context="3"/>
+	<RegExpr String = "^##$" attribute = "Main Comment" context="1"/>
+	<RegExpr String = "^#$" attribute = "Comment" context="0"/>
+	<RegExpr String = "[\[\]\{\}|]+" attribute = "Delimiter" context="0"/>
+	<RegExpr String = "[A-Z_]+" attribute = "Global Constant" context="0"/>
+	<RegExpr String = "$[a-zA-Z_0-9]+" attribute = "Global Variable" context="0"/>
+	<RegExpr String = "@[a-zA-Z_0-9]+" attribute = "Instance Variable" context="0"/>
+	<RegExpr String = "@@[a-zA-Z_0-9]+" attribute = "Class Variable" context="0"/>
+      </context>
+
+      <context name = "Main Comment" attribute = "Main Comment" lineEndContext="0">
+	<RegExpr String = "^##$" attribute = "Main Comment" context = "0"/>
+	<RegExpr String = "^#$" attribute = "Main Comment" context = "0"/>
+      </context>
+
+      <context name = "Quoted String" attribute = "String" lineEndContext="0">
+	<RegExpr String = "#{[^}]+}" attribute = "Expression" context = "0"/>
+	<HlCChar attribute = "Char" context = "0"/>
+	<DetectChar char = '"' attribute = "String" context = "0"/>
+      </context>
+
+      <context name = "Apostrophed String" attribute = "String" lineEndContext="0">
+	<RegExpr String = "#{[^}]+}" attribute = "Expression" context = "0"/>
+	<HlCChar attribute = "Char" context = "0"/>
+	<DetectChar char = "'" attribute = "String" context = "0"/>
+      </context>
+
+
+    </contexts>
+
+    <itemDatas>
+      <itemData name = "Normal Text" defStyleNum ="dsNormal"/>
+      <itemData name = "Keyword" defStyleNum ="dsKeyword"/>
+      <itemData name = "Definition" defStyleNum ="dsNormal"/>
+      <itemData name = "Literal" defStyleNum ="dsDecVal"/>
+      <itemData name = "Decimal" defStyleNum ="dsDecVal"/>
+      <itemData name = "Float" defStyleNum ="dsFloat"/>
+      <itemData name = "Char" defStyleNum ="dsChar"/>
+      <itemData name = "Symbol" defStyleNum ="dsString"/>
+      <itemData name = "String" defStyleNum ="dsString"/>
+      <itemData name = "Main Comment" defStyleNum ="dsComment" />
+      <itemData name = "Comment" defStyleNum ="dsComment"/>
+      <itemData name = "Delimiter" defStyleNum ="dsChar"/> 
+      <itemData name = "Global Constant" defStyleNum ="dsDecVal"/>
+      <itemData name = "Global Variable" defStyleNum ="dsOthers"/>
+      <itemData name = "Instance Variable" defStyleNum ="dsOthers"/>
+      <itemData name = "Class Variable" defStyleNum ="dsOthers"/>
+      <itemData name = "Expression" defStyleNum ="dsOthers"/>
+      <itemData name = "Operator" defStyleNum ="dsChar"/> 
+      <itemData name = "Attribute Definition" defStyleNum ="dsOthers"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

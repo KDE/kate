@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE language SYSTEM "language.dtd">
+
+<language name="Perl" section="Scripts" extensions="*.pl;*.pm" mimetype="">
+ <highlighting>
+     <list name="keywords">
+         <item> if </item>
+         <item> unless </item>
+         <item> else </item>
+         <item> elsif </item>
+         <item> while </item>
+         <item> until </item>
+         <item> for </item>
+         <item> each </item>
+         <item> foreach </item>
+         <item> next </item>
+         <item> last </item>
+         <item> break </item>
+         <item> continue </item>
+         <item> return </item>
+         <item> use </item>
+         <item> no </item>
+         <item> require </item>
+         <item> my </item>
+         <item> our </item>
+         <item> local </item>
+         <item> BEGIN </item>
+         <item> END </item>
+         <item>require</item>
+         <item> package </item>
+         <item> sub </item>
+         <item>do</item>
+         <item> __END__ </item>
+         <item> __DATA__ </item>
+         <item> __FILE__ </item>
+         <item> __LINE__ </item>
+         <item> __PACKAGE__ </item>
+     </list>
+     <list name="operators">
+         <item> = </item>
+         <item> != </item>
+         <item> =~ </item>
+         <item> !~ </item>
+         <item> += </item>
+         <item> -= </item>
+         <item> *= </item>
+         <item> /= </item>
+         <item> **= </item>
+         <item> |= </item>
+         <item> ||= </item>
+         <item> &amp;= </item>
+         <item> &amp;&amp;= </item>
+         <item> ?= </item>
+         <item> + </item>
+         <item> - </item>
+         <item> * </item>
+         <item> / </item>
+         <item> % </item>
+         <item> || </item>
+         <item> &amp;&amp; </item>
+         <item> | </item>
+         <item> &amp; </item>
+         <item> &lt; </item>
+         <item> &lt;&lt; </item>
+         <item> &gt; </item>
+         <item> &gt;&gt; </item>
+         <item> ^ </item>
+         <item> -&gt; </item>
+         <item> =&gt; </item>
+         <item> . </item>
+         <item> , </item>
+         <item> ; </item>
+         <item> :: </item>
+         <item> \ </item>
+         <item> and </item>
+         <item> or </item>
+         <item> not </item>
+         <item> eq </item>
+         <item> ne </item>
+     </list>
+     <list name="functions">
+         <item>abs</item>
+         <item>accept</item>
+         <item>alarm</item>
+         <item>atan2</item>
+         <item>bind</item>
+         <item>binmode</item>
+         <item>bless</item>
+         <item>caller</item>
+         <item>chdir</item>
+         <item>chmod</item>
+         <item>chomp</item>
+         <item>chop</item>
+         <item>chown</item>
+         <item>chr</item>
+         <item>chroot</item>
+         <item>close</item>
+         <item>closedir</item>
+         <item>connect</item>
+         <item>cos</item>
+         <item>crypt</item>
+         <item>dbmclose</item>
+         <item>dbmopen</item>
+         <item>defined</item>
+         <item>delete</item>
+         <item>die</item>
+         <item>dump</item>
+         <item>endgrent</item>
+         <item>endhostent</item>
+         <item>endnetent</item>
+         <item>endprotoent</item>
+         <item>endpwent</item>
+         <item>endservent</item>
+         <item>eof</item>
+         <item>eval</item>
+         <item>exec</item>
+         <item>exists</item>
+         <item>exit</item>
+         <item>exp</item>
+         <item>fcntl</item>
+         <item>fileno</item>
+         <item>flock</item>
+         <item>fork</item>
+         <item>format</item>
+         <item>formline</item>
+         <item>getc</item>
+         <item>getgrent</item>
+         <item>getgrgid</item>
+         <item>getgrnam</item>
+         <item>gethostbyaddr</item>
+         <item>gethostbyname</item>
+         <item>gethostent</item>
+         <item>getlogin</item>
+         <item>getnetbyaddr</item>
+         <item>getnetbyname</item>
+         <item>getnetent</item>
+         <item>getpeername</item>
+         <item>getpgrp</item>
+         <item>getppid</item>
+         <item>getpriority</item>
+         <item>getprotobyname</item>
+         <item>getprotobynumber</item>
+         <item>getprotoent</item>
+         <item>getpwent</item>
+         <item>getpwnam</item>
+         <item>getpwuid</item>
+         <item>getservbyname</item>
+         <item>getservbyport</item>
+         <item>getservent</item>
+         <item>getsockname</item>
+         <item>getsockopt</item>
+         <item>glob</item>
+         <item>gmtime</item>
+         <item>goto</item>
+         <item>grep</item>
+         <item>hex</item>
+         <item>import</item>
+         <item>index</item>
+         <item>int</item>
+         <item>ioctl</item>
+         <item>join</item>
+         <item>keys</item>
+         <item>kill</item>
+         <item>last</item>
+         <item>lc</item>
+         <item>lcfirst</item>
+         <item>length</item>
+         <item>link</item>
+         <item>listen</item>
+         <item>localtime</item>
+         <item>lock</item>
+         <item>log</item>
+         <item>lstat</item>
+         <item>map</item>
+         <item>mkdir</item>
+         <item>msgctl</item>
+         <item>msgget</item>
+         <item>msgrcv</item>
+         <item>msgsnd</item>
+         <item>oct</item>
+         <item>open</item>
+         <item>opendir</item>
+         <item>ord</item>
+         <item>pack</item>
+         <item>package</item>
+         <item>pipe</item>
+         <item>pop</item>
+         <item>pos</item>
+         <item>print</item>
+         <item>printf</item>
+         <item>prototype</item>
+         <item>push</item>
+         <item>quotemeta</item>
+         <item>rand</item>
+         <item>read</item>
+         <item>readdir</item>
+         <item>readline</item>
+         <item>readlink</item>
+         <item>recv</item>
+         <item>redo</item>
+         <item>ref</item>
+         <item>rename</item>
+         <item>reset</item>
+         <item>return</item>
+         <item>reverse</item>
+         <item>rewinddir</item>
+         <item>rindex</item>
+         <item>rmdir</item>
+         <item>scalar</item>
+         <item>seek</item>
+         <item>seekdir</item>
+         <item>select</item>
+         <item>semctl</item>
+         <item>semget</item>
+         <item>semop</item>
+         <item>send</item>
+         <item>setgrent</item>
+         <item>sethostent</item>
+         <item>setnetent</item>
+         <item>setpgrp</item>
+         <item>setpriority</item>
+         <item>setprotoent</item>
+         <item>setpwent</item>
+         <item>setservent</item>
+         <item>setsockopt</item>
+         <item>shift</item>
+         <item>shmctl</item>
+         <item>shmget</item>
+         <item>shmread</item>
+         <item>shmwrite</item>
+         <item>shutdown</item>
+         <item>sin</item>
+         <item>sleep</item>
+         <item>socket</item>
+         <item>socketpair</item>
+         <item>sort</item>
+         <item>splice</item>
+         <item>split</item>
+         <item>sprintf</item>
+         <item>sqrt</item>
+         <item>srand</item>
+         <item>stat</item>
+         <item>study</item>
+         <item>sub</item>
+         <item>substr</item>
+         <item>symlink</item>
+         <item>syscall</item>
+         <item>sysread</item>
+         <item>sysseek</item>
+         <item>system</item>
+         <item>syswrite</item>
+         <item>tell</item>
+         <item>telldir</item>
+         <item>tie</item>
+         <item>time</item>
+         <item>times</item>
+         <item>truncate</item>
+         <item>uc</item>
+         <item>ucfirst</item>
+         <item>umask</item>
+         <item>undef</item>
+         <item>unlink</item>
+         <item>unpack</item>
+         <item>unshift</item>
+         <item>untie</item>
+         <item>utime</item>
+         <item>values</item>
+         <item>vec</item>
+         <item>wait</item>
+         <item>waitpid</item>
+         <item>wantarray</item>
+         <item>warn</item>
+         <item>write</item>
+     </list>
+     <list name="pragmas">
+         <item>strict</item>
+         <item>english</item>
+         <item>warnings</item>
+         <item>vars</item>
+         <item>subs</item>
+         <item>utf8</item>
+         <item>sigtrap</item>
+         <item>locale</item>
+         <item>open</item>
+         <item>less</item>
+         <item>integer</item>
+         <item>filetest</item>
+         <item>constant</item>
+         <item>bytes</item>
+         <item>diagnostics</item>
+     </list>
+     <contexts>
+         <context attribute="Normal Text" name="default" lineEndContext="0">
+             <RegExpr attribute="Keyword" context="0" String="^#!\/.*" />
+             <RegExpr attribute="Keyword" context="16" String="^__DATA__" />
+             <RegExpr attribute="Keyword" context="17" String="^__END__" />
+             <keyword attribute="Keyword" context="0" String="keywords" />
+             <keyword attribute="Operator" context="0" String="operators" />
+             <keyword attribute="Function" context="0" String="functions" />
+             <keyword attribute="Pragma" context="0" String="pragmas" />
+             <RegExpr attribute="Comment" context="0" String="\s*#.*" />
+             <RegExpr attribute="Pod" context="1" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" />
+             <RegExpr attribute="Keyword" context="20" String="\s*sub\s+" />
+ 
+            <HlCOct attribute="Octal" context="19"/>
+             <HlCHex attribute="Hex" context="19"/>
+             <Float attribute="Float" context="19" />
+             <Int attribute="Decimal" context="19" />
+ 
+            <DetectChar attribute="Pattern" context="15" char="/" />
+ 
+            <RegExpr attribute="Normal Text" context="0" String="\\[&quot;']" />
+             <Detect2Chars attribute="Normal Text" context="0" char="&amp;" char1="'" />
+             <DetectChar attribute="Interpolated String" context="2" char="&quot;"/>
+             <DetectChar attribute="String" context="3" char="'"/>
+             <AnyChar attribute="Operator" context="0" String="&amp;\" />
+ 
+            <RegExpr attribute="Special Variable" context="19" String="\$[0-9]+" />
+             <RegExpr attribute="Special Variable" context="19" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
+             <RegExpr attribute="Special Variable" context="19" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
+             <RegExpr attribute="Data Type" context="18" String="\$\$[\$\w_]" />
+             <RegExpr attribute="Data Type" context="18" String="\$[#_][\w_]" />
+             <RegExpr attribute="Special Variable" context="19" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
+             <RegExpr attribute="Data Type" context="18" String="[\$@%]\{[\w_]+\}" />
+             <RegExpr attribute="Data Type" context="18" String="[\$@%]" />
+             <RegExpr attribute="Data Type" context="18" String="\*[a-zA-Z_]+" />
+ 
+            <RegExpr attribute="Keyword" context="0" String="&lt;[A-Z0-9_]+&gt;" />
+             <RegExpr attribute="Keyword" context="0" String="\s*&lt;&lt;\s*[&quot;']?[A-Z0-9_\-]+[&quot;']?" />
+             <RegExpr attribute="Normal Text" context="0" String="\s*[)}]\s*/" />
+             <RegExpr attribute="Normal Text" context="21" String="\w+::" />
+             <RegExpr attribute="Normal Text" context="0" String="\w+[=]" />
+ 
+            <StringDetect attribute="Interpolated String" context="4" String="qq(" insensitive="FALSE" />
+             <StringDetect attribute="Interpolated String" context="5" String="qq{" insensitive="FALSE" />
+             <StringDetect attribute="Interpolated String" context="6" String="qq[" insensitive="FALSE" />
+             <StringDetect attribute="Interpolated String" context="7" String="qq&lt;" insensitive="FALSE" />
+             <RegExpr attribute="Interpolated String" context="0" String="qq([^a-zA-Z0-9_\s[\]{}()]).*\1" />
+ 
+            <Detect2Chars attribute="String" context="8" char="q" char1="(" />
+             <Detect2Chars attribute="String" context="9" char="q" char1="{" />
+             <Detect2Chars attribute="String" context="10" char="q" char1="[" />
+             <Detect2Chars attribute="String" context="11" char="q" char1="&lt;" />
+             <RegExpr attribute="String" context="0" String="q([^a-zA-Z0-9_\s[\]{}()]).+\1" />
+ 
+            <StringDetect attribute="Normal Text" context="14" String="qw/" />
+ 
+            <RegExpr attribute="Pattern" context="0" String="(?:s|tr|y)\([^)]*\)\s*\([^)]*\)" />
+             <RegExpr attribute="Pattern" context="0" String="(?:s|tr|y)\{[^}]*\}\s*\{[^}]*\}" />
+             <RegExpr attribute="Pattern" context="0" String="(?:s|tr|y)\[[^}]*\]\s*\[[^\]]*\]" />
+             <RegExpr attribute="Pattern" context="0" String="(?:s|tr|y)([^a-zA-Z0-9_\s[\]{}()]).*\1.*\1" />
+ 
+            <Detect2Chars attribute="Pattern" context="12" char="s" char1="{" />
+ 
+            <RegExpr attribute="Normal Text" context="0" String="[\w_]{3,}[[{:\-.;,]" />
+             <RegExpr attribute="Normal Text" context="0" String="[\w_]([mqsy]|q[rx])\(" />
+ 
+            <RegExpr attribute="Pattern" context="15" String="(?:m|q[rx])\/" />
+             <RegExpr attribute="Pattern" context="0" String="(?:m|q[rx])\([^)]*\)" />
+             <RegExpr attribute="Pattern" context="0" String="(?:m|q[rx])\{[^}]*\}" />
+             <RegExpr attribute="Pattern" context="0" String="(?:m|q[rx])\[[^\]]*\]" />
+             <RegExpr attribute="Pattern" context="0" String="(?:m|q[rx])([^a-zA-Z0-9_-\s[\]{}()/]).+\1" />
+             <RegExpr attribute="Normal Text" context="0" String="[\w_]+\s*/" />
+             <RegExpr attribute="Normal Text" context="0" String="[&lt;&gt;&quot;':]/" />
+             <DetectChar attribute="Pattern" context="15" char="/" />
+             <RegExpr attribute="Keyword" context="0" String="-[rwxoRWXOeszfdlpSbctugkTBMAC]" />
+         </context>
+         <context attribute="Pod" lineEndContext="1">
+             <LineContinue attribute="Pod" context="#stay" />
+             <RegExpr attribute="Pod" context="1" String="[^\=]*" />
+             <RegExpr attribute="Pod" context="0" String="^\=cut.*$" />
+         </context>
+         <context attribute="Interpolated String" lineEndContext="2" name="2_IPString">
+             <LineContinue attribute="InterPolated String" context="#stay"/>
+             <Detect2Chars attribute="String" context="2" char="\" char1="\" />
+             <Detect2Chars attribute="Interpolated String" context="2" char="\" char1="&quot;" />
+             <DetectChar attribute="Interpolated String" context="0" char="&quot;"/>
+             <RegExpr attribute="Interpolated String" context="2" String="\\[\$@%]" />
+             <RegExpr attribute="Special Variable" context="2" String="\$[0-9]+" />
+             <RegExpr attribute="Data Type" context="2" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="2" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Pattern Internal Operator" context="2" String="\\[UuLlEtnaefr]" />
+         </context>
+         <context attribute="String" lineEndContext="3" name="3_String">
+             <LineContinue attribute="String" context="#stay"/>
+             <Detect2Chars attribute="String" context="3" char="\" char1="\" />
+             <Detect2Chars attribute="String" context="3" char="\" char1="'" />
+             <DetectChar attribute="String" context="0" char="'" />
+         </context>
+         <context attribute="Interpolated String" lineEndContext="4">
+             <LineContinue attribute="Interpolated String" context="#stay" />
+             <Detect2Chars attribute="Interpolated String" context="4" char="\" char1="(" />
+             <Detect2Chars attribute="Interpolated String" context="4" char="\" char1=")" />
+             <RangeDetect attribute="Interpolated String" context="4" char="(" char1=")" />
+             <DetectChar attribute="Interpolated String" context="0" char=")" />
+             <RegExpr attribute="Interpolated String" context="4" String="\\[\$@%]" />
+             <RegExpr attribute="Special Variable" context="4" String="\$[0-9]+" />
+             <RegExpr attribute="Data Type" context="4" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="4" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Pattern Internal Operator" context="4" String="\\[UuLlEtnaefr]" />
+         </context>
+         <context attribute="Interpolated String" lineEndContext="5">
+             <LineContinue attribute="Interpolated String" context="#stay" />
+             <Detect2Chars attribute="Interpolated String" context="5" char="\" char1="{" />
+             <Detect2Chars attribute="Interpolated String" context="5" char="\" char1="}" />
+             <RangeDetect attribute="Interpolated String" context="5" char="{" char1="}" />
+             <DetectChar attribute="Interpolated String" context="0" char="}" />
+             <RegExpr attribute="Interpolated String" context="5" String="\\[\$@%]" />
+             <RegExpr attribute="Special Variable" context="5" String="\$[0-9]+" />
+             <RegExpr attribute="Data Type" context="5" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="5" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Pattern Internal Operator" context="5" String="\\[UuLlEtnaefr]" />
+         </context>
+         <context attribute="Interpolated String" lineEndContext="6">
+             <LineContinue attribute="Interpolated String" context="#stay" />
+             <Detect2Chars attribute="Interpolated String" context="6" char="\" char1="[" />
+             <Detect2Chars attribute="Interpolated String" context="6" char="\" char1="]" />
+             <RangeDetect attribute="Interpolated String" context="6" char="[" char1="]" />
+             <DetectChar attribute="Interpolated String" context="0" char="]" />
+             <RegExpr attribute="Interpolated String" context="6" String="\\[\$@%]" />
+             <RegExpr attribute="Special Variable" context="6" String="\$[0-9]+" />
+             <RegExpr attribute="Data Type" context="6" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="6" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Pattern Internal Operator" context="6" String="\\[UuLlEtnaefr]" />
+         </context>
+         <context attribute="Interpolated String" lineEndContext="7">
+             <LineContinue attribute="Interpolated String" context="#stay" />
+             <Detect2Chars attribute="Interpolated String" context="7" char="\" char1="&lt;" />
+             <Detect2Chars attribute="Interpolated String" context="7" char="\" char1="&gt;" />
+             <RangeDetect attribute="Interpolated String" context="7" char="&lt;" char1="&gt;" />
+             <DetectChar attribute="Interpolated String" context="0" char="&gt;" />
+             <RegExpr attribute="Interpolated String" context="7" String="\\[\$@%]" />
+             <RegExpr attribute="Special Variable" context="7" String="\$[0-9]+" />
+             <RegExpr attribute="Data Type" context="7" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="7" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Pattern Internal Operator" context="7" String="\\[UuLlEtnaefr]" />
+         </context>
+         <context attribute="String" lineEndContext="8">
+             <LineContinue attribute="String" context="#stay" />
+             <Detect2Chars attribute="String" context="8" char="\" char1="(" />
+             <Detect2Chars attribute="String" context="8" char="\" char1=")" />
+             <RangeDetect attribute="String" context="8" char="(" char1=")" />
+             <DetectChar attribute="String" context="0" char=")" />
+         </context>
+         <context attribute="String" lineEndContext="9">
+             <Detect2Chars attribute="String" context="9" char="\" char1="{" />
+             <Detect2Chars attribute="String" context="9" char="\" char1="}" />
+             <RangeDetect attribute="String" context="9" char="{" char1="}" />
+             <LineContinue attribute="String" context="#stay" />
+             <DetectChar attribute="String" context="0" char="}" />
+         </context>
+         <context attribute="String" lineEndContext="10">
+             <LineContinue attribute="String" context="#stay" />
+             <Detect2Chars attribute="String" context="10" char="\" char1="[" />
+             <Detect2Chars attribute="String" context="10" char="\" char1="]" />
+             <RangeDetect attribute="String" context="10" char="[" char1="]" />
+             <DetectChar attribute="String" context="0" char="]" />
+         </context>
+         <context attribute="String" lineEndContext="11">
+             <LineContinue attribute="String" context="#stay" />
+             <Detect2Chars attribute="String" context="11" char="\" char1="&lt;" />
+             <Detect2Chars attribute="String" context="11" char="\" char1="&gt;" />
+             <RangeDetect attribute="String" context="11" char="&lt;" char1="&gt;" />
+             <DetectChar attribute="String" context="0" char="&gt;" />
+         </context>
+         <context attribute="Pattern" lineEndContext="12">
+             <LineContinue attribute="Pattern" context="#stay" />
+             <RegExpr attribute="Comment" context="12" String="\s+#.*$" />
+             <RegExpr attribute="Pattern" context="12" String="\{[\d,\s]+\}" />
+             <Detect2Chars attribute="Pattern" context="12" char="\" char1="{" />
+             <Detect2Chars attribute="Pattern" context="12" char="\" char1="}" />
+             <RegExpr attribute="Pattern" context="12" String="\\[\$@%]" />
+             <RegExpr attribute="Data Type" context="12" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="12" String="@[\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <DetectChar attribute="Pattern" context="13" char="}" />
+         </context>
+         <context attribute="Normal Text" lineEndContext="13">
+             <LineContinue attribute="Normal Text" context="#stay" />
+             <RegExpr attribute="Normal Text" context="13" String="[&quot;'\/]" />
+             <RegExpr attribute="Comment" context="13" String="\s*#.*$" />
+             <RegExpr attribute="Special Variable" context="13" String="\$[0-9]+" />
+             <RegExpr attribute="Data Type" context="13" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="13" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <keyword attribute="Keyword" context="0" String="keywords" />
+             <keyword attribute="Operator" context="0" String="operators" />
+             <keyword attribute="Function" context="0" String="functions" />
+             <Detect2Chars attribute="Pattern" context="13" char="\" char1="{" />
+             <Detect2Chars attribute="Pattern" context="13" char="\" char1="}" />
+             <DetectChar attribute="Pattern" context="13" char="{" />
+             <DetectChar attribute="Pattern" context="0" char="}" />
+         </context>
+         <context attribute="Normal Text" lineEndContext="14">
+             <LineContinue attribute="Normal Text" context="#stay" />
+             <Detect2Chars attribute="Normal Text" context="14" char="\" char1="/" />
+             <DetectChar attribute="Normal Text" context="0" char="/" />
+             <RegExpr attribute="Data Type" context="14" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <RegExpr attribute="Data Type" context="14" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
+         </context>
+         <context attribute="Pattern" lineEndContext="15" name="slash_pat">
+             <RegExpr attribute="Comment" context="15" String="^\s*#.*$" />
+             <LineContinue attribute="Pattern" context="#stay" />
+             <RegExpr attribute="Pattern Character Class" context="15" String="\\[anDdSsWw]" />
+             <RegExpr attribute="Pattern Internal Operator" context="15" String="\\[ABbEGLlNUuQdQZz]" />
+             <RegExpr attribute="Special Variable" context="15" String="\\[\d]+" />
+             <RegExpr attribute="Pattern" context="15" String="\\." />
+             <DetectChar attribute="Pattern" context="0" char="/" />
+             <RegExpr attribute="Data Type" context="15" String="[\$@]#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
+             <Detect2Chars attribute="Pattern Internal Operator" context="24" char="(" char1="?" />
+             <DetectChar attribute="Pattern Internal Operator" context="25" char="[" />
+             <RegExpr attribute="Pattern Internal Operator" context="15" String="[()?^*+|]" />
+             <RegExpr attribute="Pattern Internal Operator" context="15" String="\{[\d, ]+\}" />
+             <DetectChar attribute="Pattern Internal Operator" context="15" char="$" />
+             <RegExpr attribute="Comment" context="15" String="\s{3,}#.*$" />
+         </context>
+         <context attribute="Data" lineEndContext="16" name="16_data_handle">
+             <LineContinue attribute="Data" context="#stay"/>
+             <RegExpr attribute="Pod" context="1" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" />
+             <RegExpr attribute="Keyword" context="end_handle" String="^__END__" />
+         </context>
+         <context attribute="Nothing" lineEndContext="17" name="17_end_handle">
+             <LineContinue attribute="Nothing" context="#stay" />
+             <RegExpr attribute="Pod" context="1" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" />
+             <RegExpr attribute="Keyword" context="16" String="^__DATA__" />
+         </context>
+         <context attribute="Normal Text" lineEndContext="0" name="18_var_detect">
+             <RegExpr attribute="Data Type" context="18" String="[\w_]+" />
+             <AnyChar attribute="Normal Text" context="0" String="[;,*=!&amp;" />
+             <RegExpr attribute="Normal Text" context="0" String="\s*[})]?\s*/" />
+             <DetectChar attribute="Operator" context="18" char="'" />
+             <RegExpr attribute="Normal Text" context="22" String="\s*\{" />
+             <RegExpr attribute="Operator" context="18" String="(\+\+|--)" />
+             <Detect2Chars attribute="Normal Text" context="18" char=":" char1=":" />
+             <RegExpr attribute="Normal Text" context="18" String="\s*\}?\s*-&gt;\s*" />
+             <RegExpr attribute="Normal Text" context="22" String="\s*\}\s*\{\s*" />
+             <RegExpr attribute="Data Type" context="18" String="[\$@%]" />
+             <RegExpr attribute="Normal Text" context="0" String="." />
+         </context>
+         <context attribute="Normal Text" lineEndContext="0" name="19_slash_safe_escape">
+             <RegExpr attribute="Normal Text" context="0" String="\s*[)}\]]?\s*/" />
+             <keyword attribute="Keyword" context="0" String="keywords" />
+             <RegExpr attribute="Normal Text" context="0" String="." />
+         </context>
+         <context attribute="Normal Text" lineEndContext="0" name="20_sub_name_def">
+             <RegExpr attribute="Normal Text" context="20" String="[\w_]+" />
+             <DetectChar attribute="Data Type" context="18" char="$" />
+             <RegExpr attribute="Normal Text" context="23" String="\s*\(" />
+             <AnyChar attribute="Normal Text" context="0" String=";{" />
+         </context>
+         <context attribute="Normal Text" lineEndContext="21" name="package_qualified_blank">
+             <RegExpr attribute="Normal Text" context="0" String="[\w_]+" />
+         </context>
+         <context attribute="Normal Text" lineEndContext="0" name="in_hash_elem">
+             <DetectChar attribute="Interpolated String" context="2" char="&quot;" />
+             <DetectChar attribute="String" context="3" char="'" />
+             <RegExpr attribute="String" context="18" String="\s*[\w_]+\s*" />
+             <RegExpr attribute="Special Variable" context="19" String="\$[0-9]+" />
+             <RegExpr attribute="Special Variable" context="19" String="[@\$](?:[\+\-_]\B|ARGV\b|INC\b)" />
+             <RegExpr attribute="Special Variable" context="19" String="[%\$](?:INC\b|ENV\b|SIG\b)" />
+             <RegExpr attribute="Data Type" context="19" String="\$\$[\$\w_]" />
+             <RegExpr attribute="Data Type" context="19" String="\$[#_][\w_]" />
+             <RegExpr attribute="Special Variable" context="19" String="\$[^a-zA-Z0-9\s{][A-Z]?" />
+             <RegExpr attribute="Data Type" context="19" String="[\$@%]\{[\w_]+\}" />
+             <RegExpr attribute="Data Type" context="18" String="[\$@%]" />
+             <RegExpr attribute="Normal Text" context="0" String="\s*[\w_]+\s*\(" />
+             <DetectChar attribute="Normal Text" context="18" char="}" />
+         </context>
+         <context attribute="Normal Text" lineEndContext="23" name="sub_arg_definition">
+             <RegExpr attribute="Data Type" context="23" String="[\$@%]" />
+             <DetectChar attribute="Normal Text" context="0" char=")" />
+         </context>
+         <context attribute="Pattern Internal Operator" lineEndContext="24" name="pat_ext">
+             <RegExpr attribute="Comment" context="15" String="\#[^)]*" />
+             <RegExpr attribute="Pattern Internal Operator" context="15" String="[:=!&gt;&lt;]+" />
+             <DetectChar attribute="Pattern Internal Operator" context="15" char=")" />
+         </context>
+         <context attribute="Pattern Character Class" lineEndContext="25" name="pat_char_class">
+             <LineContinue attribute="Pattern Character Class" context="#stay" />
+             <DetectChar attribute="Pattern Internal Operator" context="25" char="^" />
+             <Detect2Chars attribute="Pattern Character Class" context="25" char="\" char1="\" />
+             <Detect2Chars attribute="Pattern Character Class" context="25" char="\" char1="]" />
+             <RangeDetect attribute="Pattern Character Class" context="25" char="[" char1="]" />
+             <DetectChar attribute="Pattern Internal Operator" context="15" char="]" />
+         </context>
+     </contexts>
+     <itemDatas>
+         <itemData name="Normal Text"  defStyleNum="dsNormal" />
+         <itemData name="Keyword"      defStyleNum="dsKeyword" />
+         <itemData name="Pragma"       defStyleNum="dsKeyword" />
+         <itemData name="Function"     defStyleNum="dsNormal" />
+         <itemData name="Operator"     defStyleNum="dsKeyword" />
+         <itemData name="Data Type"    defStyleNum="dsDataType" />
+         <itemData name="Special Variable" defStyleNum="dsDataType" />
+         <itemData name="Decimal"      defStyleNum="dsDecVal" />
+         <itemData name="Octal"        defStyleNum="dsBaseN" />
+         <itemData name="Hex"          defStyleNum="dsBaseN" />
+         <itemData name="Float"        defStyleNum="dsFloat" />
+         <itemData name="String"       defStyleNum="dsString" />
+         <itemData name="Interpolated String" defStyleNum="dsString" />
+         <itemData name="Pattern"      defStyleNum="dsOthers" />
+         <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
+         <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
+         <itemData name="Data"         defStyleNum="dsNormal" />
+         <itemData name="Comment"      defStyleNum="dsComment" />
+         <itemData name="Pod"          defStyleNum="dsComment" />
+         <itemData name="Nothing"      defStyleNum="dsComment" />
+     </itemDatas>
+   </highlighting>
+   <general>
+     <comments>
+       <comment name="singleLine" start="#" />
+     </comments>
+     <keywords casesensitive="1" />
+   </general>
+ </language>
+ 

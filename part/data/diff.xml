@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Diff" section="Other" extensions="*.diff;*patch" mimetype="text/x-diff">
+  <highlighting>
+
+    <contexts>
+      <context attribute="0" lineEndContext="#stay">
+      	<RegExpr attribute="1" context="1" String="^(\+\+\+|\-\-\-|\*\*\*|diff|\d)" />
+	<RegExpr attribute="4" context="2" String="^(\+|&gt;|!)" />
+	<RegExpr attribute="3" context="3" String="^(\-|&lt;)" />
+	<RegExpr attribute="2" context="4" String="^\@\@" />
+      </context>
+
+      <context attribute="1" lineEndContext="#pop" />
+      <context attribute="4" lineEndContext="#pop" />
+      <context attribute="3" lineEndContext="#pop" />
+      <context attribute="2" lineEndContext="#pop" />
+
+    </contexts>
+
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Data Type"  defStyleNum="dsDataType"/>
+      <itemData name="Removed line"  defStyleNum="dsOthers"/>
+      <itemData name="Added line"  defStyleNum="dsString"/>
+      <itemData name="Comment"  defStyleNum="dsComment"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="1" />
+  </general>
+</language>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name=".desktop" section="Other" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
+  <highlighting>
+    <contexts>
+      <context attribute="2" lineEndContext="#stay" name="Normal">
+        <RegExpr String="^\[.*\]$" attribute="Section" context="#stay"/>
+        <RegExpr String="\[.*\]" attribute="Language" context="1"/>
+        <DetectChar char="=" attribute="0" context="1"/>
+      </context>
+      <context attribute="0" lineEndContext="#pop" name="Value"/>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Section"  defStyleNum="dsKeyword"/>
+      <itemData name="Key"  defStyleNum="dsDataType"/>
+      <itemData name="Language"  defStyleNum="dsNormal" color="#0000FF" selColor="#ffffff" italic="0" bold="1"/>
+    </itemDatas>
+  </highlighting>
+</language>

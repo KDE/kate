@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme">
+  <highlighting>
+    <list name="blocks">
+      <item> begin </item>
+      <item> declare </item>
+      <item> define </item>
+      <item> define-syntax </item>
+      <item> define-structure </item>
+      <item> do </item>
+      <item> let </item>
+      <item> let* </item>
+      <item> letrec </item>
+      <item> let-syntax </item>
+      <item> letrec-syntax </item>
+      <item> lambda </item>
+    </list>
+    <list name="predicates">
+      <item> boolean </item>
+      <item> char-alphabetic </item>
+      <item> char-numeric </item>
+      <item> char-lower-case </item>
+      <item> char-ready </item>
+      <item> char-upper-case </item>
+      <item> char-whitespace </item>
+      <item> complex </item>
+      <item> eof-object </item>
+      <item> eq </item>
+      <item> eqv </item>
+      <item> equal </item>
+      <item> even </item>
+      <item> input-port </item>
+      <item> integer </item>
+      <item> list </item>
+      <item> negative </item>
+      <item> null </item>
+      <item> number </item>
+      <item> odd </item>
+      <item> output-port </item>
+      <item> pair </item>
+      <item> port </item>
+      <item> positive </item>
+      <item> procedure </item>
+      <item> rational </item>
+      <item> real </item>
+      <item> symbol </item>
+      <item> vector </item>
+      <item> zero </item>
+    </list>
+    <list name="predicates2">
+      <item> char </item>
+      <item> string </item>
+    </list>
+    <list name="assignments">
+      <item> append </item>
+      <item> set </item>
+      <item> set-car </item>
+      <item> set-cdr </item>
+      <item> string-fill </item>
+      <item> string-set </item>
+    </list>
+    <list name="mathops">
+      <item> abs </item>
+      <item> and </item>
+      <item> angle </item>
+      <item> acos </item>
+      <item> asin </item>
+      <item> atan </item>
+      <item> cos </item>
+      <item> denominator </item>
+      <item> exp </item>
+      <item> expt </item>
+      <item> floor </item>
+      <item> gcd </item>
+      <item> lcm </item>
+      <item> log </item>
+      <item> magnitude </item>
+      <item> max </item>
+      <item> min </item>
+      <item> modulo </item>
+      <item> not </item>
+      <item> numerator </item>
+      <item> or </item>
+      <item> round </item>
+      <item> sin </item>
+      <item> sqrt </item>
+      <item> tan </item>
+      <item> truncate </item>
+    </list>
+    <list name="keywords">
+      <item> apply </item>
+      <item> assq </item>
+      <item> assv </item>
+      <item> assoc </item>
+      <item> call-with-current-continuation </item>
+      <item> call-with-input-file </item>
+      <item> call-with-output-file </item>
+      <item> call-with-values </item>
+      <item> car </item>
+      <item> case </item>
+      <item> cdr </item>
+      <item> ceiling </item>
+      <item> char-upcase </item>
+      <item> char-downcase </item>
+      <item> close-input-file </item>
+      <item> close-output-file </item>
+      <item> cond </item>
+      <item> cons </item>
+      <item> cons* </item>
+      <item> current-input-port </item>
+      <item> current-output-port </item>
+      <item> delay </item>
+      <item> display </item>
+      <item> dynamic-wind </item>
+      <item> else </item>
+      <item> eval </item>
+      <item> force </item>
+      <item> for-each </item>
+      <item> if </item>
+      <item> imag-part </item>
+      <item> interaction-environment </item>
+      <item> length </item>
+      <item> list </item>
+      <item> list-ref </item>
+      <item> list-tail </item>
+      <item> memq </item>
+      <item> memv </item>
+      <item> member </item>
+      <item> load </item>
+      <item> make-polar </item>
+      <item> make-rectangular </item>
+      <item> make-string </item>
+      <item> make-vector </item>
+      <item> map </item>
+      <item> newline </item>
+      <item> null-environment </item>
+      <item> open-input-file </item>
+      <item> open-output-file </item>
+      <item> peek-char </item>
+      <item> quasiquote </item>
+      <item> quote </item>
+      <item> quotient </item>
+      <item> rationalize </item>
+      <item> read </item>
+      <item> read-char </item>
+      <item> real-part </item>
+      <item> remainder </item>
+      <item> reverse </item>
+      <item> scheme-report-environment </item>
+      <item> space </item>
+      <item> string-append </item>
+      <item> string-copy </item>
+      <item> string-length </item>
+      <item> string-ref </item>
+      <item> substring </item>
+      <item> syntax-rules </item>
+      <item> transcript-on </item>
+      <item> transcript-off </item>
+      <item> unquote </item>
+      <item> unquote-splicing </item>
+      <item> values </item>
+      <item> with-input-from-file </item>
+      <item> with-output-to-file </item>
+      <item> write </item>
+      <item> write-char </item>
+    </list>
+    <contexts>
+      <context name="Intro" attribute="0" lineEndContext="0">
+        <DetectChar attribute="8" context="2" char=";"/>
+        <DetectChar attribute="9" context="1" char="("/>
+      </context>
+      <context name="Normal" attribute="0" lineEndContext="1">
+        <DetectChar attribute="8" context="2" char=";"/>
+        <DetectChar attribute="9" context="1" char="("/>
+        <DetectChar attribute="9" context="1" char=")"/>
+        <StringDetect attribute="13" context="1" String="list-&gt;string"/>
+        <StringDetect attribute="13" context="1" String="string-&gt;list"/>
+        <StringDetect attribute="13" context="1" String="char-&gt;integer"/>
+        <StringDetect attribute="13" context="1" String="integer-&gt;char"/>
+        <StringDetect attribute="13" context="1" String="string-&gt;symbol"/>
+        <StringDetect attribute="13" context="1" String="symbol-&gt;string"/>
+        <StringDetect attribute="13" context="1" String="exact-&gt;inexact"/>
+        <StringDetect attribute="13" context="1" String="inexact-&gt;exact"/>
+        <StringDetect attribute="13" context="1" String="number-&gt;string"/>
+        <StringDetect attribute="13" context="1" String="string-&gt;number"/>
+        <keyword attribute="7" context="1" String="blocks" weakDelimiter="-"/>
+        <keyword attribute="1" context="1" String="keywords" weakDelimiter="-"/>
+        <keyword attribute="1" context="3" String="predicates" weakDelimiter="-"/>
+        <keyword attribute="1" context="4" String="predicates2"/>
+        <RegExpr attribute="10" context="1" String="[&lt;&gt;]?=?\s"/>
+        <RegExpr attribute="13" context="1" String="=&gt;\s"/>
+        <keyword attribute="1" context="5" String="assignments" weakDelimiter="-"/>
+        <keyword attribute="12" context="1" String="mathops"/>
+        <DetectChar attribute="8" context="7" char="&quot;"/>
+        <StringDetect attribute="3" context="1" String="'()"/>
+        <RegExpr attribute="13" context="1" String="['`]"/>
+        <RegExpr attribute="6" context="6" String="#[bodxei]"/>
+        <RegExpr attribute="3" context="1" String="#[tf]"/>
+        <Float attribute="5" context="1"/>
+        <Int attribute="3" context="1"/>
+      </context>
+      <context name="Comment" attribute="8" lineEndContext="1"/>
+      <context name="Predicates" attribute="0" lineEndContext="1">
+        <DetectChar attribute="10" context="1" char="?"/>
+      </context>
+      <context name="Predicates2" attribute="0" lineEndContext="1">
+        <RegExpr attribute="1" context="4" String="-ci"/>
+        <RegExpr attribute="10" context="1" String="[&lt;&gt;]?=?\?"/>
+      </context>
+      <context name="Assignments" attribute="0" lineEndContext="1">
+        <DetectChar attribute="11" context="1" char="!"/>
+      </context>
+      <context name="SpecialNumber" attribute="0" lineEndContext="1">
+        <Float attribute="5" context="1"/>
+        <Int attribute="3" context="1"/>
+        <HlCOct attribute="4" context="1"/>
+        <HlCHex attribute="5" context="1"/>
+      </context>
+      <context name="String" attribute="2" lineEndContext="7">
+        <DetectChar attribute="8" context="1" char="&quot;"/>
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Data" defStyleNum="dsDataType"/>
+      <itemData name="Decimal" defStyleNum="dsDecVal"/>
+      <itemData name="BaseN" defStyleNum="dsBaseN"/>
+      <itemData name="Float" defStyleNum="dsFloat"/>
+      <itemData name="Char" defStyleNum="dsChar"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Operator" defStyleNum="dsOthers"/>
+      <itemData name="Predicate" defStyleNum="dsNormal" color="#ff00ff" selColor="#fffa00" bold="1" italic="0"/>
+      <itemData name="Assignments" defStyleNum="dsNormal" color="#ff0000" selColor="#fffa00" bold="1" italic="0"/>
+      <itemData name="MathOps" defStyleNum="dsNormal" color="#239bbc" selColor="#fffa00" bold="0" italic="0"/>
+      <itemData name="Special" defStyleNum="dsNormal" color="#543491" selColor="#fffa00" bold="1" italic="0"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start=";"/>
+    </comments>
+    <keywords casesensitive="0"/>
+  </general>
+</language>

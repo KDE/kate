@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Bash" section="Scripts" extensions="" mimetype="text/x-shellscript">
+        <highlighting>
+                 <list name = "keywords">
+                        <item> break </item>
+                        <item> case </item>
+                        <item> done </item>
+                        <item> do </item>
+                        <item> elif </item>
+                        <item> else </item>
+                        <item> esac </item>
+                        <item> exit </item>
+                        <item> export </item>
+                        <item> fi </item>
+                        <item> for </item>
+                        <item> function </item>
+                        <item> if </item>
+                        <item> in </item>
+                        <item> return </item>
+                        <item> select </item>
+                        <item> then </item>
+                        <item> until </item>
+                        <item> while </item>
+                        <item> . </item>
+                </list>
+
+
+        <contexts>
+                <context name = "Base" attribute = "0" lineEndContext="#stay">
+                        <keyword String = "keywords" attribute = "1" context="#stay"/>
+                        <Int attribute = "2" context="#stay"/>
+                        <RegExpr String = "$[0-9]+" attribute = "8" context="#stay"/>
+                        <AnyChar String = "|&lt;&gt;=;" attribute = "9" context="#stay"/>
+                        <DetectChar char = '"' attribute = "5" context="#stay"/>
+                        <DetectChar char="`" attribute = "7" context = "2"/>
+			<Detect2Chars attribute="0" context="#stay" char="\" char1="#"/>
+                        <RegExpr String= "#.*$" attribute = "6" context="#stay"/>
+                </context>
+
+                <context name = "String" attribute = "5" lineEndContext="#stay">
+                        <HlCChar attribute = "4" context = "#stay"/>
+                        <DetectChar char = '"' attribute = "5" context = "#pop"/>
+                </context>
+
+                <context name = "Substitution" attribute = "7" lineEndContext="#stay">
+                        <DetectChar char = "`" attribute = "7" context = "#pop"/>
+                </context>
+        </contexts>
+
+        <itemDatas>
+                <itemData name = "Normal Text" defStyleNum = "dsNormal"/>
+                <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
+                <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
+                <itemData name = "Float" defStyleNum = "dsFloat"/>
+                <itemData name = "Char" defStyleNum = "dsChar"/>
+                <itemData name = "String" defStyleNum = "dsString"/>
+                <itemData name = "Comment" defStyleNum = "dsComment"/>
+                <itemData name = "Substitution" defStyleNum = "dsOthers"/>
+                <itemData name = "Parameter" defStyleNum = "dsOthers"/>
+                <itemData name = "Operator" defStyleNum = "dsOthers"/>
+        </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

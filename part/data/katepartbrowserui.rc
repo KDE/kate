@@ -1,0 +1,32 @@
+<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
+<kpartgui name="KatePartBrowserView" version="2">
+<MenuBar>
+ <Menu name="file" noMerge="1"><text>&amp;File</text>
+    <Action name="file_save_as"/>
+    <Action name="file_export"/>
+ </Menu>
+ <Menu name="edit"><Text>&amp;Edit</Text>
+  <Action name="select_all"/>
+  <Action name="unselect_all"/>
+  <Action name="set_verticalSelect"/>
+  <Separator/>
+  <Action name="find" />
+  <Action name="find_again" />
+  <Action name="find_prev" />
+  <Separator/>
+  <Action name="goto_line"/>
+ </Menu>
+ <Menu name="tools"><Text>&amp;Tools</Text>
+  <Action name="highlight_select" />
+ </Menu>
+  <Menu name="settings"><text>&amp;Settings</text>
+    <Action name="set_confdlg" group="config_merge"/>
+    <Action name="set_highlight"/>
+  </Menu>
+</MenuBar>
+<ToolBar name="mainToolBar"><text>Main Toolbar</text>
+ <Action name="find" />
+ <Action name="incFontSizes" />
+ <Action name="decFontSizes" />
+</ToolBar>
+</kpartgui>

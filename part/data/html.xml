@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="HTML" section="Markup" extensions="*.html;*.htm;*.shtml;*.shtm" mimetype="text/html">
+  <highlighting>
+    <contexts>
+       <context attribute="0" lineEndContext="#stay">
+	 <StringDetect attribute="Comment" context="6" String="&lt;!--"/>
+         <RegExpr attribute="1" context="1" String="&lt;\s*\/?\s*[a-zA-Z0-9_]*" />
+       </context>
+
+       <context attribute="2" lineEndContext="#stay">
+         <DetectChar attribute="1" context="#pop" char="&gt;"/>
+         <RegExpr attribute="0" context="2" String="\s*=\s*"/>
+       </context>
+
+       <context attribute="8" lineEndContext="#stay">
+         <RegExpr attribute="3" context="#pop" String="\s*#?[a-zA-Z0-9]*" />
+         <DetectChar attribute="3" context="3" char="&quot;" />
+       </context>
+
+       <context attribute="3" lineEndContext="#stay">
+         <DetectChar attribute="3" context="#pop#pop" char="&quot;" />
+       </context>
+
+       <context attribute="5" lineEndContext="#pop"/>
+       <context attribute="4" lineEndContext="#pop">
+         <DetectChar attribute="4" context="#pop" char="'"/>
+       </context>
+
+       <context attribute="Comment" lineEndContext="#stay">
+	 <String---Detect attribute="Comment" context="6" String="&lt;!--"/>
+	 <StringDetect attribute="Comment" context="#pop" String="--&gt;"/>
+       </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Identifier" defStyleNum="dsOthers"/>
+      <itemData name="Types" defStyleNum="dsDataType"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="multiLine" start="&lt;!--" end="//--&gt;" />
+    </comments>
+    <keywords casesensitive="0" />
+  </general>
+</language>

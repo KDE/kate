@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Pascal" section="Sources" extensions="*.pp;*.pas" mimetype="text/x-pascal-src">
+        <highlighting>
+                <list name="keywords">
+                        <item> and </item>
+                        <item> array </item>
+                        <item> asm </item>
+                        <item> begin </item>
+                        <item> case </item>
+                        <item> const </item>
+                        <item> div </item>
+                        <item> do </item>
+                        <item> downto </item>
+                        <item> else </item>
+                        <item> end </item>
+                        <item> for </item>
+                        <item> function </item>
+                        <item> goto </item>
+                        <item> if </item>
+                        <item> implementation </item>
+                        <item> in </item>
+                        <item> interface </item>
+                        <item> label </item>
+                        <item> mod </item>
+                        <item> nil </item>
+                        <item> not </item>
+                        <item> of </item>
+                        <item> on </item>
+                        <item> operator </item>
+                        <item> or </item>
+                        <item> packed </item>
+                        <item> procedure </item>
+                        <item> program </item>
+                        <item> record </item>
+                        <item> repeat </item>
+                        <item> self </item>
+                        <item> set </item>
+                        <item> shl </item>
+                        <item> shr </item>
+                        <item> then </item>
+                        <item> to </item>
+                        <item> type </item>
+                        <item> unit </item>
+                        <item> until </item>
+                        <item> uses </item>
+                        <item> var </item>
+                        <item> while </item>
+                        <item> with </item>
+                        <item> xor </item>
+                        <item> break </item>
+                        <item> continue </item>
+                        <item> constructor </item>
+                        <item> destructor </item>
+                        <item> inherited </item>
+                        <item> inline </item>
+                        <item> object </item>
+                        <item> private </item>
+                        <item> protected </item>
+                        <item> public </item>
+                        <item> as </item>
+                        <item> at </item>
+                        <item> automated </item>
+                        <item> class </item>
+                        <item> dispinterface </item>
+                        <item> except </item>
+                        <item> exports </item>
+                        <item> finalization </item>
+                        <item> finally </item>
+                        <item> initialization </item>
+                        <item> is </item>
+                        <item> library </item>
+                        <item> on </item>
+                        <item> property </item>
+                        <item> published </item>
+                        <item> raise </item>
+                        <item> resourcestring </item>
+                        <item> threadvar </item>
+                        <item> try </item>
+                        <item> dispose </item>
+                        <item> exit </item>
+                        <item> false </item>
+                        <item> new </item>
+                        <item> true </item>
+                </list>
+                <list name="types">
+                        <item> Integer </item>
+                        <item> Cardinal </item>
+                        <item> ShortInt </item>
+                        <item> SmallInt  </item>
+                        <item> LongInt </item>
+                        <item> Int64 </item>
+                        <item> Byte </item>
+                        <item> Word </item>
+                        <item> LongWord </item>
+                        <item> Char </item>
+                        <item> AnsiChar </item>
+                        <item> WideChar </item>
+                        <item> Boolean </item>
+                        <item> ByteBool </item>
+                        <item> WordBool </item>
+                        <item> LongBool </item>
+                        <item> Single </item>
+                        <item> Double </item>
+                        <item> Extended </item>
+                        <item> Comp </item>
+                        <item> Currency </item>
+                        <item> Real </item>
+                        <item> Real48 </item>
+                        <item> String </item>
+                        <item> ShortString </item>
+                        <item> AnsiString </item>
+                        <item> WideString </item>
+                        <item> Pointer </item>
+                        <item> Variant</item>
+                        <item> File </item>
+                        <item> Text </item>
+                </list>
+                <contexts>
+                        <context attribute="0" lineEndContext="0">
+                                <keyword attribute="1" context="0" String="keywords"/>
+                                <keyword attribute="2" context="0" String="types"/>
+                                <Float attribute="3" context="0"/>
+                                <Int attribute="3" context="0"/>
+                                <DetectChar attribute="4" context="1" char="&quot;"/>
+                                <StringDetect attribute="5" context="2" String="(*$"/>
+                                <Detect2Chars attribute="5" context="3" char="{" char1="$"/>
+                                <DetectChar attribute="6" context="4" char="{"/>
+                                <Detect2Chars attribute="6" context="5" char="/" char1="/"/>
+                        </context>
+                        <context attribute="4" lineEndContext="0">
+                                <DetectChar attribute="4" context="0" char="&quot;"/>
+                        </context>
+                        <context attribute="5" lineEndContext="0">
+                                <Detect2Chars attribute="5" context="0" char="*" char1=")"/>
+                        </context>
+                        <context attribute="5" lineEndContext="0">
+                                <DetectChar attribute="5" context="0" char="}"/>
+                        </context>
+                        <context attribute="6" lineEndContext="4">
+                                <DetectChar attribute="6" context="0" char="}"/>
+                        </context>
+                        <context attribute="6" lineEndContext="0"/>
+                </contexts>
+                <itemDatas>
+                        <itemData name="Normal Text" defStyleNum="dsNormal" />
+                        <itemData name="Keyword"     defStyleNum="dsKeyword" />
+                        <itemData name="Type"        defStyleNum="dsDataType"/>
+                        <itemData name="Number"      defStyleNum="dsDecVal" />
+                        <itemData name="String"      defStyleNum="dsString" />
+                        <itemData name="Directive"   defStyleNum="dsOthers" />
+                        <itemData name="Comment"     defStyleNum="dsComment" />
+                </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0" />
+    <comments>
+      <comment name="singleLine" start="//" />
+      <comment name="multiLine" start="{" end="}" />
+    </comments>
+  </general>
+</language>

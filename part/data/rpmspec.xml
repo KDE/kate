@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="RPM Spec" section="Other" extensions="*.spec" mimetype="">
+  <highlighting>
+    <list name="keywords">
+        <item> Name </item>
+                <item> Summary </item>
+                <item> Version </item>
+                <item> Release </item>
+                <item> Source </item>
+                <item> Group </item>
+                <item> BuildRoot </item>
+                <item> Copyright </item>
+                <item> Packager </item>
+                <item> Url </item>
+                <item> URL </item>
+                <item> Prefix </item>
+                <item> Requires </item>
+                <item> BuildRequires </item>
+                <item> Serial </item>
+                <item> Vendor </item>
+                <item> License </item>
+    </list>
+    <list name="types">
+      <item> GPL </item>
+      <item> LGPL </item>
+      <item> Artistic </item>
+    </list>
+    <contexts>
+
+      <context attribute="0" lineEndContext="0">
+         <keyword attribute="1" context="0" String="keywords"/>
+         <keyword attribute="5" context="0" String="types"/>
+         <RegExpr attribute="2" context="0" String="%[a-zA-Z0-9_]*" />
+         <DetectChar attribute="3" context="1" char="#" />
+         <RegExpr attribute="1" context="2" String="\{[a-zA-Z0-9_]*" />
+         <RegExpr attribute="4" context="3" String="&lt;\s*[a-zA-Z0-9_@\.]*" />
+         <RegExpr attribute="5" context="0" String="\$[a-zA-Z0-9_]*" />
+         <RegExpr attribute="1" context="0" String="(Source|Patch)[0-9]*" />
+         <RegExpr attribute="1" context="0" String="^\*.*" />    <!-- ChangeLog -->
+         <Int attribute="4" context="0" />
+   </context>
+
+       <context attribute="3" lineEndContext="0"/>
+
+       <context attribute="1" lineEndContext="0">
+          <DetectChar attribute="1" char="}" context="0"/>
+       </context>
+
+       <context attribute="4" lineEndContext="0">
+           <DetectChar attribute="4" char="&gt;" context="0"/>
+       </context>
+
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Red"  defStyleNum="dsString"/>
+      <itemData name="Comment"  defStyleNum="dsComment"/>
+      <itemData name="Blue"  defStyleNum="dsDecVal"/>
+      <itemData name="Data" defStyleNum="dsDataType"/>
+    </itemDatas>
+  </highlighting>
+   <general>
+    <keywords casesensitive="1" />
+  </general>
+</language>

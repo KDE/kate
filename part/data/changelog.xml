@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="ChangeLog" section="Other" extensions="ChangeLog" mimetype="">
+        <highlighting>
+          <contexts>
+                <context attribute="0" lineEndContext="#stay">
+                <RegExpr attribute="1" context="#stay" String="^\d\d\d\d\s*-\s*\d\d\s*-\s*\d\d.*$"/>
+                </context>
+          </contexts>
+          <itemDatas>
+                <itemData name="Normal Text" defStyleNum="dsNormal"/>
+                <itemData name="Keyword" defStyleNum="dsKeyword"/>
+                <itemData name="Identifier" defStyleNum="dsOthers"/>
+                <itemData name="Types" defStyleNum="dsDataType"/>
+                <itemData name="String" defStyleNum="dsString"/>
+                <itemData name="Comment" defStyleNum="dsComment"/>
+          </itemDatas>
+        </highlighting>
+  <general>
+    <keywords casesensitive="1" />
+  </general>
+</language>

@@ -1,0 +1,159 @@
+<!ELEMENT language (highlighting, general?)>
+<!ATTLIST language
+  name CDATA #REQUIRED
+  section (Sources|Markup|Other|Scripts) #REQUIRED
+  extensions CDATA #REQUIRED
+  mimetype CDATA #REQUIRED
+  casesensitive (0|1) #IMPLIED
+>
+
+<!ELEMENT general (comments?, keywords?)>
+<!ATTLIST general
+>
+
+<!ELEMENT comments (comment)+>
+<!ATTLIST comments
+>
+
+<!ELEMENT comment EMPTY>
+<!ATTLIST comment
+  name (singleLine|multiLine) #REQUIRED
+  start CDATA #REQUIRED
+  end CDATA #IMPLIED
+>
+
+<!ELEMENT keywords EMPTY>
+<!ATTLIST keywords
+  casesensitive CDATA #IMPLIED
+  weakDeliminator CDATA #IMPLIED
+>
+
+<!ELEMENT highlighting (list*, contexts, itemDatas)>
+<!ATTLIST highlighting
+>
+
+<!ELEMENT list (item)+>
+<!ATTLIST list
+  name (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+>
+
+<!ELEMENT item (#PCDATA)>
+
+<!ELEMENT contexts (context)+>
+
+<!ELEMENT context (keyword | Float | HlCOct | HlCHex | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar)*>
+<!ATTLIST context
+  attribute CDATA #REQUIRED
+  lineEndContext NMTOKEN #REQUIRED
+  lineBeginContext NMTOKEN #IMPLIED
+  name CDATA #IMPLIED
+>
+
+<!ELEMENT keyword EMPTY>
+<!ATTLIST keyword
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  String (types|keywords|attribute-definitions|literals|definitions) #REQUIRED
+  weakDelimiter CDATA #IMPLIED
+>
+
+<!ELEMENT Float (AnyChar)*>
+<!ATTLIST Float
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT HlCOct EMPTY>
+<!ATTLIST HlCOct
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT HlCHex EMPTY>
+<!ATTLIST HlCHex
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT HlCChar EMPTY>
+<!ATTLIST HlCChar
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT Int (StringDetect)*>
+<!ATTLIST Int
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT DetectChar EMPTY>
+<!ATTLIST DetectChar
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  char CDATA #REQUIRED
+>
+
+<!ELEMENT Detect2Chars EMPTY>
+<!ATTLIST Detect2Chars
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  char CDATA #REQUIRED
+  char1 CDATA #REQUIRED
+>
+
+<!ELEMENT AnyChar EMPTY>
+<!ATTLIST AnyChar
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  String CDATA #REQUIRED
+>
+
+<!ELEMENT StringDetect EMPTY>
+<!ATTLIST StringDetect
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  String CDATA #REQUIRED
+  insensitive (TRUE|FALSE) #REQUIRED
+>
+
+<!ELEMENT RegExpr EMPTY>
+<!ATTLIST RegExpr
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  String CDATA #REQUIRED
+>
+
+<!ELEMENT LineContinue EMPTY>
+<!ATTLIST LineContinue
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT HlCStringChar EMPTY>
+<!ATTLIST HlCStringChar
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+>
+
+<!ELEMENT RangeDetect EMPTY>
+<!ATTLIST RangeDetect
+  attribute CDATA #REQUIRED
+  context NMTOKEN #REQUIRED
+  char CDATA #REQUIRED
+  char1 CDATA #REQUIRED
+>
+
+<!ELEMENT itemDatas (itemData)+>
+<!ATTLIST itemDatas
+>
+
+<!ELEMENT itemData EMPTY>
+<!ATTLIST itemData
+  name CDATA #REQUIRED
+  defStyleNum CDATA #REQUIRED
+  color CDATA #IMPLIED
+  selColor CDATA #IMPLIED
+  italic CDATA #IMPLIED
+  bold CDATA #IMPLIED
+>

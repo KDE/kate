@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+
+<!-- Author: Alexander Dederer -->
+<!-- Copyright: BSD copyright -->
+<!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger -->
+
+<language name="TCL/TK" section="Scripts" extensions="*.tcl;*.tk" mimetype="">
+  <highlighting>
+    <list name="keywords">
+      <item> after </item>
+      <item> append  </item>
+      <item> AppleScript  </item>
+      <item> argv  </item>
+      <item> argc  </item>
+      <item> array  </item>
+      <item> auto_execk  </item>
+      <item> auto_load  </item>
+      <item> auto_mkindex  </item>
+      <item> auto_path  </item>
+      <item> auto_reset  </item>
+      <item> beep  </item>
+      <item> bell  </item>
+      <item> binary  </item>
+      <item> bind  </item>
+      <item> bindtags  </item>
+      <item> bgerror  </item>
+      <item> break  </item>
+      <item> button  </item>
+      <item> canvas  </item>
+      <item> case  </item>
+      <item> catch  </item>
+      <item> cd  </item>
+      <item> checkbutton  </item>
+      <item> clipboard  </item>
+      <item> clock  </item>
+      <item> close  </item>
+      <item> concat  </item>
+      <item> console  </item>
+      <item> continue  </item>
+      <item> dde  </item>
+      <item> destroy  </item>
+      <item> encoding  </item>
+      <item> entry  </item>
+      <item> env  </item>
+      <item> eof  </item>
+      <item> error  </item>
+      <item> errorCode  </item>
+      <item> errorInfo  </item>
+      <item> eval  </item>
+      <item> event  </item>
+      <item> exec  </item>
+      <item> exit  </item>
+      <item> expr  </item>
+      <item> fblocked  </item>
+      <item> fconfigure  </item>
+      <item> fcopy  </item>
+      <item> file  </item>
+      <item> fileevent  </item>
+      <item> flush  </item>
+      <item> focus  </item>
+      <item> font  </item>
+      <item> for  </item>
+      <item> foreach  </item>
+      <item> format  </item>
+      <item> frame  </item>
+      <item> gets  </item>
+      <item> glob  </item>
+      <item> global  </item>
+      <item> grab  </item>
+      <item> grid  </item>
+      <item> history  </item>
+      <item> if  </item>
+      <item> image  </item>
+      <item> incr  </item>
+      <item> info  </item>
+      <item> interp  </item>
+      <item> join  </item>
+      <item> label  </item>
+      <item> lappend  </item>
+      <item> lindex  </item>
+      <item> linsert  </item>
+      <item> list  </item>
+      <item> listbox  </item>
+      <item> llength  </item>
+      <item> load  </item>
+      <item> lower  </item>
+      <item> lrange  </item>
+      <item> lreplace  </item>
+      <item> lsearch  </item>
+      <item> lsort  </item>
+      <item> menu  </item>
+      <item> menubutton  </item>
+      <item> message  </item>
+      <item> namespace  </item>
+      <item> open  </item>
+      <item> option  </item>
+      <item> OptProc  </item>
+      <item> pack  </item>
+      <item> package  </item>
+      <item> parray  </item>
+      <item> pid  </item>
+      <item> place  </item>
+      <item> pkg_mkindex  </item>
+      <item> proc  </item>
+      <item> puts  </item>
+      <item> pwd  </item>
+      <item> radiobutton  </item>
+      <item> raise  </item>
+      <item> read  </item>
+      <item> regexp  </item>
+      <item> registry  </item>
+      <item> regsub  </item>
+      <item> rename  </item>
+      <item> resource  </item>
+      <item> return  </item>
+      <item> scale  </item>
+      <item> scan  </item>
+      <item> scrollbar  </item>
+      <item> seek  </item>
+      <item> selection  </item>
+      <item> send  </item>
+      <item> set  </item>
+      <item> socket  </item>
+      <item> source  </item>
+      <item> split  </item>
+      <item> string  </item>
+      <item> subst  </item>
+      <item> switch  </item>
+      <item> tclLog  </item>
+      <item> tcl_endOfWord  </item>
+      <item> tcl_findLibrary  </item>
+      <item> tcl_library  </item>
+      <item> tcl_patchLevel  </item>
+      <item> tcl_platform  </item>
+      <item> tcl_precision  </item>
+      <item> tcl_rcFileName  </item>
+      <item> tcl_rcRsrcName  </item>
+      <item> tcl_startOfNextWord  </item>
+      <item> tcl_startOfPreviousWord  </item>
+      <item> tcl_traceCompile  </item>
+      <item> tcl_traceExec  </item>
+      <item> tcl_version  </item>
+      <item> tcl_wordBreakAfter  </item>
+      <item> tcl_wordBreakBefore  </item>
+      <item> tell  </item>
+      <item> text  </item>
+      <item> time  </item>
+      <item> tk  </item>
+      <item> tkTabToWindow  </item>
+      <item> tkwait  </item>
+      <item> tk_chooseColor  </item>
+      <item> tk_chooseDirectory  </item>
+      <item> tk_focusFollowMouse  </item>
+      <item> tk_focusNext  </item>
+      <item> tk_focusPrev  </item>
+      <item> tk_getOpenFile  </item>
+      <item> tk_getSaveFile  </item>
+      <item> tk_library  </item>
+      <item> tk_messageBox  </item>
+      <item> tk_optionMenu  </item>
+      <item> tk_patchLevel  </item>
+      <item> tk_popup  </item>
+      <item> tk_strictMotif  </item>
+      <item> tk_version  </item>
+      <item> toplevel  </item>
+      <item> trace  </item>
+      <item> unknown  </item>
+      <item> unset  </item>
+      <item> update  </item>
+      <item> uplevel  </item>
+      <item> upvar  </item>
+      <item> variable  </item>
+      <item> vwait  </item>
+      <item> while  </item>
+      <item> winfo  </item>
+      <item> wm  </item>
+    </list>
+        <contexts>
+                <context name = "Base" attribute = "0" lineEndContext="#stay">
+                        <keyword String = "keywords" attribute = "1" context="#stay"/>
+                        <RegExpr String = "$[0-9]+" attribute = "8" context="#stay"/>
+                        <AnyChar String = "=" attribute = "9" context="#stay"/>
+                        <RegExpr String = "-\w+" attribute = "9" content="#stay"/>
+                        <DetectChar char = '"' attribute = "5" context="#stay"/>
+                        <DetectChar char="`" attribute = "7" context = "2"/>
+                        <RegExpr String= "#.*$" attribute = "6" context="#stay"/>
+                        <DetectChar char = '{' attribute = "1" context="#stay"/>
+                        <DetectChar char = '}' attribute = "1" context="#stay"/>
+                        <DetectChar char = '[' attribute = "1" context="#stay"/>
+                        <DetectChar char = ']' attribute = "1" context="#stay"/>
+                </context>
+
+                <context name = "String" attribute = "5" lineEndContext="1">
+                        <HlCChar attribute = "4" context = "#stay"/>
+                        <DetectChar char = '"' attribute = "5" context = "#pop"/>
+                        <DetectChar char = '{' attribute = "1" context="#pop"/>
+                        <DetectChar char = '}' attribute = "1" context="#pop"/>
+                        <DetectChar char = '[' attribute = "1" context="#pop"/>
+                        <DetectChar char = ']' attribute = "1" context="#pop"/>
+                </context>
+
+                <context name = "Substitution" attribute = "7" lineEndContext="#stay">
+                        <DetectChar char = "`" attribute = "7" context = "#pop"/>
+                </context>
+        </contexts>
+        <itemDatas>
+                <itemData name = "Normal Text" defStyleNum = "dsNormal"/>
+                <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
+                <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
+                <itemData name = "Float" defStyleNum = "dsFloat"/>
+                <itemData name = "Char" defStyleNum = "dsChar"/>
+                <itemData name = "String" defStyleNum = "dsString"/>
+                <itemData name = "Comment" defStyleNum = "dsComment"/>
+                <itemData name = "Substitution" defStyleNum = "dsOthers"  color="#00ff00" selcolor="#ff0000"/>
+                <itemData name = "Parameter" defStyleNum = "dsOthers"/>
+                <itemData name = "Operator" defStyleNum = "dsOthers"/>
+        </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</highlighting>

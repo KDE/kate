@@ -324,10 +324,35 @@ void KateIndentConfigTab::reload ()
 //END KateIndentConfigTab
 
 //BEGIN KateSelectConfigTab
+const int KateSelectConfigTab::flags[] = {KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
+
 KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
+  int configFlags = KateDocumentConfig::global()->configFlags();
+
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
+
+  QVGroupBox *gbCursor = new QVGroupBox(i18n("Text Cursor Movement"), this);
+
+  opt[0] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
+  opt[0]->setChecked(configFlags & flags[3]);
+  connect(opt[0], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  opt[1] = new QCheckBox(i18n("Wrap c&ursor"), gbCursor);
+  opt[1]->setChecked(configFlags & flags[4]);
+  connect(opt[1], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  e6 = new QCheckBox(i18n("&PageUp/PageDown moves cursor"), gbCursor);
+  e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
+  connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  e4 = new KIntNumInput(KateViewConfig::global()->autoCenterLines(), gbCursor);
+  e4->setRange(0, 1000000, 1, false);
+  e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
+  connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
+  layout->addWidget(gbCursor);
 
   QRadioButton *rb1, *rb2;
 
@@ -338,7 +363,6 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   m_tabs->insert( rb1=new QRadioButton( i18n("&Normal"), m_tabs ), 0 );
   m_tabs->insert( rb2=new QRadioButton( i18n("&Persistent"), m_tabs ), 1 );
 
-
   layout->addStretch();
 
   QWhatsThis::add(rb1, i18n(
@@ -346,6 +370,24 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
         "cursor movement."));
   QWhatsThis::add(rb2, i18n(
         "Selections will stay even after cursor movement and typing."));
+
+  QWhatsThis::add(e4, i18n(
+        "Sets the number of lines to maintain visible above and below the "
+        "cursor when possible."));
+
+  QWhatsThis::add(opt[0], i18n(
+        "When selected, pressing the home key will cause the cursor to skip "
+        "whitespace and go to the start of a line's text."));
+
+    QWhatsThis::add(opt[1], i18n(
+        "When on, moving the insertion cursor using the <b>Left</b> and "
+        "<b>Right</b> keys will go on to previous/next line at beginning/end of "
+        "the line, similar to most editors.<p>When off, the insertion cursor "
+        "cannot be moved left of the line start, but it can be moved off the "
+        "line end, which can be very handy for programmers."));
+
+  QWhatsThis::add(e6, i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
+
 
   reload ();
 
@@ -365,7 +407,21 @@ void KateSelectConfigTab::apply ()
   m_changed = false;
 
   KateViewConfig::global()->configStart ();
+  KateDocumentConfig::global()->configStart ();
+
+  int configFlags = KateDocumentConfig::global()->configFlags();
+  for (int z = 1; z < numFlags; z++) {
+    configFlags &= ~flags[z];
+    if (opt[z]->isChecked()) configFlags |= flags[z];
+  }
+  KateDocumentConfig::global()->setConfigFlags(configFlags);
+
+  KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
+  KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
+
   KateViewConfig::global()->setPersistentSelection (m_tabs->id (m_tabs->selected()) == 1);
+
+  KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }
 
@@ -380,8 +436,8 @@ void KateSelectConfigTab::reload ()
 
 //BEGIN KateEditConfigTab
 const int KateEditConfigTab::flags[] = {KateDocument::cfWordWrap,
-  KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome,
-  KateDocument::cfWrapCursor, KateDocumentConfig::cfReplaceTabsDyn, KateDocumentConfig::cfRemoveTrailingDyn};
+  KateDocument::cfAutoBrackets, KateDocument::cfShowTabs,
+  KateDocumentConfig::cfReplaceTabsDyn, KateDocumentConfig::cfRemoveTrailingDyn};
 
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
@@ -395,9 +451,9 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   opt[2]->setChecked(configFlags & flags[2]);
   connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  opt[5] = new QCheckBox( i18n("&Replace tabs with spaces"), gbWhiteSpace );
-  opt[5]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
-  connect( opt[5], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  opt[3] = new QCheckBox( i18n("&Replace tabs with spaces"), gbWhiteSpace );
+  opt[3]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
+  connect( opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
   e2 = new KIntNumInput(KateDocumentConfig::global()->tabWidth(), gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
@@ -419,31 +475,10 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
 
   mainLayout->addWidget(gbWordWrap);
 
-  QVGroupBox *gbCursor = new QVGroupBox(i18n("Text Cursor Movement"), this);
-
-  opt[3] = new QCheckBox(i18n("Smart ho&me"), gbCursor);
-  opt[3]->setChecked(configFlags & flags[3]);
-  connect(opt[3], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  opt[4] = new QCheckBox(i18n("Wrap c&ursor"), gbCursor);
-  opt[4]->setChecked(configFlags & flags[4]);
-  connect(opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  e6 = new QCheckBox(i18n("&PageUp/PageDown moves cursor"), gbCursor);
-  e6->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
-  connect(e6, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  e4 = new KIntNumInput(KateViewConfig::global()->autoCenterLines(), gbCursor);
-  e4->setRange(0, 1000000, 1, false);
-  e4->setLabel(i18n("Autocenter cursor (lines):"), AlignVCenter);
-  connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-
-  mainLayout->addWidget(gbCursor);
-
-  opt[6] = new QCheckBox( i18n("Remove &trailing spaces"), this );
-  mainLayout->addWidget( opt[6] );
-  opt[6]->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
-  connect( opt[6], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  opt[4] = new QCheckBox( i18n("Remove &trailing spaces"), this );
+  mainLayout->addWidget( opt[4] );
+  opt[4]->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
+  connect( opt[4], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
   opt[1] = new QCheckBox(i18n("Auto &brackets"), this);
   mainLayout->addWidget(opt[1]);
@@ -491,22 +526,11 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   QWhatsThis::add(opt[2], i18n(
         "The editor will display a symbol to indicate the presence of a tab in "
         "the text."));
-  QWhatsThis::add(opt[3], i18n(
-        "When selected, pressing the home key will cause the cursor to skip "
-        "whitespace and go to the start of a line's text."));
+
   QWhatsThis::add(e3, i18n(
         "Sets the number of undo/redo steps to record. More steps uses more memory."));
-  QWhatsThis::add(e4, i18n(
-        "Sets the number of lines to maintain visible above and below the "
-        "cursor when possible."));
-  QWhatsThis::add(opt[4], i18n(
-        "When on, moving the insertion cursor using the <b>Left</b> and "
-        "<b>Right</b> keys will go on to previous/next line at beginning/end of "
-        "the line, similar to most editors.<p>When off, the insertion cursor "
-        "cannot be moved left of the line start, but it can be moved off the "
-        "line end, which can be very handy for programmers."));
-  QWhatsThis::add(e6, i18n("Selects whether the PageUp and PageDown keys should alter the vertical position of the cursor relative to the top of the view."));
-  QString gstfwt = i18n(
+
+QString gstfwt = i18n(
         "This determines where KateView will get the search text from "
         "(this will be automatically entered into the Find Text dialog): "
         "<br>"
@@ -531,11 +555,11 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
         "will fall back to the last search text.");
   QWhatsThis::add(e5Label, gstfwt);
   QWhatsThis::add(e5, gstfwt);
-  QWhatsThis::add( opt[5], i18n(
+  QWhatsThis::add( opt[3], i18n(
       "If this is enabled, the editor will calculate the number of spaces up to "
       "the next tab position as defined by the tab width, and insert that number "
       "of spaces instead of a TAB character." ) );
-  QWhatsThis::add( opt[6], i18n(
+  QWhatsThis::add( opt[4], i18n(
       "If this is enabled, the editor will remove any trailing whitespace on "
       "lines when they are left by the insertion cursor.") );
 }
@@ -568,9 +592,7 @@ void KateEditConfigTab::apply ()
   else
     KateDocumentConfig::global()->setUndoSteps(e3->value());
 
-  KateViewConfig::global()->setAutoCenterLines(QMAX(0, e4->value()));
   KateViewConfig::global()->setTextToSearchMode(e5->currentItem());
-  KateDocumentConfig::global()->setPageUpDownMovesCursor(e6->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -578,7 +600,6 @@ void KateEditConfigTab::apply ()
 
 void KateEditConfigTab::reload ()
 {
-
 }
 //END KateEditConfigTab
 

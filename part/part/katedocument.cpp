@@ -26,7 +26,6 @@
 #include "katedialogs.h"
 #include "katehighlight.h"
 #include "kateview.h"
-#include "kateviewinternal.h"
 #include "katesearch.h"
 #include "kateautoindent.h"
 #include "katetextline.h"
@@ -456,7 +455,7 @@ QString KateDocument::configPageName (uint number) const
       return i18n ("Indentation");
 
     case 4:
-      return i18n ("Selection");
+      return i18n ("Cursor & Selection");
 
     case 1:
       return i18n ("Editing");
@@ -498,7 +497,7 @@ QString KateDocument::configPageFullName (uint number) const
       return i18n ("Indentation Rules");
 
     case 4:
-      return i18n ("Selection Behavior");
+      return i18n ("Cursor & Selection Behavior");
 
     case 1:
       return i18n ("Editing Options");

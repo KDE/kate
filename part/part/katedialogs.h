@@ -161,7 +161,13 @@ class KateSelectConfigTab : public KateConfigPage
     KateSelectConfigTab(QWidget *parent);
 
   protected:
+    enum { numFlags = 2 };
+    static const int flags[numFlags];
+    QCheckBox *opt[numFlags];
+
     QButtonGroup *m_tabs;
+    KIntNumInput *e4;
+    QCheckBox *e6;
 
   public slots:
     void apply ();
@@ -178,16 +184,14 @@ class KateEditConfigTab : public KateConfigPage
     KateEditConfigTab(QWidget *parent);
 
   protected:
-    enum { numFlags = 7 };
+    enum { numFlags = 5 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
 
     KIntNumInput *e1;
     KIntNumInput *e2;
     KIntNumInput *e3;
-    KIntNumInput *e4;
     KComboBox *e5;
-    QCheckBox *e6;
 
   public slots:
     void apply ();

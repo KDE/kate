@@ -47,8 +47,13 @@ class KateSuperCursor : public QObject, public KateDocCursor, public Kate::Curso
   Q_OBJECT
 
 public:
-    KateSuperCursor(KateDocument* doc, const KateTextCursor& cursor, QObject* parent = 0L, const char* name = 0L);
-    KateSuperCursor(KateDocument* doc, int lineNum, int col = 0, QObject* parent = 0L, const char* name = 0L);
+    /**
+     * bool privateC says: if private, than don't show to apps using the cursorinterface in the list,
+     * all internally only used SuperCursors should be private or people could modify them from the
+     * outside breaking kate's internals
+     */
+    KateSuperCursor(KateDocument* doc, bool privateC, const KateTextCursor& cursor, QObject* parent = 0L, const char* name = 0L);
+    KateSuperCursor(KateDocument* doc, bool privateC, int lineNum = 0, int col = 0, QObject* parent = 0L, const char* name = 0L);
 
     ~KateSuperCursor ();
 
@@ -152,6 +157,7 @@ public:
     KateDocument *m_doc;
     bool m_moveOnInsert : 1;
     bool m_lineRemoved : 1;
+    bool m_privateCursor : 1;
 };
 
 /**

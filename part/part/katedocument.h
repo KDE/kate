@@ -534,8 +534,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void addView(KTextEditor::View *);
     void removeView(KTextEditor::View *);
 
-    void addSuperCursor(class KateSuperCursor *);
-    void removeSuperCursor(class KateSuperCursor *);
+    void addSuperCursor(class KateSuperCursor *, bool privateC);
+    void removeSuperCursor(class KateSuperCursor *, bool privateC);
 
     bool ownedView(KateView *);
     bool isLastView(int numViews);

@@ -24,7 +24,7 @@
 
 #include <qobjectlist.h>
 
-KateSuperCursor::KateSuperCursor(KateDocument* doc, const KateTextCursor& cursor, QObject* parent, const char* name)
+KateSuperCursor::KateSuperCursor(KateDocument* doc, bool privateC, const KateTextCursor& cursor, QObject* parent, const char* name)
   : QObject(parent, name)
   , KateDocCursor(cursor.line(), cursor.col(), doc)
   , Kate::Cursor ()
@@ -32,11 +32,12 @@ KateSuperCursor::KateSuperCursor(KateDocument* doc, const KateTextCursor& cursor
 {
   m_moveOnInsert = false;
   m_lineRemoved = false;
+  m_privateCursor = privateC;
 
-  m_doc->addSuperCursor (this);
+  m_doc->addSuperCursor (this, privateC);
 }
 
-KateSuperCursor::KateSuperCursor(KateDocument* doc, int lineNum, int col, QObject* parent, const char* name)
+KateSuperCursor::KateSuperCursor(KateDocument* doc, bool privateC, int lineNum, int col, QObject* parent, const char* name)
   : QObject(parent, name)
   , KateDocCursor(lineNum, col, doc)
   , Kate::Cursor ()
@@ -44,13 +45,14 @@ KateSuperCursor::KateSuperCursor(KateDocument* doc, int lineNum, int col, QObjec
 {
   m_moveOnInsert = false;
   m_lineRemoved = false;
+  m_privateCursor = privateC;
 
-  m_doc->addSuperCursor (this);
+  m_doc->addSuperCursor (this, privateC);
 }
 
 KateSuperCursor::~KateSuperCursor ()
 {
-  m_doc->removeSuperCursor (this);
+  m_doc->removeSuperCursor (this, m_privateCursor);
 }
 
 void KateSuperCursor::position(uint *pline, uint *pcol) const
@@ -274,8 +276,8 @@ KateSuperRange::KateSuperRange(KateSuperCursor* start, KateSuperCursor* end, QOb
 
 KateSuperRange::KateSuperRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
   : QObject(parent, name)
-  , m_start(new KateSuperCursor(doc, range.start()))
-  , m_end(new KateSuperCursor(doc, range.end()))
+  , m_start(new KateSuperCursor(doc, true, range.start()))
+  , m_end(new KateSuperCursor(doc, true, range.end()))
   , m_evaluate(false)
   , m_startChanged(false)
   , m_endChanged(false)
@@ -285,8 +287,8 @@ KateSuperRange::KateSuperRange(KateDocument* doc, const KateRange& range, QObjec
 
 KateSuperRange::KateSuperRange(KateDocument* doc, const KateTextCursor& start, const KateTextCursor& end, QObject* parent, const char* name)
   : QObject(parent, name)
-  , m_start(new KateSuperCursor(doc, start))
-  , m_end(new KateSuperCursor(doc, end))
+  , m_start(new KateSuperCursor(doc, true, start))
+  , m_end(new KateSuperCursor(doc, true, end))
   , m_evaluate(false)
   , m_startChanged(false)
   , m_endChanged(false)

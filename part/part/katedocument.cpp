@@ -2947,19 +2947,23 @@ void KateDocument::removeView(KTextEditor::View *view) {
   m_textEditViews.removeRef( view  );
 }
 
-void KateDocument::addSuperCursor(KateSuperCursor *cursor) {
+void KateDocument::addSuperCursor(KateSuperCursor *cursor, bool privateC) {
   if (!cursor)
     return;
 
   m_superCursors.append( cursor );
-  myCursors.append( cursor );
+
+  if (!privateC)
+    myCursors.append( cursor );
 }
 
-void KateDocument::removeSuperCursor(KateSuperCursor *cursor) {
+void KateDocument::removeSuperCursor(KateSuperCursor *cursor, bool privateC) {
   if (!cursor)
     return;
 
-  myCursors.removeRef( cursor  );
+  if (!privateC)
+    myCursors.removeRef( cursor  );
+
   m_superCursors.removeRef( cursor  );
 }
 
@@ -4524,7 +4528,7 @@ TextLine::Ptr KateDocument::kateTextLine(uint i)
 
 KTextEditor::Cursor *KateDocument::createCursor ( )
 {
-  return new KateSuperCursor (this, 0, 0);
+  return new KateSuperCursor (this, false, 0, 0, this);
 }
 
 void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)

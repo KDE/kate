@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.01" kateversion="2.0" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-c++src">
+<language name="C++" version="1.02" kateversion="2.0" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr;text/x-c++src">
   <highlighting>
     <list name="keywords">
       <item> class </item>
@@ -10,13 +10,14 @@
       <item> namespace </item>
       <item> new </item>
       <item> delete </item>
-	  <item> operator </item>
+      <item> operator </item>
       <item> private </item>
       <item> protected </item>
       <item> public </item>
+      <item> const_cast </item>
       <item> reinterpret_cast </item>
       <item> static_cast </item>
-	  <item> dynamic_cast</item>
+      <item> dynamic_cast</item>
       <item> explicit </item>
       <item> template </item>
       <item> this </item>
@@ -78,6 +79,8 @@
       <item> union </item>
       <item> while </item>
       <item> connect </item>
+      <item> asm </item>
+      <item> export </item>
     </list>
     <list name="types">
       <item> bool </item>

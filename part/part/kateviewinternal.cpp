@@ -750,7 +750,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
 
       m_view->renderer()->paintTextLine(paintDrawBuffer, &lineRanges[z], xStart, xEnd, &cursor, &bm);
 
-      paint.drawPixmap (x, z * h, drawBuffer, 0, 0, width);
+      paint.drawPixmap (x, z * h, drawBuffer, 0, 0, width, h);
     }
   }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="D" version="d.0.69.xml.0.02" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
+<language name="D" version="d.0.71.xml.0.03" kateversion="2.1" section="Sources" extensions="*.d;*.D" mimetype="text/x-dsrc">
 	<highlighting>
 		<list name="keywords">
 			<item> abstract </item>
@@ -33,6 +33,7 @@
 			<item> final </item>
 			<item> finally </item>
 			<item> for </item>
+			<item> foreach </item>
 			<item> function </item>
 
 			<item> goto </item>
@@ -254,7 +255,7 @@
 			<itemData name="Unit Test"		defStyleNum="dsKeyWord"		color="#ff00ff" selColor="#ffffff" bold="1" italic="0"/>
 			<itemData name="Pragmas"			defStyleNum="dsKeyWord"		color="#00aa00" selColor="#ffffff" bold="1" italic="0"/>
 
-			<itemData name="Integer"			defStyleNum="dsDecVal"		color="#ea9d0d" selColor="#00ffff" bold="0" italic="0"/>
+			<itemData name="Integer"			defStyleNum="dsDecVal"/>
 			<itemData name="Binary"			defStyleNum="dsBaseN"		color="#00dddd" selColor="#00ffff" bold="0" italic="0"/>
 			<itemData name="Octal"				defStyleNum="dsBaseN"		color="#00aaaa" selColor="#00ffff" bold="0" italic="0"/>
 			<itemData name="Hex"				defStyleNum="dsBaseN"		color="#006666" selColor="#00ffff" bold="0" italic="0"/>

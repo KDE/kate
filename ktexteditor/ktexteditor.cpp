@@ -19,9 +19,11 @@
 
 #include "document.h"
 #include "view.h"
+#include "editor.h"
 
 #include "document.moc"
 #include "view.moc"
+#include "editor.moc"
 
 #include "editinterface.h"
 #include "selectioninterface.h"
@@ -66,5 +68,13 @@ Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart(
 }
 
 Document::~Document()
+{
+}
+
+Editor::Editor( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
+{
+}
+
+Editor::~Editor()
 {
 }

@@ -17,36 +17,30 @@
    Boston, MA 02111-1307, USA.
 */
 
-#ifndef __ktexteditor_view_h__
-#define __ktexteditor_view_h__
+#ifndef __ktexteditor_editor_h__
+#define __ktexteditor_editor_h__
 
-#include <qwidget.h>
-#include <kxmlguiclient.h>
+#include <kparts/part.h>
 
 namespace KTextEditor
 {
 
-class Document;
-
 /**
- * The View class encapsulates a single view into the document.
+ * The Editor class is a wrapper around a document + its unique view.
+ * (which means that KTextEditor::Editor can inherit both interfaces for
+ * the Document and View)
  */
 
-class View : public QWidget, public KXMLGUIClient
+class Editor : public KParts::ReadWritePart
 {
   Q_OBJECT
 
   public:
     /**
-    * Create a new view to the given document. The document must be non-null.
+    * Create a new editor widget.
     */
-    View ( Document *, QWidget *parent, const char *name = 0 );
-    virtual ~View ();
-
-    /**
-    * Acessor to the parent Document.
-    */
-    virtual Document *document () const = 0;
+    Editor ( QObject *parent = 0, const char *name = 0  );
+    virtual ~Editor ();
 };
 
 };

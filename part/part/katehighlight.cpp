@@ -1366,10 +1366,10 @@ void Highlight::setItemDataList(uint schema, ItemDataList &list)
     settings<<QString::number(p->defStyleNum,10);
     settings<<(p->itemSet(KateAttribute::TextColor)?QString::number(p->textColor().rgb(),16):"");
     settings<<(p->itemSet(KateAttribute::SelectedTextColor)?QString::number(p->selectedTextColor().rgb(),16):"");
-    settings<<(p->itemSet(KateAttribute::Bold)?(p->bold()?"1":0):"");
-    settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":0):"");
-    settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":0):"");
-    settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":0):"");
+    settings<<(p->itemSet(KateAttribute::Weight)?(p->bold()?"1":"0"):"");
+    settings<<(p->itemSet(KateAttribute::Italic)?(p->italic()?"1":"0"):"");
+    settings<<(p->itemSet(KateAttribute::StrikeOut)?(p->strikeOut()?"1":"0"):"");
+    settings<<(p->itemSet(KateAttribute::Underline)?(p->underline()?"1":"0"):"");
     settings<<(p->itemSet(KateAttribute::BGColor)?QString::number(p->bgColor().rgb(),16):"");
     settings<<(p->itemSet(KateAttribute::SelectedBGColor)?QString::number(p->selectedBGColor().rgb(),16):"");
     settings<<"---";
@@ -2714,10 +2714,10 @@ void HlManager::setDefaults(uint schema, KateAttributeList &list)
 
     settings<<(i->itemSet(KateAttribute::TextColor)?QString::number(i->textColor().rgb(),16):"");
     settings<<(i->itemSet(KateAttribute::SelectedTextColor)?QString::number(i->selectedTextColor().rgb(),16):"");
-    settings<<(i->itemSet(KateAttribute::Bold)?(i->bold()?"1":0):"");
-    settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":0):"");
-    settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":0):"");
-    settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":0):"");
+    settings<<(i->itemSet(KateAttribute::Weight)?(i->bold()?"1":"0"):"");
+    settings<<(i->itemSet(KateAttribute::Italic)?(i->italic()?"1":"0"):"");
+    settings<<(i->itemSet(KateAttribute::StrikeOut)?(i->strikeOut()?"1":"0"):"");
+    settings<<(i->itemSet(KateAttribute::Underline)?(i->underline()?"1":"0"):"");
     settings<<(i->itemSet(KateAttribute::BGColor)?QString::number(i->bgColor().rgb(),16):"");
     settings<<(i->itemSet(KateAttribute::SelectedBGColor)?QString::number(i->selectedBGColor().rgb(),16):"");
     settings<<"---";

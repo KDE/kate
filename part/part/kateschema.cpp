@@ -844,83 +844,57 @@ void StyleListItem::updateStyle()
 
   if ( is->itemSet(KateAttribute::Weight) )
   {
-    if ( is->weight() != st->weight() &&
-        ( !ds->itemSet(KateAttribute::Weight) || is->weight() != ds->weight() ) )
+    if ( is->weight() != st->weight())
       st->setWeight( is->weight() );
-    else
-      st->clearAttribute(KateAttribute::Weight);
   }
 
   if ( is->itemSet(KateAttribute::Italic) )
   {
-    if ( is->italic() != st->italic() &&
-        ( !ds->itemSet(KateAttribute::Italic) || is->italic() != ds->italic() ) )
+    if ( is->italic() != st->italic())
       st->setItalic( is->italic() );
-    else
-      st->clearAttribute(KateAttribute::Italic);
   }
 
   if ( is->itemSet(KateAttribute::StrikeOut) )
   {
-    if ( is->strikeOut() != st->strikeOut() &&
-        ( !ds->itemSet(KateAttribute::StrikeOut) || is->strikeOut() != ds->strikeOut() ) )
+    if ( is->strikeOut() != st->strikeOut())
+
       st->setStrikeOut( is->strikeOut() );
-    else
-      st->clearAttribute(KateAttribute::StrikeOut);
   }
 
   if ( is->itemSet(KateAttribute::Underline) )
   {
-    if ( is->underline() != st->underline() &&
-        ( !ds->itemSet(KateAttribute::Underline) || is->underline() != ds->underline() ) )
+    if ( is->underline() != st->underline())
       st->setUnderline( is->underline() );
-    else
-      st->clearAttribute(KateAttribute::Underline);
   }
 
   if ( is->itemSet(KateAttribute::Outline) )
   {
-    if ( is->outline() != st->outline() &&
-        ( !ds->itemSet(KateAttribute::Outline) || is->outline() != ds->outline() ) )
+    if ( is->outline() != st->outline())
       st->setOutline( is->outline() );
-    else
-      st->clearAttribute(KateAttribute::Outline);
   }
 
   if ( is->itemSet(KateAttribute::TextColor) )
   {
-    if ( is->textColor() != st->textColor() &&
-        is->textColor() != ds->textColor() )
+    if ( is->textColor() != st->textColor())
       st->setTextColor( is->textColor() );
-    else
-      st->clearAttribute(KateAttribute::TextColor);
   }
 
   if ( is->itemSet(KateAttribute::SelectedTextColor) )
   {
-    if ( is->selectedTextColor() != st->selectedTextColor() &&
-        is->selectedTextColor() != ds->selectedTextColor() )
+    if ( is->selectedTextColor() != st->selectedTextColor())
       st->setSelectedTextColor( is->selectedTextColor() );
-    else
-      st->clearAttribute(KateAttribute::SelectedTextColor);
   }
 
   if ( is->itemSet(KateAttribute::BGColor) )
   {
-    if ( is->bgColor() != st->bgColor() &&
-        ( !ds->itemSet(KateAttribute::BGColor) || is->bgColor() != ds->bgColor() ) )
+    if ( is->bgColor() != st->bgColor())
       st->setBGColor( is->bgColor() );
-    else
-      st->clearAttribute(KateAttribute::BGColor);
   }
 
   if ( is->itemSet(KateAttribute::SelectedBGColor) )
   {
-    if ( is->selectedBGColor() != st->selectedBGColor() &&
-        ( ! ds->itemSet(KateAttribute::SelectedBGColor) || is->selectedBGColor() != ds->selectedBGColor() ) )
+    if ( is->selectedBGColor() != st->selectedBGColor())
       st->setSelectedBGColor( is->selectedBGColor() );
-    else
-      st->clearAttribute(KateAttribute::SelectedBGColor);
   }
   //kdDebug()<<"after update: "<<st->itemsSet()<<endl;
   //kdDebug()<<"bold: "<<st->bold()<<" ("<<is->bold()<<")"<<endl;

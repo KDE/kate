@@ -300,7 +300,7 @@ void KateView::setupActions()
   new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
   new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
   new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), ac, "view_border");
-  new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(toggleLineNumbersOn()), ac, "view_line_numbers");
+  new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(setLineNumbersOn(bool)), ac, "view_line_numbers");
   bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks");
 
   // setup bookmark menu

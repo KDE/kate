@@ -101,6 +101,8 @@ private:
 
 	QIntDict<bool> dontIgnoreUnchangedLines;	
 
+	QIntDict<unsigned int> lineMapping;	
+
 	void addOpening(KateCodeFoldingNode *node,signed char nType,QValueList<signed char> *list,unsigned int line);
 	void addOpening_further_iterations(KateCodeFoldingNode *node,signed char nType, QValueList<signed char>
                 *list,unsigned int line,int current,unsigned int startLine);

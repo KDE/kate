@@ -39,6 +39,7 @@ KateCodeFoldingNode::~KateCodeFoldingNode(){;}
 KateCodeFoldingTree::KateCodeFoldingTree(QObject *par):QObject(par),KateCodeFoldingNode()
 {
 	dontIgnoreUnchangedLines.setAutoDelete(true);
+	lineMapping.setAutoDelete(true);
 	hiddenLinesCountCacheValid=false;
 	// initialize the root "special" node
 	startLineRel=0;
@@ -842,6 +843,7 @@ unsigned int KateCodeFoldingTree::getStartLine(KateCodeFoldingNode *node)
 
 void KateCodeFoldingTree::lineHasBeenRemoved(unsigned int line)
 {
+	lineMapping.clear();
 	dontIgnoreUnchangedLines.insert(line,new bool(true));
 	dontIgnoreUnchangedLines.insert(line-1,new bool(true));
 	dontIgnoreUnchangedLines.insert(line+1,new bool(true));
@@ -903,7 +905,7 @@ void KateCodeFoldingTree::decrementBy1(KateCodeFoldingNode *node, KateCodeFoldin
 
 void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
 {
-
+	lineMapping.clear();
         dontIgnoreUnchangedLines.insert(line,new bool(true));
         dontIgnoreUnchangedLines.insert(line-1,new bool(true));
         dontIgnoreUnchangedLines.insert(line+1,new bool(true));
@@ -921,12 +923,13 @@ void KateCodeFoldingTree::lineHasBeenInserted(unsigned int line)
 		if (node->type<0) node->startLineRel++; else node->endLineRel++;
 		if (node->childnodes)
 		{
+			
 			int cnt=node->childnodes->count();
-			for (int i=0;i<cnt;i++)
+			for (KateCodeFoldingNode *tmpNode=node->childnodes->first();tmpNode;tmpNode=node->childnodes->next())
 			{
-				if (node->childnodes->at(i)->startLineRel+startLine>=line)
+				if (tmpNode->startLineRel+startLine>=line)
 				{
-					node->childnodes->at(i)->startLineRel++;
+					tmpNode->startLineRel++;
 				}
 			}
 		}
@@ -1143,6 +1146,7 @@ void KateCodeFoldingTree::dontDeleteOpening(KateCodeFoldingNode* node)
 
 void KateCodeFoldingTree::toggleRegionVisibility(unsigned int line)
 {
+	lineMapping.clear();
 	hiddenLinesCountCacheValid=false;
 //	kdDebug()<<QString("KateCodeFoldingTree::toggleRegionVisibility() %1").arg(line)<<endl;
 	findAllNodesOpenedOrClosedAt(line);
@@ -1248,12 +1252,16 @@ void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned 
 unsigned int KateCodeFoldingTree::getRealLine(unsigned int virtualLine)
 {
 //	kdDebug()<<QString("VirtualLine %1").arg(virtualLine)<<endl;
+	unsigned int *real=lineMapping[virtualLine];
+	if (real) return (*real);
+	unsigned int tmp=virtualLine;
 	for (QValueList<hiddenLineBlock>::ConstIterator it=hiddenLines.begin();it!=hiddenLines.end();++it)
 	{
 		if ((*it).start<=virtualLine) virtualLine+=(*it).length;
 		else break;
 	}
 //	kdDebug()<<QString("Real Line %1").arg(virtualLine)<<endl;
+	lineMapping.insert(tmp,new unsigned int(virtualLine));
 	return virtualLine;
 }
 

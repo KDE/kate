@@ -308,7 +308,7 @@
 
             <RegExpr attribute="Normal Text" context="#stay" String="\\[&quot;']" />
              <Detect2Chars attribute="Normal Text" context="#stay" char="&amp;" char1="'" />
-             <DetectChar attribute="Interpolated String" context="ip_string" char="&quot;"/>
+             <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;"/>
              <DetectChar attribute="String" context="string" char="'"/>
              <AnyChar attribute="Operator" context="#stay" String="&amp;\" />
 
@@ -328,11 +328,11 @@
              <RegExpr attribute="Normal Text" context="sub_name_def" String="\w+::" />
              <RegExpr attribute="Normal Text" context="#stay" String="\w+[=]" />
 
-            <StringDetect attribute="Interpolated String" context="ip_string_2" String="qq(" insensitive="FALSE" />
-             <StringDetect attribute="Interpolated String" context="ip_string_3" String="qq{" insensitive="FALSE" />
-             <StringDetect attribute="Interpolated String" context="ip_string_4" String="qq[" insensitive="FALSE" />
-             <StringDetect attribute="Interpolated String" context="ip_string_5" String="qq&lt;" insensitive="FALSE" />
-             <RegExpr attribute="Interpolated String" context="#stay" String="qq([^a-zA-Z0-9_\s[\]{}()]).*\1" minimal="true" />
+            <StringDetect attribute="String (interpolated)" context="ip_string_2" String="qq(" insensitive="FALSE" />
+             <StringDetect attribute="String (interpolated)" context="ip_string_3" String="qq{" insensitive="FALSE" />
+             <StringDetect attribute="String (interpolated)" context="ip_string_4" String="qq[" insensitive="FALSE" />
+             <StringDetect attribute="String (interpolated)" context="ip_string_5" String="qq&lt;" insensitive="FALSE" />
+             <RegExpr attribute="String (interpolated)" context="#stay" String="qq([^a-zA-Z0-9_\s[\]{}()]).*\1" minimal="true" />
 
             <Detect2Chars attribute="String" context="string_2" char="q" char1="(" />
              <Detect2Chars attribute="String" context="string_3" char="q" char1="{" />
@@ -367,12 +367,12 @@
              <RegExpr attribute="Pod" context="#stay" String="[^\=]*" />
              <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" />
          </context>
-         <context attribute="Interpolated String" lineContext="#stay" name="ipstring_internal">
-             <RegExpr attribute="Interpolated String" context="#stay" String="\\[\$@%]" />
+         <context attribute="String (interpolated)" lineContext="#stay" name="ipstring_internal">
+             <RegExpr attribute="String (interpolated)" context="#stay" String="\\[\$@%]" />
              <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
              <RegExpr attribute="Data Type" context="var_detect" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
              <RegExpr attribute="Data Type" context="var_detect" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[UuLlEtnaefr]" />
+             <RegExpr attribute="String Special Character" context="#stay" String="\\[UuLlEtnaefr]" />
          </context>
          <context attribute="Pattern" lineEndContext="#stay" name="regex_pattern_internal">
              <RegExpr attribute="Comment" context="#stay" String="^\s*#.*$" />
@@ -389,11 +389,11 @@
              <DetectChar attribute="Pattern Internal Operator" context="#stay" char="$" />
              <RegExpr attribute="Comment" context="#stay" String="\s{3,}#.*$" />
          </context>
-         <context attribute="Interpolated String" lineEndContext="#stay" name="ip_string">
-             <LineContinue attribute="InterPolated String" context="#stay"/>
+         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string">
+             <LineContinue attribute="String (interpolated)" context="#stay"/>
              <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="&quot;" />
-             <DetectChar attribute="Interpolated String" context="#pop" char="&quot;"/>
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&quot;" />
+             <DetectChar attribute="String (interpolated)" context="#pop" char="&quot;"/>
              <IncludeRules context="2" />
          </context>
          <context attribute="String" lineEndContext="#stay" name="string">
@@ -402,36 +402,36 @@
              <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
              <DetectChar attribute="String" context="#pop" char="'" />
          </context>
-         <context attribute="Interpolated String" lineEndContext="#stay" name="ip_string_2">
-             <LineContinue attribute="Interpolated String" context="#stay" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="(" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1=")" />
-             <RangeDetect attribute="Interpolated String" context="#stay" char="(" char1=")" />
-             <DetectChar attribute="Interpolated String" context="#pop" char=")" />
+         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_2">
+             <LineContinue attribute="String (interpolated)" context="#stay" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="(" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1=")" />
+             <RangeDetect attribute="String (interpolated)" context="#stay" char="(" char1=")" />
+             <DetectChar attribute="String (interpolated)" context="#pop" char=")" />
              <IncludeRules context="2" />
          </context>
-         <context attribute="Interpolated String" lineEndContext="#stay" name="ip_string_3">
-             <LineContinue attribute="Interpolated String" context="#stay" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="{" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="}" />
-             <RangeDetect attribute="Interpolated String" context="#stay" char="{" char1="}" />
-             <DetectChar attribute="Interpolated String" context="#pop" char="}" />
+         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_3">
+             <LineContinue attribute="String (interpolated)" context="#stay" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="{" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="}" />
+             <RangeDetect attribute="String (interpolated)" context="#stay" char="{" char1="}" />
+             <DetectChar attribute="String (interpolated)" context="#pop" char="}" />
              <IncludeRules context="2" />
          </context>
-         <context attribute="Interpolated String" lineEndContext="#stay" name="ip_string_4">
-             <LineContinue attribute="Interpolated String" context="#stay" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="[" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="]" />
-             <RangeDetect attribute="Interpolated String" context="#stay" char="[" char1="]" />
-             <DetectChar attribute="Interpolated String" context="#pop" char="]" />
+         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_4">
+             <LineContinue attribute="String (interpolated)" context="#stay" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="[" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="]" />
+             <RangeDetect attribute="String (interpolated)" context="#stay" char="[" char1="]" />
+             <DetectChar attribute="String (interpolated)" context="#pop" char="]" />
              <IncludeRules context="2" />
          </context>
-         <context attribute="Interpolated String" lineEndContext="#stay" name="ip_string_5">
-             <LineContinue attribute="Interpolated String" context="#stay" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="&lt;" />
-             <Detect2Chars attribute="Interpolated String" context="#stay" char="\" char1="&gt;" />
-             <RangeDetect attribute="Interpolated String" context="#stay" char="&lt;" char1="&gt;" />
-             <DetectChar attribute="Interpolated String" context="#pop" char="&gt;" />
+         <context attribute="String (interpolated)" lineEndContext="#stay" name="ip_string_5">
+             <LineContinue attribute="String (interpolated)" context="#stay" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&lt;" />
+             <Detect2Chars attribute="String (interpolated)" context="#stay" char="\" char1="&gt;" />
+             <RangeDetect attribute="String (interpolated)" context="#stay" char="&lt;" char1="&gt;" />
+             <DetectChar attribute="String (interpolated)" context="#pop" char="&gt;" />
              <IncludeRules context="2" />
          </context>
          <context attribute="String" lineEndContext="#stay" name="string_2">
@@ -534,7 +534,7 @@
              <RegExpr attribute="Normal Text" context="#pop" String="[\w_]+" />
          </context>
          <context attribute="Normal Text" lineEndContext="#pop" name="in_hash_elem">
-             <DetectChar attribute="Interpolated String" context="ip_string" char="&quot;" />
+             <DetectChar attribute="String (interpolated)" context="ip_string" char="&quot;" />
              <DetectChar attribute="String" context="string" char="'" />
              <RegExpr attribute="String" context="#stay" String="\s*[\w_]+\s*(?![\w_\(])" />
              <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
@@ -564,7 +564,7 @@
              <RangeDetect attribute="Pattern Character Class" context="#stay" char="[" char1="]" />
              <DetectChar attribute="Pattern Internal Operator" context="#pop" char="]" />
          </context>
-         <context attribute="Comment" name="comment" lineEndCONTEXT="#pop">
+         <context attribute="Comment" name="comment" lineEndContext="#pop">
              <RegExpr attribute="Note" context="#stay" String="(?:FIXME|TODO|NOTE):?" />
          </context>
      </contexts>
@@ -572,24 +572,25 @@
          <itemData name="Normal Text"  defStyleNum="dsNormal" />
          <itemData name="Keyword"      defStyleNum="dsKeyword" />
          <itemData name="Pragma"       defStyleNum="dsKeyword" />
-         <itemData name="Function"     defStyleNum="dsNormal" />
+         <itemData name="Function"     defStyleNum="dsNormal" color="#000080" selColor="#ffffff" bold="0" italic="0"/>
          <itemData name="Operator"     defStyleNum="dsKeyword" />
          <itemData name="Data Type"    defStyleNum="dsDataType" />
-         <itemData name="Special Variable" defStyleNum="dsDataType" />
+         <itemData name="Special Variable" defStyleNum="dsDataType" color="#C00000" selColor="#C00000" bold="0" italic="0" />
          <itemData name="Decimal"      defStyleNum="dsDecVal" />
          <itemData name="Octal"        defStyleNum="dsBaseN" />
          <itemData name="Hex"          defStyleNum="dsBaseN" />
          <itemData name="Float"        defStyleNum="dsFloat" />
-         <itemData name="String"       defStyleNum="dsString" />
-         <itemData name="Interpolated String" defStyleNum="dsString" />
+         <itemData name="String"       defStyleNum="dsString" color="#FF6C6C" selColor="#FF6C6C" bold="0" italic="0" />
+         <itemData name="String (interpolated)" defStyleNum="dsString" />
+         <itemData name="String Special Character" defStyleNum="dsChar" />
          <itemData name="Pattern"      defStyleNum="dsOthers" />
-         <itemData name="Pattern Internal Operator" defStyleNum="dsFloat" />
+         <itemData name="Pattern Internal Operator" defStyleNum="dsChar" />
          <itemData name="Pattern Character Class" defStyleNum="dsBaseN" />
          <itemData name="Data"         defStyleNum="dsNormal" />
          <itemData name="Comment"      defStyleNum="dsComment" />
          <itemData name="Pod"          defStyleNum="dsComment" />
          <itemData name="Nothing"      defStyleNum="dsComment" />
-         <itemData name="Note"         defStyleNum="dsDecVal" />
+         <itemData name="Note"         defStyleNum="dsDecVal" color="#0000FF" selColor="#ffffff" bold="1" italic="0"/>
      </itemDatas>
    </highlighting>
    <general>

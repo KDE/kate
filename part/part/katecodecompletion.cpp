@@ -40,33 +40,54 @@
 #include <qtooltip.h>
 #include <qapplication.h>
 #include <qsizegrip.h>
-
+#include <qfontmetrics.h>
 /**
- *This class is used for providing a codecompletionbox with the same size in all editorwindows.
- *Therefor the size is stored statically and provided over sizeHint().
+ * This class is used as the codecompletion listbox. It can be resized according to its contents,
+ *  therfor the needed size is provided by sizeHint();
  *@short Listbox showing codecompletion
+ *@author Jonas B. Jacobi <j.jacobi@gmx.de>
  */
 class CCListBox : public QListBox{
 public:
-    CCListBox(QWidget* parent = 0, const char* name = 0, WFlags f = 0):QListBox(parent, name, f){
-            resize(m_size);
+  /**
+    @short Create a new CCListBox
+    @param view The KateView, CCListBox is displayed in
+   */
+    CCListBox(KateView* view, QWidget* parent = 0, const char* name = 0, WFlags f = 0):QListBox(parent, name, f), m_view(view){
     };
 
     QSize sizeHint()  const {
-                return m_size;
-    };
+        int count = this->count();
+        int height = 20;
+        int tmpwidth = 8;
+        //FIXME the height is for some reasons at least 3 items heigh, even if there is only one item in the list
+        if (count > 0)
+            if(count < 11)
+                height =  count * itemHeight(0);
+            else  {
+                height = 10 * itemHeight(0);
+                tmpwidth += verticalScrollBar()->width();
+            }
 
-protected:
-   void resizeEvent(QResizeEvent* rev){
-         m_size = rev->size();
-         QListBox::resizeEvent(rev);
+        int maxcount = 0, tmpcount = 0;
+        const QFontMetrics* metrics = m_view->renderer()->currentFontMetrics();
+        for (int i = 0; i < count; ++i)
+            if ( (tmpcount = metrics->width(text(i)) ) > maxcount)
+                    maxcount = tmpcount;
+
+        if (maxcount > QApplication::desktop()->width()){
+            tmpwidth = QApplication::desktop()->width() - 5;
+            height += horizontalScrollBar()->height();
+        } else
+            tmpwidth += maxcount;
+        return QSize(tmpwidth,height);
+
     };
 
 private:
-    static QSize m_size;
-};
+  KateView* m_view;
 
-QSize CCListBox::m_size = QSize(300,200);
+};
 
 class CompletionItem : public QListBoxText
 {
@@ -95,7 +116,7 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
   m_completionPopup->setLineWidth( 1 );
 
-  m_completionListBox = new CCListBox( m_completionPopup );
+  m_completionListBox = new CCListBox( view,  m_completionPopup );
   m_completionListBox->setFrameStyle( QFrame::NoFrame );
   m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
 
@@ -270,7 +291,6 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
     return;
   }
 
-  if( newCoordinate ) {
     kdDebug(13035)<<"KateCodeCompletion::updateBox: Resizing widget"<<endl;
         m_completionPopup->resize(m_completionListBox->sizeHint() + QSize(2,2));
     QPoint p = m_view->mapToGlobal( m_view->cursorCoordinates() );
@@ -285,7 +305,6 @@ void KateCodeCompletion::updateBox( bool newCoordinate )
                 x = QApplication::desktop()->width() - m_completionPopup->width();
 
         m_completionPopup->move( QPoint(x,y) );
-  }
 
   m_completionListBox->setCurrentItem( 0 );
   m_completionListBox->setSelected( 0, true );

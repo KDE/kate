@@ -1,2 +1,2 @@
-SUBDIRS = isearch
+SUBDIRS = isearch insertfile
 

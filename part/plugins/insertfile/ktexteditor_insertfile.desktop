@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=KTextEditor Insert File Plugin
+Name[da]=KTextEditor Indsæt Fil Plugin
+Description=Insert any readable file at cursor position
+Description[da]=Insæt en hvilken som helst læsbar fil på indsætningspunktet
+X-KDE-Library=ktexteditor_insertfile
+ServiceTypes=KTextEditor/Plugin
+Type=Service
+InitialPreference=8
+MimeType=text/plain

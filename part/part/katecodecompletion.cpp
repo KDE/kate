@@ -70,9 +70,8 @@ public:
             }
 
         int maxcount = 0, tmpcount = 0;
-        const QFontMetrics* metrics = m_view->renderer()->currentFontMetrics();
         for (int i = 0; i < count; ++i)
-            if ( (tmpcount = metrics->width(text(i)) ) > maxcount)
+            if ( (tmpcount = fontMetrics().width(text(i)) ) > maxcount)
                     maxcount = tmpcount;
 
         if (maxcount > QApplication::desktop()->width()){

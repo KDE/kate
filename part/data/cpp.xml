@@ -119,8 +119,8 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal" skipSpaces="true">
         <DetectChar attribute="Preprocessor" context="Preprocessor" char="#" firstNonSpace="true" />
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1" firstNonSpace="true" />
+        <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1" firstNonSpace="true" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Extensions" context="#stay" String="extensions" />
         <keyword attribute="Data Type" context="#stay" String="types" />

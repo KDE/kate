@@ -27,7 +27,24 @@ class KateRenderer;
 
 class KConfig;
 
-class KateDocumentConfig
+class KateConfig
+{
+  public:
+    KateConfig ();
+    virtual ~KateConfig ();
+
+   public:
+     void configStart ();
+     void configEnd ();
+
+    virtual void updateConfig () = 0;
+
+  private:
+    uint configSessionNumber;
+    bool configIsRunning;
+};
+
+class KateDocumentConfig : public KateConfig
 {
   private:
     /**
@@ -64,7 +81,7 @@ class KateDocumentConfig
     /**
      * update the related document
      */
-    void updateDocument ();
+    void updateConfig ();
 
   public:
     int tabWidth () const;
@@ -101,7 +118,7 @@ class KateDocumentConfig
     static KateDocumentConfig *s_global;
 };
 
-class KateViewConfig
+class KateViewConfig : public KateConfig
 {
   private:
     /**
@@ -138,7 +155,7 @@ class KateViewConfig
     /**
      * update the related document
      */
-    void updateView ();
+    void updateConfig ();
 
   public:
 
@@ -150,7 +167,7 @@ class KateViewConfig
     static KateViewConfig *s_global;
 };
 
-class KateRendererConfig
+class KateRendererConfig : public KateConfig
 {
   private:
     /**
@@ -187,7 +204,7 @@ class KateRendererConfig
     /**
      * update the related document
      */
-    void updateRenderer ();
+    void updateConfig ();
 
   public:
     // use different fonts for screen and printing

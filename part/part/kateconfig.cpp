@@ -29,6 +29,25 @@
 
 // $Id$
 
+KateConfig::KateConfig ()
+ : configSessionNumber (0), configIsRunning (false)
+{
+}
+
+KateConfig::~KateConfig ()
+{
+}
+
+void KateConfig::configStart ()
+{
+
+}
+
+void KateConfig::configEnd ()
+{
+
+}
+
 KateDocumentConfig *KateDocumentConfig::s_global = 0;
 KateViewConfig *KateViewConfig::s_global = 0;
 KateRendererConfig *KateRendererConfig::s_global = 0;
@@ -97,7 +116,7 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->sync ();
 }
 
-void KateDocumentConfig::updateDocument ()
+void KateDocumentConfig::updateConfig ()
 {
   if (m_doc)
   {
@@ -130,7 +149,7 @@ void KateDocumentConfig::setTabWidth (int tabWidth)
   m_tabWidthSet = true;
   m_tabWidth = tabWidth;
 
-  updateDocument ();
+  updateConfig ();
 }
 
 int KateDocumentConfig::indentationWidth () const
@@ -149,7 +168,7 @@ void KateDocumentConfig::setIndentationWidth (int indentationWidth)
   m_indentationWidthSet = true;
   m_indentationWidth = indentationWidth;
 
-  updateDocument ();
+  updateConfig ();
 }
 
 bool KateDocumentConfig::wordWrap () const
@@ -165,7 +184,7 @@ void KateDocumentConfig::setWordWrap (bool on)
   m_wordWrapSet = true;
   m_wordWrap = on;
 
-  updateDocument ();
+  updateConfig ();
 }
 
 unsigned int KateDocumentConfig::wordWrapAt () const
@@ -184,7 +203,7 @@ void KateDocumentConfig::setWordWrapAt (unsigned int col)
   m_wordWrapAtSet = true;
   m_wordWrapAt = col;
 
-  updateDocument ();
+  updateConfig ();
 }
 
 uint KateDocumentConfig::undoSteps () const
@@ -200,7 +219,7 @@ void KateDocumentConfig::setUndoSteps (uint undoSteps)
   m_undoStepsSet = true;
   m_undoSteps = undoSteps;
 
-  updateDocument ();
+  updateConfig ();
 }
 
 KateViewConfig::KateViewConfig ()
@@ -242,7 +261,7 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->sync ();
 }
 
-void KateViewConfig::updateView ()
+void KateViewConfig::updateConfig ()
 {
   if (m_view)
   {
@@ -314,7 +333,7 @@ void KateRendererConfig::writeConfig (KConfig *config)
   config->sync ();
 }
 
-void KateRendererConfig::updateRenderer ()
+void KateRendererConfig::updateConfig ()
 {
   if (m_renderer)
   {
@@ -352,7 +371,7 @@ void KateRendererConfig::setFont(int whichFont, QFont font)
     m_printFont->setFont(font);
   }
 
-  updateRenderer ();
+  updateConfig ();
 }
 
 const FontStruct *KateRendererConfig::fontStruct (int whichFont)

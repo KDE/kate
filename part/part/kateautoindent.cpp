@@ -56,6 +56,14 @@ QString KateAutoIndent::modeDescription (uint mode)
   return i18n ("Normal");
 }
 
+uint KateAutoIndent::modeNumber (const QString &name)
+{
+  if (modeName(KateDocumentConfig::imCStyle) == name)
+    return KateDocumentConfig::imCStyle;
+
+  return KateDocumentConfig::imNormal;
+}
+
 KateAutoIndent::KateAutoIndent (KateDocument *_doc)
  : doc(_doc)
 {

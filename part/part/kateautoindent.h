@@ -38,6 +38,8 @@ class KateAutoIndent
 
     static QString modeDescription (uint mode);
 
+    static uint modeNumber (const QString &name);
+
   public:
     KateAutoIndent (KateDocument *doc);
     virtual ~KateAutoIndent ();

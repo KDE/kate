@@ -3492,7 +3492,7 @@ void KateDocument::updateViews()
   KateView *view;
   int flags;
 
-  flags = (newDocGeometry) ? KateView::ufDocGeometry : 0;
+  flags = (newDocGeometry) ? KateViewInternal::ufDocGeometry : 0;
 
   for (view = myViews.first(); view != 0L; view = myViews.next() )
   {

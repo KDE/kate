@@ -158,7 +158,7 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   	setFoldingMarkersOn(false);
   else
   	setFoldingMarkersOn(doc->highlight()->allowsFolding());
-  myViewInternal->updateView (KateView::ufDocGeometry);
+  myViewInternal->updateView (KateViewInternal::ufDocGeometry);
 }
 
 
@@ -174,7 +174,7 @@ KateView::~KateView()
 void KateView::slotRegionVisibilityChangedAt(unsigned int)
 {
 	kdDebug()<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
-	myViewInternal->updateView(KateView::ufFoldingChanged);
+	myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
 }
 
 void KateView::slotCodeFoldingChanged()
@@ -549,7 +549,7 @@ void KateView::setOverwriteMode( bool b )
 void KateView::setDynWordWrap (bool b)
 {
   if (_hasWrap != b)
-    myViewInternal->updateView(KateView::ufDocGeometry);
+    myViewInternal->updateView(KateViewInternal::ufDocGeometry);
 
   _hasWrap = b;
 }
@@ -830,7 +830,7 @@ void KateView::gotoLineNumber( int linenumber )
   cursor.line = linenumber;
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
-  myViewInternal->updateView(KateView::ufUpdateOnScroll);
+  myViewInternal->updateView();
  }
 
 void KateView::initSearch(SConfig &, int flags) {
@@ -902,7 +902,7 @@ void KateView::findAgain(SConfig &s) {
       if (!(myDoc->s.flags & KateDocument::sfBackward))
         myDoc->s.cursor.col += myDoc->s.matchedLength;
       myViewInternal->updateCursor(myDoc->s.cursor); //does deselectAll()
-      exposeFound(cursor,myDoc->s.matchedLength,(myDoc->s.flags & KateDocument::sfAgain) ? 0 : KateView::ufUpdateOnScroll,false);
+      exposeFound(cursor,myDoc->s.matchedLength,0,false);
     } else {
       if (!(myDoc->s.flags & KateDocument::sfFinished)) {
         // ask for continue
@@ -1040,7 +1040,7 @@ void KateView::doReplaceAction(int result, bool found) {
       cursor = myDoc->s.cursor;
       if (!(myDoc->s.flags & KateDocument::sfBackward)) cursor.col += myDoc->s.matchedLength;
       myViewInternal->updateCursor(cursor); //does deselectAll()
-      exposeFound(myDoc->s.cursor,myDoc->s.matchedLength,(myDoc->s.flags & KateDocument::sfAgain) ? 0 : KateView::ufUpdateOnScroll,true);
+      exposeFound(myDoc->s.cursor,myDoc->s.matchedLength,0,true);
       if (replacePrompt == 0L) {
         replacePrompt = new ReplacePrompt(this);
         myDoc->setPseudoModal(replacePrompt);//disable();
@@ -1182,7 +1182,7 @@ void KateView::slotSetEncoding(const QString& descriptiveName) {
       // that's the only way I've found to make Kate redraw everything
       // without optimizations
       myViewInternal->tagAll();
-      myViewInternal->updateView(KateView::ufFoldingChanged);
+      myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
   }
 }
 
@@ -1336,7 +1336,7 @@ void KateView::updateIconBorder()
   myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),myViewInternal->leftBorder->height());
   myViewInternal->resize(width()-myViewInternal->leftBorder->width(), myViewInternal->height());
   myViewInternal->move(myViewInternal->leftBorder->width(), 0);
-  myViewInternal->updateView(ufLeftBorder);
+  myViewInternal->updateView(0);
 }
 
 void KateView::gotoMark (KTextEditor::Mark *mark)
@@ -1347,7 +1347,7 @@ void KateView::gotoMark (KTextEditor::Mark *mark)
   cursor.line = mark->line;
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
-  myViewInternal->updateView(KateView::ufUpdateOnScroll);
+  myViewInternal->updateView();
 }
 
 void KateView::toggleBookmark ()

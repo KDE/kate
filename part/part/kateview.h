@@ -437,15 +437,6 @@ public slots:
       srAll,
       srCancel=QDialog::Rejected};
 
-//update flags
-    enum Update_flags {
-     ufDocGeometry=1,
-     ufUpdateOnScroll=2,
-     ufPos=4,
-     ufLeftBorder=8,
-     ufFoldingChanged=16
-     };
-
 //cursor movement commands
     enum Cursor_commands
 	   { cmLeft,cmRight,cmWordLeft,cmWordRight,

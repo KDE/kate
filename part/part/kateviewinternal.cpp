@@ -767,7 +767,7 @@ void KateViewInternal::updateView(int flags)
 			int h = myView->height();
 			int scrollbarWidth = style().scrollBarExtent().width();
 
-			if (!flags) { //exposeCursor|| (flags & KateView::ufDocGeometry)) {
+			if (!flags) { //exposeCursor|| (flags & KateViewInternal::ufDocGeometry)) {
 				int bw = leftBorder->width();
 				w -= bw;
 				if (yScrollVis) w -= scrollbarWidth;
@@ -854,7 +854,7 @@ void KateViewInternal::updateView(int flags)
 		}
 	}
 
-  if (flags & KateView::ufFoldingChanged)
+  if (flags & KateViewInternal::ufFoldingChanged)
   {
 	if ((!needLineRangesUpdate) ||
 	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
@@ -866,7 +866,7 @@ void KateViewInternal::updateView(int flags)
   }
   else
   {
-	  if (needLineRangesUpdate && !(flags && KateView::ufDocGeometry)) updateLineRanges();
+	  if (needLineRangesUpdate && !(flags && KateViewInternal::ufDocGeometry)) updateLineRanges();
   }
 
   if (oldU > 0)
@@ -918,7 +918,7 @@ void KateViewInternal::updateView(int flags)
   int scrollbarWidth = style().scrollBarExtent().width();
   int bw = 0; // width of borders
 
-  if (flags & KateView::ufDocGeometry || ! maxLen )
+  if (flags & KateViewInternal::ufDocGeometry || ! maxLen )
   {
     maxLen = 0;
 
@@ -936,12 +936,12 @@ void KateViewInternal::updateView(int flags)
     }
   }
 //kdDebug()<<"widest line to draw is "<<maxLen<<" px"<<endl;
-  if (exposeCursor || flags & KateView::ufDocGeometry) {
+  if (exposeCursor || flags & KateViewInternal::ufDocGeometry) {
     emit myView->cursorPositionChanged();
   } else {
-    // anders: I stay for KateView::ufLeftBorder, to get xcroll updated when border elements
+    // anders: I stay for KateViewInternal::ufLeftBorder, to get xcroll updated when border elements
     // display change.
-    if ( updateState == 0 && newXPos < 0 && newYPos < 0 && !( flags&KateView::ufLeftBorder ) ) return;
+    if ( updateState == 0 && newXPos < 0 && newYPos < 0 && !( flags&KateViewInternal::ufLeftBorder ) ) return;
   }
 
   if (cursorTimer) {
@@ -979,9 +979,9 @@ void KateViewInternal::updateView(int flags)
     }
 
     if (!exposeCursor) break;
-//    if (flags & KateView::ufNoScroll) break;
+//    if (flags & KateViewInternal::ufNoScroll) break;
 /*
-    if (flags & KateView::ufCenter) {
+    if (flags & KateViewInternal::ufCenter) {
       cXPosMin = xPos + w/3;
       cXPosMax = xPos + (w*2)/3;
       cYPosMin = yPos + h/3;
@@ -1052,7 +1052,7 @@ void KateViewInternal::updateView(int flags)
     dy = oldYPos - yPos;
 
     b = updateState == 3;
-    if (flags & KateView::ufUpdateOnScroll) {
+    if (flags & KateViewInternal::ufUpdateOnScroll) {
       b |= dx || dy;
     } else {
       b |= QABS(dx)*3 > w*2 || QABS(dy)*3 > h*2;

@@ -59,6 +59,14 @@ class KateViewInternal : public QWidget
   public:
     KateViewInternal(KateView *view, KateDocument *doc);
     ~KateViewInternal();
+    
+    // update flags
+    enum updateFlags
+    {
+     ufRepaint,
+     ufDocGeometry,
+     ufFoldingChanged
+     };
 
     void doCursorCommand(VConfig &, int cmdNum);
     void doEditCommand(VConfig &, int cmdNum);

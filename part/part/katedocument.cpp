@@ -1064,11 +1064,14 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
 bool KateDocument::editRemoveLine ( uint line )
 {
-  if ((numLines() == 1) || (line > lastLine()))
+  if ( line > lastLine() )
     return false;
 
+  if ( numLines() == 1 )
+    return editRemoveText (0, 0, kateTextLine(0)->length());
+    
   editStart ();
-
+  
   editAddUndo (KateUndoGroup::editRemoveLine, line, 0, textLength(line), textLine(line));
 
   buffer->removeLine(line);

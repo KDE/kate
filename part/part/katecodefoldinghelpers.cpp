@@ -562,6 +562,7 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
 								{
 									insertPos++;
 									node->parentNode->childnodes->insert(insertPos,moveNode=node->childnodes->take(removepos));
+									moveNode->parentNode=node->parentNode; // That should solve a crash
 									moveNode->startLineRel +=node->startLineRel;
 								}
 						}

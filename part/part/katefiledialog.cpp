@@ -41,6 +41,11 @@ KateFileDialog::KateFileDialog (const QString& startDir,
   toolBar()->insertCombo(KGlobal::charsets()->availableEncodingNames(), 33333, false, 0L,
           0L, 0L, true);
 
+  QStringList filter;
+  filter << "all/allfiles";
+  filter << "text/plain";
+  setMimeFilter (filter, opMode == Saving ? "text/plain" : "all/allfiles");
+
   setOperationMode( opMode );
   if (opMode == Opening)
     setMode(KFile::Files);

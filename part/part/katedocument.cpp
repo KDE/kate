@@ -3048,6 +3048,8 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   // temporary hack to get the cursor pos right !!!!!!!!!
   c = v->cursorCache;
 
+  bool _b( c.col() <= 1 );
+
   if (c.line() > (int)lastLine())
    c.setLine(lastLine());
 
@@ -3077,6 +3079,10 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
       pos = s.length();
       c.setCol(pos);
     }
+  }
+
+  // move the marks if required
+  if ( _b ) {
   }
 
   editEnd();
@@ -3432,6 +3438,7 @@ void KateDocument::replaceWithOptimizedSpace(uint line, uint upto_column, uint s
   if (change_from < length) {
     insertText(line, change_from, new_space.right(length - change_from));
     // FIXME: this doesn't work as intended. Is m_activeView updated at all?
+    // Anders: Is now set from KateViewInternal::focusInEvent
     if (m_activeView) {
       m_activeView->m_viewInternal->cursorCache.setPos(line, length);
       m_activeView->m_viewInternal->cursorCacheChanged = true;

@@ -2512,6 +2512,7 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
   cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
   if ((m_textHintTimer==0) && m_textHintEnabled) m_textHintTimer = startTimer( m_textHintTimeout );
   paintCursor();
+  m_doc->m_activeView = m_view;
   emit m_view->gotFocus( m_view );
 }
 

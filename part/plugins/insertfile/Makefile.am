@@ -8,8 +8,8 @@ ktexteditor_insertfile_la_SOURCES = insertfileplugin.cpp
 ktexteditor_insertfile_la_LIBADD = $(top_builddir)/interfaces/ktexteditor/libktexteditor.la
 ktexteditor_insertfile_la_LDFLAGS = -module $(KDE_PLUGIN) $(all_libraries)
           
-datadir = $(kde_datadir)/ktexteditor_insertfile
-data_DATA = ktexteditor_insertfileui.rc
+insertfiledatadir = $(kde_datadir)/ktexteditor_insertfile
+insertfiledata_DATA = ktexteditor_insertfileui.rc
 
 kde_services_DATA = ktexteditor_insertfile.desktop
 

@@ -50,7 +50,6 @@
     <Action name="view_line_numbers"/>
     <Action name="set_highlight"/>
     <Action name="set_eol"/>
-    <Action name="set_charset"/>
   </Menu>
 </MenuBar>
 

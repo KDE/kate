@@ -2502,7 +2502,7 @@ kdDebug(13020)<<"Starting new page, "<<_count<<" lines up to now."<<endl;
          range.startCol = startCol;
          range.endCol = endCol;
          range.wrap = needWrap;
-         paintTextLine ( paint, range, xstart, y, 0, maxWidth, -1, 0, false, false, false, PrintFont, false, true );
+         paintTextLine ( paint, range, xstart, y, 0, maxWidth, -1, false, 0, false, false, PrintFont, false, true );
          if ( skip )
          {
            needWrap = false;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.30" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.H;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.31" kateversion="2.4" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.H;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -86,6 +86,7 @@
       <item> emit </item>
       <item> signals </item>
       <item> slots </item>
+      <item> foreach </item>
     </list>
     <list name="types">
       <item> auto </item>

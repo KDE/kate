@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KatePartView" version="21">
+<kpartgui name="KatePartView" version="22">
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
     <Action name="file_save" group="save_merge" />
@@ -67,6 +67,8 @@
     <Action name="tools_uppercase" group="tools_operations" />
     <Action name="tools_lowercase" group="tools_operations" />
     <Action name="tools_capitalize" group="tools_operations" />
+    <Separator group="tools_operations" />
+    <Action name="tools_join_lines" group="tools_operations" />
     <Separator group="tools_operations" />
     <Action name="tools_apply_wordwrap" group="tools_operations" />
   </Menu>

@@ -47,6 +47,8 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
+        <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Brace1" />
         <Float attribute="Float" context="#stay">
           <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
@@ -64,8 +66,7 @@
         </Int>
         <HlCChar attribute="Char" context="#stay"/>
         <DetectChar attribute="String" context="String" char="&quot;"/>
-        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
-        <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*"/>
+        <Detect2Chars attribute="Comment" context="Commentar" char="/" char1="*" beginRegion="Comment"/>
         <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
         <StringDetect attribute="Preprocessor" context="Outscoped" String="#if 0" insensitive="FALSE"/>
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#"/>
@@ -75,18 +76,14 @@
         <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="Comment" lineEndContext="#pop" name="Commentar 1">
-        <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
-      </context>
-      <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
+      <context attribute="Comment" lineEndContext="#stay" name="Commentar">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
         <RegExpr attribute="Decimal" context="#stay" String="(FIXME|TODO)" />
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
         <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
-        <Detect2Chars attribute="Comment" context="Commentar 1" char="/" char1="/"/>
         <Detect2Chars attribute="Comment" context="Commentar/Preprocessor" char="/" char1="*"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar/Preprocessor">
@@ -103,7 +100,7 @@
       <context attribute="Comment" lineEndContext="#stay" name="Outscoped intern">
         <RegExpr attribute="Comment" context="Outscoped intern" String="#if" />
         <RegExpr attribute="Comment" context="#pop" String="#endif" />
-      </context>	
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>

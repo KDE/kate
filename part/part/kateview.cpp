@@ -95,7 +95,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 {
   setBackgroundMode(NoBackground);
 
-  waitForPreHighlight=0;
   myView = view;
   myDoc = doc;
 
@@ -152,8 +151,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   setAcceptDrops(true);
   dragInfo.state = diNone;
 
-  connect(doc, SIGNAL (preHighlightChanged(uint)),this,SLOT(slotPreHighlightUpdate(uint)));
-
   connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
   connect(yScroll,SIGNAL(valueChanged(int)),SLOT(changeYPos(int)));
 }
@@ -162,18 +159,6 @@ KateViewInternal::~KateViewInternal()
 {
   delete [] lineRanges;
   delete drawBuffer;
-}
-
-void KateViewInternal::slotPreHighlightUpdate(uint line)
-{
-  if (waitForPreHighlight !=0)
-    {
-       if (line>=waitForPreHighlight)
-         {
-           waitForPreHighlight=0;
-           repaint();
-         }
-    }
 }
 
 void KateViewInternal::doCursorCommand(VConfig &c, int cmdNum)
@@ -1221,7 +1206,6 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
   line = (yPos + updateR.y()) / h;
   y = line*h - yPos;
   yEnd = updateR.y() + updateR.height();
-  waitForPreHighlight=myDoc->needPreHighlight(waitForPreHighlight=line+((uint)(yEnd-y)/h)+5);
 
   while (y < yEnd)
   {
@@ -2047,7 +2031,6 @@ void KateView::gotoLineNumber( int linenumber )
 
   cursor.col = 0;
   cursor.line = linenumber;
-  myDoc->needPreHighlight(cursor.line);
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
   myViewInternal->updateView(KateView::ufUpdateOnScroll);
@@ -2538,7 +2521,6 @@ void KateView::gotoMark (KTextEditor::Mark *mark)
 
   cursor.col = 0;
   cursor.line = mark->line;
-  myDoc->needPreHighlight(cursor.line);
   myViewInternal->updateCursor(cursor);
   myViewInternal->center();
   myViewInternal->updateView(KateView::ufUpdateOnScroll);

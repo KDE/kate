@@ -21,6 +21,7 @@
 
 #include "kateglobal.h"
 #include "katetextline.h"
+#include "katehighlight.h"
 
 #include <kvmallocator.h>
 
@@ -78,6 +79,11 @@ public:
    TextLine::Ptr line(uint i);
 
    /**
+    * Return line @p i without highlighting info.
+    */
+   QString plainLine(uint i);
+
+   /**
     * Insert @p line in front of line @p i
     */
    void insertLine(uint i, TextLine::Ptr line);
@@ -97,12 +103,47 @@ public:
     */
    void clear();
 
+   /**
+    * Use @p highlight for highlighting
+    *
+    * @p highlight may be 0 in which case highlighting
+    * will be disabled.
+    */
+   void setHighlight(Highlight *highlight);
+   
+   /**
+    * Update the highlighting.
+    *
+    * PRE-condition: 
+    *   All lines prior to @p from have been highlighted already.
+    *
+    * POST-condition: 
+    *   All lines till at least @p to haven been highlighted.
+    */
+   void updateHighlighting(uint from, uint to, bool invalidate);
+
+   /**
+    * Invalidate highlighting of whole buffer.
+    */
+   void invalidateHighlighting();
+    
 signals:
    /**
-    * Emitted during loading.
+    * Emitted during loading when the line count changes.
     */
    void linesChanged(int lines);
-   void needHighlight(uint,uint);
+   
+
+   /**
+    * Emitted when the highlighting of a certain range has
+    * changed.
+    */
+   void tagLines(int start, int end);
+
+   /**
+    * Advice to update highlighting a certain range.
+    */
+   void pleaseHighlight(uint from, uint to);
 
 protected:
    /**
@@ -130,11 +171,28 @@ protected:
     */
    void loadFilePart();
 
+   /**
+    * Highlight information needs to be updated.
+    *
+    * @param buf The buffer being processed.
+    * @param startState highlighting state of last line before range
+    * @param from first line in range
+    * @param to last line in range
+    *
+    * @returns true when the highlighting in the next block needs to be updated,
+    * false otherwise.
+    */
+   bool needHighlight(KateBufBlock *buf, TextLine::Ptr startState, uint from, uint to);
+
 protected slots:
    void slotLoadFile();
 
 protected:
    uint m_totalLines;
+   uint m_highlightedTo; // The highest line with correct highlight info
+   uint m_highlightedRequested; // The highest line that we requested highlight for
+
+   Highlight *m_highlight;
 
    QPtrList<KateBufBlock> m_blocks;
    QPtrList<KateBufFileLoader> m_loader;
@@ -166,7 +224,23 @@ public:
 class KateBufState
 {
 public:
+   KateBufState() { line = new TextLine(); }
+   KateBufState(const KateBufState &c)
+   { 
+     lineNr = c.lineNr;
+     line = new TextLine();
+     *line = *c.line;
+   }
+   KateBufState &operator=(const KateBufState &c)
+   {
+     lineNr = c.lineNr;
+     line = new TextLine();
+     *line = *c.line;
+     return *this;
+   }
+     
    uint lineNr;
+   TextLine::Ptr line; // Used for context & hlContinue flag.
 };
 
 
@@ -276,11 +350,12 @@ protected:
    QByteArray m_rawData2;
    int m_rawData2End;
    uint m_rawSize;
-   bool b_stringListValid;
-   bool b_rawDataValid;
-   bool b_vmDataValid;
-   bool b_appendEOL; // Buffer is not terminated with '\n'.
-   bool b_emptyBlock; // Buffer is empty
+   bool b_stringListValid : 1;
+   bool b_rawDataValid : 1;
+   bool b_vmDataValid : 1;
+   bool b_appendEOL : 1; // Buffer is not terminated with '\n'.
+   bool b_emptyBlock : 1; // Buffer is empty
+   bool b_needHighlight : 1; // Buffer requires highlighting.
    uint m_lastLine; // Start of last line if buffer is without EOL.
    KateBufState m_beginState;
    KateBufState m_endState;

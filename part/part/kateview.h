@@ -104,12 +104,8 @@ class KateViewInternal : public QWidget
     friend class CodeCompletion_Impl;
 
   private:
-    uint waitForPreHighlight;
     //uint iconBorderWidth;
     uint iconBorderHeight;
-
-  private slots:
-    void slotPreHighlightUpdate(uint line);
 
   public:
     KateViewInternal(KateView *view, KateDocument *doc);

@@ -260,8 +260,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
 {
   hlSetByUser = false;
-  PreHighlightedTill=0;
-  RequestPreHighlightTill=0;
   setInstance( KateFactory::instance() );
 
   editIsRunning = false;
@@ -313,7 +311,10 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
 
   buffer = new KateBuffer;
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
-  connect(buffer, SIGNAL(needHighlight(uint,uint)),this,SLOT(slotBufferHighlight(uint,uint)));
+  connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
+  connect(buffer, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));
+  m_highlightTimer = new QTimer(this);
+  connect(m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
 
   colors[0] = KGlobalSettings::baseColor();
   colors[1] = KGlobalSettings::highlightColor();
@@ -429,12 +430,7 @@ QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint e
 
 QString KateDocument::textLine( uint line ) const
 {
-  TextLine::Ptr l = getTextLine( line );
-
-  if ( !l )
-    return QString();
-
-  return l->getString();
+  return buffer->plainLine(line);
 }
 
 bool KateDocument::setText(const QString &s)
@@ -611,12 +607,7 @@ uint KateDocument::numLines() const
 
 int KateDocument::lineLength ( uint line ) const
 {
-  TextLine::Ptr l = getTextLine( line );
-
-  if ( !l )
-    return -1;
-
-  return l->length();
+  return textLength(line); 
 }
 
 //
@@ -982,7 +973,7 @@ bool KateDocument::editRemoveLine ( uint line )
 
   bool b = editStart ();
 
-  editAddUndo (new KateUndo (this, KateUndo::editRemoveLine, line, 0, getTextLine (line)->getString().length(), getTextLine (line)->getString()));
+  editAddUndo (new KateUndo (this, KateUndo::editRemoveLine, line, 0, textLength(line), textLine(line) ));
 
   buffer->removeLine(line);
 
@@ -1120,36 +1111,33 @@ bool KateDocument::hasSelection() const
 
 QString KateDocument::selection() const
 {
-  TextLine::Ptr textLine;
   QString s;
 
   for (int z=selectStart.line; z <= selectEnd.line; z++)
   {
-      textLine = getTextLine(z);
-      if (!textLine)
-        break;
+      QString line = textLine(z);
 
       if (!blockSelect)
       {
         if ((z > selectStart.line) && (z < selectEnd.line))
-          s.append (textLine->getString());
-  else
-  {
-    if ((z == selectStart.line) && (z == selectEnd.line))
-      s.append (textLine->getString().mid(selectStart.col, selectEnd.col-selectStart.col));
-    else if ((z == selectStart.line))
-      s.append (textLine->getString().mid(selectStart.col, textLine->length()-selectStart.col));
-    else if ((z == selectEnd.line))
-      s.append (textLine->getString().mid(0, selectEnd.col));
-  }
+          s.append (line);
+        else
+        {
+          if ((z == selectStart.line) && (z == selectEnd.line))
+            s.append (line.mid(selectStart.col, selectEnd.col-selectStart.col));
+          else if ((z == selectStart.line))
+            s.append (line.mid(selectStart.col, line.length()-selectStart.col));
+          else if ((z == selectEnd.line))
+            s.append (line.mid(0, selectEnd.col));
+        }
       }
       else
       {
-        s.append (textLine->getString().mid(selectStart.col, selectEnd.col-selectStart.col));
+        s.append (line.mid(selectStart.col, selectEnd.col-selectStart.col));
       }
 
       if (z < selectEnd.line)
-  s.append (QChar('\n'));
+        s.append (QChar('\n'));
     }
 
   return s;
@@ -1245,6 +1233,7 @@ bool KateDocument::removeSelectedText ()
   if (b)
     editEnd ();
 
+kdDebug(13020) << "removeSelectedText() updateLines" << endl;
   updateLines(sl, el);
   clearSelection();
 
@@ -1253,7 +1242,7 @@ bool KateDocument::removeSelectedText ()
 
 bool KateDocument::selectAll()
 {
-  return setSelection (0, 0, lastLine(), getTextLine(lastLine())->length());
+  return setSelection (0, 0, lastLine(), textLength(lastLine()));
 }
 
 //
@@ -1430,7 +1419,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
       }
 
       if (line >= 1)
-        col = getTextLine(line-1)->length();
+        col = textLength(line-1);
 
       line--;
     }
@@ -1497,7 +1486,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
       }
 
       if (line >= 1)
-        col = getTextLine(line-1)->length();
+        col = textLength(line-1);
 
       line--;
     }
@@ -1538,10 +1527,9 @@ bool KateDocument::internalSetHlMode (uint mode)
     if (m_highlight != 0L) m_highlight->release();
     h->use();
     m_highlight = h;
+    buffer->setHighlight(m_highlight);
     makeAttribs();
   }
-  PreHighlightedTill=0;
-  RequestPreHighlightTill=0;
 
   emit(hlChanged());
 
@@ -1950,12 +1938,12 @@ bool KateDocument::openFile()
     int bufpos = 0, len;
     for (uint i=0; i < buffer->count(); i++)
     {
-      TextLine::Ptr textLine = buffer->line(i);
-      len = textLine->length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
+      QString line = buffer->plainLine(i);
+      len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
 //kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
 //kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
-      memcpy(&buf[bufpos], /*textLine->getText()*/(textLine->getString()+"\n").latin1(), len);
+      memcpy(&buf[bufpos], (line+"\n").latin1(), len);
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }
@@ -1990,7 +1978,7 @@ bool KateDocument::saveFile()
   int line = 0;
   while(true)
   {
-    stream << getTextLine(line)->getString();
+    stream << textLine(line);
     line++;
     if (line >= maxLine) break;
 
@@ -2102,40 +2090,50 @@ void KateDocument::setFont (WhichFont wf,QFont font)
   }
 }
 
-uint  KateDocument::needPreHighlight(uint till)
+void KateDocument::slotBufferUpdateHighlight(uint from, uint to)
 {
-  uint max=numLines()-1;
-
-  if (till>max)
-    {
-      till=max;
-    }
-  if (PreHighlightedTill>=till)
-    return 0;
-
-  uint tmp=RequestPreHighlightTill;
-  if (RequestPreHighlightTill<till)
-    {
-      RequestPreHighlightTill=till;
-      if (tmp<=PreHighlightedTill) QTimer::singleShot(10,this,SLOT(doPreHighlight()));
-    }
-  return RequestPreHighlightTill;
+  if (to > m_highlightedEnd)
+     m_highlightedEnd = to;
+  uint till = from + 100;
+  if (till > m_highlightedEnd)
+     till = m_highlightedEnd;
+  buffer->updateHighlighting(from, till, false);
+  m_highlightedTill = till;
+  if (m_highlightedTill >= m_highlightedEnd)
+  {
+      m_highlightedTill = 0;
+      m_highlightedEnd = 0;
+      m_highlightTimer->stop();
+  }
+  else
+  {
+      m_highlightTimer->start(100, true);
+  }
 }
 
-void KateDocument::doPreHighlight()
+void KateDocument::slotBufferUpdateHighlight()
 {
-  uint from = PreHighlightedTill;
-  uint till = PreHighlightedTill+1000;
-  uint max = numLines()-1;
-  if (till > max)
-    {
-      till = max;
-    }
-  PreHighlightedTill = till;
-  updateLines(from,till);
-  emit preHighlightChanged(PreHighlightedTill);
-  if (PreHighlightedTill<RequestPreHighlightTill)
-    QTimer::singleShot(100,this,SLOT(doPreHighlight()));
+  uint till = m_highlightedTill + 1000;
+
+  uint max = numLines();
+  if (m_highlightedEnd > max)
+    m_highlightedEnd = max;
+
+  if (till > m_highlightedEnd)
+     till = m_highlightedEnd;
+  buffer->updateHighlighting(m_highlightedTill, till, false);
+  m_highlightedTill = till;
+  if (m_highlightedTill >= m_highlightedEnd)
+  {
+      m_highlightedTill = 0;
+      m_highlightedEnd = 0;
+      m_highlightTimer->stop();
+  }
+  else
+  {
+      m_highlightTimer->start(100, true);
+  }
+  updateViews();
 }
 
 TextLine::Ptr KateDocument::getTextLine(int line) const
@@ -2144,10 +2142,8 @@ TextLine::Ptr KateDocument::getTextLine(int line) const
   return buffer->line(line);
 }
 
-int KateDocument::textLength(int line) {
-  TextLine::Ptr textLine = getTextLine(line);
-  if (!textLine) return 0;
-  return textLine->length();
+int KateDocument::textLength(int line) const {
+  return buffer->plainLine(line).length();
 }
 
 void KateDocument::setTabWidth(int chars) {
@@ -2227,12 +2223,12 @@ void KateDocument::misspelling (const QString &origword, const QStringList &, un
   //   (significantly) increase the speed of the spellcheck
 
   for (cnt = 0, line = 0 ; line <= lastLine() && cnt <= pos ; line++)
-    cnt += getTextLine(line)->length()+1;
+    cnt += textLength(line)+1;
 
   // Highlight the mispelled word
   KateTextCursor cursor;
   line--;
-  cursor.col = pos - (cnt - getTextLine(line)->length()) + 1;
+  cursor.col = pos - (cnt - textLength(line)) + 1;
   cursor.line = line;
 //  deselectAll(); // shouldn't the spell check be allowed within selected text?
   kspell.kspellMispellCount++;
@@ -3289,77 +3285,17 @@ void KateDocument::tagAll()
     myViews.at(z)->myViewInternal->tagAll();
 }
 
+void KateDocument::updateLines()
+{
+kdDebug(13020) << "updateLines()" << endl;
+  buffer->invalidateHighlighting();
+}
+
 void KateDocument::updateLines(int startLine, int endLine)
 {
-  TextLine::Ptr textLine;
-  uint line, last_line;
-  QMemArray<signed char> ctxNum, endCtx;
-
-  if (!buffer->line(startLine))
-    return;
-
-  last_line = lastLine();
-
-  line = startLine;
-
-  bool line_continue=false;
-
-  if (line > 0)
-  {
-    textLine = getTextLine(line-1);
-
-    if (textLine)
-    {
-      line_continue=textLine->getHlLineContinue();
-      ctxNum.duplicate (textLine->ctxArray ());
-    }
-  }
-
-  bool stillcontinue=false;
-
-  do
-  {
-    textLine = getTextLine(line);
-
-    if (!textLine)
-      break;
-
-    endCtx.duplicate (textLine->ctxArray ());
-
-#ifdef _EXTREMELY_VERBOSE_DEBUG_
-    kdDebug()<<"teststarti"<<endl;
-    kdDebug()<<QString("line %1").arg(line)<<endl;
-#endif
-
-    m_highlight->doHighlight(ctxNum, textLine, line_continue);
-    //buffer->changeLine (line);
-
-#ifdef _EXTREMELY_VERBOSE_DEBUG_
-    kdDebug()<<"testendi"<<endl;
-#endif
-
-    line_continue=textLine->getHlLineContinue();
-    ctxNum.duplicate (textLine->ctxArray());
-
-#ifdef _EXTREMELY_VERBOSE_DEBUG_
-    kdDebug()<<"befor still continue check"<<endl;
-#endif
-
-    if (endCtx.size() != ctxNum.size())
-      stillcontinue = true;
-    else
-    {
-      stillcontinue = false;
-
-      if (ctxNum != endCtx)
-        stillcontinue = true;
-    }
-
-    line++;
-  }
-  while ((line <= last_line) && (((int)line <= endLine) || stillcontinue));
-
-  tagLines(startLine, line - 1);
+kdDebug(13020) << "updateLines( " << startLine << ", " << endLine << ")" << endl;
+  buffer->updateHighlighting(startLine, endLine+1, true);
+kdDebug(13020) << "updateLines() end" << endl;
 }
 
 void KateDocument::slotBufferChanged()
@@ -3369,11 +3305,6 @@ void KateDocument::slotBufferChanged()
   updateViews();
 }
 
-void KateDocument::slotBufferHighlight(uint start,uint stop) {
-  //kdDebug(13020)<<"KateDocument::slotBufferHighlight"<<QString("%1-%2").arg(start).arg(stop)<<endl;
-  updateLines(start,stop);
-//  buffer->startLoadTimer();
-}
 
 void KateDocument::updateViews()
 {

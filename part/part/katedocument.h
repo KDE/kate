@@ -417,7 +417,7 @@ class KateDocument : public Kate::Document
     /**
       get the length in pixels of the given line
     */
-    int textLength(int line);
+    int textLength(int line) const;
 
     void setTabWidth(int);
     int tabWidth() {return tabChars;}
@@ -434,6 +434,7 @@ class KateDocument : public Kate::Document
     void corrected (const QString & originalword, const QString & newword, unsigned int);
     void spellResult (const QString &newtext);
     void spellCleanDone();
+    void tagLines(int start, int end);
 
   signals:
     /** This says spellchecking is <i>percent</i> done.
@@ -458,6 +459,7 @@ class KateDocument : public Kate::Document
    //export feature
    public slots:
    	void exportAs(const QString&);
+
    private: //the following things should become plugins
    bool exportDocumentToHTML(QTextStream *outputStream,const QString &name);
    QString HTMLEncode(QChar theChar);
@@ -541,11 +543,9 @@ class KateDocument : public Kate::Document
     QString getWord(KateTextCursor &cursor);
 
   public:
-    uint needPreHighlight(uint till);
-
-    void tagLines(int start, int end);
     void tagAll();
-    void updateLines(int startLine = 0, int endLine = 0xffffff);
+    void updateLines(int startLine, int endLine);
+    void updateLines();
     void updateViews();
     void updateEditAccels();
 
@@ -587,8 +587,8 @@ class KateDocument : public Kate::Document
   protected slots:
     void clipboardChanged();
     void slotBufferChanged();
-    void slotBufferHighlight(uint,uint);
-    void doPreHighlight();
+    void slotBufferUpdateHighlight(uint,uint);
+    void slotBufferUpdateHighlight();
 
   public:
     /** Checks if the file on disk is newer than document contents.
@@ -694,12 +694,13 @@ class KateDocument : public Kate::Document
     KateTextCursor selectStart;
     KateTextCursor selectEnd;
   private:
-    uint PreHighlightedTill;
-    uint RequestPreHighlightTill;
     KateBuffer *buffer;
     QColor colors[2];
     HlManager *hlManager;
     Highlight *m_highlight;
+    uint m_highlightedTill;
+    uint m_highlightedEnd;
+    QTimer *m_highlightTimer;
 
     int eolMode;
     int tabChars;

@@ -37,12 +37,11 @@
 
 /**
  * SOME LIMITS, may need testing which values are clever
- * AVG_BLOCK_SIZE is in bytes, the others are counts
+ * AVG_BLOCK_SIZE is in characters !
+ * (internaly we calc with approx 80 chars per line !)
  */
-#define KATE_AVG_BLOCK_SIZE      32000
-#define KATE_MAX_BLOCKS_LOADED   8
-#define KATE_MAX_BLOCKS_CLEAN    4
-#define KATE_MAX_BLOCKS_DIRTY    2
+#define KATE_AVG_BLOCK_SIZE      (500 * 80)
+#define KATE_MAX_BLOCKS_LOADED   32
 
 /**
  * The KateBufBlock class contains an amount of data representing
@@ -56,7 +55,7 @@ class KateBufBlock
     /**
      * Create an empty block. (empty == ONE line)
      */
-    KateBufBlock (KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next);
+    KateBufBlock (KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next, QTextStream *stream = 0, bool lastCharEOL = false, bool *eof = 0);
     
     /**
      * destroy this block and take care of freeing all mem
@@ -85,7 +84,7 @@ class KateBufBlock
      */
     void markDirty ();
     
-  public:
+  private:
     /**
      * fill the block with the lines from the given stream
      * lastCharEOL indicates if a trailing newline should be
@@ -145,57 +144,29 @@ class KateBufBlock
      */
     enum State
     {
-      stateSwapped = 1,
-      stateLoaded = 2,
-      stateClean = 3,
-      stateDirty = 4
+      stateSwapped,
+      stateClean,
+      stateDirty
     };
     
     /**
      * returns the current state of this block
      */
     inline KateBufBlock::State state () const { return m_state; }
-    
-  private:
-    /**
-     * set the current state, will do some internal transitions
-     */
-    void setState (KateBufBlock::State state);
   
   /**
-   * methodes to increase state
+   * methodes to swap in/out
    */
   private:
     /**
-     * swap in the kvmallocater data
+     * swap in the kvmallocater data, create string list
      */
     void swapIn ();
-  
-    /**
-     * create a valid stringlist
-     */
-    void buildStringList();
 
-  /**
-   * methodes to lower state
-   */
-  private:
     /**
-     * Post Condition: b_vmDataValid is true, b_rawDataValid is false
+     * swap our string list out, delete it !
      */
     void swapOut ();
-    
-    /**
-     * Dispose of a stringList.
-     * Post Condition: b_stringListValid is false.
-     */
-    void disposeStringList();
-    
-    /**
-     * Copy stringlist back to raw data.
-     * Post Condition: b_rawDataValid is true.
-     */
-    void flushStringList();
             
   private:
     /**
@@ -223,12 +194,6 @@ class KateBufBlock
      */
     KVMAllocator::Block *m_vmblock;
     uint m_vmblockSize;
-
-    /**
-     * raw data, if m_codec != 0 it is still the dump file content,
-     * if m_codec == 0 it is the dumped string list
-     */
-    QByteArray m_rawData;
 
     /**
      * list of textlines
@@ -517,8 +482,7 @@ bool KateBuffer::openFile (const QString &m_file)
   m_lines = 0;
   while (!m_cacheWriteError && !eof && !stream.atEnd())
   {
-    block = new KateBufBlock (this, block, 0);
-    eof = block->fillBlock (&stream, lastCharEOL);
+    block = new KateBufBlock (this, block, 0, &stream, lastCharEOL, &eof);
         
     m_lines = block->endLine ();
     
@@ -530,7 +494,7 @@ bool KateBuffer::openFile (const QString &m_file)
     else
       m_blocks.append (block);  
   }
-  
+   
   // we had a cache write error, this load is really borked !
   if (m_cacheWriteError)
     m_loadingBorked = true;
@@ -547,6 +511,9 @@ bool KateBuffer::openFile (const QString &m_file)
     // fix region tree
     m_regionTree.fixRoot (m_lines);
   }
+  
+  kdDebug(13020) << "LOADING DONE, LINES COUNT: " << m_lines << endl;
+  kdDebug(13020) << "LOADING DONE, BLOCK COUNT: " << m_blocks.size() << endl;
 
   return !m_loadingBorked;
 }
@@ -690,7 +657,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   {
     KateBufBlock *blk = buf->prev();
 
-    if ((blk->state() > KateBufBlock::stateLoaded) && (blk->lines() > 0))
+    if ((blk->state() != KateBufBlock::stateSwapped) && (blk->lines() > 0))
       prevLine = blk->line (blk->lines() - 1);
     else
       prevLine = blk->lastLine();
@@ -773,7 +740,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
         {
           KateBufBlock *blk = buf->next();
     
-          if ((blk->state() > KateBufBlock::stateLoaded) && (blk->lines() > 0))
+          if ((blk->state() != KateBufBlock::stateSwapped) && (blk->lines() > 0))
           {
             if (blk->line (0)->firstChar() == -1)
               nextLineIndentation = iDepth;
@@ -1341,8 +1308,11 @@ void KateBufBlockList::removeInternal (KateBufBlock *buf)
 
 // BEGIN KateBufBlock
 
-KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next)
-: m_state (KateBufBlock::stateLoaded),
+KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next,
+                             QTextStream *stream, bool lastCharEOL, bool *eof )
+: m_state (KateBufBlock::stateDirty),
+  m_startLine (0),
+  m_lines (0),
   m_firstLineIndentation (0),
   m_firstLineOnlySpaces (true),
   m_lastLine (0),
@@ -1362,24 +1332,39 @@ KateBufBlock::KateBufBlock(KateBuffer *parent, KateBufBlock *prev, KateBufBlock 
     m_startLine = m_prev->endLine ();
     m_prev->m_next = this;
   }
-  else
-    m_startLine = 0;
 
   if (m_next)
     m_next->m_prev = this;
     
-  // init the block with one empty line, state is loaded, not parsed !
-  // which means after init is no string list around, only rawdata
-  m_rawData.resize (sizeof(uint) + 1);
-  char* buf = m_rawData.data ();
-  uint length = 0;
-  memcpy(buf, (char *) &length, sizeof(uint));
-  char attr = TextLine::flagNoOtherData;
-  memcpy(buf+sizeof(uint), (char *) &attr, 1);
-  m_lines = 1;
+  // we have a stream, use it to fill the block !
+  // this can lead to 0 line blocks which are invalid !
+  if (stream)
+  {
+    // this we lead to either dirty or swapped state
+    bool b = fillBlock (stream, lastCharEOL);
+    
+    if (eof)
+      (*eof) = b;
+  }  
+  else // init the block if no stream given !
+  {
+    // fill in one empty line !
+    TextLine::Ptr textLine = new TextLine ();
+    m_stringList.push_back (textLine);
+    m_lines++;
+    
+    // is allready too much stuff around in mem ?
+    bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
   
-  // we are a loaded block
-  m_parent->m_loadedBlocks.append (this);
+    if (swap && m_parent->m_cleanBlocks.count() > 0)
+      m_parent->m_cleanBlocks.first()->swapOut();
+    else if (swap)
+      m_parent->m_dirtyBlocks.first()->swapOut();
+    
+    // we are a new nearly empty dirty block
+    m_state = KateBufBlock::stateDirty;
+    m_parent->m_dirtyBlocks.append (this);
+  }
 }
 
 KateBufBlock::~KateBufBlock ()
@@ -1401,11 +1386,14 @@ KateBufBlock::~KateBufBlock ()
 
 bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
 {
-  if (m_state != KateBufBlock::stateLoaded)
-    return true;
+  // is allready too much stuff around in mem ?
+  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
 
-  m_lines = 0;
-  m_rawData.resize (KATE_AVG_BLOCK_SIZE);
+  QByteArray m_rawData;
+  
+  // calcs the approx size for KATE_AVG_BLOCK_SIZE chars !
+  if (swap)
+    m_rawData.resize ((KATE_AVG_BLOCK_SIZE * sizeof(QChar)) + ((KATE_AVG_BLOCK_SIZE/80) * 8));
   
   bool eof = false; 
   char *buf = m_rawData.data ();
@@ -1413,33 +1401,44 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   char attr = TextLine::flagNoOtherData;
 
   uint size = 0;
-  while (size < KATE_AVG_BLOCK_SIZE)
+  uint blockSize = 0;
+  while (blockSize < KATE_AVG_BLOCK_SIZE)
   {
     QString line = stream->readLine();
-
+    uint length = line.length ();
+    blockSize += length;
+    
     if (lastCharEOL || !stream->atEnd() || !line.isNull())
     {
-      uint length = line.length ();
-      size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
-
-      if (size > m_rawData.size ())
+      if (swap)
       {
-        m_rawData.resize (size);
-        buf = m_rawData.data ();
+        size = pos + sizeof(uint) + (sizeof(QChar)*length) + 1;
+      
+        if (size > m_rawData.size ())
+        {
+          m_rawData.resize (size);
+          buf = m_rawData.data ();
+        }
+  
+        memcpy(buf+pos, (char *) &length, sizeof(uint));
+        pos += sizeof(uint);
+  
+        if (!line.isNull())
+        {
+          memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
+          pos += sizeof(QChar)*length;
+        }
+  
+        memcpy(buf+pos, (char *) &attr, 1);
+        pos += 1;
       }
-
-      memcpy(buf+pos, (char *) &length, sizeof(uint));
-      pos += sizeof(uint);
-
-      if (!line.isNull())
+      else
       {
-        memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
-        pos += sizeof(QChar)*length;
+        TextLine::Ptr textLine = new TextLine ();
+        textLine->insertText (0, length, line.unicode ());
+        m_stringList.push_back (textLine);
       }
-
-      memcpy(buf+pos, (char *) &attr, 1);
-      pos += 1;
-
+      
       m_lines++;
     }
 
@@ -1450,11 +1449,43 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
     }
   }
 
-  if (size < m_rawData.size())
-  {
-    m_rawData.resize (size);
+  if (swap)
+  {  
+    m_vmblock = m_parent->vm()->allocate(size);
+    m_vmblockSize = size;
+  
+    if (!m_rawData.isEmpty())
+    {
+      if (!m_parent->vm()->copyBlock(m_vmblock, m_rawData.data(), 0, size))
+      {
+        if (m_vmblock)
+          m_parent->vm()->free(m_vmblock);
+  
+        m_vmblock = 0;
+        m_vmblockSize = 0;
+      
+        m_parent->m_cacheWriteError = true;
+      
+        eof = true;
+      }
+    }
+  
+    // fine, we are swapped !
+    m_state = KateBufBlock::stateSwapped;
   }
-
+  else
+  {
+    if (m_lines > 0)
+      m_lastLine = m_stringList[m_lines - 1];
+  
+    m_firstLineIndentation = 0;
+    m_firstLineOnlySpaces = true;
+  
+    // we are a new dirty block without any swap data
+    m_state = KateBufBlock::stateDirty;
+    m_parent->m_dirtyBlocks.append (this);
+  }
+  
   return eof;
 }
 
@@ -1462,12 +1493,7 @@ TextLine::Ptr KateBufBlock::line(uint i)
 {
   // take care that the string list is around !!!
   if (m_state == KateBufBlock::stateSwapped)
-  {
     swapIn ();
-    buildStringList ();
-  }
-  else if (m_state == KateBufBlock::stateLoaded)
-    buildStringList ();
 
   return m_stringList[i];
 }
@@ -1476,88 +1502,41 @@ void KateBufBlock::insertLine(uint i, TextLine::Ptr line)
 {
   // take care that the string list is around !!!
   if (m_state == KateBufBlock::stateSwapped)
-  {
     swapIn ();
-    buildStringList ();
-  }
-  else if (m_state == KateBufBlock::stateLoaded)
-    buildStringList ();
 
   m_stringList.insert (m_stringList.begin()+i, line);
   m_lines++;
+  
+  markDirty ();
 }
 
 void KateBufBlock::removeLine(uint i)
 {
   // take care that the string list is around !!!
   if (m_state == KateBufBlock::stateSwapped)
-  {
     swapIn ();
-    buildStringList ();
-  }
-  else if (m_state == KateBufBlock::stateLoaded)
-    buildStringList ();
 
   m_stringList.erase (m_stringList.begin()+i);
   m_lines--;
+  
+  markDirty ();
 }
 
 void KateBufBlock::markDirty ()
 {
   if (m_state == KateBufBlock::stateClean)
   {    
-    // we are dirty, raw + swap data has no longer any use
-  
-    // cu raw data
-    m_rawData.resize (0);
-    
-    // cu swap data
+    // if we have some swapped data allocated, free it now
     if (m_vmblock)
       m_parent->vm()->free(m_vmblock);
-
+      
     m_vmblock = 0;
     m_vmblockSize = 0;
-
-    setState (KateBufBlock::stateDirty);
+  
+    // we are dirty
+    m_state = KateBufBlock::stateDirty;
+    m_parent->m_dirtyBlocks.append (this);
   }
-}
-
-void KateBufBlock::setState (KateBufBlock::State state)
-{
-  if (state == m_state)
-    return;
-   
-  // remove me from my old list if any !
-  KateBufBlockList::remove (this);
-     
-  switch (state)
-  {    
-    case KateBufBlock::stateLoaded:
-      if (m_parent->m_loadedBlocks.count() >=  KATE_MAX_BLOCKS_LOADED)
-        m_parent->m_loadedBlocks.first()->swapOut ();
-      
-      m_parent->m_loadedBlocks.append (this);
-      break;
-    
-    case KateBufBlock::stateClean:
-      if (m_parent->m_cleanBlocks.count() >=  KATE_MAX_BLOCKS_CLEAN)
-        m_parent->m_cleanBlocks.first()->disposeStringList ();
-    
-      m_parent->m_cleanBlocks.append (this);
-      break;
-    
-    case KateBufBlock::stateDirty:
-      if (m_parent->m_dirtyBlocks.count() >=  KATE_MAX_BLOCKS_DIRTY)
-        m_parent->m_dirtyBlocks.first()->flushStringList ();
-    
-      m_parent->m_dirtyBlocks.append (this);
-      break;
-      
-    default:
-      break;
-  }
-
-  m_state = state;
 }
 
 void KateBufBlock::swapIn ()
@@ -1565,20 +1544,13 @@ void KateBufBlock::swapIn ()
   if (m_state != KateBufBlock::stateSwapped)
     return;
   
+  QByteArray m_rawData;
   m_rawData.resize(m_vmblockSize);
   
   // what to do if that fails ?
   if (!m_parent->vm()->copyBlock(m_rawData.data(), m_vmblock, 0, m_vmblockSize))
     m_parent->m_cacheReadError = true;
-  
-  setState (KateBufBlock::stateLoaded);
-}
-
-void KateBufBlock::buildStringList()
-{
-  if (m_state != KateBufBlock::stateLoaded)
-    return;
-
+    
   char *buf = m_rawData.data();
   char *end = buf + m_rawData.count();
 
@@ -1603,82 +1575,78 @@ void KateBufBlock::buildStringList()
   m_firstLineIndentation = 0;
   m_firstLineOnlySpaces = true;
   
-  setState (KateBufBlock::stateClean);
+  // is allready too much stuff around in mem ?
+  bool swap = ((m_parent->m_cleanBlocks.count() + m_parent->m_dirtyBlocks.count()) > KATE_MAX_BLOCKS_LOADED);
+
+  if (swap && m_parent->m_cleanBlocks.count() > 0)
+    m_parent->m_cleanBlocks.first()->swapOut();
+  else if (swap)
+    m_parent->m_dirtyBlocks.first()->swapOut();
+  
+  // fine, we are now clean again, save state + append to clean list
+  m_state = KateBufBlock::stateClean;
+  m_parent->m_cleanBlocks.append (this);
 }
 
 void KateBufBlock::swapOut ()
 {
-  if (m_state != KateBufBlock::stateLoaded)
+  if (m_state == KateBufBlock::stateSwapped)
     return;
-
-  m_vmblock = m_parent->vm()->allocate(m_rawData.count());
-  m_vmblockSize = m_rawData.count();
-  
-  if (!m_rawData.isEmpty())
-  {
-    if (!m_parent->vm()->copyBlock(m_vmblock, m_rawData.data(), 0, m_rawData.count()))
-    {
-      if (m_vmblock)
-        m_parent->vm()->free(m_vmblock);
-
-      m_vmblock = 0;
-      m_vmblockSize = 0;
     
-      m_parent->m_cacheWriteError = true;
+  if (m_state == KateBufBlock::stateDirty)
+  {
+    QByteArray m_rawData;
       
-      return;
+    // Calculate size.
+    uint size = 0;
+    for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
+      size += (*it)->dumpSize ();
+  
+    m_rawData.resize (size);
+    char *buf = m_rawData.data();
+  
+    // Dump textlines
+    for(TextLine::List::iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
+      buf = (*it)->dump (buf);
+  
+    m_vmblock = m_parent->vm()->allocate(m_rawData.count());
+    m_vmblockSize = m_rawData.count();
+    
+    if (!m_rawData.isEmpty())
+    {
+      if (!m_parent->vm()->copyBlock(m_vmblock, m_rawData.data(), 0, m_rawData.count()))
+      {
+        if (m_vmblock)
+          m_parent->vm()->free(m_vmblock);
+  
+        m_vmblock = 0;
+        m_vmblockSize = 0;
+      
+        m_parent->m_cacheWriteError = true;
+        
+        return;
+      }
     }
-  }
-
-  // dispose the raw data
-  m_rawData.resize (0);
-
-  setState (KateBufBlock::stateSwapped);
-  
-  return;
-}
-
-void KateBufBlock::disposeStringList()
-{
-  if (m_state != KateBufBlock::stateClean)
-    return;
-  
-  if (m_lines > 0)
-  {
-    m_firstLineIndentation = m_stringList[0]->indentDepth (m_parent->tabWidth());
-    m_firstLineOnlySpaces = (m_stringList[0]->firstChar() == -1);
-    m_lastLine = m_stringList[m_lines - 1];
-  }
-  else
-  {
-    m_firstLineIndentation = 0;
-    m_firstLineOnlySpaces = true;
-    m_lastLine = 0;
+    
+    if (m_lines > 0)
+    {
+      m_firstLineIndentation = m_stringList[0]->indentDepth (m_parent->tabWidth());
+      m_firstLineOnlySpaces = (m_stringList[0]->firstChar() == -1);
+      m_lastLine = m_stringList[m_lines - 1];
+    }
+    else
+    {
+      m_firstLineIndentation = 0;
+      m_firstLineOnlySpaces = true;
+      m_lastLine = 0;
+    }
   }
 
   m_stringList.clear();
   
-  setState (KateBufBlock::stateLoaded);
-}
-
-void KateBufBlock::flushStringList()
-{
-  if (m_state != KateBufBlock::stateDirty)
-    return;
-     
-  // Calculate size.
-  uint size = 0;
-  for(TextLine::List::const_iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-    size += (*it)->dumpSize ();
-
-  m_rawData.resize (size);
-  char *buf = m_rawData.data();
-
-  // Dump textlines
-  for(TextLine::List::iterator it = m_stringList.begin(); it != m_stringList.end(); ++it)
-    buf = (*it)->dump (buf);
-
-  setState (KateBufBlock::stateClean);
+  // we are now swapped out, set state + remove us out of the lists !
+  m_state = KateBufBlock::stateSwapped;
+  KateBufBlockList::remove (this);
 }
 
 // END KateBufBlock

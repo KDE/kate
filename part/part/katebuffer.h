@@ -375,17 +375,12 @@ class KateBuffer : public QObject
    */
   private:
     /**
-     * list of blocks that can be swapped out.
-     */
-    KateBufBlockList m_loadedBlocks;
-
-    /**
-     * list of blocks that can be disposed.
+     * this blocks have valid data stored in the swap data
      */
     KateBufBlockList m_cleanBlocks;
 
     /**
-     * list of blocks that are dirty.
+     * this blocks have no valid swap data around
      */
     KateBufBlockList m_dirtyBlocks;
 };

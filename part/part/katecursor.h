@@ -58,10 +58,6 @@ class KateTextCursor
       if(pcol) *pcol = m_col;
     }
 
-    inline bool subjectToChangeAt(const KateTextCursor & c) const {
-      return m_line == c.line() && m_col > c.col();
-    }
-
     inline int line() const { return m_line; };
     inline int col() const { return m_col; };
 
@@ -73,77 +69,6 @@ class KateTextCursor
   protected:
     int m_line;
     int m_col;
-};
-
-class KateRange
-{
-public:
-  virtual bool isValid() const = 0;
-  virtual KateTextCursor& start() = 0;
-  virtual KateTextCursor& end() = 0;
-  virtual const KateTextCursor& start() const = 0;
-  virtual const KateTextCursor& end() const = 0;
-};
-
-class KateTextRange : public KateRange
-{
-public:
-  KateTextRange()
-    : m_valid(false)
-  {
-  };
-
-  KateTextRange(int startline, int startcol, int endline, int endcol)
-    : m_start(startline, startcol)
-    , m_end(endline, endcol)
-    , m_valid(true)
-  {
-  };
-
-  KateTextRange(const KateTextCursor& start, const KateTextCursor& end)
-    : m_start(start)
-    , m_end(end)
-    , m_valid(true)
-  {
-  };
-
-  virtual bool isValid() const { return m_valid; };
-  void setValid(bool valid) { m_valid = valid; };
-
-  virtual KateTextCursor& start() { return m_start; };
-  virtual KateTextCursor& end() { return m_end; };
-  virtual const KateTextCursor& start() const { return m_start; };
-  virtual const KateTextCursor& end() const { return m_end; };
-
-protected:
-  KateTextCursor m_start, m_end;
-  bool m_valid;
-};
-
-/**
- * We need something a bit special for the internal view implementation:
- * a cursor with a mode to allow setting to new settings, while still returning the old
- * settings, unless instructed to return the new ones.
- *
- * Works around a design issue with emitting textChanged() and apps which access the
- * cursor immediately after and expect it to be updated already.
- */
-class KateMutableTextCursor : public KateTextCursor
-{
-public:
-    KateMutableTextCursor();
-
-    void setImmutable(bool immutable);
-    const KateTextCursor& mutableCursor() const;
-
-    virtual void setLine(int line);
-    virtual void setCol(int col);
-    virtual void setPos(const KateTextCursor& pos);
-    virtual void setPos(int line, int col);
-
-private:
-    bool m_immutable;
-    KateTextCursor m_newSettings;
 };
 
 /**
@@ -181,6 +106,51 @@ class KateDocCursor : public KateTextCursor
 
   protected:
     KateDocument *m_doc;
+};
+
+class KateRange
+{
+  public:
+    virtual bool isValid() const = 0;
+    virtual KateTextCursor& start() = 0;
+    virtual KateTextCursor& end() = 0;
+    virtual const KateTextCursor& start() const = 0;
+    virtual const KateTextCursor& end() const = 0;
+};
+
+class KateTextRange : public KateRange
+{
+  public:
+    KateTextRange()
+      : m_valid(false)
+    {
+    };
+  
+    KateTextRange(int startline, int startcol, int endline, int endcol)
+      : m_start(startline, startcol)
+      , m_end(endline, endcol)
+      , m_valid(true)
+    {
+    };
+  
+    KateTextRange(const KateTextCursor& start, const KateTextCursor& end)
+      : m_start(start)
+      , m_end(end)
+      , m_valid(true)
+    {
+    };
+  
+    virtual bool isValid() const { return m_valid; };
+    void setValid(bool valid) { m_valid = valid; };
+  
+    virtual KateTextCursor& start() { return m_start; };
+    virtual KateTextCursor& end() { return m_end; };
+    virtual const KateTextCursor& start() const { return m_start; };
+    virtual const KateTextCursor& end() const { return m_end; };
+  
+  protected:
+    KateTextCursor m_start, m_end;
+    bool m_valid;
 };
 
 #endif

@@ -26,65 +26,6 @@
 #include "katedocument.h"
 #include "katetextline.h"
 
-KateMutableTextCursor::KateMutableTextCursor()
-  : m_immutable(false)
-{
-}
-
-void KateMutableTextCursor::setImmutable(bool immutable)
-{
-  m_immutable = immutable;
-
-  if (m_immutable) {
-    m_newSettings = *this;
-
-  } else {
-    m_line = m_newSettings.line();
-    m_col = m_newSettings.col();
-  }
-}
-
-const KateTextCursor& KateMutableTextCursor::mutableCursor() const
-{
-  if (m_immutable)
-    return m_newSettings;
-  else
-    return *this;
-}
-
-void KateMutableTextCursor::setLine(int line)
-{
-  if (m_immutable)
-    m_newSettings.setLine(line);
-  else
-    KateTextCursor::setLine(line);
-}
-
-void KateMutableTextCursor::setCol(int col)
-{
-  if (m_immutable)
-    m_newSettings.setCol(col);
-  else
-    KateTextCursor::setCol(col);
-}
-
-void KateMutableTextCursor::setPos(const KateTextCursor& pos)
-{
-  if (m_immutable)
-    m_newSettings.setPos(pos);
-  else
-    KateTextCursor::setPos(pos);
-}
-
-void KateMutableTextCursor::setPos(int line, int col)
-{
-  if (m_immutable)
-    m_newSettings.setPos(line, col);
-  else
-    KateTextCursor::setPos(line, col);
-}
-
-
 //
 // KateDocCursor implementation
 //

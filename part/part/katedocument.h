@@ -847,7 +847,7 @@ class KateDocument : public Kate::Document,
       else if ( m_modOnHdReason == 3 )
         reason = i18n("deleted");
 
-      return i18n("The file '%1' was changed (%2) on disc by another program!").arg( url().prettyURL() ).arg( reason );
+      return i18n("The file '%1' was changed (%2) on disk by another program!").arg( url().prettyURL() ).arg( reason );
     }
 
     /**

@@ -118,7 +118,7 @@ class IndentConfigTab : public Kate::ConfigPage
   protected:
     KateDocument *myDoc;
 
-    static const int numFlags = 6;
+    enum { numFlags = 6 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
     
@@ -139,7 +139,7 @@ class SelectConfigTab : public Kate::ConfigPage
 
   protected:
 
-    static const int numFlags = 5;
+    enum { numFlags = 5 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
 
@@ -159,7 +159,7 @@ class EditConfigTab : public Kate::ConfigPage
 
   protected:
 
-    static const int numFlags = 9;
+    enum { numFlags = 9 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
 

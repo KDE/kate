@@ -131,10 +131,13 @@ KateFactory::KateFactory ()
   //
   // init the cmds
   //
-  KateCmd::self()->registerCommand (new KateCommands::CoreCommands());
-  KateCmd::self()->registerCommand (new KateCommands::SedReplace ());
-  KateCmd::self()->registerCommand (new KateCommands::Character ());
-  KateCmd::self()->registerCommand (new KateCommands::Date ());
+  m_cmds.push_back (new KateCommands::CoreCommands());
+  m_cmds.push_back (new KateCommands::SedReplace ());
+  m_cmds.push_back (new KateCommands::Character ());
+  m_cmds.push_back (new KateCommands::Date ());
+
+  for ( QValueList<Kate::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
+    KateCmd::self()->registerCommand (*it);
 }
 
 KateFactory::~KateFactory()
@@ -149,6 +152,9 @@ KateFactory::~KateFactory()
   delete m_dirWatch;
 
   delete m_vm;
+
+  for ( QValueList<Kate::Command *>::iterator it = m_cmds.begin(); it != m_cmds.end(); ++it )
+    delete *it;
 }
 
 static KStaticDeleter<KateFactory> sdFactory;

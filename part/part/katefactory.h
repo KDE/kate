@@ -41,6 +41,10 @@ class KateView;
 class KDirWatch;
 class KVMAllocator;
 
+namespace Kate {
+  class Command;
+}
+
 class KateFactory
 {
   private:
@@ -256,6 +260,11 @@ class KateFactory
      * vm allocator
      */
     KVMAllocator *m_vm;
+
+    /**
+     * internal commands
+     */
+    QValueList<Kate::Command *> m_cmds;
 };
 
 #endif

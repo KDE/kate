@@ -1202,7 +1202,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
   {
     uint offset = 0, length = 0;
     stream->readLine(offset, length);
-    QChar *unicodeData = stream->unicode () + offset;
+    const QChar *unicodeData = stream->unicode () + offset;
 
     blockSize += length;
 

@@ -19,6 +19,8 @@
 // $Id$
 
 #include "configinterfaceextension.h"
+#include "configinterfaceextension.moc"
+
 
 namespace KTextEditor
 {

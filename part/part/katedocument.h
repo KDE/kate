@@ -29,6 +29,7 @@
 #include <ktexteditor/configinterfaceextension.h>
 #include <ktexteditor/encodinginterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
+#include <ktexteditor/editinterfaceext.h>
 
 #include <kservice.h>
 #include <dcopobject.h>
@@ -79,7 +80,9 @@ namespace Kate
 //
 class KateDocument : public Kate::Document,
                      public KTextEditor::ConfigInterfaceExtension,
-                     public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface,
+                     public KTextEditor::EncodingInterface,
+                     public KTextEditor::SessionConfigInterface,
+                     public KTextEditor::EditInterfaceExt,
                      public DCOPObject
 {
   K_DCOP
@@ -179,8 +182,9 @@ class KateDocument : public Kate::Document,
     //
     // start edit / end edit (start/end undo, cursor update, view update)
     //
-    void editStart (bool withUndo = true);
-    void editEnd ();
+    virtual void editBegin() { editStart(); }
+    void editStart(bool withUndo = true);
+    virtual void editEnd();
 
     //
     // functions for insert/remove stuff (atomic)
@@ -287,7 +291,7 @@ class KateDocument : public Kate::Document,
     bool lineIsSelection (int line);
 
     QPtrList<KateSuperCursor> m_superCursors;
-    
+
     // stores the current selection
     KateSuperCursor selectStart;
     KateSuperCursor selectEnd;
@@ -447,7 +451,7 @@ class KateDocument : public Kate::Document,
   //
   public:
     bool openURL( const KURL &url );
-    
+
     /* Anders:
       I reimplemented this, since i need to check if backup succeeded
       if requested */
@@ -455,17 +459,17 @@ class KateDocument : public Kate::Document,
 
     bool openFile (KIO::Job * job);
     bool openFile ();
-    
+
     bool saveFile ();
 
     void setReadWrite ( bool rw = true );
 
     void setModified( bool m );
-    
+
   private slots:
     void slotDataKate ( KIO::Job* kio_job, const QByteArray &data );
     void slotFinishedKate ( KIO::Job * job );
-    
+
   private:
     void abortLoadKate();
 
@@ -509,8 +513,8 @@ class KateDocument : public Kate::Document,
 
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
-    
-    Highlight *highlight () { return m_highlight; } 
+
+    Highlight *highlight () { return m_highlight; }
 
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);
@@ -755,7 +759,7 @@ class KateDocument : public Kate::Document,
 
   private:
     void makeAttribs ();
-  
+
     void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
     int             m_mispellCount;
@@ -764,7 +768,7 @@ class KateDocument : public Kate::Document,
 
   public:
     static bool checkOverwrite( KURL u );
-    
+
     static void setDefaultEncoding (const QString &encoding);
 
   /**
@@ -818,10 +822,10 @@ class KateDocument : public Kate::Document,
 
     static QRegExp kvLine;
     static QRegExp kvVar;
-    
+
     KIO::TransferJob *m_job;
     KTempFile *m_tempFile;
-    
+
   k_dcop:
     uint documentNumber () const;
 

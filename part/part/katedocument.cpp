@@ -331,7 +331,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
 
   clear();
 
-  internalSetHlMode(0); //calls updateFontData()
   // if the user changes the highlight with the dialog, notify the doc
   connect(hlManager,SIGNAL(changed()),SLOT(internalHlChanged()));
 
@@ -460,6 +459,8 @@ bool KateDocument::clear()
   clearRedo();
 
   setModified(false);
+  
+  internalSetHlMode(0); //calls updateFontData()
 
   return true;
 }

@@ -636,7 +636,10 @@ signed char *Highlight::generateContextStack(int *ctxNum, int ctx,signed char *c
     if (ctxs == 0L)
       ctxs = (signed char *) malloc ((*ctxsLen)+1);
     else
-      ctxs = (signed char *) realloc (ctxs, (*ctxsLen)+1);
+	{
+	      ctxs = (signed char *) realloc (ctxs, (*ctxsLen)+1);
+		if (ctxs==0) kdDebug()<<"WARNING WARNING WARNING REALLOC FAILED"<<endl;
+	}
 
     (*ctxsLen)++;
     ctxs[(*ctxsLen)-1]=(*ctxNum);
@@ -653,6 +656,7 @@ signed char *Highlight::generateContextStack(int *ctxNum, int ctx,signed char *c
         {
           ctxs = (signed char *) realloc (ctxs, (*ctxsLen)-1);
           (*ctxsLen)--;
+	  if (((*ctxsLen)>0) && (ctxs==0)) kdDebug()<<"WARNING WARNING REALLOC FAILED"<<endl;
           (*ctxNum) = (((*ctxsLen)==0)?0:ctxs[(*ctxsLen)-1]);
         }
       ctx++;

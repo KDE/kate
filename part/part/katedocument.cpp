@@ -3285,7 +3285,10 @@ void KateDocument::updateLines(int startLine, int endLine)
     else { if (endCtx) {free(endCtx); endCtx=0;}}
 #ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"teststarti"<<endl;
+    kdDebug()<<QString("line %1").arg(line)<<endl;
 #endif
+
+
     m_highlight->doHighlight(ctxNum, ctxNumLen, textLine,line_continue);
 
 #ifdef _EXTREMELY_VERBOSE_DEBUG_
@@ -3296,6 +3299,10 @@ void KateDocument::updateLines(int startLine, int endLine)
     line_continue=textLine->getHlLineContinue();
     if (ctxNumLen>0)
     {
+#ifdef _EXTREMELY_VERBOSE_DEBUG_
+    kdDebug()<<"alloc/realloc in updateLines"<<QString(" %1|%2").arg(ctxNumLen).arg(textLine->getContext()[ctxNumLen-1])<<endl;
+#endif
+
       if (ctxNum)
         ctxNum=(signed char*)realloc(ctxNum,ctxNumLen);
       else
@@ -3303,6 +3310,11 @@ void KateDocument::updateLines(int startLine, int endLine)
       memcpy(ctxNum,textLine->getContext(),ctxNumLen);
     }
     else { if (ctxNum) {free(ctxNum); ctxNum=0;}}
+
+#ifdef _EXTREMELY_VERBOSE_DEBUG_
+    kdDebug()<<"befor still continue check"<<endl;
+#endif
+
 
     if (endCtxLen != ctxNumLen)
       stillcontinue = true;

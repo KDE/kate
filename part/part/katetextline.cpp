@@ -23,7 +23,7 @@
 #include <kdebug.h>
 
 TextLine::TextLine()
-  : text(0L), attributes(0L), textLen(0), ctx(0L), ctxLen(0), hlContinue(false)
+  : text(0), attributes(0), textLen(0), ctx(0), ctxLen(0), hlContinue(false)
 {
   attr = 0;
 }

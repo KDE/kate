@@ -34,18 +34,27 @@
 #include <qtextcodec.h>
 
 /**
- * SOME LIMITS, may need testing which values are clever
  * KATE_AVG_BLOCK_SIZE is in characters !
  * (internaly we calc with approx 80 chars per line !)
  * block will max contain around BLOCK_SIZE chars or
  * BLOCK_LINES lines (after load, later that won't be tracked)
+ */
+#define KATE_AVG_BLOCK_SIZE      (512 * 80)
+#define KATE_MAX_BLOCK_LINES     2048
+
+/*
  * KATE_MAX_BLOCKS_LOADED should be at least 4, as some
  * methodes will cause heavy trashing, if not at least the
  * latest 2-3 used blocks are alive
  */
-#define KATE_AVG_BLOCK_SIZE      (512 * 80)
-#define KATE_MAX_BLOCK_LINES     1024
-#define KATE_MAX_BLOCKS_LOADED   32
+#define KATE_MAX_BLOCKS_LOADED   16
+
+/**
+ * hl will look at the next KATE_HL_LOOKAHEAD lines
+ * or until the current block ends if a line is requested
+ * will avoid to run needHighlight too often
+ */
+#define KATE_HL_LOOKAHEAD        64
 
 /**
  * Create an empty buffer. (with one block with one empty line)
@@ -524,16 +533,26 @@ TextLine::Ptr KateBuffer::line(uint i)
   if (!buf)
     return 0;
 
+  // update hl until this line + max KATE_HL_LOOKAHEAD
   KateBufBlock *buf2 = 0;
   while ((i >= m_lineHighlighted) && (buf2 = findBlock(m_lineHighlighted)))
   {
-    needHighlight (buf2, (m_lineHighlighted > buf2->startLine()) ? m_lineHighlighted : buf2->startLine(), buf2->endLine());
+    uint end = buf2->endLine ();
+  
+    if ((buf2->startLine() + KATE_HL_LOOKAHEAD) > i)
+      end = kMin(buf2->startLine() + KATE_HL_LOOKAHEAD, buf2->endLine());
+  
+  
+    needHighlight ( buf2,
+                    kMax(m_lineHighlighted, buf2->startLine()),
+                    end);
       
-    m_lineHighlighted = buf2->endLine();
-    
-    if (m_lineHighlighted > m_lineHighlightedMax)
-      m_lineHighlightedMax = m_lineHighlighted;
+    m_lineHighlighted = end;
   }
+  
+  // update hl max
+  if (m_lineHighlighted > m_lineHighlightedMax)
+    m_lineHighlightedMax = m_lineHighlighted;
 
   return buf->line (i - buf->startLine());
 }

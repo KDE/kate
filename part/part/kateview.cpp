@@ -84,9 +84,9 @@
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     : Kate::View( doc, parent, name )
     , m_bookmarks( new KateBookmarks( this ) )
-    , extension( 0 )
+    , m_extension( 0 )
+    , m_editAccels( 0 )
 {
-  m_editAccels=0;
   setInstance( KateFactory::instance() );
 
   initCodeCompletionImplementation();
@@ -136,7 +136,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
     if (doc->m_bBrowserView)
     {
-      extension = new KateBrowserExtension( myDoc, this );
+      m_extension = new KateBrowserExtension( myDoc, this );
     }
   }
 
@@ -145,7 +145,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
   connect( this, SIGNAL( newStatus() ), this, SLOT( slotUpdate() ) );
   connect( doc, SIGNAL( undoChanged() ), this, SLOT( slotNewUndo() ) );
-  connect( doc, SIGNAL( fileNameChanged() ), this, SLOT( slotFileStatusChanged() ) );
 
   if ( doc->m_bBrowserView )
   {
@@ -177,25 +176,23 @@ KateView::~KateView()
 
 void KateView::slotRegionVisibilityChangedAt(unsigned int)
 {
-	kdDebug()<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
-	myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
+  kdDebug()<<"void KateView::slotRegionVisibilityChangedAt(unsigned int)"<<endl;
+  myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
 }
 
 void KateView::slotCodeFoldingChanged()
 {
-	myViewInternal->leftBorder->repaint();
-
+  myViewInternal->leftBorder->repaint();
 }
 
 void KateView::slotRegionBeginEndAddedRemoved(unsigned int line)
 {
-	kdDebug()<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
-//	myViewInternal->repaint();
-	if (myDoc->getVirtualLine(line)<=myViewInternal->endLine) // FIXME: performance problem
-	myViewInternal->leftBorder->repaint();
-
+  kdDebug()<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
+//  myViewInternal->repaint();
+  // FIXME: performance problem
+  if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)
+    myViewInternal->leftBorder->repaint();
 }
-
 
 void KateView::initCodeCompletionImplementation()
 {
@@ -307,8 +304,12 @@ void KateView::setupActions()
   new KAction(i18n("Decrease Font Sizes"), "viewmag-", 0, this, SLOT(slotDecFontSizes()), ac, "decFontSizes");
   new KAction(i18n("&Toggle Block Selection"), Key_F4, myDoc, SLOT(toggleBlockSelectionMode()), ac, "set_verticalSelect");
   new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), ac, "view_border");
-  connect(new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(slotDummy()), ac, "view_line_numbers"),
-    SIGNAL(toggled(bool)),this,SLOT(setLineNumbersOn(bool)));
+  KToggleAction* toggleAction = new KToggleAction(
+     i18n("Show &Line Numbers"), Key_F11,
+     0, 0,
+     ac, "view_line_numbers" );
+  connect( toggleAction, SIGNAL(toggled(bool)),
+           this,SLOT(setLineNumbersOn(bool)) );
 
   QStringList list;
   m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
@@ -331,12 +332,6 @@ void KateView::setupActions()
 void KateView::slotUpdate()
 {
   slotNewUndo();
-}
-
-void KateView::slotFileStatusChanged()
-{
-  // No need to mark the selected item in KSelectActions -- its already
-  // done for us by KSelectAction
 }
 
 void KateView::slotNewUndo()
@@ -363,64 +358,57 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::keyPressEvent( QKeyEvent *ev )
 {
-  int key=KKey(ev).keyCodeQt();
-  VConfig c;
-
-  switch(key)
-  {
-        case Key_PageUp:
-            pageUp();
-            break;
-        case SHIFT+Key_PageUp:
-            shiftPageUp();
-            break;
-        case CTRL+Key_PageUp:
-            topOfView();
-            break;
-        case Key_PageDown:
-            pageDown();
-            break;
-        case SHIFT+Key_PageDown:
-            shiftPageDown();
-            break;
-        case CTRL+Key_PageDown:
-            bottomOfView();
-            break;
-        case Key_Return:
-        case Key_Enter:
-            doEditCommand(KateView::cmReturn);
-            break;
-        case Key_Delete:
-            keyDelete();
-            break;
-        case CTRL+Key_Delete:
-            shiftWordRight();
-            myViewInternal->getVConfig(c);
-            myDoc->removeSelectedText();
-            myViewInternal->update();
-            break;
-        case Key_Backspace:
-        case SHIFT+Key_Backspace:
-            backspace();
-            break;
-        case CTRL+Key_Backspace:
-            shiftWordLeft();
-            myViewInternal->getVConfig(c);
-            myDoc->removeSelectedText();
-            myViewInternal->update();
-            break;
-        case Key_Insert:
-            toggleInsert();
-            break;
-        case CTRL+Key_K:
-            killLine();
-            break;
-        default:
-            KTextEditor::View::keyPressEvent( ev );
-            return;
-            break; // never reached ;)
-    }
-    ev->accept();
+  switch( KKey(ev).keyCodeQt() ) {
+  case Key_PageUp:
+    pageUp();
+    break;
+  case SHIFT+Key_PageUp:
+    shiftPageUp();
+    break;
+  case CTRL+Key_PageUp:
+    topOfView();
+    break;
+  case Key_PageDown:
+    pageDown();
+    break;
+  case SHIFT+Key_PageDown:
+    shiftPageDown();
+    break;
+  case CTRL+Key_PageDown:
+    bottomOfView();
+    break;
+  case Key_Return:
+  case Key_Enter:
+    doEditCommand(KateView::cmReturn);
+    break;
+  case Key_Delete:
+    keyDelete();
+    break;
+  case CTRL+Key_Delete:
+    shiftWordRight();
+    myDoc->removeSelectedText();
+    myViewInternal->update();
+    break;
+  case Key_Backspace:
+  case SHIFT+Key_Backspace:
+    backspace();
+    break;
+  case CTRL+Key_Backspace:
+    shiftWordLeft();
+    myDoc->removeSelectedText();
+    myViewInternal->update();
+    break;
+  case Key_Insert:
+    toggleInsert();
+    break;
+  case CTRL+Key_K:
+    killLine();
+    break;
+  default:
+    KTextEditor::View::keyPressEvent( ev );
+    return;
+  }
+  ev->accept();
 }
 
 void KateView::customEvent( QCustomEvent *ev )
@@ -437,10 +425,10 @@ void KateView::customEvent( QCustomEvent *ev )
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
-    if ( !extension || !myDoc )
+    if ( !m_extension || !myDoc )
         return;
     
-    emit extension->popupMenu( ev->globalPos(), myDoc->url(),
+    emit m_extension->popupMenu( ev->globalPos(), myDoc->url(),
                                QString::fromLatin1( "text/plain" ) );
     ev->accept();
 }
@@ -571,30 +559,17 @@ QString KateView::currentWord() {
   return myDoc->getWord(myViewInternal->getCursor());
 }
 
-/*
-QString KateView::word(int x, int y) {
-  KateTextCursor cursor;
-  cursor.line = (myViewInternal->yPos + y)/myDoc->viewFont.fontHeight;
-  if (cursor.line < 0 || cursor.line > (int)myDoc->lastLine()) return QString();
-  cursor.col = myDoc->textPos(myDoc->kateTextLine(cursor.line), myViewInternal->xPos + x);
-  return myDoc->getWord(cursor);
-}
-*/
-
 void KateView::insertText(const QString &s)
 {
   VConfig c;
   myViewInternal->getVConfig(c);
   myDoc->insertText(c.cursor.line, c.cursor.col, s);
 
-//JW BEGIN
-      for (uint i=0;i<s.length();i++)
-	{
-		cursorRight();
-	}
-//JW END
-     // updateCursor(c.cursor);
-
+  // TODO: Better way to do this?
+  for( uint i=0; i < s.length(); i++ ) {
+    cursorRight();
+  }
+//  updateCursor(c.cursor);
 }
 
 bool KateView::canDiscard() {
@@ -1485,10 +1460,6 @@ void KateView::slotIncFontSizes ()
   QFont font = myDoc->getFont(KateDocument::ViewFont);
   font.setPointSize (font.pointSize()+1);
   myDoc->setFont (KateDocument::ViewFont,font);
-}
-
-void KateView::slotDummy()
-{
 }
 
 void KateView::slotDecFontSizes ()

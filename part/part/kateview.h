@@ -234,12 +234,10 @@ class KateView : public Kate::View
 
   private slots:
     void slotDropEventPass( QDropEvent * ev );
-    void slotDummy();   
     void slotSetEncoding(const QString& descriptiveName);
 
   public slots:
     void slotUpdate();
-    void slotFileStatusChanged();
 
   public slots:
     /**
@@ -511,7 +509,7 @@ private:
 
   private:
     KateBookmarks*         m_bookmarks;
-    KateBrowserExtension*  extension;
+    KateBrowserExtension*  m_extension;
 };
 
 #endif

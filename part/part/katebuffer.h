@@ -144,12 +144,6 @@ class KateBufBlock
     inline TextLine::Ptr lastLine () { return m_lastLine; }
 
     /**
-     * need Highlight flag
-     */
-    inline bool needHighlight () const { return b_needHighlight; }
-    inline void setNeedHighlight (bool hl) { b_needHighlight = hl; };
-
-    /**
      * prev/next block
      */
     inline KateBufBlock *prev () { return m_prev; }
@@ -200,11 +194,6 @@ class KateBufBlock
      * list of textlines
      */
     TextLine::List m_stringList;
-
-    /**
-     * buffer requires highlighting.
-     */
-    bool b_needHighlight;
 
     /**
      * parent buffer.
@@ -321,8 +310,23 @@ class KateBuffer : public QObject
      * change the visibility of a given line
      */
     void setLineVisible (unsigned int lineNr, bool visible);
+    
+  public:
+    void editStart ();
+    void editEnd ();
+    
+  private:
+    void editTagLine (uint line);
+    void editRemoveTagLine (uint line);
+    void editInsertTagLine (uint line);
+  
+  private:
+    uint editSessionNumber;
+    bool editIsRunning;
+    uint editTagLineStart;
+    uint editTagLineEnd;
 
-  public:    
+  public:
     /**
      * Open a file, use the given filename + codec (internal use of qtextstream)
      */
@@ -352,8 +356,6 @@ class KateBuffer : public QObject
     void lineInfo (KateLineInfo *info, unsigned int line);
 
     KateCodeFoldingTree *foldingTree ();
-
-    inline void setHlUpdate (bool b) { m_hlUpdate = b; }
 
     void dumpRegionTree ();
 
@@ -401,17 +403,6 @@ class KateBuffer : public QObject
     void setHighlight (Highlight *highlight);
 
     Highlight *highlight () { return m_highlight; };
-
-    /**
-     * Update the highlighting.
-     *
-     * PRE-condition:
-     *   All lines prior to @p from have been highlighted already.
-     *
-     * POST-condition:
-     *   All lines till at least @p to haven been highlighted.
-     */
-    void updateHighlighting(uint from, uint to, bool invalidate);
 
     /**
      * Invalidate highlighting of whole buffer.
@@ -464,11 +455,6 @@ class KateBuffer : public QObject
      * false otherwise.
      */
     bool needHighlight(KateBufBlock *buf, uint from, uint to);
-
-    void pleaseHighlight (uint,uint);
-
-  private slots:
-    void pleaseHighlight ();
     
   signals:
     /**
@@ -536,36 +522,15 @@ class KateBuffer : public QObject
     Highlight *m_highlight;
     
     /**
-     * highlighting timer
-     */
-    QTimer m_highlightTimer;
-    
-    /**
      * folding tree
      */
     KateCodeFoldingTree m_regionTree;
     
-    /**
-     * The highest line with correct highlight info
-     */
-    uint m_highlightedTo;
-    
-    /**
-     * The highest line that we requested highlight for
-     */ 
-    uint m_highlightedRequested;
-
-    /**
-     * enable/disable hl updates
-     */
-    bool m_hlUpdate;
-    
     // for the scrapty indent sensitive langs
     uint m_tabWidth;
-    
-    uint m_highlightedTill;
-    uint m_highlightedEnd;
-    uint m_highlightedSteps;
+        
+    uint m_lineHighlightedMax;
+    uint m_lineHighlighted;
   
   /**
    * only used from the KateBufBlocks !

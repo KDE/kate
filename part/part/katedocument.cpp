@@ -820,8 +820,6 @@ void KateDocument::editStart (bool withUndo)
   if (editSessionNumber > 1)
     return;
 
-  buffer->setHlUpdate (false);
-
   editIsRunning = true;
   noViewUpdates = true;
   editWithUndo = withUndo;
@@ -839,6 +837,8 @@ void KateDocument::editStart (bool withUndo)
   {
     m_views.at(z)->editStart ();
   }
+  
+  buffer->editStart ();
 }
 
 void KateDocument::undoStart()
@@ -917,13 +917,9 @@ void KateDocument::editEnd ()
   if (editSessionNumber > 0)
     return;
 
-  buffer->setHlUpdate (true);
-
-  // update hl from the line before the edited area to the line below the edited
-  // area, the line before is (only) needed for indentation based folding languages
-  if (editTagLineStart <= editTagLineEnd)
-    buffer->updateHighlighting ((editTagLineStart == 0) ? 0 : (editTagLineStart-1), editTagLineEnd+1, true);
-
+  // end buffer edit, will trigger hl update
+  buffer->editEnd ();
+  
   if (editWithUndo)
     undoEnd();
 

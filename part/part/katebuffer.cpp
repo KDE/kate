@@ -48,6 +48,10 @@
  */
 KateBuffer::KateBuffer(KateDocument *doc)
  : QObject (doc),
+   editSessionNumber (0),
+   editIsRunning (false),
+   editTagLineStart (0xffffff),
+   editTagLineEnd (0),
    m_doc (doc),
    m_lines (0),
    m_lastInSyncBlock (0),
@@ -57,16 +61,10 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_loadingBorked (false),
    m_highlight (0),
    m_regionTree (this),
-   m_highlightedTo (0),
-   m_highlightedRequested (0),
-   m_hlUpdate (true),
    m_tabWidth (8),
-   m_highlightedTill (0),
-   m_highlightedEnd (0),
-   m_highlightedSteps (0)
+   m_lineHighlightedMax (0),
+   m_lineHighlighted (0)
 {
-  connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(pleaseHighlight()));
-
   connect( &m_regionTree,SIGNAL(setLineVisible(unsigned int, bool)), this,SLOT(setLineVisible(unsigned int,bool)));
   
   clear();
@@ -80,6 +78,95 @@ KateBuffer::~KateBuffer()
   // DELETE ALL BLOCKS, will free mem
   for (uint i=0; i < m_blocks.size(); i++)
     delete m_blocks[i];
+}
+
+void KateBuffer::editStart ()
+{
+  editSessionNumber++;
+
+  if (editSessionNumber > 1)
+    return;
+
+  editIsRunning = true;
+  
+  editTagLineStart = 0xffffff;
+  editTagLineEnd = 0;
+}
+
+void KateBuffer::editEnd ()
+{
+  if (editSessionNumber == 0)
+    return;
+
+  editSessionNumber--;
+
+  if (editSessionNumber > 0)
+    return;
+    
+  kdDebug () << "BUFFER EDIT END, LINESTART: " << editTagLineStart << " LINEEND: " << editTagLineEnd << endl;
+    
+  // hl update !!!
+  if ((editTagLineStart <= editTagLineEnd) && (editTagLineEnd <= m_lineHighlighted))
+  {
+    editTagLineEnd++;
+    
+    KateBufBlock *buf2 = 0;
+    bool needContinue = false;
+    while ((buf2 = findBlock(editTagLineStart)))
+    {
+      needContinue = needHighlight (buf2,
+        (editTagLineStart > buf2->startLine()) ? editTagLineStart : buf2->startLine(),
+        (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd);
+        
+      editTagLineStart = (editTagLineEnd > buf2->endLine()) ? buf2->endLine() : editTagLineEnd;
+      
+      if ((editTagLineStart >= m_lines) || (editTagLineStart >= editTagLineEnd))
+        break;
+    }
+    
+    if (needContinue)
+      m_lineHighlighted = editTagLineStart;
+      
+    if (editTagLineStart > m_lineHighlightedMax)
+      m_lineHighlightedMax = editTagLineStart;
+  }
+  else if (editTagLineStart < m_lineHighlightedMax)
+    m_lineHighlightedMax = editTagLineStart; 
+
+  editIsRunning = false;
+}
+
+void KateBuffer::editTagLine (uint line)
+{
+  if (line < editTagLineStart)
+    editTagLineStart = line;
+
+  if (line > editTagLineEnd)
+    editTagLineEnd = line;
+}
+
+void KateBuffer::editInsertTagLine (uint line)
+{
+  if (line < editTagLineStart)
+    editTagLineStart = line;
+
+  if (line <= editTagLineEnd)
+    editTagLineEnd++;
+
+  if (line > editTagLineEnd)
+    editTagLineEnd = line;
+}
+
+void KateBuffer::editRemoveTagLine (uint line)
+{
+  if (line < editTagLineStart)
+    editTagLineStart = line;
+
+  if (line < editTagLineEnd)
+    editTagLineEnd--;
+
+  if (line > editTagLineEnd)
+    editTagLineEnd = line;
 }
 
 void KateBuffer::setTabWidth (uint w)
@@ -206,13 +293,14 @@ void KateBuffer::clear()
 
   // reset the state
   m_lines = block->lines();
-  m_highlightedTo = 0;
-  m_highlightedRequested = 0;
   m_lastInSyncBlock = 0;
   m_lastFoundBlock = 0;
   m_cacheWriteError = false;
   m_cacheReadError = false;
   m_loadingBorked = false;
+  
+  m_lineHighlightedMax = 0;
+  m_lineHighlighted = 0;
 }
 
 void KateBuffer::setHighlight(Highlight *highlight)
@@ -432,21 +520,15 @@ TextLine::Ptr KateBuffer::line(uint i)
   if (!buf)
     return 0;
 
-  if (buf->needHighlight())
+  KateBufBlock *buf2 = 0;
+  while ((i >= m_lineHighlighted) && (buf2 = findBlock(m_lineHighlighted)))
   {
-    buf->setNeedHighlight (false);
-
-    if (m_highlightedTo > buf->startLine())
-    {
-      needHighlight (buf, buf->startLine(), buf->endLine());
-    }
-  }
-
-  if ((m_highlightedRequested <= i) && (m_highlightedTo <= i))
-  {
-    m_highlightedRequested = buf->endLine();
-
-    pleaseHighlight (m_highlightedTo, buf->endLine());
+    needHighlight (buf2, (m_lineHighlighted > buf2->startLine()) ? m_lineHighlighted : buf2->startLine(), buf2->endLine());
+      
+    m_lineHighlighted = buf2->endLine();
+    
+    if (m_lineHighlighted > m_lineHighlightedMax)
+      m_lineHighlightedMax = m_lineHighlighted;
   }
 
   return buf->line (i - buf->startLine());
@@ -457,15 +539,14 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   // no hl around, no stuff to do
   if (!m_highlight)
     return false;
-
-  // nothing to update, still up to date ;)
-  if (!m_hlUpdate)
-    return false;
     
   // we tried to start in a line behind this buf block !
   if (startLine >= (buf->startLine()+buf->lines()))
     return false;
-
+    
+  kdDebug () << "NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
+  kdDebug () << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
+  
   // get the previous line, if we start at the beginning of this block
   // take the last line of the previous block
   TextLine::Ptr prevLine = 0;
@@ -670,6 +751,8 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     current_line++;
   }
 
+  buf->markDirty ();
+  
   // tag the changed lines !
   emit tagLines (startLine, current_line + buf->startLine());
 
@@ -682,155 +765,21 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   return stillcontinue && ((current_line+1) == buf->lines());
 }
 
-void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
-{
-   //kdDebug()<<"KateBuffer::updateHighlight("<<from<<","<<to<<","<<invalidate<<")"<<endl;
-   if (!m_hlUpdate)
-    return;
-
-   //kdDebug()<<"passed the no update check"<<endl;
-
-   if (from > m_highlightedTo )
-     from = m_highlightedTo;
-
-   uint done = 0;
-   bool endStateChanged = true;
-
-   while (done < to)
-   {
-      KateBufBlock *buf = findBlock(from);
-      if (!buf)
-         return;
-
-      if (buf->needHighlight() || invalidate || m_highlightedTo < buf->endLine())
-      {
-         uint fromLine = buf->startLine();
-         uint tillLine = buf->endLine();
-
-         if (!buf->needHighlight() && invalidate)
-         {
-            if (to < tillLine)
-               tillLine = to;
-
-            if (from > fromLine)
-            {
-               if (m_highlightedTo > from)
-                 fromLine = from;
-               else if (m_highlightedTo > fromLine)
-                 fromLine = m_highlightedTo;
-            }
-         }
-
-         buf->setNeedHighlight (false);
-
-   //kdDebug()<<"Calling need highlight: "<<fromLine<<","<<tillLine<<endl;
-         endStateChanged = needHighlight (buf, fromLine, tillLine);
-
-         buf->markDirty();
-      }
-
-      done = buf->endLine();
-      from = done;
-   }
-   if (invalidate)
-   {
-      if (endStateChanged)
-         m_highlightedTo = done;
-      m_highlightedRequested = done;
-   }
-   else
-   {
-      if (done > m_highlightedTo)
-         m_highlightedTo = done;
-   }
-}
-
 void KateBuffer::invalidateHighlighting()
 {
-   m_highlightedTo = 0;
-   m_highlightedRequested = 0;
+  m_lineHighlightedMax = 0;
+  m_lineHighlighted = 0;
 }
 
-void KateBuffer::pleaseHighlight(uint from, uint to)
-{
-  if (to > m_highlightedEnd)
-    m_highlightedEnd = to;
-
-  if (m_highlightedEnd < from)
-    return;
-
-  //
-  // this calc makes much of the responsiveness
-  //
-  m_highlightedSteps = ((m_highlightedEnd-from) / 5) + 1;
-  if (m_highlightedSteps < 100)
-    m_highlightedSteps = 100;
-  else if (m_highlightedSteps > 2000)
-    m_highlightedSteps = 2000;
-
-  uint till = from + m_highlightedSteps;
-  if (till > m_highlightedEnd)
-    till = m_highlightedEnd;
-
-  updateHighlighting(from, till, false);
-
-  m_highlightedTill = till;
-  if (m_highlightedTill >= m_highlightedEnd)
-  {
-    m_highlightedTill = 0;
-    m_highlightedEnd = 0;
-    m_highlightTimer.stop();
-  }
-  else
-  {
-    m_highlightTimer.start(100, true);
-  }
-}
-
-void KateBuffer::pleaseHighlight()
-{
-  uint till = m_highlightedTill + m_highlightedSteps;
-
-  if (m_highlightedSteps == 0)
-    till += 100;
-
-  if (m_highlightedEnd > m_lines)
-    m_highlightedEnd = m_lines;
-
-  if (till > m_highlightedEnd)
-    till = m_highlightedEnd;
-
-  updateHighlighting(m_highlightedTill, till, false);
-
-  m_highlightedTill = till;
-  if (m_highlightedTill >= m_highlightedEnd)
-  {
-    m_highlightedTill = 0;
-    m_highlightedEnd = 0;
-    m_highlightedSteps = 0;
-    m_highlightTimer.stop();
-  }
-  else
-  {
-    m_highlightTimer.start(100, true);
-  }
-}
-
-/**
- * Return line @p i without triggering highlighting
- */
 TextLine::Ptr KateBuffer::plainLine(uint i)
 {
-   KateBufBlock *buf = findBlock(i);
-   if (!buf)
-      return 0;
+  KateBufBlock *buf = findBlock(i);
+  if (!buf)
+    return 0;
 
-   return buf->line(i - buf->startLine());
+  return buf->line(i - buf->startLine());
 }
 
-/**
- * Return line @p i without triggering highlighting
- */
 QString KateBuffer::textLine(uint i)
 {
   TextLine::Ptr l = plainLine(i);
@@ -843,9 +792,6 @@ QString KateBuffer::textLine(uint i)
 
 void KateBuffer::insertLine(uint i, TextLine::Ptr line)
 {
-  //kdDebug()<<"bit debugging"<<endl;
-  //kdDebug()<<"bufferblock count: "<<m_blocks.count()<<endl;
-
   uint index = 0;
   KateBufBlock *buf;
   if (i == m_lines)
@@ -858,14 +804,19 @@ void KateBuffer::insertLine(uint i, TextLine::Ptr line)
 
   buf->insertLine(i -  buf->startLine(), line);
 
-  if (m_highlightedTo > i)
-    m_highlightedTo++;
+  if (m_lineHighlightedMax > i)
+    m_lineHighlightedMax++;
+    
+  if (m_lineHighlighted > i)
+    m_lineHighlighted++;
    
   m_lines++;
 
   // last sync block adjust
   if (m_lastInSyncBlock > index)
     m_lastInSyncBlock = index;
+    
+  editInsertTagLine (i);
 
   m_regionTree.lineHasBeenInserted (i);
 }
@@ -881,9 +832,12 @@ KateBuffer::removeLine(uint i)
    
   buf->removeLine(i -  buf->startLine());
 
-  if (m_highlightedTo > i)
-    m_highlightedTo--;
-
+  if (m_lineHighlightedMax > i)
+    m_lineHighlightedMax--;
+    
+  if (m_lineHighlighted > i)
+    m_lineHighlighted--;
+    
   m_lines--;
 
   // trash away a empty block
@@ -913,6 +867,8 @@ KateBuffer::removeLine(uint i)
     if (m_lastInSyncBlock > index)
       m_lastInSyncBlock = index;
   }
+  
+  editRemoveTagLine (i);
 
   m_regionTree.lineHasBeenRemoved (i);
 }
@@ -921,21 +877,27 @@ void KateBuffer::changeLine(uint i)
 {
   KateBufBlock *buf = findBlock(i);
 
+  editTagLine (i);
+  
   if (buf)
     buf->markDirty ();
 }
 
 void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 {
-   //kdDebug(13000)<<"void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)"<<endl;
-   TextLine::Ptr l=plainLine(lineNr);
-   if (l)
+   KateBufBlock *buf = findBlock(lineNr);
+
+   if (!buf)
+     return;
+     
+   TextLine::Ptr l = buf->line(lineNr - buf->startLine());
+   
+   if (l && (l->isVisible () != visible))
    {
      l->setVisible(visible);
-     changeLine (lineNr);
+     
+     buf->markDirty ();
    }
-   
-   //kdDebug(13000)<<QString("Invalid line %1").arg(lineNr)<<endl;
 }
 
 uint KateBuffer::length ()
@@ -1047,7 +1009,6 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
   m_lastLine (0),
   m_vmblock (0),
   m_vmblockSize (0),
-  b_needHighlight (true),
   m_parent (parent),
   m_prev (prev),
   m_next (next),

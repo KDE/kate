@@ -1,4 +1,7 @@
-200-01-04 Christoph Cullmann <cullmann@kde.org>
+2002-01-05 Christian Couder <christian@kdevelop.org>
+  * cleanups related to the uncomment feature in katetextline and katedocument
+
+2002-01-04 Christoph Cullmann <cullmann@kde.org>
   * the search stuff in the katedocument is rewritten now, should work mostly,
     only search for whole words is just a mess :(
 

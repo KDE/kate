@@ -52,6 +52,7 @@
 
 #include <kdebug.h>
 
+
 KateCmdLine::KateCmdLine (KateView *view)
   : KLineEdit (view)
   , m_view (view)

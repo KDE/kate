@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language>
-<language name="BibTeX" version="1.02" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
+<language name="BibTeX" version="1.11" extensions="*.bib" section="Markup" mimetype="text/x-bib" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)" license="LGPL">
   <highlighting>
     <list name="kw_entry">
       <item>@article</item> 
@@ -32,6 +32,7 @@
         <keyword String="kw_command" attribute="Command" context="#stay"/>
         <DetectChar char="{" attribute="Normal Text" context="#stay" beginRegion="block" />
         <DetectChar char="}" attribute="Normal Text" context="#stay" endRegion="block" />
+        <RegExpr String="\\(w+|.)" attribute="Char" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="String"/>
       </context>
 
@@ -39,11 +40,12 @@
         <DetectChar char="," attribute="Normal Text" context="#pop"/>
         <DetectChar char="{" attribute="Normal Text" context="#stay" beginRegion="block" />
         <DetectChar char="}" attribute="Normal Text" context="#stay" endRegion="block" />
-        <DetectChar char="&quot;" attribute="String" context="String"/>
+        <RegExpr String="\\(w+|.)" attribute="Char" context="#stay"/>
+        <DetectChar char="&quot;" attribute="String" context="#pop"/>
       </context>
 
       <context name="String" attribute="String" lineEndContext="#stay">
-        <RegExpr String="\\(\w+|.)" attribute="Escape Sequence" context="#stay"/>
+        <RegExpr String="\\(w+|.)" attribute="Char" context="#stay"/>
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
       </context>
     </contexts>
@@ -54,10 +56,10 @@
       <itemData name="Field" defStyleNum="dsDataType"/>
       <itemData name="Ref Key" defStyleNum="dsOthers"/>
       <itemData name="String" defStyleNum="dsString"/>
-      <itemData name="Escape Sequence" defStyleNum="dsOthers" color="#0000ff"/>
+      <itemData name="Char" defStyleNum="dsChar"/>
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="0"/>
+   <keywords casesensitive="0" weakDeliminator="\" wordWrapDeliminator=",{}[]"/>
   </general>
 </language>

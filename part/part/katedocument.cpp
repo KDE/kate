@@ -633,7 +633,7 @@ bool KateDocument::setText(const QString &s)
 
   // delete the text
   clear();
-  
+
   // insert the new text
   insertText (0, 0, s);
 
@@ -1457,7 +1457,7 @@ bool KateDocument::setSelection( const KateTextCursor& start, const KateTextCurs
 bool KateDocument::setSelection( uint startLine, uint startCol, uint endLine, uint endCol )
 {
   if (hasSelection())
-    clearSelection(false);
+    clearSelection(false, false);
 
   return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
 }
@@ -1467,7 +1467,7 @@ bool KateDocument::clearSelection()
   return clearSelection(true);
 }
 
-bool KateDocument::clearSelection(bool redraw)
+bool KateDocument::clearSelection(bool redraw, bool finishedChangingSelection)
 {
   if( !hasSelection() )
     return false;
@@ -1486,7 +1486,8 @@ bool KateDocument::clearSelection(bool redraw)
   if (redraw)
     repaintViews();
 
-  emit selectionChanged();
+  if (finishedChangingSelection)
+    emit selectionChanged();
 
   return true;
 }
@@ -1568,7 +1569,7 @@ bool KateDocument::setBlockSelectionMode (bool on)
     KateTextCursor oldSelectStart = selectStart;
     KateTextCursor oldSelectEnd = selectEnd;
 
-    clearSelection();
+    clearSelection(false, false);
 
     setSelection(oldSelectStart, oldSelectEnd);
 
@@ -1990,7 +1991,7 @@ void KateDocument::readSessionConfig(KConfig *config)
   // open the file if url valid
   if (!url.isEmpty() && url.isValid())
     openURL (url);
-    
+
   // restore the hl stuff
   internalSetHlMode(HlManager::self()->nameFind(config->readEntry("Highlighting")));
 
@@ -4492,7 +4493,7 @@ void KateDocument::ready(KSpell *)
   m_kspell->setProgressResolution( 1 );
 
   m_kspell->check( text() );
-  
+
   kdDebug () << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
 
@@ -4560,7 +4561,7 @@ void KateDocument::spellCleanDone()
 
   delete m_kspell;
   m_kspell = 0;
-  
+
   kdDebug () << "SPELLING END" << endl;
 }
 //END

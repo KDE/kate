@@ -265,7 +265,7 @@ class KateDocument : public Kate::Document,
     bool setSelection ( uint startLine, uint startCol,
       uint endLine, uint endCol );
     bool clearSelection ();
-    bool clearSelection (bool redraw);
+    bool clearSelection (bool redraw, bool finishedChangingSelection = true);
 
     bool hasSelection () const;
     QString selection () const ;

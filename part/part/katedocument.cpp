@@ -687,14 +687,17 @@ void KateDocument::editEnd ()
 
 bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 {
-  editStart ();
+  if (endLine < startLine)
+    return false;
+    
+  if (col == 0)
+    return false;
 
-  newDocGeometry = true;
+  editStart ();
 
   uint line = startLine;
   int z = 0;
 
-  bool modified = false;
   while(line <= endLine)
   {
     TextLine::Ptr l = getTextLine(line);
@@ -713,7 +716,6 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
       {
         editWrapLine (line, z);
         endLine++;
-        modified  = true;
       }
     }
 

@@ -97,7 +97,7 @@ void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 
 void HlDownloadDialog::slotUser1()
 {
-	QString destdir=KGlobal::dirs()->saveLocation("data","kate/syntax/");
+	QString destdir=KGlobal::dirs()->saveLocation("data","katepart/syntax/");
 	for (QListViewItem *it=list->firstChild();it;it=it->nextSibling())
 	{
 		if (list->isSelected(it))

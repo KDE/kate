@@ -35,4 +35,6 @@ class PopupMenuInterface
 	  virtual void installPopup (class QPopupMenu *rmb_Menu) = 0;
 };
 
+};
+
 #endif

@@ -157,11 +157,6 @@ QChar KateDocCursor::currentChar() const
   return m_doc->kateTextLine(line())->getChar(col());
 }
 
-
-/*
-  Find the position (line and col) of the next char
-  that is not a space. Return true if found.
-*/
 bool KateDocCursor::nextNonSpaceChar()
 {
   for(; m_line < (int)m_doc->numLines(); m_line++) {
@@ -175,17 +170,14 @@ bool KateDocCursor::nextNonSpaceChar()
   return false;
 }
 
-/*
-  Find the position (line and col) of the previous char
-  that is not a space. Return true if found.
-*/
 bool KateDocCursor::previousNonSpaceChar()
 {
-  for(; m_line >= 0; m_line--) {
+  while (true) {
     m_col = m_doc->kateTextLine(line())->previousNonSpaceChar(col());
-    if(m_col != -1)
-      return true; // Previous non-space char found
-    m_col = 0;
+    if(m_col != -1) return true; // Previous non-space char found
+    if(m_line == 0) return false;
+    --m_line;
+    m_col = m_doc->kateTextLine(m_line)->length();
   }
   // No non-space char found
   setPos(-1, -1);

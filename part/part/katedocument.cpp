@@ -3492,10 +3492,6 @@ void KateDocument::addStartLineCommentToSelection()
   setSelection(selectStart.line(), 0, selectEnd.line(), selectEnd.col());
 }
 
-/*
-  Find the position (line and col) of the next char
-  that is not a space. Return true if found.
-*/
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
 {
   for(; line < (int)buffer->count(); line++) {
@@ -3510,18 +3506,16 @@ bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
   return false;
 }
 
-/*
-  Find the position (line and col) of the previous char
-  that is not a space. Return true if found.
-*/
 bool KateDocument::previousNonSpaceCharPos(int &line, int &col)
 {
-  for(; line >= 0; line--) {
+  while(true)
+  {
     col = buffer->plainLine(line)->previousNonSpaceChar(col);
-    if(col != -1)
-      return true; // Previous non-space char found
-    col = 0;
-  }
+    if(col != -1) return true;
+    if(line == 0) return false;
+    --line;
+    col = buffer->plainLine(line)->length();
+}
   // No non-space char found
   line = -1;
   col = -1;

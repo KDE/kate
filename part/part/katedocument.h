@@ -587,7 +587,24 @@ class KateDocument : public Kate::Document,
     bool removeStringFromBegining(int line, QString &str);
     bool removeStringFromEnd(int line, QString &str);
 
+    /**
+      Find the position (line and col) of the next char
+      that is not a space. If found line and col point to the found character.
+      Otherwise they have both the value -1.
+      @param line Line of the character which is examined first.
+      @param col Column of the character which is examined first.
+      @returns True if the specified or a following character is not a space
+               Otherwise false.
+    */
     bool nextNonSpaceCharPos(int &line, int &col);
+    
+    /**
+      Find the position (line and col) of the previous char
+      that is not a space. If found line and col point to the found character.
+      Otherwise they have both the value -1. 
+      @returns True if the specified or a preceding character is not a space.
+               Otherwise false.
+    */
     bool previousNonSpaceCharPos(int &line, int &col);
 
     void addStartLineCommentToSingleLine(int line);
@@ -836,3 +853,4 @@ class KateDocument : public Kate::Document,
 #endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
+

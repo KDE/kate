@@ -80,12 +80,20 @@ class TextLine : public KShared
     int lastChar() const;
 
     /**
-      Returns the position of the first non-space char after a given position
+      Find the position of the next char
+      that is not a space.
+      @param pos Column of the character which is examined first.
+      @returns True if the specified or a following character is not a space
+               Otherwise false.
     */
     int nextNonSpaceChar(uint pos) const;
 
     /**
-      Returns the position of the last non-space char before a given position
+      Find the position of the previous char
+      that is not a space.
+      @param pos Column of the character which is examined first.
+      @returns True if the specified or a preceding character is not a space
+               Otherwise false.
     */
     int previousNonSpaceChar(uint pos) const;
 

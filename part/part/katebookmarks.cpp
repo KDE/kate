@@ -106,14 +106,6 @@ bool KateBookmarks::eventFilter( QObject *o, QEvent *e )
 {
   if ( o == m_view && e->type() == QEvent::Show )
     connectMenuAndDisConnectAgain();
-  else
-  if ( o == m_view && e->type() == QEvent::Hide )
-  {
-     disconnect( m_bookmarksMenu, SIGNAL(aboutToShow()),
-                         this, SLOT(bookmarkMenuAboutToShow()));
-     disconnect( m_bookmarksMenu, SIGNAL(aboutToHide()),
-                        this, SLOT(bookmarkMenuAboutToHide()) );
-  }
   return false;
 }
 
@@ -134,12 +126,16 @@ void KateBookmarks::connectMenuAndDisConnectAgain()
             if (m_bookmarksMenu)
             {
                 // connect bookmarks menu aboutToshow
+                disconnect( m_bookmarksMenu, SIGNAL(aboutToShow()),
+                        0, 0);
                 connect( m_bookmarksMenu, SIGNAL(aboutToShow()),
                         this, SLOT(bookmarkMenuAboutToShow()));
 
                 // anders: I ensure the next/prev actions are available
                 // and reset their texts (for edit shortcuts dialog, call me picky!).
                 // TODO - come up with a better solution, please anyone?
+                disconnect( m_bookmarksMenu, SIGNAL(aboutToHide()),
+                        0, 0);
                 connect( m_bookmarksMenu, SIGNAL(aboutToHide()),
                         this, SLOT(bookmarkMenuAboutToHide()) );
 

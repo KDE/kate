@@ -95,26 +95,50 @@ class CodeCompletionInterface
 	//
 	public:
 
+
 	/**
 	 * This signal is emitted when the completion list disappears and no completion has
 	 * been done. This is the case e.g. when the user presses Escape.
+	 *
+	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
+	 * when the implementation doesn't support it
+	 * 
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 * function, if you support it, declare it as a signal
 	 */
     virtual void completionAborted()=0;
+
 	/**
 	 * This signal is emitted when the completion list disappears and a completion has
 	 * been inserted into text. This is the case e.g. when the user presses Return
 	 * on a selected item in the completion list.
+	 *
+	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
+	 * when the implementation doesn't support it
+	 * 
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 * function, if you support it, declare it as a signal
 	 */
     virtual void completionDone()=0;
+
 	/**
 	 * This signal is the same as @ref completionDone(), but additionally it carries
 	 * the information which completion item was used.
+	 *
+	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
+	 * when the implementation doesn't support it
 	 */
     virtual void completionDone(CompletionEntry*)=0;
 
 	/**
 	 * This signal is emitted when the argument hint disappears.
 	 * This is the case e.g. when the user moves the cursor somewhere else.
+	 *
+	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
+	 * when the implementation doesn't support it
+	 * 
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 * function, if you support it, declare it as a signal
 	 */
     virtual void argHintHidden()=0;
 
@@ -124,6 +148,12 @@ class CodeCompletionInterface
 	 * entry will not be visible in the completion list (because that has
 	 * just disappeared) but it will be used when the compltion is
 	 * inserted into the text.
+	 *
+	 * IMPORTANT: Please check if a connect to this signal worked, and implement some fallback
+	 * when the implementation doesn't support it
+	 * 
+	 * IMPORTANT FOR IMPLEMENTERS: When you don't support this signal, please just override the inherited 
+	 * function, if you support it, declare it as a signal
 	 */
     virtual void filterInsertString(CompletionEntry*,QString*)=0;
 

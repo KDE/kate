@@ -160,6 +160,7 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void updateLine (unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);
     void toggleRegionVisibility (unsigned int);
     void collapseToplevelNodes();
+    void expandToplevelNodes(int numLines);
     int collapseOne(int realLine);
     void expandOne(int realLine, int numLines);
     /**

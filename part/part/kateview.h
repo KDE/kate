@@ -295,6 +295,7 @@ class KateView : public Kate::View,
     void slotStatusMsg();
     void slotSelectionTypeChanged();
     void slotSaveCanceled( const QString& error );
+    void slotExpandToplevel();
     void slotCollapseLocal();
     void slotExpandLocal();
 

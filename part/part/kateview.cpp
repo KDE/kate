@@ -219,7 +219,7 @@ void KateView::setupActions()
 		"The characters for single/multiple line comments are defined within the language's highlighting."));
     a = m_toggleWriteLock = new KToggleAction( 
                 i18n("Write &Lock"), 0, 0, 
-                this, SLOT( toggleWriteLock() ), 
+                this, SLOT( toggleWriteLock() ),
                 ac, "tools_toggle_write_lock" );
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
   }
@@ -487,8 +487,10 @@ void KateView::setupEditActions()
 void KateView::setupCodeFolding()
 {
   KActionCollection *ac=this->actionCollection(); 
-  new KAction( i18n("Collapse Toplevel"), CTRL+ALT+Key_C,
+  new KAction( i18n("Collapse Toplevel"), CTRL+SHIFT+Key_Minus,
        m_doc->foldingTree(),SLOT(collapseToplevelNodes()),ac,"folding_toplevel");
+  new KAction( i18n("Expand Toplevel"), CTRL+SHIFT+Key_Plus,
+       this,SLOT(slotExpandToplevel()),ac,"folding_expandtoplevel");
   new KAction( i18n("Collapse One Local Level"), CTRL+Key_Minus,
        this,SLOT(slotCollapseLocal()),ac,"folding_collapselocal");
   new KAction( i18n("Expand One Local Level"), CTRL+Key_Plus,
@@ -497,6 +499,11 @@ void KateView::setupCodeFolding()
   KAccel* debugAccels = new KAccel(this,this);
   debugAccels->insert("KATE_DUMP_REGION_TREE",i18n("Show the code folding region tree"),"","Ctrl+Shift+Alt+D",m_doc,SLOT(dumpRegionTree()));
   debugAccels->setEnabled(true);
+}
+
+void KateView::slotExpandToplevel()
+{
+  m_doc->foldingTree()->expandToplevelNodes(m_doc->numLines());
 }
 
 void KateView::slotCollapseLocal()

@@ -73,9 +73,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.sXPos = 0;
   bm.eXPos = -1;
 
-  // create a one line lineRanges array
-  updateLineRanges ();
-
   QWidget::setCursor(ibeamCursor);
   KCursor::setAutoHideCursor( this, true, true );
 
@@ -522,9 +519,14 @@ void KateViewInternal::updateLineRanges()
   endLine = QMIN( myDoc->visibleLines() - 1, startLine + lines - 1 );
   endLineReal = myDoc->getRealLine( endLine );
 
-  if( lines * fontHeight < height() )
+  if( (lines * fontHeight) < height() )
     lines++;
 
+  kdDebug() << "KateViewInternal::updateLineRanges():" << endl;
+  kdDebug() << "Virtual: " << startLine << ", " << endLine << endl;
+  kdDebug() << "Real:    " << startLineReal << ", " << endLineReal << endl;
+  kdDebug() << lines << " lines total" << endl;
+  
   int oldLines = lineRanges.size();
   lineRanges.resize( lines );
 
@@ -601,7 +603,9 @@ void KateViewInternal::center() {
 
 uint KateViewInternal::linesDisplayed() const
 {
-  return height() / myDoc->viewFont.fontHeight;
+  int h = height();
+  int fh = myDoc->viewFont.fontHeight;
+  return (h % fh) == 0 ? h / fh : h / fh + 1;
 }
 
 void KateViewInternal::exposeCursor()
@@ -695,10 +699,8 @@ void KateViewInternal::updateView(int flags)
   //
   // update the lineRanges (IMPORTANT)
   //
-  if( flags & KateViewInternal::ufFoldingChanged ) {
-    needLineRangesUpdate = true;
-    updateLineRanges();
-  } else if( needLineRangesUpdate && !(flags && KateViewInternal::ufDocGeometry) ) {
+  if( flags & KateViewInternal::ufFoldingChanged ||
+      (needLineRangesUpdate && !(flags & KateViewInternal::ufDocGeometry)) ) {
     updateLineRanges();
   }
 
@@ -1126,6 +1128,7 @@ void KateViewInternal::resizeEvent( QResizeEvent* )
 {
   drawBuffer->resize( width(), myDoc->viewFont.fontHeight );
   leftBorder->resize( leftBorder->width(), height() );
+  updateLineRanges();
 }
 
 void KateViewInternal::timerEvent( QTimerEvent* e )

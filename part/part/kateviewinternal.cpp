@@ -900,7 +900,7 @@ QPoint KateViewInternal::cursorCoordinates()
 
 void KateViewInternal::updateMicroFocusHint()
 {
-    int line = displayViewLine( cursor, true );
+    int line = displayViewLine(displayCursor, true);
     if (line == -1)
         return;
 
@@ -911,7 +911,7 @@ void KateViewInternal::updateMicroFocusHint()
     // which supports Asian input methods. Asian input methods need
     // start point of IM selection text to place candidate window as
     // adjacent to the selection text.
-    uint preeditStrLen = renderer->textWidth(textLine(line), cursor.col()) - renderer->textWidth(textLine(line), m_imPreeditSelStart);
+    uint preeditStrLen = renderer->textWidth(textLine(m_imPreeditStartLine), cursor.col()) - renderer->textWidth(textLine(m_imPreeditStartLine), m_imPreeditSelStart);
     uint x = cXPos - m_startX - lineRanges[line].startX + lineRanges[line].xOffset() - preeditStrLen;
     uint y = line * renderer->fontHeight();
 

@@ -114,7 +114,8 @@ class KateViewInternal : public QScrollView
     void contentsMouseDoubleClickEvent( QMouseEvent* );
     void contentsMouseReleaseEvent(     QMouseEvent* );
     void contentsMouseMoveEvent(                QMouseEvent* );
-    void viewportResizeEvent( QResizeEvent* );
+    void viewportResizeEvent( QResizeEvent* );    
+    void resizeEvent( QResizeEvent* );
     void timerEvent( QTimerEvent* );
     void contentsDragEnterEvent( QDragEnterEvent* );
     void contentsDropEvent( QDropEvent* );   

@@ -108,7 +108,6 @@ void KateViewInternal::updateIconBorder()
 
   setMargins (leftBorder->width(), 0,0,0);
   leftBorder->resize(leftBorder->width(),visibleHeight());    
-  updateView (0);
   leftBorder->update();
 }
 
@@ -792,9 +791,13 @@ void KateViewInternal::drawContents( QPainter *paint, int cx, int cy, int cw, in
 }
 
 void KateViewInternal::viewportResizeEvent( QResizeEvent* )
-{
-  updateView ();          
+{ 
   updateIconBorder ();
+}
+
+void KateViewInternal::resizeEvent ( QResizeEvent* )        
+{
+   updateView ();        
 }
 
 void KateViewInternal::timerEvent( QTimerEvent* e )

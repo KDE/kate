@@ -17,51 +17,32 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "document.h"
-#include "view.h"
-
-#include "document.moc"
-#include "view.moc"
-
-#include "editinterface.h"
-#include "selectioninterface.h"
-#include "cursorinterface.h"
-#include "undointerface.h"
-#include "clipboardinterface.h"
-#include "popupmenuinterface.h"
-#include "viewcursorinterface.h"
-
-using namespace KTextEditor;
+#ifndef __ktexteditor_cursorinterface_h__
+#define __ktexteditor_cursorinterface_h__
 
 namespace KTextEditor
 {
-	class DocumentPrivate
-	{
-	public:
-		DocumentPrivate()
-		{
-		}
 
-		~DocumentPrivate()
-		{
-		}
+/*
+*  This is an interface for the KTextEditor::View class !!!
+*/
+class ViewCursorInterface
+{
+  //
+	// slots !!!
+	//
+  public:
+    virtual void cursorPosition (uint *line, uint *col) = 0;
 
-	};
+    virtual bool setCursorPosition (uint line, uint col) = 0;
+
+	//
+	// signals !!!
+	//
+  public:
+	  virtual void cursorPositionChanged () = 0;
 };
 
-View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
-{
-}
+};
 
-View::~View()
-{
-}
-
-Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
-{
-
-}
-
-Document::~Document()
-{
-}
+#endif

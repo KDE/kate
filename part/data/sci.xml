@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="scilab" version="1.01" kateversion="2.0/2.1" section="Sources" extensions="*.sci;*.sce" mimetype="text/x-sci">
+<language name="scilab" version="1.02" kateversion="2.3" section="Sources" extensions="*.sci;*.sce" mimetype="text/x-sci">
   <highlighting>
     <list name="Structure-keywords">
       <item> do </item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="ferite" version="1.02" kateversion="2.1" section="Scripts" extensions="*.fe;*.feh" mimetype="text/x-ferite-src">
+<language name="ferite" version="1.03" kateversion="2.3" section="Scripts" extensions="*.fe;*.feh" mimetype="text/x-ferite-src">
   <highlighting>
     <list name="keywords">
       <item> break </item>

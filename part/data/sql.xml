@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Oracle9i SQL and PL/SQL syntax - ANSI SQL superset -->
-<language name="SQL" version="1.05" kateversion="2.1" section="Scripts"
+<language name="SQL" version="1.06" kateversion="2.3" section="Scripts"
           extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0"
           author="Yury Lebedev (yurylebedev@mail.ru)" license="">
   <highlighting>

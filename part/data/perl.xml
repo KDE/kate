@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <!--
    This file is part of the KDE project
-   Copyright (C) 2001, 2002, 2003 Anders Lund <anders@alweb.dk>
+   Copyright (C) 2001, 2002, 2003, 2004 Anders Lund <anders@alweb.dk>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -32,7 +32,7 @@
 
    HERE document delimiters - requires support for saving data in contexts.
 -->
-<language name="Perl" version="1.10" kateversion="2.2" section="Scripts"
+<language name="Perl" version="1.11" kateversion="2.3" section="Scripts"
           extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl"
           author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>

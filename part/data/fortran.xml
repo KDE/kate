@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.04" kateversion="2.1" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP" mimetype="text/x-fortran-src">
+<language name="Fortran" version="1.05" kateversion="2.3" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP" mimetype="text/x-fortran-src">
   <highlighting>
     <list name="keywords">
       <item> common </item>

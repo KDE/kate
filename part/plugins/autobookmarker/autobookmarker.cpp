@@ -316,7 +316,7 @@ AutoBookmarkerEntEditor::AutoBookmarkerEntEditor( QWidget *parent, AutoBookmarkE
   lo->addWidget( l, 3, 0 );
   lo->addMultiCellWidget( leFileMask, 3, 3, 1, 2 );
   QWhatsThis::add( leFileMask, i18n(
-      "<p>A list of filename masks, separated by semicolons. This can be used "
+      "<p>A list of file name masks, separated by semicolons. This can be used "
       "to limit the usage of this entity to files with matching names.</p>"
       "<p>Use the wizard button to the right of the mimetype entry below to "
       "easily fill out both lists.</p>" ) );
@@ -388,7 +388,7 @@ AutoBookmarkerConfigPage::AutoBookmarkerConfigPage( QWidget *parent, const char 
       "<p>This list shows your configured autobookmark entities. When a document "
       "is opened, each entity is used in the following way: "
       "<ol>"
-      "<li>The entity is dismissed, if a mime and/or filename mask is defined, "
+      "<li>The entity is dismissed, if a mime and/or file name mask is defined, "
       "and neither matches the document.</li>"
       "<li>Otherwise each line of the document is tried against the pattern, "
       "and a bookmark is set on matching lines.</li></ul>"

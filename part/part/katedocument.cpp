@@ -3642,17 +3642,14 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   uint len = 0;
   const QChar *s;
   const uchar *a;
+	 
+	 // selection startcol/endcol calc
+  bool hasSel = false;
+  uint startSel = 0;
+  uint endSel = 0;
 
   // was the selection background allready completly painted ?
-  bool selectionPainted = !showSelections;
-
-  if (!selectionPainted && lineSelected (line))
-  {
-    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[1]);
-    selectionPainted = true;
-  }
-  else
-    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
+  bool selectionPainted = false;
 
   textLine = getTextLine(line);
 
@@ -3664,6 +3661,17 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
   len = textLine->length();
   uint oldLen = len;
+
+  if (showSelections && lineSelected (line))
+  {
+    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[1]);
+    selectionPainted = true;
+    hasSel = true;
+    startSel = 0;
+    endSel = len + 1;
+  }
+  else
+    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
 
   if (startcol > len)
     startcol = len;
@@ -3698,12 +3706,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
   Attribute *curAt = 0;
   Attribute *oldAt = 0;
 
-  // selection startcol/endcol calc
-  bool hasSel = false;
-  uint startSel = 0;
-  uint endSel = 0;
+	QColor *curColor = 0;
+	QColor *oldColor = 0;
 
-  if (!selectionPainted)
+  if (showSelections && !selectionPainted)
   {
     if (hasSelection())
     {
@@ -3744,18 +3750,34 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	uint oldXPos = xPos;
 	const QChar *oldS = s;
 
+	bool isSel = false;
+
+	//kdDebug()<<"paint 1"<<endl;
+
 	if (len < 1)
 	{
+	  //  kdDebug()<<"paint 2"<<endl;
+
 	  if ((showCursor > -1) && (showCursor == curCol))
 	  {
 	    paint.fillRect(xPos, oldY, 2, fs->fontHeight, at[0].col);
 	  }
+	  //  kdDebug()<<"paint 3"<<endl;
+
 	}
   else
+    {
   for (uint tmp = len; (tmp > 0); tmp--)
   {
+    // kdDebug()<<"paint 4"<<endl;
+
     if ((*s) == QChar('\t'))
+    {
       width = fs->m_tabWidth;
+
+      if (curAt == 0)
+        curAt = &at[0];
+    }
     else
     {
       if ((*a) >= atLen)
@@ -3799,19 +3821,31 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
             paint.setFont(fs->myFont);
 	}
       }
-
-      if (curAt != oldAt)
-        paint.setPen(curAt->col);
     }
 
     xPosAfter += width;
 
+    //  kdDebug()<<"paint 5"<<endl;
+
     if (xPosAfter >= xStart)
     {
-      if (!selectionPainted && hasSel && (curCol >= startSel) && (curCol < endSel))
-        paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
+		  curColor = &(curAt->col);
+			isSel = false;
 
-      if (((tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
+      if (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel))
+			{
+			  if (!selectionPainted)
+          paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
+
+				curColor = &(curAt->selCol);
+				isSel = true;
+			}
+
+			if (curColor != oldColor)
+        paint.setPen(*curColor);
+
+      // make sure we redraw the right character groups on attrib/selection changes
+      if (((tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) || isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))  || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
       {
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(oldXPos-xStart, y, str.string());
@@ -3840,6 +3874,8 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 			}
     }
 
+    //   kdDebug()<<"paint 6"<<endl;
+
     // increase xPos
     xPos = xPosAfter;
 
@@ -3849,17 +3885,19 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 
     // to only switch font/color if needed
     oldAt = curAt;
+		oldColor = curColor;
 
     // col move
     curCol++;
   }
-	
-	if ((len > 0) && (showCursor > -1) && (showCursor == curCol))
+  // kdDebug()<<"paint 7"<<endl;
+	if ((showCursor > -1) && (showCursor == curCol))
 	{
 	  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
 	}
-
-  if (!selectionPainted && lineEndSelected (line))
+}
+	//kdDebug()<<"paint 8"<<endl;
+  if (showSelections && !selectionPainted && lineEndSelected (line))
   {
     paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;

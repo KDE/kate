@@ -811,10 +811,9 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
 {
   setEncoding( KGlobal::charsets()->encodingForName( descriptiveName ) );
 
-  if( doc()->isReadWrite() ) {
-      m_doc->reloadFile();
-      m_viewInternal->tagAll();
-  }
+  m_doc->reloadFile();
+  m_viewInternal->tagAll();
+  m_viewInternal->update(true);
 }
 
 void KateView::slotEditCommand ()

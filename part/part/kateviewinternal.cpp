@@ -2407,15 +2407,24 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   if ((key == SHIFT + Qt::Key_Return) || (key == SHIFT + Qt::Key_Enter))
   {
     uint ln = cursor.line();
+    int col = cursor.col();
     KateTextLine::Ptr line = m_doc->kateTextLine( ln );
     int pos = line->firstChar();
+    if (pos > cursor.col()) pos = cursor.col();
     if (pos != -1) {
-      while ((int)line->length() > pos && !line->getChar(pos).isLetterOrNumber()) ++pos;
+      while ((int)line->length() > pos &&
+             !line->getChar(pos).isLetterOrNumber() &&
+             pos < cursor.col()) ++pos;
     } else {
       pos = line->length(); // stay indented
     }
-    m_doc->insertText( cursor.line(), line->length(), "\n" +  line->string(0, pos) );
+    m_doc->editStart();
+    m_doc->insertText( cursor.line(), line->length(), "\n" +  line->string(0, pos)
+      + line->string().right( line->length() - cursor.col() ) );
     cursor.setPos(ln + 1, pos);
+    if (col < line->length())
+      m_doc->editRemoveText(ln, col, line->length() - col);
+    m_doc->editEnd();
     updateCursor(cursor, true);
     updateView();
     e->accept();

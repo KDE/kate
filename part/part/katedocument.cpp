@@ -1246,7 +1246,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
 
   l->removeText (col, len);
-  removeTrailingSpace( line ); // ### nessecary?
+  removeTrailingSpace( line );
 
   m_buffer->changeLine(line);
 

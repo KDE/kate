@@ -190,9 +190,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   // set cursor
   setCursor( KCursor::ibeamCursor() );
 
-  // autohide
-  KCursor::setAutoHideCursor( this, true, true );
-
   dragInfo.state = diNone;
 
   // Drag & scroll
@@ -2034,9 +2031,6 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
-  if (obj == this)
-    KCursor::autoHideEventFilter( obj, e );
-
   if (obj == m_lineScroll)
   {
     // the second condition is to make sure a scroll on the vertical bar doesn't cause a horizontal scroll ;)

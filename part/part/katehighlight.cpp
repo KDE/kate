@@ -1960,14 +1960,13 @@ int KateHighlighting::hlKeyForAttrib( int attrib ) const
     if ( attrib >= k )
       break;
   }
-  kdDebug()<<"=== hlKeyForAttrib( "<<attrib<<" ): returning "<<k<<endl;
   return k;
 }
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
   int k = hlKeyForAttrib( attrib );
-  static const QString sq("\"'");
+  static const QString sq(" \"'");
   return m_additionalData[k][3].find(c) < 0 && sq.find(c) < 0;
 }
 

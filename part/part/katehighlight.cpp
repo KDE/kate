@@ -871,7 +871,7 @@ void Highlight::doHighlight(QMemArray<signed char> oCtx, TextLine *textLine,bool
 
       for (uint z4=foldingList.size()-1; z4 >= 1; z4--)
       {
-        if ((z4 + 1) < foldingList.size()) foldingList[z4+1] = foldingList[z4];
+        foldingList[z4] = foldingList[z4-1];
       }
 
 			foldingList[0] = item->region;

@@ -787,7 +787,6 @@ void KateViewInternal::updateView(int flags)
 		} while (reUpdate);
 	}
 
-   if (updateState > 0) paintTextLines(oldXPos, oldYPos);
    if (updateState==3)
    {
 	if ((!needLineRangesUpdate) || 
@@ -835,6 +834,11 @@ void KateViewInternal::updateView(int flags)
   {
 	if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
   }
+
+   if (updateState > 0) paintTextLines(oldXPos, oldYPos);
+
+//   updateLineRanges(height());
+//   repaint();
 
 //	update();
 #if 0

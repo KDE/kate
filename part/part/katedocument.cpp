@@ -3792,7 +3792,7 @@ void KateDocument::tagAll()
   for (uint z = 0; z < m_views.count(); z++)
   {
     m_views.at(z)->m_viewInternal->tagAll();
-    m_views.at(z)->m_viewInternal->update();
+    m_views.at(z)->m_viewInternal->updateView (true);
   }
 }
 

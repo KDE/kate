@@ -92,7 +92,7 @@ class KateConfigPage : public Kate::ConfigPage
   private slots:
     void somethingHasChanged ();
 
-  private:
+  protected:
     bool m_changed;
 };
 

@@ -4591,5 +4591,9 @@ void KateDocument::updateConfig ()
 {
   emit undoChanged ();
   tagAll();
-  updateViews();
+
+  for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
+  {
+    view->updateDocumentConfig ();
+  }
 }

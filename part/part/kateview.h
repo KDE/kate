@@ -328,7 +328,9 @@ class KateView : public Kate::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
+
     KSelectAction*         m_setEndOfLine;
+
     KSelectAction*         m_setEncoding;
     Kate::ActionMenu*      m_setHighlight;
     KToggleAction*         m_toggleWriteLock;
@@ -367,11 +369,14 @@ class KateView : public Kate::View,
 
     void updateConfig ();
 
+    void updateDocumentConfig();
+
     void updateRendererConfig();
 
   private:
     KateViewConfig *m_config;
     bool m_startingUp;
+    bool m_updatingDocumentConfig;
 };
 
 #endif

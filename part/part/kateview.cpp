@@ -86,6 +86,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_hasWrap( false )
     , m_userWantsFoldingMarkersOff( false )
     , m_startingUp (true)
+    , m_updatingDocumentConfig (false)
 {
   KateFactory::registerView( this );
   m_config = new KateViewConfig (this);
@@ -340,13 +341,13 @@ void KateView::setupActions()
 
   a=m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
-
-  connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
   QStringList list;
   list.append("&UNIX");
   list.append("&Windows/DOS");
   list.append("&Macintosh");
   m_setEndOfLine->setItems(list);
+  m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
+  connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
 
   m_setEncoding = new KSelectAction(i18n("Set &Encoding"), 0, ac, "set_encoding");
   connect(m_setEncoding, SIGNAL(activated(const QString&)), this, SLOT(slotSetEncoding(const QString&)));
@@ -867,6 +868,9 @@ void KateView::setEol(int eol)
   if (!doc()->isReadWrite())
     return;
 
+  if (m_updatingDocumentConfig)
+    return;
+
   m_doc->config()->setEol (eol);
 }
 
@@ -1126,6 +1130,20 @@ void KateView::updateConfig ()
   m_bookmarks->setSorting( (KateBookmarks::Sorting) config()->bookmarkSort() );
 
   m_viewInternal->setAutoCenterLines(config()->autoCenterLines ());
+}
+
+void KateView::updateDocumentConfig()
+{
+  if (m_startingUp)
+    return;
+
+  m_updatingDocumentConfig = true;
+
+  m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
+
+  m_updatingDocumentConfig = false;
+
+  m_viewInternal->updateView (true);
 }
 
 void KateView::updateRendererConfig()

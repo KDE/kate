@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP" version="1.07" kateversion="2.1" section="Scripts" extensions="*.php;*.php3;*.wml;*.phtml" mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
+<language name="PHP" version="1.08" kateversion="2.1" section="Scripts" extensions="*.php;*.php3;*.wml;*.phtml" mimetype="text/x-php4-src;text/x-php3-src;text/vnd.wap.wml">
 	<highlighting>
 		<list name="control structures">
 			<item>as</item>
@@ -2657,6 +2657,7 @@
 				<DetectChar attribute="String" context="singlequotestring" char="&#39;" />
 				<RegExpr attribute="String" context="" String="" />
 				<RegExpr attribute="Variable" context="#stay" String="\$+[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*" />
+				<RegExpr attribute="String" context="#stay" String="[0123456789]*\.\.\.[0123456789]*" />
 				<HlCOct attribute="Octal" context="#stay" />
 				<HlCHex attribute="Hex" context="#stay" />
 				<Float attribute="Float" context="#stay" />

@@ -2234,7 +2234,7 @@ int HlManager::realWildcardFind(const QString &fileName)
     {
       // anders: we need to be sure to match the end of string, as eg a css file
       // would otherwise end up with the c hl
-      QRegExp re(*it, false, true);
+      QRegExp re(*it, true, true);
       if ( ( re.search( fileName ) > -1 ) && ( re.matchedLength() == (int)fileName.length() ) )
         return hlList.at();
     }

@@ -34,8 +34,8 @@ Variables=kate: indent-mode python;
 Wildcards=*.py
 
 [XML]
-Mimetypes=application/mathml+xml;application/smil;application/vnd.mozilla.xul+xml;application/x-designer;application/x-kugar;application/x-uml;application/xhtml+xml;text/html;text/mrml;text/rdf;text/sgml;text/vnd.wap.wml;text/xml;image/svg+xml
+Mimetypes=application/mathml+xml;application/smil;application/vnd.mozilla.xul+xml;application/x-designer;application/x-kugar;application/x-uml;application/xhtml+xml;text/mrml;text/rdf;text/sgml;text/vnd.wap.wml;text/xml;image/svg+xml
 Priority=1
 Section=Markup
 Variables=kate: indent-mode xml;
-Wildcards=*.mml;*.MML;*.smil;*.smi;*.xul;*.XUL;*.ui;*.kud;*.xmi;*.XMI;*.xmi.tgz;*.xmi.tar.bz2;*.html;*.HTML;*.htm;*.HTM;*.xhtml;*.asp;*.mrml;*.MRML;*.rdf;*.RDF;*.sgml;*.SGML;*.wml;*.WML;*.xml;*.XML;*ui.rc;*.svg
+Wildcards=*.mml;*.MML;*.smil;*.smi;*.xul;*.XUL;*.ui;*.kud;*.xmi;*.XMI;*.xmi.tgz;*.xmi.tar.bz2;*.mrml;*.MRML;*.rdf;*.RDF;*.sgml;*.SGML;*.wml;*.WML;*.xml;*.XML;*ui.rc;*.svg

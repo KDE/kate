@@ -1,5 +1,4 @@
-/*
-   This file is part of Kate
+/* This file is part of the KDE libraries
    Copyright (c) 2000 Waldo Bastian <bastian@kde.org>
 
    This library is free software; you can redistribute it and/or

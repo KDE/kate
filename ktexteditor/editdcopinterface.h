@@ -71,14 +71,13 @@ namespace KTextEditor
 		virtual bool removeText ( uint startLine, uint startCol, uint endLine, uint endCol) ;
 
 		/**
-		* Insert line(s) at the given line number. If the line number is -1
-		* (the default) then the line is added to end of the document
+		* Insert line(s) at the given line number.
 		*/
 		virtual bool insertLine ( uint line, const QString &text );
 
 		/**
-		* Insert line(s) at the given line number. If the line number is -1
-		* (the default) then the line is added to end of the document
+		* Insert line(s) at the given line number.
+		* If only one line is in the current document, removeLine will fail (return false)
 		*/
 		virtual bool removeLine ( uint line );
 	private:

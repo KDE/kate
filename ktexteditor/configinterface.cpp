@@ -20,6 +20,8 @@
 
 #include "configinterface.h"
 #include "document.h"
+#include "view.h"
+#include "plugin.h"
 
 namespace KTextEditor
 {
@@ -61,4 +63,28 @@ ConfigInterface *KTextEditor::configInterface (Document *doc)
     return 0;
 
   return static_cast<ConfigInterface*>(doc->qt_cast("KTextEditor::ConfigInterface"));
+}      
+
+ConfigInterface *KTextEditor::configInterface (View *view)
+{                       
+  if (!view)
+    return 0;
+
+  return static_cast<ConfigInterface*>(view->qt_cast("KTextEditor::ConfigInterface"));
+}
+
+ConfigInterface *KTextEditor::configInterface (Plugin *plugin)
+{                       
+  if (!plugin)
+    return 0;
+
+  return static_cast<ConfigInterface*>(plugin->qt_cast("KTextEditor::ConfigInterface"));
+}
+
+ConfigInterface *KTextEditor::configInterface (ViewPlugin *plugin)
+{                       
+  if (!plugin)
+    return 0;
+
+  return static_cast<ConfigInterface*>(plugin->qt_cast("KTextEditor::ConfigInterface"));
 }

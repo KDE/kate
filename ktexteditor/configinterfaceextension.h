@@ -55,7 +55,7 @@ class ConfigPage : public QWidget
 };
 
 /*
-*  This is an interface for the KTextEditor::Document class !!!
+*  This is an interface for the KTextEditor::Document/View/Plugin/ViewPlugin classes !!!
 */
 class ConfigInterfaceExtension
 {
@@ -94,9 +94,10 @@ class ConfigInterfaceExtension
     unsigned int myConfigInterfaceExtensionNumber;
 };
 
-class Document;
-
-ConfigInterfaceExtension *configInterfaceExtension (Document *doc);
+ConfigInterfaceExtension *configInterfaceExtension (class Document *doc);
+ConfigInterfaceExtension *configInterfaceExtension (class View *view);
+ConfigInterfaceExtension *configInterfaceExtension (class Plugin *plugin);
+ConfigInterfaceExtension *configInterfaceExtension (class ViewPlugin *plugin);
 
 };
 

@@ -25,7 +25,7 @@ namespace KTextEditor
 {
 
 /*
-*  This is an interface for the KTextEditor::Document class !!!
+*  This is an interface for the KTextEditor::Document/ViewPlugin/ViewPlugin classes !!!
 */
 class ConfigInterface
 {
@@ -40,11 +40,7 @@ class ConfigInterface
   //
   // slots !!!
   //
-  public:
-    /**
-      Read/Write config of ALL current loaded documents 
-    */
-    
+  public:    
     /**
       Read/Write the config to the standard place where this editor
       part saves it config, say: read/save default values for that
@@ -61,7 +57,7 @@ class ConfigInterface
     virtual void writeConfig (KConfig *) = 0;
     
     /**
-      Read/Write session config of only this document 
+      Read/Write session config of only this document/view/plugin 
     */
     virtual void readSessionConfig (KConfig *) = 0;
     virtual void writeSessionConfig (KConfig *) = 0;
@@ -80,6 +76,9 @@ class ConfigInterface
 };
 
 ConfigInterface *configInterface (class Document *doc);
+ConfigInterface *configInterface (class View *view);
+ConfigInterface *configInterface (class Plugin *plugin);
+ConfigInterface *configInterface (class ViewPlugin *plugin);
 
 };
 

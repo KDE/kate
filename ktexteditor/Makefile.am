@@ -11,7 +11,7 @@ libktexteditor_la_SOURCES = ktexteditor.cpp \
     editdcopinterface.cpp editdcopinterface.skel clipboarddcopinterface.cpp \
     clipboarddcopinterface.skel selectiondcopinterface.cpp selectiondcopinterface.skel  \
     searchdcopinterface.cpp searchdcopinterface.skel markinterfaceextension.cpp \
-    configinterfaceextension.cpp viewconfiginterface.cpp encodinginterface.cpp \
+    configinterfaceextension.cpp encodinginterface.cpp \
     viewstatusmsginterface.cpp
     
 libktexteditor_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
@@ -24,7 +24,7 @@ ktexteditorinclude_HEADERS = document.h view.h editor.h plugin.h editinterface.h
                              blockselectioninterface.h codecompletioninterface.h \
                              configinterface.h markinterface.h printinterface.h wordwrapinterface.h \
                              dynwordwrapinterface.h markinterfaceextension.h configinterfaceextension.h \
-                             viewconfiginterface.h encodinginterface.h viewstatusmsginterface.h
+                             encodinginterface.h viewstatusmsginterface.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

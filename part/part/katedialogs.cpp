@@ -452,7 +452,7 @@ void HighlightDialogPage::hlDownload()
 void HighlightDialogPage::showMTDlg()
 {
 
-  QString text = QString( i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.") ).arg( hlCombo->currentText() );
+  QString text = i18n("Select the MimeTypes you want highlighted using the '%1' syntax highlight rules.\nPlease note that this will automatically edit the associated file extensions as well.").arg( hlCombo->currentText() );
   QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
   KMimeTypeChooserDlg *d = new KMimeTypeChooserDlg( this, i18n("Select Mime Types"), text, list );
   if ( d->exec() == KDialogBase::Accepted ) {

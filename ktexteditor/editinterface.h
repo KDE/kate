@@ -65,7 +65,7 @@ class EditInterface
     *  remove text at line "line", column "col"
     *  returns true if success
     */
-    virtual bool removeText ( int line = 0, int col = 0, len = -1; ) = 0;
+    virtual bool removeText ( int line = 0, int col = 0, int len = -1 ) = 0;
 
     /**
     * Insert line(s) at the given line number. If the line number is -1

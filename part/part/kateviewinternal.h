@@ -31,7 +31,6 @@
 
 class QScrollBar;
 
-class KateDocument;
 class KateView;
 class KateIconBorder;
 
@@ -51,6 +50,8 @@ class LineRange
     int startX;
     int endX;
     bool dirty;
+    int viewLine;
+    bool wrap;
 };
 
 class KateViewInternal : public QWidget
@@ -67,9 +68,11 @@ class KateViewInternal : public QWidget
     ~KateViewInternal ();
     
   public:
-    inline uint startLine () const { return m_startLine; }
+    inline const KateTextCursor& startPos() const { return m_startPos; }
+    inline uint startLine () const { return m_startPos.line; }
     inline uint startX () const { return m_startX; }
   
+    KateTextCursor endPos () const;
     uint endLine () const;
 
     inline LineRange yToLineRange ( uint y ) const { return lineRanges[y / m_doc->viewFont.fontHeight]; };
@@ -80,7 +83,7 @@ class KateViewInternal : public QWidget
   
   public slots:
     void updateView (bool changed = false);
-    void makeVisible (uint line, uint startCol, uint endCol);
+    void makeVisible (KateTextCursor& c, uint endCol);
     
   public:
     void doReturn();
@@ -172,6 +175,7 @@ class KateViewInternal : public QWidget
     void moveChar( Bias bias, bool sel );
     void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
+    void scrollPos(KateTextCursor& c);
     void scrollLines( int lines, bool sel );
     
     uint linesDisplayed() const;
@@ -194,7 +198,7 @@ class KateViewInternal : public QWidget
     void doDrag();
 
     KateView *m_view;
-    KateDocument *m_doc;
+    KateDocument* m_doc;
     class KateIconBorder *leftBorder;
     
     int mouseX;
@@ -238,8 +242,10 @@ class KateViewInternal : public QWidget
     //
     QScrollBar *m_lineScroll;
     QWidget *m_lineScrollWidget;
-    int m_startLine;
-    int m_oldStartLine;
+    
+    // These are now cursors to account for word-wrap.
+    KateTextCursor m_startPos;
+    KateTextCursor m_oldStartPos;
     
     //
     // column scrollbar + x position
@@ -248,32 +254,46 @@ class KateViewInternal : public QWidget
     int m_startX;
     int m_oldStartX;
     
+    // cache the with of the text area
+    uint m_width;
+    
     //
     // lines Ranges, mostly useful to speedup + dyn. word wrap
     //
     QMemArray<LineRange> lineRanges;
     
-    // holds the current range
-    void findCurrentRange();
+    // sets the current range to the the line of the current cursor.
+    //void findCurrentRange();
     
-    // get the values for a specific range
-    // specify width for extra speed; specify lastLine to get the next line of a range.
-    // if you don't specify the visibleLine, it returns the range that the cursor is currently on.
-    // i.e. if you specify a visibleLine of -x, it finds the range of displayLine - (x+1)
-    LineRange getRange(int visibleLine = -1, int startCol = 0, int startX = 0, int width = -1);
+    // get the values for a specific range.
+    // specify lastLine to get the next line of a range.
+    LineRange range(int realLine, const LineRange* previous);
     
-    // find which virutal in the view contains cursor c
-    int viewLine(const KateTextCursor& c);
+    LineRange currentRange();
+    LineRange previousRange();
     
-    // find how many visible lines needed to gain the desired virtual offset
-    int linesForOffset(const KateTextCursor& c, int offset);
+    // Finds the lineRange currently occupied by the cursor.
+    LineRange range(const KateTextCursor& c);
     
-    // DO NOT access this, use getRange() instead...
-    int m_currentRange;
-
+    // Returns the lineRange of the specified realLine + viewLine.
+    LineRange range(uint realLine, int viewLine);
+    
+    // find the view line of cursor c (0 = same line, 1 = down one, etc.)
+    uint viewLine(const KateTextCursor& c);
+    
+    // find the number of view lines for a specific line
+    uint viewLineCount(uint realLine);
+    
+    // find the cursor offset by (offset) view lines from a cursor.
+    // when keepX is true, the column position will be calculated based on the x
+    // position of the specified cursor.
+    KateTextCursor viewLineOffset(const KateTextCursor& virtualCursor, int offset, bool keepX = false);
+    
     // These variable holds the most recent maximum real & visible column number
     bool m_preserveMaxX;
     int m_currentMaxX;
+    
+    bool m_updatingLineRanges;
 
   private slots:
 #ifndef QT_NO_DRAGANDDROP

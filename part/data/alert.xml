@@ -6,7 +6,7 @@
   copyright   : (C) 2004 by Dominik Haumann
   email       : dhdev at gmx dot de
 
-  last change : 2004-03-16
+  last change : 2004-03-24
 
  **********************************************************************
  * This library is free software; you can redistribute it and/or      *
@@ -28,10 +28,11 @@
  This file is included every file that highlights the "alerts" keywords.
  That's why extensions and mimetype are empty.
 -->
-<language version="1.03" kateversion="2.3" name="Alerts" section="hidden" extensions="" mimetype="" author="Dominik Haumann &lt;dhdev@gmx.de&gt;" license="LGPL">
+<language version="1.04" kateversion="2.3" name="Alerts" section="hidden" extensions="" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <list name="alerts">
       <item> FIXME </item>
+      <item> HACK </item>
       <item> NOTE </item>
       <item> NOTICE </item>
       <item> TODO </item>

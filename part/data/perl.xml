@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="Perl" version="1.05" kateversion="2.1" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl">
  <highlighting>
-     <list name="keywords"> 
+     <list name="keywords">
          <item> if </item>
          <item> unless </item>
          <item> else </item>
@@ -382,7 +382,7 @@
              <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[ABbEGLlNUuQdQZz]" />
              <RegExpr attribute="Special Variable" context="#stay" String="\\[\d]+" />
              <RegExpr attribute="Pattern" context="#stay" String="\\." />
-             
+
              <RegExpr attribute="Data Type" context="#stay" String="[\$@]#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
              <Detect2Chars attribute="Pattern Internal Operator" context="pat_ext" char="(" char1="?" />
              <DetectChar attribute="Pattern Internal Operator" context="pat_char_class" char="[" />
@@ -479,7 +479,6 @@
              <RegExpr attribute="Special Variable" context="#stay" String="\$[0-9]+" />
              <RegExpr attribute="Data Type" context="#stay" String="\$+#?[a-zA-Z_]+[a-zA-Z0-9_]*" />
              <RegExpr attribute="Data Type" context="#stay" String="[@%][\$a-zA-Z_]+[a-zA-Z0-9_]*" />
-             <!-- rodda: not too sure about the next three contexts... they were originally "context 0" -->
              <keyword attribute="Keyword" context="#stay" String="keywords" />
              <keyword attribute="Operator" context="#stay" String="operators" />
              <keyword attribute="Function" context="#stay" String="functions" />

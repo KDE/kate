@@ -81,7 +81,7 @@ ReplacePrompt::ReplacePrompt( QWidget *parent )
   setMainWidget(page);
 
   QBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
-  QLabel *label = new QLabel(i18n("Replace this occurence?"),page);
+  QLabel *label = new QLabel(i18n("Replace this occurrence?"),page);
   topLayout->addWidget(label );
 }
 
@@ -401,7 +401,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
   QWhatsThis::add(m_dynwrap,i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
   QWhatsThis::add( m_wwmarker, i18n(
         "<p>If this option is checked, a vertical line will be drawn at the word "
-        "wrap column as defined  in the <strong>Editing</streong> properties."
+        "wrap column as defined  in the <strong>Editing</strong> properties."
         "<p>Note that the word wrap marker is only drawn if you use a fixed "
         "pitch font." ));
 	QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));

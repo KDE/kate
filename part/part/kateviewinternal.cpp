@@ -657,6 +657,28 @@ void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
   newXPos = newYPos = -1;
 }
 
+void KateViewInternal::tagRealLines(int start, int end, int x1, int x2)
+{
+  if (x1 <= 0) x1 = 0;
+  if (x1 < xPos-2) x1 = xPos;
+  if (x2 > width() + xPos) x2 = width() + xPos;
+  if (x1 >= x2) return;
+  
+  for (uint z = 0; z < lineRanges.size(); z++)
+  {
+    if (lineRanges[z].line > end)
+      break;
+
+    if (lineRanges[z].line >= start)
+    {
+      if (x1 < lineRanges[z].start) lineRanges[z].start = x1;
+      if (x2 > lineRanges[z].end) lineRanges[z].end = x2;
+
+      updateState |= 1;
+    }
+  }
+}
+
 void KateViewInternal::tagLines(int start, int end, int x1, int x2) {
   KateLineRange *r;
   int z;

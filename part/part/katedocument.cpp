@@ -3432,7 +3432,7 @@ QString KateDocument::getWord(KateTextCursor &cursor) {
 void KateDocument::tagLines(int start, int end)
 {
   for (uint z = 0; z < myViews.count(); z++)
-    myViews.at(z)->myViewInternal->tagLines(start, end, 0, 0xffffff);
+    myViews.at(z)->myViewInternal->tagRealLines(start, end, 0, 0xffffff);
 }
 
 void KateDocument::tagAll()

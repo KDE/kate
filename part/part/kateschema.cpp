@@ -395,7 +395,7 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   // map from 0..RESERVED-1 - the same index as in markInterface
   for (int i = 0; i < (int)KTextEditor::MarkInterface::RESERVED; i++)
   {
-    // arg(i+1) to match the numbers in markinterface.h
+    // arg(i+1) to match the number conventions in markinterface.h
     m_markerColors[i] = config->readColorEntry(QString("Color MarkType%1").arg(i + 1), &mark[i]);
     QPixmap pix(16, 16);
     pix.fill(m_markerColors[i]);
@@ -431,20 +431,17 @@ void KateSchemaConfigColorTab::writeConfig (KConfig *config)
 
 void KateSchemaConfigColorTab::slotMarkerColorChanged( const QColor& color)
 {
-  kdDebug() << "slotMarkerColorChanged" << endl;
   int index = m_combobox->currentItem();
   m_markerColors[ index ] = color;
   QPixmap pix(16, 16);
   pix.fill(color);
   m_combobox->changeItem(pix, m_combobox->text(index), index);
 
-  // emit signal
   emit changed();
 }
 
 void KateSchemaConfigColorTab::slotComboBoxChanged(int index)
 {
-  kdDebug() << "slotComboBoxChanged" << endl;
   // temporarily disconnect the changed-signal because setColor emits changed as well
   m_markers->disconnect( SIGNAL( changed( const QColor& ) ) );
   m_markers->setColor( m_markerColors[index] );

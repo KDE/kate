@@ -869,10 +869,9 @@ KateRendererConfig::KateRendererConfig ()
    m_iconBarColorSet (true),
    m_renderer (0)
 {
-  for (int i = 0; i < 7; i++) {
-    m_lineMarkerColorSet[i] = false;
-  }
-  m_lineMarkerColor.resize(7);
+  int cnt = (int)KTextEditor::MarkInterface::RESERVED;
+  m_lineMarkerColor.resize(cnt);
+  m_lineMarkerColorSet.resize(cnt, false);
 
   s_global = this;
 
@@ -896,10 +895,9 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_iconBarColorSet (false),
    m_renderer (renderer)
 {
-  for (int i = 0; i < 7; i++) {
-    m_lineMarkerColorSet[i] = false;
-  }
-  m_lineMarkerColor.resize(7);
+  int cnt = (int)KTextEditor::MarkInterface::RESERVED;
+  m_lineMarkerColor.resize(cnt);
+  m_lineMarkerColorSet.resize(cnt, false);
 }
 
 KateRendererConfig::~KateRendererConfig ()
@@ -1105,8 +1103,7 @@ void KateRendererConfig::setHighlightedLineColor (const QColor &col)
 const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::MarkTypes type) const
 {
   int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
-  if (index > 6 || index < 0) // out of range?
-    return m_lineMarkerColor[0];
+  Q_ASSERT( index >= 0 && index < (int)KTextEditor::MarkInterface::RESERVED );
 
   if (m_lineMarkerColorSet[index] || isGlobal())
     return m_lineMarkerColor[index];
@@ -1117,6 +1114,7 @@ const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::Ma
 void KateRendererConfig::setLineMarkerColor (const QColor &col, KTextEditor::MarkInterface::MarkTypes type)
 {
   int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
+  Q_ASSERT( index >= 0 && index < (int)KTextEditor::MarkInterface::RESERVED );
   configStart ();
 
   m_lineMarkerColorSet[index] = true;

@@ -437,7 +437,7 @@ class KateRendererConfig : public KateConfig
     bool m_wordWrapMarkerColorSet : 1;
     bool m_tabMarkerColorSet : 1;
     bool m_iconBarColorSet : 1;
-    bool m_lineMarkerColorSet[7];
+    QValueVector<bool> m_lineMarkerColorSet;
 
   private:
     static KateRendererConfig *s_global;

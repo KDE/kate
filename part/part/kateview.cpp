@@ -33,7 +33,6 @@
 #include "katedialogs.h"
 #include "katefiledialog.h"
 #include "katetextline.h"
-#include "kateiconborder.h"
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
 #include "kateviewhighlightaction.h"
@@ -42,46 +41,25 @@
 #include "katebookmarks.h"
 #include "katebrowserextension.h"
 
-#include <kurldrag.h>
-#include <qfocusdata.h>
-#include <kdebug.h>
-#include <kapp.h>
-#include <kiconloader.h>
-#include <qscrollbar.h>
-#include <qiodevice.h>
-#include <qclipboard.h>
-#include <qpopupmenu.h>
-#include <kpopupmenu.h>
-#include <qkeycode.h>
-#include <qintdict.h>
-#include <klineeditdlg.h>
-#include <qdropsite.h>
-#include <qdragobject.h>
-#include <kconfig.h>
-#include <ksconfig.h>
 #include <qfont.h>
-#include <qpainter.h>
-#include <qpixmap.h>
 #include <qfileinfo.h>
 #include <qfile.h>
 #include <qevent.h>
-#include <qdir.h>
-#include <qvbox.h>
-#include <qpaintdevicemetrics.h>
-#include <qstyle.h>
 
+#include <kconfig.h>
+#include <klineeditdlg.h>
+#include <kurldrag.h>
+#include <kdebug.h>
+#include <kapplication.h>
 #include <kcursor.h>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kcharsets.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
-#include <kstringhandler.h>
 #include <kaction.h>
 #include <kstdaction.h>
 #include <kparts/event.h>
 #include <kxmlguifactory.h>
-#include <dcopclient.h>
 #include <kaccel.h>
 
 KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )

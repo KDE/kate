@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="CSS" version="1.94" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="CSS" version="1.95" kateversion="2.3" section="Markup" extensions="*.css" mimetype="text/css" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
   
   <highlighting>
     <list name="properties">
@@ -442,7 +442,7 @@
         <!--parse selectors-->
 	<DetectChar attribute="Selector Attr" context="SelAttr" char="[" />
 	<RegExpr attribute="Selector Id" context="#stay" String="#\w[\w_-]*" />
-	<RegExpr attribute="Selector Class" context="#stay" String="\.\w[\w_]*" />
+	<RegExpr attribute="Selector Class" context="#stay" String="\.\w[\w_-]*" />
 	<RegExpr attribute="Selector Pseudo" context="#stay" String=":lang\([\w_-]+\)" />
 	<DetectChar attribute="Selector Pseudo" context="SelPseudo" char=":" />
 	<IncludeRules context="FindStrings" />

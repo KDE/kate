@@ -555,7 +555,7 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
      m_defaultMarkType  = vec[result-100];
   else
   {
-    MarkInterface::MarkTypes markType = vec[result];
+    MarkInterface::MarkTypes markType = (MarkInterface::MarkTypes) vec[result];
     if( m_doc->mark( line ) & markType ) {
       m_doc->removeMark( line, markType );
     } else {

@@ -803,8 +803,6 @@ void KateViewInternal::updateView(int flags)
 
   int oldU = updateState;
 
-   if (updateState > 0)  paintTextLines(oldXPos, oldYPos);
-
    if (updateState==3)
    {
 	if ((!needLineRangesUpdate) ||
@@ -812,7 +810,9 @@ void KateViewInternal::updateView(int flags)
 	needLineRangesUpdate=true;
 	//updateLineRanges(height());update();}
     }
-	int tmpYPos;
+	
+  int tmpYPos;
+
 	if (exposeCursor)
 	{
 		exposeCursor=false;
@@ -845,23 +845,26 @@ void KateViewInternal::updateView(int flags)
 	if ((!needLineRangesUpdate) ||
 	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 	needLineRangesUpdate=true;
-	updateLineRanges(lineRangesUpdateHeight);
+	  updateLineRanges(lineRangesUpdateHeight);
 //	updateLineRanges (height());
     repaint ();
   }
   else
   {
-	if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
+	  if (needLineRangesUpdate) updateLineRanges(lineRangesUpdateHeight);
   }
 
   if (oldU > 0)
-    leftBorder->update ();
-    
+   {
+     paintTextLines(oldXPos, oldYPos);
+     kdDebug()<<"repaint lines"<<endl;
+   }
+
   //
   // updateView done, reset the update flag + repaint flags
   //
   updateState = 0;
-  
+
   // blank repaint attribs
   for (uint z = 0; z < lineRanges.size(); z++)
   {
@@ -1087,6 +1090,8 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
         myDoc->paintTextLine(paint, r->line, r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
 
         bitBlt(this, r->start - xPos, (line-startLine)*h, drawBuffer, 0, 0, r->end - r->start, h);
+        
+        leftBorder->paintLine(line,line);
       }
 
       r++;
@@ -1447,8 +1452,6 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
     int realLine;
     isVisible=myDoc->paintTextLine(paint, lineRanges[disppos].line, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
-
-//    kdDebug()<<QString("paintevent: line %1, realLine %2").arg(line).arg(realLine)<<endl;
 
     leftBorder->paintLine(line,line);
     disppos++;

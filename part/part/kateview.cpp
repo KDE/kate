@@ -79,7 +79,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
  
   setClipboardInterfaceDCOPSuffix (viewDCOPSuffix()); 
   setCodeCompletionInterfaceDCOPSuffix (viewDCOPSuffix());
-  
+  setDynWordWrapInterfaceDCOPSuffix (viewDCOPSuffix());
   
   setInstance( KateFactory::instance() );
   doc->addView( this );

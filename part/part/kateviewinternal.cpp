@@ -42,6 +42,7 @@
 #include <kdebug.h>
 #include <kapplication.h>
 #include <kglobalsettings.h>
+#include <kurldrag.h>
 
 #include <qstyle.h>
 #include <qdragobject.h>
@@ -2543,7 +2544,7 @@ void KateViewInternal::doDrag()
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
   event->accept( (QTextDrag::canDecode(event) && m_doc->isReadWrite()) ||
-                  QUriDrag::canDecode(event) );
+                  KURLDrag::canDecode(event) );
 }
 
 void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
@@ -2554,7 +2555,7 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 
 void KateViewInternal::dropEvent( QDropEvent* event )
 {
-  if ( QUriDrag::canDecode(event) ) {
+  if ( KURLDrag::canDecode(event) ) {
 
       emit dropEventPass(event);
 

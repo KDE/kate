@@ -48,6 +48,6 @@
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="1" additionalDeliminator=":"/>
+    <keywords casesensitive="1"/>
   </general>
 </language>

@@ -59,6 +59,7 @@ class KateBookmarks : public QObject
 
     void marksChanged ();
     void connectMenuAndDisConnectAgain();
+
   private:
     KateView*                    m_view;
     KAction*                     m_bookmarkToggle;
@@ -66,6 +67,8 @@ class KateBookmarks : public QObject
     KAction*                     m_goNext;
     KAction*                     m_goPrevious;
     Sorting                      m_sorting;
+
+    uint _tries;
 };
 
 #endif // _KateBookmarks_H_

@@ -443,7 +443,7 @@
         <DetectChar attribute="Property" context="RuleSet" char="{" beginRegion="ruleset" />
         <!--parse selectors-->
 	<DetectChar attribute="Selector Attr" context="SelAttr" char="[" />
-	<RegExpr attribute="Selector Id" context="#stay" String="#[A-Za-z0-9]\w*" />
+	<RegExpr attribute="Selector Id" context="#stay" String="#[A-Za-z0-9][\w\-]*" />
 	<RegExpr attribute="Selector Class" context="#stay" String="\.[A-Za-z0-9]\w*" />
 	<RegExpr attribute="Selector Pseudo" context="#stay" String=":lang\([\w_-]+\)" />
 	<DetectChar attribute="Selector Pseudo" context="SelPseudo" char=":" />

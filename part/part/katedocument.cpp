@@ -957,8 +957,10 @@ void KateDocument::editEnd ()
 
   buffer->setHlUpdate (true);
 
+  // update hl from the line before the edited area to the line below the edited
+  // area, the line before is (only) needed for indentation based folding languages
   if (editTagLineStart <= editTagLineEnd)
-    buffer->updateHighlighting (editTagLineStart, editTagLineEnd+1, true);
+    buffer->updateHighlighting ((editTagLineStart == 0) ? 0 : (editTagLineStart-1), editTagLineEnd+1, true);
 
   if (editWithUndo)
     undoEnd();

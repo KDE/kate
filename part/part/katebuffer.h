@@ -193,6 +193,8 @@ class KateBuffer : public QObject
     }
 
     void setTabWidth (uint w);
+    
+    inline uint tabWidth () const { return m_tabWidth; }
 
   signals:
     /**

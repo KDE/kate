@@ -309,7 +309,13 @@ uint KateViewInternal::endLine() const
 
 KateLineRange KateViewInternal::yToKateLineRange(uint y) const
 {
-  return lineRanges[y / m_view->renderer()->fontHeight()];
+  uint range = y / m_view->renderer()->fontHeight();
+
+  // lineRanges is always bigger than 0, after the initial updateView call
+  if (range >= lineRanges.size())
+    lineRanges[lineRanges.size()-1];
+
+  return lineRanges[range];
 }
 
 int KateViewInternal::lineToY(uint viewLine) const

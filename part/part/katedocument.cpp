@@ -1585,8 +1585,6 @@ bool KateDocument::editRemoveLine ( uint line )
   if ( line > lastLine() )
     return false;
 
-  kdDebug(13020)<<"editRemoveLine(): Number of lines: "<<numLines()<<endl;
-
   if ( numLines() == 1 )
     return editRemoveText (0, 0, m_buffer->line(0)->length());
 
@@ -3198,14 +3196,11 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   // temporary hack to get the cursor pos right !!!!!!!!!
   c = v->getCursor ();
 
-  kdDebug(13020)<<"KateDocument::newLine(): line: "<<c.line()<<endl;
-
   if (c.line() > (int)lastLine())
    c.setLine(lastLine());
 
-  if ( c.line() < 0 ) {
+  if ( c.line() < 0 )
     c.setLine( 0 );
-  }
 
   uint ln = c.line();
 

@@ -4441,7 +4441,7 @@ void KateDocument::isModOnHD(bool forceReload)
 {
   if (fileInfo && !fileInfo->fileName().isEmpty()) {
     fileInfo->refresh();
-    if (fileInfo->lastModified() > mTime) {
+    if (fileInfo->lastModified() != mTime) {
       if ( forceReload ||
            (KMessageBox::warningContinueCancel(0,
                (i18n("The file %1 has changed on disk.\nDo you want to reload the modified file?\n\nIf you choose Cancel and subsequently save the file, you will lose those modifications.")).arg(url().filename()),

@@ -118,7 +118,7 @@ class KateAutoIndent
     /**
      * Processes a section of text, indenting each line in between.
      */
-    virtual void processSection (KateDocCursor &/*begin*/, KateDocCursor &/*end*/) { }
+    virtual void processSection (const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
 
     /**
      * Set to true if an actual implementation of 'processLine' is present.
@@ -205,7 +205,7 @@ public:
     /**
      * Processes a section of text, indenting each line in between.
      */
-  virtual void processSection (KateDocCursor &/*begin*/, KateDocCursor &/*end*/) { }
+  virtual void processSection (const KateDocCursor &/*begin*/, const KateDocCursor &/*end*/) { }
 
     /**
      * Set to true if an actual implementation of 'processLine' is present.
@@ -290,7 +290,7 @@ class KateCSmartIndent : public KateNormalIndent
     virtual void processChar (QChar c);
 
     virtual void processLine (KateDocCursor &line);
-    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }
 
@@ -338,7 +338,7 @@ class KateXmlIndent : public KateNormalIndent
     virtual void processChar (QChar c);
     virtual void processLine (KateDocCursor &line);
     virtual bool canProcessLine() const { return true; }
-    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
 
   private:
     // sets the indentation of a single line based on previous line
@@ -364,7 +364,7 @@ class KateCSAndSIndent : public KateNormalIndent
     virtual void processChar (QChar c);
 
     virtual void processLine (KateDocCursor &line);
-    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }
 
@@ -436,7 +436,7 @@ class KateVarIndent :  public QObject, public KateNormalIndent
     virtual void processChar (QChar c);
 
     virtual void processLine (KateDocCursor &line);
-    virtual void processSection (KateDocCursor &begin, KateDocCursor &end);
+    virtual void processSection (const KateDocCursor &begin, const KateDocCursor &end);
 
     virtual bool canProcessLine() const { return true; }
 

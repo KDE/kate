@@ -1263,7 +1263,10 @@ const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::Ma
   index -= 1;
 
   if ( index < 0 || index >= KTextEditor::MarkInterface::reservedMarkersCount() )
-    return QColor();
+  {
+    static QColor dummy;
+    return dummy;
+  }
 
   if (m_lineMarkerColorSet[index] || isGlobal())
     return m_lineMarkerColor[index];

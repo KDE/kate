@@ -179,7 +179,6 @@ class KateViewInternal : public QWidget
     void doReturn();
     void doDelete();
     void doBackspace();
-    void doPaste();
     void doTranspose();
     void doDeleteWordLeft();
     void doDeleteWordRight();

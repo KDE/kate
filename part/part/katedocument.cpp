@@ -3344,7 +3344,7 @@ void KateDocument::align(KateView *view, uint line)
     }
     else
     {
-      m_indenter->processSection(view->selStart(), view->selEnd());
+      m_indenter->processSection (view->selStart(), view->selEnd());
       editEnd ();
     }
   }
@@ -3638,8 +3638,11 @@ void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
   editEnd ();
 
   // Set the new selection
-  view->selEnd().setCol(view->selEndCol() + ((el == view->selEndLine()) ? commentLineMark.length() : 0) );
-  view->setSelection(view->selStartLine(), 0, view->selEndLine(), view->selEndCol());
+
+  KateDocCursor end (view->selEnd());
+  end.setCol(view->selEndCol() + ((el == view->selEndLine()) ? commentLineMark.length() : 0) );
+
+  view->setSelection(view->selStartLine(), 0, end.line(), end.col());
 }
 
 bool KateDocument::nextNonSpaceCharPos(int &line, int &col)
@@ -3791,10 +3794,13 @@ bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attr
 
   editEnd();
 
-  if(removed) {
+  if (removed)
+  {
     // Set the new selection
-    view->selEnd().setCol(view->selEndCol() - ((el == view->selEndLine()) ? removeLength : 0) );
-    setSelection(view->selStartLine(), view->selStartCol(), view->selEndLine(), view->selEndCol());
+    KateDocCursor end (view->selEnd());
+    end.setCol(view->selEndCol() - ((el == view->selEndLine()) ? removeLength : 0) );
+
+    setSelection(view->selStartLine(), view->selStartCol(), end.line(), end.col());
   }
 
   return removed;

@@ -951,11 +951,6 @@ void KateViewInternal::doBackspace()
   }
 }
 
-void KateViewInternal::doPaste()
-{
-  m_doc->paste( m_view );
-}
-
 void KateViewInternal::doTranspose()
 {
   m_doc->transpose( cursor );
@@ -2810,7 +2805,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       if( m_doc->isReadWrite() )
       {
         QApplication::clipboard()->setSelectionMode( true );
-        doPaste();
+        m_view->paste ();
         QApplication::clipboard()->setSelectionMode( false );
       }
 

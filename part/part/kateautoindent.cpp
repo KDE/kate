@@ -487,7 +487,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
   }
 }
 
-void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
+void KateCSmartIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
 {
   kdDebug(13030)<<"PROCESS SECTION"<<endl;
   KateDocCursor cur = begin;
@@ -1161,9 +1161,11 @@ void KateXmlIndent::processLine (KateDocCursor &line)
   processLine (line.line());
 }
 
-void KateXmlIndent::processSection (KateDocCursor &cur, KateDocCursor &end)
+void KateXmlIndent::processSection (const KateDocCursor &start, const KateDocCursor &end)
 {
+  KateDocCursor cur (start);
   int endLine = end.line();
+
   do {
     processLine(cur.line());
     if(!cur.gotoNextLine()) break;
@@ -1349,7 +1351,7 @@ void KateCSAndSIndent::processLine (KateDocCursor &line)
     line.setCol( 0 );
 }
 
-void KateCSAndSIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
+void KateCSAndSIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
 {
   QTime t; t.start();
   for( KateDocCursor cur = begin; cur.line() <= end.line(); )
@@ -2102,7 +2104,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
   line.setCol( pos );
 }
 
-void KateVarIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
+void KateVarIndent::processSection (const KateDocCursor &begin, const KateDocCursor &end)
 {
   KateDocCursor cur = begin;
   while (cur.line() <= end.line())

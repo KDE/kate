@@ -82,7 +82,9 @@ class KateView : public Kate::View,
   //
   public slots:
     // TODO: Factor out of m_viewInternal
-    void paste()         { m_viewInternal->doPaste(); m_viewInternal->repaint(); }
+    void paste()         {  m_doc->paste( this ); m_viewInternal->repaint(); }
+    void cut();
+    void copy() const;
 
   //
   // KTextEditor::PopupMenuInterface
@@ -173,8 +175,24 @@ class KateView : public Kate::View,
     int selEndLine()   { return selectEnd.line(); };
     int selEndCol()    { return selectEnd.col(); };
 
-    KateSuperCursor &selStart () { return selectStart; }
-    KateSuperCursor &selEnd () { return selectEnd; }
+  signals:
+    void selectionChanged ();
+
+  //
+  // internal helper stuff, for katerenderer and so on
+  //
+  public:
+    /**
+     * accessors to the selection start
+     * @return selection start cursor (read-only)
+     */
+    inline const KateSuperCursor &selStart () const { return selectStart; }
+
+    /**
+     * accessors to the selection end
+     * @return selection end cursor (read-only)
+     */
+    inline const KateSuperCursor &selEnd () const { return selectEnd; }
 
     // some internal functions to get selection state of a line/col
     bool lineColSelected (int line, int col);
@@ -188,12 +206,6 @@ class KateView : public Kate::View,
     void selectWord(   const KateTextCursor& cursor );
     void selectLine(   const KateTextCursor& cursor );
     void selectLength( const KateTextCursor& cursor, int length );
-
-    void cut();
-    void copy() const;
-
-  signals:
-    void selectionChanged ();
 
   //
   // KTextEditor::BlockSelectionInterface stuff

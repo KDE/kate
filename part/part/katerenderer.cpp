@@ -635,7 +635,7 @@ uint KateRenderer::textWidth(const TextLine::Ptr &textLine, int cursorCol)
     if (z < len) {
       width = a->width(*fs, textLine->string(), z, m_tabWidth);
     } else {
-      Q_ASSERT(!(m_doc->configFlags() & KateDocument::cfWrapCursor));
+      Q_ASSERT(!m_doc->wrapCursor());
       width = a->width(*fs, spaceChar, m_tabWidth);
     }
 

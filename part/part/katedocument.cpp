@@ -3787,6 +3787,13 @@ void KateDocument::tagLines(int start, int end)
 
 void KateDocument::tagLines(KateTextCursor start, KateTextCursor end)
 {
+  // May need to switch start/end cols if in block selection mode
+  if (blockSelectionMode() && start.col() > end.col()) {
+    int sc = start.col();
+    start.setCol(end.col());
+    end.setCol(sc);
+  }
+  
   for (uint z = 0; z < m_views.count(); z++)
     m_views.at(z)->tagLines(start, end, true);
 }
@@ -3794,12 +3801,16 @@ void KateDocument::tagLines(KateTextCursor start, KateTextCursor end)
 void KateDocument::tagSelection(const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd)
 {
   if (hasSelection()) {
-    if ((oldSelectStart.line() == -1 || (blockSelectionMode() && (oldSelectStart.col() != selectStart.col() || oldSelectEnd.col() != selectEnd.col())))) {
+    if (oldSelectStart.line() == -1) {
       // We have to tag the whole lot if
       // 1) we have a selection, and:
       //  a) it's new; or
+      tagLines(selectStart, selectEnd);
+    
+    } else if (blockSelectionMode() && (oldSelectStart.col() != selectStart.col() || oldSelectEnd.col() != selectEnd.col())) {
       //  b) we're in block selection mode and the columns have changed
       tagLines(selectStart, selectEnd);
+      tagLines(oldSelectStart, oldSelectEnd);
 
     } else {
       if (oldSelectStart != selectStart) {

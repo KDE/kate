@@ -1497,7 +1497,7 @@ void KateView::setupActions()
     KStdAction::spelling(myDoc, SLOT(spellcheck()), ac);
     new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
                               ac, "tools_indent");
-    new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::Key_U, this, SLOT(unIndent()),
+    new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),
                                 ac, "tools_unindent");
     new KAction(i18n("&Clean Indentation"), 0, this, SLOT(cleanIndent()),
                                    ac, "tools_cleanIndent");

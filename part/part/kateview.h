@@ -78,10 +78,10 @@ class KateView : public Kate::View,
   // KTextEditor::ClipboardInterface
   //
   public slots:
-    void cut()           { m_doc->cut();    }
+    void cut()           { m_doc->cut(); m_viewInternal->repaint(); }
     void copy() const    { m_doc->copy();   }
     // TODO: Factor out of m_viewInternal
-    void paste()         { m_viewInternal->doPaste();  }
+    void paste()         { m_viewInternal->doPaste(); m_viewInternal->repaint(); }
 
   //
   // KTextEditor::PopupMenuInterface

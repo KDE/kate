@@ -151,7 +151,9 @@ void KateBookmarks::bookmarkMenuAboutToShow()
         m_bookmarkMenu->popupMenu()->insertSeparator();
   for( int i = 0; *it; ++it, ++i ) {
     if( (*it)->type & KTextEditor::MarkInterface::markType01 ) {
-      QString bText = KStringHandler::rsqueeze( m_view->getDoc()->textLine( (*it)->line ), 32 );
+      QString bText = KStringHandler::rEmSqueeze
+                      ( m_view->getDoc()->textLine( (*it)->line ), 
+                        m_bookmarkMenu->popupMenu()->fontMetrics(), 32 );
       bText.replace(re, "&&"); // kill undesired accellerators!
       if ( m_sorting == Position )
       {

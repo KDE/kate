@@ -3054,7 +3054,7 @@ void KateDocument::addStartLineCommentToSelection()
 
   // Set the new selection
   selectEnd.col += ( (el == selectEnd.line) ? commentLineMark.length() : 0 );
-  setSelection(selectStart.line, selectStart.col,
+  setSelection(selectStart.line, 0,
 	       selectEnd.line, selectEnd.col);
 }
 

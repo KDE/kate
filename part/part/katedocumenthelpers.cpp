@@ -49,7 +49,8 @@ void KateBrowserExtension::print()
 
 void KateBrowserExtension::slotSelectionChanged()
 {
-  emit enableAction( "copy", m_doc->hasSelection() );
+  if (m_doc->activeView())
+    emit enableAction( "copy", m_doc->activeView()->hasSelection() );
 }
 
 KateExportAction::KateExportAction(const QString& text, QObject* parent, const char* name)

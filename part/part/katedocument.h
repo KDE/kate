@@ -348,49 +348,6 @@ class KateDocument : public Kate::Document,
     bool m_undoComplexMerge;
     KateUndoGroup* m_editCurrentUndo;
 
-//BEGIN DEPRECATED
-  //
-  // KTextEditor::SelectionInterface stuff
-  // DEPRECATED, this will be removed for KDE 4.x !!!!!!!!!!!!!!!!!!!!
-  //
-  public slots:
-    bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol ) { return false; }
-    bool clearSelection () { return false; }
-
-    bool hasSelection () const { return false; }
-    QString selection () const { return ""; }
-
-    bool removeSelectedText () { return false; }
-
-    bool selectAll() { return false; }
-
-    //
-    // KTextEditor::SelectionInterfaceExt
-    //
-    int selStartLine() { return 0; }
-    int selStartCol()  { return 0; }
-    int selEndLine()   { return 0; }
-    int selEndCol()    { return 0; }
-
-  // hack, only there to still support the deprecated stuff, will be removed for KDE 4.x
-  #undef signals
-  #define signals public
-  signals:
-  #undef signals
-  #define signals protected
-    void selectionChanged ();
-    void textInserted(int line,int column);
-
-  //
-  // KTextEditor::BlockSelectionInterface stuff
-  // DEPRECATED, this will be removed for KDE 4.x !!!!!!!!!!!!!!!!!!!!
-  //
-  public slots:
-    bool blockSelectionMode () { return false; }
-    bool setBlockSelectionMode (bool on) { return false; }
-    bool toggleBlockSelectionMode () { return false; }
-//END DEPRECATED
-
   //
   // KTextEditor::UndoInterface stuff
   //
@@ -430,6 +387,7 @@ class KateDocument : public Kate::Document,
 
   signals:
     void undoChanged ();
+    void textInserted(int line,int column);
 
   //
   // KTextEditor::CursorInterface stuff
@@ -1108,6 +1066,48 @@ class KateDocument : public Kate::Document,
     uint m_imSelStart;
     uint m_imSelEnd;
     bool m_imComposeEvent;
+
+  //BEGIN DEPRECATED
+  //
+  // KTextEditor::SelectionInterface stuff
+  // DEPRECATED, this will be removed for KDE 4.x !!!!!!!!!!!!!!!!!!!!
+  //
+  public slots:
+    bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol );
+    bool clearSelection ();
+    bool hasSelection () const;
+    QString selection () const;
+    bool removeSelectedText ();
+    bool selectAll();
+
+    //
+    // KTextEditor::SelectionInterfaceExt
+    //
+    int selStartLine();
+    int selStartCol();
+    int selEndLine();
+    int selEndCol();
+
+
+  // hack, only there to still support the deprecated stuff, will be removed for KDE 4.x
+  #undef signals
+  #define signals public
+  signals:
+  #undef signals
+  #define signals protected
+    void selectionChanged ();
+
+  //
+  // KTextEditor::BlockSelectionInterface stuff
+  // DEPRECATED, this will be removed for KDE 4.x !!!!!!!!!!!!!!!!!!!!
+  //
+  public slots:
+    bool blockSelectionMode ();
+    bool setBlockSelectionMode (bool on);
+    bool toggleBlockSelectionMode ();
+
+  private:
+//END DEPRECATED
 
   k_dcop:
     uint documentNumber () const;

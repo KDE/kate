@@ -5346,4 +5346,47 @@ void KateDocument::getIMSelectionValue( uint *imStartLine, uint *imStart, uint *
   *imSelEnd = m_imSelEnd;
 }
 
+//BEGIN DEPRECATED STUFF
+ bool KateDocument::setSelection ( uint startLine, uint startCol, uint endLine, uint endCol )
+{ if (m_activeView) return m_activeView->setSelection (startLine, startCol, endLine, endCol); return false; }
+
+ bool KateDocument::clearSelection ()
+ { if (m_activeView) return m_activeView->clearSelection(); return false; }
+
+ bool KateDocument::hasSelection () const
+ { if (m_activeView) return m_activeView->hasSelection (); return false; }
+
+ QString KateDocument::selection () const
+ { if (m_activeView) return m_activeView->selection (); return QString(""); }
+
+ bool KateDocument::removeSelectedText ()
+ { if (m_activeView) return m_activeView->removeSelectedText (); return false; }
+
+ bool KateDocument::selectAll()
+ { if (m_activeView) return m_activeView->selectAll (); return false; }
+
+ int KateDocument::selStartLine()
+ { if (m_activeView) return m_activeView->selStartLine (); return 0; }
+
+ int KateDocument::selStartCol()
+ { if (m_activeView) return m_activeView->selStartCol (); return 0; }
+
+ int KateDocument::selEndLine()
+ { if (m_activeView) return m_activeView->selEndLine (); return 0; }
+
+ int KateDocument::selEndCol()
+ { if (m_activeView) return m_activeView->selEndCol (); return 0; }
+
+ bool KateDocument::blockSelectionMode ()
+    { if (m_activeView) return m_activeView->blockSelectionMode (); return false; }
+
+bool KateDocument::setBlockSelectionMode (bool on)
+    { if (m_activeView) return m_activeView->setBlockSelectionMode (on); return false; }
+
+bool KateDocument::toggleBlockSelectionMode ()
+    { if (m_activeView) return m_activeView->toggleBlockSelectionMode (); return false; }
+//END DEPRECATED
+
+//END DEPRECATED STUFF
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

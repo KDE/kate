@@ -1365,6 +1365,7 @@ bool KateView::setSelection( const KateTextCursor& start, const KateTextCursor& 
   repaintText(true);
 
   emit selectionChanged ();
+  emit m_doc->selectionChanged ();
 
   return true;
 }
@@ -1402,7 +1403,10 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
     repaintText(true);
 
   if (finishedChangingSelection)
+  {
     emit selectionChanged();
+    emit m_doc->selectionChanged ();
+  }
 
   return true;
 }

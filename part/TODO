@@ -1,9 +1,6 @@
 
 **** Refactoring/Cleanups ****
 
-* Rename KateTextCursor -> KateCursor (don't think the "text" adds anything, and
-  it's more consistent with KateRange)
-
 * KateLineRange to become a proper class with methods etc.  Parts needed for
   bidi.
 

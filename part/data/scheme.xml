@@ -17,7 +17,7 @@
  *                                                                         *
  ***************************************************************************
 -->
-<language version="1.05" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme" author="Dominik Haumann">
+<language version="1.06" kateversion="2.1" name="Scheme" section="Sources" extensions="*.scm;*.ss;*.scheme" mimetype="text/x-scheme" author="Dominik Haumann">
   <highlighting>
     <list name="keywords">
       <item> abs </item>
@@ -248,7 +248,7 @@
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Scheme" context="#stay" String="corewords"/>
         <RegExpr attribute="Char" context="#stay" String="#\\."/>
-        <DetectChar attribute="Comment" context="String" char="&quot;"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
         <RegExpr attribute="Char" context="SpecialNumber" String="#[bodxei]"/>
         <RegExpr attribute="Decimal" context="#stay" String="#[tf]"/>
         <Float attribute="Float" context="#stay"/>
@@ -279,8 +279,7 @@
       <itemData name="Char"        defStyleNum="dsChar"/>
       <itemData name="String"      defStyleNum="dsString"/>
       <itemData name="Comment"     defStyleNum="dsComment"/>
-<!--      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />-->
-      <itemData name="Region Marker" defStyleNum="dsNormal" color="#0000ff"/>
+      <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
       <itemData name="Brackets"    defStyleNum="dsNormal" color="#0000ff" selColor="#00ff00" bold="1" italic="0"/>
     </itemDatas>
   </highlighting>

@@ -480,38 +480,10 @@ void KateViewInternal::changeYPos(int p) {
   bool triggerRepaint=false;
   dy = yPos - p;
   yPos = p;
-  clearDirtyCache(height());
+  updateLineRanges(height());
 
   if (QABS(dy) < height())
   {
-    if (dy<0)
-    {
-	int removedLines=-dy/myDoc->viewFont.fontHeight;
-//	kdDebug()<<QString("Endline is: %1").arg(endLine)<<endl;
-//	return;
-//	kdDebug()<<QString("remove leading %1 lines").arg(removedLines)<<endl;
-	for (int i=0;i<=(endLine-startLine)-removedLines;i++)
-	{
-//		kdDebug()<<QString("moving lines %1").arg(i)<<endl;
-		int helper;
-		if ((i+removedLines) < lineRanges.size())
-		{
-			lineRanges[i] = lineRanges[i+removedLines];
-		}
-	}
-    }
-    else
-    {
-	int removedLines=dy/myDoc->viewFont.fontHeight;
-//	kdDebug()<<QString("moving  %1 lines down").arg(removedLines)<<endl;
-	for (int i=(endLine-startLine);i>=removedLines;i--)
-	{
-		if ((i-removedLines) >= 0)
-		{
-			lineRanges[i] = lineRanges[i-removedLines];
-		}
-	}
-    }
     leftBorder->scroll(0,dy);
     scroll(0, dy);
  //triggerRepaint=true;
@@ -663,8 +635,11 @@ void KateViewInternal::updateCursor(VConfig &c,bool keepSel)//KateTextCursor &ne
 }
 
 // init the line dirty cache
-void KateViewInternal::clearDirtyCache(int height) {
-  int lines;
+void KateViewInternal::updateLineRanges(uint height, bool keepLineData)
+{
+  int lines = 0;
+  int oldStartLine = startLine;
+  int oldLines = lineRanges.size();
 
   // calc start and end line of visible part
   startLine = yPos/myDoc->viewFont.fontHeight;
@@ -672,18 +647,27 @@ void KateViewInternal::clearDirtyCache(int height) {
 
   updateState = 0;
 
-  lines = endLine - startLine +1;
+  lines = endLine - startLine + 1;
 
-  if (lines > lineRanges.size())
-    lineRanges.resize (lines * 2);
-
-  for (uint z = 0; z < lineRanges.size(); z++) { // clear all lines
+  if (lines > oldLines)
+    lineRanges.resize (lines);
+    
+  // blank repaint attribs
+  for (uint z = 0; z < lines; z++)
+  {
     lineRanges[z].start = 0xffffff;
     lineRanges[z].end = 0;
   }
-  newXPos = newYPos = -1;
 
-//  updateView(0);
+  for (uint z = 0; z < lines; z++)
+  {
+    lineRanges[z].line = myDoc->getRealLine (startLine+z);
+  }
+
+  if (lines < oldLines)
+    lineRanges.resize (lines);
+
+  newXPos = newYPos = -1;
 }
 
 void KateViewInternal::tagLines(int start, int end, int x1, int x2) {
@@ -765,7 +749,7 @@ void KateViewInternal::updateView(int flags)
 				w -= bw;
 				if (yScrollVis) w -= scrollbarWidth;
 		  		if (w != width() || h != height()) {
-			    		clearDirtyCache(h);
+			    		updateLineRanges(h);
 			   	 	resize(w,h);
 				}
 			}
@@ -807,7 +791,7 @@ void KateViewInternal::updateView(int flags)
 	}
 
    if (updateState > 0) paintTextLines(oldXPos, oldYPos);
-   if (updateState==3) {clearDirtyCache(height());update();}
+   if (updateState==3) {updateLineRanges(height());update();}
 
 	int tmpYPos;
 	if (exposeCursor)
@@ -817,19 +801,22 @@ void KateViewInternal::updateView(int flags)
 	{
 		tmpYPos=(displayCursor.line*fontHeight)-height()+fontHeight;
 		yScroll->setValue(tmpYPos);
-		clearDirtyCache(height());
+		updateLineRanges(height());
 	}
 	else
 	if (displayCursor.line<startLine)
 	{
 		tmpYPos=(displayCursor.line*fontHeight);
 		yScroll->setValue(tmpYPos);
-		clearDirtyCache(height());
+		updateLineRanges(height());
 	}
 	}
-  
+
   if (flags & KateView::ufFoldingChanged)
+  {
+    updateLineRanges (height());
     repaint ();
+  }
 
 //	update();
 #if 0
@@ -987,7 +974,7 @@ void KateViewInternal::updateView(int flags)
 
   w -= bw;
   if (w != width() || h != height()) {
-    clearDirtyCache(h);
+    updateLineRanges(h);
     resize(w,h);
   } else {
     dx = oldXPos - xPos;
@@ -1001,13 +988,13 @@ void KateViewInternal::updateView(int flags)
     }
 
     if (b) {
-      clearDirtyCache(h);
+      updateLineRanges(h);
       update();
     } else {
       if (dy)
         leftBorder->scroll(0, dy);
       if (updateState > 0) paintTextLines(oldXPos, oldYPos);
-      clearDirtyCache(h);
+      updateLineRanges(h);
 
       if (dx || dy) {
         scroll(dx,dy);
@@ -1042,7 +1029,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
     {
       if (r->start < r->end)
       {
-        myDoc->paintTextLine(paint, myDoc->getRealLine(line), r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+        myDoc->paintTextLine(paint, r->line, r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
 
         bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0, r->end - r->start, h);
       }
@@ -1400,12 +1387,11 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
   while (y < yEnd)
   {
     int realLine;
-    isVisible=myDoc->paintTextLine(paint, realLine=myDoc->getRealLine(line), xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+    isVisible=myDoc->paintTextLine(paint, lineRanges[disppos].line, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
 
 //    kdDebug()<<QString("paintevent: line %1, realLine %2").arg(line).arg(realLine)<<endl;
 
-    lineRanges[disppos].line = realLine;
     leftBorder->paintLine(line,line);
     disppos++;
     y += h;

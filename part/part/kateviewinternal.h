@@ -22,7 +22,6 @@
 
 #include "kateview.h"
 
-
 class KateLineRange
 {
   public:
@@ -87,7 +86,7 @@ class KateViewInternal : public QWidget
     void updateCursor();
     void updateCursor(VConfig &c,bool keepSel=false);//KateTextCursor &newCursor);
     void updateCursor(KateTextCursor &newCursor, bool keepSel=false);
-    void clearDirtyCache(int height);
+    void updateLineRanges(uint height, bool keepLineData = true);
     void tagLines(int start, int end, int x1, int x2);
     void tagAll();
     void setPos(int x, int y);
@@ -156,16 +155,16 @@ private:
     int cXPos;
     int cOldXPos;
 
+    bool possibleTripleClick;
+    bool exposeCursor;
+    int updateState;
+    
     int startLine;
     int endLine;
     uint maxLen;
 
-    bool possibleTripleClick;
-    bool exposeCursor;
-    int updateState;
+    QMemArray<KateLineRange> lineRanges;
 
-    QMemArray<class KateLineRange> lineRanges;
-    
     int newXPos;
     int newYPos;
 

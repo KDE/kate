@@ -1978,8 +1978,6 @@ int KateHighlighting::hlKeyForAttrib( int attrib ) const
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
-  kdDebug(13010)<<"KateHighlighting::isInWord("<<c<<", "<<attrib<<")"<<endl;
-  kdDebug(13010)<<"i have this numnber of strings: "<<m_additionalData[0].count()<<endl;
   static const QString& sq = KGlobal::staticQString(" \"'");
   return getCommentString(4, attrib).find(c) < 0 && sq.find(c) < 0;
 }

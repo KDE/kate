@@ -59,7 +59,7 @@ class KateBuffer : public QObject
     * Insert a file at line @p line in the buffer.
     * Using @p codec to decode the file.
     */
-   bool openFile (const QString &file, QTextCodec *codec);
+   bool openFile (const QString &m_file, QTextCodec *codec);
 
    /**
     * Return the total number of lines in the buffer.

@@ -25,6 +25,7 @@
 #include "katetextline.h"
 
 #include <qregexp.h>
+#include <kdebug.h>
 
 TextLine::TextLine()
   : m_flags(TextLine::flagVisible)
@@ -297,7 +298,13 @@ char *TextLine::dump (char *buf) const
 
   memcpy(buf, &l, sizeof(uint));
   buf += sizeof(uint);
+  
+  memcpy(buf, (char *) m_text.data(), sizeof(QChar)*l);
+  buf += sizeof(QChar)*l;
 
+  memcpy(buf, (char *) &m_flags, 1);
+  buf += 1;
+  
   char *attribLenPos = buf;
   buf += sizeof(uint);
  
@@ -306,9 +313,6 @@ char *TextLine::dump (char *buf) const
 
   memcpy(buf, &lfold, sizeof(uint));
   buf += sizeof(uint);
-
-  memcpy(buf, (char *) m_text.data(), sizeof(QChar)*l);
-  buf += sizeof(QChar)*l;
 
   // hl size runlength encoding START
 
@@ -354,9 +358,6 @@ char *TextLine::dump (char *buf) const
 
   // hl size runlength encoding STOP
 
-  memcpy(buf, (char *) &m_flags, 1);
-  buf += 1;
-  
   memcpy(buf, (char *)m_ctx.data(), sizeof(uint) * lctx);
   buf += sizeof (uint) * lctx;
 
@@ -376,6 +377,26 @@ char *TextLine::restore (char *buf)
   // text + context length read
   memcpy((char *) &l, buf, sizeof(uint));
   buf += sizeof(uint);
+  
+  // text + attributes
+  m_text.duplicate ((QChar *) buf, l);
+  buf += sizeof(QChar)*l;
+  
+  m_attributes.resize (l);
+  
+  memcpy((char *) &m_flags, buf, 1);
+  buf += 1;
+  
+  kdDebug()<<"line: blub"<<" length: "<<l<<" attr: "<<m_flags<<endl;
+  
+  // we just restore a TextLine from a buffer first time
+  if (m_flags == TextLine::flagNoOtherData)
+  {
+    m_flags = TextLine::flagVisible;
+    m_attributes.fill (0);
+    
+    return buf;
+  }
 
   memcpy((char *) &lattrib, buf, sizeof(uint));
   buf += sizeof(uint);
@@ -386,13 +407,8 @@ char *TextLine::restore (char *buf)
   memcpy((char *) &lfold, buf, sizeof(uint));
   buf += sizeof(uint);
 
-  // text + attributes
-  m_text.duplicate ((QChar *) buf, l);
-  buf += sizeof(QChar)*l;
-
   // hl size runlength encoding START
 
-  m_attributes.resize (l);
   uchar *attr = m_attributes.data();
 
   uchar attrib = 0;
@@ -420,10 +436,7 @@ char *TextLine::restore (char *buf)
   }
   
   // hl size runlength encoding STOP
-
-  memcpy((char *) &m_flags, buf, 1);
-  buf += 1;
-
+  
   m_ctx.duplicate ((uint *) buf, lctx);
   buf += sizeof(uint) * lctx;
 

@@ -268,6 +268,14 @@ class TextLine : public KShared
       as return value
     */
     char *restore (char *buf);
+    
+    enum Flags
+    {
+      flagHlContinue = 0x1,
+      flagVisible = 0x2,
+      flagFoldingListValid = 0x4,
+      flagNoOtherData = 0x8 // ONLY INTERNAL USE, NEVER EVER SET THAT !!!!
+    };
 
   /**
    REALLY PRIVATE ;) please no new friend classes
@@ -285,13 +293,6 @@ class TextLine : public KShared
     QMemArray<uint> m_ctx; 
     QMemArray<signed char> m_foldingList;
                                      
-    enum Flags
-    {
-      flagHlContinue = 0x1,
-      flagVisible = 0x2,
-      flagFoldingListValid = 0x4
-    };
-    
     /**
      Some bools packed
     */

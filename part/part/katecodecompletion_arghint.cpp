@@ -96,7 +96,7 @@ void ArgHintArrow::drawButton ( QPainter *p )
 }
 
 
-KDevArgHint::KDevArgHint ( QWidget *parent ) : QFrame ( parent, 0,  WType_Popup )
+KDevArgHint::KDevArgHint ( QWidget *parent ) : QFrame ( parent, 0,  WType_Popup ),ESC_accel(0)
 {
 	setFrameStyle ( QFrame::Box | QFrame::Plain );
 	setLineWidth ( 1 );
@@ -216,6 +216,10 @@ void KDevArgHint::reset()
 	m_nCurArg = 1;
 
 	updateState();
+	ESC_accel=new QAccel((QWidget*)parent());
+	ESC_accel->insertItem(Key_Escape,1);
+	ESC_accel->setEnabled(true);
+	connect(ESC_accel,SIGNAL(activated(int)),this,SLOT(slotDone(int)));
 }
 
 void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
@@ -225,15 +229,13 @@ void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
 
 	if ( m_nCurLine > 0 && m_nCurLine != nLine)
 	{
-		hide();
-		emit argHintHidden();
+		slotDone(0);
 		return;
 	}
 
 	if ( view->document()->hasSelection() )
 	{
-		hide();
-		emit argHintHidden();
+		slotDone(0);
 		return;
 	}
 
@@ -255,8 +257,7 @@ void KDevArgHint::cursorPositionChanged (KateView *view, int nLine, int nCol )
 	nBegin != -1 && strLineToCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // || // the first and the second wrap were found before the cursor
 	//nBegin != -1 && strLineAfterCursor.findRev ( m_strArgWrapping[1] ) != -1 ) // the first wrap was found before the cursor and the second beyond
 	{
-		hide();
-		emit argHintHidden();
+		slotDone(0);
 		//m_nCurLine = 0; // reset m_nCurLine so that ArgHint is finished
 	}
 
@@ -360,4 +361,12 @@ QString KDevArgHint::markCurArg()
 	kdDebug ( 12001 ) << strFuncText <<endl;
 
 	return strFuncText;
+}
+
+void KDevArgHint::slotDone(int id)
+{
+	// kdDebug()<<QString("Slot done %1").arg(id)<<endl;
+	hide();
+	if (ESC_accel) {delete ESC_accel; ESC_accel=0;}
+	emit argHintHidden();
 }

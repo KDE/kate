@@ -87,14 +87,13 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
   if ( o == m_completionPopup || o == m_completionListBox || o == m_completionListBox->viewport() ) {
     if ( e->type() == QEvent::KeyPress ) {
       QKeyEvent *ke = (QKeyEvent*)e;
-      if ( ke->key() == Key_Left || ke->key() == Key_Right ||
-	   ke->key() == Key_Up || ke->key() == Key_Down ||
-	   ke->key() == Key_Home || ke->key() == Key_End ||
-	   ke->key() == Key_Prior || ke->key() == Key_Next ) {
+      if ( (ke->key() == Key_Left) || (ke->key() == Key_Right) ||
+	 (ke->key() == Key_Up) || (ke->key() == Key_Down ) ||
+	   (ke->key() == Key_Home )|| (ke->key() == Key_End) ||
+	   (ke->key() == Key_Prior) || (ke->key() == Key_Next )) {
 	QTimer::singleShot(0,this,SLOT(showComment()));
 	return FALSE;
       }
-      
       if (ke->key() == Key_Enter || ke->key() == Key_Return) { // return
 	CompletionItem* item = static_cast<CompletionItem*> (m_completionListBox->item(m_completionListBox->currentItem()));
 	if(item !=0){

@@ -1424,7 +1424,7 @@ void KateView::setupEditKeys()
 {
 
   if (m_editAccels) delete m_editAccels;
-  m_editAccels=new KAccel(this);
+  m_editAccels=new KAccel(this,this);
   m_editAccels->insert("KATE_CURSOR_LEFT",i18n("Cursor left"),"","Left",this,SLOT(cursorLeft()));
   m_editAccels->insert("KATE_WORD_LEFT",i18n("One word left"),"","Ctrl+Left",this,SLOT(wordLeft()));
   m_editAccels->insert("KATE_CURSOR_LEFT_SELECT",i18n("Cursor left + SELECT"),"","Shift+Left",this,SLOT(shiftCursorLeft()));

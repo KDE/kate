@@ -35,6 +35,7 @@
 #include <qpixmap.h>
 #include <qlayout.h>
 #include <qfont.h>
+#include <qaccel.h>
 
 class KateView;
 
@@ -65,6 +66,9 @@ class KDevArgHint : public QFrame
 		/** destructor */
 		virtual ~KDevArgHint();
 
+//  		bool eventFilter( QObject *o, QEvent *e );
+
+
 	public:
 		void setFunctionText ( int nFunc, const QString& strText );
 		void setArgMarkInfos ( const QString& strWrapping, const QString& strDelimiter );
@@ -75,6 +79,7 @@ class KDevArgHint : public QFrame
 //		virtual void setFont ( const QFont & );
 
 	private:
+		QAccel *ESC_accel;
 		QMap<int, QString> m_funcList;
 		QLabel* m_pFuncLabel;
 		QLabel* m_pStateLabel;
@@ -109,6 +114,9 @@ class KDevArgHint : public QFrame
 
  signals:
 		void argHintHidden();
+
+ public slots:
+		void slotDone(int);
 };
 
 #endif

@@ -297,6 +297,14 @@ class KateViewInternal : public QWidget
     bool m_selChangedByUser;
     KateTextCursor selectAnchor;
 
+    enum SelectionMode { Default=0, Word, Line }; ///< for drag selection. @since 2.3
+    uint m_selectionMode;
+    // when drag selecting after double/triple click, keep the initial selected
+    // word/line independant of direction.
+    // They get set in the event of a double click, and is used with mouse move + leftbutton
+    KateTextCursor selStartCached;
+    KateTextCursor selEndCached;
+
     //
     // lines Ranges, mostly useful to speedup + dyn. word wrap
     //

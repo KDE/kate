@@ -1917,8 +1917,9 @@ void KateViewInternal::bottom_end( bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool keepSel )
+void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool keepSel )
 {
+  KateTextCursor newCursor = _newCursor;
   if( keepSel )
   {
     if ( !m_doc->hasSelection() || (selectAnchor.line() == -1)
@@ -1929,7 +1930,77 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
       m_doc->setSelection( cursor, newCursor );
     }
     else
-      m_doc->setSelection( selectAnchor, newCursor);
+    {
+      bool doSelect = true;
+      switch (m_selectionMode)
+      {
+        case Word:
+        {
+          bool same = ( newCursor.line() == selStartCached.line() );
+          uint c;
+          if ( newCursor.line() > selStartCached.line() ||
+               ( same && newCursor.col() > selEndCached.col() ) )
+          {
+            selectAnchor = selStartCached;
+
+            KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
+
+            for ( c = newCursor.col(); c < l->length(); c++ )
+              if ( !m_doc->m_highlight->isInWord( l->getChar( c ) ) )
+                break;
+
+            newCursor.setCol( c );
+          }
+          else if ( newCursor.line() < selStartCached.line() ||
+               ( same && newCursor.col() < selStartCached.col() ) )
+          {
+            selectAnchor = selEndCached;
+
+            KateTextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
+
+            for ( c = newCursor.col(); c > 0; c-- )
+              if ( !m_doc->m_highlight->isInWord( l->getChar( c ) ) )
+                break;
+
+            newCursor.setCol( c+1 );
+          }
+          else
+            doSelect = false;
+
+        }
+        break;
+        case Line:
+          if ( newCursor.line() > selStartCached.line() )
+          {
+            selectAnchor = selStartCached;
+            newCursor.setCol( m_doc->textLine( newCursor.line() ).length() );
+          }
+          else if ( newCursor.line() < selStartCached.line() )
+          {
+            selectAnchor = selEndCached;
+            newCursor.setCol( 0 );
+          }
+          else // same line, ignore
+            doSelect = false;
+        break;
+        default: // *allways* keep selection
+        {
+          bool same = ( newCursor.line() == m_doc->selectStart.line() );
+
+          if ( newCursor.line() > m_doc->selectStart.line() ||
+               ( same && newCursor.col() > m_doc->selectEnd.col() ) )
+            selectAnchor = m_doc->selectStart;
+
+          else if ( newCursor.line() < m_doc->selectStart.line() ||
+               ( same && newCursor.col() < m_doc->selectStart.col() ) )
+            selectAnchor = m_doc->selectEnd;
+        }
+//         break;
+      }
+
+      if ( doSelect )
+        m_doc->setSelection( selectAnchor, newCursor);
+    }
 
     m_selChangedByUser = true;
   }
@@ -1954,6 +2025,10 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
 
     return;
   }
+
+  // remove trailing spaces ### really not nice here, unless it is *really* nessecary
+//   if ( m_doc->isReadWrite() && cursor.line() != newCursor.line() )
+//     m_doc->removeTrailingSpace( cursor.line() );
 
   // unfold if required
   if ( l && ! l->isVisible() )
@@ -2362,10 +2437,25 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
         {
           possibleTripleClick = false;
 
-          m_doc->selectLine( cursor );
+          m_selectionMode = Line;
+
+          if ( e->state() & Qt::ShiftButton )
+          {
+            selStartCached = m_doc->selectStart;
+            selEndCached = m_doc->selectEnd;
+            updateSelection( cursor, true );
+          }
+          else
+          {
+            m_doc->selectLine( cursor );
+          }
+
           QApplication::clipboard()->setSelectionMode( true );
           m_doc->copy();
           QApplication::clipboard()->setSelectionMode( false );
+
+          selStartCached = m_doc->selectStart;
+          selEndCached = m_doc->selectEnd;
 
           cursor.setCol(0);
           updateCursor( cursor );
@@ -2382,6 +2472,7 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           dragInfo.state = diNone;
 
           placeCursor( e->pos(), e->state() & ShiftButton );
+
           scrollX = 0;
           scrollY = 0;
 
@@ -2413,7 +2504,18 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
   switch (e->button())
   {
     case LeftButton:
-      m_doc->selectWord( cursor );
+      m_selectionMode = Word;
+
+      if ( e->state() & Qt::ShiftButton )
+      {
+        selStartCached = m_doc->selectStart;
+        selEndCached = m_doc->selectEnd;
+        updateSelection( cursor, true );
+      }
+      else
+      {
+        m_doc->selectWord( cursor );
+      }
 
       // Move cursor to end of selected word
       if (m_doc->hasSelection())
@@ -2424,6 +2526,9 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 
         cursor.setPos(m_doc->selectEnd);
         updateCursor( cursor );
+
+        selStartCached = m_doc->selectStart;
+        selEndCached = m_doc->selectEnd;
       }
 
       possibleTripleClick = true;
@@ -2448,6 +2553,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
   switch (e->button())
   {
     case LeftButton:
+      m_selectionMode = Default;
       if (m_selChangedByUser)
       {
         QApplication::clipboard()->setSelectionMode( true );
@@ -2529,6 +2635,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     }
 
     placeCursor( QPoint( mouseX, mouseY ), true );
+
   }
   else
   {

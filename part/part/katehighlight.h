@@ -116,6 +116,8 @@ class KateHighlighting
     inline QString name() const {return iName;}
     inline QString section() const {return iSection;}
     inline QString version() const {return iVersion;}
+    QString author () const { return iAuthor; }
+    QString license () const { return iLicense; }
     int priority();
     inline QString getIdentifier() const {return identifier;}
     void use();

@@ -963,6 +963,19 @@ KateHlConfigPage::KateHlConfigPage (QWidget *parent)
       hlCombo->insertItem(KateHlManager::self()->hlName(i));
   }
   hlCombo->setCurrentItem(0);
+  
+  QGroupBox *gbInfo = new QGroupBox( 1, Qt::Horizontal, i18n("Information"), this );
+  layout->add (gbInfo);
+  
+  // author
+  QHBox *hb1 = new QHBox( gbInfo);
+  new QLabel( i18n("Author:"), hb1 );
+  author  = new QLabel (hb1);
+  
+  // license
+  QHBox *hb2 = new QHBox( gbInfo);
+  new QLabel( i18n("License:"), hb2 );
+  license  = new QLabel (hb2);
 
   QGroupBox *gbProps = new QGroupBox( 1, Qt::Horizontal, i18n("Properties"), this );
   layout->add (gbProps);
@@ -1039,13 +1052,24 @@ void KateHlConfigPage::hlChanged(int z)
 {
   writeback();
 
-  if ( ! hlDataDict.find( z ) )
-    hlDataDict.insert( z, KateHlManager::self()->getHl( z )->getData() );
+  KateHighlighting *hl = KateHlManager::self()->getHl( z );
+  
+  if (!hl)
+  {
+    hlData = 0;
+    return;
+  }
+  
+  if ( !hlDataDict.find( z ) )
+    hlDataDict.insert( z, hl->getData() );
 
   hlData = hlDataDict.find( z );
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
   priority->setValue(hlData->priority);
+  
+  author->setText (hl->author());
+  license->setText (hl->license());
 }
 
 void KateHlConfigPage::writeback()

@@ -378,6 +378,7 @@ class KateHlConfigPage : public KateConfigPage
     QLineEdit *wildcards;
     QLineEdit *mimetypes;
     class KIntNumInput *priority;
+    class QLabel *author, *license;
 
     QIntDict<KateHlData> hlDataDict;
     KateHlData *hlData;

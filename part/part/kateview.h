@@ -405,6 +405,7 @@ class KateView : public Kate::View,
 
         void slotClipboardDataChanged();
 
+        void slotHlChanged();
   /**
    * Configuration
    */

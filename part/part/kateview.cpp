@@ -142,12 +142,13 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   updateConfig ();
 
   m_viewInternal->show ();
-
+  slotHlChanged();
   /*test texthint
   connect(this,SIGNAL(needTextHint(int, int, QString &)),
   this,SLOT(slotNeedTextHint(int, int, QString &)));
   enableTextHints(1000);
   test texthint*/
+
 }
 
 KateView::~KateView()
@@ -169,7 +170,7 @@ void KateView::setupConnections()
   connect( m_doc, SIGNAL(undoChanged()),
            this, SLOT(slotNewUndo()) );
   connect( m_doc, SIGNAL(hlChanged()),
-           this, SLOT(updateFoldingConfig()) );
+           this, SLOT(slotHlChanged()) );
   connect( m_doc, SIGNAL(canceled(const QString&)),
            this, SLOT(slotSaveCanceled(const QString&)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
@@ -1251,4 +1252,11 @@ void KateView::slotClipboardDataChanged()
   m_paste->setEnabled( data->provides( "text/plain" ) );
 }
 
+void KateView::slotHlChanged()
+{
+  Highlight *hl = m_doc->m_highlight;
+  bool ok ( ! ( hl->getCommentStart().isEmpty() && hl->getCommentSingleLineStart().isEmpty() ) );
+  actionCollection()->action("tools_comment")->setEnabled( ok );
+  actionCollection()->action("tools_uncomment")->setEnabled( ok );
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -33,6 +33,7 @@
 #include <ktexteditor/highlightinginterface.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/markinterface.h>
+#include <ktexteditor/markinterfaceextension.h>
 #include <ktexteditor/wordwrapinterface.h>
 #include <ktexteditor/printinterface.h>
 
@@ -84,6 +85,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface
 /*GRRR !!! Never do that again. Declaring interfaces within interfaces, where it is not really necessary.
 	The above inheritage just makes it completely impossible to enhance the ktexteditor interface in a decent way*/
+
+/* additionally KTextEditor::MarkInterfaceExtension is supported. Just do a qt_cast. */
 
 {
   Q_OBJECT

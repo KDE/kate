@@ -143,7 +143,7 @@ class KateCursor : public Kate::Cursor
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document
+class KateDocument : public Kate::Document, public KTextEditor::MarkInterfaceExtension
 {
   Q_OBJECT
   friend class KateConfigDialog;
@@ -797,6 +797,19 @@ class KateDocument : public Kate::Document
     uint _configFlags;
     uint _searchFlags;
     SConfig s;
+
+
+   /**
+    * Implementation of the mark interface
+    **/
+  public:
+    virtual void setPixmap(MarkInterface::MarkTypes, const QPixmap &);
+    virtual void setDescription(MarkInterface::MarkTypes, const QString &);
+    virtual void setUserChangable(uint markMask);
+
+  signals:
+    virtual void markChanged (KTextEditor::Mark mark, MarkInterfaceExtension::MarkChangeAction action);
+
 };
 
 #endif

@@ -274,7 +274,7 @@ void KateUndoGroup::addItem (KateUndo *undo)
 KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOnly,
                                            QWidget *parentWidget, const char *widgetName,
                                            QObject *, const char *)
-  : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
+  : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ()),MarkInterfaceExtension()
 {
   regionTree=new KateCodeFoldingTree(this);
   myActiveView = 0L;
@@ -4499,6 +4499,45 @@ unsigned int KateDocument::visibleLines ()
 	return numLines() - regionTree->getHiddenLinesCount();
 }
 
+/**
+ * Begin of the implementaion of the MarkInterfaceExtension
+ **/
+
+void KateDocument::setPixmap(MarkInterface::MarkTypes, const QPixmap &)
+{
+	;
+}
+void KateDocument::setDescription(MarkInterface::MarkTypes, const QString &)
+{
+	;
+}
+
+void KateDocument::setUserChangable(uint markMask)
+{
+	;
+}
+
+
+void markChanged (KTextEditor::Mark mark, KTextEditor::MarkInterfaceExtension::MarkChangeAction action)
+{
+	;
+}
+
+/**
+ * End of the implementaion of the MarkInterfaceExtension
+ **/
+
+
+
+
+
+
+
+
+
+
+
+
 QFont KateDocument::getFont (WhichFont wf) { if(wf==ViewFont) return viewFont.myFont; else return printFont.myFont;}
 
 KateFontMetrics KateDocument::getFontMetrics (WhichFont wf) { if (wf==ViewFont) return viewFont.myFontMetrics; else return printFont.myFontMetrics;}
@@ -4543,4 +4582,6 @@ QChar KateCursor::currentChar () const
 {
   return QChar();
 }
+
+
 

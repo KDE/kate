@@ -1,6 +1,6 @@
 <?xml version="1.02" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Matlab M-File" version="1.00" kateversion="2.0" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
+<language name="Matlab M-File" version="1.01" kateversion="2.0" section="Sources" extensions="*.m;*.M" mimetype="text/mfile">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -65,39 +65,37 @@
       <item> close </item>
     </list>
     <contexts>
-      <context attribute="0" lineEndContext="0">
-        <keyword attribute="1" context="0" String="keywords"/>
-        <keyword attribute="2" context="0" String="types"/>
-        <keyword attribute="11" context="0" String="commands"/>
-        <Float attribute="6" context="0">
-          <AnyChar String="fF" attribute="6" context="0"/>
+      <context attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Data Type" context="#stay" String="types"/>
+        <keyword attribute="Command" context="#stay" String="commands"/>
+        <Float attribute="Float" context="#stay">
+          <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
-        <HlCOct attribute="4" context="0"/>
-        <HlCHex attribute="5" context="0"/>
-        <Int attribute="3" context="0" >
-          <StringDetect attribute="3" context="0" String="ULL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LUL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LLU" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="UL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LU" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="U" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="L" insensitive="TRUE"/>
+        <HlCOct attribute="Float" context="#stay"/>
+        <HlCHex attribute="Float" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" >
+          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
-        <HlCChar attribute="7" context="0"/>
-        <DetectChar attribute="8" context="1" char="&apos;"/>
-        <DetectChar attribute="9" context="1" char="&apos;"/>
-        <Detect2Chars attribute="10" context="2" char="%" char1="%"/>
-        <Detect2Chars attribute="10" context="2" char="%" char1=" "/>
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&apos;"/>
+        <DetectChar attribute="String Char" context="String" char="&apos;"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="%" char1="%"/>
+        <Detect2Chars attribute="Comment" context="Comment" char="%" char1=" "/>
       </context>
-      <context attribute="8" lineEndContext="0" name="String">
-        <LineContinue attribute="8" context="#stay"/>
-        <HlCStringChar attribute="9" context="1"/>
-        <DetectChar attribute="8" context="0" char="&apos;"/>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&apos;"/>
       </context>
-      <context attribute="10" lineEndContext="0"/>
-      <context attribute="0" lineEndContext="1" />
-      <context attribute="0" lineEndContext="4" />
+      <context attribute="Comment" lineEndContext="#pop" name="Comment"/>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

@@ -148,6 +148,18 @@ class KateDocumentConfig : public KateConfig
 
     void setEol (int mode);
 
+    enum BackupFlags
+    {
+      LocalFiles=1,
+      RemoteFiles=2
+    };
+
+    uint backupFlags () const;
+    void setBackupFlags (uint flags);
+
+    const QString &backupSuffix () const;
+    void setBackupSuffix (const QString &suffix);
+
   private:
     int m_tabWidth;
     int m_indentationWidth;
@@ -157,6 +169,8 @@ class KateDocumentConfig : public KateConfig
     uint m_configFlags;
     QString m_encoding;
     int m_eol;
+    uint m_backupFlags;
+    QString m_backupSuffix;
 
     bool m_tabWidthSet : 1;
     bool m_indentationWidthSet : 1;
@@ -166,6 +180,8 @@ class KateDocumentConfig : public KateConfig
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
+    bool m_backupFlagsSet : 1;
+    bool m_backupSuffixSet : 1;
 
   private:
     KateDocument *m_doc;

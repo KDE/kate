@@ -87,9 +87,6 @@ using namespace Kate;
 
 bool KateDocument::s_configLoaded = false;
 
-uint KateDocument::myBackupConfig = 1;
-QString KateDocument::myBackupSuffix ("~");
-
 bool KateDocument::m_collapseTopLevelOnLoad = false;
 int KateDocument::m_getSearchTextFrom = KateDocument::SelectionOnly;
 
@@ -1849,11 +1846,6 @@ void KateDocument::readConfig(KConfig *config)
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->readConfig (config);
 
-  config->setGroup("Kate Document");
-
-  myBackupConfig = config->readNumEntry( "Backup Config Flags", myBackupConfig);
-  myBackupSuffix = config->readEntry("Backup Files Suffix", myBackupSuffix);
-
   config->setGroup("Kate Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
     if  (config->readBoolEntry(s_plugins.at(i)->service->library(), false))
@@ -1877,11 +1869,6 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->setGroup("Kate Renderer Defaults");
   KateRendererConfig::global()->writeConfig (config);
-
-  config->setGroup("Kate Document");
-
-  config->writeEntry( "Backup Config Flags", myBackupConfig );
-  config->writeEntry( "Backup Files Suffix", myBackupSuffix );
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
@@ -2822,10 +2809,10 @@ bool KateDocument::save()
 {
   // FIXME reorder for efficiency, prompt user in case of failure
   bool l ( url().isLocalFile() );
-  if ( ( ( l && myBackupConfig & LocalFiles ) ||
-         ( ! l && myBackupConfig & RemoteFiles ) )
+  if ( ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles ) ||
+         ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
        && isModified() ) {
-    KURL u( url().path() + myBackupSuffix );
+    KURL u( url().path() + config()->backupSuffix() );
     if ( ! KIO::NetAccess::upload( url().path(), u ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
   }

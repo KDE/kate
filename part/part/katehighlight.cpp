@@ -29,6 +29,7 @@
 #include "katedocument.h"
 #include "katesyntaxdocument.h"
 #include "katefactory.h"
+#include "kateconfig.h"
 
 #include <kconfig.h>
 #include <kglobal.h>
@@ -2275,7 +2276,7 @@ int HlManager::wildcardFind(const QString &fileName)
     return result;
 
   int length = fileName.length();
-  QString backupSuffix = KateDocument::backupSuffix();
+  QString backupSuffix = KateDocumentConfig::global()->backupSuffix();
   if (fileName.endsWith(backupSuffix)) {
     if ((result = realWildcardFind(fileName.left(length - backupSuffix.length()))) != -1)
       return result;

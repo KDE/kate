@@ -842,12 +842,12 @@ void SaveConfigTab::apply()
 
   uint f( 0 );
   if ( cbLocalFiles->isChecked() )
-    f |= KateDocument::LocalFiles;
+    f |= KateDocumentConfig::LocalFiles;
   if ( cbRemoteFiles->isChecked() )
-    f |= KateDocument::RemoteFiles;
+    f |= KateDocumentConfig::RemoteFiles;
 
-  KateDocument::setBackupConfig( f );
-  KateDocument::setBackupSuffix( leBuSuffix->text() );
+  KateDocumentConfig::global()->setBackupFlags(f);
+  KateDocumentConfig::global()->setBackupSuffix(leBuSuffix->text());
 
   int configFlags = KateDocumentConfig::global()->configFlags();
 
@@ -892,10 +892,10 @@ void SaveConfigTab::reload()
   m_eol->setCurrentItem(KateDocumentConfig::global()->eol());
 
   // other stuff
-  uint f ( KateDocument::backupConfig() );
-  cbLocalFiles->setChecked( f & KateDocument::LocalFiles );
-  cbRemoteFiles->setChecked( f & KateDocument::RemoteFiles );
-  leBuSuffix->setText( KateDocument::backupSuffix() );
+  uint f ( KateDocumentConfig::global()->backupFlags() );
+  cbLocalFiles->setChecked( f & KateDocumentConfig::LocalFiles );
+  cbRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
+  leBuSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
 }
 
 void SaveConfigTab::reset()
@@ -907,7 +907,6 @@ void SaveConfigTab::defaults()
   cbLocalFiles->setChecked( true );
   cbRemoteFiles->setChecked( false );
   leBuSuffix->setText( "~" );
-  //apply(); // ? the base classes are terribly undocumented!!!
 }
 
 //END SaveConfigTab

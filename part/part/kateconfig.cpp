@@ -85,6 +85,8 @@ KateDocumentConfig::KateDocumentConfig ()
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
    m_eolSet (true),
+   m_backupFlagsSet (true),
+   m_backupSuffixSet (false),
    m_doc (0)
 {
   s_global = this;
@@ -105,6 +107,8 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_configFlagsSet (0),
    m_encodingSet (false),
    m_eolSet (false),
+   m_backupFlagsSet (false),
+   m_backupSuffixSet (false),
    m_doc (doc)
 {
 }
@@ -147,6 +151,10 @@ void KateDocumentConfig::readConfig (KConfig *config)
 
   setEol (config->readNumEntry("End of Line", 0));
 
+  setBackupFlags (config->readNumEntry("Backup Config Flags", 1));
+
+  setBackupSuffix (config->readEntry("Backup Suffix", QString ("~")));
+
   configEnd ();
 }
 
@@ -166,6 +174,10 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Encoding", encoding());
 
   config->writeEntry("End of Line", eol());
+
+  config->writeEntry("Backup Config Flags", backupFlags());
+
+  config->writeEntry("Backup Suffix", backupSuffix());
 
   config->sync ();
 }
@@ -376,6 +388,42 @@ void KateDocumentConfig::setEol (int mode)
 
   m_eolSet = true;
   m_eol = mode;
+
+  configEnd ();
+}
+
+uint KateDocumentConfig::backupFlags () const
+{
+  if (m_backupFlagsSet || isGlobal())
+    return m_backupFlags;
+
+  return s_global->backupFlags();
+}
+
+void KateDocumentConfig::setBackupFlags (uint flags)
+ {
+  configStart ();
+
+  m_backupFlagsSet = true;
+  m_backupFlags = flags;
+
+  configEnd ();
+}
+
+const QString &KateDocumentConfig::backupSuffix () const
+{
+  if (m_backupSuffixSet || isGlobal())
+    return m_backupSuffix;
+
+  return s_global->backupSuffix();
+}
+
+void KateDocumentConfig::setBackupSuffix (const QString &suffix)
+ {
+  configStart ();
+
+  m_backupSuffixSet = true;
+  m_backupSuffix = suffix;
 
   configEnd ();
 }

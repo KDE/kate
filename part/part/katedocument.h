@@ -100,13 +100,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void enablePluginGUI (Kate::PluginInfo *item);
     void disablePluginGUI (Kate::PluginInfo *item);
 
-    // Which files to backup on save
-    enum BackupOnSave { LocalFiles=1, RemoteFiles=2 };
-    static uint backupConfig()         { return myBackupConfig; }
-    static void setBackupConfig( uint c )     { myBackupConfig = c; }
-    static QString backupSuffix()       { return myBackupSuffix; }
-    static void setBackupSuffix( const QString &suffix ) { myBackupSuffix = suffix; }
-
   private:
     // only to make part work, don't change it !
     bool m_bSingleViewMode;
@@ -115,9 +108,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     KateBrowserExtension *m_extension;
     static Kate::PluginList s_plugins;
     Kate::PluginList m_plugins;
-
-    static uint myBackupConfig;
-    static QString myBackupSuffix;
 
   //
   // KTextEditor::Document stuff

@@ -5,7 +5,7 @@
 <!-- Copyright: BSD copyright & Irsid - Arcelor Innovation R&D -->
 <!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
 
-<language name="Tcl/Tk" version="1.07" kateversion="2.3" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.08" kateversion="2.4" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -441,8 +441,8 @@
 
     <contexts>
       <context name = "Base" attribute = "Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="region"/>
-        <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="region"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="region" firstNonSpace="true"/>
+        <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="region" firstNonSpace="true"/>
         <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
         <keyword String = "keywords-opt" attribute = "Parameter" context="#stay"/>
         <Float attribute = "Float" context="#stay"/>
@@ -453,7 +453,7 @@
         <RegExpr String = "\$(::)?[\S\D]\w+" attribute = "Variable" content="#stay"/>
         <RegExpr String = "[^\\]&quot;&quot;" attribute = "String" context="#stay"/>
         <RegExpr String = "[^\\]&quot;" attribute = "String" context="String"/>
-        <RegExpr String= "^\s*#.*$" attribute = "Comment" context="#stay"/>
+        <RegExpr String= "#.*$" attribute = "Comment" context="#stay" firstNonSpace="true"/>
         <RegExpr String= ";\s*#.*$" attribute = "Comment" context="#stay"/>
         <DetectChar char = "{" attribute = "Keyword" context="#stay" beginRegion="block"/>
         <DetectChar char = "}" attribute = "Keyword" context="#stay" endRegion="block"/>

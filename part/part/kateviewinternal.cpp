@@ -684,7 +684,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
 
-  if (((int)drawBuffer.width() != width) || ((int)drawBuffer.height() != h))
+  if ((drawBuffer.width() != width) || (drawBuffer.height() != (int)h))
     drawBuffer.resize (width, h);
 
   if (drawBuffer.isNull())

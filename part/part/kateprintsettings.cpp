@@ -34,8 +34,8 @@ KatePrintSettings::KatePrintSettings(KPrinter *printer, QWidget *parent, const c
 {
   setTitle(i18n("Text Settings"));
 
-  m_usebox = new QCheckBox(i18n("Use &Box"), this);
-  m_useheader = new QCheckBox(i18n("Use He&ader"), this);
+  m_usebox = new QCheckBox(i18n("Use &box"), this);
+  m_useheader = new QCheckBox(i18n("Use he&ader"), this);
   m_boxcolor = new KColorButton(Qt::black, this);
   m_headercolor = new KColorButton(Qt::lightGray, this);
   m_fontcolor = new KColorButton(Qt::black, this);
@@ -46,8 +46,8 @@ KatePrintSettings::KatePrintSettings(KPrinter *printer, QWidget *parent, const c
 
   QLabel  *m_boxcolorlabel = new QLabel(i18n("C&olor:"), this);
   QLabel  *m_boxwidthlabel = new QLabel(i18n("W&idth:"), this);
-  QLabel  *m_headercolorlabel = new QLabel(i18n("Bac&kground Color:"), this);
-  QLabel  *m_fontcolorlabel = new QLabel(i18n("&Font Color:"), this);
+  QLabel  *m_headercolorlabel = new QLabel(i18n("Bac&kground color:"), this);
+  QLabel  *m_fontcolorlabel = new QLabel(i18n("&Font color:"), this);
   QLabel  *m_headerlabel = new QLabel(i18n("For&mat:"), this);
 
   m_headerlabel->setBuddy(m_headerright);

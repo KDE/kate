@@ -265,7 +265,7 @@ GotoLineDialog::GotoLineDialog(QWidget *parent, int line, int max)
   e1->setRange(1, max);
   e1->setEditFocus(true);
 
-  QLabel *label = new QLabel( e1,i18n("&Goto Line:"), page );
+  QLabel *label = new QLabel( e1,i18n("&Goto line:"), page );
   topLayout->addWidget(label);
   topLayout->addWidget(e1);
   topLayout->addSpacing(spacingHint()); // A little bit extra space

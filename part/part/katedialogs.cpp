@@ -338,12 +338,12 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
 
   // file & mime types
   QHBox *hbFE = new QHBox( gbProps);
-  QLabel *lFileExts = new QLabel( i18n("File E&xtensions:"), hbFE );
+  QLabel *lFileExts = new QLabel( i18n("File e&xtensions:"), hbFE );
   wildcards  = new QLineEdit( hbFE );
   lFileExts->setBuddy( wildcards );
 
   QHBox *hbMT = new QHBox( gbProps );
-  QLabel *lMimeTypes = new QLabel( i18n("Mime &Types:"), hbMT);
+  QLabel *lMimeTypes = new QLabel( i18n("Mime &types:"), hbMT);
   mimetypes = new QLineEdit( hbMT );
   QToolButton *btnMTW = new QToolButton(hbMT);
   btnMTW->setIconSet(QIconSet(SmallIcon("wizard")));
@@ -352,7 +352,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   lMimeTypes->setBuddy( mimetypes );
 
   // styles listview
-  QLabel *lSt = new QLabel( i18n("Context &Styles:"), gbProps );
+  QLabel *lSt = new QLabel( i18n("Context &styles:"), gbProps );
   lvStyles = new StyleListView( gbProps, true, normalcol );
   lSt->setBuddy( lvStyles );
 

@@ -83,8 +83,7 @@ class KateHlItem
     virtual bool hasCustomStartEnable() const { return false; };
     virtual bool startEnable(const QChar&);
 
-    // Changed from using QChar*, because it makes the regular expression check very
-    // inefficient (forces it to copy the string, very bad for long strings)
+    // caller must keep in mind: LEN > 0 is a must !!!!!!!!!!!!!!!!!!!!!1
     // Now, the function returns the offset detected, or 0 if no match is found.
     // bool linestart isn't needed, this is equivalent to offset == 0.
     virtual int checkHgl(const QString& text, int offset, int len) = 0;
@@ -203,7 +202,8 @@ class KateHlStringDetect : public KateHlItem
 
   private:
     const QString str;
-    bool _inSensitive;
+    const int strLen;
+    const bool _inSensitive;
 };
 
 class KateHlRangeDetect : public KateHlItem
@@ -468,7 +468,7 @@ KateHlCharDetect::KateHlCharDetect(int attribute, int context, signed char regio
 
 int KateHlCharDetect::checkHgl(const QString& text, int offset, int len)
 {
-  if (len && text[offset] == sChar)
+  if (text[offset] == sChar)
     return offset + 1;
 
   return 0;
@@ -497,10 +497,7 @@ KateHl2CharDetect::KateHl2CharDetect(int attribute, int context, signed char reg
 
 int KateHl2CharDetect::checkHgl(const QString& text, int offset, int len)
 {
-  if (len < 2)
-    return offset;
-
-  if (text[offset++] == sChar1 && text[offset++] == sChar2)
+  if ((len >= 2) && text[offset++] == sChar1 && text[offset++] == sChar2)
     return offset;
 
   return 0;
@@ -527,17 +524,32 @@ KateHlItem *KateHl2CharDetect::clone(const QStringList *args)
 KateHlStringDetect::KateHlStringDetect(int attribute, int context, signed char regionId,signed char regionId2,const QString &s, bool inSensitive)
   : KateHlItem(attribute, context,regionId,regionId2)
   , str(inSensitive ? s.upper() : s)
+  , strLen (str.length())
   , _inSensitive(inSensitive)
 {
 }
 
 int KateHlStringDetect::checkHgl(const QString& text, int offset, int len)
 {
-  if (len < (int)str.length())
+  if (len < strLen)
     return 0;
 
-  if (QConstString(text.unicode() + offset, str.length()).string().find(str, 0, !_inSensitive) == 0)
-    return offset + str.length();
+  if (_inSensitive)
+  {
+    for (int i=0; i < strLen; i++)
+      if (text[offset++].upper() != str[i])
+        return 0;
+
+    return offset + strLen;
+  }
+  else
+  {
+    for (int i=0; i < strLen; i++)
+      if (text[offset++] != str[i])
+        return 0;
+
+    return offset + strLen;
+  }
 
   return 0;
 }
@@ -567,7 +579,7 @@ KateHlRangeDetect::KateHlRangeDetect(int attribute, int context, signed char reg
 
 int KateHlRangeDetect::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 0) && (text[offset] == sChar1))
+  if (text[offset] == sChar1)
   {
     do
     {
@@ -644,8 +656,6 @@ void KateHlKeyword::addList(const QStringList& list)
 
 int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
 {
-  if (len == 0 || dict.isEmpty()) return 0;
-
   int offset2 = offset;
   int wordLen = 0;
 
@@ -657,11 +667,10 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
     if (wordLen > maxLen) return 0;
   }
 
-  if (offset2 == offset) return 0;
-
   if (wordLen < minLen) return 0;
 
-  if ( dict[wordLen] && dict[wordLen]->find(QConstString(text.unicode() + offset, wordLen).string()) ) return offset2;
+  if ( dict[wordLen] && dict[wordLen]->find(QConstString(text.unicode() + offset, wordLen).string()) )
+    return offset2;
 
   return 0;
 }
@@ -690,10 +699,13 @@ int KateHlInt::checkHgl(const QString& text, int offset, int len)
 
   if (offset2 > offset)
   {
-    for (uint i=0; i < subItems.size(); i++)
+    if (len > 0)
     {
-      if ( (offset = subItems[i]->checkHgl(text, offset2, len)) )
-        return offset;
+      for (uint i=0; i < subItems.size(); i++)
+      {
+        if ( (offset = subItems[i]->checkHgl(text, offset2, len)) )
+          return offset;
+      }
     }
 
     return offset2;
@@ -753,12 +765,15 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
       return 0;
     else
     {
-      for (uint i=0; i < subItems.size(); i++)
+      if (len > 0)
       {
-        int offset2 = subItems[i]->checkHgl(text, offset, len);
+        for (uint i=0; i < subItems.size(); i++)
+        {
+          int offset2 = subItems[i]->checkHgl(text, offset, len);
 
-        if (offset2)
-          return offset2;
+          if (offset2)
+            return offset2;
+        }
       }
 
       return offset;
@@ -782,12 +797,15 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
 
   if (b)
   {
-    for (uint i=0; i < subItems.size(); i++)
+    if (len > 0)
     {
-      int offset2 = subItems[i]->checkHgl(text, offset, len);
+      for (uint i=0; i < subItems.size(); i++)
+      {
+        int offset2 = subItems[i]->checkHgl(text, offset, len);
 
-      if (offset2)
-        return offset2;
+        if (offset2)
+          return offset2;
+      }
     }
 
     return offset;
@@ -810,7 +828,7 @@ bool KateHlCOct::alwaysStartEnable() const
 
 int KateHlCOct::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 0) && text[offset] == '0')
+  if (text[offset] == '0')
   {
     offset++;
     len--;
@@ -932,7 +950,7 @@ KateHlAnyChar::KateHlAnyChar(int attribute, int context, signed char regionId,si
 
 int KateHlAnyChar::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 0) && kateInsideString (_charList, text[offset]))
+  if (kateInsideString (_charList, text[offset]))
     return ++offset;
 
   return 0;
@@ -1415,17 +1433,17 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   // text, for programming convenience :)
   QChar lastChar = ' ';
   const QString& text = textLine->string();
-  int len = textLine->length();
+  const int len = textLine->length();
 
   // calc at which char the first char occurs, set it to lenght of line if never
   int firstChar = textLine->firstChar();
   int startNonSpace = (firstChar == -1) ? len : firstChar;
 
-  int offset1 = 0;
-  int z = 0;
   KateHlItem *item = 0;
 
-  while (z < len)
+  // loop over the line, offset gives current offset
+  int offset = 0;
+  while (offset < len)
   {
     bool found = false;
     bool standardStartEnableDetermined = false;
@@ -1435,26 +1453,25 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
     {
       // does we only match if we are firstNonSpace?
-      if (item->firstNonSpace && (z > startNonSpace))
+      if (item->firstNonSpace && (offset > startNonSpace))
         continue;
 
       // have we a column specified? if yes, only match at this column
-      if ((item->column != -1) && (item->column != z))
+      if ((item->column != -1) && (item->column != offset))
         continue;
 
       // do we only consume stuff?
       if (item->justConsume)
       {
-        int offset2 = item->checkHgl(text, offset1, len-z);
+        int offset2 = item->checkHgl(text, offset, len-offset);
 
-        if (offset2 <= offset1)
+        if (offset2 <= offset)
           continue;
 
         // set attribute of this context
-        textLine->setAttribs(context->attr,offset1,offset2);
+        textLine->setAttribs(context->attr,offset,offset2);
 
-        z = z + offset2 - offset1 - 1;
-        offset1 = offset2 - 1;
+        offset = offset2 - 1;
 
         found = true;
         break;
@@ -1485,13 +1502,13 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
         if (!thisStartEnabled)
           continue;
 
-        int offset2 = item->checkHgl(text, offset1, len-z);
+        int offset2 = item->checkHgl(text, offset, len-offset);
 
-        if (offset2 <= offset1)
+        if (offset2 <= offset)
           continue;
 
         if(!item->lookAhead)
-          textLine->setAttribs(item->attr,offset1,offset2);
+          textLine->setAttribs(item->attr,offset,offset2);
 
           //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
@@ -1509,7 +1526,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
             if (item->region2<0) //check not really needed yet
               (*foldingList)[foldingList->size()-1] = offset2;
             else
-            (*foldingList)[foldingList->size()-1] = offset1;
+            (*foldingList)[foldingList->size()-1] = offset;
           }
 
         }
@@ -1529,7 +1546,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
             if (item->region<0) //check not really needed yet
               (*foldingList)[foldingList->size()-1] = offset2;
             else
-              (*foldingList)[foldingList->size()-1] = offset1;
+              (*foldingList)[foldingList->size()-1] = offset;
           }
 
         }
@@ -1560,8 +1577,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
         // dominik: look ahead w/o changing offset?
         if (!item->lookAhead)
         {
-          z = z + offset2 - offset1 - 1;
-          offset1 = offset2 - 1;
+          offset = offset2 - 1;
         }
 
         found = true;
@@ -1583,22 +1599,21 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
       // immediately after fallthrough fails. Is it bad?
       // jowenn, can you come up with a nicer way to do this?
-        if (z)
-          lastChar = text[offset1 - 1];
+        if (offset)
+          lastChar = text[offset - 1];
         else
           lastChar = '\\';
         continue;
       }
       else
-        textLine->setAttribs(context->attr,offset1,offset1 + 1);
+        textLine->setAttribs(context->attr, offset, offset + 1);
     }
 
     // dominik: do not change offset if we look ahead
     if (!(item && item->lookAhead))
     {
-      lastChar = text[offset1];
-      offset1++;
-      z++;
+      lastChar = text[offset];
+      offset++;
     }
   }
 

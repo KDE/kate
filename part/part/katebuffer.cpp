@@ -1266,7 +1266,7 @@ int KateBuffer::lineLength ( uint i )
   TextLine::Ptr l = plainLine(i);
   
   if (!l)
-    return 0;
+    return -1;
   
   return l->length();
 }

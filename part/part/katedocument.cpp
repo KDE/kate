@@ -3813,11 +3813,11 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       if (!selectionPainted && hasSel && (curCol >= startSel) && (curCol < endSel))
         paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
 
-      if ((tmp < 2) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t')) || ((*s) != QChar('\t')))
+      if (((tmp < 2) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
       {
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(oldXPos-xStart, y, str.string());
-			
+
 	oldCol = curCol+1;
 	oldXPos = xPosAfter;
 	oldS = s+1;

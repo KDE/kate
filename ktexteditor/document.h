@@ -35,6 +35,8 @@ class Document : public KTextEditor::Editor
     virtual ~Document ();
 
     unsigned int documentNumber () const;
+    
+    QCString documentDCOPSuffix () const;
 
     /**
     * Create a view that will display the document data. You can create as many

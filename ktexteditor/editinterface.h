@@ -38,7 +38,7 @@ class EditInterface
     uint editInterfaceNumber () const;
 
   protected:  
-    void setEditInterfaceDCOPPrefix (const QCString &prefix);  
+    void setEditInterfaceDCOPSuffix (const QCString &suffix);  
     
   public:
   /**

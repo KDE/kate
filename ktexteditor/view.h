@@ -43,6 +43,8 @@ class View : public QWidget, public KXMLGUIClient
     virtual ~View ();
 
     unsigned int viewNumber () const;
+    
+    QCString viewDCOPSuffix () const;
 
     /**
     * Acessor to the parent Document.

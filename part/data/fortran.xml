@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Fortran" version="1.08" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
+<language name="Fortran" version="1.09" kateversion="2.4" section="Sources" extensions="*.f;*.F;*.for;*.FOR;*.f90;*.F90;*.fpp;*.FPP;*.f95;*.F95;" mimetype="text/x-fortran-src" casesensitive="0" author="Franchin Matteo (fnch@libero.it)" license="LGPL">
 <!-- by Franchin Matteo, fnch@libero.it -->
   <highlighting>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  -->
+<!-- *                              L I S T S                            *  -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  -->
     <list name="keywords">
       <item> allocate </item>
       <item> break </item>
@@ -20,10 +24,17 @@
       <item> elsewhere </item>
       <item> elseif </item>
       <item> else </item>
+      <item> end </item>
+      <item> endmodule </item>
+      <item> endinterface </item>
+      <item> endprogram </item>
+      <item> endsubroutine </item>
+      <item> endfunction </item>
+      <item> endwhere </item>
+      <item> endforall </item>
+      <item> endselect </item>
       <item> enddo </item>
       <item> endif </item>
-      <item> end </item>
-      <item> endselect </item>
       <item> equivalence </item>
       <item> exit </item>
       <item> external </item>
@@ -37,6 +48,7 @@
       <item> interface </item>
       <item> intrinsic </item>
       <item> module </item>
+      <item> namelist </item>
       <item> none </item>
       <item> nullify </item>
       <item> operator </item>
@@ -51,6 +63,7 @@
       <item> result </item>
       <item> return </item>
       <item> select </item>
+      <item> selectcase </item>
       <item> stop </item>
       <item> subroutine </item>
       <item> then </item>
@@ -75,7 +88,6 @@
     <list name="types">
       <item> double </item>
       <item> precision </item>
-      <item> real*8 </item>
       <item> parameter </item>
       <item> save </item>
       <item> pointer </item>
@@ -84,11 +96,6 @@
       <item> target </item>
       <item> allocatable </item>
       <item> optional </item>
-      <item> char </item>
-      <item> cmplx </item>
-      <item> dble </item>
-      <item> dcmplx </item>
-      <item> ichar </item>
     </list>
 
 <!-- There are 4 types of intrinsic procedures in Fortran 90:
@@ -116,6 +123,8 @@
       <item> dnint </item> <!-- Specific name for anint -->
       <item> ceiling </item>
       <item> cmplx </item>
+      <item> dcmplx </item> <!-- (non standard) -->
+      <item> dimag </item>  <!-- (non standard) -->
       <item> floor </item>
       <item> nint </item>  <!-- Generic form: nint -->
       <item> idnint </item><!-- Specific name for nint -->
@@ -125,6 +134,8 @@
       <item> real </item>  <!-- Generic form: real -->
       <item> float </item> <!-- Specific names for real -->
       <item> sngl </item>
+      <item> dble </item>
+      <item> dreal </item> <!-- (non standard) -->
       <item> aprime </item> <!-- 5 functions from fortran.xml -->      
       <item> dconjg </item> <!-- I don't know if they really belong to --> 
       <item> dfloat </item> <!-- the fortran 90/95 standard! -->
@@ -312,39 +323,76 @@
       <item> random_seed </item>
     </list>
 
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  -->
+<!-- *                           C O N T E X T S                         *  -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  -->
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="default" >
         <IncludeRules context="find_strings" />
 
-        <RegExpr attribute="Data Type" context="#stay" String="end[ \t]*type" insensitive="TRUE"/>
+        <IncludeRules context="find_decls" />
+
+        <RegExpr attribute="Logical" context="#stay" String="\.(true|false)[.]" insensitive="TRUE"/>
+        <RegExpr attribute="Operator" context="#stay" String="\.[A-Za-z]+\."/>
+        <RegExpr attribute="Operator" context="#stay" String="(==|/=|&lt;|&lt;=|&gt;|&gt;=)"/>
+
+        <IncludeRules context="find_numbers" />
+
+        <RegExpr attribute="Preprocessor" context="#stay" String="(#|cDEC\$|CDEC\$).*$" column="0"/>
+        <RegExpr attribute="Comment" context="#stay" String="[cC\*].*$" column="0"/>
+        <RegExpr attribute="Comment" context="#stay" String="!.*$"/>
+        <Detect2Chars attribute="Keyword" context="#stay" char="*" char1="*"/>
+        <AnyChar attribute="Keyword" context="#stay" String="&amp;+-*/=?[]^{|}~"/>
+        <AnyChar attribute="Symbol" context="#stay" String="(),"/>
+      </context>
+<!--************************END OF THE MAIN CONTEXT*************************-->
+
+
+
+<!-- The following two contexts match declarations -->
+      <context attribute="Normal Text" lineEndContext="#stay" name="find_decls">
+        <RegExpr attribute="Data Type" context="#stay" String="\binteger[\*]2" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\breal[\*]8" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\bcomplex[\*]16" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\bend\s*type\b" insensitive="TRUE"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
-        <RegExpr attribute="Data Type" context="#stay" String="\b(type|integer|real|complex|character|logical|intent|dimension)\b([ \t]*[(][^)]*[)])?" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="find_paren" String="^\s*real\s*[(]" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="#stay" String="^\s*real(?![\w\*])" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\bcharacter[*][0-9]+\b" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="find_paren" String="\b(type|integer|complex|character|logical|intent|dimension)\b\s*[(]" insensitive="TRUE"/>
+        <RegExpr attribute="Data Type" context="#stay" String="\b(type|integer|complex|character|logical|intent|dimension)\b" insensitive="TRUE"/>
+        <Detect2Chars attribute="Data Type" context="#stay" char=":" char1=":"/>
+      </context>
+<!-- This context matches parenthesis in data type declarations, such as in 'real(...)'-->
+      <context attribute="Data Type" lineEndContext="#pop" name="find_paren">
+        <DetectChar attribute="Data Type" context="find_paren" char="("/>
+        <DetectChar attribute="Data Type" context="#pop" char=")"/>
+      </context>
+
+<!-- The following context matches intrinsic procedures -->
+      <context attribute="Normal Text" lineEndContext="#stay" name="find_intrinsics">
+        <RegExpr attribute="Keyword" context="#stay" String="\bend\s*block\s*data\b" insensitive="TRUE"/> 
+        <RegExpr attribute="Keyword" context="#stay" String="\bblock\s*data\b" insensitive="TRUE"/> 
+        <RegExpr attribute="IO Function" context="#stay" String="\bend\s*file\b" insensitive="TRUE"/> 
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="IO Function" context="#stay" String="io_functions"/>
-
       <!-- INTRINSIC PROCEDURES -->
         <keyword attribute="Elemental Procedure"       context="#stay" String="elemental_procs"/>
         <keyword attribute="Inquiry Function"          context="#stay" String="inquiry_fn"/>
         <keyword attribute="Transformational Function" context="#stay" String="transform_fn"/>
         <keyword attribute="Non elemental subroutine"  context="#stay" String="non_elem_subr"/>
+      </context>
 
-        <RegExpr attribute="Logical" context="#stay" String="\.(true|false)\." insensitive="TRUE"/>
-        <RegExpr attribute="Operator" context="#stay" String="\.[A-Za-z]+[.]"/>
+<!-- The following context matches integer and real numbers -->
+      <context attribute="Normal Text" lineEndContext="#stay" name="find_numbers">
         <!-- Floating-point numbers with optional kind -->
-        <RegExpr attribute="Float" context="#stay" String="\b[0-9]*\.[0-9]+([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
-        <RegExpr attribute="Float" context="#stay" String="\b[0-9]+\.[0-9]*([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
-        <Float attribute="Float" context="#stay">
-          <AnyChar attribute="Float" context="#stay" String="fFdD"/>
-        </Float>
+        <RegExpr attribute="Float" context="#stay" String="[0-9]*\.[0-9]+([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
+        <RegExpr attribute="Float" context="#stay" String="\b[0-9]+\.[0-9]*([de][+-]?[0-9]+)?([_]([0-9]+|[a-z][\w_]*))?(?![a-z])" insensitive="TRUE"/>
+        <RegExpr attribute="Float" context="#stay" String="\b[0-9]+[de][+-]?[0-9]+([_]([0-9]+|[a-z][\w_]*))?" insensitive="TRUE"/>
         <!-- Integers with optional kind specifier -->
         <RegExpr attribute="Decimal" context="#stay" String="\b[0-9]+([_]([0-9]+|[a-zA-Z][\w_]*))?"/>
-        <!-- Integers in binary octal and hexadecimal notations -->
-        <RegExpr attribute="Decimal" context="#stay" String="\b[boz]([&apos;][0-9a-f]+[&apos;]|[&quot;][0-9a-f]+[&quot;])" insensitive="TRUE"/>
-        <HlCChar attribute="Char" context="#stay"/>
-        <RegExpr attribute="Preprocessor" context="#stay" String="(#|cDEC\$|CDEC\$).*$" column="0"/>
-        <RegExpr attribute="Comment" context="#stay" String="[cC\*].*$" column="0"/>
-        <RegExpr attribute="Comment" context="#stay" String="!.*$"/>
-        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <!-- Integers in binary, octal and hexadecimal notations -->
+        <RegExpr attribute="Decimal" context="#stay" String="\b[bozx]([&apos;][0-9a-f]+[&apos;]|[&quot;][0-9a-f]+[&quot;])" insensitive="TRUE"/>
       </context>
 
 <!-- The following four contexts implement the complex string multi-line declarations -->
@@ -365,15 +413,17 @@
         <RegExpr attribute="Keyword" context="end_of_string" String="&amp;\s*$"/>
         <RegExpr attribute="String" context="end_of_string" String=".*(?=&amp;\s*$)"/>
       </context>
-
+      
       <context attribute="String" lineEndContext="#stay" name="end_of_string" fallthrough="true" fallthroughContext="#pop#pop">
         <RegExpr attribute="Keyword" context="#stay" String="&amp;\s*$"/>
-        <DetectChar attribute="Keyword" context="#pop" char="&amp;" column="0"/>
-        <RegExpr attribute="Comment" context="#stay" String="(!.*)?$" column="0"/>
+        <DetectChar attribute="Keyword" context="#pop" char="&amp;" firstNonSpace="true" />
+        <RegExpr attribute="Comment" context="#stay" String="(!.*)?$" firstNonSpace="true" />
       </context>
-
-
     </contexts>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  -->
+<!-- *             S T Y L E   I T E M   D E F I N I T I O N S           *  -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  -->
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
@@ -398,10 +448,10 @@
     </itemDatas>
   </highlighting>
   <general>
-    <keywords casesensitive="0"/>
     <comments>
       <comment name="singleLine" start="!"/>
       <comment name="singleLine" start="c"/>
     </comments>
+    <keywords casesensitive="0"/>
   </general>
 </language>

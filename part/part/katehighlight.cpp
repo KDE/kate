@@ -1122,12 +1122,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
   int offset1 = 0;
   uint z = 0;
   KateHlItem *item = 0;
-  bool found = false;
 
   while (z < len)
   {
-    found = false;
-
+    bool found = false;
     bool standardStartEnableDetermined = false;
     bool standardStartEnable = false;
 

@@ -3834,22 +3834,22 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
         paint.drawText(oldXPos-xStart, y, str.string());
 
-	oldCol = curCol+1;
-	oldXPos = xPosAfter;
-	oldS = s+1;
-
 	      if (xPos > xEnd)
 				  break;
+
+        oldCol = curCol+1;
+        oldXPos = xPosAfter;
+        oldS = s+1;
       }
-      else if (((*s) == QChar('\t')) && showTabs)
+      else  if (((*s) == QChar('\t')) && showTabs)
       {
         paint.drawPoint(xPos - xStart, y);
         paint.drawPoint(xPos - xStart + 1, y);
         paint.drawPoint(xPos - xStart, y - 1);
-
+        
         oldCol = curCol+1;
-	oldXPos = xPosAfter;
-	oldS = s+1;
+        oldXPos = xPosAfter;
+        oldS = s+1;
       }
 
 	    if ((showCursor > -1) && (showCursor == curCol))
@@ -3860,7 +3860,13 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 			  cursorColor = &curAt->col;
 			}
     }
-
+    else
+    {
+      oldCol = curCol+1;
+      oldXPos = xPosAfter;
+      oldS = s+1;
+    }
+    
     //   kdDebug()<<"paint 6"<<endl;
 
     // increase xPos

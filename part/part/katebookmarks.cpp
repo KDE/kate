@@ -72,7 +72,8 @@ void KateBookmarks::createActions( KActionCollection* ac )
   m_bookmarkMenu = new KActionMenu(
     i18n("&Bookmarks"), ac, "bookmarks" );
   m_bookmarkMenu->setWhatsThis(i18n("Bookmark manipulation"));
-  QPopupMenu *m = m_bookmarkMenu->popupMenu ();
+  QPopupMenu *m = (QPopupMenu*)m_bookmarkMenu->popupMenu ();
+  //kdDebug()<<"menu m: "<<m<<endl;
 
   // setup bookmark menu
   m_bookmarkToggle = new KAction(
@@ -91,18 +92,18 @@ void KateBookmarks::createActions( KActionCollection* ac )
     "Next Bookmark", ALT + Key_PageDown,
     this, SLOT(goNext()),
     ac, "bookmarks_next");
-  m_goNext->setWhatsThis(i18n("Go to the nearest next bookmark."));
+  m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
 
   m_goPrevious = new KAction(
     "Previous Bookmark", ALT + Key_PageUp,
     this, SLOT(goPrevious()),
     ac, "bookmarks_previous");
-  m_goPrevious->setWhatsThis(i18n("Go to the nearest previous bookmark."));
+  m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
 
   // connect bookmarks menu aboutToshow
   connect( m, SIGNAL(aboutToShow()),
            this, SLOT(bookmarkMenuAboutToShow()));
-           
+
   // anders: I ensure the next/prev actions are available
   // and reset their texts (for edit shortcuts dialog, call me picky!).
   // TODO - come up with a better solution, please anyone?
@@ -147,12 +148,13 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   int idx( -1 );
   QMemArray<uint> sortArray( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
+//  kdDebug()<<"Redoing bookmarks menu, "<<it.count()<<" bookmarks in file"<<endl;
   if ( it.count() > 0 )
         m_bookmarkMenu->popupMenu()->insertSeparator();
   for( int i = 0; *it; ++it, ++i ) {
     if( (*it)->type & KTextEditor::MarkInterface::markType01 ) {
       QString bText = KStringHandler::rEmSqueeze
-                      ( m_view->getDoc()->textLine( (*it)->line ), 
+                      ( m_view->getDoc()->textLine( (*it)->line ),
                         m_bookmarkMenu->popupMenu()->fontMetrics(), 32 );
       bText.replace(re, "&&"); // kill undesired accellerators!
       if ( m_sorting == Position )
@@ -201,6 +203,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
 */
 void KateBookmarks::bookmarkMenuAboutToHide()
 {
+  //kdDebug()<<"KateBookmarks::bookmarkMenuAboutToHide()"<<endl;
   m_goNext->setText( i18n("Next Bookmark") );
   m_goNext->plug( m_bookmarkMenu->popupMenu() );
   m_goPrevious->setText( i18n("Previous Bookmark") );

@@ -27,7 +27,6 @@
 
 #include "kateview.h"
 #include "katedocument.h"
-#include "kateviewdialog.h"
 #include "katesupercursor.h"
 #include "katearbitraryhighlight.h"
 #include "kateconfig.h"
@@ -39,6 +38,9 @@
 #include <kdebug.h>
 #include <kfinddialog.h>
 #include <kreplacedialog.h>
+
+#include <qlayout.h>
+#include <qlabel.h>
 
 QStringList KateSearch::s_searchList  = QStringList();
 QStringList KateSearch::s_replaceList = QStringList();
@@ -559,5 +561,47 @@ void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
   view()->setCursorPositionInternal ( cursor.line(), cursor.col() + slen, 1, true );
   doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
+
+//BEGIN ReplacePrompt
+// this dialog is not modal
+ReplacePrompt::ReplacePrompt( QWidget *parent )
+  : KDialogBase(parent, 0L, false, i18n( "Replace Text" ),
+  User3 | User2 | User1 | Close | Ok , Ok, true,
+  i18n("&All"), i18n("&Last"), i18n("&No") ) {
+
+  setButtonOKText( i18n("&Yes") );
+  QWidget *page = new QWidget(this);
+  setMainWidget(page);
+
+  QBoxLayout *topLayout = new QVBoxLayout( page, 0, spacingHint() );
+  QLabel *label = new QLabel(i18n("Replace this occurrence?"),page);
+  topLayout->addWidget(label );
+}
+
+void ReplacePrompt::slotOk( void ) { // Yes
+  done(KateSearch::srYes);
+}
+
+void ReplacePrompt::slotClose( void ) { // Close
+  done(KateSearch::srCancel);
+}
+
+void ReplacePrompt::slotUser1( void ) { // All
+  done(KateSearch::srAll);
+}
+
+void ReplacePrompt::slotUser2( void ) { // Last
+  done(KateSearch::srLast);
+}
+
+void ReplacePrompt::slotUser3( void ) { // No
+  done(KateSearch::srNo);
+}
+
+void ReplacePrompt::done(int r) {
+  setResult(r);
+  emit clicked();
+}
+//END ReplacePrompt
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

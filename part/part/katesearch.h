@@ -130,4 +130,23 @@ class KateSearch : public QObject
     QRegExp m_re;
 };
 
+class ReplacePrompt : public KDialogBase
+{
+  Q_OBJECT
+    
+  public:
+    ReplacePrompt(QWidget *parent);
+
+  signals:
+    void clicked();
+
+  protected slots:
+    void slotOk( void );
+    void slotClose( void );
+    void slotUser1( void ); // All
+    void slotUser2( void ); // Last
+    void slotUser3( void ); // Yes
+    virtual void done(int);
+};
+
 #endif

@@ -46,13 +46,199 @@ namespace Kate { class PluginInfo; }
 
 struct syntaxContextData;
 
+class KateDocument;
+class KateView;
+
+class KAccel;
+class KColorButton;
+class KComboBox;
+class KIntNumInput;
+class KKeyButton;
+class KKeyChooser;
+class KMainWindow;
+class KPushButton;
+class KRegExpDialog;
+class KIntNumInput;
 class KSpellConfig;
 
+class QButtonGroup;
+class QCheckBox;
+class QHBoxLayout;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QRadioButton;
+class QSpinBox;
 class QListBoxItem;
 class QWidgetStack;
 class QVBox;
 class QListViewItem;
 class QCheckBox;
+
+class GotoLineDialog : public KDialogBase
+{
+  Q_OBJECT
+
+  public:
+
+    GotoLineDialog(QWidget *parent, int line, int max);
+    int getLine();
+
+  protected:
+
+    KIntNumInput *e1;
+    QPushButton *btnOK;
+};
+
+class IndentConfigTab : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+  public:
+    IndentConfigTab(QWidget *parent);
+
+  protected slots:
+    void spacesToggled();
+
+  protected:
+    enum { numFlags = 6 };
+    static const int flags[numFlags];
+    QCheckBox *opt[numFlags];
+    KIntNumInput *indentationWidth;
+    QButtonGroup *m_tabs;
+    KComboBox *m_indentMode;
+
+  public slots:
+    void apply ();
+    void reload ();
+    void reset () {};
+    void defaults () {};
+};
+
+class SelectConfigTab : public Kate::ConfigPage
+{
+  Q_OBJECT
+  
+  public:
+    SelectConfigTab(QWidget *parent);
+
+  protected:
+
+    enum { numFlags = 2 };
+    static const int flags[numFlags];
+    QCheckBox *opt[numFlags];
+
+  public slots:
+    void apply ();
+    void reload ();
+    void reset () {};
+    void defaults () {};
+};
+
+class EditConfigTab : public Kate::ConfigPage
+{
+    Q_OBJECT
+
+  public:
+
+    EditConfigTab(QWidget *parent, KateDocument *);
+    void getData(KateDocument *);
+
+  protected:
+
+    enum { numFlags = 5 };
+    static const int flags[numFlags];
+    QCheckBox *opt[numFlags];
+
+    KIntNumInput *e1;
+    KIntNumInput *e2;
+    KIntNumInput *e3;
+    KIntNumInput *e4;
+    KComboBox *e5;
+    QCheckBox *e6;
+    KateDocument *m_doc;
+
+  public slots:
+    void apply ();
+    void reload ();
+    void reset () {};
+    void defaults () {};
+
+  protected slots:
+    void wordWrapToggled();
+};
+
+class ViewDefaultsConfig : public Kate::ConfigPage
+{
+  Q_OBJECT
+
+public:
+  ViewDefaultsConfig( QWidget *parent = 0, const char *name = 0, KateDocument *doc=0 );
+  ~ViewDefaultsConfig();
+
+private:
+  KateDocument *m_doc;
+
+  QCheckBox *m_line;
+  QCheckBox *m_folding;
+  QCheckBox *m_collapseTopLevel;
+  QCheckBox *m_icons;
+  QCheckBox *m_dynwrap;
+  KIntNumInput *m_dynwrapAlignLevel;
+  QCheckBox *m_wwmarker;
+  QLabel *m_dynwrapIndicatorsLabel;
+  KComboBox *m_dynwrapIndicatorsCombo;
+  QButtonGroup *m_bmSort;
+  KComboBox *m_schemaCombo;
+
+public slots:
+ void apply ();
+ void reload ();
+ void reset ();
+ void defaults ();
+};
+
+class EditKeyConfiguration: public Kate::ConfigPage
+{
+  Q_OBJECT
+
+  public:
+    EditKeyConfiguration( QWidget* parent, KateDocument* doc );
+
+  public slots:
+    void apply();
+    void reload()   {};
+    void reset()    {};
+    void defaults() {};
+
+  protected:
+    void showEvent ( QShowEvent * );
+
+  private:
+    bool m_ready;
+    class KateDocument *m_doc;
+    KKeyChooser* m_keyChooser;
+};
+
+class SaveConfigTab : public Kate::ConfigPage
+{
+  Q_OBJECT
+  public:
+  SaveConfigTab( QWidget *parent, KateDocument * );
+
+  public slots:
+  void apply();
+  void reload();
+  void reset();
+  void defaults();
+
+  protected:
+  KComboBox *m_encoding, *m_eol;
+  QCheckBox *cbLocalFiles, *cbRemoteFiles;
+  QCheckBox *replaceTabs, *removeSpaces;
+  QLineEdit *leBuSuffix;
+  KateDocument *m_doc;
+};
 
 class PluginListItem : public QCheckListItem
 {
@@ -124,97 +310,6 @@ class PluginConfigPage : public Kate::ConfigPage
     void defaults () {};
 };
 
-/*
-    QListViewItem subclass to display/edit a style, bold/italic is check boxes,
-    normal and selected colors are boxes, which will display a color chooser when
-    activated.
-    The context name for the style will be drawn using the editor default font and
-    the chosen colors.
-    This widget id designed to handle the default as well as the individual hl style
-    lists.
-    This widget is designed to work with the StyleListView class exclusively.
-    Added by anders, jan 23 2002.
-*/
-class StyleListItem : public QListViewItem
-{
-  public:
-    StyleListItem( QListView *parent=0, const QString & stylename=0,
-                   class KateAttribute* defaultstyle=0, class ItemData *data=0 );
-    ~StyleListItem() { if (st) delete is; };
-
-    /* mainly for readability */
-    enum Property { ContextName, Bold, Italic, Underline, Strikeout, Color, SelColor, BgColor, SelBgColor, UseDefStyle };
-
-    /* updates the hldata's style */
-    void updateStyle();
-    /* reimp */
-    virtual int width ( const QFontMetrics & fm, const QListView * lv, int c ) const;
-    /* calls changeProperty() if it makes sense considering pos. */
-    void activate( int column, const QPoint &localPos );
-    /* For bool fields, toggles them, for color fields, display a color chooser */
-    void changeProperty( Property p );
-    /* style context name */
-    QString contextName() { return text(0); };
-    /* only true for a hl mode item using it's default style */
-    bool defStyle();
-    /* true for default styles */
-    bool isDefault();
-    /* whichever style is active (st for hl mode styles not using
-       the default style, ds otherwise) */
-    class KateAttribute* style() { return is; };
-  
-  protected:
-    /* reimp */
-    void paintCell(QPainter *p, const QColorGroup& cg, int col, int width, int align);
-  
-  private:
-    /* private methods to change properties */
-    void toggleDefStyle();
-    void setColor( int );
-    /* helper function to copy the default style into the ItemData,
-       when a property is changed and we are using default style. */
-    void setCustStyle();
-
-    class KateAttribute *is, // the style currently in use
-              *ds;           // default style for hl mode contexts and default styles
-    class ItemData *st;      // itemdata for hl mode contexts
-};
-
-/*
-    QListView that automatically adds columns for StyleListItems and provides a
-    popup menu and a slot to edit a style using the keyboard.
-    Added by anders, jan 23 2002.
-*/
-class StyleListView : public QListView
-{
-  Q_OBJECT
-  
-  friend class StyleListItem;
-  
-  public:
-    StyleListView( QWidget *parent=0, bool showUseDefaults=false);
-    ~StyleListView() {};
-    /* Display a popupmenu for item i at the specified global position, eventually with a title,
-       promoting the context name of that item */
-    void showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle=false );
-    void emitChanged() { emit changed(); };
-    
-  private slots:
-    /* Display a popupmenu for item i at item position */
-    void showPopupMenu( QListViewItem *i );
-    /* call item to change a property, or display a menu */
-    void slotMousePressed( int, QListViewItem*, const QPoint&, int );
-    /* asks item to change the property in q */
-    void mSlotPopupHandler( int z );
-  
-  signals:
-    void changed();
-  
-  private:
-    QColor bgcol, selcol, normalcol;
-    QFont docfont;
-};
-
 /**
    This widget provides a checkable list of all available mimetypes,
    and a list of selected ones, as well as a corresponding list of file
@@ -271,7 +366,6 @@ class KMimeTypeChooserDlg : public KDialogBase
     KMimeTypeChooser *chooser;
 };
 
-typedef QPtrList<KateAttribute> KateAttributeList;
 typedef QIntDict<HlData> HlDataDict;
 
 class HlConfigPage : public Kate::ConfigPage

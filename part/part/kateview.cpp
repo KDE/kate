@@ -31,7 +31,6 @@
 #include "katedocument.h"
 #include "katefactory.h"
 #include "katehighlight.h"
-#include "kateviewdialog.h"
 #include "kateiconborder.h"
 #include "katedialogs.h"
 #include "katetextline.h"

@@ -25,7 +25,6 @@
 #include "katedocument.moc"
 
 #include "katefactory.h"
-#include "kateviewdialog.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
 #include "kateview.h"

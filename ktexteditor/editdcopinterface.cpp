@@ -20,7 +20,7 @@ QString EditDCOPInterface::text ()
 	return m_parent->text();
 }
 
-QString EditDCOPInterface::textLine ( int line )
+QString EditDCOPInterface::textLine ( uint line )
 {
 	return m_parent->textLine(line);
 }
@@ -55,7 +55,7 @@ bool EditDCOPInterface::insertLine ( uint line, const QString &text )
 	return m_parent->insertLine( line, text);
 }
 
-bool EditDCOPInterface::removeLine ( int line )
+bool EditDCOPInterface::removeLine ( uint line )
 {
 	return m_parent->removeLine( line );
 }

@@ -40,7 +40,7 @@ namespace KTextEditor
 		/**
 		* @return All the text from the requested line.
 		*/
-		virtual QString textLine ( int line );
+		virtual QString textLine ( uint line );
 
 		/**
 		* @return The current number of lines in the document
@@ -80,7 +80,7 @@ namespace KTextEditor
 		* Insert line(s) at the given line number. If the line number is -1
 		* (the default) then the line is added to end of the document
 		*/
-		virtual bool removeLine ( int line );
+		virtual bool removeLine ( uint line );
 	private:
 		EditInterface *m_parent;
 	};

@@ -103,7 +103,7 @@ void KateBuffer::editEnd ()
   if (editSessionNumber > 0)
     return;
     
-  kdDebug () << "BUFFER EDIT END, LINESTART: " << editTagLineStart << " LINEEND: " << editTagLineEnd << endl;
+  kdDebug (13020) << "BUFFER EDIT END, LINESTART: " << editTagLineStart << " LINEEND: " << editTagLineEnd << endl;
     
   // hl update !!!
   if ((editTagLineStart <= editTagLineEnd) && (editTagLineEnd <= m_lineHighlighted))
@@ -544,8 +544,8 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
   if (startLine >= (buf->startLine()+buf->lines()))
     return false;
     
-  kdDebug () << "NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
-  kdDebug () << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
+  kdDebug (13020) << "NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
+  kdDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
   
   // get the previous line, if we start at the beginning of this block
   // take the last line of the previous block

@@ -457,7 +457,7 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 
   m_doc = doc;
 
-  QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+  QVBoxLayout *blay=new QVBoxLayout(this,0,KDialog::spacingHint());
 
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Word Wrap"), this);
 
@@ -569,7 +569,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   QHBox *b;
   QLabel *label;
 
-  QVBoxLayout *blay=new QVBoxLayout(this,KDialog::spacingHint());
+  QVBoxLayout *blay=new QVBoxLayout(this, 0, KDialog::spacingHint());
 
   QVGroupBox *gbTextArea = new QVGroupBox(i18n("Text Area Background"), this);
 

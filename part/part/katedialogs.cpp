@@ -338,9 +338,8 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
 
   QVBox *page1 = new QVBox ( this );
   addTab(page1,i18n("&Default Styles"));
-  int spacing = KDialogBase::spacingHint();
-  page1->setSpacing( spacing );
-  page1->setMargin( spacing );
+  page1->setSpacing( KDialog::spacingHint() );
+  page1->setMargin( KDialog::marginHint() );
 
   QColor normalcol( defaultItemStyleList->at(0)->textColor() );
   StyleListView *lvDefStyles = new StyleListView( page1, false, normalcol );
@@ -351,12 +350,12 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
 
   QVBox *page2 = new QVBox( this );
   addTab(page2,i18n("Highlight &Modes"));
-  page2->setSpacing( spacing );
-  page2->setMargin( spacing );
+  page2->setSpacing( KDialog::spacingHint() );
+  page2->setMargin( KDialog::marginHint() );
 
   // hl chooser
   QHBox *hbHl = new QHBox( page2 );
-  hbHl->setSpacing( spacing );
+  hbHl->setSpacing( KDialog::spacingHint() );
   QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
   hlCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( hlCombo );
@@ -407,7 +406,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
   // download/new buttons
   QHBox *hbBtns = new QHBox( page2 );
   ((QBoxLayout*)hbBtns->layout())->addStretch(1); // hmm.
-  hbBtns->setSpacing( spacing );
+  hbBtns->setSpacing( KDialog::spacingHint() );
   QPushButton *btnDl = new QPushButton(i18n("Do&wnload..."), hbBtns);
   connect( btnDl, SIGNAL(clicked()), this, SLOT(hlDownload()) );
   QPushButton *btnNew = new QPushButton(i18n("&New..."), hbBtns);

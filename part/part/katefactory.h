@@ -46,7 +46,6 @@ public:
   static void deregisterView ( class KateView *view );
   
   static KTrader::OfferList *plugins ();
-  static KTrader::OfferList *viewPlugins ();
   
 private:
   static void ref();
@@ -62,7 +61,6 @@ private:
   static KAboutData *s_about;
   
   static KTrader::OfferList *s_plugins;
-  static KTrader::OfferList *s_viewPlugins; 
 };
 
 #endif

@@ -425,17 +425,14 @@ void KateView::setupCodeCompletion()
 }
 
 void KateView::setupViewPlugins()
-{
-  KTrader::OfferList::Iterator it(KateFactory::viewPlugins()->begin());
-  for( ; it != KateFactory::viewPlugins()->end(); ++it)
+{    
+  for (uint z=0; z < m_doc->loadedPlugins.count(); z++)
   {
-    KService::Ptr ptr = (*it);
-    
-    if (KTextEditor::ViewPlugin *plugin = KTextEditor::createViewPlugin (QFile::encodeName(ptr->library()), this))
+    if (KTextEditor::PluginViewInterface *iface = KTextEditor::pluginViewInterface (m_doc->loadedPlugins.at(z)))
     {
-      insertChildClient (plugin);
-      plugin->setView (this);
-    }
+      loadedPlugins.append (m_doc->loadedPlugins.at(z));
+      iface->addView (this);
+      }
   }
 }
 

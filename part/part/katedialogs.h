@@ -44,21 +44,6 @@ class QCheckBox;
 #define HlEContext 1
 #define HlEItem 2     
 
-class PluginListView : public KListView
-{
-  Q_OBJECT
-
-  public:
-    PluginListView (QWidget *parent = 0, bool docPlugins = true, class KateDocument *doc = 0, KTrader::OfferList *plugins = 0);
-    ~PluginListView ();     
-    
-  private:
-    bool m_docPlugins;
-    KateDocument *m_doc;
-    KTrader::OfferList *m_plugins;
-    QPtrList<class PluginListItem> m_items;  
-};
-
 class PluginConfigPage : public Kate::ConfigPage
 {
   Q_OBJECT
@@ -69,8 +54,6 @@ class PluginConfigPage : public Kate::ConfigPage
 
   private:
     KateDocument *m_doc;
-    PluginListView *m_docPlugins;
-    PluginListView *m_viewPlugins;
 
   public slots:
     void apply ();

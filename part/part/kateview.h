@@ -31,6 +31,7 @@
 
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/viewstatusmsginterface.h>
+#include <ktexteditor/plugin.h>
 
 class KToggleAction;
 class KAction;
@@ -55,7 +56,9 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
 
   public:
     KateView( KateDocument* doc, QWidget* parent = 0L, const char* name = 0 );
-    ~KateView ();
+    ~KateView ();  
+    
+    QPtrList<KTextEditor::Plugin> loadedPlugins;
 
   //
   // KTextEditor::View

@@ -23,6 +23,7 @@
 
 #include <ktexteditor/configinterfaceextension.h>
 #include <ktexteditor/encodinginterface.h>
+#include <ktexteditor/plugin.h>
 
 #include "katecursor.h"
 #include "katefont.h"
@@ -63,7 +64,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
         QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
     ~KateDocument ();
     
-    bool closeURL();
+    bool closeURL(); 
+    
+    QPtrList<KTextEditor::Plugin> loadedPlugins;
 
   private:
     // only to make part work, don't change it !
@@ -660,10 +663,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
    /**
     * Implementation of the mark interface
     **/
-  public:
-    QStringList loadedPlugins;
-    QStringList loadedViewPlugins;
-  
+  public: 
     /**
       Allow the HlManager to fill the array
     */

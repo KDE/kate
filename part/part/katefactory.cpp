@@ -43,7 +43,6 @@ KAboutData *KateFactory::s_about = 0;
 QPtrList<KateDocument> *KateFactory::s_documents = 0;
 QPtrList<KateView> *KateFactory::s_views = 0;
 KTrader::OfferList *KateFactory::s_plugins = 0; 
-KTrader::OfferList *KateFactory::s_viewPlugins = 0;
 
 extern "C"
 {
@@ -88,16 +87,12 @@ KateFactory::~KateFactory()
 	
 	if ( s_plugins )
 	  delete s_plugins;
-	  
-	if ( s_viewPlugins )
-	  delete s_viewPlugins;
-        
+	          
         s_instance = 0;
         s_about = 0;
         s_documents = 0;
         s_views = 0;
 	s_plugins = 0;
-	s_viewPlugins = 0;
     }
     else
         deref();
@@ -196,14 +191,6 @@ KTrader::OfferList *KateFactory::plugins ()
    s_plugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/Plugin"));
    
   return s_plugins;
-}
-
-KTrader::OfferList *KateFactory::viewPlugins ()
-{
-  if ( !s_viewPlugins )
-   s_viewPlugins = new QValueList<KService::Ptr> (KTrader::self()->query("KTextEditor/ViewPlugin"));
-   
-  return s_viewPlugins;
 }
 
 KInstance *KateFactory::instance()

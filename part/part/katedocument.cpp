@@ -205,7 +205,14 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
     if (KTextEditor::Plugin *plugin = KTextEditor::createPlugin (QFile::encodeName(ptr->library()), this))
     {
-      plugin->setDocument (this);
+      loadedPlugins.append (plugin);
+         
+      if (KTextEditor::pluginViewInterface (plugin))
+        for (uint z=0; z < m_views.count(); z++)
+        {
+          m_views.at(z)->loadedPlugins.append (plugin);
+          KTextEditor::pluginViewInterface(plugin)->addView (m_views.at(z));
+        }
     }
   }
 }

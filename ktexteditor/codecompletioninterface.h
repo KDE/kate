@@ -34,6 +34,14 @@ namespace KTextEditor
  * the completion list for the currently selected item. <code>userdata</code> can be 
  * free formed data, which the user of this interface can use in 
  * @ref CodeCompletionInterface::filterInsertString().
+ *
+ *
+ * There is another signal, which should be implmemented, but isn't documented here, because
+ * It would have been a BIC change.
+ * 
+ * void completionExtendedHint(CompletionEntry*)
+ *
+ *
  */
 class CompletionEntry
 {
@@ -156,6 +164,7 @@ class CodeCompletionInterface
 	 * function, if you support it, declare it as a signal
 	 */
     virtual void filterInsertString(CompletionEntry*,QString*)=0;
+
 
   private:
     class PrivateCodeCompletionInterface *d;

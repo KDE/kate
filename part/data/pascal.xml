@@ -122,7 +122,7 @@
                                 <keyword attribute="Type" context="#stay" String="types"/>
                                 <Float attribute="Number" context="#stay"/>
                                 <Int attribute="Number" context="#stay"/>
-                                <DetectChar attribute="String" context="String" char="&quot;" />
+                                <DetectChar attribute="String" context="String" char="&apos;" />
                                 <StringDetect attribute="Directive" context="Prep1" String="(*$"/>
                                 <Detect2Chars attribute="Directive" context="Prep2" char="{" char1="$"/>
                                 <DetectChar attribute="Comment" context="Comment1" char="{"/>

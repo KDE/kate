@@ -1026,9 +1026,14 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-
-    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
-      view->myViewInternal->tagLinesFrom = line;
+    
+    if (line >= view->myViewInternal->newStartLineReal)
+    {
+      if ((view->myViewInternal->tagLinesFrom > line) || (view->myViewInternal->tagLinesFrom == -1))
+        view->myViewInternal->tagLinesFrom = line;
+    }
+    else
+      view->myViewInternal->newStartLineReal--;
 
     cLine = view->myViewInternal->cursorCache.line;
     cCol = view->myViewInternal->cursorCache.col;
@@ -1088,9 +1093,14 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-
-    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
-      view->myViewInternal->tagLinesFrom = line;
+    
+    if (line >= view->myViewInternal->newStartLineReal)
+    {
+      if ((view->myViewInternal->tagLinesFrom > line) || (view->myViewInternal->tagLinesFrom == -1))
+        view->myViewInternal->tagLinesFrom = line;
+    }
+    else
+      view->myViewInternal->newStartLineReal++;
   }
 
   editEnd ();
@@ -1136,16 +1146,20 @@ bool KateDocument::editRemoveLine ( uint line )
       emit marksChanged ();
   }
 
-  kdDebug()<<"KateDocument::editRemoveLine"<<endl;
   regionTree->lineHasBeenRemoved(line);
 
   newDocGeometry = true;
   for (uint z2 = 0; z2 < myViews.count(); z2++)
   {
     view = myViews.at(z2);
-    
-    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
-      view->myViewInternal->tagLinesFrom = line;
+
+    if (line >= view->myViewInternal->newStartLineReal)
+    {
+      if ((view->myViewInternal->tagLinesFrom > line) || (view->myViewInternal->tagLinesFrom == -1))
+        view->myViewInternal->tagLinesFrom = line;
+    }
+    else
+      view->myViewInternal->newStartLineReal--;
 
     cLine = view->myViewInternal->cursorCache.line;
     cCol = view->myViewInternal->cursorCache.col;

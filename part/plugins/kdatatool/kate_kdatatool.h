@@ -60,7 +60,7 @@ public:
 private:
 	View *m_view;
 	bool m_singleWord;
-	uint m_singleWord_line, m_singleWord_start, m_singleWord_end;
+	int m_singleWord_line, m_singleWord_start, m_singleWord_end;
 	QString m_wordUnderCursor;
 	QPtrList<KAction> m_actionList;
 	QGuardedPtr<KActionMenu> m_menu;

@@ -112,9 +112,10 @@ void KDataToolPluginView::aboutToShow()
 		QString tmp_line = ei->textLine(line);
 		m_wordUnderCursor = "";
 		// find begin of word:
-		for(uint i = col; i > 0; i--) {
+		m_singleWord_start = 0;
+		for(int i = col; i >= 0; i--) {
 			QChar ch = tmp_line.at(i);
-			if( ch.isSpace() )
+			if( ! (ch.isLetter() || ch == '-' || ch == '\'') )
 			{
 				m_singleWord_start = i+1;
 				break;
@@ -122,9 +123,10 @@ void KDataToolPluginView::aboutToShow()
 			m_wordUnderCursor = ch + m_wordUnderCursor;
 		}
 		// find end of word:
+		m_singleWord_end = tmp_line.length();
 		for(uint i = col+1; i < tmp_line.length(); i++) {
 			QChar ch = tmp_line.at(i);
-			if( ch.isSpace() )
+			if( ! (ch.isLetter() || ch == '-' || ch == '\'') )
 			{
 				m_singleWord_end = i;
 				break;

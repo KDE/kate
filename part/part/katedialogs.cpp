@@ -458,22 +458,6 @@ void StyleListView::slotMousePressed(int btn, QListViewItem* i, const QPoint& po
   }
 }
 
-/* broken ?!
-#include <kstdaccel.h>
-#include <qcursor.h>
-void StyleListView::keyPressEvent( QKeyEvent *e )
-{
-  if ( ! currentItem() ) return;
-  if ( isVisible() && KStdAccel::isEqual( e, KStdAccel::key(KStdAccel::PopupMenuContext) ) ) {
-    QPoint p = QCursor::pos();
-    if( ! itemRect( currentItem() ).contains( mapFromGlobal(p)  ) )
-      p = viewport()->mapToGlobal( itemRect(currentItem()).topLeft() );
-    showPopupMenu( (StyleListItem*)currentItem(), p, true );
-  }
-  else
-    QListView::keyPressEvent( e );
-}
-*/
 //END
 
 //BEGIN StyleListItem
@@ -489,6 +473,7 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
           ds( style ),
           st( data )
 {
+  // have we ItemData around ?
   if ( st )
   {
     if (st->isSomethingSet())
@@ -505,6 +490,7 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
 
 void StyleListItem::updateStyle()
 {  
+  // nothing there, not update it, will crash
   if (!st)
     return;
   
@@ -516,6 +502,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::Weight);
   }
+  
   if ( is->itemSet(KateAttribute::Italic) )
   {
     if ( is->italic() != st->italic() &&
@@ -524,6 +511,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::Italic);
   }
+  
   if ( is->itemSet(KateAttribute::StrikeOut) )
   {
     if ( is->strikeOut() != st->strikeOut() &&
@@ -532,6 +520,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::StrikeOut);
   }
+  
   if ( is->itemSet(KateAttribute::Underline) )
   {
     if ( is->underline() != st->underline() &&
@@ -540,6 +529,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::Underline);
   }
+  
   if ( is->itemSet(KateAttribute::Outline) )
   {
     if ( is->outline() != st->outline() &&
@@ -557,6 +547,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::TextColor);
   }
+  
   if ( is->itemSet(KateAttribute::SelectedTextColor) )
   {
     if ( is->selectedTextColor() != st->selectedTextColor() &&
@@ -565,6 +556,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::SelectedTextColor);
   }
+  
   if ( is->itemSet(KateAttribute::BGColor) )
   {
     if ( is->bgColor() != st->bgColor() &&
@@ -573,6 +565,7 @@ void StyleListItem::updateStyle()
     else
       st->clearAttribute(KateAttribute::BGColor);
   }
+
   if ( is->itemSet(KateAttribute::SelectedBGColor) )
   {
     if ( is->selectedBGColor() != st->selectedBGColor() &&
@@ -655,10 +648,8 @@ void StyleListItem::changeProperty( Property p )
   else if ( p == UseDefStyle )
     toggleDefStyle();
   else
-  {
     setColor( p );
-    ch = false;
-  }
+
   if ( ch )
     ((StyleListView*)listView())->emitChanged();
 }

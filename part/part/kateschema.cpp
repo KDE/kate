@@ -440,12 +440,16 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 
   if (!m_hlDict[m_schema])
   {
+    kdDebug () << "NEW SCHEMA, create dict" << endl;
+  
     m_hlDict.insert (schema, new QIntDict<ItemDataList>);
     m_hlDict[m_schema]->setAutoDelete (true);
   }
   
   if (!m_hlDict[m_schema]->find(m_hl))
   {
+    kdDebug () << "NEW HL, create list" << endl;
+  
     ItemDataList *list = new ItemDataList ();
     HlManager::self()->getHl( m_hl )->getItemDataList (m_schema, *list);
     m_hlDict[m_schema]->insert (m_hl, list);
@@ -458,6 +462,8 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->next())
   {
+    kdDebug () << "insert items " << itemData->name << endl;
+  
     m_styles->insertItem( new StyleListItem( m_styles, i18n(itemData->name.latin1()),
                           list.at(itemData->defStyleNum), itemData ) );
   }
@@ -548,6 +554,8 @@ void KateSchemaConfigPage::apply()
   KateFactory::self()->schemaManager()->update ();
 
   KateRendererConfig::global()->setSchema (KateRendererConfig::global()->schema());
+  
+  kdDebug () << "applying hl config" << endl;
   
   // special for the highlighting stuff
   m_fontColorTab->apply ();

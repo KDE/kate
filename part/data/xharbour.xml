@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="xHarbour" version="1.03" kateversion="2.3" section="Sources" extensions="*.prg;*.PRG;*.ch" mimetype="text/x-xharbour-src" priority="5" author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
+<language name="xHarbour" version="1.04" kateversion="2.4" section="Sources" extensions="*.prg;*.PRG;*.ch" mimetype="text/x-xharbour-src" priority="5" author="Giancarlo Niccolai (giancarlo@niccolai.ws)" license="GPL">
 <highlighting>
 
    <list name="keywords">
@@ -460,10 +460,9 @@
    <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="TopLevel">
 
-         <StringDetect attribute="Comment" context="ml_comment" String="/*"
-               beginRegion="comment_region"/>
-         <RegExpr attribute="Comment" context="comment" String="^[\t ]*[*]" />
-         <StringDetect attribute="Comment" context="comment" String="//" />
+         <Detect2Chars attribute="Comment" context="ml_comment" char="/" char="*" beginRegion="comment_region"/>
+         <DetectChar attribute="Comment" context="comment" char="*" firstNonSpace="true"/>
+         <Detect2Chars attribute="Comment" context="comment" char="/" char1="/" />
 
          <DetectChar attribute="String" context="string" char="&quot;" />
          <DetectChar attribute="String" context="stringc" char="'" />
@@ -474,36 +473,28 @@
          <StringDetect attribute="Operator" context="#stay" String=".f." insensitive="TRUE"/>
          <StringDetect attribute="Operator" context="#stay" String=".t." insensitive="TRUE"/>
 
-         <DetectChar attribute="Operator" context="#stay" char=":"/>
-         <DetectChar attribute="Operator" context="#stay" char="="/>
-         <DetectChar attribute="Operator" context="#stay" char="!"/>
+         <AnyChar attribute="Operator" context="#stay" String=":=!" />
          <DetectChar attribute="Keyword" context="#stay" char="@"/>
 
-         <RegExpr String="^[\t ]*CLASS[\t ]+" attribute="Keyword" context="ClassContext"
-                insensitive="TRUE" beginRegion="ClassDeclRegion" />
+         <RegExpr String="CLASS[\t ]+" attribute="Keyword" context="ClassContext" insensitive="TRUE" beginRegion="ClassDeclRegion" firstNonSpace="true"/>
 
-         <RegExpr String="^[\t ]*DO[\t ]+CASE[\t ]*$" attribute="Keyword" context="#stay"
-                insensitive="TRUE" beginRegion="IndentRegion" />
-         <keyword attribute="Keyword" context="#stay" String="context_beginners"
-                beginRegion="IndentRegion" />
-         <keyword attribute="Keyword" context="#stay" String="context_terminators"
-                endRegion="IndentRegion" />
-         <RegExpr String="^return ?" attribute="Keyword" context="#stay"
-                insensitive="TRUE" endRegion="IndentRegion" />
+         <RegExpr String="DO[\t ]+CASE[\t ]*$" attribute="Keyword" context="#stay" insensitive="TRUE" beginRegion="IndentRegion" firstNonSpace="true"/>
+         <keyword attribute="Keyword" context="#stay" String="context_beginners" beginRegion="IndentRegion" />
+         <keyword attribute="Keyword" context="#stay" String="context_terminators" endRegion="IndentRegion" />
+         <RegExpr String="return ?" attribute="Keyword" context="#stay" insensitive="TRUE" endRegion="IndentRegion" column="0"/>
 
          <keyword attribute="Keyword" context="#stay" String="keywords" />
          <keyword attribute="Keyword" context="#stay" String="set_commands" />
          <keyword attribute="Function" context="#stay" String="functions" />
          <keyword attribute="Preprocessor" context="#stay" String="pragma" />
-         <RegExpr attribute="Operator" context="#stay" String="->" />
-         <RegExpr attribute="Number" context="#stay" String="[0-9]+" />
+         <Detect2Chars attribute="Operator" context="#stay" char="-" char1=">" />
+         <RegExpr attribute="Number" context="#stay" String="\d+" />
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="comment"/>
 
       <context attribute="Comment" lineEndContext="#stay" name="ml_comment">
-         <StringDetect attribute="Comment" context="#pop" String="*/"
-            endRegion="comment_region"/>
+         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment_region"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="string">
@@ -519,14 +510,12 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="ClassContext">
 
-         <StringDetect attribute="Comment" context="ml_comment" String="/*"
-               beginRegion="comment_region"/>
-         <RegExpr attribute="Comment" context="comment" String="^[ ]*[*]" />
-         <StringDetect attribute="Comment" context="comment" String="//" />
+         <Detect2Chars attribute="Comment" context="ml_comment" char="/" char1="*" beginRegion="comment_region"/>
+         <DetectChar attribute="Comment" context="comment" char="*" firstNonSpace="true"/>
+         <Detect2Chars attribute="Comment" context="comment" char="/" char1="/" />
 
          <keyword attribute="Keyword" context="#stay" String="class_keywords" />
-         <RegExpr String="^[\t ]*END(CLASS)? *$" attribute="Keyword" context="#pop"
-               insensitive="TRUE" endRegion="ClassDeclRegion" />
+         <RegExpr String="END(CLASS)? *$" attribute="Keyword" context="#pop" insensitive="TRUE" endRegion="ClassDeclRegion" firstNonSpace="true"/>
       </context>
 
    </contexts>

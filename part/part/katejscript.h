@@ -42,6 +42,7 @@ namespace KJS {
 
 /**
  * Whole Kate Part scripting in one classs
+ * Allow subclassing to allow specialized scripting engine for indenters
  */
 class KateJScript
 {
@@ -54,7 +55,7 @@ class KateJScript
     /**
      * be destructive
      */
-    ~KateJScript ();
+    virtual ~KateJScript ();
 
     /**
      * creates a JS wrapper object for given KateDocument
@@ -83,7 +84,7 @@ class KateJScript
      */
     bool execute (KateView *view, const QString &script, QString &errorMsg);
 
-  private:
+  protected:
     /**
      * global object of interpreter
      */

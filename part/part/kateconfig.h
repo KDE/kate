@@ -37,21 +37,52 @@ class KConfig;
 class QFont;
 class QTextCodec;
 
+/**
+ * Base Class for the Kate Config Classes
+ */
 class KateConfig
 {
   public:
+    /**
+     * Default Constructor
+     */
     KateConfig ();
+    
+    /**
+     * Virtual Destructor
+     */
     virtual ~KateConfig ();
 
   public:
+     /**
+      * start some config changes
+      * this method is needed to init some kind of transaction
+      * for config changes, update will only be done once, at
+      * configEnd() call
+      */
      void configStart ();
+     
+     /**
+      * end a config change transaction, update the concerned
+      * documents/views/renderers
+      */
      void configEnd ();
 
   protected:
+    /**
+     * do the real update
+     */
     virtual void updateConfig () = 0;
 
   private:
+    /**
+     * recursion depth
+     */
     uint configSessionNumber;
+    
+    /**
+     * is a config session running
+     */
     bool configIsRunning;
 };
 

@@ -1,9 +1,9 @@
 /***************************************************************************
     insertfileplugin.cpp
     Insert any readable file at cursor position
-    
+
     begin                : Thu Jun 13 13:14:52 CEST 2002
-    $Id:$
+    $Id$
     copyright            : (C) 2002 by Anders Lund
     email                : anders@alweb.dk
  ***************************************************************************/
@@ -18,6 +18,7 @@
  ***************************************************************************/
 
 #include "insertfileplugin.h"
+#include "insertfileplugin.moc"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/viewcursorinterface.h>
@@ -47,23 +48,23 @@ InsertFilePlugin::InsertFilePlugin( QObject *parent, const char* name, const QSt
 
 InsertFilePlugin::~InsertFilePlugin()
 {
-}                    
+}
 
 void InsertFilePlugin::addView(KTextEditor::View *view)
-{                                          
+{
   InsertFilePluginView *nview = new InsertFilePluginView (view);
   m_views.append (nview);
-}   
+}
 
 void InsertFilePlugin::removeView(KTextEditor::View *view)
-{      
+{
   for (uint z=0; z < m_views.count(); z++)
     if (m_views.at(z)->parentClient() == view)
-    {    
+    {
        InsertFilePluginView *nview = m_views.at(z);
        m_views.remove (nview);
        delete nview;
-    }  
+    }
 }
 //END InsertFilePlugin
 
@@ -82,19 +83,19 @@ InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view )
 void InsertFilePluginView::slotInsertFile()
 {
   _file = KFileDialog::getOpenURL( "::insertfile", "",
-                                             (QWidget*)parent(), 
+                                             (QWidget*)parent(),
                                              i18n("Chose a File to Insert") ).url();
   if ( _file.isEmpty() ) return;
 
   if ( KURL( _file ).isLocalFile() ) {
     _tmpfile = _file;
-    insertFile();   
+    insertFile();
   }
   else {
     KURL url( _file );
     KTempFile tempFile( QString::null );
     _tmpfile = tempFile.name();
-      
+
     KURL destURL;
     destURL.setPath( _tmpfile );
     _job = KIO::file_copy( url, destURL, 0600, true, false, true );
@@ -117,12 +118,12 @@ void InsertFilePluginView::insertFile()
   QString error;
   if ( _tmpfile.isEmpty() )
     error = i18n("<p>The file <strong>%1</strong> is empty, aborting.").arg(_file);
-  
-  QFileInfo fi;  
+
+  QFileInfo fi;
   fi.setFile( _tmpfile );
   if (!fi.exists() || !fi.isReadable())
     error = i18n("<p>The file <strong>%1</strong> does not exist is not readable, aborting.").arg(_file);
-    
+
   QFile f( _tmpfile );
   if ( ! f.open(IO_ReadOnly) )
     error = i18n("<p>Couldn't open file <strong>%1</strong>, aborting.").arg(_file);
@@ -131,8 +132,8 @@ void InsertFilePluginView::insertFile()
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );
     return;
   }
-  
-  // now grab file contents    
+
+  // now grab file contents
   QTextStream stream(&f);
   QString str, tmp;
   uint numlines = 0;
@@ -146,18 +147,18 @@ void InsertFilePluginView::insertFile()
     numlines++;
   }
   f.close();
-  
-  if ( str.isEmpty() ) 
+
+  if ( str.isEmpty() )
     error = i18n("<p>File <strong>%1</strong> had no contents.").arg(_file);
   if ( ! error.isEmpty() ) {
     KMessageBox::sorry( (QWidget*)parent(), error, i18n("Insert file error") );
     return;
   }
-  
+
   // insert !!
   KTextEditor::EditInterface *ei;
   KTextEditor::ViewCursorInterface *ci;
-  KTextEditor::View *v = (KTextEditor::View*)parent(); 
+  KTextEditor::View *v = (KTextEditor::View*)parent();
   ei = KTextEditor::editInterface( v->document() );
   ci = KTextEditor::viewCursorInterface( v );
   uint line, col;
@@ -166,7 +167,7 @@ void InsertFilePluginView::insertFile()
 
   // move the cursor
   ci->setCursorPositionReal( line + numlines - 1, numlines > 1 ? len : col + len  );
-  
+
   // clean up
   _file.truncate( 0 );
   _tmpfile.truncate( 0 );

@@ -17,17 +17,16 @@
 */
 
 #include "katearbitraryhighlight.h"
-
-#include <qfont.h>
-
-#include <kdebug.h>
+#include "katearbitraryhighlight.moc"
 
 #include "katesupercursor.h"
 #include "katedocument.h"
 
-ArbitraryHighlightRange::ArbitraryHighlightRange(KateSuperCursor* start, KateSuperCursor* end, QObject* parent, const char* name)
-  : KateSuperRange(start, end, parent, name)
-{
+#include <qfont.h>
+
+ArbitraryHighlightRange::ArbitraryHighlightRange(KateSuperCursor* start,
+KateSuperCursor* end, QObject* parent, const char* name)   :
+KateSuperRange(start, end, parent, name) {
 }
 
 ArbitraryHighlightRange::ArbitraryHighlightRange(KateDocument* doc, const KateRange& range, QObject* parent, const char* name)
@@ -139,4 +138,4 @@ KateView* KateArbitraryHighlight::viewForRange(KateSuperRange* range)
   return 0L;
 }
 
-#include "katearbitraryhighlight.moc"
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -141,7 +141,7 @@ void KateDocumentConfig::setWordWrap (bool on)
 unsigned int KateDocumentConfig::wordWrapAt ()
 {
   if (m_wordWrapAtSet || isGlobal())
-    return m_tabWidth;
+    return m_wordWrapAt;
 
   return s_global->wordWrapAt();
 }

@@ -293,18 +293,11 @@ bool KateDocument::doInsertText( uint line, uint col, const QString &s )
 
   uint insertPos = col;
   uint len = s.length();
-  QChar ch;
   QString buf;
-  uint endLine, endCol, startLine, startCol;
-
-  startLine = line;
-  startCol = col;
-  endLine = line;
-  endCol = col;
 
   for (uint pos = 0; pos < len; pos++)
   {
-    ch = s[pos];
+    QChar ch = s[pos];
 
     if (ch == '\n')
     {
@@ -312,7 +305,6 @@ bool KateDocument::doInsertText( uint line, uint col, const QString &s )
       editWrapLine (line, insertPos + buf.length());
 
       line++;
-      endLine++;
       insertPos = 0;
       buf.truncate(0);
     }

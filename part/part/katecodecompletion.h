@@ -75,6 +75,7 @@ public slots:
   void showComment();
 
 signals:
+  void aboutToShowCompletionBox();
   void completionAborted();
   void completionDone();
   void argHintHidden();

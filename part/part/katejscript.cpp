@@ -79,7 +79,9 @@ public:
          InsertText,
          RemoveText,
          InsertLine,
-         RemoveLine
+         RemoveLine,
+         EditBegin,
+         EditEnd
   };
 
 public:
@@ -152,6 +154,8 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
   removeText     KateJSDocument::RemoveText    DontDelete|Function 4
   insertLine     KateJSDocument::InsertLine    DontDelete|Function 2
   removeLine     KateJSDocument::RemoveLine    DontDelete|Function 1
+  editBegin      KateJSDocument::EditBegin     DontDelete|Function 0
+  editEnd        KateJSDocument::EditEnd       DontDelete|Function 0
 @end
 */
 
@@ -207,6 +211,14 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
 
     case KateJSDocument::RemoveLine:
       return KJS::Boolean (doc->removeLine (args[0].toUInt32(exec)));
+
+    case KateJSDocument::EditBegin:
+      doc->editBegin();
+      return KJS::Null ();
+
+    case KateJSDocument::EditEnd:
+      doc->editEnd ();
+      return KJS::Null ();
   }
 
   return KJS::Undefined();

@@ -3316,8 +3316,12 @@ void KateDocument::backspace( const KateTextCursor& c )
     else
     {
       // backspace indents: erase to next indent position
-
       KateTextLine::Ptr textLine = m_buffer->plainLine(line);
+
+      // don't forget this check!!!! really!!!!
+      if (!textLine)
+        return;
+
       int colX = textLine->cursorX(col, config()->tabWidth());
       int pos = textLine->firstChar();
       if (pos > 0)
@@ -3330,7 +3334,9 @@ void KateDocument::backspace( const KateTextCursor& c )
         int y = line;
         while (--y >= 0)
         {
+          // this is save, y <= line, and line was already success
           textLine = m_buffer->plainLine(y);
+
           pos = textLine->firstChar();
 
           if (pos >= 0)
@@ -3358,6 +3364,11 @@ void KateDocument::backspace( const KateTextCursor& c )
     if (line >= 1)
     {
       KateTextLine::Ptr textLine = m_buffer->plainLine(line-1);
+
+      // don't forget this check!!!! really!!!!
+      if (!textLine)
+        return;
+
       if (config()->wordWrap() && textLine->endingWith(QString::fromLatin1(" ")))
       {
         // gg: in hard wordwrap mode, backspace must also eat the trailing space

@@ -172,6 +172,7 @@ void KateViewInternal::doEditCommand(VConfig &c, int cmdNum)
       getVConfig(c);
       myDoc->newLine(c);
       updateCursor(c.cursor);
+      updateView (0);
       return;
 #warning "FIXME FIXME FIXME, cursor updates are missing"
     case KateView::cmDelete:
@@ -1093,8 +1094,6 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
 
   for ( uint line = startLine; rpos < lineRanges.size(); line++)
   {
-    kdDebug()<<"rpos: "<<rpos<<endl;
-
     if (r->dirty && !r->empty)
     {
       myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(),
@@ -1105,8 +1104,6 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
     }
     else if (r->empty)
     {
-      kdDebug()<<"nix line painted"<<endl;
-
       paint.fillRect(0, 0, this->width(), h, myDoc->colors[0]);
       bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
     }

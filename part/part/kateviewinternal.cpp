@@ -522,10 +522,10 @@ void KateViewInternal::updateLineRanges()
   if( (lines * fontHeight) < height() )
     lines++;
 
-  kdDebug() << "KateViewInternal::updateLineRanges():" << endl;
-  kdDebug() << "Virtual: " << startLine << ", " << endLine << endl;
-  kdDebug() << "Real:    " << startLineReal << ", " << endLineReal << endl;
-  kdDebug() << lines << " lines total" << endl;
+  kdDebug(13030) << "KateViewInternal::updateLineRanges():" << endl;
+  kdDebug(13030) << "Virtual: " << startLine << ", " << endLine << endl;
+  kdDebug(13030) << "Real:    " << startLineReal << ", " << endLineReal << endl;
+  kdDebug(13030) << lines << " lines total" << endl;
   
   int oldLines = lineRanges.size();
   lineRanges.resize( lines );

@@ -505,9 +505,9 @@ class KateDocument : public Kate::Document
     int charWidth(const TextLine::Ptr &textLine, int cursorX,WhichFont wf=ViewFont);
     int charWidth(KateTextCursor &cursor);
 
-    uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
+    uint textWidth(const TextLine::Ptr &, int startCol, int cursorX,WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
-    uint textWidth(KateTextCursor &cursor);
+    uint textWidth(int startCol, KateTextCursor &cursor);
     uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
     uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
     uint textHeight(WhichFont wf=ViewFont);

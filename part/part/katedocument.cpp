@@ -58,6 +58,7 @@
 #include <qtextstream.h>
 #include <qtextcodec.h>
 #include <qptrstack.h>
+#include <qdatetime.h>
 
 #include <kmessagebox.h>
 #include <klocale.h>
@@ -1745,6 +1746,39 @@ bool KateDocument::printDialog ()
      int startCol = 0;
      int endCol = 0;
      bool needWrap = true;
+     bool pageStarted = true;
+     bool useHeader = true /*(printer.option("app-kate-pageheader") == "true")*/;
+     bool useBox = false /*(printer.option("app-kate-pagebox") == "true")*/;
+     QColor headerColor("#E0E0E0" /*printer.option("app-kate-headercolor")*/);
+     QColor fontColor(Qt::black /*printer.option("app-kate-fontcolor")*/);
+     uint currentPage = 1;
+     uint headerHeight = printFont.fontHeight+10;
+     QDateTime	dt = QDateTime::currentDateTime();
+     int innerMargin = 5, maxHeight = (useBox ? pdm.height()-innerMargin : pdm.height());
+     QStringList tagList;
+
+     if (useHeader)
+     {
+       tagList = QStringList::split('|', "%y (%u)|%P|%p" /*printer.option("app-kate-headerformat")*/, true);
+       if (tagList.count() == 3)
+         for (QStringList::Iterator it=tagList.begin(); it!=tagList.end(); ++it)
+         {
+           if ((*it).find("%u") != -1) (*it).replace(QRegExp("%u"), getenv("USER"));
+           if ((*it).find("%d") != -1) (*it).replace(QRegExp("%d"), KGlobal::locale()->formatDateTime(dt, true, false));
+           if ((*it).find("%D") != -1) (*it).replace(QRegExp("%D"), KGlobal::locale()->formatDateTime(dt, false, false));
+           if ((*it).find("%h") != -1) (*it).replace(QRegExp("%h"), KGlobal::locale()->formatTime(dt.time(), false));
+           if ((*it).find("%y") != -1) (*it).replace(QRegExp("%y"), KGlobal::locale()->formatDate(dt.date(), true));
+           if ((*it).find("%Y") != -1) (*it).replace(QRegExp("%Y"), KGlobal::locale()->formatDate(dt.date(), false));
+           if ((*it).find("%f") != -1) (*it).replace(QRegExp("%f"), url().fileName());
+           if ((*it).find("%P") != -1) (*it).replace(QRegExp("%P"), url().path());
+         }
+       else
+         tagList.clear();
+       if (!headerColor.isValid())
+         headerColor = Qt::lightGray;
+       if (!fontColor.isValid())
+         fontColor = Qt::black;
+     }
 
      while (  lineCount <= lastLine()  )
      {
@@ -1754,10 +1788,45 @@ bool KateDocument::printDialog ()
 
        while (needWrap)
        {
-         if (y+printFont.fontHeight >= (uint)pdm.height() )
+         if (y+printFont.fontHeight >= (uint)(maxHeight) )
          {
            printer.newPage();
+	   currentPage++;
+           pageStarted = true;
            y=0;
+         }
+
+         if (pageStarted)
+         {
+           paint.setPen(fontColor);
+           paint.setFont(printFont.myFontBold);
+           if (useHeader)
+           {
+             paint.fillRect(0, 0, maxWidth, headerHeight, headerColor);
+	     if (tagList.count() == 3)
+	     {
+               int align = Qt::AlignVCenter|Qt::AlignLeft;
+	       QString s;
+	       for (int i=0; i<3; i++)
+	       {
+                 s = tagList[i];
+		 if (s.find("%p") != -1) s.replace(QRegExp("%p"), QString::number(currentPage));
+		 paint.drawText(innerMargin, 0, maxWidth-2*innerMargin, headerHeight, align, s);
+		 align = Qt::AlignVCenter|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
+	       }
+	     }
+             y += (headerHeight+innerMargin);
+           }
+           if (useBox)
+           {
+             paint.setPen(Qt::black);
+             paint.drawRect(0, 0, pdm.width(), pdm.height());
+             if (useHeader)
+               paint.drawLine(0, headerHeight, maxWidth, headerHeight);
+             else
+               y += innerMargin;
+           }
+           pageStarted = false;
          }
 
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);

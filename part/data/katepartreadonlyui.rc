@@ -23,8 +23,8 @@
 
   <Menu name="view"><text>&amp;View</text>
     <Action name="view_dynamic_word_wrap" group="view_operations" />
-    <Action name="set_highlight"/>
-    <Action name="set_encoding" />
+    <Action name="set_highlight" group="view_operations" />
+    <Action name="set_encoding" group="view_operations" />
   </Menu>
 
   <Menu name="settings"><text>&amp;Settings</text>

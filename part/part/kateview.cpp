@@ -246,9 +246,6 @@ void KateView::setupActions()
 
   a=new KAction(i18n("Toggle &Insert"), Key_Insert, this, SLOT(toggleInsert()), ac, "set_insert" );
   a->setWhatsThis(i18n("Choose whether you want the text you type to be inserted or to overwrite existing text."));
-    
-  KConfig *config = KateFactory::instance()->config();
-  config->setGroup("Kate ViewDefaults");  
  
   KToggleAction *toggleAction;
    a= m_toggleDynWrap = toggleAction = new KToggleAction(
@@ -814,7 +811,7 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
 {
   setEncoding( KGlobal::charsets()->encodingForName( descriptiveName ) );
 
-  if( !doc()->isReadWrite() ) {
+  if( doc()->isReadWrite() ) {
       m_doc->reloadFile();
       m_viewInternal->tagAll();
   }

@@ -217,7 +217,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   bool cursorVisible = false;
   int cursorXPos = 0, cursorXPos2 = 0;
   int cursorMaxWidth = 0;
-  const QColor *cursorColor = 0;
 
   // Normal background color
   QColor backgroundColor (*config()->backgroundColor());
@@ -315,6 +314,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
   uint xPosAfter = xPos;
 
   KateAttribute* oldAt = &at[0];
+  const QColor *cursorColor = &at[0].textColor();
 
   const QColor *curColor = 0;
   const QColor *oldColor = 0;
@@ -359,7 +359,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const LineRange* range, int xS
       cursorVisible = true;
       cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
       cursorMaxWidth = xPosAfter - xPos;
-      cursorColor = &at[0].textColor();
     }
 
   }

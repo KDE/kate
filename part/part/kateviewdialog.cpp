@@ -171,18 +171,6 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   layout->addWidget(opt[5]);
   connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-  QVGroupBox *keys = new QVGroupBox(i18n("Keys to Use"), this);
-
-  opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
-  opt[3]->setChecked(configFlags & flags[3]);
-  connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-  opt[2] = new QCheckBox(i18n("&Backspace key indents"), keys);
-  opt[2]->setChecked(configFlags & flags[2]);
-  connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-
-  layout->addWidget(keys);
-
   QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Indentation with Spaces"), this);
 
   opt[1] = new QCheckBox(i18n("Use &spaces instead of tabs to indent"), gbWordWrap);
@@ -197,6 +185,30 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
 
   layout->addWidget(gbWordWrap);
 
+  QVGroupBox *keys = new QVGroupBox(i18n("Keys to Use"), this);
+
+  opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
+  opt[3]->setChecked(configFlags & flags[3]);
+  connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+
+  opt[2] = new QCheckBox(i18n("&Backspace key indents"), keys);
+  opt[2]->setChecked(configFlags & flags[2]);
+  connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+
+  layout->addWidget(keys);
+
+  QRadioButton *rb1, *rb2;
+
+  m_tabs = new QButtonGroup( 1, Qt::Horizontal, i18n("Tab Key Mode"), this );
+  m_tabs->setRadioButtonExclusive( true );
+  m_tabs->insert( rb1=new QRadioButton( i18n("Insert indent &chars"), m_tabs ), 0 );
+  m_tabs->insert( rb2=new QRadioButton( i18n("Indent &whole line"), m_tabs ), 1 );
+
+  connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  layout->addWidget(m_tabs, 0 );
+
   layout->addStretch();
 
   // What is this? help
@@ -208,7 +220,7 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
 
-  spacesToggled();
+  reload ();
 }
 
 void IndentConfigTab::spacesToggled() {
@@ -226,11 +238,15 @@ void IndentConfigTab::apply ()
   }
   KateDocumentConfig::global()->setConfigFlags(configFlags);
   KateDocumentConfig::global()->setIndentationWidth(indentationWidth->value());
+
+  KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabIndentsMode, 1 == m_tabs->id (m_tabs->selected()));
 }
 
 void IndentConfigTab::reload ()
 {
+  m_tabs->setButton( (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfTabIndentsMode) ? 1 : 0  );
 
+  spacesToggled ();
 }
 //END IndentConfigTab
 

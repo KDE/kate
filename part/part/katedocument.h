@@ -546,6 +546,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void selectLength( const KateTextCursor& cursor, int length );
 
   public:
+    void insertIndentChars ( KateView *view );
+
     void indent ( KateView *view, uint line, int change );
     void comment ( KateView *view, uint line, int change );
 

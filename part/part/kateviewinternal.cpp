@@ -2182,11 +2182,15 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   if( (key == Qt::Key_Tab || key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
-      && (m_doc->configFlags() & KateDocument::cfTabIndents) )
+      && (m_doc->configFlags() & KateDocumentConfig::cfTabIndents) )
   {
     if( key == Qt::Key_Tab )
     {
-      m_doc->indent( m_view, cursor.line(), 1 );
+      if ((m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
+        m_doc->indent( m_view, cursor.line(), 1 );
+      else
+        m_doc->insertIndentChars ( m_view );
+
       e->accept();
       return;
     }

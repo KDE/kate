@@ -3327,6 +3327,21 @@ void KateDocument::selectLength( const KateTextCursor& cursor, int length )
   setSelection (cursor.line(), start, cursor.line(), end);
 }
 
+void KateDocument::insertIndentChars ( KateView *view )
+{
+  editStart ();
+
+  QString s;
+  if (config()->configFlags() & KateDocument::cfSpaceIndent)
+    s.fill (' ', config()->indentationWidth());
+  else
+    s.append ('\t');
+
+  insertText (view->cursorLine(), view->cursorColumnReal(), s);
+
+  editEnd ();
+}
+
 void KateDocument::indent ( KateView *, uint line, int change)
 {
   editStart ();

@@ -118,6 +118,7 @@ class KateDocumentConfig : public KateConfig
       cfAutoBrackets= 0x40,
       cfPersistent= 0x80,
       cfKeepSelection= 0x100,
+      cfTabIndentsMode = 0x200,
       cfDelOnInput= 0x400,
       cfXorSelect= 0x800,
       cfOvr= 0x1000,

@@ -1096,7 +1096,7 @@ LineRange KateViewInternal::range(const KateTextCursor& realCursor)
   do {
     thisRange = range(realCursor.line, first ? 0L : &thisRange);
     first = false;
-  } while (thisRange.wrap && !(realCursor.col >= thisRange.startCol && realCursor.col < thisRange.endCol));
+  } while (thisRange.wrap && !(realCursor.col >= thisRange.startCol && realCursor.col < thisRange.endCol) && thisRange.startCol != thisRange.endCol);
   
   return thisRange;
 }
@@ -1111,7 +1111,7 @@ LineRange KateViewInternal::range(uint realLine, int viewLine)
   do {
     thisRange = range(realLine, first ? 0L : &thisRange);
     first = false;
-  } while (thisRange.wrap && viewLine != thisRange.viewLine);
+  } while (thisRange.wrap && viewLine != thisRange.viewLine && thisRange.startCol != thisRange.endCol);
   
   if (viewLine != -1 && viewLine != thisRange.viewLine)
     kdDebug(13030) << "WARNING: viewLine " << viewLine << " of line " << realLine << " does not exist." << endl;
@@ -1120,7 +1120,7 @@ LineRange KateViewInternal::range(uint realLine, int viewLine)
 }
 
 /**
- * This returns the view line upon which c is situated.
+ * This returns the view line upon which realCursor is situated.
  * The view line is the number of lines in the view from the first line
  * The supplied cursor should be in real lines.
  */
@@ -1136,7 +1136,7 @@ uint KateViewInternal::viewLine(const KateTextCursor& realCursor)
   do {
     thisRange = range(realCursor.line, first ? 0L : &thisRange);
     first = false;
-  } while (thisRange.wrap && !(realCursor.col >= thisRange.startCol && realCursor.col < thisRange.endCol));
+  } while (thisRange.wrap && !(realCursor.col >= thisRange.startCol && realCursor.col < thisRange.endCol) && thisRange.startCol != thisRange.endCol);
   
   return thisRange.viewLine;
 }
@@ -1200,7 +1200,7 @@ uint KateViewInternal::lastViewLine(uint realLine)
   do {
     thisRange = range(realLine, first ? 0L : &thisRange);
     first = false;
-  } while (thisRange.wrap);
+  } while (thisRange.wrap && thisRange.startCol != thisRange.endCol);
   
   return thisRange.viewLine;
 }
@@ -2200,7 +2200,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 }
 
 void KateViewInternal::resizeEvent(QResizeEvent* e)
-{ 
+{
   bool expandedHorizontally = width() > e->oldSize().width();
   bool expandedVertically = height() > e->oldSize().height();
   

@@ -19,6 +19,7 @@
 #ifndef __ktexteditor_encodinginterface_h__
 #define __ktexteditor_encodinginterface_h__
 
+class QString;
 class QCString;
 
 namespace KTextEditor

@@ -2726,6 +2726,7 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
 
   KateAttribute* alert = new KateAttribute();
   alert->setTextColor(Qt::white);
+  alert->setSelectedTextColor(Qt::red);
   alert->setBold(true);
   alert->setBGColor(Qt::red);
   list.append(alert);
@@ -2748,7 +2749,6 @@ void KateHlManager::getDefaults(uint schema, KateAttributeList &list)
   {
     KateAttribute *i = list.at(z);
     QStringList s = config->readListEntry(defaultStyleName(z));
-kdDebug()<<defaultStyleName(z)<<" "<<z<<endl;
     if (!s.isEmpty())
     {
       while( s.count()<8)

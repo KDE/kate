@@ -437,7 +437,7 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="FindRuleSets">
         <RegExpr attribute="Media" context="Media" String="@media\b" />
 	<RegExpr attribute="At Rule" context="Import" String="@import\b" />
-	<RegExpr attribute="At Rule" context="#stay" String="@font-face\b" />
+	<RegExpr attribute="At Rule" context="#stay" String="@(font-face|charset)\b" />
         <DetectChar attribute="Property" context="RuleSet" char="{" beginRegion="ruleset" />
         <!--parse selectors-->
 	<DetectChar attribute="Selector Attr" context="SelAttr" char="[" />

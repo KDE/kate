@@ -55,6 +55,9 @@ AttribEditor::AttribEditor(QWidget *parent):AttribEditor_skel(parent)
 	connect(attributes,SIGNAL(currentChanged(QListViewItem*)),this,SLOT(currentAttributeChanged(QListViewItem*)));
 	connect(addAttribute,SIGNAL(clicked()),this,SLOT(slotAddAttribute()));
 	connect(AttributeName,SIGNAL(textChanged(const QString&)),this,SLOT(updateAttributeName(const QString&)));
+	connect(AttributeType,SIGNAL(activated(const QString&)),this,SLOT(updateAttributeType(const QString&)));
+	connect(Colour,SIGNAL(activated( const QColor &)),this,SLOT(updateAttributeColour(const QColor &)));
+	connect(SelectedColour,SIGNAL(activated( const QColor &)),this,SLOT(updateAttributeSelectedColour(const QColor &)));
 }
 
 AttribEditor::~AttribEditor()
@@ -127,7 +130,9 @@ void AttribEditor::currentAttributeChanged(QListViewItem *item)
 		else
 		{
 			Colour->setEnabled(false);
+			Colour->showEmptyList();
 			SelectedColour->setEnabled(false);
+			SelectedColour->showEmptyList();
 			Bold->setEnabled(false);
 			Italic->setEnabled(false);
 		}
@@ -149,5 +154,53 @@ void AttribEditor::updateAttributeName(const QString &text)
 	if (attributes->currentItem())
 	{
 		attributes->currentItem()->setText(0,text);
+	}
+}
+
+void AttribEditor::updateAttributeType(const QString &text)
+{
+	QListViewItem *item;
+	if ((item=attributes->currentItem()))
+	{
+		bool oldWasCustom=(item->text(1)=="dsNormal")&&(!(item->text(2).isEmpty()));
+		if (text==i18n("Custom"))
+		{
+			if (!oldWasCustom)
+			{
+				item->setText(1,"dsNormal");
+				item->setText(2,"#000000");
+				item->setText(3,"#ffffff");
+				item->setText(4,"0");
+				item->setText(5,"0");
+				currentAttributeChanged(item);
+			}
+		}
+		else
+
+		{
+			item->setText(1,text);
+			if (oldWasCustom)
+			{
+				for (int i=2;i<6;i++)
+					item->setText(i,"");
+				currentAttributeChanged(item);
+			}
+		}
+	}
+}
+
+void AttribEditor::updateAttributeColour(const QColor &color)
+{
+	if (attributes->currentItem())
+	{
+		attributes->currentItem()->setText(2,color.name());
+	}
+}
+
+void AttribEditor::updateAttributeSelectedColour(const QColor &color)
+{
+	if (attributes->currentItem())
+	{
+		attributes->currentItem()->setText(3,color.name());
 	}
 }

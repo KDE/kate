@@ -42,6 +42,9 @@ public slots:
 	void currentAttributeChanged(QListViewItem *item);
 	void slotAddAttribute();
 	void updateAttributeName(const QString &);
+	void updateAttributeType(const QString &);
+	void updateAttributeColour(const QColor &);
+	void updateAttributeSelectedColour(const QColor &);
 };
 
 #endif

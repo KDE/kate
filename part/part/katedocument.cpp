@@ -4504,7 +4504,10 @@ void KateDocument::setWordWrapAt (uint col)
 
 void KateDocument::applyWordWrap ()
 {
-  wrapText (myWordWrapAt);
+  if (hasSelection())
+    wrapText (selectStart.line, selectEnd.line, myWordWrapAt);
+  else
+    wrapText (myWordWrapAt);
 }
 
 uint KateDocument::configFlags ()

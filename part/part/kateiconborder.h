@@ -31,31 +31,29 @@ class QPopupMenu;
 
 class KateIconBorder : public QWidget
 {
-Q_OBJECT
-public:
-    KateIconBorder(KateView *view, class KateViewInternal *internalView);
+  Q_OBJECT      
+  
+  public:
+    KateIconBorder(class KateView *view, class KateViewInternal *internalView);
     ~KateIconBorder();
 
-    enum Status { None=0, Icons=1, LineNumbers=2, FoldingMarkers=4 };
-    void paintLine(int linepos, class KateLineRange *r);
+    enum status { None=0, Icons=1, LineNumbers=2, FoldingMarkers=4 };
+       
     int width();
 
-protected:
+  private:
     void paintEvent(QPaintEvent* e);
-    void resizeEvent(QResizeEvent *);
     void mousePressEvent(QMouseEvent* e);
 
-private:
-
-    KateView *myView;
+    class KateView *myView;      
+    class KateDocument *myDoc;
     class KateViewInternal *myInternalView;
-    class QPixmap *drawBuffer;
     bool lmbSetsBreakpoints;
     int iconPaneWidth;
     int cachedLNWidth;
     uint linesAtLastCheck; // only calculate width if number of lines has changed
 
-    unsigned int oldEditableMarks;
+    unsigned int oldEditableMarks;                 
     QPopupMenu *markMenu;
 
     void createMarkMenu();

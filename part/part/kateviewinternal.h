@@ -23,39 +23,12 @@
 
 #include "kateglobal.h"
 
-#include <qwidget.h>
-#include <qscrollbar.h>
+#include <qscrollview.h>
 #include <qpoint.h>
-#include <qpixmap.h>
 
 class KateDocument;
 class KateView;
 class KateIconBorder;
-
-class KateLineRange
-{
-  public:
-    // need this line a update / is it new/changed in the lineranges
-    bool dirty;
-    
-    // is the line empty ? (no textline available)
-    bool empty;
-    
-    // length of the line in pixel, updated by updateView
-    uint lengthPixel;
-    
-    // REAL line number
-    uint line;
-    
-    // start/end column
-    int startCol;
-    int endCol;
-    
-    // is this line wrapped ?
-    bool wrapped;
-
-};
-
 
   enum Bias {
     left  = -1,
@@ -63,7 +36,7 @@ class KateLineRange
     right =  1
   };
 
-class KateViewInternal : public QWidget
+class KateViewInternal : public QScrollView
 {
     Q_OBJECT
     friend class KateDocument;
@@ -80,7 +53,6 @@ class KateViewInternal : public QWidget
     // update flags
     enum updateFlags
     {
-     ufRepaint,
      ufDocGeometry,
      ufFoldingChanged
      };
@@ -114,17 +86,33 @@ class KateViewInternal : public QWidget
 
     void clear();
     const KateTextCursor& getCursor()  { return cursor; }
-    void resizeDrawBuffer( int w, int h ) { drawBuffer->resize(w,h); }
-    QPoint cursorCoordinates();
+    QPoint cursorCoordinates();        
+    
+    inline int yPosition () const;
 
   signals:
     // emitted when KateViewInternal is not handling its own URI drops
     void dropEventPass(QDropEvent*);
-    
+  
+  protected:
+    void drawContents( QPainter*, int cx, int cy, int cw, int ch );
+
+    void focusInEvent(  QFocusEvent* );
+    void focusOutEvent( QFocusEvent* );
+    void keyPressEvent( QKeyEvent* );
+    void contentsMousePressEvent(       QMouseEvent* );
+    void contentsMouseDoubleClickEvent( QMouseEvent* );
+    void contentsMouseReleaseEvent(     QMouseEvent* );
+    void mouseMoveEvent(                QMouseEvent* );
+    void resizeEvent( QResizeEvent* );
+    void timerEvent( QTimerEvent* );
+    void contentsDragEnterEvent( QDragEnterEvent* );
+    void contentsDropEvent( QDropEvent* );
+
   private slots:
-    void changeXPos(int);
-    void changeYPos(int);
+    void slotContentsMoving (int x, int y);                
     void tripleClickTimeout();
+    void updateView( int flags = 0 );
 
   private:
     void moveChar( Bias bias, bool sel );
@@ -132,53 +120,33 @@ class KateViewInternal : public QWidget
     void moveEdge( Bias bias, bool sel );
     void scrollLines( int lines, bool sel );
     
-    uint linesDisplayed() const;
-    
-    void exposeCursor();
+    inline uint linesDisplayed() const;
+    inline uint contentsYToLine( int y ) const;
+    inline int  lineToContentsY( uint line ) const;
+    inline uint firstLine() const { return contentsYToLine( yPosition() ); }
+    inline uint lastLine()  const { return contentsYToLine( yPosition() + visibleHeight() ); }
+
+    void centerCursor();
 
     void updateSelection( const KateTextCursor&, bool keepSel );
-    void updateCursor( const KateTextCursor&, int updateViewFlags = 0 );
+    void updateCursor( const KateTextCursor& );
     
-    void updateLineRanges();
     void tagLines(int start, int end);
     void tagRealLines(int start, int end);
     void tagAll();
-    void center();
 
-    void updateView(int flags = 0);
-
-    void paintTextLines( int xPos );
     void paintCursor();
     void paintBracketMark();
 
-    void placeCursor( int x, int y, bool keepSelection = false );
-    bool isTargetSelected( int x, int y );
+    void placeCursor( const QPoint& p, bool keepSelection = false );
+    bool isTargetSelected( const QPoint& p );
 
     void doDrag();
 
-    void focusInEvent(QFocusEvent *);
-    void focusOutEvent(QFocusEvent *);
-    void keyPressEvent(QKeyEvent *e);
-    void mousePressEvent(QMouseEvent *);
-    void mouseDoubleClickEvent(QMouseEvent *);
-    void mouseReleaseEvent(QMouseEvent *);
-    void mouseMoveEvent(QMouseEvent *);
-    void wheelEvent( QWheelEvent *e );
-    void paintEvent(QPaintEvent *);
-    void resizeEvent(QResizeEvent *);
-    void timerEvent(QTimerEvent *);
-
-    void dragEnterEvent( QDragEnterEvent * );
-    void dropEvent( QDropEvent * );
-
     KateView *myView;
     KateDocument *myDoc;
-    class QScrollBar *xScroll;
-    class QScrollBar *yScroll;
     class KateIconBorder *leftBorder;
     
-    int xPos;
-
     int mouseX;
     int mouseY;
     int scrollX;
@@ -192,26 +160,13 @@ class KateViewInternal : public QWidget
     int cXPos;
 
     bool possibleTripleClick;
-    int updateState;
-
-    // start line virtual / real
-    uint startLine;
-    uint startLineReal;
-
-    // end line virtual / real
-    uint endLine;
-    uint endLineReal;
-
-    // new start line, will be used by updateLineRanges
-    uint newStartLine;
-    uint newStartLineReal;
+                
+    // that yPos is allready set while scrolling before the contentsY() is right
+    int yPos;
 
     // for use from doc: tag lines from here (if larger than -1)
     int tagLinesFrom;
 
-    // array with the line data
-    QMemArray<KateLineRange> lineRanges;
-    
     //
     // cursor cache for document
     // here stores the document the view's cursor pos while editing before update
@@ -219,21 +174,17 @@ class KateViewInternal : public QWidget
     KateTextCursor cursorCache;
     bool cursorCacheChanged;
 
-    QPixmap *drawBuffer;
-
     BracketMark bm;
 
     enum DragState { diNone, diPending, diDragging };
 
     struct _dragInfo {
-      DragState       state;
-      KateTextCursor      start;
-      QTextDrag       *dragObject;
+      DragState    state;
+      QPoint       start;
+      QTextDrag*   dragObject;
     } dragInfo;
 
-    //uint iconBorderWidth;
     uint iconBorderHeight;
-
 };
 
 #endif

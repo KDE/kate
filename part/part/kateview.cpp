@@ -145,8 +145,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     setFoldingMarkersOn(false);
   else
     setFoldingMarkersOn(doc->highlight()->allowsFolding());
-  myViewInternal->updateView (KateViewInternal::ufDocGeometry);
-  
   
   KTrader::OfferList::Iterator it(KateFactory::viewPlugins()->begin());
   for( ; it != KateFactory::viewPlugins()->end(); ++it)
@@ -191,9 +189,9 @@ void KateView::slotCodeFoldingChanged()
 void KateView::slotRegionBeginEndAddedRemoved(unsigned int line)
 {
   kdDebug(13000)<<"void KateView::slotRegionBeginEndAddedRemoved(unsigned int)"<<endl;
-//  myViewInternal->repaint();
+//  myViewInternal->repaint();   
   // FIXME: performance problem
-  if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)
+//  if (myDoc->getVirtualLine(line)<=myViewInternal->endLine)
     myViewInternal->leftBorder->repaint();
 }
 
@@ -453,7 +451,7 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
   }
 
   myViewInternal->updateCursor( KateTextCursor( line, x ) );
-  myViewInternal->center();
+  myViewInternal->centerCursor();
   
   return true;
 }
@@ -596,8 +594,8 @@ void KateView::gotoLine()
 void KateView::gotoLineNumber( int line )
 {
   myViewInternal->updateCursor( KateTextCursor( line, 0 ) );
-  myViewInternal->center();
- }
+  myViewInternal->centerCursor();
+}
 
 void KateView::readSessionConfig(KConfig *config)
 {
@@ -635,22 +633,21 @@ void KateView::setEol(int eol) {
   myDoc->setModified(true);
 }
 
-void KateView::slotSetEncoding(const QString& descriptiveName) {
-  setEncoding(KGlobal::charsets()->encodingForName(descriptiveName));
+void KateView::slotSetEncoding( const QString& descriptiveName )
+{
+  setEncoding( KGlobal::charsets()->encodingForName( descriptiveName ) );
 
-  // myDoc->setModified(true);
-  if (!doc()->isReadWrite()) {
+  if( !doc()->isReadWrite() ) {
       myDoc->reloadFile();
-      // that's the only way I've found to make Kate redraw everything
-      // without optimizations
       myViewInternal->tagAll();
-      myViewInternal->updateView(KateViewInternal::ufFoldingChanged);
   }
 }
 
 void KateView::resizeEvent(QResizeEvent *)
 {
-  myViewInternal->updateView( KateViewInternal::ufRepaint | KateViewInternal::ufDocGeometry );
+  // resize the widgets
+  myViewInternal->resize(width()-myViewInternal->leftBorder->width(),height());
+  myViewInternal->leftBorder->resize(myViewInternal->leftBorder->width(),height());
 }
 
 void KateView::setFocus ()
@@ -743,7 +740,6 @@ void KateView::toggleLineNumbersOn()
   setLineNumbersOn( ! (m_iconBorderStatus & KateIconBorder::LineNumbers) );
 }
 
-// FIXME anders: move into KateIconBorder class
 void KateView::updateIconBorder()
 {
   if ( m_iconBorderStatus != KateIconBorder::None )

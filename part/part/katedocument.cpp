@@ -536,10 +536,6 @@ void KateDocument::editEnd ()
   if (editSessionNumber == 0)
     return;
    
-  int flags = 0;
-  if (newDocGeometry)
-    flags = flags | KateViewInternal::ufDocGeometry;
-
   // wrap the new/changed text
   if (editSessionNumber == 1)
     if (myWordWrap)
@@ -566,25 +562,18 @@ void KateDocument::editEnd ()
   {
     KateView *v = myViews.at(z);
 
-    v->myViewInternal->updateLineRanges ();
-
     if (v->myViewInternal->tagLinesFrom > -1)
     {
-      int startTagging = editTagLineStart;
-      int endTagging = v->myViewInternal->endLineReal;
-      
-      if (v->myViewInternal->tagLinesFrom < (int)editTagLineStart)
-        startTagging = v->myViewInternal->tagLinesFrom;
-
+      int startTagging = QMIN( v->myViewInternal->tagLinesFrom, (int)editTagLineStart );
+      int endTagging = getRealLine( v->myViewInternal->lastLine() );
       v->myViewInternal->tagRealLines (startTagging, endTagging);
     }
     else
       v->myViewInternal->tagRealLines (editTagLineStart, editTagLineEnd);
 
     if (v->myViewInternal->cursorCacheChanged)
-      v->myViewInternal->updateCursor (v->myViewInternal->cursorCache, flags);
-    else
-      v->myViewInternal->updateView (flags);
+      v->myViewInternal->updateCursor( v->myViewInternal->cursorCache );
+    v->myViewInternal->updateView();
 
     v->myViewInternal->tagLinesFrom = -1;
     v->myViewInternal->cursorCacheChanged = false;
@@ -805,13 +794,13 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   {
     view = myViews.at(z2);
 
-    if (line >= view->myViewInternal->newStartLineReal)
-    {
-      if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
-        view->myViewInternal->tagLinesFrom = line;
-    }
-    else
-      view->myViewInternal->newStartLineReal++;
+     if (line >= getRealLine( view->myViewInternal->firstLine() ) )
+     {
+       if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
+         view->myViewInternal->tagLinesFrom = line;
+     }
+//     else
+//       view->myViewInternal->newStartLineReal++;
 
     // correct cursor position
     if (view->myViewInternal->cursorCache.line > (int)line)
@@ -883,13 +872,13 @@ bool KateDocument::editUnWrapLine ( uint line, uint col )
   {
     view = myViews.at(z2);
     
-    if (line >= view->myViewInternal->newStartLineReal)
-    {
-      if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
-        view->myViewInternal->tagLinesFrom = line;
-    }
-    else
-      view->myViewInternal->newStartLineReal--;
+     if (line >= getRealLine( view->myViewInternal->firstLine() ) )
+     {
+       if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
+         view->myViewInternal->tagLinesFrom = line;
+     }
+//     else
+//       view->myViewInternal->newStartLineReal--;
 
     cLine = view->myViewInternal->cursorCache.line;
     cCol = view->myViewInternal->cursorCache.col;
@@ -950,13 +939,13 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
   {
     view = myViews.at(z2);
     
-    if (line >= view->myViewInternal->newStartLineReal)
-    {
-      if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
-        view->myViewInternal->tagLinesFrom = line;
-    }
-    else
-      view->myViewInternal->newStartLineReal++;
+     if (line >= getRealLine( view->myViewInternal->firstLine() ) )
+     {
+       if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
+         view->myViewInternal->tagLinesFrom = line;
+     }
+//     else
+//       view->myViewInternal->newStartLineReal++;
   }
 
   editEnd ();
@@ -1009,13 +998,13 @@ bool KateDocument::editRemoveLine ( uint line )
   {
     view = myViews.at(z2);
 
-    if (line >= view->myViewInternal->newStartLineReal)
-    {
-      if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
-        view->myViewInternal->tagLinesFrom = line;
-    }
-    else
-      view->myViewInternal->newStartLineReal--;
+     if (line >= getRealLine( view->myViewInternal->firstLine() ) )
+     {
+       if ((view->myViewInternal->tagLinesFrom > (int)line) || (view->myViewInternal->tagLinesFrom == -1))
+         view->myViewInternal->tagLinesFrom = line;
+     }
+//     else
+//       view->myViewInternal->newStartLineReal--;
 
     cLine = view->myViewInternal->cursorCache.line;
     cCol = view->myViewInternal->cursorCache.col;
@@ -1899,7 +1888,7 @@ bool KateDocument::printDialog ()
          }
 
          endCol = textWidth (buffer->line(lineCount), startCol, maxWidth, 0, PrintFont, &needWrap);
-         paintTextLine ( paint, lineCount, startCol, endCol, y, 0, maxWidth, -1, false, false, false, PrintFont, false, true );
+         paintTextLine ( paint, lineCount, startCol, endCol, 0, y, 0, maxWidth, -1, 0, false, false, false, PrintFont, false, true );
          startCol = endCol;
          y += printFont.fontHeight;
        }
@@ -2189,8 +2178,7 @@ void KateDocument::updateFontData() {
   KateView *view;
 
   for (view = myViews.first(); view != 0L; view = myViews.next() ) {
-    view->myViewInternal->resizeDrawBuffer(view->width(),viewFont.fontHeight);
-    view->myViewInternal->tagAll();
+     view->myViewInternal->tagAll();
   }
 }
 
@@ -2560,11 +2548,6 @@ void KateDocument::transpose( const KateTextCursor& cursor)
   editStart ();
   editRemoveText (line, col, 2);
   editInsertText (line, col, s);
-
-  // I am not 100% certain about this line cursor should move to the right
-  // ++cursor.col;
-  // myActiveView->myViewInternal->updateCursor(cursor);
-  // myActiveView->myViewInternal->cursorRight();
 
   editEnd ();
 }
@@ -3410,8 +3393,8 @@ bool KateDocument::lineHasSelected (int line)
   return false;
 }
 
-bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd,
-                                  int showCursor, bool replaceCursor, bool showSelections, bool showTabs,
+bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int xPos2, int y, int xStart, int xEnd,
+                                  int showCursor, bool replaceCursor, int cursorXPos2, bool showSelections, bool showTabs,
                                   WhichFont wf, bool currentLine, bool printerfriendly)
 {
   // font data
@@ -3456,16 +3439,16 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
 
   if (!printerfriendly && showSelections && lineSelected (line))
   {
-    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[1]);
+    paint.fillRect(xPos2, y, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;
     hasSel = true;
     startSel = 0;
     endSel = len + 1;
   }
   else if (!printerfriendly && currentLine)
-    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[2]);
+    paint.fillRect(xPos2, y, xEnd - xStart, fs->fontHeight, colors[2]);
   else if (!printerfriendly)
-    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
+    paint.fillRect(xPos2, y, xEnd - xStart, fs->fontHeight, colors[0]);
 
   if (startcol > (int)len)
     startcol = len;
@@ -3627,7 +3610,7 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       if (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel))
       {
       /*  if (!selectionPainted)
-          paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);*/
+          paint.fillRect(xPos2 + xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);*/
 
         curColor = &(curAt->selCol);
         isSel = true;
@@ -3640,13 +3623,13 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
       if (isTab)
       {
         if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
 
         if (showTabs)
         {
-          paint.drawPoint(xPos - xStart, y);
-          paint.drawPoint(xPos - xStart + 1, y);
-          paint.drawPoint(xPos - xStart, y - 1);
+          paint.drawPoint(xPos2 + xPos - xStart, y);
+          paint.drawPoint(xPos2 + xPos - xStart + 1, y);
+          paint.drawPoint(xPos2 + xPos - xStart, y - 1);
         }
 
         oldCol = curCol+1;
@@ -3660,10 +3643,10 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
          )
       {
         if (!printerfriendly && isSel && !selectionPainted)
-          paint.fillRect(oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
+          paint.fillRect(xPos2 + oldXPos - xStart, oldY, xPosAfter - oldXPos, fs->fontHeight, colors[1]);
 
         QConstString str((QChar *) oldS, curCol+1-oldCol);
-        paint.drawText(oldXPos-xStart, y, str.string());
+        paint.drawText(xPos2 + oldXPos-xStart, y, str.string());
 
         if ((int)xPos > xEnd)
           break;
@@ -3717,16 +3700,28 @@ bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int 
   //kdDebug(13000)<<"paint 8"<<endl;
   if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
   {
-    paint.fillRect(xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
+    paint.fillRect(xPos2 + xPos-xStart, oldY, xEnd - xStart, fs->fontHeight, colors[1]);
     selectionPainted = true;
   }
 
   if (cursorVisible)
   {
     if (replaceCursor && (cursorMaxWidth > 2))
-      paint.fillRect(cursorXPos-xStart, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
+      paint.fillRect(xPos2 + cursorXPos-xStart, oldY, cursorMaxWidth, fs->fontHeight, *cursorColor);
     else
-      paint.fillRect(cursorXPos-xStart, oldY, 2, fs->fontHeight, *cursorColor);
+      paint.fillRect(xPos2 + cursorXPos-xStart, oldY, 2, fs->fontHeight, *cursorColor);
+  }
+  else if (showCursor > -1)
+  {
+    if ((cursorXPos2>=xStart) && (cursorXPos2<=xEnd))
+    {                           
+      cursorMaxWidth = fs->myFontMetrics.width(QChar (' '));
+    
+      if (replaceCursor && (cursorMaxWidth > 2))
+        paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, cursorMaxWidth, fs->fontHeight, myAttribs[0].col);
+      else
+        paint.fillRect(xPos2 + cursorXPos2-xStart, oldY, 2, fs->fontHeight, myAttribs[0].col);
+    }
   }
 
   return true;
@@ -4167,7 +4162,7 @@ unsigned int KateDocument::visibleLines ()
 
 void KateDocument::slotLoadingFinished()
 {
-  updateViews (KateViewInternal::ufRepaint);
+  tagAll();
 }
 
 /**

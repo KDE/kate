@@ -216,7 +216,7 @@ void KateBookmarks::bookmarkMenuAboutToHide()
 
 void KateBookmarks::gotoBookmark( int n )
 {
-  m_view->setCursorPositionInternal ( m_marks.at(n)->line, 0, 1, true );
+  m_view->setCursorPositionInternal ( m_marks.at(n)->line, 0, 1 );
 }
 
 void KateBookmarks::goNext()
@@ -243,7 +243,7 @@ void KateBookmarks::goNext()
   {
     if ( a[j] > line )
     {
-      v->setCursorPositionInternal ( a[j], 0, 1, true ); // <--
+      v->setCursorPositionInternal ( a[j], 0, 1 ); // <--
       return;
     }
   }
@@ -273,7 +273,7 @@ void KateBookmarks::goPrevious()
   {
     if ( a[j] < line )
     {
-      v->setCursorPositionInternal ( a[j], 0, 1, true );
+      v->setCursorPositionInternal ( a[j], 0, 1 );
       return;
     }
   }

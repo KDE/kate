@@ -1547,12 +1547,12 @@ bool KateDocument::setBlockSelectionMode (bool on)
   if (on != blockSelect)
   {
     blockSelect = on;
-    
+
     KateTextCursor oldSelectStart = selectStart;
     KateTextCursor oldSelectEnd = selectEnd;
-    
+
     clearSelection();
-    
+
     setSelection(oldSelectStart, oldSelectEnd);
 
     for (KateView * view = m_views.first(); view; view = m_views.next())
@@ -2258,48 +2258,48 @@ bool KateDocument::openURL( const KURL &url )
   // no valid URL
   if ( !url.isValid() )
     return false;
-    
+
   // could not close old one
   if ( !closeURL() )
     return false;
-  
-  // set my url  
+
+  // set my url
   m_url = url;
-  
+
   if ( m_url.isLocalFile() )
   {
     // local mode, just like in kpart
-    
+
     m_file = m_url.path();
-  
+
     emit started( 0 );
 
     if (openFile())
     {
       emit completed();
       emit setWindowCaption( m_url.prettyURL() );
-        
+
       return true;
     }
-    
+
     return false;
   }
   else
   {
     // remote mode
-  
+
     m_bTemp = true;
 
     m_tempFile = new KTempFile ();
     m_file = m_tempFile->name();
 
     m_job = KIO::get ( url, false, isProgressInfoEnabled() );
-    
+
     // we want to have the http header
     //m_job->addMetaData ("PropagateHttpHeader", "true");
-    
+
     m_job->setWindow( widget() ? widget()->topLevelWidget() : 0 );
-    
+
     emit started( m_job );
 
     connect( m_job, SIGNAL( data( KIO::Job*, const QByteArray& ) ),
@@ -2307,7 +2307,7 @@ bool KateDocument::openURL( const KURL &url )
 
     connect( m_job, SIGNAL( result( KIO::Job* ) ),
            SLOT( slotFinishedKate( KIO::Job* ) ) );
-               
+
     return true;
   }
 }
@@ -2318,17 +2318,17 @@ void KateDocument::slotDataKate ( KIO::Job *, const QByteArray &data )
 
   if (!m_tempFile || !m_tempFile->file())
     return;
-    
+
   m_tempFile->file()->writeBlock (data);
 }
 
 void KateDocument::slotFinishedKate ( KIO::Job * job )
 {
   kdDebug(13020) << "KateDocument::slotJobFinished" << endl;
-  
+
   if (!m_tempFile)
     return;
-    
+
   delete m_tempFile;
   m_tempFile = 0;
   m_job = 0;
@@ -2352,7 +2352,7 @@ void KateDocument::abortLoadKate()
     m_job->kill();
     m_job = 0;
   }
-  
+
   delete m_tempFile;
   m_tempFile = 0;
 }
@@ -2379,18 +2379,18 @@ bool KateDocument::openFile(KIO::Job * job)
     m_modOnHdReason = 0;
     emit modifiedOnDisc (this, m_modOnHd, 0);
   }
-  
+
   //
   // use metadata
-  //  
+  //
   if (job)
   {
     QString metaDataCharset = job->queryMetaData("charset");
-    
+
     if (!metaDataCharset.isEmpty ())
       setEncoding (metaDataCharset);
   }
-   
+
   //
   // service type magic to get encoding right
   //
@@ -2518,7 +2518,7 @@ bool KateDocument::saveFile()
   // can we encode it if we want to save it ?
   //
   bool canEncode = true;
-  
+
   if (reallySaveIt)
     canEncode = buffer->canEncode ();
 
@@ -4242,12 +4242,12 @@ bool KateDocument::exportDocumentToHTML(QTextStream *outputStream,const QString 
       // atm hardcode default schema, later add selector to the exportAs methode :)
       QMemArray<KateAttribute> *attributes = m_highlight->attributes (0);
       KateAttribute* charAttributes = 0;
-      
+
       if (textLine->attribute(curPos) < attributes->size())
         charAttributes = &attributes->at(textLine->attribute(curPos));
       else
         charAttributes = &attributes->at(0);
-      
+
       //ASSERT(charAttributes != NULL);
       // let's give the color for that character :
       if ( (charAttributes->textColor() != previousCharacterColor))
@@ -4502,7 +4502,7 @@ void KateDocument::misspelling( const QString& origword, const QStringList&, uns
   locatePosition( pos, line, col );
 
   if (activeView())
-    activeView()->setCursorPositionInternal (line, col, 1, true);
+    activeView()->setCursorPositionInternal (line, col, 1);
 
   setSelection( line, col, line, col + origword.length() );
 }
@@ -4954,7 +4954,7 @@ bool KateDocument::checkOverwrite( KURL u )
 
 void KateDocument::setDefaultEncoding (const QString &encoding)
 {
-  s_defaultEncoding = encoding;     
+  s_defaultEncoding = encoding;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

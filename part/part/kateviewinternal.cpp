@@ -755,7 +755,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
  * this function ensures a certain location is visible on the screen.
  * if endCol is -1, ignore making the columns visible.
  */
-void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool force)
+void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool force, bool center)
 {
   //kdDebug() << "MakeVisible start [" << startPos().line << "," << startPos().col << "] end [" << endPos().line << "," << endPos().col << "] -> request: [" << c.line << "," << c.col << "]" <<endl;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height() << endl;
     // if the line is in a folded region, unfold all the way up
@@ -764,9 +764,13 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
 
   if ( force )
   {
-
     KateTextCursor scroll = c;
     scrollPos(scroll, force);
+  }
+  else if (center && (c < startPos() || c > endPos()))
+  {
+    KateTextCursor scroll = viewLineOffset(c, -int(linesDisplayed()) / 2);
+    scrollPos(scroll);
   }
   else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
   {
@@ -1864,7 +1868,7 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
     m_doc->clearSelection();
 }
 
-void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force )
+void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force, bool center )
 {
   TextLine::Ptr l = m_doc->kateTextLine( newCursor.line() );
 
@@ -1892,7 +1896,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force
   displayCursor.setPos (m_doc->getVirtualLine(cursor.line()), cursor.col());
 
   cXPos = m_view->renderer()->textWidth( cursor );
-  makeVisible ( displayCursor, displayCursor.col() );
+  makeVisible ( displayCursor, displayCursor.col(), false, center );
 
   updateBracketMarks();
 

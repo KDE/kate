@@ -558,7 +558,7 @@ bool KateSearch::doSearch( const QString& text )
 
 void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 {
-  view()->setCursorPositionInternal ( cursor.line(), cursor.col() + slen, 1, true );
+  view()->setCursorPositionInternal ( cursor.line(), cursor.col() + slen, 1 );
   doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
 

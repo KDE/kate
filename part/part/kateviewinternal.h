@@ -111,7 +111,7 @@ class KateViewInternal : public QWidget
 
   private:
     void updateView (bool changed = false, int viewLinesScrolled = 0);
-    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false);
+    void makeVisible (const KateTextCursor& c, uint endCol, bool force = false, bool center = false);
 
   public:
     inline const KateTextCursor& startPos() const { return m_startPos; }
@@ -218,7 +218,7 @@ class KateViewInternal : public QWidget
     int lineToY(uint viewLine) const;
 
     void updateSelection( const KateTextCursor&, bool keepSel );
-    void updateCursor( const KateTextCursor& newCursor, bool force = false );
+    void updateCursor( const KateTextCursor& newCursor, bool force = false, bool center = false );
     void updateBracketMarks();
 
     void paintCursor();

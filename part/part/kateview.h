@@ -296,7 +296,7 @@ class KateView : public Kate::View,
     bool isActive()             { return m_active; }
 
   public slots:
-    void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionInternal ( mark->line, 0, 1, true ); }
+    void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionInternal ( mark->line, 0, 1 ); }
     void selectionChanged ();
 
   signals:
@@ -328,7 +328,7 @@ class KateView : public Kate::View,
     void viewStatusMsg (const QString &msg);
 
   public:
-    bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1, bool scroll = false );
+    bool setCursorPositionInternal( uint line, uint col, uint tabwidth = 1 );
 
   protected:
     void customEvent( QCustomEvent* );

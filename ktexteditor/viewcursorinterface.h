@@ -28,6 +28,7 @@ namespace KTextEditor
 */
 class ViewCursorInterface
 {
+	friend class PrivateViewCursorInterface;
   //
   // slots !!!
   //
@@ -56,6 +57,8 @@ class ViewCursorInterface
   //
   public:
     virtual void cursorPositionChanged () = 0;
+  private:
+  	class PrivateViewCursorInterface *d;
 };
 
 };

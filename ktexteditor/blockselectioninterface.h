@@ -28,6 +28,7 @@ namespace KTextEditor
 */
 class BlockSelectionInterface
 {
+friend class PrivateBlockSelectionInterface;
   //
   // slots !!!
   //
@@ -51,6 +52,8 @@ class BlockSelectionInterface
     * toggle blockseletion mode
     */
     virtual bool toggleBlockSelectionMode () = 0;
+    private:
+    	class PrivateBlockSelectionInterface *d;
 };
 
 };

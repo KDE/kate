@@ -30,6 +30,7 @@ namespace KTextEditor
 */
 class HighlightingInterface
 {
+friend class PrivateHighlightingInterface;
   //
 	// slots !!!
 	//
@@ -64,6 +65,8 @@ class HighlightingInterface
 	//
 	public:
 	  virtual void hlChanged () = 0;
+	  private:
+	  class PrivateHighlightingInterface *d;
 };
 
 

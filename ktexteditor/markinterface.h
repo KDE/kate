@@ -37,6 +37,7 @@ class Mark
 */
 class MarkInterface
 {
+  friend class PrivateMarkInterface;
   //
   // slots !!!
   //
@@ -93,6 +94,8 @@ class MarkInterface
   //
   public:
     virtual void marksChanged () = 0;
+    private:
+    	class PrivateMarkInterface *d;
 };
 
 };

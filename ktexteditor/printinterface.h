@@ -28,12 +28,15 @@ namespace KTextEditor
 */
 class PrintInterface
 {
+	friend class PrivatePrintInterface;
   //
   // slots !!!
   //
   public:
     virtual bool printDialog () = 0;
     virtual bool print () = 0;
+    private:
+    	class PrivateSelectionInterface *d;
 };
 
 };

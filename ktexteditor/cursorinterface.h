@@ -42,6 +42,7 @@ class Cursor
 */
 class CursorInterface
 {
+  friend class PrivateCursorInterface;
   public:
     /**
     * Create a new cursor object
@@ -52,6 +53,8 @@ class CursorInterface
     * Accessor to the list of views.
     */
     virtual QPtrList<Cursor> cursors () const = 0;
+    private:
+    	class PrivateCursorInterface *d;
 };
 
 };

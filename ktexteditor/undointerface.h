@@ -29,6 +29,7 @@ namespace KTextEditor
 */
 class UndoInterface
 {
+  friend class PrivateUndoInterface;
   //
   // slots !!!
   //
@@ -54,6 +55,8 @@ class UndoInterface
   //
   public:
     virtual void undoChanged () = 0;
+    private:
+    	class PrivateSelectionInterface *d;
 };
 
 

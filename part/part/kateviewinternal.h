@@ -30,8 +30,7 @@
 #include <qpoint.h>
 #include <qlayout.h>
 #include <qpixmap.h>
-
-class QScrollBar;
+#include <qscrollbar.h>
 
 class KateView;
 class KateIconBorder;
@@ -42,6 +41,32 @@ class KateDynWWBar;
     none  =  0,
     right =  1
   };
+
+/**
+ * This class is required because QScrollBar's sliderMoved() signal is
+ * really supposed to be a sliderDragged() signal... so this way we can capture
+ * MMB slider moves as well
+ */
+class KateScrollBar : public QScrollBar
+{
+  Q_OBJECT
+
+public:
+  KateScrollBar(Orientation orientation, QWidget* parent, const char* name = 0L);
+
+signals:
+  void sliderMMBMoved(int value);
+
+protected:
+  virtual void mousePressEvent(QMouseEvent* e);
+  virtual void mouseReleaseEvent(QMouseEvent* e);
+
+protected slots:
+  void sliderMaybeMoved(int value);
+
+private:
+  bool m_middleMouseDown;
+};
 
 class KateViewInternal : public QWidget
 {

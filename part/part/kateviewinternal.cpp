@@ -49,6 +49,33 @@ static const bool paintDebug = false;
 // const int KateViewInternal::scrollTime = 30;
 // const int KateViewInternal::scrollMargin = 16;
 
+KateScrollBar::KateScrollBar(Orientation orientation, QWidget* parent, const char* name)
+  : QScrollBar(orientation, parent, name)
+  , m_middleMouseDown(false)
+{
+  connect(this, SIGNAL(valueChanged(int)), SLOT(sliderMaybeMoved(int)));
+}
+
+void KateScrollBar::mousePressEvent(QMouseEvent* e)
+{
+  if (e->button() == MidButton)
+    m_middleMouseDown = true;
+
+  QScrollBar::mousePressEvent(e);
+}
+
+void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
+{
+  QScrollBar::mouseReleaseEvent(e);
+
+  m_middleMouseDown = false;
+}
+
+void KateScrollBar::sliderMaybeMoved(int value)
+{
+  if (m_middleMouseDown)
+    emit sliderMMBMoved(value);
+}
 
 KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   : QWidget (view, "", Qt::WStaticContents | Qt::WRepaintNoErase | Qt::WResizeNoErase )
@@ -76,7 +103,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   //
   // scrollbar for lines
   //
-  m_lineScroll = new QScrollBar(QScrollBar::Vertical, m_view);
+  m_lineScroll = new KateScrollBar(QScrollBar::Vertical, m_view);
   m_lineScroll->show();
   m_lineScroll->setTracking (true);
 
@@ -89,7 +116,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_colLayout->addWidget(m_dynWWBar);
   m_colLayout->addWidget(m_lineScroll);
   m_lineLayout->addLayout(m_colLayout);
-	
+
   if (m_view->dynWordWrap()) {
     m_dummy = 0L;
     m_dynWWBar->show();
@@ -114,6 +141,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect(m_lineScroll, SIGNAL(nextLine()), SLOT(scrollNextLine()));
 
   connect(m_lineScroll, SIGNAL(sliderMoved(int)), SLOT(scrollLines(int)));
+  connect(m_lineScroll, SIGNAL(sliderMMBMoved(int)), SLOT(scrollLines(int)));
 
   // catch wheel events, completing the hijack
   m_lineScroll->installEventFilter(this);
@@ -656,7 +684,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
 
-  if ((drawBuffer.width() != width) || (drawBuffer.height() != h))
+  if (((int)drawBuffer.width() != width) || ((int)drawBuffer.height() != h))
     drawBuffer.resize (width, h);
 
   if (drawBuffer.isNull())

@@ -104,6 +104,19 @@ void KateSchemaManager::addSchema (const QString &t)
   update (false);
 }
 
+void KateSchemaManager::removeSchema (uint number)
+{
+  if (number >= m_schemas.count())
+    return;
+
+  if (number < 2)
+    return;
+
+  m_config.deleteGroup (name (number));
+
+  update (false);
+}
+
 uint KateSchemaManager::number (const QString &name)
 {
   int i;
@@ -374,14 +387,12 @@ void KateSchemaConfigPage::update ()
 }
 
 void KateSchemaConfigPage::deleteSchema ()
-{/*
-  int type = typeCombo->currentItem ();
+{
+  int t = schemaCombo->currentItem ();
 
-  if ((type > -1) && ((uint)type < m_types.count()))
-  {
-    m_types.remove (type);
-    update ();
-  }*/
+  KateFactory::schemaManager()->removeSchema (t);
+
+  update ();
 }
 
 void KateSchemaConfigPage::newSchema ()

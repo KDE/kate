@@ -45,6 +45,8 @@ class KateSchemaManager
 
     void addSchema (const QString &t);
 
+    void removeSchema (uint number);
+
     /**
      * if not found, defaults to 0
      */

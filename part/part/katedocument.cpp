@@ -2763,9 +2763,6 @@ bool KateDocument::saveFile()
 
   bool success = buffer->saveFile (m_file, KGlobal::charsets()->codecForName(myEncoding), eol);
 
-  fileInfo->setFile (m_file);
-  setMTime();
-
   if (!hlSetByUser)
   {
     int hl = hlManager->wildcardFind( m_file );
@@ -2796,6 +2793,10 @@ bool KateDocument::saveFile()
   emit fileNameChanged ();
 
   setDocName  (url().fileName());
+
+  // last stuff to do
+  fileInfo->setFile (m_file);
+  setMTime();
 
   return success;
 }

@@ -552,7 +552,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   glay->addWidget( label, 7, 0 );
   glay->addWidget( m_wwmarker, 7, 1 );
 
-  label = new QLabel( i18n("Icon Border:"), this );
+  label = new QLabel( i18n("Icon border:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_iconborder = new KColorButton( this );
   label->setBuddy( m_iconborder );

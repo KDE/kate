@@ -535,7 +535,7 @@ QString KateDocument::configPageName (uint number) const
       return i18n ("Highlighting");
 
     case 7:
-      return i18n ("View defaults");
+      return i18n ("View Defaults");
 
     case 8:
       return i18n ("Plugins");

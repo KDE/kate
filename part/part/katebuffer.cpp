@@ -44,7 +44,7 @@
      
      
 /**     
- * Create an empty buffer.     
+ * Create an empty buffer.
  */     
 KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc)
 {
@@ -78,7 +78,7 @@ static QByteArray readBlock(int fd, int size)
       if ((n == -1) && (errno == EAGAIN))
          continue;     
       if (n == -1)     
-      {     
+      {
          // TODO: Do some error handling.     
          break;     
       }     
@@ -112,7 +112,7 @@ KateBuffer::clear()
    m_parsedBlocksClean.clear();     
    m_parsedBlocksDirty.clear();     
    m_loadedBlocks.clear();     
-   m_loader.clear();     
+   m_loader.clear();
    m_blocks.clear();     
    delete m_vm;     
    m_vm = new KVMAllocator;
@@ -210,20 +210,24 @@ KateBuffer::loadFilePart()
      loader->lastBlock = currentBlock;
      if (eof) break;
   }
+  
+  // make sure lines are calculated - thx waldo ;)
+  m_totalLines += state.lineNr - startLine;
+
   if (eof)
   {
      //kdDebug(13020)<<"Loading finished.\n";
      close( loader->fd );
      m_loader.removeRef(loader);
+     
+     emit loadingFinished ();
   }
   if (m_loader.count())
-  {     
+  {
       //kdDebug(13020)<<"Starting timer...\n";
      m_loadTimer.start(0, true);
  //JW 0
   }
-
-  m_totalLines += state.lineNr - startLine;
 }
 
 

@@ -342,6 +342,9 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
   connect(this,SIGNAL(modifiedChanged ()),this,SLOT(slotModChanged ()));
 
   buffer = new KateBuffer (this);
+
+  connect(buffer, SIGNAL(loadingFinished()), this, SLOT(slotLoadingFinished()));
+
   connect(buffer, SIGNAL(linesChanged(int)), this, SLOT(slotBufferChanged()));
 
   connect(buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
@@ -3481,7 +3484,6 @@ void KateDocument::slotBufferChanged()
   updateViews();
 }
 
-
 void KateDocument::updateViews()
 {
   if (noViewUpdates)
@@ -4527,6 +4529,11 @@ unsigned int KateDocument::getVirtualLine(unsigned int realLine)
 unsigned int KateDocument::visibleLines ()
 {
   return numLines() - regionTree->getHiddenLinesCount();
+}
+
+void KateDocument::slotLoadingFinished()
+{
+  updateViews ();
 }
 
 /**

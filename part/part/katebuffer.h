@@ -156,6 +156,11 @@ signals:
     */
    void pleaseHighlight(uint from, uint to);
 
+   /**
+    * Loading of the file finished
+    */
+   void loadingFinished ();
+
 public slots:
 
    /**

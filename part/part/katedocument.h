@@ -497,7 +497,7 @@ class KateDocument : public Kate::Document
      */
     void spellcheck_done ();
 
-  protected:
+  private:
     // all spell checker data stored in here
     struct _kspell {
       KSpell *kspell;
@@ -539,12 +539,13 @@ class KateDocument : public Kate::Document
   public:
     class Highlight *highlight() { return m_highlight; }
 
-  protected:
+  private:
     void makeAttribs();
     void updateFontData();
 
-  protected slots:
+  private slots:
     void internalHlChanged();
+    void slotLoadingFinished();
 
   public:
     void addView(KTextEditor::View *);
@@ -604,10 +605,10 @@ class KateDocument : public Kate::Document
 
     void newBracketMark(KateTextCursor &, BracketMark &);
 
-  protected:
+  private:
     void guiActivateEvent( KParts::GUIActivateEvent *ev );
 
-  protected:
+  private:
     //
     // Comment, uncomment methods
     //
@@ -626,7 +627,7 @@ class KateDocument : public Kate::Document
     bool removeStartStopCommentFromSelection();
     bool removeStartLineCommentFromSelection();
 
-  protected slots:
+  private slots:
     void slotBufferChanged();
     void slotBufferUpdateHighlight(uint,uint);
     void slotBufferUpdateHighlight();

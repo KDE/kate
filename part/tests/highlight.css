@@ -1,8 +1,6 @@
-
-This is a pseudo CSS file to test Kate's CSS syntax highlighting.
-
-/* This is
-	a comment. */
+/**
+ * This is a pseudo CSS file to test Kate's CSS syntax highlighting.
+ */
 
 body {
 	font-size: 15pt;
@@ -22,4 +20,6 @@ body {
 a:hover {
 }
 
+/*
 TODO: add more tests, e.g. media
+*/

@@ -47,7 +47,7 @@ class SedReplace : public Kate::Command
   public:
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *view, const QString &cmd, QString &msg) { ; };
+    bool help (class Kate::View *, const QString &, QString &) { return false; };
 
     QStringList cmds () { return QStringList("s"); };
 
@@ -68,7 +68,7 @@ class Character : public Kate::Command
   public:
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *view, const QString &cmd, QString &msg) { ; };
+    bool help (class Kate::View *, const QString &, QString &) { return false; };
 
     QStringList cmds () { return QStringList("char"); };
 };
@@ -78,7 +78,7 @@ class Goto : public Kate::Command
   public:
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *view, const QString &cmd, QString &msg) { ; };
+    bool help (class Kate::View *, const QString &, QString &) { return false; };
 
     QStringList cmds () { return QStringList("goto"); };
 };
@@ -88,7 +88,7 @@ class Date : public Kate::Command
   public:
     bool exec (class Kate::View *view, const QString &cmd, QString &errorMsg);
 
-    bool help (class Kate::View *view, const QString &cmd, QString &msg) { ; };
+    bool help (class Kate::View *, const QString &, QString &) { return false; };
 
     QStringList cmds () { return QStringList("date"); };
 };

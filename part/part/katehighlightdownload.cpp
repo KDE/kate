@@ -24,6 +24,7 @@
 #include "katehighlight.h"
 
 #include <kio/job.h>
+#include <kio/jobclasses.h>
 #include <kio/netaccess.h>
 
 #include <klocale.h>

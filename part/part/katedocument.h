@@ -29,13 +29,14 @@
 #include <ktexteditor/configinterfaceextension.h>
 #include <ktexteditor/encodinginterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
-#include <ktexteditor/plugin.h>
 
 #include <kservice.h>
 
 #include <qdialog.h>
 #include <qintdict.h>
 #include <qdatetime.h>
+
+namespace KTextEditor { class Plugin; };
 
 class KateUndoGroup;
 class KateCmd;

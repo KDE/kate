@@ -48,6 +48,7 @@
 
 #include "katesyntaxdocument.h"
 #include "hlparamedit.h"
+#include "katedocument.h"
 #include "katehighlightdownload.h"
 #include "attribeditor.h"
 #include "katefactory.h"

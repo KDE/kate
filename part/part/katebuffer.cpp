@@ -24,6 +24,7 @@
 
 #include "katedocument.h"
 #include "katehighlight.h"
+#include "katecodefoldinghelpers.h"
 
 #include <kvmallocator.h>
 #include <kdebug.h>
@@ -295,6 +296,31 @@ void KateBuffer::emitTextChanged(uint type, TextLine::Ptr thisLine, uint pos, ui
       emit textUnWrapped(thisLine, *nextLine, pos, len);
       break;
   }
+}
+
+uint KateBuffer::countVisible ()
+{
+  return m_lines - m_regionTree->getHiddenLinesCount(m_lines);
+}
+
+uint KateBuffer::lineNumber (uint visibleLine)
+{
+  return m_regionTree->getRealLine (visibleLine);
+}
+
+uint KateBuffer::lineVisibleNumber (uint line)
+{
+  return m_regionTree->getVirtualLine (line);
+}
+
+void KateBuffer::lineInfo (KateLineInfo *info, unsigned int line)
+{
+  m_regionTree->getLineInfo(info,line);
+}
+
+KateCodeFoldingTree *KateBuffer::foldingTree ()
+{
+  return m_regionTree;
 }
 
 /**
@@ -804,7 +830,7 @@ void KateBuffer::updateHighlighting(uint from, uint to, bool invalidate)
 
          buf->b_needHighlight = false;
 
-	 //kdDebug()<<"Calling need highlight: "<<fromLine<<","<<tillLine<<endl;
+   //kdDebug()<<"Calling need highlight: "<<fromLine<<","<<tillLine<<endl;
          endStateChanged = needHighlight (buf, fromLine, tillLine);
 
           if (buf->b_rawDataValid)

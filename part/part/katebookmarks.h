@@ -23,12 +23,13 @@
 #include <qobject.h>
 #include <qptrlist.h>
 
+namespace Kate { class View; }
+
+namespace KTextEditor { class Mark; }
+
 class KAction;
 class KActionMenu;
 class KActionCollection;
-
-namespace Kate { class View; }
-namespace KTextEditor { class Mark; }
 
 class KateBookmarks : public QObject
 {

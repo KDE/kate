@@ -30,12 +30,15 @@
 #include "kateview.h"
 #include "katerenderer.h"
 
+#include <kdebug.h>
+
 #include <qwhatsthis.h>
+#include <qvbox.h>
+#include <qlistbox.h>
 #include <qtimer.h>
 #include <qtooltip.h>
 #include <qapplication.h>
 #include <qsizegrip.h>
-#include <kdebug.h>
 
 class CompletionItem : public QListBoxText
 {

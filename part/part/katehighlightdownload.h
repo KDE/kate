@@ -19,9 +19,9 @@
 #ifndef _KATE_HIGHLIGHTDOWNLOAD_H_
 #define _KATE_HIGHLIGHTDOWNLOAD_H_
 
-#include <kio/jobclasses.h>
-
 #include <kdialogbase.h>
+
+namespace KIO { class Job; };
 
 class HlDownloadDialog: public KDialogBase
 {

@@ -22,6 +22,9 @@
 #include "katebookmarks.h"
 #include "katebookmarks.moc"
 
+#include "../interfaces/document.h"
+#include "../interfaces/view.h"
+
 #include <klocale.h>
 #include <kaction.h>
 #include <kpopupmenu.h>
@@ -30,9 +33,6 @@
 
 #include <qregexp.h>
 #include <qmemarray.h>
-
-#include "../interfaces/document.h"
-#include "../interfaces/view.h"
 
 /**
    Utility: selection sort

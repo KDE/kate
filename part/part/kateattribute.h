@@ -19,10 +19,9 @@
 #ifndef KATEATTRIBUTE_H
 #define KATEATTRIBUTE_H
 
-#include <qfont.h>
-#include <qcolor.h>
-
 #include "katefont.h"
+
+#include <qcolor.h>
 
 /**
  * The Attribute class incorporates all text decorations supported by Kate.

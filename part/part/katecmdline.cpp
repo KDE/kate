@@ -20,9 +20,10 @@
 #include "katecmdline.moc"
 
 #include "kateview.h"
+#include "katefactory.h"
+
 #include "../interfaces/katecmd.h"
 #include "../interfaces/document.h"
-#include "katefactory.h"
 
 #include <klocale.h>
 

@@ -2,7 +2,7 @@
 
   copyright  : (C) 2001 Joseph Wenninger <jowenn@kde.org>
                (C) 2002 John Firebaugh <jfirebaugh@kde.org>
- 	       (C) 2001 by Victor Röder <Victor_Roeder@GMX.de>
+          (C) 2001 by Victor Röder <Victor_Roeder@GMX.de>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -27,16 +27,14 @@
 #ifndef __KateCodeCompletion_H__
 #define __KateCodeCompletion_H__
 
-#include <qvaluelist.h>
-#include <qstringlist.h>
-#include <qvbox.h>
-#include <qlistbox.h>
-#include <qlabel.h>
-
 #include <ktexteditor/codecompletioninterface.h>
 
-class KDevArgHint;
+#include <qvaluelist.h>
+#include <qstringlist.h>
+#include <qlabel.h>
+
 class KateView;
+class KDevArgHint;
 
 class KateCodeCompletionCommentLabel : public QLabel
 {
@@ -69,7 +67,7 @@ public:
 
   void showArgHint(
       QStringList functionList, const QString& strWrapping, const QString& strDelimiter );
-  void showCompletionBox( 
+  void showCompletionBox(
       QValueList<KTextEditor::CompletionEntry> entries, int offset = 0, bool casesensitive = true );
   bool eventFilter( QObject* o, QEvent* e );
 
@@ -92,8 +90,8 @@ private:
 
   KDevArgHint*    m_pArgHint;
   KateView*       m_view;
-  QVBox*          m_completionPopup;
-  QListBox*       m_completionListBox;
+  class QVBox*          m_completionPopup;
+  class QListBox*       m_completionListBox;
   QValueList<KTextEditor::CompletionEntry> m_complList;
   uint            m_lineCursor;
   uint            m_colCursor;

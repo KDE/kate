@@ -19,13 +19,12 @@
 #ifndef KATEARBITRARYHIGHLIGHT_H
 #define KATEARBITRARYHIGHLIGHT_H
 
+#include "kateattribute.h"
+#include "katesupercursor.h"
+
 #include <qobject.h>
 #include <qptrlist.h>
 #include <qmap.h>
-#include <qcolor.h>
-
-#include "kateattribute.h"
-#include "katesupercursor.h"
 
 class KateDocument;
 class KateView;

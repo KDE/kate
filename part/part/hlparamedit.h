@@ -23,24 +23,26 @@
 
 class HLParamEdit:public QHBox
 {
-Q_OBJECT
-public:
-	HLParamEdit(QWidget *parent);
-	~HLParamEdit();
-	void ListParameter(QString listname);
-	void TextParameter(int length, QString text,bool regExp=false);
-	QString text();
-private:
-	class QLineEdit *textEdit;
-	class QLabel *listLabel;
-	class QPushButton *listChoose;
-	class QPushButton *listNew;
-	class QPushButton *listEdit;
-/*private slots:
-	void listEditClicked();
-	void listNewClicked();
-	void listChooseClicked();*/
-signals:
-	void textChanged(const QString&);
+  Q_OBJECT
+
+  public:
+    HLParamEdit(QWidget *parent);
+    ~HLParamEdit();
+
+    void ListParameter(QString listname);
+    void TextParameter(int length, QString text,bool regExp=false);
+    QString text();
+
+  private:
+    class QLineEdit *textEdit;
+    class QLabel *listLabel;
+    class QPushButton *listChoose;
+    class QPushButton *listNew;
+    class QPushButton *listEdit;
+
+
+  signals:
+    void textChanged(const QString&);
 };
+
 #endif

@@ -20,37 +20,39 @@
 
 #include "attribeditor.h"
 #include "attribeditor.moc"
+
 #include "katesyntaxdocument.h"
 
 #include <kcombobox.h>
 #include <klistview.h>
 #include <klineedit.h>
 #include <kcolorcombo.h>
-#include <qcheckbox.h>
 #include <klocale.h>
+
+#include <qcheckbox.h>
 #include <qstringlist.h>
 #include <qpushbutton.h>
 
 AttribEditor::AttribEditor(QWidget *parent):AttribEditor_skel(parent)
 {
-	attributes->setSorting(-1);
-	AttributeType->insertItem("dsNormal");
-	AttributeType->insertItem("dsKeyword");
-	AttributeType->insertItem("dsDataType");
-	AttributeType->insertItem("dsDecVal");
-	AttributeType->insertItem("dsBaseN");
-	AttributeType->insertItem("dsFloat");
-	AttributeType->insertItem("dsChar");
-	AttributeType->insertItem("dsString");
-	AttributeType->insertItem("dsComment");
-	AttributeType->insertItem("dsOthers");
-	AttributeType->insertItem(i18n("Custom"));
-	connect(attributes,SIGNAL(currentChanged(QListViewItem*)),this,SLOT(currentAttributeChanged(QListViewItem*)));
-	connect(addAttribute,SIGNAL(clicked()),this,SLOT(slotAddAttribute()));
-	connect(AttributeName,SIGNAL(textChanged(const QString&)),this,SLOT(updateAttributeName(const QString&)));
-	connect(AttributeType,SIGNAL(activated(const QString&)),this,SLOT(updateAttributeType(const QString&)));
-	connect(Colour,SIGNAL(activated( const QColor &)),this,SLOT(updateAttributeColour(const QColor &)));
-	connect(SelectedColour,SIGNAL(activated( const QColor &)),this,SLOT(updateAttributeSelectedColour(const QColor &)));
+  attributes->setSorting(-1);
+  AttributeType->insertItem("dsNormal");
+  AttributeType->insertItem("dsKeyword");
+  AttributeType->insertItem("dsDataType");
+  AttributeType->insertItem("dsDecVal");
+  AttributeType->insertItem("dsBaseN");
+  AttributeType->insertItem("dsFloat");
+  AttributeType->insertItem("dsChar");
+  AttributeType->insertItem("dsString");
+  AttributeType->insertItem("dsComment");
+  AttributeType->insertItem("dsOthers");
+  AttributeType->insertItem(i18n("Custom"));
+  connect(attributes,SIGNAL(currentChanged(QListViewItem*)),this,SLOT(currentAttributeChanged(QListViewItem*)));
+  connect(addAttribute,SIGNAL(clicked()),this,SLOT(slotAddAttribute()));
+  connect(AttributeName,SIGNAL(textChanged(const QString&)),this,SLOT(updateAttributeName(const QString&)));
+  connect(AttributeType,SIGNAL(activated(const QString&)),this,SLOT(updateAttributeType(const QString&)));
+  connect(Colour,SIGNAL(activated( const QColor &)),this,SLOT(updateAttributeColour(const QColor &)));
+  connect(SelectedColour,SIGNAL(activated( const QColor &)),this,SLOT(updateAttributeSelectedColour(const QColor &)));
 }
 
 AttribEditor::~AttribEditor()
@@ -67,15 +69,15 @@ void AttribEditor::load(SyntaxDocument *doc )
     {
 //        ContextAttribute->insertItem(HlManager::self()->syntax->groupData(data,QString("name")));
 //        ItemAttribute->insertItem(HlManager::self()->syntax->groupData(data,QString("name")));
-	attributes->insertItem(prev=new QListViewItem(attributes,prev,
-		doc->groupData(data,QString("name")),
-		doc->groupData(data,QString("defStyleNum")),
-		doc->groupData(data,QString("color")),
-		doc->groupData(data,QString("selColor")),
-		doc->groupData(data,QString("bold")),
-		doc->groupData(data,QString("italic")),
-		QString("%1").arg(cnt)));
-	cnt++;
+  attributes->insertItem(prev=new QListViewItem(attributes,prev,
+    doc->groupData(data,QString("name")),
+    doc->groupData(data,QString("defStyleNum")),
+    doc->groupData(data,QString("color")),
+    doc->groupData(data,QString("selColor")),
+    doc->groupData(data,QString("bold")),
+    doc->groupData(data,QString("italic")),
+    QString("%1").arg(cnt)));
+  cnt++;
     }
   if (data) doc->freeGroupInfo(data);
   currentAttributeChanged(attributes->firstChild());
@@ -84,141 +86,141 @@ void AttribEditor::load(SyntaxDocument *doc )
 /*
 void AttribEditor::save(QDomDocument *doc)
 {
-	struct syntaxContextData *data;
-	data=doc->createGroupInfo("highlighting","itemData");
-	for (QListViewItem *it=attributes->firstChild();it,it=it->nextSibling())
-	{
-		doc->appendGroup(data);
-		doc->setGropuData("name",it->text(0);
-		doc->setGropuData("defStyleNum",it->text(1);
-		if (it->text(2)!=null)
-		{
-			doc->setGroupData("color",it->text(2);
-			doc->setGroupData("selColor",it->text(3);
-			doc->setGroupData("bold",it->text(4);
-			doc->setGroupData("italic",it->text(5);			
-		}
+  struct syntaxContextData *data;
+  data=doc->createGroupInfo("highlighting","itemData");
+  for (QListViewItem *it=attributes->firstChild();it,it=it->nextSibling())
+  {
+    doc->appendGroup(data);
+    doc->setGropuData("name",it->text(0);
+    doc->setGropuData("defStyleNum",it->text(1);
+    if (it->text(2)!=null)
+    {
+      doc->setGroupData("color",it->text(2);
+      doc->setGroupData("selColor",it->text(3);
+      doc->setGroupData("bold",it->text(4);
+      doc->setGroupData("italic",it->text(5);
+    }
 
-	}
-	
-	if (data) doc->freeGroupInfo(data);
+  }
+
+  if (data) doc->freeGroupInfo(data);
 }
 */
 
 QStringList AttribEditor::attributeNames()
 {
-	QStringList list;
-	for (QListViewItem *it=attributes->firstChild(); it!=0; it=it->nextSibling())
-	{
-		list<<it->text(0);
-	}
-	return list;
+  QStringList list;
+  for (QListViewItem *it=attributes->firstChild(); it!=0; it=it->nextSibling())
+  {
+    list<<it->text(0);
+  }
+  return list;
 }
 
 void AttribEditor::slotAddAttribute()
 {
-	attributes->insertItem(new QListViewItem(attributes,attributes->lastItem(),
-		i18n("New attribute"),"dsNormal","#000000","#ffffff","0","0",
-		QString("%1").arg(attributes->childCount())));
+  attributes->insertItem(new QListViewItem(attributes,attributes->lastItem(),
+    i18n("New attribute"),"dsNormal","#000000","#ffffff","0","0",
+    QString("%1").arg(attributes->childCount())));
 }
 
 void AttribEditor::currentAttributeChanged(QListViewItem *item)
 {
-	if (item)
-	{
-		bool isCustom=(item->text(1)=="dsNormal")&&(!(item->text(2).isEmpty()));
-		AttributeName->setText(item->text(0));
-		AttributeType->setCurrentText(
-			isCustom?i18n("Custom"):item->text(1));
-		AttributeName->setEnabled(true);
-		AttributeType->setEnabled(true);
-		if (isCustom)
-		{
-			Colour->setColor(QColor(item->text(2)));
-			SelectedColour->setColor(QColor(item->text(3)));
-			Bold->setChecked(item->text(4)=="1");
-			Italic->setChecked(item->text(5)=="1");
+  if (item)
+  {
+    bool isCustom=(item->text(1)=="dsNormal")&&(!(item->text(2).isEmpty()));
+    AttributeName->setText(item->text(0));
+    AttributeType->setCurrentText(
+      isCustom?i18n("Custom"):item->text(1));
+    AttributeName->setEnabled(true);
+    AttributeType->setEnabled(true);
+    if (isCustom)
+    {
+      Colour->setColor(QColor(item->text(2)));
+      SelectedColour->setColor(QColor(item->text(3)));
+      Bold->setChecked(item->text(4)=="1");
+      Italic->setChecked(item->text(5)=="1");
 
-			Colour->setEnabled(true);
-			SelectedColour->setEnabled(true);
-			Bold->setEnabled(true);
-			Italic->setEnabled(true);
-		}
-		else
-		{
-			Colour->setEnabled(false);
-			Colour->showEmptyList();
-			SelectedColour->setEnabled(false);
-			SelectedColour->showEmptyList();
-			Bold->setEnabled(false);
-			Italic->setEnabled(false);
-		}
-	}
-	else
-	{
-		Colour->setEnabled(false);
-		SelectedColour->setEnabled(false);
-		Bold->setEnabled(false);
-		Italic->setEnabled(false);
-		AttributeName->setEnabled(false);
-		AttributeType->setEnabled(false);
-	}
+      Colour->setEnabled(true);
+      SelectedColour->setEnabled(true);
+      Bold->setEnabled(true);
+      Italic->setEnabled(true);
+    }
+    else
+    {
+      Colour->setEnabled(false);
+      Colour->showEmptyList();
+      SelectedColour->setEnabled(false);
+      SelectedColour->showEmptyList();
+      Bold->setEnabled(false);
+      Italic->setEnabled(false);
+    }
+  }
+  else
+  {
+    Colour->setEnabled(false);
+    SelectedColour->setEnabled(false);
+    Bold->setEnabled(false);
+    Italic->setEnabled(false);
+    AttributeName->setEnabled(false);
+    AttributeType->setEnabled(false);
+  }
 }
 
 
 void AttribEditor::updateAttributeName(const QString &text)
 {
-	if (attributes->currentItem())
-	{
-		attributes->currentItem()->setText(0,text);
-	}
+  if (attributes->currentItem())
+  {
+    attributes->currentItem()->setText(0,text);
+  }
 }
 
 void AttribEditor::updateAttributeType(const QString &text)
 {
-	QListViewItem *item;
-	if ((item=attributes->currentItem()))
-	{
-		bool oldWasCustom=(item->text(1)=="dsNormal")&&(!(item->text(2).isEmpty()));
-		if (text==i18n("Custom"))
-		{
-			if (!oldWasCustom)
-			{
-				item->setText(1,"dsNormal");
-				item->setText(2,"#000000");
-				item->setText(3,"#ffffff");
-				item->setText(4,"0");
-				item->setText(5,"0");
-				currentAttributeChanged(item);
-			}
-		}
-		else
+  QListViewItem *item;
+  if ((item=attributes->currentItem()))
+  {
+    bool oldWasCustom=(item->text(1)=="dsNormal")&&(!(item->text(2).isEmpty()));
+    if (text==i18n("Custom"))
+    {
+      if (!oldWasCustom)
+      {
+        item->setText(1,"dsNormal");
+        item->setText(2,"#000000");
+        item->setText(3,"#ffffff");
+        item->setText(4,"0");
+        item->setText(5,"0");
+        currentAttributeChanged(item);
+      }
+    }
+    else
 
-		{
-			item->setText(1,text);
-			if (oldWasCustom)
-			{
-				for (int i=2;i<6;i++)
-					item->setText(i,"");
-				currentAttributeChanged(item);
-			}
-		}
-	}
+    {
+      item->setText(1,text);
+      if (oldWasCustom)
+      {
+        for (int i=2;i<6;i++)
+          item->setText(i,"");
+        currentAttributeChanged(item);
+      }
+    }
+  }
 }
 
 void AttribEditor::updateAttributeColour(const QColor &color)
 {
-	if (attributes->currentItem())
-	{
-		attributes->currentItem()->setText(2,color.name());
-	}
+  if (attributes->currentItem())
+  {
+    attributes->currentItem()->setText(2,color.name());
+  }
 }
 
 void AttribEditor::updateAttributeSelectedColour(const QColor &color)
 {
-	if (attributes->currentItem())
-	{
-		attributes->currentItem()->setText(3,color.name());
-	}
+  if (attributes->currentItem())
+  {
+    attributes->currentItem()->setText(3,color.name());
+  }
 }
 

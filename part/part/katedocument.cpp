@@ -34,6 +34,7 @@
 #include "katetextline.h"
 #include "kateexportaction.h"
 #include "katebuffer.h"
+#include "katecodefoldinghelpers.h"
 #include "kateundo.h"
 #include "kateprintsettings.h"
 #include "katelinerange.h"
@@ -60,7 +61,6 @@
 #include <kcharsets.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
-#include <ktrader.h>
 #include <kstringhandler.h>
 #include <kaction.h>
 #include <kspell.h>

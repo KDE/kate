@@ -23,19 +23,22 @@
 
 class AttribEditor: public AttribEditor_skel
 {
-	Q_OBJECT
-public:
-	AttribEditor(QWidget *parent);
-	~AttribEditor();
-	void load(class SyntaxDocument *);
-	class QStringList attributeNames();
-public slots:
-	void currentAttributeChanged(QListViewItem *item);
-	void slotAddAttribute();
-	void updateAttributeName(const QString &);
-	void updateAttributeType(const QString &);
-	void updateAttributeColour(const QColor &);
-	void updateAttributeSelectedColour(const QColor &);
+  Q_OBJECT
+
+  public:
+    AttribEditor(QWidget *parent);
+    ~AttribEditor();
+
+    void load(class SyntaxDocument *);
+    class QStringList attributeNames();
+
+  public slots:
+    void currentAttributeChanged(QListViewItem *item);
+    void slotAddAttribute();
+    void updateAttributeName(const QString &);
+    void updateAttributeType(const QString &);
+    void updateAttributeColour(const QColor &);
+    void updateAttributeSelectedColour(const QColor &);
 };
 
 #endif

@@ -21,13 +21,13 @@
 #define _KATE_BUFFER_H_
 
 #include "katetextline.h"
-#include "katecodefoldinghelpers.h"
 
-#include <qstring.h>
 #include <qptrlist.h>
 #include <qobject.h>
 #include <qtimer.h>
 
+class KateCodeFoldingTree;
+class KateLineInfo;
 class KateBufBlock;
 class KateBufFileLoader;
 
@@ -96,30 +96,15 @@ class KateBuffer : public QObject
       return m_lines;
     }
 
-    inline uint countVisible ()
-    {
-      return m_lines - m_regionTree->getHiddenLinesCount(m_lines);
-    }
+    uint countVisible ();
 
-    inline uint lineNumber (uint visibleLine)
-    {
-      return m_regionTree->getRealLine (visibleLine);
-    }
+    uint lineNumber (uint visibleLine);
 
-    inline uint lineVisibleNumber (uint line)
-    {
-      return m_regionTree->getVirtualLine (line);
-    }
+    uint lineVisibleNumber (uint line);
 
-    inline void lineInfo (KateLineInfo *info, unsigned int line)
-    {
-      m_regionTree->getLineInfo(info,line);
-    }
+    void lineInfo (KateLineInfo *info, unsigned int line);
 
-    inline KateCodeFoldingTree *foldingTree ()
-    {
-      return m_regionTree;
-    }
+    KateCodeFoldingTree *foldingTree ();
 
     inline void setHlUpdate (bool b)
     {
@@ -365,7 +350,7 @@ class KateBuffer : public QObject
     class KVMAllocator *m_vm;
 
     // folding tree
-    KateCodeFoldingTree *m_regionTree;
+    class KateCodeFoldingTree *m_regionTree;
 
     QTimer m_highlightTimer;
 

@@ -44,9 +44,8 @@
 #ifndef KATE_DIALOGS_H
 #define KATE_DIALOGS_H
 
-#include <katedocument.h>
-#include <katehighlight.h>
-#include <kateattribute.h>
+#include "katehighlight.h"
+#include "kateattribute.h"
 
 #include "../interfaces/document.h"
 
@@ -59,6 +58,8 @@
 #include <qcolor.h>
 #include <qvbox.h>
 #include <qtabwidget.h>
+
+namespace Kate { class PluginInfo; };
 
 struct syntaxContextData;
 

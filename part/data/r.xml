@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="R Script" section="Scripts" extensions="*.R" mimetype="">
+  <!-- Kate 2.0 (KDE 3.0) highlighting module for R
+       version 0.2: (c) 2002 E.L. Willighagen, GPL v2 license
+
+       info: http://www-sigma.sci.kun.nl/Persoonlijk/egonw/r-kate/
+       Kate: http://www.kde.org/kate
+       R   : http://www.r-project.org/
+    -->
+  <highlighting>
+    <list name="keywords">
+      <item> for </item>
+      <item> in </item>
+    </list>
+    <contexts>
+       <context attribute="0" lineEndContext="#stay">
+         <keyword attribute="1" context="#stay" String="keywords"/>
+         <DetectChar attribute="4" context="2" char="&quot;"/>
+         <RegExpr attribute="1" context="1" String="[a-zA-Z_]+\("/>
+         <DetectChar attribute="5" context="3" char="#"/>
+       </context>
+
+       <context attribute="0" lineEndContext="#stay">
+         <LineContinue attribute="8" context="#stay"/>
+         <DetectChar attribute="1" context="#pop" char=")"/>
+         <DetectChar attribute="4" context="2" char="&quot;"/>
+         <RegExpr attribute="2" context="#stay" String="[a-zA-Z_]+="/>
+         <RegExpr attribute="1" context="1" String="[a-zA-Z_]+\("/>
+       </context>
+
+       <context attribute="4" lineEndContext="#stay">
+         <DetectChar attribute="4" context="#pop" char="&quot;"/>
+       </context>
+
+       <context attribute="5" lineEndContext="0" name="Comment"/>
+
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword" defStyleNum="dsKeyword"/>
+      <itemData name="Identifier" defStyleNum="dsOthers"/>
+      <itemData name="Types" defStyleNum="dsDataType"/>
+      <itemData name="String" defStyleNum="dsString"/>
+      <itemData name="Comment" defStyleNum="dsComment"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" end=""/>
+    </comments>
+    <keywords casesensitive="0" />
+  </general>
+</language>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.23" kateversion="2.3" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.24" kateversion="2.3" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -223,7 +223,7 @@
   <general>
     <comments>
       <comment name="singleLine" start="//" />
-      <comment name="multiLine" start="/*" end="*/" />
+      <comment name="multiLine" start="/*" end="*/" region="Comment"/>
     </comments>
     <keywords casesensitive="1" />
   </general>

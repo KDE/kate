@@ -309,14 +309,14 @@ void KateIconBorder::paintBorder (int x, int y, int width, int height)
         m_doc->lineInfo(&info,realLine);
         if (!info.topLevel)
         {
-          if (info.startsVisibleBlock)
+          if (info.startsVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
             p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
-          else if (info.startsInVisibleBlock)
+          else if (info.startsInVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
             p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
           else
           {
             p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
-            if (info.endsBlock)
+            if (info.endsBlock && !m_viewInternal->lineRanges[z].wrap)
               p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
           }
         }

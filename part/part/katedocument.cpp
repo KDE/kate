@@ -1183,6 +1183,13 @@ bool KateDocument::setSelection( uint startLine, uint startCol, uint endLine, ui
 
 bool KateDocument::clearSelection()
 {
+  return clearSelection(true);
+}
+
+bool KateDocument::clearSelection(bool redraw)
+{
+  //kdDebug() << k_funcinfo << kdBacktrace() << endl;
+  
   if( !hasSelection() )
     return false;
 
@@ -1192,8 +1199,9 @@ bool KateDocument::clearSelection()
   selectEnd.setPos(-1, -1);
   selectAnchor.setPos(-1, -1);
 
-  for (uint z = 0; z < m_views.count(); z++)
-    m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
+  if (redraw)
+    for (uint z = 0; z < m_views.count(); z++)
+      m_views.at(z)->m_viewInternal->paintText(0,0,m_views.at(z)->m_viewInternal->width(),m_views.at(z)->m_viewInternal->height(), true);
 
   emit selectionChanged();
 
@@ -1255,7 +1263,8 @@ bool KateDocument::removeSelectedText ()
 
   removeText (selectStart.line, sc, selectEnd.line, ec, blockSelect);
 
-  clearSelection();
+  // don't redraw the cleared selection - that's done in editEnd().
+  clearSelection(false);
 
   editEnd ();
 
@@ -2860,7 +2869,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
       break;
     }
   }
-
+  
   if (*needWrap)
   {
     if (endX)
@@ -2871,7 +2880,7 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
   else
   {
     if (endX)
-      *endX = endXWithSym;
+      *endX = x;
 
     return endcol;
   }
@@ -3265,6 +3274,8 @@ void KateDocument::paste( const KateTextCursor& cursor, KateView* view )
 
 void KateDocument::selectTo( const KateTextCursor& from, const KateTextCursor& to )
 {
+  //kdDebug() << k_funcinfo << "From " << from.line << "," << from.col << " To " << to.line << "," << to.col << " Anchor " << selectAnchor.line << "," << selectAnchor.col << endl;
+  
   if ( selectAnchor.line == -1 )
   {
     // anders: if we allready have a selection, we want to include all of that
@@ -3903,11 +3914,11 @@ bool KateDocument::lineSelected (int line)
     && (line < selectEnd.line);
 }
 
-bool KateDocument::lineEndSelected (int line)
+bool KateDocument::lineEndSelected (int line, int endCol)
 {
   return (!blockSelect)
-    && (line >= selectStart.line)
-    && (line < selectEnd.line);
+    && (line > selectStart.line || (line == selectStart.line && (selectStart.col < endCol || endCol == -1)))
+    && (line < selectEnd.line || (line == selectEnd.line && (endCol < selectEnd.col && endCol != -1)));
 }
 
 bool KateDocument::lineHasSelected (int line)
@@ -4188,7 +4199,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   }
 }
   //kdDebug(13020)<<"paint 8"<<endl;
-  if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line))
+  if (!printerfriendly && showSelections && !selectionPainted && lineEndSelected (line, endcol))
   {
     paint.fillRect(xPos2 + xPos-xStart, oldY, xEnd - xStart, fs.fontHeight, colors[1]);
     selectionPainted = true;

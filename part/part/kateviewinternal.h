@@ -43,6 +43,10 @@ class KateIconBorder;
 class LineRange
 {
   public:
+    LineRange();
+    
+    void clear();  
+  
     int line;
     int visibleLine;
     int startCol;
@@ -75,15 +79,23 @@ class KateViewInternal : public QWidget
     KateTextCursor endPos () const;
     uint endLine () const;
 
-    inline LineRange yToLineRange ( uint y ) const { return lineRanges[y / m_doc->viewFont.fontHeight]; };
-      
+    LineRange yToLineRange ( uint y ) const { return lineRanges[y / m_doc->viewFont.fontHeight]; };
+
+    void prepareForDynWrapChange();
+    void dynWrapChanged();
+             
   private slots:
-    void scrollLines (int line); // connected to the valueChanged of the m_lineScroll  
+    void scrollLines(int line); // connected to the sliderMoved of the m_lineScroll  
+    void scrollViewLines(int offset);
+    void scrollNextPage();
+    void scrollPrevPage();
+    void scrollPrevLine();
+    void scrollNextLine();
     void scrollColumns (int x); // connected to the valueChanged of the m_columnScroll
   
-  public slots:
-    void updateView (bool changed = false);
-    void makeVisible (KateTextCursor& c, uint endCol);
+  //public slots:
+    void updateView (bool changed = false, int viewLinesScrolled = 0);
+    void makeVisible (KateTextCursor& c, uint endCol, bool force = false);
     
   public:
     void doReturn();
@@ -175,19 +187,20 @@ class KateViewInternal : public QWidget
     void moveChar( Bias bias, bool sel );
     void moveWord( Bias bias, bool sel );
     void moveEdge( Bias bias, bool sel );
-    void scrollPos(KateTextCursor& c);
+    void scrollPos(KateTextCursor& c, bool force = false);
     void scrollLines( int lines, bool sel );
     
     uint linesDisplayed() const;
 
-    inline int lineToY ( uint line ) const { return (line-startLine()) * m_doc->viewFont.fontHeight; }
+    inline int lineToY ( uint viewLine ) const { return (viewLine-startLine()) * m_doc->viewFont.fontHeight; }
 
     void centerCursor();
 
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& );
     
-    void tagLines(int start, int end, bool realLines = false );
+    bool tagLine(const KateTextCursor& virtualCursor);
+    bool tagLines(int start, int end, bool realLines = false );
     void tagAll();
 
     void paintCursor();
@@ -241,7 +254,6 @@ class KateViewInternal : public QWidget
     // line scrollbar + first visible (virtual) line in the current view
     //
     QScrollBar *m_lineScroll;
-    QWidget *m_lineScrollWidget;
     
     // These are now cursors to account for word-wrap.
     KateTextCursor m_startPos;
@@ -251,11 +263,12 @@ class KateViewInternal : public QWidget
     // column scrollbar + x position
     //
     QScrollBar *m_columnScroll;
+    bool m_columnScrollChanged;
     int m_startX;
     int m_oldStartX;
     
     // cache the with of the text area
-    uint m_width;
+    //uint m_width;
     
     //
     // lines Ranges, mostly useful to speedup + dyn. word wrap
@@ -267,21 +280,29 @@ class KateViewInternal : public QWidget
     
     // get the values for a specific range.
     // specify lastLine to get the next line of a range.
-    LineRange range(int realLine, const LineRange* previous);
+    LineRange range(int realLine, const LineRange* previous = 0L);
     
     LineRange currentRange();
     LineRange previousRange();
+    LineRange nextRange();
     
     // Finds the lineRange currently occupied by the cursor.
-    LineRange range(const KateTextCursor& c);
+    LineRange range(const KateTextCursor& realCursor);
     
     // Returns the lineRange of the specified realLine + viewLine.
     LineRange range(uint realLine, int viewLine);
     
     // find the view line of cursor c (0 = same line, 1 = down one, etc.)
-    uint viewLine(const KateTextCursor& c);
+    uint viewLine(const KateTextCursor& realCursor);
     
-    // find the number of view lines for a specific line
+    // find the view line of the cursor, relative to the display (0 = top line of view, 1 = second line, etc.)
+    // if limitToVisible is true, only lines which are currently visible will be searched for, and -1 returned if the line is not visible.
+    int displayViewLine(const KateTextCursor& virtualCursor, bool limitToVisible = false);
+    
+    // find the index of the last view line for a specific line
+    uint lastViewLine(uint realLine);
+    
+    // count the number of view lines for a real line
     uint viewLineCount(uint realLine);
     
     // find the cursor offset by (offset) view lines from a cursor.
@@ -293,7 +314,9 @@ class KateViewInternal : public QWidget
     bool m_preserveMaxX;
     int m_currentMaxX;
     
-    bool m_updatingLineRanges;
+    bool m_updatingView;
+    int m_wrapChangeViewLine;
+    int m_cachedEndVirtualLineScrollOffset;
 
   private slots:
 #ifndef QT_NO_DRAGANDDROP

@@ -705,8 +705,8 @@ KateBuffer::textLine(uint i)
 void     
 KateBuffer::insertLine(uint i, TextLine::Ptr line)
 {
-  kdDebug()<<"bit debugging"<<endl;
-  kdDebug()<<"bufferblock count: "<<m_blocks.count()<<endl;
+  //kdDebug()<<"bit debugging"<<endl;
+  //kdDebug()<<"bufferblock count: "<<m_blocks.count()<<endl;
 
    KateBufBlock *buf;
    if (i == m_totalLines)

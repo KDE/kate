@@ -205,6 +205,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool setSelection ( uint startLine, uint startCol,
 			uint endLine, uint endCol );
     bool clearSelection ();
+    bool clearSelection (bool redraw);
 
     bool hasSelection () const;
     QString selection () const ;
@@ -225,7 +226,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // some internal functions to get selection state of a line/col
     bool lineColSelected (int line, int col);
     bool lineSelected (int line);
-    bool lineEndSelected (int line);
+    bool lineEndSelected (int line, int endCol);
     bool lineHasSelected (int line);
     bool lineIsSelection (int line);
 

@@ -2960,6 +2960,7 @@ void KateDocument::internalHlChanged() { //slot
 void KateDocument::addView(KTextEditor::View *view) {
   m_views.append( (KateView *) view  );
   m_textEditViews.append( view );
+  readVariables();
   m_activeView = (KateView *) view;
 }
 
@@ -4660,6 +4661,13 @@ QRegExp KateDocument::kvVar = QRegExp("([\\w\\-]+)\\s+([^;]+)");
 void KateDocument::readVariables()
 {
   m_config->configStart();
+  // views!
+  KateView *v;
+  for (v = m_views.first(); v != 0L; v= m_views.next() )
+  {
+    v->config()->configStart();
+    v->renderer()->config()->configStart();
+  }
   // read a number of lines in the top/bottom of the document
   for (uint i=0; i < QMIN( 9, numLines() ); ++i )
   {
@@ -4673,12 +4681,27 @@ void KateDocument::readVariables()
     }
   }
   m_config->configEnd();
+  for (v = m_views.first(); v != 0L; v= m_views.next() )
+  {
+    v->config()->configEnd();
+    v->renderer()->config()->configEnd();
+  }
 }
 
 void KateDocument::readVariableLine( QString t )
 {
   if ( kvLine.search( t ) > -1 )
   {
+    QStringList vvl; // view variable names
+    vvl << "dynamic-word-wrap" << "dynamic-word-wrap-indicators"
+        << "line-numbers" << "icon-border" << "folding-markers"
+        << "bookmark-sorting" << "auto-center-lines"
+        << "icon-bar-color"
+        // renderer
+        << "background-color" << "selection-color"
+        << "current-line-color" << "bracket-highlight-color"
+        << "word-wrap-marker-color"
+        << "font" << "font-size";
     int p( 0 );
     QString s = kvLine.cap(1);
     QString  var, val;
@@ -4762,6 +4785,60 @@ void KateDocument::readVariableLine( QString t )
         }
       }
 
+      // VIEW SETTINGS
+      else if ( vvl.contains( var ) ) // FIXME define above
+        setViewVariable( var, val );
+    }
+  }
+}
+
+void KateDocument::setViewVariable( QString var, QString val )
+{
+  //TODO
+  KateView *v;
+  bool state;
+  int n;
+  QColor c;
+  for (v = m_views.first(); v != 0L; v= m_views.next() )
+  {
+    if ( var == "dynamic-word-wrap" && checkBoolValue( val, &state ) )
+      v->config()->setDynWordWrap( state );
+    //else if ( var = "dynamic-word-wrap-indicators" )
+    //TODO
+    else if ( var == "line-numbers" && checkBoolValue( val, &state ) )
+      v->config()->setLineNumbers( state );
+    else if (var == "icon-border" && checkBoolValue( val, &state ) )
+      v->config()->setIconBar( state );
+    else if (var == "folding-markers" && checkBoolValue( val, &state ) )
+      v->config()->setFoldingBar( state );
+    else if ( var == "auto-center-lines" && checkIntValue( val, &n ) )
+      v->config()->setAutoCenterLines( n ); // FIXME uint, > N ??
+    else if ( var == "icon-bar-color" && checkColorValue( val, c ) )
+      v->config()->setIconBarColor( c );
+    // RENDERER
+    else if ( var == "background-color" && checkColorValue( val, c ) )
+      v->renderer()->config()->setBackgroundColor( c );
+    else if ( var == "selection-color" && checkColorValue( val, c ) )
+      v->renderer()->config()->setSelectionColor( c );
+    else if ( var == "current-line-color" && checkColorValue( val, c ) )
+      v->renderer()->config()->setHighlightedLineColor( c );
+    else if ( var == "bracket-highlight-color" && checkColorValue( val, c ) )
+      v->renderer()->config()->setHighlightedBracketColor( c );
+    else if ( var == "word-wrap-marker-color" && checkColorValue( val, c ) )
+      v->renderer()->config()->setWordWrapMarkerColor( c );
+    else if ( var == "font" || ( var == "font-size" && checkIntValue( val, &n ) ) )
+    {
+      QFont _f( *v->renderer()->config()->font( KateRendererConfig::ViewFont ) );
+
+      if ( var == "font" )
+      {
+        _f.setFamily( val );
+        _f.setFixedPitch( QFont( val ).fixedPitch() );
+      }
+      else
+        _f.setPointSize( n );
+
+      v->renderer()->config()->setFont( KateRendererConfig::ViewFont, _f );
     }
   }
 }
@@ -4793,4 +4870,12 @@ bool KateDocument::checkIntValue( QString val, int *result )
   return ret;
 }
 
+bool KateDocument::checkColorValue( QString val, QColor &c )
+{
+  c.setNamedColor( val );
+  return c.isValid();
+}
+
 //END
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

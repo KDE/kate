@@ -741,17 +741,48 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   /**
    * Variable Reader
+   * TODO add register functionality/ktexteditor interface
    */
   private:
+    /**
+      Reads all the variables in the document.
+      Called when opening/saving a document
+    */
     void readVariables();
+    /**
+      Reads and applies the variables in a single line
+      TODO registered variables gets saved in a [map]
+    */
     void readVariableLine( QString t );
+    /**
+      Sets a view variable in all the views.
+    */
+    void setViewVariable( QString var, QString val );
+    /**
+      @return weather a string value could be converted
+      to a bool value as supported.
+      The value is put in *result.
+    */
     bool checkBoolValue( QString value, bool *result );
+    /**
+      @return weather a string value could be converted
+      to a integer value.
+      The value is put in *result.
+    */
     bool checkIntValue( QString value, int *result );
+    /*
+      Feeds value into @p col using QColor::setNamedColor() and returns
+      wheather the color is valid
+    */
+    bool checkColorValue( QString value, QColor &col );
+
     static QRegExp kvLine;
     static QRegExp kvVar;
     //static QStringList VRegister;
 };
 
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;
 
 

@@ -29,6 +29,7 @@
 #include "katecmds.h"
 #include "katecorecommands.h"
 #include "katefiletype.h"
+#include "kateschema.h"
 
 #include "../interfaces/katecmd.h"
 
@@ -51,6 +52,7 @@ QPtrList<class KateRenderer> KateFactory::s_renderers;
 KTrader::OfferList *KateFactory::s_plugins = 0;
 KateFileTypeManager *KateFactory::s_fileTypeManager = 0;
 KDirWatch *KateFactory::s_dirWatch = 0;
+KateSchemaManager *KateFactory::s_schemaManager = 0;
 
 extern "C"
 {
@@ -85,12 +87,14 @@ KateFactory::~KateFactory()
     delete s_plugins;
     delete s_fileTypeManager;
     delete s_dirWatch;
+    delete s_schemaManager;
 
     s_instance = 0;
     s_about = 0;
     s_plugins = 0;
     s_fileTypeManager = 0;
     s_dirWatch = 0;
+    s_schemaManager = 0;
   }
   else
     deref();
@@ -192,6 +196,14 @@ KateFileTypeManager *KateFactory::fileTypeManager ()
     s_fileTypeManager = new KateFileTypeManager ();
 
   return s_fileTypeManager;
+}
+
+KateSchemaManager *KateFactory::schemaManager ()
+{
+  if (!s_schemaManager)
+    s_schemaManager = new KateSchemaManager ();
+
+  return s_schemaManager;
 }
 
 KInstance *KateFactory::instance()

@@ -786,6 +786,7 @@ KateRendererConfig::KateRendererConfig ()
  :
    m_viewFont (new FontStruct ()),
    m_printFont (new FontStruct ()),
+   m_schemaSet (true),
    m_viewFontSet (true),
    m_printFontSet (true),
    m_wordWrapMarkerSet (true),
@@ -808,6 +809,7 @@ KateRendererConfig::KateRendererConfig ()
 KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
  : m_viewFont (0),
    m_printFont (0),
+   m_schemaSet (false),
    m_viewFontSet (false),
    m_printFontSet (false),
    m_wordWrapMarkerSet (false),
@@ -839,6 +841,8 @@ void KateRendererConfig::readConfig (KConfig *config)
 {
   configStart ();
 
+  setSchema (config->readNumEntry("Schema", 0));
+
   QFont f (KGlobalSettings::fixedFont());
 
   setFont(KateRendererConfig::ViewFont, config->readFontEntry("View Font", &f));
@@ -865,6 +869,8 @@ void KateRendererConfig::readConfig (KConfig *config)
 
 void KateRendererConfig::writeConfig (KConfig *config)
 {
+  config->writeEntry ("Schema", schema());
+
   config->writeEntry("View Font", *font(KateRendererConfig::ViewFont));
   config->writeEntry("Printer Font", *font(KateRendererConfig::PrintFont));
 
@@ -895,6 +901,24 @@ void KateRendererConfig::updateConfig ()
       KateFactory::renderers()->at(z)->updateConfig ();
     }
   }
+}
+
+uint KateRendererConfig::schema () const
+{
+  if (m_schemaSet || isGlobal())
+    return m_schema;
+
+  return s_global->schema();
+}
+
+void KateRendererConfig::setSchema (uint schema)
+{
+  configStart ();
+
+  m_schemaSet = true;
+  m_schema = schema;
+
+  configEnd ();
 }
 
 const FontStruct *KateRendererConfig::fontStruct (int whichFont)

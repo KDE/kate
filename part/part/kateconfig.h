@@ -341,6 +341,9 @@ class KateRendererConfig : public KateConfig
     void updateConfig ();
 
   public:
+    uint schema () const;
+    void setSchema (uint schema);
+
     // use different fonts for screen and printing
     enum WhichFont
     {
@@ -376,6 +379,7 @@ class KateRendererConfig : public KateConfig
     void setTabMarkerColor (const QColor &col);
 
   private:
+    uint m_schema;
     FontStruct* m_viewFont;
     FontStruct* m_printFont;
     bool m_wordWrapMarker;
@@ -386,6 +390,7 @@ class KateRendererConfig : public KateConfig
     QColor *m_wordWrapMarkerColor;
     QColor *m_tabMarkerColor;
 
+    bool m_schemaSet : 1;
     bool m_viewFontSet : 1;
     bool m_printFontSet : 1;
     bool m_wordWrapMarkerSet : 1;

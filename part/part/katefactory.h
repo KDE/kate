@@ -27,6 +27,7 @@
 
 class KateCmd;
 class KateFileTypeManager;
+class KateSchemaManager;
 
 class KInstance;
 class KAboutData;
@@ -65,6 +66,8 @@ class KateFactory : public KParts::Factory
 
     static KateFileTypeManager *fileTypeManager ();
 
+    static KateSchemaManager *schemaManager ();
+
   private:
     static void ref();
     static void deref();
@@ -80,6 +83,7 @@ class KateFactory : public KParts::Factory
     static KAboutData *s_about;
 
     static KateFileTypeManager *s_fileTypeManager;
+    static KateSchemaManager *s_schemaManager;
 
     static KTrader::OfferList *s_plugins;
 

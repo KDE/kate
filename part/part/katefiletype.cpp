@@ -1,8 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
 
-   Based on KHTML Factory from Simon Hausmann <hausmann@kde.org>
-
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -490,6 +488,8 @@ void KateViewFileTypeAction::init()
   m_doc = 0;
   subMenus.setAutoDelete( true );
 
+  popupMenu()->insertItem ( i18n("None"), this, SLOT(setType(int)), 0,  0);
+
   connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
 }
 
@@ -520,12 +520,12 @@ void KateViewFileTypeAction::slotAboutToShow()
 
       int m = subMenusName.findIndex (hlSection);
       names << hlName;
-      subMenus.at(m)->insertItem ( hlName, this, SLOT(setType(int)), 0,  z);
+      subMenus.at(m)->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
     }
     else if (names.contains(hlName) < 1)
     {
       names << hlName;
-      popupMenu()->insertItem ( hlName, this, SLOT(setType(int)), 0,  z);
+      popupMenu()->insertItem ( hlName, this, SLOT(setType(int)), 0,  z+1);
     }
   }
 
@@ -538,14 +538,19 @@ void KateViewFileTypeAction::slotAboutToShow()
   }
   popupMenu()->setItemChecked (0, false);
 
-  const KateFileType *t = 0;
-  if ((t = KateFactory::fileTypeManager()->fileType (doc->fileType())))
+  if (doc->fileType() == -1)
+    popupMenu()->setItemChecked (0, true);
+  else
   {
-    int i = subMenusName.findIndex (t->section);
-    if (i >= 0 && subMenus.at(i))
-      subMenus.at(i)->setItemChecked (doc->fileType(), true);
-    else
-      popupMenu()->setItemChecked (0, true);
+    const KateFileType *t = 0;
+    if ((t = KateFactory::fileTypeManager()->fileType (doc->fileType())))
+    {
+      int i = subMenusName.findIndex (t->section);
+      if (i >= 0 && subMenus.at(i))
+        subMenus.at(i)->setItemChecked (doc->fileType()+1, true);
+      else
+        popupMenu()->setItemChecked (0, true);
+    }
   }
 }
 
@@ -554,7 +559,7 @@ void KateViewFileTypeAction::setType (int mode)
   KateDocument *doc=m_doc;
 
   if (doc)
-    doc->updateFileType(mode, true);
+    doc->updateFileType(mode-1, true);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

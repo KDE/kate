@@ -434,12 +434,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
         // You have to detect the change one character in advance.
         // TODO: KateAttribute::canBatchRender()
         bool delayPainting = true;
-        if ((isTab) ||
+        if ((isTab)
           // formatting has changed OR
           || (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol))
 
           // it is the end of the line OR
-          || (tmp < 2)
+          || (tmp < 2) ||
 
           // the x position is past the end OR
           ((int)xPos > xEnd) ||

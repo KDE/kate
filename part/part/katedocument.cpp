@@ -115,6 +115,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_modOnHd (false),
   m_modOnHdReason (0)
 {
+  // ktexteditor interfaces
   setBlockSelectionInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceDCOPSuffix (documentDCOPSuffix());
   setConfigInterfaceExtensionDCOPSuffix (documentDCOPSuffix());
@@ -132,14 +133,17 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   setUndoInterfaceDCOPSuffix (documentDCOPSuffix());
   setWordWrapInterfaceDCOPSuffix (documentDCOPSuffix());
 
+  // register doc at factory
   KateFactory::registerDocument (this);
+
+  // init the config object, be careful not to use it
+  // until the initial readConfig() call is done
   m_config = new KateDocumentConfig (this);
 
   // init global plugin list
   if (!s_configLoaded)
   {
     s_plugins.setAutoDelete (true);
-
     KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
     for( ; it != KateFactory::plugins()->end(); ++it)
     {
@@ -157,7 +161,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // init local plugin list
   m_plugins.setAutoDelete (true);
-
   KTrader::OfferList::Iterator it(KateFactory::plugins()->begin());
   for( ; it != KateFactory::plugins()->end(); ++it)
   {
@@ -172,6 +175,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
     m_plugins.append(info);
   }
 
+  // init some more vars !
   m_activeView = 0L;
 
   hlSetByUser = false;
@@ -188,11 +192,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   m_docNameNumber = 0;
 
-  //BEGIN spelling stuff
   m_kspell = 0;
   m_mispellCount = 0;
   m_replaceCount =  0;
-  //END
 
   blockSelect = false;
 
@@ -224,6 +226,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // read the config THE FIRST TIME ONLY, we store everything in static vars
   // to ensure each document has the same config the whole time
+  // IMPORTANT: DO THAT BEFORE USING m_config object !!!
   if (!s_configLoaded)
   {
     // read the standard config to get some defaults

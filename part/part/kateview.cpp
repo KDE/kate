@@ -813,7 +813,7 @@ void KateView::slotSetEncoding( const QString& descriptiveName )
 
   m_doc->reloadFile();
   m_viewInternal->tagAll();
-  m_viewInternal->update(true);
+  m_viewInternal->updateView (true);
 }
 
 void KateView::slotEditCommand ()

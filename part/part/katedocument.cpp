@@ -873,6 +873,11 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
         editWrapLine (line, z);
         endLine++;
       }
+      else
+      {
+        editWrapLine (line, col);
+        endLine++;
+      }
     }
 
     line++;

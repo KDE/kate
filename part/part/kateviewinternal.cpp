@@ -184,12 +184,16 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   setAcceptDrops( true );
   setBackgroundMode( NoBackground );
 
+  // event filter
+  installEventFilter(this);
+
+  // set cursor
   setCursor( KCursor::ibeamCursor() );
+
+  // autohide
   KCursor::setAutoHideCursor( this, true, true );
 
   dragInfo.state = diNone;
-
-  installEventFilter(this);
 
   // Drag & scroll
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),
@@ -2030,7 +2034,8 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
-  KCursor::autoHideEventFilter( obj, e );
+  if (obj == this)
+    KCursor::autoHideEventFilter( obj, e );
 
   if (obj == m_lineScroll)
   {

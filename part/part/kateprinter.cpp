@@ -944,8 +944,8 @@ KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent, const
 
   // whatsthis
   // FIXME uncomment when string freeze is over
-//   QWhatsThis::add ( cmbSchema, i18n(
-//         "Select the color scheme to use for the print." ) );
+  QWhatsThis::add ( cmbSchema, i18n(
+        "Select the color scheme to use for the print." ) );
   QWhatsThis::add( cbDrawBackground, i18n(
         "<p>If enabled, the background color of the editor will be used.</p>"
         "<p>This may be useful if your color scheme is designed for a dark background.</p>") );

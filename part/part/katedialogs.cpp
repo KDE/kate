@@ -321,7 +321,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, ItemStyleList *st
   // hl chooser
   QHBox *hbHl = new QHBox( page2 );
   hbHl->setSpacing( spacing );
-  QLabel *lHl = new QLabel( i18n("&Highlight"), hbHl );
+  QLabel *lHl = new QLabel( i18n("&Highlight:"), hbHl );
   hlCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( hlCombo );
   connect( hlCombo, SIGNAL(activated(int)),

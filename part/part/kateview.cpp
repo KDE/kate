@@ -410,11 +410,11 @@ void KateView::setupEditActions()
     this, SLOT(bottomOfView()),
     ac, "move_bottom_of_view" );
   new KAction(
-    i18n("Move to matching bracket"),               CTRL + Key_6,
+    i18n("Move to Matching Bracket"),               CTRL + Key_6,
     this, SLOT(toMatchingBracket()),
     ac, "to_matching_bracket" );
   new KAction(
-    i18n("Select to matching bracket"),      SHIFT +  CTRL + Key_6,
+    i18n("Select to Matching Bracket"),      SHIFT +  CTRL + Key_6,
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
     

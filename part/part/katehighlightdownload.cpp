@@ -32,7 +32,7 @@
 #include <kstandarddirs.h>
 
 HlDownloadDialog::HlDownloadDialog(QWidget *parent, const char *name, bool modal)
-  :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("Install"))
+  :KDialogBase(KDialogBase::Swallow, i18n("Highlight Download"), User1|Cancel, User1, parent, name, modal,false,i18n("&Install"))
 {
 	setMainWidget( list=new QListView(this));
 	list->addColumn(i18n("Name"));

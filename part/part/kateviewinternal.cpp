@@ -2002,6 +2002,11 @@ void KateViewInternal::bottom( bool sel )
 
 void KateViewInternal::top_home( bool sel )
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_Home, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
   KateTextCursor c( 0, 0 );
   updateSelection( c, sel );
   updateCursor( c );
@@ -2009,6 +2014,11 @@ void KateViewInternal::top_home( bool sel )
 
 void KateViewInternal::bottom_end( bool sel )
 {
+  if (m_view->m_codeCompletion->codeCompletionVisible()) {
+    QKeyEvent e(QEvent::KeyPress, Qt::Key_End, 0, 0);
+    m_view->m_codeCompletion->handleKey(&e);
+    return;
+  }
   KateTextCursor c( m_doc->lastLine(), m_doc->lineLength( m_doc->lastLine() ) );
   updateSelection( c, sel );
   updateCursor( c );

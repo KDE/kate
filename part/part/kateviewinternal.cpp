@@ -86,9 +86,6 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
 
   possibleTripleClick = false;
   
-  bm.sXPos = 0;
-  bm.eXPos = -1;
-
   setFocusProxy( viewport() );
   viewport()->setAcceptDrops( true );
   viewport()->setBackgroundMode( NoBackground );
@@ -406,25 +403,22 @@ void KateViewInternal::cursorDown(bool sel)
   updateCursor( c );
 }
 
-void KateViewInternal::cursorToMatchingBracket(bool sel)
+void KateViewInternal::cursorToMatchingBracket( bool sel )
 {
-  KateTextCursor c = cursor;
+  KateTextCursor start( cursor ), end;
 
-  if(!m_doc->findMatchingBracket(cursor, c, true))
-  	{
-	return;
-	}
+  if( !m_doc->findMatchingBracket( start, end ) )
+    return;
   
   // The cursor is now placed just to the left of the matching bracket.
-  // Put it to the right (so we can easily get back to the original bracket).
-  if(!sel)
-  	{
-	c.col+=1;
-  	}
-  updateSelection( c, sel );
-  updateCursor( c );
+  // If it's an ending bracket, put it to the right (so we can easily
+  // get back to the original bracket).
+  if( end > start )
+    end.col++;
+    
+  updateSelection( end, sel );
+  updateCursor( end );
 }
-
 
 void KateViewInternal::topOfView( bool sel )
 {
@@ -539,18 +533,22 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   ensureVisible( cXPos, lineToContentsY( displayCursor.line   ), 0, 0 );
   ensureVisible( cXPos, lineToContentsY( displayCursor.line+1 ), 0, 0 );
 
-  if( bm.sXPos < bm.eXPos ) {
-    tagLines( bm.cursor.line, bm.cursor.line );
+  if( bm.valid ) {
+    tagLines( bm.startLine, bm.startLine );
+    tagLines( bm.endLine, bm.endLine );
+  }
+  
+  m_doc->newBracketMark( cursor, bm );
+  
+  if ( bm.valid ) {
+    tagLines( bm.startLine, bm.startLine );
+    tagLines( bm.endLine, bm.endLine );
   }
 
-  m_doc->newBracketMark( cursor, bm );
-
-  bool b ( oldDisplayCursor.line != displayCursor.line );
+  bool b = oldDisplayCursor.line != displayCursor.line;
   if ( b )
     tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
   tagLines( displayCursor.line, displayCursor.line, b );
-  if ( bm.eXPos > -1 ) // anders: don't unless required!
-    tagLines( bm.cursor.line, bm.cursor.line, bm.cursor.line != displayCursor.line );
 
   QPoint cursorP = cursorCoordinates();
   setMicroFocusHint( cursorP.x(), cursorP.y(), 0, m_doc->viewFont.fontHeight );
@@ -663,8 +661,8 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
   case QEvent::FocusOut:
     if( ! m_view->m_codeCompletion->codeCompletionVisible() ) {
       if( cursorTimer ) {
-    	killTimer( cursorTimer );
-    	cursorTimer = 0;
+        killTimer( cursorTimer );
+        cursorTimer = 0;
       }
       paintCursor();
       emit m_view->lostFocus( m_view );

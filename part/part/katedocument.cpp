@@ -3833,7 +3833,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 				 int cursorXPos2, bool showSelections,
 				 bool showTabs, WhichFont wf,
 				 bool currentLine, bool printerfriendly,
-				 BracketMark bracketMark )
+				 const BracketMark& bm )
 {
   // font data
   const FontStruct & fs = getFontStruct(wf);
@@ -3884,8 +3884,10 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   else if (!printerfriendly)
     paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[0]);
 
-  if( !printerfriendly && bracketMark.cursor.line == int(line) && bracketMark.eXPos != -1 )
-    paint.fillRect( bracketMark.sXPos, y, bracketMark.eXPos - bracketMark.sXPos, fs.fontHeight, colors[3] );
+  if( !printerfriendly && bm.valid && bm.startLine == line )
+    paint.fillRect( bm.startX, y, bm.startW, fs.fontHeight, colors[3] );
+  if( !printerfriendly && bm.valid && bm.endLine == line )
+    paint.fillRect( bm.endX, y, bm.endW, fs.fontHeight, colors[3] );
 
   if (startcol > (int)len)
     startcol = len;
@@ -4086,137 +4088,134 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   return true;
 }
 
+inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }
+inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
+inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
 
-bool KateDocument::findMatchingBracket( const KateTextCursor &cursor, KateTextCursor& newCursor,
-										bool unlimitedRange )
+/*
+   Bracket matching uses the following algorithm:
+   If in overwrite mode, match the bracket currently underneath the cursor.
+   Otherwise, if the character to the left of the cursor is an ending bracket,
+   match it. Otherwise if the character to the right of the cursor is a
+   starting bracket, match it. Otherwise, if the the character to the left
+   of the cursor is an starting bracket, match it. Otherwise, if the character
+   to the right of the cursor is an ending bracket, match it. Otherwise, don't
+   match anything.
+*/
+void KateDocument::newBracketMark( const KateTextCursor& cursor, BracketMark& bm )
 {
-  bool stopCondition=true;
+  bm.valid = false;
+  
+  KateTextCursor start( cursor ), end;
+  
+  if( !findMatchingBracket( start, end ) )
+    return;
+  
+  bm.valid = true;
+  
   TextLine::Ptr textLine;
-  int x, line, count, attr;
-  QChar bracket, opposite, ch;
+  Attribute* a;
+  
+  /* Calculate starting geometry */
+  textLine = buffer->line( start.line );
+  a = attribute( textLine->attribute( start.col ) );
+  bm.startLine = start.line;
+  bm.startX = textWidth( textLine, start.col );
+  bm.startW = a->width( viewFont, textLine->getChar( start.col ) );
 
-  x = cursor.col; // -1 to look at left side of cursor
-  if (x < 0) return false;
-  line = cursor.line; //current line
-  count = 0; //bracket counter for nested brackets
-
-  textLine = buffer->line(line);
-  if (!textLine) return false;
-
-//  kdDebug()<<"Cursor position for bracket lookup:"<<x<<endl;
-
-  bracket = textLine->getChar(x);
-  attr = textLine->attribute(x);
-
-  if (bracket == '(' || bracket == '[' || bracket == '{')
-  {
-    //get opposite bracket
-    opposite = ')';
-    if (bracket == '[') opposite = ']';
-    if (bracket == '{') opposite = '}';
-    //get attribute of bracket (opposite bracket must have the same attribute)
-    x++;
-    while (stopCondition) {
-      //go to next line on end of line
-      while (x >= (int) textLine->length()) {
-        line++;
-        if (line > (int) lastLine()) return false;
-        textLine = buffer->line(line);
-        x = 0;
-      }
-      if (textLine->attribute(x) == attr) {
-        //try to find opposite bracked
-        ch = textLine->getChar(x);
-        if (ch == bracket) count++; //same bracket : increase counter
-        if (ch == opposite) {
-          count--;
-          if (count < 0) goto found;
-        }
-      }
-      x++;
-    if(!unlimitedRange)
-		{
-		stopCondition = line - cursor.line < 40;
-		}
-	}
-  }
-  else if (bracket == ')' || bracket == ']' || bracket == '}')
-  {
-    opposite = '(';
-    if (bracket == ']') opposite = '[';
-    if (bracket == '}') opposite = '{';
-    x--;
-    while (stopCondition) {
-
-      while (x < 0) {
-        line--;
-        if (line < 0) return false;
-        textLine = buffer->line(line);
-        x = textLine->length() -1;
-      }
-      if (textLine->attribute(x) == attr) {
-        ch = textLine->getChar(x);
-        if (ch == bracket) count++;
-        if (ch == opposite) {
-          count--;
-          if (count < 0) goto found;
-        }
-      }
-      x--;
-      if(!unlimitedRange)
-		{
-		stopCondition = cursor.line -line < 40;
-		}
-    }
-  }
-  return false;
-
-found:
-
-	newCursor.setPos(line, x);
-
-	return true;
+  /* Calculate ending geometry */
+  textLine = buffer->line( end.line );
+  a = attribute( textLine->attribute( end.col ) );
+  bm.endLine = end.line;
+  bm.endX = textWidth( textLine, end.col );
+  bm.endW = a->width( viewFont, textLine->getChar( end.col ) );
 }
 
-
-void KateDocument::newBracketMark( const KateTextCursor &cursor, BracketMark& bm )
+bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& end )
 {
-
-  KateTextCursor newCursor;
-  
-  
-  TextLine::Ptr textLine;
-  int x, line, count, attr;
+  TextLine::Ptr textLine = buffer->line( start.line );
+  if( !textLine )
+    return false;
+    
+  QChar right = textLine->getChar( start.col );
+  QChar left  = textLine->getChar( start.col - 1 );
   QChar bracket;
+  
+  if ( _configFlags & cfOvr ) {
+    if( isBracket( right ) ) {
+      bracket = right;
+    } else {
+      return false;
+    }
+  } else if ( isEndBracket( left ) ) {
+    start.col--;
+    bracket = left;
+  } else if ( isStartBracket( right ) ) {
+    bracket = right;
+  } else if ( isBracket( left ) ) {
+    start.col--;
+    bracket = left;
+  } else if ( isBracket( right ) ) {
+    bracket = right;
+  } else {
+    return false;
+  }
+  
+  QChar opposite;
 
-  bm.eXPos = -1; //mark bracked mark as invalid
-  x = cursor.col; //-1; // -1 to look at left side of cursor
-  if (x < 0) return;
-  line = cursor.line; //current line
-  count = 0; //bracket counter for nested brackets
+  switch( bracket ) {
+  case '{': opposite = '}'; break;
+  case '}': opposite = '{'; break;
+  case '[': opposite = ']'; break;
+  case ']': opposite = '['; break;
+  case '(': opposite = ')'; break;
+  case ')': opposite = '('; break;
+  default: return false;
+  }
 
-  textLine = buffer->line(line);
-  if (!textLine) return;
+  bool forward = isStartBracket( bracket );
+  int startAttr = textLine->attribute( start.col );
+  uint count = 0;
+  end = start;
 
-  bracket = textLine->getChar(x);
-  attr = textLine->attribute(x);
-
-  if(!findMatchingBracket(cursor, newCursor))
-  	{
-	return;
-	}
-
-  //cursor position of opposite bracket
-  bm.cursor.setPos(newCursor.line, newCursor.col);
-
-
-	textLine = buffer->line(newCursor.line);
-	
-  //x position (start and end) of related bracket
-  bm.sXPos = textWidth(textLine, newCursor.col);
-
-  Attribute *a = attribute(attr);
-  bm.eXPos = bm.sXPos + a->width(viewFont, bracket);
+  while( true ) {
+  
+    /* Increment or decrement, check base cases */
+    if( forward ) {
+      end.col++;
+      if( end.col >= lineLength( end.line ) ) {
+        if( end.line >= lastLine() )
+          return false;
+        end.line++;
+        end.col = 0;
+        textLine = buffer->line( end.line );
+      }
+    } else {
+      end.col--;
+      if( end.col < 0 ) {
+        if( end.line <= 0 )
+          return false;
+        end.line--;
+        end.col = lineLength( end.line ) - 1;
+        textLine = buffer->line( end.line );
+      }
+    }
+    
+    /* Easy way to skip comments */
+    if( textLine->attribute( end.col ) != startAttr )
+      continue;
+    
+    /* Check for match */
+    QChar c = textLine->getChar( end.col );
+    if( c == bracket ) {
+      count++;
+    } else if( c == opposite ) {
+      if( count == 0 )
+        return true;
+      count--;
+    }
+    
+  }
 }
 
 void KateDocument::guiActivateEvent( KParts::GUIActivateEvent *ev )

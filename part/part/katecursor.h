@@ -79,13 +79,18 @@ class KateTextCursor
     int col;
 };
 
+// This doesn't belong here
 class BracketMark
 {
   public:
-    BracketMark() : cursor( -1, -1 ), sXPos( 0 ), eXPos( 0 ) {};
-    KateTextCursor cursor;
-    int sXPos;
-    int eXPos;
+    BracketMark() : valid( false ) {}
+    bool valid;
+    uint startLine;
+    uint startX;
+    uint startW;
+    uint endLine;
+    uint endX;
+    uint endW;
 };
 
 /**

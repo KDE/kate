@@ -68,7 +68,7 @@ namespace Kate
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
 class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceExtension,
-                                                public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
+                     public KTextEditor::EncodingInterface, public KTextEditor::SessionConfigInterface
 {
   Q_OBJECT
   friend class KateConfigDialog;
@@ -77,7 +77,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   friend class KateIconBorder;
   friend class ColorConfig;
 
-  public:
+  public:    
     KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false, 
         QWidget *parentWidget = 0, const char *widgetName = 0, QObject * = 0, const char * = 0);
     ~KateDocument ();
@@ -411,7 +411,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int xPos, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor, int cursorXPos,
                                 bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false,
-                                bool printerfriendly = false, BracketMark bm = BracketMark() );
+                                bool printerfriendly = false, const BracketMark& bm = BracketMark() );
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
@@ -530,15 +530,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     void updateLines();
     void updateViews();
 
-/**
-  * Find the matching bracket to the bracket (if any) to the left of the
-  * present cursor. Return true if matching bracket found, else false. Position
-  * of matching bracket is put into the supplied argument (a KateTextCursor).
-  *
-  */
-	bool findMatchingBracket(const KateTextCursor&, KateTextCursor &, 
-							bool unlimitedRange=false);
-    void newBracketMark( const KateTextCursor&, BracketMark& );
+    void newBracketMark( const KateTextCursor& start, BracketMark& );
+    bool findMatchingBracket( KateTextCursor& start, KateTextCursor& end );
 
   private:
     void guiActivateEvent( KParts::GUIActivateEvent *ev );

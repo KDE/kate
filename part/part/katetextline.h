@@ -91,7 +91,7 @@ class TextLine : public KShared
     inline QChar getChar (uint pos) const
     {
       if (pos < m_text.size()) return m_text[pos];
-      return QChar(' ');
+      return QChar();
     }
     
     /**

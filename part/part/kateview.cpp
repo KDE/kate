@@ -867,6 +867,8 @@ KateView::saveResult KateView::saveAs()
   KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(doc()->config()->encoding(),
 		m_doc->url().url(),QString::null,this,i18n("Save File"));
 
+  kdDebug()<<"urllist is emtpy?"<<res.URLs.isEmpty()<<endl;
+  kdDebug()<<"url is:"<<res.URLs.first()<<endl;
   if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) )
     return SAVE_CANCEL;
 
@@ -885,7 +887,7 @@ bool KateView::checkOverwrite( KURL u )
 
   QFileInfo info( u.path() );
   if( !info.exists() )
-    return false;
+    return true;
 
   return KMessageBox::Cancel != KMessageBox::warningContinueCancel( this,
     i18n( "A file named \"%1\" already exists. "

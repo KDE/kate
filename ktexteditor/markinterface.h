@@ -54,8 +54,8 @@ class MarkInterface
     
     enum MarkTypes
     {
-      markType01= 0x1,
-      markType02= 0x2,
+      markType01= 0x1, // Bookmark !!!
+      markType02= 0x2, // Breakpoint !!!
       markType03= 0x4,
       markType04= 0x8,
       markType05= 0x10,

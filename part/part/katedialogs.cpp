@@ -1085,7 +1085,7 @@ void StyleListItem::toggleDefStyle()
 
 void StyleListItem::setCol()
 {
-  QColor c;
+  QColor c = is->col;
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
   if (st && st->defStyle) setCustStyle();
   is->col = c;
@@ -1094,7 +1094,7 @@ void StyleListItem::setCol()
 
 void StyleListItem::setSelCol()
 {
-  QColor c;
+  QColor c = is->selCol;
   if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
   if (st && st->defStyle) setCustStyle();
   is->selCol = c;

@@ -17,7 +17,5 @@ For 3.0 and bugfix releases:
 
 For 3.1 and later:
  - dynamic word wrap
- - blockwise paste must be done
  - more efficient hl buffer managment, I think of storing only the contexts in the buffer
- - line numbers in export/print
  - print/export only selected text

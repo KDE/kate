@@ -1,4 +1,4 @@
-<!DOCTYPE UI><UI version="3.0" stdsetdef="1">
+<!DOCTYPE UI><UI version="3.1" stdsetdef="1">
 <class>AttribEditor_skel</class>
 <widget class="QWidget">
     <property name="name">
@@ -8,9 +8,17 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>579</width>
-            <height>480</height>
+            <width>384</width>
+            <height>255</height>
         </rect>
+    </property>
+    <property name="sizePolicy">
+        <sizepolicy>
+            <hsizetype>3</hsizetype>
+            <vsizetype>5</vsizetype>
+            <horstretch>1</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
     </property>
     <property name="caption">
         <string>Form1</string>
@@ -18,12 +26,6 @@
     <hbox>
         <property name="name">
             <cstring>unnamed</cstring>
-        </property>
-        <property name="margin">
-            <number>11</number>
-        </property>
-        <property name="spacing">
-            <number>6</number>
         </property>
         <widget class="QLayoutWidget">
             <property name="name">
@@ -33,12 +35,6 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <property name="margin">
-                    <number>0</number>
-                </property>
-                <property name="spacing">
-                    <number>6</number>
-                </property>
                 <widget class="KListView">
                     <column>
                         <property name="text">
@@ -47,12 +43,15 @@
                         <property name="clickable">
                             <bool>true</bool>
                         </property>
-                        <property name="resizeable">
+                        <property name="resizable">
                             <bool>true</bool>
                         </property>
                     </column>
                     <property name="name">
                         <cstring>attributes</cstring>
+                    </property>
+                    <property name="resizeMode">
+                        <enum>AllColumns</enum>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -60,7 +59,7 @@
                         <cstring>addAttribute</cstring>
                     </property>
                     <property name="text">
-                        <string>New Item</string>
+                        <string>&amp;New Item</string>
                     </property>
                 </widget>
             </vbox>
@@ -76,12 +75,6 @@
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <property name="margin">
-                    <number>11</number>
-                </property>
-                <property name="spacing">
-                    <number>6</number>
-                </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
                         <cstring>Layout6</cstring>
@@ -89,12 +82,6 @@
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
-                        </property>
-                        <property name="margin">
-                            <number>0</number>
-                        </property>
-                        <property name="spacing">
-                            <number>6</number>
                         </property>
                         <widget class="QLabel">
                             <property name="name">
@@ -118,12 +105,6 @@
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
-                        </property>
-                        <property name="margin">
-                            <number>0</number>
-                        </property>
-                        <property name="spacing">
-                            <number>6</number>
                         </property>
                         <widget class="QLabel">
                             <property name="name">
@@ -159,7 +140,7 @@
                         <cstring>Bold</cstring>
                     </property>
                     <property name="text">
-                        <string>Bold</string>
+                        <string>&amp;Bold</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox">
@@ -167,7 +148,7 @@
                         <cstring>Italic</cstring>
                     </property>
                     <property name="text">
-                        <string>Italic</string>
+                        <string>&amp;Italic</string>
                     </property>
                 </widget>
                 <widget class="QLayoutWidget">
@@ -177,12 +158,6 @@
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
-                        </property>
-                        <property name="margin">
-                            <number>0</number>
-                        </property>
-                        <property name="spacing">
-                            <number>6</number>
                         </property>
                         <widget class="QLabel">
                             <property name="name">
@@ -206,12 +181,6 @@
                     <hbox>
                         <property name="name">
                             <cstring>unnamed</cstring>
-                        </property>
-                        <property name="margin">
-                            <number>0</number>
-                        </property>
-                        <property name="spacing">
-                            <number>6</number>
                         </property>
                         <widget class="QLabel">
                             <property name="name">
@@ -238,16 +207,41 @@
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
                 </spacer>
             </vbox>
         </widget>
     </hbox>
 </widget>
+<tabstops>
+    <tabstop>attributes</tabstop>
+    <tabstop>addAttribute</tabstop>
+    <tabstop>AttributeName</tabstop>
+    <tabstop>AttributeType</tabstop>
+    <tabstop>Bold</tabstop>
+    <tabstop>Italic</tabstop>
+    <tabstop>Colour</tabstop>
+    <tabstop>SelectedColour</tabstop>
+</tabstops>
 <includes>
     <include location="global" impldecl="in declaration">klistview.h</include>
     <include location="global" impldecl="in declaration">kcolorcombo.h</include>
     <include location="global" impldecl="in declaration">klineedit.h</include>
     <include location="global" impldecl="in declaration">kcombobox.h</include>
+    <include location="global" impldecl="in implementation">kdialog.h</include>
 </includes>
 <layoutdefaults spacing="6" margin="11"/>
+<layoutfunctions spacing="KDialog::spacingHint" margin="KDialog::marginHint"/>
+<includehints>
+    <includehint>klistview.h</includehint>
+    <includehint>klineedit.h</includehint>
+    <includehint>kcombobox.h</includehint>
+    <includehint>kcolorcombo.h</includehint>
+    <includehint>kcolorcombo.h</includehint>
+</includehints>
 </UI>

@@ -19,8 +19,7 @@
 #ifndef __ktexteditor_plugin_h__
 #define __ktexteditor_plugin_h__
 
-#include <qwidget.h>
-#include <kxmlguiclient.h>
+#include <qobject.h>
 
 namespace KTextEditor
 {                       

@@ -247,7 +247,14 @@ bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAt
   int index;
 
   if (backwards)
-    index = m_text.findRev (text, startCol, casesensitive);
+  {
+    uint col = startCol;
+    uint l = text.length();
+    do {
+      index = m_text.findRev( text, col, casesensitive );
+      col--;
+    } while ( col >= 0 && l + index >= startCol );
+  }
   else
     index = m_text.find (text, startCol, casesensitive);
 
@@ -266,7 +273,13 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
   int index;
 
   if (backwards)
-    index = regexp.searchRev (m_text, startCol);
+  {
+    uint col = startCol;
+    do {
+      index = regexp.searchRev (m_text, col);
+      col--;
+    } while ( col >= 0 && regexp.matchedLength() + index >= startCol );
+  }
   else
     index = regexp.search (m_text, startCol);
 

@@ -251,7 +251,7 @@ void KateUndoGroup::redo ()
   for (uint pos=0; pos < items.count(); pos++)
   {
     items.at(pos)->redo();
-    
+
     if (myDoc->myActiveView != 0L)
     {
       myDoc->myActiveView->myViewInternal->cursorCache.line = items.at(pos)->line;
@@ -3744,6 +3744,14 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	uint oldXPos = xPos;
 	const QChar *oldS = s;
 
+	if (len < 1)
+	{
+	  if ((showCursor > -1) && (showCursor == curCol))
+	  {
+	    paint.fillRect(xPos, oldY, 2, fs->fontHeight, at[0].col);
+	  }
+	}
+  else
   for (uint tmp = len; (tmp > 0); tmp--)
   {
     if ((*s) == QChar('\t'))
@@ -3803,14 +3811,6 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
       if (!selectionPainted && hasSel && (curCol >= startSel) && (curCol < endSel))
         paint.fillRect(xPos - xStart, oldY, xPosAfter - xPos, fs->fontHeight, colors[1]);
 
-	    if ((showCursor > -1) && (showCursor = curCol))
-			{
-			  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
-
-
-			}
-
-
       if (((tmp < 2) || (xPos > xEnd) || (curAt != &at[*(a+1)]) || ((*(s+1)) == QChar('\t'))) && ((*s) != QChar('\t')))
       {
         QConstString str((QChar *) oldS, curCol+1-oldCol);
@@ -3819,7 +3819,7 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	oldCol = curCol+1;
 	oldXPos = xPosAfter;
 	oldS = s+1;
-	
+
 	      if (xPos > xEnd)
 				  break;
       }
@@ -3833,6 +3833,11 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
 	oldXPos = xPosAfter;
 	oldS = s+1;
       }
+
+	    if ((showCursor > -1) && (showCursor == curCol))
+			{
+			  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
+			}
     }
 
     // increase xPos
@@ -3848,6 +3853,11 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     // col move
     curCol++;
   }
+	
+	if ((len > 0) && (showCursor > -1) && (showCursor == curCol))
+	{
+	  paint.fillRect(xPos, oldY, 2, fs->fontHeight, curAt->col);
+	}
 
   if (!selectionPainted && lineEndSelected (line))
   {

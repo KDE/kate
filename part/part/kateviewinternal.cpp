@@ -1089,7 +1089,7 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
     {
       if (r->dirty)
       {
-        myDoc->paintTextLine(paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(), -1, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+        myDoc->paintTextLine(paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(), (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
 
         bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
         
@@ -1126,7 +1126,7 @@ void KateViewInternal::paintCursor() {
   xCoord = x;
   yCoord = y+h;
 
-  QPainter paint;
+ /* QPainter paint;
   if (cursorOn)
   {
     QColor &fg = myDoc->cursorCol(cursor.col,cursor.line);
@@ -1144,10 +1144,10 @@ void KateViewInternal::paintCursor() {
     paint.end();
    }
    else
-   {
-     tagLines( displayCursor.line, displayCursor.line);
+   {*/
+     tagRealLines( cursor.line, cursor.line);
      paintTextLines (xPos, 0);
-  }
+  //}
 }
 
 void KateViewInternal::paintBracketMark() {

@@ -27,9 +27,7 @@
 				<Detect2Chars attribute="Comment" context="singleline comment" char="#" char1="#" />
 				<Detect2Chars attribute="Comment" context="multilinecomment" char="#" char1="&#42;" />
 			</context>
-			<context attribute="Comment" name="singleline comment">
-				<Detect2Chars attribute="Comment" char="#" char1="#" />
-				<LineContinue context="#pop" />
+			<context attribute="Comment" name="singleline comment" lineEndContext="#pop">
 			</context>
 			<context attribute="Comment" lineEndContext="#stay" name="multilinecomment" >
 				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="#" />

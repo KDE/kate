@@ -100,8 +100,6 @@ class KateViewInternal : public QScrollView
 
     bool event( QEvent* );
     bool eventFilter( QObject*, QEvent* );
-    void focusInEvent(  QFocusEvent* );
-    void focusOutEvent( QFocusEvent* );
     void keyPressEvent( QKeyEvent* );
     void contentsMousePressEvent(       QMouseEvent* );
     void contentsMouseDoubleClickEvent( QMouseEvent* );

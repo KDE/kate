@@ -79,7 +79,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setInstance( KateFactory::instance() );
   doc->addView( this );
 
-  setFocusProxy( m_viewInternal );
+  setFocusProxy( m_viewInternal->viewport() );
   setFocusPolicy( StrongFocus );
   
   if (!doc->m_bSingleViewMode) {

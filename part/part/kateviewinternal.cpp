@@ -86,7 +86,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   bm.sXPos = 0;
   bm.eXPos = -1;
 
-  viewport()->setFocusProxy( this );   
+  setFocusProxy( viewport() );
   viewport()->setAcceptDrops( true );
   viewport()->setBackgroundMode( NoBackground );
   setDragAutoScroll( true );
@@ -650,33 +650,28 @@ bool KateViewInternal::event( QEvent* e )
 // Overridden to pass events through KCursor auto-hide filter.
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 {
-  if( obj == viewport() )
+  if( obj == viewport() ) {
+  
     KCursor::autoHideEventFilter( obj, e );
     
-  return QScrollView::eventFilter( obj, e );
-}
-
-void KateViewInternal::focusInEvent( QFocusEvent* e )
-{
-  QScrollView::focusInEvent( e );
-  
-  cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
-  paintCursor();
-  
-  emit m_view->gotFocus( m_view );
-}
-
-void KateViewInternal::focusOutEvent( QFocusEvent* e )
-{
-  QScrollView::focusOutEvent( e );
-  
-  if( cursorTimer ) {
-    killTimer( cursorTimer );
-    cursorTimer = 0;
+    if( e->type() == QEvent::FocusIn ) {
+      cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+      paintCursor();
+      
+      emit m_view->gotFocus( m_view );
+    } else if ( e->type() == QEvent::FocusOut ) {
+      if( cursorTimer ) {
+        killTimer( cursorTimer );
+        cursorTimer = 0;
+      }
+      paintCursor();
+      
+      emit m_view->lostFocus( m_view );
+    }
+    
   }
-  paintCursor();
-  
-  emit m_view->lostFocus( m_view );
+    
+  return QScrollView::eventFilter( obj, e );
 }
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )

@@ -2455,9 +2455,6 @@ bool KateDocument::openURL( const KURL &url )
     connect( m_job, SIGNAL( result( KIO::Job* ) ),
            SLOT( slotFinishedKate( KIO::Job* ) ) );
 
-    // set text mode
-//     m_job->addMetaData ("textmode", "true");
-
     QWidget *w = widget ();
     if (!w && !m_views.isEmpty ())
       w = m_views.first();

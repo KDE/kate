@@ -77,7 +77,7 @@ class ActionMenu : public KActionMenu
     virtual ~ActionMenu () { ; };
 
   public:
-    virtual void updateMenu (class Document *) = 0L;
+    virtual void updateMenu (class Document *) = 0;
 };
 
 /** This interface provides access to the Kate Document class.
@@ -109,8 +109,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     */
     virtual void setDocName (QString ) { ; };
 
-    virtual ActionMenu *hlActionMenu (const QString& , QObject* =0, const char* = 0) = 0L;
-    virtual ActionMenu *exportActionMenu (const QString& , QObject* =0, const char* = 0) = 0L;
+    virtual ActionMenu *hlActionMenu (const QString& , QObject* =0, const char* = 0) = 0;
+    virtual ActionMenu *exportActionMenu (const QString& , QObject* =0, const char* = 0) = 0;
 
   public slots:
     // clear buffer/filename - update the views

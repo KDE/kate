@@ -32,6 +32,7 @@
 #include <ktexteditor/searchinterface.h>
 #include <ktexteditor/highlightinginterface.h>
 #include <ktexteditor/configinterface.h>
+#include <ktexteditor/configinterfaceextension.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/markinterfaceextension.h>
 #include <ktexteditor/wordwrapinterface.h>
@@ -49,12 +50,12 @@ class Cursor : public KTextEditor::Cursor
     virtual ~Cursor () { ; };
 };
 
-class ConfigPage : public QWidget
+class ConfigPage : public KTextEditor::ConfigPage
 {
   Q_OBJECT
 
   public:
-    ConfigPage ( QWidget *parent=0, const char *name=0 ) : QWidget (parent, name) { ; };
+    ConfigPage ( QWidget *parent=0, const char *name=0 ) : KTextEditor::ConfigPage (parent, name) { ; };
     virtual ~ConfigPage () { ; };
 
   public slots:

@@ -26,7 +26,7 @@
         <RegExpr attribute="Operator" context="VarFromNormal" String="[$][\({]"/>
         <AnyChar attribute="Operator" context="#stay" String="+*=%$():\\&#059;" />
         <RegExpr attribute="Operator" context="Commands" String="^\s*[@-]"/>
-        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <RegExpr attribute="Comment" context="#stay" String="(:^|[^\\])#.*$"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">

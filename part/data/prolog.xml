@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Prolog" version="1.00" kateversion="2.0" section="Sources" extensions="*.pl" mimetype="text/x-prolog">
+    <highlighting>
+        <list name="keywordl">
+            <item> abstract </item>
+            <item> align </item>
+            <item> as </item>
+            <item> and </item>
+            <item> class </item>
+            <item> clauses </item>
+            <item> constants </item>
+            <item> database </item>
+            <item> determ </item>
+            <item> domains </item>
+            <item> elsedef </item>
+            <item> endclass </item>
+            <item> enddef </item>
+            <item> erroneous </item>
+            <item> facts </item>
+            <item> failure </item>
+            <item> global </item>
+            <item> goal </item>
+            <item> if </item>
+            <item> ifdef </item>
+            <item> ifndef </item>
+            <item> implement </item>
+            <item> include </item>
+            <item> language </item>
+            <item> multi </item>
+            <item> nocopy </item>
+            <item> nondeterm </item>
+            <item> object </item>
+            <item> or </item>
+            <item> procedure </item>
+            <item> protected </item>
+            <item> predicates </item>
+            <item> reference </item>
+            <item> single </item>
+            <item> static </item>
+            <item> struct </item>
+            <item> this </item>
+        </list>
+
+        <list name="keywordu">
+            <item> ABSTRACT </item>
+            <item> ALIGN </item>
+            <item> AS </item>
+            <item> AND </item>
+            <item> CLASS </item>
+            <item> CLAUSES </item>
+            <item> CONSTANTS </item>
+            <item> DATABASE </item>
+            <item> DETERM </item>
+            <item> DOMAINS </item>
+            <item> ELSEDEF </item>
+            <item> ENDCLASS </item>
+            <item> ENDDEF </item>
+            <item> ERRONEOUS </item>
+            <item> FACTS </item>
+            <item> FAILURE </item>
+            <item> GLOBAL </item>
+            <item> GOAL </item>
+            <item> IF </item>
+            <item> IFDEF </item>
+            <item> IFNDEF </item>
+            <item> IMPLEMENT </item>
+            <item> INCLUDE </item>
+            <item> LANGUAGE </item>
+            <item> MULTI </item>
+            <item> NOCOPY </item>
+            <item> NONDETERM </item>
+            <item> OBJECT </item>
+            <item> OR </item>
+            <item> PROCEDURE </item>
+            <item> PROTECTED </item>
+            <item> PREDICATES </item>
+            <item> REFERENCE </item>
+            <item> SINGLE </item>
+            <item> STATIC </item>
+            <item> STRUCT </item>
+            <item> THIS </item>
+        </list>
+
+
+        <list name="special">
+            <item> assert </item>
+            <item> asserta </item>
+            <item> assertz </item>
+            <item> bound </item>
+            <item> chain_inserta </item>
+            <item> chain_insertafter </item>
+            <item> chain_insertz </item>
+            <item> chain_terms </item>
+            <item> consult </item>
+            <item> db_btrees </item>
+            <item> db_chains </item>
+            <item> fail </item>
+            <item> findall </item>
+            <item> format </item>
+            <item> free </item>
+            <item> msgrecv </item>
+            <item> msgsend </item>
+            <item> nl </item>
+            <item> not </item>
+            <item> readterm </item>
+            <item> ref_term </item>
+            <item> retract </item>
+            <item> retractall </item>
+            <item> save </item>
+            <item> term_bin </item>
+            <item> term_replace </item>
+            <item> term_str </item>
+            <item> trap </item>
+            <item> write </item>
+            <item> writef </item>
+        </list>
+
+        <list name="compiler">
+            <item> bgidriver </item>
+            <item> bgifont </item>
+            <item> check_determ </item>
+            <item> code </item>
+            <item> config </item>
+            <item> diagnostics </item>
+            <item> error </item>
+            <item> errorlevel </item>
+            <item> heap </item>
+            <item> gstacksize </item>
+            <item> nobreak </item>
+            <item> nowarnings </item>
+            <item> printermenu </item>
+            <item> project </item>
+        </list>
+
+        <list name="arith">
+            <item> mod </item>
+            <item> div </item>
+            <item> abs </item>
+            <item> exp </item>
+            <item> ln </item>
+            <item> log </item>
+            <item> sqrt </item>
+            <item> round </item>
+            <item> trunc </item>
+            <item> val </item>
+            <item> cos </item>
+            <item> sin </item>
+            <item> tan </item>
+            <item> arctan </item>
+            <item> random </item>
+            <item> randominit </item>
+        </list>
+
+        <list name="basetype">
+            <item> char </item>
+            <item> real </item>
+            <item> string </item>
+            <item> symbol </item>
+            <item> byte </item>
+            <item> sbyte </item>
+            <item> short </item>
+            <item> ushort </item>
+            <item> word </item>
+            <item> integer </item>
+            <item> unsigned </item>
+            <item> dword </item>
+            <item> long </item>
+            <item> ulong </item>
+            <item> binary </item>
+            <item> ref </item>
+        </list>
+
+        <list name="keywords">
+            <item> true </item>
+            <item> false </item>
+        </list>
+
+        <contexts>
+            <context name="normal" attribute="5" lineEndContext="#stay">
+                <keyword attribute="1" context="#stay"  String="keywordl"/>
+                <keyword attribute="1" context="#stay"  String="keywordu"/>
+                <keyword attribute="9" context="#stay"  String="arith"/>
+                <keyword attribute="1" context="#stay"  String="compiler"/>
+                <keyword attribute="1" context="#stay"  String="special"/>
+                <keyword attribute="2" context="#stay"  String="basetype"/>
+                <RegExpr String = "[A-Z_][A-Za-z0-9_]*" attribute = "8" context="#stay"/>
+                <RegExpr String = "[a-z][A-Za-z0-9_]*" attribute = "7" context="#stay"/>
+                <DetectChar attribute="3" context="1" char="%"/>
+                <Detect2Chars attribute="3" context="4" char="/" char1="*"/>
+                <Int attribute="4" context="#stay" />
+                <DetectChar attribute="6" context="2" char="&quot;" />
+                <DetectChar attribute="6" context="3" char="'" />
+                <AnyChar attribute="5" context="#stay" String="~!^*()-+=[]|\:;,./?&amp;&lt;&gt;" />
+            </context>
+            <context name="comment" attribute="3" lineEndContext="0" />
+            <context name="string" attribute="6" lineEndContext="#stay" >
+                <DetectChar attribute="6" context="0" char="&quot;" />
+            </context>
+            <context name="string2" attribute="6" lineEndContext="#stay">
+                <DetectChar attribute="6" context="0" char="'" />
+            </context>
+            <context name="comment region" attribute="3" lineEndContext="#stay">
+                <Detect2Chars attribute="3" context="0" char="*" char1="/" />
+            </context>
+        </contexts>
+        <itemDatas>
+            <itemData name="Normal Text" defStyleNum="dsNormal" />
+            <itemData name="Keyword" defStyleNum="dsKeyword" />
+            <itemData name="Data Type" defStyleNum="dsDataType" />
+            <itemData name="Comment" defStyleNum="dsComment" />
+            <itemData name="Integer" defStyleNum="dsDecVal" />
+            <itemData name="Symbol" defStyleNum="dsNormal" />
+            <itemData name="String"  defStyleNum="dsString"/>
+            <itemData name="Identifier"  defStyleNum="dsNormal"/>
+            <itemData name="Variable"  defStyleNum="dsOthers"/>
+            <itemData name="Arithmetic" defStyleNum="dsKeyword" />
+
+        </itemDatas>
+    </highlighting>
+  <general>
+    <keywords casesensitive="1" />
+    <comments>
+      <comment name="singleLine" start="%" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
+
+  </general>
+</language>
+

@@ -85,7 +85,7 @@ class KateStyleListItem : public QListViewItem
   public:
     KateStyleListItem( QListViewItem *parent=0, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
-    KateStyleListItem( QListView *parent=0, const QString & stylename=0,
+    KateStyleListItem( QListView *parent, const QString & stylename=0,
                    class KateAttribute* defaultstyle=0, class KateHlItemData *data=0 );
     ~KateStyleListItem() { if (st) delete is; };
 

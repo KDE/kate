@@ -1825,7 +1825,7 @@ int  KateHighlighting::lookupAttrName(const QString& name, KateHlItemDataList &i
  *
  * @return A pointer to the newly created item object
  */
-KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *data, KateHlItemDataList &iDl,QStringList *RegionList, QStringList *ContextNameList)
+KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, KateHlItemDataList &iDl,QStringList *RegionList, QStringList *ContextNameList)
 {
   // No highlighting -> exit
   if (noHl)

@@ -20,7 +20,6 @@
  **/
 
 #include "kateprinter.h"
-#include "kateprinter.moc"
 
 #include <kateconfig.h>
 #include <katedocument.h>
@@ -57,6 +56,7 @@
 //BEGIN KatePrinter
 bool KatePrinter::print (KateDocument *doc)
 {
+#ifndef Q_WS_WIN //TODO: reenable
   KPrinter printer;
 
   // docname is now always there, including the right Untitled name
@@ -621,12 +621,14 @@ bool KatePrinter::print (KateDocument *doc)
      return true;
   }
 
+#endif //!Q_WS_WIN
   return false;
 }
 //END KatePrinter
 
+#ifndef Q_WS_WIN //TODO: reenable
 //BEGIN KatePrintTextSettings
-KatePrintTextSettings::KatePrintTextSettings( KPrinter */*printer*/, QWidget *parent, const char *name )
+KatePrintTextSettings::KatePrintTextSettings( KPrinter * /*printer*/, QWidget *parent, const char *name )
   : KPrintDialogPage( parent, name )
 {
   setTitle( i18n("Te&xt Settings") );
@@ -687,7 +689,7 @@ void KatePrintTextSettings::enableSelection( bool enable )
 //END KatePrintTextSettings
 
 //BEGIN KatePrintHeaderFooter
-KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter */*printer*/, QWidget *parent, const char *name )
+KatePrintHeaderFooter::KatePrintHeaderFooter( KPrinter * /*printer*/, QWidget *parent, const char *name )
   : KPrintDialogPage( parent, name )
 {
   setTitle( i18n("Hea&der && Footer") );
@@ -895,7 +897,7 @@ void KatePrintHeaderFooter::setHFFont()
 
 //BEGIN KatePrintLayout
 
-KatePrintLayout::KatePrintLayout( KPrinter */*printer*/, QWidget *parent, const char *name )
+KatePrintLayout::KatePrintLayout( KPrinter * /*printer*/, QWidget *parent, const char *name )
   : KPrintDialogPage( parent, name )
 {
   setTitle( i18n("L&ayout") );
@@ -991,5 +993,8 @@ void KatePrintLayout::setOptions( const QMap<QString,QString>& opts )
     kcbtnBoxColor->setColor( QColor( v ) );
 }
 //END KatePrintLayout
+
+#include "kateprinter.moc"
+#endif //!Q_WS_WIN
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

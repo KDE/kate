@@ -224,7 +224,7 @@ class KateHighlighting
     // manipulates the ctxs array directly ;)
     void generateContextStack(int *ctxNum, int ctx, QMemArray<short> *ctxs, int *posPrevLine,bool lineContinue=false);
 
-    KateHlItem *createKateHlItem(struct KateSyntaxContextData *data, KateHlItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
+    KateHlItem *createKateHlItem(KateSyntaxContextData *data, KateHlItemDataList &iDl, QStringList *RegionList, QStringList *ContextList);
     int lookupAttrName(const QString& name, KateHlItemDataList &iDl);
 
     void createContextNameList(QStringList *ContextNameList, int ctx0);

@@ -526,8 +526,8 @@ bool KateDocumentConfig::plugin (uint index) const
   if (index >= m_plugins.size())
     return false;
 
-  if (m_pluginsSet[index] || isGlobal())
-    return m_plugins[index];
+  if (m_pluginsSet.at(index) || isGlobal())
+    return m_plugins.at(index);
 
   return s_global->plugin (index);
 }
@@ -539,8 +539,8 @@ void KateDocumentConfig::setPlugin (uint index, bool load)
 
   configStart ();
 
-  m_pluginsSet[index] = true;
-  m_plugins[index] = load;
+  m_pluginsSet.setBit(index);
+  m_plugins.setBit(index, load);
 
   configEnd ();
 }

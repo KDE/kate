@@ -2142,7 +2142,9 @@ void KateDocument::configDialog()
                                       KDialogBase::Ok,
                                       kapp->mainWidget() );
 
+#ifndef Q_WS_WIN //TODO: reenable
   KWin::setIcons( kd->winId(), kapp->icon(), kapp->miniIcon() );
+#endif
 
   QPtrList<KTextEditor::ConfigPage> editorPages;
 
@@ -2320,7 +2322,7 @@ QPixmap *KateDocument::markPixmap( MarkInterface::MarkTypes type )
 
 QColor KateDocument::markColor( MarkInterface::MarkTypes type )
 {
-  uint reserved = 0x1 << KTextEditor::MarkInterface::reservedMarkersCount() - 1;
+  uint reserved = (0x1 << KTextEditor::MarkInterface::reservedMarkersCount()) - 1;
   if ((uint)type >= (uint)markType01 && (uint)type <= reserved) {
     return KateRendererConfig::global()->lineMarkerColor(type);
   } else {
@@ -3643,7 +3645,9 @@ bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 
   editStart();
 
+#ifdef __GNUC__
 #warning "that's a bad idea, can lead to stray endings, FIXME"
+#endif
   // Try to remove the long start comment mark first
   bool removedStart = (removeStringFromBegining(line, longStartCommentMark)
                        || removeStringFromBegining(line, shortStartCommentMark));

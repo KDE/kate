@@ -24,7 +24,7 @@
 #include <qdict.h>
 #include <qstringlist.h>
 
-class KateCmd
+class KATEPARTINTERFACES_EXPORT KateCmd
 {
   private:
     KateCmd ();

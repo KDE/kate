@@ -351,7 +351,7 @@ void KateViewInternal::scrollNextPage()
 
 void KateViewInternal::scrollPrevPage()
 {
-  scrollViewLines(-QMAX( linesDisplayed() - 1, 0 ));
+  scrollViewLines(-QMAX( (int)linesDisplayed() - 1, 0 ));
 }
 
 void KateViewInternal::scrollPrevLine()
@@ -372,7 +372,7 @@ KateTextCursor KateViewInternal::maxStartPos(bool changed)
   {
     KateTextCursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
 
-    m_cachedMaxStartPos = viewLineOffset(end, -(linesDisplayed() - 1));
+    m_cachedMaxStartPos = viewLineOffset(end, -((int)linesDisplayed() - 1));
   }
 
   // If we're not dynamic word-wrapping, the horizontal scrollbar is hidden and will appear, increment the maxStart by 1
@@ -380,7 +380,7 @@ KateTextCursor KateViewInternal::maxStartPos(bool changed)
   {
     KateTextCursor end(m_doc->numVisLines() - 1, m_doc->lineLength(m_doc->getRealLine(m_doc->numVisLines() - 1)));
 
-    return viewLineOffset(end, -linesDisplayed());
+    return viewLineOffset(end, -(int)linesDisplayed());
   }
 
   m_usePlainLines = false;
@@ -432,7 +432,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force, bool calledExter
     {
       updateView(false, viewLinesScrolled);
 
-      int scrollHeight = -(viewLinesScrolled * m_view->renderer()->fontHeight());
+      int scrollHeight = -(viewLinesScrolled * (int)m_view->renderer()->fontHeight());
       int scrollbarWidth = style().scrollBarExtent().width();
 
       //
@@ -799,7 +799,7 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
   }
   else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
   {
-    KateTextCursor scroll = viewLineOffset(c, -(linesDisplayed() - m_minLinesVisible - 1));
+    KateTextCursor scroll = viewLineOffset(c, -((int)linesDisplayed() - m_minLinesVisible - 1));
 
     if (!m_view->dynWordWrap() && m_columnScroll->isHidden())
       if (scrollbarVisible(scroll.line()))
@@ -1387,7 +1387,7 @@ int KateViewInternal::displayViewLine(const KateTextCursor& virtualCursor, bool 
     return 0;
   }
 
-  int ret = -viewLine(work);
+  int ret = -(int)viewLine(work);
   bool forwards = (work < virtualCursor) ? true : false;
 
   // FIXME switch to using ranges? faster?
@@ -1792,7 +1792,7 @@ void KateViewInternal::pageUp( bool sel )
   if (cursorStart < m_minLinesVisible)
     lineadj -= m_minLinesVisible - cursorStart;
 
-  int linesToScroll = -QMAX( (linesDisplayed() - 1) - lineadj, 0 );
+  int linesToScroll = -QMAX( ((int)linesDisplayed() - 1) - lineadj, 0 );
   m_preserveMaxX = true;
 
   // don't scroll the full view in case the scrollbar appears

@@ -1320,7 +1320,7 @@ void KateCodeFoldingTree::updateHiddenSubNodes(KateCodeFoldingNode *node)
 
 void KateCodeFoldingTree::addHiddenLineBlock(KateCodeFoldingNode *node,unsigned int line)
 {
-  struct KateHiddenLineBlock data;
+  KateHiddenLineBlock data;
   data.start = line+1;
   data.length = node->endLineRel-(existsOpeningAtLineAfter(line+node->endLineRel,node)?1:0); // without -1;
   bool inserted = false;

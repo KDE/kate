@@ -40,6 +40,7 @@ class KatePrinter
     static bool print (KateDocument *doc);
 };
 
+#ifndef Q_WS_WIN //TODO: reenable
 //BEGIN Text settings
 /*
   Text settings page:
@@ -71,7 +72,7 @@ class KatePrintTextSettings : public KPrintDialogPage
   - enable header/footer
   - header/footer props
     o formats
-    0 colors
+    o colors
 */
 
 class KatePrintHeaderFooter : public KPrintDialogPage
@@ -130,5 +131,6 @@ class KatePrintLayout : public KPrintDialogPage
     KColorButton* kcbtnBoxColor;
 };
 //END Layout
+#endif //!Q_WS_WIN
 
 #endif

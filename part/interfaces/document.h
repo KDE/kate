@@ -50,14 +50,14 @@ namespace Kate
 
 class View;
 
-class Cursor : public KTextEditor::Cursor
+class KATEPARTINTERFACES_EXPORT Cursor : public KTextEditor::Cursor
 {
   public:
     Cursor () { ; };
     virtual ~Cursor () { ; };
 };
 
-class ConfigPage : public KTextEditor::ConfigPage
+class KATEPARTINTERFACES_EXPORT ConfigPage : public KTextEditor::ConfigPage
 {
   Q_OBJECT
 
@@ -75,7 +75,7 @@ class ConfigPage : public KTextEditor::ConfigPage
     void slotChanged();
 };
 
-class ActionMenu : public KActionMenu
+class KATEPARTINTERFACES_EXPORT ActionMenu : public KActionMenu
 {
   Q_OBJECT
 
@@ -91,7 +91,7 @@ class ActionMenu : public KActionMenu
 /**
  * Kate Commands
  */
-class Command
+class KATEPARTINTERFACES_EXPORT Command
 {
   public:
     Command () {};
@@ -119,7 +119,7 @@ class Command
 
 /** This interface provides access to the Kate Document class.
 */
-class Document : public KTextEditor::Document, public KTextEditor::EditInterface,
+class KATEPARTINTERFACES_EXPORT Document : public KTextEditor::Document, public KTextEditor::EditInterface,
                      public KTextEditor::UndoInterface, public KTextEditor::CursorInterface,
                      public KTextEditor::SelectionInterface, public KTextEditor::SearchInterface,
                      public KTextEditor::HighlightingInterface, public KTextEditor::BlockSelectionInterface,
@@ -265,7 +265,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
  * Extensions to the Document Interface
  * @since 3.3
  */
-class DocumentExt
+class KATEPARTINTERFACES_EXPORT DocumentExt
  : public KTextEditor::DocumentInfoInterface,
    public KTextEditor::VariableInterface
 {
@@ -309,16 +309,16 @@ class DocumentExt
  * @param doc KTextEditor document
  * @return 0 if no success, else the Kate::Document
  */
-Document *document (KTextEditor::Document *doc);
+KATEPARTINTERFACES_EXPORT Document *document (KTextEditor::Document *doc);
 
 /**
  * query if given document is a Kate::DocumentExt
  * @param doc KTextEditor document
  * @return 0 if no success, else the Kate::DocumentExt
  */
-DocumentExt *documentExt (KTextEditor::Document *doc);
+KATEPARTINTERFACES_EXPORT DocumentExt *documentExt (KTextEditor::Document *doc);
 
-Document *createDocument ( QObject *parent = 0, const char *name = 0 );
+KATEPARTINTERFACES_EXPORT Document *createDocument ( QObject *parent = 0, const char *name = 0 );
 
 }
 

@@ -39,7 +39,7 @@ class Document;
   The Kate::View text editor interface.
   @author Cullmann Christoph, modified by rokrau (6/21/01)
 */
-class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
+class KATEPARTINTERFACES_EXPORT View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
               public KTextEditor::PopupMenuInterface, public KTextEditor::ViewCursorInterface,
               public KTextEditor::CodeCompletionInterface, public KTextEditor::DynWordWrapInterface
 {
@@ -296,7 +296,7 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     virtual bool isActive () = 0;
 };
 
-View *view (KTextEditor::View *view);
+KATEPARTINTERFACES_EXPORT View *view (KTextEditor::View *view);
 
 }
 

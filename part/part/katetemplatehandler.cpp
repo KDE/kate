@@ -206,7 +206,7 @@ void KateTemplateHandler::locateRange(const KateTextCursor& cursor) {
 bool KateTemplateHandler::operator()(KKey key) {
 	if (key==Qt::Key_Tab) {
 		m_currentTabStop++;
-		if (m_currentTabStop>=m_tabOrder.count())
+		if (m_currentTabStop>=(int)m_tabOrder.count())
 			m_currentTabStop=0;
 	} else {
 		m_currentTabStop--;

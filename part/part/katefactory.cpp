@@ -54,13 +54,7 @@ class KateFactoryPublic : public KParts::Factory
     }
 };
 
-extern "C"
-{
-  void *init_libkatepart()
-  {
-    return new KateFactoryPublic ();
-  }
-}
+K_EXPORT_COMPONENT_FACTORY( katepart, KateFactoryPublic );
 
 KateFactory *KateFactory::s_self = 0;
 

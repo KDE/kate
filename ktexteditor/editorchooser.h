@@ -22,10 +22,10 @@ public:
 	virtual ~EditorChooser();
 	void writeSysDefault();
 
-	void readAppSetting(const QString& postfix);
-	void writeAppSetting(const QString& postfix);
+	void readAppSetting(const QString& postfix=QString::null);
+	void writeAppSetting(const QString& postfix=QString::null);
 
-	static KTextEditor::Document *createDocument(const QString& postfix=QString::null, bool fallBackToKatePart=true);
+	static KTextEditor::Document *createDocument(QObject* parent=0,const char *name=0,const QString& postfix=QString::null, bool fallBackToKatePart=true);
 	static KTextEditor::Editor *createEditor(const QString& postfix=QString::null, bool fallBackToKatePart=true);
  
 private:

@@ -21,7 +21,7 @@ EditorChooser::EditorChooser(QWidget *parent,const char *name) :
 
 	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
 	{
-    		if ((*it)->desktopEntryName().contains("editor"))
+    		if ((*it)->desktopEntryName().contains(editor))
 		{
 			editorCombo->insertItem(i18n("System default (%1)").arg((*it)->name()));
 			break;
@@ -60,14 +60,39 @@ void EditorChooser::writeAppSetting(const QString& postfix){
 	QString previousGroup=cfg->group();
 	cfg->setGroup("KTEXTEDITOR:"+postfix);
 	cfg->writeEntry("DEVELOPER_INFO","NEVER TRY TO USE VALUES FROM THAT GROUP, THEY ARE SUBJECT TO CHANGES");
-	cfg->writeEntry("editor",editorCombo->currentItem()==0?"":(*elements.at(editorCombo->currentItem())));
+	cfg->writeEntry("editor",editorCombo->currentItem()==0?"":(*elements.at(editorCombo->currentItem()-1)));
 	cfg->sync();
 	cfg->setGroup(previousGroup);
 
 }
 
-KTextEditor::Document *EditorChooser::createDocument(const QString& postfix,bool fallBackToKatePart){
-;
+KTextEditor::Document *EditorChooser::createDocument(QObject *parent,const char* name, const QString& postfix,bool fallBackToKatePart){
+
+	KTextEditor::Document *tmpDoc=0;
+
+	KConfig *cfg=kapp->config();
+        QString previousGroup=cfg->group();
+        cfg->setGroup("KTEXTEDITOR:"+postfix);
+        QString editor=cfg->readEntry("editor","");
+	cfg->setGroup(previousGroup);
+	if (editor.isEmpty())
+	{
+		KConfig *config=new KConfig("default_components");
+  		config->setGroup("KTextEditor");
+	  	editor = config->readEntry("embeddedEditor", "katepart");
+		delete config;
+	}
+	
+	KService::Ptr serv=KService::serviceByDesktopName(editor);
+	if (serv)
+	{
+		tmpDoc=KTextEditor::createDocument(serv->library().latin1(),parent,name);
+		if (tmpDoc) return tmpDoc;
+	}
+	if (fallBackToKatePart)
+		return KTextEditor::createDocument("katepart",parent,name);
+
+	return 0;
 }
 
 KTextEditor::Editor *EditorChooser::createEditor(const QString& postfix,bool fallBackToKatePart){

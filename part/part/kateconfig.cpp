@@ -799,6 +799,14 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
 KateRendererConfig::~KateRendererConfig ()
 {
   delete m_font;
+
+  delete m_backgroundColor;
+  delete m_selectionColor;
+  delete m_highlightedLineColor;
+  delete m_highlightedBracketColor;
+  delete m_wordWrapMarkerColor;
+  delete m_tabMarkerColor;
+  delete m_iconBarColor;
 }
 
 KateRendererConfig *KateRendererConfig::global ()

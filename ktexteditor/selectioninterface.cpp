@@ -18,17 +18,23 @@ namespace KTextEditor
 
 };
 
+unsigned int SelectionInterface::globalSelectionInterfaceNumber = 0;
 
 SelectionInterface::SelectionInterface()
 {
 	d = new PrivateSelectionInterface();
-	SelectionInterfaceNumber++;
-	QString name = "Selection-Interface#" + QString::number(SelectionInterfaceNumber);
+	globalSelectionInterfaceNumber++;
+        mySelectionInterfaceNumber = globalSelectionInterfaceNumber;
+	QString name = "SelectionInterface#" + QString::number(mySelectionInterfaceNumber);
 	 d->interface = new SelectionDCOPInterface(this, name.latin1());
 }
 SelectionInterface::~SelectionInterface()
 {
- 	delete d->interface;
-	delete d;
-	SelectionInterfaceNumber--;
+  delete d->interface;
+  delete d;
+}
+
+unsigned int SelectionInterface::selectionInterfaceNumber () const
+{
+  return mySelectionInterfaceNumber;
 }

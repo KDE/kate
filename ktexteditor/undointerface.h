@@ -30,30 +30,30 @@ namespace KTextEditor
 class UndoInterface
 {
   //
-	// slots !!!
-	//
+  // slots !!!
+  //
   public:
-	  virtual void undo () = 0;
+    virtual void undo () = 0;
 
-		virtual void redo () = 0;
+    virtual void redo () = 0;
 
-		virtual void clearUndo () = 0;
+    virtual void clearUndo () = 0;
 
-		virtual void clearRedo () = 0;
+    virtual void clearRedo () = 0;
 
-		virtual uint undoCount () const = 0;
+    virtual uint undoCount () const = 0;
 
-		virtual uint redoCount () const = 0;
+    virtual uint redoCount () const = 0;
 
-		virtual uint undoSteps () const = 0;
+    virtual uint undoSteps () const = 0;
 
-		virtual void setUndoSteps ( uint steps ) = 0;
+    virtual void setUndoSteps ( uint steps ) = 0;
 
-	//
-	// signals !!!
-	//
-	public:
-	  virtual void undoChanged () = 0;
+  //
+  // signals !!!
+  //
+  public:
+    virtual void undoChanged () = 0;
 };
 
 

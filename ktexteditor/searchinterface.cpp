@@ -19,17 +19,23 @@ namespace KTextEditor
 
 };
 
+unsigned int SearchInterface::globalSearchInterfaceNumber = 0;
 
 SearchInterface::SearchInterface()
 {
 	d = new PrivateSearchInterface();
-	SearchInterfaceNumber++;
-	QString name = "Search-Interface#" + QString::number(SearchInterfaceNumber);
+	globalSearchInterfaceNumber++;
+	mySearchInterfaceNumber=globalSearchInterfaceNumber;
+        QString name = "SearchInterface#" + QString::number(mySearchInterfaceNumber);
 	 d->interface = new SearchDCOPInterface(this, name.latin1());
 }
 SearchInterface::~SearchInterface()
 {
- 	delete d->interface;
-	delete d;
-	SearchInterfaceNumber--;
+  delete d->interface;
+  delete d;
+}
+
+unsigned int SearchInterface::searchInterfaceNumber () const
+{
+  return mySearchInterfaceNumber;
 }

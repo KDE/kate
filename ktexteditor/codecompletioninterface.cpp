@@ -29,6 +29,5 @@ CodeCompletionInterface::CodeCompletionInterface()
 CodeCompletionInterface::~CodeCompletionInterface()
 {
  	//delete d->interface;
-	delete d;
-	CodeCompletionInterfaceNumber--;
+  delete d;
 }

@@ -21,26 +21,29 @@
 #define __ktexteditor_selectioninterface_h__
 
 #include <qstring.h>
+
 namespace KTextEditor
 {
-static int SelectionInterfaceNumber;
-class PrivateSelectionInterface;
 
 /*
 *  This is an interface for the KTextEditor::Document class !!!
 */
 class SelectionInterface
 {
+  friend class PrivateSelectionInterface;
+
   //
 	// slots !!!
 	//
   public:
 	SelectionInterface();
 	virtual ~SelectionInterface();
+        
+        unsigned int selectionInterfaceNumber () const;
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
     */
-    virtual bool setSelection ( uint startLine, uint startCol, uint endLine, uint endCol ) = 0;
+    virtual bool setSelection ( unsigned int startLine, unsigned int startCol, unsigned int endLine, unsigned int endCol ) = 0;
 
     /**
     *  removes the current Selection (not Text)
@@ -72,8 +75,11 @@ class SelectionInterface
 	//
 	public:
 	  virtual void selectionChanged () = 0;
-	private:
-		PrivateSelectionInterface *d;
+  
+  private:
+    class PrivateSelectionInterface *d;
+    static unsigned int globalSelectionInterfaceNumber;
+    unsigned int mySelectionInterfaceNumber;
 };
 
 };

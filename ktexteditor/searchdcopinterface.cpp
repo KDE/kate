@@ -39,7 +39,7 @@ bool SearchDCOPInterface::findLastString( QString text, bool caseSensitive)
 	return m_parent->searchText(0,0, text, &m_currentrow, &m_currentcol,  &m_currentmatchlen, caseSensitive, true);
 }
 
-bool SearchDCOPInterface::findStringAt( uint row, uint col, QString text, bool caseSensitive)
+bool SearchDCOPInterface::findStringAt( unsigned int row, unsigned int col, QString text, bool caseSensitive)
 {
 	return m_parent->searchText(row,col, text, &m_currentrow, &m_currentcol,  &m_currentmatchlen, caseSensitive);
 
@@ -66,20 +66,20 @@ bool SearchDCOPInterface::findLastRegExp(const QString regexp)
 	return m_parent->searchText( 0,0, QRegExp(regexp), &m_currentrow, &m_currentcol,  &m_currentmatchlen, true);
 }
 
-bool SearchDCOPInterface::findRegExpAt( uint row, uint col, QString regexp)
+bool SearchDCOPInterface::findRegExpAt( unsigned int row, unsigned int col, QString regexp)
 {
 	return m_parent->searchText( row, col, QRegExp(regexp), &m_currentrow, &m_currentcol, &m_currentmatchlen, false);
 }
 
-uint SearchDCOPInterface::currentMatchLine()
+unsigned int SearchDCOPInterface::currentMatchLine()
 {
 	return m_currentrow;
 }
-uint SearchDCOPInterface::currentMatchCol()
+unsigned int SearchDCOPInterface::currentMatchCol()
 {
 	return m_currentcol;
 }
-uint SearchDCOPInterface::currentMatchLength()
+unsigned int SearchDCOPInterface::currentMatchLength()
 {
 	return m_currentmatchlen;	
 }

@@ -18,17 +18,23 @@ namespace KTextEditor
 
 };
 
+unsigned int ClipboardInterface::globalClipboardInterfaceNumber = 0;
 
 ClipboardInterface::ClipboardInterface()
 {
 	d = new PrivateClipboardInterface();
-	ClipboardInterfaceNumber++;
-	QString name = "Clipboard-Interface#" + QString::number(ClipboardInterfaceNumber);
+	globalClipboardInterfaceNumber++;
+        myClipboardInterfaceNumber = globalClipboardInterfaceNumber++;
+	QString name = "ClipboardInterface#" + QString::number(myClipboardInterfaceNumber);
 	d->interface = new ClipboardDCOPInterface(this, name.latin1());
 }
 ClipboardInterface::~ClipboardInterface()
 {
- 	delete d->interface;
-	delete d;
-	ClipboardInterfaceNumber--;
+  delete d->interface;
+  delete d;
+}
+
+unsigned int ClipboardInterface::clipboardInterfaceNumber () const
+{
+  return myClipboardInterfaceNumber;
 }

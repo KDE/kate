@@ -22,19 +22,24 @@
 
 namespace KTextEditor
 {
-static int ClipboardInterfaceNumber;
 
-class PrivateClipboardInterface;
 /*
 *  This is an interface for the KTextEditor::View class !!!
 */
-class ClipboardInterface {
-  //
-	// slots !!!
-	//
+class ClipboardInterface
+{
+  friend class PrivateClipboardInterface;
+
   public:
-	ClipboardInterface();
-	virtual ~ClipboardInterface();
+    ClipboardInterface();
+    virtual ~ClipboardInterface();
+    
+    unsigned int clipboardInterfaceNumber () const;
+        
+  /**
+  * slots !!!
+  */
+  public:
     /**
     * copies selected text
     */
@@ -49,9 +54,13 @@ class ClipboardInterface {
     * copies selected text
     */
     virtual void paste ( ) = 0;
-private:
+
+  private:
     PrivateClipboardInterface *d;
+    static unsigned int globalClipboardInterfaceNumber;
+    unsigned int myClipboardInterfaceNumber;
 };
+
 };
 
 #endif

@@ -19,32 +19,38 @@
 
 #ifndef __ktexteditor_searchinterface_h__
 #define __ktexteditor_searchinterface_h__
+
 class QRegExp;
 class QString;
 
 namespace KTextEditor
 {
-static int SearchInterfaceNumber;
-class PrivateSearchInterface;
 
 /*
 *  This is an interface for the KTextEditor::Document class !!!
 */
 class SearchInterface
 {
-  //
-	// slots !!!
-	//
+  friend class PrivateSearchInterface;
+
   public:
-  	SearchInterface();
-	virtual ~SearchInterface();
+    SearchInterface();
+    virtual ~SearchInterface();
 
-	virtual bool searchText (unsigned int startLine, unsigned int startCol, const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive = true, bool backwards = false) = 0;
-	virtual bool searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards = false) = 0;
+    unsigned int searchInterfaceNumber () const;
+
+  //
+  // slots !!!
+  //
+  public:
+    virtual bool searchText (unsigned int startLine, unsigned int startCol, const QString &text, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool casesensitive = true, bool backwards = false) = 0;
+    virtual bool searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards = false) = 0;
+
   private:
-	PrivateSearchInterface *d; // Dptr
+    class PrivateSearchInterface *d;
+    static unsigned int globalSearchInterfaceNumber;
+    unsigned int mySearchInterfaceNumber;
 };
-
 
 };
 

@@ -816,13 +816,10 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   e5Layout = new QHBox(gbMem);
   e5Layout->setSpacing (32);
-  blockCountLabel = new QLabel(e5Layout);
-  blockCount = new QSlider (Qt::Horizontal, e5Layout);
-  connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(blockCountChanged(int)));
+  blockCountLabel = new QLabel(i18n("Maximum loaded &blocks per file:"), e5Layout);
+  blockCount = new QSpinBox (4, 512, 4, e5Layout);
 
-  blockCount->setRange(4, 512);
   blockCount->setValue (KateBuffer::maxLoadedBlocks());
-  blockCount->setSteps ( 4, 4 );
   blockCountLabel->setBuddy(blockCount);
 
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
@@ -904,11 +901,6 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect(dirSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( leBuPrefix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
   connect( leBuSuffix, SIGNAL( textChanged ( const QString & ) ), this, SLOT( slotChanged() ) );
-}
-
-void KateSaveConfigTab::blockCountChanged (int value)
-{
-  blockCountLabel->setText (i18n("Maximum loaded blocks per file: <b>%1</b>").arg (value));
 }
 
 void KateSaveConfigTab::apply()

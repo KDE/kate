@@ -259,9 +259,6 @@ class KateSaveConfigTab : public KateConfigPage
   void reset();
   void defaults();
 
-  private slots:
-    void blockCountChanged (int value);
-
   protected:
   KComboBox *m_encoding, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
@@ -269,7 +266,7 @@ class KateSaveConfigTab : public KateConfigPage
   QLineEdit *leBuPrefix;
   QLineEdit *leBuSuffix;
   KIntNumInput *dirSearchDepth;
-  class QSlider *blockCount;
+  class QSpinBox *blockCount;
   class QLabel *blockCountLabel;
 };
 

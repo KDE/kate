@@ -1971,6 +1971,13 @@ bool KateHighlighting::isInWord( QChar c, int attrib ) const
   return m_additionalData[k][3].find(c) < 0 && sq.find(c) < 0;
 }
 
+bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
+{
+  int k = hlKeyForAttrib( attrib );
+  static const QString sq("\"'");
+  return (m_additionalData[k][4].find(c) != -1) && (sq.find(c) == -1);
+}
+
 bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const
 {
   int k = hlKeyForAttrib( startAttrib );
@@ -2099,6 +2106,42 @@ QString KateHighlighting::readGlobalKeywordConfig()
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
 
   return deliminator; // FIXME un-globalize
+}
+
+/**
+ * Helper for makeContextList. It parses the xml file for any wordwrap deliminators, characters
+ * at which line can be broken. In case no keyword tag is found in the xml file, 
+ * the wordwrap deliminators list defaults to the standard denominators. In case a keyword tag
+ * is defined, but no wordWrapDeliminator attribute is specified, the deliminator list as computed
+ * in readGlobalKeywordConfig is used.
+ *
+ * @return the computed delimiter string.
+ */
+QString KateHighlighting::readWordWrapConfig()
+{
+  // Tell the syntax document class which file we want to parse
+  kdDebug(13010)<<"readWordWrapConfig:BEGIN"<<endl;
+
+  KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
+  KateSyntaxContextData *data = KateHlManager::self()->syntax->getConfig("general","keywords");
+
+  QString wordWrapDeliminator = stdDeliminator;
+  if (data)
+  {
+    kdDebug(13010)<<"Found global keyword config"<<endl;
+
+    wordWrapDeliminator = (KateHlManager::self()->syntax->groupItemData(data,QString("wordWrapDeliminator")));
+    //when no wordWrapDeliminator is defined use the deliminator list
+    if ( wordWrapDeliminator.length() == 0 ) wordWrapDeliminator = deliminator;
+    
+    kdDebug(13010) << "word wrap deliminators are " << wordWrapDeliminator << endl;
+
+    KateHlManager::self()->syntax->freeGroupInfo(data);
+  }
+
+  kdDebug(13010)<<"readWordWrapConfig:END"<<endl;
+
+  return wordWrapDeliminator; // FIXME un-globalize
 }
 
 void KateHighlighting::readFoldingConfig()
@@ -2442,6 +2485,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   // all the attribs added in a moment will be in the correct range
   QStringList additionaldata = readCommentConfig();
   additionaldata << readGlobalKeywordConfig();
+  additionaldata << readWordWrapConfig();
+  
   readFoldingConfig ();
 
   m_additionalData.insert( internalIDList.count(), additionaldata );

@@ -1068,15 +1068,15 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
       // We are not interested in breaking at the first char
       // of the line (if it is a space), but we are at the second
       // anders: if we can't find a space, try breaking on a word
-      // boundry, using KateHighlight::isInWord().
+      // boundry, using KateHighlight::canBreakAt().
       // This could be a priority (setting) in the hl/filetype/document
       int z = 0;
       uint nw = 0; // alternative position, a non word character
       for (z=searchStart; z > 0; z--)
       {
         if (text[z].isSpace()) break;
-        if ( ! nw && !m_highlight->isInWord( text[z], l->attribute(z) ) )
-          nw = z;
+        if ( ! nw && m_highlight->canBreakAt( text[z] , l->attribute(z) ) )
+        nw = z;
       }
 
       if (z > 0)

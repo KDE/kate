@@ -151,6 +151,12 @@ class KateHighlighting
      *     for the corresponding highlight.
      */
     bool isInWord( QChar c, int attrib=0 ) const;
+    
+    /**
+     * @return true if the character @p c is a wordwrap deliminator as specified
+     * in the general keyword section of the xml file.
+     */
+    bool canBreakAt( QChar c, int attrib=0 ) const;
 
     /**
     * @return true if @p beginAttr and @p endAttr are members of the same
@@ -210,6 +216,7 @@ class KateHighlighting
     void addToKateHlItemDataList();
     void createKateHlItemData (KateHlItemDataList &list);
     QString readGlobalKeywordConfig();
+    QString readWordWrapConfig();
     QStringList readCommentConfig();
     void readFoldingConfig ();
 
@@ -272,7 +279,8 @@ class KateHighlighting
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
 
     /**
-     * This contains a list of comment data + the deliminator string pr highlight.
+     * This contains a list of comment data, the deliminator string and 
+     * wordwrap deliminator pr highlight.
      * The key is the highlights entry position in internalIDList.
      * This is used to look up the correct comment and delimitor strings
      * based on the attrtibute.

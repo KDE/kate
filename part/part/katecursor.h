@@ -73,6 +73,13 @@ class KateDocCursor : public KateTextCursor
     KateDocCursor(KateDocument *doc);
     ~KateDocCursor();
 
+    // KTextEditor::Cursor interface
+    void position(uint *line, uint *col) const;
+    bool setPosition(uint line, uint col);
+    bool insertText(const QString& text);
+    bool removeText(uint numberOfCharacters);
+    QChar currentChar() const;
+
   protected:
     KateDocument *myDoc;
 };

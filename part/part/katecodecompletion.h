@@ -39,6 +39,7 @@
 
 class KateView;
 class KateArgHint;
+class KateCCListBox;
 
 class QLayout;
 
@@ -97,7 +98,7 @@ class KateCodeCompletion : public QObject
     KateArgHint*    m_pArgHint;
     KateView*       m_view;
     class QVBox*          m_completionPopup;
-    class CCListBox*       m_completionListBox;
+    KateCCListBox*       m_completionListBox;
     QValueList<KTextEditor::CompletionEntry> m_complList;
     uint            m_lineCursor;
     uint            m_colCursor;

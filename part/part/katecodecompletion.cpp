@@ -1,5 +1,4 @@
 /* This file is part of the KDE libraries
-
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 by Victor Röder <Victor_Roeder@GMX.de>
@@ -54,16 +53,19 @@
  *@short Listbox showing codecompletion
  *@author Jonas B. Jacobi <j.jacobi@gmx.de>
  */
-class CCListBox : public QListBox{
-public:
-  /**
-    @short Create a new CCListBox
-    @param view The KateView, CCListBox is displayed in
-   */
-    CCListBox(KateView* view, QWidget* parent = 0, const char* name = 0, WFlags f = 0):QListBox(parent, name, f), m_view(view){
-    };
+class KateCCListBox : public QListBox
+{
+  public:
+    /**
+      @short Create a new CCListBox
+      @param view The KateView, CCListBox is displayed in
+    */
+    KateCCListBox (QWidget* parent = 0, const char* name = 0, WFlags f = 0):QListBox(parent, name, f)
+    {
+    }
 
-    QSize sizeHint()  const {
+    QSize sizeHint()  const
+    {
         int count = this->count();
         int height = 20;
         int tmpwidth = 8;
@@ -88,28 +90,24 @@ public:
             tmpwidth += maxcount;
         return QSize(tmpwidth,height);
 
-    };
-
-private:
-  KateView* m_view;
-
+    }
 };
 
-class CompletionItem : public QListBoxText
+class KateCompletionItem : public QListBoxText
 {
-public:
-  CompletionItem( QListBox* lb, KTextEditor::CompletionEntry entry )
-    : QListBoxText( lb )
-    , m_entry( entry )
-  {
-    if( entry.postfix == "()" ) { // should be configurable
-      setText( entry.prefix + " " + entry.text + entry.postfix );
-    } else {
-      setText( entry.prefix + " " + entry.text + " " + entry.postfix);
+  public:
+    KateCompletionItem( QListBox* lb, KTextEditor::CompletionEntry entry )
+      : QListBoxText( lb )
+      , m_entry( entry )
+    {
+      if( entry.postfix == "()" ) { // should be configurable
+        setText( entry.prefix + " " + entry.text + entry.postfix );
+      } else {
+        setText( entry.prefix + " " + entry.text + " " + entry.postfix);
+      }
     }
-  }
-
-  KTextEditor::CompletionEntry m_entry;
+  
+    KTextEditor::CompletionEntry m_entry;
 };
 
 
@@ -122,7 +120,7 @@ KateCodeCompletion::KateCodeCompletion( KateView* view )
   m_completionPopup->setFrameStyle( QFrame::Box | QFrame::Plain );
   m_completionPopup->setLineWidth( 1 );
 
-  m_completionListBox = new CCListBox( view,  m_completionPopup );
+  m_completionListBox = new KateCCListBox( m_completionPopup );
   m_completionListBox->setFrameStyle( QFrame::NoFrame );
   m_completionListBox->setCornerWidget( new QSizeGrip( m_completionListBox) );
 
@@ -231,7 +229,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
 
 void KateCodeCompletion::doComplete()
 {
-  CompletionItem* item = static_cast<CompletionItem*>(
+  KateCompletionItem* item = static_cast<KateCompletionItem*>(
      m_completionListBox->item(m_completionListBox->currentItem()));
 
   if( item == 0 )
@@ -288,14 +286,14 @@ void KateCodeCompletion::updateBox( bool )
   if( m_caseSensitive ) {
     for( it = m_complList.begin(); it != m_complList.end(); ++it ) {
       if( (*it).text.startsWith(currentComplText) ) {
-        new CompletionItem(m_completionListBox,*it);
+        new KateCompletionItem(m_completionListBox,*it);
       }
     }
   } else {
     currentComplText = currentComplText.upper();
     for( it = m_complList.begin(); it != m_complList.end(); ++it ) {
       if( (*it).text.upper().startsWith(currentComplText) ) {
-        new CompletionItem(m_completionListBox,*it);
+        new KateCompletionItem(m_completionListBox,*it);
       }
     }
   }
@@ -361,10 +359,12 @@ void KateCodeCompletion::showComment()
 {
   if (!m_completionPopup->isVisible())
     return;
-  CompletionItem* item = static_cast<CompletionItem*>(m_completionListBox->item(m_completionListBox->currentItem()));
+  
+  KateCompletionItem* item = static_cast<KateCompletionItem*>(m_completionListBox->item(m_completionListBox->currentItem()));
 
   if( !item )
     return;
+
   if( item->m_entry.comment.isEmpty() )
     return;
 

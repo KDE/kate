@@ -41,7 +41,7 @@
 
 using namespace KTextEditor;
 
-static const char plus_xpm[] = {
+static const char* const plus_xpm[] = {
 "12 16 3 1",
 "       c None",
 ".      c #000000",
@@ -63,7 +63,7 @@ static const char plus_xpm[] = {
 "      .     ",
 "      .     "};
 
-static const char minus_xpm[] = {
+static const char* const minus_xpm[] = {
 "12 16 3 1",
 "       c None",
 ".      c #000000",
@@ -86,7 +86,7 @@ static const char minus_xpm[] = {
 "      .     "};
 
 
-static const char bookmark_xpm[]={
+static const char* const bookmark_xpm[]={
 "12 16 4 1",
 "b c #808080",
 "a c #000080",
@@ -128,7 +128,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   setBackgroundMode( NoBackground );
   
   m_doc->setDescription( MarkInterface::markType01, i18n("Bookmark") );
-  m_doc->setPixmap( MarkInterface::markType01, QPixmap(bookmark_xpm) );
+  m_doc->setPixmap( MarkInterface::markType01, QPixmap((const char**)bookmark_xpm) );
   
   updateFont();
 }
@@ -216,9 +216,9 @@ void KateIconBorder::paintEvent(QPaintEvent* e)
   paintBorder (updateR.x(), updateR.y(), updateR.width(), updateR.height());
 }
 
-void KateIconBorder::paintBorder (int x, int y, int width, int height)
+void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
-  int xStart = x;
+  // int xStart = x;
   uint h = m_doc->viewFont.fontHeight;
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
@@ -307,9 +307,9 @@ void KateIconBorder::paintBorder (int x, int y, int width, int height)
         if (!info.topLevel)
         {
           if (info.startsVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
-            p.drawPixmap(lnX+2,y,QPixmap(minus_xpm));
+            p.drawPixmap(lnX+2,y,QPixmap((const char**)minus_xpm));
           else if (info.startsInVisibleBlock && (m_viewInternal->lineRanges[z].startCol == 0))
-            p.drawPixmap(lnX+2,y,QPixmap(plus_xpm));
+            p.drawPixmap(lnX+2,y,QPixmap((const char**)plus_xpm));
           else
           {
             p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);

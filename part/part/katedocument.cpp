@@ -167,8 +167,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_docNameNumber = 0;
 
   m_kspell = 0;
-  m_mispellCount = 0;
-  m_replaceCount =  0;
 
   blockSelect = false;
 
@@ -4647,9 +4645,6 @@ void KateDocument::spellcheck()
 
 void KateDocument::ready(KSpell *)
 {
-  m_mispellCount = 0;
-  m_replaceCount = 0;
-
   m_kspell->setProgressResolution( 1 );
 
   m_kspell->check( text() );
@@ -4675,8 +4670,6 @@ void KateDocument::locatePosition( uint pos, uint& line, uint& col )
 
 void KateDocument::misspelling( const QString& origword, const QStringList&, unsigned int pos )
 {
-  m_mispellCount++;
-
   uint line, col;
 
   locatePosition( pos, line, col );
@@ -4689,8 +4682,6 @@ void KateDocument::misspelling( const QString& origword, const QStringList&, uns
 
 void KateDocument::corrected( const QString& originalword, const QString& newword, unsigned int pos )
 {
-  m_replaceCount++;
-
   uint line, col;
 
   locatePosition( pos, line, col );

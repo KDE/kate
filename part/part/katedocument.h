@@ -831,7 +831,12 @@ class KateDocument : public Kate::Document,
     // file type !!!
     int m_fileType;
     bool m_fileTypeSetByUser;
-
+    
+    /**
+     * document is still reloading a file
+     */
+    bool m_reloading;
+    
   public slots:
     void spellcheck();
     void ready(KSpell *);
@@ -848,9 +853,6 @@ class KateDocument : public Kate::Document,
 
     void locatePosition( uint pos, uint& line, uint& col );
     KSpell*         m_kspell;
-    int             m_mispellCount;
-    int             m_replaceCount;
-    bool            m_reloading;
 
   public:
     static bool checkOverwrite( KURL u );

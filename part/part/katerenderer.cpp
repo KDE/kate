@@ -281,6 +281,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   a = a + startcol;
 
   uint curCol = startcol;
+  uint nextCol = curCol + 1;
 
   // or we will see no text ;)
   int y = fs->fontAscent;
@@ -305,7 +306,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     hasSel = selectBounds(line, startSel, endSel, oldLen);
   }
 
-  uint oldCol = startcol;
+  uint blockStartCol = startcol;
   uint oldXPos = xPos;
 
   bool isSel = false;
@@ -336,6 +337,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
       cursorMaxWidth = xPosAfter - xPos;
     }
+
   }
   else
   {
@@ -434,7 +436,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           }
 
           // variable advancement
-          oldCol = curCol+1;
+          blockStartCol = nextCol;
           oldXPos = xPosAfter;
         }
         // Reasons for NOT delaying the drawing until the next character
@@ -442,7 +444,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
         // TODO: KateAttribute::canBatchRender()
         else if (
             // formatting has changed OR
-            (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, curCol+1)) ||
+            (superRanges.count() && superRanges.currentBoundary() && *(superRanges.currentBoundary()) == KateTextCursor(line, nextCol)) ||
 
             // it is the end of the line OR
             (tmp < 2) ||
@@ -454,17 +456,17 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             (!noAttribs && curAt != &at[*(a+1)]) ||
 
             // the selection boundary was crossed OR
-            (isSel != (hasSel && ((curCol+1) >= startSel) && ((curCol+1) < endSel))) ||
+            (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel))) ||
 
             // the next char is a tab (removed the "and this isn't" because that's dealt with above)
             // i.e. we have to draw the current text so the tab can be rendered as above.
-            (textLine->string()[curCol+1] == tabChar) ||
+            (textLine->string()[nextCol] == tabChar) ||
 
             // input method edit area
-            ( isIMEdit != ( imStart < imEnd && ( (curCol+1) >= imStart && (curCol+1) < imEnd ) ) ) ||
+            ( isIMEdit != ( imStart < imEnd && ( nextCol >= imStart && nextCol < imEnd ) ) ) ||
 
             // input method selection
-            ( isIMSel != ( imSelStart < imSelEnd && ( (curCol+1) >= imSelStart && (curCol+1) < imSelEnd ) ) )
+            ( isIMSel != ( imSelStart < imSelEnd && ( nextCol >= imSelStart && nextCol < imSelEnd ) ) )
           )
         {
           if (!isPrinterFriendly()) {
@@ -495,7 +497,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           }
 
           // Here's where the money is...
-          paint.drawText(oldXPos-xStart, y, textLine->string(), oldCol, curCol+1-oldCol);
+          paint.drawText(oldXPos-xStart, y, textLine->string(), blockStartCol, nextCol-blockStartCol);
 
           // Put pen color back
           if (isIMSel) paint.restore();
@@ -505,7 +507,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
             break;
 
           // variable advancement
-          oldCol = curCol+1;
+          blockStartCol = nextCol;
           oldXPos = xPosAfter;
           //oldS = s+1;
         }
@@ -522,7 +524,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
       else
       {
         // variable advancement
-        oldCol = curCol+1;
+        blockStartCol = nextCol;
         oldXPos = xPosAfter;
       }
 
@@ -538,6 +540,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
       // col move
       curCol++;
+      nextCol++;
       currentPos.setCol(currentPos.col() + 1);
     }
 

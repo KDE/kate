@@ -58,7 +58,7 @@ unsigned int SessionConfigInterface::configInterfaceNumber () const
   return mySessionConfigInterfaceNumber;
 }
 
-SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (Document *doc)
+SessionConfigInterface *KTextEditor::sessionConfigInterface (Document *doc)
 {                       
   if (!doc)
     return 0;
@@ -66,7 +66,7 @@ SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (Document *do
   return static_cast<SessionConfigInterface*>(doc->qt_cast("KTextEditor::SessionConfigInterface"));
 }      
 
-SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (View *view)
+SessionConfigInterface *KTextEditor::sessionConfigInterface (View *view)
 {                       
   if (!view)
     return 0;
@@ -74,7 +74,7 @@ SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (View *view)
   return static_cast<SessionConfigInterface*>(view->qt_cast("KTextEditor::SessionConfigInterface"));
 }
 
-SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (Plugin *plugin)
+SessionConfigInterface *KTextEditor::sessionConfigInterface (Plugin *plugin)
 {                       
   if (!plugin)
     return 0;
@@ -82,7 +82,7 @@ SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (Plugin *plug
   return static_cast<SessionConfigInterface*>(plugin->qt_cast("KTextEditor::SessionConfigInterface"));
 }
 
-SessionConfigInterface *KTextEditor::sessionSessionConfigInterface (ViewPlugin *plugin)
+SessionConfigInterface *KTextEditor::sessionConfigInterface (ViewPlugin *plugin)
 {                       
   if (!plugin)
     return 0;

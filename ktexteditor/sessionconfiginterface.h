@@ -53,10 +53,10 @@ class SessionConfigInterface
     unsigned int mySessionConfigInterfaceNumber;
 };
 
-SessionConfigInterface *sessionSessionConfigInterface (class Document *doc);
-SessionConfigInterface *sessionSessionConfigInterface (class View *view);
-SessionConfigInterface *sessionSessionConfigInterface (class Plugin *plugin);
-SessionConfigInterface *sessionSessionConfigInterface (class ViewPlugin *plugin);
+SessionConfigInterface *sessionConfigInterface (class Document *doc);
+SessionConfigInterface *sessionConfigInterface (class View *view);
+SessionConfigInterface *sessionConfigInterface (class Plugin *plugin);
+SessionConfigInterface *sessionConfigInterface (class ViewPlugin *plugin);
 
 };
 

@@ -22,14 +22,12 @@
 // $Id$
 
 //BEGIN INCLUDES
-//#include <string.h>
 #include <qstringlist.h>
-
 #include <qtextstream.h>
+
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kinstance.h>
-//#include <kmimemagic.h>
 #include <kmimetype.h>
 #include <klocale.h>
 #include <kregexp.h>
@@ -39,53 +37,62 @@
 #include <kmessagebox.h>
 #include <kapplication.h>
 
-#include "katehighlight.h"
-#include "katehighlight.moc"
-
 #include "katetextline.h"
 #include "katedocument.h"
 #include "katesyntaxdocument.h"
-
 #include "katefactory.h"
+
+#include "katehighlight.h"
+#include "katehighlight.moc"
+
 //END
 
-/**
-  Prviate HL classes
-*/
 
-class HlCharDetect : public HlItem {
+//BEGIN  Prviate HL classes
+
+class HlCharDetect : public HlItem
+{
   public:
     HlCharDetect(int attribute, int context,signed char regionId,signed char regionId2, QChar);
     virtual int checkHgl(const QString& text, int offset, int len);
+
   private:
     QChar sChar;
 };
 
-class Hl2CharDetect : public HlItem {
+class Hl2CharDetect : public HlItem
+{
   public:
     Hl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2,  QChar ch1, QChar ch2);
-   	Hl2CharDetect(int attribute, int context,signed char regionId,signed char regionId2,  const QChar *ch);
+    Hl2CharDetect(int attribute, int context,signed char regionId,signed char regionId2,  const QChar *ch);
 
     virtual int checkHgl(const QString& text, int offset, int len);
+
   private:
     QChar sChar1;
     QChar sChar2;
 };
 
-class HlStringDetect : public HlItem {
+class HlStringDetect : public HlItem
+{
   public:
     HlStringDetect(int attribute, int context, signed char regionId,signed char regionId2, const QString &, bool inSensitive=false);
+
     virtual ~HlStringDetect();
     virtual int checkHgl(const QString& text, int offset, int len);
+
   private:
     const QString str;
     bool _inSensitive;
 };
 
-class HlRangeDetect : public HlItem {
+class HlRangeDetect : public HlItem
+{
   public:
     HlRangeDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
+
   private:
     QChar sChar1;
     QChar sChar2;
@@ -110,81 +117,103 @@ class HlKeyword : public HlItem
     const QString& deliminators;
 };
 
-class HlInt : public HlItem {
+class HlInt : public HlItem
+{
   public:
     HlInt(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
-class HlFloat : public HlItem {
+class HlFloat : public HlItem
+{
   public:
     HlFloat(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
-class HlCOct : public HlItem {
+class HlCOct : public HlItem
+{
   public:
     HlCOct(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
-class HlCHex : public HlItem {
+class HlCHex : public HlItem
+{
   public:
     HlCHex(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
-class HlCFloat : public HlFloat {
+class HlCFloat : public HlFloat
+{
   public:
     HlCFloat(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
     int checkIntHgl(const QString& text, int offset, int len);
     virtual bool alwaysStartEnable() const;
 };
 
-class HlLineContinue : public HlItem {
+class HlLineContinue : public HlItem
+{
   public:
     HlLineContinue(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual bool endEnable(QChar c) {return c == '\0';}
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool lineContinue(){return true;}
 };
 
-class HlCStringChar : public HlItem {
+class HlCStringChar : public HlItem
+{
   public:
     HlCStringChar(int attribute, int context, signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
 };
 
-class HlCChar : public HlItem {
+class HlCChar : public HlItem
+{
   public:
     HlCChar(int attribute, int context,signed char regionId,signed char regionId2);
+
     virtual int checkHgl(const QString& text, int offset, int len);
 };
 
-class HlAnyChar : public HlItem {
+class HlAnyChar : public HlItem
+{
   public:
     HlAnyChar(int attribute, int context, signed char regionId,signed char regionId2, const QString& charList);
+
     virtual int checkHgl(const QString& text, int offset, int len);
+
+  private:
     const QString _charList;
 };
 
-class HlRegExpr : public HlItem {
+class HlRegExpr : public HlItem
+{
   public:
-  HlRegExpr(int attribute, int context,signed char regionId,signed char regionId2 ,QString expr, bool insensitive, bool minimal);
-  virtual int checkHgl(const QString& text, int offset, int len);
-  ~HlRegExpr(){delete Expr;};
+    HlRegExpr(int attribute, int context,signed char regionId,signed char regionId2 ,QString expr, bool insensitive, bool minimal);
+    ~HlRegExpr(){delete Expr;};
 
-  QRegExp *Expr;
+    virtual int checkHgl(const QString& text, int offset, int len);
 
-  bool handlesLinestart;
+  private:
+    QRegExp *Expr;
+    bool handlesLinestart;
 };
 
-//--------
+//END
 
 //BEGIN STATICS
 HlManager *HlManager::s_pSelf = 0;
@@ -195,23 +224,23 @@ QStringList HlManager::commonSuffixes = QStringList::split(";", ".orig;.new;~;.b
 
 enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar,dsString,dsComment,dsOthers};
 
-static bool trueBool = true;
-static QString stdDeliminator = QString ("!%&()*+,-./:;<=>?[]^{|}~ \t\\");
+static const bool trueBool = true;
+static const QString stdDeliminator = QString ("!%&()*+,-./:;<=>?[]^{|}~ \t\\");
 //END
 
 //BEGIN NON MEMBER FUNCTIONS
 static int getDefStyleNum(QString name)
 {
   if (name=="dsNormal") return dsNormal;
-  if (name=="dsKeyword") return dsKeyword;
-  if (name=="dsDataType") return dsDataType;
-  if (name=="dsDecVal") return dsDecVal;
-  if (name=="dsBaseN") return dsBaseN;
-  if (name=="dsFloat") return dsFloat;
-  if (name=="dsChar") return dsChar;
-  if (name=="dsString") return dsString;
-  if (name=="dsComment") return dsComment;
-  if (name=="dsOthers")  return dsOthers;
+  else if (name=="dsKeyword") return dsKeyword;
+  else if (name=="dsDataType") return dsDataType;
+  else if (name=="dsDecVal") return dsDecVal;
+  else if (name=="dsBaseN") return dsBaseN;
+  else if (name=="dsFloat") return dsFloat;
+  else if (name=="dsChar") return dsChar;
+  else if (name=="dsString") return dsString;
+  else if (name=="dsComment") return dsComment;
+  else if (name=="dsOthers")  return dsOthers;
 
   return dsNormal;
 }
@@ -225,7 +254,12 @@ HlItem::HlItem(int attribute, int context,signed char regionId,signed char regio
 HlItem::~HlItem()
 {
   //kdDebug(13010)<<"In hlItem::~HlItem()"<<endl;
-  if (subItems!=0) {subItems->setAutoDelete(true); subItems->clear(); delete subItems;}
+  if (subItems!=0)
+  {
+    subItems->setAutoDelete(true);
+    subItems->clear();
+    delete subItems;
+  }
 }
 
 bool HlItem::startEnable(const QChar& c)
@@ -239,26 +273,35 @@ bool HlItem::startEnable(const QChar& c)
 
 //BEGIN HLCharDetect
 HlCharDetect::HlCharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar c)
-  : HlItem(attribute,context,regionId,regionId2), sChar(c) {
+  : HlItem(attribute,context,regionId,regionId2), sChar(c)
+{
 }
 
-int HlCharDetect::checkHgl(const QString& text, int offset, int len) {
-  if (len && text[offset] == sChar) return offset + 1;
+int HlCharDetect::checkHgl(const QString& text, int offset, int len)
+{
+  if (len && text[offset] == sChar)
+    return offset + 1;
+
   return 0;
 }
 //END
 
 //BEGIN Hl2CharDetect
 Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId,signed char regionId2, QChar ch1, QChar ch2)
-  : HlItem(attribute,context,regionId,regionId2) {
+  : HlItem(attribute,context,regionId,regionId2)
+{
   sChar1 = ch1;
   sChar2 = ch2;
 }
 
 int Hl2CharDetect::checkHgl(const QString& text, int offset, int len)
 {
-  if (len < 2) return offset;
-  if (text[offset++] == sChar1 && text[offset++] == sChar2) return offset;
+  if (len < 2)
+    return offset;
+
+  if (text[offset++] == sChar1 && text[offset++] == sChar2)
+    return offset;
+
   return 0;
 }
 //END
@@ -362,9 +405,7 @@ int HlKeyword::checkHgl(const QString& text, int offset, int len)
 
   if (offset2 == offset) return 0;
 
-  QString lookup = text.mid(offset, offset2 - offset);
-
-  if ( dict.find(lookup) ) return offset2;
+  if ( dict.find(text.mid(offset, offset2 - offset)) ) return offset2;
 
   return 0;
 }
@@ -397,8 +438,8 @@ int HlInt::checkHgl(const QString& text, int offset, int len)
     {
       for (HlItem *it = subItems->first(); it; it = subItems->next())
       {
-        offset = it->checkHgl(text, offset2, len);
-        if (offset) return offset;
+        if ( (offset = it->checkHgl(text, offset2, len)) )
+          return offset;
       }
     }
 
@@ -421,10 +462,8 @@ bool HlFloat::alwaysStartEnable() const
 
 int HlFloat::checkHgl(const QString& text, int offset, int len)
 {
-  bool b, p;
-
-  b = false;
-  p = false;
+  bool b = false;
+  bool p = false;
 
   while ((len > 0) && text[offset].isDigit())
   {
@@ -792,9 +831,8 @@ ItemData::ItemData(const QString  name, int defStyleNum)
 }
 
 HlData::HlData(const QString &wildcards, const QString &mimetypes, const QString &identifier)
-  : wildcards(wildcards), mimetypes(mimetypes), identifier(identifier) {
-
-//JW  itemDataList.setAutoDelete(true);
+  : wildcards(wildcards), mimetypes(mimetypes), identifier(identifier)
+{
 }
 
 HlContext::HlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext)
@@ -814,7 +852,7 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId,si
 
 Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
 {
-  errorsAndWarnings="";
+  errorsAndWarnings = "";
   building=false;
   noHl = false;
   folding=false;
@@ -835,12 +873,13 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
     identifier = def->identifier;
     iVersion=def->version;
   }
+
   deliminator = stdDeliminator;
 }
 
 Highlight::~Highlight()
 {
-    contextList.setAutoDelete( true );
+  contextList.setAutoDelete( true );
 }
 
 void Highlight::generateContextStack(int *ctxNum, int ctx, QMemArray<uint>* ctxs, int *prevLine, bool lineContinue)
@@ -941,7 +980,6 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 //  kdDebug(13010)<<QString("The context stack length is: %1").arg(oCtx.size())<<endl;
 
   HlContext *context;
-  HlItem *item=0;
 
   // if (lineContinue) kdDebug(13010)<<"Entering with lineContinue flag set"<<endl;
 
@@ -960,25 +998,14 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
   }
   else
   {
-    //  kdDebug(13010)<<"test1-2-1"<<endl;
-
-     /*QString tmpStr="";
-     for (int jwtest=0;jwtest<oCtx.size();jwtest++)
-	tmpStr=tmpStr+QString("%1 ,").arg(ctx[jwtest]);
-    kdDebug(13010)<< "Old Context stack:" << tmpStr<<endl; */
-
     // There does an old context stack exist -> find the context at the line start
     ctxNum=ctx[oCtx.size()-1]; //context ID of the last character in the previous line
-
-    //kdDebug(13010)<<"test1-2-1-text1"<<endl;
 
     //kdDebug(13010) << "\t\tctxNum = " << ctxNum << " contextList[ctxNum] = " << contextList[ctxNum] << endl; // ellis
 
     //if (lineContinue)   kdDebug(13010)<<QString("The old context should be %1").arg((int)ctxNum)<<endl;
 
-    if (contextNum(ctxNum))
-      context=contextNum(ctxNum); //context structure
-    else
+    if (!(context = contextNum(ctxNum)))
       context = contextNum(0);
 
     //kdDebug(13010)<<"test1-2-1-text2"<<endl;
@@ -990,8 +1017,8 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
     //kdDebug(13010)<<"test1-2-1-text4"<<endl;
 
-    context=contextNum(ctxNum);	//current context to use
-    //kdDebug(13010)<<"test1-2-2"<<endl;
+    if (!(context = contextNum(ctxNum)))
+      context = contextNum(0);
 
     //if (lineContinue)   kdDebug(13010)<<QString("The new context is %1").arg((int)ctxNum)<<endl;
   }
@@ -1001,23 +1028,16 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
   // text, for programming convenience :)
   const QString& text = textLine->string();
 
-  // non space char - index of that char
-//  const QChar *s1 = textLine->firstNonSpace();
-  int offset1 = 0, offset2 = 0;
+  int offset1 = 0;
   uint z=0;
-//  uint z = textLine->firstChar();
 
   // length of textline
   uint len = textLine->length();
-
+  HlItem *item = 0;
   bool found = false;
-
-  //kdDebug() << k_funcinfo << len << " z " << z << endl;
 
   while (z < len)
   {
-    //kdDebug() << "offset1" << offset1 << " offset2 " << offset2 << endl;
-
     found = false;
 
     bool standardStartEnableDetermined = false;
@@ -1048,7 +1068,7 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 
       if (thisStartEnabled)
       {
-        offset2 = item->checkHgl(text, offset1, len-z);
+        int offset2 = item->checkHgl(text, offset1, len-z);
 
         if (offset2 > offset1)
         {
@@ -1142,51 +1162,44 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
 //  else kdDebug(13010)<<QString("Context stack len:0")<<endl;
 
   textLine->setContext(ctx.data(), ctx.size());
-
-  //kdDebug(13010)<<QString("Context stack size on exit :%1").arg(ctx.size())<<endl;
 }
 
-KConfig *Highlight::getKConfig() {
-  KConfig *config;
+KConfig *Highlight::getKConfig()
+{
+  KConfig *config = HlManager::getKConfig();
 
-  config = HlManager::getKConfig();//KateFactory::instance()->config();
   config->setGroup(iName + QString(" Highlight"));
+
   return config;
 }
 
-QString Highlight::getWildcards() {
-  //if wildcards not yet in config, then use iWildCards as default
+QString Highlight::getWildcards()
+{
   return getKConfig()->readEntry("Wildcards", iWildcards);
 }
 
-QString Highlight::getMimetypes() {
+QString Highlight::getMimetypes()
+{
   return getKConfig()->readEntry("Mimetypes", iMimetypes);
 }
 
-HlData *Highlight::getData() {
-  KConfig *config;
-  HlData *hlData;
+HlData *Highlight::getData()
+{
+  KConfig *config = getKConfig();
 
-  config = getKConfig();
-
-//  iWildcards = config->readEntry("Wildcards");
-//  iMimetypes = config->readEntry("Mimetypes");
-//  hlData = new HlData(iWildcards,iMimetypes);
-  hlData = new HlData(
+  HlData *hlData = new HlData(
     config->readEntry("Wildcards", iWildcards),
     config->readEntry("Mimetypes", iMimetypes),
     config->readEntry("Identifier", identifier));
+
   getItemDataList(hlData->itemDataList, config);
+
   return hlData;
 }
 
-void Highlight::setData(HlData *hlData) {
-  KConfig *config;
-
-  config = getKConfig();
-
-//  iWildcards = hlData->wildcards;
-//  iMimetypes = hlData->mimetypes;
+void Highlight::setData(HlData *hlData)
+{
+  KConfig *config = getKConfig();
 
   config->writeEntry("Wildcards",hlData->wildcards);
   config->writeEntry("Mimetypes",hlData->mimetypes);
@@ -1374,52 +1387,48 @@ void Highlight::createItemData(ItemDataList &list)
   list=internalIDList;
 }
 
-
 void Highlight::addToItemDataList()
+{
+  //Tell the syntax document class which file we want to parse and which data group
+  HlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data = HlManager::self()->syntax->getGroupInfo("highlighting","itemData");
+
+  //begin with the real parsing
+  while (HlManager::self()->syntax->nextGroup(data))
   {
-    syntaxContextData *data;
-    QString color;
-    QString selColor;
-    QString bold;
-    QString italic;
+    // read all attributes
+    QString color = HlManager::self()->syntax->groupData(data,QString("color"));
+    QString selColor = HlManager::self()->syntax->groupData(data,QString("selColor"));
+    QString bold = HlManager::self()->syntax->groupData(data,QString("bold"));
+    QString italic = HlManager::self()->syntax->groupData(data,QString("italic"));
 
-    //Tell the syntax document class which file we want to parse and which data group
-    HlManager::self()->syntax->setIdentifier(buildIdentifier);
-    data=HlManager::self()->syntax->getGroupInfo("highlighting","itemData");
-    //begin with the real parsing
-    while (HlManager::self()->syntax->nextGroup(data))
-      {
-        // read all attributes
-        color=HlManager::self()->syntax->groupData(data,QString("color"));
-        selColor=HlManager::self()->syntax->groupData(data,QString("selColor"));
-        bold=HlManager::self()->syntax->groupData(data,QString("bold"));
-        italic=HlManager::self()->syntax->groupData(data,QString("italic"));
-        //check if the user overrides something
-        if ( (!color.isEmpty()) && (!selColor.isEmpty()) && (!bold.isEmpty()) && (!italic.isEmpty()))
-                {
-                        //create a user defined style
-                        ItemData* newData = new ItemData(
-                                buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
-                                getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
+    //check if the user overrides something
+    if ( (!color.isEmpty()) && (!selColor.isEmpty()) && (!bold.isEmpty()) && (!italic.isEmpty()))
+    {
+      //create a user defined style
+      ItemData* newData = new ItemData(
+              buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+              getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum"))));
 
-                        newData->setTextColor(QColor(color));
-                        newData->setSelectedTextColor(QColor(selColor));
-                        newData->setBold(bold=="true" || bold=="1");
-                        newData->setItalic(italic=="true" || italic=="1");
+      newData->setTextColor(QColor(color));
+      newData->setSelectedTextColor(QColor(selColor));
+      newData->setBold(bold=="true" || bold=="1");
+      newData->setItalic(italic=="true" || italic=="1");
 
-                        internalIDList.append(newData);
-                }
-        else
-                {
-                        //assign a default style
-                        internalIDList.append(new ItemData(
-                                buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
-                                getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum")))));
+      internalIDList.append(newData);
+    }
+    else
+    {
+      //assign a default style
+      internalIDList.append(new ItemData(
+              buildPrefix+HlManager::self()->syntax->groupData(data,QString("name")).simplifyWhiteSpace(),
+              getDefStyleNum(HlManager::self()->syntax->groupData(data,QString("defStyleNum")))));
+    }
+  }
 
-                }
-      }
-    //clean up
-  if (data) HlManager::self()->syntax->freeGroupInfo(data);
+  //clean up
+  if (data)
+    HlManager::self()->syntax->freeGroupInfo(data);
 }
 
 /*******************************************************************************************
@@ -1604,9 +1613,7 @@ HlItem *Highlight::createHlItem(syntaxContextData *data, ItemDataList &iDl,QStri
 
 bool Highlight::isInWord(QChar c)
 {
-  const QString sq("\"'");
-  //const QChar *q = sq.unicode();
-  //return !ustrchr(deliminatorChars, deliminatorLen, c) && !ustrchr( q, 2, c);
+  static const QString sq("\"'");
   return deliminator.find(c) == -1 && sq.find(c) == -1;
 }
 
@@ -1624,28 +1631,31 @@ bool Highlight::isInWord(QChar c)
 
 void Highlight::readCommentConfig()
 {
-
-  cslStart = "";
   HlManager::self()->syntax->setIdentifier(buildIdentifier);
-
   syntaxContextData *data=HlManager::self()->syntax->getGroupInfo("general","comment");
-  if (data)
-    {
-//      kdDebug(13010)<<"COMMENT DATA FOUND"<<endl;
-    while  (HlManager::self()->syntax->nextGroup(data))
-      {
 
-        if (HlManager::self()->syntax->groupData(data,"name")=="singleLine")
-		cslStart=HlManager::self()->syntax->groupData(data,"start");
-	if (HlManager::self()->syntax->groupData(data,"name")=="multiLine")
-           {
-		cmlStart=HlManager::self()->syntax->groupData(data,"start");
-		cmlEnd=HlManager::self()->syntax->groupData(data,"end");
-           }
+  if (data)
+  {
+    while  (HlManager::self()->syntax->nextGroup(data))
+    {
+      if (HlManager::self()->syntax->groupData(data,"name")=="singleLine")
+        cslStart=HlManager::self()->syntax->groupData(data,"start");
+
+      if (HlManager::self()->syntax->groupData(data,"name")=="multiLine")
+      {
+        cmlStart=HlManager::self()->syntax->groupData(data,"start");
+        cmlEnd=HlManager::self()->syntax->groupData(data,"end");
       }
-    HlManager::self()->syntax->freeGroupInfo(data);
     }
 
+    HlManager::self()->syntax->freeGroupInfo(data);
+  }
+  else
+  {
+    cslStart = "";
+    cmlStart = "";
+    cmlEnd = "";
+  }
 }
 
 /*******************************************************************************************
@@ -1666,46 +1676,46 @@ void Highlight::readGlobalKeywordConfig()
 {
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readGlobalKeywordConfig:BEGIN"<<endl;
+
   HlManager::self()->syntax->setIdentifier(buildIdentifier);
+  syntaxContextData *data = HlManager::self()->syntax->getConfig("general","keywords");
 
-  // Get the keywords config entry
-  syntaxContextData * data=HlManager::self()->syntax->getConfig("general","keywords");
   if (data)
+  {
+    kdDebug(13010)<<"Found global keyword config"<<endl;
+
+    if (HlManager::self()->syntax->groupItemData(data,QString("casesensitive"))!="0")
+      casesensitive=true;
+    else
+      casesensitive=false;
+
+    //get the weak deliminators
+    weakDeliminator=(HlManager::self()->syntax->groupItemData(data,QString("weakDeliminator")));
+
+    kdDebug(13010)<<"weak delimiters are: "<<weakDeliminator<<endl;
+
+    // remove any weakDelimitars (if any) from the default list and store this list.
+    for (uint s=0; s < weakDeliminator.length(); s++)
     {
-	kdDebug(13010)<<"Found global keyword config"<<endl;
+      int f = deliminator.find (weakDeliminator[s]);
 
-        if (HlManager::self()->syntax->groupItemData(data,QString("casesensitive"))!="0")
-		casesensitive=true; else {casesensitive=false; kdDebug(13010)<<"Turning on case insensitiveness"<<endl;}
-     //get the weak deliminators
-     weakDeliminator=(HlManager::self()->syntax->groupItemData(data,QString("weakDeliminator")));
-
-     kdDebug(13010)<<"weak delimiters are: "<<weakDeliminator<<endl;
-     // remove any weakDelimitars (if any) from the default list and store this list.
-     int f;
-     for (uint s=0; s < weakDeliminator.length(); s++)
-     {
-        f = 0;
-        f = deliminator.find (weakDeliminator[s]);
-
-        if (f > -1)
-          deliminator.remove (f, 1);
-     }
-
-     QString addDelim=(HlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));
-     if (!addDelim.isEmpty()) deliminator=deliminator+addDelim;
-//      deliminatorChars = deliminator.unicode();
-//      deliminatorLen = deliminator.length();
-
-
-	HlManager::self()->syntax->freeGroupInfo(data);
+      if (f > -1)
+        deliminator.remove (f, 1);
     }
+
+    QString addDelim = (HlManager::self()->syntax->groupItemData(data,QString("additionalDeliminator")));
+
+    if (!addDelim.isEmpty())
+      deliminator=deliminator+addDelim;
+
+    HlManager::self()->syntax->freeGroupInfo(data);
+  }
   else
-    {
-       //Default values
-       casesensitive=true;
-       weakDeliminator=QString("");
-    }
-
+  {
+    //Default values
+    casesensitive=true;
+    weakDeliminator=QString("");
+  }
 
   kdDebug(13010)<<"readGlobalKeywordConfig:END"<<endl;
 
@@ -1714,8 +1724,6 @@ void Highlight::readGlobalKeywordConfig()
 
 void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
 {
-  syntaxContextData *data;
-
   kdDebug(13010)<<"creatingContextNameList:BEGIN"<<endl;
 
   if (ctx0 == 0)
@@ -1723,7 +1731,7 @@ void  Highlight::createContextNameList(QStringList *ContextNameList,int ctx0)
 
   HlManager::self()->syntax->setIdentifier(buildIdentifier);
 
-  data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
+  syntaxContextData *data=HlManager::self()->syntax->getGroupInfo("highlighting","context");
 
   int id=ctx0;
 

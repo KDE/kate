@@ -1,0 +1,26 @@
+This is a pseudo scheme file to test Kate's scheme syntax highlighting.
+
+;BEGIN Regin marker
+; comment in region marker
+;END Regin marker
+
+|# multiline comment
+
+
+#|
+
+(define string->write-string
+;BEGIN some code
+  (letrec ((loop
+	    (lambda (s)
+	      (cond ((null? s) '(#\"))
+		    ((char=? (car s) #\\ ) `(#\\ #\\ ,@(loop (cdr s))))
+		    ((char=? (car s) #\") `(#\\ #\" ,@(loop (cdr s))))
+		    (else `(,(car s) ,@(loop (cdr s)))))))) ; comment
+;END some code
+;comment
+    (lambda (string)
+      (list->string
+       `(#\" ,@(loop (string->list string)))))
+  )
+)

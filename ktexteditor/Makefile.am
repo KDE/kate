@@ -1,5 +1,5 @@
 SUBDIRS = . kcm
-INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) $(all_includes) -I../
+INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) $(all_includes) -I$(top_srcdir)/interfaces -I$(top_builddir)/interfaces
 
 lib_LTLIBRARIES = libktexteditor.la
 

@@ -131,29 +131,29 @@ void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
   leftBorder->update();
 }
 
-inline int KateViewInternal::yPosition () const
+int KateViewInternal::yPosition () const
 {
    return yPos;
 }
 
-inline uint KateViewInternal::contentsYToLine( int y ) const
+uint KateViewInternal::contentsYToLine( int y ) const
 {
   return y / myDoc->viewFont.fontHeight;
 }
 
-inline int KateViewInternal::lineToContentsY( uint line ) const
+int KateViewInternal::lineToContentsY( uint line ) const
 {
   return line * myDoc->viewFont.fontHeight;
 }
 
-inline uint KateViewInternal::linesDisplayed() const
+uint KateViewInternal::linesDisplayed() const
 {
   int h = height();
   int fh = myDoc->viewFont.fontHeight;
   return (h % fh) == 0 ? h / fh : h / fh + 1;
 }
 
-inline QPoint KateViewInternal::cursorCoordinates()
+QPoint KateViewInternal::cursorCoordinates()
 {
    return contentsToViewport( QPoint( cXPos, lineToContentsY( displayCursor.line ) ) );
 }

@@ -81,7 +81,7 @@ class KateViewInternal : public QScrollView
     const KateTextCursor& getCursor()  { return cursor; }
     QPoint cursorCoordinates();        
     
-    inline int yPosition () const;     
+    int yPosition () const;     
              
   signals:
     // emitted when KateViewInternal is not handling its own URI drops
@@ -118,9 +118,9 @@ class KateViewInternal : public QScrollView
     void moveEdge( Bias bias, bool sel );
     void scrollLines( int lines, bool sel );
     
-    inline uint linesDisplayed() const;
-    inline uint contentsYToLine( int y ) const;
-    inline int  lineToContentsY( uint line ) const;
+    uint linesDisplayed() const;
+    uint contentsYToLine( int y ) const;
+    int  lineToContentsY( uint line ) const;
     inline uint firstLine() const { return contentsYToLine( yPosition() ); }
     inline uint lastLine()  const { return contentsYToLine( yPosition() + visibleHeight() ); }
 

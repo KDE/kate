@@ -2724,7 +2724,7 @@
 			<context name="twolinecomment" attribute="Comment" lineEndContext="#stay">
 				<Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" />
 			</context>
-			<context name="onnelinecomment_2" attribute="Comment" lineEndContext="#pop"/>
+			<context name="onelinecomment_2" attribute="Comment" lineEndContext="#pop"/>
 			<context name="doblequotestring" attribute="String" lineEndContext="#stay">
 				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
 				<Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\"/>

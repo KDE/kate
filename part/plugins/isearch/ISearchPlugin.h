@@ -58,8 +58,6 @@ public:
   
   void setView( KTextEditor::View* view );   
   
-  KTextEditor::View *view() { return m_view; };
-
 public slots:
 	void setCaseSensitive( bool );
 	void setFromBeginning( bool );

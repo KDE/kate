@@ -1714,58 +1714,30 @@ void KateDocument::configDialog()
                                     i18n("Configure"),
                                     KDialogBase::Ok | KDialogBase::Cancel |
                                     KDialogBase::Help ,
-                                    KDialogBase::Ok, kapp->mainWidget());
-
-  // color options
-  QVBox *page=kd->addVBoxPage(i18n("Colors"), i18n("Colors"),
-                              BarIcon("colorize", KIcon::SizeMedium) );
-  Kate::ConfigPage *mcolorConfigPage = colorConfigPage(page);
-
-  page = kd->addVBoxPage(i18n("Fonts"), i18n("Fonts Settings"),
-                              BarIcon("fonts", KIcon::SizeMedium) );
-  Kate::ConfigPage *mfontConfigPage = fontConfigPage(page);
-
-  // indent options
-  page=kd->addVBoxPage(i18n("Indent"), i18n("Indent Options"),
-                       BarIcon("rightjust", KIcon::SizeMedium) );
-  Kate::ConfigPage *mindentConfigPage = indentConfigPage(page);
-
-  // select options
-  page=kd->addVBoxPage(i18n("Select"), i18n("Selection Behavior"),
-                       BarIcon("misc") );
-  Kate::ConfigPage *mselectConfigPage = selectConfigPage(page);
-
-  // edit options
-  page=kd->addVBoxPage(i18n("Edit"), i18n("Editing Options"),
-                       BarIcon("edit", KIcon::SizeMedium ) );
-  Kate::ConfigPage *meditConfigPage = editConfigPage (page);
-
-  // Cursor key options
-  page=kd->addVBoxPage(i18n("Keyboard"), i18n("Keyboard Configuration"),
-                       BarIcon("edit", KIcon::SizeMedium ) );
-  Kate::ConfigPage *mkeysConfigPage = keysConfigPage (page);
-
+                                    KDialogBase::Ok, kapp->mainWidget());   
+                                    
   kwin.setIcons(kd->winId(), kapp->icon(), kapp->miniIcon());
-
-  page=kd->addVBoxPage(i18n("Highlighting"),i18n("Highlighting Configuration"),
-                        BarIcon("edit",KIcon::SizeMedium));
-  Kate::ConfigPage *mhlConfigPage = hlConfigPage (page);
-
-  page=kd->addVBoxPage(i18n("View defaults"),i18n("View Defaults"),
-                        BarIcon("misc",KIcon::SizeMedium));
-  Kate::ConfigPage *mvdConfigPage = viewDefaultsConfigPage (page);
-
-
+                           
+  QPtrList<KTextEditor::ConfigPage> editorPages;                                  
+            
+  for (uint i = 0; i < KTextEditor::configInterfaceExtension (this)->configPages (); i++)
+  {
+    QStringList path;
+    path.clear();
+    path << KTextEditor::configInterfaceExtension (this)->configPageName (i);
+    QVBox *page = kd->addVBoxPage(path, KTextEditor::configInterfaceExtension (this)->configPageFullName (i),
+                              KTextEditor::configInterfaceExtension (this)->configPagePixmap(i, KIcon::SizeMedium) );
+  
+    editorPages.append (KTextEditor::configInterfaceExtension (this)->configPage(i, page));
+  }                                  
+    
   if (kd->exec())
   {
-    mcolorConfigPage->apply();
-    mfontConfigPage->apply();
-    mindentConfigPage->apply();
-    mselectConfigPage->apply();
-    meditConfigPage->apply();
-    mkeysConfigPage->apply();
-    mhlConfigPage->apply();
-    mvdConfigPage->apply();
+    for (uint i=0; i<editorPages.count(); i++)
+    {
+      editorPages.at(i)->apply();
+    }        
+    
     // save the config, reload it to update doc + all views
     writeConfig();
     readConfig();

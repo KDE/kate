@@ -60,8 +60,8 @@ protected:
 };
                                             
 ISearchPluginView::ISearchPluginView( KTextEditor::View *view )
-	: QObject ( view ), KXMLGUIClient (view)
-	, m_view( 0L )
+	: QObject ( view )
+ 	, m_view( 0L )
 	, m_doc( 0L )
 	, m_searchIF( 0L )
 	, m_cursorIF( 0L )
@@ -480,10 +480,10 @@ void ISearchPlugin::addView(KTextEditor::View *view)
 void ISearchPlugin::removeView(KTextEditor::View *view)
 {
   for (uint z=0; z < m_views.count(); z++)
-    if (m_views.at(z)->view() == view)
+    if (m_views.at(z)->parentClient() == view)
     {
        ISearchPluginView *nview = m_views.at(z);
-       view->removeChildClient (nview);
+       //view->removeChildClient (nview);
        m_views.remove (nview);
       delete nview;
     }  

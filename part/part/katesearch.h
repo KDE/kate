@@ -31,26 +31,11 @@
 #include <qstringlist.h>
 #include <qvaluelist.h>
 
-class SearchFlags
-{
-  public:
-  bool caseSensitive     :1;
-  bool wholeWords        :1;
-  bool fromBeginning     :1;
-  bool backward          :1;
-  bool selected          :1;
-  bool prompt            :1;
-  bool replace           :1;
-  bool finished          :1;
-  bool regExp            :1;
-};
-
-class KActionCollection;
-
 class KateView;
 class KateDocument;
-
 class KateSuperRangeList;
+
+class KActionCollection;
 
 class KateSearch : public QObject
 {
@@ -58,6 +43,31 @@ class KateSearch : public QObject
 
   friend class KateDocument;
 
+  private:
+    class SearchFlags
+    {
+      public:
+        bool caseSensitive     :1;
+        bool wholeWords        :1;
+        bool fromBeginning     :1;
+        bool backward          :1;
+        bool selected          :1;
+        bool prompt            :1;
+        bool replace           :1;
+        bool finished          :1;
+        bool regExp            :1;
+    };
+  
+    class SConfig
+    {
+      public:
+        SearchFlags flags;
+        KateTextCursor cursor;
+        uint matchedLength;
+        KateTextCursor selBegin;
+        KateTextCursor selEnd;
+    };
+  
   public:
     enum Dialog_results {
       srCancel = KDialogBase::Cancel,
@@ -113,13 +123,7 @@ class KateSearch : public QObject
 
     KateSuperRangeList* m_arbitraryHLList;
 
-    struct SConfig {
-      SearchFlags flags;
-      KateTextCursor cursor;
-      uint matchedLength;
-      KateTextCursor selBegin;
-      KateTextCursor selEnd;
-    } s;
+    SConfig s;
 
     QValueList<SConfig> m_searchResults;
     int                 m_resultIndex;

@@ -684,8 +684,8 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
     }
     else if ((startLine+1) == endLine)
     {
-      if ( (kateTextLine(startLine)->length()-startCol) > 0 )
-        editRemoveText (startLine, startCol, kateTextLine(startLine)->length()-startCol);
+      if ( (buffer->plainLine(startLine)->length()-startCol) > 0 )
+        editRemoveText (startLine, startCol, buffer->plainLine(startLine)->length()-startCol);
 
       editRemoveText (startLine+1, 0, endCol);
       editUnWrapLine (startLine, startCol);
@@ -707,8 +707,8 @@ bool KateDocument::removeText ( uint startLine, uint startCol, uint endLine, uin
           }
           else
           {
-            if ( (kateTextLine(line)->length()-startCol) > 0 )
-              editRemoveText (line, startCol, kateTextLine(line)->length()-startCol);
+            if ( (buffer->plainLine(line)->length()-startCol) > 0 )
+              editRemoveText (line, startCol, buffer->plainLine(line)->length()-startCol);
 
             editUnWrapLine (startLine, startCol);
           }
@@ -803,7 +803,6 @@ void KateDocument::editStart (bool withUndo)
   editIsRunning = true;
   noViewUpdates = true;
   editWithUndo = withUndo;
-  buffer->setAllowHlUpdate(false);
 
   editTagLineStart = 0xffffff;
   editTagLineEnd = 0;
@@ -847,8 +846,6 @@ void KateDocument::editEnd ()
   if (editSessionNumber > 0)
     return;
 
-  buffer->setAllowHlUpdate(true);
-
   if (editTagLineStart <= editTagLineEnd)
     updateLines(editTagLineStart, editTagLineEnd);
 
@@ -886,7 +883,7 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
   while(line <= endLine)
   {
-    TextLine::Ptr l = buffer->line(line);
+    TextLine::Ptr l = buffer->plainLine(line);
 
     if (l->length() > col)
     {
@@ -956,7 +953,7 @@ void KateDocument::editRemoveTagLine (uint line)
 
 bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 {
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = buffer->plainLine(line);
 
   if (!l)
     return false;
@@ -977,7 +974,7 @@ bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
 
 bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 {
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = buffer->plainLine(line);
 
   if (!l)
     return false;
@@ -1004,7 +1001,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
 
 bool KateDocument::editWrapLine ( uint line, uint col )
 {
-  TextLine::Ptr l = buffer->line(line);
+  TextLine::Ptr l = buffer->plainLine(line);
 
   if (!l)
     return false;
@@ -1048,8 +1045,8 @@ bool KateDocument::editWrapLine ( uint line, uint col )
 
 bool KateDocument::editUnWrapLine ( uint line, uint col )
 {
-  TextLine::Ptr l = buffer->line(line);
-  TextLine::Ptr tl = buffer->line(line+1);
+  TextLine::Ptr l = buffer->plainLine(line);
+  TextLine::Ptr tl = buffer->plainLine(line+1);
 
   if (!l || !tl)
     return false;
@@ -1140,7 +1137,7 @@ bool KateDocument::editRemoveLine ( uint line )
     return false;
 
   if ( numLines() == 1 )
-    return editRemoveText (0, 0, kateTextLine(0)->length());
+    return editRemoveText (0, 0, buffer->plainLine(0)->length());
 
   editStart ();
 

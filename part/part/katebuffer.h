@@ -176,17 +176,7 @@ class KateBuffer : public QObject
    
     uint length ();
     int lineLength ( uint line );
-
-    inline bool allowHlUpdate () const
-    {
-      return !m_noHlUpdate;
-    }
    
-    inline void setAllowHlUpdate (bool b)
-    {
-      m_noHlUpdate = !b;
-    }
-    
   signals:
     /**
      * Emitted during loading when the line count changes.
@@ -273,8 +263,6 @@ class KateBuffer : public QObject
     uint m_lines;
     uint m_highlightedTo; // The highest line with correct highlight info
     uint m_highlightedRequested; // The highest line that we requested highlight for
-
-    bool m_noHlUpdate;
    
     uint m_lastInSyncBlock;  // last block where the start/end line is in sync with real life
 

@@ -193,7 +193,6 @@ class KateBufBlock
  * Create an empty buffer. (with one block with one empty line)
  */
 KateBuffer::KateBuffer(KateDocument *doc) : QObject (doc),
-  m_noHlUpdate (false),
   m_lastInSyncBlock (0),
   m_highlight (0),
   m_doc (doc),
@@ -544,29 +543,24 @@ TextLine::Ptr KateBuffer::line(uint i)
   if (!buf->b_stringListValid)
     parseBlock(buf);
 
-  if (!m_noHlUpdate)
+  if (buf->b_needHighlight)
   {
-    if (buf->b_needHighlight)
-    {
-      buf->b_needHighlight = false;
-      
-      if (m_highlightedTo > buf->startLine())
-      {
-         needHighlight (buf, buf->startLine(), buf->endLine());
-      }
-    }
+    buf->b_needHighlight = false;
     
-    if ((m_highlightedRequested <= i) && (m_highlightedTo <= i))
+    if (m_highlightedTo > buf->startLine())
     {
-      m_highlightedRequested = buf->endLine();
-      emit pleaseHighlight (m_highlightedTo, buf->endLine());
-
-      // Check again...
-      if (!buf->b_stringListValid)
-      {
-         parseBlock(buf);
-      }
+      needHighlight (buf, buf->startLine(), buf->endLine());
     }
+  }
+
+  if ((m_highlightedRequested <= i) && (m_highlightedTo <= i))
+  {
+    m_highlightedRequested = buf->endLine();
+    emit pleaseHighlight (m_highlightedTo, buf->endLine());
+
+    // Check again...
+    if (!buf->b_stringListValid)
+      parseBlock(buf);
   }
 
   return buf->line (i - buf->m_startLine);

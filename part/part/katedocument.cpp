@@ -69,6 +69,7 @@
 #include <kencodingfiledialog.h>
 #include <ktempfile.h>
 #include <kmdcodec.h>
+#include <kmultipledrag.h>
 
 #include <qtimer.h>
 #include <qfile.h>
@@ -584,6 +585,60 @@ QString KateDocument::text() const
 QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol ) const
 {
   return text(startLine, startCol, endLine, endCol, false);
+}
+
+QString KateDocument::textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
+{
+  kdDebug() << "textAsHtml" << endl;
+  if ( blockwise && (startCol > endCol) )
+    return QString ();
+
+  QString s;
+
+  if (startLine == endLine)
+  {
+    if (startCol > endCol)
+      return QString ();
+
+    KateTextLine::Ptr textLine = m_buffer->line(startLine);
+    if ( !textLine )
+      return QString ();
+
+    kdDebug() << "there are " << m_views.count() << " view for this document.  Using the first one" << endl;
+	      
+    KateView *firstview =  m_views.getFirst();
+    KateRenderer *renderer = firstview->renderer();
+    return textLine->stringAsHtml(startCol, endCol-startCol, renderer);
+  }
+  else
+  {
+    KateView *firstview =  m_views.getFirst();
+    KateRenderer *renderer = firstview->renderer();
+
+    for (uint i = startLine; (i <= endLine) && (i < m_buffer->count()); i++)
+    {
+      KateTextLine::Ptr textLine = m_buffer->line(i);
+
+      if ( !blockwise )
+      {
+        if (i == startLine)
+          s.append (textLine->stringAsHtml(startCol, textLine->length()-startCol, renderer));
+        else if (i == endLine)
+          s.append (textLine->stringAsHtml(0, endCol, renderer));
+        else
+          s.append (textLine->stringAsHtml(renderer));
+      }
+      else
+      {
+        s.append( textLine->stringAsHtml( startCol, endCol-startCol, renderer));
+      }
+
+      if ( i < endLine )
+        s.append("<br/>\n");
+    }
+  }
+
+  return s;
 }
 
 QString KateDocument::text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const
@@ -1617,8 +1672,9 @@ bool KateDocument::hasSelection() const
   return selectStart != selectEnd;
 }
 
-QString KateDocument::selection() const
+QString KateDocument::selectionAsHtml() const
 {
+  kdDebug() << "KateDocument::selection()" << endl;
   int sc = selectStart.col();
   int ec = selectEnd.col();
 
@@ -1631,7 +1687,23 @@ QString KateDocument::selection() const
       ec = tmp;
     }
   }
+  return textAsHtml (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+}
+QString KateDocument::selection() const
+{
+  kdDebug() << "KateDocument::selection()" << endl;
+  int sc = selectStart.col();
+  int ec = selectEnd.col();
 
+  if ( blockSelect )
+  {
+    if (sc > ec)
+    {
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
+    }
+  }
   return text (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
 }
 
@@ -3262,10 +3334,22 @@ void KateDocument::cut()
 
 void KateDocument::copy()
 {
+  kdDebug() << "in katedocument::copy()" << endl;
   if (!hasSelection())
     return;
+#ifndef QT_NO_MIMECLIPBOARD
+  KMultipleDrag *drag = new KMultipleDrag(); 
+  QTextDrag *htmltextdrag = new QTextDrag(selectionAsHtml()) ;
 
+  htmltextdrag->setSubtype("html");
+  
+  drag->addDragObject( new QTextDrag( selection()));
+  drag->addDragObject( htmltextdrag);
+  
+  QApplication::clipboard()->setData(drag);
+#else
   QApplication::clipboard()->setText(selection ());
+#endif
 }
 
 void KateDocument::paste ( KateView* view )

@@ -164,6 +164,8 @@ class KateDocument : public Kate::Document,
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol ) const;
     QString text ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise ) const;
 
+    QString textAsHtml ( uint startLine, uint startCol, uint endLine, uint endCol, bool blockwise) const;
+
     QString textLine ( uint line ) const;
 
     bool setText(const QString &);
@@ -347,6 +349,7 @@ class KateDocument : public Kate::Document,
 
     bool hasSelection () const;
     QString selection () const ;
+    QString selectionAsHtml () const ;
 
     bool removeSelectedText ();
 
@@ -654,6 +657,8 @@ class KateDocument : public Kate::Document,
     void repaintViews(bool paintOnlyDirty = true);
 
     inline KateHighlighting *highlight () { return m_buffer->highlight(); }
+    
+    inline KateHighlighting *highlight () const { return m_buffer->highlight(); }
 
   public slots:    //please keep prototypes and implementations in same order
     void tagLines(int start, int end);

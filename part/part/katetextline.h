@@ -28,6 +28,8 @@
 #include <qmemarray.h>
 #include <qstring.h>
 
+class KateRenderer;
+
 /**
  * The KateTextLine represents a line of text. A text line that contains the
  * text, an attribute for each character, an attribute for the free space
@@ -140,13 +142,23 @@ class KateTextLine : public KShared
     inline QChar getChar (uint pos) const { return m_text[pos]; }
 
     /**
-     * Gets the text.
+     * Gets the text as a unicode representation
      * @return text of this line as QChar array
      */
     inline const QChar *text() const { return m_text.unicode(); }
 
     /**
      * Highlighting array
+     * The size of this is string().length()
+     *
+     * This contains the index for the attributes (so you can only
+     * have a maximum of 2^8 different highlighting styles in a document)
+     * 
+     * To turn this into actual attributes (bold, green, etc), 
+     * you need to feed these values into KRenderer::attributes
+     *
+     * e.g:  m_renderer->attributes(attributes[3]);
+     *
      * @return hl-attributes array
      */
     inline uchar *attributes () const { return m_attributes.data(); }
@@ -160,12 +172,38 @@ class KateTextLine : public KShared
     /**
      * Gets a substring.
      * @param startCol start column of substring
-     * @param length lenght of substring
+     * @param length length of substring
      * @return wanted substring
      */
     inline QString string(uint startCol, uint length) const
     { return m_text.mid(startCol, length); }
 
+    /**
+     * Gets a substring in valid-xml html.
+     * Example:  "<b>const</b> b = <i>34</i>"
+     * It won't contain <p> or <body> or <html> or anything like that.
+     *
+     * @param startCol start column of substring
+     * @param length length of substring
+     * @param renderer The katerenderer.  This will have the schema
+     *                 information that describes how to render the
+     *                 attributes.
+     * @return wanted valid-xml html substring
+     */
+    QString stringAsHtml(uint startCol, uint length, KateRenderer *renderer) const;
+
+    /**
+     * Gets the string a valid-xml html.
+     * Overloaded version of stringAsHtml
+     * 
+     * @param renderer The katerenderer.  This will have the schema
+     *                 information that describes how to render the
+     *                 attributes.
+     * @return wanted valid-xml html substring
+     */
+    QString stringAsHtml(KateRenderer *renderer) const
+    { return stringAsHtml(0,m_text.length(),renderer);}
+    
     /**
      * Gets a null terminated pointer to first non space char
      * @return array of QChars starting at first non-whitespace char
@@ -247,8 +285,11 @@ class KateTextLine : public KShared
 
     /**
      * Gets the attribute at the given position
+     * use KRenderer::attributes  to get the KTextAttribute for this.
+     *
      * @param pos position of attribute requested
      * @return value of attribute
+     * @see attributes
      */
     inline uchar attribute (uint pos) const
     {
@@ -387,6 +428,8 @@ class KateTextLine : public KShared
 
     /**
      * array of highlighting attributes
+     * This is exactly the same size as m_text.length()
+     * Each letter in m_text has a uchar attribute
      */
     QMemArray<uchar> m_attributes;
 

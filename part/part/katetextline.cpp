@@ -21,9 +21,12 @@
 */
 
 #include "katetextline.h"
+#include "katerenderer.h"
 
 #include <qregexp.h>
 #include <kglobal.h>
+#include <kdebug.h>
+#include <qstylesheet.h>
 
 KateTextLine::KateTextLine ()
   : m_flags(0)
@@ -390,6 +393,34 @@ char *KateTextLine::restore (char *buf)
   buf += sizeof(unsigned short) * lind;
 
   return buf;
+}
+
+QString KateTextLine::stringAsHtml(uint startCol, uint length, KateRenderer *renderer) const
+{
+    
+  uchar oldindex = 0;
+  QString htmltext;
+  KateAttribute *newAttribute;
+  KateAttribute *oldAttribute;
+  oldAttribute = newAttribute = renderer->attribute(0);//CHECK attribute(0) is nothing.
+  for(int i=0; i< length; i++) {
+    uchar newindex = m_attributes[i+startCol];
+    if(newindex != oldindex) {
+      newAttribute = renderer->attribute(newindex);
+      if(newAttribute->bold() && !oldAttribute->bold())
+        htmltext += "<b>";
+      else if(!newAttribute->bold() && oldAttribute->bold())
+        htmltext += "</b>";
+      oldindex = newindex;
+      oldAttribute = newAttribute;
+    } //attribute hasn't changed, so no new tags needed.
+    htmltext += QStyleSheet::escape(QString(m_text.at(i+startCol)));
+    
+  }
+  if(newAttribute->bold())
+    htmltext += "</b>";
+  kdDebug() << "htmltext = " << htmltext << endl;
+  return htmltext;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -202,6 +202,13 @@ public:
      */
     bool paintTextLineBackground(QPainter& paint, int line, bool isCurrentLine, int xStart, int xEnd);
 
+    /**
+     * This takes an in index, and returns all the attributes for it.
+     * For example, if you have a ktextline, and want the KateAttribute
+     * for a given position, do:
+     * 
+     *   attribute(myktextline->attribute(position));
+     */
     KateAttribute* attribute(uint pos);
 
   private:

@@ -2356,10 +2356,27 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
-  if ((key == Qt::Key_Return) || (key == Qt::Key_Enter) ||
-      (key == SHIFT + Qt::Key_Return) || (key == SHIFT + Qt::Key_Enter))
+  if ((key == Qt::Key_Return) || (key == Qt::Key_Enter))
   {
     m_view->keyReturn();
+    e->accept();
+    return;
+  }
+
+  if ((key == SHIFT + Qt::Key_Return) || (key == SHIFT + Qt::Key_Enter))
+  {
+    KateTextLine::Ptr line = m_doc->kateTextLine( cursor.line() );
+    int pos = line->firstChar();
+    if (pos != -1) {
+      while (line->length() > pos && !line->getChar(pos).isLetterOrNumber()) ++pos;
+      if (line->length() > pos+1 && line->getChar(pos).isSpace()) ++pos; // append " "
+    } else {
+      pos = line->length(); // stay indented
+    }
+    m_doc->insertLine( cursor.line()+1, line->string(0, pos) );
+    cursor.setPos(cursor.line()+1, pos);
+    updateCursor(cursor, true);
+    updateView();
     e->accept();
     return;
   }

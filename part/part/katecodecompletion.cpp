@@ -162,10 +162,9 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
        o != m_completionListBox->viewport() )
     return false;
 
-   if( e->type() == QEvent::FocusOut )
+   if( e->type() == QEvent::Hide )
    {
      abortCompletion();
-     m_view->setFocus();
      return false;
    }
 

@@ -373,7 +373,7 @@ void KateCodeCompletion::showComment()
 
   QPoint rightPoint = m_completionPopup->mapToGlobal(QPoint(m_completionPopup->width(),0));
   QPoint leftPoint = m_completionPopup->mapToGlobal(QPoint(0,0));
-  QRect screen = QApplication::desktop()->screenGeometry( m_commentLabel->x11Screen() );
+  QRect screen = QApplication::desktop()->screenGeometry ( m_commentLabel );
   QPoint finalPoint;
   if (rightPoint.x()+m_commentLabel->width() > screen.x() + screen.width())
     finalPoint.setX(leftPoint.x()-m_commentLabel->width());

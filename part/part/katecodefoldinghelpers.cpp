@@ -421,7 +421,7 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
     }
   }
 
-  if (parent->type == node->type)
+  if ( (parent->type == node->type) || /*temporary fix */ (!parent->parentNode))
   {
     for (int i=mypos+1; i<(int)parent->childnodes()->count(); i++)
     {
@@ -432,7 +432,9 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
     }
 
     // this should fix the bug of wrongly closed nodes
-    node->endLineValid = parent->endLineValid;
+    if (!parent->parentNode) node->endLineValid=false;
+	else 
+		node->endLineValid = parent->endLineValid;
     node->endLineRel = parent->endLineRel-node->startLineRel;
 
     if (node->endLineValid)
@@ -443,6 +445,9 @@ void KateCodeFoldingTree::removeEnding(KateCodeFoldingNode *node,unsigned int /*
 
   node->endLineValid = false;
   node->endLineRel = parent->endLineRel - node->startLineRel;
+//  if (parent && (!parent->parentNode)) {
+//	kdDebug(13000)<<"removing ending of toplevel node"<<endl;
+//  }
 }
 
 
@@ -485,6 +490,9 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
       node->endLineValid = true;
       node->endLineRel = line - startLine;
       //moving
+	kdDebug(13000)<<"Move subnodes up, if needed"<<endl;
+	moveSubNodesUp(node);
+
     }
     else
     {
@@ -504,12 +512,30 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
         int bakEndLine = node->endLineRel+startLine;
         node->endLineRel = line-startLine;
 
-        int mypos = node->parentNode->childnodes()->find(node);
 
 #if JW_DEBUG
         kdDebug(13000)<< "reclosed node had childnodes()"<<endl;
         kdDebug(13000)<<"It could be, that childnodes() need to be moved up"<<endl;
 #endif
+	moveSubNodesUp(node);
+                        
+        if (node->parentNode)
+        {
+          correctEndings(data,node->parentNode,bakEndLine, node->parentNode->childnodes()->find(node)+1); // ????
+        }
+        else
+        {
+          //add to unopened list (bakEndLine)
+        }
+      }
+      }
+    }
+    return true;
+}
+
+void KateCodeFoldingTree::moveSubNodesUp(KateCodeFoldingNode *node)
+{
+        int mypos = node->parentNode->childnodes()->find(node);
         int removepos=-1;
         int count = node->childnodes()->count();
         for (int i=0; i<count; i++)
@@ -548,20 +574,9 @@ bool KateCodeFoldingTree::correctEndings(signed char data, KateCodeFoldingNode *
             }
           }
         }
-                        
-        if (node->parentNode)
-        {
-          correctEndings(data,node->parentNode,bakEndLine, node->parentNode->childnodes()->find(node)+1); // ????
-        }
-        else
-        {
-          //add to unopened list (bakEndLine)
-        }
-      }
-    }
-    return true;
-  }
+
 }
+
 
 
 void KateCodeFoldingTree::addOpening(KateCodeFoldingNode *node,signed char nType, QMemArray<signed char>* list,unsigned int line)

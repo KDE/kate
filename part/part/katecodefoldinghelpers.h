@@ -152,6 +152,8 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
 
     void updateHiddenSubNodes (KateCodeFoldingNode *node);
 
+
+    void moveSubNodesUp(KateCodeFoldingNode *node);
   public slots:
     void updateLine (unsigned int line,QMemArray<signed char>* regionChanges, bool *updated, bool changed);
     void toggleRegionVisibility (unsigned int);

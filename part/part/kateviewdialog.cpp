@@ -57,6 +57,7 @@
 #include <qgrid.h>
 #include <qgroupbox.h>
 #include <qlabel.h>
+#include <qtextcodec.h>
 #include <qlayout.h>
 #include <qlineedit.h>
 #include <qlistbox.h>
@@ -778,6 +779,15 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   int configFlags = KateDocumentConfig::global()->configFlags();
   QVBoxLayout *layout = new QVBoxLayout(this, 0, KDialog::spacingHint() );
 
+  QVGroupBox *gbEnc = new QVGroupBox(i18n("File Format"), this);
+  layout->addWidget( gbEnc );
+
+  QHBox *e5Layout = new QHBox(gbEnc);
+  QLabel *e5Label = new QLabel(i18n("&Encoding:"), e5Layout);
+  m_encoding = new KComboBox (e5Layout);
+  e5Label->setBuddy(m_encoding);
+  connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
   layout->addWidget( gbWhiteSpace );
 
@@ -785,7 +795,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   replaceTabs->setChecked(configFlags & KateDocument::cfReplaceTabs);
   connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
-  removeSpaces = new QCheckBox(i18n("&Remove trailing spaces"), gbWhiteSpace);
+  removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
   removeSpaces->setChecked(configFlags & KateDocument::cfRemoveSpaces);
   connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
@@ -848,12 +858,36 @@ void SaveConfigTab::apply()
   configFlags &= ~KateDocument::cfRemoveSpaces; // clear flag
   if (removeSpaces->isChecked()) configFlags |= KateDocument::cfRemoveSpaces; // set flag if checked
 
-
   KateDocumentConfig::global()->setConfigFlags(configFlags);
+
+  KateDocumentConfig::global()->setEncoding(KGlobal::charsets()->encodingForName(m_encoding->currentText()));
 }
 
 void SaveConfigTab::reload()
 {
+  // encoding
+  m_encoding->clear ();
+  QStringList encodings (KGlobal::charsets()->descriptiveEncodingNames());
+  int insert = 0;
+  for (uint i=0; i < encodings.count(); i++)
+  {
+    bool found = false;
+    QTextCodec *codecForEnc = KGlobal::charsets()->codecForName(KGlobal::charsets()->encodingForName(encodings[i]), found);
+
+    if (found)
+    {
+      m_encoding->insertItem (encodings[i]);
+
+      if ( codecForEnc->name() == KateDocumentConfig::global()->encoding() )
+      {
+        m_encoding->setCurrentItem(insert);
+      }
+
+      insert++;
+    }
+  }
+
+  // other stuff
   uint f ( KateDocument::backupConfig() );
   cbLocalFiles->setChecked( f & KateDocument::LocalFiles );
   cbRemoteFiles->setChecked( f & KateDocument::RemoteFiles );

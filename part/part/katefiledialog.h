@@ -21,8 +21,8 @@
 
 #include <kfiledialog.h>
 #include <kurl.h>
-
-#include <qtextcodec.h>
+#include <kglobal.h>
+#include <klocale.h>
 
 class KateFileDialogData
 {
@@ -41,7 +41,7 @@ class KateFileDialog : public KFileDialog
 
   public:
     KateFileDialog (const QString& startDir = QString::null,
-                    const QString& encoding = QString::fromLatin1(QTextCodec::codecForLocale()->name()),
+                    const QString& encoding = QString::fromLatin1(KGlobal::locale()->encoding()),
                     QWidget *parent= 0, const QString& caption = QString::null,
                     OperationMode = Opening );
 

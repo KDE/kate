@@ -30,6 +30,7 @@ class KConfig;
 
 class QColor;
 class QFont;
+class QTextCodec;
 class QFontMetrics;
 
 class KateConfig
@@ -130,6 +131,8 @@ class KateDocumentConfig : public KateConfig
     void setConfigFlags (uint fullFlags);
 
     const QString &encoding () const;
+    QTextCodec *codec ();
+
     void setEncoding (const QString &encoding);
 
   private:

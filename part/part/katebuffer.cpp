@@ -512,7 +512,7 @@ bool KateBuffer::openFile (const QString &m_file)
     return false; // Error
   }
 
-  QTextCodec *codec = KGlobal::charsets()->codecForName(m_doc->config()->encoding());
+  QTextCodec *codec = m_doc->config()->codec();
   m_loader->stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
   m_loader->stream.setCodec(codec); // this line sets the mapper to the correct codec
   m_loader->codec = codec;
@@ -531,7 +531,7 @@ bool KateBuffer::openFile (const QString &m_file)
 
 bool KateBuffer::canEncode ()
 {
-  QTextCodec *codec = KGlobal::charsets()->codecForName(m_doc->config()->encoding());
+  QTextCodec *codec = m_doc->config()->codec();
 
   // encoding can encode every char
   bool rightEncoding = true;
@@ -555,7 +555,7 @@ bool KateBuffer::saveFile (const QString &m_file, const QString &eol)
     return false; // Error
   }
 
-  QTextCodec *codec = KGlobal::charsets()->codecForName(m_doc->config()->encoding());
+  QTextCodec *codec = m_doc->config()->codec();
 
   // disable Unicode headers
   stream.setEncoding(QTextStream::RawUnicode);

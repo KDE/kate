@@ -27,6 +27,8 @@
 #include <kconfig.h>
 #include <kglobalsettings.h>
 #include <kdebug.h>
+#include <kcharsets.h>
+#include <klocale.h>
 
 #include <qcolor.h>
 #include <qtextcodec.h>
@@ -137,7 +139,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
     | KateDocumentConfig::cfShowTabs
     | KateDocumentConfig::cfSmartHome));
 
-  setEncoding (config->readEntry("Encoding", QString::fromLatin1(QTextCodec::codecForLocale()->name()).lower()));
+  setEncoding (config->readEntry("Encoding", QString::fromLatin1(KGlobal::locale()->encoding())));
 
   configEnd ();
 }
@@ -316,12 +318,26 @@ const QString &KateDocumentConfig::encoding () const
   return s_global->encoding();
 }
 
+QTextCodec *KateDocumentConfig::codec ()
+{
+  if (m_encodingSet || isGlobal())
+    return KGlobal::charsets()->codecForName (m_encoding);
+
+  return s_global->codec ();
+}
+
 void KateDocumentConfig::setEncoding (const QString &encoding)
 {
+  bool found = false;
+  QTextCodec *codec = KGlobal::charsets()->codecForName (encoding, found);
+
+  if (!found)
+    return;
+
   configStart ();
 
   m_encodingSet = true;
-  m_encoding = encoding;
+  m_encoding = codec->name();
 
   configEnd ();
 }

@@ -58,7 +58,6 @@
 #include <kapplication.h>
 #include <kpopupmenu.h>
 #include <kconfig.h>
-#include <kcharsets.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <kspell.h>

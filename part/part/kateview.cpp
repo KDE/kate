@@ -777,7 +777,7 @@ KateView::saveResult KateView::saveAs()
 {
   KateFileDialog dialog(
     m_doc->url().url(),
-    doc()->encoding(),
+    doc()->config()->encoding(),
     this,
     i18n("Save File"),
     KFileDialog::Saving );

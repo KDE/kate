@@ -78,6 +78,7 @@ void SyntaxDocument::setupModeList(bool force)
       mli->section = i18n(config.readEntry("section","").utf8());
       mli->mimetype = config.readEntry("mimetype","");
       mli->extension = config.readEntry("extension","");
+      mli->version = config.readEntry("version","");
       mli->identifier = *it;
       myModeList.append(mli);
     }
@@ -101,6 +102,7 @@ void SyntaxDocument::setupModeList(bool force)
             mli->section = i18n(e.attribute("section").utf8());
             mli->mimetype = e.attribute("mimetype");
             mli->extension = e.attribute("extensions");
+	    mli->version = e.attribute("version");	
 
             if (mli->section.isEmpty())
               mli->section=i18n("Other");
@@ -112,7 +114,7 @@ void SyntaxDocument::setupModeList(bool force)
             config.writeEntry("section",mli->section);
             config.writeEntry("mimetype",mli->mimetype);
             config.writeEntry("extension",mli->extension);
-
+	    config.writeEntry("version",mli->version);
             myModeList.append(mli);
           }
         }

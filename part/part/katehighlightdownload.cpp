@@ -20,6 +20,7 @@
 
 #include "katehighlightdownload.h"
 #include "katehighlightdownload.moc"
+#include "katehighlight.h"
 #include <klocale.h>
 #include <kio/job.h>
 #include <qlistview.h>
@@ -35,8 +36,9 @@ HlDownloadDialog::HlDownloadDialog(QWidget *parent, const char *name, bool modal
 {
 	setMainWidget( list=new QListView(this));
 	list->addColumn(i18n("Name"));
+	list->addColumn(i18n("Installed"));
+	list->addColumn(i18n("Latest"));
 	list->addColumn(i18n("Release date"));
-	list->addColumn(i18n("Description"));
 	list->setSelectionMode(QListView::Multi);
 	KIO::TransferJob *getIt=KIO::get(KURL(HLDOWNLOADPATH), true, true );
 	connect(getIt,SIGNAL(data(KIO::Job *, const QByteArray &)),
@@ -57,18 +59,37 @@ void HlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 	{
 		if (listData.length()>0)
 		{
+			QString installedVersion;
+			HlManager *hlm=HlManager::self();
 			QDomDocument doc;
 			doc.setContent(listData);
 			QDomElement DocElem=doc.documentElement();
 			QDomNode n=DocElem.firstChild();
+			Highlight *hl;
+
 			if (n.isNull()) kdDebug()<<"There is no usable childnode"<<endl;
 			while (!n.isNull())
 			{
+				installedVersion="    --";
+
 				QDomElement e=n.toElement();
 				if (!e.isNull())
 				kdDebug()<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name")<<endl;
 				n=n.nextSibling();
-				(void) new QListViewItem(list,e.attribute("name"),e.attribute("date"),e.attribute("description"),e.attribute("url"));
+				
+				QString Name=e.attribute("name");
+				
+				for (int i=0;i<hlm->highlights();i++)
+				{
+					hl=hlm->getHl(i);
+					if (hl->name()==Name)
+					{
+						installedVersion="    "+hl->version();
+						break;
+					}
+				}
+
+				(void) new QListViewItem(list,e.attribute("name"),installedVersion,e.attribute("version"),e.attribute("date"),e.attribute("url"));
 			}
 		}
 	}
@@ -81,7 +102,7 @@ void HlDownloadDialog::slotUser1()
 	{
 		if (list->isSelected(it))
 		{
-			KURL src(it->text(3));
+			KURL src(it->text(4));
 			QString filename=src.filename(false);
 			QString dest = destdir+filename;
 	

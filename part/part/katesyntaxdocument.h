@@ -36,6 +36,7 @@ class syntaxModeListItem
     QString mimetype;
     QString extension;
     QString identifier;
+    QString version;
 };
 
 class syntaxContextData

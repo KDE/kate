@@ -282,6 +282,7 @@ class Highlight
     void setItemDataList(ItemDataList &, KConfig *);
     QString name() {return iName;}
     QString section() {return iSection;}
+    QString version() {return iVersion;}
     void use();
     void release();
     bool isInWord(QChar c);
@@ -327,6 +328,7 @@ class Highlight
     QString iWildcards;
     QString iMimetypes;
     QString identifier;
+    QString iVersion;
     int refCount;
 
     public:

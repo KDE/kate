@@ -676,6 +676,7 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
     iWildcards = def->extension;
     iMimetypes = def->mimetype;
     identifier = def->identifier;
+    iVersion=def->version;
   }
   deliminator = stdDeliminator;
   deliminatorChars = deliminator.unicode();

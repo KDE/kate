@@ -508,6 +508,9 @@ void KateViewInternal::updateCursor(KateTextCursor &newCursor,bool keepSel, int 
   displayCursor.col = cursor.col;
   cOldXPos = cXPos = myDoc->textWidth(cursor);
 
+  xCoord = cXPos-xPos;
+  yCoord = (displayCursor.line-startLine+1)*myDoc->viewFont.fontHeight;
+
  if (keepSel) {
     if (! nullMove)
       myDoc->selectTo(oldC, cursor, cXPos);

@@ -77,7 +77,6 @@ class KateDocument : public Kate::Document,
   Q_OBJECT
 
   friend class KateViewInternal;
-  friend class KateView;
   friend class KateRenderer;
 
   public:
@@ -109,6 +108,12 @@ class KateDocument : public Kate::Document,
   private:
      QPtrList<KatePartPluginItem> m_plugins; 
    
+  public:
+    bool readOnly () const { return m_bReadOnly; }
+    bool browserView () const { return m_bBrowserView; }
+    bool singleViewMode () const { return m_bSingleViewMode; }
+    KateBrowserExtension *browserExtension () { return m_extension; }
+     
   private:
     // only to make part work, don't change it !
     bool m_bSingleViewMode;

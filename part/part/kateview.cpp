@@ -113,10 +113,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   setFocusProxy( m_viewInternal );
   setFocusPolicy( StrongFocus );
 
-  if (!doc->m_bSingleViewMode) {
+  if (!doc->singleViewMode()) {
     setXMLFile( "katepartui.rc" );
   } else {
-    if( doc->m_bReadOnly )
+    if( doc->readOnly() )
       setXMLFile( "katepartreadonlyui.rc" );
     else
       setXMLFile( "katepartui.rc" );
@@ -149,7 +149,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
 
 KateView::~KateView()
 {
-  if (m_doc && !m_doc->m_bSingleViewMode)
+  if (m_doc && !m_doc->singleViewMode())
     m_doc->removeView( this );
 
   m_doc->disableAllPluginsGUI (this);
@@ -177,7 +177,7 @@ void KateView::setupConnections()
   connect(this,SIGNAL(newStatus()),this,SLOT(slotStatusMsg()));
   connect(m_doc, SIGNAL(undoChanged()), this, SLOT(slotStatusMsg()));
 
-  if ( m_doc->m_bBrowserView )
+  if ( m_doc->browserView() )
   {
     connect( this, SIGNAL(dropEventPass(QDropEvent*)),
              this, SLOT(slotDropEventPass(QDropEvent*)) );
@@ -201,7 +201,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
 
-  if (!m_doc->m_bReadOnly)
+  if (!m_doc->readOnly())
   {
     KStdAction::spelling( m_doc, SLOT(spellcheck()), ac );
 
@@ -533,7 +533,7 @@ void KateView::setupEditActions()
     ac, "switch_to_cmd_line" );
 
   // anders: shortcuts doing any changes should not be created in browserextension
-  if ( !m_doc->m_bReadOnly )
+  if ( !m_doc->readOnly() )
   {
     new KAction(
       i18n("Transpose Characters"),           CTRL          + Key_T,
@@ -682,7 +682,7 @@ void KateView::slotSelectionTypeChanged()
 
 bool KateView::isOverwriteMode() const
 {
-  return m_doc->m_config->configFlags() & KateDocument::cfOvr;
+  return m_doc->config()->configFlags() & KateDocument::cfOvr;
 }
 
 void KateView::reloadFile()
@@ -730,7 +730,7 @@ void KateView::slotReadWriteChanged ()
 
 void KateView::slotNewUndo()
 {
-  if (m_doc->m_bReadOnly)
+  if (m_doc->readOnly())
     return;
 
   if ((m_doc->undoCount() > 0) != m_editUndo->isEnabled())
@@ -752,12 +752,12 @@ void KateView::slotDropEventPass( QDropEvent * ev )
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )
 {
-    if ( !m_doc || !m_doc->m_extension  )
-        return;
+  if ( !m_doc || !m_doc->browserExtension()  )
+    return;
 
-    emit m_doc->m_extension->popupMenu( ev->globalPos(), m_doc->url(),
+  emit m_doc->browserExtension()->popupMenu( ev->globalPos(), m_doc->url(),
                                         QString::fromLatin1( "text/plain" ) );
-    ev->accept();
+  ev->accept();
 }
 
 bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth )
@@ -887,17 +887,13 @@ void KateView::joinLines()
 {
   int first = m_doc->selStartLine();
   int last = m_doc->selEndLine();
-  int left = m_doc->textLine( last ).length() - m_doc->selEndCol();
+  //int left = m_doc->textLine( last ).length() - m_doc->selEndCol();
   if ( first == last )
   {
     first = cursorLine();
     last = first + 1;
   }
   m_doc->joinLines( first, last );
-  m_doc->selectEnd.setLine( first );
-  m_doc->selectEnd.setCol( m_doc->textLine( first ).length() - left );
-  tagLines( first, last );
-  repaintText( true );
 }
 
 void KateView::readSessionConfig(KConfig *config)
@@ -1071,7 +1067,7 @@ void KateView::selectionChanged ()
     m_deSelect->setEnabled (false);
   }
 
-  if (m_doc->m_bReadOnly)
+  if (m_doc->readOnly())
     return;
 
   if (m_doc->hasSelection())
@@ -1265,7 +1261,7 @@ void KateView::slotClipboardDataChanged()
 
 void KateView::slotHlChanged()
 {
-  Highlight *hl = m_doc->m_highlight;
+  Highlight *hl = m_doc->highlight();
   bool ok ( ! ( hl->getCommentStart().isEmpty() && hl->getCommentSingleLineStart().isEmpty() ) );
 
   if (actionCollection()->action("tools_comment"))

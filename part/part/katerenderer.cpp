@@ -280,13 +280,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   else
     len = endcol - startcol;
 
-  // text + attrib data from line
-  const uchar *textAttributes = textLine->attributes ();
-  bool noAttribs = !textAttributes;
-
-  // adjust to startcol ;)
-  textAttributes = textAttributes + startcol;
-
   uint curCol = startcol;
   uint nextCol = curCol + 1;
 
@@ -309,8 +302,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   if (showSelections() && !selectionPainted)
     hasSel = getSelectionBounds(line, oldLen, startSel, endSel);
-
-  uint blockStartCol = startcol;
 
   // Draws the dashed underline at the start of a folded block of text.
   if (range->startsInvisibleBlock) {
@@ -353,7 +344,16 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     uint imStartLine, imStart, imEnd, imSelStart, imSelEnd;
     m_doc->getIMSelectionValue( &imStartLine, &imStart, &imEnd, &imSelStart, &imSelEnd );
 
+    uint blockStartCol = startcol;
+
+    // text + attrib data from line
+    const uchar *textAttributes = textLine->attributes ();
+    bool noAttribs = !textAttributes;
+
+    // adjust to startcol ;)
+    textAttributes = textAttributes + startcol;
     // loop each character (tmp goes backwards, but curCol doesn't)
+
     for (uint tmp = len; tmp > 0; tmp--)
     {
       // Determine cursor position

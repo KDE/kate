@@ -112,7 +112,7 @@ class KateHlContext
 {
   public:
     KateHlContext(int attribute, int lineEndContext,int _lineBeginContext,
-               bool _fallthrough, int _fallthroughContext, bool _dynamic);
+                  bool _fallthrough, int _fallthroughContext, bool _dynamic, bool _skipSpaces);
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
 
@@ -130,6 +130,7 @@ class KateHlContext
 
     bool dynamic;
     bool dynamicChild;
+    bool skipSpaces;
 };
 
 class KateEmbeddedHlInfo
@@ -1092,7 +1093,7 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 }
 
 //BEGIN KateHlContext
-KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic)
+KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic, bool _skipSpaces)
 {
   attr = attribute;
   ctx = lineEndContext;
@@ -1101,11 +1102,12 @@ KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginC
   ftctx = _fallthroughContext;
   dynamic = _dynamic;
   dynamicChild = false;
+  skipSpaces = _skipSpaces;
 }
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false);
+  KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false, skipSpaces);
 
   for (uint n=0; n < items.size(); ++n)
   {
@@ -1380,136 +1382,144 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     bool standardStartEnableDetermined = false;
     bool standardStartEnable = false;
 
-    uint index = 0;
-    for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
+    if (context->skipSpaces && (text[z] == QChar(' ') || text[z] == QChar('\t')))
     {
-      bool thisStartEnabled = false;
-
-      if (item->alwaysStartEnable())
-      {
-        thisStartEnabled = true;
-      }
-      else if (!item->hasCustomStartEnable())
-      {
-        if (!standardStartEnableDetermined)
-        {
-          standardStartEnable = kateInsideString (stdDeliminator, lastChar);
-          standardStartEnableDetermined = true;
-        }
-
-        thisStartEnabled = standardStartEnable;
-      }
-      else if (item->startEnable(lastChar))
-      {
-        thisStartEnabled = true;
-      }
-
-      if (thisStartEnabled)
-      {
-        int offset2 = item->checkHgl(text, offset1, len-z);
-
-        if (offset2 > offset1)
-        {
-          if(!item->lookAhead)
-            textLine->setAttribs(item->attr,offset1,offset2);
-          //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
-
-
-          if (item->region2)
-          {
-//              kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
-            if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
-            {
-              foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
-            }
-            else
-            {
-              foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
-              (*foldingList)[foldingList->size()-2] = (uint)item->region2;
-              if (item->region2<0) //check not really needed yet
-                (*foldingList)[foldingList->size()-1] = offset2;
-              else
-               (*foldingList)[foldingList->size()-1] = offset1;
-            }
-
-          }
-
-          if (item->region)
-          {
-//              kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
-
-/*            if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-            {
-              foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
-            }
-            else*/
-            {
-              foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
-              (*foldingList)[foldingList->size()-2] = item->region;
-              if (item->region<0) //check not really needed yet
-                (*foldingList)[foldingList->size()-1] = offset2;
-              else
-                (*foldingList)[foldingList->size()-1] = offset1;
-            }
-
-          }
-
-          generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
-
-      //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
-    //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
-
-          context=contextNum(ctxNum);
-
-          // dynamic context: substitute the model with an 'instance'
-          if (context->dynamic)
-          {
-            QStringList *lst = item->capturedTexts();
-            if (lst != 0)
-            {
-              // Replace the top of the stack and the current context
-              int newctx = makeDynamicContext(context, lst);
-              if (ctx.size() > 0)
-                ctx[ctx.size() - 1] = newctx;
-              ctxNum = newctx;
-              context = contextNum(ctxNum);
-            }
-            delete lst;
-          }
-
-          // dominik: look ahead w/o changing offset?
-          if (!item->lookAhead)
-          {
-            z = z + offset2 - offset1 - 1;
-            offset1 = offset2 - 1;
-          }
-          found = true;
-          break;
-        }
-      }
+      // skip the space
+      textLine->setAttribs(context->attr,offset1,offset1 + 1);
     }
-
-    // nothing found: set attribute of one char
-    // anders: unless this context does not want that!
-    if (!found)
+    else
     {
-      if ( context->fallthrough )
+      uint index = 0;
+      for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
       {
+        bool thisStartEnabled = false;
+
+        if (item->alwaysStartEnable())
+        {
+          thisStartEnabled = true;
+        }
+        else if (!item->hasCustomStartEnable())
+        {
+          if (!standardStartEnableDetermined)
+          {
+            standardStartEnable = kateInsideString (stdDeliminator, lastChar);
+            standardStartEnableDetermined = true;
+          }
+
+          thisStartEnabled = standardStartEnable;
+        }
+        else if (item->startEnable(lastChar))
+        {
+          thisStartEnabled = true;
+        }
+
+        if (thisStartEnabled)
+        {
+          int offset2 = item->checkHgl(text, offset1, len-z);
+
+          if (offset2 > offset1)
+          {
+            if(!item->lookAhead)
+              textLine->setAttribs(item->attr,offset1,offset2);
+            //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
+
+
+            if (item->region2)
+            {
+  //              kdDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2)<<endl;
+              if ( !foldingList->isEmpty() && ((item->region2 < 0) && (*foldingList)[foldingList->size()-2] == -item->region2 ) )
+              {
+                foldingList->resize (foldingList->size()-2, QGArray::SpeedOptim);
+              }
+              else
+              {
+                foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+                (*foldingList)[foldingList->size()-2] = (uint)item->region2;
+                if (item->region2<0) //check not really needed yet
+                  (*foldingList)[foldingList->size()-1] = offset2;
+                else
+                (*foldingList)[foldingList->size()-1] = offset1;
+              }
+
+            }
+
+            if (item->region)
+            {
+  //              kdDebug(13010)<<QString("Region mark detected: %1").arg(item->region)<<endl;
+
+  /*            if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
+              {
+                foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
+              }
+              else*/
+              {
+                foldingList->resize (foldingList->size()+2, QGArray::SpeedOptim);
+                (*foldingList)[foldingList->size()-2] = item->region;
+                if (item->region<0) //check not really needed yet
+                  (*foldingList)[foldingList->size()-1] = offset2;
+                else
+                  (*foldingList)[foldingList->size()-1] = offset1;
+              }
+
+            }
+
+            generateContextStack(&ctxNum, item->ctx, &ctx, &previousLine);  //regenerate context stack
+
+        //kdDebug(13010)<<QString("generateContextStack has been left in item loop, size: %1").arg(ctx.size())<<endl;
+      //    kdDebug(13010)<<QString("current ctxNum==%1").arg(ctxNum)<<endl;
+
+            context=contextNum(ctxNum);
+
+            // dynamic context: substitute the model with an 'instance'
+            if (context->dynamic)
+            {
+              QStringList *lst = item->capturedTexts();
+              if (lst != 0)
+              {
+                // Replace the top of the stack and the current context
+                int newctx = makeDynamicContext(context, lst);
+                if (ctx.size() > 0)
+                  ctx[ctx.size() - 1] = newctx;
+                ctxNum = newctx;
+                context = contextNum(ctxNum);
+              }
+              delete lst;
+            }
+
+            // dominik: look ahead w/o changing offset?
+            if (!item->lookAhead)
+            {
+              z = z + offset2 - offset1 - 1;
+              offset1 = offset2 - 1;
+            }
+            found = true;
+            break;
+          }
+        }
+      }
+
+      // nothing found: set attribute of one char
+      // anders: unless this context does not want that!
+      if (!found)
+      {
+        if ( context->fallthrough )
+        {
         // set context to context->ftctx.
-        generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
-        context=contextNum(ctxNum);
+          generateContextStack(&ctxNum, context->ftctx, &ctx, &previousLine);  //regenerate context stack
+          context=contextNum(ctxNum);
         //kdDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum<<endl;
         // the next is nessecary, as otherwise keyword (or anything using the std delimitor check)
         // immediately after fallthrough fails. Is it bad?
         // jowenn, can you come up with a nicer way to do this?
-        if (z)
-          lastChar = text[offset1 - 1];
+          if (z)
+            lastChar = text[offset1 - 1];
+          else
+            lastChar = '\\';
+          continue;
+        }
         else
-          lastChar = '\\';
-        continue;
+          textLine->setAttribs(context->attr,offset1,offset1 + 1);
       }
-      else
-        textLine->setAttribs(context->attr,offset1,offset1 + 1);
     }
 
     // dominik: do not change offset if we look ahead
@@ -2612,7 +2622,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         context,
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-        ft, ftc, dynamic ));
+        ft, ftc, dynamic,
+        IS_TRUE(KateHlManager::self()->syntax->groupData(data,QString("skipSpaces")))));
 
       //Let's create all items for the context
       while (KateHlManager::self()->syntax->nextItem(data))

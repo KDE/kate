@@ -117,7 +117,7 @@
       <item> wchar_t </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal" skipSpaces="true">
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*$" endRegion="Region1"/>
         <keyword attribute="Keyword" context="#stay" String="keywords" />

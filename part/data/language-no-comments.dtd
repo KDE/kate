@@ -78,6 +78,8 @@
   name CDATA #IMPLIED
   fallthrough (false|true) #IMPLIED
   fallthroughContext CDATA #IMPLIED
+  dynamic           (%boolean;) #IMPLIED
+  skipSpaces        (%boolean;) #IMPLIED
 >
 
 <!ELEMENT keyword EMPTY                  >

@@ -1472,7 +1472,7 @@ void Highlight::readGlobalKeywordConfig()
     }
   
   
-  kdDebug(13000)<<"readGlobalKeywordConfig:END";
+  kdDebug(13000)<<"readGlobalKeywordConfig:END"<<endl;
 
   kdDebug(13000)<<"delimiterCharacters are: "<<deliminator<<endl;
 }

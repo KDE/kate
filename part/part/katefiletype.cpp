@@ -21,13 +21,13 @@
 
 #include "katedocument.h"
 #include "kateconfig.h"
-#include "katedialogs.h"
 #include "kateview.h"
 #include "katefactory.h"
 
 #include <kconfig.h>
 #include <kmimemagic.h>
 #include <kmimetype.h>
+#include <kmimetypechooser.h>
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <knuminput.h>
@@ -460,12 +460,12 @@ void KateFileTypeConfigTab::showMTDlg()
 
   QString text = i18n("Select the MimeTypes you want for this file type.\nPlease note that this will automatically edit the associated file extensions as well.");
   QStringList list = QStringList::split( QRegExp("\\s*;\\s*"), mimetypes->text() );
-  KateMimeTypeChooserDlg *d = new KateMimeTypeChooserDlg( this, i18n("Select Mime Types"), text, list );
+  KMimeTypeChooserDialog *d = new KMimeTypeChooserDialog( i18n("Select Mime Types"), text, list, "text", this );
   if ( d->exec() == KDialogBase::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
-    wildcards->setText(d->patterns().join(";"));
-    mimetypes->setText(d->mimeTypes().join(";"));
+    wildcards->setText( d->chooser()->patterns().join(";") );
+    mimetypes->setText( d->chooser()->mimeTypes().join(";") );
   }
 }
 

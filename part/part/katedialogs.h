@@ -304,62 +304,6 @@ class KatePartPluginConfigPage : public KateConfigPage
     class QPushButton *btnConfigure;
 };
 
-/**
-   This widget provides a checkable list of all available mimetypes,
-   and a list of selected ones, as well as a corresponding list of file
-   extensions, an optional text and an optional edit button (not working yet).
-   Mime types is presented in a list view, with name, comment and patterns columns.
-   Added by anders, jan 23, 2002
-*/
-class KateMimeTypeChooser : public QVBox
-{
-  Q_OBJECT
-
-  public:
-    KateMimeTypeChooser( QWidget *parent=0, const QString& text=QString::null, const QStringList &selectedMimeTypes=0,
-                      bool editbutton=true, bool showcomment=true, bool showpattern=true );
-    ~KateMimeTypeChooser() {};
-    QStringList selectedMimeTypesStringList();
-    QStringList patterns();
-
-  public slots:
-    void editMimeType();
-    void slotCurrentChanged(QListViewItem* i);
-
-  private:
-    QListView *lvMimeTypes;
-    QPushButton *btnEditMimeType;
-};
-
-/**
-   @short A Dialog to choose some mimetypes.
-   Provides a checkable tree list of mimetypes, with icons and optinally comments and patterns,
-   and an (optional) button to display the mimetype kcontrol module.
-
-   @param title The title of the dialog
-   @param text A Text to display above the list
-   @param selectedMimeTypes A list of mimetype names, theese will be checked in the list if they exist.
-   @param editbutton Whether to display the a "Edit Mimetypes" button.
-   @param showcomment If this is true, a column displaying the mimetype's comment will be added to the list view.
-   @param showpatterns If this is true, a column displaying the mimetype's patterns will be added to the list view.
-   Added by anders, dec 19, 2001
-*/
-class KateMimeTypeChooserDlg : public KDialogBase
-{
-  public:
-    KateMimeTypeChooserDlg( QWidget *parent=0,
-                         const QString &caption=QString::null, const QString& text=QString::null,
-                         const QStringList &selectedMimeTypes=QStringList(),
-                         bool editbutton=true, bool showcomment=true, bool showpatterns=true );
-    ~KateMimeTypeChooserDlg();
-
-    QStringList mimeTypes();
-    QStringList patterns();
-
-  private:
-    KateMimeTypeChooser *chooser;
-};
-
 class KateHlConfigPage : public KateConfigPage
 {
   Q_OBJECT

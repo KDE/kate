@@ -276,6 +276,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
                                            QObject *, const char *)
   : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ()),MarkInterfaceExtension()
 {
+  setMarksUserChangable(markType01);
   regionTree=new KateCodeFoldingTree(this);
   myActiveView = 0L;
 
@@ -4512,16 +4513,11 @@ void KateDocument::setDescription(MarkInterface::MarkTypes, const QString &)
 	;
 }
 
-void KateDocument::setUserChangable(uint markMask)
+void KateDocument::setMarksUserChangable(uint markMask)
 {
 	;
 }
 
-
-void markChanged (KTextEditor::Mark mark, KTextEditor::MarkInterfaceExtension::MarkChangeAction action)
-{
-	;
-}
 
 /**
  * End of the implementaion of the MarkInterfaceExtension

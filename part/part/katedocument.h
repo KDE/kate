@@ -805,7 +805,7 @@ class KateDocument : public Kate::Document, public KTextEditor::MarkInterfaceExt
   public:
     virtual void setPixmap(MarkInterface::MarkTypes, const QPixmap &);
     virtual void setDescription(MarkInterface::MarkTypes, const QString &);
-    virtual void setUserChangable(uint markMask);
+    virtual void setMarksUserChangable(uint markMask);
 
   signals:
     virtual void markChanged (KTextEditor::Mark mark, MarkInterfaceExtension::MarkChangeAction action);

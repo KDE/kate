@@ -2116,7 +2116,7 @@ bool KateDocument::saveFile()
     if (eolMode == KateDocument::eolUnix) stream << "\n";
     else if (eolMode == KateDocument::eolDos) stream << "\r\n";
     else if (eolMode == KateDocument::eolMacintosh) stream << '\r';
-  };
+  }
   f.close();
 
   fileInfo->setFile (m_file);

@@ -116,6 +116,8 @@ void KateView::setupConnections()
            this, SLOT(slotNewUndo()) );
   connect( m_doc, SIGNAL(hlChanged()),
            this, SLOT(updateFoldingMarkersAction()) );
+  connect( m_doc, SIGNAL(canceled(const QString&)),
+           this, SLOT(slotSaveCanceled(const QString&)) );
   connect( m_viewInternal, SIGNAL(dropEventPass(QDropEvent*)),
            this,           SIGNAL(dropEventPass(QDropEvent*)) );
   if ( m_doc->m_bBrowserView ) {
@@ -580,14 +582,15 @@ void KateView::setOverwriteMode( bool b )
     m_doc->setConfigFlags( m_doc->_configFlags | KateDocument::cfOvr );
 }
 
-void KateView::toggleInsert() {
+void KateView::toggleInsert()
+{
   m_doc->setConfigFlags(m_doc->_configFlags ^ KateDocument::cfOvr);
   emit newStatus();
 }
 
 bool KateView::canDiscard()
 {
-  return m_doc->closeURL ();
+  return m_doc->closeURL();
 }
 
 void KateView::flush()
@@ -595,90 +598,72 @@ void KateView::flush()
   m_doc->closeURL();
 }
 
-KateView::saveResult KateView::save() {
-  int query = KMessageBox::Yes;
-  if (doc()->isModified()) {
-    if (!m_doc->url().fileName().isEmpty() && doc()->isReadWrite()) {
-      // If document is new but has a name, check if saving it would
-      // overwrite a file that has been created since the new doc
-      // was created:
-      if( m_doc->isNewDoc() )
-      {
-        query = checkOverwrite( m_doc->url() );
-        if( query == KMessageBox::Cancel )
-          return SAVE_CANCEL;
-      }
-      if( query == KMessageBox::Yes )
-      {
-         if( !m_doc->saveAs(m_doc->url()) ) {
-       KMessageBox::sorry(this,
-        i18n("The file could not be saved. Please check if you have write permission."));
-      return SAVE_ERROR;
-  }
-      }
-      else  // Do not overwrite already existing document:
-        return saveAs();
-    } // New, unnamed document:
-    else
-      return saveAs();
-  }
-  return SAVE_OK;
-}
-
-/*
- * Check if the given URL already exists. Currently used by both save() and saveAs()
- *
- * Asks the user for permission and returns the message box result and defaults to
- * KMessageBox::Yes in case of doubt
- */
-int KateView::checkOverwrite( KURL u )
+KateView::saveResult KateView::save()
 {
-  int query = KMessageBox::Yes;
+  if( !doc()->isModified() )
+    return SAVE_OK;
+    
+  if( m_doc->url().fileName().isEmpty() || !doc()->isReadWrite() )
+    return saveAs();
 
-  if( u.isLocalFile() )
-  {
-    QFileInfo info;
-    QString name( u.path() );
-    info.setFile( name );
-    if( info.exists() )
-      query = KMessageBox::warningYesNoCancel( this,
-        i18n( "A Document with this Name already exists.\nDo you want to overwrite it?" ) );
+  // If document is new but has a name, check if saving it would
+  // overwrite a file that has been created since the new doc
+  // was created:
+  if( m_doc->isNewDoc() && !checkOverwrite( m_doc->url() ) )
+    return SAVE_CANCEL;
+
+  if( !m_doc->save() ) {
+    KMessageBox::sorry(this,
+        i18n("The file could not be saved. Please check if you have write permission."));
+    return SAVE_ERROR;
   }
-  return query;
+  
+  return SAVE_OK;
 }
 
 KateView::saveResult KateView::saveAs()
 {
-  KateFileDialogData data;
+  KateFileDialog dialog(
+    m_doc->url().url(),
+    doc()->encoding(),
+    this,
+    i18n("Save File"),
+    KFileDialog::Saving );
+  dialog.setSelection( m_doc->url().fileName() );
+  KateFileDialogData data = dialog.exec();
 
-  for( int query = KMessageBox::No; query != KMessageBox::Yes; ) {
-    KateFileDialog* dialog = new KateFileDialog(
-      m_doc->url().url(),
-      doc()->encoding(),
-      this,
-      i18n("Save File"),
-      KFileDialog::Saving );
-    dialog->setSelection( m_doc->url().fileName() );
-    data = dialog->exec ();
-    delete dialog;
-    
-    if (data.url.isEmpty())
-      return SAVE_CANCEL;
-    
-    query = checkOverwrite( data.url );
-    
-    if( query == KMessageBox::Cancel )
-      return SAVE_CANCEL;
-  }
+  if( data.url.isEmpty() || !checkOverwrite( data.url ) )
+    return SAVE_CANCEL;
 
-  ((KTextEditor::EncodingInterface *)m_doc)->setEncoding (data.encoding);
-  if( !m_doc->saveAs(data.url) ) {
+  m_doc->setEncoding( data.encoding );
+  if( !m_doc->saveAs( data.url ) ) {
     KMessageBox::sorry(this,
       i18n("The file could not be saved. Please check if you have write permission."));
     return SAVE_ERROR;
   }
 
   return SAVE_OK;
+}
+
+bool KateView::checkOverwrite( KURL u )
+{
+  if( !u.isLocalFile() )
+    return true;
+  
+  QFileInfo info( u.path() );
+  if( !info.exists() )
+    return true;
+    
+  return KMessageBox::Cancel != KMessageBox::warningContinueCancel( this,
+    i18n( "A file named \"%1\" already exists. "
+          "Are you sure you want to overwrite it?" ).arg( info.fileName() ),
+    i18n( "Overwrite File?" ),
+    i18n( "Overwrite" ) );
+}
+
+void KateView::slotSaveCanceled( const QString& error )
+{
+  KMessageBox::error( this, error );
 }
 
 void KateView::gotoLine()
@@ -727,7 +712,8 @@ void KateView::writeSessionConfig(KConfig */*config*/)
 //  config->writeEntry("IconBorderStatus", m_viewInternal->m_iconBorderStatus );
 }
 
-void KateView::setEol(int eol) {
+void KateView::setEol(int eol)
+{
   if (!doc()->isReadWrite())
     return;
 

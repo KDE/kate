@@ -263,7 +263,7 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
     void customEvent( QCustomEvent* );
     void contextMenuEvent( QContextMenuEvent* );
     void resizeEvent( QResizeEvent* );
-    int checkOverwrite( KURL );
+    bool checkOverwrite( KURL );
 
   private slots:
     void slotGotFocus();
@@ -271,7 +271,8 @@ class KateView : public Kate::View, public KTextEditor::SessionConfigInterface,
     void slotDropEventPass( QDropEvent* ev );
     void slotSetEncoding( const QString& descriptiveName );
     void updateFoldingMarkersAction();
-    void slotStatusMsg ();
+    void slotStatusMsg();
+    void slotSaveCanceled( const QString& error );
 
   private:
     void setupConnections();

@@ -1690,7 +1690,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
     int newLen = textLine->lastChar();
     if (newLen == -1) {
       textLine->truncate(0);
-    } else if (newLen != textLine->length()) {
+    } else if (newLen != (int)textLine->length()) {
       textLine->truncate(newLen + 1);
     }
   }

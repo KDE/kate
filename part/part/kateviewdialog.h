@@ -278,6 +278,7 @@ class SaveConfigTab : public Kate::ConfigPage
   
   protected:
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
+  QLineEdit *leBuSuffix;
   KateDocument *m_doc;
 };
 

@@ -623,28 +623,44 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   layout->addWidget( gb );
   cbLocalFiles = new QCheckBox( i18n("&Local Files"), gb );
   cbRemoteFiles = new QCheckBox( i18n("&Remote Files"), gb );
+  QHBox *hbBuSuffix = new QHBox( gb );
+  QLabel *lBuSuffix = new QLabel( i18n("&Suffix:"), hbBuSuffix );
+  leBuSuffix = new QLineEdit( hbBuSuffix );
+  lBuSuffix->setBuddy( leBuSuffix );
   
   layout->addStretch();
   
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause kate to copy the disk file to "
-        "'&lt;filename&gt;~' before saving changes." ) );
+        "'&lt;filename&gt;&lt;suffix&gt;' before saving changes."
+        "<p>The prefix defaults to <strong>~</strong>" ) );
   QWhatsThis::add( cbLocalFiles, i18n(
         "Check this if you want backups of local files when saving") );
   QWhatsThis::add( cbRemoteFiles, i18n(
         "Check this if you want backups of remote files when saving") );
+  QWhatsThis::add( leBuSuffix, i18n(
+        "Enter the suffix to add to the backup file names" ) );
   
   reload();
 }
 
 void SaveConfigTab::apply()
 {
+  if ( leBuSuffix->text().isEmpty() ) {
+    KMessageBox::information(
+                this,
+                i18n("You didn't provide a backup suffix, using default value of '~'"),
+                i18n("No Backup Suffix")
+                        );
+    leBuSuffix->setText( "~" );     
+  }
   uint f( 0 );
   if ( cbLocalFiles->isChecked() )
     f |= KateDocument::LocalFiles;
   if ( cbRemoteFiles->isChecked() )
     f |= KateDocument::RemoteFiles;
   m_doc->setBackupConfig( f );
+  m_doc->setBackupSuffix( leBuSuffix->text() );
 }
 
 void SaveConfigTab::reload()
@@ -652,6 +668,7 @@ void SaveConfigTab::reload()
   uint f ( m_doc->backupConfig() );
   cbLocalFiles->setChecked( f & KateDocument::LocalFiles );
   cbRemoteFiles->setChecked( f & KateDocument::RemoteFiles );
+  leBuSuffix->setText( m_doc->backupSuffix() );
 }
 
 void SaveConfigTab::reset()
@@ -662,6 +679,7 @@ void SaveConfigTab::defaults()
 {
   cbLocalFiles->setChecked( true );
   cbRemoteFiles->setChecked( false );
+  leBuSuffix->setText( "~" );
   //apply(); // ? the base classes are terribly undocumented!!!
 }
 

@@ -1678,6 +1678,7 @@ void KateDocument::readConfig(KConfig *config)
   colors[3] = config->readColorEntry("Color Bracket Highlight", &colors[3]);
   
   myBackupConfig = config->readNumEntry( "Backup", 1 );
+  myBackupSuffix = config->readEntry("BackupSuffix", "~");
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
@@ -1727,7 +1728,8 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("Color Current Line", colors[2]);
   config->writeEntry("Color Bracket Highlight", colors[3]);
   
-  config->writeEntry("Backup", myBackupConfig );
+  config->writeEntry( "Backup", myBackupConfig );
+  config->writeEntry( "BackupSuffix", myBackupSuffix );
 
   config->setGroup("Kate Plugins");
   for (uint i=0; i<m_plugins.count(); i++)
@@ -2632,11 +2634,12 @@ bool KateDocument::openFile()
 
 bool KateDocument::save()
 {
+  // FIXME reorder for efficiency, prompt user in case of failure
   bool l ( url().isLocalFile() );
   if ( ( ( l && myBackupConfig & LocalFiles ) ||
          ( ! l && myBackupConfig & RemoteFiles ) )
        && modified ) {
-    KURL u( url().path() + "~" );
+    KURL u( url().path() + myBackupSuffix );
     if ( ! KIO::NetAccess::upload( url().path(), u ) )
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
   }

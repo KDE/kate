@@ -117,7 +117,9 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     // Which files to backup on save
     enum BackupOnSave { LocalFiles=1, RemoteFiles=2 };
     uint backupConfig() const { return myBackupConfig; };
-    void setBackupConfig( uint c ) { myBackupConfig = c; }; 
+    void setBackupConfig( uint c ) { myBackupConfig = c; };
+    QString backupSuffix() const { return myBackupSuffix; };
+    void setBackupSuffix( const QString &suffix ) { myBackupSuffix = suffix; };
 
   private:
     // only to make part work, don't change it !
@@ -128,6 +130,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     Kate::PluginList m_plugins;
     
     uint myBackupConfig;
+    QString myBackupSuffix;
 
   //
   // KTextEditor::Document stuff

@@ -1866,6 +1866,12 @@ void KateDocument::clearMarks ()
 bool KateDocument::printDialog ()
 {
   KPrinter printer;
+  if (!docName().isEmpty())
+    printer.setDocName(docName());
+  else if (!url().isEmpty())
+    printer.setDocName(url().fileName());
+  else
+    printer.setDocName(i18n("Untitled"));
 
    if ( printer.setup( kapp->mainWidget() ) )
    {

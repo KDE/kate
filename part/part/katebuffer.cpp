@@ -581,7 +581,7 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
     return false;
 
   if (!m_hlUpdate)
-    return;
+    return false;
     
   TextLine::Ptr textLine;
   QMemArray<uint> ctxNum, endCtx;

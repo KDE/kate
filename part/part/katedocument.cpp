@@ -4320,7 +4320,7 @@ void KateDocument::setDocName (QString name )
   emit nameChanged ((Kate::Document *) this);
 }
 
-void KateDocument::slotModifiedOnDisk( Kate::View *v )
+void KateDocument::slotModifiedOnDisk( Kate::View * /*v*/ )
 {
   if ( !s_fileChangedDialogsActivated || m_isasking )
     return;
@@ -4329,7 +4329,7 @@ void KateDocument::slotModifiedOnDisk( Kate::View *v )
   {
     m_isasking = 1;
 
-    int exitval = ( v && v->hasFocus() ? 0 : -1 );
+    //int exitval = ( v && v->hasFocus() ? 0 : -1 );
 
     switch ( KMessageBox::warningYesNoCancel( widget(),
                 reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),

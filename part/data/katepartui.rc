@@ -29,17 +29,18 @@
 
   <Action name="bookmarks" />
 
-  <Menu name="tools"><text>&amp;Tools</text>
-    <Action name="tools_spelling" />
-    <Separator/>
-    <Action name="tools_indent"/>
-    <Action name="tools_unindent"/>
-    <Action name="tools_cleanIndent"/>
-    <Separator/>
-    <Action name="tools_comment"/>
-    <Action name="tools_uncomment"/>
-    <Action name="tools_apply_wordwrap" />
-    <Action name="tools_cmd" />
+  <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
+    <Action name="tools_spelling" group="tools_operations" />
+    <Separator group="tools_operations" />
+    <Action name="tools_indent" group="tools_operations" />
+    <Action name="tools_unindent" group="tools_operations" />
+    <Action name="tools_cleanIndent" group="tools_operations" />
+    <Separator group="tools_operations" />
+    <Action name="tools_comment" group="tools_operations" />
+    <Action name="tools_uncomment" group="tools_operations" />
+    <Separator group="tools_operations" />
+    <Action name="tools_apply_wordwrap" group="tools_operations" />
+    <Action name="tools_cmd" group="tools_operations" />
   </Menu>
 
   <Menu name="settings"><text>&amp;Settings</text>
@@ -52,16 +53,15 @@
 </MenuBar>
 
 <Menu name="katepart_popup">
-  <Action name="file_save"/>
-  <Action name="file_save_as"/>
-  <Separator />
-  <Action name="edit_cut"/>
-  <Action name="edit_copy"/>
-  <Action name="edit_paste"/>
-  <Separator />
-  <Action name="view_border"/>
-  <Action name="view_line_numbers"/>
-  <Action name="bookmarks" />
+  <Action name="edit_cut" group="popup_operations" />
+  <Action name="edit_copy" group="popup_operations" />
+  <Action name="edit_paste" group="popup_operations" />
+  <Separator group="popup_operations" />
+  <Action name="view_border" group="popup_operations" />
+  <Action name="view_line_numbers" group="popup_operations" />
+  <Separator group="popup_operations" />
+  <Action name="file_save" group="popup_operations" />
+  <Action name="file_save_as" group="popup_operations" />
 </Menu>
 
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>

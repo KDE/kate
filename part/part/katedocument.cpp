@@ -629,7 +629,11 @@ bool KateDocument::editStart (bool withUndo)
   editTagLineEnd = 0;
 
   if (editWithUndo)
+  {
+    if (undoItems.count () > myUndoSteps)
+      undoItems.removeFirst ();
     editCurrentUndo = new KateUndoGroup (this);
+  }
   else
     editCurrentUndo = 0L;
 
@@ -1577,7 +1581,7 @@ void KateDocument::readConfig(KConfig *config)
 
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
-  
+
   tagAll();
   updateEditAccels();
   updateViews();
@@ -1590,6 +1594,7 @@ void KateDocument::writeConfig(KConfig *config)
 
   config->writeEntry("Word Wrap On", myWordWrap);
   config->writeEntry("Word Wrap At", myWordWrapAt);
+  config->writeEntry("UndoSteps", myUndoSteps);
   config->writeEntry("TabWidth", tabChars);
   config->writeEntry("Font", viewFont.myFont);
   config->writeEntry("PrintFont", printFont.myFont);

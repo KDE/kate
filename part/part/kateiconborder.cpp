@@ -191,8 +191,6 @@ QSize KateIconBorder::minimumSizeHint() const
 
 void KateIconBorder::paintEvent(QPaintEvent* e)
 {      
-  return;
-
   QRect rect = e->rect();
 
   int lnWidth( 0 );

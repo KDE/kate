@@ -2856,10 +2856,13 @@ bool KateDocument::openFile()
   //
   // display errors
   //
-  if (!success && buffer->loadingBorked())
-    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
-  else if (!success)
-    KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was not possible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
+  if (s_openErrorDialogsActivated)
+  {
+    if (!success && buffer->loadingBorked())
+      KMessageBox::error (widget(), i18n ("The file %1 could not been loaded completely, as there is not enough temporary disk storage for it!").arg(m_url.url()));
+    else if (!success)
+      KMessageBox::error (widget(), i18n ("The file %1 could not been loaded, as it was not possible to read from it!\n\nCheck if you have read access to this file.").arg(m_url.url()));
+  }
 
   //
   // return the success

@@ -29,12 +29,19 @@
 namespace Kate
 {
 
+bool Document::s_openErrorDialogsActivated = true;
+
 Document::Document () : KTextEditor::Document (0L, "Kate::Document")
 {
 }
 
 Document::~Document ()
 {
+}
+
+void Document::setOpenErrorDialogsActivated (bool on)
+{
+  s_openErrorDialogsActivated = on;
 }
 
 bool Document::registerCommand (Command *cmd)

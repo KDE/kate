@@ -20,8 +20,8 @@
   <Action name="highlight_select" />
  </Menu>
   <Menu name="settings"><text>&amp;Settings</text>
-    <Action name="set_confdlg" group="config_merge"/>
     <Action name="set_highlight"/>
+    <Action name="set_confdlg" group="config_merge"/>
   </Menu>
 </MenuBar>
 <ToolBar name="mainToolBar"><text>Main Toolbar</text>

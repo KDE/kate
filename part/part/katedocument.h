@@ -192,6 +192,7 @@ class KateDocument : public Kate::Document
 
   signals:
     void textChanged ();
+    void charactersInteractivelyInserted(int ,int ,const QString&);
 
   private:
     //

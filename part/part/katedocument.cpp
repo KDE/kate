@@ -2543,6 +2543,10 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
   QChar ch;
   QString buf;
 
+  int savedCol=col;
+  int savedLine=line;
+  QString savedChars(chars);
+
   TextLine::Ptr textLine = getTextLine(line);
 
   pos = 0;
@@ -2652,6 +2656,7 @@ bool KateDocument::insertChars ( int line, int col, const QString &chars, KateVi
     } while (true);
   } */
 
+  emit charactersInteractivelyInserted(savedLine,savedCol,savedChars);
   return true;
 }
 

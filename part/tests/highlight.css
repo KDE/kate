@@ -1,0 +1,25 @@
+
+This is a pseudo CSS file to test Kate's CSS syntax highlighting.
+
+/* This is
+	a comment. */
+
+body {
+	font-size: 15pt;
+	font-family: Verdana,Helvetica,sans-serif;
+	margin-top: 0px;			/* yet another comment */
+	margin-bottom: 0px;
+	// this is no comment, it's just broken!
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.something
+{
+	margin-right: 0px;
+}
+
+a:hover {
+}
+
+TODO: add more tests, e.g. media

@@ -180,6 +180,7 @@ class KateAutoIndent
     uchar wordAttrib;
     uchar keywordAttrib;
     uchar normalAttrib;
+    uchar extensionAttrib;
 
     bool  useSpaces;    //!< Should we use spaces or tabs to indent
     bool  keepProfile;  //!< Always try to honor the leading whitespace of lines already in the file

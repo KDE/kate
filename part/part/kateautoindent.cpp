@@ -133,6 +133,7 @@ void KateAutoIndent::updateConfig ()
   wordAttrib = 255;
   keywordAttrib = 255;
   normalAttrib = 255;
+  extensionAttrib = 255;
 
   KateHlItemDataList items;
   doc->highlight()->getKateHlItemDataListCopy (0, items);
@@ -175,6 +176,10 @@ void KateAutoIndent::updateConfig ()
     else if (name.find("Normal") != -1 && normalAttrib == 255)
     {
       normalAttrib = i;
+    }
+    else if (name.find("Extensions") != -1 && extensionAttrib == 255)
+    {
+      extensionAttrib = i;
     }
   }
 }
@@ -1428,7 +1433,7 @@ bool KateCSAndSIndent::startsWithLabel( int line )
   const int indentFirst = indentLine->firstChar();
 
   int attrib = indentLine->attribute(indentFirst);
-  if (attrib != 0 && attrib != keywordAttrib && attrib != normalAttrib)
+  if (attrib != 0 && attrib != keywordAttrib && attrib != normalAttrib && attrib != extensionAttrib)
     return false;
 
   const int last = indentLine->lastChar();

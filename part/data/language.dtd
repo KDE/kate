@@ -13,192 +13,338 @@
 
         Files using this format should include a DOCTYPE declaration like this:
         <!DOCTYPE language SYSTEM "language.dtd">
+
+        You can validate your syntax files using checkXML from the development package of kdelibs:
+         checkXML yourSyntax.xml
+        If you see any 'validity error' lines, you should fix them. If you get a lot of 'No template matches'
+        lines, everything's just fine. You've got a valid syntax file!
+
+        It's also possible to use the (much faster) xmllint:
+          xmllint --dtdvalid yourSyntax.xml
 -->
 
+<!-- Entity declarations
+  You can use '&per;' instead of '.'. This seems to be usefull in <item> elements.
+
+TODO
+  - are there any more such pre-defined entities?
+-->
 <!ENTITY per "." >
 
-<!ENTITY % ruleattrs
- "attribute     CDATA   #REQUIRED       -- The name of the ItemData to be used for matching text --
-  context       CDATA   #REQUIRED       -- The name of the context to go to when this rule
-                                           matches --
-  beginRegion   CDATA   #IMPLIED        -- Begin a region of type beginRegion --
-  endRegion     CDATA   #IMPLIED        -- End a region of type endRegion --"
->
+<!-- Boolean type
+  Attributes that are of type boolean allow the following values:
+  'true', 'TRUE' and '1' all mean true,
+  'false', FALSE' and '0' all mean false.
 
+  It is encouraged to use 'true' and 'false' instead of the alternatives.
+-->
+<!ENTITY % boolean "true|false|TRUE|FALSE|0|1">
+
+<!-- Language specification
+  name:        The name of this syntax description. Used in the Highlightning Mode menu
+  section:     The logical group to which this syntax description belongs. Used for sub menus
+  extensions:  A file glob or pattern to decide for which documents to use this syntax description
+  mimetype:    A list of mimetypes to decide for which documents to use this syntax description [optional]
+  version:     Version number of this syntax description [optional]
+  kateversion: Kate version required for using this file [optional]
+  casesensitive: Whether text is matched case sensitive. [boolean, optional]
+  priority:    Priority of this language, if more than one are usable for the file [optional]
+
+TODO
+  - Which matches are affected by casesensitive? keyword, RegExpr, StringDetect...?
+-->
 <!ELEMENT language (highlighting, general?)>
 <!ATTLIST language
-  name          CDATA   #REQUIRED       -- The name of this syntax description. Used in the
-                                           Highlightning Mode menu --
-  section       NMTOKEN #REQUIRED       -- The logical group to which this syntax description
-                                           belongs. Used for sub menus --
-  extensions    CDATA   #REQUIRED       -- A file glob or pattern to decide for which documents
-                                           to use this syntax description --
-  mimetype      CDATA   #IMPLIED        -- A list of mimetypes to decide for which documents
-                                           to use this syntax description --
-  version       CDATA   #IMPLIED        -- Version number of this syntax description --
-  kateversion   CDATA   #IMPLIED        -- Kate version required for using this file --
-  casesensitive (0|1)   #IMPLIED        -- ?? --
-  priority      CDATA   #IMPLIED        -- Priority of this hl, if more than one are usable for the file --
+  name          CDATA       #REQUIRED
+  section       NMTOKEN     #REQUIRED
+  extensions    CDATA       #REQUIRED
+  mimetype      CDATA       #IMPLIED
+  version       CDATA       #IMPLIED
+  kateversion   CDATA       #IMPLIED
+  casesensitive (%boolean;) #IMPLIED
+  priority      CDATA       #IMPLIED
 >
 
+<!-- General options -->
 <!ELEMENT general (comments|keywords)*>
-<!ATTLIST general
->
 
+<!-- List of comments -->
 <!ELEMENT comments (comment)+>
-<!ATTLIST comments
->
 
+<!-- Comment specification
+  name:         Type of this comment. Allowed are 'singleLine' and 'multiLine'
+  start:        The comment starts with this string
+  end:          The comment ends with this string [optional]
+-->
 <!ELEMENT comment EMPTY>
 <!ATTLIST comment
-  name (singleLine|multiLine) #REQUIRED
-  start CDATA #REQUIRED
-  end CDATA #IMPLIED
+  name      (singleLine|multiLine)  #REQUIRED
+  start     CDATA                   #REQUIRED
+  end       CDATA                   #IMPLIED
 >
 
+<!-- Keyword options
+  casesensitive:        Whether keywords are matched case sensitive. [boolean, optional]
+  weakDeliminator:      Add weak deliminators [optional]
+  additionalDeliminator: Add deliminators [optional]
+
+TODO
+  - Explain (weak) deliminators
+-->
 <!ELEMENT keywords EMPTY>
 <!ATTLIST keywords
-  casesensitive CDATA #IMPLIED
-  weakDeliminator CDATA #IMPLIED
-  additionalDeliminator CDATA #IMPLIED
+  casesensitive         CDATA   #IMPLIED
+  weakDeliminator       CDATA   #IMPLIED
+  additionalDeliminator CDATA   #IMPLIED
 >
 
-<!ELEMENT highlighting (list*, contexts, itemDatas) -- Data, rules and attributes for
-                                           analyzing and rendering the relevant type of text -- >
+<!-- Highlighting specification -->
+<!ELEMENT highlighting (list*, contexts, itemDatas)>
 <!ATTLIST highlighting
 >
 
+<!-- List of items
+  name:     Name of this list
+-->
 <!ELEMENT list (item)+>
 <!ATTLIST list
-  name CDATA #REQUIRED
+  name  CDATA   #REQUIRED
 >
 
+<!-- List item
+  contains string used in <keyword>
+-->
 <!ELEMENT item (#PCDATA)>
 
+<!-- List of contexts -->
 <!ELEMENT contexts (context)+>
 
+<!-- context specification
+  name:             The name of this context specification. Used in '*Context' attributes [optional]
+  attribute:        The name of the ItemData to be used for matching text
+  lineEndContext:   Next context if end of line is encountered
+  lineBeginContext: Next context if begin of line is encountered [optional]
+  fallthrough:      Use a fallthrough context [optional]
+  fallthroughContext: Fall through to this context [optional]
+
+TODO:
+  - Explain fallthrough.
+  - Do we need fallthrough at all? It could be true, if fallthroughContext is set, false otherwhise.
+  - Make lineEndContext optional, defaults to '#stay'. Reasonable?
+-->
 <!ELEMENT context (keyword | Float | HlCOct | HlCHex | HlCFloat | Int | DetectChar | Detect2Chars | AnyChar | StringDetect | RegExpr | LineContinue | HlCStringChar | RangeDetect | HlCChar | IncludeRules)*>
 <!ATTLIST context
-  attribute CDATA #REQUIRED
-  lineEndContext CDATA #REQUIRED
-  lineBeginContext CDATA #IMPLIED
-  name CDATA #IMPLIED
-  fallthrough (false|true) #IMPLIED
-  fallthroughContext CDATA #IMPLIED
+  name              CDATA       #IMPLIED
+  attribute         CDATA       #REQUIRED
+  lineEndContext    CDATA       #REQUIRED
+  lineBeginContext  CDATA       #IMPLIED
+  fallthrough       (%boolean;) #IMPLIED
+  fallthroughContext CDATA      #IMPLIED
 >
 
-<!ELEMENT keyword EMPTY                 -- Test for occurrence of members of a keyword list -- >
+<!-- Common attributes
+  attribute:    The name of the ItemData to be used for matching text
+  context:      The name of the context to go to when this rule matches
+  beginRegion:  Begin a region of type beginRegion [optional]
+  endRegion:    End a region of type endRegion [optional]
+-->
+<!ENTITY % commonAttributes
+ "attribute     CDATA   #REQUIRED
+  context       CDATA   #REQUIRED
+  beginRegion   CDATA   #IMPLIED
+  endRegion     CDATA   #IMPLIED"
+>
+
+<!-- Detect members of a keyword list
+  commonAttributes: Common attributes
+  String:           Name of the list
+  weakDelimiter:    Use weak deliminator
+
+TODO:
+  - Should be weakDeliminator
+  - Explain deliminator
+-->
+<!ELEMENT keyword EMPTY>
 <!ATTLIST keyword
-  %ruleattrs;
-  String CDATA #REQUIRED
-                                        -- The name of the list to try --
+  %commonAttributes;
+  String    CDATA   #REQUIRED
   weakDelimiter CDATA #IMPLIED
 >
 
-<!ELEMENT Float (AnyChar)*              -- Detect a floating point number -- >
+<!-- Detect a floating point number
+  commonAttributes: Common attributes
+-->
+<!ELEMENT Float (AnyChar)*>
 <!ATTLIST Float
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT HlCOct EMPTY                  -- Detect a octal number -- >
+<!-- Detect an octal number
+  commonAttributes: Common attributes
+-->
+<!ELEMENT HlCOct EMPTY>
 <!ATTLIST HlCOct
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT HlCHex EMPTY                  -- Detect a hexadecimal number -- >
+<!-- Detect a hexadecimal number
+  commonAttributes: Common attributes
+-->
+<!ELEMENT HlCHex EMPTY>
 <!ATTLIST HlCHex
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT HlCFloat EMPTY                  -- Detect a float number -- >
+<!-- Detect a C-style floating point number
+  commonAttributes: Common attributes
+-->
+<!ELEMENT HlCFloat EMPTY>
 <!ATTLIST HlCFloat
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT HlCChar EMPTY                 --  -- >
+<!-- Detect C-style character
+  commonAttributes: Common attributes
+
+TODO
+  - Did I get this right?
+-->
+<!ELEMENT HlCChar EMPTY>
 <!ATTLIST HlCChar
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT Int (StringDetect)*           -- Detect an integer number -- >
+<!-- Detect an integer number
+  commonAttributes: Common attributes
+-->
+<!ELEMENT Int (StringDetect)*>
 <!ATTLIST Int
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT DetectChar EMPTY              -- Detect a single character -- >
+<!-- Detect a single character
+  commonAttributes: Common attributes
+  char:             The character to look for
+-->
+<!ELEMENT DetectChar EMPTY>
 <!ATTLIST DetectChar
-  char          CDATA   #REQUIRED       -- The character to look for --
-  %ruleattrs;
+  %commonAttributes;
+  char          CDATA   #REQUIRED
 >
 
-<!ELEMENT Detect2Chars EMPTY            -- Detect two characters -- >
+<!-- Detect two characters
+  commonAttributes: Common attributes
+  char:             The first character
+  char1:            The second character
+-->
+<!ELEMENT Detect2Chars EMPTY>
 <!ATTLIST Detect2Chars
-  char          CDATA   #REQUIRED       -- The first character --
-  char1         CDATA   #REQUIRED       -- The second character --
-  %ruleattrs;
+  %commonAttributes;
+  char          CDATA   #REQUIRED
+  char1         CDATA   #REQUIRED
 >
 
-<!ELEMENT AnyChar EMPTY                 -- Detect any of a group of characters -- >
+<!-- Detect any group of characters
+  commonAttributes: Common attributes
+  String:           A string representing the characters to look for
+
+TODO
+  - Description is not descriptive enough, I'm not sure what it exactly does:-(
+-->
+<!ELEMENT AnyChar EMPTY>
 <!ATTLIST AnyChar
-  String        CDATA   #REQUIRED       -- A string representing the characters to look for --
-  %ruleattrs;
+  %commonAttributes;
+  String        CDATA   #REQUIRED
 >
 
-<!ELEMENT StringDetect EMPTY            -- Detect a string -- >
+<!-- Detect a string
+  commonAttributes: Common attributes
+  String:           The string to look for
+  insensitive:      Whether the string is matched case INsensitive. [boolean, optional]
+-->
+<!ELEMENT StringDetect EMPTY>
 <!ATTLIST StringDetect
-  String        CDATA   #REQUIRED       -- The string to look for --
-  insensitive (TRUE|FALSE) #REQUIRED    -- Wheather to match case insensitive or not.
-                                           Defaults to false --
-  %ruleattrs;
+  %commonAttributes;
+  String        CDATA       #REQUIRED
+  insensitive   (%boolean;)  #IMPLIED
 >
 
-<!ELEMENT RegExpr EMPTY                 -- Detect text matching a regular expression -- >
+<!-- Detect a match of a regular expression
+  commonAttributes: Common attributes
+  String:           The regular expression pattern
+  insensitive:      Whether the text is matched case INsensitive. [boolean, optional, default=false]
+  minimal:          Wheather to use minimal matching for wild cards in the pattern [boolean, optional, default='false']
+-->
+<!ELEMENT RegExpr EMPTY>
 <!ATTLIST RegExpr
-  String        CDATA   #REQUIRED       -- The regular expression pattern --
-  insensitive (FALSE|TRUE) #IMPLIED     -- Wheather to match insensitive or not
-                                           Defaults to false --
-  minimal (false|true) #IMPLIED         -- Wheather to use minimal matching for wild cards
-                                           in the pattern Defaults to false --
-  %ruleattrs;
+  %commonAttributes;
+  String        CDATA       #REQUIRED
+  insensitive   (%boolean;) #IMPLIED
+  minimal       (%boolean;) #IMPLIED
 >
 
-<!ELEMENT LineContinue EMPTY            --  -- >
+<!-- Detect a line continuation
+  commonAttributes: Common attributes
+-->
+<!ELEMENT LineContinue EMPTY>
 <!ATTLIST LineContinue
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT HlCStringChar EMPTY           -- Detect a C style escaped character -- >
+<!-- Detect a C-style escaped character
+  commonAttributes: Common attributes
+
+TODO:
+  - Did I get this right? Only one character, or a string?
+-->
+<!ELEMENT HlCStringChar EMPTY>
 <!ATTLIST HlCStringChar
-  %ruleattrs;
+  %commonAttributes;
 >
 
-<!ELEMENT RangeDetect EMPTY             -- Detect a range of characters -- >
+<!-- Detect a range of characters
+  commonAttributes: Common attributes
+  char:             The character starting the range
+  char1:            The character terminating the range
+-->
+<!ELEMENT RangeDetect EMPTY>
 <!ATTLIST RangeDetect
-  char          CDATA   #REQUIRED       -- The character starting the range --
-  char1         CDATA   #REQUIRED       -- The character terminating the range --
-  %ruleattrs;
+  %commonAttributes;
+  char          CDATA   #REQUIRED
+  char1         CDATA   #REQUIRED
 >
 
-<!ELEMENT IncludeRules EMPTY            -- Include another context at this position -- >
+<!-- Include Rules of another context
+  context:             The name of the context to include
+-->
+<!ELEMENT IncludeRules EMPTY>
 <!ATTLIST IncludeRules
-  context       CDATA   #REQUIRED       -- The name or index of the context to include --
+  context       CDATA   #REQUIRED
 >
 
-<!ELEMENT itemDatas (itemData)+         -- Attribute list -- >
+<!-- List of attributes -->
+<!ELEMENT itemDatas (itemData)+>
 <!ATTLIST itemDatas
 >
 
-<!ELEMENT itemData EMPTY                -- One attribute or typographic style -- >
+<!-- Attribute specification
+  name          CDATA   #REQUIRED       The name of this attribute
+  defStyleNum   CDATA   #REQUIRED       The index of the default style to use
+  color         CDATA   #IMPLIED        Color for this style, either a hex triplet, a name or some other format recognized by Qt [optional]
+  selColor      CDATA   #IMPLIED        The color for this style when text is selected [optional]
+  italic        CDATA   #IMPLIED        Whether this attribute should be rendered using an italic typeface [optional, boolean]
+  bold          CDATA   #IMPLIED        Whether this attribute should be renederd using a bold typeface [optional, boolean]
+  underline     CDATA   #IMPLIED        Whether this attribute should be underlined [optional, boolean]
+  strikeout     CDATA   #IMPLIED        Whether this attribute should be striked out [optional, boolean]
+-->
+<!ELEMENT itemData EMPTY>
 <!ATTLIST itemData
-  name          CDATA   #REQUIRED       -- The name of this attribute --
-  defStyleNum   CDATA   #REQUIRED       -- The index of the default style to use --
-  color         CDATA   #IMPLIED        -- Color for this style, either a hex triplet, a name
-                                           or some other format recognized by Qt --
-  selColor      CDATA   #IMPLIED        -- The color for this style when text is selected --
-  italic        CDATA   #IMPLIED        -- Whether this attribute should be rendered using
-                                           an italic typeface --
-  bold          CDATA   #IMPLIED        -- Whether this attribute should be renederd using
-                                           a bold typeface --
-  underline     CDATA   #IMPLIED        -- Whether this style should be underlined --
-  strikeout     CDATA   #IMPLIED        -- Whether this style should be striked out --
+  name          CDATA   #REQUIRED
+  defStyleNum   CDATA   #REQUIRED
+  color         CDATA   #IMPLIED
+  selColor      CDATA   #IMPLIED
+  italic        (%boolean;) #IMPLIED
+  bold          (%boolean;) #IMPLIED
+  underline     (%boolean;) #IMPLIED
+  strikeout     (%boolean;) #IMPLIED
 >

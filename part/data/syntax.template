@@ -8,6 +8,9 @@
 
         Use it as the base for your own syntax files.
 
+        Look at language.dtd for some documentation of the allowed elements and their attributes.
+        There is also a description of how to validate your syntax file.
+
         You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
 -->
 <language name="" section="" extensions="" mimetype="">

@@ -238,7 +238,7 @@ class KateSchemaConfigHighlightTab : public QWidget
   Q_OBJECT
 
   public:
-    KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0, KateSchemaConfigFontColorTab *page = 0 );
+    KateSchemaConfigHighlightTab( QWidget *parent = 0, const char *name = 0, KateSchemaConfigFontColorTab *page = 0, uint hl = 0 );
     ~KateSchemaConfigHighlightTab();
 
   public:
@@ -266,7 +266,7 @@ class KateSchemaConfigPage : public KateConfigPage
   Q_OBJECT
 
   public:
-    KateSchemaConfigPage ( QWidget *parent );
+    KateSchemaConfigPage ( QWidget *parent, class KateDocument *doc=0 );
     ~KateSchemaConfigPage ();
 
   public slots:
@@ -285,6 +285,7 @@ class KateSchemaConfigPage : public KateConfigPage
 
   private:
     int m_lastSchema;
+    int m_defaultSchema;
     class QTabWidget *m_tabWidget;
     class QPushButton *btndel;
     class QComboBox *defaultSchemaCombo;

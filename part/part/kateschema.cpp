@@ -22,6 +22,7 @@
 #include "kateschema.moc"
 
 #include "kateconfig.h"
+#include "katedocument.h"
 #include "katefactory.h"
 #include "kateview.h"
 #include "katerenderer.h"
@@ -121,7 +122,6 @@ class KateStyleListItem : public QListViewItem
     void setColor( int );
     /* helper function to copy the default style into the KateHlItemData,
        when a property is changed and we are using default style. */
-    void setCustStyle();
 
     class KateAttribute *is, // the style currently in use
               *ds;           // default style for hl mode contexts and default styles
@@ -274,7 +274,7 @@ KateSchemaConfigColorTab::KateSchemaConfigColorTab( QWidget *parent, const char 
   label->setAlignment( AlignLeft|AlignVCenter);
   m_current = new KColorButton(b);
 
-  // Markers from kdelibs/interfaces/ktextinterface/markinterface.h  
+  // Markers from kdelibs/interfaces/ktextinterface/markinterface.h
   b = new QHBox (gbTextArea);
   b->setSpacing(KDialog::spacingHint());
   m_combobox = new KComboBox(b, "color_combo_box");
@@ -411,10 +411,10 @@ void KateSchemaConfigColorTab::readConfig (KConfig *config)
   connect( m_iconborder, SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_tmarker   , SIGNAL( changed( const QColor& ) ), SIGNAL( changed() ) );
   connect( m_markers   , SIGNAL( changed( const QColor& ) ), SLOT( slotMarkerColorChanged( const QColor& ) ) );
-}          
-           
+}
+
 void KateSchemaConfigColorTab::writeConfig (KConfig *config)
-{          
+{
   config->writeEntry("Color Background", m_back->color());
   config->writeEntry("Color Selection", m_selected->color());
   config->writeEntry("Color Highlighted Line", m_current->color());
@@ -576,7 +576,7 @@ void KateSchemaConfigFontColorTab::apply ()
 //END FontColorConfig
 
 //BEGIN KateSchemaConfigHighlightTab
-KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, const char *, KateSchemaConfigFontColorTab *page )
+KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, const char *, KateSchemaConfigFontColorTab *page, uint hl )
   : QWidget (parent)
 {
   m_defaults = page;
@@ -611,8 +611,8 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   m_styles = new KateStyleListView( this, true );
   layout->addWidget (m_styles, 999);
 
-  hlCombo->setCurrentItem ( 0 );
-  hlChanged ( 0 );
+  hlCombo->setCurrentItem ( hl );
+  hlChanged ( hl );
 
   QWhatsThis::add( m_styles,  i18n(
     "This list displays the contexts of the current syntax highlight mode and "
@@ -714,7 +714,7 @@ void KateSchemaConfigHighlightTab::apply ()
 //END KateSchemaConfigHighlightTab
 
 //BEGIN KateSchemaConfigPage
-KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
+KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent, KateDocument *doc )
   : KateConfigPage( parent ),
     m_lastSchema (-1)
 {
@@ -750,7 +750,8 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   m_fontColorTab = new KateSchemaConfigFontColorTab (m_tabWidget);
   m_tabWidget->addTab (m_fontColorTab, i18n("Normal Text Styles"));
 
-  m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab);
+  uint hl = doc ? doc->hlMode() : 0;
+  m_highlightTab = new KateSchemaConfigHighlightTab (m_tabWidget, "", m_fontColorTab, hl );
   m_tabWidget->addTab (m_highlightTab, i18n("Highlighting Text Styles"));
 
   hbHl = new QHBox( this );
@@ -759,6 +760,9 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent )
   lHl = new QLabel( i18n("&Default schema for %1:").arg(KApplication::kApplication()->aboutData()->programName ()), hbHl );
   defaultSchemaCombo = new QComboBox( false, hbHl );
   lHl->setBuddy( defaultSchemaCombo );
+
+
+  m_defaultSchema = (doc && doc->activeView()) ? doc->activeView()->renderer()->config()->schema() : KateRendererConfig::global()->schema();
 
   reload();
 
@@ -805,6 +809,10 @@ void KateSchemaConfigPage::reload()
   update ();
 
   defaultSchemaCombo->setCurrentItem (KateRendererConfig::global()->schema());
+
+  // initialize to the schema in the current document, or default schema
+  schemaCombo->setCurrentItem( m_defaultSchema );
+  schemaChanged( m_defaultSchema );
 }
 
 void KateSchemaConfigPage::reset()
@@ -1137,8 +1145,6 @@ void KateStyleListItem::updateStyle()
     if ( is->selectedBGColor() != st->selectedBGColor())
       st->setSelectedBGColor( is->selectedBGColor() );
   }
-  //kdDebug()<<"after update: "<<st->itemsSet()<<endl;
-  //kdDebug()<<"bold: "<<st->bold()<<" ("<<is->bold()<<")"<<endl;
 }
 
 /* only true for a hl mode item using it's default style */
@@ -1323,13 +1329,6 @@ void KateStyleListItem::unsetColor( int c )
     is->clearAttribute(KateAttribute::SelectedBGColor);
 }
 
-void KateStyleListItem::setCustStyle()
-{
-//   is = st;
-//   *is += *ds;
-//  st->defStyle = 0;
-}
-
 void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int col, int width, int align )
 {
 
@@ -1393,14 +1392,7 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
         p->setPen( QPen( mcg.text(), 2 ) );
       else
         p->setPen( QPen( lv->palette().color( QPalette::Disabled, QColorGroup::Text ), 2 ) );
-// Unused -- delete?
-//       if ( isSelected() && lv->header()->mapToSection( 0 ) != 0 )
-//       {
-//         p->fillRect( 0, 0, x + marg + BoxSize + 4, height(),
-//               mcg.brush( QColorGroup::Highlight ) );
-//         if ( isEnabled() )
-//           p->setPen( QPen( mcg.highlightedText(), 2 ) ); // FIXME! - use defaultstyles[0].selecol. luckily not used :)
-//       }
+
       p->drawRect( x+marg, y+2, BoxSize-4, BoxSize-4 );
       x++;
       y++;

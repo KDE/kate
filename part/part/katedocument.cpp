@@ -4509,7 +4509,7 @@ QString KateDocument::HTMLEncode(QChar theChar)
 
 Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
 {
-  return (Kate::ConfigPage*) new KateSchemaConfigPage (p);
+  return (Kate::ConfigPage*) new KateSchemaConfigPage (p, this);
 }
 
 Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)

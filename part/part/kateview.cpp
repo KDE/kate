@@ -86,7 +86,8 @@ class KateLineRange
     int end;
 };
 
-KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
+KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
+ : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
 {
   setBackgroundMode(NoBackground);
 
@@ -146,7 +147,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(
 
   setAcceptDrops(true);
   dragInfo.state = diNone;
-  
+
   connect(doc, SIGNAL (preHighlightChanged(uint)),this,SLOT(slotPreHighlightUpdate(uint)));
 
   connect(xScroll,SIGNAL(valueChanged(int)),SLOT(changeXPos(int)));
@@ -159,10 +160,8 @@ KateViewInternal::~KateViewInternal()
   delete drawBuffer;
 }
 
-
 void KateViewInternal::slotPreHighlightUpdate(uint line)
 {
-  //kdDebug()<<QString("slotPreHighlightUpdate - Wait for: %1, line:  %2").arg(waitForPreHighlight).arg(line)<<endl;
   if (waitForPreHighlight !=0)
     {
        if (line>=waitForPreHighlight)
@@ -173,8 +172,8 @@ void KateViewInternal::slotPreHighlightUpdate(uint line)
     }
 }
 
-void KateViewInternal::doCursorCommand(VConfig &c, int cmdNum) {
-
+void KateViewInternal::doCursorCommand(VConfig &c, int cmdNum)
+{
   switch (cmdNum) {
     case KateView::cmLeft:
       cursorLeft(c);
@@ -879,16 +878,13 @@ void KateViewInternal::updateView(int flags) {
 
       if (dx || dy) {
         scroll(dx,dy);
-//        kapp->syncX();
-//        scroll2(dx - dx/2,dy - dy/2);
-//      } else {
       }
       if (cursorOn) paintCursor();
       if (bm.eXPos > bm.sXPos) paintBracketMark();
     }
   }
+
   exposeCursor = false;
-//  updateState = 0;
 }
 
 

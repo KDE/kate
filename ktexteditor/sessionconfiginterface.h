@@ -40,35 +40,13 @@ class SessionConfigInterface
   //
   // slots !!!
   //
-  public:    
-    /**
-      Read/Write the config to the standard place where this editor
-      part saves it config, say: read/save default values for that
-      editor part
-    */
-    virtual void readConfig () = 0;
-    virtual void writeConfig () = 0;           
-                                                                         
-    /**
-      Read/Write the config of the part to a given kconfig object
-      to store the settings in a different place than the standard
-    */
-    virtual void readConfig (KConfig *) = 0;
-    virtual void writeConfig (KConfig *) = 0;
-    
+  public:        
     /**
       Read/Write session config of only this document/view/plugin 
     */
     virtual void readSessionConfig (KConfig *) = 0;
     virtual void writeSessionConfig (KConfig *) = 0;
     
-    /**
-      Shows a config dialog for the part, changes will be applied
-      to the part, but not saved anywhere automagically, call
-      writeConfig to save it
-    */
-    virtual void configDialog () = 0;
-
   private:
     class PrivateSessionConfigInterface *d;
     static unsigned int globalSessionConfigInterfaceNumber;

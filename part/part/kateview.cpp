@@ -882,6 +882,9 @@ void KateView::gotoLine()
 
 void KateView::gotoLineNumber( int line )
 {
+  // clear selection, unless we are in persistent selection mode
+  if ( ! (m_doc->config()->configFlags() & KateDocumentConfig::cfPersistent) )
+    m_doc->clearSelection();
   setCursorPositionInternal ( line, 0, 1 );
 }
 

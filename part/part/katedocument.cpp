@@ -279,8 +279,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView,
 
   myMarks.setAutoDelete (true);
 
-  printer = new KPrinter();
-
   selectStart.line = -1;
   selectStart.col = -1;
   selectEnd.line = -1;
@@ -372,7 +370,6 @@ KateDocument::~KateDocument()
   m_highlight->release();
   myMarks.clear ();
 
-  //SSSdelete printer;
   delete [] myAttribs;
   delete buffer;
 }
@@ -1860,10 +1857,12 @@ void KateDocument::clearMarks ()
 
 bool KateDocument::printDialog ()
 {
-   if ( printer->setup( kapp->mainWidget() ) )
+  KPrinter printer;
+
+   if ( printer.setup( kapp->mainWidget() ) )
    {
-     QPainter paint( printer );
-     QPaintDeviceMetrics pdm( printer );
+     QPainter paint( &printer );
+     QPaintDeviceMetrics pdm( &printer );
 
      uint y = 0;
      uint lineCount = 0;
@@ -1882,7 +1881,7 @@ bool KateDocument::printDialog ()
        {
          if (y+printFont.fontHeight >= (uint)pdm.height() )
          {
-           printer->newPage();
+           printer.newPage();
            y=0;
          }
 

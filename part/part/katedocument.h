@@ -355,9 +355,6 @@ class KateDocument : public Kate::Document
     bool printDialog ();
     bool print ();
 
-  private:
-    KPrinter *printer;
-
   //
   // KParts::ReadWrite stuff
   //

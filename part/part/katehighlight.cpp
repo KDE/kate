@@ -1189,7 +1189,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     m_priority=def->priority.toInt();
   }
 
-  deliminator = stdDeliminator;
+   deliminator = stdDeliminator;
 }
 
 KateHighlighting::~KateHighlighting()
@@ -1407,7 +1407,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
       {
         if (item->customStartEnable)
         {
-          if (customStartEnableDetermined || kateInsideString (deliminator, lastChar))
+          if (customStartEnableDetermined || kateInsideString (m_additionalData[hlKeyForContext( ctxNum )][Deliminator], lastChar))
             customStartEnableDetermined = true;
           else
             continue;
@@ -1970,7 +1970,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   if (dataname=="keyword")
   {
     KateHlKeyword *keyword=new KateHlKeyword(attr,context,regionId,regionId2,casesensitive,
-      deliminator);
+                                             deliminator);
 
     //Get the entries for the keyword lookup list
     keyword->addList(KateHlManager::self()->syntax->finddata("highlighting",stringdata));
@@ -2013,11 +2013,11 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   return tmpItem;
 }
 
-int KateHighlighting::hlKeyForAttrib( int attrib ) const
+int KateHighlighting::hlKeyForList( const IntList *list, int attrib ) const
 {
   int k = 0;
-  IntList::const_iterator it = m_hlIndex.constEnd();
-  while ( it != m_hlIndex.constBegin() )
+  IntList::const_iterator it = list->constEnd();
+  while ( it != list->constBegin() )
   {
     --it;
     k = (*it);
@@ -2130,6 +2130,7 @@ QStringList KateHighlighting::readCommentConfig()
  */
 QString KateHighlighting::readGlobalKeywordConfig()
 {
+  deliminator = stdDeliminator;
   // Tell the syntax document class which file we want to parse
   kdDebug(13010)<<"readGlobalKeywordConfig:BEGIN"<<endl;
 
@@ -2177,7 +2178,7 @@ QString KateHighlighting::readGlobalKeywordConfig()
 
   kdDebug(13010)<<"delimiterCharacters are: "<<deliminator<<endl;
 
-  return deliminator; // FIXME un-globalize
+  return deliminator;
 }
 
 /**
@@ -2433,6 +2434,7 @@ void KateHighlighting::makeContextList()
   KMessageBox::detailedSorry(0L,i18n("There were warning(s) and/or error(s) while parsing the syntax highlighting configuration."), errorsAndWarnings, i18n("Kate Syntax Highlighting Parser"));
 
   // we have finished
+//   deliminator = getCommentString(4,0);
   building=false;
 }
 
@@ -2589,15 +2591,17 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   // Now save the comment and delimitor data. We associate it with the
   // length of internalDataList, so when we look it up for an attrib,
   // all the attribs added in a moment will be in the correct range
+  uint additionalDataIndex=internalIDList.count();
+  m_hlIndex.append( additionalDataIndex );
+  m_ctxIndex.append(ctx0);
+
   QStringList additionaldata = readCommentConfig();
   additionaldata << readGlobalKeywordConfig();
   additionaldata << readWordWrapConfig();
 
   readFoldingConfig ();
 
-  uint additionalDataIndex=internalIDList.count();
   m_additionalData.insert( additionalDataIndex, additionaldata );
-  m_hlIndex.append( additionalDataIndex );
 
   QString ctxName;
 

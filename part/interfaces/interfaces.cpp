@@ -43,4 +43,9 @@ View::~View ()
 {
 }
 
+void ConfigPage::slotChanged()
+{
+  emit changed();
+}
+
 };

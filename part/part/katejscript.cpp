@@ -306,10 +306,10 @@ KateJSDocument::KateJSDocument (KJS::ExecState *exec, KateDocument *_doc)
 
 /* Source for KateJSViewTable.
 @begin KateJSViewTable 5
-  selStartLine        KateJSView::SelStartLine        DontDelete
-  selStartCol         KateJSView::SelStartCol         DontDelete
-  selEndLine          KateJSView::SelEndLine          DontDelete
-  selEndCol           KateJSView::SelEndCol           DontDelete
+  selStartLine        KateJSView::SelStartLine        DontDelete|ReadOnly
+  selStartCol         KateJSView::SelStartCol         DontDelete|ReadOnly
+  selEndLine          KateJSView::SelEndLine          DontDelete|ReadOnly
+  selEndCol           KateJSView::SelEndCol           DontDelete|ReadOnly
 @end
 */
 
@@ -408,10 +408,7 @@ void KateJSView::putValueProperty(KJS::ExecState *exec, int token, const KJS::Va
   if (!view)
     return;
 
-  switch (token) {
-    case KateJSView::SelStartLine:
-    return;
-    }
+
 }
 
 //END

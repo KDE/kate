@@ -3917,7 +3917,7 @@ bool KateDocument::lineEndSelected (int line, int endCol)
 {
   return (!blockSelect)
     && (line > selectStart.line || (line == selectStart.line && (selectStart.col < endCol || endCol == -1)))
-    && (line < selectEnd.line || (line == selectEnd.line && (endCol < selectEnd.col && endCol != -1)));
+    && (line < selectEnd.line || (line == selectEnd.line && (endCol <= selectEnd.col && endCol != -1)));
 }
 
 bool KateDocument::lineHasSelected (int line)

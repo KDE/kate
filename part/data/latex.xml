@@ -1,6 +1,6 @@
 <?xml version="1.01" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.05" kateversion="2.1" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
+<language name="LaTeX" version="1.06" kateversion="2.1" section="Markup" extensions="*.tex;*.TEX;*.bib;*.BIB;*.ltx;*.LTX;*.sty;*.STY;*.cls;*.CLS" mimetype="text/x-tex" casesensitive="1">
   <highlighting>
     <list name="keywords">
       <item>mu</item>
@@ -46,6 +46,8 @@
       <item>belowdisplayshortskip</item>
       <item>bf</item>
       <item>bibitem</item>
+      <item>bibliography</item>
+      <item>bibliographystyle</item>
       <item>bigskip</item>
       <item>bigskipamount</item>
       <item>boldmath</item>

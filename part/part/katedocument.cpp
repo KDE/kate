@@ -1710,14 +1710,21 @@ void KateDocument::readSessionConfig(KConfig *config)
   restoreMarks = true;
 
   m_url = config->readEntry("URL"); // ### doesn't this break the encoding? (Simon)
-  internalSetHlMode(hlManager->nameFind(config->readEntry("Highlight")));
+  // restore a hl set by the user
+  QString hl( config->readEntry("Highlight") );
+  if ( !hl.isEmpty() ) {
+    internalSetHlMode(hlManager->nameFind(hl));
+    hlSetByUser = true;
+  }
 
-  // restore bookmarks
-  QValueList<int> l = config->readIntListEntry("Bookmarks");
-  if ( l.count() )
-  {
-    for (uint i=0; i < l.count(); i++)
-      setMark( l[i], KateDocument::markType01 );
+  // restore bookmarks, unless it was modified since last open
+  if ( mTime <= config->readDateTimeEntry( "Modtime", &mTime ) ) {
+    QValueList<int> l = config->readIntListEntry("Bookmarks");
+    if ( l.count() )
+    {
+      for (uint i=0; i < l.count(); i++)
+        setMark( l[i], KateDocument::markType01 );
+    }
   }
 
   restoreMarks = false;
@@ -1726,7 +1733,10 @@ void KateDocument::readSessionConfig(KConfig *config)
 void KateDocument::writeSessionConfig(KConfig *config)
 {
   config->writeEntry("URL", m_url.url() ); // ### encoding?? (Simon)
-  config->writeEntry("Highlight", m_highlight->name());
+  // anders: save hl only if set by user.
+  config->writeEntry("Highlight", hlSetByUser ? m_highlight->name() : "");
+  // anders: save mod time - if changed when reopened, we will not restore bookmarks
+  config->writeEntry( "Modtime", mTime );
   // anders: save bookmarks
   QValueList<int> ml;
   for (uint i=0; i < myMarks.count(); i++) {
@@ -2037,14 +2047,11 @@ bool KateDocument::openFile()
     {
       QString line = buffer->plainLine(i);
       len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
-//kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
       if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-//kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
       memcpy(&buf[bufpos], (line+"\n").latin1(), len);
       bufpos += len;
       if (bufpos >= HOWMANY) break;
     }
-//kdDebug(13020)<<"openFile(): calling hlManager->mimeFind() with data:"<<endl<<buf.data()<<endl<<"--"<<endl;
     hl = hlManager->mimeFind( buf, m_file );
   }
 
@@ -2090,28 +2097,28 @@ bool KateDocument::saveFile()
 
   if (!hlSetByUser)
   {
-  int hl = hlManager->wildcardFind( m_file );
+    int hl = hlManager->wildcardFind( m_file );
 
-  if (hl == -1)
-  {
-    // fill the detection buffer with the contents of the text
-    const int HOWMANY = 1024;
-    QByteArray buf(HOWMANY);
-    int bufpos = 0, len;
-    for (uint i=0; i < buffer->count(); i++)
+    if (hl == -1)
     {
-      TextLine::Ptr textLine = buffer->line(i);
-      len = textLine->length();
-      if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-      memcpy(&buf[bufpos], textLine->getText(), len);
-      bufpos += len;
-      if (bufpos >= HOWMANY) break;
-    }
+      // fill the detection buffer with the contents of the text
+      const int HOWMANY = 1024;
+      QByteArray buf(HOWMANY);
+      int bufpos = 0, len;
+      for (uint i=0; i < buffer->count(); i++)
+      {
+        QString line = buffer->plainLine(i);
+        len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
+        if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
+        memcpy(&buf[bufpos], (line+"\n").latin1(), len);
+        bufpos += len;
+        if (bufpos >= HOWMANY) break;
+      }
 
     hl = hlManager->mimeFind( buf, m_file );
-  }
+    }
 
-  internalSetHlMode(hl);
+    internalSetHlMode(hl);
   }
   emit fileNameChanged ();
 
@@ -3268,7 +3275,6 @@ bool KateDocument::removeStartStopCommentFromSelection()
     sc++;
   }
   if ( l->getString().mid( sc, startCommentLen ) != startComment ) {
-    kdDebug(13020)<<"removeBlaBla(): '"<<startComment<<"' not found after skipping space ("<<sl<<", "<<sc<<") - giving up :("<<endl;
     return false;
   }
   // repat kinda reversed for end.....
@@ -3276,7 +3282,6 @@ bool KateDocument::removeStartStopCommentFromSelection()
   ec--;
   while ( el >= sl /*&& ec > sc*/ && l->getChar(ec).isSpace() ) {
     if ( ec < 0 ) {
-      kdDebug(13020)<<"removeBlaBla(): up a line = "<<el-1<<endl;
       el--;
       l = getTextLine( el );
       if (!l) return false; // hopefully _VERY_ unlikely
@@ -3286,13 +3291,11 @@ bool KateDocument::removeStartStopCommentFromSelection()
   }
   ec++; // we went one char too far to find a nonspace
   if ( ec - endCommentLen < 0 || l->getString().mid(ec-endCommentLen,endCommentLen) != endComment ) {
-    kdDebug(13020)<<"removeBlaBla(): '"<<endComment<<"' not found after skipping space ("<<el<<", "<<ec-endCommentLen<<") - giving up :("<<endl;
     return false;
   }
   removeText (el, ec-endCommentLen, el, ec);
   removeText (sl, sc, sl, sc+startCommentLen);
   // TODO anders: redefine selection
-  kdDebug(13020)<<"removeBlaBla(): I DID IT!! I'm DANCING AROUND"<<endl;
   return true;
 }
 

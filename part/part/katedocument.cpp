@@ -2693,6 +2693,15 @@ bool KateDocument::saveFile()
       i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) != KMessageBox::Yes))
     return false;
 
+  //
+  // warn -> try to save binary file!!!!!!!
+  //
+  if (m_buffer->binary() && (KMessageBox::warningYesNo (widget()
+        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.").arg(m_url.url())
+        , i18n ("Try To Save Binary File")
+        , KStdGuiItem::yes(), KStdGuiItem::no(), "Binary File Save Warning") != KMessageBox::Yes))
+    return false;
+
   if ( !url().isEmpty() )
   {
     if (s_fileChangedDialogsActivated && m_modOnHd)

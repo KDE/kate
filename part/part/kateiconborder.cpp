@@ -39,6 +39,7 @@
 #include <qpopupmenu.h>
 #include <qcursor.h>
 #include <qstyle.h>
+#include <qtimer.h>
 
 #include <math.h>
 
@@ -136,7 +137,8 @@ void KateIconBorder::setIconBorderOn( bool enable )
   m_iconBorderOn = enable;
 
   updateGeometry();
-  update ();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
 void KateIconBorder::setLineNumbersOn( bool enable )
@@ -148,7 +150,8 @@ void KateIconBorder::setLineNumbersOn( bool enable )
   m_dynWrapIndicatorsOn = (m_dynWrapIndicators == 1) ? enable : m_dynWrapIndicators;
 
   updateGeometry();
-  update ();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
 void KateIconBorder::setDynWrapIndicators( int state )
@@ -160,7 +163,8 @@ void KateIconBorder::setDynWrapIndicators( int state )
   m_dynWrapIndicatorsOn = (state == 1) ? m_lineNumbersOn : state;
 
   updateGeometry ();
-  update ();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
 void KateIconBorder::setFoldingMarkersOn( bool enable )
@@ -171,7 +175,8 @@ void KateIconBorder::setFoldingMarkersOn( bool enable )
   m_foldingMarkersOn = enable;
 
   updateGeometry();
-  update ();
+
+  QTimer::singleShot( 0, this, SLOT(update()) );
 }
 
 QSize KateIconBorder::sizeHint() const

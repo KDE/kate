@@ -34,12 +34,25 @@ class KateIconBorder;
 class KateLineRange
 {
   public:
+    // need this line a update / is it new/changed in the lineranges
+    bool dirty;
+    
+    // is the line empty ? (no textline available)
     bool empty;
+    
+    // length of the line in pixel, updated by updateView
+    uint lengthPixel;
+    
+    // REAL line number
     uint line;
+    
+    // start/end column
     int startCol;
     int endCol;
+    
+    // is this line wrapped ?
     bool wrapped;
-    bool dirty;
+
 };
 
 class KateViewInternal : public QWidget

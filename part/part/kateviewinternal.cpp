@@ -820,10 +820,10 @@ void KateViewInternal::updateView(int flags)
 			xScrollVis=true;
 		} while (reUpdate);
 	}
-  
+
   int w = myView->width();
 	int h = myView->height();
-	
+
   if (yScrollVis) w -= scrollbarWidth;
 
   int oldU = updateState;
@@ -884,7 +884,13 @@ void KateViewInternal::updateView(int flags)
   uint len = 0;
   for (uint z = 0; z < lineRanges.size(); z++)
   {
-      len = myDoc->textWidth (myDoc->kateTextLine (lineRanges[z].line), -1);
+      if (lineRanges[z].dirty)
+      {
+        len = myDoc->textWidth (myDoc->kateTextLine (lineRanges[z].line), -1);
+        lineRanges[z].lengthPixel = len;
+      }
+      else
+        len = lineRanges[z].lengthPixel;
 
       if (len > maxLen)
         maxLen = len;
@@ -914,7 +920,7 @@ void KateViewInternal::updateView(int flags)
     repaint();
     leftBorder->repaint();
   }
-  
+
   //
   // updateView done, reset the update flag + repaint flags
   //

@@ -256,6 +256,7 @@
       <item> LOGICAL_READS_PER_SESSION </item>
       <item> LOGOFF </item>
       <item> LOGON </item>
+      <item> LOOP </item>
       <item> MANAGE </item>
       <item> MANAGED </item>
       <item> MANAGEMENT </item>

@@ -83,7 +83,15 @@ class MarkInterface
     * Clears all marks in the document.
     */ 
     virtual void clearMarks () = 0;
-    
+
+    /**
+     * get the number of predefined marker types we have so far.
+     * @note If you change this you have to make sure katepart supports the new size!
+     * @return number of reserved marker types
+     * @since 3.3
+     */
+    static const int reservedMarkersCount();
+
     /**
      * Pre-defined mark types.
      *
@@ -106,12 +114,6 @@ class MarkInterface
       markType06= 0x20,
       /** Error */
       markType07= 0x40,
-
-      /**
-       * RESERVED tells us how many predefined marker types we have so far.
-       * @note If you change this you have to make sure katepart supports the new size!
-       */
-      RESERVED=7,
 
       markType08= 0x80,
       markType09= 0x100,

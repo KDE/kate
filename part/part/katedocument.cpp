@@ -1816,9 +1816,6 @@ void KateDocument::readConfig(KConfig *config)
 
   config->setGroup("Kate Document");
 
-  // search config flags
-  KateSearch::s_options = config->readNumEntry("Search Config Flags", KateSearch::s_options);
-
   myBackupConfig = config->readNumEntry( "Backup Config Flags", myBackupConfig);
   myBackupSuffix = config->readEntry("Backup Files Suffix", myBackupSuffix);
 
@@ -1833,13 +1830,6 @@ void KateDocument::readConfig(KConfig *config)
 
   for (uint z=0; z < KateFactory::documents()->count(); z++)
     KateFactory::documents()->at(z)->loadAllEnabledPlugins ();
-
-  // update the remaining document stuff
-  for (uint z=0; z < KateFactory::documents()->count(); z++)
-  {
-    KateFactory::documents()->at(z)->tagAll();
-    KateFactory::documents()->at(z)->updateViews();
-  }
 }
 
 void KateDocument::writeConfig(KConfig *config)
@@ -1854,8 +1844,6 @@ void KateDocument::writeConfig(KConfig *config)
   KateRendererConfig::global()->writeConfig (config);
 
   config->setGroup("Kate Document");
-
-  config->writeEntry("Search Config Flags",KateSearch::s_options);
 
   config->writeEntry( "Backup Config Flags", myBackupConfig );
   config->writeEntry( "Backup Files Suffix", myBackupSuffix );

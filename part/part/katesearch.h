@@ -124,7 +124,6 @@ class KateSearch : public QObject
     QValueList<SConfig> m_searchResults;
     int                 m_resultIndex;
 
-    static long s_options;
     int           replaces;
     QDialog*      replacePrompt;
     QString m_replacement;

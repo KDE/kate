@@ -29,6 +29,8 @@
 #include <kdebug.h>
 #include <kcharsets.h>
 #include <klocale.h>
+#include <kfinddialog.h>
+#include <kreplacedialog.h>
 
 #include <qcolor.h>
 #include <qtextcodec.h>
@@ -388,6 +390,7 @@ KateViewConfig::KateViewConfig ()
    m_bookmarkSortSet (true),
    m_autoCenterLinesSet (true),
    m_iconBarColorSet (true),
+   m_searchFlagsSet (true),
    m_view (0)
 {
   s_global = this;
@@ -408,6 +411,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_bookmarkSortSet (false),
    m_autoCenterLinesSet (false),
    m_iconBarColorSet (false),
+   m_searchFlagsSet (false),
    m_view (view)
 {
 }
@@ -445,6 +449,8 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setIconBarColor (config->readColorEntry("Color Icon Bar", &tmp5));
 
+  setSearchFlags (config->readNumEntry("Search Config Flags", KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace));
+
   configEnd ();
 }
 
@@ -464,6 +470,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry( "Auto Center Lines", autoCenterLines() );
 
   config->writeEntry("Color Background", *iconBarColor());
+
+  config->writeEntry("Search Config Flags", searchFlags());
 
   config->sync ();
 }
@@ -628,6 +636,24 @@ void KateViewConfig::setIconBarColor (const QColor &col)
 
   m_iconBarColorSet = true;
   m_iconBarColor = new QColor (col);
+
+  configEnd ();
+}
+
+long KateViewConfig::searchFlags () const
+{
+  if (m_searchFlagsSet || isGlobal())
+    return m_searchFlags;
+
+  return s_global->searchFlags();
+}
+
+void KateViewConfig::setSearchFlags (long flags)
+ {
+  configStart ();
+
+  m_searchFlagsSet = true;
+  m_searchFlags = flags;
 
   configEnd ();
 }

@@ -959,42 +959,7 @@ void KateView::toggleCmdLine ()
 {
   setCmdLine (!m_cmdLineOn);
 }
-/*
-<<<<<<< kateview.cpp
-void KateView::updateViewDefaults ()
-{
-  m_editActions->readShortcutSettings();
-  setDynWordWrap( m_doc->m_dynWordWrap );
-  m_toggleDynWrap->setChecked( dynWordWrap() );
 
-  setDynWrapIndicators( m_doc->m_dynWrapIndicators );
-  m_setDynWrapIndicators->setCurrentItem( dynWrapIndicators() );
-  m_setDynWrapIndicators->setEnabled( dynWordWrap() );
-
-  setLineNumbersOn( m_doc->m_lineNumbers );
-  m_toggleLineNumbers->setChecked( lineNumbersOn() );
-
-  setIconBorder( m_doc->m_iconBar );
-  m_toggleIconBar->setChecked( iconBorder() );
-
-  updateFoldingMarkersAction();
-  //if ( m_doc->m_collapseTopLevelOnLoad )
-    //
-
-  m_bookmarks->setSorting( (KateBookmarks::Sorting) m_doc->m_bookmarkSort );
-
-  m_toggleWWMarker->setChecked( m_doc->m_wordWrapMarker );
-
-  setAutoCenterLines(m_doc->autoCenterLines());
-}
-
-void KateView::setAutoCenterLines(int viewLines)
-{
-  m_viewInternal->setAutoCenterLines(viewLines);
-}
-
-=======
->>>>>>> 1.259*/
 void KateView::toggleWriteLock()
 {
   m_doc->setReadWrite( ! m_doc->isReadWrite() );

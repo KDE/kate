@@ -234,6 +234,9 @@ class KateViewConfig : public KateConfig
     const QColor *iconBarColor() const;
     void setIconBarColor (const QColor &col);
 
+    long searchFlags () const;
+    void setSearchFlags (long flags);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -243,6 +246,7 @@ class KateViewConfig : public KateConfig
     int m_bookmarkSort;
     int m_autoCenterLines;
     QColor *m_iconBarColor;
+    long m_searchFlags;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -252,6 +256,7 @@ class KateViewConfig : public KateConfig
     bool m_bookmarkSortSet : 1;
     bool m_autoCenterLinesSet : 1;
     bool m_iconBarColorSet : 1;
+    bool m_searchFlagsSet : 1;
 
   private:
     KateView *m_view;

@@ -33,6 +33,10 @@ bool KateCmd::registerCommand (Kate::Command *cmd)
   QStringList l = cmd->cmds ();
 
   for (uint z=0; z<l.count(); z++)
+    if (m_dict[l[z]])
+      return false;
+
+  for (uint z=0; z<l.count(); z++)
     m_dict.insert (l[z], cmd);
 
   m_cmds += l;

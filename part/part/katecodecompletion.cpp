@@ -145,7 +145,7 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
     } else {
       QApplication::sendEvent( m_view->m_viewInternal, e );
     }
-    if( m_colCursor + m_offset > m_view->cursorColumnReal() ) {
+    if( m_colCursor > m_view->cursorColumnReal() ) {
       // the cursor is too far left
       kdDebug() << "Aborting Codecompletion after sendEvent" << endl;
       kdDebug() << m_view->cursorColumnReal() << endl;

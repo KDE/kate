@@ -304,10 +304,6 @@ void KateView::setupEditActions()
 //  ac->setDefaultScope( KAction::ScopeWidget );
 
   new KAction(
-    i18n("Move Character Left"),                           Key_Left,
-    this, SLOT(cursorLeft()),
-    ac, "char_left" );
-  new KAction(
     i18n("Move Word Left"),                         CTRL + Key_Left,
     this,SLOT(wordLeft()),
     ac, "word_left" );
@@ -320,10 +316,6 @@ void KateView::setupEditActions()
     this, SLOT(shiftWordLeft()),
     ac, "select_word_left" );
 
-  new KAction(
-    i18n("Move Character Right"),                          Key_Right,
-    this, SLOT(cursorRight()),
-    ac, "char_right" );
   new KAction(
     i18n("Move Word Right"),                        CTRL + Key_Right,
     this, SLOT(wordRight()),
@@ -372,10 +364,6 @@ void KateView::setupEditActions()
     ac, "select_end_of_document" );
 
   new KAction(
-    i18n("Move to Previous Line"),                          Key_Up,
-    this, SLOT(up()),
-    ac, "line_up" );
-  new KAction(
     i18n("Select to Previous Line"),                SHIFT + Key_Up,
     this, SLOT(shiftUp()),
     ac, "select_line_up" );
@@ -384,10 +372,6 @@ void KateView::setupEditActions()
     this, SLOT(scrollUp()),
     ac, "scroll_line_up" );
 
-  new KAction(
-    i18n("Move to Next Line"),                              Key_Down,
-    this, SLOT(down()),
-    ac, "line_down" );
   new KAction(
     i18n("Select to Next Line"),                    SHIFT + Key_Down,
     this, SLOT(shiftDown()),
@@ -452,11 +436,6 @@ void KateView::setupEditActions()
     i18n("Delete Line"),                    CTRL + Key_K,
     this, SLOT(killLine()),
     ac, "delete_line" );
-
-  new KAction(
-    i18n("New Line"),                              Key_Return, // Key_Enter
-    this, SLOT(keyReturn()),
-    ac, "new_line" );
 
   KShortcut bksp(Key_Backspace);
   bksp.append(QKeySequence(SHIFT + Key_Backspace));

@@ -1804,17 +1804,8 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
     }
   }
   
-  switch( e->type() ) {
-  case QEvent::KeyPress: {
-    QKeyEvent *k = (QKeyEvent *)e;
-    if (k->key() == Qt::Key_Escape && !(m_doc->configFlags() & KateDocument::cfPersistent) ) {
-      m_doc->clearSelection();
-      return true;
-    } else if ( !(k->state() & ControlButton || k->state() & AltButton) ) {
-      keyPressEvent( k );
-      return k->isAccepted();
-    }
-  } break;
+  switch( e->type() )
+	{
 #ifndef QT_NO_DRAGANDDROP
   case QEvent::DragMove:
     {
@@ -1843,23 +1834,67 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
 void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
-  if( !m_doc->isReadWrite() ) {
+  if( !m_doc->isReadWrite() )
+  {
     e->ignore();
     return;
   }
 
-  if( m_doc->configFlags() & KateDocument::cfTabIndents && m_doc->hasSelection() ) {
-    KKey key(e);
-    if( key == Qt::Key_Tab ) {
+  KKey key(e);
+  
+  if (key == Qt::Key_Left)
+  {
+    m_view->cursorLeft();
+    return;
+  }
+  
+  if (key == Qt::Key_Right)
+  {
+    m_view->cursorRight();
+    return;
+  }
+  
+  if (key == Qt::Key_Down)
+  {
+    m_view->down();
+    return;
+  }
+  
+  if (key == Qt::Key_Up)
+  {
+    m_view->up();
+    return;
+  }
+  
+  if (key == Qt::Key_Return)
+  {
+    m_view->keyReturn();
+    return;
+  }
+    
+  if (key == Qt::Key_Escape && !(m_doc->configFlags() & KateDocument::cfPersistent) )
+  {
+      m_doc->clearSelection();
+      return;
+  }
+
+  if( m_doc->configFlags() & KateDocument::cfTabIndents && m_doc->hasSelection() )
+  {  
+    if( key == Qt::Key_Tab )
+    {
       m_doc->indent( cursor.line );
       return;
-    } else if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab) {
+    }
+    
+    if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
+    {
       m_doc->unIndent( cursor.line );
       return;
     }
   }
+  
   if ( !(e->state() & ControlButton) && !(e->state() & AltButton)
-         && m_doc->insertChars( cursor.line, cursor.col, e->text(), m_view ) )
+       && m_doc->insertChars( cursor.line, cursor.col, e->text(), m_view ) )
   {
     e->accept();
     return;
@@ -2174,7 +2209,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd)
   else if (tagLinesFrom > -1)
   {
     int startTagging = QMIN( tagLinesFrom, editTagLineStart );
-    int endTagging = m_doc->getRealLine( endLine() );
+    int endTagging = m_doc->numLines() - 1;
     tagLines (startTagging, endTagging, true);
   }
   else

@@ -204,6 +204,9 @@ class KateDocumentConfig : public KateConfig
 
     void setEol (int mode);
 
+    bool allowEolDetection () const;
+    void setAllowEolDetection (bool on);
+
     enum BackupFlags
     {
       LocalFiles=1,
@@ -242,6 +245,7 @@ class KateDocumentConfig : public KateConfig
     uint m_configFlags;
     QString m_encoding;
     int m_eol;
+    bool m_allowEolDetection;
     uint m_backupFlags;
     int m_searchDirConfigDepth;
     QString m_backupPrefix;
@@ -258,6 +262,7 @@ class KateDocumentConfig : public KateConfig
     uint m_configFlagsSet;
     bool m_encodingSet : 1;
     bool m_eolSet : 1;
+    bool m_allowEolDetectionSet : 1;
     bool m_backupFlagsSet : 1;
     bool m_searchDirConfigDepthSet : 1;
     bool m_backupPrefixSet : 1;

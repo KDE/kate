@@ -270,7 +270,7 @@ class KateSaveConfigTab : public KateConfigPage
   protected:
   KComboBox *m_encoding, *m_eol;
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
-  QCheckBox *replaceTabs, *removeSpaces;
+  QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
   QLineEdit *leBuPrefix;
   QLineEdit *leBuSuffix;
   KIntNumInput *dirSearchDepth;

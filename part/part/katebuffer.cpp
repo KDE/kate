@@ -472,8 +472,8 @@ bool KateBuffer::openFile (const QString &m_file)
     return false; // Error
   }
 
-  // set eol mode, if a eol char was found in the first 256kb block!
-  if (file.eol() != -1)
+  // set eol mode, if a eol char was found in the first 256kb block and we allow this at all!
+  if (m_doc->config()->allowEolDetection() && (file.eol() != -1))
     m_doc->config()->setEol (file.eol());
 
   // flush current content

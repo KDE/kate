@@ -877,6 +877,8 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   m_eol = new KComboBox (e5Layout);
   e5Label->setBuddy(m_eol);
 
+  allowEolDetection = new QCheckBox(i18n("&Automatic End of Line Detection"), gbEnc);
+
   m_eol->insertItem (i18n("UNIX"));
   m_eol->insertItem (i18n("DOS/Windows"));
   m_eol->insertItem (i18n("Macintosh"));
@@ -924,12 +926,15 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   layout->addStretch();
 
   QWhatsThis::add(removeSpaces, i18n(
-        "KateView will automatically eliminate extra spaces at the ends of "
+        "The editor will automatically eliminate extra spaces at the ends of "
         "lines of text while loading/saving the file."));
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;prefix&gt;&lt;filename&gt;&lt;suffix&gt;' before saving changes."
         "<p>The suffix defaults to <strong>~</strong> and prefix is empty by default" ) );
+  QWhatsThis::add( allowEolDetection, i18n(
+        "Check this if you want the editor to autodetect the end of line type."
+        "The first found end of line type will be used for the whole file.") );
   QWhatsThis::add( cbLocalFiles, i18n(
         "Check this if you want backups of local files when saving") );
   QWhatsThis::add( cbRemoteFiles, i18n(
@@ -957,6 +962,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect( allowEolDetection, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
   connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -1008,6 +1014,7 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setEncoding((m_encoding->currentItem() == 0) ? "" : KGlobal::charsets()->encodingForName(m_encoding->currentText()));
 
   KateDocumentConfig::global()->setEol(m_eol->currentItem());
+  KateDocumentConfig::global()->setAllowEolDetection(allowEolDetection->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
 }
@@ -1040,6 +1047,7 @@ void KateSaveConfigTab::reload()
 
   // eol
   m_eol->setCurrentItem(KateDocumentConfig::global()->eol());
+  allowEolDetection->setChecked(KateDocumentConfig::global()->allowEolDetection());
 
   dirSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 

@@ -99,6 +99,7 @@ KateDocumentConfig::KateDocumentConfig ()
    m_configFlagsSet (0xFFFF),
    m_encodingSet (true),
    m_eolSet (true),
+   m_allowEolDetectionSet (true),
    m_backupFlagsSet (true),
    m_searchDirConfigDepthSet (true),
    m_backupPrefixSet (true),
@@ -131,6 +132,7 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_configFlagsSet (0),
    m_encodingSet (false),
    m_eolSet (false),
+   m_allowEolDetectionSet (false),
    m_backupFlagsSet (false),
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
@@ -171,6 +173,7 @@ void KateDocumentConfig::readConfig (KConfig *config)
   setEncoding (config->readEntry("Encoding", ""));
 
   setEol (config->readNumEntry("End of Line", 0));
+  setAllowEolDetection (config->readNumEntry("Allow End of Line Detection", true));
 
   setBackupFlags (config->readNumEntry("Backup Config Flags", 1));
 
@@ -206,6 +209,7 @@ void KateDocumentConfig::writeConfig (KConfig *config)
   config->writeEntry("Encoding", encoding());
 
   config->writeEntry("End of Line", eol());
+  config->writeEntry("Allow End of Line Detection", allowEolDetection());
 
   config->writeEntry("Backup Config Flags", backupFlags());
 
@@ -488,6 +492,24 @@ void KateDocumentConfig::setEol (int mode)
   configEnd ();
 }
 
+bool KateDocumentConfig::allowEolDetection () const
+{
+  if (m_allowEolDetectionSet || isGlobal())
+    return m_allowEolDetection;
+
+  return s_global->allowEolDetection();
+}
+
+void KateDocumentConfig::setAllowEolDetection (bool on)
+{
+  configStart ();
+
+  m_allowEolDetectionSet = true;
+  m_allowEolDetection = on;
+
+  configEnd ();
+}
+
 uint KateDocumentConfig::backupFlags () const
 {
   if (m_backupFlagsSet || isGlobal())
@@ -670,7 +692,7 @@ void KateViewConfig::readConfig (KConfig *config)
   setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
 
   setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", true));
-  
+
   configEnd ();
 }
 
@@ -701,7 +723,7 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Persistent Selection", persistentSelection());
 
   config->writeEntry("Text To Search Mode", textToSearchMode());
-  
+
   config->writeEntry("Show Indentation Lines", showIndentationLines());
 }
 
@@ -981,17 +1003,17 @@ bool KateViewConfig::showIndentationLines () const
 {
   if (m_showIndentationLinesSet || isGlobal())
     return m_showIndentationLines;
-    
+
   return s_global->showIndentationLines();
 }
 
 void KateViewConfig::setShowIndentationLines (bool on)
 {
   configStart ();
-  
+
   m_showIndentationLinesSet = true;
   m_showIndentationLines = on;
-  
+
   configEnd ();
 }
 

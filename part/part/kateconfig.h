@@ -238,6 +238,9 @@ class KateViewConfig : public KateConfig
     long searchFlags () const;
     void setSearchFlags (long flags);
 
+    bool cmdLine () const;
+    void setCmdLine (bool on);
+
   private:
     bool m_dynWordWrap;
     int m_dynWordWrapIndicators;
@@ -248,6 +251,7 @@ class KateViewConfig : public KateConfig
     int m_autoCenterLines;
     QColor *m_iconBarColor;
     long m_searchFlags;
+    bool m_cmdLine;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -258,6 +262,7 @@ class KateViewConfig : public KateConfig
     bool m_autoCenterLinesSet : 1;
     bool m_iconBarColorSet : 1;
     bool m_searchFlagsSet : 1;
+    bool m_cmdLineSet : 1;
 
   private:
     KateView *m_view;

@@ -332,7 +332,7 @@ void KateView::setupActions()
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
 
-  a= toggleAction = toggleAction = new KToggleAction(
+  a= m_toggleCmdLine = toggleAction = new KToggleAction(
      i18n("Show C&ommand Line"), 0,
      this, SLOT(toggleCmdLine()),
      ac, "view_cmd_line" );
@@ -934,7 +934,7 @@ bool KateView::foldingMarkersOn() {
   return m_viewInternal->leftBorder->foldingMarkersOn();
 }
 
-void KateView::setCmdLine ( bool enabled )
+void KateView::showCmdLine ( bool enabled )
 {
   if (enabled == m_cmdLineOn)
     return;
@@ -957,7 +957,7 @@ void KateView::setCmdLine ( bool enabled )
 
 void KateView::toggleCmdLine ()
 {
-  setCmdLine (!m_cmdLineOn);
+  m_config->setCmdLine (!m_config->cmdLine ());
 }
 
 void KateView::toggleWriteLock()
@@ -1020,7 +1020,7 @@ void KateView::selectionChanged ()
 void KateView::switchToCmdLine ()
 {
   if (!m_cmdLineOn)
-    setCmdLine (true);
+    m_config->setCmdLine (true);
 
   m_cmdLine->setFocus ();
 }
@@ -1069,6 +1069,10 @@ void KateView::updateConfig ()
   // icon bar
   m_viewInternal->leftBorder->setIconBorderOn( config()->iconBar() );
   m_toggleIconBar->setChecked( config()->iconBar() );
+
+  // cmd line
+  showCmdLine (config()->cmdLine());
+  m_toggleCmdLine->setChecked( config()->cmdLine() );
 
   updateFoldingConfig ();
 

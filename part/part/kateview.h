@@ -236,7 +236,7 @@ class KateView : public Kate::View,
     void setFoldingMarkersOn( bool enable ); // Not in Kate::View, but should be
     void setIconBorder( bool enable );
     void setLineNumbersOn( bool enable );
-    void setCmdLine ( bool enable );
+    void showCmdLine ( bool enable );
     void toggleFoldingMarkers();
     void toggleIconBorder();
     void toggleLineNumbersOn();
@@ -324,6 +324,7 @@ class KateView : public Kate::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
+    KToggleAction*         m_toggleCmdLine;
 
     KSelectAction*         m_setEndOfLine;
 

@@ -391,6 +391,7 @@ KateViewConfig::KateViewConfig ()
    m_autoCenterLinesSet (true),
    m_iconBarColorSet (true),
    m_searchFlagsSet (true),
+   m_cmdLineSet (true),
    m_view (0)
 {
   s_global = this;
@@ -412,6 +413,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_autoCenterLinesSet (false),
    m_iconBarColorSet (false),
    m_searchFlagsSet (false),
+   m_cmdLineSet (false),
    m_view (view)
 {
 }
@@ -451,6 +453,8 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setSearchFlags (config->readNumEntry("Search Config Flags", KFindDialog::FromCursor | KFindDialog::CaseSensitive | KReplaceDialog::PromptOnReplace));
 
+  setCmdLine (config->readBoolEntry( "Command Line", false));
+
   configEnd ();
 }
 
@@ -472,6 +476,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Color Background", *iconBarColor());
 
   config->writeEntry("Search Config Flags", searchFlags());
+
+  config->writeEntry("Command Line", cmdLine());
 
   config->sync ();
 }
@@ -654,6 +660,24 @@ void KateViewConfig::setSearchFlags (long flags)
 
   m_searchFlagsSet = true;
   m_searchFlags = flags;
+
+  configEnd ();
+}
+
+bool KateViewConfig::cmdLine () const
+{
+  if (m_cmdLineSet || isGlobal())
+    return m_cmdLine;
+
+  return s_global->cmdLine();
+}
+
+void KateViewConfig::setCmdLine (bool on)
+{
+  configStart ();
+
+  m_cmdLineSet = true;
+  m_cmdLine = on;
 
   configEnd ();
 }

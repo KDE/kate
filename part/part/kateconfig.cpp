@@ -1234,13 +1234,17 @@ void KateRendererConfig::setHighlightedLineColor (const QColor &col)
 
 const QColor& KateRendererConfig::lineMarkerColor(KTextEditor::MarkInterface::MarkTypes type) const
 {
-  int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
-  Q_ASSERT( index >= 0 && index < KTextEditor::MarkInterface::reservedMarkersCount() );
+  int index = 0;
+  if (type > 0) { while((type >> index++) ^ 1) {} }
+  index -= 1;
+
+  if ( index < 0 || index >= KTextEditor::MarkInterface::reservedMarkersCount() )
+    return QColor();
 
   if (m_lineMarkerColorSet[index] || isGlobal())
     return m_lineMarkerColor[index];
 
-  return s_global->lineMarkerColor();
+  return s_global->lineMarkerColor( type );
 }
 
 void KateRendererConfig::setLineMarkerColor (const QColor &col, KTextEditor::MarkInterface::MarkTypes type)

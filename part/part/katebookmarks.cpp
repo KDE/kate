@@ -64,6 +64,7 @@ KateBookmarks::KateBookmarks( Kate::View* view, Sorting sort )
   , m_view( view )
   , m_sorting( sort )
 {
+  connect (view->getDoc(), SIGNAL(marksChanged()), this, SLOT(marksChanged()));
 }
 
 KateBookmarks::~KateBookmarks()
@@ -90,7 +91,6 @@ void KateBookmarks::createActions( KActionCollection* ac )
     this, SLOT(clearBookmarks()),
     ac, "bookmarks_clear");
   m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
-  m_bookmarkClear->setEnabled( m_marks.count() > 0 );
 
   m_goNext = new KAction(
     "Next Bookmark", ALT + Key_PageDown,
@@ -113,6 +113,8 @@ void KateBookmarks::createActions( KActionCollection* ac )
   // TODO - come up with a better solution, please anyone?
   connect( m, SIGNAL(aboutToHide()),
            this, SLOT(bookmarkMenuAboutToHide()) );
+
+  marksChanged ();
 }
 
 void KateBookmarks::toggleBookmark ()
@@ -124,7 +126,6 @@ void KateBookmarks::toggleBookmark ()
   else
     m_view->getDoc()->addMark( m_view->cursorLine(),
         KTextEditor::MarkInterface::markType01 );
-  m_bookmarkClear->setEnabled( true );
 }
 
 void KateBookmarks::clearBookmarks ()
@@ -134,7 +135,6 @@ void KateBookmarks::clearBookmarks ()
   for( ; *it; ++it ) {
     m_view->getDoc()->removeMark( (*it)->line, KTextEditor::MarkInterface::markType01 );
   }
-  m_bookmarkClear->setEnabled( false );
 }
 
 void KateBookmarks::bookmarkMenuAboutToShow()
@@ -150,7 +150,7 @@ void KateBookmarks::bookmarkMenuAboutToShow()
   uint line = m_view->cursorLine();
 
   const QRegExp re("&(?!&)");
-  m_marks = m_view->getDoc()->marks();
+
   int idx( -1 );
   QMemArray<uint> sortArray( m_marks.count() );
   QPtrListIterator<KTextEditor::Mark> it( m_marks );
@@ -279,6 +279,12 @@ void KateBookmarks::goPrevious()
       return;
     }
   }
+}
+
+void KateBookmarks::marksChanged ()
+{
+  m_marks = m_view->getDoc()->marks();
+  m_bookmarkClear->setEnabled( m_marks.count() > 0 );
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

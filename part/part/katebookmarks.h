@@ -54,6 +54,8 @@ class KateBookmarks : public QObject
     void goNext();
     void goPrevious();
 
+    void marksChanged ();
+
   private:
     Kate::View*                  m_view;
     KAction*                     m_bookmarkToggle;

@@ -190,8 +190,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
              this, SLOT( textHintTimeout() ) );
 
   // selection changed to set anchor
-  connect( m_doc, SIGNAL( selectionChanged() ),
-             this, SLOT( docSelectionChanged() ) );
+  connect( m_view, SIGNAL( selectionChanged() ),
+             this, SLOT( viewSelectionChanged() ) );
 
 
 // this is a work arround for RTL desktops
@@ -937,7 +937,7 @@ void KateViewInternal::doReturn()
 
 void KateViewInternal::doDelete()
 {
-  m_doc->del( cursor );
+  m_doc->del( m_view, cursor );
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     m_view->m_codeCompletion->updateBox();
   }
@@ -945,7 +945,7 @@ void KateViewInternal::doDelete()
 
 void KateViewInternal::doBackspace()
 {
-  m_doc->backspace( cursor );
+  m_doc->backspace( m_view, cursor );
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     m_view->m_codeCompletion->updateBox();
   }
@@ -964,14 +964,14 @@ void KateViewInternal::doTranspose()
 void KateViewInternal::doDeleteWordLeft()
 {
   wordLeft( true );
-  m_doc->removeSelectedText();
+  m_view->removeSelectedText();
   update();
 }
 
 void KateViewInternal::doDeleteWordRight()
 {
   wordRight( true );
-  m_doc->removeSelectedText();
+  m_view->removeSelectedText();
   update();
 }
 
@@ -1149,7 +1149,7 @@ void KateViewInternal::cursorLeft(  bool sel )
   if ( ! m_doc->wrapCursor() && cursor.col() == 0 )
     return;
 
-  moveChar( left,  sel );
+  moveChar( left, sel );
   if (m_view->m_codeCompletion->codeCompletionVisible()) {
     m_view->m_codeCompletion->updateBox();
   }
@@ -2035,12 +2035,12 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
   KateTextCursor newCursor = _newCursor;
   if( keepSel )
   {
-    if ( !m_doc->hasSelection() || (selectAnchor.line() == -1)
-         || ((m_doc->configFlags() & KateDocument::cfPersistent)
-             && ((cursor < m_doc->selectStart) || (cursor > m_doc->selectEnd))) )
+    if ( !m_view->hasSelection() || (selectAnchor.line() == -1)
+         || (m_view->config()->persistentSelection()
+             && ((cursor < m_view->selectStart) || (cursor > m_view->selectEnd))) )
     {
       selectAnchor = cursor;
-      m_doc->setSelection( cursor, newCursor );
+      m_view->setSelection( cursor, newCursor );
     }
     else
     {
@@ -2118,16 +2118,16 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
       }
 
       if ( doSelect )
-        m_doc->setSelection( selectAnchor, newCursor);
+        m_view->setSelection( selectAnchor, newCursor);
       else if ( selStartCached.line() > 0 ) // we have a cached selection, so we restore that
-        m_doc->setSelection( selStartCached, selEndCached );
+        m_view->setSelection( selStartCached, selEndCached );
     }
 
     m_selChangedByUser = true;
   }
-  else if ( !(m_doc->configFlags() & KateDocument::cfPersistent) )
+  else if ( !m_view->config()->persistentSelection() )
   {
-    m_doc->clearSelection();
+    m_view->clearSelection();
     selStartCached.setLine( -1 );
     selectAnchor.setLine( -1 );
   }
@@ -2136,7 +2136,6 @@ void KateViewInternal::updateSelection( const KateTextCursor& _newCursor, bool k
 void KateViewInternal::updateCursor( const KateTextCursor& newCursor, bool force, bool center, bool calledExternally )
 {
   KateTextLine::Ptr l = textLine( newCursor.line() );
-
 
   if ( !force && (cursor == newCursor) )
   {
@@ -2358,7 +2357,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 
   int col = m_view->renderer()->textPos( l, p.x() - thisRange.xOffset(), thisRange.startCol, false );
 
-  return m_doc->lineColSelected( thisRange.line, col );
+  return m_view->lineColSelected( thisRange.line, col );
 }
 
 //BEGIN EVENT HANDLING STUFF
@@ -2392,9 +2391,9 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           m_view->m_codeCompletion->abortCompletion();
       }
 
-      if ((k->key() == Qt::Key_Escape) && !(m_doc->configFlags() & KateDocument::cfPersistent) )
+      if ((k->key() == Qt::Key_Escape) && !m_view->config()->persistentSelection() )
       {
-        m_doc->clearSelection();
+        m_view->clearSelection();
         return true;
       }
       else if ( !((k->state() & ControlButton) || (k->state() & AltButton)) )
@@ -2566,7 +2565,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     {
       if( key == Qt::Key_Tab )
       {
-        if (m_doc->hasSelection() || (m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
+        if (m_view->hasSelection() || (m_doc->configFlags() & KateDocumentConfig::cfTabIndentsMode))
           m_doc->indent( m_view, cursor.line(), 1 );
         else if (m_doc->configFlags() & KateDocumentConfig::cfTabInsertsTab)
           m_doc->typeChars ( m_view, QString ("\t") );
@@ -2622,7 +2621,7 @@ void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
       if (m_selChangedByUser)
       {
         QApplication::clipboard()->setSelectionMode( true );
-        m_doc->copy();
+        m_view->copy();
         QApplication::clipboard()->setSelectionMode( false );
 
         m_selChangedByUser = false;
@@ -2651,7 +2650,7 @@ void KateViewInternal::contextMenuEvent ( QContextMenuEvent * e )
     makeVisible( cursor, 0 );
     p = cursorCoordinates();
   }
-  else if ( ! m_doc->hasSelection() || m_doc->config()->configFlags() & KateDocument::cfPersistent )
+  else if ( ! m_view->hasSelection() || m_view->config()->persistentSelection() )
     placeCursor( e->pos() );
 
   // popup is a qguardedptr now
@@ -2680,15 +2679,15 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           }
           else
           {
-            m_doc->selectLine( cursor );
+            m_view->selectLine( cursor );
           }
 
           QApplication::clipboard()->setSelectionMode( true );
-          m_doc->copy();
+          m_view->copy();
           QApplication::clipboard()->setSelectionMode( false );
 
-          selStartCached = m_doc->selectStart;
-          selEndCached = m_doc->selectEnd;
+          selStartCached = m_view->selectStart;
+          selEndCached = m_view->selectEnd;
 
           cursor.setCol(0);
           updateCursor( cursor );
@@ -2697,8 +2696,8 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
         if ( e->state() & Qt::ShiftButton )
         {
-          selStartCached = m_doc->selectStart;
-          selEndCached = m_doc->selectEnd;
+          selStartCached = m_view->selectStart;
+          selEndCached = m_view->selectEnd;
         }
         else
           selStartCached.setLine( -1 ); // invalidate
@@ -2738,27 +2737,27 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 
       if ( e->state() & Qt::ShiftButton )
       {
-        selStartCached = m_doc->selectStart;
-        selEndCached = m_doc->selectEnd;
+        selStartCached = m_view->selectStart;
+        selEndCached = m_view->selectEnd;
         updateSelection( cursor, true );
       }
       else
       {
-        m_doc->selectWord( cursor );
+        m_view->selectWord( cursor );
       }
 
       // Move cursor to end of selected word
-      if (m_doc->hasSelection())
+      if (m_view->hasSelection())
       {
         QApplication::clipboard()->setSelectionMode( true );
-        m_doc->copy();
+        m_view->copy();
         QApplication::clipboard()->setSelectionMode( false );
 
-        cursor.setPos(m_doc->selectEnd);
+        cursor.setPos(m_view->selectEnd);
         updateCursor( cursor );
 
-        selStartCached = m_doc->selectStart;
-        selEndCached = m_doc->selectEnd;
+        selStartCached = m_view->selectStart;
+        selEndCached = m_view->selectEnd;
       }
 
       possibleTripleClick = true;
@@ -2789,7 +2788,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       if (m_selChangedByUser)
       {
         QApplication::clipboard()->setSelectionMode( true );
-        m_doc->copy();
+        m_view->copy();
         QApplication::clipboard()->setSelectionMode( false );
 
         m_selChangedByUser = false;
@@ -3027,7 +3026,7 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
 void KateViewInternal::doDrag()
 {
   dragInfo.state = diDragging;
-  dragInfo.dragObject = new QTextDrag(m_doc->selection(), this);
+  dragInfo.dragObject = new QTextDrag(m_view->selection(), this);
   dragInfo.dragObject->drag();
 }
 
@@ -3079,7 +3078,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
 
     // on move: remove selected text; on copy: duplicate text
     if ( event->action() != QDropEvent::Copy )
-      m_doc->removeSelectedText();
+      m_view->removeSelectedText();
 
     m_doc->insertText( cursor.line(), cursor.col(), text );
 
@@ -3104,8 +3103,8 @@ void KateViewInternal::imStartEvent( QIMEvent *e )
     return;
   }
 
-  if ( m_doc->hasSelection() )
-    m_doc->removeSelectedText();
+  if ( m_view->hasSelection() )
+    m_view->removeSelectedText();
 
   m_imPreeditStartLine = cursor.line();
   m_imPreeditStart = cursor.col();
@@ -3323,9 +3322,9 @@ void KateViewInternal::editSetCursor (const KateTextCursor &cursor)
 }
 //END
 
-void KateViewInternal::docSelectionChanged ()
+void KateViewInternal::viewSelectionChanged ()
 {
-  if (!m_doc->hasSelection())
+  if (!m_view->hasSelection())
     selectAnchor.setPos (-1, -1);
 }
 

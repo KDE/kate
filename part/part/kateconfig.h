@@ -166,7 +166,6 @@ class KateDocumentConfig : public KateConfig
       cfRemoveSpaces = 0x10,
       cfWrapCursor= 0x20,
       cfAutoBrackets= 0x40,
-      cfPersistent= 0x80,
       cfKeepSelection= 0x100,
       cfTabIndentsMode = 0x200,
       cfDelOnInput= 0x400,
@@ -350,6 +349,9 @@ class KateViewConfig : public KateConfig
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
 
+    bool persistentSelection () const;
+    void setPersistentSelection (bool on);
+
     enum TextToSearch
     {
       Nowhere = 0,
@@ -375,6 +377,7 @@ class KateViewConfig : public KateConfig
     long m_searchFlags;
     bool m_cmdLine;
     uint m_defaultMarkType;
+    bool m_persistentSelection;
     int m_textToSearchMode;
 
     bool m_dynWordWrapSet : 1;
@@ -389,6 +392,7 @@ class KateViewConfig : public KateConfig
     bool m_searchFlagsSet : 1;
     bool m_cmdLineSet : 1;
     bool m_defaultMarkTypeSet : 1;
+    bool m_persistentSelectionSet : 1;
     bool m_textToSearchModeSet : 1;
 
   private:

@@ -353,56 +353,42 @@ class KateDocument : public Kate::Document,
   //
   public slots:
     bool setSelection ( const KateTextCursor & start,
-      const KateTextCursor & end );
+      const KateTextCursor & end ) { return false; }
     bool setSelection ( uint startLine, uint startCol,
-      uint endLine, uint endCol );
-    bool clearSelection ();
-    bool clearSelection (bool redraw, bool finishedChangingSelection = true);
+      uint endLine, uint endCol ) { return false; }
+    bool clearSelection () { return false; }
+    bool clearSelection (bool redraw, bool finishedChangingSelection = true) { return false; }
 
-    bool hasSelection () const;
-    QString selection () const ;
-    QString selectionAsHtml () const ;
+    bool hasSelection () const { return false; }
+    QString selection () const { return ""; }
+    QString selectionAsHtml () const { return ""; }
 
-    bool removeSelectedText ();
+    bool removeSelectedText () { return false; }
 
-    bool selectAll();
+    bool selectAll() { return false; }
 
     //
     // KTextEditor::SelectionInterfaceExt
     //
-    int selStartLine() { return selectStart.line(); };
-    int selStartCol()  { return selectStart.col(); };
-    int selEndLine()   { return selectEnd.line(); };
-    int selEndCol()    { return selectEnd.col(); };
+    int selStartLine() { return 0; }
+    int selStartCol()  { return 0; }
+    int selEndLine()   { return 0; }
+    int selEndCol()    { return 0; }
 
   private:
-    // some internal functions to get selection state of a line/col
-    bool lineColSelected (int line, int col);
-    bool lineSelected (int line);
-    bool lineEndSelected (int line, int endCol);
-    bool lineHasSelected (int line);
-    bool lineIsSelection (int line);
-
     QPtrList<KateSuperCursor> m_superCursors;
-
-    // stores the current selection
-    KateSuperCursor selectStart;
-    KateSuperCursor selectEnd;
 
   signals:
     void selectionChanged ();
     void textInserted(int line,int column);
+
   //
   // KTextEditor::BlockSelectionInterface stuff
   //
   public slots:
-    bool blockSelectionMode ();
-    bool setBlockSelectionMode (bool on);
-    bool toggleBlockSelectionMode ();
-
-  private:
-    // do we select normal or blockwise ?
-    bool blockSelect;
+    bool blockSelectionMode () { return false; }
+    bool setBlockSelectionMode (bool on) { return false; }
+    bool toggleBlockSelectionMode () { return false; }
 
   //
   // KTextEditor::UndoInterface stuff
@@ -663,11 +649,6 @@ class KateDocument : public Kate::Document,
     uint configFlags ();
     void setConfigFlags (uint flags);
 
-    /**
-       Tag the lines in the current selection.
-     */
-    void tagSelection(const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd);
-
     // Repaint all of all of the views
     void repaintViews(bool paintOnlyDirty = true);
 
@@ -706,23 +687,18 @@ class KateDocument : public Kate::Document,
 
     uint currentColumn( const KateTextCursor& );
     void newLine(             KateTextCursor&, KateViewInternal * ); // Changes input
-    void backspace(     const KateTextCursor& );
-    void del(           const KateTextCursor& );
+    void backspace(     KateView *view, const KateTextCursor& );
+    void del(           KateView *view, const KateTextCursor& );
     void transpose(     const KateTextCursor& );
-    void cut();
-    void copy();
-    void paste ( KateView* view );
 
-    void selectWord(   const KateTextCursor& cursor );
-    void selectLine(   const KateTextCursor& cursor );
-    void selectLength( const KateTextCursor& cursor, int length );
+    void paste ( KateView* view );
 
   public:
     void insertIndentChars ( KateView *view );
 
     void indent ( KateView *view, uint line, int change );
     void comment ( KateView *view, uint line, uint column, int change );
-    void align ( uint line );
+    void align ( KateView *view, uint line );
 
     enum TextTransform { Uppercase, Lowercase, Capitalize };
 

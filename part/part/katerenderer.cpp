@@ -140,7 +140,7 @@ bool KateRenderer::paintTextLineBackground(QPainter& paint, int line, bool isCur
   QColor backgroundColor( config()->backgroundColor() );
 
   bool selectionPainted = false;
-  if (showSelections() && m_doc->lineSelected(line))
+  if (showSelections() && m_view->lineSelected(line))
   {
     backgroundColor = config()->selectionColor();
     selectionPainted = true;
@@ -487,7 +487,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
                 // If this is the last block of text, fill up to the end of the line if the
                 // selection stretches that far
-                if ((curCol >= len - 1) && m_doc->lineEndSelected (line, endcol))
+                if ((curCol >= len - 1) && m_view->lineEndSelected (line, endcol))
                   width = xEnd - oldXPos;
               }
               else
@@ -853,31 +853,31 @@ bool KateRenderer::getSelectionBounds(uint line, uint lineLength, uint &start, u
 {
   bool hasSel = false;
 
-  if (m_doc->hasSelection() && !m_doc->blockSelect)
+  if (m_view->hasSelection() && !m_view->blockSelectionMode())
   {
-    if (m_doc->lineIsSelection(line))
+    if (m_view->lineIsSelection(line))
     {
-      start = m_doc->selectStart.col();
-      end = m_doc->selectEnd.col();
+      start = m_view->selStartCol();
+      end = m_view->selEndCol();
       hasSel = true;
     }
-    else if ((int)line == m_doc->selectStart.line())
+    else if ((int)line == m_view->selStartLine())
     {
-      start = m_doc->selectStart.col();
+      start = m_view->selStartCol();
       end = lineLength;
       hasSel = true;
     }
-    else if ((int)line == m_doc->selectEnd.line())
+    else if ((int)line == m_view->selEndLine())
     {
       start = 0;
-      end = m_doc->selectEnd.col();
+      end = m_view->selEndCol();
       hasSel = true;
     }
   }
-  else if (m_doc->lineHasSelected(line))
+  else if (m_view->lineHasSelected(line))
   {
-    start = m_doc->selectStart.col();
-    end = m_doc->selectEnd.col();
+    start = m_view->selStartCol();
+    end = m_view->selEndCol();
     hasSel = true;
   }
 

@@ -62,6 +62,7 @@
 #include <kaccel.h>
 #include <klibloader.h>
 #include <kencodingfiledialog.h>
+#include <kmultipledrag.h>
 
 #include <qfont.h>
 #include <qfileinfo.h>
@@ -83,6 +84,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
     , m_hasWrap( false )
     , m_startingUp (true)
     , m_updatingDocumentConfig (false)
+    , selectStart (m_doc, true)
+    , selectEnd (m_doc, true)
+    , blockSelect (false)
 {
   KateFactory::self()->registerView( this );
   m_config = new KateViewConfig (this);
@@ -307,10 +311,10 @@ void KateView::setupActions()
 
   m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
 
-  m_selectAll = a=KStdAction::selectAll(m_doc, SLOT(selectAll()), ac);
+  m_selectAll = a=KStdAction::selectAll(this, SLOT(selectAll()), ac);
   a->setWhatsThis(i18n("Select the entire text of the current document."));
 
-  m_deSelect = a=KStdAction::deselect(m_doc, SLOT(clearSelection()), ac);
+  m_deSelect = a=KStdAction::deselect(this, SLOT(clearSelection()), ac);
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
   a=new KAction(i18n("Enlarge Font"), "viewmag+", 0, m_viewInternal, SLOT(slotIncFontSizes()), ac, "incFontSizes");
@@ -408,9 +412,9 @@ void KateView::setupActions()
   m_search->createActions( ac );
   m_bookmarks->createActions( ac );
 
-  selectionChanged ();
+  slotSelectionChanged ();
 
-  connect (m_doc, SIGNAL(selectionChanged()), this, SLOT(selectionChanged()));
+  connect (this, SIGNAL(selectionChanged()), this, SLOT(slotSelectionChanged()));
 }
 
 void KateView::setupEditActions()
@@ -693,14 +697,14 @@ void KateView::slotStatusMsg ()
   QString s2 = i18n(" Col: %1").arg(KGlobal::locale()->formatNumber(c, 0));
 
   QString modstr = m_doc->isModified() ? QString (" * ") : QString ("   ");
-  QString blockstr = m_doc->blockSelectionMode() ? i18n(" BLK ") : i18n(" NORM ");
+  QString blockstr = blockSelectionMode() ? i18n(" BLK ") : i18n(" NORM ");
 
   emit viewStatusMsg (s1 + s2 + " " + ovrstr + blockstr + modstr);
 }
 
 void KateView::slotSelectionTypeChanged()
 {
-  m_toggleBlockSelection->setChecked( m_doc->blockSelectionMode() );
+  m_toggleBlockSelection->setChecked( blockSelectionMode() );
 
   emit newStatus();
 }
@@ -807,12 +811,6 @@ bool KateView::setCursorPositionInternal( uint line, uint col, uint tabwidth, bo
   return true;
 }
 
-void KateView::toggleBlockSelectionMode()
-{
-  m_doc->toggleBlockSelectionMode();
-  m_toggleBlockSelection->setChecked (m_doc->blockSelectionMode());
-}
-
 void KateView::setOverwriteMode( bool b )
 {
   if ( isOverwriteMode() && !b )
@@ -909,15 +907,15 @@ void KateView::gotoLine()
 void KateView::gotoLineNumber( int line )
 {
   // clear selection, unless we are in persistent selection mode
-  if ( ! (m_doc->config()->configFlags() & KateDocumentConfig::cfPersistent) )
-    m_doc->clearSelection();
+  if ( !config()->persistentSelection() )
+    clearSelection();
   setCursorPositionInternal ( line, 0, 1 );
 }
 
 void KateView::joinLines()
 {
-  int first = m_doc->selStartLine();
-  int last = m_doc->selEndLine();
+  int first = selStartLine();
+  int last = selEndLine();
   //int left = m_doc->textLine( last ).length() - m_doc->selEndCol();
   if ( first == last )
   {
@@ -1103,9 +1101,9 @@ void KateView::findAgain( bool back )
   m_search->findAgain( back );
 }
 
-void KateView::selectionChanged ()
+void KateView::slotSelectionChanged ()
 {
-  if (m_doc->hasSelection())
+  if (hasSelection())
   {
     m_copy->setEnabled (true);
     m_deSelect->setEnabled (true);
@@ -1119,7 +1117,7 @@ void KateView::selectionChanged ()
   if (m_doc->readOnly())
     return;
 
-  bool b = m_doc->hasSelection();
+  bool b = hasSelection();
   m_cut->setEnabled (b);
   m_spellcheckSelection->setEnabled(b);
 }
@@ -1192,7 +1190,7 @@ void KateView::updateConfig ()
   //m_toggleCmdLine->setChecked( config()->cmdLine() );
 
   // misc edit
-  m_toggleBlockSelection->setChecked( m_doc->blockSelectionMode() );
+  m_toggleBlockSelection->setChecked( blockSelectionMode() );
   m_toggleInsert->setChecked( isOverwriteMode() );
 
   updateFoldingConfig ();
@@ -1342,9 +1340,346 @@ void KateView::spellcheckFromCursor()
 
 void KateView::spellcheckSelection()
 {
-  KateTextCursor from( m_doc->selStartLine(), m_doc->selStartCol() );
-  KateTextCursor to( m_doc->selEndLine(), m_doc->selEndCol() );
+  KateTextCursor from( selStartLine(), selStartCol() );
+  KateTextCursor to( selEndLine(), selEndCol() );
   m_doc->spellcheck( from, to );
 }
+
+//BEGIN KTextEditor::SelectionInterface stuff
+
+bool KateView::setSelection( const KateTextCursor& start, const KateTextCursor& end )
+{
+  KateTextCursor oldSelectStart = selectStart;
+  KateTextCursor oldSelectEnd = selectEnd;
+
+  if (start <= end) {
+    selectStart.setPos(start);
+    selectEnd.setPos(end);
+  } else {
+    selectStart.setPos(end);
+    selectEnd.setPos(start);
+  }
+
+  tagSelection(oldSelectStart, oldSelectEnd);
+
+  repaintText(true);
+
+  emit selectionChanged ();
+
+  return true;
+}
+
+bool KateView::setSelection( uint startLine, uint startCol, uint endLine, uint endCol )
+{
+  if (hasSelection())
+    clearSelection(false, false);
+
+  return setSelection( KateTextCursor(startLine, startCol), KateTextCursor(endLine, endCol) );
+}
+
+bool KateView::clearSelection()
+{
+  return clearSelection(true);
+}
+
+bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
+{
+  if( !hasSelection() )
+    return false;
+
+  KateTextCursor oldSelectStart = selectStart;
+  KateTextCursor oldSelectEnd = selectEnd;
+
+  selectStart.setPos(-1, -1);
+  selectEnd.setPos(-1, -1);
+
+  tagSelection(oldSelectStart, oldSelectEnd);
+
+  oldSelectStart = selectStart;
+  oldSelectEnd = selectEnd;
+
+  if (redraw)
+    repaintText(true);
+
+  if (finishedChangingSelection)
+    emit selectionChanged();
+
+  return true;
+}
+
+bool KateView::hasSelection() const
+{
+  return selectStart != selectEnd;
+}
+
+QString KateView::selectionAsHtml() const
+{
+  int sc = selectStart.col();
+  int ec = selectEnd.col();
+
+  if ( blockSelect )
+  {
+    if (sc > ec)
+    {
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
+    }
+  }
+  return m_doc->textAsHtml (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+}
+
+QString KateView::selection() const
+{
+  int sc = selectStart.col();
+  int ec = selectEnd.col();
+
+  if ( blockSelect )
+  {
+    if (sc > ec)
+    {
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
+    }
+  }
+  return m_doc->text (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+}
+
+bool KateView::removeSelectedText ()
+{
+  if (!hasSelection())
+    return false;
+
+  m_doc->editStart ();
+
+  int sc = selectStart.col();
+  int ec = selectEnd.col();
+
+  if ( blockSelect )
+  {
+    if (sc > ec)
+    {
+      uint tmp = sc;
+      sc = ec;
+      ec = tmp;
+    }
+  }
+
+  m_doc->removeText (selectStart.line(), sc, selectEnd.line(), ec, blockSelect);
+
+  // don't redraw the cleared selection - that's done in editEnd().
+  clearSelection(false);
+
+  m_doc->editEnd ();
+
+  return true;
+}
+
+bool KateView::selectAll()
+{
+  setBlockSelectionMode (false);
+
+  return setSelection (0, 0, m_doc->lastLine(), m_doc->lineLength(m_doc->lastLine()));
+}
+
+bool KateView::lineColSelected (int line, int col)
+{
+  if ( (!blockSelect) && (col < 0) )
+    col = 0;
+
+  KateTextCursor cursor(line, col);
+
+  if (blockSelect)
+    return cursor.line() >= selectStart.line() && cursor.line() <= selectEnd.line() && cursor.col() >= selectStart.col() && cursor.col() < selectEnd.col();
+  else
+    return (cursor >= selectStart) && (cursor < selectEnd);
+}
+
+bool KateView::lineSelected (int line)
+{
+  return (!blockSelect)
+    && (selectStart <= KateTextCursor(line, 0))
+    && (line < selectEnd.line());
+}
+
+bool KateView::lineEndSelected (int line, int endCol)
+{
+  return (!blockSelect)
+    && (line > selectStart.line() || (line == selectStart.line() && (selectStart.col() < endCol || endCol == -1)))
+    && (line < selectEnd.line() || (line == selectEnd.line() && (endCol <= selectEnd.col() && endCol != -1)));
+}
+
+bool KateView::lineHasSelected (int line)
+{
+  return (selectStart < selectEnd)
+    && (line >= selectStart.line())
+    && (line <= selectEnd.line());
+}
+
+bool KateView::lineIsSelection (int line)
+{
+  return (line == selectStart.line() && line == selectEnd.line());
+}
+
+void KateView::tagSelection(const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd)
+{
+  if (hasSelection()) {
+    if (oldSelectStart.line() == -1) {
+      // We have to tag the whole lot if
+      // 1) we have a selection, and:
+      //  a) it's new; or
+      tagLines(selectStart, selectEnd);
+
+    } else if (blockSelectionMode() && (oldSelectStart.col() != selectStart.col() || oldSelectEnd.col() != selectEnd.col())) {
+      //  b) we're in block selection mode and the columns have changed
+      tagLines(selectStart, selectEnd);
+      tagLines(oldSelectStart, oldSelectEnd);
+
+    } else {
+      if (oldSelectStart != selectStart) {
+        if (oldSelectStart < selectStart)
+          tagLines(oldSelectStart, selectStart);
+        else
+          tagLines(selectStart, oldSelectStart);
+      }
+
+      if (oldSelectEnd != selectEnd) {
+        if (oldSelectEnd < selectEnd)
+          tagLines(oldSelectEnd, selectEnd);
+        else
+          tagLines(selectEnd, oldSelectEnd);
+      }
+    }
+
+  } else {
+    // No more selection, clean up
+    tagLines(oldSelectStart, oldSelectEnd);
+  }
+}
+
+void KateView::selectWord( const KateTextCursor& cursor )
+{
+  int start, end, len;
+
+  KateTextLine::Ptr textLine = m_doc->plainKateTextLine(cursor.line());
+
+  if (!textLine)
+    return;
+
+  len = textLine->length();
+  start = end = cursor.col();
+  while (start > 0 && m_doc->highlight()->isInWord(textLine->getChar(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && m_doc->highlight()->isInWord(textLine->getChar(end), textLine->attribute(start - 1))) end++;
+  if (end <= start) return;
+
+  if (!(m_doc->config()->configFlags() & KateDocument::cfKeepSelection))
+    clearSelection ();
+
+  setSelection (cursor.line(), start, cursor.line(), end);
+}
+
+void KateView::selectLine( const KateTextCursor& cursor )
+{
+  if (!(m_doc->config()->configFlags() & KateDocument::cfKeepSelection))
+    clearSelection ();
+
+  setSelection (cursor.line(), 0, cursor.line()+1, 0);
+}
+
+void KateView::selectLength( const KateTextCursor& cursor, int length )
+{
+  int start, end;
+
+  KateTextLine::Ptr textLine = m_doc->plainKateTextLine(cursor.line());
+
+  if (!textLine)
+    return;
+
+  start = cursor.col();
+  end = start + length;
+  if (end <= start) return;
+
+  if (!(m_doc->config()->configFlags() & KateDocument::cfKeepSelection))
+    clearSelection ();
+
+  setSelection (cursor.line(), start, cursor.line(), end);
+}
+
+void KateView::cut()
+{
+  if (!hasSelection())
+    return;
+
+  copy();
+  removeSelectedText();
+
+  m_viewInternal->repaint();
+}
+
+void KateView::copy() const
+{
+  kdDebug(13020) << "in katedocument::copy()" << endl;
+  if (!hasSelection())
+    return;
+#ifndef QT_NO_MIMECLIPBOARD
+  QClipboard *cb = QApplication::clipboard();
+
+  KMultipleDrag *drag = new KMultipleDrag();
+  QString htmltext;
+  if(!cb->selectionModeEnabled())
+    htmltext = selectionAsHtml();
+
+  if(!htmltext.isEmpty()) {
+    QTextDrag *htmltextdrag = new QTextDrag(htmltext) ;
+    htmltextdrag->setSubtype("html");
+
+    drag->addDragObject( htmltextdrag);
+  }
+  drag->addDragObject( new QTextDrag( selection()));
+
+  QApplication::clipboard()->setData(drag);
+#else
+  QApplication::clipboard()->setText(selection ());
+#endif
+
+  m_viewInternal->repaint();
+}
+
+//END
+
+//BEGIN KTextEditor::BlockSelectionInterface stuff
+
+bool KateView::blockSelectionMode ()
+{
+  return blockSelect;
+}
+
+bool KateView::setBlockSelectionMode (bool on)
+{
+  if (on != blockSelect)
+  {
+    blockSelect = on;
+
+    KateTextCursor oldSelectStart = selectStart;
+    KateTextCursor oldSelectEnd = selectEnd;
+
+    clearSelection(false, false);
+
+    setSelection(oldSelectStart, oldSelectEnd);
+
+    slotSelectionTypeChanged();
+  }
+
+  return true;
+}
+
+bool KateView::toggleBlockSelectionMode ()
+{
+  m_toggleBlockSelection->setChecked (!blockSelect);
+  return setBlockSelectionMode (!blockSelect);
+}
+
+//END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

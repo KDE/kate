@@ -56,7 +56,10 @@ class QGridLayout;
 class KateView : public Kate::View,
                  public KTextEditor::SessionConfigInterface,
                  public KTextEditor::ViewStatusMsgInterface,
-                 public KTextEditor::TextHintInterface
+                 public KTextEditor::TextHintInterface,
+                 public KTextEditor::SelectionInterface,
+                 public KTextEditor::SelectionInterfaceExt,
+                 public KTextEditor::BlockSelectionInterface
 {
     Q_OBJECT
 
@@ -78,8 +81,6 @@ class KateView : public Kate::View,
   // KTextEditor::ClipboardInterface
   //
   public slots:
-    void cut()           { m_doc->cut(); m_viewInternal->repaint(); }
-    void copy() const    { m_doc->copy();   }
     // TODO: Factor out of m_viewInternal
     void paste()         { m_viewInternal->doPaste(); m_viewInternal->repaint(); }
 
@@ -145,6 +146,64 @@ class KateView : public Kate::View,
     void setDynWordWrap( bool b );
     bool dynWordWrap() const      { return m_hasWrap; }
 
+  //
+  // KTextEditor::SelectionInterface stuff
+  //
+  public slots:
+    bool setSelection ( const KateTextCursor & start,
+      const KateTextCursor & end );
+    bool setSelection ( uint startLine, uint startCol,
+      uint endLine, uint endCol );
+    bool clearSelection ();
+    bool clearSelection (bool redraw, bool finishedChangingSelection = true);
+
+    bool hasSelection () const;
+    QString selection () const ;
+    QString selectionAsHtml () const ;
+
+    bool removeSelectedText ();
+
+    bool selectAll();
+
+    //
+    // KTextEditor::SelectionInterfaceExt
+    //
+    int selStartLine() { return selectStart.line(); };
+    int selStartCol()  { return selectStart.col(); };
+    int selEndLine()   { return selectEnd.line(); };
+    int selEndCol()    { return selectEnd.col(); };
+
+    KateSuperCursor &selStart () { return selectStart; }
+    KateSuperCursor &selEnd () { return selectEnd; }
+
+    // some internal functions to get selection state of a line/col
+    bool lineColSelected (int line, int col);
+    bool lineSelected (int line);
+    bool lineEndSelected (int line, int endCol);
+    bool lineHasSelected (int line);
+    bool lineIsSelection (int line);
+
+    void tagSelection (const KateTextCursor &oldSelectStart, const KateTextCursor &oldSelectEnd);
+
+    void selectWord(   const KateTextCursor& cursor );
+    void selectLine(   const KateTextCursor& cursor );
+    void selectLength( const KateTextCursor& cursor, int length );
+
+    void cut();
+    void copy() const;
+
+  signals:
+    void selectionChanged ();
+
+  //
+  // KTextEditor::BlockSelectionInterface stuff
+  //
+  public slots:
+    bool blockSelectionMode ();
+    bool setBlockSelectionMode (bool on);
+    bool toggleBlockSelectionMode ();
+
+
   //BEGIN EDIT STUFF
   public:
     void editStart ();
@@ -196,7 +255,7 @@ class KateView : public Kate::View,
     void indent()             { m_doc->indent( this, cursorLine(), 1 );  }
     void unIndent()           { m_doc->indent( this, cursorLine(), -1 ); }
     void cleanIndent()        { m_doc->indent( this, cursorLine(), 0 );  }
-    void align()              { m_doc->align( cursorLine() ); }
+    void align()              { m_doc->align( this, cursorLine() ); }
     void comment()            { m_doc->comment( this, cursorLine(), cursorColumnReal(), 1 );  }
     void uncomment()          { m_doc->comment( this, cursorLine(), cursorColumnReal(),-1 ); }
     void killLine()           { m_doc->removeLine( cursorLine() ); }
@@ -306,7 +365,7 @@ class KateView : public Kate::View,
 
   public slots:
     void gotoMark( KTextEditor::Mark* mark ) { setCursorPositionInternal ( mark->line, 0, 1 ); }
-    void selectionChanged ();
+    void slotSelectionChanged ();
 
   signals:
     void gotFocus( Kate::View* );
@@ -434,12 +493,19 @@ class KateView : public Kate::View,
 
   private slots:
     void updateFoldingConfig ();
-    void toggleBlockSelectionMode ();
 
   private:
     KateViewConfig *m_config;
     bool m_startingUp;
     bool m_updatingDocumentConfig;
+
+  private:
+    // stores the current selection
+    KateSuperCursor selectStart;
+    KateSuperCursor selectEnd;
+
+    // do we select normal or blockwise ?
+    bool blockSelect;
 };
 
 #endif

@@ -22,6 +22,7 @@
 #include "katedocumenthelpers.moc"
 
 #include "katedocument.h"
+#include "kateview.h"
 
 #include <kpopupmenu.h>
 #include <klocale.h>
@@ -37,7 +38,8 @@ KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
 
 void KateBrowserExtension::copy()
 {
-  m_doc->copy();
+  if (m_doc->activeView())
+    m_doc->activeView()->copy();
 }
 
 void KateBrowserExtension::print()

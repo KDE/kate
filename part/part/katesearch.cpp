@@ -92,11 +92,11 @@ void KateSearch::find()
 {
   // if multiline selection around, search in it
   long searchf = KateViewConfig::global()->searchFlags();
-  if (m_doc->hasSelection() && m_doc->selStartLine() != m_doc->selEndLine())
+  if (m_view->hasSelection() && m_view->selStartLine() != m_view->selEndLine())
     searchf |= KFindDialog::SelectedText;
 
   KFindDialog *findDialog = new KFindDialog (  m_view, "", searchf,
-                                               s_searchList, m_doc->hasSelection() );
+                                               s_searchList, m_view->hasSelection() );
 
   findDialog->setPattern (getSearchText());
 
@@ -133,8 +133,8 @@ void KateSearch::find( const QString &pattern, long flags, bool add, bool showno
 
   if ( searchFlags.selected )
   {
-    s.selBegin = KateTextCursor( doc()->selStartLine(), doc()->selStartCol() );
-    s.selEnd   = KateTextCursor( doc()->selEndLine(),   doc()->selEndCol()   );
+    s.selBegin = KateTextCursor( m_view->selStartLine(), m_view->selStartCol() );
+    s.selEnd   = KateTextCursor( m_view->selEndLine(),   m_view->selEndCol()   );
     s.cursor   = s.flags.backward ? s.selEnd : s.selBegin;
   } else {
     s.cursor = getCursor();
@@ -153,11 +153,11 @@ void KateSearch::replace()
 
   // if multiline selection around, search in it
   long searchf = KateViewConfig::global()->searchFlags();
-  if (m_doc->hasSelection() && m_doc->selStartLine() != m_doc->selEndLine())
+  if (m_view->hasSelection() && m_view->selStartLine() != m_view->selEndLine())
     searchf |= KFindDialog::SelectedText;
 
   KReplaceDialog *replaceDialog = new KReplaceDialog (  m_view, "", searchf,
-                                               s_searchList, s_replaceList, m_doc->hasSelection() );
+                                               s_searchList, s_replaceList, m_view->hasSelection() );
 
   replaceDialog->setPattern (getSearchText());
 
@@ -198,8 +198,8 @@ void KateSearch::replace( const QString& pattern, const QString &replacement, lo
   searchFlags.useBackRefs = KateViewConfig::global()->searchFlags() & KReplaceDialog::BackReference;
   if ( searchFlags.selected )
   {
-    s.selBegin = KateTextCursor( doc()->selStartLine(), doc()->selStartCol() );
-    s.selEnd   = KateTextCursor( doc()->selEndLine(),   doc()->selEndCol()   );
+    s.selBegin = KateTextCursor( m_view->selStartLine(), m_view->selStartCol() );
+    s.selEnd   = KateTextCursor( m_view->selEndLine(), m_view->selEndCol()   );
     s.cursor   = s.flags.backward ? s.selEnd : s.selBegin;
   } else {
     s.cursor = getCursor();
@@ -494,14 +494,14 @@ QString KateSearch::getSearchText()
   {
   case KateViewConfig::SelectionOnly: // (Windows)
     //kdDebug() << "getSearchText(): SelectionOnly" << endl;
-    if( doc()->hasSelection() )
-      str = doc()->selection();
+    if( m_view->hasSelection() )
+      str = m_view->selection();
     break;
 
   case KateViewConfig::SelectionWord: // (classic Kate behavior)
     //kdDebug() << "getSearchText(): SelectionWord" << endl;
-    if( doc()->hasSelection() )
-      str = doc()->selection();
+    if( m_view->hasSelection() )
+      str = m_view->selection();
     else
       str = view()->currentWord();
     break;
@@ -514,8 +514,8 @@ QString KateSearch::getSearchText()
   case KateViewConfig::WordSelection: // (persistent selection lover)
     //kdDebug() << "getSearchText(): WordSelection" << endl;
     str = view()->currentWord();
-    if (str.isEmpty() && doc()->hasSelection() )
-      str = doc()->selection();
+    if (str.isEmpty() && m_view->hasSelection() )
+      str = m_view->selection();
     break;
 
   default: // (nowhere)
@@ -590,7 +590,7 @@ bool KateSearch::doSearch( const QString& text )
       if ( !s.flags.backward && KateTextCursor( foundLine, foundCol ) >= s.selEnd
         ||  s.flags.backward && KateTextCursor( foundLine, foundCol ) < s.selBegin )
         found = false;
-      else if (m_doc->blockSelectionMode())
+      else if (m_view->blockSelectionMode())
       {
         if ((int)foundCol < s.selEnd.col() && (int)foundCol >= s.selBegin.col())
           break;
@@ -600,7 +600,7 @@ bool KateSearch::doSearch( const QString& text )
     line = foundLine;
     col = foundCol+1;
   }
-  while (m_doc->blockSelectionMode() && found);
+  while (m_view->blockSelectionMode() && found);
 
   if( !found ) return false;
 
@@ -658,7 +658,7 @@ bool KateSearch::doSearch( const QString& text )
 void KateSearch::exposeFound( KateTextCursor &cursor, int slen )
 {
   view()->setCursorPositionInternal ( cursor.line(), cursor.col() + slen, 1 );
-  doc()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
+  view()->setSelection( cursor.line(), cursor.col(), cursor.line(), cursor.col() + slen );
 }
 //END KateSearch
 
@@ -894,9 +894,9 @@ void SearchCommand::processText( Kate::View *view, const QString &cmd )
       // at the beginning of the selection, so that the search continues.
       // ### check more carefully, like is  the cursor currently at the end
       // of the selection.
-      if ( pattern.startsWith( v->getDoc()->selection() ) &&
-           v->getDoc()->selection().length() + 1 == pattern.length() )
-        v->setCursorPositionInternal( v->getDoc()->selStartLine(), v->getDoc()->selStartCol() );
+      if ( pattern.startsWith( v->selection() ) &&
+           v->selection().length() + 1 == pattern.length() )
+        v->setCursorPositionInternal( v->selStartLine(), v->selStartCol() );
 
       v->find( pattern, m_ifindFlags, false );
     }

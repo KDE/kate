@@ -159,6 +159,8 @@ class KateViewInternal : public QWidget
     void prepareForDynWrapChange();
     void dynWrapChanged();
 
+    KateView *view () { return m_view; }
+
   public slots:
     void slotIncFontSizes();
     void slotDecFontSizes();
@@ -171,7 +173,7 @@ class KateViewInternal : public QWidget
     void scrollPrevLine();
     void scrollNextLine();
     void scrollColumns (int x); // connected to the valueChanged of the m_columnScroll
-    void docSelectionChanged ();
+    void viewSelectionChanged ();
 
   public:
     void doReturn();

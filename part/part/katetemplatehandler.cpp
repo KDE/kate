@@ -301,9 +301,9 @@ bool KateTemplateHandler::operator() ( KKey key )
 
   if ( m_tabOrder.at( m_currentTabStop ) ->isInitialValue )
   {
-    m_doc->setSelection( m_currentRange->start(), m_currentRange->end() );
+    m_doc->activeView()->setSelection( m_currentRange->start(), m_currentRange->end() );
   }
-  else m_doc->setSelection( m_currentRange->end(), m_currentRange->end() );
+  else m_doc->activeView()->setSelection( m_currentRange->end(), m_currentRange->end() );
 
   m_doc->activeView() ->setCursorPosition( m_currentRange->end().line(), m_currentRange->end().col() );
   m_doc->activeView() ->tagLine( m_currentRange->end() );

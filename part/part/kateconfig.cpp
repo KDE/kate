@@ -601,6 +601,7 @@ KateViewConfig::KateViewConfig ()
    m_searchFlagsSet (true),
    m_cmdLineSet (true),
    m_defaultMarkTypeSet (true),
+   m_persistentSelectionSet (true),
    m_textToSearchModeSet (true),
    m_view (0)
 {
@@ -626,6 +627,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_searchFlagsSet (false),
    m_cmdLineSet (false),
    m_defaultMarkTypeSet (false),
+   m_persistentSelectionSet (false),
    m_textToSearchModeSet (false),
    m_view (view)
 {
@@ -661,6 +663,8 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setDefaultMarkType (config->readNumEntry( "Default Mark Type", KTextEditor::MarkInterface::markType01 ));
 
+  setPersistentSelection (config->readNumEntry( "Persistent Selection", false ));
+
   setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
 
   configEnd ();
@@ -689,6 +693,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Command Line", cmdLine());
 
   config->writeEntry("Default Mark Type", defaultMarkType());
+
+  config->writeEntry("Persistent Selection", persistentSelection());
 
   config->writeEntry("Text To Search Mode", textToSearchMode());
 }
@@ -925,6 +931,24 @@ void KateViewConfig::setDefaultMarkType (uint type)
 
   m_defaultMarkTypeSet = true;
   m_defaultMarkType = type;
+
+  configEnd ();
+}
+
+bool KateViewConfig::persistentSelection () const
+{
+  if (m_cmdLineSet || isGlobal())
+    return m_persistentSelection;
+
+  return s_global->persistentSelection();
+}
+
+void KateViewConfig::setPersistentSelection (bool on)
+{
+  configStart ();
+
+  m_persistentSelectionSet = true;
+  m_persistentSelection = on;
 
   configEnd ();
 }

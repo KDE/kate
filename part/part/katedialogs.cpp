@@ -364,23 +364,14 @@ void KateSelectConfigTab::apply ()
     return;
   m_changed = false;
 
-  KateDocumentConfig::global()->configStart ();
-
-  int configFlags = KateDocumentConfig::global()->configFlags();
-
-  configFlags &= ~KateDocumentConfig::cfPersistent; // clear persistent
-
-  if (m_tabs->id (m_tabs->selected()) == 1)
-    configFlags |= KateDocumentConfig::cfPersistent; // set flag if checked
-
-  KateDocumentConfig::global()->setConfigFlags(configFlags);
-
-  KateDocumentConfig::global()->configEnd ();
+  KateViewConfig::global()->configStart ();
+  KateViewConfig::global()->setPersistentSelection (m_tabs->id (m_tabs->selected()) == 1);
+  KateViewConfig::global()->configEnd ();
 }
 
 void KateSelectConfigTab::reload ()
 {
-  if (KateDocumentConfig::global()->configFlags() & KateDocumentConfig::cfPersistent)
+  if (KateViewConfig::global()->persistentSelection())
     m_tabs->setButton (1);
   else
     m_tabs->setButton (0);

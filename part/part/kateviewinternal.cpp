@@ -482,11 +482,14 @@ void KateViewInternal::changeYPos(int p)
 
   if (QABS(dy) < height())
   {
-    leftBorder->scroll(0,dy);
     scroll(0, dy);
+    leftBorder->scroll(0,dy);
   }
   else
+  {
     update();
+    leftBorder->update();
+  }
 }
 
 
@@ -856,9 +859,9 @@ void KateViewInternal::updateView(int flags)
 	(lineRangesUpdateHeight<height())) lineRangesUpdateHeight=height();
 	needLineRangesUpdate=true;
 	  updateLineRanges();
-//	updateLineRanges (height());
-    repaint ();
-    leftBorder->repaint();
+
+    update();
+    leftBorder->update();
   }
   else
   {

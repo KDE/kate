@@ -577,7 +577,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         if (lineRanges[z].line != realLine || lineRanges[z].startCol != startCol)
           alreadyDirty = lineRanges[z].dirty = true;
 
-        if (lineRanges[z].dirty || (changed && alreadyDirty)) {
+        if (lineRanges[z].dirty || changed || alreadyDirty) {
           alreadyDirty = true;
 
           lineRanges[z].virtualLine = line;

@@ -2691,7 +2691,7 @@ bool KateDocument::closeURL()
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
   {
     view->setCursorPositionReal (0,0);
-    view->updateView();
+    view->updateView(true);
   }
 
   // uh, filename changed
@@ -3866,7 +3866,7 @@ void KateDocument::updateViews()
 
   for (KateView * view = m_views.first(); view != 0L; view = m_views.next() )
   {
-    view->updateView();
+    view->updateView(true);
   }
 }
 

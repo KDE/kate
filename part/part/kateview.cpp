@@ -882,28 +882,26 @@ void KateViewInternal::updateView(int flags) {
 }
 
 
-void KateViewInternal::paintTextLines(int xPos, int yPos) {
-//  int xStart, xEnd;
-  int line;//, z;
-  int h;
-  KateLineRange *r;
-
+void KateViewInternal::paintTextLines(int xPos, int yPos)
+{
   if (!drawBuffer) return;
   if (drawBuffer->isNull()) return;
 
   QPainter paint;
   paint.begin(drawBuffer);
 
-  h = myDoc->viewFont.fontHeight;
-  r = lineRanges;
-  for (line = startLine; line <= endLine; line++) {
-    if (r->start < r->end) {
-//debug("painttextline %d %d %d", line, r->start, r->end);
+  uint h = myDoc->viewFont.fontHeight;
+  KateLineRange *r = lineRanges;
+
+  for (uint line = startLine; line <= endLine; line++)
+  {
+    if (r->start < r->end)
+    {
       myDoc->paintTextLine(paint, line, r->start, r->end, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
-      bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0,
-        r->end - r->start, h);
+      bitBlt(this, r->start - xPos, line*h - yPos, drawBuffer, 0, 0, r->end - r->start, h);
       leftBorder->paintLine(line);
     }
+    
     r++;
   }
 
@@ -933,7 +931,8 @@ void KateViewInternal::paintCursor() {
   yCoord = y+h;
 
   QPainter paint;
-  if (cursorOn) {
+  if (cursorOn)
+  {
     QColor &fg = myDoc->cursorCol(cursor.col,cursor.line);
     QColor &bg = myDoc->backCol(cursor.col, cursor.line);
     QColor xor_fg (qRgb(fg.red()^bg.red(), fg.green()^bg.green(), fg.blue()^bg.blue()),
@@ -947,13 +946,12 @@ void KateViewInternal::paintCursor() {
     //h += y - 1;
     paint.fillRect(x, y, w, h, xor_fg);
     paint.end();
-   } else {
-
+   }
+   else
+   {
      tagLines( cursor.line, cursor.line, 0, 0xffff);
-paintTextLines (xPos, yPos);
-
+     paintTextLines (xPos, yPos);
   }
-
 }
 
 void KateViewInternal::paintBracketMark() {

@@ -1498,6 +1498,7 @@ void KateViewInternal::cursorUp(bool sel)
 
     //kdDebug() << k_funcinfo << m_currentMaxX << " " << visibleX << endl;
 
+    // FIXME FIXME move this calculation into a seperate function
     if (m_currentMaxX - thisRange.xOffset() > visibleX)
       visibleX = m_currentMaxX - thisRange.xOffset();
 
@@ -1659,9 +1660,13 @@ void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
 
 void KateViewInternal::pageUp( bool sel )
 {
+  // remember the view line and x pos
+  int viewLine = displayViewLine(displayCursor);
+  bool atTop = (startPos().line() == 0 && startPos().col() == 0);
+
   // Adjust for an auto-centering cursor
   int lineadj = 2 * m_minLinesVisible;
-  int cursorStart = (linesDisplayed() - 1) - displayViewLine(displayCursor);
+  int cursorStart = (linesDisplayed() - 1) - viewLine;
   if (cursorStart < m_minLinesVisible)
     lineadj -= m_minLinesVisible - cursorStart;
 
@@ -1670,7 +1675,7 @@ void KateViewInternal::pageUp( bool sel )
 
   // don't scroll the full view in case the scrollbar appears
   if (!m_view->dynWordWrap()) {
-    if (scrollbarVisible(startLine() + linesToScroll + displayViewLine(displayCursor))) {
+    if (scrollbarVisible(startLine() + linesToScroll + viewLine)) {
       if (!m_columnScrollDisplayed) {
         linesToScroll++;
       }
@@ -1681,14 +1686,42 @@ void KateViewInternal::pageUp( bool sel )
     }
   }
 
-  scrollLines( linesToScroll, sel );
+  if (/** FIXME config here instead of 0 */ 0 && !atTop) {
+    int xPos = m_view->renderer()->textWidth(cursor) - currentRange().startX;
+
+    KateTextCursor newStartPos = viewLineOffset(startPos(), linesToScroll - 1);
+    scrollPos(newStartPos);
+
+    // put the cursor back approximately where it was
+    KateTextCursor newPos = viewLineOffset(newStartPos, viewLine, true);
+    newPos.setLine(m_doc->getRealLine(newPos.line()));
+
+    LineRange newLine = range(newPos);
+
+    if (m_currentMaxX - newLine.xOffset() > xPos)
+      xPos = m_currentMaxX - newLine.xOffset();
+
+    cXPos = QMIN(newLine.startX + xPos, lineMaxCursorX(newLine));
+
+    m_view->renderer()->textWidth( newPos, cXPos );
+
+    m_preserveMaxX = true;
+    updateCursor(newPos);
+
+  } else {
+    scrollLines( linesToScroll, sel );
+  }
 }
 
 void KateViewInternal::pageDown( bool sel )
 {
+  // remember the view line
+  int viewLine = displayViewLine(displayCursor);
+  bool atEnd = startPos() >= m_cachedMaxStartPos;
+
   // Adjust for an auto-centering cursor
   int lineadj = 2 * m_minLinesVisible;
-  int cursorStart = m_minLinesVisible - displayViewLine(displayCursor);
+  int cursorStart = m_minLinesVisible - viewLine;
   if (cursorStart > 0)
     lineadj -= cursorStart;
 
@@ -1697,7 +1730,7 @@ void KateViewInternal::pageDown( bool sel )
 
   // don't scroll the full view in case the scrollbar appears
   if (!m_view->dynWordWrap()) {
-    if (scrollbarVisible(startLine() + linesToScroll + displayViewLine(displayCursor) - (linesDisplayed() - 1))) {
+    if (scrollbarVisible(startLine() + linesToScroll + viewLine - (linesDisplayed() - 1))) {
       if (!m_columnScrollDisplayed) {
         linesToScroll--;
       }
@@ -1708,7 +1741,31 @@ void KateViewInternal::pageDown( bool sel )
     }
   }
 
-  scrollLines( linesToScroll, sel );
+  if (/** FIXME config here instead of 0 */ 0 && !atEnd) {
+    int xPos = m_view->renderer()->textWidth(cursor) - currentRange().startX;
+
+    KateTextCursor newStartPos = viewLineOffset(startPos(), linesToScroll + 1);
+    scrollPos(newStartPos);
+
+    // put the cursor back approximately where it was
+    KateTextCursor newPos = viewLineOffset(newStartPos, viewLine, true);
+    newPos.setLine(m_doc->getRealLine(newPos.line()));
+
+    LineRange newLine = range(newPos);
+
+    if (m_currentMaxX - newLine.xOffset() > xPos)
+      xPos = m_currentMaxX - newLine.xOffset();
+
+    cXPos = QMIN(newLine.startX + xPos, lineMaxCursorX(newLine));
+
+    m_view->renderer()->textWidth( newPos, cXPos );
+
+    m_preserveMaxX = true;
+    updateCursor(newPos);
+
+  } else {
+    scrollLines( linesToScroll, sel );
+  }
 }
 
 bool KateViewInternal::scrollbarVisible(uint startLine)

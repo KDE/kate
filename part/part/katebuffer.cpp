@@ -226,7 +226,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
 {
   m_blocks.setAutoDelete(true);
 
-  connect( &m_loadTimer, SIGNAL(timeout()), this, SLOT(loadFilePart()));
   connect( &m_highlightTimer, SIGNAL(timeout()), this, SLOT(slotBufferUpdateHighlight()));
 
   connect( this, SIGNAL(pleaseHighlight(uint,uint)),this,SLOT(slotBufferUpdateHighlight(uint,uint)));

@@ -198,7 +198,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_marks.setAutoDelete( true );
   m_markPixmaps.setAutoDelete( true );
   m_markDescriptions.setAutoDelete( true );
-  restoreMarks = false;
   setMarksUserChangable( markType01 );
 
   m_docName = QString ("");
@@ -2038,8 +2037,9 @@ void KateDocument::setMark( uint line, uint markType )
 
 void KateDocument::clearMark( uint line )
 {
-  if( !restoreMarks && line > lastLine() )
+  if( line > lastLine() )
     return;
+
   if( !m_marks[line] )
     return;
 
@@ -2053,8 +2053,9 @@ void KateDocument::clearMark( uint line )
 
 void KateDocument::addMark( uint line, uint markType )
 {
-  if( !restoreMarks && line > lastLine())
+  if( line > lastLine())
     return;
+
   if( markType == 0 )
     return;
 

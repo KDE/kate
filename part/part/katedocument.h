@@ -425,7 +425,6 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     QIntDict<KTextEditor::Mark> m_marks;
     QIntDict<QPixmap>           m_markPixmaps;
     QIntDict<QString>           m_markDescriptions;
-    bool                        restoreMarks;
     uint                        m_editableMarks;
 
   //

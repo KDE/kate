@@ -78,6 +78,8 @@ class KateHlItem
     int ctx;
     signed char region;
     signed char region2;
+    
+    bool lookAhead;
 };
 
 class KateHlContext
@@ -314,7 +316,7 @@ static KateHlItemData::ItemStyles getDefStyleNum(QString name)
 
 //BEGIN KateHlItem
 KateHlItem::KateHlItem(int attribute, int context,signed char regionId,signed char regionId2)
-  : attr(attribute), ctx(context),region(regionId),region2(regionId2)  {subItems=0;
+  : attr(attribute), ctx(context),region(regionId),region2(regionId2), lookAhead(false)  {subItems=0;
 }
 
 KateHlItem::~KateHlItem()
@@ -1160,7 +1162,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
         if (offset2 > offset1)
         {
-          textLine->setAttribs(item->attr,offset1,offset2);
+          if(!item->lookAhead)
+            textLine->setAttribs(item->attr,offset1,offset2);
           //kdDebug(13010)<<QString("item->ctx: %1").arg(item->ctx)<<endl;
 
           if (item->region)
@@ -1202,8 +1205,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
           context=contextNum(ctxNum);
 
-          z = z + offset2 - offset1 - 1;
-          offset1 = offset2 - 1;
+          // dominik: look ahead w/o changing offset?
+          if (!item->lookAhead)
+          {
+            z = z + offset2 - offset1 - 1;
+            offset1 = offset2 - 1;
+          }
           found = true;
           break;
         }
@@ -1235,8 +1242,12 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
         textLine->setAttribs(context->attr,offset1,offset1 + 1);
     }
 
-    offset1++;
-    z++;
+    // dominik: do not change offset if we look ahead
+    if (!(item && item->lookAhead))
+    {
+      offset1++;
+      z++;
+    }
   }
 
   // has the context stack changed ?
@@ -1672,6 +1683,9 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
   // for regexp only
   bool minimal = ( KateHlManager::self()->syntax->groupItemData(data,QString("minimal")).lower() == QString("true") );
 
+  // dominik: look ahead and do not change offset. so we can change contexts w/o changing offset1.
+  bool lookAhead=( KateHlManager::self()->syntax->groupItemData(data,QString("lookAhead")).lower() == QString("true") );
+
 
   // code folding region handling:
   QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
@@ -1741,6 +1755,9 @@ KateHlItem *KateHighlighting::createKateHlItem(struct KateSyntaxContextData *dat
     // oops, unknown type. Perhaps a spelling error in the xml file
     return 0;
   }
+  
+  // set lookAhead property
+  tmpItem->lookAhead = lookAhead;
 
   if (!unresolvedContext.isEmpty())
   {

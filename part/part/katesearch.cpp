@@ -465,6 +465,9 @@ bool KateSearch::doSearch( const QString& text )
     int temp = 0;
     do {*/
 
+  static int oldLine = -1;
+  static int oldCol = -1;
+
   uint line = s.cursor.line();
   uint col = s.cursor.col();// + (result ? s.matchedLength : 0);
   bool backward = s.flags.backward;
@@ -499,7 +502,15 @@ bool KateSearch::doSearch( const QString& text )
 
   //result = true;
 
+  if ((oldLine == foundLine) && (oldCol == foundCol))
+    return false;
+
+
   s.cursor.setPos(foundLine, foundCol);
+  oldLine = line;
+  oldCol = col;
+
+
   //kdDebug() << "Found at " << s.cursor.line() << ", " << s.cursor.col() << endl;
   s.matchedLength = matchLen;
 

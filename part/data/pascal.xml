@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.09" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.10" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -141,8 +141,8 @@
         <DetectChar attribute="String" context="String" char="&apos;" />
         <StringDetect attribute="Directive" context="Prep1" String="(*$"/>
         <Detect2Chars attribute="Directive" context="Prep2" char="{" char1="$"/>
-        <DetectChar attribute="Comment" context="Comment1" char="{"/>
-        <Detect2Chars attribute="Comment" context="Comment2" char="(" char1="*"/>
+        <DetectChar attribute="Comment" context="Comment1" char="{"            beginRegion="Region2"/>
+        <Detect2Chars attribute="Comment" context="Comment2" char="(" char1="*" beginRegion="Region3"/>
         <Detect2Chars attribute="Comment" context="Comment3" char="/" char1="/"/>
       </context>
       <context attribute="String" lineEndContext="#pop" name="String">
@@ -156,11 +156,11 @@
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Comment1">
         <keyword attribute="Alert" context="#stay" String="attention" />
-        <DetectChar attribute="Comment" context="#pop" char="}"/>
+        <DetectChar attribute="Comment" context="#pop" char="}"              endRegion="Region2"/>
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Comment2">
         <keyword attribute="Alert" context="#stay" String="attention" />
-        <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")"/>
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")"   endRegion="Region3"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Comment3">
         <keyword attribute="Alert" context="#stay" String="attention" />

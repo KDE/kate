@@ -567,13 +567,16 @@ bool KateDocument::insertText( uint line, uint col, const QString &s )
 {
   if (s.isEmpty())
     return true;
+    
+  if (line > lastLine())
+    return false;
 
   editStart ();
     
   uint insertPos = col;
   uint len = s.length();
   QString buf;
-
+  
   for (uint pos = 0; pos < len; pos++)
   {
     QChar ch = s[pos];

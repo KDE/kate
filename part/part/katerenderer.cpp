@@ -249,10 +249,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   int startcol = range->startCol;
   int endcol = range->wrap ? range->endCol : -1;
 
-  // text attribs font/style data
-  KateAttribute* at = m_doc->m_highlight->attributes(m_schema)->data();
-  uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
-
   // length, chars + raw attribs
   uint len = textLine->length();
   uint oldLen = len;
@@ -312,11 +308,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   uint xPos = range->xOffset();
   uint xPosAfter = xPos;
 
-  KateAttribute* oldAt = &at[0];
-  const QColor *cursorColor = &at[0].textColor();
+  // text attribs font/style data
+  KateAttribute* attr = m_doc->m_highlight->attributes(m_schema)->data();
+  uint atLen = m_doc->m_highlight->attributes(m_schema)->size();
 
-  const QColor *curColor = 0;
-  const QColor *oldColor = 0;
+  const QColor *cursorColor = &attr[0].textColor();
 
   // Start arbitrary highlighting
   KateTextCursor currentPos(line, curCol);
@@ -324,9 +320,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   KateAttribute currentHL;
 
   if (showSelections() && !selectionPainted)
-  {
     hasSel = selectBounds(line, startSel, endSel, oldLen);
-  }
 
   uint blockStartCol = startcol;
   uint oldXPos = xPos;
@@ -363,6 +357,11 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
     KateAttribute customHL;
 
+    const QColor *curColor = 0;
+    const QColor *oldColor = 0;
+
+    KateAttribute* oldAt = &attr[0];
+
     // loop each character (tmp goes backwards, but curCol doesn't)
     for (uint tmp = len; tmp > 0; tmp--)
     {
@@ -377,7 +376,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
       // Determine current syntax highlighting attribute
       // A bit legacy but doesn't need to change
-      KateAttribute* curAt = (!noAttribs && (*a) >= atLen) ? &at[0] : &at[*a];
+      KateAttribute* curAt = (!noAttribs && (*a) >= atLen) ? &attr[0] : &attr[*a];
 
       // X position calculation. Incorrect for fonts with non-zero leftBearing() and rightBearing() results.
       // TODO: make internal charWidth() function, use QFontMetrics::charWidth().
@@ -446,7 +445,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || ((int)xPos > xEnd)
 
           // it is a different attribute OR
-          || (!noAttribs && curAt != &at[*(a+1)])
+          || (!noAttribs && curAt != &attr[*(a+1)])
 
           // the selection boundary was crossed OR
           || (isSel != (hasSel && (nextCol >= startSel) && (nextCol < endSel)))

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2002 John Firebaugh <jfirebaugh@kde.org>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>   
+   Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -35,8 +35,10 @@ class KateUndoGroup
     void undo ();
     void redo ();
 
-    void addItem (uint type, uint line, uint col, uint len, const QString &text);      
-    
+    void addItem (uint type, uint line, uint col, uint len, const QString &text);
+
+    bool merge(KateUndoGroup* newGroup);
+
     enum types
     {
       editInsertText,
@@ -44,12 +46,19 @@ class KateUndoGroup
       editWrapLine,
       editUnWrapLine,
       editInsertLine,
-      editRemoveLine
+      editRemoveLine,
+      editInvalid
     };
 
   private:
+    // returns the type if it's only one type, or editInvalid if it contains multiple types.
+    uint singleType();
+    bool isOnlyType(uint type);
+
+    void addItem(class KateUndo* u);
+
     KateDocument *m_doc;
-    QPtrList<class KateUndo> m_items;
+    QPtrList<KateUndo> m_items;
 };
 
 #endif

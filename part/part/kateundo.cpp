@@ -17,17 +17,20 @@
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-                          
+
 // $Id$
 
 #include "kateundo.h"
 
+#include <kdebug.h>
+
 #include "katedocument.h"
 #include "kateview.h"
-     
+#include "katecursor.h"
+
 /**
  Private class, only for KateUndoGroup, no need to use it elsewhere
- */                         
+ */
  class KateUndo
 {
   public:
@@ -35,12 +38,29 @@
     ~KateUndo ();
 
   public:
+    // Invalid examples: insert / remove 0 length text
+    // I could probably fix this in KateDocument, but it's more work there
+    // (and probably better here too)
+    bool isValid();
+
+    // Saves a bit of memory and potentially many calls when undo/redoing.
+    bool merge(KateUndo* u);
+
     void undo (KateDocument *doc);
     void redo (KateDocument *doc);
-    
+
+    // The cursor before the action took place
+    KateTextCursor cursorBefore() const;
+    KateTextCursor cursorAfter() const;
+
+    inline uint type() const { return m_type; }
+
     inline uint line () const { return m_line; }
     inline uint col () const { return m_col; }
-    
+    inline uint len() const { return m_len; }
+
+    inline const QString& text() const { return m_text; };
+
   private:
     uint m_type;
     uint m_line;
@@ -54,12 +74,47 @@ KateUndo::KateUndo (uint type, uint line, uint col, uint len, const QString &tex
   m_line (line),
   m_col (col),
   m_len (len),
-  m_text (text)  
+  m_text (text)
 {
 }
 
 KateUndo::~KateUndo ()
 {
+}
+
+bool KateUndo::isValid()
+{
+  if (m_type == KateUndoGroup::editInsertText || m_type == KateUndoGroup::editRemoveText)
+    if (len() == 0)
+      return false;
+
+  return true;
+}
+
+bool KateUndo::merge(KateUndo* u)
+{
+  if (m_type != u->type())
+    return false;
+
+  if (m_type == KateUndoGroup::editInsertText
+      && m_line == u->line()
+      && (m_col + m_len) == u->col())
+  {
+    m_text += u->text();
+    m_len += u->len();
+    return true;
+  }
+  else if (m_type == KateUndoGroup::editRemoveText
+      && m_line == u->line()
+      && m_col == (u->col() + u->len()))
+  {
+    m_text.prepend(u->text());
+    m_col = u->col();
+    m_len += u->len();
+    return true;
+  }
+
+  return false;
 }
 
 void KateUndo::undo (KateDocument *doc)
@@ -118,9 +173,29 @@ void KateUndo::redo (KateDocument *doc)
   }
 }
 
+KateTextCursor KateUndo::cursorBefore() const
+{
+  if (m_type == KateUndoGroup::editInsertLine || m_type == KateUndoGroup::editUnWrapLine)
+    return KateTextCursor(m_line+1, m_col);
+  else if (m_type == KateUndoGroup::editRemoveText)
+    return KateTextCursor(m_line, m_col+m_len);
+
+  return KateTextCursor(m_line, m_col);
+}
+
+KateTextCursor KateUndo::cursorAfter() const
+{
+  if (m_type == KateUndoGroup::editRemoveLine || m_type == KateUndoGroup::editWrapLine)
+    return KateTextCursor(m_line+1, m_col);
+  else if (m_type == KateUndoGroup::editInsertText)
+    return KateTextCursor(m_line, m_col+m_len);
+
+  return KateTextCursor(m_line, m_col);
+}
+
 KateUndoGroup::KateUndoGroup (KateDocument *doc)
-: m_doc (doc)  
-{  
+: m_doc (doc)
+{
   m_items.setAutoDelete (true);
 }
 
@@ -135,16 +210,13 @@ void KateUndoGroup::undo ()
 
   m_doc->editStart (false);
 
-  for (int pos=(int)m_items.count()-1; pos >= 0; pos--)
-  {
-    m_items.at(pos)->undo(m_doc);
+  for (KateUndo* u = m_items.last(); u; u = m_items.prev())
+    u->undo(m_doc);
 
-    if (m_doc->activeView() != 0L)
-    {
-      m_doc->activeView()->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
-      m_doc->activeView()->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
-      m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
-    }
+  if (m_doc->activeView() != 0L)
+  {
+    m_doc->activeView()->m_viewInternal->cursorCache = m_items.first()->cursorBefore();
+    m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
   }
 
   m_doc->editEnd ();
@@ -157,16 +229,13 @@ void KateUndoGroup::redo ()
 
   m_doc->editStart (false);
 
-  for (uint pos=0; pos < m_items.count(); pos++)
-  {
-    m_items.at(pos)->redo(m_doc);
+  for (KateUndo* u = m_items.first(); u; u = m_items.next())
+    u->redo(m_doc);
 
-    if (m_doc->activeView() != 0L)
-    {
-      m_doc->activeView()->m_viewInternal->cursorCache.line = m_items.at(pos)->line();
-      m_doc->activeView()->m_viewInternal->cursorCache.col = m_items.at(pos)->col();
-      m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
-    }
+  if (m_doc->activeView() != 0L)
+  {
+    m_doc->activeView()->m_viewInternal->cursorCache = m_items.last()->cursorAfter();
+    m_doc->activeView()->m_viewInternal->cursorCacheChanged = true;
   }
 
   m_doc->editEnd ();
@@ -174,5 +243,54 @@ void KateUndoGroup::redo ()
 
 void KateUndoGroup::addItem (uint type, uint line, uint col, uint len, const QString &text)
 {
-  m_items.append (new KateUndo (type, line, col, len, text));
+  addItem(new KateUndo(type, line, col, len, text));
+}
+
+void KateUndoGroup::addItem(KateUndo* u)
+{
+  if (!u->isValid())
+    delete u;
+  else if (m_items.last() && m_items.last()->merge(u))
+    delete u;
+  else
+    m_items.append(u);
+}
+
+bool KateUndoGroup::merge(KateUndoGroup* newGroup)
+{
+  if (newGroup->isOnlyType(singleType())) {
+    // Take all of its items first -> last
+    KateUndo* u = newGroup->m_items.take(0);
+    while (u) {
+      addItem(u);
+      u = newGroup->m_items.take(0);
+    }
+    return true;
+  }
+  return false;
+}
+
+uint KateUndoGroup::singleType()
+{
+  uint ret = editInvalid;
+
+  for (KateUndo* u = m_items.first(); u; u = m_items.next()) {
+    if (ret == editInvalid)
+      ret = u->type();
+    else if (ret != u->type())
+      return editInvalid;
+  }
+
+  return ret;
+}
+
+bool KateUndoGroup::isOnlyType(uint type)
+{
+  if (type == editInvalid) return false;
+
+  for (KateUndo* u = m_items.first(); u; u = m_items.next())
+    if (u->type() != type)
+      return false;
+
+  return true;
 }

@@ -130,6 +130,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   oldSelectStart(-1, -1),
   oldSelectEnd(-1, -1),
   selectAnchor(-1, -1),
+  m_undoDontMerge(false),
+  m_undoIgnoreCancel(false),
   lastUndoGroupWhenSaved( 0 ),
   docWasSavedWhenUndoWasEmpty( true ),
   viewFont(),
@@ -165,7 +167,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editSessionNumber = 0;
   editIsRunning = false;
   noViewUpdates = false;
-  editCurrentUndo = 0L;
+  m_editCurrentUndo = 0L;
   editWithUndo = false;
 
   blockSelect = false;
@@ -372,7 +374,9 @@ bool KateDocument::closeURL()
 
 KTextEditor::View *KateDocument::createView( QWidget *parent, const char *name )
 {
-  return new KateView( this, parent, name);
+  KateView* newView = new KateView( this, parent, name);
+  connect(newView, SIGNAL(cursorPositionChanged()), SLOT(undoCancel()));
+  return newView;
 }
 
 QPtrList<KTextEditor::View> KateDocument::views () const
@@ -814,24 +818,64 @@ void KateDocument::editStart (bool withUndo)
   editTagLineEnd = 0;
 
   if (editWithUndo)
-  {
-    if ((myUndoSteps > 0) && (undoItems.count () > myUndoSteps))
-    {
-      undoItems.setAutoDelete (true);
-      undoItems.removeFirst ();
-      undoItems.setAutoDelete (false);
-      docWasSavedWhenUndoWasEmpty = false;
-    }
-
-    editCurrentUndo = new KateUndoGroup (this);
-  }
+    undoStart();
   else
-    editCurrentUndo = 0L;
+    undoCancel();
 
   for (uint z = 0; z < m_views.count(); z++)
   {
     m_views.at(z)->m_viewInternal->editStart();
   }
+}
+
+void KateDocument::undoStart()
+{
+  if (m_editCurrentUndo) return;
+
+  // Make sure the buffer doesn't get bigger than requested
+  if ((myUndoSteps > 0) && (undoItems.count() > myUndoSteps))
+  {
+    undoItems.setAutoDelete(true);
+    undoItems.removeFirst();
+    undoItems.setAutoDelete(false);
+    docWasSavedWhenUndoWasEmpty = false;
+  }
+
+  // new current undo item
+  m_editCurrentUndo = new KateUndoGroup(this);
+}
+
+void KateDocument::undoEnd()
+{
+  if (m_editCurrentUndo)
+  {
+    if (!m_undoDontMerge && undoItems.last() && undoItems.last()->merge(m_editCurrentUndo))
+      delete m_editCurrentUndo;
+    else
+      undoItems.append(m_editCurrentUndo);
+
+    m_undoDontMerge = false;
+    m_undoIgnoreCancel = true;
+
+    m_editCurrentUndo = 0L;
+
+    emit undoChanged();
+  }
+}
+
+void KateDocument::undoCancel()
+{
+  if (m_undoIgnoreCancel) {
+    m_undoIgnoreCancel = false;
+    return;
+  }
+
+  m_undoDontMerge = true;
+
+  Q_ASSERT(!m_editCurrentUndo);
+  // Neither should really be required
+  delete m_editCurrentUndo;
+  m_editCurrentUndo = 0L;
 }
 
 //
@@ -857,12 +901,8 @@ void KateDocument::editEnd ()
   if (editTagLineStart <= editTagLineEnd)
     updateLines(editTagLineStart, editTagLineEnd);
 
-  if (editWithUndo && editCurrentUndo)
-  {
-    undoItems.append (editCurrentUndo);
-    editCurrentUndo = 0L;
-    emit undoChanged ();
-  }
+  if (editWithUndo)
+    undoEnd();
 
   for (uint z = 0; z < m_views.count(); z++)
   {
@@ -928,8 +968,16 @@ bool KateDocument::wrapText (uint startLine, uint endLine, uint col)
 
 void KateDocument::editAddUndo (uint type, uint line, uint col, uint len, const QString &text)
 {
-  if (editIsRunning && editWithUndo && editCurrentUndo)
-    editCurrentUndo->addItem (type, line, col, len, text);
+  if (editIsRunning && editWithUndo && m_editCurrentUndo) {
+    m_editCurrentUndo->addItem(type, line, col, len, text);
+
+    // Clear redo buffer
+    if (redoItems.count()) {
+      redoItems.setAutoDelete(true);
+      redoItems.clear();
+      redoItems.setAutoDelete(false);
+    }
+  }
 }
 
 void KateDocument::editTagLine (uint line)
@@ -1359,6 +1407,7 @@ bool KateDocument::toggleBlockSelectionMode ()
 {
   return setBlockSelectionMode (!blockSelect);
 }
+
 
 //
 // KTextEditor::UndoInterface stuff

@@ -213,6 +213,12 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool wrapText (uint startLine, uint endLine, uint col);
 
   private:
+    void undoStart();
+    void undoEnd();
+  private slots:
+    void undoCancel();
+
+  private:
     void editAddUndo (uint type, uint line, uint col, uint len, const QString &text);
     void editTagLine (uint line);
     void editRemoveTagLine (uint line);
@@ -224,7 +230,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     bool editWithUndo;
     uint editTagLineStart;
     uint editTagLineEnd;
-    KateUndoGroup *editCurrentUndo;
+    KateUndoGroup* m_editCurrentUndo;
 
   //
   // KTextEditor::SelectionInterface stuff
@@ -305,6 +311,8 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
     //
     QPtrList<KateUndoGroup> undoItems;
     QPtrList<KateUndoGroup> redoItems;
+    bool m_undoDontMerge;
+    bool m_undoIgnoreCancel;
     // these two variables are for resetting the document to
     // non-modified if all changes have been undone...
     KateUndoGroup* lastUndoGroupWhenSaved;

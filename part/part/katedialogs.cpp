@@ -249,6 +249,10 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
         "If this is enabled, the editor will display vertical line to help "
         "identifying indent lines.") );
 
+  QWhatsThis::add(m_configPage, i18n(
+        "If this button is enabled, additional indenter specific options are "
+        "available and can be configured in an extra dialog.") );
+
   reload ();
 
   //

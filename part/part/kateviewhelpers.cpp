@@ -38,6 +38,7 @@
 #include <qcursor.h>
 #include <qstyle.h>
 #include <qtimer.h>
+#include <qregexp.h>
 
 #include <math.h>
 
@@ -129,6 +130,7 @@ void KateCmdLine::focusInEvent ( QFocusEvent *ev )
   {
     m_msgMode = false;
     setText (m_oldText);
+    selectAll();
   }
 
   KLineEdit::focusInEvent (ev);
@@ -154,23 +156,35 @@ void KateCmdLine::fromHistory( bool up )
   if ( ! KateCmd::self()->historyLength() )
     return;
 
+  QString s;
+
   if ( up )
   {
     if ( m_histpos > 0 )
     {
       m_histpos--;
-      setText( KateCmd::self()->fromHistory( m_histpos ) );
+      s = KateCmd::self()->fromHistory( m_histpos );
     }
   }
   else
   {
-    if ( m_histpos < KateCmd::self()->historyLength() - 1 )
+    if ( m_histpos < ( KateCmd::self()->historyLength() - 1 ) )
     {
-      ++m_histpos;
-      setText( KateCmd::self()->fromHistory( m_histpos ) );
+      m_histpos++;
+      s = KateCmd::self()->fromHistory( m_histpos );
     }
     else
-      setText(m_oldText);
+    {
+      m_histpos = KateCmd::self()->historyLength();
+      setText( m_oldText );
+    }
+  }
+  if ( ! s.isEmpty() )
+  {
+    setText( s );
+    static QRegExp reCmd = QRegExp("\\S*\\s+(.*)");
+    if ( reCmd.search( text() ) == 0 )
+      setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
 }
 //END KateCmdLine

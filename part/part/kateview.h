@@ -42,6 +42,7 @@ class Highlight;
 class KateDocument;
 class KateViewInternal;
 class KateView;
+class KateBookmarks;
 
 //state commands
 enum State_commands {
@@ -221,7 +222,7 @@ class KateView : public Kate::View
 
     void setupActions();
 
-    KAction *m_editUndo, *m_editRedo, *m_bookmarkToggle, *m_bookmarkClear;
+    KAction *m_editUndo, *m_editRedo;
 
     KActionMenu *m_bookmarkMenu;
 //    KToggleAction *viewBorder;
@@ -388,10 +389,6 @@ private:
     int replaces;
     QDialog *replacePrompt;
 
-  signals:
-    void bookAddChanged(bool enabled);
-    void bookClearChanged(bool enabled);
-
 //code completion
   private:
     CodeCompletion_Impl *myCC_impl;
@@ -472,7 +469,6 @@ private:
     bool active;
     //bool myIconBorder;// FIXME anders: remove
     int iconBorderStatus;
-    QPtrList<KTextEditor::Mark> list;
 
   public slots:
     void setFocus ();
@@ -493,8 +489,7 @@ private:
     void setFoldingMarkersOn(bool enable);
     void toggleIconBorder ();
     void toggleLineNumbersOn();
-    void gotoMark (KTextEditor::Mark *mark);
-    void toggleBookmark ();
+    void gotoMark (KTextEditor::Mark *mark) { setCursorPositionReal( mark->line, 0 ); }
 
   private:
     void updateIconBorder();
@@ -502,10 +497,6 @@ private:
   public:
     bool iconBorder();
     bool lineNumbersOn();
-
-  private slots:
-    void bookmarkMenuAboutToShow();
-    void gotoBookmark (int n);
 
   public:
     Kate::Document *getDoc ()
@@ -519,7 +510,8 @@ private:
     KTextEditor::Document *document () const { return (KTextEditor::Document *)myDoc; };
 
   private:
-    KateBrowserExtension *extension;
+    KateBookmarks*         m_bookmarks;
+    KateBrowserExtension*  extension;
 };
 
 #endif

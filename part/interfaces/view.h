@@ -277,7 +277,13 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     virtual void slotDecFontSizes () { ; };
 
     virtual void gotoMark (KTextEditor::Mark *mark) = 0;
-    virtual void toggleBookmark () = 0;
+    
+    /**
+     * @deprecated No longer does anything. Use KTextEditor
+     * equivalents
+     */
+    // TODO: Remove when BIC is allowed
+    virtual void toggleBookmark () {};
 
     virtual void gotoLineNumber( int ) = 0;
 

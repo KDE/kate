@@ -37,6 +37,7 @@
 #include "katecodefoldinghelpers.h"
 #include "kateviewhighlightaction.h"
 #include "katecodecompletion_iface_impl.h"
+#include "katebookmarks.h"
 
 #include <kurldrag.h>
 #include <qfocusdata.h>
@@ -80,7 +81,9 @@
 #include <dcopclient.h>
 #include <kaccel.h>
 
-KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate::View (doc, parent, name)
+KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
+    : Kate::View( doc, parent, name )
+    , m_bookmarks( new KateBookmarks( this ) )
     , extension( 0 )
 {
   m_editAccels=0;
@@ -159,6 +162,7 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   else
   	setFoldingMarkersOn(doc->highlight()->allowsFolding());
   myViewInternal->updateView (KateViewInternal::ufDocGeometry);
+  
 }
 
 
@@ -305,14 +309,6 @@ void KateView::setupActions()
   new KToggleAction(i18n("Show &Icon Border"), Key_F6, this, SLOT(toggleIconBorder()), ac, "view_border");
   connect(new KToggleAction(i18n("Show &Line Numbers"), Key_F11, this, SLOT(slotDummy()), ac, "view_line_numbers"),
     SIGNAL(toggled(bool)),this,SLOT(setLineNumbersOn(bool)));
-  m_bookmarkMenu = new KActionMenu(i18n("&Bookmarks"), ac, "bookmarks");
-
-  // setup bookmark menu
-  m_bookmarkToggle = new KAction(i18n("Toggle &Bookmark"), Qt::CTRL+Qt::Key_B, this, SLOT(toggleBookmark()), ac, "edit_bookmarkToggle");
-  m_bookmarkClear = new KAction(i18n("Clear Bookmarks"), 0, myDoc, SLOT(clearMarks()), ac, "edit_bookmarksClear");
-
-  // connect bookmarks menu aboutToshow
-  connect(m_bookmarkMenu->popupMenu(), SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
 
   QStringList list;
   m_setEndOfLine = new KSelectAction(i18n("&End of Line"), 0, ac, "set_eol");
@@ -328,6 +324,8 @@ void KateView::setupActions()
   list = KGlobal::charsets()->descriptiveEncodingNames();
   list.prepend( i18n( "Auto" ) );
   m_setEncoding->setItems(list);
+  
+  m_bookmarks->createActions( ac );
 }
 
 void KateView::slotUpdate()
@@ -1480,52 +1478,6 @@ void KateView::updateIconBorder()
   myViewInternal->resize(width()-myViewInternal->leftBorder->width(), myViewInternal->height());
   myViewInternal->move(myViewInternal->leftBorder->width(), 0);
   myViewInternal->updateView(0);
-}
-
-void KateView::gotoMark (KTextEditor::Mark *mark)
-{
-  KateTextCursor cursor;
-
-  cursor.col = 0;
-  cursor.line = mark->line;
-  myViewInternal->updateCursor(cursor);
-  myViewInternal->center();
-  myViewInternal->updateView();
-}
-
-void KateView::toggleBookmark ()
-{
-  uint mark = myDoc->mark (cursorLine());
-
-  if (mark&KateDocument::markType01)
-    myDoc->removeMark (cursorLine(), KateDocument::markType01);
-  else
-    myDoc->addMark (cursorLine(), KateDocument::markType01);
-}
-
-void KateView::bookmarkMenuAboutToShow()
-{
-  m_bookmarkMenu->popupMenu()->clear ();
-  m_bookmarkToggle->plug (m_bookmarkMenu->popupMenu());
-  m_bookmarkClear->plug (m_bookmarkMenu->popupMenu());
-  m_bookmarkMenu->popupMenu()->insertSeparator ();
-
-  list = myDoc->marks();
-  for (int i=0; (uint) i < list.count(); i++)
-  {
-    if (list.at(i)->type&KateDocument::markType01)
-    {
-      QString bText = myDoc->textLine(list.at(i)->line);
-      bText.truncate(32);
-      bText.append ("...");
-      m_bookmarkMenu->popupMenu()->insertItem ( QString("%1 - \"%2\"").arg(list.at(i)->line).arg(bText), this, SLOT (gotoBookmark(int)), 0, i );
-    }
-  }
-}
-
-void KateView::gotoBookmark (int n)
-{
-  gotoMark (list.at(n));
 }
 
 void KateView::slotIncFontSizes ()

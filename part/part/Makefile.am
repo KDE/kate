@@ -3,11 +3,12 @@ lib_LTLIBRARIES = libkatepart.la
 libkatepart_la_SOURCES = katebuffer.cpp katecmd.cpp katecmds.cpp katehledit_attrib_skel.ui \
 			 katedialogs.cpp katedocument.cpp katefactory.cpp katehighlight.cpp \
 			 katesyntaxdocument.cpp katetextline.cpp kateview.cpp \
-  			 kateviewdialog.cpp kateviewhighlightaction.cpp \
+			 kateviewdialog.cpp kateviewhighlightaction.cpp \
 			 katehighlightdownload.cpp katefiledialog.cpp \
 			 kateiconborder.cpp katecodecompletion_arghint.cpp \
 			 katecodecompletion_iface_impl.cpp hlparamedit.cpp kateexportaction.cpp \
-			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp
+			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
+			 katebookmarks.cpp
 
 
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kspell/libkspell.la $(top_builddir)/kdeprint/libkdeprint.la

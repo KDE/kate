@@ -874,7 +874,7 @@ Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
   if (def == 0)
   {
     noHl = true;
-    iName = I18N_NOOP("Normal");
+    iName = I18N_NOOP("None");
     iSection = "";
     m_priority = 0;
   }

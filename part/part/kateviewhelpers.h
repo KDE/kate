@@ -33,7 +33,7 @@ class KateView;
 class KateViewInternal;
 namespace Kate {
   class Command;
-};
+}
 
 class KateCmdLine : public KLineEdit
 {

@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.17" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.18" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -438,27 +438,31 @@
         <IncludeRules context="ipstring_internal" />
       </context>
       <context name="ip_string_6" attribute="String (interpolated)" lineEndContext="#stay" dynamic="true">
-        <RegExpr attribute="String (interpolated)" context="#stay" String="\\%1" dynamic="true" />
+        <RegExpr attribute="String (interpolated)" context="#stay" String="\%1" dynamic="true" />
         <DetectChar attribute="Operator" context="#pop#pop#pop" char="1" dynamic="true"  endRegion="String"/>
         <IncludeRules context="ipstring_internal" />
       </context>
 
       <context name="string" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="'" />
         <DetectChar attribute="Operator" context="#pop" char="'" endRegion="String" />
       </context>
       <context name="string_2" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
+        <Detect2Chars attribute="String" context="#stay" char="\" char1=")" />
         <RangeDetect attribute="String" context="#stay" char="(" char1=")" />
         <DetectChar attribute="Operator" context="#pop#pop" char=")" endRegion="String" />
       </context>
       <context name="string_3" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="}" />
         <RangeDetect attribute="String" context="#stay" char="{" char1="}" />
         <DetectChar attribute="Operator" context="#pop#pop" char="}" endRegion="String" />
       </context>
       <context name="string_4" attribute="String" lineEndContext="#stay">
         <DetectIdentifier />
+        <Detect2Chars attribute="String" context="#stay" char="\" char1="]" />
         <RangeDetect attribute="String" context="#stay" char="[" char1="]" />
         <DetectChar attribute="Operator" context="#pop#pop" char="]" endRegion="String" />
       </context>
@@ -472,7 +476,7 @@
       <context name="string_6" attribute="String" lineEndContext="#stay" dynamic="true">
         <DetectIdentifier />
         <Detect2Chars attribute="String" context="#stay" char="\" char1="\" />
-        <RegExpr attribute="String" context="#stay" String="\\%1" dynamic="true"/>
+        <RegExpr attribute="String" context="#stay" String="\%1" dynamic="true"/>
         <DetectChar attribute="Operator" context="#pop#pop" char="1" dynamic="true" endRegion="String" />
       </context>
 
@@ -596,14 +600,14 @@
       </context>
 
       <!-- rules internal stuff wrt regex patterns -->
-      <context name="regex_pattern_internal_rules_1">
+      <context name="regex_pattern_internal_rules_1" lineEndContext="#stay">
         <RegExpr attribute="Comment" context="#stay" String="#.*$" firstNonSpace="true" />
         <RegExpr attribute="Pattern Character Class" context="#stay" String="\\[anDdSsWw]" />
         <RegExpr attribute="Pattern Internal Operator" context="#stay" String="\\[ABbEGLlNUuQdQZz]" />
         <RegExpr attribute="Special Variable" context="#stay" String="\\[\d]+" />
         <RegExpr attribute="Pattern" context="#stay" String="\\." />
       </context>
-      <context name="regex_pattern_internal_rules_2">
+      <context name="regex_pattern_internal_rules_2" lineEndContext="#stay">
         <Detect2Chars attribute="Pattern Internal Operator" context="pat_ext" char="(" char1="?" />
         <DetectChar attribute="Pattern Internal Operator" context="pat_char_class" char="[" />
         <RegExpr attribute="Pattern Internal Operator" context="#stay" String="[()?^*+|]" />

@@ -160,8 +160,8 @@
         <IncludeRules context="##Alerts" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
-        <IncludeRules context="##Alerts" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+        <IncludeRules context="##Alerts" />
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
         <LineContinue attribute="Preprocessor" context="#stay"/>

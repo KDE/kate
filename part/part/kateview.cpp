@@ -541,19 +541,7 @@ void KateView::setupEditActions()
       i18n("Transpose Characters"),           CTRL          + Key_T,
       this, SLOT(transpose()),
       ac, "transpose_char" );
-//   new KAction(
-//      i18n("Transpose Words"),                CTRL + SHIFT + Key_T,
-//      this, SLOT(transposeWord()),
-//      ac, "transpose_word" );
-//   new KAction(
-//      i18n("Transpose Line"),                 CTRL + SHIFT + Key_T, ??? What key combo?
-//      this, SLOT(transposeLine()),
-//      ac, "transpose_line" );
 
-//   new KAction(
-//     i18n("Delete Word"),                    CTRL + Key_K, ??? What key combo?
-//     this, SLOT(killWord()),
-//     ac, "delete_word" );
     new KAction(
       i18n("Delete Line"),                    CTRL + Key_K,
       this, SLOT(killLine()),

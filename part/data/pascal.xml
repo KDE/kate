@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.07" kateversion="2.1" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.08" kateversion="2.1" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
         <highlighting>
                 <list name="keywords">
                         <item> and </item>
@@ -12,19 +12,17 @@
                         <item> do </item>
                         <item> downto </item>
                         <item> else </item>
+                        <item> file </item>
                         <item> for </item>
                         <item> function </item>
                         <item> goto </item>
                         <item> if </item>
-                        <item> implementation </item>
                         <item> in </item>
-                        <item> interface </item>
                         <item> label </item>
                         <item> mod </item>
                         <item> nil </item>
                         <item> not </item>
                         <item> of </item>
-                        <item> on </item>
                         <item> operator </item>
                         <item> or </item>
                         <item> packed </item>
@@ -32,10 +30,7 @@
                         <item> program </item>
                         <item> record </item>
                         <item> repeat </item>
-                        <item> self </item>
                         <item> set </item>
-                        <item> shl </item>
-                        <item> shr </item>
                         <item> then </item>
                         <item> to </item>
                         <item> type </item>
@@ -46,40 +41,54 @@
                         <item> while </item>
                         <item> with </item>
                         <item> xor </item>
-                        <item> break </item>
-                        <item> continue </item>
-                        <item> constructor </item>
-                        <item> destructor </item>
-                        <item> inherited </item>
-                        <item> inline </item>
-                        <item> object </item>
-                        <item> private </item>
-                        <item> protected </item>
-                        <item> public </item>
-                        <item> as </item>
+
+
                         <item> at </item>
                         <item> automated </item>
-                        <item> class </item>
+                        <item> break </item>
+                        <item> continue </item>
                         <item> dispinterface </item>
-                        <item> except </item>
-                        <item> exports </item>
-                        <item> finalization </item>
-                        <item> finally </item>
-                        <item> initialization </item>
-                        <item> is </item>
-                        <item> library </item>
-                        <item> on </item>
-                        <item> property </item>
-                        <item> published </item>
-                        <item> raise </item>
-                        <item> resourcestring </item>
-                        <item> threadvar </item>
-                        <item> try </item>
                         <item> dispose </item>
                         <item> exit </item>
                         <item> false </item>
+                        <item> finalization </item>
+                        <item> initialization </item>
+                        <item> library </item>
                         <item> new </item>
+                        <item> published </item>
+                        <item> resourcestring </item>
+                        <item> self </item>
                         <item> true </item>
+                </list>
+                <list name="ISO/Delphi Extended">
+                        <item> as </item>
+                        <item> bindable </item>
+                        <item> constructor </item>
+                        <item> destructor </item>
+                        <item> except </item>
+                        <item> export </item>
+                        <item> finally </item>
+                        <item> import </item>
+                        <item> implementation </item>
+                        <item> inherited </item>
+                        <item> inline </item>
+                        <item> interface </item>
+                        <item> is </item>
+                        <item> module </item>
+                        <item> on </item>
+                        <item> only </item>
+                        <item> otherwise </item>
+                        <item> private </item>
+                        <item> property </item>
+                        <item> protected </item>
+                        <item> public </item>
+                        <item> qualified </item>
+                        <item> raise </item>
+                        <item> restricted </item>
+                        <item> shl </item>
+                        <item> shr </item>
+                        <item> threadvar </item>
+                        <item> try </item>
                 </list>
                 <list name="types">
                         <item> Integer </item>
@@ -114,11 +123,18 @@
                         <item> File </item>
                         <item> Text </item>
                 </list>
+                <list name="attention">
+                        <item> FIXME </item>
+                        <item> TODO </item>
+                        <item> ### </item>
+                </list>
                 <contexts>
                         <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-                                <RegExpr attribute="Keyword" context="#stay" String="\bbegin([\s]|$)" beginRegion="Region1"/>
-                                <RegExpr attribute="Keyword" context="#stay" String="\bend([.;\s]|$)" endRegion="Region1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\b(begin|case|record)([\s]|$)" insensitive="true" beginRegion="Region1"/>
+                                <RegExpr attribute="ISO/Delphi Extended" context="#stay" String="\b(try|class|object)([\s]|$)" insensitive="true" beginRegion="Region1"/>
+                                <RegExpr attribute="Keyword" context="#stay" String="\bend([.;\s]|$)" insensitive="true" endRegion="Region1"/>
                                 <keyword attribute="Keyword" context="#stay" String="keywords"/>
+                                <keyword attribute="ISO/Delphi Extended" context="#stay" String="ISO/Delphi Extended"/>
                                 <keyword attribute="Type" context="#stay" String="types"/>
                                 <Float attribute="Number" context="#stay"/>
                                 <Int attribute="Number" context="#stay"/>
@@ -139,16 +155,21 @@
                                 <DetectChar attribute="Directive" context="#pop" char="}"/>
                         </context>
                         <context attribute="Comment" lineEndContext="#stay" name="Comment1">
+                                <keyword attribute="Number" context="#stay" String="attention" />
                                 <DetectChar attribute="Comment" context="#pop" char="}"/>
                         </context>
                         <context attribute="Comment" lineEndContext="#stay" name="Comment2">
+                                <keyword attribute="Number" context="#stay" String="attention" />
                                 <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")"/>
                         </context>
-                        <context attribute="Comment" lineEndContext="#pop" name="Comment3" />
+                        <context attribute="Comment" lineEndContext="#pop" name="Comment3">
+                                <keyword attribute="Number" context="#stay" String="attention" />
+                        </context>
                 </contexts>
                 <itemDatas>
                         <itemData name="Normal Text" defStyleNum="dsNormal" />
                         <itemData name="Keyword"     defStyleNum="dsKeyword" />
+                        <itemData name="ISO/Delphi Extended"  defStyleNum="dsKeyword" color="#000080" />
                         <itemData name="Type"        defStyleNum="dsDataType"/>
                         <itemData name="Number"      defStyleNum="dsDecVal" />
                         <itemData name="String"      defStyleNum="dsString" />

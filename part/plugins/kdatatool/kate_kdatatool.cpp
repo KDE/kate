@@ -53,7 +53,20 @@ void KDataToolPlugin::addView(KTextEditor::View *view)
 {
 	KDataToolPluginView *nview = new KDataToolPluginView (view);
 	nview->setView (view);
-	//m_views.append (nview);
+	m_views.append (nview);
+}
+
+void KDataToolPlugin::removeView(KTextEditor::View *view)
+{
+	for (uint z=0; z < m_views.count(); z++)
+        {
+		if (m_views.at(z)->parentClient() == view)
+		{
+			KDataToolPluginView *nview = m_views.at(z);
+			m_views.remove (nview);
+			delete nview;
+		}
+	}
 }
 
 
@@ -73,6 +86,7 @@ KDataToolPluginView::KDataToolPluginView( KTextEditor::View *view )
 
 KDataToolPluginView::~KDataToolPluginView()
 {
+        m_view->removeChildClient (this);
 	delete m_menu;
 }
 

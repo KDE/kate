@@ -1934,8 +1934,7 @@ void KateDocument::readConfig(KConfig *config)
 
   config->setGroup("Kate KTextEditor Plugins");
   for (uint i=0; i<s_plugins.count(); i++)
-    if  (config->readBoolEntry(s_plugins.at(i)->service->library(), false))
-      s_plugins.at(i)->load = true;
+    s_plugins.at(i)->load = config->readBoolEntry(s_plugins.at(i)->service->library(), false);
 
   config->setGroup("Kate View Defaults");
   m_collapseTopLevelOnLoad = config->readBoolEntry("Collapse Top Level On Load", m_collapseTopLevelOnLoad);

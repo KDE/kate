@@ -42,10 +42,10 @@ public:
 	KDataToolPlugin( QObject *parent = 0, const char* name = 0, const QStringList &args = QStringList() );
 	virtual ~KDataToolPlugin();
 	void addView (KTextEditor::View *view);
-	void removeView (KTextEditor::View *){;}
+	void removeView (KTextEditor::View *view);
 
-//  private:
-//	QPtrList<class ISearchPluginView> m_views;
+  private:
+	QPtrList<class KDataToolPluginView> m_views;
 };
 
 

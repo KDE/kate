@@ -3745,20 +3745,10 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
 
       if (found && (sc.flags & KateDocument::sfWholeWords))
       {
-        bool left = false;
-        bool right = false;
+        if ((fCol > 0) && m_highlight->isInWord (textLine->getChar(fCol-1)))
+          found = false;
 
-        if (fCol == 0)
-          left = true;
-        else
-          left = !textLine->getChar(fCol-1).isLetterOrNumber();
-
-        if (fCol+mlen >= textLine->length())
-          right = true;
-        else
-          right = !textLine->getChar(fCol+mlen+1).isLetterOrNumber();
-
-        if (!(left && right))
+        if (((fCol+mlen) < textLine->length()) && m_highlight->isInWord (textLine->getChar(fCol+mlen)))
           found = false;
       }
 
@@ -3818,20 +3808,10 @@ bool KateDocument::doSearch(SConfig &sc, const QString &searchFor) {
 
       if (found && (sc.flags & KateDocument::sfWholeWords))
       {
-        bool left = false;
-        bool right = false;
+        if ((fCol > 0) && m_highlight->isInWord (textLine->getChar(fCol-1)))
+          found = false;
 
-        if (fCol == 0)
-          left = true;
-        else
-          left = !textLine->getChar(fCol-1).isLetterOrNumber();
-
-        if (fCol+mlen >= textLine->length())
-          right = true;
-        else
-          right = !textLine->getChar(fCol+mlen+1).isLetterOrNumber();
-
-        if (!(left && right))
+        if (((fCol+mlen) < textLine->length()) && m_highlight->isInWord (textLine->getChar(fCol+mlen)))
           found = false;
       }
 

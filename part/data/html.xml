@@ -7,7 +7,7 @@
 	 <StringDetect attribute="Comment" context="6" String="&lt;!--"/>
          <RegExpr attribute="1" context="1" String="&lt;\s*\/?\s*[a-zA-Z0-9_]*" />
        </context>
-
+<!-- test -->
        <context attribute="2" lineEndContext="#stay">
          <DetectChar attribute="1" context="#pop" char="&gt;"/>
          <RegExpr attribute="0" context="2" String="\s*=\s*"/>

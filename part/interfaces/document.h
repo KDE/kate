@@ -231,11 +231,22 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
     /* reason = 0 nothing, 1 dirty, 2 created, 3 deleted */
     void modifiedOnDisc (Kate::Document *doc, bool isModified, unsigned char reason);
 
+  /*
+   * there static methodes are usefull to turn on/off the dialogs
+   * kate part shows up on open file errors + file changed warnings
+   * open file errors default on, file changed warnings default off, better
+   * for other apps beside kate app using the part
+   */
   public:
+    // default true
     static void setOpenErrorDialogsActivated (bool on);
+
+    // default false
+    static void setFileChangedDialogsActivated (bool on);
 
   protected:
     static bool s_openErrorDialogsActivated;
+    static bool s_fileChangedDialogsActivated;
 };
 
 Document *document (KTextEditor::Document *doc);

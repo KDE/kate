@@ -2938,7 +2938,7 @@ bool KateDocument::saveFile()
 
   if ( !url().isEmpty() )
   {
-    if (m_modOnHd)
+    if (s_fileChangedDialogsActivated && m_modOnHd)
     {
       QString str;
 
@@ -3054,7 +3054,7 @@ bool KateDocument::closeURL()
   //
   if ( !m_reloading && !url().isEmpty() )
   {
-    if (m_modOnHd)
+    if (s_fileChangedDialogsActivated && m_modOnHd)
     {
       QString str;
 
@@ -5371,16 +5371,16 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       *abortClosing=true;
       if (m_url.isEmpty())
       {
-	KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
+        KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveURLAndEncoding(config()->encoding(),
                 QString::null,QString::null,0,i18n("Save File"));
 
-	if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) ) {
-		*abortClosing=true;
-		return;
-	}
-	setEncoding( res.encoding );
-  	saveAs( res.URLs.first() );
-	*abortClosing=false;
+        if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first() ) ) {
+                *abortClosing=true;
+                return;
+        }
+        setEncoding( res.encoding );
+          saveAs( res.URLs.first() );
+        *abortClosing=false;
       }
       else
       {
@@ -5397,7 +5397,7 @@ bool KateDocument::checkOverwrite( KURL u )
     return true;
 
   QFileInfo info( u.path() );
-  if( !info.exists() )   
+  if( !info.exists() )
     return true;
 
   return KMessageBox::Cancel != KMessageBox::warningContinueCancel( 0,

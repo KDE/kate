@@ -52,53 +52,51 @@
       <item> volatile </item>
     </list>
     <contexts>
-      <context attribute="0" lineEndContext="0">
-        <keyword attribute="1" context="0" String="keywords"/>
-        <keyword attribute="2" context="0" String="types"/>
-        <Float attribute="6" context="0">
-          <AnyChar String="fF" attribute="6" context="0"/>
+      <context attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Keyword" context="#stay" String="keywords"/>
+        <keyword attribute="Data Type" context="#stay" String="types"/>
+        <Float attribute="Float" context="#stay">
+          <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>
-        <HlCOct attribute="4" context="0"/>
-        <HlCHex attribute="5" context="0"/>
-        <Int attribute="3" context="0" >
-          <StringDetect attribute="3" context="0" String="ULL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LUL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LLU" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="UL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LU" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="LL" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="U" insensitive="TRUE"/>
-          <StringDetect attribute="3" context="0" String="L" insensitive="TRUE"/>
+        <HlCOct attribute="Octal" context="#stay"/>
+        <HlCHex attribute="Hex" context="#stay"/>
+        <Int attribute="Decimal" context="#stay" >
+          <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LLU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="UL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LU" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="LL" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="U" insensitive="TRUE"/>
+          <StringDetect attribute="Decimal" context="#stay" String="L" insensitive="TRUE"/>
         </Int>
-        <HlCChar attribute="7" context="0"/>
-        <DetectChar attribute="8" context="1" char="&quot;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="3" char="/" char1="*"/>
-        <AnyChar attribute="11" context="0" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
-        <RegExpr attribute="12" context="4" String="^#"/>
-        <Detect2Chars attribute="8" context="1" char="@" char1="&quot;" />
+        <HlCChar attribute="Char" context="#stay"/>
+        <DetectChar attribute="String" context="String" char="&quot;"/>
+        <Detect2Chars attribute="Comment" context="SingleLineComment" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="MultiLineComment" char="/" char1="*"/>
+        <AnyChar attribute="Symbol" context="#stay" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="^#"/>
+        <Detect2Chars attribute="8" context="String" char="@" char1="&quot;" />
       </context>
-      <context attribute="8" lineEndContext="0">
-        <LineContinue attribute="8" context="#stay"/>
-        <HlCStringChar attribute="9" context="1"/>
-        <DetectChar attribute="8" context="0" char="&quot;"/>
+      <context attribute="String" lineEndContext="#pop" name="String">
+        <LineContinue attribute="String" context="#stay"/>
+        <HlCStringChar attribute="String Char" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
-      <context attribute="10" lineEndContext="0"/>
-      <context attribute="10" lineEndContext="3">
-        <Detect2Chars attribute="10" context="0" char="*" char1="/"/>
+      <context attribute="Comment" lineEndContext="#pop" name="SingleLineComment"/>
+      <context attribute="Comment" lineEndContext="#stay" name="MultiLineComment">
+        <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/"/>
       </context>
-      <context attribute="12" lineEndContext="0">
-        <LineContinue attribute="12" context="#stay"/>
-        <RangeDetect attribute="13" context="4" char="&quot;" char1="&quot;"/>
-        <RangeDetect attribute="13" context="4" char="&lt;" char1="&gt;"/>
-        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
-        <Detect2Chars attribute="10" context="5" char="/" char1="*"/>
+      <context attribute="Preprocessor" lineEndContext="0" name="Preprocessor">
+        <LineContinue attribute="Preprocessor" context="#stay"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="Prep. Lib" context="#stay" char="&lt;" char1="&gt;"/>
+        <Detect2Chars attribute="Comment" context="SingleLineComment" char="/" char1="/"/>
+        <Detect2Chars attribute="Comment" context="MultiLineCommentPrep" char="/" char1="*"/>
       </context>
-      <context attribute="10" lineEndContext="5">
-        <Detect2Chars attribute="10" context="4" char="*" char1="/" />
+      <context attribute="Comment" lineEndContext="#stay" name="MultiLineCommentPrep">
+        <Detect2Chars attribute="Comment" context="#pop#pop" char="*" char1="/"/>
       </context>
-      <context attribute="0" lineEndContext="1" />
-      <context attribute="0" lineEndContext="4" />
     </contexts>
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>

@@ -25,13 +25,13 @@ namespace KTextEditor
 {
 
 /**
- * The Editor class is a wrapper around a document + its unique view.
- * (which means that KTextEditor::Editor can inherit both interfaces for
- * the Document and View (the view interfaces should be applied to the widget()))
+ * The Editor class is a wrapper around a document and its unique view.
+ * This means that KTextEditor::Editor can inherit both interfaces for
+ * the Document and View (the view interfaces should be applied to the widget()).
  * KTextEditor::Editor is baseclass of KTextEditor::Document, mostly to give the
- * implementors of both interface the chance to use the same class to implement both
- * at once only with minor changes, please don'T cast a KTextEditor::Document to a
- * KTextEditor::Editor and think there must be a widget() !!!!!!!!!!!!
+ * implementors of both interfaces the chance to use the same class to implement both
+ * at once with only minor changes. Please don't cast a KTextEditor::Document to a
+ * KTextEditor::Editor and think there must be a widget()!
  */
 
 class Editor : public KParts::ReadWritePart

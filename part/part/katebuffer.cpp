@@ -399,6 +399,11 @@ bool KateBuffer::saveFile (const QString &m_file)
   QString onetab("\t");
   uint tw = m_doc->config()->tabWidth();
 
+  // Use the document methods
+  if ( m_doc->configFlags() & KateDocument::cfReplaceTabs ||
+       m_doc->configFlags() & KateDocument::cfRemoveSpaces )
+    m_doc->editStart();
+
   for (uint i=0; i < m_lines; i++)
   {
     KateTextLine::Ptr textLine = plainLine(i);
@@ -415,8 +420,8 @@ bool KateBuffer::saveFile (const QString &m_file)
           if ( l )
           {
             QString t;
-            textLine->removeText( found, 1 );
-            textLine->insertText( found, l, t.fill(onespace, l).unicode() ); // ### anything more eficient?
+            m_doc->editRemoveText( i, found, 1 );
+            m_doc->editInsertText( i, found, t.fill(onespace, l) ); // ### anything more eficient?
             pos += l-1;
           }
         }
@@ -426,9 +431,9 @@ bool KateBuffer::saveFile (const QString &m_file)
       if ( (m_doc->configFlags() & KateDocument::cfRemoveSpaces) && textLine->length() )
       {
         pos = textLine->length() - 1;
-        int lns = textLine->lastChar();
+        uint lns = textLine->lastChar();
         if ( lns != pos )
-          textLine->removeText( lns + 1, pos - lns );
+          m_doc->editRemoveText( i, lns + 1, pos - lns );
       }
 
       stream << textLine->string();
@@ -437,6 +442,10 @@ bool KateBuffer::saveFile (const QString &m_file)
         stream << eol;
     }
   }
+
+  if ( m_doc->configFlags() & KateDocument::cfReplaceTabs ||
+       m_doc->configFlags() & KateDocument::cfRemoveSpaces )
+    m_doc->editEnd();
 
   file.close ();
 

@@ -108,7 +108,9 @@ bool KatePrinter::print (KateDocument *doc)
 
      // Header/Footer Page
      QFont headerFont; // used for header/footer
-     headerFont.fromString( printer.option("app-kate-hffont") );
+     QString f = printer.option("app-kate-hffont");
+     if (!f.isEmpty())
+       headerFont.fromString( f );
 
      bool useHeader = (printer.option("app-kate-useheader") == "true");
      QColor headerBgColor(printer.option("app-kate-headerbg"));
@@ -825,7 +827,9 @@ void KatePrintHeaderFooter::setOptions( const QMap<QString,QString>& opts )
   QFont f = font();
   if ( ! v.isEmpty() )
   {
-    f.fromString( strFont );
+    if (!strFont.isEmpty())
+      f.fromString( strFont );
+    
     lFontPreview->setFont( f );
   }
   lFontPreview->setText( (f.family() + ", %1pt").arg( f.pointSize() ) );

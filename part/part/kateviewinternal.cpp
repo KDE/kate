@@ -494,6 +494,8 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   
   QPainter paint ( this );
   
+  paintOnlyDirty = false;
+  
   for (uint z=startz; z <= endz; z++)
   {
     if ( (z >= lineRangesSize) || ((lineRanges[z].line == -1) && (!paintOnlyDirty || lineRanges[z].dirty)) )

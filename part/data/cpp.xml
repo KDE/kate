@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="C++" version="1.24" kateversion="2.3" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
+<language name="C++" version="1.25" kateversion="2.3" section="Sources" extensions="*.cxx;*.cpp;*.cc;*.C;*.h;*.hxx;*.hpp;*.hcc;*.moc" mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr" priority="9">
   <highlighting>
     <list name="keywords">
       <item> asm </item>
@@ -116,11 +116,6 @@
       <item> uint64_t </item>
       <item> wchar_t </item>
     </list>
-    <list name="attention">
-      <item> FIXME </item>
-      <item> TODO </item>
-      <item> ### </item>
-    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
         <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*$" beginRegion="Region1"/>
@@ -168,7 +163,7 @@
         <IncludeRules context="##Alerts" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Commentar 2">
-        <keyword attribute="Alert" context="#stay" String="attention" />
+        <IncludeRules context="##Alerts" />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
       </context>
       <context attribute="Preprocessor" lineEndContext="#pop" name="Preprocessor">
@@ -216,7 +211,6 @@
       <itemData name="Symbol"       defStyleNum="dsNormal"/>
       <itemData name="Preprocessor" defStyleNum="dsOthers"/>
       <itemData name="Prep. Lib"    defStyleNum="dsOthers"/>
-      <itemData name="Alert"        defStyleNum="dsAlert" />
       <itemData name="Region Marker" defStyleNum="dsRegionMarker" />
     </itemDatas>
   </highlighting>

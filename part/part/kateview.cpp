@@ -287,7 +287,6 @@ void KateView::setupActions()
                                  ac, "tools_uncomment");
   }
 
-  KStdAction::close( this, SLOT(flush()), ac, "file_close" );
   KStdAction::copy(this, SLOT(copy()), ac);
 
   KStdAction::saveAs(this, SLOT(saveAs()), ac);

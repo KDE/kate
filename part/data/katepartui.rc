@@ -6,7 +6,6 @@
     <Action name="file_save"/>
     <Action name="file_save_as"/>
     <Action name="file_export"/>
-    <Action name="file_close" />
   </Menu>
 
   <Menu name="edit"><text>&amp;Edit</text>

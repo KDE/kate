@@ -3326,6 +3326,7 @@ void KateDocument::updateLines(int startLine, int endLine)
 #endif
 
     m_highlight->doHighlight(ctxNum, textLine, line_continue);
+    //buffer->changeLine (line);
 
 #ifdef _EXTREMELY_VERBOSE_DEBUG_
     kdDebug()<<"testendi"<<endl;
@@ -3343,7 +3344,7 @@ void KateDocument::updateLines(int startLine, int endLine)
     else
     {
       stillcontinue = false;
-      
+
       if (ctxNum != endCtx)
         stillcontinue = true;
     }

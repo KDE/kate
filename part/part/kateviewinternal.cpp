@@ -49,9 +49,11 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   setCornerWidget (new QWidget (this));        
   cornerWidget()->hide ();
   cornerWidget()->setFixedSize (style().scrollBarExtent().width(), style().scrollBarExtent().width());
-                                       
+  cornerWidget()->setFocusPolicy ((QWidget::FocusPolicy)0);       
+                                
   // iconborder ;)
-  leftBorder = new KateIconBorder(this, this);
+  leftBorder = new KateIconBorder(this, this); 
+  leftBorder->setFocusPolicy ((QWidget::FocusPolicy)0);       
   updateIconBorder ();
   connect( leftBorder, SIGNAL(toggleRegionVisibility(unsigned int)),
            myDoc->regionTree, SLOT(toggleRegionVisibility(unsigned int)));

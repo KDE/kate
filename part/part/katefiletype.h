@@ -21,7 +21,7 @@
 
 #include <qstringlist.h>
 #include <qptrlist.h>
-#include <qpopupmenu.h>
+#include <qpopupmenu.h> // for QPtrList<QPopupMenu>, compile with gcc 3.4
 #include <qguardedptr.h>
 
 #include "katedialogs.h"

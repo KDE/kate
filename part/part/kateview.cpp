@@ -679,9 +679,6 @@ bool KateView::eventFilter (QObject *object, QEvent *event)
     }
   }
 
-  if (object == myViewInternal->leftBorder && event->type() == QEvent::Resize)
-    updateIconBorder();
-
   return QWidget::eventFilter (object, event);
 }
 
@@ -754,6 +751,7 @@ void KateView::updateIconBorder()
   myViewInternal->resize(width()-myViewInternal->leftBorder->width(), myViewInternal->height());
   myViewInternal->move(myViewInternal->leftBorder->width(), 0);
   myViewInternal->updateView(0);
+  myViewInternal->leftBorder->update();
 }
 
 void KateView::slotIncFontSizes ()

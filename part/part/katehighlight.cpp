@@ -47,7 +47,6 @@
 #include <qtextstream.h>
 //END
 
-
 //BEGIN  Prviate HL classes
 
 class HlCharDetect : public HlItem
@@ -227,7 +226,6 @@ enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar
 static const bool trueBool = true;
 static const QString stdDeliminator = QString (" \t.():!+,-<=>%&*/;?[]^{|}~\\");
 //END
-
 
 //BEGIN NON MEMBER FUNCTIONS
 static int getDefStyleNum(QString name)
@@ -625,6 +623,7 @@ int HlCHex::checkHgl(const QString& text, int offset, int len)
 }
 //END
 
+//BEGIN HlCFloat
 HlCFloat::HlCFloat(int attribute, int context, signed char regionId,signed char regionId2)
   : HlFloat(attribute,context,regionId,regionId2) {
 }
@@ -670,7 +669,9 @@ int HlCFloat::checkHgl(const QString& text, int offset, int len)
       return 0;
   }
 }
+//END
 
+//BEGIN HlAnyChar
 HlAnyChar::HlAnyChar(int attribute, int context, signed char regionId,signed char regionId2, const QString& charList)
   : HlItem(attribute, context,regionId,regionId2)
   , _charList(charList)
@@ -684,7 +685,9 @@ int HlAnyChar::checkHgl(const QString& text, int offset, int len)
 
   return 0;
 }
+//END
 
+//BEGIN HlRegExpr
 HlRegExpr::HlRegExpr( int attribute, int context, signed char regionId,signed char regionId2, QString regexp, bool insensitive, bool minimal )
   : HlItem(attribute, context, regionId,regionId2)
 {
@@ -705,7 +708,9 @@ int HlRegExpr::checkHgl(const QString& text, int offset, int /*len*/)
 
   return (offset + Expr->matchedLength());
 }
+//END
 
+//BEGIN HlLineContinue
 HlLineContinue::HlLineContinue(int attribute, int context, signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {
 }
@@ -717,7 +722,9 @@ int HlLineContinue::checkHgl(const QString& text, int offset, int len)
 
   return 0;
 }
+//END
 
+//BEGIN HlCStringChar
 HlCStringChar::HlCStringChar(int attribute, int context,signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {
 }
@@ -791,7 +798,9 @@ int HlCStringChar::checkHgl(const QString& text, int offset, int len)
 {
   return checkEscapedChar(text, offset, len);
 }
+//END
 
+//BEGIN HlCChar
 HlCChar::HlCChar(int attribute, int context,signed char regionId,signed char regionId2)
   : HlItem(attribute,context,regionId,regionId2) {
 }
@@ -826,6 +835,7 @@ int HlCChar::checkHgl(const QString& text, int offset, int len)
 
   return 0;
 }
+//END
 
 ItemData::ItemData(const QString  name, int defStyleNum)
   : name(name), defStyleNum(defStyleNum) {
@@ -851,6 +861,7 @@ Hl2CharDetect::Hl2CharDetect(int attribute, int context, signed char regionId,si
   sChar2 = s[1];
 }
 
+//BEGIN Highlight
 Highlight::Highlight(const syntaxModeListItem *def) : refCount(0)
 {
   errorsAndWarnings = "";
@@ -2181,7 +2192,9 @@ int Highlight::addToContextList(const QString &ident, int ctx0)
   if (RegionList.count()!=1) folding=true;
   return i;
 }
+//END
 
+//BEGIN HlManager
 HlManager::HlManager() : QObject(0)
 {
   hlList.setAutoDelete(true);
@@ -2594,5 +2607,5 @@ QString HlManager::identifierForName(const QString& name)
 
   return QString();
 }
-
+//END
 // kate: space-indent on; indent-width 2; replace-tabs on;

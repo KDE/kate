@@ -260,6 +260,14 @@ class HlManager : public QObject
 
   signals:
     void changed();
+    /*
+       A highlight hlNumber changes the hlData.
+    */
+    void changed( uint hlNumber );
+
+  public:
+    void emitChanged() { emit changed(); }; // ehm, needed atm. I'll try making something nicer. Anders.
+    void emitChanged(uint n) { emit changed( n ); };
 
   private:
     int realWildcardFind(const QString &fileName);

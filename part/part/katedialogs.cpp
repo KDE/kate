@@ -279,6 +279,7 @@ HlConfigPage::HlConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPa
 {
   m_doc = doc;
   m_ready = false;
+  m_hlNumber = doc->hlMode();
 }
 
 HlConfigPage::~HlConfigPage ()
@@ -296,11 +297,9 @@ void HlConfigPage::showEvent ( QShowEvent * )
     defaultStyleList.setAutoDelete(true);
     hlManager->getDefaults(defaultStyleList);
 
-    hlDataList.setAutoDelete(true);
-    //this gets the data from the KConfig object
-    hlManager->getHlDataList(hlDataList);
+    hlDataDict.setAutoDelete( true );
 
-    page = new HighlightDialogPage(hlManager, &defaultStyleList, &hlDataList, 0, this);
+    page = new HighlightDialogPage(hlManager, &defaultStyleList, &hlDataDict, m_hlNumber, this);
     grid->addWidget( page, 0, 0);
     connect( page, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
     page->show ();
@@ -316,8 +315,14 @@ void HlConfigPage::apply ()
   if (m_ready)
   {
     page->saveData();
-    hlManager->setHlDataList(hlDataList);
     hlManager->setDefaults(defaultStyleList);
+// TODO anders: Make sure this works ;)
+    QIntDictIterator<HlData> it( hlDataDict );
+    for ( ; it.current(); ++it )
+    {
+      hlManager->getHl( it.currentKey() )->setData( it.current() );
+      hlManager->emitChanged( (uint)it.currentKey() );
+    }
   }
 }
 
@@ -327,10 +332,11 @@ void HlConfigPage::reload ()
 //END HlConfigPage
 
 //BEGIN HighlightDialogPage
-HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList *styleList,
-                              HlDataList* highlightDataList,
+HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
+                              KateAttributeList *styleList,
+                              HlDataDict* hlDataD,
                               int hlNumber,QWidget *parent, const char *name)
-   :QTabWidget(parent,name),defaultItemStyleList(styleList),hlData(0L)
+   :QTabWidget(parent,name),defaultItemStyleList(styleList),hlData(0L),hlDataDict(hlDataD),hlManager(_hlManager)
 
 {
 
@@ -412,8 +418,6 @@ HighlightDialogPage::HighlightDialogPage(HlManager *hlManager, KateAttributeList
   QPushButton *btnNew = new QPushButton(i18n("&New..."), hbBtns);
   connect( btnNew, SIGNAL(clicked()), this, SLOT(hlNew()) );
 
-
-  hlDataList = highlightDataList;
   hlChanged(hlNumber);
 
   // jowenn, feel free to edit the below texts
@@ -438,8 +442,10 @@ void HighlightDialogPage::hlChanged(int z)
 {
   writeback();
 
-  hlData = hlDataList->at(z);
+  if ( ! hlDataDict->find( z ) )
+    hlDataDict->insert( z, hlManager->getHl( z )->getData() );
 
+  hlData = hlDataDict->find( z );
   wildcards->setText(hlData->wildcards);
   mimetypes->setText(hlData->mimetypes);
   priority->setValue(hlData->priority);
@@ -1038,7 +1044,6 @@ void StyleListView::keyPressEvent( QKeyEvent *e )
 /*********************************************************************/
 /*                  StyleListItem Implementation                     */
 /*********************************************************************/
-
 static const int BoxSize = 16;
 static const int ColorBtnWidth = 32;
 
@@ -1049,7 +1054,12 @@ StyleListItem::StyleListItem( QListView *parent, const QString & stylename,
           ds( style ),
           st( data )
 {
-  is = ( st && st->isSomethingSet() ) ? st : ds;
+  //is = ( st && st->isSomethingSet() ) ? st : ds;
+  is = ds;
+  if (st && st->isSomethingSet() ) {
+    kdDebug()<<"something is set in style ("<<stylename<<")..."<<endl;
+    is = (KateAttribute*)st;
+  }
 }
 
 /* only true for a hl mode item using it's default style */
@@ -1432,5 +1442,4 @@ void SpellConfigPage::apply ()
   cPage->writeGlobalSettings ();
 }
 //END
-
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -519,6 +519,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
 
   private slots:
     void internalHlChanged();
+    void internalHlChanged( uint );
     void slotLoadingFinished();
 
   public:

@@ -56,6 +56,7 @@
 #include <kdialogbase.h>
 
 #include <qcolor.h>
+#include <qintdict.h>
 #include <qvbox.h>
 #include <qtabwidget.h>
 
@@ -279,6 +280,7 @@ class KMimeTypeChooserDlg : public KDialogBase {
 };
 
 typedef QPtrList<KateAttribute> KateAttributeList;
+typedef QIntDict<HlData> HlDataDict;
 
 class HlConfigPage : public Kate::ConfigPage
 {
@@ -296,8 +298,9 @@ class HlConfigPage : public Kate::ConfigPage
     KateDocument *m_doc;
     class HighlightDialogPage *page;
     class HlManager *hlManager;
-    HlDataList hlDataList;
+    HlDataDict hlDataDict;
     KateAttributeList defaultStyleList;
+    uint m_hlNumber;
 
   public slots:
     void apply ();
@@ -310,7 +313,7 @@ class HighlightDialogPage : public QTabWidget
 {
     Q_OBJECT
   public:
-    HighlightDialogPage(HlManager *, KateAttributeList *, HlDataList *, int hlNumber,
+    HighlightDialogPage(HlManager *, KateAttributeList *, HlDataDict *, int hlNumber,
                     QWidget *parent=0, const char *name=0);
     void saveData();
 
@@ -336,8 +339,10 @@ class HighlightDialogPage : public QTabWidget
     class KIntNumInput *priority;
     StyleListView *lvStyles;
 
-    HlDataList *hlDataList;
+//     HlDataList *hlDataList;
+    HlDataDict *hlDataDict;
     HlData *hlData;
+    HlManager *hlManager;
 //    ItemData *itemData;
 };
 

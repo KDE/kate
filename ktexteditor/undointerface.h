@@ -56,6 +56,9 @@ class UndoInterface
 
     virtual unsigned int redoCount () const = 0;
 
+    /**
+      returns the maximum of undo steps possible, 0 means no limit !
+     */
     virtual unsigned int undoSteps () const = 0;
 
     virtual void setUndoSteps ( unsigned int steps ) = 0;

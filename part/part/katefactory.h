@@ -1,6 +1,5 @@
 /* This file is part of the KDE libraries
-   Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
-   Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+   Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
 
    Based on KHTML Factory from Simon Hausmann <hausmann@kde.org>
 

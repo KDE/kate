@@ -3414,23 +3414,30 @@ void KateDocument::optimizeLeadingSpace(uint line, int flags, int change)
 
   int first_char = textline->firstChar();
 
+  int w = 0;
+  if (flags & KateDocument::cfSpaceIndent)
+    w = config()->indentationWidth();
+  else
+    w = config()->tabWidth();
+
   if (first_char < 0)
     first_char = ((int) textline->length()) - 1;
 
   if (first_char < 0)
     first_char = 0;
 
-  int space = textline->cursorX(first_char, config()->tabWidth()) + change * config()->indentationWidth();
+  int space =  textline->cursorX(first_char, config()->tabWidth()) + change * w;
   if (space < 0)
     space = 0;
 
   if (!(flags & KateDocument::cfKeepExtraSpaces))
   {
-    uint extra = space % config()->indentationWidth();
+    uint extra = space % w;
+
     space -= extra;
     if (extra && change < 0) {
       // otherwise it unindents too much (e.g. 12 chars when indentation is 8 chars wide)
-      space += config()->indentationWidth();
+      space += w;
     }
   }
 

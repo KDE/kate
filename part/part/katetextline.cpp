@@ -25,6 +25,7 @@
 #include "katetextline.h"
 
 #include <qregexp.h>
+#include <kglobal.h>
 
 TextLine::TextLine ()
   : m_flags(TextLine::flagVisible)
@@ -199,10 +200,10 @@ bool TextLine::endingWith(const QString& match) const
 
 int TextLine::cursorX(uint pos, uint tabChars) const
 {
-  int l = (pos < m_text.length()) ? pos : m_text.length();
-  int x = 0;
+  uint l = kMin (pos, m_text.length());
+  uint x = 0;
 
-  for (int z = 0; z < l; z++)
+  for (uint z = 0; z < l; z++)
   {
     if (m_text[z] == QChar('\t'))
       x += tabChars - (x % tabChars);

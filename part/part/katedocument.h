@@ -36,7 +36,6 @@
 #include <qintdict.h>
 #include <qdatetime.h>
 #include <kglobalsettings.h>
-#include <kspell.h>
 
 class KateUndo;
 class KateUndoGroup;
@@ -414,7 +413,6 @@ class KateDocument : public Kate::Document
     Kate::ConfigPage *selectConfigPage (QWidget *);
     Kate::ConfigPage *editConfigPage (QWidget *);
     Kate::ConfigPage *keysConfigPage (QWidget *);
-    Kate::ConfigPage *kSpellConfigPage (QWidget *);
     Kate::ConfigPage *hlConfigPage (QWidget *);
 
     Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
@@ -478,40 +476,8 @@ class KateDocument : public Kate::Document
     int tabWidth() {return tabChars;}
     void setNewDoc( bool );
     bool isNewDoc() const;
-
-  //
-  // KSpell stuff
-  //
   public slots:    //please keep prototypes and implementations in same order
-    void spellcheck();
-    void spellcheck2(KSpell*);
-    void misspelling (const QString & word, const QStringList &, unsigned int pos);
-    void corrected (const QString & originalword, const QString & newword, unsigned int);
-    void spellResult (const QString &newtext);
-    void spellCleanDone();
     void tagLines(int start, int end);
-
-  signals:
-    /**
-     * This says spellchecking is <i>percent</i> done.
-     */
-    void  spellcheck_progress (unsigned int percent);
-    /**
-     * Emitted when spellcheck is complete.
-     */
-    void spellcheck_done ();
-
-  private:
-    // all spell checker data stored in here
-    struct _kspell {
-      KSpell *kspell;
-      KSpellConfig *ksc;
-      QString spell_tmptext;
-      bool kspellon;              // are we doing a spell check?
-      int kspellMispellCount;     // how many words suggested for replacement so far
-      int kspellReplaceCount;     // how many words actually replaced so far
-      bool kspellPristine;        // doing spell check on a clean document?
-    } kspell;
 
    //export feature
    public slots:
@@ -520,18 +486,6 @@ class KateDocument : public Kate::Document
    private: //the following things should become plugins
    bool exportDocumentToHTML(QTextStream *outputStream,const QString &name);
    QString HTMLEncode(QChar theChar);
-
-  //spell checker
-  public:
-    /**
-     * Returns the KSpellConfig object
-     */
-    KSpellConfig *ksConfig(void) {return kspell.ksc;}
-    /**
-     * Sets the KSpellConfig object.  (The object is
-     *  copied internally.)
-     */
-    void setKSConfig (const KSpellConfig _ksc) {*kspell.ksc=_ksc;}
 
   signals:
     void modifiedChanged ();

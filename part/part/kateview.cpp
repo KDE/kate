@@ -271,7 +271,6 @@ void KateView::setupActions()
     new KAction(i18n("Editing Co&mmand"), Qt::CTRL+Qt::Key_M, this, SLOT(slotEditCommand()), ac, "tools_cmd");
 
     // setup Tools menu
-    KStdAction::spelling(myDoc, SLOT(spellcheck()), ac);
     new KAction(i18n("&Indent"), "indent", Qt::CTRL+Qt::Key_I, this, SLOT(indent()),
                               ac, "tools_indent");
     new KAction(i18n("&Unindent"), "unindent", Qt::CTRL+Qt::SHIFT+Qt::Key_I, this, SLOT(unIndent()),

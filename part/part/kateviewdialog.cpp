@@ -58,7 +58,6 @@
 #include <klistview.h>
 #include <qlayout.h>
 #include <kconfig.h>
-#include <kspell.h>
 #include <assert.h>
 
 #include <kmainwindow.h>
@@ -718,30 +717,6 @@ void EditKeyConfiguration::reload ()
 EditKeyConfiguration::~EditKeyConfiguration()
 {
 	delete tmpWin;
-}
-
-KSpellConfigPage::KSpellConfigPage (QWidget *parent, KateDocument *doc) : Kate::ConfigPage (parent, "")
-{
-  myDoc = doc;
-
-  QGridLayout *grid = new QGridLayout( this, 1, 1 );
-
-  ksc = new KSpellConfig(this, 0L, myDoc->ksConfig(), false );
-  grid->addWidget( ksc, 0, 0);
-}
-
-KSpellConfigPage::~KSpellConfigPage ()
-{
-}
-
-void KSpellConfigPage::apply ()
-{
-  ksc->writeGlobalSettings();
-  myDoc->setKSConfig(*ksc);
-}
-
-void KSpellConfigPage::reload ()
-{
 }
 
 #include "kateviewdialog.moc"

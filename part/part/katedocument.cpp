@@ -147,11 +147,6 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
     | KateDocument::cfDelOnInput | KateDocument::cfWrapCursor
     | KateDocument::cfShowTabs | KateDocument::cfSmartHome;
 
-  //KSpell initial values
-  kspell.kspell = 0;
-  kspell.ksc = new KSpellConfig; //default KSpellConfig to start
-  kspell.kspellon = false;
-
   myEncoding = QString::fromLatin1(QTextCodec::codecForLocale()->name());
 
   setFont (ViewFont,KGlobalSettings::fixedFont());
@@ -226,15 +221,6 @@ KateDocument::~KateDocument()
     myViews.clear();
     myViews.setAutoDelete( false );
   }
-
-  if (kspell.kspell)
-  {
-    kspell.kspell->setAutoDelete(true);
-    kspell.kspell->cleanUp(); // need a way to wait for this to complete
-  }
-
-  if (kspell.ksc)
-    delete kspell.ksc;
 
   m_highlight->release();
   myMarks.clear ();
@@ -1725,11 +1711,6 @@ void KateDocument::configDialog()
                        BarIcon("edit", KIcon::SizeMedium ) );
   Kate::ConfigPage *mkeysConfigPage = keysConfigPage (page);
 
-  // spell checker
-  page = kd->addVBoxPage( i18n("Spelling"), i18n("Spell Checker Behavior"),
-                          BarIcon("spellcheck", KIcon::SizeMedium) );
-  Kate::ConfigPage *mkSpellConfigPage = kSpellConfigPage (page);
-
   kwin.setIcons(kd->winId(), kapp->icon(), kapp->miniIcon());
 
   page=kd->addVBoxPage(i18n("Highlighting"),i18n("Highlighting Configuration"),
@@ -1744,7 +1725,6 @@ void KateDocument::configDialog()
     mselectConfigPage->apply();
     meditConfigPage->apply();
     mkeysConfigPage->apply();
-    mkSpellConfigPage->apply();
     mhlConfigPage->apply();
 
     // save the config, reload it to update doc + all views
@@ -2205,127 +2185,6 @@ void KateDocument::setNewDoc( bool m )
 
 bool KateDocument::isNewDoc() const {
   return newDoc;
-}
-
-//  Spellchecking methods
-
-void KateDocument::spellcheck()
-{
-  if (!isReadWrite())
-    return;
-
-  kspell.kspell= new KSpell (kapp->mainWidget(), "KateView: Spellcheck", this,
-                      SLOT (spellcheck2 (KSpell *)));
-
-  connect (kspell.kspell, SIGNAL(death()),
-          this, SLOT(spellCleanDone()));
-
-  connect (kspell.kspell, SIGNAL (progress (unsigned int)),
-          this, SIGNAL (spellcheck_progress (unsigned int)) );
-  connect (kspell.kspell, SIGNAL (misspelling (const QString &, const QStringList &, unsigned int)),
-          this, SLOT (misspelling (const QString &, const QStringList &, unsigned int)));
-  connect (kspell.kspell, SIGNAL (corrected (const QString&, const QString&, unsigned int)),
-          this, SLOT (corrected (const QString&, const QString&, unsigned int)));
-  connect (kspell.kspell, SIGNAL (done(const QString&)),
-          this, SLOT (spellResult (const QString&)));
-}
-
-void KateDocument::spellcheck2(KSpell *)
-{
-  setReadWrite (false);
-
-  kspell.spell_tmptext = text();
-
-  kspell.kspellon = TRUE;
-  kspell.kspellMispellCount = 0;
-  kspell.kspellReplaceCount = 0;
-  kspell.kspellPristine = !isModified();
-
-  kspell.kspell->setProgressResolution (1);
-
-  kspell.kspell->check(kspell.spell_tmptext);
-}
-
-void KateDocument::misspelling (const QString &origword, const QStringList &, unsigned pos)
-{
-  uint line;
-  uint cnt;
-
-  // Find pos  -- CHANGEME: store the last found pos's cursor
-  //   and do these searched relative to that to
-  //   (significantly) increase the speed of the spellcheck
-
-  for (cnt = 0, line = 0 ; line <= lastLine() && cnt <= pos ; line++)
-    cnt += textLength(line)+1;
-
-  // Highlight the mispelled word
-  KateTextCursor cursor;
-  line--;
-  cursor.col = pos - (cnt - textLength(line)) + 1;
-  cursor.line = line;
-//  deselectAll(); // shouldn't the spell check be allowed within selected text?
-  kspell.kspellMispellCount++;
-
-  for (KateView* view = myViews.first(); view != 0L; view = myViews.next() )
-  {
-    view->myViewInternal->updateCursor(cursor); //this does deselectAll() if no persistent selections
-  }
-
-  selectLength(cursor,origword.length());
-  updateViews();
-}
-
-void KateDocument::corrected (const QString & originalword, const QString & newword, unsigned)
-{
-  removeText(selectStart.line, selectStart.col, selectStart.line, selectStart.col + originalword.length());
-  insertText(selectStart.line, selectStart.col, newword);
-  kspell.kspellReplaceCount++;
-}
-
-void KateDocument::spellResult (const QString &)
-{
-  clearSelection ();
-
-  // we know if the check was cancelled
-  // we can safely use the undo mechanism to backout changes
-  // in case of a cancel, because we force the entire spell check
-  // into one group (record)
-  if (kspell.kspell->dlgResult() == 0)
-  {
-  }
-
-  setReadWrite (true);
-
-  updateViews();
-
-  kspell.kspell->cleanUp();
-}
-
-void KateDocument::spellCleanDone ()
-{
-  KSpell::spellStatus status = kspell.kspell->status();
-  kspell.spell_tmptext = "";
-  delete kspell.kspell;
-
-  kspell.kspell = 0;
-  kspell.kspellon = FALSE;
-
-  if (status == KSpell::Error)
-  {
-     KMessageBox::sorry(kapp->mainWidget(), i18n("ISpell could not be started.\n"
-     "Please make sure you have ISpell properly configured and in your PATH."));
-  }
-  else if (status == KSpell::Crashed)
-  {
-     setReadWrite (true);
-
-     updateViews();
-     KMessageBox::sorry(kapp->mainWidget(), i18n("ISpell seems to have crashed."));
-  }
-  else
-  {
-     emit spellcheck_done();
-  }
 }
 
 void KateDocument::makeAttribs()
@@ -4245,11 +4104,6 @@ Kate::ConfigPage *KateDocument::editConfigPage (QWidget *p)
 Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)
 {
   return (Kate::ConfigPage*) new EditKeyConfiguration(p);
-}
-
-Kate::ConfigPage *KateDocument::kSpellConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KSpellConfigPage (p, this);
 }
 
 Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)

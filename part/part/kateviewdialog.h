@@ -40,7 +40,6 @@ class KPushButton;
 class KMainWindow;
 class KAccel;
 class KKeyChooser;
-class KSpellConfig;
 
 class KateDocument;
 class KateView;
@@ -251,24 +250,6 @@ private:
 protected slots:
 	void dummy();
   
-  public slots:
-    void apply ();
-    void reload ();
-};
-
-
-class KSpellConfigPage : public Kate::ConfigPage
-{
-  Q_OBJECT
-
-  public:
-    KSpellConfigPage (QWidget *parent, KateDocument *doc);
-    ~KSpellConfigPage ();
-
-  private:
-    KateDocument *myDoc;
-    class KSpellConfig *ksc;
-
   public slots:
     void apply ();
     void reload ();

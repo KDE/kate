@@ -1846,7 +1846,13 @@ KateView::saveResult KateView::save() {
           return SAVE_CANCEL;
       }
       if( query == KMessageBox::Yes )
-      myDoc->saveAs(myDoc->url());
+      {
+         if( !myDoc->saveAs(myDoc->url()) ) {
+       KMessageBox::sorry(this,
+        i18n("The file could not be saved. Please check if you have write permission."));
+      return SAVE_ERROR;
+  }
+      }
       else  // Do not overwrite already existing document:
         return saveAs();
     } // New, unnamed document:

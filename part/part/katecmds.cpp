@@ -34,7 +34,6 @@
 
 #include <qregexp.h>
 
-#define kdDebug() kdDebug(13025)
 
 //BEGIN CoreCommands
 // syncs a config flag in the document with a boolean value
@@ -356,7 +355,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
       if ( i )
         patterns[i].prepend("^");
 
-      kdDebug()<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
+       kdDebug(13025)<<"patterns["<<i<<"] ="<<patterns[i]<<endl;
     }
   }
 
@@ -439,7 +438,7 @@ int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
 
 bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QString &msg)
 {
-  kdDebug()<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
+   kdDebug(13025)<<"SedReplace::execCmd( "<<cmd<<" )"<<endl;
 
   QRegExp delim("^[$%]?s\\s*([^\\w\\s])");
   if ( delim.search( cmd ) < 0 ) return false;
@@ -450,17 +449,17 @@ bool KateCommands::SedReplace::exec (Kate::View *view, const QString &cmd, QStri
   bool onlySelect=cmd[0]=='$';
 
   QString d = delim.cap(1);
-  kdDebug()<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
+   kdDebug(13025)<<"SedReplace: delimiter is '"<<d<<"'"<<endl;
 
   QRegExp splitter( QString("^[$%]?s\\s*")  + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d +"((?:[^\\\\\\" + d + "]|\\\\.)*)\\" + d + "[ig]{0,2}$" );
   if (splitter.search(cmd)<0) return false;
 
   QString find=splitter.cap(1);
-  kdDebug()<< "SedReplace: find=" << find.latin1() <<endl;
+   kdDebug(13025)<< "SedReplace: find=" << find.latin1() <<endl;
 
   QString replace=splitter.cap(2);
   exchangeAbbrevs(replace);
-  kdDebug()<< "SedReplace: replace=" << replace.latin1() <<endl;
+   kdDebug(13025)<< "SedReplace: replace=" << replace.latin1() <<endl;
 
   KateDocument *doc = ((KateView*)view)->doc();
   if ( ! doc ) return false;
@@ -565,5 +564,4 @@ bool KateCommands::Date::exec (Kate::View *view, const QString &cmd, QString &)
 }
 //END Date
 
-#undef kdDebug
 // kate: space-indent on; indent-width 2; replace-tabs on;

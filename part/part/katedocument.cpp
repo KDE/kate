@@ -4625,7 +4625,7 @@ void KateDocument::locatePosition( uint pos, uint& line, uint& col )
   col = pos - (cnt - lineLength(line)) + 1;
 }
 
-void KateDocument::misspelling( const QString& origword, const QStringList&, uint pos )
+void KateDocument::misspelling( const QString& origword, const QStringList&, unsigned int pos )
 {
   m_mispellCount++;
 

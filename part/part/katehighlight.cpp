@@ -225,7 +225,7 @@ QStringList HlManager::commonSuffixes = QStringList::split(";", ".orig;.new;~;.b
 enum Item_styles { dsNormal,dsKeyword,dsDataType,dsDecVal,dsBaseN,dsFloat,dsChar,dsString,dsComment,dsOthers};
 
 static const bool trueBool = true;
-static const QString stdDeliminator = QString ("!%&()*+,-./:;<=>?[]^{|}~ \t\\");
+static const QString stdDeliminator = QString (" \t.():!+,-<=>%&*/;?[]^{|}~\\");
 //END
 
 //BEGIN NON MEMBER FUNCTIONS
@@ -267,7 +267,7 @@ bool HlItem::startEnable(const QChar& c)
   // ONLY called when alwaysStartEnable() overridden
   // IN FACT not called at all, copied into doHighlight()...
   Q_ASSERT(false);
-  return stdDeliminator.find(c) != 1;
+  return stdDeliminator.find(c) != -1;
 }
 //END
 
@@ -1052,7 +1052,7 @@ void Highlight::doHighlight(QMemArray<uint> oCtx, TextLine *textLine,bool lineCo
       {
         if (!standardStartEnableDetermined)
         {
-          standardStartEnable = stdDeliminator.find(lastChar) != 1;
+          standardStartEnable = stdDeliminator.find(lastChar) != -1;
           standardStartEnableDetermined = true;
         }
 

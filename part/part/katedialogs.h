@@ -204,6 +204,7 @@ class KateViewDefaultsConfig : public KateConfigPage
     QCheckBox *m_folding;
     QCheckBox *m_collapseTopLevel;
     QCheckBox *m_icons;
+    QCheckBox *m_scrollBarMarks;
     QCheckBox *m_dynwrap;
     KIntNumInput *m_dynwrapAlignLevel;
     QCheckBox *m_wwmarker;

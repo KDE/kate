@@ -32,6 +32,7 @@
     <Separator group="view_operations" />
     <Action name="view_border" group="view_operations" />
     <Action name="view_line_numbers" group="view_operations" />
+    <Action name="view_scrollbar_marks" group="view_operations" />
     <Separator group="view_operations" />
     <Action name="view_folding_markers" group="view_operations" />
     <Menu name="codefolding" group="view_operations"><text>&amp;Code Folding</text>

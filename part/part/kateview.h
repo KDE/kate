@@ -278,10 +278,12 @@ class KateView : public Kate::View,
     void setFoldingMarkersOn( bool enable ); // Not in Kate::View, but should be
     void setIconBorder( bool enable );
     void setLineNumbersOn( bool enable );
+    void setScrollBarMarks( bool enable );
     void showCmdLine ( bool enable );
     void toggleFoldingMarkers();
     void toggleIconBorder();
     void toggleLineNumbersOn();
+    void toggleScrollBarMarks();
     void toggleDynWordWrap ();
     void toggleCmdLine ();
     void setDynWrapIndicators(int mode);
@@ -291,6 +293,7 @@ class KateView : public Kate::View,
 
     bool iconBorder();
     bool lineNumbersOn();
+    bool scrollBarMarks();
     int dynWrapIndicators();
     bool foldingMarkersOn();
     Kate::Document* getDoc()    { return m_doc; }
@@ -365,6 +368,7 @@ class KateView : public Kate::View,
     KToggleAction*         m_toggleFoldingMarkers;
     KToggleAction*         m_toggleIconBar;
     KToggleAction*         m_toggleLineNumbers;
+    KToggleAction*         m_toggleScrollBarMarks;
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;

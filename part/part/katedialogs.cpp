@@ -584,10 +584,11 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
 
   blay->addWidget(gbFold);
 
-  QVGroupBox *gbBar = new QVGroupBox(i18n("Left Border"), this);
+  QVGroupBox *gbBar = new QVGroupBox(i18n("Borders"), this);
 
   m_icons=new QCheckBox(i18n("Show &icon border"),gbBar);
   m_line=new QCheckBox(i18n("Show &line numbers"),gbBar);
+  m_scrollBarMarks=new QCheckBox(i18n("Show &scrollbar marks"),gbBar);
 
   blay->addWidget(gbBar);
 
@@ -612,6 +613,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
         "pitch font." ));
   QWhatsThis::add(m_line,i18n("If this option is checked, every new view will display line numbers on the left hand side."));
   QWhatsThis::add(m_icons,i18n("If this option is checked, every new view will display an icon border on the left hand side.<br><br>The icon border shows bookmark signs, for instance."));
+  QWhatsThis::add(m_scrollBarMarks,i18n("If this option is checked, every new view will show marks onto the vertical scrollbar.<br><br>This will show bookmarks, for instance."));
   QWhatsThis::add(m_folding,i18n("If this option is checked, every new view will display marks for code folding, if code folding is available."));
 
   QWhatsThis::add(m_bmSort,i18n("Choose how the bookmarks should be ordered in the <b>Bookmarks</b> menu."));
@@ -629,6 +631,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(m_dynwrapAlignLevel, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(m_wwmarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_icons, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_scrollBarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_line, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_folding, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
@@ -655,6 +658,7 @@ void KateViewDefaultsConfig::apply ()
   KateRendererConfig::global()->setWordWrapMarker (m_wwmarker->isChecked());
   KateViewConfig::global()->setLineNumbers (m_line->isChecked());
   KateViewConfig::global()->setIconBar (m_icons->isChecked());
+  KateViewConfig::global()->setScrollBarMarks (m_scrollBarMarks->isChecked());
   KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
   KateViewConfig::global()->setBookmarkSort (m_bmSort->id (m_bmSort->selected()));
 
@@ -670,6 +674,7 @@ void KateViewDefaultsConfig::reload ()
   m_wwmarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   m_line->setChecked(KateViewConfig::global()->lineNumbers());
   m_icons->setChecked(KateViewConfig::global()->iconBar());
+  m_scrollBarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
   m_folding->setChecked(KateViewConfig::global()->foldingBar());
   m_bmSort->setButton( KateViewConfig::global()->bookmarkSort()  );
 }

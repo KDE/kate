@@ -351,11 +351,17 @@ void KateView::setupActions()
   a=toggleAction;
   a->setWhatsThis(i18n("Show/hide the icon border.<BR><BR> The icon border shows bookmark symbols, for instance."));
 
-  a= m_toggleLineNumbers = toggleAction = new KToggleAction(
+  a= toggleAction=m_toggleLineNumbers = new KToggleAction(
      i18n("Show &Line Numbers"), Key_F11,
      this, SLOT(toggleLineNumbersOn()),
      ac, "view_line_numbers" );
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
+
+  a= m_toggleScrollBarMarks = toggleAction = new KToggleAction(
+     i18n("Show Scroll&bar Marks"), 0,
+     this, SLOT(toggleScrollBarMarks()),
+     ac, "view_scrollbar_marks");
+  a->setWhatsThis(i18n("Show/hide the marks onto the vertical scrollbar.<BR><BR> It shows bookmarks, for instance."));
 
   a = m_toggleWWMarker = new KToggleAction(
         i18n("Show Static &Word Wrap Marker"), 0,
@@ -933,6 +939,16 @@ void KateView::toggleLineNumbersOn()
   config()->setLineNumbers (!config()->lineNumbers());
 }
 
+void KateView::setScrollBarMarks( bool enable )
+{
+  config()->setScrollBarMarks (enable);
+}
+
+void KateView::toggleScrollBarMarks()
+{
+  config()->setScrollBarMarks (!config()->scrollBarMarks());
+}
+
 void KateView::toggleDynWordWrap()
 {
   config()->setDynWordWrap( !config()->dynWordWrap() );
@@ -964,6 +980,10 @@ bool KateView::iconBorder() {
 
 bool KateView::lineNumbersOn() {
   return m_viewInternal->leftBorder->lineNumbersOn();
+}
+
+bool KateView::scrollBarMarks() {
+  return m_viewInternal->m_lineScroll->showMarks();
 }
 
 int KateView::dynWrapIndicators() {
@@ -1110,6 +1130,10 @@ void KateView::updateConfig ()
   // icon bar
   m_viewInternal->leftBorder->setIconBorderOn( config()->iconBar() );
   m_toggleIconBar->setChecked( config()->iconBar() );
+
+  // scrollbar marks
+  m_viewInternal->m_lineScroll->setShowMarks( config()->scrollBarMarks() );
+  m_toggleScrollBarMarks->setChecked( config()->scrollBarMarks() );
 
   // cmd line
   showCmdLine (config()->cmdLine());

@@ -303,6 +303,9 @@ class KateViewConfig : public KateConfig
     bool lineNumbers () const;
     void setLineNumbers (bool on);
 
+    bool scrollBarMarks () const;
+    void setScrollBarMarks (bool on);
+
     bool iconBar () const;
     void setIconBar (bool on);
 
@@ -341,6 +344,7 @@ class KateViewConfig : public KateConfig
     int m_dynWordWrapIndicators;
     int m_dynWordWrapAlignIndent;
     bool m_lineNumbers;
+    bool m_scrollBarMarks;
     bool m_iconBar;
     bool m_foldingBar;
     int m_bookmarkSort;
@@ -354,6 +358,7 @@ class KateViewConfig : public KateConfig
     bool m_dynWordWrapIndicatorsSet : 1;
     bool m_dynWordWrapAlignIndentSet : 1;
     bool m_lineNumbersSet : 1;
+    bool m_scrollBarMarksSet : 1;
     bool m_iconBarSet : 1;
     bool m_foldingBarSet : 1;
     bool m_bookmarkSortSet : 1;

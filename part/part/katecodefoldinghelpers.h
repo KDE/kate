@@ -110,6 +110,8 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     void debugDump ();
     void getLineInfo (KateLineInfo *info,unsigned int line);
 
+    unsigned int getStartLine (KateCodeFoldingNode *node);
+
     void fixRoot (int endLRel);
     void clear ();
 
@@ -128,8 +130,6 @@ class KateCodeFoldingTree : public QObject, public KateCodeFoldingNode
     static bool trueVal;
 
     KateCodeFoldingNode *findNodeForLineDescending (KateCodeFoldingNode *, unsigned int, unsigned int, bool oneStepOnly=false);
-
-    unsigned int getStartLine (KateCodeFoldingNode *node);
 
     bool correctEndings (signed char data, KateCodeFoldingNode *node, unsigned int line, int insertPos);
 

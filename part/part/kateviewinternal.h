@@ -32,6 +32,7 @@
 #include <qscrollbar.h>
 #include <qpoint.h>
 #include <qtimer.h>
+#include <qintdict.h>
 
 class KateView;
 class KateDocument;
@@ -51,13 +52,18 @@ enum Bias
  * This class is required because QScrollBar's sliderMoved() signal is
  * really supposed to be a sliderDragged() signal... so this way we can capture
  * MMB slider moves as well
+ *
+ * Also, it adds some usefull indicators on the scrollbar.
  */
 class KateScrollBar : public QScrollBar
 {
   Q_OBJECT
 
   public:
-    KateScrollBar(Orientation orientation, QWidget* parent, const char* name = 0L);
+    KateScrollBar(Orientation orientation, class KateViewInternal *parent, const char* name = 0L);
+
+    inline bool showMarks() { return m_showMarks; };
+    inline void setShowMarks(bool b) { m_showMarks = b; update(); };
 
   signals:
     void sliderMMBMoved(int value);
@@ -65,12 +71,35 @@ class KateScrollBar : public QScrollBar
   protected:
     virtual void mousePressEvent(QMouseEvent* e);
     virtual void mouseReleaseEvent(QMouseEvent* e);
+    virtual void mouseMoveEvent (QMouseEvent* e);
+    virtual void paintEvent(QPaintEvent *);
+    virtual void resizeEvent(QResizeEvent *);
+    virtual void styleChange(QStyle &oldStyle);
+    virtual void valueChange();
+    virtual void rangeChange();
 
   protected slots:
     void sliderMaybeMoved(int value);
+    void marksChanged();
 
   private:
+    void redrawMarks();
+    void recomputeMarksPositions(bool forceFullUpdate = false);
+    void watchScrollBarSize();
+
   bool m_middleMouseDown;
+
+    KateView *m_view;
+    KateDocument *m_doc;
+    class KateViewInternal *m_viewInternal;
+
+    int m_topMargin;
+    int m_bottomMargin;
+    uint m_savVisibleLines;
+
+    QIntDict<QColor> m_lines;
+
+    bool m_showMarks;
 };
 
 class KateViewInternal : public QWidget
@@ -79,6 +108,7 @@ class KateViewInternal : public QWidget
 
     friend class KateView;
     friend class KateIconBorder;
+    friend class KateScrollBar;
     friend class CalculatingCursor;
     friend class BoundedCursor;
     friend class WrappingCursor;
@@ -266,7 +296,7 @@ class KateViewInternal : public QWidget
     //
     // line scrollbar + first visible (virtual) line in the current view
     //
-    QScrollBar *m_lineScroll;
+    KateScrollBar *m_lineScroll;
     QWidget* m_dummy;
     QVBoxLayout* m_lineLayout;
     QHBoxLayout* m_colLayout;

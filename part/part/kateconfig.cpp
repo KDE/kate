@@ -524,6 +524,7 @@ KateViewConfig::KateViewConfig ()
    m_dynWordWrapIndicatorsSet (true),
    m_dynWordWrapAlignIndentSet (true),
    m_lineNumbersSet (true),
+   m_scrollBarMarksSet (true),
    m_iconBarSet (true),
    m_foldingBarSet (true),
    m_bookmarkSortSet (true),
@@ -548,6 +549,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_dynWordWrapIndicatorsSet (false),
    m_dynWordWrapAlignIndentSet (false),
    m_lineNumbersSet (false),
+   m_scrollBarMarksSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
    m_bookmarkSortSet (false),
@@ -573,6 +575,8 @@ void KateViewConfig::readConfig (KConfig *config)
   setDynWordWrapAlignIndent (config->readNumEntry( "Dynamic Word Wrap Align Indent", 80 ));
 
   setLineNumbers (config->readBoolEntry( "Line Numbers",  false));
+
+  setScrollBarMarks (config->readBoolEntry( "Scroll Bar Marks",  false));
 
   setIconBar (config->readBoolEntry( "Icon Bar", false ));
 
@@ -600,6 +604,8 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry( "Dynamic Word Wrap Align Indent", dynWordWrapAlignIndent() );
 
   config->writeEntry( "Line Numbers", lineNumbers() );
+
+  config->writeEntry( "Scroll Bar Marks", scrollBarMarks() );
 
   config->writeEntry( "Icon Bar", iconBar() );
 
@@ -703,6 +709,24 @@ void KateViewConfig::setLineNumbers (bool on)
 
   m_lineNumbersSet = true;
   m_lineNumbers = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::scrollBarMarks () const
+{
+  if (m_scrollBarMarksSet || isGlobal())
+    return m_scrollBarMarks;
+
+  return s_global->scrollBarMarks();
+}
+
+void KateViewConfig::setScrollBarMarks (bool on)
+{
+  configStart ();
+
+  m_scrollBarMarksSet = true;
+  m_scrollBarMarks = on;
 
   configEnd ();
 }

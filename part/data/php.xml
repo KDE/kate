@@ -2696,6 +2696,7 @@
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment" />
       </context>
       <context name="doblequotestring" attribute="String" lineEndContext="#stay">
+<!-- URL: http://de3.php.net/manual/en/language.types.string.php#language.types.string.syntax.double -->
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="&quot;" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="\" />
         <Detect2Chars attribute="Backslash Code" context="#stay" char="\" char1="n" />

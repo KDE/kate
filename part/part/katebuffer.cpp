@@ -39,6 +39,7 @@
 #include <qtimer.h>
 #include <qtextcodec.h>
 #include <qcstring.h>
+#include <qdatetime.h>
 
 /**
  * loader block size, load 256 kb at once per default
@@ -891,7 +892,9 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
   if (startLine >= (buf->startLine()+buf->lines()))
     return false;
 
-  kdDebug (13020) << "NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
+  QTime t;
+  t.start();
+  kdDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
   kdDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
   kdDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
 
@@ -1136,6 +1139,11 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
   // emit that we have changed the folding
   if (codeFoldingUpdate)
     emit codeFoldingUpdated();
+
+  kdDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine << endl;
+  kdDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted << " MAX: " << m_lineHighlightedMax << endl;
+  kdDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts << endl;
+  kdDebug (13020) << "TIME TAKEN: " << t.elapsed() << endl;
 
   // if we are at the last line of the block + we still need to continue
   // return the need of that !

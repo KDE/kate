@@ -116,7 +116,7 @@ class KateHlContext
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
 
-    QPtrList<KateHlItem> items;
+    QValueVector<KateHlItem*> items;
     int attr;
     int ctx;
     int lineBeginContext;
@@ -231,6 +231,8 @@ class KateHlKeyword : public KateHlItem
     QDict<bool> dict;
     bool _caseSensitive;
     const QString& deliminators;
+    int minLen;
+    int maxLen;
 };
 
 class KateHlInt : public KateHlItem
@@ -550,6 +552,8 @@ KateHlKeyword::KateHlKeyword (int attribute, int context, signed char regionId,s
   , dict (113, casesensitive)
   , _caseSensitive(casesensitive)
   , deliminators(delims)
+  , minLen (0xFFFFFF)
+  , maxLen (-1)
 {
 }
 
@@ -577,7 +581,18 @@ void KateHlKeyword::addWord(const QString &word)
 
 void KateHlKeyword::addList(const QStringList& list)
 {
-  for(uint i=0;i<list.count();i++) dict.insert(list[i], &trueBool);
+  for(uint i=0;i<list.count();i++)
+  {
+    dict.insert(list[i], &trueBool);
+
+    int len = list[i].length();
+
+    if (minLen > len)
+      minLen = len;
+
+    if (maxLen < len)
+      maxLen = len;
+  }
 }
 
 int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
@@ -585,16 +600,21 @@ int KateHlKeyword::checkHgl(const QString& text, int offset, int len)
   if (len == 0 || dict.isEmpty()) return 0;
 
   int offset2 = offset;
+  int wordLen = 0;
 
-  while (len > 0 && !kateInsideString (deliminators, text[offset2]))
+  while ((len > wordLen) && !kateInsideString (deliminators, text[offset2]))
   {
     offset2++;
-    len--;
+    wordLen++;
+
+    if (wordLen > maxLen) return 0;
   }
 
   if (offset2 == offset) return 0;
 
-  if ( dict.find(QConstString(text.unicode() + offset, offset2 - offset).string()) ) return offset2;
+  if (wordLen < minLen) return 0;
+
+  if ( dict.find(QConstString(text.unicode() + offset, wordLen).string()) ) return offset2;
 
   return 0;
 }
@@ -1086,16 +1106,15 @@ KateHlContext::KateHlContext (int attribute, int lineEndContext, int _lineBeginC
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
   KateHlContext *ret = new KateHlContext(attr, ctx, lineBeginContext, fallthrough, ftctx, false);
-  KateHlItem *item;
 
-  for (item = items.first(); item; item = items.next())
+  for (uint n=0; n < items.size(); ++n)
   {
+    KateHlItem *item = items[n];
     KateHlItem *i = (item->dynamic ? item->clone(args) : item);
     ret->items.append(i);
   }
 
   ret->dynamicChild = true;
-  ret->items.setAutoDelete(false);
 
   return ret;
 }
@@ -1104,11 +1123,10 @@ KateHlContext::~KateHlContext()
 {
   if (dynamicChild)
   {
-    KateHlItem *item;
-    for (item = items.first(); item; item = items.next())
+    for (uint n=0; n < items.size(); ++n)
     {
-      if (item->dynamicChild)
-        delete item;
+      if (items[n]->dynamicChild)
+        delete items[n];
     }
   }
 }
@@ -1362,7 +1380,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     bool standardStartEnableDetermined = false;
     bool standardStartEnable = false;
 
-    for (item = context->items.first(); item != 0L; item = context->items.next())
+    uint index = 0;
+    for (item = context->items.empty() ? 0 : context->items[0]; item; item = (++index < context->items.size()) ? context->items[index] : 0 )
     {
       bool thisStartEnabled = false;
 
@@ -2466,9 +2485,23 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
     if ( (*it1)->includeAttrib )
       dest->attr = src->attr;
 
-    uint p=(*it1)->pos; //insert the included context's rules starting at position p
-    for ( KateHlItem *c = src->items.first(); c; c=src->items.next(), p++ )
-                        dest->items.insert(p,c);
+    // insert the included context's rules starting at position p
+    int p=(*it1)->pos;
+
+    // remember some stuff
+    int oldLen = dest->items.size();
+    uint itemsToInsert = src->items.size();
+
+    // resize target
+    dest->items.resize (oldLen + itemsToInsert);
+
+    // move old elements
+    for (int i=oldLen-1; i >= p; --i)
+      dest->items[i+itemsToInsert] = dest->items[i];
+
+    // insert new stuff
+    for (uint i=0; i < itemsToInsert; ++i  )
+      dest->items[p+i] = src->items[i];
 
     it=it1; //backup the iterator
     --it1;  //move to the next entry, which has to be take care of

@@ -53,7 +53,7 @@ KateFileDialog::KateFileDialog (const QString& startDir,
   else {
     setMode(KFile::File);
     setOperationMode( Saving );
-    setMimeFilter (filter, "text/plain");
+    setMimeFilter (filter, "all/allfiles");
     }
 
   m_encoding = toolBar()->getCombo(33333);

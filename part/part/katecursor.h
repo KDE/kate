@@ -86,9 +86,11 @@ class BracketMark
     BracketMark() : valid( false ) {}
     bool valid;
     uint startLine;
+    uint startCol;
     uint startX;
     uint startW;
     uint endLine;
+    uint endCol;
     uint endX;
     uint endW;
 };

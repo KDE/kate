@@ -3967,9 +3967,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
   else if (!printerfriendly)
     paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[0]);
 
-  if( !printerfriendly && bm.valid && bm.startLine == line )
+  if( !printerfriendly && bm.valid && (bm.startLine == line) && (bm.startCol >= startcol) && ((endcol == -1) || (bm.startCol < endcol)) )
     paint.fillRect( bm.startX - startXCol, y, bm.startW, fs.fontHeight, colors[3] );
-  if( !printerfriendly && bm.valid && bm.endLine == line )
+  if( !printerfriendly && bm.valid && (bm.endLine == line) && (bm.endCol >= startcol) && ((endcol == -1) || (bm.endCol < endcol)) )
     paint.fillRect( bm.endX - startXCol, y, bm.endW, fs.fontHeight, colors[3] );
 
   if (startcol > (int)len)
@@ -4200,6 +4200,7 @@ void KateDocument::newBracketMark( const KateTextCursor& cursor, BracketMark& bm
   /* Calculate starting geometry */
   textLine = buffer->line( start.line );
   a = attribute( textLine->attribute( start.col ) );
+  bm.startCol = start.col;
   bm.startLine = start.line;
   bm.startX = textWidth( textLine, start.col );
   bm.startW = a->width( viewFont, textLine->getChar( start.col ) );
@@ -4207,6 +4208,7 @@ void KateDocument::newBracketMark( const KateTextCursor& cursor, BracketMark& bm
   /* Calculate ending geometry */
   textLine = buffer->line( end.line );
   a = attribute( textLine->attribute( end.col ) );
+  bm.endCol = end.col;
   bm.endLine = end.line;
   bm.endX = textWidth( textLine, end.col );
   bm.endW = a->width( viewFont, textLine->getChar( end.col ) );

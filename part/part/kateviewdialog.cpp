@@ -471,7 +471,7 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   glay->addWidget( label, 6, 0 );
   glay->addWidget( m_bracket, 6, 1 );
   
-  label = new QLabel( i18n("Word Wrap &Marker:"), this );
+  label = new QLabel( i18n("Word Wrap:"), this );
   label->setAlignment( AlignRight|AlignVCenter );
   m_wwmarker = new KColorButton( this );
   label->setBuddy( m_wwmarker );
@@ -489,9 +489,10 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
         "if you place the cursor e.g. at a <b>(</b>, the matching <b>)</b> will "
         "be highlighted with this color."));
   QWhatsThis::add(m_wwmarker, i18n(
-        "Sets the color of the word wrap marker line. This is a vertical line "
-        "that shows the desired word wrap column, as set in the Edit "
-        "configuration.") );
+        "<qt>Sets the color of the static / dynamic word wrap markings. <br><hr>"
+        "<ul> <li><nobr>static: a vertical line which shows the column, where text is going to be  wrapped</nobr></li>"
+        "<li> <nobr>dynamic: on the view's right hand side symbols are shown if lines wrap to another one </nobr></li>"
+        "</ul></qt>"));
   reload ();
 }
 

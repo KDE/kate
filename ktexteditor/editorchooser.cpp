@@ -51,7 +51,7 @@ EditorChooser::EditorChooser(QWidget *parent,const char *name) :
   	config->setGroup("KTextEditor");
   	QString editor = config->readEntry("embeddedEditor", "");
 
-  if (editor.isEmpty()) editor="katepart";
+  if (editor.isEmpty()) editor="libkatepart";
 
 	for (KTrader::OfferList::Iterator it = offers.begin(); it != offers.end(); ++it)
 	{
@@ -113,7 +113,7 @@ KTextEditor::Document *EditorChooser::createDocument(QObject *parent,const char*
 	{
 		KConfig *config=new KConfig("default_components");
   		config->setGroup("KTextEditor");
-	  	editor = config->readEntry("embeddedEditor", "katepart");
+	  	editor = config->readEntry("embeddedEditor", "libkatepart");
 		delete config;
 	}
 
@@ -124,7 +124,7 @@ KTextEditor::Document *EditorChooser::createDocument(QObject *parent,const char*
 		if (tmpDoc) return tmpDoc;
 	}
 	if (fallBackToKatePart)
-		return KTextEditor::createDocument("katepart",parent,name);
+		return KTextEditor::createDocument("libkatepart",parent,name);
 
 	return 0;
 }
@@ -143,7 +143,7 @@ KTextEditor::Editor *EditorChooser::createEditor(QWidget *parentWidget,QObject *
         {
                 KConfig *config=new KConfig("default_components");
                 config->setGroup("KTextEditor");
-                editor = config->readEntry("embeddedEditor", "katepart");
+                editor = config->readEntry("embeddedEditor", "libkatepart");
                 delete config;
         }
 
@@ -154,7 +154,7 @@ KTextEditor::Editor *EditorChooser::createEditor(QWidget *parentWidget,QObject *
                 if (tmpEd) return tmpEd;
         }
         if (fallBackToKatePart)
-                return KTextEditor::createEditor("katepart",parentWidget,widgetName,parent,name);
+                return KTextEditor::createEditor("libkatepart",parentWidget,widgetName,parent,name);
 
         return 0;
 }

@@ -28,6 +28,9 @@ namespace KTextEditor
 */
 class SelectionInterface
 {
+  //
+	// slots !!!
+	//
   public:
     /**
     *  @return set the selection from line_start,col_start to line_end,col_end
@@ -53,6 +56,12 @@ class SelectionInterface
     *  removes the selected Text
     */
     virtual bool removeSelectedText () = 0;
+		
+	//
+	// signals !!!
+	//
+	public:
+	  virtual void selectionChanged () = 0;
 };
 
 };

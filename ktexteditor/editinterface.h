@@ -28,6 +28,9 @@ namespace KTextEditor
 */
 class EditInterface
 {
+  //
+	// slots !!!
+	//
   public:
     /**
     * @return the complete document as a single QString
@@ -94,6 +97,12 @@ class EditInterface
     * (the default) then the line is added to end of the document
     */
     virtual bool removeLine ( int line ) = 0;
+
+	//
+	// signals !!!
+	//
+	public:
+	  virtual void textChanged () = 0;
 };
 
 

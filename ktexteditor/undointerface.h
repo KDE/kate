@@ -17,31 +17,45 @@
    Boston, MA 02111-1307, USA.
 */
 
-#include "document.h"
-#include "view.h"
+#ifndef __ktexteditor_undointerface_h__
+#define __ktexteditor_undointerface_h__
 
-#include "document.moc"
-#include "view.moc"
-
-#include "editinterface.h"
-#include "selectioninterface.h"
-#include "cursorinterface.h"
-#include "undointerface.h"
-
-using namespace KTextEditor;
-
-View::View( Document *, QWidget *parent, const char *name ) : QWidget( parent, name )
+namespace KTextEditor
 {
-}
 
-View::~View()
+/*
+*  This is an interface for the KTextEditor::Document class !!!
+*/
+class UndoInterface
 {
-}
+  //
+	// slots !!!
+	//
+  public:
+	  virtual void undo () = 0;
 
-Document::Document( QObject *parent, const char *name ) : KParts::ReadWritePart( parent, name )
-{
-}
+		virtual void redo () = 0;
 
-Document::~Document()
-{
-}
+		virtual void clearUndo () = 0;
+
+		virtual void clearRedo () = 0;
+
+		virtual int undoCount () const = 0;
+
+		virtual int redoCount () const = 0;
+		
+		virtual int undoSteps () const = 0;
+
+		virtual void setUndoSteps ( int steps ) = 0;
+		
+	//
+	// signals !!!
+	//
+	public:
+	  virtual void undoChanged () = 0;
+};
+
+
+};
+
+#endif

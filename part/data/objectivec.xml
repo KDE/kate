@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Objective-C" version="1.06" kateversion="2.3" section="Sources" extensions="*.m;*.h" mimetype="text/x-objc-src;text/x-c-hdr">
+<language name="Objective-C" version="1.07" kateversion="2.3" section="Sources" extensions="*.m;*.h" mimetype="text/x-objc-src;text/x-c-hdr">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -55,6 +55,8 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Default">
         <keyword attribute="Keyword" context="#stay" String="keywords"/>
         <keyword attribute="Data Type" context="#stay" String="types"/>
+        <DetectChar attribute="Symbol" context="#stay" char="{" beginRegion="Brace1" />
+        <DetectChar attribute="Symbol" context="#stay" char="}" endRegion="Brace1" />
         <Float attribute="Float" context="#stay">
           <AnyChar String="fF" attribute="Float" context="#stay"/>
         </Float>

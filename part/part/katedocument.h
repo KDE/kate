@@ -80,6 +80,7 @@ class LineRange
     bool dirty;
     int viewLine;
     bool wrap;
+    bool lineEnd;
 };
 
 //
@@ -93,6 +94,7 @@ class KateDocument : public Kate::Document, public KTextEditor::ConfigInterfaceE
   friend class KateViewInternal;
   friend class KateView;
   friend class KateIconBorder;
+  friend class KateDynWWBar;
   friend class ColorConfig;
   friend class ViewDefaultsConfig;
 

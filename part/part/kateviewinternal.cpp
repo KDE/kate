@@ -30,6 +30,7 @@
 #include "katedocument.h"   
 #include "katecodefoldinghelpers.h"
 #include "kateiconborder.h"
+#include "katedynwwbar.h"
 #include "katehighlight.h"
 
 #include <kcursor.h>
@@ -72,35 +73,45 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_lineScroll = new QScrollBar(QScrollBar::Vertical, m_view);
   m_lineScroll->show();
   m_lineScroll->setTracking (true);
-  
+
+  m_dynWWBar=new KateDynWWBar(this,m_view);
+  m_dynWWBar->setFixedWidth(style().scrollBarExtent().width());
+
   m_lineLayout = new QVBoxLayout();
-  m_lineLayout->addWidget(m_lineScroll);
-    
+  m_colLayout = new QHBoxLayout();
+ 
+  m_colLayout->addWidget(m_dynWWBar);
+  m_colLayout->addWidget(m_lineScroll);
+  m_lineLayout->addLayout(m_colLayout);
+	
   if (m_view->dynWordWrap()) {
     m_dummy = 0L;
+    m_dynWWBar->show();
   } else {
+    m_dynWWBar->hide();
     // bottom corner box
     m_dummy = new QWidget(m_view);
-    m_dummy->setFixedSize( style().scrollBarExtent().width(),
-                                  style().scrollBarExtent().width() );
+//    m_dummy->setFixedSize( style().scrollBarExtent().width(),
+//                                  style().scrollBarExtent().width() );
+    m_dummy->setFixedHeight(style().scrollBarExtent().width());
     m_dummy->show();
     m_lineLayout->addWidget(m_dummy);
   }
-  
+
   m_view->m_grid->addMultiCellLayout(m_lineLayout, 0, 1, 2, 2);
-  
+
   // Hijack the line scroller's controls, so we can scroll nicely for word-wrap
   connect(m_lineScroll, SIGNAL(prevPage()), SLOT(scrollPrevPage()));
   connect(m_lineScroll, SIGNAL(nextPage()), SLOT(scrollNextPage()));
-  
+
   connect(m_lineScroll, SIGNAL(prevLine()), SLOT(scrollPrevLine()));
   connect(m_lineScroll, SIGNAL(nextLine()), SLOT(scrollNextLine()));
-  
+
   connect(m_lineScroll, SIGNAL(sliderMoved(int)), SLOT(scrollLines(int)));
 
   // catch wheel events, completing the hijack
   m_lineScroll->installEventFilter(this);
-    
+
   //
   // scrollbar for columns
   //
@@ -110,7 +121,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   m_view->m_grid->addMultiCellWidget(m_columnScroll, 1, 1, 0, 1);
   m_startX = 0;
   m_oldStartX = 0;
-  
+
   connect( m_columnScroll, SIGNAL( valueChanged (int) ),
            this, SLOT( scrollColumns (int) ) );
                   
@@ -175,11 +186,12 @@ void KateViewInternal::dynWrapChanged()
 {
   if (m_view->dynWordWrap()) {
     delete m_dummy;
-    
+    m_dynWWBar->show();
     m_columnScroll->hide();
     m_columnScrollDisplayed = false;
 
   } else {    
+    m_dynWWBar->hide();
     // bottom corner box
     m_dummy = new QWidget(m_view);
     m_dummy->setFixedSize( style().scrollBarExtent().width(),
@@ -362,6 +374,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
       int scrollHeight = -(viewLinesScrolled * m_doc->viewFont.fontHeight);
       scroll(0, scrollHeight);
       leftBorder->scroll(0, scrollHeight);
+      m_dynWWBar->scroll(0, scrollHeight);
       return;
     }
   }
@@ -369,6 +382,7 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
   updateView();
   update();
   leftBorder->update();
+  m_dynWWBar->update();
 }
 
 void KateViewInternal::scrollColumns ( int x )
@@ -508,6 +522,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             lineRanges[z].endX = endX;
             lineRanges[z].viewLine = newViewLine;
             lineRanges[z].wrap = true;
+            lineRanges[z].lineEnd =  (endCol==(text->length()+1));
 
             startCol = endCol;
             startX = endX;
@@ -524,6 +539,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
             lineRanges[z].endX = endX;
             lineRanges[z].viewLine = newViewLine;
             lineRanges[z].wrap = false;
+            lineRanges[z].lineEnd = true;
             line++;
           }
           
@@ -557,6 +573,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         lineRanges[z].endX = m_doc->textWidth( m_doc->kateTextLine( lineRanges[z].line ), -1 );
         lineRanges[z].viewLine = 0;
         lineRanges[z].wrap = false;
+        lineRanges[z].lineEnd=true;
       }
     }
 
@@ -722,11 +739,13 @@ void KateViewInternal::slotRegionVisibilityChangedAt(unsigned int)
   updateView();
   update();
   leftBorder->update();
+  m_dynWWBar->update();
 }
 
 void KateViewInternal::slotCodeFoldingChanged()
 {
   leftBorder->update();
+  m_dynWWBar->update();
 }
 
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
@@ -736,6 +755,7 @@ void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
   // FIXME: performance problem
 //  if (m_doc->getVirtualLine(line)<=m_viewInternal->endLine)
   leftBorder->update();
+  m_dynWWBar->update();
 }
 
 void KateViewInternal::showEvent ( QShowEvent *e )
@@ -1657,6 +1677,7 @@ bool KateViewInternal::tagLine(const KateTextCursor& virtualCursor)
   if (viewLine >= 0 && viewLine < (int)lineRanges.count()) {
     lineRanges[viewLine].dirty = true;
     leftBorder->update (0, lineToY(viewLine), leftBorder->width(), m_doc->viewFont.fontHeight);
+    m_dynWWBar->update (0, lineToY(viewLine), m_dynWWBar->width(), m_doc->viewFont.fontHeight);
     return true;
   }
   return false;
@@ -1708,6 +1729,7 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
       h = height();
  
     leftBorder->update (0, y, leftBorder->width(), h);
+    m_dynWWBar->update (0, y, m_dynWWBar->width(), h);
   }
   else
   {
@@ -1719,12 +1741,14 @@ bool KateViewInternal::tagLines(KateTextCursor start, KateTextCursor end, bool r
       {
         //justTagged = true;
         leftBorder->update (0, z * m_doc->viewFont.fontHeight, leftBorder->width(), leftBorder->height()); /*m_doc->viewFont.fontHeight*/
+        m_dynWWBar->update (0, z * m_doc->viewFont.fontHeight, m_dynWWBar->width(), m_dynWWBar->height()); 
         break;
       }
       /*else if (justTagged)
       {
         justTagged = false;
         leftBorder->update (0, z * m_doc->viewFont.fontHeight, leftBorder->width(), m_doc->viewFont.fontHeight);
+        m_dynWWBar->update (0, z * m_doc->viewFont.fontHeight, m_dynWWBar->width(), m_doc->viewFont.fontHeight);
         break;
       }*/
     }
@@ -1743,6 +1767,8 @@ void KateViewInternal::tagAll()
   
   leftBorder->updateFont();
   leftBorder->update ();
+  m_dynWWBar->updateFont();
+  m_dynWWBar->update ();
 }
 
 void KateViewInternal::paintCursor()
@@ -2192,6 +2218,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
     if (dirtied || expandedVertically) {
       updateView(true);
       leftBorder->update();
+      m_dynWWBar->update();
       
       // keep the cursor on-screen if it was previously
       if (currentViewLine >= 0)

@@ -10,7 +10,7 @@ libkatepart_la_SOURCES = katesearch.cpp katebuffer.cpp katecmd.cpp katecmds.cpp 
 			 katecodecompletion.cpp hlparamedit.cpp kateexportaction.cpp \
 			 attribeditor.cpp katecodefoldinghelpers.cpp kateviewinternal.cpp \
 			 katebookmarks.cpp katebrowserextension.cpp kateprintsettings.cpp \
-			 katefont.cpp
+			 katefont.cpp katedynwwbar.cpp
 
 libkatepart_la_LIBADD   = ../interfaces/libkatepartinterfaces.la $(top_builddir)/kdeprint/libkdeprint.la $(top_builddir)/kutils/libkutils.la
 libkatepart_la_LDFLAGS = $(all_libraries) $(KDE_RPATH) $(KDE_PLUGIN) -module -avoid-version

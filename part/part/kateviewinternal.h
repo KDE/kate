@@ -34,6 +34,7 @@ class QScrollBar;
 
 class KateView;
 class KateIconBorder;
+class KateDynWWBar;
 
   enum Bias {
     left  = -1,
@@ -49,7 +50,7 @@ class KateViewInternal : public QWidget
     friend class KateUndo;
     friend class KateView;
     friend class KateIconBorder;
-
+    friend class KateDynWWBar;
   public:
     KateViewInternal ( KateView *view, KateDocument *doc );
     ~KateViewInternal ();
@@ -241,7 +242,10 @@ class KateViewInternal : public QWidget
     QScrollBar *m_lineScroll;
     QWidget* m_dummy;
     QVBoxLayout* m_lineLayout;
+    QHBoxLayout* m_colLayout;
     
+    KateDynWWBar *m_dynWWBar;
+
     // These are now cursors to account for word-wrap.
     KateTextCursor m_startPos;
     KateTextCursor m_oldStartPos;

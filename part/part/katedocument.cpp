@@ -101,6 +101,7 @@ LineRange::LineRange()
   , dirty(false)
   , viewLine(-1)
   , wrap(false)
+  , lineEnd(true)
 {
 }
 
@@ -114,6 +115,7 @@ void LineRange::clear()
   endX = -1;
   viewLine = -1;
   wrap = false;
+  lineEnd = true;
 }
 
 //
@@ -4299,6 +4301,15 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
     paint.fillRect(xPos2 + xPos-xStart, oldY, xEnd - xStart, fs.fontHeight, colors[1]);
     selectionPainted = true;
   }
+
+//  kdDebug()<<"startCol is:"<<range.startCol<<endl;
+//  kdDebug()<<"endCol / line endCol: "<<range.endCol<<" "<<textLine->length()<<endl;
+#if 0
+  if (
+       (range.endCol==(textLine->length())) ||
+       (range.endCol==(textLine->length()+1))
+     ) paint.drawText(xPos2 + xPos - xStart, y,"    [...]");
+#endif
 
   if (cursorVisible)
   {

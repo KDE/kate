@@ -317,22 +317,22 @@
       <item>widetilde</item>
       </list>
     <contexts>
-  <context attribute="0" lineEndContext="0">
-    <StringDetect String="\begin{" attribute="3" context="1" insensitive="FALSE"/>
-    <StringDetect String="\end{" attribute="3" context="1" insensitive="FALSE"/>
-    <StringDetect String="\(" attribute="4" context="3"/>
-    <DetectChar char="\" attribute="1" context="2" />
-    <RegExpr String="%.*$" attribute="2" context="0"/>
+  <context attribute="Normal Text" lineEndContext="Default" name="Default">
+    <StringDetect String="\begin{" attribute="Begin End" context="In Paren" insensitive="FALSE"/>
+    <StringDetect String="\end{" attribute="Begin End" context="In Paren" insensitive="FALSE"/>
+    <StringDetect String="\(" attribute="Formula" context="Keywords 2"/>
+    <DetectChar char="\" attribute="Keyword" context="Keywords 1" />
+    <RegExpr String="%.*$" attribute="Comment" context="Default"/>
   </context>
-  <context attribute="5" lineEndContext="1">
-    <DetectChar char="}" attribute="3" context="0"/>
+  <context attribute="Environment" lineEndContext="In Paren" name="In Paren">
+    <DetectChar char="}" attribute="Begin End" context="Default"/>
   </context>
-  <context attribute="0" lineEndContext="0">
-    <keyword String="keywords" attribute="1" context="0" />
+  <context attribute="Normal Text" lineEndContext="Default" name="Keywords 1">
+    <keyword String="keywords" attribute="Keyword" context="Default" />
   </context>
-  <context attribute="4" lineEndContext="3">
-    <keyword String="keywords" attribute="1" context="3"/>
-    <StringDetect String="\)" attribute="4" context="0"/>
+  <context attribute="Formula" lineEndContext="Keywords 2" name="Keywords 2">
+    <keyword String="keywords" attribute="Keyword" context="Keywords 2"/>
+    <StringDetect String="\)" attribute="Formula" context="Default"/>
   </context>
     </contexts>
     <itemDatas>

@@ -53,6 +53,7 @@
       <item> SIGNAL </item>
       <item> slots </item>
       <item> signals </item>
+      <item> emit </item>
       <item> Q_PROPERTY </item>
       <item> Q_ENUMS </item>
       <item> Q_SETS </item>

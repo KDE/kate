@@ -3,9 +3,9 @@
 
 <!-- Author: Alexander Dederer -->
 <!-- Copyright: BSD copyright -->
-<!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger -->
+<!-- Ported to Kate 2.0/ KWrite 4.0 by Joseph Wenninger (Updated by Simon Robins)-->
 
-<language name="TCL/TK" version="1.00" kateversion="2.0" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
+<language name="Tcl/Tk" version="1.01" kateversion="2.0" section="Scripts" extensions="*.tcl;*.tk" mimetype="text/x-tcl">
   <highlighting>
     <list name="keywords">
       <item> after </item>
@@ -40,6 +40,8 @@
       <item> continue  </item>
       <item> dde  </item>
       <item> destroy  </item>
+      <item> else  </item>
+      <item> elseif  </item>
       <item> encoding  </item>
       <item> entry  </item>
       <item> env  </item>
@@ -177,31 +179,27 @@
       <item> wm  </item>
     </list>
         <contexts>
-                <context name = "Base" attribute = "0" lineEndContext="#stay">
-                        <keyword String = "keywords" attribute = "1" context="#stay"/>
-                        <RegExpr String = "$[0-9]+" attribute = "8" context="#stay"/>
-                        <AnyChar String = "=" attribute = "9" context="#stay"/>
-                        <RegExpr String = "-\w+" attribute = "9" content="#stay"/>
-                        <DetectChar char = '"' attribute = "5" context="#stay"/>
-                        <DetectChar char="`" attribute = "7" context = "2"/>
-                        <RegExpr String= "#.*$" attribute = "6" context="#stay"/>
-                        <DetectChar char = '{' attribute = "1" context="#stay"/>
-                        <DetectChar char = '}' attribute = "1" context="#stay"/>
-                        <DetectChar char = '[' attribute = "1" context="#stay"/>
-                        <DetectChar char = ']' attribute = "1" context="#stay"/>
+                <context name = "Base" attribute = "Normal Text" lineEndContext="#stay">
+                        <keyword String = "keywords" attribute = "Keyword" context="#stay"/>
+                        <Float attribute = "Float" context="#stay"/>
+                        <Int attribute ="Decimal" context="#stay"/>
+                        <RegExpr String = "-\D\w+" attribute = "Parameter" content="#stay"/>
+                        <DetectChar char = "&quot;" attribute = "String" context="String"/>
+                        <RegExpr String= "#.*$" attribute = "Comment" context="#stay"/>
+                        <DetectChar char = '{' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = '}' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = '[' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = ']' attribute = "Keyword" context="#stay"/>
+                        <RegExpr String  = '\\$' attribute = "Keyword" context="#stay"/>
                 </context>
 
-                <context name = "String" attribute = "5" lineEndContext="1">
-                        <HlCChar attribute = "4" context = "#stay"/>
-                        <DetectChar char = '"' attribute = "5" context = "#pop"/>
-                        <DetectChar char = '{' attribute = "1" context="#pop"/>
-                        <DetectChar char = '}' attribute = "1" context="#pop"/>
-                        <DetectChar char = '[' attribute = "1" context="#pop"/>
-                        <DetectChar char = ']' attribute = "1" context="#pop"/>
-                </context>
-
-                <context name = "Substitution" attribute = "7" lineEndContext="#stay">
-                        <DetectChar char = "`" attribute = "7" context = "#pop"/>
+                <context name = "String" attribute = "String" lineEndContext="#stay">
+                        <DetectChar char = "&quot;" attribute = "String" context = "#pop"/>
+                        <DetectChar char = '{' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = '}' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = '[' attribute = "Keyword" context="#stay"/>
+                        <DetectChar char = ']' attribute = "Keyword" context="#stay"/>
+                        <RegExpr String  = '\\$' attribute = "Keyword" context="#stay"/>
                 </context>
         </contexts>
         <itemDatas>
@@ -209,18 +207,15 @@
                 <itemData name = "Keyword" defStyleNum = "dsKeyword"/>
                 <itemData name = "Decimal" defStyleNum = "dsDecVal"/>
                 <itemData name = "Float" defStyleNum = "dsFloat"/>
-                <itemData name = "Char" defStyleNum = "dsChar"/>
                 <itemData name = "String" defStyleNum = "dsString"/>
                 <itemData name = "Comment" defStyleNum = "dsComment"/>
-                <itemData name = "Substitution" defStyleNum = "dsOthers"  color="#00ff00" selcolor="#ff0000"/>
                 <itemData name = "Parameter" defStyleNum = "dsOthers"/>
-                <itemData name = "Operator" defStyleNum = "dsOthers"/>
         </itemDatas>
-  </highlighting>
   <general>
     <comments>
       <comment name="singleLine" start="#" />
     </comments>
     <keywords casesensitive="1" />
   </general>
+</highlighting>
 </language>

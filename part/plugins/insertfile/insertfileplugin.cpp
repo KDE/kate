@@ -1,21 +1,22 @@
-/***************************************************************************
-    insertfileplugin.cpp
-    Insert any readable file at cursor position
+/* This file is part of the KDE libraries
+   Copyright (C) 2002 Anders Lund <anders@alweb.dk>
+   
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
 
-    begin                : Thu Jun 13 13:14:52 CEST 2002
-    $Id$
-    copyright            : (C) 2002 by Anders Lund
-    email                : anders@alweb.dk
- ***************************************************************************/
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+
+   $Id$
+*/
 
 #include "insertfileplugin.h"
 #include "insertfileplugin.moc"
@@ -52,7 +53,7 @@ InsertFilePlugin::~InsertFilePlugin()
 
 void InsertFilePlugin::addView(KTextEditor::View *view)
 {
-  InsertFilePluginView *nview = new InsertFilePluginView (view);
+  InsertFilePluginView *nview = new InsertFilePluginView (view, "Insert File Plugin");
   m_views.append (nview);
 }
 
@@ -69,8 +70,8 @@ void InsertFilePlugin::removeView(KTextEditor::View *view)
 //END InsertFilePlugin
 
 //BEGIN InsertFilePluginView
-InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view )
-  : QObject( view ),
+InsertFilePluginView::InsertFilePluginView( KTextEditor::View *view, const char *name )
+  : QObject( view, name ),
     KXMLGUIClient( view )
 {
   view->insertChildClient( this );

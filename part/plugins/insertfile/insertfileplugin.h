@@ -1,20 +1,23 @@
-/***************************************************************************
-    insertfileplugin.h
-    Insert any readable file at cursor position
-    
-    begin                : Thu Jun 13 13:14:52 CEST 2002
-    $Id:$
-    copyright            : (C) 2002 by Anders Lund
-    email                : anders@alweb.dk
- ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/* This file is part of the KDE libraries
+   Copyright (C) 2002 Anders Lund <anders@alweb.dk>
+
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Library General Public
+   License version 2 as published by the Free Software Foundation.
+
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+
+   You should have received a copy of the GNU Library General Public License
+   along with this library; see the file COPYING.LIB.  If not, write to
+   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+
+   $Id$
+*/
+
 
 #ifndef _INSERT_FILE_PLUGIN_H_
 #define _INSERT_FILE_PLUGIN_H_
@@ -48,7 +51,7 @@ class InsertFilePluginView : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
   public:
-    InsertFilePluginView( KTextEditor::View *view );
+    InsertFilePluginView( KTextEditor::View *view, const char *name=0 );
     ~InsertFilePluginView() {};
   public slots:
     /* display a file dialog, and insert the chosen file */

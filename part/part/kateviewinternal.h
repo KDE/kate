@@ -29,6 +29,7 @@
 
 #include <qpoint.h>
 #include <qlayout.h>
+#include <qpixmap.h>
 
 class QScrollBar;
 
@@ -246,6 +247,8 @@ class KateViewInternal : public QWidget
     
     KateDynWWBar *m_dynWWBar;
 
+    QPixmap drawBuffer;
+
     // These are now cursors to account for word-wrap.
     KateTextCursor m_startPos;
     KateTextCursor m_oldStartPos;
@@ -344,6 +347,7 @@ class KateViewInternal : public QWidget
  public:
    void enableTextHints(int timeout);
    void disableTextHints();
+
  private:
    int m_textHintTimer;
    bool m_textHintEnabled;

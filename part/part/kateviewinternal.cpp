@@ -655,8 +655,14 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
-  
-  QPainter paint ( this );
+
+  if ((drawBuffer.width() != this->width()) || (drawBuffer.height() != h))
+    drawBuffer.resize (this->width(), h);
+
+  if (drawBuffer.isNull())
+    return;
+
+  QPainter paint;
 
   for (uint z=startz; z <= endz; z++)
   {
@@ -664,8 +670,10 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
     {
       if (!(z >= lineRangesSize))
         lineRanges[z].dirty = false;
-    
+
+      paint.begin (this);
       paint.fillRect( x, z * h, width, h, m_doc->colors[0] );
+      paint.end ();
     }
     else if (!paintOnlyDirty || lineRanges[z].dirty)
     {
@@ -673,12 +681,13 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
 
       if (paintDebug)
         kdDebug() << "*** Actually painting view line " << z << ", visible line " << lineRanges[z].visibleLine << endl;
-    
+
+      paint.begin (&drawBuffer);
       m_doc->paintTextLine
            ( paint,
              lineRanges[z],
-             x,
-             z * h,
+             0, // as we use pixmap double buffer
+             0, // as we use pixmap double buffer
              xStart,
              xEnd,
              ( ( cursorOn && ( hasFocus() || (m_view->m_codeCompletion->codeCompletionVisible()) ) && ( lineRanges[z].line == cursor.line ) && ( cursor.col >= lineRanges[z].startCol ) && ( !lineRanges[z].wrap || ( cursor.col < lineRanges[z].endCol ) ) ) ? cursor.col : -1 ),
@@ -691,6 +700,8 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
              false,
              bm,
              lineRanges[z].startX + m_startX );
+      paint.end ();
+      bitBlt (this, x, z * h, &drawBuffer);
     }
   }
 }
@@ -715,7 +726,7 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
   else if ( c > viewLineOffset(endPos(), -m_minLinesVisible) )
   {
     KateTextCursor scroll = viewLineOffset(c, -(linesDisplayed() - m_minLinesVisible - 1));
-    
+
     if (!m_view->dynWordWrap() && m_columnScroll->isHidden())
       if (scrollbarVisible(scroll.line))
         scroll.line++;
@@ -744,7 +755,7 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
     int sXborder = sX-8;
     if (sXborder < 0)
       sXborder = 0;
-  
+
     if (sX < m_startX)
       scrollColumns (sXborder);
     else if  (sX > m_startX + width())
@@ -2309,21 +2320,21 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
 {
   bool expandedHorizontally = width() > e->oldSize().width();
   bool expandedVertically = height() > e->oldSize().height();
-  
+
   m_madeVisible = false;
-  
+
   if (height() != e->oldSize().height()) {
     setAutoCenterLines(m_autoCenterLines, false);
   }
-  
+
   if (height() != e->oldSize().height())
     m_cachedMaxStartPos.setPos(-1, -1);
-  
+
   if (m_view->dynWordWrap()) {
     bool dirtied = false;
-    
+
     int currentViewLine = displayViewLine(displayCursor, true);
-    
+
     for (uint i = 0; i < lineRanges.count(); i++) {
       // find the first dirty line
       // the word wrap updateView algorithm is forced to check all lines after a dirty one
@@ -2333,12 +2344,12 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
         break;
       }
     }
-    
+
     if (dirtied || expandedVertically) {
       updateView(true);
       leftBorder->update();
       m_dynWWBar->update();
-      
+
       // keep the cursor on-screen if it was previously
       if (currentViewLine >= 0)
         makeVisible(displayCursor, displayCursor.col);

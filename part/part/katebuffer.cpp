@@ -787,6 +787,11 @@ bool KateBuffer::needHighlight(KateBufBlock *buf, uint startLine, uint endLine)
 
       uint iDepth = textLine->indentDepth(m_tabWidth);
 
+      if (textLine->length() == 0)
+      {
+        iDepth = prevLine->indentDepth (m_tabWidth);
+      }
+
       indentChanged =    ((iDepth > 0) && textLine->indentationDepthArray().isEmpty())
                       || (!textLine->indentationDepthArray().isEmpty() && (textLine->indentationDepthArray().at(textLine->indentationDepthArray().size()-1) != iDepth));
 

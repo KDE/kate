@@ -355,8 +355,8 @@ void KateViewInternal::updateView(bool changed)
     
     for (uint z = last+1; z < lineRanges.size(); z++)
     {
-      if (lineRanges[line-startLine()].line != -1)
-          lineRanges[line-startLine()].dirty = true;        
+      if (lineRanges[z].line != -1)
+          lineRanges[z].dirty = true;        
     
       lineRanges[z].line = -1;
       lineRanges[z].visibleLine = -1;
@@ -410,10 +410,15 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   {
     if ( (z >= lineRangesSize) || ((lineRanges[z].line == -1) && (!paintOnlyDirty || lineRanges[z].dirty)) )
     {
+      if (!(z >= lineRangesSize))
+        lineRanges[z].dirty = false;
+    
       paint.fillRect( x, z * h, width, h, m_doc->colors[0] );
     }
     else if (!paintOnlyDirty || lineRanges[z].dirty)
     {
+      lineRanges[z].dirty = false;
+    
       m_doc->paintTextLine
            ( paint,
              lineRanges[z].line,
@@ -1074,7 +1079,7 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
   bool b = oldDisplayCursor.line != displayCursor.line;
   if ( b )
     tagLines( oldDisplayCursor.line, oldDisplayCursor.line );
-  tagLines( displayCursor.line, displayCursor.line, b );
+  tagLines( displayCursor.line, displayCursor.line );
 
   QPoint cursorP = cursorCoordinates();
   setMicroFocusHint( cursorP.x(), cursorP.y(), 0, m_doc->viewFont.fontHeight );
@@ -1118,17 +1123,23 @@ void KateViewInternal::updateCursor( const KateTextCursor& newCursor )
 void KateViewInternal::tagRealLines( int start, int end )
 {
   //kdDebug(13030) << "tagRealLines( " << start << ", " << end << " )\n";
-  tagLines( m_doc->getVirtualLine( start ), m_doc->getVirtualLine( end ) );
+  tagLines( start, end, true );
 }
 
-void KateViewInternal::tagLines( int start, int end, bool updateLeftBorder )
+void KateViewInternal::tagLines( int start, int end, bool realLines )
 {
+  if (realLines)
+  {
+    start = m_doc->getVirtualLine( start );
+    end = m_doc->getVirtualLine( end );
+  }
+
   //kdDebug(13030) << "tagLines( " << start << ", " << end << " )\n";
   
   for (uint z = 0; z < lineRanges.size(); z++)
   {
     if ((lineRanges[z].visibleLine >= start) && (lineRanges[z].visibleLine <= end))
-      lineRanges[z].dirty = true;;
+      lineRanges[z].dirty = true;
   }
   
   if (!m_view->dynWordWrap())

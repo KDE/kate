@@ -185,7 +185,7 @@ class KateViewInternal : public QWidget
     void updateSelection( const KateTextCursor&, bool keepSel );
     void updateCursor( const KateTextCursor& );
     
-    void tagLines(int start, int end, bool updateLeftBorder=true );
+    void tagLines(int start, int end, bool realLines = false );
     void tagRealLines(int start, int end);
     void tagAll();
 

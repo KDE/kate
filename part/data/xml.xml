@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.02" kateversion="2.1" name="XML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf">
+<language version="1.03" kateversion="2.1" name="XML" section="Markup" extensions="*.docbook;*.xml;*.rc;*.daml;*.rdf" mimetype="text/xml;text/book;text/daml;text/rdf">
   <highlighting>
     <contexts>
        <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
@@ -17,12 +17,14 @@
 
        <context attribute="Attribute Value" lineEndContext="#stay" name="Value" >
          <Detect2Chars attribute="Tag" context="#pop#pop" char="/" char1="&gt;" />
-          <DetectChar attribute="Tag" context="#pop#pop" char="&gt;" />
+         <DetectChar attribute="Tag" context="#pop#pop" char="&gt;" />
          <DetectChar attribute="Attribute Value" context="Value 2" char="&quot;" />
+         <DetectChar attribute="Attribute Value" context="Value 2" char="&apos;" />
        </context>
 
        <context attribute="Attribute Value" lineEndContext="#stay" name="Value 2" >
          <DetectChar attribute="Attribute Value" context="#pop#pop" char="&quot;" />
+         <DetectChar attribute="Attribute Value" context="#pop#pop" char="&apos;" />
        </context>
 
        <context attribute="Comment" lineEndContext="#stay" name="Comment" >

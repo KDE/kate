@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SML" version="1.03" kateversion="2.1" section="Scripts" extensions="*.sml;*.ml" mimetype="">
+<language name="SML" version="1.04" kateversion="2.1" section="Scripts" extensions="*.sml;*.ml" mimetype="">
   <highlighting>
     <list name="keywords">
       <item> abstype </item>
@@ -79,6 +79,7 @@
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1=")" />
       </context>
       <context attribute="String" lineEndContext="#stay" name="String">
+        <HlCStringChar attribute="String Char" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;" />
       </context>
     </contexts>
@@ -91,6 +92,7 @@
       <itemData name="String"  defStyleNum="dsString"/>
       <itemData name="Comment" defStyleNum="dsComment" />
       <itemData name="Notice" defStyleNum="dsString" />
+      <itemData name="String Char"  defStyleNum="dsChar" />
     </itemDatas>
   </highlighting>
   <general>

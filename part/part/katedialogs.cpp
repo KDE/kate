@@ -700,7 +700,7 @@ SaveConfigTab::SaveConfigTab( QWidget *parent, KateDocument *doc )
   QWhatsThis::add( gb, i18n(
         "<p>Backing up on save will cause Kate to copy the disk file to "
         "'&lt;filename&gt;&lt;suffix&gt;' before saving changes."
-        "<p>The prefix defaults to <strong>~</strong>" ) );
+        "<p>The suffix defaults to <strong>~</strong>" ) );
   QWhatsThis::add( cbLocalFiles, i18n(
         "Check this if you want backups of local files when saving") );
   QWhatsThis::add( cbRemoteFiles, i18n(

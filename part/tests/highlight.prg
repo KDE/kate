@@ -1,4 +1,5 @@
 // Test file to test kate's clipper highlighting
+// kate: hl Clipper;
 
 //BEGIN INCLUDES
 #include <clip-ui.ch>
@@ -17,7 +18,7 @@ static driver := getDriver()
 function main( formName )
 	local form
 	local fileName
-	
+
 	if empty(formName)
 		?? "Usage: ./form_ui <form.xfl>&\n"
 		CANCEL
@@ -25,7 +26,7 @@ function main( formName )
 		fileName := formName
 	endif
 	ws  := UIWorkSpace()
-	
+
 	form := UIForm( fileName )
 	win  := form:parseFile()
 //	?? valtype(win),chr(10)
@@ -33,11 +34,11 @@ function main( formName )
 		CANCEL
 	endif
 	win:show()
-	
+
 	ws:run()
 	ws:quit()
 return 0
-	
+
 /* Setting dialog */
 function settingsDialog()
 	?? "TODO: Settings dialog&\n"

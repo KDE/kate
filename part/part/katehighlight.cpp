@@ -137,14 +137,22 @@ class KateEmbeddedHlInfo
 class KateHlIncludeRule
 {
   public:
-    KateHlIncludeRule(int ctx_, uint pos_, const QString &incCtxN_) {ctx=ctx_;pos=pos_;incCtxN=incCtxN_;incCtx=-1;}
-    KateHlIncludeRule(int ctx_, uint  pos_) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";}
+    KateHlIncludeRule(int ctx_=0, uint pos_=0, const QString &incCtxN_="", bool incAttrib=false)
+      : ctx(ctx_)
+      , pos( pos_)
+      , incCtxN( incCtxN_ )
+      , includeAttrib( incAttrib )
+    {
+      incCtx=-1;
+    }
+    //KateHlIncludeRule(int ctx_, uint  pos_, bool incAttrib) {ctx=ctx_;pos=pos_;incCtx=-1;incCtxN="";includeAttrib=incAttrib}
 
   public:
-    uint pos;
     int ctx;
+    uint pos;
     int incCtx;
     QString incCtxN;
+    bool includeAttrib;
 };
 
 class KateHlCharDetect : public KateHlItem
@@ -2387,18 +2395,11 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
     KateHlContext *src=contextList[ctx1];
 //     kdDebug(3010)<<"linking included rules from "<<ctx<<" to "<<ctx1<<endl;
 
-    // We need to know if SRC is a embedded context's ctx0 entry.
-    // In that case, we set the attrib of dest to src.
-    // TODO make this configurable from within the xml files
-    for ( KateEmbeddedHlInfos::iterator it3 = embeddedHls.begin(); it3 != embeddedHls.end(); ++it3 )
-    {
-      if ( it3.data().context0 == ctx1 )
-      {
-//         kdDebug(13010)<<"=== this looks lik a import! "<<ctx1<<endl;
-        dest->attr = src->attr;
-        break;
-      }
-    }
+    // If so desired, change the dest attribute to the one of the src.
+    // Required to make commenting work, if text matched by the included context
+    // is a different highlight than the host context.
+    if ( (*it1)->includeAttrib )
+      dest->attr = src->attr;
 
     uint p=(*it1)->pos; //insert the included context's rules starting at position p
     for ( KateHlItem *c = src->items.first(); c; c=src->items.next(), p++ )
@@ -2518,11 +2519,13 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 //    kdDebug(13010)<< "In make Contextlist: Item:"<<endl;
 
       // KateHlIncludeRules : add a pointer to each item in that context
-
+        // TODO add a attrib includeAttrib
       QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
       if ( tag == "IncludeRules" ) //if the new item is an Include rule, we have to take special care
       {
-        QString incCtx=KateHlManager::self()->syntax->groupItemData( data, QString("context"));
+        QString incCtx = KateHlManager::self()->syntax->groupItemData( data, QString("context"));
+        QString incAttrib = KateHlManager::self()->syntax->groupItemData( data, QString("includeAttrib"));
+        bool includeAttrib = ( incAttrib.lower() == "true" || incAttrib.toInt() == 1 );
         // only context refernces of type NAME and ##Name are allowed
         if (incCtx.startsWith("##") || (!incCtx.startsWith("#")))
         {
@@ -2531,13 +2534,13 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           {
             // a local reference -> just initialize the include rule structure
             incCtx=buildPrefix+incCtx.simplifyWhiteSpace();
-            includeRules.append(new KateHlIncludeRule(i,contextList[i]->items.count(),incCtx));
+            includeRules.append(new KateHlIncludeRule(i,contextList[i]->items.count(),incCtx, includeAttrib));
           }
           else
           {
             //a cross highlighting reference
             kdDebug(13010)<<"Cross highlight reference <IncludeRules>"<<endl;
-            KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count());
+            KateHlIncludeRule *ir=new KateHlIncludeRule(i,contextList[i]->items.count(),"",includeAttrib);
 
             //use the same way to determine cross hl file references as other items do
             if (!embeddedHls.contains(incCtx.right(incCtx.length()-2)))

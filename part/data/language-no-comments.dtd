@@ -172,6 +172,7 @@
 <!ELEMENT IncludeRules EMPTY             >
 <!ATTLIST IncludeRules
   context       CDATA #REQUIRED
+  includeAttrib (false|true) #IMPLIED
 >
 
 <!ELEMENT itemDatas (itemData)+          >

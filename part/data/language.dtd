@@ -350,10 +350,13 @@ TODO:
 
 <!-- Include Rules of another context
   context:             The name of the context to include
+  includeAttrib:       If this is true, the host context of the IncludeRules
+                       will be given the attribute of the source context
 -->
 <!ELEMENT IncludeRules EMPTY>
 <!ATTLIST IncludeRules
   context       CDATA   #REQUIRED
+  includeAttrib (%boolean;) #IMPLIED
 >
 
 <!-- List of attributes -->

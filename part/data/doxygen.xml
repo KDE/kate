@@ -6,8 +6,6 @@
   copyright   : (C) 2004 by Dominik Haumann
   email       : dhdev at gmx dot de
 
-  last change : 2004-05-15
-
  **********************************************************************
  * This library is free software; you can redistribute it and/or      *
  * modify it under the terms of the GNU Library General Public        *
@@ -25,7 +23,7 @@
  * Boston, MA  02111-1307, USA.                                       *
  **********************************************************************
  -->
-<language name="Doxygen" version="1.17" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="Doxygen" version="1.18" kateversion="2.3" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -72,6 +70,7 @@
       <item> \pre </item>
       <item> \remarks </item>
       <item> \return </item>
+      <item> \returns </item>
       <item> \sa </item>
       <item> \see </item>
       <item> \showinitializer </item>

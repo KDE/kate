@@ -2141,19 +2141,32 @@ HlManager::HlManager() : QObject(0)
   syntax = new SyntaxDocument();
   SyntaxModeList modeList = syntax->modeList();
 
-  Highlight *hl = new Highlight(0);
-  hlList.append (hl);
-  hlDict.insert (hl->name(), hl);
-
   uint i=0;
   while (i < modeList.count())
   {
-    hl = new Highlight(modeList.at(i));
-    hlList.append (hl);
+    Highlight *hl = new Highlight(modeList.at(i));
+
+    uint insert = 0;
+    for (; insert <= hlList.count(); insert++)
+    {
+      if (insert == hlList.count())
+        break;
+
+      if ( QString(hlList.at(insert)->section() + hlList.at(insert)->name()).lower()
+            > QString(hl->section() + hl->name()).lower() )
+        break;
+    }
+
+    hlList.insert (insert, hl);
     hlDict.insert (hl->name(), hl);
 
     i++;
   }
+
+  // Normal HL
+  Highlight *hl = new Highlight(0);
+  hlList.prepend (hl);
+  hlDict.insert (hl->name(), hl);
 }
 
 HlManager::~HlManager() {

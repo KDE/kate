@@ -21,13 +21,12 @@
 
 #include <qstringlist.h>
 #include <qptrlist.h>
+#include <qpopupmenu.h>
 #include <qguardedptr.h>
 
 #include "katedialogs.h"
 
 class KateDocument;
-
-class QPopupMenu;
 
 class KateFileType
 {

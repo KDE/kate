@@ -154,53 +154,62 @@ IndentConfigTab::IndentConfigTab(QWidget *parent, KateDocument *view)
   int configFlags = view->configFlags();
 
   opt[0] = new QCheckBox(i18n("A&utomatically indent"), this);
-  layout->addWidget(opt[0], 0, AlignLeft);
   opt[0]->setChecked(configFlags & flags[0]);
+  layout->addWidget(opt[0]);
   connect( opt[0], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-  opt[1] = new QCheckBox(i18n("Use &spaces to indent"), this);
-  layout->addWidget(opt[1], 0, AlignLeft);
-  opt[1]->setChecked(configFlags & flags[1]);
-  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
+  opt[4]->setChecked(configFlags & flags[4]);
+  layout->addWidget(opt[4]);
+  connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-  opt[3] = new QCheckBox(i18n("&Tab key indents"), this);
-  layout->addWidget(opt[3], 0, AlignLeft);
+  opt[5] = new QCheckBox(i18n("&Keep extra spaces"), this);
+  opt[5]->setChecked(configFlags & flags[5]);
+  layout->addWidget(opt[5]);
+  connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+
+  QVGroupBox *keys = new QVGroupBox(i18n("Keys to use"), this);
+
+  opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
   opt[3]->setChecked(configFlags & flags[3]);
   connect( opt[3], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-  opt[2] = new QCheckBox(i18n("&Backspace key indents"), this);
-  layout->addWidget(opt[2], 0, AlignLeft);
+  opt[2] = new QCheckBox(i18n("&Backspace key indents"), keys);
   opt[2]->setChecked(configFlags & flags[2]);
   connect( opt[2], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
 
-  opt[4] = new QCheckBox(i18n("Keep indent &profile"), this);
-  layout->addWidget(opt[4], 0, AlignLeft);
-  opt[4]->setChecked(configFlags & flags[4]);
-  connect( opt[4], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
-//   opt[4]->setChecked(true);
-//   opt[4]->hide();
+  layout->addWidget(keys);
 
-  opt[5] = new QCheckBox(i18n("&Keep extra spaces"), this);
-  layout->addWidget(opt[5], 0, AlignLeft);
-  opt[5]->setChecked(configFlags & flags[5]);
-  connect( opt[5], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  QVGroupBox *gbWordWrap = new QVGroupBox(i18n("Identation with Spaces"), this);
 
-  indentationWidth = new KIntNumInput(KateDocument::indentationWidth(), this);
-  layout->addWidget(indentationWidth);
+  opt[1] = new QCheckBox(i18n("Use &spaces instead of tabulators to indent"), gbWordWrap);
+  opt[1]->setChecked(configFlags & flags[1]);
+  connect( opt[1], SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
+  connect( opt[1], SIGNAL(toggled(bool)), this, SLOT(spacesToggled()));
+
+  indentationWidth = new KIntNumInput(KateDocument::indentationWidth(), gbWordWrap);
   indentationWidth->setRange(1, 16, 1, false);
-  indentationWidth->setLabel(i18n("Indentation width:"), AlignVCenter);
+  indentationWidth->setLabel(i18n("Number of spaces:"), AlignVCenter);
   connect(indentationWidth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+
+  layout->addWidget(gbWordWrap);
 
   layout->addStretch();
 
   // What is this? help
   QWhatsThis::add(opt[0], i18n("When <b>Automatically indent</b> is on, KateView will indent new lines to equal the indent on the previous line.<p>If the previous line is blank, the nearest line above with text is used"));
-  QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs.<br>A Tab will be converted to <u>Tab-width</u> as set in the <b>Edit</b> options"));
+  QWhatsThis::add(opt[1], i18n("Check this if you want to indent with spaces rather than tabs."));
   QWhatsThis::add(opt[2], i18n("This allows the <b>Backspace</b> key to be used to decrease the indent level."));
   QWhatsThis::add(opt[3], i18n("This allows the <b>Tab</b> key to be used to increase the indent level."));
   QWhatsThis::add(opt[4], i18n("This retains current indentation settings for future documents."));
   QWhatsThis::add(opt[5], i18n("Indentations of more than the selected number of spaces will not be shortened."));
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
+
+  spacesToggled();
+}
+
+void IndentConfigTab::spacesToggled() {
+  indentationWidth->setEnabled(opt[1]->isChecked());
 }
 
 void IndentConfigTab::getData(KateDocument *view)

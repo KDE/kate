@@ -95,6 +95,9 @@ class IndentConfigTab : public Kate::ConfigPage
     IndentConfigTab(QWidget *parent, KateDocument *);
     void getData(KateDocument *);
 
+  protected slots:
+    void spacesToggled();
+
   protected:
     KateDocument *m_doc;
 
@@ -158,7 +161,7 @@ class EditConfigTab : public Kate::ConfigPage
   public slots:
     void apply ();
     void reload ();
-        void reset () {};
+    void reset () {};
     void defaults () {};
 
   protected slots:

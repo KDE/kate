@@ -256,7 +256,7 @@ bool Goto::exec (Kate::View *view, const QString &cmd, QString &)
 
 bool Date::exec (Kate::View *view, const QString &cmd, QString &)
 {
-  if (cmd.left(5) != "date:")
+  if (cmd.left(4) != "date")
     return false;
 
   if (QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)).length() > 0)

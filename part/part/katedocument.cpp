@@ -42,7 +42,6 @@
 #include "katerenderer.h"
 
 #include <qfileinfo.h>
-#include <qfocusdata.h>
 #include <qpainter.h>
 #include <qpixmap.h>
 #include <qevent.h>
@@ -56,7 +55,6 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qtextcodec.h>
-#include <qptrstack.h>
 #include <qdatetime.h>
 #include <qmap.h>
 
@@ -2847,19 +2845,23 @@ bool KateDocument::openFile()
     // anders: I fixed this to work :^)
     const int HOWMANY = 1024;
     QByteArray buf(HOWMANY);
-    int bufpos = 0, len;
+
+    int bufpos = 0;
     for (uint i=0; i < buffer->count(); i++)
     {
       QString line = textLine(i);
-      len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
-//kdDebug(13020)<<"openFile(): collecting a buffer for hlManager->mimeFind(): found "<<len<<" bytes in line "<<i<<endl;
-      if (bufpos + len > HOWMANY) len = HOWMANY - bufpos;
-//kdDebug(13020)<<"copying "<<len<<"bytes."<<endl;
+      int len = line.length() + 1; // space for a newline - seemingly not required by kmimemagic, but nicer for debugging.
+
+      if (bufpos + len > HOWMANY)
+        len = HOWMANY - bufpos;
+
       memcpy(&buf[bufpos], (line+"\n").latin1(), len);
       bufpos += len;
-      if (bufpos >= HOWMANY) break;
+
+      if (bufpos >= HOWMANY)
+        break;
     }
-//kdDebug(13020)<<"openFile(): calling hlManager->mimeFind() with data:"<<endl<<buf.data()<<endl<<"--"<<endl;
+
     hl = hlManager->mimeFind( buf, m_file );
   }
 
@@ -2930,7 +2932,9 @@ bool KateDocument::saveFile()
       hl = hlManager->mimeFind( buf, m_file );
     }
 
-    internalSetHlMode(hl);
+    uint mode = hl;
+    if (mode != hlMode ())
+      internalSetHlMode(hl);
   }
 
   emit fileNameChanged ();

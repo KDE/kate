@@ -171,6 +171,8 @@ class KateBuffer : public QObject
      */
     void setHighlight(class Highlight *highlight);
 
+    class Highlight *highlight () { return m_highlight; };
+
     /**
      * Update the highlighting.
      *

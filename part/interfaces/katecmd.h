@@ -21,7 +21,6 @@
 
 #include <qobject.h>
 #include <qdict.h>
-#include <qptrlist.h>
 #include <qstringlist.h>
 
 #include "document.h"
@@ -43,7 +42,6 @@ class KateCmd
 
   private:
     static KateCmd *s_cmd;
-    QPtrList<Kate::Command> m_parser;
     QDict<Kate::Command> m_dict;
     QStringList m_cmds;
 };

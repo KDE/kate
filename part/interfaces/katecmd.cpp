@@ -22,7 +22,6 @@
 
 KateCmd::KateCmd ()
 {
-  m_parser.setAutoDelete(true);
 }
 
 KateCmd::~KateCmd ()
@@ -31,8 +30,6 @@ KateCmd::~KateCmd ()
 
 bool KateCmd::registerCommand (Kate::Command *cmd)
 {
-  m_parser.append (cmd);
-
   QStringList l = cmd->cmds ();
 
   for (uint z=0; z<l.count(); z++)

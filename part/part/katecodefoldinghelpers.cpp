@@ -188,7 +188,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 		} else return;
 	}
 
-	kdDebug()<<QString("KateCodeFoldingTree:UpdateLine(): line %1").arg(line)<<endl;
+//	kdDebug()<<QString("KateCodeFoldingTree:UpdateLine(): line %1").arg(line)<<endl;
 
 	unsigned char tmp;
 

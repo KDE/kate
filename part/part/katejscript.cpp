@@ -367,25 +367,25 @@ Value KateJSViewProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, cons
 
     // SelectionInterface goes in the view, in anticipation of the future
     case KateJSView::Selection:
-      return KJS::String( view->getDoc()->selection() );
+      return KJS::String( view->selection() );
 
     case KateJSView::HasSelection:
-      return KJS::Boolean( view->getDoc()->hasSelection() );
+      return KJS::Boolean( view->hasSelection() );
 
     case KateJSView::SetSelection:
-      return KJS::Boolean( view->getDoc()->setSelection(args[0].toUInt32(exec),
+      return KJS::Boolean( view->setSelection(args[0].toUInt32(exec),
                                                      args[1].toUInt32(exec),
                                                      args[2].toUInt32(exec),
                                                      args[3].toUInt32(exec)) );
 
     case KateJSView::RemoveSelectedText:
-      return KJS::Boolean( view->getDoc()->removeSelectedText() );
+      return KJS::Boolean( view->removeSelectedText() );
 
     case KateJSView::SelectAll:
-      return KJS::Boolean( view->getDoc()->selectAll() );
+      return KJS::Boolean( view->selectAll() );
 
     case KateJSView::ClearSelection:
-      return KJS::Boolean( view->getDoc()->clearSelection() );
+      return KJS::Boolean( view->clearSelection() );
   }
 
   return KJS::Undefined();
@@ -409,16 +409,16 @@ KJS::Value KateJSView::getValueProperty(KJS::ExecState *exec, int token) const
 
   switch (token) {
     case KateJSView::SelStartLine:
-      return KJS::Number( view->getDoc()->selStartLine() );
+      return KJS::Number( view->selStartLine() );
 
     case KateJSView::SelStartCol:
-      return KJS::Number( view->getDoc()->selStartCol() );
+      return KJS::Number( view->selStartCol() );
 
     case KateJSView::SelEndLine:
-      return KJS::Number( view->getDoc()->selEndLine() );
+      return KJS::Number( view->selEndLine() );
 
     case KateJSView::SelEndCol:
-      return KJS::Number( view->getDoc()->selEndCol() );
+      return KJS::Number( view->selEndCol() );
     }
 
   return KJS::Undefined ();

@@ -356,10 +356,14 @@ class KateHlDetectIdentifier : public KateHlItem
 
     virtual int checkHgl(const QString& text, int offset, int len)
     {
-      if (text[offset++].isLetter() || (text[offset] == QChar ('_')))
+      if ( text[offset] == QChar ('_') || text[offset++].isLetter() )
       {
         int len2 = offset-1+len;
-        while ((offset < len2) && (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_')))) offset++;
+        while (
+               (offset < len2) && (text[offset].isLetterOrNumber() ||
+               (text[offset] == QChar ('_')))
+              )
+          offset++;
         return offset;
       }
 
@@ -1976,7 +1980,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data, Kate
   if (dataname=="keyword")
   {
     KateHlKeyword *keyword=new KateHlKeyword(attr,context,regionId,regionId2,casesensitive,
-                                             deliminator);
+                                             m_additionalData[ buildIdentifier ]->deliminator);
 
     //Get the entries for the keyword lookup list
     keyword->addList(KateHlManager::self()->syntax->finddata("highlighting",stringdata));

@@ -243,10 +243,14 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
 
     // default false
     static void setFileChangedDialogsActivated (bool on);
+    
+    static const QString &defaultEncoding ();
 
   protected:
     static bool s_openErrorDialogsActivated;
     static bool s_fileChangedDialogsActivated;
+    
+    static QString s_defaultEncoding;
 };
 
 Document *document (KTextEditor::Document *doc);

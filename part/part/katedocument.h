@@ -763,11 +763,13 @@ class KateDocument : public Kate::Document,
     bool            m_reloading;
 
   public:
-	bool checkOverwrite( KURL u );
+        bool checkOverwrite( KURL u );
     /**
       Allow the HlManager to fill the array
     */
     QMemArray<KateAttribute>* attribs() { return &myAttribs; }
+    
+    static void setDefaultEncoding (const QString &encoding);
 
   /**
    * Configuration

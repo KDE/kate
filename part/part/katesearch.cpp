@@ -123,7 +123,7 @@ void KateSearch::find()
   }
 
   delete findDialog;
-  m_view->update ();
+  m_view->repaintText ();
 }
 
 void KateSearch::replace()

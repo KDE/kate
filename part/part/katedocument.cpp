@@ -5407,5 +5407,9 @@ bool KateDocument::checkOverwrite( KURL u )
     i18n( "&Overwrite" ) );
 }
 
+void KateDocument::setDefaultEncoding (const QString &encoding)
+{
+  s_defaultEncoding = encoding;     
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

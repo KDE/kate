@@ -31,6 +31,7 @@ namespace Kate
 
 bool Document::s_openErrorDialogsActivated = true;
 bool Document::s_fileChangedDialogsActivated = false;
+QString Document::s_defaultEncoding;
 
 Document::Document () : KTextEditor::Document (0L, "Kate::Document")
 {
@@ -48,6 +49,11 @@ void Document::setOpenErrorDialogsActivated (bool on)
 void Document::setFileChangedDialogsActivated (bool on)
 {
   s_fileChangedDialogsActivated = on;
+}
+
+const QString &Document::defaultEncoding ()
+{
+  return s_defaultEncoding;
 }
 
 bool Document::registerCommand (Command *cmd)

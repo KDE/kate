@@ -254,8 +254,10 @@ bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAt
 
   if (index > -1)
   {
-    (*foundAtCol) = index;
-    (*matchLen)=text.length();
+    if (foundAtCol)
+      (*foundAtCol) = index;
+    if (matchLen)
+      (*matchLen)=text.length();
     return true;
   }
 
@@ -279,8 +281,11 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
 
   if (index > -1)
   {
-    (*foundAtCol) = index;
-    (*matchLen)=regexp.matchedLength();
+    if (foundAtCol)
+      (*foundAtCol) = index;
+
+    if (matchLen)
+      (*matchLen)=regexp.matchedLength();
     return true;
   }
 

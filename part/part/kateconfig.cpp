@@ -886,7 +886,7 @@ void KateRendererConfig::setSchema (uint schema)
   configEnd ();
 }
 
-const FontStruct *KateRendererConfig::fontStruct ()
+FontStruct *KateRendererConfig::fontStruct ()
 {
   if (m_fontSet || isGlobal())
     return m_font;
@@ -894,12 +894,12 @@ const FontStruct *KateRendererConfig::fontStruct ()
   return s_global->fontStruct ();
 }
 
-const QFont *KateRendererConfig::font()
+QFont *KateRendererConfig::font()
 {
   return &(fontStruct ()->myFont);
 }
 
-const QFontMetrics *KateRendererConfig::fontMetrics()
+KateFontMetrics *KateRendererConfig::fontMetrics()
 {
   return &(fontStruct ()->myFontMetrics);
 }

@@ -31,7 +31,7 @@ class KConfig;
 class QColor;
 class QFont;
 class QTextCodec;
-class QFontMetrics;
+class KateFontMetrics;
 
 class KateConfig
 {
@@ -339,9 +339,9 @@ class KateRendererConfig : public KateConfig
     uint schema () const;
     void setSchema (uint schema);
 
-    const FontStruct *fontStruct ();
-    const QFont *font();
-    const QFontMetrics *fontMetrics();
+    FontStruct *fontStruct ();
+    QFont *font();
+    KateFontMetrics *fontMetrics();
 
     void setFont(const QFont &font);
 

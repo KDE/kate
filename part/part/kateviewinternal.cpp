@@ -772,7 +772,6 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
   if (!m_view->dynWordWrap() && endCol != (uint)-1)
   {
     int sX = (int)m_view->renderer()->textWidth (m_doc->kateTextLine( m_doc->getRealLine( c.line() ) ), c.col() );
-    //int eX = (int)m_doc->textWidth (m_doc->kateTextLine( m_doc->getRealLine( c.line ) ), endCol );
 
     int sXborder = sX-8;
     if (sXborder < 0)
@@ -782,10 +781,6 @@ void KateViewInternal::makeVisible (const KateTextCursor& c, uint endCol, bool f
       scrollColumns (sXborder);
     else if  (sX > m_startX + width())
       scrollColumns (sX - width() + 8);
-
-  /*else
-    if (eX > m_startX + width())
-      m_columnScroll->setValue (eX + 8);*/
   }
 
   m_madeVisible = !force;

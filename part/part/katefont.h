@@ -25,9 +25,26 @@
 #include <qfont.h>
 #include <qfontmetrics.h>
 
-/**
- * rodda: obsolete this and replace with KateAttribute functions
- */
+//
+// KateFontMetrics implementation
+//
+
+class KateFontMetrics : public QFontMetrics
+{
+  public:
+    KateFontMetrics(const QFont& f);
+    ~KateFontMetrics();
+
+    int width(QChar c);
+
+    int width(QString s) { return QFontMetrics::width(s); }
+
+  private:
+    short *createRow (short *wa, uchar row);
+
+  private:
+    short *warray[256];
+};
 
 //
 // FontStruct definition
@@ -39,8 +56,8 @@ class FontStruct
     FontStruct();
     ~FontStruct();
 
-    int width(const QString& text, int col, bool bold, bool italic, int tabWidth) const;
-    int width(const QChar& c, bool bold, bool italic, int tabWidth) const;
+    int width(const QString& text, int col, bool bold, bool italic, int tabWidth);
+    int width(const QChar& c, bool bold, bool italic, int tabWidth);
 
     const QFont& font(bool bold, bool italic) const;
 
@@ -52,8 +69,7 @@ class FontStruct
   public:
     QFont myFont, myFontBold, myFontItalic, myFontBI;
 
-    QFontMetrics myFontMetrics, myFontMetricsBold;
-    QFontMetrics myFontMetricsItalic, myFontMetricsBI;
+    KateFontMetrics myFontMetrics, myFontMetricsBold, myFontMetricsItalic, myFontMetricsBI;
 
     int fontHeight;
     int fontAscent;

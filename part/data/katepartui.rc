@@ -45,12 +45,7 @@
     <Action name="set_encoding" group="view_operations" />
   </Menu>
 
-  <Menu name="bookmarks" noMerge="1"><text>&amp;Bookmarks</text>
-    <Action name="bookmarks_toggle" group="bookmarks" />
-    <Action name="bookmarks_clear" group="bookmarks" />
-    <Action name="bookmarks_next" group="bookmarks" />
-    <Action name="bookmarks_previous" group="bookmarks" />
-  </Menu>
+  <Action name="bookmarks"/>
 
   <Menu name="tools" noMerge="1"><text>&amp;Tools</text>
     <Action name="tools_toggle_write_lock" group="tools_operations" />

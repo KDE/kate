@@ -26,7 +26,6 @@ KateCmd *KateCmd::s_self = 0;
 
 KateCmd::KateCmd ()
 {
- // m_dict.setAutoDelete (true);
 }
 
 KateCmd::~KateCmd ()

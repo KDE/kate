@@ -36,7 +36,6 @@
 SyntaxDocument::SyntaxDocument(bool force)
   : QDomDocument()
 {
-  currentFile = "";
   // Let's build the Mode List (katesyntaxhighlightingrc)
   setupModeList(force);
   myModeList.setAutoDelete( true );

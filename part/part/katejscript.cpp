@@ -29,13 +29,28 @@
 
 namespace KJS {
 
-// taken from khtml, just to play
+// taken from khtml
+// therefor thx to:
+// Copyright (C) 1999-2003 Harri Porten (porten@kde.org)
+// Copyright (C) 2001-2003 David Faure (faure@kde.org)
+// Copyright (C) 2003 Apple Computer, Inc.
+
 UString::UString(const QString &d)
 {
   unsigned int len = d.length();
   UChar *dat = new UChar[len];
   memcpy(dat, d.unicode(), len * sizeof(UChar));
   rep = UString::Rep::create(dat, len);
+}
+
+QString UString::qstring() const
+{
+  return QString((QChar*) data(), size());
+}
+
+QConstString UString::qconststring() const
+{
+  return QConstString((QChar*) data(), size());
 }
 
 }
@@ -123,7 +138,7 @@ bool KateJScript::execute (KateDocument *doc, KateView *view, const QString &scr
 
 /* Source for KateJSDocumentTable.
 @begin KateJSDocumentTable 2
-  nodeName  KateJSDocument::Name DontDelete|ReadOnly
+  name  KateJSDocument::Name DontDelete|ReadOnly
 @end
 */
 
@@ -139,10 +154,16 @@ Value KateJSDocumentProtoFunc::call(KJS::ExecState *exec, KJS::Object &thisObj, 
 
   KateDocument *doc = static_cast<KateJSDocument *>( thisObj.imp() )->doc;
 
-  switch (id) {
+  if (!doc)
+    return KJS::Undefined();
+
+  switch (id)
+  {
     case KateJSDocument::InsertLine:
-      doc->insertLine (0, "TEST LINE");
-      break;
+      return KJS::Boolean (doc->insertLine (args[0].toUInt32(exec), args[1].toString(exec).qstring()));
+
+    case KateJSDocument::RemoveLine:
+      return KJS::Boolean (doc->removeLine (args[0].toUInt32(exec)));
   }
 
   return KJS::Undefined();

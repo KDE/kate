@@ -246,3 +246,4 @@ void KateTemplateHandler::slotTextRemoved() {
 	if (!m_currentRange) return;
 	slotTextInserted(m_currentRange->start().line(),m_currentRange->start().col());
 }
+

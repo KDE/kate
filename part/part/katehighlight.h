@@ -24,6 +24,8 @@
 #include "katetextline.h"
 #include "kateattribute.h"
 
+#include "../interfaces/document.h"
+
 #include <qptrlist.h>
 #include <qvaluelist.h>
 #include <qregexp.h>
@@ -31,13 +33,15 @@
 #include <qintdict.h>
 #include <qmap.h>
 #include <qobject.h>
+#include <qstringlist.h>
+#include <qguardedptr.h>
 
 class SyntaxDocument;
 class TextLine;
 struct syntaxModeListItem;
 struct syntaxContextData;
 
-class QStringList;
+class QPopupMenu;
 
 class HlItem {
   public:
@@ -283,7 +287,32 @@ class HlManager : public QObject
     static QStringList commonSuffixes;
 };
 
+class KateViewHighlightAction: public Kate::ActionMenu
+{
+  Q_OBJECT
 
+  public:
+    KateViewHighlightAction(const QString& text, QObject* parent = 0, const char* name = 0)
+       : Kate::ActionMenu(text, parent, name) { init(); };
+
+    ~KateViewHighlightAction(){;};
+
+    void updateMenu (Kate::Document *doc);
+
+  private:
+    void init();
+
+    QGuardedPtr<Kate::Document> m_doc;
+    QStringList subMenusName;
+    QStringList names;
+    QPtrList<QPopupMenu> subMenus;
+
+  public  slots:
+    void slotAboutToShow();
+
+  private slots:
+    void setHl (int mode);
+};
 
 
 #endif //_HIGHLIGHT_H_

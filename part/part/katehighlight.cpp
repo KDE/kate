@@ -2627,4 +2627,76 @@ QString HlManager::identifierForName(const QString& name)
   return QString();
 }
 //END
+
+
+#include <kpopupmenu.h>
+
+void KateViewHighlightAction::init()
+{
+  m_doc = 0;
+  subMenus.setAutoDelete( true );
+
+  connect(popupMenu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KateViewHighlightAction::updateMenu (Kate::Document *doc)
+{
+  m_doc = doc;
+}
+
+void KateViewHighlightAction::slotAboutToShow()
+{
+  Kate::Document *doc=m_doc;
+  int count = HlManager::self()->highlights();
+
+  for (int z=0; z<count; z++)
+  {
+    QString hlName = HlManager::self()->hlName (z);
+    QString hlSection = HlManager::self()->hlSection (z);
+
+    if ( !hlSection.isEmpty() && (names.contains(hlName) < 1) )
+    {
+      if (subMenusName.contains(hlSection) < 1)
+      {
+        subMenusName << hlSection;
+        QPopupMenu *menu = new QPopupMenu ();
+        subMenus.append(menu);
+        popupMenu()->insertItem (hlSection, menu);
+      }
+
+      int m = subMenusName.findIndex (hlSection);
+      names << hlName;
+      subMenus.at(m)->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
+    }
+    else if (names.contains(hlName) < 1)
+    {
+      names << hlName;
+      popupMenu()->insertItem ( hlName, this, SLOT(setHl(int)), 0,  z);
+    }
+  }
+
+  if (!doc) return;
+
+  for (uint i=0;i<subMenus.count();i++)
+  {
+    for (uint i2=0;i2<subMenus.at(i)->count();i2++)
+      subMenus.at(i)->setItemChecked(subMenus.at(i)->idAt(i2),false);
+  }
+  popupMenu()->setItemChecked (0, false);
+
+  int i = subMenusName.findIndex (HlManager::self()->hlSection(doc->hlMode()));
+  if (i >= 0 && subMenus.at(i))
+    subMenus.at(i)->setItemChecked (doc->hlMode(), true);
+  else
+    popupMenu()->setItemChecked (0, true);
+}
+
+void KateViewHighlightAction::setHl (int mode)
+{
+  Kate::Document *doc=m_doc;
+
+  if (doc)
+    doc->setHlMode((uint)mode);
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

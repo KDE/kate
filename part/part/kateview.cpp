@@ -39,7 +39,6 @@
 #include "kateexportaction.h"
 #include "katecodefoldinghelpers.h"
 #include "katecodecompletion.h"
-#include "kateviewhighlightaction.h"
 #include "katesearch.h"
 #include "katebookmarks.h"
 #include "katebrowserextension.h"

@@ -41,7 +41,6 @@
 #include "katesupercursor.h"
 #include "katearbitraryhighlight.h"
 #include "katerenderer.h"
-#include "kateviewhighlightaction.h"
 #include "katebrowserextension.h"
 #include "kateattribute.h"
 #include "kateconfig.h"

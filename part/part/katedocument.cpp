@@ -3159,10 +3159,17 @@ bool KateDocument::removeStartLineCommentFromSelection()
   int sl = selectStart.line;
   int el = selectEnd.line;
 
-   if ((selectEnd.col == 0) && ((el-1) >= 0))
+  if ((selectEnd.col == 0) && ((el-1) >= 0))
   {
     el--;
   }
+
+  // Find out how many char will be removed from the last line
+  int removeLength = 0;
+  if (buffer->line(el)->startingWith(longCommentMark))
+    removeLength = longCommentMark.length();
+  else if (buffer->line(el)->startingWith(shortCommentMark))
+    removeLength = shortCommentMark.length();    
 
   bool removed = false;
 
@@ -3178,6 +3185,13 @@ bool KateDocument::removeStartLineCommentFromSelection()
   }
 
   editEnd();
+
+  if(removed) {
+    // Set the new selection
+    selectEnd.col -= ( (el == selectEnd.line) ? removeLength : 0 );
+    setSelection(selectStart.line, selectStart.col,
+	       selectEnd.line, selectEnd.col);
+  }
 
   return removed;
 }

@@ -55,6 +55,7 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_oldStartPos(0,0)
   , m_madeVisible(false)
   , m_columnScrollDisplayed(false)
+  , m_selChangedByUser (false)
   , m_preserveMaxX(false)
   , m_currentMaxX(0)
   , m_updatingView(true)
@@ -151,12 +152,10 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   dragInfo.state = diNone;
 
   installEventFilter(this);
-  
-#ifndef QT_NO_DRAGANDDROP
+
   // Drag & scroll
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),
              this, SLOT( doDragScroll() ) );
-#endif
   
   updateView ();
 }
@@ -1572,9 +1571,7 @@ void KateViewInternal::updateSelection( const KateTextCursor& newCursor, bool ke
   if( keepSel )
   {
     m_doc->selectTo( cursor, newCursor );
-    QApplication::clipboard()->setSelectionMode( true );
-    m_doc->copy();
-    QApplication::clipboard()->setSelectionMode( false );
+    m_selChangedByUser = true;
   }
   else if ( !(m_doc->configFlags() & KateDocument::cfPersistent) )
     m_doc->clearSelection();
@@ -1804,54 +1801,63 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 //
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
-{
-  //KCursor::autoHideEventFilter( obj, e );
-  
-  if (obj == m_lineScroll) {
+{  
+  if (obj == m_lineScroll)
+  {
     // the second condition is to make sure a scroll on the vertical bar doesn't cause a horizontal scroll ;)
-    if (e->type() == QEvent::Wheel && m_lineScroll->minValue() != m_lineScroll->maxValue()) {
+    if (e->type() == QEvent::Wheel && m_lineScroll->minValue() != m_lineScroll->maxValue())
+    {
       wheelEvent((QWheelEvent*)e);
       return true;
-    } else {
-      // continue processing
-      return false;
     }
+    
+    // continue processing
+    return false;
   }
   
   switch( e->type() )
-	{
-  case QEvent::KeyPress: {
-    QKeyEvent *k = (QKeyEvent *)e;
-    if (k->key() == Qt::Key_Escape && !(m_doc->configFlags() & KateDocument::cfPersistent) ) {
-      m_doc->clearSelection();
-      return true;
-    } else if ( !(k->state() & ControlButton || k->state() & AltButton) ) {
-      keyPressEvent( k );
-      return k->isAccepted();
-    }
-  } break;
+  {
+    case QEvent::KeyPress:
+    {
+      QKeyEvent *k = (QKeyEvent *)e;
+      
+      if ((k->key() == Qt::Key_Escape) && !(m_doc->configFlags() & KateDocument::cfPersistent) )
+      {
+        m_doc->clearSelection();
+        return true;
+      }
+      else if ( !((k->state() & ControlButton) || (k->state() & AltButton)) )
+      {
+        keyPressEvent( k );
+        return k->isAccepted();
+      }
+      
+    } break;
   
-#ifndef QT_NO_DRAGANDDROP
-  case QEvent::DragMove:
+    case QEvent::DragMove:
     {
       QPoint currentPoint = ((QDragMoveEvent*) e)->pos();
+      
       QRect doNotScrollRegion( scrollMargin, scrollMargin,
                           width() - scrollMargin * 2,
                           height() - scrollMargin * 2 );
-      if ( !doNotScrollRegion.contains( currentPoint ) ) {
+      
+      if ( !doNotScrollRegion.contains( currentPoint ) )
+      {
           startDragScroll();
           // Keep sending move events
           ( (QDragMoveEvent*)e )->accept( QRect(0,0,0,0) );
       }
+      
       dragMoveEvent((QDragMoveEvent*)e);
-    }
-    break;
-  case QEvent::DragLeave:
-    stopDragScroll();
-    break;
-#endif
-  default:
-    break;
+    } break;
+  
+    case QEvent::DragLeave:
+      stopDragScroll();
+      break;
+      
+    default:
+      break;
   }
         
   return QWidget::eventFilter( obj, e );
@@ -1861,27 +1867,36 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 {
   KKey key(e);
   
+  if (key == SHIFT)
+  {
+    m_selChangedByUser = false;
+  }
+  
    if (key == Qt::Key_Left)
   {
     m_view->cursorLeft();
+    e->accept();
     return;
   }
   
   if (key == Qt::Key_Right)
   {
     m_view->cursorRight();
+    e->accept();
     return;
   }
   
   if (key == Qt::Key_Down)
   {
     m_view->down();
+    e->accept();
     return;
   }
   
   if (key == Qt::Key_Up)
   {
     m_view->up();
+    e->accept();
     return;
   }
   
@@ -1894,18 +1909,21 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   if ((key == Qt::Key_Return) || (key == Qt::Key_Enter))
   {
     m_view->keyReturn();
+    e->accept();
     return;
   }
   
   if (key == Qt::Key_Backspace)
   {
     m_view->backspace();
+    e->accept();
     return;
   }
   
   if (key == Qt::Key_Delete)
   {
     m_view->keyDelete();
+    e->accept();
     return;
   }
 
@@ -1914,12 +1932,14 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     if( key == Qt::Key_Tab )
     {
       m_doc->indent( cursor.line );
+      e->accept();
       return;
     }
     
     if (key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
     {
       m_doc->unIndent( cursor.line );
+      e->accept();
       return;
     }
   }
@@ -1934,64 +1954,109 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   e->ignore();
 }
 
+void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
+{
+  KKey key(e);
+  
+/*  if (!(e->state() & SHIFT))
+  {
+    if (m_selChangedByUser)
+      {
+        QApplication::clipboard()->setSelectionMode( true );
+        m_doc->copy();
+        QApplication::clipboard()->setSelectionMode( false );
+
+        m_selChangedByUser = false;
+      }
+  
+    e->accept();
+    return;
+  }
+*/  
+  e->ignore();
+}
+
 void KateViewInternal::mousePressEvent( QMouseEvent* e )
 {
-  if (e->button() == LeftButton) {
-    if (possibleTripleClick) {
-      possibleTripleClick = false;
+  switch (e->button())
+  {
+    case LeftButton:
+        m_selChangedByUser = false;
+        
+        if (possibleTripleClick)
+        {
+          possibleTripleClick = false;
+
+          m_doc->selectLine( cursor );
+          QApplication::clipboard()->setSelectionMode( true );
+          m_doc->copy();
+          QApplication::clipboard()->setSelectionMode( false );
+
+          cursor.col = 0;
+          updateCursor( cursor );
+          return;
+        }
+
+        if( isTargetSelected( e->pos() ) )
+        {
+          dragInfo.state = diPending;
+          dragInfo.start = e->pos();
+        }
+        else
+        {
+          dragInfo.state = diNone;
+
+          placeCursor( e->pos(), e->state() & ShiftButton );
+          scrollX = 0;
+          scrollY = 0;
+          if( !scrollTimer )
+            scrollTimer = startTimer(50);
+        }
+        
+        e->accept ();
+        break;
+
+    case RightButton:
+      if (m_view->popup())
+        m_view->popup()->popup( mapToGlobal( e->pos() ) );
       
-      m_doc->selectLine( cursor );
-      QApplication::clipboard()->setSelectionMode( true );
-      m_doc->copy();
-      QApplication::clipboard()->setSelectionMode( false );
+      e->accept ();
+      break;
       
-      cursor.col = 0;
-      updateCursor( cursor );
-      return;
-    }
-
-    if( isTargetSelected( e->pos() ) ) {
-      dragInfo.state = diPending;
-      dragInfo.start = e->pos();
-    } else {
-      dragInfo.state = diNone;
-
-      placeCursor( e->pos(), e->state() & ShiftButton );
-      scrollX = 0;
-      scrollY = 0;
-      if( !scrollTimer )
-        scrollTimer = startTimer(50);
-    }
-  }
-
-  if( m_view->popup() && e->button() == RightButton ) {
-    //if( !isTargetSelected( e->pos() ) )
-    //  placeCursor( e->pos() );
-    m_view->popup()->popup( mapToGlobal( e->pos() ) );
+    default:
+      e->ignore ();
+      break;
   }
 }
 
 void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 {
-  if (e->button() == LeftButton) {
+  switch (e->button())
+  {
+    case LeftButton:
+      m_doc->selectWord( cursor );
 
-    m_doc->selectWord( cursor );
+      // Move cursor to end of selected word
+      if (m_doc->hasSelection())
+      {
+        QApplication::clipboard()->setSelectionMode( true );
+        m_doc->copy();
+        QApplication::clipboard()->setSelectionMode( false );
 
-    // Move cursor to end of selected word
-    if (m_doc->hasSelection())
-    {
-      QApplication::clipboard()->setSelectionMode( true );
-      m_doc->copy();
-      QApplication::clipboard()->setSelectionMode( false );
+        cursor.col = m_doc->selectEnd.col;
+        cursor.line = m_doc->selectEnd.line;
+        updateCursor( cursor );
+      }
+
+      possibleTripleClick = true;
+      QTimer::singleShot ( QApplication::doubleClickInterval(), this, SLOT(tripleClickTimeout()) );
+        
+      e->accept ();
+      break;
     
-      cursor.col = m_doc->selectEnd.col;
-      cursor.line = m_doc->selectEnd.line;
-      updateCursor( cursor );
-    }
-
-    possibleTripleClick = true;
-    QTimer::singleShot( QApplication::doubleClickInterval(),
-      this, SLOT(tripleClickTimeout()) );
+    default:
+      e->ignore ();
+      break;
   }
 }
 
@@ -2002,39 +2067,64 @@ void KateViewInternal::tripleClickTimeout()
 
 void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
 {
-  if (e->button() == LeftButton) {
-    if (dragInfo.state == diPending) {
-      // we had a mouse down in selected area, but never started a drag
-      // so now we kill the selection
+  switch (e->button())
+  {
+    case LeftButton:
+      if (m_selChangedByUser)
+      {
+        QApplication::clipboard()->setSelectionMode( true );
+        m_doc->copy();
+        QApplication::clipboard()->setSelectionMode( false );
+
+        m_selChangedByUser = false;
+      }
+
+      if (dragInfo.state == diPending)
+        placeCursor( e->pos() );
+      else if (dragInfo.state == diNone)
+      {
+        killTimer(scrollTimer);
+        scrollTimer = 0;
+      }
+      
+      dragInfo.state = diNone;
+    
+      e->accept ();
+      break;
+    
+    case MidButton:
       placeCursor( e->pos() );
-    } else if (dragInfo.state == diNone) {
-      killTimer(scrollTimer);
-      scrollTimer = 0;
-    }
-    dragInfo.state = diNone;
-  } else if (e->button() == MidButton) {
-    placeCursor( e->pos() );
-    if( m_doc->isReadWrite() )
-    {
-      QApplication::clipboard()->setSelectionMode( true );
-      doPaste();
-      QApplication::clipboard()->setSelectionMode( false );
-    }
+      
+      if( m_doc->isReadWrite() )
+      {
+        QApplication::clipboard()->setSelectionMode( true );
+        doPaste();
+        QApplication::clipboard()->setSelectionMode( false );
+      }
+    
+      e->accept ();
+      break;
+      
+    default:
+      e->ignore ();
+      break;
   }
 }
 
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
-  if( e->state() & LeftButton ) {
-    
-    if (dragInfo.state == diPending) {
+  if( e->state() & LeftButton )
+  {  
+    if (dragInfo.state == diPending)
+    {
       // we had a mouse down, but haven't confirmed a drag yet
       // if the mouse has moved sufficiently, we will confirm
       QPoint p( e->pos() - dragInfo.start );
-      if( p.manhattanLength() > KGlobalSettings::dndEventDelay() ) {
-        // we've left the drag square, we can start a real drag operation now
+      
+      // we've left the drag square, we can start a real drag operation now
+      if( p.manhattanLength() > KGlobalSettings::dndEventDelay() )
         doDrag();
-      }
+
       return;
     }
    
@@ -2044,20 +2134,25 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     scrollX = 0;
     scrollY = 0;
     int d = m_doc->viewFont.fontHeight;
-    if (mouseX < 0) {
+    
+    if (mouseX < 0)
       scrollX = -d;
-    }
-    if (mouseX > width()) {
+    
+    if (mouseX > width())
       scrollX = d;
-    }
-    if (mouseY < 0) {
+    
+    if (mouseY < 0)
+    {
       mouseY = 0;
       scrollY = -d;
     }
-    if (mouseY > height()) {
+    
+    if (mouseY > height())
+    {
       mouseY = height();
       scrollY = d;
     }
+    
     placeCursor( QPoint( mouseX, mouseY ), true );
   }
 }

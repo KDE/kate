@@ -138,6 +138,7 @@ class KateViewInternal : public QWidget
     void paintEvent(QPaintEvent *e);
     bool eventFilter( QObject *obj, QEvent *e );
     void keyPressEvent( QKeyEvent* );
+    void keyReleaseEvent( QKeyEvent* );
     void resizeEvent( QResizeEvent* );
     void mousePressEvent(       QMouseEvent* );
     void mouseDoubleClickEvent( QMouseEvent* );
@@ -257,8 +258,8 @@ class KateViewInternal : public QWidget
     int m_startX;
     int m_oldStartX;
     
-    // cache the with of the text area
-    //uint m_width;
+    // has selection changed while your mouse or shift key is pressed
+    bool m_selChangedByUser; 
     
     //
     // lines Ranges, mostly useful to speedup + dyn. word wrap
@@ -314,11 +315,9 @@ class KateViewInternal : public QWidget
     KateTextCursor m_cachedMaxStartPos;
 
   private slots:
-#ifndef QT_NO_DRAGANDDROP
     void doDragScroll();
     void startDragScroll();
     void stopDragScroll();
-#endif
 
   private:
     // Timer for drag & scroll

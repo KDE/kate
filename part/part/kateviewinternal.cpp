@@ -201,6 +201,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   connect( &m_dragScrollTimer, SIGNAL( timeout() ),
              this, SLOT( doDragScroll() ) );
 
+  drawBuffer.resize(width(), m_doc->viewFont.fontHeight);
+
   updateView ();
 }
 
@@ -675,8 +677,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = lineRanges.size();
 
-  if ((drawBuffer.width() != width) || (drawBuffer.height() != (int)h))
-    drawBuffer.resize (width, h );
+  Q_ASSERT(drawBuffer.width() == KateViewInternal::width() && drawBuffer.height() == (int)h);
 
   if (drawBuffer.isNull())
     return;
@@ -721,7 +722,7 @@ void KateViewInternal::paintText (int x, int y, int width, int height, bool pain
              lineRanges[z].startX + xStart,
              m_view );
       paint.end ();
-      bitBlt (this, x, z * h, &drawBuffer);
+      bitBlt (this, x, z * h, &drawBuffer, 0, 0, width);
     }
   }
 }
@@ -1881,6 +1882,9 @@ void KateViewInternal::tagAll()
       lineRanges[z].dirty = true;
   }
 
+  if (drawBuffer.height() != (int)m_doc->viewFont.fontHeight)
+    drawBuffer.resize(width(), m_doc->viewFont.fontHeight);
+
   leftBorder->updateFont();
   leftBorder->update ();
 }
@@ -1958,7 +1962,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
 
   if ( obj == this )
       KCursor::autoHideEventFilter( obj, e );
-  
+
   switch( e->type() )
   {
     case QEvent::KeyPress:
@@ -2322,6 +2326,8 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
 void KateViewInternal::resizeEvent(QResizeEvent* e)
 {
+  drawBuffer.resize(width(), m_doc->viewFont.fontHeight);
+
   bool expandedHorizontally = width() > e->oldSize().width();
   bool expandedVertically = height() > e->oldSize().height();
 

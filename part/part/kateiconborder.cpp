@@ -269,7 +269,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
       // the cached value there.
       m_cachedLNWidth = lnWidth;
       m_oldBackgroundColor = m_doc->colors[0];
-      kdDebug() << k_lineinfo << lnWidth << " " << m_cachedLNWidth << endl;
       updateGeometry();
       update ();
       return;

@@ -93,6 +93,11 @@ public:
 
 /**
  * An arbitrary highlighting interface for Kate.
+ *
+ * Ideas for more features:
+ * - integration with syntax highlighting:
+ *   - eg. a signal for when a new context is created, destroyed, changed
+ *   - hopefully make this extension more complimentary to the current syntax highlighting
  */
 class KateArbitraryHighlight : public QObject
 {

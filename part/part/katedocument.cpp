@@ -4861,12 +4861,12 @@ void KateDocument::spellCleanDone()
 
   if( status == KSpell::Error ) {
     KMessageBox::sorry( 0,
-      i18n("ISpell could not be started. "
-           "Please make sure you have ISpell "
-           "properly configured and in your PATH."));
+      i18n("The spelling program could not be started. "
+           "Please make sure you have set the correct spelling program "
+           "and that it is properly configured and in your PATH."));
   } else if( status == KSpell::Crashed ) {
     KMessageBox::sorry( 0,
-      i18n("ISpell seems to have crashed."));
+      i18n("The spelling program seems to have crashed."));
   }
 
   delete m_kspell;

@@ -18,8 +18,11 @@
 
 // $Id$
 
-#include "viewstatusmsginterface.h"        
+#include "viewstatusmsginterface.h"       
+#include "viewstatusmsgdcopinterface.h" 
 #include "view.h"
+
+#include <qstring.h>
 
 namespace KTextEditor
 {
@@ -27,8 +30,9 @@ namespace KTextEditor
 class PrivateViewStatusMsgInterface
 {
   public:
-    PrivateViewStatusMsgInterface() {}
+    PrivateViewStatusMsgInterface() {interface=0;}
     ~PrivateViewStatusMsgInterface() {}
+    ViewStatusMsgDCOPInterface  *interface;
 };
 
 };
@@ -43,10 +47,13 @@ ViewStatusMsgInterface::ViewStatusMsgInterface()
   myViewStatusMsgInterfaceNumber = globalViewStatusMsgInterfaceNumber++;
 
   d = new PrivateViewStatusMsgInterface();
+  ::QString name = "ViewStatusMsgInterface#" + ::QString::number(myViewStatusMsgInterfaceNumber);
+  d->interface = new ViewStatusMsgDCOPInterface(this, name.latin1());
 }
 
 ViewStatusMsgInterface::~ViewStatusMsgInterface()
 {
+  delete d->interface;
   delete d;
 }
 

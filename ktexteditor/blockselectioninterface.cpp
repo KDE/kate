@@ -19,16 +19,19 @@
 // $Id$
 
 #include "blockselectioninterface.h"
+#include "blockselectiondcopinterface.h"
 #include "document.h"
 
+#include "blockselectiondcopinterface.h"
 namespace KTextEditor
 {
 
 class PrivateBlockSelectionInterface
 {
   public:
-    PrivateBlockSelectionInterface() {}
+    PrivateBlockSelectionInterface() {interface = 0;}
     ~PrivateBlockSelectionInterface() {}
+    BlockSelectionDCOPInterface *interface;
 };
 
 };
@@ -41,12 +44,15 @@ BlockSelectionInterface::BlockSelectionInterface()
 {
   globalBlockSelectionInterfaceNumber++;
   myBlockSelectionInterfaceNumber = globalBlockSelectionInterfaceNumber++;
-
+  QString name = "BlockSelectionInterface#" + QString::number(myBlockSelectionInterfaceNumber);
+	
   d = new PrivateBlockSelectionInterface();
+  d->interface = new BlockSelectionDCOPInterface(this, name.latin1());
 }
 
 BlockSelectionInterface::~BlockSelectionInterface()
 {
+  delete d->interface;
   delete d;
 }
 

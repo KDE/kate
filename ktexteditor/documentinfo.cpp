@@ -19,6 +19,7 @@
 // $Id$
 
 #include "documentinfo.h"
+#include "documentdcopinfo.h"
 
 namespace KTextEditor
 {
@@ -26,8 +27,9 @@ namespace KTextEditor
 class PrivateDocumentInfoInterface
 {
   public:
-    PrivateDocumentInfoInterface() {}
+    PrivateDocumentInfoInterface() {interface = 0;}
     ~PrivateDocumentInfoInterface() {}
+    DocumentInfoDCOPInterface *interface;
 };
 
 };
@@ -41,12 +43,15 @@ DocumentInfoInterface::DocumentInfoInterface()
   globalDocumentInfoInterfaceNumber++;
   myDocumentInfoInterfaceNumber = globalDocumentInfoInterfaceNumber++;
 
-//  d = new PrivateConfigInterface();
+  d = new PrivateDocumentInfoInterface();
+  QString name = "DocumentInterface#" + QString::number(myDocumentInfoInterfaceNumber);
+  d->interface = new DocumentInfoDCOPInterface(this, name.latin1());
 }
 
-ConfigInterface::~ConfigInterface()
+DocumentInfoInterface::~DocumentInfoInterface()
 {
-//  delete d;
+  delete d->interface;
+  delete d;
 }
 
 unsigned int DocumentInfoInterface::documentInfoInterfaceNumber () const

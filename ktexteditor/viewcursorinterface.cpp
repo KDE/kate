@@ -19,6 +19,7 @@
 // $Id$
 
 #include "viewcursorinterface.h"
+#include "viewcursordcopinterface.h"
 #include "view.h"
 
 namespace KTextEditor
@@ -27,8 +28,9 @@ namespace KTextEditor
 class PrivateViewCursorInterface
 {
   public:
-    PrivateViewCursorInterface() {}
+    PrivateViewCursorInterface() {interface=0;}
     ~PrivateViewCursorInterface() {}
+    ViewCursorDCOPInterface *interface;
 };
 
 };
@@ -43,10 +45,13 @@ ViewCursorInterface::ViewCursorInterface()
   myViewCursorInterfaceNumber = globalViewCursorInterfaceNumber++;
 
   d = new PrivateViewCursorInterface();
+  QString name = "ViewCursorInterface#" + QString::number(myViewCursorInterfaceNumber);
+  d->interface = new ViewCursorDCOPInterface(this, name.latin1());
 }
 
 ViewCursorInterface::~ViewCursorInterface()
 {
+  delete d->interface;
   delete d;
 }
 

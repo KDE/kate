@@ -19,6 +19,7 @@
 // $Id$
 
 #include "printinterface.h"
+#include "printdcopinterface.h"
 #include "document.h"
 
 namespace KTextEditor
@@ -27,8 +28,9 @@ namespace KTextEditor
 class PrivatePrintInterface
 {
   public:
-    PrivatePrintInterface() {}
+    PrivatePrintInterface() {interface=0;}
     ~PrivatePrintInterface() {}
+    PrintDCOPInterface *interface;
 };
 
 };
@@ -43,10 +45,13 @@ PrintInterface::PrintInterface()
   myPrintInterfaceNumber = globalPrintInterfaceNumber++;
 
   d = new PrivatePrintInterface();
+  QString name = "PrintInterface#" + QString::number(myPrintInterfaceNumber);
+  d->interface = new PrintDCOPInterface(this, name.latin1());
 }
 
 PrintInterface::~PrintInterface()
 {
+  delete d->interface;
   delete d;
 }
 

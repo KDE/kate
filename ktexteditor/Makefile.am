@@ -12,7 +12,14 @@ libktexteditor_la_SOURCES = ktexteditor.cpp \
     clipboarddcopinterface.skel selectiondcopinterface.cpp selectiondcopinterface.skel  \
     searchdcopinterface.cpp searchdcopinterface.skel markinterfaceextension.cpp \
     configinterfaceextension.cpp encodinginterface.cpp sessionconfiginterface.cpp \
-    viewstatusmsginterface.cpp editorchooser_ui.ui editorchooser.cpp
+    viewstatusmsginterface.cpp editorchooser_ui.ui editorchooser.cpp \
+    blockselectiondcopinterface.cpp documentinfo.cpp documentdcopinfo.cpp\
+    blockselectiondcopinterface.skel documentdcopinfo.skel encodingdcopinterface.cpp \
+    encodingdcopinterface.skel printdcopinterface.cpp printdcopinterface.skel \
+    undodcopinterface.cpp undodcopinterface.skel viewcursordcopinterface.cpp \
+    viewcursordcopinterface.skel viewstatusmsgdcopinterface.cpp \
+    viewstatusmsgdcopinterface.skel
+    
     
 libktexteditor_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
 libktexteditor_la_LIBADD = $(LIB_KPARTS) $(top_builddir)/dcop/libDCOP.la

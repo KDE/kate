@@ -19,6 +19,7 @@
 // $Id$
 
 #include "undointerface.h"
+#include "undodcopinterface.h"
 #include "document.h"
 
 namespace KTextEditor
@@ -27,8 +28,9 @@ namespace KTextEditor
 class PrivateUndoInterface
 {
   public:
-    PrivateUndoInterface() {}
+    PrivateUndoInterface() {interface = 0;}
     ~PrivateUndoInterface() {}
+    UndoDCOPInterface *interface;
 };
 
 };
@@ -42,11 +44,14 @@ UndoInterface::UndoInterface()
   globalUndoInterfaceNumber++;
   myUndoInterfaceNumber = globalUndoInterfaceNumber++;
 
-  d = new PrivateUndoInterface();
+  d = new PrivateUndoInterface();   
+  QString name = "UndoInterface#" + QString::number(myUndoInterfaceNumber);
+  d->interface = new UndoDCOPInterface(this, name.latin1());
 }
 
 UndoInterface::~UndoInterface()
 {
+  delete d->interface;
   delete d;
 }
 

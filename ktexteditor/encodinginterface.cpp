@@ -19,7 +19,10 @@
 // $Id$
 
 #include "encodinginterface.h"
+#include "encodingdcopinterface.h"
 #include "document.h"
+
+
 
 namespace KTextEditor
 {
@@ -27,8 +30,9 @@ namespace KTextEditor
 class PrivateEncodingInterface
 {
   public:
-    PrivateEncodingInterface() {}
+    PrivateEncodingInterface() {interface=0;}
     ~PrivateEncodingInterface() {}
+    EncodingDCOPInterface *interface;
 };
 
 };
@@ -43,10 +47,13 @@ EncodingInterface::EncodingInterface()
   myEncodingInterfaceNumber = globalEncodingInterfaceNumber++;
 
   d = new PrivateEncodingInterface();
+  ::QString name = "EncodingInterface#" + ::QString::number(myEncodingInterfaceNumber);
+  d->interface = new EncodingDCOPInterface(this, name.latin1());
 }
 
 EncodingInterface::~EncodingInterface()
 {
+  delete d->interface;
   delete d;
 }
 

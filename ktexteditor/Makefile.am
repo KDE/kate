@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) -I$(top_srcdir)/interfaces -I$(top_builddir)/interfaces $(all_includes)
+INCLUDES = -I$(top_srcdir)/kio -I$(top_srcdir) -I$(top_srcdir)/interfaces -I$(top_builddir)/interfaces  -I$(top_srcdir)/kabc -I$(top_builddir)/kabc $(all_includes)
 
 lib_LTLIBRARIES = libktexteditor.la
 
@@ -19,11 +19,11 @@ libktexteditor_la_SOURCES = ktexteditor.cpp \
     undodcopinterface.cpp undodcopinterface.skel viewcursordcopinterface.cpp \
     viewcursordcopinterface.skel viewstatusmsgdcopinterface.cpp \
     viewstatusmsgdcopinterface.skel selectioninterfaceext.cpp selectionextdcopinterface.skel \
-    texthintinterface.cpp editinterfaceext.cpp variableinterface.cpp
+    texthintinterface.cpp editinterfaceext.cpp variableinterface.cpp templateinterface.cpp
 
 
 libktexteditor_la_LDFLAGS = $(all_libraries) $(KDE_RPATH)
-libktexteditor_la_LIBADD = $(LIB_KPARTS) $(top_builddir)/dcop/libDCOP.la
+libktexteditor_la_LIBADD = $(LIB_KPARTS) $(top_builddir)/dcop/libDCOP.la $(top_builddir)/kabc/libkabc.la
 
 ktexteditorinclude_HEADERS = document.h view.h editor.h plugin.h editinterface.h undointerface.h \
                              selectioninterface.h cursorinterface.h \
@@ -34,7 +34,7 @@ ktexteditorinclude_HEADERS = document.h view.h editor.h plugin.h editinterface.h
                              dynwordwrapinterface.h markinterfaceextension.h configinterfaceextension.h \
                              encodinginterface.h viewstatusmsginterface.h  sessionconfiginterface.h editorchooser.h \
 			     documentinfo.h selectioninterfaceext.h selectionextdcopinterface.h texthintinterface.h \
-			     editinterfaceext.h variableinterface.h
+			     editinterfaceext.h variableinterface.h templateinterface.h
 
 ktexteditorincludedir = $(includedir)/ktexteditor
 

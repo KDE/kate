@@ -22,7 +22,7 @@ class KTEXTEDITOR_EXPORT EditorChooser: public QWidget
     EditorChooser(QWidget *parent=0,const char *name=0);
     virtual ~EditorChooser();
     
-    void writeSysDefault();
+   /* void writeSysDefault();*/
 
     void readAppSetting(const QString& postfix=QString::null);
     void writeAppSetting(const QString& postfix=QString::null);

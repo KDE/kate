@@ -22,7 +22,6 @@
 #include "blockselectiondcopinterface.h"
 #include "document.h"
 
-#include "blockselectiondcopinterface.h"
 namespace KTextEditor
 {
 
@@ -45,7 +44,7 @@ BlockSelectionInterface::BlockSelectionInterface()
   globalBlockSelectionInterfaceNumber++;
   myBlockSelectionInterfaceNumber = globalBlockSelectionInterfaceNumber++;
   QString name = "BlockSelectionInterface#" + QString::number(myBlockSelectionInterfaceNumber);
-	
+
   d = new PrivateBlockSelectionInterface();
   d->interface = new BlockSelectionDCOPInterface(this, name.latin1());
 }
@@ -67,7 +66,7 @@ void BlockSelectionInterface::setBlockSelectionInterfaceDCOPSuffix (const QCStri
 }
 
 BlockSelectionInterface *KTextEditor::blockSelectionInterface (Document *doc)
-{                                              
+{
   if (!doc)
     return 0;
 

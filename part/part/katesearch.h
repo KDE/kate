@@ -50,71 +50,73 @@ class KateDocument;
 
 class KateSearch : public QObject
 {
-Q_OBJECT
-public:
+  Q_OBJECT
+  
+  public:
     enum Dialog_results {
       srYes = QDialog::Accepted,
       srNo = 10,
       srAll,
       srCancel = QDialog::Rejected
     };
-public:
-  KateSearch( KateView* );
-  virtual ~KateSearch();
-  
-  void createActions( KActionCollection* );
-  
-public slots:
-  void find();
-  void replace();
-  void findAgain( bool back );
-  
-private slots:
-  void replaceSlot();
-  void slotFindNext() { findAgain( false ); }
-  void slotFindPrev() { findAgain( true );  }
-  
-private:
-  static void addToList( QStringList&, const QString& );
-  static void addToSearchList( const QString& s )  { addToList( s_searchList, s ); }
-  static void addToReplaceList( const QString& s ) { addToList( s_replaceList, s ); }
-  static QStringList s_searchList;
-  static QStringList s_replaceList;
-  static SearchFlags s_searchFlags;
-  
-  void search( SearchFlags flags );
-  void wrapSearch();
-  bool askContinue();
-  
-  void findAgain();
-  void promptReplace();
-  void replaceAll();
-  void replaceOne();
-  void skipOne();
-  
-  QString getSearchText();
-  KateTextCursor getCursor();
-  bool doSearch( const QString& text );
-  void exposeFound( KateTextCursor &cursor, int slen );
-  
-  inline KateView* view()    { return m_view; }
-  inline KateDocument* doc() { return m_doc;  }
-  
-  KateView*     m_view;
-  KateDocument* m_doc;
-  
-  struct SConfig {
-    SearchFlags flags;
-    KateTextCursor cursor;
-    uint matchedLength;
-    KateTextCursor selBegin;
-    KateTextCursor selEnd;
-  } s;
-  long options;
-  int           replaces;
-  QDialog*      replacePrompt;
-  QString m_replacement;
-  QRegExp m_re;
+    
+  public:
+    KateSearch( KateView* );
+    virtual ~KateSearch();
+
+    void createActions( KActionCollection* );
+
+  public slots:
+    void find();
+    void replace();
+    void findAgain( bool back );
+
+  private slots:
+    void replaceSlot();
+    void slotFindNext() { findAgain( false ); }
+    void slotFindPrev() { findAgain( true );  }
+
+  private:
+    static void addToList( QStringList&, const QString& );
+    static void addToSearchList( const QString& s )  { addToList( s_searchList, s ); }
+    static void addToReplaceList( const QString& s ) { addToList( s_replaceList, s ); }
+    static QStringList s_searchList;
+    static QStringList s_replaceList;
+
+    void search( SearchFlags flags );
+    void wrapSearch();
+    bool askContinue();
+
+    void findAgain();
+    void promptReplace();
+    void replaceAll();
+    void replaceOne();
+    void skipOne();
+
+    QString getSearchText();
+    KateTextCursor getCursor();
+    bool doSearch( const QString& text );
+    void exposeFound( KateTextCursor &cursor, int slen );
+
+    inline KateView* view()    { return m_view; }
+    inline KateDocument* doc() { return m_doc;  }
+
+    KateView*     m_view;
+    KateDocument* m_doc;
+
+    struct SConfig {
+      SearchFlags flags;
+      KateTextCursor cursor;
+      uint matchedLength;
+      KateTextCursor selBegin;
+      KateTextCursor selEnd;
+    } s;
+    
+    static long s_options;
+    int           replaces;
+    QDialog*      replacePrompt;
+    QString m_replacement;
+    QRegExp m_re;
 };
 
 #endif

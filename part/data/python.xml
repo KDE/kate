@@ -10,6 +10,7 @@
 		</list>
 
 		<list name="statements">
+      <item> and </item>
 			<item> assert </item>
 			<item> break </item>
 			<item> class </item>

@@ -61,7 +61,8 @@ class MarkInterfaceExtension
   // signals !!!
   //
   public:
-    virtual void markChanged (KTextEditor::Mark mark, MarkInterfaceExtension::MarkChangeAction action) = 0;
+    virtual void markChanged (KTextEditor::Mark mark, 
+                              KTextEditor::MarkInterfaceExtension::MarkChangeAction action) = 0;
   
   private:
     class PrivateMarkInterfaceExtension *d;

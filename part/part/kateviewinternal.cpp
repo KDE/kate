@@ -1527,10 +1527,18 @@ void KateViewInternal::scrollLines( int lines, bool sel )
   updateCursor( c );
 }
 
-// Maybe not the right thing to do for these actions, but
-// better than what was here before!
-void KateViewInternal::scrollUp()   { scrollLines( -1, false ); }
-void KateViewInternal::scrollDown() { scrollLines(  1, false ); }
+// This is a bit misleading... it's asking for the view to be scrolled, not the cursor
+void KateViewInternal::scrollUp()
+{
+  KateTextCursor newPos = viewLineOffset(m_startPos, -1);
+  scrollPos(newPos);
+}
+
+void KateViewInternal::scrollDown()
+{
+  KateTextCursor newPos = viewLineOffset(m_startPos, 1);
+  scrollPos(newPos);
+}
 
 void KateViewInternal::setAutoCenterLines(int viewLines, bool updateView)
 {

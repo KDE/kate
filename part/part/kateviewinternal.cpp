@@ -2246,7 +2246,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
   if( !l )
     return false;
 
-  int col = m_view->renderer()->textPos( l, p.x() - thisRange.xOffset(), thisRange.startCol );
+  int col = m_view->renderer()->textPos( l, p.x() - thisRange.xOffset(), thisRange.startCol, false );
 
   return m_doc->lineColSelected( thisRange.line, col );
 }
@@ -2519,6 +2519,9 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
 
     // try to show popup menu
     case RightButton:
+      if ( ! isTargetSelected( e->pos() ) )
+        placeCursor( e->pos() );
+
       // popup is a qguardedptr now
       if (m_view->popup())
         m_view->popup()->popup( mapToGlobal( e->pos() ) );

@@ -56,12 +56,12 @@ public:
      * @param view view which is output (0 for example for rendering to print)
      */
     KateRenderer(KateDocument* doc, KateView *view = 0);
-    
+
     /**
      * Destructor
      */
     ~KateRenderer();
-    
+
     /**
      * update the highlighting attributes
      * (for example after an hl change or after hl config changed)
@@ -159,8 +159,19 @@ public:
     uint textWidth(KateTextCursor &cursor, int xPos, uint startCol = 0);
 
     // Column calculators
-    uint textPos(uint line, int xPos, uint startCol = 0);
-    uint textPos(const KateTextLine::Ptr &, int xPos, uint startCol = 0);
+    /**
+     * @return the index of the character at the horixontal position @p xpos
+     * in @p line.
+     *
+     * If @p nearest is true, the character starting nearest to
+     * @p xPos is returned. If @p nearest is false, the index of the character
+     * containing @p xPos is returned.
+     **/
+    uint textPos(uint line, int xPos, uint startCol = 0, bool nearest=true);
+    /**
+     * @overload
+     */
+    uint textPos(const KateTextLine::Ptr &, int xPos, uint startCol = 0, bool nearest=true);
 
     // Font height
     uint fontHeight();
@@ -181,7 +192,7 @@ public:
     void paintTextLine(QPainter& paint, const KateLineRange* range, int xStart, int xEnd, const KateTextCursor* cursor = 0L, const KateTextRange* bracketmark = 0L);
 
     KateAttribute* attribute(uint pos);
-    
+
   private:
     KateDocument* m_doc;
     KateView *m_view;
@@ -196,9 +207,9 @@ public:
     bool m_showSelections;
     bool m_showTabs;
     bool m_printerFriendly;
-    
+
     QMemArray<KateAttribute> *m_attributes;
-    
+
   /**
    * Configuration
    */

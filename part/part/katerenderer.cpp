@@ -200,7 +200,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   // should we paint the word wrap marker?
   bool paintWWMarker = !isPrinterFriendly() && config()->wordWrapMarker() && fs->fixedPitch();
-  
+
   // Normal background color
   QColor backgroundColor (config()->backgroundColor());
 
@@ -326,7 +326,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   // draw word-wrap-honor-indent filling
   if (range->xOffset() && range->xOffset() > xStart)
     paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
-  
+
   // Optimisation to quickly draw an empty line of text
   if (len < 1)
   {
@@ -585,7 +585,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
         paint.fillRect(cursorXPos2-xStart, 0, 2, fs->fontHeight, attribute(0)->textColor());
     }
   }
-  
+
   // show word wrap marker if desirable
   if ( paintWWMarker ) {
     paint.setPen( config()->wordWrapMarkerColor() );
@@ -785,12 +785,12 @@ const QFontMetrics* KateRenderer::currentFontMetrics()
   return config()->fontMetrics();
 }
 
-uint KateRenderer::textPos(uint line, int xPos, uint startCol)
+uint KateRenderer::textPos(uint line, int xPos, uint startCol, bool nearest)
 {
-  return textPos(m_doc->kateTextLine(line), xPos, startCol);
+  return textPos(m_doc->kateTextLine(line), xPos, startCol, nearest);
 }
 
-uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint startCol)
+uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint startCol, bool nearest)
 {
   Q_ASSERT(textLine);
   if (!textLine)
@@ -811,7 +811,7 @@ uint KateRenderer::textPos(const KateTextLine::Ptr &textLine, int xPos, uint sta
 
     z++;
   }
-  if (xPos - oldX < x - xPos && z > 0) {
+  if ( ( (! nearest) || xPos - oldX < x - xPos ) && z > 0 ) {
     z--;
    // newXPos = oldX;
   }// else newXPos = x;

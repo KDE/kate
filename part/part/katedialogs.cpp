@@ -353,12 +353,12 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
 
   QColor normalcol( defaultItemStyleList->at(0)->textColor() );
   StyleListView *lvDefStyles = new StyleListView( page1, false, normalcol );
-  for ( int i = 0; i < hlManager->defaultStyles(); i++ )
-  {
-//     kdDebug()<<i<<" itemsSet: "<<defaultItemStyleList->at( i )->itemsSet()<<endl;
-    lvDefStyles->insertItem( new StyleListItem( lvDefStyles, hlManager->defaultStyleName(i),
-                                                defaultItemStyleList->at( i ) ) );
-  }
+//   for ( int i = 0; i < hlManager->defaultStyles(); i++ )
+//   {
+// //     kdDebug()<<i<<" itemsSet: "<<defaultItemStyleList->at( i )->itemsSet()<<endl;
+//     lvDefStyles->insertItem( new StyleListItem( lvDefStyles, hlManager->defaultStyleName(i),
+//                                                 defaultItemStyleList->at( i ) ) );
+//   }
   // highlight modes =====================================================
 
   QVBox *page2 = new QVBox( this );
@@ -416,6 +416,9 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
   lvStyles = new StyleListView( gbProps, true, normalcol );
   lSt->setBuddy( lvStyles );
 
+  lvStyles->hide();
+  new QLabel("<b><font size=6>DISABLED</font></b>", gbProps);
+
   // download/new buttons
   QHBox *hbBtns = new QHBox( page2 );
   ((QBoxLayout*)hbBtns->layout())->addStretch(1); // hmm.
@@ -448,7 +451,7 @@ HighlightDialogPage::HighlightDialogPage(HlManager *_hlManager,
 
 void HighlightDialogPage::hlChanged(int z)
 {
-  writeback();
+/*  writeback();
 
   if ( ! hlDataDict->find( z ) ) {
     kdDebug()<<"getting hl data ("<<z<<") - count is "<<hlDataDict->count()<<endl;
@@ -460,13 +463,14 @@ void HighlightDialogPage::hlChanged(int z)
   priority->setValue(hlData->priority);
 
   lvStyles->clear();
+  int xx(0);
   for (ItemData *itemData = hlData->itemDataList.first();
           itemData != 0L;
              itemData = hlData->itemDataList.next()) {
-//   kdDebug()<<itemData->name.latin1()<<" :defStyleNum "<<itemData->defStyleNum<<endl;
+   kdDebug()<<xx++<<": "<<itemData->name.latin1()<<" :defStyleNum "<<itemData->defStyleNum<<endl;
     lvStyles->insertItem( new StyleListItem( lvStyles, i18n(itemData->name.latin1()),
                                  defaultItemStyleList->at(itemData->defStyleNum), itemData ) );
-  }
+  }*/
 }
 
 void HighlightDialogPage::writeback() {
@@ -1228,6 +1232,7 @@ void StyleListItem::activate( int column, const QPoint &localPos )
 
 void StyleListItem::changeProperty( Property p )
 {
+  bool ch( true );
   if ( p == Bold )
     is->setBold( ! is->bold() );
   else if ( p == Italic )
@@ -1239,7 +1244,12 @@ void StyleListItem::changeProperty( Property p )
   else if ( p == UseDefStyle )
     toggleDefStyle();
   else
+  {
     setColor( p );
+    ch = false;
+  }
+  if ( ch )
+    ((StyleListView*)listView())->emitChanged();
 }
 
 void StyleListItem::toggleDefStyle()

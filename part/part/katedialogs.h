@@ -215,6 +215,7 @@ class StyleListView : public QListView {
     /* Display a popupmenu for item i at the specified global position, eventually with a title,
        promoting the context name of that item */
     void showPopupMenu( StyleListItem *i, const QPoint &globalPos, bool showtitle=false );
+    void emitChanged() { emit changed(); };
   private slots:
     /* Display a popupmenu for item i at item position */
     void showPopupMenu( QListViewItem *i );
@@ -222,6 +223,8 @@ class StyleListView : public QListView {
     void slotMousePressed( int, QListViewItem*, const QPoint&, int );
     /* asks item to change the property in q */
     void mSlotPopupHandler( int z );
+  signals:
+    void changed();
   private:
     QColor bgcol, selcol, normalcol;
     QFont docfont;

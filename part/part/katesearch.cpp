@@ -402,15 +402,26 @@ bool KateSearch::askContinue()
      i18n( "%n replacement made",
            "%n replacements made",
            replaces );
+
   QString reached = !s.flags.backward ?
      i18n( "End of document reached." ) :
      i18n( "Beginning of document reached." );
+
+  if (s_options & KFindDialog::SelectedText)
+  {
+    reached = !s.flags.backward ?
+     i18n( "End of selection reached." ) :
+     i18n( "Beginning of selection reached." );
+  }
+
   QString question = !s.flags.backward ?
      i18n( "Continue from the beginning?" ) :
      i18n( "Continue from the end?" );
+
   QString text = s.flags.replace ?
      made + "\n" + reached + "\n" + question :
      reached + "\n" + question;
+
   return KMessageBox::Yes == KMessageBox::questionYesNo(
      view(), text, s.flags.replace ? i18n("Replace") : i18n("Find"),
      i18n("Continue"), i18n("Stop") );

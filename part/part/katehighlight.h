@@ -137,12 +137,6 @@ class HlFloat : public HlItem {
     virtual bool startEnable(QChar c);
 };
 
-class HlCInt : public HlInt {
-  public:
-    HlCInt(int attribute, int context, signed char regionId);
-    virtual const QChar *checkHgl(const QChar *, int len, bool);
-};
-
 class HlCOct : public HlItem {
   public:
     HlCOct(int attribute, int context, signed char regionId);

@@ -305,37 +305,6 @@ const QChar *HlFloat::checkHgl(const QChar *s, int len, bool) {
    else return 0L;
 }
 
-
-HlCInt::HlCInt(int attribute, int context,signed char regionId)
-  : HlInt(attribute,context,regionId) {
-}
-
-const QChar *HlCInt::checkHgl(const QChar *s, int len, bool lineStart) {
-
-//  if (*s == '0') s++; else s = HlInt::checkHgl(s);
-  s = HlInt::checkHgl(s, len, lineStart);
-  if (s != 0L) {
-    int l = 0;
-    int u = 0;
-    const QChar *str;
-
-    do {
-      str = s;
-      if ((*s&0xdf) == 'L' ) {
-        l++;
-        if (l > 2) return 0L;
-        s++;
-      }
-      if ((*s&0xdf) == 'U' ){
-        u++;
-        if (u > 1) return 0L;
-        s++;
-      }
-    } while (s != str);
-  }
-  return s;
-}
-
 HlCOct::HlCOct(int attribute, int context, signed char regionId)
   : HlItem(attribute,context,regionId) {
 }

@@ -269,8 +269,8 @@ void KateView::setupActions()
   
   connect(m_setEndOfLine, SIGNAL(activated(int)), this, SLOT(setEol(int)));
   QStringList list;
-  list.append("&Unix");
-  list.append("&Windows/Dos");
+  list.append("&UNIX");
+  list.append("&Windows/DOS");
   list.append("&Macintosh");
   m_setEndOfLine->setItems(list);
 

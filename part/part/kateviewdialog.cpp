@@ -536,8 +536,8 @@ ViewDefaultsConfig::ViewDefaultsConfig(QWidget *parent, const char*, KateDocumen
 	m_folding=new QCheckBox(i18n("Show &folding markers if available"),this);
         m_bmSort = new QButtonGroup( 1, Qt::Horizontal, i18n("Sort Bookmarks Menu"), this );
         m_bmSort->setRadioButtonExclusive( true );
-        m_bmSort->insert( new QRadioButton( i18n("By &Position"), m_bmSort ), 0 );
-        m_bmSort->insert( new QRadioButton( i18n("By &Creation"), m_bmSort ), 1 );
+        m_bmSort->insert( new QRadioButton( i18n("By &position"), m_bmSort ), 0 );
+        m_bmSort->insert( new QRadioButton( i18n("By &creation"), m_bmSort ), 1 );
 	blay->addWidget(m_line,0);
 	blay->addWidget(m_icons,0);
 	blay->addWidget(m_folding,0);	

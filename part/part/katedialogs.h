@@ -258,6 +258,7 @@ class KateSaveConfigTab : public KateConfigPage
   QCheckBox *cbLocalFiles, *cbRemoteFiles;
   QCheckBox *replaceTabs, *removeSpaces;
   QLineEdit *leBuSuffix;
+  KIntNumInput *blockCount;
 };
 
 class KatePartPluginListItem;

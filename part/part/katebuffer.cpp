@@ -54,19 +54,24 @@ static const Q_ULONG KATE_FILE_LOADER_BS  = 256 * 1024;
 static const Q_ULONG KATE_AVG_BLOCK_SIZE  = 2048 * 80;
 static const Q_ULONG KATE_MAX_BLOCK_LINES = 2048;
 
-/*
- * KATE_MAX_BLOCKS_LOADED should be at least 4, as some
- * methodes will cause heavy trashing, if not at least the
- * latest 2-3 used blocks are alive
- */
-static const uint KATE_MAX_BLOCKS_LOADED = 16;
-
 /**
  * hl will look at the next KATE_HL_LOOKAHEAD lines
  * or until the current block ends if a line is requested
  * will avoid to run doHighlight too often
  */
 static const uint KATE_HL_LOOKAHEAD = 64;
+
+/**
+ * KATE_MAX_BLOCKS_LOADED should be at least 4, as some
+ * methodes will cause heavy trashing, if not at least the
+ * latest 2-3 used blocks are alive
+ */
+uint KateBuffer::m_maxLoadedBlocks = 16;
+
+void KateBuffer::setMaxLoadedBlocks (uint count)
+{
+  m_maxLoadedBlocks = KMAX ((uint)4, count);
+}
 
 class KateFileLoader
 {
@@ -1027,7 +1032,7 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
     m_lines++;
 
     // if we have allready enough blocks around, swap one
-    if (m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED)
+    if (m_parent->m_loadedBlocks.count() >= KateBuffer::maxLoadedBlocks())
       m_parent->m_loadedBlocks.first()->swapOut();
 
     // we are a new nearly empty dirty block
@@ -1056,7 +1061,7 @@ KateBufBlock::~KateBufBlock ()
 void KateBufBlock::fillBlock (KateFileLoader *stream)
 {
   // is allready too much stuff around in mem ?
-  bool swap = m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED;
+  bool swap = m_parent->m_loadedBlocks.count() >= KateBuffer::maxLoadedBlocks();
 
   QByteArray rawData;
 
@@ -1223,7 +1228,7 @@ void KateBufBlock::swapIn ()
   }
 
   // if we have allready enough blocks around, swap one
-  if (m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED)
+  if (m_parent->m_loadedBlocks.count() >= KateBuffer::maxLoadedBlocks())
     m_parent->m_loadedBlocks.first()->swapOut();
 
   // fine, we are now clean again, save state + append to clean list

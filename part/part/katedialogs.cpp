@@ -32,6 +32,7 @@
 #include "kateschema.h"
 #include "kateautoindent.h"
 #include "kateview.h"
+#include "katebuffer.h"
 
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/configinterfaceextension.h>
@@ -728,7 +729,6 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   m_encoding = new KComboBox (e5Layout);
   e5Label->setBuddy(m_encoding);
 
-
   e5Layout = new QHBox(gbEnc);
   e5Label = new QLabel(i18n("End &of line:"), e5Layout);
   m_eol = new KComboBox (e5Layout);
@@ -737,13 +737,19 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   m_eol->insertItem (i18n("Unix"));
   m_eol->insertItem (i18n("Dos/Windows"));
   m_eol->insertItem (i18n("Macintosh"));
+  
+  QVGroupBox *gbMem = new QVGroupBox(i18n("Memory Usage"), this);
+  layout->addWidget( gbMem );
+  
+  blockCount = new KIntNumInput(KateBuffer::maxLoadedBlocks(), gbMem);
+  blockCount->setRange(4, 4096, 1, false);
+  blockCount->setLabel(i18n("Maximal loaded blocks per file:"), AlignVCenter);
 
   QVGroupBox *gbWhiteSpace = new QVGroupBox(i18n("Automatic Cleanups on Save"), this);
   layout->addWidget( gbWhiteSpace );
 
   replaceTabs = new QCheckBox(i18n("Replace &tabs with spaces"), gbWhiteSpace);
   replaceTabs->setChecked(configFlags & KateDocument::cfReplaceTabs);
-
 
   removeSpaces = new QCheckBox(i18n("Re&move trailing spaces"), gbWhiteSpace);
   removeSpaces->setChecked(configFlags & KateDocument::cfRemoveSpaces);
@@ -781,6 +787,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 
   connect(m_encoding, SIGNAL(activated(int)), this, SLOT(slotChanged()));
   connect(m_eol, SIGNAL(activated(int)), this, SLOT(slotChanged()));
+  connect(blockCount, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(replaceTabs, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(removeSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( cbLocalFiles, SIGNAL( toggled(bool) ), this, SLOT( slotChanged() ) );
@@ -793,6 +800,8 @@ void KateSaveConfigTab::apply()
   // nothing changed, no need to apply stuff
   if (!changed())
     return;
+    
+  KateBuffer::setMaxLoadedBlocks (blockCount->value());
 
   KateDocumentConfig::global()->configStart ();
 

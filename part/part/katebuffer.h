@@ -274,6 +274,13 @@ class KateBuffer : public QObject
   Q_OBJECT
   
   friend class KateBufBlock;
+  
+  public:
+    inline static uint maxLoadedBlocks () { return m_maxLoadedBlocks; }
+    static void setMaxLoadedBlocks (uint count);
+    
+  private:
+    static uint m_maxLoadedBlocks;
 
   public:
     /**

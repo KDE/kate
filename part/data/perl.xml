@@ -297,7 +297,7 @@
              <keyword attribute="Function" context="#stay" String="functions" />
              <keyword attribute="Pragma" context="#stay" String="pragmas" />
              <RegExpr attribute="Comment" context="comment" String="#" />
-             <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*"/>
+             <RegExpr attribute="Pod" context="pod" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD"/>
              <RegExpr attribute="Keyword" context="sub_name_def" String="\s*sub\s+" />
 
             <HlCOct attribute="Octal" context="slash_safe_escape" />
@@ -367,7 +367,8 @@
          </context>
          <context attribute="Pod" lineEndContext="#stay" name="pod">
              <LineContinue attribute="Pod" context="#stay" />
-             <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$"/>
+             <RegExpr attribute="Pod" context="#stay" String="^\=(?:head[1-6]|over|back|item|for|begin|end|pod)\s*.*" beginRegion="POD" endRegion="POD"/>
+             <RegExpr attribute="Pod" context="#pop" String="^\=cut.*$" endRegion="POD"/>
          </context>
          <context attribute="String (interpolated)" lineContext="#stay" name="ipstring_internal">
              <RegExpr attribute="String (interpolated)" context="#stay" String="\\[\$@%]" />

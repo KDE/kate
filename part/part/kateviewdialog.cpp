@@ -546,10 +546,17 @@ ColorConfig::ColorConfig( QWidget *parent, const char *, KateDocument *doc )
   m_selected = new KColorButton( this );
   glay->addWidget( label, 2, 0 );
   glay->addWidget( m_selected, 2, 1 );
+  
+  label = new QLabel( i18n("Current Line:"), this);
+  label->setAlignment( AlignRight|AlignVCenter );
+  m_current = new KColorButton( this );
+  glay->addWidget( label, 4, 0 );
+  glay->addWidget( m_current, 4, 1 );
 
   // QWhatsThis help
   QWhatsThis::add(m_back, i18n("Sets the background color of the editing area"));
   QWhatsThis::add(m_selected, i18n("Sets the background color of the selection. To set the text color for selected text, use the \"<b>Configure Highlighting</b>\" dialog."));
+  QWhatsThis::add(m_current, i18n("Sets the background color of the current active line, which means the line where your cursor is positioned"));
 
   reload ();
 }
@@ -563,12 +570,14 @@ void ColorConfig::setColors(QColor *colors)
 {
   m_back->setColor( colors[0] );
   m_selected->setColor( colors[1] );
+  m_current->setColor( colors[2] );
 }
 
 void ColorConfig::getColors(QColor *colors)
 {
   colors[0] = m_back->color();
   colors[1] = m_selected->color();
+  colors[2] = m_current->color();
 }
 
 void ColorConfig::apply ()

@@ -1075,8 +1075,10 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
   KateLineRange *r = lineRanges.data();
 
   uint rpos = 0;
-	
+
 	bool b = myView->isOverwriteMode();
+
+  bool again = true;
 
   if (endLine>=startLine)
   {
@@ -1084,11 +1086,16 @@ void KateViewInternal::paintTextLines(int xPos, int yPos)
     {
       if (r->dirty)
       {
-        myDoc->paintTextLine(paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(), (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+        myDoc->paintTextLine ( paint, r->line, r->startCol, r->endCol, 0, xPos, xPos + this->width(),
+                                          (cursorOn && (r->line == cursor.line)) ? cursor.col : -1, b, true,
+                                          myView->myDoc->_configFlags & KateDocument::cfShowTabs, KateDocument::ViewFont, again && (r->line == cursor.line));
 
         bitBlt(this, 0, (line-startLine)*h, drawBuffer, 0, 0, this->width(), h);
 
         leftBorder->paintLine(line,line);
+        
+        if (r->line == cursor.line)
+          again = false;
       }
 
       r++;
@@ -1416,16 +1423,24 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
   int disppos=line-startLine;
 
   bool isVisible=false;
+  bool again = true;
   while (y < yEnd)
   {
     if (disppos >= lineRanges.size())
       break;
 
     int realLine;
-    isVisible=myDoc->paintTextLine(paint, lineRanges[disppos].line, lineRanges[disppos].startCol, lineRanges[disppos].endCol, 0, xStart, xEnd, -1, false, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
+    isVisible=myDoc->paintTextLine ( paint, lineRanges[disppos].line, lineRanges[disppos].startCol, lineRanges[disppos].endCol, 0,
+                                                     xStart, xEnd, -1, false, true, myView->myDoc->_configFlags & KateDocument::cfShowTabs,
+                                                     KateDocument::ViewFont, again && (lineRanges[disppos].line == cursor.line));
+
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
 
     leftBorder->paintLine(line,line);
+    
+    if (lineRanges[disppos].line == cursor.line)
+      again = false;
+
     disppos++;
     y += h;
     line++;

@@ -193,6 +193,7 @@ private:
 
   KColorButton *m_back;
   KColorButton *m_selected;
+  KColorButton *m_current;
 
   public slots:
     void apply ();

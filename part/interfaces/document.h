@@ -82,7 +82,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::SelectionInterface, public KTextEditor::SearchInterface,
                      public KTextEditor::HighlightingInterface, public KTextEditor::BlockSelectionInterface,
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
-                     public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface
+                     public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface,
+                     public KTextEditor::MarkInterfaceExtension
 /*GRRR !!! Never do that again. Declaring interfaces within interfaces, where it is not really necessary.
 	The above inheritage just makes it completely impossible to enhance the ktexteditor interface in a decent way*/
 

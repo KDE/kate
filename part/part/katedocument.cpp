@@ -274,7 +274,7 @@ void KateUndoGroup::addItem (KateUndo *undo)
 KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOnly,
                                            QWidget *parentWidget, const char *widgetName,
                                            QObject *, const char *)
-  : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ()),MarkInterfaceExtension()
+  : Kate::Document (), viewFont(), printFont(),hlManager(HlManager::self ())
 {
   setMarksUserChangable(markType01);
   regionTree=new KateCodeFoldingTree(this);
@@ -353,6 +353,7 @@ KateDocument::KateDocument(bool bSingleViewMode, bool bBrowserView, bool bReadOn
 
   colors[0] = KGlobalSettings::baseColor();
   colors[1] = KGlobalSettings::highlightColor();
+  colors[2] = KGlobalSettings::baseColor();  // out of order alternateBackgroundColor();
 
   m_highlight = 0L;
   tabChars = 8;
@@ -1728,6 +1729,7 @@ void KateDocument::readConfig(KConfig *config)
 
   colors[0] = config->readColorEntry("Color Background", &colors[0]);
   colors[1] = config->readColorEntry("Color Selected", &colors[1]);
+  colors[2] = config->readColorEntry("Color Current Line", &colors[2]);
 
   if (myWordWrap)
   {
@@ -1756,6 +1758,7 @@ void KateDocument::writeConfig(KConfig *config)
   config->writeEntry("PrintFont", printFont.myFont);
   config->writeEntry("Color Background", colors[0]);
   config->writeEntry("Color Selected", colors[1]);
+  config->writeEntry("Color Current Line", colors[2]);
 }
 
 void KateDocument::readConfig()
@@ -3591,7 +3594,9 @@ bool KateDocument::lineHasSelected (int line)
   return false;
 }
 
-bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, int showCursor, bool replaceCursor, bool showSelections, bool showTabs, WhichFont wf)
+bool KateDocument::paintTextLine( QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd,
+                                                 int showCursor, bool replaceCursor, bool showSelections, bool showTabs,
+                                                 WhichFont wf, bool currentLine)
 {
   // font data
   FontStruct *fs = (wf==ViewFont)?&viewFont:&printFont;
@@ -3641,6 +3646,8 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int e
     startSel = 0;
     endSel = len + 1;
   }
+  else if (currentLine)
+    paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[2]);
   else
     paint.fillRect(0, y, xEnd - xStart, fs->fontHeight, colors[0]);
 

@@ -143,7 +143,7 @@ class KateCursor : public Kate::Cursor
 //
 // Kate KTextEditor::Document class (and even KTextEditor::Editor ;)
 //
-class KateDocument : public Kate::Document, public KTextEditor::MarkInterfaceExtension
+class KateDocument : public Kate::Document
 {
   Q_OBJECT
   friend class KateConfigDialog;
@@ -429,7 +429,7 @@ class KateDocument : public Kate::Document, public KTextEditor::MarkInterfaceExt
     // ultimate paintLine function (supports startcol/endcol, startx/endx, draw of cursor, tabs + selections)
     bool paintTextLine ( QPainter &, uint line, int startcol, int endcol, int y,
                                 int xStart, int xEnd, int showCursor, bool replaceCursor,
-                                bool showSelections, bool showTabs,WhichFont wf=ViewFont);
+                                bool showSelections, bool showTabs,WhichFont wf=ViewFont, bool currentLine = false);
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
     uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
@@ -749,7 +749,7 @@ class KateDocument : public Kate::Document, public KTextEditor::MarkInterfaceExt
     // folding tree
     KateCodeFoldingTree *regionTree;
 
-    QColor colors[2];
+    QColor colors[3];
     class HlManager *hlManager;
     class Highlight *m_highlight;
     uint m_highlightedTill;

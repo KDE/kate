@@ -388,12 +388,22 @@ void KateViewInternal::scrollPos(KateTextCursor& c, bool force)
 
     Q_ASSERT(lines >= 0);
 
-    if (QABS(viewLinesScrolled) < lines) {
-      //KApplication::kApplication()->processEvents();
+    if (QABS(viewLinesScrolled) < lines)
+    {
       updateView(false, viewLinesScrolled);
+
       int scrollHeight = -(viewLinesScrolled * m_view->renderer()->fontHeight());
+      int scrollbarWidth = style().scrollBarExtent().width();
+
+      //
+      // repaints are for working around the scrollbar leaving blocks in the view
+      //
       scroll(0, scrollHeight);
+      repaint (0, height()+scrollHeight-scrollbarWidth, width(), 2*scrollbarWidth);
+
       leftBorder->scroll(0, scrollHeight);
+      leftBorder->repaint (0, leftBorder->height()+scrollHeight-scrollbarWidth, leftBorder->width(), 2*scrollbarWidth);
+
       return;
     }
   }

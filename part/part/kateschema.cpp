@@ -27,7 +27,7 @@
 #include "katerenderer.h"
 
 #include <klocale.h>
-#include <kdialog.h>
+#include <kdialogbase.h>
 #include <kcolorbutton.h>
 #include <kcombobox.h>
 #include <kinputdialog.h>
@@ -65,7 +65,7 @@
 #include <qwhatsthis.h>
 //END
 
-//BEGIN KateStyleListView decl
+//BEGIN KateStyleListViewItem decl
 /*
     QListViewItem subclass to display/edit a style, bold/italic is check boxes,
     normal and selected colors are boxes, which will display a color chooser when
@@ -95,6 +95,10 @@ class KateStyleListItem : public QListViewItem
     void activate( int column, const QPoint &localPos );
     /* For bool fields, toggles them, for color fields, display a color chooser */
     void changeProperty( Property p );
+    /** unset a color.
+     * c is 100 (BGColor) or 101 (SelectedBGColor) for now.
+     */
+    void unsetColor( int c );
     /* style context name */
     QString contextName() { return text(0); };
     /* only true for a hl mode item using it's default style */
@@ -451,6 +455,16 @@ void KateSchemaConfigFontColorTab::schemaChanged (uint schema)
     m_defaultStyles->insertItem( new KateStyleListItem( m_defaultStyles, KateHlManager::self()->defaultStyleName(i),
                               l->at( i ) ) );
   }
+
+  QWhatsThis::add( m_defaultStyles,  i18n(
+    "This list displays the default styles for the current schema and "
+    "offers the means to edit them. The style name reflects the current "
+    "style settings.<p>To edit using the keyboard, press "
+    "<strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu."
+    "<p>To edit the colors, click the colored squares, or select the color "
+    "to edit from the popup menu.<p>You can unset the Background and Selected "
+    "Background colors from the context menu when appropriate.") );
+
 }
 
 void KateSchemaConfigFontColorTab::reload ()
@@ -506,7 +520,14 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab( QWidget *parent, con
   hlCombo->setCurrentItem ( 0 );
   hlChanged ( 0 );
 
-  QWhatsThis::add( m_styles,  i18n("This list displays the contexts of the current syntax highlight mode and offers the means to edit them. The context name reflects the current style settings.<p>To edit using the keyboard, press <strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu.<p>To edit the colors, click the colored squares, or select the color to edit from the popup menu.") );
+  QWhatsThis::add( m_styles,  i18n(
+    "This list displays the contexts of the current syntax highlight mode and "
+    "offers the means to edit them. The context name reflects the current "
+    "style settings.<p>To edit using the keyboard, press "
+    "<strong>&lt;SPACE&gt;</strong> and choose a property from the popup menu."
+    "<p>To edit the colors, click the colored squares, or select the color "
+    "to edit from the popup menu.<p>You can unset the Background and Selected "
+    "Background colors from the context menu when appropriate.") );
 
   connect (m_styles, SIGNAL (changed()), parent->parentWidget(), SLOT (slotChanged()));
 }
@@ -864,15 +885,45 @@ void KateStyleListView::showPopupMenu( KateStyleListItem *i, const QPoint &globa
   cl.fill( i->style()->textColor() );
   QPixmap scl(16,16);
   scl.fill( i->style()->selectedTextColor() );
+  QPixmap bgcl(16,16);
+  bgcl.fill( i->style()->itemSet(KateAttribute::BGColor) ? i->style()->bgColor() : viewport()->colorGroup().base() );
+  QPixmap sbgcl(16,16);
+  sbgcl.fill( i->style()->itemSet(KateAttribute::SelectedBGColor) ? i->style()->selectedBGColor() : viewport()->colorGroup().base() );
+
   if ( showtitle )
     m.insertTitle( i->contextName(), KateStyleListItem::ContextName );
   id = m.insertItem( i18n("&Bold"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Bold );
   m.setItemChecked( id, is->bold() );
   id = m.insertItem( i18n("&Italic"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Italic );
   m.setItemChecked( id, is->italic() );
+  id = m.insertItem( i18n("&Underline"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Underline );
+  m.setItemChecked( id, is->underline() );
+  id = m.insertItem( i18n("S&trikeout"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Strikeout );
+  m.setItemChecked( id, is->strikeOut() );
+
+  m.insertSeparator();
+
   m.insertItem( QIconSet(cl), i18n("Normal &Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::Color );
   m.insertItem( QIconSet(scl), i18n("&Selected Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelColor );
-  if ( ! i->isDefault() ) {
+  m.insertItem( QIconSet(bgcl), i18n("&Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::BgColor );
+  m.insertItem( QIconSet(sbgcl), i18n("S&elected Background Color..."), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::SelBgColor );
+
+  // Unset [some] colors. I could show one only if that button was clicked, but that
+  // would disable setting this with the keyboard (how many aren't doing just
+  // that every day? ;)
+  // ANY ideas for doing this in a nicer way will be warmly wellcomed.
+  KateAttribute *style = i->style();
+  if ( style->itemSet( KateAttribute::BGColor) || style->itemSet( KateAttribute::SelectedBGColor ) )
+  {
+    m.insertSeparator();
+    if ( style->itemSet( KateAttribute::BGColor) )
+      m.insertItem( i18n("Unset Background Color"), this, SLOT(unsetColor(int)), 0, 100 );
+    if ( style->itemSet( KateAttribute::SelectedBGColor ) )
+      m.insertItem( i18n("Unset Selected Background Color"), this, SLOT(unsetColor(int)), 0, 101 );
+  }
+
+  if ( ! i->isDefault() && ! i->defStyle() ) {
+    m.insertSeparator();
     id = m.insertItem( i18n("Use &Default Style"), this, SLOT(mSlotPopupHandler(int)), 0, KateStyleListItem::UseDefStyle );
     m.setItemChecked( id, i->defStyle() );
   }
@@ -887,6 +938,11 @@ void KateStyleListView::showPopupMenu( QListViewItem *i )
 void KateStyleListView::mSlotPopupHandler( int z )
 {
   ((KateStyleListItem*)currentItem())->changeProperty( (KateStyleListItem::Property)z );
+}
+
+void KateStyleListView::unsetColor( int c )
+{
+  ((KateStyleListItem*)currentItem())->unsetColor( c );
 }
 
 // Because QListViewItem::activatePos() is going to become deprecated,
@@ -992,7 +1048,7 @@ void KateStyleListItem::updateStyle()
 }
 
 /* only true for a hl mode item using it's default style */
-bool KateStyleListItem::defStyle() { return st && st->isSomethingSet(); }
+bool KateStyleListItem::defStyle() { return st && st->itemsSet() != ds->itemsSet(); }
 
 /* true for default styles */
 bool KateStyleListItem::isDefault() { return st ? false : true; }
@@ -1084,22 +1140,93 @@ void KateStyleListItem::toggleDefStyle()
 
 void KateStyleListItem::setColor( int column )
 {
-  QColor c;
-  if ( column == Color) c = is->textColor();
-  else if ( column == SelColor ) c = is->selectedTextColor();
-  else if ( column == BgColor ) c = is->bgColor();
-  else if ( column == SelBgColor ) c = is->selectedBGColor();
+  QColor c; // use this
+  QColor d; // default color
+  if ( column == Color)
+  {
+    c = is->textColor();
+    d = ds->textColor();
+  }
+  else if ( column == SelColor )
+  {
+    c = is->selectedTextColor();
+    d = is->selectedTextColor();
+  }
+  else if ( column == BgColor )
+  {
+    c = is->bgColor();
+    d = ds->bgColor();
+  }
+  else if ( column == SelBgColor )
+  {
+    c = is->selectedBGColor();
+    d = ds->selectedBGColor();
+  }
 
-  if ( KColorDialog::getColor( c, listView() ) != QDialog::Accepted) return;
+  if ( KColorDialog::getColor( c, d, listView() ) != QDialog::Accepted) return;
 
-  //if (st && st->isSomethingSet()) setCustStyle();
+  bool def = ! c.isValid();
 
-  if ( column == Color) is->setTextColor( c );
-  else if ( column == SelColor ) is->setSelectedTextColor( c );
-  else if ( column == BgColor ) is->setBGColor( c );
-  else if ( column == SelBgColor ) is->setSelectedBGColor( c );
+  // if set default, and the attrib is set in the default style use it
+  // else if set default, unset it
+  // else set the selected color
+  switch (column)
+  {
+    case Color:
+      if ( def )
+      {
+        if ( ds->itemSet(KateAttribute::TextColor) )
+          is->setTextColor( ds->textColor());
+        else
+          is->clearAttribute(KateAttribute::TextColor);
+      }
+      else
+        is->setTextColor( c );
+    break;
+    case SelColor:
+      if ( def )
+      {
+        if ( ds->itemSet(KateAttribute::SelectedTextColor) )
+          is->setSelectedTextColor( ds->selectedTextColor());
+        else
+          is->clearAttribute(KateAttribute::SelectedTextColor);
+      }
+      else
+        is->setSelectedTextColor( c );
+    break;
+    case BgColor:
+      if ( def )
+      {
+        if ( ds->itemSet(KateAttribute::BGColor) )
+          is->setBGColor( ds->bgColor());
+        else
+          is->clearAttribute(KateAttribute::BGColor);
+      }
+      else
+        is->setBGColor( c );
+    break;
+    case SelBgColor:
+      if ( def )
+      {
+        if ( ds->itemSet(KateAttribute::SelectedBGColor) )
+          is->setSelectedBGColor( ds->selectedBGColor());
+        else
+          is->clearAttribute(KateAttribute::SelectedBGColor);
+      }
+      else
+        is->setSelectedBGColor( c );
+    break;
+  }
 
   repaint();
+}
+
+void KateStyleListItem::unsetColor( int c )
+{
+  if ( c == 100 && is->itemSet(KateAttribute::BGColor) )
+    is->clearAttribute(KateAttribute::BGColor);
+  else if ( c == 101 && is->itemSet(KateAttribute::SelectedBGColor) )
+    is->clearAttribute(KateAttribute::SelectedBGColor);
 }
 
 void KateStyleListItem::setCustStyle()
@@ -1138,9 +1265,9 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
       mcg.setColor(QColorGroup::HighlightedText, is->selectedTextColor());
       // text background color
       c = is->bgColor();
-      if ( c.isValid() )
+      if ( c.isValid() && is->itemSet(KateAttribute::BGColor) )
         mcg.setColor( QColorGroup::Base, c );
-      if ( isSelected() )
+      if ( isSelected() && is->itemSet(KateAttribute::SelectedBGColor) )
       {
         c = is->selectedBGColor();
         if ( c.isValid() )
@@ -1213,10 +1340,28 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
     case BgColor:
     case SelBgColor:
     {
-      if ( col == Color) c = is->textColor();
-      else if ( col == SelColor ) c = is->selectedTextColor();
-      else if ( col == BgColor ) c = is->itemSet(KateAttribute::BGColor) ? is->bgColor() : mcg.base();
-      else if ( col == SelBgColor ) c = is->itemSet(KateAttribute::SelectedBGColor) ? is->selectedBGColor(): mcg.base();
+      bool set( false );
+      if ( col == Color)
+      {
+        c = is->textColor();
+        set = is->itemSet(KateAttribute::TextColor);
+      }
+      else if ( col == SelColor )
+      {
+        c = is->selectedTextColor();
+        set = is->itemSet( KateAttribute::SelectedTextColor);
+      }
+      else if ( col == BgColor )
+      {
+        set = is->itemSet(KateAttribute::BGColor);
+        c = set ? is->bgColor() : mcg.base();
+      }
+      else if ( col == SelBgColor )
+      {
+        set = is->itemSet(KateAttribute::SelectedBGColor);
+        c = set ? is->selectedBGColor(): mcg.base();
+      }
+
       // color "buttons"
       int x = 0;
       int y = (height() - BoxSize) / 2;
@@ -1227,6 +1372,9 @@ void KateStyleListItem::paintCell( QPainter *p, const QColorGroup& /*cg*/, int c
 
       p->drawRect( x+marg, y+2, ColorBtnWidth-4, BoxSize-4 );
       p->fillRect( x+marg+1,y+3,ColorBtnWidth-7,BoxSize-7,QBrush( c ) );
+      // if this item is unset, draw a diagonal line over the button
+      if ( ! set )
+        p->drawLine( x+marg, BoxSize-2, ColorBtnWidth-4, y+2 );
     }
     //case default: // no warning...
   }

@@ -1,7 +1,7 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2001-2003 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002, 2003 Anders Lund <anders.lund@lund.tdcadsl.dk>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -56,7 +56,7 @@ class KateSchemaManager
     void addSchema (const QString &t);
 
     void removeSchema (uint number);
-    
+
     /**
      * is this schema valid ? (does it exist ?)
      */
@@ -76,7 +76,7 @@ class KateSchemaManager
      * Don't modify, list with the names of the schemas (i18n name for the default ones)
      */
     const QStringList &list () { return m_schemas; }
-    
+
     static QString normalSchema ();
     static QString printingSchema ();
 
@@ -124,9 +124,9 @@ class KateViewSchemaAction : public KActionMenu
 class KateStyleListView : public QListView
 {
   Q_OBJECT
-  
+
   friend class KateStyleListItem;
-  
+
   public:
     KateStyleListView( QWidget *parent=0, bool showUseDefaults=false);
     ~KateStyleListView() {};
@@ -134,11 +134,11 @@ class KateStyleListView : public QListView
        promoting the context name of that item */
     void showPopupMenu( KateStyleListItem *i, const QPoint &globalPos, bool showtitle=false );
     void emitChanged() { emit changed(); };
-    
+
     void setBgCol( const QColor &c ) { bgcol = c; }
     void setSelCol( const QColor &c ) { selcol = c; }
     void setNormalCol( const QColor &c ) { normalcol = c; }
-    
+
   private slots:
     /* Display a popupmenu for item i at item position */
     void showPopupMenu( QListViewItem *i );
@@ -146,10 +146,11 @@ class KateStyleListView : public QListView
     void slotMousePressed( int, QListViewItem*, const QPoint&, int );
     /* asks item to change the property in q */
     void mSlotPopupHandler( int z );
-  
+    void unsetColor( int );
+
   signals:
     void changed();
-  
+
   private:
     QColor bgcol, selcol, normalcol;
     QFont docfont;
@@ -209,7 +210,7 @@ class KateSchemaConfigFontColorTab : public QWidget
     void schemaChanged (uint schema);
     void reload ();
     void apply ();
-    
+
     KateAttributeList *attributeList (uint schema);
 
   private:
@@ -229,19 +230,19 @@ class KateSchemaConfigHighlightTab : public QWidget
     void schemaChanged (uint schema);
     void reload ();
     void apply ();
-    
+
   protected slots:
     void hlChanged(int z);
 
   private:
     KateSchemaConfigFontColorTab *m_defaults;
-  
+
     QComboBox *hlCombo;
     KateStyleListView *m_styles;
-    
+
     uint m_schema;
     int m_hl;
-    
+
     QIntDict< QIntDict<KateHlItemDataList> > m_hlDict;
 };
 
@@ -264,7 +265,7 @@ class KateSchemaConfigPage : public KateConfigPage
     void deleteSchema ();
     void newSchema ();
     void schemaChanged (int schema);
-    
+
     void newCurrentPage (QWidget *w);
 
   private:

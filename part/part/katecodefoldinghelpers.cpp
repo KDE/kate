@@ -258,7 +258,7 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
   }
   else
   {
-    for (int i=0;i<regionChanges->size() / 2;i++) {
+    for (unsigned int i=0;i<regionChanges->size() / 2;i++) {
         signed char tmp=(*regionChanges)[regionChanges->size()-1-i];
         (*regionChanges)[regionChanges->size()-1-i]=(*regionChanges)[i];
         (*regionChanges)[i]=tmp;
@@ -1005,7 +1005,7 @@ void KateCodeFoldingTree::addNodeToRemoveList(KateCodeFoldingNode *node,unsigned
   if ((startLine+node->endLineRel==line) || ((node->endLineValid==false) && (node->deleteOpening)))
   {
     int myPos=node->parentNode->childnodes()->find(node); // this has to be implemented nicely
-    if (node->parentNode->childnodes()->count()>myPos+1)
+    if ((int)node->parentNode->childnodes()->count()>myPos+1)
 		 addNodeToRemoveList(node->parentNode->childnodes()->at(myPos+1),line);
     add=true;
     node->deleteEnding = true;

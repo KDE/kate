@@ -20,16 +20,19 @@
 #ifndef _KATE_SYNTAXDOCUMENT_H_
 #define _KATE_SYNTAXDOCUMENT_H_
 
+//BEGING INCLUDES
 #include "kateglobal.h"
 
 #include <qdom.h>
 #include <qptrlist.h>
 #include <qstringlist.h>
+//END INCLUDES
 
 class QStringList;
 
-class syntaxModeListItem
-{
+/** Information about each syntax hl Mode 
+Pupeno */
+class syntaxModeListItem{
   public:
     QString name;
     QString section;
@@ -39,8 +42,8 @@ class syntaxModeListItem
     QString version;
 };
 
-class syntaxContextData
-{
+
+class syntaxContextData{
   public:
     QDomElement parent;
     QDomElement currentGroup;
@@ -49,13 +52,23 @@ class syntaxContextData
 
 typedef QPtrList<syntaxModeListItem> SyntaxModeList;
 
-class SyntaxDocument : public QDomDocument
-{
+/** Store and manage the information about Syntax Highlighting.
+Pupeno */
+class SyntaxDocument : public QDomDocument{
   public:
+    /** Constructor
+        Sets the current file to nothing and build the ModeList (katesyntaxhighlightingrc)
+    Pupeno */
     SyntaxDocument();
+    
+    /** Desctructor
+    Pupeno */
     ~SyntaxDocument();
 
     QStringList& finddata(const QString& mainGroup,const QString& type,bool clearList=true);
+    
+    /** Get the mode list
+    Pupeno */
     SyntaxModeList modeList();
 
     syntaxContextData* getGroupInfo(const QString& langName, const QString &group);
@@ -66,11 +79,22 @@ class SyntaxDocument : public QDomDocument
     syntaxContextData* getSubItems(syntaxContextData* data);
     QString groupItemData(const syntaxContextData* data,const QString& name);
     QString groupData(const syntaxContextData* data,const QString& name);
+    
+    /** If the open hl file is different from the one needed, it opens
+        the new one and assign some other things.
+         identifier = File name and path of the new xml needed
+    Pupeno */
     void setIdentifier(const QString& identifier);
 
   private:
-     void setupModeList(bool force=false);
-     QString currentFile;
+    /** Generate the list of hl modes, store them in myModeList
+        force: if true forces to rebuild the Mode List from the xml files (instead of katesyntax...rc)
+    Pupeno */
+    void setupModeList(bool force=false);
+    QString currentFile;
+    
+    /** List of mode items 
+    Pupeno */
     SyntaxModeList myModeList;
     QStringList m_data;
 };

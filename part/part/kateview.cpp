@@ -123,6 +123,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   slotNewUndo();
   
   m_viewInternal->show ();
+  /*test texthint
+  connect(this,SIGNAL(needTextHint(int, int, QString &)),
+	this,SLOT(slotNeedTextHint(int, int, QString &)));
+  enableTextHints(1000);
+  test texthint*/
 }
 
 KateView::~KateView()
@@ -924,4 +929,19 @@ void KateView::updateViewDefaults ()
 void KateView::toggleWriteLock()
 {
   m_doc->setReadWrite( ! m_doc->isReadWrite() );
+}
+
+void KateView::enableTextHints(int timeout)
+{
+  m_viewInternal->enableTextHints(timeout);	
+}
+
+void KateView::disableTextHints()
+{
+  m_viewInternal->disableTextHints();
+}
+
+void KateView::slotNeedTextHint(int line, int col, QString &text)
+{
+	text=QString("test %1 %2").arg(line).arg(col);
 }

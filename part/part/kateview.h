@@ -31,6 +31,7 @@
 
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/viewstatusmsginterface.h>
+#include <ktexteditor/texthintinterface.h>
 #include <ktexteditor/plugin.h>
 
 #include <qlayout.h>
@@ -42,12 +43,14 @@ class KSelectAction;
 class KateDocument;
 class KateBookmarks;
 
+
 //
 // Kate KTextEditor::View class ;)
 //
 class KateView : public Kate::View,
                  public KTextEditor::SessionConfigInterface,
-                 public KTextEditor::ViewStatusMsgInterface
+                 public KTextEditor::ViewStatusMsgInterface,
+                 public KTextEditor::TextHintInterface
 {
     Q_OBJECT
     friend class KateViewInternal;
@@ -120,6 +123,16 @@ class KateView : public Kate::View,
     void argHintHidden();
     void completionDone(KTextEditor::CompletionEntry);
     void filterInsertString(KTextEditor::CompletionEntry*,QString *);
+
+  //
+  // KTextEditor::TextHintInterface
+  //
+  public:
+	virtual void enableTextHints(int timeout);
+        virtual void disableTextHints();
+	
+  signals:
+        virtual void needTextHint(int line, int col, QString &text);
 
   //
   // KTextEditor::DynWordWrapInterface
@@ -320,6 +333,9 @@ class KateView : public Kate::View,
 
     bool       m_active;
     bool       m_hasWrap;
+
+    private slots:
+        void slotNeedTextHint(int line, int col, QString &text);
 };
 
 #endif

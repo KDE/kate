@@ -67,6 +67,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   , m_cachedMaxStartPos(-1, -1)
   , m_dragScrollTimer(this)
   , m_suppressColumnScrollBar(false)
+  , m_textHintEnabled(false)
+  , m_textHintMouseX(-1)
+  , m_textHintMouseY(-1)
 {
   setMinimumSize (0,0);
   
@@ -155,6 +158,8 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   cursorOn = true;
   cursorTimer = 0;
   cXPos = 0;         
+
+  m_textHintTimer=0;
 
   possibleTripleClick = false;
   
@@ -2216,6 +2221,16 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     
     placeCursor( QPoint( mouseX, mouseY ), true );
   }
+  else
+  {
+    if (m_textHintEnabled)
+    {
+       if (m_textHintTimer) killTimer(m_textHintTimer);
+       m_textHintTimer=startTimer(m_textHintTimeout);
+       m_textHintMouseX=e->x();
+       m_textHintMouseY=e->y();
+    }
+  }
 }
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
@@ -2288,11 +2303,28 @@ void KateViewInternal::timerEvent( QTimerEvent* e )
     placeCursor( QPoint( mouseX, mouseY ), true );
     //kdDebug()<<"scroll timer: X: "<<mouseX<<" Y: "<<mouseY<<endl;
   }
+  else if ((e->timerId() == m_textHintTimer) && m_textHintEnabled) //the m_textHintEnabled shouldn't be needed
+  {
+      killTimer(m_textHintTimer);
+      m_textHintTimer=0;
+
+      LineRange thisRange = yToLineRange(m_textHintMouseY);
+      if (thisRange.line == -1) return;
+      if (m_textHintMouseX> (lineMaxCursorX(thisRange) - thisRange.startX)) return;
+      int realLine = thisRange.line;
+      int startCol = thisRange.startCol;
+      KateTextCursor c(realLine, 0);
+      m_doc->textWidth( c, startX() + m_textHintMouseX,  KateDocument::ViewFont, startCol);
+      QString tmp;
+      emit m_view->needTextHint(c.line, c.col, tmp);
+      if (!tmp.isEmpty()) kdDebug()<<"Hint text: "<<tmp<<endl;
+  }
 }
 
 void KateViewInternal::focusInEvent (QFocusEvent *)
 {
   cursorTimer = startTimer( KApplication::cursorFlashTime() / 2 );
+  if ((m_textHintTimer==0) && m_textHintEnabled) m_textHintTimer = startTimer( m_textHintTimeout );
   paintCursor();
   emit m_view->gotFocus( m_view );
 }
@@ -2308,6 +2340,11 @@ void KateViewInternal::focusOutEvent (QFocusEvent *)
     }
     paintCursor();
     emit m_view->lostFocus( m_view );
+  }
+  if (m_textHintTimer)
+  {
+	killTimer(m_textHintTimer);
+	m_textHintTimer=0;
   }
 }
 
@@ -2564,4 +2601,21 @@ void KateViewInternal::doDragScroll()
     scrollColumns(m_startX + dx);
   if (!dy && !dx)
     stopDragScroll();
+}
+
+void KateViewInternal::enableTextHints(int timeout)
+{
+	m_textHintTimeout=timeout;
+	m_textHintEnabled=true;
+	if (!m_textHintTimer) m_textHintTimer=startTimer(timeout);
+}
+
+void KateViewInternal::disableTextHints()
+{
+	m_textHintEnabled=false;
+	if (m_textHintTimer)
+	{
+		killTimer(m_textHintTimer);
+		m_textHintTimer=0;
+	}
 }

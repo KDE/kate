@@ -333,6 +333,17 @@ class KateViewInternal : public QWidget
     
     // needed to stop the column scroll bar from hiding / unhiding during a dragScroll.
     bool m_suppressColumnScrollBar;
+
+  //TextHint
+ public:
+   void enableTextHints(int timeout);
+   void disableTextHints();
+ private:
+   int m_textHintTimer;
+   bool m_textHintEnabled;
+   int m_textHintTimeout;
+   int m_textHintMouseX;
+   int m_textHintMouseY;
 };
 
 #endif

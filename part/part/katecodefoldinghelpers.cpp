@@ -212,10 +212,8 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
 #endif
 		if (((regionChanges[i])>0) && ((regionChanges[i])==-(regionChanges[i-1])))
 		{
-    for (uint z4=i-1; z4 < regionChanges.size(); z4++)
-      {
-        if ((z4 +2) < regionChanges.size())  regionChanges[z4+2] = regionChanges[z4];
-      }
+    for (uint z4=i-1; (z4+2) < regionChanges.size(); z4++)
+        regionChanges[z4] = regionChanges[z4+2];
 
       regionChanges.resize (regionChanges.size()-2);
 		}

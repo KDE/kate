@@ -1003,7 +1003,8 @@ KateBufBlock::flushStringList()
    {
       uint l = (*it)->text.size();
       uint lctx = (*it)->ctx.size();
-      size += (2*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + 1+ (lctx * sizeof(signed char));
+      uint lfold = (*it)->foldingList.size();
+      size += (3*sizeof(uint)) + (l*sizeof(QChar)) + l + 1 + 1+ 1 + (lctx * sizeof(signed char)) + (lfold * sizeof(signed char));
       //size += sizeof(uint) + l*sizeof(QChar);
    }
    //kdDebug(13020)<<"Size = "<< size<<endl;
@@ -1018,11 +1019,15 @@ KateBufBlock::flushStringList()
       TextLine *tl = (*it).data();
       uint l = tl->text.size();
       uint lctx = tl->ctx.size();
+      uint lfold = tl->foldingList.size();
 
        memcpy(buf, &l, sizeof(uint));
        buf += sizeof(uint);
 
       memcpy(buf, &lctx, sizeof(uint));
+      buf += sizeof(uint);
+      
+      memcpy(buf, &lfold, sizeof(uint));
       buf += sizeof(uint);
 
       memcpy(buf, (char *) tl->text.data(), sizeof(QChar)*l);
@@ -1034,15 +1039,25 @@ KateBufBlock::flushStringList()
       memcpy(buf, (char *)&tl->attr, 1);
       buf += 1;
 
-      uchar tmp = 0;
+      uchar tmp1 = 0;
       if (tl->hlContinue)
-        tmp = 1;
+        tmp1 = 1;
 
-      memcpy(buf, (char *)&tmp, 1);
+      memcpy(buf, (char *)&tmp1, 1);
+      buf += 1;
+
+      uchar tmp2 = 0;
+      if (tl->m_visible)
+        tmp2 = 1;
+
+      memcpy(buf, (char *)&tmp2, 1);
       buf += 1;
 
       memcpy(buf, (signed char *)tl->ctx.data(), lctx);
       buf += sizeof (signed char) * lctx;
+      
+      memcpy(buf, (signed char *)tl->foldingList.data(), lfold);
+      buf += sizeof (signed char) * lfold;
    }
    assert(buf-m_rawData2.data() == (int)size);
    m_codec = 0; // No codec
@@ -1064,11 +1079,14 @@ KateBufBlock::buildStringListFast()
   {
     uint l = 0;
     uint lctx = 0;
+    uint lfold = 0;
 
     // text + context length read
     memcpy((char *) &l, buf, sizeof(uint));
     buf += sizeof(uint);
     memcpy((char *) &lctx, buf, sizeof(uint));
+    buf += sizeof(uint);
+    memcpy((char *) &lfold, buf, sizeof(uint));
     buf += sizeof(uint);
 
     TextLine::Ptr textLine = new TextLine();
@@ -1084,15 +1102,25 @@ KateBufBlock::buildStringListFast()
     buf += sizeof(uchar);
     textLine->attr = a;
 
-    uchar tmp = 0;
-    memcpy((char *)&tmp, buf, sizeof(uchar));
+    uchar tmp1 = 0;
+    memcpy((char *)&tmp1, buf, sizeof(uchar));
     buf += sizeof(uchar);
 
-    if (tmp == 1)
+    if (tmp1 == 1)
       textLine->hlContinue = true;
+      
+    uchar tmp2 = 0;
+    memcpy((char *)&tmp2, buf, sizeof(uchar));
+    buf += sizeof(uchar);
+
+    if (tmp2 == 1)
+      textLine->m_visible = true;
 
     textLine->ctx.duplicate ((signed char *) buf, lctx);
     buf += lctx;
+    
+    textLine->foldingList.duplicate ((signed char *) buf, lfold);
+    buf += lfold;
 
     m_stringList.push_back (textLine);
   }

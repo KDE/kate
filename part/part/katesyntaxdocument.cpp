@@ -308,14 +308,17 @@ QStringList& SyntaxDocument::finddata(const QString& mainGroup, const QString& t
           QDomNodeList childlist=n.childNodes();
 
           for (uint i=0; i<childlist.count();i++){
+            QString elem = childlist.item(i).toElement().text().stripWhiteSpace();
+            if (elem.isEmpty())
+              continue;
 #ifndef NDEBUG
             if (i<6){
-              kdDebug(13010)<<"\""<<childlist.item(i).toElement().text().stripWhiteSpace()<<"\" added to the list \""<<type<<"\""<<endl;
+              kdDebug(13010)<<"\""<<elem<<"\" added to the list \""<<type<<"\""<<endl;
             } else if(i==6){
               kdDebug(13010)<<"... The list continues ..."<<endl;
             }
 #endif
-            m_data+=childlist.item(i).toElement().text().stripWhiteSpace();
+            m_data+=elem;
           }
 
           break;

@@ -2011,7 +2011,7 @@ bool KateDocument::printDialog ()
      QColor headerFgColor(printer.option("app-kate-headerfg"));
      uint headerHeight( 0 ); // further init only if needed
      QStringList headerTagList; // do
-     bool headerDrawBg; // do
+     bool headerDrawBg = false; // do
 
      bool useFooter = (printer.option("app-kate-usefooter") == "true");
      QColor footerBgColor(printer.option("app-kate-footerbg"));
@@ -2259,7 +2259,7 @@ bool KateDocument::printDialog ()
            {
              _c++;
              _lt++;
-             if ( _lt  == _lpp )
+             if ( (int)_lt  == _lpp )
              {
                _pages++;
                _lt = 0;
@@ -2840,7 +2840,8 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint 
 
   *needWrap = false;
 
-  for (uint z = startcol; z < textLine->length(); z++)
+  uint z = startcol;
+  for (; z < textLine->length(); z++)
   {
     Attribute *a = attribute(textLine->attribute(z));
     int width = a->width(fs, textLine->getChar(z));
@@ -3090,10 +3091,10 @@ void KateDocument::newLine( KateTextCursor& c )
   if( configFlags() & cfDelOnInput && hasSelection() )
     removeSelectedText();
 
-  if (c.line > lastLine())
+  if (c.line > (int)lastLine())
    c.line = lastLine();
 
-  if (c.col > kateTextLine(c.line)->length())
+  if (c.col > (int)kateTextLine(c.line)->length())
     c.col = kateTextLine(c.line)->length();
 
   if (!(_configFlags & KateDocument::cfAutoIndent)) {
@@ -4017,6 +4018,12 @@ bool KateDocument::selectBounds(uint line, uint &start, uint &end, uint lineLeng
     end = selectEnd.col;
     hasSel = true;
   }
+  
+  if (start > end) {
+    int temp = end;
+    end = start;
+    start = temp;
+  }
 
   return hasSel;
 }
@@ -4082,9 +4089,9 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
   else if (!printerfriendly)
     paint.fillRect(xPos2, y, xEnd - xStart, fs.fontHeight, colors[0]);
 
-  if( !printerfriendly && bm.valid && (bm.startLine == line) && (bm.startCol >= startcol) && ((endcol == -1) || (bm.startCol < endcol)) )
+  if( !printerfriendly && bm.valid && (bm.startLine == line) && ((int)bm.startCol >= startcol) && ((endcol == -1) || ((int)bm.startCol < endcol)) )
     paint.fillRect( bm.startX - startXCol, y, bm.startW, fs.fontHeight, colors[3] );
-  if( !printerfriendly && bm.valid && (bm.endLine == line) && (bm.endCol >= startcol) && ((endcol == -1) || (bm.endCol < endcol)) )
+  if( !printerfriendly && bm.valid && (bm.endLine == line) && ((int)bm.endCol >= startcol) && ((endcol == -1) || ((int)bm.endCol < endcol)) )
     paint.fillRect( bm.endX - startXCol, y, bm.endW, fs.fontHeight, colors[3] );
 
   if (startcol > (int)len)
@@ -4168,8 +4175,7 @@ bool KateDocument::paintTextLine(QPainter &paint, const LineRange& range,
 
     if ((int)xPosAfter >= xStart)
     {
-      isSel = (showSelections && hasSel
-	       && (curCol >= startSel) && (curCol < endSel));
+      isSel = (showSelections && hasSel && (curCol >= startSel) && (curCol < endSel));
 
       curColor = isSel ? &(curAt->selCol) : &(curAt->col);
 
@@ -4382,7 +4388,7 @@ bool KateDocument::findMatchingBracket( KateTextCursor& start, KateTextCursor& e
     if( forward ) {
       end.col++;
       if( end.col >= lineLength( end.line ) ) {
-        if( end.line >= lastLine() )
+        if( end.line >= (int)lastLine() )
           return false;
         end.line++;
         end.col = 0;

@@ -55,6 +55,7 @@
 #include <qlayout.h>
 #include <kconfig.h>
 #include <kspell.h>
+#include <assert.h>
 
 #include <kmainwindow.h>
 #include <kaccel.h>
@@ -87,8 +88,7 @@ SearchDialog::SearchDialog( QWidget *parent, QStringList &searchFor, QStringList
   regexpLayout->addWidget( m_optRegExp );
 
   // Add the Edit button if KRegExp exists.
-  m_regExpDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );
-  if ( m_regExpDialog ) {
+  if ( !KTrader::self()->query("KRegExpEditor/KRegExpEditor").isEmpty() ) {
     QPushButton* regexpButton = new QPushButton( i18n("Edit"), page );
 
     regexpLayout->addWidget( regexpButton );
@@ -221,6 +221,11 @@ void SearchDialog::slotOk()
 
 void SearchDialog::slotEditRegExp()
 {
+  if ( m_regExpDialog == 0 )
+    m_regExpDialog = KParts::ComponentFactory::createInstanceFromQuery<QDialog>( "KRegExpEditor/KRegExpEditor", QString::null, this );
+
+  assert( m_regExpDialog );
+
   KRegExpEditorInterface *iface = dynamic_cast<KRegExpEditorInterface *>( m_regExpDialog );
   if (!iface)
     return;

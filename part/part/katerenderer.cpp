@@ -310,12 +310,14 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
 
   // draw word-wrap-honor-indent filling
   if (range->xOffset() && range->xOffset() > xStart)
-    paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight, QBrush(config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
+  {
+    paint.fillRect(0, 0, range->xOffset() - xStart, fs->fontHeight,
+      QBrush(config()->wordWrapMarkerColor(), QBrush::DiagCrossPattern));
+  }
+
+  int cursorXPos = 0;
 
   // Optimisation to quickly draw an empty line of text
-  int cursorXPos = 0;
-  int cursorXPos2 = 0;
-
   if (len < 1)
   {
     if ((showCursor > -1) && (showCursor >= (int)curCol))
@@ -358,10 +360,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     uint len = textLine->length();
     while (curCol < len)
     {
-      // Determine cursor position
-      if (showCursor > -1 && cursor->col() == (int)curCol)
-        cursorXPos2 = xPos;
-
       QChar curChar = textLine->string()[curCol];
       // Decide if this character is a tab - we treat the spacing differently
       // TODO: move tab width calculation elsewhere?
@@ -589,15 +587,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
   {
     uint cursorWidth = (caretStyle() == Replace && (cursorMaxWidth > 2)) ? cursorMaxWidth : 2;
     paint.fillRect(cursorXPos-xStart, 0, cursorWidth, fs->fontHeight, *cursorColor);
-  }
-  else if ((showCursor > -1) && (cursorXPos2 >= xStart) && (cursorXPos2 <= xEnd))
-  {
-    // Draw the cursor at the function user's specified position.
-    // TODO: Why?????
-    cursorMaxWidth = fs->myFontMetrics.width(spaceChar);
-
-    uint cursorWidth = (caretStyle() == Replace && (cursorMaxWidth > 2)) ? cursorMaxWidth : 2;
-    paint.fillRect(cursorXPos2-xStart, 0, cursorWidth, fs->fontHeight, attribute(0)->textColor());
   }
 
   // show word wrap marker if desirable

@@ -28,7 +28,6 @@
 
 KateCodeFoldingNode::KateCodeFoldingNode() :
     parentNode(0),
-    m_childnodes(0),
     startLineRel(0),
     endLineRel(0),
     startLineValid(false),
@@ -36,13 +35,13 @@ KateCodeFoldingNode::KateCodeFoldingNode() :
     type(0),
     visible(true),
     deleteOpening(false),
-    deleteEnding(false)
+    deleteEnding(false),
+    m_childnodes(0)
 {
 }//the endline fields should be initialised to not valid
 
 KateCodeFoldingNode::KateCodeFoldingNode(KateCodeFoldingNode *par, signed char typ, unsigned int sLRel):
     parentNode(par),
-    m_childnodes(0),
     startLineRel(sLRel),
     endLineRel(20000),
     startLineValid(true),
@@ -50,7 +49,8 @@ KateCodeFoldingNode::KateCodeFoldingNode(KateCodeFoldingNode *par, signed char t
     type(typ),
     visible(true),
     deleteOpening(false),
-    deleteEnding(false)
+    deleteEnding(false),
+    m_childnodes(0)
 {
 }//the endline fields should be initialised to not valid
 

@@ -2540,17 +2540,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     return;
   }
 
-  if (key == Qt::Key_Delete)
-  {
-    m_view->keyDelete();
-    e->accept();
-
-    if (codeComp)
-      m_view->m_codeCompletion->updateBox ();
-
-    return;
-  }
-
   if  (key == Qt::Key_Tab || key == SHIFT+Qt::Key_Backtab || key == Qt::Key_Backtab)
   {
     if (m_doc->invokeTabInterceptor(key)) {
@@ -3000,7 +2989,7 @@ void KateViewInternal::focusInEvent (QFocusEvent *)
 
   paintCursor();
 
-  m_doc->m_activeView = m_view;
+  m_doc->setActiveView( m_view );
 
   emit m_view->gotFocus( m_view );
 }

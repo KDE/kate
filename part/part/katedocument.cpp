@@ -1736,48 +1736,49 @@ void KateDocument::configDialog()
 
 uint KateDocument::mark( uint line )
 {
-  if( m_marks[line] )
-    return m_marks[line]->type;
-
-  return 0;
+  if( !m_marks[line] )
+    return 0;
+  return m_marks[line]->type;
 }
 
 void KateDocument::setMark( uint line, uint markType )
 {
-  if ((!restoreMarks) && (line > lastLine()))
-    return;
-
-  if( m_marks[line] ) {
-    m_marks[line]->type = markType;
-  } else {
-    KTextEditor::Mark *mark = new KTextEditor::Mark;
-    mark->line = line;
-    mark->type = markType;
-    m_marks.insert( line, mark );
-  }
-
-  emit marksChanged();
-  tagLines( line, line );
+  clearMark( line );
+  addMark( line, markType );
 }
 
 void KateDocument::clearMark( uint line )
 {
-  if (line > lastLine())
+  if( !restoreMarks && line > lastLine() )
     return;
-
-  if( m_marks.remove( line ) ) {
-    emit marksChanged();
-    tagLines( line, line );
-  }
+  if( !m_marks[line] )
+    return;
+ 
+  KTextEditor::Mark* mark = m_marks.take( line );
+  emit markChanged( *mark, MarkRemoved );
+  emit marksChanged();
+  delete mark;
+  tagLines( line, line );
 }
 
 void KateDocument::addMark( uint line, uint markType )
 {
-  if (line > lastLine())
+  if( !restoreMarks && line > lastLine())
     return;
-
+  if( markType == 0 )
+    return;
+  
   if( m_marks[line] ) {
-    m_marks[line]->type |= markType;
+    KTextEditor::Mark* mark = m_marks[line];
+    
+    // Remove bits already set
+    markType &= ~mark->type;
+    
+    if( markType == 0 )
+      return;
+    
+    // Add bits
+    mark->type |= markType;
   } else {
     KTextEditor::Mark *mark = new KTextEditor::Mark;
     mark->line = line;
@@ -1785,24 +1786,45 @@ void KateDocument::addMark( uint line, uint markType )
     m_marks.insert( line, mark );
   }
 
+  // Emit with a mark having only the types added.
+  KTextEditor::Mark temp;
+  temp.line = line;
+  temp.type = markType;
+  emit markChanged( temp, MarkAdded );
+  
   emit marksChanged();
   tagLines( line, line );
 }
 
 void KateDocument::removeMark( uint line, uint markType )
 {
-  if (line > lastLine())
+  if( line > lastLine() )
     return;
-
-  if( m_marks[line] ) {
-    m_marks[line]->type &= ~markType;
+  if( !m_marks[line] )
+    return;
+  
+  KTextEditor::Mark* mark = m_marks[line];
+  
+  // Remove bits not set
+  markType &= mark->type;
+  
+  if( markType == 0 )
+    return;
+  
+  // Subtract bits
+  mark->type &= ~markType;
+  
+  // Emit with a mark having only the types removed.
+  KTextEditor::Mark temp;
+  temp.line = line;
+  temp.type = markType;
+  emit markChanged( temp, MarkRemoved );
     
-    if( m_marks[line]->type == 0 )
-      m_marks.remove( line );
+  if( mark->type == 0 )
+    m_marks.remove( line );
 
-    emit marksChanged();
-    tagLines( line, line );
-  }
+  emit marksChanged();
+  tagLines( line, line );
 }
 
 QPtrList<KTextEditor::Mark> KateDocument::marks()
@@ -1822,6 +1844,7 @@ void KateDocument::clearMarks()
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks );
        it.current(); ++it ) {
     KTextEditor::Mark* mark = it.current();
+    emit markChanged( *mark, MarkRemoved );
     tagLines( mark->line, mark->line );
   }
   

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Doxygen" version="1.03" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
+<language name="Doxygen" version="1.04" kateversion="2.1" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -23,6 +23,7 @@
       <item> \remarks </item>
       <item> \return </item>
       <item> \sa </item>
+      <item> \see </item>
       <item> \since </item>
       <item> \test </item>
       <item> \todo </item>
@@ -50,6 +51,11 @@
       <item> \p </item>
       <item> \verbatim </item>
       <item> \xmlonly </item>
+      <item> \\ </item>
+      <item> \@ </item>
+      <item> \~ </item>
+      <item> \$ </item>
+      <item> \# </item>
 
       <item> @callgraph </item>
       <item> @hideinitializer </item>
@@ -69,6 +75,7 @@
       <item> @remarks </item>
       <item> @return </item>
       <item> @sa </item>
+      <item> @see </item>
       <item> @since </item>
       <item> @test </item>
       <item> @todo </item>
@@ -96,6 +103,11 @@
       <item> @p </item>
       <item> @verbatim </item>
       <item> @xmlonly </item>
+      <item> @\ </item>
+      <item> @@ </item>
+      <item> @~ </item>
+      <item> @$ </item>
+      <item> @# </item>
     </list>
     <list name="TagWord">
       <item> \addtogroup </item>
@@ -110,11 +122,13 @@
       <item> \relatesalso </item>
       <item> \elseif </item>
       <item> \exception </item>
+      <item> \exceptions </item>
       <item> \if </item>
       <item> \ifnot </item>
       <item> \param </item>
       <item> \retval </item>
       <item> \throw </item>
+      <item> \throws </item>
       <item> \version </item>
       <item> \xrefitem </item>
       <item> \anchor </item>
@@ -143,11 +157,13 @@
       <item> @relatesalso </item>
       <item> @elseif </item>
       <item> @exception </item>
+      <item> @exceptions </item>
       <item> @if </item>
       <item> @ifnot </item>
       <item> @param </item>
       <item> @retval </item>
       <item> @throw </item>
+      <item> @throws </item>
       <item> @version </item>
       <item> @xrefitem </item>
       <item> @anchor </item>
@@ -201,6 +217,7 @@
       <item> \typedef </item>
       <item> \var </item>
       <item> \brief </item>
+      <item> \short </item>
       <item> \bug </item>
       <item> \date </item>
       <item> \deprecated </item>
@@ -218,6 +235,7 @@
       <item> @typedef </item>
       <item> @var </item>
       <item> @brief </item>
+      <item> @short </item>
       <item> @bug </item>
       <item> @date </item>
       <item> @deprecated </item>

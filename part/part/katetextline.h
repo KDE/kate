@@ -241,22 +241,11 @@ class KateTextLine : public KShared
     /**
       Sets the syntax highlight context number
     */
-    inline void setContext(short *newctx, uint len)
-    {
-      m_ctx.duplicate (newctx, len);
-    }
+    inline void setContext (QMemArray<short> &val) { m_ctx.assign (val); }
 
-    inline void setFoldingList (QMemArray<signed char> &val)
-    {
-      m_foldingList=val;
-      m_foldingList.detach();
-    }
+    inline void setFoldingList (QMemArray<signed char> &val) { m_foldingList.assign (val); m_foldingList.detach(); }
 
-    inline void setIndentationDepth (QMemArray<unsigned short> &val)
-    {
-      m_indentationDepth = val;
-      m_indentationDepth.detach();
-    }
+    inline void setIndentationDepth (QMemArray<unsigned short> &val) { m_indentationDepth.assign (val); }
 
   /**
     Methodes for dump/restore of the line in the buffer

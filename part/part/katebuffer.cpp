@@ -754,7 +754,7 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
       indentChanged = indentChanged || (indentDepth.size() != textLine->indentationDepthArray().size())
                                     || (indentDepth != textLine->indentationDepthArray());
  
-      // set the new array in the textline !
+      // assign the new array to the textline !
       textLine->setIndentationDepth (indentDepth);
       
       // add folding start to the list !
@@ -784,15 +784,15 @@ bool KateBuffer::doHighlight(KateBufBlock *buf, uint startLine, uint endLine, bo
           foldingList[z] = -1;
       }
     }
-
+     
     bool foldingChanged = !(foldingList == textLine->foldingListArray());
-
+    
     if (foldingChanged)
       textLine->setFoldingList(foldingList);
 
     bool retVal_folding = false;
-    m_regionTree.updateLine(current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
-
+    m_regionTree.updateLine (current_line + buf->startLine(), &foldingList, &retVal_folding, foldingChanged);
+    
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 
     // need we to continue ?

@@ -1248,8 +1248,8 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
     if (ctxChanged)
       (*ctxChanged) = true; 
       
-    // write ctx stack back !
-    textLine->setContext(ctx.data(), ctx.size());
+    // assign ctx stack !
+    textLine->setContext(ctx);
   }
   
   // write hl continue flag

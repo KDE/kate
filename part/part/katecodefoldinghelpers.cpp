@@ -258,7 +258,8 @@ void KateCodeFoldingTree::updateLine(unsigned int line,
   }
   else
   {
-    for (unsigned int i=0;i<regionChanges->size() / 2;i++) {
+    for (unsigned int i=0;i<regionChanges->size() / 2;i++)
+    {
         signed char tmp=(*regionChanges)[regionChanges->size()-1-i];
         (*regionChanges)[regionChanges->size()-1-i]=(*regionChanges)[i];
         (*regionChanges)[i]=tmp;

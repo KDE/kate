@@ -3582,6 +3582,9 @@ bool KateDocument::paintTextLine(QPainter &paint, uint line,
 
     xPosAfter += curAt->width(fs, *s);
 
+    if (isTab)
+      xPosAfter -= (xPosAfter % curAt->width(fs, *s));
+
     //  kdDebug(13000)<<"paint 5"<<endl;
 
     if ((int)xPosAfter >= xStart)

@@ -42,7 +42,7 @@ begin and end immediately:
  * comment HL mode
  */ end of doxygen HL mode
 
-<tag> <word> <word> <rest of line is string>
+<tag> <word> <word> <normal comment HL>
 /** \image aword aword rest of line is normal HL */ end of doxygen HL mode
 /** \image aword */aword <-- pop! end of doxygen HL mode
 /** \image */aword aword <-- pop! end of doxygen HL mode
@@ -91,6 +91,8 @@ Tests for HTML tags in doxygen HL mode:
 //! <a */href="blubb"> stay in doygen HL mode
 //! <a*/ href="blubb"> stay in doygen HL mode
 //! <*/a href="blubb">  stay in doygen HL mode
+//! <a href="blubb">  stay in doygen HL <mode
+here should be normal HL mode (no doxygen!)
 
 Tests for HTML tags in doxygen HL mode with tags:
 =================================================
@@ -189,8 +191,21 @@ Some further tests for singlelinecomments (* / should not pop!)
 /// \ref aw*/ord a descriptive text (string) description should go on here
 /// \ref */aword a descriptive text (string) description should go on here
 
+HTML comment tests:
+===================
+//! \ref word de<!--*/ -->scriptive text (string)
+normal HL mode.
+//! \ref w descriptive text (string)
+/** \ref word de<!--*/ -->scriptive text (string)
+normal HL mode.
+/** \ref w <!--
+ * HTML comments
+ * -->
+ * normal doxygen HL mode.
+ */
 
-And a final test for a word: a single char:
+
+And final tests for a word: a single char:
 ===========================================
 <tag> <word> <rest of line as string>
 //! \ref word descriptive text (string)
@@ -203,7 +218,7 @@ And a final test for a word: a single char:
 <tag> <rest of line is string>
 //! \brief A b c d e description should go on here
 
-<tag> <word> <rest of line is string>
+<tag> <word> <rest of line is normal doxygen HL mode>
 //! \file word rest of line is normal comment HL
 //! \file a word rest of line is normal comment HL
 

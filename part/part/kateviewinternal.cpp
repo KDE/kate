@@ -2252,7 +2252,7 @@ bool KateViewInternal::isTargetSelected( const QPoint& p )
 }
 
 //
-// START EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// BEGIN EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 
 bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
@@ -2935,7 +2935,7 @@ void KateViewInternal::imEndEvent( QIMEvent *e )
 }
 
 //
-// END EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// END EVENT HANDLING STUFF !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 
 void KateViewInternal::clear()

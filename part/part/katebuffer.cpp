@@ -507,7 +507,7 @@ bool KateBuffer::openFile (const QString &m_file)
     return false; // Error
   }
 
-  // detect eol --- FIXME if you have time ;)
+  // detect eol
   while (true)
   {
      int ch = loader.file.getch();

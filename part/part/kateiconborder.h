@@ -24,11 +24,12 @@
 
 #include <qwidget.h>
 #include <qpixmap.h>
+#include <qcolor.h>
 
 class KateIconBorder : public QWidget
 {
-  Q_OBJECT      
-  
+  Q_OBJECT
+
   public:
     KateIconBorder( class KateViewInternal* internalView, QWidget *parent );
     ~KateIconBorder() {};
@@ -38,7 +39,7 @@ class KateIconBorder : public QWidget
 
     void updateFont();
     int lineNumberWidth() const;
-    
+
     void setIconBorderOn(     bool enable );
     void setLineNumbersOn(    bool enable );
     void setFoldingMarkersOn( bool enable );
@@ -73,13 +74,14 @@ class KateIconBorder : public QWidget
     bool m_iconBorderOn:1;
     bool m_lineNumbersOn:1;
     bool m_foldingMarkersOn:1;
-    
+
     uint m_lastClickedLine;
-    
+
     int m_cachedLNWidth;
 
     int m_maxCharWidth;
 
     mutable QPixmap m_arrow;
+    mutable QColor m_oldBackgroundColor;
 };
 #endif

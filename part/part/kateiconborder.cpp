@@ -171,7 +171,7 @@ QSize KateIconBorder::sizeHint() const
 {
   int w = 0;
 
-  if (m_lineNumbersOn) {
+  if (m_lineNumbersOn || true /* FIXME preference */) {
     w += lineNumberWidth();
   }
 
@@ -208,31 +208,37 @@ void KateIconBorder::updateFont()
 
 int KateIconBorder::lineNumberWidth() const
 {
-  int width = ((int)log10(m_view->doc()->numLines()) + 1) * m_maxCharWidth + 4;
+  int width = m_lineNumbersOn ? ((int)log10(m_view->doc()->numLines()) + 1) * m_maxCharWidth + 4 : 0;
 
-  if (m_cachedLNWidth != width) {
-    int w = QMIN(style().scrollBarExtent().width(), width - 4);
-    int h = m_doc->getFontMetrics(KateDocument::ViewFont).height();
+  if (m_view->dynWordWrap()/* && FIXME preference*/) {
+    width = QMAX(style().scrollBarExtent().width() + 4, width);
 
-    QSize newSize(w, h);
-    if (m_arrow.size() != newSize && !newSize.isEmpty()) {
-      m_arrow.resize(newSize);
+    if (m_cachedLNWidth != width || m_oldBackgroundColor != m_doc->colors[0]) {
+      int w = style().scrollBarExtent().width();
+      int h = m_doc->getFontMetrics(KateDocument::ViewFont).height();
 
-      QPainter p(&m_arrow);
-      p.fillRect( 0, 0, w, h, m_doc->colors[0] );
+      QSize newSize(w, h);
+      if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_doc->colors[0]) && !newSize.isEmpty()) {
+        m_arrow.resize(newSize);
 
-      h = m_doc->getFontMetrics(KateDocument::ViewFont).ascent();
+        QPainter p(&m_arrow);
+        p.fillRect( 0, 0, w, h, m_doc->colors[0] );
 
-      p.setPen(m_doc->colors[4]);
-      p.drawLine(w/2, h/2, w/2, 0);
-      p.lineTo(w*3/4, h/4);
-      p.lineTo(w-1,0);
-      p.lineTo(w-1, h/2);
-      p.lineTo(w/2, h-1);
-      p.lineTo(w/4,h-1);
-      p.lineTo(0, h*3/4);
-      p.lineTo(w/4, h/2);
-      p.lineTo(w-1, h/2);
+        h = m_doc->getFontMetrics(KateDocument::ViewFont).ascent();
+
+        p.setPen(m_doc->colors[4]);
+        p.drawLine(w/2, h/2, w/2, 0);
+        p.lineTo(w*3/4, h/4);
+        p.lineTo(w-1,0);
+        p.lineTo(w-1, h/2);
+        p.lineTo(w/2, h-1);
+        p.lineTo(w/4,h-1);
+        p.lineTo(0, h*3/4);
+        p.lineTo(w/4, h/2);
+        p.lineTo(w-1, h/2);
+      }
+
+      m_oldBackgroundColor = m_doc->colors[0];
     }
   }
 
@@ -254,10 +260,10 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   uint lineRangesSize = m_viewInternal->lineRanges.size();
 
   int lnWidth( 0 );
-  if ( m_lineNumbersOn ) // avoid calculating unless needed ;-)
+  if ( m_lineNumbersOn || true /* FIXME preference */ ) // avoid calculating unless needed ;-)
   {
     lnWidth = lineNumberWidth();
-    if ( lnWidth != m_cachedLNWidth )
+    if ( lnWidth != m_cachedLNWidth || m_oldBackgroundColor != m_doc->colors[0] )
     {
       // we went from n0 ->n9 lines or vice verca
       // this causes an extra updateGeometry() first time the line numbers
@@ -287,23 +293,25 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
     //int y = line * fontHeight; // see below
     int lnX ( 0 );
-  
+
   /*  if ( (realLine > -1) && (realLine == currentLine) )
       p.fillRect( 0, y, w, h, m_doc->colors[2] ); // needs fixing !!!!!!!!!!!!!!!!!!!!!!!!!!!!
     else */
       p.fillRect( 0, y, w, h, m_doc->colors[0] );
 
     // line number
-    if( m_lineNumbersOn )
+    if( m_lineNumbersOn || true /* FIXME preference */)
     {
       lnX +=2;
       p.drawLine( lnbx, y, lnbx, y+h );
 
       if (realLine > -1)
-        if (m_viewInternal->lineRanges[z].startCol == 0)
-          p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
-        else
+        if (m_viewInternal->lineRanges[z].startCol == 0) {
+          if (m_lineNumbersOn)
+            p.drawText( lnX + 1, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+        } else if (true /* FIXME preference */) {
           p.drawPixmap(lnX + lnWidth - m_arrow.width() - 4, y, m_arrow);
+        }
 
       lnX += lnWidth;
     }
@@ -357,7 +365,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 KateIconBorder::BorderArea KateIconBorder::positionToArea( const QPoint& p ) const
 {
   int x = 0;
-  if( m_lineNumbersOn ) {
+  if( m_lineNumbersOn || true /* FIXME preference */ ) {
     x += lineNumberWidth();
     if( p.x() <= x )
       return LineNumbers;

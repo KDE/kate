@@ -1935,6 +1935,8 @@ bool KateDocument::openFile()
 
   internalSetHlMode(hl);
 
+  newDocGeometry = true;
+
   updateLines();
   updateViews();
 
@@ -2385,6 +2387,52 @@ uint KateDocument::textWidth(const TextLine::Ptr &textLine, int cursorX,WhichFon
       x += fs->myFontMetrics.width(ch);
   }
   return x;
+}
+
+uint KateDocument::textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap)
+{
+  QChar ch;
+  Attribute *a;
+  FontStruct *fs=(wf==ViewFont)?&viewFont:&printFont;
+  uint x = 0;
+  uint endcol = 0;
+  uint endcolwithsym = 0;
+
+  *needWrap = false;
+
+  for (uint z = startcol; z < textLine->length(); z++)
+  {
+    ch = textLine->getChar(z);
+    a = attribute(textLine->getAttr(z));
+
+    if (ch == '\t')
+      x += fs->m_tabWidth - (x % fs->m_tabWidth);
+    else if (a->bold && a->italic)
+      x += fs->myFontMetricsBI.width(ch);
+    else if (a->bold)
+      x += fs->myFontMetricsBold.width(ch);
+    else if (a->italic)
+      x += fs->myFontMetricsItalic.width(ch);
+    else
+      x += fs->myFontMetrics.width(ch);
+
+    if (x <= maxwidth-wrapsymwidth )
+      endcolwithsym = z;
+
+    if (x <= maxwidth)
+      endcol = z;
+
+    if (x >= maxwidth)
+    {
+      *needWrap = true;
+      break;
+    }
+  }
+
+  if (*needWrap)
+    return endcolwithsym;
+  else
+    return endcol;
 }
 
 uint KateDocument::textWidth(KateTextCursor &cursor)
@@ -3409,10 +3457,15 @@ bool KateDocument::lineHasSelected (int line)
 
 void KateDocument::paintTextLine(QPainter &paint, uint line, int xStart, int xEnd, bool showTabs)
 {
-  paintTextLine (paint, line, 0, xStart, xEnd, showTabs);
+  paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
 }
 
-void KateDocument::paintTextLine(QPainter &paint, uint line, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
+void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs)
+{
+  paintTextLine (paint, line, 0, -1, 0, xStart, xEnd, showTabs);
+}
+
+void KateDocument::paintTextLine(QPainter &paint, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf)
 {
   TextLine::Ptr textLine;
   int len;
@@ -3437,8 +3490,13 @@ void KateDocument::paintTextLine(QPainter &paint, uint line, int y, int xStart, 
   if (!textLine)
     return;
 
-  len = textLine->length();
+  if (endcol < 0)
+    len = textLine->length() - startcol;
+  else
+    len = endcol - startcol;
+
   s = textLine->getText();
+  s = s + startcol;
 
   // skip to first visible character
   x = 0;

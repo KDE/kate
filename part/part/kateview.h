@@ -206,6 +206,7 @@ class KateViewInternal : public QWidget {
 
     int startLine;
     int endLine;
+    uint maxLen;
 
     bool exposeCursor;
     int updateState;
@@ -313,6 +314,16 @@ class KateView : public Kate::View
 
   private:
     QPopupMenu *rmbMenu;
+    
+  //
+  // KTextEditor::DynWordWrapInterface stuff
+  //
+  public:
+    void setDynWordWrap (bool b);
+    bool dynWordWrap () const;
+    
+  private:
+    bool _hasWrap;
 
   //
   // internal KateView stuff
@@ -350,7 +361,6 @@ class KateView : public Kate::View
   public slots:
     void slotUpdate();
     void slotFileStatusChanged();
-    void slotHighlightChanged();
 
   public slots:
     /**

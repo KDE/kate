@@ -84,7 +84,7 @@
 
 
 
-KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(view)
+KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc) : QWidget(view, "", Qt::WRepaintNoErase | Qt::WResizeNoErase)
 {
   waitForPreHighlight=0;
   myView = view;
@@ -719,16 +719,23 @@ void KateViewInternal::updateView(int flags) {
   int scrollbarWidth = style().scrollBarExtent().width();
   int bw = 0; // width of borders
 
-  int maxLen = 0;
-  for (int tline = startLine; (tline <= endLine) && (tline <= myDoc->lastLine ()); tline++)
+  if (flags & KateView::ufDocGeometry)
   {
-    int len = myDoc->textWidth (myDoc->getTextLine (tline), myDoc->getTextLine (tline)->length());
+    maxLen = 0;
 
-    if (len > maxLen)
-      maxLen = len;
+    if (!myView->_hasWrap)
+    {
+      for (int tline = startLine; (tline <= endLine) && (tline <= myDoc->lastLine ()); tline++)
+      {
+        uint len = myDoc->textWidth (myDoc->getTextLine (tline), myDoc->getTextLine (tline)->length());
+
+        if (len > maxLen)
+          maxLen = len;
+      }
+
+      maxLen = maxLen + 8;
+    }
   }
-  
-  maxLen = maxLen + 8;
 
   if (exposeCursor || flags & KateView::ufDocGeometry) {
     emit myView->cursorPositionChanged();
@@ -807,7 +814,7 @@ void KateViewInternal::updateView(int flags) {
   if (xMax < xPos) xMax = xPos;
   if (yMax < yPos) yMax = yPos;
 
-  if (xMax > 0) {
+  if ((!myView->_hasWrap) && (xMax > 0)) {
     pageScroll = w - (w % fontHeight) - fontHeight;
     if (pageScroll <= 0)
       pageScroll = fontHeight;
@@ -1199,8 +1206,6 @@ void KateViewInternal::paintEvent(QPaintEvent *e) {
 
   while (y < yEnd)
   {
-    //TextLine *textLine;
-    //int ctxNum = 0;
     myDoc->paintTextLine(paint, line, xStart, xEnd, myView->myDoc->_configFlags & KateDocument::cfShowTabs);
     bitBlt(this, updateR.x(), y, drawBuffer, 0, 0, updateR.width(), h);
     leftBorder->paintLine(line);
@@ -1318,6 +1323,7 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
 
   active = false;
   myIconBorder = false;
+  _hasWrap = false;
 
   myDoc = doc;
   myViewInternal = new KateViewInternal (this,doc);
@@ -1355,7 +1361,6 @@ KateView::KateView(KateDocument *doc, QWidget *parent, const char * name) : Kate
   connect( this, SIGNAL( newStatus() ), this, SLOT( slotUpdate() ) );
   connect( doc, SIGNAL( undoChanged() ), this, SLOT( slotNewUndo() ) );
   connect( doc, SIGNAL( fileNameChanged() ), this, SLOT( slotFileStatusChanged() ) );
-  connect( doc, SIGNAL( hlChanged() ), this, SLOT( slotHighlightChanged() ) );
 
   if ( doc->m_bBrowserView )
   {
@@ -1562,12 +1567,6 @@ void KateView::slotNewUndo()
   }
 }
 
-void KateView::slotHighlightChanged()
-{
-//	setHighlight->slotAboutToShow();
-//    setHighlight->setCurrentItem(getHl());
-}
-
 void KateView::slotDropEventPass( QDropEvent * ev )
 {
     KURL::List lstDragURLs;
@@ -1577,7 +1576,6 @@ void KateView::slotDropEventPass( QDropEvent * ev )
     if ( ok && ext )
         emit ext->openURLRequest( lstDragURLs.first() );
 }
-
 
 void KateView::keyPressEvent( QKeyEvent *ev )
 {
@@ -1751,6 +1749,19 @@ void KateView::setOverwriteMode( bool b )
     myDoc->setConfigFlags( myDoc->_configFlags ^ KateDocument::cfOvr );
   else
     myDoc->setConfigFlags( myDoc->_configFlags | KateDocument::cfOvr );
+}
+
+void KateView::setDynWordWrap (bool b)
+{
+  if (_hasWrap != b)
+    myViewInternal->updateView(KateView::ufDocGeometry);
+
+  _hasWrap = b;
+}
+
+bool KateView::dynWordWrap () const
+{
+  return _hasWrap;
 }
 
 void KateView::toggleInsert() {

@@ -505,6 +505,7 @@ class KateDocument : public Kate::Document
     int charWidth(KateTextCursor &cursor);
 
     uint textWidth(const TextLine::Ptr &, int cursorX,WhichFont wf=ViewFont);
+    uint textWidth(const TextLine::Ptr &textLine, uint startcol, uint maxwidth, uint wrapsymwidth, WhichFont wf, bool *needWrap);
     uint textWidth(KateTextCursor &cursor);
     uint textWidth(bool wrapCursor, KateTextCursor &cursor, int xPos,WhichFont wf=ViewFont);
     uint textPos(const TextLine::Ptr &, int xPos,WhichFont wf=ViewFont);
@@ -552,7 +553,8 @@ class KateDocument : public Kate::Document
     QColor &backCol(int x, int y);
     QColor &cursorCol(int x, int y);
     void paintTextLine(QPainter &, uint line, int xStart, int xEnd, bool showTabs);
-    void paintTextLine(QPainter &, uint line, int y, int xStart, int xEnd, bool showTabs,WhichFont wf=ViewFont);
+    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int xStart, int xEnd, bool showTabs);
+    void paintTextLine(QPainter &, uint line, int startcol, int endcol, int y, int xStart, int xEnd, bool showTabs,WhichFont wf=ViewFont);
 
     bool doSearch(SConfig &s, const QString &searchFor);
 

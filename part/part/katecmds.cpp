@@ -65,9 +65,11 @@ QStringList KateCommands::CoreCommands::cmds()
   l << "indent" << "unindent" << "cleanindent"
     << "comment" << "uncomment"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
+    << "set-remove-trailing-space"
     << "set-indent-spaces" << "set-indent-width" << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
-    << "set-word-wrap" << "set-word-wrap-column";
+    << "set-word-wrap" << "set-word-wrap-column"
+    << "set-replace-tabs-save" << "set-remove-trailing-space-save";
   return l;
 }
 
@@ -168,10 +170,13 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
             cmd == "set-folding-markers" ||
             cmd == "set-line-numbers" ||
             cmd == "set-replace-tabs" ||
+            cmd == "set-remove-trailing-space" ||
             cmd == "set-show-tabs" ||
             cmd == "set-indent-spaces" ||
             cmd == "set-auto-indent" ||
-            cmd == "set-word-wrap" )
+            cmd == "set-word-wrap" ||
+            cmd == "set-replace-tabs-save" ||
+            cmd == "set-remove-trailing-space-save" )
   {
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
@@ -185,7 +190,9 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
       else if ( cmd == "set-line-numbers" )
         v->setLineNumbersOn( enable );
       else if ( cmd == "set-replace-tabs" )
-        setDocFlag( KateDocumentConfig::cfReplaceTabs, enable, v->doc() );
+        setDocFlag( KateDocumentConfig::cfReplaceTabsDyn, enable, v->doc() );
+      else if ( cmd == "set-remove-trailing-space" )
+        setDocFlag( KateDocumentConfig::cfRemoveTrailingDyn, enable, v->doc() );
       else if ( cmd == "set-show-tabs" )
         setDocFlag( KateDocumentConfig::cfShowTabs, enable, v->doc() );
       else if ( cmd == "set-indent-spaces" )
@@ -194,6 +201,10 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
         setDocFlag( KateDocumentConfig::cfAutoIndent, enable, v->doc() );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
+      else if ( cmd == "set-replace-tabs-save" )
+        setDocFlag( KateDocumentConfig::cfReplaceTabs, enable, v->doc() );
+      else if ( cmd == "set-remove-trailing-space-save" )
+        setDocFlag( KateDocumentConfig::cfRemoveSpaces, enable, v->doc() );
 
       return true;
     }

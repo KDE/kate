@@ -716,8 +716,20 @@ class KateDocument : public Kate::Document,
      * This is using KMD5::hexDigest().
      *
      * @return wheather the operation was attempted and succeded.
+     *
+     * @since 3.3
      */
     bool createDigest ( QCString &result );
+
+    /**
+     * Removes all trailing whitespace form @p line, if
+     * the cfRemoveTrailingDyn confg flag is set,
+     * and the active view cursor is not on line and behind
+     * the last nonspace character.
+     *
+     * @since 3.3
+     */
+    void removeTrailingSpace( uint line );
 
   public:
     // should cursor be wrapped ? take config + blockselection state in account

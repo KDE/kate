@@ -89,9 +89,9 @@ void KateAutoIndent::updateConfig ()
 {
   KateDocumentConfig *config = doc->config();
 
-  useSpaces   = config->configFlags() & KateDocument::cfSpaceIndent;
+  useSpaces   = config->configFlags() & KateDocument::cfSpaceIndent || config->configFlags() &KateDocumentConfig::cfReplaceTabsDyn;
   tabWidth    = config->tabWidth();
-  indentWidth = (useSpaces) ? config->indentationWidth() : tabWidth;
+  indentWidth = (config->configFlags() & KateDocument::cfSpaceIndent) ? config->indentationWidth() : tabWidth;
 
   commentAttrib = 0;
   KateHlItemDataList items;

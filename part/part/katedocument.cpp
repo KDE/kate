@@ -1143,21 +1143,36 @@ void KateDocument::editRemoveTagLine (uint line)
   editTagFrom = true;
 }
 
-bool KateDocument::editInsertText ( uint line, uint col, const QString &s )
+bool KateDocument::editInsertText ( uint line, uint col, const QString &str )
 {
   if (!isReadWrite())
     return false;
+
+  QString s = str;
 
   KateTextLine::Ptr l = m_buffer->line(line);
 
   if (!l)
     return false;
 
+    if ( config()->configFlags() & KateDocumentConfig::cfReplaceTabsDyn )
+    {
+      uint tw = config()->tabWidth();
+      int pos = 0;
+      uint l = 0;
+      while ( (pos = s.find('\t')) > -1 )
+      {
+        l = tw - ( (col + pos)%tw );
+        s.replace( pos, 1, QString().fill( ' ', l ) );
+      }
+    }
+
   editStart ();
 
   editAddUndo (KateUndoGroup::editInsertText, line, col, s.length(), s);
 
   l->insertText (col, s.length(), s.unicode());
+  removeTrailingSpace(line); // ### nessecary?
 
   m_buffer->changeLine(line);
   editTagLine (line);
@@ -1185,6 +1200,7 @@ bool KateDocument::editRemoveText ( uint line, uint col, uint len )
   editAddUndo (KateUndoGroup::editRemoveText, line, col, len, l->string().mid(col, len));
 
   l->removeText (col, len);
+  removeTrailingSpace( line ); // ### nessecary?
 
   m_buffer->changeLine(line);
 
@@ -1388,6 +1404,8 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   editAddUndo (KateUndoGroup::editInsertLine, line, 0, s.length(), s);
 
+  removeTrailingSpace( line ); // old line
+
   KateTextLine::Ptr tl = new KateTextLine();
   tl->append(s.unicode(),s.length());
   m_buffer->insertLine(line, tl);
@@ -1395,6 +1413,8 @@ bool KateDocument::editInsertLine ( uint line, const QString &s )
 
   editInsertTagLine (line);
   editTagLine(line);
+
+  removeTrailingSpace( line ); // new line
 
   QPtrList<KTextEditor::Mark> list;
   for( QIntDictIterator<KTextEditor::Mark> it( m_marks ); it.current(); ++it )
@@ -2941,6 +2961,8 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
   if (c.line() > (int)lastLine())
    c.setLine(lastLine());
 
+  uint ln = c.line();
+
   KateTextLine::Ptr textLine = kateTextLine(c.line());
   if (c.col() > (int)textLine->length())
     c.setCol(textLine->length());
@@ -2962,6 +2984,8 @@ void KateDocument::newLine( KateTextCursor& c, KateViewInternal *v )
     m_indenter->processNewline(cursor, true);
     c.setPos(cursor);
   }
+
+  removeTrailingSpace( ln );
 
   editEnd();
 }
@@ -4731,7 +4755,9 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfBackspaceIndents, state );
         else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
-          m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
+          m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabsDyn, state );
+        else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfRemoveTrailingDyn, state );
         else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfWrapCursor, state );
         else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
@@ -4754,6 +4780,10 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           m_config->setConfigFlags( KateDocumentConfig::cfSpaceIndent, state );
         else if ( var == "smart-home" && checkBoolValue( val, &state ) )
           m_config->setConfigFlags( KateDocumentConfig::cfSmartHome, state );
+        else if ( var == "replace-tabs-save" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfReplaceTabs, state );
+        else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
+          m_config->setConfigFlags( KateDocumentConfig::cfRemoveSpaces, state );
 
         // INTEGER SETTINGS
         else if ( var == "tab-width" && checkIntValue( val, &n ) )
@@ -4903,7 +4933,7 @@ void KateDocument::slotModOnHdDirty (const QString &path)
       if ( createDigest( tmp ) && tmp == m_digest )
         return;
     }
-    
+
     m_modOnHd = true;
     m_modOnHdReason = 1;
     emit modifiedOnDisc (this, m_modOnHd, m_modOnHdReason);
@@ -4946,6 +4976,29 @@ bool KateDocument::createDigest( QCString &result )
     }
   }
   return ret;
+}
+
+void KateDocument::removeTrailingSpace( uint line )
+{
+  // remove trailing spaces from left line if required
+  if ( config()->configFlags() & KateDocumentConfig::cfRemoveTrailingDyn )
+  {
+    KateTextLine::Ptr ln = kateTextLine( line );
+
+    if ( ! ln ) return;
+
+    if ( line == activeView()->cursorLine()
+         && activeView()->cursorColumnReal() >= (uint)QMAX(0,ln->lastChar()) )
+      return;
+
+    if ( ln->length() )
+    {
+      uint p = ln->lastChar() + 1;
+      uint l = ln->length() - p;
+      if ( l )
+        editRemoveText( line, p, l);
+    }
+  }
 }
 
 bool KateDocument::wrapCursor ()
@@ -5017,7 +5070,6 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
       }
 
 }
-
 
 bool KateDocument::checkOverwrite( KURL u )
 {

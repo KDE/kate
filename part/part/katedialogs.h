@@ -173,7 +173,7 @@ class KateEditConfigTab : public KateConfigPage
     KateEditConfigTab(QWidget *parent);
 
   protected:
-    enum { numFlags = 5 };
+    enum { numFlags = 7 };
     static const int flags[numFlags];
     QCheckBox *opt[numFlags];
 

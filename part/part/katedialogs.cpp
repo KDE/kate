@@ -363,7 +363,8 @@ void KateSelectConfigTab::reload ()
 
 //BEGIN KateEditConfigTab
 const int KateEditConfigTab::flags[] = {KateDocument::cfWordWrap,
-  KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome, KateDocument::cfWrapCursor};
+  KateDocument::cfAutoBrackets, KateDocument::cfShowTabs, KateDocument::cfSmartHome,
+  KateDocument::cfWrapCursor, KateDocumentConfig::cfReplaceTabsDyn, KateDocumentConfig::cfRemoveTrailingDyn};
 
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
@@ -376,6 +377,10 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   opt[2] = new QCheckBox(i18n("&Show tabs"), gbWhiteSpace);
   opt[2]->setChecked(configFlags & flags[2]);
   connect(opt[2], SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+
+  opt[5] = new QCheckBox( i18n("Replace tabs with spaces"), gbWhiteSpace );
+  opt[5]->setChecked( configFlags & KateDocumentConfig::cfReplaceTabsDyn );
+  connect( opt[5], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
   e2 = new KIntNumInput(KateDocumentConfig::global()->tabWidth(), gbWhiteSpace);
   e2->setRange(1, 16, 1, false);
@@ -417,6 +422,11 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   connect(e4, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
   mainLayout->addWidget(gbCursor);
+
+  opt[6] = new QCheckBox( i18n("Remove Trailing Spaces"), this );
+  mainLayout->addWidget( opt[6] );
+  opt[6]->setChecked( configFlags & KateDocumentConfig::cfRemoveTrailingDyn );
+  connect( opt[6], SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
 
   opt[1] = new QCheckBox(i18n("Auto &brackets"), this);
   mainLayout->addWidget(opt[1]);
@@ -481,6 +491,13 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
                         "will fall back to the last search text.");
   QWhatsThis::add(e5Label, gstfwt);
   QWhatsThis::add(e5, gstfwt);
+  QWhatsThis::add( opt[5], i18n(
+      "If this is enabled, the editor will calculate the number of spaces up to "
+      "the next tab position as defined by the tab with, and insert that number "
+      "of spaces instead of a TAB character." ) );
+  QWhatsThis::add( opt[6], i18n(
+      "If this is enabled, the editor will remove any trailing whitespace on "
+      "lines when they are left by the insertion cursor.") );
 }
 
 void KateEditConfigTab::apply ()
@@ -675,7 +692,7 @@ void KateEditKeyConfiguration::showEvent ( QShowEvent * )
     (new QVBoxLayout(this))->setAutoAdd(true);
     KateView* view = (KateView*)m_doc->views().at(0);
     m_ac = view->editActionCollection();
-    m_keyChooser = new KKeyChooser( view->editActionCollection(), this, false );
+    m_keyChooser = new KKeyChooser( m_ac, this, false );
     connect( m_keyChooser, SIGNAL( keyChange() ), this, SLOT( slotChanged() ) );
     m_keyChooser->show ();
 

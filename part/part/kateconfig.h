@@ -56,7 +56,7 @@ class KateDocumentConfig : public KateConfig
 {
   private:
     friend class KateFactory;
-  
+
     /**
      * only used in KateFactory for the static global fallback !!!
      */
@@ -142,7 +142,9 @@ class KateDocumentConfig : public KateConfig
       cfShowTabs= 0x200000,
       cfSpaceIndent= 0x400000,
       cfSmartHome = 0x800000,
-      cfTabInsertsTab = 0x1000000
+      cfTabInsertsTab = 0x1000000,
+      cfReplaceTabsDyn=   0x2000000,
+      cfRemoveTrailingDyn=0x4000000
     };
 
     uint configFlags () const;
@@ -177,7 +179,7 @@ class KateDocumentConfig : public KateConfig
 
     const QString &backupSuffix () const;
     void setBackupSuffix (const QString &suffix);
-    
+
     bool plugin (uint index) const;
     void setPlugin (uint index, bool load);
 
@@ -209,7 +211,7 @@ class KateDocumentConfig : public KateConfig
     bool m_backupFlagsSet : 1;
     bool m_backupSuffixSet : 1;
     bool m_pluginsSet : 1;
-    
+
   private:
     static KateDocumentConfig *s_global;
     KateDocument *m_doc;
@@ -284,10 +286,10 @@ class KateViewConfig : public KateConfig
 
     bool cmdLine () const;
     void setCmdLine (bool on);
-    
+
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
-    
+
     enum TextToSearch
     {
       Nowhere = 0,
@@ -296,7 +298,7 @@ class KateViewConfig : public KateConfig
       WordOnly = 3,
       WordSelection = 4
     };
-    
+
     int textToSearchMode () const;
     void setTextToSearchMode (int mode);
 
@@ -335,8 +337,8 @@ class KateViewConfig : public KateConfig
 class KateRendererConfig : public KateConfig
 {
   private:
-    friend class KateFactory;  
-  
+    friend class KateFactory;
+
     /**
      * only used in KateFactory for the static global fallback !!!
      */

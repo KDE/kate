@@ -137,8 +137,9 @@ class KateFileLoader
     // eol mode ? autodetected on open(), -1 for no eol found in the first block!
     inline int eol () const { return m_eol; }
 
-    // read a line
-    QString readLine ()
+    // read a line, return per reference, only valid until the next readLine call
+    // or until this object goes to trash !!!
+    const QString &readLine ()
     {  
       while (m_position <= m_text.length())
       {
@@ -168,10 +169,10 @@ class KateFileLoader
           {
             lastWasEndOfLine = false;
           
-            QString line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+            m_line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
             m_lastLineStart = m_position;
             
-            return line;
+            return m_line;
           }
         }
         
@@ -186,11 +187,11 @@ class KateFileLoader
           }
           else
           {         
-            QString line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+            m_line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
             m_lastLineStart = m_position+1;
             m_position++;
                   
-            return line;
+            return m_line;
           }
         }
         else if (m_text[m_position] == '\r')
@@ -198,11 +199,11 @@ class KateFileLoader
           lastWasEndOfLine = true;
           lastWasR = true;
           
-          QString line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+          m_line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
           m_lastLineStart = m_position+1;
           m_position++;
           
-          return line;
+          return m_line;
         }
         else
         {
@@ -213,7 +214,9 @@ class KateFileLoader
         m_position++;
       }
       
-      return QString ();
+      // default to empty line
+      m_line = "";
+      return m_line;
     } 
     
   private:
@@ -221,6 +224,7 @@ class KateFileLoader
     QByteArray m_buffer;
     QTextDecoder *m_decoder;
     QString m_text;
+    QString m_line;
     uint m_position;
     uint m_lastLineStart;
     bool m_eof;
@@ -1065,7 +1069,7 @@ void KateBufBlock::fillBlock (KateFileLoader *stream)
   uint blockSize = 0;
   while (!stream->eof() && (blockSize < KATE_AVG_BLOCK_SIZE) && (m_lines < KATE_MAX_BLOCK_LINES))
   {
-    QString line = stream->readLine();
+    const QString &line = stream->readLine();
     uint length = line.length ();
     blockSize += length;
 

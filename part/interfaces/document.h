@@ -40,6 +40,11 @@
 
 #include <kaction.h>
 
+/**
+ * Kate namespace
+ * All classes in this namespace must stay BC
+ * during one major release series (e.g. 3.x, 4.x, ...)
+ */
 namespace Kate
 {
 
@@ -121,8 +126,7 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
                      public KTextEditor::ConfigInterface, public KTextEditor::MarkInterface,
                      public KTextEditor::PrintInterface, public KTextEditor::WordWrapInterface,
                      public KTextEditor::MarkInterfaceExtension,
-                     public KTextEditor::SelectionInterfaceExt, public KTextEditor::DocumentInfoInterface,
-                     public KTextEditor::VariableInterface
+                     public KTextEditor::SelectionInterfaceExt
 {
   Q_OBJECT
 
@@ -262,6 +266,8 @@ class Document : public KTextEditor::Document, public KTextEditor::EditInterface
  * @since 3.3
  */
 class DocumentExt
+ : public KTextEditor::DocumentInfoInterface,
+   public KTextEditor::VariableInterface
 {
   public:
     DocumentExt ();

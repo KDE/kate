@@ -1436,38 +1436,35 @@ bool KateCSAndSIndent::startsWithLabel( int line )
   if (attrib != 0 && attrib != keywordAttrib && attrib != normalAttrib && attrib != extensionAttrib)
     return false;
 
+  const QString lineContents = indentLine->string();
+  static const QString symbols = QString::fromLatin1(";:[]{}");
   const int last = indentLine->lastChar();
   for ( int n = indentFirst + 1; n <= last; ++n )
   {
-    int attrib = indentLine->attribute(n);
-    if ( attrib == symbolAttrib || attrib == 0 )
-    {
-      QChar c = indentLine->getChar(n);
+    QChar c = lineContents[n];
+    // FIXME: symbols inside comments are not skipped
+    if ( !symbols.contains(c) )
+      continue;
 
-      // attrib == 0 matches whitespace
-      if ( c.isSpace() )
-        continue;
+    // if we find a symbol other than a :, this is not a label.
+    if ( c != ':' )
+      return false;
 
-      // if we find a symbol other than a :, this is not a label.
-      if ( indentLine->getChar(n) != ':' )
-        return false;
-
-      // : but not ::, this is a label.
-      if ( indentLine->getChar(n+1) != ':' )
-        return true;
-
-      // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
-      // skip both :s and keep going.
-      if ( indentLine->getChar(n+2) != ':' )
-      {
-        ++n;
-        continue;
-      }
-
-      // xy::: outside a continuation is a label followed by a scope-resolution operator.
-      // more than 3 :s is illegal, so we don't care that's not indented.
+    // : but not ::, this is a label.
+    if ( lineContents[n+1] != ':' )
       return true;
+
+    // xy::[^:] is a scope-resolution operator. can occur in case X::Y: for instance.
+    // skip both :s and keep going.
+    if ( lineContents[n+2] != ':' )
+    {
+      ++n;
+      continue;
     }
+
+    // xy::: outside a continuation is a label followed by a scope-resolution operator.
+    // more than 3 :s is illegal, so we don't care that's not indented.
+    return true;
   }
   return false;
 }

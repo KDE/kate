@@ -160,16 +160,17 @@ class KateViewInternal : public QWidget
     int updateState;
 
     // start line virtual / real
-    int startLine;
-    int startLineReal;
-    
+    uint startLine;
+    uint startLineReal;
+
     // end line virtual / real
-    int endLine;
-    int endLineReal;
+    uint endLine;
+    uint endLineReal;
 
     // new start line, will be used by updateLineRanges
-    int newStartLine;
-    
+    uint newStartLine;
+    uint newStartLineReal;
+
     // for use from doc: tag lines from here (if larger than -1)
     int tagLinesFrom;
 

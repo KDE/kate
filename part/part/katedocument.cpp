@@ -949,10 +949,13 @@ bool KateDocument::editWrapLine ( uint line, uint col )
   {
     view = myViews.at(z2);
 
-    if ((view->myViewInternal->tagLinesFrom > (int) line) || (view->myViewInternal->tagLinesFrom == -1))
-      view->myViewInternal->tagLinesFrom = line;
-
-    if (line)
+    if (line >= view->myViewInternal->newStartLineReal)
+    {
+      if ((view->myViewInternal->tagLinesFrom > line) || (view->myViewInternal->tagLinesFrom == -1))
+        view->myViewInternal->tagLinesFrom = line;
+    }
+    else
+      view->myViewInternal->newStartLineReal++;
 
     // correct cursor position
     if (view->myViewInternal->cursorCache.line > (int)line)

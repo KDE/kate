@@ -67,8 +67,9 @@ KateViewInternal::KateViewInternal(KateView *view, KateDocument *doc)
   exposeCursor = false;
   updateState = 0;
   newXPos = -1;
-  newStartLine = -1;
-
+  newStartLine = 0;
+  newStartLineReal = 0;
+  
   drawBuffer = new QPixmap ();
   drawBuffer->setOptimization (QPixmap::BestOptim);
 
@@ -631,15 +632,22 @@ void KateViewInternal::updateLineRanges(bool keepLineData)
   int oldStartLine = startLine;
   int oldLines = lineRanges.size();
   uint height = this->height();
+  bool slchanged = false;
 
-  // calc start and end line of visible part
-  if (newStartLine > -1)
+  if (newStartLineReal != startLineReal)
+  {
+    startLine = myDoc->getVirtualLine(newStartLineReal);
+    startLineReal = newStartLineReal;
+    slchanged = true;
+  }
+  else if (newStartLine != startLine)
+  {
     startLine = newStartLine;
-
-  startLineReal = myDoc->getRealLine(startLine);
+    startLineReal = myDoc->getRealLine(startLine);
+    slchanged = true;
+  }
 
   endLine = startLine + height/myDoc->viewFont.fontHeight - 1;
-  
   endLineReal = myDoc->getRealLine(endLine);
 
   if (endLine < 0) endLine = 0;
@@ -658,6 +666,8 @@ void KateViewInternal::updateLineRanges(bool keepLineData)
     lineRanges.resize (lines);
 
   newXPos = -1;
+  newStartLine = startLine;
+  newStartLineReal = startLineReal;
 }
 
 void KateViewInternal::tagRealLines(int start, int end, int x1, int x2)
@@ -727,8 +737,9 @@ void KateViewInternal::setPos(int x, int y) {
 
 void KateViewInternal::center() {
   newXPos = 0;
-  newStartLine = displayCursor.line - lineRanges.size()/2;
-  if (newStartLine < 0) newStartLine = 0;
+  int tmpnewStartLine = displayCursor.line - lineRanges.size()/2;
+  if (tmpnewStartLine < 0) newStartLine = 0;
+  else newStartLine = tmpnewStartLine;
 }
 
 

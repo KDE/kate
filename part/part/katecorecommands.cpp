@@ -29,8 +29,8 @@ QStringList KateCoreCommands::cmds()
   QStringList l;
   l << "indent" << "unindent" << "cleanindent"
     << "comment" << "uncomment"
-    << "set-tab-width" << "set-replace-tabs"
-    << "set-indent-char" << "set-indent-width" << "set-indent"
+    << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
+    << "set-indent-spaces" << "set-indent-width" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border";
   return l;
 }
@@ -75,9 +75,10 @@ bool KateCoreCommands::exec(Kate::View *view,
     v->uncomment();
     return true;
   }
+
   // ALL commands that takes exactly one integer argument.
   else if ( cmd == "set-tab-width" ||
-            "set-indent-width")
+            cmd == "set-indent-width" )
   {
     // find a integer value > 0
     if ( ! args.count() )
@@ -102,11 +103,15 @@ bool KateCoreCommands::exec(Kate::View *view,
     }
     return true;
   }
+
   // ALL commands that takes 1 boolean argument.
   else if ( cmd == "set-icon-border" ||
             cmd == "set-folding-markers" ||
             cmd == "set-line-numbers" ||
-            cmd == "set-replace-tabs" ) //FIXME
+            cmd == "set-replace-tabs" ||
+            cmd == "set-show-tabs" ||
+            cmd == "set-indent-spaces" ||
+            cmd == "set-auto-indent" )
   {
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
@@ -119,19 +124,22 @@ bool KateCoreCommands::exec(Kate::View *view,
         v->setFoldingMarkersOn( enable );
       else if ( cmd == "set-line-numbers" )
         v->setLineNumbersOn( enable );
+      else if ( cmd == "set-replace-tabs" )
+        setDocFlag( Kate::Document::cfReplaceTabs, enable, v->doc() );
+      else if ( cmd == "set-show-tabs" )
+        setDocFlag( Kate::Document::cfShowTabs, enable, v->doc() );
+      else if ( cmd == "set-indent-spaces" )
+        setDocFlag( Kate::Document::cfSpaceIndent, enable, v->doc() );
+      else if ( cmd == "set-auto-indent" )
+        setDocFlag( Kate::Document::cfAutoIndent, enable, v->doc() );
       return true;
     }
     else
-      KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false").arg( args.first() ).arg( cmd ) );
-  }
-  // Commands that take string or mixed arguments
-  else if ( cmd == "set-indent-char" )
-  {
-  }
-  else if ( cmd == "set-indent" )
-  {
+      KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false")
+               .arg( args.first() ).arg( cmd ) );
   }
 
+  // unlikely..
   KCC_ERR( i18n("Unknown command '%1'").arg(cmd) );
 }
 
@@ -155,4 +163,20 @@ bool KateCoreCommands::getBoolArg( QString s, bool *val  )
     return true;
   }
   return false;
+}
+
+// syncs a config flag in the document with a boolean value
+void KateCoreCommands::setDocFlag( Kate::Document::ConfigFlags flag, bool enable,
+                  KateDocument *doc )
+{
+  uint f ( doc->configFlags() );
+  if ( (f & flag)  != enable )
+  {
+    if ( enable )
+      f |= flag;
+    else
+      f &= ~flag;
+
+    doc->setConfigFlags( f );
+  }
 }

@@ -243,7 +243,7 @@ KateJScript *KateFactory::jscript ()
   if (m_jscript)
     return m_jscript;
 
-  m_jscript = new KateJScript ();
+  return m_jscript = new KateJScript ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

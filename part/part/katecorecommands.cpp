@@ -84,11 +84,24 @@ bool KateCoreCommands::exec(Kate::View *view,
     v->uncomment();
     return true;
   }
+  else if ( cmd == "set-indent-mode" )
+  {
+    bool ok(false);
+    int val ( args.first().toInt( &ok ) );
+    if ( ok )
+    {
+      if ( val < 0 )
+        KCC_ERR( i18n("Mode must be at least 0.") );
+      v->doc()->config()->setIndentationMode( val );
+    }
+    else
+      v->doc()->config()->setIndentationMode( KateAutoIndent::modeNumber( args.first() ) );
+    return true;
+  }
 
   // ALL commands that takes exactly one integer argument.
   else if ( cmd == "set-tab-width" ||
             cmd == "set-indent-width" ||
-            cmd == "set-indent-mode" ||
             cmd == "set-word-wrap-column" )
   {
     // find a integer value > 0
@@ -111,12 +124,6 @@ bool KateCoreCommands::exec(Kate::View *view,
       if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
       v->doc()->config()->setIndentationWidth( val );
-    }
-    else if ( cmd == "set-indent-mode" )
-    {
-      if ( val < 0 )
-        KCC_ERR( i18n("Mode must be at least 0.") );
-      v->doc()->config()->setIndentationMode( val );
     }
     else if ( cmd == "set-word-wrap-column" )
     {

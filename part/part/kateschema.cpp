@@ -492,9 +492,9 @@ void KateSchemaConfigColorTab::apply ()
   QMap<int,SchemaColors>::Iterator it;
   for ( it =  m_schemas.begin(); it !=  m_schemas.end(); ++it )
   {
-    kdDebug()<<"APPLY scheme = "<<it.key()<<endl;
+    kdDebug(13030)<<"APPLY scheme = "<<it.key()<<endl;
     KConfig *config = KateFactory::self()->schemaManager()->schema( it.key() );
-    kdDebug()<<"Using config group "<<config->group()<<endl;
+    kdDebug(13030)<<"Using config group "<<config->group()<<endl;
     SchemaColors c = it.data();
 
     config->writeEntry("Color Background", c.back);
@@ -734,13 +734,13 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 {
   m_schema = schema;
 
-  kdDebug () << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
+  kdDebug(13030) << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl << endl;
 
   m_styles->clear ();
 
   if (!m_hlDict[m_schema])
   {
-    kdDebug () << "NEW SCHEMA, create dict" << endl;
+    kdDebug(13030) << "NEW SCHEMA, create dict" << endl;
 
     m_hlDict.insert (schema, new QIntDict<KateHlItemDataList>);
     m_hlDict[m_schema]->setAutoDelete (true);
@@ -748,7 +748,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
 
   if (!m_hlDict[m_schema]->find(m_hl))
   {
-    kdDebug () << "NEW HL, create list" << endl;
+    kdDebug(13030) << "NEW HL, create list" << endl;
 
     KateHlItemDataList *list = new KateHlItemDataList ();
     KateHlManager::self()->getHl( m_hl )->getKateHlItemDataListCopy (m_schema, *list);
@@ -779,7 +779,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (uint schema)
         itemData != 0L;
         itemData = m_hlDict[m_schema]->find(m_hl)->prev())
   {
-    kdDebug () << "insert items " << itemData->name << endl;
+    kdDebug(13030) << "insert items " << itemData->name << endl;
 
     // All stylenames have their language mode prefixed, e.g. HTML:Comment
     // split them and put them into nice substructures.

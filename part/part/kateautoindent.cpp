@@ -368,7 +368,7 @@ KateCSmartIndent::KateCSmartIndent (KateDocument *doc)
     allowSemi (false),
     processingBlock (false)
 {
-  kdDebug()<<"CREATING KATECSMART INTDETER"<<endl;
+  kdDebug(13030)<<"CREATING KATECSMART INTDETER"<<endl;
 }
 
 KateCSmartIndent::~KateCSmartIndent ()
@@ -378,7 +378,7 @@ KateCSmartIndent::~KateCSmartIndent ()
 
 void KateCSmartIndent::processLine (KateDocCursor &line)
 {
-  kdDebug()<<"PROCESSING LINE "<<line.line()<<endl;
+  kdDebug(13030)<<"PROCESSING LINE "<<line.line()<<endl;
   KateTextLine::Ptr textLine = doc->plainKateTextLine(line.line());
 
   int firstChar = textLine->firstChar();
@@ -489,7 +489,7 @@ void KateCSmartIndent::processLine (KateDocCursor &line)
 
 void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
 {
-  kdDebug()<<"PROCESS SECTION"<<endl;
+  kdDebug(13030)<<"PROCESS SECTION"<<endl;
   KateDocCursor cur = begin;
   QTime t;
   t.start();
@@ -504,7 +504,7 @@ void KateCSmartIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
   }
 
   processingBlock = false;
-  kdDebug(13000) << "+++ total: " << t.elapsed() << endl;
+  kdDebug(13030) << "+++ total: " << t.elapsed() << endl;
 }
 
 bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
@@ -618,7 +618,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
   bool found = false;
   bool isSpecial = false;
 
-  //kdDebug() << "calcIndent begin line:" << begin.line() << " col:" << begin.col() << endl;
+  //kdDebug(13030) << "calcIndent begin line:" << begin.line() << " col:" << begin.col() << endl;
 
   // Find Indent Anchor Point
   while (cur.gotoPreviousLine())
@@ -700,7 +700,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       anchorPos = skip.col();
       anchorIndent = measureIndent(skip);
 
-      //kdDebug() << "calcIndent anchorPos:" << anchorPos << " anchorIndent:" << anchorIndent << " at line:" << skip.line() << endl;
+      //kdDebug(13030) << "calcIndent anchorPos:" << anchorPos << " anchorIndent:" << anchorIndent << " at line:" << skip.line() << endl;
 
       // Accept if it's before requested position or if it was special
       if (result && skip < begin)
@@ -728,7 +728,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
     return 0;
 
   uint continueIndent = (needContinue) ? calcContinue (cur, begin) : 0;
-  //kdDebug() << "calcIndent continueIndent:" << continueIndent << endl;
+  //kdDebug(13030) << "calcIndent continueIndent:" << continueIndent << endl;
 
   // Move forward from anchor and determine last known reference character
   // Braces take precedance over others ...
@@ -749,7 +749,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
       return 0;
 
     QChar tc = cur.currentChar();
-    //kdDebug() << "  cur.line:" << cur.line() << " cur.col:" << cur.col() << " currentChar '" << tc << "' " << textLine->attribute(cur.col()) << endl;
+    //kdDebug(13030) << "  cur.line:" << cur.line() << " cur.col:" << cur.col() << " currentChar '" << tc << "' " << textLine->attribute(cur.col()) << endl;
     if (cur == begin || tc.isNull())
       break;
 
@@ -769,7 +769,7 @@ uint KateCSmartIndent::calcIndent(KateDocCursor &begin, bool needContinue)
     lastChar = '{';
 
   uint indent = 0;
-  //kdDebug() << "calcIndent lastChar '" << lastChar << "'" << endl;
+  //kdDebug(13030) << "calcIndent lastChar '" << lastChar << "'" << endl;
 
   if (lastChar == '{' || (lastChar == ':' && isSpecial && needContinue))
   {
@@ -1358,7 +1358,7 @@ void KateCSAndSIndent::processSection (KateDocCursor &begin, KateDocCursor &end)
     if (!cur.gotoNextLine())
       break;
   }
-  kdDebug(13000) << "+++ total: " << t.elapsed() << endl;
+  kdDebug(13030) << "+++ total: " << t.elapsed() << endl;
 }
 
 /**
@@ -1402,7 +1402,7 @@ QString KateCSAndSIndent::findOpeningCommentIndentation(const KateDocCursor &sta
   } while (cur.gotoPreviousLine());
 
   // should never happen.
-  kdWarning( 13000 ) << " in a comment, but can't find the start of it" << endl;
+  kdWarning( 13030 ) << " in a comment, but can't find the start of it" << endl;
   return QString::null;
 }
 
@@ -2026,7 +2026,7 @@ void KateVarIndent::processLine ( KateDocCursor &line )
     {
       QChar ch = tl->getChar( i );
       uchar at = tl->attribute( i );
-      kdDebug()<<"attrib is "<<at<<endl;
+      kdDebug(13030)<<"attrib is "<<at<<endl;
       if ( d->couples & Parens && ch == ')'
            && ( at == d->coupleAttrib
                 || (! at && hasRelevantOpening( KateDocCursor( line.line(), i, doc ) ))
@@ -2163,7 +2163,7 @@ int KateVarIndent::coupleBalance ( int line, const QChar &open, const QChar &clo
     QChar c = ln->getChar( z );
     if ( ln->attribute(z) == d->coupleAttrib )
     {
-      kdDebug()<<z<<", "<<c<<endl;
+      kdDebug(13030)<<z<<", "<<c<<endl;
       if (c == open)
         r++;
       else if (c == close)

@@ -1288,7 +1288,7 @@ int KateHighlighting::makeDynamicContext(KateHlContext *model, const QStringList
     value = dynamicCtxs[key];
   else
   {
-    kdDebug () << "new stuff: " << startctx << endl;
+    kdDebug(13010) << "new stuff: " << startctx << endl;
 
     KateHlContext *newctx = model->clone(args);
 
@@ -1909,7 +1909,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
     regionId++;
 
-    kdDebug () << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
+    kdDebug(13010) << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId << endl;
   }
 
   if (!endRegionStr.isEmpty())
@@ -1924,7 +1924,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
     regionId2 = -regionId2 - 1;
 
-    kdDebug () << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
+    kdDebug(13010) << "########### END REG: "  << endRegionStr << " NUM: " << regionId2 << endl;
   }
 
   int attr = 0;
@@ -2583,7 +2583,7 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(KateHlIncludeRules::ite
  */
 int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 {
-  kdDebug()<<"=== Adding hl with ident '"<<ident<<"'"<<endl;
+  kdDebug(13010)<<"=== Adding hl with ident '"<<ident<<"'"<<endl;
 
   buildIdentifier=ident;
   KateSyntaxContextData *data, *datasub;
@@ -2689,7 +2689,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
       m_contexts.push_back (ctxNew);
 
-      kdDebug () << "INDEX: " << i << " LENGTH " << m_contexts.size()-1 << endl;
+      kdDebug(13010) << "INDEX: " << i << " LENGTH " << m_contexts.size()-1 << endl;
 
       //Let's create all items for the context
       while (KateHlManager::self()->syntax->nextItem(data))
@@ -2793,11 +2793,11 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
           "<B>%1</B>: Specified multiline comment region (%2) could not be resolved<BR>"
                              ).arg(buildIdentifier).arg( m_additionalData[ ident ]->multiLineRegion );
       m_additionalData[ ident ]->multiLineRegion = QString();
-      kdDebug()<<"ERROR comment region attribute could not be resolved"<<endl;
+      kdDebug(13010)<<"ERROR comment region attribute could not be resolved"<<endl;
 
     } else {
       m_additionalData[ ident ]->multiLineRegion=QString::number(commentregionid+1);
-      kdDebug()<<"comment region resolved to:"<<m_additionalData[ ident ]->multiLineRegion<<endl;
+      kdDebug(13010)<<"comment region resolved to:"<<m_additionalData[ ident ]->multiLineRegion<<endl;
     }
   }
   //END Resolve multiline region if possible

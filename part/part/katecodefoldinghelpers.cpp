@@ -94,11 +94,11 @@ bool KateCodeFoldingNode::getEnd(KateCodeFoldingTree *tree, KateTextCursor *end)
 int KateCodeFoldingNode::cmpPos(KateCodeFoldingTree *tree, uint line,uint col) {
     KateTextCursor cur(line,col);
     KateTextCursor start,end;
-    kdDebug()<<"KateCodeFoldingNode::cmpPos (1)"<<endl;
+    kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (1)"<<endl;
     bool startValid=getBegin(tree, &start);
-    kdDebug()<<"KateCodeFoldingNode::cmpPos (2)"<<endl;
+    kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (2)"<<endl;
     bool endValid=getEnd(tree, &end);
-    kdDebug()<<"KateCodeFoldingNode::cmpPos (3)"<<endl;
+    kdDebug(13000)<<"KateCodeFoldingNode::cmpPos (3)"<<endl;
     if ((!endValid) && startValid) {
       return ((start>cur)?-1:0);
     }
@@ -308,7 +308,7 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
 
   if (node==&m_root) return &m_root;
 
-  kdDebug()<<"initial cmpPos"<<endl;
+  kdDebug(13000)<<"initial cmpPos"<<endl;
 
   KateCodeFoldingNode *tmp;
   int leq=node->cmpPos(this, line,column);
@@ -323,9 +323,9 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
                   for ( uint i=0; i < node->childCount(); ++i )
                   {
                     KateCodeFoldingNode *subNode = node->child(i);
-                    kdDebug()<<"cmdPos(case0):calling"<<endl;
+                    kdDebug(13000)<<"cmdPos(case0):calling"<<endl;
                     leq=subNode->cmpPos(this, line,column);
-                    kdDebug()<<"cmdPos(case0):returned"<<endl;
+                    kdDebug(13000)<<"cmdPos(case0):returned"<<endl;
                     if (leq==0) {
                         tmp=subNode;
                         break;
@@ -339,11 +339,11 @@ KateCodeFoldingNode *KateCodeFoldingTree::findNodeForPosition(unsigned int line,
       case -1:
       case 1:  {
                   if (!(node->parentNode)) return &m_root;
-                  kdDebug()<<"current node type"<<node->type<<endl;
+                  kdDebug(13000)<<"current node type"<<node->type<<endl;
                   node=node->parentNode;
-                  kdDebug()<<"cmdPos(case-1/1):calling:"<<node<<endl;
+                  kdDebug(13000)<<"cmdPos(case-1/1):calling:"<<node<<endl;
                   leq=node->cmpPos(this, line,column);
-                  kdDebug()<<"cmdPos(case-1/1):returned"<<endl;
+                  kdDebug(13000)<<"cmdPos(case-1/1):returned"<<endl;
                   break;
                 }
     }
@@ -1635,7 +1635,7 @@ void KateCodeFoldingTree::ensureVisible( uint line )
 
   if (!found) return;
 
-  kdDebug()<<"line "<<line<<" is really hidden ->show block"<<endl;
+  kdDebug(13000)<<"line "<<line<<" is really hidden ->show block"<<endl;
 
   // it looks like we really have to ensure visibility
   KateCodeFoldingNode *n = findNodeForLine( line );

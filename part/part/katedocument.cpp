@@ -15,7 +15,7 @@
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+   Boston, MA 02111-13020, USA.
 */
 
 //BEGIN includes
@@ -1155,13 +1155,13 @@ bool KateDocument::wrapText (uint startLine, uint endLine)
     if (!l)
       return false;
 
-    kdDebug () << "try wrap line: " << line << endl;
+    kdDebug (13020) << "try wrap line: " << line << endl;
 
     if (l->lengthWithTabs(m_buffer->tabWidth()) > col)
     {
       KateTextLine::Ptr nextl = m_buffer->line(line+1);
 
-      kdDebug () << "do wrap line: " << line << endl;
+      kdDebug (13020) << "do wrap line: " << line << endl;
 
       const QChar *text = l->text();
       uint eolPosition = l->length()-1;
@@ -1714,7 +1714,7 @@ bool KateDocument::hasSelection() const
 
 QString KateDocument::selectionAsHtml() const
 {
-  kdDebug() << "KateDocument::selection()" << endl;
+  kdDebug(13020) << "KateDocument::selection()" << endl;
   int sc = selectStart.col();
   int ec = selectEnd.col();
 
@@ -1731,7 +1731,7 @@ QString KateDocument::selectionAsHtml() const
 }
 QString KateDocument::selection() const
 {
-  kdDebug() << "KateDocument::selection()" << endl;
+  kdDebug(13020) << "KateDocument::selection()" << endl;
   int sc = selectStart.col();
   int ec = selectEnd.col();
 
@@ -1997,7 +1997,7 @@ bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, co
 
 bool KateDocument::searchText (unsigned int startLine, unsigned int startCol, const QRegExp &regexp, unsigned int *foundAtLine, unsigned int *foundAtCol, unsigned int *matchLen, bool backwards)
 {
-  kdDebug()<<"KateDocument::searchText( "<<startLine<<", "<<startCol<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
+  kdDebug(13020)<<"KateDocument::searchText( "<<startLine<<", "<<startCol<<", "<<regexp.pattern()<<", "<<backwards<<" )"<<endl;
   if (regexp.isEmpty() || !regexp.isValid())
     return false;
 
@@ -4997,7 +4997,7 @@ void KateDocument::ready(KSpell *)
 
   m_kspell->check( text( m_spellStart.line(), m_spellStart.col(), m_spellEnd.line(), m_spellEnd.col() ) );
 
-  kdDebug () << "SPELLING READY STATUS: " << m_kspell->status () << endl;
+  kdDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
 }
 
 void KateDocument::locatePosition( uint pos, uint& line, uint& col )
@@ -5070,7 +5070,7 @@ void KateDocument::spellCleanDone()
   delete m_kspell;
   m_kspell = 0;
 
-  kdDebug () << "SPELLING END" << endl;
+  kdDebug (13020) << "SPELLING END" << endl;
 }
 //END
 

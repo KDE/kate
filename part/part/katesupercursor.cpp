@@ -315,7 +315,7 @@ void KateSuperRange::init()
 {
   Q_ASSERT(isValid());
   if (!isValid())
-    kdDebug() << superStart() << " " << superEnd() << endl;
+    kdDebug(13020) << superStart() << " " << superEnd() << endl;
 
   insertChild(m_start);
   insertChild(m_end);
@@ -649,7 +649,7 @@ void KateSuperRangeList::slotEliminated()
 
 void KateSuperRangeList::slotDeleted(QObject* range)
 {
-  //kdDebug()<<"KateSuperRangeList::slotDeleted"<<endl;
+  //kdDebug(13020)<<"KateSuperRangeList::slotDeleted"<<endl;
   KateSuperRange* r = static_cast<KateSuperRange*>(range);
 
   if (m_trackingBoundaries) {
@@ -660,7 +660,7 @@ void KateSuperRangeList::slotDeleted(QObject* range)
   int index = findRef(r);
   if (index != -1)
     take(index);
-  //else kdDebug()<<"Range not found in list"<<endl;
+  //else kdDebug(13020)<<"Range not found in list"<<endl;
 
   if (!count())
       emit listEmpty();

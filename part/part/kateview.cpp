@@ -298,18 +298,23 @@ void KateView::setupActions()
   a=new KAction(i18n("&Configure Editor..."), 0, m_doc, SLOT(configDialog()),ac, "set_confdlg");
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
 
-  m_setHighlight = m_doc->hlActionMenu (i18n("&Highlighting"),ac,"set_highlight");
+  KateViewHighlightAction *menu = new KateViewHighlightAction (i18n("&Highlighting"), ac, "set_highlight");
+  menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
+  menu->updateMenu (m_doc);
 
-  m_setFileType = new KateViewFileTypeAction (i18n("&Filetype"),ac,"set_filetype");
-  m_setFileType->updateMenu (m_doc);
+  KateViewFileTypeAction *ftm = new KateViewFileTypeAction (i18n("&Filetype"),ac,"set_filetype");
+  ftm->updateMenu (m_doc);
 
-  m_schemaMenu = new KateViewSchemaAction (i18n("&Schema"),ac,"view_schemas");
-  m_schemaMenu->updateMenu (this);
+  KateViewSchemaAction *schemaMenu = new KateViewSchemaAction (i18n("&Schema"),ac,"view_schemas");
+  schemaMenu->updateMenu (this);
 
   // indentation menu
   new KateViewIndentationAction (m_doc, i18n("&Indentation"),ac,"tools_indentation");
 
-  m_doc->exportActionMenu (i18n("E&xport"),ac,"file_export");
+  KateExportAction *emenu = new KateExportAction (i18n("E&xport"),ac,"file_export");
+  emenu->updateMenu (m_doc);
+  emenu->setWhatsThis(i18n("This command allows you to export the current document"
+                      " with all highlighting information into a markup document, e.g. HTML."));
 
   m_selectAll = a=KStdAction::selectAll(this, SLOT(selectAll()), ac);
   a->setWhatsThis(i18n("Select the entire text of the current document."));
@@ -1233,8 +1238,8 @@ void KateView::updateRendererConfig()
   // update the left border right, for example linenumbers
   m_viewInternal->leftBorder->updateFont();
   m_viewInternal->leftBorder->repaint ();
-  
-  m_renderer->setShowIndentLines (config()->showIndentationLines());  
+
+  m_renderer->setShowIndentLines (config()->showIndentationLines());
 }
 
 void KateView::updateFoldingConfig ()

@@ -582,21 +582,21 @@ class KateDocument : public Kate::Document,
     QString m_dirWatchFile;
 
   //
-  // Kate::Document stuff
+  // Kate::Document stuff, this is all deprecated!!!!!!!!!!
   //
   public:
-    Kate::ConfigPage *colorConfigPage (QWidget *);
-    Kate::ConfigPage *fontConfigPage (QWidget *);
-    Kate::ConfigPage *indentConfigPage (QWidget *);
-    Kate::ConfigPage *selectConfigPage (QWidget *);
-    Kate::ConfigPage *editConfigPage (QWidget *);
-    Kate::ConfigPage *keysConfigPage (QWidget *);
-    Kate::ConfigPage *hlConfigPage (QWidget *);
-    Kate::ConfigPage *viewDefaultsConfigPage (QWidget *);
-    Kate::ConfigPage *saveConfigPage( QWidget * );
+    Kate::ConfigPage *colorConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *fontConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *indentConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *selectConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *editConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *keysConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *hlConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *viewDefaultsConfigPage (QWidget *) { return 0; }
+    Kate::ConfigPage *saveConfigPage( QWidget * ) { return 0; }
 
-    Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
-    Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0);
+    Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0) { return 0; }
+    Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0) { return 0; }
 
   public:
     /**
@@ -869,8 +869,6 @@ class KateDocument : public Kate::Document,
     void codeFoldingUpdated();
     void aboutToRemoveText(const KateTextRange&);
     void textRemoved();
-  public slots:
-    void dumpRegionTree();
 
   private slots:
     void slotModOnHdDirty (const QString &path);
@@ -1043,8 +1041,11 @@ class KateDocument : public Kate::Document,
   protected:
       virtual bool insertTemplateTextImplementation ( uint line, uint column, const QString &templateString, const QMap<QString,QString> &initialValues, QWidget *parentWindow=0 );
       KateKeyInterceptorFunctor *m_tabInterceptor;
+
   protected slots:
       void testTemplateCode();
+      void dumpRegionTree();
+
   // IM input stuff
   //
   public:

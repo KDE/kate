@@ -407,28 +407,31 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
   switch( number )
   {
     case 0:
-      return colorConfigPage (parent);
+      return new KateViewDefaultsConfig (parent);
 
     case 1:
-      return editConfigPage (parent);
+      return new KateSchemaConfigPage (parent, this);
 
     case 2:
-      return keysConfigPage (parent);
+      return new KateSelectConfigTab (parent);
 
     case 3:
-      return indentConfigPage(parent);
+      return new KateEditConfigTab (parent);
 
     case 4:
-      return selectConfigPage(parent);
+      return new KateIndentConfigTab (parent);
 
     case 5:
-      return saveConfigPage( parent );
+      return new KateSaveConfigTab (parent);
 
     case 6:
-      return viewDefaultsConfigPage(parent);
+      return new KateHlConfigPage (parent);
 
     case 7:
-      return hlConfigPage (parent);
+      return new KateFileTypeConfigTab (parent);
+
+    case 8:
+      return new KateEditKeyConfiguration (parent, this);
 
     case 9:
       return new KateSpellConfigPage (parent);
@@ -436,12 +439,11 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
     case 10:
       return new KatePartPluginConfigPage (parent);
 
-    case 8:
-      return new KateFileTypeConfigTab (parent);
-
     default:
       return 0;
   }
+
+  return 0;
 }
 
 QString KateDocument::configPageName (uint number) const
@@ -449,41 +451,43 @@ QString KateDocument::configPageName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Fonts & Colors");
-
-    case 3:
-      return i18n ("Indentation");
-
-    case 4:
-      return i18n ("Cursor & Selection");
+      return i18n ("Appearance");
 
     case 1:
-      return i18n ("Editing");
+      return i18n ("Fonts & Colors");
 
     case 2:
-      return i18n ("Shortcuts");
+      return i18n ("Cursor & Selection");
 
-    case 7:
-      return i18n ("Highlighting");
+    case 3:
+      return i18n ("Editing");
 
-    case 6:
-      return i18n ("View Defaults");
-
-    case 10:
-      return i18n ("Plugins");
+    case 4:
+      return i18n ("Indentation");
 
     case 5:
       return i18n("Open/Save");
 
+    case 6:
+      return i18n ("Highlighting");
+
+    case 7:
+      return i18n("Filetypes");
+
+    case 8:
+      return i18n ("Shortcuts");
+
     case 9:
       return i18n("Spelling");
 
-    case 8:
-      return i18n("Filetypes");
+    case 10:
+      return i18n ("Plugins");
 
     default:
-      return 0;
+      return QString ("");
   }
+
+  return QString ("");
 }
 
 QString KateDocument::configPageFullName (uint number) const
@@ -491,41 +495,43 @@ QString KateDocument::configPageFullName (uint number) const
   switch( number )
   {
     case 0:
-      return i18n ("Font & Color Schemas");
-
-    case 3:
-      return i18n ("Indentation Rules");
-
-    case 4:
-      return i18n ("Cursor & Selection Behavior");
+      return i18n("Appearance");
 
     case 1:
-      return i18n ("Editing Options");
+      return i18n ("Font & Color Schemas");
 
     case 2:
-      return i18n ("Shortcuts Configuration");
+      return i18n ("Cursor & Selection Behavior");
 
-    case 7:
-      return i18n ("Highlighting Rules");
+    case 3:
+      return i18n ("Editing Options");
 
-    case 6:
-      return i18n("View Defaults");
-
-    case 10:
-      return i18n ("Plugin Manager");
+    case 4:
+      return i18n ("Indentation Rules");
 
     case 5:
       return i18n("File Opening & Saving");
 
+    case 6:
+      return i18n ("Highlighting Rules");
+
+    case 7:
+      return i18n("Filetype Specific Settings");
+
+    case 8:
+      return i18n ("Shortcuts Configuration");
+
     case 9:
       return i18n("Spell Checker Behavior");
 
-    case 8:
-      return i18n("Filetype Specific Settings");
+    case 10:
+      return i18n ("Plugin Manager");
 
     default:
-      return 0;
+      return QString ("");
   }
+
+  return QString ("");
 }
 
 QPixmap KateDocument::configPagePixmap (uint number, int size) const
@@ -533,41 +539,43 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
   switch( number )
   {
     case 0:
-      return BarIcon("colorize", size);
-
-    case 3:
-      return BarIcon("rightjust", size);
-
-    case 4:
-      return BarIcon("frame_edit", size);
-
-    case 1:
-      return BarIcon("edit", size);
-
-    case 2:
-      return BarIcon("key_enter", size);
-
-    case 7:
-      return BarIcon("source", size);
-
-    case 6:
       return BarIcon("view_text",size);
 
-    case 10:
-      return BarIcon("connect_established", size);
+    case 1:
+      return BarIcon("colorize", size);
+
+    case 2:
+        return BarIcon("frame_edit", size);
+
+    case 3:
+      return BarIcon("edit", size);
+
+    case 4:
+      return BarIcon("rightjust", size);
 
     case 5:
       return BarIcon("filesave", size);
 
+    case 6:
+      return BarIcon("source", size);
+
+    case 7:
+      return BarIcon("edit", size);
+
+    case 8:
+      return BarIcon("key_enter", size);
+
     case 9:
       return BarIcon("spellcheck", size);
 
-    case 8:
-      return BarIcon("edit", size);
+    case 10:
+      return BarIcon("connect_established", size);
 
     default:
-      return 0;
+      return BarIcon("edit", size);
   }
+
+  return BarIcon("edit", size);
 }
 //END
 
@@ -4149,7 +4157,7 @@ void KateDocument::newBracketMark( const KateTextCursor& cursor, KateBracketRang
     return;
 
   bm.setValid(true);
-  
+
   const int tw = config()->tabWidth();
   const int indentStart = m_buffer->plainLine(bm.start().line())->indentDepth(tw);
   const int indentEnd = m_buffer->plainLine(bm.end().line())->indentDepth(tw);
@@ -4551,69 +4559,6 @@ QString KateDocument::HTMLEncode(QChar theChar)
     return QString("&amp;");
   };
   return theChar;
-}
-
-Kate::ConfigPage *KateDocument::colorConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateSchemaConfigPage (p, this);
-}
-
-Kate::ConfigPage *KateDocument::viewDefaultsConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateViewDefaultsConfig(p);
-}
-
-Kate::ConfigPage *KateDocument::fontConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateSchemaConfigPage ( p );
-}
-
-Kate::ConfigPage *KateDocument::indentConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateIndentConfigTab(p);
-}
-
-Kate::ConfigPage *KateDocument::selectConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateSelectConfigTab(p);
-}
-
-Kate::ConfigPage *KateDocument::editConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateEditConfigTab(p);
-}
-
-Kate::ConfigPage *KateDocument::keysConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateEditKeyConfiguration(p, this);
-}
-
-Kate::ConfigPage *KateDocument::hlConfigPage (QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateHlConfigPage (p);
-}
-
-Kate::ConfigPage *KateDocument::saveConfigPage(QWidget *p)
-{
-  return (Kate::ConfigPage*) new KateSaveConfigTab(p);
-}
-
-Kate::ActionMenu *KateDocument::hlActionMenu (const QString& text, QObject* parent, const char* name)
-{
-  KateViewHighlightAction *menu = new KateViewHighlightAction (text, parent, name);
-  menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
-  menu->updateMenu (this);
-
-  return (Kate::ActionMenu *)menu;
-}
-
-Kate::ActionMenu *KateDocument::exportActionMenu (const QString& text, QObject* parent, const char* name)
-{
-  KateExportAction *menu = new KateExportAction (text, parent, name);
-  menu->updateMenu (this);
-  menu->setWhatsThis(i18n("This command allows you to export the current document"
-    " with all highlighting information into a markup document, e.g. HTML."));
-  return (Kate::ActionMenu *)menu;
 }
 
 void KateDocument::dumpRegionTree()

@@ -453,11 +453,6 @@ class KateView : public Kate::View,
 
     KSelectAction*         m_setEndOfLine;
 
-    Kate::ActionMenu*      m_setHighlight;
-    Kate::ActionMenu*      m_setFileType;
-    KToggleAction*         m_toggleWriteLock;
-    KateViewSchemaAction*  m_schemaMenu;
-
     KAction *m_cut;
     KAction *m_copy;
     KAction *m_paste;
@@ -466,6 +461,7 @@ class KateView : public Kate::View,
 
     KToggleAction *m_toggleBlockSelection;
     KToggleAction *m_toggleInsert;
+    KToggleAction *m_toggleWriteLock;
 
     KateDocument*          m_doc;
     KateViewInternal*      m_viewInternal;

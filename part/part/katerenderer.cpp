@@ -524,10 +524,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           }
           else
           {
-            if (!isPrinterFriendly()) {
-
-            }
-
             // Here's where the money is...
             paint.drawText(oldXPos-xStart, y, textLine->string(), blockStartCol, nextCol-blockStartCol);
 

@@ -34,6 +34,7 @@ class KateDocument;
 class KateHighlighting;
 class KateBufBlockList;
 class KateBuffer;
+class KateFileLoader;
 
 class QTextCodec;
 
@@ -50,7 +51,7 @@ class KateBufBlock
      * Create an empty block. (empty == ONE line)
      */
     KateBufBlock ( KateBuffer *parent, KateBufBlock *prev = 0, KateBufBlock *next = 0,
-                   QTextStream *stream = 0, bool lastCharEOL = false, bool *eof = 0 );
+                   KateFileLoader *stream = 0 );
     
     /**
      * destroy this block and take care of freeing all mem
@@ -65,7 +66,7 @@ class KateBufBlock
      * internal there will be a limit for the taken lines per block
      * returns EOL as bool
      */
-    bool fillBlock (QTextStream *stream, bool lastCharEOL);
+    void fillBlock (KateFileLoader *stream);
     
   public:
     /**

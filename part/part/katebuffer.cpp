@@ -37,6 +37,13 @@
 #include <qtextstream.h>
 #include <qtimer.h>
 #include <qtextcodec.h>
+#include <qcstring.h>
+
+/**
+ * loader block size, load 256 kb at once per default
+ * if file size is smaller, fall back to file size
+ */
+static const Q_ULONG KATE_FILE_LOADER_BS  = 256 * 1024;
 
 /**
  * KATE_AVG_BLOCK_SIZE is in characters !
@@ -44,22 +51,183 @@
  * block will max contain around BLOCK_SIZE chars or
  * BLOCK_LINES lines (after load, later that won't be tracked)
  */
-#define KATE_AVG_BLOCK_SIZE      (2048 * 80)
-#define KATE_MAX_BLOCK_LINES     2048
+static const Q_ULONG KATE_AVG_BLOCK_SIZE  = 2048 * 80;
+static const Q_ULONG KATE_MAX_BLOCK_LINES = 2048;
 
 /*
  * KATE_MAX_BLOCKS_LOADED should be at least 4, as some
  * methodes will cause heavy trashing, if not at least the
  * latest 2-3 used blocks are alive
  */
-#define KATE_MAX_BLOCKS_LOADED   16
+static const uint KATE_MAX_BLOCKS_LOADED = 16;
 
 /**
  * hl will look at the next KATE_HL_LOOKAHEAD lines
  * or until the current block ends if a line is requested
  * will avoid to run doHighlight too often
  */
-#define KATE_HL_LOOKAHEAD        64
+static const uint KATE_HL_LOOKAHEAD = 64;
+
+class KateFileLoader
+{
+  public:
+    KateFileLoader (const QString &filename, QTextCodec *codec)
+      : m_file (filename)
+      , m_buffer (KMIN (m_file.size(), KATE_FILE_LOADER_BS))
+      , m_decoder (codec->makeDecoder())
+      , m_position (0)
+      , m_lastLineStart (0)
+      , m_eof (false) // default to not eof     
+      , lastWasEndOfLine (true) // at start of file, we had a virtual newline
+      , lastWasR (false) // we have not found a \r as last char
+      , m_eol (-1) // no eol type detected atm
+    {
+    }
+    
+    ~KateFileLoader ()
+    {
+      delete m_decoder;
+    }
+    
+    /**
+     * open file, read first chunk of data, detect eol
+     */
+    bool open ()
+    {
+      if (m_file.open (IO_ReadOnly))
+      {
+        int c = m_file.readBlock (m_buffer.data(), m_buffer.size());
+            
+        if (c > 0)
+          m_text = m_decoder->toUnicode (m_buffer, c);
+          
+        m_eol = m_file.atEnd();
+        
+        for (uint i=0; i < m_text.length(); i++)
+        {
+          if (m_text[i] == '\n')
+          {
+            m_eol = KateDocumentConfig::eolUnix;
+            break;
+          }
+          else if ((m_text[i] == '\r'))
+          {
+            if (((i+1) < m_text.length()) && (m_text[i+1] == '\n'))
+            {
+              m_eol = KateDocumentConfig::eolDos;
+              break;
+            }
+            else
+            {
+              m_eol = KateDocumentConfig::eolMac;
+              break;
+            }
+          }
+        }
+      
+        return true;
+      }
+      
+      return false;
+    }
+    
+    // no new lines around ?
+    inline bool eof () const { return m_eof && !lastWasEndOfLine && (m_lastLineStart == m_text.length()); }
+    
+    // eol mode ? autodetected on open(), -1 for no eol found in the first block!
+    inline int eol () const { return m_eol; }
+
+    // read a line
+    QString readLine ()
+    {  
+      while (m_position <= m_text.length())
+      {
+        if (m_position == m_text.length())
+        {
+          // try to load more text if something is around
+          if (!m_eof)
+          {
+            int c = m_file.readBlock (m_buffer.data(), m_buffer.size());
+            
+            if (c > 0)
+              m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart)
+                       + m_decoder->toUnicode (m_buffer, c);
+            else
+              m_text = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+            
+            // is file completly read ?
+            m_eof = m_file.atEnd();
+            
+            // recalc current pos and last pos
+            m_position -= m_lastLineStart;
+            m_lastLineStart = 0;
+          }
+          
+          // oh oh, end of file, escape !
+          if (m_eof && (m_position == m_text.length()))
+          {
+            lastWasEndOfLine = false;
+          
+            QString line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+            m_lastLineStart = m_position;
+            
+            return line;
+          }
+        }
+        
+        if (m_text[m_position] == '\n')
+        {
+          lastWasEndOfLine = true;
+        
+          if (lastWasR)
+          {
+            m_lastLineStart++;
+            lastWasR = false;
+          }
+          else
+          {         
+            QString line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+            m_lastLineStart = m_position+1;
+            m_position++;
+                  
+            return line;
+          }
+        }
+        else if (m_text[m_position] == '\r')
+        {
+          lastWasEndOfLine = true;
+          lastWasR = true;
+          
+          QString line = m_text.mid (m_lastLineStart, m_position-m_lastLineStart);
+          m_lastLineStart = m_position+1;
+          m_position++;
+          
+          return line;
+        }
+        else
+        {
+          lastWasEndOfLine = false;
+          lastWasR = false;
+        }
+        
+        m_position++;
+      }
+      
+      return QString ();
+    } 
+    
+  private:
+    QFile m_file;
+    QByteArray m_buffer;
+    QTextDecoder *m_decoder;
+    QString m_text;
+    uint m_position;
+    uint m_lastLineStart;
+    bool m_eof;
+    bool lastWasEndOfLine;
+    bool lastWasR;
+    int m_eol;
+};
 
 /**
  * Create an empty buffer. (with one block with one empty line)
@@ -221,13 +389,13 @@ void KateBuffer::clear()
 
 bool KateBuffer::openFile (const QString &m_file)
 {
-  QFile file (m_file);
+  KateFileLoader file (m_file, m_doc->config()->codec());
 
   bool ok = false;
   struct stat sbuf;
   if (stat(QFile::encodeName(m_file), &sbuf) == 0)
   {
-    if (S_ISREG(sbuf.st_mode) && file.open( IO_ReadOnly ))
+    if (S_ISREG(sbuf.st_mode) && file.open())
       ok = true;
   }
 
@@ -236,64 +404,11 @@ bool KateBuffer::openFile (const QString &m_file)
     clear();
     return false; // Error
   }
-
-  // eol detection
-  bool lastCharEOL = false;
-  if (file.isDirectAccess())
-  {
-    // detect eol
-    while (true)
-    {
-      int ch = file.getch();
-
-      if (ch == -1)
-        break;
-
-      if ((ch == '\r'))
-      {
-        ch = file.getch ();
-
-        if (ch == '\n')
-        {
-          m_doc->config()->setEol (KateDocumentConfig::eolDos);
-          break;
-        }
-        else
-        {
-          m_doc->config()->setEol (KateDocumentConfig::eolMac);
-          break;
-        }
-      }
-      else if (ch == '\n')
-      {
-        m_doc->config()->setEol (KateDocumentConfig::eolUnix);
-        break;
-      }
-    }
-
-    if (file.size () > 0)
-    {
-      file.at (file.size () - 1);
-
-      int ch = file.getch();
-
-      if ((ch == '\n') || (ch == '\r'))
-        lastCharEOL = true;
-    }
-
-    file.reset ();
-  }
-  else
-  {
-    m_doc->config()->setEol (KateDocumentConfig::eolUnix);
-    lastCharEOL = true;
-  }
-
-  QTextStream stream (&file);
-  QTextCodec *codec = m_doc->config()->codec();
-  stream.setEncoding(QTextStream::RawUnicode); // disable Unicode headers
-  stream.setCodec(codec); // this line sets the mapper to the correct codec
-
+  
+  // set eol mode, if a eol char was found in the first 256kb block!
+  if (file.eol() != -1)
+    m_doc->config()->setEol (file.eol());
+  
   // flush current content
   clear ();
 
@@ -304,12 +419,11 @@ bool KateBuffer::openFile (const QString &m_file)
   m_blocks.clear ();
 
   // do the real work
-  bool eof = false;
   KateBufBlock *block = 0;
   m_lines = 0;
-  while (!m_cacheWriteError && !eof && !stream.atEnd())
+  while (!file.eof() && !m_cacheWriteError)
   {
-    block = new KateBufBlock (this, block, 0, &stream, lastCharEOL, &eof);
+    block = new KateBufBlock (this, block, 0, &file);
 
     m_lines = block->endLine ();
 
@@ -871,7 +985,7 @@ void KateBuffer::setLineVisible(unsigned int lineNr, bool visible)
 // BEGIN KateBufBlock
 
 KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBlock *next,
-                             QTextStream *stream, bool lastCharEOL, bool *eof )
+                             KateFileLoader *stream )
 : m_state (KateBufBlock::stateDirty),
   m_startLine (0),
   m_lines (0),
@@ -899,10 +1013,7 @@ KateBufBlock::KateBufBlock ( KateBuffer *parent, KateBufBlock *prev, KateBufBloc
   if (stream)
   {
     // this we lead to either dirty or swapped state
-    bool b = fillBlock (stream, lastCharEOL);
-
-    if (eof)
-      (*eof) = b;
+    fillBlock (stream);
   }
   else // init the block if no stream given !
   {
@@ -938,7 +1049,7 @@ KateBufBlock::~KateBufBlock ()
   KateBufBlockList::remove (this);
 }
 
-bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
+void KateBufBlock::fillBlock (KateFileLoader *stream)
 {
   // is allready too much stuff around in mem ?
   bool swap = m_parent->m_loadedBlocks.count() >= KATE_MAX_BLOCKS_LOADED;
@@ -949,58 +1060,48 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   if (swap)
     rawData.resize ((KATE_AVG_BLOCK_SIZE * sizeof(QChar)) + ((KATE_AVG_BLOCK_SIZE/80) * 8));
 
-  bool eof = false;
   char *buf = rawData.data ();
   uint size = 0;
   uint blockSize = 0;
-  while ((blockSize < KATE_AVG_BLOCK_SIZE) && (m_lines < KATE_MAX_BLOCK_LINES))
+  while (!stream->eof() && (blockSize < KATE_AVG_BLOCK_SIZE) && (m_lines < KATE_MAX_BLOCK_LINES))
   {
     QString line = stream->readLine();
     uint length = line.length ();
     blockSize += length;
 
-    if (lastCharEOL || !stream->atEnd() || !line.isNull())
+    if (swap)
     {
-      if (swap)
+      // create the swapped data on the fly, no need to waste time
+      // via going over the textline classes and dump them !
+      char attr = KateTextLine::flagNoOtherData;
+      uint pos = size;
+
+      // calc new size
+      size = size + 1 + sizeof(uint) + (sizeof(QChar)*length);
+
+      if (size > rawData.size ())
       {
-        // create the swapped data on the fly, no need to waste time
-        // via going over the textline classes and dump them !
-        char attr = KateTextLine::flagNoOtherData;
-        uint pos = size;
-
-        // calc new size
-        size = size + 1 + sizeof(uint) + (sizeof(QChar)*length);
-
-        if (size > rawData.size ())
-        {
-          rawData.resize (size);
-          buf = rawData.data ();
-        }
-
-        memcpy(buf+pos, (char *) &attr, 1);
-        pos += 1;
-
-        memcpy(buf+pos, (char *) &length, sizeof(uint));
-        pos += sizeof(uint);
-
-        memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
-        pos += sizeof(QChar)*length;
-      }
-      else
-      {
-        KateTextLine::Ptr textLine = new KateTextLine ();
-        textLine->insertText (0, length, line.unicode ());
-        m_stringList.push_back (textLine);
+        rawData.resize (size);
+        buf = rawData.data ();
       }
 
-      m_lines++;
+      memcpy(buf+pos, (char *) &attr, 1);
+      pos += 1;
+
+      memcpy(buf+pos, (char *) &length, sizeof(uint));
+      pos += sizeof(uint);
+
+      memcpy(buf+pos, (char *) line.unicode(), sizeof(QChar)*length);
+      pos += sizeof(QChar)*length;
+    }
+    else
+    {
+      KateTextLine::Ptr textLine = new KateTextLine ();
+      textLine->insertText (0, length, line.unicode ());
+      m_stringList.push_back (textLine);
     }
 
-    if (stream->atEnd() && line.isNull())
-    {
-      eof = true;
-      break;
-    }
+    m_lines++;
   }
 
   if (swap)
@@ -1019,8 +1120,6 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
         m_vmblockSize = 0;
 
         m_parent->m_cacheWriteError = true;
-
-        eof = true;
       }
     }
 
@@ -1035,8 +1134,6 @@ bool KateBufBlock::fillBlock (QTextStream *stream, bool lastCharEOL)
   }
 
   kdDebug (13020) << "A BLOCK LOADED WITH LINES: " << m_lines << endl;
-
-  return eof;
 }
 
 KateTextLine::Ptr KateBufBlock::line(uint i)

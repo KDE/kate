@@ -1966,16 +1966,14 @@ int KateHighlighting::hlKeyForAttrib( int attrib ) const
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
-  int k = hlKeyForAttrib( attrib );
-  static const QString sq(" \"'");
-  return m_additionalData[k][3].find(c) < 0 && sq.find(c) < 0;
+  static const QString& sq = KGlobal::staticQString(" \"'");
+  return getCommentString(3, attrib).find(c) < 0 && sq.find(c) < 0;
 }
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
 {
-  int k = hlKeyForAttrib( attrib );
-  static const QString sq("\"'");
-  return (m_additionalData[k][4].find(c) != -1) && (sq.find(c) == -1);
+  static const QString& sq = KGlobal::staticQString("\"'");
+  return (getCommentString(4, attrib).find(c) != -1) && (sq.find(c) == -1);
 }
 
 bool KateHighlighting::canComment( int startAttrib, int endAttrib ) const

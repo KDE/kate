@@ -2799,7 +2799,7 @@ bool KateDocument::openFile()
 
   bool success = buffer->openFile (m_file);
 
-  int hl = hlManager->wildcardFind( m_file );
+  int hl = hlManager->wildcardFind( m_url.url() );
 
   if (hl == -1)
   {
@@ -2824,7 +2824,7 @@ bool KateDocument::openFile()
         break;
     }
 
-    hl = hlManager->mimeFind( buf, m_file );
+    hl = hlManager->mimeFind( buf, m_url.url() );
   }
 
   uint mode = hl;
@@ -2883,7 +2883,7 @@ bool KateDocument::saveFile()
 
   if (!hlSetByUser)
   {
-    int hl = hlManager->wildcardFind( m_file );
+    int hl = hlManager->wildcardFind( m_url.url() );
 
     if (hl == -1)
     {
@@ -2902,7 +2902,7 @@ bool KateDocument::saveFile()
         if (bufpos >= HOWMANY) break;
       }
 
-      hl = hlManager->mimeFind( buf, m_file );
+      hl = hlManager->mimeFind( buf, m_url.url() );
     }
 
     uint mode = hl;

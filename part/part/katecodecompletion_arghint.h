@@ -72,7 +72,7 @@ class KDevArgHint : public QFrame
 		void nextArg();
 		void prevArg();
 		void setCurArg ( int nCurArg );
-		virtual void setFont ( const QFont & );
+//		virtual void setFont ( const QFont & );
 
 	private:
 		QMap<int, QString> m_funcList;

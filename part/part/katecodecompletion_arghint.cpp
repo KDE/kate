@@ -25,6 +25,7 @@
 #include <klocale.h>
 
 #include <kdebug.h>
+#include <qtooltip.h>
 
 #include "katecodecompletion_arghint.h"
 #include "katecodecompletion_arghint.moc"
@@ -99,7 +100,9 @@ KDevArgHint::KDevArgHint ( QWidget *parent ) : QFrame ( parent, 0,  WType_Popup 
 {
 	setFrameStyle ( QFrame::Box | QFrame::Plain );
 	setLineWidth ( 1 );
-	setBackgroundColor ( QColor ( 255, 255, 238 ) );
+			//	setBackgroundColor ( QColor ( 255, 255, 238 ) );
+
+	setPalette(QToolTip::palette());
 
 	QHBoxLayout* hbox = new QHBoxLayout ( this );
 	hbox->setMargin ( 1 );
@@ -109,15 +112,18 @@ KDevArgHint::KDevArgHint ( QWidget *parent ) : QFrame ( parent, 0,  WType_Popup 
 	hbox->addWidget ( ( m_pNext = new ArgHintArrow ( this, ArgHintArrow::Right ) ) );
 	hbox->addWidget ( ( m_pFuncLabel = new QLabel ( this ) ) );
 
+
 	setFocusPolicy ( StrongFocus );
 	setFocusProxy ( parent );
 
-	m_pStateLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
+				//	m_pStateLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
+	m_pStateLabel->setPalette(QToolTip::palette());
 	m_pStateLabel->setAlignment ( AlignCenter );
-	m_pStateLabel->setFont ( QFont ( "Arial", 10 ) ); // should be optional
-	m_pFuncLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
-	m_pFuncLabel->setAlignment ( AlignCenter );
-	m_pFuncLabel->setFont ( QFont ( "Arial", 10 ) ); // should be optional
+	m_pStateLabel->setFont ( QToolTip::font() );
+				//	m_pFuncLabel->setBackgroundColor ( QColor ( 255, 255, 238 ) );
+	m_pFuncLabel->setPalette(QToolTip::palette());
+	m_pFuncLabel->setAlignment ( AlignCenter);
+	m_pFuncLabel->setFont ( QToolTip::font() );
 
 	m_pPrev->setFixedSize ( 16, 16 );
 	m_pStateLabel->setFixedSize ( 36, 16 );
@@ -143,11 +149,12 @@ KDevArgHint::~KDevArgHint()
 	delete m_pFuncLabel;
 }
 
+/*
 void KDevArgHint::setFont ( const QFont& font )
 {
 	m_pFuncLabel->setFont ( font );
 	m_pStateLabel->setFont ( font );
-}
+}*/
 
 /** No descriptions */
 void KDevArgHint::gotoPrev()
@@ -175,7 +182,7 @@ void KDevArgHint::gotoNext()
 void KDevArgHint::updateState()
 {
 	QString strState;
-	strState = (i18n (  "%i of %i" )).arg(m_nCurFunc + 1).arg( m_nNumFunc );
+        strState = (i18n (  "%1 of %2" )).arg( m_nCurFunc + 1).arg(m_nNumFunc );
 
 	m_pStateLabel->setText ( strState );
 
@@ -322,8 +329,6 @@ QString KDevArgHint::markCurArg()
 	if ( strFuncText.isEmpty() )
 		return "\0";
 
-	strFuncText = strFuncText.prepend ( "<qt>&nbsp;" );
-	strFuncText = strFuncText.append ( "</qt>" );
 
 	int nBegin = strFuncText.find ( m_strArgWrapping[0] ) + 1;
 	int nEnd = nBegin;
@@ -348,6 +353,9 @@ QString KDevArgHint::markCurArg()
 
 	while ( strFuncText.find ( ' ', 0 ) != -1 ) // replace ' ' with "&ndsp;" so that there's no wrap
 		strFuncText = strFuncText.replace ( ( strFuncText.find ( ' ', 0 ) ), 1, "&nbsp;" );
+
+	strFuncText = strFuncText.prepend ( "<qt>&nbsp;" );
+	strFuncText = strFuncText.append ( "</qt>" );
 
 	kdDebug ( 12001 ) << strFuncText <<endl;
 

@@ -133,7 +133,7 @@ bool CodeCompletion_Impl::eventFilter( QObject *o, QEvent *e ){
 	deleteCommentLabel();
 	m_view->setFocus();
 	emit completionAborted();
-	return FALSE;
+	return TRUE; //was false
       }
       updateBox();
       return TRUE;
@@ -236,6 +236,8 @@ void CodeCompletion_Impl::showComment()
                 if (!item->m_entry.comment.isEmpty())
                 {
                         m_commentLabel=new KateCodeCompletionCommentLabel(0,item->m_entry.comment);
+			m_commentLabel->setFont(QToolTip::font());
+			m_commentLabel->setPalette(QToolTip::palette());
 			QPoint rightPoint=m_completionPopup->mapToGlobal(QPoint(m_completionPopup->width(),0));
 			QPoint leftPoint=m_completionPopup->mapToGlobal(QPoint(0,0));
 			QPoint finalPoint;

@@ -324,7 +324,6 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
     {
       cursorVisible = true;
       cursorXPos = xPos + (showCursor - (int) curCol) * fs->myFontMetrics.width(spaceChar);
-      cursorMaxWidth = xPosAfter - xPos;
     }
   }
   else

@@ -320,6 +320,7 @@ class KateView : public Kate::View,
     void toggleWWMarker();
     void toggleWriteLock();
     void switchToCmdLine ();
+    void slotReadWriteChanged ();
 
   signals:
     void dropEventPass(QDropEvent*);

@@ -713,11 +713,17 @@ void KateView::reloadFile()
 void KateView::slotUpdate()
 {
   emit newStatus();
+
   slotNewUndo();
-  if ( m_toggleWriteLock && m_toggleWriteLock->isChecked() == m_doc->isReadWrite() )
-  {
+}
+
+void KateView::slotReadWriteChanged ()
+{
+  if ( m_toggleWriteLock )
     m_toggleWriteLock->setChecked( ! m_doc->isReadWrite() );
-  }
+
+  m_cut->setEnabled (m_doc->isReadWrite());
+  m_paste->setEnabled (m_doc->isReadWrite());
 }
 
 void KateView::slotNewUndo()

@@ -1516,6 +1516,8 @@ bool KateDocument::removeSelectedText ()
 
 bool KateDocument::selectAll()
 {
+  setBlockSelectionMode (false);
+
   return setSelection (0, 0, lastLine(), lineLength(lastLine()));
 }
 //END
@@ -3108,8 +3110,11 @@ void KateDocument::setReadWrite( bool rw )
   if (isReadWrite() != rw)
   {
     KParts::ReadWritePart::setReadWrite (rw);
-    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() ) {
+
+    for( KateView* view = m_views.first(); view != 0L; view = m_views.next() )
+    {
       view->slotUpdate();
+      view->slotReadWriteChanged ();
     }
   }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<!--
+  This file is part of KDE's kate project.
+  
+  copyright   : (C) 2004 by Dominik Haumann
+  email       : dhdev at gmx dot de
+
+  last change : 2004-03-18
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Library General Public
+  License as published by the Free Software Foundation; either
+  version 2 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Library General Public License for more details.
+
+  You should have received a copy of the GNU Library General Public
+  License along with this library; if not, write to the
+  Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+  Boston, MA  02111-1307, USA.
+ -->
+<language name="GNU Gettext Message Catalog" version="1.00" kateversion="2.1" section="Markup" extensions="*.po;*.pot" mimetype="application/x-gettext" author="Dominik Haumann &lt;dhdev@gmx.de&gt;" license="LGPL">
+  <highlighting>
+    
+    <contexts>
+      <context name = "Normal" attribute = "Normal Text" lineEndContext="#stay">
+        <RegExpr attribute = "Keyword" String = "^(msgid_plural|msgid|msgstr)" context="#stay"/>
+        <RegExpr attribute = "Automatic Comment" String = "^#\..*$" context="#stay"/>
+        <RegExpr attribute = "Reference" String = "^#:.*$" context="#stay"/>
+        <RegExpr attribute = "Flag" String = "^#,.*$" context="#stay"/>
+        <RegExpr attribute = "Translator Comment" String = "^#.*$" context="#stay"/>
+        <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <DetectChar attribute = "String" char="&quot;" context="String"/>
+        <RegExpr attribute = "Index" String="\[\d+\]" context="#stay"/>
+      </context>
+      <context name = "String" attribute = "String" lineEndContext="#stay">
+        <RegExpr attribute = "Char" String="\\." context="#stay"/>
+        <DetectChar attribute = "String" char="&quot;" context="#pop"/>
+      </context>
+    </contexts>
+
+    <itemDatas>
+      <itemData name = "Normal Text" defStyleNum ="dsNormal"/>
+      <itemData name = "Keyword" defStyleNum ="dsKeyword"/>
+      <itemData name = "String" defStyleNum ="dsString"/>
+      <itemData name = "Translator Comment" defStyleNum ="dsComment"/>
+      <itemData name = "Automatic Comment" defStyleNum ="dsComment" color="#0000ff"/>
+      <itemData name = "Reference" defStyleNum ="dsComment" color="#0000ff"/>
+      <itemData name = "Flag" defStyleNum ="dsComment" color="#0000ff"/>
+      <itemData name = "Char" defStyleNum ="dsChar"/>
+
+      <itemData name = "Index" defStyleNum ="dsDecVal"/>
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="#" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

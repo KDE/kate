@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="IDL" section="Sources" extensions="*.idl" mimetype="text/x-idl-src">
+  <highlighting>
+    <list name="keywords">
+      <item> any </item>
+      <item> attribute </item>
+      <item> case </item>
+      <item> const </item>
+      <item> context </item>
+      <item> default </item>
+      <item> enum </item>
+      <item> exception </item>
+      <item> FALSE </item>
+      <item> fixed </item>
+      <item> public </item>
+      <item> in </item>
+      <item> inout </item>
+      <item> interface </item>
+      <item> module </item>
+      <item> Object </item>
+      <item> oneway </item>
+      <item> out </item>
+      <item> raises </item>
+      <item> readonly </item>
+      <item> sequence </item>
+      <item> struct </item>
+      <item> switch </item>
+      <item> TRUE </item>
+      <item> typedef </item>
+      <item> unsigned </item>
+      <item> union </item>
+    </list>
+    <list name="types">
+      <item> boolean </item>
+      <item> char </item>
+      <item> double </item>
+      <item> float </item>
+      <item> long </item>
+      <item> octet </item>
+      <item> short </item>
+      <item> string </item>
+      <item> void </item>
+      <item> wchar </item>
+      <item> wstring </item>
+    </list>
+    <contexts>
+      <context attribute="0" lineEndContext="0" name="Normal">
+        <keyword attribute="1" context="0" String="keywords" />
+        <keyword attribute="2" context="0" String="types" />
+        <HlCOct attribute="4" context="0"/>
+        <HlCHex attribute="5" context="0"/>
+        <HlCChar attribute="7" context="0"/>
+        <DetectChar attribute="8" context="1" char="&quot;"/>
+        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
+        <Detect2Chars attribute="10" context="3" char="/" char1="*"/>
+        <AnyChar attribute="11" context="0" String="!%&amp;()+,-&lt;=&gt;?[]^{|}~"/>
+        <StringDetect attribute="10" context="8" String="#if 0" insensitive="FALSE"/>
+        <RegExpr attribute="12" context="4" String="^#"/>
+      </context>
+      <context attribute="8" lineEndContext="0" name="String">
+        <LineContinue attribute="8" context="6"/>
+        <HlCStringChar attribute="9" context="1"/>
+        <DetectChar attribute="8" context="0" char="&quot;"/>
+      </context>
+      <context attribute="10" lineEndContext="0" name="Commentar 1">
+        <RegExpr attribute="3" context="2" String="(FIXME|TODO)" />
+      </context>
+      <context attribute="10" lineEndContext="3" name="Commentar 2">
+        <RegExpr attribute="3" context="3" String="(FIXME|TODO)" />
+        <Detect2Chars attribute="10" context="0" char="*" char1="/"/>
+      </context>
+      <context attribute="12" lineEndContext="0" name="Preprocessor">
+        <LineContinue attribute="12" context="7"/>
+        <RangeDetect attribute="13" context="4" char="&quot;" char1="&quot;"/>
+        <RangeDetect attribute="13" context="4" char="&lt;" char1="&gt;"/>
+        <Detect2Chars attribute="10" context="2" char="/" char1="/"/>
+        <Detect2Chars attribute="10" context="5" char="/" char1="*"/>
+      </context>
+      <context attribute="10" lineEndContext="5" name="Commentar/Preprocessor">
+        <Detect2Chars attribute="10" context="4" char="*" char1="/" />
+      </context>
+      <context attribute="0" lineEndContext="1" name="Some Context"/>
+      <context attribute="0" lineEndContext="4" name="Some Context2"/>
+      <context attribute="10" lineEndContext="8">
+          <RegExpr attribute="3" context="8" String="(FIXME|TODO)" />
+          <RegExpr attribute="10" context="0" String="^#endif" />
+      </context>
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Keyword"  defStyleNum="dsKeyword"/>
+      <itemData name="Data Type"  defStyleNum="dsDataType"/>
+      <itemData name="Decimal"  defStyleNum="dsDecVal"/>
+      <itemData name="Octal"  defStyleNum="dsBaseN"/>
+      <itemData name="Hex"  defStyleNum="dsBaseN"/>
+      <itemData name="Float"  defStyleNum="dsFloat"/>
+      <itemData name="Char"  defStyleNum="dsChar"/>
+      <itemData name="String"  defStyleNum="dsString"/>
+      <itemData name="String Char"  defStyleNum="dsChar"/>
+      <itemData name="Comment"  defStyleNum="dsComment"/>
+      <itemData name="Symbol"  defStyleNum="dsNormal"/>
+      <itemData name="Preprocessor"  defStyleNum="dsOthers"/>
+      <itemData name="Prep. Lib"  defStyleNum="dsOthers"/> <!--,Qt::darkYellow,Qt::yellow,false,false)); -->
+    </itemDatas>
+  </highlighting>
+  <general>
+    <comments>
+      <comment name="singleLine" start="//" />
+      <comment name="multiLine" start="/*" end="*/" />
+    </comments>
+    <keywords casesensitive="1" />
+  </general>
+</language>

@@ -246,11 +246,11 @@ class View : public KTextEditor::View, public KTextEditor::ClipboardInterface,
     /**
       Sets display of line numbers on/off depending on @param enable
     */
-    virtual void setLineNumbersOn( bool enable ) {};
+    virtual void setLineNumbersOn (bool) {};
     /**
       Toggles display of lineNumbers
     */
-    virtual void toggleLineNumbersOn() {};
+    virtual void toggleLineNumbersOn () {};
 
   public:
     /**

@@ -45,9 +45,9 @@
     <Action name="set_encoding" group="view_operations" />
   </Menu>
 
-  <Action name="bookmarks" />
 
   <Menu name="tools"><text>&amp;Tools</text>
+    <Action name="bookmarks" />
     <Separator group="tools_operations" />
     <Action name="set_filetype" group="tools_operations" />
     <Action name="set_highlight" group="tools_operations" />

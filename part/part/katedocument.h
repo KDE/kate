@@ -65,7 +65,6 @@ class KateHighlighting;
 class KatePartPluginItem;
 class KatePartPluginInfo;
 
-class KSpell;
 class KTempFile;
 
 class QTimer;
@@ -924,31 +923,7 @@ class KateDocument : public Kate::Document,
     bool m_reloading;
 
   public slots:
-    void spellcheck();
-    /**
-     * Spellcheck a defined portion of the text.
-     *
-     * @param from Where to start the check
-     * @param to Where to end. If this is (0,0), it will be set to the end of the document.
-     */
-    void spellcheck( const KateTextCursor &from, const KateTextCursor &to=KateTextCursor() );
-    void ready(KSpell *);
-    void misspelling( const QString&, const QStringList&, unsigned int );
-    void corrected  ( const QString&, const QString&, unsigned int);
-    void spellResult( const QString& );
-    void spellCleanDone();
-
-
     void slotQueryClose_save(bool *handled, bool* abortClosing);
-
-  private:
-    void locatePosition( uint pos, uint& line, uint& col );
-    KSpell *m_kspell;
-    // define the part of the text to check
-    KateTextCursor m_spellStart, m_spellEnd;
-    // keep track of where we are.
-    KateTextCursor m_spellPosCursor;
-    uint m_spellLastPos;
 
   public:
     void makeAttribs (bool needInvalidate = true);

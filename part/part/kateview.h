@@ -42,6 +42,7 @@ class KateCodeCompletion;
 class KateViewConfig;
 class KateViewSchemaAction;
 class KateRenderer;
+class KateSpell;
 
 class KToggleAction;
 class KAction;
@@ -476,7 +477,6 @@ class KateView : public Kate::View,
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
     KAction*               m_switchCmdLine;
-    KAction*               m_spellcheckSelection;
 
     KSelectAction*         m_setEndOfLine;
 
@@ -495,6 +495,7 @@ class KateView : public Kate::View,
     KateViewInternal*      m_viewInternal;
     KateRenderer*          m_renderer;
     KateSearch*            m_search;
+    KateSpell             *m_spell;
     KateBookmarks*         m_bookmarks;
     QGuardedPtr<QPopupMenu>  m_rmbMenu;
     KateCodeCompletion*    m_codeCompletion;
@@ -510,13 +511,6 @@ class KateView : public Kate::View,
   private slots:
     void slotNeedTextHint(int line, int col, QString &text);
     void slotHlChanged();
-
-  // spellcheck from cursor, selection
-  public slots:
-    void spellcheckFromCursor();
-    // defined here in anticipation of pr view selections ;)
-    void spellcheckSelection();
-
 
   /**
    * Configuration

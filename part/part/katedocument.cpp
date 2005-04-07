@@ -54,7 +54,6 @@
 #include <kconfig.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>
-#include <kspell.h>
 #include <kstdaction.h>
 #include <kiconloader.h>
 #include <kxmlguifactory.h>
@@ -153,8 +152,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   editWithUndo = false;
 
   m_docNameNumber = 0;
-
-  m_kspell = 0;
 
   m_bSingleViewMode = bSingleViewMode;
   m_bBrowserView = bBrowserView;
@@ -257,14 +254,6 @@ KateDocument::~KateDocument()
 
   // clean up plugins
   unloadAllPlugins ();
-
-  // kspell stuff
-  if( m_kspell )
-  {
-    m_kspell->setAutoDelete(true);
-    m_kspell->cleanUp(); // need a way to wait for this to complete
-    delete m_kspell;
-  }
 
   delete m_config;
   delete m_indenter;
@@ -4363,139 +4352,6 @@ void KateDocument::tagArbitraryLines(KateView* view, KateSuperRange* range)
   else
     tagLines(range->start(), range->end());
 }
-
-//
-// Spellchecking IN again
-//
-
-void KateDocument::spellcheck()
-{
-  spellcheck( KateTextCursor( 0, 0 ) );
-}
-
-void KateDocument::spellcheck( const KateTextCursor &from, const KateTextCursor &to )
-{
-  if( !isReadWrite() || text().isEmpty() )
-    return;
-
-
-  m_spellStart = from;
-  m_spellEnd = to;
-
-  if ( to.line() == 0 && to.col() == 0 )
-  {
-    int lln = lastLine();
-    m_spellEnd.setLine( lln );
-    m_spellEnd.setCol( lineLength( lln ) );
-  }
-
-  m_spellPosCursor = from;
-  m_spellLastPos = 0;
-
-  QString mt = mimeType()/*->name()*/;
-
-  KSpell::SpellerType type = KSpell::Text;
-  if ( mt == "text/x-tex" || mt == "text/x-latex" )
-    type = KSpell::TeX;
-  else if ( mt == "text/html" || mt == "text/xml" )
-    type = KSpell::HTML;
-
-  m_kspell = new KSpell( 0, i18n("Spellcheck"),
-                         this, SLOT(ready(KSpell *)), 0, true, false, type );
-
-  connect( m_kspell, SIGNAL(death()),
-           this, SLOT(spellCleanDone()) );
-
-  connect( m_kspell, SIGNAL(misspelling(const QString&, const QStringList&, unsigned int)),
-           this, SLOT(misspelling(const QString&, const QStringList&, unsigned int)) );
-  connect( m_kspell, SIGNAL(corrected(const QString&, const QString&, unsigned int)),
-           this, SLOT(corrected(const QString&, const QString&, unsigned int)) );
-  connect( m_kspell, SIGNAL(done(const QString&)),
-           this, SLOT(spellResult(const QString&)) );
-}
-
-void KateDocument::ready(KSpell *)
-{
-  m_kspell->setProgressResolution( 1 );
-
-  m_kspell->check( text( m_spellStart.line(), m_spellStart.col(), m_spellEnd.line(), m_spellEnd.col() ) );
-
-  kdDebug (13020) << "SPELLING READY STATUS: " << m_kspell->status () << endl;
-}
-
-void KateDocument::locatePosition( uint pos, uint& line, uint& col )
-{
-  uint remains;
-
-  while ( m_spellLastPos < pos )
-  {
-    remains = pos - m_spellLastPos;
-    uint l = lineLength( m_spellPosCursor.line() ) - m_spellPosCursor.col();
-    if ( l > remains )
-    {
-      m_spellPosCursor.setCol( m_spellPosCursor.col() + remains );
-      m_spellLastPos = pos;
-    }
-    else
-    {
-      m_spellPosCursor.setLine( m_spellPosCursor.line() + 1 );
-      m_spellPosCursor.setCol(0);
-      m_spellLastPos += l + 1;
-    }
-  }
-
-  line = m_spellPosCursor.line();
-  col = m_spellPosCursor.col();
-}
-
-void KateDocument::misspelling( const QString& origword, const QStringList&, unsigned int pos )
-{
-  uint line, col;
-
-  locatePosition( pos, line, col );
-
-  if (activeView())
-    activeView()->setCursorPositionInternal (line, col, 1);
-
-  setSelection( line, col, line, col + origword.length() );
-}
-
-void KateDocument::corrected( const QString& originalword, const QString& newword, unsigned int pos )
-{
-  uint line, col;
-
-  locatePosition( pos, line, col );
-
-  removeText( line, col, line, col + originalword.length() );
-  insertText( line, col, newword );
-}
-
-void KateDocument::spellResult( const QString& )
-{
-  clearSelection();
-  m_kspell->cleanUp();
-}
-
-void KateDocument::spellCleanDone()
-{
-  KSpell::spellStatus status = m_kspell->status();
-
-  if( status == KSpell::Error ) {
-    KMessageBox::sorry( 0,
-      i18n("The spelling program could not be started. "
-           "Please make sure you have set the correct spelling program "
-           "and that it is properly configured and in your PATH."));
-  } else if( status == KSpell::Crashed ) {
-    KMessageBox::sorry( 0,
-      i18n("The spelling program seems to have crashed."));
-  }
-
-  delete m_kspell;
-  m_kspell = 0;
-
-  kdDebug (13020) << "SPELLING END" << endl;
-}
-//END
 
 void KateDocument::lineInfo (KateLineInfo *info, unsigned int line)
 {

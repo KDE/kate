@@ -44,6 +44,8 @@
 
 #include <kio/job.h>
 #include <kio/netaccess.h>
+#include <kio/kfileitem.h>
+
 
 #include <kparts/event.h>
 
@@ -2430,15 +2432,39 @@ bool KateDocument::openFile(KIO::Job * job)
 
 bool KateDocument::save()
 {
-  // FIXME reorder for efficiency, prompt user in case of failure
   bool l ( url().isLocalFile() );
-  if ( ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles ) ||
-         ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
-       && isModified() ) {
+
+  if ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles )
+       || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
+  {
     KURL u( url() );
     u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
-    if ( ! KIO::NetAccess::upload( url().path(), u, kapp->mainWidget() ) )
+
+    kdDebug () << "backup src file name: " << url() << endl;
+    kdDebug () << "backup dst file name: " << u << endl;
+
+    // get the right permissions, start with safe default
+    mode_t  perms = 0600;
+    KIO::UDSEntry fentry;
+    if (KIO::NetAccess::stat (url(), fentry, kapp->mainWidget()))
+    {
+      kdDebug () << "stating succesfull: " << url() << endl;
+      KFileItem item (fentry, url());
+      perms = item.permissions();
+    }
+
+    // first del existing file if any, than copy over the file we have
+    // failure if a: the existing file could not be deleted, b: the file could not be copied
+    if ( (!KIO::NetAccess::exists( u, false, kapp->mainWidget() ) || KIO::NetAccess::del( u, kapp->mainWidget() ))
+          && KIO::NetAccess::file_copy( url(), u, perms, true, false, kapp->mainWidget() ) )
+    {
+      kdDebug(13020)<<"backing up successfull ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+    }
+    else
+    {
       kdDebug(13020)<<"backing up failed ("<<url().prettyURL()<<" -> "<<u.prettyURL()<<")"<<endl;
+      // FIXME: notify user for real ;)
+    }
   }
 
   return KParts::ReadWritePart::save();

@@ -139,27 +139,33 @@
 				<DetectChar attribute="String" char="'" context="Single A-string"/>
 				<DetectChar attribute="String" char="&quot;" context="Single Q-string"/>
 
+				<DetectChar attribute="Operator" char="(" context="parenthesised" beginRegion="parenthesis"/>
+				<DetectChar attribute="Operator" char=")" context="#pop" endRegion="parenthesis"/>
 				<RegExpr attribute="Operator" String="[+*/\(\)%\|\[\]\{\}:=;\!&lt;&gt;!^&amp;~-]" context="#stay"/>
 
 			</context>
 
-			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay">
+			<context name="parenthesised" attribute="Normal Text" lineEndContext="#stay" noIndentationBasedFolding="True">
+				<IncludeRules context="Normal" />
+			</context>
+
+			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="True">
 				<HlCChar attribute="Comment" context="#stay"/>
 				<StringDetect attribute="Comment" String="'''" context="#pop" endRegion="Tripple A-region"/>
 			</context>
 
-			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay">
+			<context name="Tripple Q-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="True">
 				<HlCChar attribute="Comment" context="#stay"/>
 				<StringDetect attribute="Comment" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>
 			</context>
 
-			<context name="Tripple A-string" attribute="String" lineEndContext="#stay">
+			<context name="Tripple A-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="True">
 				<HlCChar attribute="String" context="#stay"/>
 				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="#stay"/>
 				<StringDetect attribute="String" String="'''" context="#pop" endRegion="Tripple A-region"/>
 			</context>
 
-			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay">
+			<context name="Tripple Q-string" attribute="String" lineEndContext="#stay" noIndentationBasedFolding="True">
 				<HlCStringChar attribute="String" context="#stay"/>
 				<RegExpr attribute="Operator" String="%[a-zA-Z]" context="#stay"/>
 				<StringDetect attribute="String" String="&quot;&quot;&quot;" context="#pop" endRegion="Tripple Q-region"/>

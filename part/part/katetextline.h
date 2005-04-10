@@ -279,6 +279,11 @@ class KateTextLine : public KShared
     inline const QMemArray<short> &ctxArray () const { return m_ctx; };
 
     /**
+     * @return true if any context at the line end has the noIndentBasedFolding flag set 
+     */
+    inline const bool noIndentBasedFolding() const { return m_noIndentationBasedFolding;};
+    inline const bool noIndentBasedFoldingAtStart() const { return m_noIndentationBasedFoldingAtStart;};
+    /**
      * folding list
      * @return folding array
      */
@@ -339,6 +344,11 @@ class KateTextLine : public KShared
     inline void setContext (QMemArray<short> &val) { m_ctx.assign (val); }
 
     /**
+     * sets if for the next line indent based folding should be disabled
+     */
+    inline void setNoIndentBasedFolding(bool val) {m_noIndentationBasedFolding=val; }
+    inline void setNoIndentBasedFoldingAtStart(bool val) {m_noIndentationBasedFoldingAtStart=val; }
+    /**
      * update folding list
      * @param val new folding list
      */
@@ -370,6 +380,7 @@ class KateTextLine : public KShared
                        + (m_ctx.size() * sizeof(short))
                        + (m_foldingList.size() * sizeof(uint))
                        + (m_indentationDepth.size() * sizeof(unsigned short))
+                       + sizeof(bool)
                      ) : 0
                  )
              );
@@ -422,6 +433,9 @@ class KateTextLine : public KShared
      * indentation stack
      */
     QMemArray<unsigned short> m_indentationDepth;
+
+    bool m_noIndentationBasedFolding;
+    bool m_noIndentationBasedFoldingAtStart;
 
     /**
      * flags

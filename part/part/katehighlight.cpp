@@ -115,7 +115,7 @@ class KateHlContext
 {
   public:
     KateHlContext(const QString &_hlId, int attribute, int lineEndContext,int _lineBeginContext,
-                  bool _fallthrough, int _fallthroughContext, bool _dynamic);
+                  bool _fallthrough, int _fallthroughContext, bool _dynamic,bool _noIndentationBasedFolding);
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
 
@@ -134,6 +134,7 @@ class KateHlContext
 
     bool dynamic;
     bool dynamicChild;
+    bool noIndentationBasedFolding;
 };
 
 class KateEmbeddedHlInfo
@@ -1126,7 +1127,8 @@ KateHlData::KateHlData(const QString &wildcards, const QString &mimetypes, const
 }
 
 //BEGIN KateHlContext
-KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough, int _fallthroughContext, bool _dynamic)
+KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndContext, int _lineBeginContext, bool _fallthrough,
+	int _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding)
 {
   hlId = _hlId;
   attr = attribute;
@@ -1136,11 +1138,14 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, int lineEndCo
   ftctx = _fallthroughContext;
   dynamic = _dynamic;
   dynamicChild = false;
+  noIndentationBasedFolding=_noIndentationBasedFolding;
+  if (_noIndentationBasedFolding) kdDebug(13010)<<QString("**********************_noIndentationBasedFolding is TRUE*****************")<<endl;
+
 }
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(hlId, attr, ctx, lineBeginContext, fallthrough, ftctx, false);
+  KateHlContext *ret = new KateHlContext(hlId, attr, ctx, lineBeginContext, fallthrough, ftctx, false,noIndentationBasedFolding);
 
   for (uint n=0; n < items.size(); ++n)
   {
@@ -1573,6 +1578,17 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   // write hl continue flag
   textLine->setHlLineContinue (item && item->lineContinue());
+ 
+  if (m_foldingIndentationSensitive) {
+    bool noindent=false;
+    for(int i=ctx.size();i--;i>0) {
+      if (contextNum(ctx[i])->noIndentationBasedFolding) {
+        noindent=true;
+        break;
+      }
+    }
+    textLine->setNoIndentBasedFolding(noindent);
+  }
 }
 
 void KateHighlighting::loadWildcards()
@@ -2664,6 +2680,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
       context=getIdFromString(&ContextNameList, tmpLineEndContext,dummy);
 
+      QString tmpNIBF = KateHlManager::self()->syntax->groupData(data, QString("noIndentationBasedFolding") );
+      bool noIndentationBasedFolding=IS_TRUE(tmpNIBF);
+   
       //BEGIN get fallthrough props
       bool ft = false;
       int ftc = 0; // fallthrough context
@@ -2695,7 +2714,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         context,
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-        ft, ftc, dynamic);
+        ft, ftc, dynamic,noIndentationBasedFolding);
 
       m_contexts.push_back (ctxNew);
 

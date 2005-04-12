@@ -146,6 +146,8 @@ void KateCodeCompletion::showCompletionBox(
 {
   kdDebug(13035) << "showCompletionBox " << endl;
 
+  if ( codeCompletionVisible() ) return;
+
   m_caseSensitive = casesensitive;
   m_complList = complList;
   m_offset = offset;

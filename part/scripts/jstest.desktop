@@ -1,6 +1,11 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Kate Part JavaScript Test
+Name[pt_BR]=Teste do componente JavaScript do Kate
+Name[sv]=Test av Javaskript för Kates delprogram
 Comment=Script for testing kate part's scripting
+Comment[bg]=Скрипт за тестване на модулите за поддръжка на скриптове
+Comment[pt_BR]=Script para testes da parte de scripts do kate
+Comment[sv]=Skript för att testa skripthantering i Kates delprogram
 X-Kate-Command=jstest
 X-Kate-Help=<p>Usage: <code>jstest</code></p>

@@ -625,7 +625,6 @@ KateViewConfig::KateViewConfig ()
    m_defaultMarkTypeSet (true),
    m_persistentSelectionSet (true),
    m_textToSearchModeSet (true),
-   m_showIndentationLinesSet (true),
    m_view (0)
 {
   s_global = this;
@@ -652,7 +651,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_defaultMarkTypeSet (false),
    m_persistentSelectionSet (false),
    m_textToSearchModeSet (false),
-   m_showIndentationLinesSet (false),
    m_view (view)
 {
 }
@@ -691,8 +689,6 @@ void KateViewConfig::readConfig (KConfig *config)
 
   setTextToSearchMode (config->readNumEntry( "Text To Search Mode", KateViewConfig::SelectionWord));
 
-  setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", true));
-
   configEnd ();
 }
 
@@ -723,8 +719,6 @@ void KateViewConfig::writeConfig (KConfig *config)
   config->writeEntry("Persistent Selection", persistentSelection());
 
   config->writeEntry("Text To Search Mode", textToSearchMode());
-
-  config->writeEntry("Show Indentation Lines", showIndentationLines());
 }
 
 void KateViewConfig::updateConfig ()
@@ -999,24 +993,6 @@ void KateViewConfig::setTextToSearchMode (int mode)
   configEnd ();
 }
 
-bool KateViewConfig::showIndentationLines () const
-{
-  if (m_showIndentationLinesSet || isGlobal())
-    return m_showIndentationLines;
-
-  return s_global->showIndentationLines();
-}
-
-void KateViewConfig::setShowIndentationLines (bool on)
-{
-  configStart ();
-
-  m_showIndentationLinesSet = true;
-  m_showIndentationLines = on;
-
-  configEnd ();
-}
-
 //END
 
 //BEGIN KateRendererConfig
@@ -1027,6 +1003,7 @@ KateRendererConfig::KateRendererConfig ()
    m_schemaSet (true),
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
+   m_showIndentationLinesSet (true),   
    m_backgroundColorSet (true),
    m_selectionColorSet (true),
    m_highlightedLineColorSet (true),
@@ -1055,6 +1032,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_schemaSet (false),
    m_fontSet (false),
    m_wordWrapMarkerSet (false),
+   m_showIndentationLinesSet (false),   
    m_backgroundColorSet (false),
    m_selectionColorSet (false),
    m_highlightedLineColorSet (false),
@@ -1083,6 +1061,8 @@ void KateRendererConfig::readConfig (KConfig *config)
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
+//  setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", true));  
+  
   configEnd ();
 }
 
@@ -1091,6 +1071,8 @@ void KateRendererConfig::writeConfig (KConfig *config)
   config->writeEntry ("Schema", KateFactory::self()->schemaManager()->name(schema()));
 
   config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
+  
+//  config->writeEntry("Show Indentation Lines", showIndentationLines());  
 }
 
 void KateRendererConfig::updateConfig ()
@@ -1422,6 +1404,25 @@ void KateRendererConfig::setLineNumberColor (const QColor &col)
 
   configEnd ();
 }
+
+bool KateRendererConfig::showIndentationLines () const
+{
+  if (m_showIndentationLinesSet || isGlobal())
+    return m_showIndentationLines;
+    
+  return s_global->showIndentationLines();
+}
+
+void KateRendererConfig::setShowIndentationLines (bool on)
+{
+  configStart ();
+  
+  m_showIndentationLinesSet = true;
+  m_showIndentationLines = on;
+  
+  configEnd ();
+}
+
 //END
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

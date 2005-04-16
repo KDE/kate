@@ -43,7 +43,6 @@ KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
     , m_showSelections(true)
     , m_showTabs(true)
     , m_printerFriendly(false)
-    , m_showIndentLines(true)
 {
   KateFactory::self()->registerRenderer ( this );
   m_config = new KateRendererConfig (this);
@@ -98,9 +97,14 @@ void KateRenderer::setTabWidth(int tabWidth)
   m_tabWidth = tabWidth;
 }
 
+bool KateRenderer::showIndentLines() const
+{
+  return m_config->showIndentationLines();
+}
+
 void KateRenderer::setShowIndentLines(bool showIndentLines)
 {
-  m_showIndentLines = showIndentLines;
+  m_config->setShowIndentationLines(showIndentLines);
 }
 
 void KateRenderer::setIndentWidth(int indentWidth)
@@ -224,7 +228,7 @@ void KateRenderer::paintWhitespaceMarker(QPainter &paint, uint x, uint y)
 }
 
 
-void KateRenderer::paintTabMarker(QPainter &paint, uint x, uint row)
+void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
 {
   QPen penBackup( paint.pen() );
   paint.setPen( config()->tabMarkerColor() );
@@ -499,7 +503,7 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
           || (curCol + 1 >= trailingWhitespaceColumn)
 
           // indentation lines OR
-          || (m_showIndentLines && curCol < lastIndentColumn)
+          || (showIndentLines() && curCol < lastIndentColumn)
 
           // the x position is past the end OR
           || ((int)xPos > xEnd)
@@ -577,8 +581,8 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
               paint.setPen( m_view->colorGroup().color( QColorGroup::BrightText ) );
             }
 
-                        // Draw indentation markers.
-            if (m_showIndentLines && curCol < lastIndentColumn)
+            // Draw indentation markers.
+            if (showIndentLines() && curCol < lastIndentColumn)
             {
               // Draw multiple guides when tab width greater than indent width.
               const int charWidth = isTab ? m_tabWidth - curPos % m_tabWidth : 1;
@@ -591,12 +595,12 @@ void KateRenderer::paintTextLine(QPainter& paint, const KateLineRange* range, in
               for (; i < charWidth; i += m_indentWidth)
               {
                 // In most cases this is done one or zero times.
-                paintTabMarker(paint, xPos - xStart + i * spaceWidth, line);
+                paintIndentMarker(paint, xPos - xStart + i * spaceWidth, line);
 
                 // Draw highlighted line.
                 if (curPos+i == minIndent)
                 {
-                  paintTabMarker(paint, xPos - xStart + 1 + i * spaceWidth, line+1);
+                  paintIndentMarker(paint, xPos - xStart + 1 + i * spaceWidth, line+1);
                 }
               }
             }

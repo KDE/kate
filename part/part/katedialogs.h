@@ -145,7 +145,6 @@ class KateIndentConfigTab : public KateConfigPage
     KIntNumInput *indentationWidth;
     QButtonGroup *m_tabs;
     KComboBox *m_indentMode;
-    QCheckBox *m_showIndentLines;
     QPushButton *m_configPage;
 
   public slots:
@@ -220,6 +219,7 @@ class KateViewDefaultsConfig : public KateConfigPage
     QCheckBox *m_icons;
     QCheckBox *m_scrollBarMarks;
     QCheckBox *m_dynwrap;
+	QCheckBox *m_showIndentLines;
     KIntNumInput *m_dynwrapAlignLevel;
     QLabel *m_dynwrapIndicatorsLabel;
     KComboBox *m_dynwrapIndicatorsCombo;

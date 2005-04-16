@@ -1244,7 +1244,8 @@ void KateView::updateRendererConfig()
   m_viewInternal->leftBorder->updateFont();
   m_viewInternal->leftBorder->repaint ();
 
-  m_renderer->setShowIndentLines (config()->showIndentationLines());
+// @@ showIndentLines is not cached anymore.
+//  m_renderer->setShowIndentLines (m_renderer->config()->showIndentationLines());  
 }
 
 void KateView::updateFoldingConfig ()

@@ -27,6 +27,7 @@
 #include "katetextline.h"
 #include "katefactory.h"
 #include "katejscript.h"
+#include "katerenderer.h"
 
 #include "../interfaces/katecmd.h"
 
@@ -80,7 +81,7 @@ QStringList KateCommands::CoreCommands::cmds()
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-space-save"
-    << "set-highlight" << "run-myself";
+    << "set-highlight" << "run-myself" << "set-show-indent";
   return l;
 }
 
@@ -222,7 +223,8 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
             cmd == "set-mixed-indent" ||
             cmd == "set-word-wrap" ||
             cmd == "set-replace-tabs-save" ||
-            cmd == "set-remove-trailing-space-save" )
+            cmd == "set-remove-trailing-space-save" ||
+            cmd == "set-show-indent" )
   {
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false").arg( cmd ) );
@@ -235,6 +237,8 @@ bool KateCommands::CoreCommands::exec(Kate::View *view,
         v->setFoldingMarkersOn( enable );
       else if ( cmd == "set-line-numbers" )
         v->setLineNumbersOn( enable );
+      else if ( cmd == "set-show-indent" )
+        v->renderer()->setShowIndentLines( enable );
       else if ( cmd == "set-replace-tabs" )
         setDocFlag( KateDocumentConfig::cfReplaceTabsDyn, enable, v->doc() );
       else if ( cmd == "set-remove-trailing-space" )

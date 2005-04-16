@@ -353,9 +353,6 @@ class KateViewConfig : public KateConfig
     bool persistentSelection () const;
     void setPersistentSelection (bool on);
 
-    bool showIndentationLines () const;
-    void setShowIndentationLines (bool on);
-
     enum TextToSearch
     {
       Nowhere = 0,
@@ -383,7 +380,6 @@ class KateViewConfig : public KateConfig
     uint m_defaultMarkType;
     bool m_persistentSelection;
     int m_textToSearchMode;
-    bool m_showIndentationLines;
 
     bool m_dynWordWrapSet : 1;
     bool m_dynWordWrapIndicatorsSet : 1;
@@ -399,7 +395,6 @@ class KateViewConfig : public KateConfig
     bool m_defaultMarkTypeSet : 1;
     bool m_persistentSelectionSet : 1;
     bool m_textToSearchModeSet : 1;
-    bool m_showIndentationLinesSet : 1;
 
   private:
     static KateViewConfig *s_global;
@@ -494,6 +489,9 @@ class KateRendererConfig : public KateConfig
     const QColor& lineNumberColor() const;
     void setLineNumberColor (const QColor &col);
 
+    bool showIndentationLines () const;
+    void setShowIndentationLines (bool on);
+
   private:
     /**
      * Read the schema properties from the config file.
@@ -503,6 +501,7 @@ class KateRendererConfig : public KateConfig
     uint m_schema;
     KateFontStruct *m_font;
     bool m_wordWrapMarker;
+    bool m_showIndentationLines;    
     QColor m_backgroundColor;
     QColor m_selectionColor;
     QColor m_highlightedLineColor;
@@ -516,6 +515,7 @@ class KateRendererConfig : public KateConfig
     bool m_schemaSet : 1;
     bool m_fontSet : 1;
     bool m_wordWrapMarkerSet : 1;
+    bool m_showIndentationLinesSet : 1;    
     bool m_backgroundColorSet : 1;
     bool m_selectionColorSet : 1;
     bool m_highlightedLineColorSet : 1;

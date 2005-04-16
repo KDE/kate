@@ -195,7 +195,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
 
   opt[1] = new QCheckBox(i18n("Keep indent &profile"), this);
   opt[2] = new QCheckBox(i18n("&Keep extra spaces"), this);
-  m_showIndentLines = new QCheckBox(i18n("Show indentation lines"), this);
 
   QVGroupBox *keys = new QVGroupBox(i18n("Keys to Use"), this);
   opt[3] = new QCheckBox(i18n("&Tab key indents"), keys);
@@ -215,7 +214,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   opt[4]->setChecked(configFlags & flags[4]);
   opt[5]->setChecked(configFlags & flags[5]);
   opt[6]->setChecked(configFlags & flags[6]);
-  m_showIndentLines->setChecked(KateViewConfig::global()->showIndentationLines());
 
   layout->addWidget(gbAuto);
   layout->addWidget(gbSpaces);
@@ -223,7 +221,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   layout->addWidget(opt[2]);
   layout->addWidget(keys);
   layout->addWidget(m_tabs, 0);
-  layout->addWidget(m_showIndentLines);
 
   layout->addStretch();
 
@@ -245,9 +242,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   QWhatsThis::add( opt[6], i18n(
       "Use a mix of tab and space characters for indentation.") );
   QWhatsThis::add(indentationWidth, i18n("The number of spaces to indent with."));
-  QWhatsThis::add(m_showIndentLines, i18n(
-        "If this is enabled, the editor will display vertical line to help "
-        "identifying indent lines.") );
 
   QWhatsThis::add(m_configPage, i18n(
         "If this button is enabled, additional indenter specific options are "
@@ -277,8 +271,6 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb3, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-
-  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   connect(m_configPage, SIGNAL(clicked()), this, SLOT(configPage()));
 }
@@ -350,10 +342,6 @@ void KateIndentConfigTab::apply ()
   KateDocumentConfig::global()->setConfigFlags (KateDocumentConfig::cfTabInsertsTab, 1 == m_tabs->id (m_tabs->selected()));
 
   KateDocumentConfig::global()->configEnd ();
-
-  KateViewConfig::global()->configStart ();
-  KateViewConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());
-  KateViewConfig::global()->configEnd ();
 }
 
 void KateIndentConfigTab::reload ()
@@ -715,6 +703,11 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   m_bmSort->insert( rb2=new QRadioButton( i18n("By c&reation"), m_bmSort ), 1 );
 
   blay->addWidget(m_bmSort, 0 );
+
+  m_showIndentLines = new QCheckBox(i18n("Show indentation lines"), this);
+  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());  
+  blay->addWidget(m_showIndentLines);
+
   blay->addStretch(1000);
 
   QWhatsThis::add(m_dynwrap,i18n(
@@ -754,6 +747,9 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   QWhatsThis::add(rb2,i18n(
         "Each new bookmark will be added to the bottom, independently from "
         "where it is placed in the document."));
+  QWhatsThis::add(m_showIndentLines, i18n(
+        "If this is enabled, the editor will display vertical line to help "
+        "identifying indent lines.") );
 
   reload();
 
@@ -771,6 +767,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));      
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
@@ -796,6 +793,8 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
   KateViewConfig::global()->setBookmarkSort (m_bmSort->id (m_bmSort->selected()));
 
+  KateRendererConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());  
+
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }
@@ -809,7 +808,8 @@ void KateViewDefaultsConfig::reload ()
   m_icons->setChecked(KateViewConfig::global()->iconBar());
   m_scrollBarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
   m_folding->setChecked(KateViewConfig::global()->foldingBar());
-  m_bmSort->setButton( KateViewConfig::global()->bookmarkSort()  );
+  m_bmSort->setButton( KateViewConfig::global()->bookmarkSort() );
+  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());    
 }
 
 void KateViewDefaultsConfig::reset () {;}

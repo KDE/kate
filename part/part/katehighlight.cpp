@@ -1581,7 +1581,7 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   if (m_foldingIndentationSensitive) {
     bool noindent=false;
-    for(int i=ctx.size()-1; i>0; --i) {
+    for(int i=ctx.size()-1; i>=0; --i) {
       if (contextNum(ctx[i])->noIndentationBasedFolding) {
         noindent=true;
         break;

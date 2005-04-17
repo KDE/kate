@@ -301,8 +301,8 @@ void KateIndentConfigTab::configPage()
     QVBox *box = new QVBox(&dlg);
     box->setSpacing( KDialog::spacingHint() );
     dlg.setMainWidget(box);
-    QLabel *header = new QLabel("<qt><b>" + KateAutoIndent::modeDescription(index) + "</b></qt>", box);
-    KSeparator* separator = new KSeparator(KSeparator::HLine, box);
+    new QLabel("<qt><b>" + KateAutoIndent::modeDescription(index) + "</b></qt>", box);
+    new KSeparator(KSeparator::HLine, box);
 
     IndenterConfigPage* page = KateAutoIndent::configPage(box, index);
 

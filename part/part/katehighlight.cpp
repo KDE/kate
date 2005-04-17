@@ -1578,10 +1578,10 @@ void KateHighlighting::doHighlight ( KateTextLine *prevLine,
 
   // write hl continue flag
   textLine->setHlLineContinue (item && item->lineContinue());
- 
+
   if (m_foldingIndentationSensitive) {
     bool noindent=false;
-    for(int i=ctx.size();i--;i>0) {
+    for(int i=ctx.size()-1; i>0; --i) {
       if (contextNum(ctx[i])->noIndentationBasedFolding) {
         noindent=true;
         break;
@@ -2682,7 +2682,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
       QString tmpNIBF = KateHlManager::self()->syntax->groupData(data, QString("noIndentationBasedFolding") );
       bool noIndentationBasedFolding=IS_TRUE(tmpNIBF);
-   
+
       //BEGIN get fallthrough props
       bool ft = false;
       int ftc = 0; // fallthrough context

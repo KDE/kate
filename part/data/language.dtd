@@ -132,6 +132,9 @@ WARNING: due to helper scripts, the language opening tag must be on a
                 beginRegion="Comment" ... endRegion="Comment" you should use
                 region="Comment". This way uncomment works even if you do not
                 select all the text of the multiline comment.
+  position:     only availalbe for type singleLine. Default is column0, to insert
+                the single line comment characters after the whitespaces
+                (= before the first non space) set position to "afterwhitespace"
 -->
 <!ELEMENT comment EMPTY>
 <!ATTLIST comment
@@ -139,6 +142,7 @@ WARNING: due to helper scripts, the language opening tag must be on a
   start     CDATA                   #REQUIRED
   end       CDATA                   #IMPLIED
   region    CDATA                   #IMPLIED
+  position  (afterwhitespace)       #IMPLIED
 >
 
 <!-- Keyword options

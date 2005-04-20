@@ -3392,8 +3392,19 @@ bool KateDocument::removeStringFromEnd(int line, QString &str)
 */
 void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 {
-  QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
-  insertText (line, 0, commentLineMark);
+  if (highlight()->getCommentSingleLinePosition(attrib)==KateHighlighting::CSLPosColumn0)
+  {
+    QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + " ";
+    insertText (line, 0, commentLineMark);
+  }
+  else
+  {
+    QString commentLineMark=highlight()->getCommentSingleLineStart(attrib);
+    KateTextLine::Ptr l = m_buffer->line(line);
+    int pos=l->firstChar();
+    if (pos >=0)
+      insertText(line,pos,commentLineMark);
+  }
 }
 
 /*
@@ -3525,7 +3536,8 @@ void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
 
   // For each line of the selection
   for (int z = el; z >= sl; z--) {
-    insertText (z, 0, commentLineMark);
+    //insertText (z, 0, commentLineMark);
+    addStartLineCommentToSingleLine(z, attrib );
   }
 
   editEnd ();

@@ -2116,6 +2116,12 @@ QString KateHighlighting::getCommentSingleLineStart( int attrib ) const
   return m_additionalData[ hlKeyForAttrib( attrib) ]->singleLineCommentMarker;
 }
 
+KateHighlighting::CSLPos KateHighlighting::getCommentSingleLinePosition( int attrib ) const
+{
+  return m_additionalData[ hlKeyForAttrib( attrib) ]->singleLineCommentPosition;
+}
+
+
 /**
  * Helper for makeContextList. It parses the xml file for
  * information, how single or multi line comments are marked
@@ -2125,16 +2131,23 @@ void KateHighlighting::readCommentConfig()
   KateHlManager::self()->syntax->setIdentifier(buildIdentifier);
   KateSyntaxContextData *data=KateHlManager::self()->syntax->getGroupInfo("general","comment");
 
-  QString cmlStart, cmlEnd, cmlRegion, cslStart  ;
+  QString cmlStart="", cmlEnd="", cmlRegion="", cslStart="";
+  CSLPos cslPosition=CSLPosColumn0;
 
   if (data)
   {
     while  (KateHlManager::self()->syntax->nextGroup(data))
     {
       if (KateHlManager::self()->syntax->groupData(data,"name")=="singleLine")
+      {
         cslStart=KateHlManager::self()->syntax->groupData(data,"start");
-
-      if (KateHlManager::self()->syntax->groupData(data,"name")=="multiLine")
+        QString cslpos=KateHlManager::self()->syntax->groupData(data,"position");
+        if (cslpos=="afterwhitespace")
+          cslPosition=CSLPosAfterWhitespace;
+        else
+          cslPosition=CSLPosColumn0;
+      }
+      else if (KateHlManager::self()->syntax->groupData(data,"name")=="multiLine")
       {
         cmlStart=KateHlManager::self()->syntax->groupData(data,"start");
         cmlEnd=KateHlManager::self()->syntax->groupData(data,"end");
@@ -2144,14 +2157,9 @@ void KateHighlighting::readCommentConfig()
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
   }
-  else
-  {
-    cslStart = "";
-    cmlStart = "";
-    cmlEnd = "";
-    cmlRegion = "";
-  }
+
   m_additionalData[buildIdentifier]->singleLineCommentMarker = cslStart;
+  m_additionalData[buildIdentifier]->singleLineCommentPosition = cslPosition;
   m_additionalData[buildIdentifier]->multiLineCommentStart = cmlStart;
   m_additionalData[buildIdentifier]->multiLineCommentEnd = cmlEnd;
   m_additionalData[buildIdentifier]->multiLineRegion = cmlRegion;

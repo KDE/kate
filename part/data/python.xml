@@ -226,7 +226,7 @@
    <general>
      <folding indentationsensitive="1" />
      <comments>
-       <comment name="singleLine" start="#" />
+       <comment name="singleLine" start="#" position="afterwhitespace"/>
      </comments>
      <keywords casesensitive="1" />
    </general>

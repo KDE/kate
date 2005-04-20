@@ -184,6 +184,18 @@ class KateHighlighting
      */
     QString getCommentSingleLineStart( int attrib=0 ) const;
 
+
+    /**
+     * This enum is used for storing the information where a single line comment marker should be inserted
+     */
+    enum CSLPos { CSLPosColumn0=0,CSLPosAfterWhitespace=1};
+
+    /**
+     * @return the single comment marker position for the highlight corresponding
+     * to @p attrib.
+     */
+    CSLPos getCommentSingleLinePosition( int attrib=0 ) const;
+
     /**
     * @return the attribute for @p context.
     */
@@ -278,6 +290,7 @@ class KateHighlighting
 
     QIntDict< QMemArray<KateAttribute> > m_attributeArrays;
 
+
     /**
      * This class holds the additional properties for one highlight
      * definition, such as comment strings, deliminators etc.
@@ -296,6 +309,7 @@ class KateHighlighting
         QString multiLineCommentStart;
         QString multiLineCommentEnd;
         QString multiLineRegion;
+        CSLPos  singleLineCommentPosition;
         QString deliminator;
         QString wordWrapDeliminator;
     };

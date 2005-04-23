@@ -23,7 +23,7 @@
  * Boston, MA  02111-1307, USA.                                       *
  **********************************************************************
  -->
-<language name="Doxygen" version="1.24" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
+<language name="Doxygen" version="1.25" kateversion="2.4" section="Markup" extensions="*.dox;*.doxygen" mimetype="text/x-doxygen" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL">
   <highlighting>
     <!-- note: all tags may begin with a \ or @ char
          so if you add/change tags you have to do it twice -->
@@ -65,7 +65,6 @@
       <item> \note </item>
       <item> \only </item>
       <item> \par </item>
-      <item> \p </item>
       <item> \post </item>
       <item> \pre </item>
       <item> \remarks </item>
@@ -118,7 +117,6 @@
       <item> @note </item>
       <item> @only </item>
       <item> @par </item>
-      <item> @p </item>
       <item> @post </item>
       <item> @pre </item>
       <item> @remarks </item>
@@ -160,6 +158,7 @@
       <item> \include </item>
       <item> \link </item>
       <item> \namespace </item>
+      <item> \p </item>
       <item> \package </item>
       <item> \param </item>
       <item> \ref </item>
@@ -196,6 +195,7 @@
       <item> @include </item>
       <item> @link </item>
       <item> @namespace </item>
+      <item> @p </item>
       <item> @package </item>
       <item> @param </item>
       <item> @ref </item>

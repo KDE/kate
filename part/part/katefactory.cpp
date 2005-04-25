@@ -26,7 +26,9 @@
 #include "kateschema.h"
 #include "katesearch.h"
 #include "kateconfig.h"
+#ifndef Q_WS_WIN //todo
 #include "katejscript.h"
+#endif
 
 #include "../interfaces/katecmd.h"
 

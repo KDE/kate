@@ -216,11 +216,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   connect(this,SIGNAL(sigQueryClose(bool *, bool*)),this,SLOT(slotQueryClose_save(bool *, bool*)));
 
-  // ask what to do with modified files on focus!
-  if ( s_fileChangedDialogsActivated )
-    for (uint z = 0; z < m_views.count(); z++)
-      connect( m_views.at(z), SIGNAL(gotFocus( Kate::View * )), this, SLOT(slotModifiedOnDisk()) );
-
   m_isasking = 0;
 
   // plugins

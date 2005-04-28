@@ -99,6 +99,7 @@ class KateFileLoader
       , m_binary (false)
       , m_removeTrailingSpaces (removeTrailingSpaces)
     {
+      kdDebug (13020) << "OPEN USES ENCODING: " << m_codec->name() << endl;
     }
 
     ~KateFileLoader ()
@@ -1126,7 +1127,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
               indentDepth.resize (indentDepth.size()+1, QGArray::SpeedOptim);
               indentDepth[indentDepth.size()-1] = iDepth;
               if (prevLine->firstChar()==-1) {
-              
+
               }
             }
           }
@@ -1179,7 +1180,7 @@ bool KateBuffer::doHighlight (KateBufBlock *buf, uint startLine, uint endLine, b
       // assign the new array to the textline !
       if (indentChanged)
         textLine->setIndentationDepth (indentDepth);
-      
+
       indentContinueWhitespace=textLine->firstChar()==-1;
     }
     bool foldingColChanged=false;

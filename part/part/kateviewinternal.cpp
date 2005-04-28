@@ -2489,51 +2489,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
     }
   }
 
-//     if( (e->key() == Key_Up)    || (e->key() == Key_Down ) ||
-//         (e->key() == Key_Home ) || (e->key() == Key_End)   ||
-//         (e->key() == Key_Prior) || (e->key() == Key_Next )) {
-//        m_view->m_codeCompletion->handleKey (e);
-//        e->accept();
-//        return;
-//     }
-//   }
-//
-//   if (key == Qt::Key_Left)
-//   {
-//     m_view->cursorLeft();
-//     e->accept();
-//
-//     if (codeComp)
-//       m_view->m_codeCompletion->updateBox ();
-//
-//     return;
-//   }
-//
-//   if (key == Qt::Key_Right)
-//   {
-//     m_view->cursorRight();
-//     e->accept();
-//
-//     if (codeComp)
-//       m_view->m_codeCompletion->updateBox ();
-//
-//     return;
-//   }
-//
-//   if (key == Qt::Key_Down)
-//   {
-//     m_view->down();
-//     e->accept();
-//     return;
-//   }
-//
-//   if (key == Qt::Key_Up)
-//   {
-//     m_view->up();
-//     e->accept();
-//     return;
-//   }
-
   if( !m_doc->isReadWrite() )
   {
     e->ignore();

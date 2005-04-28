@@ -569,12 +569,6 @@ void KateView::setupEditActions()
     this, SLOT(shiftToMatchingBracket()),
     ac, "select_matching_bracket" );
 
-/*
-  new KAction(
-    i18n("Switch to Command Line"),          Qt::Key_F7,
-    this, SLOT(switchToCmdLine()),
-    ac, "switch_to_cmd_line" );*/
-
   // anders: shortcuts doing any changes should not be created in browserextension
   if ( !m_doc->readOnly() )
   {
@@ -1232,7 +1226,6 @@ void KateView::updateRendererConfig()
   if (m_startingUp)
     return;
 
-
   m_toggleWWMarker->setChecked( m_renderer->config()->wordWrapMarker()  );
 
   // update the text area
@@ -1593,8 +1586,6 @@ void KateView::cut()
 
   copy();
   removeSelectedText();
-
-  m_viewInternal->repaint();
 }
 
 void KateView::copy() const

@@ -738,7 +738,7 @@ void KateViewInternal::updateView(bool changed, int viewLinesScrolled)
         m_columnScrollDisplayed = true;
       }
     }
-    else if (m_columnScroll->isVisible () && !m_suppressColumnScrollBar && (startX() == 0))
+    else if (!m_suppressColumnScrollBar && (startX() == 0))
     {
       m_columnScroll->hide();
       m_columnScrollDisplayed = false;

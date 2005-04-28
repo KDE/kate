@@ -157,7 +157,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent, const char * name )
   m_startingUp = false;
   updateConfig ();
 
-  m_viewInternal->show ();
   slotHlChanged();
   /*test texthint
   connect(this,SIGNAL(needTextHint(int, int, QString &)),
@@ -1245,7 +1244,7 @@ void KateView::updateRendererConfig()
   m_viewInternal->leftBorder->repaint ();
 
 // @@ showIndentLines is not cached anymore.
-//  m_renderer->setShowIndentLines (m_renderer->config()->showIndentationLines());  
+//  m_renderer->setShowIndentLines (m_renderer->config()->showIndentationLines());
 }
 
 void KateView::updateFoldingConfig ()

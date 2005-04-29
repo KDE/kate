@@ -1003,7 +1003,7 @@ KateRendererConfig::KateRendererConfig ()
    m_schemaSet (true),
    m_fontSet (true),
    m_wordWrapMarkerSet (true),
-   m_showIndentationLinesSet (true),   
+   m_showIndentationLinesSet (true),
    m_backgroundColorSet (true),
    m_selectionColorSet (true),
    m_highlightedLineColorSet (true),
@@ -1032,7 +1032,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_schemaSet (false),
    m_fontSet (false),
    m_wordWrapMarkerSet (false),
-   m_showIndentationLinesSet (false),   
+   m_showIndentationLinesSet (false),
    m_backgroundColorSet (false),
    m_selectionColorSet (false),
    m_highlightedLineColorSet (false),
@@ -1061,8 +1061,8 @@ void KateRendererConfig::readConfig (KConfig *config)
 
   setWordWrapMarker (config->readBoolEntry("Word Wrap Marker", false ));
 
-//  setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", true));  
-  
+  setShowIndentationLines (config->readBoolEntry( "Show Indentation Lines", false));
+
   configEnd ();
 }
 
@@ -1070,9 +1070,9 @@ void KateRendererConfig::writeConfig (KConfig *config)
 {
   config->writeEntry ("Schema", KateFactory::self()->schemaManager()->name(schema()));
 
-  config->writeEntry( "Word Wrap Marker", wordWrapMarker() );
-  
-//  config->writeEntry("Show Indentation Lines", showIndentationLines());  
+  config->writeEntry("Word Wrap Marker", wordWrapMarker() );
+
+  config->writeEntry("Show Indentation Lines", showIndentationLines());
 }
 
 void KateRendererConfig::updateConfig ()
@@ -1409,17 +1409,17 @@ bool KateRendererConfig::showIndentationLines () const
 {
   if (m_showIndentationLinesSet || isGlobal())
     return m_showIndentationLines;
-    
+
   return s_global->showIndentationLines();
 }
 
 void KateRendererConfig::setShowIndentationLines (bool on)
 {
   configStart ();
-  
+
   m_showIndentationLinesSet = true;
   m_showIndentationLines = on;
-  
+
   configEnd ();
 }
 

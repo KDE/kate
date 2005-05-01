@@ -373,7 +373,7 @@ void KateDocument::setActiveView( KateView *view )
 
 uint KateDocument::configPages () const
 {
-  return 11;
+  return 10;
 }
 
 KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent, const char * )
@@ -408,9 +408,6 @@ KTextEditor::ConfigPage *KateDocument::configPage (uint number, QWidget *parent,
       return new KateEditKeyConfiguration (parent, this);
 
     case 9:
-      return new KateSpellConfigPage (parent);
-
-    case 10:
       return new KatePartPluginConfigPage (parent);
 
     default:
@@ -452,9 +449,6 @@ QString KateDocument::configPageName (uint number) const
       return i18n ("Shortcuts");
 
     case 9:
-      return i18n("Spelling");
-
-    case 10:
       return i18n ("Plugins");
 
     default:
@@ -496,9 +490,6 @@ QString KateDocument::configPageFullName (uint number) const
       return i18n ("Shortcuts Configuration");
 
     case 9:
-      return i18n("Spell Checker Behavior");
-
-    case 10:
       return i18n ("Plugin Manager");
 
     default:
@@ -540,9 +531,6 @@ QPixmap KateDocument::configPagePixmap (uint number, int size) const
       return BarIcon("key_enter", size);
 
     case 9:
-      return BarIcon("spellcheck", size);
-
-    case 10:
       return BarIcon("connect_established", size);
 
     default:

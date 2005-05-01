@@ -71,7 +71,6 @@
 #include <kregexpeditorinterface.h>
 #include <krun.h>
 #include <kseparator.h>
-#include <kspell.h>
 #include <kstandarddirs.h>
 #include <ktempfile.h>
 
@@ -132,28 +131,6 @@ void KateConfigPage::somethingHasChanged ()
   kdDebug (13000) << "TEST: something changed on the config page: " << this << endl;
 }
 //END KateConfigPage
-
-//BEGIN KateSpellConfigPage
-KateSpellConfigPage::KateSpellConfigPage( QWidget* parent )
-  : KateConfigPage( parent)
-{
-  QVBoxLayout* l = new QVBoxLayout( this );
-  cPage = new KSpellConfig( this, 0L, 0L, false );
-  l->addWidget( cPage );
-  connect( cPage, SIGNAL( configChanged() ), this, SLOT( slotChanged() ) );
-}
-
-void KateSpellConfigPage::apply ()
-{
-  // nothing changed, no need to apply stuff
-  if (!changed())
-    return;
-
-  m_changed = false;
-  // kspell
-  cPage->writeGlobalSettings ();
-}
-//END KateSpellConfigPage
 
 //BEGIN KateIndentConfigTab
 const int KateIndentConfigTab::flags[] = {
@@ -705,7 +682,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   blay->addWidget(m_bmSort, 0 );
 
   m_showIndentLines = new QCheckBox(i18n("Show indentation lines"), this);
-  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());  
+  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());
   blay->addWidget(m_showIndentLines);
 
   blay->addStretch(1000);
@@ -767,7 +744,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(m_collapseTopLevel, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(rb1, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(rb2, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));      
+  connect(m_showIndentLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
@@ -793,7 +770,7 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setFoldingBar (m_folding->isChecked());
   KateViewConfig::global()->setBookmarkSort (m_bmSort->id (m_bmSort->selected()));
 
-  KateRendererConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());  
+  KateRendererConfig::global()->setShowIndentationLines(m_showIndentLines->isChecked());
 
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
@@ -809,7 +786,7 @@ void KateViewDefaultsConfig::reload ()
   m_scrollBarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
   m_folding->setChecked(KateViewConfig::global()->foldingBar());
   m_bmSort->setButton( KateViewConfig::global()->bookmarkSort() );
-  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());    
+  m_showIndentLines->setChecked(KateRendererConfig::global()->showIndentationLines());
 }
 
 void KateViewDefaultsConfig::reset () {;}

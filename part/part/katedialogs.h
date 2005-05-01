@@ -62,7 +62,6 @@ class KMainWindow;
 class KPushButton;
 class KRegExpDialog;
 class KIntNumInput;
-class KSpellConfig;
 
 class QButtonGroup;
 class QCheckBox;
@@ -94,22 +93,6 @@ class KateConfigPage : public Kate::ConfigPage
 
   protected:
     bool m_changed;
-};
-
-class KateSpellConfigPage : public KateConfigPage
-{
-  Q_OBJECT
-
-  public:
-    KateSpellConfigPage( QWidget* parent );
-    ~KateSpellConfigPage() {};
-
-    void apply();
-    void reset () { ; };
-    void defaults () { ; };
-
-  private:
-    KSpellConfig *cPage;
 };
 
 class KateGotoLineDialog : public KDialogBase

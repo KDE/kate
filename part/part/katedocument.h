@@ -584,8 +584,8 @@ class KateDocument : public Kate::Document,
     Kate::ConfigPage *viewDefaultsConfigPage (QWidget *) { return 0; }
     Kate::ConfigPage *saveConfigPage( QWidget * ) { return 0; }
 
-    Kate::ActionMenu *hlActionMenu (const QString& text, QObject* parent = 0, const char* name = 0) { return 0; }
-    Kate::ActionMenu *exportActionMenu (const QString& text, QObject* parent = 0, const char* name = 0) { return 0; }
+    Kate::ActionMenu *hlActionMenu (const QString& /* text */, QObject* /* parent */ = 0, const char* /* name */ = 0) { return 0; }
+    Kate::ActionMenu *exportActionMenu (const QString& /* text */, QObject* /* parent */ = 0, const char* /* name */ = 0) { return 0; }
 
   public:
     /**

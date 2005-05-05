@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Insert File Plugin
+Name[af]=KTextEditor Voeg Lêer Inprop Module
 Name[ar]=ملحق إدراج ملف لمحرر النصوص
 Name[az]=KTextEditor Fayl Əlavəsi Daxil El
 Name[be]=Дапаўненьне "Уставіць файл" K Тэкставага рэдактара
@@ -69,6 +70,7 @@ Name[zh_CN]=KTextEditor 插入文件插件
 Name[zh_TW]=文字編輯器插入檔案外掛程式
 Name[zu]=Faka Ifayela Lokungena ngaphakathi le-KTextEditor
 Comment=Insert any readable file at cursor position
+Comment[af]=Voeg enige leesbare lêer in by die merker posisie
 Comment[bg]=Вмъкване на файл от мястото на курсора
 Comment[bn]=কার্সার অবস্থানে যে কোনো (পাঠযোগ্য) ফাইল অন্তর্ভুক্ত করতে পারে
 Comment[bs]=Ubacuje bilo koju čitljivu datoteku na poziciju kursora

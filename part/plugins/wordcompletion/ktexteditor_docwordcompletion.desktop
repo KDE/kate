@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Word Completion Plugin
+Name[af]=KTextEditor Woord Voltooiïng Inprop Module
 Name[bn]=কে-টেক্সট-এডিটর শব্দ পরিপূরণ প্লাগ-ইন
 Name[bs]=KTextEditor dodatak za dovršavanje riječi
 Name[ca]=Endollable de completar paraules del KTextEditor
@@ -50,6 +51,7 @@ Name[uk]=Втулок KTextEditor для завершення слів
 Name[xx]=xxKTextEditor Word Completion Pluginxx
 Name[zh_CN]=KTextEditor 单词补全插件
 Comment=Directional or popup-based completion from words in the document
+Comment[af]=Direksionele of opspring gebaseerde woord voltooiïng van woorde in die dokument
 Comment[bg]=Автоматично завършване на думи, базирано на използваните вече думи в документа
 Comment[bn]=ডকুমেন্ট-এর অন্যান্য শব্দের উপর ভিত্তি করে পরিপূরণ
 Comment[bs]=Direkcionalno ili popup-bazirano dovršavanje za riječi u dokumentu

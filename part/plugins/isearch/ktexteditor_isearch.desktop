@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Incremental Search Plugin
+Name[af]=KTextEditor Inkrementele Soektog Inprop Module
 Name[ar]=ملحق بحث تزايدي لمحرر نصوص كيدي
 Name[az]=KTextEditor Artan Axtarış Əlavəsi
 Name[bn]=কে-টেক্সট-এডিটর ধারাবাহিক সন্ধান প্লাগ-ইন
@@ -66,6 +67,7 @@ Name[zh_CN]=KTextEditor 增量搜索插件
 Name[zh_TW]=KTextEditor 漸進式搜尋外掛程式
 Name[zu]=I-Plugin Yosesho Lokwenyuka ngezigaba ze-KTextEditor
 Comment=Also known as "As you type search"
+Comment[af]=Ook bekend as "Soos jy tik soektog"
 Comment[bg]=Последователно търсене, известно още като търсене по време на въвеждане на низа
 Comment[bn]="টাইপ করাকালীন সন্ধান" হিসাবেও পরিচিত
 Comment[bs]=Takođe poznat kao "Pretraga dok kucate"

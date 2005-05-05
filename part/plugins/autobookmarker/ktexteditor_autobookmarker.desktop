@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor Autobookmarker
+Name[af]=KTextEditor OutoBoekmerker
 Name[be]=Дапаўненьне "Аўтаматычныя закладкі" K Тэкставага рэдактара
 Name[bn]=কে-টেক্সট-এডিটর অটো-মুকমার্কার
 Name[br]=Sinedoù emgefreek evit KTextEditor
@@ -15,7 +16,7 @@ Name[eu]=KTextEditor-en AutoLasterMarkatzailea
 Name[fi]=KTextEditorin automaattinen kirjanmerkkien tekijä
 Name[fr]=Signets automatiques KTextEditor
 Name[fy]=Automatyske Blêdwizer foar de KTekstbewurker
-Name[he]= תוסף סימיות אוטומטיות של KTextEditor
+Name[he]= תוסף סימניות אוטומטיות של KTextEditor
 Name[hi]=के-टेक्स्ट-एडिटर ऑटोबुकमार्कर
 Name[hr]=KTextEditor umetak za automatske bilješke
 Name[hu]=KTextEditor automatikus könyvjelzők
@@ -49,6 +50,7 @@ Name[uk]=Втулок автоматичних закладок KTextEditor
 Name[xx]=xxKTextEditor Autobookmarkerxx
 Name[zh_CN]=KTextEditor 自动书签器
 Comment=Set bookmarks on lines matching a pattern when documents are loaded
+Comment[af]=Stel boekmerke op lyne wat met 'n patroon ooreenstem wanneer dokumente gelaai word.
 Comment[bg]=Установяване на отметки на редовете, които отговарят на зададен шаблон по време на зареждане на файла
 Comment[bn]=ডকুমেন্ট লোড করাকালীন প্রদত্ত নকশার সাথে মেলে এমন সমস্ত লাইন বুকমার্ক করে
 Comment[bs]=Podešava zabilješke na linijama koje odgovaraju uzorku pri učitavanju dokumenta

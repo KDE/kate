@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=KTextEditor KDataTool Plugin
+Name[af]=KTextEditor KDataTool Inprop Module
 Name[ar]=ملحق KDataTool لـ KTextEditor
 Name[az]=KTextEditor KDataVasitəsi Əlavəsi
 Name[bn]=কে-টেক্সট-এডিটর কে-ডেটা-টুল প্লাগ-ইন
@@ -67,7 +68,7 @@ Name[zh_CN]=KTextEditor KDataTool 插件
 Name[zh_TW]=KTextEditor KDataTool 外排程式
 Name[zu]=I-Plugin ye-KDataTool ye-KTextEditor
 Comment=Enable data tools like thesaurus and spell check (if installed)
-Comment[af]=Aktiveer data nutsprogramme hou van thesaurus en spel bevestig (as geïnstalleer)
+Comment[af]=Aktiveer data nutsprogramme soos thesaurus en spel bevestig (as geïnstalleer)
 Comment[ar]=قم بتفعيل أدوات البيانات مثل المترادفات والتدقيق اﻹملائي (إذا كان منصبا)
 Comment[az]=Tezaurus və imla yoxlaması kimi data vasitələrini fəallaşdır (quruludursa)
 Comment[bg]=Поддръжка на текстообработващи инструменти, като проверка на правописа и синонимен речник
@@ -89,7 +90,7 @@ Comment[fr]=Activer les outils de données comme le thésaurus et la correction 
 Comment[fy]=Aktivearjen fan dataprogramma's, lykas de tesaurus en stavering (wannear't dy ynstallearre binne)
 Comment[ga]=Cumasaigh uirlisí mar litreoir agus foclóir (má tá siad ar fáil)
 Comment[gl]=Habilitar ferramentas de datos coma thesaurus e a corrección ortográfica (se están instalados)
-Comment[he]=אפשר שימוש בכלי נתונים כגון אגרון ובדיקת איות (אם מותקנים כלים כאלה)
+Comment[he]=אפשר שימוש בכלי נתונים כגון איגרון ובדיקת איות (אם מותקנים כלים כאלה)
 Comment[hi]= डाटा टूल्स जैसे शब्दकोश व वर्तनी जांच को सक्षम करें(यदि स्थापित हों)
 Comment[hr]=Uključiti podatkovne alate kao što su tezaurus i ispravak pravopisa (ako su instalirani)
 Comment[hsb]=Staja graty kaž tezawrus abo prawopisnu kontrolu k dispoziciji (jeli instalowane)

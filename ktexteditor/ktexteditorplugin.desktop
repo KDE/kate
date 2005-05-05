@@ -4,6 +4,7 @@ Type=ServiceType
 X-KDE-ServiceType=KTextEditor/Plugin
 X-KDE-Derived=
 Comment=KTextEditor Plugin
+Comment[af]=KTextEditor Inprop Module
 Comment[ar]=مساعد برنامج KTextEditor
 Comment[az]=KTextEditor Əlavəsi
 Comment[be]=Дапаўненьне K Тэкставага рэдактара

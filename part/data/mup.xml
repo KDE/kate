@@ -77,6 +77,7 @@
       <item> rehstyle </item>
       <item> release </item>
       <item> restcombine </item>
+      <item> restsymmult </item>
       <item> rightmargin </item>
       <item> scale </item>
       <item> scorepad </item>
@@ -559,6 +560,8 @@
       <item> roll </item>
       <item> to </item>
 
+      <item> down </item>
+      <item> up </item>
       <item> with </item>
 
       <item> midi </item>
@@ -600,7 +603,7 @@
 	<RegExpr attribute="Note" context="Note"
 	String="(\(\s*)?((1/4|1/2|1|2|4|8|16|32|64|128|256)\.*\s*)?((\(\s*)?([a-grs]|us)(?!bm)([0-9'?\sxn]|[+-]+|[&amp;#]{1,2}|\(\s*[&amp;#]{1,2}\s*\)|\(\s*[xn]\s*\)|\(\s*[0-9]\s*\))*\)?\s*)*\s*(?=[;~=&quot;&lt;A-Z@^]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif|with|above)\b)" />
 	<RegExpr attribute="Normal Text" context="Note" String=";\s*(?=[~=&lt;]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif)\b)" />
-	<RegExpr attribute="Note" context="#stay" String="mu?[rs]+\s*(?=;)" />
+	<RegExpr attribute="Note" context="#stay" String="(1/4|1/2|1|2|4|8|16|32|64|128|256)?mu?[rs]+\s*(?=;)" />
 	<RegExpr attribute="Note" context="#stay" String="m\s*rpt\s*(?=;)" />
 	<RegExpr attribute="Location" context="#stay" String="=([a-z]|_[a-z][a-z_0-9]*)\b" />
 	<RegExpr attribute="Location" context="Location" String="([a-z]|_[a-z][a-z_0-9]*)\.[xynews]\b" />
@@ -731,7 +734,7 @@
   
       <context attribute="Tuplet" lineEndContext="#pop" name="Tuplet"
 		fallthrough="true" fallthroughContext="#pop">
-	<RegExpr attribute="Tuplet" context="#pop" String="\s*(above|below)?\s*[0-9]{1,2}[yn]?(\s*,[0-9]+\.?)?(?=\s*[;=A-Z@])" />
+	<RegExpr attribute="Tuplet" context="#pop" String="\s*(above|below)?\s*[0-9]{1,2}(y|n|num)?(\s*,\s*[0-9]{1,2}\.?([+][0-9]{1,2}\.?)*)?" />
       </context>
 
 
@@ -757,7 +760,7 @@
 
       <context attribute="String" lineEndContext="#stay" name="String">
 	<DetectChar attribute="String" context="#pop" char="&quot;" />
-        <RegExpr attribute="String Special" context="#stay" String="[\\][][{}%&quot;nb|^:,\\/ ]" />
+        <RegExpr attribute="String Special" context="#stay" String="[\\][][{}%#&quot;nb|^:,\\/ ]" />
         <StringDetect attribute="String Special" context="Special Char" String="\(" />
 	<StringDetect attribute="String Special" context="Font Name" String="\f(" />
 	<StringDetect attribute="String Special" context="Font Size" String="\s(" />

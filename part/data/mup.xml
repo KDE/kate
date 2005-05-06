@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Music Publisher" version="1.05" kateversion="2.2" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
+<language name="Music Publisher" version="1.06" kateversion="2.4" section="Other" extensions="*.mup;*.not" mimetype="text/x-mup;audio/x-mup;application/x-mup;audio/x-notes" casesensitive="1" author="Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
 
   <highlighting>
 
@@ -19,7 +19,7 @@
       <item> voice </item>
       <item> grids </item>
       <item> music </item>
-      <item> headshape </item>
+      <item> headshapes </item>
       <item> block </item>
     </list>
 
@@ -179,7 +179,6 @@
 
     <list name="mupmacrodirectives">
       <item> else </item>
-      <item> elseif </item>
       <item> include </item>
       <item> undef </item>
     </list>
@@ -599,7 +598,7 @@
 	<AnyChar attribute="Special Char" context="#stay" String="[]{" />
 	<RegExpr attribute="Special Char" context="#stay" String="(&lt;&lt;|&gt;&gt;)" />
 	<RegExpr attribute="Note" context="Note"
-	String="(\(\s*)?((1/4|1/2|1|2|4|8|16|32|64|128|256)\.*\s*)?((\(\s*)?([a-grs]|us)(?!bm)([0-9'?\sxn]|[+-]+|[&amp;#]{1,2}|\(\s*[&amp;#]{1,2}\s*\)|\(\s*[xn]\s*\)|\(\s*[0-9]\s*\))*\)?\s*)*\s*(?=[;~=&quot;&lt;A-Z@]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif)\b)" />
+	String="(\(\s*)?((1/4|1/2|1|2|4|8|16|32|64|128|256)\.*\s*)?((\(\s*)?([a-grs]|us)(?!bm)([0-9'?\sxn]|[+-]+|[&amp;#]{1,2}|\(\s*[&amp;#]{1,2}\s*\)|\(\s*[xn]\s*\)|\(\s*[0-9]\s*\))*\)?\s*)*\s*(?=[;~=&quot;&lt;A-Z@^]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif|with|above)\b)" />
 	<RegExpr attribute="Normal Text" context="Note" String=";\s*(?=[~=&lt;]|\b(bm|es?bm|dashed|dotted|tie|slur|alt|hs|ifn?def|else|elseif|endif)\b)" />
 	<RegExpr attribute="Note" context="#stay" String="mu?[rs]+\s*(?=;)" />
 	<RegExpr attribute="Note" context="#stay" String="m\s*rpt\s*(?=;)" />
@@ -683,7 +682,8 @@
 
       <context attribute="Note" lineEndContext="#pop" name="Note"
 		fallthrough="true" fallthroughContext="#pop">
-	<RegExpr attribute="Note Attribute" context="#stay" String="(\bdashed\s+|\bdotted\s+)?(&lt;(/n|\\n|n/|n\\|[a-g][+-]*)?&gt;|tie|slur|[~])" />
+	<RegExpr attribute="Note Attribute" context="#stay" String="(\bdashed\s+|\bdotted\s+)?(&lt;(/n|\\n|n/|n\\|[a-g]([+-]*|[0-7]))?&gt;|tie|slur|[~])" />
+	<RegExpr attribute="Note Attribute" context="#stay" String="^(/|[a-g]([+-]*|[0-7]))" />
 	<RegExpr attribute="Note Attribute" context="#stay" String="\bbm\b(\s+with\s+staff\s+(below|above)\b)?" />
 	<RegExpr attribute="Note Attribute" context="#stay" String="\bes?bm\b" />
 	<RegExpr attribute="Note Attribute" context="#stay" String="\balt\s+[1-9]\b" />
@@ -857,6 +857,6 @@
     <comments>
       <comment name="singleLine" start="//"/>
     </comments>
-    <keywords casesensitive="1" weakDeliminator="^:`'/@~"/>
+    <keywords casesensitive="1" additionalDeliminator="~'`@#+-" />
   </general>
 </language>

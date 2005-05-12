@@ -551,6 +551,10 @@ bool KateCSmartIndent::handleDoxygen (KateDocCursor &begin)
     {
       if (!textLine->stringAtPos(textLine->lastChar()-1, "*/"))
         insideDoxygen = true;
+      while (textLine->attribute(first) != doxyCommentAttrib && first <= textLine->lastChar())
+        first++;
+      if (textLine->stringAtPos(first, "//"))
+        return false;
     }
 
     // Align the *'s and then go ahead and insert one too ...

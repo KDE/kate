@@ -245,7 +245,7 @@ bool KateTextLine::searchText (uint startCol, const QString &text, uint *foundAt
     int col = startCol;
     uint l = text.length();
     // allow finding the string ending at eol
-    if ( col == m_text.length() ) startCol++;
+    if ( col == (int) m_text.length() ) ++startCol;
 
     do {
       index = m_text.findRev( text, col, casesensitive );
@@ -276,7 +276,7 @@ bool KateTextLine::searchText (uint startCol, const QRegExp &regexp, uint *found
     int col = startCol;
 
     // allow finding the string ending at eol
-    if ( col == m_text.length() ) startCol++;
+    if ( col == (int) m_text.length() ) ++startCol;
     do {
       index = regexp.searchRev (m_text, col);
       col--;

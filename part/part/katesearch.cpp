@@ -131,6 +131,7 @@ void KateSearch::find( const QString &pattern, long flags, bool add, bool showno
   searchFlags.replace = false;
   searchFlags.finished = false;
   searchFlags.regExp = KateViewConfig::global()->searchFlags() & KFindDialog::RegularExpression;
+  searchFlags.useBackRefs = KateViewConfig::global()->searchFlags() & KReplaceDialog::BackReference;
 
   if ( searchFlags.selected )
   {
@@ -226,6 +227,7 @@ void KateSearch::findAgain( bool back )
   searchFlags.replace = false;
   searchFlags.finished = false;
   searchFlags.regExp = KateViewConfig::global()->searchFlags() & KFindDialog::RegularExpression;
+  searchFlags.useBackRefs = KateViewConfig::global()->searchFlags() & KReplaceDialog::BackReference;
 
   searchFlags.backward = searchFlags.backward != back;
   searchFlags.fromBeginning = false;

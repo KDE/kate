@@ -25,7 +25,7 @@
 
 #include "katecursor.h"
 #include "kateconfig.h"
-
+#include "katejscript.h"
 class KateDocument;
 
 /**
@@ -528,6 +528,8 @@ class KateScriptIndent : public KateNormalIndent
     virtual bool canProcessLine() const { return true; }
 
     virtual uint modeNumber () const { return KateDocumentConfig::imScriptIndent; };
+  private:
+    KateIndentScript m_script;
 };
 
 class ScriptIndentConfigPage : public IndenterConfigPage

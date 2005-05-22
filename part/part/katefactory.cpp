@@ -16,6 +16,7 @@
    Boston, MA 02111-1307, USA.
 */
 
+#include "config.h"
 #include "katefactory.h"
 
 #include "katedocument.h"
@@ -29,7 +30,7 @@
 #ifndef Q_WS_WIN //todo
 #include "katejscript.h"
 #endif
-
+#include "kateluaindentscript.h"
 #include "../interfaces/katecmd.h"
 
 #include <kvmallocator.h>
@@ -139,10 +140,13 @@ KateFactory::KateFactory ()
   // create script man (search scripts) + register commands
   m_jscriptManager = new KateJScriptManager ();
   KateCmd::self()->registerCommand (m_jscriptManager);
+  m_indentScriptManagers.append(new KateIndentJScriptManager());
 #else
   m_jscriptManager = 0;
 #endif
-
+#ifdef HAVE_LUA
+  m_indentScriptManagers.append(new KateLUAIndentScriptManager());
+#endif
   //
   // init the cmds
   //
@@ -186,7 +190,7 @@ KateFactory::~KateFactory()
 
   // cu manager
   delete m_jscriptManager;
-
+  m_indentScriptManagers.setAutoDelete(true);
   // cu jscript
   delete m_jscript;
 }
@@ -254,6 +258,18 @@ KateJScript *KateFactory::jscript ()
 #else
   return 0;
 #endif
+}
+
+
+KateIndentScript KateFactory::indentScript (const QString &scriptname)
+{
+  KateIndentScript result;
+  for(uint i=0;i<m_indentScriptManagers.count();i++)
+  {
+    result=m_indentScriptManagers.at(i)->script(scriptname);
+    if (!result.isNull()) return result;
+  }
+  return result;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1,5 +1,6 @@
 /* This file is part of the KDE libraries
    Copyright (C) 2005 Christoph Cullmann <cullmann@kde.org>
+   Copyright (C) 2005 Joseph Wenninger <jowenn@kde.org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -20,15 +21,19 @@
 #define __kate_jscript_h__
 
 #include "../interfaces/document.h"
-
+#include "kateindentscriptabstracts.h"
 #include <qdict.h>
-
+#include <kdebug.h>
 /**
  * Some common stuff
  */
 class KateDocument;
 class KateView;
 class QString;
+class KateJSDocument;
+class KateJSView;
+class KateJSIndenter;
+class KateDocCursor;
 
 /**
  * Cool, this is all we need here
@@ -184,4 +189,45 @@ class KateJScriptManager : public Kate::Command
     QDict<KateJScriptManager::Script> m_scripts;
 };
 
+class KateIndentJScriptImpl: public KateIndentScriptImplAbstract {
+  public:
+    KateIndentJScriptImpl(const QString& internalName,
+        const QString  &filePath, const QString &niceName,
+        const QString &copyright, double version);
+    ~KateIndentJScriptImpl();
+    
+    virtual bool processChar( class Kate::View *view, QChar c, QString &errorMsg );
+    virtual bool processLine( class Kate::View *view, const KateDocCursor &line, QString &errorMsg );
+    virtual bool processNewline( class Kate::View *view, const KateDocCursor &begin, bool needcontinue, QString &errorMsg );
+  protected:
+    virtual void decRef();
+  private:
+    KateJSView *m_viewWrapper;
+    KateJSDocument *m_docWrapper;
+    KJS::Object *m_indenter;
+    KJS::Interpreter *m_interpreter;
+    bool setupInterpreter(QString &errorMsg);
+    void deleteInterpreter();
+};
+
+class KateIndentJScriptManager: public KateIndentScriptManagerAbstract
+{
+
+  public:
+    KateIndentJScriptManager ();
+    virtual ~KateIndentJScriptManager ();
+    virtual KateIndentScript script(const QString &scriptname);
+  private:
+    /**
+     * go, search our scripts
+     * @param force force cache updating?
+     */
+    void collectScripts (bool force = false);
+    void parseScriptHeader(const QString &filePath,
+        QString *niceName,QString *copyright,double *version);
+    QDict<KateIndentJScriptImpl> m_scripts;
+};
+
 #endif
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

@@ -19,6 +19,7 @@
 #ifndef __KATE_FACTORY_H__
 #define __KATE_FACTORY_H__
 
+#include "katejscript.h"
 #include <kparts/factory.h>
 
 #include <ktrader.h>
@@ -39,13 +40,14 @@ class KateRenderer;
 class KateView;
 class KateJScript;
 class KateJScriptManager;
-
+class KateIndentScriptManagerAbstract;
 class KDirWatch;
 class KVMAllocator;
 
 namespace Kate {
   class Command;
 }
+
 
 class KateFactory
 {
@@ -202,6 +204,13 @@ class KateFactory
      */
     KateJScriptManager *jscriptManager () { return m_jscriptManager; }
 
+
+    /**
+     * looks up a script given by name. If there are more than
+     * one matching, the first found will be taken
+     */
+    KateIndentScript indentScript (const QString &scriptname);
+
   private:
     /**
      * instance of this factory
@@ -283,10 +292,18 @@ class KateFactory
      */
     KateJScript *m_jscript;
 
+
     /**
      * js script manager
      */
     KateJScriptManager *m_jscriptManager;
+
+
+    /**
+     * manager for js based indenters
+     */
+    QPtrList<KateIndentScriptManagerAbstract> m_indentScriptManagers;
+
 };
 
 #endif

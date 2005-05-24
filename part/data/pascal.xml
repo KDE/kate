@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.10" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
+<language name="Pascal" version="1.20" kateversion="2.3" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal">
   <highlighting>
     <list name="keywords">
       <item> and </item>

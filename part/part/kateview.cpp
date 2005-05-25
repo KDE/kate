@@ -321,7 +321,7 @@ void KateView::setupActions()
   new KateViewIndentationAction (m_doc, i18n("&Indentation"),ac,"tools_indentation");
 
   // html export
-  a = new KAction(i18n("E&xport as HTML"), 0, 0, this, SLOT(exportAsHTML()), ac, "file_export_html");
+  a = new KAction(i18n("E&xport as HTML..."), 0, 0, this, SLOT(exportAsHTML()), ac, "file_export_html");
   a->setWhatsThis(i18n("This command allows you to export the current document"
                       " with all highlighting information into a HTML document."));
 
@@ -1790,7 +1790,7 @@ void KateView::lineAsHTML (KateTextLine::Ptr line, uint startCol, uint length, Q
 
 void KateView::exportAsHTML ()
 {
-  KURL url = KFileDialog::getSaveURL(QString::null,"text/html",0,i18n("Export File As HTML"));
+  KURL url = KFileDialog::getSaveURL(QString::null,"text/html",0,i18n("Export File as HTML"));
 
   if ( url.isEmpty() )
     return;

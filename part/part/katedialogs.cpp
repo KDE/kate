@@ -854,7 +854,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   m_eol = new KComboBox (e5Layout);
   e5Label->setBuddy(m_eol);
 
-  allowEolDetection = new QCheckBox(i18n("&Automatic End of Line Detection"), gbEnc);
+  allowEolDetection = new QCheckBox(i18n("&Automatic end of line detection"), gbEnc);
 
   m_eol->insertItem (i18n("UNIX"));
   m_eol->insertItem (i18n("DOS/Windows"));

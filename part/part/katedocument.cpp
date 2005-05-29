@@ -3125,14 +3125,14 @@ void KateDocument::paste ( KateView* view )
 
   if (m_indenter->canProcessLine())
   {
-    editStart();
+    //editStart();
 
     KateDocCursor begin(line, 0, this);
     KateDocCursor end(line + lines, 0, this);
 
     m_indenter->processSection (begin, end);
 
-    editEnd();
+    //editEnd();
   }
 
   if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (line, column, s);

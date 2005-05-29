@@ -1018,14 +1018,12 @@ void KateDocument::editEnd ()
   if (editWithUndo)
     undoEnd();
 
-  // only trigger this stuff if something really happened!
+  // edit end for all views !!!!!!!!!
+  for (uint z = 0; z < m_views.count(); z++)
+    m_views.at(z)->editEnd (m_buffer->editTagStart(), m_buffer->editTagEnd(), m_buffer->editTagFrom());
+
   if (m_buffer->editChanged())
   {
-    for (uint z = 0; z < m_views.count(); z++)
-    {
-      m_views.at(z)->editEnd (m_buffer->editTagStart(), m_buffer->editTagEnd(), m_buffer->editTagFrom());
-    }
-
     setModified(true);
     emit textChanged ();
   }
@@ -3125,14 +3123,14 @@ void KateDocument::paste ( KateView* view )
 
   if (m_indenter->canProcessLine())
   {
-    //editStart();
+    editStart();
 
     KateDocCursor begin(line, 0, this);
     KateDocCursor end(line + lines, 0, this);
 
     m_indenter->processSection (begin, end);
 
-    //editEnd();
+    editEnd();
   }
 
   if (!view->blockSelectionMode()) emit charactersSemiInteractivelyInserted (line, column, s);

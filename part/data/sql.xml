@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!-- Oracle10g SQL and PL/SQL syntax - ANSI SQL92 superset -->
-<language name="SQL" version="1.10" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
+<!-- Oracle10g SQL and PL/SQL syntax - ANSI SQL 2003 superset -->
+<language name="SQL" version="1.11" kateversion="2.4" section="Database" extensions="*.sql;*.SQL" mimetype="text/x-sql" casesensitive="0" author="Yury Lebedev (yurylebedev@mail.ru)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -512,6 +512,7 @@
       <item> SUBPARTITIONS </item>
       <item> SUCCESSFUL </item>
       <item> SUMMARY </item>
+      <item> SUPPLEMENTAL </item>
       <item> SUSPEND </item>
       <item> SWITCH </item>
       <item> SYS_OP_BITVEC </item>
@@ -628,6 +629,7 @@
       <item> COMPOSE </item>
       <item> CONCAT </item>
       <item> CONVERT </item>
+      <item> CORR </item>
       <item> CORR_K </item>
       <item> CORR_S </item>
       <item> COS </item>
@@ -643,6 +645,7 @@
       <item> DECODE </item>
       <item> DECOMPOSE </item>
       <item> DENSE_RANK </item>
+      <item> DEPTH </item>
       <item> DEREF </item>
       <item> DUMP </item>
       <item> EMPTY_BLOB </item>
@@ -650,6 +653,7 @@
       <item> EXISTSNODE </item>
       <item> EXP </item>
       <item> EXTRACT </item>
+      <item> EXTRACTVALUE </item>
       <item> FIRST </item>
       <item> FIRST_VALUE </item>
       <item> FLOOR </item>
@@ -671,14 +675,15 @@
       <item> LENGTH </item>
       <item> LENGTHB </item>
       <item> LN </item>
+      <item> LNNVL </item>
       <item> LOCALTIMESTAMP </item>
       <item> LOG </item>
       <item> LOWER </item>
       <item> LPAD </item>
       <item> LTRIM </item>
-      <item> MEDIAN </item>
       <item> MAKE_REF </item>
       <item> MAX </item>
+      <item> MEDIAN </item>
       <item> MIN </item>
       <item> MOD </item>
       <item> MONTHS_BETWEEN </item>
@@ -704,14 +709,15 @@
       <item> PERCENT_RANK </item>
       <item> PERCENTILE_CONT </item>
       <item> PERCENTILE_DISC </item>
+      <item> POWER </item>
       <item> POWERMULTISET </item>
       <item> POWERMULTISET_BY_CARDINALITY </item>
-      <item> POWER </item>
       <item> PRESENTNNV </item>
       <item> PRESENTV </item>
       <item> RANK </item>
       <item> RATIO_TO_REPORT </item>
       <item> RAWTOHEX </item>
+      <item> RAWTONHEX </item>
       <item> REF </item>
       <item> REFTOHEX </item>
       <item> REGEXP_INSTR </item>
@@ -734,11 +740,13 @@
       <item> ROWIDTONCHAR </item>
       <item> RPAD </item>
       <item> RTRIM </item>
+      <item> SCN_TO_TIMESTAMP </item>
       <item> SESSIONTIMEZONE </item>
       <item> SIGN </item>
       <item> SIN </item>
       <item> SINH </item>
       <item> SOUNDEX </item>
+      <item> SQRT </item>
       <item> STATS_BINOMIAL_TEST </item>
       <item> STATS_CROSSTAB </item>
       <item> STATS_F_TEST </item>
@@ -751,8 +759,6 @@
       <item> STATS_T_TEST_INDEP </item>
       <item> STATS_T_TEST_INDEPU </item>
       <item> STATS_WSR_TEST </item>
-      <item> SUBSTR </item>
-      <item> SQRT </item>
       <item> STDDEV </item>
       <item> STDDEV_POP </item>
       <item> STDDEV_SAMP </item>
@@ -771,6 +777,7 @@
       <item> SYSTIMESTAMP </item>
       <item> TAN </item>
       <item> TANH </item>
+      <item> TIMESTAMP_TO_SCN </item>
       <item> TO_BINARY_DOUBLE </item>
       <item> TO_BINARY_FLOAT </item>
       <item> TO_CHAR </item>
@@ -793,6 +800,7 @@
       <item> TZ_OFFSET </item>
       <item> UID </item>
       <item> UNISTR </item>
+      <item> UPDATEXML </item>
       <item> UPPER </item>
       <item> USER </item>
       <item> USERENV </item>
@@ -802,6 +810,13 @@
       <item> VARIANCE </item>
       <item> VSIZE </item>
       <item> WIDTH_BUCKET </item>
+      <item> XMLAGG </item>
+      <item> XMLCOLATTVAL </item>
+      <item> XMLCONCAT </item>
+      <item> XMLELEMENT </item>
+      <item> XMLFOREST </item>
+      <item> XMLSEQUENCE </item>
+      <item> XMLTRANSFORM </item>
     </list>
     <list name="types">
       <item> ANYDATA </item>

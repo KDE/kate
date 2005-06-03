@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE  language SYSTEM "language.dtd">
-<language name="ASP" version="1.00" kateversion="2.1" section="Markup" extensions="*.asp;" mimetype="text/x-asp-src;text/x-asp-src" author="Antonio Salazar (savedfastcool@gmail.com)" license="LGPL">
+<language name="ASP" version="1.01" kateversion="2.1" section="Markup" extensions="*.asp;" mimetype="text/x-asp-src;text/x-asp-src" author="Antonio Salazar (savedfastcool@gmail.com)" license="LGPL">
 	<highlighting>
 		<list name="control structures">
 			<item>select</item>
@@ -18,6 +18,7 @@
 			<item>do</item>
 			<item>until</item>
 			<item>loop</item>
+			<item>wend</item>
 			
 			<item>for</item>
 			<item>each</item>
@@ -32,19 +33,35 @@
 			<item>dim</item>
 			<item>redim</item>
 			<item>preserve</item>
-			<item>class</item>
+			
+			<item>const</item>
+			<item>erase</item>
+			<item>nothing</item>
+			<item>set</item>
+			
 			<item>new</item>
 			<item>function</item>
 			<item>sub</item>
+			<item>call</item>
+			
+			<item>class</item>
+			<item>private</item>
+			<item>public</item>
+			<item>with</item>
+			
+			<item>randomize</item>
+			
 			<item>open</item>
 			<item>close</item>
 			<item>movenext</item>
 			<item>execute</item>
 			<item>eof</item>
+			
 			<item>not</item>
-			<item>call</item>
 			<item>true</item>
 			<item>false</item>
+			<item>or</item>
+			<item>and</item>
 		</list>
 		<list name="functions">
 			<item>response</item>
@@ -59,19 +76,153 @@
 			<item>cookies</item>
 			
 			<item>session</item>
-			<item>instr</item>
-			<item>lcase</item>
-			<item>ucase</item>
 			
 			<item>server</item>
 			<item>createobject</item>
 			
-			<item>mid</item>
-			<item>left</item>
-			<item>right</item>
-			<item>split</item>
-			<item>ubound</item>
-			<item>lbound</item>
+			<item>abs</item>
+			<item>array</item>
+			<item>asc</item>
+			<item>atn</item>
+			<item>cbool</item>
+			<item>cbyte</item>
+			<item>ccur</item>
+			<item>cdate</item>
+			<item>cdbl</item>
+			<item>chr</item>
+			<item>cint</item>
+			<item>clng</item>
+			<item>cos</item>
+			<item>csng</item>
+			<item>cstr</item>
+			<item>date</item>
+			<item>dateadd</item>
+			
+			<item>DateDiff</item>
+			<item>DatePart</item>
+			<item>DateSerial</item>
+			<item>DateValue</item>
+			<item>Date</item>
+			<item>Day</item>
+			<item>Exp</item>
+			<item>Filter</item>
+			<item>Fix</item>
+			<item>FormatCurrency</item>
+			<item>FormatDateTime</item>
+			<item>FormatNumber</item>
+			<item>FormatPercent</item>
+			
+			<item>GetObject</item>
+			<item>Hex</item>
+			<item>Hour</item>
+			<item>InputBox</item>
+			<item>InStr</item>
+			<item>InStrRev</item>
+			<item>Int</item>
+			<item>IsArray</item>
+			<item>IsDate</item>
+			<item>IsEmpty</item>
+			<item>IsNull</item>
+			<item>IsNumeric</item>
+			<item>IsObject</item>
+			<item>Join</item>
+			<item>LBound</item>
+			<item>LCase</item>
+			
+			<item>Left</item>
+			<item>Len</item>
+			<item>LoadPicture</item>
+			<item>Log</item>
+			<item>LTrim</item>
+			<item>Mid</item>
+			<item>Minute</item>
+			<item>Month</item>
+			<item>MonthName</item>
+			<item>MsgBox</item>
+			<item>Now</item>
+			<item>Oct</item>
+			<item>Replace</item>
+			
+			<item>RGB</item>
+			<item>Right</item>
+			<item>Rnd</item>
+			<item>Round</item>
+			<item>RTrim</item>
+			
+			<item>ScriptEngine</item>
+			<item>ScriptEngineBuildVersion</item>
+			<item>ScriptEngineMajorVersion</item>
+			<item>ScriptEngineMinorVersion</item>
+			<item>Second</item>
+			<item>Sgn</item>
+			<item>Sin</item>
+			<item>Space</item>
+			<item>Split</item>
+			<item>Sqr</item>
+			<item>StrComp</item>
+			<item>StrReverse</item>
+			<item>String</item>
+			<item>Tan</item>
+			<item>Time</item>
+			<item>Timer</item>
+			<item>TimeSerial</item>
+			<item>TimeValue</item>
+			<item>Trim</item>
+			<item>TypeName</item>
+			<item>UBound</item>
+			<item>UCase</item>
+			<item>VarType</item>
+			<item>Weekday</item>
+			<item>WeekdayName</item>
+			<item>Year</item>
+			
+			<item>Add</item>
+			<item>AddFolders</item>
+			<item>BuildPath</item>
+			<item>Clear</item>
+			<item>Close</item>
+			<item>Copy</item>
+			<item>CopyFile</item>
+			<item>CopyFolder</item>
+			<item>CreateFolder</item>
+			<item>CreateTextFile</item>
+			<item>Delete</item>
+			<item>DeleteFile</item>
+			<item>DeleteFolder</item>
+			<item>DriveExists</item>
+			<item>Exists</item>
+			<item>FileExists</item>
+			<item>FolderExists</item>
+			<item>GetAbsolutePathName</item>
+			<item>GetBaseName</item>
+			<item>GetDrive</item>
+			<item>GetDriveName</item>
+			<item>GetExtensionName</item>
+			<item>GetFile</item>
+			<item>GetFileName</item>
+			<item>GetFolder</item>
+			<item>GetParentFolderName</item>
+			
+			<item>GetSpecialFolder</item>
+			<item>GetTempName</item>
+			<item>Items</item>
+			<item>Keys</item>
+			<item>Move</item>
+			<item>MoveFile</item>
+			<item>MoveFolder</item>
+			<item>OpenAsTextStream</item>
+			<item>OpenTextFile</item>
+			<item>Raise</item>
+			<item>Read</item>
+			<item>ReadAll</item>
+			<item>ReadLine</item>
+			<item>Remove</item>
+			<item>RemoveAll</item>
+			<item>Skip</item>
+			<item>SkipLine</item>
+			<item>Write</item>
+			<item>WriteBlankLines</item>
+			<item>WriteLine</item>
 		</list>
 			<contexts>
 			<context name="nosource" attribute="Normal Text" lineEndContext="#stay">
@@ -84,7 +235,7 @@
 			<context name="aspsource" attribute="ASP Text" lineEndContext="#stay">
 				<StringDetect attribute="Keyword" context="#pop" String="%&gt;" />
 				<DetectChar attribute="Comment" context="asp_onelinecomment" char="'" />
-				<DetectChar attribute="String" context="doblequotestring" char="&quot;" />
+				<DetectChar attribute="String" context="doublequotestring" char="&quot;" />
 				<DetectChar attribute="String" context="singlequotestring" char="&#39;" />
 				<DetectChar attribute="Keyword" context="#stay" char="&amp;" />
 				<RegExpr attribute="String" context="" String="" />
@@ -110,6 +261,10 @@
 				<RegExpr attribute="Control Structures" context="#stay" String="\bexit do\b" insensitive="TRUE" />
 				<RegExpr attribute="Control Structures" context="#stay" String="\bdo\b" insensitive="TRUE" beginRegion="doloop1"/>
 				<RegExpr attribute="Control Structures" context="#stay" String="\bloop\b" insensitive="TRUE" endRegion="doloop1"/>
+				
+				<RegExpr attribute="Control Structures" context="#stay" String="\bexit while\b" insensitive="TRUE" />
+				<RegExpr attribute="Control Structures" context="#stay" String="\bwhile\b" insensitive="TRUE" beginRegion="whilewend1"/>
+				<RegExpr attribute="Control Structures" context="#stay" String="\bwend\b" insensitive="TRUE" endRegion="whilewend1"/>
 
 				<RegExpr attribute="Control Structures" context="#stay" String="\bfor\b" insensitive="TRUE" beginRegion="fornext1"/>
 				<RegExpr attribute="Control Structures" context="#stay" String="\bnext\b" insensitive="TRUE" endRegion="fornext1"/>
@@ -127,7 +282,7 @@
 			<context name="asp_onelinecomment" attribute="Comment" lineEndContext="#pop">
 				<StringDetect attribute="Keyword" context="#pop#pop" String="%&gt;" />
 			</context>
-			<context name="doblequotestring" attribute="String" lineEndContext="#stay">
+			<context name="doublequotestring" attribute="String" lineEndContext="#stay">
 				<Detect2Chars attribute="Escape Code" context="#stay" char="&quot;" char1="&quot;" />
 				<RegExpr attribute="Escape Code" context="#stay" String="\\[0-7]{1,3}" />
 				<RegExpr attribute="Escape Code" context="#stay" String="\\x[0-9A-Fa-f]{1,2}" />
@@ -177,7 +332,7 @@
 				<StringDetect attribute="Keyword" context="aspsource" String="&lt;%"/>
 				<RegExpr attribute="HTML Tag" context="#pop" String="&lt;\s*\/\s*script\s*&gt;" insensitive="TRUE" />
 
-				<DetectChar attribute="String" context="doblequotestring" char="&quot;" />
+				<DetectChar attribute="String" context="doublequotestring" char="&quot;" />
 				<DetectChar attribute="String" context="singlequotestring" char="&#39;" />
 				<HlCOct attribute="Octal" context="#stay" />
 				<HlCHex attribute="Hex" context="#stay" />

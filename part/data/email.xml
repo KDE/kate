@@ -3,7 +3,7 @@
 <!--
   Copyright (C) 2005 Carl A Joslin <carl.joslin@joslin.dyndns.org>
 -->
-<language name="Email" extensions="*.eml" section="Other" mimetype="message/rfc822" casesensitive="0" author="Carl A Joslin &lt;carl.joslin@joslin.dyndns.org&gt;" license="GPL">
+<language name="Email" version="1.00" kateversion="2.4" extensions="*.eml" section="Other" mimetype="message/rfc822" casesensitive="0" author="Carl A Joslin (carl.joslin@joslin.dyndns.org)" license="GPL">
   <highlighting>
     <contexts>      
       <context name="headder" attribute="Normal Text" lineEndContext="#stay" casesensitive="0">

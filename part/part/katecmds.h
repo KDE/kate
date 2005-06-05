@@ -56,7 +56,10 @@ class CoreCommands : public Kate::Command, public Kate::CommandExtension
      */
     QStringList cmds();
 
-    KCompletion *completionObject( const QString &, Kate::View * );
+    /**
+    * override completionObject from interfaces/document.h .
+    */
+    KCompletion *completionObject( const QString &cmd, Kate::View *view );
 };
 
 /**

@@ -390,7 +390,7 @@ class KateTextLine : public KShared
      * Dumps the line to *buf and counts buff dumpSize bytes up
      * as return value
      * @param buf buffer to dump to
-     * @param withHighlight dump hl data, too?
+     * @param withHighlighting dump hl data, too?
      * @return buffer index after dumping
      */
     char *dump (char *buf, bool withHighlighting) const;

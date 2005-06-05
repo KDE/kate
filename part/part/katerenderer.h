@@ -70,7 +70,7 @@ public:
 
     /**
      * Determine whether the caret (text cursor) will be drawn.
-     * @param should it be drawn?
+     * @return should it be drawn?
      */
     inline bool drawCaret() const { return m_drawCaret; }
 

@@ -136,7 +136,7 @@ class KateBufBlock
 
     /**
      * first line behind this block
-     * @param line behind block
+     * @return line behind block
      */
     inline uint endLine () const { return m_startLine + m_lines; }
 

@@ -146,13 +146,13 @@ class KateAutoIndent
      * @param cur The position to start processing. Contains the new cursor position after the indention.
      * @param needContinue Used to determine whether to calculate a continue indent or not.
      */
-    virtual void processNewline (KateDocCursor &/*cur*/, bool /*needContinue*/) {}
+    virtual void processNewline (KateDocCursor &cur, bool needContinue) { Q_UNUSED(cur); Q_UNUSED(needContinue); }
 
     /**
      * Called every time a character is inserted into the document.
      * @param c character inserted
      */
-    virtual void processChar (QChar /*c*/) { }
+    virtual void processChar (QChar c) { Q_UNUSED(c); }
 
     /**
      * Aligns/indents the given line to the proper indent position.
@@ -243,7 +243,7 @@ public:
      * Called every time a character is inserted into the document.
      * @param c character inserted
      */
-  virtual void processChar (QChar /*c*/) { }
+  virtual void processChar (QChar c) { Q_UNUSED(c); }
 
     /**
      * Aligns/indents the given line to the proper indent position.

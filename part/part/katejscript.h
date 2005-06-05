@@ -73,7 +73,7 @@ class KateJScript
     /**
      * creates a JS wrapper object for given KateView
      * @param exec execution state, to find out interpreter to use
-     * @param doc document object to wrap
+     * @param view view object to wrap
      * @return new js wrapper object
      */
     KJS::ObjectImp *wrapView (KJS::ExecState *exec, KateView *view);

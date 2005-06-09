@@ -480,7 +480,7 @@ class KateVarIndent :  public QObject, public KateNormalIndent
     KateVarIndent( KateDocument *doc );
     virtual ~KateVarIndent();
 
-    virtual void processNewline (KateDocCursor &begin, bool needContinue);
+    virtual void processNewline (KateDocCursor &cur, bool needContinue);
     virtual void processChar (QChar c);
 
     virtual void processLine (KateDocCursor &line);

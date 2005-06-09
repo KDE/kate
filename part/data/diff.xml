@@ -22,8 +22,8 @@
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
       <itemData name="Keyword"  defStyleNum="dsKeyword"/>
       <itemData name="Data Type"  defStyleNum="dsDataType"/>
-      <itemData name="Removed line"  defStyleNum="dsOthers"/>
-      <itemData name="Added line"  defStyleNum="dsString"/>
+      <itemData name="Removed line"  defStyleNum="dsOthers" color="#FF0000"/>
+      <itemData name="Added line"  defStyleNum="dsString" color="#0000FF"/>
       <itemData name="Comment"  defStyleNum="dsComment"/>
     </itemDatas>
   </highlighting>

@@ -7,6 +7,5 @@ messages:
 	$(XGETTEXT) `find . -name "*.cpp"` part/*.h -o $(podir)/katepart.pot
 
 DOXYGEN_REFERENCES = kdecore dcop kio kdeui kparts
-DOXYGEN_SET_RECURSIVE = YES
 include ../admin/Doxyfile.am
 

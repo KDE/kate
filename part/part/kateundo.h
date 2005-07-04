@@ -84,6 +84,7 @@ class KateUndoGroup
     /**
      * merge this group with an other
      * @param newGroup group to merge into this one
+     * @param complex set if a complex undo
      * @return success
      */
     bool merge(KateUndoGroup* newGroup,bool complex);

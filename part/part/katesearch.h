@@ -96,7 +96,7 @@ class KateSearch : public QObject
      * This is for the commandline "find", and is forwarded by
      * KateView.
      * @param pattern string or regex pattern to search for.
-     * @param flags a OR'ed combination of @see KFindDialog::Options
+     * @param flags a OR'ed combination of KFindDialog::Options
      * @param add wether this string should be added to the recent search list
      * @param shownotfound wether to pop up "Not round: PATTERN" when that happens.
      * That must now be explicitly required -- the find dialog does, but the commandline
@@ -110,7 +110,7 @@ class KateSearch : public QObject
      * by KateView.
      * @param pattern string or regular expression to search for
      * @param replacement Replacement string.
-     * @param flags OR'd combination of @see KFindDialog::Options
+     * @param flags OR'd combination of KFindDialog::Options
      */
     void replace( const QString &pattern, const QString &replacement, long flags );
     void findAgain( bool back );

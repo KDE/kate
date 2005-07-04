@@ -207,7 +207,7 @@ class KateDocument : public Kate::Document,
      * @param withUndo if true, add undo history
      */
     void editStart (bool withUndo = true);
-    /** @see Same as editStart() with undo */
+    /** Same as editStart() with undo */
     void editBegin () { editStart(); }
     /**
      * End a editor operation.
@@ -487,7 +487,7 @@ class KateDocument : public Kate::Document,
     /**
      * @return the name of the mimetype for the document.
      *
-     * This method is using @see KMimeType::findByURL, and if the pointer
+     * This method is using KMimeType::findByURL, and if the pointer
      * is then still the default MimeType for a nonlocal or unsaved file,
      * uses mimeTypeForContent().
      *

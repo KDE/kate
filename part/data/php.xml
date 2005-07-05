@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="PHP/PHP" version="1.22" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" version="1.23" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -669,6 +669,7 @@
       <item> gettimeofday </item>
       <item> gettype </item>
       <item> global </item>
+      <item> glob </item>
       <item> gmdate </item>
       <item> gmmktime </item>
       <item> gmp_abs </item>

@@ -2456,17 +2456,17 @@ bool KateDocument::saveFile()
   //
   // we really want to save this file ?
   //
-  if (m_buffer->loadingBorked() && (KMessageBox::warningYesNo(widget(),
-      i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?")) != KMessageBox::Yes))
+  if (m_buffer->loadingBorked() && (KMessageBox::warningContinueCancel(widget(),
+      i18n("This file could not be loaded correctly due to lack of temporary disk space. Saving it could cause data loss.\n\nDo you really want to save it?"),i18n("Possible Data Loss"),i18n("Save Nevertheless")) != KMessageBox::Continue))
     return false;
 
   //
   // warn -> try to save binary file!!!!!!!
   //
-  if (m_buffer->binary() && (KMessageBox::warningYesNo (widget()
+  if (m_buffer->binary() && (KMessageBox::warningContinueCancel (widget()
         , i18n ("The file %1 is a binary, saving it will result in a corrupt file.").arg(m_url.url())
-        , i18n ("Try To Save Binary File")
-        , KStdGuiItem::yes(), KStdGuiItem::no(), "Binary File Save Warning") != KMessageBox::Yes))
+        , i18n ("Trying to Save Binary File")
+        , i18n("Save Nevertheless"), "Binary File Save Warning") != KMessageBox::Continue))
     return false;
 
   if ( !url().isEmpty() )
@@ -2477,14 +2477,14 @@ bool KateDocument::saveFile()
 
       if (!isModified())
       {
-        if (KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk.")) != KMessageBox::Yes)
+        if (KMessageBox::warningContinueCancel(0,
+               str + i18n("Do you really want to save this unmodified file? You could overwrite changed data in the file on disk."),i18n("Trying to Save Unmodified File"),i18n("Save Nevertheless")) != KMessageBox::Continue)
           return false;
       }
       else
       {
-        if (KMessageBox::warningYesNo(0,
-               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost.")) != KMessageBox::Yes)
+        if (KMessageBox::warningContinueCancel(0,
+               str + i18n("Do you really want to save this file? Both your open file and the file on disk were changed. There could be some data lost."),i18n("Possible Data Loss"),i18n("Save Nevertheless")) != KMessageBox::Continue)
           return false;
       }
     }
@@ -2494,8 +2494,8 @@ bool KateDocument::saveFile()
   // can we encode it if we want to save it ?
   //
   if (!m_buffer->canEncode ()
-       && (KMessageBox::warningYesNo(0,
-           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost.")) != KMessageBox::Yes))
+       && (KMessageBox::warningContinueCancel(0,
+           i18n("The selected encoding cannot encode every unicode character in this document. Do you really want to save it? There could be some data lost."),i18n("Possible Data Loss"),i18n("Save Nevertheless")) != KMessageBox::Continue))
   {
     return false;
   }
@@ -2655,11 +2655,11 @@ bool KateDocument::closeURL()
   {
     if (s_fileChangedDialogsActivated && m_modOnHd)
     {
-      if (!(KMessageBox::warningYesNo(
+      if (!(KMessageBox::warningContinueCancel(
             widget(),
             reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
-            "", KStdGuiItem::yes(), KStdGuiItem::no(),
-            QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Yes))
+            i18n("Possible Data Loss"), i18n("Close Nevertheless"),
+            QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue))
         return false;
     }
   }

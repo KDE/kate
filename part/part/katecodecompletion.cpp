@@ -164,11 +164,14 @@ bool KateCodeCompletion::eventFilter( QObject *o, QEvent *e )
        o != m_completionListBox->viewport() )
     return false;
 
+/* Is this really needed? abortCompletion will hide this thing, 
+   aborting here again will send abort signal even on successfull completion
    if( e->type() == QEvent::Hide )
    {
      abortCompletion();
      return false;
    }
+*/
 
    if ( e->type() == QEvent::MouseButtonDblClick  ) {
     doComplete();

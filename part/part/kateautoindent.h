@@ -30,12 +30,16 @@ class KateDocument;
 
 /**
  * This widget will be embedded into a modal dialog when clicking
- * the "Configure..." button in the highlighting page.
+ * the "Configure..." button in the indentation config page.
  * To add a config page for an indenter there are several todos:
- * - derive a class from this class and override the slot @p apply().
- *   This widget will be embedded into the config dialog.
- * - Override @p KateAutoIndent::configPage() to return this dialog.
- * - Return @p true in @p KateAutoIndent::hasConfigPage().
+ * - Derive a class from this class. This widget will be embedded into
+ *   the config dialog.
+ * - Override the slot @p apply(), which is called when the configuration
+ *   needs to be saved.
+ * - Override @p KateAutoIndent::configPage() to return an instance of
+ *   this dialog.
+ * - Return @p true in @p KateAutoIndent::hasConfigPage() for the
+ *   corresponding indenter id.
  */
 class IndenterConfigPage : public QWidget
 {

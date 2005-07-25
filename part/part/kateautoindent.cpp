@@ -47,8 +47,8 @@ KateAutoIndent *KateAutoIndent::createIndenter (KateDocument *doc, uint mode)
     return new KateCSAndSIndent (doc);
   else if ( mode == KateDocumentConfig::imVarIndent )
     return new KateVarIndent ( doc );
-  else if ( mode == KateDocumentConfig::imScriptIndent)
-    return new KateScriptIndent ( doc );
+//  else if ( mode == KateDocumentConfig::imScriptIndent)
+//    return new KateScriptIndent ( doc );
 
   return new KateAutoIndent (doc);
 }
@@ -64,7 +64,7 @@ QStringList KateAutoIndent::listModes ()
   l << modeDescription(KateDocumentConfig::imXmlStyle);
   l << modeDescription(KateDocumentConfig::imCSAndS);
   l << modeDescription(KateDocumentConfig::imVarIndent);
-  l << modeDescription(KateDocumentConfig::imScriptIndent);
+//  l << modeDescription(KateDocumentConfig::imScriptIndent);
 
   return l;
 }
@@ -83,8 +83,8 @@ QString KateAutoIndent::modeName (uint mode)
     return QString ("csands");
   else if ( mode  == KateDocumentConfig::imVarIndent )
     return QString( "varindent" );
-  else if ( mode  == KateDocumentConfig::imScriptIndent )
-    return QString( "scriptindent" );
+//  else if ( mode  == KateDocumentConfig::imScriptIndent )
+//    return QString( "scriptindent" );
 
   return QString ("none");
 }
@@ -103,8 +103,8 @@ QString KateAutoIndent::modeDescription (uint mode)
     return i18n ("S&S C Style");
   else if ( mode == KateDocumentConfig::imVarIndent )
     return i18n("Variable Based Indenter");
-  else if ( mode == KateDocumentConfig::imScriptIndent )
-    return i18n("JavaScript Indenter");
+//  else if ( mode == KateDocumentConfig::imScriptIndent )
+//    return i18n("JavaScript Indenter");
 
   return i18n ("None");
 }
@@ -123,24 +123,24 @@ uint KateAutoIndent::modeNumber (const QString &name)
     return KateDocumentConfig::imCSAndS;
   else if ( modeName( KateDocumentConfig::imVarIndent ) == name )
     return KateDocumentConfig::imVarIndent;
-  else if ( modeName( KateDocumentConfig::imScriptIndent ) == name )
-    return KateDocumentConfig::imScriptIndent;
+//  else if ( modeName( KateDocumentConfig::imScriptIndent ) == name )
+//    return KateDocumentConfig::imScriptIndent;
 
   return KateDocumentConfig::imNone;
 }
 
 bool KateAutoIndent::hasConfigPage (uint mode)
 {
-  if ( mode == KateDocumentConfig::imScriptIndent )
-    return true;
+//  if ( mode == KateDocumentConfig::imScriptIndent )
+//    return true;
 
   return false;
 }
 
 IndenterConfigPage* KateAutoIndent::configPage(QWidget *parent, uint mode)
 {
-  if ( mode == KateDocumentConfig::imScriptIndent )
-    return new ScriptIndentConfigPage(parent, "script_indent_config_page");
+//  if ( mode == KateDocumentConfig::imScriptIndent )
+//    return new ScriptIndentConfigPage(parent, "script_indent_config_page");
 
   return 0;
 }

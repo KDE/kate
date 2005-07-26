@@ -93,7 +93,7 @@ void KateArbitraryHighlight::slotRangeListDeleted(QObject* obj) {
    int id=m_docHLs.findRef(static_cast<KateSuperRangeList*>(obj));
    if (id>=0) m_docHLs.take(id);
    
-   for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); it++)
+   for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); ++it)
     for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
       if (l==obj) {
         l->take();
@@ -130,7 +130,7 @@ KateSuperRangeList& KateArbitraryHighlight::rangesIncluding(uint line, KateView*
           s_return.appendList(l->rangesIncluding(line));
 
   } else {
-    for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); it++)
+    for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); ++it)
       for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
         if (l->count())
           s_return.appendList(l->rangesIncluding(line));
@@ -150,7 +150,7 @@ void KateArbitraryHighlight::slotTagRange(KateSuperRange* range)
 
 KateView* KateArbitraryHighlight::viewForRange(KateSuperRange* range)
 {
-  for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); it++)
+  for (QMap<KateView*, QPtrList<KateSuperRangeList>* >::Iterator it = m_viewHLs.begin(); it != m_viewHLs.end(); ++it)
     for (KateSuperRangeList* l = (*it)->first(); l; l = (*it)->next())
       if (l->contains(range))
         return it.key();
